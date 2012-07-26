@@ -1,6 +1,7 @@
 ## PLUXML 5.1.7 (sortie : xx/xx/2012) ##
 
 [+] plxShow:tagList(): gestion de la taille des tags (#tag_size)
+[+] Sidebar statique
 (+] Administration: lien Commentaires masqué si commentaires désactivés
 [+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
 [+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
