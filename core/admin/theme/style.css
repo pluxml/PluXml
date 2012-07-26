@@ -120,6 +120,7 @@ input[type=submit] {
     background-color:#dedede;
     border:1px solid #A8A9A8;
     color:#555;
+    padding:2px 5px 2px 5px !important;    
 }
 input[type=submit]:hover {
     color:#000;
