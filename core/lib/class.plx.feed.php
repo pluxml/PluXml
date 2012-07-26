@@ -166,8 +166,8 @@ class plxFeed extends plxMotor {
 		# Selon le mode, on appelle la méthode adéquate
 		switch($this->mode) {
 			case 'article' : $this->getRssArticles(); break;
-			case 'commentaire' : $this->getRssCommentaires(); break;
-			case 'admin' : $this->getAdminCommentaires(); break;
+			case 'commentaire' : $this->getRssComments(); break;
+			case 'admin' : $this->getAdminComments(); break;
 			default : break;
 		}
 		# Hook plugins
@@ -250,7 +250,7 @@ class plxFeed extends plxMotor {
 	 * @return	flux sur stdout
 	 * @author	Florent MONTHEL, Amaury GRAILLAT
 	 **/
-	public function getRssCommentaires() {
+	public function getRssComments() {
 
 		# Traitement initial
 		$last_updated = '';
@@ -295,7 +295,7 @@ class plxFeed extends plxMotor {
 					$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
 					$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
 					# Hook plugins
-					eval($this->plxPlugins->callHook('plxFeedRssCommentairesXml'));
+					eval($this->plxPlugins->callHook('plxFeedRssCommentsXml'));
 					$entry .= "\t</item>\n";
 				}
 			}
@@ -327,7 +327,7 @@ class plxFeed extends plxMotor {
 	 * @return	flux sur stdout
 	 * @author	Florent MONTHEL, Amaury GRAILLAT
 	 **/
-	public function getAdminCommentaires() {
+	public function getAdminComments() {
 		# Traitement initial
 		$last_updated = '';
 		$entry = '';
@@ -361,7 +361,7 @@ class plxFeed extends plxMotor {
 				$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
 				$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
 				# Hook plugins
-				eval($this->plxPlugins->callHook('plxFeedAdminCommentairesXml'));
+				eval($this->plxPlugins->callHook('plxFeedAdminCommentsXml'));
 				$entry .= "\t</item>\n";
 			}
 		}
