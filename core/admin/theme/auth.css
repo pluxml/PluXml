@@ -1,0 +1,33 @@
+body {
+	background: #f9f9f9;
+	margin: 0;
+	padding: 0;
+	color: #555;
+	font-family: arial, helvetica, sans-serif;
+	font-size:0.72em;
+}
+
+body#auth {
+	background-color:#f2f2f2;
+	margin-top:150px;
+}
+
+a {
+	color:#2175bd;
+	font-size:11px;
+	font-weight:600;
+	text-decoration:none;
+	outline:none;
+}
+a:link, a:visited {color:#2175bd;}
+a:hover { text-decoration:none; color:#db2020; }
+
+#login { margin:0 auto 0 auto; padding:20px; width:275px; background:#fff; border:1px solid #aaa; }
+#login fieldset { border:0; }
+#login .title { text-align:center; margin-bottom: 10px; padding: 0 0 10px 0; font-size:15px; border-bottom:1px solid #dedede; }
+#login label { float:left; display:block; color:#7a7a7a; font-weight:bold; }
+#login input[type=text], #login input[type=password] { margin:5px 0 15px 0; width:247px; padding:2px 3px 2px 3px; background-color:#f8f8f8; border:1px solid #aaa }
+#login input[type=text]:focus, #login input[type=password]:focus { outline:none; color:#222; border:1px solid #77BACE; }
+#login p { text-align:center; margin:0; padding:10px 0 0 0}
+#login p.msg, #login p.error { margin:10px 0 10px 0; padding:10px 5px 10px 5px; }
+#login p.error { background-color: #ffcfcf; border-color: #df8f8f 1px solid; color: #665252; }

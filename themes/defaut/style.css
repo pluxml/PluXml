@@ -1,0 +1,374 @@
+@charset "UTF-8";
+
+/*
+ * @autor : Benjamin PIERRE
+ * @email : Benjamin@pluxml.org
+ * @date : 2011
+ */
+
+/* Summary */
+/*
+ * 1 - Reset [ based on E.Meyer work ]
+ * 2 - Basic Styles
+ * 3 - Global
+ ** 3-1 - Header
+ ** 3-2 - Sidebar
+ ** 3-3 - Footer
+ * 4 - Comments & Forms
+ * 5 - Pagination
+ */
+
+/* 1 - Reset [ based on E.Meyer work ] */
+
+html, body, div, h1, h2, h3, h4, h5, h6, p, ul, ol, li, a, span, blockquote, label, input, textarea, form, fieldset{
+	border: 0;
+	font: inherit;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+input{
+	vertical-align: middle;
+	}
+
+textarea{
+	width: 100%;
+	max-width: 100%!important;
+	}
+
+img {
+	border: none;
+}
+
+/* 2 - Basic Styles */
+
+body {
+	background-color: #152F40;
+	color: #333333;
+	font-family: Arial, Helvetica, sans-serif;
+	min-width: 930px;
+	}
+
+h1, h2, h3, h4, h5, h6{
+	color: #152F40;
+	font-family: Arial, Helvetica, sans-serif;
+	}
+
+h1 {font-size: 1.75em;}
+h2 {font-size: 1.25em;}
+h3 {font-size: 1.1em;}
+h4 {font-size: 1em;}
+h5 {font-size: 0.9em;}
+h6 {font-size: 0.75em;}
+
+a:link {
+	color: #152F40;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #152F40;
+}
+
+a:hover{
+	text-decoration: none;
+	}
+
+a:active, a:hover, a.active, .active a{
+	color: #bf0000;
+}
+
+/* 3 - Global */
+
+#header, #section, #footer{
+	background-color: #F9F9F9;
+	margin: 0 auto;
+	width: 900px;
+	}
+
+#section{
+	background: #F9F9F9 url('img/side.jpg') repeat-y 610px 0;
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #EEEEEE;
+	}
+
+#section:after{
+	content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+
+#article{
+	float: left;
+	padding: 10px 0;
+	width: 610px;
+	}
+
+#article > h2{
+	line-height: 1.5;
+	}
+
+.art-topinfos, .art-infos, .feed-art-com, .feed-arts {
+	font-size: 0.75em;
+	color:#526068;
+	}
+.art-topinfos a, .art-infos a, .feed-art-com a, .feed-arts a {
+	color:#526068;
+	}
+.art-topinfos a:hover, .art-infos a:hover, .feed-art-com a:hover, .feed-arts a:hover {
+	text-decoration: underline;
+	}
+
+.art-chapo{
+	margin: 10px 0;
+	}
+
+.art-infos{
+	background: url('img/border.jpg') repeat-x bottom;
+	margin: 0 0 10px 0;
+	padding: 0 0 20px 0;
+	}
+
+#article > h2, #article h2 + p, .art-topinfos, .art-chapo, .art-content, #footer p, .art-infos, .feed-art-com, .feed-arts, .static-content, .error-content{
+	padding-left: 20px;
+	padding-right: 20px;
+	}
+
+.author-infos{
+	background: #ffffff url('img/border.jpg') repeat-x bottom;
+	margin: 0 20px;
+	padding: 10px;
+	}
+
+.more{
+	font-size: 0.9em;
+	margin: 20px 0 0 0;
+	}
+
+#article ul, #article ol{
+	margin: 0 0 0 20px;
+	}
+
+/** 3-1 - Header **/
+
+#skip{
+	background-color: #152F40;
+	padding: 0  0 10px 0;
+	}
+
+#skip li{
+	display: inline;
+	margin: 0 15px 0 0;
+	}
+
+#skip li a{
+	color: #FFFFFF;
+	font-size: 0.8em;
+	}
+
+#skip li a:hover{
+	text-decoration: underline;
+	}
+
+#header{
+	border-bottom: 1px solid #EEEEEE;
+	margin-top: 10px;
+	}
+
+#header h1{
+	display: inline-block;
+	padding: 35px 15px 35px 20px;
+	}
+
+#header h1 + p{
+	display: inline;
+	}
+
+#nav{
+	background: url('img/border.jpg') repeat-x top;
+	padding: 8px 20px;
+	}
+
+#nav li{
+	display: inline;
+	margin: 0 20px 0 0;
+	padding: 5px 0;
+	}
+
+.feed ul{
+	float: right;
+	}
+
+.feed ul li{
+	margin: -5px 0 0 10px!important;
+	}
+
+/** 3-2 - aside **/
+
+#aside{
+	float: right;
+	padding: 10px 20px 0 20px;
+	width: 245px;
+	}
+
+#aside h3{
+	line-height: 1.5;
+	}
+
+#aside ul{
+	margin: 0 0 10px 0;
+	list-style-type: none;
+	}
+
+/** 3-3 - Footer **/
+
+#footer{
+	margin-bottom: 30px;
+	padding: 10px 0;
+	font-size: 0.7em;
+	}
+
+#footer span{
+	float: right;
+	font-size: 0.9em;
+	}
+
+/* 4 - Comments & Forms */
+
+#comments{
+	background: url('img/border.jpg') repeat-x bottom;
+	}
+
+#comments h2{
+	margin: 15px 0 0 0;
+	padding-left: 20px;
+	padding-right: 20px;
+	}
+
+form{
+	margin: 0 20px;
+	padding: 0 0 10px 0;
+	}
+
+#form h2{
+	line-height: 1;
+	padding: 5px 0 10px 20px;
+	}
+
+blockquote{
+	margin: 15px 20px 20px 20px;
+	}
+
+.num-com{
+	float: right;
+	font-size: 0.8em;
+	}
+
+.info_comment {
+	font-size: 0.8em;
+	}
+
+.content_com {
+	padding: 15px 15px 15px 15px;
+	}
+
+.type-normal {
+	background-color: #ffffff;
+	}
+
+.type-admin {
+	background-color: #ebf1f4;
+	}
+
+.feed-art-com{
+	margin: 0 0 10px 0;
+	padding: 0 20px 15px 20px;
+	}
+
+.com-alert{
+	color: #730E20;
+	font-weight: bold;
+	text-align: center;
+	}
+
+label{
+	display: block;
+	margin: 0 0 5px 0;
+	}
+
+input[type=text], textarea{
+	border: 1px solid #DDDDDD;
+	margin: 0 0 10px 0;
+	}
+
+input[type=text]:hover, textarea:hover{
+	border: 1px solid #AAAAAA;
+	cursor: pointer;
+	}
+
+input[type=text]:focus, textarea:focus{
+	border: 1px solid #777777;
+	}
+
+input[type=submit], input[type=submit] + p{
+	display: inline;
+	}
+
+input[type=submit] + p{
+	margin: 0 0 -5px 10px;
+	}
+
+input[type=submit]{
+	background-color: #EEEEEE;
+	border: 1px solid #CCCCCC;
+	padding: 3px 4px;
+	}
+
+input[type=submit]:hover{
+	background-color: #152F40;
+	color: #FFFFFF;
+	cursor: pointer;
+	}
+
+input[type=submit]:active{
+	background-color: #730E20;
+	}
+
+/** 5 - Pagination **/
+
+#pagination{
+	text-align:center;
+	padding: 0 0 5px 0;
+	font-size: 0.8em;
+	margin: 20px 0 5px 20px;
+	}
+
+#pagination span{
+	margin-right:5px;
+	}
+
+#pagination .p_page{
+	border: 1px #DDDDDD solid;
+	padding: 3px 5px;
+	}
+
+#pagination .p_prev a, #pagination .p_first a, #pagination .p_last a, #pagination .p_next a{
+	border: 1px #DDDDDD solid;
+	padding: 3px 5px;
+	}
+
+#pagination span a:hover{
+	background-color: #152F40;
+	color: #FFFFFF;
+	cursor: pointer;
+	}
+
+#pagination span a:active{
+	background-color: #730E20;
+	}
+
+

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+/*
+ * @autor : Benjamin PIERRE
+ * @email : Benjamin@pluxml.org
+ * @date : 2011
+ */
+
+/* Clearfix for IE */
+
+#section{
+	display: block;
+	zoom: 1;
+    }
+
+/* Clearfix for IE7 */
+
+*+html #header h1, *+html #header p{
+	display: inline;
+	}
+
+*+html #header h1{
+	margin-bottom: -45px ;
+	}
+
+*+html #nav{
+	margin-top: 45px;
+	}
+
+*+html .feed ul{
+	margin: -26px 20px 0 0;
+	}
+
+*+html #footer span{
+	margin: -15px 20px 0 0;
+	}
