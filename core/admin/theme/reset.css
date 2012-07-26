@@ -1,0 +1,19 @@
+/* RESET */
+html, body, div, h1, h2, h3, h4, h5, h6, p, ul, ol, li, a, span, blockquote, label, input, textarea, form, fieldset{
+	border: 0;
+	font: inherit;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+input{
+	vertical-align: middle;
+}
+textarea{
+	width: 100%;
+	max-width: 100%!important;
+}
+img {
+	border: none;
+}

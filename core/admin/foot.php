@@ -1,10 +1,6 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>	<div class="clearer"></div>
 
-		</div><!-- content -->
-
-	</div><!-- container -->
-
-</div><!-- wrapper -->
+</div><!-- content -->
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) ?>
 

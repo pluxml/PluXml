@@ -681,14 +681,14 @@ class plxUtils {
 	public static function formatMenu($name, $href, $title=false, $class=false, $onclick=false, $extra='', $highlight=true) {
 		$menu = '';
 		$basename = explode('?', basename($href));
-		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' class="active"':'';
+		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' active':'';
 		if($basename[0]=='plugin.php' AND isset($_GET['p']) AND $basename[1]!='p='.$_GET['p']) $active='';
 		$title = $title ? ' title="'.$title.'"':'';
-		$class = $class ? ' class="'.$class.'"':'';
+		$class = $class ? ' '.$class:'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$menu = '<li'.$active.'><a href="'.$href.'"'.$onclick.$class.$title.'>'.$name.'</a>'.$extra.'</li>';
+		$menu = '<li class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.'</a>'.$extra.'</li>';
 		return $menu;
-	}
+	}        
 
 	/**
 	 * Truncates text.
