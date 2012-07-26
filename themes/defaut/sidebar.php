@@ -14,7 +14,7 @@
 
         <h3><?php $plxShow->lang('TAGS') ?></h3>
 		<ul>
-			<?php $plxShow->tagList('<li class="#tag_status"><a href="#tag_url" title="#tag_name">#tag_name</a></li>', 20); ?>
+			<?php $plxShow->tagList('<li class="#tag_size #tag_status"><a href="#tag_url" title="#tag_name">#tag_name</a></li>', 20); ?>
 		</ul>
 
 		<h3><?php $plxShow->lang('LAST_ARTICLES') ?></h3>

@@ -1364,13 +1364,13 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
-	 * @param	format	format du texte pour chaque tag (variable : #tag_status, #tag_url, #tag_name, #nb_art)
+	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_url, #tag_name, #nb_art)
 	 * @param	max		nombre maxi de tags à afficher
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function tagList($format='<li><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='') {
+	public function tagList($format='<li><a class="#tag_size #tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagList'))) return;
 
@@ -1402,6 +1402,7 @@ class plxShow {
 		$size=0;
 		foreach($array as $tagname => $tag) {
 			$name = str_replace('#tag_id','tag-'.$size++,$format);
+                        $name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
 			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
 			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
 			$name = str_replace('#nb_art',$tag['count'],$name);

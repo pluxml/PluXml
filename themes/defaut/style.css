@@ -16,6 +16,7 @@
  ** 3-3 - Footer
  * 4 - Comments & Forms
  * 5 - Pagination
+ * 6 - Tags size
  */
 
 /* 1 - Reset [ based on E.Meyer work ] */
@@ -371,4 +372,15 @@ input[type=submit]:active{
 	background-color: #730E20;
 	}
 
-
+/* Tags size */
+.tag-size-1 {font-size : 10pt;}
+.tag-size-2 {font-size : 12pt;}
+.tag-size-3 {font-size : 14pt;}
+.tag-size-4 {font-size : 16pt;}
+.tag-size-5 {font-size : 18pt;}
+.tag-size-6 {font-size : 20pt;}
+.tag-size-7 {font-size : 22pt;}
+.tag-size-8 {font-size : 24pt;}
+.tag-size-9 {font-size : 26pt;}
+.tag-size-10 {font-size : 28pt;}
+.tag-size-max {font-size : 30pt;}
