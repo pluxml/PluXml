@@ -66,7 +66,7 @@
 					if($_SESSION['profil'] <= PROFIL_MANAGER) {
 						$menus[] = plxUtils::formatMenu(L_MENU_STATICS, 'statiques.php', L_MENU_STATICS_TITLE);
 					}
-					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+					if($plxAdmin->aConf['allow_com'] AND $_SESSION['profil'] <= PROFIL_MODERATOR) {
 						$nbcoms = $plxAdmin->nbComments('offline');
 						$coms_offline = $nbcoms>0 ? '&nbsp;<a class="cpt" href="comments.php?sel=offline&amp;page=1">'.$plxAdmin->nbComments('offline').'</a>':'';
 						$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, 'comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
