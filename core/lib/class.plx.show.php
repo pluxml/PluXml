@@ -1290,7 +1290,7 @@ class plxShow {
 
 			# On effectue l'affichage
 			if($this->plxMotor->page > 2) # Si la page active > 2 on affiche un lien 1ere page
-				echo '<span class="p_first"><a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">'.L_PAGINATION_FIRST.'</a></span>';
+				echo '<span class="p_first"><a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">'.L_PAGINATION_FIRST.'</a></span>&nbsp;';
 			if($this->plxMotor->page > 1) # Si la page active > 1 on affiche un lien page precedente
 				echo '<span class="p_prev"><a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">'.L_PAGINATION_PREVIOUS.'</a></span>&nbsp;';
 			# Affichage de la page courante
