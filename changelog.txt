@@ -1,10 +1,14 @@
 ## PLUXML 5.1.7 (sortie : xx/xx/2012) ##
 
-[+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentairesXml, plxFeedAdminCommentairesXml
+(+] Administration: lien Commentaires masqué si commentaires désactivés
+[+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
+[+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
 [+] Administration: Paramètres > Configuration avancée -> Ajout du choix de l'emplacement des fichiers de configuration (dossier)
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
+BUG plxShow:pagination(): lien "première page" collé au lien "précédente"
+BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
 BUG sitemap: mauvais format de date dans la balise lastmod
 BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
 BUG plxUtils::strCut : problème pour couper une chaine de caractère avec l'encodage UTF-8
