@@ -32,15 +32,13 @@ class plxToken {
 
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
 
-			if(isset($_POST['token']) AND !empty($_POST['token'])) {
-				if(plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < time() - 3600) { # 3600 seconds
-					unset($_SESSION['formtoken']);
-					die('Security error : invalid or expired token');
-				}
-
+			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < time() - 3600) { # 3600 seconds
+				unset($_SESSION['formtoken']);
+				die('Security error : invalid or expired token');
 			}
 			unset($_SESSION['formtoken'][$_POST['token']]);
 		}
+
 	}
 
 }

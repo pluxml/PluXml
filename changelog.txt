@@ -16,6 +16,7 @@ BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
 BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
 BUG plxUtils::strCut : problème pour couper une chaine de caractère avec l'encodage UTF-8
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur
+Sécurité: Mauvais contrôle des tokens
 
 ## PLUXML 5.1.6 (sortie : 16/04/2012) ##
 
