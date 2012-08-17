@@ -50,10 +50,15 @@ a.hcolumn:hover {
     color: #888;
 }
 
-/* Index.php */
+/* index.php */
 .quicksearch {
     float:right;
     padding-top:18px;
+}
+
+/* install.php */
+.panel ul {
+	list-style: none;
 }
 
 /* Form + fieldset */
@@ -86,7 +91,7 @@ fieldset p.field {
     margin:0;
     padding:0 0 2px 0;
 }
-fieldset.config  input[type=text] {
+fieldset.config input[type=text] {
     margin-top:5px;
     width: 300px;
 }
@@ -107,10 +112,10 @@ input:hover {
 input[type=checkbox], input[type=radio]  {
     border:0;
 }
-input[type=text] {
+input[type=text], input[type=password] {
     padding:3px 5px 3px 5px !important;
 }
-input[type=text]:focus, textarea:focus, select:focus {
+input[type=text]:focus, input[type=password]:focus, textarea:focus, select:focus {
     outline:none;
     color:#222;
     border:1px solid #77BACE;
@@ -120,7 +125,7 @@ input[type=submit] {
     background-color:#dedede;
     border:1px solid #A8A9A8;
     color:#555;
-    padding:2px 5px 2px 5px !important;    
+    padding:2px 5px 2px 5px !important;
 }
 input[type=submit]:hover {
     color:#000;

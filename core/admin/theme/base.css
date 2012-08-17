@@ -17,7 +17,7 @@ div#sidebar {
 }
 * html body {
     overflow:hidden;
-} 
+}
 * html div#content {
     height:100%;
     overflow:auto;
@@ -25,7 +25,7 @@ div#sidebar {
 
 /* BASE */
 body {
-    background-color:#fff; 
+    background-color:#fff;
     font-family: arial, helvetica, sans-serif;
     font-size:0.8em;
     color:#222;
@@ -34,8 +34,8 @@ body {
     padding:20px 20px 20px 20px;
 }
 #sidebar {
-    background:rgb(56,56,56); 
-    color:#fff;	
+    background:rgb(56,56,56);
+    color:#fff;
 }
 a {
     outline:none;
@@ -95,8 +95,8 @@ div#sidebar ul li.profil {
     background-color:#000;
     padding-top:0;
     color:#f5f5f5;
-    padding-bottom:10px;	
-    margin-bottom:20px; 
+    padding-bottom:10px;
+    margin-bottom:20px;
 }
 div#sidebar ul li.pluxml  {
     padding-top:5px;

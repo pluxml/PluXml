@@ -77,17 +77,18 @@ plxToken::validateFormToken($_POST);
 	<meta name="robots" content="noindex, nofollow" />
 	<title><?php echo L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
 </head>
 
 <body>
 
-<div id="main">
-	<div id="top">
-		<div style="margin-left:200px"><h2><?php echo L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?></h2></div>
-	</div>
-	<div id="content">
+<div id="sidebar">
+</div>
+
+<div id="content">
+	<h2><?php echo L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?></h2>
 	<?php if(empty($_POST['submit'])) : ?>
 		<?php if($plxUpdater->oldVersion==$plxUpdater->newVersion) : ?>
 		<div class="panel" style="padding:10px 10px 10px 10px">
