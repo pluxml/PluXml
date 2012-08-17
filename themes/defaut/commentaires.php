@@ -31,11 +31,9 @@
 					<label for="id_content" class="lab_com"><?php $plxShow->lang('COMMENT') ?>&nbsp;:</label>
 					<textarea id="id_content" name="content" cols="35" rows="6"><?php $plxShow->comGet('content',''); ?></textarea>
 
-
 					<?php if($plxShow->plxMotor->aConf['capcha']): ?>
 					<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong>&nbsp;:</label>
 					<p><?php $plxShow->capchaQ(); ?>&nbsp;:&nbsp;<input id="id_rep" name="rep" type="text" size="10" /></p>
-					<input name="rep2" type="hidden" value="<?php $plxShow->capchaR(); ?>" />
 					<?php endif; ?>
 
 					<input type="submit" value="<?php $plxShow->lang('SEND') ?>" /><p class="com-alert"><?php $plxShow->comMessage(); ?></p>

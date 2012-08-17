@@ -1317,6 +1317,7 @@ class plxShow {
 
 	/**
 	 * Méthode qui affiche la réponse du capcha cryptée en sha1
+	 * DEPRECATED
 	 *
 	 * @return	stdout
 	 * @scope	global
@@ -1325,7 +1326,7 @@ class plxShow {
 	public function capchaR() {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaR'))) return;
-		echo $this->plxMotor->plxCapcha->r();
+		
 	}
 
 	/**
