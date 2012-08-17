@@ -23,6 +23,7 @@ if(!file_exists(XMLFILE_PARAMETERS)) {
 }
 
 # On démarre la session
+session_cache_limiter('private, must-revalidate');
 session_start();
 
 $session_domain = dirname(__FILE__);
