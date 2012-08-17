@@ -96,19 +96,34 @@ class plxUtils {
 	}
 
 	/**
+	 * Méthode qui vérifie le format d'une adresse ip
+	 *
+	 * @param	ip			adresse ip à vérifier
+	 * @return	boolean		vrai si format valide
+	 **/
+	public static function isValidIp($ip) {
+
+		$ipv4 = '/((^|\.)(2[0-5]{2}|[01][0-9]{2}|[0-9]{1,2})(?=\.|$)){4}/';
+		$ipv6 = '/^:?([a-fA-F0-9]{1,4}(:|.)?){0,8}(:|::)?([a-fA-F0-9]{1,4}(:|.)?){0,8}$/';
+		return (preg_match($ipv4, $ip) OR preg_match($ipv6, $ip));
+
+	}
+
+	/**
 	 * Méthode qui retourne l'adresse ip d'un visiteur
 	 *
 	 * @return	string		adresse ip d'un visiteur
 	 **/
 	public static function getIp() {
 
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])) # check ip from share internet
-			$ip=$_SERVER['HTTP_CLIENT_IP'];
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) # to check ip is pass from proxy
-			$ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
-		else
-			$ip=$_SERVER['REMOTE_ADDR'];
-		return $ip;
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])) # check ip from share internet
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) # to check ip is pass from proxy
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        else
+            $ip=$_SERVER['REMOTE_ADDR'];
+
+        return plxUtils::isValidIp($ip) ? $ip : '';
 	}
 
 	/**
@@ -688,7 +703,7 @@ class plxUtils {
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
 		$menu = '<li class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.'</a>'.$extra.'</li>';
 		return $menu;
-	}        
+	}
 
 	/**
 	 * Truncates text.
