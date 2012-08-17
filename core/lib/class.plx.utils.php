@@ -430,7 +430,11 @@ class plxUtils {
 		# Calcul du ratio
 		$ratio_w = $width / $width_orig;
 		$ratio_h = $height / $height_orig;
-		if($ratio_w < $ratio_h AND $ratio_w < 1) {
+		if($width == 0)
+            $width = $width_orig * $ratio_h;
+		elseif($height == 0)
+            $height = $height_orig * $ratio_w;
+		elseif($ratio_w < $ratio_h AND $ratio_w < 1) {
 			$width = $ratio_w * $width_orig;
 			$height = $ratio_w * $height_orig;
 		} elseif($ratio_h < 1) {

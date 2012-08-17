@@ -13,6 +13,7 @@ BUG plxShow:pagination(): lien "première page" collé au lien "précédente"
 BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
 BUG sitemap: mauvais format de date dans la balise lastmod
 BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
+BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
 BUG plxUtils::strCut : problème pour couper une chaine de caractère avec l'encodage UTF-8
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur
 
