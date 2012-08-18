@@ -925,13 +925,13 @@ class plxMotor {
 			$new_url .= !empty($args[2])?$args[2]:'';
 			if(empty($new_url))	$new_url = $this->path_url;
 			$new_url .= !empty($args[3])?'#'.$args[3]:'';
-			return $this->racine.$new_url;
+			return str_replace('&', '&amp;', $this->racine.$new_url);
 		} else {
 			if(empty($args[1]) AND !empty($args[2])) $args[1] = 'index.php';
 			$new_url  = !empty($args[1])?$args[1]:$this->path_url;
 			$new_url .= !empty($args[2])?'?'.$args[2]:'';
 			$new_url .= !empty($args[3])?'#'.$args[3]:'';
-			return $this->racine.$new_url;
+			return str_replace('&', '&amp;', $this->racine.$new_url);
 		}
 	}
 

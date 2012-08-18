@@ -16,6 +16,7 @@ BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
 BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
 BUG plxUtils::strCut : problème pour couper une chaine de caractère avec l'encodage UTF-8
 BUG Session perdue sous Chrome MacOSX
+BUG Réécriture d'url: mauvaise gestion des paramètres (&)
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur
 Sécurité: Mauvais contrôle des tokens
 Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires
