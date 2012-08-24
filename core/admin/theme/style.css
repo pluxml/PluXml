@@ -58,7 +58,10 @@ a.hcolumn:hover {
 
 /* install.php */
 .panel ul {
-	list-style: none;
+    list-style: none;
+}
+.panel ul li {
+    padding:2px 0 2px 0;
 }
 
 /* Form + fieldset */
