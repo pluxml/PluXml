@@ -216,7 +216,7 @@ if($coms) { # Si on a des commentaires (hors page)
 </div>
 
 <?php if(!empty($plxAdmin->aConf['clef'])) : ?>
-<div class="feeds">
+<div class="panel">
 	<p><?php echo L_COMMENTS_PRIVATE_FEEDS ?> :</p>
 	<ul class="feed">
 		<?php $urlp_hl = $plxAdmin->racine.'feed.php?admin'.$plxAdmin->aConf['clef'].'/commentaires/hors-ligne'; ?>
