@@ -1028,11 +1028,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# La fonction est active ?
 		if(!ini_get('allow_url_fopen')) return L_PLUXML_UPDATE_UNAVAILABLE;
-
+                $latest_version = '';
+                
 		# Requete HTTP sur le site de PluXml
-		$fp = fopen('http://telechargements.pluxml.org/latest-version', 'r');
-		$latest_version = trim(fread($fp, 16));
-		fclose($fp);
+		if($fp = @fopen('http://telechargements.pluxml.org/latest-version', 'r')) {
+                    $latest_version = trim(fread($fp, 16));
+                    fclose($fp);
+                }    
 		if($latest_version == '')
 			return L_PLUXML_UPDATE_ERR;
 
