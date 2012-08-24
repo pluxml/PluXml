@@ -8,6 +8,7 @@
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
 [+] Administration: Paramètres > Configuration avancée -> Ajout du choix de l'emplacement des fichiers de configuration (dossier)
+[+] Amélioration de la traduction en allemand (contribution Jürgen K.)
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
 BUG plxShow:pagination(): lien "première page" collé au lien "précédente"
 BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
@@ -17,6 +18,7 @@ BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
 BUG plxUtils::strCut : problème pour couper une chaine de caractère avec l'encodage UTF-8
 BUG Session perdue sous Chrome MacOSX
 BUG Réécriture d'url: mauvaise gestion des paramètres (&)
+BUG plxShow::artAuthorInfos() : erreur si l'auteur n'existe plus
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur
 Sécurité: Mauvais contrôle des tokens
 Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires
@@ -26,8 +28,8 @@ Sécurité: Suppression du champ contenant la solution du captcha dans le formul
 [+] Administration: Paramètres > Option d'affichage -> option pour afficher le nom des catégories même si elles ne contiennent pas d'article
 [+] Administration: Page statiques > Options -> ajout champ pour définir le contenu de la balise <title>
 [+] Administration: Catégories > Options -> ajout champ pour définir le contenu de la balise <title>
-[+]	Administration: affichage compteur des articles en attente de validation à droite du menu "Articles"
-[+]	Administration: compteur des commentaires hors ligne à droite du menu "commentaires" cliquable -> accès direct à la liste des commentaires hors ligne.
+[+] Administration: affichage compteur des articles en attente de validation à droite du menu "Articles"
+[+] Administration: compteur des commentaires hors ligne à droite du menu "commentaires" cliquable -> accès direct à la liste des commentaires hors ligne.
 [+] Administration: Edition des commentaires -> possibilité de modifier la date/heure des commentaires
 [+] Administration: Gestionnaire de médias: ajout du format ogg dans la liste des fichiers autorisés
 [+] Administration: Prise en compte du fuseau horaire dans le javascript de l'icone calendrier
@@ -61,7 +63,7 @@ BUG Fonction de téléchargement de fichier (contribution Humpf)
 BUG Réécriture d'url (contribution Humpf)
 BUG plxShow: appel callHook en double (contribution rockyhorror)
 BUG Gestionnaire de médias: réinitialisation de la variable de session medias (pour medias.php) au cas si changement de chemin images/documents dans la config
-BUG	Mauvais rappel du type de commentaires sélectionnés
+BUG Mauvais rappel du type de commentaires sélectionnés
 Sécurité: Full Path Disclosure avec un code injection sur le PHPSESSID (contribution MyckSécurity)
 Sécurité: Possible faille XSS dans le fichier de mise à jour (contribution gwae)
 Sécurité: Local File Inclusion (crédit High-Tech Bridge SA Security Research Lab: HTB23086)
@@ -230,14 +232,14 @@ Sécurité: Injection d'une langue qui n'existe pas (profil.php, user.php)
 [+] Moteur de plugins
 Paramètres
 [+] Parametres > Configuration de base: choix de la langues par défaut du site
-[+]	Parametres > Configuration de base: balise meta "description" pour l'ensemble du site
-[+]	Parametres > Configuration de base: balise meta "keywords" pour l'ensemble du site
-[-]	Parametres > Configuration de base: suppression de la sélection de l'éditeur (-> plugins)
-[+]	Parametres > Options d'affichage: nombre d'articles affichés par page dans les archives
-[+]	Parametres > Comptes utilisateurs: nouvel écran pour paramétrer les options utilisateurs
-[+]	Parametres > Comptes utilisateurs: nouveau champ de saisie "adresse email" pour chaque utilisateur
-[+]	Parametres > Comptes utilisateurs: nouveau champ de saisie "langue utilisée dans l'administration" pour chaque utilisateur
-[+]	Parametres > Configuration avancée: choix de l'utilisation d'un dossier images/documents différents pour chaque utilisateur
+[+] Parametres > Configuration de base: balise meta "description" pour l'ensemble du site
+[+] Parametres > Configuration de base: balise meta "keywords" pour l'ensemble du site
+[-] Parametres > Configuration de base: suppression de la sélection de l'éditeur (-> plugins)
+[+] Parametres > Options d'affichage: nombre d'articles affichés par page dans les archives
+[+] Parametres > Comptes utilisateurs: nouvel écran pour paramétrer les options utilisateurs
+[+] Parametres > Comptes utilisateurs: nouveau champ de saisie "adresse email" pour chaque utilisateur
+[+] Parametres > Comptes utilisateurs: nouveau champ de saisie "langue utilisée dans l'administration" pour chaque utilisateur
+[+] Parametres > Configuration avancée: choix de l'utilisation d'un dossier images/documents différents pour chaque utilisateur
 [+] Parametres > Configuration avancée: interdiction d'activer l'url rewriting si le module apache mod_rewrite non présent sur le serveur
 [+] Paramètres > Pluginq : nouveau menu pour accèder à la gestion des plugins
 [-] Parametres > Vérifier la version officielle: menu et écran supprimé
