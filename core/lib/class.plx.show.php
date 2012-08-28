@@ -960,17 +960,19 @@ class plxShow {
 	 * Méthode qui affiche si besoin le message généré par le système
 	 * suite à la création d'un commentaire
 	 *
+         * @param       format  format du texte à afficher (variable: #com_message)
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Stephane F.
 	 **/
-	public function comMessage() {
+	public function comMessage($format='#com_message') {
 
 		if(isset($_SESSION['msgcom']) AND !empty($_SESSION['msgcom'])) {
-			echo $_SESSION['msgcom'];
+			$row = str_replace('#com_message',$_SESSION['msgcom'],$format);
+			echo $row;
 			$_SESSION['msgcom']='';
 		}
-
+	
 	}
 
 	/**

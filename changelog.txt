@@ -9,6 +9,7 @@
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
 [+] Administration: Paramètres > Configuration avancée -> Ajout du choix de l'emplacement des fichiers de configuration (dossier)
 [+] Amélioration de la traduction en allemand (contribution Jürgen K.)
+[+] plxShow::comMessage() : ajout parametre format (variable #com_message)
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
 BUG plxShow:pagination(): lien "première page" collé au lien "précédente"
 BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
