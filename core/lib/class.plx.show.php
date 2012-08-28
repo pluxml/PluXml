@@ -952,19 +952,18 @@ class plxShow {
 	 * @author	Florent MONTHEL
 	 **/
 	public function comContent() {
-
+			
 		echo nl2br($this->plxMotor->plxRecord_coms->f('content'));
 	}
 
 	/**
 	 * Méthode qui affiche si besoin le message généré par le système
 	 * suite à la création d'un commentaire
-	 *
-         * @param       format  format du texte à afficher (variable: #com_message)
-	 * @return	stdout
-	 * @scope	article
-	 * @author	Stephane F.
-	 **/
+	 * @param			format  format du texte à afficher (variable: #com_message)
+	 * @return		stdout
+	 * @scope			article
+	 * @author		Stephane F.
+	**/
 	public function comMessage($format='#com_message') {
 
 		if(isset($_SESSION['msgcom']) AND !empty($_SESSION['msgcom'])) {
