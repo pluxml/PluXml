@@ -77,13 +77,12 @@
             }
             $menus[] = plxUtils::formatMenu(L_MENU_PROFIL, 'profil.php', L_MENU_PROFIL_TITLE);
             # récuperation des menus pour les plugins
-            uksort($plxAdmin->plxPlugins->aPlugins, create_function('$a, $b', 'return strcmp($b["title"], $a["title"]);'));
             foreach($plxAdmin->plxPlugins->aPlugins as $plugName => $plugin) {
-		if(isset($plugin['activate']) AND $plugin['activate'] AND !empty($plugin['title'])) {
+						if(isset($plugin['activate']) AND $plugin['activate'] AND !empty($plugin['title'])) {
                     if(isset($plugin['instance']) AND is_file(PLX_PLUGINS.$plugName.'/admin.php')) {
                         if($plxAdmin->checkProfil($plugin['instance']->getAdminProfil(),false)) {
                             $menus[] = plxUtils::formatMenu(plxUtils::strCheck($plugin['title']), 'plugin.php?p='.$plugName, plxUtils::strCheck($plugin['title']));
-			}
+												}
                     }
                 }
             }
@@ -99,7 +98,7 @@
 </div><!-- sidebar -->
 
 <div id="content">
-
+		
     <h1 id="sitename"><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></h1>
     <?php
 	if(is_file(PLX_ROOT.'install.php')) echo L_WARNING_INSTALLATION_FILE;
