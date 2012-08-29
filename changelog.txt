@@ -2,7 +2,6 @@
 
 [+] plxShow:tagList(): gestion de la taille des tags (#tag_size)
 [+] Administration: sidebar statique
-(+] Administration: lien Commentaires masqué si commentaires désactivés
 [+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
 [+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
