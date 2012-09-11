@@ -7,6 +7,7 @@
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
 [+] Administration: Paramètres > Configuration avancée -> Ajout du choix de l'emplacement des fichiers de configuration (dossier)
+[+] Administration: Paramètres > Options d'affichage > Éditer les fichiers du thème : edition des fichiers dans les sous-dossiers
 [+] Amélioration de la traduction en allemand (contribution Jürgen K.)
 [+] plxShow::comMessage() : ajout parametre format (variable #com_message)
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
