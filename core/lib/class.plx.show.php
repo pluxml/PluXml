@@ -1103,6 +1103,8 @@ class plxShow {
 			$stat = str_replace('#static_status',($home==true?"active":"noactive"), $stat);
 			$menus[] = $stat;
 		}
+		else
+				$menus[] = "";
 		# On verifie qu'il y a des pages statiques
 		if($this->plxMotor->aStats) {
 			$group_name='';
