@@ -16,14 +16,15 @@ BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
 BUG sitemap: mauvais format de date dans la balise lastmod
 BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
 BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
-BUG plxUtils::strCut : problème pour couper une chaine de caractère avec l'encodage UTF-8
+BUG plxUtils::strCut() : problème pour couper une chaine de caractère avec l'encodage UTF-8
 BUG Session perdue sous Chrome MacOSX
-BUG Réécriture d'url: mauvaise gestion des paramètres (&)
+BUG Réécriture d'url: mauvaise gestion des paramètres dans l'url (&)
 BUG plxShow::artAuthorInfos() : erreur si l'auteur n'existe plus
 BUG plxShow::staticList() : tri des menus différents si paramètre extra renseigné ou pas
-Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur
-Sécurité: Mauvais contrôle des tokens
-Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires
+BUG plxShow::templateCss() : mauvais chemin dans le test existence fichier css (contribution danielsan)
+Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur (remerciement à The Lizard King)
+Sécurité: Mauvais contrôle des tokens (remerciement à The Lizard King)
+Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires (remerciement à The Lizard King)
 
 ## PLUXML 5.1.6 (sortie : 16/04/2012) ##
 
