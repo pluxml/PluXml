@@ -13,6 +13,9 @@ a {
     font-weight:bold;
     outline:none;
 }
+ul { 
+		list-style: none;
+}
 a:link, a:visited {color:#2175bd;}
 a:hover { text-decoration:none; color:#db2020; }
 
