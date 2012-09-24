@@ -28,9 +28,6 @@ define('PROFIL_MODERATOR', 2);
 define('PROFIL_EDITOR', 3);
 define('PROFIL_WRITER', 4);
 
-# Gestion des erreurs PHP
-//error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');
 $img_thumb = array('50x50', '75x75', '100x100');
