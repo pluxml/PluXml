@@ -10,6 +10,8 @@
 				<div class="art-chapo"><?php $plxShow->artChapo(); ?></div>
 				<p class="art-infos"><?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat(); ?> - <?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags(); ?> - <?php $plxShow->artNbCom(); ?></p>
 			<?php endwhile; ?>
+			
+			<p class="feed-arts"><?php $plxShow->tagFeed(); ?></p>
 
 			<p id="pagination"><?php $plxShow->pagination(); ?></p>
 

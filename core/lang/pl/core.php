@@ -91,6 +91,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'brak',
 'L_ARTCHAPO'					=> 'Czytaj więcej #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Pokaż kanał RSS dla tej kategorii',
+'L_ARTFEED_RSS_TAG'				=> 'Pokaż kanał RSS dla tej tag',
 'L_ARTFEED_RSS'					=> 'Pokaż kanał RSS dla tego artykułu',
 'L_NO_COMMENT'					=> 'żadnych komentarzy',
 'L_COMMENT'						=> 'komentarz',

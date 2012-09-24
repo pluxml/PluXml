@@ -1364,6 +1364,28 @@ class plxShow {
 				echo $tagName;
 		}
 	 }
+	 
+	/**
+	 * Méthode qui affiche un lien vers le fil Rss des articles d'un tag
+	 *
+	 * @param	type		type de flux (obsolete)
+	 * @param	tag			nom du tag
+	 * @return				stdout
+	 * @scope					home,categorie,article,tags,archives
+	 * @author				Stephane F
+	 **/
+
+	public function tagFeed($type='rss', $tag='') {
+
+		# Hook Plugins
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagFeed'))) return;
+
+		if($tag=='' AND $this->plxMotor->mode == 'tags')
+			$tag = $this->plxMotor->cible;
+
+		echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)).'" title="'.L_ARTFEED_RSS_TAG.'">'.L_ARTFEED_RSS_TAG.'</a>';
+
+	}	 
 
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
@@ -1406,7 +1428,7 @@ class plxShow {
 		$size=0;
 		foreach($array as $tagname => $tag) {
 			$name = str_replace('#tag_id','tag-'.$size++,$format);
-                        $name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
+			$name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
 			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
 			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
 			$name = str_replace('#nb_art',$tag['count'],$name);

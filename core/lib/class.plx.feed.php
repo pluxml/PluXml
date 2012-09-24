@@ -57,6 +57,7 @@ class plxFeed extends plxMotor {
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(XMLFILE_CATEGORIES);
 		$this->getUsers(XMLFILE_USERS);
+		$this->getTags(XMLFILE_TAGS);
 		# Récuperation des articles appartenant aux catégories actives
 		$this->getActiveArts();
 		# Hook plugins
@@ -86,6 +87,29 @@ class plxFeed extends plxMotor {
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/?$#',$this->get)) {
 			$this->mode = 'commentaire'; # Mode du flux
 		}
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag\/([a-z0-9-]+)/?$#',$this->get,$capture)) {
+			$this->mode = 'tag';
+			$this->cible = $capture[1];
+			$ids = array();
+			$datetime = date('YmdHi');
+			foreach($this->aTags as $idart => $tag) {
+				if($tag['date']<=$datetime) {
+					$tags = array_map("trim", explode(',', $tag['tags']));
+					$tagUrls = array_map(array('plxUtils', 'title2url'), $tags);
+					if(in_array($this->cible, $tagUrls)) {
+						if(!isset($ids[$idart])) $ids[$idart] = $idart;
+						if(!isset($cibleName)) {
+							$key = array_search($this->cible, $tagUrls);
+							$cibleName=$tags[$key];
+						}
+					}
+				}
+			}
+			if(sizeof($ids)>0) {
+				$this->motif = '/('.implode('|', $ids).').[home|'.$this->activeCats.',]*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			}
+
+		}		
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article([0-9]+)/?$#',$this->get,$capture)) {
 			$this->mode = 'commentaire'; # Mode du flux
 			# On recupere l'article cible
@@ -149,6 +173,10 @@ class plxFeed extends plxMotor {
 			# On récupère les commentaires
 			$this->getCommentaires('/^'.$this->cible.'[0-9]{4}.[0-9]{10}-[0-9]+.xml$/','rsort',0,$this->bypage,'all');
 		}
+		# Flux d'articles pour un tag
+		elseif($this->mode == 'tag') {
+			$this->getArticles(); # Recupération des articles (on les parse)
+		}		
 		# Flux d'articles
 		else {
 			# Flux des articles d'une catégorie précise
@@ -165,6 +193,7 @@ class plxFeed extends plxMotor {
 
 		# Selon le mode, on appelle la méthode adéquate
 		switch($this->mode) {
+			case 'tag':
 			case 'article' : $this->getRssArticles(); break;
 			case 'commentaire' : $this->getRssComments(); break;
 			case 'admin' : $this->getAdminComments(); break;
@@ -187,7 +216,11 @@ class plxFeed extends plxMotor {
 		$last_updated = '';
 		$entry_link = '';
 		$entry = '';
-		if($this->cible) { # Articles d'une catégorie
+		if($this->mode == 'tag') {
+			$title = $this->aConf['title'].' - '.L_PAGETITLE_TAG.' '.$this->cible;
+			$link = $this->urlRewrite('?tag/'.$this->cible);
+		}
+		elseif($this->cible) { # Articles d'une catégorie
 			$catId = $this->cible + 0;
 			$title = $this->aConf['title'].' - '.$this->aCats[ $this->cible ]['name'];
 			$link = $this->urlRewrite('?categorie'.$catId.'/'.$this->aCats[ $this->cible ]['url']);

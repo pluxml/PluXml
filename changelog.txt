@@ -3,6 +3,8 @@
 [+] plxShow:tagList(): gestion de la taille des tags (#tag_size)
 [+] Administration: sidebar statique
 [+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
+[+) plxShow: ajout du hook plxShowTagFeed
+[+] plxShow: ajout de la fontion tagFeed() : flux rss des articles pour un mot clé
 [+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
