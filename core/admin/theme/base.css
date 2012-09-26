@@ -59,11 +59,16 @@ div#sidebar ul li {
 	padding: 5px 20px 5px 0;
 	font-size: 14px;
 }
+div#sidebar li a.cpt, div#sidebar li.active a.cpt  {
+	color:#fff !important;
+	padding:0 3px 0 3px;
+	background-color:red;
+}
 div#sidebar ul li.menu:hover {
 	background-color:#dedede;
 }
 div#sidebar ul li.menu a {
-	display:block;
+	display:inline;
 	color:#fff;
 }
 div#sidebar ul li.menu:hover a {
@@ -73,13 +78,8 @@ div#sidebar ul li.active, div#sidebar ul li.active:hover, div#sidebar ul li.acti
 	background-color:#fff;
 	color:#222
 }
-div#sidebar li a.cpt, div#sidebar li.active a.cpt  {
-	color:#fff !important;
-	padding:0 3px 0 3px;
-	background-color:red;
-}
 div#sidebar ul li.sub {
-    font-style:italic;
+	font-style:italic;
 }
 div#sidebar ul li.nav, div#sidebar ul li.nav a {
 	color:#fff;
