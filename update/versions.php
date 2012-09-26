@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Liste des versions de PluXml avec les fichiers de mise à jour à executer
  *
@@ -23,5 +23,4 @@ $versions = array(
 	'5.1.6'	=>	'update_5.1.6.php',
 	'5.1.7'	=>	'update_5.1.7.php',	
 );
-
 ?>
