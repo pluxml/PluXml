@@ -107,7 +107,8 @@ class plxFeed extends plxMotor {
 			}
 			if(sizeof($ids)>0) {
 				$this->motif = '/('.implode('|', $ids).').[home|'.$this->activeCats.',]*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
-			}
+			} else
+				$this->motif = '';
 
 		}		
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article([0-9]+)/?$#',$this->get,$capture)) {
@@ -175,7 +176,12 @@ class plxFeed extends plxMotor {
 		}
 		# Flux d'articles pour un tag
 		elseif($this->mode == 'tag') {
-			$this->getArticles(); # Recupération des articles (on les parse)
+			if(empty($this->motif)) {
+				header('Location: '.$this->urlRewrite('?tag/'.$this->cible.'/'));
+				exit;				
+			} else {
+				$this->getArticles(); # Recupération des articles (on les parse)
+			}
 		}		
 		# Flux d'articles
 		else {
