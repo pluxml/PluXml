@@ -315,7 +315,7 @@ input[type=text]:focus, textarea:focus{
 	border: 1px solid #777777;
 	}
 
-input[type=submit], input[type=submit] + p{
+input[type=submit], input[type=reset], input[type=submit] + p{
 	display: inline;
 	}
 
@@ -323,13 +323,13 @@ input[type=submit] + p{
 	margin: 0 0 -5px 10px;
 	}
 
-input[type=submit]{
+input[type=submit], input[type=reset]{
 	background-color: #EEEEEE;
 	border: 1px solid #CCCCCC;
 	padding: 3px 4px;
 	}
 
-input[type=submit]:hover{
+input[type=submit]:hover, input[type=reset]:hover{
 	background-color: #152F40;
 	color: #FFFFFF;
 	cursor: pointer;
