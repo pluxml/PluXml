@@ -232,7 +232,7 @@ $cat_id='000';
 				if($_SESSION['profil'] < PROFIL_WRITER)
 					plxUtils::printSelect('author', $_users, $author);
 				else {
-					echo '<input type="hidden" name="author" value="'.$author.'" />';
+					echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
 					echo '<strong>'.plxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
 				}
 				?>
