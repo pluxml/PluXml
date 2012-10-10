@@ -25,6 +25,7 @@ BUG plxShow::artAuthorInfos() : erreur si l'auteur n'existe plus
 BUG plxShow::staticList() : tri des menus différents si paramètre extra renseigné ou pas
 BUG plxShow::templateCss() : mauvais chemin dans le test existence fichier css (contribution danielsan)
 BUG plxFeed::getRssArticles() : pas de réécriture d'url dans la balise atom:link (contribution petitchevalroux)
+BUG plxFeed: erreur date dans les flux rss si aucun article 
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur (remerciement à The Lizard King)
 Sécurité: Mauvais contrôle des tokens (remerciement à The Lizard King)
 Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires (remerciement à The Lizard King)

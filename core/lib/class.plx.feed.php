@@ -219,7 +219,7 @@ class plxFeed extends plxMotor {
 	public function getRssArticles() {
 
 		# Initialisation
-		$last_updated = '';
+		$last_updated = '197001010100';
 		$entry_link = '';
 		$entry = '';
 		if($this->mode == 'tag') {
@@ -292,7 +292,7 @@ class plxFeed extends plxMotor {
 	public function getRssComments() {
 
 		# Traitement initial
-		$last_updated = '';
+		$last_updated = '197001010100';
 		$entry_link = '';
 		$entry = '';
 		if($this->cible) { # Commentaires d'un article
@@ -368,7 +368,7 @@ class plxFeed extends plxMotor {
 	 **/
 	public function getAdminComments() {
 		# Traitement initial
-		$last_updated = '';
+		$last_updated = '197001010100';
 		$entry = '';
 		if($this->cible == '_') { # Commentaires hors ligne
 			$link = $this->racine.'core/admin/comments.php?sel=offline&amp;page=1';
