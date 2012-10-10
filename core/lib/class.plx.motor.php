@@ -772,7 +772,7 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
 		# On verifie que le capcha est correct
-		if($this->aConf['capcha'] == 0 OR $_SESSION['capcha'] == $content['rep']) {
+		if($this->aConf['capcha'] == 0 OR $_SESSION['capcha'] == sha1($content['rep'])) {
 			if(!empty($content['name']) AND !empty($content['content'])) { # Les champs obligatoires sont remplis
 				$comment=array();
 				$comment['type'] = 'normal';

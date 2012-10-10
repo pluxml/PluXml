@@ -1329,6 +1329,7 @@ class plxShow {
 	public function capchaR() {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaR'))) return;
+		echo $this->plxMotor->plxCapcha->r();
 		
 	}
 

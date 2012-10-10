@@ -99,7 +99,7 @@ class plxCapcha {
 	 **/
 	public function q() {
 		# Generation de la question capcha
-		$_SESSION['capcha'] = $this->word[$this->num-1];
+		$_SESSION['capcha'] = sha1($this->word[$this->num-1]);
 		return sprintf(L_CAPCHA_QUESTION,$this->numletter,$this->word);
 	}
 
@@ -109,8 +109,8 @@ class plxCapcha {
 	 *
 	 **/
 	public function r() {
-
-		return;
+		# Generation du hash de la reponse
+		return sha1($this->word[$this->num-1]);
 	}
 
 }
