@@ -796,9 +796,9 @@ class plxShow {
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) return;
 		# Génération de notre motif
 		if(empty($cat_id))
-			$motif = '/^[0-9]{4}.[home|'.$this->plxMotor->activeCats.']*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			$motif = '/^[0-9]{4}.[home|'.$this->plxMotor->activeCats.',]*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 		else
-			$motif = '/^[0-9]{4}.[home|'.$this->plxMotor->activeCats.']*'.str_pad($cat_id,3,'0',STR_PAD_LEFT).'['.$this->plxMotor->activeCats.']*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			$motif = '/^[0-9]{4}.[home|'.$this->plxMotor->activeCats.',]*'.str_pad($cat_id,3,'0',STR_PAD_LEFT).'['.$this->plxMotor->activeCats.',]*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;

@@ -430,7 +430,7 @@ class plxMotor {
 			}
 		}
 		$activeCats[] = '000'; # on rajoute la catégorie 'Non classée'
-		$this->activeCats = implode('|', $activeCats).',';
+		$this->activeCats = implode('|', $activeCats);
 	}
 
 	/**
