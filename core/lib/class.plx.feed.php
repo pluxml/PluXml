@@ -274,7 +274,7 @@ class plxFeed extends plxMotor {
 		echo "\t".'<link>'.$link.'</link>'."\n";
 		echo "\t".'<language>' . $this->aConf['default_lang'] . '</language>'."\n";
 		echo "\t".'<description>'.plxUtils::strCheck($this->aConf['description']).'</description>'."\n";
-		echo '<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="' . $this->racine. 'feed.php' . '" />'."\n";
+		echo '<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="'.$this->urlRewrite('feed.php?rss').'" />'."\n";
 		$last_updated = plxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
 		echo "\t".'<generator>PluXml</generator>'."\n";
