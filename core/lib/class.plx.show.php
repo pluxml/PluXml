@@ -570,15 +570,30 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui retourne le numéro de la catégorie de l'article (sans les 0 complémentaires)
+	 * Méthode qui retourne la liste des catégories de l'article séparées par des virgules
 	 *
-	 * @return	int
+	 * @return	string
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
 	 **/
-	public function artCatId() {
+	public function artCatIds() {
 
-		return intval($this->plxMotor->plxRecord_arts->f('categorie'));
+		return $this->plxMotor->plxRecord_arts->f('categorie');
+	}
+	
+	/**
+	 * Méthode qui retourne un tableau contenant les numéros des catégories actives de l'article
+	 *
+	 * @return	array
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F
+	 **/
+	public function artActiveCatIds() {
+
+		$artCatIds = explode(',', $this->plxMotor->plxRecord_arts->f('categorie'));
+		$activeCats = explode('|',$this->plxMotor->activeCats);
+		return array_intersect($artCatIds,$activeCats);
+	
 	}
 
 	/**
