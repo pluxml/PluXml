@@ -23,7 +23,6 @@ BUG sitemap: mauvais format de date dans la balise lastmod
 BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
 BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
 BUG plxUtils::strCut() : problème pour couper une chaine de caractère avec l'encodage UTF-8
-BUG Session perdue sous Chrome MacOSX
 BUG Réécriture d'url: mauvaise gestion des paramètres dans l'url (&)
 BUG plxShow::artAuthorInfos() : erreur si l'auteur n'existe plus
 BUG plxShow::staticList() : tri des menus différents si paramètre extra renseigné ou pas
