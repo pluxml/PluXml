@@ -147,7 +147,7 @@ class plxMedias {
 	 * Méthode qui formate l'affichage de la liste déroulante des dossiers
 	 *
 	 * @return	string	chaine formatée à afficher
-	 * @author	Stephane F
+	 * @author	Stephane F, Danielsan
 	 **/
 	public function contentFolder() {
 
@@ -156,6 +156,7 @@ class plxMedias {
 		$str .= '<option '.$selected.'value=".">|. ('.L_PLXMEDIAS_ROOT.') &nbsp; </option>'."\n";
 		# Dir non vide
 		if(!empty($this->aDirs)) {
+			asort($this->aDirs);			
 			foreach($this->aDirs as $k => $v) {
 				$prefixe = '|&nbsp;&nbsp;';
 				$i = 0;
@@ -164,15 +165,13 @@ class plxMedias {
 					$i++;
 				}
 				$selected = ($v['path']==$this->dir?'selected="selected" ':'');
-				$str .= '<option '.$selected.'value="'.$v['path'].'">'.$prefixe.$v['name'].'</option>'."\n";
+				$str .= '<option class="level_'.$v['level'].'" '.$selected.'value="'.$v['path'].'">'.$prefixe.$v['name'].'</option>'."\n";
 			}
 		}
 		$str  .= '</select>'."\n";
-
 		# On retourne la chaine
 		return $str;
-	}
-
+	}	
 
 	/**
 	 * Méthode qui supprime un fichier (et sa vignette si elle existe dans le cas d'une image)
