@@ -15,6 +15,7 @@
 [+] plxShow: ajout de la méthode artCatIds()
 [+] plxShow: ajout de la méthode artActiveCatId()
 [+] Gestionnaire de médias: tri des dossiers dans le déroulant 'Dossier'
+[+] plxPlugin: ajout de la fonction setAdminMenu pour personnaliser le menu permettant d'accèder à la page admin.php d'un plugin
 [-] plxShow: suppression de la méthode artCatId()
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
 BUG Pas d'affichage des articles affectés à plusieurs catégories si une catégorie est inactive

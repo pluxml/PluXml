@@ -155,11 +155,11 @@ class plxPlugins {
 				}
 			}
 			# prise en compte du tri des plugins
-			$this->aPlugins[$plugName]['ordre']=$content['plugOrdre'][$plugName];			
+			$this->aPlugins[$plugName]['ordre']=$content['plugOrdre'][$plugName];
 		}
-		if(sizeof($this->aPlugins)>0) 
+		if(sizeof($this->aPlugins)>0)
 			uasort($this->aPlugins, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
-		
+
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
@@ -260,6 +260,8 @@ class plxPlugin {
 	protected $configProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
 	protected $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
 
+	public $adminMenu=false; # infos de customisation du menu pour accèder à la page admin.php du plugin
+
 	/**
 	 * Constructeur de la classe plxPlugin
 	 *
@@ -300,6 +302,23 @@ class plxPlugin {
 	 **/
 	public function setAdminProfil($profil) {
 		$this->adminProfil=func_get_args();
+	}
+
+	/**
+	 * Méthode qui permet de personnaliser le menu qui permet d'acceder à la page admin.php du plugin
+	 *
+	 * @param	title 		titre du menu
+	 * @param	position 	position du menu dans la sidebar
+	 * @param	caption 	légende du menu (balise title du lien)
+	 * @return	null
+	 * @author	Stephane F
+	 **/
+	public function setAdminMenu($title='', $position='', $caption='') {
+		$this->adminMenu = array(
+			'title'=>$title,
+			'position'=>($position==''?false:$position),
+			'caption'=>($caption==''?$title:$caption)
+		);
 	}
 
 	/**
