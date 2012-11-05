@@ -4,7 +4,6 @@
 [+] Administration: sidebar statique
 [+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
 [+) plxShow: ajout du hook plxShowTagFeed
-[+) plxMotor: ajout du hook plxMotorGetConfiguration
 [+] plxShow: ajout de la fontion tagFeed() : flux rss des articles pour un mot clé
 [+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
