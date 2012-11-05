@@ -365,7 +365,8 @@ class plxMotor {
 		$this->aConf['display_empty_cat'] = plxUtils::getValue($this->aConf['display_empty_cat'],0);
 		$this->aConf['timezone'] = plxUtils::getValue($this->aConf['timezone'],date_default_timezone_get());
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
-
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxMotorGetConfiguration'));
 	}
 
 	/**
