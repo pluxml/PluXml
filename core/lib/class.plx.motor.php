@@ -96,6 +96,8 @@ class plxMotor {
 		# Traitement des plugins
 		$this->plxPlugins = new plxPlugins(XMLFILE_PLUGINS, $this->aConf['default_lang']);
 		$this->plxPlugins->loadPlugins();
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
