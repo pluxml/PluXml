@@ -134,7 +134,7 @@ class plxPlugins {
 	 * @author	Stephane F
 	 **/
 	public function saveConfig($content) {
-
+	
 		foreach($content['plugName'] as $plugName => $activate) {
 			if(isset($content['action'][$plugName])) {
 				if($content['action'][$plugName]=='on') {
@@ -276,7 +276,7 @@ class plxPlugin {
 			'dir' 			=> PLX_PLUGINS,
 			'name' 			=> $plugName,
 			'filename'		=> PLX_PLUGINS.$plugName.'/'.$plugName.'.php',
-			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugin.'.$plugName.'.parameters.xml',
+			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
 		$this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
@@ -436,7 +436,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function saveParams() {
-
+	
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";

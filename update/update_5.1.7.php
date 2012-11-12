@@ -17,6 +17,11 @@ class update_5_1_7 extends plxUpdate{
 		if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH)) {
 			mkdir(PLX_ROOT.PLX_CONFIG_PATH,0755,true);
 		}
+		
+		# Création du dossier de stockage des parametres des plugins
+		if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
+			mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);		
+		
 		# Protection du dossier de configuration
 		plxUtils::write("<Files *>\n\tOrder allow,deny\n\tDeny from all\n</Files>", PLX_ROOT.PLX_CONFIG_PATH.".htaccess");
 		plxUtils::write("", PLX_ROOT.PLX_CONFIG_PATH."index.html");
@@ -73,7 +78,7 @@ class update_5_1_7 extends plxUpdate{
 		foreach($this->plxAdmin->plxPlugins->aPlugins as $plugName=>$plugAttrs) {
 			$plugParamFile = PLX_PLUGINS.$plugName.'/parameters.xml';
 			if(is_file($plugParamFile)) {
-				if(plxUtils::write(file_get_contents($plugParamFile), PLX_ROOT.PLX_CONFIG_PATH.'plugin.'.$plugName.'.parameters.xml')) {
+				if(plxUtils::write(file_get_contents($plugParamFile), PLX_ROOT.PLX_CONFIG_PATH.'/plugins/'.$plugName.'.xml')) {
 					echo '<span style="color:green">&#10004; '.$plugAttrs['title'].'</span><br />';
 					unlink($plugParamFile);
 				}
