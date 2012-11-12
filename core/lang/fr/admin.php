@@ -287,7 +287,7 @@ $LANG = array(
 'L_MEDIAS_NO_FILE'					=> 'Aucun fichier',
 'L_MEDIAS_RESIZE'					=> 'Redimensionner images',
 'L_MEDIAS_RESIZE_NO'				=> 'Taille originale',
-'L_MEDIAS_THUMBS'					=> 'Créer miniature',
+'L_MEDIAS_THUMBS'					=> 'Créer miniatures',
 'L_MEDIAS_THUMBS_NONE'				=> 'Pas de miniature',
 'L_MEDIAS_MODIFY'					=> 'Modifier',
 'L_MEDIAS_THUMB'					=> 'Miniature',
@@ -299,7 +299,7 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Droite',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recréer miniatures',
-
+	
 # parametres_affichage.php
 
 'L_CONFIG_VIEW_FIELD'				=> 'Options d\'affichage',

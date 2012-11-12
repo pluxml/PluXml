@@ -86,6 +86,8 @@ include(dirname(__FILE__).'/top.php');
 		<p class="field"><label><?php echo L_CONFIG_VIEW_THUMBS ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('miniatures_l', $plxAdmin->aConf['miniatures_l'], 'text', '4-4',false,'fieldnum'); ?>	 x
 		<?php plxUtils::printInput('miniatures_h', $plxAdmin->aConf['miniatures_h'], 'text', '4-4',false,'fieldnum'); ?>
+		<p class="field"><label for="id_thumbs"><?php echo L_MEDIAS_THUMBS ?>&nbsp;:</label></p>
+		<?php plxUtils::printSelect('thumbs',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['thumbs']);?>
 		<p class="field"><label for="id_bypage_feed"><?php echo L_CONFIG_VIEW_BYPAGE_FEEDS ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('bypage_feed', $plxAdmin->aConf['bypage_feed'], 'text', '2-2',false,'fieldnum'); ?>
 		<p class="field"><label for="id_feed_chapo"><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE ?>&nbsp;:</label></p>

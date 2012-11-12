@@ -54,6 +54,7 @@ class update_5_1_7 extends plxUpdate{
 
 		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
 		$new_parameters['config_path'] = PLX_CONFIG_PATH;
+		$new_parameters['thumbs'] = 1;
 		# on supprime les parametres obsoletes
 		unset($this->plxAdmin->aConf['statiques']);
 		unset($this->plxAdmin->aConf['categories']);
