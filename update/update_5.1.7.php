@@ -17,11 +17,12 @@ class update_5_1_7 extends plxUpdate{
 		if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH)) {
 			mkdir(PLX_ROOT.PLX_CONFIG_PATH,0755,true);
 		}
-		
+
 		# Création du dossier de stockage des parametres des plugins
 		if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
-			mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);		
-		
+			mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
+		}
+
 		# Protection du dossier de configuration
 		plxUtils::write("<Files *>\n\tOrder allow,deny\n\tDeny from all\n</Files>", PLX_ROOT.PLX_CONFIG_PATH.".htaccess");
 		plxUtils::write("", PLX_ROOT.PLX_CONFIG_PATH."index.html");
