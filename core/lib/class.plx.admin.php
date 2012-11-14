@@ -123,6 +123,7 @@ class plxAdmin extends plxMotor {
 		if(isset($content['config_path'])) {
 			$newpath=trim($content['config_path']);
 			if($newpath!=PLX_CONFIG_PATH) {
+				# relocalisation du dossier de configuration de PluXml
 				if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
 				# mise à jour du fichier de configuration config.php
