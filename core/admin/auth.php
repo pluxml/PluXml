@@ -67,6 +67,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password'])) {
 			$_SESSION['profil'] = $user['profil'];
 			$_SESSION['hash'] = plxUtils::charAleatoire(10);
 			$_SESSION['domain'] = $session_domain;
+			$_SESSION['lang'] = $user['lang'];
 			$connected = true;
 		}
 	}

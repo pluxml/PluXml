@@ -263,6 +263,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
 		$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
+		$_SESSION['lang'] = $content['lang'];
+		
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
 		return $this->editUsers(null, true);

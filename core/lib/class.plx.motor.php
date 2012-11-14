@@ -94,7 +94,8 @@ class plxMotor {
 		$var = parse_url($this->racine);
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
 		# Traitement des plugins
-		$this->plxPlugins = new plxPlugins(XMLFILE_PLUGINS, $this->aConf['default_lang']);
+		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
+		$this->plxPlugins = new plxPlugins(XMLFILE_PLUGINS, $lang);		
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
