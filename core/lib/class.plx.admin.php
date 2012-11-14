@@ -118,33 +118,13 @@ class plxAdmin extends plxMotor {
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write($xml,XMLFILE_PARAMETERS))
 			return plxMsg::Error(L_SAVE_ERR.' '.XMLFILE_PARAMETERS);
-
+		
 		# Si nouvel emplacement du dossier de configuration
 		if(isset($content['config_path'])) {
 			$newpath=trim($content['config_path']);
 			if($newpath!=PLX_CONFIG_PATH) {
-				# création du nouveau dossier de configuration
-				if(!is_dir(PLX_ROOT.$newpath))
-					mkdir(PLX_ROOT.$newpath,0755,true);
-				# test si accessible en écriture
-				if(!is_writable(PLX_ROOT.$newpath))
+				if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
-				# protection sécurité
-				plxUtils::write("<Files *>\n\tOrder allow,deny\n\tDeny from all\n</Files>", PLX_ROOT.$newpath.".htaccess");
-				plxUtils::write("", PLX_ROOT.$newpath."index.html");
-				# relocalisation des fichiers de configuration
-				if(!plxUtils::write(file_get_contents(XMLFILE_PARAMETERS), PLX_ROOT.$newpath.basename(XMLFILE_PARAMETERS)))
-					return plxMsg::Error(L_SAVE_ERR.' : '.basename(XMLFILE_PARAMETERS));
-				if(!plxUtils::write(file_get_contents(XMLFILE_STATICS), PLX_ROOT.$newpath.basename(XMLFILE_STATICS)))
-					return plxMsg::Error(L_SAVE_ERR.' : '.basename(XMLFILE_STATICS));
-				if(!plxUtils::write(file_get_contents(XMLFILE_CATEGORIES), PLX_ROOT.$newpath.basename(XMLFILE_CATEGORIES)))
-					return plxMsg::Error(L_SAVE_ERR.' : '.basename(XMLFILE_CATEGORIES));
-				if(!plxUtils::write(file_get_contents(XMLFILE_USERS), PLX_ROOT.$newpath.basename(XMLFILE_USERS)))
-					return plxMsg::Error(L_SAVE_ERR.' : '.basename(XMLFILE_USERS));
-				if(!plxUtils::write(file_get_contents(XMLFILE_TAGS), PLX_ROOT.$newpath.basename(XMLFILE_TAGS)))
-					return plxMsg::Error(L_SAVE_ERR.' : '.basename(XMLFILE_TAGS));
-				if(!plxUtils::write(file_get_contents(XMLFILE_PLUGINS), PLX_ROOT.$newpath.basename(XMLFILE_PLUGINS)))
-					return plxMsg::Error(L_SAVE_ERR.' : '.basename(XMLFILE_PLUGINS));
 				# mise à jour du fichier de configuration config.php
 				if(!plxUtils::write("<?php define('PLX_CONFIG_PATH', '".$newpath."') ?>", PLX_ROOT.'config.php'))
 					return plxMsg::Error(L_SAVE_ERR.' config.php');
