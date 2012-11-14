@@ -1,4 +1,8 @@
 <?php
+
+# Gestion des erreurs PHP
+//error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+
 # Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
 function getMicrotime() {
 	$t = explode(' ',microtime());
