@@ -214,9 +214,9 @@ class plxShow {
 		if($this->plxMotor->mode == 'static') {
 			$title_htmltag = $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
 			if($title_htmltag!='')
-				echo plxUtils::strCheck($this->plxMotor->aConf['title'].' - '.$title_htmltag);
+				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
 			else
-				echo plxUtils::strCheck($this->plxMotor->aConf['title'].' - '.$this->plxMotor->aStats[$this->plxMotor->cible ]['name']);
+				echo plxUtils::strCheck($this->plxMotor->aStats[$this->plxMotor->cible ]['name'].' - '.$this->plxMotor->aConf['title']);
 			return;
 		}
         if($this->plxMotor->mode == 'archives') {
@@ -224,15 +224,15 @@ class plxShow {
 			$year = !empty($capture[1]) ? ' '.$capture[1] : '';
 			$month = !empty($capture[2]) ? ' '.plxDate::getCalendar('month', $capture[2]) : '';
 			$day = !empty($capture[3]) ? ' '.plxDate::getCalendar('day', $capture[3]) : '';
-            echo plxUtils::strCheck($this->plxMotor->aConf['title']).' - '.L_PAGETITLE_ARCHIVES.$day.$month.$year;
+            echo plxUtils::strCheck(L_PAGETITLE_ARCHIVES.$day.$month.$year.' - '.$this->plxMotor->aConf['title']);
             return;
         }
         if($this->plxMotor->mode == 'tags') {
-            echo plxUtils::strCheck($this->plxMotor->aConf['title']).' - '.L_PAGETITLE_TAG.' '.$this->plxMotor->cible;
+            echo plxUtils::strCheck(L_PAGETITLE_TAG.' '.$this->plxMotor->cible.' - '.$this->plxMotor->aConf['title']);
             return;
         }
 		if($this->plxMotor->mode == 'erreur') {
-			echo plxUtils::strCheck($this->plxMotor->aConf['title']).' - '.$this->plxMotor->plxErreur->getMessage();
+			echo plxUtils::strCheck($this->plxMotor->plxErreur->getMessage().' - '.$this->plxMotor->aConf['title']);
 			return;
 		}
 	}
