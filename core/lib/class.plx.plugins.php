@@ -135,31 +135,33 @@ class plxPlugins {
 	 **/
 	public function saveConfig($content) {
 	
-		foreach($content['plugName'] as $plugName => $activate) {
-			if(isset($content['action'][$plugName])) {
-				if($content['action'][$plugName]=='on') {
-					if($instance = $this->getInstance($plugName)) {
-						if($content['selection']=='activate') {
-							if($this->aPlugins[$plugName]['activate']==0 AND method_exists($plugName, 'OnActivate'))
-								$instance->OnActivate();
-							$this->aPlugins[$plugName]['activate']=1;
-							$this->aPlugins[$plugName]['title']=$content['plugTitle'][$plugName];
-						}
-						elseif($content['selection']=='deactivate') {
-							if($this->aPlugins[$plugName]['activate']==1 AND method_exists($plugName, 'OnDeactivate'))
-								$instance->OnDeactivate();
-							$this->aPlugins[$plugName]['activate']=0;
-							$this->aPlugins[$plugName]['title']='';
+		if(isset($content['plugName'])) {
+			foreach($content['plugName'] as $plugName => $activate) {
+				if(isset($content['action'][$plugName])) {
+					if($content['action'][$plugName]=='on') {
+						if($instance = $this->getInstance($plugName)) {
+							if($content['selection']=='activate') {
+								if($this->aPlugins[$plugName]['activate']==0 AND method_exists($plugName, 'OnActivate'))
+									$instance->OnActivate();
+								$this->aPlugins[$plugName]['activate']=1;
+								$this->aPlugins[$plugName]['title']=$content['plugTitle'][$plugName];
+							}
+							elseif($content['selection']=='deactivate') {
+								if($this->aPlugins[$plugName]['activate']==1 AND method_exists($plugName, 'OnDeactivate'))
+									$instance->OnDeactivate();
+								$this->aPlugins[$plugName]['activate']=0;
+								$this->aPlugins[$plugName]['title']='';
+							}
 						}
 					}
 				}
+				# prise en compte du tri des plugins
+				$this->aPlugins[$plugName]['ordre']=$content['plugOrdre'][$plugName];
 			}
-			# prise en compte du tri des plugins
-			$this->aPlugins[$plugName]['ordre']=$content['plugOrdre'][$plugName];
+		
+			if(sizeof($this->aPlugins)>0)
+				uasort($this->aPlugins, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
 		}
-		if(sizeof($this->aPlugins)>0)
-			uasort($this->aPlugins, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
-
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
