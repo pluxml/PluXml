@@ -20,6 +20,7 @@
 [+] plxShow:pageTitle() : positionnement du titre du site en dernier pour améliorer les référencements (contribution Jos)
 [-] plxShow: suppression de la méthode artCatId()
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
+[-] Suppression du thème mobile.defaut
 BUG Pas d'affichage des articles affectés à plusieurs catégories si une catégorie est inactive
 BUG plxShow:pagination(): lien "première page" collé au lien "précédente"
 BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
