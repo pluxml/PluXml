@@ -157,7 +157,7 @@ function install($content, $config) {
 	# Création du fichier des categories
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>'."\n";
-	$xml .= "\t".'<categorie number="001" tri="'.$config['tri'].'" bypage="'.$config['bypage'].'" menu="oui" url="'.L_DEFAULT_CATEGORY_URL.'" template="categorie.php"><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE).']]></name><description><![CDATA[]]></description><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></categorie>'."\n";
+	$xml .= "\t".'<categorie number="001" active="1" homepage="1" tri="'.$config['tri'].'" bypage="'.$config['bypage'].'" menu="oui" url="'.L_DEFAULT_CATEGORY_URL.'" template="categorie.php"><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE).']]></name><description><![CDATA[]]></description><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></categorie>'."\n";
 	$xml .= '</document>';
 	plxUtils::write($xml,XMLFILE_CATEGORIES);
 
