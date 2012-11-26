@@ -15,9 +15,13 @@ $output='';
 # chargement du fichier d'administration du plugin
 $filename = realpath(PLX_PLUGINS.$plugin.'/admin.php');
 if($plxAdmin->plxPlugins->aPlugins[$plugin]['activate'] AND is_file($filename)) {
-	ob_start();
+	# on récupère les infos des plugins
+	$plxAdmin->plxPlugins->aPlugins[$plugin]['instance']->getInfos();
+	# utilisation de la variable plxPlugin pour faciliter la syntaxe dans les devs des plugins
 	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin]['instance'];
+	# Control des autorisation d'accès à l'écran admin.php du plugin	
 	$plxAdmin->checkProfil($plxPlugin->getAdminProfil());
+	ob_start();
 	include($filename);
 	$output=ob_get_clean();
 }

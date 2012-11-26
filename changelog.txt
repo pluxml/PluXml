@@ -36,6 +36,7 @@ BUG plxShow::templateCss() : mauvais chemin dans le test existence fichier css (
 BUG plxFeed::getRssArticles() : pas de réécriture d'url dans la balise atom:link (contribution petitchevalroux)
 BUG plxFeed: erreur date dans les flux rss si aucun article
 BUG plxPlugins: variable default_lang mal renseignée -> mauvais chargement du fichier de langue des plugins
+BUG Pas de récupération des infos dans le fichier infos.xml d'un plugin sur l'écran admin.php du plugin
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur (remerciement à The Lizard King)
 Sécurité: Mauvais contrôle des tokens (remerciement à The Lizard King)
 Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires (remerciement à The Lizard King)

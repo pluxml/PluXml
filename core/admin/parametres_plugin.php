@@ -25,9 +25,9 @@ if(is_file($filename)) {
 	if(is_object($plxAdmin->plxPlugins->aPlugins[$plugin]['instance'])) {
 		$plxAdmin->plxPlugins->aPlugins[$plugin]['instance']->getInfos();
 	}
-	# utilisation de la variable plxPlugin pour faciliter la syntaxe dans els devs des plugins
+	# utilisation de la variable plxPlugin pour faciliter la syntaxe dans les devs des plugins
 	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin]['instance'];
-	# Control des autorisation d'acces à l'ecran config.php du plugin
+	# Control des autorisation d'accès à l'écran config.php du plugin
 	$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
 	# chargement de l'écran de parametrage du plugin config.php
 	ob_start();

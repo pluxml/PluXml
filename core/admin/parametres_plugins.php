@@ -48,7 +48,7 @@ elseif(isset($_POST['update'])) {
 	exit;
 }
 
-# on récupère la lsite des plugins dans le dossier plugins
+# on récupère la liste des plugins dans le dossier plugins
 $plxAdmin->plxPlugins->getList();
 
 # On inclut le header
