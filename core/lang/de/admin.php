@@ -127,6 +127,7 @@ $LANG = array(
 'L_CAT_APPLY_BUTTON'								=> 'Änderungen speichern',
 'L_CAT_UNKNOWN'									=> 'Unbekannte Kategorie',
 'L_EDITCAT_PAGE_TITLE'								=> 'Kategorieoptionen ändern',
+'L_EDITCAT_DISPLAY_HOMEPAGE'						=> 'Zeige Artikel in dieser Kategorie auf der Startseite',
 'L_EDITCAT_DESCRIPTION'								=> 'Beschreibung',
 'L_EDITCAT_TEMPLATE'								=> 'Vorlage',
 'L_EDITCAT_BACK_TO_PAGE'							=> 'Zurück zur Liste der Kategorien',

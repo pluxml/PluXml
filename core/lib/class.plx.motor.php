@@ -23,6 +23,7 @@ class plxMotor {
 	public $cible = false; # Article, categorie ou page statique cible
 
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
+	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
 	public $activeArts = array(); # Tableaux des articles appartenant aux catégories actives
 
 	public $aConf = array(); # Tableau de configuration
@@ -139,7 +140,7 @@ class plxMotor {
 			if($this->plxGlob_arts->query('/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/')) {
 				$this->motif = '/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 			} else { # Sinon on recupere tous les articles
-				$this->motif = '/^[0-9]{4}.(?:[0-9]|,)*(?:'.$this->activeCats.')(?:[0-9]|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+				$this->motif = '/^[0-9]{4}.(?:[0-9]|,)*(?:'.$this->homepageCats.')(?:[0-9]|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 			}
 		}
 		elseif($this->get AND preg_match('/^article([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
@@ -385,6 +386,7 @@ class plxMotor {
 		if(!is_file($filename)) return;
 
 		$activeCats = array();
+		$homepageCats = array();
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
@@ -425,6 +427,9 @@ class plxMotor {
 				# Récuperation état activation de la catégorie dans le menu
 				$this->aCats[$number]['active']=isset($attributes['active'])?$attributes['active']:'1';
 				if($this->aCats[$number]['active']) $activeCats[]=$number;
+				# Recuperation affichage en page d'accueil
+				$this->aCats[$number]['homepage']=(isset($attributes['homepage']) AND in_array($attributes['homepage'],array('0','1'))?$attributes['homepage']:'1');
+				if($this->aCats[$number]['active'] AND $this->aCats[$number]['homepage']) $homepageCats[]=$number;
 				# Recuperation du nombre d'article de la categorie
 				$motif = '/^[0-9]{4}.[home,|0-9,]*'.$number.'[0-9,]*.[0-9]{3}.[0-9]{12}.[A-Za-z0-9-]+.xml$/';
 				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
@@ -433,7 +438,9 @@ class plxMotor {
 				eval($this->plxPlugins->callHook('plxMotorGetCategories'));
 			}
 		}
+		$homepageCats [] = '000'; # on rajoute la catégorie 'Non classée'
 		$activeCats[] = '000'; # on rajoute la catégorie 'Non classée'
+		$this->homepageCats = implode('|', $homepageCats);
 		$this->activeCats = implode('|', $activeCats);
 	}
 

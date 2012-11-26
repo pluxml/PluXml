@@ -442,6 +442,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
 				$this->aCats[$cat_id]['menu'] = 'oui';
 				$this->aCats[$cat_id]['active'] = 1;
+				$this->aCats[$cat_id]['homepage'] = '';				
 				$this->aCats[$cat_id]['description'] = '';
 				$this->aCats[$cat_id]['template'] = 'categorie.php';
 				$this->aCats[$cat_id]['title_htmltag'] = '';
@@ -467,6 +468,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aCats[$cat_id]['menu'] = $content[$cat_id.'_menu'];
 					$this->aCats[$cat_id]['active'] = $content[$cat_id.'_active'];
 					$this->aCats[$cat_id]['ordre'] = intval($content[$cat_id.'_ordre']);
+					$this->aCats[$cat_id]['homepage'] = intval($content[$cat_id.'_homepage']);					
 					$this->aCats[$cat_id]['description'] = (isset($this->aCats[$cat_id]['description'])?$this->aCats[$cat_id]['description']:'');
 					$this->aCats[$cat_id]['template'] = (isset($this->aCats[$cat_id]['template'])?$this->aCats[$cat_id]['template']:'categorie.php');
 					$this->aCats[$cat_id]['title_htmltag'] = (isset($this->aCats[$cat_id]['title_htmltag'])?$this->aCats[$cat_id]['title_htmltag']:'');
@@ -503,7 +505,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				else
 					$cats_url[] = $cat['url'];
 
-				$xml .= "\t<categorie number=\"".$cat_id."\" active=\"".$cat['active']."\" tri=\"".$cat['tri']."\" bypage=\"".$cat['bypage']."\" menu=\"".$cat['menu']."\" url=\"".$cat['url']."\" template=\"".basename($cat['template'])."\">";
+				$xml .= "\t<categorie number=\"".$cat_id."\" active=\"".$cat['active']."\" homepage=\"".$cat['homepage']."\" tri=\"".$cat['tri']."\" bypage=\"".$cat['bypage']."\" menu=\"".$cat['menu']."\" url=\"".$cat['url']."\" template=\"".basename($cat['template'])."\">";
 				$xml .= "<name><![CDATA[".plxUtils::cdataCheck($cat['name'])."]]></name>";
 				$xml .= "<description><![CDATA[".plxUtils::cdataCheck($cat['description'])."]]></description>";
 				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($cat['meta_description'])."]]></meta_description>";
@@ -532,6 +534,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editCategorie($content) {
 		# Mise à jour du fichier categories.xml
+		$this->aCats[$content['id']]['homepage'] = intval($content['homepage']);		
 		$this->aCats[$content['id']]['description'] = trim($content['content']);
 		$this->aCats[$content['id']]['template'] = $content['template'];
 		$this->aCats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);

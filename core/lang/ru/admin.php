@@ -157,6 +157,7 @@ $LANG = array(
 
 'L_EDITCAT_PAGE_TITLE'										=> 'Редактирование категории',
 'L_EDITCAT_DESCRIPTION'										=> 'Описание',
+'L_EDITCAT_DISPLAY_HOMEPAGE'								=> 'Показать в этой категории на главной странице',
 'L_EDITCAT_TEMPLATE'										=> 'Тема',
 'L_EDITCAT_BACK_TO_PAGE'									=> 'Вернуться к категориям',
 'L_EDITCAT_UPDATE'											=> 'Обновление этой категории',

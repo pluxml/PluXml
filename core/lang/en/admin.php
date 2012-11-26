@@ -135,6 +135,7 @@ $LANG = array(
 'L_CAT_UNKNOWN'												=> 'Unknown category',
 'L_EDITCAT_PAGE_TITLE'										=> 'Edit category options',
 'L_EDITCAT_DESCRIPTION'										=> 'Description',
+'L_EDITCAT_DISPLAY_HOMEPAGE'								=> 'Show articles on the homepage',
 'L_EDITCAT_TEMPLATE'										=> 'Template',
 'L_EDITCAT_BACK_TO_PAGE'									=> 'Back to categories',
 'L_EDITCAT_UPDATE'											=> 'Update this category',

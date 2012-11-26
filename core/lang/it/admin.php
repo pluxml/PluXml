@@ -127,6 +127,7 @@ $LANG = array(
 'L_CAT_UNKNOWN'												=> 'categoria sconosciuta',
 'L_EDITCAT_PAGE_TITLE'										=> 'Gestisci le opzioni delle categorie',
 'L_EDITCAT_DESCRIPTION'										=> 'Descrizione',
+'L_EDITCAT_DISPLAY_HOMEPAGE'								=> 'Mostra articoli in questa categoria nella home page',
 'L_EDITCAT_TEMPLATE'										=> 'Modello',
 'L_EDITCAT_BACK_TO_PAGE'									=> 'Ritorna alla lista delle categorie',
 'L_EDITCAT_UPDATE'											=> 'Aggiorna questa categoria',

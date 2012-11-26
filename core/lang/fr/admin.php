@@ -157,6 +157,7 @@ $LANG = array(
 
 'L_EDITCAT_PAGE_TITLE'				=> 'Edition des options de la catégorie',
 'L_EDITCAT_DESCRIPTION'				=> 'Description',
+'L_EDITCAT_DISPLAY_HOMEPAGE'		=> 'Afficher les articles de cette catégorie sur la page d\'accueil',
 'L_EDITCAT_TEMPLATE'				=> 'Template',
 'L_EDITCAT_BACK_TO_PAGE'			=> 'Retour à la liste des catégories',
 'L_EDITCAT_UPDATE'					=> 'Mettre à jour cette catégorie',

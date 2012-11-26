@@ -10,6 +10,7 @@
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
 [+] Administration: Paramètres > Configuration avancée -> Ajout du choix de l'emplacement des fichiers de configuration (dossier)
 [+] Administration: Paramètres > Options d'affichage > Éditer les fichiers du thème : edition des fichiers dans les sous-dossiers
+[+] Administration: Catégories > Options : ajout du paramètre "Afficher les articles de cette catégorie sur la page d'accueil" (oui/non)
 [+] Amélioration de la traduction en allemand (contribution Jürgen K.)
 [+] plxShow::comMessage() : ajout parametre format (variable #com_message)
 [+] plxShow: ajout de la méthode artCatIds()

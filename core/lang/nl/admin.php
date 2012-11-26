@@ -127,6 +127,7 @@ $LANG = array(
 'L_CAT_UNKNOWN'												=> 'onbekende categorie',
 'L_EDITCAT_PAGE_TITLE'										=> 'Categorie-opties aanpassen',
 'L_EDITCAT_DESCRIPTION'										=> 'Beschrijving',
+'L_EDITCAT_DISPLAY_HOMEPAGE'								=> 'Toon items in deze categorie op de home page',
 'L_EDITCAT_TEMPLATE'										=> 'Template',
 'L_EDITCAT_BACK_TO_PAGE'									=> 'Terug naar categorielijst',
 'L_EDITCAT_UPDATE'											=> 'De wijzigingen voor deze categorie doorveoeren',
