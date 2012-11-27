@@ -580,7 +580,7 @@ class plxShow {
 
 		return $this->plxMotor->plxRecord_arts->f('categorie');
 	}
-	
+
 	/**
 	 * Méthode qui retourne un tableau contenant les numéros des catégories actives de l'article
 	 *
@@ -593,7 +593,7 @@ class plxShow {
 		$artCatIds = explode(',', $this->plxMotor->plxRecord_arts->f('categorie'));
 		$activeCats = explode('|',$this->plxMotor->activeCats);
 		return array_intersect($artCatIds,$activeCats);
-	
+
 	}
 
 	/**
@@ -967,7 +967,7 @@ class plxShow {
 	 * @author	Florent MONTHEL
 	 **/
 	public function comContent() {
-			
+
 		echo nl2br($this->plxMotor->plxRecord_coms->f('content'));
 	}
 
@@ -986,7 +986,7 @@ class plxShow {
 			echo $row;
 			$_SESSION['msgcom']='';
 		}
-	
+
 	}
 
 	/**
@@ -1289,19 +1289,20 @@ class plxShow {
 
 			# on supprime le n° de page courante dans l'url
 			$arg_url = $this->plxMotor->get;
-			if(preg_match('/(\/?)(page[0-9]+)$/',$arg_url,$capture)) {
-				$arg_url = str_replace($capture[2], '', $arg_url);
+			if(preg_match('/(\/?page[0-9]+)$/',$arg_url,$capture)) {
+				$arg_url = str_replace($capture[1], '', $arg_url);
 			}
-			if(!empty($arg_url) AND empty($capture[1])) $arg_url .= '/';
 			# Calcul des pages
 			$prev_page = $this->plxMotor->page - 1;
 			$next_page = $this->plxMotor->page + 1;
 			$last_page = ceil(sizeof($aFiles)/$this->plxMotor->bypage);
 			# Generation des URLs
-			$p_url = $this->plxMotor->urlRewrite('?'.$arg_url.'page'.$prev_page); # Page precedente
-			$n_url = $this->plxMotor->urlRewrite('?'.$arg_url.'page'.$next_page); # Page suivante
-			$l_url = $this->plxMotor->urlRewrite('?'.$arg_url.'page'.$last_page); # Derniere page
-			$f_url = $this->plxMotor->urlRewrite('?'.$arg_url.'page1'); # Premiere page
+			$f_url = $this->plxMotor->urlRewrite('?'.$arg_url); # Premiere page
+			$arg = (!empty($arg_url) AND $prev_page>1) ? $arg_url.'/' : $arg_url;
+			$p_url = $this->plxMotor->urlRewrite('?'.$arg.($prev_page<=1?'':'page'.$prev_page)); # Page precedente
+			$arg = !empty($arg_url) ? $arg_url.'/' : $arg_url;
+			$n_url = $this->plxMotor->urlRewrite('?'.$arg.'page'.$next_page); # Page suivante
+			$l_url = $this->plxMotor->urlRewrite('?'.$arg.'page'.$last_page); # Derniere page
 
 			# Hook Plugins
 			if(eval($this->plxMotor->plxPlugins->callHook('plxShowPagination'))) return;
@@ -1345,7 +1346,7 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaR'))) return;
 		echo $this->plxMotor->plxCapcha->r();
-		
+
 	}
 
 	/**
@@ -1380,7 +1381,7 @@ class plxShow {
 				echo $tagName;
 		}
 	 }
-	 
+
 	/**
 	 * Méthode qui affiche un lien vers le fil Rss des articles d'un tag
 	 *
@@ -1401,7 +1402,7 @@ class plxShow {
 
 		echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)).'" title="'.L_ARTFEED_RSS_TAG.'">'.L_ARTFEED_RSS_TAG.'</a>';
 
-	}	 
+	}
 
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
