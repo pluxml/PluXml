@@ -442,7 +442,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
 				$this->aCats[$cat_id]['menu'] = 'oui';
 				$this->aCats[$cat_id]['active'] = 1;
-				$this->aCats[$cat_id]['homepage'] = '';				
+				$this->aCats[$cat_id]['homepage'] = 1;				
 				$this->aCats[$cat_id]['description'] = '';
 				$this->aCats[$cat_id]['template'] = 'categorie.php';
 				$this->aCats[$cat_id]['title_htmltag'] = '';
@@ -468,7 +468,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aCats[$cat_id]['menu'] = $content[$cat_id.'_menu'];
 					$this->aCats[$cat_id]['active'] = $content[$cat_id.'_active'];
 					$this->aCats[$cat_id]['ordre'] = intval($content[$cat_id.'_ordre']);
-					$this->aCats[$cat_id]['homepage'] = intval($content[$cat_id.'_homepage']);					
+					$this->aCats[$cat_id]['homepage'] = (isset($this->aCats[$cat_id]['homepage'])?$this->aCats[$cat_id]['homepage']:1);
 					$this->aCats[$cat_id]['description'] = (isset($this->aCats[$cat_id]['description'])?$this->aCats[$cat_id]['description']:'');
 					$this->aCats[$cat_id]['template'] = (isset($this->aCats[$cat_id]['template'])?$this->aCats[$cat_id]['template']:'categorie.php');
 					$this->aCats[$cat_id]['title_htmltag'] = (isset($this->aCats[$cat_id]['title_htmltag'])?$this->aCats[$cat_id]['title_htmltag']:'');
