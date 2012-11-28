@@ -350,6 +350,13 @@ $cat_id='000';
 					<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>><?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8); ?></div>
 					<p id="p_content"><label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label></p>
 					<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,28); ?>
+					<?php if($artId!='' AND $artId!='0000') : ?>
+						<?php $link = 'index.php?article'.intval($artId).'/'.$url ?>
+						<p id="p_link"><label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;</label>
+							<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$plxAdmin->aConf['racine'].$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?>
+						</p>
+						<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
+					<?php endif; ?>
 				</fieldset>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
 			</div>

@@ -13,7 +13,7 @@ a {
     font-weight:bold;
     outline:none;
 }
-ul { 
+ul {
 		list-style: none;
 }
 a:link, a:visited {color:#2175bd;}
@@ -142,7 +142,7 @@ input[type=submit]:hover {
     color:#fff !important;
 }
 .readonly, .readonly:hover {
-    background-color:#dedede;
+    background-color:#efefef;
 }
 .fld1 {
     width: 20px;
@@ -150,7 +150,7 @@ input[type=submit]:hover {
 .fld2 {
     width: 35px;
 }
-#extra-content #id_title { width: 96% }
+#extra-content #id_title, #extra-content #id_link { width: 96% }
 
 /* Pagination */
 #pagination {

@@ -1,44 +1,45 @@
-## PLUXML 5.1.7 (sortie : xx/xx/2012) ## 
+## PLUXML 5.1.7 (sortie : xx/xx/2012) ##
 
+[+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
 [+] plxShow:tagList(): gestion de la taille des tags (#tag_size)
-[+] Administration: sidebar statique
 [+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
+[+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
 [+) plxShow: ajout du hook plxShowTagFeed
 [+] plxShow: ajout de la fontion tagFeed() : flux rss des articles pour un mot clé
-[+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
-[+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
+[+] plxShow: ajout de la méthode artCatIds()
+[+] plxShow: ajout de la méthode artActiveCatId()
+[+] plxShow:pageTitle() : positionnement du titre du site en dernier pour améliorer les référencements (contribution Jos)
+[+] plxShow:pagination() : suppression duplicate content entre la page1 et la page d'accueil
+[+] plxShow::comMessage() : ajout parametre format (variable #com_message)
+[+] plxPlugin: ajout de la fonction setAdminMenu pour personnaliser le menu permettant d'accèder à la page admin.php d'un plugin
+[+] Administration: sidebar statique
+[+] Administration: Edition article : ajout du champ "Lien de l'article" et du lien "voir" pour accéder à l'article
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
 [+] Administration: Paramètres > Configuration avancée -> Ajout du choix de l'emplacement des fichiers de configuration (dossier)
 [+] Administration: Paramètres > Options d'affichage > Éditer les fichiers du thème : edition des fichiers dans les sous-dossiers
 [+] Administration: Catégories > Options : ajout du paramètre "Afficher les articles de cette catégorie sur la page d'accueil" (oui/non)
+[+] Administration: Gestionnaire de médias: tri des dossiers dans le déroulant 'Dossier'
+[+] Administration: Ajout du paramètre thumbs dans le fichier de configuration de PluXml pour création ou pas des miniatures
 [+] Amélioration de la traduction en allemand (contribution Jürgen K.)
-[+] plxShow::comMessage() : ajout parametre format (variable #com_message)
-[+] plxShow: ajout de la méthode artCatIds()
-[+] plxShow: ajout de la méthode artActiveCatId()
-[+] Gestionnaire de médias: tri des dossiers dans le déroulant 'Dossier'
-[+] plxPlugin: ajout de la fonction setAdminMenu pour personnaliser le menu permettant d'accèder à la page admin.php d'un plugin
-[+] Ajout du paramètre thumbs dans le fichier de configuration de PluXml pour création ou pas des miniatures
-[+] plxShow:pageTitle() : positionnement du titre du site en dernier pour améliorer les référencements (contribution Jos)
-[+] plxShow:pagination() : suppression duplicate content entre la page1 et la page d'accueil
+[-] Suppression du thème mobile.defaut
 [-] plxShow: suppression de la méthode artCatId()
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
-[-] Suppression du thème mobile.defaut
 BUG Pas d'affichage des articles affectés à plusieurs catégories si une catégorie est inactive
-BUG plxShow:pagination(): lien "première page" collé au lien "précédente"
-BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
+BUG Pas de récupération des infos dans le fichier infos.xml d'un plugin sur l'écran admin.php du plugin
 BUG sitemap: mauvais format de date dans la balise lastmod
-BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
-BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
-BUG plxUtils::strCut() : problème pour couper une chaine de caractère avec l'encodage UTF-8
 BUG Réécriture d'url: mauvaise gestion des paramètres dans l'url (&)
+BUG plxMotor:urlRewrite() : renvoi de l'url du site si uri uniquement constituée de ?
 BUG plxShow::artAuthorInfos() : erreur si l'auteur n'existe plus
 BUG plxShow::staticList() : tri des menus différents si paramètre extra renseigné ou pas
 BUG plxShow::templateCss() : mauvais chemin dans le test existence fichier css (contribution danielsan)
+BUG plxShow::catName() : appel de la fonction carUrl au lieu de catUrl
+BUG plxShow:pagination(): lien "première page" collé au lien "précédente"
 BUG plxFeed::getRssArticles() : pas de réécriture d'url dans la balise atom:link (contribution petitchevalroux)
 BUG plxFeed: erreur date dans les flux rss si aucun article
+BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
 BUG plxPlugins: variable default_lang mal renseignée -> mauvais chargement du fichier de langue des plugins
-BUG Pas de récupération des infos dans le fichier infos.xml d'un plugin sur l'écran admin.php du plugin
-BUG plxMotor:urlRewrite() : renvoi de l'url du site si uri uniquement constituée de ?
+BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
+BUG plxUtils::strCut() : problème pour couper une chaine de caractère avec l'encodage UTF-8
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur (remerciement à The Lizard King)
 Sécurité: Mauvais contrôle des tokens (remerciement à The Lizard King)
 Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires (remerciement à The Lizard King)

@@ -75,6 +75,9 @@ $LANG = array(
 'L_ARTICLE_LIST_AUTHORS'			=> 'Auteur',
 'L_HEADLINE_FIELD'					=> 'Chapô (facultatif)',
 'L_CONTENT_FIELD'					=> 'Contenu',
+'L_LINK_FIELD'						=> 'Lien de l\'article',
+'L_LINK_ACCESS'						=> 'Accéder à l\'article',
+'L_LINK_VIEW'						=> 'voir',
 'L_ARTICLE_STATUS'					=> 'État',
 'L_DRAFT' 							=> 'Brouillon',
 'L_PUBLISHED' 						=> 'Publié',
@@ -300,7 +303,7 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Droite',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recréer miniatures',
-	
+
 # parametres_affichage.php
 
 'L_CONFIG_VIEW_FIELD'				=> 'Options d\'affichage',
