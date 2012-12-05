@@ -482,8 +482,8 @@ class plxUtils {
 	 **/
 	public static function showMsg($msg, $class='') {
 
-		if($class=='') echo '<p class="msg"><strong>'.$msg.'</strong></p>';
-		else echo '<p class="'.$class.'"><strong>'.$msg.'</strong></p>';
+		if($class=='') echo '<p class="msg">'.$msg.'</p>';
+		else echo '<p class="'.$class.'">'.$msg.'</p>';
 	}
 
 	/**
