@@ -30,6 +30,7 @@ BUG Pas de récupération des infos dans le fichier infos.xml d'un plugin sur l'
 BUG sitemap: mauvais format de date dans la balise lastmod
 BUG Réécriture d'url: mauvaise gestion des paramètres dans l'url (&)
 BUG plxMotor:urlRewrite() : renvoi de l'url du site si uri uniquement constituée de ?
+BUG plxMotor:demarrage() : si aucun article, statut 200 au lieu de 404 (contribution petitchevalroux)
 BUG plxShow::artAuthorInfos() : erreur si l'auteur n'existe plus
 BUG plxShow::staticList() : tri des menus différents si paramètre extra renseigné ou pas
 BUG plxShow::templateCss() : mauvais chemin dans le test existence fichier css (contribution danielsan)

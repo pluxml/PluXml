@@ -278,9 +278,7 @@ class plxMotor {
 		if($this->mode == 'home' OR $this->mode == 'categorie' OR $this->mode == 'archives' OR $this->mode == 'tags') {
 			$this->getPage(); # Recuperation du numéro de la page courante
 			if(!$this->getArticles()) { # Si aucun article
-				$this->plxErreur = new plxErreur(L_NO_ARTICLE_PAGE);
-				$this->mode = 'erreur';
-				$this->template = 'erreur.php';
+				$this->error404(L_NO_ARTICLE_PAGE);
 			}
 		}
 		elseif($this->mode == 'article') {
