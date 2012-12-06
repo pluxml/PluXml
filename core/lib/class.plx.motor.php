@@ -365,7 +365,7 @@ class plxMotor {
 		$this->aConf['racine_themes'] = plxUtils::getValue($this->aConf['racine_themes'], 'themes/');
 		$this->aConf['mod_art'] = plxUtils::getValue($this->aConf['mod_art'],0);
 		$this->aConf['display_empty_cat'] = plxUtils::getValue($this->aConf['display_empty_cat'],0);
-		$this->aConf['timezone'] = plxUtils::getValue($this->aConf['timezone'],date_default_timezone_get());
+		$this->aConf['timezone'] = plxUtils::getValue($this->aConf['timezone'],@date_default_timezone_get());
 		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
 

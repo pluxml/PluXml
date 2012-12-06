@@ -42,6 +42,7 @@ BUG plxPlugins::getInfos(): mauvais test sur la récupération du site
 BUG plxPlugins: variable default_lang mal renseignée -> mauvais chargement du fichier de langue des plugins
 BUG plxUtils::makeThumb() : problème si largeur ou hauteur non renseignée
 BUG plxUtils::strCut() : problème pour couper une chaine de caractère avec l'encodage UTF-8
+BUG date_default_timezone_get + php >= 5.4 sur hébergeur 1&1
 Sécurité: Faille XSS possible sur la récupération de l'adresse ip d'un visiteur (remerciement à The Lizard King)
 Sécurité: Mauvais contrôle des tokens (remerciement à The Lizard King)
 Sécurité: Suppression du champ contenant la solution du captcha dans le formulaires des commentaires (remerciement à The Lizard King)
