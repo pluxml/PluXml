@@ -591,7 +591,6 @@ class plxUtils {
 	 *
 	 * @param	base		url du site qui sera rajoutée devant les liens relatifs
 	 * @param	html		chaine de caractères à convertir
-	 * @param	dirs		configuration des dossiers issues du fichier parametres.xml
 	 * @return	string		chaine de caractères modifiée
 	 * @author	Stephane F., Amaury Graillat
 	 **/
@@ -609,7 +608,7 @@ class plxUtils {
 		// replace base-relative URLs
 		$html = preg_replace('@\<([^>]*) (href|src)="([^:"]*|[^:"]*:[^/"][^"]*)"@i', '<\1 \2="' . $base . '\3"', $html);
 		// unreplace fully qualified URLs with proto: that were wrongly added $base
-		$html = preg_replace('@\<([^>]*) (href|src)="'. $base . '([^:"]+):@i', '<\1 \2="\3:', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)="'. $base . '(mailto|javascript):@i', '<\1 \2="\3:', $html);
 		return $html;
 
 	}
