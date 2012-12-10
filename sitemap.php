@@ -56,7 +56,7 @@ echo '<?xml version="1.0" encoding="'.strtolower(PLX_CHARSET).'" ?>'."\n";
 <?php
 # Les pages statiques
 foreach($plxMotor->aStats as $stat_num => $stat_info) {
-	if($stat_info['active']==1 AND $stat_info['menu']=='oui' AND $stat_num!=$plxMotor->aConf['homestatic']) {
+	if($stat_info['active']==1 AND $stat_num!=$plxMotor->aConf['homestatic']) {
 		echo "\n";
 		echo "\t<url>\n";
 		echo "\t\t<loc>".$plxMotor->urlRewrite("?static".intval($stat_num)."/".$stat_info['url'])."</loc>\n";
