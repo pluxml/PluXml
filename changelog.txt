@@ -11,6 +11,7 @@
 [+] plxShow:pageTitle() : positionnement du titre du site en dernier pour améliorer les référencements (contribution Jos)
 [+] plxShow:pagination() : suppression duplicate content entre la page1 et la page d'accueil
 [+] plxShow::comMessage() : ajout parametre format (variable #com_message)
+[+] plxShow::catDescription: ajout format affichage #cat_description
 [+] plxPlugin: ajout de la fonction setAdminMenu pour personnaliser le menu permettant d'accèder à la page admin.php d'un plugin
 [+] Administration: sidebar statique
 [+] Administration: Edition article : ajout du champ "Lien de l'article" et du lien "voir" pour accéder à l'article
@@ -23,6 +24,7 @@
 [+] Amélioration de la traduction en allemand (contribution Jürgen K.)
 [-] Suppression du thème mobile.defaut
 [-] plxShow: suppression de la méthode artCatId()
+[-] plxShow::catDescription: suppression scope article car bug si article associé à plusieurs catégories
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
 [-] plxUtils::showMsg : suppression des balises <strong> (contribution danielsan)
 BUG Pas d'affichage des articles affectés à plusieurs catégories si une catégorie est inactive

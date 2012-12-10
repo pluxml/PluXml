@@ -11,6 +11,8 @@
 				<p class="art-infos"><?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat(); ?> - <?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags(); ?> - <?php $plxShow->artNbCom(); ?></p>
 			<?php endwhile; ?>
 
+			<?php $plxShow->catDescription('<div class="art-infos">#cat_description</div>'); ?>
+				
 			<p class="feed-arts"><?php $plxShow->artFeed('rss',$plxShow->catId()); ?></p>
 
 			<p id="pagination"><?php $plxShow->pagination(); ?></p>

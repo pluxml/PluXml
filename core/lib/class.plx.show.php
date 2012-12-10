@@ -386,18 +386,16 @@ class plxShow {
 	/**
 	 * Méthode qui affiche le contenu de la description d'une catégorie
 	 *
+	 * @param	format	format du texte à afficher (variable: #cat_description) 
 	 * @return	stdout
-	 * @scope	categorie,article
+	 * @scope	categorie
 	 * @author	Stephane F.
 	 **/
-	public function catDescription() {
+	public function catDescription($format='<div class="infos">#cat_description</div>') {
 
 		# On va verifier que la categorie existe en mode categorie
 		if($this->plxMotor->mode == 'categorie' AND isset($this->plxMotor->aCats[$this->plxMotor->cible]))
-			echo $this->plxMotor->aCats[$this->plxMotor->cible]['description'];
-		# On va verifier que la categorie existe en mode article
-		if($this->plxMotor->mode == 'article' AND isset($this->plxMotor->aCats[$this->plxMotor->plxRecord_arts->f('categorie')]))
-			echo $this->plxMotor->aCats[$this->plxMotor->plxRecord_arts->f('categorie')]['description'];
+			echo str_replace('#cat_description',$this->plxMotor->aCats[$this->plxMotor->cible]['description'], $format);
 
 	}
 
@@ -545,6 +543,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche les informations sur l'auteur de l'article
 	 *
+	 * @param	format	format du texte à afficher (variable: #art_authorinfos)
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
