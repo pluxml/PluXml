@@ -349,7 +349,7 @@ class plxShow {
 				$in = (empty($include) OR preg_match('/('.$include.')/', $k));
 				$ex = (!empty($exclude) AND preg_match('/('.$exclude.')/', $k));
 				if($in AND !$ex) {
-				if(($v['articles']>0 OR $this->plxMotor->aConf['display_empty_cat']) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
+					if(($v['articles']>0 OR $this->plxMotor->aConf['display_empty_cat']) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
 						# On modifie nos motifs
 						$name = str_replace('#cat_id','cat-'.intval($k),$format);
 						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),$name);
@@ -393,10 +393,9 @@ class plxShow {
 	 **/
 	public function catDescription($format='<div class="infos">#cat_description</div>') {
 
-		# On va verifier que la categorie existe en mode categorie
-		if($this->plxMotor->mode == 'categorie' AND isset($this->plxMotor->aCats[$this->plxMotor->cible]))
-			echo str_replace('#cat_description',$this->plxMotor->aCats[$this->plxMotor->cible]['description'], $format);
-
+		$desc = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['description']);
+		if($this->plxMotor->mode AND $desc)
+			echo str_replace('#cat_description',$desc, $format);
 	}
 
 	/**
