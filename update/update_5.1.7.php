@@ -27,28 +27,28 @@ class update_5_1_7 extends plxUpdate{
 		plxUtils::write("<Files *>\n\tOrder allow,deny\n\tDeny from all\n</Files>", PLX_ROOT.PLX_CONFIG_PATH.".htaccess");
 		plxUtils::write("", PLX_ROOT.PLX_CONFIG_PATH."index.html");
 		# Relocalisation des fichiers de configuration si besoin
-		if(!plxUtils::write(file_get_contents(PLX_CONF), XMLFILE_PARAMETERS)) {
-			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.XMLFILE_PARAMETERS.'</p>';
+		if(!plxUtils::write(file_get_contents(PLX_CONF), path(XMLFILE_PARAMETERS))) {
+			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path(XMLFILE_PARAMETERS).'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['statiques']), XMLFILE_STATICS)) {
-			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.XMLFILE_STATICS.'</p>';
+		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['statiques']), path(XMLFILE_STATICS))) {
+			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path(XMLFILE_STATICS).'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['categories']), XMLFILE_CATEGORIES)) {
-			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.XMLFILE_CATEGORIES.'</p>';
+		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['categories']), path(XMLFILE_CATEGORIES))) {
+			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path(XMLFILE_CATEGORIES).'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['users']), XMLFILE_USERS)) {
-			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.XMLFILE_USERS.'</p>';
+		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['users']), path(XMLFILE_USERS))) {
+			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path(XMLFILE_USERS).'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['tags']), XMLFILE_TAGS)) {
-			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.XMLFILE_TAGS.'</p>';
+		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['tags']), path(XMLFILE_TAGS))) {
+			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path(XMLFILE_TAGS).'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['plugins']), XMLFILE_PLUGINS)) {
-			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.XMLFILE_PLUGINS.'</p>';
+		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['plugins']), path(XMLFILE_PLUGINS))) {
+			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path(XMLFILE_PLUGINS).'</p>';
 			return false;
 		}
 

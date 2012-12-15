@@ -44,7 +44,7 @@ if(version_compare(PHP_VERSION, '5.0.0', '<')){
 }
 
 # On vérifie que PluXml n'est pas déjà installé
-if(file_exists(XMLFILE_PARAMETERS)) {
+if(file_exists(path(XMLFILE_PARAMETERS))) {
 	header('Content-Type: text/plain charset=UTF-8');
 	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
 	exit;
@@ -103,7 +103,7 @@ $config = array('title'=>'PluXml',
 				'images_h'=>600,
 				'miniatures_l'=>200,
 				'miniatures_h'=>100,
-				'thumbs'=>1, 
+				'thumbs'=>1,
 				'images'=>'data/images/',
 				'documents'=>'data/documents/',
 				'racine_articles'=>'data/articles/',
@@ -136,7 +136,7 @@ function install($content, $config) {
 			$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
 	}
 	$xml .= '</document>';
-	plxUtils::write($xml,XMLFILE_PARAMETERS);
+	plxUtils::write($xml,path(XMLFILE_PARAMETERS));
 
 	# Création du fichier des utilisateurs
 	$salt = plxUtils::charAleatoire(10);
@@ -152,21 +152,21 @@ function install($content, $config) {
 	$xml .= "\t\t".'<lang><![CDATA['.$config['default_lang'].']]></lang>'."\n";
 	$xml .= "\t</user>\n";
 	$xml .= "</document>";
-	plxUtils::write($xml,XMLFILE_USERS);
+	plxUtils::write($xml,path(XMLFILE_USERS));
 
 	# Création du fichier des categories
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>'."\n";
 	$xml .= "\t".'<categorie number="001" active="1" homepage="1" tri="'.$config['tri'].'" bypage="'.$config['bypage'].'" menu="oui" url="'.L_DEFAULT_CATEGORY_URL.'" template="categorie.php"><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE).']]></name><description><![CDATA[]]></description><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></categorie>'."\n";
 	$xml .= '</document>';
-	plxUtils::write($xml,XMLFILE_CATEGORIES);
+	plxUtils::write($xml,path(XMLFILE_CATEGORIES));
 
 	# Création du fichier des pages statiques
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>'."\n";
 	$xml .= "\t".'<statique number="001" active="1" menu="oui" url="'.L_DEFAULT_STATIC_URL.'" template="static.php"><group><![CDATA[]]></group><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE).']]></name><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></statique>'."\n";
 	$xml .= '</document>';
-	plxUtils::write($xml,XMLFILE_STATICS);
+	plxUtils::write($xml,path(XMLFILE_STATICS));
 
 	$cs = '<p><?php echo \''.plxUtils::strRevCheck(L_DEFAULT_STATIC_CONTENT).'\'; ?></p>';
 	plxUtils::write($cs,PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
@@ -203,13 +203,13 @@ function install($content, $config) {
 	$xml .= '<document>'."\n";
 	$xml .= "\t".'<article number="0001" date="'.date('YmdHi').'" active="1"><![CDATA[PluXml]]></article>'."\n";
 	$xml .= '</document>';
-	plxUtils::write($xml,XMLFILE_TAGS);
+	plxUtils::write($xml,path(XMLFILE_TAGS));
 
 	# Création du fichier des plugins
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>'."\n";
 	$xml .= '</document>';
-	plxUtils::write($xml,XMLFILE_PLUGINS);
+	plxUtils::write($xml,path(XMLFILE_PLUGINS));
 
 	# Création du premier commentaire
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";

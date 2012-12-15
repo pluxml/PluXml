@@ -94,7 +94,7 @@ include(dirname(__FILE__).'/top.php');
 	}
 	if(sizeof($tmp)>0) {
 		# Tri des plugins par titre
-		if(isset($_GET['sort']) OR !is_file(XMLFILE_PLUGINS)) {
+		if(isset($_GET['sort']) OR !is_file(path(XMLFILE_PLUGINS))) {
 			array_multisort($tmp, $plxAdmin->plxPlugins->aPlugins);
 		}
 

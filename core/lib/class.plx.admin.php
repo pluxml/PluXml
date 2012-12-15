@@ -21,7 +21,7 @@ class plxAdmin extends plxMotor {
 	 **/
 	public static function getInstance(){
 		if (!isset(self::$instance))
-			self::$instance = new plxAdmin(XMLFILE_PARAMETERS);
+			self::$instance = new plxAdmin(path(XMLFILE_PARAMETERS));
 		return self::$instance;
 	}
 
@@ -116,9 +116,9 @@ class plxAdmin extends plxMotor {
 		else $this->htaccess('update', $global['racine']);
 
 		# Mise à jour du fichier parametres.xml
-		if(!plxUtils::write($xml,XMLFILE_PARAMETERS))
-			return plxMsg::Error(L_SAVE_ERR.' '.XMLFILE_PARAMETERS);
-		
+		if(!plxUtils::write($xml,path(XMLFILE_PARAMETERS)))
+			return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_PARAMETERS));
+
 		# Si nouvel emplacement du dossier de configuration
 		if(isset($content['config_path'])) {
 			$newpath=trim($content['config_path']);
@@ -245,7 +245,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
 		$_SESSION['lang'] = $content['lang'];
-		
+
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
 		return $this->editUsers(null, true);
@@ -363,11 +363,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "</document>";
 
 			# On écrit le fichier
-			if(plxUtils::write($xml,XMLFILE_USERS))
+			if(plxUtils::write($xml,path(XMLFILE_USERS)))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aUsers = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.XMLFILE_USERS);
+				return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_USERS));
 			}
 		}
 	}
@@ -442,7 +442,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
 				$this->aCats[$cat_id]['menu'] = 'oui';
 				$this->aCats[$cat_id]['active'] = 1;
-				$this->aCats[$cat_id]['homepage'] = 1;				
+				$this->aCats[$cat_id]['homepage'] = 1;
 				$this->aCats[$cat_id]['description'] = '';
 				$this->aCats[$cat_id]['template'] = 'categorie.php';
 				$this->aCats[$cat_id]['title_htmltag'] = '';
@@ -516,11 +516,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 			$xml .= "</document>";
 			# On écrit le fichier
-			if(plxUtils::write($xml,XMLFILE_CATEGORIES))
+			if(plxUtils::write($xml,path(XMLFILE_CATEGORIES)))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aCats = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.XMLFILE_CATEGORIES);
+				return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_CATEGORIES));
 			}
 		}
 	}
@@ -534,7 +534,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editCategorie($content) {
 		# Mise à jour du fichier categories.xml
-		$this->aCats[$content['id']]['homepage'] = intval($content['homepage']);		
+		$this->aCats[$content['id']]['homepage'] = intval($content['homepage']);
 		$this->aCats[$content['id']]['description'] = trim($content['content']);
 		$this->aCats[$content['id']]['template'] = $content['template'];
 		$this->aCats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
@@ -638,11 +638,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 			$xml .= "</document>";
 			# On écrit le fichier si une action valide a été faite
-			if(plxUtils::write($xml,XMLFILE_STATICS))
+			if(plxUtils::write($xml,path(XMLFILE_STATICS)))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aStats = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.XMLFILE_STATICS);
+				return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_STATICS));
 			}
 		}
 	}
@@ -1000,7 +1000,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$xml .= "</document>";
 
 		# On écrit le fichier
-		plxUtils::write($xml, XMLFILE_TAGS);
+		plxUtils::write($xml, path(XMLFILE_TAGS));
 
 	}
 
@@ -1015,12 +1015,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# La fonction est active ?
 		if(!ini_get('allow_url_fopen')) return L_PLUXML_UPDATE_UNAVAILABLE;
                 $latest_version = '';
-                
+
 		# Requete HTTP sur le site de PluXml
 		if($fp = @fopen('http://telechargements.pluxml.org/latest-version', 'r')) {
                     $latest_version = trim(fread($fp, 16));
                     fclose($fp);
-                }    
+                }
 		if($latest_version == '')
 			return L_PLUXML_UPDATE_ERR;
 

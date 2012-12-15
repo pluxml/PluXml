@@ -12,12 +12,14 @@ function getMicrotime() {
 # Initialisation du timer d'execution
 define('PLX_MICROTIME', getMicrotime());
 
-define('XMLFILE_PARAMETERS', PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml');
-define('XMLFILE_CATEGORIES', PLX_ROOT.PLX_CONFIG_PATH.'categories.xml');
-define('XMLFILE_STATICS', PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml');
-define('XMLFILE_USERS', PLX_ROOT.PLX_CONFIG_PATH.'users.xml');
-define('XMLFILE_PLUGINS', PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml');
-define('XMLFILE_TAGS', PLX_ROOT.PLX_CONFIG_PATH.'tags.xml');
+$CONSTS = array(
+	'XMLFILE_PARAMETERS' 	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
+	'XMLFILE_CATEGORIES' 	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
+	'XMLFILE_STATICS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
+	'XMLFILE_USERS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
+	'XMLFILE_PLUGINS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
+	'XMLFILE_TAGS' 			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
+);
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
 define('PLX_CHARSET', 'UTF-8');
@@ -50,7 +52,7 @@ if (ini_get('register_globals')) {
 	}
 }
 
-# Fonction de chargement d'un fichier de langue
+# fonction de chargement d'un fichier de langue
 function loadLang($filename) {
 	if(file_exists($filename)) {
 		$LANG = array();
@@ -61,4 +63,12 @@ function loadLang($filename) {
 	}
 }
 
+# fonction qui retourne ou change le chemin des fichiers xml de configuration
+function path($s, $newvalue='') {
+	global $CONSTS;
+	if(!empty($newvalue))
+		$CONSTS[$s]=$newvalue;
+	if(isset($CONSTS[$s]))
+		return $CONSTS[$s];
+}
 ?>
