@@ -21,7 +21,7 @@ class update_5_0 extends plxUpdate{
 			'homestatic'	=> ''
 		);
 		$this->updateParameters($new_parameters);
-		$this->plxAdmin->getConfiguration(path(XMLFILE_PARAMETERS)); # on recharge le fichier de configuration
+		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS')); # on recharge le fichier de configuration
 		return true; # pas d'erreurs
 	}
 

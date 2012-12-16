@@ -108,7 +108,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		# Ajout de la nouvelle catégorie
 		$plxAdmin->editCategories($_POST);
 		# On recharge la nouvelle liste
-		$plxAdmin->getCategories(path(XMLFILE_CATEGORIES));
+		$plxAdmin->getCategories(path('XMLFILE_CATEGORIES'));
 		$_GET['a']=$_POST['artId'];
 	}
 	# Alimentation des variables

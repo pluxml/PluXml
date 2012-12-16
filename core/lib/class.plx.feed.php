@@ -18,7 +18,7 @@ class plxFeed extends plxMotor {
 	 **/
 	public static function getInstance(){
 		if (!isset(self::$instance))
-			self::$instance = new plxFeed(path(XMLFILE_PARAMETERS));
+			self::$instance = new plxFeed(path('XMLFILE_PARAMETERS'));
 		return self::$instance;
 	}
 
@@ -52,12 +52,12 @@ class plxFeed extends plxMotor {
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
 		# Traitement des plugins
-		$this->plxPlugins = new plxPlugins(path(XMLFILE_PLUGINS), $this->aConf['default_lang']);
+		$this->plxPlugins = new plxPlugins(path('XMLFILE_PLUGINS'), $this->aConf['default_lang']);
 		$this->plxPlugins->loadPlugins();
 		# Récupération des données dans les autres fichiers xml
-		$this->getCategories(path(XMLFILE_CATEGORIES));
-		$this->getUsers(path(XMLFILE_USERS));
-		$this->getTags(path(XMLFILE_TAGS));
+		$this->getCategories(path('XMLFILE_CATEGORIES'));
+		$this->getUsers(path('XMLFILE_USERS'));
+		$this->getTags(path('XMLFILE_TAGS'));
 		# Récuperation des articles appartenant aux catégories actives
 		$this->getActiveArts();
 		# Hook plugins

@@ -21,7 +21,7 @@ class plxAdmin extends plxMotor {
 	 **/
 	public static function getInstance(){
 		if (!isset(self::$instance))
-			self::$instance = new plxAdmin(path(XMLFILE_PARAMETERS));
+			self::$instance = new plxAdmin(path('XMLFILE_PARAMETERS'));
 		return self::$instance;
 	}
 
@@ -116,8 +116,8 @@ class plxAdmin extends plxMotor {
 		else $this->htaccess('update', $global['racine']);
 
 		# Mise à jour du fichier parametres.xml
-		if(!plxUtils::write($xml,path(XMLFILE_PARAMETERS)))
-			return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_PARAMETERS));
+		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
+			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
 
 		# Si nouvel emplacement du dossier de configuration
 		if(isset($content['config_path'])) {
@@ -363,11 +363,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "</document>";
 
 			# On écrit le fichier
-			if(plxUtils::write($xml,path(XMLFILE_USERS)))
+			if(plxUtils::write($xml,path('XMLFILE_USERS')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aUsers = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_USERS));
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
 			}
 		}
 	}
@@ -516,11 +516,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 			$xml .= "</document>";
 			# On écrit le fichier
-			if(plxUtils::write($xml,path(XMLFILE_CATEGORIES)))
+			if(plxUtils::write($xml,path('XMLFILE_CATEGORIES')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aCats = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_CATEGORIES));
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_CATEGORIES'));
 			}
 		}
 	}
@@ -638,11 +638,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 			$xml .= "</document>";
 			# On écrit le fichier si une action valide a été faite
-			if(plxUtils::write($xml,path(XMLFILE_STATICS)))
+			if(plxUtils::write($xml,path('XMLFILE_STATICS')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aStats = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.path(XMLFILE_STATICS));
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_STATICS'));
 			}
 		}
 	}
@@ -1000,7 +1000,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$xml .= "</document>";
 
 		# On écrit le fichier
-		plxUtils::write($xml, path(XMLFILE_TAGS));
+		plxUtils::write($xml, path('XMLFILE_TAGS'));
 
 	}
 

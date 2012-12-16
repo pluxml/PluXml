@@ -19,7 +19,7 @@ include(PLX_CORE.'lib/config.php');
 define('PLX_UPDATER', true);
 
 # On verifie que PluXml est installé
-if(!file_exists(path(XMLFILE_PARAMETERS))) {
+if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	header('Location: '.PLX_ROOT.'install.php');
 	exit;
 }

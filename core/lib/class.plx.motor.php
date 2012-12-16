@@ -51,7 +51,7 @@ class plxMotor {
 	public static function getInstance(){
 		if (!isset(self::$instance)) {
 			self::$instance = false;
-			self::$instance = new plxMotor(path(XMLFILE_PARAMETERS));
+			self::$instance = new plxMotor(path('XMLFILE_PARAMETERS'));
 		}
 		return self::$instance;
 	}
@@ -96,7 +96,7 @@ class plxMotor {
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
 		# Traitement des plugins
 		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
-		$this->plxPlugins = new plxPlugins(path(XMLFILE_PLUGINS), $lang);
+		$this->plxPlugins = new plxPlugins(path('XMLFILE_PLUGINS'), $lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
@@ -104,10 +104,10 @@ class plxMotor {
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
 		# Récupération des données dans les autres fichiers xml
-		$this->getCategories(path(XMLFILE_CATEGORIES));
-		$this->getStatiques(path(XMLFILE_STATICS));
-		$this->getTags(path(XMLFILE_TAGS));
-		$this->getUsers(path(XMLFILE_USERS));
+		$this->getCategories(path('XMLFILE_CATEGORIES'));
+		$this->getStatiques(path('XMLFILE_STATICS'));
+		$this->getTags(path('XMLFILE_TAGS'));
+		$this->getUsers(path('XMLFILE_USERS'));
 		# Récuperation des articles appartenant aux catégories actives
 		$this->getActiveArts();
 		# Hook plugins
