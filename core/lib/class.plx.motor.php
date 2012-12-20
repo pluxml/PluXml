@@ -426,8 +426,9 @@ class plxMotor {
 				$this->aCats[$number]['active']=isset($attributes['active'])?$attributes['active']:'1';
 				if($this->aCats[$number]['active']) $activeCats[]=$number;
 				# Recuperation affichage en page d'accueil
-				$this->aCats[$number]['homepage']=(isset($attributes['homepage']) AND in_array($attributes['homepage'],array('0','1'))?$attributes['homepage']:'1');
-				if($this->aCats[$number]['active'] AND $this->aCats[$number]['homepage']) $homepageCats[]=$number;
+				$this->aCats[$number]['homepage'] = isset($attributes['homepage']) ? $attributes['homepage'] : 1;
+				$this->aCats[$number]['homepage'] = in_array($this->aCats[$number]['homepage'],array('0','1')) ? $this->aCats[$number]['homepage'] : 1;
+				if($this->aCats[$number]['active'] AND $this->aCats[$number]['homepage']) $homepageCats[]=$number;	
 				# Recuperation du nombre d'article de la categorie
 				$motif = '/^[0-9]{4}.[home,|0-9,]*'.$number.'[0-9,]*.[0-9]{3}.[0-9]{12}.[A-Za-z0-9-]+.xml$/';
 				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
