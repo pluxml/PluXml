@@ -281,7 +281,7 @@ $LANG = array(
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Wyświetlanie kategorie bez art',
 'L_CONFIG_ADVANCED_DESC'									=> 'Configuração avançada',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Activar a re-escritura dos URLS',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Atenção um ficheiro .htaccess est déjá présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera écrasé</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Baczność .htaccess jest obecna w katalogu głównym PluXml. Poprzez umożliwienie przepisywania URL ten plik zostanie zmodyfikowany</span>',
 'L_CONFIG_ADVANCED_GZIP'									=> 'Activar a compressão GZIP',
 'L_CONFIG_ADVANCED_GZIP_HELP'								=> 'Permite de comprimir as páginas afim de economizar os dados transferidos entre o servidor e o seu computer, em consequência aumenta a carga do servidor ! Desactive se o sue web-site fôr muito visitado',
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Activar o capcha anti-spam',

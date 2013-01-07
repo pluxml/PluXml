@@ -281,7 +281,7 @@ $LANG = array(
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Afişarea categorii fără articolul',
 'L_CONFIG_ADVANCED_DESC'									=> 'Avansate de configurare',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Permite rescrierea url-uri',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Atenţie într-un fişier. Htaccess este deja prezent la rădăcina PluXml dumneavoastră. Prin activarea rescrierea dosarul \ url va fi suprascris</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Atenţie într-un fişier. Htaccess este deja prezent la rădăcina PluXml dumneavoastră. Prin activarea rescrierea dosarul \ url va fi modificat</span>',
 'L_CONFIG_ADVANCED_GZIP'									=> 'Activeaza compresia GZIP',
 'L_CONFIG_ADVANCED_GZIP_HELP'								=> 'Comprimă paginile pentru a salva de lăţime de bandă, însă acest lucru poate creşte sarcina procesorului',
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Activeaza capcha anti-spam',

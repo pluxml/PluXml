@@ -83,9 +83,6 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function editConfiguration($global,$content) {
 
-		# on mémorise l'état actuel de l'urlrewriting
-		$urlrewrinting = isset($global['urlrewriting'])?$global['urlrewriting']:0;
-
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 
@@ -111,9 +108,12 @@ class plxAdmin extends plxMotor {
 		unset($_SESSION['page']);
 
 		# Si la réécriture d'urls est demandée, on mets en place le fichier .htaccess
-		if(isset($content['urlrewriting']) AND $content['urlrewriting']==1 AND $urlrewrinting==0)
-			$this->htaccess('new', $global['racine']);
-		else $this->htaccess('update', $global['racine']);
+		if(isset($content['urlrewriting'])) {
+			if($content['urlrewriting']==1)
+				$this->htaccess('add', $global['racine']);
+			else
+				$this->htaccess('remove', $global['racine']);
+		}
 
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
@@ -139,19 +139,17 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui crée le fichier .htaccess en cas de réécriture d'urls
 	 *
-	 * @param	action		mise à jour ou création
+	 * @param	action		création (add) ou suppression (remove)
 	 * @param   url			url du site
 	 * @return	null
-	 * @author	Stephane F
+	 * @author	Stephane F, Amaury Graillat
 	 **/
 
 	public function htaccess($action, $url) {
 
 		$base = parse_url($url);
 
-		if($action=='new') {
-
-			$htaccess = '
+$htaccess = '
 # BEGIN -- Pluxml
 Options -Multiviews
 <IfModule mod_rewrite.c>
@@ -170,21 +168,23 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 </Files>
 # END -- Pluxml
 ';
-			# Hook plugins
-			eval($this->plxPlugins->callHook('plxAdminHtaccessNew'));
-			# On écrit le fichier .htaccess à la racine de PluXml
-			plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
-		}
-		elseif($action=='update' AND is_file(PLX_ROOT.'.htaccess')) {
-			$htaccess = implode('',file(PLX_ROOT.'.htaccess'));
-			if(preg_match('/(RewriteBase(.*))\n/', $htaccess, $capture)) {
-				$htaccess = str_replace($capture[1], 'RewriteBase '.$base['path'], $htaccess);
-				# Hook plugins
-				eval($this->plxPlugins->callHook('plxAdminHtaccessUpdate'));
-				# On écrit le fichier .htaccess à la racine de PluXml
-				plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
-			}
-		}
+
+		if($action=='remove')
+			$htaccess='';
+
+		$content = '';
+		if(is_file(PLX_ROOT.'.htaccess'))
+			$content = implode('', file(PLX_ROOT.'.htaccess'));
+
+        if(preg_match("/^(.*)# BEGIN -- Pluxml.*# END -- Pluxml(.*)$/ms", $content, $capture) == false)
+            $htaccess = $htaccess.$content;
+        else
+            $htaccess = $capture[1].$htaccess.$capture[2];
+
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxAdminHtaccess'));
+		# On écrit le fichier .htaccess à la racine de PluXml
+		plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
 
 	}
 

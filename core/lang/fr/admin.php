@@ -332,7 +332,7 @@ $LANG = array(
 
 'L_CONFIG_ADVANCED_DESC'			=> 'Configuration avancée',
 'L_CONFIG_ADVANCED_URL_REWRITE'		=> 'Activer la réécriture d\'urls',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'=> '<span class="alert">Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera écrasé</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'=> '<span class="alert">Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera modifié</span>',
 'L_CONFIG_ADVANCED_GZIP'			=> 'Activer la compression GZIP',
 'L_CONFIG_ADVANCED_GZIP_HELP'		=> 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur',
 'L_CONFIG_ADVANCED_CAPCHA'			=> 'Activer le capcha anti-spam',

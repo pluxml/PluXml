@@ -2,8 +2,6 @@
 
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
 [+] plxShow:tagList(): gestion de la taille des tags (#tag_size)
-[+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
-[+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
 [+) plxShow: ajout du hook plxShowTagFeed
 [+] plxShow: ajout de la fontion tagFeed() : flux rss des articles pour un mot clé
 [+] plxShow: ajout de la méthode artCatIds()
@@ -11,8 +9,11 @@
 [+] plxShow:pageTitle() : positionnement du titre du site en dernier pour améliorer les référencements (contribution Jos)
 [+] plxShow:pagination() : suppression duplicate content entre la page1 et la page d'accueil
 [+] plxShow::comMessage() : ajout parametre format (variable #com_message)
-[+] plxShow::catDescription: ajout format affichage #cat_description
+[+] plxShow::catDescription() : ajout format affichage #cat_description
+[+] plxAdmin::htaccess() : pas d'écrasement et perte du contenu du fichier .htaccess s'il existe déjà + ajout du hook plxAdminHtaccess
 [+] plxPlugin: ajout de la fonction setAdminMenu pour personnaliser le menu permettant d'accèder à la page admin.php d'un plugin
+[+] plxFeed: ajouts des hooks plxFeedRssArticlesXml, plxFeedRssCommentsXml, plxFeedAdminCommentsXml
+[+] plxFeed: changement du nom des méthodes getAdminCommentaires, getRssCommentaires en getAdminComments et getRssComments
 [+] Administration: sidebar statique
 [+] Administration: Edition article : ajout du champ "Lien de l'article" et du lien "voir" pour accéder à l'article
 [+] Administration: Paramètres > Plugins -> Ordre de chargement des plugins
@@ -25,8 +26,9 @@
 [-] Suppression du thème mobile.defaut
 [-] plxShow: suppression de la méthode artCatId()
 [-] plxShow::catDescription: suppression scope article car bug si article associé à plusieurs catégories
-[-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
+[+] plxAdmin::htaccess() : suppression des hooks plxAdminHtaccessNew et plxAdminHtaccessUpdate
 [-] plxUtils::showMsg : suppression des balises <strong> (contribution danielsan)
+[-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
 BUG Pas d'affichage des articles affectés à plusieurs catégories si une catégorie est inactive
 BUG Pas de récupération des infos dans le fichier infos.xml d'un plugin sur l'écran admin.php du plugin
 BUG sitemap: mauvais format de date dans la balise lastmod

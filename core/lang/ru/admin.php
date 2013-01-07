@@ -332,7 +332,7 @@ $LANG = array(
 
 'L_CONFIG_ADVANCED_DESC'									=> 'Расширенные настройки (опытный пользователь)',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Включить URL rewrite',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">.htaccess файл уже существует в Вашей корневой папке PluXmls. Активация URL rewriting заменит этот файл</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Внимание .htaccess файл уже присутствует в корневом каталоге вашего PluXml. При включении URL переписывания этот файл будет изменен</span>',
 'L_CONFIG_ADVANCED_GZIP'									=> 'Включить GZIP сжатие',
 'L_CONFIG_ADVANCED_GZIP_HELP'								=> 'Это cделает возможным сжатие страниц для увеличения пропускной способности, но может увеличить использование процессора',
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Включить анти-спам Capcha',

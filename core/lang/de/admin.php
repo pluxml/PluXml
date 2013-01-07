@@ -282,7 +282,7 @@ $LANG = array(
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'						=> 'Leere Kategorien (ohne Artikel) anzeigen',
 'L_CONFIG_ADVANCED_DESC'							=> 'Erweiterte Einstellungen',
 'L_CONFIG_ADVANCED_URL_REWRITE'							=> 'Adressweiterleitung aktivieren (URL rewrite)',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Achtung! Es ist bereits eine .htaccess Datei im Grundverzeichnis von PluXml vorhanden. Diese Datei wird beim Aktivieren überschrieben.</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Achtung! Es ist bereits eine .htaccess Datei im Grundverzeichnis von PluXml vorhanden. Diese Datei wird beim Aktivieren modifiziert.</span>',
 'L_CONFIG_ADVANCED_GZIP'							=> 'GZIP Kompression aktivieren',
 'L_CONFIG_ADVANCED_GZIP_HELP'							=> 'Komprimierung spart Bandreite, erhöht aber die Prozessorauslastung des Servers.',
 'L_CONFIG_ADVANCED_CAPCHA'							=> 'ANTI-SPAM Kontrolle aktivieren',

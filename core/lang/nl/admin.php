@@ -281,7 +281,7 @@ $LANG = array(
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Toon categorieën zonder artikel',
 'L_CONFIG_ADVANCED_DESC'									=> 'Geavanceerde configuratie',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'herschrijven van URLs aanzetten',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Opgepast. Er bestaat al een .htaccess bestand in de root van uw installatie. Door het activeren van de MOD_REWRITE module zal dit bestand verwijderd worden en met een nieuw vervangen worden</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Opgepast. Er bestaat al een .htaccess bestand in de root van uw installatie. Door het inschakelen van URL herschrijven dit bestand zal worden gewijzigd</span>',
 'L_CONFIG_ADVANCED_GZIP'									=> 'GZIP compressie activeren',
 'L_CONFIG_ADVANCED_GZIP_HELP'								=> 'Compressie activeren zal het verbruik van uw bandbreedte naar beneden halen, maar kan uw processor wat meer belasten',
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Anti-spam CAPTCHA gebruiken',

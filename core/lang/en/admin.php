@@ -281,7 +281,7 @@ $LANG = array(
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Display categories without article',
 'L_CONFIG_ADVANCED_DESC'									=> 'Advanced configuration',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Enable url rewriting',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Warning: a .htaccess file already exists at your PluXml\'s installation root. Activating url rewriting will replace this file</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Warning: a .htaccess file already exists at your PluXml\'s installation root. Activating url rewriting will overwrite this file</span>',
 'L_CONFIG_ADVANCED_GZIP'									=> 'Enable GZIP compression',
 'L_CONFIG_ADVANCED_GZIP_HELP'								=> 'Makes it possible to compress pages to save bandwidth, but could increase CPU usage',
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Enable anti spam-capcha',
