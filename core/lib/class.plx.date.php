@@ -44,9 +44,11 @@ class plxDate {
 
 		switch ($key) {
 			case 'day':
-				return $aDay[$value]; break;
+				$day = isset($aDay[$value]) ? $aDay[$value] : '';
+				return $day; break;
 			case 'month':
-				return $aMonth[$value]; break;
+				$month = isset($aMonth[$value]) ? $aMonth[$value] : '';
+				return $month; break;
 		}
 	}
 
