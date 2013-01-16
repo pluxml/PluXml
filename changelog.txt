@@ -26,7 +26,7 @@
 [-] Suppression du thème mobile.defaut
 [-] plxShow: suppression de la méthode artCatId()
 [-] plxShow::catDescription: suppression scope article car bug si article associé à plusieurs catégories
-[+] plxAdmin::htaccess() : suppression des hooks plxAdminHtaccessNew et plxAdminHtaccessUpdate
+[-] plxAdmin::htaccess() : suppression des hooks plxAdminHtaccessNew et plxAdminHtaccessUpdate
 [-] plxUtils::showMsg : suppression des balises <strong> (contribution danielsan)
 [-] Administration: Paramètres > Configuration avancée -> Suppression du choix de l'emplacement des fichiers .xml
 BUG Pas d'affichage des articles affectés à plusieurs catégories si une catégorie est inactive
