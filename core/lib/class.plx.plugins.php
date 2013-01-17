@@ -134,7 +134,7 @@ class plxPlugins {
 	 * @author	Stephane F
 	 **/
 	public function saveConfig($content) {
-	
+
 		if(isset($content['plugName'])) {
 			foreach($content['plugName'] as $plugName => $activate) {
 				if(isset($content['action'][$plugName])) {
@@ -158,7 +158,7 @@ class plxPlugins {
 				# prise en compte du tri des plugins
 				$this->aPlugins[$plugName]['ordre']=$content['plugOrdre'][$plugName];
 			}
-		
+
 			if(sizeof($this->aPlugins)>0)
 				uasort($this->aPlugins, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
 		}
@@ -438,7 +438,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function saveParams() {
-	
+
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";

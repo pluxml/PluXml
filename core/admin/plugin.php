@@ -19,7 +19,7 @@ if($plxAdmin->plxPlugins->aPlugins[$plugin]['activate'] AND is_file($filename)) 
 	$plxAdmin->plxPlugins->aPlugins[$plugin]['instance']->getInfos();
 	# utilisation de la variable plxPlugin pour faciliter la syntaxe dans les devs des plugins
 	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin]['instance'];
-	# Control des autorisation d'accès à l'écran admin.php du plugin	
+	# Control des autorisation d'accès à l'écran admin.php du plugin
 	$plxAdmin->checkProfil($plxPlugin->getAdminProfil());
 	ob_start();
 	include($filename);

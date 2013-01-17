@@ -33,7 +33,7 @@ if(!empty($_POST)) {
 include(dirname(__FILE__).'/top.php');
 ?>
 <script type="text/javaScript">
-function checkBox(cb) { 
+function checkBox(cb) {
 	cbs=document.getElementsByName('homeStatic[]');
 	for (var i = 0; i < cbs.length; i++) {
 		if(cbs[i].checked==true) {
@@ -52,7 +52,7 @@ function checkBox(cb) {
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
 			<th style="width:80px"><?php echo L_STATICS_ID ?></th>
-			<th style="width:60px"><?php echo L_STATICS_HOME_PAGE ?></th>	
+			<th style="width:60px"><?php echo L_STATICS_HOME_PAGE ?></th>
 			<th><?php echo L_STATICS_GROUP ?></th>
 			<th><?php echo L_STATICS_TITLE ?></th>
 			<th><?php echo L_STATICS_URL ?></th>
@@ -74,7 +74,7 @@ function checkBox(cb) {
 			echo '<td><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
 			echo '<td>'.L_PAGE.' '.$k.'</td><td>';
 			$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
-			echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$num.'\')" />';			
+			echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$num.'\')" />';
 			echo '</td><td>';
 			plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '13-100');
 			echo '</td><td>';

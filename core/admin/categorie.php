@@ -56,7 +56,7 @@ include(dirname(__FILE__).'/top.php');
 <form action="categorie.php" method="post" id="form_category">
 	<fieldset>
 		<?php plxUtils::printInput('id', $id, 'hidden');?>
-		<p><label for="id_homepage"><?php echo L_EDITCAT_DISPLAY_HOMEPAGE ?>&nbsp;:</label></p>		
+		<p><label for="id_homepage"><?php echo L_EDITCAT_DISPLAY_HOMEPAGE ?>&nbsp;:</label></p>
 		<?php plxUtils::printSelect('homepage',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aCats[$id]['homepage']);?>
 		<p id="p_content"><label for="id_content"><?php echo L_EDITCAT_DESCRIPTION ?>&nbsp;:</label></p>
 		<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aCats[$id]['description']),95,8) ?>

@@ -54,7 +54,7 @@ class plxMedias {
 		$this->maxUpload['display'] = str_replace('K', ' Ko', $this->maxUpload['display']);
 		if(substr_count($maxUpload, 'K')) $this->maxUpload['value'] = str_replace('K', '', $maxUpload) * 1024;
 		elseif(substr_count($maxUpload, 'M')) $this->maxUpload['value'] = str_replace('M', '', $maxUpload) * 1024 * 1024;
-		elseif(substr_count($maxUpload, 'G')) $this->maxUpload['value'] = str_replace('G', '', $maxUpload) * 1024 * 1024 * 1024;		
+		elseif(substr_count($maxUpload, 'G')) $this->maxUpload['value'] = str_replace('G', '', $maxUpload) * 1024 * 1024 * 1024;
 		else $this->maxUpload['value'] = 0;
 	}
 
@@ -156,7 +156,7 @@ class plxMedias {
 		$str .= '<option '.$selected.'value=".">|. ('.L_PLXMEDIAS_ROOT.') &nbsp; </option>'."\n";
 		# Dir non vide
 		if(!empty($this->aDirs)) {
-			asort($this->aDirs);			
+			asort($this->aDirs);
 			foreach($this->aDirs as $k => $v) {
 				$prefixe = '|&nbsp;&nbsp;';
 				$i = 0;
@@ -171,7 +171,7 @@ class plxMedias {
 		$str  .= '</select>'."\n";
 		# On retourne la chaine
 		return $str;
-	}	
+	}
 
 	/**
 	 * Méthode qui supprime un fichier (et sa vignette si elle existe dans le cas d'une image)

@@ -386,7 +386,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche le contenu de la description d'une catégorie
 	 *
-	 * @param	format	format du texte à afficher (variable: #cat_description) 
+	 * @param	format	format du texte à afficher (variable: #cat_description)
 	 * @return	stdout
 	 * @scope	categorie
 	 * @author	Stephane F.

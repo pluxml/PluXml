@@ -106,7 +106,7 @@ switch ($sort) {
 }
 $_SESSION['sort_medias']=$sort;
 
-# Contenu des 2 listes déroulantes 
+# Contenu des 2 listes déroulantes
 $selectionList = array('' =>L_FOR_SELECTION, 'move'=>L_PLXMEDIAS_MOVE_FOLDER, 'thumbs'=>L_MEDIAS_RECREATE_THUMB, '-'=>'-----', 'delete' =>L_DELETE);
 
 # On inclut le header
