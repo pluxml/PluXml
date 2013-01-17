@@ -23,7 +23,9 @@
 [+] Administration: Gestionnaire de médias: tri des dossiers dans le déroulant 'Dossier'
 [+] Administration: Ajout du paramètre thumbs dans le fichier de configuration de PluXml pour création ou pas des miniatures
 [+] Amélioration de la traduction en allemand (contribution Jürgen K.)
+[+] Nouveau thème defaut
 [-] Suppression du thème mobile.defaut
+[-] Suppression ancien thème defaut
 [-] plxShow: suppression de la méthode artCatId()
 [-] plxShow::catDescription: suppression scope article car bug si article associé à plusieurs catégories
 [-] plxAdmin::htaccess() : suppression des hooks plxAdminHtaccessNew et plxAdminHtaccessUpdate
