@@ -3,7 +3,7 @@
 #
 # This file is part of PluXml : http://www.pluxml.org
 #
-# Copyright (c) 2010-2012 Stephane Ferrari and contributors
+# Copyright (c) 2010-2013 Stephane Ferrari and contributors
 # Copyright (c) 2008-2009 Florent MONTHEL and contributors
 # Copyright (c) 2006-2008 Anthony GUERIN
 # Licensed under the GPL license.

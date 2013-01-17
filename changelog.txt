@@ -1,4 +1,4 @@
-## PLUXML 5.1.7 (sortie : xx/xx/2012) ##
+## PLUXML 5.1.7 (sortie : xx/xx/2013) ##
 
 [+] Les fichiers de parametres des plugins sont désormais stockés dans le dossier de configuration de PluXml
 [+] plxShow:tagList(): gestion de la taille des tags (#tag_size)

@@ -5,7 +5,7 @@
 	<div class="content">
 
 		<p>
-			&copy; 2012 <?php $plxShow->mainTitle('link'); ?> - <?php $plxShow->subTitle(); ?>
+			&copy; 2013 <?php $plxShow->mainTitle('link'); ?> - <?php $plxShow->subTitle(); ?>
 		</p>
 		<p>
 			<?php $plxShow->lang('POWERED_BY') ?> <a href="http://www.pluxml.org" title="<?php $plxShow->lang('PLUXML_DESCRIPTION') ?>">PluXml</a>
