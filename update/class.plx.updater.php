@@ -153,6 +153,8 @@ class plxUpdate {
 	 **/
 	public function __construct() {
 		$this->plxAdmin = plxAdmin::getInstance();
+		if(!isset($this->plxAdmin->aConf['plugins']))
+			$this->plxAdmin->aConf['plugins']='data/configuration/plugins.xml';
 	}
 
 	/**
