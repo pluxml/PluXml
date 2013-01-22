@@ -24,6 +24,7 @@ if(isset($_POST['submit'])) {
 			$error=false;
 			foreach($_POST['action'] as $plugName => $activate) {
 				if($plxAdmin->plxPlugins->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+					unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
 					unset($_POST['plugName'][$plugName]);
 					unset($plxAdmin->plxPlugins->aPlugins[$plugName]);
 				}
