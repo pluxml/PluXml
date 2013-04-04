@@ -94,7 +94,7 @@ strike {
 code,
 pre,
 samp {
-	padding: 10px 15px;
+	padding: 0 5px 0 5px;
 	font-family: modern, monospace;
 	background-color: #eee;
 	border: 1px solid #ddd;
