@@ -86,9 +86,12 @@ class plxAdmin extends plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 
+		unset($global['racine']);
+
 		foreach($content as $k=>$v) {
-			if($k!='token' AND $k!='config_path') # parametres à ne pas mettre dans le fichier
-			$global[$k] = $v;
+		echo $k;
+			if(!in_array($k,array('token','config_path'))) # parametres à ne pas mettre dans le fichier
+				$global[$k] = $v;
 		}
 		# On teste la clef
 		if(empty($global['clef'])) $global['clef'] = plxUtils::charAleatoire(15);

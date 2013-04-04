@@ -301,7 +301,6 @@ $LANG = array(
 'L_CONFIG_BASE_CONFIG_TITLE'								=> 'Basisconfiguratie',
 'L_CONFIG_BASE_SITE_TITLE'									=> 'Titel van de site',
 'L_CONFIG_BASE_SITE_SLOGAN'									=> 'Ondertitel van de site',
-'L_CONFIG_BASE_SITE_URL'									=> 'Rootmap van de site (bvb : http://www.pluxml.org/pluxml/)',
 'L_CONFIG_BASE_URL_HELP'									=> 'Vergeet de slech niet op het einde',
 'L_CONFIG_BASE_DEFAULT_LANG'								=> 'Standaardtaal',
 'L_CONFIG_BASE_TIMEZONE'									=> 'Tijdzone',

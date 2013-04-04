@@ -220,7 +220,7 @@ class plxFeed extends plxMotor {
 	 * @author	Florent MONTHEL, Stephane F, Amaury GRAILLAT
 	 **/
 	public function getRssArticles() {
-
+	
 		# Initialisation
 		$last_updated = '197001010100';
 		$entry_link = '';

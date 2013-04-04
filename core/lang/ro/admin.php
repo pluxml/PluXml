@@ -301,7 +301,6 @@ $LANG = array(
 'L_CONFIG_BASE_CONFIG_TITLE'								=> 'Configurarea bazei',
 'L_CONFIG_BASE_SITE_TITLE'									=> 'Denumirea sitului',
 'L_CONFIG_BASE_SITE_SLOGAN'									=> 'Descriere sitului',
-'L_CONFIG_BASE_SITE_URL'									=> 'Radacina sitului (ex : http://www.pluxml.org/pluxml/)',
 'L_CONFIG_BASE_URL_HELP'									=> 'Nu uita slash de final',
 'L_CONFIG_BASE_DEFAULT_LANG'								=> 'Limba',
 'L_CONFIG_BASE_TIMEZONE'									=> 'Time Zone',

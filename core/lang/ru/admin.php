@@ -355,7 +355,6 @@ $LANG = array(
 'L_CONFIG_BASE_CONFIG_TITLE'								=> 'Основные настройки',
 'L_CONFIG_BASE_SITE_TITLE'									=> 'Название сайта',
 'L_CONFIG_BASE_SITE_SLOGAN'									=> 'Слоган сайта',
-'L_CONFIG_BASE_SITE_URL'									=> 'Корень сайта (например http://www.pluxml.org/pluxml/)',
 'L_CONFIG_BASE_URL_HELP'									=> 'Не забудьте слеш / в конце',
 'L_CONFIG_BASE_DEFAULT_LANG'								=> 'Язык сайта по умолчанию',
 'L_CONFIG_BASE_TIMEZONE'									=> 'Часовой пояс',

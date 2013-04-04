@@ -37,9 +37,6 @@ include(dirname(__FILE__).'/top.php');
 		<?php plxUtils::printInput('title', plxUtils::strCheck($plxAdmin->aConf['title'])); ?>
 		<p class="field"><label for="id_description"><?php echo L_CONFIG_BASE_SITE_SLOGAN ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('description', plxUtils::strCheck($plxAdmin->aConf['description'])); ?>
-		<p class="field"><label for="id_racine"><?php echo L_CONFIG_BASE_SITE_URL ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('racine', $plxAdmin->racine);?>
-		<a class="help" title="<?php echo L_CONFIG_BASE_URL_HELP ?>">&nbsp;</a>
 		<p class="field"><label for="id_meta_description"><?php echo L_CONFIG_META_DESCRIPTION ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('meta_description', plxUtils::strCheck($plxAdmin->aConf['meta_description'])); ?>
 		<p class="field"><label for="id_meta_keywords"><?php echo L_CONFIG_META_KEYWORDS ?>&nbsp;:</label></p>

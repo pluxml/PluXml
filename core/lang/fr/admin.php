@@ -355,7 +355,6 @@ $LANG = array(
 'L_CONFIG_BASE_CONFIG_TITLE'		=> 'Configuration de base',
 'L_CONFIG_BASE_SITE_TITLE'			=> 'Titre du site',
 'L_CONFIG_BASE_SITE_SLOGAN'			=> 'Sous-titre/description du site',
-'L_CONFIG_BASE_SITE_URL'			=> 'Racine du site (ex : http://www.pluxml.org/pluxml/)',
 'L_CONFIG_BASE_URL_HELP'			=> 'Ne pas oublier le slash à la fin',
 'L_CONFIG_BASE_DEFAULT_LANG'		=> 'Langue par défaut du site',
 'L_CONFIG_BASE_TIMEZONE'			=> 'Fuseau horaire',
