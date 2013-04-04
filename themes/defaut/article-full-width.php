@@ -8,8 +8,6 @@
 
 			<article role="article">
 
-				<article role="article">
-
 				<h1>
 					<?php $plxShow->artTitle('link'); ?>
 				</h1>
@@ -45,8 +43,6 @@
 			<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
 
 			<?php include(dirname(__FILE__).'/commentaires.php'); ?>
-
-			</article>
 
 		</div>
 
