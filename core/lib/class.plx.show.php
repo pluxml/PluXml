@@ -1552,7 +1552,7 @@ class plxShow {
 		$theme = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/';
 		$css = str_replace('php','css',$this->plxMotor->template);
 		if(is_file($theme.$css_dir.$css))
-			echo "\t".'<link rel="stylesheet" type="text/css" href="'.$theme.$css_dir.$css.'" media="screen" />'."\n";
+			echo "\t".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'" media="screen" />'."\n";
 	}
 
 	/**
