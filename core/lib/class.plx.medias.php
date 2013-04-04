@@ -156,7 +156,7 @@ class plxMedias {
 		$str .= '<option '.$selected.'value=".">|. ('.L_PLXMEDIAS_ROOT.') &nbsp; </option>'."\n";
 		# Dir non vide
 		if(!empty($this->aDirs)) {
-			asort($this->aDirs);
+			ksort($this->aDirs);
 			foreach($this->aDirs as $k => $v) {
 				$prefixe = '|&nbsp;&nbsp;';
 				$i = 0;
