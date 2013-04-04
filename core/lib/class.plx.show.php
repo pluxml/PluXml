@@ -607,7 +607,7 @@ class plxShow {
 	public function artCat($separator=',') {
 
 		# Initialisation de notre variable interne
-		$catIds = explode(',', $this->plxMotor->plxRecord_arts->f('categorie'));
+		$catIds = $this->artActiveCatIds();
 		foreach ($catIds as $idx => $catId) {
 			# On verifie que la categorie n'est pas "home"
 			if($catId != 'home') {
