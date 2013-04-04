@@ -44,6 +44,9 @@ class plxFeed extends plxMotor {
 		$this->get = plxUtils::getGets();
 
 		$this->getConfiguration($filename);
+		# gestion du timezone
+		date_default_timezone_set($this->aConf['timezone']);
+
 		$this->racine = $this->aConf['racine'];
 		$this->bypage = $this->aConf['bypage_feed'];
 		$this->tri = 'desc';
