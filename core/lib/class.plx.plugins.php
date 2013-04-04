@@ -69,7 +69,6 @@ class plxPlugins {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -159,6 +158,14 @@ class plxPlugins {
 				$this->aPlugins[$plugName]['ordre']=$content['plugOrdre'][$plugName];
 			}
 
+			# vérification qu'il ne reste pas dés résidu dans le fichier plugins.xml suite à une suppression manuelle d'un dossier d'un plugin
+			foreach($this->aPlugins as $plugName => $plug) {
+				if(!file_exists(PLX_PLUGINS.$plugName.'/'.$plugName.'.php')) {
+					unset($this->aPlugins[$plugName]);
+				}
+			}
+
+			# Tri des plugins en fonction de la colonne d'ordre
 			if(sizeof($this->aPlugins)>0)
 				uasort($this->aPlugins, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
 		}
