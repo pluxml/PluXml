@@ -86,8 +86,6 @@ class plxAdmin extends plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 
-		unset($global['racine']);
-
 		foreach($content as $k=>$v) {
 		echo $k;
 			if(!in_array($k,array('token','config_path'))) # parametres à ne pas mettre dans le fichier
@@ -100,10 +98,12 @@ class plxAdmin extends plxMotor {
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
 		foreach($global as $k=>$v) {
-			if(is_numeric($v))
-				$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
-			else
-				$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+			if($k!='racine') {
+				if(is_numeric($v))
+					$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
+				else
+					$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+			}
 		}
 		$xml .= "</document>";
 
