@@ -256,7 +256,7 @@ plxUtils::cleanHeaders();
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
 </head>
-<body onload="document.forms[0].name.focus();">
+<body onload="document.forms[1].name.focus();">
 
 <div id="sidebar">
 </div>
@@ -269,10 +269,10 @@ plxUtils::cleanHeaders();
 		<p class="field"><label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label></p>
 		<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
 		<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
-		<p class="field"><label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label></p>
-		<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 		<?php echo plxToken::getTokenPostMethod() ?>
-	</fieldset>	
+	</fieldset>
+	</form>
+	<form action="install.php" method="post">
 	<fieldset class="panel">
 		<p class="field"><label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
@@ -282,9 +282,12 @@ plxUtils::cleanHeaders();
 		<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
 		<p class="field"><label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
-		<?php plxUtils::printInput('version', $version, 'hidden') ?>
+		<p class="field"><label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label></p>
+		<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 		<p><input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" /></p>
-	</fieldset>	
+		<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
+		<?php echo plxToken::getTokenPostMethod() ?>
+	</fieldset>
 	</form>
 	<div class="panel">
 		<ul>
