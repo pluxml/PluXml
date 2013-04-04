@@ -1281,7 +1281,7 @@ class plxShow {
 	public function pagination() {
 
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
-		$aFiles = $plxGlob_arts->query($this->plxMotor->motif,'','',0,false,'before');
+		$aFiles = $plxGlob_arts->query($this->plxMotor->motif,'art','',0,false,'before');
 
 		if($aFiles AND $this->plxMotor->bypage AND sizeof($aFiles)>$this->plxMotor->bypage) {
 
