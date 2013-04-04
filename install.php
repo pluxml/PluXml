@@ -71,7 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 # Initialisation du timezone
-$timezone = date_default_timezone_get();
+$timezone = 'Europe/Paris';
 if(isset($_POST['timezone'])) $timezone=$_POST['timezone'];
 if(!array_key_exists($timezone, plxTimezones::timezones())) {
 	$timezone = date_default_timezone_get();
@@ -272,7 +272,7 @@ plxUtils::cleanHeaders();
 		<p class="field"><label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label></p>
 		<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 		<?php echo plxToken::getTokenPostMethod() ?>
-	</fieldset>
+	</fieldset>	
 	<fieldset class="panel">
 		<p class="field"><label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
@@ -284,7 +284,7 @@ plxUtils::cleanHeaders();
 		<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
 		<?php plxUtils::printInput('version', $version, 'hidden') ?>
 		<p><input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" /></p>
-	</fieldset>
+	</fieldset>	
 	</form>
 	<div class="panel">
 		<ul>
