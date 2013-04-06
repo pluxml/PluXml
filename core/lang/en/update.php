@@ -14,7 +14,7 @@ $LANG = array(
 'L_UPDATE_BACK'						=> 'Back to Home page',
 'L_UPDATE_WARNING1'					=> 'You are about to update your old version of PluXml',
 'L_UPDATE_SELECT_VERSION'			=> 'Please choose the old PluXml version you wish to update.',
-'L_UPDATE_WARNING2'					=> 'If you can\'t find the old version of PluXml in the list below, then there is no automatic procedure to update, because your version is too old.<br />We advise you to download the last version of <a href="http://www.pluxml.org">PluXml</a> and to make a new installation.',
+'L_UPDATE_WARNING2'					=> 'If you can\'t find the old version of PluXml in the list below, then there is no automatic procedure to update, because your version is too old.<br />We advise you to download the latest version of <a href="http://www.pluxml.org">PluXml</a> and to make a new installation.',
 'L_UPDATE_WARNING3'					=> 'Warning: before you start updating, don\'t forget to save a copy of your site by copying the "data" folder',
 'L_UPDATE_START'					=> 'Start the update',
 
