@@ -229,34 +229,11 @@ function toggle_divs(){
 			<p style="margin-bottom:15px">
 				<?php plxUtils::printSelect('selection[]', $selectionList, '', false, '', false) ?>
 				<input class="button submit" type="submit" name="btn_action" value="<?php echo L_OK ?>" />
-&nbsp;
-<input type="text" id="qs" placeholder="Rechercher" />
-<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/jquery.quicksearch.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-$('input#qs').quicksearch('table#quicksearch tbody tr', {
-//    'delay': 100,
-	'show': function () {
-		$(this).removeClass('qsd');
-		$(this).addClass('qse');
-		$('tr.qse td input:checkbox').attr({'name': 'idFile[]','checked': false});
-		$('input#checkall:checkbox').attr({'checked': false});
-		$(this).show();
-	},
-	'hide': function () {
-		$(this).removeClass('qse');
-		$(this).addClass('qsd');
-		$('tr.qsd td input:checkbox').attr({'name': 'disabled','checked': false});
-		$(this).hide();
-	},
-});
-});
-</script>
 			</p>
-			<table id="quicksearch" class="table">
+			<table class="table">
 			<thead>
 			<tr>
-				<th class="checkbox"><input id="checkall" type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
+				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 				<th class="image">&nbsp;</th>
 				<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_title ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
 				<th class="infos"><?php echo L_MEDIAS_EXTENSION ?></th>
