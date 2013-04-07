@@ -38,6 +38,9 @@ header('Content-Type: text/xml; charset='.PLX_CHARSET);
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
+# Hook Plugins
+if(eval($this->plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
+
 # Chargement du fichier de langue
 loadLang(PLX_CORE.'lang/'.$plxMotor->aConf['default_lang'].'/core.php');
 
@@ -104,3 +107,6 @@ if($aFiles = $plxMotor->plxGlob_arts->query('/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$p
 eval($plxMotor->plxPlugins->callHook('SitemapArticles'));
 ?>
 </urlset>
+<?php # Hook Plugins
+eval($plxMotor->plxPlugins->callHook('SitemapEnd'));
+?>
