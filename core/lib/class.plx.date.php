@@ -13,9 +13,9 @@ class plxDate {
 	/**
 	 * Méthode qui retourne le libellé du mois ou du jour passé en paramètre
 	 *
-	 * @param	key		constante: 'day' ou 'month'
+	 * @param	key		constante: 'day', 'month' ou 'short_month'
 	 * @param	value	numero du mois ou du jour
-	 * @return	string	libellé du mois ou du jour
+	 * @return	string	libellé du mois (long ou court) ou du jour
 	 * @author	Stephane F.
 	 **/
 	public static function getCalendar($key, $value) {
@@ -33,6 +33,19 @@ class plxDate {
 			'10' => L_OCTOBER,
 			'11' => L_NOVEMBER,
 			'12' => L_DECEMBER);
+		$aShortMonth = array(
+			'01' => L_SHORT_JANUARY,
+			'02' => L_SHORT_FEBRUARY,
+			'03' => L_SHORT_MARCH,
+			'04' => L_SHORT_APRIL,
+			'05' => L_SHORT_MAY,
+			'06' => L_SHORT_JUNE,
+			'07' => L_SHORT_JULY,
+			'08' => L_SHORT_AUGUST,
+			'09' => L_SHORT_SEPTEMBER,
+			'10' => L_SHORT_OCTOBER,
+			'11' => L_SHORT_NOVEMBER,
+			'12' => L_SHORT_DECEMBER);
 		$aDay = array(
 			'1' => L_MONDAY,
 			'2' => L_TUESDAY,
@@ -49,6 +62,9 @@ class plxDate {
 			case 'month':
 				$month = isset($aMonth[$value]) ? $aMonth[$value] : '';
 				return $month; break;
+			case 'short_month':
+				$short_month = isset($aShortMonth[$value]) ? $aShortMonth[$value] : '';
+				return $short_month; break;
 		}
 	}
 
@@ -75,6 +91,7 @@ class plxDate {
 		$format = str_replace('#minute', $minute, $format);
 		$format = str_replace('#hour', $hour, $format);
 		$format = str_replace('#day', plxDate::getCalendar('day', $day_num), $format);
+		$format = str_replace('#short_month', plxDate::getCalendar('short_month', $month), $format);
 		$format = str_replace('#month', plxDate::getCalendar('month', $month), $format);
 		$format = str_replace('#num_day', $day, $format);
 		$format = str_replace('#num_month', $month, $format);

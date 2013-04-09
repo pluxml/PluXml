@@ -52,11 +52,14 @@ class plxFeed extends plxMotor {
 		$this->tri = 'desc';
 		$this->clef = (!empty($this->aConf['clef']))?$this->aConf['clef']:'';
 
-		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
-		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
 		# Traitement des plugins
 		$this->plxPlugins = new plxPlugins(path('XMLFILE_PLUGINS'), $this->aConf['default_lang']);
 		$this->plxPlugins->loadPlugins();
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxFeedConstructLoadPlugins'));
+		# Traitement sur les répertoires des articles et des commentaires
+		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
+		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getUsers(path('XMLFILE_USERS'));

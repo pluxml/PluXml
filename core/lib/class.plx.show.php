@@ -542,7 +542,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche les informations sur l'auteur de l'article
 	 *
-	 * @param	format	format du texte à afficher (variable: #art_authorinfos)
+	 * @param	format	format du texte à afficher (variable: #art_authorinfos, #art_author)
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
@@ -551,7 +551,11 @@ class plxShow {
 	public function artAuthorInfos($format='<div class="infos">#art_authorinfos</div>') {
 
 		$infos = plxUtils::getValue($this->plxMotor->aUsers[$this->plxMotor->plxRecord_arts->f('author')]['infos']);
-		if(trim($infos)!='') echo str_replace('#art_authorinfos', $infos, $format);
+		if(trim($infos)!='') {
+			$txt = str_replace('#art_authorinfos', $infos, $format);
+			$txt = str_replace('#art_author', $this->artAuthor(false), $txt);
+			echo $txt;
+		}
 	}
 
 	/**
@@ -796,7 +800,7 @@ class plxShow {
 	 * Si la variable $cat_id est renseignée, seulement les articles de cette catégorie seront retournés.
 	 * On tient compte si la catégorie est active
 	 *
-	 * @param	format	format du texte pour chaque article (variable: #art_id, #art_url, #art_status, #art_author, #art_title, #art_chapo, #art_content, #art_content(num), #art_date, #art_hour, #cat_list, #art_nbcoms)
+	 * @param	format	format du texte pour chaque article (variable: #art_id, #art_url, #art_status, #art_author, #art_title, #art_chapo, #art_chapo(num), #art_content, #art_content(num), #art_date, #art_hour, #cat_list, #art_nbcoms)
 	 * @param	max		nombre d'articles maximum
 	 * @param	cat_id	ids des catégories cible
 	 * @param   ending	texte à ajouter en fin de ligne
@@ -844,6 +848,9 @@ class plxShow {
  				$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
  				$row = str_replace('#art_author',plxUtils::strCheck($author),$row);
 				$row = str_replace('#art_title',plxUtils::strCheck($art['title']),$row);
+				$strlength = preg_match('/#art_chapo\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
+				$content = plxUtils::truncate($art['chapo'],$strlength,$ending,true,true);
+				$row = str_replace('#art_chapo('.$strlength.')','#art_chapo', $row);
 				$row = str_replace('#art_chapo',$art['chapo'],$row);
 				$strlength = preg_match('/#art_content\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
 				$content = plxUtils::truncate($art['content'],$strlength,$ending,true,true);

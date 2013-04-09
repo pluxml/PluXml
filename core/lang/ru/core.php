@@ -18,6 +18,18 @@ $LANG = array(
 'L_ERR_PAGE_NOT_FOUND'			=> 'Страница не найдена',
 
 # class.plx.date.php
+'L_SHORT_JANUARY'				=> '',
+'L_SHORT_FEBRUARY'				=> '',
+'L_SHORT_MARCH'					=> '',
+'L_SHORT_APRIL'					=> '',
+'L_SHORT_MAY'					=> '',
+'L_SHORT_JUNE'					=> '',
+'L_SHORT_JULY'					=> '',
+'L_SHORT_AUGUST'				=> '',
+'L_SHORT_SEPTEMBER'				=> '',
+'L_SHORT_OCTOBER'				=> '',
+'L_SHORT_NOVEMBER'				=> '',
+'L_SHORT_DECEMBER'				=> '',
 'L_JANUARY'						=> 'январь',
 'L_FEBRUARY'					=> 'февраль',
 'L_MARCH'						=> 'март',

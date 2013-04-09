@@ -1,6 +1,10 @@
 ## PLUXML 5.1.7 (sortie : 25/01/2013) ##
 
+[+] Sitemap: ajout des hooks SitemapBegin et SitemapEnd
 [+] Récupération automatique de la racine du site
+[+] plxShow::lastArtList: ajout de #art_chapo(num) pour afficher n caractères du chapo
+[+] plxShow::artAuthorInfos: ajout de #art_author pour afficher l'auteur de l'article
+[+] plxDate: gestion du libellé court des mois
 [-] Suppression du paramètre racine dans le fichier de configuration parametres.xml
 BUG fix #4  Gestionnaire de médias: mauvais tri ddu déroulant 'Dossier'
 BUG fix #2  Notice à l'activation d'un plugin si des plugins ont été supprimés manuellement 
