@@ -291,6 +291,17 @@ tr.plugins-1 {
     height:60px;
     font-size:11px;
 }
+.plugins-0 img{
+	-khtml-opacity:0.2; 
+	-moz-opacity : 0.2; 
+	-ms-filter: "alpha(opacity=20)"; 
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20); 
+	filter : alpha(opacity=20); 
+	opacity : 0.2;
+}
+.plugins-0 {
+	color: #999;
+}
 
 th.checkbox { width: 5px; }
 th.date { width:65px; }
@@ -355,3 +366,4 @@ p.field_head {
     background-color: #fff1a8;
     border-color: #e6db55;
 }
+
