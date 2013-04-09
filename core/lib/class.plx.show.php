@@ -542,7 +542,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche les informations sur l'auteur de l'article
 	 *
-	 * @param	format	format du texte à afficher (variable: #art_authorinfos)
+	 * @param	format	format du texte à afficher (variable: #art_authorinfos, #art_author)
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
@@ -551,7 +551,11 @@ class plxShow {
 	public function artAuthorInfos($format='<div class="infos">#art_authorinfos</div>') {
 
 		$infos = plxUtils::getValue($this->plxMotor->aUsers[$this->plxMotor->plxRecord_arts->f('author')]['infos']);
-		if(trim($infos)!='') echo str_replace('#art_authorinfos', $infos, $format);
+		if(trim($infos)!='') {
+			$txt = str_replace('#art_authorinfos', $infos, $format);
+			$txt = str_replace('#art_author', $this->artAuthor(false), $txt);
+			echo $txt;
+		}
 	}
 
 	/**
