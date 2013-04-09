@@ -13,8 +13,8 @@ $LANG = array(
 
 # sidebar.php
 'CATEGORIES' 			=> 'Cat&eacute;gories',
-'LAST_ARTICLES'			=> 'Derniers articles',
-'LAST_COMMENTS'			=> 'Derniers commentaires',
+'LATEST_ARTICLES'			=> 'Derniers articles',
+'LATEST_COMMENTS'			=> 'Derniers commentaires',
 'ARCHIVES'				=> 'Archives',
 
 # footer.php
@@ -26,7 +26,7 @@ $LANG = array(
 'TOP'					=> 'Haut de page',
 
 # erreur.php
-'ERROR'					=> 'La page que vous avez demand&eacute n\'existe pas',
+'ERROR'					=> 'La page que vous avez demand&eacutee n\'existe pas',
 'BACKTO_HOME'			=> 'Retour &agrave; la page d\'accueil',
 
 # common
