@@ -87,7 +87,6 @@ class plxAdmin extends plxMotor {
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 
 		foreach($content as $k=>$v) {
-		echo $k;
 			if(!in_array($k,array('token','config_path'))) # parametres à ne pas mettre dans le fichier
 				$global[$k] = $v;
 		}
