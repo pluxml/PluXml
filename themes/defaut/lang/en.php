@@ -13,8 +13,8 @@ $LANG = array(
 
 # sidebar.php
 'CATEGORIES' 			=> 'Categories',
-'LAST_ARTICLES'			=> 'Last articles',
-'LAST_COMMENTS'			=> 'Last comments',
+'LATEST_ARTICLES'			=> 'Latest articles',
+'LATEST_COMMENTS'			=> 'Latest comments',
 'ARCHIVES'				=> 'Archives',
 
 # footer.php
