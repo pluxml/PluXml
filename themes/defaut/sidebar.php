@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="aside-title">
-			<?php $plxShow->lang('LAST_ARTICLES') ?>
+			<?php $plxShow->lang('LATEST_ARTICLES') ?>
 		</div>
 
 		<div class="aside-content">
@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="aside-title">
-			<?php $plxShow->lang('LAST_COMMENTS') ?>
+			<?php $plxShow->lang('LATEST_COMMENTS') ?>
 		</div>
 
 		<div class="aside-content">
