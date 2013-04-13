@@ -14,8 +14,8 @@ $LANG = array(
 
 # sidebar.php
 'CATEGORIES' 			=> 'Categor&iacute;as',
-'LATEST_ARTICLES'			=> 'Ultimos art&iacute;culos',
-'LATEST_COMMENTS'			=> 'Ultimos comentarios',
+'LATEST_ARTICLES'		=> 'Ultimos art&iacute;culos',
+'LATEST_COMMENTS'		=> 'Ultimos comentarios',
 'ARCHIVES'				=> 'Archivos',
 
 # footer.php

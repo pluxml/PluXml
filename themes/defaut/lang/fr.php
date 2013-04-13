@@ -26,7 +26,7 @@ $LANG = array(
 'TOP'					=> 'Haut de page',
 
 # erreur.php
-'ERROR'					=> 'La page que vous avez demand&eacutee n\'existe pas',
+'ERROR'					=> 'La page que vous avez demand&eacutee; n\'existe pas',
 'BACKTO_HOME'			=> 'Retour &agrave; la page d\'accueil',
 
 # common
