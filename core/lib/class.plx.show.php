@@ -753,19 +753,24 @@ class plxShow {
 		$num = intval($this->plxMotor->plxRecord_arts->f('numero'));
 		$url = $this->plxMotor->plxRecord_arts->f('url');
 
-		if($nb==0)
+		if($nb==0) {
 			$txt = str_replace('L_NO_COMMENT', L_NO_COMMENT, $f1);
-		elseif($nb==1)
+			$title = $nb.' '.L_NO_COMMENT;
+		}
+		elseif($nb==1) {
 			$txt = str_replace('L_COMMENT', L_COMMENT, $f2);
-		else
+			$title = $nb.' '.L_COMMENT;
+		}
+		else {
 			$txt = str_replace('L_COMMENTS', L_COMMENTS, $f3);
-
+			$title = $nb.' '.L_COMMENTS;
+		}
 		$txt = str_replace('#nb',$nb,$txt);
 
 		if($this->plxMotor->mode == 'article')
 			echo $txt;
 		else
-			echo '<a href="'.$this->plxMotor->urlRewrite('?article'.$num.'/'.$url).'#comments" title="'.$txt.'">'.$txt.'</a>';
+			echo '<a href="'.$this->plxMotor->urlRewrite('?article'.$num.'/'.$url).'#comments" title="'.$title.'">'.$txt.'</a>';
 
 	}
 
