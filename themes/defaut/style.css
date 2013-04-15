@@ -414,10 +414,14 @@ input {
 	margin-bottom:25px !important;
 	padding: 0 6px;
 	height: 30px !important;
-	width: 380px;
 	border: 1px solid #bbb;
 	outline : none;
 	cursor: pointer;
+}
+
+#form input[type=text] {
+	width: 90%;
+	max-width: 480px;
 }
 
 input[type=submit],
@@ -448,7 +452,8 @@ input[type=reset]:hover {
 textarea {
 	display: block;
 	height: 300px;
-	width: 480px;
+	width: 90%;
+	max-width: 480px;
 	margin-bottom: 20px;
 	padding: 3px 6px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -479,7 +484,7 @@ textarea:focus {
 
 #id_rep {
 	margin-top: 5px;
-	display: block;
+	width: 30px !important;
 }
 
 /* ---------- FOOTER ---------- */
@@ -508,17 +513,6 @@ footer a:hover {
 /* ---------- RESPONSIVE DESIGN ---------- */
 
 @media screen and (max-width:980px) {
-
-	input, textarea {
-		width: 100%;
-		display: block;
-		max-width: 350px;
-	}
-
-	input[type=submit],
-	input[type=reset] {
-		width: auto;
-	}
 
 	#article-width-sidebar,
 	#static-width-sidebar {

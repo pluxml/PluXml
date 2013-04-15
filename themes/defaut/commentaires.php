@@ -66,7 +66,7 @@
 					<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong>&nbsp;:</label>
 				</p>
 				<p>
-					<?php $plxShow->capchaQ(); ?>&nbsp;:&nbsp;<input id="id_rep" name="rep" type="text" size="10" />
+					<?php $plxShow->capchaQ(); ?>&nbsp;:&nbsp;<input id="id_rep" name="rep" type="text" size="2" maxlength="1" />
 					<?php endif; ?>
 				</p>
 				<p>
