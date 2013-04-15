@@ -17,6 +17,7 @@ BUG fix #9  plxShow::artCat() les catégories inactives sont listées
 BUG fix #7  plxShow::pagination() Les articles avec une date de publication future sont comptabilisés dans la pagination
 BUG fix #12 Warning date_default_timezone_get() sur la page d'installation
 BUG fix #13 Warning date_default_timezone_get() dans les flux rss
+BUG fix #17 Administration: mauvaise pagination lorsque le filtre par catégorie est appliqué sur la page des articles
 BUG Réglage du focus sur le bouton Installer de la page d'installation
 
 ## PLUXML 5.1.7 (sortie : 25/01/2013) ##

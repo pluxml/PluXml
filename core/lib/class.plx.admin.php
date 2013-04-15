@@ -67,8 +67,12 @@ class plxAdmin extends plxMotor {
 		# On check pour avoir le numero de page
 		if(!empty($_GET['page']) AND is_numeric($_GET['page']) AND $_GET['page'] > 0)
 			$this->page = $_GET['page'];
-		elseif($savePage)
-			$this->page = !empty($_SESSION['page'][$pageName])?intval($_SESSION['page'][$pageName]):1;
+		elseif($savePage) {
+			if(!empty($_POST['sel_cat']))
+				$this->page = 1;
+			else
+				$this->page = !empty($_SESSION['page'][$pageName])?intval($_SESSION['page'][$pageName]):1;
+		}
 		# On sauvegarde
 		if($savePage) $_SESSION['page'][$pageName] = $this->page;
 	}
