@@ -1,13 +1,14 @@
-## PLUXML 5.1.7 (sortie : 25/01/2013) ##
+## PLUXML 5.1.8 (sortie : xx/xx/2013) ##
 
 [+] Sitemap: ajout des hooks SitemapBegin et SitemapEnd
 [+] Récupération automatique de la racine du site
 [+] plxShow::lastArtList: ajout de #art_chapo(num) pour afficher n caractères du chapo
 [+] plxShow::artAuthorInfos: ajout de #art_author pour afficher l'auteur de l'article
 [+] plxDate: gestion du libellé court des mois
+[+] Template pour la page d'accueil (Administration > Paramètres > Options d'affichage > déroulant "Template de la page d'accueil")
 [-] Suppression du paramètre racine dans le fichier de configuration parametres.xml
 BUG fix #4  Gestionnaire de médias: mauvais tri ddu déroulant 'Dossier'
-BUG fix #2  Notice à l'activation d'un plugin si des plugins ont été supprimés manuellement 
+BUG fix #2  Notice à l'activation d'un plugin si des plugins ont été supprimés manuellement
 BUG fix #3  Thème par défaut: balise <article> en double dans le fichier du thème article-full-width.php
 BUG fix #5  Thème par défaut: mauvais padding pour la balise <code>
 BUG fix #8  Thème par défaut: espace en trop à la fin de 2 balises <link>

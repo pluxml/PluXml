@@ -279,6 +279,7 @@ $LANG = array(
 'L_CONFIG_VIEW_FEEDS_FOOTER'								=> 'Signature used in the end of every Rss feed\'s article',
 'L_CONFIG_VIEW_UPDATE'										=> 'Save display settings',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Display categories without article',
+'L_CONFIG_HOMETEMPLATE'										=> 'Template of the homepage',
 'L_CONFIG_ADVANCED_DESC'									=> 'Advanced configuration',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Enable url rewriting',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Warning: a .htaccess file already exists at your PluXml\'s installation root. Activating url rewriting will overwrite this file</span>',

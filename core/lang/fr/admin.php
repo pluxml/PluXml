@@ -327,6 +327,7 @@ $LANG = array(
 'L_CONFIG_VIEW_FEEDS_FOOTER'		=> 'Texte à ajouter comme signature au bas de chaque flux Rss des articles',
 'L_CONFIG_VIEW_UPDATE'				=> 'Modifier les options d\'affichage',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'	=> 'Afficher les catégories sans article',
+'L_CONFIG_HOMETEMPLATE'				=> 'Template de la page d\'accueil',
 
 # parametres_avances.php
 

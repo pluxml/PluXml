@@ -327,6 +327,7 @@ $LANG = array(
 'L_CONFIG_VIEW_FEEDS_FOOTER'								=> 'Подпись используется в конце каждой статьи в RSS-потоке',
 'L_CONFIG_VIEW_UPDATE'										=> 'Сохранить параметры отображения',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Показать категории без статей',
+'L_CONFIG_HOMETEMPLATE'										=> 'Шаблон главной страницы',
 
 # parametres_avances.php
 

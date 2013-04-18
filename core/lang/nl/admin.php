@@ -279,6 +279,7 @@ $LANG = array(
 'L_CONFIG_VIEW_FEEDS_FOOTER'								=> 'Tekskt die getoond zal worden onder elke RSS feed',
 'L_CONFIG_VIEW_UPDATE'										=> 'Pas de veranderingen toe',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Toon categorieën zonder artikel',
+'L_CONFIG_HOMETEMPLATE'										=> 'Template van de homepage',
 'L_CONFIG_ADVANCED_DESC'									=> 'Geavanceerde configuratie',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'herschrijven van URLs aanzetten',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Opgepast. Er bestaat al een .htaccess bestand in de root van uw installatie. Door het inschakelen van URL herschrijven dit bestand zal worden gewijzigd</span>',

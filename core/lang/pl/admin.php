@@ -279,6 +279,7 @@ $LANG = array(
 'L_CONFIG_VIEW_FEEDS_FOOTER'								=> 'Texto (assinatura) a inserir no fundo de cada fluxo Rss dos artigos',
 'L_CONFIG_VIEW_UPDATE'										=> 'Alterar as opções de exibição',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Wyświetlanie kategorie bez art',
+'L_CONFIG_HOMETEMPLATE'										=> 'Szablon strony głównej',
 'L_CONFIG_ADVANCED_DESC'									=> 'Configuração avançada',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Activar a re-escritura dos URLS',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Baczność .htaccess jest obecna w katalogu głównym PluXml. Poprzez umożliwienie przepisywania URL ten plik zostanie zmodyfikowany</span>',

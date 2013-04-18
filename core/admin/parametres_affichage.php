@@ -28,13 +28,19 @@ if(!empty($_POST)) {
 	exit;
 }
 
-# On récupère les templates
+# On récupère les thèmes
 $aStyles[''] = L_NONE1;
 $files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'], true);
 if($styles = $files->query("/[a-z0-9-_\.\(\)]+/i")) {
 	foreach($styles as $k=>$v) {
 		if(substr($v,0,7) != 'mobile.')	$aStyles[$v] = $v;
 	}
+}
+# On récupère les templates de la page d'accueil
+$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
+if ($array = $files->query('/^home(-[a-z0-9-_]+)?.php$/')) {
+	foreach($array as $k=>$v)
+		$aTemplates[$v] = $v;
 }
 
 # Tableau du tri
@@ -66,6 +72,8 @@ include(dirname(__FILE__).'/top.php');
 		<?php if(!empty($plxAdmin->aConf['style']) AND is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style'])) : ?>
 			&nbsp;<a href="parametres_edittpl.php" title="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>"><?php echo L_CONFIG_VIEW_FILES_EDIT ?> &laquo;<?php echo $plxAdmin->aConf['style'] ?>&raquo;</a>
 		<?php endif; ?>
+		<p class="field"><label for="id_hometemplate"><?php echo L_CONFIG_HOMETEMPLATE ?>&nbsp;:</label></p>
+		<?php plxUtils::printSelect('hometemplate', $aTemplates, $plxAdmin->aConf['hometemplate']) ?>		
 		<p class="field"><label for="id_tri"><?php echo L_CONFIG_VIEW_SORT ?>&nbsp;:</label></p>
 		<?php plxUtils::printSelect('tri', $aTriArts, $plxAdmin->aConf['tri']); ?>
 		<p class="field"><label for="id_bypage"><?php echo L_CONFIG_VIEW_BYPAGE ?>&nbsp;:</label></p>

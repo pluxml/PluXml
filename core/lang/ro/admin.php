@@ -279,6 +279,7 @@ $LANG = array(
 'L_CONFIG_VIEW_FEEDS_FOOTER'								=> 'Text se adaugă şi o semnătură în partea de jos a fiecare articole feed RSS',
 'L_CONFIG_VIEW_UPDATE'										=> 'Editare Opţiuni  afişare',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Afişarea categorii fără articolul',
+'L_CONFIG_HOMETEMPLATE'										=> 'Format din pagina de start',
 'L_CONFIG_ADVANCED_DESC'									=> 'Avansate de configurare',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Permite rescrierea url-uri',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Atenţie într-un fişier. Htaccess este deja prezent la rădăcina PluXml dumneavoastră. Prin activarea rescrierea dosarul \ url va fi modificat</span>',

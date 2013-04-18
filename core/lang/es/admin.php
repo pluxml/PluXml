@@ -279,6 +279,7 @@ $LANG = array(
 'L_CONFIG_VIEW_FEEDS_FOOTER'								=> 'Texto colocado como firma en la parte baja de los artículos Rss',
 'L_CONFIG_VIEW_UPDATE'										=> 'Modificar las opciones de visualización',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'							=> 'Mostrar categorías, sin el artículo',
+'L_CONFIG_HOMETEMPLATE'										=> 'Plantilla de la página principal',
 'L_CONFIG_ADVANCED_DESC'									=> 'Configuración avanzada',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Activar la re-escritura de urls',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Cuidado un archivo .htaccess ya existe en la raíz de su PluXml. Al activar la re-escritura de urls, este archivo se modifica</span>',
