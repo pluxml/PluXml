@@ -111,7 +111,7 @@ $config = array('title'=>'PluXml',
 				'racine_themes'=>'themes/',
 				'racine_plugins'=>'plugins/',
 				'homestatic'=>'',
-				'hometemplate'=>'home.php'
+				'hometemplate'=>'home.php',
 				'urlrewriting'=>0,
 				'gzip'=>0,
 				'feed_chapo'=>0,
