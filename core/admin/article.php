@@ -94,14 +94,27 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	}
 	# Mode création ou maj
 	if(isset($_POST['update']) OR isset($_POST['publish']) OR isset($_POST['moderate']) OR isset($_POST['draft'])) {
+
+		$valid = true;
+		# Vérification de l'unicité de l'url
+		$_POST['url'] = plxUtils::title2url(trim($_POST['url'])==''?$_POST['title']:$_POST['url']);
+		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
+			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.".$_POST["url"].".xml$/", $filename)) {
+				if($numart!=$_POST['artId']) {
+					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($_POST["url"])) AND $valid;
+				}
+			}
+		}
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($_POST['day'],$_POST['month'],$_POST['year'],$_POST['time']))
-			plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
-		else {
+		if(!plxDate::checkDate($_POST['day'],$_POST['month'],$_POST['year'],$_POST['time'])) {
+			$valid = plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE) AND $valid;
+		}
+		if($valid) {
 			$plxAdmin->editArticle($_POST,$_POST['artId']);
 			header('Location: article.php?a='.$_POST['artId']);
 			exit;
 		}
+
 	}
 	# Ajout d'une catégorie
 	if(isset($_POST['new_category'])) {
