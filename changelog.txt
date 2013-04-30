@@ -1,4 +1,4 @@
-## PLUXML 5.1.8 (sortie : xx/xx/2013) ##
+﻿## PLUXML 5.1.8 (sortie : xx/xx/2013) ##
 
 [+] Sitemap: ajout des hooks SitemapBegin et SitemapEnd
 [+] Récupération automatique de la racine du site
@@ -19,6 +19,7 @@ BUG fix #7  plxShow::pagination() Les articles avec une date de publication futu
 BUG fix #12 Warning date_default_timezone_get() sur la page d'installation
 BUG fix #13 Warning date_default_timezone_get() dans les flux rss
 BUG fix #17 Administration: mauvaise pagination lorsque le filtre par catégorie est appliqué sur la page des articles
+BUG fix #19 Administration: Notice à la rédaction d'un article si date de publication erronée
 BUG Réglage du focus sur le bouton Installer de la page d'installation
 
 ## PLUXML 5.1.7 (sortie : 25/01/2013) ##
