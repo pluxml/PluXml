@@ -100,7 +100,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$_POST['url'] = plxUtils::title2url(trim($_POST['url'])==''?$_POST['title']:$_POST['url']);
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
 			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.".$_POST["url"].".xml$/", $filename)) {
-				if($numart!=$_POST['artId']) {
+				if($numart!=str_replace('_', '',$_POST['artId'])) {
 					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($_POST["url"])) AND $valid;
 				}
 			}
@@ -402,7 +402,7 @@ $cat_id='000';
 								echo '<input class="button" onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_DRAFT_BUTTON . '"/>';
 								echo '<input class="button submit" onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/>';
 							} else {
-								if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a']))
+								if(!isset($_GET['a']) OR preg_match('/^_[0-9]{4}$/',$_GET['a']))
 									echo '<input class="button submit" onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/>';
 								else
 									echo '<input class="button" onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_OFFLINE_BUTTON . '"/>';
