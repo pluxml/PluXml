@@ -1,6 +1,7 @@
 ﻿## PLUXML 5.1.8 (sortie : xx/xx/2013) ##
 
-[+] Sitemap: ajout des hooks SitemapBegin et SitemapEnd
+[+] sitemap.php: ajout des hooks SitemapBegin et SitemapEnd
+[+] feed.php: ajout des hooks FeedBegin et FeedEnd
 [+] Récupération automatique de la racine du site
 [+] plxShow::lastArtList: ajout de #art_chapo(num) pour afficher n caractères du chapo
 [+] plxShow::artAuthorInfos: ajout de #art_author pour afficher l'auteur de l'article
