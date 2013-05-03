@@ -37,7 +37,22 @@ $plxFeed = plxFeed::getInstance();
 # Chargement du fichier de langue
 loadLang(PLX_CORE.'lang/'.$plxFeed->aConf['default_lang'].'/core.php');
 
+eval($plxFeed->plxPlugins->callHook('FeedBegin'));
+
+# On démarre la bufferisation
+ob_start();
+ob_implicit_flush(0);
+
 $plxFeed->fprechauffage();
 $plxFeed->fdemarrage();
 
+# Récuperation de la bufférisation
+$output = ob_get_clean();
+
+# Hook Plugins
+eval($plxFeed->plxPlugins->callHook('FeedEnd'));
+
+# Restitution écran
+echo $output;
+exit;
 ?>
