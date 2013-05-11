@@ -496,7 +496,7 @@ class plxUtils {
 		$protocol = (!empty($_SERVER['HTTPS']) AND $_SERVER['HTTPS'] == 'on')?	'https://' : "http://";
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
-		$dirname = str_replace('/core/admin', '', dirname($_SERVER['SCRIPT_NAME']));
+		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
 		$racine = rtrim($protocol.$servername.$serverport.$dirname, '/').'/';
 		if(!plxUtils::checkSite($racine, false))
 			die('Error: wrong or invalid url');
