@@ -1,4 +1,4 @@
-﻿## PLUXML 5.1.8 (sortie : xx/xx/2013) ##
+﻿## PLUXML 5.x (sortie : xx/xx/2013) ##
 
 [+] sitemap.php: ajout des hooks SitemapBegin et SitemapEnd
 [+] feed.php: ajout des hooks FeedBegin et FeedEnd
@@ -8,6 +8,8 @@
 [+] plxDate: gestion du libellé court des mois
 [+] Template pour la page d'accueil (Administration > Paramètres > Options d'affichage > déroulant "Template de la page d'accueil")
 [+] Administration - rédaction d'un article: vérification de l'unicité de l'url de l'article
+[+] Administration > Paramètres > Plugins: nouvel écran de gestion des plugins
+[+] Réécriture d'une partie du moteur des plugins pour accélerer le temps de chargement et réduire l'occupation mémoire
 [-] Suppression du paramètre racine dans le fichier de configuration parametres.xml
 BUG fix #4  Gestionnaire de médias: mauvais tri ddu déroulant 'Dossier'
 BUG fix #2  Notice à l'activation d'un plugin si des plugins ont été supprimés manuellement

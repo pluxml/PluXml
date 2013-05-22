@@ -427,6 +427,8 @@ $LANG = array(
 'L_PLUGINS_LOADING_SORT'									=> 'Погрузочный ордер',
 'L_PLUGINS_ACTION'											=> 'действие',
 'L_PLUGINS_APPLY_BUTTON'									=> 'Изменить список плагинов',
+'L_PLUGINS_ACTIVE_LIST'										=> 'Активная плагины',
+'L_PLUGINS_INACTIVE_LIST'									=> 'Неактивные плагины',
 
 # profil.php
 

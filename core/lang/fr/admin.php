@@ -427,6 +427,8 @@ $LANG = array(
 'L_PLUGINS_LOADING_SORT'			=> 'Ordre de chargement',
 'L_PLUGINS_ACTION'					=> 'Action',
 'L_PLUGINS_APPLY_BUTTON'			=> 'Modifier la liste des plugins',
+'L_PLUGINS_ACTIVE_LIST'				=> 'Plugins actifs',
+'L_PLUGINS_INACTIVE_LIST'			=> 'Plugins inactifs',
 
 # profil.php
 

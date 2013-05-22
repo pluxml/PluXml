@@ -53,7 +53,7 @@ class plxFeed extends plxMotor {
 		$this->clef = (!empty($this->aConf['clef']))?$this->aConf['clef']:'';
 
 		# Traitement des plugins
-		$this->plxPlugins = new plxPlugins(path('XMLFILE_PLUGINS'), $this->aConf['default_lang']);
+		$this->plxPlugins = new plxPlugins($this->aConf['default_lang']);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxFeedConstructLoadPlugins'));

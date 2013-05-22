@@ -18,15 +18,12 @@ $output='';
 # chargement du fichier d'administration du plugin
 $filename = realpath(PLX_PLUGINS.$plugin.'/config.php');
 if(is_file($filename)) {
-	# si le plugin n'est pas actif, aucune instance n'a été créée, on va donc la créer
-	if(!isset($plxAdmin->plxPlugins->aPlugins[$plugin]) OR !is_object($plxAdmin->plxPlugins->aPlugins[$plugin]['instance'])) {
-		$plxAdmin->plxPlugins->aPlugins[$plugin]['instance'] = $plxAdmin->plxPlugins->getInstance($plugin);
-	}
-	if(is_object($plxAdmin->plxPlugins->aPlugins[$plugin]['instance'])) {
-		$plxAdmin->plxPlugins->aPlugins[$plugin]['instance']->getInfos();
-	}
-	# utilisation de la variable plxPlugin pour faciliter la syntaxe dans les devs des plugins
-	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin]['instance'];
+	# si le plugin n'est pas actif, aucune instance n'a été créée, on va donc la créer, sinon on prend celle qui existe
+	if(!isset($plxAdmin->plxPlugins->aPlugins[$plugin]))
+		$plxPlugin = $plxAdmin->plxPlugins->getInstance($plugin);
+	else
+		$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];
+	
 	# Control des autorisation d'accès à l'écran config.php du plugin
 	$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
 	# chargement de l'écran de parametrage du plugin config.php

@@ -8,23 +8,18 @@
 class plxPlugins {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
-	public $filename=''; # chemin pour accèder au fichier de configuration plugins.xml
 	public $aPlugins=array(); #tableau contenant les plugins
-
 	public $default_lang; # langue par defaut utilisée par PluXml
 
 	/**
 	 * Constructeur de la classe plxPlugins
 	 *
-	 * @param	filename		emplacement du fichier XML de configuration plugins.xml
 	 * @param	default_lang	langue par défaut utilisée par PluXml
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function __construct($filename, $default_lang='') {
-		$this->filename=$filename;
+	public function __construct($default_lang='') {
 		$this->default_lang=$default_lang;
-		$this->loadConfig();
 	}
 
 	/**
@@ -47,41 +42,16 @@ class plxPlugins {
 	}
 
 	/**
-	 * Méthode qui recupere la liste des plugins dans le dossier plugins
-	 *
-	 * @return	null
-	 * @author	Stephane F
-	 **/
-	public function getList() {
-
-		$dirs = plxGlob::getInstance(PLX_PLUGINS, true);
-		if(sizeof($dirs->aFiles)>0) {
-			foreach($dirs->aFiles as $plugName) {
-				if(!isset($this->aPlugins[$plugName]) OR !is_object($this->aPlugins[$plugName]['instance'])) {
-					if($instance=$this->getInstance($plugName)) {
-						$this->aPlugins[$plugName]['instance'] = $instance;
-						$this->aPlugins[$plugName]['instance']->getInfos();
-						$activate=(isset($this->aPlugins[$plugName]['activate']))?$this->aPlugins[$plugName]['activate']:0;
-						$this->aPlugins[$plugName]['activate'] = $activate;
-					}
-				} else {
-					$this->aPlugins[$plugName]['instance']->getInfos();
-				}
-			}
-		}
-	}
-
-	/**
 	 * Méthode qui charge le fichier plugins.xml
 	 *
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function loadConfig() {
+	public function loadPlugins() {
 
-		if(!is_file($this->filename)) return;
+		if(!is_file(path('XMLFILE_PLUGINS'))) return;
 		# Mise en place du parseur XML
-		$data = implode('',file($this->filename));
+		$data = implode('',file(path('XMLFILE_PLUGINS')));
 		$parser = xml_parser_create(PLX_CHARSET);
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
@@ -94,112 +64,9 @@ class plxPlugins {
 			# On boucle sur $nb
 			for($i = 0; $i < $nb; $i++) {
 				$name = $values[$iTags['plugin'][$i] ]['attributes']['name'];
-				$activate = $values[$iTags['plugin'][$i] ]['attributes']['activate'];
-				$value = isset($values[$iTags['plugin'][$i]]['value']) ? $values[$iTags['plugin'][$i]]['value'] : '';
-				$this->aPlugins[$name] = array(
-					'activate' 	=> $activate,
-					'title'		=> $value,
-					'instance'	=> null,
-				);
-			}
-		}
-	}
-
-	/**
-	 * Méthode qui vérifie les pre-requis d'un plugin
-	 *
-	 * @param	requirements	chaine contenant les pre-requis d'un plugin
-	 * @return	boolean			resultat du control / TRUE = ok
-	 * @author	Stephane F
-	 **/
-	public function checkRequirements($requirements) {
-		if(trim($requirements)!='') {
-			$list=explode(',',$requirements);
-			# on verifie que pour chaque pré-requis le plugin correspondant est actif
-			foreach($list as $requirement) {
-				$r = trim($requirement);
-				if(!isset($this->aPlugins[$r]['activate']) OR $this->aPlugins[$r]['activate']==0)
-					return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Méthode qui sauvegarde le fichier plugins.xml
-	 *
-	 * @param	content		array content $_POST
-	 * @return	boolean		resultat de la sauvegarde / TRUE = ok
-	 * @author	Stephane F
-	 **/
-	public function saveConfig($content) {
-
-		if(isset($content['plugName'])) {
-			foreach($content['plugName'] as $plugName => $activate) {
-				if(isset($content['action'][$plugName])) {
-					if($content['action'][$plugName]=='on') {
-						if($instance = $this->getInstance($plugName)) {
-							if($content['selection']=='activate') {
-								if($this->aPlugins[$plugName]['activate']==0 AND method_exists($plugName, 'OnActivate'))
-									$instance->OnActivate();
-								$this->aPlugins[$plugName]['activate']=1;
-								$this->aPlugins[$plugName]['title']=$content['plugTitle'][$plugName];
-							}
-							elseif($content['selection']=='deactivate') {
-								if($this->aPlugins[$plugName]['activate']==1 AND method_exists($plugName, 'OnDeactivate'))
-									$instance->OnDeactivate();
-								$this->aPlugins[$plugName]['activate']=0;
-								$this->aPlugins[$plugName]['title']='';
-							}
-						}
-					}
-				}
-				# prise en compte du tri des plugins
-				$this->aPlugins[$plugName]['ordre']=$content['plugOrdre'][$plugName];
-			}
-
-			# vérification qu'il ne reste pas dés résidu dans le fichier plugins.xml suite à une suppression manuelle d'un dossier d'un plugin
-			foreach($this->aPlugins as $plugName => $plug) {
-				if(!file_exists(PLX_PLUGINS.$plugName.'/'.$plugName.'.php')) {
-					unset($this->aPlugins[$plugName]);
-				}
-			}
-
-			# Tri des plugins en fonction de la colonne d'ordre
-			if(sizeof($this->aPlugins)>0)
-				uasort($this->aPlugins, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
-		}
-		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-		foreach($this->aPlugins as $k=>$v) {
-			$title=isset($v['title'])?$v['title']:'';
-			$xml .= "\t<plugin name=\"$k\" activate=\"".intval($v['activate'])."\"><![CDATA[".plxUtils::cdataCheck($title)."]]></plugin>\n";
-		}
-		$xml .= "</document>";
-
-		# On écrit le fichier
-		if(plxUtils::write($xml,$this->filename))
-			return plxMsg::Info(L_SAVE_SUCCESSFUL);
-		else
-			return plxMsg::Error(L_SAVE_ERR.' '.$this->filename);
-
-	}
-
-	/**
-	 * Méthode qui charge les plugins en créant une instance plxPlugin des plugins
-	 * et récupere les hooks des plugins
-	 *
-	 * @return	null
-	 * @author	Stephane F
-	 **/
-	public function loadPlugins() {
-
-		foreach($this->aPlugins as $plugName=>$plugAttrs) {
-			if($plugAttrs['activate']) {
-				if($instance=$this->getInstance($plugName)) {
-					$this->aPlugins[$plugName]['instance'] = $instance;
-					$this->aHooks = array_merge_recursive($this->aHooks, $this->aPlugins[$plugName]['instance']->getHooks());
+				if($instance=$this->getInstance($name)) {
+					$this->aPlugins[$name] = $instance;
+					$this->aHooks = array_merge_recursive($this->aHooks, $instance->getHooks());
 				}
 			}
 		}
@@ -217,13 +84,111 @@ class plxPlugins {
 		if(isset($this->aHooks[$hookName])) {
 			ob_start();
 			foreach($this->aHooks[$hookName] as $callback) {
-				$return = $this->aPlugins[$callback['class']]['instance']->$callback['method']($parms);
+				$return = $this->aPlugins[$callback['class']]->$callback['method']($parms);
 			}
 			if(isset($return))
 				return array('?>'.ob_get_clean().'<?php ', $return);
 			else
 				return '?>'.ob_get_clean().'<?php ';
 		}
+	}
+
+	/**
+	 * Méthode qui récupère les infos des plugins actifs
+	 *
+	 * @return	null
+	 * @author	Stephane F
+	 **/
+	public function getInfos() {
+		foreach($this->aPlugins as $plugName => $plugInstance) {
+			$plugInstance->getInfos();
+		}
+	}
+
+	/**
+	 * Méthode qui renvoie la liste des plugins inactifs
+	 *
+	 * @return	array		liste des plugins inactifs
+	 * @author	Stephane F
+	 **/
+	public function getInactivePlugins() {
+
+		$aPlugins = array();
+		$dirs = plxGlob::getInstance(PLX_PLUGINS, true);
+		if(sizeof($dirs->aFiles)>0) {
+			foreach($dirs->aFiles as $plugName) {
+				if(!isset($this->aPlugins[$plugName]) AND $plugInstance=$this->getInstance($plugName)) {
+					$plugInstance->getInfos();
+					$aPlugins[$plugName] = $plugInstance;
+				}
+			}
+		}
+		ksort($aPlugins);
+		return $aPlugins;
+	}
+
+	/**
+	 * Méthode qui sauvegarde le fichier plugins.xml
+	 *
+	 * @param	content		array content $_POST
+	 * @return	boolean		resultat de la sauvegarde / TRUE = ok
+	 * @author	Stephane F
+	 **/
+	public function saveConfig($content) {
+
+		# activation des plugins
+		if(isset($content['selection']) AND $content['selection']=='activate') {
+			foreach($content['chkAction'] as $idx => $plugName) {
+				if($plugInstance = $this->getInstance($plugName)) {
+					if(method_exists($plugName, 'OnActivate'))
+						$plugInstance->OnActivate();
+					$this->aPlugins[$plugName] = $plugInstance;
+				}
+			}
+		}
+		# désactivation des plugins
+		elseif(isset($content['selection']) AND $content['selection']=='deactivate') {
+			foreach($content['chkAction'] as $idx => $plugName) {
+				if($plugInstance = $this->aPlugins[$plugName]) {
+					if(method_exists($plugName, 'OnDeActivate'))
+						$plugInstance->OnDeActivate();
+					unset($this->aPlugins[$plugName]);
+				}
+			}
+		}
+		# suppression des plugins
+		elseif(isset($content['selection']) AND $content['selection']=='delete') {
+			foreach($content['chkAction'] as $idx => $plugName) {
+				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+					unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
+					unset($this->aPlugins[$plugName]);
+				}
+			}
+		}
+		# tri des plugins par ordre de chargement
+		elseif(isset($content['update'])) {
+			$aPlugins = array();
+			asort($content['plugOrdre']);
+			foreach($content['plugOrdre'] as $plugName => $idx) {
+				$aPlugins[$plugName] = $this->aPlugins[$plugName];
+			}
+			$this->aPlugins = $aPlugins;
+		}
+
+		# Début du fichier XML
+		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
+		$xml .= "<document>\n";
+		foreach($this->aPlugins as $k=>$v) {
+				$xml .= "\t<plugin name=\"$k\"></plugin>\n";
+		}
+		$xml .= "</document>";
+
+		# On écrit le fichier
+		if(plxUtils::write($xml,path('XMLFILE_PLUGINS')))
+			return plxMsg::Info(L_SAVE_SUCCESSFUL);
+		else
+			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PLUGINS'));
+
 	}
 
 	/**
@@ -262,9 +227,9 @@ class plxPlugin {
 	protected $aInfos=array();  # tableau des infos sur le plugins venant du fichier infos.xml
 	protected $aParams=array(); # tableau des paramètres sur le plugins venant du fichier parameters.xml
 	protected $aHooks=array(); # tableau des hooks du plugin
-	protected $aLang=array(); # tableau contenant les clés de traduction de la langue courant de PluXml
+	protected $aLang=array(); # tableau contenant les clés de traduction de la langue courante de PluXml
 
-	protected $plug=array(); # tableau contenant des infos diverses pour el fonctionnement du plugin
+	protected $plug=array(); # tableau contenant des infos diverses pour le fonctionnement du plugin
 	protected $adminProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page admin.php du plugin
 	protected $configProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
 	protected $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
@@ -290,6 +255,8 @@ class plxPlugin {
 		);
 		$this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
 		$this->loadParams();
+		if(defined('PLX_ADMIN'))
+			$this->getInfos();
 	}
 
 	/**
@@ -331,7 +298,7 @@ class plxPlugin {
 	}
 
 	/**
-	 * Méthode qui renvoit le(s) profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
+	 * Méthode qui renvoit le(s) profil(s) utilisateur(s) autorisé(s) à accéder à la page config.php du plugin
 	 *
 	 * @return	string		profil(s) utilisateur(s)
 	 * @author	Stephane F
@@ -341,7 +308,7 @@ class plxPlugin {
 	}
 
 	/**
-	 * Méthode qui mémorise le(s) profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
+	 * Méthode qui mémorise le(s) profil(s) utilisateur(s) autorisé(s) à accéder à la page config.php du plugin
 	 *
 	 * @param	profil		profil(s) (PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER)
 	 * @return	null
@@ -543,7 +510,6 @@ class plxPlugin {
 			'date'			=> (isset($iTags['date']) AND isset($values[$iTags['date'][0]]['value']))?$values[$iTags['date'][0]]['value']:'',
 			'site'			=> (isset($iTags['site']) AND isset($values[$iTags['site'][0]]['value']))?$values[$iTags['site'][0]]['value']:'',
 			'description'	=> (isset($iTags['description']) AND isset($values[$iTags['description'][0]]['value']))?$values[$iTags['description'][0]]['value']:'',
-			'requirements'	=> (isset($iTags['requirements']) AND isset($values[$iTags['requirements'][0]]['value']))?$values[$iTags['requirements'][0]]['value']:'',
 			);
 
 	}
