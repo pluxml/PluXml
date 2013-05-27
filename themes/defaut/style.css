@@ -1,0 +1,564 @@
+/* ---------- GENERAL STYLES ---------- */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+	display: block;
+}
+
+audio,
+canvas,
+video {
+	display: inline-block;
+}
+
+html {
+	font-size: 100%;
+}
+
+body {
+	background-color: #222;
+	color: #ddd;
+	font-family: arial, helvetica, sans-serif;
+	line-height: 1.5;
+	margin: 0;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 20px 0;
+}
+
+h2 {
+	font-size: 1.5em;
+}
+
+h3 {
+	font-size: 1.2em;
+}
+
+h4 {
+	font-size: 1em;
+}
+
+h5 {
+	font-size: 0.8em;
+}
+
+h6 {
+	font-size: 0.7em;
+}
+
+a {
+	color: #2175bd;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #db2020;
+	text-decoration: none;
+}
+
+ol,
+ul {
+	padding-left: 0;
+}
+
+dd,
+li {
+	margin-left: 20px;
+}
+
+mark {
+	background-color: yellow;
+	padding:0 5px;
+}
+
+code,
+pre,
+samp,
+kbd {
+	font-family: monospace, serif;
+	font-size: 1em;
+	padding: 5px 10px;
+	white-space: pre-wrap;
+}
+
+sub,
+sup {
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	top: -5px;
+}
+
+sub {
+	bottom: -5px;
+}
+
+blockquote {
+	margin-left: 0;
+}
+
+img {
+	border: none;
+	height: auto;
+	max-width: 100%;
+}
+
+figure {
+	margin: 0;
+}
+
+hr {
+	height: 1px;
+	background-color: black;
+	border: 0;
+}
+
+fieldset {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+legend {
+	border: none;
+	padding: 0;
+}
+
+label {
+	cursor: pointer;
+	display: inline-block;
+	margin: 0;
+	vertical-align: middle;
+}
+
+button,
+input,
+select,
+textarea {
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 100%;
+	max-width: 400px;
+	outline : none;
+	width: 100%;
+}
+
+button,
+input,
+select {
+	height: 30px;
+	padding: 0 5px;
+	vertical-align: middle;
+}
+
+textarea {
+	overflow: auto;
+	padding: 5px;
+	vertical-align: top;
+}
+
+button[disabled],
+input[disabled] {
+	cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	margin: 0;
+	width: auto;
+}
+
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+caption {
+	padding: 5px;
+}
+
+th, td {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+* {
+	-moz-box-sizing : border-box;
+	-webkit-box-sizing : border-box;
+	box-sizing : border-box;
+}
+
+.content {
+	clear: both;
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* ---------- HEADER ---------- */
+
+header {
+	background-color:#f9f9f9;
+	color: #444;
+	padding: 20px 0;
+}
+
+body > header h1 {
+	font-size: 2.2em;
+	margin: 0;
+}
+
+header h1 a {
+	color: #444;
+}
+
+header h2 {
+	font-size: 1em;
+	margin: 0;
+	font-weight: normal;
+}
+
+/* ---------- NAV ---------- */
+
+nav {
+	background-color: #222;
+	color: #ddd;
+	padding: 10px 0;
+}
+
+nav ul {
+	margin: 0;
+}
+
+nav li {
+	margin: 0 30px 0 0;
+	display: inline;
+	list-style-type: none;
+}
+
+nav li a {
+	color: #ddd;
+	font-size: 1.3em;
+}
+
+nav li a:hover, nav li a.active {
+	color: #fff;
+}
+
+/* ---------- SECTION ---------- */
+
+section {
+	background-color:#f9f9f9;
+	color: #444;
+	overflow: hidden;
+	padding: 50px 0;
+}
+
+.directory {
+	margin: 0 0 30px 0;
+}
+
+.directory:first-letter{
+	text-transform: uppercase;
+}
+
+/* ---------- ARTICLE / PAGE ---------- */
+
+.width-sidebar {
+	float: left;
+	width: 60%;
+}
+
+.full-width {
+	width:100%;
+}
+
+article h1,
+article h1 a {
+	color: #444;
+	font-weight: bold;
+	line-height: 1.1;
+	margin: 0;
+}
+
+article header {
+	font-size: 0.9em;
+	padding: 0;
+}
+
+article header p {
+	margin-bottom: 0;
+}
+
+article section {
+	padding: 0;
+}
+
+article img {
+	margin: 0 5px;
+}
+
+article footer {
+	background-color: inherit;
+	color: inherit;
+	font-size: 0.9em;
+	margin-bottom: 50px;
+	padding: 0;
+	text-align: inherit;
+}
+
+article footer a {
+	color: #2175bd;
+}
+
+article footer a:hover {
+	color: #db2020;
+}
+
+/* ---------- COMMENT ---------- */
+
+#comments {
+	margin-bottom: 50px;
+}
+
+.info_comment {
+	font-size: 0.9em;
+}
+
+.comment {
+	background-image: url(img/user.png);
+	background-repeat: no-repeat;
+	margin-bottom: 30px;
+	padding-left: 60px;
+}
+
+.com-alert {
+	color: #db2020;
+	font-weight: bold;
+}
+
+/* ---------- PAGINATION ---------- */
+
+#pagination {
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+#pagination span,
+#pagination a {
+	display: inline-block;
+	margin: 0;
+}
+
+#pagination span:first-letter,
+#pagination a:first-letter {
+	text-transform: uppercase;
+}
+
+/* ---------- SIDEBAR ---------- */
+
+aside {
+	float: right;
+	width: 35%;
+}
+
+aside h3 {
+	font-weight: bold;
+	margin: 0;
+}
+
+aside ul {
+	margin: 0 0 50px 0;
+}
+
+aside li {
+	list-style-type: none;
+	margin-left: 0;
+}
+
+aside li:first-letter {
+	text-transform: uppercase;
+}
+
+.rss {
+	background-image: url(img/rss.png);
+	background-repeat: no-repeat;
+	line-height: 1;
+	margin: 10px 0;
+	padding-left: 20px;
+}
+
+/* ---------- TAG ---------- */
+
+.tag {
+	display: inline-block;
+	margin-bottom: 0;
+	padding-right: 10px;
+}
+
+.tag-size-1 {
+	font-size: 1em;
+}
+
+.tag-size-2 {
+	font-size: 1.1em;
+}
+
+.tag-size-3 {
+	font-size: 1.2em;
+}
+
+.tag-size-4 {
+	font-size: 1.3em;
+}
+
+.tag-size-5 {
+	font-size: 1.4em;
+}
+
+.tag-size-6 {
+	font-size: 1.5em;
+}
+
+.tag-size-7 {
+	font-size: 1.6em;
+}
+
+.tag-size-8 {
+	font-size: 1.7em;
+}
+
+.tag-size-9 {
+	font-size: 1.8em
+}
+
+.tag-size-10 {
+	font-size: 1.9em;
+}
+
+.tag-size-max {
+	font-size: 2em;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer {
+	background-color: #222;
+	clear: both;
+	color: #ddd;
+	padding: 50px 0;
+	text-align: center;
+}
+
+footer p {
+	margin: 0;
+}
+
+footer a {
+	color: #ddd;
+}
+
+footer a:hover {
+	color: #fff;
+}
+
+/* ---------- FORM ---------- */
+
+#form h2 {
+	margin: 0;
+}
+
+input,
+select,
+textarea {
+	background-color: #eee;
+	border: 1px solid #bbb;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+	background-color: #ddf0f8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	border: 1px solid #77bace;
+}
+
+button,
+input[type=submit],
+input[type=reset] {
+	background-color: #dedede;
+	border: 1px solid #bbb;
+	width: auto;
+}
+
+button:hover,
+input[type=submit]:hover,
+input[type=reset]:hover {
+	background-color: #bbb;
+	border: 1px solid #bbb;
+}
+
+.capcha-letter,
+.capcha-word {
+	font-weight: bold;
+}
+
+#id_rep {
+	width: auto;
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+
+@media screen and (max-width:768px) {
+
+	header {
+		text-align: center;
+	}
+
+	nav li {
+		display: block;
+		margin: 10px 0;
+		text-align: center;
+	}
+
+	.width-sidebar,
+	aside {
+		width: 100%;
+	}
+
+	article > header {
+		text-align: left;
+	}
+
+	button,
+	input,
+	select,
+	textarea {
+		max-width: 100%;
+}
+
+	aside {
+		margin-top: 50px;
+	}
+
+}
