@@ -5,7 +5,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_1_8 extends plxUpdate{
+class update_5_2 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
