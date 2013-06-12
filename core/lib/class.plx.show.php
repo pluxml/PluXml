@@ -854,9 +854,9 @@ class plxShow {
  				$row = str_replace('#art_author',plxUtils::strCheck($author),$row);
 				$row = str_replace('#art_title',plxUtils::strCheck($art['title']),$row);
 				$strlength = preg_match('/#art_chapo\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
-				$content = plxUtils::truncate($art['chapo'],$strlength,$ending,true,true);
+				$chapo = plxUtils::truncate($art['chapo'],$strlength,$ending,true,true);
 				$row = str_replace('#art_chapo('.$strlength.')','#art_chapo', $row);
-				$row = str_replace('#art_chapo',$art['chapo'],$row);
+				$row = str_replace('#art_chapo',$chapo,$row);
 				$strlength = preg_match('/#art_content\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
 				$content = plxUtils::truncate($art['content'],$strlength,$ending,true,true);
 				$row = str_replace('#art_content('.$strlength.')','#art_content', $row);
