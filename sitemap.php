@@ -42,7 +42,7 @@ $plxMotor = plxMotor::getInstance();
 loadLang(PLX_CORE.'lang/'.$plxMotor->aConf['default_lang'].'/core.php');
 
 # Hook Plugins
-eval($plxMotor->plxPlugins->callHook('SitemapBegin'));
+if(eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
 
 # On démarre la bufferisation
 ob_start();
