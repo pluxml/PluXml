@@ -52,6 +52,7 @@ $LANG = array(
 'L_UPDATE_FILE'						=> 'Aggiornamento File',
 'L_UPDATE_ERR_FILE'					=> 'Errore durante il file di aggiornamento',
 'L_UPDATE_PLUG_MOVEPARAMFILE'		=> 'La migrazione di file dalle impostazioni dei parametri del plugin nel file di configurazione',
+'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Aggiornamento del file plugins.xml',
 
 );
 ?>
