@@ -38,9 +38,6 @@ header('Content-Type: text/xml; charset='.PLX_CHARSET);
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
-# Chargement du fichier de langue
-loadLang(PLX_CORE.'lang/'.$plxMotor->aConf['default_lang'].'/core.php');
-
 # Hook Plugins
 if(eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
 

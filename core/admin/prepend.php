@@ -59,8 +59,6 @@ $plxAdmin = plxAdmin::getInstance();
 
 # Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
 $lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $plxAdmin->aConf['default_lang'];
-
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 
 # Hook Plugins

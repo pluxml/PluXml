@@ -34,9 +34,6 @@ include(PLX_CORE.'lib/class.plx.plugins.php');
 # Creation de l'objet principal et lancement du traitement
 $plxFeed = plxFeed::getInstance();
 
-# Chargement du fichier de langue
-loadLang(PLX_CORE.'lang/'.$plxFeed->aConf['default_lang'].'/core.php');
-
 eval($plxFeed->plxPlugins->callHook('FeedBegin'));
 
 # On démarre la bufferisation

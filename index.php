@@ -44,9 +44,6 @@ $plxMotor = plxMotor::getInstance();
 # Hook Plugins
 eval($plxMotor->plxPlugins->callHook('Index'));
 
-# Chargement du fichier de langue
-loadLang(PLX_CORE.'lang/'.$plxMotor->aConf['default_lang'].'/core.php');
-
 $plxMotor->prechauffage();
 $plxMotor->demarrage();
 
