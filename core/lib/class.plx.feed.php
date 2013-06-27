@@ -35,7 +35,7 @@ class plxFeed extends plxMotor {
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
 		# Chargement du fichier de langue
-		loadLang(PLX_CORE.'lang/'.$this->aConf['default_lang'].'/core.php');	
+		loadLang(PLX_CORE.'lang/'.$this->aConf['default_lang'].'/core.php');
 		# Contrôle de la présence du fichier 'version' de PluXml
 		if(!is_readable(PLX_ROOT.'version')) {
 			header('Content-Type: text/plain charset=UTF-8');
@@ -225,7 +225,7 @@ class plxFeed extends plxMotor {
 	 * @author	Florent MONTHEL, Stephane F, Amaury GRAILLAT
 	 **/
 	public function getRssArticles() {
-	
+
 		# Initialisation
 		$last_updated = '197001010100';
 		$entry_link = '';
