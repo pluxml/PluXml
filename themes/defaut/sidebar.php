@@ -3,7 +3,7 @@
 	<aside role="complementary">
 
 		<h3>
-			<?php $plxShow->lang('CATEGORIES') ?>
+			<?php $plxShow->lang('CATEGORIES'); ?>
 		</h3>
 
 		<ul>
@@ -11,7 +11,7 @@
 		</ul>
 
 		<h3>
-			<?php $plxShow->lang('LATEST_ARTICLES') ?>
+			<?php $plxShow->lang('LATEST_ARTICLES'); ?>
 		</h3>
 
 		<ul>
@@ -19,7 +19,7 @@
 		</ul>
 
 		<h3>
-			<?php $plxShow->lang('TAGS') ?>
+			<?php $plxShow->lang('TAGS'); ?>
 		</h3>
 
 		<ul>
@@ -27,7 +27,7 @@
 		</ul>
 
 		<h3>
-			<?php $plxShow->lang('LATEST_COMMENTS') ?>
+			<?php $plxShow->lang('LATEST_COMMENTS'); ?>
 		</h3>
 
 		<ul>
@@ -35,18 +35,18 @@
 		</ul>
 
 		<h3>
-			<?php $plxShow->lang('ARCHIVES') ?>
+			<?php $plxShow->lang('ARCHIVES'); ?>
 		</h3>
 
 		<ul>
 			<?php $plxShow->archList('<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a> (#archives_nbart)</li>'); ?>
 		</ul>
 
-		<p class="rss"><a href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>">
-			<?php $plxShow->lang('ARTICLES') ?></a>
+		<p class="rss"><a href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS'); ?>">
+			<?php $plxShow->lang('ARTICLES'); ?></a>
 		</p>
-		<p class="rss"><a href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>">
-			<?php $plxShow->lang('COMMENTS') ?></a>
+		<p class="rss"><a href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires'); ?>" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>">
+			<?php $plxShow->lang('COMMENTS'); ?></a>
 		</p>
 
 	</aside>

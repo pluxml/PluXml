@@ -12,7 +12,7 @@
 
 		<div id="<?php $plxShow->comId(); ?>" class="comment">
 			<blockquote>
-				<p class="info_comment"><a class="num-com" href="<?php $plxShow->ComUrl() ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a> <?php $plxShow->comDate('#day #num_day #month #num_year(4) &#64; #hour:#minute'); ?> <?php $plxShow->comAuthor('link'); ?> <?php $plxShow->lang('SAID') ?> : </p>
+				<p class="info_comment"><a class="num-com" href="<?php $plxShow->ComUrl(); ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a> <?php $plxShow->comDate('#day #num_day #month #num_year(4) &#64; #hour:#minute'); ?> <?php $plxShow->comAuthor('link'); ?> <?php $plxShow->lang('SAID') ?> : </p>
 				<p class="content_com type-<?php $plxShow->comType(); ?>"><?php $plxShow->comContent() ?></p>
 			</blockquote>
 		</div>
@@ -38,25 +38,25 @@
 		<form action="<?php $plxShow->artUrl(); ?>#form" method="post">
 			<fieldset>
 				<p>
-					<label for="id_name"><?php $plxShow->lang('NAME') ?>&nbsp;:</label>
+					<label for="id_name"><?php $plxShow->lang('NAME') ?> :</label>
 				</p>
 				<p>
 					<input id="id_name" name="name" type="text" size="20" value="<?php $plxShow->comGet('name',''); ?>" maxlength="30" />
 				</p>
 				<p>
-					<label for="id_site"><?php $plxShow->lang('WEBSITE') ?>&nbsp;:</label>
+					<label for="id_site"><?php $plxShow->lang('WEBSITE') ?> :</label>
 				</p>
 				<p>
 					<input id="id_site" name="site" type="text" size="20" value="<?php $plxShow->comGet('site',''); ?>" />
 				</p>
 				<p>
-					<label for="id_mail"><?php $plxShow->lang('EMAIL') ?>&nbsp;:</label>
+					<label for="id_mail"><?php $plxShow->lang('EMAIL') ?> :</label>
 				</p>
 				<p>
 					<input id="id_mail" name="mail" type="text" size="20" value="<?php $plxShow->comGet('mail',''); ?>" />
 				</p>
 				<p>
-					<label for="id_content" class="lab_com"><?php $plxShow->lang('COMMENT') ?>&nbsp;:</label>
+					<label for="id_content" class="lab_com"><?php $plxShow->lang('COMMENT') ?> :</label>
 				</p>
 				<p>
 					<textarea id="id_content" name="content" cols="35" rows="6"><?php $plxShow->comGet('content',''); ?></textarea>
@@ -66,10 +66,10 @@
 				</p>
 				<?php if($plxShow->plxMotor->aConf['capcha']): ?>
 				<p>
-					<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong>&nbsp;:</label>
+					<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong> :</label>
 				</p>
 				<p>
-					<?php $plxShow->capchaQ(); ?>&nbsp;:&nbsp;<input id="id_rep" name="rep" type="text" size="2" maxlength="1" />
+					<?php $plxShow->capchaQ(); ?> : <input id="id_rep" name="rep" type="text" size="2" maxlength="1" />
 				</p>
 				<?php endif; ?>
 				<p>

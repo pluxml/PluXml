@@ -13,7 +13,7 @@
 						<?php $plxShow->artTitle(''); ?>
 					</h1>
 					<p>
-						<?php $plxShow->lang('WRITTEN_BY') ?> <?php $plxShow->artAuthor() ?> -
+						<?php $plxShow->lang('WRITTEN_BY') ?> <?php $plxShow->artAuthor(); ?> -
 						<?php $plxShow->artDate('#num_day #month #num_year(4)'); ?> -
 						<?php $plxShow->artNbCom(); ?>
 					</p>

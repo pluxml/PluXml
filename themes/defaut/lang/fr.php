@@ -12,39 +12,39 @@ $LANG = array(
 'ARTICLES'				=> 'Fil des articles',
 
 # sidebar.php
-'CATEGORIES' 			=> 'Cat&eacute;gories',
-'LATEST_ARTICLES'			=> 'Derniers articles',
-'LATEST_COMMENTS'			=> 'Derniers commentaires',
+'CATEGORIES' 			=> 'Catégories',
+'LATEST_ARTICLES'		=> 'Derniers articles',
+'LATEST_COMMENTS'		=> 'Derniers commentaires',
 'ARCHIVES'				=> 'Archives',
 
 # footer.php
-'POWERED_BY'			=> 'G&eacute;n&eacute;r&eacute; par',
-'PLUXML_DESCRIPTION'	=> 'Blog ou Cms sans base de donn&eacute;es',
+'POWERED_BY'			=> 'Généré par',
+'PLUXML_DESCRIPTION'	=> 'Blog ou Cms sans base de données',
 'IN'					=> 'en',
 'ADMINISTRATION'		=> 'Administration',
 'GOTO_TOP'				=> 'Remonter en haut de page',
 'TOP'					=> 'Haut de page',
 
 # erreur.php
-'ERROR'					=> 'La page que vous avez demand&eacutee; n\'existe pas',
-'BACKTO_HOME'			=> 'Retour &agrave; la page d\'accueil',
+'ERROR'					=> 'La page que vous avez demandé n\'existe pas',
+'BACKTO_HOME'			=> 'Retour à la page d\'accueil',
 
 # common
-'WRITTEN_BY'			=> 'R&eacute;dig&eacute; par',
-'CLASSIFIED_IN'			=> 'Class&eacute; dans',
-'TAGS'					=> 'Mots cl&eacute;s',
+'WRITTEN_BY'			=> 'Rédigé par',
+'CLASSIFIED_IN'			=> 'Classé dans',
+'TAGS'					=> 'Mots clés',
 
 # commentaires.php
 'SAID'					=> 'a dit',
-'WRITE_A_COMMENT'		=> '&Eacute;crire un commentaire',
+'WRITE_A_COMMENT'		=> 'Écrire un commentaire',
 'NAME'					=> 'Votre nom ou pseudo',
 'WEBSITE'				=> 'Votre site Internet (facultatif)',
 'EMAIL'					=> 'Votre adresse e-mail (facultatif)',
 'COMMENT'				=> 'Contenu de votre message',
 'CLEAR'					=> 'Effacer',
 'SEND'					=> 'Envoyer votre commentaire',
-'COMMENTS_CLOSED'		=> 'Les commentaires sont ferm&eacute;s',
-'ANTISPAM_WARNING'		=> 'V&eacute;rification anti-spam',
+'COMMENTS_CLOSED'		=> 'Les commentaires sont fermés',
+'ANTISPAM_WARNING'		=> 'Vérification anti-spam',
 );
 
 ?>

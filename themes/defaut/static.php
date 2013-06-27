@@ -1,4 +1,4 @@
-<?php include(dirname(__FILE__) . '/header.php'); ?>
+<?php include(dirname(__FILE__).'/header.php'); ?>
 
 <section>
 
@@ -28,4 +28,4 @@
 
 </section>
 
-<?php include(dirname(__FILE__) . '/footer.php'); ?>
+<?php include(dirname(__FILE__).'/footer.php'); ?>

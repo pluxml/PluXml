@@ -1,4 +1,4 @@
-<?php include(dirname(__FILE__) . '/header.php'); ?>
+<?php include(dirname(__FILE__).'/header.php'); ?>
 
 <section>
 
@@ -10,7 +10,7 @@
 
 				<header role="banner">
 					<h1>
-						<?php $plxShow->lang('ERROR') ?>
+						<?php $plxShow->lang('ERROR'); ?>
 					</h1>
 				</header>
 
@@ -30,4 +30,4 @@
 
 </section>
 
-<?php include(dirname(__FILE__) . '/footer.php'); ?>
+<?php include(dirname(__FILE__).'/footer.php'); ?>
