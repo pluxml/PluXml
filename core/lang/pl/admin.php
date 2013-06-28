@@ -450,7 +450,7 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'										=> 'Informações',
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Gerir os plugins',
 'L_MENU_CONFIG_PLUGINS'										=> 'Plugins',
-'L_ERR_URL_ALREADY_EXISTS'									=> 'Url j´ utilizado',
+'L_ERR_URL_ALREADY_EXISTS'									=> 'Url już w użyciu. Proszę zmienić wartość pola \'Url\'',
 );
 
 ?>

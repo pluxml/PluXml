@@ -32,7 +32,7 @@ $LANG = array(
 'L_COMMENT_VALIDATE_ERR'									=> 'Ошибка при проверке',
 'L_COMMENT_MODERATE_SUCCESSFUL'								=> 'Успешная модерация',
 'L_COMMENT_MODERATE_ERR'									=> 'Ошибка при модерации',
-'L_ERR_URL_ALREADY_EXISTS'									=> 'Такой Url уже используется',
+'L_ERR_URL_ALREADY_EXISTS'									=> 'Адрес уже используется. Пожалуйста, измените значение поля \'Адрес\'',
 
 # class.plx.media.php
 

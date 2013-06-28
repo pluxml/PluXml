@@ -32,7 +32,7 @@ $LANG = array(
 'L_COMMENT_VALIDATE_ERR'			=> 'Une erreur est survenue pendant la validation',
 'L_COMMENT_MODERATE_SUCCESSFUL'		=> 'Modération effectuée avec succès',
 'L_COMMENT_MODERATE_ERR'			=> 'Une erreur est survenue lors de la modération',
-'L_ERR_URL_ALREADY_EXISTS'			=> 'Url déjà utilisée',
+'L_ERR_URL_ALREADY_EXISTS'			=> 'Url déjà utilisée. Veuillez modifier la valeur du champ \'Url\'',
 
 # class.plx.media.php
 

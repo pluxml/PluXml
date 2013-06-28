@@ -450,7 +450,7 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'										=> 'Informatie',
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Plugins beheren',
 'L_MENU_CONFIG_PLUGINS'										=> 'Plugins',
-'L_ERR_URL_ALREADY_EXISTS'									=> 'Url al gebruikt',
+'L_ERR_URL_ALREADY_EXISTS'									=> 'Url al in gebruik. Moet u de waarde van het veld \'Url\'',
 );
 
 ?>

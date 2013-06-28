@@ -451,7 +451,8 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'								=> 'Nachrichten',
 'L_MENU_CONFIG_PLUGINS_TITLE'						=> 'Plugins verwalten',
 'L_MENU_CONFIG_PLUGINS'								=> 'Plugins',
-'L_ERR_URL_ALREADY_EXISTS'							=> 'Diese URL wird bereits verwendet',
+'L_ERR_URL_ALREADY_EXISTS'							=> 'Url bereits im Einsatz. Bitte ändern Sie den Wert des Feldes \'Url\'',
+
 );
 
 ?>
