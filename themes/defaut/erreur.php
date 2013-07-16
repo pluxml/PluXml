@@ -8,7 +8,7 @@
 
 			<article role="article">
 
-				<header role="banner">
+				<header>
 					<h1>
 						<?php $plxShow->lang('ERROR'); ?>
 					</h1>

@@ -8,7 +8,7 @@
 
 			<article role="article" id="post-<?php echo $plxShow->artId(); ?>">
 
-				<header role="banner">
+				<header>
 					<h1>
 						<?php $plxShow->artTitle(''); ?>
 					</h1>
@@ -23,7 +23,7 @@
 					<?php $plxShow->artContent(); ?>
 				</section>
 
-				<footer role="contentinfo">
+				<footer>
 					<p>
 						<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat(); ?> -
 						<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags(); ?>
