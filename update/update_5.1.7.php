@@ -75,16 +75,27 @@ class update_5_1_7 extends plxUpdate{
 
 	# déplacement et renommage des fichiers parametres des plugins
 	public function step3() {
+
+		# Récupère le nouveau n° de version de PluXml
+		if(is_readable(PLX_ROOT.'version')) {
+			$f = file(PLX_ROOT.'version');
+			$newVersion = $f['0'];
+		}
+
 		echo L_UPDATE_PLUG_MOVEPARAMFILE."<br />";
 		foreach($this->plxAdmin->plxPlugins->aPlugins as $plugName=>$plugAttrs) {
 			$plugParamFile = PLX_PLUGINS.$plugName.'/parameters.xml';
 			if(is_file($plugParamFile)) {
+				if (version_compare($newVersion, '5.1.7') > 0)
+					$title = $plugAttrs->getInfo('title');
+				else
+					$title = $plugAttrs['title'];
 				if(plxUtils::write(file_get_contents($plugParamFile), PLX_ROOT.PLX_CONFIG_PATH.'/plugins/'.$plugName.'.xml')) {
-					echo '<span style="color:green">&#10004; '.$plugAttrs['title'].'</span><br />';
+					echo '<span style="color:green">&#10004; '.$title.'</span><br />';
 					unlink($plugParamFile);
 				}
 				else
-					echo '<span style="color:red">&#10007; '.$plugAttrs['title'].'</span><br />';
+					echo '<span style="color:red">&#10007; '.$title.'</span><br />';
 			}
 		}
 		return true; # pas d'erreurs
