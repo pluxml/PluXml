@@ -134,14 +134,18 @@ class plxUtils {
 	 * @param	selected	valeur par défaut
 	 * @param	readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
-	 * @param	id			si à vrai génère un id
+	 * @param	id			si vrai génère un id à partir du nom du champ, sinon géneèe l'id à partir du paramètre
 	 * @return	stdout
 	 **/
 	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
 
 		if(!is_array($array)) $array=array();
 
-		$id = ($id?' id="id_'.$name.'"':'');
+		if(is_bool($id))
+			$id = ($id ? ' id="id_'.$name.'"' : '');
+		else
+			$id = ($id!='' ? ' id="id_'.$id.'"' : '');
+
 		if($readonly)
 			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly">'."\n";
 		else
