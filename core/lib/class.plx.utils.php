@@ -171,19 +171,22 @@ class plxUtils {
 	 *
 	 * @param	name		nom de la zone de saisie
 	 * @param	value		valeur contenue dans la zone de saisie
-	 * @param	type		type du champ (text, password)
+	 * @param	type		type du champ (text, password, hidden)
 	 * @param	size		longueur du champ - nombre maximal de caractères pouvant être saisis (par défaut 50-255)
 	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
+	 * àparam	placeholder valeur du placeholder du champ (html5)
 	 * @return	stdout
 	 **/
-	public static function printInput($name, $value='', $type='text', $size='50-255', $readonly=false, $class='') {
+	public static function printInput($name, $value='', $type='text', $size='50-255', $readonly=false, $class='', $placeholder='') {
 
 		$size = explode('-',$size);
+		$placeholder = $placeholder!='' ? ' placeholder="'.$placeholder.'"' : '';
 		if($readonly)
-			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly" />'."\n";
+			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
 		else
-			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" />'."\n";
+			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
+
 	}
 
 	/**
