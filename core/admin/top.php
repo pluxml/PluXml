@@ -61,7 +61,7 @@
 			$coms_offline = $nbcoms>0 ? '&nbsp;<a class="cpt" href="comments.php?sel=offline&amp;page=1">'.$plxAdmin->nbComments('offline').'</a>':'';
 			$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, 'comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
 		}
-		
+
 		if($_SESSION['profil'] <= PROFIL_EDITOR)
 			$menus[] = plxUtils::formatMenu(L_MENU_CATEGORIES,'categories.php', L_MENU_CATEGORIES_TITLE);
 
@@ -76,7 +76,7 @@
 				$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_INFOS,'parametres_infos.php', L_MENU_CONFIG_INFOS_TITLE, 'sub');
 			}
 		}
-		
+
 		$menus[] = plxUtils::formatMenu(L_MENU_PROFIL, 'profil.php', L_MENU_PROFIL_TITLE);
 
 		# récuperation des menus admin pour les plugins
@@ -86,7 +86,6 @@
 					if($plugInstance->adminMenu) {
 						$menu = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->adminMenu['title']), 'plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->adminMenu['caption']));
 						array_splice($menus, ($plugInstance->adminMenu['position']-1), 0, $menu);
-						$menus[]=$menu;
 					} else {
 						$menus[] = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->getInfo('title')), 'plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->getInfo('title')));
 					}
