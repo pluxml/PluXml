@@ -1,4 +1,4 @@
-﻿## PLUXML 5.x (sortie : xx/xx/2013) ##
+﻿## PLUXML 5.2 (sortie : 04/08/2013) ##
 
 [+] sitemap.php: ajout des hooks SitemapBegin et SitemapEnd
 [+] feed.php: ajout des hooks FeedBegin et FeedEnd
