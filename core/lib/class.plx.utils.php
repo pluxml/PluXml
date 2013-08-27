@@ -144,7 +144,7 @@ class plxUtils {
 		if(is_bool($id))
 			$id = ($id ? ' id="id_'.$name.'"' : '');
 		else
-			$id = ($id!='' ? ' id="id_'.$id.'"' : '');
+			$id = ($id!='' ? ' id="'.$id.'"' : '');
 
 		if($readonly)
 			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly">'."\n";
