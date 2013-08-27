@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'									=> 'Unbekannter Fehler',
+'L_CONFIRM_DELETE'									=> 'Bestätigen Sie die Löschung?',
 'L_SAVE_SUCCESSFUL'									=> 'Daten erflogreich gespeichert',
 'L_SAVE_ERR'										=> 'Fehler während des Dateispeicherns',
 'L_NO_ENTRY'										=> 'Datenzugriff verboten',

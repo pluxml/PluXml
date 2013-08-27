@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'					=> 'Erreur inconnue',
+'L_CONFIRM_DELETE'					=> 'Confirmer la suppression ?',
 
 # class.plx.admin.php
 
@@ -219,7 +220,6 @@ $LANG = array(
 
 'L_COMMENTS_ARTICLE_SCOPE' 			=> 'article',
 'L_COMMENTS_GLOBAL_SCOPE'			=> 'site entier',
-
 'L_COMMENTS_LIST_DATE'				=> 'Date',
 'L_COMMENTS_LIST_AUTHOR'			=> 'Auteur',
 'L_COMMENTS_LIST_MESSAGE'			=> 'Message',
@@ -232,11 +232,9 @@ $LANG = array(
 'L_COMMENT_ONLINE_FEEDS_TITLE'		=> 'Flux rss des commentaires en-ligne',
 'L_COMMENT_ONLINE_FEEDS'			=> 'Commentaires en-ligne',
 'L_COMMENTS_PRIVATE_FEEDS'		    => 'Flux de syndication privés',
-
 'L_COMMENTS_ONLINE_LIST'			=> 'Liste des commentaires publiés',
 'L_COMMENTS_OFFLINE_LIST'			=> 'Liste des commentaires en attente de validation',
 'L_COMMENTS_ALL_LIST'				=> 'Liste des commentaires',
-
 'L_COMMENT_SET_ONLINE'				=> 'Mettre en ligne',
 'L_COMMENT_SET_OFFLINE'				=> 'Mettre hors ligne',
 
@@ -400,6 +398,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modifier la liste des utilisateurs',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identifiant de connexion déjà utilisé',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilisateur déjà utilisé',
+'L_CONFIG_USERS_DELETE_CONFIRM'		=> 'Supprimer les utilisateurs sélectionnés ?',
 
 # parametre_plugins.php
 
@@ -478,7 +477,6 @@ $LANG = array(
 'L_STATICS_NEW_PAGE'				=> 'Nouvelle page',
 'L_STATICS_UPDATE'					=> 'Modifier la liste des pages statiques',
 'L_ERR_STATIC_ALREADY_EXISTS'		=> 'Titre de page statique déjà utilisé',
-
 
 # top.php
 'L_PROFIL_ADMIN'					=> 'Administrateur',

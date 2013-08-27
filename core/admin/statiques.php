@@ -115,7 +115,7 @@ function checkBox(cb) {
 				echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
 				plxUtils::printInput($new_staticid.'_group', '', 'hidden', '13-100');
 				echo '</td><td>';
-								echo '</td><td>';
+				echo '</td><td>';
 				plxUtils::printInput($new_staticid.'_name', '', 'text', '13-255');
 				plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden');
 				echo '</td><td>';
@@ -137,8 +137,8 @@ function checkBox(cb) {
 		<input class="button update" type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
 	</p>
 	<p>
-		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '') ?>
-		<input class="button submit" type="submit" name="submit" value="<?php echo L_OK ?>" />
+		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, '', 'id_selection') ?>
+		<input class="button submit" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	</p>
 </form>
 

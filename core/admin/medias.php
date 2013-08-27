@@ -61,17 +61,17 @@ elseif(!empty($_POST['btn_upload'])) {
 	header('Location: medias.php');
 	exit;
 }
-elseif(isset($_POST['selection']) AND ($_POST['selection'][0] == 'delete' OR $_POST['selection'][1] == 'delete') AND isset($_POST['idFile'])) {
+elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='delete') OR (!empty($_POST['btn_ok2']) AND$_POST['selection'][1]=='delete')) AND isset($_POST['idFile'])) {
 	$plxMedias->deleteFiles($_POST['idFile']);
 	header('Location: medias.php');
 	exit;
 }
-elseif(isset($_POST['selection']) AND ($_POST['selection'][0] == 'move' OR $_POST['selection'][1] == 'move') AND isset($_POST['idFile'])) {
+elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='move') OR (!empty($_POST['btn_ok2']) AND$_POST['selection'][1]=='move')) AND isset($_POST['idFile'])) {
 	$plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $_POST['folder']);
 	header('Location: medias.php');
 	exit;
 }
-elseif(isset($_POST['selection']) AND ($_POST['selection'][0] == 'thumbs' OR $_POST['selection'][1] == 'thumbs') AND isset($_POST['idFile'])) {
+elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='thumbs') OR (!empty($_POST['btn_ok2']) AND $_POST['selection'][1]=='thumbs')) AND isset($_POST['idFile'])) {
 	$plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']);
 	header('Location: medias.php');
 	exit;
@@ -227,8 +227,8 @@ function toggle_divs(){
 		</div>
 		<div class="files">
 			<p style="margin-bottom:15px">
-				<?php plxUtils::printSelect('selection[]', $selectionList, '', false, '', false) ?>
-				<input class="button submit" type="submit" name="btn_action" value="<?php echo L_OK ?>" />
+				<?php plxUtils::printSelect('selection[]', $selectionList, '', false, '', 'id_selection1') ?>
+				<input class="button submit" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			</p>
 			<table class="table">
 			<thead>
@@ -275,8 +275,8 @@ function toggle_divs(){
 			</tbody>
 			</table>
 			<p>
-				<?php plxUtils::printSelect('selection[]', $selectionList , '', false, '', false) ?>
-				<input class="button submit" type="submit" name="btn_action" value="<?php echo L_OK ?>" />
+				<?php plxUtils::printSelect('selection[]', $selectionList , '', false, '', 'id_selection2') ?>
+				<input class="button submit" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 				<input type="hidden" name="sort" value="" />
 			</p>
 		</div>

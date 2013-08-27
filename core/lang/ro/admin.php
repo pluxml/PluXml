@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'											=> 'Eroare necunoscută',
+'L_CONFIRM_DELETE'											=> 'Confirmați ștergerea ?',
 'L_SAVE_SUCCESSFUL'											=> 'Înregistrarea a fost efectuata cu succes',
 'L_SAVE_ERR'												=> 'Eroare la înregistrare ',
 'L_NO_ENTRY'												=> 'Acces refuzat',

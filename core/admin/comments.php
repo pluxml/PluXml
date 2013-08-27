@@ -32,19 +32,19 @@ if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 }
 
 # Suppression des commentaires selectionnes
-if(isset($_POST['selection']) AND ($_POST['selection'][0] == 'delete' OR $_POST['selection'][1] == 'delete') AND isset($_POST['idCom'])) {
+if(isset($_POST['selection']) AND ((!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='delete') OR (!empty($_POST['btn_ok2']) AND $_POST['selection'][1]=='delete')) AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->delCommentaire($v);
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
 # Validation des commentaires selectionnes
-elseif(isset($_POST['selection']) AND ($_POST['selection'][0] == 'online' OR $_POST['selection'][1] == 'online') AND isset($_POST['idCom'])) {
+elseif(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND ($_POST['selection'][0]=='online') OR (!empty($_POST['btn_ok2']) AND $_POST['selection'][1]=='online')) AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'online');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
 # Mise hors-ligne des commentaires selectionnes
-elseif (isset($_POST['selection']) AND ($_POST['selection'][0] == 'offline' OR $_POST['selection'][1] == 'offline') AND isset($_POST['idCom'])) {
+elseif (isset($_POST['selection']) AND ((!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='offline') OR (!empty($_POST['btn_ok2']) AND $_POST['selection'][1]=='offline')) AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'offline');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
@@ -112,15 +112,19 @@ if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
 
-ob_start();
-if($comSel=='online')
-	plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'',false);
-elseif($comSel=='offline')
-	plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'',false);
-elseif($comSel=='all')
-	plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'',false);
-$selector=ob_get_clean();
+function selector($comSel, $id) {
+	ob_start();
+	if($comSel=='online')
+		plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'',$id);
+	elseif($comSel=='offline')
+		plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'',$id);
+	elseif($comSel=='all')
+		plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'',$id);
+	return ob_get_clean();
+}
 
+$selector1=selector($comSel, 'id_selection1');
+$selector2=selector($comSel, 'id_selection2');
 ?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
@@ -131,7 +135,7 @@ $selector=ob_get_clean();
 	<?php echo implode('&nbsp;|&nbsp;', $breadcrumbs); ?>
 </p>
 <p>
-	<?php echo $selector ?><input class="button submit" type="submit" name="submit" value="Ok" />
+	<?php echo $selector1 ?><input class="button submit" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 </p>
 <table class="table">
 <thead>
@@ -180,7 +184,7 @@ if($coms) {
 </table>
 <p>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<?php echo $selector ?><input class="button submit" type="submit" name="submit" value="Ok" />
+	<?php echo $selector2 ?><input class="button submit" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')"/>
 </p>
 </form>
 

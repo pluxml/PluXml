@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'											=> 'Onbekende fout',
+'L_CONFIRM_DELETE'											=> 'Bevestig de verwijdering ?',
 'L_SAVE_SUCCESSFUL'											=> 'Gegevens succesvol opgeslagen',
 'L_SAVE_ERR'												=> 'Fout bij het opslaan van de gegevens',
 'L_NO_ENTRY'												=> 'Geen toegang',

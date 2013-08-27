@@ -153,8 +153,8 @@ include(dirname(__FILE__).'/top.php');
 <?php endif; ?>
 <p>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<?php plxUtils::printSelect('selection', $aSelList,'', false,'',false); ?>&nbsp;
-	<input class="button submit" type="submit" name="submit" value="<?php echo L_OK ?>" />
+	<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>&nbsp;
+	<input class="button submit" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 </p>
 </form>
 

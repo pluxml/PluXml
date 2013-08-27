@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'											=> 'Erro desconhecido',
+'L_CONFIRM_DELETE'											=> 'Confirme a eliminação ?',
 'L_SAVE_SUCCESSFUL'											=> 'Grabação dos dados efectuada com sucesso',
 'L_SAVE_ERR'												=> 'Ocorreu um erro durante o processo de grabação dos dados',
 'L_NO_ENTRY'												=> 'Acesso refusado',

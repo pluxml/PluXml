@@ -59,6 +59,17 @@ function checkAll(inputs, field) {
 		}
 	}
 }
+function confirmAction(inputs, selfield, selvalue, field, msg) {
+	if(document.getElementById(selfield).value==selvalue) {
+		var action = false;
+		for(var i = 0; i < inputs.elements.length; i++) {
+			if(inputs[i].type == "checkbox" && inputs[i].name==field) {
+				if(inputs[i].checked) { action=true }
+			}
+		}
+		return (action ? confirm(msg) : false);
+	}
+}
 function toggleDiv(divId,togglerId,on,off){
 	var toggler = document.getElementById(togglerId);
 	if(document.getElementById(divId).style.display == 'none') {

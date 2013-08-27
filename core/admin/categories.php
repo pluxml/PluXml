@@ -119,8 +119,8 @@ include(dirname(__FILE__).'/top.php');
 		<input class="button update " type="submit" name="update" value="<?php echo L_CAT_APPLY_BUTTON ?>" />
 	</p>
 	<p>
-		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '') ?>
-		<input class="button submit" type="submit" name="submit" value="<?php echo L_OK ?>" />
+		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', 'id_selection') ?>
+		<input class="button submit" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCategory[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	</p>
 </form>
 

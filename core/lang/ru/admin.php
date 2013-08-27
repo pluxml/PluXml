@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'											=> 'Неизвестная ошибка',
+'L_CONFIRM_DELETE'											=> 'Подтвердите удаление ?',
 
 # class.plx.admin.php
 

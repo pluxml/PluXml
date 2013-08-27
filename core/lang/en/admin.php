@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'											=> 'Unknown error',
+'L_CONFIRM_DELETE'											=> 'Confirm the deletion?',
 'L_SAVE_SUCCESSFUL'											=> 'Data was succesfully saved',
 'L_SAVE_ERR'												=> 'Error while saving data',
 'L_NO_ENTRY'												=> 'No entry',

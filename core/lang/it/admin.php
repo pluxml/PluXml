@@ -3,6 +3,7 @@
 $LANG = array(
 
 'L_UNKNOWN_ERROR'											=> 'Errore sconosciuto',
+'L_CONFIRM_DELETE'											=> 'Confermare l\'eliminazione ?',
 'L_SAVE_SUCCESSFUL'											=> 'Dati salvati con successo',
 'L_SAVE_ERR'												=> 'Errore durante il salvataggio dei dati',
 'L_NO_ENTRY'												=> 'Accesso non consentito',

@@ -16,7 +16,7 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
 
 # Suppression des articles selectionnes
-if(isset($_POST['selection']) AND ($_POST['selection'][0] == 'delete' OR $_POST['selection'][1] == 'delete') AND isset($_POST['idArt'])) {
+if(isset($_POST['selection']) AND ((!empty($_POST['sel1']) AND $_POST['selection'][0] == 'delete') OR (!empty($_POST['sel2']) AND $_POST['selection'][1] == 'delete')) AND isset($_POST['idArt'])) {
 	foreach ($_POST['idArt'] as $k => $v) $plxAdmin->delArticle($v);
 	header('Location: index.php');
 	exit;
@@ -123,7 +123,7 @@ include(dirname(__FILE__).'/top.php');
 	<p>
 		<?php plxUtils::printInput('page',1,'hidden'); ?>
 		<input type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
-		<input class="button submit<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
+		<input name="sel1" class="button submit<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
 	</p>
 	</form>
 </div>
@@ -139,8 +139,8 @@ include(dirname(__FILE__).'/top.php');
 <?php
 if($_SESSION['profil']<=PROFIL_MODERATOR) {
 	echo '<p>';
-	plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', false);
-	echo '<input class="button submit" type="submit" name="submit" value="'.L_OK.'" />';
+	plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', 'id_selection1');
+	echo '<input class="button submit" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
 	echo '</p>';
 }
 ?>
@@ -221,8 +221,8 @@ if($arts) { # On a des articles
 	echo '<p>';
 	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
-		plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', false);
-		echo '<input class="button submit" type="submit" name="submit" value="'.L_OK.'" />';
+		plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', 'id_selection2');
+		echo '<input name="sel2" class="button submit" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection2\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
 	}
 	echo '</p>';
 ?>
