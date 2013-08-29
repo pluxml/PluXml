@@ -198,9 +198,9 @@ class plxShow {
 		if($this->plxMotor->mode == 'categorie') {
 			$title_htmltag = $this->plxMotor->aCats[$this->plxMotor->cible ]['title_htmltag'];
 			if($title_htmltag!='')
-				echo plxUtils::strCheck($this->plxMotor->aConf['title'].' - '.$title_htmltag);
+				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
 			else
-				echo plxUtils::strCheck($this->plxMotor->aConf['title'].' - '.$this->plxMotor->aCats[$this->plxMotor->cible ]['name']);
+				echo plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible ]['name'].' - '.$this->plxMotor->aConf['title']);
 			return;
 		}
 		if($this->plxMotor->mode == 'article') {
