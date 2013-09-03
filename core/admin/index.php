@@ -123,7 +123,7 @@ include(dirname(__FILE__).'/top.php');
 	<p>
 		<?php plxUtils::printInput('page',1,'hidden'); ?>
 		<input type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
-		<input name="sel1" class="button submit<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
+		<input class="button submit<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
 	</p>
 	</form>
 </div>
@@ -140,7 +140,7 @@ include(dirname(__FILE__).'/top.php');
 if($_SESSION['profil']<=PROFIL_MODERATOR) {
 	echo '<p>';
 	plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', 'id_selection1');
-	echo '<input class="button submit" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
+	echo '<input name="sel1" class="button submit" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
 	echo '</p>';
 }
 ?>
