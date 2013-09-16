@@ -80,6 +80,9 @@ class plxGlob {
 						elseif(!$this->rep AND !$dir) {
 							if($type=='arts') {
 								$index = str_replace('_','',substr($file, 0,strpos($file,'.')));
+								if(is_numeric($index)) {
+									$this->aFiles[$index] = $file;
+								}								
 								$this->aFiles[$index] = $file;
 							} else {
 								$this->aFiles[] = $file;
