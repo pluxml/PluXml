@@ -83,7 +83,6 @@ class plxGlob {
 								if(is_numeric($index)) {
 									$this->aFiles[$index] = $file;
 								}								
-								$this->aFiles[$index] = $file;
 							} else {
 								$this->aFiles[] = $file;
 							}
