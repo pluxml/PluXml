@@ -68,6 +68,8 @@ function pluginsList($plugins, $defaultLang, $type) {
 					$output .= L_PLUGINS_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
 					# site
 					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.plxUtils::strCheck($plugInstance->getInfo('site')).'">'.plxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
+					# message d'alerte si plugin non configuré
+					if($type AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) $output .= '<br /><span class="alert">'.L_PLUGIN_NO_CONFIG.'</span>';
 				$output .= '</td>';
 
 				# colonne pour trier les plugins
@@ -79,12 +81,13 @@ function pluginsList($plugins, $defaultLang, $type) {
 
 				# affichage des liens du plugin
 				$output .= '<td class="right">';
+					# lien configuration
+					if(is_file(PLX_PLUGINS.$plugName.'/config.php')) {
+						$output .= '<a title="'.L_PLUGINS_CONFIG_TITLE.'" href="parametres_plugin.php?p='.urlencode($plugName).'">'.L_PLUGINS_CONFIG.'</a><br />';
+					}
 					# lien aide
 					if(is_file(PLX_PLUGINS.$plugName.'/lang/'.$defaultLang.'-help.php'))
-					$output .= '<a title="'.L_PLUGINS_HELP_TITLE.'" href="parametres_pluginhelp.php?p='.urlencode($plugName).'">'.L_PLUGINS_HELP.'</a>';
-					# lien configuration
-					if(is_file(PLX_PLUGINS.$plugName.'/config.php'))
-					$output .= '&nbsp;<a title="'.L_PLUGINS_CONFIG_TITLE.'" href="parametres_plugin.php?p='.urlencode($plugName).'">'.L_PLUGINS_CONFIG.'</a>';
+					$output .= '<a title="'.L_PLUGINS_HELP_TITLE.'" href="parametres_pluginhelp.php?p='.urlencode($plugName).'">'.L_PLUGINS_HELP.'</a><br />';
 				$output .= '&nbsp;</td>';
 			$output .= '</tr>';
 		}

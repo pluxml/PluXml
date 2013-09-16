@@ -404,6 +404,7 @@ $LANG = array(
 
 'L_BACK_TO_PLUGINS'					=> 'Retour à la page des plugins',
 'L_NO_PLUGIN'						=> 'Aucun plugin',
+'L_PLUGIN_NO_CONFIG'				=> 'Plugin non configuré',
 
 # parametres_plugins.php
 

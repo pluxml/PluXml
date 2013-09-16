@@ -343,3 +343,7 @@ p.field_head {
     border-color: #e6db55;
 }
 
+span.alert {
+	color: red;
+}
+

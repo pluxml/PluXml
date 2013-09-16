@@ -342,6 +342,7 @@ $LANG = array(
 'L_ERR_STATIC_ALREADY_EXISTS'								=> 'Zoals reeds gebruikt',
 'L_BACK_TO_PLUGINS'											=> 'Terug naar Plugin-pagina',
 'L_NO_PLUGIN'												=> 'Geen plugin',
+'L_PLUGIN_NO_CONFIG'										=> 'Plugin niet geconfigureerd',
 'L_PLUGINS_TITLE'											=> 'Plugins beheren',
 'L_PLUGINS_VERSION'											=> 'Versie',
 'L_PLUGINS_AUTHOR'											=> 'Auteur',

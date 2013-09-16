@@ -406,6 +406,7 @@ $LANG = array(
 
 'L_BACK_TO_PLUGINS'											=> 'Вернуться на страницу плагинов',
 'L_NO_PLUGIN'												=> 'Нет плагина',
+'L_PLUGIN_NO_CONFIG'										=> 'Плагин не настроено',
 
 # parametres_plugins.php
 

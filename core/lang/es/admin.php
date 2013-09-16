@@ -342,6 +342,7 @@ $LANG = array(
 'L_ERR_STATIC_ALREADY_EXISTS'								=> 'Como ya se ha utilizado',
 'L_BACK_TO_PLUGINS'											=> 'Volver a la página de los plugins',
 'L_NO_PLUGIN'												=> 'Ningún plugin',
+'L_PLUGIN_NO_CONFIG'										=> 'Plugin no configurado',
 'L_PLUGINS_TITLE'											=> 'Gestión de los plugins',
 'L_PLUGINS_VERSION'											=> 'Versión',
 'L_PLUGINS_AUTHOR'											=> 'Autor',
