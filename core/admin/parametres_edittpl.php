@@ -42,20 +42,20 @@ if(isset($_POST['submit']) AND trim($_POST['content']) != '') {
 # On récupère les fichiers templates du thèmes
 $aTemplates=array();
 function listFolderFiles($dir, $include, $root=''){
-		$content = array();
-    $ffs = scandir($dir);
-    foreach($ffs as $ff){
-				if($ff!='.' && $ff!='..') {
-						$ext = strtolower(strrchr($ff,'.'));
-						if(!is_dir($dir.'/'.$ff) AND is_array($include) AND in_array($ext,$include)) {
-								$f = str_replace($root, "", PLX_ROOT.ltrim($dir.'/'.$ff,'./'));
-								$content[$f] = $f;
-						}
-						if(is_dir($dir.'/'.$ff))
-								$content = array_merge($content, listFolderFiles($dir.'/'.$ff,$include,$root));
-				}
-    }
-    return $content;
+	$content = array();
+	$ffs = scandir($dir);
+	foreach($ffs as $ff){
+		if($ff!='.' && $ff!='..') {
+			$ext = strtolower(strrchr($ff,'.'));
+			if(!is_dir($dir.'/'.$ff) AND is_array($include) AND in_array($ext,$include)) {
+				$f = str_replace($root, "", PLX_ROOT.ltrim($dir.'/'.$ff,'./'));
+				$content[$f] = $f;
+			}
+			if(is_dir($dir.'/'.$ff))
+				$content = array_merge($content, listFolderFiles($dir.'/'.$ff,$include,$root));
+		}
+	}
+	return $content;
 }
 $root = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style;
 $aTemplates=listFolderFiles($root, array('.php','.css','.htm','.html','.txt','.js'), $root);
