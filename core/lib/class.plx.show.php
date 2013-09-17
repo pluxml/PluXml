@@ -1147,9 +1147,11 @@ class plxShow {
 						$stat = str_replace('#static_class','static-group',$stat);
 					else
 						$stat = str_replace('#static_class','static-menu',$stat);
-					if(plxUtils::checkSite($v['url'],false))
+					if($v['url'][0]=='?') # url interne commençant par ?
+						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite($v['url']),$stat);
+					elseif(plxUtils::checkSite($v['url'],false)) # url externe en http ou autre
 						$stat = str_replace('#static_url',$v['url'],$stat);
-					else
+					else # url page statique
 						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite('?static'.intval($k).'/'.$v['url']),$stat);
 					$stat = str_replace('#static_name',plxUtils::strCheck($v['name']),$stat);
 					$stat = str_replace('#static_status',(($home===false AND $this->staticId()==intval($k))?'static active':'noactive'), $stat);

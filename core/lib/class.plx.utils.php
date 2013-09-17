@@ -84,6 +84,8 @@ class plxUtils {
 	public static function checkSite(&$site, $reset=true) {
 
 		$site = preg_replace('#([\'"].*)#', '', $site);
+
+		if($site[0]=='?') return true; # url interne commençant par ?
 		# On vérifie le site via une expression régulière
 		# Méthode Jeffrey Friedl - http://mathiasbynens.be/demo/url-regex
 		# modifiée par Amaury Graillat pour prendre en compte la valeur localhost dans l'url

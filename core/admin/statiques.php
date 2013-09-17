@@ -96,6 +96,8 @@ function checkBox(cb) {
 				}
 				echo '</td></tr>';
 			}
+			elseif($v['url'][0]=='?')
+				echo '</td><td><a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
 			else
 				echo '</td><td><a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
 		}
