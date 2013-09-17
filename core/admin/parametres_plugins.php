@@ -17,11 +17,13 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 if(isset($_POST['submit']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate'))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
+	$plxAdmin->plxPlugins->cssCache(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 	header('Location: parametres_plugins.php');
 	exit;
 }
 elseif(isset($_POST['update'])) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
+	$plxAdmin->plxPlugins->cssCache(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 	header('Location: parametres_plugins.php');
 	exit;
 }
@@ -85,10 +87,12 @@ function pluginsList($plugins, $defaultLang, $type) {
 					if(is_file(PLX_PLUGINS.$plugName.'/config.php')) {
 						$output .= '<a title="'.L_PLUGINS_CONFIG_TITLE.'" href="parametres_plugin.php?p='.urlencode($plugName).'">'.L_PLUGINS_CONFIG.'</a><br />';
 					}
+					# lien pour code css
+					$output .= '<a title="'.L_PLUGINS_CSS_TITLE.'" href="parametres_plugincss.php?p='.urlencode($plugName).'">'.L_PLUGINS_CSS.'</a><br />';
 					# lien aide
 					if(is_file(PLX_PLUGINS.$plugName.'/lang/'.$defaultLang.'-help.php'))
-					$output .= '<a title="'.L_PLUGINS_HELP_TITLE.'" href="parametres_pluginhelp.php?p='.urlencode($plugName).'">'.L_PLUGINS_HELP.'</a><br />';
-				$output .= '&nbsp;</td>';
+						$output .= '<a title="'.L_PLUGINS_HELP_TITLE.'" href="parametres_pluginhelp.php?p='.urlencode($plugName).'">'.L_PLUGINS_HELP.'</a>';
+				$output .= '</td>';
 			$output .= '</tr>';
 		}
 	}

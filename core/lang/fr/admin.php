@@ -4,6 +4,9 @@ $LANG = array(
 
 'L_UNKNOWN_ERROR'					=> 'Erreur inconnue',
 'L_CONFIRM_DELETE'					=> 'Confirmer la suppression ?',
+'L_SAVE_FILE'						=> 'Sauvegarder le fichier',
+'L_SAVE_FILE_SUCCESSFULLY'			=> 'Fichier enregistré avec succès',
+'L_SAVE_FILE_ERROR'					=> 'Erreur pendant l\'enregistrement du fichier',
 
 # class.plx.admin.php
 
@@ -367,12 +370,9 @@ $LANG = array(
 # parametres_edittpl.php
 
 'L_CONFIG_EDITTPL_ERROR_NOTHEME'	=> 'Ce thème n\'existe pas !',
-'L_CONFIG_EDITTPL_FILE_SAVE_INFO'	=> 'Fichier enregistré avec succès',
-'L_CONFIG_EDITTPL_FILE_SAVE_ERROR'	=> 'Erreur pendant l\'enregistrement du fichier',
 'L_CONFIG_EDITTPL_TITLE'			=> 'Édition du thème',
 'L_CONFIG_EDITTPL_SELECT_FILE'		=> 'Choix du fichier à éditer :',
 'L_CONFIG_EDITTPL_LOAD'				=> 'Charger',
-'L_CONFIG_EDITTPL_SAVE'				=> 'Sauvegarder le fichier',
 
 # parametres_infos.php
 
@@ -405,6 +405,8 @@ $LANG = array(
 'L_BACK_TO_PLUGINS'					=> 'Retour à la page des plugins',
 'L_NO_PLUGIN'						=> 'Aucun plugin',
 'L_PLUGIN_NO_CONFIG'				=> 'Plugin non configuré',
+'L_PLUGINS_CSS'						=> 'Code css',
+'L_PLUGINS_CSS_TITLE'				=> 'Éditer le code css du plugin',
 
 # parametres_plugins.php
 

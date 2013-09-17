@@ -219,18 +219,18 @@ class plxShow {
 				echo plxUtils::strCheck($this->plxMotor->aStats[$this->plxMotor->cible ]['name'].' - '.$this->plxMotor->aConf['title']);
 			return;
 		}
-        if($this->plxMotor->mode == 'archives') {
+		if($this->plxMotor->mode == 'archives') {
 			preg_match('/^(\d{4})(\d{2})?(\d{2})?/',$this->plxMotor->cible, $capture);
 			$year = !empty($capture[1]) ? ' '.$capture[1] : '';
 			$month = !empty($capture[2]) ? ' '.plxDate::getCalendar('month', $capture[2]) : '';
 			$day = !empty($capture[3]) ? ' '.plxDate::getCalendar('day', $capture[3]) : '';
-            echo plxUtils::strCheck(L_PAGETITLE_ARCHIVES.$day.$month.$year.' - '.$this->plxMotor->aConf['title']);
-            return;
-        }
-        if($this->plxMotor->mode == 'tags') {
-            echo plxUtils::strCheck(L_PAGETITLE_TAG.' '.$this->plxMotor->cible.' - '.$this->plxMotor->aConf['title']);
-            return;
-        }
+			echo plxUtils::strCheck(L_PAGETITLE_ARCHIVES.$day.$month.$year.' - '.$this->plxMotor->aConf['title']);
+			return;
+		}
+		if($this->plxMotor->mode == 'tags') {
+			echo plxUtils::strCheck(L_PAGETITLE_TAG.' '.$this->plxMotor->cible.' - '.$this->plxMotor->aConf['title']);
+			return;
+		}
 		if($this->plxMotor->mode == 'erreur') {
 			echo plxUtils::strCheck($this->plxMotor->plxErreur->getMessage().' - '.$this->plxMotor->aConf['title']);
 			return;
@@ -324,9 +324,9 @@ class plxShow {
 	 *
 	 * @param	extra	nom du lien vers la page d'accueil
 	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #art_nb)
-     * @param	include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
-     * @param	exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
- 	 * @return	stdout
+	 * @param	include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
+	 * @param	exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
+	 * @return	stdout
 	 * @scope	global
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
@@ -561,7 +561,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication de l'article selon le format choisi
 	 *
- 	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(4), #num_year(2))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(4), #num_year(2))
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F.
@@ -640,7 +640,7 @@ class plxShow {
 	 * Méthode qui affiche la liste des tags l'article sous forme de lien
 	 *
 	 * @param	format	format du texte pour chaque tag (variable : #tag_status, #tag_url, #tag_name)
- 	 * @param	separator	caractère de séparation entre les tags affichées
+	 * @param	separator	caractère de séparation entre les tags affichées
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
@@ -850,8 +850,8 @@ class plxShow {
 				$row = str_replace('#cat_list', implode(', ',$catList), $row);
 				$row = str_replace('#art_url',$this->plxMotor->urlRewrite('?article'.$num.'/'.$art['url']),$row);
 				$row = str_replace('#art_status',$status,$row);
- 				$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
- 				$row = str_replace('#art_author',plxUtils::strCheck($author),$row);
+				$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
+				$row = str_replace('#art_author',plxUtils::strCheck($author),$row);
 				$row = str_replace('#art_title',plxUtils::strCheck($art['title']),$row);
 				$strlength = preg_match('/#art_chapo\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
 				$chapo = plxUtils::truncate($art['chapo'],$strlength,$ending,true,true);
@@ -959,7 +959,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication d'un commentaire delon le format choisi
 	 *
- 	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(2), #num_year(4))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(2), #num_year(4))
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Florent MONTHEL et Stephane F
@@ -1472,12 +1472,12 @@ class plxShow {
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-    public function archList($format='<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a></li>'){
+	public function archList($format='<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a></li>'){
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArchList'))) return;
 
 		$curYear=date('Y');
-        $array = array();
+		$array = array();
 
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
 
@@ -1520,7 +1520,7 @@ class plxShow {
 				echo $name;
 			}
 		}
-    }
+	}
 
 	/**
 	 * Méthode qui affiche un lien vers la page blog.php
@@ -1530,7 +1530,7 @@ class plxShow {
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-    public function pageBlog($format='<li id="#page_id"><a class="#page_status" href="#page_url" title="#page_name">#page_name</a></li>') {
+	public function pageBlog($format='<li id="#page_id"><a class="#page_status" href="#page_url" title="#page_name">#page_name</a></li>') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageBlog'))) return;
 
@@ -1564,7 +1564,23 @@ class plxShow {
 		$theme = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/';
 		$css = str_replace('php','css',$this->plxMotor->template);
 		if(is_file($theme.$css_dir.$css))
-			echo "\t".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'" media="screen" />'."\n";
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'" media="screen" />'."\n";
+	}
+
+	/**
+	 * Méthode qui ajoute, s'il existe, le fichier css associé aux plugins
+	 *
+	 * @return	stdout
+	 * @scope	global
+	 * @author	Stephane F
+	 **/
+	public function pluginsCss() {
+		# Hook Plugins
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPluginsCss'))) return;
+
+		$filename = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/plugins.css';
+		if(is_file($filename))
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($filename).'" media="screen" />'."\n";
 	}
 
 	/**

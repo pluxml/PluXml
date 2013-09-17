@@ -34,9 +34,9 @@ if(empty($style) OR !is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style)) 
 # Traitement du formulaire: sauvegarde du template
 if(isset($_POST['submit']) AND trim($_POST['content']) != '') {
 	if(plxUtils::write($_POST['content'], $filename))
-		plxMsg::Info(L_CONFIG_EDITTPL_FILE_SAVE_INFO);
+		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
 	else
-		plxMsg::Error(L_CONFIG_EDITTPL_FILE_SAVE_ERROR);
+		plxMsg::Error(L_SAVE_FILE_ERROR);
 }
 
 # On récupère les fichiers templates du thèmes
@@ -93,7 +93,7 @@ include(dirname(__FILE__).'/top.php');
 		<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		<p class="center">
 			<?php echo plxToken::getTokenPostMethod() ?>
-			<input  class="button update" name="submit" type="submit" value="<?php echo L_CONFIG_EDITTPL_SAVE ?>" />
+			<input  class="button update" name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 		</p>
 	</fieldset>
 </form>

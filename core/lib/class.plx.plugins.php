@@ -160,8 +160,12 @@ class plxPlugins {
 		elseif(isset($content['selection']) AND $content['selection']=='delete') {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+					# suppression fichier de config du plugi
 					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
 						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
+					# suppression fichier css du plugin
+					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.css'))
+						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.ccs');
 					unset($this->aPlugins[$plugName]);
 				}
 			}
@@ -215,6 +219,22 @@ class plxPlugins {
 		return unlink($deldir);
 	}
 
+	public function cssCache($output_dir) {
+		$output = '';
+		foreach($this->aPlugins as $plugName => $plugInstance) {
+			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.css';
+			if(is_file($filename)) {
+				$output .= file_get_contents($filename);
+			}
+		}
+		$output_file = rtrim($output_dir, '/').'/plugins.css';
+		if($output!='') {
+			plxUtils::write(plxUtils::minify($output), $output_file);
+		}
+		elseif(is_file($output_file))
+			unlink($output_file);
+
+	}
 }
 
 /**

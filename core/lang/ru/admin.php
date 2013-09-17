@@ -4,6 +4,9 @@ $LANG = array(
 
 'L_UNKNOWN_ERROR'											=> 'Неизвестная ошибка',
 'L_CONFIRM_DELETE'											=> 'Подтвердите удаление ?',
+'L_SAVE_FILE'												=> 'Сохраните файл',
+'L_SAVE_FILE_SUCCESSFULLY'									=> 'Файл успешно сохранены',
+'L_SAVE_FILE_ERROR'											=> 'Ошибка при сохранении файла',
 
 # class.plx.admin.php
 
@@ -370,12 +373,9 @@ $LANG = array(
 # parametres_edittpl.php
 
 'L_CONFIG_EDITTPL_ERROR_NOTHEME'							=> 'Нет такой темы!',
-'L_CONFIG_EDITTPL_FILE_SAVE_INFO'							=> 'Файл успешно сохранен',
-'L_CONFIG_EDITTPL_FILE_SAVE_ERROR'							=> 'Ошибка при сохранении файла',
 'L_CONFIG_EDITTPL_TITLE'									=> 'Редактирование темы',
 'L_CONFIG_EDITTPL_SELECT_FILE'								=> 'Выберите файл для редактирования:',
 'L_CONFIG_EDITTPL_LOAD'										=> 'Загрузить',
-'L_CONFIG_EDITTPL_SAVE'										=> 'Сохранить файл',
 
 # parametres_infos.php
 
@@ -407,6 +407,8 @@ $LANG = array(
 'L_BACK_TO_PLUGINS'											=> 'Вернуться на страницу плагинов',
 'L_NO_PLUGIN'												=> 'Нет плагина',
 'L_PLUGIN_NO_CONFIG'										=> 'Плагин не настроено',
+'L_PLUGINS_CSS'												=> 'Css',
+'L_PLUGINS_CSS_TITLE'										=> 'Редактирования кода CSS этого плагина',
 
 # parametres_plugins.php
 
