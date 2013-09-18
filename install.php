@@ -38,9 +38,9 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, '5.0.0', '<')){
-    header('Content-Type: text/plain charset=UTF-8');
-    echo utf8_decode(L_WRONG_PHP_VERSION);
-    exit;
+	header('Content-Type: text/plain charset=UTF-8');
+	echo utf8_decode(L_WRONG_PHP_VERSION);
+	exit;
 }
 
 # On vérifie que PluXml n'est pas déjà installé
@@ -167,21 +167,20 @@ function install($content, $config) {
 	$xml .= "\t".'<statique number="001" active="1" menu="oui" url="'.L_DEFAULT_STATIC_URL.'" template="static.php"><group><![CDATA[]]></group><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE).']]></name><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></statique>'."\n";
 	$xml .= '</document>';
 	plxUtils::write($xml,path('XMLFILE_STATICS'));
-
-	$cs = '<p><?php echo \''.plxUtils::strRevCheck(L_DEFAULT_STATIC_CONTENT).'\'; ?></p>';
-	plxUtils::write($cs,PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
+	plxUtils::write(file_get_contents(PLX_CORE.'/lib/html.static.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
 
 	# Création du premier article
+	$html = explode('-----', file_get_contents(PLX_CORE.'/lib/html.article.txt'));
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>
 	<title><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE).']]></title>
 	<allow_com>1</allow_com>
 	<template><![CDATA[article.php]]></template>
 	<chapo>
-		<![CDATA[]]>
+		<![CDATA['.$html[0].']]>
 	</chapo>
 	<content>
-		<![CDATA[<p>'.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_CONTENT).'</p>]]>
+		<![CDATA['.$html[1].']]>
 	</content>
 	<tags>
 		<![CDATA[PluXml]]>
@@ -252,7 +251,7 @@ plxUtils::cleanHeaders();
 <head>
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.$version ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
-    <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
 </head>
