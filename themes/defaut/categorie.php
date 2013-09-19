@@ -13,7 +13,7 @@
 
 			<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
-			<article role="article" id="post-<?php echo $plxShow->artId(); ?>">
+			<article role="article" id="category-<?php echo $plxShow->artId(); ?>">
 
 				<header>
 					<h1>

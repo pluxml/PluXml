@@ -39,26 +39,18 @@
 			<fieldset>
 				<p>
 					<label for="id_name"><?php $plxShow->lang('NAME') ?> :</label>
-				</p>
-				<p>
 					<input id="id_name" name="name" type="text" size="20" value="<?php $plxShow->comGet('name',''); ?>" maxlength="30" />
 				</p>
 				<p>
 					<label for="id_site"><?php $plxShow->lang('WEBSITE') ?> :</label>
-				</p>
-				<p>
 					<input id="id_site" name="site" type="text" size="20" value="<?php $plxShow->comGet('site',''); ?>" />
 				</p>
 				<p>
 					<label for="id_mail"><?php $plxShow->lang('EMAIL') ?> :</label>
-				</p>
-				<p>
 					<input id="id_mail" name="mail" type="text" size="20" value="<?php $plxShow->comGet('mail',''); ?>" />
 				</p>
 				<p>
 					<label for="id_content" class="lab_com"><?php $plxShow->lang('COMMENT') ?> :</label>
-				</p>
-				<p>
 					<textarea id="id_content" name="content" cols="35" rows="6"><?php $plxShow->comGet('content',''); ?></textarea>
 				</p>
 				<p class="com-alert">
@@ -67,8 +59,6 @@
 				<?php if($plxShow->plxMotor->aConf['capcha']): ?>
 				<p>
 					<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong> :</label>
-				</p>
-				<p>
 					<?php $plxShow->capchaQ(); ?> : <input id="id_rep" name="rep" type="text" size="2" maxlength="1" />
 				</p>
 				<?php endif; ?>

@@ -6,7 +6,7 @@
 
 		<div class="width-sidebar">
 
-			<article role="article">
+			<article role="article" id="static-<?php echo $plxShow->staticId(); ?>">
 
 				<header>
 					<h1>

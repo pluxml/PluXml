@@ -140,7 +140,7 @@ legend {
 
 label {
 	cursor: pointer;
-	display: inline-block;
+	display: block;
 	margin: 0;
 	vertical-align: middle;
 }
