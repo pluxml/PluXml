@@ -1437,11 +1437,12 @@ class plxShow {
 	 *
 	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_url, #tag_name, #nb_art)
 	 * @param	max		nombre maxi de tags à afficher
+	 * @param	order	tri des tags (random, alpha, '')
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function tagList($format='<li><a class="#tag_size #tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='') {
+	public function tagList($format='<li><a class="#tag_size #tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='', $order='') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagList'))) return;
 
@@ -1466,8 +1467,23 @@ class plxShow {
 					}
 				}
 			}
-			array_multisort($array);
+			# limite sur le nombre de tags à afficher
 			if($max!='') $array=array_slice($array, 0, intval($max), true);
+			# tri des tags
+			switch($order) {
+				case 'alpha':
+					array_multisort($array);
+					break;
+				case 'random':
+					$arr_elem = array();
+					$keys = array_keys($array);
+					shuffle($keys);
+					foreach ($keys as $key) {
+						$arr_elem[$key] = $array[$key];
+					}
+					$array = $arr_elem;
+					break;
+			}
 		}
 		# On affiche la liste
 		$size=0;
