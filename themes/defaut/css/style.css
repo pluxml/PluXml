@@ -1,0 +1,411 @@
+/* ---------- GENERAL STYLES ---------- */
+
+body {
+	background-color: #444;
+	color: #555;
+}
+
+h1, 
+h2, 
+h3 {
+	font-weight: normal;
+}
+
+a {
+	color: #0082b0;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+ul li {
+	list-style-type: square;
+}
+
+/* ---------- NAV ---------- */
+
+nav {
+	background-color: #444;
+	font-size: 1.2em;
+	padding: 10px 50px 10px 60px;
+
+}
+
+nav ul {
+	margin: 0;
+}
+
+nav li {
+	margin: 0 30px 0 0;
+	display: inline;
+	list-style-type: none;
+}
+
+nav li a {
+	color: #ccc;
+}
+
+nav li a:hover, nav li a.active {
+	color: #eee;
+	text-decoration: none;
+}
+
+/* ---------- HEADER ---------- */
+
+header {
+	background-color: #e5e5e5;
+	color: #555;
+	padding: 20px 50px;
+	text-align: center;
+}
+
+body > header > h1 {
+	font-size: 2.3em;
+	line-height: 1;
+	margin: 0;
+}
+
+header h1 a {
+	color: #555;
+}
+
+header h1 a:hover {
+	text-decoration: none;
+}
+
+header h2 {
+	font-size: 1em;
+	margin: 0;
+}
+
+/* ---------- SECTION ---------- */
+
+section {
+	background-color: #e5e5e5;
+	overflow: hidden;
+}
+
+#container {
+	background-color: #fff;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;	
+	border-right: 1px solid #ccc;
+	border-bottom: 3px solid #ccc;
+	margin: 0 50px 50px;
+	overflow: hidden;
+	padding: 40px;
+}
+
+.directory {
+	margin: 0 0 50px 0;
+}
+
+.directory:first-letter{
+	text-transform: uppercase;
+}
+
+/* ---------- ARTICLE / PAGE ---------- */
+
+.width-sidebar {
+	float: left;
+	width: 65%;
+}
+
+.full-width {
+	width:100%;
+}
+
+article header h1 {
+	color: #0082b0;
+	line-height: 1.1;
+	margin: 0;
+}
+
+article header h1 a {
+	color: #0082b0;
+}
+
+article header {
+	background-color: transparent;
+	color: inherit;
+	padding: 0;
+	text-align: left;
+}
+
+article header p {
+	color: #777;
+	font-size: 0.9em;
+	font-style : italic;
+	margin-bottom: 0;
+}
+
+article section {
+	background-color: inherit;
+	padding: 0;
+}
+
+article img {
+	margin: 0 5px;
+}
+
+article footer {
+	background-color: inherit;
+	color: #777;
+	font-size: 0.9em;
+	font-style : italic;
+	margin-bottom: 50px;
+	padding: 0;
+	text-align: left;
+}
+
+article footer a, 
+article footer a:hover {
+	color: #0082b0;
+}
+
+/* ---------- COMMENT ---------- */
+
+#comments {
+	margin-bottom: 50px;
+}
+
+.info_comment {
+	color: #777;
+	font-size: 0.9em;
+	font-style : italic;
+}
+
+.comment {
+	background-image: url(../img/user.png);
+	background-repeat: no-repeat;
+	margin-bottom: 30px;
+	padding-left: 60px;
+}
+
+.com-alert {
+	color: #db2020;
+	font-weight: bold;
+}
+
+/* ---------- PAGINATION ---------- */
+
+#pagination {
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+#pagination span,
+#pagination a {
+	display: inline-block;
+	margin: 0;
+	padding: 5px;
+}
+
+#pagination a {
+	background-color: #0082b0;
+	color: #eee;
+}
+
+#pagination a:hover {
+	background-color: #444;
+	color: #eee;
+	text-decoration: none;
+}
+
+#pagination span:first-letter,
+#pagination a:first-letter {
+	text-transform: uppercase;
+}
+
+/* ---------- SIDEBAR ---------- */
+
+aside {
+	float: right;
+	width: 30%;
+}
+
+aside h3 {
+	color: #0082b0;
+	font-size: 1.4em;
+	margin: 0 0 15px 0;
+}
+
+aside a {
+	color: #555;
+}
+
+aside ul {
+	margin: 0 0 50px 0;
+}
+
+aside li:first-letter {
+	text-transform: uppercase;
+}
+
+.rss {
+	background-image: url(../img/rss.png);
+	background-repeat: no-repeat;
+	line-height: 1;
+	margin: 10px 0;
+	padding-left: 20px;
+}
+
+/* ---------- TAG ---------- */
+
+.tag {
+	display: inline-block;
+	margin: 0;
+	padding-right: 10px;
+}
+
+.tag-size-1 {
+	font-size: 1em;
+}
+
+.tag-size-2 {
+	font-size: 1.1em;
+}
+
+.tag-size-3 {
+	font-size: 1.2em;
+}
+
+.tag-size-4 {
+	font-size: 1.3em;
+}
+
+.tag-size-5 {
+	font-size: 1.4em;
+}
+
+.tag-size-6 {
+	font-size: 1.5em;
+}
+
+.tag-size-7 {
+	font-size: 1.6em;
+}
+
+.tag-size-8 {
+	font-size: 1.7em;
+}
+
+.tag-size-9 {
+	font-size: 1.8em
+}
+
+.tag-size-10 {
+	font-size: 1.9em;
+}
+
+.tag-size-max {
+	font-size: 2em;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer {
+	background-color: #444;
+	clear: both;
+	color: #ccc;
+	padding: 50px;
+	text-align: center;
+}
+
+footer p {
+	margin: 0;
+}
+
+footer a {
+	color: #ccc;
+}
+
+footer a:hover {
+	color: #eee;
+}
+
+/* ---------- FORM ---------- */
+
+#form h2 {
+	margin: 0;
+}
+
+label {
+	display:block;
+}
+
+input,
+select,
+textarea {
+	border: 1px solid #bbb;
+	color: #555;
+}
+
+button,
+input[type=submit],
+input[type=reset] {
+	background-color: #0082b0;
+	border: 1px solid #0082b0;
+	color: #eee;
+}
+
+button:hover,
+input[type=submit]:hover,
+input[type=reset]:hover {
+	background-color: #444;
+	border: 1px solid #444;
+}
+
+.capcha-letter,
+.capcha-word {
+	font-weight: bold;
+}
+
+/* ---------- TABLE ---------- */
+table, th, td {
+	border: 1px solid #999
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+
+@media screen and (max-width:800px) {
+
+	nav {
+		padding: 5px 20px;
+		text-align: center;
+	}
+
+	nav li {
+		display: block;
+		margin: 10px 0;
+	}
+	
+	header {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	
+	#container {
+		margin: 0 20px 20px 20px;
+		padding: 20px;
+	}
+
+	.width-sidebar,
+	aside {
+		width: 100%;
+	}
+
+	button,
+	input,
+	select,
+	textarea {
+		max-width: 100%;
+}
+
+	aside {
+		margin-top: 50px;
+	}
+
+}

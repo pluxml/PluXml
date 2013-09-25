@@ -1,0 +1,198 @@
+/* ---------- BOX-SIZING ---------- */
+
+* {
+	-moz-box-sizing : border-box;
+	-webkit-box-sizing : border-box;
+	box-sizing : border-box;
+}
+
+/* ---------- HTML5 TAGS ---------- */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+	display: block;
+}
+
+audio,
+canvas,
+video {
+	display: inline-block;
+}
+
+/* ---------- GENERAL STYLES ---------- */
+
+html {
+	font-size: 100%;
+}
+
+body {
+	font-family: arial, helvetica, sans-serif;
+	line-height: 1.5;
+	margin: 0;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 20px 0;
+}
+
+h2 {
+	font-size: 1.5em;
+}
+
+h3 {
+	font-size: 1.2em;
+}
+
+h4 {
+	font-size: 1em;
+}
+
+h5 {
+	font-size: 0.8em;
+}
+
+h6 {
+	font-size: 0.7em;
+}
+
+ol,
+ul {
+	padding-left: 0;
+}
+
+dd,
+li {
+	margin-left: 20px;
+}
+
+mark {
+	background-color: yellow;
+	padding:0 5px;
+}
+
+code,
+pre,
+samp,
+kbd {
+	font-family: monospace, serif;
+	font-size: 0.85em;
+	overflow: auto;
+	padding: 5px 10px;
+	white-space: nowrap;
+}
+
+sub,
+sup {
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	top: -5px;
+}
+
+sub {
+	bottom: -5px;
+}
+
+blockquote {
+	margin-left: 0;
+}
+
+hr {
+	height: 1px;
+	background-color: black;
+	border: 0;
+}
+
+/* ---------- IMAGE ---------- */
+
+img {
+	border: none;
+	height: auto;
+	max-width: 100%;
+}
+
+figure {
+	margin: 0;
+}
+
+/* ---------- FORM ---------- */
+
+fieldset {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+legend {
+	border: none;
+	padding: 0;
+}
+
+
+button,
+input,
+select {
+	cursor: pointer;
+	font-size: 100%;
+	margin: 0;
+	outline : none;
+	padding: 5px;
+	vertical-align: middle;
+}
+ 
+option {
+	text-align: left;
+}
+
+textarea {
+	font-family: inherit;
+	overflow: auto;
+	padding: 5px;
+	vertical-align: top;
+	width: 100%;
+}
+
+button[disabled],
+input[disabled] {
+	cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	background: none;
+	border: 0;
+	padding: 1px;
+	width: auto;
+}
+
+input[type="hidden"] {
+	margin: 0;
+}
+
+/* ---------- TABLE ---------- */
+
+table {
+	/*border-collapse: collapse;*/
+	/*border-spacing: 0;*/
+	margin: 15px 0;
+	width: 100%;
+}
+
+caption,
+th,
+td {
+	padding: 5px;
+}
