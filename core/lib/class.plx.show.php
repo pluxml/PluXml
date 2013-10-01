@@ -1124,7 +1124,7 @@ class plxShow {
 	 * page d'accueil (nommé $extra) sera mis en place en première position
 	 *
 	 * @param	extra	nom du lien vers la page d'accueil
-	 * @param	format	format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_di, #group_class, #group_name)
+	 * @param	format	format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Florent MONTHEL, Stephane F
