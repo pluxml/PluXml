@@ -89,6 +89,7 @@ plxUtils::cleanHeaders();
 	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/auth.css" media="screen" />
+    <link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.gif" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
 </head>
 

@@ -56,7 +56,6 @@ div#sidebar ul {
 	text-align:right;
 }
 div#sidebar ul li {
-	padding: 5px 20px 5px 0;
 	font-size: 14px;
 }
 div#sidebar li a.cpt, div#sidebar li.active a.cpt  {
@@ -68,7 +67,8 @@ div#sidebar ul li.menu:hover {
 	background-color:#dedede;
 }
 div#sidebar ul li.menu a {
-	display:inline;
+    padding: 5px 20px 5px 0;
+	display:block;
 	color:#fff;
 }
 div#sidebar ul li.menu:hover a {
