@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'Hilo Rss de los comentarios de este artículo',
 'L_COMFEED_RSS'					=> 'Hilo Rss de los comentarios',
 'L_STATICCONTENT_INPROCESS'		=> 'Página en proceso de redacción',
+'L_SAID'						=> 'ha dicho',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Ir a la primera página',
 'L_PAGINATION_FIRST'			=> '«',

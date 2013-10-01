@@ -1066,7 +1066,7 @@ class plxShow {
 	 * @scope	global
 	 * @author	Florent MONTHEL, Stephane F
 	 **/
-	public function lastComList($format='<li><a href="#com_url">#com_author a dit :</a><br/>#com_content(50)</li>',$max=5,$art_id='',$cat_ids='') {
+	public function lastComList($format='<li><a href="#com_url">#com_author L_SAID :</a><br/>#com_content(50)</li>',$max=5,$art_id='',$cat_ids='') {
 
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastComList'))) return;
@@ -1094,7 +1094,8 @@ class plxShow {
 							$date = $com['date'];
 							$content = strip_tags($com['content']);
 							# On modifie nos motifs
-							$row = str_replace('#com_id',$com['numero'],$format);
+							$row = str_replace('L_SAID', L_SAID, $format);
+							$row = str_replace('#com_id',$com['numero'],$row);
 							$row = str_replace('#com_url',$this->plxMotor->urlRewrite($url),$row);
 							$row = str_replace('#com_author',$com['author'],$row);
 							while(preg_match('/#com_content\(([0-9]+)\)/',$row,$capture)) {

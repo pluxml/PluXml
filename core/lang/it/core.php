@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'Feed dei commenti di questo articolo',
 'L_COMFEED_RSS'					=> 'Feed dei commenti',
 'L_STATICCONTENT_INPROCESS'		=> 'Questa pagina è in corso di redazione',
+'L_SAID'						=> 'ha detto',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Vai alla prima pagina',
 'L_PAGINATION_FIRST'			=> '«',

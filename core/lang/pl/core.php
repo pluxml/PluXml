@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'Pokał kanał RSS dla komentarzy tego artykułu',
 'L_COMFEED_RSS'					=> 'Kanał RSS dla komentarzy',
 'L_STATICCONTENT_INPROCESS'		=> 'Ta strona jest aktualnie w budowie',
+'L_SAID'						=> 'rzekł',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Przejdź do pierwszej strony',
 'L_PAGINATION_FIRST'			=> '«',

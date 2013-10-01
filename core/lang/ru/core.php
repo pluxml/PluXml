@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'RSS-поток комментариев статей',
 'L_COMFEED_RSS'					=> 'RSS-поток комментариев',
 'L_STATICCONTENT_INPROCESS'		=> 'Эта страница в настоящее время редактируется',
+'L_SAID'						=> 'сказал',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Перейти на первую страницу',
 'L_PAGINATION_FIRST'			=> '&laquo;',

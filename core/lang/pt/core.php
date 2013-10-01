@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'Fluxo Rss dos comentários deste artigo',
 'L_COMFEED_RSS'					=> 'Fluxo Rss dos comentários',
 'L_STATICCONTENT_INPROCESS'		=> 'Esta página está actualmente em curso de redacção',
+'L_SAID'						=> 'escreveu',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Ir á primeira página',
 'L_PAGINATION_FIRST'			=> '«',

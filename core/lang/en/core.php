@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'Rss feed of the article\'s comments',
 'L_COMFEED_RSS'					=> 'Rss feed of comments',
 'L_STATICCONTENT_INPROCESS'		=> 'This page is currently being edited',
+'L_SAID'						=> 'said',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Go to first page',
 'L_PAGINATION_FIRST'			=> '«',

@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'Rss-feed van de commentaren van dit artikel',
 'L_COMFEED_RSS'					=> 'Rss-feed van de commentaren',
 'L_STATICCONTENT_INPROCESS'		=> 'Deze pagine wordt momenteel bijgewerkt',
+'L_SAID'						=> 'zei',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Ga naar de eerste pagina',
 'L_PAGINATION_FIRST'			=> '«',

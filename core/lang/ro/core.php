@@ -111,6 +111,7 @@ $LANG = array(
 'L_COMFEED_RSS_ARTICLE'			=> 'RSS feed pentru comentarii pe acest articol',
 'L_COMFEED_RSS'					=> 'Comentarii RSS feed',
 'L_STATICCONTENT_INPROCESS'		=> 'Aceasta pagina este in curs de elaborare',
+'L_SAID'						=> 'a spus',
 
 'L_PAGINATION_FIRST_TITLE'		=> 'Du-te la prima pagina',
 'L_PAGINATION_FIRST'			=> '«',
