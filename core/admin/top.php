@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
+    <link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.gif" />
     <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/functions.js"></script>
     <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/visual.js"></script>
     <?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
