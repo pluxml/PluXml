@@ -3,15 +3,19 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $plxAdmin->aConf['default_lang'] ?>" lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
 <head>
-    <meta name="robots" content="noindex, nofollow" />
-    <title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
-    <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
-    <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/functions.js"></script>
-    <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/visual.js"></script>
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
+	<meta name="robots" content="noindex, nofollow" />
+	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
+	<?php
+	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
+		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
+	?>
+	<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/functions.js"></script>
+	<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/visual.js"></script>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
 
 <body>
@@ -98,18 +102,18 @@
 		echo implode('', $menus);
 	?>
 	<li class="pluxml">
-            <a title="PluXml" href="http://www.pluxml.org">Pluxml <?php echo $plxAdmin->aConf['version'] ?></a>
+			<a title="PluXml" href="http://www.pluxml.org">Pluxml <?php echo $plxAdmin->aConf['version'] ?></a>
 	</li>
-    </ul>
+	</ul>
 
 </div><!-- sidebar -->
 
 <div id="content">
 
-    <h1 id="sitename"><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></h1>
-    <?php
+	<h1 id="sitename"><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></h1>
+	<?php
 	if(is_file(PLX_ROOT.'install.php')) echo L_WARNING_INSTALLATION_FILE;
-            plxMsg::Display();
-    ?>
+			plxMsg::Display();
+	?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')) ?>

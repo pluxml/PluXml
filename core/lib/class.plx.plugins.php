@@ -219,20 +219,22 @@ class plxPlugins {
 		return unlink($deldir);
 	}
 
-	public function cssCache($output_dir) {
+	public function cssCache($type, $output_dir) {
 		$output = '';
 		foreach($this->aPlugins as $plugName => $plugInstance) {
-			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.css';
+			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.'.$type.'.css';
 			if(is_file($filename)) {
 				$output .= file_get_contents($filename);
 			}
 		}
-		$output_file = rtrim($output_dir, '/').'/plugins.css';
+		$output_file = rtrim($output_dir, '/').'/'.$type.'.css';
 		if($output!='') {
-			plxUtils::write(plxUtils::minify($output), $output_file);
+			return plxUtils::write(plxUtils::minify($output), PLX_ROOT.$output_file);
 		}
-		elseif(is_file($output_file))
-			unlink($output_file);
+		elseif(is_file(PLX_ROOT.$output_file)) {
+			return unlink(PLX_ROOT.$output_file);
+		}
+		return true;
 
 	}
 }
