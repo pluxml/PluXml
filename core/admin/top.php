@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
+	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.gif" />
 	<?php
 	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
 		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
