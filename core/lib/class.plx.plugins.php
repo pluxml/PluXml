@@ -219,6 +219,14 @@ class plxPlugins {
 		return unlink($deldir);
 	}
 
+	/**
+	 * Méthode qui génère le fichier css admin.css ou site.css dans le dossier output_dir passé en paramètre
+	 *
+	 * @param	type		type du fichier (admin|site)
+	 * @param	output_dir	emplacement du fichier
+	 * @return	boolean		résultat de la création ou suppression du fichier css
+	 * @author	Stephane F
+	 **/	
 	public function cssCache($type, $output_dir) {
 		$output = '';
 		foreach($this->aPlugins as $plugName => $plugInstance) {
