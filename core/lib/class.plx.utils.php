@@ -679,6 +679,7 @@ class plxUtils {
 			$bcc = implode(', ', $bcc);
 
 		$headers  = "From: ".$name." <".$from.">\r\n";
+		$headers .= "Reply-To: ".$from."\r\n";
 		$headers .= 'MIME-Version: 1.0'."\r\n";
 		// Content-Type
 		if($contentType == 'html')
@@ -687,6 +688,7 @@ class plxUtils {
 			$headers .= 'Content-type: text/plain; charset="'.PLX_CHARSET.'"'."\r\n";
 
 		$headers .= 'Content-transfer-encoding: 8bit'."\r\n";
+		$headers .= 'Date: '.date("D, j M Y G:i:s O")."\r\n"; // Sat, 7 Jun 2001 12:35:58 -0700
 
 		if($cc != "")
 			$headers .= 'Cc: '.$cc."\r\n";
