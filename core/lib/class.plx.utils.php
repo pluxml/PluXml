@@ -620,7 +620,7 @@ class plxUtils {
 		// replace base-relative URLs
 		$html = preg_replace('@\<([^>]*) (href|src)="([^:"]*|[^:"]*:[^/"][^"]*)"@i', '<\1 \2="' . $base . '\3"', $html);
 		// unreplace fully qualified URLs with proto: that were wrongly added $base
-		$html = preg_replace('@\<([^>]*) (href|src)="'. $base . '(mailto|javascript):@i', '<\1 \2="\3:', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)="'. $base . '([a-zA-Z0-9]*):@i', '<\1 \2="\3:', $html);
 		return $html;
 
 	}
