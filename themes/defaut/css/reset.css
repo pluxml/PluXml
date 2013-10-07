@@ -89,7 +89,11 @@ kbd {
 	font-size: 0.85em;
 	overflow: auto;
 	padding: 5px 10px;
-	white-space: nowrap;
+}
+
+pre {
+	background-color: #efefef;
+	border: 1px solid #ddd;
 }
 
 sub,
