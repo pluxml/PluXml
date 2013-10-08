@@ -260,7 +260,7 @@ class plxMotor {
 	 * @author	Stephane F
 	 **/
 	public function error404($msg) {
-		header("Status : 404 Not Found");
+		header("Status: 404 Not Found");
 		header("HTTP/1.0 404 Not Found");
 		$this->plxErreur = new plxErreur($msg);
 		$this->mode = 'erreur';
