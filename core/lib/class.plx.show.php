@@ -668,13 +668,15 @@ class plxShow {
 	/**
 	 * Méthode qui affiche le lien "Lire la suite" si le chapô de l'article est renseigné
 	 *
-	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_title)
+	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_url, #art_title)
 	 * @return	stdout
 	 * @scope	home,categorie,tags,archives
 	 * @author	Stephane F
 	 **/
-	public function artReadMore($format=L_ARTCHAPO) {
+	public function artReadMore($format='') {
 
+		$format = ($format===''? '<p class="more"><a href="#art_url" title="#art_title">'.L_ARTCHAPO.'</a></p>' : $format);
+	
 		# Affichage du lien "Lire la suite" si un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
 			if($format) {
@@ -682,8 +684,9 @@ class plxShow {
 				$id = intval($this->plxMotor->plxRecord_arts->f('numero'));
 				$title = plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 				$url = $this->plxMotor->plxRecord_arts->f('url');
-				$title = str_replace("#art_title", $title, $format);
-				echo '<p class="more"><a href="'.$this->plxMotor->urlRewrite('?article'.$id.'/'.$url).'" title="'.$title.'">'.$title.'</a></p>'."\n";
+				$row = str_replace("#art_url", $this->plxMotor->urlRewrite('?article'.$id.'/'.$url), $format);
+				$row = str_replace("#art_title", $title, $row);
+				echo $row;
 			}
 		}
 	}
@@ -693,14 +696,16 @@ class plxShow {
 	 * pour lire la suite de l'article. Si l'article n'a pas de chapô,
 	 * le contenu de l'article est affiché (selon paramètres)
 	 *
-	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_title)
+	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_url, #art_title)
 	 * @param	content	affichage oui/non du contenu si le chapô est vide
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
-	public function artChapo($format=L_ARTCHAPO, $content=true) {
+	public function artChapo($format='', $content=true) {
 
+		$format = ($format===''? '<p class="more"><a href="#art_url" title="#art_title">'.L_ARTCHAPO.'</a></p>' : $format);
+	
 		# On verifie qu'un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
 			# On effectue l'affichage
