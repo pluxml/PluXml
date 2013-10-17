@@ -9,7 +9,7 @@
 include(dirname(__FILE__).'/prepend.php');
 
 # Control du token du formulaire
-//plxToken::validateFormToken($_POST);
+plxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -33,10 +33,16 @@ if(isset($_POST['submit'])) {
 		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
 	else
 		plxMsg::Error(L_SAVE_FILE_ERROR);
+	header('Location: parametres_plugincss.php?p='.urlencode($plugin));
+	exit;
 }
 
-$backend = is_file($file_backend) ? file_get_contents($file_backend) : '';
-$frontend = is_file($file_frontend) ? file_get_contents($file_frontend) : '';
+$backend = is_file($file_backend) ? trim(file_get_contents($file_backend)) : '';
+$file_backend_init = PLX_PLUGINS.basename($plugin).'/admin.css';
+$backend = ($backend=='' AND is_file($file_backend_init)) ? trim(file_get_contents($file_backend_init)) : $backend;
+$frontend = is_file($file_frontend) ? trim(file_get_contents($file_frontend)) : '';
+$file_frontend_init = PLX_PLUGINS.basename($plugin).'/site.css';
+$frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_contents($file_frontend_init)) : $frontend;
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
