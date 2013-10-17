@@ -25,7 +25,7 @@
 
 	<nav role="navigation">
 
-		<ul>
+		<ul id="static-nav">
 			<?php $plxShow->staticList($plxShow->getLang('HOME'),'<li id="#static_id"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>'); ?>
 			<?php $plxShow->pageBlog('<li id="#page_id"><a class="#page_status" href="#page_url" title="#page_name">#page_name</a></li>'); ?>
 		</ul>
