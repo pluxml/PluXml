@@ -1133,7 +1133,7 @@ class plxShow {
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function staticList($extra='', $format='<li id="#static_id" class="#static_class"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<span class="#group_status">#group_name</span>', $menublog=false) {
+	public function staticList($extra='', $format='<li id="#static_id" class="#static_class"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<span class="#group_class">#group_name</span>', $menublog=false) {
 
 		$menus = array();
 		# Hook Plugins
@@ -1195,9 +1195,9 @@ class plxShow {
 				}
 				else {
 					$group = str_replace('#group_id','static-group-'.plxUtils::title2url($k),$format_group);
-					$group = str_replace('#group_class','static-group',$group);
+					$group = str_replace('#group_class','static group',$group);
 					$group = str_replace('#group_name',plxUtils::strCheck($k),$group);
-					echo "\n<li>\n\t".$group."\n\t<ul id=\"static-".$k.">\t\t";
+					echo "\n<li>\n\t".$group."\n\t<ul id=\"static-".$k."\">\t\t";
 					foreach($v as $kk => $vv) {
 						echo "\n\t\t".$vv;
 					}
