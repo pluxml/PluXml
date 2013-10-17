@@ -17,8 +17,9 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 $plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
 $plugin = plxUtils::nullbyteRemove($plugin);
 
-# chargement du fichier css du plugin frontend
+# chargement du fichier css du plugin pour le frontend
 $file_frontend = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.basename($plugin).'.site.css';
+# chargement du fichier css du plugin pour le backend
 $file_backend = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.basename($plugin).'.admin.css';
 
 # Traitement du formulaire: sauvegarde du code css et regénération du cache
