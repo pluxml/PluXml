@@ -26,8 +26,8 @@ if(isset($_POST['submit'])) {
 	$ret_f = plxUtils::write(trim($_POST['frontend']), $file_frontend);
 	$ret_b = plxUtils::write(trim($_POST['backend']), $file_backend);
 	if($ret_f AND $ret_b) {
-		$ret_1 = $plxAdmin->plxPlugins->cssCache('site', $plxAdmin->aConf['racine_plugins']);
-		$ret_2 = $plxAdmin->plxPlugins->cssCache('admin', $plxAdmin->aConf['racine_plugins']);
+		$ret_1 = $plxAdmin->plxPlugins->cssCache('site');
+		$ret_2 = $plxAdmin->plxPlugins->cssCache('admin');
 	}
 	if($ret_f AND $ret_b AND $ret_1 AND $ret_2)
 		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);

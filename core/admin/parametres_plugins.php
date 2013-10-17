@@ -17,13 +17,11 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 if(isset($_POST['submit']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate'))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
-	$plxAdmin->plxPlugins->cssCache(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 	header('Location: parametres_plugins.php');
 	exit;
 }
 elseif(isset($_POST['update'])) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
-	$plxAdmin->plxPlugins->cssCache(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 	header('Location: parametres_plugins.php');
 	exit;
 }
