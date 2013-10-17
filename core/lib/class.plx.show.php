@@ -676,7 +676,7 @@ class plxShow {
 	public function artReadMore($format='') {
 
 		$format = ($format===''? '<p class="more"><a href="#art_url" title="#art_title">'.L_ARTCHAPO.'</a></p>' : $format);
-	
+
 		# Affichage du lien "Lire la suite" si un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
 			if($format) {
@@ -705,7 +705,7 @@ class plxShow {
 	public function artChapo($format='', $content=true) {
 
 		$format = ($format===''? '<p class="more"><a href="#art_url" title="#art_title">'.L_ARTCHAPO.'</a></p>' : $format);
-	
+
 		# On verifie qu'un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
 			# On effectue l'affichage
@@ -1125,19 +1125,17 @@ class plxShow {
 
 	/**
 	 * Méthode qui affiche la liste des pages statiques.
-	 * Si la variable $extra est renseignée, un lien vers la
-	 * page d'accueil (nommé $extra) sera mis en place en première position
 	 *
-	 * @param	extra	nom du lien vers la page d'accueil
-	 * @param	format	format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
+	 * @param	extra		si renseigné: nom du lien vers la page d'accueil affiché en première position
+	 * @param	format		format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
+	 * @param	menublog	position du menu Blog (si non renseigné le menu n'est pas affiché)
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Florent MONTHEL, Stephane F
+	 * @author	Stephane F
 	 **/
-	public function staticList($extra='', $format='<li id="#static_id" class="#static_class"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<li id="#group_id" class="#group_class">#group_name</li>') {
+	public function staticList($extra='', $format='<li id="#static_id" class="#static_class"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<span class="#group_status">#group_name</span>', $menublog=false) {
 
 		$menus = array();
-
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticListBegin'))) return;
 		$home = ((empty($this->plxMotor->get) OR preg_match('/^page[0-9]*/',$this->plxMotor->get)) AND basename($_SERVER['SCRIPT_NAME'])=="index.php");
@@ -1148,27 +1146,13 @@ class plxShow {
 			$stat = str_replace('#static_url',$this->plxMotor->urlRewrite(),$stat);
 			$stat = str_replace('#static_name',plxUtils::strCheck($extra),$stat);
 			$stat = str_replace('#static_status',($home==true?"active":"noactive"), $stat);
-			$menus[] = $stat;
+			$menus[][] = $stat;
 		}
-		else
-				$menus[] = "";
-		# On verifie qu'il y a des pages statiques
 		if($this->plxMotor->aStats) {
-			$group_name='';
 			foreach($this->plxMotor->aStats as $k=>$v) {
 				if($v['active'] == 1 AND $v['menu'] == 'oui') { # La page  est bien active et dispo ds le menu
-					# On modifie nos motifs
-					if(!empty($v['group']) AND $group_name!=$v['group']) {
-						$group = str_replace('#group_id','static-group-'.plxUtils::title2url($v['group']),$format_group);
-						$group = str_replace('#group_class','static-group',$group);
-						$group = str_replace('#group_name',plxUtils::strCheck($v['group']),$group);
-						$menus[] =  $group;
-					}
 					$stat = str_replace('#static_id','static-'.intval($k),$format);
-					if(empty($v['group']))
-						$stat = str_replace('#static_class','static-group',$stat);
-					else
-						$stat = str_replace('#static_class','static-menu',$stat);
+					$stat = str_replace('#static_class','static-menu',$stat);
 					if($v['url'][0]=='?') # url interne commençant par ?
 						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite($v['url']),$stat);
 					elseif(plxUtils::checkSite($v['url'],false)) # url externe en http ou autre
@@ -1177,16 +1161,52 @@ class plxShow {
 						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite('?static'.intval($k).'/'.$v['url']),$stat);
 					$stat = str_replace('#static_name',plxUtils::strCheck($v['name']),$stat);
 					$stat = str_replace('#static_status',(($home===false AND $this->staticId()==intval($k))?'static active':'noactive'), $stat);
-					$menus[] =  $stat;
-					$group_name=$v['group']; # pour gérer la rupture au niveau de l'affichage
+					if($v['group']=='')
+						$menus[][] =  $stat;
+					else
+						$menus[$v['group']][] =  $stat;
 				}
-			} # Fin du while
+			}
+		}
+		if($menublog) {
+			if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
+				if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
+					$menu = str_replace('#static_id','page-blog',$format);
+					if ($this->plxMotor->get AND preg_match('/^(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'])) {
+						$menu = str_replace('#static_status','active',$menu);
+					} else {
+						$menu = str_replace('#static_status','noactive',$menu);
+					}
+					$menu = str_replace('#static_url', $this->plxMotor->urlRewrite('?blog'),$menu);
+					$menu = str_replace('#static_name',L_PAGEBLOG_TITLE,$menu);
+					array_splice($menus, (intval($menublog)-1), 0, array($menu));
+				}
+			}
 		}
 
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticListEnd'))) return;
 
-		echo implode('', $menus);
+		# Affichage des pages statiques + menu Accueil et Blog
+		if($menus) {
+			foreach($menus as $k=>$v) {
+				if(is_numeric($k)) {
+					echo "\n".(is_array($v) ? $v[0] : $v);
+				}
+				else {
+					$group = str_replace('#group_id','static-group-'.plxUtils::title2url($k),$format_group);
+					$group = str_replace('#group_class','static-group',$group);
+					$group = str_replace('#group_name',plxUtils::strCheck($k),$group);
+					echo "\n<li>\n\t".$group."\n\t<ul id=\"static-".$k.">\t\t";
+					foreach($v as $kk => $vv) {
+						echo "\n\t\t".$vv;
+					}
+					echo "\n\t</ul>\n</li>\n";
+				}
+			}
+			echo "\n";
+		}
+
 	}
 
 	/**
