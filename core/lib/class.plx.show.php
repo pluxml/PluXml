@@ -1197,7 +1197,7 @@ class plxShow {
 					$group = str_replace('#group_id','static-group-'.plxUtils::title2url($k),$format_group);
 					$group = str_replace('#group_class','static group',$group);
 					$group = str_replace('#group_name',plxUtils::strCheck($k),$group);
-					echo "\n<li>\n\t".$group."\n\t<ul id=\"static-".$k."\">\t\t";
+					echo "\n<li>\n\t".$group."\n\t<ul id=\"static-".plxUtils::title2url($k)."\">\t\t";
 					foreach($v as $kk => $vv) {
 						echo "\n\t\t".$vv;
 					}
