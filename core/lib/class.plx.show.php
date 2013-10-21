@@ -610,6 +610,7 @@ class plxShow {
 	 **/
 	public function artCat($separator=',') {
 
+		$cats = array();
 		# Initialisation de notre variable interne
 		$catIds = $this->artActiveCatIds();
 		foreach ($catIds as $idx => $catId) {
@@ -625,15 +626,15 @@ class plxShow {
 					else
 						$active = "noactive";
 					# On effectue l'affichage
-					echo '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$url).'" title="'.$name.'">'.$name.'</a>';
+					$cats[] = '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$url).'" title="'.$name.'">'.$name.'</a>';
 				} else { # La categorie n'existe pas
-					echo L_UNCLASSIFIED;
+					$cats[] =  L_UNCLASSIFIED;
 				}
 			} else { # Categorie "home"
-				echo '<a class="active" href="'.$this->plxMotor->urlRewrite().'" title="'.L_HOMEPAGE.'">'.L_HOMEPAGE.'</a>';
+				$cats[] = '<a class="active" href="'.$this->plxMotor->urlRewrite().'" title="'.L_HOMEPAGE.'">'.L_HOMEPAGE.'</a>';
 			}
-			if ($idx!=sizeof($catIds)-1) echo $separator.' ';
 		}
+		echo implode($separator, $cats);
 	}
 
 	/**
