@@ -614,13 +614,13 @@ class plxUtils {
 		$server = preg_replace('@^([^:]+)://([^/]+)(/|$).*@', '\1://\2/', $base);
 		// on repare les liens ne commençant que part #
 		$get = plxUtils::getGets();
-		$html = preg_replace('@\<([^>]*) (href|src)="#@i', '<\1 \2="' . $get . '#', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])#@i', '<\1 \2=\3'.$get.'#', $html);
 		// replace root-relative URLs
-		$html = preg_replace('@\<([^>]*) (href|src)=".?/@i', '<\1 \2="' . $server, $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\']).?/@i', '<\1 \2=\3'.$server, $html);
 		// replace base-relative URLs
-		$html = preg_replace('@\<([^>]*) (href|src)="([^:"]*|[^:"]*:[^/"][^"]*)"@i', '<\1 \2="' . $base . '\3"', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])([^:"]*|[^:"]*:[^/"][^"]*)(["\'])@i', '<\1 \2=\3'.$base.'\4\5', $html);
 		// unreplace fully qualified URLs with proto: that were wrongly added $base
-		$html = preg_replace('@\<([^>]*) (href|src)="'. $base . '([a-zA-Z0-9]*):@i', '<\1 \2="\3:', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])'.$base.'([a-zA-Z0-9]*):@i', '<\1 \2=\3\4:', $html);
 		return $html;
 
 	}
