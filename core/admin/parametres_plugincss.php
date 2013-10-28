@@ -39,10 +39,10 @@ if(isset($_POST['submit'])) {
 }
 
 $backend = is_file($file_backend) ? trim(file_get_contents($file_backend)) : '';
-$file_backend_init = PLX_PLUGINS.basename($plugin).'/admin.css';
+$file_backend_init = PLX_PLUGINS.basename($plugin).'/css/admin.css';
 $backend = ($backend=='' AND is_file($file_backend_init)) ? trim(file_get_contents($file_backend_init)) : $backend;
 $frontend = is_file($file_frontend) ? trim(file_get_contents($file_frontend)) : '';
-$file_frontend_init = PLX_PLUGINS.basename($plugin).'/site.css';
+$file_frontend_init = PLX_PLUGINS.basename($plugin).'/css/site.css';
 $frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_contents($file_frontend_init)) : $frontend;
 
 # On inclut le header

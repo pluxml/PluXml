@@ -143,16 +143,6 @@ class plxPlugins {
 					if(method_exists($plugName, 'OnActivate'))
 						$plugInstance->OnActivate();
 					$this->aPlugins[$plugName] = $plugInstance;
-					# mise en place fichier site.css du plugin
-					if(is_file(PLX_PLUGINS.$plugName.'/site.css')) {
-						$css = trim(file_get_contents(PLX_PLUGINS.$plugName.'/site.css'));
-						plxUtils::write($css, PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
-					}
-					# mise en place fichier admin.css du plugin
-					if(is_file(PLX_PLUGINS.$plugName.'/admin.css')) {
-						$css = trim(file_get_contents(PLX_PLUGINS.$plugName.'/admin.css'));
-						plxUtils::write($css, PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
-					}
 				}
 			}
 		}
@@ -237,7 +227,7 @@ class plxPlugins {
 	}
 
 	/**
-	 * Méthode qui génère le fichier css admin.css ou site.css dans le dossier output_dir passé en paramètre
+	 * Méthode qui génère le fichier css admin.css ou site.css
 	 *
 	 * @param	type		type du fichier (admin|site)
 	 * @return	boolean		vrai si cache généré
@@ -249,12 +239,18 @@ class plxPlugins {
 			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.'.$type.'.css';
 			if(is_file($filename)) {
 				$cache .= trim(file_get_contents($filename));
+			} else {
+				$filename = PLX_PLUGINS.$plugName.'/css/'.$type.'.css';
+				if(is_file($filename)) {
+					$cache .= trim(file_get_contents($filename));
+				}
 			}
 		}
 		if(is_file(PLX_PLUGINS.$type.'.css'))
 			unlink(PLX_PLUGINS.$type.'.css');
-		if($cache!='')
+		if($cache!='') {
 			return plxUtils::write(plxUtils::minify($cache), PLX_PLUGINS.$type.'.css');
+		}
 		return true;
 	}
 }
