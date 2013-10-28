@@ -1,4 +1,33 @@
-﻿## PLUXML 5.2 (sortie : 04/08/2013) ##
+﻿## PLUXML 5.3 (sortie : xx/xx/xxxx) ##
+
+[+] Affichage du titre du site après le nom de la catégorie dans la balise <title> (amélioration du référencement)
+[+] Administration: ajout d'un message de confirmation avant les suppressions en masse
+[+] Administration: agrandissement de la zone de clic des menus dans la sidebar
+[+] Administration: ajout d'un favicon
+[+] Administration > Pages statiques: possibilité d'ajouter des urls internes commençant par le caractère ?
+[+] Administration > Paramètres > Plugins: affichage d'un message d'information en rouge pour un plugin activé non configuré si requiert une configuration
+[+] Administration > Paramètres > Plugins: ajout menu "Code css" pour gérer un fichier admin.css et site.css propre à chaque plugin (dans un dossier css du plugin)
+[+) plxShow::artReadMore nouvelle fonction permettant d'afficher le lien "Lire la suite"
+[+] plxShow::tagList ajout tri des tags par ordre alphabétique, random, aucun (alpha|random|'')
+[+] plxShow::lastComList traduction oubliée (a dit)
+[+] plxShow::artChapo personnalisation du lien "Lire la suite"
+[+] plxShow::staticList réécriture de la fonction pour mieux gérer l'affichage des groupes et permettre de faire des menus déroulants plus facilement
+[+] plxShow::lastArtList ajout du paramètre sort pour permettre de trier l'affichage des derniers articles par date croissante, décroissante ou par titre (sort|rsort|alpha)
+[+] plxUtils::printInput ajout du paramètre placeholder
+[+] plxUtils::printSelect génération de l'id du champ à partir d'un paramètre si renseigné, sinon génération automatique
+[+] plxUtils::sendMail ajout de Reply-To et Date 
+[+] plxUtils::minify nouvelle fonction pour minifier un buffer de sortie
+[+] Nouveau thème par défaut
+BUG Administration: menu en double dans la sidebar d'administration si setAdminMenu utilisé dans les plugins
+BUG plxUtils::getRacine problème avec certains hébergeurs (caractère \ en fin d'url)
+BUG plxShow::error404() erreur de syntaxe (espace en trop)
+BUG fix #23: plxUtils::rel2abs liens spéciaux en *:// mal interprétés
+BUG fix #24: exclusion des fichiers articles .xml ne commençant pas par un n° d'article
+Bug fix #25: Administration > Paramètres > Configuration avancée : .htaccess modifié quand clic sur le bouton "Modifier la configuration avancée"
+BUG fix #31: plxShow::artCat mauvais affichage des catégories d'un article quand article assigné à la catégorie "Page d'accueil"
+BUG fix #33: plxUtils::rel2abs liens avec des simples quote non réécrits
+
+## PLUXML 5.2 (sortie : 04/08/2013) ##
 
 [+] sitemap.php: ajout des hooks SitemapBegin et SitemapEnd
 [+] feed.php: ajout des hooks FeedBegin et FeedEnd
