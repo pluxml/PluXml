@@ -136,7 +136,7 @@ class plxUtils {
 	 * @param	selected	valeur par défaut
 	 * @param	readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
-	 * @param	id			si vrai génère un id à partir du nom du champ, sinon géneèe l'id à partir du paramètre
+	 * @param	id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
 	 * @return	stdout
 	 **/
 	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
