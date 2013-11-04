@@ -69,9 +69,11 @@ include(dirname(__FILE__).'/top.php');
 				plxUtils::printInput($_userid.'_password', '', 'password', '11-255');
 				echo '</td><td>';
 				if($_userid=='001') {
-					plxUtils::printSelect($_userid.'_profil', $aProfils, $_user['profil'], true, 'readonly');
+					plxUtils::printInput($_userid.'_profil', $_user['profil'], 'hidden');
+					plxUtils::printInput($_userid.'_active', $_user['active'], 'hidden');
+					plxUtils::printSelect($_userid.'__profil', $aProfils, $_user['profil'], true, 'readonly');
 					echo '</td><td>';
-					plxUtils::printSelect($_userid.'_active', array('1'=>L_YES,'0'=>L_NO), $_user['active'], true, 'readonly');
+					plxUtils::printSelect($_userid.'__active', array('1'=>L_YES,'0'=>L_NO), $_user['active'], true, 'readonly');
 				} else {
 					plxUtils::printSelect($_userid.'_profil', $aProfils, $_user['profil']);
 					echo '</td><td>';
