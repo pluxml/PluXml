@@ -26,6 +26,7 @@ BUG fix #24: exclusion des fichiers articles .xml ne commençant pas par un n° 
 Bug fix #25: Administration > Paramètres > Configuration avancée : .htaccess modifié quand clic sur le bouton "Modifier la configuration avancée"
 BUG fix #31: plxShow::artCat mauvais affichage des catégories d'un article quand article assigné à la catégorie "Page d'accueil"
 BUG fix #33: plxUtils::rel2abs liens avec des simples quote non réécrits
+BUG fix #35: Connexion impossible suite à la modification du login admin 001
 
 ## PLUXML 5.2 (sortie : 04/08/2013) ##
 
