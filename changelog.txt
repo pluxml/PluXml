@@ -27,6 +27,7 @@ Bug fix #25: Administration > Paramètres > Configuration avancée : .htaccess m
 BUG fix #31: plxShow::artCat mauvais affichage des catégories d'un article quand article assigné à la catégorie "Page d'accueil"
 BUG fix #33: plxUtils::rel2abs liens avec des simples quote non réécrits
 BUG fix #35: Connexion impossible suite à la modification du login admin 001
+BUG fix #36: plxUtils::checkSite mauvaise validation url
 
 ## PLUXML 5.2 (sortie : 04/08/2013) ##
 

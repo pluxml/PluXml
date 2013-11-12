@@ -87,9 +87,9 @@ class plxUtils {
 
 		if($site[0]=='?') return true; # url interne commençant par ?
 		# On vérifie le site via une expression régulière
-		# Méthode Jeffrey Friedl - http://mathiasbynens.be/demo/url-regex
-		# modifiée par Amaury Graillat pour prendre en compte la valeur localhost dans l'url
-		if(preg_match('@\b((ftp|https?)://([-\w]+(\.\w[-\w]*)+|localhost)|(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+(?: com\b|edu\b|biz\b|gov\b|in(?:t|fo)\b|mil\b|net\b|org\b|[a-z][a-z]\b))(\:\d+)?(/[^.!,?;"\'<>()\[\]{}\s\x7F-\xFF]*(?:[.!,?]+[^.!,?;"\'<>()\[\]{}\s\x7F-\xFF]+)*)?@iS', $site))
+		# Méthode imme_emosol - http://mathiasbynens.be/demo/url-regex
+		# modifiée par Amaury Graillat pour prendre en compte les tirets dans les urls
+		if(preg_match('@(https?|ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
 				return true;
 		else {
 			if($reset) $site='';
