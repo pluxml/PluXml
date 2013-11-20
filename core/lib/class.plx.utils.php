@@ -27,11 +27,10 @@ class plxUtils {
 	 **/
 	public static function getGets() {
 
-		if(!empty($_GET)) {
-			$a = array_keys($_GET);
-			return strip_tags($a[0]);
-		}
-		return false;
+		if(!empty($_SERVER['QUERY_STRING']))
+			return strip_tags($_SERVER['QUERY_STRING']);
+		else
+			return false;
 	}
 
 	/**

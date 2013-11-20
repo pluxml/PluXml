@@ -15,11 +15,12 @@
 [+] plxShow::lastArtList ajout du paramètre sort pour permettre de trier l'affichage des derniers articles par date croissante, décroissante ou par titre (sort|rsort|alpha)
 [+] plxUtils::printInput ajout du paramètre placeholder
 [+] plxUtils::printSelect génération de l'id du champ à partir d'un paramètre si renseigné, sinon génération automatique
-[+] plxUtils::sendMail ajout de Reply-To et Date 
+[+] plxUtils::sendMail ajout de Reply-To et Date
 [+] plxUtils::minify nouvelle fonction pour minifier un buffer de sortie
 [+] Nouveau thème par défaut
 BUG Administration: menu en double dans la sidebar d'administration si setAdminMenu utilisé dans les plugins
 BUG plxUtils::getRacine problème avec certains hébergeurs (caractère \ en fin d'url)
+BUG plxUtils::getGets mauvais renvoi des paramètres passés dans l'url
 BUG plxShow::error404() erreur de syntaxe (espace en trop)
 BUG fix #23: plxUtils::rel2abs liens spéciaux en *:// mal interprétés
 BUG fix #24: exclusion des fichiers articles .xml ne commençant pas par un n° d'article
