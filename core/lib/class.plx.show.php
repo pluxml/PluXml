@@ -228,7 +228,7 @@ class plxShow {
 			return;
 		}
 		if($this->plxMotor->mode == 'tags') {
-			echo plxUtils::strCheck(L_PAGETITLE_TAG.' '.$this->plxMotor->cible.' - '.$this->plxMotor->aConf['title']);
+			echo plxUtils::strCheck(L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName.' - '.$this->plxMotor->aConf['title']);
 			return;
 		}
 		if($this->plxMotor->mode == 'erreur') {

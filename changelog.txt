@@ -21,7 +21,9 @@
 BUG Administration: menu en double dans la sidebar d'administration si setAdminMenu utilisé dans les plugins
 BUG plxUtils::getRacine problème avec certains hébergeurs (caractère \ en fin d'url)
 BUG plxUtils::getGets mauvais renvoi des paramètres passés dans l'url
-BUG plxShow::error404() erreur de syntaxe (espace en trop)
+BUG plxShow::error404 erreur de syntaxe (espace en trop)
+BUG plxShow::pageTitle mauvais affichage du nom du tag (mode tags)
+BUG Thème par défaut fichier tags.php: mauvais affichage du nom du tag
 BUG fix #23: plxUtils::rel2abs liens spéciaux en *:// mal interprétés
 BUG fix #24: exclusion des fichiers articles .xml ne commençant pas par un n° d'article
 Bug fix #25: Administration > Paramètres > Configuration avancée : .htaccess modifié quand clic sur le bouton "Modifier la configuration avancée"
