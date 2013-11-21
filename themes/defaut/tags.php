@@ -7,7 +7,7 @@
 		<div class="width-sidebar">
 
 			<p class="directory">
-				<strong><?php echo $plxShow->plxMotor->cible; ?></strong>
+				<strong><?php $plxShow->tagName(); ?></strong>
 			</p>
 
 			<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
