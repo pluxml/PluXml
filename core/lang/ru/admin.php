@@ -409,7 +409,7 @@ $LANG = array(
 'L_PLUGIN_NO_CONFIG'										=> 'Плагин не настроено',
 'L_PLUGINS_CSS'												=> 'Css',
 'L_PLUGINS_CSS_TITLE'										=> 'Редактирования кода CSS этого плагина',
-'L_CONTENT_FIELD_FRONTEND'									=> 'Содержание CSS посетителя',
+'L_CONTENT_FIELD_FRONTEND'									=> 'Содержание веб-сайта CSS-файла',
 'L_CONTENT_FIELD_BACKEND'									=> 'Css содержимое файла администратор',
 
 # parametres_plugins.php

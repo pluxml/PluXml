@@ -407,7 +407,7 @@ $LANG = array(
 'L_PLUGIN_NO_CONFIG'				=> 'Plugin non configuré',
 'L_PLUGINS_CSS'						=> 'Code css',
 'L_PLUGINS_CSS_TITLE'				=> 'Éditer le code css du plugin',
-'L_CONTENT_FIELD_FRONTEND'			=> 'Contenu fichier css visiteur',
+'L_CONTENT_FIELD_FRONTEND'			=> 'Contenu fichier css site',
 'L_CONTENT_FIELD_BACKEND'			=> 'Contenu fichier css administrateur',
 
 # parametres_plugins.php
