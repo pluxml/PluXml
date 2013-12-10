@@ -6,7 +6,7 @@
 
 		<div class="full-width">
 
-			<article role="article" id="static-<?php echo $plxShow->staticId(); ?>">
+			<article role="article" id="static-page-<?php echo $plxShow->staticId(); ?>">
 
 				<header>
 					<h1>
