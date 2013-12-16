@@ -705,8 +705,6 @@ class plxShow {
 	 **/
 	public function artChapo($format='', $content=true) {
 
-		$format = ($format===''? '<p class="more"><a href="#art_url" title="#art_title">'.L_ARTCHAPO.'</a></p>' : $format);
-
 		# On verifie qu'un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
 			# On effectue l'affichage
