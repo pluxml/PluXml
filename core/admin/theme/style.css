@@ -302,7 +302,7 @@ th.category { width:250px; white-space: nowrap; }
 th.nbcoms { width: 50px;  white-space: nowrap;}
 th.author, td.author  { width:150px; white-space: nowrap; }
 th.action  { min-width: 150px; white-space: nowrap; text-align: center;}
-td.action  { min-width: 150px; white-space: nowrap;}
+td.action  { min-width: 150px; white-space: nowrap; text-align: center;}
 
 th.datetime, td.datetime { width:120px; white-space: nowrap; }
 th.image { width: 60px; }

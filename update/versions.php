@@ -23,5 +23,6 @@ $versions = array(
 	'5.1.6'	=>	'update_5.1.6.php',
 	'5.1.7'	=>	'update_5.1.7.php',
 	'5.2'	=>	'update_5.2.php',	
+	'5.3'	=>	'',		
 );
 ?>
