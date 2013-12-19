@@ -18,6 +18,7 @@
 [+] plxUtils::sendMail ajout de Reply-To et Date
 [+] plxUtils::minify nouvelle fonction pour minifier un buffer de sortie
 [+] Nouveau thème par défaut
+[+] Mise à jour traduction espagnole (contribution toote)
 BUG Administration: menu en double dans la sidebar d'administration si setAdminMenu utilisé dans les plugins
 BUG plxUtils::getRacine problème avec certains hébergeurs (caractère \ en fin d'url)
 BUG plxUtils::getGets mauvais renvoi des paramètres passés dans l'url
