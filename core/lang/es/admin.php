@@ -7,6 +7,9 @@ $LANG = array(
 'L_SAVE_FILE'									=> 'Guardar el archivo',
 'L_SAVE_FILE_SUCCESSFULLY'							=> 'Archivo guardado correctamente',
 'L_SAVE_FILE_ERROR'								=> 'Error al guardar el archivo',
+
+# class.plx.admin.php
+
 'L_SAVE_SUCCESSFUL'								=> 'Se guradaron los datos correctamente',
 'L_SAVE_ERR'									=> 'Error al guardar los datos',
 'L_NO_ENTRY'									=> 'Acceso denegado',
@@ -33,33 +36,39 @@ $LANG = array(
 'L_COMMENT_VALIDATE_ERR'							=> 'Error al aprobar el comentario',
 'L_COMMENT_MODERATE_SUCCESSFUL'							=> 'Comentario moderado correctamente',
 'L_COMMENT_MODERATE_ERR'							=> 'Error al moderar el comentario',
-'L_COMMENT_WRITTEN_BY'								=> 'Escrito por',
+'L_ERR_URL_ALREADY_EXISTS'							=> 'URL ya utilizada. Cambie el valor del campo «URL»',
+
+# class.plx.media.php
+
 'L_PLXMEDIAS_MEDIAS_FOLDER_ERR'							=> 'No se pudo crear la carpeta de medios para el usuario',
 'L_PLXMEDIAS_ROOT'								=> 'raíz',
-'L_PLXMEDIAS_NEW_FOLDER_ERR'							=> 'No se pudo crear la carpeta',
-'L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL'						=> 'Carpeta creada correctamente',
-'L_PLXMEDIAS_NEW_FOLDER_EXISTS'							=> 'Esta carpeta ya existe',
-'L_PLXMEDIAS_DEL_FOLDER_ERR'							=> 'Error al eliminar la carpeta',
-'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL'						=> 'Carpeta eliminada correctamente',
-'L_PLXMEDIAS_WRONG_FILEFORMAT'							=> 'El tipo de archivo no está permitido',
-'L_PLXMEDIAS_WRONG_FILESIZE'							=> 'El tamaño de un archivo es superior a:',
-'L_PLXMEDIAS_UPLOAD_ERR'							=> 'Error al subir un archivo',
-'L_PLXMEDIAS_UPLOAD_SUCCESSFUL'							=> 'Archivo subido correctamente',
-'L_PLXMEDIAS_UPLOADS_ERR'							=> 'Error al subir archivos',
-'L_PLXMEDIAS_UPLOADS_SUCCESSFUL'						=> 'Archivos subidos correctamente',
 'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL'						=> 'Archivos eliminados correctamente',
 'L_PLXMEDIAS_DELETE_FILES_ERR'							=> 'Error al eliminar un archivo',
 'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL'						=> 'Archivo eliminado correctamente',
 'L_PLXMEDIAS_DELETE_FILE_ERR'							=> 'Error al eliminar el archivo',
-'L_PLXMEDIAS_MOVE_FILES_ERR'							=> 'Archivos movidos correctamente',
-'L_PLXMEDIAS_MOVE_FILE_ERR'							=> 'Archivo movido correctamente',
+'L_PLXMEDIAS_DEL_FOLDER_ERR'							=> 'Error al eliminar la carpeta',
+'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL'						=> 'Carpeta eliminada correctamente',
+'L_PLXMEDIAS_NEW_FOLDER_ERR'							=> 'No se pudo crear la carpeta',
+'L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL'						=> 'Carpeta creada correctamente',
+'L_PLXMEDIAS_NEW_FOLDER_EXISTS'							=> 'Esta carpeta ya existe',
+'L_PLXMEDIAS_WRONG_FILESIZE'							=> 'El tamaño de un archivo es superior a:',
+'L_PLXMEDIAS_WRONG_FILEFORMAT'							=> 'El tipo de archivo no está permitido',
+'L_PLXMEDIAS_UPLOAD_ERR'							=> 'Error al subir un archivo',
+'L_PLXMEDIAS_UPLOAD_SUCCESSFUL'							=> 'Archivo subido correctamente',
+'L_PLXMEDIAS_UPLOADS_ERR'							=> 'Error al subir archivos',
+'L_PLXMEDIAS_UPLOADS_SUCCESSFUL'						=> 'Archivos subidos correctamente',
 'L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL'						=> 'Error al mover los archivos',
 'L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL'						=> 'Error al mover el archivo',
+'L_PLXMEDIAS_MOVE_FILES_ERR'							=> 'Archivos movidos correctamente',
+'L_PLXMEDIAS_MOVE_FILE_ERR'							=> 'Archivo movido correctamente',
 'L_PLXMEDIAS_MOVE_FOLDER'							=> 'Mover',
 'L_PLXMEDIAS_RECREATE_THUMB_ERR'						=> 'Error al crear la miniatura',
 'L_PLXMEDIAS_RECREATE_THUMBS_ERR'						=> 'Error al crear las miniaturas',
 'L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL'						=> 'Miniatura creada correctamente',
 'L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL'					=> 'Miniaturas creadas correctamente',
+
+# article.php
+
 'L_DEFAULT_NEW_ARTICLE_TITLE'							=> 'Nuevo artículo',
 'L_ERR_INVALID_PUBLISHING_DATE'							=> 'Fecha de publicación incorrecta.',
 'L_ERR_UNKNOWN_ARTICLE'								=> 'El artículo solicitado no existe.',
@@ -81,7 +90,7 @@ $LANG = array(
 'L_NOW'										=> 'ahora',
 'L_ARTICLE_CATEGORIES'								=> 'Categorías',
 'L_CATEGORY_HOME_PAGE'								=> 'Página de inicio',
-'L_NEW_CATEGORY'								=> 'Nueva categoría',
+'L_NEW_CATEGORY'								=> 'Nueva categoría', # duplicated in categories.php section
 'L_ARTICLE_TAGS_FIELD'								=> 'Etiquetas',
 'L_ARTICLE_TAGS_FIELD_TITLE'							=> 'Separe las etiquetas con comas',
 'L_ARTICLE_TOGGLER_TITLE'							=> 'Lista de etiquetas',
@@ -107,6 +116,9 @@ $LANG = array(
 'L_ARTICLE_TITLE_HTMLTAG'							=> 'Contenido de la etiqueta de título («title», opcional)',
 'L_ARTICLE_CHAPO_HIDE'								=> 'ocultar',
 'L_ARTICLE_CHAPO_DISPLAY'							=> 'mostrar',
+
+# auth.php
+
 'L_AUTH_PAGE_TITLE'								=> 'Página de autenticación',
 'L_LOGOUT_SUCCESSFUL'								=> 'Sesión finalizada correctamente correctamente',
 'L_LOGIN_PAGE'									=> 'Iniciar sesión en la zona de administración',
@@ -115,6 +127,20 @@ $LANG = array(
 'L_SUBMIT_BUTTON'								=> 'Enviar',
 'L_ERR_WRONG_PASSWORD'								=> 'Nombre de usuario o contraseña incorrectos',
 'L_POWERED_BY'									=> 'Generado con <a href="http://www.pluxml.org">PluXml</a>',
+
+#
+
+'L_SORT_ASCENDING_DATE'								=> 'más antiguo a más reciente',
+'L_SORT_DESCENDING_DATE'							=> 'más reciente a más antiguo',
+'L_SORT_ALPHABETICAL'								=> 'alfabético',
+'L_YES'										=> 'Si',
+'L_NO'										=> 'No',
+'L_OK'										=> 'OK',
+'L_NONE1'									=> 'ninguno',
+'L_NONE2'									=> 'ninguna',
+
+# categories.php
+
 'L_CAT_TITLE'									=> 'Gestor de categorías',
 'L_CAT_LIST_ID'									=> 'Identificador',
 'L_CAT_LIST_ACTIVE'								=> 'Activa',
@@ -128,18 +154,14 @@ $LANG = array(
 'L_DISPLAY'									=> 'Mostrar',
 'L_HIDE'									=> 'Esconder',
 'L_OPTIONS'									=> 'Opciones',
-'L_SORT_ASCENDING_DATE'								=> 'más antiguo a más reciente',
-'L_SORT_DESCENDING_DATE'							=> 'más reciente a más antiguo',
-'L_SORT_ALPHABETICAL'								=> 'alfabético',
-'L_OK'										=> 'OK',
-'L_YES'										=> 'Si',
-'L_NO'										=> 'No',
-'L_NONE1'									=> 'ninguno',
-'L_NONE2'									=> 'ninguna',
+'L_NEW_CATEGORY'								=> 'Nueva categoría',
 'L_FOR_SELECTION'								=> 'Elementos seleccionados...',
 'L_DELETE'									=> 'Eliminar',
 'L_CAT_APPLY_BUTTON'								=> 'Modificar la lista de categorías',
 'L_CAT_UNKNOWN'									=> 'Categoría desconocida',
+
+# categorie.php
+
 'L_EDITCAT_PAGE_TITLE'								=> 'Editar opciones de categoría',
 'L_EDITCAT_DESCRIPTION'								=> 'Descripción',
 'L_EDITCAT_DISPLAY_HOMEPAGE'							=> 'Mostrar artículos en la página principal',
@@ -149,6 +171,9 @@ $LANG = array(
 'L_EDITCAT_TITLE_HTMLTAG'							=> 'Contenido de la etiqueta de título («title», opcional)',
 'L_EDITCAT_META_DESCRIPTION'							=> 'Contenido de la metaetiqueta de descripción («description», opcional) ',
 'L_EDITCAT_META_KEYWORDS'							=> 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)',
+
+# commentaire.php
+
 'L_COMMENT_ORPHAN'								=> 'sin artículo',
 'L_COMMENT_ORPHAN_STATUS'							=> 'invisible (sugerimos elimiar este comentario)',
 'L_COMMENT_ARTICLE_LINKED'							=> 'Artículo',
@@ -173,6 +198,16 @@ $LANG = array(
 'L_COMMENT_OFFLINE_BUTTON'							=> 'Cambiar a invisible',
 'L_COMMENT_ANSWER_BUTTON'							=> 'Responder a este comentario',
 'L_COMMENT_UPDATE_BUTTON'							=> 'Actualizar',
+'L_COMMENT_WRITTEN_BY'								=> 'Escrito por',
+'L_ERR_CATEGORY_ALREADY_EXISTS'							=> 'Ya existe una categoría con ese nombre',
+
+# sous_navigation/commentaires.php
+
+'L_COMMENT_NEW_COMMENT_TITLE'							=> 'Escribir un nuevo comentario para este artículo',
+'L_COMMENT_NEW_COMMENT'								=> 'Escribir un nuevo comentario',
+
+# commentaire_new.php
+
 'L_ERR_ANSWER_UNKNOWN_COMMENT'							=> '¡El comentario al que está intentando responder no existe!',
 'L_ERR_ANSWER_OFFLINE_COMMENT'							=> '¡Es imposible responder a un comentario invisible!',
 'L_ERR_COMMENT_UNKNOWN_ARTICLE'							=> '¡Es imposible comentar en un artículo que no existe!',
@@ -183,9 +218,11 @@ $LANG = array(
 'L_ARTICLE_COMMENTS_LIST'							=> 'Comentarios de este artículo (del más reciente al más antiguo)',
 'L_COMMENT_ANSWER_TITLE'							=> 'Responder a este comentario',
 'L_COMMENT_ANSWER'								=> 'Responder',
+
+# comments.php
+
 'L_COMMENTS_ARTICLE_SCOPE'							=> 'Artículo',
 'L_COMMENTS_GLOBAL_SCOPE'							=> 'todo el sitio',
-'L_COMMENTS_OFFLINE_LIST'							=> 'Comentarios esperando moderación',
 'L_COMMENTS_LIST_DATE'								=> 'Fecha',
 'L_COMMENTS_LIST_AUTHOR'							=> 'Autor',
 'L_COMMENTS_LIST_MESSAGE'							=> 'Mensaje',
@@ -199,11 +236,19 @@ $LANG = array(
 'L_COMMENT_ONLINE_FEEDS'							=> 'Comentarios visibles',
 'L_COMMENTS_PRIVATE_FEEDS'							=> 'Sindicaciones RSS privadas',
 'L_COMMENTS_ONLINE_LIST'							=> 'Lista de revisiones publicadas',
+'L_COMMENTS_OFFLINE_LIST'							=> 'Comentarios esperando moderación',
 'L_COMMENTS_ALL_LIST'								=> 'Lista de comentarios',
 'L_COMMENT_SET_ONLINE'								=> 'Configurar como visible',
 'L_COMMENT_SET_OFFLINE'								=> 'Configurar como invisible',
-'L_COMMENT_NEW_COMMENT_TITLE'							=> 'Escribir un nuevo comentario para este artículo',
-'L_COMMENT_NEW_COMMENT'								=> 'Escribir un nuevo comentario',
+
+# index.php
+
+'L_ARTICLES_SEARCH_BUTTON'							=> 'Búsqueda',
+'L_ARTICLES_ALL_CATEGORIES'							=> 'Todas las categorías...',
+'L_ALL'										=> 'Todos',
+'L_ALL_PUBLISHED'								=> 'Publicados',
+'L_ALL_DRAFTS'									=> 'Borradores',
+'L_ALL_AWAITING_MODERATION'							=> 'En espera de validación',
 'L_ARTICLES_FILTER_BUTTON'							=> 'Filtrar',
 'L_CATEGORIES_TABLE'								=> 'Categorías',
 'L_SPECIFIC_CATEGORIES_TABLE'							=> 'Categorías específicas',
@@ -224,30 +269,27 @@ $LANG = array(
 'L_NEW_COMMENTS_TITLE'								=> 'Comentarios en espera de moderación',
 'L_VALIDATED_COMMENTS_TITLE'							=> 'Comentarios publicados',
 'L_NO_ARTICLE'									=> 'No existe este artículo',
-'L_ARTICLES_SEARCH_BUTTON'							=> 'Búsqueda',
-'L_ARTICLES_ALL_CATEGORIES'							=> 'Todas las categorías...',
-'L_ALL'										=> 'Todos',
-'L_ALL_PUBLISHED'								=> 'Publicados',
-'L_ALL_DRAFTS'									=> 'Borradores',
-'L_ALL_AWAITING_MODERATION'							=> 'En espera de validación',
-'L_MEDIAS_DELETE_FOLDER'							=> 'Eliminar la carpeta',
-'L_MEDIAS_DELETE_FOLDER_CONFIRM'						=> '¿Desea eliminar la carpeta y su contenido?',
-'L_MEDIAS_NO_FILE'								=> 'Sin archivos',
+
+# medias.php
+
 'L_MEDIAS_FILENAME'								=> 'Nombre del archivo',
-'L_MEDIAS_ADD_FILE'								=> 'Agregar archivo',
-'L_MEDIAS_BACK'									=> 'Volver',
 'L_MEDIAS_TITLE'								=> 'Gestión de medios',
+'L_MEDIAS_DIRECTORY'								=> 'Localización',
+'L_MEDIAS_BACK'									=> 'Volver',
+'L_MEDIAS_MAX_UPOLAD_FILE'							=> 'Tamaño máximo de archivo',
+'L_MEDIAS_SUBMIT_FILE'								=> 'Enviar',
 'L_MEDIAS_IMAGES'								=> 'Imágenes',
 'L_MEDIAS_DOCUMENTS'								=> 'Documentos',
-'L_MEDIAS_CREATE_FOLDER'							=> 'Crear una carpeta',
-'L_MEDIAS_SUBMIT_FILE'								=> 'Enviar',
-'L_MEDIAS_MAX_UPOLAD_FILE'							=> 'Tamaño máximo de archivo',
-'L_MEDIAS_DIRECTORY'								=> 'Localización',
+'L_MEDIAS_ADD_FILE'								=> 'Agregar archivo',
+'L_MEDIAS_DELETE_FOLDER'							=> 'Eliminar la carpeta',
+'L_MEDIAS_DELETE_FOLDER_CONFIRM'						=> '¿Desea eliminar la carpeta y su contenido?',
 'L_MEDIAS_FOLDER'								=> 'Archivo',
 'L_MEDIAS_NEW_FOLDER'								=> 'Nueva carpeta',
+'L_MEDIAS_CREATE_FOLDER'							=> 'Crear una carpeta',
 'L_MEDIAS_FILESIZE'								=> 'Tamaño',
 'L_MEDIAS_DATE'									=> 'Fecha',
 'L_MEDIAS_DIMENSIONS'								=> 'Dimensiones',
+'L_MEDIAS_NO_FILE'								=> 'Sin archivos',
 'L_MEDIAS_RESIZE'								=> 'Cambiar el tamaño de las imágenes',
 'L_MEDIAS_RESIZE_NO'								=> 'Tamaño original',
 'L_MEDIAS_THUMBS'								=> 'Crear miniaturas',
@@ -262,6 +304,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'								=> 'Centro',
 'L_MEDIAS_ALIGN_RIGHT'								=> 'Derecha',
 'L_MEDIAS_RECREATE_THUMB'							=> 'Crear miniatura nuevamente',
+
+# parametres_affichage.php
+
 'L_CONFIG_VIEW_FIELD'								=> 'Opciones de visualización',
 'L_CONFIG_VIEW_SKIN_SELECT'							=> 'Elegir tema',
 'L_CONFIG_VIEW_FILES_EDIT_TITLE'						=> 'Editar archivos del tema',
@@ -284,6 +329,9 @@ $LANG = array(
 'L_CONFIG_VIEW_UPDATE'								=> 'Guardar opciones de visualización',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'						=> 'Mostrar categorías sin artículos',
 'L_CONFIG_HOMETEMPLATE'								=> 'Plantilla de la página principal',
+
+# parametres_avances.php
+
 'L_CONFIG_ADVANCED_DESC'							=> 'Configuración avanzada',
 'L_CONFIG_ADVANCED_URL_REWRITE'							=> 'Activar la reescritura de URLs',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Advertencia: ya existe un archivo «.htaccess» en la raíz de su instalación de PluXml. Si activa la reescritura de URLs, se modificará este archivo</span>',
@@ -303,6 +351,9 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'						=> 'Ubicación de la carpeta de complementos',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'						=> 'Ubicación de la carpeta de configuración',
 'L_CONFIG_ADVANCED_UPDATE'							=> 'Guardar configuración avanzada',
+
+# parametres_base.php
+
 'L_CONFIG_BASE_CONFIG_TITLE'							=> 'Configuración básica',
 'L_CONFIG_BASE_SITE_TITLE'							=> 'Título del sitio',
 'L_CONFIG_BASE_SITE_SLOGAN'							=> 'Subtítulo y descripción del sitio',
@@ -315,10 +366,16 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'								=> 'Guardar la configuración básica',
 'L_CONFIG_META_DESCRIPTION'							=> 'Contenido de la metaetiqueta de description («description», opcional)',
 'L_CONFIG_META_KEYWORDS'							=> 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)',
+
+# parametres_edittpl.php
+
 'L_CONFIG_EDITTPL_ERROR_NOTHEME'						=> '¡No existe el tema!',
 'L_CONFIG_EDITTPL_TITLE'							=> 'Edición del tema',
 'L_CONFIG_EDITTPL_SELECT_FILE'							=> 'Seleccione un archivo para editar:',
 'L_CONFIG_EDITTPL_LOAD'								=> 'Cargar',
+
+# parametres_infos.php
+
 'L_CONFIG_INFOS_TITLE'								=> 'Información sobre PluXml',
 'L_CONFIG_INFOS_DESCRIPTION'							=> 'Información sobre su instalación de PluXml, puede serle útil para diagnosticar problemas.',
 'L_CONFIG_INFOS_NB_CATS'							=> 'Cantidad de categorías:',
@@ -329,6 +386,9 @@ $LANG = array(
 'L_PLUXML_UPDATE_ERR'								=> 'Falló la comprobación de actualizaciones por una razón desconocida',
 'L_PLUXML_UPTODATE'								=> 'Está utilizando la última versión de PluXml',
 'L_PLUXML_UPDATE_AVAILABLE'							=> '¡Existe una nueva versión de PluXml! Puede descargarla desde',
+
+# parametres_users.php
+
 'L_CONFIG_USERS_TITLE'								=> 'Gestión de usuarios',
 'L_CONFIG_USER'									=> 'Usuario',
 'L_CONFIG_USERS_ID'								=> 'Identificador de usuario',
@@ -338,8 +398,10 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'								=> 'Modificar la lista de usuarios',
 'L_ERR_LOGIN_ALREADY_EXISTS'							=> 'Ya existe un usuario con ese identificador',
 'L_ERR_USERNAME_ALREADY_EXISTS'							=> 'Ya existe un usuario con ese nombre',
-'L_ERR_CATEGORY_ALREADY_EXISTS'							=> 'Ya existe una categoría con ese nombre',
-'L_ERR_STATIC_ALREADY_EXISTS'							=> 'Ya existe una página con ese título',
+'L_CONFIG_USERS_DELETE_CONFIRM'							=> '¿Desea eliminar los usuarios seleccionados?',
+
+# parametre_plugins.php
+
 'L_BACK_TO_PLUGINS'								=> 'Volver a la página de complementos',
 'L_NO_PLUGIN'									=> 'Ningún complemento',
 'L_PLUGIN_NO_CONFIG'								=> 'Complemento sin configuración',
@@ -347,6 +409,9 @@ $LANG = array(
 'L_PLUGINS_CSS_TITLE'								=> 'Editar el código CSS del complemento',
 'L_CONTENT_FIELD_FRONTEND'							=> 'Contenido del archivo de código CSS para el sitio web',
 'L_CONTENT_FIELD_BACKEND'							=> 'Contenido del archivo de código CSS para el sitio de administración',
+
+# parametres_plugins.php
+
 'L_PLUGINS_TITLE'								=> 'Gestión de complementos',
 'L_PLUGINS_VERSION'								=> 'Versión',
 'L_PLUGINS_AUTHOR'								=> 'Autor',
@@ -368,6 +433,9 @@ $LANG = array(
 'L_PLUGINS_APPLY_BUTTON'							=> 'Modificar la lista de complementos',
 'L_PLUGINS_ACTIVE_LIST'								=> 'Complementos activos',
 'L_PLUGINS_INACTIVE_LIST'							=> 'Complementos desactivados',
+
+# profil.php
+
 'L_PROFIL_EDIT_TITLE'								=> 'Edición de perfiles',
 'L_PROFIL'									=> 'Perfil',
 'L_PROFIL_LOGIN'								=> 'Cuenta de usuario',
@@ -380,6 +448,9 @@ $LANG = array(
 'L_PROFIL_PASSWORD'								=> 'Contraseña',
 'L_PROFIL_CONFIRM_PASSWORD'							=> 'Confirme la contraseña',
 'L_PROFIL_UPDATE_PASSWORD'							=> 'Cambiar contraseña',
+
+# statique.php
+
 'L_STATIC_BACK_TO_PAGE'								=> 'Volver a la lista de páginas estáticas',
 'L_STATIC_UNKNOWN_PAGE'								=> '¡No existe esta página estática!',
 'L_STATIC_TITLE'								=> 'Editar código fuente de la página estática',
@@ -389,6 +460,9 @@ $LANG = array(
 'L_STATIC_TITLE_HTMLTAG'							=> 'Contenido de la etiqueta de título («title», opcional)',
 'L_STATIC_META_DESCRIPTION'							=> 'Contenido de la metaetiqueta de descripción («description», opcional)',
 'L_STATIC_META_KEYWORDS'							=> 'Contenido de la metaetiqueta de palabras claves («keywords», opcional)',
+
+# statiques.php
+
 'L_STATICS_PAGE_TITLE'								=> 'Crear y editar páginas estáticas',
 'L_STATICS_ID'									=> 'Identificador',
 'L_STATICS_GROUP'								=> 'Grupo',
@@ -407,6 +481,9 @@ $LANG = array(
 'L_STATICS_SRC'									=> 'Editar',
 'L_STATICS_NEW_PAGE'								=> 'Nueva página',
 'L_STATICS_UPDATE'								=> 'Modificar la lista de las páginas estáticas',
+'L_ERR_STATIC_ALREADY_EXISTS'							=> 'Ya existe una página con ese título',
+
+# top.php
 'L_PROFIL_ADMIN'								=> 'Administrador',
 'L_PROFIL_MANAGER'								=> 'Gestor',
 'L_PROFIL_MODERATOR'								=> 'Moderador',
@@ -437,6 +514,8 @@ $LANG = array(
 'L_MENU_PROFIL_TITLE'								=> 'Gestionar sus perfiles de usuario',
 'L_MENU_PROFIL'									=> 'Perfil',
 'L_WARNING_INSTALLATION_FILE'							=> '<p class="warning">Todavía existe el archivo «install.php» en la raíz de PluXml.<br />Por razones de seguridad, le sugerimos que lo elimine.</p>',
+
+# user.php
 'L_USER_UNKNOWN'								=> 'Usuario desconocido',
 'L_USER_LANG'									=> 'Idioma utilizado en la administración',
 'L_USER_MAIL'									=> 'Dirección de correo',
@@ -444,6 +523,9 @@ $LANG = array(
 'L_USER_UPDATE'									=> 'Actualizar este usuario',
 'L_USER_PAGE_TITLE'								=> 'Editar opciones de usuario',
 'L_USER_BACK_TO_PAGE'								=> 'Volver a la lista de usuarios',
+
+#
+
 'L_MENU_CONFIG_BASE_TITLE'							=> 'Editar configuración básica de PluXml',
 'L_MENU_CONFIG_BASE'								=> 'Configuración básica',
 'L_MENU_CONFIG_VIEW_TITLE'							=> 'Esitar sus opciones de visualización de PluXml',
@@ -456,7 +538,6 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'								=> 'Información',
 'L_MENU_CONFIG_PLUGINS_TITLE'							=> 'Gestionar complementos',
 'L_MENU_CONFIG_PLUGINS'								=> 'Complementos',
-'L_ERR_URL_ALREADY_EXISTS'							=> 'URL ya utilizada. Cambie el valor del campo «URL»',
-);
 
+);
 ?>
