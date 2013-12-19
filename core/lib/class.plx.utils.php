@@ -453,7 +453,6 @@ class plxUtils {
 			$width = $width_orig;
 			$height = $height_orig;
 		}
-
 		# Création de l'image
 		$image_p = imagecreatetruecolor($width,$height);
 

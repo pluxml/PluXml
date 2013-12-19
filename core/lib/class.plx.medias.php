@@ -38,7 +38,11 @@ class plxMedias {
 		# Création du dossier réservé à l'utilisateur connecté s'il n'existe pas
 		if(!is_dir($this->path)) {
 			if(!mkdir($this->path,0755))
-				return plxMsg::Error(L_PLXMEDIAS_MEDIAS_FOLDER_ERR);
+				 return plxMsg::Error(L_PLXMEDIAS_MEDIAS_FOLDER_ROOT_ERR);
+		}
+		# Vérification de l'existance du dossier à charger
+		if(!is_dir($this->path.$this->dir)) {
+			return  plxMsg::Error(L_PLXMEDIAS_MEDIAS_FOLDER_ERR);
 		}
 		# Création du dossier réservé aux miniatures
 		if(!is_dir($this->path.'.thumbs/'.$this->dir)) {
@@ -70,31 +74,26 @@ class plxMedias {
 
 		# Initialisation
 		$folders = array();
-		# Ouverture et lecture du dossier demandé
-		if($handle = opendir($dir)) {
-			while (FALSE !== ($folder = readdir($handle))) {
-				if($folder[0] != '.') {
-					if(is_dir(($dir!=''?$dir.'/':$dir).$folder)) {
-						$dir = (substr($dir, -1)!='/' AND $dir!='') ? $dir.'/' : $dir;
-						$path = str_replace($this->path, '',$dir.$folder.'/');
-						$folders[] = array(
-								'level' => $level,
-								'name' => $folder,
-								'path' => $path
-							);
+		if($globbed = glob(rtrim($dir, '\\/') . '/*', GLOB_ONLYDIR)) {
+			foreach($globbed as $folder)
+			{
+				$path = str_replace($this->path, '', $folder).DIRECTORY_SEPARATOR;
+				$folder = basename($folder);
+				$folders[$path] = array(
+					'level' => $level,
+					'name' => $folder,
+					'path' => $path
+				);
+				$folders = array_merge($folders, $this->_getAllDirs($dir.$folder.DIRECTORY_SEPARATOR, $level+1) );
+			}
 
-						$folders = array_merge($folders, $this->_getAllDirs($dir.$folder, $level+1) );
-					}
-				}
-            }
-			closedir($handle);
-        }
-		# On retourne le tableau
+		}
+		ksort($folders);
 		return $folders;
 	}
 
 	/**
-	 * Méthode qui retourne la liste des des fichiers d'un répertoire
+	 * Méthode qui retourne la liste des fichiers d'un répertoire
 	 *
 	 * @param	dir		répertoire de lecture
 	 * @return	files	tableau contenant la liste de tous les fichiers d'un dossier
@@ -105,7 +104,7 @@ class plxMedias {
 		# Initialisation
 		$files = array();
 		# Ouverture et lecture du dossier demandé
-		if($handle = opendir($this->path.$dir)) {
+		if($handle = @opendir($this->path.$dir)) {
 			while(FALSE !== ($file = readdir($handle))) {
 				$thumName = plxUtils::thumbName($file);
 				if($file[0] != '.' AND !preg_match('/index.htm/i', $file) AND !preg_match('/^(.*\.)tb.([^.]+)$/D', $file)) {
@@ -151,12 +150,11 @@ class plxMedias {
 	 **/
 	public function contentFolder() {
 
-		$str  = "\n".'<select class="folder" id="folder" size="1" name="folder">'."\n";
+		$str  = "\n".'<select class="folder_list" id="folder_list" size="1" name="folder_list">'."\n";
 		$selected = (empty($this->dir)?'selected="selected" ':'');
 		$str .= '<option '.$selected.'value=".">|. ('.L_PLXMEDIAS_ROOT.') &nbsp; </option>'."\n";
 		# Dir non vide
 		if(!empty($this->aDirs)) {
-			ksort($this->aDirs);
 			foreach($this->aDirs as $k => $v) {
 				$prefixe = '|&nbsp;&nbsp;';
 				$i = 0;
@@ -171,6 +169,31 @@ class plxMedias {
 		$str  .= '</select>'."\n";
 		# On retourne la chaine
 		return $str;
+	}
+
+	/**
+	 * Méthode un tableau du current folder decomposé
+	 *
+	 * @return	array	key=path value=name de l'arborescence
+	 * @author	Brouillon
+	 **/
+	public function currentFolder() {
+
+		$folders = array();
+
+		if(empty($this->dir))
+			return $folders;
+
+		$rDir = explode(DIRECTORY_SEPARATOR, rtrim($this->dir, DIRECTORY_SEPARATOR));
+		$urlPath = '';
+
+		foreach ($rDir as $dir)
+		{
+			$urlPath .= $dir.DIRECTORY_SEPARATOR;
+			$folders[$urlPath] = $dir;
+		}
+
+		return $folders;
 	}
 
 	/**
@@ -213,9 +236,39 @@ class plxMedias {
 		}
 	}
 
+	/**
+	 * Méthode qui supprime des dossiers et leurs contenus
+	 *
+	 * @param	dirs	liste des dossiers à supprimer
+	 * @return  boolean	faux si erreur sinon vrai
+	 * @author	brouillon
+	 **/
+	public function deleteDirs($dirs) {
+
+		$count = 0;
+		foreach($dirs as $dir) {
+			if(!$this->_deleteDir($this->path.$this->dir.$dir)) {
+				$count++;
+			}
+		}
+
+		if(sizeof($dirs)==1) {
+			if($count==0)
+				return plxMsg::Info(L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL);
+			else
+				return plxMsg::Error(L_PLXMEDIAS_DEL_FOLDER_ERR);
+		}
+		else {
+			if($count==0)
+				return plxMsg::Info(L_PLXMEDIAS_DELETE_FOLDERS_SUCCESSFUL);
+			else
+				return plxMsg::Error(L_PLXMEDIAS_DELETE_FOLDERS_ERR);
+		}
+	}
+
 
 	/**
-	 * Méthode récursive qui supprimes tous les dossiers et les fichiers d'un répertoire
+	 * Méthode récursive qui supprime tous les dossiers et les fichiers d'un répertoire
 	 *
 	 * @param	deldir	répertoire de suppression
 	 * @return	boolean	résultat de la suppression
@@ -374,9 +427,9 @@ class plxMedias {
 	}
 
 	/**
-	 * Méthode qui déplace une ou plusieurs fichiers
+	 * Méthode qui déplace un ou plusieurs fichiers
 	 *
-	 * @param   files		liste des fichier à déplacer
+	 * @param   files		liste des fichiers à déplacer
 	 * @param	src_dir		répertoire source
 	 * @param	dst_dir		répertoire destination
 	 * @return  boolean		faux si erreur sinon vrai
@@ -418,6 +471,46 @@ class plxMedias {
 				return plxMsg::Error(L_PLXMEDIAS_MOVE_FILES_ERR);
 			else
 				return plxMsg::Info(L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL);
+		}
+
+	}
+
+	/**
+	 * Méthode qui déplace un ou plusieurs dossiers
+	 *
+	 * @param   dirs		liste des dossiers à déplacer
+	 * @param	src_dir		répertoire source
+	 * @param	dst_dir		répertoire destination
+	 * @return  boolean		faux si erreur sinon vrai
+	 * @author	brouillon
+	 **/
+	public function moveDirs($dirs, $src_dir, $dst_dir) {
+
+		if($dst_dir=='.') $dst_dir='';
+		//TODO dir doit etre différent de dstdir et ne doit pas aller dans un enfant de lui meme
+		$count = 0;
+		foreach($dirs as $dir) {
+			# protection pour ne pas déplacer un dossier en dehors de $this->path.$this->dir
+			$dir=basename($dir);
+			# protection ne pas se déplacer à l'intérieur du même dossier
+			if ($src_dir.$dir == $dst_dir OR $src_dir.$dir == substr($dst_dir, 0, strlen($src_dir.$dir)))
+				$count++;
+			# Déplacement du fichier
+			elseif (rename($this->path.$src_dir.$dir, $this->path.$dst_dir.$dir))
+				$count++;
+		}
+
+		if(sizeof($dirs)==1) {
+			if($count==0)
+				return plxMsg::Error(L_PLXMEDIAS_MOVE_FOLDER_SUCCESSFUL);
+			else
+				return plxMsg::Info(L_PLXMEDIAS_MOVE_FOLDER_ERR);
+		}
+		else {
+			if($count==0)
+				return plxMsg::Error(L_PLXMEDIAS_MOVE_FOLDERS_SUCCESSFUL);
+			else
+				return plxMsg::Info(L_PLXMEDIAS_MOVE_FOLDERS_ERR);
 		}
 
 	}

@@ -174,30 +174,46 @@ input[type=submit]:hover {
 	list-style: none;
 }
 #files_manager .manager {
-	margin-bottom: 10px;
 	float:left;
-	width:100%;
+	margin-bottom: 15px;
+}
+#files_manager .path {
+	float:left;
 }
 #files_manager .uploader {
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	float:right;
 }
 #files_manager .browser {
 	float:left;
 	margin:10px 0 20px 0;
 }
-#files_manager .browser  .folder {
+#files_manager .browser .folder {
 	width: 300px;
 }
 #files_manager .create {
 	float:right;
 }
+#files_manager .create .submit {
+    display: block;
+    float: right;
+    position: relative;
+    top: 23px;
+}
+#files_manager .mediasearch {
+	float:right;
+}
 #files_manager .files {
-	float:left;
-	width:100%;
+	clear:both;
 }
 #files_manager .files table {
 	margin:0 0 15px 0;
+}
+#files_manager .files .checkbox {
+	width:20px;
+}
+#files_manager .files .icon {
+	width:50px;
 }
 /* --- */
 #files_uploader {
