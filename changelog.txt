@@ -2,7 +2,6 @@
 
 [+] Affichage du titre du site après le nom de la catégorie dans la balise <title> (amélioration du référencement)
 [+] Administration: ajout d'un message de confirmation avant les suppressions en masse
-[+] Administration: agrandissement de la zone de clic des menus dans la sidebar
 [+] Administration: ajout d'un favicon
 [+] Administration > Pages statiques: possibilité d'ajouter des urls internes commençant par le caractère ?
 [+] Administration > Paramètres > Plugins: affichage d'un message d'information en rouge pour un plugin activé non configuré si requiert une configuration
