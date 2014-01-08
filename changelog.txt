@@ -30,6 +30,8 @@ BUG fix #31: plxShow::artCat mauvais affichage des catégories d'un article quan
 BUG fix #33: plxUtils::rel2abs liens avec des simples quote non réécrits
 BUG fix #35: Connexion impossible suite à la modification du login admin 001
 BUG fix #36: plxUtils::checkSite mauvaise validation url
+BUG fix #43: Undefined index: HTTP_ACCEPT_ENCODING
+BUG fix #44: Accès index tableau inexistant
 
 ## PLUXML 5.2 (sortie : 04/08/2013) ##
 
