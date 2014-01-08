@@ -84,7 +84,7 @@ class plxUtils {
 
 		$site = preg_replace('#([\'"].*)#', '', $site);
 
-		if($site[0]=='?') return true; # url interne commençant par ?
+		if(isset($site[0]) AND $site[0]=='?') return true; # url interne commençant par ?
 		# On vérifie le site via une expression régulière
 		# Méthode imme_emosol - http://mathiasbynens.be/demo/url-regex
 		# modifiée par Amaury Graillat pour prendre en compte les tirets dans les urls
