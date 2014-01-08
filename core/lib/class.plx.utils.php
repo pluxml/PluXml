@@ -589,7 +589,7 @@ class plxUtils {
 	public static function httpEncoding() {
 		if(headers_sent()){
 			$encoding = false;
-		}elseif(strpos($_SERVER['HTTP_ACCEPT_ENCODING'],'gzip') !== false){
+		}elseif(isset($_SERVER['HTTP_ACCEPT_ENCODING']) AND strpos($_SERVER['HTTP_ACCEPT_ENCODING'],'gzip') !== false){
 			$encoding = 'gzip';
 		}else{
 			$encoding = false;
