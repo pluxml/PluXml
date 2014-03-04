@@ -1186,6 +1186,7 @@ class plxShow {
 					}
 					$menu = str_replace('#static_url', $this->plxMotor->urlRewrite('?blog'),$menu);
 					$menu = str_replace('#static_name',L_PAGEBLOG_TITLE,$menu);
+					$menu = str_replace('#static_class','',$menu);
 					array_splice($menus, (intval($menublog)-1), 0, array($menu));
 				}
 			}
