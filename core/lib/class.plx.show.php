@@ -608,7 +608,7 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
-	public function artCat($separator=',') {
+	public function artCat($separator=', ') {
 
 		$cats = array();
 		# Initialisation de notre variable interne
