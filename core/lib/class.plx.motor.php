@@ -816,7 +816,7 @@ class plxMotor {
 						$comment['filename'] = '_'.$artId.'.'.$time.'-'.$i.'.xml';
 					else # On publie le commentaire directement
 						$comment['filename'] =$artId.'.'.$time.'-'.$i.'.xml';
-				while(file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']));
+				} while(file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']));
 				# On peut creer le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
 					if($this->aConf['mod_com']) # En cours de moderation
