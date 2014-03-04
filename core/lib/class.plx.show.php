@@ -1481,6 +1481,7 @@ class plxShow {
 
 		$datetime = date('YmdHi');
 		$array=array();
+		$alphasort=false;
 		# On verifie qu'il y a des tags
 		if($this->plxMotor->aTags) {
 			# On liste les tags sans créer de doublon
@@ -1495,6 +1496,7 @@ class plxShow {
 								}
 								else
 									$array['_'.$tag]['count']++;
+								$alphasort[] = $t; # pour le tri alpha
 							}
 						}
 					}
@@ -1505,7 +1507,7 @@ class plxShow {
 			# tri des tags
 			switch($order) {
 				case 'alpha':
-					array_multisort($array);
+					if($alphasort) array_multisort($alphasort, SORT_ASC, $array);
 					break;
 				case 'random':
 					$arr_elem = array();
