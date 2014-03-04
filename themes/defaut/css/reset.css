@@ -87,15 +87,14 @@ pre,
 samp,
 kbd {
 	font-family: monospace, serif;
-	font-size: 0.85em;
-	overflow: auto;
+	font-size: 1em;
 	padding: 5px 10px;
-	white-space: nowrap;
 }
 
 pre {
 	background-color: #efefef;
 	border: 1px solid #ddd;
+	overflow: auto;
 }
 
 sub,
@@ -115,8 +114,10 @@ sub {
 abbr {
 	border-bottom: 1px solid;
 }
+
 blockquote {
-	margin-left: 0;
+	font-style: italic;
+	margin-left: 30px;
 }
 
 hr {

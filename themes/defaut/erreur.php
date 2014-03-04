@@ -4,7 +4,7 @@
 
 	<div id="container">
 
-		<div class="full-width">
+		<div class="width-sidebar">
 
 			<article role="article">
 
@@ -23,6 +23,8 @@
 			</article>
 
 		</div>
+		
+		<?php include(dirname(__FILE__).'/sidebar.php'); ?>
 
 	</div>
 
