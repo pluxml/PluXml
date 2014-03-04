@@ -23,7 +23,7 @@
 			</article>
 
 		</div>
-		
+
 		<?php include(dirname(__FILE__).'/sidebar.php'); ?>
 
 	</div>
