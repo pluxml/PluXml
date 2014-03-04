@@ -1,4 +1,8 @@
-﻿## PLUXML 5.3 (sortie : 08/01/2014) ##
+﻿## PLUXML 5.3 (sortie : xx/xx/2014) ##
+
+BUG Mauvais chargement des fichiers de langues. Impact sur les plugins
+
+## PLUXML 5.3 (sortie : 08/01/2014) ##
 
 [+] Affichage du titre du site après le nom de la catégorie dans la balise <title> (amélioration du référencement)
 [+] Administration: ajout d'un message de confirmation avant les suppressions en masse

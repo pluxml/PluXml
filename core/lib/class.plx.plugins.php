@@ -271,8 +271,8 @@ class plxPlugin {
 	protected $plug=array(); # tableau contenant des infos diverses pour le fonctionnement du plugin
 	protected $adminProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page admin.php du plugin
 	protected $configProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
-	protected $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
 
+	public $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
 	public $adminMenu=false; # infos de customisation du menu pour accèder à la page admin.php du plugin
 
 	/**
@@ -292,7 +292,7 @@ class plxPlugin {
 			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
-		$this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
+		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
 			$this->getInfos();
@@ -371,13 +371,13 @@ class plxPlugin {
 	 * Méthode qui charge le fichier de langue par défaut du plugin
 	 *
 	 * @param	filename	fichier de langue à charger
-	 * @return	null
+	 * @return	array		tableau contenant les clés de traduction
 	 * @author	Stephane F
 	 **/
-	private function loadLang($filename) {
+	public function loadLang($filename) {
 		if(!is_file($filename)) return;
 		include($filename);
-		$this->aLang=$LANG;
+		return $LANG;
 	}
 
 	/**

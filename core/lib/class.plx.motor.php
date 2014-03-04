@@ -69,7 +69,9 @@ class plxMotor {
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
 		# Chargement du fichier de langue
-		loadLang(PLX_CORE.'lang/'.$this->aConf['default_lang'].'/core.php');
+		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
+		$this->aConf['default_lang'] = $lang;
+		loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 		# Contrôle de la présence du fichier 'version' de PluXml
 		if(!is_readable(PLX_ROOT.'version')) {
 			header('Content-Type: text/plain charset=UTF-8');
@@ -98,7 +100,6 @@ class plxMotor {
 		$var = parse_url($this->racine);
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
 		# Traitement des plugins
-		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
@@ -197,7 +198,7 @@ class plxMotor {
 				$this->error404(L_UNKNOWN_CATEGORY);
 			}
 		}
-        elseif($this->get AND preg_match('/^archives\/([0-9]{4})[\/]?([0-9]{2})?[\/]?([0-9]{2})?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('/^archives\/([0-9]{4})[\/]?([0-9]{2})?[\/]?([0-9]{2})?/',$this->get,$capture)) {
 			$this->mode = 'archives';
 			$this->template = 'archives.php';
 			$this->bypage = $this->aConf['bypage_archives'];
@@ -207,7 +208,7 @@ class plxMotor {
 			if(!empty($capture[3])) $search .= $capture[3];
 			else $search .= '[0-9]{2}';
 			$this->motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.'.$search.'[0-9]{4}.[a-z0-9-]+.xml$/';
-        }
+		}
 		elseif($this->get AND preg_match('/^tag\/([a-z0-9-]+)/',$this->get,$capture)) {
 			$this->cible = $capture[1];
 			$ids = array();
