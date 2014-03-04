@@ -1,5 +1,6 @@
 ﻿## PLUXML 5.3 (sortie : xx/xx/2014) ##
 
+BUG fix #48: Erreur de parenthèse dans plxFeed sur instruction utf8_decode
 BUG fix #53: plxShow::staticList : variable #static_class non traitée (contribution ReSpAwN)
 BUG fix #54: Ajout commentaire: mauvais controle existence fichier (contribution rockyhorror)
 BUG fix #55: Duplicate content avec page statique en page d'accueil (contribution Ethno Urban)
