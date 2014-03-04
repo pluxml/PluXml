@@ -165,6 +165,13 @@ class plxMotor {
 		}
 		elseif($this->get AND preg_match('/^static([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
+			if(!empty($this->aConf['homestatic']) AND $capture[1]){
+				if($this->aConf['homestatic']==$this->cible){
+				header('Status: 301 Moved Permanently', false, 301);
+					header('Location: '.$this->urlRewrite());
+					exit();
+				}
+			}
 			if(!empty($this->aStats[$this->cible]) AND $this->aStats[$this->cible]['active'] AND $this->aStats[$this->cible]['url']==$capture[2]) {
 				$this->mode = 'static'; # Mode static
 				$this->template = $this->aStats[$this->cible]['template'];

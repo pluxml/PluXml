@@ -1,5 +1,6 @@
 ﻿## PLUXML 5.3 (sortie : xx/xx/2014) ##
 
+BUG fix #55: Duplicate content avec page statique en page d'accueil (contribution Ethno Urban)
 BUG fix #56: Mauvais tri alpha des tags avec des accents
 BUG fix #57: Mauvais tri des répertoires dans le gestionnaire de médias (contribution rockyhorror)
 BUG Mauvais chargement des fichiers de langues. Impact sur les plugins
