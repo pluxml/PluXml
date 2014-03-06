@@ -8,7 +8,6 @@ BUG fix #55: Duplicate content avec page statique en page d'accueil (contributio
 BUG fix #56: Mauvais tri alpha des tags avec des accents
 BUG fix #57: Mauvais tri des répertoires dans le gestionnaire de médias (contribution rockyhorror)
 BUG Mauvais chargement des fichiers de langues. Impact sur les plugins
-BUG plxShow:lastArtList ne pas afficher les articles appartenant à une catégorie avec l'option "Afficher les articles de cette catégorie sur la page d'accueil" = "Non" 
 Thème par défaut
 - problème formatage balise <pre>
 - affichage la sidebar sur la page d'erreur
