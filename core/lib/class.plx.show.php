@@ -1482,7 +1482,7 @@ class plxShow {
 
 		$datetime = date('YmdHi');
 		$array=array();
-		$alphasort=false;
+		$alphasort=array();
 		# On verifie qu'il y a des tags
 		if($this->plxMotor->aTags) {
 			# On liste les tags sans créer de doublon
@@ -1497,7 +1497,8 @@ class plxShow {
 								}
 								else
 									$array['_'.$tag]['count']++;
-								$alphasort[] = $t; # pour le tri alpha
+								if(!in_array($t, $alphasort)) 
+									$alphasort[] = $t; # pour le tri alpha
 							}
 						}
 					}
