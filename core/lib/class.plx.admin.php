@@ -838,6 +838,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$resDelCom = (!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]) AND $resDelCom);
 			}
 		}
+
+		# Hook plugins
+		if(eval($this->plxPlugins->callHook('plxAdminDelArticle'))) return;
+
 		# On renvoi le résultat
 		if($resDelArt AND $resDelCom) {
 			# mise à jour de la liste des tags
@@ -951,6 +955,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(file_exists($filename)) {
 			unlink($filename);
 		}
+		
 		if(!file_exists($filename))
 			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
 		else

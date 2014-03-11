@@ -1,5 +1,6 @@
 ﻿## PLUXML 5.3.1 (sortie : xx/xx/2014) ##
 
+[+] plxAdmin::delArticle: ajout du hook plxAdminDelArticle
 BUG fix #46: Paramètre display_empty_cat non initialisé dans install.php
 BUG fix #48: Erreur de parenthèse dans plxFeed sur instruction utf8_decode
 BUG fix #53: plxShow::staticList : variable #static_class non traitée (contribution ReSpAwN)
