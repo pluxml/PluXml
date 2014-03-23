@@ -7,7 +7,7 @@
 		<div class="width-sidebar">
 
 			<p class="directory">
-				<strong><?php echo $plxShow->plxMotor->cible; ?></strong>
+				<strong><?php $plxShow->tagName(); ?></strong>
 			</p>
 
 			<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
@@ -20,7 +20,7 @@
 					</h1>
 					<p>
 						<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
-						<?php $plxShow->artDate('#num_day #month #num_year(4)'); ?> -
+						<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
 						<?php $plxShow->artNbCom(); ?>
 					</p>
 				</header>
@@ -51,7 +51,7 @@
 		</div>
 
 		<?php include(dirname(__FILE__).'/sidebar.php'); ?>
-		
+
 	</div>
 
 </section>

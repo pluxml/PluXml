@@ -128,7 +128,7 @@ class plxPlugins {
 	}
 
 	/**
-	 * Méthode qui sauvegarde le fichier plugins.xml
+	 * Méthode qui sauvegarde le fichier plugins.xml et qui génère les fichiers admin.css et site.css des plugins
 	 *
 	 * @param	content		array content $_POST
 	 * @return	boolean		resultat de la sauvegarde / TRUE = ok
@@ -160,12 +160,15 @@ class plxPlugins {
 		elseif(isset($content['selection']) AND $content['selection']=='delete') {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
-					# suppression fichier de config du plugi
+					# suppression fichier de config du plugin
 					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
 						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
-					# suppression fichier css du plugin
-					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.css'))
-						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.ccs');
+					# suppression fichier site.css du plugin
+					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css'))
+						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
+					# suppression fichier admin.css du plugin
+					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css'))
+						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
 					unset($this->aPlugins[$plugName]);
 				}
 			}
@@ -179,6 +182,10 @@ class plxPlugins {
 			}
 			$this->aPlugins = $aPlugins;
 		}
+
+		# génération du cache css des plugins
+		$this->cssCache('site');
+		$this->cssCache('admin');
 
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
@@ -220,30 +227,31 @@ class plxPlugins {
 	}
 
 	/**
-	 * Méthode qui génère le fichier css admin.css ou site.css dans le dossier output_dir passé en paramètre
+	 * Méthode qui génère le fichier css admin.css ou site.css
 	 *
 	 * @param	type		type du fichier (admin|site)
-	 * @param	output_dir	emplacement du fichier
-	 * @return	boolean		résultat de la création ou suppression du fichier css
+	 * @return	boolean		vrai si cache généré
 	 * @author	Stephane F
-	 **/	
-	public function cssCache($type, $output_dir) {
-		$output = '';
+	 **/
+	public function cssCache($type) {
+		$cache = '';
 		foreach($this->aPlugins as $plugName => $plugInstance) {
 			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.'.$type.'.css';
 			if(is_file($filename)) {
-				$output .= file_get_contents($filename);
+				$cache .= trim(file_get_contents($filename));
+			} else {
+				$filename = PLX_PLUGINS.$plugName.'/css/'.$type.'.css';
+				if(is_file($filename)) {
+					$cache .= trim(file_get_contents($filename));
+				}
 			}
 		}
-		$output_file = rtrim($output_dir, '/').'/'.$type.'.css';
-		if($output!='') {
-			return plxUtils::write(plxUtils::minify($output), PLX_ROOT.$output_file);
-		}
-		elseif(is_file(PLX_ROOT.$output_file)) {
-			return unlink(PLX_ROOT.$output_file);
+		if(is_file(PLX_PLUGINS.$type.'.css'))
+			unlink(PLX_PLUGINS.$type.'.css');
+		if($cache!='') {
+			return plxUtils::write(plxUtils::minify($cache), PLX_PLUGINS.$type.'.css');
 		}
 		return true;
-
 	}
 }
 
@@ -263,8 +271,8 @@ class plxPlugin {
 	protected $plug=array(); # tableau contenant des infos diverses pour le fonctionnement du plugin
 	protected $adminProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page admin.php du plugin
 	protected $configProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
-	protected $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
 
+	public $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
 	public $adminMenu=false; # infos de customisation du menu pour accèder à la page admin.php du plugin
 
 	/**
@@ -284,7 +292,7 @@ class plxPlugin {
 			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
-		$this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
+		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
 			$this->getInfos();
@@ -363,13 +371,13 @@ class plxPlugin {
 	 * Méthode qui charge le fichier de langue par défaut du plugin
 	 *
 	 * @param	filename	fichier de langue à charger
-	 * @return	null
+	 * @return	array		tableau contenant les clés de traduction
 	 * @author	Stephane F
 	 **/
-	private function loadLang($filename) {
+	public function loadLang($filename) {
 		if(!is_file($filename)) return;
 		include($filename);
-		$this->aLang=$LANG;
+		return $LANG;
 	}
 
 	/**

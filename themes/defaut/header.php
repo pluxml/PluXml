@@ -3,7 +3,7 @@
 <html lang="<?php $plxShow->defaultLang() ?>">
 <head>
 <meta charset="<?php $plxShow->charset('min'); ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 <title><?php $plxShow->pageTitle(); ?></title>
 <?php $plxShow->meta('description') ?>
 <?php $plxShow->meta('keywords') ?>
@@ -25,7 +25,7 @@
 
 	<nav role="navigation">
 
-		<ul>
+		<ul id="static-nav">
 			<?php $plxShow->staticList($plxShow->getLang('HOME'),'<li id="#static_id"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>'); ?>
 			<?php $plxShow->pageBlog('<li id="#page_id"><a class="#page_status" href="#page_url" title="#page_name">#page_name</a></li>'); ?>
 		</ul>

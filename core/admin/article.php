@@ -254,7 +254,7 @@ $cat_id='000';
 				<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'fld1'); ?>
 				<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'fld2'); ?>
 				<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'fld2'); ?>
-				<a href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
+				<a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
 
 				<p><label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label></p>
 				<?php

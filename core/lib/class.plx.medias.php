@@ -70,26 +70,26 @@ class plxMedias {
 
 		# Initialisation
 		$folders = array();
-		# Ouverture et lecture du dossier demandé
-		if($handle = opendir($dir)) {
-			while (FALSE !== ($folder = readdir($handle))) {
-				if($folder[0] != '.') {
-					if(is_dir(($dir!=''?$dir.'/':$dir).$folder)) {
-						$dir = (substr($dir, -1)!='/' AND $dir!='') ? $dir.'/' : $dir;
-						$path = str_replace($this->path, '',$dir.$folder.'/');
-						$folders[] = array(
-								'level' => $level,
-								'name' => $folder,
-								'path' => $path
-							);
 
-						$folders = array_merge($folders, $this->_getAllDirs($dir.$folder, $level+1) );
-					}
+		$alldirs = scandir($dir);
+		natsort($alldirs);
+
+		foreach($alldirs as $folder) {
+			if($folder[0] != '.') {
+				if(is_dir(($dir!=''?$dir.'/':$dir).$folder)) {
+					$dir = (substr($dir, -1)!='/' AND $dir!='') ? $dir.'/' : $dir;
+					$path = str_replace($this->path, '',$dir.$folder.'/');
+					$folders[] = array(
+							'level' => $level,
+							'name' => $folder,
+							'path' => $path
+						);
+
+					$folders = array_merge($folders, $this->_getAllDirs($dir.$folder, $level+1) );
 				}
-            }
-			closedir($handle);
-        }
-		# On retourne le tableau
+			}
+		}
+
 		return $folders;
 	}
 
@@ -134,14 +134,14 @@ class plxMedias {
 						);
 					}
 				}
-            }
+			}
 			closedir($handle);
-        }
+		}
 		# On tri le contenu
 		ksort($files);
 		# On retourne le tableau
 		return $files;
-    }
+	}
 
 	/**
 	 * Méthode qui formate l'affichage de la liste déroulante des dossiers
@@ -156,7 +156,6 @@ class plxMedias {
 		$str .= '<option '.$selected.'value=".">|. ('.L_PLXMEDIAS_ROOT.') &nbsp; </option>'."\n";
 		# Dir non vide
 		if(!empty($this->aDirs)) {
-			ksort($this->aDirs);
 			foreach($this->aDirs as $k => $v) {
 				$prefixe = '|&nbsp;&nbsp;';
 				$i = 0;
@@ -275,7 +274,7 @@ class plxMedias {
 		} else {
 			return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
 		}
-    }
+	}
 
 	/**
 	 * Méthode qui envoi un fichier sur le serveur

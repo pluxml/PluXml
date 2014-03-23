@@ -5,8 +5,8 @@ body {
 	color: #555;
 }
 
-h1, 
-h2, 
+h1,
+h2,
 h3 {
 	font-weight: normal;
 }
@@ -38,6 +38,7 @@ nav ul {
 }
 
 nav li {
+	color: #ccc;
 	margin: 0 30px 0 0;
 	display: inline;
 	list-style-type: none;
@@ -90,7 +91,7 @@ section {
 #container {
 	background-color: #fff;
 	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;	
+	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 	border-bottom: 3px solid #ccc;
 	margin: 0 50px 50px;
@@ -160,7 +161,7 @@ article footer {
 	text-align: left;
 }
 
-article footer a, 
+article footer a,
 article footer a:hover {
 	color: #0082b0;
 }
@@ -381,12 +382,12 @@ table, th, td {
 		display: block;
 		margin: 10px 0;
 	}
-	
+
 	header {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
-	
+
 	#container {
 		margin: 0 20px 20px 20px;
 		padding: 20px;

@@ -62,7 +62,8 @@ h5 {
 	font-size: 0.8em;
 }
 
-h6 {
+h6,
+small {
 	font-size: 0.7em;
 }
 
@@ -86,14 +87,14 @@ pre,
 samp,
 kbd {
 	font-family: monospace, serif;
-	font-size: 0.85em;
-	overflow: auto;
+	font-size: 1em;
 	padding: 5px 10px;
 }
 
 pre {
 	background-color: #efefef;
 	border: 1px solid #ddd;
+	overflow: auto;
 }
 
 sub,
@@ -110,8 +111,13 @@ sub {
 	bottom: -5px;
 }
 
+abbr {
+	border-bottom: 1px solid;
+}
+
 blockquote {
-	margin-left: 0;
+	font-style: italic;
+	margin-left: 30px;
 }
 
 hr {
@@ -141,56 +147,58 @@ fieldset {
 }
 
 legend {
-	border: none;
-	padding: 0;
+	margin-bottom: 15px;
 }
 
+label {
+	display: block;
+	margin-bottom: 5px;
+}
 
 button,
 input,
-select {
-	cursor: pointer;
+select,
+textarea {
+	font-family: inherit;
 	font-size: 100%;
-	margin: 0;
+	margin: 0 0 15px 0;
 	outline : none;
 	padding: 5px;
-	vertical-align: middle;
-}
- 
-option {
-	text-align: left;
 }
 
 textarea {
-	font-family: inherit;
 	overflow: auto;
-	padding: 5px;
-	vertical-align: top;
-	width: 100%;
 }
 
-button[disabled],
-input[disabled] {
-	cursor: default;
+select {
+	padding: 4px;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	cursor: pointer;
+	padding: 6px 9px 5.75px 9px;
+	width: auto;
 }
 
 input[type="checkbox"],
 input[type="radio"] {
-	background: none;
-	border: 0;
-	padding: 1px;
 	width: auto;
 }
 
-input[type="hidden"] {
-	margin: 0;
+input[type="file"] {
+	border: none;
+	padding: 0;
+	width: auto;
 }
 
 /* ---------- TABLE ---------- */
 
 table {
-	/*border-collapse: collapse;*/
-	/*border-spacing: 0;*/
+	border-collapse: collapse;
+	border-spacing: 0;
 	margin: 15px 0;
 	width: 100%;
 }

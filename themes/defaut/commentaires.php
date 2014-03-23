@@ -12,7 +12,12 @@
 
 		<div id="<?php $plxShow->comId(); ?>" class="comment">
 			<blockquote>
-				<p class="info_comment"><a class="num-com" href="<?php $plxShow->ComUrl(); ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a> <?php $plxShow->comDate('#day #num_day #month #num_year(4) &#64; #hour:#minute'); ?> <?php $plxShow->comAuthor('link'); ?> <?php $plxShow->lang('SAID'); ?> : </p>
+				<p class="info_comment">
+					<a class="num-com" href="<?php $plxShow->ComUrl(); ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a>
+					<time datetime="<?php $plxShow->comDate('#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php $plxShow->comDate('#day #num_day #month #num_year(4) &#64; #hour:#minute'); ?></time>
+					<?php $plxShow->comAuthor('link'); ?>
+					<?php $plxShow->lang('SAID'); ?> :
+				</p>
 				<p class="content_com type-<?php $plxShow->comType(); ?>"><?php $plxShow->comContent(); ?></p>
 			</blockquote>
 		</div>

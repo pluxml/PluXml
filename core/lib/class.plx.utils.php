@@ -27,11 +27,10 @@ class plxUtils {
 	 **/
 	public static function getGets() {
 
-		if(!empty($_GET)) {
-			$a = array_keys($_GET);
-			return strip_tags($a[0]);
-		}
-		return false;
+		if(!empty($_SERVER['QUERY_STRING']))
+			return strip_tags($_SERVER['QUERY_STRING']);
+		else
+			return false;
 	}
 
 	/**
@@ -85,11 +84,11 @@ class plxUtils {
 
 		$site = preg_replace('#([\'"].*)#', '', $site);
 
-		if($site[0]=='?') return true; # url interne commençant par ?
+		if(isset($site[0]) AND $site[0]=='?') return true; # url interne commençant par ?
 		# On vérifie le site via une expression régulière
-		# Méthode Jeffrey Friedl - http://mathiasbynens.be/demo/url-regex
-		# modifiée par Amaury Graillat pour prendre en compte la valeur localhost dans l'url
-		if(preg_match('@\b((ftp|https?)://([-\w]+(\.\w[-\w]*)+|localhost)|(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+(?: com\b|edu\b|biz\b|gov\b|in(?:t|fo)\b|mil\b|net\b|org\b|[a-z][a-z]\b))(\:\d+)?(/[^.!,?;"\'<>()\[\]{}\s\x7F-\xFF]*(?:[.!,?]+[^.!,?;"\'<>()\[\]{}\s\x7F-\xFF]+)*)?@iS', $site))
+		# Méthode imme_emosol - http://mathiasbynens.be/demo/url-regex
+		# modifiée par Amaury Graillat pour prendre en compte les tirets dans les urls
+		if(preg_match('@(https?|ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
 				return true;
 		else {
 			if($reset) $site='';
@@ -136,7 +135,7 @@ class plxUtils {
 	 * @param	selected	valeur par défaut
 	 * @param	readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
-	 * @param	id			si vrai génère un id à partir du nom du champ, sinon géneèe l'id à partir du paramètre
+	 * @param	id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
 	 * @return	stdout
 	 **/
 	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
@@ -502,7 +501,7 @@ class plxUtils {
 	 **/
 	public static function getRacine() {
 
-		$protocol = (!empty($_SERVER['HTTPS']) AND $_SERVER['HTTPS'] == 'on')?	'https://' : "http://";
+		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )?        'https://' : "http://";
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
@@ -590,7 +589,7 @@ class plxUtils {
 	public static function httpEncoding() {
 		if(headers_sent()){
 			$encoding = false;
-		}elseif(strpos($_SERVER['HTTP_ACCEPT_ENCODING'],'gzip') !== false){
+		}elseif(isset($_SERVER['HTTP_ACCEPT_ENCODING']) AND strpos($_SERVER['HTTP_ACCEPT_ENCODING'],'gzip') !== false){
 			$encoding = 'gzip';
 		}else{
 			$encoding = false;
@@ -614,13 +613,13 @@ class plxUtils {
 		$server = preg_replace('@^([^:]+)://([^/]+)(/|$).*@', '\1://\2/', $base);
 		// on repare les liens ne commençant que part #
 		$get = plxUtils::getGets();
-		$html = preg_replace('@\<([^>]*) (href|src)="#@i', '<\1 \2="' . $get . '#', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])#@i', '<\1 \2=\3'.$get.'#', $html);
 		// replace root-relative URLs
-		$html = preg_replace('@\<([^>]*) (href|src)=".?/@i', '<\1 \2="' . $server, $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\']).?/@i', '<\1 \2=\3'.$server, $html);
 		// replace base-relative URLs
-		$html = preg_replace('@\<([^>]*) (href|src)="([^:"]*|[^:"]*:[^/"][^"]*)"@i', '<\1 \2="' . $base . '\3"', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])([^:"]*|[^:"]*:[^/"][^"]*)(["\'])@i', '<\1 \2=\3'.$base.'\4\5', $html);
 		// unreplace fully qualified URLs with proto: that were wrongly added $base
-		$html = preg_replace('@\<([^>]*) (href|src)="'. $base . '([a-zA-Z0-9]*):@i', '<\1 \2="\3:', $html);
+		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])'.$base.'([a-zA-Z0-9]*):@i', '<\1 \2=\3\4:', $html);
 		return $html;
 
 	}

@@ -113,13 +113,10 @@ class plxAdmin extends plxMotor {
 		# On réinitialise la pagination au cas où modif de bypage_admin
 		unset($_SESSION['page']);
 
-		# Si la réécriture d'urls est demandée, on mets en place le fichier .htaccess
-		if(isset($content['urlrewriting'])) {
-			if($content['urlrewriting']==1)
-				$this->htaccess('add', $global['racine']);
-			else
-				$this->htaccess('remove', $global['racine']);
-		}
+		# Actions sur le fichier htaccess
+		if(isset($content['urlrewriting']))
+			$this->htaccess($content['urlrewriting'], $global['racine']);
+
 
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
@@ -138,6 +135,9 @@ class plxAdmin extends plxMotor {
 			}
 		}
 
+		# changement de la langue en session
+		$_SESSION['lang'] = $global['default_lang'];
+
 		return plxMsg::Info(L_SAVE_SUCCESSFUL);
 
 	}
@@ -150,12 +150,11 @@ class plxAdmin extends plxMotor {
 	 * @return	null
 	 * @author	Stephane F, Amaury Graillat
 	 **/
-
 	public function htaccess($action, $url) {
 
 		$base = parse_url($url);
 
-$htaccess = '
+$plxhtaccess = '
 # BEGIN -- Pluxml
 Options -Multiviews
 <IfModule mod_rewrite.c>
@@ -169,28 +168,37 @@ RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
 RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 </IfModule>
 <Files "version">
-    Order allow,deny
-    Deny from all
+	Order allow,deny
+	Deny from all
 </Files>
 # END -- Pluxml
 ';
 
-		if($action=='remove')
-			$htaccess='';
-
-		$content = '';
+		$htaccess = '';
 		if(is_file(PLX_ROOT.'.htaccess'))
-			$content = implode('', file(PLX_ROOT.'.htaccess'));
+			$htaccess = file_get_contents(PLX_ROOT.'.htaccess');
 
-        if(preg_match("/^(.*)# BEGIN -- Pluxml.*# END -- Pluxml(.*)$/ms", $content, $capture) == false)
-            $htaccess = $htaccess.$content;
-        else
-            $htaccess = $capture[1].$htaccess.$capture[2];
+		switch($action) {
+			case '0': # désactivation
+				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
+					$htaccess = str_replace($capture[2], '', $htaccess);
+				break;
+			case '1': # activation
+				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
+					$htaccess = trim($capture[1]).$plxhtaccess.trim($capture[3]);
+				else
+					$htaccess .= $plxhtaccess;
+				break;
+		}
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminHtaccess'));
 		# On écrit le fichier .htaccess à la racine de PluXml
-		plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
+		$htaccess = trim($htaccess);
+		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess'))
+			unlink(PLX_ROOT.'.htaccess');
+		else
+			plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
 
 	}
 
@@ -830,6 +838,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$resDelCom = (!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]) AND $resDelCom);
 			}
 		}
+
+		# Hook plugins
+		if(eval($this->plxPlugins->callHook('plxAdminDelArticle'))) return;
+
 		# On renvoi le résultat
 		if($resDelArt AND $resDelCom) {
 			# mise à jour de la liste des tags
@@ -943,6 +955,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(file_exists($filename)) {
 			unlink($filename);
 		}
+		
 		if(!file_exists($filename))
 			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
 		else
@@ -1020,13 +1033,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# La fonction est active ?
 		if(!ini_get('allow_url_fopen')) return L_PLUXML_UPDATE_UNAVAILABLE;
-                $latest_version = '';
+				$latest_version = '';
 
 		# Requete HTTP sur le site de PluXml
 		if($fp = @fopen('http://telechargements.pluxml.org/latest-version', 'r')) {
-                    $latest_version = trim(fread($fp, 16));
-                    fclose($fp);
-                }
+					$latest_version = trim(fread($fp, 16));
+					fclose($fp);
+				}
 		if($latest_version == '')
 			return L_PLUXML_UPDATE_ERR;
 

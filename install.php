@@ -119,6 +119,7 @@ $config = array('title'=>'PluXml',
 				'version'=>$version,
 				'default_lang'=>$lang,
 				'userfolders'=>0,
+				'display_empty_cat'=>0
 				);
 
 function install($content, $config) {

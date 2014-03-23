@@ -39,7 +39,7 @@ class plxFeed extends plxMotor {
 		# Contrôle de la présence du fichier 'version' de PluXml
 		if(!is_readable(PLX_ROOT.'version')) {
 			header('Content-Type: text/plain charset=UTF-8');
-			printf(utf8_decode(L_FILE_VERSION_REQUIRED, PLX_ROOT));
+			printf(utf8_decode(L_FILE_VERSION_REQUIRED), PLX_ROOT);
 			exit;
 		}
 		# chargement du n° de version de PluXml
