@@ -608,7 +608,7 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
-	public function artCat($separator=',') {
+	public function artCat($separator=', ') {
 
 		$cats = array();
 		# Initialisation de notre variable interne
@@ -676,15 +676,15 @@ class plxShow {
 	 **/
 	public function artReadMore($format='') {
 
-		$format = ($format===''? '<p class="more"><a href="#art_url" title="#art_title">'.L_ARTCHAPO.'</a></p>' : $format);
-
 		# Affichage du lien "Lire la suite" si un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
+			$format = ($format=='' ? '<p class="more"><a href="#art_url" title="#art_title">'.L_ARTCHAPO.'</a></p>' : $format);
 			if($format) {
 				# On recupere les infos de l'article
 				$id = intval($this->plxMotor->plxRecord_arts->f('numero'));
 				$title = plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 				$url = $this->plxMotor->plxRecord_arts->f('url');
+				# Formatage de l'affichage
 				$row = str_replace("#art_url", $this->plxMotor->urlRewrite('?article'.$id.'/'.$url), $format);
 				$row = str_replace("#art_title", $title, $row);
 				echo $row;
@@ -697,19 +697,26 @@ class plxShow {
 	 * pour lire la suite de l'article. Si l'article n'a pas de chapô,
 	 * le contenu de l'article est affiché (selon paramètres)
 	 *
-	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_url, #art_title)
+	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_title)
 	 * @param	content	affichage oui/non du contenu si le chapô est vide
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
-	public function artChapo($format='', $content=true) {
+	public function artChapo($format=L_ARTCHAPO, $content=true) {
 
 		# On verifie qu'un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
+			# On récupère les infos de l'article
+			$id = intval($this->plxMotor->plxRecord_arts->f('numero'));
+			$title = plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
+			$url = $this->plxMotor->plxRecord_arts->f('url');
 			# On effectue l'affichage
 			echo $this->plxMotor->plxRecord_arts->f('chapo')."\n";
-			$this->artReadMore($format);
+			if($format) {
+				$title = str_replace("#art_title", $title, $format);
+				echo '<p class="more"><a href="'.$this->plxMotor->urlRewrite('?article'.$id.'/'.$url).'" title="'.$title.'">'.$title.'</a></p>'."\n";
+			}
 		} else { # Pas de chapo, affichage du contenu
 			if($content === true) {
 				echo $this->plxMotor->plxRecord_arts->f('content')."\n";
@@ -1179,6 +1186,7 @@ class plxShow {
 					}
 					$menu = str_replace('#static_url', $this->plxMotor->urlRewrite('?blog'),$menu);
 					$menu = str_replace('#static_name',L_PAGEBLOG_TITLE,$menu);
+					$menu = str_replace('#static_class','',$menu);
 					array_splice($menus, (intval($menublog)-1), 0, array($menu));
 				}
 			}
@@ -1474,6 +1482,7 @@ class plxShow {
 
 		$datetime = date('YmdHi');
 		$array=array();
+		$alphasort=array();
 		# On verifie qu'il y a des tags
 		if($this->plxMotor->aTags) {
 			# On liste les tags sans créer de doublon
@@ -1488,6 +1497,8 @@ class plxShow {
 								}
 								else
 									$array['_'.$tag]['count']++;
+								if(!in_array($t, $alphasort)) 
+									$alphasort[] = $t; # pour le tri alpha
 							}
 						}
 					}
@@ -1498,7 +1509,7 @@ class plxShow {
 			# tri des tags
 			switch($order) {
 				case 'alpha':
-					array_multisort($array);
+					if($alphasort) array_multisort($alphasort, SORT_ASC, $array);
 					break;
 				case 'random':
 					$arr_elem = array();

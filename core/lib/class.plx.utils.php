@@ -84,7 +84,7 @@ class plxUtils {
 
 		$site = preg_replace('#([\'"].*)#', '', $site);
 
-		if($site[0]=='?') return true; # url interne commençant par ?
+		if(isset($site[0]) AND $site[0]=='?') return true; # url interne commençant par ?
 		# On vérifie le site via une expression régulière
 		# Méthode imme_emosol - http://mathiasbynens.be/demo/url-regex
 		# modifiée par Amaury Graillat pour prendre en compte les tirets dans les urls
@@ -500,7 +500,7 @@ class plxUtils {
 	 **/
 	public static function getRacine() {
 
-		$protocol = (!empty($_SERVER['HTTPS']) AND $_SERVER['HTTPS'] == 'on')?	'https://' : "http://";
+		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )?        'https://' : "http://";
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
@@ -588,7 +588,7 @@ class plxUtils {
 	public static function httpEncoding() {
 		if(headers_sent()){
 			$encoding = false;
-		}elseif(strpos($_SERVER['HTTP_ACCEPT_ENCODING'],'gzip') !== false){
+		}elseif(isset($_SERVER['HTTP_ACCEPT_ENCODING']) AND strpos($_SERVER['HTTP_ACCEPT_ENCODING'],'gzip') !== false){
 			$encoding = 'gzip';
 		}else{
 			$encoding = false;

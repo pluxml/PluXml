@@ -1,8 +1,25 @@
-﻿## PLUXML 5.3 (sortie : xx/xx/xxxx) ##
+﻿## PLUXML 5.3.1 (sortie : xx/xx/2014) ##
+
+[+] plxAdmin::delArticle: ajout du hook plxAdminDelArticle
+[+] Administration > Nouvel article: ajout de l'attribut id="id_cal" à la balise <a> de l'icone du calendrier
+BUG fix #46: Paramètre display_empty_cat non initialisé dans install.php
+BUG fix #48: Erreur de parenthèse dans plxFeed sur instruction utf8_decode
+BUG fix #53: plxShow::staticList : variable #static_class non traitée (contribution ReSpAwN)
+BUG fix #54: Ajout commentaire: mauvais controle existence fichier (contribution rockyhorror)
+BUG fix #55: Duplicate content avec page statique en page d'accueil (contribution Ethno Urban)
+BUG fix #56: Mauvais tri alpha des tags avec des accents
+BUG fix #57: Mauvais tri des répertoires dans le gestionnaire de médias (contribution rockyhorror)
+BUG Mauvais chargement des fichiers de langues. Impact sur les plugins
+Thème par défaut
+- problème formatage balise <pre>
+- affichage la sidebar sur la page d'erreur
+- fix #45 problème balise blockquote
+- fix #47 erreur format html5 balise <time>
+
+## PLUXML 5.3 (sortie : 08/01/2014) ##
 
 [+] Affichage du titre du site après le nom de la catégorie dans la balise <title> (amélioration du référencement)
 [+] Administration: ajout d'un message de confirmation avant les suppressions en masse
-[+] Administration: agrandissement de la zone de clic des menus dans la sidebar
 [+] Administration: ajout d'un favicon
 [+] Administration > Pages statiques: possibilité d'ajouter des urls internes commençant par le caractère ?
 [+] Administration > Paramètres > Plugins: affichage d'un message d'information en rouge pour un plugin activé non configuré si requiert une configuration
@@ -10,7 +27,6 @@
 [+) plxShow::artReadMore nouvelle fonction permettant d'afficher le lien "Lire la suite"
 [+] plxShow::tagList ajout tri des tags par ordre alphabétique, random, aucun (alpha|random|'')
 [+] plxShow::lastComList traduction oubliée (a dit)
-[+] plxShow::artChapo personnalisation du lien "Lire la suite"
 [+] plxShow::staticList réécriture de la fonction pour mieux gérer l'affichage des groupes et permettre de faire des menus déroulants plus facilement
 [+] plxShow::lastArtList ajout du paramètre sort pour permettre de trier l'affichage des derniers articles par date croissante, décroissante ou par titre (sort|rsort|alpha)
 [+] plxUtils::printInput ajout du paramètre placeholder
@@ -19,6 +35,7 @@
 [+] plxUtils::minify nouvelle fonction pour minifier un buffer de sortie
 [+] Nouveau thème par défaut
 [+] Mise à jour traduction espagnole (contribution toote)
+[+] Modification pour tenir compte des proxies HTTPS
 BUG Administration: menu en double dans la sidebar d'administration si setAdminMenu utilisé dans les plugins
 BUG plxUtils::getRacine problème avec certains hébergeurs (caractère \ en fin d'url)
 BUG plxUtils::getGets mauvais renvoi des paramètres passés dans l'url
@@ -32,6 +49,8 @@ BUG fix #31: plxShow::artCat mauvais affichage des catégories d'un article quan
 BUG fix #33: plxUtils::rel2abs liens avec des simples quote non réécrits
 BUG fix #35: Connexion impossible suite à la modification du login admin 001
 BUG fix #36: plxUtils::checkSite mauvaise validation url
+BUG fix #43: Undefined index: HTTP_ACCEPT_ENCODING
+BUG fix #44: Accès index tableau inexistant
 
 ## PLUXML 5.2 (sortie : 04/08/2013) ##
 
