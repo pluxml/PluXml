@@ -561,7 +561,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication de l'article selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(4), #num_year(2))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_month, #num_year(4), #num_year(2))
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F.
@@ -985,9 +985,9 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche la date de publication d'un commentaire delon le format choisi
+	 * Méthode qui affiche la date de publication d'un commentaire selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(2), #num_year(4))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_month, #num_year(2), #num_year(4))
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Florent MONTHEL et Stephane F
@@ -1275,7 +1275,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de la dernière modification de la page statique selon le format choisi
 	 *
-	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(4), #num_year(2))
+	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_month, #num_year(4), #num_year(2))
 	 * @return	stdout
 	 * @scope	static
 	 * @author	Anthony T.

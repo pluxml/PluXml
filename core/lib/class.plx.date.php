@@ -93,6 +93,7 @@ class plxDate {
 		$format = str_replace('#day', plxDate::getCalendar('day', $day_num), $format);
 		$format = str_replace('#short_month', plxDate::getCalendar('short_month', $month), $format);
 		$format = str_replace('#month', plxDate::getCalendar('month', $month), $format);
+		$format = str_replace('#num_day(1)', preg_replace('#^0(.*)#','$1',$day), $format);
 		$format = str_replace('#num_day', $day, $format);
 		$format = str_replace('#num_month', $month, $format);
 		$format = str_replace('#num_year(2)', $year2 , $format);
