@@ -13,6 +13,7 @@ div#sidebar {
 @media screen {
 	body>div#sidebar {
 		position:fixed;
+		overflow-y:auto;
 	}
 }
 * html body {
