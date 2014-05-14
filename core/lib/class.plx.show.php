@@ -699,11 +699,12 @@ class plxShow {
 	 *
 	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_title)
 	 * @param	content	affichage oui/non du contenu si le chapô est vide
+	 * @param 	anchor ancre dans l'article vers laquelle pointer le lien 
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
-	public function artChapo($format=L_ARTCHAPO, $content=true) {
+	public function artChapo($format=L_ARTCHAPO, $content=true, $anchor='') {
 
 		# On verifie qu'un chapo existe
 		if($this->plxMotor->plxRecord_arts->f('chapo') != '') {
@@ -715,7 +716,7 @@ class plxShow {
 			echo $this->plxMotor->plxRecord_arts->f('chapo')."\n";
 			if($format) {
 				$title = str_replace("#art_title", $title, $format);
-				echo '<p class="more"><a href="'.$this->plxMotor->urlRewrite('?article'.$id.'/'.$url).'" title="'.$title.'">'.$title.'</a></p>'."\n";
+				echo '<p class="more"><a href="'.$this->plxMotor->urlRewrite('?article'.$id.'/'.$url).($anchor!=''?'#'.$anchor:'').'" title="'.$title.'">'.$title.'</a></p>'."\n";
 			}
 		} else { # Pas de chapo, affichage du contenu
 			if($content === true) {
