@@ -1,4 +1,8 @@
-﻿## PLUXML 5.3.1 (sortie : xx/xx/2014) ##
+﻿## PLUXML x.x.x (sortie : xx/xx/2014) ##
+[+] Ajout traduction en occitant (contribution Rubén)
+
+
+## PLUXML 5.3.1 (sortie : 13/03/2014) ##
 
 [+] plxAdmin::delArticle: ajout du hook plxAdminDelArticle
 [+] Administration > Nouvel article: ajout de l'attribut id="id_cal" à la balise <a> de l'icone du calendrier
