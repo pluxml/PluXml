@@ -40,10 +40,13 @@ $LANG = array(
 
 # class.plx.media.php
 
-'L_PLXMEDIAS_MEDIAS_FOLDER_ERR'		=> 'Impossible de créer le dossier médias pour l\'utilisateur connecté',
+'L_PLXMEDIAS_MEDIAS_FOLDER_ROOT_ERR'	=> 'Impossible de créer le dossier médias pour l\'utilisateur connecté',
+'L_PLXMEDIAS_MEDIAS_FOLDER_ERR'		=> 'Le dossier demandé n\'existe pas',
 'L_PLXMEDIAS_ROOT'					=> 'racine',
 'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL'=> 'Fichiers supprimés avec succès',
 'L_PLXMEDIAS_DELETE_FILES_ERR'		=> 'Erreur pendant le suppression d\'un fichier',
+'L_PLXMEDIAS_DELETE_FOLDERS_SUCCESSFUL'	=> 'Dossiers supprimés avec succès',
+'L_PLXMEDIAS_DELETE_FOLDERS_ERR'	 	=> 'Erreur pendant le suppression d\'un dossier',
 'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL'=> 'Fichier supprimé avec succès',
 'L_PLXMEDIAS_DELETE_FILE_ERR'		=> 'Erreur pendant le suppression du fichier',
 'L_PLXMEDIAS_DEL_FOLDER_ERR'		=> 'Erreur pendant la suppression du dossier',
@@ -61,6 +64,10 @@ $LANG = array(
 'L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL'	=> 'Fichier déplacé avec succès',
 'L_PLXMEDIAS_MOVE_FILES_ERR'		=> 'Erreur pendant le déplacement des fichiers',
 'L_PLXMEDIAS_MOVE_FILE_ERR'			=> 'Erreur pendant le déplacement du fichier',
+'L_PLXMEDIAS_MOVE_FOLDERS_SUCCESSFUL'	=> 'Dossiers déplacés avec succès',
+'L_PLXMEDIAS_MOVE_FOLDER_SUCCESSFUL'	=> 'Dossier déplacé avec succès',
+'L_PLXMEDIAS_MOVE_FOLDERS_ERR'		=> 'Erreur pendant le déplacement des dossiers',
+'L_PLXMEDIAS_MOVE_FOLDER_ERR'		=> 'Erreur pendant le déplacement du dossier',
 'L_PLXMEDIAS_MOVE_FOLDER'			=> 'Déplacer',
 'L_PLXMEDIAS_RECREATE_THUMB_ERR'	=> 'Erreur pendant la création de la vignette',
 'L_PLXMEDIAS_RECREATE_THUMBS_ERR'	=> 'Erreur pendant la création des vignettes',
@@ -272,7 +279,6 @@ $LANG = array(
 
 # medias.php
 
-'L_MEDIAS_FILENAME'					=> 'Nom du fichier',
 'L_MEDIAS_TITLE'					=> 'Gestion des médias',
 'L_MEDIAS_DIRECTORY' 				=> 'Emplacement',
 'L_MEDIAS_BACK'						=> 'Retour à la liste des médias',
@@ -284,6 +290,8 @@ $LANG = array(
 'L_MEDIAS_DELETE_FOLDER'			=> 'Supprimer',
 'L_MEDIAS_DELETE_FOLDER_CONFIRM'	=> 'Supprimer ce dossier et son contenu ?',
 'L_MEDIAS_FOLDER'					=> 'Dossier',
+'L_MEDIAS_IN_FOLDER'				=> 'Dans le dossier',
+'L_MEDIAS_TYPE'						=> 'Type',
 'L_MEDIAS_NEW_FOLDER'				=> 'Nouveau dossier',
 'L_MEDIAS_CREATE_FOLDER'			=> 'Créer',
 'L_MEDIAS_FILESIZE'					=> 'Taille',
@@ -296,7 +304,7 @@ $LANG = array(
 'L_MEDIAS_THUMBS_NONE'				=> 'Pas de miniature',
 'L_MEDIAS_MODIFY'					=> 'Modifier',
 'L_MEDIAS_THUMB'					=> 'Miniature',
-'L_MEDIAS_EXTENSION'				=> 'Extension',
+'L_MEDIAS_NAME'						=> 'Nom',
 'L_MEDIAS_ADD'						=> 'Ajouter',
 'L_MEDIAS_ALIGNMENT'				=> 'Alignement',
 'L_MEDIAS_ALIGN_NONE'				=> 'Aucun',
