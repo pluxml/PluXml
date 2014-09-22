@@ -1070,7 +1070,7 @@ class plxShow {
 	 * Méthode qui affiche la liste des $max derniers commentaires.
 	 * Si la variable $art_id est renseignée, seulement les commentaires de cet article seront retournés.
 	 *
-	 * @param	format	format du texte pour chaque commentaire (variable: #com_id, #com_url, #com_author, #com_content(num), #com_content, #com_date, #com_hour)
+	 * @param	format	format du texte pour chaque commentaire (variable: #com_id, #com_url, #com_author, #com_content(num), #com_content, #com_date, #com_hour, #com_art_title)
 	 * @param	max		nombre de commentaires maximum
 	 * @param	art_id	id de l'article cible (24,3)
 	 * @param	cat_ids	liste des categories pour filtrer les derniers commentaires (sous la forme 001|002)
@@ -1094,6 +1094,10 @@ class plxShow {
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_coms = clone $this->plxMotor->plxGlob_coms;
 		if($aFiles = $plxGlob_coms->query($motif,'com','rsort',0,false,'before')) {
+			# Tableau d'association ArtId => ArtTitle (utile si #com_art_title est demandé)
+			$OArtIdTitle = array();
+			# $IsComArtTitle indique si #com_art_title est demandé
+			$IsComArtTitle = (strpos($format, '#com_art_title')!=FALSE) ? true : false;
 			# On parcourt les fichiers des commentaires
 			foreach($aFiles as $v) {
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
@@ -1110,6 +1114,21 @@ class plxShow {
 							$row = str_replace('#com_id',$com['numero'],$row);
 							$row = str_replace('#com_url',$this->plxMotor->urlRewrite($url),$row);
 							$row = str_replace('#com_author',$com['author'],$row);
+							# Si #com_art_title est demandé
+							if($IsComArtTitle == true) {
+							    $artId = $artInfo['artId'];
+								$artTitle;
+								# Si le titre de l'article est déjà présent dans $OArtIdTitle, on le récupère
+								if(isset($OArtIdTitle[$artId])) {
+									$artTitle = $OArtIdTitle[$artId];
+								} else { # Sinon, on va chercher le titre de l'article, puis on le stocke dans $OArtIdTitle
+								    $a = $this->plxMotor->plxGlob_arts->query('/^'.$artId.'.(.*).xml$/');
+							        $art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$a['0']);
+								    $artTitle = $art['title'];
+									$OArtIdTitle[$artId]=$artTitle;
+								}
+								$row = str_replace('#com_art_title',$artTitle,$row);
+							}
 							while(preg_match('/#com_content\(([0-9]+)\)/',$row,$capture)) {
 								if($com['author'] == 'admin')
 									$row = str_replace('#com_content('.$capture[1].')',plxUtils::strCut($content,$capture[1]),$row);
