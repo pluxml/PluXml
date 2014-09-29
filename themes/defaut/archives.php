@@ -20,7 +20,7 @@
 					</h1>
 					<p>
 						<?php $plxShow->lang('WRITTEN_BY') ?> <?php $plxShow->artAuthor(); ?> -
-						<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
+						<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day(1) #month #num_year(4)'); ?></time> -
 						<?php $plxShow->artNbCom(); ?>
 					</p>
 				</header>
