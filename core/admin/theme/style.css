@@ -137,6 +137,10 @@ input[type=submit]:hover {
 	color:#000;
 	background-color: #bbb ;
 }
+input[type=submit].delete {
+	color: #333;
+	background-color: #CC7474;
+}
 .select {
 	background-color:#333 !important;
 	color:#fff !important;
