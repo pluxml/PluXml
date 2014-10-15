@@ -1,0 +1,95 @@
+/*
+	Package:       theme.css
+    Author:        PluXml    
+    Author URI:    http://www.pluxml.org
+*/
+
+.auth {
+	background-color: #222;
+	color: #fff;
+	margin-top: 10%;
+	overflow: hidden;
+}
+.auth a {
+	color: #fff;
+}
+.auth .error {
+	background-color: #e43d29;
+	padding: .3rem .6rem;
+}
+.auth input[type="password"],
+.auth input[type="text"] {
+	color: #444;
+}
+.main.grid {
+	margin-right: 0;
+}
+.aside {
+	background-color: #222;
+	bottom: 0;
+	overflow: auto;
+	padding-right: 0;
+	position: fixed;
+	top: 0;
+}
+h1.site-name {
+	color: #fff;
+	font-weight: bold;
+}
+.aside,
+.aside a {
+	color: #eee;
+}
+.header {
+	padding: 1rem .7rem;
+}
+.aside .menu.expanded li:hover {
+	background-color: #444;
+}
+.menu-config {
+	background-color: #333;
+}
+.section {
+	margin: .8rem 0 2rem 16.6666%;
+}
+@media (max-width: 1023px) {
+	.section {
+		margin-left: 25%;
+	}
+}
+@media (max-width: 767px) {
+	.connect {
+		background-color: #222;
+	}
+	.auth {
+		margin-top: 0;
+	}
+	.aside {
+		position: relative;
+		top: 0;
+	}
+	.section {
+		margin: 1rem .7rem;
+	}
+}
+input,
+select,
+textarea {
+	width: auto;
+}
+.selected {
+	color: #444;
+}
+.p_page {
+	display: inline-block;
+}
+.p_page:first-letter {
+	text-transform: uppercase;
+}
+.rowfile {
+	margin-top: 1rem;
+}
+a.btnDelete,
+.divtitle  {
+	display: inline;
+}
