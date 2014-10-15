@@ -31,7 +31,7 @@
 	<nav class="nav" role="navigation">
 		<div class="container">
 			<div class="responsive-menu">
-				<label for="menu">MENU</label>
+				<label for="menu"><?php $plxShow->lang('MENU'); ?></label>
 				<input type="checkbox" id="menu">
 				<ul class="menu expanded">
 					<?php $plxShow->staticList($plxShow->getLang('HOME'),'<li class="#static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>'); ?>

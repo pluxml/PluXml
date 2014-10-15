@@ -3,6 +3,7 @@
 $LANG = array(
 
 #header.php
+'MENU'					=> 'Meniu',
 'HOME'					=> 'Home',
 'GOTO_CONTENT'			=> 'La con&#355;inut',
 'GOTO_MENU'				=> 'La meniu',
