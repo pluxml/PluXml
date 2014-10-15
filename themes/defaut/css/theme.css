@@ -1,0 +1,98 @@
+/*
+	Package:       theme.css
+    Author:        PluXml    
+    Author URI:    http://www.pluxml.org
+*/
+
+body {
+	background-color: #222;
+}
+.header {
+	background-color: #fff;
+	padding-bottom: 2rem;
+	padding-top: 2rem;
+}
+.header h1 a:hover {
+	text-decoration: none;
+}
+.nav {
+	background-color: #222;
+	overflow: hidden;
+}
+.nav .menu.expanded li:hover {
+	background-color: #444;
+}
+.nav a {
+	color: #fff;
+}
+@media (max-width: 767px) {
+	.nav {
+		background-color: #fff;
+	}
+	.nav .menu.expanded li:hover {
+		background-color: #ddd;
+	}
+	.nav a {
+		color: #4682b4;
+	}
+	.nav a:hover {
+		color: #444;
+	}
+	.responsive-menu label {
+		background-color: #222;
+	}
+}
+.main {
+	background-color: #fff;
+	padding-bottom: 2rem;
+}
+.repertory {
+	margin-top: 2rem;
+}
+.article header h1 {
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+.article header h1 a {
+	color: #444;
+}
+.article header h1 a:hover {
+	color: #4682b4;
+	text-decoration: none;
+}
+.capcha-word {
+    background-color: #ccc;
+}
+.article,
+.pagination {
+	margin-bottom: 4rem;
+}
+.aside {
+	padding-left: 3rem;
+}
+@media (max-width: 768px) {
+	.aside {
+		margin-top: 2rem;
+		padding-left: 1rem;
+	}
+}
+.aside h3 {
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 4rem;
+	text-transform: uppercase;
+}
+.aside h3:first-child {
+	margin-top: 2rem;
+}
+.aside li.tag {
+	margin-left: 0;
+}
+.footer {
+	padding: 1rem 0;
+	background-color: #222;
+}
+.footer, 
+.footer a {
+	color: #fff;
+}
