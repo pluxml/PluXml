@@ -252,60 +252,76 @@ plxUtils::cleanHeaders();
 <head>
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.$version ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/reset.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/base.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/style.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 </head>
-<body onload="document.forms[1].name.focus();">
 
-<div id="sidebar">
-</div>
+<body onload="document.forms[1].name.focus();" class="container">
 
-<div id="content">
-	<h2><?php echo L_PLUXML_VERSION.' '.$version ?> - <?php echo L_INSTALL_TITLE ?></h2>
-	<?php if($msg!='') echo '<p class="warning error">'.$msg.'</p>'; ?>
-	<form action="install.php" method="post">
-	<fieldset class="panel">
-		<p class="field"><label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label></p>
-		<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
-		<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
-		<?php echo plxToken::getTokenPostMethod() ?>
-	</fieldset>
-	</form>
-	<form action="install.php" method="post">
-	<fieldset class="panel">
-		<p class="field"><label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
-		<p class="field"><label for="id_login"><?php echo L_LOGIN ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('login', $login, 'text', '20-255') ?>
-		<p class="field"><label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
-		<p class="field"><label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
-		<p class="field"><label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label></p>
-		<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
-		<p><input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" /></p>
-		<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
-		<?php echo plxToken::getTokenPostMethod() ?>
-	</fieldset>
-	</form>
-	<div class="panel">
-		<ul>
-			<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
-			<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
-			<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
-			<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
-			<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-			<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-			<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-			<?php plxUtils::testWrite(PLX_ROOT.$config['images']) ?>
-			<?php plxUtils::testWrite(PLX_ROOT.$config['documents']) ?>
-			<?php plxUtils::testModReWrite() ?>
-			<?php plxUtils::testLibGD() ?>
-			<?php plxUtils::testMail() ?>
-		</ul>
-	</div>
-</div>
+	<main class="grid">
+
+		<div class="col sml-12 med-10 med-centered">
+
+			<header>
+
+				<h1><?php echo L_PLUXML_VERSION.' '.$version ?> - <?php echo L_INSTALL_TITLE ?></h1>
+
+				<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
+
+			</header>
+
+			<section class="grid">
+
+				<div class="col sml-12 med-6">
+
+					<form class="horizontal-form" action="install.php" method="post">
+						<fieldset>
+							<p><label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label>
+							<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
+							<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
+							<?php echo plxToken::getTokenPostMethod() ?></p>
+						</fieldset>
+					</form>
+					<form action="install.php" method="post">
+						<fieldset>
+							<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
+							<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
+							<label for="id_login"><?php echo L_LOGIN ?>&nbsp;:</label>
+							<?php plxUtils::printInput('login', $login, 'text', '20-255') ?>
+							<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
+							<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
+							<label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
+							<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
+							<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
+							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
+							<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
+							<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
+							<?php echo plxToken::getTokenPostMethod() ?>
+						</fieldset>
+					</form>
+				</div>
+
+				<div class="col sml-12 med-6">
+					<ul class="list-unstyled">
+						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
+						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
+						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
+						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['images']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['documents']) ?>
+						<?php plxUtils::testModReWrite() ?>
+						<?php plxUtils::testLibGD() ?>
+						<?php plxUtils::testMail() ?>
+					</ul>
+				</div>
+
+			</section>
+
+		</div>
+
+	</main>
 
 </body>
 </html>
