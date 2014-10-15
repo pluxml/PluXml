@@ -22,7 +22,7 @@
 						</header>
 
 						<section>
-							<?php $plxShow->artChapo(); ?>
+							<?php $plxShow->artContent(); ?>
 						</section>
 
 						<footer>
