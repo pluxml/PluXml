@@ -959,7 +959,7 @@ class plxShow {
 	 * @param	type	type d'affichage : link => sous forme de lien
 	 * @return	stdout
 	 * @scope	article
-	 * @author	Anthony GUÉRIN et Florent MONTHEL
+	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F.
 	 **/
 	public function comAuthor($type='') {
 
@@ -967,7 +967,7 @@ class plxShow {
 		$author = $this->plxMotor->plxRecord_coms->f('author');
 		$site = $this->plxMotor->plxRecord_coms->f('site');
 		if($type == 'link' AND $site != '') # Type lien
-			echo '<a href="'.$site.'" title="'.$author.'">'.$author.'</a>';
+			echo '<a rel="nofollow" href="'.$site.'" title="'.$author.'">'.$author.'</a>';
 		else # Type normal
 			echo $author;
 	}
