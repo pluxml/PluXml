@@ -222,14 +222,14 @@ $cat_id='000';
 
 <form action="article.php" method="post" id="form_article">
 
+	<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
+	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
+
 	<div class="grid">
+
 		<div class="col sml-12 med-7">
 
-			<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
-
-			<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
-
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
 			<fieldset>
 				<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
 				<label for="id_title"><?php echo L_ARTICLE_TITLE ?>&nbsp;:</label>
@@ -237,7 +237,7 @@ $cat_id='000';
 				<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;<a id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
 				<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>><?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?></div>
 				<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,28,false,'full-width'); ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,35,false,'full-width'); ?>
 				<?php if($artId!='' AND $artId!='0000') : ?>
 				<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
 				<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;</label>
