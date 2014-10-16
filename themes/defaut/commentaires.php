@@ -54,9 +54,8 @@
 				</div>
 			</div>
 
-			<p class="text-red">
-				<strong><?php $plxShow->comMessage(); ?></strong>
-			</p>
+			<?php $plxShow->comMessage('<p class="text-red"><strong>#com_message</strong></p>'); ?>
+			
 			<?php if($plxShow->plxMotor->aConf['capcha']): ?>
 			<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong></label>
 			<?php $plxShow->capchaQ(); ?> :
