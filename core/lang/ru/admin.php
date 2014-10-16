@@ -516,7 +516,7 @@ $LANG = array(
 'L_MENU_CONFIG'												=> 'Настройки',
 'L_MENU_PROFIL_TITLE'										=> 'Управление профилем пользователя',
 'L_MENU_PROFIL'												=> 'Профиль',
-'L_WARNING_INSTALLATION_FILE'								=> '<p class="warning">Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем удалить его.</p>',
+'L_WARNING_INSTALLATION_FILE'								=> '<p class="alert red">Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем удалить его.</p>',
 
 # user.php
 'L_USER_UNKNOWN'											=> 'Неизвестный пользователь',

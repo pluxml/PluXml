@@ -437,7 +437,7 @@ $LANG = array(
 'L_MENU_CONFIG'												=> 'Parameters',
 'L_MENU_PROFIL_TITLE'										=> 'Uw gebruikersprofiel beheren',
 'L_MENU_PROFIL'												=> 'Profiel',
-'L_WARNING_INSTALLATION_FILE'								=> '<p class="warning">het bestand install.php is nog aanwezig in de basismap van uw PluXml.<br />Om veiligheidsredenen raden wij u aan dit bestand te verwijderen of te hernoemen.</p>',
+'L_WARNING_INSTALLATION_FILE'								=> '<p class="alert red">het bestand install.php is nog aanwezig in de basismap van uw PluXml.<br />Om veiligheidsredenen raden wij u aan dit bestand te verwijderen of te hernoemen.</p>',
 'L_USER_UNKNOWN'											=> 'Onbekende gebruiker',
 'L_USER_LANG'												=> 'Gebruikte taal in adminstratief gedeelte',
 'L_USER_MAIL'												=> 'Emailadres',

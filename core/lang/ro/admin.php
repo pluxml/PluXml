@@ -437,7 +437,7 @@ $LANG = array(
 'L_MENU_CONFIG'												=> 'Setări',
 'L_MENU_PROFIL_TITLE'										=> 'Gestionează profilul',
 'L_MENU_PROFIL'												=> 'Profil',
-'L_WARNING_INSTALLATION_FILE'								=> '<p class="warning">Fişierul install.php încă se află în rădăcina  sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l ştergeţi.</p>',
+'L_WARNING_INSTALLATION_FILE'								=> '<p class="alert red">Fişierul install.php încă se află în rădăcina  sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l ştergeţi.</p>',
 'L_USER_UNKNOWN'											=> 'Utilizator necunoscut',
 'L_USER_LANG'												=> 'Limba utilizată ',
 'L_USER_MAIL'												=> 'Adresa de email',

@@ -514,7 +514,7 @@ $LANG = array(
 'L_MENU_CONFIG'						=> 'Paramètres',
 'L_MENU_PROFIL_TITLE'				=> 'Gérer votre profil utilisateur',
 'L_MENU_PROFIL'						=> 'Profil',
-'L_WARNING_INSTALLATION_FILE'		=> '<p class="warning">Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le supprimer.</p>',
+'L_WARNING_INSTALLATION_FILE'		=> '<p class="alert red">Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le supprimer.</p>',
 
 # user.php
 'L_USER_UNKNOWN'					=> 'Utilisateur inconnu',

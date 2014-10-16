@@ -438,7 +438,7 @@ $LANG = array(
 'L_MENU_CONFIG'										=> 'Konfiguration',
 'L_MENU_PROFIL_TITLE'								=> 'Mein Benutzerprofil verwalten',
 'L_MENU_PROFIL'										=> 'Mein Profil',
-'L_WARNING_INSTALLATION_FILE'						=> '<p class="warning">Die Datei install.php existiert noch im Grundverzeichnis von PluXml.<br />Sie sollten diese aus Sicherheitsgründen löschen.</p>',
+'L_WARNING_INSTALLATION_FILE'						=> '<p class="alert red">Die Datei install.php existiert noch im Grundverzeichnis von PluXml.<br />Sie sollten diese aus Sicherheitsgründen löschen.</p>',
 'L_USER_UNKNOWN'									=> 'Unbekannter Benutzer',
 'L_USER_LANG'										=> 'Spracher des Admins',
 'L_USER_MAIL'										=> 'E-Mail-Adresse',

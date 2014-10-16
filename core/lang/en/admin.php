@@ -437,7 +437,7 @@ $LANG = array(
 'L_MENU_CONFIG'												=> 'Parameters',
 'L_MENU_PROFIL_TITLE'										=> 'Manage your user profiles',
 'L_MENU_PROFIL'												=> 'Profile',
-'L_WARNING_INSTALLATION_FILE'								=> '<p class="warning">install.php file can still be found at your PluXml root.<br />For security reasons, it is strongly recommended to delete it.</p>',
+'L_WARNING_INSTALLATION_FILE'								=> '<p class="alert red">install.php file can still be found at your PluXml root.<br />For security reasons, it is strongly recommended to delete it.</p>',
 'L_USER_UNKNOWN'											=> 'Unknown user',
 'L_USER_LANG'												=> 'Language used in administration',
 'L_USER_MAIL'												=> 'Email adress',
