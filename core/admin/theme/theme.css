@@ -5,17 +5,15 @@
 */
 
 .auth {
-	background-color: #222;
-	color: #fff;
 	margin-top: 10%;
 	overflow: hidden;
-}
-.auth a {
-	color: #fff;
+	border: #dedede solid 1px;
 }
 .auth .error {
-	background-color: #e43d29;
+	background-color: #ffcfcf;
+	border-color: #df8f8f;
 	padding: .3rem .6rem;
+	text-align: center;
 }
 .auth input[type="password"],
 .auth input[type="text"] {
