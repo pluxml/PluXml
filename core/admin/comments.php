@@ -217,11 +217,11 @@ if($coms) { # Si on a des commentaires (hors page)
 		echo '<span class="p_last"><a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">'.L_PAGINATION_LAST.'</a></span>';
 }
 ?>
-<br /><br />
+<br />
 
 <?php if(!empty($plxAdmin->aConf['clef'])) : ?>
 
-<ul class="list-inline">
+<ul class="list-unstyled">
 	<li><?php echo L_COMMENTS_PRIVATE_FEEDS ?> :</li>
 	<?php $urlp_hl = $plxAdmin->racine.'feed.php?admin'.$plxAdmin->aConf['clef'].'/commentaires/hors-ligne'; ?>
 	<li><a href="<?php echo $urlp_hl ?>" title="<?php echo L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?php echo L_COMMENT_OFFLINE_FEEDS ?></a></li>
