@@ -2,6 +2,7 @@
 
 $LANG = array(
 
+'L_MENU'													=> 'Meniu',
 'L_UNKNOWN_ERROR'											=> 'Eroare necunoscută',
 'L_CONFIRM_DELETE'											=> 'Confirmați ștergerea ?',
 'L_SAVE_FILE'												=> 'Salvați fișierul',

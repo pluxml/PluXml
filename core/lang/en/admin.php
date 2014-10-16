@@ -2,6 +2,7 @@
 
 $LANG = array(
 
+'L_MENU'													=> 'Menu',
 'L_UNKNOWN_ERROR'											=> 'Unknown error',
 'L_CONFIRM_DELETE'											=> 'Confirm the deletion?',
 'L_SAVE_FILE'												=> 'Save the file',

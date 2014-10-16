@@ -2,6 +2,7 @@
 
 $LANG = array(
 
+'L_MENU'													=> 'Menu',
 'L_UNKNOWN_ERROR'											=> 'Onbekende fout',
 'L_CONFIRM_DELETE'											=> 'Bevestig de verwijdering ?',
 'L_SAVE_FILE'												=> 'Sla het bestand op',

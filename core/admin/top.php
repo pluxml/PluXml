@@ -31,7 +31,7 @@
             <small><em><a title="PluXml" href="http://www.pluxml.org">Pluxml <?php echo $plxAdmin->aConf['version'] ?></a></em></small>
         </header>
         <nav class="responsive-menu">
-            <label for="nav">MENU</label>
+            <label for="nav"><?php echo L_MENU ?></label>
             <input type="checkbox" id="nav">
             <ul class="menu vertical expanded">
                 <?php
