@@ -607,6 +607,8 @@ class plxUtils {
 	 **/
 	public static function rel2abs($base, $html) {
 
+        // on protège les liens de type (href|src)="//" en doublant le caractère =
+        $html = preg_replace('@(href|src)=(["\']\/\/)@i', '\1==\2', $html);	
 		// url des plugins
 		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])[\.]/plugins@i', '<$1 $2=$3'.$base.'plugins', $html);
 		// generate server-only replacement for root-relative URLs
@@ -620,6 +622,8 @@ class plxUtils {
 		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])([^:"]*|[^:"]*:[^/"][^"]*)(["\'])@i', '<\1 \2=\3'.$base.'\4\5', $html);
 		// unreplace fully qualified URLs with proto: that were wrongly added $base
 		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])'.$base.'([a-zA-Z0-9]*):@i', '<\1 \2=\3\4:', $html);
+        // on rétablit les liens de type (href|src)="//" en remplaçant les caractères == par =
+        $html = preg_replace('@(href|src)==@i', '\1=', $html);		
 		return $html;
 
 	}
