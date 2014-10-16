@@ -62,7 +62,7 @@ if(!empty($_GET['d']) AND $_GET['d']==1) {
 if(!empty($_POST['login']) AND !empty($_POST['password'])) {
 	$connected = false;
 	foreach($plxAdmin->aUsers as $userid => $user) {
-		if ($_POST['login']==$user['login'] AND sha1($user['salt'].md5($_POST['password']))==$user['password'] AND $user['active'] AND !$user['delete']) {
+		if ($_POST['login']==$user['login'] AND sha1($user['salt'].md5($_POST['password']))===$user['password'] AND $user['active'] AND !$user['delete']) {
 			$_SESSION['user'] = $userid;
 			$_SESSION['profil'] = $user['profil'];
 			$_SESSION['hash'] = plxUtils::charAleatoire(10);
