@@ -629,7 +629,7 @@ class plxUtils {
 	}
 
 	/**
-	 * Méthode qui retourn la liste des langues disponibles dans un tableau
+	 * Méthode qui retourne la liste des langues disponibles dans un tableau
 	 *
 	 * @return	string		chaine de caractères modifiée
 	 * @author	Stephane F.
