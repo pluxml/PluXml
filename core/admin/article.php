@@ -228,7 +228,7 @@ $cat_id='000';
 
 	<div class="grid">
 
-		<div class="col sml-12 med-7">
+		<div class="col sml-12 med-8">
 
 			<fieldset>
 				<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
@@ -286,7 +286,7 @@ $cat_id='000';
 			</ul>
 		</div>
 
-		<div class="col sml-12 med-5">
+		<div class="col sml-12 med-4">
 
 			<p><?php echo L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
 				<strong>
@@ -314,10 +314,10 @@ $cat_id='000';
 				?>
 				<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
 				<ul class="list-inline">
-					<li><?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin'); ?></li>
-					<li><?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin'); ?></li>
-					<li><?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin'); ?></li>
-					<li><?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin'); ?></li>
+					<li><?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin w40'); ?></li>
+					<li><?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin w40'); ?></li>
+					<li><?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin w60'); ?></li>
+					<li><?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin w60'); ?></li>
 					<li><a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a></li>
 				</ul>
 				<br />

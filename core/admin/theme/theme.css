@@ -88,3 +88,10 @@ a.btnDelete,
 .divtitle  {
 	display: inline;
 }
+
+.w40 {
+	width: 40px;
+}
+.w60 {
+	width: 60px;
+}
