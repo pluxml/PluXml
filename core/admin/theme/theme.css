@@ -56,9 +56,6 @@ h1.site-name {
 	}
 }
 @media (max-width: 767px) {
-	.connect {
-		background-color: #222;
-	}
 	.auth {
 		margin-top: 0;
 	}

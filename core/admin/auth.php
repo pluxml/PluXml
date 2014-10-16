@@ -95,7 +95,7 @@ plxUtils::cleanHeaders();
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
 </head>
 
-<body class="connect">
+<body>
 
 	<main class="container">
 		<section class="grid">
@@ -107,11 +107,11 @@ plxUtils::cleanHeaders();
 					<h1 class="h5 text-center"><strong><?php echo L_LOGIN_PAGE ?></strong></h1>
 					<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
 					<label for="id_login"><?php echo L_AUTH_LOGIN_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '0-255',false,'full-width h3');?>
+					<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '0-255',false,'full-width h4');?>
 					<label for="id_password"><?php echo L_AUTH_PASSWORD_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printInput('password', '', 'password','0-255',false,'full-width h3');?>
+					<?php plxUtils::printInput('password', '', 'password','0-255',false,'full-width h4');?>
 					<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
-					<input class="h3 float-center" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+					<input class="h4 float-center" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
 				</fieldset>
 				</form>
 				<p class="text-center">
