@@ -95,3 +95,7 @@ a.btnDelete,
 .w60 {
 	width: 60px;
 }
+.header a, .header a:hover {
+	color: #999;
+	text-decoration: none;
+}
