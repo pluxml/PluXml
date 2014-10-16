@@ -181,7 +181,7 @@ ul.list-inline {
 ul.list-inline li {
 	display: inline-block;
 	list-style-type: none;
-	margin-left: 1rem;
+	margin-left: .5rem;
 	font-size: 1rem;
 }
 ul.list-inline li:first-child {
