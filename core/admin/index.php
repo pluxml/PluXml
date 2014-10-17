@@ -121,10 +121,10 @@ include(dirname(__FILE__).'/top.php');
 <form class="horizontal-form" action="index.php" method="post" id="form_articles">
 
 <p>
-	<a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?><span class="badge"><?php echo $plxAdmin->nbArticles('all', $userId) ?></span></a>&nbsp;&nbsp;&nbsp;
-	<a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?><span class="badge"><?php echo $plxAdmin->nbArticles('published', $userId, '') ?></span></a>&nbsp;&nbsp;&nbsp;
-	<a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?><span class="badge"><?php echo $plxAdmin->nbArticles('draft', $userId) ?></span></a>&nbsp;&nbsp;&nbsp;
-	<a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?><span class="badge"><?php echo $plxAdmin->nbArticles('all', $userId, '_') ?></span></a>
+	<a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><span class="badge"><?php echo $plxAdmin->nbArticles('all', $userId) ?></span>&nbsp;&nbsp;&nbsp;
+	<a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><span class="badge"><?php echo $plxAdmin->nbArticles('published', $userId, '') ?></span>&nbsp;&nbsp;&nbsp;
+	<a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><span class="badge"><?php echo $plxAdmin->nbArticles('draft', $userId) ?></span>&nbsp;&nbsp;&nbsp;
+	<a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><span class="badge"><?php echo $plxAdmin->nbArticles('all', $userId, '_') ?></span>
 </p>
 
 <p>
