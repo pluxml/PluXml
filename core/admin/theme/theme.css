@@ -7,11 +7,11 @@
 .auth {
 	margin-top: 10%;
 	overflow: hidden;
-	border: #dedede solid 1px;
+	border: #bbb solid 1px;
 }
 .auth .error {
-	background-color: #ffcfcf;
-	border-color: #df8f8f;
+	background-color: #fce4e2;
+	color: #e43d29;
 	padding: .3rem .6rem;
 	text-align: center;
 }
@@ -88,7 +88,6 @@ a.btnDelete,
 .divtitle  {
 	display: inline;
 }
-
 .w40 {
 	width: 40px;
 }
