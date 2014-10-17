@@ -46,7 +46,7 @@ figure {
 body {
 	color: #444;
 	font-family: helvetica, arial, sans-serif;
-	font-size: 100%;
+	font-size: 15px;
 	line-height: 1.5;
 	margin: 0;
 }
@@ -208,7 +208,7 @@ table {
 td,
 th {
 	border: 1px solid #bbb;
-	padding: .275rem .6rem;
+	padding: .275rem .5rem;
 }
 tr:hover {
 	background-color: #ffffe0;
@@ -247,7 +247,7 @@ textarea {
 	border: 1px solid #bbb;
 	display: block;
 	outline: none;
-	padding: .25rem .6rem;
+	padding: .25rem .5rem;
 	width: 100%;
 }
 input:focus,
@@ -263,7 +263,7 @@ input[type="submit"] {
 	border: none;
 	color: #fff;
 	cursor: pointer;
-	padding: .3rem .6rem;
+	padding: .3rem .5rem;
 	width: auto;
 }
 button:hover,
@@ -300,7 +300,7 @@ input[type="file"] {
 	padding: 0;
 }
 select {
-	padding: .3rem .6rem;
+	padding: .3rem;
 }
 textarea {
 	overflow: auto;
@@ -411,7 +411,7 @@ img {
 }
 .menu.expanded li a {
 	display: block;
-	padding: .3rem .6rem;
+	padding: .275rem .5rem;
 }
 .menu.expanded li a:hover {
 	text-decoration: none;
@@ -444,7 +444,7 @@ img {
     display: none;
 }
 .responsive-menu label {
-	padding: .3rem .6rem;
+	padding: .3rem .5rem;
 }
 .responsive-menu input[type=checkbox]:checked+ul {
  	display: block;
@@ -464,7 +464,7 @@ img {
 	}
 	.responsive-menu ul li a {
 		display: block;
-		padding: .3rem .6rem;
+		padding: .3rem .5rem;
 	}
 	.responsive-menu ul li a:hover {
 		text-decoration: none;
@@ -522,7 +522,7 @@ img {
 	background-color: #4682b4;
 	color: #fff;
 	display: inline-block;
-	padding: .3rem .6rem;
+	padding: .3rem .5rem;
 }
 .button:hover {
 	background-color: #3a6c96;
@@ -585,7 +585,8 @@ img {
 	margin-left: .4rem;
 }
 .badge {
-	padding: 0 .2rem;
+	line-height: 1;
+	padding: .2rem .2rem .1rem .2rem;
 }
 .menu.expanded .active a .badge {
 	background-color: #fff;
@@ -595,7 +596,7 @@ img {
 	float: right;
 }
 .label {
-	padding: .3rem .6rem;
+	padding: .3rem .5rem;
 }
 [data-tooltip] {
 	cursor: help;
@@ -607,7 +608,7 @@ img {
 	bottom: 1.8rem;
 	content: attr(data-tooltip);
 	left: 0;
-	padding: .3rem .6rem;
+	padding: .3rem .5rem;
 	position: absolute;
 	text-decoration: none;
 	white-space: nowrap;
