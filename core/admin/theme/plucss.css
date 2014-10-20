@@ -46,7 +46,7 @@ figure {
 body {
 	color: #444;
 	font-family: helvetica, arial, sans-serif;
-	font-size: 15px;
+	font-size: 100%;
 	line-height: 1.5;
 	margin: 0;
 }
