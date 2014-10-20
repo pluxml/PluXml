@@ -53,8 +53,8 @@
 
                     if($_SESSION['profil'] <= PROFIL_MODERATOR) {
                         $nbcoms = $plxAdmin->nbComments('offline');
-                        $coms_offline = $nbcoms>0 ? '<a href="'.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1">'.$plxAdmin->nbComments('offline').'':'';
-                        $menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, '<span class="badge"'.$coms_offline.'</span>');
+                        $coms_offline = $nbcoms>0 ? '<span class="badge"<a href="'.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1">'.$plxAdmin->nbComments('offline').'</span>':'';
+                        $menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
                     }
 
                     if($_SESSION['profil'] <= PROFIL_EDITOR)
