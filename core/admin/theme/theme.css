@@ -38,13 +38,21 @@ h1.site-name {
 .aside a {
 	color: #eee;
 }
-.header {
-	padding: 1rem .7rem;
+.aside .header {
+	padding: 1rem .5rem;
+}
+.aside .header a,
+.aside .header a:hover {
+	color: #999;
+	text-decoration: none;
+}
+.aside .menu.expanded .badge {
+	background-color: #e43d29;
 }
 .aside .menu.expanded li:hover {
 	background-color: #444;
 }
-.menu-config {
+.aside .menu-config {
 	background-color: #333;
 }
 .section {
@@ -87,14 +95,4 @@ textarea {
 a.btnDelete,
 .divtitle  {
 	display: inline;
-}
-.w40 {
-	width: 40px;
-}
-.w60 {
-	width: 60px;
-}
-.header a, .header a:hover {
-	color: #999;
-	text-decoration: none;
 }
