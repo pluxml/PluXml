@@ -313,45 +313,46 @@ $cat_id='000';
 				}
 				?>
 				<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
-				<ul class="list-inline">
-					<li><?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin w40'); ?></li>
-					<li><?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin w40'); ?></li>
-					<li><?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin w60'); ?></li>
-					<li><?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin w60'); ?></li>
-					<li><a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a></li>
-				</ul>
-				<br />
+				<div class="horizontal-form">
+					<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin w40'); ?>
+					<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin w40'); ?>
+					<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin w60'); ?>
+					<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin w60'); ?>
+					<a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+						<img src="theme/images/date.png" alt="calendar" />
+					</a>
+				</div>
 				<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 				<?php
 					$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
-					echo '<ul class="list-inline"><li><input readonly="readonly" class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" /></li><li><label for="cat_unclassified">&nbsp;'. L_UNCLASSIFIED .'</label></li></ul>';
+					echo '<label for="cat_unclassified"><input readonly="readonly" class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
 					$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
-					echo '<ul class="list-inline"><li><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" /></li><li><label for="cat_home">&nbsp;'. L_CATEGORY_HOME_PAGE .'</label></li></ul>';
+					echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
 					foreach($plxAdmin->aCats as $cat_id => $cat_name) {
 						$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
-						echo '<ul class="list-inline"><li><input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" /></li>';
 						if($plxAdmin->aCats[$cat_id]['active'])
-							echo '<li><label for="cat_'.$cat_id.'">&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label></li></ul>';
+							echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
 						else
-							echo '<li><label for="cat_'.$cat_id.'">&nbsp;<em>'.plxUtils::strCheck($cat_name['name']).'</em></label></li></ul>';
+							echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
 					}
 				?>
-				<br />
 
 				<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
 				
-					<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
-				<ul class="list-inline">
-					<li><?php plxUtils::printInput('new_catname','','text','17-50')	?></li>
-					<li><input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" /></li>
-				</ul>
+				<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
+				<div class="horizontal-form">
+				<?php plxUtils::printInput('new_catname','','text','17-50')	?>
+				<input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
+				</div>
 				<?php endif; ?>
 
-				<label for="id_tags"><?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a class="help" title="<?php echo L_ARTICLE_TAGS_FIELD_TITLE ?>">Help</a></label>
-				<ul class="list-inline">
-					<li><?php plxUtils::printInput('tags',$tags,'text','25-255',false,'no-margin'); ?></li>
-					<li><a class="h2" title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none">+</a></li>
-				</ul>	
+				<label for="id_tags"><?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;
+				<span class="tooltip" data-tooltip="<?php echo L_ARTICLE_TAGS_FIELD_TITLE ?>"><img src="theme/images/help.gif" alt="help" /></span>
+				</label>
+				<div class="horizontal-form">
+					<?php plxUtils::printInput('tags',$tags,'text','25-255',false,'no-margin'); ?>
+					<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none">+</a>
+				</div>	
 				<div id="tags" style="display:none;">
 					<?php
 					if($plxAdmin->aTags) {
@@ -377,7 +378,6 @@ $cat_id='000';
 					else echo L_NO_TAG;
 					?>
 				</div>
-				<br />
 				
 				<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
 				<label for="id_allow_com"><?php echo L_ALLOW_COMMENTS ?>&nbsp;:</label>
@@ -386,7 +386,9 @@ $cat_id='000';
 					<?php plxUtils::printInput('allow_com','0','hidden'); ?>
 				<?php endif; ?>
 
-				<label for="id_url"><?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="help" title="<?php echo L_ARTICLE_URL_FIELD_TITLE ?>">Help</a></label>
+				<label for="id_url"><?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;
+					<span class="tooltip" data-tooltip="<?php echo L_ARTICLE_URL_FIELD_TITLE ?>"><img src="theme/images/help.gif" alt="help" /></span>
+				</label>
 				<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
 
 				<label for="id_template"><?php echo L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
