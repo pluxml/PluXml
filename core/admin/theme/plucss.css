@@ -175,7 +175,7 @@ sub {
 }
 ul.list-inline {
 	font-size: 0rem;
-	margin: 0;
+	margin: 1rem 0;
 	padding-left: 0;
 }
 ul.list-inline li {
