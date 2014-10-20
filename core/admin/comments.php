@@ -105,9 +105,9 @@ if($portee!='') {
 }
 
 $breadcrumbs = array();
-$breadcrumbs[] = '<a '.($_SESSION['selCom']=='all'?'class="selected" ':'').'href="comments.php?sel=all&amp;page=1">'.L_ALL.'<span class="badge">'.$plxAdmin->nbComments('all').'</span></a>&nbsp;&nbsp;&nbsp;';
-$breadcrumbs[] = '<a '.($_SESSION['selCom']=='online'?'class="selected" ':'').'href="comments.php?sel=online&amp;page=1">'.L_COMMENT_ONLINE.'<span class="badge">'.$plxAdmin->nbComments('online').'</span></a>&nbsp;&nbsp;&nbsp;';
-$breadcrumbs[] = '<a '.($_SESSION['selCom']=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&amp;page=1">'.L_COMMENT_OFFLINE.'<span class="badge">'.$plxAdmin->nbComments('offline').'</span></a>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='all'?'class="selected" ':'').'href="comments.php?sel=all&amp;page=1">'.L_ALL.'</a>&nbsp;('.$plxAdmin->nbComments('all').')</li>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='online'?'class="selected" ':'').'href="comments.php?sel=online&amp;page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&amp;page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>';
 if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
@@ -130,9 +130,9 @@ $selector2=selector($comSel, 'id_selection2');
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
 <form class="horizontal-form" action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
-<p>
+<ul class="menu">
 	<?php echo implode($breadcrumbs); ?>
-</p>
+</ul>
 <p>
 	<?php echo $selector1 ?><input class="button submit" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 </p>
