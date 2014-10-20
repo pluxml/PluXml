@@ -119,8 +119,8 @@ if($sel=='1') {
 }
 # fil d'ariane
 $breadcrumbs = array();
-$breadcrumbs[] = '<a '.($_SESSION['selPlugins']=='1'?'class="selected" ':'').'href="parametres_plugins.php?sel=1">'.L_PLUGINS_ACTIVE_LIST.'<span class="badge">'.$nbActivePlugins.'</span></a>&nbsp;&nbsp;&nbsp;';
-$breadcrumbs[] = '<a '.($_SESSION['selPlugins']=='0'?'class="selected" ':'').'href="parametres_plugins.php?sel=0">'.L_PLUGINS_INACTIVE_LIST.'<span class="badge">'.$nbInactivePlugins.'</span></a>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='1'?'class="selected" ':'').'href="parametres_plugins.php?sel=1">'.L_PLUGINS_ACTIVE_LIST.'</a>&nbsp('.$nbActivePlugins.')</li>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='0'?'class="selected" ':'').'href="parametres_plugins.php?sel=0">'.L_PLUGINS_INACTIVE_LIST.'</a>&nbsp('.$nbInactivePlugins.')</li>';
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
@@ -131,9 +131,10 @@ include(dirname(__FILE__).'/top.php');
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 
-<p>
+<ul class="menu">
 	<?php echo implode($breadcrumbs); ?>
-</p>
+</ul>
+<br />
 <form class="horizontal-form" action="parametres_plugins.php" method="post" id="form_plugins">
 
 <div class="scrollable-table">
