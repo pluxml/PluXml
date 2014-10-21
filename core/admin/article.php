@@ -234,10 +234,13 @@ $cat_id='000';
 				<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
 				<label for="id_title"><?php echo L_ARTICLE_TITLE ?>&nbsp;:</label>
 				<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
-				<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;<a id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
+				<p>	
+					<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;
+					<a class="button" id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
+				</p>
 				<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>><?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?></div>
 				<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,35,false,'full-width'); ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,30,false,'full-width'); ?>
 				<?php if($artId!='' AND $artId!='0000') : ?>
 				<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
 				<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;</label>
