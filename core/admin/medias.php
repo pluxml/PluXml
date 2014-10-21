@@ -144,8 +144,8 @@ function toggle_divs(){
 <div id="files_uploader" style="display:none">
 	<p><?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?></p>
 	<form class="horizontal-form" action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
-		<input id="selector" type="file" name="selector" />
-		<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
+		<input class="no-margin" id="selector" type="file" name="selector" />
+		<input class="no-margin" type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
 		<div class="files_list" id="files_list">
 		</div>
 		<?php if($_SESSION['medias']==$plxAdmin->aConf['images']) : ?>
@@ -209,22 +209,22 @@ function toggle_divs(){
 	<form action="medias.php" method="post" id="form_medias" class="horizontal-form">
 		<p>
 			<input class="<?php echo basename($_SESSION['medias'])=='images'?' select':'' ?>" type="submit" name="btn_images" value="<?php echo L_MEDIAS_IMAGES ?>" />
-			<input class="<?php echo basename($_SESSION['medias'])=='documents'?' select':'' ?>" type="submit" name="btn_documents" value="<?php echo L_MEDIAS_DOCUMENTS ?>" />
-			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="<?php echo basename($_SESSION['medias'])=='documents'?' select':'' ?>" type="submit" name="btn_documents" value="<?php echo L_MEDIAS_DOCUMENTS ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php echo plxToken::getTokenPostMethod() ?>
 			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
 			<?php echo $plxMedias->contentFolder() ?>
-			<input class="no-margin" type="submit" name="btn_ok" value="<?php echo L_OK ?>" />
-		</p>
-		<p>
-			<?php plxUtils::printSelect('selection[]', $selectionList, '', false, 'no-margin', 'id_selection1') ?>
-			<input class="no-margin red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />&nbsp;&nbsp;&nbsp;
-			<?php if(!empty($_SESSION['folder'])) : ?>
-			<input class="no-margin red" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
-			<?php endif; ?>&nbsp;&nbsp;
+			<input class="no-margin" type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
 			<input class="no-margin" id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
 			<input class="no-margin" type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+		</p>
+		<p>
+			<?php plxUtils::printSelect('selection[]', $selectionList, '', false, 'no-margin', 'id_selection1') ?>
+			<input class="no-margin red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+			<?php if(!empty($_SESSION['folder'])) : ?>
+			<input class="no-margin red" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
+			<?php endif; ?>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="no-margin" type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 		</p>
 
 		<div class="scrollable-table">

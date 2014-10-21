@@ -89,9 +89,6 @@ textarea {
 .p_page:first-letter {
 	text-transform: uppercase;
 }
-.rowfile {
-	margin-top: 1rem;
-}
 a.btnDelete,
 .divtitle  {
 	display: inline;
