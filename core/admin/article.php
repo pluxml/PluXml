@@ -314,10 +314,10 @@ $cat_id='000';
 				?>
 				<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
 				<div class="horizontal-form">
-					<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin w40'); ?>
-					<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin w40'); ?>
-					<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin w60'); ?>
-					<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin w60'); ?>
+					<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,false); ?>
+					<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,false); ?>
+					<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,false); ?>
+					<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,false); ?>
 					<a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 						<img src="theme/images/date.png" alt="calendar" />
 					</a>
@@ -350,7 +350,7 @@ $cat_id='000';
 				<span class="tooltip" data-tooltip="<?php echo L_ARTICLE_TAGS_FIELD_TITLE ?>"><img src="theme/images/help.gif" alt="help" /></span>
 				</label>
 				<div class="horizontal-form">
-					<?php plxUtils::printInput('tags',$tags,'text','25-255',false,'no-margin'); ?>
+					<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
 					<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none">+</a>
 				</div>	
 				<div id="tags" style="display:none;">
