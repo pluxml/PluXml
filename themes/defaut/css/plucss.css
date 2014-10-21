@@ -366,7 +366,6 @@ input[type="submit"].red:hover {
 .horizontal-form select,
 .horizontal-form textarea {
 	display: inline-block;
-	margin: 0;
 	width: auto;
 }
 
