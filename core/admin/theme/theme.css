@@ -43,7 +43,7 @@ h1.site-name {
 }
 .aside .header a,
 .aside .header a:hover {
-	color: #bbb;
+	color: #999;
 	text-decoration: none;
 }
 .aside .menu.expanded .badge {

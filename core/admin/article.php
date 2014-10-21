@@ -354,9 +354,9 @@ $cat_id='000';
 				</label>
 				<div class="horizontal-form">
 					<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-					<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none">+</a>
+					<a class="button" title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
 				</div>	
-				<div id="tags" style="display:none;">
+				<div id="tags" style="display:none; margin-bottom: 1rem">
 					<?php
 					if($plxAdmin->aTags) {
 						$array=array();
@@ -375,7 +375,7 @@ $cat_id='000';
 						}
 						array_multisort($array);
 						foreach($array as $tagname => $tag) {
-							echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.$tagname.'\')" title="'.plxUtils::strCheck($tagname).' ('.$tag['count'].')">'.plxUtils::strCheck($tagname).'</a> ('.$tag['count'].') ';
+							echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.$tagname.'\')" title="'.plxUtils::strCheck($tagname).' ('.$tag['count'].')">'.plxUtils::strCheck($tagname).'</a> ('.$tag['count'].')&nbsp;&nbsp;';
 						}
 					}
 					else echo L_NO_TAG;
