@@ -38,8 +38,8 @@ include(dirname(__FILE__).'/top.php');
 
 <form class="horizontal-form" action="categories.php" method="post" id="form_categories">
 	<p>
-		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', 'id_selection') ?>
-		<input class="button submit" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCategory[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
+		<input class="no-margin" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCategory[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	</p>
 	<div class="scrollable-table">
 	<table class="full-width">
