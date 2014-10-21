@@ -210,21 +210,21 @@ function toggle_divs(){
 		<p>
 			<input class="button submit<?php echo basename($_SESSION['medias'])=='images'?' select':'' ?>" type="submit" name="btn_images" value="<?php echo L_MEDIAS_IMAGES ?>" />
 			<input class="button submit<?php echo basename($_SESSION['medias'])=='documents'?' select':'' ?>" type="submit" name="btn_documents" value="<?php echo L_MEDIAS_DOCUMENTS ?>" />
-			<input class="button submit" type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
+			<input class="button submit" type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php echo plxToken::getTokenPostMethod() ?>
-		</p>
-		<p>
-			<?php plxUtils::printSelect('selection[]', $selectionList, '', false, '', 'id_selection1') ?>
-			<input class="button submit" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />&nbsp;&nbsp;&nbsp;
 			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
 			<?php echo $plxMedias->contentFolder() ?>
-			<input class="button submit" type="submit" name="btn_ok" value="<?php echo L_OK ?>" />
+			<input class="no-margin" type="submit" name="btn_ok" value="<?php echo L_OK ?>" />
+		</p>
+		<p>
+			<?php plxUtils::printSelect('selection[]', $selectionList, '', false, 'no-margin', 'id_selection1') ?>
+			<input class="no-margin" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />&nbsp;&nbsp;&nbsp;
 			<?php if(!empty($_SESSION['folder'])) : ?>
-			<input class="button delete" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
+			<input class="no-margin" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
 			<?php endif; ?>&nbsp;&nbsp;
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
-			<input class="newfolder" id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
-			<input class="button new" type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+			<input class="no-margin" id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
+			<input class="no-margin" type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
 		</p>
 
 		<div class="scrollable-table">
