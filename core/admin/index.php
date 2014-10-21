@@ -131,13 +131,13 @@ include(dirname(__FILE__).'/top.php');
 	<?php
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
 		plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection1');
-		echo '<input name="sel1" class="no-margin" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
+		echo '<input name="sel1" class="no-margin red" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
 		echo '&nbsp;&nbsp;&nbsp;';
 	}
 	?>
 	<?php plxUtils::printInput('page',1,'hidden'); ?>
 	<input class="no-margin" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
-	<input class="no-margin<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
+	<input class="no-margin <?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
 </p>
 
 
@@ -150,7 +150,7 @@ include(dirname(__FILE__).'/top.php');
 		<th class="title"><?php echo L_ARTICLE_LIST_TITLE ?></th>
 		<th class="category">
 			<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
-			<input class="button submit<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
+			<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 		</th>
 		<th class="nbcoms"><?php echo L_ARTICLE_LIST_NBCOMS ?></th>
 		<th class="author"><?php echo L_ARTICLE_LIST_AUTHOR ?></th>
@@ -220,7 +220,7 @@ if($arts) { # On a des articles
 	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
 		plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, '', 'id_selection2');
-		echo '<input name="sel2" class="button submit" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection2\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
+		echo '<input name="sel2" class="red" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection2\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />';
 	}
 	echo '</p>';
 ?>

@@ -175,11 +175,11 @@ include(dirname(__FILE__).'/top.php');
 			<li><input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/></li>
 			<?php if($com['comStatus']=='') : ?>
 			<li><input class="orange" type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" /></li>
-			<li><input class="" type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" /></li>
+			<li><input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" /></li>
 			<?php else : ?>
-			<li><input class="green" type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" /></li>
+			<li><input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" /></li>
 			<?php endif; ?>
-			<li><input class="green" type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" /></li>
+			<li><input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" /></li>
 		</ul>
 	</fieldset>
 </form>

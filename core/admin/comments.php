@@ -134,7 +134,7 @@ $selector2=selector($comSel, 'id_selection2');
 	<?php echo implode($breadcrumbs); ?>
 </ul>
 <p>
-	<?php echo $selector1 ?><input class="no-margin" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<?php echo $selector1 ?><input class="no-margin red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 </p>
 <div class="scrollable-table">
 <table class="full-width">
@@ -185,7 +185,7 @@ if($coms) {
 </div>
 <p>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<?php echo $selector2 ?><input class="button submit" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')"/>
+	<?php echo $selector2 ?><input class="red" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')"/>
 </p>
 </form>
 

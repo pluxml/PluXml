@@ -208,9 +208,9 @@ function toggle_divs(){
 <div id="files_manager">
 	<form action="medias.php" method="post" id="form_medias" class="horizontal-form">
 		<p>
-			<input class="button submit<?php echo basename($_SESSION['medias'])=='images'?' select':'' ?>" type="submit" name="btn_images" value="<?php echo L_MEDIAS_IMAGES ?>" />
-			<input class="button submit<?php echo basename($_SESSION['medias'])=='documents'?' select':'' ?>" type="submit" name="btn_documents" value="<?php echo L_MEDIAS_DOCUMENTS ?>" />
-			<input class="button submit" type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="<?php echo basename($_SESSION['medias'])=='images'?' select':'' ?>" type="submit" name="btn_images" value="<?php echo L_MEDIAS_IMAGES ?>" />
+			<input class="<?php echo basename($_SESSION['medias'])=='documents'?' select':'' ?>" type="submit" name="btn_documents" value="<?php echo L_MEDIAS_DOCUMENTS ?>" />
+			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php echo plxToken::getTokenPostMethod() ?>
 			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
 			<?php echo $plxMedias->contentFolder() ?>
@@ -218,9 +218,9 @@ function toggle_divs(){
 		</p>
 		<p>
 			<?php plxUtils::printSelect('selection[]', $selectionList, '', false, 'no-margin', 'id_selection1') ?>
-			<input class="no-margin" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />&nbsp;&nbsp;&nbsp;
+			<input class="no-margin red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />&nbsp;&nbsp;&nbsp;
 			<?php if(!empty($_SESSION['folder'])) : ?>
-			<input class="no-margin" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
+			<input class="no-margin red" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
 			<?php endif; ?>&nbsp;&nbsp;
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
 			<input class="no-margin" id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
@@ -275,7 +275,7 @@ function toggle_divs(){
 		</div>
 		<p>
 			<?php plxUtils::printSelect('selection[]', $selectionList , '', false, '', 'id_selection2') ?>
-			<input class="button submit" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+			<input class="red" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			<input type="hidden" name="sort" value="" />
 		</p>
 	</form>
