@@ -11,6 +11,15 @@
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+html {
+	color: #444;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.5;
+}
+body {
+	margin: 0;
+}
 article,
 aside,
 details,
@@ -42,15 +51,7 @@ figure {
 
 /* TYPOGRAPHY
 ------------------------------ */
-html {
-	color: #444;
-	font-family: helvetica, arial, sans-serif;
-	font-size: 15px;
-	line-height: 1.5;
-}
-body {
-	margin: 0;
-}
+
 a {
 	background: transparent;
 	color: #4682b4;
@@ -173,24 +174,24 @@ sub {
 .text-red {
 	color: #e43d29;
 }
-ul.list-inline {
+ul.inline-list {
 	font-size: 0rem;
 	margin: 1rem 0;
 	padding-left: 0;
 }
-ul.list-inline li {
+ul.inline-list li {
 	display: inline-block;
 	list-style-type: none;
 	margin-left: .5rem;
 	font-size: 1rem;
 }
-ul.list-inline li:first-child {
+ul.inline-list li:first-child {
 	margin-left: 0;
 }
-ul.list-unstyled {
+ul.unstyled-list {
 	padding-left: 0;
 }
-ul.list-unstyled li {
+ul.unstyled-list li {
 	list-style-type: none;
 }
 
@@ -238,14 +239,13 @@ select,
 textarea {
 	color: inherit;
 	font: inherit;
-	margin: 0 0 1rem 0;
+	margin: 0;
 }
 button,
 input,
 select,
 textarea {
 	border: 1px solid #bbb;
-	display: block;
 	outline: none;
 	padding: .25rem .6rem;
 	width: 100%;
@@ -260,10 +260,9 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"] {
 	background-color: #4682b4;
-	border: none;
+	border-color: transparent;
 	color: #fff;
 	cursor: pointer;
-	padding: .3rem .6rem;
 	width: auto;
 }
 button:hover,
@@ -291,7 +290,6 @@ input::-moz-focus-inner {
 }
 input[type="checkbox"],
 input[type="radio"] {
-	display: inline-block;
 	padding: 0;
 	width: auto;
 }
@@ -360,11 +358,17 @@ input[type="reset"].red:hover,
 input[type="submit"].red:hover {
 	background-color: #bc2818;
 }
-.horizontal-form button,
-.horizontal-form input,
-.horizontal-form label,
-.horizontal-form select,
-.horizontal-form textarea {
+.form {
+	margin-bottom: 1rem;
+}
+.form.inline label {
+	display: inline-block;
+}
+.form.inline button,
+.form.inline input,
+.form.inline label,
+.form.inline select,
+.form.inline textarea {
 	display: inline-block;
 	width: auto;
 }
