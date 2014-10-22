@@ -601,29 +601,6 @@ img {
 .label {
 	padding: .3rem .6rem;
 }
-[data-tooltip] {
-	cursor: help;
-	position: relative;
-}
-[data-tooltip]:hover:after {
-	background-color: #444;
-	color: #fff;
-	bottom: 1.8rem;
-	content: attr(data-tooltip);
-	left: 0;
-	padding: .3rem .6rem;
-	position: absolute;
-	text-decoration: none;
-	white-space: nowrap;
-}
-[data-tooltip]:hover:before {
-	bottom: 0.8rem;
-	color: #444;
-	content: "▼";
-	left: 0.7rem;
-	position: absolute;
-	text-decoration: none;
-}
 .frame {
 	height: 0;
 	padding-top: 56.25%;
