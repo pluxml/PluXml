@@ -42,12 +42,13 @@ figure {
 
 /* TYPOGRAPHY
 ------------------------------ */
-
-body {
+html {
 	color: #444;
 	font-family: helvetica, arial, sans-serif;
-	font-size: 100%;
+	font-size: 15px;
 	line-height: 1.5;
+}
+body {
 	margin: 0;
 }
 a {
@@ -143,7 +144,6 @@ mark {
 }
 pre {
 	overflow: auto;
-	font-size: .8rem;
 }
 small {
 	font-size: .8rem;
@@ -208,7 +208,7 @@ table {
 td,
 th {
 	border: 1px solid #bbb;
-	padding: .275rem .5rem;
+	padding: .275rem .6rem;
 }
 tr:hover {
 	background-color: #ffffe0;
@@ -247,7 +247,7 @@ textarea {
 	border: 1px solid #bbb;
 	display: block;
 	outline: none;
-	padding: .25rem .5rem;
+	padding: .25rem .6rem;
 	width: 100%;
 }
 input:focus,
@@ -263,7 +263,7 @@ input[type="submit"] {
 	border: none;
 	color: #fff;
 	cursor: pointer;
-	padding: .3rem .5rem;
+	padding: .3rem .6rem;
 	width: auto;
 }
 button:hover,
@@ -410,7 +410,7 @@ img {
 }
 .menu.expanded li a {
 	display: block;
-	padding: .275rem .5rem;
+	padding: .3rem .6rem;
 }
 .menu.expanded li a:hover {
 	text-decoration: none;
@@ -443,7 +443,7 @@ img {
     display: none;
 }
 .responsive-menu label {
-	padding: .3rem .5rem;
+	padding: .3rem .6rem;
 }
 .responsive-menu input[type=checkbox]:checked+ul {
  	display: block;
@@ -463,7 +463,7 @@ img {
 	}
 	.responsive-menu ul li a {
 		display: block;
-		padding: .3rem .5rem;
+		padding: .3rem .6rem;
 	}
 	.responsive-menu ul li a:hover {
 		text-decoration: none;
@@ -521,7 +521,7 @@ img {
 	background-color: #4682b4;
 	color: #fff;
 	display: inline-block;
-	padding: .3rem .5rem;
+	padding: .3rem .6rem;
 }
 .button:hover {
 	background-color: #3a6c96;
@@ -595,7 +595,7 @@ img {
 	float: right;
 }
 .label {
-	padding: .3rem .5rem;
+	padding: .3rem .6rem;
 }
 [data-tooltip] {
 	cursor: help;
@@ -607,7 +607,7 @@ img {
 	bottom: 1.8rem;
 	content: attr(data-tooltip);
 	left: 0;
-	padding: .3rem .5rem;
+	padding: .3rem .6rem;
 	position: absolute;
 	text-decoration: none;
 	white-space: nowrap;
@@ -1470,7 +1470,7 @@ img {
 }
 .capcha-word {
 	letter-spacing: 0.3em;
-	padding: 6px 10px;
+	padding: .3rem .6rem;
 }
 .p_first,
 .p_prev,
