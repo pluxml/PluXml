@@ -27,8 +27,31 @@
 
     <aside class="aside col sml-12 med-3 lrg-2 sml-text-left med-text-right">
         <header class="header">
-            <h1 class="h5 no-margin site-name"><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></h1>
-            <small><em><a title="PluXml" href="http://www.pluxml.org">Pluxml <?php echo $plxAdmin->aConf['version'] ?></a></em></small>
+            <ul class="unstyled-list">
+                <li>
+                     <a href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a>
+                     <?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
+                </li>
+                <li>
+                    <a href="<?php echo $plxAdmin->urlRewrite('?blog'); ?>" title="<?php echo L_BACK_TO_BLOG_TITLE ?>"><?php echo L_BACK_TO_BLOG;?></a>
+                    <?php endif; ?>
+                </li>
+                <li>
+                    <a href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>" id="logout">
+                    <?php echo L_ADMIN_LOGOUT ?></a>
+                </li>
+            </ul>
+            <ul class="unstyled-list">
+                <li><h1 class="h4 no-margin site-name"><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></h1></li>
+                <li><strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
+                <em><?php if($_SESSION['profil']==PROFIL_ADMIN) echo L_PROFIL_ADMIN;
+                    elseif($_SESSION['profil']==PROFIL_MANAGER) echo L_PROFIL_MANAGER;
+                    elseif($_SESSION['profil']==PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
+                    elseif($_SESSION['profil']==PROFIL_EDITOR) echo L_PROFIL_EDITOR;
+                    else echo L_PROFIL_WRITER; ?>
+                </em></li>
+                <li><small><em><a class="version" title="PluXml" href="http://www.pluxml.org">Pluxml <?php echo $plxAdmin->aConf['version'] ?></a></em></small></li>
+            </ul>
         </header>
         <nav class="responsive-menu">
             <label for="nav"><?php echo L_MENU ?></label>
@@ -97,34 +120,6 @@
     </aside>
 
     <section class="section col sml-12 med-9 lrg-10">
-
-        <div class="grid">
-            <div class="col sml-12 med-6">
-                <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?>&nbsp;:</strong>
-                <em><?php if($_SESSION['profil']==PROFIL_ADMIN) echo L_PROFIL_ADMIN;
-                    elseif($_SESSION['profil']==PROFIL_MANAGER) echo L_PROFIL_MANAGER;
-                    elseif($_SESSION['profil']==PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
-                    elseif($_SESSION['profil']==PROFIL_EDITOR) echo L_PROFIL_EDITOR;
-                    else echo L_PROFIL_WRITER; ?>
-                </em>
-            </div>
-            <div class="col sml-12 med-6">
-                <ul class="menu sml-text-left med-text-right">
-                    <li>
-                        <a href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a>
-                        <?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
-                    </li>
-                    <li>
-                        <a href="<?php echo $plxAdmin->urlRewrite('?blog'); ?>" title="<?php echo L_BACK_TO_BLOG_TITLE ?>"><?php echo L_BACK_TO_BLOG;?></a>
-                        <?php endif; ?>
-                    </li>
-                    <li>
-                        <a href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>" id="logout">
-                        <?php echo L_ADMIN_LOGOUT ?></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
         <?php
         if(is_file(PLX_ROOT.'install.php')) echo L_WARNING_INSTALLATION_FILE;

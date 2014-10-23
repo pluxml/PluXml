@@ -39,12 +39,13 @@ h1.site-name {
 	color: #eee;
 }
 .aside .header {
-	padding: 1rem .5rem;
+	padding: 0 .5rem;
 }
-.aside .header a,
-.aside .header a:hover {
-	color: #999;
-	text-decoration: none;
+.aside .header li {
+	line-height: 1.2;
+}
+.aside .header .version {
+	color: #aaa;
 }
 .aside .menu.expanded .badge {
 	background-color: #e43d29;
