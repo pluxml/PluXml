@@ -65,48 +65,78 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="parametres_affichage.php" method="post" id="form_settings">
 	<fieldset class="config">
-		<label for="id_style"><?php echo L_CONFIG_VIEW_SKIN_SELECT ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('style', $aStyles, $plxAdmin->aConf['style']); ?>
-		<?php if(!empty($plxAdmin->aConf['style']) AND is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style'])) : ?>
-		<p><a href="parametres_edittpl.php" title="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>"><?php echo L_CONFIG_VIEW_FILES_EDIT ?> &laquo;<?php echo $plxAdmin->aConf['style'] ?>&raquo;</a></p>
+		<div class="basic-form">
+			<label for="id_style"><?php echo L_CONFIG_VIEW_SKIN_SELECT ?>&nbsp;:&nbsp;</label>
+			<?php plxUtils::printSelect('style', $aStyles, $plxAdmin->aConf['style']); ?>
+			<?php if(!empty($plxAdmin->aConf['style']) AND is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style'])) : ?>
+			&nbsp;<a href="parametres_edittpl.php" title="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>"><?php echo L_CONFIG_VIEW_FILES_EDIT ?> &laquo;<?php echo $plxAdmin->aConf['style'] ?>&raquo;</a>
+		</div>
 		<?php endif; ?>
-		<label for="id_hometemplate"><?php echo L_CONFIG_HOMETEMPLATE ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('hometemplate', $aTemplates, $plxAdmin->aConf['hometemplate']) ?>		
-		<label for="id_tri"><?php echo L_CONFIG_VIEW_SORT ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('tri', $aTriArts, $plxAdmin->aConf['tri']); ?>
-		<label for="id_bypage"><?php echo L_CONFIG_VIEW_BYPAGE ?>&nbsp;:</label>
-		<?php plxUtils::printInput('bypage', $plxAdmin->aConf['bypage'], 'text', '2-2',false,'fieldnum'); ?>
-		<label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_ARCHIVES ?>&nbsp;:</label>
-		<?php plxUtils::printInput('bypage_archives', $plxAdmin->aConf['bypage_archives'], 'text', '2-2',false,'fieldnum'); ?>
-		<label for="id_bypage_admin"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN ?>&nbsp;:</label>
-		<?php plxUtils::printInput('bypage_admin', $plxAdmin->aConf['bypage_admin'], 'text', '2-2',false,'fieldnum'); ?>
-		<label for="id_tri_coms"><?php echo L_CONFIG_VIEW_SORT_COMS ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('tri_coms', $aTriComs, $plxAdmin->aConf['tri_coms']); ?>
-		<label for="id_bypage_admin_coms"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN_COMS ?>&nbsp;:</label>
-		<?php plxUtils::printInput('bypage_admin_coms', $plxAdmin->aConf['bypage_admin_coms'], 'text', '2-2',false,'fieldnum'); ?>
-		<label for="id_display_empty_cat"><?php echo L_CONFIG_VIEW_DISPLAY_EMPTY_CAT ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('display_empty_cat',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['display_empty_cat']);?>
-		<label><?php echo L_CONFIG_VIEW_IMAGES ?>&nbsp;:</label>
-		<ul class="list-inline">
-			<li><?php plxUtils::printInput('images_l', $plxAdmin->aConf['images_l'], 'text', '4-4',false,'no-margin'); ?></li> 
-			<li>x</li>
-			<li><?php plxUtils::printInput('images_h', $plxAdmin->aConf['images_h'], 'text', '4-4',false,'no-margin'); ?></li>
-		</ul><br />
-		<label><?php echo L_CONFIG_VIEW_THUMBS ?>&nbsp;:</label>
-		<ul class="list-inline">
-			<li><?php plxUtils::printInput('miniatures_l', $plxAdmin->aConf['miniatures_l'], 'text', '4-4',false,'no-margin'); ?></li>
-			<li>x</li>
-			<li><?php plxUtils::printInput('miniatures_h', $plxAdmin->aConf['miniatures_h'], 'text', '4-4',false,'no-margin'); ?></li>
-		</ul><br />
-		<label for="id_thumbs"><?php echo L_MEDIAS_THUMBS ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('thumbs',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['thumbs']);?>
-		<label for="id_bypage_feed"><?php echo L_CONFIG_VIEW_BYPAGE_FEEDS ?>&nbsp;:</label>
-		<?php plxUtils::printInput('bypage_feed', $plxAdmin->aConf['bypage_feed'], 'text', '2-2',false,'fieldnum'); ?>
-		<label for="id_feed_chapo"><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('feed_chapo',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['feed_chapo']);?>
-		<a class="help" title="<?php echo L_CONFIG_VIEW_FEEDS_HEADLINE_HELP ?>">Help</a>
-		<label for="id_content"><?php echo L_CONFIG_VIEW_FEEDS_FOOTER ?>&nbsp;:</label>
-		<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aConf['feed_footer']),140,5); ?>
+		<div class="basic-form">
+			<label for="id_hometemplate"><?php echo L_CONFIG_HOMETEMPLATE ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('hometemplate', $aTemplates, $plxAdmin->aConf['hometemplate']) ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_tri"><?php echo L_CONFIG_VIEW_SORT ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('tri', $aTriArts, $plxAdmin->aConf['tri']); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_bypage"><?php echo L_CONFIG_VIEW_BYPAGE ?>&nbsp;:</label>
+			<?php plxUtils::printInput('bypage', $plxAdmin->aConf['bypage'], 'text', '2-2',false,'fieldnum'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_ARCHIVES ?>&nbsp;:</label>
+			<?php plxUtils::printInput('bypage_archives', $plxAdmin->aConf['bypage_archives'], 'text', '2-2',false,'fieldnum'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_bypage_admin"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN ?>&nbsp;:</label>
+			<?php plxUtils::printInput('bypage_admin', $plxAdmin->aConf['bypage_admin'], 'text', '2-2',false,'fieldnum'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_tri_coms"><?php echo L_CONFIG_VIEW_SORT_COMS ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('tri_coms', $aTriComs, $plxAdmin->aConf['tri_coms']); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_bypage_admin_coms"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN_COMS ?>&nbsp;:</label>
+			<?php plxUtils::printInput('bypage_admin_coms', $plxAdmin->aConf['bypage_admin_coms'], 'text', '2-2',false,'fieldnum'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_display_empty_cat"><?php echo L_CONFIG_VIEW_DISPLAY_EMPTY_CAT ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('display_empty_cat',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['display_empty_cat']);?>
+		</div>
+		<div class="basic-form">
+			<label><?php echo L_CONFIG_VIEW_IMAGES ?>&nbsp;:</label>
+			<ul class="inline-list">
+				<li><?php plxUtils::printInput('images_l', $plxAdmin->aConf['images_l'], 'text', '4-4',false,'no-margin'); ?></li> 
+				<li>x</li>
+				<li><?php plxUtils::printInput('images_h', $plxAdmin->aConf['images_h'], 'text', '4-4',false,'no-margin'); ?></li>
+			</ul>
+		</div>
+		<div class="basic-form">
+			<label><?php echo L_CONFIG_VIEW_THUMBS ?>&nbsp;:</label>
+			<ul class="inline-list">
+				<li><?php plxUtils::printInput('miniatures_l', $plxAdmin->aConf['miniatures_l'], 'text', '4-4',false,'no-margin'); ?></li>
+				<li>x</li>
+				<li><?php plxUtils::printInput('miniatures_h', $plxAdmin->aConf['miniatures_h'], 'text', '4-4',false,'no-margin'); ?></li>
+			</ul>
+		</div>
+		<div class="basic-form">
+			<label for="id_thumbs"><?php echo L_MEDIAS_THUMBS ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('thumbs',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['thumbs']);?>
+		</div>
+		<div class="basic-form">
+			<label for="id_bypage_feed"><?php echo L_CONFIG_VIEW_BYPAGE_FEEDS ?>&nbsp;:</label>
+			<?php plxUtils::printInput('bypage_feed', $plxAdmin->aConf['bypage_feed'], 'text', '2-2',false,'fieldnum'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_feed_chapo"><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('feed_chapo',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['feed_chapo']);?>
+			<a class="help" title="<?php echo L_CONFIG_VIEW_FEEDS_HEADLINE_HELP ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_content"><?php echo L_CONFIG_VIEW_FEEDS_FOOTER ?>&nbsp;:</label>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aConf['feed_footer']),140,5); ?>
+		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplay')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>

@@ -77,21 +77,25 @@ include(dirname(__FILE__).'/top.php');
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')) # Hook Plugins ?>
 
-<form class="horizontal-form" action="parametres_edittpl.php" method="post" id="form_select">
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<label for="id_template"><?php echo L_CONFIG_EDITTPL_SELECT_FILE ?></label>
-	<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
-	<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
+<form action="parametres_edittpl.php" method="post" id="form_select">
+	<div class="inline-form">
+		<?php echo plxToken::getTokenPostMethod() ?>
+		<label for="id_template"><?php echo L_CONFIG_EDITTPL_SELECT_FILE ?></label>
+		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
+		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
+	</div>
 </form>
 
 <form action="parametres_edittpl.php" method="post" id="form_file">
 	<fieldset>
-		<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-		<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-		<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
-		<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+		<div class="basic-form">
+			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
+			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
+			<?php echo plxToken::getTokenPostMethod() ?>
+			<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+		</div>
 	</fieldset>
 </form>
 

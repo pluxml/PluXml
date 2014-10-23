@@ -117,7 +117,7 @@ include(dirname(__FILE__).'/top.php');
 
 <h3 class="no-margin"><?php echo L_COMMENTS_ARTICLE_SCOPE ?> &laquo;<?php echo plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
 
-<ul class="list-unstyled">
+<ul class="unstyled-list">
 	<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
 	<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
 	<li><?php echo L_COMMENT_SITE_FIELD ?> : <?php echo '<a href="'.$plxAdmin->racine.'">'.$plxAdmin->racine.'</a>'; ?></li>
@@ -126,11 +126,15 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 	<fieldset>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
-		<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
-		<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
-		<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+		<div class="basic-form">
+			<?php echo plxToken::getTokenPostMethod() ?>
+			<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
+		</div>
+		<div class="basic-form">
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
+			<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+		</div>
 	</fieldset>
 </form>
 

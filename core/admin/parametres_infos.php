@@ -23,7 +23,7 @@ include(dirname(__FILE__).'/top.php');
 <?php echo $plxAdmin->checkMaj(); ?></p>
 <p><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $plxAdmin->version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></p>
 <p><?php echo L_INFO_PHP_VERSION; ?> : <?php echo phpversion(); ?></p>
-<ul class="list-unstyled">
+<ul class="unstyled-list">
 	<li><?php echo L_INFO_MAGIC_QUOTES; ?> : <?php echo get_magic_quotes_gpc(); ?></li>
 	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_articles']); ?>

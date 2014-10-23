@@ -32,51 +32,77 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="parametres_avances.php" method="post" id="form_settings">
 	<fieldset>
-		<label for="id_urlrewriting"><?php echo L_CONFIG_ADVANCED_URL_REWRITE ?>&nbsp;:</label>
-		<?php if(plxUtils::testModRewrite(false)) : ?>
-			<?php plxUtils::printSelect('urlrewriting',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['urlrewriting']);?>
-			<?php if(is_file(PLX_ROOT.'.htaccess') AND $plxAdmin->aConf['urlrewriting']==0) { ?>
-				&nbsp;<?php echo L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?>
-			<?php } ?>
-		<?php else: ?>
-			<?php echo L_MODREWRITE_NOT_AVAILABLE ?>
-		<?php endif; ?>
-		<label for="id_gzip"><?php echo L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('gzip',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['gzip']);?>
-		<a class="help" title="<?php echo L_CONFIG_ADVANCED_GZIP_HELP ?>">Help</a>
-		<label for="id_capcha"><?php echo L_CONFIG_ADVANCED_CAPCHA ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('capcha',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['capcha']);?>
-		<label for="id_userfolders"><?php echo L_CONFIG_ADVANCED_USERFOLDERS ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('userfolders',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['userfolders']);?>
-		<label for="id_clef"><?php echo L_CONFIG_ADVANCED_ADMIN_KEY ?>&nbsp;:</label>
-		<?php plxUtils::printInput('clef', $plxAdmin->aConf['clef'], 'text', '30-30'); ?>
-		<a class="help" title="<?php echo L_CONFIG_ADVANCED_KEY_HELP ?>">&nbsp;</a>
+		<div class="basic-form">
+			<label for="id_urlrewriting"><?php echo L_CONFIG_ADVANCED_URL_REWRITE ?>&nbsp;:</label>
+			<?php if(plxUtils::testModRewrite(false)) : ?>
+				<?php plxUtils::printSelect('urlrewriting',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['urlrewriting']);?>
+				<?php if(is_file(PLX_ROOT.'.htaccess') AND $plxAdmin->aConf['urlrewriting']==0) { ?>
+					&nbsp;<?php echo L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?>
+				<?php } ?>
+			<?php else: ?>
+				<?php echo L_MODREWRITE_NOT_AVAILABLE ?>
+			<?php endif; ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_gzip"><?php echo L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('gzip',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['gzip']);?>
+			<a class="help" title="<?php echo L_CONFIG_ADVANCED_GZIP_HELP ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_capcha"><?php echo L_CONFIG_ADVANCED_CAPCHA ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('capcha',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['capcha']);?>
+		</div>
+		<div class="basic-form">
+			<label for="id_userfolders"><?php echo L_CONFIG_ADVANCED_USERFOLDERS ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('userfolders',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['userfolders']);?>
+		</div>
+		<div class="basic-form">
+			<label for="id_clef"><?php echo L_CONFIG_ADVANCED_ADMIN_KEY ?>&nbsp;:</label>
+			<?php plxUtils::printInput('clef', $plxAdmin->aConf['clef'], 'text', '30-30'); ?>
+			<a class="help" title="<?php echo L_CONFIG_ADVANCED_KEY_HELP ?>">&nbsp;</a>
+		</div>
 	</fieldset>
 	<fieldset class="config">
-		<label for="id_config_path"><?php echo L_CONFIG_ADVANCED_CONFIG_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('config_path', PLX_CONFIG_PATH) ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
-		<label for="id_racine_articles"><?php echo L_CONFIG_ADVANCED_ARTS_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('racine_articles', $plxAdmin->aConf['racine_articles']); ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
-		<label for="id_racine_commentaires"><?php echo L_CONFIG_ADVANCED_COMS_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('racine_commentaires', $plxAdmin->aConf['racine_commentaires']); ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
-		<label for="id_racine_statiques"><?php echo L_CONFIG_ADVANCED_STATS_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('racine_statiques', $plxAdmin->aConf['racine_statiques']); ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
-		<label for="id_images"><?php echo L_CONFIG_ADVANCED_PICS_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('images', $plxAdmin->aConf['images']); ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
-		<label for="id_documents"><?php echo L_CONFIG_ADVANCED_DOCS_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('documents', $plxAdmin->aConf['documents']); ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
-		<label for="id_racine_themes"><?php echo L_CONFIG_ADVANCED_THEMES_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('racine_themes', $plxAdmin->aConf['racine_themes']); ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
-		<label for="id_racine_plugins"><?php echo L_CONFIG_ADVANCED_PLUGINS_FOLDER ?>&nbsp;:</label>
-		<?php plxUtils::printInput('racine_plugins', $plxAdmin->aConf['racine_plugins']); ?>
-		<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		<div class="basic-form">
+			<label for="id_config_path"><?php echo L_CONFIG_ADVANCED_CONFIG_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('config_path', PLX_CONFIG_PATH) ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_racine_articles"><?php echo L_CONFIG_ADVANCED_ARTS_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('racine_articles', $plxAdmin->aConf['racine_articles']); ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_racine_commentaires"><?php echo L_CONFIG_ADVANCED_COMS_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('racine_commentaires', $plxAdmin->aConf['racine_commentaires']); ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_racine_statiques"><?php echo L_CONFIG_ADVANCED_STATS_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('racine_statiques', $plxAdmin->aConf['racine_statiques']); ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_images"><?php echo L_CONFIG_ADVANCED_PICS_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('images', $plxAdmin->aConf['images']); ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_documents"><?php echo L_CONFIG_ADVANCED_DOCS_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('documents', $plxAdmin->aConf['documents']); ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_racine_themes"><?php echo L_CONFIG_ADVANCED_THEMES_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('racine_themes', $plxAdmin->aConf['racine_themes']); ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
+		<div class="basic-form">
+			<label for="id_racine_plugins"><?php echo L_CONFIG_ADVANCED_PLUGINS_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('racine_plugins', $plxAdmin->aConf['racine_plugins']); ?>
+			<a class="help" title="<?php echo L_HELP_SLASH_END ?>">Help</a>
+		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) ?>
 	<?php echo plxToken::getTokenPostMethod() ?>

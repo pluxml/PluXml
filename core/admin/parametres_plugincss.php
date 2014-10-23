@@ -55,12 +55,16 @@ echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>';
 
 <form action="parametres_plugincss.php?p=<?php echo urlencode($plugin) ?>" method="post" id="form_file">
 	<fieldset>
-		<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
-		<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend),60,20,false,'full-width'); ?>
-		<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
-		<?php plxUtils::printArea('backend',plxUtils::strCheck($backend),60,20,false,'full-width'); ?>
-		<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<div class="basic-form">
+			<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
+			<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend),60,20,false,'full-width'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
+			<?php plxUtils::printArea('backend',plxUtils::strCheck($backend),60,20,false,'full-width'); ?>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
+			<?php echo plxToken::getTokenPostMethod() ?>
+		</div>
 		<input  class="button update" name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</fieldset>
 </form>

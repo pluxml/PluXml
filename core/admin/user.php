@@ -48,19 +48,25 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="user.php" method="post" id="form_user">
 	<fieldset>
-		<?php plxUtils::printInput('id', $id, 'hidden');?>
-		<p class="field"><label for="id_lang"><?php echo L_USER_LANG ?>&nbsp;:</label></p>
-		<?php plxUtils::printSelect('lang', plxUtils::getLangs(), $plxAdmin->aUsers[$id]['lang']) ?>
-		<p class="field"><label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label></p>
-		<?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'text', '30-255') ?>
-		<p id="p_content"><label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label></p>
-		<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']),95,8) ?>
+		<div class="basic-form">
+			<?php plxUtils::printInput('id', $id, 'hidden');?>
+			<label for="id_lang"><?php echo L_USER_LANG ?>&nbsp;:</label></p>
+			<?php plxUtils::printSelect('lang', plxUtils::getLangs(), $plxAdmin->aUsers[$id]['lang']) ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label></p>
+			<?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'text', '30-255') ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label></p>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']),95,8) ?>
+		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminUser')) ?>
-    <p class="center">
+    <div class="basic-form">
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<input type="submit" value="<?php echo L_USER_UPDATE ?>"/>
-	</p>
+	</div>
 </form>
 
 <?php

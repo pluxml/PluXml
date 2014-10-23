@@ -143,15 +143,17 @@ function toggle_divs(){
 
 <div id="files_uploader" style="display:none">
 	<p><?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?></p>
-	<form class="horizontal-form" action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
-		<input class="no-margin" id="selector" type="file" name="selector" />
-		<input class="no-margin" type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
+	<form action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
+		<div class="inline-form">
+		<input id="selector" type="file" name="selector" />
+		<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
+		</div>
 		<div class="files_list" id="files_list">
 		</div>
 		<?php if($_SESSION['medias']==$plxAdmin->aConf['images']) : ?>
 		<div class="grid">
 			<div class="col sma-12 med-4">
-				<ul class="list-unstyled">
+				<ul class="unstyled-list">
 					<li><?php echo L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
 					<li><input type="radio" name="resize" value="" />&nbsp;<?php echo L_MEDIAS_RESIZE_NO ?></li>
 					<?php
@@ -171,7 +173,7 @@ function toggle_divs(){
 				</ul>
 			</div>
 			<div class="col sma-12 med-8">
-				<ul class="list-unstyled">
+				<ul class="unstyled-list">
 					<li><?php echo L_MEDIAS_THUMBS ?>&nbsp;:&nbsp;</li>
 					<li>
 						<?php $sel = (!$plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
@@ -207,7 +209,7 @@ function toggle_divs(){
 
 <div id="files_manager">
 	<form action="medias.php" method="post" id="form_medias" class="horizontal-form">
-		<p>
+		<div class="inline-form">
 			<input class="<?php echo basename($_SESSION['medias'])=='images'?' select':'' ?>" type="submit" name="btn_images" value="<?php echo L_MEDIAS_IMAGES ?>" />
 			<input class="<?php echo basename($_SESSION['medias'])=='documents'?' select':'' ?>" type="submit" name="btn_documents" value="<?php echo L_MEDIAS_DOCUMENTS ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php echo plxToken::getTokenPostMethod() ?>
@@ -217,15 +219,15 @@ function toggle_divs(){
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
 			<input class="no-margin" id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
 			<input class="no-margin" type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
-		</p>
-		<p>
+		</div>
+		<div class="basic-form">
 			<?php plxUtils::printSelect('selection[]', $selectionList, '', false, 'no-margin', 'id_selection1') ?>
-			<input class="no-margin red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+			<input class="red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			<?php if(!empty($_SESSION['folder'])) : ?>
-			<input class="no-margin red" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
+			<input class="red" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
 			<?php endif; ?>&nbsp;&nbsp;&nbsp;&nbsp;
-			<input class="no-margin" type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
-		</p>
+			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
+		</div>
 
 		<div class="scrollable-table">
 			<table class="full-width">
@@ -273,11 +275,6 @@ function toggle_divs(){
 				</tbody>
 			</table>
 		</div>
-		<p>
-			<?php plxUtils::printSelect('selection[]', $selectionList , '', false, '', 'id_selection2') ?>
-			<input class="red" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-			<input type="hidden" name="sort" value="" />
-		</p>
 	</form>
 </div>
 

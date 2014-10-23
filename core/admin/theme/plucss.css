@@ -358,17 +358,18 @@ input[type="reset"].red:hover,
 input[type="submit"].red:hover {
 	background-color: #bc2818;
 }
-.form {
+.basic-form,
+.inline-form {
 	margin-bottom: 1rem;
 }
-.form.inline label {
+.inline-form label {
 	display: inline-block;
 }
-.form.inline button,
-.form.inline input,
-.form.inline label,
-.form.inline select,
-.form.inline textarea {
+.inline-form button,
+.inline-form input,
+.inline-form label,
+.inline-form select,
+.inline-form textarea {
 	display: inline-block;
 	width: auto;
 }

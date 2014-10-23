@@ -62,20 +62,30 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="statique.php" method="post" id="form_static">
 	<fieldset>
-		<?php plxUtils::printInput('id', $id, 'hidden');?>
-		<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-		<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
-		<?php if($active) : ?>
+		<div class="basic-form">
+			<?php plxUtils::printInput('id', $id, 'hidden');?>
+			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
+			<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
+			<?php if($active) : ?>
+		</div>
 		<p><a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a></p>
 		<?php endif; ?>
-		<label for="id_template"><?php echo L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
-		<?php plxUtils::printSelect('template', $aTemplates, $template) ?>
-		<label for="id_title_htmltag"><?php echo L_STATIC_TITLE_HTMLTAG ?>&nbsp;:</label>
-		<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','50-255'); ?>
-		<label for="id_meta_description"><?php echo L_STATIC_META_DESCRIPTION ?>&nbsp;:</label>
-		<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','50-255'); ?>
-		<label for="id_meta_keywords"><?php echo L_STATIC_META_KEYWORDS ?>&nbsp;:</label>
-		<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','50-255'); ?>
+		<div class="basic-form">
+			<label for="id_template"><?php echo L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
+			<?php plxUtils::printSelect('template', $aTemplates, $template) ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_title_htmltag"><?php echo L_STATIC_TITLE_HTMLTAG ?>&nbsp;:</label>
+			<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','50-255'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_meta_description"><?php echo L_STATIC_META_DESCRIPTION ?>&nbsp;:</label>
+			<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','50-255'); ?>
+		</div>
+		<div class="basic-form">
+			<label for="id_meta_keywords"><?php echo L_STATIC_META_KEYWORDS ?>&nbsp;:</label>
+			<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','50-255'); ?>
+		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>

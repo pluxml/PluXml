@@ -75,11 +75,6 @@ h1.site-name {
 		margin: 1rem .7rem;
 	}
 }
-input,
-select,
-textarea {
-	width: auto;
-}
 .selected {
 	color: #444;
 }
@@ -92,4 +87,10 @@ textarea {
 a.btnDelete,
 .divtitle  {
 	display: inline;
+}
+button,
+input,
+select,
+textarea {
+	width: auto;
 }

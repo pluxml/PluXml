@@ -129,66 +129,63 @@ $selector2=selector($comSel, 'id_selection2');
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
-<form class="horizontal-form" action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
-<ul class="menu">
+<form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
+<ul class="inline-list">
 	<?php echo implode($breadcrumbs); ?>
 </ul>
-<p>
+<div class="basic-form">
 	<?php echo $selector1 ?><input class="no-margin red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-</p>
-<div class="scrollable-table">
-<table class="full-width">
-<thead>
-	<tr>
-		<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
-		<th class="datetime"><?php echo L_COMMENTS_LIST_DATE ?></th>
-		<th class="message"><?php echo L_COMMENTS_LIST_MESSAGE ?></th>
-		<th class="author"><?php echo L_COMMENTS_LIST_AUTHOR ?></th>
-		<th class="action"><?php echo L_COMMENTS_LIST_ACTION ?></th>
-	</tr>
-</thead>
-<tbody>
-
-<?php
-# On va récupérer les commentaires
-$plxAdmin->getPage();
-$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
-$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
-if($coms) {
-	$num=0;
-	while($plxAdmin->plxRecord_coms->loop()) { # On boucle
-		$artId = $plxAdmin->plxRecord_coms->f('article');
-		$status = $plxAdmin->plxRecord_coms->f('status');
-		$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
-		$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
-		if($_SESSION['selCom']=='all') {
-			$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
-		}
-		# On génère notre ligne
-		echo '<tr class="line-'.(++$num%2).' top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
-		echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
-		echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
-		echo '<td>'.$content.'&nbsp;</td>';
-		echo '<td>'.plxUtils::strCut($plxAdmin->plxRecord_coms->f('author'),30).'&nbsp;</td>';
-		echo '<td class="action">';
-		echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a> | ';
-		echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a> | ';
-		echo '<a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a>';
-		echo '</td></tr>';
-	}
-} else { # Pas de commentaires
-	echo '<tr><td colspan="5" class="center">'.L_NO_COMMENT.'</td></tr>';
-}
-?>
-</tbody>
-</table>
 </div>
-<p>
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<?php echo $selector2 ?><input class="red" type="submit" name="btn_ok2" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection2', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')"/>
-</p>
-</form>
+<div class="scrollable-table">
+	<table class="full-width">
+		<thead>
+			<tr>
+				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
+				<th class="datetime"><?php echo L_COMMENTS_LIST_DATE ?></th>
+				<th class="message"><?php echo L_COMMENTS_LIST_MESSAGE ?></th>
+				<th class="author"><?php echo L_COMMENTS_LIST_AUTHOR ?></th>
+				<th class="action"><?php echo L_COMMENTS_LIST_ACTION ?></th>
+			</tr>
+		</thead>
+		<tbody>
 
+		<?php
+		# On va récupérer les commentaires
+		$plxAdmin->getPage();
+		$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
+		$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
+		if($coms) {
+			$num=0;
+			while($plxAdmin->plxRecord_coms->loop()) { # On boucle
+				$artId = $plxAdmin->plxRecord_coms->f('article');
+				$status = $plxAdmin->plxRecord_coms->f('status');
+				$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
+				$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
+				if($_SESSION['selCom']=='all') {
+					$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
+				}
+				# On génère notre ligne
+				echo '<tr class="line-'.(++$num%2).' top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
+				echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
+				echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
+				echo '<td>'.$content.'&nbsp;</td>';
+				echo '<td>'.plxUtils::strCut($plxAdmin->plxRecord_coms->f('author'),30).'&nbsp;</td>';
+				echo '<td class="action">';
+				echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a> | ';
+				echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a> | ';
+				echo '<a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a>';
+				echo '</td></tr>';
+			}
+		} else { # Pas de commentaires
+			echo '<tr><td colspan="5" class="center">'.L_NO_COMMENT.'</td></tr>';
+		}
+		?>
+		</tbody>
+	</table>
+</div>
+
+</form>
+<p>
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
@@ -217,11 +214,11 @@ if($coms) { # Si on a des commentaires (hors page)
 		echo '<span class="p_last"><a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">'.L_PAGINATION_LAST.'</a></span>';
 }
 ?>
-<br />
+</p>
 
 <?php if(!empty($plxAdmin->aConf['clef'])) : ?>
 
-<ul class="list-unstyled">
+<ul class="unstyled-list">
 	<li><?php echo L_COMMENTS_PRIVATE_FEEDS ?> :</li>
 	<?php $urlp_hl = $plxAdmin->racine.'feed.php?admin'.$plxAdmin->aConf['clef'].'/commentaires/hors-ligne'; ?>
 	<li><a href="<?php echo $urlp_hl ?>" title="<?php echo L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?php echo L_COMMENT_OFFLINE_FEEDS ?></a></li>

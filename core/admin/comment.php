@@ -123,7 +123,7 @@ include(dirname(__FILE__).'/top.php');
 	<p class="back"><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
 <?php endif; ?>
 
-<ul class="list-unstyled">
+<ul class="unstyled-list">
 	<li><?php echo L_COMMENT_IP_FIELD ?> : <?php echo $plxAdmin->plxRecord_coms->f('ip'); ?></li>
 	<li><?php echo L_COMMENT_STATUS_FIELD ?> : <?php echo $statut; ?></li>
 	<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong><?php echo $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
@@ -134,53 +134,61 @@ include(dirname(__FILE__).'/top.php');
 		<?php plxUtils::printInput('comId',$_GET['c'],'hidden'); ?>
 
 		<label><?php echo L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
-		<ul class="list-inline">
-			<li><?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin'); ?></li>
-			<li><?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin'); ?></li>
-			<li><?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin'); ?></li>
-			<li><?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin'); ?></li>
-			<li><a href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a></li>
-		</ul>
+		<div class="inline-form">
+			<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin'); ?>
+			<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin'); ?>
+			<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin'); ?>
+			<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin'); ?>
+			<a href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
+		</div>
 
+		<div class="basic-form">
 		<label for="id_author"><?php echo L_COMMENT_AUTHOR_FIELD ?> :</label>
 		<?php plxUtils::printInput('author',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('author')),'text','40-255') ?>
-		<?php
-			
-		?>
-		<label for="id_site">
+		</div>
+
+		<div class="basic-form">
+			<label for="id_site">
 			<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;'; 
 			$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
 			if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>'; 
 			?>
-		</label>
-		<?php
+			</label>
+			<?php
 			plxUtils::printInput('site',$site,'text','40-255');
-		?>
+			?>
+		</div>
+
+		<div class="basic-form">
 		<label for="id_mail"><?php echo L_COMMENT_EMAIL_FIELD ?> : 
 			<?php if($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
 			<?php echo '<a href="mailto:'.$plxAdmin->plxRecord_coms->f('mail').'">'.$plxAdmin->plxRecord_coms->f('mail').'</a>' ?>
 			<?php endif; ?>
 		</label>
 		<?php plxUtils::printInput('mail',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')),'text','40-255') ?>
-		<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
-		<?php if($plxAdmin->plxRecord_coms->f('type') == 'admin') : ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content')), 60, 7,false,'full-width'); ?>
-		<?php else : ?>
-			<?php plxUtils::printArea('content',$plxAdmin->plxRecord_coms->f('content'), 60, 7,false,'full-width'); ?>
-		<?php endif; ?>
-		<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
+		</div>
 
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<ul class="list-inline">
-			<li><input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/></li>
-			<?php if($com['comStatus']=='') : ?>
-			<li><input class="orange" type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" /></li>
-			<li><input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" /></li>
+		<div class="basic-form">
+			<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
+			<?php if($plxAdmin->plxRecord_coms->f('type') == 'admin') : ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content')), 60, 7,false,'full-width'); ?>
 			<?php else : ?>
-			<li><input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" /></li>
+				<?php plxUtils::printArea('content',$plxAdmin->plxRecord_coms->f('content'), 60, 7,false,'full-width'); ?>
 			<?php endif; ?>
-			<li><input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" /></li>
-		</ul>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
+		</div>
+
+		<div class="inline-form">
+			<?php echo plxToken::getTokenPostMethod() ?>
+			<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+			<?php if($com['comStatus']=='') : ?>
+			<input class="orange" type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
+			<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
+			<?php else : ?>
+			<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
+			<?php endif; ?>
+			<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
+		</div>
 	</fieldset>
 </form>
 
