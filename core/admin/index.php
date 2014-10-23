@@ -148,7 +148,7 @@ include(dirname(__FILE__).'/top.php');
 				<th class="date"><?php echo L_ARTICLE_LIST_DATE ?></th>
 				<th class="title"><?php echo L_ARTICLE_LIST_TITLE ?></th>
 				<th class="category">
-					<div class="inline-form">
+					<div class="inline-form no-margin">
 						<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 						<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 					</div>
