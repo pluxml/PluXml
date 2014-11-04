@@ -116,18 +116,9 @@ include(dirname(__FILE__).'/top.php');
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
-<h2><?php echo L_ARTICLES_LIST ?></h2>
-
 <form action="index.php" method="post" id="form_articles">
 
-<ul class="inline-list">
-	<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
-	<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
-	<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-	<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
-</ul>
-
-<div class="inline-form">
+<div class="inline-form action-bar">
 	<?php
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
 		plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection1');
@@ -137,8 +128,15 @@ include(dirname(__FILE__).'/top.php');
 	<?php plxUtils::printInput('page',1,'hidden'); ?>
 	<input type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
 	<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
+	<ul class="menu">
+		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+	</ul>
 </div>
 
+<h2><?php echo L_ARTICLES_LIST ?></h2>
 
 <div class="scrollable-table">
 	<table class="full-width">
