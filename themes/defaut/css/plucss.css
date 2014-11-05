@@ -112,6 +112,14 @@ h6 {
 	line-height: 1;
 	margin: 2rem 0 1rem 0;
 }
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+	height: auto;
+}
 h1,
 .h1 {
 	font-size: 2.2rem;
@@ -420,6 +428,7 @@ img {
 }
 .menu.vertical li {
 	display: block;
+	line-height: 1.8;
 	margin-left: 0;
 }
 .menu.expanded li {
@@ -430,7 +439,10 @@ img {
 }
 .menu.expanded li a {
 	display: block;
-	padding: .3rem .6rem;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	padding-left: .6rem;
+	padding-right: .6rem;
 }
 .menu.expanded li a:hover {
 	text-decoration: none;
@@ -540,8 +552,9 @@ img {
 .button {
 	background-color: #4682b4;
 	color: #fff;
-	display: inline-block;
-	padding: .3rem .6rem;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	padding: .5rem .6rem;
 }
 .button:hover {
 	background-color: #3a6c96;
@@ -586,9 +599,12 @@ img {
 	background-color: #4682b4;
 	color: #fff;
 	display: block;
-	min-width: 1.7rem;
+	min-width: 2.2rem;
 	overflow: hidden;
-	padding: .3rem 0;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	padding-left: .6rem;
+	padding-right: .6rem;
 	position: relative;
 	text-align: center;
 }
@@ -613,6 +629,7 @@ img {
 }
 .menu.vertical .badge {
 	float: right;
+	margin-top: .43rem;
 }
 .label {
 	padding: .3rem .6rem;
