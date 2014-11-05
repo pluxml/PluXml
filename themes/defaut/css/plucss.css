@@ -246,9 +246,22 @@ input,
 select,
 textarea {
 	border: 1px solid #bbb;
+	height: 2.2rem;
 	outline: none;
-	padding: .25rem .6rem;
+	padding-left: .6rem;
+	padding-right: .6rem;
 	width: 100%;
+}
+textarea {
+	height: auto;
+	overflow: auto;
+}
+select {
+	padding-left: .3rem;
+	padding-right: 0;
+}
+optgroup {
+	font-weight: bold;
 }
 input:focus,
 select:focus,
@@ -290,21 +303,13 @@ input::-moz-focus-inner {
 }
 input[type="checkbox"],
 input[type="radio"] {
+	height: auto;
 	padding: 0;
 	width: auto;
 }
 input[type="file"] {
 	border: none;
 	padding: 0;
-}
-select {
-	padding: .3rem;
-}
-textarea {
-	overflow: auto;
-}
-optgroup {
-	font-weight: bold;
 }
 button.blue,
 input[type="button"].blue,
