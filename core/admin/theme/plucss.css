@@ -209,10 +209,20 @@ table {
 td,
 th {
 	border: 1px solid #bbb;
-	padding: .275rem .6rem;
+	height: 2.2rem;
+	padding-left: .6rem;
+	padding-right: .6rem;
+}
+tfoot,
+thead {
+	background-color: #ddd;
 }
 tr:hover {
-	background-color: #ffffe0;
+	background-color: #fff8dc;
+}
+tfoot tr:hover,
+thead tr:hover {
+	background-color: inherit;
 }
 .scrollable-table {
 	overflow: auto;
