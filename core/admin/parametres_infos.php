@@ -16,11 +16,15 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 include(dirname(__FILE__).'/top.php');
 ?>
 
+<div class="inline-form action-bar">
+	<p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong><br />
+<?php echo $plxAdmin->checkMaj(); ?></p>
+</div>
+
 <h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
 
 <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
-<p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong><br />
-<?php echo $plxAdmin->checkMaj(); ?></p>
+
 <p><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $plxAdmin->version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></p>
 <p><?php echo L_INFO_PHP_VERSION; ?> : <?php echo phpversion(); ?></p>
 <ul class="unstyled-list">

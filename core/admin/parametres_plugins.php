@@ -127,15 +127,21 @@ include(dirname(__FILE__).'/top.php');
 
 ?>
 
+<form action="parametres_plugins.php" method="post" id="form_plugins">
+
+<div class="inline-form action-bar">
+	<?php echo plxToken::getTokenPostMethod() ?>
+	<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
+	<input class="red" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<input class="green" type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
+	<ul class="menu">
+		<?php echo implode($breadcrumbs); ?>
+	</ul>
+</div>
+
 <h2><?php echo L_PLUGINS_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
-
-<ul class="menu">
-	<?php echo implode($breadcrumbs); ?>
-</ul>
-<br />
-<form action="parametres_plugins.php" method="post" id="form_plugins">
 
 <div class="scrollable-table">
 	<table class="full-width">
@@ -159,14 +165,6 @@ include(dirname(__FILE__).'/top.php');
 <?php if($_SESSION['selPlugins']=='1') : ?>
 <?php endif; ?>
 
-<br />
-
-<div class="inline-form">
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>&nbsp;
-	<input class="red" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-</div>
-<input type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
 </form>
 
 <?php

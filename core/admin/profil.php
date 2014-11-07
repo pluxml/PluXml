@@ -34,15 +34,18 @@ include(dirname(__FILE__).'/top.php');
 $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 ?>
 
+<form action="profil.php" method="post" id="form_profil">
+
+<div class="inline-form action-bar">
+	<input class="green" type="submit" name="profil" value="<?php echo L_PROFIL_UPDATE ?>" />
+	<p><label><?php echo L_PROFIL_LOGIN ?>&nbsp;:&nbsp;<strong><?php echo plxUtils::strCheck($_profil['login']) ?></strong></label></p>
+</div>
+
 <h2><?php echo L_PROFIL_EDIT_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminProfilTop')) # Hook Plugins ?>
 
-<form action="profil.php" method="post" id="form_profil">
 	<fieldset>
-		<div class="inline-form">
-			<label><?php echo L_PROFIL_LOGIN ?>&nbsp;:&nbsp;<strong><?php echo plxUtils::strCheck($_profil['login']) ?></strong></label></p>
-		</div>
 		<div class="basic-form">
 			<label for="id_name"><?php echo L_PROFIL_USER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('name', plxUtils::strCheck($_profil['name']), 'text', '20-255') ?>
@@ -62,7 +65,6 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminProfil')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="button update" type="submit" name="profil" value="<?php echo L_PROFIL_UPDATE ?>" />
 </form>
 
 <h3><?php echo L_PROFIL_CHANGE_PASSWORD ?></h3>
@@ -78,7 +80,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		</div>
 	</fieldset>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="button update" type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
+	<input class="red" type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
 </form>
 
 <?php

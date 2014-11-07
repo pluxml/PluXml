@@ -47,13 +47,18 @@ if ($array = $files->query('/^categorie(-[a-z0-9-_]+)?.php$/')) {
 include(dirname(__FILE__).'/top.php');
 ?>
 
+<form action="categorie.php" method="post" id="form_category">
+
+<div class="inline-form action-bar">
+	<?php echo plxToken::getTokenPostMethod() ?>
+	<input class="green" type="submit" value="<?php echo L_EDITCAT_UPDATE ?>"/>
+	<p><a href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
+</div>
+
 <h2><?php echo L_EDITCAT_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aCats[$id]['name']); ?>"</h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCategoryTop')) # Hook Plugins ?>
 
-<p class="back"><a href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
-
-<form action="categorie.php" method="post" id="form_category">
 	<fieldset>
 		<div class="basic-form">
 			<?php plxUtils::printInput('id', $id, 'hidden');?>
@@ -82,8 +87,6 @@ include(dirname(__FILE__).'/top.php');
 		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCategory')) # Hook Plugins ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="button update" type="submit" value="<?php echo L_EDITCAT_UPDATE ?>"/>
 </form>
 
 <?php

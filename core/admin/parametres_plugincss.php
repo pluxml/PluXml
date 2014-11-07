@@ -48,12 +48,17 @@ $frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_con
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 
-# Affichage des données
-echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>';
 ?>
-<h2><?php echo plxUtils::strCheck($plugin) ?></h2>
 
 <form action="parametres_plugincss.php?p=<?php echo urlencode($plugin) ?>" method="post" id="form_file">
+
+<div class="inline-form action-bar">
+	<input  class="green" name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+	<?php echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
+</div>
+
+<h2><?php echo plxUtils::strCheck($plugin) ?></h2>
+
 	<fieldset>
 		<div class="basic-form">
 			<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
@@ -65,7 +70,6 @@ echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>';
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
-		<input  class="button update" name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</fieldset>
 </form>
 <?php

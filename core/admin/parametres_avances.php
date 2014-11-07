@@ -26,11 +26,18 @@ if(!empty($_POST)) {
 include(dirname(__FILE__).'/top.php');
 ?>
 
+<form action="parametres_avances.php" method="post" id="form_settings">
+
+<div class="inline-form action-bar">
+	<?php echo plxToken::getTokenPostMethod() ?>
+	<input class="green" type="submit" value="<?php echo L_CONFIG_ADVANCED_UPDATE ?>" />
+	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+</div>
+
 <h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
 
-<form action="parametres_avances.php" method="post" id="form_settings">
 	<fieldset>
 		<div class="basic-form">
 			<label for="id_urlrewriting"><?php echo L_CONFIG_ADVANCED_URL_REWRITE ?>&nbsp;:</label>
@@ -105,8 +112,6 @@ include(dirname(__FILE__).'/top.php');
 		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="button update" type="submit" value="<?php echo L_CONFIG_ADVANCED_UPDATE ?>" />
 </form>
 
 <?php

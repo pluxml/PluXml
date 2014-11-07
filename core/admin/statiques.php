@@ -42,15 +42,21 @@ function checkBox(cb) {
 	}
 }
 </script>
+
+<form class="horizontal-form" action="statiques.php" method="post" id="form_statics">
+
+<div class="inline-form action-bar">
+	<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
+	<input class="no-margin red" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<?php echo plxToken::getTokenPostMethod() ?>
+	<input class="green" type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
+	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+</div>
+
 <h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
 
-<form class="horizontal-form" action="statiques.php" method="post" id="form_statics">
-<div class="inline-form">
-	<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-	<input class="no-margin red" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-</div>
 <div class="scrollable-table">
 <table class="full-width">
 	<thead>
@@ -141,12 +147,6 @@ function checkBox(cb) {
 </table>
 </div>
 
-<br />
-
-<div class="basic-form">
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
-</div>
 </form>
 
 <?php

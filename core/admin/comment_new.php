@@ -104,16 +104,20 @@ if(!empty($_POST) AND !empty($_POST['content'])) {
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 ?>
+<form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
+
+<div class="inline-form action-bar">
+	<input class="green" type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+	<?php if(!empty($_GET['a'])) : ?>
+	<p><a href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+	<?php else : ?>
+	<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
+	<?php endif; ?>
+</div>
 
 <h2><?php echo L_CREATE_NEW_COMMENT ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
-
-<?php if(!empty($_GET['a'])) : ?>
-	<p class="back"><a href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
-<?php else : ?>
-	<p class="back"><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-<?php endif; ?>
 
 <h3 class="no-margin"><?php echo L_COMMENTS_ARTICLE_SCOPE ?> &laquo;<?php echo plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
 
@@ -124,16 +128,12 @@ include(dirname(__FILE__).'/top.php');
 	<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
 </ul>
 
-<form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 	<fieldset>
 		<div class="basic-form">
 			<?php echo plxToken::getTokenPostMethod() ?>
 			<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
 			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
-		</div>
-		<div class="basic-form">
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
-			<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
 		</div>
 	</fieldset>
 </form>

@@ -34,15 +34,20 @@ $aProfils = array(
 include(dirname(__FILE__).'/top.php');
 ?>
 
+<form action="parametres_users.php" method="post" id="form_users">
+
+<div class="inline-form action-bar">
+	<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
+	<input class="red" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<?php echo plxToken::getTokenPostMethod() ?>
+	<input class="green" type="submit" name="update" value="<?php echo L_CONFIG_USERS_UPDATE ?>" />
+	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+</div>
+
 <h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
 
-<form action="parametres_users.php" method="post" id="form_users">
-	<div class="inline-form">
-		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input class="no-margin red" type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-	</div>
 	<div class="scrollable-table">
 	<table class="full-width">
 	<thead>
@@ -121,11 +126,6 @@ include(dirname(__FILE__).'/top.php');
 	</tbody>
 	</table>
 	</div>
-
-	<br />
-
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<input type="submit" name="update" value="<?php echo L_CONFIG_USERS_UPDATE ?>" />
 
 </form>
 

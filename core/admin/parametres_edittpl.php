@@ -73,18 +73,19 @@ if(file_exists($filename) AND filesize($filename) > 0) {
 include(dirname(__FILE__).'/top.php');
 ?>
 
-<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-
-<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')) # Hook Plugins ?>
-
-<form action="parametres_edittpl.php" method="post" id="form_select">
-	<div class="inline-form">
+<div class="inline-form action-bar">
+	<form action="parametres_edittpl.php" method="post" id="form_select">
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<label for="id_template"><?php echo L_CONFIG_EDITTPL_SELECT_FILE ?></label>
 		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
-		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
-	</div>
-</form>
+		<input class="green" name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
+	</form>
+	<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+</div>
+
+<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
+
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')) # Hook Plugins ?>
 
 <form action="parametres_edittpl.php" method="post" id="form_file">
 	<fieldset>
@@ -94,7 +95,7 @@ include(dirname(__FILE__).'/top.php');
 			<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 			<?php echo plxToken::getTokenPostMethod() ?>
-			<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+			<input class="green" name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 		</div>
 	</fieldset>
 </form>

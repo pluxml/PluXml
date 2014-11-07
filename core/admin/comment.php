@@ -113,15 +113,28 @@ include(dirname(__FILE__).'/top.php');
 
 ?>
 
+<form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
+
+<div class="inline-form action-bar">
+	<?php echo plxToken::getTokenPostMethod() ?>
+	<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+	<?php if($com['comStatus']=='') : ?>
+	<input class="orange" type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
+	<input class="green" type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
+	<?php else : ?>
+	<input class="green" type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
+	<?php endif; ?>
+	<input class="green" type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
+	<?php if(!empty($_GET['a'])) : ?>
+	<p><a href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+	<?php else : ?>
+	<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
+	<?php endif; ?>
+</div>
+
 <h2><?php echo L_COMMENT_EDITING ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
-
-<?php if(!empty($_GET['a'])) : ?>
-	<p class="back"><a href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
-<?php else : ?>
-	<p class="back"><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-<?php endif; ?>
 
 <ul class="unstyled-list">
 	<li><?php echo L_COMMENT_IP_FIELD ?> : <?php echo $plxAdmin->plxRecord_coms->f('ip'); ?></li>
@@ -129,7 +142,6 @@ include(dirname(__FILE__).'/top.php');
 	<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong><?php echo $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
 	<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
 </ul>
-<form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
 	<fieldset>
 		<?php plxUtils::printInput('comId',$_GET['c'],'hidden'); ?>
 
@@ -178,17 +190,6 @@ include(dirname(__FILE__).'/top.php');
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
 		</div>
 
-		<div class="inline-form">
-			<?php echo plxToken::getTokenPostMethod() ?>
-			<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
-			<?php if($com['comStatus']=='') : ?>
-			<input class="orange" type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
-			<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
-			<?php else : ?>
-			<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
-			<?php endif; ?>
-			<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
-		</div>
 	</fieldset>
 </form>
 

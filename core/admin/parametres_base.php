@@ -27,11 +27,17 @@ if(!empty($_POST)) {
 include(dirname(__FILE__).'/top.php');
 ?>
 
+<form action="parametres_base.php" method="post" id="form_settings">
+
+<div class="inline-form action-bar">
+	<input class="green" type="submit" value="<?php echo L_CONFIG_BASE_UPDATE ?>" />
+	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+</div>
+
 <h2><?php echo L_CONFIG_BASE_CONFIG_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop')) # Hook Plugins ?>
 
-<form action="parametres_base.php" method="post" id="form_settings">
 	<fieldset class="config">
 		<div class="basic-form">
 			<label for="id_title"><?php echo L_CONFIG_BASE_SITE_TITLE ?>&nbsp;:</label>
@@ -72,7 +78,6 @@ include(dirname(__FILE__).'/top.php');
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="button update" type="submit" value="<?php echo L_CONFIG_BASE_UPDATE ?>" />
 </form>
 
 <?php

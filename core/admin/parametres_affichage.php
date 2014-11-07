@@ -57,13 +57,17 @@ if(!is_numeric($plxAdmin->aConf['miniatures_h'])) $plxAdmin->aConf['miniatures_h
 include(dirname(__FILE__).'/top.php');
 ?>
 
+<form action="parametres_affichage.php" method="post" id="form_settings">
+
+<div class="inline-form action-bar">
+	<input class="green" type="submit" value="<?php echo L_CONFIG_VIEW_UPDATE ?>" />
+	<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+</div>
+
 <h2><?php echo L_CONFIG_VIEW_FIELD ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayTop')) # Hook Plugins ?>
 
-<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
-
-<form action="parametres_affichage.php" method="post" id="form_settings">
 	<fieldset class="config">
 		<div class="basic-form">
 			<label for="id_style"><?php echo L_CONFIG_VIEW_SKIN_SELECT ?>&nbsp;:&nbsp;</label>
@@ -140,7 +144,6 @@ include(dirname(__FILE__).'/top.php');
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplay')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="button update" type="submit" value="<?php echo L_CONFIG_VIEW_UPDATE ?>" />
 </form>
 
 <?php

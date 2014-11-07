@@ -130,12 +130,15 @@ $selector2=selector($comSel, 'id_selection2');
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
 <form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
-<ul class="inline-list">
-	<?php echo implode($breadcrumbs); ?>
-</ul>
-<div class="basic-form">
-	<?php echo $selector1 ?><input class="no-margin red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+
+<div class="inline-form action-bar">
+	<?php echo $selector1 ?>
+	<input class="red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<ul class="inline-list">
+		<?php echo implode($breadcrumbs); ?>
+	</ul>
 </div>
+
 <div class="scrollable-table">
 	<table class="full-width">
 		<thead>

@@ -54,13 +54,20 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 include(dirname(__FILE__).'/top.php');
 ?>
 
-<h2><?php echo L_STATIC_TITLE ?> "<?php echo plxUtils::strCheck($title); ?>"</h2>
+<form action="statique.php" method="post" id="form_static">
 
-<p><a href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
+<div class="inline-form action-bar">
+	<input class="green" type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
+	<a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
+	<p>
+		<a href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a>
+	</p>
+</div>
+
+<h2><?php echo L_STATIC_TITLE ?> "<?php echo plxUtils::strCheck($title); ?>"</h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
 
-<form action="statique.php" method="post" id="form_static">
 	<fieldset>
 		<div class="basic-form">
 			<?php plxUtils::printInput('id', $id, 'hidden');?>
@@ -68,7 +75,6 @@ include(dirname(__FILE__).'/top.php');
 			<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
 			<?php if($active) : ?>
 		</div>
-		<p><a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a></p>
 		<?php endif; ?>
 		<div class="basic-form">
 			<label for="id_template"><?php echo L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
@@ -89,7 +95,7 @@ include(dirname(__FILE__).'/top.php');
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>
+	
 </form>
 
 <?php
