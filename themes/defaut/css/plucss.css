@@ -495,7 +495,10 @@ img {
 	}
 	.responsive-menu ul li a {
 		display: block;
-		padding: .3rem .6rem;
+		height: 2.2rem;
+		line-height: 2.2rem;
+		padding-left: .6rem;
+		padding-right: .6rem;
 	}
 	.responsive-menu ul li a:hover {
 		text-decoration: none;
