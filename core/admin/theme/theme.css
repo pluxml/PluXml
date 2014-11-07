@@ -7,11 +7,11 @@
 .auth {
 	margin-top: 10%;
 	overflow: hidden;
-	border: #bbb solid 1px;
+	background: #ddd;
 }
 .auth .error {
-	background-color: #fce4e2;
-	color: #e43d29;
+	background-color: #e43d29;
+	color: #eee;
 	padding: .3rem .6rem;
 	text-align: center;
 }
