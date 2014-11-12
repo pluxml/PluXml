@@ -135,7 +135,7 @@ include(dirname(__FILE__).'/top.php');
 		<div class="basic-form">
 			<label for="id_feed_chapo"><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE ?>&nbsp;:</label>
 			<?php plxUtils::printSelect('feed_chapo',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['feed_chapo']);?>
-			<a class="help" title="<?php echo L_CONFIG_VIEW_FEEDS_HEADLINE_HELP ?>"><img src="theme/images/help.gif" alt="Help"></a>
+			<a class="help" title="<?php echo L_CONFIG_VIEW_FEEDS_HEADLINE_HELP ?>"><img src="theme/images/help.png" alt="Help"></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_content"><?php echo L_CONFIG_VIEW_FEEDS_FOOTER ?>&nbsp;:</label>
