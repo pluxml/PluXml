@@ -79,11 +79,8 @@ body {
 .aside h3 {
 	font-size: 1em;
 	font-weight: bold;
-	margin-top: 4rem;
-	text-transform: uppercase;
-}
-.aside h3:first-child {
 	margin-top: 2rem;
+	text-transform: uppercase;
 }
 .aside li.tag {
 	margin-left: 0;
