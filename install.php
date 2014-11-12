@@ -264,7 +264,7 @@ plxUtils::cleanHeaders();
 
 	</aside>
 
-	<section class="section col sml-12 med-9 lrg-10">
+	<section class="section col sml-12 med-9 lrg-10" style="margin-top: 0">
 
 		<header>
 
