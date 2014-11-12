@@ -95,7 +95,7 @@ include(dirname(__FILE__).'/top.php');
 			<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 			<?php echo plxToken::getTokenPostMethod() ?>
-			<input class="green" name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+			<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 		</div>
 	</fieldset>
 </form>

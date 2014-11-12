@@ -133,11 +133,11 @@ function toggle_divs(){
 
 <div class="inline-form action-bar">
 	<?php plxUtils::printSelect('selection[]', $selectionList, '', false, 'no-margin', 'id_selection1') ?>
-	<input class="red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	<?php if(!empty($_SESSION['folder'])) : ?>
-	<input class="red" type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
+	<input type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
 	<?php endif; ?>
-	<input class="green" type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
+	<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 	<p>
 		<?php echo L_MEDIAS_DIRECTORY.' : /'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']) ?>
 	</p>
@@ -226,7 +226,7 @@ function toggle_divs(){
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
 			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
-			<input class="green" type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
 		</div>
 
 		<div class="scrollable-table">

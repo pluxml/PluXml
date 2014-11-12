@@ -37,7 +37,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 <form action="profil.php" method="post" id="form_profil">
 
 <div class="inline-form action-bar">
-	<input class="green" type="submit" name="profil" value="<?php echo L_PROFIL_UPDATE ?>" />
+	<input type="submit" name="profil" value="<?php echo L_PROFIL_UPDATE ?>" />
 	<p><label><?php echo L_PROFIL_LOGIN ?>&nbsp;:&nbsp;<strong><?php echo plxUtils::strCheck($_profil['login']) ?></strong></label></p>
 </div>
 
@@ -80,7 +80,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		</div>
 	</fieldset>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="red" type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
+	<input type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
 </form>
 
 <?php

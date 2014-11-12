@@ -44,7 +44,7 @@ include(dirname(__FILE__).'/top.php');
 
 <div class="inline-form action-bar">
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="green" type="submit" value="<?php echo L_USER_UPDATE ?>"/>
+	<input type="submit" value="<?php echo L_USER_UPDATE ?>"/>
 	<p><a href="parametres_users.php"><?php echo L_USER_BACK_TO_PAGE ?></a></p>
 </div>
 

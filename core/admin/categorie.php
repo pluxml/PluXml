@@ -51,7 +51,7 @@ include(dirname(__FILE__).'/top.php');
 
 <div class="inline-form action-bar">
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="green" type="submit" value="<?php echo L_EDITCAT_UPDATE ?>"/>
+	<input type="submit" value="<?php echo L_EDITCAT_UPDATE ?>"/>
 	<p><a href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
 </div>
 

@@ -30,7 +30,7 @@ include(dirname(__FILE__).'/top.php');
 
 <div class="inline-form action-bar">
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="green" type="submit" value="<?php echo L_CONFIG_ADVANCED_UPDATE ?>" />
+	<input type="submit" value="<?php echo L_CONFIG_ADVANCED_UPDATE ?>" />
 	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 </div>
 

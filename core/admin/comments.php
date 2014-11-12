@@ -133,7 +133,7 @@ $selector2=selector($comSel, 'id_selection2');
 
 <div class="inline-form action-bar">
 	<?php echo $selector1 ?>
-	<input class="red" type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	<ul class="inline-list">
 		<?php echo implode($breadcrumbs); ?>
 	</ul>

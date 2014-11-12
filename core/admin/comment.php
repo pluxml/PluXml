@@ -117,14 +117,14 @@ include(dirname(__FILE__).'/top.php');
 
 <div class="inline-form action-bar">
 	<?php echo plxToken::getTokenPostMethod() ?>
-	<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+	<input type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
 	<?php if($com['comStatus']=='') : ?>
-	<input class="orange" type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
-	<input class="green" type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
+	<input type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
+	<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
 	<?php else : ?>
-	<input class="green" type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
+	<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
 	<?php endif; ?>
-	<input class="green" type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
+	<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
 	<?php if(!empty($_GET['a'])) : ?>
 	<p><a href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 	<?php else : ?>

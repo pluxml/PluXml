@@ -57,7 +57,7 @@ include(dirname(__FILE__).'/top.php');
 <form action="statique.php" method="post" id="form_static">
 
 <div class="inline-form action-bar">
-	<input class="green" type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
+	<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
 	<a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
 	<p>
 		<a href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a>

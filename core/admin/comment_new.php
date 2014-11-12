@@ -107,7 +107,7 @@ include(dirname(__FILE__).'/top.php');
 <form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 
 <div class="inline-form action-bar">
-	<input class="green" type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+	<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
 	<?php if(!empty($_GET['a'])) : ?>
 	<p><a href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 	<?php else : ?>
