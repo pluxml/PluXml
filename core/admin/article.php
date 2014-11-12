@@ -360,7 +360,7 @@ $cat_id='000';
 				<?php endif; ?>
 
 				<label for="id_tags">
-					<?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a title="<?php echo L_ARTICLE_TAGS_FIELD_TITLE ?>">Help</a>
+					<?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a title="<?php echo L_ARTICLE_TAGS_FIELD_TITLE ?>"><img src="theme/images/help.gif" alt="Help"></a>
 				</label>
 				<div class="inline-form">
 					<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
@@ -403,7 +403,7 @@ $cat_id='000';
 
 				<div class="basic-form">
 					<label for="id_url">
-						<?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a title="<?php echo L_ARTICLE_URL_FIELD_TITLE ?>">Help</a>
+						<?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a title="<?php echo L_ARTICLE_URL_FIELD_TITLE ?>"><img src="theme/images/help.gif" alt="Help"></a>
 					</label>
 					<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
 				</div>
