@@ -8,16 +8,16 @@
 
 		<?php while($plxShow->plxMotor->plxRecord_coms->loop()): # On boucle sur les commentaires ?>
 
-		<div id="<?php $plxShow->comId(); ?>">
+		<div id="<?php $plxShow->comId(); ?>" class="comment">
 			<p>
 				<small>
-					<a href="<?php $plxShow->ComUrl(); ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a>
+					<a class="nbcom" href="<?php $plxShow->ComUrl(); ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a>&nbsp;
 					<time datetime="<?php $plxShow->comDate('#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php $plxShow->comDate('#day #num_day #month #num_year(4) - #hour:#minute'); ?></time> - 
 					<?php $plxShow->comAuthor('link'); ?>
 					<?php $plxShow->lang('SAID'); ?> :
 				</small>
 			</p>
-			<blockquote class="comment">
+			<blockquote>
 				<p class="content_com type-<?php $plxShow->comType(); ?>"><?php $plxShow->comContent(); ?></p>
 			</blockquote>
 		</div>
@@ -60,11 +60,11 @@
 			
 			<?php if($plxShow->plxMotor->aConf['capcha']): ?>
 
-			<div class="inline-form">
-			<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong></label>
-			<?php $plxShow->capchaQ(); ?> :
-			<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" />
-			<?php endif; ?>
+			<div class="basic-form">
+				<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong></label>
+				<?php $plxShow->capchaQ(); ?> :
+				<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" />
+				<?php endif; ?>
 			</div>
 			<input type="submit" value="<?php $plxShow->lang('SEND') ?>" />
 

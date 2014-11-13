@@ -5,10 +5,9 @@
 */
 
 body {
-	background-color: #222;
+	background-color: #fff;
 }
 .header {
-	background-color: #fff;
 	padding-bottom: 2rem;
 	padding-top: 2rem;
 }
@@ -17,13 +16,12 @@ body {
 }
 .nav {
 	background-color: #222;
-	overflow: hidden;
 }
 .nav .menu.expanded li:hover {
-	background-color: #444;
+	background-color: #555;
 }
 .nav a {
-	color: #fff;
+	color: #eee;
 }
 @media (max-width: 767px) {
 	.nav {
@@ -44,7 +42,7 @@ body {
 }
 .main {
 	background-color: #fff;
-	padding-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 .repertory {
 	margin-top: 2rem;
@@ -60,12 +58,48 @@ body {
 	color: #4682b4;
 	text-decoration: none;
 }
+.comment {
+    background-image: url('../img/user.png');
+    background-repeat: no-repeat;
+    margin-bottom: 2rem;
+    padding-left: 4rem;
+}
+.comment blockquote {
+	margin: 0;
+}
+.nbcom {
+	background-color: #4682b4;
+	color: #fff;
+	height: 1.25rem;
+	line-height: 1.25rem;
+	padding: .2rem .3rem;
+}
+.nbcom:hover {
+	background-color: #3a6c96;
+	color: #fff;
+	text-decoration: none;
+}
 .capcha-word {
     background-color: #ccc;
 }
 .article,
 .pagination {
 	margin-bottom: 4rem;
+}
+.article.static {
+	margin-bottom: 0;
+}
+.pagination a {
+	background-color: #4682b4;
+	color: #fff;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	padding: .5rem .6rem;
+}
+.pagination a:hover {
+	background-color: #3a6c96;
+	color: #fff;
+	text-decoration: none;
 }
 .aside {
 	padding-left: 3rem;
@@ -85,11 +119,15 @@ body {
 .aside li.tag {
 	margin-left: 0;
 }
-.footer {
-	padding: 1rem 0;
-	background-color: #222;
+.aside ul {
+	margin: 0;
 }
-.footer, 
-.footer a {
-	color: #fff;
+.footer {
+	border-top: 3px solid #444;
+	padding: 2rem 0;
+	text-align: center;
+}
+
+.footer p {
+	margin: 0;
 }

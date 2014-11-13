@@ -1,32 +1,24 @@
 <?php include(dirname(__FILE__) . '/header.php'); ?>
 
-	<main class="main" role="main">
+	<main class="main grid" role="main">
 
-		<div class="container">
+		<section class="col sml-12">
 
-			<div class="grid">
+			<article class="article static" role="article" id="static-page-<?php echo $plxShow->staticId(); ?>">
 
-				<section class="col sml-12">
+				<header>
+					<h1>
+						<?php $plxShow->staticTitle(); ?>
+					</h1>
+				</header>
 
-					<article class="article" role="article" id="static-page-<?php echo $plxShow->staticId(); ?>">
-
-						<header>
-							<h1>
-								<?php $plxShow->staticTitle(); ?>
-							</h1>
-						</header>
-
-						<section>
-							<?php $plxShow->staticContent(); ?>
-						</section>
-
-					</article>
-
+				<section>
+					<?php $plxShow->staticContent(); ?>
 				</section>
 
-			</div>
+			</article>
 
-		</div>
+		</section>
 
 	</main>
 
