@@ -132,18 +132,15 @@ function toggle_divs(){
 </script>
 
 <div class="inline-form action-bar">
+	<h2><?php echo L_MEDIAS_TITLE ?></h2>
+	<p><?php echo L_MEDIAS_DIRECTORY.' : /'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']) ?></p>	
 	<?php plxUtils::printSelect('selection[]', $selectionList, '', false, 'no-margin', 'id_selection1') ?>
 	<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	<?php if(!empty($_SESSION['folder'])) : ?>
 	<input type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
 	<?php endif; ?>
 	<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
-	<p>
-		<?php echo L_MEDIAS_DIRECTORY.' : /'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']) ?>
-	</p>
 </div>
-
-<h2><?php echo L_MEDIAS_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 

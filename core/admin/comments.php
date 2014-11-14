@@ -79,29 +79,29 @@ if(!empty($_GET['a'])) {
 	$comSelMotif = '/^[[:punct:]]?'.str_replace('_','',$_GET['a']).'.(.*).xml$/';
 	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments($comSelMotif);
-	echo '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
+	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
 elseif($comSel=='online') {
 	$comSelMotif = '/^[0-9]{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'online';
 	$nbComPagination=$plxAdmin->nbComments('online');
-	echo '<h2>'.L_COMMENTS_ONLINE_LIST.'</h2>';
+	$h2 = '<h2>'.L_COMMENTS_ONLINE_LIST.'</h2>';
 }
 elseif($comSel=='offline') {
 	$comSelMotif = '/^_[0-9]{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'offline';
 	$nbComPagination=$plxAdmin->nbComments('offline');
-	echo '<h2>'.L_COMMENTS_OFFLINE_LIST.'</h2>';
+	$h2 = '<h2>'.L_COMMENTS_OFFLINE_LIST.'</h2>';
 }
 elseif($comSel=='all') { // all
 	$comSelMotif = '/^[[:punct:]]?[0-9]{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments('all');
-	echo '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
+	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
 
 if($portee!='') {
-	echo '<h3>'.$portee.'</h3>';
+	$h3 = '<h3>'.$portee.'</h3>';
 }
 
 $breadcrumbs = array();
@@ -132,13 +132,17 @@ $selector2=selector($comSel, 'id_selection2');
 <form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
 <div class="inline-form action-bar">
+	<?php echo $h2 ?>
+	<ul class="menu">
+		<?php echo implode($breadcrumbs); ?>
+	</ul>	
 	<?php echo $selector1 ?>
 	<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-	<ul class="inline-list">
-		<?php echo implode($breadcrumbs); ?>
-	</ul>
+
 </div>
 
+<?php if(isset($h3)) echo $h3 ?>
+	
 <div class="scrollable-table">
 	<table class="full-width">
 		<thead>

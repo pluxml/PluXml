@@ -264,10 +264,15 @@ input,
 select,
 textarea {
 	border: 1px solid #bbb;
-	height: 2.2rem;
+	/*height: 2.2rem;*/
+	height: 2rem;
 	outline: none;
+	/*
 	padding-left: .6rem;
 	padding-right: .6rem;
+	*/
+	padding-left: .5rem;
+	padding-right: .5rem;
 	width: 100%;
 }
 textarea {
@@ -290,7 +295,8 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	background-color: #4682b4;
+	/*background-color: #4682b4;*/
+	background-color: #999;
 	border-color: transparent;
 	color: #fff;
 	cursor: pointer;
@@ -300,7 +306,8 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
-	background-color: #3a6c96;
+	/*background-color: #3a6c96;*/
+	background-color: #666;
 }
 button[disabled],
 input[disabled],
@@ -461,8 +468,11 @@ img {
 }
 .menu.expanded li.active a,
 .menu.expanded li.active:hover {
-	background-color: #4682b4;
+	/*background-color: #4682b4;
 	color: #fff;
+	*/
+	background-color: #fff;
+	color: #000;	
 }
 .responsive-menu label {
 	background-color: #444;

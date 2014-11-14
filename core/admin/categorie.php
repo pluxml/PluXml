@@ -50,12 +50,11 @@ include(dirname(__FILE__).'/top.php');
 <form action="categorie.php" method="post" id="form_category">
 
 <div class="inline-form action-bar">
+	<h2><?php echo L_EDITCAT_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aCats[$id]['name']); ?>"</h2>
+	<p><a href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
 	<?php echo plxToken::getTokenPostMethod() ?>
 	<input type="submit" value="<?php echo L_EDITCAT_UPDATE ?>"/>
-	<p><a href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
 </div>
-
-<h2><?php echo L_EDITCAT_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aCats[$id]['name']); ?>"</h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCategoryTop')) # Hook Plugins ?>
 

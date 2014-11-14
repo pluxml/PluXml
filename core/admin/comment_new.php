@@ -107,15 +107,14 @@ include(dirname(__FILE__).'/top.php');
 <form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 
 <div class="inline-form action-bar">
-	<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+	<h2><?php echo L_CREATE_NEW_COMMENT ?></h2>
 	<?php if(!empty($_GET['a'])) : ?>
 	<p><a href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 	<?php else : ?>
 	<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-	<?php endif; ?>
+	<?php endif; ?>	
+	<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
 </div>
-
-<h2><?php echo L_CREATE_NEW_COMMENT ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
 

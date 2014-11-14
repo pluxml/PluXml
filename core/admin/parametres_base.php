@@ -30,11 +30,9 @@ include(dirname(__FILE__).'/top.php');
 <form action="parametres_base.php" method="post" id="form_settings">
 
 <div class="inline-form action-bar">
+	<h2><?php echo L_CONFIG_BASE_CONFIG_TITLE ?></h2>
 	<input type="submit" value="<?php echo L_CONFIG_BASE_UPDATE ?>" />
-	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 </div>
-
-<h2><?php echo L_CONFIG_BASE_CONFIG_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop')) # Hook Plugins ?>
 

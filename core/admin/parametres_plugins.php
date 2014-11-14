@@ -130,16 +130,15 @@ include(dirname(__FILE__).'/top.php');
 <form action="parametres_plugins.php" method="post" id="form_plugins">
 
 <div class="inline-form action-bar">
+	<h2><?php echo L_PLUGINS_TITLE ?></h2>
+	<ul class="menu">
+		<?php echo implode($breadcrumbs); ?>
+	</ul>
 	<?php echo plxToken::getTokenPostMethod() ?>
 	<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
 	<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	<input type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
-	<ul class="menu">
-		<?php echo implode($breadcrumbs); ?>
-	</ul>
 </div>
-
-<h2><?php echo L_PLUGINS_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 

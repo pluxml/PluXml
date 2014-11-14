@@ -17,11 +17,10 @@ include(dirname(__FILE__).'/top.php');
 ?>
 
 <div class="inline-form action-bar">
+	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
 	<p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong><br />
-<?php echo $plxAdmin->checkMaj(); ?></p>
+	<?php echo $plxAdmin->checkMaj(); ?></p>
 </div>
-
-<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
 
 <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
 

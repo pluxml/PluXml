@@ -60,11 +60,10 @@ include(dirname(__FILE__).'/top.php');
 <form action="parametres_affichage.php" method="post" id="form_settings">
 
 <div class="inline-form action-bar">
+	<h2><?php echo L_CONFIG_VIEW_FIELD ?></h2>
 	<input type="submit" value="<?php echo L_CONFIG_VIEW_UPDATE ?>" />
 	<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 </div>
-
-<h2><?php echo L_CONFIG_VIEW_FIELD ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayTop')) # Hook Plugins ?>
 

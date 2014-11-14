@@ -41,16 +41,19 @@
                     <?php echo L_ADMIN_LOGOUT ?></a>
                 </li>
             </ul>
-            <ul class="unstyled-list">
+            <ul class="unstyled-list profil">
                 <li><h1 class="h4 no-margin site-name"><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></h1></li>
-                <li><strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
-                <em><?php if($_SESSION['profil']==PROFIL_ADMIN) echo L_PROFIL_ADMIN;
-                    elseif($_SESSION['profil']==PROFIL_MANAGER) echo L_PROFIL_MANAGER;
-                    elseif($_SESSION['profil']==PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
-                    elseif($_SESSION['profil']==PROFIL_EDITOR) echo L_PROFIL_EDITOR;
-                    else echo L_PROFIL_WRITER; ?>
-                </em></li>
-                <li><small><em><a class="version" title="PluXml" href="http://www.pluxml.org">Pluxml <?php echo $plxAdmin->aConf['version'] ?></a></em></small></li>
+                <li>
+					<strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
+					<em>
+						<?php if($_SESSION['profil']==PROFIL_ADMIN) echo L_PROFIL_ADMIN;
+						elseif($_SESSION['profil']==PROFIL_MANAGER) echo L_PROFIL_MANAGER;
+						elseif($_SESSION['profil']==PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
+						elseif($_SESSION['profil']==PROFIL_EDITOR) echo L_PROFIL_EDITOR;
+						else echo L_PROFIL_WRITER; ?>
+					</em>
+				</li>
+				<li><small><a class="version" title="PluXml" href="http://www.pluxml.org">Pluxml <?php echo $plxAdmin->aConf['version'] ?></a></small></li>				
             </ul>
         </header>
         <nav class="responsive-menu">
@@ -119,7 +122,7 @@
         </nav>
     </aside>
 
-    <section class="section col sml-12 med-9 lrg-10">
+    <section class="section col sml-12 med-10 lrg-10">
 
         <?php
         if(is_file(PLX_ROOT.'install.php')) echo L_WARNING_INSTALLATION_FILE;

@@ -116,8 +116,12 @@ include(dirname(__FILE__).'/top.php');
 <form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
 
 <div class="inline-form action-bar">
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<input type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+	<h2><?php echo L_COMMENT_EDITING ?></h2>
+	<?php if(!empty($_GET['a'])) : ?>
+	<p><a href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+	<?php else : ?>
+	<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
+	<?php endif; ?>	
 	<?php if($com['comStatus']=='') : ?>
 	<input type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
 	<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
@@ -125,14 +129,9 @@ include(dirname(__FILE__).'/top.php');
 	<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
 	<?php endif; ?>
 	<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
-	<?php if(!empty($_GET['a'])) : ?>
-	<p><a href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
-	<?php else : ?>
-	<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-	<?php endif; ?>
+	<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+	<?php echo plxToken::getTokenPostMethod() ?>	
 </div>
-
-<h2><?php echo L_COMMENT_EDITING ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
 

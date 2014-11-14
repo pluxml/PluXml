@@ -4,6 +4,32 @@
     Author URI:    http://www.pluxml.org
 */
 
+html {
+	font-size: 13px;
+}
+
+.action-bar h2 {
+	margin-top: 0;
+	margin-bottom: 0.6rem;
+}
+
+.action-bar p {
+	padding-bottom: 5px
+}
+
+.action-bar ul  {
+	padding-bottom: 5px;
+}
+
+.profil {
+	background-color: #4a4a4a;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #666;
+}
+
+
+/****/
+
 .auth {
 	margin-top: 10%;
 	overflow: hidden;
@@ -39,14 +65,25 @@ h1.site-name {
 	color: #eee;
 }
 .aside .header {
-	padding: 0 .5rem;
+/*	padding: 0 .5rem;*/
 }
+
+.aside .header .unstyled-list {
+	padding: 0 .5rem; /*sfi*/
+}
+
+.aside .header .unstyled-list li {
+	margin-top: 5px;
+}
+
 .aside .header li {
 	line-height: 1.2;
 }
+
 .aside .header .version {
 	color: #aaa;
 }
+
 .aside .menu.expanded .badge {
 	background-color: #e43d29;
 }
@@ -58,17 +95,21 @@ h1.site-name {
 }
 .section {
 	left: 16.6666%;
-	margin: 4.7rem 0 2rem 0;
+	/*margin: 4.7rem 0 2rem 0;*/
+	margin: 9rem 0 2rem 0;
 }
 .action-bar {
-	background-color: #e3e3e3;
+	/*background-color: #e3e3e3;*/
+	background-color: #ececec;
 	left: 16.6666%;
 	margin-left: -1rem;
-	padding: .5rem 1.2rem .2rem 1.2rem;
+	/*padding: .5rem 1.2rem .2rem 1.2rem;*/
+	padding: .5rem 1.2rem 1rem 1.2rem;
 	position: fixed;
 	top: 0;
 	width: 100%;
 	z-index: 9999;
+	border-bottom: 1px solid #ddd;
 }
 .action-bar p,
 .action-bar ul {

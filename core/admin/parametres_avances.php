@@ -29,12 +29,10 @@ include(dirname(__FILE__).'/top.php');
 <form action="parametres_avances.php" method="post" id="form_settings">
 
 <div class="inline-form action-bar">
+	<h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
 	<?php echo plxToken::getTokenPostMethod() ?>
 	<input type="submit" value="<?php echo L_CONFIG_ADVANCED_UPDATE ?>" />
-	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 </div>
-
-<h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
 

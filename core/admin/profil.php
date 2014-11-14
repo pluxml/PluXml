@@ -37,11 +37,10 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 <form action="profil.php" method="post" id="form_profil">
 
 <div class="inline-form action-bar">
-	<input type="submit" name="profil" value="<?php echo L_PROFIL_UPDATE ?>" />
+	<h2><?php echo L_PROFIL_EDIT_TITLE ?></h2>
 	<p><label><?php echo L_PROFIL_LOGIN ?>&nbsp;:&nbsp;<strong><?php echo plxUtils::strCheck($_profil['login']) ?></strong></label></p>
+	<input type="submit" name="profil" value="<?php echo L_PROFIL_UPDATE ?>" />
 </div>
-
-<h2><?php echo L_PROFIL_EDIT_TITLE ?></h2>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminProfilTop')) # Hook Plugins ?>
 
