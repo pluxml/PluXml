@@ -4,32 +4,6 @@
     Author URI:    http://www.pluxml.org
 */
 
-html {
-	font-size: 13px;
-}
-
-.action-bar h2 {
-	margin-top: 0;
-	margin-bottom: 0.6rem;
-}
-
-.action-bar p {
-	padding-bottom: 5px
-}
-
-.action-bar ul  {
-	padding-bottom: 5px;
-}
-
-.profil {
-	background-color: #4a4a4a;
-	border-top: 1px solid #666;
-	border-bottom: 1px solid #666;
-}
-
-
-/****/
-
 .auth {
 	margin-top: 10%;
 	overflow: hidden;
@@ -38,7 +12,7 @@ html {
 .auth .error {
 	background-color: #e43d29;
 	color: #eee;
-	padding: .3rem .6rem;
+	padding: .4rem;
 	text-align: center;
 }
 .auth input[type="password"],
@@ -56,36 +30,30 @@ html {
 	position: fixed;
 	top: 0;
 }
-h1.site-name {
-	color: #fff;
-	font-weight: bold;
-}
 .aside,
 .aside a {
 	color: #eee;
 }
-.aside .header {
-/*	padding: 0 .5rem;*/
+.aside .profil {
+	background-color: #555;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #666;
 }
-
 .aside .header .unstyled-list {
-	padding: 0 .5rem; /*sfi*/
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 1rem .4rem;
 }
-
-.aside .header .unstyled-list li {
-	margin-top: 5px;
-}
-
-.aside .header li {
-	line-height: 1.2;
-}
-
 .aside .header .version {
 	color: #aaa;
 }
-
 .aside .menu.expanded .badge {
 	background-color: #e43d29;
+}
+.menu.expanded li.active a, 
+.menu.expanded li.active:hover {
+	background-color: #fff;
+	color: #444;
 }
 .aside .menu.expanded li:hover {
 	background-color: #444;
@@ -95,16 +63,13 @@ h1.site-name {
 }
 .section {
 	left: 16.6666%;
-	/*margin: 4.7rem 0 2rem 0;*/
 	margin: 9rem 0 2rem 0;
 }
 .action-bar {
-	/*background-color: #e3e3e3;*/
 	background-color: #ececec;
 	left: 16.6666%;
 	margin-left: -1rem;
-	/*padding: .5rem 1.2rem .2rem 1.2rem;*/
-	padding: .5rem 1.2rem 1rem 1.2rem;
+	padding: 1rem 1.2rem 1rem 1.2rem;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -113,7 +78,11 @@ h1.site-name {
 }
 .action-bar p,
 .action-bar ul {
-	margin: .3rem 0 0 0;
+	margin: .3rem 0;
+}
+.action-bar h2 {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 @media (max-width: 1023px) {
 	.action-bar,
@@ -125,6 +94,9 @@ h1.site-name {
 	.auth {
 		margin-top: 0;
 	}
+	.responsive-menu label {
+		background-color: #222;
+	}
 	.action-bar,
 	.aside {
 		position: relative;
@@ -135,7 +107,7 @@ h1.site-name {
 	}
 	.action-bar {
 		background-color: inherit;
-		margin: 0;
+		margin: 0 0 1rem 0;
 		padding: 0;
 	}
 	.section {

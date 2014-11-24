@@ -15,7 +15,7 @@ html {
 	color: #444;
 	font-family: helvetica, arial, sans-serif;
 	font-size: 15px;
-	line-height: 1.5;
+	line-height: 1.4;
 }
 body {
 	margin: 0;
@@ -54,7 +54,7 @@ figure {
 
 a {
 	background: transparent;
-	color: #4682b4;
+	color: #258fd6;
 	text-decoration: none;
 }
 a:active,
@@ -217,9 +217,9 @@ table {
 td,
 th {
 	border: 1px solid #bbb;
-	height: 2.2rem;
-	padding-left: .6rem;
-	padding-right: .6rem;
+	height: 1.9rem;
+	padding-left: .4rem;
+	padding-right: .4rem;
 }
 tfoot,
 thead {
@@ -264,10 +264,10 @@ input,
 select,
 textarea {
 	border: 1px solid #bbb;
-	height: 2.2rem;
+	height: 1.9rem;
 	outline: none;
-	padding-left: .6rem;
-	padding-right: .6rem;
+	padding-left: .4rem;
+	padding-right: .4rem;
 	width: 100%;
 }
 textarea {
@@ -275,7 +275,7 @@ textarea {
 	overflow: auto;
 }
 select {
-	padding-left: .3rem;
+	padding-left: .2rem;
 	padding-right: 0;
 }
 optgroup {
@@ -284,13 +284,13 @@ optgroup {
 input:focus,
 select:focus,
 textarea:focus {
-	border: 1px solid #4682b4;
+	border: 1px solid #258fd6;
 }
 button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	background-color: #4682b4;
+	background-color: #888;
 	border-color: transparent;
 	color: #fff;
 	cursor: pointer;
@@ -300,7 +300,7 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
-	background-color: #3a6c96;
+	background-color: #727272;
 }
 button[disabled],
 input[disabled],
@@ -311,7 +311,7 @@ input[disabled]:hover,
 select[disabled]:hover,
 textarea[disabled]:hover {
 	background-color: #ddd;
-	color: #999;
+	color: #888;
 	cursor: not-allowed;
 }
 button::-moz-focus-inner,
@@ -428,7 +428,7 @@ img {
 }
 .menu.vertical li {
 	display: block;
-	line-height: 1.8;
+	line-height: 1.6;
 	margin-left: 0;
 }
 .menu.expanded li {
@@ -439,10 +439,10 @@ img {
 }
 .menu.expanded li a {
 	display: block;
-	height: 2.2rem;
-	line-height: 2.2rem;
-	padding-left: .6rem;
-	padding-right: .6rem;
+	height: 1.9rem;
+	line-height: 1.9rem;
+	padding-left: .4rem;
+	padding-right: .4rem;
 }
 .menu.expanded li a:hover {
 	text-decoration: none;
@@ -461,7 +461,7 @@ img {
 }
 .menu.expanded li.active a,
 .menu.expanded li.active:hover {
-	background-color: #4682b4;
+	background-color: #258fd6;
 	color: #fff;
 }
 .responsive-menu label {
@@ -475,7 +475,7 @@ img {
     display: none;
 }
 .responsive-menu label {
-	padding: .3rem .6rem;
+	padding: .25rem .4rem;
 }
 .responsive-menu input[type=checkbox]:checked+ul {
  	display: block;
@@ -495,10 +495,10 @@ img {
 	}
 	.responsive-menu ul li a {
 		display: block;
-		height: 2.2rem;
-		line-height: 2.2rem;
-		padding-left: .6rem;
-		padding-right: .6rem;
+		height: 1.9rem;
+		line-height: 1.9rem;
+		padding-left: .4rem;
+		padding-right: .4rem;
 	}
 	.responsive-menu ul li a:hover {
 		text-decoration: none;
@@ -509,7 +509,7 @@ img {
 	}
 	.responsive-menu ul li.active a,
 	.responsive-menu ul li.active:hover {
-		background-color: #4682b4;
+		background-color: #258fd6;
 		color: #fff;
 	}
 }
@@ -553,14 +553,14 @@ img {
 	color: #e43d29;
 }
 .button {
-	background-color: #4682b4;
+	background-color: #888;
 	color: #fff;
-	height: 2.2rem;
-	line-height: 2.2rem;
-	padding: .5rem .6rem;
+	height: 1.9rem;
+	line-height: 1.9rem;
+	padding: .35rem .4rem;
 }
 .button:hover {
-	background-color: #3a6c96;
+	background-color: #727272;
 	color: #fff;
 	text-decoration: none;
 }
@@ -599,15 +599,15 @@ img {
 	width: 100%;
 }
 .progress span {
-	background-color: #4682b4;
+	background-color: #258fd6;
 	color: #fff;
 	display: block;
 	min-width: 2.2rem;
 	overflow: hidden;
-	height: 2.2rem;
-	line-height: 2.2rem;
-	padding-left: .6rem;
-	padding-right: .6rem;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	padding-left: .4rem;
+	padding-right: .4rem;
 	position: relative;
 	text-align: center;
 }
@@ -617,25 +617,25 @@ img {
 }
 .badge,
 .label {
-	background-color: #4682b4;
+	background-color: #258fd6;
 	color: #fff;
 	display: inline-block;
 	margin-left: .4rem;
 }
 .badge {
 	line-height: 1;
-	padding: .2rem .2rem .1rem .2rem;
+	padding: .1rem;
 }
 .menu.expanded .active a .badge {
 	background-color: #fff;
-	color: #4682b4;
+	color: #258fd6;
 }
 .menu.vertical .badge {
 	float: right;
-	margin-top: .43rem;
+	margin-top: .35rem;
 }
 .label {
-	padding: .3rem .6rem;
+	padding: .25rem .4rem;
 }
 .frame {
 	height: 0;
