@@ -178,8 +178,8 @@ $selector2=selector($comSel, 'id_selection2');
 				echo '<td>'.$content.'&nbsp;</td>';
 				echo '<td>'.plxUtils::strCut($plxAdmin->plxRecord_coms->f('author'),30).'&nbsp;</td>';
 				echo '<td class="action">';
-				echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a> | ';
-				echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a> | ';
+				echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
+				echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>&nbsp;&nbsp;';
 				echo '<a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a>';
 				echo '</td></tr>';
 			}

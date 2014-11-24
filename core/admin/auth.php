@@ -108,15 +108,15 @@ plxUtils::cleanHeaders();
 						<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
 						<div class="basic-form">
 							<label for="id_login"><?php echo L_AUTH_LOGIN_FIELD ?>&nbsp;:</label>
-							<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '0-255',false,'full-width h3');?>
+							<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '0-255',false,'full-width h4');?>
 						</div>
 						<div class="basic-form">
 							<label for="id_password"><?php echo L_AUTH_PASSWORD_FIELD ?>&nbsp;:</label>
-							<?php plxUtils::printInput('password', '', 'password','0-255',false,'full-width h3');?>
+							<?php plxUtils::printInput('password', '', 'password','0-255',false,'full-width h4');?>
 						</div>
 						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
-						<div class="basic-form">
-							<input class="h3 float-center" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+						<div class="basic-form text-center">
+							<input class="h4" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
 						</div>
 					</fieldset>
 				</form>
