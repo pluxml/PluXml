@@ -117,6 +117,8 @@ $LANG = array(
 'L_ARTICLE_TITLE_HTMLTAG'									=> 'Мета-тег заголовка страницы "Title" (необязательно)',
 'L_ARTICLE_CHAPO_HIDE'										=> 'скрыть',
 'L_ARTICLE_CHAPO_DISPLAY'									=> 'показать',
+'L_ARTICLE'													=> 'статья',
+'L_ARTICLE_ID'												=> 'ID',
 
 # auth.php
 

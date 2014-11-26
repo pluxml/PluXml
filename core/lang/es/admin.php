@@ -117,6 +117,8 @@ $LANG = array(
 'L_ARTICLE_TITLE_HTMLTAG'						=> 'Contenido de la etiqueta de título («title», opcional)',
 'L_ARTICLE_CHAPO_HIDE'							=> 'ocultar',
 'L_ARTICLE_CHAPO_DISPLAY'						=> 'mostrar',
+'L_ARTICLE'										=> 'artículo',
+'L_ARTICLE_ID'									=> 'Identificador',
 
 # auth.php
 

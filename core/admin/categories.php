@@ -45,12 +45,12 @@ include(dirname(__FILE__).'/top.php');
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCategoriesTop')) # Hook Plugins ?>
 
-	<div class="scrollable-table">
-	<table class="full-width">
+<div class="scrollable-table">
+<table id="categories-table" class="full-width">
 	<thead>
 		<tr>
-			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
-			<th class="title"><?php echo L_CAT_LIST_ID ?></th>
+			<th><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
+			<th><?php echo L_CAT_LIST_ID ?></th>
 			<th><?php echo L_CAT_LIST_NAME ?></th>
 			<th><?php echo L_CAT_LIST_URL ?></th>
 			<th><?php echo L_CAT_LIST_ACTIVE ?></th>
@@ -122,8 +122,9 @@ include(dirname(__FILE__).'/top.php');
 			</td>
 		</tr>
 	</tbody>
-	</table>
-	</div>
+</table>
+</div>
+
 </form>
 
 <?php

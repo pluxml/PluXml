@@ -143,7 +143,7 @@ include(dirname(__FILE__).'/top.php');
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 
 <div class="scrollable-table">
-	<table class="full-width">
+	<table id="plugins-table" class="full-width">
 		<thead>
 			<tr>
 				<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>

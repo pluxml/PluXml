@@ -57,12 +57,12 @@ function checkBox(cb) {
 <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
 
 <div class="scrollable-table">
-<table class="full-width">
+<table id="statics-table" class="full-width">
 	<thead>
 		<tr>
-			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
-			<th style="width:80px"><?php echo L_STATICS_ID ?></th>
-			<th style="width:60px"><?php echo L_STATICS_HOME_PAGE ?></th>
+			<th><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
+			<th><?php echo L_STATICS_ID ?></th>
+			<th><?php echo L_STATICS_HOME_PAGE ?></th>
 			<th><?php echo L_STATICS_GROUP ?></th>
 			<th><?php echo L_STATICS_TITLE ?></th>
 			<th><?php echo L_STATICS_URL ?></th>
@@ -99,7 +99,7 @@ function checkBox(cb) {
 			plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
 
 			if(!plxUtils::checkSite($v['url'])) {
-				echo '</td><td class="action">';
+				echo '</td><td>';
 				echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
 				if($v['active']) {
 					echo '&nbsp;&nbsp;<a href="'.PLX_ROOT.'?static'.intval($k).'/'.$v['url'].'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
@@ -107,9 +107,9 @@ function checkBox(cb) {
 				echo '</td></tr>';
 			}
 			elseif($v['url'][0]=='?')
-				echo '</td><td class="action"><a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
+				echo '</td><td><a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
 			else
-				echo '</td><td class="action"><a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
+				echo '</td><td><a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
 		}
 		# On récupère le dernier identifiant
 		$a = array_keys($plxAdmin->aStats);

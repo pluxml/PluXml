@@ -227,16 +227,16 @@ function toggle_divs(){
 		</div>
 
 		<div class="scrollable-table">
-			<table class="full-width">
+			<table id="medias-table" class="full-width">
 				<thead>
 				<tr>
-					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
-					<th class="image">&nbsp;</th>
+					<th><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
+					<th>&nbsp;</th>
 					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_title ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
-					<th class="infos"><?php echo L_MEDIAS_EXTENSION ?></th>
-					<th class="infos"><?php echo L_MEDIAS_FILESIZE ?></th>
-					<th class="infos"><?php echo L_MEDIAS_DIMENSIONS ?></th>
-					<th class="date"><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_date ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
+					<th><?php echo L_MEDIAS_EXTENSION ?></th>
+					<th><?php echo L_MEDIAS_FILESIZE ?></th>
+					<th><?php echo L_MEDIAS_DIMENSIONS ?></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_date ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
 				</tr>
 				</thead>
 				<tbody>
