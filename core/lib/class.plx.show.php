@@ -754,10 +754,16 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed'))) return;
 
-		if($categorie != '' AND is_numeric($categorie)) # Fil Rss des articles d'une catégorie
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
-		else # Fil Rss des articles
+		if($categorie != '' AND is_numeric($categorie)) {
+			# Fil Rss des articles d'une catégorie
+			$id=str_pad($categorie,3,'0',STR_PAD_LEFT);
+			if(isset($this->plxMotor->aCats[$id])) {
+				echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
+			}
+		} else {
+			# Fil Rss des articles
 			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss').'" title="'.L_ARTFEED_RSS.'">'.L_ARTFEED_RSS.'</a>';
+		}
 	}
 
 	/**
@@ -985,7 +991,7 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche la date de publication d'un commentaire delon le format choisi
+	 * Méthode qui affiche la date de publication d'un commentaire selon le format choisi
 	 *
 	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(2), #num_year(4))
 	 * @return	stdout
@@ -1497,7 +1503,7 @@ class plxShow {
 								}
 								else
 									$array['_'.$tag]['count']++;
-								if(!in_array($t, $alphasort)) 
+								if(!in_array($t, $alphasort))
 									$alphasort[] = $t; # pour le tri alpha
 							}
 						}

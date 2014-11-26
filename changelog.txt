@@ -3,8 +3,9 @@
 [+] Nouveau thème par défaut
 [+] Ajout traduction en occitant (contribution Rubén)
 [+] Lien en nofollow pour les auteurs des commentaires
-[BUG] Correction d'une possible auth-bypass (contribution jvoisin)
-[BUG] Prise en compte des liens en // dans la réécriture d'url
+BUG fix #77: fct artFeed: lien rss pour les catégories incomplet 
+BUG Correction d'une possible auth-bypass (contribution jvoisin)
+BUG Prise en compte des liens en // dans la réécriture d'url
 
 ## PLUXML 5.3.1 (sortie : 13/03/2014) ##
 
