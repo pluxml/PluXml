@@ -58,7 +58,7 @@ ob_implicit_flush(0);
 
 # Traitements du thème
 if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
-	header('Content-Type: text/plain');
+	header('Content-Type: text/plain; charset='.PLX_CHARSET);
 	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
 } elseif(file_exists(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
 	# On impose le charset
@@ -66,7 +66,7 @@ if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].
 	# Insertion du template
 	include(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
 } else {
-	header('Content-Type: text/plain');
+	header('Content-Type: text/plain; charset='.PLX_CHARSET);
 	echo L_ERR_FILE_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
 }
 

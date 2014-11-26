@@ -38,7 +38,7 @@ class plxFeed extends plxMotor {
 		loadLang(PLX_CORE.'lang/'.$this->aConf['default_lang'].'/core.php');
 		# Contrôle de la présence du fichier 'version' de PluXml
 		if(!is_readable(PLX_ROOT.'version')) {
-			header('Content-Type: text/plain charset=UTF-8');
+			header('Content-Type: text/plain; charset='.PLX_CHARSET);
 			printf(utf8_decode(L_FILE_VERSION_REQUIRED), PLX_ROOT);
 			exit;
 		}
@@ -175,7 +175,7 @@ class plxFeed extends plxMotor {
 		# Flux admin
 		elseif($this->mode == 'admin') {
 			if(empty($this->clef)) { # Clef non initialisée
-				header('Content-Type: text/plain');
+				header('Content-Type: text/plain; charset='.PLX_CHARSET);
 				echo L_FEED_NO_PRIVATE_URL;
 				exit;
 			}
