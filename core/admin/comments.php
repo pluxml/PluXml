@@ -144,7 +144,7 @@ $selector2=selector($comSel, 'id_selection2');
 <?php if(isset($h3)) echo $h3 ?>
 	
 <div class="scrollable-table">
-	<table class="full-width">
+	<table id="comments-table" class="full-width">
 		<thead>
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>

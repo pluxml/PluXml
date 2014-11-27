@@ -143,6 +143,15 @@ textarea {
 	padding-bottom: 3px;
 	white-space:nowrap;
 }
-.scrollable-table table td:nth-child(1) { width: 10px; } /* checkboxes */
-#articles-table td:nth-child(2) { width: 100px; } /* ident */
-#articles-table td:nth-child(3) { width: 80px; } /* date */
+.scrollable-table table td:nth-child(1) { /* checkboxes */
+	width: 10px; 
+} 
+
+#articles-table td:nth-child(2) {  /* ident */
+	width: 100px; 
+}
+
+#articles-table td:nth-child(3), /* date */
+#comments-table td:nth-child(2) { 
+	width: 80px; 
+} 
