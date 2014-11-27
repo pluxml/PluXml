@@ -151,6 +151,11 @@ textarea {
 	width: 100px; 
 }
 
+#articles-table td:nth-child(4), /* title */
+#comments-table td:nth-child(3)  {  
+	width: 100%; 
+}
+
 #articles-table td:nth-child(3), /* date */
 #comments-table td:nth-child(2) { 
 	width: 80px; 
