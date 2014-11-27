@@ -561,7 +561,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication de l'article selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(4), #num_year(2))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F.
@@ -835,10 +835,10 @@ class plxShow {
 
 	/**
 	 * Méthode qui affiche la liste des $max derniers articles.
-	 * Si la variable $cat_id est renseignée, seulement les articles de cette catégorie seront retournés.
+	 * Si la variable $cat_id est renseignée, seuls les articles de cette catégorie sont retournés.
 	 * On tient compte si la catégorie est active
 	 *
-	 * @param	format	format du texte pour chaque article (variable: #art_id, #art_url, #art_status, #art_author, #art_title, #art_chapo, #art_chapo(num), #art_content, #art_content(num), #art_date, #art_hour, #cat_list, #art_nbcoms)
+	 * @param	format	format du texte pour chaque article
 	 * @param	max		nombre d'articles maximum
 	 * @param	cat_id	ids des catégories cible
 	 * @param   ending	texte à ajouter en fin de ligne
@@ -897,6 +897,7 @@ class plxShow {
 				$row = str_replace('#art_content',$content, $row);
 				$row = str_replace('#art_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
 				$row = str_replace('#art_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
+				$row = plxDate::formatDate($date,$row);
 				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
 				# On genère notre ligne
 				echo $row;
@@ -993,7 +994,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication d'un commentaire selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(2), #num_year(4))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(2), #num_year(4))
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Florent MONTHEL et Stephane F
@@ -1074,9 +1075,9 @@ class plxShow {
 
 	/**
 	 * Méthode qui affiche la liste des $max derniers commentaires.
-	 * Si la variable $art_id est renseignée, seulement les commentaires de cet article seront retournés.
+	 * Si la variable $art_id est renseignée, seuls les commentaires de cet article sont retournés.
 	 *
-	 * @param	format	format du texte pour chaque commentaire (variable: #com_id, #com_url, #com_author, #com_content(num), #com_content, #com_date, #com_hour)
+	 * @param	format	format du texte pour chaque commentaire
 	 * @param	max		nombre de commentaires maximum
 	 * @param	art_id	id de l'article cible (24,3)
 	 * @param	cat_ids	liste des categories pour filtrer les derniers commentaires (sous la forme 001|002)
@@ -1125,6 +1126,7 @@ class plxShow {
 							$row = str_replace('#com_content',$content,$row);
 							$row = str_replace('#com_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
 							$row = str_replace('#com_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
+							$row = plxDate::formatDate($date,$row);
 							# On genère notre ligne
 							echo $row;
 							$count++;
@@ -1281,7 +1283,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de la dernière modification de la page statique selon le format choisi
 	 *
-	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_month, #num_year(4), #num_year(2))
+	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
 	 * @return	stdout
 	 * @scope	static
 	 * @author	Anthony T.

@@ -3,6 +3,7 @@
 [+] Nouveau thème par défaut
 [+] Ajout traduction en occitant (contribution Rubén)
 [+] Lien en nofollow pour les auteurs des commentaires
+[+] Formatage des jours sur 1 ou 2 chiffres avec les variables #num_day(1) ou #num_day(2) 
 BUG fix #77: fct artFeed: lien rss pour les catégories incomplet 
 BUG Correction d'une possible auth-bypass (contribution jvoisin)
 BUG Prise en compte des liens en // dans la réécriture d'url
