@@ -152,8 +152,15 @@ textarea {
 }
 
 #articles-table td:nth-child(4), /* title */
-#comments-table td:nth-child(3)  {  
+#comments-table td:nth-child(3),
+#medias-table td:nth-child(3),
+#plugins-table td:nth-child(3) {  
 	width: 100%; 
+}
+
+#plugins-table img,
+#medias-table img {
+	min-width: 48px;
 }
 
 #articles-table td:nth-child(3), /* date */
