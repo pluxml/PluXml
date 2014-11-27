@@ -1101,6 +1101,8 @@ class plxShow {
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_coms = clone $this->plxMotor->plxGlob_coms;
 		if($aFiles = $plxGlob_coms->query($motif,'com','rsort',0,false,'before')) {
+			$aComArtTitles = array(); # tableau contenant les titres des articles
+			$isComArtTitle = (strpos($format, '#com_art_title')!=FALSE) ? true : false;
 			# On parcourt les fichiers des commentaires
 			foreach($aFiles as $v) {
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
@@ -1127,6 +1129,19 @@ class plxShow {
 							$row = str_replace('#com_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
 							$row = str_replace('#com_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
 							$row = plxDate::formatDate($date,$row);
+							# récupération du titre de l'article
+							if($isComArtTitle) {
+								if(isset($aComArtTitles[$com['article']])) {
+									$row = str_replace('#com_art_title',$aComArtTitles[$com['article']],$row);
+								}
+								else {
+									if($file = $this->plxMotor->plxGlob_arts->query('/^'.$com['article'].'.(.*).xml$/')) {
+										$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$file[0]);
+										$aComArtTitles[$com['article']] = $art_title = $art['title'];
+										$row = str_replace('#com_art_title',$art_title,$row);
+									}
+								}
+							}
 							# On genère notre ligne
 							echo $row;
 							$count++;
