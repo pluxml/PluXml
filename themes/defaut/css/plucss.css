@@ -96,12 +96,6 @@ dt {
 dd {
 	margin-left: 0;
 }
-.drop-cap:first-letter {
-	float: left;
-	font-family: Times New Roman, Times, serif;
-	font-size: 3.2rem;
-	padding: .5rem .5rem 0 0;
-}
 h1,
 h2,
 h3,
@@ -327,6 +321,7 @@ input[type="radio"] {
 }
 input[type="file"] {
 	border: none;
+	height: auto;
 	padding: 0;
 }
 button.blue,
