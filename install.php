@@ -274,43 +274,57 @@ plxUtils::cleanHeaders();
 
 		<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
 
-		<form class="horizontal-form" action="install.php" method="post">
+		<form action="install.php" method="post">
 			<fieldset>
-				<p><label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label>
-				<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
-				<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
-				<?php echo plxToken::getTokenPostMethod() ?></p>
+				<div class="basic-form">
+					<label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
+					<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
+					<?php echo plxToken::getTokenPostMethod() ?>
+				</div>
 			</fieldset>
 		</form>
 		<form action="install.php" method="post">
 			<fieldset>
-				<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
-				<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
-				<label for="id_login"><?php echo L_LOGIN ?>&nbsp;:</label>
-				<?php plxUtils::printInput('login', $login, 'text', '20-255') ?>
-				<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
-				<label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
-				<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
-				<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
-				<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
-				<ul class="list-unstyled">
-					<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
-					<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
-					<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
-					<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
-					<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-					<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-					<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-					<?php plxUtils::testWrite(PLX_ROOT.$config['images']) ?>
-					<?php plxUtils::testWrite(PLX_ROOT.$config['documents']) ?>
-					<?php plxUtils::testModReWrite() ?>
-					<?php plxUtils::testLibGD() ?>
-					<?php plxUtils::testMail() ?>
-				</ul>
-				<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
-				<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
-				<?php echo plxToken::getTokenPostMethod() ?>
+				<div class="basic-form">
+					<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
+					<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
+				</div>
+				<div class="basic-form">
+					<label for="id_login"><?php echo L_LOGIN ?>&nbsp;:</label>
+					<?php plxUtils::printInput('login', $login, 'text', '20-255') ?>
+				</div>
+				<div class="basic-form">
+					<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
+					<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
+				</div>
+				<div class="basic-form">
+					<label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
+					<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
+				</div>
+				<div class="basic-form">
+					<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
+					<ul class="list-unstyled">
+						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
+						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
+						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
+						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['images']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['documents']) ?>
+						<?php plxUtils::testModReWrite() ?>
+						<?php plxUtils::testLibGD() ?>
+						<?php plxUtils::testMail() ?>
+					</ul>
+				</div>
+				<div class="basic-form">
+					<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
+					<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
+					<?php echo plxToken::getTokenPostMethod() ?>
+				</div>
 			</fieldset>
 		</form>
 
