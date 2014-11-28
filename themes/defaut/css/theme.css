@@ -32,7 +32,7 @@ body {
 		background-color: #ddd;
 	}
 	.nav a {
-		color: #4682b4;
+		color: #258fd6;
 	}
 	.nav a:hover {
 		color: #444;
@@ -56,7 +56,7 @@ body {
 	color: #444;
 }
 .article header h1 a:hover {
-	color: #4682b4;
+	color: #258fd6;
 	text-decoration: none;
 }
 .comment {
@@ -69,7 +69,7 @@ body {
 	margin: 0;
 }
 .nbcom {
-	background-color: #4682b4;
+	background-color: #258fd6;
 	color: #fff;
 	height: 1.25rem;
 	line-height: 1.25rem;
@@ -91,7 +91,7 @@ body {
 	margin-bottom: 0;
 }
 .pagination a {
-	background-color: #4682b4;
+	background-color: #258fd6;
 	color: #fff;
 	height: 2.2rem;
 	line-height: 2.2rem;
