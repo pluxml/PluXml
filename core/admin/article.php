@@ -268,7 +268,7 @@ $cat_id='000';
 
 	<div class="grid">
 
-		<div class="col sml-12 med-8">
+		<div class="col sml-12 med-7 lrg-8">
 
 			<fieldset>
 				<div class="basic-form">
@@ -299,7 +299,7 @@ $cat_id='000';
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
-		<div class="col sml-12 med-4">
+		<div class="col sml-12 med-5 lrg-4">
 
 			<p><?php echo L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
 				<strong>

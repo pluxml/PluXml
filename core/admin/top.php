@@ -122,7 +122,7 @@
         </nav>
     </aside>
 
-    <section class="section col sml-12 med-10 lrg-10">
+    <section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
         <?php
         if(is_file(PLX_ROOT.'install.php')) echo L_WARNING_INSTALLATION_FILE;
