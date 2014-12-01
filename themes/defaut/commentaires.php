@@ -66,7 +66,7 @@
 				<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" />
 				<?php endif; ?>
 			</div>
-			<input type="submit" value="<?php $plxShow->lang('SEND') ?>" />
+			<input class="blue" type="submit" value="<?php $plxShow->lang('SEND') ?>" />
 
 		</fieldset>
 			
