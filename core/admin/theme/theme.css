@@ -124,36 +124,19 @@ select,
 textarea {
 	width: auto;
 }
-
-/* TABLES */
-
 .scrollable-table .full-width td,
 .scrollable-table .full-width th {
 	padding-top: 3px;
 	padding-bottom: 3px;
-	white-space:nowrap;
+	white-space: nowrap;
 }
-.scrollable-table table td:nth-child(1) { /* checkboxes */
-	width: 10px; 
-} 
-
-#articles-table td:nth-child(2) {  /* ident */
-	width: 100px; 
-}
-
-#articles-table td:nth-child(4), /* title */
+#articles-table td:nth-child(4),
 #comments-table td:nth-child(3),
 #medias-table td:nth-child(3),
 #plugins-table td:nth-child(3) {  
 	width: 100%; 
 }
-
 #plugins-table img,
 #medias-table img {
 	min-width: 48px;
 }
-
-#articles-table td:nth-child(3), /* date */
-#comments-table td:nth-child(2) { 
-	width: 80px; 
-} 
