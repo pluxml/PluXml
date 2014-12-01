@@ -90,6 +90,9 @@
 	.auth {
 		margin-top: 0;
 	}
+	.header {
+		text-align: center;
+	}
 	.responsive-menu label {
 		background-color: #222;
 	}
