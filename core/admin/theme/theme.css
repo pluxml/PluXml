@@ -65,6 +65,7 @@
 .action-bar {
 	background-color: #eaeaea;
 	border-bottom: 1px solid #ddd;
+	left: 16.6666%;
 	margin-left: -1rem;
 	padding: .5rem 1.2rem .7rem 1.2rem;
 	position: fixed;
@@ -79,6 +80,11 @@
 .action-bar h2 {
 	margin-top: 0;
 	margin-bottom: 0;
+}
+@media (max-width: 1023px) {
+	.action-bar {
+		left: 25%;
+	}
 }
 @media (max-width: 767px) {
 	.auth {
