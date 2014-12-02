@@ -31,6 +31,7 @@ include(dirname(__FILE__).'/top.php');
 
 <div class="inline-form action-bar">
 	<h2><?php echo L_CONFIG_BASE_CONFIG_TITLE ?></h2>
+	<p>&nbsp;</p>
 	<input type="submit" value="<?php echo L_CONFIG_BASE_UPDATE ?>" />
 </div>
 

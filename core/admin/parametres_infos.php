@@ -18,6 +18,7 @@ include(dirname(__FILE__).'/top.php');
 
 <div class="inline-form action-bar">
 	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
+	<p>&nbsp;</p>
 	<p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong><br />
 	<span class="text-red"><?php echo $plxAdmin->checkMaj(); ?></span></p>
 </div>

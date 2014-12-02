@@ -38,6 +38,7 @@ include(dirname(__FILE__).'/top.php');
 
 <div class="inline-form action-bar">
 	<h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>
+	<p>&nbsp;</p>	
 	<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 	<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	<?php echo plxToken::getTokenPostMethod() ?>
