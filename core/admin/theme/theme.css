@@ -67,6 +67,7 @@
 	border-bottom: 1px solid #ddd;
 	left: 16.6666%;
 	margin-left: -1rem;
+	min-height: 6.667em;
 	padding: .5rem 1.2rem .7rem 1.2rem;
 	position: fixed;
 	top: 0;
