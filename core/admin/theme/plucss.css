@@ -3,7 +3,8 @@
 #
 # This file is part of PluXml : http://www.pluxml.org
 #
-# Package:		plucss.css
+# Package		plucss.css
+# Version		1.0
 # Copyright (c) 2014 PluXml
 # Authors		Jos
 # Licensed under the GPL license.
@@ -475,13 +476,13 @@ img {
 }
 .responsive-menu label,
 .responsive-menu input[type=checkbox] {
-    display: none;
+	display: none;
 }
 .responsive-menu label {
 	padding: .25rem .4rem;
 }
 .responsive-menu input[type=checkbox]:checked+ul {
- 	display: block;
+	display: block;
 }
 
 @media (max-width: 767px) {
@@ -801,7 +802,7 @@ img {
 .col.sml-push-7 {
 	left: 58.3333%;
 }
-.col.sml-push-8 { 
+.col.sml-push-8 {
 	left: 66.6666%;
 }
 .col.sml-push-9 {
@@ -858,7 +859,7 @@ img {
 .col.sml-offset-0 {
 	margin-left: 0;
 }
-.col.sml-offset-1 { 
+.col.sml-offset-1 {
 	margin-left: 8.3333%;
 }
 .col.sml-offset-2 {
@@ -874,7 +875,7 @@ img {
 	margin-left: 41.6666%;
 }
 .col.sml-offset-6 {
-	margin-left: 50%; 
+	margin-left: 50%;
 }
 .col.sml-offset-7 {
 	margin-left: 58.3333%;
@@ -883,7 +884,7 @@ img {
 	margin-left: 66.6666%;
 }
 .col.sml-offset-9 {
-	margin-left: 75%; 
+	margin-left: 75%;
 }
 .col.sml-offset-10 {
 	margin-left: 83.3333%;
@@ -1004,7 +1005,7 @@ img {
 	}
 	.col.med-9,
 	.gallery.med-9 li {
-		width: 75%; 
+		width: 75%;
 	}
 	.col.med-10,
 	.gallery.med-10 li {
@@ -1290,7 +1291,7 @@ img {
 	.col.lrg-push-9 {
 		left: 75%;
 	}
-	.col.lrg-push-10 { 
+	.col.lrg-push-10 {
 		left: 83.3333%;
 	}
 	.col.lrg-push-11 {
@@ -1341,19 +1342,19 @@ img {
 	.col.lrg-offset-0 {
 		margin-left: 0;
 	}
-	.col.lrg-offset-1 { 
+	.col.lrg-offset-1 {
 		margin-left: 8.3333%;
 	}
-	.col.lrg-offset-2 { 
+	.col.lrg-offset-2 {
 		margin-left: 16.6666%;
 	}
 	.col.lrg-offset-3 {
 		margin-left: 25%;
 	}
-	.col.lrg-offset-4 { 
+	.col.lrg-offset-4 {
 		margin-left: 33.3333%;
 	}
-	.col.lrg-offset-5 { 
+	.col.lrg-offset-5 {
 		margin-left: 41.6666%;
 	}
 	.col.lrg-offset-6 {
