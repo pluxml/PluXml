@@ -5,16 +5,23 @@
 */
 
 .auth {
-	background-color: #ddd;
-	border:1px solid #bbb;
 	margin-top: 10%;
 	overflow: hidden;
+	border:1px solid #aaa;
 }
 .auth .error {
 	background-color: #e43d29;
 	color: #eee;
 	padding: .4rem;
 	text-align: center;
+}
+.auth input[type="password"],
+.auth input[type="text"] {
+	color: #444;
+	font-size: 1.1rem;
+}
+.auth input[type="submit"] {
+	font-size: 1.1rem;
 }
 .main.grid {
 	margin-right: 0;
@@ -67,7 +74,6 @@
 	border-bottom: 1px solid #ddd;
 	left: 16.6666%;
 	margin-left: -1rem;
-	min-height: 6.667em;
 	padding: .5rem 1.2rem .7rem 1.2rem;
 	position: fixed;
 	top: 0;
@@ -92,26 +98,10 @@
 		margin-top: 0;
 	}
 	.header {
-		background-color: #555;
-		padding-top: 1.9rem;
 		text-align: center;
 	}
-	.header li {
-		display: inline;
-		margin-right: 1rem;
-	}
-	.responsive-menu {
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: 9999;
-	}
-	.responsive-menu,
 	.responsive-menu label {
 		background-color: #222;
-	}
-	.aside .profil {
-		border: none;
 	}
 	.action-bar,
 	.aside {
@@ -123,13 +113,11 @@
 	}
 	.action-bar {
 		background-color: inherit;
-		min-height: inherit;
 		margin: 0 0 1rem 0;
 		padding: 0;
-		z-index: inherit;
 	}
 	.section {
-		margin-top: 2rem;
+		margin-top: 0;
 		padding: 0 .5rem 0 1.5rem;
 	}
 }
