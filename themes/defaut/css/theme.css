@@ -27,6 +27,7 @@ body {
 @media (max-width: 767px) {
 	.nav {
 		background-color: #fff;
+		height: auto;
 	}
 	.nav .menu.expanded li:hover {
 		background-color: #ddd;
