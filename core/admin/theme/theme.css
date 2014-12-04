@@ -172,8 +172,8 @@ textarea {
 }
 .scrollable-table .full-width td,
 .scrollable-table .full-width th {
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding-top: .2rem;
+	padding-bottom: .2rem;
 	white-space: nowrap;
 }
 #articles-table td:nth-child(4),
