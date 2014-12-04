@@ -13,10 +13,17 @@
 */
 
 .auth {
-	background-color: #ddd;
-	border:1px solid #bbb;
+	border:1px solid #aaa;
 	margin-top: 10%;
 	overflow: hidden;
+}
+.auth input[type="password"],
+.auth input[type="text"] {
+	color: #444;
+	font-size: 1.1rem;
+}
+.auth input[type="submit"] {
+	font-size: 1.1rem;
 }
 .auth .error {
 	background-color: #e43d29;
