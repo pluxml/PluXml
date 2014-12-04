@@ -128,6 +128,9 @@
 	.aside .profil {
 		border: none;
 	}
+	.aside .header .unstyled-list.profil {
+		padding-top: 0;
+	}
 	.action-bar,
 	.aside {
 		position: relative;
