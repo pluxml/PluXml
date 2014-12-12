@@ -508,8 +508,9 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'auteur de l'article
+	 * Méthode qui affiche ou renvoit l'auteur de l'article
 	 *
+	 * @param echo si à VRAI affichage à l'écran 	 
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
