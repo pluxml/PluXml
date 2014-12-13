@@ -126,7 +126,7 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche ou renvoit la langue par défaut
+	 * Méthode qui affiche ou renvoie la langue par défaut
 	 *
 	 * @param	echo		si à VRAI affichage à l'écran
 	 * @return	stdout/string
@@ -508,7 +508,7 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche ou renvoit l'auteur de l'article
+	 * Méthode qui affiche ou renvoie l'auteur de l'article
 	 *
 	 * @param echo si à VRAI affichage à l'écran 	 
 	 * @return	stdout
@@ -1694,7 +1694,7 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui renvoit une clé de traduction appelée à partir du thème
+	 * Méthode qui renvoie une clé de traduction appelée à partir du thème
 	 *
 	 * @param	$lang	clé de traduction à afficher
 	 * @return	stdout
