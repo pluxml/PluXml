@@ -186,3 +186,8 @@ textarea {
 #medias-table img {
 	min-width: 48px;
 }
+
+input {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
