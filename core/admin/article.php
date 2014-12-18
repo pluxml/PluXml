@@ -114,9 +114,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			header('Location: article.php?a='.$_POST['artId']);
 			exit;
 		# Si url ou date invalide, on ne sauvegarde pas mais on repasse en mode brouillon
-    }else{
-      array_unshift($_POST['catId'], 'draft');
-    }
+		}else{
+			array_unshift($_POST['catId'], 'draft');
+		}
 
 	}
 	# Ajout d'une catégorie
