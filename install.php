@@ -260,11 +260,11 @@ plxUtils::cleanHeaders();
 
 <main class="main grid">
 
-	<aside class="aside col sml-12 med-3 lrg-2">
+	<aside class="aside col sml-12 med-3 lrg-2 sml-text-left med-text-right">
 
 	</aside>
 
-	<section class="section col sml-12 med-9 lrg-10" style="margin-top: 0">
+	<section class="install section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top:0">
 
 		<header>
 
