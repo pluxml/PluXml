@@ -21,7 +21,7 @@
     <?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
 
-<body>
+<body id="<?php echo basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
 
 <main class="main grid">
 
