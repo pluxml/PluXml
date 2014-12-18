@@ -194,3 +194,10 @@ input {
 	margin-top: 3px;
 	margin-bottom: 3px;
 }
+
+#id_day, #id_month {
+	width: 2.1rem;
+}
+#id_year, #id_time {
+	width: 3.4rem;
+}
