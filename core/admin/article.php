@@ -292,8 +292,8 @@ $cat_id='000';
 				</div>
 				<div class="inline-form">
 					<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;</label>
-					<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
 					<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?>
+					<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
 					<?php endif; ?>
 				</div>
 			</fieldset>

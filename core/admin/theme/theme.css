@@ -201,3 +201,6 @@ input {
 #id_year, #id_time {
 	width: 3.4rem;
 }
+#id_link {
+	width:100%;
+}
