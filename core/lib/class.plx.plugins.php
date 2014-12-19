@@ -526,6 +526,22 @@ class plxPlugin {
 	}
 
 	/**
+	 * Méthode qui supprime un parametre du fichier parameters.xml
+	 *
+	 * @param	param	nom du parametre à supprimer
+	 * @return	true si parametre supprimé, false sinon
+	 * @author	Sebastien H
+	 **/
+	public function delParam($param) {
+		if (isset($this->aParams[$param])){
+			unset($this->aParams[$param]);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
 	 * Méthode qui recupere les données du fichier infos.xml
 	 *
 	 * @return	null
