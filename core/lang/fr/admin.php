@@ -354,7 +354,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'	=> 'Emplacement des plugins (dossier)',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplacement des fichiers de configuration (dossier)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modifier la configuration avancée',
-'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement du fichier css personnel pour customisation de l\'interface d\'administration (option)',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement et nom du fichier css personnel pour customisation de l\'interface d\'administration (option)',
 
 # parametres_base.php
 

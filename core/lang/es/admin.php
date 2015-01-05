@@ -354,7 +354,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'				=> 'Ubicación de la carpeta de complementos',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'				=> 'Ubicación de la carpeta de configuración',
 'L_CONFIG_ADVANCED_UPDATE'						=> 'Guardar configuración avanzada',
-'L_CONFIG_CUSTOM_CSSADMIN_PATH'					=> 'Custom archivo css ubicación del área de administración (opcional)',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'					=> 'Ubicación y nombre del archivo CSS personalizado del área de administración (opcional)',
 
 # parametres_base.php
 
