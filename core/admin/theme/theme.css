@@ -116,7 +116,9 @@
 	}
 	.aside .header li {
 		display: inline;
-		margin-right: 1rem;
+	}
+	.aside .header .unstyled-list {
+		padding: 0;
 	}
 	.aside .responsive-menu {
 		position: fixed;
@@ -130,9 +132,6 @@
 	}
 	.aside .profil {
 		border: none;
-	}
-	.aside .header .unstyled-list.profil {
-		padding-top: 0;
 	}
 	.aside,
 	.section .action-bar {
@@ -203,4 +202,7 @@ input {
 }
 #id_link {
 	width:100%;
+}
+.alert {
+	margin: 0 0 1rem;
 }
