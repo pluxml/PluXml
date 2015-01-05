@@ -161,7 +161,7 @@ $LANG = array(
 'L_FOR_SELECTION' 					=> 'Pour la sélection...',
 'L_DELETE' 						    => 'Supprimer',
 'L_CAT_APPLY_BUTTON'				=> 'Modifier la liste des catégories',
-'L_CAT_UNKNOWN'						=> 'catégorie ionconnue',
+'L_CAT_UNKNOWN'						=> 'catégorie inconnue',
 
 # categorie.php
 
@@ -354,6 +354,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'	=> 'Emplacement des plugins (dossier)',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplacement des fichiers de configuration (dossier)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modifier la configuration avancée',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement du fichier css personnel pour customisation de l\'interface d\'administration (option)',
 
 # parametres_base.php
 

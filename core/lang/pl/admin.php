@@ -306,6 +306,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'							=> 'Lokalizacja plugins (katalog)',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Lokalizacja plików konfiguracyjnych (katalog)',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Alterar a configura avançada',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Położenie pliku css niestandardowe w obszarze administracji (opcjonalnie)',
 'L_CONFIG_BASE_CONFIG_TITLE'								=> 'Configuração de base',
 'L_CONFIG_BASE_SITE_TITLE'									=> 'Titúlo do web-site',
 'L_CONFIG_BASE_SITE_SLOGAN'									=> 'Sob-titúlo/descrição do web-site',

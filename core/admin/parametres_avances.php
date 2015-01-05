@@ -110,6 +110,12 @@ include(dirname(__FILE__).'/top.php');
 			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
 		</div>
 	</fieldset>
+	<fieldset class="config">
+		<div class="basic-form">
+			<label for="id_custom_admincss_file"><?php echo L_CONFIG_CUSTOM_CSSADMIN_PATH ?>&nbsp;:</label>
+			<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
+		</div>	
+	</fieldset>		
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) ?>
 </form>
 

@@ -306,6 +306,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'							=> 'Locatie van de plugins (map)',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Locatie van de configuratie-bestanden (map)',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Aanpassingen doorvoeren',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Aangepaste css-bestand plaats van toediening gebied (optioneel)',
 'L_CONFIG_BASE_CONFIG_TITLE'								=> 'Basisconfiguratie',
 'L_CONFIG_BASE_SITE_TITLE'									=> 'Titel van de site',
 'L_CONFIG_BASE_SITE_SLOGAN'									=> 'Ondertitel van de site',

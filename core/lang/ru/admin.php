@@ -357,6 +357,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'							=> 'Папка с плагинами',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Расположение файлов конфигурации (каталог)',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Сохранить дополнительные настройки',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Пользовательские расположение CSS файл администрации области (по желанию)',
 
 # parametres_base.php
 
