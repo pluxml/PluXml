@@ -13,6 +13,10 @@ class update_5_4 extends plxUpdate{
 		# nouveaux parametres
 		$new_parameters = array();
 		$new_parameters['custom_admincss_file'] = '';
+		$new_parameters['medias'] = $this->plxAdmin->aConf['images'];
+		# on supprime les parametres obsoletes
+		unset($this->plxAdmin->aConf['images']);
+		unset($this->plxAdmin->aConf['documents']);
 		$this->updateParameters($new_parameters);
 		return true; # pas d'erreurs
 	}

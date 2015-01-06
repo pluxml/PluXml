@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gestion des images et documents
+ * Gestion des médias
  *
  * @package PLX
  * @author  Stephane F
@@ -22,7 +22,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasPrepend'));
 
 # Recherche du type de medias à afficher via la session
 if(empty($_SESSION['medias'])) {
-	$_SESSION['medias'] = $plxAdmin->aConf['images'];
+	$_SESSION['medias'] = $plxAdmin->aConf['medias'];
 	$_SESSION['folder'] = '';
 }
 elseif(!empty($_POST['folder'])) {

@@ -17,7 +17,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 # On édite la configuration
 if(!empty($_POST)) {
 	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
-	unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin images/documents
+	unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
 	header('Location: parametres_avances.php');
 	exit;
 }
@@ -90,13 +90,8 @@ include(dirname(__FILE__).'/top.php');
 			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
 		</div>
 		<div class="basic-form">
-			<label for="id_images"><?php echo L_CONFIG_ADVANCED_PICS_FOLDER ?>&nbsp;:</label>
-			<?php plxUtils::printInput('images', $plxAdmin->aConf['images']); ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
-		</div>
-		<div class="basic-form">
-			<label for="id_documents"><?php echo L_CONFIG_ADVANCED_DOCS_FOLDER ?>&nbsp;:</label>
-			<?php plxUtils::printInput('documents', $plxAdmin->aConf['documents']); ?>
+			<label for="id_medias"><?php echo L_CONFIG_ADVANCED_MEDIAS_FOLDER ?>&nbsp;:</label>
+			<?php plxUtils::printInput('medias', $plxAdmin->aConf['medias']); ?>
 			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
 		</div>
 		<div class="basic-form">

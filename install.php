@@ -53,13 +53,11 @@ if(file_exists(path('XMLFILE_PARAMETERS'))) {
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers data/images et data/documents
-if(!is_dir(PLX_ROOT.'data/images')) {
-	@mkdir(PLX_ROOT.'data/images',0755,true);
+# Vérification de l'existence des dossiers médias
+if(!is_dir(PLX_ROOT.'data/medias')) {
+	@mkdir(PLX_ROOT.'data/medias',0755,true);
 }
-if(!is_dir(PLX_ROOT.'data/documents')) {
-	@mkdir(PLX_ROOT.'data/documents',0755,true);
-}
+
 # Vérification de l'existence du dossier data/configuration/plugins
 if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
 	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
@@ -103,8 +101,7 @@ $config = array('title'=>'PluXml',
 				'miniatures_l'=>200,
 				'miniatures_h'=>100,
 				'thumbs'=>1,
-				'images'=>'data/images/',
-				'documents'=>'data/documents/',
+				'medias'=>'data/medias/',
 				'racine_articles'=>'data/articles/',
 				'racine_commentaires'=>'data/commentaires/',
 				'racine_statiques'=>'data/statiques/',
