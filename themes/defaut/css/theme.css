@@ -35,7 +35,13 @@ body {
 @media (max-width: 767px) {
 	.nav {
 		background-color: #fff;
+		border-bottom: 1px solid #bbb;
 		height: auto;
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 9999;
 	}
 	.nav .menu.expanded li:hover {
 		background-color: #ddd;
@@ -48,6 +54,10 @@ body {
 	}
 	.responsive-menu label {
 		background-color: #222;
+	}
+	.header {
+		margin-top: 2rem;
+		text-align: center;
 	}
 }
 .main {
@@ -137,7 +147,6 @@ body {
 	padding: 2rem 0;
 	text-align: center;
 }
-
 .footer p {
 	margin: 0;
 }
