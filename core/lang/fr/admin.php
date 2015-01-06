@@ -9,6 +9,10 @@ $LANG = array(
 'L_SAVE_FILE_SUCCESSFULLY'			=> 'Fichier enregistré avec succès',
 'L_SAVE_FILE_ERROR'					=> 'Erreur pendant l\'enregistrement du fichier',
 
+'L_DELETE' 						    => 'Supprimer',
+'L_DELETE_FILE' 				    => 'Supprimer fichier',
+'L_DELETE_FOLDER'				    => 'Supprimer dossier',
+
 # class.plx.admin.php
 
 'L_SAVE_SUCCESSFUL'					=> 'Enregistrement des données effectué avec succès',
@@ -159,7 +163,6 @@ $LANG = array(
 'L_OPTIONS'							=> 'Options',
 'L_NEW_CATEGORY' 					=> 'Nouvelle catégorie',
 'L_FOR_SELECTION' 					=> 'Pour la sélection...',
-'L_DELETE' 						    => 'Supprimer',
 'L_CAT_APPLY_BUTTON'				=> 'Modifier la liste des catégories',
 'L_CAT_UNKNOWN'						=> 'catégorie inconnue',
 

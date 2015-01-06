@@ -111,8 +111,7 @@
 	}
 	.aside .header {
 		background-color: #555;
-		padding-bottom: .5rem;
-		padding-top: 2.3rem;
+		padding-top: 1.9rem;
 		text-align: center;
 	}
 	.aside .header li {
@@ -189,10 +188,14 @@ textarea {
 #medias-table img {
 	min-width: 48px;
 }
+#medias-table {
+	margin-top: 10px;
+}
 input {
 	margin-top: 3px;
 	margin-bottom: 3px;
 }
+
 #id_day, #id_month {
 	width: 2.1rem;
 }

@@ -8,6 +8,9 @@ $LANG = array(
 'L_SAVE_FILE'									=> 'Guardar el archivo',
 'L_SAVE_FILE_SUCCESSFULLY'						=> 'Archivo guardado correctamente',
 'L_SAVE_FILE_ERROR'								=> 'Error al guardar el archivo',
+'L_DELETE'										=> 'Eliminar',
+'L_DELETE_FILE' 				    			=> 'Eliminar archivo',
+'L_DELETE_FOLDER'				   				=> 'Eliminar carpeta',
 
 # class.plx.admin.php
 
@@ -159,7 +162,6 @@ $LANG = array(
 'L_OPTIONS'										=> 'Opciones',
 'L_NEW_CATEGORY'								=> 'Nueva categoría',
 'L_FOR_SELECTION'								=> 'Elementos seleccionados...',
-'L_DELETE'										=> 'Eliminar',
 'L_CAT_APPLY_BUTTON'							=> 'Modificar la lista de categorías',
 'L_CAT_UNKNOWN'									=> 'Categoría desconocida',
 

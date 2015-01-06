@@ -8,6 +8,9 @@ $LANG = array(
 'L_SAVE_FILE'						=> 'Salvagardar lo fichièr',
 'L_SAVE_FILE_SUCCESSFULLY'			=> 'Fichièr enregistrat amb succès',
 'L_SAVE_FILE_ERROR'					=> 'Error pendent l\'enregistrament del fichièr',
+'L_DELETE' 						    => 'Escafar',
+'L_DELETE_FILE' 				  	=> 'Escafar fiquièr',
+'L_DELETE_FOLDER'				   	=> 'Escafar dorsièr',
 
 # class.plx.admin.php
 
@@ -159,7 +162,6 @@ $LANG = array(
 'L_OPTIONS'							=> 'Opcions',
 'L_NEW_CATEGORY' 					=> 'Novèla categoria',
 'L_FOR_SELECTION' 					=> 'Per la seleccion...',
-'L_DELETE' 						    => 'Suprimir',
 'L_CAT_APPLY_BUTTON'				=> 'Modificar la lista de las categorias',
 'L_CAT_UNKNOWN'						=> 'categoria desconeguda',
 

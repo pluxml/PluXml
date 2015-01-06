@@ -8,6 +8,9 @@ $LANG = array(
 'L_SAVE_FILE'												=> 'Сохраните файл',
 'L_SAVE_FILE_SUCCESSFULLY'									=> 'Файл успешно сохранены',
 'L_SAVE_FILE_ERROR'											=> 'Ошибка при сохранении файла',
+'L_DELETE'													=> 'Удалить',
+'L_DELETE_FILE' 				    						=> 'Удалить файл',
+'L_DELETE_FOLDER'				   							=> 'Удалить папку',
 
 # class.plx.admin.php
 
@@ -159,7 +162,6 @@ $LANG = array(
 'L_OPTIONS'													=> 'Настроить',
 'L_NEW_CATEGORY'											=> 'Новая категория',
 'L_FOR_SELECTION'											=> 'Выбрать...',
-'L_DELETE'													=> 'Удалить',
 'L_CAT_APPLY_BUTTON'										=> 'Изменить список категорий',
 'L_CAT_UNKNOWN'												=> 'Неизвестная категория',
 

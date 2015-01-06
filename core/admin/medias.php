@@ -21,12 +21,8 @@ if(isset($_POST['folder']) AND $_POST['folder']!='.' AND !plxUtils::checkSource(
 eval($plxAdmin->plxPlugins->callHook('AdminMediasPrepend'));
 
 # Recherche du type de medias à afficher via la session
-if(empty($_SESSION['medias']) OR !empty($_POST['btn_images'])) {
+if(empty($_SESSION['medias'])) {
 	$_SESSION['medias'] = $plxAdmin->aConf['images'];
-	$_SESSION['folder'] = '';
-}
-elseif(!empty($_POST['btn_documents'])) {
-	$_SESSION['medias'] = $plxAdmin->aConf['documents'];
 	$_SESSION['folder'] = '';
 }
 elseif(!empty($_POST['folder'])) {
@@ -49,7 +45,7 @@ if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
 	header('Location: medias.php');
 	exit;
 }
-elseif(!empty($_POST['btn_delete']) AND !empty($_POST['folder']) AND $_POST['folder']!='.') {
+elseif(isset($_POST['selection']) AND !empty($_POST['folder']) AND $_POST['folder']!='.' AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete_folder'))) {
 	if($plxMedias->deleteDir($_POST['folder'])) {
 		$_SESSION['folder'] = '';
 	}
@@ -61,7 +57,7 @@ elseif(!empty($_POST['btn_upload'])) {
 	header('Location: medias.php');
 	exit;
 }
-elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete')) AND isset($_POST['idFile'])) {
+elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete_file')) AND isset($_POST['idFile'])) {
 	$plxMedias->deleteFiles($_POST['idFile']);
 	header('Location: medias.php');
 	exit;
@@ -107,7 +103,10 @@ switch ($sort) {
 $_SESSION['sort_medias']=$sort;
 
 # Contenu des 2 listes déroulantes
-$selectionList = array('' =>L_FOR_SELECTION, 'move'=>L_PLXMEDIAS_MOVE_FOLDER, 'thumbs'=>L_MEDIAS_RECREATE_THUMB, '-'=>'-----', 'delete' =>L_DELETE);
+$selectionList = array(''=>L_FOR_SELECTION,'mmove'=>L_PLXMEDIAS_MOVE_FOLDER,'thumbs'=>L_MEDIAS_RECREATE_THUMB,'-'=>'-----','delete_file' =>L_DELETE_FILE);
+if(!empty($_SESSION['folder']))	{
+	$selectionList['delete_folder'] = L_DELETE_FOLDER;
+}
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
@@ -138,9 +137,6 @@ function toggle_divs(){
 	<p><?php echo L_MEDIAS_DIRECTORY.' : /'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']) ?></p>	
 	<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 	<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-	<?php if(!empty($_SESSION['folder'])) : ?>
-	<input type="submit" name="btn_delete" onclick="Check=confirm('<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>');if(Check==false) return false;" value="<?php echo L_MEDIAS_DELETE_FOLDER ?>" />
-	<?php endif; ?>
 	<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 </div>
 
@@ -150,18 +146,19 @@ function toggle_divs(){
 
 <div id="files_manager">
 		<div class="inline-form">
-			<input class="<?php echo basename($_SESSION['medias'])=='images'?' select':'' ?>" type="submit" name="btn_images" value="<?php echo L_MEDIAS_IMAGES ?>" />
-			<input class="<?php echo basename($_SESSION['medias'])=='documents'?' select':'' ?>" type="submit" name="btn_documents" value="<?php echo L_MEDIAS_DOCUMENTS ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php echo plxToken::getTokenPostMethod() ?>
-			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
-			<?php echo $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
-			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
-			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
-			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+			<div style="float:left">
+				<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
+				<?php echo $plxMedias->contentFolder() ?>
+				<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<div style="float:right">
+				<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
+				<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
+				<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+			</div>
 		</div>
-
-		<div class="scrollable-table">
+		<div style="clear:both" class="scrollable-table">
 			<table id="medias-table" class="full-width">
 				<thead>
 				<tr>
@@ -179,22 +176,28 @@ function toggle_divs(){
 				# Initialisation de l'ordre
 				$num = 0;
 				# Si on a des fichiers
+				
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
+						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg'));
 						$ordre = ++$num;
 						echo '<tr class="line-'.($num%2).'">';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
-						echo '<td class="icon"><a onclick="this.target=\'_blank\';return true;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a></td>';
+						echo '<td class="icon">&nbsp;';
+						if(is_file($v['path']) AND $isImage) {
+							echo '<a onclick="this.target=\'_blank\';return true;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+						}
+						echo '</td>';
 						echo '<td>';
 						echo '<a onclick="this.target=\'_blank\';return true;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a><br />';
-						if($v['thumb']) {
+						if($isImage) {
 							echo '<a onclick="this.target=\'_blank\';return true;" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck($v['name']).'" href="'.plxUtils::thumbName($v['path']).'">'.L_MEDIAS_THUMB.'</a> : '.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1]. ' ('.plxUtils::formatFilesize($v['thumb']['filesize']).')';
 						}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
 						echo '<td>'.plxUtils::formatFilesize($v['filesize']).'</td>';
 						$dimensions = '&nbsp;';
-						if(isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1])) {
+						if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
 							$dimensions = $v['infos'][0].' x '.$v['infos'][1];
 						}
 						echo '<td>'.$dimensions.'</td>';
@@ -221,7 +224,6 @@ function toggle_divs(){
 	</div>
 	<div class="files_list" id="files_list">
 	</div>
-	<?php if($_SESSION['medias']==$plxAdmin->aConf['images']) : ?>
 	<div class="grid">
 		<div class="col sma-12 med-4">
 			<ul class="unstyled-list">
@@ -268,7 +270,6 @@ function toggle_divs(){
 			</ul>
 		</div>
 	</div>
-	<?php endif; ?>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
 	<script type="text/javascript">
