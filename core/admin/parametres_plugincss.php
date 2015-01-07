@@ -53,8 +53,8 @@ include(dirname(__FILE__).'/top.php');
 <form action="parametres_plugincss.php?p=<?php echo urlencode($plugin) ?>" method="post" id="form_file">
 
 <div class="inline-form action-bar">
-	<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	<?php echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
+	<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 </div>
 
 <h2><?php echo plxUtils::strCheck($plugin) ?></h2>
