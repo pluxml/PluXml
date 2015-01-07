@@ -114,15 +114,12 @@ $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION[
 <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
 <script type="text/javascript">
 function toggle_divs(){
-	var medias_back = document.getElementById('medias_back');
 	var uploader = document.getElementById('files_uploader');
 	var manager = document.getElementById('files_manager');
 	if(uploader.style.display == 'none') {
-		medias_back.style.display = 'block';
 		uploader.style.display = 'block';
 		manager.style.display = 'none';
 	} else {
-		medias_back.style.display = 'none';
 		uploader.style.display = 'none';
 		manager.style.display = 'block';
 	}
@@ -136,6 +133,7 @@ function toggle_divs(){
 	<p><?php echo L_MEDIAS_DIRECTORY.' : '.$curFolder ?></p>
 	<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 	<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<input class="separator" />
 	<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 	<?php if(!empty($_SESSION['folder'])) { ?>
 	<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
@@ -143,8 +141,6 @@ function toggle_divs(){
 </div>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
-
-<p id="medias_back" style="display:none"><a href="javascript:void(0)" onclick="toggle_divs();return false"><?php echo L_MEDIAS_BACK ?></a></p>
 
 <div id="files_manager">
 		<div class="inline-form">
@@ -217,6 +213,9 @@ function toggle_divs(){
 <form action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
 
 <div id="files_uploader" style="display:none">
+
+	<p id="medias_back"><a href="javascript:void(0)" onclick="toggle_divs();return false"><?php echo L_MEDIAS_BACK ?></a></p>
+
 	<p><?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?></p>
 	<div class="inline-form">
 		<input id="selector" type="file" name="selector" />
