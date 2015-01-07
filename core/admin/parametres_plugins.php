@@ -137,6 +137,7 @@ include(dirname(__FILE__).'/top.php');
 	<?php echo plxToken::getTokenPostMethod() ?>
 	<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
 	<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	&nbsp;&nbsp;&nbsp;
 	<input type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
 </div>
 

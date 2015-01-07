@@ -160,7 +160,7 @@ class plxMedias {
 				$prefixe = '|&nbsp;&nbsp;';
 				$i = 0;
 				while($i < $v['level']) {
-					$prefixe .= '&nbsp;&nbsp;';
+					$prefixe .= '&nbsp;&nbsp;&nbsp;';
 					$i++;
 				}
 				$selected = ($v['path']==$this->dir?'selected="selected" ':'');
