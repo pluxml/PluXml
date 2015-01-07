@@ -76,7 +76,6 @@ include(dirname(__FILE__).'/top.php');
 <div class="inline-form action-bar">
 	<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
 	<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>	
-	<p>&nbsp;</p>
 	<form action="parametres_edittpl.php" method="post" id="form_select">
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<label for="id_template"><?php echo L_CONFIG_EDITTPL_SELECT_FILE ?></label>
