@@ -136,7 +136,7 @@ function toggle_divs(){
 	<h2><?php echo L_MEDIAS_TITLE ?></h2>
 	<p><?php echo L_MEDIAS_DIRECTORY.' : /'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']) ?></p>	
 	<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
-	<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmActionMedias('id_selection', this.form, 'idFile[]', new Array('<?php echo L_CONFIRM_DELETE ?>', '<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>'))" />
 	<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 </div>
 

@@ -60,6 +60,7 @@ function checkAll(inputs, field) {
 	}
 }
 function confirmAction(inputs, selfield, selvalue, field, msg) {
+
 	if(document.getElementById(selfield).value==selvalue) {
 		var action = false;
 		for(var i = 0; i < inputs.elements.length; i++) {
@@ -68,6 +69,22 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 			}
 		}
 		return (action ? confirm(msg) : false);
+	}
+}
+function confirmActionMedias(input, inputs, field, msg) {
+	var e = document.getElementById(input);
+	var strUser = e.options[e.selectedIndex].value;
+	if(strUser=='delete_file') {
+		var action = false;
+		for(var i = 0; i < inputs.elements.length; i++) {
+			if(inputs[i].type == "checkbox" && inputs[i].name==field) {
+				if(inputs[i].checked) { action=true }
+			}
+		}
+		return (action ? confirm(msg[0]) : false);
+	}
+	else if(strUser=='delete_folder') {
+		return confirm(msg[1]);
 	}
 }
 function toggleDiv(divId,togglerId,on,off){
