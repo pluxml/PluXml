@@ -45,7 +45,7 @@ if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
 	header('Location: medias.php');
 	exit;
 }
-elseif(isset($_POST['selection']) AND !empty($_POST['folder']) AND $_POST['folder']!='.' AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete_folder'))) {
+elseif(!empty($_POST['folder']) AND $_POST['folder']!='.' AND !empty($_POST['btn_delete'])) {
 	if($plxMedias->deleteDir($_POST['folder'])) {
 		$_SESSION['folder'] = '';
 	}
@@ -57,7 +57,7 @@ elseif(!empty($_POST['btn_upload'])) {
 	header('Location: medias.php');
 	exit;
 }
-elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete_file')) AND isset($_POST['idFile'])) {
+elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete')) AND isset($_POST['idFile'])) {
 	$plxMedias->deleteFiles($_POST['idFile']);
 	header('Location: medias.php');
 	exit;
@@ -103,13 +103,12 @@ switch ($sort) {
 $_SESSION['sort_medias']=$sort;
 
 # Contenu des 2 listes déroulantes
-$selectionList = array(''=>L_FOR_SELECTION,'mmove'=>L_PLXMEDIAS_MOVE_FOLDER,'thumbs'=>L_MEDIAS_RECREATE_THUMB,'-'=>'-----','delete_file' =>L_DELETE_FILE);
-if(!empty($_SESSION['folder']))	{
-	$selectionList['delete_folder'] = L_DELETE_FOLDER;
-}
+$selectionList = array(''=>L_FOR_SELECTION,'mmove'=>L_PLXMEDIAS_MOVE_FOLDER,'thumbs'=>L_MEDIAS_RECREATE_THUMB,'-'=>'-----','delete' =>L_DELETE_FILE);
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
+
+$curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
 
 ?>
 <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
@@ -134,10 +133,13 @@ function toggle_divs(){
 
 <div class="inline-form action-bar">
 	<h2><?php echo L_MEDIAS_TITLE ?></h2>
-	<p><?php echo L_MEDIAS_DIRECTORY.' : /'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']) ?></p>	
+	<p><?php echo L_MEDIAS_DIRECTORY.' : '.$curFolder ?></p>
 	<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
-	<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmActionMedias('id_selection', this.form, 'idFile[]', new Array('<?php echo L_CONFIRM_DELETE ?>', '<?php echo L_MEDIAS_DELETE_FOLDER_CONFIRM ?>'))" />
+	<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
+	<?php if(!empty($_SESSION['folder'])) { ?>
+	<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
+	<?php } ?>
 </div>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
@@ -176,7 +178,6 @@ function toggle_divs(){
 				# Initialisation de l'ordre
 				$num = 0;
 				# Si on a des fichiers
-				
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
 						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg'));
@@ -211,7 +212,7 @@ function toggle_divs(){
 			</table>
 		</div>
 	</div>
-</form>	
+</form>
 
 <form action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
 
