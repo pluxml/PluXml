@@ -306,13 +306,15 @@ plxUtils::cleanHeaders();
 					<ul class="list-unstyled">
 						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
 						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
+						<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
+						<?php } ?>  
 						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['images']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['documents']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testMail() ?>
