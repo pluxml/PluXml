@@ -510,7 +510,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche ou renvoie l'auteur de l'article
 	 *
-	 * @param echo si à VRAI affichage à l'écran 	 
+	 * @param echo si à VRAI affichage à l'écran
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
@@ -1157,9 +1157,10 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste des pages statiques.
 	 *
-	 * @param	extra		si renseigné: nom du lien vers la page d'accueil affiché en première position
-	 * @param	format		format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
-	 * @param	menublog	position du menu Blog (si non renseigné le menu n'est pas affiché)
+	 * @param	extra			si renseigné: nom du lien vers la page d'accueil affiché en première position
+	 * @param	format			format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
+	 * @param	format_group	format du texte pour chaque groupe (variable : #group_class, #group_name)
+	 * @param	menublog		position du menu Blog (si non renseigné le menu n'est pas affiché)
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Stephane F
