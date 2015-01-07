@@ -208,7 +208,3 @@ input {
 .alert {
 	margin: 0 0 1rem;
 }
-input.separator {
-	width:10px;
-	visibility:hidden;
-}
