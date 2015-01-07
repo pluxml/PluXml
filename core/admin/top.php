@@ -1,9 +1,6 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
-
 <!DOCTYPE html>
-
 <html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
-
 <head>
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
