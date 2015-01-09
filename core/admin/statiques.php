@@ -47,11 +47,11 @@ function checkBox(cb) {
 
 <div class="inline-form action-bar">
 	<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
-	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>	
+	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 	<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 	<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	<?php echo plxToken::getTokenPostMethod() ?>
-	&nbsp;&nbsp;&nbsp;	
+	&nbsp;&nbsp;&nbsp;
 	<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
 </div>
 
