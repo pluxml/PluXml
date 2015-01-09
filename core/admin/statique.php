@@ -63,8 +63,6 @@ include(dirname(__FILE__).'/top.php');
 	<a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
 </div>
 
-
-
 <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
 
 	<fieldset>
@@ -94,7 +92,7 @@ include(dirname(__FILE__).'/top.php');
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	
+
 </form>
 
 <?php
