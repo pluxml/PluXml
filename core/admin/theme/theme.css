@@ -77,9 +77,6 @@
 	margin-bottom: 2rem;
 	margin-top: 9rem;
 }
-#parametres_plugin .section {
-	margin-top: 0;
-}
 .section .action-bar {
 	background-color: #f5f5f5;
 	border-bottom: 1px solid #ddd;
@@ -99,6 +96,21 @@
 .section .action-bar h2 {
 	margin-top: 0;
 	margin-bottom: 0;
+}
+#plugin .section {
+	margin-top: 1rem;
+}
+#parametres_plugin  .section {
+	margin-top: 8rem;
+}
+#parametres_pluginhelp  .section {
+	margin-top: 6rem;
+}
+.in-action-bar {
+	top: 4rem;
+	position: absolute;
+	position: fixed;
+	z-index: 99999;
 }
 @media (max-width: 1023px) {
 	.section .action-bar {
@@ -181,8 +193,8 @@ textarea {
 #articles-table td:nth-child(4),
 #comments-table td:nth-child(3),
 #medias-table td:nth-child(3),
-#plugins-table td:nth-child(3) {  
-	width: 100%; 
+#plugins-table td:nth-child(3) {
+	width: 100%;
 }
 #plugins-table img,
 #medias-table img {

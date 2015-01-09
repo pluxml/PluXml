@@ -19,6 +19,11 @@ $output='';
 $filename = realpath(PLX_PLUGINS.$plugin.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php');
 if(is_file($filename)) {
 	ob_start();
+	echo '
+	<div class="inline-form action-bar">
+		<h2>'.plxUtils::strCheck($plugin).'</h2>
+		<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
+	</div>';
 	include($filename);
 	$output=ob_get_clean();
 }
@@ -35,8 +40,3 @@ echo $output;
 # On inclut le footer
 include(dirname(__FILE__).'/foot.php');
 ?>
-
-<div class="inline-form action-bar">
-	<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
-	<?php echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
-</div>

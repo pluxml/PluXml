@@ -23,12 +23,16 @@ if(is_file($filename)) {
 		$plxPlugin = $plxAdmin->plxPlugins->getInstance($plugin);
 	else
 		$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];
-	
+
 	# Control des autorisation d'accès à l'écran config.php du plugin
 	$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
 	# chargement de l'écran de parametrage du plugin config.php
 	ob_start();
-	echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>';
+	echo '
+	<div class="inline-form action-bar">
+		<h2>'.plxUtils::strCheck($plugin).'</h2>
+		<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
+	</div>';
 	include($filename);
 	$output=ob_get_clean();
 }

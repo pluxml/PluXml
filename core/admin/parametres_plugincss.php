@@ -52,12 +52,11 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="parametres_plugincss.php?p=<?php echo urlencode($plugin) ?>" method="post" id="form_file">
 
-<div class="inline-form action-bar">
-	<?php echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
-	<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
-</div>
-
-<h2><?php echo plxUtils::strCheck($plugin) ?></h2>
+	<div class="inline-form action-bar">
+		<h2><?php echo plxUtils::strCheck($plugin) ?></h2>
+		<?php echo '<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
+		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+	</div>
 
 	<fieldset>
 		<div class="basic-form">
