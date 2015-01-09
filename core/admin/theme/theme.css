@@ -97,21 +97,6 @@
 	margin-top: 0;
 	margin-bottom: 0;
 }
-#plugin .section {
-	margin-top: 1rem;
-}
-#parametres_plugin  .section {
-	margin-top: 8rem;
-}
-#parametres_pluginhelp  .section {
-	margin-top: 6rem;
-}
-.in-action-bar {
-	top: 4rem;
-	position: absolute;
-	position: fixed;
-	z-index: 99999;
-}
 @media (max-width: 1023px) {
 	.section .action-bar {
 		left: 25%;
@@ -155,13 +140,12 @@
 	}
 	.section .action-bar {
 		background-color: inherit;
-		min-height: inherit;
 		margin: 0 0 1rem 0;
 		padding: 0;
 		z-index: inherit;
 	}
 	.section {
-		margin-top: 2rem;
+		margin-top: 1rem;
 		padding: 0 .5rem 0 1.5rem;
 	}
 }
@@ -219,4 +203,28 @@ input {
 }
 .alert {
 	margin: 0 0 1rem;
+}
+
+
+#plugin .section {
+	margin-top: 1rem;
+}
+#parametres_plugin  .section {
+	margin-top: 8rem;
+}
+#parametres_pluginhelp  .section {
+	margin-top: 6rem;
+}
+.in-action-bar {
+	top: 0;
+	margin-top: 4em;
+	position: fixed;
+	z-index: 99999;
+}
+@media (max-width: 767px) {
+	#parametres_plugin  .section, 
+	#parametres_plugincss  .section, 
+	#parametres_pluginhelp .section {
+		margin-top: 1rem;	
+	}
 }
