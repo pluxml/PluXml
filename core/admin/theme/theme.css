@@ -208,10 +208,10 @@ input {
 #plugin .section {
 	margin-top: 1rem;
 }
-#parametres_plugin  .section {
+#parametres_plugin .section {
 	margin-top: 8rem;
 }
-#parametres_pluginhelp  .section {
+#parametres_pluginhelp .section {
 	margin-top: 6rem;
 }
 .in-action-bar {
@@ -222,8 +222,8 @@ input {
 	width: 100%;
 }
 @media (max-width: 767px) {
-	#parametres_plugin  .section,
-	#parametres_plugincss  .section,
+	#parametres_plugin .section,
+	#parametres_plugincss .section,
 	#parametres_pluginhelp .section {
 		margin-top: 1rem;
 	}
