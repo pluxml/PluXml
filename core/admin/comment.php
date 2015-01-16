@@ -129,7 +129,7 @@ include(dirname(__FILE__).'/top.php');
 	<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
 	<?php endif; ?>
 	<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
-	<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+	&nbsp;&nbsp;&nbsp;<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
 	<?php echo plxToken::getTokenPostMethod() ?>	
 </div>
 
