@@ -12,6 +12,10 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+.inline-form {
+	margin-bottom: 0;
+}
+
 .auth {
 	border:1px solid #aaa;
 	margin-top: 10%;
