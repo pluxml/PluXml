@@ -209,6 +209,11 @@ input {
 	margin: 0 0 1rem;
 }
 
+blockquote.type-admin {
+	background-color: #F0F8FF;
+	padding: 2px 5px;
+}
+
 #plugin .section {
 	margin-top: 1rem;
 }
