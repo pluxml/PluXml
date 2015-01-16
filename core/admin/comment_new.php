@@ -20,8 +20,8 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # Interdire de l'accès à la page si les commentaires sont désactivés
 if(!$plxAdmin->aConf['allow_com']) {
-    header('Location: index.php');
-    exit;
+	header('Location: index.php');
+	exit;
 }
 
 # validation de l'id de l'article si passé en parametre
@@ -112,7 +112,7 @@ include(dirname(__FILE__).'/top.php');
 	<p><a href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 	<?php else : ?>
 	<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-	<?php endif; ?>	
+	<?php endif; ?>
 	<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
 </div>
 
@@ -141,7 +141,7 @@ include(dirname(__FILE__).'/top.php');
 	<h3><?php echo L_ARTICLE_COMMENTS_LIST ?></h3>
 	<?php while($plxAdmin->plxRecord_coms->loop()) : # On boucle ?>
 		<?php $comId = $plxAdmin->plxRecord_coms->f('article').'.'.$plxAdmin->plxRecord_coms->f('numero'); ?>
-		<div class="comment<?php echo ((isset($_GET['c']) AND $_GET['c']==$comId?' current':'')) ?>" id="c<?php echo $plxAdmin->plxRecord_coms->f('numero'); ?>">
+		<div class="comment<?php echo ((isset($_GET['c']) AND $_GET['c']==$comId)?' current':'') ?>" id="c<?php echo $plxAdmin->plxRecord_coms->f('numero'); ?>">
 			<p><?php echo L_COMMENT_WRITTEN_BY ?>&nbsp;<strong><?php echo $plxAdmin->plxRecord_coms->f('author'); ?></strong>
 			@ <?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?>
 			 - <a href="comment.php<?php echo (!empty($_GET['a']))?'?c='.$comId.'&amp;a='.$_GET['a']:'?c='.$comId; ?>" title="<?php echo L_COMMENT_EDIT_TITLE ?>"><?php echo L_COMMENT_EDIT ?></a>
