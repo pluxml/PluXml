@@ -488,6 +488,8 @@ img {
 @media (max-width: 767px) {
 	.responsive-menu ul {
 		display: none;
+        max-height: 480px;
+        overflow: auto;
 	}
 	.responsive-menu label,
 	.responsive-menu ul li {
