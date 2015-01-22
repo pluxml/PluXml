@@ -715,6 +715,7 @@ img {
 	max-width: 1280px;
 	padding-left: 1rem;
 	padding-right: 1rem;
+    width: 100%;
 }
 .grid {
 	overflow: hidden;
