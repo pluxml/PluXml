@@ -700,7 +700,7 @@ class plxShow {
 	 *
 	 * @param	format	format d'affichage du lien pour lire la suite de l'article (#art_title)
 	 * @param	content	affichage oui/non du contenu si le chapô est vide
-	 * @param 	anchor ancre dans l'article vers laquelle pointer le lien 
+	 * @param 	anchor	ancre dans l'article pour faire pointer le lien "Lire la suite" quand on clic dessus
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F

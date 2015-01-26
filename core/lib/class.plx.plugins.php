@@ -533,14 +533,14 @@ class plxPlugin {
 	 * @author	Sebastien H
 	 **/
 	public function delParam($param) {
-		if (isset($this->aParams[$param])){
+		if(isset($this->aParams[$param])) {
 			unset($this->aParams[$param]);
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Méthode qui recupere les données du fichier infos.xml
 	 *
