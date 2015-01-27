@@ -241,3 +241,25 @@ blockquote.type-admin {
 		margin-top: 3.5rem;
 	}
 }
+
+/* Messages */
+.notification {
+	position:fixed;
+	top:-1px;
+	z-index:999999;
+	text-align: center;
+	margin: 0 auto;
+	padding: 2px 15px 2px 15px;
+	border: 1px solid;
+	font-size: 13px;
+	font-weight:bold;
+	color:#000;
+}
+.error {
+	background-color: #ffcfcf;
+	border-color: #df8f8f;
+}
+.success {
+	background-color: #fff1a8;
+	border-color: #e6db55;
+}
