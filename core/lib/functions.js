@@ -87,4 +87,7 @@ function insTag(where, tag) {
 	else
 		formfield.value = formfield.value+', '+tag;
 }
+function expand_menu() {
+	document.getElementById('responsive-menu').setAttribute("style","height:200px");
+}
 -->

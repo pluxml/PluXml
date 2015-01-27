@@ -56,8 +56,8 @@
         </header>
         <nav class="responsive-menu">
             <label for="nav"><?php echo L_MENU ?></label>
-            <input type="checkbox" id="nav" />
-            <ul class="menu vertical expanded">
+            <input type="checkbox" id="nav" onclick="expand_menu()" />
+            <ul id="responsive-menu" class="menu vertical expanded">
                 <?php
                     $menus = array();
                     $userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
