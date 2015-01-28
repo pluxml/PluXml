@@ -1346,7 +1346,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche une page statique en lui passant son id (si cette page est active ou non)
 	 *
-	 * @param	id	id numérique de la page statique
+	 * @param	id		id numérique ou url/titre de la page statique
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Stéphane F
@@ -1356,7 +1356,13 @@ class plxShow {
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return ;
 		# On génère un nouvel objet plxGlob
 		$plxGlob_stats = plxGlob::getInstance(PLX_ROOT.$this->plxMotor->aConf['racine_statiques']);
-		if($files = $plxGlob_stats->query('/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/')) {
+		if(is_numeric($id))
+			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
+		else {
+			$url = plxUtils::title2url($id);
+			$regx = '/^[0-9]{3}.'.$url.'.php$/';
+		}
+		if($files = $plxGlob_stats->query($regx)) {
 			include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
 		}
 	}

@@ -11,6 +11,7 @@
 [+] Administration > Paramètres > Configuration Avancée: ajout champ "Emplacement du fichier css personnel pour customisation de l'interface d'administration (option)"
 [+] classe plxPlugin: ajout de la méthode delParam (contribution jormun)
 [+] plxShow::artChapo() : ajout du paramètre optionnel anchor (contribution jerrywham)
+[+] plxShow::staticInclude() : possibilité d'inclure une page statique à partir de son titre ou de son url
 BUG fix #77: fct artFeed: lien rss pour les catégories incomplet
 BUG Correction d'une possible auth-bypass (contribution jvoisin)
 BUG Prise en compte des liens en // dans la réécriture d'url
