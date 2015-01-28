@@ -181,7 +181,7 @@ include(dirname(__FILE__).'/top.php');
 				if(sizeof($catsName)>0) {
 					$libCats = $catsName[0];
 					unset($catsName[0]);
-					if(sizeof($catsName)>0) $libCats .= ', ... <a class="help" title="'.implode(',', $catsName).'"><img src="theme/images/help.png" alt="Help"></a>';
+					if(sizeof($catsName)>0) $libCats .= ', <a class="help" title="'.implode(',', $catsName).'">...</a>';
 				}
 				else $libCats = L_UNCLASSIFIED;
 			}
