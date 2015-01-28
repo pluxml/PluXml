@@ -210,6 +210,9 @@ input {
 .alert {
 	margin: 0 0 1rem;
 }
+.help {
+	cursor: Default;
+}
 
 blockquote.type-admin {
 	background-color: #F0F8FF;
