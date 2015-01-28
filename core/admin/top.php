@@ -56,7 +56,7 @@
         </header>
         <nav class="responsive-menu">
             <label for="nav"><?php echo L_MENU ?></label>
-            <input type="checkbox" id="nav" onclick="expand_menu()" />
+            <input type="checkbox" id="nav" />
             <ul id="responsive-menu" class="menu vertical expanded">
                 <?php
                     $menus = array();
