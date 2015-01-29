@@ -331,16 +331,19 @@ $cat_id='000';
 					}
 					?>
 				</div>
-				<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
-				<div class="inline-form">
-					<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,false); ?>
-					<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,false); ?>
-					<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,false); ?>
-					<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,false); ?>
-					<a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-						<img src="theme/images/date.png" alt="calendar" />
-					</a>
-				</div>
+                
+                <div class="basic-form">
+                    <label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
+                    <div class="inline-form">
+                        <?php plxUtils::printInput('day',$date['day'],'text','2-2',false,false); ?>
+                        <?php plxUtils::printInput('month',$date['month'],'text','2-2',false,false); ?>
+                        <?php plxUtils::printInput('year',$date['year'],'text','2-4',false,false); ?>
+                        <?php plxUtils::printInput('time',$date['time'],'text','2-5',false,false); ?>
+                        <a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+                            <img src="theme/images/date.png" alt="calendar" />
+                        </a>
+                    </div>
+                </div>
 				<div class="basic-form">
 					<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 					<?php
@@ -360,20 +363,24 @@ $cat_id='000';
 
 				<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
 				
-				<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
-				<div class="inline-form">
-					<?php plxUtils::printInput('new_catname','','text','17-50')	?>
-					<input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
-				</div>
+                <div class="basic-form">
+                    <label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
+                    <div class="inline-form">
+                        <?php plxUtils::printInput('new_catname','','text','17-50')	?>
+                        <input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
+                    </div>
+                </div>
 				<?php endif; ?>
 
-				<label for="id_tags">
-					<?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a title="<?php echo L_ARTICLE_TAGS_FIELD_TITLE ?>"><img src="theme/images/help.png" alt="Help"></a>
-				</label>
-				<div class="inline-form">
-					<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-					<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
-				</div>	
+                <div class="basic-form">
+                    <label for="id_tags">
+                        <?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a title="<?php echo L_ARTICLE_TAGS_FIELD_TITLE ?>"><img src="theme/images/help.png" alt="Help"></a>
+                    </label>
+                    <div class="inline-form">
+                        <?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+                        <a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
+                    </div>
+                </div>
 				<div id="tags" style="display:none; margin-bottom: 1rem">
 					<?php
 					if($plxAdmin->aTags) {
