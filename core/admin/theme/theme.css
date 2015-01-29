@@ -12,10 +12,6 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
-.inline-form {
-	margin-bottom: 0;
-}
-
 .auth {
 	border:1px solid #aaa;
 	margin-top: 10%;
@@ -213,7 +209,6 @@ input {
 .help {
 	cursor: help;
 }
-
 blockquote.type-admin {
 	background-color: #F0F8FF;
 	padding: 2px 5px;
@@ -246,8 +241,6 @@ blockquote.type-admin {
 		margin-top: 3.5rem;
 	}
 }
-
-/* Messages */
 .notification {
 	position:fixed;
 	top:-1px;
