@@ -4,7 +4,7 @@ $LANG = array(
 
 'L_SAVE_SUCCESSFUL'					=> 'Enregistrement des données effectué avec succès',
 'L_UPDATE_TITLE'					=> 'Mise à jour PluXml',
-'L_WRONG_PHP_VERSION'				=> 'PluXml requiert PHP 5 ou superieur pour fonctionner.',
+'L_WRONG_PHP_VERSION'				=> 'PluXml requiert PHP 5 ou supérieur pour fonctionner.',
 
 'L_SELECT_LANG'						=> 'Sélectionnez votre langue',
 'L_INPUT_CHANGE'					=> 'Changer',
@@ -51,7 +51,7 @@ $LANG = array(
 'L_UPDATE_ERR_DELETE_PLXTOOLBAR_FOLDER' => 'Erreur pendant la suppression du dossier core/plxtoolbar/',
 'L_UPDATE_FILE'						=> 'Mise à jour du fichier',
 'L_UPDATE_ERR_FILE'					=> 'Erreur pendant la mise à jour du fichier',
-'L_UPDATE_PLUG_MOVEPARAMFILE'		=> 'Migration des fichiers de paramètrage des plugins dans le dossier de configuration',
+'L_UPDATE_PLUG_MOVEPARAMFILE'		=> 'Migration des fichiers de paramétrage des plugins dans le dossier de configuration',
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Mise à jour du fichier plugins.xml',
 
 );
