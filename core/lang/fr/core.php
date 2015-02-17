@@ -5,11 +5,11 @@ $LANG = array(
 'L_LANGUE'						=> 'Français',
 
 # common
-'L_PLUXML_VERSION'				=> 'Pluxml version',
+'L_PLUXML_VERSION'				=> 'PluXml version',
 'L_HOMEPAGE'					=> 'Accueil',
 'L_UNCLASSIFIED'				=> 'Non classé',
 'L_INFO_PHP_VERSION'			=> 'Version de php',
-'L_INFO_MAGIC_QUOTES'			=> 'Etat des "magic quotes"',
+'L_INFO_MAGIC_QUOTES'			=> 'État des "magic quotes"',
 'L_INFO_CHARSET'				=> 'encodage',
 
 # index.php
@@ -57,7 +57,7 @@ $LANG = array(
 'L_THIRD'						=> 'troisième',
 'L_FOURTH'						=> 'quatrième',
 'L_FIFTH'						=> 'cinquième',
-'L_SIXTH'						=> 'sizième',
+'L_SIXTH'						=> 'sixième',
 'L_SEVENTH'						=> 'septième',
 'L_EIGTH'						=> 'huitième',
 'L_NINTH'						=> 'neuvième',
