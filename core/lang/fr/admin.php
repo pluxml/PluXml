@@ -168,7 +168,7 @@ $LANG = array(
 
 # categorie.php
 
-'L_EDITCAT_PAGE_TITLE'				=> 'Edition des options de la catégorie',
+'L_EDITCAT_PAGE_TITLE'				=> 'Édition des options de la catégorie',
 'L_EDITCAT_DESCRIPTION'				=> 'Description',
 'L_EDITCAT_DISPLAY_HOMEPAGE'		=> 'Afficher les articles de cette catégorie sur la page d\'accueil',
 'L_EDITCAT_TEMPLATE'				=> 'Template',
@@ -345,7 +345,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_GZIP_HELP'		=> 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur',
 'L_CONFIG_ADVANCED_CAPCHA'			=> 'Activer le capcha anti-spam',
 'L_CONFIG_ADVANCED_ADMIN_KEY'		=> 'Clef d\'administration (URLs privés)',
-'L_CONFIG_ADVANCED_KEY_HELP'		=> 'Vider ce champs pour regénérer la clef',
+'L_CONFIG_ADVANCED_KEY_HELP'		=> 'Vider ce champs pour régénérer la clef',
 'L_CONFIG_ADVANCED_USERFOLDERS'		=> 'Utiliser un dossier images et documents différent pour chaque utilisateur',
 'L_HELP_SLASH_END'					=> 'Ne pas oublier le slash à la fin',
 'L_CONFIG_ADVANCED_MEDIAS_FOLDER'	=> 'Emplacement des médias (dossier)',
@@ -356,7 +356,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'	=> 'Emplacement des plugins (dossier)',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplacement des fichiers de configuration (dossier)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modifier la configuration avancée',
-'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement et nom du fichier css personnel pour customisation de l\'interface d\'administration (option)',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement et nom du fichier css personnel pour la personnalisation de l\'interface d\'administration (option)',
 
 # parametres_base.php
 
@@ -368,7 +368,7 @@ $LANG = array(
 'L_CONFIG_BASE_TIMEZONE'			=> 'Fuseau horaire',
 'L_CONFIG_BASE_ALLOW_COMMENTS'		=> 'Autoriser les commentaires',
 'L_CONFIG_BASE_MODERATE_COMMENTS'	=> 'Modérer les commentaires à la création',
-'L_CONFIG_BASE_MODERATE_ARTICLES'	=> 'Modérer les articles pour les profils Rédacteur et Editeur',
+'L_CONFIG_BASE_MODERATE_ARTICLES'	=> 'Modérer les articles pour les profils Rédacteur et Éditeur',
 'L_CONFIG_BASE_UPDATE'				=> 'Modifier la configuration de base',
 'L_CONFIG_META_DESCRIPTION'			=> 'Contenu de la balise meta "description" du site (optionnel)',
 'L_CONFIG_META_KEYWORDS'			=> 'Contenu de la balises meta "keywords" du site (optionnel)',
@@ -493,7 +493,7 @@ $LANG = array(
 'L_PROFIL_ADMIN'					=> 'Administrateur',
 'L_PROFIL_MANAGER'					=> 'Gestionnaire',
 'L_PROFIL_MODERATOR'				=> 'Modérateur',
-'L_PROFIL_EDITOR'					=> 'Editeur',
+'L_PROFIL_EDITOR'					=> 'Éditeur',
 'L_PROFIL_WRITER'					=> 'Rédacteur',
 'L_ADMIN'							=> '- Administration',
 'L_LOGIN'							=> 'Connecté en tant que',
@@ -511,7 +511,7 @@ $LANG = array(
 'L_MENU_STATICS'					=> 'Pages statiques',
 'L_MENU_COMMENTS_TITLE'				=> 'Liste et modification des commentaires',
 'L_MENU_COMMENTS'					=> 'Commentaires',
-'L_MENU_MEDIAS_TITLE'				=> 'Uploader et insérer un média',
+'L_MENU_MEDIAS_TITLE'				=> 'Télécharger et insérer un média',
 'L_MENU_MEDIAS'						=> 'Médias',
 'L_MENU_CATEGORIES_TITLE'			=> 'Créer, gérer, éditer les catégories',
 'L_MENU_CATEGORIES'					=> 'Catégories',
@@ -527,7 +527,7 @@ $LANG = array(
 'L_USER_MAIL'						=> 'Adresse email',
 'L_USER_INFOS'						=> 'Informations',
 'L_USER_UPDATE'						=> 'Mettre à jour cet utilisateur',
-'L_USER_PAGE_TITLE'					=> 'Edition des options de l\'utilisateur',
+'L_USER_PAGE_TITLE'					=> 'Édition des options de l\'utilisateur',
 'L_USER_BACK_TO_PAGE'				=> 'Retour à la liste des utilisateurs',
 
 #
