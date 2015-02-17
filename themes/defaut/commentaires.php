@@ -34,7 +34,7 @@
 		<?php $plxShow->lang('WRITE_A_COMMENT') ?>
 	</h2>
 
-	<form action="<?php $plxShow->artUrl(); ?>#form" method="post">
+	<form id="form" action="<?php $plxShow->artUrl(); ?>#form" method="post">
 
 		<fieldset>
 
