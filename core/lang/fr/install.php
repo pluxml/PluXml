@@ -4,7 +4,7 @@ $LANG = array(
 
 # install.php
 'L_INSTALL_TITLE'					=> 'Installation',
-'L_WRONG_PHP_VERSION'				=> 'PluXml requiert PHP 5 ou superieur pour fonctionner.',
+'L_WRONG_PHP_VERSION'				=> 'PluXml requiert PHP 5 ou supérieur pour fonctionner.',
 'L_SELECT_LANG'						=> 'Sélectionnez votre langue',
 'L_INPUT_CHANGE'					=> 'Changer',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Rubrique 1',
