@@ -99,7 +99,7 @@ plxUtils::cleanHeaders();
 
 	<main class="container">
 		<section class="grid">
-			<div class="auth col sml-12 sml-centered med-5 lrg-4">
+			<div class="auth col sml-12 sml-centered med-5 lrg-3">
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
 				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 					<fieldset>
