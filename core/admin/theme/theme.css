@@ -60,7 +60,7 @@
 	color: #aaa;
 }
 .aside .menu.expanded .badge,
-.menu.expanded .active a .badge {
+.aside .menu.expanded .active a .badge {
 	background-color: #e43d29;
 	color: #fff;
 }
