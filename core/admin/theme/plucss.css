@@ -219,7 +219,7 @@ table {
 }
 td,
 th {
-	border: 1px solid #bbb;
+	border: 1px solid #ddd;
 	height: 1.9rem;
 	padding-left: .4rem;
 	padding-right: .4rem;
@@ -228,8 +228,12 @@ tfoot,
 thead {
 	background-color: #ddd;
 }
+tr:nth-child(even) {
+    background-color: #EEE;
+}
+
 tr:hover {
-	background-color: #fff8dc;
+	background-color: #fff8dc!important;
 }
 tfoot tr:hover,
 thead tr:hover {
