@@ -59,8 +59,10 @@
 .aside .header .version {
 	color: #aaa;
 }
-.aside .menu.expanded .badge {
+.aside .menu.expanded .badge,
+.menu.expanded .active a .badge {
 	background-color: #e43d29;
+	color: #fff;
 }
 .aside .menu.expanded li.active a,
 .aside .menu.expanded li.active:hover {
