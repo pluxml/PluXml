@@ -265,3 +265,11 @@ blockquote.type-admin {
 	background-color: #fff1a8;
 	border-color: #e6db55;
 }
+.warning {
+	margin: 10px 320px 10px 0;
+	padding: 10px 5px 10px 20px;
+	border: 1px solid #df8f8f;
+	font-size: 13px;
+	width:100%;
+	background-color: #ffcfcf;
+}
