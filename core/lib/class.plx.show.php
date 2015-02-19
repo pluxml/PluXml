@@ -1248,13 +1248,15 @@ class plxShow {
 	 *
 	 * @return	int
 	 * @scope	static
-	 * @author	Florent MONTHEL
+	 * @author	Florent MONTHEL, Stéphane F.
 	 **/
 	public function staticId() {
 
-		# On va verifier que la categorie existe en mode categorie
+		# On va vérifier que la catégorie existe en mode catégorie
 		if($this->plxMotor->mode == 'static' AND isset($this->plxMotor->aStats[ $this->plxMotor->cible ]))
 			return intval($this->plxMotor->cible);
+		else
+			return plxUtils::strCheck($this->plxMotor->mode);
 	}
 
 	/**
@@ -1263,7 +1265,7 @@ class plxShow {
 	 * @param	type	type de lien : relatif ou absolu (URL complète)
 	 * @return	stdout
 	 * @scope	static
-	 * @author	Florent MONTHEL, Stephane F
+	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function staticUrl($type='relatif') {
 
