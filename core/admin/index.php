@@ -127,6 +127,7 @@ include(dirname(__FILE__).'/top.php');
 		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
 	</ul>	
 	<?php
+	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
 		plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection1');
 		echo '<input name="sel1" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />&nbsp;&nbsp;&nbsp;';
