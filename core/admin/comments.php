@@ -137,6 +137,7 @@ $selector2=selector($comSel, 'id_selection2');
 		<?php echo implode($breadcrumbs); ?>
 	</ul>	
 	<?php echo $selector1 ?>
+	<?php echo plxToken::getTokenPostMethod() ?>
 	<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 
 </div>
