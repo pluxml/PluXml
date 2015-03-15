@@ -92,8 +92,6 @@ body {
 .nbcom {
 	background-color: #258fd6;
 	color: #fff;
-	height: 1.25rem;
-	line-height: 1.25rem;
 	padding: .2rem .3rem;
 }
 .nbcom:hover {
