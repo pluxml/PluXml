@@ -178,11 +178,6 @@ tr:nth-child(even) {
 tr:nth-child(even):hover {
     background-color: #fff8dc;
 }
-.scrollable-table .full-width td,
-.scrollable-table .full-width th {
-	padding-top: .2rem;
-	padding-bottom: .2rem;
-}
 #articles-table td:nth-child(4),
 #comments-table td:nth-child(3),
 #medias-table td:nth-child(3),
