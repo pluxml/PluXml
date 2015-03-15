@@ -24,7 +24,7 @@ body {
 }
 .nav {
 	background-color: #222;
-	height: 1.9rem;
+	height: 2.25rem;
 }
 .nav .menu.expanded li:hover {
 	background-color: #555;
