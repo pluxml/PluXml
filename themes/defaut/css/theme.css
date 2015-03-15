@@ -112,9 +112,7 @@ body {
 .pagination a {
 	background-color: #258fd6;
 	color: #fff;
-	height: 2.2rem;
-	line-height: 2.2rem;
-	padding: .5rem .6rem;
+	padding: .525rem .4rem;
 }
 .pagination a:hover {
 	background-color: #3a6c96;
