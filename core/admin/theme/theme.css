@@ -207,6 +207,28 @@ tr:nth-child(even):hover {
 .help {
 	cursor: help;
 }
+a.hint {
+	background-image: url(images/help.png);
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+}
+a.hint span{
+	background-color: #fff;
+	border: 1px solid #ccc;
+	color:#000;
+	display: none;
+	font-size: .8rem;
+	margin-left: 1.3rem;
+	margin-top: 1.3rem;
+	max-width: 300px;
+	padding: .4rem;
+	position: absolute;	
+}
+a.hint:hover span, 
+a.hint:focus span {
+	display: inline-block;
+}
 blockquote.type-admin {
 	background-color: #F0F8FF;
 	padding: 2px 5px;

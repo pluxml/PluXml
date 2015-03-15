@@ -52,7 +52,7 @@ include(dirname(__FILE__).'/top.php');
 		<div class="basic-form">
 			<label for="id_gzip"><?php echo L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
 			<?php plxUtils::printSelect('gzip',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['gzip']);?>
-			<a class="help" title="<?php echo L_CONFIG_ADVANCED_GZIP_HELP ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_CONFIG_ADVANCED_GZIP_HELP ?></span></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_capcha"><?php echo L_CONFIG_ADVANCED_CAPCHA ?>&nbsp;:</label>
@@ -65,44 +65,44 @@ include(dirname(__FILE__).'/top.php');
 		<div class="basic-form">
 			<label for="id_clef"><?php echo L_CONFIG_ADVANCED_ADMIN_KEY ?>&nbsp;:</label>
 			<?php plxUtils::printInput('clef', $plxAdmin->aConf['clef'], 'text', '30-30'); ?>
-			<a class="help" title="<?php echo L_CONFIG_ADVANCED_KEY_HELP ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_CONFIG_ADVANCED_KEY_HELP ?></span></a>
 		</div>
 	</fieldset>
 	<fieldset class="config">
 		<div class="basic-form">
 			<label for="id_config_path"><?php echo L_CONFIG_ADVANCED_CONFIG_FOLDER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('config_path', PLX_CONFIG_PATH) ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_racine_articles"><?php echo L_CONFIG_ADVANCED_ARTS_FOLDER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('racine_articles', $plxAdmin->aConf['racine_articles']); ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_racine_commentaires"><?php echo L_CONFIG_ADVANCED_COMS_FOLDER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('racine_commentaires', $plxAdmin->aConf['racine_commentaires']); ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_racine_statiques"><?php echo L_CONFIG_ADVANCED_STATS_FOLDER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('racine_statiques', $plxAdmin->aConf['racine_statiques']); ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_medias"><?php echo L_CONFIG_ADVANCED_MEDIAS_FOLDER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('medias', $plxAdmin->aConf['medias']); ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_racine_themes"><?php echo L_CONFIG_ADVANCED_THEMES_FOLDER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('racine_themes', $plxAdmin->aConf['racine_themes']); ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
 		</div>
 		<div class="basic-form">
 			<label for="id_racine_plugins"><?php echo L_CONFIG_ADVANCED_PLUGINS_FOLDER ?>&nbsp;:</label>
 			<?php plxUtils::printInput('racine_plugins', $plxAdmin->aConf['racine_plugins']); ?>
-			<a class="help" title="<?php echo L_HELP_SLASH_END ?>"><img src="theme/images/help.png" alt="Help"></a>
+			<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
 		</div>
 	</fieldset>
 	<fieldset class="config">
