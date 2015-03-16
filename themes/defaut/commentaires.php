@@ -62,7 +62,7 @@
 
 			<div class="basic-form">
 				<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong></label>
-				<?php $plxShow->capchaQ(); ?> :
+				<?php $plxShow->capchaQ(); ?>
 				<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" />
 				<?php endif; ?>
 			</div>
