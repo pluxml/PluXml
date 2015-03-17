@@ -209,6 +209,7 @@ tr:nth-child(even):hover {
 }
 a.hint {
 	background-image: url(images/help.png);
+	cursor: help;
 	display: inline-block;
 	height: 16px;
 	width: 16px;
