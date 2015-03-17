@@ -289,7 +289,7 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	background-color: #888;
+	background-color: #666;
 	border-color: transparent;
 	color: #fff;
 	cursor: pointer;
@@ -299,7 +299,7 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
-	background-color: #727272;
+	background-color: #505050;
 }
 button[disabled],
 input[disabled],
@@ -310,7 +310,7 @@ input[disabled]:hover,
 select[disabled]:hover,
 textarea[disabled]:hover {
 	background-color: #ddd;
-	color: #888;
+	color: #666;
 	cursor: not-allowed;
 }
 button::-moz-focus-inner,
@@ -546,12 +546,12 @@ img {
 	color: #e43d29;
 }
 .button {
-	background-color: #888;
+	background-color: #666;
 	color: #fff;
 	padding: .525rem .4rem;
 }
 .button:hover {
-	background-color: #727272;
+	background-color: #505050;
 	color: #fff;
 	text-decoration: none;
 }
