@@ -129,6 +129,8 @@ body {
 	}
 }
 .aside h3 {
+	font-size: 1rem;
+	font-weight: bold;
 	margin-top: 2rem;
 	text-transform: uppercase;
 }
