@@ -24,7 +24,7 @@
 <main class="main grid">
 
     <aside class="aside col sml-12 med-3 lrg-2 sml-text-left med-text-right">
-        <header class="header">
+        <header class="header sml-text-center med-text-right">
             <ul class="unstyled-list">
                 <li>
                      <a href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a>
