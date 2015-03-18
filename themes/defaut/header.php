@@ -21,7 +21,7 @@
 
 <div class="container">
 
-	<header class="header" role="banner">
+	<header class="header sml-text-center med-text-left" role="banner">
 		<h1 class="no-margin"><?php $plxShow->mainTitle('link'); ?></h1>
 		<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
 	</header>
