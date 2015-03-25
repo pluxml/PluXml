@@ -105,7 +105,7 @@ body {
 .capcha-word {
 	background-color: #ccc;
 	letter-spacing: 0.3em;
-	padding: .425rem .7rem;
+	padding: .525rem .7rem;
 }
 .article,
 .pagination {
@@ -117,7 +117,7 @@ body {
 .pagination a {
 	background-color: #258fd6;
 	color: #fff;
-	padding: .425rem .7rem;
+	padding: .525rem .7rem;
 }
 .pagination a:hover {
 	background-color: #3a6c96;
