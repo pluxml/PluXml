@@ -106,39 +106,41 @@ include(dirname(__FILE__).'/top.php');
 ?>
 <form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 
-<div class="inline-form action-bar">
-	<h2><?php echo L_CREATE_NEW_COMMENT ?></h2>
-	<?php if(!empty($_GET['a'])) : ?>
-	<p><a href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
-	<?php else : ?>
-	<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-	<?php endif; ?>
-	<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
-</div>
+	<div class="inline-form action-bar">
+		<h2><?php echo L_CREATE_NEW_COMMENT ?></h2>
+		<?php if(!empty($_GET['a'])) : ?>
+		<p><a href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+		<?php else : ?>
+		<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
+		<?php endif; ?>
+		<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+	</div>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
 
-<h3 class="no-margin"><?php echo L_COMMENTS_ARTICLE_SCOPE ?> &laquo;<?php echo plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
+	<h3 class="no-margin"><?php echo L_COMMENTS_ARTICLE_SCOPE ?> &laquo;<?php echo plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
 
-<ul class="unstyled-list">
-	<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
-	<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
-	<li><?php echo L_COMMENT_SITE_FIELD ?> : <?php echo '<a href="'.$plxAdmin->racine.'">'.$plxAdmin->racine.'</a>'; ?></li>
-	<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
-</ul>
+	<ul class="unstyled-list">
+		<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
+		<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
+		<li><?php echo L_COMMENT_SITE_FIELD ?> : <?php echo '<a href="'.$plxAdmin->racine.'">'.$plxAdmin->racine.'</a>'; ?></li>
+		<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
+	</ul>
 
 	<fieldset>
-		<div class="basic-form">
-			<?php echo plxToken::getTokenPostMethod() ?>
-			<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
+		<div class="grid">
+			<div class="col sml-12">
+				<?php echo plxToken::getTokenPostMethod() ?>
+				<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
+			</div>
 		</div>
 	</fieldset>
 </form>
 
 <?php if(isset($plxAdmin->plxRecord_coms)) : # On a des commentaires ?>
-	<h3><?php echo L_ARTICLE_COMMENTS_LIST ?></h3>
+	<h3 class="no-margin"><?php echo L_ARTICLE_COMMENTS_LIST ?></h3>
 	<?php while($plxAdmin->plxRecord_coms->loop()) : # On boucle ?>
 		<?php $comId = $plxAdmin->plxRecord_coms->f('article').'.'.$plxAdmin->plxRecord_coms->f('numero'); ?>
 		<div class="comment<?php echo ((isset($_GET['c']) AND $_GET['c']==$comId)?' current':'') ?>" id="c<?php echo $plxAdmin->plxRecord_coms->f('numero'); ?>">

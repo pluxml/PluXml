@@ -59,15 +59,19 @@ include(dirname(__FILE__).'/top.php');
 	</div>
 
 	<fieldset>
-		<div class="basic-form">
-			<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
-			<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend),60,20,false,'full-width'); ?>
+		<div class="grid">
+			<div class="col sml-12">
+				<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
+				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend),60,20,false,'full-width'); ?>
+			</div>
 		</div>
-		<div class="basic-form">
-			<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
-			<?php plxUtils::printArea('backend',plxUtils::strCheck($backend),60,20,false,'full-width'); ?>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
-			<?php echo plxToken::getTokenPostMethod() ?>
+		<div class="grid">
+			<div class="col sml-12">
+				<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
+				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend),60,20,false,'full-width'); ?>
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
+				<?php echo plxToken::getTokenPostMethod() ?>
+			</div>
 		</div>
 	</fieldset>
 </form>

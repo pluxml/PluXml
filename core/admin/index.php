@@ -139,81 +139,81 @@ include(dirname(__FILE__).'/top.php');
 </div>
 
 <div class="scrollable-table">
-<table id="articles-table" class="full-width">
-	<thead>
-		<tr>
-			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
-			<th><?php echo L_ARTICLE_ID ?></th>				
-			<th><?php echo L_ARTICLE_LIST_DATE ?></th>
-			<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
-			<th>
-				<div class="inline-form no-margin" style="width:260px">
-					<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
-					<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
-				</div>
-			</th>
-			<th><?php echo L_ARTICLE_LIST_NBCOMS ?></th>
-			<th><?php echo L_ARTICLE_LIST_AUTHOR ?></th>
-			<th class="action"><?php echo L_ARTICLE_LIST_ACTION ?></th>
-		</tr>
-	</thead>
-	<tbody>
-	<?php
-	# On va lister les articles
-	if($arts) { # On a des articles
-		# Initialisation de l'ordre
-		$num=0;
-		$datetime = date('YmdHi');
-		while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
-			$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
-			$publi = (boolean)($plxAdmin->plxRecord_arts->f('date') > $datetime);
-			# Catégories : liste des libellés de toutes les categories
-			$draft='';
-			$libCats='';
-			$catIds = explode(',', $plxAdmin->plxRecord_arts->f('categorie'));
-			if(sizeof($catIds)>0) {
-				$catsName = array();
-				foreach($catIds as $catId) {
-					if($catId=='home') $catsName[] = L_CATEGORY_HOME;
-					elseif($catId=='draft') $draft= ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
-					elseif(!isset($plxAdmin->aCats[$catId])) $catsName[] = L_UNCLASSIFIED;
-					else $catsName[] = plxUtils::strCheck($plxAdmin->aCats[$catId]['name']);
+	<table id="articles-table" class="full-width">
+		<thead>
+			<tr>
+				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
+				<th><?php echo L_ARTICLE_ID ?></th>				
+				<th><?php echo L_ARTICLE_LIST_DATE ?></th>
+				<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
+				<th>
+					<div style="width:270px">
+						<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
+						<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
+					</div>
+				</th>
+				<th><?php echo L_ARTICLE_LIST_NBCOMS ?></th>
+				<th><?php echo L_ARTICLE_LIST_AUTHOR ?></th>
+				<th class="action"><?php echo L_ARTICLE_LIST_ACTION ?></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		# On va lister les articles
+		if($arts) { # On a des articles
+			# Initialisation de l'ordre
+			$num=0;
+			$datetime = date('YmdHi');
+			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
+				$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
+				$publi = (boolean)($plxAdmin->plxRecord_arts->f('date') > $datetime);
+				# Catégories : liste des libellés de toutes les categories
+				$draft='';
+				$libCats='';
+				$catIds = explode(',', $plxAdmin->plxRecord_arts->f('categorie'));
+				if(sizeof($catIds)>0) {
+					$catsName = array();
+					foreach($catIds as $catId) {
+						if($catId=='home') $catsName[] = L_CATEGORY_HOME;
+						elseif($catId=='draft') $draft= ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
+						elseif(!isset($plxAdmin->aCats[$catId])) $catsName[] = L_UNCLASSIFIED;
+						else $catsName[] = plxUtils::strCheck($plxAdmin->aCats[$catId]['name']);
+					}
+					if(sizeof($catsName)>0) {
+						$libCats = $catsName[0];
+						unset($catsName[0]);
+						if(sizeof($catsName)>0) $libCats .= ', <a class="help" title="'.implode(',', $catsName).'">...</a>';
+					}
+					else $libCats = L_UNCLASSIFIED;
 				}
-				if(sizeof($catsName)>0) {
-					$libCats = $catsName[0];
-					unset($catsName[0]);
-					if(sizeof($catsName)>0) $libCats .= ', <a class="help" title="'.implode(',', $catsName).'">...</a>';
-				}
-				else $libCats = L_UNCLASSIFIED;
+				# en attente de validation ?
+				$idArt = $plxAdmin->plxRecord_arts->f('numero');
+				$awaiting = $idArt[0]=='_' ? ' - <strong>'.L_AWAITING.'</strong>' : '';
+				# Commentaires
+				$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$idArt.'.(.*).xml$/','all');
+				$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$idArt.'.(.*).xml$/','all');
+				# On affiche la ligne
+				echo '<tr class="line-'.(++$num%2).'">';
+				echo '<td><input type="checkbox" name="idArt[]" value="'.$idArt.'" /></td>';
+				echo '<td>'.L_ARTICLE.' '.$idArt.'</td>';
+				echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
+				echo '<td><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck(plxUtils::strCut($plxAdmin->plxRecord_arts->f('title'),60)).'</a>'.$draft.$awaiting.'&nbsp;</td>';
+				echo '<td>'.$libCats.'&nbsp;</td>';
+				echo '<td><a title="'.L_NEW_COMMENTS_TITLE.'" href="comments.php?sel=offline&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsToValidate.'</a> / <a title="'.L_VALIDATED_COMMENTS_TITLE.'" href="comments.php?sel=online&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsValidated.'</a>&nbsp;</td>';
+				echo '<td>'.plxUtils::strCheck($author).'&nbsp;</td>';
+				echo '<td>';
+				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_ARTICLE_EDIT.'</a>';
+				if($publi AND $draft=='') # Si l'article est publié
+					echo ' | <a href="'.PLX_ROOT.'?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url').'" title="'.L_ARTICLE_VIEW_TITLE.'">'.L_ARTICLE_VIEW.'</a>';
+				echo "&nbsp;</td>";
+				echo "</tr>";
 			}
-			# en attente de validation ?
-			$idArt = $plxAdmin->plxRecord_arts->f('numero');
-			$awaiting = $idArt[0]=='_' ? ' - <strong>'.L_AWAITING.'</strong>' : '';
-			# Commentaires
-			$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$idArt.'.(.*).xml$/','all');
-			$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$idArt.'.(.*).xml$/','all');
-			# On affiche la ligne
-			echo '<tr class="line-'.(++$num%2).'">';
-			echo '<td><input type="checkbox" name="idArt[]" value="'.$idArt.'" /></td>';
-			echo '<td>'.L_ARTICLE.' '.$idArt.'</td>';
-			echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
-			echo '<td><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck(plxUtils::strCut($plxAdmin->plxRecord_arts->f('title'),60)).'</a>'.$draft.$awaiting.'&nbsp;</td>';
-			echo '<td>'.$libCats.'&nbsp;</td>';
-			echo '<td><a title="'.L_NEW_COMMENTS_TITLE.'" href="comments.php?sel=offline&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsToValidate.'</a> / <a title="'.L_VALIDATED_COMMENTS_TITLE.'" href="comments.php?sel=online&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsValidated.'</a>&nbsp;</td>';
-			echo '<td>'.plxUtils::strCheck($author).'&nbsp;</td>';
-			echo '<td>';
-			echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_ARTICLE_EDIT.'</a>';
-			if($publi AND $draft=='') # Si l'article est publié
-				echo ' | <a href="'.PLX_ROOT.'?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url').'" title="'.L_ARTICLE_VIEW_TITLE.'">'.L_ARTICLE_VIEW.'</a>';
-			echo "&nbsp;</td>";
-			echo "</tr>";
+		} else { # Pas d'article
+			echo '<tr><td colspan="8" class="center">'.L_NO_ARTICLE.'</td></tr>';
 		}
-	} else { # Pas d'article
-		echo '<tr><td colspan="8" class="center">'.L_NO_ARTICLE.'</td></tr>';
-	}
-	?>
-	</tbody>
-</table>
+		?>
+		</tbody>
+	</table>
 </div>
 
 </form>

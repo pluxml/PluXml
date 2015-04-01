@@ -274,28 +274,36 @@ $cat_id='000';
 		<div class="col sml-12 med-7 lrg-8">
 
 			<fieldset>
-				<div class="basic-form">
-					<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
-					<label for="id_title"><?php echo L_ARTICLE_TITLE ?>&nbsp;:</label>
-					<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
-				</div>
-				<div class="basic-form">
-					<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;<a id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
-					<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>>
-					<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
+						<label for="id_title"><?php echo L_ARTICLE_TITLE ?>&nbsp;:</label>
+						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
 					</div>
 				</div>
-				<div class="basic-form">
-					<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,30,false,'full-width'); ?>
-					<?php if($artId!='' AND $artId!='0000') : ?>
-					<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;<a id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
+						<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>>
+						<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
+						</div>
+					</div>
 				</div>
-				<div class="inline-form">
-					<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;</label>
-					<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?>
-					<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
-					<?php endif; ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
+						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,30,false,'full-width'); ?>
+						<?php if($artId!='' AND $artId!='0000') : ?>
+						<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;</label>
+						<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?>
+						<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
+						<?php endif; ?>
+					</div>
 				</div>
 			</fieldset>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
@@ -320,127 +328,143 @@ $cat_id='000';
 				</strong>
 			</p>
 			<fieldset>
-				<div class="basic-form">
-					<label for="id_author"><?php echo L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
-					<?php
-					if($_SESSION['profil'] < PROFIL_WRITER)
-						plxUtils::printSelect('author', $_users, $author);
-					else {
-						echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
-						echo '<strong>'.plxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
-					}
-					?>
-				</div>
-                
-                <div class="basic-form">
-                    <label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
-                    <div class="inline-form">
-                        <?php plxUtils::printInput('day',$date['day'],'text','2-2',false,false); ?>
-                        <?php plxUtils::printInput('month',$date['month'],'text','2-2',false,false); ?>
-                        <?php plxUtils::printInput('year',$date['year'],'text','2-4',false,false); ?>
-                        <?php plxUtils::printInput('time',$date['time'],'text','2-5',false,false); ?>
-                        <a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-                            <img src="theme/images/date.png" alt="calendar" />
-                        </a>
-                    </div>
-                </div>
-				<div class="basic-form">
-					<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
-					<?php
-						$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
-						echo '<label for="cat_unclassified"><input readonly="readonly" class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
-						$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
-						echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
-						foreach($plxAdmin->aCats as $cat_id => $cat_name) {
-							$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
-							if($plxAdmin->aCats[$cat_id]['active'])
-								echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
-							else
-								echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_author"><?php echo L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
+						<?php
+						if($_SESSION['profil'] < PROFIL_WRITER)
+							plxUtils::printSelect('author', $_users, $author);
+						else {
+							echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
+							echo '<strong>'.plxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
 						}
-					?>
+						?>
+					</div>
+				</div>
+				<div class="grid"> 
+					<div class="col sml-12">
+						<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
+						<div class="inline-form">
+							<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,false); ?>
+							<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,false); ?>
+							<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,false); ?>
+							<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,false); ?>
+							<a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+								<img src="theme/images/date.png" alt="calendar" />
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="grid">
+					<div class="col sml-12">
+						<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
+						<?php
+							$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
+							echo '<label for="cat_unclassified"><input readonly="readonly" class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
+							$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
+							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
+							foreach($plxAdmin->aCats as $cat_id => $cat_name) {
+								$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
+								if($plxAdmin->aCats[$cat_id]['active'])
+									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
+								else
+									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
+							}
+						?>
+					</div>
 				</div>
 
 				<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
-				
-                <div class="basic-form">
-                    <label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
-                    <div class="inline-form">
-                        <?php plxUtils::printInput('new_catname','','text','17-50')	?>
-                        <input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
-                    </div>
-                </div>
+					
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
+						<div class="inline-form">
+							<?php plxUtils::printInput('new_catname','','text','17-50')	?>
+							<input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
+						</div>
+					</div>
+				</div>
+
 				<?php endif; ?>
 
-                <div class="basic-form">
-                    <label for="id_tags">
-                        <?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE ?></span></a>
-                    </label>
-                    <div class="inline-form">
-                        <?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-                        <a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
-                    </div>
-                </div>
-				<div id="tags" style="display:none; margin-bottom: 1rem">
-					<?php
-					if($plxAdmin->aTags) {
-						$array=array();
-						foreach($plxAdmin->aTags as $tag) {
-							if($tags = array_map('trim', explode(',', $tag['tags']))) {
-								foreach($tags as $tag) {
-									if($tag!='') {
-										$t = plxUtils::title2url($tag);
-										if(!isset($array[$tag]))
-											$array[$tag]=array('url'=>$t,'count'=>1);
-										else
-											$array[$tag]['count']++;
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_tags">
+							<?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE ?></span></a>
+						</label>
+						<div class="inline-form">
+							<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+							<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
+						</div>
+						<div id="tags" style="display:none; margin-top: 1rem">
+							<?php
+							if($plxAdmin->aTags) {
+								$array=array();
+								foreach($plxAdmin->aTags as $tag) {
+									if($tags = array_map('trim', explode(',', $tag['tags']))) {
+										foreach($tags as $tag) {
+											if($tag!='') {
+												$t = plxUtils::title2url($tag);
+												if(!isset($array[$tag]))
+													$array[$tag]=array('url'=>$t,'count'=>1);
+												else
+													$array[$tag]['count']++;
+											}
+										}
 									}
 								}
+								array_multisort($array);
+								foreach($array as $tagname => $tag) {
+									echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.$tagname.'\')" title="'.plxUtils::strCheck($tagname).' ('.$tag['count'].')">'.plxUtils::strCheck($tagname).'</a> ('.$tag['count'].')&nbsp;&nbsp;';
+								}
 							}
-						}
-						array_multisort($array);
-						foreach($array as $tagname => $tag) {
-							echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.$tagname.'\')" title="'.plxUtils::strCheck($tagname).' ('.$tag['count'].')">'.plxUtils::strCheck($tagname).'</a> ('.$tag['count'].')&nbsp;&nbsp;';
-						}
-					}
-					else echo L_NO_TAG;
-					?>
+							else echo L_NO_TAG;
+							?>
+						</div>
+					</div>
 				</div>
-				
-				<div class="basic-form">
-					<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
-					<label for="id_allow_com"><?php echo L_ALLOW_COMMENTS ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
-					<?php else: ?>
-					<?php plxUtils::printInput('allow_com','0','hidden'); ?>
-					<?php endif; ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
+						<label for="id_allow_com"><?php echo L_ALLOW_COMMENTS ?>&nbsp;:</label>
+						<?php plxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
+						<?php else: ?>
+						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
+						<?php endif; ?>
+					</div>
 				</div>
-
-				<div class="basic-form">
-					<label for="id_url">
-						<?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_URL_FIELD_TITLE ?></span></a>
-					</label>
-					<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_url">
+							<?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_URL_FIELD_TITLE ?></span></a>
+						</label>
+						<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
+					</div>
 				</div>
-
-				<div class="basic-form">
-					<label for="id_template"><?php echo L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('template', $aTemplates, $template); ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_template"><?php echo L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
+						<?php plxUtils::printSelect('template', $aTemplates, $template); ?>
+					</div>
 				</div>
-
-				<div class="basic-form">
-					<label for="id_title_htmltag"><?php echo L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
-					<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','27-255'); ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_title_htmltag"><?php echo L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
+						<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','27-255'); ?>
+					</div>
 				</div>
-
-				<div class="basic-form">
-					<label for="id_meta_description"><?php echo L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label>
-					<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','27-255'); ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_meta_description"><?php echo L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label>
+						<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','27-255'); ?>
+					</div>
 				</div>
-
-				<div class="basic-form">
-					<label for="id_meta_keywords"><?php echo L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label>
-					<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','27-255'); ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_meta_keywords"><?php echo L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label>
+						<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','27-255'); ?>
+					</div>
 				</div>
 
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>

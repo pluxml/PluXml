@@ -73,10 +73,10 @@ if(file_exists($filename) AND filesize($filename) > 0) {
 include(dirname(__FILE__).'/top.php');
 ?>
 
-<div class="inline-form action-bar">
+<div class="action-bar">
 	<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
 	<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>	
-	<form action="parametres_edittpl.php" method="post" id="form_select">
+	<form class="inline-form" action="parametres_edittpl.php" method="post" id="form_select">
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<label for="id_template"><?php echo L_CONFIG_EDITTPL_SELECT_FILE ?></label>
 		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
@@ -88,13 +88,17 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="parametres_edittpl.php" method="post" id="form_file">
 	<fieldset>
-		<div class="basic-form">
-			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
-			<?php echo plxToken::getTokenPostMethod() ?>
-			<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+		<div class="grid">
+			<div class="col sml-12">
+				<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
+				<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
+				<?php echo plxToken::getTokenPostMethod() ?>
+			</div>
+			<div class="col sml-12">
+				<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+			</div>
 		</div>
 	</fieldset>
 </form>

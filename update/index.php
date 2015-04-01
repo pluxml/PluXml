@@ -105,10 +105,20 @@ plxToken::validateFormToken($_POST);
 			<?php else: ?>
 			<form action="index.php" method="post">
 				<fieldset>
-					<p class="field"><label for="id_default_lang"><?php echo L_SELECT_LANG ?></label><p>
-					<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
-					<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
-					<?php echo plxToken::getTokenPostMethod() ?>
+					<div class="grid">
+						<div class="col sml-12 med-5">
+							<label for="id_default_lang"><?php echo L_SELECT_LANG ?></label>
+						</div>
+						<div class="col sml-12 med-7">
+							<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col sml-12">
+							<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
+							<?php echo plxToken::getTokenPostMethod() ?>
+						</div>
+					</div>
 				</fieldset>
 				<fieldset>
 					<p><strong><?php echo L_UPDATE_WARNING1.' '.$plxUpdater->oldVersion ?></strong></p>

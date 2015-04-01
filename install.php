@@ -244,9 +244,9 @@ else {
 }
 plxUtils::cleanHeaders();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $lang ?>" lang="<?php echo $lang ?>">
+
+<!DOCTYPE html>
+
 <head>
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.$version ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
@@ -258,11 +258,11 @@ plxUtils::cleanHeaders();
 
 <main class="main grid">
 
-	<aside class="aside col sml-12 med-3 lrg-2 sml-text-left med-text-right">
+	<aside class="aside col sml-12 med-3 lrg-2">
 
 	</aside>
 
-	<section class="install section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top:0">
+	<section class="section col sml-12 med-9 lrg-10" style="margin-top: 0">
 
 		<header>
 
@@ -274,33 +274,39 @@ plxUtils::cleanHeaders();
 
 		<form action="install.php" method="post">
 			<fieldset>
-				<div class="basic-form">
+				<div class="col sml-12 med-5">
 					<label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label>
+				</div>
+				<div class="col sml-12 med-7">
 					<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
 					<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
 					<?php echo plxToken::getTokenPostMethod() ?>
 				</div>
-			</fieldset>
-		</form>
-		<form action="install.php" method="post">
-			<fieldset>
-				<div class="basic-form">
+				<div class="col sml-12 med-5">
 					<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
+				</div>
+				<div class="col sml-12 med-7">
 					<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
 				</div>
-				<div class="basic-form">
+				<div class="col sml-12 med-5">
 					<label for="id_login"><?php echo L_LOGIN ?>&nbsp;:</label>
+				</div>
+				<div class="col sml-12 med-7">
 					<?php plxUtils::printInput('login', $login, 'text', '20-255') ?>
 				</div>
-				<div class="basic-form">
+				<div class="col sml-12 med-5">
 					<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
+				</div>
+				<div class="col sml-12 med-7">
 					<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
 				</div>
-				<div class="basic-form">
+				<div class="col sml-12 med-5">
 					<label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
+				</div>
+				<div class="col sml-12 med-7">
 					<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
 				</div>
-				<div class="basic-form">
+				<div class="col sml-12">
 					<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
 					<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 					<ul class="list-unstyled">
@@ -320,7 +326,7 @@ plxUtils::cleanHeaders();
 						<?php plxUtils::testMail() ?>
 					</ul>
 				</div>
-				<div class="basic-form">
+				<div class="col sml-12">
 					<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
 					<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
 					<?php echo plxToken::getTokenPostMethod() ?>

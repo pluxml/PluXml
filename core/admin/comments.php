@@ -131,66 +131,65 @@ $selector2=selector($comSel, 'id_selection2');
 
 <form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
-<div class="inline-form action-bar">
-	<?php echo $h2 ?>
-	<ul class="menu">
-		<?php echo implode($breadcrumbs); ?>
-	</ul>	
-	<?php echo $selector1 ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	<div class="inline-form action-bar">
+		<?php echo $h2 ?>
+		<ul class="menu">
+			<?php echo implode($breadcrumbs); ?>
+		</ul>	
+		<?php echo $selector1 ?>
+		<?php echo plxToken::getTokenPostMethod() ?>
+		<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+	</div>
 
-</div>
+	<?php if(isset($h3)) echo $h3 ?>
+		
+	<div class="scrollable-table">
+		<table id="comments-table" class="full-width">
+			<thead>
+				<tr>
+					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
+					<th class="datetime"><?php echo L_COMMENTS_LIST_DATE ?></th>
+					<th class="message"><?php echo L_COMMENTS_LIST_MESSAGE ?></th>
+					<th class="author"><?php echo L_COMMENTS_LIST_AUTHOR ?></th>
+					<th class="action"><?php echo L_COMMENTS_LIST_ACTION ?></th>
+				</tr>
+			</thead>
+			<tbody>
 
-<?php if(isset($h3)) echo $h3 ?>
-	
-<div class="scrollable-table">
-	<table id="comments-table" class="full-width">
-		<thead>
-			<tr>
-				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
-				<th class="datetime"><?php echo L_COMMENTS_LIST_DATE ?></th>
-				<th class="message"><?php echo L_COMMENTS_LIST_MESSAGE ?></th>
-				<th class="author"><?php echo L_COMMENTS_LIST_AUTHOR ?></th>
-				<th class="action"><?php echo L_COMMENTS_LIST_ACTION ?></th>
-			</tr>
-		</thead>
-		<tbody>
-
-		<?php
-		# On va récupérer les commentaires
-		$plxAdmin->getPage();
-		$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
-		$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
-		if($coms) {
-			$num=0;
-			while($plxAdmin->plxRecord_coms->loop()) { # On boucle
-				$artId = $plxAdmin->plxRecord_coms->f('article');
-				$status = $plxAdmin->plxRecord_coms->f('status');
-				$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
-				$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
-				if($_SESSION['selCom']=='all') {
-					$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
+			<?php
+			# On va récupérer les commentaires
+			$plxAdmin->getPage();
+			$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
+			$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
+			if($coms) {
+				$num=0;
+				while($plxAdmin->plxRecord_coms->loop()) { # On boucle
+					$artId = $plxAdmin->plxRecord_coms->f('article');
+					$status = $plxAdmin->plxRecord_coms->f('status');
+					$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
+					$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
+					if($_SESSION['selCom']=='all') {
+						$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
+					}
+					# On génère notre ligne
+					echo '<tr class="line-'.(++$num%2).' top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
+					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
+					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
+					echo '<td>'.$content.'&nbsp;</td>';
+					echo '<td>'.plxUtils::strCut($plxAdmin->plxRecord_coms->f('author'),30).'&nbsp;</td>';
+					echo '<td class="action">';
+					echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
+					echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>&nbsp;&nbsp;';
+					echo '<a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a>';
+					echo '</td></tr>';
 				}
-				# On génère notre ligne
-				echo '<tr class="line-'.(++$num%2).' top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
-				echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
-				echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
-				echo '<td>'.$content.'&nbsp;</td>';
-				echo '<td>'.plxUtils::strCut($plxAdmin->plxRecord_coms->f('author'),30).'&nbsp;</td>';
-				echo '<td class="action">';
-				echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
-				echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>&nbsp;&nbsp;';
-				echo '<a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a>';
-				echo '</td></tr>';
+			} else { # Pas de commentaires
+				echo '<tr><td colspan="5" class="center">'.L_NO_COMMENT.'</td></tr>';
 			}
-		} else { # Pas de commentaires
-			echo '<tr><td colspan="5" class="center">'.L_NO_COMMENT.'</td></tr>';
-		}
-		?>
-		</tbody>
-	</table>
-</div>
+			?>
+			</tbody>
+		</table>
+	</div>
 
 </form>
 <p>

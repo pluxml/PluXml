@@ -56,40 +56,50 @@ include(dirname(__FILE__).'/top.php');
 
 <form action="statique.php" method="post" id="form_static">
 
-<div class="inline-form action-bar">
-	<h2><?php echo L_STATIC_TITLE ?> "<?php echo plxUtils::strCheck($title); ?>"</h2>
-	<p><a href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
-	<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
-	<a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
-</div>
+	<div class="inline-form action-bar">
+		<h2><?php echo L_STATIC_TITLE ?> "<?php echo plxUtils::strCheck($title); ?>"</h2>
+		<p><a href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
+		<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
+		<a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
+	</div>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
 
-	<fieldset>
-		<div class="basic-form">
-			<?php plxUtils::printInput('id', $id, 'hidden');?>
-			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-			<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
-			<?php if($active) : ?>
-		</div>
-		<?php endif; ?>
-		<div class="basic-form">
-			<label for="id_template"><?php echo L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
-			<?php plxUtils::printSelect('template', $aTemplates, $template) ?>
-		</div>
-		<div class="basic-form">
-			<label for="id_title_htmltag"><?php echo L_STATIC_TITLE_HTMLTAG ?>&nbsp;:</label>
-			<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','50-255'); ?>
-		</div>
-		<div class="basic-form">
-			<label for="id_meta_description"><?php echo L_STATIC_META_DESCRIPTION ?>&nbsp;:</label>
-			<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','50-255'); ?>
-		</div>
-		<div class="basic-form">
-			<label for="id_meta_keywords"><?php echo L_STATIC_META_KEYWORDS ?>&nbsp;:</label>
-			<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','50-255'); ?>
-		</div>
-	</fieldset>
+		<fieldset>
+			<div class="grid">
+				<div class="col sml-12">
+					<?php plxUtils::printInput('id', $id, 'hidden');?>
+					<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
+					<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
+					<?php if($active) : ?>
+				</div>
+				<?php endif; ?>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<label for="id_template"><?php echo L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
+					<?php plxUtils::printSelect('template', $aTemplates, $template) ?>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<label for="id_title_htmltag"><?php echo L_STATIC_TITLE_HTMLTAG ?>&nbsp;:</label>
+					<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','50-255'); ?>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<label for="id_meta_description"><?php echo L_STATIC_META_DESCRIPTION ?>&nbsp;:</label>
+					<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','50-255'); ?>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<label for="id_meta_keywords"><?php echo L_STATIC_META_KEYWORDS ?>&nbsp;:</label>
+					<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','50-255'); ?>
+				</div>
+			</div>
+		</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
 

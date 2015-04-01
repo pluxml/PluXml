@@ -126,36 +126,34 @@ function toggle_divs(){
 }
 </script>
 
-<form action="medias.php" method="post" id="form_medias" class="horizontal-form">
+<form action="medias.php" method="post" id="form_medias">
 
-<div class="inline-form action-bar">
-	<h2><?php echo L_MEDIAS_TITLE ?></h2>
-	<p><?php echo L_MEDIAS_DIRECTORY.' : '.$curFolder ?></p>
-	<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
-	<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-	&nbsp;&nbsp;&nbsp;
-	<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
-	<?php if(!empty($_SESSION['folder'])) { ?>
-	<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
-	<?php } ?>
-	<input type="hidden" name="sort" value="" />	
-</div>
+	<div class="inline-form action-bar">
+		<h2><?php echo L_MEDIAS_TITLE ?></h2>
+		<p><?php echo L_MEDIAS_DIRECTORY.' : '.$curFolder ?></p>
+		<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
+		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		&nbsp;&nbsp;&nbsp;
+		<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
+		<?php if(!empty($_SESSION['folder'])) { ?>
+		<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
+		<?php } ?>
+		<input type="hidden" name="sort" value="" />	
+	</div>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
-<div id="files_manager">
-		<div class="inline-form">
-			<?php echo plxToken::getTokenPostMethod() ?>
-			<div style="float:left">
-				<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
-				<?php echo $plxMedias->contentFolder() ?>
-				<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
-			</div>
-			<div style="float:right">
-				<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
-				<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
-				<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
-			</div>
+	<div class="inline-form" id="files_manager">
+		<?php echo plxToken::getTokenPostMethod() ?>
+		<div style="float:left">
+			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
+			<?php echo $plxMedias->contentFolder() ?>
+			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+		</div>
+		<div style="float:right">
+			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
+			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
+			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
 		</div>
 		<div style="clear:both" class="scrollable-table">
 			<table id="medias-table" class="full-width">
@@ -213,71 +211,70 @@ function toggle_divs(){
 
 <form action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
 
-<div id="files_uploader" style="display:none">
+	<div id="files_uploader" style="display:none">
 
-	<p id="medias_back"><a href="javascript:void(0)" onclick="toggle_divs();return false"><?php echo L_MEDIAS_BACK ?></a></p>
+		<p id="medias_back"><a href="javascript:void(0)" onclick="toggle_divs();return false"><?php echo L_MEDIAS_BACK ?></a></p>
 
-	<p><?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?></p>
-	<div class="inline-form">
-		<input id="selector" type="file" name="selector" />
-		<br /><br />
-		<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
-	</div>
-	<div class="files_list" id="files_list">
-	</div>
-	<div class="grid">
-		<div class="col sma-12 med-4">
-			<ul class="unstyled-list">
-				<li><?php echo L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
-				<li><input type="radio" name="resize" value="" />&nbsp;<?php echo L_MEDIAS_RESIZE_NO ?></li>
-				<?php
-					foreach($img_redim as $redim) {
-						echo '<li><input type="radio" name="resize" value="'.$redim.'" />&nbsp;'.$redim.'</li>';
-					}
-				?>
-				<li>
-					<input type="radio" checked="checked" name="resize" value="<?php echo intval($plxAdmin->aConf['images_l' ]).'x'.intval($plxAdmin->aConf['images_h' ]) ?>" />&nbsp;<?php echo intval($plxAdmin->aConf['images_l' ]).'x'.intval($plxAdmin->aConf['images_h' ]) ?>
-					&nbsp;&nbsp;(<a href="parametres_affichage.php"><?php echo L_MEDIAS_MODIFY ?>)</a>
-				</li>
-				<li>
-					<input type="radio" name="resize" value="user" />&nbsp;
-					<input type="text" size="2" maxlength="4" name="user_w" />&nbsp;x&nbsp;
-					<input type="text" size="2" maxlength="4" name="user_h" />
-				</li>
-			</ul>
+		<p><?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?></p>
+		<div class="inline-form">
+			<input id="selector" type="file" name="selector" />
+			<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
 		</div>
-		<div class="col sma-12 med-8">
-			<ul class="unstyled-list">
-				<li><?php echo L_MEDIAS_THUMBS ?>&nbsp;:&nbsp;</li>
-				<li>
-					<?php $sel = (!$plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
-					<input<?php echo $sel ?> type="radio" name="thumb" value="" />&nbsp;<?php echo L_MEDIAS_THUMBS_NONE ?>
-				</li>
-				<?php
-					foreach($img_thumb as $thumb) {
-						echo '<li><input type="radio" name="thumb" value="'.$thumb.'" />&nbsp;'.$thumb.'</li>';
-					}
-				?>
-				<li>
-					<?php $sel = ($plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
-					<input<?php echo $sel ?> type="radio" name="thumb" value="<?php echo intval($plxAdmin->aConf['miniatures_l' ]).'x'.intval($plxAdmin->aConf['miniatures_h' ]) ?>" />&nbsp;<?php echo intval($plxAdmin->aConf['miniatures_l' ]).'x'.intval($plxAdmin->aConf['miniatures_h' ]) ?>
-					&nbsp;&nbsp;(<a href="parametres_affichage.php"><?php echo L_MEDIAS_MODIFY ?>)</a>
-				</li>
-				<li>
-					<input type="radio" name="thumb" value="user" />&nbsp;
-					<input type="text" size="2" maxlength="4" name="thumb_w" />&nbsp;x&nbsp;
-					<input type="text" size="2" maxlength="4" name="thumb_h" />
-				</li>
-			</ul>
+		<div class="files_list" id="files_list" style="margin-top: 1rem;">
 		</div>
+		<div class="grid">
+			<div class="col sma-12 med-4">
+				<ul class="unstyled-list">
+					<li><?php echo L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
+					<li><input type="radio" name="resize" value="" />&nbsp;<?php echo L_MEDIAS_RESIZE_NO ?></li>
+					<?php
+						foreach($img_redim as $redim) {
+							echo '<li><input type="radio" name="resize" value="'.$redim.'" />&nbsp;'.$redim.'</li>';
+						}
+					?>
+					<li>
+						<input type="radio" checked="checked" name="resize" value="<?php echo intval($plxAdmin->aConf['images_l' ]).'x'.intval($plxAdmin->aConf['images_h' ]) ?>" />&nbsp;<?php echo intval($plxAdmin->aConf['images_l' ]).'x'.intval($plxAdmin->aConf['images_h' ]) ?>
+						&nbsp;&nbsp;(<a href="parametres_affichage.php"><?php echo L_MEDIAS_MODIFY ?>)</a>
+					</li>
+					<li>
+						<input type="radio" name="resize" value="user" />&nbsp;
+						<input type="text" size="2" maxlength="4" name="user_w" />&nbsp;x&nbsp;
+						<input type="text" size="2" maxlength="4" name="user_h" />
+					</li>
+				</ul>
+			</div>
+			<div class="col sma-12 med-8">
+				<ul class="unstyled-list">
+					<li><?php echo L_MEDIAS_THUMBS ?>&nbsp;:&nbsp;</li>
+					<li>
+						<?php $sel = (!$plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
+						<input<?php echo $sel ?> type="radio" name="thumb" value="" />&nbsp;<?php echo L_MEDIAS_THUMBS_NONE ?>
+					</li>
+					<?php
+						foreach($img_thumb as $thumb) {
+							echo '<li><input type="radio" name="thumb" value="'.$thumb.'" />&nbsp;'.$thumb.'</li>';
+						}
+					?>
+					<li>
+						<?php $sel = ($plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
+						<input<?php echo $sel ?> type="radio" name="thumb" value="<?php echo intval($plxAdmin->aConf['miniatures_l' ]).'x'.intval($plxAdmin->aConf['miniatures_h' ]) ?>" />&nbsp;<?php echo intval($plxAdmin->aConf['miniatures_l' ]).'x'.intval($plxAdmin->aConf['miniatures_h' ]) ?>
+						&nbsp;&nbsp;(<a href="parametres_affichage.php"><?php echo L_MEDIAS_MODIFY ?>)</a>
+					</li>
+					<li>
+						<input type="radio" name="thumb" value="user" />&nbsp;
+						<input type="text" size="2" maxlength="4" name="thumb_w" />&nbsp;x&nbsp;
+						<input type="text" size="2" maxlength="4" name="thumb_h" />
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
+		<?php echo plxToken::getTokenPostMethod() ?>
+		<script type="text/javascript">
+			var multi_selector = new MultiSelector(document.getElementById('files_list'), -1, '<?php echo $plxAdmin->aConf['racine'] ?>');
+			multi_selector.addElement(document.getElementById('selector'));
+		</script>
 	</div>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
-	<script type="text/javascript">
-		var multi_selector = new MultiSelector(document.getElementById('files_list'), -1, '<?php echo $plxAdmin->aConf['racine'] ?>');
-		multi_selector.addElement(document.getElementById('selector'));
-	</script>
-</div>
 
 </form>
 
