@@ -396,8 +396,8 @@ $LANG = array(
 # parametres_users.php
 
 'L_CONFIG_USERS_TITLE'				=> 'Gestion des utilisateurs',
-'L_CONFIG_USER'						=> 'Utilisateur',
-'L_CONFIG_USERS_ID'					=> 'Numéro d\'utilisateur',
+'L_CONFIG_USER'						=> 'utilisateur',
+'L_CONFIG_USERS_ID'					=> 'Identifiant',
 'L_CONFIG_USERS_ACTIVE'				=> 'Actif',
 'L_CONFIG_USERS_ACTION'				=> 'Action',
 'L_CONFIG_USERS_NEW'				=> 'Nouvel utilisateur',
@@ -481,7 +481,7 @@ $LANG = array(
 'L_STATICS_TEMPLATE_FIELD'			=> 'Template',
 'L_STATICS_PAGE_HOME'				=> 'Définir en tant que page d\'accueil',
 'L_STATICS_HOME_PAGE' 			 	=> 'Page<br />d\'accueil',
-'L_PAGE'							=> 'Page',
+'L_PAGE'							=> 'page',
 'L_VIEW'							=> 'Voir',
 'L_STATICS_SRC_TITLE'				=> 'Éditer le code source de cette page',
 'L_STATICS_SRC'						=> 'Éditer',

@@ -51,7 +51,7 @@ include(dirname(__FILE__).'/top.php');
 			<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
-					<th><?php echo L_CAT_LIST_ID ?></th>
+					<th><?php echo L_CAT_LIST_ID.' '.L_CATEGORY ?></th>
 					<th><?php echo L_CAT_LIST_NAME ?></th>
 					<th><?php echo L_CAT_LIST_URL ?></th>
 					<th><?php echo L_CAT_LIST_ACTIVE ?></th>
@@ -72,7 +72,7 @@ include(dirname(__FILE__).'/top.php');
 					$ordre = ++$num;
 					echo '<tr class="line-'.($num%2).'">';
 					echo '<td><input type="checkbox" name="idCategory[]" value="'.$k.'" /><input type="hidden" name="catNum[]" value="'.$k.'" /></td>';
-					echo '<td>'.L_CATEGORY.' '.$k.'</td><td>';
+					echo '<td>'.$k.'</td><td>';
 					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '10-50');
 					echo '</td><td>';
 					plxUtils::printInput($k.'_url', $v['url'], 'text', '10-50');

@@ -62,7 +62,7 @@ function checkBox(cb) {
 			<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
-					<th><?php echo L_STATICS_ID ?></th>
+					<th><?php echo L_STATICS_ID.' '.L_PAGE ?></th>
 					<th><?php echo L_STATICS_HOME_PAGE ?></th>
 					<th><?php echo L_STATICS_GROUP ?></th>
 					<th><?php echo L_STATICS_TITLE ?></th>
@@ -83,7 +83,7 @@ function checkBox(cb) {
 					$ordre = ++$num;
 					echo '<tr class="line-'.($num%2).'">';
 					echo '<td><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
-					echo '<td>'.L_PAGE.' '.$k.'</td><td>';
+					echo '<td>'.$k.'</td><td>';
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
 					echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$num.'\')" />';
 					echo '</td><td>';

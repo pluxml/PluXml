@@ -53,7 +53,7 @@ include(dirname(__FILE__).'/top.php');
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
-			<th class="title"><?php echo L_CONFIG_USERS_ID ?></th>
+			<th><?php echo L_CONFIG_USERS_ID.' '.L_CONFIG_USER ?></th>
 			<th><?php echo L_PROFIL_USER ?></th>
 			<th><?php echo L_PROFIL_LOGIN ?></th>
 			<th><?php echo L_PROFIL_PASSWORD ?></th>
@@ -71,7 +71,7 @@ include(dirname(__FILE__).'/top.php');
 			if (!$_user['delete']) {
 				echo '<tr class="line-'.($num%2).'">';
 				echo '<td><input type="checkbox" name="idUser[]" value="'.$_userid.'" /><input type="hidden" name="userNum[]" value="'.$_userid.'" /></td>';
-				echo '<td>Utilisateur '.$_userid.'</td><td>';
+				echo '<td>'.$_userid.'</td><td>';
 				plxUtils::printInput($_userid.'_name', plxUtils::strCheck($_user['name']), 'text', '10-255');
 				echo '</td><td>';
 				plxUtils::printInput($_userid.'_login', plxUtils::strCheck($_user['login']), 'text', '10-255');

@@ -143,7 +143,7 @@ include(dirname(__FILE__).'/top.php');
 		<thead>
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
-				<th><?php echo L_ARTICLE_ID ?></th>				
+				<th><?php echo L_ARTICLE_ID.' '.L_ARTICLE ?></th>				
 				<th><?php echo L_ARTICLE_LIST_DATE ?></th>
 				<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
 				<th>
@@ -195,7 +195,7 @@ include(dirname(__FILE__).'/top.php');
 				# On affiche la ligne
 				echo '<tr class="line-'.(++$num%2).'">';
 				echo '<td><input type="checkbox" name="idArt[]" value="'.$idArt.'" /></td>';
-				echo '<td>'.L_ARTICLE.' '.$idArt.'</td>';
+				echo '<td>'.$idArt.'</td>';
 				echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
 				echo '<td><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck(plxUtils::strCut($plxAdmin->plxRecord_arts->f('title'),60)).'</a>'.$draft.$awaiting.'&nbsp;</td>';
 				echo '<td>'.$libCats.'&nbsp;</td>';
