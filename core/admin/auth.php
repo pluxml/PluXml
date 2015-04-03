@@ -91,7 +91,7 @@ plxUtils::cleanHeaders();
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.gif" />
+	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
 </head>
 
