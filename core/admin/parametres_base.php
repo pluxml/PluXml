@@ -39,7 +39,7 @@ include(dirname(__FILE__).'/top.php');
 
 	<fieldset class="config">
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_title"><?php echo L_CONFIG_BASE_SITE_TITLE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -47,7 +47,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_description"><?php echo L_CONFIG_BASE_SITE_SLOGAN ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -55,7 +55,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_meta_description"><?php echo L_CONFIG_META_DESCRIPTION ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -63,7 +63,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_meta_keywords"><?php echo L_CONFIG_META_KEYWORDS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -71,7 +71,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_default_lang"><?php echo L_CONFIG_BASE_DEFAULT_LANG ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -79,7 +79,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_timezone"><?php echo L_CONFIG_BASE_TIMEZONE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -87,7 +87,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_allow_com"><?php echo L_CONFIG_BASE_ALLOW_COMMENTS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -95,7 +95,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_mod_com"><?php echo L_CONFIG_BASE_MODERATE_COMMENTS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -103,7 +103,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_mod_art"><?php echo L_CONFIG_BASE_MODERATE_ARTICLES ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">

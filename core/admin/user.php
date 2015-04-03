@@ -53,7 +53,7 @@ include(dirname(__FILE__).'/top.php');
 
 	<fieldset>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<?php plxUtils::printInput('id', $id, 'hidden');?>
 				<label for="id_lang"><?php echo L_USER_LANG ?>&nbsp;:</label>
 			</div>
@@ -62,7 +62,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">

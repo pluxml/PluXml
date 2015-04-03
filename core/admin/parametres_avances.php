@@ -54,7 +54,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_gzip"><?php echo L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -63,7 +63,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_capcha"><?php echo L_CONFIG_ADVANCED_CAPCHA ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -71,7 +71,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_userfolders"><?php echo L_CONFIG_ADVANCED_USERFOLDERS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -79,7 +79,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_clef"><?php echo L_CONFIG_ADVANCED_ADMIN_KEY ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -88,7 +88,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_config_path"><?php echo L_CONFIG_ADVANCED_CONFIG_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -97,7 +97,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_racine_articles"><?php echo L_CONFIG_ADVANCED_ARTS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -106,7 +106,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_racine_commentaires"><?php echo L_CONFIG_ADVANCED_COMS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -115,7 +115,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_racine_statiques"><?php echo L_CONFIG_ADVANCED_STATS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -124,7 +124,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_medias"><?php echo L_CONFIG_ADVANCED_MEDIAS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -133,7 +133,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_racine_themes"><?php echo L_CONFIG_ADVANCED_THEMES_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -142,7 +142,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_racine_plugins"><?php echo L_CONFIG_ADVANCED_PLUGINS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -151,7 +151,7 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_custom_admincss_file"><?php echo L_CONFIG_CUSTOM_CSSADMIN_PATH ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
