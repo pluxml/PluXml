@@ -151,10 +151,8 @@ include(dirname(__FILE__).'/top.php');
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12 med-5 label-centered">
+			<div class="col sml-12">
 				<label for="id_custom_admincss_file"><?php echo L_CONFIG_CUSTOM_CSSADMIN_PATH ?>&nbsp;:</label>
-			</div>
-			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
 			</div>
 		</div>
