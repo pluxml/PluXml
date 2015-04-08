@@ -82,7 +82,7 @@ class plxGlob {
 								$index = str_replace('_','',substr($file, 0,strpos($file,'.')));
 								if(is_numeric($index)) {
 									$this->aFiles[$index] = $file;
-								}								
+								}
 							} else {
 								$this->aFiles[] = $file;
 							}
@@ -166,9 +166,9 @@ class plxGlob {
 	 * Méthode qui retourne un tableau trié, des fichiers correspondants
 	 * au motif $motif, respectant les différentes limites
 	 *
-	 * @param	motif			motif de recherche des fichiers sous forme d'expression réguliere
+	 * @param	motif			motif de recherche des fichiers sous forme d'expression régulière
 	 * @param	type			type de recherche: article ('art'), commentaire ('com') ou autre (''))
-	 * @param	tri				type de tri (sort, rsort, alpha)
+	 * @param	tri				type de tri (sort, rsort, alpha, random)
 	 * @param	depart			indice de départ de la sélection
 	 * @param	limite			nombre d'éléments à sélectionner
 	 * @param	publi			recherche des fichiers avant ou après la date du jour
@@ -177,12 +177,15 @@ class plxGlob {
 	 **/
 	public function query($motif,$type='',$tri='',$depart='0',$limite=false,$publi='all') {
 
-		# Si on a des resultats
+		# Si on a des résultats
 		if($rs = $this->search($motif,$type,$tri,$publi)) {
 
 			# Ordre de tri du tableau
 			if ($type != '') {
 				switch ($tri) {
+					case 'random':
+						shuffle($rs);
+						break;
 					case 'alpha':
 					case 'sort':
 						ksort($rs);
@@ -194,6 +197,9 @@ class plxGlob {
 				}
 			} else {
 				switch ($tri) {
+					case 'random':
+						shuffle($rs);
+						break;
 					case 'alpha':
 					case 'sort':
 						sort($rs);
@@ -205,7 +211,7 @@ class plxGlob {
 				}
 			}
 
-			# On enleve les cles du tableau
+			# On enlève les clés du tableau
 			$rs = array_values($rs);
 			# On a une limite, on coupe le tableau
 			if($limite)
