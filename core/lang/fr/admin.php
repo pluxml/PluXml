@@ -329,7 +329,7 @@ $LANG = array(
 'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'	=> '<span class="alert">Attention cette page est inactive</span>',
 'L_CONFIG_VIEW_PLUXML_RESSOURCES'	=> 'Télécharger d\'autres thèmes sur <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.',
 'L_CONFIG_VIEW_BYPAGE_FEEDS'		=> 'Nombre d\'articles/commentaires affichés sur les fils Rss',
-'L_CONFIG_VIEW_FEEDS_HEADLINE'		=> 'Afficher que le chapô dans les flux Rss des articles',
+'L_CONFIG_VIEW_FEEDS_HEADLINE'		=> 'Afficher uniquement le chapô dans les flux Rss des articles',
 'L_CONFIG_VIEW_FEEDS_HEADLINE_HELP'	=> 'Si le chapô est vide, le contenu est affiché',
 'L_CONFIG_VIEW_FEEDS_FOOTER'		=> 'Texte à ajouter comme signature au bas de chaque flux Rss des articles',
 'L_CONFIG_VIEW_UPDATE'				=> 'Modifier les options d\'affichage',
