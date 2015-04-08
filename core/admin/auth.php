@@ -69,6 +69,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password'])) {
 			$_SESSION['domain'] = $session_domain;
 			$_SESSION['lang'] = $user['lang'];
 			$connected = true;
+			break;
 		}
 	}
 	if($connected) {
