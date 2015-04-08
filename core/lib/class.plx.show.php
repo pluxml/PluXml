@@ -844,7 +844,7 @@ class plxShow {
 	 * @param	max		nombre d'articles maximum
 	 * @param	cat_id	ids des catégories cible
 	 * @param   ending	texte à ajouter en fin de ligne
-	 * @param	sort	tri de l'affichage des articles (sort|rsort|alpha)
+	 * @param	sort	tri de l'affichage des articles (sort|rsort|alpha|random)
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Florent MONTHEL, Stephane F
