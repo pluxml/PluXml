@@ -2,7 +2,7 @@
 
 	<?php if($plxShow->plxMotor->plxRecord_coms): ?>
 
-		<h2>
+		<h2 id="comments">
 			<?php echo $plxShow->artNbCom(); ?>
 		</h2>
 
