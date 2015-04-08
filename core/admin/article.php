@@ -311,7 +311,7 @@ $cat_id='000';
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
-		<div class="col sml-12 med-5 lrg-4">
+		<div class="sidebar col sml-12 med-5 lrg-4">
 
 			<p><?php echo L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
 				<strong>
