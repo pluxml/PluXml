@@ -18,12 +18,6 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
-# Interdire de l'accès à la page si les commentaires sont désactivés
-if(!$plxAdmin->aConf['allow_com']) {
-    header('Location: index.php');
-    exit;
-}
-
 # validation de l'id de l'article si passé en parametre
 if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
@@ -135,14 +129,14 @@ $selector2=selector($comSel, 'id_selection2');
 		<?php echo $h2 ?>
 		<ul class="menu">
 			<?php echo implode($breadcrumbs); ?>
-		</ul>	
+		</ul>
 		<?php echo $selector1 ?>
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	</div>
 
 	<?php if(isset($h3)) echo $h3 ?>
-		
+
 	<div class="scrollable-table">
 		<table id="comments-table" class="full-width">
 			<thead>

@@ -13,6 +13,7 @@
 [+] plxShow::artChapo() : ajout du paramètre optionnel anchor (contribution jerrywham)
 [+] plxShow::staticInclude() : possibilité d'inclure une page statique à partir de son titre ou de son url
 BUG fix #77: fct artFeed: lien rss pour les catégories incomplet
+BUG fix #51: L'accès à l'écran d'administration des commentaires est impossible si les commentaires sont désactivés dans les paramètres de base de PluXml
 BUG Correction d'une possible auth-bypass (contribution jvoisin)
 BUG Prise en compte des liens en // dans la réécriture d'url
 
