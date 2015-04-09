@@ -26,7 +26,7 @@ if(is_file($filename)) {
 
 	# Control des autorisation d'accès à l'écran config.php du plugin
 	$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
-	# chargement de l'écran de parametrage du plugin config.php
+	# chargement de l'écran de paramétrage du plugin config.php
 	ob_start();
 	echo '
 	<div class="inline-form action-bar">
