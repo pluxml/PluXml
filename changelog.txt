@@ -17,6 +17,7 @@ BUG fix #77: fct artFeed: lien rss pour les catégories incomplet
 BUG fix #51: L'accès à l'écran d'administration des commentaires est impossible si les commentaires sont désactivés dans les paramètres de base de PluXml
 BUG Correction d'une possible auth-bypass (contribution jvoisin)
 BUG Prise en compte des liens en // dans la réécriture d'url
+BUG Mauvaise position du menu d'accès au fichier admin.php d'un plugin dans la sidebar d'administration si position non renseignée
 
 ## PLUXML 5.3.1 (sortie : 13/03/2014) ##
 
