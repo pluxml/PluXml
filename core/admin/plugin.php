@@ -20,6 +20,10 @@ if(isset($plxAdmin->plxPlugins->aPlugins[$plugin]) AND is_file($filename)) {
 	# Control des autorisation d'accès à l'écran admin.php du plugin
 	$plxAdmin->checkProfil($plxPlugin->getAdminProfil());
 	ob_start();
+	echo '
+	<div class="inline-form action-bar">
+		<h2>'.plxUtils::strCheck($plugin).'</h2>
+	</div>';
 	include($filename);
 	$output=ob_get_clean();
 }

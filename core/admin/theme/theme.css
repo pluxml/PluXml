@@ -119,8 +119,8 @@
 		padding: 0;
 	}
 	.aside .responsive-menu {
-        max-height: 200px;
-        overflow-y: auto;
+		max-height: 200px;
+		overflow-y: auto;
 		position: fixed;
 		top: 0;
 		width: 100%;
@@ -175,10 +175,10 @@ thead th {
 	vertical-align: top;
 }
 tr:nth-child(even) {
-    background-color: #eee;
+	background-color: #eee;
 }
 tr:nth-child(even):hover {
-    background-color: #fff8dc;
+	background-color: #fff8dc;
 }
 #articles-table td:nth-child(4),
 #comments-table td:nth-child(3),
@@ -226,9 +226,9 @@ a.hint span{
 	margin-top: 1.3rem;
 	max-width: 300px;
 	padding: .4rem;
-	position: absolute;	
+	position: absolute;
 }
-a.hint:hover span, 
+a.hint:hover span,
 a.hint:focus span {
 	display: inline-block;
 }
@@ -236,12 +236,7 @@ blockquote.type-admin {
 	background-color: #F0F8FF;
 	padding: 2px 5px;
 }
-#parametres_plugin .section {
-	margin-top: 8rem;
-}
-#parametres_pluginhelp .section {
-	margin-top: 6rem;
-}
+
 .in-action-bar {
 	top: 0;
 	margin-top: 4em;
@@ -249,15 +244,21 @@ blockquote.type-admin {
 	z-index: 99999;
 	width: 100%;
 }
+#plugin .section,
+#parametres_plugin .section,
+#parametres_pluginhelp .section {
+	margin-top: 7rem;
+}
 @media (max-width: 767px) {
+	.in-action-bar {
+		position: absolute;
+		margin-top: 3.5rem;
+	}
+	#plugin .section,
 	#parametres_plugin .section,
 	#parametres_plugincss .section,
 	#parametres_pluginhelp .section {
 		margin-top: 1rem;
-	}
-	.in-action-bar {
-		position: absolute;
-		margin-top: 3.5rem;
 	}
 }
 .notification {
