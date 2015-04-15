@@ -171,9 +171,6 @@ select,
 textarea {
 	width: auto;
 }
-thead th {
-	vertical-align: top;
-}
 tr:nth-child(even) {
 	background-color: #eee;
 }
