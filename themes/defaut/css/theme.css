@@ -159,38 +159,38 @@ body {
 .aside li.tag {
 	margin-left: 0;
 }
-.tag-size-1 {
-	font-size: 1em;
+li.tag-size-1 {
+	font-size: 1rem;
 }
-.tag-size-2 {
-	font-size: 1.1em;
+li.tag-size-2 {
+	font-size: 1.1rem;
 }
-.tag-size-3 {
-	font-size: 1.2em;
+li.tag-size-3 {
+	font-size: 1.2rem;
 }
-.tag-size-4 {
-	font-size: 1.3em;
+li.tag-size-4 {
+	font-size: 1.3rem;
 }
-.tag-size-5 {
-	font-size: 1.4em;
+li.tag-size-5 {
+	font-size: 1.4rem;
 }
-.tag-size-6 {
-	font-size: 1.5em;
+li.tag-size-6 {
+	font-size: 1.5rem;
 }
-.tag-size-7 {
-	font-size: 1.6em;
+li.tag-size-7 {
+	font-size: 1.6rem;
 }
-.tag-size-8 {
-	font-size: 1.7em;
+li.tag-size-8 {
+	font-size: 1.7rem;
 }
-.tag-size-9 {
-	font-size: 1.8em
+li.tag-size-9 {
+	font-size: 1.8rem
 }
-.tag-size-10 {
-	font-size: 1.9em;
+li.tag-size-10 {
+	font-size: 1.9rem;
 }
-.tag-size-max {
-	font-size: 2em;
+li.tag-size-max {
+	font-size: 2rem;
 }
 .footer {
 	border-top: 3px solid #444;
