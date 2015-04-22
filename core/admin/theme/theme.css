@@ -206,6 +206,9 @@ tr:nth-child(even):hover {
 .help {
 	cursor: help;
 }
+form .col {
+	position: inherit;
+}
 a.hint {
 	background-image: url(images/help.png);
 	cursor: help;
@@ -224,6 +227,7 @@ a.hint span{
 	max-width: 300px;
 	padding: .4rem;
 	position: absolute;
+	z-index: 9999;
 }
 a.hint:hover span,
 a.hint:focus span {
