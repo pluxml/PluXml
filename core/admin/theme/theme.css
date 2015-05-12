@@ -254,6 +254,7 @@ blockquote.type-admin {
 	.in-action-bar {
 		position: absolute;
 		margin-top: 3.5rem;
+		z-index: -1;
 	}
 	#plugin .section,
 	#parametres_plugin .section,
