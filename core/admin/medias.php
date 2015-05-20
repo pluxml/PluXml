@@ -109,6 +109,7 @@ $selectionList = array(''=>L_FOR_SELECTION,'move'=>L_PLXMEDIAS_MOVE_FOLDER,'thum
 include(dirname(__FILE__).'/top.php');
 
 $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
+$curFolders = explode('/', $curFolder);
 
 ?>
 <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
@@ -130,7 +131,20 @@ function toggle_divs(){
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_MEDIAS_TITLE ?></h2>
-		<p><?php echo L_MEDIAS_DIRECTORY.' : '.$curFolder ?></p>
+		<p>
+			<?php
+			echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[0].folder.value=\'.\';document.forms[0].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'"">('.L_PLXMEDIAS_ROOT.')</a> / ';
+			if($curFolders) {
+				$path='';
+				foreach($curFolders as $id => $folder) {
+					if(!empty($folder) AND $id>1) {
+						$path .= $folder.'/';
+						echo '<a href="javascript:void(0)" onclick="document.forms[0].folder.value=\''.$path.'\';document.forms[0].submit();return true;" title="'.$folder.'"">'.$folder.'</a> / ';
+					}
+				}
+			}
+			?>
+		</p>
 		<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		&nbsp;&nbsp;&nbsp;
@@ -138,7 +152,7 @@ function toggle_divs(){
 		<?php if(!empty($_SESSION['folder'])) { ?>
 		<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
 		<?php } ?>
-		<input type="hidden" name="sort" value="" />	
+		<input type="hidden" name="sort" value="" />
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
