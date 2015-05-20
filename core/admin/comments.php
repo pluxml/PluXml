@@ -118,7 +118,7 @@ function selector($comSel, $id) {
 }
 
 $selector1=selector($comSel, 'id_selection1');
-$selector2=selector($comSel, 'id_selection2');
+
 ?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
