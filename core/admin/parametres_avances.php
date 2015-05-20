@@ -158,7 +158,7 @@ include(dirname(__FILE__).'/top.php');
 				<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
 			</div>
 		</div>
-	</fieldset>	
+	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) ?>
 </form>
 
