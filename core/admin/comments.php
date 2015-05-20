@@ -26,19 +26,19 @@ if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 }
 
 # Suppression des commentaires selectionnes
-if(isset($_POST['selection']) AND ((!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='delete') OR (!empty($_POST['btn_ok2']) AND $_POST['selection'][1]=='delete')) AND isset($_POST['idCom'])) {
+if(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='delete') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->delCommentaire($v);
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
 # Validation des commentaires selectionnes
-elseif(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND ($_POST['selection'][0]=='online') OR (!empty($_POST['btn_ok2']) AND $_POST['selection'][1]=='online')) AND isset($_POST['idCom'])) {
+elseif(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='online') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'online');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
 # Mise hors-ligne des commentaires selectionnes
-elseif (isset($_POST['selection']) AND ((!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='offline') OR (!empty($_POST['btn_ok2']) AND $_POST['selection'][1]=='offline')) AND isset($_POST['idCom'])) {
+elseif (isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='offline') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'offline');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
