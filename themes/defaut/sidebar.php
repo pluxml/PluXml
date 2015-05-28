@@ -22,7 +22,7 @@
 			<?php $plxShow->lang('TAGS'); ?>
 		</h3>
 
-		<ul class="menu">
+		<ul class="tag-list">
 			<?php $plxShow->tagList('<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', 20); ?>
 		</ul>
 

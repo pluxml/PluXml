@@ -156,40 +156,45 @@ body {
 .aside li:first-letter {
 	text-transform: uppercase;
 }
-.aside li.tag {
-	margin-left: 0;
+.aside ul.tag-list {
+	list-style-type: none;
+	padding-left: 0;
 }
-li.tag-size-1 {
+.aside ul.tag-list li {
+	display: inline;
+	margin-right: 1rem;
+}
+.aside ul.tag-list li.tag-size-1 {
 	font-size: 1rem;
 }
-li.tag-size-2 {
+.aside ul.tag-list li.tag-size-2 {
 	font-size: 1.1rem;
 }
-li.tag-size-3 {
+.aside ul.tag-list li.tag-size-3 {
 	font-size: 1.2rem;
 }
-li.tag-size-4 {
+.aside ul.tag-list li.tag-size-4 {
 	font-size: 1.3rem;
 }
-li.tag-size-5 {
+.aside ul.tag-list li.tag-size-5 {
 	font-size: 1.4rem;
 }
-li.tag-size-6 {
+.aside ul.tag-list li.tag-size-6 {
 	font-size: 1.5rem;
 }
-li.tag-size-7 {
+.aside ul.tag-list li.tag-size-7 {
 	font-size: 1.6rem;
 }
-li.tag-size-8 {
+.aside ul.tag-list li.tag-size-8 {
 	font-size: 1.7rem;
 }
-li.tag-size-9 {
+.aside ul.tag-list li.tag-size-9 {
 	font-size: 1.8rem
 }
-li.tag-size-10 {
+.aside ul.tag-list li.tag-size-10 {
 	font-size: 1.9rem;
 }
-li.tag-size-max {
+.aside ul.tag-list li.tag-size-max {
 	font-size: 2rem;
 }
 .footer {
