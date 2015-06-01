@@ -127,6 +127,8 @@ function toggle_divs(){
 }
 </script>
 
+<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
+
 <form action="medias.php" method="post" id="form_medias">
 
 	<div class="inline-form action-bar">
@@ -154,8 +156,6 @@ function toggle_divs(){
 		<?php } ?>
 		<input type="hidden" name="sort" value="" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
 	<div class="inline-form" id="files_manager">
 		<?php echo plxToken::getTokenPostMethod() ?>
