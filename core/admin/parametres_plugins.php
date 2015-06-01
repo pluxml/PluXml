@@ -69,7 +69,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 					# site
 					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.plxUtils::strCheck($plugInstance->getInfo('site')).'">'.plxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
 					# message d'alerte si plugin non configuré
-					if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) $output .= '<br /><span class="alert">'.L_PLUGIN_NO_CONFIG.'</span>';
+					if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) $output .= '<br /><span class="alert red float-right">'.L_PLUGIN_NO_CONFIG.'</span>';
 				$output .= '</td>';
 
 				# colonne pour trier les plugins
