@@ -1327,7 +1327,9 @@ class plxShow {
 	 * @author	Florent MONTHEL, Stephane F
 	 **/
 	public function staticContent() {
-
+		
+		if (eval($this->plxMotor->plxPlugins->callHook("plxShowStaticContentBegin"))) return;
+		
 		# On va verifier que la page a inclure est lisible
 		if($this->plxMotor->aStats[ $this->plxMotor->cible ]['readable'] == 1) {
 			# On genere le nom du fichier a inclure
