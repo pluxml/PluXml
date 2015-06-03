@@ -187,11 +187,14 @@ class plxUtils {
 
 		$size = explode('-',$size);
 		$placeholder = $placeholder!='' ? ' placeholder="'.$placeholder.'"' : '';
-		if($readonly)
-			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
-		else
-			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
-
+		if($type!='hidden') {
+			if($readonly)
+				echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
+			else
+				echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
+		} else {
+			echo '<input id="id_'.$name.'" name="'.$name.'" value="'.$value.'" />'."\n";
+		}
 	}
 
 	/**
