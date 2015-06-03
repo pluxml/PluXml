@@ -724,7 +724,7 @@ class plxUtils {
 		$title = $title ? ' title="'.$title.'"':'';
 		$class = $class ? ' '.$class:'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$menu = '<li id="'.plxUtils::title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
+		$menu = '<li id="mnu_'.plxUtils::title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
 		return $menu;
 	}
 
