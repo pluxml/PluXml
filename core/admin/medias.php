@@ -141,7 +141,7 @@ function toggle_divs(){
 				foreach($curFolders as $id => $folder) {
 					if(!empty($folder) AND $id>1) {
 						$path .= $folder.'/';
-						echo '<a href="javascript:void(0)" onclick="document.forms[0].folder.value=\''.$path.'\';document.forms[0].submit();return true;" title="'.$folder.'"">'.$folder.'</a> / ';
+						echo '<a href="javascript:void(0)" onclick="document.forms[0].folder.value=\''.$path.'\';document.forms[0].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
 					}
 				}
 			}
