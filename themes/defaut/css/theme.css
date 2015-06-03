@@ -38,8 +38,8 @@ body {
 		border-bottom: 1px solid #bbb;
 		height: auto;
 		left: 0;
-        max-height: 200px;
-        overflow-y: auto;
+		max-height: 200px;
+		overflow-y: auto;
 		position: fixed;
 		top: 0;
 		width: 100%;
@@ -79,11 +79,14 @@ body {
 	color: #258fd6;
 	text-decoration: none;
 }
+#form {
+	width: 60%;
+}
 .comment {
-    background-image: url('../img/user.png');
-    background-repeat: no-repeat;
-    margin-bottom: 2rem;
-    padding-left: 4rem;
+	background-image: url('../img/user.png');
+	background-repeat: no-repeat;
+	margin-bottom: 2rem;
+	padding-left: 4rem;
 }
 .comment blockquote {
 	margin: 0;
