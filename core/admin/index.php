@@ -130,7 +130,7 @@ include(dirname(__FILE__).'/top.php');
 	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
 		plxUtils::printSelect('selection[]', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection1');
-		echo '<input name="sel1" type="submit" name="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />&nbsp;&nbsp;&nbsp;';
+		echo '<input name="sel1" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection1\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />&nbsp;&nbsp;&nbsp;';
 	}
 	?>
 	<?php plxUtils::printInput('page',1,'hidden'); ?>
