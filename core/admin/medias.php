@@ -135,7 +135,7 @@ function toggle_divs(){
 		<h2><?php echo L_MEDIAS_TITLE ?></h2>
 		<p>
 			<?php
-			echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[0].folder.value=\'.\';document.forms[0].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'"">('.L_PLXMEDIAS_ROOT.')</a> / ';
+			echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[0].folder.value=\'.\';document.forms[0].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
 			if($curFolders) {
 				$path='';
 				foreach($curFolders as $id => $folder) {
