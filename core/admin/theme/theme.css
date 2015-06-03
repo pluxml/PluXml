@@ -211,15 +211,26 @@ form .col {
 }
 a.hint {
 	background-image: url(images/help.png);
+	width: 16px;
+}
+a.folder {
+	background: url(images/folder.png) 8px no-repeat;
+	width: 24px;
+}
+a.folder::before { 
+  content: "+";
+  color: #808080;
+}
+a.hint, a.folder {
 	cursor: help;
 	display: inline-block;
 	height: 16px;
-	width: 16px;
+	text-decoration: none;
 }
-a.hint span{
-	background-color: #f5fafd;
+a.hint span, a.folder span {
+	background-color: #a0a0a0;
 	border: 1px solid #ccc;
-	color:#000;
+	color:#fff;
 	display: none;
 	font-size: .8rem;
 	margin-left: 1.3rem;
@@ -230,7 +241,9 @@ a.hint span{
 	z-index: 9999;
 }
 a.hint:hover span,
-a.hint:focus span {
+a.hint:focus span,
+a.folder:hover span,
+a.folder:focus span  {
 	display: inline-block;
 }
 blockquote.type-admin {
