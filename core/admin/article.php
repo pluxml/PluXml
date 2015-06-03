@@ -226,11 +226,11 @@ $cat_id='000';
 <form action="article.php" method="post" id="form_article">
 
 	<div class="inline-form action-bar">
-	
+
 		<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
-		
+
 		<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
-	
+
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?php echo L_ARTICLE_PREVIEW_BUTTON ?>"/>
 		<?php
 			if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
@@ -300,7 +300,7 @@ $cat_id='000';
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
-						
+
 						<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
 						<?php endif; ?>
 					</div>
@@ -341,7 +341,7 @@ $cat_id='000';
 						?>
 					</div>
 				</div>
-				<div class="grid"> 
+				<div class="grid">
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
 						<div class="inline-form">
@@ -360,7 +360,7 @@ $cat_id='000';
 						<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 						<?php
 							$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
-							echo '<label for="cat_unclassified"><input readonly="readonly" class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
+							echo '<label for="cat_unclassified"><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
 							$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
 							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
 							foreach($plxAdmin->aCats as $cat_id => $cat_name) {
@@ -375,7 +375,7 @@ $cat_id='000';
 				</div>
 
 				<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
-					
+
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
