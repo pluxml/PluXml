@@ -193,7 +193,7 @@ class plxUtils {
 			else
 				echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
 		} else {
-			echo '<input id="id_'.$name.'" name="'.$name.'" value="'.$value.'" />'."\n";
+			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" value="'.$value.'" />'."\n";
 		}
 	}
 
