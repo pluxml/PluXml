@@ -38,7 +38,7 @@ include(dirname(__FILE__).'/top.php');
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>
-		<p>&nbsp;</p>	
+		<p>&nbsp;</p>
 		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		<?php echo plxToken::getTokenPostMethod() ?>
@@ -49,7 +49,7 @@ include(dirname(__FILE__).'/top.php');
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
-	<table class="full-width">
+	<table id="users-table" class="full-width">
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
