@@ -37,6 +37,7 @@ if($styles = $files->query("/[a-z0-9-_\.\(\)]+/i")) {
 	}
 }
 # On récupère les templates de la page d'accueil
+$aTemplates[''] = L_NONE1;
 $files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 if ($array = $files->query('/^home(-[a-z0-9-_]+)?.php$/')) {
 	foreach($array as $k=>$v)
