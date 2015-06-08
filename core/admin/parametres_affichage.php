@@ -79,10 +79,9 @@ include(dirname(__FILE__).'/top.php');
 				<?php plxUtils::printSelect('style', $aStyles, $plxAdmin->aConf['style']); ?>
 				<?php if(!empty($plxAdmin->aConf['style']) AND is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style'])) : ?>
 				&nbsp;<a href="parametres_edittpl.php" title="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>"><?php echo L_CONFIG_VIEW_FILES_EDIT ?> &laquo;<?php echo $plxAdmin->aConf['style'] ?>&raquo;</a>
+				<?php endif; ?>
 			</div>
 		</div>
-
-		<?php endif; ?>
 
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
@@ -204,7 +203,7 @@ include(dirname(__FILE__).'/top.php');
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplay')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
-	
+
 </form>
 
 <?php
