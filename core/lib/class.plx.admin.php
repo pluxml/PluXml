@@ -115,8 +115,8 @@ class plxAdmin extends plxMotor {
 
 		# Actions sur le fichier htaccess
 		if(isset($content['urlrewriting']))
-			$this->htaccess($content['urlrewriting'], $global['racine']);
-
+			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
+				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
@@ -198,7 +198,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess'))
 			unlink(PLX_ROOT.'.htaccess');
 		else
-			plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
+			return plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
 
 	}
 
@@ -955,7 +955,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(file_exists($filename)) {
 			unlink($filename);
 		}
-		
+
 		if(!file_exists($filename))
 			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
 		else
