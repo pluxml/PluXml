@@ -328,7 +328,7 @@ $LANG = array(
 'L_CONFIG_VIEW_IMAGES'										=> 'Размер изображения (Ширина х Высота)',
 'L_CONFIG_VIEW_THUMBS'										=> 'Размер эскизов (Ширина х Высота)',
 'L_CONFIG_VIEW_HOMESTATIC'									=> 'Использовать статическую страницу как Главную страницу',
-'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'							=> '<span class="alert">Внимание: Эта страница неактивна</span>',
+'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'							=> 'Внимание: Эта страница неактивна',
 'L_CONFIG_VIEW_PLUXML_RESSOURCES'							=> 'Загрузка тем <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.',
 'L_CONFIG_VIEW_BYPAGE_FEEDS'								=> 'N° статьи или комментария в RSS-потоке',
 'L_CONFIG_VIEW_FEEDS_HEADLINE'								=> 'Отображать только заголовки статей в RSS-потоке',
@@ -342,7 +342,7 @@ $LANG = array(
 
 'L_CONFIG_ADVANCED_DESC'									=> 'Расширенные настройки (опытный пользователь)',
 'L_CONFIG_ADVANCED_URL_REWRITE'								=> 'Включить URL rewrite',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> '<span class="alert">Внимание .htaccess файл уже присутствует в корневом каталоге вашего PluXml. При включении URL переписывания этот файл будет изменен</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'						=> 'Внимание .htaccess файл уже присутствует в корневом каталоге вашего PluXml. При включении URL переписывания этот файл будет изменен',
 'L_CONFIG_ADVANCED_GZIP'									=> 'Включить GZIP сжатие',
 'L_CONFIG_ADVANCED_GZIP_HELP'								=> 'Это cделает возможным сжатие страниц для увеличения пропускной способности, но может увеличить использование процессора',
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Включить анти-спам Capcha',
@@ -520,7 +520,7 @@ $LANG = array(
 'L_MENU_CONFIG'												=> 'Настройки',
 'L_MENU_PROFIL_TITLE'										=> 'Управление профилем пользователя',
 'L_MENU_PROFIL'												=> 'Профиль',
-'L_WARNING_INSTALLATION_FILE'								=> '<p class="alert red">Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем удалить его.</p>',
+'L_WARNING_INSTALLATION_FILE'								=> 'Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем удалить его.',
 
 # user.php
 'L_USER_UNKNOWN'											=> 'Неизвестный пользователь',

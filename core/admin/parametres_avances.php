@@ -46,7 +46,7 @@ include(dirname(__FILE__).'/top.php');
 				<?php if(plxUtils::testModRewrite(false)) : ?>
 					<?php plxUtils::printSelect('urlrewriting',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['urlrewriting']);?>
 					<?php if(is_file(PLX_ROOT.'.htaccess') AND $plxAdmin->aConf['urlrewriting']==0) { ?>
-						&nbsp;<?php echo L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?>
+						<br /><span class="text-red"><?php echo L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?></span>
 					<?php } ?>
 				<?php else: ?>
 					<?php echo L_MODREWRITE_NOT_AVAILABLE ?>

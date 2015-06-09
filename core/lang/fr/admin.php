@@ -326,7 +326,7 @@ $LANG = array(
 'L_CONFIG_VIEW_IMAGES'				=> 'Taille des images (largeur x hauteur)',
 'L_CONFIG_VIEW_THUMBS'				=> 'Taille des miniatures (largeur x hauteur)',
 'L_CONFIG_VIEW_HOMESTATIC'			=> 'Utiliser une page statique comme page d\'accueil',
-'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'	=> '<span class="alert">Attention cette page est inactive</span>',
+'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'	=> 'Attention cette page est inactive',
 'L_CONFIG_VIEW_PLUXML_RESSOURCES'	=> 'Télécharger d\'autres thèmes sur <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.',
 'L_CONFIG_VIEW_BYPAGE_FEEDS'		=> 'Nombre d\'articles/commentaires affichés sur les fils Rss',
 'L_CONFIG_VIEW_FEEDS_HEADLINE'		=> 'Afficher uniquement le chapô dans les flux Rss des articles',
@@ -340,7 +340,7 @@ $LANG = array(
 
 'L_CONFIG_ADVANCED_DESC'			=> 'Configuration avancée',
 'L_CONFIG_ADVANCED_URL_REWRITE'		=> 'Activer la réécriture d\'urls',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'=> '<span class="alert">Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera modifié</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'=> 'Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera modifié',
 'L_CONFIG_ADVANCED_GZIP'			=> 'Activer la compression GZIP',
 'L_CONFIG_ADVANCED_GZIP_HELP'		=> 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur',
 'L_CONFIG_ADVANCED_CAPCHA'			=> 'Activer le capcha anti-spam',
@@ -519,7 +519,7 @@ $LANG = array(
 'L_MENU_CONFIG'						=> 'Paramètres',
 'L_MENU_PROFIL_TITLE'				=> 'Gérer votre profil utilisateur',
 'L_MENU_PROFIL'						=> 'Profil',
-'L_WARNING_INSTALLATION_FILE'		=> '<p class="alert red">Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le supprimer.</p>',
+'L_WARNING_INSTALLATION_FILE'		=> 'Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le supprimer.',
 
 # user.php
 'L_USER_UNKNOWN'					=> 'Utilisateur inconnu',

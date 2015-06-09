@@ -325,7 +325,7 @@ $LANG = array(
 'L_CONFIG_VIEW_IMAGES'							=> 'Tamaño de la imagen (largo x ancho)',
 'L_CONFIG_VIEW_THUMBS'							=> 'Tamaño de las miniaturas (largo x ancho)',
 'L_CONFIG_VIEW_HOMESTATIC'						=> 'Utilizar una página estática como página de inicio',
-'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'				=> '<span class="alert">Advertencia: esta página está desactivada</span>',
+'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'				=> 'Advertencia: esta página está desactivada',
 'L_CONFIG_VIEW_PLUXML_RESSOURCES'				=> 'Descargar otros temas en <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.',
 'L_CONFIG_VIEW_BYPAGE_FEEDS'					=> 'Cantidad de artículos en la sindicación RSS',
 'L_CONFIG_VIEW_FEEDS_HEADLINE'					=> 'Sómo mostrar subtítulos en la sindicación RSS de los artículos',
@@ -339,7 +339,7 @@ $LANG = array(
 
 'L_CONFIG_ADVANCED_DESC'						=> 'Configuración avanzada',
 'L_CONFIG_ADVANCED_URL_REWRITE'					=> 'Activar la reescritura de URLs',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'			=> '<span class="alert">Advertencia: ya existe un archivo «.htaccess» en la raíz de su instalación de PluXml. Si activa la reescritura de URLs, se modificará este archivo</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'			=> 'Advertencia: ya existe un archivo «.htaccess» en la raíz de su instalación de PluXml. Si activa la reescritura de URLs, se modificará este archivo',
 'L_CONFIG_ADVANCED_GZIP'						=> 'Activar compresión GZIP',
 'L_CONFIG_ADVANCED_GZIP_HELP'					=> 'Permite comprimir las páginas para ahorrar ancho de banda, pero puede aumentar la carga del procesador',
 'L_CONFIG_ADVANCED_CAPCHA'						=> 'Activar protección nti-spam («CAPTCHA»)',
@@ -518,7 +518,7 @@ $LANG = array(
 'L_MENU_CONFIG'									=> 'Parámetros',
 'L_MENU_PROFIL_TITLE'							=> 'Gestionar sus perfiles de usuario',
 'L_MENU_PROFIL'									=> 'Perfil',
-'L_WARNING_INSTALLATION_FILE'					=> '<p class="alert red">Todavía existe el archivo «install.php» en la raíz de PluXml.<br />Por razones de seguridad, le sugerimos que lo elimine.</p>',
+'L_WARNING_INSTALLATION_FILE'					=> 'Todavía existe el archivo «install.php» en la raíz de PluXml.<br />Por razones de seguridad, le sugerimos que lo elimine.',
 
 # user.php
 'L_USER_UNKNOWN'								=> 'Usuario desconocido',

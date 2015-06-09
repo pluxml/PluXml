@@ -325,7 +325,7 @@ $LANG = array(
 'L_CONFIG_VIEW_IMAGES'				=> 'Talha dels imatges (largor x nautor)',
 'L_CONFIG_VIEW_THUMBS'				=> 'Talha de las miniaturas (largor x nautor)',
 'L_CONFIG_VIEW_HOMESTATIC'			=> 'Utilizar una pagina estatica coma pagina d\'acuèlh',
-'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'	=> '<span class="alert">Atencion aquela pagina es inactiva</span>',
+'L_CONFIG_VIEW_HOMESTATIC_ACTIVE'	=> 'Atencion aquela pagina es inactiva',
 'L_CONFIG_VIEW_PLUXML_RESSOURCES'	=> 'Telecargar d\'autres tèmas sus <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.',
 'L_CONFIG_VIEW_BYPAGE_FEEDS'		=> 'Nombre d\'articles/comentaris afichats suls fils Rss',
 'L_CONFIG_VIEW_FEEDS_HEADLINE'		=> 'Afichar pas que lo chapô dins los flux Rss dels articles',
@@ -339,7 +339,7 @@ $LANG = array(
 
 'L_CONFIG_ADVANCED_DESC'			=> 'Configuracion avançada',
 'L_CONFIG_ADVANCED_URL_REWRITE'		=> 'Activar la reescritura d\'urls',
-'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'=> '<span class="alert">Atencion un fichièr .htaccess es ja present a la raiç de vòstre PluXml. En activent la reescritura d\'url aquel fichièr serà modificat</span>',
+'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'=> 'Atencion un fichièr .htaccess es ja present a la raiç de vòstre PluXml. En activent la reescritura d\'url aquel fichièr serà modificat',
 'L_CONFIG_ADVANCED_GZIP'			=> 'Activar la compression GZIP',
 'L_CONFIG_ADVANCED_GZIP_HELP'		=> 'Permet de compressar las paginas per estalviar de banda passanta, ça que la pòt augmentar la carga processor',
 'L_CONFIG_ADVANCED_CAPCHA'			=> 'Activar lo capcha anti-spam',
@@ -518,7 +518,7 @@ $LANG = array(
 'L_MENU_CONFIG'						=> 'Paramètras',
 'L_MENU_PROFIL_TITLE'				=> 'Gerir vòstre perfil utilizator',
 'L_MENU_PROFIL'						=> 'Perfil',
-'L_WARNING_INSTALLATION_FILE'		=> '<p class="alert red">Lo fichièr install.php es present a la raiç de vòstre PluXml.<br />Per de rasons de seguretat, es fòrtament conselhat d\'o suprimir.</p>',
+'L_WARNING_INSTALLATION_FILE'		=> 'Lo fichièr install.php es present a la raiç de vòstre PluXml.<br />Per de rasons de seguretat, es fòrtament conselhat d\'o suprimir.',
 
 # user.php
 'L_USER_UNKNOWN'					=> 'Utilizator desconegut',

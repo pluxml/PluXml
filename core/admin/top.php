@@ -126,7 +126,7 @@
 	<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
 		<?php
-		if(is_file(PLX_ROOT.'install.php')) echo L_WARNING_INSTALLATION_FILE;
+		if(is_file(PLX_ROOT.'install.php')) echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>';
 			plxMsg::Display();
 		?>
 
