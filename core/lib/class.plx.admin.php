@@ -195,10 +195,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		eval($this->plxPlugins->callHook('plxAdminHtaccess'));
 		# On écrit le fichier .htaccess à la racine de PluXml
 		$htaccess = trim($htaccess);
-		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess'))
+		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess')) {
 			unlink(PLX_ROOT.'.htaccess');
-		else
+			return true;
+		} else {
 			return plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
+		}
 
 	}
 
