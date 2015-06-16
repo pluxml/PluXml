@@ -53,7 +53,7 @@ include(dirname(__FILE__).'/top.php');
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_EDITCAT_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aCats[$id]['name']); ?>"</h2>
-		<p><a href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
+		<p><a class="back" href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<input type="submit" value="<?php echo L_EDITCAT_UPDATE ?>"/>
 	</div>

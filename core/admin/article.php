@@ -231,7 +231,7 @@ $cat_id='000';
 
 		<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
 
-		<p><a href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?php echo L_ARTICLE_PREVIEW_BUTTON ?>"/>
 		<?php

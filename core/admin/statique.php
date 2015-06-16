@@ -60,7 +60,7 @@ include(dirname(__FILE__).'/top.php');
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_STATIC_TITLE ?> "<?php echo plxUtils::strCheck($title); ?>"</h2>
-		<p><a href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
+		<p><a class="back" href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
 		<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
 		<a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
 	</div>

@@ -22,7 +22,7 @@ if(is_file($filename)) {
 	echo '
 	<div class="inline-form action-bar">
 		<h2>'.plxUtils::strCheck($plugin).'</h2>
-		<p><a href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
+		<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
 	</div>';
 	include($filename);
 	$output=ob_get_clean();

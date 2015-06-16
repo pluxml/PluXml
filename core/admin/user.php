@@ -44,7 +44,7 @@ include(dirname(__FILE__).'/top.php');
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_USER_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aUsers[$id]['name']); ?>"</h2>
-		<p><a href="parametres_users.php"><?php echo L_USER_BACK_TO_PAGE ?></a></p>
+		<p><a class="back" href="parametres_users.php"><?php echo L_USER_BACK_TO_PAGE ?></a></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<input type="submit" value="<?php echo L_USER_UPDATE ?>"/>
 	</div>

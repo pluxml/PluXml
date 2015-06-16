@@ -128,7 +128,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<a href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?>
+					<a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?>
 				</p>
 			</div>
 		</section>

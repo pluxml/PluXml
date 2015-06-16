@@ -118,9 +118,9 @@ include(dirname(__FILE__).'/top.php');
 	<div class="inline-form action-bar">
 		<h2><?php echo L_COMMENT_EDITING ?></h2>
 		<?php if(!empty($_GET['a'])) : ?>
-		<p><a href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+		<p><a class="back" href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 		<?php else : ?>
-		<p><a href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
+		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
 		<?php endif; ?>	
 		<?php if($com['comStatus']=='') : ?>
 		<input type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
