@@ -35,7 +35,7 @@
 					<?php endif; ?>
 				</li>
 				<li>
-					<a href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>" id="logout"><?php echo L_ADMIN_LOGOUT ?></a>
+					<a class="logout" href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>"><?php echo L_ADMIN_LOGOUT ?></a>
 				</li>
 			</ul>
 			<ul class="unstyled-list profil no-margin">
