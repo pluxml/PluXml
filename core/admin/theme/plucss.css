@@ -5,7 +5,7 @@
 #
 # Package		plucss.css
 # Version		1.1
-# Copyright (c)		2014, 2015 PluXml
+# Copyright (c)	2014, 2015 PluXml
 # Authors		Jos
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
@@ -663,7 +663,7 @@ img {
 	float: left;
 }
 .float-center {
-    display: block;
+	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -700,7 +700,7 @@ img {
 	max-width: 1280px;
 	padding-left: 1rem;
 	padding-right: 1rem;
-    width: 100%;
+	width: 100%;
 }
 .grid {
 	overflow: hidden;
