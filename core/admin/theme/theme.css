@@ -223,7 +223,7 @@ a.folder {
 	background: url(images/folder.png) 8px no-repeat;
 	width: 24px;
 }
-a.folder::before { 
+a.folder::before {
   content: "+";
   color: #808080;
 }
@@ -270,6 +270,9 @@ blockquote.type-admin {
 	margin-top: 7rem;
 }
 @media (max-width: 767px) {
+	.section .action-bar {
+		text-align: center;
+	}
 	.in-action-bar {
 		position: absolute;
 		margin-top: 3.5rem;
@@ -280,6 +283,12 @@ blockquote.type-admin {
 	#parametres_plugincss .section,
 	#parametres_pluginhelp .section {
 		margin-top: 1rem;
+	}
+	button,
+	input[type="button"],
+	input[type="reset"],
+	input[type="submit"] {
+		margin-top: 3px;
 	}
 }
 .notification {
