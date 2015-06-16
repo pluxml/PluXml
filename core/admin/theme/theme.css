@@ -46,6 +46,12 @@
 .aside a {
 	color: #eee;
 }
+.aside .header  {
+	line-height: 1.2rem;
+}
+.aside .header  a {
+	font-size: 0.9rem
+}
 .aside .profil {
 	background-color: #555;
 	border-top: 1px solid #888;
