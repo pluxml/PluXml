@@ -193,7 +193,7 @@ function toggle_divs(){
 						$ordre = ++$num;
 						echo '<tr class="line-'.($num%2).'">';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
-						echo '<td class="icon">&nbsp;';
+						echo '<td class="icon">';
 						if(is_file($v['path']) AND $isImage) {
 							echo '<a onclick="this.target=\'_blank\';return true;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
 						}
