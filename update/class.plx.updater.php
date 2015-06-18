@@ -79,6 +79,8 @@ class plxUpdater {
 	 **/
 	public function updateVersion() {
 
+		# on relit le fichier de paramètre pour récupérer les éventuels nouveaux ajoutés par la mise à jour
+		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
 		$new_params['version'] = $this->newVersion;
 		$this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $new_params);
 		printf(L_UPDATE_ENDED.'<br />', $this->newVersion);
@@ -136,7 +138,7 @@ class plxUpdater {
 }
 
 /**
- * Classe plxUpdate responsable d'executer des actions de mises à jour
+ * Classe plxUpdate responsable d'exécuter des actions de mises à jour
  *
  * @package PLX
  * @author	Stephane F
