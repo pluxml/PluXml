@@ -18,7 +18,7 @@ class update_5_4 extends plxUpdate{
 		$new_parameters = array();
 		$new_parameters['custom_admincss_file'] = '';
 		if(!isset($this->plxAdmin->aConf['images']) OR empty($this->plxAdmin->aConf['images']))
-			$new_parameters['medias'] = 'data/medias';
+			$new_parameters['medias'] = 'data/medias/';
 		else
 			$new_parameters['medias'] = $this->plxAdmin->aConf['images']; 
 		$new_parameters['toto'] = 'essai';
