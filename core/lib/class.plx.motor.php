@@ -364,7 +364,7 @@ class plxMotor {
 		}
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
-		# On gère la non regression en cas d'ajout de paramètres sur une version de pluxml déjà installée
+		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
 		$this->aConf['bypage_admin'] = plxUtils::getValue($this->aConf['bypage_admin'],10);
 		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
 		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
@@ -381,6 +381,7 @@ class plxMotor {
 		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
+		$this->aConf['medias'] = plxUtils::getValue($this->aConf['medias']) : 'data/images/';		
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
 
 	}
