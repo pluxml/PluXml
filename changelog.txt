@@ -1,4 +1,4 @@
-﻿## PLUXML 5.4 (sortie : xx/xx/2014) ##
+﻿## PLUXML 5.4 (sortie : xx/xx/2015) ##
 
 [+] Nouveau thème par défaut
 [+] Nouvelle interface d'administration en responsive design
@@ -19,6 +19,7 @@ BUG fix #51: L'accès à l'écran d'administration des commentaires est impossib
 BUG Correction d'une possible auth-bypass (contribution jvoisin)
 BUG Prise en compte des liens en // dans la réécriture d'url
 BUG Mauvaise position du menu d'accès au fichier admin.php d'un plugin dans la sidebar d'administration si position non renseignée
+BUG Gestionnaire de médias: affichage du lien pour visualiser la miniature même si l'image n'existe pas sur le serveur
 
 ## PLUXML 5.3.1 (sortie : 13/03/2014) ##
 
