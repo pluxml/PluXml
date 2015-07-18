@@ -88,6 +88,7 @@ plxUtils::cleanHeaders();
 <html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
 <head>
 	<meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
