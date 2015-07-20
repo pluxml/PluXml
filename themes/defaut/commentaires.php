@@ -70,9 +70,11 @@
 					<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong></label>
 					<?php $plxShow->capchaQ(); ?>
 					<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" />
-					<?php endif; ?>
 				</div>
 			</div>
+            
+            <?php endif; ?>
+            
 			<div class="grid">
 				<div class="col sml-12">
 					<input class="blue" type="submit" value="<?php $plxShow->lang('SEND') ?>" />
