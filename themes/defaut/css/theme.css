@@ -164,8 +164,8 @@ body {
 	padding-left: 0;
 }
 .aside ul.tag-list li {
-	display: inline;
-	margin-right: 1rem;
+    display: inline-block;
+    margin-right: 1rem;
 }
 .aside ul.tag-list li.tag-size-1 {
 	font-size: 1rem;
