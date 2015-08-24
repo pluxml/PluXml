@@ -244,9 +244,7 @@ else {
 }
 plxUtils::cleanHeaders();
 ?>
-
 <!DOCTYPE html>
-
 <head>
 	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
@@ -333,7 +331,7 @@ plxUtils::cleanHeaders();
 						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
 						<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
-						<?php } ?>  
+						<?php } ?>
 						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
@@ -346,7 +344,6 @@ plxUtils::cleanHeaders();
 					</ul>
 
 					<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
-					<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
 					<?php echo plxToken::getTokenPostMethod() ?>
 
 				</fieldset>
