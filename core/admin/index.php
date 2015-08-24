@@ -77,8 +77,12 @@ case preg_match('/^[0-9]{3}$/', $_SESSION['sel_cat'])==1:
 # Nombre d'article sélectionnés
 $nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId);
 
-# Récuperation du texte à rechercher
-$_GET['artTitle'] = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
+# Récupération du texte à rechercher
+$artTitle = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
+if(empty($artTitle)) {
+	 $artTitle = (!empty($_POST['artTitle']))?plxUtils::unSlash(trim(urldecode($_POST['artTitle']))):'';
+}
+$_GET['artTitle'] = $artTitle;
 
 # On génère notre motif de recherche
 $motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::title2filename($_GET['artTitle']).'(.*).xml$/';
@@ -125,7 +129,7 @@ include(dirname(__FILE__).'/top.php');
 		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
 		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
 		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
-	</ul>	
+	</ul>
 	<?php
 	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
@@ -143,7 +147,7 @@ include(dirname(__FILE__).'/top.php');
 		<thead>
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
-				<th><?php echo L_ARTICLE_ID.' '.L_ARTICLE ?></th>				
+				<th><?php echo L_ARTICLE_ID.' '.L_ARTICLE ?></th>
 				<th><?php echo L_ARTICLE_LIST_DATE ?></th>
 				<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
 				<th>
