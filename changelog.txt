@@ -1,4 +1,6 @@
 ﻿## PLUXML 5.x (sortie : xx/xx/2015) ##
+BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags 
+BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désactivation du captcha
 BUG fix #103: La recherche dans les articles ne fonctionne dans l'administration pas à partir du champ "Rechercher"
 BUG fix #104: Message d'erreur lorsqu'on essaye d’accéder à une page statique non active
 BUG fix #108: Changement de langue non pris en compte sur l'écran d'installation
