@@ -81,7 +81,7 @@ class plxMotor {
 		# chargement du n° de version de PluXml
 		$f = file(PLX_ROOT.'version');
 		$this->version = $f['0'];
-		# récupération des paramèters dans l'url
+		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
@@ -164,26 +164,25 @@ class plxMotor {
 			}
 		}
 		elseif($this->get AND preg_match('/^static([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
-			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
-			if(!empty($this->aConf['homestatic']) AND $capture[1]){
-				if($this->aConf['homestatic']==$this->cible){
-				header('Status: 301 Moved Permanently', false, 301);
-					header('Location: '.$this->urlRewrite());
-					exit();
+			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
+			if(!isset($this->aStats[$this->cible]) OR !$this->aStats[$this->cible]['active']) {
+				$this->error404(L_UNKNOWN_STATIC);
+			} else {
+				if(!empty($this->aConf['homestatic']) AND $capture[1]){
+					if($this->aConf['homestatic']==$this->cible){
+						header('Status: 301 Moved Permanently', false, 301);
+						header('Location: '.$this->urlRewrite());
+						exit();
+					}
 				}
-			}
-			if(!empty($this->aStats[$this->cible]) AND $this->aStats[$this->cible]['active'] AND $this->aStats[$this->cible]['url']==$capture[2]) {
-				$this->mode = 'static'; # Mode static
-				$this->template = $this->aStats[$this->cible]['template'];
-			}
-			elseif(isset($this->aStats[$this->cible])) { # Redirection 301
-				if($this->aStats[$this->cible]['url']!=$capture[2]) {
+				if($this->aStats[$this->cible]['url']==$capture[2]) {
+					$this->mode = 'static'; # Mode static
+					$this->template = $this->aStats[$this->cible]['template'];
+				} else {
 					header('Status: 301 Moved Permanently', false, 301);
 					header('Location: '.$this->urlRewrite('?static'.intval($this->cible).'/'.$this->aStats[$this->cible]['url']));
 					exit();
 				}
-			} else {
-				$this->error404(L_UNKNOWN_STATIC);
 			}
 		}
 		elseif($this->get AND preg_match('/^categorie([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
@@ -381,7 +380,7 @@ class plxMotor {
 		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
-		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';		
+		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
 
 	}
