@@ -21,7 +21,6 @@ class update_5_4 extends plxUpdate{
 			$new_parameters['medias'] = 'data/medias/';
 		else
 			$new_parameters['medias'] = $this->plxAdmin->aConf['images']; 
-		$new_parameters['toto'] = 'essai';
 		# on supprime les paramètres obsolètes
 		unset($this->plxAdmin->aConf['images']);
 		unset($this->plxAdmin->aConf['documents']);
