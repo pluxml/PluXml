@@ -46,6 +46,11 @@ $LANG = array(
 'SEND'					=> 'Отправить',
 'COMMENTS_CLOSED'		=> 'Комментарии запрещенны',
 'ANTISPAM_WARNING'		=> 'Анти-спам проверка',
+
+'REPLY'					=> 'ответ',
+'REPLY_TO'				=> 'ответ',
+'CANCEL'				=> 'отменить',
+
 );
 
 ?>

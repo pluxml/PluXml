@@ -46,6 +46,11 @@ $LANG = array(
 'SEND'					=> 'Mandar vòstre comentari',
 'COMMENTS_CLOSED'		=> 'Los comentaris son barrats',
 'ANTISPAM_WARNING'		=> 'Verificacion anti-spam',
+
+'REPLY'					=> 'Respónder',
+'REPLY_TO'				=> 'Respónder',
+'CANCEL'				=> 'Dirimir',
+
 );
 
 ?>

@@ -870,11 +870,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# On génère le contenu du commentaire
 		$comment=array();
 		$comment['author'] = plxUtils::strCheck($this->aUsers[$_SESSION['user']]['name']);
-		$comment['content'] = strip_tags(trim($content),'<a>,<strong>');
+		$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
 		$comment['site'] = $this->racine;
 		$comment['ip'] = plxUtils::getIp();
 		$comment['type'] = 'admin';
 		$comment['mail'] = $this->aUsers[$_SESSION['user']]['email'];
+		$comment['parent'] = $content['parent'];
 		$time = time();
 		# On genere le nom du fichier selon l'existence ou non d'un fichier du meme nom
 		$i = 0;
@@ -926,6 +927,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$comment['type'] = $com['type'];
 		$comment['mail'] = $content['mail'];
 		$comment['site'] = $content['site'];
+		$comment['parent'] = $com['parent'];
 		# Génération du nouveau nom du fichier
 		$time = explode(':', $content['time']);
 		$newtimestamp = mktime($time[0], $time[1], 0, $content['month'], $content['day'], $content['year']);

@@ -88,6 +88,10 @@ body {
 .comment blockquote {
 	margin: 0;
 }
+.type-admin {
+	background-color: #F0F8FF;
+	padding: 2px 5px;
+}
 .nbcom {
 	background-color: #258fd6;
 	color: #fff;
@@ -161,8 +165,8 @@ body {
 	padding-left: 0;
 }
 .aside ul.tag-list li {
-    display: inline-block;
-    margin-right: 1rem;
+	display: inline-block;
+	margin-right: 1rem;
 }
 .aside ul.tag-list li.tag-size-1 {
 	font-size: 1rem;
@@ -204,4 +208,33 @@ body {
 }
 .footer p {
 	margin: 0;
+}
+
+/* pour l'indentation des commentaires */
+.level-0 {
+	margin-left: 0;
+}
+.level-1 {
+	margin-left: 50px;
+}
+.level-2 {
+	margin-left: 100px;
+}
+.level-3 {
+	margin-left: 150px;
+}
+.level-4 {
+	margin-left: 200px;
+}
+.level-5 {
+	margin-left: 250px;
+}
+
+#id_answer {
+	margin-bottom: 10px;
+	padding:15px;
+	border:1px solid #eee;
+	width:100%;
+	background:#fafafa;
+	display:none;
 }

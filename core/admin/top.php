@@ -126,7 +126,7 @@
 
 		<?php
 		if(is_file(PLX_ROOT.'install.php')) echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>';
-			plxMsg::Display();
+		plxMsg::Display();
 		?>
 
 		<?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')) ?>

@@ -47,6 +47,11 @@ $LANG = array(
 'SEND'					=> 'Enviar',
 'COMMENTS_CLOSED'		=> 'Comentarios cerrados',
 'ANTISPAM_WARNING'		=> 'Chequeo anti-spam',
+
+'REPLY'					=> 'Contestación',
+'REPLY_TO'				=> 'Contestación',
+'CANCEL'				=> 'Cancelar',
+
 );
 
 ?>

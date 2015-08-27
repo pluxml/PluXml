@@ -31,6 +31,7 @@ class plxMotor {
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); #Tableau des utilisateurs
+	public $aComs = array(); # Tableaux des commentaires d'un article
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
@@ -311,6 +312,7 @@ class plxMotor {
 					$_SESSION['msg']['site'] = plxUtils::unSlash($_POST['site']);
 					$_SESSION['msg']['mail'] = plxUtils::unSlash($_POST['mail']);
 					$_SESSION['msg']['content'] = plxUtils::unSlash($_POST['content']);
+					$_SESSION['msg']['parent'] = plxUtils::unSlash($_POST['parent']);
 					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage'));
 					header('Location: '.$url.'#form');
 				}
@@ -715,7 +717,7 @@ class plxMotor {
 				'artId'		=> $capture[2],
 				'comDate'	=> plxDate::timestamp2Date($capture[3]),
 				'comId'		=> $capture[3].'-'.$capture[4],
-				'comIdx'	=> $capture[4]
+				'comIdx'	=> $capture[4],
 			);
 		}
 	}
@@ -746,6 +748,7 @@ class plxMotor {
 		$com['mail'] = plxUtils::getValue($values[$iTags['mail'][0]]['value']);
 		$com['site'] = plxUtils::getValue($values[$iTags['site'][0]]['value']);
 		$com['content'] = trim($values[ $iTags['content'][0] ]['value']);
+		$com['parent'] = isset($iTags['parent'])?plxUtils::getValue($values[$iTags['parent'][0]]['value']):'';
 		# Informations obtenues en analysant le nom du fichier
 		$tmp = $this->comInfoFromFilename(basename($filename));
 		$com['status'] = $tmp['comStatus'];
@@ -759,6 +762,44 @@ class plxMotor {
 	}
 
 	/**
+	 * Méthode qui tri les commentaires
+	 *
+	 * @param	null
+	 * @return  null
+	 * @author	Stephane F
+	 **/
+	public function sortComs($idcom='') {
+		foreach($this->aComs as $idx => $com) {
+			if($idcom==$com['numero']) {
+				if($com['parent']=='')
+					return $com['numero'];
+				else
+					return $this->sortComs($com['parent']).'.'.$com['numero'];
+			}
+		}
+	}
+
+	/**
+	 * Méthode récursive qui détermine le niveau d'indentation de chaque commentaire
+	 *
+	 * @param	idparent	numéro du commentaire parent
+	 * àparam	level		niveau d'indentation des commentaires pour l'affichage
+	 * @return  null
+	 * @author	Stephane F
+	 **/
+	public function setComsLevel($idparent='', $level=0) {
+		foreach($this->aComs as $idx => $com) {
+			if($idparent==$com["parent"]) {
+				# définition du niveau d'indentation
+				$this->aComs[$idx]['level'] = $level;
+				# recherche récursive des commentaires enfants
+				$this->setComsLevel($com['numero'], $level+1);
+			}
+			$this->aComs[$idx]['sort'] = $com['parent']=='' ? $com['numero'] : $this->sortComs($com['parent']).'.'.$com['numero'];
+		}
+	}
+
+	/**
 	 * Méthode qui enregistre dans un objet plxRecord tous les commentaires
 	 * respectant le motif $motif et la limite $limite
 	 *
@@ -768,17 +809,35 @@ class plxMotor {
 	 * @param	limite	nombre de commentaires à retourner
 	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
 	 * @return	null
-	 * @author	Florent MONTHEL
+	 * @author	Florent MONTHEL, Stephane F
 	 **/
 	public function getCommentaires($motif,$ordre='sort',$start=0,$limite=false,$publi='before') {
 
-		# On recupère les fichiers des commentaires
+		# On récupère les fichiers des commentaires
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
-			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
-				$array[ $k ] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
+			foreach($aFiles as $k=>$v) {
+				$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
+				$com['sort'] = '';
+				$com['level'] = 0;
+				$this->aComs[$k] = $com;
+			}
+
+			if(!defined('PLX_ADMIN') OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
+				$this->setComsLevel();
+				$this->sortComs();
+				$sort = array();
+				foreach($this->aComs as $k=>$v) {
+					$sort['sort'][$k] = $v['sort'];
+					$sort['level'][$k] = $v['level'];
+					$sort['date'][$k] = $v['date'];
+				}
+				array_multisort($sort['sort'], SORT_STRING, $sort['level'], SORT_ASC, $sort['date'], SORT_ASC, $this->aComs);
+			}
+
 			# On stocke les enregistrements dans un objet plxRecord
-			$this->plxRecord_coms = new plxRecord($array);
+			$this->plxRecord_coms = new plxRecord($this->aComs);
+
 			return true;
 		}
 		else return false;
@@ -793,34 +852,37 @@ class plxMotor {
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function newCommentaire($artId,$content) {
+
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
-		# On verifie que le capcha est correct
+		# On vérifie que le capcha est correct
 		if($this->aConf['capcha'] == 0 OR $_SESSION['capcha'] == sha1($content['rep'])) {
 			if(!empty($content['name']) AND !empty($content['content'])) { # Les champs obligatoires sont remplis
 				$comment=array();
 				$comment['type'] = 'normal';
 				$comment['author'] = plxUtils::strCheck(trim($content['name']));
 				$comment['content'] = plxUtils::strCheck(trim($content['content']));
-				# On verifie le mail
+				# On vérifie le mail
 				$comment['mail'] = (plxUtils::checkMail(trim($content['mail'])))?trim($content['mail']):'';
-				# On verifie le site
+				# On vérifie le site
 				$comment['site'] = (plxUtils::checkSite($content['site'])?$content['site']:'');
-				# On recupere l'adresse IP du posteur
+				# On récupère l'adresse IP du posteur
 				$comment['ip'] = plxUtils::getIp();
-				# On genere le nom du fichier selon l'existence ou non d'un fichier du meme nom
+				# On génère le nom du fichier selon l'existence ou non d'un fichier du même nom
 				$time = time();
+				# Commentaire parent en cas de réponse
+				$comment['parent'] = isset($content['parent'])?ltrim($content['parent'], 'c'):'';
 				$i = 0;
 				do { # On boucle en testant l'existence du fichier (cas de plusieurs commentaires/sec pour un article)
 					$i++;
-					if($this->aConf['mod_com']) # On modere le commentaire => underscore
+					if($this->aConf['mod_com']) # On modère le commentaire => underscore
 						$comment['filename'] = '_'.$artId.'.'.$time.'-'.$i.'.xml';
 					else # On publie le commentaire directement
 						$comment['filename'] =$artId.'.'.$time.'-'.$i.'.xml';
 				} while(file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']));
-				# On peut creer le commentaire
+				# On peut créer le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
-					if($this->aConf['mod_com']) # En cours de moderation
+					if($this->aConf['mod_com']) # En cours de modération
 						return 'mod';
 					else # Commentaire publie directement, on retourne son identifiant
 						return 'c'.$time.'-'.$i;
@@ -830,7 +892,7 @@ class plxMotor {
 			} else { # Erreur de remplissage des champs obligatoires
 				return L_NEWCOMMENT_FIELDS_REQUIRED;
 			}
-		} else { # Erreur de verification capcha
+		} else { # Erreur de vérification capcha
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}
 	}
@@ -854,6 +916,7 @@ class plxMotor {
 		$xml .= "\t<mail><![CDATA[".plxUtils::cdataCheck($content['mail'])."]]></mail>\n";
 		$xml .= "\t<site><![CDATA[".plxUtils::cdataCheck($content['site'])."]]></site>\n";
 		$xml .= "\t<content><![CDATA[".plxUtils::cdataCheck($content['content'])."]]></content>\n";
+		$xml .= "\t<parent><![CDATA[".plxUtils::cdataCheck($content['parent'])."]]></parent>\n";
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
 		$xml .= "</comment>\n";

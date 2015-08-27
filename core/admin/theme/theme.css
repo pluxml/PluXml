@@ -163,6 +163,8 @@
 }
 .p_page {
 	display: inline-block;
+	margin-right: 10px;
+	margin-left: 10px;
 }
 .p_page:first-letter {
 	text-transform: uppercase;
@@ -178,7 +180,7 @@ textarea {
 	width: auto;
 }
 tr:nth-child(even) {
-	background-color: #eee;
+	background-color: #fafafa;
 }
 tr:nth-child(even):hover {
 	background-color: #fff8dc;
@@ -252,11 +254,10 @@ a.folder:hover span,
 a.folder:focus span  {
 	display: inline-block;
 }
-blockquote.type-admin {
+.type-admin {
 	background-color: #F0F8FF;
 	padding: 2px 5px;
 }
-
 .in-action-bar {
 	top: 0;
 	margin-top: 4em;
@@ -318,4 +319,47 @@ blockquote.type-admin {
 	font-size: 13px;
 	width:100%;
 	background-color: #ffcfcf;
+}
+
+/* pour l'indentation des commentaires */
+.level-0 {
+	margin-left: 0;
+}
+.level-1 {
+	margin-left: 50px;
+}
+.level-2 {
+	margin-left: 100px;
+}
+.level-3 {
+	margin-left: 150px;
+}
+.level-4 {
+	margin-left: 200px;
+}
+.level-5 {
+	margin-left: 250px;
+}
+
+#id_answer {
+	margin-bottom: 10px;
+	padding:15px;
+	border:1px solid #eee;
+	width:100%;
+	background:#fafafa;
+	display:none;
+}
+.comment {
+	background-image: url('images/user.png');
+	background-repeat: no-repeat;
+	margin-bottom: 2rem;
+	padding-left: 4rem;
+}
+.comment blockquote {
+	margin-left: 0;
+}
+.nbcom {
+	background-color: #258fd6;
+	color: #fff;
+	padding: .2rem .3rem;
 }

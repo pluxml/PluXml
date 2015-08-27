@@ -22,7 +22,8 @@ function dateNow(delta) {
 	document.getElementsByName('year')['0'].value = y;
 }
 function answerCom(where,id,author) {
-	addText(where, '<a href="#c'+id+'">@'+author+'</a> :\n');
+	document.getElementById('id_parent').value=id;
+	//addText(where, '<a href="#c'+id+'">@'+author+'</a> :\n');
 	scrollTo(0,0);
 }
 function addText(where, open, close) {
