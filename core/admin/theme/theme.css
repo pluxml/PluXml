@@ -321,6 +321,22 @@ a.folder:focus span  {
 	background-color: #ffcfcf;
 }
 
+table {
+	border: 1px solid #efefef;
+}
+tfoot, thead {
+	background-color: #f0f0f0;
+}
+th, td {
+	border: none;
+}
+th {
+	border-bottom: 1px solid #efefef;
+}
+td {
+	white-space: nowrap;
+}
+
 /* pour l'indentation des commentaires */
 .level-0 {
 	margin-left: 0;
