@@ -31,7 +31,6 @@ class plxMotor {
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); #Tableau des utilisateurs
-	public $aComs = array(); # Tableaux des commentaires d'un article
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
@@ -711,15 +710,17 @@ class plxMotor {
 	 **/
 	public function comInfoFromFilename($filename) {
 		# On effectue notre capture d'informations
-		if(preg_match('/([[:punct:]]?)([0-9]{4}).([0-9]{10})-([0-9])+.xml$/',$filename,$capture)) {
+		if(preg_match('/([[:punct:]]?)([0-9]{4}).([0-9]{10})-([0-9]+).xml$/',$filename,$capture)) {
 			return array(
 				'comStatus'	=> $capture[1],
 				'artId'		=> $capture[2],
 				'comDate'	=> plxDate::timestamp2Date($capture[3]),
 				'comId'		=> $capture[3].'-'.$capture[4],
 				'comIdx'	=> $capture[4],
+
 			);
 		}
+		return false;
 	}
 
 	/**
@@ -755,6 +756,7 @@ class plxMotor {
 		$com['numero'] = $tmp['comId'];
 		$com['article'] = $tmp['artId'];
 		$com['date'] = $tmp['comDate'];
+		$com['index'] = $tmp['comIdx'];
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorParseCommentaire'));
 		# On retourne le tableau
@@ -762,41 +764,26 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui tri les commentaires
+	 * Méthode qui trie récursivement les commentaires d'un article en fonction des parents
 	 *
-	 * @param	null
-	 * @return  null
-	 * @author	Stephane F
+	 * @return	array	liste des commentaires triés
+	 * @author	Stéphane F.
 	 **/
-	public function sortComs($idcom='') {
-		foreach($this->aComs as $idx => $com) {
-			if($idcom==$com['numero']) {
-				if($com['parent']=='')
-					return $com['numero'];
-				else
-					return $this->sortComs($com['parent']).'.'.$com['numero'];
+	public function parentChildSort_r($idField, $parentField, $els, $parentID = 0, &$result = array(), &$level = 0){
+		foreach ($els as $key => $value) {
+			if ($value[$parentField] == $parentID) {
+				$value['level'] = $level;
+				array_push($result, $value);
+				unset($els[$key]);
+				$oldParent = $parentID;
+				$parentID = $value[$idField];
+				$level++;
+				$this->parentChildSort_r($idField,$parentField, $els, $parentID, $result, $level);
+				$parentID = $oldParent;
+				$level--;
 			}
 		}
-	}
-
-	/**
-	 * Méthode récursive qui détermine le niveau d'indentation de chaque commentaire
-	 *
-	 * @param	idparent	numéro du commentaire parent
-	 * àparam	level		niveau d'indentation des commentaires pour l'affichage
-	 * @return  null
-	 * @author	Stephane F
-	 **/
-	public function setComsLevel($idparent='', $level=0) {
-		foreach($this->aComs as $idx => $com) {
-			if($idparent==$com["parent"]) {
-				# définition du niveau d'indentation
-				$this->aComs[$idx]['level'] = $level;
-				# recherche récursive des commentaires enfants
-				$this->setComsLevel($com['numero'], $level+1);
-			}
-			$this->aComs[$idx]['sort'] = $com['parent']=='' ? $com['numero'] : $this->sortComs($com['parent']).'.'.$com['numero'];
-		}
+		return $result;
 	}
 
 	/**
@@ -816,31 +803,43 @@ class plxMotor {
 		# On récupère les fichiers des commentaires
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
-			foreach($aFiles as $k=>$v) {
-				$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
-				$com['sort'] = '';
-				$com['level'] = 0;
-				$this->aComs[$k] = $com;
-			}
+			foreach($aFiles as $k=>$v)
+				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
 
+			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
 			if(!defined('PLX_ADMIN') OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
-				$this->setComsLevel();
-				$this->sortComs();
-				$sort = array();
-				foreach($this->aComs as $k=>$v) {
-					$sort['sort'][$k] = $v['sort'];
-					$sort['level'][$k] = $v['level'];
-					$sort['date'][$k] = $v['date'];
-				}
-				array_multisort($sort['sort'], SORT_STRING, $sort['level'], SORT_ASC, $sort['date'], SORT_ASC, $this->aComs);
+				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
 
 			# On stocke les enregistrements dans un objet plxRecord
-			$this->plxRecord_coms = new plxRecord($this->aComs);
+			$this->plxRecord_coms = new plxRecord($array);
 
 			return true;
 		}
 		else return false;
+	}
+
+	/**
+	 *  Méthode qui retourne le prochain id d'un commentaire pour un article précis
+	 *
+	 * @param	idArt		id de l'article
+	 * @return	string		id d'un nouveau commentaire
+	 * @author	Stephane F.
+	 **/
+	 public function nextIdArtComment($idArt) {
+
+		$ret = '0';
+		if($dh = opendir(PLX_ROOT.$this->aConf['racine_commentaires'])) {
+			$Idxs = array();
+			while(false !== ($file = readdir($dh))) {
+				if(preg_match("/_?".$idArt.".[0-9]+-([0-9]+).xml/", $file, $capture)) {
+					if ($capture[1] > $ret)
+						$ret = $capture[1];
+				}
+			}
+			closedir($dh);
+		}
+		return $ret+1;
 	}
 
 	/**
@@ -868,24 +867,26 @@ class plxMotor {
 				$comment['site'] = (plxUtils::checkSite($content['site'])?$content['site']:'');
 				# On récupère l'adresse IP du posteur
 				$comment['ip'] = plxUtils::getIp();
-				# On génère le nom du fichier selon l'existence ou non d'un fichier du même nom
-				$time = time();
+				# index du commentaire
+				$idx = $this->nextIdArtComment($idArt);
 				# Commentaire parent en cas de réponse
-				$comment['parent'] = isset($content['parent'])?ltrim($content['parent'], 'c'):'';
-				$i = 0;
-				do { # On boucle en testant l'existence du fichier (cas de plusieurs commentaires/sec pour un article)
-					$i++;
-					if($this->aConf['mod_com']) # On modère le commentaire => underscore
-						$comment['filename'] = '_'.$artId.'.'.$time.'-'.$i.'.xml';
-					else # On publie le commentaire directement
-						$comment['filename'] =$artId.'.'.$time.'-'.$i.'.xml';
-				} while(file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']));
+				if(isset($content['parent']) AND !empty($content['parent'])) {
+					$comment['parent'] = intval($content['parent']);
+				} else {
+					$comment['parent'] = '';
+				}
+				# On génère le nom du fichier
+				$time = time();
+				if($this->aConf['mod_com']) # On modère le commentaire => underscore
+					$comment['filename'] = '_'.$artId.'.'.$time.'-'.$idx.'.xml';
+				else # On publie le commentaire directement
+					$comment['filename'] = $artId.'.'.$time.'-'.$idx.'.xml';
 				# On peut créer le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
 					if($this->aConf['mod_com']) # En cours de modération
 						return 'mod';
 					else # Commentaire publie directement, on retourne son identifiant
-						return 'c'.$time.'-'.$i;
+						return 'c'.$artId.'-'.$idx;
 				} else { # Erreur lors de la création du commentaire
 					return L_NEWCOMMENT_ERR;
 				}

@@ -9,42 +9,42 @@
 
 include(dirname(__FILE__).'/prepend.php');
 
-# Control du token du formulaire
+# Contrôle du token du formulaire
 plxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
+# Contrôle de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
-# validation de l'id de l'article si passé en parametre
+# validation de l'id de l'article si passé en paramètre
 if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
 }
 
-# Suppression des commentaires selectionnes
+# Suppression des commentaires sélectionnés
 if(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='delete') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->delCommentaire($v);
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
-# Validation des commentaires selectionnes
+# Validation des commentaires sélectionnés
 elseif(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='online') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'online');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
-# Mise hors-ligne des commentaires selectionnes
+# Mise hors-ligne des commentaires sélectionnés
 elseif (isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='offline') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'offline');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
 
-# Récuperation des infos sur l'article attaché au commentaire si passé en paramètre
+# Récupération des infos sur l'article attaché au commentaire si passé en paramètre
 if(!empty($_GET['a'])) {
 	# Infos sur notre article
 	if(!$globArt = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'.(.*).xml$/','','sort',0,1)) {
@@ -62,7 +62,7 @@ if(!empty($_GET['a'])) {
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 
-# Récuperation du type de commentaire à afficher
+# Récupération du type de commentaire à afficher
 $_GET['sel'] = !empty($_GET['sel']) ? $_GET['sel'] : '';
 if(in_array($_GET['sel'], array('online', 'offline', 'all')))
 	$comSel = plxUtils::nullbyteRemove($_GET['sel']);

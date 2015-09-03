@@ -10,7 +10,7 @@
 
 		<div id="<?php $plxShow->comId(); ?>" class="comment level-<?php $plxShow->comLevel(); ?>">
 
-			<div id="com-<?php $plxShow->comId(); ?>">
+			<div id="com-<?php $plxShow->comIndex(); ?>">
 
 				<small>
 					<a class="nbcom" href="<?php $plxShow->ComUrl(); ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a>&nbsp;
@@ -25,7 +25,7 @@
 
 			</div>
 
-			<a rel="nofollow" href="#form" onclick="replyCom('<?php $plxShow->comId() ?>')"><?php $plxShow->lang('REPLY'); ?></a>
+			<a rel="nofollow" href="#form" onclick="replyCom('<?php $plxShow->comIndex() ?>')"><?php $plxShow->lang('REPLY'); ?></a>
 
 		</div>
 

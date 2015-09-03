@@ -24,7 +24,7 @@ if(!$plxAdmin->aConf['allow_com']) {
     exit;
 }
 
-# validation de l'id de l'article si passé en parametre
+# validation de l'id de l'article si passé en paramètre
 if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
@@ -34,7 +34,7 @@ if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 # On édite, supprime ou valide notre commentaire
 if(!empty($_POST) AND !empty($_POST['comId'])) {
 
-	# validation du numero de commentaire
+	# validation du numéro de commentaire
 	if(!preg_match('/[[:punct:]]?[0-9]{4}.[0-9]{10}-[0-9]+$/', $_POST['comId'])) {
 		plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		header('Location: comments.php');
@@ -101,7 +101,7 @@ $com=$plxAdmin->comInfoFromFilename($_GET['c'].'.xml');
 if($com['comStatus']=='_')
 	$statut = '<strong>'.L_COMMENT_OFFLINE.'</strong>';
 elseif($com['comStatus']=='')
-	$statut = '<a href="'.PLX_ROOT.'?article'.intval($plxAdmin->plxRecord_coms->f('article')).'/#c'.$plxAdmin->plxRecord_coms->f('numero').'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
+	$statut = '<a href="'.PLX_ROOT.'?article'.intval($plxAdmin->plxRecord_coms->f('article')).'/#c'.$plxAdmin->plxRecord_coms->f('index').'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
 else
 	$statut = '';
 

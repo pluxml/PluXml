@@ -876,14 +876,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$comment['type'] = 'admin';
 		$comment['mail'] = $this->aUsers[$_SESSION['user']]['email'];
 		$comment['parent'] = $content['parent'];
+		$idx = $this->nextIdArtComment($artId);
 		$time = time();
-		# On genere le nom du fichier selon l'existence ou non d'un fichier du meme nom
-		$i = 0;
-		do { # On boucle en testant l'existence du fichier (cas de plusieurs commentaires/sec pour un article)
-			$i++;
-			$comment['filename'] = $artId.'.'.$time.'-'.$i.'.xml';
-		} while(file_exists($comment['filename']));
-		# On peut creer le commentaire
+		$comment['filename'] = $artId.'.'.$time.'-'.$idx.'.xml';
+		# On peut créer le commentaire
 		if($this->addCommentaire($comment)) # Commentaire OK
 			return true;
 		else
@@ -909,7 +905,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$comment['filename'] = $id.'.xml';
 		if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename'])) # Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
-		# Controle des saisies
+		# Contrôle des saisies
 		if(trim($content['mail'])!='' AND !plxUtils::checkMail(trim($content['mail'])))
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
 		if(trim($content['site'])!='' AND !plxUtils::checkSite($content['site']))
@@ -959,7 +955,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(file_exists($filename)) {
 			unlink($filename);
 		}
-
+		# On refait un test file_exists pour savoir si unlink à fonctionner
 		if(!file_exists($filename))
 			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
 		else
