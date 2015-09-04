@@ -73,9 +73,7 @@ include(dirname(__FILE__).'/top.php');
 					<?php plxUtils::printInput('id', $id, 'hidden');?>
 					<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
 					<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
-					<?php if($active) : ?>
 				</div>
-				<?php endif; ?>
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
