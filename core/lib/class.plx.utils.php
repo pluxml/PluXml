@@ -545,7 +545,7 @@ class plxUtils {
 			$length = sizeof($content) < $length ? sizeof($content) : $length;
 			return implode(' ',array_slice($content,0,$length)).$add_text;
 		} else { # On coupe la chaine en comptant le nombre de caractères
-			return strlen($str) > $length ? utf8_encode(substr(utf8_decode($str), 0, $length)).$add_text : $str;
+			return strlen($str) > $length ? utf8_decode(substr(utf8_encode($str), 0, $length)).$add_text : $str;
 		}
 	}
 

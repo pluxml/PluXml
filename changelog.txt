@@ -6,6 +6,7 @@ BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désac
 BUG fix #103: La recherche dans les articles ne fonctionne dans l'administration pas à partir du champ "Rechercher"
 BUG fix #104: Message d'erreur lorsqu'on essaye d’accéder à une page statique non active
 BUG fix #108: Changement de langue non pris en compte sur l'écran d'installation
+BUG fix #112: Encodage des caractères sur le titre d'un article sur la page d'administration (plxUtils::strCut)
 
 ## PLUXML 5.4 (sortie : 13/07/2015) ##
 
