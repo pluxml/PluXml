@@ -336,6 +336,9 @@ th {
 td {
 	white-space: nowrap;
 }
+td.wrap {
+	white-space: normal;
+}
 
 /* pour l'indentation des commentaires */
 .level-0 {
