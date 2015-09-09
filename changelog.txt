@@ -2,6 +2,7 @@
 
 [+]	 #99: Ajout de la prise en compte des extensions "m4a, m4v, epub, vtt, webm" dans le gestionnaire de médias
 [+] #110: Gestionnaire de médias, ajout des fichiers: Option "Redimensionner images > Taille originale" cochée par défaut
+[+] Mise à jour traduction polonais: contribution 18jaguar18
 BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags 
 BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désactivation du captcha
 BUG fix #103: La recherche dans les articles ne fonctionne dans l'administration pas à partir du champ "Rechercher"
