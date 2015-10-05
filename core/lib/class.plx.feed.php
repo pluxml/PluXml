@@ -13,7 +13,7 @@ class plxFeed extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
 	 *
-	 * @return	objet			return une instance de la classe plxFeed
+	 * @return	objet			retourne une instance de la classe plxFeed
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -45,7 +45,7 @@ class plxFeed extends plxMotor {
 		# chargement du n° de version de PluXml
 		$f = file(PLX_ROOT.'version');
 		$this->version = $f['0'];
-		# récupération des paramèters dans l'url
+		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
@@ -66,7 +66,7 @@ class plxFeed extends plxMotor {
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getUsers(path('XMLFILE_USERS'));
 		$this->getTags(path('XMLFILE_TAGS'));
-		# Récuperation des articles appartenant aux catégories actives
+		# Récupération des articles appartenant aux catégories actives
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxFeedConstruct'));
@@ -88,7 +88,7 @@ class plxFeed extends plxMotor {
 		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie([0-9]+)/?#',$this->get,$capture)) {
 			$this->mode = 'article'; # Mode du flux
 			# On récupère la catégorie cible
-			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
+			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
 			# On modifie le motif de recherche
 			$this->motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.$this->cible.')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 		}
@@ -121,8 +121,8 @@ class plxFeed extends plxMotor {
 		}
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article([0-9]+)/?$#',$this->get,$capture)) {
 			$this->mode = 'commentaire'; # Mode du flux
-			# On recupere l'article cible
-			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complete sur 4 caracteres
+			# On récupère l'article cible
+			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complète sur 4 caractères
 			# On modifie le motif de recherche
 			$this->motif = '/^'.$this->cible.'.(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 		}
@@ -156,7 +156,7 @@ class plxFeed extends plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxFeedDemarrageBegin'))) return;
 
-		# Flux de commentaires d'un article precis
+		# Flux de commentaires d'un article précis
 		if($this->mode == 'commentaire' AND $this->cible) {
 			if(!$this->getArticles()) { # Aucun article, on redirige
 				$this->cible = $this->cible + 0;
@@ -188,7 +188,7 @@ class plxFeed extends plxMotor {
 				header('Location: '.$this->urlRewrite('?tag/'.$this->cible.'/'));
 				exit;
 			} else {
-				$this->getArticles(); # Recupération des articles (on les parse)
+				$this->getArticles(); # Récupération des articles (on les parse)
 			}
 		}
 		# Flux d'articles
@@ -202,7 +202,7 @@ class plxFeed extends plxMotor {
 					exit;
 				}
 			}
-			$this->getArticles(); # Recupération des articles (on les parse)
+			$this->getArticles(); # Récupération des articles (on les parse)
 		}
 
 		# Selon le mode, on appelle la méthode adéquate
@@ -242,7 +242,7 @@ class plxFeed extends plxMotor {
 			$title = $this->aConf['title'];
 			$link = $this->urlRewrite();
 		}
-		# On va boucler sur les articles (si il y'en a)
+		# On va boucler sur les articles (s'il y en a)
 		if($this->plxRecord_arts) {
 			while($this->plxRecord_arts->loop()) {
 				# Traitement initial
@@ -255,7 +255,7 @@ class plxFeed extends plxMotor {
 				$content .= $this->aConf['feed_footer'];
 				$artId = $this->plxRecord_arts->f('numero') + 0;
 				$author = $this->aUsers[$this->plxRecord_arts->f('author')]['name'];
-				# On check la date de publication
+				# On vérifie la date de publication
 				if($this->plxRecord_arts->f('date') > $last_updated)
 					$last_updated = $this->plxRecord_arts->f('date');
 
@@ -312,7 +312,7 @@ class plxFeed extends plxMotor {
 			$link = $this->urlRewrite();
 		}
 
-		# On va boucler sur les commentaires (si il y'en a)
+		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
 			while($this->plxRecord_coms->loop()) {
 				# Traitement initial
@@ -329,7 +329,7 @@ class plxFeed extends plxMotor {
 						$artInfo = $this->artInfoFromFilename($this->plxGlob_arts->aFiles[$this->plxRecord_coms->f('article')]);
 						$link_com = $this->urlRewrite('?article'.$artId.'/'.$artInfo['artUrl'].'#c'.$this->plxRecord_coms->f('numero'));
 					}
-					# On check la date de publication
+					# On vérifie la date de publication
 					if($this->plxRecord_coms->f('date') > $last_updated)
 						$last_updated = $this->plxRecord_coms->f('date');
 
@@ -388,7 +388,7 @@ class plxFeed extends plxMotor {
 			$link_feed = $this->racine.'feed.php?admin'.$this->clef.'/commentaires/en-ligne';
 		}
 
-		# On va boucler sur les commentaires (si il y'en a)
+		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
 			while($this->plxRecord_coms->loop()) {
 				$artId = $this->plxRecord_coms->f('article') + 0;
@@ -396,7 +396,7 @@ class plxFeed extends plxMotor {
 				$title_com = $this->plxRecord_coms->f('author').' @ ';
 				$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
 				$link_com = $this->racine.'core/admin/comment.php?c='.$comId;
-				# On check la date de publication
+				# On vérifie la date de publication
 				if($this->plxRecord_coms->f('date') > $last_updated)
 					$last_updated = $this->plxRecord_coms->f('date');
 				# On affiche le flux dans un buffer
