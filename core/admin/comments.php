@@ -169,7 +169,7 @@ $selector1=selector($comSel, 'id_selection1');
 					echo '<tr class="line-'.(++$num%2).' top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
 					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
 					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
-					echo '<td>'.$content.'&nbsp;</td>';
+					echo '<td class="wrap">'.$content.'&nbsp;</td>';
 					echo '<td>'.plxUtils::strCut($plxAdmin->plxRecord_coms->f('author'),30).'&nbsp;</td>';
 					echo '<td class="action">';
 					echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
