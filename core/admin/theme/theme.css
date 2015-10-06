@@ -161,10 +161,12 @@
 .selected {
 	color: #444;
 }
+.p_prev {
+	margin-right: 10px;
+}
 .p_page {
 	display: inline-block;
 	margin-right: 10px;
-	margin-left: 10px;
 }
 .p_page:first-letter {
 	text-transform: uppercase;
