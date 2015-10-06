@@ -53,6 +53,8 @@ $LANG = array(
 'L_UPDATE_ERR_FILE'					=> 'Erreur pendant la mise à jour du fichier',
 'L_UPDATE_PLUG_MOVEPARAMFILE'		=> 'Migration des fichiers de paramétrage des plugins dans le dossier de configuration',
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Mise à jour du fichier plugins.xml',
+'L_UPDATE_COMMENTS_MIGRATION'		=> 'Migration des commentaires',
+'L_UPDATE_ERR_COMMENTS_MIGRATION'	=> 'Erreur pendant la migration des commentaires',
 
 );
 ?>

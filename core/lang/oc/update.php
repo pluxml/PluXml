@@ -53,6 +53,7 @@ $LANG = array(
 'L_UPDATE_ERR_FILE'					=> 'Error pendent la mesa a jorn del fichièr',
 'L_UPDATE_PLUG_MOVEPARAMFILE'		=> 'Migracion dels fichièrs de parametratge dels plugins dins lo dorsièr de configuracion',
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Mesa a jorn del fichièr plugins.xml',
-
+'L_UPDATE_COMMENTS_MIGRATION'		=> 'Migracion dels comentaris',
+'L_UPDATE_ERR_COMMENTS_MIGRATION'	=> 'Error pendent la migracion dels comentaris',
 );
 ?>

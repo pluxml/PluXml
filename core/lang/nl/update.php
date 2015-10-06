@@ -53,6 +53,7 @@ $LANG = array(
 'L_UPDATE_ERR_FILE'					=> 'Fout tijdens het update-bestand',
 'L_UPDATE_PLUG_MOVEPARAMFILE'		=> 'Migratie van bestanden van plug-in parameter instellingen in het configuratiebestand',
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Bijwerken van het bestand plugins.xml',
-
+'L_UPDATE_COMMENTS_MIGRATION'		=> 'Migratie opmerkingen',
+'L_UPDATE_ERR_COMMENTS_MIGRATION'	=> 'Fout bij het migreren opmerkingen',
 );
 ?>

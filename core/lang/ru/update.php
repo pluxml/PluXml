@@ -54,6 +54,8 @@ $LANG = array(
 'L_UPDATE_ERR_FILE'					=> 'Ошибка при обновлении файла',
 'L_UPDATE_PLUG_MOVEPARAMFILE'		=> 'Миграция файлов плагина параметров в файле конфигурации',
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Обновление plugins.xml',
+'L_UPDATE_COMMENTS_MIGRATION'		=> 'Миграция комментарии',
+'L_UPDATE_ERR_COMMENTS_MIGRATION'	=> 'Ошибка при переходе комментарии',
 
 );
 ?>
