@@ -39,7 +39,7 @@ class update_5_5 extends plxUpdate{
 				foreach($coms as $com) {
 					foreach($com as $idx => $filename) {
 						$new_filename =  preg_replace('/(.*)-[0-9]+.xml$/', '$1-'.($idx+1).'.xml', $filename);
-						if(!copy($dir_coms.'backup/'.$filename, $dir_coms.$new_filename)) { # copie migration
+						if(!copy($dir_coms.'backup-5.4/'.$filename, $dir_coms.$new_filename)) { # copie migration
 							echo '<p class="error">'.L_UPDATE_ERR_COMMENTS_MIGRATION.'</p>';
 							return false;
 						}
