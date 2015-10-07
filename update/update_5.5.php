@@ -13,10 +13,11 @@ class update_5_5 extends plxUpdate{
 		echo L_UPDATE_COMMENTS_MIGRATION."<br />";
 
 		$dir_coms = PLX_ROOT.$this->plxAdmin->aConf['racine_commentaires'];
+		$dir_bkp  = $dir_coms.'backup-5.4/';
 
 		# création d'un dossier de sauvegarde
-		@mkdir($dir_coms.'backup-5.4',0755,true);
-		if(!is_dir($dir_coms.'backup')) {
+		@mkdir($dir_bkp,0755,true);
+		if(!is_dir($dir_bkp)) {
 			echo '<p class="error">'.L_UPDATE_ERR_COMMENTS_MIGRATION.'</p>';
 			return false;
 		}
@@ -39,7 +40,7 @@ class update_5_5 extends plxUpdate{
 				foreach($coms as $com) {
 					foreach($com as $idx => $filename) {
 						$new_filename =  preg_replace('/(.*)-[0-9]+.xml$/', '$1-'.($idx+1).'.xml', $filename);
-						if(!copy($dir_coms.'backup-5.4/'.$filename, $dir_coms.$new_filename)) { # copie migration
+						if(!copy($dir_bkp.$filename, $dir_coms.$new_filename)) { # copie migration
 							echo '<p class="error">'.L_UPDATE_ERR_COMMENTS_MIGRATION.'</p>';
 							return false;
 						}
