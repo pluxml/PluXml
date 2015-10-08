@@ -57,7 +57,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 				$output .= '<td><img src="'.$icon.'" alt="" /></td>';
 
 				# plugin infos
-				$output .= '<td>';
+				$output .= '<td class="wrap">';
 					# message d'alerte si plugin non configuré
 					if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) $output .= '<span style="margin-top:5px" class="alert red float-right">'.L_PLUGIN_NO_CONFIG.'</span>';
 					# title + version
