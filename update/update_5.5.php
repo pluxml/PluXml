@@ -52,4 +52,11 @@ class update_5_5 extends plxUpdate{
 		return true;
 	}
 
+	# suppression du fichier version	
+	public function step2() {	
+		if(is_readable(PLX_ROOT.'version')) {
+			unlink(PLX_ROOT.'version');
+		}
+		return true;
+	}
 }

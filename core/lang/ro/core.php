@@ -76,7 +76,6 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Functia  de a trimite e-mail nu este disponibilă',
 
 # class.plx.motor.php
-'L_FILE_VERSION_REQUIRED'		=> 'Fisierul "%sversion" este necesar pentru functionarea PluXml',
 'L_ARTICLE_NO_TAG'				=> 'Nici un articol pentru acest cuvant cheie !',
 'L_UNKNOWN_CATEGORY'			=> 'Aceasta categorie nu exista!',
 'L_NO_ARTICLE_PAGE'				=> 'Nu exista articole pentru aceasta pagina !',

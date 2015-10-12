@@ -8,7 +8,6 @@
  **/
 class plxMotor {
 
-	public $version = false; # Version de PluXml
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
 	public $path_url = false; # chemin de l'url du site
@@ -72,21 +71,12 @@ class plxMotor {
 		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
 		$this->aConf['default_lang'] = $lang;
 		loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
-		# Contrôle de la présence du fichier 'version' de PluXml
-		if(!is_readable(PLX_ROOT.'version')) {
-			header('Content-Type: text/plain charset=UTF-8');
-			printf(utf8_decode(L_FILE_VERSION_REQUIRED), PLX_ROOT);
-			exit;
-		}
-		# chargement du n° de version de PluXml
-		$f = file(PLX_ROOT.'version');
-		$this->version = $f['0'];
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
 		# On vérifie s'il faut faire une mise à jour
-		if((!isset($this->aConf['version']) OR $this->version!=$this->aConf['version']) AND !defined('PLX_UPDATER')) {
+		if((!isset($this->aConf['version']) OR PLX_VERSION!=$this->aConf['version']) AND !defined('PLX_UPDATER')) {
 			header('Location: '.PLX_ROOT.'update/index.php');
 			exit;
 		}

@@ -36,15 +36,6 @@ class plxFeed extends plxMotor {
 		$this->getConfiguration($filename);
 		# Chargement du fichier de langue
 		loadLang(PLX_CORE.'lang/'.$this->aConf['default_lang'].'/core.php');
-		# Contrôle de la présence du fichier 'version' de PluXml
-		if(!is_readable(PLX_ROOT.'version')) {
-			header('Content-Type: text/plain; charset='.PLX_CHARSET);
-			printf(utf8_decode(L_FILE_VERSION_REQUIRED), PLX_ROOT);
-			exit;
-		}
-		# chargement du n° de version de PluXml
-		$f = file(PLX_ROOT.'version');
-		$this->version = $f['0'];
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone

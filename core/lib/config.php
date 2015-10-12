@@ -1,5 +1,7 @@
 <?php
 
+define('PLX_VERSION', '5.5');
+
 # Gestion des erreurs PHP
 //error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 

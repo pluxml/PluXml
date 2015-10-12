@@ -167,10 +167,6 @@ RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
 RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 </IfModule>
-<Files "version">
-	Order allow,deny
-	Deny from all
-</Files>
 # END -- Pluxml
 ';
 
@@ -1044,8 +1040,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			return L_PLUXML_UPDATE_ERR;
 
 		# Comparaison
-		if(version_compare($this->version, $latest_version, ">="))
-			return L_PLUXML_UPTODATE.' ('.$this->version.')';
+		if(version_compare(PLX_VERSION, $latest_version, ">="))
+			return L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
 		else
 		 	return L_PLUXML_UPDATE_AVAILABLE.' <a href="http://www.pluxml.org/">PluXml.org</a>';
 	}

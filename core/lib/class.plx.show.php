@@ -122,7 +122,7 @@ class plxShow {
 	 **/
 	public function version() {
 
-		echo $this->plxMotor->version;
+		echo PLX_VERSION;
 	}
 
 	/**

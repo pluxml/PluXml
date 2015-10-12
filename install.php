@@ -76,8 +76,6 @@ if(!array_key_exists($timezone, plxTimezones::timezones())) {
 }
 
 # Configuration de base
-$f = file(PLX_ROOT.'version');
-$version = $f['0'];
 $config = array('title'=>'PluXml',
 				'description'=>plxUtils::strRevCheck(L_SITE_DESCRIPTION),
 				'meta_description'=>'',
@@ -113,7 +111,7 @@ $config = array('title'=>'PluXml',
 				'gzip'=>0,
 				'feed_chapo'=>0,
 				'feed_footer'=>'',
-				'version'=>$version,
+				'version'=>PLX_VERSION,
 				'default_lang'=>$lang,
 				'userfolders'=>0,
 				'display_empty_cat'=>0,
@@ -248,7 +246,7 @@ plxUtils::cleanHeaders();
 <head>
 	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
-	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.$version ?></title>
+	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
 </head>
@@ -265,7 +263,7 @@ plxUtils::cleanHeaders();
 
 			<header>
 
-				<h1><?php echo L_PLUXML_VERSION.' '.$version ?> - <?php echo L_INSTALL_TITLE ?></h1>
+				<h1><?php echo L_PLUXML_VERSION.' '.PLX_VERSION ?> - <?php echo L_INSTALL_TITLE ?></h1>
 
 			</header>
 
@@ -327,7 +325,7 @@ plxUtils::cleanHeaders();
 					</div>
 
 					<ul class="unstyled-list">
-						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo $version; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
+						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
 						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
 						<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>

@@ -76,7 +76,6 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Email verzendfunctie is niet beschikbaar',
 
 # class.plx.motor.php
-'L_FILE_VERSION_REQUIRED'		=> 'Het bestand "%sversion" is nodig voor een goede werking van PluXml',
 'L_ARTICLE_NO_TAG'				=> 'Geen artikel gevonden voor dit sleutelwoord !',
 'L_UNKNOWN_CATEGORY'			=> 'Deze categorie bestaat niet !',
 'L_NO_ARTICLE_PAGE'				=> 'Geen artikel gevonden voor deze pagina !',
