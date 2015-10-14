@@ -161,12 +161,12 @@
 .selected {
 	color: #444;
 }
-.p_prev {
-	margin-right: 10px;
-}
-.p_page {
+.p_page, .p_prev, .p_first, .p_last, .p_next , .p_current {
+	padding: 4px 5px;
 	display: inline-block;
-	margin-right: 10px;
+}
+.p_current {
+	color:red;
 }
 .p_page:first-letter {
 	text-transform: uppercase;

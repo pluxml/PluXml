@@ -230,26 +230,31 @@ include(dirname(__FILE__).'/top.php');
 	if($arts) { # Si on a des articles (hors page)
 		# Calcul des pages
 		$last_page = ceil($nbArtPagination/$plxAdmin->bypage);
-		if($plxAdmin->page > $last_page) $plxAdmin->page = $last_page;
-		$prev_page = $plxAdmin->page - 1;
-		$next_page = $plxAdmin->page + 1;
-		# Generation des URLs
+		$stop = $plxAdmin->page + 2;
+		if($stop<5) $stop=5;
+		if($stop>$last_page) $stop=$last_page;
+		$start = $stop - 4;
+		if($start<1) $start=1;
+		# Génération des URLs
 		$artTitle = (!empty($_GET['artTitle'])?'&amp;artTitle='.urlencode($_GET['artTitle']):'');
-		$p_url = 'index.php?page='.$prev_page.$artTitle; # Page precedente
-		$n_url = 'index.php?page='.$next_page.$artTitle; # Page suivante
-		$l_url = 'index.php?page='.$last_page.$artTitle; # Derniere page
-		$f_url = 'index.php?page=1'.$artTitle; # Premiere page
-		# On effectue l'affichage
-		if($plxAdmin->page > 2) # Si la page active > 2 on affiche un lien 1ere page
-			echo '<span class="p_first"><a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">'.L_PAGINATION_FIRST.'</a></span>';
-		if($plxAdmin->page > 1) # Si la page active > 1 on affiche un lien page precedente
-			echo '<span class="p_prev"><a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">'.L_PAGINATION_PREVIOUS.'</a></span>';
-		# Affichage de la page courante
-		printf('<span class="p_page">'.L_PAGINATION.'</span>',$plxAdmin->page,$last_page);
-		if($plxAdmin->page < $last_page) # Si la page active < derniere page on affiche un lien page suivante
-			echo '<span class="p_next"><a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">'.L_PAGINATION_NEXT.'</a></span>';
-		if(($plxAdmin->page + 1) < $last_page) # Si la page active++ < derniere page on affiche un lien derniere page
-			echo '<span class="p_last"><a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">'.L_PAGINATION_LAST.'</a></span>';
+		$p_url = 'index.php?page='.($plxAdmin->page-1).$artTitle;
+		$n_url = 'index.php?page='.($plxAdmin->page+1).$artTitle;
+		$l_url = 'index.php?page='.$last_page.$artTitle;
+		$f_url = 'index.php?page=1'.$artTitle;
+		# Affichage des liens de pagination
+		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'index.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page);
+		$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
+		echo '<span class="p_first">'.$s.'</span>';
+		$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
+		echo '<span class="p_prev">'.$s.'</a></span>';
+		for($i=$start;$i<=$stop;$i++) {
+			$s = $i==$plxAdmin->page ? $i : '<a href="'.('index.php?page='.$i.$artTitle).'" title="'.$i.'">'.$i.'</a>';
+			echo '<span class="p_current">'.$s.'</span>';
+		}
+		$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">&rsaquo;</a>' : '&rsaquo;';
+		echo '<span class="p_next">'.$s.'</span>';
+		$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">&raquo;</a>' : '&raquo;';
+		echo '<span class="p_last">'.$s.'</span>';
 	}
 	?>
 </p>
