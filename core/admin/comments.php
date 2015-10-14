@@ -188,32 +188,38 @@ $selector1=selector($comSel, 'id_selection1');
 </form>
 <p>
 <?php
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
-# Affichage de la pagination
-if($coms) { # Si on a des commentaires (hors page)
-	# Calcul des pages
-	$last_page = ceil($nbComPagination/$plxAdmin->aConf['bypage_admin_coms']);
-	if($plxAdmin->page > $last_page) $plxAdmin->page = $last_page;
-	$prev_page = $plxAdmin->page - 1;
-	$next_page = $plxAdmin->page + 1;
-	# Generation des URLs
-	$p_url = 'comments.php?page='.$prev_page.'&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:''); # Page precedente
-	$n_url = 'comments.php?page='.$next_page.'&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:''); # Page suivante
-	$l_url = 'comments.php?page='.$last_page.'&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:''); # Derniere page
-	$f_url = 'comments.php?page=1'.'&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:''); # Premiere page
-	# On effectue l'affichage
-	if($plxAdmin->page > 2) # Si la page active > 2 on affiche un lien 1ere page
-		echo '<span class="p_first"><a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">'.L_PAGINATION_FIRST.'</a></span>';
-	if($plxAdmin->page > 1) # Si la page active > 1 on affiche un lien page precedente
-		echo '<span class="p_prev"><a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">'.L_PAGINATION_PREVIOUS.'</a></span>';
-	# Affichage de la page courante
-	printf('<span class="p_page">'.L_PAGINATION.'</span>',$plxAdmin->page,$last_page);
-	if($plxAdmin->page < $last_page) # Si la page active < derniere page on affiche un lien page suivante
-		echo '<span class="p_next"><a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">'.L_PAGINATION_NEXT.'</a></span>';
-	if(($plxAdmin->page + 1) < $last_page) # Si la page active++ < derniere page on affiche un lien derniere page
-		echo '<span class="p_last"><a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">'.L_PAGINATION_LAST.'</a></span>';
-}
+	# Hook Plugins
+	eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
+	# Affichage de la pagination
+	if($coms) { # Si on a des articles (hors page)
+		# Calcul des pages
+		$last_page = ceil($nbComPagination/$plxAdmin->aConf['bypage_admin_coms']);
+		$stop = $plxAdmin->page + 2;
+		if($stop<5) $stop=5;
+		if($stop>$last_page) $stop=$last_page;
+		$start = $stop - 4;
+		if($start<1) $start=1;
+		# Génération des URLs
+		$sel = '&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'');
+		$p_url = 'comments.php?page='.($plxAdmin->page-1).$sel;
+		$n_url = 'comments.php?page='.($plxAdmin->page+1).$sel;
+		$l_url = 'comments.php?page='.$last_page.$sel;
+		$f_url = 'comments.php?page=1'.$sel;
+		# Affichage des liens de pagination
+		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'comments.php?page=\'+this.value+\''.$sel.'\'" value="'.$plxAdmin->page.'" />', $last_page);
+		$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
+		echo '<span class="p_first">'.$s.'</span>';
+		$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
+		echo '<span class="p_prev">'.$s.'</a></span>';
+		for($i=$start;$i<=$stop;$i++) {
+			$s = $i==$plxAdmin->page ? $i : '<a href="'.('comments.php?page='.$i.$sel).'" title="'.$i.'">'.$i.'</a>';
+			echo '<span class="p_current">'.$s.'</span>';
+		}
+		$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">&rsaquo;</a>' : '&rsaquo;';
+		echo '<span class="p_next">'.$s.'</span>';
+		$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">&raquo;</a>' : '&raquo;';
+		echo '<span class="p_last">'.$s.'</span>';
+	}
 ?>
 </p>
 
