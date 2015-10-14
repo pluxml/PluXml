@@ -2,6 +2,7 @@
 
 [+]	 #99: Ajout de la prise en compte des extensions "m4a, m4v, epub, vtt, webm" dans le gestionnaire de médias
 [+] #110: Gestionnaire de médias, ajout des fichiers: Option "Redimensionner images > Taille originale" cochée par défaut
+[+] #114: Réécriture de la pagination des articles et des commentaires dans l'administration
 [-] #107: Suppression du fichier version, remplacé par la constante PLX_VERSION dans le fichier core/lib/config.php
 [+] Mise à jour traduction polonais: contribution 18jaguar18
 BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags 
