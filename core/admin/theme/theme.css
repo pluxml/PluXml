@@ -384,3 +384,8 @@ td.wrap {
 	color: #fff;
 	padding: .2rem .3rem;
 }
+
+div.inline-form.action-bar,
+div.inline-form.action-bar  ul.menu li{
+	font-size: .9rem;
+}
