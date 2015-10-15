@@ -138,8 +138,17 @@ include(dirname(__FILE__).'/top.php');
 	}
 	?>
 	<?php plxUtils::printInput('page',1,'hidden'); ?>
-	<input type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
-	<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
+</div>
+
+<div class="grid">
+	<div class="col sml-6">
+		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
+		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
+	</div>
+	<div class="col sml-6 text-right">
+		<input type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
+		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
+	</div>
 </div>
 
 <div class="scrollable-table">
@@ -150,12 +159,7 @@ include(dirname(__FILE__).'/top.php');
 				<th><?php echo L_ARTICLE_ID.' '.L_ARTICLE ?></th>
 				<th><?php echo L_ARTICLE_LIST_DATE ?></th>
 				<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
-				<th>
-					<div style="white-space:nowrap">
-						<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
-						<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
-					</div>
-				</th>
+				<th><?php echo L_ARTICLE_LIST_CATEGORIES ?></th>
 				<th><?php echo L_ARTICLE_LIST_NBCOMS ?></th>
 				<th><?php echo L_ARTICLE_LIST_AUTHOR ?></th>
 				<th class="action"><?php echo L_ARTICLE_LIST_ACTION ?></th>
