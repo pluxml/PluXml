@@ -324,6 +324,9 @@ plxUtils::cleanHeaders();
 						</div>
 					</div>
 
+					<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
+					<?php echo plxToken::getTokenPostMethod() ?>
+					
 					<ul class="unstyled-list">
 						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
 						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
@@ -340,9 +343,6 @@ plxUtils::cleanHeaders();
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testMail() ?>
 					</ul>
-
-					<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
-					<?php echo plxToken::getTokenPostMethod() ?>
 
 				</fieldset>
 
