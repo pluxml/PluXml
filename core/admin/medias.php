@@ -112,7 +112,6 @@ $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION[
 $curFolders = explode('/', $curFolder);
 
 ?>
-<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
 <script type="text/javascript">
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
@@ -231,10 +230,9 @@ function toggle_divs(){
 
 		<p><?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?></p>
 		<div class="inline-form">
-			<input id="selector" type="file" name="selector" />
-			<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
-		</div>
-		<div class="files_list" id="files_list" style="margin-top: 1rem;">
+			<input id="selector_0" type="file" multiple="multiple" name="selector_0[]" />
+			<div class="files_list" id="files_list" style="margin: 1rem 0 1rem 0;"></div>
+			<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />		
 		</div>
 		<div class="grid">
 			<div class="col sma-12 med-4">
@@ -284,9 +282,9 @@ function toggle_divs(){
 		</div>
 		<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
 		<?php echo plxToken::getTokenPostMethod() ?>
+		<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
 		<script type="text/javascript">
-			var multi_selector = new MultiSelector(document.getElementById('files_list'), -1, '<?php echo $plxAdmin->aConf['racine'] ?>');
-			multi_selector.addElement(document.getElementById('selector'));
+			MultiSelector.init('<?php echo $plxAdmin->aConf['racine'] ?>');
 		</script>
 	</div>
 

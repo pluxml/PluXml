@@ -318,14 +318,27 @@ class plxMedias {
 	}
 
 	/**
-	 * Méthode qui envoi une liste de fichiers sur le serveur
+	 * Méthode qui envoie une liste de fichiers sur le serveur
 	 *
-	 * @param	files	fichiers à uploader
-	 * @param	post	paramètres
-	 * @return  msg		résultat de l'envoi des fichiers
+	 * @param	usrfiles 	fichiers utilisateur à uploader
+	 * @param	post		paramètres
+	 * @return  msg			résultat de l'envoi des fichiers
 	 * @author	Stephane F
 	 **/
-	public function uploadFiles($files, $post) {
+	public function uploadFiles($usrfiles, $post) {
+
+		$files = array();
+		if(isset($post['myfiles'])) {
+			foreach($post['myfiles'] as $key => $val) {
+				list($selnum, $selval) = explode('_', $val);
+				$files[] = array(
+					'name'		=> $usrfiles['selector_'.$selnum]['name'][$selval],
+					'size'		=> $usrfiles['selector_'.$selnum]['size'][$selval],
+					'tmp_name'	=> $usrfiles['selector_'.$selnum]['tmp_name'][$selval]
+				);
+			}
+		}
+
 		$count=0;
 		foreach($files as $file) {
 			$resize = false;
