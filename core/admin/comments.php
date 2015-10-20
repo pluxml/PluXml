@@ -186,7 +186,8 @@ $selector1=selector($comSel, 'id_selection1');
 	</div>
 
 </form>
-<p>
+
+<p id="pagination">
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
