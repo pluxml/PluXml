@@ -423,65 +423,125 @@ class plxUtils {
 	/**
 	 * Méthode qui crée la miniature d'une image
 	 *
-	 * @param	filename			emplacement et nom du fichier source
-	 * @param	filename_out		emplacement et nom de la miniature créée
-	 * @param	width				largeur de la miniature
-	 * @param	height				hauteur de la miniature
-	 * @param	quality				qualité de l'image
-	 * @param	ratio				si vrai conserve le ratio largeur x hauteur
-	 * @return	boolean				vrai si image créée
+	 * @param	src_image		emplacement et nom du fichier source
+	 * @param	dest_image		emplacement et nom de la miniature créée
+	 * @param	thumb_width		largeur de la miniature
+	 * @param	thumb_height	hauteur de la miniature
+	 * @param	quality			qualité de l'image
+	 * @return	boolean			vrai si image créée
 	 **/
-	public static function makeThumb($filename, $filename_out, $width, $height, $quality) {
+	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 
-		# Informations sur l'image
-		list($width_orig,$height_orig,$type) = getimagesize($filename);
+		// Get dimensions of existing image
+		$image = getimagesize($src_image);
 
-		# Calcul du ratio
-		$ratio_w = $width / $width_orig;
-		$ratio_h = $height / $height_orig;
-		if($width == 0)
-			$width = $width_orig * $ratio_h;
-		elseif($height == 0)
-			$height = $height_orig * $ratio_w;
-		elseif($ratio_w < $ratio_h AND $ratio_w < 1) {
-			$width = $ratio_w * $width_orig;
-			$height = $ratio_w * $height_orig;
-		} elseif($ratio_h < 1) {
-			$width = $ratio_h * $width_orig;
-			$height = $ratio_h * $height_orig;
+		// Check for valid dimensions
+		if($image[0] <= 0 || $image[1] <= 0) return false;
+
+		// Determine format from MIME-Type
+		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
+
+		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
+
+		// Import image
+		switch( $image['format'] ) {
+			case 'jpg':
+			case 'jpeg':
+				$image_data = imagecreatefromjpeg($src_image);
+				break;
+			case 'png':
+				$image_data = imagecreatefrompng($src_image);
+				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
+				imagefill($canvas, 0, 0, $color);
+				imagesavealpha($canvas, true);
+				break;
+			case 'gif':
+				$image_data = imagecreatefromgif($src_image);
+				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
+				imagefill($canvas, 0, 0, $color);
+				imagesavealpha($canvas, true);
+			break;
+			default:
+				return false; // Unsupported format
+			break;
+		}
+
+		// Verify import
+		if($image_data == false) return false;
+
+		// Calculate measurements
+		if($thumb_width==$thumb_height) {
+			if($image[0] > $image[1]) {
+				// For landscape images
+				$x_offset = ($image[0] - $image[1]) / 2;
+				$y_offset = 0;
+				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
+			} else {
+				// For portrait and square images
+				$x_offset = 0;
+				$y_offset = ($image[1] - $image[0]) / 2;
+				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
+			}
 		} else {
-			$width = $width_orig;
-			$height = $height_orig;
+			# Calcul du ratio
+			$x_offset = $y_offset = 0;
+			$square_size_w = $image[0];
+			$square_size_h = $image[1];
+			$ratio_w = $thumb_width / $image[0];
+			$ratio_h = $thumb_height / $image[1];
+			if($thumb_width == 0)
+				$thumb_width = $image[0] * $ratio_h;
+			elseif($thumb_height == 0)
+				$thumb_height = $image[1] * $ratio_w;
+			elseif($ratio_w < $ratio_h AND $ratio_w < 1) {
+				$thumb_width = $ratio_w * $image[0];
+				$thumb_height = $ratio_w * $image[1];
+			} elseif($ratio_h < 1) {
+				$thumb_width = $ratio_h * $image[0];
+				$thumb_height = $ratio_h * $image[1];
+			} else {
+				$thumb_width = $image[0];
+				$thumb_height = $image[1];
+			}
 		}
 
-		# Création de l'image
-		$image_p = imagecreatetruecolor($width,$height);
+		// Resize and crop
+		if( imagecopyresampled(
+			$canvas,
+			$image_data,
+			0,
+			0,
+			$x_offset,
+			$y_offset,
+			$thumb_width,
+			$thumb_height,
+			$square_size_w,
+			$square_size_h
+		)) {
 
-		if($type == 1) {
-			$image = imagecreatefromgif($filename);
-			$color = imagecolortransparent($image_p, imagecolorallocatealpha($image_p, 0, 0, 0, 127));
-			imagefill($image_p, 0, 0, $color);
-			imagesavealpha($image_p, true);
-			imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-			imagegif($image_p, $filename_out);
-		}
-		elseif($type == 2) {
-			$image = imagecreatefromjpeg($filename);
-			imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-			imagejpeg($image_p, $filename_out, $quality);
-		}
-		elseif($type == 3) {
-			$image = imagecreatefrompng($filename);
-			$color = imagecolortransparent($image_p, imagecolorallocatealpha($image_p, 0, 0, 0, 127));
-			imagefill($image_p, 0, 0, $color);
-			imagesavealpha($image_p, true);
-			imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-			imagepng($image_p, $filename_out);
+			// Create thumbnail
+			switch( strtolower(preg_replace('/^.*\./', '', $dest_image)) ) {
+				case 'jpg':
+				case 'jpeg':
+					return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
+				break;
+				case 'png':
+					return (imagepng($canvas, $dest_image) AND is_file($dest_image));
+				break;
+				case 'gif':
+					return (imagegif($canvas, $dest_image) AND is_file($dest_image));
+				break;
+				default:
+					return false; // Unsupported format
+				break;
+			}
+
+		} else {
+			return false;
 		}
 
-		return is_file($filename_out);
 	}
 
 	/**
