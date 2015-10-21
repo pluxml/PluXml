@@ -275,7 +275,7 @@ class plxMedias {
 	}
 
 	/**
-	 * Méthode qui envoi un fichier sur le serveur
+	 * Méthode qui envoie un fichier sur le serveur
 	 *
 	 * @param	file	fichier à uploader
 	 * @param	resize	taille du fichier à redimensionner si renseigné
@@ -307,7 +307,7 @@ class plxMedias {
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
 			if(preg_match($this->img_exts, $file['name'])) {
-				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), $this->thumbWidth, $this->thumbHeight, $this->thumbQuality);
+				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48);
 				if($resize)
 					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
 				if($thumb)
