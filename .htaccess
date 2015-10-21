@@ -1,0 +1,13 @@
+# BEGIN -- Pluxml
+Options -Multiviews
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /PluXml/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+# Réécriture des urls
+RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
+RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
+</IfModule>
+# END -- Pluxml
