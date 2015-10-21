@@ -95,7 +95,7 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 9999;
+	z-index: 0
 }
 .section .action-bar p,
 .section .action-bar ul {
@@ -171,9 +171,16 @@
 .p_page:first-letter {
 	text-transform: uppercase;
 }
-a.btnDelete,
+a.btnDelete {
+	display: inline;
+	color: #e43d29;
+	text-decoration: none;
+}
 .divtitle  {
 	display: inline;
+}
+.icon {
+	text-align: center;
 }
 button,
 input,
@@ -196,7 +203,7 @@ tr:nth-child(even):hover {
 }
 #plugins-table img,
 #medias-table img {
-	min-width: 48px;
+	max-width: 48px;
 }
 #medias-table {
 	margin-top: 10px;
@@ -383,4 +390,78 @@ td.wrap {
 	background-color: #258fd6;
 	color: #fff;
 	padding: .2rem .3rem;
+}
+
+/* pour la fenêtre modale de la visionneuse d'image */
+
+.modal {
+	display: block;
+	width: 100%;
+	position: absolute;
+}
+
+.modal__overlay {
+	background: #000;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	z-index: 999;
+	text-align:right;
+}
+
+.modal__box {
+	text-align:center;
+}
+
+.modal input {
+	position: absolute;
+	right: 100px;
+	top: 30px;
+	z-index: -10;
+	display: none;
+}
+
+.modal label {
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: bold;
+	-webkit-transition: all 0.55s;
+	transition: all 0.55s;
+	padding: 10px;
+}
+
+.modal label:hover {
+	color: red;
+	-webkit-transform: scale(0.97);
+	-ms-transform: scale(0.97);
+	transform: scale(0.97);
+}
+
+.modal__box img {
+	max-height: 100%;
+}
+
+.modal__overlay {
+	opacity: 0;
+	overflow: hidden;
+	-webkit-transform: scale(0.5);
+	-ms-transform: scale(0.5);
+	transform: scale(0.5);
+	-webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+	transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+	visibility: hidden;
+}
+
+input:checked ~ .modal__overlay {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+	transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+	z-index: 800;
+	visibility: visible;
 }
