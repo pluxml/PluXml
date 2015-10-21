@@ -194,7 +194,7 @@ function toggle_divs(){
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 						if(is_file($v['path']) AND $isImage) {
-							echo '<a onclick="this.target=\'_blank\';return true;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+							echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
 						}
 						echo '</td>';
 						echo '<td>';
@@ -282,13 +282,28 @@ function toggle_divs(){
 		</div>
 		<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
-		<script type="text/javascript">
-			MultiSelector.init('<?php echo $plxAdmin->aConf['racine'] ?>');
-		</script>
 	</div>
 
 </form>
+
+<div class="modal">
+	<input id="modal" type="checkbox" name="modal" tabindex="1">
+ 	<div class="modal__overlay">
+		<label for="modal">&#10006;</label>
+		<div id="modal__box" class="modal__box"></div>
+	</div>
+</div>
+
+<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
+<script type="text/javascript">
+function overlay(content) {
+	e = document.getElementById("modal__box");
+	e.innerHTML = '<img src="'+content+'" alt="" />';
+	e = document.getElementById("modal");	
+	e.click();
+}
+MultiSelector.init();
+</script>
 
 <?php
 # Hook Plugins
