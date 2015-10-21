@@ -1,9 +1,8 @@
 <!--
 var MultiSelector  =  {
 
-	init: function(racine) {
+	init: function() {
 		this.count = 0;
-		this.racine = racine;
 		this.files_list = document.getElementById("files_list");
 		this.selector = document.getElementById("selector_0");
 		this.selector.addEventListener("change", this, false);
@@ -57,7 +56,7 @@ var MultiSelector  =  {
 		// Delete link
 		var new_lnkDelete = document.createElement('a');
 		new_lnkDelete.setAttribute('href', 'javascript:void(0)');
-		new_lnkDelete.innerHTML = '<img src="'+this.racine+'core/admin/theme/images/delete.gif" alt="" />';
+		new_lnkDelete.innerHTML = '&#10006';
 		new_lnkDelete.setAttribute("class","btnDelete");
 		new_lnkDelete.setAttribute("className","btnDelete"); /* Hack IE */
 		// div with filename
