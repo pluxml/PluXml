@@ -443,6 +443,30 @@ class plxUtils {
 		// Determine format from MIME-Type
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
 
+		// calcul du ration si nécessaire
+		if($thumb_width!=$thumb_height) {
+			# Calcul du ratio
+			$x_offset = $y_offset = 0;
+			$square_size_w = $image[0];
+			$square_size_h = $image[1];
+			$ratio_w = $thumb_width / $image[0];
+			$ratio_h = $thumb_height / $image[1];
+			if($thumb_width == 0)
+				$thumb_width = $image[0] * $ratio_h;
+			elseif($thumb_height == 0)
+				$thumb_height = $image[1] * $ratio_w;
+			elseif($ratio_w < $ratio_h AND $ratio_w < 1) {
+				$thumb_width = $ratio_w * $image[0];
+				$thumb_height = $ratio_w * $image[1];
+			} elseif($ratio_h < 1) {
+				$thumb_width = $ratio_h * $image[0];
+				$thumb_height = $ratio_h * $image[1];
+			} else {
+				$thumb_width = $image[0];
+				$thumb_height = $image[1];
+			}
+		}
+		
 		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
 
 		// Import image
@@ -471,7 +495,7 @@ class plxUtils {
 		// Verify import
 		if($image_data == false) return false;
 
-		// Calculate measurements
+		// Calculate measurements (square crop)
 		if($thumb_width==$thumb_height) {
 			if($image[0] > $image[1]) {
 				// For landscape images
@@ -483,27 +507,6 @@ class plxUtils {
 				$x_offset = 0;
 				$y_offset = ($image[1] - $image[0]) / 2;
 				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
-			}
-		} else {
-			# Calcul du ratio
-			$x_offset = $y_offset = 0;
-			$square_size_w = $image[0];
-			$square_size_h = $image[1];
-			$ratio_w = $thumb_width / $image[0];
-			$ratio_h = $thumb_height / $image[1];
-			if($thumb_width == 0)
-				$thumb_width = $image[0] * $ratio_h;
-			elseif($thumb_height == 0)
-				$thumb_height = $image[1] * $ratio_w;
-			elseif($ratio_w < $ratio_h AND $ratio_w < 1) {
-				$thumb_width = $ratio_w * $image[0];
-				$thumb_height = $ratio_w * $image[1];
-			} elseif($ratio_h < 1) {
-				$thumb_width = $ratio_h * $image[0];
-				$thumb_height = $ratio_h * $image[1];
-			} else {
-				$thumb_width = $image[0];
-				$thumb_height = $image[1];
 			}
 		}
 
