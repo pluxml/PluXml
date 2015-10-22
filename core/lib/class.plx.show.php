@@ -938,7 +938,7 @@ class plxShow {
 		$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$artId]);
 		echo $this->urlRewrite('?article'.intval($artId).'/'.$artInfo['artUrl'].'#'.$this->ComId(false));
 	}
-	
+
 	/**
 	 * Méthode qui affiche l'index d'un commentaire
 	 *
@@ -950,7 +950,7 @@ class plxShow {
 
 		echo $this->plxMotor->plxRecord_coms->f('index');
 	}
-	
+
 	/**
 	 * Méthode qui affiche le niveau d'indentation du commentaire
 	 *
@@ -961,7 +961,7 @@ class plxShow {
 	public function comLevel() {
 
 		echo $this->plxMotor->plxRecord_coms->f('level');
-	}	
+	}
 
 	/**
 	 * Méthode qui affiche le nombre total de commentaires publiés sur le site.
@@ -1140,7 +1140,7 @@ class plxShow {
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if($artInfo['artDate']<=$datetime) { # on ne prends que les commentaires pour les articles publiés
 						if(empty($cat_ids) OR preg_match('/('.$cat_ids.')/', $artInfo['catId'])) {
-							$url = '?article'.intval($com['article']).'/'.$artInfo['artUrl'].'#c'.$com['index'];
+							$url = '?article'.intval($com['article']).'/'.$artInfo['artUrl'].'#c'.$com['article'].'-'.$com['index'];
 							$date = $com['date'];
 							$content = strip_tags($com['content']);
 							# On modifie nos motifs
