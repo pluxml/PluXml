@@ -1,4 +1,5 @@
 <!--
+var nfiles = 0;
 var MultiSelector  =  {
 
 	init: function() {
@@ -20,11 +21,9 @@ var MultiSelector  =  {
 	},
 
 	handleChange: function() {
-
 		this.selector = document.getElementById("selector_" + this.count++);
 		this.selector.style.position = 'absolute';
 		this.selector.style.left = '-1000px';
-
 		var new_element = document.createElement('input');
 		new_element.type = "file";
 		new_element.multiple = "multiple";
@@ -32,7 +31,6 @@ var MultiSelector  =  {
 		new_element.name = "selector_"+this.count+"[]";
 		new_element.addEventListener("change", this, false);
 		this.selector.parentNode.insertBefore(new_element, this.selector)
-
 		for(i=0;i<this.selector.files.length;i++) {
 			this.addListRow(this.selector, (this.count-1)+'_'+i, this.selector.files[i].name);
 			this.selector.parentNode.insertBefore(new_element, this.selector);
@@ -70,6 +68,10 @@ var MultiSelector  =  {
 		new_lnkDelete.onclick = function(){
 			var div = document.getElementById('rowfile_'+i);
 			div.parentNode.removeChild(div);
+			nfiles--;
+			if(nfiles==0) {
+				document.getElementById('btn_upload').setAttribute("style","display:none");
+			}
 		}
 		// Add hidden input
 		new_row.appendChild(new_hidden);
@@ -79,11 +81,15 @@ var MultiSelector  =  {
 		new_row.appendChild(new_row_div);
 		// Add it to the list
 		this.files_list.appendChild(new_row);
+		// Selected files counter
+		nfiles++;
+		document.getElementById('btn_upload').setAttribute("style","display:block");
 	},
-
+	
 	basename: function(path) {
 		return path.replace(/\\/g,'/').replace( /.*\//, '' );
 	}
 
 };
+MultiSelector.init();
 -->
