@@ -219,7 +219,7 @@ $curFolders = explode('/', $curFolder);
 		<div class="inline-form">
 			<input id="selector_0" type="file" multiple="multiple" name="selector_0[]" />
 			<div class="files_list" id="files_list" style="margin: 1rem 0 1rem 0;"></div>
-			<input style="display:none" type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />		
+			<input class="blue" style="display:none" type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />		
 		</div>
 		<div class="grid">
 			<div class="col sma-12 med-4">
