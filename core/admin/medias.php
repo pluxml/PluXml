@@ -112,19 +112,6 @@ $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION[
 $curFolders = explode('/', $curFolder);
 
 ?>
-<script>
-function toggle_divs(){
-	var uploader = document.getElementById('files_uploader');
-	var manager = document.getElementById('files_manager');
-	if(uploader.style.display == 'none') {
-		uploader.style.display = 'block';
-		manager.style.display = 'none';
-	} else {
-		uploader.style.display = 'none';
-		manager.style.display = 'block';
-	}
-}
-</script>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
@@ -296,6 +283,17 @@ function toggle_divs(){
 
 <script src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
 <script>
+function toggle_divs(){
+	var uploader = document.getElementById('files_uploader');
+	var manager = document.getElementById('files_manager');
+	if(uploader.style.display == 'none') {
+		uploader.style.display = 'block';
+		manager.style.display = 'none';
+	} else {
+		uploader.style.display = 'none';
+		manager.style.display = 'block';
+	}
+}
 function overlay(content) {
 	e = document.getElementById("modal__box");
 	e.innerHTML = '<img src="'+content+'" alt="" />';
