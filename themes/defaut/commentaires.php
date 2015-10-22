@@ -25,7 +25,7 @@
 
 			</div>
 
-			<a rel="nofollow" href="#form" onclick="replyCom('<?php $plxShow->comIndex() ?>')"><?php $plxShow->lang('REPLY'); ?></a>
+			<a rel="nofollow" href="<?php $plxShow->artUrl(); ?>#form" onclick="replyCom('<?php $plxShow->comIndex() ?>')"><?php $plxShow->lang('REPLY'); ?></a>
 
 		</div>
 
@@ -106,7 +106,7 @@
 function replyCom(idCom) {
 	document.getElementById('id_answer').innerHTML='<?php $plxShow->lang('REPLY_TO'); ?> :';
 	document.getElementById('id_answer').innerHTML+=document.getElementById('com-'+idCom).innerHTML;
-	document.getElementById('id_answer').innerHTML+='<a rel="nofollow" href="javascript:void(0)" onclick="cancelCom()"><?php $plxShow->lang('CANCEL'); ?></a>';
+	document.getElementById('id_answer').innerHTML+='<a rel="nofollow" href="<?php $plxShow->artUrl(); ?>#form" onclick="cancelCom()"><?php $plxShow->lang('CANCEL'); ?></a>';
 	document.getElementById('id_answer').style.display='inline-block';
 	document.getElementById('id_parent').value=idCom;
 	document.getElementById('id_content').focus();
