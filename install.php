@@ -324,7 +324,7 @@ plxUtils::cleanHeaders();
 						</div>
 					</div>
 
-					<input type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
+					<input class="blue" type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
 					<?php echo plxToken::getTokenPostMethod() ?>
 					
 					<ul class="unstyled-list">
