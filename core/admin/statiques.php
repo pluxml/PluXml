@@ -32,7 +32,7 @@ if(!empty($_POST)) {
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 ?>
-<script type="text/javaScript">
+<script>
 function checkBox(cb) {
 	cbs=document.getElementsByName('homeStatic[]');
 	for (var i = 0; i < cbs.length; i++) {

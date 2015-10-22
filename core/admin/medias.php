@@ -112,7 +112,7 @@ $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION[
 $curFolders = explode('/', $curFolder);
 
 ?>
-<script type="text/javascript">
+<script>
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
 	var manager = document.getElementById('files_manager');
@@ -294,8 +294,8 @@ function toggle_divs(){
 	</div>
 </div>
 
-<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
-<script type="text/javascript">
+<script src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
+<script>
 function overlay(content) {
 	e = document.getElementById("modal__box");
 	e.innerHTML = '<img src="'+content+'" alt="" />';

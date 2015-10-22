@@ -6,7 +6,7 @@
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) ?>
 
-<script type="text/javascript">
+<script>
 	setMsg();
 </script>
 

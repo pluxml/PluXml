@@ -14,8 +14,8 @@
 	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
 		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
 	?>
-	<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/functions.js"></script>
-	<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/visual.js"></script>
+	<script src="<?php echo PLX_CORE ?>lib/functions.js"></script>
+	<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
 
