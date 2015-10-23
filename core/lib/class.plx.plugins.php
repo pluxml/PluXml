@@ -50,6 +50,7 @@ class plxPlugins {
 	public function loadPlugins() {
 
 		if(!is_file(path('XMLFILE_PLUGINS'))) return;
+		
 		# Mise en place du parseur XML
 		$data = implode('',file(path('XMLFILE_PLUGINS')));
 		$parser = xml_parser_create(PLX_CHARSET);
@@ -57,6 +58,9 @@ class plxPlugins {
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
+		
+		$GLOBALS["plxPlugins"] = $this;
+		
 		# On verifie qu'il existe des tags "plugin"
 		if(isset($iTags['plugin'])) {
 			# On compte le nombre de tags "plugin"
@@ -64,11 +68,11 @@ class plxPlugins {
 			# On boucle sur $nb
 			for($i = 0; $i < $nb; $i++) {
 				$name = $values[$iTags['plugin'][$i] ]['attributes']['name'];
-				if($instance=$this->getInstance($name)) {
+				if ($instance = $this->getInstance($name)) {
 					$this->aPlugins[$name] = $instance;
-					$this->aHooks = array_merge_recursive($this->aHooks, $instance->getHooks());
 				}
 			}
+			
 		}
 	}
 
@@ -81,16 +85,29 @@ class plxPlugins {
 	 * @author	Stephane F
 	 **/
 	public function callHook($hookName, $parms=null) {
-		if(isset($this->aHooks[$hookName])) {
-			ob_start();
-			foreach($this->aHooks[$hookName] as $callback) {
-				$return = $this->aPlugins[$callback['class']]->$callback['method']($parms);
-			}
-			if(isset($return))
-				return array('?>'.ob_get_clean().'<?php ', $return);
-			else
-				return '?>'.ob_get_clean().'<?php ';
+		if (!isset($this->aHooks[$hookName])) {
+			return;
 		}
+		
+		ksort($this->aHooks[$hookName]);
+		
+		ob_start();
+		
+		foreach (array_keys($this->aHooks[$hookName]) as $priorite) {
+			if (isset($this->aHooks[$hookName][$priorite])) {
+				foreach (array_keys($this->aHooks[$hookName][$priorite]) as $i) {
+					if (isset($this->aHooks[$hookName][$priorite][$i])) {
+						$callback = $this->aHooks[$hookName][$priorite][$i];
+						$return = $this->aPlugins[$callback['class']]->$callback['method']($parms);
+					}
+				}
+			}
+		}
+		
+		if(isset($return))
+			return array('?>'.ob_get_clean().'<?php ', $return);
+		else
+			return '?>'.ob_get_clean().'<?php ';
 	}
 
 	/**
@@ -265,12 +282,13 @@ class plxPlugin {
 
 	protected $aInfos=array();  # tableau des infos sur le plugins venant du fichier infos.xml
 	protected $aParams=array(); # tableau des paramètres sur le plugins venant du fichier parameters.xml
-	protected $aHooks=array(); # tableau des hooks du plugin
 	protected $aLang=array(); # tableau contenant les clés de traduction de la langue courante de PluXml
 
 	protected $plug=array(); # tableau contenant des infos diverses pour le fonctionnement du plugin
 	protected $adminProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page admin.php du plugin
 	protected $configProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
+	
+	protected $plxPlugins; # gestionnaire des plugins
 
 	public $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
 	public $adminMenu=false; # infos de customisation du menu pour accèder à la page admin.php du plugin
@@ -283,8 +301,11 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function __construct($default_lang='') {
+		$this->plxPlugins = $GLOBALS["plxPlugins"];
 		$this->default_lang = $default_lang;
+		
 		$plugName= get_class($this);
+		
 		$this->plug = array(
 			'dir' 			=> PLX_PLUGINS,
 			'name' 			=> $plugName,
@@ -355,16 +376,6 @@ class plxPlugin {
 	 **/
 	public function setConfigProfil($profil) {
 		$this->configProfil=func_get_args();
-	}
-
-	/**
-	 * Méthode qui retourne les hooks définis dans le plugin
-	 *
-	 * @return	array		tableau des hooks du plugin
-	 * @author	Stephane F
-	 **/
-	public function getHooks() {
-		return $this->aHooks;
 	}
 
 	/**
@@ -585,17 +596,17 @@ class plxPlugin {
 	 *
 	 * @param	hookname		nom du hook
 	 * @param	userfunction	nom de la fonction du plugin à executer
+	 * @param	priorite		priorité du crochet lors de l'appel
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function addHook($hookname, $userfunction) {
-		if(method_exists(get_class($this), $userfunction)) {
-			$this->aHooks[$hookname][]=array(
-				'class'		=> get_class($this),
-				'method'	=> $userfunction
-			);
-		}
+	public function addHook($hookname, $userfunction, $priorite = 10) {
+		
+		$this->plxPlugins->aHooks[$hookname][$priorite][] = array(
+			'class'		=> get_class($this),
+			'method'	=> $userfunction
+		);
+		
 	}
-
+	
 }
-?>
