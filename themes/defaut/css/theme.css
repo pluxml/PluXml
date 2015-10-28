@@ -163,6 +163,7 @@ body {
 .aside ul.tag-list {
 	list-style-type: none;
 	padding-left: 0;
+	text-align: center;
 }
 .aside ul.tag-list li {
 	display: inline-block;
