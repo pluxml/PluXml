@@ -1537,14 +1537,14 @@ class plxShow {
 	 * @param	order	tri des tags (random, alpha, '')
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Stephane F, Jean-Pierre Pourrez
+	 * @author	Stephane F
 	 **/
-	public function tagList($format='<li><a class="#tag_size #tag_status" href="#tag_url">#tag_name</a></li>', $max='', $order='') {
+	public function tagList($format='<li><a class="#tag_size #tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='', $order='') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagList'))) return;
 
 		$datetime = date('YmdHi');
-		$buf = array(); // tableau associatif
+		$array=array();
 		$alphasort=array();
 		# On verifie qu'il y a des tags
 		if($this->plxMotor->aTags) {
@@ -1553,58 +1553,48 @@ class plxShow {
 				if(isset($this->plxMotor->activeArts[$idart]) AND $tag['date']<=$datetime AND $tag['active']) {
 					if($tags = array_map('trim', explode(',', $tag['tags']))) {
 						foreach($tags as $tag) {
-							$name = trim($tag);
-							if ($name != '') {
-								if (! array_key_exists($name, $buf))
-									$buf[$name] = 1;
+							if($tag!='') {
+								$t = plxUtils::title2url($tag);
+								if(!isset($array['_'.$tag])) {
+									$array['_'.$tag]=array('name'=>$tag,'url'=>$t,'count'=>1);
+								}
 								else
-									$buf[$name]++;
+									$array['_'.$tag]['count']++;
+								if(!in_array($t, $alphasort))
+									$alphasort[] = $t; # pour le tri alpha
 							}
 						}
 					}
 				}
 			}
+			# limite sur le nombre de tags à afficher
+			if($max!='') $array=array_slice($array, 0, intval($max), true);
+			# tri des tags
 			switch($order) {
 				case 'alpha':
-					// if($alphasort) array_multisort($alphasort, SORT_ASC, $array);
-					ksort($buf);
+					if($alphasort) array_multisort($alphasort, SORT_ASC, $array);
 					break;
 				case 'random':
-					$keys = array_keys($buf);
+					$arr_elem = array();
+					$keys = array_keys($array);
 					shuffle($keys);
-					$new = array();
-					foreach ($keys as $k)
-						$new[$k] = $buf[$k];
-					$buf = $new;					
+					foreach ($keys as $key) {
+						$arr_elem[$key] = $array[$key];
+					}
+					$array = $arr_elem;
 					break;
-				default : // tri numérique décroissant
-					arsort($buf);
 			}
 		}
-		# limite sur le nombre de tags à afficher
-		if($max!='') // On en prendra bien une tranche
-			$buf = array_slice($buf, 0, intval($max), true);
-		// Par défaut, on remet l'ordre alphabétique dans la tranche
-		if ($order == '')
-			ksort($buf);
-		// On recherche la valeur de count la plus élevée
-		$maxCount = 0;
-		foreach ($buf as $tagname => $count)
-			if ($maxCount < $count)
-				$maxCount = $count;
 		# On affiche la liste
 		$size=0;
-		$patterns = array('#tag_id', '#tag_size', '#tag_url', '#tag_name', '#nb_art', '#tag_status');
-		foreach($buf as $tagname => $count) {
-			$replaces = array(
-				'tag-'.$size++, // #tag_id
-				'tag-size-'.intval(round($count * 10 / $maxCount, 0)), // #tag_size
-				$this->plxMotor->urlRewrite('?tag/'.plxUtils::title2url($tagname)), // #tag_url
-				plxUtils::strCheck($tagname), // #tag_name
-				$count, // #nb_art
-				(($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$url)?'active':'noactive') // #tag_status
-			);
-			echo str_replace($patterns, $replaces, $format);
+		foreach($array as $tagname => $tag) {
+			$name = str_replace('#tag_id','tag-'.$size++,$format);
+			$name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
+			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
+			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
+			$name = str_replace('#nb_art',$tag['count'],$name);
+			$name = str_replace('#tag_status',(($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$tag['url'])?'active':'noactive'), $name);
+			echo $name;
 		}
 	}
 
