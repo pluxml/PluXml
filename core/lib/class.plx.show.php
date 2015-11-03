@@ -760,11 +760,11 @@ class plxShow {
 			# Fil Rss des articles d'une catégorie
 			$id=str_pad($categorie,3,'0',STR_PAD_LEFT);
 			if(isset($this->plxMotor->aCats[$id])) {
-				echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
+				echo '<a class="rss" href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
 			}
 		} else {
 			# Fil Rss des articles
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss').'" title="'.L_ARTFEED_RSS.'">'.L_ARTFEED_RSS.'</a>';
+			echo '<a class="rss" href="'.$this->plxMotor->urlRewrite('feed.php?rss').'" title="'.L_ARTFEED_RSS.'">'.L_ARTFEED_RSS.'</a>';
 		}
 	}
 
@@ -1525,7 +1525,7 @@ class plxShow {
 		if($tag=='' AND $this->plxMotor->mode == 'tags')
 			$tag = $this->plxMotor->cible;
 
-		echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)).'" title="'.L_ARTFEED_RSS_TAG.'">'.L_ARTFEED_RSS_TAG.'</a>';
+		echo '<a class="rss" href="'.$this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)).'" title="'.L_ARTFEED_RSS_TAG.'">'.L_ARTFEED_RSS_TAG.'</a>';
 
 	}
 
