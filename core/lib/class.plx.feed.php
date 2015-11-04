@@ -276,7 +276,7 @@ class plxFeed extends plxMotor {
 		echo '<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="'.$this->urlRewrite('feed.php?'.$this->get).'" />'."\n";
 		$last_updated = plxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
-		echo "\t".'<generator>PluXml</generator>'."\n";
+		echo "\t".'<generator>PluXml '.PLX_VERSION.'</generator>'."\n";
 		echo $entry;
 		echo '</channel>'."\n";
 		echo '</rss>';
@@ -353,7 +353,7 @@ class plxFeed extends plxMotor {
 
 		$last_updated = plxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
-		echo "\t".'<generator>PluXml</generator>'."\n";
+		echo "\t".'<generator>PluXml '.PLX_VERSION.'</generator>'."\n";
 		echo $entry;
 		echo '</channel>'."\n";
 		echo '</rss>';
@@ -416,7 +416,7 @@ class plxFeed extends plxMotor {
 		echo '<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="' . $link_feed . '" />'."\n";
 		$last_updated = plxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
-		echo "\t".'<generator>PluXml</generator>'."\n";
+		echo "\t".'<generator>PluXml '.PLX_VERSION.'</generator>'."\n";
 		echo $entry;
 		echo '</channel>'."\n";
 		echo '</rss>';

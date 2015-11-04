@@ -32,6 +32,12 @@ body {
 .nav a {
 	color: #eee;
 }
+a.rss::before {
+       margin: 0 5px 0 0;
+       content: url('../img/rss.png');
+       vertical-align: -10%;
+}
+
 @media (max-width: 767px) {
 	.nav {
 		background-color: #fff;
