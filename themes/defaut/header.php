@@ -13,7 +13,21 @@
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css" media="screen"/>
 	<?php $plxShow->templateCss() ?>
 	<?php $plxShow->pluginsCss() ?>
+<?php
+	if ($plxShow->plxMotor->mode == 'categorie') { 
+		$categorie = $plxShow->catId();
+		$id = str_pad($categorie, 3, '0', STR_PAD_LEFT); ?>
+	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS'); echo ' - '.$plxShow->getlang('CATEGORIES').': '; $plxShow->catName() ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$plxShow->plxMotor->aCats[$id]['url']); ?>" />		
+<?php
+	} else if ($plxShow->plxMotor->mode == 'tags') {
+		$tag = plxUtils::strCheck($plxShow->plxMotor->cible); ?>
+	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS'); echo ' - '.$plxShow->getlang('TAGS').' : '; $plxShow->tagName(); ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)) ?>" />
+<?php
+	} else { ?>
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" />
+<?php
+	}
+?>
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" />
 </head>
 
