@@ -1774,5 +1774,20 @@ class plxShow {
 		}
 	}
 
+	/**
+	 * Méthode qui permet d'injecter du code php au niveau d'un hook
+	 *
+	 * @param	hookName	nom du hook
+	 * @param	code		code php à injecter
+	 * @scope	global
+	 * @author	Stephane F
+	 */
+	public function addCodeToHook($hookName, $userCode) {
+		$this->plxMotor->plxPlugins->aHooks[$hookName][] = array(
+			'class'		=> '=SHORTCODE=',
+			'method'	=> $userCode
+		);
+	}
+
 }
 ?>
