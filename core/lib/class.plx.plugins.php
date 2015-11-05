@@ -76,7 +76,7 @@ class plxPlugins {
 	 * Méthode qui execute les hooks des plugins
 	 *
 	 * @param	hookname	nom du hook à appliquer
-	 * @param	parms			parametre ou liste de paramètres sous forme de array
+	 * @param	parms		parametre ou liste de paramètres sous forme de array
 	 * @return	null
 	 * @author	Stephane F
 	 **/
@@ -84,7 +84,11 @@ class plxPlugins {
 		if(isset($this->aHooks[$hookName])) {
 			ob_start();
 			foreach($this->aHooks[$hookName] as $callback) {
-				$return = $this->aPlugins[$callback['class']]->$callback['method']($parms);
+				if($callback['class']=='=SHORTCODE=') {
+					echo $callback['method'];
+				} else {
+					$return = $this->aPlugins[$callback['class']]->$callback['method']($parms);
+				}
 			}
 			if(isset($return))
 				return array('?>'.ob_get_clean().'<?php ', $return);
