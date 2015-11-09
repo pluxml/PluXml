@@ -679,7 +679,7 @@ class plxUtils {
 		// et on transforme tous les liens relatifs en absolus.
 		// on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';
-		$patterns = array('#(href)=("|\')(mailto:|news:)#i', '#(href|src)=("|\')(\w+://)#i', '#(href|src)=("|\')([^/])#i');
+		$patterns = array('#(href)=("|\')(mailto:|news:)#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
 		$replaces = array('$1'.$mask.'$2$3', '$1'.$mask.'$2$3', '$1=$2'.$base.'$3');
 		if (preg_match('#^[a-z]+://#i', $base)) { 
 			$patterns[] = '#(href|src)=("|\')/([^/])#i';
