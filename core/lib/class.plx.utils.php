@@ -679,14 +679,14 @@ class plxUtils {
 		// et on transforme tous les liens relatifs en absolus.
 		// on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';
-		$patterns = array('/(href|src)=("|\')([a-z0-9]+):\/\//i', '/(href|src)=("|\')([^\/])/i');
-		$replaces = array('\1'.$mask.'\2\3://', '\1=\2'.$base.'\3');
-		if (preg_match('/^[a-z]+:\/\//i', $base)) {
-			$patterns[] = '/(href|src)=("|\')\/([^\/])/i';
-			$replaces[] = '\1=\2'.$base.'\3';
+		$patterns = array('#(href)=("|\')(mailto:|news:)#i', '#(href|src)=("|\')(\w+://)#i', '#(href|src)=("|\')([^/])#i');
+		$replaces = array('$1'.$mask.'$2$3', '$1'.$mask.'$2$3', '$1=$2'.$base.'$3');
+		if (preg_match('#^[a-z]+://#i', $base)) { 
+			$patterns[] = '#(href|src)=("|\')/([^/])#i';
+			$replaces[] = '$1=$2'.$base.'$3';
 		}
 		$result = preg_replace($patterns, $replaces, $html);
-		// on retire la protection des liens externes. Expressions rÃ©guliÃ¨res lentes et inutiles !!
+		// on retire la protection des liens externes. Expressions régulières lentes et inutiles !!
 		$result = str_replace($mask, '=', $result);
 		return $result;
 
