@@ -180,61 +180,67 @@ class plxShow {
 	/**
 	 * Méthode qui affiche le titre de la page selon le mode
 	 *
+	 * @parm	format		format d'affichage (ex: home=#title - #subtitle;article=#title)
+	 *						paramètres: home, categorie, article, static, archives, tags, erreur
+	 * @parm	sep			caractère de séparation dans le format d'affichage entre les paramètres
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Stéphane F
 	 **/
-	public function pageTitle() {
+	public function pageTitle($format='',$sep=";") {
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageTitle'))) return;
 
 		if($this->plxMotor->mode == 'home') {
-			if(!empty($this->plxMotor->aConf['description']))
-				echo plxUtils::strCheck($this->plxMotor->aConf['title'].' - '.$this->plxMotor->aConf['description']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->aConf['title']);
-			return;
+			$title = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->aConf['description'];
 		}
-		if($this->plxMotor->mode == 'categorie') {
+		elseif($this->plxMotor->mode == 'categorie') {
 			$title_htmltag = $this->plxMotor->aCats[$this->plxMotor->cible ]['title_htmltag'];
-			if($title_htmltag!='')
-				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible ]['name'].' - '.$this->plxMotor->aConf['title']);
-			return;
+			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aCats[$this->plxMotor->cible]['name'];
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'article') {
-			$title_htmltag = trim($this->plxMotor->plxRecord_arts->f('title_htmltag'));
-			if($title_htmltag!='')
-				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title').' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'article') {
+			$title_htmltag = $this->plxMotor->plxRecord_arts->f('title_htmltag');
+			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->plxRecord_arts->f('title');
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'static') {
-			$title_htmltag = $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
-			if($title_htmltag!='')
-				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->aStats[$this->plxMotor->cible ]['name'].' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'static') {
+			$title_htmltag =  $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
+			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aStats[$this->plxMotor->cible]['name'];
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'archives') {
+		elseif($this->plxMotor->mode == 'archives') {
 			preg_match('/^(\d{4})(\d{2})?(\d{2})?/',$this->plxMotor->cible, $capture);
 			$year = !empty($capture[1]) ? ' '.$capture[1] : '';
 			$month = !empty($capture[2]) ? ' '.plxDate::getCalendar('month', $capture[2]) : '';
 			$day = !empty($capture[3]) ? ' '.plxDate::getCalendar('day', $capture[3]) : '';
-			echo plxUtils::strCheck(L_PAGETITLE_ARCHIVES.$day.$month.$year.' - '.$this->plxMotor->aConf['title']);
-			return;
+			$title = L_PAGETITLE_ARCHIVES.$day.$month.$year;
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'tags') {
-			echo plxUtils::strCheck(L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName.' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'tags') {
+			$title = L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName;
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'erreur') {
-			echo plxUtils::strCheck($this->plxMotor->plxErreur->getMessage().' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'erreur') {
+			$title = $this->plxMotor->plxErreur->getMessage();
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
+		else { # mode par défaut
+			$title = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->aConf['description'];
+		}
+
+		$fmt = '';
+		if(preg_match('/'.$this->plxMotor->mode.'\s*=\s*(.*?)\s*('.$sep.'|$)/i',$format,$capture)) {
+			$fmt = trim($capture[1]);
+		}
+		$format = $fmt=='' ? '#title - #subtitle' : $fmt;
+		$txt = str_replace('#title', trim($title), $format);
+		$txt = str_replace('#subtitle', trim($subtitle), $txt);
+		echo plxUtils::strCheck(trim($txt, ' - '));
+
 	}
 
 	/**
