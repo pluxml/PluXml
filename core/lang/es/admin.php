@@ -546,6 +546,7 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'							=> 'Información',
 'L_MENU_CONFIG_PLUGINS_TITLE'					=> 'Gestionar complementos',
 'L_MENU_CONFIG_PLUGINS'							=> 'Complementos',
-
+'L_THEMES'										=> 'Temas',
+'L_THEMES_TITLE'								=> 'La gestión de temas',
 );
 ?>

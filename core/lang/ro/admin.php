@@ -465,6 +465,7 @@ $LANG = array(
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Administrează Plugin-uri',
 'L_MENU_CONFIG_PLUGINS'										=> 'Plugin-uri',
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'',
+'L_THEMES'													=> 'Teme',
+'L_THEMES_TITLE'											=> 'Gestionarea teme',
 );
-
 ?>
