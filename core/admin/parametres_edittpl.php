@@ -81,6 +81,8 @@ include(dirname(__FILE__).'/top.php');
 		<label for="id_template"><?php echo L_CONFIG_EDITTPL_SELECT_FILE ?></label>
 		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
+		&nbsp;&nbsp;&nbsp;		
+		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</form>
 </div>
 
@@ -95,9 +97,6 @@ include(dirname(__FILE__).'/top.php');
 				<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 				<?php echo plxToken::getTokenPostMethod() ?>
-			</div>
-			<div class="col sml-12">
-				<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 			</div>
 		</div>
 	</fieldset>
