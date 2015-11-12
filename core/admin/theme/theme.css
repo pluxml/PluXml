@@ -470,6 +470,7 @@ input:checked ~ .modal__overlay {
 
 .img-preview {
 	width: 200px;
+	max-width: 200px;
 	height: 200px;
 	background-color:#ccc;
 	border:1px solid #ddd;
