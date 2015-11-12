@@ -59,9 +59,9 @@ class plxThemes {
 
 		$current = $theme == $this->activeTheme ? ' current' : '';
 		if($img=='')
-			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" />';
+			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" alt="" />';
 		else
-			return '<img class="img-preview'.$current.'" src="'.$img.'" />';
+			return '<img class="img-preview'.$current.'" src="'.$img.'" alt="" />';
 	}
 
 	public function getInfos($theme) {
