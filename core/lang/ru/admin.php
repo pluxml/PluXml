@@ -548,6 +548,7 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'										=> 'Информация --',
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Плагины',
 'L_MENU_CONFIG_PLUGINS'										=> 'Плагины --',
-
+'L_THEMES'													=> 'Темы',
+'L_THEMES_TITLE'											=> 'Управление темы',
 );
 ?>

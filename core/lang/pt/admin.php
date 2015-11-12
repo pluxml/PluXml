@@ -465,6 +465,7 @@ $LANG = array(
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Gerir os plugins',
 'L_MENU_CONFIG_PLUGINS'										=> 'Plugins',
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url já em uso. Por favor, altere o valor do campo \'Url\'',
+'L_THEMES'													=> 'Temas',
+'L_THEMES_TITLE'											=> 'Gerenciando temas',
 );
-
 ?>

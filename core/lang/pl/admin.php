@@ -544,6 +544,7 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'				=> 'Informacja',
 'L_MENU_CONFIG_PLUGINS_TITLE'		=> 'Zarządzanie wtyczkami',
 'L_MENU_CONFIG_PLUGINS'				=> 'Plugins',
-
+'L_THEMES'							=> 'Tematy',
+'L_THEMES_TITLE'					=> 'Zarządzanie tematy',
 );
 ?>

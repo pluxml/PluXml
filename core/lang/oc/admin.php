@@ -546,6 +546,7 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'				=> 'Informacions',
 'L_MENU_CONFIG_PLUGINS_TITLE'		=> 'Gerir los plugins',
 'L_MENU_CONFIG_PLUGINS'				=> 'Plugins',
-
+'L_THEMES'							=> 'Themes',
+'L_THEMES_TITLE'					=> 'Gerir los themes',
 );
 ?>

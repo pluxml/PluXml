@@ -465,3 +465,24 @@ input:checked ~ .modal__overlay {
 	z-index: 800;
 	visibility: visible;
 }
+
+/* gestion des themes */
+
+.img-preview {
+	width: 200px;
+	max-width: 200px;
+	height: 200px;
+	background-color:#ccc;
+	border:1px solid #ddd;
+	padding:5px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	border-radius:7px;
+}
+.img-preview.current {
+	background-color:#E4EFFF !important;
+	border:1px solid #9FC6FF;
+}
+tr.checked {
+	background-color: #E4EFFF;
+}

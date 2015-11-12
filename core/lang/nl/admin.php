@@ -465,6 +465,7 @@ $LANG = array(
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Plugins beheren',
 'L_MENU_CONFIG_PLUGINS'										=> 'Plugins',
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url al in gebruik. Moet u de waarde van het veld \'Url\'',
+'L_THEMES'													=> 'Thema\'s',
+'L_THEMES_TITLE'											=> 'Het beheren van thema\'s',
 );
-
 ?>
