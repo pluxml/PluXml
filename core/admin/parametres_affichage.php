@@ -73,18 +73,6 @@ include(dirname(__FILE__).'/top.php');
 
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_style"><?php echo L_CONFIG_VIEW_SKIN_SELECT ?>&nbsp;:&nbsp;</label>
-			</div>
-			<div class="col sml-12 med-7">
-				<?php plxUtils::printSelect('style', $aStyles, $plxAdmin->aConf['style']); ?>
-				<?php if(!empty($plxAdmin->aConf['style']) AND is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style'])) : ?>
-				&nbsp;<a href="parametres_edittpl.php" title="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>"><?php echo L_CONFIG_VIEW_FILES_EDIT ?> &laquo;<?php echo $plxAdmin->aConf['style'] ?>&raquo;</a>
-				<?php endif; ?>
-			</div>
-		</div>
-
-		<div class="grid">
-			<div class="col sml-12 med-5 label-centered">
 				<label for="id_hometemplate"><?php echo L_CONFIG_HOMETEMPLATE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
