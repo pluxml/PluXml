@@ -28,14 +28,6 @@ if(!empty($_POST)) {
 	exit;
 }
 
-# On récupère les thèmes
-$aStyles[''] = L_NONE1;
-$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'], true);
-if($styles = $files->query("/[a-z0-9-_\.\(\)]+/i")) {
-	foreach($styles as $k=>$v) {
-		if(substr($v,0,7) != 'mobile.')	$aStyles[$v] = $v;
-	}
-}
 # On récupère les templates de la page d'accueil
 $aTemplates = array();
 $files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
