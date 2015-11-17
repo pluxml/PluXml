@@ -20,7 +20,8 @@ BUG fix #108: Changement de langue non pris en compte sur l'écran d'installatio
 BUG fix #109: Édition page statique: disparition de champs
 BUG fix #112: Encodage des caractères sur le titre d'un article sur la page d'administration (plxUtils::strCut)
 BUG fix #122: Mauvais affichage du lien "Visualiser" sur la page d'accueil des articles de l'administration
-BUG fix #125: Bug affichage flux RSS d'une catégorie 
+BUG fix #125: Bug affichage flux RSS d'une catégorie
+BUG Administration > Paramètres > Edition des fichiers du thème : impossible de sauvegarder les modifications 
 
 ## PLUXML 5.4 (sortie : 13/07/2015) ##
 
