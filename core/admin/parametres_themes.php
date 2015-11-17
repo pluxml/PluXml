@@ -134,6 +134,10 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 							} else {
 								echo '<strong>'.$theme.'</strong>';
 							}
+							# lien aide
+							if(is_file(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$theme.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php'))
+								echo '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=theme&amp;page='.urlencode($theme).'">'.L_HELP.'</a>';
+							
 						echo '</td>';
 						echo '</tr>';
 					}

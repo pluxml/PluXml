@@ -365,8 +365,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Successfull deletion',
 'L_PLUGINS_CONFIG'											=> 'Configuration',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Plugin\'s configuration',
-'L_PLUGINS_HELP'											=> 'Help',
-'L_PLUGINS_HELP_TITLE'										=> 'See plugin\'s help',
 'L_PLUGINS_REQUIREMENTS'									=> 'Requirements',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Available and active plugins to activate this one',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'None',
@@ -467,5 +465,8 @@ $LANG = array(
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url already in use. Please change the value of the field \'Url\'',
 'L_THEMES'													=> 'Themes',
 'L_THEMES_TITLE'											=> 'Manage themes',
+'L_HELP'													=> 'Help',
+'L_HELP_TITLE'												=> 'See help',
+'L_BACK_TO_THEMES'											=> 'Back to themes',
 );
 ?>

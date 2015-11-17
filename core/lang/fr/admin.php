@@ -550,6 +550,8 @@ $LANG = array(
 'L_MENU_CONFIG_PLUGINS'				=> 'Plugins',
 'L_THEMES'							=> 'Thèmes',
 'L_THEMES_TITLE'					=> 'Gérer les thèmes',
-
+'L_HELP'							=> 'Aide',
+'L_HELP_TITLE'						=> 'Voir l\'aide',
+'L_BACK_TO_THEMES'					=> 'Retour à la page des thèmes',
 );
 ?>

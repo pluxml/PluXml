@@ -365,8 +365,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Ştergerea a decurs cu succes',
 'L_PLUGINS_CONFIG'											=> 'Configurare',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Configurarea plugin-ului',
-'L_PLUGINS_HELP'											=> 'Ajutor',
-'L_PLUGINS_HELP_TITLE'										=> 'A vedea utilizarea plugin-ului',
 'L_PLUGINS_REQUIREMENTS'									=> 'Cerinţe preliminare',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Lista de plugin-uri prezente şi active pentru activaţie',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'Nu',
@@ -467,5 +465,8 @@ $LANG = array(
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'',
 'L_THEMES'													=> 'Teme',
 'L_THEMES_TITLE'											=> 'Gestionarea teme',
+'L_HELP'													=> 'Ajutor',
+'L_HELP_TITLE'												=> 'Vezi de ajutor',
+'L_BACK_TO_THEMES'											=> 'Înapoi la subiectele paginii',
 );
 ?>

@@ -365,8 +365,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Supressão efectuada com sucesso',
 'L_PLUGINS_CONFIG'											=> 'Configuração',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Configuração do plugin',
-'L_PLUGINS_HELP'											=> 'Ajuda',
-'L_PLUGINS_HELP_TITLE'										=> 'Vêr a ajuda do plugin',
 'L_PLUGINS_REQUIREMENTS'									=> 'Nacessário',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Lista dos plugins presentes e activos para activar este plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'Nenhum',
@@ -467,5 +465,8 @@ $LANG = array(
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url já em uso. Por favor, altere o valor do campo \'Url\'',
 'L_THEMES'													=> 'Temas',
 'L_THEMES_TITLE'											=> 'Gerenciando temas',
+'L_HELP'													=> 'Ajuda',
+'L_HELP_TITLE'												=> 'Vêr a ajuda',
+'L_BACK_TO_THEMES'											=> 'Voltar para os temas da página',
 );
 ?>

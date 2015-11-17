@@ -366,8 +366,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'						=> 'Löschen war erfolgreich',
 'L_PLUGINS_CONFIG'									=> 'Konfiguration',
 'L_PLUGINS_CONFIG_TITLE'							=> 'Pluginkonfiguration',
-'L_PLUGINS_HELP'									=> 'Hilfe',
-'L_PLUGINS_HELP_TITLE'								=> 'Pluginshilfe aufrufen',
 'L_PLUGINS_REQUIREMENTS'							=> 'Vorraussetzungen',
 'L_PLUGINS_REQUIREMENTS_HELP'						=> 'Vorausgesetzte Plugins (installiert und aktiviert), damit dieses Plugin verwendet werden kann',
 'L_PLUGINS_REQUIREMENTS_NONE'						=> 'Kein',
@@ -468,5 +466,8 @@ $LANG = array(
 'L_ERR_URL_ALREADY_EXISTS'							=> 'Url bereits im Einsatz. Bitte ändern Sie den Wert des Feldes \'Url\'',
 'L_THEMES'											=> 'Themes',
 'L_THEMES_TITLE'									=> 'Verwalten von Themen',
+'L_HELP'											=> 'Hilfe',
+'L_HELP_TITLE'										=> 'Siehe Hilfe',
+'L_BACK_TO_THEMES'									=> 'Zurück Hilfe',
 );
 ?>

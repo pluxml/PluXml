@@ -428,8 +428,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'		=> 'Suppression effectuée avec succès',
 'L_PLUGINS_CONFIG'					=> 'Configuration',
 'L_PLUGINS_CONFIG_TITLE'			=> 'Configuration du plugin',
-'L_PLUGINS_HELP'					=> 'Aide',
-'L_PLUGINS_HELP_TITLE'				=> 'Voir l\'aide du plugin',
 'L_PLUGINS_REQUIREMENTS'			=> 'Pré-requis',
 'L_PLUGINS_REQUIREMENTS_HELP'		=> 'Liste des plugins présents et actifs pour activer ce plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'		=> 'Aucun',
@@ -546,5 +544,8 @@ $LANG = array(
 'L_MENU_CONFIG_PLUGINS'				=> 'Plugins',
 'L_THEMES'							=> 'Tematy',
 'L_THEMES_TITLE'					=> 'Zarządzanie tematy',
+'L_HELP'							=> 'Pomoc',
+'L_HELP_TITLE'						=> 'Zobacz pomoc',
+'L_BACK_TO_THEMES'					=> 'Powrót do tematów strony',
 );
 ?>
