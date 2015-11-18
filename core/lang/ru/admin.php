@@ -432,8 +432,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Удалено успешно',
 'L_PLUGINS_CONFIG'											=> 'Конфигурация',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Конфигурация плагина',
-'L_PLUGINS_HELP'											=> 'Помощь',
-'L_PLUGINS_HELP_TITLE'										=> 'Смотрите помощь по плагинам',
 'L_PLUGINS_REQUIREMENTS'									=> 'Системные требования',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Доступные и активные плагины',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'Нет',
@@ -550,5 +548,8 @@ $LANG = array(
 'L_MENU_CONFIG_PLUGINS'										=> 'Плагины --',
 'L_THEMES'													=> 'Темы',
 'L_THEMES_TITLE'											=> 'Управление темы',
+'L_HELP'													=> 'помощь',
+'L_HELP_TITLE'												=> 'См помощь',
+'L_BACK_TO_THEMES'											=> 'Вернуться к темам страницы',
 );
 ?>

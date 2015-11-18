@@ -365,8 +365,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Verwijdering succesvl doorgevoerd',
 'L_PLUGINS_CONFIG'											=> 'Configuratie',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Configuratie van de plugin',
-'L_PLUGINS_HELP'											=> 'Hulp',
-'L_PLUGINS_HELP_TITLE'										=> 'Plugin hulp bekijken',
 'L_PLUGINS_REQUIREMENTS'									=> 'Benodigdheden',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Lijst van beschikbare en actieve plugins voor deze plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'Geen',
@@ -467,5 +465,8 @@ $LANG = array(
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url al in gebruik. Moet u de waarde van het veld \'Url\'',
 'L_THEMES'													=> 'Thema\'s',
 'L_THEMES_TITLE'											=> 'Het beheren van thema\'s',
+'L_HELP'													=> 'Hulp',
+'L_HELP_TITLE'												=> 'Zie hulp',
+'L_BACK_TO_THEMES'											=> 'Terug naar de onderwerpen van de pagina',
 );
 ?>

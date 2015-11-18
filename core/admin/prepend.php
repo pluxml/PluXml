@@ -1,16 +1,4 @@
 <?php
-# ------------------ BEGIN LICENSE BLOCK ------------------
-#
-# This file is part of PluXml : http://www.pluxml.org
-#
-# Copyright (c) 2010-2015 Stephane Ferrari and contributors
-# Copyright (c) 2008-2009 Florent MONTHEL and contributors
-# Copyright (c) 2006-2008 Anthony GUERIN
-# Licensed under the GPL license.
-# See http://www.gnu.org/licenses/gpl.html
-#
-# ------------------- END LICENSE BLOCK -------------------
-
 define('PLX_ROOT', '../../');
 define('PLX_CORE', PLX_ROOT.'core/');
 include(PLX_ROOT.'config.php');
