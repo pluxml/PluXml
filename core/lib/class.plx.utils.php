@@ -466,7 +466,7 @@ class plxUtils {
 				$thumb_height = $image[1];
 			}
 		}
-		
+
 		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
 
 		// Import image
@@ -675,9 +675,8 @@ class plxUtils {
 
 		if (substr($base, -1) != '/')
 			$base .= '/';
-		// on protège tous les liens externes au site,
-		// et on transforme tous les liens relatifs en absolus.
-		// on ajoute le hostname si nécessaire
+		# on protège tous les liens externes au site, et on transforme tous les liens relatifs en absolus
+		# on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';
 		$patterns = array('/(href|src)=("|\')([a-z0-9]+):\/\//i', '/(href|src)=("|\')([^\/])/i');
 		$replaces = array('\1'.$mask.'\2\3://', '\1=\2'.$base.'\3');
@@ -686,7 +685,7 @@ class plxUtils {
 			$replaces[] = '\1=\2'.$base.'\3';
 		}
 		$result = preg_replace($patterns, $replaces, $html);
-		// on retire la protection des liens externes. Expressions rÃ©guliÃ¨res lentes et inutiles !!
+		# on retire la protection des liens externes. Expressions régulières lentes et inutiles
 		$result = str_replace($mask, '=', $result);
 		return $result;
 
