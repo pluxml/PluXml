@@ -601,5 +601,35 @@ class plxPlugin {
 		}
 	}
 
+	/**
+	 * Méthode qui retourne le chemin relatif du dossier du plugin
+	 *
+	 * @return	string		chemin vers le dossier du plugin
+	 * @author	Stephane F
+	 **/
+	public function REL_PATH() {
+		return PLX_PLUGINS.get_class($this).'/';
+	}
+	
+	/**
+	 * Méthode qui retourne le chemin absolu du dossier du plugin
+	 *
+	 * @return	string		chemin vers le dossier du plugin
+	 * @author	Stephane F
+	 **/
+	public function ABS_PATH() {
+		return str_replace(PLX_ROOT, '', $this->REL_PATH());
+	}
+
+	/**
+	 * Méthode qui retourne l'url du dossier du plugin (avec le http://)
+	 *
+	 * @return	string		url vers le dossier du plugin
+	 * @author	Stephane F
+	 **/
+	public function URL() {
+		return plxUtils::getRacine().$this->ABS_PATH();
+	}
+
 }
 ?>
