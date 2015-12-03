@@ -13,8 +13,8 @@ var MultiSelector  =  {
 	handleEvent: function(e) {
 		switch(e.type) {
 			case "change":
-				event.stopPropagation();
-				event.preventDefault();
+				e.stopPropagation();
+				e.preventDefault();
 				this.handleChange();
 				break;
 		}
