@@ -117,34 +117,35 @@ $curFolders = explode('/', $curFolder);
 
 <form action="medias.php" method="post" id="form_medias">
 
-	<div class="inline-form action-bar">
-		<h2><?php echo L_MEDIAS_TITLE ?></h2>
-		<p>
-			<?php
-			echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[0].folder.value=\'.\';document.forms[0].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
-			if($curFolders) {
-				$path='';
-				foreach($curFolders as $id => $folder) {
-					if(!empty($folder) AND $id>1) {
-						$path .= $folder.'/';
-						echo '<a href="javascript:void(0)" onclick="document.forms[0].folder.value=\''.$path.'\';document.forms[0].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
+	<div class="inline-form" id="files_manager">
+
+		<div class="inline-form action-bar">
+			<h2><?php echo L_MEDIAS_TITLE ?></h2>
+			<p>
+				<?php
+				echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[0].folder.value=\'.\';document.forms[0].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
+				if($curFolders) {
+					$path='';
+					foreach($curFolders as $id => $folder) {
+						if(!empty($folder) AND $id>1) {
+							$path .= $folder.'/';
+							echo '<a href="javascript:void(0)" onclick="document.forms[0].folder.value=\''.$path.'\';document.forms[0].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
+						}
 					}
 				}
-			}
-			?>
-		</p>
-		<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		&nbsp;&nbsp;&nbsp;
-		<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
-		<?php if(!empty($_SESSION['folder'])) { ?>
-		<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
-		<?php } ?>
-		<input type="hidden" name="sort" value="" />
-	</div>
+				?>
+			</p>
+			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
+			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+			&nbsp;&nbsp;&nbsp;
+			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
+			<?php if(!empty($_SESSION['folder'])) { ?>
+			<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
+			<?php } ?>
+			<input type="hidden" name="sort" value="" />
+			<?php echo plxToken::getTokenPostMethod() ?>
+		</div>
 
-	<div class="inline-form" id="files_manager">
-		<?php echo plxToken::getTokenPostMethod() ?>
 		<div style="float:left">
 			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
 			<?php echo $plxMedias->contentFolder() ?>
@@ -213,14 +214,35 @@ $curFolders = explode('/', $curFolder);
 
 	<div id="files_uploader" style="display:none">
 
+		<div class="inline-form action-bar">
+			<h2><?php echo L_MEDIAS_TITLE ?></h2>
+			<p>
+				<?php
+				echo L_MEDIAS_DIRECTORY.' : ('.L_PLXMEDIAS_ROOT.') / ';
+				if($curFolders) {
+					$path='';
+					foreach($curFolders as $id => $folder) {
+						if(!empty($folder) AND $id>1) {
+							$path .= $folder.'/';
+							echo $folder.' / ';
+						}
+					}
+				}
+				?>
+			</p>
+			<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
+			<?php echo plxToken::getTokenPostMethod() ?>
+		</div>
+
 		<p><a class="back" href="javascript:void(0)" onclick="toggle_divs();return false"><?php echo L_MEDIAS_BACK ?></a></p>
 
 		<p><?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?></p>
-		<div class="inline-form">
+
+		<div>
 			<input id="selector_0" type="file" multiple="multiple" name="selector_0[]" />
 			<div class="files_list" id="files_list" style="margin: 1rem 0 1rem 0;"></div>
-			<input class="blue" style="display:none" type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />		
 		</div>
+
 		<div class="grid">
 			<div class="col sma-12 med-4">
 				<ul class="unstyled-list">
@@ -268,14 +290,13 @@ $curFolders = explode('/', $curFolder);
 			</div>
 		</div>
 		<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
-		<?php echo plxToken::getTokenPostMethod() ?>
 	</div>
 
 </form>
 
 <div class="modal">
 	<input id="modal" type="checkbox" name="modal" tabindex="1">
- 	<div class="modal__overlay">
+	<div class="modal__overlay">
 		<label for="modal">&#10006;</label>
 		<div id="modal__box" class="modal__box"></div>
 	</div>
@@ -297,7 +318,7 @@ function toggle_divs(){
 function overlay(content) {
 	e = document.getElementById("modal__box");
 	e.innerHTML = '<img src="'+content+'" alt="" />';
-	e = document.getElementById("modal");	
+	e = document.getElementById("modal");
 	e.click();
 }
 </script>
