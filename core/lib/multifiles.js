@@ -83,7 +83,7 @@ var MultiSelector  =  {
 		this.files_list.appendChild(new_row);
 		// Selected files counter
 		nfiles++;
-		document.getElementById('btn_upload').setAttribute("style","display:block");
+		document.getElementById('btn_upload').setAttribute("style","display:inline-block");
 	},
 	
 	basename: function(path) {
