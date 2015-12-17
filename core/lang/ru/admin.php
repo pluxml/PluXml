@@ -14,7 +14,7 @@ $LANG = array(
 'L_DELETE'													=> 'Удалить',
 'L_DELETE_FILE' 				    						=> 'Удалить файл',
 'L_DELETE_FOLDER'				   							=> 'Удалить папку',
-'L_THUMBNAIL'												=> 'миниатюрами',
+'L_THUMBNAIL'												=> 'миниатюрами (необязательно)',
 'L_THUMBNAIL_SELECTION'										=> 'Выбрать Изображение',
 
 # class.plx.admin.php

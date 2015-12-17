@@ -14,7 +14,7 @@ $LANG = array(
 'L_DELETE'										=> 'Eliminar',
 'L_DELETE_FILE' 				    			=> 'Eliminar archivo',
 'L_DELETE_FOLDER'				   				=> 'Eliminar carpeta',
-'L_THUMBNAIL'									=> 'Miniatura',
+'L_THUMBNAIL'									=> 'Miniatura (opcional)',
 'L_THUMBNAIL_SELECTION'							=> 'Seleccionar Imagen',
 
 # class.plx.admin.php

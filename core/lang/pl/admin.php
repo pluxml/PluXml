@@ -12,7 +12,7 @@ $LANG = array(
 'L_DELETE' 						    => 'Usuń',
 'L_DELETE_FILE' 				    => 'Usuń plik',
 'L_DELETE_FOLDER'				    => 'Usuń folder',
-'L_THUMBNAIL'						=> 'Miniaturka',
+'L_THUMBNAIL'						=> 'Miniaturka (opcjonalnie)',
 'L_THUMBNAIL_SELECTION'				=> 'Wybierz zdjęcie',
 
 # class.plx.admin.php
