@@ -302,7 +302,6 @@ $curFolders = explode('/', $curFolder);
 	</div>
 </div>
 
-<script src="<?php echo PLX_CORE ?>lib/multifiles.js"></script>
 <script>
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
