@@ -845,6 +845,11 @@ class plxMotor {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
+		
+		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR !isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token'])) {
+			return L_NEWCOMMENT_ERR_ANTISPAM;
+		}
+		
 		# On vérifie que le capcha est correct
 		if($this->aConf['capcha'] == 0 OR $_SESSION['capcha'] == sha1($content['rep'])) {
 			if(!empty($content['name']) AND !empty($content['content'])) { # Les champs obligatoires sont remplis

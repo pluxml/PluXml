@@ -8,6 +8,7 @@
 [+] API pour afficher le gestionnaire de médias dans une fenêtre popup et récuperer l'image sélectionnée dans la fenêtre appelante
 [+] Mise à jour traduction polonais: contribution 18jaguar18
 [+] Ajout de la constante PLX_FEED
+[+] Ajout d'un jeton de sécurité au formulaire des commentaires
 [+] Gestionnaire de médias: possibilité de sélectionner plusieurs fichiers à la fois pour l'upload des fichiers
 [+] Gestionnaire de médias: visionneuse image en cliquant sur l'icône de la photo
 [+] plxUtils::makeThumb - réécriture de la méthode pour générer des images cropées et carré
