@@ -675,14 +675,15 @@ class plxUtils {
 
 		if (substr($base, -1) != '/')
 			$base .= '/';
+
 		# on protège tous les liens externes au site, et on transforme tous les liens relatifs en absolus
 		# on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';
-		$patterns = array('/(href|src)=("|\')([a-z0-9]+):\/\//i', '/(href|src)=("|\')([^\/])/i');
-		$replaces = array('\1'.$mask.'\2\3://', '\1=\2'.$base.'\3');
-		if (preg_match('/^[a-z]+:\/\//i', $base)) {
-			$patterns[] = '/(href|src)=("|\')\/([^\/])/i';
-			$replaces[] = '\1=\2'.$base.'\3';
+		$patterns = array('#(href)=("|\')(mailto:|news:)#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
+		$replaces = array('$1'.$mask.'$2$3', '$1'.$mask.'$2$3', '$1=$2'.$base.'$3');
+		if (preg_match('#^[a-z]+://#i', $base)) {
+			$patterns[] = '#(href|src)=("|\')/([^/])#i';
+			$replaces[] = '$1=$2'.$base.'$3';
 		}
 		$result = preg_replace($patterns, $replaces, $html);
 		# on retire la protection des liens externes. Expressions régulières lentes et inutiles
@@ -961,6 +962,33 @@ class plxUtils {
 		/* Supprime les tabs, espaces, saut de ligne, etc. */
 		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
 		return $buffer;
+	}
+
+	/**
+	 * Méthode qui converti les urls contenus dans une chaine en liens cliquables.
+	 *
+	 * @param	string		chaîne d'entrée
+	 * @param	string		Optionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
+	 * @return	string		Retourne une copie de la chaîne str dont les urls ont été encapsulées dans des balises <a>.
+	 * @author	http://code.seebz.net/p/autolink-php/
+	 *	Exemple 1:
+	 *		$str = 'A link : http://example.com/?param=value#anchor.';
+	 *		$str = autolink($str);
+	 *		echo $str; // A link : <a href="http://example.com/?param=value#anchor">http://example.com/?param=value#anchor</a>.
+	 *  Exemple 2:
+	 *		$str = 'http://example.com/';
+	 *		$str = autolink($str, array("target"=>"_blank","rel"=>"nofollow"));
+	 *		echo $str; // <a href="http://example.com/" target="_blank" rel="nofollow">http://example.com/</a>
+	 **/
+	public static function autolink($str, $attributes=array()) {
+		$attrs = '';
+		foreach ($attributes as $attribute => $value) {
+			$attrs .= " {$attribute}=\"{$value}\"";
+		}
+		$str = ' ' . $str;
+		$str = preg_replace('#([^"=\'>])((http|https|ftp)://[^\s<]+[^\s<\.)])#i', '$1<a href="$2"'.$attrs.'>$2</a>', $str);
+		$str = substr($str, 1);
+		return $str;
 	}
 
 /*
