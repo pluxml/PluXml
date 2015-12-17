@@ -18,6 +18,7 @@
 				</header>
 
 				<section>
+					<?php $plxShow->artThumbnail(); ?>				
 					<?php $plxShow->artContent(); ?>
 				</section>
 
