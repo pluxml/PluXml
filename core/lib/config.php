@@ -1,9 +1,9 @@
 <?php
-
+define('PLX_DEBUG', true);
 define('PLX_VERSION', '5.5');
 
 # Gestion des erreurs PHP
-//error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
 # Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
 function getMicrotime() {
