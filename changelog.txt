@@ -4,8 +4,11 @@
 [+] #110: Gestionnaire de médias, ajout des fichiers: Option "Redimensionner images > Taille originale" cochée par défaut
 [+] #114: Réécriture de la pagination des articles et des commentaires dans l'administration
 [-] #107: Suppression du fichier version, remplacé par la constante PLX_VERSION dans le fichier core/lib/config.php
+[+] rédaction d'un article: ajout d'un champs pour avoir une image d'accroche
+[+] API pour afficher le gestionnaire de médias dans une fenêtre popup et récuperer l'image sélectionnée dans la fenêtre appelante
 [+] Mise à jour traduction polonais: contribution 18jaguar18
 [+] Ajout de la constante PLX_FEED
+[+] Ajout d'un jeton de sécurité au formulaire des commentaires
 [+] Gestionnaire de médias: possibilité de sélectionner plusieurs fichiers à la fois pour l'upload des fichiers
 [+] Gestionnaire de médias: visionneuse image en cliquant sur l'icône de la photo
 [+] plxUtils::makeThumb - réécriture de la méthode pour générer des images cropées et carré
@@ -13,6 +16,7 @@
 [+] Administration: ajout du menu Paramètres > Thèmes
 [+] Ajout des hooks: AdminThemesDisplayTop, AdminThemesDisplay, AdminThemesDisplayFoot
 [+] Réécriture et optimisation de la fonction plxUtils::rel2abs (contribution bazook07)
+[+] plxShow: ajout de la fonction artThumbnail pour afficher l'image d'accroche de l'article
 BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags 
 BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désactivation du captcha
 BUG fix #103: La recherche dans les articles ne fonctionne dans l'administration pas à partir du champ "Rechercher"

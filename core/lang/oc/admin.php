@@ -14,6 +14,8 @@ $LANG = array(
 'L_DELETE' 						    => 'Suprimir',
 'L_DELETE_FILE' 				  	=> 'Escafar fiquièr',
 'L_DELETE_FOLDER'				   	=> 'Escafar dorsièr',
+'L_THUMBNAIL'						=> 'Image d\'accroche (facultatiu)',
+'L_THUMBNAIL_SELECTION'				=> 'Sélectionner une image',
 
 # class.plx.admin.php
 

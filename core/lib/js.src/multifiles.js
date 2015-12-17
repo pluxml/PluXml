@@ -69,9 +69,9 @@ var MultiSelector  =  {
 			var div = document.getElementById('rowfile_'+i);
 			div.parentNode.removeChild(div);
 			nfiles--;
-			if(nfiles==0) {
-				document.getElementById('btn_upload').setAttribute("style","display:none");
-			}
+			//if(nfiles==0) {
+			//	document.getElementById('btn_upload').setAttribute("style","display:none");
+			//}
 		}
 		// Add hidden input
 		new_row.appendChild(new_hidden);
@@ -83,7 +83,7 @@ var MultiSelector  =  {
 		this.files_list.appendChild(new_row);
 		// Selected files counter
 		nfiles++;
-		document.getElementById('btn_upload').setAttribute("style","display:block");
+		//document.getElementById('btn_upload').setAttribute("style","display:inline-block");
 	},
 	
 	basename: function(path) {

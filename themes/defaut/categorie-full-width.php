@@ -26,6 +26,7 @@
 				</header>
 
 				<section>
+					<?php $plxShow->artThumbnail(); ?>				
 					<?php $plxShow->artChapo(); ?>
 				</section>
 

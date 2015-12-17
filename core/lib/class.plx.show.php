@@ -512,6 +512,25 @@ class plxShow {
 			echo plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 		}
 	}
+	
+	/**
+	 * Méthode qui affiche l'image d'accroche
+	 *
+	 * @param	format	format d'affichage (variables: #div_class, #img_url, #img_alt)
+	 * @return	stdout
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F
+	 **/
+	public function artThumbnail($format='<div class="#div_class"><img src="#img_url" alt="#img_alt" /></div>') {
+
+		$imgUrl = $this->plxMotor->plxRecord_arts->f('thumbnail');
+		if($imgUrl) {
+			$row = str_replace('#div_class', 'art_thumbnail', $format);			
+			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $row);
+			$row = str_replace('#img_alt', basename($imgUrl), $row);
+			echo $row;
+		}
+	}	
 
 	/**
 	 * Méthode qui affiche ou renvoie l'auteur de l'article
@@ -1463,6 +1482,7 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaQ'))) return;
 		echo $this->plxMotor->plxCapcha->q();
+		echo '<input type="hidden" name="capcha_token" value="'.$_SESSION['capcha_token'].'" />';
 	}
 
 	/**
