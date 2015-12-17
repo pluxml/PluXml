@@ -62,6 +62,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['filename'] = '';
 		$art['numero'] = $_POST['artId'];
 		$art['author'] = $_POST['author'];
+		$art['thumbnail'] = $_POST['thumbnail'];
 		$art['categorie'] = '';
 		if(!empty($_POST['catId'])) {
 			$array=array();
@@ -145,6 +146,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_description = $_POST['meta_description'];
 	$meta_keywords = $_POST['meta_keywords'];
 	$title_htmltag = $_POST['title_htmltag'];
+	$thumbnail = $_POST['thumbnail'];
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticlePostData'));
 } elseif(!empty($_GET['a'])) { # On n'a rien validé, c'est pour l'édition d'un article
@@ -170,6 +172,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_description=$result['meta_description'];
 	$meta_keywords=$result['meta_keywords'];
 	$title_htmltag = $result['title_htmltag'];
+	$thumbnail = $result['thumbnail'];
 
 	if($author!=$_SESSION['user'] AND $_SESSION['profil']==PROFIL_WRITER) {
 		plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
@@ -191,6 +194,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$allow_com = $plxAdmin->aConf['allow_com'];
 	$template = 'article.php';
 	$meta_description=$meta_keywords=$title_htmltag='';
+	$thumbnail = '';
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleInitData'));
 }
@@ -294,21 +298,35 @@ $cat_id='000';
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,30,false,'full-width'); ?>
-						<?php if($artId!='' AND $artId!='0000') : ?>
-						<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
+						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,20,false,'full-width'); ?>
 					</div>
 				</div>
+				<?php if($artId!='' AND $artId!='0000') : ?>
 				<div class="grid">
 					<div class="col sml-12">
+						<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
 						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
 						<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
-						<?php endif; ?>
+					</div>
+				</div>
+				<?php endif; ?>
+				<div class="grid">
+					<div class="col sml-12">
+						<label for="id_thumbnail">
+							<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
+							<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
+						</label>
+						<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width'); ?>
+						<?php
+						$imgUrl = PLX_ROOT.$thumbnail;
+						if(is_file($imgUrl)) {
+							echo '<div style="margin-top:10px; overflow:hidden" id="id_img_thumbnail"><img src="'.$imgUrl.'" alt="" /></div>';
+						}
+						?>
 					</div>
 				</div>
 			</fieldset>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
-
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
@@ -484,6 +502,7 @@ $cat_id='000';
 	</div>
 
 </form>
+
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));

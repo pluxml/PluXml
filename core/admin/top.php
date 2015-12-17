@@ -16,6 +16,7 @@
 	?>
 	<script src="<?php echo PLX_CORE ?>lib/functions.js"></script>
 	<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
+	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js"></script>	
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
 
