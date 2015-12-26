@@ -870,64 +870,108 @@ class plxShow {
 	 * @param	cat_id	ids des catégories cible
 	 * @param   ending	texte à ajouter en fin de ligne
 	 * @param	sort	tri de l'affichage des articles (sort|rsort|alpha|random)
+	 * @param	tag_id	id du mot-clé cible
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Florent MONTHEL, Stephane F
+	 * @author	Florent MONTHEL, Stephane F, J.P. Pourrez
 	 **/
-	public function lastArtList($format='<li><a href="#art_url" title="#art_title">#art_title</a></li>',$max=5,$cat_id='',$ending='', $sort='rsort') {
+	public function lastArtList($format='<li><a href="#art_url" title="#art_title">#art_title</a></li>',$max=5,$cat_id='',$ending='', $sort='rsort', $tag_id='') {
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) return;
-		# Génération de notre motif
-		if(empty($cat_id))
-			$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
-		else
-			$motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.str_pad($cat_id,3,'0',STR_PAD_LEFT).')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 
+		# on teste $tag_id
+		$art_id_list = false;
+		if (! empty($tag_id)) {
+			$buf = array();
+			$motif = '/\b'.$tag_id.'\b/';
+			foreach($this->plxMotor->aTags as $art_id=>$art_infos) {
+				$art_active = ($art_infos['active'] > 0);
+				$art_tags = $art_infos['tags'];
+				if ($art_active and preg_match($motif, $art_tags))
+					$buf[] = $art_id; #$art_id sur 4 chiffres
+			}
+			if (count($buf) > 0)
+				$art_id_list = '(?:'.implode('|', $buf).')';
+		}
+		if (empty($art_id_list))
+			$art_id_list = '\d{4}';
+
+		# on teste $cat_id
+		$cats = (! empty($cat_id)) ? str_pad($cat_id, 3, 0, STR_PAD_LEFT) : '(?:home,|\d{3},)*(?:'.$this->plxMotor->activeCats.')(?:,\d{3}|,home)*';
+		# Génération de notre motif
+		$motif = '/^'.$art_id_list.'\.'.$cats.'\.\d{3}\.\d{12}\.[\w-]+\.xml$/';
+		
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
-		if($aFiles = $plxGlob_arts->query($motif,'art',$sort,0,$max,'before')) {
+		if ($aFiles = $plxGlob_arts->query($motif, 'art', $sort, 0, $max, 'before')) {
+			# analyse de $format
+			$n1 = preg_match_all('/(#art_(?:title|url|id|status|author|date|hour|nbcoms)|#cat_list)/', $format, $matches1);
+			# traite #art_chapo(..), #art_content(..) avec ou sans arguments
+			$n2 = preg_match_all('/(#art_(?:chapo|content))(?:\((\d+)\))?/', $format, $matches2);
+
 			foreach($aFiles as $v) { # On parcourt tous les fichiers
 				$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$v);
 				$num = intval($art['numero']);
-				$date = $art['date'];
-				if(($this->plxMotor->mode == 'article') AND ($art['numero'] == $this->plxMotor->cible))
-					$status = 'active';
-				else
-					$status = 'noactive';
-				# Mise en forme de la liste des catégories
-				$catList = array();
-				$catIds = explode(',', $art['categorie']);
-				foreach ($catIds as $idx => $catId) {
-					if(isset($this->plxMotor->aCats[$catId])) { # La catégorie existe
-						$catName = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
-						$catUrl = $this->plxMotor->aCats[$catId]['url'];
-						$catList[] = '<a title="'.$catName.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$catUrl).'">'.$catName.'</a>';
-					} else {
-						$catList[] = L_UNCLASSIFIED;
+				$replaces = array();
+				if ($n1 > 0) {
+					$patterns = $matches1[0];
+					foreach ($matches1[1] as $k) {
+						switch ($k) {
+							case '#art_title' :
+								$replaces[] = plxUtils::strCheck($art['title']);
+								break;
+							case '#art_url':
+								$replaces[] = $this->plxMotor->urlRewrite('?article'.$num.'/'.$art['url']);
+								break;
+							case '#art_id':
+								$replaces[] = $num;
+								break;
+							case '#art_status' :
+								$replaces[] = (($this->plxMotor->mode == 'article') and ($num == $this->plxMotor->cible)) ? 'active' : 'noactive';
+								break;
+							case '#art_author' :
+								$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
+								$replaces[] = plxUtils::strCheck($author);
+								break;
+							case '#art_date' :
+								$replaces[] = plxDate::formatDate($art['date'],'#num_day/#num_month/#num_year(4)');
+								break;
+							case '#art_hour' :
+								$replaces[] = plxDate::formatDate($art['date'],'#hour:#minute');
+								break;
+							case '#art_nbcoms' :
+								$replaces[] = $art['nb_com'];
+								break;
+							case '#cat_list' :
+								$catList = array();
+								$catIds = explode(',', $art['categorie']);
+								foreach ($catIds as $idx => $catId) {
+									if(isset($this->plxMotor->aCats[$catId])) { # La catégorie existe
+										$catName = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
+										$catUrl = $this->plxMotor->aCats[$catId]['url'];
+										$catList[] = '<a title="'.$catName.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$catUrl).'">'.$catName.'</a>';
+									} else {
+										$catList[] = L_UNCLASSIFIED;
+									}
+								}
+								$replaces[] = implode(', ',$catList);
+								break;
+						}
+					}
+				} else
+					$patterns = array();
+				if ($n2 > 0) { // #artchapo, #art_content
+					$patterns = array_merge($patterns, $matches2[0]);
+					for ($i=0; $i<count($matches2[1]); $i++) {
+						$strLength = (empty($matches2[2][$i])) ? 100 : intval($matches2[2][$i]);
+						$f = substr($matches2[1][$i], 5);
+						$replaces[] = plxUtils::truncate($art[$f],$strlength,$ending,true,true);
 					}
 				}
-				# On modifie nos motifs
-				$row = str_replace('#art_id',$num,$format);
-				$row = str_replace('#cat_list', implode(', ',$catList), $row);
-				$row = str_replace('#art_url',$this->plxMotor->urlRewrite('?article'.$num.'/'.$art['url']),$row);
-				$row = str_replace('#art_status',$status,$row);
-				$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
-				$row = str_replace('#art_author',plxUtils::strCheck($author),$row);
-				$row = str_replace('#art_title',plxUtils::strCheck($art['title']),$row);
-				$strlength = preg_match('/#art_chapo\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
-				$chapo = plxUtils::truncate($art['chapo'],$strlength,$ending,true,true);
-				$row = str_replace('#art_chapo('.$strlength.')','#art_chapo', $row);
-				$row = str_replace('#art_chapo',$chapo,$row);
-				$strlength = preg_match('/#art_content\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
-				$content = plxUtils::truncate($art['content'],$strlength,$ending,true,true);
-				$row = str_replace('#art_content('.$strlength.')','#art_content', $row);
-				$row = str_replace('#art_content',$content, $row);
-				$row = str_replace('#art_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
-				$row = str_replace('#art_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
-				$row = plxDate::formatDate($date,$row);
-				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
-				# On genère notre ligne
-				echo $row;
+				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListEnd'));
+
+				echo str_replace($patterns, $replaces, $format);
 			}
 		}
 	}
