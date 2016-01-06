@@ -494,3 +494,14 @@ input:checked ~ .modal__overlay {
 tr.checked {
 	background-color: #E4EFFF;
 }
+
+/* image d'accroche */
+
+#id_img_thumbnail {
+	margin-top:10px; 
+	overflow:hidden;
+}
+#id_img_thumbnail img {
+	width: 100%;
+	overflow:hidden;
+}

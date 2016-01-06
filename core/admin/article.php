@@ -320,7 +320,7 @@ $cat_id='000';
 						<?php
 						$imgUrl = PLX_ROOT.$thumbnail;
 						if(is_file($imgUrl)) {
-							echo '<div style="margin-top:10px; overflow:hidden" id="id_img_thumbnail"><img src="'.$imgUrl.'" alt="" /></div>';
+							echo '<div id="id_img_thumbnail"><img src="'.$imgUrl.'" alt="" /></div>';
 						}
 						?>
 					</div>
