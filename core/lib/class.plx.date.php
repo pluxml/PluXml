@@ -88,6 +88,7 @@ class plxDate {
 		$minute = substr($date,10,2);
 
 		# On retourne notre date au format humain
+		$format = str_replace('#time', $hour.':'.$minute, $format);		
 		$format = str_replace('#minute', $minute, $format);
 		$format = str_replace('#hour', $hour, $format);
 		$format = str_replace('#day', plxDate::getCalendar('day', $day_num), $format);
