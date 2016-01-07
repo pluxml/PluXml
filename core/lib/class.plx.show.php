@@ -927,6 +927,8 @@ class plxShow {
 				$row = str_replace('#art_time',plxDate::formatDate($date,'#time'),$row);
 				$row = plxDate::formatDate($date,$row);
 				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
+				# Hook plugin
+				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
 				# On genère notre ligne
 				echo $row;
 			}
