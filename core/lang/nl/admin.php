@@ -470,5 +470,7 @@ $LANG = array(
 'L_HELP'													=> 'Hulp',
 'L_HELP_TITLE'												=> 'Zie hulp',
 'L_BACK_TO_THEMES'											=> 'Terug naar de onderwerpen van de pagina',
+'L_ERR_INVALID_DATE_CREATION'								=> 'Ongeldige aanmaakdatum',
+'L_ERR_INVALID_DATE_UPDATE'									=> 'Ongeldige datum bijgewerkt',
 );
 ?>

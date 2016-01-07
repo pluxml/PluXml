@@ -16,6 +16,8 @@ $LANG = array(
 'L_DELETE_FOLDER'				   				=> 'Eliminar carpeta',
 'L_THUMBNAIL'									=> 'Miniatura (opcional)',
 'L_THUMBNAIL_SELECTION'							=> 'Seleccionar Imagen',
+'L_ERR_INVALID_DATE_CREATION'					=> 'Fecha de creación no válida',
+'L_ERR_INVALID_DATE_UPDATE'						=> 'Fecha no válida actualiza',
 
 # class.plx.admin.php
 

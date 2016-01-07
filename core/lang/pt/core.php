@@ -4,6 +4,9 @@ $LANG = array(
 
 'L_LANGUE'						=> 'Português',
 
+'L_DATE_CREATION'				=> 'Data de criação',
+'L_DATE_UPDATE'					=> 'Data atualizada',
+
 # common
 'L_PLUXML_VERSION'				=> 'Versão de Pluxml',
 'L_HOMEPAGE'					=> 'Índice',

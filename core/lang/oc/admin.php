@@ -16,6 +16,8 @@ $LANG = array(
 'L_DELETE_FOLDER'				   	=> 'Escafar dorsièr',
 'L_THUMBNAIL'						=> 'Image d\'accroche (facultatiu)',
 'L_THUMBNAIL_SELECTION'				=> 'Sélectionner une image',
+'L_ERR_INVALID_DATE_CREATION'		=> 'Date de création invalide',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Date de mise à jour invalide',
 
 # class.plx.admin.php
 

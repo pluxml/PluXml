@@ -607,6 +607,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aStats[$static_id]['title_htmltag'] = (isset($this->aStats[$static_id]['title_htmltag'])?$this->aStats[$static_id]['title_htmltag']:'');
 					$this->aStats[$static_id]['meta_description'] = (isset($this->aStats[$static_id]['meta_description'])?$this->aStats[$static_id]['meta_description']:'');
 					$this->aStats[$static_id]['meta_keywords'] = (isset($this->aStats[$static_id]['meta_keywords'])?$this->aStats[$static_id]['meta_keywords']:'');
+					if(plxUtils::getValue($this->aStats[$static_id]['date_creation'])=='') {
+						$this->aStats[$static_id]['date_creation'] = date('YmdHi');
+						$this->aStats[$static_id]['date_update'] = date('YmdHi');
+					}
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxAdminEditStatiquesUpdate'));
 					$action = true;
@@ -644,6 +648,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($static['meta_description'])."]]></meta_description>";
 				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($static['meta_keywords'])."]]></meta_keywords>";
 				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($static['title_htmltag'])."]]></title_htmltag>";
+				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
+				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
 				$xml .=	"</statique>\n";
@@ -695,6 +701,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$this->aStats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
 		$this->aStats[$content['id']]['meta_description'] = trim($content['meta_description']);
 		$this->aStats[$content['id']]['meta_keywords'] = trim($content['meta_keywords']);
+		$this->aStats[$content['id']]['date_creation'] = trim($content['date_creation_year']).trim($content['date_creation_month']).trim($content['date_creation_day']).substr(str_replace(':','',trim($content['date_creation_time'])),0,4);
+		$date_update = $content['date_update'];
+		$date_update_user = trim($content['date_update_year']).trim($content['date_update_month']).trim($content['date_update_day']).substr(str_replace(':','',trim($content['date_update_time'])),0,4);
+		$date_update = ($date_update==$date_update_user) ? date('YmdHi') : $date_update_user;
+		$this->aStats[$content['id']]['date_update'] = $date_update;
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditStatique'));
 		if($this->editStatiques(null,true)) {
@@ -772,7 +784,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$xml .= "\t".'<title_htmltag><![CDATA['.plxUtils::cdataCheck(trim($title_htmltag)).']]></title_htmltag>'."\n";
 		$thumbnail = plxUtils::getValue($content['thumbnail']);
 		$xml .= "\t".'<thumbnail><![CDATA['.plxUtils::cdataCheck(trim($thumbnail)).']]></thumbnail>'."\n";
-		
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
 		$xml .= "</document>\n";
@@ -787,7 +799,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$id = str_replace('_','',$id);
 
 		# On genère le nom de notre fichier
-		$time = $content['year'].$content['month'].$content['day'].substr(str_replace(':','',$content['time']),0,4);
+		$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
 		if(!preg_match('/^[0-9]{12}$/',$time)) $time = date('YmdHi'); # Check de la date au cas ou...
 		if(empty($content['catId'])) $content['catId']=array('000'); # Catégorie non classée
 		$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$time.'.'.$content['url'].'.xml';
