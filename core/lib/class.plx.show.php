@@ -512,7 +512,7 @@ class plxShow {
 			echo plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 		}
 	}
-	
+
 	/**
 	 * Méthode qui affiche l'image d'accroche
 	 *
@@ -525,12 +525,12 @@ class plxShow {
 
 		$imgUrl = $this->plxMotor->plxRecord_arts->f('thumbnail');
 		if($imgUrl) {
-			$row = str_replace('#div_class', 'art_thumbnail', $format);			
+			$row = str_replace('#div_class', 'art_thumbnail', $format);
 			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $row);
 			$row = str_replace('#img_alt', basename($imgUrl), $row);
 			echo $row;
 		}
-	}	
+	}
 
 	/**
 	 * Méthode qui affiche ou renvoie l'auteur de l'article
@@ -587,7 +587,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication de l'article selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F.
@@ -924,6 +924,7 @@ class plxShow {
 				$row = str_replace('#art_content',$content, $row);
 				$row = str_replace('#art_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
 				$row = str_replace('#art_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
+				$row = str_replace('#art_time',plxDate::formatDate($date,'#time'),$row);
 				$row = plxDate::formatDate($date,$row);
 				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
 				# On genère notre ligne
@@ -1048,12 +1049,12 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication d'un commentaire selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(2), #num_year(4))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(2), #num_year(4), #time)
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Florent MONTHEL et Stephane F
 	 **/
-	public function comDate($format='#day #num_day #month #num_year(4) &agrave; #hour:#minute') {
+	public function comDate($format='#day #num_day #month #num_year(4) @ #time') {
 
 		echo plxDate::formatDate($this->plxMotor->plxRecord_coms->f('date'),$format);
 	}
@@ -1181,7 +1182,7 @@ class plxShow {
 							}
 							$row = str_replace('#com_content',$content,$row);
 							$row = str_replace('#com_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
-							$row = str_replace('#com_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
+							$row = str_replace('#com_hour',plxDate::formatDate($date,'#time'),$row);
 							$row = plxDate::formatDate($date,$row);
 							# récupération du titre de l'article
 							if($isComArtTitle) {
@@ -1355,7 +1356,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de la dernière modification de la page statique selon le format choisi
 	 *
-	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
+	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
 	 * @return	stdout
 	 * @scope	static
 	 * @author	Anthony T.
@@ -1369,6 +1370,32 @@ class plxShow {
 		if(!file_exists($file)) return;
 		# On récupère la date de la dernière modification du fichier qu'on formate
 		echo plxDate::formatDate(date('YmdHi', filemtime($file)), $format);
+	}
+
+	/**
+	 * Méthode qui affiche la date de creation de la page statique selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+	 * @return	stdout
+	 * @scope	static
+	 * @author	Stephane F.
+	 **/
+	public function staticCreationDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->aStats[$this->plxMotor->cible]['date_creation'],$format);
+	}
+
+	/**
+	 * Méthode qui affiche la date de modification de la page statique selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
+	 * @return	stdout
+	 * @scope	static
+	 * @author	Stephane F.
+	 **/
+	public function staticUpdateDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->aStats[$this->plxMotor->cible]['date_update'],$format);
 	}
 
 	/**

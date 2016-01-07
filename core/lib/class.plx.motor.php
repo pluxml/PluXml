@@ -473,27 +473,33 @@ class plxMotor {
 			for($i=0;$i<$nb;$i++) {
 				$attributes = $values[$iTags['statique'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
-				# Recuperation du nom de la page statique
+				# Récupération du nom de la page statique
 				$this->aStats[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
-				# Recuperation de la balise title
+				# Récupération de la balise title
 				$title_htmltag = plxUtils::getValue($iTags['title_htmltag'][$i]);
 				$this->aStats[$number]['title_htmltag']=plxUtils::getValue($values[$title_htmltag]['value']);
-				# Recuperation du meta description
+				# Récupération du meta description
 				$meta_description = plxUtils::getValue($iTags['meta_description'][$i]);
 				$this->aStats[$number]['meta_description']=plxUtils::getValue($values[$meta_description]['value']);
-				# Recuperation du meta keywords
+				# Récupération du meta keywords
 				$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][$i]);
 				$this->aStats[$number]['meta_keywords']=plxUtils::getValue($values[$meta_keywords]['value']);
-				# Recuperation du groupe de la page statique
+				# Récupération du groupe de la page statique
 				$this->aStats[$number]['group']=plxUtils::getValue($values[$iTags['group'][$i]]['value']);
-				# Recuperation de l'url de la page statique
+				# Récupération de l'url de la page statique
 				$this->aStats[$number]['url']=strtolower($attributes['url']);
-				# Recuperation de l'etat de la page
+				# Récupération de l'etat de la page
 				$this->aStats[$number]['active']=intval($attributes['active']);
 				# On affiche la page statique dans le menu ?
 				$this->aStats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
-				# recuperation du fichier template
+				# Récupération du fichier template
 				$this->aStats[$number]['template']=isset($attributes['template'])?$attributes['template']:'static.php';
+				# Récupération de la date de création
+				$date_creation = plxUtils::getValue($iTags['date_creation'][$i]);
+				$this->aStats[$number]['date_creation']=plxUtils::getValue($values[$date_creation]['value']);
+				# Récupération de la date de mise à jour
+				$date_update = plxUtils::getValue($iTags['date_update'][$i]);
+				$this->aStats[$number]['date_update']=plxUtils::getValue($values[$date_update]['value']);
 				# On verifie que la page statique existe bien
 				$file = PLX_ROOT.$this->aConf['racine_statiques'].$number.'.'.$attributes['url'].'.php';
 				# On test si le fichier est lisible
@@ -845,11 +851,11 @@ class plxMotor {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
-		
+
 		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR !isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token'])) {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}
-		
+
 		# On vérifie que le capcha est correct
 		if($this->aConf['capcha'] == 0 OR $_SESSION['capcha'] == sha1($content['rep'])) {
 			if(!empty($content['name']) AND !empty($content['content'])) { # Les champs obligatoires sont remplis

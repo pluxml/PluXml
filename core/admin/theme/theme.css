@@ -216,10 +216,10 @@ tr:nth-child(even):hover {
 #medias-table {
 	margin-top: 10px;
 }
-#id_day, #id_month {
+.day, .month {
 	width: 2.1rem;
 }
-#id_year, #id_time {
+.year, .time {
 	width: 3.4rem;
 }
 #id_link {

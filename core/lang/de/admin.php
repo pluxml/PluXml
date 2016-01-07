@@ -471,5 +471,7 @@ $LANG = array(
 'L_HELP'											=> 'Hilfe',
 'L_HELP_TITLE'										=> 'Siehe Hilfe',
 'L_BACK_TO_THEMES'									=> 'Zurück Hilfe',
+'L_ERR_INVALID_DATE_CREATION'						=> 'Ungültige Erstellungsdatum',
+'L_ERR_INVALID_DATE_UPDATE'							=> 'Datum ungültig aktualisiert',	
 );
 ?>

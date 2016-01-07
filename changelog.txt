@@ -16,6 +16,7 @@
 [+] Administration: ajout du menu Paramètres > Thèmes
 [+] Ajout des hooks: AdminThemesDisplayTop, AdminThemesDisplay, AdminThemesDisplayFoot
 [+] Réécriture et optimisation de la fonction plxUtils::rel2abs (contribution bazook07)
+[+] Page statique: gestion de la date de création et de mise à jour
 [+] plxShow: ajout de la fonction artThumbnail pour afficher l'image d'accroche de l'article
 BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags 
 BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désactivation du captcha

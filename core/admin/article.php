@@ -71,7 +71,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			}
 			$art['categorie']=implode(',',$array);
 		}
-		$art['date'] = $_POST['year'].$_POST['month'].$_POST['day'].substr(str_replace(':','',$_POST['time']),0,4);
+		$art['date'] = $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':','',$_POST['date_publication_time']),0,4);
 		$art['nb_com'] = 0;
 		if(trim($_POST['url']) == '')
 			$art['url'] = plxUtils::title2url($_POST['title']);
@@ -107,7 +107,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			}
 		}
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($_POST['day'],$_POST['month'],$_POST['year'],$_POST['time'])) {
+		if(!plxDate::checkDate($_POST['date_publication_day'],$_POST['date_publication_month'],$_POST['date_publication_year'],$_POST['date_publication_time'])) {
 			$valid = plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE) AND $valid;
 		}
 		if($valid) {
@@ -133,10 +133,10 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$title = trim($_POST['title']);
 	$author = $_POST['author'];
 	$catId = isset($_POST['catId'])?$_POST['catId']:array();
-	$date['day'] = $_POST['day'];
-	$date['month'] = $_POST['month'];
-	$date['year'] = $_POST['year'];
-	$date['time'] = $_POST['time'];
+	$date['day'] = $_POST['date_publication_day'];
+	$date['month'] = $_POST['date_publication_month'];
+	$date['year'] = $_POST['date_publication_year'];
+	$date['time'] = $_POST['date_publication_time'];
 	$chapo = trim($_POST['chapo']);
 	$content =  trim($_POST['content']);
 	$tags = trim($_POST['tags']);
@@ -364,11 +364,11 @@ $cat_id='000';
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
 						<div class="inline-form">
-							<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,false); ?>
-							<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,false); ?>
-							<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,false); ?>
-							<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,false); ?>
-							<a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
+							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
+							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
+							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+							<a id="id_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 								<img src="theme/images/date.png" alt="calendar" />
 							</a>
 						</div>

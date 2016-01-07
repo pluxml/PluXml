@@ -4,6 +4,9 @@ $LANG = array(
 
 'L_LANGUE'						=> 'Nederlands',
 
+'L_DATE_CREATION'				=> 'Aanmaakdatum',
+'L_DATE_UPDATE'					=> 'Geactualiseerd',
+
 # common
 'L_PLUXML_VERSION'				=> 'PluXml versie',
 'L_HOMEPAGE'					=> 'Onthaal',

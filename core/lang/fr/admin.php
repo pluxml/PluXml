@@ -20,6 +20,9 @@ $LANG = array(
 'L_THUMBNAIL'						=> 'Image d\'accroche (facultatif)',
 'L_THUMBNAIL_SELECTION'				=> 'Sélectionner une image',
 
+'L_ERR_INVALID_DATE_CREATION'		=> 'Date de création invalide',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Date de mise à jour invalide',	
+
 # class.plx.admin.php
 
 'L_SAVE_SUCCESSFUL'					=> 'Enregistrement des données effectué avec succès',
@@ -82,7 +85,7 @@ $LANG = array(
 # article.php
 
 'L_DEFAULT_NEW_ARTICLE_TITLE'		=> 'Nouvel article',
-'L_ERR_INVALID_PUBLISHING_DATE'		=> 'Date de publication invalide.',
+'L_ERR_INVALID_PUBLISHING_DATE'		=> 'Date de publication invalide',
 'L_ERR_UNKNOWN_ARTICLE'				=> 'L\'article demandé n\'existe pas ou n\'existe plus !',
 'L_ERR_FORBIDDEN_ARTICLE'			=> 'Vous n\'avez pas les droits pour accéder à cet article !',
 'L_BACK_TO_ARTICLES'				=> 'Retour à la liste des articles',

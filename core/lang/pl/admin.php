@@ -14,6 +14,8 @@ $LANG = array(
 'L_DELETE_FOLDER'				    => 'Usuń folder',
 'L_THUMBNAIL'						=> 'Miniaturka (opcjonalnie)',
 'L_THUMBNAIL_SELECTION'				=> 'Wybierz zdjęcie',
+'L_ERR_INVALID_DATE_CREATION'		=> 'Nieprawidłowa data utworzenia',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Nieprawidłowa data zaktualizowane',
 
 # class.plx.admin.php
 
