@@ -40,7 +40,7 @@ var mediasManager  =  {
 				var anchor = anchors.item(i);
 				var imgUrl = anchor.href.replace(racine, '');
 				if(fallback=='') {
-					anchor.setAttribute("onclick", "return mediasManager.addText('"+cibleId+"', '"+imgUrl+"', "+replace+")");
+					anchor.setAttribute("onclick", "mediasManager.addText('"+cibleId+"', '"+imgUrl+"', "+replace+");mediasManager.updImg('"+cibleId+"_img', '"+root+imgUrl+"');return false;");
 				} else {
 					anchor.setAttribute("onclick", fallback+'("'+cibleId+'", "'+root+'", "'+imgUrl+'", "'+replace+'")');
 				}
@@ -103,7 +103,11 @@ var mediasManager  =  {
 		}
 		close();
 		return false;
+	},
 
+	updImg: function(cibleId, imgPath) {
+		window.opener.document.getElementById(cibleId).innerHTML = '<img src="'+imgPath+'" alt="" />';
 	}
+
 };
 -->
