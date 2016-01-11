@@ -94,14 +94,6 @@
 
 	</form>
 
-	<?php else: ?>
-
-	<p>
-		<?php $plxShow->lang('COMMENTS_CLOSED') ?>.
-	</p>
-
-	<?php endif; # Fin du if sur l'autorisation des commentaires ?>
-
 <script>
 function replyCom(idCom) {
 	document.getElementById('id_answer').innerHTML='<?php $plxShow->lang('REPLY_TO'); ?> :';
@@ -119,3 +111,11 @@ function cancelCom() {
 var parent = document.getElementById('id_parent').value;
 if(parent!='') { replyCom(parent) }
 </script>
+
+	<?php else: ?>
+
+	<p>
+		<?php $plxShow->lang('COMMENTS_CLOSED') ?>.
+	</p>
+
+	<?php endif; # Fin du if sur l'autorisation des commentaires ?>
