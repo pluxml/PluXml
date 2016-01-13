@@ -58,9 +58,7 @@ session_start();
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 ?>
-
 <!DOCTYPE html>
-
 <head>
 	<meta name="robots" content="noindex, nofollow" />
 	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />

@@ -87,7 +87,7 @@ class plxPlugins {
 				if($callback['class']=='=SHORTCODE=') {
 					echo $callback['method'];
 				} else {
-					$return = $this->aPlugins[$callback['class']]->$callback['method']($parms);
+					$return = $this->aPlugins[$callback['class']]->{$callback['method']}($parms);
 				}
 			}
 			if(isset($return))

@@ -497,11 +497,11 @@ tr.checked {
 
 /* image d'accroche */
 
-#id_img_thumbnail {
-	margin-top:10px; 
+#id_thumbnail_img {
+	margin-top:10px;
 	overflow:hidden;
 }
-#id_img_thumbnail img {
-	width: 100%;
+#id_thumbnail_img img {
+	max-width: 100%;
 	overflow:hidden;
 }
