@@ -94,8 +94,10 @@ function pluginsList($plugins, $defaultLang, $type) {
 			$output .= '</tr>';
 		}
 	}
-	else
-		$output .= '<tr><td colspan="4" class="center">'.L_NO_PLUGIN.'</td></tr>';
+	else {
+		$colspan = $_SESSION['selPlugins']=='1' ? 5 : 4;
+		$output .= '<tr><td colspan="'.$colspan.'" class="center">'.L_NO_PLUGIN.'</td></tr>';
+	}
 	return $output;
 }
 
