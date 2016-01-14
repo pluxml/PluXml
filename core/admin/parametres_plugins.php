@@ -95,7 +95,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 		}
 	}
 	else
-		$output .= '<tr><td colspan="5" class="center">'.L_NO_PLUGIN.'</td></tr>';
+		$output .= '<tr><td colspan="4" class="center">'.L_NO_PLUGIN.'</td></tr>';
 	return $output;
 }
 
