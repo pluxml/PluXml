@@ -1437,18 +1437,23 @@ class plxShow {
 	 * @author	Stéphane F
 	 **/
 	public function staticInclude($id) {
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return ;
 		# On génère un nouvel objet plxGlob
 		$plxGlob_stats = plxGlob::getInstance(PLX_ROOT.$this->plxMotor->aConf['racine_statiques']);
-		if(is_numeric($id))
+		if(is_numeric($id)) # inclusion à partir de l'id de la page
 			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
-		else {
+		else { # inclusion à partir du titre de la page
 			$url = plxUtils::title2url($id);
 			$regx = '/^[0-9]{3}.'.$url.'.php$/';
 		}
 		if($files = $plxGlob_stats->query($regx)) {
-			include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
+			# on récupère l'id de la page pour tester si elle est active
+			if(preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
+				if($this->plxMotor->aStats[$c[1]]['active'])
+					include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
+			}
 		}
 	}
 
