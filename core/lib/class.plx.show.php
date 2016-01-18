@@ -1592,7 +1592,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
-	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_url, #tag_name, #nb_art)
+	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
 	 * @param	max		nombre maxi de tags à afficher
 	 * @param	order	tri des tags (random, alpha, '')
 	 * @return	stdout
@@ -1650,6 +1650,8 @@ class plxShow {
 		foreach($array as $tagname => $tag) {
 			$name = str_replace('#tag_id','tag-'.$size++,$format);
 			$name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
+			$name = str_replace('#tag_count',$tag['count'],$name);
+			$name = str_replace('#tag_item',$tag['url'],$name);
 			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
 			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
 			$name = str_replace('#nb_art',$tag['count'],$name);

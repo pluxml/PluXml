@@ -20,6 +20,7 @@
 [+] plxShow: ajout des fonctions staticCreationDate et staticUpdateDate pour afficher la date de création et de mise à jour d'une page statique
 [+] plxShow: ajout de la fonction artThumbnail pour afficher l'image d'accroche de l'article
 [+] plxShow::lastArtList - ajout du hook plxShowLastArtListContent
+[+] plxShow::tagList - ajout des variables #tag_count, #tag_item (contribution danielsan)
 [+] #126: plxShow::staticInclude - l'affichage tient compte si la page est active ou non
 [+] plxDate::formatDate() - ajout de la variable #time
 [+] #68: Sitemap - datation des pages statiques
