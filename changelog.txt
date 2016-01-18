@@ -22,6 +22,7 @@
 [+] plxShow::lastArtList - ajout du hook plxShowLastArtListContent
 [+] #126: plxShow::staticInclude - l'affichage tient compte si la page est active ou non
 [+] plxDate::formatDate() - ajout de la variable #time
+[+] #68: Sitemap - datation des pages statiques
 BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags 
 BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désactivation du captcha
 BUG fix #103: La recherche dans les articles ne fonctionne dans l'administration pas à partir du champ "Rechercher"
