@@ -189,7 +189,7 @@ textarea {
 	width: auto;
 }
 tr:nth-child(even) {
-	background-color: #fafafa;
+	background-color: #f3f3f3;
 }
 tr:nth-child(even):hover {
 	background-color: #fff8dc;
