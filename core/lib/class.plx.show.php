@@ -1437,18 +1437,23 @@ class plxShow {
 	 * @author	Stéphane F
 	 **/
 	public function staticInclude($id) {
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return ;
 		# On génère un nouvel objet plxGlob
 		$plxGlob_stats = plxGlob::getInstance(PLX_ROOT.$this->plxMotor->aConf['racine_statiques']);
-		if(is_numeric($id))
+		if(is_numeric($id)) # inclusion à partir de l'id de la page
 			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
-		else {
+		else { # inclusion à partir du titre de la page
 			$url = plxUtils::title2url($id);
 			$regx = '/^[0-9]{3}.'.$url.'.php$/';
 		}
 		if($files = $plxGlob_stats->query($regx)) {
-			include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
+			# on récupère l'id de la page pour tester si elle est active
+			if(preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
+				if($this->plxMotor->aStats[$c[1]]['active'])
+					include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
+			}
 		}
 	}
 
@@ -1587,7 +1592,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
-	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_url, #tag_name, #nb_art)
+	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
 	 * @param	max		nombre maxi de tags à afficher
 	 * @param	order	tri des tags (random, alpha, '')
 	 * @return	stdout
@@ -1645,6 +1650,8 @@ class plxShow {
 		foreach($array as $tagname => $tag) {
 			$name = str_replace('#tag_id','tag-'.$size++,$format);
 			$name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
+			$name = str_replace('#tag_count',$tag['count'],$name);
+			$name = str_replace('#tag_item',$tag['url'],$name);
 			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
 			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
 			$name = str_replace('#nb_art',$tag['count'],$name);

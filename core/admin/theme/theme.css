@@ -189,7 +189,7 @@ textarea {
 	width: auto;
 }
 tr:nth-child(even) {
-	background-color: #fafafa;
+	background-color: #f3f3f3;
 }
 tr:nth-child(even):hover {
 	background-color: #fff8dc;
@@ -499,9 +499,7 @@ tr.checked {
 
 #id_thumbnail_img {
 	margin-top:10px;
-	overflow:hidden;
 }
 #id_thumbnail_img img {
 	max-width: 100%;
-	overflow:hidden;
 }

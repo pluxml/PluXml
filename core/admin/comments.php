@@ -211,7 +211,7 @@ $selector1=selector($comSel, 'id_selection1');
 		$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
 		echo '<span class="p_first">'.$s.'</span>';
 		$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
-		echo '<span class="p_prev">'.$s.'</a></span>';
+		echo '<span class="p_prev">'.$s.'</span>';
 		for($i=$start;$i<=$stop;$i++) {
 			$s = $i==$plxAdmin->page ? $i : '<a href="'.('comments.php?page='.$i.$sel).'" title="'.$i.'">'.$i.'</a>';
 			echo '<span class="p_current">'.$s.'</span>';

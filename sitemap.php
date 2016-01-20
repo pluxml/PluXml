@@ -52,6 +52,7 @@ foreach($plxMotor->aStats as $stat_num => $stat_info) {
 		echo "\n";
 		echo "\t<url>\n";
 		echo "\t\t<loc>".$plxMotor->urlRewrite("?static".intval($stat_num)."/".$stat_info['url'])."</loc>\n";
+		echo "\t\t<lastmod>".plxDate::formatDate($plxMotor->aStats[$stat_num]['date_update'],'#num_year(4)-#num_month-#num_day')."</lastmod>\n";
 		echo "\t\t<changefreq>monthly</changefreq>\n";
 		echo "\t\t<priority>0.8</priority>\n";
 		echo "\t</url>\n";
@@ -96,7 +97,7 @@ if($aFiles = $plxMotor->plxGlob_arts->query('/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$p
 eval($plxMotor->plxPlugins->callHook('SitemapArticles'));
 ?>
 </urlset>
-<?php 
+<?php
 
 # Récuperation de la bufférisation
 $output = ob_get_clean();

@@ -310,24 +310,24 @@ $cat_id='000';
 					</div>
 				</div>
 				<?php endif; ?>
-				<div class="grid">
-					<div class="col sml-12">
-						<label for="id_thumbnail">
-							<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
-							<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
-						</label>
-						<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width'); ?>
-						<?php
-						$imgUrl = PLX_ROOT.$thumbnail;
-						if(is_file($imgUrl)) {
-							echo '<div id="id_thumbnail_img"><img src="'.$imgUrl.'" alt="" /></div>';
-						} else {
-							echo '<div id="id_thumbnail_img"></div>';
-						}
-						?>
-					</div>
-				</div>
 			</fieldset>
+			<div class="grid">
+				<div class="col sml-12">
+					<label for="id_thumbnail">
+						<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
+						<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
+					</label>
+					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width'); ?>
+					<?php
+					$imgUrl = PLX_ROOT.$thumbnail;
+					if(is_file($imgUrl)) {
+						echo '<div id="id_thumbnail_img"><img src="'.$imgUrl.'" alt="" /></div>';
+					} else {
+						echo '<div id="id_thumbnail_img"></div>';
+					}
+					?>
+				</div>
+			</div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
@@ -370,7 +370,7 @@ $cat_id='000';
 							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
 							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
 							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
-							<a id="id_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 								<img src="theme/images/date.png" alt="calendar" />
 							</a>
 						</div>
