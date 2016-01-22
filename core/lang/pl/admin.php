@@ -14,6 +14,8 @@ $LANG = array(
 'L_DELETE_FOLDER'				    => 'Usuń folder',
 'L_THUMBNAIL'						=> 'Miniaturka (opcjonalnie)',
 'L_THUMBNAIL_SELECTION'				=> 'Wybierz zdjęcie',
+'L_THUMBNAIL_TITLE'					=> 'Tytuł zdjęcia (opcjonalnie)',
+'L_THUMBNAIL_ALT'					=> 'Alternatywny tekst z obrazka (opcjonalnie)',
 'L_ERR_INVALID_DATE_CREATION'		=> 'Nieprawidłowa data utworzenia',
 'L_ERR_INVALID_DATE_UPDATE'			=> 'Nieprawidłowa data zaktualizowane',
 

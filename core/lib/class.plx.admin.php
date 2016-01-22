@@ -784,7 +784,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$xml .= "\t".'<title_htmltag><![CDATA['.plxUtils::cdataCheck(trim($title_htmltag)).']]></title_htmltag>'."\n";
 		$thumbnail = plxUtils::getValue($content['thumbnail']);
 		$xml .= "\t".'<thumbnail><![CDATA['.plxUtils::cdataCheck(trim($thumbnail)).']]></thumbnail>'."\n";
-
+		$thumbnail_alt = plxUtils::getValue($content['thumbnail_alt']);
+		$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>'."\n";
+		$thumbnail_title = plxUtils::getValue($content['thumbnail_title']);
+		$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>'."\n";
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
 		$xml .= "</document>\n";

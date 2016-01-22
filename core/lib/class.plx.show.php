@@ -516,18 +516,18 @@ class plxShow {
 	/**
 	 * Méthode qui affiche l'image d'accroche
 	 *
-	 * @param	format	format d'affichage (variables: #div_class, #img_url, #img_alt)
+	 * @param	format	format d'affichage (variables: #img_url, #img_alt, #img_title)
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
 	 **/
-	public function artThumbnail($format='<div class="#div_class"><img src="#img_url" alt="#img_alt" /></div>') {
+	public function artThumbnail($format='<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />') {
 
 		$imgUrl = $this->plxMotor->plxRecord_arts->f('thumbnail');
 		if($imgUrl) {
-			$row = str_replace('#div_class', 'art_thumbnail', $format);
-			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $row);
-			$row = str_replace('#img_alt', basename($imgUrl), $row);
+			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $format);
+			$row = str_replace('#img_title', plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), $row);
+			$row = str_replace('#img_alt', $this->plxMotor->plxRecord_arts->f('thumbnail_alt'), $row);
 			echo $row;
 		}
 	}

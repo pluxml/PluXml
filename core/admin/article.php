@@ -63,6 +63,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['numero'] = $_POST['artId'];
 		$art['author'] = $_POST['author'];
 		$art['thumbnail'] = $_POST['thumbnail'];
+		$art['thumbnail_title'] = $_POST['thumbnail_title'];
+		$art['thumbnail_alt'] = $_POST['thumbnail_alt'];
 		$art['categorie'] = '';
 		if(!empty($_POST['catId'])) {
 			$array=array();
@@ -147,6 +149,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_keywords = $_POST['meta_keywords'];
 	$title_htmltag = $_POST['title_htmltag'];
 	$thumbnail = $_POST['thumbnail'];
+	$thumbnail_title = $_POST['thumbnail_title'];
+	$thumbnail_alt = $_POST['thumbnail_alt'];
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticlePostData'));
 } elseif(!empty($_GET['a'])) { # On n'a rien validé, c'est pour l'édition d'un article
@@ -173,6 +177,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_keywords=$result['meta_keywords'];
 	$title_htmltag = $result['title_htmltag'];
 	$thumbnail = $result['thumbnail'];
+	$thumbnail_title = $result['thumbnail_title'];
+	$thumbnail_alt = $result['thumbnail_alt'];
 
 	if($author!=$_SESSION['user'] AND $_SESSION['profil']==PROFIL_WRITER) {
 		plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
@@ -195,6 +201,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$template = 'article.php';
 	$meta_description=$meta_keywords=$title_htmltag='';
 	$thumbnail = '';
+	$thumbnail_title = '';
+	$thumbnail_alt = '';
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleInitData'));
 }
@@ -311,13 +319,23 @@ $cat_id='000';
 				</div>
 				<?php endif; ?>
 			</fieldset>
-			<div class="grid">
+			<div class="grid gridthumb">
 				<div class="col sml-12">
 					<label for="id_thumbnail">
 						<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 					</label>
 					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width'); ?>
+					<div class="grid" style="padding-top:10px">
+						<div class="col sml-12 lrg-6">
+							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_TITLE ?>&nbsp;:</label>
+							<?php plxUtils::printInput('thumbnail_title',plxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
+						</div>
+						<div class="col sml-12 lrg-6">
+							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_ALT ?>&nbsp;:</label>
+							<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
+						</div>
+					</div>
 					<?php
 					$imgUrl = PLX_ROOT.$thumbnail;
 					if(is_file($imgUrl)) {
