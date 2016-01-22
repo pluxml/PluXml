@@ -79,6 +79,9 @@ body {
 	color: #258fd6;
 	text-decoration: none;
 }
+.article img.art_thumbnail {
+	padding: 15px 0 10px 0;
+}
 .comment {
 	background-image: url('../img/user.png');
 	background-repeat: no-repeat;

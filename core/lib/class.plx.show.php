@@ -521,12 +521,11 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
 	 **/
-	public function artThumbnail($format='<div class="#div_class"><img src="#img_url" alt="#img_alt" /></div>') {
+	public function artThumbnail($format='<img class="art_thumbnail" src="#img_url" alt="#img_alt" />') {
 
 		$imgUrl = $this->plxMotor->plxRecord_arts->f('thumbnail');
 		if($imgUrl) {
-			$row = str_replace('#div_class', 'art_thumbnail', $format);
-			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $row);
+			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $format);
 			$row = str_replace('#img_alt', basename($imgUrl), $row);
 			echo $row;
 		}
