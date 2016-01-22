@@ -16,6 +16,8 @@ $LANG = array(
 'L_DELETE_FOLDER'				   							=> 'Удалить папку',
 'L_THUMBNAIL'												=> 'миниатюрами (необязательно)',
 'L_THUMBNAIL_SELECTION'										=> 'Выбрать Изображение',
+'L_THUMBNAIL_TITLE'											=> 'Изображение Название (необязательно)',
+'L_THUMBNAIL_ALT'											=> 'Альтернативный текст изображения (необязательно)',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Неверный дата создания',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Неверный дате обновления',
 

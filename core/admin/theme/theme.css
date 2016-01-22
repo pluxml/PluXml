@@ -503,3 +503,10 @@ tr.checked {
 #id_thumbnail_img img {
 	max-width: 100%;
 }
+
+.gridthumb {
+	background-color: #fffcf5;
+	border: 1px solid #ccc;
+	margin: 0 2px 0 2px;
+	padding-top: 10px;
+}
