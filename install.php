@@ -314,7 +314,7 @@ plxUtils::cleanHeaders();
 
 					<input class="blue" type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
 					<?php echo plxToken::getTokenPostMethod() ?>
-					
+
 					<ul class="unstyled-list">
 						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
 						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
@@ -322,11 +322,14 @@ plxUtils::cleanHeaders();
 						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
 						<?php } ?>
 						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
+						<?php plxUtils::testWrite(PLX_ROOT) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>	
 						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>						
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testMail() ?>

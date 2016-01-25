@@ -29,15 +29,18 @@ include(dirname(__FILE__).'/top.php');
 	<li><?php echo L_INFO_PHP_VERSION; ?> : <?php echo phpversion(); ?></li>
 	<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 	<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
-	<?php } ?>  
+	<?php } ?>
 </ul>
 <ul class="unstyled-list">
 	<li><?php echo L_INFO_MAGIC_QUOTES; ?> : <?php echo get_magic_quotes_gpc(); ?></li>
+	<?php plxUtils::testWrite(PLX_ROOT) ?>	
 	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH); ?>
+	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_articles']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_commentaires']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_statiques']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['medias']); ?>
+	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>	
 	<?php plxUtils::testModReWrite() ?>
 	<?php plxUtils::testLibGD() ?>
 	<?php plxUtils::testMail() ?>
