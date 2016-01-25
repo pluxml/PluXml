@@ -166,7 +166,7 @@ $selector=selector($comSel, 'id_selection');
 						$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
 					}
 					# On génère notre ligne
-					echo '<tr class="line-'.(++$num%2).' top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
+					echo '<tr class="top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
 					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
 					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
 					echo '<td class="wrap">'.$content.'&nbsp;</td>';

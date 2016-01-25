@@ -118,7 +118,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 				if($plxThemes->aThemes) {
 					$num=0;
 					foreach($plxThemes->aThemes as $theme) {
-						echo '<tr class="line-'.($num%2).'">';
+						echo '<tr>';
 						# radio
 						$checked = $theme==$plxAdmin->aConf['style'] ? ' checked="checked"' : '';
 						echo '<td><input'.$checked.' type="radio" name="style" value="'.$theme.'" /></td>';
@@ -137,7 +137,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 							# lien aide
 							if(is_file(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$theme.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php'))
 								echo '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=theme&amp;page='.urlencode($theme).'">'.L_HELP.'</a>';
-							
+
 						echo '</td>';
 						echo '</tr>';
 					}

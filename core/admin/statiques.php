@@ -81,7 +81,7 @@ function checkBox(cb) {
 			if($plxAdmin->aStats) {
 				foreach($plxAdmin->aStats as $k=>$v) { # Pour chaque page statique
 					$ordre = ++$num;
-					echo '<tr class="line-'.($num%2).'">';
+					echo '<tr>';
 					echo '<td><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
