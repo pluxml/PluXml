@@ -322,6 +322,7 @@ plxUtils::cleanHeaders();
 						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
 						<?php } ?>
 						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
+						<?php plxUtils::testWrite(PLX_ROOT) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
