@@ -126,8 +126,8 @@ function checkBox(cb) {
 					<td>
 					<?php
 						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
-						plxUtils::printInput($new_staticid.'_group', '', 'hidden', '10-100');
-						echo '</td><td>&nbsp;';
+						echo '</td><td>';
+						plxUtils::printInput($new_staticid.'_group', '', 'text', '10-100');
 						echo '</td><td>';
 						plxUtils::printInput($new_staticid.'_name', '', 'text', '10-255');
 						plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden');
