@@ -328,4 +328,3 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasFoot'));
 # On inclut le footer
 include(dirname(__FILE__).'/foot.php');
 ?>
-
