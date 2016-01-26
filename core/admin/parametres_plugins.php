@@ -46,7 +46,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 			else
 			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
 
-			$output .= '<tr class="line-'.($num%2).' top">';
+			$output .= '<tr class="top">';
 
 				# checkbox
 				$output .= '<td>';

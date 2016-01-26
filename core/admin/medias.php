@@ -178,7 +178,7 @@ $curFolders = explode('/', $curFolder);
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
 						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg'));
 						$ordre = ++$num;
-						echo '<tr class="line-'.($num%2).'">';
+						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 						if(is_file($v['path']) AND $isImage) {

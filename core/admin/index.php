@@ -201,7 +201,7 @@ include(dirname(__FILE__).'/top.php');
 				$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$idArt.'.(.*).xml$/','all');
 				$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$idArt.'.(.*).xml$/','all');
 				# On affiche la ligne
-				echo '<tr class="line-'.(++$num%2).'">';
+				echo '<tr>';
 				echo '<td><input type="checkbox" name="idArt[]" value="'.$idArt.'" /></td>';
 				echo '<td>'.$idArt.'</td>';
 				echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
