@@ -1,4 +1,3 @@
-<!--
 function dateNow(field,delta) {
 	var d = new Date();
 	// convert to msec, add local time zone offset
@@ -88,4 +87,3 @@ function insTag(where, tag) {
 	else
 		formfield.value = formfield.value+', '+tag;
 }
--->

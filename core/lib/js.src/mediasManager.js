@@ -1,4 +1,3 @@
-<!--
 var mediasManager  =  {
 
 	construct: function(opts) {
@@ -110,4 +109,3 @@ var mediasManager  =  {
 	}
 
 };
--->
