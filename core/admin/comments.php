@@ -75,7 +75,7 @@ if(!empty($_GET['a'])) {
 	$nbComPagination=$plxAdmin->nbComments($comSelMotif);
 	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
-elseif($comSel=='online') {
+if($comSel=='online') {
 	$comSelMotif = '/^[0-9]{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'online';
 	$nbComPagination=$plxAdmin->nbComments('online');
