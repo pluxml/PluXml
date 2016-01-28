@@ -70,12 +70,23 @@ else
 	$comSel = ((isset($_SESSION['selCom']) AND !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
 
 if(!empty($_GET['a'])) {
-	$comSelMotif = '/^[[:punct:]]?'.str_replace('_','',$_GET['a']).'.(.*).xml$/';
+	
+	switch ($comSel) {
+		case 'online':
+			$mod = '';
+			break;
+		case 'offline':
+			$mod = '_';
+			break;
+		default:
+			$mod = '[[:punct:]]?';
+	}
+	$comSelMotif = '/^'.$mod.str_replace('_','',$_GET['a']).'.(.*).xml$/';
 	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments($comSelMotif);
 	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
-if($comSel=='online') {
+elseif($comSel=='online') {
 	$comSelMotif = '/^[0-9]{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'online';
 	$nbComPagination=$plxAdmin->nbComments('online');
