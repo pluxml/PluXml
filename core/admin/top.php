@@ -18,9 +18,9 @@
 	<script src="<?php echo PLX_CORE ?>lib/js.src/functions.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/js.src/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/js.src/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="<?php echo PLX_CORE ?>lib/js.src/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>	
+	<script defer src="<?php echo PLX_CORE ?>lib/js.src/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<?php else : ?>
-	<script defer src="<?php echo PLX_CORE ?>lib/pluxml.min.js.js?ver=<?php echo PLX_VERSION ?>"></script>	
+	<script defer src="<?php echo PLX_CORE ?>lib/pluxml.min.js.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<?php endif; ?>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
@@ -82,7 +82,7 @@
 
 					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 						$nbcoms = $plxAdmin->nbComments('offline');
-						$coms_offline = $nbcoms>0 ? '<span class="badge"<a href="'.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1">'.$plxAdmin->nbComments('offline').'</span>':'';
+						$coms_offline = $nbcoms>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
 						$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
 					}
 
