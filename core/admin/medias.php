@@ -140,7 +140,7 @@ $curFolders = explode('/', $curFolder);
 			&nbsp;&nbsp;&nbsp;
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 			<?php if(!empty($_SESSION['folder'])) { ?>
-			<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
+			&nbsp;&nbsp;&nbsp;<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
 			<?php } ?>
 			<input type="hidden" name="sort" value="" />
 			<?php echo plxToken::getTokenPostMethod() ?>
