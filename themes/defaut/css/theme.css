@@ -229,7 +229,8 @@ body {
 .level-4 {
 	margin-left: 200px;
 }
-.level-5 {
+.level-5,
+.level-max {
 	margin-left: 250px;
 }
 

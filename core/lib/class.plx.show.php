@@ -980,15 +980,28 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche le niveau d'indentation du commentaire
+	 * Méthode qui retourne le niveau d'indentation du commentaire
+	 *
+	 * @return	integer		numéro du niveau d'indentation du commentaire
+	 * @scope	article
+	 * @author	Stephane F.
+	 **/
+	public function comNumLevel() {
+		return $this->plxMotor->plxRecord_coms->f('level');
+	}
+
+	/**
+	 * Méthode qui formate et affiche le niveau d'indentation du commentaire
 	 *
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Stephane F.
 	 **/
 	public function comLevel() {
-
-		echo $this->plxMotor->plxRecord_coms->f('level');
+		if($this->comNumLevel() > 5)
+			echo 'level-'.$this->comNumLevel().' level-max';
+		else
+			echo 'level-'.$this->comNumLevel();
 	}
 
 	/**

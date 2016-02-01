@@ -8,7 +8,7 @@
 
 		<?php while($plxShow->plxMotor->plxRecord_coms->loop()): # On boucle sur les commentaires ?>
 
-		<div id="<?php $plxShow->comId(); ?>" class="comment level-<?php $plxShow->comLevel(); ?>">
+		<div id="<?php $plxShow->comId(); ?>" class="comment <?php $plxShow->comLevel(); ?>">
 
 			<div id="com-<?php $plxShow->comIndex(); ?>">
 
