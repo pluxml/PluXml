@@ -216,6 +216,10 @@ tr:nth-child(even):hover {
 #medias-table {
 	margin-top: 10px;
 }
+.publication input {
+	font-weight: bold;
+	color: #777;
+}
 .day, .month {
 	width: 2.1rem;
 }

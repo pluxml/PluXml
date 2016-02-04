@@ -767,6 +767,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
 
+		# Formate des dates de creation et de mise à jour
+		$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
+		$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
+		$date_update = $date_update==$content['date_update_old'] ? date('YmdHi') : $date_update;
 		# Génération du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
@@ -788,6 +792,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>'."\n";
 		$thumbnail_title = plxUtils::getValue($content['thumbnail_title']);
 		$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>'."\n";
+		$xml .= "\t".'<date_creation><![CDATA['.plxUtils::cdataCheck($date_creation).']]></date_creation>'."\n";
+		$xml .= "\t".'<date_update><![CDATA['.plxUtils::cdataCheck($date_update).']]></date_update>'."\n";
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
 		$xml .= "</document>\n";

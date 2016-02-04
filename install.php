@@ -161,24 +161,14 @@ function install($content, $config) {
 	<title><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE).']]></title>
 	<allow_com>1</allow_com>
 	<template><![CDATA[article.php]]></template>
-	<chapo>
-		<![CDATA['.$html[0].']]>
-	</chapo>
-	<content>
-		<![CDATA['.$html[1].']]>
-	</content>
-	<tags>
-		<![CDATA[PluXml]]>
-	</tags>
-	<meta_description>
-		<![CDATA[]]>
-	</meta_description>
-	<meta_keywords>
-		<![CDATA[]]>
-	</meta_keywords>
-	<title_htmltag>
-		<![CDATA[]]>
-	</title_htmltag>
+	<chapo><![CDATA['.$html[0].']]></chapo>
+	<content><![CDATA['.$html[1].']]></content>
+	<tags><![CDATA[PluXml]]></tags>
+	<meta_description><![CDATA[]]></meta_description>
+	<meta_keywords><![CDATA[]]></meta_keywords>
+	<title_htmltag><![CDATA[]]></title_htmltag>
+	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
+	<date_update><![CDATA['.date('YmdHi').']]></date_update>
 </document>';
 	plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
 
@@ -327,9 +317,9 @@ plxUtils::cleanHeaders();
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>	
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>						
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testMail() ?>

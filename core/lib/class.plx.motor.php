@@ -676,7 +676,8 @@ class plxMotor {
 		$art['url'] = $tmp['artUrl'];
 		$art['date'] = $tmp['artDate'];
 		$art['nb_com'] = $this->getNbCommentaires('/^'.$art['numero'].'.[0-9]{10}.[0-9]+.xml$/');
-
+		$art['date_creation'] = isset($iTags['date_creation']) ? plxUtils::getValue($values[$iTags['date_creation'][0]]['value']) : $art['date'];
+		$art['date_update'] = isset($iTags['date_update']) ? plxUtils::getValue($values[$iTags['date_update'][0]]['value']) : $art['date'];
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorParseArticle'));
 		# On retourne le tableau

@@ -74,6 +74,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			$art['categorie']=implode(',',$array);
 		}
 		$art['date'] = $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':','',$_POST['date_publication_time']),0,4);
+		$art['date_creation'] = $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4);
+		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
 		$art['nb_com'] = 0;
 		if(trim($_POST['url']) == '')
 			$art['url'] = plxUtils::title2url($_POST['title']);
@@ -112,6 +114,14 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		if(!plxDate::checkDate($_POST['date_publication_day'],$_POST['date_publication_month'],$_POST['date_publication_year'],$_POST['date_publication_time'])) {
 			$valid = plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE) AND $valid;
 		}
+		# Vérification de la validité de la date de creation
+		if(!plxDate::checkDate($_POST['date_creation_day'],$_POST['date_creation_month'],$_POST['date_creation_year'],$_POST['date_creation_time'])) {
+			$valid = plxMsg::Error(L_ERR_INVALID_DATE_CREATION) AND $valid;
+		}
+		# Vérification de la validité de la date de mise à jour
+		if(!plxDate::checkDate($_POST['date_update_day'],$_POST['date_update_month'],$_POST['date_update_year'],$_POST['date_update_time'])) {
+			$valid = plxMsg::Error(L_ERR_INVALID_DATE_UPDATE) AND $valid;
+		}
 		if($valid) {
 			$plxAdmin->editArticle($_POST,$_POST['artId']);
 			header('Location: article.php?a='.$_POST['artId']);
@@ -139,6 +149,15 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$date['month'] = $_POST['date_publication_month'];
 	$date['year'] = $_POST['date_publication_year'];
 	$date['time'] = $_POST['date_publication_time'];
+	$date_creation['day'] = $_POST['date_creation_day'];
+	$date_creation['month'] = $_POST['date_creation_month'];
+	$date_creation['year'] = $_POST['date_creation_year'];
+	$date_creation['time'] = $_POST['date_creation_time'];
+	$date_update['day'] = $_POST['date_update_day'];
+	$date_update['month'] = $_POST['date_update_month'];
+	$date_update['year'] = $_POST['date_update_year'];
+	$date_update['time'] = $_POST['date_update_time'];
+	$date_update_old = $_POST['date_update_old'];
 	$chapo = trim($_POST['chapo']);
 	$content =  trim($_POST['content']);
 	$tags = trim($_POST['tags']);
@@ -169,6 +188,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$author = $result['author'];
 	$url = $result['url'];
 	$date = plxDate::date2Array($result['date']);
+	$date_creation = plxDate::date2Array($result['date_creation']);
+	$date_update = plxDate::date2Array($result['date_update']);
+	$date_update_old = $result['date_update'];
 	$catId = explode(',', $result['categorie']);
 	$artId = $result['numero'];
 	$allow_com = $result['allow_com'];
@@ -195,6 +217,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$tags = '';
 	$author = $_SESSION['user'];
 	$date = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
+	$date_creation = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
+	$date_update = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
+	$date_update_old = '';
 	$catId = array('draft');
 	$artId = '0000';
 	$allow_com = $plxAdmin->aConf['allow_com'];
@@ -383,7 +408,7 @@ $cat_id='000';
 				<div class="grid">
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
-						<div class="inline-form">
+						<div class="inline-form publication">
 							<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
 							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
 							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
@@ -394,6 +419,36 @@ $cat_id='000';
 						</div>
 					</div>
 				</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<label><?php echo L_DATE_CREATION ?>&nbsp;:</label>
+					<div class="inline-form creation">
+						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
+						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
+						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
+						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<img src="theme/images/date.png" alt="calendar" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<?php plxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
+					<label><?php echo L_DATE_UPDATE ?>&nbsp;:</label>
+					<div class="inline-form update">
+						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
+						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
+						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
+						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<img src="theme/images/date.png" alt="calendar" />
+						</a>
+					</div>
+				</div>
+			</div>
+
 				<div class="grid">
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>

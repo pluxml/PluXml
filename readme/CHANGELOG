@@ -17,6 +17,7 @@
 [+] Ajout des hooks: AdminThemesDisplayTop, AdminThemesDisplay, AdminThemesDisplayFoot
 [+] Réécriture et optimisation de la fonction plxUtils::rel2abs (contribution bazooka07)
 [+] Page statique: gestion de la date de création et de mise à jour
+[+] Articles: gestion de la date de création et de mise à jour
 [+] plxShow: ajout des fonctions staticCreationDate et staticUpdateDate pour afficher la date de création et de mise à jour d'une page statique
 [+] plxShow: ajout de la fonction artThumbnail pour afficher l'image d'accroche de l'article
 [+] plxShow::lastArtList - ajout du hook plxShowLastArtListContent

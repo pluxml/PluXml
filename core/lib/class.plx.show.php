@@ -768,6 +768,32 @@ class plxShow {
 	}
 
 	/**
+	 * Méthode qui affiche la date de creation d'un article selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+	 * @return	stdout
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F.
+	 **/
+	public function artCreationDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->plxRecord_arts->f('date_creation'),$format);
+	}
+
+	/**
+	 * Méthode qui affiche la date de mise à jour d'un article selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+	 * @return	stdout
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F.
+	 **/
+	public function artUpdateDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->plxRecord_arts->f('date_update'),$format);
+	}
+
+	/**
 	 * Méthode qui affiche un lien vers le fil Rss des articles
 	 * d'une catégorie précise (si $categorie renseigné) ou du site tout entier
 	 *
