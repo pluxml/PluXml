@@ -6,16 +6,16 @@ var mediasManager  =  {
 		this.windowName = opts.windowName;
 		this.racine = opts.racine;
 		this.root = opts.root;
-		this.urlManager = opts.urlManager;
+		this.urlManager = opts.racine + opts.urlManager;
 		this.replace = true;
 		this.init();
 	},
 	openPopup: function(cibleId, replace, fallback) {
 		this.cibleId = cibleId;
-		this.replace = replace==undefined ? this.replace : replace;
-		this.fallback = fallback==undefined ? '' : fallback;
-		var left = (screen.width - this.width) / 2;
-		var top = (screen.height - this.height) / 2;
+		this.replace = replace==undefined ? false : replace;
+		this.fallback = fallback;
+		var left = parseInt((screen.width - this.width) / 2);
+		var top = parseInt((screen.height - this.height) / 2);
 		var options = 'directories=no, toolbar=no, menubar=no, location=no, resizable=yes, scrollbars=yes, width='+this.width+' , height='+this.height+', left='+left+', top='+top;
 		popup = window.open(unescape(this.urlManager), this.windowName, options);
 		if(popup) {
@@ -29,20 +29,24 @@ var mediasManager  =  {
 	init: function() {
 		if(window.name == this.windowName) {
 			this.css();
-			var replace = window.opener.mediasManager.replace;
-			var racine = window.opener.mediasManager.racine;
-			var root = window.opener.mediasManager.root;
-			var cibleId = window.opener.mediasManager.cibleId;
-			var fallback = window.opener.mediasManager.fallback;
-			var anchors = document.querySelectorAll('#medias-table tbody td:nth-of-type(3) a');
-			for (var i=0, j=anchors.length; i<j; i++) {
-				var anchor = anchors.item(i);
-				var imgUrl = anchor.href.replace(racine, '');
-				if(fallback=='') {
-					anchor.setAttribute("onclick", "mediasManager.addText('"+cibleId+"', '"+imgUrl+"', "+replace+");mediasManager.updImg('"+cibleId+"_img', '"+root+imgUrl+"');return false;");
-				} else {
-					anchor.setAttribute("onclick", fallback+'("'+cibleId+'", "'+root+'", "'+imgUrl+'", "'+replace+'")');
-				}
+			var tbody = document.querySelector('#medias-table tbody');
+			if (tbody) {
+				tbody.addEventListener('click', function (event) {
+					var target = event.target;
+					if (target.tagName == 'A') {
+						event.preventDefault();
+						var	launcher = window.opener.mediasManager,
+							replace = launcher.replace,
+							cibleId = launcher.cibleId,
+							fallback = launcher.fallback;
+						if(typeof fallback !== 'function') {
+							mediasManager.addText(cibleId, target.href, replace);
+							mediasManager.updImg(cibleId+'_img', target.href);							
+						} else {
+							fallback(cibleId, launcher.root, target.href, replace);
+						}
+					}
+				});
 			}
 		}
 	},
@@ -70,8 +74,9 @@ var mediasManager  =  {
 		document.getElementsByTagName('head')[0].appendChild(style);
 	},
 
-	addText: function(cibleId, txt, replace) {
+	addText: function(cibleId, txt1, replace) {
 
+		var txt = txt1.replace(this.racine, '');
 		var cible = window.opener.document.getElementById(cibleId);
 		if(cible) {
 			cible.focus();
