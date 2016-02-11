@@ -235,7 +235,7 @@ $LANG = array(
 
 # comments.php
 
-'L_COMMENTS_ARTICLE_SCOPE'									=> 'статья',
+'L_COMMENTS_ARTICLE_SCOPE'									=> 'Статья',
 'L_COMMENTS_GLOBAL_SCOPE'									=> 'весь сайт',
 
 'L_COMMENTS_LIST_DATE'										=> 'Дата',

@@ -233,7 +233,7 @@ $LANG = array(
 
 # comments.php
 
-'L_COMMENTS_ARTICLE_SCOPE' 			=> 'artykuł',
+'L_COMMENTS_ARTICLE_SCOPE' 			=> 'Artykuł',
 'L_COMMENTS_GLOBAL_SCOPE'			=> 'cała strona',
 'L_COMMENTS_LIST_DATE'				=> 'Data',
 'L_COMMENTS_LIST_AUTHOR'			=> 'Autor',
