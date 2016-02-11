@@ -383,7 +383,7 @@ $LANG = array(
 'L_CONFIG_BASE_MODERATE_ARTICLES'	=> 'Modérer les articles pour les profils Rédacteur et Éditeur',
 'L_CONFIG_BASE_UPDATE'				=> 'Modifier la configuration de base',
 'L_CONFIG_META_DESCRIPTION'			=> 'Contenu de la balise meta "description" du site (optionnel)',
-'L_CONFIG_META_KEYWORDS'			=> 'Contenu de la balises meta "keywords" du site (optionnel)',
+'L_CONFIG_META_KEYWORDS'			=> 'Contenu de la balise meta "keywords" du site (optionnel)',
 
 # parametres_edittpl.php
 
