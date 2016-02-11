@@ -1,60 +1,4 @@
-var mediasManager  =  {
-
-	construct: function(opts) {
-		this.width = opts.width ? opts.width : 800;
-		this.height = opts.height ? opts.height : 580;
-		this.windowName = opts.windowName;
-		this.racine = opts.racine;
-		this.root = opts.root;
-		this.urlManager = opts.racine + opts.urlManager;
-		this.replace = true;
-		this.init();
-	},
-	openPopup: function(cibleId, replace, fallback) {
-		this.cibleId = cibleId;
-		this.replace = replace==undefined ? false : replace;
-		this.fallback = fallback;
-		var left = parseInt((screen.width - this.width) / 2);
-		var top = parseInt((screen.height - this.height) / 2);
-		var options = 'directories=no, toolbar=no, menubar=no, location=no, resizable=yes, scrollbars=yes, width='+this.width+' , height='+this.height+', left='+left+', top='+top;
-		popup = window.open(unescape(this.urlManager), this.windowName, options);
-		if(popup) {
-			popup.focus();
-		} else {
-			alert('Ouverture de la fenêtre bloquée par un anti-popup!');
-		}
-		return false;
-	},
-
-	init: function() {
-		if(window.name == this.windowName) {
-			this.css();
-			var tbody = document.querySelector('#medias-table tbody');
-			if (tbody) {
-				tbody.addEventListener('click', function (event) {
-					var target = event.target;
-					if (target.tagName == 'A') {
-						event.preventDefault();
-						var	launcher = window.opener.mediasManager,
-							replace = launcher.replace,
-							cibleId = launcher.cibleId,
-							fallback = launcher.fallback;
-						if(typeof fallback !== 'function') {
-							mediasManager.addText(cibleId, target.href, replace);
-							mediasManager.updImg(cibleId+'_img', target.href);							
-						} else {
-							fallback(cibleId, launcher.root, target.href, replace);
-						}
-					}
-				});
-			}
-		}
-	},
-
-	css: function() {
-		var style = document.createElement('style');
-		style.type = 'text/css';
-		style.innerHTML = '\
+var popupCss = '\
 .aside {\
 	display: none;\
 }\
@@ -71,20 +15,19 @@ var mediasManager  =  {
 		width: 100%;\
 	}\
 }';
-		document.getElementsByTagName('head')[0].appendChild(style);
-	},
 
-	addText: function(cibleId, txt1, replace) {
+var mediasManager = {
 
-		var txt = txt1.replace(this.racine, '');
+	addText: function(cibleId, txt, replace) {
+		var txt = txt.replace(this.opts.racine, '');
 		var cible = window.opener.document.getElementById(cibleId);
 		if(cible) {
 			cible.focus();
 			if(replace) {
 				cible.value = txt;
 			} else {
-				if(document.selection && document.selection.createRange) {
-					sel = document.selection.createRange();
+				if(window.opener.document.selection && window.opener.document.selection.createRange) {
+					sel = window.opener.document.selection.createRange();
 					sel.text = sel.text + txt;
 				}
 				// Moz support
@@ -103,14 +46,75 @@ var mediasManager  =  {
 			}
 			cible.focus();
 		} else {
-			console.log('Element #'+cibleId+' introuvable');
+			console.log('Element #'+cibleId+' introuvable - ' + txt);
 		}
-		close();
 		return false;
 	},
 
 	updImg: function(cibleId, imgPath) {
-		window.opener.document.getElementById(cibleId).innerHTML = '<img src="'+imgPath+'" alt="" />';
+		var id = window.opener.document.getElementById(cibleId);
+		if(id) {
+			id.innerHTML = '<img src="'+imgPath+'" alt="" />';
+		}
+	},
+
+	construct: function(options) {
+
+		this.opts = options;
+
+		if(window.name == this.opts.windowName) {
+
+			// ajout des règles CSS pour masquer les parties inutiles du gestionnaire de médias
+			var textNode = document.createTextNode(popupCss);
+			var style = document.createElement('style');
+			style.setAttribute('type', 'text/css');
+			style.appendChild(textNode);
+			document.getElementsByTagName('head')[0].appendChild(style);
+
+			// ajout des évenements onclick pour récuper le lien de l'image
+			var tbody = document.querySelector('#medias-table tbody');
+			if (tbody) {
+				tbody.addEventListener('click', function (event) {
+					var target = event.target;
+					if (target.tagName == 'A') {
+						event.preventDefault();
+						var	launcher = window.opener.mediasManager;
+						var replace = launcher.replace;
+						var cibleId = launcher.cibleId;
+						var fallback = launcher.fallback;
+						var fn = window[fallback];
+						window.close();
+						if (typeof fn === "function") {
+							var fnparams = [cibleId, target.href, replace];
+							fn.apply(null, fnparams);
+						} else {
+							mediasManager.addText(cibleId, target.href, replace);
+							mediasManager.updImg(cibleId+'_img', target.href);
+						}
+						cibleId.focus();
+					}
+				});
+			}
+		}
+	},
+
+	openPopup: function(cibleId, replace, fallback) {
+		var replace = replace==undefined ? false : true;
+		var width = this.opts.width ? this.opts.width : 950;
+		var height = this.opts.height ? this.opts.height : 580;
+		var left = parseInt((screen.width - width) / 2);
+		var top = parseInt((screen.height - height) / 2);
+		var options = 'directories=no, toolbar=no, menubar=no, location=no, resizable=yes, scrollbars=yes, width='+width+' , height='+height+', left='+left+', top='+top;
+		this.cibleId=cibleId;
+		this.replace=replace;
+		this.fallback=fallback;
+		popup = window.open(unescape(this.opts.racine + this.opts.urlManager), this.opts.windowName, options);
+		if(popup) {
+			popup.focus();
+		} else {
+			alert('Ouverture de la fenêtre bloquée par un anti-popup!');
+		}
+		return false;
 	}
 
-};
+}
