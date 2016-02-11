@@ -11,8 +11,7 @@
 	mediasManager.construct({
 		windowName : "<?php echo L_MEDIAS_TITLE ?>",
 		racine:	"<?php echo plxUtils::getRacine() ?>",
-		root: "<?php echo PLX_ROOT ?>",
-		urlManager: "<?php echo PLX_CORE ?>admin/medias.php",
+		urlManager: "core/admin/medias.php"
 	});
 </script>
 
