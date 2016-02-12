@@ -16,7 +16,7 @@ $LANG = array(
 'L_INFO_CHARSET'			=> 'Kodierung',
 
 # index.php
-'L_ERR_THEME_NOTFOUND'		=> 'Der Hauptthema von PluXml konnte nicht gefunden werden.',
+'L_ERR_THEME_NOTFOUND'		=> 'Der Haupttheme von PluXml konnte nicht gefunden werden.',
 'L_ERR_FILE_NOTFOUND'		=> 'Die angeforderte Datei konnte von PluXml nicht gefunden werden.',
 'L_ERR_PAGE_NOT_FOUND'		=> 'Seite nicht gefunden',
 
