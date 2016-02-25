@@ -177,32 +177,33 @@ $curFolders = explode('/', $curFolder);
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
 						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg'));
+						$isThumb = ($isImage and is_file(PLX_ROOT.plxUtils::thumbName($v['path'])));
 						$ordre = ++$num;
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
-						if(is_file($v['path']) AND $isImage) {
-							echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+						if(is_file(PLX_ROOT.$v['path']) AND $isImage) {
+							echo '<a onclick="overlay(\''.$plxAdmin->racine.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$plxAdmin->racine.$v['path'].'"><img alt="" src="'.$plxAdmin->racine.$v['.thumb'].'" class="thumb" /></a>';
 						}
 						echo '</td>';
 						echo '<td>';
-						echo '<a onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a><br />';
-						if($isImage AND is_file(plxUtils::thumbName($v['path']))) {
-							echo '<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck($v['name']).'" href="'.plxUtils::thumbName($v['path']).'">'.L_MEDIAS_THUMB.'</a> : '.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1]. ' ('.plxUtils::formatFilesize($v['thumb']['filesize']).')';
+						echo '<a target="_blank" title="'.plxUtils::strCheck($v['name']).'" href="'.$plxAdmin->racine.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a><br />';
+						if($isThumb) {
+							echo '<a target="_blank" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck($v['name']).'" href="'.$plxAdmin->racine.plxUtils::thumbName($v['path']).'">'.L_MEDIAS_THUMB.'</a>';
 						}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
-						echo '<td>'.plxUtils::formatFilesize($v['filesize']).'</td>';
+						echo '<td>'.plxUtils::formatFilesize($v['filesize']).(($isThumb) ? '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']) : '').'</td>';
 						$dimensions = '&nbsp;';
 						if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
 							$dimensions = $v['infos'][0].' x '.$v['infos'][1];
 						}
-						echo '<td>'.$dimensions.'</td>';
+						echo '<td>'.$dimensions.(($isThumb) ? '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1] : '').'</td>';
 						echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
-						echo '</tr>';
+						echo '</tr>'."\n";
 					}
 				}
-				else echo '<tr><td colspan="7" class="center">'.L_MEDIAS_NO_FILE.'</td></tr>';
+				else echo '<tr><td colspan="7" class="center">'.L_MEDIAS_NO_FILE.'</td></tr>'."\n";
 				?>
 				</tbody>
 			</table>

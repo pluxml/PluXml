@@ -88,7 +88,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 		$article[0] = $art;
 		$_SESSION['preview'] = $article;
-		header('Location: '.PLX_ROOT.'index.php?preview');
+		header('Location: '.$plxAdmin->racine.'index.php?preview');
 		exit;
 	}
 	# Suppression d'un article
@@ -362,7 +362,7 @@ $cat_id='000';
 						</div>
 					</div>
 					<?php
-					$imgUrl = PLX_ROOT.$thumbnail;
+					$imgUrl = $plxAdmin->racine.$thumbnail;
 					if(is_file($imgUrl)) {
 						echo '<div id="id_thumbnail_img"><img src="'.$imgUrl.'" alt="" /></div>';
 					} else {

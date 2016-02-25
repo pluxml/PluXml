@@ -107,9 +107,9 @@ class plxMedias {
 		# Ouverture et lecture du dossier demandé
 		if($handle = opendir($this->path.$dir)) {
 			while(FALSE !== ($file = readdir($handle))) {
-				$thumName = plxUtils::thumbName($file);
 				if($file[0] != '.' AND !preg_match('/index.htm/i', $file) AND !preg_match('/^(.*\.)tb.([^.]+)$/D', $file)) {
 					if(is_file($this->path.$dir.$file)) {
+						$thumName = plxUtils::thumbName($file);
 						$ext = strtolower(strrchr($this->path.$dir.$file,'.'));
 						$_thumb1=file_exists($this->path.'.thumbs/'.$dir.$file);
 						if(!$_thumb1 AND in_array($ext, array('.gif', '.jpg', '.png'))) {
@@ -123,10 +123,10 @@ class plxMedias {
 							);
 						}
 						$files[$file] = array(
-							'.thumb'	=> $_thumb1 ? $this->path.'.thumbs/'.$dir.$file : PLX_CORE.'admin/theme/images/file.png',
-							'name' 		=> $file,
-							'path' 		=> $this->path.$dir.$file,
-							'date' 		=> filemtime($this->path.$dir.$file),
+							'.thumb'	=> substr($_thumb1 ? $this->path.'.thumbs/'.$dir.$file : PLX_CORE.'admin/theme/images/file.png', strlen(PLX_ROOT)),
+							'name' 	=> $file,
+							'path' 	=> substr($this->path.$dir.$file, strlen(PLX_ROOT)),
+							'date' 	=> filemtime($this->path.$dir.$file),
 							'filesize' 	=> filesize($this->path.$dir.$file),
 							'extension'	=> $ext,
 							'infos' 	=> getimagesize($this->path.$dir.$file),
