@@ -18,13 +18,13 @@
 				</header>
 
 				<section>
-					<?php $plxShow->artThumbnail(); ?>				
+					<?php $plxShow->artThumbnail(); ?>
 					<?php $plxShow->artContent(); ?>
 				</section>
 
 				<footer>
 					<small>
-						<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> - 
+						<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> -
 						<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
 					</small>
 				</footer>
