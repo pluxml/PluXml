@@ -533,6 +533,8 @@ class plxShow {
 				echo $row;
 			else
 				return $row;
+		} else {
+			if(!$echo) return false;
 		}
 
 	}
@@ -959,6 +961,7 @@ class plxShow {
 				$row = plxDate::formatDate($date,$row);
 				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
 				$row = str_replace('#art_thumbnail', $this->artThumbnail('<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />', false), $row);
+				$row = $this->artThumbnail($row, false);
 				# Hook plugin
 				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
 				# On genère notre ligne
