@@ -941,7 +941,7 @@ class plxShow {
 				}
 				# On modifie nos motifs
 				$row = str_replace('#art_id',$num,$format);
-				$row = str_replace('#cat_list', implode(', ',$catList), $row);
+				$row = str_replace('#cat_list', implode(', ',$catList),$row);
 				$row = str_replace('#art_url',$this->plxMotor->urlRewrite('?article'.$num.'/'.$art['url']),$row);
 				$row = str_replace('#art_status',$status,$row);
 				$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
@@ -949,19 +949,21 @@ class plxShow {
 				$row = str_replace('#art_title',plxUtils::strCheck($art['title']),$row);
 				$strlength = preg_match('/#art_chapo\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
 				$chapo = plxUtils::truncate($art['chapo'],$strlength,$ending,true,true);
-				$row = str_replace('#art_chapo('.$strlength.')','#art_chapo', $row);
+				$row = str_replace('#art_chapo('.$strlength.')','#art_chapo',$row);
 				$row = str_replace('#art_chapo',$chapo,$row);
 				$strlength = preg_match('/#art_content\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
 				$content = plxUtils::truncate($art['content'],$strlength,$ending,true,true);
-				$row = str_replace('#art_content('.$strlength.')','#art_content', $row);
-				$row = str_replace('#art_content',$content, $row);
+				$row = str_replace('#art_content('.$strlength.')','#art_content',$row);
+				$row = str_replace('#art_content',$content,$row);
 				$row = str_replace('#art_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
 				$row = str_replace('#art_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
 				$row = str_replace('#art_time',plxDate::formatDate($date,'#time'),$row);
 				$row = plxDate::formatDate($date,$row);
-				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
-				$row = str_replace('#art_thumbnail', $this->artThumbnail('<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />', false), $row);
-				$row = $this->artThumbnail($row, false);
+				$row = str_replace('#art_nbcoms',$art['nb_com'],$row);
+				$row = str_replace('#art_thumbnail', '<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />',$row);
+				$row = str_replace('#img_url',$this->plxMotor->urlRewrite($art['thumbnail']),$row);
+				$row = str_replace('#img_title',$art['thumbnail_title'],$row);
+				$row = str_replace('#img_alt',$art['thumbnail_alt'],$row);
 				# Hook plugin
 				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
 				# On genère notre ligne
