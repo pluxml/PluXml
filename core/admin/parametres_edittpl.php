@@ -58,7 +58,7 @@ function listFolderFiles($dir, $include, $root=''){
 	return $content;
 }
 $root = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style;
-$aTemplates=listFolderFiles($root, array('.php','.css','.htm','.html','.txt','.js'), $root);
+$aTemplates=listFolderFiles($root, array('.php','.css','.htm','.html','.txt','.js','.xml'), $root);
 
 # On récupère le contenu du fichier template
 $content = '';

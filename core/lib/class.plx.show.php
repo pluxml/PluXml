@@ -517,19 +517,26 @@ class plxShow {
 	 * Méthode qui affiche l'image d'accroche
 	 *
 	 * @param	format	format d'affichage (variables: #img_url, #img_alt, #img_title)
+	 * @param	echo 	si à VRAI affichage à l'écran
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
 	 **/
-	public function artThumbnail($format='<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />') {
+	public function artThumbnail($format='<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />', $echo=true) {
 
 		$imgUrl = $this->plxMotor->plxRecord_arts->f('thumbnail');
 		if($imgUrl) {
 			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $format);
 			$row = str_replace('#img_title', plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), $row);
 			$row = str_replace('#img_alt', $this->plxMotor->plxRecord_arts->f('thumbnail_alt'), $row);
-			echo $row;
+			if($echo)
+				echo $row;
+			else
+				return $row;
+		} else {
+			if(!$echo) return false;
 		}
+
 	}
 
 	/**
@@ -953,6 +960,8 @@ class plxShow {
 				$row = str_replace('#art_time',plxDate::formatDate($date,'#time'),$row);
 				$row = plxDate::formatDate($date,$row);
 				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
+				$row = str_replace('#art_thumbnail', $this->artThumbnail('<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />', false), $row);
+				$row = $this->artThumbnail($row, false);
 				# Hook plugin
 				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
 				# On genère notre ligne
