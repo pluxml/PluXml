@@ -27,6 +27,7 @@
 [+] #68: Sitemap - datation des pages statiques
 [+] Optimisation de la taille des images (contribution Syl)
 [+] Ajout de la variable #art_thumbnail à la fonction plxShow::lastArtList
+[+] Mise à jour de la traduction occitane (contribution Rubén)
 BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags
 BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désactivation du captcha
 BUG fix #103: La recherche dans les articles ne fonctionne dans l'administration pas à partir du champ "Rechercher"

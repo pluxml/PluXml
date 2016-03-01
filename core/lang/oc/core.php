@@ -4,8 +4,8 @@ $LANG = array(
 
 'L_LANGUE'						=> 'Occitan',
 
-'L_DATE_CREATION'				=> 'Date de création',
-'L_DATE_UPDATE'					=> 'Date de mise à jour',
+'L_DATE_CREATION'				=> 'Data de creacion',
+'L_DATE_UPDATE'					=> 'Data de misa a jorn',
 
 # common
 'L_PLUXML_VERSION'				=> 'Pluxml version',
