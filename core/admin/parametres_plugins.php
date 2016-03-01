@@ -46,7 +46,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 			elseif(is_file(PLX_PLUGINS.$plugName.'/icon.gif'))
 				$icon=$plugName.'/icon.gif';
 			else
-				$icon=PLX_ADMIN.'theme/images/icon_plugin.png';
+				$icon=PLX_ADMIN_PATH.'theme/images/icon_plugin.png';
 
 			$output .= '<tr class="top">';
 

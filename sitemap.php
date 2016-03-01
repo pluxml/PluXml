@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-include(PLX_ROOT.PLX_LIB.'config.php');
+include(PLX_ROOT.PLX_LIB_PATH.'config.php');
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -9,14 +9,14 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 }
 
 # On inclut les librairies nécessaires
-include(PLX_ROOT.PLX_LIB.'class.plx.date.php');
-include(PLX_ROOT.PLX_LIB.'class.plx.glob.php');
-include(PLX_ROOT.PLX_LIB.'class.plx.utils.php');
-include(PLX_ROOT.PLX_LIB.'class.plx.capcha.php');
-include(PLX_ROOT.PLX_LIB.'class.plx.erreur.php');
-include(PLX_ROOT.PLX_LIB.'class.plx.record.php');
-include(PLX_ROOT.PLX_LIB.'class.plx.motor.php');
-include(PLX_ROOT.PLX_LIB.'class.plx.plugins.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.date.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.glob.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.utils.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.capcha.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.erreur.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.record.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.motor.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.plugins.php');
 
 # On impose le charset
 header('Content-Type: text/xml; charset='.PLX_CHARSET);

@@ -807,7 +807,7 @@ class plxMotor {
 				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
-			if( !(defined('PLX_ADMIN_CLASS') OR defined('PLX_FEED_CLASS')) OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
+			if( !(defined('PLX_ADMIN') OR defined('PLX_FEED_CLASS')) OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
 				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
 

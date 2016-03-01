@@ -51,7 +51,7 @@ class plxThemes {
 	public function getImgPreview($theme) {
 		global $plxAdmin;
 
-		$img=PLX_ADMIN.'theme/images/theme.png';
+		$img=PLX_ADMIN_PATH.'theme/images/theme.png';
 		foreach(explode(' ', 'png jpg jpeg gif') as $ext) {
 			if(is_file($this->racineTheme.$theme.'/preview.'.$ext)) {
 				$img = substr($this->racineTheme.$theme.'/preview.'.$ext, strlen(PLX_ROOT));

@@ -1,6 +1,6 @@
 <?php
 include(preg_replace('#core/admin/$#', '', dirname(__FILE__).'/').'config.php');
-include(PLX_ROOT.PLX_LIB.'config.php');
+include(PLX_ROOT.PLX_LIB_PATH.'config.php');
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -22,17 +22,17 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 }
 
 # On inclut les librairies nécessaires
-include_once(PLX_ROOT.PLX_LIB.'class.plx.date.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.glob.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.utils.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.msg.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.record.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.motor.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.admin.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.encrypt.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.medias.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.plugins.php');
-include_once(PLX_ROOT.PLX_LIB.'class.plx.token.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.date.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.glob.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.utils.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.msg.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.record.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.motor.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.admin.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.encrypt.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.medias.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.plugins.php');
+include_once(PLX_ROOT.PLX_LIB_PATH.'class.plx.token.php');
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
