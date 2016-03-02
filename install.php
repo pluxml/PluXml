@@ -1,18 +1,16 @@
 <?php
-define('PLX_ROOT', './');
-define('PLX_CORE', PLX_ROOT.'core/');
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include('config.php');
+include(PLX_ROOT.PLX_LIB_PATH.'config.php');
 
 # On démarre la session
 session_start();
 
 # On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.timezones.php');
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.token.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.timezones.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.date.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.glob.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.utils.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.token.php');
 
 # Chargement des langues
 $lang = DEFAULT_LANG;
@@ -152,10 +150,10 @@ function install($content, $config) {
 	$xml .= "\t".'<statique number="001" active="1" menu="oui" url="'.L_DEFAULT_STATIC_URL.'" template="static.php"><group><![CDATA[]]></group><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE).']]></name><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag><date_creation><![CDATA['.date('YmdHi').']]></date_creation><date_update><![CDATA['.date('YmdHi').']]></date_update></statique>'."\n";
 	$xml .= '</document>';
 	plxUtils::write($xml,path('XMLFILE_STATICS'));
-	plxUtils::write(file_get_contents(PLX_CORE.'/lib/html.static.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
+	plxUtils::write(file_get_contents(PLX_ROOT.PLX_LIB_PATH.'html.static.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
 
 	# Création du premier article
-	$html = explode('-----', file_get_contents(PLX_CORE.'/lib/html.article.txt'));
+	$html = explode('-----', file_get_contents(PLX_ROOT.PLX_LIB_PATH.'html.article.txt'));
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>
 	<title><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE).']]></title>
@@ -225,8 +223,8 @@ plxUtils::cleanHeaders();
 	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo plxUtils::getRacine().PLX_ADMIN_PATH ?>theme/plucss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo plxUtils::getRacine().PLX_ADMIN_PATH ?>theme/theme.css" media="screen" />
 </head>
 
 <body onload="document.forms[1].name.focus();">

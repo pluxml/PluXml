@@ -8,7 +8,7 @@
  **/
 
 include(dirname(__FILE__).'/prepend.php');
-include(PLX_CORE.'lib/class.plx.timezones.php');
+include(PLX_ROOT.PLX_LIB_PATH.'class.plx.timezones.php');
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);

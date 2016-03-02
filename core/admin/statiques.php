@@ -103,7 +103,7 @@ function checkBox(cb) {
 						echo '</td><td>';
 						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
 						if($v['active']) {
-							echo '&nbsp;&nbsp;<a href="'.PLX_ROOT.'?static'.intval($k).'/'.$v['url'].'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
+							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->racine.'?static'.intval($k).'/'.$v['url'].'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
 						}
 						echo '</td></tr>';
 					}

@@ -10,7 +10,7 @@
 # Variable pour retrouver la page d'authentification
 define('PLX_AUTHPAGE', true);
 
-include(dirname(__FILE__).'/prepend.php');
+include('prepend.php');
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -23,12 +23,12 @@ $error = '';
 $msg = '';
 
 # Control et filtrage du parametre $_GET['p']
-$redirect=$plxAdmin->aConf['racine'].'core/admin/';
+$redirect=$plxAdmin->aConf['racine'].PLX_ADMIN_PATH;
 if(!empty($_GET['p'])) {
 	$racine = parse_url($plxAdmin->aConf['racine']);
 	$get_p = parse_url(urldecode($_GET['p']));
 	$error = (!$get_p OR (isset($get_p['host']) AND $racine['host']!=$get_p['host']));
-	if(!$error AND !empty($get_p['path']) AND file_exists(PLX_ROOT.'core/admin/'.basename($get_p['path']))) {
+	if(!$error AND !empty($get_p['path']) AND file_exists(PLX_ROOT.PLX_ADMIN_PATH.basename($get_p['path']))) {
 		# filtrage des parametres de l'url
 		$query='';
 		if(isset($get_p['query'])) {
@@ -91,9 +91,9 @@ plxUtils::cleanHeaders();
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="<?php echo plxUtils::getRacine().PLX_ADMIN_PATH ?>theme/plucss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo plxUtils::getRacine().PLX_ADMIN_PATH ?>theme/theme.css" media="screen" />
+	<link rel="icon" href="<?php echo plxUtils::getRacine().PLX_ADMIN_PATH ?>theme/images/favicon.png" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
 </head>
 
@@ -129,7 +129,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?>
+					<a class="back" href="<?php echo $plxAdmin->racine ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?>
 				</p>
 			</div>
 		</section>

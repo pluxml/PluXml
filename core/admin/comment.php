@@ -101,7 +101,7 @@ $com=$plxAdmin->comInfoFromFilename($_GET['c'].'.xml');
 if($com['comStatus']=='_')
 	$statut = '<strong>'.L_COMMENT_OFFLINE.'</strong>';
 elseif($com['comStatus']=='')
-	$statut = '<a href="'.PLX_ROOT.'?article'.intval($plxAdmin->plxRecord_coms->f('article')).'/#c'.$plxAdmin->plxRecord_coms->f('index').'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
+	$statut = '<a href="'.$plxAdmin->racine.'?article'.intval($plxAdmin->plxRecord_coms->f('article')).'/#c'.$plxAdmin->plxRecord_coms->f('index').'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
 else
 	$statut = '';
 
@@ -121,7 +121,7 @@ include(dirname(__FILE__).'/top.php');
 		<p><a class="back" href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 		<?php else : ?>
 		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-		<?php endif; ?>	
+		<?php endif; ?>
 		<?php if($com['comStatus']=='') : ?>
 		<input type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
 		<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
@@ -130,7 +130,7 @@ include(dirname(__FILE__).'/top.php');
 		<?php endif; ?>
 		<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
 		&nbsp;&nbsp;&nbsp;<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
-		<?php echo plxToken::getTokenPostMethod() ?>	
+		<?php echo plxToken::getTokenPostMethod() ?>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
@@ -166,9 +166,9 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_site">
-				<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;'; 
+				<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;';
 				$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
-				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>'; 
+				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>';
 				?>
 				</label>
 				<?php
@@ -179,7 +179,7 @@ include(dirname(__FILE__).'/top.php');
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_mail"><?php echo L_COMMENT_EMAIL_FIELD ?> : 
+				<label for="id_mail"><?php echo L_COMMENT_EMAIL_FIELD ?> :
 				<?php if($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
 				<?php echo '<a href="mailto:'.$plxAdmin->plxRecord_coms->f('mail').'">'.$plxAdmin->plxRecord_coms->f('mail').'</a>' ?>
 				<?php endif; ?>

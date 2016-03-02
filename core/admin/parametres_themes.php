@@ -49,19 +49,17 @@ class plxThemes {
 	}
 
 	public function getImgPreview($theme) {
-		$img='';
-		if(is_file($this->racineTheme.$theme.'/preview.png'))
-			$img=$this->racineTheme.$theme.'/preview.png';
-		elseif(is_file($this->racineTheme.$theme.'/preview.jpg'))
-			$img=$this->racineTheme.$theme.'/preview.jpg';
-		elseif(is_file($this->racineTheme.$theme.'/preview.gif'))
-			$img=$this->racineTheme.$theme.'/preview.gif';
+		global $plxAdmin;
 
+		$img=PLX_ADMIN_PATH.'theme/images/theme.png';
+		foreach(explode(' ', 'png jpg jpeg gif') as $ext) {
+			if(is_file($this->racineTheme.$theme.'/preview.'.$ext)) {
+				$img = substr($this->racineTheme.$theme.'/preview.'.$ext, strlen(PLX_ROOT));
+				break;
+			}
+		}
 		$current = $theme == $this->activeTheme ? ' current' : '';
-		if($img=='')
-			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" alt="" />';
-		else
-			return '<img class="img-preview'.$current.'" src="'.$img.'" alt="" />';
+		return '<img class="img-preview'.$current.'" src="'.$plxAdmin->racine.$img.'" alt="Preview" />';
 	}
 
 	public function getInfos($theme) {
@@ -139,7 +137,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 								echo '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=theme&amp;page='.urlencode($theme).'">'.L_HELP.'</a>';
 
 						echo '</td>';
-						echo '</tr>';
+						echo '</tr>'."\n";
 					}
 				} else {
 					echo '<tr><td colspan="2" class="center">'.L_NONE1.'</td></tr>';

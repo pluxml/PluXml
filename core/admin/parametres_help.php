@@ -20,12 +20,12 @@ $page = plxUtils::nullbyteRemove($page);
 
 switch($help) {
 	case 'plugin':
-		$filename = realpath(PLX_PLUGINS.$page.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php');
+		$filename = PLX_PLUGINS.$page.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php';
 		$back_to_title = L_BACK_TO_PLUGINS;
 		$back_to = 'parametres_plugins.php';
 		break;
 	case 'theme':
-		$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$page.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php');
+		$filename = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$page.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php';
 		$back_to_title = L_BACK_TO_THEMES;
 		$back_to = 'parametres_themes.php';
 		break;
