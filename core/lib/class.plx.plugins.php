@@ -163,7 +163,7 @@ class plxPlugins {
 		# suppression des plugins
 		elseif(isset($content['selection']) AND $content['selection']=='delete') {
 			foreach($content['chkAction'] as $idx => $plugName) {
-				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+				if($this->deleteDir(PLX_PLUGINS.$plugName)) {
 					# suppression fichier de config du plugin
 					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
 						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
@@ -287,6 +287,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function __construct($default_lang='') {
+
 		$this->default_lang = $default_lang;
 		$plugName= get_class($this);
 		$this->plug = array(
@@ -298,8 +299,9 @@ class plxPlugin {
 		);
 		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
 		$this->loadParams();
-		if(defined('PLX_ADMIN'))
+		if(class_exists('plxAdmin')) {
 			$this->getInfos();
+		}
 	}
 
 	/**
@@ -610,7 +612,7 @@ class plxPlugin {
 	public function REL_PATH() {
 		return PLX_PLUGINS.get_class($this).'/';
 	}
-	
+
 	/**
 	 * Méthode qui retourne le chemin absolu du dossier du plugin
 	 *

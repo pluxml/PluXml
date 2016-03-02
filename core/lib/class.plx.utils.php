@@ -570,7 +570,10 @@ class plxUtils {
 		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )?        'https://' : "http://";
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
-		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
+                if (!defined('PLX_PLUGINS_PATH')) {
+                    define('PLX_PLUGINS_PATH', 'plugins/');
+                }
+                $dirname = preg_replace('#/('.PLX_ADMIN_PATH.'|'.PLX_PLUGINS_PATH.')#', '', dirname($_SERVER['SCRIPT_NAME']).'/');
 		$racine = rtrim($protocol.$servername.$serverport.$dirname, '/\\').'/';
 		if(!plxUtils::checkSite($racine, false))
 			die('Error: wrong or invalid url');

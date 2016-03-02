@@ -31,6 +31,8 @@ function pluginsList($plugins, $defaultLang, $type) {
 # defaultLang	string		langue utilisée dans l'admin
 # type			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
 
+	global $plxAdmin;
+
 	$output='';
 	if(sizeof($plugins)>0) {
 		$num=0;
@@ -38,13 +40,13 @@ function pluginsList($plugins, $defaultLang, $type) {
 			$ordre = ++$num;
 			# détermination de l'icone à afficher
 			if(is_file(PLX_PLUGINS.$plugName.'/icon.png'))
-				$icon=PLX_PLUGINS.$plugName.'/icon.png';
+				$icon=$plugName.'/icon.png';
 			elseif(is_file(PLX_PLUGINS.$plugName.'/icon.jpg'))
-				$icon=PLX_PLUGINS.$plugName.'/icon.jpg';
+				$icon=$plugName.'/icon.jpg';
 			elseif(is_file(PLX_PLUGINS.$plugName.'/icon.gif'))
-				$icon=PLX_PLUGINS.$plugName.'/icon.gif';
+				$icon=$plugName.'/icon.gif';
 			else
-			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
+				$icon=PLX_ADMIN_PATH.'theme/images/icon_plugin.png';
 
 			$output .= '<tr class="top">';
 
@@ -54,7 +56,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 				$output .= '<input type="checkbox" name="chkAction[]" value="'.$plugName.'" />';
 				$output .= '</td>';
 				# icon
-				$output .= '<td><img src="'.$icon.'" alt="" /></td>';
+				$output .= '<td><img src="'.$plxAdmin->racine.$plxAdmin->aConf['racine_plugins'].$icon.'" alt="" /></td>';
 
 				# plugin infos
 				$output .= '<td class="wrap">';

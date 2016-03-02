@@ -14,16 +14,13 @@ plxToken::validateFormToken($_POST);
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # Initialisation
-$tpl = isset($_POST['tpl'])?$_POST['tpl']:'home.php';
-if(!empty($_POST['load'])) $tpl = $_POST['template'];
+if (isset($_POST['load'])) {
+	$tpl = $_POST['template'];
+} else {
+	$tpl = isset($_POST['tpl']) ? $_POST['tpl'] : 'home.php';
+}
 
 $style = $plxAdmin->aConf['style'];
-$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
-if(!preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/').'#'), str_replace('\\', '/', $filename))) {
-	$tpl='home.php';
-}
-$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
-
 # On teste l'existence du thème
 if(empty($style) OR !is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style)) {
 	plxMsg::Error(L_CONFIG_EDITTPL_ERROR_NOTHEME);
@@ -31,42 +28,51 @@ if(empty($style) OR !is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style)) 
 	exit;
 }
 
+$root_theme = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/';
+$filename = $root_theme.$tpl;
+
+/*
+if(!preg_match('#^'.str_replace('\\', '/', $root_theme.'#'), str_replace('\\', '/', $filename))) {
+	$tpl='home.php';
+	$filename = $root_theme.$tpl;
+}
+* */
+
 # Traitement du formulaire: sauvegarde du template
 if(isset($_POST['submit']) AND trim($_POST['content']) != '') {
-	if(plxUtils::write($_POST['content'], $filename))
+	if(plxUtils::write($_POST['content'], $filename)) {
 		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
-	else
+	}
+	else {
 		plxMsg::Error(L_SAVE_FILE_ERROR);
+	}
 }
 
 # On récupère les fichiers templates du thèmes
-$aTemplates=array();
-function listFolderFiles($dir, $include, $root=''){
-	$content = array();
-	$ffs = scandir($dir);
+
+function listFolderFiles($dir, $include){
+	global $root_theme;
+
+	$content = [];
+	$motif = $dir.'*'.$include;
+	$ffs = glob($motif, GLOB_BRACE | GLOB_MARK);
 	foreach($ffs as $ff){
-		if($ff!='.' && $ff!='..') {
-			$ext = strtolower(strrchr($ff,'.'));
-			if(!is_dir($dir.'/'.$ff) AND is_array($include) AND in_array($ext,$include)) {
-				$f = str_replace($root, "", PLX_ROOT.ltrim($dir.'/'.$ff,'./'));
-				$content[$f] = $f;
-			}
-			if(is_dir($dir.'/'.$ff))
-				$content = array_merge($content, listFolderFiles($dir.'/'.$ff,$include,$root));
+		if (is_dir($ff)) {
+			$content = array_merge($content, listFolderFiles($ff, $include));
+		} else {
+			$shortName = substr($ff, strlen($root_theme));
+			$content[$shortName] = $shortName;
 		}
 	}
 	return $content;
 }
-$root = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style;
-$aTemplates=listFolderFiles($root, array('.php','.css','.htm','.html','.txt','.js','.xml'), $root);
+
+$aTemplates=listFolderFiles($root_theme, '{'.implode(',', array('.php','.css','.htm','.html','.txt','.js','.xml')).'}');
 
 # On récupère le contenu du fichier template
 $content = '';
-if(file_exists($filename) AND filesize($filename) > 0) {
-	if($f = fopen($filename, 'r')) {
-		$content = fread($f, filesize($filename));
-		fclose($f);
-	}
+if(is_readable($filename) AND filesize($filename) > 0) {
+	$content = file_get_contents($filename);
 }
 
 # On inclut le header
@@ -76,11 +82,11 @@ include(dirname(__FILE__).'/top.php');
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>	
+		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
+		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
-		&nbsp;&nbsp;&nbsp;		
+		&nbsp;&nbsp;&nbsp;
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</div>
 
@@ -94,7 +100,7 @@ include(dirname(__FILE__).'/top.php');
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>
-	
+
 </form>
 
 <?php
