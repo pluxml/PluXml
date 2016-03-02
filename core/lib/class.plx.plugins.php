@@ -163,7 +163,7 @@ class plxPlugins {
 		# suppression des plugins
 		elseif(isset($content['selection']) AND $content['selection']=='delete') {
 			foreach($content['chkAction'] as $idx => $plugName) {
-				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+				if($this->deleteDir(PLX_PLUGINS.$plugName)) {
 					# suppression fichier de config du plugin
 					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
 						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');

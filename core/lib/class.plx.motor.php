@@ -352,6 +352,15 @@ class plxMotor {
 					$this->aConf[ $values[ $iTags['parametre'][$i] ]['attributes']['name'] ] = '';
 			}
 		}
+
+		# A utiliser par plxUtils::getRacine()
+		if (!defined('PLX_PLUGINS_PATH')) {
+			define('PLX_PLUGINS_PATH', $this->aConf['racine_plugins']);
+		}
+		if (!defined('PLX_PLUGINS')) {
+			define('PLX_PLUGINS', PLX_ROOT.PLX_PLUGINS_PATH);
+		}
+
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
 		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
@@ -372,7 +381,6 @@ class plxMotor {
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
-		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
 
 	}
 
@@ -982,7 +990,7 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
 		# On lance le téléchargement et on check le répertoire documents
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['documents']).'#'), str_replace('\\', '/', realpath($file)))) {
+		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', PLX_ROOT.$this->aConf['documents']).'#', str_replace('\\', '/', $file))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
 			header('Content-Disposition: attachment; filename='.basename($file));

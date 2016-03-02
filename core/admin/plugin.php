@@ -13,7 +13,7 @@ $plugin = plxUtils::nullbyteRemove($plugin);
 
 $output='';
 # chargement du fichier d'administration du plugin
-$filename = realpath(PLX_PLUGINS.$plugin.'/admin.php');
+$filename = PLX_PLUGINS.$plugin.'/admin.php';
 if(isset($plxAdmin->plxPlugins->aPlugins[$plugin]) AND is_file($filename)) {
 	# utilisation de la variable plxPlugin pour faciliter la syntaxe dans les devs des plugins
 	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];

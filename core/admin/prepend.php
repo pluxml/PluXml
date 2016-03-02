@@ -1,10 +1,13 @@
 <?php
-include(preg_replace('#core/admin/$#', '', dirname(__FILE__).'/').'config.php');
+# ajuster cette constante si le dossier admin n'est pas situé à 2 niveaux en dessous de la racine du site
+define('ROOT_PATH', '../../');
+
+include(ROOT_PATH.'config.php');
 include(PLX_ROOT.PLX_LIB_PATH.'config.php');
 
 # On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ../../install.php');
+if(!function_exists('path') or !file_exists(path('XMLFILE_PARAMETERS'))) {
+	header('Location: '.ROOT_PATH.'install.php');
 	exit;
 }
 

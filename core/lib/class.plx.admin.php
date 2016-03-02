@@ -132,15 +132,15 @@ class plxAdmin extends plxMotor {
 				# mise à jour du fichier de configuration config.php
 				$plx_lib = PLX_LIB_PATH;
 				$plx_admin = PLX_ADMIN_PATH;
-				$content = <<< CONTENT
+				$file_content = <<< FILE_CONTENT
 <?php
 define('PLX_ROOT', dirname(__FILE__).'/');
 define('PLX_CONFIG_PATH', '{$newpath}');
 define('PLX_LIB_PATH', '{$plx_lib}');
 define('PLX_ADMIN_PATH', '{$plx_admin}');
 ?>
-CONTENT;
-				if(!plxUtils::write($content, PLX_ROOT.'config.php'))
+FILE_CONTENT;
+				if(!plxUtils::write($file_content, PLX_ROOT.'config.php'))
 					return plxMsg::Error(L_SAVE_ERR.' config.php');
 			}
 		}

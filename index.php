@@ -8,6 +8,10 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	exit;
 }
 
+if (isset($_GET['signin'])) {
+	header('Location: '.PLX_ADMIN_PATH.'index.php');
+	exit;
+}
 # On démarre la session
 session_start();
 
