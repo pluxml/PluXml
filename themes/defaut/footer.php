@@ -3,7 +3,7 @@
 		<footer class="footer" role="contentinfo">
 
 				<p>
-					&copy; 2015 <?php $plxShow->mainTitle('link'); ?> - 
+					&copy; 2016 <?php $plxShow->mainTitle('link'); ?> - 
 					<?php $plxShow->subTitle(); ?> - 
 					<?php $plxShow->lang('POWERED_BY') ?>&nbsp;<a href="http://www.pluxml.org" title="<?php $plxShow->lang('PLUXML_DESCRIPTION') ?>">PluXml</a>
 					<?php $plxShow->lang('IN') ?>&nbsp;<?php $plxShow->chrono(); ?>&nbsp;
