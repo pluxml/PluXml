@@ -12,6 +12,8 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+/* ---------- Authentication ---------- */
+
 .auth {
 	border:1px solid #aaa;
 	margin-top: 10%;
@@ -31,9 +33,15 @@
 	padding: .4rem;
 	text-align: center;
 }
+
+/* ---------- Main ---------- */
+
 .main.grid {
 	margin-right: 0;
 }
+
+/* ---------- Aside ---------- */
+
 .aside {
 	background-color: #222;
 	bottom: 0;
@@ -81,6 +89,9 @@
 .aside .menu-config {
 	background-color: #333;
 }
+
+/* ---------- Section ---------- */
+
 .section {
 	margin-bottom: 2rem;
 	margin-top: 8rem;
@@ -341,7 +352,6 @@ a.folder:focus span  {
 	width:100%;
 	background-color: #ffcfcf;
 }
-
 table {
 	border: 1px solid #efefef;
 }
@@ -360,7 +370,6 @@ td {
 td.wrap {
 	white-space: normal;
 }
-
 /* pour l'indentation des commentaires */
 .level-0 {
 	margin-left: 0;
@@ -380,7 +389,6 @@ td.wrap {
 .level-5 {
 	margin-left: 250px;
 }
-
 #id_answer {
 	margin-bottom: 10px;
 	padding:15px;
@@ -403,9 +411,7 @@ td.wrap {
 	color: #fff;
 	padding: .2rem .3rem;
 }
-
 /* pour la fenêtre modale de la visionneuse d'image */
-
 .modal {
 	display: block;
 	width: 100%;
@@ -477,9 +483,7 @@ input:checked ~ .modal__overlay {
 	z-index: 800;
 	visibility: visible;
 }
-
 /* gestion des themes */
-
 .img-preview {
 	width: 200px;
 	max-width: 200px;
@@ -498,9 +502,7 @@ input:checked ~ .modal__overlay {
 tr.checked {
 	background-color: #E4EFFF;
 }
-
 /* image d'accroche */
-
 #id_thumbnail_img {
 	margin-top:10px;
 }
