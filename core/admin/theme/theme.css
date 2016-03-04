@@ -417,7 +417,6 @@ td.wrap {
 	width: 100%;
 	position: absolute;
 }
-
 .modal__overlay {
 	background: #000;
 	top: 0;
@@ -428,11 +427,9 @@ td.wrap {
 	z-index: 999;
 	text-align:right;
 }
-
 .modal__box {
 	text-align:center;
 }
-
 .modal input {
 	position: absolute;
 	right: 100px;
@@ -440,7 +437,6 @@ td.wrap {
 	z-index: -10;
 	display: none;
 }
-
 .modal label {
 	color: #fff;
 	cursor: pointer;
@@ -450,18 +446,15 @@ td.wrap {
 	transition: all 0.55s;
 	padding: 10px;
 }
-
 .modal label:hover {
 	color: red;
 	-webkit-transform: scale(0.97);
 	-ms-transform: scale(0.97);
 	transform: scale(0.97);
 }
-
 .modal__box img {
 	max-height: 100%;
 }
-
 .modal__overlay {
 	opacity: 0;
 	overflow: hidden;
@@ -472,7 +465,6 @@ td.wrap {
 	transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 	visibility: hidden;
 }
-
 input:checked ~ .modal__overlay {
 	opacity: 1;
 	-webkit-transform: scale(1);
@@ -509,7 +501,6 @@ tr.checked {
 #id_thumbnail_img img {
 	max-width: 100%;
 }
-
 .gridthumb {
 	background-color: #fffcf5;
 	border: 1px solid #ccc;
