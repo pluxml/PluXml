@@ -446,6 +446,14 @@ td.wrap {
 	transition: all 0.55s;
 	padding: 10px;
 }
+@media (max-width: 767px) {
+	.modal label {
+		background-color: #000;
+		position: fixed;
+		right: 0;
+		top: 2rem;
+	}
+}
 .modal label:hover {
 	color: red;
 	-webkit-transform: scale(0.97);
