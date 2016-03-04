@@ -455,7 +455,7 @@ td.wrap {
 	}
 }
 .modal label:hover {
-	color: red;
+	color: #258fd6;
 	-webkit-transform: scale(0.97);
 	-ms-transform: scale(0.97);
 	transform: scale(0.97);
