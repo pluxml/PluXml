@@ -177,7 +177,7 @@
 	display: inline-block;
 }
 .p_current {
-	color:red;
+	color: #258fd6;
 }
 .p_page:first-letter {
 	text-transform: uppercase;
