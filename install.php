@@ -1,8 +1,25 @@
 <?php
+if (!empty($_POST['data_folder']) and isset($_POST['install'])) {
+	$folder = $_POST['data_folder'];
+	if (substr($folder, -1) != '/') {
+		$folder .= '/';
+	}
+	define('PLX_DATA', $folder);
+} else {
+	define('PLX_DATA', 'data/');
+}
+
 define('PLX_ROOT', './');
 define('PLX_CORE', PLX_ROOT.'core/');
-include(PLX_ROOT.'config.php');
+define('PLX_CONFIG_PATH', PLX_DATA.'configuration/');
 include(PLX_CORE.'lib/config.php');
+
+# On vérifie que PluXml n'est pas déjà installé
+if(is_readable(path('XMLFILE_PARAMETERS')) and is_readable('config.php')) {
+	header('Content-Type: text/plain charset=UTF-8');
+	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
+	exit;
+}
 
 # On démarre la session
 session_start();
@@ -31,25 +48,52 @@ if(version_compare(PHP_VERSION, '5.0.0', '<')){
 	exit;
 }
 
-# On vérifie que PluXml n'est pas déjà installé
-if(file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
-	exit;
-}
-
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers médias
-if(!is_dir(PLX_ROOT.'data/medias')) {
-	@mkdir(PLX_ROOT.'data/medias',0755,true);
-}
-
-# Vérification de l'existence du dossier data/configuration/plugins
-if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
-	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
-}
+# Configuration de base
+$config = array(
+	'title'=>'PluXml',
+	'description'=>plxUtils::strRevCheck(L_SITE_DESCRIPTION),
+	'meta_description'=>'',
+	'meta_keywords'=>'',
+	'timezone'=>$timezone,
+	'allow_com'=>1,
+	'mod_com'=>0,
+	'mod_art'=>0,
+	'capcha'=>1,
+	'style'=>'defaut',
+	'clef'=>plxUtils::charAleatoire(15),
+	'bypage'=>5,
+	'bypage_archives'=>5,
+	'bypage_admin'=>10,
+	'bypage_admin_coms'=>10,
+	'bypage_feed'=>8,
+	'tri'=>'desc',
+	'tri_coms'=>'asc',
+	'images_l'=>800,
+	'images_h'=>600,
+	'miniatures_l'=>200,
+	'miniatures_h'=>100,
+	'thumbs'=>0,
+	'racine_articles'=>PLX_DATA.'articles/',
+	'racine_statiques'=>PLX_DATA.'statiques/',
+	'racine_commentaires'=>PLX_DATA.'commentaires/',
+	'medias'=>PLX_DATA.'medias/',
+	'racine_themes'=>'themes/',
+	'racine_plugins'=>'plugins/',
+	'homestatic'=>'',
+	'hometemplate'=>'home.php',
+	'urlrewriting'=>0,
+	'gzip'=>0,
+	'feed_chapo'=>0,
+	'feed_footer'=>'',
+	'version'=>PLX_VERSION,
+	'default_lang'=>$lang,
+	'userfolders'=>0,
+	'display_empty_cat'=>0,
+	'custom_admincss_file'=>''
+);
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -62,51 +106,29 @@ if(isset($_POST['timezone'])) $timezone=$_POST['timezone'];
 if(!array_key_exists($timezone, plxTimezones::timezones())) {
 	$timezone = date_default_timezone_get();
 }
-
-# Configuration de base
-$config = array('title'=>'PluXml',
-				'description'=>plxUtils::strRevCheck(L_SITE_DESCRIPTION),
-				'meta_description'=>'',
-				'meta_keywords'=>'',
-				'timezone'=>$timezone,
-				'allow_com'=>1,
-				'mod_com'=>0,
-				'mod_art'=>0,
-				'capcha'=>1,
-				'style'=>'defaut',
-				'clef'=>plxUtils::charAleatoire(15),
-				'bypage'=>5,
-				'bypage_archives'=>5,
-				'bypage_admin'=>10,
-				'bypage_admin_coms'=>10,
-				'bypage_feed'=>8,
-				'tri'=>'desc',
-				'tri_coms'=>'asc',
-				'images_l'=>800,
-				'images_h'=>600,
-				'miniatures_l'=>200,
-				'miniatures_h'=>100,
-				'thumbs'=>0,
-				'medias'=>'data/medias/',
-				'racine_articles'=>'data/articles/',
-				'racine_commentaires'=>'data/commentaires/',
-				'racine_statiques'=>'data/statiques/',
-				'racine_themes'=>'themes/',
-				'racine_plugins'=>'plugins/',
-				'homestatic'=>'',
-				'hometemplate'=>'home.php',
-				'urlrewriting'=>0,
-				'gzip'=>0,
-				'feed_chapo'=>0,
-				'feed_footer'=>'',
-				'version'=>PLX_VERSION,
-				'default_lang'=>$lang,
-				'userfolders'=>0,
-				'display_empty_cat'=>0,
-				'custom_admincss_file'=>''
-				);
+$config['timezone'] = $timezone;
 
 function install($content, $config) {
+
+	# Vérification de l'existence des dossiers articles, statiques, commentaires, médias
+	$folders = explode(' ', 'racine_articles racine_statiques racine_commentaires medias');
+	foreach ($folders as $k) {
+		$f = PLX_ROOT.$config[$k];
+		if(!is_dir($f)) {
+			@mkdir($f, 0755, true);
+		}
+	}
+
+	# Vérification de l'existence du dossier data/configuration/plugins
+	if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
+		@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins', 0755, true);
+	}
+	file_put_contents('config.php', "<?php\ndefine('PLX_CONFIG_PATH', '".PLX_CONFIG_PATH."');\n?>");
+
+	# Vérification de l'existence du dossier data/configuration/plugins
+	if(!is_dir(PLX_ROOT.$config['plugins'])) {
+		@mkdir(PLX_ROOT.$config['plugins'], 0755, true);
+	}
 
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
@@ -247,7 +269,7 @@ plxUtils::cleanHeaders();
 
 			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
 
-			<form action="install.php" method="post">
+			<form method="post">
 
 				<fieldset>
 
@@ -301,6 +323,14 @@ plxUtils::cleanHeaders();
 							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 						</div>
 					</div>
+					<div class="grid">
+						<div class="col sml-12 med-5 label-centered">
+							<label for="id_data_folder"><?php echo L_DATA_FOLDER ?>&nbsp;:</label>
+						</div>
+						<div class="col sml-12 med-7">
+							<?php plxUtils::printInput('data_folder', PLX_DATA, 'text', '20-255') ?>
+						</div>
+					</div>
 
 					<input class="blue" type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
 					<?php echo plxToken::getTokenPostMethod() ?>
@@ -313,13 +343,13 @@ plxUtils::cleanHeaders();
 						<?php } ?>
 						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
 						<?php plxUtils::testWrite(PLX_ROOT) ?>
+<?php	if (is_dir(PLX_ROOT.PLX_DATA)) { ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
+<?php		foreach(explode(' ', 'racine_articles racine_commentaires racine_statiques medias racine_plugins') as $k) { ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config[$k]) ?>
+<?php		} ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
+<?php 	} ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testMail() ?>

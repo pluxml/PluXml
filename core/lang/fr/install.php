@@ -28,5 +28,6 @@ $LANG = array(
 'L_PASSWORD_CONFIRMATION'			=> 'Confirmation du mot de passe',
 'L_INPUT_INSTALL'					=> 'Installer',
 'L_TIMEZONE'						=> 'Fuseau horaire',
+'L_DATA_FOLDER'						=> 'Dossier des données'
 );
 ?>
