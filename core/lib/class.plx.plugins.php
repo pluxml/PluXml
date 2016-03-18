@@ -287,7 +287,6 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function __construct($default_lang='') {
-		$this->default_lang = $default_lang;
 		$plugName= get_class($this);
 		$this->plug = array(
 			'dir' 			=> PLX_PLUGINS,
@@ -296,7 +295,24 @@ class plxPlugin {
 			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
-		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
+
+		$folder = PLX_PLUGINS.$plugName.'/lang/';
+		$default = $default_lang;
+		$fd1 = PLX_ROOT.'core/lang/';
+		if (!is_readable($folder.$default.'.php')) {
+			$list1 = glob($fd1.'*', GLOB_ONLYDIR);
+			array_unshift($list1, $fd1.'en', $fd1.'fr');
+			foreach($list1 as $fullpath) {
+				$lg = substr($fullpath, -2);
+				if (is_readable($folder.$lg.'.php')) {
+					$default = $lg;
+					break;
+				}
+			}
+		}
+		$this->default_lang = $default;
+		$this->aLang = $this->loadLang($folder.$default.'.php');
+
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
 			$this->getInfos();
@@ -610,7 +626,7 @@ class plxPlugin {
 	public function REL_PATH() {
 		return PLX_PLUGINS.get_class($this).'/';
 	}
-	
+
 	/**
 	 * Méthode qui retourne le chemin absolu du dossier du plugin
 	 *
