@@ -1,6 +1,6 @@
 ﻿## PLUXML 5.5 (sortie : xx/xx/2016) ##
 
-[+] #99: Ajout de la prise en compte des extensions "m4a, m4v, epub, vtt, webm, xcf" dans le gestionnaire de médias
+[+] #99, #165: Ajout de la prise en compte des extensions "m4a, m4v, epub, svg, vtt, webm, xcf" dans le gestionnaire de médias
 [+] #110: Gestionnaire de médias, ajout des fichiers: Option "Redimensionner images > Taille originale" cochée par défaut
 [+] #114: Réécriture de la pagination des articles et des commentaires dans l'administration
 [-] #107: Suppression du fichier version, remplacé par la constante PLX_VERSION dans le fichier core/lib/config.php
