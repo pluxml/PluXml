@@ -1,5 +1,5 @@
 <?php
-define('PLX_DEBUG', true);
+define('PLX_DEBUG', false);
 define('PLX_VERSION', '5.5');
 
 # Gestion des erreurs PHP

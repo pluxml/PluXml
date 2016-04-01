@@ -14,14 +14,10 @@
 	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
 		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
 	?>
-	<?php if(PLX_DEBUG) : ?>
-	<script src="<?php echo PLX_CORE ?>lib/js.src/functions.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/js.src/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/js.src/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="<?php echo PLX_CORE ?>lib/js.src/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<?php else : ?>
-	<script defer src="<?php echo PLX_CORE ?>lib/pluxml.min.js.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<?php endif; ?>
+	<script src="<?php echo PLX_CORE ?>lib/functions.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script src="<?php echo PLX_CORE ?>lib/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
 
