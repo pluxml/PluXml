@@ -1677,8 +1677,7 @@ class plxShow {
 					}
 				}
 			}
-			# limite sur le nombre de tags à afficher
-			if($max!='') $array=array_slice($array, 0, intval($max), true);
+			
 			# tri des tags
 			switch($order) {
 				case 'alpha':
@@ -1694,7 +1693,12 @@ class plxShow {
 					$array = $arr_elem;
 					break;
 			}
+			
+			# limite sur le nombre de tags à afficher
+			if($max!='') $array=array_slice($array, 0, intval($max), true);
+			
 		}
+		
 		# On affiche la liste
 		$size=0;
 		foreach($array as $tagname => $tag) {
