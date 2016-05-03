@@ -19,7 +19,17 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
 
 # On édite la page statique
 if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
-	$plxAdmin->editStatique($_POST);
+
+	$valid=true;
+	# Vérification de la validité de la date de création
+	if(!plxDate::checkDate($_POST['date_creation_day'],$_POST['date_creation_month'],$_POST['date_creation_year'],$_POST['date_creation_time'])) {
+		$valid = plxMsg::Error(L_ERR_INVALID_DATE_CREATION) AND $valid;
+	}
+	# Vérification de la validité de la date de mise à jour
+	if(!plxDate::checkDate($_POST['date_update_day'],$_POST['date_update_month'],$_POST['date_update_year'],$_POST['date_update_time'])) {
+		$valid = plxMsg::Error(L_ERR_INVALID_DATE_UPDATE) AND $valid;
+	}
+	if($valid) $plxAdmin->editStatique($_POST);
 	header('Location: statique.php?p='.$_POST['id']);
 	exit;
 } elseif(!empty($_GET['p'])) { # On affiche le contenu de la page
@@ -38,6 +48,8 @@ if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
 	$meta_description = $plxAdmin->aStats[$id]['meta_description'];
 	$meta_keywords = $plxAdmin->aStats[$id]['meta_keywords'];
 	$template = $plxAdmin->aStats[$id]['template'];
+	$date_creation = plxDate::date2Array($plxAdmin->aStats[$id]['date_creation']);
+	$date_update = plxDate::date2Array($plxAdmin->aStats[$id]['date_update']);
 } else { # Sinon, on redirige
 	header('Location: statiques.php');
 	exit;
@@ -63,6 +75,7 @@ include(dirname(__FILE__).'/top.php');
 		<p><a class="back" href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
 		<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
 		<a href="<?php echo PLX_ROOT; ?>?static<?php echo intval($id); ?>/<?php echo $url; ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
+		<?php plxUtils::printInput('id', $id, 'hidden');?>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
@@ -70,7 +83,6 @@ include(dirname(__FILE__).'/top.php');
 		<fieldset>
 			<div class="grid">
 				<div class="col sml-12">
-					<?php plxUtils::printInput('id', $id, 'hidden');?>
 					<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
 					<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
 				</div>
@@ -97,6 +109,35 @@ include(dirname(__FILE__).'/top.php');
 				<div class="col sml-12">
 					<label for="id_meta_keywords"><?php echo L_STATIC_META_KEYWORDS ?>&nbsp;:</label>
 					<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','50-255'); ?>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<label><?php echo L_DATE_CREATION ?>&nbsp;:</label>
+					<div class="inline-form">
+						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
+						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
+						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
+						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<img src="theme/images/date.png" alt="calendar" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<?php plxUtils::printInput('date_update', $plxAdmin->aStats[$id]['date_update'], 'hidden');?>
+					<label><?php echo L_DATE_UPDATE ?>&nbsp;:</label>
+					<div class="inline-form">
+						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
+						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
+						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
+						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<img src="theme/images/date.png" alt="calendar" />
+						</a>
+					</div>
 				</div>
 			</div>
 		</fieldset>

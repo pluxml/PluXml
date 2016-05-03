@@ -70,7 +70,7 @@ include(dirname(__FILE__).'/top.php');
 			if($plxAdmin->aCats) {
 				foreach($plxAdmin->aCats as $k=>$v) { # Pour chaque catégorie
 					$ordre = ++$num;
-					echo '<tr class="line-'.($num%2).'">';
+					echo '<tr>';
 					echo '<td><input type="checkbox" name="idCategory[]" value="'.$k.'" /><input type="hidden" name="catNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
 					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '10-50');

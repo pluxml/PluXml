@@ -13,17 +13,18 @@
 					<small>
 						<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
 						<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
-						<a href="#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
+						<a href="<?php $plxShow->artUrl(); ?>#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
 					</small>
 				</header>
 
 				<section>
+					<?php $plxShow->artThumbnail(); ?>
 					<?php $plxShow->artContent(); ?>
 				</section>
 
 				<footer>
 					<small>
-						<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> - 
+						<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> -
 						<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
 					</small>
 				</footer>

@@ -62,6 +62,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['filename'] = '';
 		$art['numero'] = $_POST['artId'];
 		$art['author'] = $_POST['author'];
+		$art['thumbnail'] = $_POST['thumbnail'];
+		$art['thumbnail_title'] = $_POST['thumbnail_title'];
+		$art['thumbnail_alt'] = $_POST['thumbnail_alt'];
 		$art['categorie'] = '';
 		if(!empty($_POST['catId'])) {
 			$array=array();
@@ -70,7 +73,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			}
 			$art['categorie']=implode(',',$array);
 		}
-		$art['date'] = $_POST['year'].$_POST['month'].$_POST['day'].substr(str_replace(':','',$_POST['time']),0,4);
+		$art['date'] = $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':','',$_POST['date_publication_time']),0,4);
+		$art['date_creation'] = $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4);
+		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
 		$art['nb_com'] = 0;
 		if(trim($_POST['url']) == '')
 			$art['url'] = plxUtils::title2url($_POST['title']);
@@ -106,8 +111,16 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			}
 		}
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($_POST['day'],$_POST['month'],$_POST['year'],$_POST['time'])) {
+		if(!plxDate::checkDate($_POST['date_publication_day'],$_POST['date_publication_month'],$_POST['date_publication_year'],$_POST['date_publication_time'])) {
 			$valid = plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE) AND $valid;
+		}
+		# Vérification de la validité de la date de creation
+		if(!plxDate::checkDate($_POST['date_creation_day'],$_POST['date_creation_month'],$_POST['date_creation_year'],$_POST['date_creation_time'])) {
+			$valid = plxMsg::Error(L_ERR_INVALID_DATE_CREATION) AND $valid;
+		}
+		# Vérification de la validité de la date de mise à jour
+		if(!plxDate::checkDate($_POST['date_update_day'],$_POST['date_update_month'],$_POST['date_update_year'],$_POST['date_update_time'])) {
+			$valid = plxMsg::Error(L_ERR_INVALID_DATE_UPDATE) AND $valid;
 		}
 		if($valid) {
 			$plxAdmin->editArticle($_POST,$_POST['artId']);
@@ -132,10 +145,19 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$title = trim($_POST['title']);
 	$author = $_POST['author'];
 	$catId = isset($_POST['catId'])?$_POST['catId']:array();
-	$date['day'] = $_POST['day'];
-	$date['month'] = $_POST['month'];
-	$date['year'] = $_POST['year'];
-	$date['time'] = $_POST['time'];
+	$date['day'] = $_POST['date_publication_day'];
+	$date['month'] = $_POST['date_publication_month'];
+	$date['year'] = $_POST['date_publication_year'];
+	$date['time'] = $_POST['date_publication_time'];
+	$date_creation['day'] = $_POST['date_creation_day'];
+	$date_creation['month'] = $_POST['date_creation_month'];
+	$date_creation['year'] = $_POST['date_creation_year'];
+	$date_creation['time'] = $_POST['date_creation_time'];
+	$date_update['day'] = $_POST['date_update_day'];
+	$date_update['month'] = $_POST['date_update_month'];
+	$date_update['year'] = $_POST['date_update_year'];
+	$date_update['time'] = $_POST['date_update_time'];
+	$date_update_old = $_POST['date_update_old'];
 	$chapo = trim($_POST['chapo']);
 	$content =  trim($_POST['content']);
 	$tags = trim($_POST['tags']);
@@ -145,6 +167,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_description = $_POST['meta_description'];
 	$meta_keywords = $_POST['meta_keywords'];
 	$title_htmltag = $_POST['title_htmltag'];
+	$thumbnail = $_POST['thumbnail'];
+	$thumbnail_title = $_POST['thumbnail_title'];
+	$thumbnail_alt = $_POST['thumbnail_alt'];
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticlePostData'));
 } elseif(!empty($_GET['a'])) { # On n'a rien validé, c'est pour l'édition d'un article
@@ -163,6 +188,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$author = $result['author'];
 	$url = $result['url'];
 	$date = plxDate::date2Array($result['date']);
+	$date_creation = plxDate::date2Array($result['date_creation']);
+	$date_update = plxDate::date2Array($result['date_update']);
+	$date_update_old = $result['date_update'];
 	$catId = explode(',', $result['categorie']);
 	$artId = $result['numero'];
 	$allow_com = $result['allow_com'];
@@ -170,6 +198,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_description=$result['meta_description'];
 	$meta_keywords=$result['meta_keywords'];
 	$title_htmltag = $result['title_htmltag'];
+	$thumbnail = $result['thumbnail'];
+	$thumbnail_title = $result['thumbnail_title'];
+	$thumbnail_alt = $result['thumbnail_alt'];
 
 	if($author!=$_SESSION['user'] AND $_SESSION['profil']==PROFIL_WRITER) {
 		plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
@@ -186,11 +217,17 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$tags = '';
 	$author = $_SESSION['user'];
 	$date = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
+	$date_creation = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
+	$date_update = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
+	$date_update_old = '';
 	$catId = array('draft');
 	$artId = '0000';
 	$allow_com = $plxAdmin->aConf['allow_com'];
 	$template = 'article.php';
 	$meta_description=$meta_keywords=$title_htmltag='';
+	$thumbnail = '';
+	$thumbnail_title = '';
+	$thumbnail_alt = '';
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleInitData'));
 }
@@ -294,21 +331,47 @@ $cat_id='000';
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,30,false,'full-width'); ?>
-						<?php if($artId!='' AND $artId!='0000') : ?>
-						<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
+						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,20,false,'full-width'); ?>
 					</div>
 				</div>
+				<?php if($artId!='' AND $artId!='0000') : ?>
 				<div class="grid">
 					<div class="col sml-12">
+						<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
 						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
 						<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
-						<?php endif; ?>
 					</div>
 				</div>
+				<?php endif; ?>
 			</fieldset>
+			<div class="grid gridthumb">
+				<div class="col sml-12">
+					<label for="id_thumbnail">
+						<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
+						<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
+					</label>
+					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width'); ?>
+					<div class="grid" style="padding-top:10px">
+						<div class="col sml-12 lrg-6">
+							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_TITLE ?>&nbsp;:</label>
+							<?php plxUtils::printInput('thumbnail_title',plxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
+						</div>
+						<div class="col sml-12 lrg-6">
+							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_ALT ?>&nbsp;:</label>
+							<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
+						</div>
+					</div>
+					<?php
+					$imgUrl = PLX_ROOT.$thumbnail;
+					if(is_file($imgUrl)) {
+						echo '<div id="id_thumbnail_img"><img src="'.$imgUrl.'" alt="" /></div>';
+					} else {
+						echo '<div id="id_thumbnail_img"></div>';
+					}
+					?>
+				</div>
+			</div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
-
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
@@ -345,17 +408,47 @@ $cat_id='000';
 				<div class="grid">
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
-						<div class="inline-form">
-							<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,false); ?>
-							<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,false); ?>
-							<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,false); ?>
-							<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,false); ?>
-							<a id="id_cal" href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+						<div class="inline-form publication">
+							<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
+							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
+							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
+							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 								<img src="theme/images/date.png" alt="calendar" />
 							</a>
 						</div>
 					</div>
 				</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<label><?php echo L_DATE_CREATION ?>&nbsp;:</label>
+					<div class="inline-form creation">
+						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
+						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
+						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
+						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<img src="theme/images/date.png" alt="calendar" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="grid">
+				<div class="col sml-12">
+					<?php plxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
+					<label><?php echo L_DATE_UPDATE ?>&nbsp;:</label>
+					<div class="inline-form update">
+						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
+						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
+						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
+						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<img src="theme/images/date.png" alt="calendar" />
+						</a>
+					</div>
+				</div>
+			</div>
+
 				<div class="grid">
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
@@ -472,7 +565,18 @@ $cat_id='000';
 
 				<?php if($artId != '0000') : ?>
 				<ul class="unstyled-list">
-					<li><a href="comments.php?a=<?php echo $artId ?>&amp;page=1" title="<?php echo L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?php echo L_ARTICLE_MANAGE_COMMENTS ?></a></li>
+					<li>
+						<a href="comments.php?a=<?php echo $artId ?>&amp;page=1" title="<?php echo L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?php echo L_ARTICLE_MANAGE_COMMENTS ?></a>
+						<?php
+						# récupération du nombre de commentaires
+						$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$artId.'.(.*).xml$/','all');
+						$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$artId.'.(.*).xml$/','all');
+						?>
+						<ul>
+							<li><?php echo L_COMMENT_OFFLINE ?> : <a title="<?php echo L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?php echo $artId ?>&amp;page=1"><?php echo $nbComsToValidate ?></a></li>
+							<li><?php echo L_COMMENT_ONLINE ?> : <a title="<?php echo L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?php echo $artId ?>&amp;page=1"><?php echo $nbComsValidated ?></a></li>
+						</ul>
+					</li>
 					<li><a href="comment_new.php?a=<?php echo $artId ?>" title="<?php echo L_ARTICLE_NEW_COMMENT_TITLE ?>"><?php echo L_ARTICLE_NEW_COMMENT ?></a></li>
 				</ul>
 				<?php endif; ?>
@@ -484,6 +588,7 @@ $cat_id='000';
 	</div>
 
 </form>
+
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));

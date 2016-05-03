@@ -14,6 +14,12 @@ $LANG = array(
 'L_DELETE'										=> 'Eliminar',
 'L_DELETE_FILE' 				    			=> 'Eliminar archivo',
 'L_DELETE_FOLDER'				   				=> 'Eliminar carpeta',
+'L_THUMBNAIL'									=> 'Miniatura (opcional)',
+'L_THUMBNAIL_SELECTION'							=> 'Seleccionar Imagen',
+'L_THUMBNAIL_TITLE'								=> 'Título de imagen (opcional)',
+'L_THUMBNAIL_ALT'								=> 'El texto alternativo de la imagen (opcional)',
+'L_ERR_INVALID_DATE_CREATION'					=> 'Fecha de creación no válida',
+'L_ERR_INVALID_DATE_UPDATE'						=> 'Fecha no válida actualiza',
 
 # class.plx.admin.php
 
@@ -430,8 +436,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'					=> 'Complemento eliminado correctamente',
 'L_PLUGINS_CONFIG'								=> 'Configuración',
 'L_PLUGINS_CONFIG_TITLE'						=> 'Configuración del complemento',
-'L_PLUGINS_HELP'								=> 'Ayuda',
-'L_PLUGINS_HELP_TITLE'							=> 'Ayuda del complemento',
 'L_PLUGINS_REQUIREMENTS'						=> 'Requerimientos',
 'L_PLUGINS_REQUIREMENTS_HELP'					=> 'Complementos disponibles y activos necesarios para activar este complemento',
 'L_PLUGINS_REQUIREMENTS_NONE'					=> 'Ninguno',
@@ -546,6 +550,10 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'							=> 'Información',
 'L_MENU_CONFIG_PLUGINS_TITLE'					=> 'Gestionar complementos',
 'L_MENU_CONFIG_PLUGINS'							=> 'Complementos',
-
+'L_THEMES'										=> 'Temas',
+'L_THEMES_TITLE'								=> 'La gestión de temas',
+'L_HELP'										=> 'Ayuda',
+'L_HELP_TITLE'									=> 'Consulte la ayuda',
+'L_BACK_TO_THEMES'								=> 'Volver a la lista de temas',
 );
 ?>

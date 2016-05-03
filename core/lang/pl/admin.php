@@ -12,6 +12,12 @@ $LANG = array(
 'L_DELETE' 						    => 'Usuń',
 'L_DELETE_FILE' 				    => 'Usuń plik',
 'L_DELETE_FOLDER'				    => 'Usuń folder',
+'L_THUMBNAIL'						=> 'Miniaturka (opcjonalnie)',
+'L_THUMBNAIL_SELECTION'				=> 'Wybierz zdjęcie',
+'L_THUMBNAIL_TITLE'					=> 'Tytuł zdjęcia (opcjonalnie)',
+'L_THUMBNAIL_ALT'					=> 'Alternatywny tekst z obrazka (opcjonalnie)',
+'L_ERR_INVALID_DATE_CREATION'		=> 'Nieprawidłowa data utworzenia',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Nieprawidłowa data zaktualizowane',
 
 # class.plx.admin.php
 
@@ -227,7 +233,7 @@ $LANG = array(
 
 # comments.php
 
-'L_COMMENTS_ARTICLE_SCOPE' 			=> 'artykuł',
+'L_COMMENTS_ARTICLE_SCOPE' 			=> 'Artykuł',
 'L_COMMENTS_GLOBAL_SCOPE'			=> 'cała strona',
 'L_COMMENTS_LIST_DATE'				=> 'Data',
 'L_COMMENTS_LIST_AUTHOR'			=> 'Autor',
@@ -428,8 +434,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'		=> 'Suppression effectuée avec succès',
 'L_PLUGINS_CONFIG'					=> 'Configuration',
 'L_PLUGINS_CONFIG_TITLE'			=> 'Configuration du plugin',
-'L_PLUGINS_HELP'					=> 'Aide',
-'L_PLUGINS_HELP_TITLE'				=> 'Voir l\'aide du plugin',
 'L_PLUGINS_REQUIREMENTS'			=> 'Pré-requis',
 'L_PLUGINS_REQUIREMENTS_HELP'		=> 'Liste des plugins présents et actifs pour activer ce plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'		=> 'Aucun',
@@ -544,6 +548,10 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'				=> 'Informacja',
 'L_MENU_CONFIG_PLUGINS_TITLE'		=> 'Zarządzanie wtyczkami',
 'L_MENU_CONFIG_PLUGINS'				=> 'Plugins',
-
+'L_THEMES'							=> 'Tematy',
+'L_THEMES_TITLE'					=> 'Zarządzanie tematy',
+'L_HELP'							=> 'Pomoc',
+'L_HELP_TITLE'						=> 'Zobacz pomoc',
+'L_BACK_TO_THEMES'					=> 'Powrót do tematów strony',
 );
 ?>

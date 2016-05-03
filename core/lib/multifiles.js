@@ -1,4 +1,3 @@
-<!--
 var nfiles = 0;
 var MultiSelector  =  {
 
@@ -6,15 +5,14 @@ var MultiSelector  =  {
 		this.count = 0;
 		this.files_list = document.getElementById("files_list");
 		this.selector = document.getElementById("selector_0");
-		this.selector.addEventListener("change", this, false);
-
+		if(this.selector) this.selector.addEventListener("change", this, false);
 	},
 
 	handleEvent: function(e) {
 		switch(e.type) {
 			case "change":
-				event.stopPropagation();
-				event.preventDefault();
+				e.stopPropagation();
+				e.preventDefault();
 				this.handleChange();
 				break;
 		}
@@ -69,9 +67,9 @@ var MultiSelector  =  {
 			var div = document.getElementById('rowfile_'+i);
 			div.parentNode.removeChild(div);
 			nfiles--;
-			if(nfiles==0) {
-				document.getElementById('btn_upload').setAttribute("style","display:none");
-			}
+			//if(nfiles==0) {
+			//  document.getElementById('btn_upload').setAttribute("style","display:none");
+			//}
 		}
 		// Add hidden input
 		new_row.appendChild(new_hidden);
@@ -83,13 +81,12 @@ var MultiSelector  =  {
 		this.files_list.appendChild(new_row);
 		// Selected files counter
 		nfiles++;
-		document.getElementById('btn_upload').setAttribute("style","display:block");
+		//document.getElementById('btn_upload').setAttribute("style","display:inline-block");
 	},
-	
+
 	basename: function(path) {
 		return path.replace(/\\/g,'/').replace( /.*\//, '' );
 	}
 
 };
 MultiSelector.init();
--->

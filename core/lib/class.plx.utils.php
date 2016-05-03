@@ -466,7 +466,7 @@ class plxUtils {
 				$thumb_height = $image[1];
 			}
 		}
-		
+
 		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
 
 		// Import image
@@ -669,28 +669,26 @@ class plxUtils {
 	 * @param	base		url du site qui sera rajoutée devant les liens relatifs
 	 * @param	html		chaine de caractères à convertir
 	 * @return	string		chaine de caractères modifiée
-	 * @author	Stephane F., Amaury Graillat
+	 * @author	Stephane F., Amaury Graillat, J.P. Pourrez
 	 **/
 	public static function rel2abs($base, $html) {
 
-		// on protège les liens de type (href|src)="//" en doublant le caractère =
-		$html = preg_replace('@(href|src)=(["\']\/\/)@i', '\1==\2', $html);
-		// url des plugins
-		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])[\.]/plugins@i', '<$1 $2=$3'.$base.'plugins', $html);
-		// generate server-only replacement for root-relative URLs
-		$server = preg_replace('@^([^:]+)://([^/]+)(/|$).*@', '\1://\2/', $base);
-		// on repare les liens ne commençant que part #
-		$get = plxUtils::getGets();
-		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])#@i', '<\1 \2=\3'.$get.'#', $html);
-		// replace root-relative URLs
-		$html = preg_replace('@\<([^>]*) (href|src)=(["\']).?/@i', '<\1 \2=\3'.$server, $html);
-		// replace base-relative URLs
-		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])([^:"]*|[^:"]*:[^/"][^"]*)(["\'])@i', '<\1 \2=\3'.$base.'\4\5', $html);
-		// unreplace fully qualified URLs with proto: that were wrongly added $base
-		$html = preg_replace('@\<([^>]*) (href|src)=(["\'])'.$base.'([a-zA-Z0-9]*):@i', '<\1 \2=\3\4:', $html);
-		// on rétablit les liens de type (href|src)="//" en remplaçant les caractères == par =
-		$html = preg_replace('@(href|src)==@i', '\1=', $html);
-		return $html;
+		if (substr($base, -1) != '/')
+			$base .= '/';
+
+		# on protège tous les liens externes au site, et on transforme tous les liens relatifs en absolus
+		# on ajoute le hostname si nécessaire
+		$mask = '=<<>>=';
+		$patterns = array('#(href)=("|\')(mailto:|news:)#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
+		$replaces = array('$1'.$mask.'$2$3', '$1'.$mask.'$2$3', '$1=$2'.$base.'$3');
+		if (preg_match('#^[a-z]+://#i', $base)) {
+			$patterns[] = '#(href|src)=("|\')/([^/])#i';
+			$replaces[] = '$1=$2'.$base.'$3';
+		}
+		$result = preg_replace($patterns, $replaces, $html);
+		# on retire la protection des liens externes. Expressions régulières lentes et inutiles
+		$result = str_replace($mask, '=', $result);
+		return $result;
 
 	}
 
@@ -964,6 +962,33 @@ class plxUtils {
 		/* Supprime les tabs, espaces, saut de ligne, etc. */
 		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
 		return $buffer;
+	}
+
+	/**
+	 * Méthode qui converti les urls contenus dans une chaine en liens cliquables.
+	 *
+	 * @param	string		chaîne d'entrée
+	 * @param	string		Optionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
+	 * @return	string		Retourne une copie de la chaîne str dont les urls ont été encapsulées dans des balises <a>.
+	 * @author	http://code.seebz.net/p/autolink-php/
+	 *	Exemple 1:
+	 *		$str = 'A link : http://example.com/?param=value#anchor.';
+	 *		$str = autolink($str);
+	 *		echo $str; // A link : <a href="http://example.com/?param=value#anchor">http://example.com/?param=value#anchor</a>.
+	 *  Exemple 2:
+	 *		$str = 'http://example.com/';
+	 *		$str = autolink($str, array("target"=>"_blank","rel"=>"nofollow"));
+	 *		echo $str; // <a href="http://example.com/" target="_blank" rel="nofollow">http://example.com/</a>
+	 **/
+	public static function autolink($str, $attributes=array()) {
+		$attrs = '';
+		foreach ($attributes as $attribute => $value) {
+			$attrs .= " {$attribute}=\"{$value}\"";
+		}
+		$str = ' ' . $str;
+		$str = preg_replace('#([^"=\'>])((http|https|ftp)://[^\s<]+[^\s<\.)])#i', '$1<a href="$2"'.$attrs.'>$2</a>', $str);
+		$str = substr($str, 1);
+		return $str;
 	}
 
 /*

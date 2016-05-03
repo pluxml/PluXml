@@ -19,7 +19,7 @@ class plxMedias {
 	public $thumbHeight = 60; # hauteur des miniatures
 
 	public $img_exts = '/\.(jpg|gif|png|bmp|jpeg)$/i';
-	public $doc_exts = '/\.(7z|aiff|asf|avi|csv|doc|docx|epub|fla|flv|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpeg|mpg|ods|odt|odp|ogg|pdf|ppt|pptx|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xls|xlsx|zip)$/i';
+	public $doc_exts = '/\.(7z|aiff|asf|avi|csv|doc|docx|epub|fla|flv|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpeg|mpg|ods|odt|odp|ogg|pdf|ppt|pptx|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|svg|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xcf|xls|xlsx|zip)$/i';
 
 	/**
 	 * Constructeur qui initialise la variable de classe

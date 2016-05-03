@@ -99,6 +99,7 @@ class plxCapcha {
 	 **/
 	public function q() {
 		# Generation de la question capcha
+		$_SESSION['capcha_token'] = sha1(uniqid(rand(), true));
 		$_SESSION['capcha'] = sha1($this->word[$this->num-1]);
 		return sprintf(L_CAPCHA_QUESTION,$this->numletter,$this->word);
 	}

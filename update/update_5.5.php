@@ -52,10 +52,15 @@ class update_5_5 extends plxUpdate{
 		return true;
 	}
 
-	# suppression du fichier version	
-	public function step2() {	
+	# suppression des fichiers obsolètes
+	public function step2() {
+		# fichier version
 		if(is_readable(PLX_ROOT.'version')) {
 			unlink(PLX_ROOT.'version');
+		}
+		# fichier parametres_pluginhelp.php
+		if(is_readable(PLX_CORE.'admin/parametres_pluginhelp.php')) {
+			unlink(PLX_CORE.'admin/parametres_pluginhelp.php');
 		}
 		return true;
 	}

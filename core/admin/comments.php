@@ -26,19 +26,19 @@ if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 }
 
 # Suppression des commentaires sélectionnés
-if(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='delete') AND isset($_POST['idCom'])) {
+if(isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='delete') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->delCommentaire($v);
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
 # Validation des commentaires sélectionnés
-elseif(isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='online') AND isset($_POST['idCom'])) {
+elseif(isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='online') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'online');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
 # Mise hors-ligne des commentaires sélectionnés
-elseif (isset($_POST['selection']) AND (!empty($_POST['btn_ok1']) AND $_POST['selection'][0]=='offline') AND isset($_POST['idCom'])) {
+elseif (isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='offline') AND isset($_POST['idCom'])) {
 	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'offline');
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
@@ -70,7 +70,18 @@ else
 	$comSel = ((isset($_SESSION['selCom']) AND !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
 
 if(!empty($_GET['a'])) {
-	$comSelMotif = '/^[[:punct:]]?'.str_replace('_','',$_GET['a']).'.(.*).xml$/';
+	
+	switch ($comSel) {
+		case 'online':
+			$mod = '';
+			break;
+		case 'offline':
+			$mod = '_';
+			break;
+		default:
+			$mod = '[[:punct:]]?';
+	}
+	$comSelMotif = '/^'.$mod.str_replace('_','',$_GET['a']).'.(.*).xml$/';
 	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments($comSelMotif);
 	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
@@ -109,15 +120,15 @@ if(!empty($_GET['a'])) {
 function selector($comSel, $id) {
 	ob_start();
 	if($comSel=='online')
-		plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='offline')
-		plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='all')
-		plxUtils::printSelect('selection[]', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
 	return ob_get_clean();
 }
 
-$selector1=selector($comSel, 'id_selection1');
+$selector=selector($comSel, 'id_selection');
 
 ?>
 
@@ -130,9 +141,9 @@ $selector1=selector($comSel, 'id_selection1');
 		<ul class="menu">
 			<?php echo implode($breadcrumbs); ?>
 		</ul>
-		<?php echo $selector1 ?>
+		<?php echo $selector ?>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<input type="submit" name="btn_ok1" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection1', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	</div>
 
 	<?php if(isset($h3)) echo $h3 ?>
@@ -166,7 +177,7 @@ $selector1=selector($comSel, 'id_selection1');
 						$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
 					}
 					# On génère notre ligne
-					echo '<tr class="line-'.(++$num%2).' top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
+					echo '<tr class="top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
 					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
 					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
 					echo '<td class="wrap">'.$content.'&nbsp;</td>';
@@ -211,7 +222,7 @@ $selector1=selector($comSel, 'id_selection1');
 		$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
 		echo '<span class="p_first">'.$s.'</span>';
 		$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
-		echo '<span class="p_prev">'.$s.'</a></span>';
+		echo '<span class="p_prev">'.$s.'</span>';
 		for($i=$start;$i<=$stop;$i++) {
 			$s = $i==$plxAdmin->page ? $i : '<a href="'.('comments.php?page='.$i.$sel).'" title="'.$i.'">'.$i.'</a>';
 			echo '<span class="p_current">'.$s.'</span>';

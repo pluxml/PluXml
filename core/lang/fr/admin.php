@@ -17,6 +17,14 @@ $LANG = array(
 'L_DELETE_FILE' 				    => 'Supprimer fichier',
 'L_DELETE_FOLDER'				    => 'Supprimer dossier',
 
+'L_THUMBNAIL'						=> 'Image d\'accroche (facultatif)',
+'L_THUMBNAIL_SELECTION'				=> 'Sélectionner une image',
+'L_THUMBNAIL_TITLE'					=> 'Titre de l\'image (facultatif)',
+'L_THUMBNAIL_ALT'					=> 'Texte alternatif de l\'image (facultatif)',
+
+'L_ERR_INVALID_DATE_CREATION'		=> 'Date de création invalide',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Date de mise à jour invalide',	
+
 # class.plx.admin.php
 
 'L_SAVE_SUCCESSFUL'					=> 'Enregistrement des données effectué avec succès',
@@ -79,7 +87,7 @@ $LANG = array(
 # article.php
 
 'L_DEFAULT_NEW_ARTICLE_TITLE'		=> 'Nouvel article',
-'L_ERR_INVALID_PUBLISHING_DATE'		=> 'Date de publication invalide.',
+'L_ERR_INVALID_PUBLISHING_DATE'		=> 'Date de publication invalide',
 'L_ERR_UNKNOWN_ARTICLE'				=> 'L\'article demandé n\'existe pas ou n\'existe plus !',
 'L_ERR_FORBIDDEN_ARTICLE'			=> 'Vous n\'avez pas les droits pour accéder à cet article !',
 'L_BACK_TO_ARTICLES'				=> 'Retour à la liste des articles',
@@ -231,7 +239,7 @@ $LANG = array(
 
 # comments.php
 
-'L_COMMENTS_ARTICLE_SCOPE' 			=> 'article',
+'L_COMMENTS_ARTICLE_SCOPE' 			=> 'Article',
 'L_COMMENTS_GLOBAL_SCOPE'			=> 'site entier',
 'L_COMMENTS_LIST_DATE'				=> 'Date',
 'L_COMMENTS_LIST_AUTHOR'			=> 'Auteur',
@@ -375,7 +383,7 @@ $LANG = array(
 'L_CONFIG_BASE_MODERATE_ARTICLES'	=> 'Modérer les articles pour les profils Rédacteur et Éditeur',
 'L_CONFIG_BASE_UPDATE'				=> 'Modifier la configuration de base',
 'L_CONFIG_META_DESCRIPTION'			=> 'Contenu de la balise meta "description" du site (optionnel)',
-'L_CONFIG_META_KEYWORDS'			=> 'Contenu de la balises meta "keywords" du site (optionnel)',
+'L_CONFIG_META_KEYWORDS'			=> 'Contenu de la balise meta "keywords" du site (optionnel)',
 
 # parametres_edittpl.php
 
@@ -548,6 +556,10 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'				=> 'Informations',
 'L_MENU_CONFIG_PLUGINS_TITLE'		=> 'Gérer les plugins',
 'L_MENU_CONFIG_PLUGINS'				=> 'Plugins',
-
+'L_THEMES'							=> 'Thèmes',
+'L_THEMES_TITLE'					=> 'Gérer les thèmes',
+'L_HELP'							=> 'Aide',
+'L_HELP_TITLE'						=> 'Voir l\'aide',
+'L_BACK_TO_THEMES'					=> 'Retour à la page des thèmes',
 );
 ?>

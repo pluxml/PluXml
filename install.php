@@ -1,16 +1,4 @@
 <?php
-# ------------------ BEGIN LICENSE BLOCK ------------------
-#
-# This file is part of PluXml : http://www.pluxml.org
-#
-# Copyright (c) 2010-2015 Stephane Ferrari and contributors
-# Copyright (c) 2008-2009 Florent MONTHEL and contributors
-# Copyright (c) 2006-2008 Anthony GUERIN
-# Licensed under the GPL license.
-# See http://www.gnu.org/licenses/gpl.html
-#
-# ------------------- END LICENSE BLOCK -------------------
-
 define('PLX_ROOT', './');
 define('PLX_CORE', PLX_ROOT.'core/');
 include(PLX_ROOT.'config.php');
@@ -98,7 +86,7 @@ $config = array('title'=>'PluXml',
 				'images_h'=>600,
 				'miniatures_l'=>200,
 				'miniatures_h'=>100,
-				'thumbs'=>1,
+				'thumbs'=>0,
 				'medias'=>'data/medias/',
 				'racine_articles'=>'data/articles/',
 				'racine_commentaires'=>'data/commentaires/',
@@ -161,7 +149,7 @@ function install($content, $config) {
 	# Création du fichier des pages statiques
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>'."\n";
-	$xml .= "\t".'<statique number="001" active="1" menu="oui" url="'.L_DEFAULT_STATIC_URL.'" template="static.php"><group><![CDATA[]]></group><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE).']]></name><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></statique>'."\n";
+	$xml .= "\t".'<statique number="001" active="1" menu="oui" url="'.L_DEFAULT_STATIC_URL.'" template="static.php"><group><![CDATA[]]></group><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE).']]></name><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag><date_creation><![CDATA['.date('YmdHi').']]></date_creation><date_update><![CDATA['.date('YmdHi').']]></date_update></statique>'."\n";
 	$xml .= '</document>';
 	plxUtils::write($xml,path('XMLFILE_STATICS'));
 	plxUtils::write(file_get_contents(PLX_CORE.'/lib/html.static.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
@@ -173,24 +161,14 @@ function install($content, $config) {
 	<title><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE).']]></title>
 	<allow_com>1</allow_com>
 	<template><![CDATA[article.php]]></template>
-	<chapo>
-		<![CDATA['.$html[0].']]>
-	</chapo>
-	<content>
-		<![CDATA['.$html[1].']]>
-	</content>
-	<tags>
-		<![CDATA[PluXml]]>
-	</tags>
-	<meta_description>
-		<![CDATA[]]>
-	</meta_description>
-	<meta_keywords>
-		<![CDATA[]]>
-	</meta_keywords>
-	<title_htmltag>
-		<![CDATA[]]>
-	</title_htmltag>
+	<chapo><![CDATA['.$html[0].']]></chapo>
+	<content><![CDATA['.$html[1].']]></content>
+	<tags><![CDATA[PluXml]]></tags>
+	<meta_description><![CDATA[]]></meta_description>
+	<meta_keywords><![CDATA[]]></meta_keywords>
+	<title_htmltag><![CDATA[]]></title_htmltag>
+	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
+	<date_update><![CDATA['.date('YmdHi').']]></date_update>
 </document>';
 	plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
 
@@ -326,7 +304,7 @@ plxUtils::cleanHeaders();
 
 					<input class="blue" type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
 					<?php echo plxToken::getTokenPostMethod() ?>
-					
+
 					<ul class="unstyled-list">
 						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
 						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
@@ -334,11 +312,14 @@ plxUtils::cleanHeaders();
 						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
 						<?php } ?>
 						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
+						<?php plxUtils::testWrite(PLX_ROOT) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testMail() ?>

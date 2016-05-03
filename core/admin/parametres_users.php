@@ -69,7 +69,7 @@ include(dirname(__FILE__).'/top.php');
 	if($plxAdmin->aUsers) {
 		foreach($plxAdmin->aUsers as $_userid => $_user)	{
 			if (!$_user['delete']) {
-				echo '<tr class="line-'.($num%2).'">';
+				echo '<tr>';
 				echo '<td><input type="checkbox" name="idUser[]" value="'.$_userid.'" /><input type="hidden" name="userNum[]" value="'.$_userid.'" /></td>';
 				echo '<td>'.$_userid.'</td><td>';
 				plxUtils::printInput($_userid.'_name', plxUtils::strCheck($_user['name']), 'text', '10-255');

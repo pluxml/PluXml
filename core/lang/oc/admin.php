@@ -2,18 +2,24 @@
 
 $LANG = array(
 
-'L_MENU'							=> 'Menu',
+'L_MENU'							=> 'Menú',
 'L_UNKNOWN_ERROR'					=> 'Error desconeguda',
 'L_CONFIRM_DELETE'					=> 'Confirmar la supression ?',
 'L_SAVE_FILE'						=> 'Salvagardar lo fichièr',
 'L_SAVE_FILE_SUCCESSFULLY'			=> 'Fichièr enregistrat amb succès',
 'L_SAVE_FILE_ERROR'					=> 'Error pendent l\'enregistrament del fichièr',
-'L_REPLY'							=> 'Respónder',
-'L_REPLY_TO'						=> 'Respónder',
-'L_CANCEL'							=> 'Dirimir',
+'L_REPLY'							=> 'Respondre',
+'L_REPLY_TO'						=> 'Respondre a',
+'L_CANCEL'							=> 'Anullar',
 'L_DELETE' 						    => 'Suprimir',
 'L_DELETE_FILE' 				  	=> 'Escafar fiquièr',
 'L_DELETE_FOLDER'				   	=> 'Escafar dorsièr',
+'L_THUMBNAIL'						=> 'Imatge a la una (facultatiu)',
+'L_THUMBNAIL_SELECTION'				=> 'Seleccionar un imatge',
+'L_THUMBNAIL_TITLE'					=> 'Títol de l\'imatge (facultatiu)',
+'L_THUMBNAIL_ALT'					=> 'Tèxte alternatiu de l\'imatge (facultatiu)',
+'L_ERR_INVALID_DATE_CREATION'		=> 'Data de creacion invalida',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Data de misa a jorn invalid',
 
 # class.plx.admin.php
 
@@ -21,8 +27,8 @@ $LANG = array(
 'L_SAVE_ERR'						=> 'Error pendent l\'enregistrament de las donadas',
 'L_NO_ENTRY'						=> 'Accès defendut',
 'L_ERR_USER_EMPTY'					=> 'Volgatz picar un nom d\'utilizator',
-'L_ERR_PASSWORD_EMPTY'				=> 'Volgatz picar un mot de Santa Clara',
-'L_ERR_PASSWORD_EMPTY_CONFIRMATION'	=> 'Marrida confirmacion o mot de Santa Clara void',
+'L_ERR_PASSWORD_EMPTY'				=> 'Volgatz picar un senhal',
+'L_ERR_PASSWORD_EMPTY_CONFIRMATION'	=> 'Marrida confirmacion o senhal void',
 'L_ERR_INVALID_EMAIL'				=> 'Corric invalid',
 'L_ERR_INVALID_SITE'				=> 'Adreça del siti invalida',
 'L_ERR_INVALID_ARTICLE_IDENT'		=> 'Identificant d\'article invalid !',
@@ -132,9 +138,9 @@ $LANG = array(
 'L_LOGOUT_SUCCESSFUL'				=> 'Sètz estat corrèctament desconnectat',
 'L_LOGIN_PAGE'						=> 'Connexion a la zòna d\'administracion',
 'L_AUTH_LOGIN_FIELD'				=> 'Login de connexion',
-'L_AUTH_PASSWORD_FIELD'				=> 'Mot de Santa Clara',
+'L_AUTH_PASSWORD_FIELD'				=> 'Senhal',
 'L_SUBMIT_BUTTON'					=> 'Validar',
-'L_ERR_WRONG_PASSWORD' 				=> 'Login e/o mot de Santa Clara incorrèct',
+'L_ERR_WRONG_PASSWORD' 				=> 'Login e/o senhal incorrèct',
 'L_POWERED_BY'						=> 'Generat per <a href="http://www.pluxml.org">PluXml</a>',
 
 #
@@ -229,7 +235,7 @@ $LANG = array(
 
 # comments.php
 
-'L_COMMENTS_ARTICLE_SCOPE' 			=> 'article',
+'L_COMMENTS_ARTICLE_SCOPE' 			=> 'Article',
 'L_COMMENTS_GLOBAL_SCOPE'			=> 'siti entièr',
 'L_COMMENTS_LIST_DATE'				=> 'Data',
 'L_COMMENTS_LIST_AUTHOR'			=> 'Autor',
@@ -430,8 +436,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'		=> 'Supression efectuada amb succès',
 'L_PLUGINS_CONFIG'					=> 'Configuracion',
 'L_PLUGINS_CONFIG_TITLE'			=> 'Configuracion del plugin',
-'L_PLUGINS_HELP'					=> 'Ajuda',
-'L_PLUGINS_HELP_TITLE'				=> 'Véser l\'ajuda del plugin',
 'L_PLUGINS_REQUIREMENTS'			=> 'Pre-requesit',
 'L_PLUGINS_REQUIREMENTS_HELP'		=> 'Lista dels plugins presents e actius per activar aqueste plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'		=> 'Cap',
@@ -452,10 +456,10 @@ $LANG = array(
 'L_PROFIL_ADMIN_LANG'				=> 'Lenga utilizada dins l\'administracion',
 'L_PROFIL_INFOS'					=> 'Informacions',
 'L_PROFIL_UPDATE'					=> 'Modificar vòstre perfil',
-'L_PROFIL_CHANGE_PASSWORD'			=> 'Cambiament del mot de Santa Clara',
-'L_PROFIL_PASSWORD'					=> 'Mot de Santa Clara',
-'L_PROFIL_CONFIRM_PASSWORD'			=> 'Confirmacion del mot de Santa Clara',
-'L_PROFIL_UPDATE_PASSWORD'			=> 'Cambiar vòstre mot de Santa Clara',
+'L_PROFIL_CHANGE_PASSWORD'			=> 'Cambiament del senhal',
+'L_PROFIL_PASSWORD'					=> 'Senhal',
+'L_PROFIL_CONFIRM_PASSWORD'			=> 'Confirmacion del senhal',
+'L_PROFIL_UPDATE_PASSWORD'			=> 'Cambiar vòstre senhal',
 
 # statique.php
 
@@ -546,6 +550,10 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'				=> 'Informacions',
 'L_MENU_CONFIG_PLUGINS_TITLE'		=> 'Gerir los plugins',
 'L_MENU_CONFIG_PLUGINS'				=> 'Plugins',
-
+'L_THEMES'							=> 'Themes',
+'L_THEMES_TITLE'					=> 'Gerir los themes',
+'L_HELP'							=> 'Ajuda',
+'L_HELP_TITLE'						=> 'Véser l\'ajuda',
+'L_BACK_TO_THEMES'					=> 'Tornar a la lista dels tèmas',
 );
 ?>

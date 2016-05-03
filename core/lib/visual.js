@@ -1,4 +1,3 @@
-<!--
 /* Visual Effects */
 function setOpacity(obj, opacity) {
 	obj.style.minHeight = obj.style.minHeight; // hack IE
@@ -9,7 +8,7 @@ function setOpacity(obj, opacity) {
 	obj.style.opacity = opacity/100; // Safari 1.2, newer Firefox and Mozilla, CSS3
 }
 function fadeOut(objId,opacity) {
-    var obj = document.getElementById(objId);
+	var obj = document.getElementById(objId);
 	if(obj) {
 		if(opacity==undefined) {
 			window.setTimeout("fadeOut('"+objId+"',"+100+")", 3000);
@@ -43,4 +42,3 @@ function setMsg() {
 		fadeOut('msg');
 	}
 }
--->

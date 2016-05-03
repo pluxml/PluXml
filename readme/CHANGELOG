@@ -1,15 +1,34 @@
-﻿## PLUXML 5.5 (sortie : xx/xx/2015) ##
+﻿## PLUXML 5.5 (sortie : 01/04/2016) ##
 
-[+]	 #99: Ajout de la prise en compte des extensions "m4a, m4v, epub, vtt, webm" dans le gestionnaire de médias
+[+] #99, #165: Ajout de la prise en compte des extensions "m4a, m4v, epub, svg, vtt, webm, xcf" dans le gestionnaire de médias
 [+] #110: Gestionnaire de médias, ajout des fichiers: Option "Redimensionner images > Taille originale" cochée par défaut
 [+] #114: Réécriture de la pagination des articles et des commentaires dans l'administration
 [-] #107: Suppression du fichier version, remplacé par la constante PLX_VERSION dans le fichier core/lib/config.php
+[+] rédaction d'un article: ajout d'un champs pour avoir une image d'accroche
+[+] API pour afficher le gestionnaire de médias dans une fenêtre popup et récuperer l'image sélectionnée dans la fenêtre appelante
 [+] Mise à jour traduction polonais: contribution 18jaguar18
 [+] Ajout de la constante PLX_FEED
+[+] Ajout d'un jeton de sécurité au formulaire des commentaires
 [+] Gestionnaire de médias: possibilité de sélectionner plusieurs fichiers à la fois pour l'upload des fichiers
 [+] Gestionnaire de médias: visionneuse image en cliquant sur l'icône de la photo
 [+] plxUtils::makeThumb - réécriture de la méthode pour générer des images cropées et carré
-BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags 
+[+] Réécriture de la méthode plxShow::pageTitle()
+[+] Administration: ajout du menu Paramètres > Thèmes
+[+] Ajout des hooks: AdminThemesDisplayTop, AdminThemesDisplay, AdminThemesDisplayFoot
+[+] Réécriture et optimisation de la fonction plxUtils::rel2abs (contribution bazooka07)
+[+] Page statique: gestion de la date de création et de mise à jour
+[+] Articles: gestion de la date de création et de mise à jour
+[+] plxShow: ajout des fonctions staticCreationDate et staticUpdateDate pour afficher la date de création et de mise à jour d'une page statique
+[+] plxShow: ajout de la fonction artThumbnail pour afficher l'image d'accroche de l'article
+[+] plxShow::lastArtList - ajout du hook plxShowLastArtListContent
+[+] plxShow::tagList - ajout des variables #tag_count, #tag_item (contribution danielsan)
+[+] #126: plxShow::staticInclude - l'affichage tient compte si la page est active ou non
+[+] plxDate::formatDate() - ajout de la variable #time
+[+] #68: Sitemap - datation des pages statiques
+[+] Optimisation de la taille des images (contribution Syl)
+[+] Ajout de la variable #art_thumbnail à la fonction plxShow::lastArtList
+[+] Mise à jour de la traduction occitane (contribution Rubén)
+BUG fix #101: Thème par défaut - problème de retour à la ligne dans l'affichage des tags
 BUG fix #102: Thème par défaut - la sidebar passe dans le footer après désactivation du captcha
 BUG fix #103: La recherche dans les articles ne fonctionne dans l'administration pas à partir du champ "Rechercher"
 BUG fix #104: Message d'erreur lorsqu'on essaye d’accéder à une page statique non active
@@ -17,7 +36,8 @@ BUG fix #108: Changement de langue non pris en compte sur l'écran d'installatio
 BUG fix #109: Édition page statique: disparition de champs
 BUG fix #112: Encodage des caractères sur le titre d'un article sur la page d'administration (plxUtils::strCut)
 BUG fix #122: Mauvais affichage du lien "Visualiser" sur la page d'accueil des articles de l'administration
-BUG fix #125: Bug affichage flux RSS d'une catégorie 
+BUG fix #125: Bug affichage flux RSS d'une catégorie
+BUG Administration > Paramètres > Edition des fichiers du thème : impossible de sauvegarder les modifications
 
 ## PLUXML 5.4 (sortie : 13/07/2015) ##
 

@@ -4,6 +4,9 @@ $LANG = array(
 
 'L_LANGUE'						=> 'Italiano',
 
+'L_DATE_CREATION'				=> 'Data di creazione',
+'L_DATE_UPDATE'					=> 'Data aggiornamento',
+
 # common
 'L_PLUXML_VERSION'				=> 'PluXml versione',
 'L_HOMEPAGE'					=> 'Homepage',

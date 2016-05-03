@@ -14,6 +14,12 @@ $LANG = array(
 'L_DELETE'													=> 'Удалить',
 'L_DELETE_FILE' 				    						=> 'Удалить файл',
 'L_DELETE_FOLDER'				   							=> 'Удалить папку',
+'L_THUMBNAIL'												=> 'миниатюрами (необязательно)',
+'L_THUMBNAIL_SELECTION'										=> 'Выбрать Изображение',
+'L_THUMBNAIL_TITLE'											=> 'Изображение Название (необязательно)',
+'L_THUMBNAIL_ALT'											=> 'Альтернативный текст изображения (необязательно)',
+'L_ERR_INVALID_DATE_CREATION'								=> 'Неверный дата создания',
+'L_ERR_INVALID_DATE_UPDATE'									=> 'Неверный дате обновления',
 
 # class.plx.admin.php
 
@@ -229,7 +235,7 @@ $LANG = array(
 
 # comments.php
 
-'L_COMMENTS_ARTICLE_SCOPE'									=> 'статья',
+'L_COMMENTS_ARTICLE_SCOPE'									=> 'Статья',
 'L_COMMENTS_GLOBAL_SCOPE'									=> 'весь сайт',
 
 'L_COMMENTS_LIST_DATE'										=> 'Дата',
@@ -432,8 +438,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Удалено успешно',
 'L_PLUGINS_CONFIG'											=> 'Конфигурация',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Конфигурация плагина',
-'L_PLUGINS_HELP'											=> 'Помощь',
-'L_PLUGINS_HELP_TITLE'										=> 'Смотрите помощь по плагинам',
 'L_PLUGINS_REQUIREMENTS'									=> 'Системные требования',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Доступные и активные плагины',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'Нет',
@@ -548,6 +552,10 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'										=> 'Информация --',
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Плагины',
 'L_MENU_CONFIG_PLUGINS'										=> 'Плагины --',
-
+'L_THEMES'													=> 'Темы',
+'L_THEMES_TITLE'											=> 'Управление темы',
+'L_HELP'													=> 'помощь',
+'L_HELP_TITLE'												=> 'См помощь',
+'L_BACK_TO_THEMES'											=> 'Вернуться к темам страницы',
 );
 ?>

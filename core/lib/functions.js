@@ -1,5 +1,4 @@
-<!--
-function dateNow(delta) {
+function dateNow(field,delta) {
 	var d = new Date();
 	// convert to msec, add local time zone offset
 	// get UTC time in msec
@@ -16,10 +15,10 @@ function dateNow(delta) {
 	if(d <= 9){d = '0'+d;}
 	m = m+1;
 	if(m <= 9){m = '0'+m;}
-	document.getElementsByName('day')['0'].value = d;
-	document.getElementsByName('time')['0'].value = h+":"+i;
-	document.getElementsByName('month')['0'].value = m;
-	document.getElementsByName('year')['0'].value = y;
+	document.getElementsByName(field+'_day')['0'].value = d;
+	document.getElementsByName(field+'_time')['0'].value = h+":"+i;
+	document.getElementsByName(field+'_month')['0'].value = m;
+	document.getElementsByName(field+'_year')['0'].value = y;
 }
 function answerCom(where,id,author) {
 	document.getElementById('id_parent').value=id;
@@ -88,4 +87,3 @@ function insTag(where, tag) {
 	else
 		formfield.value = formfield.value+', '+tag;
 }
--->

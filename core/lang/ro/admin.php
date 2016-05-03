@@ -14,6 +14,10 @@ $LANG = array(
 'L_DELETE'													=> 'Şterge',
 'L_DELETE_FILE' 				    						=> 'Ștergeți fișier',
 'L_DELETE_FOLDER'				   							=> 'Ștergeți dosar',
+'L_THUMBNAIL'												=> 'Miniatură (opţional)',
+'L_THUMBNAIL_SELECTION'										=> 'Selectați Image',
+'L_THUMBNAIL_TITLE'											=> 'Titlu imagine (opţional)',
+'L_THUMBNAIL_ALT'											=> 'Textul alternativ al imaginii (opţional)',
 'L_SAVE_SUCCESSFUL'											=> 'Înregistrarea a fost efectuata cu succes',
 'L_SAVE_ERR'												=> 'Eroare la înregistrare ',
 'L_NO_ENTRY'												=> 'Acces refuzat',
@@ -365,8 +369,6 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Ştergerea a decurs cu succes',
 'L_PLUGINS_CONFIG'											=> 'Configurare',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Configurarea plugin-ului',
-'L_PLUGINS_HELP'											=> 'Ajutor',
-'L_PLUGINS_HELP_TITLE'										=> 'A vedea utilizarea plugin-ului',
 'L_PLUGINS_REQUIREMENTS'									=> 'Cerinţe preliminare',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Lista de plugin-uri prezente şi active pentru activaţie',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'Nu',
@@ -465,6 +467,12 @@ $LANG = array(
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Administrează Plugin-uri',
 'L_MENU_CONFIG_PLUGINS'										=> 'Plugin-uri',
 'L_ERR_URL_ALREADY_EXISTS'									=> 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'',
+'L_THEMES'													=> 'Teme',
+'L_THEMES_TITLE'											=> 'Gestionarea teme',
+'L_HELP'													=> 'Ajutor',
+'L_HELP_TITLE'												=> 'Vezi de ajutor',
+'L_BACK_TO_THEMES'											=> 'Înapoi la subiectele paginii',
+'L_ERR_INVALID_DATE_CREATION'								=> 'Data creării invalid',
+'L_ERR_INVALID_DATE_UPDATE'									=> 'Data invalid actualizat',
 );
-
 ?>

@@ -180,61 +180,67 @@ class plxShow {
 	/**
 	 * Méthode qui affiche le titre de la page selon le mode
 	 *
+	 * @parm	format		format d'affichage (ex: home=#title - #subtitle;article=#title)
+	 *						paramètres: home, categorie, article, static, archives, tags, erreur
+	 * @parm	sep			caractère de séparation dans le format d'affichage entre les paramètres
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Stéphane F
 	 **/
-	public function pageTitle() {
+	public function pageTitle($format='',$sep=";") {
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageTitle'))) return;
 
 		if($this->plxMotor->mode == 'home') {
-			if(!empty($this->plxMotor->aConf['description']))
-				echo plxUtils::strCheck($this->plxMotor->aConf['title'].' - '.$this->plxMotor->aConf['description']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->aConf['title']);
-			return;
+			$title = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->aConf['description'];
 		}
-		if($this->plxMotor->mode == 'categorie') {
+		elseif($this->plxMotor->mode == 'categorie') {
 			$title_htmltag = $this->plxMotor->aCats[$this->plxMotor->cible ]['title_htmltag'];
-			if($title_htmltag!='')
-				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible ]['name'].' - '.$this->plxMotor->aConf['title']);
-			return;
+			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aCats[$this->plxMotor->cible]['name'];
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'article') {
-			$title_htmltag = trim($this->plxMotor->plxRecord_arts->f('title_htmltag'));
-			if($title_htmltag!='')
-				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title').' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'article') {
+			$title_htmltag = $this->plxMotor->plxRecord_arts->f('title_htmltag');
+			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->plxRecord_arts->f('title');
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'static') {
-			$title_htmltag = $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
-			if($title_htmltag!='')
-				echo plxUtils::strCheck($title_htmltag.' - '.$this->plxMotor->aConf['title']);
-			else
-				echo plxUtils::strCheck($this->plxMotor->aStats[$this->plxMotor->cible ]['name'].' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'static') {
+			$title_htmltag =  $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
+			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aStats[$this->plxMotor->cible]['name'];
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'archives') {
+		elseif($this->plxMotor->mode == 'archives') {
 			preg_match('/^(\d{4})(\d{2})?(\d{2})?/',$this->plxMotor->cible, $capture);
 			$year = !empty($capture[1]) ? ' '.$capture[1] : '';
 			$month = !empty($capture[2]) ? ' '.plxDate::getCalendar('month', $capture[2]) : '';
 			$day = !empty($capture[3]) ? ' '.plxDate::getCalendar('day', $capture[3]) : '';
-			echo plxUtils::strCheck(L_PAGETITLE_ARCHIVES.$day.$month.$year.' - '.$this->plxMotor->aConf['title']);
-			return;
+			$title = L_PAGETITLE_ARCHIVES.$day.$month.$year;
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'tags') {
-			echo plxUtils::strCheck(L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName.' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'tags') {
+			$title = L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName;
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
-		if($this->plxMotor->mode == 'erreur') {
-			echo plxUtils::strCheck($this->plxMotor->plxErreur->getMessage().' - '.$this->plxMotor->aConf['title']);
-			return;
+		elseif($this->plxMotor->mode == 'erreur') {
+			$title = $this->plxMotor->plxErreur->getMessage();
+			$subtitle = $this->plxMotor->aConf['title'];
 		}
+		else { # mode par défaut
+			$title = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->aConf['description'];
+		}
+
+		$fmt = '';
+		if(preg_match('/'.$this->plxMotor->mode.'\s*=\s*(.*?)\s*('.$sep.'|$)/i',$format,$capture)) {
+			$fmt = trim($capture[1]);
+		}
+		$format = $fmt=='' ? '#title - #subtitle' : $fmt;
+		$txt = str_replace('#title', trim($title), $format);
+		$txt = str_replace('#subtitle', trim($subtitle), $txt);
+		echo plxUtils::strCheck(trim($txt, ' - '));
+
 	}
 
 	/**
@@ -508,6 +514,32 @@ class plxShow {
 	}
 
 	/**
+	 * Méthode qui affiche l'image d'accroche
+	 *
+	 * @param	format	format d'affichage (variables: #img_url, #img_alt, #img_title)
+	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @return	stdout
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F
+	 **/
+	public function artThumbnail($format='<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />', $echo=true) {
+
+		$imgUrl = $this->plxMotor->plxRecord_arts->f('thumbnail');
+		if($imgUrl) {
+			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $format);
+			$row = str_replace('#img_title', plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), $row);
+			$row = str_replace('#img_alt', $this->plxMotor->plxRecord_arts->f('thumbnail_alt'), $row);
+			if($echo)
+				echo $row;
+			else
+				return $row;
+		} else {
+			if(!$echo) return false;
+		}
+
+	}
+
+	/**
 	 * Méthode qui affiche ou renvoie l'auteur de l'article
 	 *
 	 * @param echo si à VRAI affichage à l'écran
@@ -562,7 +594,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication de l'article selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F.
@@ -743,6 +775,32 @@ class plxShow {
 	}
 
 	/**
+	 * Méthode qui affiche la date de creation d'un article selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+	 * @return	stdout
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F.
+	 **/
+	public function artCreationDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->plxRecord_arts->f('date_creation'),$format);
+	}
+
+	/**
+	 * Méthode qui affiche la date de mise à jour d'un article selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+	 * @return	stdout
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F.
+	 **/
+	public function artUpdateDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->plxRecord_arts->f('date_update'),$format);
+	}
+
+	/**
 	 * Méthode qui affiche un lien vers le fil Rss des articles
 	 * d'une catégorie précise (si $categorie renseigné) ou du site tout entier
 	 *
@@ -883,7 +941,7 @@ class plxShow {
 				}
 				# On modifie nos motifs
 				$row = str_replace('#art_id',$num,$format);
-				$row = str_replace('#cat_list', implode(', ',$catList), $row);
+				$row = str_replace('#cat_list', implode(', ',$catList),$row);
 				$row = str_replace('#art_url',$this->plxMotor->urlRewrite('?article'.$num.'/'.$art['url']),$row);
 				$row = str_replace('#art_status',$status,$row);
 				$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
@@ -891,16 +949,23 @@ class plxShow {
 				$row = str_replace('#art_title',plxUtils::strCheck($art['title']),$row);
 				$strlength = preg_match('/#art_chapo\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
 				$chapo = plxUtils::truncate($art['chapo'],$strlength,$ending,true,true);
-				$row = str_replace('#art_chapo('.$strlength.')','#art_chapo', $row);
+				$row = str_replace('#art_chapo('.$strlength.')','#art_chapo',$row);
 				$row = str_replace('#art_chapo',$chapo,$row);
 				$strlength = preg_match('/#art_content\(([0-9]+)\)/',$row,$capture) ? $capture[1] : '100';
 				$content = plxUtils::truncate($art['content'],$strlength,$ending,true,true);
-				$row = str_replace('#art_content('.$strlength.')','#art_content', $row);
-				$row = str_replace('#art_content',$content, $row);
+				$row = str_replace('#art_content('.$strlength.')','#art_content',$row);
+				$row = str_replace('#art_content',$content,$row);
 				$row = str_replace('#art_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
 				$row = str_replace('#art_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
+				$row = str_replace('#art_time',plxDate::formatDate($date,'#time'),$row);
 				$row = plxDate::formatDate($date,$row);
-				$row = str_replace('#art_nbcoms',$art['nb_com'], $row);
+				$row = str_replace('#art_nbcoms',$art['nb_com'],$row);
+				$row = str_replace('#art_thumbnail', '<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />',$row);
+				$row = str_replace('#img_url',$this->plxMotor->urlRewrite($art['thumbnail']),$row);
+				$row = str_replace('#img_title',$art['thumbnail_title'],$row);
+				$row = str_replace('#img_alt',$art['thumbnail_alt'],$row);
+				# Hook plugin
+				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
 				# On genère notre ligne
 				echo $row;
 			}
@@ -952,15 +1017,28 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche le niveau d'indentation du commentaire
+	 * Méthode qui retourne le niveau d'indentation du commentaire
+	 *
+	 * @return	integer		numéro du niveau d'indentation du commentaire
+	 * @scope	article
+	 * @author	Stephane F.
+	 **/
+	public function comNumLevel() {
+		return $this->plxMotor->plxRecord_coms->f('level');
+	}
+
+	/**
+	 * Méthode qui formate et affiche le niveau d'indentation du commentaire
 	 *
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Stephane F.
 	 **/
 	public function comLevel() {
-
-		echo $this->plxMotor->plxRecord_coms->f('level');
+		if($this->comNumLevel() > 5)
+			echo 'level-'.$this->comNumLevel().' level-max';
+		else
+			echo 'level-'.$this->comNumLevel();
 	}
 
 	/**
@@ -1023,12 +1101,12 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de publication d'un commentaire selon le format choisi
 	 *
-	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(2), #num_year(4))
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(2), #num_year(4), #time)
 	 * @return	stdout
 	 * @scope	article
 	 * @author	Florent MONTHEL et Stephane F
 	 **/
-	public function comDate($format='#day #num_day #month #num_year(4) &agrave; #hour:#minute') {
+	public function comDate($format='#day #num_day #month #num_year(4) @ #time') {
 
 		echo plxDate::formatDate($this->plxMotor->plxRecord_coms->f('date'),$format);
 	}
@@ -1156,7 +1234,7 @@ class plxShow {
 							}
 							$row = str_replace('#com_content',$content,$row);
 							$row = str_replace('#com_date',plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),$row);
-							$row = str_replace('#com_hour',plxDate::formatDate($date,'#hour:#minute'),$row);
+							$row = str_replace('#com_hour',plxDate::formatDate($date,'#time'),$row);
 							$row = plxDate::formatDate($date,$row);
 							# récupération du titre de l'article
 							if($isComArtTitle) {
@@ -1330,7 +1408,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de la dernière modification de la page statique selon le format choisi
 	 *
-	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
+	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
 	 * @return	stdout
 	 * @scope	static
 	 * @author	Anthony T.
@@ -1344,6 +1422,32 @@ class plxShow {
 		if(!file_exists($file)) return;
 		# On récupère la date de la dernière modification du fichier qu'on formate
 		echo plxDate::formatDate(date('YmdHi', filemtime($file)), $format);
+	}
+
+	/**
+	 * Méthode qui affiche la date de creation de la page statique selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+	 * @return	stdout
+	 * @scope	static
+	 * @author	Stephane F.
+	 **/
+	public function staticCreationDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->aStats[$this->plxMotor->cible]['date_creation'],$format);
+	}
+
+	/**
+	 * Méthode qui affiche la date de modification de la page statique selon le format choisi
+	 *
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
+	 * @return	stdout
+	 * @scope	static
+	 * @author	Stephane F.
+	 **/
+	public function staticUpdateDate($format='#num_day/#num_month/#num_year(4) #time') {
+
+		echo plxDate::formatDate($this->plxMotor->aStats[$this->plxMotor->cible]['date_update'],$format);
 	}
 
 	/**
@@ -1383,18 +1487,23 @@ class plxShow {
 	 * @author	Stéphane F
 	 **/
 	public function staticInclude($id) {
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return ;
 		# On génère un nouvel objet plxGlob
 		$plxGlob_stats = plxGlob::getInstance(PLX_ROOT.$this->plxMotor->aConf['racine_statiques']);
-		if(is_numeric($id))
+		if(is_numeric($id)) # inclusion à partir de l'id de la page
 			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
-		else {
+		else { # inclusion à partir du titre de la page
 			$url = plxUtils::title2url($id);
 			$regx = '/^[0-9]{3}.'.$url.'.php$/';
 		}
 		if($files = $plxGlob_stats->query($regx)) {
-			include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
+			# on récupère l'id de la page pour tester si elle est active
+			if(preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
+				if($this->plxMotor->aStats[$c[1]]['active'])
+					include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
+			}
 		}
 	}
 
@@ -1457,6 +1566,7 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaQ'))) return;
 		echo $this->plxMotor->plxCapcha->q();
+		echo '<input type="hidden" name="capcha_token" value="'.$_SESSION['capcha_token'].'" />';
 	}
 
 	/**
@@ -1532,7 +1642,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
-	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_url, #tag_name, #nb_art)
+	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
 	 * @param	max		nombre maxi de tags à afficher
 	 * @param	order	tri des tags (random, alpha, '')
 	 * @return	stdout
@@ -1590,6 +1700,8 @@ class plxShow {
 		foreach($array as $tagname => $tag) {
 			$name = str_replace('#tag_id','tag-'.$size++,$format);
 			$name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
+			$name = str_replace('#tag_count',$tag['count'],$name);
+			$name = str_replace('#tag_item',$tag['url'],$name);
 			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
 			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
 			$name = str_replace('#nb_art',$tag['count'],$name);
