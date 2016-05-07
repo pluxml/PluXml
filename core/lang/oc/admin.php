@@ -19,7 +19,7 @@ $LANG = array(
 'L_THUMBNAIL_TITLE'					=> 'Títol de l\'imatge (facultatiu)',
 'L_THUMBNAIL_ALT'					=> 'Tèxte alternatiu de l\'imatge (facultatiu)',
 'L_ERR_INVALID_DATE_CREATION'		=> 'Data de creacion invalida',
-'L_ERR_INVALID_DATE_UPDATE'			=> 'Data de misa a jorn invalid',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Data de mesa a jorn invalid',
 
 # class.plx.admin.php
 
@@ -111,7 +111,7 @@ $LANG = array(
 'L_ALLOW_COMMENTS' 					=> 'Autorizar los comentaris',
 'L_ARTICLE_URL_FIELD' 				=> 'Url',
 'L_ARTICLE_URL_FIELD_TITLE' 		=> 'l\'URL s\'emplís automaticament a la creacion',
-'L_ARTICLE_TEMPLATE_FIELD' 			=> 'Template',
+'L_ARTICLE_TEMPLATE_FIELD' 			=> 'Modèl',
 'L_ARTICLE_MANAGE_COMMENTS'			=> 'Gerir los comentaris',
 'L_ARTICLE_MANAGE_COMMENTS_TITLE'	=> 'Gerir los comentaris d\'aqueste article',
 'L_ARTICLE_NEW_COMMENT'				=> 'Escriure un comentari',
@@ -364,7 +364,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'	=> 'Emplaçament dels plugins (dorsièr)',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplaçament dels fichièrs de configuracion (dorsièr)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modificar la configuracion avançada',
-'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement et nom du fichier css personnel pour customisation de l\'interface d\'administration (option)',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Lòc e nom del fichièr css personnal per personalizar l\'interfàcia d\'administracion (opcion)',
 
 # parametres_base.php
 
