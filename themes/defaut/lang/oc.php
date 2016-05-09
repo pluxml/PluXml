@@ -38,18 +38,18 @@ $LANG = array(
 # commentaires.php
 'SAID'					=> 'a dich',
 'WRITE_A_COMMENT'		=> 'Escriure un comentari',
-'NAME'					=> 'Vòstre nom o pseudò',
-'WEBSITE'				=> 'Vòstre siti Internet (facultatiu)',
-'EMAIL'					=> 'Vòstre corric (facultatiu)',
+'NAME'					=> 'Vòstre nom o escais-nom',
+'WEBSITE'				=> 'Vòstre site Internet (facultatiu)',
+'EMAIL'					=> 'Vòstre corrièl (facultatiu)',
 'COMMENT'				=> 'Contengut de vòstre messatge',
 'CLEAR'					=> 'Escafar',
 'SEND'					=> 'Mandar vòstre comentari',
 'COMMENTS_CLOSED'		=> 'Los comentaris son barrats',
 'ANTISPAM_WARNING'		=> 'Verificacion anti-spam',
 
-'REPLY'					=> 'Respónder',
-'REPLY_TO'				=> 'Respónder',
-'CANCEL'				=> 'Dirimir',
+'REPLY'					=> 'Responder',
+'REPLY_TO'				=> 'Responder',
+'CANCEL'				=> 'Anullar',
 
 );
 
