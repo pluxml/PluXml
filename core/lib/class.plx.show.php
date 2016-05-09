@@ -838,10 +838,6 @@ class plxShow {
 	 **/
 	public function artNbCom($f1='L_NO_COMMENT',$f2='#nb L_COMMENT',$f3='#nb L_COMMENTS') {
 
-		# A t'on besoin d'afficher le nb de commentaires ?
-		if(!$this->plxMotor->aConf['allow_com'] OR !$this->plxMotor->plxRecord_arts->f('allow_com'))
-			return;
-
 		$nb = intval($this->plxMotor->plxRecord_arts->f('nb_com'));
 		$num = intval($this->plxMotor->plxRecord_arts->f('numero'));
 		$url = $this->plxMotor->plxRecord_arts->f('url');
@@ -1677,7 +1673,7 @@ class plxShow {
 					}
 				}
 			}
-			
+
 			# tri des tags
 			switch($order) {
 				case 'alpha':
@@ -1693,12 +1689,12 @@ class plxShow {
 					$array = $arr_elem;
 					break;
 			}
-			
+
 			# limite sur le nombre de tags à afficher
 			if($max!='') $array=array_slice($array, 0, intval($max), true);
-			
+
 		}
-		
+
 		# On affiche la liste
 		$size=0;
 		foreach($array as $tagname => $tag) {
