@@ -3,6 +3,7 @@
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
 [+] Contrôle de la force des mots de passe saisis
 BUG Non affichage du nombre de commentaires d'un article si les commentaires sont fermés
+BUG plxUtils::removeAccents - amélioration de la prise en compte des caractères non latin
 BUG #171: Décalage theme par défaut
 BUG #174: Mauvaise réécriture d'url avec les liens data:image, javascript et commençant par #
 BUG #176: Image preview.png du thème par defaut déformée
