@@ -7,6 +7,7 @@ BUG plxUtils::removeAccents - amélioration de la prise en compte des caractère
 BUG #171: Décalage theme par défaut
 BUG #174: Mauvaise réécriture d'url avec les liens data:image, javascript et commençant par #
 BUG #176: Image preview.png du thème par defaut déformée
+BUG #181: Commentaires toujours refusés si capcha désactivé (contribution ortolot)
 BUG #182: Affichage en trop si commentaires fermés (contribution josé)
 
 ## PLUXML 5.5 (sortie : 01/04/2016) ##
