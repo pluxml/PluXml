@@ -180,20 +180,22 @@ class plxUtils {
 	 * @param	size		longueur du champ - nombre maximal de caractères pouvant être saisis (par défaut 50-255)
 	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
-	 * àparam	placeholder valeur du placeholder du champ (html5)
+	 * @param	placeholder valeur du placeholder du champ (html5)
+	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
 	 * @return	stdout
 	 **/
-	public static function printInput($name, $value='', $type='text', $size='50-255', $readonly=false, $class='', $placeholder='') {
+	public static function printInput($name, $value='', $type='text', $size='50-255', $readonly=false, $class='', $placeholder='', $extra='') {
 
 		$size = explode('-',$size);
 		$placeholder = $placeholder!='' ? ' placeholder="'.$placeholder.'"' : '';
+		$extra = $extra!='' ? ' '.trim($extra) : '';
 		if($type!='hidden') {
 			if($readonly)
-				echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
+				echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
 			else
-				echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
+				echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
 		} else {
-			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" value="'.$value.'" />'."\n";
+			echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'" value="'.$value.'" />'."\n";
 		}
 	}
 

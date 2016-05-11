@@ -1,7 +1,7 @@
 ﻿## PLUXML 5.x (sortie : xx/xx/2016) ##
 
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
-
+[+] Contrôle de la force des mots de passe saisis
 BUG Non affichage du nombre de commentaires d'un article si les commentaires sont fermés
 BUG #171: Décalage theme par défaut
 BUG #174: Mauvaise réécriture d'url avec les liens data:image, javascript et commençant par #

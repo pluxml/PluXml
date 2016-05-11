@@ -227,9 +227,10 @@ plxUtils::cleanHeaders();
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
 </head>
 
-<body onload="document.forms[1].name.focus();">
+<body>
 
 	<main class="main grid">
 
@@ -282,7 +283,7 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
+							<?php plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
 						</div>
 					</div>
 					<div class="grid">
