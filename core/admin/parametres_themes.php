@@ -40,10 +40,13 @@ class plxThemes {
 			$this->aThemes[$this->activeTheme] = $this->activeTheme;
 		# liste des autres themes dispos
 		$files = plxGlob::getInstance($this->racineTheme, true);
+
 		if($styles = $files->query("/[a-z0-9-_\.\(\)]+/i", "", "sort")) {
 			foreach($styles as $k=>$v) {
-				if(substr($v,0,7) != 'mobile.' AND $v!=$this->activeTheme)
-					$this->aThemes[$v] = $v;
+				if(is_file($this->racineTheme.$v.'/infos.xml')) {
+					if(substr($v,0,7) != 'mobile.' AND $v!=$this->activeTheme)
+						$this->aThemes[$v] = $v;
+				}
 			}
 		}
 	}
