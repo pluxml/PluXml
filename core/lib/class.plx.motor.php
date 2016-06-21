@@ -978,11 +978,11 @@ class plxMotor {
 	public function sendTelechargement($cible) {
 
 		# On décrypte le nom du fichier
-		$file = PLX_ROOT.$this->aConf['documents'].plxEncrypt::decryptId($cible);
+		$file = PLX_ROOT.$this->aConf['medias'].plxEncrypt::decryptId($cible);
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
-		# On lance le téléchargement et on check le répertoire documents
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['documents']).'#'), str_replace('\\', '/', realpath($file)))) {
+		# On lance le téléchargement et on check le répertoire medias
+		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
 			header('Content-Disposition: attachment; filename='.basename($file));
