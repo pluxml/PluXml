@@ -33,9 +33,9 @@
 
 		<?php endwhile; # Fin de la boucle sur les commentaires ?>
 
-		<p><?php $plxShow->comFeed('rss',$plxShow->artId()); ?></p>
-
 	<?php endif; ?>
+
+	<p><?php $plxShow->comFeed('rss',$plxShow->artId()); ?></p>
 
 	<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
 
