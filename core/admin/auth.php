@@ -82,9 +82,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password'])) {
 }
 plxUtils::cleanHeaders();
 ?>
-
 <!DOCTYPE html>
-
 <html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
 <head>
 	<meta name="robots" content="noindex, nofollow" />
@@ -93,6 +91,7 @@ plxUtils::cleanHeaders();
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>	
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
 </head>
