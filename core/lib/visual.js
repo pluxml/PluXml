@@ -41,8 +41,8 @@ function setMsg() {
 		fadeOut('msg');
 	}
 }
-function pwdStrength(id) {
-	// Colors: white = empty, red = very weak, oange = weak, yellow = good, green = strong
+function pwdStrength(id, s) {
+	// Colors: white = empty, red = very weak, orange = weak, yellow = good, green = strong
 	var color = ['#fff', '#ff0000', '#ff9900', '#ffcc00', '#33cc33'];
 	var val = document.getElementById(id).value;
 	var no=0;
@@ -56,4 +56,7 @@ function pwdStrength(id) {
 	if(val.length>6 && val.match(/[a-z]/) && val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) no=4;
 	// Change password background color
 	document.getElementById(id).style.backgroundColor=color[no];
+	// Change label strenght password
+	var pwdstr=document.getElementById(id+'_strenght');
+	pwdstr.innerHTML='';if(no>0){pwdstr.innerHTML=s[no-1]};
 }

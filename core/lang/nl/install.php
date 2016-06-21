@@ -28,5 +28,9 @@ $LANG = array(
 'L_PASSWORD_CONFIRMATION'			=> 'Bevestig het wachtwoord',
 'L_INPUT_INSTALL'					=> 'Installeer',
 'L_TIMEZONE'						=> 'Tijdzone',
+'L_PWD_VERY_WEAK'					=> 'Zeer zwak wachtwoord',
+'L_PWD_WEAK'						=> 'Zwak wachtwoord',
+'L_PWD_GOOD'						=> 'Goed wachtwoord',
+'L_PWD_STRONG'						=> 'Sterk wachtwoord',
 );
 ?>
