@@ -148,6 +148,7 @@ $LANG = array(
 'L_SORT_ASCENDING_DATE'							=> 'más antiguo a más reciente',
 'L_SORT_DESCENDING_DATE'						=> 'más reciente a más antiguo',
 'L_SORT_ALPHABETICAL'							=> 'alfabético',
+'L_SORT_RANDOM'									=> 'aleatorio',
 'L_YES'											=> 'Si',
 'L_NO'											=> 'No',
 'L_OK'											=> 'OK',

@@ -269,6 +269,7 @@ $LANG = array(
 'L_SORT_ASCENDING_DATE'										=> 'data crescator',
 'L_SORT_DESCENDING_DATE'									=> 'descendentă Data',
 'L_SORT_ALPHABETICAL'										=> 'alfabetic',
+'L_SORT_RANDOM'												=> 'aleatoriu',
 'L_OK'														=> 'Ok',
 'L_YES'														=> 'Da',
 'L_NO'														=> 'Nu',

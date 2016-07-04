@@ -144,6 +144,7 @@ $LANG = array(
 'L_SORT_ASCENDING_DATE'										=> 'ascending date',
 'L_SORT_DESCENDING_DATE'									=> 'descending date',
 'L_SORT_ALPHABETICAL'										=> 'alphabetical',
+'L_SORT_RANDOM'												=> 'random',
 'L_OK'														=> 'Ok',
 'L_YES'														=> 'Yes',
 'L_NO'														=> 'No',

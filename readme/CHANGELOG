@@ -3,6 +3,7 @@
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
 [+] Contrôle de la force des mots de passe saisis
 [+] Administration > Paramètres > Thèmes : test existence fichier infos.xml dans le dossier thème pour le lister ou non
+[+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage)
 BUG Non affichage du nombre de commentaires d'un article si les commentaires sont fermés
 BUG plxUtils::removeAccents - amélioration de la prise en compte des caractères non latin
 BUG #171: Décalage theme par défaut
