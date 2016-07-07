@@ -1808,9 +1808,15 @@ class plxShow {
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTemplateCss'))) return;
 
 		$theme = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/';
+		$min_css = str_replace('php','min.css',$this->plxMotor->template);
 		$css = str_replace('php','css',$this->plxMotor->template);
-		if(is_file($theme.$css_dir.$css))
+		
+		if(is_file($theme.$css_dir.$min_css)) {
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$min_css).'" media="screen" />'."\n";
+		}		
+		elseif(is_file($theme.$css_dir.$css))
 			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'" media="screen" />'."\n";
+		}
 	}
 
 	/**
