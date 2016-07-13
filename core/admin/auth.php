@@ -110,7 +110,7 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<label for="id_login"><?php echo L_AUTH_LOGIN_FIELD ?>&nbsp;:</label>
-								<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width');?>
+								<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width','','autofocus');?>
 							</div>
 						</div>
 						<div class="grid">
