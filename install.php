@@ -267,7 +267,7 @@ plxUtils::cleanHeaders();
 							<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
+							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus') ?>
 						</div>
 					</div>
 					<div class="grid">
