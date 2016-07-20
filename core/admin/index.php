@@ -212,7 +212,7 @@ include(dirname(__FILE__).'/top.php');
 				echo '<td>';
 				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_ARTICLE_EDIT.'</a>';
 				if($publi AND $draft=='') # Si l'article est publié
-					echo ' | <a href="'.PLX_ROOT.'?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url').'" title="'.L_ARTICLE_VIEW_TITLE.'">'.L_ARTICLE_VIEW.'</a>';
+					echo ' <a href="'.PLX_ROOT.'?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url').'" title="'.L_ARTICLE_VIEW_TITLE.'">'.L_VIEW.'</a>';
 				echo "&nbsp;</td>";
 				echo "</tr>";
 			}
