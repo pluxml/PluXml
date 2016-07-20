@@ -221,7 +221,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'										=> 'Azione',
 'L_CATEGORY_HOME'											=> 'Homepage',
 'L_CATEGORY_DRAFT'											=> 'Bozza',
-'L_ARTICLE_VIEW'											=> 'Visualizza',
 'L_ARTICLE_VIEW_TITLE'										=> 'Visualizza questo articolo sul sito',
 'L_ARTICLE_EDIT'											=> 'Modifica',
 'L_ARTICLE_EDIT_TITLE'										=> 'Modifica questo articolo',

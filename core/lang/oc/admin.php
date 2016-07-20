@@ -277,7 +277,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'				=> 'Accion',
 'L_CATEGORY_HOME'					=> 'Pagina d\'acuèlh',
 'L_CATEGORY_DRAFT'					=> 'Borrolhon',
-'L_ARTICLE_VIEW'					=> 'Visualizar',
 'L_ARTICLE_VIEW_TITLE'				=> 'Visualizar aquel article sul siti',
 'L_ARTICLE_EDIT'					=> 'Editar',
 'L_ARTICLE_EDIT_TITLE'				=> 'Editar aquel article',

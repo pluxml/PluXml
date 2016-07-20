@@ -280,7 +280,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'										=> 'Действие',
 'L_CATEGORY_HOME'											=> 'Главная',
 'L_CATEGORY_DRAFT'											=> 'Черновики',
-'L_ARTICLE_VIEW'											=> 'Открыть',
 'L_ARTICLE_VIEW_TITLE'										=> 'Открыть эту статью',
 'L_ARTICLE_EDIT'											=> 'Изменить',
 'L_ARTICLE_EDIT_TITLE'										=> 'Изменить эту статью',
