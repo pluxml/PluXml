@@ -475,6 +475,7 @@ $LANG = array(
 'L_HELP'													=> 'Ajuda',
 'L_HELP_TITLE'												=> 'Vêr a ajuda',
 'L_BACK_TO_THEMES'											=> 'Voltar para os temas da página',
+'L_CONFIG_THEME_UPDATE'										=> 'Change Theme',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Data de criação inválido',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Data inválida atualizado',
 );

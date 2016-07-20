@@ -477,5 +477,6 @@ $LANG = array(
 'L_BACK_TO_THEMES'											=> 'Torna alla pagina dei temi',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Data di creazione non valida',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Data non valida aggiornato',
+'L_CONFIG_THEME_UPDATE'										=> 'Cambia Aspetto',
 );
 ?>

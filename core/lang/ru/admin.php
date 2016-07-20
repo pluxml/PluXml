@@ -560,5 +560,6 @@ $LANG = array(
 'L_HELP'													=> 'помощь',
 'L_HELP_TITLE'												=> 'См помощь',
 'L_BACK_TO_THEMES'											=> 'Вернуться к темам страницы',
+'L_CONFIG_THEME_UPDATE'										=> 'Изменить стиль',
 );
 ?>

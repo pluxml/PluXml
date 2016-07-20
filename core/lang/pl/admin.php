@@ -558,5 +558,6 @@ przypadkowy',
 'L_HELP'							=> 'Pomoc',
 'L_HELP_TITLE'						=> 'Zobacz pomoc',
 'L_BACK_TO_THEMES'					=> 'Powrót do tematów strony',
+'L_CONFIG_THEME_UPDATE'				=> 'Zmień styl',
 );
 ?>

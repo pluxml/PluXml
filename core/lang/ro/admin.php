@@ -475,6 +475,7 @@ $LANG = array(
 'L_HELP'													=> 'Ajutor',
 'L_HELP_TITLE'												=> 'Vezi de ajutor',
 'L_BACK_TO_THEMES'											=> 'Înapoi la subiectele paginii',
+'L_CONFIG_THEME_UPDATE'										=> 'Înregistrarea temă',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Data creării invalid',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Data invalid actualizat',
 );

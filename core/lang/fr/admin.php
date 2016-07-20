@@ -561,5 +561,6 @@ $LANG = array(
 'L_HELP'							=> 'Aide',
 'L_HELP_TITLE'						=> 'Voir l\'aide',
 'L_BACK_TO_THEMES'					=> 'Retour à la page des thèmes',
+'L_CONFIG_THEME_UPDATE'				=> 'Modifier le thème',
 );
 ?>

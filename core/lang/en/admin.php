@@ -475,6 +475,7 @@ $LANG = array(
 'L_HELP'													=> 'Help',
 'L_HELP_TITLE'												=> 'See help',
 'L_BACK_TO_THEMES'											=> 'Back to themes',
+'L_CONFIG_THEME_UPDATE'										=> 'Change Theme',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Invalid creation date',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Invalid date updated',
 );

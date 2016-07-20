@@ -557,5 +557,6 @@ $LANG = array(
 'L_HELP'										=> 'Ayuda',
 'L_HELP_TITLE'									=> 'Consulte la ayuda',
 'L_BACK_TO_THEMES'								=> 'Volver a la lista de temas',
+'L_CONFIG_THEME_UPDATE'							=> 'Cambiar tema',
 );
 ?>
