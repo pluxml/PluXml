@@ -21,7 +21,7 @@ $LANG = array(
 'L_UPDATE_ENDED'						=> 'Actualización finalizada',
 'L_UPDATE_INPROGRESS'					=> 'Actualizando la versión',
 'L_UPDATE_ERROR'						=> 'Ocurrió un error durante la actualización.',
-'L_UPDATE_SUCCESSFUL'					=> '¡Se completaron correctamente todas las actualizaciones!',
+'L_UPDATE_SUCCESSFUL'					=> 'Se completaron correctamente todas las actualizaciones!',
 
 'L_UPDATE_UPDATE_PARAMETERS_FILE'		=> 'Actualización del archivo «parametres.xml»',
 'L_UPDATE_CREATE_TAGS_FILE'				=> 'Creación del archivo «tags.xml»',

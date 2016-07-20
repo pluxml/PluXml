@@ -7,7 +7,6 @@ $LANG = array(
 'HOME'					=> 'Inicio',
 'GOTO_CONTENT'			=> 'Ir al contenido',
 'GOTO_MENU'				=> 'Ir al men&uacute;',
-'COMMENTS_ATOM_FEEDS'	=> 'Hilo Atom de los comentarios',
 'COMMENTS_RSS_FEEDS'	=> 'Hilo Rss de los comentarios',
 'COMMENTS'				=> 'Comentarios',
 'ARTICLES_RSS_FEEDS'	=> 'Hilo Rss de los art&iacute;culos',

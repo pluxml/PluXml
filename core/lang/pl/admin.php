@@ -8,7 +8,9 @@ $LANG = array(
 'L_SAVE_FILE'						=> 'Zapisz plik',
 'L_SAVE_FILE_SUCCESSFULLY'			=> 'Plik został pomyślnie zapisany',
 'L_SAVE_FILE_ERROR'					=> 'Wystąpił błąd podczas zapisywania pliku',
-
+'L_REPLY'							=> 'Odpowiedź',
+'L_REPLY_TO'						=> 'Odpowiedź',
+'L_CANCEL'							=> 'Anulować',
 'L_DELETE' 						    => 'Usuń',
 'L_DELETE_FILE' 				    => 'Usuń plik',
 'L_DELETE_FOLDER'				    => 'Usuń folder',
@@ -412,7 +414,6 @@ przypadkowy',
 'L_CONFIG_USERS_UPDATE'				=> 'Modifier la liste des utilisateurs',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identifiant de connexion déjà utilisé',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilisateur déjà utilisé',
-'L_CONFIG_USERS_DELETE_CONFIRM'		=> 'Supprimer les utilisateurs sélectionnés ?',
 
 # parametre_plugins.php
 
@@ -436,6 +437,8 @@ przypadkowy',
 'L_PLUGINS_DELETE_SUCCESSFUL'		=> 'Suppression effectuée avec succès',
 'L_PLUGINS_CONFIG'					=> 'Configuration',
 'L_PLUGINS_CONFIG_TITLE'			=> 'Configuration du plugin',
+'L_PLUGINS_HELP'					=> 'Pomoc',
+'L_PLUGINS_HELP_TITLE'				=> 'Patrz Korzystanie z wtyczki',
 'L_PLUGINS_REQUIREMENTS'			=> 'Pré-requis',
 'L_PLUGINS_REQUIREMENTS_HELP'		=> 'Liste des plugins présents et actifs pour activer ce plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'		=> 'Aucun',

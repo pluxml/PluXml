@@ -371,6 +371,8 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'						=> 'Löschen war erfolgreich',
 'L_PLUGINS_CONFIG'									=> 'Konfiguration',
 'L_PLUGINS_CONFIG_TITLE'							=> 'Pluginkonfiguration',
+'L_PLUGINS_HELP'									=> 'Hilfe',
+'L_PLUGINS_HELP_TITLE'								=> 'Siehe die Benutzung von Plugins',
 'L_PLUGINS_REQUIREMENTS'							=> 'Voraussetzungen',
 'L_PLUGINS_REQUIREMENTS_HELP'						=> 'Vorausgesetzte Plugins (installiert und aktiviert), damit dieses Plugin verwendet werden kann',
 'L_PLUGINS_REQUIREMENTS_NONE'						=> 'Kein',
@@ -475,6 +477,6 @@ $LANG = array(
 'L_HELP_TITLE'										=> 'Siehe Hilfe',
 'L_BACK_TO_THEMES'									=> 'Zurück Hilfe',
 'L_ERR_INVALID_DATE_CREATION'						=> 'Ungültige Erstellungsdatum',
-'L_ERR_INVALID_DATE_UPDATE'							=> 'Datum ungültig aktualisiert',	
+'L_ERR_INVALID_DATE_UPDATE'							=> 'Datum ungültig aktualisiert',
 );
 ?>

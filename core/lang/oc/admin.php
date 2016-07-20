@@ -413,7 +413,6 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modificar la lista dels utilizators',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identificant de connexion ja utilizat',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilizator ja utilizat',
-'L_CONFIG_USERS_DELETE_CONFIRM'		=> 'Suprimir los utilizators seleccionats ?',
 
 # parametre_plugins.php
 
@@ -437,6 +436,8 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'		=> 'Supression efectuada amb succès',
 'L_PLUGINS_CONFIG'					=> 'Configuracion',
 'L_PLUGINS_CONFIG_TITLE'			=> 'Configuracion del plugin',
+'L_PLUGINS_HELP'					=> 'Aide',
+'L_PLUGINS_HELP_TITLE'				=> 'Voir l\'aide du plugin',
 'L_PLUGINS_REQUIREMENTS'			=> 'Pre-requesit',
 'L_PLUGINS_REQUIREMENTS_HELP'		=> 'Lista dels plugins presents e actius per activar aqueste plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'		=> 'Cap',
