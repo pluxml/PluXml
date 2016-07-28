@@ -253,21 +253,13 @@ a.hint {
 	background-image: url(images/help.png);
 	width: 16px;
 }
-a.folder {
-	background: url(images/folder.png) 8px no-repeat;
-	width: 24px;
-}
-a.folder::before {
-  content: "+";
-  color: #808080;
-}
-a.hint, a.folder {
+a.hint {
 	cursor: help;
 	display: inline-block;
 	height: 16px;
 	text-decoration: none;
 }
-a.hint span, a.folder span {
+a.hint span {
 	background-color: #a0a0a0;
 	border: 1px solid #ccc;
 	color:#fff;
@@ -281,10 +273,30 @@ a.hint span, a.folder span {
 	z-index: 9999;
 }
 a.hint:hover span,
-a.hint:focus span,
-a.folder:hover span,
-a.folder:focus span  {
+a.hint:focus span  {
 	display: inline-block;
+}
+.ddcat {
+	width: 150px;
+	border-color: transparent;
+	background-color: transparent;
+	margin-left: 0;
+	padding-left: 0;
+	position: relative;
+	left: -5px;
+
+	border: 0 !important;  /*Removes border*/
+	-webkit-appearance: none;  /*Removes default chrome and safari style*/
+	-moz-appearance: none;  /*Removes default style Firefox*/
+	background: url(images/arrow-down.png) no-repeat;
+	background-position: 100px 7px; /*Position of the background-image*/
+	text-indent: 0.01px;
+	text-overflow: "";
+}
+.ddcat::-ms-expand {
+	width:0;
+	border:none;
+	background:transparent;
 }
 .type-admin {
 	background-color: #F0F8FF;

@@ -115,7 +115,6 @@ $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
-
 ?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
@@ -143,7 +142,7 @@ include(dirname(__FILE__).'/top.php');
 <div class="grid">
 	<div class="col sml-6">
 		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
-		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" name="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
+		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
 	<div class="col sml-6 text-right">
 		<input type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
@@ -178,21 +177,17 @@ include(dirname(__FILE__).'/top.php');
 				# Catégories : liste des libellés de toutes les categories
 				$draft='';
 				$libCats='';
+				$aCats = array();
 				$catIds = explode(',', $plxAdmin->plxRecord_arts->f('categorie'));
 				if(sizeof($catIds)>0) {
-					$catsName = array();
 					foreach($catIds as $catId) {
-						if($catId=='home') $catsName[] = L_CATEGORY_HOME;
-						elseif($catId=='draft') $draft= ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
-						elseif(!isset($plxAdmin->aCats[$catId])) $catsName[] = L_UNCLASSIFIED;
-						else $catsName[] = plxUtils::strCheck($plxAdmin->aCats[$catId]['name']);
+						$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
+						if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
+						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
+						elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
+						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
 					}
-					if(sizeof($catsName)>0) {
-						$libCats = $catsName[0];
-						unset($catsName[0]);
-						if(sizeof($catsName)>0) $libCats .= ' <a class="folder"><span>'.implode(', ', $catsName).'</span></a>';
-					}
-					else $libCats = L_UNCLASSIFIED;
+
 				}
 				# en attente de validation ?
 				$idArt = $plxAdmin->plxRecord_arts->f('numero');
@@ -206,7 +201,14 @@ include(dirname(__FILE__).'/top.php');
 				echo '<td>'.$idArt.'</td>';
 				echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
 				echo '<td class="wrap"><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')).'</a>'.$draft.$awaiting.'&nbsp;</td>';
-				echo '<td>'.$libCats.'&nbsp;</td>';
+				echo '<td>';
+				if(sizeof($aCats)>1) {
+					echo '<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value=this.value;this.form.submit()">';
+					echo implode('', $aCats);
+					echo '</select>';
+				}
+				else echo strip_tags(implode('', $aCats));
+				echo '&nbsp;</td>';
 				echo '<td><a title="'.L_NEW_COMMENTS_TITLE.'" href="comments.php?sel=offline&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsToValidate.'</a> / <a title="'.L_VALIDATED_COMMENTS_TITLE.'" href="comments.php?sel=online&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsValidated.'</a>&nbsp;</td>';
 				echo '<td>'.plxUtils::strCheck($author).'&nbsp;</td>';
 				echo '<td>';
