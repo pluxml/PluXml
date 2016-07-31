@@ -875,7 +875,7 @@ class plxMotor {
 				# On récupère l'adresse IP du posteur
 				$comment['ip'] = plxUtils::getIp();
 				# index du commentaire
-				$idx = $this->nextIdArtComment($idArt);
+				$idx = $this->nextIdArtComment($artId);
 				# Commentaire parent en cas de réponse
 				if(isset($content['parent']) AND !empty($content['parent'])) {
 					$comment['parent'] = intval($content['parent']);
