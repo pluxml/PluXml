@@ -15,7 +15,7 @@ BUG #182: Affichage en trop si commentaires fermés (contribution josé)
 BUG #183: Fichier css custom non chargé sur la page auth.php 
 BUG #184: Pas d'affichage du flux RSS des commentaires quand il n'y a pas de commentaires enregistrés
 BUG #185: Mauvaise cible de téléchargement
-
+BUG #187: Mauvais numéro d'article dans l'ajout d'un nouveau commentaire (contribution mathieu269)
 
 ## PLUXML 5.5 (sortie : 01/04/2016) ##
 

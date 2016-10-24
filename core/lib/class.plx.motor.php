@@ -570,7 +570,7 @@ class plxMotor {
 		elseif($tri=='alpha')
 			return 'alpha';
 		elseif($tri=='random')
-			return 'random';			
+			return 'random';
 		else
 			return 'rsort';
 
