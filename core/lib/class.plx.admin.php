@@ -1007,12 +1007,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		@rename($oldfilename,$newfilename);
 		# Contrôle
 		if(is_readable($newfilename)) {
-			if($type == 'online')
+			if($mod == 'online')
 				return plxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
 			else
 				return plxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
 		} else {
-			if($type == 'online')
+			if($mod == 'online')
 				return plxMsg::Error(L_COMMENT_VALIDATE_ERR);
 			else
 				return plxMsg::Error(L_COMMENT_MODERATE_ERR);
