@@ -823,10 +823,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			# mise à jour de la liste des tags
 			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
 			$this->editTags();
-			if($content['artId'] == '0000' OR $content['artId'] == '')
-				return plxMsg::Info(L_ARTICLE_SAVE_SUCCESSFUL);
-			else
-				return plxMsg::Info(L_ARTICLE_MODIFY_SUCCESSFUL);
+			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
+			return plxMsg::Info($msg);
 		} else {
 			return plxMsg::Error(L_ARTICLE_SAVE_ERR);
 		}
