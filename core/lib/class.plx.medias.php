@@ -102,6 +102,8 @@ class plxMedias {
 	 **/
 	private function _getDirFiles($dir) {
 
+		if(!is_dir($this->path.$dir)) return array();
+
 		# Initialisation
 		$files = array();
 		# Ouverture et lecture du dossier demandé
