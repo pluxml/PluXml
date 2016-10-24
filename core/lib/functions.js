@@ -82,6 +82,8 @@ function toggleDiv(divId,togglerId,on,off){
 }
 function insTag(where, tag) {
 	var formfield = document.getElementsByName(where)['0'];
+	var tags = formfield.value.split(', ');
+	if (tags.indexOf(tag) != -1) return;
 	if(formfield.value=='')
 		formfield.value=tag;
 	else
