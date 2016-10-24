@@ -329,7 +329,7 @@ class plxShow {
 	 * position.
 	 *
 	 * @param	extra	nom du lien vers la page d'accueil
-	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #art_nb)
+	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #cat_description, #art_nb)
 	 * @param	include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
 	 * @param	exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
 	 * @return	stdout
@@ -361,6 +361,7 @@ class plxShow {
 						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),$name);
 						$name = str_replace('#cat_name',plxUtils::strCheck($v['name']),$name);
 						$name = str_replace('#cat_status',($this->catId()==intval($k)?'active':'noactive'), $name);
+						$name = str_replace('#cat_description',plxUtils::strCheck($v['description']),$name);
 						$name = str_replace('#art_nb',$v['articles'],$name);
 						echo $name;
 					}

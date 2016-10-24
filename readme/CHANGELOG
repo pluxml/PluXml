@@ -5,6 +5,7 @@
 [+] Administration > Paramètres > Thèmes : test existence fichier infos.xml dans le dossier thème pour le lister ou non
 [+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)
 [+] plxShow:templateCSS - Prise en compte des fichiers css minifiés si disponibles (contribution alexandre-lg)
+[+] #191: plxShow:catList - Ajout de la variable #cat_description
 BUG Non affichage du nombre de commentaires d'un article si les commentaires sont fermés
 BUG plxUtils::removeAccents - amélioration de la prise en compte des caractères non latin
 BUG #171: Décalage theme par défaut
