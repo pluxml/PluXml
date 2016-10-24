@@ -15,11 +15,12 @@ BUG #174: Mauvaise réécriture d'url avec les liens data:image, javascript et c
 BUG #176: Image preview.png du thème par defaut déformée
 BUG #181: Commentaires toujours refusés si capcha désactivé (contribution ortolot)
 BUG #182: Affichage en trop si commentaires fermés (contribution josé)
-BUG #183: Fichier css custom non chargé sur la page auth.php 
+BUG #183: Fichier css custom non chargé sur la page auth.php
 BUG #184: Pas d'affichage du flux RSS des commentaires quand il n'y a pas de commentaires enregistrés
 BUG #185: Mauvaise cible de téléchargement
 BUG #187: Mauvais numéro d'article dans l'ajout d'un nouveau commentaire (contribution mathieu269)
 BUG #189: plxAdmin:modCommentaire - mauvais message affiché après la validation d'un commentaire
+BUG #190: Warning sur l'utilisation de mktime (paramètre de type string au lieu de integer)
 BUG #192: Rédaction d'un article: ajout rapide de tag avec une apostrophe impossible (erreur javascript)
 
 ## PLUXML 5.5 (sortie : 01/04/2016) ##
