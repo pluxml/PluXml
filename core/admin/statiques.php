@@ -98,8 +98,8 @@ function checkBox(cb) {
 					plxUtils::printInput($k.'_ordre', $ordre, 'text', '1-3');
 					echo '</td><td>';
 					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
-
-					if(!plxUtils::checkSite($v['url'])) {
+					$url = $v['url'];
+					if(!plxUtils::checkSite($url)) {
 						echo '</td><td>';
 						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
 						if($v['active']) {
