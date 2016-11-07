@@ -63,7 +63,7 @@
 					$menus = array();
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
-					$arts_mod = $nbartsmod>0 ? '&nbsp;<a class="cpt" href="'.PLX_CORE.'admin/index.php?sel=mod&amp;page=1" title="'.L_ALL_AWAITING_MODERATION.'">'.$nbartsmod.'</a>':'';
+					$arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
 					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
 
 					if(isset($_GET['a'])) # edition article
