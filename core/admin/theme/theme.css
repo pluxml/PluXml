@@ -257,11 +257,9 @@ a.hint {
 	text-decoration: none;
 }
 a.hint span {
-	background-color: #a0a0a0;
-	border: 1px solid #ccc;
+	background-color: #777;
 	color:#fff;
 	display: none;
-	font-size: .8rem;
 	margin-left: 1.3rem;
 	margin-top: 1.3rem;
 	max-width: 300px;
