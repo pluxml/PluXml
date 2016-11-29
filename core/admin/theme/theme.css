@@ -354,6 +354,7 @@ a.hint:focus span  {
 	background-color: #ffcfcf;
 }
 tr input {
+	margin: .2rem 0;
 }
 td {
 	white-space: nowrap;
