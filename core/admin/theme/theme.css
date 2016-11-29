@@ -91,15 +91,15 @@
 
 .section {
 	margin-bottom: 2rem;
-	margin-top: 12rem;
+	margin-top: 14rem;
 }
 .section .action-bar {
 	background-color: #eaeaea;
 	border-bottom: 1px solid #ddd;
 	left: 16.6666%;
 	margin-left: -1rem;
-	min-height: 6.667em;
-	padding: .5rem 1.2rem .7rem 1.2rem;
+	min-height: 12rem;
+	padding: .8rem 1.7rem .8rem 1.7rem;
 	position: fixed;
 	top: 0;
 	width: 100%;
