@@ -15,11 +15,12 @@
 /* ---------- Header ---------- */
 
 body {
-	background-color: #fff;
+	background-color: #222;
 }
 .header {
-	padding-bottom: 2rem;
-	padding-top: 2rem;
+	background-color: #222;
+	padding-bottom: 5rem;
+	padding-top: 5rem;
 }
 .header h1 a:hover {
 	text-decoration: none;
@@ -28,14 +29,11 @@ body {
 /* ----- Menu ----- */
 
 .nav {
-	background-color: #222;
-	height: 2.25rem;
+	background-color: #fff;
+	height: 5rem;
 }
-.nav .menu.expanded li:hover {
-	background-color: #555;
-}
-.nav a {
-	color: #eee;
+.nav ul {
+	line-height: 5rem;
 }
 @media (max-width: 767px) {
 	.nav {
@@ -71,7 +69,7 @@ body {
 
 .main {
 	background-color: #fff;
-	margin: 0 0 2rem 0;
+	padding-bottom: 2rem;
 }
 .repertory {
 	margin-top: 2rem;
@@ -252,7 +250,7 @@ body {
 /* ---------- Footer ---------- */
 
 .footer {
-	border-top: 3px solid #444;
+	background: #222;
 	padding: 2rem 0;
 	text-align: center;
 }

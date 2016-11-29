@@ -1,7 +1,7 @@
 <?php if (!defined('PLX_ROOT')) exit; ?>
 
 		<footer class="footer" role="contentinfo">
-
+			<div class="container">
 				<p>
 					&copy; 2016 <?php $plxShow->mainTitle('link'); ?> - 
 					<?php $plxShow->subTitle(); ?> - 
@@ -14,7 +14,7 @@
 					<li><a href="<?php $plxShow->urlRewrite('#top') ?>" title="<?php $plxShow->lang('GOTO_TOP') ?>"><?php $plxShow->lang('TOP') ?></a></li>
 					<li><a rel="nofollow" href="<?php $plxShow->urlRewrite('core/admin/'); ?>" title="<?php $plxShow->lang('ADMINISTRATION') ?>"><?php $plxShow->lang('ADMINISTRATION') ?></a></li>
 				</ul>
-
+			</div>
 		</footer>
 
 </div>

@@ -1,43 +1,47 @@
 <?php include(dirname(__FILE__) . '/header.php'); ?>
 
-	<main class="container main" role="main">
+	<main class="main" role="main">
 
-		<div class="grid">
+		<div class="container">
 
-			<section class="col sml-12">
+			<div class="grid">
 
-				<article class="article" role="article" id="post-<?php echo $plxShow->artId(); ?>">
+				<section class="col sml-12">
 
-					<header>
-						<h1>
-							<?php $plxShow->artTitle(); ?>
-						</h1>
-						<small>
-							<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
-							<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
-							<a href="<?php $plxShow->artUrl(); ?>#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
-						</small>
-					</header>
+					<article class="article" role="article" id="post-<?php echo $plxShow->artId(); ?>">
 
-					<section>
-						<?php $plxShow->artThumbnail(); ?>
-						<?php $plxShow->artContent(); ?>
-					</section>
+						<header>
+							<h1>
+								<?php $plxShow->artTitle(); ?>
+							</h1>
+							<small>
+								<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
+								<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
+								<a href="<?php $plxShow->artUrl(); ?>#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
+							</small>
+						</header>
 
-					<footer>
-						<small>
-							<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> -
-							<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
-						</small>
-					</footer>
+						<section>
+							<?php $plxShow->artThumbnail(); ?>
+							<?php $plxShow->artContent(); ?>
+						</section>
 
-				</article>
+						<footer>
+							<small>
+								<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> -
+								<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
+							</small>
+						</footer>
 
-				<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
+					</article>
 
-				<?php include(dirname(__FILE__).'/commentaires.php'); ?>
+					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
 
-			</section>
+					<?php include(dirname(__FILE__).'/commentaires.php'); ?>
+
+				</section>
+
+			</div>
 
 		</div>
 
