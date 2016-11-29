@@ -19,14 +19,7 @@
 
 <body id="top">
 
-<div class="container">
-
-	<header class="header sml-text-center med-text-left" role="banner">
-		<h1 class="no-margin"><?php $plxShow->mainTitle('link'); ?></h1>
-		<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
-	</header>
-
-	<nav class="nav" role="navigation">
+	<nav class="container nav" role="navigation">
 		<div class="responsive-menu">
 			<label for="menu"><?php $plxShow->lang('MENU'); ?></label>
 			<input type="checkbox" id="menu">
@@ -36,3 +29,8 @@
 			</ul>
 		</div>
 	</nav>
+
+	<header class="container header sml-text-center med-text-left" role="banner">
+		<h1 class="no-margin"><?php $plxShow->mainTitle('link'); ?></h1>
+		<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
+	</header>

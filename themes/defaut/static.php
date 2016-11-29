@@ -1,26 +1,30 @@
 <?php include(dirname(__FILE__).'/header.php'); ?>
 
-	<main class="main grid" role="main">
+	<main class="container main" role="main">
 
-		<section class="col sml-12 med-8">
+		<div class="grid">
 
-			<article class="article static" role="article" id="static-page-<?php echo $plxShow->staticId(); ?>">
+			<section class="col sml-12 med-8">
 
-				<header>
-					<h1>
-						<?php $plxShow->staticTitle(); ?>
-					</h1>
-				</header>
+				<article class="article static" role="article" id="static-page-<?php echo $plxShow->staticId(); ?>">
 
-				<section>
-					<?php $plxShow->staticContent(); ?>
-				</section>
+					<header>
+						<h1>
+							<?php $plxShow->staticTitle(); ?>
+						</h1>
+					</header>
 
-			</article>
+					<section>
+						<?php $plxShow->staticContent(); ?>
+					</section>
 
-		</section>
+				</article>
 
-		<?php include(dirname(__FILE__).'/sidebar.php'); ?>
+			</section>
+
+			<?php include(dirname(__FILE__).'/sidebar.php'); ?>
+
+		</div>
 
 	</main>
 

@@ -1,51 +1,55 @@
 <?php include(dirname(__FILE__).'/header.php'); ?>
 
-	<main class="main grid" role="main">
+	<main class="container main" role="main">
 
-		<section class="col sml-12 med-8">
+		<div class="grid">
 
-			<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
+			<section class="col sml-12 med-8">
 
-			<article class="article" role="article" id="post-<?php echo $plxShow->artId(); ?>">
+				<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
-				<header>
-					<h1>
-						<?php $plxShow->artTitle('link'); ?>
-					</h1>
-					<small>
-						<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
-						<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
-						<?php $plxShow->artNbCom(); ?>
-					</small>
-				</header>
+				<article class="article" role="article" id="post-<?php echo $plxShow->artId(); ?>">
 
-				<section>
-					<?php $plxShow->artThumbnail(); ?>
-					<?php $plxShow->artChapo(); ?>
-				</section>
+					<header>
+						<h1>
+							<?php $plxShow->artTitle('link'); ?>
+						</h1>
+						<small>
+							<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
+							<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
+							<?php $plxShow->artNbCom(); ?>
+						</small>
+					</header>
 
-				<footer>
-					<small>
-						<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> -
-						<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
-					</small>
-				</footer>
+					<section>
+						<?php $plxShow->artThumbnail(); ?>
+						<?php $plxShow->artChapo(); ?>
+					</section>
 
-			</article>
+					<footer>
+						<small>
+							<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> -
+							<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
+						</small>
+					</footer>
 
-			<?php endwhile; ?>
+				</article>
 
-			<nav class="pagination text-center">
-				<?php $plxShow->pagination(); ?>
-			</nav>
+				<?php endwhile; ?>
 
-			<span>
-				<?php $plxShow->artFeed('rss',$plxShow->catId()); ?>
-			</span>
+				<nav class="pagination text-center">
+					<?php $plxShow->pagination(); ?>
+				</nav>
 
-		</section>
+				<span>
+					<?php $plxShow->artFeed('rss',$plxShow->catId()); ?>
+				</span>
 
-		<?php include(dirname(__FILE__).'/sidebar.php'); ?>
+			</section>
+
+			<?php include(dirname(__FILE__).'/sidebar.php'); ?>
+
+		</div>
 
 	</main>
 
