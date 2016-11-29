@@ -33,7 +33,7 @@
 	</nav>
 
 	<header class="header" role="banner">
-		<div class="container sml-text-center med-text-left">
+		<div class="container">
 			<h1 class="no-margin"><?php $plxShow->mainTitle('link'); ?></h1>
 			<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
 		</div>

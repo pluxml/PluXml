@@ -19,10 +19,15 @@ body {
 }
 .header {
 	background-color: #222;
+	color: #fff;
 	padding-bottom: 5rem;
-	padding-top: 5rem;
+	padding-top: 6rem;
+	text-align: center;
 }
-.header h1 a:hover {
+.header a {
+	color: #fff;
+}
+.header a:hover {
 	text-decoration: none;
 }
 
@@ -251,9 +256,13 @@ body {
 
 .footer {
 	background: #222;
+	color: #fff;
 	padding: 2rem 0;
 	text-align: center;
 }
 .footer p {
 	margin: 0;
+}
+.footer a {
+	color: #fff;
 }
