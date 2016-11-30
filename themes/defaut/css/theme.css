@@ -12,13 +12,44 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+/* ----- Menu ----- */
+
+.nav {
+	background-color: #fff;
+	box-shadow: 0px 10px 5px 0px #656565;
+	height: 5rem;
+	text-align: right;
+}
+.nav ul {
+	line-height: 5rem;
+}
+@media (max-width: 767px) {
+	.nav {
+		height: auto;
+		max-height: 200px;
+		overflow-y: auto;
+		text-align: left;
+	}
+	.nav>.container {
+		padding: 0;
+	}
+	.responsive-menu label {
+		background-color: #fff;
+		background-image: url('../img/menu.png');
+		background-repeat: no-repeat;
+		background-position: right;
+		height: 4rem;
+		margin: .5rem .8rem .5rem 0;
+	}
+}
+
 /* ---------- Header ---------- */
 
 body {
 	background-color: #222;
 }
 .header {
-	background-color: #222;
+	background-color: #1a6699;
 	color: #fff;
 	padding-bottom: 5rem;
 	padding-top: 6rem;
@@ -29,45 +60,6 @@ body {
 }
 .header a:hover {
 	text-decoration: none;
-}
-
-/* ----- Menu ----- */
-
-.nav {
-	background-color: #fff;
-	height: 5rem;
-}
-.nav ul {
-	line-height: 5rem;
-}
-@media (max-width: 767px) {
-	.nav {
-		background-color: #fff;
-		border-bottom: 1px solid #bbb;
-		height: auto;
-		left: 0;
-		max-height: 200px;
-		overflow-y: auto;
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: 9999;
-	}
-	.nav .menu.expanded li:hover {
-		background-color: #ddd;
-	}
-	.nav a {
-		color: #258fd6;
-	}
-	.nav a:hover {
-		color: #444;
-	}
-	.responsive-menu label {
-		background-color: #222;
-	}
-	.header {
-		margin-top: 2rem;
-	}
 }
 
 /* ---------- Main ---------- */
