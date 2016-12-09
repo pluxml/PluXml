@@ -14,9 +14,14 @@
 
 /* ---------- Authentication ---------- */
 
+.logo {
+    background-image: url(images/pluxml.png);
+    margin: 10% auto 40px auto;
+    height: 80px;
+    width: 123px;
+}
 .auth {
 	border:1px solid #aaa;
-	margin-top: 10%;
 	overflow: hidden;
 }
 .auth input[type="password"],
