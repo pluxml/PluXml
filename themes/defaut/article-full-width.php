@@ -1,19 +1,19 @@
 <?php include(dirname(__FILE__) . '/header.php'); ?>
 
-	<main class="main" role="main">
+	<main class="main">
 
 		<div class="container">
 
 			<div class="grid">
 
-				<section class="col sml-12">
+				<div class="col sml-12">
 
-					<article class="article" role="article" id="post-<?php echo $plxShow->artId(); ?>">
+					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 
 						<header>
-							<h1>
+							<h2>
 								<?php $plxShow->artTitle(); ?>
-							</h1>
+							</h2>
 							<small>
 								<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
 								<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
@@ -21,10 +21,8 @@
 							</small>
 						</header>
 
-						<section>
-							<?php $plxShow->artThumbnail(); ?>
-							<?php $plxShow->artContent(); ?>
-						</section>
+						<?php $plxShow->artThumbnail(); ?>
+						<?php $plxShow->artContent(); ?>
 
 						<footer>
 							<small>
@@ -39,7 +37,7 @@
 
 					<?php include(dirname(__FILE__).'/commentaires.php'); ?>
 
-				</section>
+				</div>
 
 			</div>
 

@@ -19,7 +19,7 @@
 
 <body id="top">
 
-	<nav class="nav" role="navigation">
+	<nav class="nav">
 		<div class="container">
 			<div class="responsive-menu">
 				<label for="menu"></label>
@@ -32,7 +32,7 @@
 		</div>
 	</nav>
 
-	<header class="header" role="banner">
+	<header class="header">
 		<div class="container">
 			<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
 			<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
