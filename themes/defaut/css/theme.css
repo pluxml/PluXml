@@ -49,13 +49,13 @@
 	.responsive-menu label {
 		background-color: #fff;
 		color: #444;
-		font-family: "fontello";
 		font-size: 3.5rem;
 		margin: .75rem;
 		text-align: right;
 	}
 	.responsive-menu label:before {
 		content: '\f0c9';
+		font-family: "fontello";
 	}
 }
 
@@ -129,6 +129,34 @@ body {
 	color: #777;
 	text-transform: uppercase;
 }
+.article header span:before, 
+.article header time:before, 
+.article footer span:before {
+	padding-left: 1.5rem;
+	padding-right: .3rem;
+}
+.article .written-by:before {
+	content: '\e800';
+	font-family: "fontello";
+	padding-left: 0;
+}
+.article .art-date:before {
+	content: '\e801';
+	font-family: "fontello";
+}
+.article .art-nb-com:before {
+	content: '\e802';
+	font-family: "fontello";
+}
+.article .classified-in:before {
+	content: '\e803';
+	font-family: "fontello";
+	padding-left: 0;
+}
+.article .tags:before {
+	content: '\e804';
+	font-family: "fontello";
+}
 .article img.art_thumbnail {
 	padding: 15px 0 10px 0;
 }
@@ -137,9 +165,6 @@ body {
 }
 .article.static {
 	margin-bottom: 0;
-}
-.more a:before {
-	content: "↪  ";
 }
 .comment {
 	background-image: url('../img/user.png');

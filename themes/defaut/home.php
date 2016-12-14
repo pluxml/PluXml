@@ -17,9 +17,15 @@
 								<?php $plxShow->artTitle('link'); ?>
 							</h2>
 							<small>
-								<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
-								<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
-								<?php $plxShow->artNbCom(); ?>
+								<span class="written-by">
+									<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?>
+								</span>
+								<time class="art-date" datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>">
+									<?php $plxShow->artDate('#num_day #month #num_year(4)'); ?>
+								</time>
+								<span class="art-nb-com">
+									<?php $plxShow->artNbCom(); ?>
+								</span>
 							</small>
 						</header>
 
@@ -30,8 +36,12 @@
 
 						<footer>
 							<small>
-								<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> -
-								<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
+								<span class="classified-in">
+									<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?>
+								</span>
+								<span class="tags">
+									<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
+								</span>
 							</small>
 						</footer>
 
