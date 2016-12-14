@@ -168,13 +168,13 @@ li a.logout:after {
 	}
 	.aside .header {
 		background-color: #555;
-		padding-top: 2.3rem;
+		padding-top: 3.5rem;
 	}
 	.aside .header li {
 		display: inline;
 	}
 	.aside .header .unstyled-list {
-		padding: 0;
+		padding: 1rem;
 	}
 	.aside .responsive-menu {
 		max-height: 200px;
@@ -187,6 +187,7 @@ li a.logout:after {
 	.aside .responsive-menu,
 	.aside .responsive-menu label {
 		background-color: #222;
+		text-align: right;
 	}
 	.aside .profil {
 		border: none;
@@ -201,13 +202,13 @@ li a.logout:after {
 	}
 	.section .action-bar {
 		background-color: inherit;
-		margin: 0 0 1rem 0;
+		margin: 0 0 1.5rem 0;
 		padding: 0;
 		z-index: inherit;
 	}
 	.section {
-		margin-top: 1rem;
-		padding: 0 .5rem 0 1.5rem;
+		margin-top: 1.5rem;
+		padding: 0 1rem 0 2.5rem;
 	}
 }
 .selected {
