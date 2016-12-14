@@ -122,7 +122,7 @@ plxUtils::cleanHeaders();
 						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
-								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+								<input class="blue h4" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
 							</div>
 						</div>
 					</fieldset>

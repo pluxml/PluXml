@@ -215,7 +215,7 @@ $curFolders = explode('/', $curFolder);
 	<div id="files_uploader" style="display:none">
 
 		<div class="inline-form action-bar">
-			<h2><?php echo L_MEDIAS_TITLE ?></h2>
+			<h2 class="h4"><?php echo L_MEDIAS_TITLE ?></h2>
 			<p>
 				<?php
 				echo L_MEDIAS_DIRECTORY.' : ('.L_PLXMEDIAS_ROOT.') / ';

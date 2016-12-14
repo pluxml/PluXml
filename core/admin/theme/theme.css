@@ -12,25 +12,31 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+@font-face {
+	font-family: 'fontello';
+	src: url('font/fontello.eot');
+	src: url('font/fontello.eot?22929757#iefix') format('embedded-opentype'),
+		url('font/fontello.woff?22929757') format('woff'),
+		url('font/fontello.ttf?22929757') format('truetype'),
+		url('font/fontello.svg?22929757#fontello') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 /* ---------- Authentication ---------- */
 
 .auth {
-	border:1px solid #aaa;
+	border:1px solid #bbb;
+	border-radius: .6rem;
 	margin-top: 10%;
 	overflow: hidden;
-}
-.auth input[type="password"],
-.auth input[type="text"] {
-	color: #444;
-	font-size: 1.1rem;
-}
-.auth input[type="submit"] {
-	font-size: 1.1rem;
 }
 .auth .error {
 	background-color: #e43d29;
 	color: #eee;
-	padding: .4rem;
+	padding: .7rem;
 	text-align: center;
 }
 
@@ -52,22 +58,27 @@
 }
 .aside,
 .aside a {
-	color: #eee;
+	color: #ddd;
 }
 .aside .header  {
 	line-height: 1.3;
 }
-.aside .profil {
-	background-color: #555;
-	border-top: 1px solid #888;
-	border-bottom: 1px solid #888;
-}
-.aside .header .unstyled-list {
+.aside .unstyled-list {
 	margin-bottom: 0;
 	margin-top: 0;
-	padding: 1rem .4rem;
+	padding: .7rem;
 }
-.aside .header .version {
+.aside .unstyled-list.profil  {
+	padding-right: 1.2rem;
+	background-color: #333;
+	border-top: 1px solid #888;
+	border-bottom: 1px solid #888;
+	transition-duration: .2s;
+}
+.aside .unstyled-list a:hover {
+	text-decoration: none;
+}
+.aside .version {
 	color: #aaa;
 }
 .aside .menu.expanded .badge,
@@ -75,31 +86,63 @@
 	background-color: #e43d29;
 	color: #fff;
 }
-.aside .menu.expanded li.active a,
-.aside .menu.expanded li.active:hover {
-	background-color: #fff;
-	color: #444;
-}
 .aside .menu.expanded li:hover {
 	background-color: #444;
 }
 .aside .menu-config {
 	background-color: #333;
 }
+.aside .menu li a:after,
+.aside .unstyled-list li a:after {
+	font-family: "fontello";
+	padding-left: 1.2rem;
+	padding-right: .5rem;
+}
+li#mnu_articles a:after { 
+	content: '\f15c'; 
+}
+li#mnu_nouvel-article a:after {
+	content: '\e800'; 
+}
+li#mnu_medias a:after {
+	content: '\f1c5'; 
+}
+li#mnu_pages-statiques a:after {
+	content: '\f15b'; 
+}
+li#mnu_commentaires a:after {
+	content: '\e802'; 
+}
+li#mnu_categories  a:after {
+	content: '\e804'; 
+}
+li#mnu_profil   a:after {
+	content: '\e805'; 
+}
+li#mnu_parametres    a:after {
+	content: '\e803'; 
+}
+li a.back-site:after,
+li a.back-blog:after {
+	content: '\f14c';
+}
+li a.logout:after {
+	content: '\e806';
+}
 
 /* ---------- Section ---------- */
 
 .section {
 	margin-bottom: 2rem;
-	margin-top: 14rem;
+	margin-top: 12rem;
 }
 .section .action-bar {
-	background-color: #eaeaea;
+	background-color: #eee;
 	border-bottom: 1px solid #ddd;
 	left: 16.6666%;
-	margin-left: -1rem;
-	min-height: 12rem;
-	padding: .8rem 1.7rem .8rem 1.7rem;
+	margin-left: -1.5rem;
+	min-height: 10.5rem;
+	padding: .7rem 1.7rem .7rem 1.7rem;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -110,6 +153,7 @@
 	margin: .2rem 0;
 }
 .section .action-bar h2 {
+	font-size: 2.5rem;
 	margin-top: 0;
 	margin-bottom: 0;
 }
