@@ -31,7 +31,7 @@
 .nav {
 	background-color: #fff;
 	height: 5rem;
-	text-align: right;
+	text-align: left;
 }
 .nav ul {
 	line-height: 5rem;
@@ -62,8 +62,16 @@
 /* ---------- Header ---------- */
 
 body {
-	background-color: #222;
+	background-color: #fff;
 }
+
+@media (min-width: 64rem) {
+	.container {
+		padding-left: 15rem;
+		padding-right: 15rem;
+	}
+}
+
 .header {
 	background-color: #1a6699;
 	color: #fff;
