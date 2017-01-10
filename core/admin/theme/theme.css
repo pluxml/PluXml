@@ -27,10 +27,15 @@
 
 /* ---------- Authentication ---------- */
 
+.logo {
+    background-image: url(images/pluxml.png);
+    margin: 10% auto 20px auto;
+    height: 80px;
+    width: 123px;
+}
 .auth {
 	border:1px solid #bbb;
 	border-radius: .6rem;
-	margin-top: 10%;
 	overflow: hidden;
 }
 .auth .error {
