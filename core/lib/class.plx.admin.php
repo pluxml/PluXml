@@ -931,12 +931,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# On récupère les infos du commentaire
 		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
 		# Formatage des données
-		$comment['author'] = plxUtils::strCheck(trim($content['author']));
-		$comment['site'] = plxUtils::strCheck(trim($content['site']));
-		if($com['type'] != 'admin')
+		if($com['type'] != 'admin') {
+			$comment['author'] = plxUtils::strCheck(trim($content['author']));
+			$comment['site'] = plxUtils::strCheck(trim($content['site']));
 			$comment['content'] = plxUtils::strCheck(trim($content['content']));
-		else
+		} else {
+			$comment['author'] = trim($content['author']);
+			$comment['site'] = trim($content['site']);
 			$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
+		}
 		$comment['ip'] = $com['ip'];
 		$comment['type'] = $com['type'];
 		$comment['mail'] = $content['mail'];

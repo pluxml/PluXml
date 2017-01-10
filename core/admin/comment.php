@@ -111,6 +111,16 @@ $date = plxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 
+if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
+	$author = $plxAdmin->plxRecord_coms->f('author');
+	$site = $plxAdmin->plxRecord_coms->f('site');
+	$content = $plxAdmin->plxRecord_coms->f('content');
+} else {
+	$author = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('author'));
+	$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
+	$content = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content'));	
+}
+
 ?>
 
 <form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
@@ -159,7 +169,7 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_author"><?php echo L_COMMENT_AUTHOR_FIELD ?> :</label>
-				<?php plxUtils::printInput('author',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('author')),'text','40-255') ?>
+				<?php plxUtils::printInput('author',$author,'text','40-255') ?>
 			</div>
 		</div>
 
@@ -167,7 +177,6 @@ include(dirname(__FILE__).'/top.php');
 			<div class="col sml-12">
 				<label for="id_site">
 				<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;'; 
-				$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
 				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>'; 
 				?>
 				</label>
@@ -191,11 +200,7 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
-				<?php if($plxAdmin->plxRecord_coms->f('type') == 'admin') : ?>
-					<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content')), 60, 7,false,'full-width'); ?>
-				<?php else : ?>
-					<?php plxUtils::printArea('content',$plxAdmin->plxRecord_coms->f('content'), 60, 7,false,'full-width'); ?>
-				<?php endif; ?>
+				<?php plxUtils::printArea('content',$content, 60, 7,false,'full-width'); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
 			</div>
 		</div>
