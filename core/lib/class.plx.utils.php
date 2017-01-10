@@ -491,7 +491,7 @@ class plxUtils {
 				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
 				imagefill($canvas, 0, 0, $color);
 				imagesavealpha($canvas, true);
-			break;
+				break;
 			default:
 				return false; // Unsupported format
 			break;
