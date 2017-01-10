@@ -41,7 +41,7 @@
 				</li>
 			</ul>
 			<ul class="unstyled-list profil no-margin">
-				<li><h1 class="h4 no-margin site-name"><strong><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1></li>
+				<li><h1 class="h5 no-margin site-name"><strong><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1></li>
 				<li>
 					<strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
 					<em>
