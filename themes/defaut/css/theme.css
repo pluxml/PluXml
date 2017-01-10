@@ -209,6 +209,14 @@ body {
 .level-max {
 	margin-left: 25rem;
 }
+@media (max-width: 768px) {
+  .comment { background-image: none; padding-left: 0; }
+  .level-1 { margin-left: 1rem; }
+  .level-2 { margin-left: 2rem; }
+  .level-3 { margin-left: 3rem; }
+  .level-4 { margin-left: 4rem; }
+  .level-5, .level-max { margin-left: 5rem; }
+}
 #id_answer {
 	margin-bottom: 1.5rem;
 	padding:1.5rem;
