@@ -85,6 +85,7 @@
 .aside .menu.expanded .active a .badge {
 	background-color: #e43d29;
 	color: #fff;
+	font-size: 1rem;
 }
 .aside .menu.expanded li:hover {
 	background-color: #444;
