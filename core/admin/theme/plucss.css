@@ -125,7 +125,7 @@ input,
 select,
 textarea {
 	font: inherit;
-	height: 3.5rem;
+	height: 3rem;
 	margin: 0;
 	outline: none;
 	padding-left: .4rem;
