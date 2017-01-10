@@ -86,12 +86,12 @@ plxUtils::cleanHeaders();
 <html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
 <head>
 	<meta name="robots" content="noindex, nofollow" />
-    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>	
+	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
 </head>
@@ -100,9 +100,9 @@ plxUtils::cleanHeaders();
 
 	<main class="container">
 		<section class="grid">
-            <div class="logo"></div>
+			<div class="logo"></div>
 			<div class="auth col sml-12 sml-centered med-5 lrg-3">
-                <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
 				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 					<fieldset>
 						<?php echo plxToken::getTokenPostMethod() ?>
