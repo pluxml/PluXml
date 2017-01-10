@@ -129,6 +129,14 @@ li a.back-blog:after {
 li a.logout:after {
 	content: '\e806';
 }
+.aside .menu.expanded li a {
+	border-radius: 0;
+}
+.aside .menu.expanded li.active a, 
+.aside .menu.expanded li.active:hover {
+	background-color: #fff;
+	color: #444;
+}
 
 /* ---------- Section ---------- */
 
