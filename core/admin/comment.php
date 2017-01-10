@@ -148,11 +148,11 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid inline-form">
 			<div class="col sml-12">
 				<label><?php echo L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin'); ?>
-				<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin'); ?>
-				<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin'); ?>
-				<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin'); ?>
-				<a href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
+				<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'no-margin'); ?>
+				<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'no-margin'); ?>
+				<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'no-margin'); ?>
+				<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'no-margin'); ?>
+				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
 			</div>
 		</div>
 

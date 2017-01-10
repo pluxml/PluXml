@@ -1,4 +1,4 @@
-﻿## PLUXML 5.x (sortie : xx/xx/2016) ##
+﻿## PLUXML 5.x (sortie : xx/xx/2017) ##
 
 [+] Contrôle de la force des mots de passe saisis
 [+] Administration > Paramètres > Thèmes : test existence fichier infos.xml dans le dossier thème pour le lister ou non
@@ -12,6 +12,7 @@ BUG Non affichage du nombre de commentaires d'un article si les commentaires son
 BUG plxUtils::removeAccents - amélioration de la prise en compte des caractères non latin
 BUG Administration > Pages Statiques : lien Voir incomplet
 BUG Administration : problème d'affichage du compteur des articles en attente de validation
+BUG Administration : modification impossible de la date du commentaire à partir de l'icône calendrier
 BUG #171: Décalage theme par défaut
 BUG #174: Mauvaise réécriture d'url avec les liens data:image, javascript et commençant par #
 BUG #176: Image preview.png du thème par defaut déformée
