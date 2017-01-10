@@ -1,5 +1,6 @@
 ﻿## PLUXML 5.x (sortie : xx/xx/2017) ##
 
+[+] PluCSS 1.2
 [+] Contrôle de la force des mots de passe saisis
 [+] Administration > Paramètres > Thèmes : test existence fichier infos.xml dans le dossier thème pour le lister ou non
 [+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)
