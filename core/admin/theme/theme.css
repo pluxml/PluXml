@@ -287,6 +287,11 @@ textarea {
 .year, .time {
 	width: 4.5rem;
 }
+.inline-form.publication input,
+.inline-form.creation input,
+.inline-form.update input {
+    font-size: 1.3rem;
+}
 #id_link {
 	width:100%;
 }
