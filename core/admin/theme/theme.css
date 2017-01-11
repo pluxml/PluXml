@@ -12,26 +12,13 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
-@font-face {
-	font-family: 'fontello';
-	src: url('font/fontello.eot');
-	src: url('font/fontello.eot?22929757#iefix') format('embedded-opentype'),
-		url('font/fontello.woff?22929757') format('woff'),
-		url('font/fontello.ttf?22929757') format('truetype'),
-		url('font/fontello.svg?22929757#fontello') format('svg');
-	font-weight: normal;
-	font-style: normal;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
 /* ---------- Authentication ---------- */
 
 .logo {
-    background-image: url(images/pluxml.png);
-    margin: 10% auto 20px auto;
-    height: 80px;
-    width: 123px;
+	background-image: url(images/pluxml.png);
+	margin: 10% auto 20px auto;
+	height: 80px;
+	width: 123px;
 }
 .auth {
 	border:1px solid #bbb;
@@ -74,11 +61,9 @@
 	padding: .7rem;
 }
 .aside .unstyled-list.profil  {
-	padding-right: 1.2rem;
 	background-color: #333;
 	border-top: 1px solid #888;
 	border-bottom: 1px solid #888;
-	transition-duration: .2s;
 }
 .aside .unstyled-list a:hover {
 	text-decoration: none;
@@ -98,47 +83,10 @@
 .aside .menu-config {
 	background-color: #333;
 }
-.aside .menu li a:after,
-.aside .unstyled-list li a:after {
-	font-family: "fontello";
-	padding-left: 1.2rem;
-	padding-right: .5rem;
-}
-li#mnu_articles a:after { 
-	content: '\f15c'; 
-}
-li#mnu_nouvel-article a:after {
-	content: '\e800'; 
-}
-li#mnu_medias a:after {
-	content: '\f1c5'; 
-}
-li#mnu_pages-statiques a:after {
-	content: '\f15b'; 
-}
-li#mnu_commentaires a:after {
-	content: '\e802'; 
-}
-li#mnu_categories  a:after {
-	content: '\e804'; 
-}
-li#mnu_profil   a:after {
-	content: '\e805'; 
-}
-li#mnu_parametres    a:after {
-	content: '\e803'; 
-}
-li a.back-site:after,
-li a.back-blog:after {
-	content: '\f14c';
-}
-li a.logout:after {
-	content: '\e806';
-}
 .aside .menu.expanded li a {
 	border-radius: 0;
 }
-.aside .menu.expanded li.active a, 
+.aside .menu.expanded li.active a,
 .aside .menu.expanded li.active:hover {
 	background-color: #fff;
 	color: #444;
@@ -202,6 +150,10 @@ li a.logout:after {
 	.aside .responsive-menu label {
 		background-color: #222;
 		text-align: right;
+	}
+	.aside .back-site:after,
+	.aside .back-blog:after  {
+		content: ' |';
 	}
 	.aside .profil {
 		border: none;
@@ -290,7 +242,7 @@ textarea {
 .inline-form.publication input,
 .inline-form.creation input,
 .inline-form.update input {
-    font-size: 1.3rem;
+	font-size: 1.3rem;
 }
 #id_link {
 	width:100%;
