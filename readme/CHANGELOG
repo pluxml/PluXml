@@ -3,14 +3,15 @@
 [+] PluCSS 1.2
 [+] Contrôle de la force des mots de passe saisis
 [+] Administration > Paramètres > Thèmes : test existence fichier infos.xml dans le dossier thème pour le lister ou non
+[+] Administration > Paramètres > Plugins : ajout filtre de recherche
 [+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)
 [+] plxShow:templateCSS - Prise en compte des fichiers css minifiés si disponibles (contribution alexandre-lg)
+[+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
+[+] Gestionnaire de médias : affichage des miniatures jpeg
 [+] #69: plxAdmin:editArticle - ajout du hook plxAdminEditArticleEnd
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
 [+] #191: plxShow:catList - Ajout de la variable #cat_description
 [+] #194: Rédaction d'un article: optimisation de l'ajout rapide de tag (contribution MatthieuQuantin)
-[+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
-[+] Gestionnaire de médias : affichage des miniatures jpeg
 BUG Non affichage du nombre de commentaires d'un article si les commentaires sont fermés
 BUG plxUtils::removeAccents - amélioration de la prise en compte des caractères non latin
 BUG Administration > Pages Statiques : lien Voir incomplet
