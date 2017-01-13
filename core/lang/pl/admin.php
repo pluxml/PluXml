@@ -259,7 +259,7 @@ przypadkowy',
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'			=> 'Szukaj',
+'L_SEARCH'							=> 'Szukaj',
 'L_ARTICLES_ALL_CATEGORIES'			=> 'Wszystkie kategorie...',
 'L_ALL'								=> 'Wszystkie',
 'L_ALL_PUBLISHED'					=> 'Opublikowane',

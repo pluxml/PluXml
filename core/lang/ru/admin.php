@@ -261,7 +261,7 @@ $LANG = array(
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'									=> 'Поиск',
+'L_SEARCH'													=> 'Поиск',
 'L_ARTICLES_ALL_CATEGORIES'									=> 'Все категории ...',
 'L_ALL'														=> 'Всего',
 'L_ALL_PUBLISHED'											=> 'Опубликованные',

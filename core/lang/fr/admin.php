@@ -262,7 +262,7 @@ $LANG = array(
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'			=> 'Rechercher',
+'L_SEARCH'							=> 'Rechercher',
 'L_ARTICLES_ALL_CATEGORIES'			=> 'Toutes les catégories...',
 'L_ALL'								=> 'Tous',
 'L_ALL_PUBLISHED'					=> 'Publiés',
