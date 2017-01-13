@@ -146,7 +146,7 @@ include(dirname(__FILE__).'/top.php');
 	</div>
 	<div class="col sml-6 text-right">
 		<input type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
-		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_ARTICLES_SEARCH_BUTTON ?>" />
+		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
 	</div>
 </div>
 
