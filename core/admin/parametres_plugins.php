@@ -153,7 +153,7 @@ include(dirname(__FILE__).'/top.php');
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
 					<th>&nbsp;</th>
-					<th><?php echo L_MENU_CONFIG_PLUGINS ?></th>
+					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>"></th>
 					<?php if($_SESSION['selPlugins']=='1') : ?>
 					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
 					<?php endif; ?>
@@ -170,6 +170,33 @@ include(dirname(__FILE__).'/top.php');
 	<?php endif; ?>
 
 </form>
+
+<script>
+function plugFilter() {
+	var input, filter, table, tr, td, i;
+	filter = document.getElementById("plugins-search").value;
+	table = document.getElementById("plugins-table");
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[2];
+		if (td != undefined) {
+			if (td.innerHTML.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+	if (typeof(Storage) !== "undefined") {
+		localStorage.setItem("plugins_search", filter);
+	}
+}
+if (typeof(Storage) !== "undefined" && localStorage.plugins_search !== "undefined") {
+	input = document.getElementById("plugins-search");
+	input.value = localStorage.plugins_search;
+	plugFilter();
+}
+</script>
 
 <?php
 # Hook Plugins
