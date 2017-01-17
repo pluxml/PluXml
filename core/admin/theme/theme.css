@@ -288,8 +288,6 @@ a.hint:focus span  {
 	margin-left: 0;
 	padding-left: 0;
 	position: relative;
-	left: -5px;
-
 	border: 0 !important;  /*Removes border*/
 	-webkit-appearance: none;  /*Removes default chrome and safari style*/
 	-moz-appearance: none;  /*Removes default style Firefox*/
