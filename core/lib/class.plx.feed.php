@@ -313,12 +313,14 @@ class plxFeed extends plxMotor {
 						$title_com = $this->plxRecord_arts->f('title').' - ';
 						$title_com .= L_FEED_WRITTEN_BY.' '.$this->plxRecord_coms->f('author').' @ ';
 						$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
-						$link_com = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url').'/#c'.$this->plxRecord_coms->f('numero'));
+						$comId = 'c'.$this->plxRecord_coms->f('article').'-'.$this->plxRecord_coms->f('index');
+						$link_com = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url').'#'.$comId);
 					} else { # Commentaires globaux
 						$title_com = $this->plxRecord_coms->f('author').' @ ';
 						$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
 						$artInfo = $this->artInfoFromFilename($this->plxGlob_arts->aFiles[$this->plxRecord_coms->f('article')]);
-						$link_com = $this->urlRewrite('?article'.$artId.'/'.$artInfo['artUrl'].'#c'.$this->plxRecord_coms->f('numero'));
+						$comId = 'c'.$this->plxRecord_coms->f('article').'-'.$this->plxRecord_coms->f('index');
+						$link_com = $this->urlRewrite('?article'.$artId.'/'.$artInfo['artUrl'].'#'.$comId);
 					}
 					# On vérifie la date de publication
 					if($this->plxRecord_coms->f('date') > $last_updated)
