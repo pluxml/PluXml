@@ -321,6 +321,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'										=> 'Центр',
 'L_MEDIAS_ALIGN_RIGHT'										=> 'Право',
 'L_MEDIAS_RECREATE_THUMB'									=> 'Обновить эскизы',
+'L_MEDIAS_LINK_COPYCLP'                                     => 'Скопировать ссылку в буфер обмена',
+'L_MEDIAS_LINK_COPYCLP_ERR'                                 => 'Невозможно скопировать ссылку в буфер обмена',
+'L_MEDIAS_LINK_COPYCLP_DONE'                                => 'ссылка скопирована',
 
 # parametres_affichage.php
 

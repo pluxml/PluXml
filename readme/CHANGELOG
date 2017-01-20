@@ -1,4 +1,4 @@
-﻿## PLUXML 5.6 (sortie : xx/xx/2017) ##
+## PLUXML 5.6 (sortie : xx/xx/2017) ##
 
 [+] PluCSS 1.2
 [+] Contrôle de la force des mots de passe saisis
@@ -8,6 +8,7 @@
 [+] plxShow:templateCSS - Prise en compte des fichiers css minifiés si disponibles (contribution alexandre-lg)
 [+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
 [+] Gestionnaire de médias : affichage des miniatures jpeg
+[+] Gestionnaire de médias : copie lien image dans le presse-papier
 [+] #69: plxAdmin:editArticle - ajout du hook plxAdminEditArticleEnd
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
 [+] #191: plxShow:catList - Ajout de la variable #cat_description

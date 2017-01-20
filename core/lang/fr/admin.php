@@ -322,6 +322,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Droite',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recréer miniatures',
+'L_MEDIAS_LINK_COPYCLP'             => 'Copier le lien dans le presse-papier',
+'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Impossible de copier le lien dans le presse-papier',
+'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Lien copié',
 
 # parametres_affichage.php
 

@@ -520,3 +520,25 @@ tr.checked {
   background: url('images/search.png') 5px 7px no-repeat;
   padding-left: 30px;
 }
+/* gestionnaire de médias - copie lien image */
+div.copy {
+	font-size: 16px;
+	color: #ccc;
+	display: inline-block;
+	margin-left: 5px;
+}
+div.copy:hover {
+	cursor: pointer;
+	color: #555;
+}
+div.copy div {
+	font-size: 11px;
+	display: none;
+	background-color: #666;
+	color: #eee;
+	display: none;
+	padding: 1px 3px 1px 3px;
+	margin-left: 5px;
+	border-radius: 2px;
+	border: 1px solid #888;
+}

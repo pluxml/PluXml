@@ -319,6 +319,9 @@ przypadkowy',
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Droite',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recréer miniatures',
+'L_MEDIAS_LINK_COPYCLP'             => 'Skopiuj link do schowka',
+'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Nie można skopiować link do schowka',
+'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Link został skopiowany',	
 
 # parametres_affichage.php
 
