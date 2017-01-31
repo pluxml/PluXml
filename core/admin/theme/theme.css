@@ -225,6 +225,7 @@ textarea {
 #plugins-table img,
 #medias-table img {
 	max-width: 48px;
+	padding-top: 7px;
 }
 #medias-table {
 	margin-top: 10px;
@@ -259,12 +260,11 @@ form .col {
 a.hint {
 	background-image: url(images/help.png);
 	width: 16px;
-}
-a.hint {
 	cursor: help;
 	display: inline-block;
 	height: 16px;
 	text-decoration: none;
+	font-size: 1.3rem;
 }
 a.hint span {
 	background-color: #777;
