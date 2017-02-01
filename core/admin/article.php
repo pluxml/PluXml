@@ -262,6 +262,17 @@ if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 $cat_id='000';
 ?>
 
+<script>
+function refreshImg(dta) {
+	if(dta.trim()==='') {
+		document.getElementById('id_thumbnail_img').innerHTML = '';
+	} else {
+		var link = dta.match(/^(https?:\/\/[^\s]+)/gi) ? dta : '<?php echo $plxAdmin->racine ?>'+dta;
+		document.getElementById('id_thumbnail_img').innerHTML = '<img src="'+link+'" alt="" />';
+	}
+}
+</script>
+
 <form action="article.php" method="post" id="form_article">
 
 	<div class="inline-form action-bar">
@@ -350,7 +361,7 @@ $cat_id='000';
 						<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 					</label>
-					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width'); ?>
+					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
 					<div class="grid" style="padding-top:10px">
 						<div class="col sml-12 lrg-6">
 							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_TITLE ?>&nbsp;:</label>
