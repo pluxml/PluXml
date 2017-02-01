@@ -104,6 +104,7 @@ class plxUtils {
 	 **/
 	public static function isValidIp($ip) {
 
+		if($ip=='::1') return false;
 		$ipv4 = '/((^|\.)(2[0-5]{2}|[01][0-9]{2}|[0-9]{1,2})(?=\.|$)){4}/';
 		$ipv6 = '/^:?([a-fA-F0-9]{1,4}(:|.)?){0,8}(:|::)?([a-fA-F0-9]{1,4}(:|.)?){0,8}$/';
 		return (preg_match($ipv4, $ip) OR preg_match($ipv6, $ip));
@@ -124,7 +125,12 @@ class plxUtils {
 		else
 			$ip=$_SERVER['REMOTE_ADDR'];
 
-		return plxUtils::isValidIp($ip) ? $ip : '';
+		if(version_compare(phpversion(), '5.3.0', '<'))
+			$localIP = getHostByName(php_uname('n'));
+		else
+			$localIP = getHostByName(getHostName());
+
+		return plxUtils::isValidIp($ip) ? $ip : $localIP;
 	}
 
 	/**
