@@ -142,6 +142,7 @@ $LANG = array(
 'L_SUBMIT_BUTTON'											=> 'Войти',
 'L_ERR_WRONG_PASSWORD'										=> 'Неправильный логин или пароль',
 'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'											=> 'Слишком много неудачных Войти<br />Повторите попытку через% S минут',
 
 #
 

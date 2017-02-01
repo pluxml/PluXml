@@ -128,6 +128,7 @@ $LANG = array(
 'L_SUBMIT_BUTTON'											=> 'Submit',
 'L_ERR_WRONG_PASSWORD'										=> 'Incorrect login or password',
 'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'											=> 'Too many failed login<br />Retry in % s minutes',
 'L_CAT_TITLE'												=> 'Category Manager',
 'L_CAT_LIST_ID'												=> 'ID',
 'L_CAT_LIST_ACTIVE'											=> 'Active',

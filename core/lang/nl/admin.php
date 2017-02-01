@@ -128,6 +128,7 @@ $LANG = array(
 'L_SUBMIT_BUTTON'											=> 'Verzenden',
 'L_ERR_WRONG_PASSWORD'										=> 'Login en/of wachtwoord ongeldig',
 'L_POWERED_BY'												=> 'Gegenereerd door <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'											=> 'Te veel mislukte login<br />Probeer het over% s minuten',
 'L_CAT_TITLE'												=> 'Aanmaken en aanpassen van categorie?n',
 'L_CAT_LIST_ID'												=> 'ID',
 'L_CAT_LIST_ACTIVE'											=> 'Actief',

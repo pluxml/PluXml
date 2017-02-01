@@ -142,6 +142,7 @@ $LANG = array(
 'L_SUBMIT_BUTTON'					=> 'Zaloguj',
 'L_ERR_WRONG_PASSWORD' 				=> 'Login i / lub hasło niepoprawne',
 'L_POWERED_BY'						=> 'Silnik <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'					=> 'Zbyt wielu nieudanych<br />ponownych prób logowania w% s minut',
 
 #
 

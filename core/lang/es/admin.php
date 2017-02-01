@@ -142,6 +142,7 @@ $LANG = array(
 'L_SUBMIT_BUTTON'								=> 'Enviar',
 'L_ERR_WRONG_PASSWORD'							=> 'Nombre de usuario o contraseña incorrectos',
 'L_POWERED_BY'									=> 'Generado con <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'								=> 'Demasiado error en el inicio de sesión<br />Reintentar en% s minutos',
 
 #
 

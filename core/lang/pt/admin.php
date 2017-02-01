@@ -128,6 +128,7 @@ $LANG = array(
 'L_SUBMIT_BUTTON'											=> 'Validar',
 'L_ERR_WRONG_PASSWORD'										=> 'Login ou senha incorrecta',
 'L_POWERED_BY'												=> 'Propulsado por: <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'											=> 'Demasiados login falhou<br />Repetir em% s minutos',
 'L_CAT_TITLE'												=> 'Criação e edição das cetegorias',
 'L_CAT_LIST_ID'												=> 'Nome interno',
 'L_CAT_LIST_ACTIVE'											=> 'Activa',
