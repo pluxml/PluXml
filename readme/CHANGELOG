@@ -9,6 +9,7 @@
 [+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
 [+] Gestionnaire de médias : affichage des miniatures jpeg
 [+] Gestionnaire de médias : copie lien image dans le presse-papier
+[+] Protection attaque brute force sur l'écran de connexion à l'administration
 [+] #69: plxAdmin:editArticle - ajout du hook plxAdminEditArticleEnd
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
 [+] #191: plxShow:catList - Ajout de la variable #cat_description

@@ -15,6 +15,10 @@ include(dirname(__FILE__).'/prepend.php');
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
+# Protection anti brute force
+$maxlogin['counter'] = 3; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
+$maxlogin['timer'] = 3 * 60; # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
 
@@ -22,9 +26,6 @@ eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
 $error = '';
 $msg = '';
 
-# Protection anti brute force
-$maxlogin['counter'] = 3; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
-$maxlogin['timer'] = 1 * 60; # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
 if(isset($_SESSION['maxtry'])) {
 	if( intval($_SESSION['maxtry']['counter']) >= $maxlogin['counter'] AND (time() < $_SESSION['maxtry']['timer'] + $maxlogin['timer']) ) {
 		# écriture dans les logs du dépassement des 3 tentatives successives de connexion
