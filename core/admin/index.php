@@ -85,8 +85,12 @@ if(empty($artTitle)) {
 $_GET['artTitle'] = $artTitle;
 
 # On génère notre motif de recherche
-$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::title2filename($_GET['artTitle']).'(.*).xml$/';
-
+if(is_numeric($_GET['artTitle'])) {
+	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
+	$motif = '/^'.$mod.$artId.'.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*).xml$/';
+} else {
+	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::title2filename($_GET['artTitle']).'(.*).xml$/';
+}
 # Calcul du nombre de page si on fait une recherche
 if($_GET['artTitle']!='') {
 	if($arts = $plxAdmin->plxGlob_arts->query($motif))

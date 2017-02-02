@@ -6,6 +6,7 @@
 [+] Administration > Paramètres > Thèmes : test existence fichier infos.xml dans le dossier thème pour le lister ou non
 [+] Administration > Paramètres > Plugins : ajout filtre de recherche
 [+] Administration > Paramètres > Options d'affichage : Nombre d'articles affichés par page dans les mots clés
+[+] Administration : recherche possible à partir de l'identifiant d'un article
 [+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)
 [+] plxShow:templateCSS - Prise en compte des fichiers css minifiés si disponibles (contribution alexandre-lg)
 [+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
