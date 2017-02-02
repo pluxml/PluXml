@@ -84,7 +84,7 @@ include(dirname(__FILE__).'/top.php');
 				<label for="id_bypage"><?php echo L_CONFIG_VIEW_BYPAGE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('bypage', $plxAdmin->aConf['bypage'], 'text', '2-2',false,'fieldnum'); ?>
+				<?php plxUtils::printInput('bypage', $plxAdmin->aConf['bypage'], 'text', '2-4',false,'fieldnum'); ?>
 			</div>
 		</div>
 		<div class="grid">
@@ -92,7 +92,7 @@ include(dirname(__FILE__).'/top.php');
 				<label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_TAGS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('bypage_tags', $plxAdmin->aConf['bypage_tags'], 'text', '2-2',false,'fieldnum'); ?>
+				<?php plxUtils::printInput('bypage_tags', $plxAdmin->aConf['bypage_tags'], 'text', '2-4',false,'fieldnum'); ?>
 			</div>
 		</div>
 		<div class="grid">
@@ -100,7 +100,7 @@ include(dirname(__FILE__).'/top.php');
 				<label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_ARCHIVES ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('bypage_archives', $plxAdmin->aConf['bypage_archives'], 'text', '2-2',false,'fieldnum'); ?>
+				<?php plxUtils::printInput('bypage_archives', $plxAdmin->aConf['bypage_archives'], 'text', '2-4',false,'fieldnum'); ?>
 			</div>
 		</div>
 		<div class="grid">
@@ -108,7 +108,7 @@ include(dirname(__FILE__).'/top.php');
 				<label for="id_bypage_admin"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('bypage_admin', $plxAdmin->aConf['bypage_admin'], 'text', '2-2',false,'fieldnum'); ?>
+				<?php plxUtils::printInput('bypage_admin', $plxAdmin->aConf['bypage_admin'], 'text', '2-4',false,'fieldnum'); ?>
 			</div>
 		</div>
 		<div class="grid">
@@ -124,7 +124,7 @@ include(dirname(__FILE__).'/top.php');
 				<label for="id_bypage_admin_coms"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN_COMS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('bypage_admin_coms', $plxAdmin->aConf['bypage_admin_coms'], 'text', '2-2',false,'fieldnum'); ?>
+				<?php plxUtils::printInput('bypage_admin_coms', $plxAdmin->aConf['bypage_admin_coms'], 'text', '2-4',false,'fieldnum'); ?>
 			</div>
 		</div>
 		<div class="grid">
