@@ -36,12 +36,12 @@ if(isset($_SESSION['maxtry'])) {
 	}
 	if( time() > ($_SESSION['maxtry']['timer'] + $maxlogin['timer']) ) {
 		# on réinitialise le control brute force quand le temps d'attente limite est atteint
-		$_SESSION['maxtry']['counter'] = 1;
+		$_SESSION['maxtry']['counter'] = 0;
 		$_SESSION['maxtry']['timer'] = time();
 	}
 } else {
 	# initialisation de la variable qui compte les tentatives de connexion
-	$_SESSION['maxtry']['counter'] = 1;
+	$_SESSION['maxtry']['counter'] = 0;
 	$_SESSION['maxtry']['timer'] = time();
 }
 
