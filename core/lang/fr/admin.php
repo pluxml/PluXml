@@ -146,7 +146,7 @@ $LANG = array(
 'L_SUBMIT_BUTTON'					=> 'Valider',
 'L_ERR_WRONG_PASSWORD' 				=> 'Login et/ou mot de passe incorrect',
 'L_POWERED_BY'						=> 'Généré par <a href="http://www.pluxml.org">PluXml</a>',
-'L_ERR_MAXLOGIN'					=> 'Nombre de tentative atteint<br />Réessayer dans %s minutes',
+'L_ERR_MAXLOGIN'					=> 'Nombre de tentative atteint<br />Réessayez dans %s minutes',
 
 #
 
