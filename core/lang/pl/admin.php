@@ -261,6 +261,7 @@ przypadkowy',
 # index.php
 
 'L_SEARCH'							=> 'Szukaj',
+'L_SEARCH_PLACEHOLDER'				=> 'id lub tytuł',
 'L_ARTICLES_ALL_CATEGORIES'			=> 'Wszystkie kategorie...',
 'L_ALL'								=> 'Wszystkie',
 'L_ALL_PUBLISHED'					=> 'Opublikowane',

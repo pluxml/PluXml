@@ -260,6 +260,7 @@ $LANG = array(
 # index.php
 
 'L_SEARCH'										=> 'Búsqueda',
+'L_SEARCH_PLACEHOLDER'							=> 'identificador o título',
 'L_ARTICLES_ALL_CATEGORIES'						=> 'Todas las categorías...',
 'L_ALL'											=> 'Todos',
 'L_ALL_PUBLISHED'								=> 'Publicados',

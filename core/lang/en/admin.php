@@ -238,6 +238,7 @@ $LANG = array(
 'L_VALIDATED_COMMENTS_TITLE'								=> 'Published comments',
 'L_NO_ARTICLE'												=> 'No article',
 'L_SEARCH'													=> 'Search',
+'L_SEARCH_PLACEHOLDER'										=> 'article id or title',
 'L_ARTICLES_ALL_CATEGORIES'									=> 'All Categories ...',
 'L_ALL'														=> 'All',
 'L_ALL_PUBLISHED'											=> 'Published',

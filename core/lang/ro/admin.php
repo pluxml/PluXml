@@ -229,6 +229,7 @@ $LANG = array(
 'L_VALIDATED_COMMENTS_TITLE'								=> 'Comentarii postate',
 'L_NO_ARTICLE'												=> 'Nu sunt articole',
 'L_SEARCH'													=> 'Căutare',
+'L_SEARCH_PLACEHOLDER'										=> 'Identificator sau titlu',
 'L_ARTICLES_ALL_CATEGORIES'									=> 'Toate categoriile ...',
 'L_ALL'														=> 'Toate',
 'L_ALL_PUBLISHED'											=> 'Publicat',

@@ -229,6 +229,7 @@ $LANG = array(
 'L_VALIDATED_COMMENTS_TITLE'								=> 'Geplubliceerde commentaar',
 'L_NO_ARTICLE'												=> 'Geen artikel',
 'L_SEARCH'													=> 'Zoek',
+'L_SEARCH_PLACEHOLDER'										=> 'artikel-ID of titel',
 'L_ARTICLES_ALL_CATEGORIES'									=> 'Alle categorie?n ...',
 'L_ALL'														=> 'Alle',
 'L_ALL_PUBLISHED'											=> 'Gepubliceerd',

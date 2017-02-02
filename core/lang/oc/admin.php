@@ -260,6 +260,7 @@ $LANG = array(
 # index.php
 
 'L_SEARCH'							=> 'Recercar',
+'L_SEARCH_PLACEHOLDER'				=> 'identificant o titol',
 'L_ARTICLES_ALL_CATEGORIES'			=> 'Totas las categorias...',
 'L_ALL'								=> 'Totes',
 'L_ALL_PUBLISHED'					=> 'Publicats',
