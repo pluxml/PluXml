@@ -285,6 +285,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'										=> 'Artikels sorteren',
 'L_CONFIG_VIEW_BYPAGE'										=> 'Aantal artikels per pagina',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'								=> 'Aantal artikels par pagina in archief',
+'L_CONFIG_VIEW_BYPAGE_TAGS'									=> 'Aantal artikels per pagina in tags',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'								=> 'Aantal artikels per pagina in administratie-gedeelte',
 'L_CONFIG_VIEW_SORT_COMS'									=> 'Commentaar sorteren',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'							=> 'Aantal commentaren per pagina in administratie-gedeelte',

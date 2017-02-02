@@ -332,6 +332,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'				=> 'Tria dels articles',
 'L_CONFIG_VIEW_BYPAGE'				=> 'Nombre d\'articles afichats per pagina',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'		=> 'Nombre d\'articles afichats per pagina dins los archius',
+'L_CONFIG_VIEW_BYPAGE_TAGS'			=> 'Nombre d\'articles afichats per pagina dins los mots claus',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'		=> 'Nombre d\'articles afichats per pagina dins l\'administracion',
 'L_CONFIG_VIEW_SORT_COMS'			=> 'Tria dels comentaris',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'	=> 'Nombre de comentaris afichats per pagina dins l\'administracion',

@@ -332,6 +332,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'							=> 'Ordenar artículos',
 'L_CONFIG_VIEW_BYPAGE'							=> 'Cantidad de artículos por página',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'					=> 'Cantidad de artículos por página en los archivos',
+'L_CONFIG_VIEW_BYPAGE_TAGS'						=> 'Cantidad de artículos por página en etiquetas',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'					=> 'Cantidad de artículos por página en la página de administración',
 'L_CONFIG_VIEW_SORT_COMS'						=> 'Ordenar comentarios',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'				=> 'Cantidad de comentarios por página en la página de administración',

@@ -285,6 +285,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'										=> 'Ordinamento degli articoli',
 'L_CONFIG_VIEW_BYPAGE'										=> 'Numero di articoli visualizzati per pagina',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'								=> 'Numero di articoli visualizzati per pagina nell\'archivio',
+'L_CONFIG_VIEW_BYPAGE_TAGS'									=> 'Numero di articoli visualizzati per pagina nei tag',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'								=> 'Numero di articoli visualizzati per pagina nel pannello di amministrazione',
 'L_CONFIG_VIEW_SORT_COMS'									=> 'Ordinamento dei commenti',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'							=> 'Numero di commenti visualizzati per nel pannello di amministrazione',

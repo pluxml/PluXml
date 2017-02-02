@@ -285,6 +285,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'										=> 'Sorting articles',
 'L_CONFIG_VIEW_BYPAGE'										=> 'Articles per page',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'								=> 'Articles per page in archives',
+'L_CONFIG_VIEW_BYPAGE_TAGS'									=> 'Articles per page in tags',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'								=> 'Articles per page in administration',
 'L_CONFIG_VIEW_SORT_COMS'									=> 'Sorting comments',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'							=> 'Comments per page in administraton',

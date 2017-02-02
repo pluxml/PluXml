@@ -286,6 +286,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'								=> 'Artikelsortierung',
 'L_CONFIG_VIEW_BYPAGE'								=> 'Angezeigte Artikel pro Seite',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'						=> 'Angezeigte Artikel pro Seite (Archiv)',
+'L_CONFIG_VIEW_BYPAGE_TAGS'							=> 'Angezeigte Artikel pro Seite in Tags',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'						=> 'Angezeigte Artikel pro Seite (Admin)',
 'L_CONFIG_VIEW_SORT_COMS'							=> 'Kommentarsortierung',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'					=> 'Angezeigte Kommentare pro Seite (Admin)',

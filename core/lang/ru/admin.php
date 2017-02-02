@@ -335,6 +335,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'										=> 'Сортировка статей',
 'L_CONFIG_VIEW_BYPAGE'										=> 'Статей на странице',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'								=> 'Статей на странице в архиве',
+'L_CONFIG_VIEW_BYPAGE_TAGS'									=> 'Статьи на странице в тегах',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'								=> 'Статей на странице в Админке',
 'L_CONFIG_VIEW_SORT_COMS'									=> 'Сортировка комментариев',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'							=> 'Комментариев на странице в админке',

@@ -89,6 +89,14 @@ include(dirname(__FILE__).'/top.php');
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
+				<label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_TAGS ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('bypage_tags', $plxAdmin->aConf['bypage_tags'], 'text', '2-2',false,'fieldnum'); ?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_ARCHIVES ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
