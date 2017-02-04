@@ -1,4 +1,42 @@
-﻿## PLUXML 5.5 (sortie : xx/xx/2016) ##
+## PLUXML 5.6 (sortie : xx/xx/2017) ##
+
+[+] PluCSS 1.2
+[+] Contrôle de la force des mots de passe saisis
+[+] Protection attaque brute force sur l'écran de connexion à l'administration
+[+] Administration > Paramètres > Thèmes : test existence fichier infos.xml dans le dossier thème pour le lister ou non
+[+] Administration > Paramètres > Plugins : ajout filtre de recherche
+[+] Administration > Paramètres > Options d'affichage : Nombre d'articles affichés par page dans les mots clés
+[+] Administration : recherche possible à partir de l'identifiant d'un article
+[+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)
+[+] plxShow:templateCSS - Prise en compte des fichiers css minifiés si disponibles (contribution alexandre-lg)
+[+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
+[+] Gestionnaire de médias : affichage des miniatures jpeg
+[+] Gestionnaire de médias : copie lien image dans le presse-papier
+[+] #69: plxAdmin:editArticle - ajout du hook plxAdminEditArticleEnd
+[+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
+[+] #191: plxShow:catList - Ajout de la variable #cat_description
+[+] #194: Rédaction d'un article: optimisation de l'ajout rapide de tag (contribution MatthieuQuantin)
+BUG Non affichage du nombre de commentaires d'un article si les commentaires sont fermés
+BUG plxUtils::removeAccents - amélioration de la prise en compte des caractères non latin
+BUG Administration > Pages Statiques : lien Voir incomplet
+BUG Administration : problème d'affichage du compteur des articles en attente de validation
+BUG Administration : modification impossible de la date du commentaire à partir de l'icône calendrier
+BUG Administration : Mise à jour auteur commentaire avec apostrophe/caractères spéciaux transformés en équivalent html
+BUG Mauvais lien des commentaires dans les flux rss
+BUG #171: Décalage theme par défaut
+BUG #174: Mauvaise réécriture d'url avec les liens data:image, javascript et commençant par #
+BUG #176: Image preview.png du thème par defaut déformée
+BUG #181: Commentaires toujours refusés si capcha désactivé (contribution ortolot)
+BUG #182: Affichage en trop si commentaires fermés (contribution josé)
+BUG #183: Fichier css custom non chargé sur la page auth.php
+BUG #184: Pas d'affichage du flux RSS des commentaires quand il n'y a pas de commentaires enregistrés
+BUG #185: Mauvaise cible de téléchargement
+BUG #187: Mauvais numéro d'article dans l'ajout d'un nouveau commentaire (contribution mathieu269)
+BUG #189: plxAdmin:modCommentaire - mauvais message affiché après la validation d'un commentaire
+BUG #190: Warning sur l'utilisation de mktime (paramètre de type string au lieu de integer)
+BUG #192: Rédaction d'un article: ajout rapide de tag avec une apostrophe impossible (erreur javascript)
+
+## PLUXML 5.5 (sortie : 01/04/2016) ##
 
 [+] #99, #165: Ajout de la prise en compte des extensions "m4a, m4v, epub, svg, vtt, webm, xcf" dans le gestionnaire de médias
 [+] #110: Gestionnaire de médias, ajout des fichiers: Option "Redimensionner images > Taille originale" cochée par défaut

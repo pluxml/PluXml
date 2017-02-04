@@ -19,7 +19,7 @@ $LANG = array(
 'L_THUMBNAIL_TITLE'					=> 'Títol de l\'imatge (facultatiu)',
 'L_THUMBNAIL_ALT'					=> 'Tèxte alternatiu de l\'imatge (facultatiu)',
 'L_ERR_INVALID_DATE_CREATION'		=> 'Data de creacion invalida',
-'L_ERR_INVALID_DATE_UPDATE'			=> 'Data de misa a jorn invalid',
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Data de mesa a jorn invalid',
 
 # class.plx.admin.php
 
@@ -111,7 +111,7 @@ $LANG = array(
 'L_ALLOW_COMMENTS' 					=> 'Autorizar los comentaris',
 'L_ARTICLE_URL_FIELD' 				=> 'Url',
 'L_ARTICLE_URL_FIELD_TITLE' 		=> 'l\'URL s\'emplís automaticament a la creacion',
-'L_ARTICLE_TEMPLATE_FIELD' 			=> 'Template',
+'L_ARTICLE_TEMPLATE_FIELD' 			=> 'Modèl',
 'L_ARTICLE_MANAGE_COMMENTS'			=> 'Gerir los comentaris',
 'L_ARTICLE_MANAGE_COMMENTS_TITLE'	=> 'Gerir los comentaris d\'aqueste article',
 'L_ARTICLE_NEW_COMMENT'				=> 'Escriure un comentari',
@@ -142,12 +142,14 @@ $LANG = array(
 'L_SUBMIT_BUTTON'					=> 'Validar',
 'L_ERR_WRONG_PASSWORD' 				=> 'Login e/o senhal incorrèct',
 'L_POWERED_BY'						=> 'Generat per <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'					=> 'Nombre de tentative atteint<br />Réessayez dans %s minutes',
 
 #
 
 'L_SORT_ASCENDING_DATE'				=> 'data creissenta',
 'L_SORT_DESCENDING_DATE'			=> 'data decreissenta',
 'L_SORT_ALPHABETICAL'				=> 'alfabetic',
+'L_SORT_RANDOM'						=> 'aléatoire',
 'L_YES' 							=> 'Òc',
 'L_NO' 								=> 'Non',
 'L_OK'								=> 'Ok',
@@ -257,7 +259,8 @@ $LANG = array(
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'			=> 'Recercar',
+'L_SEARCH'							=> 'Recercar',
+'L_SEARCH_PLACEHOLDER'				=> 'identificant o titol',
 'L_ARTICLES_ALL_CATEGORIES'			=> 'Totas las categorias...',
 'L_ALL'								=> 'Totes',
 'L_ALL_PUBLISHED'					=> 'Publicats',
@@ -276,7 +279,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'				=> 'Accion',
 'L_CATEGORY_HOME'					=> 'Pagina d\'acuèlh',
 'L_CATEGORY_DRAFT'					=> 'Borrolhon',
-'L_ARTICLE_VIEW'					=> 'Visualizar',
 'L_ARTICLE_VIEW_TITLE'				=> 'Visualizar aquel article sul siti',
 'L_ARTICLE_EDIT'					=> 'Editar',
 'L_ARTICLE_EDIT_TITLE'				=> 'Editar aquel article',
@@ -318,6 +320,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Drecha',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recrear miniaturas',
+'L_MEDIAS_LINK_COPYCLP'             => 'Copier le lien dans le presse-papier',
+'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Impossible de copier le lien dans le presse-papier',
+'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Lien copié',	
 
 # parametres_affichage.php
 
@@ -328,6 +333,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'				=> 'Tria dels articles',
 'L_CONFIG_VIEW_BYPAGE'				=> 'Nombre d\'articles afichats per pagina',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'		=> 'Nombre d\'articles afichats per pagina dins los archius',
+'L_CONFIG_VIEW_BYPAGE_TAGS'			=> 'Nombre d\'articles afichats per pagina dins los mots claus',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'		=> 'Nombre d\'articles afichats per pagina dins l\'administracion',
 'L_CONFIG_VIEW_SORT_COMS'			=> 'Tria dels comentaris',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'	=> 'Nombre de comentaris afichats per pagina dins l\'administracion',
@@ -364,7 +370,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_PLUGINS_FOLDER'	=> 'Emplaçament dels plugins (dorsièr)',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplaçament dels fichièrs de configuracion (dorsièr)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modificar la configuracion avançada',
-'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement et nom du fichier css personnel pour customisation de l\'interface d\'administration (option)',
+'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Lòc e nom del fichièr css personnal per personalizar l\'interfàcia d\'administracion (opcion)',
 
 # parametres_base.php
 
@@ -412,7 +418,6 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modificar la lista dels utilizators',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identificant de connexion ja utilizat',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilizator ja utilizat',
-'L_CONFIG_USERS_DELETE_CONFIRM'		=> 'Suprimir los utilizators seleccionats ?',
 
 # parametre_plugins.php
 
@@ -436,6 +441,8 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'		=> 'Supression efectuada amb succès',
 'L_PLUGINS_CONFIG'					=> 'Configuracion',
 'L_PLUGINS_CONFIG_TITLE'			=> 'Configuracion del plugin',
+'L_PLUGINS_HELP'					=> 'Aide',
+'L_PLUGINS_HELP_TITLE'				=> 'Voir l\'aide du plugin',
 'L_PLUGINS_REQUIREMENTS'			=> 'Pre-requesit',
 'L_PLUGINS_REQUIREMENTS_HELP'		=> 'Lista dels plugins presents e actius per activar aqueste plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'		=> 'Cap',
@@ -555,5 +562,6 @@ $LANG = array(
 'L_HELP'							=> 'Ajuda',
 'L_HELP_TITLE'						=> 'Véser l\'ajuda',
 'L_BACK_TO_THEMES'					=> 'Tornar a la lista dels tèmas',
+'L_CONFIG_THEME_UPDATE'				=> 'Modificar del tèma',
 );
 ?>

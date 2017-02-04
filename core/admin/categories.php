@@ -26,7 +26,7 @@ if(!empty($_POST)) {
 }
 
 # Tableau du tri
-$aTri = array('desc'=>L_SORT_DESCENDING_DATE, 'asc'=>L_SORT_ASCENDING_DATE, 'alpha'=>L_SORT_ALPHABETICAL);
+$aTri = array('desc'=>L_SORT_DESCENDING_DATE, 'asc'=>L_SORT_ASCENDING_DATE, 'alpha'=>L_SORT_ALPHABETICAL,'random'=>L_SORT_RANDOM);
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');

@@ -114,7 +114,7 @@ include(dirname(__FILE__).'/top.php');
 			<div class="grid">
 				<div class="col sml-12">
 					<label><?php echo L_DATE_CREATION ?>&nbsp;:</label>
-					<div class="inline-form">
+					<div class="inline-form creation">
 						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
 						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
 						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
@@ -129,7 +129,7 @@ include(dirname(__FILE__).'/top.php');
 				<div class="col sml-12">
 					<?php plxUtils::printInput('date_update', $plxAdmin->aStats[$id]['date_update'], 'hidden');?>
 					<label><?php echo L_DATE_UPDATE ?>&nbsp;:</label>
-					<div class="inline-form">
+					<div class="inline-form update">
 						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
 						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
 						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>

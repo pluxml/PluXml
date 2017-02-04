@@ -102,6 +102,8 @@ class plxMedias {
 	 **/
 	private function _getDirFiles($dir) {
 
+		if(!is_dir($this->path.$dir)) return array();
+
 		# Initialisation
 		$files = array();
 		# Ouverture et lecture du dossier demandé
@@ -112,7 +114,7 @@ class plxMedias {
 					if(is_file($this->path.$dir.$file)) {
 						$ext = strtolower(strrchr($this->path.$dir.$file,'.'));
 						$_thumb1=file_exists($this->path.'.thumbs/'.$dir.$file);
-						if(!$_thumb1 AND in_array($ext, array('.gif', '.jpg', '.png'))) {
+						if(!$_thumb1 AND in_array($ext, array('.gif', '.jpg', '.jpeg', '.png'))) {
 							$_thumb1 = plxUtils::makeThumb($this->path.$dir.$file, $this->path.'.thumbs/'.$dir.$file, $this->thumbWidth, $this->thumbHeight, $this->thumbQuality);
 						}
 						$_thumb2=false;
@@ -449,7 +451,7 @@ class plxMedias {
 			if(is_file($this->path.$this->dir.$file)) {
 				$thumName = plxUtils::thumbName($file);
 				$ext = strtolower(strrchr($this->path.$this->dir.$file,'.'));
-				if(in_array($ext, array('.gif', '.jpg', '.png'))) {
+				if(in_array($ext, array('.gif', '.jpg', '.jpeg', '.png'))) {
 					if(plxUtils::makeThumb($this->path.$this->dir.$file, $this->path.$this->dir.$thumName, $width, $height, 80))
 						$count++;
 				}

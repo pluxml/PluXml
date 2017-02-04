@@ -77,6 +77,7 @@ $config = array('title'=>'PluXml',
 				'clef'=>plxUtils::charAleatoire(15),
 				'bypage'=>5,
 				'bypage_archives'=>5,
+				'bypage_tags'=>5,
 				'bypage_admin'=>10,
 				'bypage_admin_coms'=>10,
 				'bypage_feed'=>8,
@@ -227,9 +228,10 @@ plxUtils::cleanHeaders();
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
 </head>
 
-<body onload="document.forms[1].name.focus();">
+<body>
 
 	<main class="main grid">
 
@@ -266,7 +268,7 @@ plxUtils::cleanHeaders();
 							<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('name', $name, 'text', '20-255') ?>
+							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus') ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -282,7 +284,8 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd', '', 'password', '20-255') ?>
+							<?php plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"') ?>
+							<span id="id_pwd_strenght"></span>
 						</div>
 					</div>
 					<div class="grid">
@@ -311,7 +314,6 @@ plxUtils::cleanHeaders();
 						<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
 						<?php } ?>
-						<li><?php echo L_INFO_MAGIC_QUOTES.' : '.get_magic_quotes_gpc() ?></li>
 						<?php plxUtils::testWrite(PLX_ROOT) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>

@@ -28,5 +28,9 @@ $LANG = array(
 'L_PASSWORD_CONFIRMATION'			=> 'Confirmarea Parolei',
 'L_INPUT_INSTALL'					=> 'Instalează',
 'L_TIMEZONE'						=> 'Time Zone',
+'L_PWD_VERY_WEAK'					=> 'Parola foarte slabă',
+'L_PWD_WEAK'						=> 'Parolă slabă',
+'L_PWD_GOOD'						=> 'Parolă bună',
+'L_PWD_STRONG'						=> 'Parolă puternică',
 );
 ?>

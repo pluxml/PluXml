@@ -8,7 +8,9 @@ $LANG = array(
 'L_SAVE_FILE'						=> 'Zapisz plik',
 'L_SAVE_FILE_SUCCESSFULLY'			=> 'Plik został pomyślnie zapisany',
 'L_SAVE_FILE_ERROR'					=> 'Wystąpił błąd podczas zapisywania pliku',
-
+'L_REPLY'							=> 'Odpowiedź',
+'L_REPLY_TO'						=> 'Odpowiedź',
+'L_CANCEL'							=> 'Anulować',
 'L_DELETE' 						    => 'Usuń',
 'L_DELETE_FILE' 				    => 'Usuń plik',
 'L_DELETE_FOLDER'				    => 'Usuń folder',
@@ -140,12 +142,15 @@ $LANG = array(
 'L_SUBMIT_BUTTON'					=> 'Zaloguj',
 'L_ERR_WRONG_PASSWORD' 				=> 'Login i / lub hasło niepoprawne',
 'L_POWERED_BY'						=> 'Silnik <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'					=> 'Zbyt wielu nieudanych<br />ponownych prób logowania w% s minut',
 
 #
 
 'L_SORT_ASCENDING_DATE'				=> 'data rosnąca',
 'L_SORT_DESCENDING_DATE'			=> 'data malejąco',
 'L_SORT_ALPHABETICAL'				=> 'alfabetycznie',
+'L_SORT_RANDOM'						=> '
+przypadkowy',
 'L_YES' 							=> 'Tak',
 'L_NO' 								=> 'Nie',
 'L_OK'								=> 'OK',
@@ -255,7 +260,8 @@ $LANG = array(
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'			=> 'Szukaj',
+'L_SEARCH'							=> 'Szukaj',
+'L_SEARCH_PLACEHOLDER'				=> 'id lub tytuł',
 'L_ARTICLES_ALL_CATEGORIES'			=> 'Wszystkie kategorie...',
 'L_ALL'								=> 'Wszystkie',
 'L_ALL_PUBLISHED'					=> 'Opublikowane',
@@ -274,7 +280,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'				=> 'Akcja',
 'L_CATEGORY_HOME'					=> 'Start',
 'L_CATEGORY_DRAFT'					=> 'Projekt',
-'L_ARTICLE_VIEW'					=> 'Podgląd',
 'L_ARTICLE_VIEW_TITLE'				=> 'Zobacz ten post na stronie',
 'L_ARTICLE_EDIT'					=> 'Edytuj',
 'L_ARTICLE_EDIT_TITLE'				=> 'Edytuj ten post',
@@ -316,6 +321,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Droite',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recréer miniatures',
+'L_MEDIAS_LINK_COPYCLP'             => 'Skopiuj link do schowka',
+'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Nie można skopiować link do schowka',
+'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Link został skopiowany',	
 
 # parametres_affichage.php
 
@@ -326,6 +334,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'				=> 'Tri des articles',
 'L_CONFIG_VIEW_BYPAGE'				=> 'Nombre d\'articles affichés par page',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'		=> 'Nombre d\'articles affichés par page dans les archives',
+'L_CONFIG_VIEW_BYPAGE_TAGS'			=> 'Artykuły na stronie w tagach',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'		=> 'Nombre d\'articles affichés par page dans l\'administration',
 'L_CONFIG_VIEW_SORT_COMS'			=> 'Tri des commentaires',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'	=> 'Nombre de commentaires affichés par page dans l\'administration',
@@ -410,7 +419,6 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modifier la liste des utilisateurs',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identifiant de connexion déjà utilisé',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilisateur déjà utilisé',
-'L_CONFIG_USERS_DELETE_CONFIRM'		=> 'Supprimer les utilisateurs sélectionnés ?',
 
 # parametre_plugins.php
 
@@ -434,6 +442,8 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'		=> 'Suppression effectuée avec succès',
 'L_PLUGINS_CONFIG'					=> 'Configuration',
 'L_PLUGINS_CONFIG_TITLE'			=> 'Configuration du plugin',
+'L_PLUGINS_HELP'					=> 'Pomoc',
+'L_PLUGINS_HELP_TITLE'				=> 'Patrz Korzystanie z wtyczki',
 'L_PLUGINS_REQUIREMENTS'			=> 'Pré-requis',
 'L_PLUGINS_REQUIREMENTS_HELP'		=> 'Liste des plugins présents et actifs pour activer ce plugin',
 'L_PLUGINS_REQUIREMENTS_NONE'		=> 'Aucun',
@@ -553,5 +563,6 @@ $LANG = array(
 'L_HELP'							=> 'Pomoc',
 'L_HELP_TITLE'						=> 'Zobacz pomoc',
 'L_BACK_TO_THEMES'					=> 'Powrót do tematów strony',
+'L_CONFIG_THEME_UPDATE'				=> 'Zmień styl',
 );
 ?>

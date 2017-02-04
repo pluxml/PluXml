@@ -2,9 +2,9 @@
 
 	<?php if($plxShow->plxMotor->plxRecord_coms): ?>
 
-		<h2 id="comments">
+		<h3 id="comments">
 			<?php echo $plxShow->artNbCom(); ?>
-		</h2>
+		</h3>
 
 		<?php while($plxShow->plxMotor->plxRecord_coms->loop()): # On boucle sur les commentaires ?>
 
@@ -25,21 +25,23 @@
 
 			</div>
 
+			<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
 			<a rel="nofollow" href="<?php $plxShow->artUrl(); ?>#form" onclick="replyCom('<?php $plxShow->comIndex() ?>')"><?php $plxShow->lang('REPLY'); ?></a>
+			<?php endif; ?>
 
 		</div>
 
 		<?php endwhile; # Fin de la boucle sur les commentaires ?>
 
-		<p><?php $plxShow->comFeed('rss',$plxShow->artId()); ?></p>
-
 	<?php endif; ?>
+
+	<p><?php $plxShow->comFeed('rss',$plxShow->artId()); ?></p>
 
 	<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
 
-	<h2>
+	<h3>
 		<?php $plxShow->lang('WRITE_A_COMMENT') ?>
-	</h2>
+	</h3>
 
 	<form id="form" action="<?php $plxShow->artUrl(); ?>#form" method="post">
 

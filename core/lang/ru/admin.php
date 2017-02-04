@@ -142,12 +142,14 @@ $LANG = array(
 'L_SUBMIT_BUTTON'											=> 'Войти',
 'L_ERR_WRONG_PASSWORD'										=> 'Неправильный логин или пароль',
 'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'											=> 'Слишком много неудачных Войти<br />Повторите попытку через% S минут',
 
 #
 
 'L_SORT_ASCENDING_DATE'										=> 'Дата по возрастанию',
 'L_SORT_DESCENDING_DATE'									=> 'Дата по убыванию',
 'L_SORT_ALPHABETICAL'										=> 'В алфавитном порядке',
+'L_SORT_RANDOM'												=> 'алеаторный',
 'L_YES'														=> 'Да',
 'L_NO'														=> 'Нет',
 'L_OK'														=> 'Ok',
@@ -260,7 +262,8 @@ $LANG = array(
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'									=> 'Поиск',
+'L_SEARCH'													=> 'Поиск',
+'L_SEARCH_PLACEHOLDER'										=> 'ID или название',
 'L_ARTICLES_ALL_CATEGORIES'									=> 'Все категории ...',
 'L_ALL'														=> 'Всего',
 'L_ALL_PUBLISHED'											=> 'Опубликованные',
@@ -279,7 +282,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'										=> 'Действие',
 'L_CATEGORY_HOME'											=> 'Главная',
 'L_CATEGORY_DRAFT'											=> 'Черновики',
-'L_ARTICLE_VIEW'											=> 'Открыть',
 'L_ARTICLE_VIEW_TITLE'										=> 'Открыть эту статью',
 'L_ARTICLE_EDIT'											=> 'Изменить',
 'L_ARTICLE_EDIT_TITLE'										=> 'Изменить эту статью',
@@ -321,6 +323,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'										=> 'Центр',
 'L_MEDIAS_ALIGN_RIGHT'										=> 'Право',
 'L_MEDIAS_RECREATE_THUMB'									=> 'Обновить эскизы',
+'L_MEDIAS_LINK_COPYCLP'                                     => 'Скопировать ссылку в буфер обмена',
+'L_MEDIAS_LINK_COPYCLP_ERR'                                 => 'Невозможно скопировать ссылку в буфер обмена',
+'L_MEDIAS_LINK_COPYCLP_DONE'                                => 'ссылка скопирована',
 
 # parametres_affichage.php
 
@@ -331,6 +336,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'										=> 'Сортировка статей',
 'L_CONFIG_VIEW_BYPAGE'										=> 'Статей на странице',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'								=> 'Статей на странице в архиве',
+'L_CONFIG_VIEW_BYPAGE_TAGS'									=> 'Статьи на странице в тегах',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'								=> 'Статей на странице в Админке',
 'L_CONFIG_VIEW_SORT_COMS'									=> 'Сортировка комментариев',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'							=> 'Комментариев на странице в админке',
@@ -438,6 +444,8 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'								=> 'Удалено успешно',
 'L_PLUGINS_CONFIG'											=> 'Конфигурация',
 'L_PLUGINS_CONFIG_TITLE'									=> 'Конфигурация плагина',
+'L_PLUGINS_HELP'											=> 'помощь',
+'L_PLUGINS_HELP_TITLE'										=> 'Смотрите раздел Использование плагина',
 'L_PLUGINS_REQUIREMENTS'									=> 'Системные требования',
 'L_PLUGINS_REQUIREMENTS_HELP'								=> 'Доступные и активные плагины',
 'L_PLUGINS_REQUIREMENTS_NONE'								=> 'Нет',
@@ -557,5 +565,6 @@ $LANG = array(
 'L_HELP'													=> 'помощь',
 'L_HELP_TITLE'												=> 'См помощь',
 'L_BACK_TO_THEMES'											=> 'Вернуться к темам страницы',
+'L_CONFIG_THEME_UPDATE'										=> 'Изменить стиль',
 );
 ?>

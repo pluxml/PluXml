@@ -104,6 +104,7 @@ class plxUtils {
 	 **/
 	public static function isValidIp($ip) {
 
+		if($ip=='::1') return false;
 		$ipv4 = '/((^|\.)(2[0-5]{2}|[01][0-9]{2}|[0-9]{1,2})(?=\.|$)){4}/';
 		$ipv6 = '/^:?([a-fA-F0-9]{1,4}(:|.)?){0,8}(:|::)?([a-fA-F0-9]{1,4}(:|.)?){0,8}$/';
 		return (preg_match($ipv4, $ip) OR preg_match($ipv6, $ip));
@@ -124,7 +125,12 @@ class plxUtils {
 		else
 			$ip=$_SERVER['REMOTE_ADDR'];
 
-		return plxUtils::isValidIp($ip) ? $ip : '';
+		if(version_compare(phpversion(), '5.3.0', '<'))
+			$localIP = getHostByName(php_uname('n'));
+		else
+			$localIP = getHostByName(getHostName());
+
+		return plxUtils::isValidIp($ip) ? $ip : $localIP;
 	}
 
 	/**
@@ -180,20 +186,22 @@ class plxUtils {
 	 * @param	size		longueur du champ - nombre maximal de caractères pouvant être saisis (par défaut 50-255)
 	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
-	 * àparam	placeholder valeur du placeholder du champ (html5)
+	 * @param	placeholder valeur du placeholder du champ (html5)
+	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
 	 * @return	stdout
 	 **/
-	public static function printInput($name, $value='', $type='text', $size='50-255', $readonly=false, $class='', $placeholder='') {
+	public static function printInput($name, $value='', $type='text', $size='50-255', $readonly=false, $class='', $placeholder='', $extra='') {
 
 		$size = explode('-',$size);
 		$placeholder = $placeholder!='' ? ' placeholder="'.$placeholder.'"' : '';
+		$extra = $extra!='' ? ' '.trim($extra) : '';
 		if($type!='hidden') {
 			if($readonly)
-				echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
+				echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
 			else
-				echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
+				echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
 		} else {
-			echo '<input id="id_'.$name.'" name="'.$name.'" type="'.$type.'" value="'.$value.'" />'."\n";
+			echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'" value="'.$value.'" />'."\n";
 		}
 	}
 
@@ -326,10 +334,13 @@ class plxUtils {
 	public static function removeAccents($str,$charset='utf-8') {
 
 		$str = htmlentities($str, ENT_NOQUOTES, $charset);
-	    $str = preg_replace('#\&([A-za-z])(?:acute|cedil|circ|grave|ring|tilde|uml|uro)\;#', '\1', $str);
-	    $str = preg_replace('#\&([A-za-z]{2})(?:lig)\;#', '\1', $str); # pour les ligatures e.g. '&oelig;'
-	    $str = preg_replace('#\&[^;]+\;#', '', $str); # supprime les autres caractères
-	    return $str;
+		$a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ');
+		$b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o');
+		$str = str_replace($a, $b, $str);
+		$str = preg_replace('#\&([A-za-z])(?:acute|cedil|circ|grave|ring|tilde|uml|uro)\;#', '\1', $str);
+		$str = preg_replace('#\&([A-za-z]{2})(?:lig)\;#', '\1', $str); # pour les ligatures e.g. '&oelig;'
+		$str = preg_replace('#\&[^;]+\;#', '', $str); # supprime les autres caractères
+		return $str;
 	}
 
 	/**
@@ -486,7 +497,7 @@ class plxUtils {
 				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
 				imagefill($canvas, 0, 0, $color);
 				imagesavealpha($canvas, true);
-			break;
+				break;
 			default:
 				return false; // Unsupported format
 			break;
@@ -679,7 +690,8 @@ class plxUtils {
 		# on protège tous les liens externes au site, et on transforme tous les liens relatifs en absolus
 		# on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';
-		$patterns = array('#(href)=("|\')(mailto:|news:)#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
+		$protect = '(\#|javascript|data|callto|content|fax|file|ftp|imap|irc|jabber|mailto|mms|news|pop|sip|smb|sms|ssh|tel|telnet|vnc|xmpp):?';
+		$patterns = array('#(href|src)=("|\')('.$protect.')#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
 		$replaces = array('$1'.$mask.'$2$3', '$1'.$mask.'$2$3', '$1=$2'.$base.'$3');
 		if (preg_match('#^[a-z]+://#i', $base)) {
 			$patterns[] = '#(href|src)=("|\')/([^/])#i';

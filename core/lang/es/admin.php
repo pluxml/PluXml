@@ -4,7 +4,7 @@ $LANG = array(
 
 'L_MENU'										=> 'Menú',
 'L_UNKNOWN_ERROR'								=> 'Error desconocido',
-'L_CONFIRM_DELETE'								=> '¿Desea confirmar la eliminación?',
+'L_CONFIRM_DELETE'								=> 'Desea confirmar la eliminación?',
 'L_SAVE_FILE'									=> 'Guardar el archivo',
 'L_SAVE_FILE_SUCCESSFULLY'						=> 'Archivo guardado correctamente',
 'L_SAVE_FILE_ERROR'								=> 'Error al guardar el archivo',
@@ -31,7 +31,7 @@ $LANG = array(
 'L_ERR_PASSWORD_EMPTY_CONFIRMATION'				=> 'Contraseña incorrecta o vacía',
 'L_ERR_INVALID_EMAIL'							=> 'Dirección de correo incorrecta',
 'L_ERR_INVALID_SITE'							=> 'URL de sitio incorrecta',
-'L_ERR_INVALID_ARTICLE_IDENT'					=> '¡Identificador de artículo incorrecto!',
+'L_ERR_INVALID_ARTICLE_IDENT'					=> 'Identificador de artículo incorrecto!',
 'L_DEFAULT_NEW_CATEGORY_URL'					=> 'nueva-categoria',
 'L_DEFAULT_NEW_STATIC_URL'						=> 'nueva-pagina',
 'L_DEFAULT_NEW_ARTICLE_URL'						=> 'nuevo-articulo',
@@ -79,7 +79,7 @@ $LANG = array(
 'L_PLXMEDIAS_RECREATE_THUMBS_ERR'				=> 'Error al crear las miniaturas',
 'L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL'			=> 'Miniatura creada correctamente',
 'L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL'		=> 'Miniaturas creadas correctamente',
-
+    
 # article.php
 
 'L_DEFAULT_NEW_ARTICLE_TITLE'					=> 'Nuevo artículo',
@@ -116,7 +116,7 @@ $LANG = array(
 'L_ARTICLE_MANAGE_COMMENTS_TITLE'				=> 'Moderar los comentarios de este artículo',
 'L_ARTICLE_NEW_COMMENT'							=> 'Escribir un comentario',
 'L_ARTICLE_NEW_COMMENT_TITLE'					=> 'Escribir un comentario sobre este artículo',
-'L_ARTICLE_DELETE_CONFIRM'						=> '¿Eliminar este artículo?',
+'L_ARTICLE_DELETE_CONFIRM'						=> 'Eliminar este artículo?',
 'L_ARTICLE_PREVIEW_BUTTON'						=> 'Previsualización',
 'L_ARTICLE_DRAFT_BUTTON'						=> 'Guardar borrador',
 'L_ARTICLE_PUBLISHING_BUTTON'					=> 'Publicar',
@@ -142,12 +142,14 @@ $LANG = array(
 'L_SUBMIT_BUTTON'								=> 'Enviar',
 'L_ERR_WRONG_PASSWORD'							=> 'Nombre de usuario o contraseña incorrectos',
 'L_POWERED_BY'									=> 'Generado con <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'								=> 'Demasiado error en el inicio de sesión<br />Reintentar en% s minutos',
 
 #
 
 'L_SORT_ASCENDING_DATE'							=> 'más antiguo a más reciente',
 'L_SORT_DESCENDING_DATE'						=> 'más reciente a más antiguo',
 'L_SORT_ALPHABETICAL'							=> 'alfabético',
+'L_SORT_RANDOM'									=> 'aleatorio',
 'L_YES'											=> 'Si',
 'L_NO'											=> 'No',
 'L_OK'											=> 'OK',
@@ -207,7 +209,7 @@ $LANG = array(
 'L_COMMENT_STATUS_FIELD'						=> 'Estado',
 'L_COMMENT_LINKED_ARTICLE_FIELD'				=> 'Artículo asociado',
 'L_COMMENT_ARTICLE_FIELD'						=> 'Comentarios',
-'L_COMMENT_DELETE_CONFIRM'						=> '¿Desea eliminar este comentario?',
+'L_COMMENT_DELETE_CONFIRM'						=> 'Desea eliminar este comentario?',
 'L_COMMENT_PUBLISH_BUTTON'						=> 'Aprobar la publicación',
 'L_COMMENT_OFFLINE_BUTTON'						=> 'Cambiar a invisible',
 'L_COMMENT_ANSWER_BUTTON'						=> 'Responder a este comentario',
@@ -222,9 +224,9 @@ $LANG = array(
 
 # commentaire_new.php
 
-'L_ERR_ANSWER_UNKNOWN_COMMENT'					=> '¡El comentario al que está intentando responder no existe!',
-'L_ERR_ANSWER_OFFLINE_COMMENT'					=> '¡Es imposible responder a un comentario invisible!',
-'L_ERR_COMMENT_UNKNOWN_ARTICLE'					=> '¡Es imposible comentar en un artículo que no existe!',
+'L_ERR_ANSWER_UNKNOWN_COMMENT'					=> 'El comentario al que está intentando responder no existe!',
+'L_ERR_ANSWER_OFFLINE_COMMENT'					=> 'Es imposible responder a un comentario invisible!',
+'L_ERR_COMMENT_UNKNOWN_ARTICLE'					=> 'Es imposible comentar en un artículo que no existe!',
 'L_ERR_CREATING_COMMENT'						=> 'Error grave durante la creación del comentario',
 'L_CREATING_COMMENT_SUCCESSFUL'					=> 'Comentario creado correctamente',
 'L_CREATE_NEW_COMMENT'							=> 'Escribir un comentario',
@@ -257,7 +259,8 @@ $LANG = array(
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'						=> 'Búsqueda',
+'L_SEARCH'										=> 'Búsqueda',
+'L_SEARCH_PLACEHOLDER'							=> 'identificador o título',
 'L_ARTICLES_ALL_CATEGORIES'						=> 'Todas las categorías...',
 'L_ALL'											=> 'Todos',
 'L_ALL_PUBLISHED'								=> 'Publicados',
@@ -276,7 +279,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'							=> 'Acción',
 'L_CATEGORY_HOME'								=> 'Inicio',
 'L_CATEGORY_DRAFT'								=> 'Borrador',
-'L_ARTICLE_VIEW'								=> 'Visualizar',
 'L_ARTICLE_VIEW_TITLE'							=> 'Visualizar este artílo en el sitio',
 'L_ARTICLE_EDIT'								=> 'Editar',
 'L_ARTICLE_EDIT_TITLE'							=> 'Editar este artículo',
@@ -296,7 +298,7 @@ $LANG = array(
 'L_MEDIAS_DOCUMENTS'							=> 'Documentos',
 'L_MEDIAS_ADD_FILE'								=> 'Agregar archivo',
 'L_MEDIAS_DELETE_FOLDER'						=> 'Eliminar la carpeta',
-'L_MEDIAS_DELETE_FOLDER_CONFIRM'				=> '¿Desea eliminar la carpeta %s y su contenido?',
+'L_MEDIAS_DELETE_FOLDER_CONFIRM'				=> 'Desea eliminar la carpeta %s y su contenido?',
 'L_MEDIAS_FOLDER'								=> 'Archivo',
 'L_MEDIAS_NEW_FOLDER'							=> 'Nueva carpeta',
 'L_MEDIAS_CREATE_FOLDER'						=> 'Crear una carpeta',
@@ -318,6 +320,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'							=> 'Centro',
 'L_MEDIAS_ALIGN_RIGHT'							=> 'Derecha',
 'L_MEDIAS_RECREATE_THUMB'						=> 'Crear miniatura nuevamente',
+'L_MEDIAS_LINK_COPYCLP'                         => 'Copiar enlace al portapapeles',
+'L_MEDIAS_LINK_COPYCLP_ERR'                     => 'No se puede copiar el enlace en el portapapeles',
+'L_MEDIAS_LINK_COPYCLP_DONE'                    => 'Enlace copiado',    
 
 # parametres_affichage.php
 
@@ -328,6 +333,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'							=> 'Ordenar artículos',
 'L_CONFIG_VIEW_BYPAGE'							=> 'Cantidad de artículos por página',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'					=> 'Cantidad de artículos por página en los archivos',
+'L_CONFIG_VIEW_BYPAGE_TAGS'						=> 'Cantidad de artículos por página en etiquetas',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'					=> 'Cantidad de artículos por página en la página de administración',
 'L_CONFIG_VIEW_SORT_COMS'						=> 'Ordenar comentarios',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'				=> 'Cantidad de comentarios por página en la página de administración',
@@ -383,7 +389,7 @@ $LANG = array(
 
 # parametres_edittpl.php
 
-'L_CONFIG_EDITTPL_ERROR_NOTHEME'				=> '¡No existe el tema!',
+'L_CONFIG_EDITTPL_ERROR_NOTHEME'				=> 'No existe el tema!',
 'L_CONFIG_EDITTPL_TITLE'						=> 'Edición del tema',
 'L_CONFIG_EDITTPL_SELECT_FILE'					=> 'Seleccione un archivo para editar:',
 'L_CONFIG_EDITTPL_LOAD'							=> 'Cargar',
@@ -399,7 +405,7 @@ $LANG = array(
 'L_PLUXML_UPDATE_UNAVAILABLE'					=> 'Es imposible comprobar las actualizaciones disponibles si la función «allow_url_fopen» está desactivada en este sistema',
 'L_PLUXML_UPDATE_ERR'							=> 'Falló la comprobación de actualizaciones por una razón desconocida',
 'L_PLUXML_UPTODATE'								=> 'Está utilizando la última versión de PluXml',
-'L_PLUXML_UPDATE_AVAILABLE'						=> '¡Existe una nueva versión de PluXml! Puede descargarla desde',
+'L_PLUXML_UPDATE_AVAILABLE'						=> 'Existe una nueva versión de PluXml! Puede descargarla desde',
 
 # parametres_users.php
 
@@ -412,7 +418,6 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'							=> 'Modificar la lista de usuarios',
 'L_ERR_LOGIN_ALREADY_EXISTS'					=> 'Ya existe un usuario con ese identificador',
 'L_ERR_USERNAME_ALREADY_EXISTS'					=> 'Ya existe un usuario con ese nombre',
-'L_CONFIG_USERS_DELETE_CONFIRM'					=> '¿Desea eliminar los usuarios seleccionados?',
 
 # parametre_plugins.php
 
@@ -436,6 +441,8 @@ $LANG = array(
 'L_PLUGINS_DELETE_SUCCESSFUL'					=> 'Complemento eliminado correctamente',
 'L_PLUGINS_CONFIG'								=> 'Configuración',
 'L_PLUGINS_CONFIG_TITLE'						=> 'Configuración del complemento',
+'L_PLUGINS_HELP'								=> 'Ayudar',
+'L_PLUGINS_HELP_TITLE'							=> 'Consulte Uso del plug-in',
 'L_PLUGINS_REQUIREMENTS'						=> 'Requerimientos',
 'L_PLUGINS_REQUIREMENTS_HELP'					=> 'Complementos disponibles y activos necesarios para activar este complemento',
 'L_PLUGINS_REQUIREMENTS_NONE'					=> 'Ninguno',
@@ -464,7 +471,7 @@ $LANG = array(
 # statique.php
 
 'L_STATIC_BACK_TO_PAGE'							=> 'Volver a la lista de páginas estáticas',
-'L_STATIC_UNKNOWN_PAGE'							=> '¡No existe esta página estática!',
+'L_STATIC_UNKNOWN_PAGE'							=> 'No existe esta página estática!',
 'L_STATIC_TITLE'								=> 'Editar código fuente de la página estática',
 'L_STATIC_VIEW_PAGE'							=> 'Visualizar página',
 'L_STATIC_ON_SITE'								=> 'en el sitio',
@@ -555,5 +562,6 @@ $LANG = array(
 'L_HELP'										=> 'Ayuda',
 'L_HELP_TITLE'									=> 'Consulte la ayuda',
 'L_BACK_TO_THEMES'								=> 'Volver a la lista de temas',
+'L_CONFIG_THEME_UPDATE'							=> 'Cambiar tema',
 );
 ?>

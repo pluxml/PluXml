@@ -111,6 +111,16 @@ $date = plxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 
+if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
+	$author = $plxAdmin->plxRecord_coms->f('author');
+	$site = $plxAdmin->plxRecord_coms->f('site');
+	$content = $plxAdmin->plxRecord_coms->f('content');
+} else {
+	$author = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('author'));
+	$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
+	$content = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content'));	
+}
+
 ?>
 
 <form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
@@ -145,21 +155,21 @@ include(dirname(__FILE__).'/top.php');
 	<fieldset>
 		<?php plxUtils::printInput('comId',$_GET['c'],'hidden'); ?>
 
-		<div class="grid inline-form">
+		<div class="grid inline-form publication">
 			<div class="col sml-12">
 				<label><?php echo L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('day',$date['day'],'text','2-2',false,'no-margin'); ?>
-				<?php plxUtils::printInput('month',$date['month'],'text','2-2',false,'no-margin'); ?>
-				<?php plxUtils::printInput('year',$date['year'],'text','2-4',false,'no-margin'); ?>
-				<?php plxUtils::printInput('time',$date['time'],'text','2-5',false,'no-margin'); ?>
-				<a href="javascript:void(0)" onclick="dateNow(<?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
+				<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
+				<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
+				<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
+				<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
 			</div>
 		</div>
 
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_author"><?php echo L_COMMENT_AUTHOR_FIELD ?> :</label>
-				<?php plxUtils::printInput('author',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('author')),'text','40-255') ?>
+				<?php plxUtils::printInput('author',$author,'text','40-255') ?>
 			</div>
 		</div>
 
@@ -167,7 +177,6 @@ include(dirname(__FILE__).'/top.php');
 			<div class="col sml-12">
 				<label for="id_site">
 				<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;'; 
-				$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
 				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>'; 
 				?>
 				</label>
@@ -191,11 +200,7 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
-				<?php if($plxAdmin->plxRecord_coms->f('type') == 'admin') : ?>
-					<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content')), 60, 7,false,'full-width'); ?>
-				<?php else : ?>
-					<?php plxUtils::printArea('content',$plxAdmin->plxRecord_coms->f('content'), 60, 7,false,'full-width'); ?>
-				<?php endif; ?>
+				<?php plxUtils::printArea('content',$content, 60, 7,false,'full-width'); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
 			</div>
 		</div>

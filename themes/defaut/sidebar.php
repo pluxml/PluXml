@@ -1,6 +1,6 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
 
-	<aside class="aside col sml-12 med-4" role="complementary">
+	<aside class="aside col sml-12 med-4">
 
 		<h3>
 			<?php $plxShow->lang('CATEGORIES'); ?>
@@ -41,13 +41,5 @@
 		<ul class="arch-list unstyled-list">
 			<?php $plxShow->archList('<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a> (#archives_nbart)</li>'); ?>
 		</ul>
-
-		<h3>
-			RSS
-		</h3>
-			<ul class="rss-list unstyled-list">
-				<li><a href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS'); ?>"><?php $plxShow->lang('ARTICLES'); ?></a></li>
-				<li><a href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires'); ?>" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>"><?php $plxShow->lang('COMMENTS'); ?></a></li>
-			</ul>
 
 	</aside>

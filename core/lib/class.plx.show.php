@@ -329,7 +329,7 @@ class plxShow {
 	 * position.
 	 *
 	 * @param	extra	nom du lien vers la page d'accueil
-	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #art_nb)
+	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #cat_description, #art_nb)
 	 * @param	include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
 	 * @param	exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
 	 * @return	stdout
@@ -361,6 +361,7 @@ class plxShow {
 						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),$name);
 						$name = str_replace('#cat_name',plxUtils::strCheck($v['name']),$name);
 						$name = str_replace('#cat_status',($this->catId()==intval($k)?'active':'noactive'), $name);
+						$name = str_replace('#cat_description',plxUtils::strCheck($v['description']),$name);
 						$name = str_replace('#art_nb',$v['articles'],$name);
 						echo $name;
 					}
@@ -837,10 +838,6 @@ class plxShow {
 	 * @author	Stephane F
 	 **/
 	public function artNbCom($f1='L_NO_COMMENT',$f2='#nb L_COMMENT',$f3='#nb L_COMMENTS') {
-
-		# A t'on besoin d'afficher le nb de commentaires ?
-		if(!$this->plxMotor->aConf['allow_com'] OR !$this->plxMotor->plxRecord_arts->f('allow_com'))
-			return;
 
 		$nb = intval($this->plxMotor->plxRecord_arts->f('nb_com'));
 		$num = intval($this->plxMotor->plxRecord_arts->f('numero'));
@@ -1679,8 +1676,7 @@ class plxShow {
 					}
 				}
 			}
-			# limite sur le nombre de tags à afficher
-			if($max!='') $array=array_slice($array, 0, intval($max), true);
+
 			# tri des tags
 			switch($order) {
 				case 'alpha':
@@ -1696,7 +1692,12 @@ class plxShow {
 					$array = $arr_elem;
 					break;
 			}
+
+			# limite sur le nombre de tags à afficher
+			if($max!='') $array=array_slice($array, 0, intval($max), true);
+
 		}
+
 		# On affiche la liste
 		$size=0;
 		foreach($array as $tagname => $tag) {
@@ -1810,9 +1811,15 @@ class plxShow {
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTemplateCss'))) return;
 
 		$theme = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/';
+		$min_css = str_replace('php','min.css',$this->plxMotor->template);
 		$css = str_replace('php','css',$this->plxMotor->template);
-		if(is_file($theme.$css_dir.$css))
+
+		if(is_file($theme.$css_dir.$min_css)) {
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$min_css).'" media="screen" />'."\n";
+		}
+		elseif(is_file($theme.$css_dir.$css)) {
 			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'" media="screen" />'."\n";
+		}
 	}
 
 	/**

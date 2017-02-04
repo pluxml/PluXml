@@ -823,10 +823,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			# mise à jour de la liste des tags
 			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
 			$this->editTags();
-			if($content['artId'] == '0000' OR $content['artId'] == '')
-				return plxMsg::Info(L_ARTICLE_SAVE_SUCCESSFUL);
-			else
-				return plxMsg::Info(L_ARTICLE_MODIFY_SUCCESSFUL);
+			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
+			return plxMsg::Info($msg);
 		} else {
 			return plxMsg::Error(L_ARTICLE_SAVE_ERR);
 		}
@@ -916,7 +915,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editCommentaire($content, &$id) {
 
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($content['day'],$content['month'],$content['year'],$content['time']))
+		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time']))
 			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
 
 		$comment=array();
@@ -932,20 +931,23 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# On récupère les infos du commentaire
 		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
 		# Formatage des données
-		$comment['author'] = plxUtils::strCheck(trim($content['author']));
-		$comment['site'] = plxUtils::strCheck(trim($content['site']));
-		if($com['type'] != 'admin')
+		if($com['type'] != 'admin') {
+			$comment['author'] = plxUtils::strCheck(trim($content['author']));
+			$comment['site'] = plxUtils::strCheck(trim($content['site']));
 			$comment['content'] = plxUtils::strCheck(trim($content['content']));
-		else
+		} else {
+			$comment['author'] = trim($content['author']);
+			$comment['site'] = trim($content['site']);
 			$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
+		}
 		$comment['ip'] = $com['ip'];
 		$comment['type'] = $com['type'];
 		$comment['mail'] = $content['mail'];
 		$comment['site'] = $content['site'];
 		$comment['parent'] = $com['parent'];
 		# Génération du nouveau nom du fichier
-		$time = explode(':', $content['time']);
-		$newtimestamp = mktime($time[0], $time[1], 0, $content['month'], $content['day'], $content['year']);
+		$time = explode(':', $content['date_publication_time']);
+		$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
 		$com = $this->comInfoFromFilename($id.'.xml');
 		$newid = $com['comStatus'].$com['artId'].'.'.$newtimestamp.'-'.$com['comIdx'];
 		$comment['filename'] = $newid.'.xml';
@@ -1007,12 +1009,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		@rename($oldfilename,$newfilename);
 		# Contrôle
 		if(is_readable($newfilename)) {
-			if($type == 'online')
+			if($mod == 'online')
 				return plxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
 			else
 				return plxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
 		} else {
-			if($type == 'online')
+			if($mod == 'online')
 				return plxMsg::Error(L_COMMENT_VALIDATE_ERR);
 			else
 				return plxMsg::Error(L_COMMENT_MODERATE_ERR);

@@ -32,7 +32,6 @@ include(dirname(__FILE__).'/top.php');
 	<?php } ?>
 </ul>
 <ul class="unstyled-list">
-	<li><?php echo L_INFO_MAGIC_QUOTES; ?> : <?php echo get_magic_quotes_gpc(); ?></li>
 	<?php plxUtils::testWrite(PLX_ROOT) ?>	
 	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'); ?>

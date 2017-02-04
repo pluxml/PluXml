@@ -226,7 +226,7 @@ class plxMotor {
 				$this->mode = 'tags'; # Affichage en mode home
 				$this->template = 'tags.php';
 				$this->motif = '/('.implode('|', $ids).').(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
-				$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
+				$this->bypage = $this->aConf['bypage_tags']; # Nombre d'article par page
 			} else {
 				$this->error404(L_ARTICLE_NO_TAG);
 			}
@@ -359,6 +359,7 @@ class plxMotor {
 		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
 		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
 		$this->aConf['bypage_archives'] = plxUtils::getValue($this->aConf['bypage_archives'],5);
+		$this->aConf['bypage_tags'] = plxUtils::getValue($this->aConf['bypage_tags'],5);		
 		$this->aConf['userfolders'] = plxUtils::getValue($this->aConf['userfolders'],0);
 		$this->aConf['meta_description'] = plxUtils::getValue($this->aConf['meta_description']);
 		$this->aConf['meta_keywords'] = plxUtils::getValue($this->aConf['meta_keywords']);
@@ -569,6 +570,8 @@ class plxMotor {
 			return 'sort';
 		elseif($tri=='alpha')
 			return 'alpha';
+		elseif($tri=='random')
+			return 'random';
 		else
 			return 'rsort';
 
@@ -855,7 +858,7 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
 
-		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR !isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token'])) {
+		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR $this->aConf['capcha'] AND (!isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token']))) {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}
 
@@ -873,7 +876,7 @@ class plxMotor {
 				# On récupère l'adresse IP du posteur
 				$comment['ip'] = plxUtils::getIp();
 				# index du commentaire
-				$idx = $this->nextIdArtComment($idArt);
+				$idx = $this->nextIdArtComment($artId);
 				# Commentaire parent en cas de réponse
 				if(isset($content['parent']) AND !empty($content['parent'])) {
 					$comment['parent'] = intval($content['parent']);
@@ -978,11 +981,11 @@ class plxMotor {
 	public function sendTelechargement($cible) {
 
 		# On décrypte le nom du fichier
-		$file = PLX_ROOT.$this->aConf['documents'].plxEncrypt::decryptId($cible);
+		$file = PLX_ROOT.$this->aConf['medias'].plxEncrypt::decryptId($cible);
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
-		# On lance le téléchargement et on check le répertoire documents
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['documents']).'#'), str_replace('\\', '/', realpath($file)))) {
+		# On lance le téléchargement et on check le répertoire medias
+		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
 			header('Content-Disposition: attachment; filename='.basename($file));

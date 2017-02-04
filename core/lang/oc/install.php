@@ -28,5 +28,9 @@ $LANG = array(
 'L_PASSWORD_CONFIRMATION'			=> 'Confirmacion del mot de Santa Clara',
 'L_INPUT_INSTALL'					=> 'Installar',
 'L_TIMEZONE'						=> 'Fus orari',
+'L_PWD_VERY_WEAK'					=> 'Mot de passe très faible',
+'L_PWD_WEAK'						=> 'Mot de passe faible',
+'L_PWD_GOOD'						=> 'Mot de passe bon',
+'L_PWD_STRONG'						=> 'Mot de passe fort',
 );
 ?>

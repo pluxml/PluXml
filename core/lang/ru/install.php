@@ -28,6 +28,9 @@ $LANG = array(
 'L_PASSWORD_CONFIRMATION'			=> 'Подтвердить пароль',
 'L_INPUT_INSTALL'					=> 'Установка',
 'L_TIMEZONE'						=> 'Часовой пояс',
-
+'L_PWD_VERY_WEAK'					=> 'очень слабый пароль',
+'L_PWD_WEAK'						=> 'слабый пароль',
+'L_PWD_GOOD'						=> 'хороший пароль',
+'L_PWD_STRONG'						=> 'Надежный пароль',
 );
 ?>

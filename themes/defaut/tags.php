@@ -1,56 +1,72 @@
 <?php include(dirname(__FILE__).'/header.php'); ?>
 
-	<main class="main grid" role="main">
+	<main class="main">
 
-		<section class="col sml-12 med-8">
+		<div class="container">
 
-			<ul class="repertory menu breadcrumb">
-				<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
-				<li><?php $plxShow->tagName(); ?></li>	
-			</ul>
+			<div class="grid">
 
-			<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
+				<div class="col sml-12 med-8">
 
-			<article class="article" role="article" id="post-<?php echo $plxShow->artId(); ?>">
+					<ul class="repertory menu breadcrumb">
+						<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
+						<li><?php $plxShow->tagName(); ?></li>	
+					</ul>
 
-				<header>
-					<h1>
-						<?php $plxShow->artTitle('link'); ?>
-					</h1>
-					<small>
-						<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?> -
-						<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>"><?php $plxShow->artDate('#num_day #month #num_year(4)'); ?></time> -
-						<?php $plxShow->artNbCom(); ?>
-					</small>
-				</header>
+					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
-				<section>
-					<?php $plxShow->artThumbnail(); ?>				
-					<?php $plxShow->artChapo(); ?>
-				</section>
+					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 
-				<footer>
-					<small>
-						<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?> - 
-						<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
-					</small>
-				</footer>
+						<header>
+							<h2>
+								<?php $plxShow->artTitle('link'); ?>
+							</h2>
+							<small>
+								<span class="written-by">
+									<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?>
+								</span>
+								<time class="art-date" datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>">
+									<?php $plxShow->artDate('#num_day #month #num_year(4)'); ?>
+								</time>
+								<span class="art-nb-com">
+									<?php $plxShow->artNbCom(); ?>
+								</span>
+							</small>
+						</header>
 
-			</article>
+						<?php $plxShow->artThumbnail(); ?>				
+						<?php $plxShow->artChapo(); ?>
 
-			<?php endwhile; ?>
+						<footer>
+							<small>
+								<span class="classified-in">
+									<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?>
+								</span>
+								<span class="tags">
+									<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
+								</span>
+							</small>
+						</footer>
 
-			<nav class="pagination text-center">
-				<?php $plxShow->pagination(); ?>
-			</nav>
+					</article>
 
-			<span>
-				<?php $plxShow->tagFeed() ?>
-			</span>
+					<?php endwhile; ?>
 
-		</section>
+					<nav class="pagination text-center">
+						<?php $plxShow->pagination(); ?>
+					</nav>
 
-		<?php include(dirname(__FILE__).'/sidebar.php'); ?>
+					<span>
+						<?php $plxShow->tagFeed() ?>
+					</span>
+
+				</div>
+
+				<?php include(dirname(__FILE__).'/sidebar.php'); ?>
+
+			</div>
+
+		</div>
 
 	</main>
 

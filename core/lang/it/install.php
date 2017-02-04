@@ -28,5 +28,9 @@ $LANG = array(
 'L_PASSWORD_CONFIRMATION'			=> 'Conferma password',
 'L_INPUT_INSTALL'					=> 'Installa',
 'L_TIMEZONE'						=> 'Fuso orario',
+'L_PWD_VERY_WEAK'					=> 'Password molto debole',
+'L_PWD_WEAK'						=> 'Password debole',
+'L_PWD_GOOD'						=> 'Buona password',
+'L_PWD_STRONG'						=> 'Password complessa',
 );
 ?>

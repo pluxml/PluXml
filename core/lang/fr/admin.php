@@ -23,7 +23,7 @@ $LANG = array(
 'L_THUMBNAIL_ALT'					=> 'Texte alternatif de l\'image (facultatif)',
 
 'L_ERR_INVALID_DATE_CREATION'		=> 'Date de création invalide',
-'L_ERR_INVALID_DATE_UPDATE'			=> 'Date de mise à jour invalide',	
+'L_ERR_INVALID_DATE_UPDATE'			=> 'Date de mise à jour invalide',
 
 # class.plx.admin.php
 
@@ -146,12 +146,14 @@ $LANG = array(
 'L_SUBMIT_BUTTON'					=> 'Valider',
 'L_ERR_WRONG_PASSWORD' 				=> 'Login et/ou mot de passe incorrect',
 'L_POWERED_BY'						=> 'Généré par <a href="http://www.pluxml.org">PluXml</a>',
+'L_ERR_MAXLOGIN'					=> 'Nombre de tentative atteint<br />Réessayez dans %s minutes',
 
 #
 
 'L_SORT_ASCENDING_DATE'				=> 'date croissante',
 'L_SORT_DESCENDING_DATE'			=> 'date décroissante',
 'L_SORT_ALPHABETICAL'				=> 'alphabétique',
+'L_SORT_RANDOM'						=> 'aléatoire',
 'L_YES' 							=> 'Oui',
 'L_NO' 								=> 'Non',
 'L_OK'								=> 'Ok',
@@ -261,7 +263,8 @@ $LANG = array(
 
 # index.php
 
-'L_ARTICLES_SEARCH_BUTTON'			=> 'Rechercher',
+'L_SEARCH'							=> 'Rechercher',
+'L_SEARCH_PLACEHOLDER'				=> 'identifiant ou titre',
 'L_ARTICLES_ALL_CATEGORIES'			=> 'Toutes les catégories...',
 'L_ALL'								=> 'Tous',
 'L_ALL_PUBLISHED'					=> 'Publiés',
@@ -280,7 +283,6 @@ $LANG = array(
 'L_ARTICLE_LIST_ACTION'				=> 'Action',
 'L_CATEGORY_HOME'					=> 'Page d\'accueil',
 'L_CATEGORY_DRAFT'					=> 'Brouillon',
-'L_ARTICLE_VIEW'					=> 'Visualiser',
 'L_ARTICLE_VIEW_TITLE'				=> 'Visualiser cet article sur le site',
 'L_ARTICLE_EDIT'					=> 'Éditer',
 'L_ARTICLE_EDIT_TITLE'				=> 'Éditer cet article',
@@ -322,6 +324,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Droite',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recréer miniatures',
+'L_MEDIAS_LINK_COPYCLP'             => 'Copier le lien dans le presse-papier',
+'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Impossible de copier le lien dans le presse-papier',
+'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Lien copié',
 
 # parametres_affichage.php
 
@@ -332,6 +337,7 @@ $LANG = array(
 'L_CONFIG_VIEW_SORT'				=> 'Tri des articles',
 'L_CONFIG_VIEW_BYPAGE'				=> 'Nombre d\'articles affichés par page',
 'L_CONFIG_VIEW_BYPAGE_ARCHIVES'		=> 'Nombre d\'articles affichés par page dans les archives',
+'L_CONFIG_VIEW_BYPAGE_TAGS'			=> 'Nombre d\'articles affichés par page dans les mots clés',
 'L_CONFIG_VIEW_BYPAGE_ADMIN'		=> 'Nombre d\'articles affichés par page dans l\'administration',
 'L_CONFIG_VIEW_SORT_COMS'			=> 'Tri des commentaires',
 'L_CONFIG_VIEW_BYPAGE_ADMIN_COMS'	=> 'Nombre de commentaires affichés par page dans l\'administration',
@@ -416,7 +422,6 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modifier la liste des utilisateurs',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identifiant de connexion déjà utilisé',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilisateur déjà utilisé',
-'L_CONFIG_USERS_DELETE_CONFIRM'		=> 'Supprimer les utilisateurs sélectionnés ?',
 
 # parametre_plugins.php
 
@@ -561,5 +566,6 @@ $LANG = array(
 'L_HELP'							=> 'Aide',
 'L_HELP_TITLE'						=> 'Voir l\'aide',
 'L_BACK_TO_THEMES'					=> 'Retour à la page des thèmes',
+'L_CONFIG_THEME_UPDATE'				=> 'Modifier le thème',
 );
 ?>

@@ -4,7 +4,7 @@
 # This file is part of PluXml : http://www.pluxml.org
 #
 # Package:		theme.css
-# Copyright (c) 2016 PluXml
+# Copyright (c) 2017 PluXml
 # Authors		Jos
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
@@ -12,74 +12,88 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+/* ----- Menu ----- */
+
+.nav {
+	background-color: #fff;
+	height: 5rem;
+	text-align: left;
+}
+.nav ul {
+	line-height: 5rem;
+}
+@media (max-width: 767px) {
+	.nav {
+		height: auto;
+		max-height: 200px;
+		overflow-y: auto;
+		text-align: left;
+	}
+	.nav>.container {
+		padding: 0;
+	}
+	.responsive-menu label {
+		background-color: #fff;
+		color: #333;
+		font-size: 3.5rem;
+		margin: .75rem;
+		text-align: right;
+	}
+	.responsive-menu label:before {
+		content: '\039e';
+	}
+}
+
+li a.active {
+	color: #444;
+}
+
 /* ---------- Header ---------- */
 
 body {
 	background-color: #fff;
+	font-size: 1.6rem;
 }
+
+@media (min-width: 64rem) {
+	.container {
+		padding-left: 15rem;
+		padding-right: 15rem;
+	}
+}
+
 .header {
-	padding-bottom: 2rem;
-	padding-top: 2rem;
+	background-color: #1a6699;
+	color: #fff;
+	padding-bottom: 6rem;
+	padding-top: 6rem;
+	text-align: center;
 }
-.header h1 a:hover {
+.header a {
+	color: #fff;
+}
+.header a:hover {
 	text-decoration: none;
-}
-
-/* ----- Menu ----- */
-
-.nav {
-	background-color: #222;
-	height: 2.25rem;
-}
-.nav .menu.expanded li:hover {
-	background-color: #555;
-}
-.nav a {
-	color: #eee;
-}
-@media (max-width: 767px) {
-	.nav {
-		background-color: #fff;
-		border-bottom: 1px solid #bbb;
-		height: auto;
-		left: 0;
-		max-height: 200px;
-		overflow-y: auto;
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: 9999;
-	}
-	.nav .menu.expanded li:hover {
-		background-color: #ddd;
-	}
-	.nav a {
-		color: #258fd6;
-	}
-	.nav a:hover {
-		color: #444;
-	}
-	.responsive-menu label {
-		background-color: #222;
-	}
-	.header {
-		margin-top: 2rem;
-	}
 }
 
 /* ---------- Main ---------- */
 
 .main {
 	background-color: #fff;
-	margin-bottom: 2rem;
+	padding-bottom: 6rem;
 }
 .repertory {
-	margin-top: 2rem;
+	margin-top: 6rem;
+}
+.pagination {
+	margin-bottom: 6rem;
 }
 .pagination a {
 	background-color: #258fd6;
+	border-radius: .3rem;
 	color: #fff;
-	padding: .525rem .7rem;
+	padding: .9rem .7rem;
+	transition-duration: .2s;
 }
 .pagination a:hover {
 	background-color: #3a6c96;
@@ -97,50 +111,66 @@ body {
 .p_last {
 	display: inline-block;
 }
-
-/* ---------- Article ---------- */
-
-.article header h1 {
-	font-size: 1.8rem;
-	font-weight: bold;
+.article header h2 {
+	margin-top: 6rem;
 }
-.article header h1 a {
-	color: #444;
+.article header h2 a {
+	color: #333;
 }
-.article header h1 a:hover {
+.article header h2 a:hover {
 	color: #258fd6;
 	text-decoration: none;
+}
+.article footer small,
+.article header small,
+.comment small {
+	color: #666;
+}
+.article header span:before, 
+.article header time:before, 
+.article footer span:before {
+	padding-left: 1.5rem;
+	padding-right: .3rem;
+}
+.article .written-by:after {
+	content: '|';
+	padding-left: 0;
+}
+.article .art-date:after {
+	content: '|';
+}
+.article .classified-in:after {
+	content: '|';
+	padding-left: 0;
 }
 .article img.art_thumbnail {
 	padding: 15px 0 10px 0;
 }
-.article,
-.pagination {
-	margin-bottom: 4rem;
+.article {
+	margin-bottom: 6rem;
 }
 .article.static {
 	margin-bottom: 0;
 }
-
-/* ---------- Comment ---------- */
-
 .comment {
 	background-image: url('../img/user.png');
 	background-repeat: no-repeat;
-	margin-bottom: 2rem;
-	padding-left: 4rem;
+	margin-bottom: 2.5rem;
+	padding-left: 6rem;
 }
 .comment blockquote {
 	margin: 0;
+	font-size: 1.3rem;
 }
 .type-admin {
 	background-color: #F0F8FF;
-	padding: 2px 5px;
+	padding: .2rem .5rem;
 }
 .nbcom {
 	background-color: #258fd6;
+	border-radius: .3rem;
 	color: #fff;
-	padding: .2rem .3rem;
+	padding: .4rem .6rem;
 }
 .nbcom:hover {
 	background-color: #3a6c96;
@@ -151,24 +181,32 @@ body {
 	margin-left: 0;
 }
 .level-1 {
-	margin-left: 50px;
+	margin-left: 5rem;
 }
 .level-2 {
-	margin-left: 100px;
+	margin-left: 10rem
 }
 .level-3 {
-	margin-left: 150px;
+	margin-left: 15rem;
 }
 .level-4 {
-	margin-left: 200px;
+	margin-left: 20rem;
 }
 .level-5,
 .level-max {
-	margin-left: 250px;
+	margin-left: 25rem;
+}
+@media (max-width: 768px) {
+  .comment { background-image: none; padding-left: 0; }
+  .level-1 { margin-left: 1rem; }
+  .level-2 { margin-left: 2rem; }
+  .level-3 { margin-left: 3rem; }
+  .level-4 { margin-left: 4rem; }
+  .level-5, .level-max { margin-left: 5rem; }
 }
 #id_answer {
-	margin-bottom: 10px;
-	padding:15px;
+	margin-bottom: 1.5rem;
+	padding:1.5rem;
 	border:1px solid #eee;
 	width:100%;
 	background:#fafafa;
@@ -179,33 +217,33 @@ body {
 	font-weight: bold;
 }
 .capcha-word {
-	background-color: #ccc;
-	letter-spacing: 0.3em;
-	padding: .525rem .7rem;
+	background-color: #ddd;
+	border-radius: .3rem;
+	letter-spacing: .5rem;
+	padding: .9rem .7rem;
+	transition-duration: .2s;
 }
-
-/* ---------- Aside ---------- */
-
+.capcha-word:hover {
+	background-color: #666;
+	color: #fff;
+	transition-duration: .2s;
+}
 .aside {
-	padding-left: 3rem;
+	padding-left: 5rem;
 }
 @media (max-width: 768px) {
 	.aside {
-		margin-top: 2rem;
-		padding-left: 1rem;
+		padding-left: 1.5rem;
 	}
 }
 .aside h3 {
-	font-size: 1rem;
+	font-size: 1.5rem;
 	font-weight: bold;
-	margin-top: 2rem;
+	margin-top: 5rem;
 	text-transform: uppercase;
 }
 .aside ul {
 	margin: 0;
-}
-.aside li:first-letter {
-	text-transform: uppercase;
 }
 .aside ul.tag-list {
 	list-style-type: none;
@@ -213,49 +251,55 @@ body {
 }
 .aside ul.tag-list li {
 	display: inline-block;
-	margin-right: 1rem;
+	margin-right: 1.5rem;
 }
-.aside ul.tag-list li.tag-size-1 {
-	font-size: 1rem;
-}
-.aside ul.tag-list li.tag-size-2 {
-	font-size: 1.1rem;
-}
-.aside ul.tag-list li.tag-size-3 {
-	font-size: 1.2rem;
-}
-.aside ul.tag-list li.tag-size-4 {
-	font-size: 1.3rem;
-}
-.aside ul.tag-list li.tag-size-5 {
+.aside ul.tag-list li.tag-size-1 a {
 	font-size: 1.4rem;
 }
-.aside ul.tag-list li.tag-size-6 {
+.aside ul.tag-list li.tag-size-2 a {
 	font-size: 1.5rem;
 }
-.aside ul.tag-list li.tag-size-7 {
+.aside ul.tag-list li.tag-size-3 a {
 	font-size: 1.6rem;
 }
-.aside ul.tag-list li.tag-size-8 {
+.aside ul.tag-list li.tag-size-4 a {
 	font-size: 1.7rem;
 }
-.aside ul.tag-list li.tag-size-9 {
-	font-size: 1.8rem
-}
-.aside ul.tag-list li.tag-size-10 {
+.aside ul.tag-list li.tag-size-5 a {
 	font-size: 1.9rem;
 }
-.aside ul.tag-list li.tag-size-max {
+.aside ul.tag-list li.tag-size-6 a {
+	font-size: 1.5rem;
+}
+.aside ul.tag-list li.tag-size-7 a {
+	font-size: 1.6rem;
+}
+.aside ul.tag-list li.tag-size-8 a {
+	font-size: 1.7rem;
+}
+.aside ul.tag-list li.tag-size-9 a {
+	font-size: 1.8rem
+}
+.aside ul.tag-list li.tag-size-10 a {
+	font-size: 1.9rem;
+}
+.aside ul.tag-list li.tag-size-max a {
 	font-size: 2rem;
 }
 
 /* ---------- Footer ---------- */
 
 .footer {
-	border-top: 3px solid #444;
-	padding: 2rem 0;
+	background: #222;
+	color: #fff;
+	padding: 6rem 0;
 	text-align: center;
+	font-size: 1.2rem;
 }
 .footer p {
 	margin: 0;
+}
+.footer a,
+.footer li.active a {
+	color: #fff;
 }

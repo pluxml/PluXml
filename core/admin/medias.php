@@ -176,7 +176,7 @@ $curFolders = explode('/', $curFolder);
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg'));
+						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg', '.jpeg'));
 						$ordre = ++$num;
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
@@ -186,9 +186,14 @@ $curFolders = explode('/', $curFolder);
 						}
 						echo '</td>';
 						echo '<td>';
-						echo '<a onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a><br />';
-						if($isImage AND is_file(plxUtils::thumbName($v['path']))) {
-							echo '<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck($v['name']).'" href="'.plxUtils::thumbName($v['path']).'">'.L_MEDIAS_THUMB.'</a> : '.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1]. ' ('.plxUtils::formatFilesize($v['thumb']['filesize']).')';
+						echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
+						echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+						echo '<br />';
+						$href = plxUtils::thumbName($v['path']);
+						if($isImage AND is_file($href)) {
+							echo '<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.L_MEDIAS_THUMB.'</a>';
+							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							echo ' : '.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1]. ' ('.plxUtils::formatFilesize($v['thumb']['filesize']).')';
 						}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
@@ -215,7 +220,7 @@ $curFolders = explode('/', $curFolder);
 	<div id="files_uploader" style="display:none">
 
 		<div class="inline-form action-bar">
-			<h2><?php echo L_MEDIAS_TITLE ?></h2>
+			<h2 class="h4"><?php echo L_MEDIAS_TITLE ?></h2>
 			<p>
 				<?php
 				echo L_MEDIAS_DIRECTORY.' : ('.L_PLXMEDIAS_ROOT.') / ';
@@ -319,6 +324,24 @@ function overlay(content) {
 	e.innerHTML = '<img src="'+content+'" alt="" />';
 	e = document.getElementById("modal");
 	e.click();
+}
+function copy(elt, data) {
+	try {
+		var div = elt.querySelector("div");
+		var aux = document.createElement("input");
+		aux.setAttribute("value", data);
+		document.body.appendChild(aux);
+		aux.select();
+		document.execCommand("copy");
+		document.body.removeChild(aux);
+		div.setAttribute("style", "display:inline-block");
+		t = setTimeout(function(){
+			div.setAttribute("style", "display:none");
+			clearTimeout(t);
+		}, 1000);
+	} catch (err) {
+		alert('<?php echo L_MEDIAS_LINK_COPYCLP_ERR ?>');
+	}
 }
 </script>
 

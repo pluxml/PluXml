@@ -66,7 +66,7 @@ $LANG = array(
 'L_NINTH'						=> 'novena',
 'L_TENTH'						=> 'décima',
 'L_NTH'							=> 'º',
-'L_CAPCHA_QUESTION'				=> '¿Cuál es la <span class="capcha-letter">%s</span> letra en la palabra <span class="capcha-word">%s</span>?',
+'L_CAPCHA_QUESTION'				=> 'Cuál es la <span class="capcha-letter">%s</span> letra en la palabra <span class="capcha-word">%s</span>?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> 'Puede editar %s',
@@ -79,13 +79,13 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Función de envío de correos no disponible',
 
 # class.plx.motor.php
-'L_ARTICLE_NO_TAG'				=> '¡No existen artículos para esta etiqueta!',
-'L_UNKNOWN_CATEGORY'			=> '¡Esta categoría no existe!',
-'L_NO_ARTICLE_PAGE'				=> '¡No existen artículos para esta página!',
-'L_UNKNOWN_ARTICLE'				=> '¡Este artículo no existe!',
+'L_ARTICLE_NO_TAG'				=> 'No existen artículos para esta etiqueta!',
+'L_UNKNOWN_CATEGORY'			=> 'Esta categoría no existe!',
+'L_NO_ARTICLE_PAGE'				=> 'No existen artículos para esta página!',
+'L_UNKNOWN_ARTICLE'				=> 'Este artículo no existe!',
 'L_COM_IN_MODERATION'			=> 'Comentario en proceso de moderación por el administrador de este sitio',
-'L_UNKNOWN_STATIC'				=> '¡Esta página no existe!',
-'L_DOCUMENT_NOT_FOUND'			=> '¡No se encotró el documento especificado!',
+'L_UNKNOWN_STATIC'				=> 'Esta página no existe!',
+'L_DOCUMENT_NOT_FOUND'			=> 'No se encotró el documento especificado!',
 'L_NEWCOMMENT_ERR'				=> 'Se ha producido un error al publicar este comentario',
 'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Ingrese todos los campos obligatorios',
 'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'Falló La comprobación anti-spam',
@@ -128,7 +128,7 @@ $LANG = array(
 'L_PAGEBLOG_TITLE'				=> 'Blog',
 
 # class.plx.feed.php
-'L_FEED_NO_PRIVATE_URL'			=> '¡Las URLs privadas no han sido inicializadas en sus parámetros de administración!',
+'L_FEED_NO_PRIVATE_URL'			=> 'Las URLs privadas no han sido inicializadas en sus parámetros de administración!',
 'L_FEED_COMMENTS'				=> 'Comentarios',
 'L_FEED_ONLINE_COMMENTS'		=> 'Comentarios de usuarios',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Comentarios sin conexión',
