@@ -120,7 +120,7 @@ function checkBox(cb) {
 			}
 			$new_staticid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 			?>
-				<tr>
+				<tr class="new">
 					<td>&nbsp;</td>
 					<td><?php echo L_STATICS_NEW_PAGE ?></td>
 					<td>
