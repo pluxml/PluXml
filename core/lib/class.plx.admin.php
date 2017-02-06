@@ -766,6 +766,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
+		
+		# Suppression des doublons dans les tags
+		$tags = array_map('trim', explode(',', trim($content['tags'])));
+		$tags_unique = array_unique($tags);
+		$content['tags'] = implode(', ', $tags_unique);
 
 		# Formate des dates de creation et de mise à jour
 		$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);

@@ -287,12 +287,13 @@ a.hint:focus span  {
 	background-color: transparent;
 	margin-left: 0;
 	padding-left: 0;
+	padding-right: 15px;
 	position: relative;
 	border: 0 !important;  /*Removes border*/
 	-webkit-appearance: none;  /*Removes default chrome and safari style*/
 	-moz-appearance: none;  /*Removes default style Firefox*/
 	background: url(images/arrow-down.png) no-repeat;
-	background-position: 100px 7px; /*Position of the background-image*/
+	background-position: 100% 7px; /*Position of the background-image*/
 	text-indent: 0.01px;
 	text-overflow: "";
 }

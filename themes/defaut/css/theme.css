@@ -231,11 +231,6 @@ body {
 .aside {
 	padding-left: 5rem;
 }
-@media (max-width: 768px) {
-	.aside {
-		padding-left: 1.5rem;
-	}
-}
 .aside h3 {
 	font-size: 1.5rem;
 	font-weight: bold;
@@ -302,4 +297,16 @@ body {
 .footer a,
 .footer li.active a {
 	color: #fff;
+}
+
+/* ----------  ---------- */
+
+@media (max-width: 768px) {
+	.header,
+	.footer {
+		padding: 2rem 0;
+	}
+	.aside {
+		padding-left: 1.5rem;
+	}
 }
