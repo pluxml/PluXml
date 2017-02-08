@@ -240,6 +240,9 @@ textarea {
 .year, .time {
 	width: 4.5rem;
 }
+form.inline-form {
+	margin-top: 6rem;
+}
 .inline-form.publication input,
 .inline-form.creation input,
 .inline-form.update input {
