@@ -50,6 +50,9 @@ class plxPlugins {
 	public function loadPlugins() {
 
 		if(!is_file(path('XMLFILE_PLUGINS'))) return;
+
+		$updAction = false;
+
 		# Mise en place du parseur XML
 		$data = implode('',file(path('XMLFILE_PLUGINS')));
 		$parser = xml_parser_create(PLX_CHARSET);
@@ -67,7 +70,18 @@ class plxPlugins {
 				if($instance=$this->getInstance($name)) {
 					$this->aPlugins[$name] = $instance;
 					$this->aHooks = array_merge_recursive($this->aHooks, $instance->getHooks());
+					# Si le plugin a une méthode pour des actions de mises à jour
+					if(method_exists($instance, 'onUpdate')) {
+						$updAction = $instance->onUpdate();
+					}
 				}
+			}
+		}
+
+		if($updAction) {
+			if(isset($updAction['cssCache']) AND $updAction['cssCache']==true) {
+				$this->cssCache('admin');
+				$this->cssCache('site');
 			}
 		}
 	}
@@ -238,6 +252,7 @@ class plxPlugins {
 	 * @author	Stephane F
 	 **/
 	public function cssCache($type) {
+
 		$cache = '';
 		foreach($this->aPlugins as $plugName => $plugInstance) {
 			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.'.$type.'.css';
