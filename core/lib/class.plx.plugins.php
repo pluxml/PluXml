@@ -72,7 +72,12 @@ class plxPlugins {
 					$this->aHooks = array_merge_recursive($this->aHooks, $instance->getHooks());
 					# Si le plugin a une méthode pour des actions de mises à jour
 					if(method_exists($instance, 'onUpdate')) {
-						$updAction = $instance->onUpdate();
+						if(is_file(PLX_PLUGINS.$name.'/update')) {
+							# on supprime le fichier update pour eviter d'appeler la methode onUpdate 
+							# à chaque chargement du plugin
+							unlink(PLX_PLUGINS.$name.'/update');
+							$updAction = $instance->onUpdate();
+						}
 					}
 				}
 			}
