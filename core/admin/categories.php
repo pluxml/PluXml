@@ -51,7 +51,7 @@ include(dirname(__FILE__).'/top.php');
 			<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
-					<th><?php echo L_CAT_LIST_ID.' '.L_CATEGORY ?></th>
+					<th><?php echo L_ID ?></th>
 					<th><?php echo L_CAT_LIST_NAME ?></th>
 					<th><?php echo L_CAT_LIST_URL ?></th>
 					<th><?php echo L_CAT_LIST_ACTIVE ?></th>

@@ -62,7 +62,7 @@ function checkBox(cb) {
 			<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
-					<th><?php echo L_STATICS_ID.' '.L_PAGE ?></th>
+					<th><?php echo L_ID ?></th>
 					<th><?php echo L_STATICS_HOME_PAGE ?></th>
 					<th><?php echo L_STATICS_GROUP ?></th>
 					<th><?php echo L_STATICS_TITLE ?></th>
@@ -121,11 +121,10 @@ function checkBox(cb) {
 			$new_staticid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 			?>
 				<tr class="new">
-					<td colspan="2"><?php echo L_STATICS_NEW_PAGE ?></td>
+					<td colspan="3"><?php echo L_STATICS_NEW_PAGE ?></td>
 					<td>
 					<?php
-						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
-						echo '</td><td>';
+						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';						
 						plxUtils::printInput($new_staticid.'_group', '', 'text', '10-100');
 						echo '</td><td>';
 						plxUtils::printInput($new_staticid.'_name', '', 'text', '10-255');

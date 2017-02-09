@@ -2,6 +2,7 @@
 
 $LANG = array(
 
+'L_ID' 								=> '#',
 'L_MENU'							=> 'Menú',
 'L_UNKNOWN_ERROR'					=> 'Error desconeguda',
 'L_CONFIRM_DELETE'					=> 'Confirmar la supression ?',
