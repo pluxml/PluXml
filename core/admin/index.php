@@ -159,7 +159,7 @@ include(dirname(__FILE__).'/top.php');
 		<thead>
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
-				<th><?php echo L_ARTICLE_ID.' '.L_ARTICLE ?></th>
+				<th><?php echo L_ID ?></th>
 				<th><?php echo L_ARTICLE_LIST_DATE ?></th>
 				<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
 				<th><?php echo L_ARTICLE_LIST_CATEGORIES ?></th>

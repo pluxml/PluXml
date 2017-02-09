@@ -53,7 +53,7 @@ include(dirname(__FILE__).'/top.php');
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
-			<th><?php echo L_CONFIG_USERS_ID.' '.L_CONFIG_USER ?></th>
+			<th><?php echo L_ID ?></th>
 			<th><?php echo L_PROFIL_USER ?></th>
 			<th><?php echo L_PROFIL_LOGIN ?></th>
 			<th><?php echo L_PROFIL_PASSWORD ?></th>
@@ -103,8 +103,7 @@ include(dirname(__FILE__).'/top.php');
 	$new_userid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 	?>
 		<tr class="new">
-		<td>&nbsp;</td>
-			<td><?php echo L_CONFIG_USERS_NEW; ?></td>
+			<td colspan="2"><?php echo L_CONFIG_USERS_NEW; ?></td>
 			<td>
 			<?php
 				echo '<input type="hidden" name="userNum[]" value="'.$new_userid.'" />';

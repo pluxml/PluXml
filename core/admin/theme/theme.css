@@ -201,6 +201,10 @@ a.btnDelete {
 .icon {
 	text-align: center;
 }
+.new td[colspan="2"],
+.new td[colspan="3"] { 
+	text-align: center; 
+}
 button,
 input,
 select,
@@ -239,6 +243,9 @@ textarea {
 }
 .year, .time {
 	width: 4.5rem;
+}
+form.inline-form {
+	margin-top: 6rem;
 }
 .inline-form.publication input,
 .inline-form.creation input,
