@@ -201,6 +201,10 @@ a.btnDelete {
 .icon {
 	text-align: center;
 }
+.new td[colspan="2"],
+.new td[colspan="3"] { 
+	text-align: center; 
+}
 button,
 input,
 select,
