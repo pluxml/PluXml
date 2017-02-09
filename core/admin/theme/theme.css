@@ -244,9 +244,6 @@ textarea {
 .year, .time {
 	width: 4.5rem;
 }
-form.inline-form {
-	margin-top: 6rem;
-}
 .inline-form.publication input,
 .inline-form.creation input,
 .inline-form.update input {
@@ -319,11 +316,6 @@ a.hint:focus span  {
 	position: fixed;
 	z-index: 99999;
 	width: 100%;
-}
-#plugin .section,
-#parametres_plugin .section,
-#parametres_pluginhelp .section {
-	margin-top: 7rem;
 }
 @media (max-width: 767px) {
 	.section .action-bar {
