@@ -121,8 +121,7 @@ function checkBox(cb) {
 			$new_staticid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 			?>
 				<tr class="new">
-					<td>&nbsp;</td>
-					<td><?php echo L_STATICS_NEW_PAGE ?></td>
+					<td colspan="2"><?php echo L_STATICS_NEW_PAGE ?></td>
 					<td>
 					<?php
 						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
