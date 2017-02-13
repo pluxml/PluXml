@@ -70,7 +70,6 @@ class plxMotor {
 		# Chargement du fichier de langue
 		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
 		$this->aConf['default_lang'] = $lang;
-		loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
@@ -94,6 +93,8 @@ class plxMotor {
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
+		# Chargement du fichier de langue du core de PluXml
+		loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 		# Traitement sur les répertoires des articles et des commentaires
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
