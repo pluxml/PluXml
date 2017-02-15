@@ -285,8 +285,8 @@ body {
 /* ---------- Footer ---------- */
 
 .footer {
-	background: #222;
-	color: #fff;
+	background: #fff;
+	color: #666;
 	padding: 6rem 0;
 	text-align: center;
 	font-size: 1.2rem;
@@ -296,7 +296,7 @@ body {
 }
 .footer a,
 .footer li.active a {
-	color: #fff;
+	color: #666;
 }
 
 /* ----------  ---------- */
