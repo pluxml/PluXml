@@ -25,6 +25,7 @@ BUG Administration : problème d'affichage du compteur des articles en attente d
 BUG Administration : modification impossible de la date du commentaire à partir de l'icône calendrier
 BUG Administration : Mise à jour auteur commentaire avec apostrophe/caractères spéciaux transformés en équivalent html
 BUG Mauvais lien des commentaires dans les flux rss
+BUG Gestionnaire de médias: mauvais affichage de l'extension d'un fichier si le fichier n'a pas d'extension
 BUG #171: Décalage theme par défaut
 BUG #174: Mauvaise réécriture d'url avec les liens data:image, javascript et commençant par #
 BUG #176: Image preview.png du thème par defaut déformée
