@@ -92,6 +92,14 @@
 	color: #444;
 }
 
+a.lnkdelete {
+	font-weight: bold;
+	text-decoration: underline;
+}
+a.lnkdelete:hover {
+	text-decoration: none;
+}
+
 /* ---------- Section ---------- */
 
 .section {

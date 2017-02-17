@@ -116,6 +116,8 @@ class plxMedias {
 						$_thumb1=file_exists($this->path.'.thumbs/'.$dir.$file);
 						if(!$_thumb1 AND in_array($ext, array('.gif', '.jpg', '.jpeg', '.png'))) {
 							$_thumb1 = plxUtils::makeThumb($this->path.$dir.$file, $this->path.'.thumbs/'.$dir.$file, $this->thumbWidth, $this->thumbHeight, $this->thumbQuality);
+						} else {
+							$ext="";
 						}
 						$_thumb2=false;
 						if(is_file($this->path.$dir.$thumName)) {

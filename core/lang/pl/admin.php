@@ -15,6 +15,8 @@ $LANG = array(
 'L_DELETE' 						    => 'Usuń',
 'L_DELETE_FILE' 				    => 'Usuń plik',
 'L_DELETE_FOLDER'				    => 'Usuń folder',
+'L_DELETE_SUCCESSFUL'				=> 'Skuteczne usuwanie',
+'L_DELETE_FILE_ERR'					=> 'Błąd podczas usuwania pliku',
 'L_THUMBNAIL'						=> 'Miniaturka (opcjonalnie)',
 'L_THUMBNAIL_SELECTION'				=> 'Wybierz zdjęcie',
 'L_THUMBNAIL_TITLE'					=> 'Tytuł zdjęcia (opcjonalnie)',
@@ -534,7 +536,7 @@ przypadkowy',
 'L_MENU_CONFIG'						=> 'Ustawienia',
 'L_MENU_PROFIL_TITLE'				=> 'Zarządzaj profilami użytkowników',
 'L_MENU_PROFIL'						=> 'Profil',
-'L_WARNING_INSTALLATION_FILE'		=> 'Plik install.php znajduje się w katalogu głównym PluXml. <br />Ze względów bezpieczeństwa zaleca się, aby go usunąć.',
+'L_WARNING_INSTALLATION_FILE'		=> 'Plik install.php znajduje się w katalogu głównym PluXml. <br />Ze względów bezpieczeństwa zaleca się, aby go <a class="lnkdelete" href="?del=install">usunąć</a>.',
 
 # user.php
 'L_USER_UNKNOWN'					=> 'Nieznany użytkownik',

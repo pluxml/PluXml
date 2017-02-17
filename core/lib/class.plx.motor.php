@@ -69,7 +69,6 @@ class plxMotor {
 		$this->getConfiguration($filename);
 		# Chargement du fichier de langue
 		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
-		$this->aConf['default_lang'] = $lang;
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
