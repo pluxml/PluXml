@@ -7,13 +7,14 @@
 [+] Administration > Paramètres > Plugins : ajout filtre de recherche
 [+] Administration > Paramètres > Options d'affichage : Nombre d'articles affichés par page dans les mots clés
 [+] Administration : recherche possible à partir de l'identifiant d'un article
-[+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)
-[+] plxShow:templateCSS - Prise en compte des fichiers css minifiés si disponibles (contribution alexandre-lg)
-[+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
+[+] Administration : suppression fichier install.php à partir du message d'information
 [+] Gestionnaire de médias : affichage des miniatures jpeg
 [+] Gestionnaire de médias : copie lien image dans le presse-papier
 [+] Suppression des doublons dans la saisie des tags des articles
 [+] Gestion de la méthode onUpdate dans les plugins
+[+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)
+[+] plxShow:templateCSS - Prise en compte des fichiers css minifiés si disponibles (contribution alexandre-lg)
+[+] Réglage de l'affichage de l'indentation des commentaires sur smartphones (contribution kowalsky)
 [+] #69: plxAdmin:editArticle - ajout du hook plxAdminEditArticleEnd
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
 [+] #191: plxShow:catList - Ajout de la variable #cat_description
