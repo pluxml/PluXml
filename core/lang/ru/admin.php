@@ -15,6 +15,8 @@ $LANG = array(
 'L_DELETE'													=> 'Удалить',
 'L_DELETE_FILE' 				    						=> 'Удалить файл',
 'L_DELETE_FOLDER'				   							=> 'Удалить папку',
+'L_DELETE_SUCCESSFUL'										=> 'Успешное удаление',
+'L_DELETE_FILE_ERR'											=> 'Ошибка при удалении файла',
 'L_THUMBNAIL'												=> 'миниатюрами (необязательно)',
 'L_THUMBNAIL_SELECTION'										=> 'Выбрать Изображение',
 'L_THUMBNAIL_TITLE'											=> 'Изображение Название (необязательно)',
@@ -536,7 +538,7 @@ $LANG = array(
 'L_MENU_CONFIG'												=> 'Настройки',
 'L_MENU_PROFIL_TITLE'										=> 'Управление профилем пользователя',
 'L_MENU_PROFIL'												=> 'Профиль',
-'L_WARNING_INSTALLATION_FILE'								=> 'Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем удалить его.',
+'L_WARNING_INSTALLATION_FILE'								=> 'Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем <a class="lnkdelete" href="?del=install">удалить</a> его.',
 
 # user.php
 'L_USER_UNKNOWN'											=> 'Неизвестный пользователь',

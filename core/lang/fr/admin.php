@@ -17,6 +17,8 @@ $LANG = array(
 'L_DELETE' 						    => 'Supprimer',
 'L_DELETE_FILE' 				    => 'Supprimer fichier',
 'L_DELETE_FOLDER'				    => 'Supprimer dossier',
+'L_DELETE_SUCCESSFUL'				=> 'Suppression effectuée avec succès',
+'L_DELETE_FILE_ERR'					=> 'Erreur pendant le suppression du fichier',
 
 'L_THUMBNAIL'						=> 'Image d\'accroche (facultatif)',
 'L_THUMBNAIL_SELECTION'				=> 'Sélectionner une image',
@@ -537,7 +539,7 @@ $LANG = array(
 'L_MENU_CONFIG'						=> 'Paramètres',
 'L_MENU_PROFIL_TITLE'				=> 'Gérer votre profil utilisateur',
 'L_MENU_PROFIL'						=> 'Profil',
-'L_WARNING_INSTALLATION_FILE'		=> 'Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le supprimer.',
+'L_WARNING_INSTALLATION_FILE'		=> 'Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le <a class="lnkdelete" href="?del=install">supprimer</a>.',
 
 # user.php
 'L_USER_UNKNOWN'					=> 'Utilisateur inconnu',
