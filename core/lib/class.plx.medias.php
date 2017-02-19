@@ -113,11 +113,10 @@ class plxMedias {
 				if($file[0] != '.' AND !preg_match('/index.htm/i', $file) AND !preg_match('/^(.*\.)tb.([^.]+)$/D', $file)) {
 					if(is_file($this->path.$dir.$file)) {
 						$ext = strtolower(strrchr($this->path.$dir.$file,'.'));
+						$valid_ext = in_array($ext, array('.gif', '.jpg', '.jpeg', '.png'));
 						$_thumb1=file_exists($this->path.'.thumbs/'.$dir.$file);
-						if(!$_thumb1 AND in_array($ext, array('.gif', '.jpg', '.jpeg', '.png'))) {
+						if(!$_thumb1 AND $valid_ext) {
 							$_thumb1 = plxUtils::makeThumb($this->path.$dir.$file, $this->path.'.thumbs/'.$dir.$file, $this->thumbWidth, $this->thumbHeight, $this->thumbQuality);
-						} else {
-							$ext="";
 						}
 						$_thumb2=false;
 						if(is_file($this->path.$dir.$thumName)) {
@@ -132,7 +131,7 @@ class plxMedias {
 							'path' 		=> $this->path.$dir.$file,
 							'date' 		=> filemtime($this->path.$dir.$file),
 							'filesize' 	=> filesize($this->path.$dir.$file),
-							'extension'	=> $ext,
+							'extension'	=> $valid_ext ? $ext : "",
 							'infos' 	=> getimagesize($this->path.$dir.$file),
 							'thumb' 	=> $_thumb2
 						);
