@@ -187,13 +187,13 @@ function plugFilter() {
 			}
 		}
 	}
-	if (typeof(Storage) !== "undefined") {
+	if (typeof(Storage) !== "undefined" && filter !== "undefined") {
 		localStorage.setItem("plugins_search", filter);
 	}
 }
-if (typeof(Storage) !== "undefined" && localStorage.plugins_search !== "undefined") {
+if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") !== "undefined") {
 	input = document.getElementById("plugins-search");
-	input.value = localStorage.plugins_search;
+	input.value = localStorage.getItem("plugins_search");
 	plugFilter();
 }
 </script>

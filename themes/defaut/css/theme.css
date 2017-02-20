@@ -126,8 +126,8 @@ body {
 .comment small {
 	color: #666;
 }
-.article header span:before, 
-.article header time:before, 
+.article header span:before,
+.article header time:before,
 .article footer span:before {
 	padding-left: 1.5rem;
 	padding-right: .3rem;
@@ -309,4 +309,23 @@ body {
 	.aside {
 		padding-left: 1.5rem;
 	}
+}
+
+/* affichage groupe des pages statiques */
+/*   sous forme de menus déroulants     */
+
+.menu > li ul {
+	display: none;
+	position: absolute;
+	padding: 0;
+	line-height: 2.8rem;
+}
+.menu > li:hover ul {
+	display: block;
+}
+.menu ul  li {
+	display: block;
+	margin: 0;
+	padding: 0 1rem;
+	background-color: #fff;
 }
