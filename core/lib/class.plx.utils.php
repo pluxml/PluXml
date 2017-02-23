@@ -691,7 +691,7 @@ class plxUtils {
 		# on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';
 		$protect = '(\#|javascript|data|callto|content|fax|file|ftp|imap|irc|jabber|mailto|mms|news|pop|sip|smb|sms|ssh|tel|telnet|vnc|xmpp):?';
-		$patterns = array('#(href|src)=("|\')('.$protect.')#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
+		$patterns = array('#(href|src)=("|\')('.$protect.':)#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
 		$replaces = array('$1'.$mask.'$2$3', '$1'.$mask.'$2$3', '$1=$2'.$base.'$3');
 		if (preg_match('#^[a-z]+://#i', $base)) {
 			$patterns[] = '#(href|src)=("|\')/([^/])#i';
