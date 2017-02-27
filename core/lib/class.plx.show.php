@@ -40,7 +40,7 @@ class plxShow {
 		$langfile = PLX_ROOT.$this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/lang/'.$this->plxMotor->aConf['default_lang'].'.php';
 		if(is_file($langfile)) {
 			include($langfile);
-			$this->lang = $LANG; // $LANG = tableau contenant les traductions présent dans le fichier de langue
+			$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
 		}
 
 		# Hook Plugins

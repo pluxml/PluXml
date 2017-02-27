@@ -766,7 +766,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
-		
+
 		# Suppression des doublons dans les tags
 		$tags = array_map('trim', explode(',', trim($content['tags'])));
 		$tags_unique = array_unique($tags);
