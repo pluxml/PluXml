@@ -92,8 +92,6 @@ class plxMotor {
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
-		# Chargement du fichier de langue du core de PluXml
-		loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 		# Traitement sur les répertoires des articles et des commentaires
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
@@ -106,6 +104,8 @@ class plxMotor {
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
+		# Chargement du fichier de langue du core de PluXml
+		loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 	}
 
 	/**
@@ -359,7 +359,7 @@ class plxMotor {
 		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
 		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
 		$this->aConf['bypage_archives'] = plxUtils::getValue($this->aConf['bypage_archives'],5);
-		$this->aConf['bypage_tags'] = plxUtils::getValue($this->aConf['bypage_tags'],5);		
+		$this->aConf['bypage_tags'] = plxUtils::getValue($this->aConf['bypage_tags'],5);
 		$this->aConf['userfolders'] = plxUtils::getValue($this->aConf['userfolders'],0);
 		$this->aConf['meta_description'] = plxUtils::getValue($this->aConf['meta_description']);
 		$this->aConf['meta_keywords'] = plxUtils::getValue($this->aConf['meta_keywords']);

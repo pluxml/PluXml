@@ -45,11 +45,13 @@ header('Content-Type: text/html; charset='.PLX_CHARSET);
 # Creation de l'objet principal et premier traitement
 $plxAdmin = plxAdmin::getInstance();
 
-# Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
+# Recherche de la langue à utiliser
 $lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $plxAdmin->aConf['default_lang'];
-loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
+
+# Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
+loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 
 ?>
