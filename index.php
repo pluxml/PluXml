@@ -29,8 +29,14 @@ include(PLX_CORE.'lib/class.plx.plugins.php');
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
+# Détermination de la langue à utiliser (modifiable par le hook : Index)
+$lang = $plxMotor->aConf['default_lang'];
+
 # Hook Plugins
 eval($plxMotor->plxPlugins->callHook('Index'));
+
+# chargement du fichier de langue
+loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
 $plxMotor->prechauffage();
 $plxMotor->demarrage();
@@ -82,7 +88,7 @@ if($plxMotor->aConf['gzip']) {
 	if($encoding=plxUtils::httpEncoding()) {
 		header('Content-Encoding: '.$encoding);
 		$output = gzencode($output,-1,FORCE_GZIP);
-    }
+	}
 }
 
 # Restitution écran

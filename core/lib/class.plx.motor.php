@@ -67,8 +67,6 @@ class plxMotor {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
-		# Chargement du fichier de langue
-		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
@@ -88,6 +86,8 @@ class plxMotor {
 		$var = parse_url($this->racine);
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
 		# Traitement des plugins
+		# Détermination du fichier de langue
+		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];		
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
@@ -104,8 +104,6 @@ class plxMotor {
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
-		# Chargement du fichier de langue core
-		loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 	}
 
 	/**

@@ -135,9 +135,6 @@ class plxAdmin extends plxMotor {
 			}
 		}
 
-		# changement de la langue en session
-		$_SESSION['lang'] = $global['default_lang'];
-
 		return plxMsg::Info(L_SAVE_SUCCESSFUL);
 
 	}

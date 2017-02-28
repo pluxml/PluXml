@@ -48,8 +48,6 @@ class plxFeed extends plxMotor {
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxFeedConstructLoadPlugins'));
-		# Chargement du fichier de langue du core de PluXml
-		loadLang(PLX_CORE.'lang/'.$this->aConf['default_lang'].'/core.php');		
 		# Traitement sur les répertoires des articles et des commentaires
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
