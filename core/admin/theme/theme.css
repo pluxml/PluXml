@@ -579,7 +579,7 @@ div.copy div {
 	border-radius: 7px;
 	cursor: default;
 }
-#form_uploader #filedrag.hover {
+#form_uploader #filedrag:hover {
 	color: #f00;
 	border-color: #f00;
 	border-style: solid;
