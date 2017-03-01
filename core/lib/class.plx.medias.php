@@ -319,6 +319,14 @@ class plxMedias {
 		}
 		return L_PLXMEDIAS_UPLOAD_SUCCESSFUL;
 	}
+	
+	private function outputJSON($msg, $status = 'error') {
+		header('Content-Type: application/json');
+		die(json_encode(array(
+			'data' => $msg,
+			'status' => $status
+		)));
+	}
 
 	/**
 	 * Méthode qui envoie une liste de fichiers sur le serveur
@@ -330,6 +338,11 @@ class plxMedias {
 	 **/
 	public function uploadFiles($usrfiles, $post) {
 
+	echo "<pre>";
+	print_r($_FILES);
+	print_r($_POST);
+	die;
+	/*
 		$files = array();
 		if(isset($post['myfiles'])) {
 			foreach($post['myfiles'] as $key => $val) {
@@ -341,7 +354,10 @@ class plxMedias {
 				);
 			}
 		}
-
+	*/
+		$files = $usrfiles;
+		
+		
 		$count=0;
 		foreach($files as $file) {
 			$resize = false;
