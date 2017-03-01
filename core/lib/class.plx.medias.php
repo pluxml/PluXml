@@ -320,6 +320,13 @@ class plxMedias {
 		return L_PLXMEDIAS_UPLOAD_SUCCESSFUL;
 	}
 
+	/**
+	 * Méthode qui renvoit une sortie au format JSON
+	 *
+	 * @param	msg			message
+	 * @param	statut		status erreur
+	 * @author	Stephane F
+	 **/
 	public function outputJSON($msg, $status = 'error') {
 		header('Content-Type: application/json');
 		die(json_encode(array(
@@ -362,6 +369,7 @@ class plxMedias {
 				$thumb = array('width' => $width, 'height' => $height);
 			}
 		}
+
 		return $this->_uploadFile($file, $resize, $thumb);
 
 	}

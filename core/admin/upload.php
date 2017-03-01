@@ -6,7 +6,7 @@
  * @package PLX
  * @author  Stephane F
  **/
- 
+
 include(dirname(__FILE__).'/prepend.php');
 
 # validation du token de sécurité
@@ -40,7 +40,25 @@ else
 	$plxMedias = new plxMedias(PLX_ROOT.$_SESSION['medias'],$_SESSION['folder']);
 
 if(!empty($_POST['token'])) {
-	 $plxMedias->outputJSON('', $plxMedias->uploadFile($_FILES, $_POST));
+	 $res = $plxMedias->uploadFile($_FILES, $_POST);
+	 /*
+	 switch($res) {
+		case L_PLXMEDIAS_WRONG_FILESIZE:
+			plxMsg::Error(L_PLXMEDIAS_WRONG_FILESIZE);
+			break;
+		case L_PLXMEDIAS_WRONG_FILEFORMAT:
+			plxMsg::Error(L_PLXMEDIAS_WRONG_FILEFORMAT);
+			break;
+		case L_PLXMEDIAS_UPLOAD_ERR:
+			plxMsg::Error(L_PLXMEDIAS_UPLOAD_ERR);
+			break;
+		case L_PLXMEDIAS_UPLOAD_SUCCESSFUL:
+			plxMsg::Info(L_PLXMEDIAS_UPLOAD_SUCCESSFUL);
+			break;
+	}
+	*/
+	$plxMedias->outputJSON($res, ($res == L_PLXMEDIAS_UPLOAD_SUCCESSFUL ? '' : 'error'));
+
 }
 
 exit;
