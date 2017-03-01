@@ -24,7 +24,13 @@ include(PLX_CORE.'lib/class.plx.plugins.php');
 # Creation de l'objet principal et lancement du traitement
 $plxFeed = plxFeed::getInstance();
 
+# Détermination de la langue à utiliser (modifiable par le hook : FeedBegin)
+$lang = $plxFeed->aConf['default_lang'];
+
 eval($plxFeed->plxPlugins->callHook('FeedBegin'));
+
+# Chargement du fichier de langue du core de PluXml
+loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
 # On démarre la bufferisation
 ob_start();

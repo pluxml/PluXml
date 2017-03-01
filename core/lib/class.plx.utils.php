@@ -687,6 +687,10 @@ class plxUtils {
 		if (substr($base, -1) != '/')
 			$base .= '/';
 
+		# réécriture des liens commençant uniquement par une ancre
+		$url = plxUtils::getRacine().plxUtils::getGets();
+		$html = preg_replace('/(href=["|\'])#/', '$1'.$url.'#', $html);
+
 		# on protège tous les liens externes au site, et on transforme tous les liens relatifs en absolus
 		# on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';

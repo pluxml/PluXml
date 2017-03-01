@@ -40,6 +40,7 @@ BUG #187: Mauvais numéro d'article dans l'ajout d'un nouveau commentaire (contr
 BUG #189: plxAdmin:modCommentaire - mauvais message affiché après la validation d'un commentaire
 BUG #190: Warning sur l'utilisation de mktime (paramètre de type string au lieu de integer)
 BUG #192: Rédaction d'un article: ajout rapide de tag avec une apostrophe impossible (erreur javascript)
+BUG #205: Pas de réécriture d'url pour les liens commençant uniquement par une ancre
 
 ## PLUXML 5.5 (sortie : 01/04/2016) ##
 

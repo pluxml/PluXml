@@ -135,9 +135,6 @@ class plxAdmin extends plxMotor {
 			}
 		}
 
-		# changement de la langue en session
-		$_SESSION['lang'] = $global['default_lang'];
-
 		return plxMsg::Info(L_SAVE_SUCCESSFUL);
 
 	}
@@ -766,7 +763,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
-		
+
 		# Suppression des doublons dans les tags
 		$tags = array_map('trim', explode(',', trim($content['tags'])));
 		$tags_unique = array_unique($tags);

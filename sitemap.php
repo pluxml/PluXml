@@ -26,8 +26,14 @@ header('Content-Type: text/xml; charset='.PLX_CHARSET);
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
+# Détermination de la langue à utiliser (modifiable par le hook : Index)
+$lang = $plxMotor->aConf['default_lang'];
+
 # Hook Plugins
 if(eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
+
+# chargement du fichier de langue
+loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
 # On démarre la bufferisation
 ob_start();
