@@ -326,7 +326,8 @@ przypadkowy',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recréer miniatures',
 'L_MEDIAS_LINK_COPYCLP'             => 'Skopiuj link do schowka',
 'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Nie można skopiować link do schowka',
-'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Link został skopiowany',	
+'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Link został skopiowany',
+'L_MEDIAS_DROP_CLICK'				=> 'Upuść pliki tutaj lub kliknij, aby zaznaczyć',
 
 # parametres_affichage.php
 

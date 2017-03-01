@@ -319,13 +319,51 @@ class plxMedias {
 		}
 		return L_PLXMEDIAS_UPLOAD_SUCCESSFUL;
 	}
-	
-	private function outputJSON($msg, $status = 'error') {
+
+	public function outputJSON($msg, $status = 'error') {
 		header('Content-Type: application/json');
 		die(json_encode(array(
 			'data' => $msg,
 			'status' => $status
 		)));
+	}
+
+	/**
+	 * Méthode qui envoie un fichier sur le serveur
+	 *
+	 * @param	usrfile		fichier utilisateur à uploader
+	 * @param	post		paramètres
+	 * @return  msg			résultat de l'envoi des fichiers
+	 * @author	Stephane F
+	 **/
+	public function uploadFile($usrfile, $post) {
+
+		$file = array(
+			'name'		=> $usrfile['myfiles']['name'],
+			'size'		=> $usrfile['myfiles']['size'],
+			'tmp_name'	=> $usrfile['myfiles']['tmp_name'],
+		);
+
+		$resize = false;
+		$thumb = false;
+		if(!empty($post['resize'])) {
+			if($post['resize']=='user') {
+				$resize = array('width' => intval($post['user_w']), 'height' => intval($post['user_h']));
+			} else {
+				list($width,$height) = explode('x', $post['resize']);
+				$resize = array('width' => $width, 'height' => $height);
+			}
+		}
+		if(!empty($post['thumb'])) {
+			if($post['thumb']=='user') {
+				$thumb = array('width' => intval($post['thumb_w']), 'height' => intval($post['thumb_h']));
+			} else {
+				list($width,$height) = explode('x', $post['thumb']);
+				$thumb = array('width' => $width, 'height' => $height);
+			}
+		}
+		return $this->_uploadFile($file, $resize, $thumb);
+
 	}
 
 	/**
@@ -338,11 +376,6 @@ class plxMedias {
 	 **/
 	public function uploadFiles($usrfiles, $post) {
 
-	echo "<pre>";
-	print_r($_FILES);
-	print_r($_POST);
-	die;
-	/*
 		$files = array();
 		if(isset($post['myfiles'])) {
 			foreach($post['myfiles'] as $key => $val) {
@@ -354,10 +387,7 @@ class plxMedias {
 				);
 			}
 		}
-	*/
-		$files = $usrfiles;
-		
-		
+
 		$count=0;
 		foreach($files as $file) {
 			$resize = false;

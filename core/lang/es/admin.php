@@ -82,7 +82,7 @@ $LANG = array(
 'L_PLXMEDIAS_RECREATE_THUMBS_ERR'				=> 'Error al crear las miniaturas',
 'L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL'			=> 'Miniatura creada correctamente',
 'L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL'		=> 'Miniaturas creadas correctamente',
-    
+
 # article.php
 
 'L_DEFAULT_NEW_ARTICLE_TITLE'					=> 'Nuevo artículo',
@@ -325,7 +325,8 @@ $LANG = array(
 'L_MEDIAS_RECREATE_THUMB'						=> 'Crear miniatura nuevamente',
 'L_MEDIAS_LINK_COPYCLP'                         => 'Copiar enlace al portapapeles',
 'L_MEDIAS_LINK_COPYCLP_ERR'                     => 'No se puede copiar el enlace en el portapapeles',
-'L_MEDIAS_LINK_COPYCLP_DONE'                    => 'Enlace copiado',    
+'L_MEDIAS_LINK_COPYCLP_DONE'                    => 'Enlace copiado',
+'L_MEDIAS_DROP_CLICK'							=> 'Soltar archivos aquí o hacer clic para seleccionar',
 
 # parametres_affichage.php
 
@@ -566,5 +567,6 @@ $LANG = array(
 'L_HELP_TITLE'									=> 'Consulte la ayuda',
 'L_BACK_TO_THEMES'								=> 'Volver a la lista de temas',
 'L_CONFIG_THEME_UPDATE'							=> 'Cambiar tema',
+
 );
 ?>

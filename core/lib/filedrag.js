@@ -1,26 +1,18 @@
 (function() {
-	
+
 	var usrFiles = [];
 	var fileSelect = $id("myfiles");
 	var fileDrag = $id("filedrag");
 	var btnUpload = $id("btn_upload");
 	var btnReset = $id("btn_reset");
-	var Token = $$id('token');
-	
-	var resize = $$id("resize");
-	var user_w = $$id("user_w");
-	var user_h = $$id("user_h");
-	var thumb = $$id("thumb");
-	var thumb_w = $$id("thumb_w");
-	var thumb_h = $$id("thumb_h");	
 
 	// getElementById
 	function $id(id) {
 		return document.getElementById(id);
 	}
-	
-	// getElementById
-	function $$id(id) {
+
+	// form field value
+	function $_id(id) {
 		return document.form_uploader.elements[id].value;
 	}
 
@@ -30,13 +22,13 @@
 		e.preventDefault();
 		e.target.className = (e.type == "dragover" ? "hover" : "");
 	}
-	
+
 	// file selection
 	function FileSelectHandler(e) {
 
 		// cancel event and hover styling
 		FileDragHover(e);
-		
+
 		// fetch FileList object
 		var files = e.target.files || e.dataTransfer.files;
 
@@ -45,23 +37,23 @@
 
 		// process all File objects
 		for (var i = 0; i < files.length; i++) {
-			var f = { 
-				file : files[i], 
-				fid : 'p_' + uid + '_' + i 
+			var f = {
+				file : files[i],
+				fid : 'p_' + uid + '_' + i
 			};
 			div = document.createElement("div");
 			div.setAttribute("id", f.fid);
 			div.setAttribute("class", "progress");
 			$id("progress").appendChild(div);
-			usrFiles.push(f);	
+			usrFiles.push(f);
 			ParseFile(f);
 		}
-		
+
 		btnUpload.style.display = "inline-block";
 		btnReset.style.display = "inline-block";
-		
+
 	}
-	
+
 	// output file information
 	function ParseFile(f) {
 
@@ -69,7 +61,7 @@
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			// image
-			var img = document.createElement("img");	
+			var img = document.createElement("img");
 			img.setAttribute("src", f.file.type.indexOf("image") == 0 ? e.target.result : 'theme/images/file.png');
 			img.setAttribute("title", f.file.name);
 			$id(f.fid).appendChild(img);
@@ -117,7 +109,7 @@
 
 			var progress = $id(f.fid).appendChild(document.createElement("p"));
 			progress.setAttribute('class', 'progress');
-			
+
 			// progress bar
 			xhr.upload.addEventListener("progress", function(e) {
 				var pc = parseInt(100 - (e.loaded / e.total * 100));
@@ -141,22 +133,21 @@
 
 			var data = new FormData();
 			data.append('myfiles', f.file);
-			data.append('token', Token);
-			data.append('resize', resize);
-			data.append('user_w', user_w);
-			data.append('user_h', user_h);
-			data.append('thumb', thumb);
-			data.append('thumb_w', thumb_w);
-			data.append('thumb_h', thumb_h);	
-			
+			data.append('token', $_id('token'));
+			data.append('resize', $_id('resize'));
+			data.append('user_w', $_id('user_w'));
+			data.append('user_h', $_id('user_h'));
+			data.append('thumb', $_id('thumb'));
+			data.append('thumb_w', $_id('thumb_w'));
+			data.append('thumb_h', $_id('thumb_h'));
 			// start upload
 			xhr.open("POST", 'upload.php', true);
 			xhr.send(data);
 
-		} 
+		}
 
 	}
-	
+
 	// initialize
 	function Init() {
 
@@ -170,16 +161,16 @@
 			fileDrag.addEventListener("dragleave", FileDragHover, false);
 			fileDrag.addEventListener("drop", FileSelectHandler, false);
 			fileDrag.addEventListener("click", function(){ fileSelect.click() }, false);
-		} 
-		
+		}
+
 		btnUpload.addEventListener('click', function(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			for (var i = 0; i < usrFiles.length; i++) {
 				UploadFiles(usrFiles[i]);
 			}
-		});		
-		
+		});
+
 		btnReset.addEventListener('click', function(e) {
 			e.stopPropagation();
 			e.preventDefault();
@@ -187,7 +178,7 @@
 			$id('progress').innerHTML = '';
 			btnUpload.style.display = "none";
 			btnReset.style.display = "none";
-		});			
+		});
 
 	}
 
