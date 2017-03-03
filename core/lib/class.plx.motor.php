@@ -87,7 +87,7 @@ class plxMotor {
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
 		# Traitement des plugins
 		# Détermination du fichier de langue (nb: la langue peut être modifiée par plugins via $_SESSION['lang'])
-		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];		
+		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
@@ -142,10 +142,8 @@ class plxMotor {
 			$this->motif = '/^'.$this->cible.'.((?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/'; # Motif de recherche
 			if($this->getArticles()) {
 				# Redirection 301
-				if($this->plxRecord_arts->f('url')!=$capture[2]) {
-					header('Status: 301 Moved Permanently', false, 301);
-					header('Location: '.$this->urlRewrite('?article'.intval($this->cible).'/'.$this->plxRecord_arts->f('url')));
-					exit();
+				if(!isset($capture[2]) OR $this->plxRecord_arts->f('url')!=$capture[2]) {
+					$this->redir301($this->urlRewrite('?article'.intval($this->cible).'/'.$this->plxRecord_arts->f('url')));
 				}
 			} else {
 				$this->error404(L_UNKNOWN_ARTICLE);
@@ -158,18 +156,14 @@ class plxMotor {
 			} else {
 				if(!empty($this->aConf['homestatic']) AND $capture[1]){
 					if($this->aConf['homestatic']==$this->cible){
-						header('Status: 301 Moved Permanently', false, 301);
-						header('Location: '.$this->urlRewrite());
-						exit();
+						$this->redir301($this->urlRewrite());
 					}
 				}
 				if($this->aStats[$this->cible]['url']==$capture[2]) {
 					$this->mode = 'static'; # Mode static
 					$this->template = $this->aStats[$this->cible]['template'];
 				} else {
-					header('Status: 301 Moved Permanently', false, 301);
-					header('Location: '.$this->urlRewrite('?static'.intval($this->cible).'/'.$this->aStats[$this->cible]['url']));
-					exit();
+					$this->redir301($this->urlRewrite('?static'.intval($this->cible).'/'.$this->aStats[$this->cible]['url']));
 				}
 			}
 		}
@@ -184,9 +178,7 @@ class plxMotor {
 			}
 			elseif(isset($this->aCats[$this->cible])) { # Redirection 301
 				if($this->aCats[$this->cible]['url']!=$capture[2]) {
-					header('Status: 301 Moved Permanently', false, 301);
-					header('Location: '.$this->urlRewrite('?categorie'.intval($this->cible).'/'.$this->aCats[$this->cible]['url']));
-					exit();
+					$this->redir301($this->urlRewrite('?categorie'.intval($this->cible).'/'.$this->aCats[$this->cible]['url']));
 				}
 			} else {
 				$this->error404(L_UNKNOWN_CATEGORY);
@@ -246,6 +238,21 @@ class plxMotor {
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorPreChauffageEnd'));
+	}
+
+	/**
+	 * Méthode qui fait une redirection de type 301
+	 *
+	 * @return	null
+	 * @author	Stephane F
+	 **/
+	public function redir301($url) {
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxMotorRedir301'));
+		# Redirection 301
+		header('Status: 301 Moved Permanently', false, 301);
+		header('Location: '.$url);
+		exit();
 	}
 
 	/**
