@@ -329,6 +329,7 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'                                     => 'Скопировать ссылку в буфер обмена',
 'L_MEDIAS_LINK_COPYCLP_ERR'                                 => 'Невозможно скопировать ссылку в буфер обмена',
 'L_MEDIAS_LINK_COPYCLP_DONE'                                => 'ссылка скопирована',
+'L_MEDIAS_DROP_CLICK'										=> 'Перетащите сюда файлы или выберите',
 
 # parametres_affichage.php
 

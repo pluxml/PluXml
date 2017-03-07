@@ -274,6 +274,7 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'                             => 'Link kopieren kopieren',
 'L_MEDIAS_LINK_COPYCLP_ERR'                         => 'Können Sie den Link in die Zwischenablage zu kopieren',
 'L_MEDIAS_LINK_COPYCLP_DONE'                        => 'Link kopiert',
+'L_MEDIAS_DROP_CLICK'								=> 'Drop-Dateien hier oder klicken Sie auf wählen',
 'L_SORT_ASCENDING_DATE'								=> 'Datum aufsteigend',
 'L_SORT_DESCENDING_DATE'							=> 'Datum absteigend',
 'L_SORT_ALPHABETICAL'								=> 'alphabetisch',

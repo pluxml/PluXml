@@ -17,6 +17,8 @@
 						</header>
 
 						<?php $plxShow->staticContent(); ?>
+						
+						<?php eval($plxShow->callHook('MyMultiLingue', 'staticlinks')) ?>
 
 					</div>
 
