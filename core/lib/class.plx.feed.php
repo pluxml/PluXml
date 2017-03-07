@@ -271,7 +271,7 @@ class plxFeed extends plxMotor {
 		echo "\t".'<link>'.$link.'</link>'."\n";
 		echo "\t".'<language>' . $this->aConf['default_lang'] . '</language>'."\n";
 		echo "\t".'<description>'.plxUtils::strCheck($this->aConf['description']).'</description>'."\n";
-		echo '<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="'.$this->urlRewrite('feed.php?'.$this->get).'" />'."\n";
+		echo "\t".'<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="'.$this->urlRewrite('feed.php?'.$this->get).'" />'."\n";
 		$last_updated = plxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
 		echo "\t".'<generator>PluXml</generator>'."\n";
@@ -344,9 +344,9 @@ class plxFeed extends plxMotor {
 		echo '<?xml version="1.0" encoding="'.PLX_CHARSET.'" ?>'."\n";
 		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">'."\n";
 		echo '<channel>'."\n";
-		echo '<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="' . $this->urlRewrite('feed.php?rss/commentaires/') . '" />'."\n";
+		echo "\t".'<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="' . $this->urlRewrite('feed.php?rss/commentaires/') . '" />'."\n";
 
-		$entry .= "\t\t".'<title>'.strip_tags(html_entity_decode($title, ENT_QUOTES, PLX_CHARSET)).'</title> '."\n";
+		$entry .= "\t".'<title>'.strip_tags(html_entity_decode($title, ENT_QUOTES, PLX_CHARSET)).'</title> '."\n";
 		echo "\t".'<link>'.$link.'</link>'."\n";
 		echo "\t".'<language>' . $this->aConf['default_lang'] . '</language>'."\n";
 		echo "\t".'<description>'.plxUtils::strCheck($this->aConf['description']).'</description>'."\n";
@@ -413,7 +413,7 @@ class plxFeed extends plxMotor {
 		echo "\t".'<description>'.plxUtils::strCheck($this->aConf['description']).'</description>'."\n";
 		echo "\t".'<link>'.$link.'</link>'."\n";
 		echo "\t".'<language>' . $this->aConf['default_lang'] . '</language>'."\n";
-		echo '<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="' . $link_feed . '" />'."\n";
+		echo "\t".'<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="' . $link_feed . '" />'."\n";
 		$last_updated = plxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
 		echo "\t".'<generator>PluXml</generator>'."\n";
