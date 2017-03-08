@@ -259,6 +259,7 @@ $LANG = array(
 'L_MEDIAS_CREATE_FOLDER'									=> 'Create folder',
 'L_MEDIAS_SUBMIT_FILE'										=> 'Send',
 'L_MEDIAS_MAX_UPOLAD_FILE'									=> 'Maximum file size',
+'L_MEDIAS_MAX_POST_SIZE'									=> 'Maximum data size',
 'L_MEDIAS_DIRECTORY'										=> 'Location',
 'L_MEDIAS_FOLDER'											=> 'File',
 'L_MEDIAS_NEW_FOLDER'										=> 'New Folder',
