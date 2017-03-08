@@ -162,7 +162,7 @@ $curFolders = explode('/', $curFolder);
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_title ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
+					<th><input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
 					<th><?php echo L_MEDIAS_EXTENSION ?></th>
 					<th><?php echo L_MEDIAS_FILESIZE ?></th>
 					<th><?php echo L_MEDIAS_DIMENSIONS ?></th>
@@ -345,6 +345,30 @@ function copy(elt, data) {
 	} catch (err) {
 		alert('<?php echo L_MEDIAS_LINK_COPYCLP_ERR ?>');
 	}
+}
+function plugFilter() {
+	var input, filter, table, tr, td, i;
+	filter = document.getElementById("medias-search").value;
+	table = document.getElementById("medias-table");
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[2];
+		if (td != undefined) {
+			if (td.innerHTML.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+	if (typeof(Storage) !== "undefined" && filter !== "undefined") {
+		localStorage.setItem("medias_search", filter);
+	}
+}
+if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !== "undefined") {
+	input = document.getElementById("medias-search");
+	input.value = localStorage.getItem("medias_search");
+	plugFilter();
 }
 </script>
 
