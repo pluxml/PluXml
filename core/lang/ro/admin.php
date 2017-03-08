@@ -250,6 +250,7 @@ $LANG = array(
 'L_MEDIAS_CREATE_FOLDER'									=> 'Crearea unui directoriu',
 'L_MEDIAS_SUBMIT_FILE'										=> 'Trimite',
 'L_MEDIAS_MAX_UPOLAD_FILE'									=> 'Dimensiunea maximă de fişier',
+'L_MEDIAS_MAX_POST_SIZE'									=> 'Dimensiunea maximă a datelor',
 'L_MEDIAS_DIRECTORY'										=> 'Locaţie',
 'L_MEDIAS_FOLDER'											=> 'Fişier',
 'L_MEDIAS_NEW_FOLDER'										=> 'New Folder',

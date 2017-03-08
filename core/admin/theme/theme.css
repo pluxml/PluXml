@@ -210,8 +210,8 @@ a.btnDelete {
 	text-align: center;
 }
 .new td[colspan="2"],
-.new td[colspan="3"] { 
-	text-align: center; 
+.new td[colspan="3"] {
+	text-align: center;
 }
 button,
 input,
@@ -523,10 +523,11 @@ tr.checked {
 #id_thumbnail_img img {
 	max-width: 100%;
 }
-
+/* champs de recherche */
+#medias-search,
 #plugins-search {
-  background: url('images/search.png') 5px 7px no-repeat;
-  padding-left: 30px;
+	background: url('images/search.png') 5px 7px no-repeat;
+	padding-left: 30px;
 }
 /* gestionnaire de médias - copie lien image */
 div.copy {

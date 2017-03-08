@@ -296,6 +296,7 @@ $LANG = array(
 'L_MEDIAS_DIRECTORY' 				=> 'Emplaçament',
 'L_MEDIAS_BACK'						=> 'Retorn a la lista dels mèdia',
 'L_MEDIAS_MAX_UPOLAD_FILE'			=> 'Talha maxi dels fichièrs',
+'L_MEDIAS_MAX_POST_SIZE'			=> 'Talha maxi de las donadas',
 'L_MEDIAS_SUBMIT_FILE'				=> 'Enviar',
 'L_MEDIAS_IMAGES'					=> 'Imatges',
 'L_MEDIAS_DOCUMENTS'				=> 'Documents',

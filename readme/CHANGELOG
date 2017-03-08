@@ -10,6 +10,7 @@
 [+] Administration : suppression fichier install.php à partir du message d'information
 [+] Gestionnaire de médias : affichage des miniatures jpeg
 [+] Gestionnaire de médias : copie lien image dans le presse-papier
+[+] Gestionnaire de médias : champ de recherche/filtre sur le nom des images
 [+] Suppression des doublons dans la saisie des tags des articles
 [+] Gestion de la méthode onUpdate dans les plugins
 [+] Tri des articles par ordre aléatoire configurable à partir de l'administration (Paramètres > Options d'affichage et Catégories)

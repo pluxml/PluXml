@@ -153,7 +153,7 @@ include(dirname(__FILE__).'/top.php');
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
 					<th>&nbsp;</th>
-					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>"></th>
+					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
 					<?php if($_SESSION['selPlugins']=='1') : ?>
 					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
 					<?php endif; ?>

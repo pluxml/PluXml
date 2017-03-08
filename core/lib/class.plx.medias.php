@@ -12,7 +12,8 @@ class plxMedias {
 	public $dir = null;
 	public $aDirs = array(); # liste des dossiers et sous dossiers
 	public $aFiles = array(); # liste des fichiers d'un dossier
-	public $maxUpload = array(); # taille maxi des images
+	public $maxUpload = array(); # valeur upload_max_filesize
+	public $maxPost = array(); # valeur post_max_size
 
 	public $thumbQuality = 60; # qualité image
 	public $thumbWidth = 60; # largeur des miniatures
@@ -48,7 +49,7 @@ class plxMedias {
 		$this->aDirs = $this->_getAllDirs($this->path);
 		$this->aFiles = $this->_getDirFiles($this->dir);
 
-		# Taille maxi pour l'upload de fichiers sur le serveur
+		# Taille maxi des fichiers
 		$maxUpload = strtoupper(ini_get("upload_max_filesize"));
 		$this->maxUpload['display'] = str_replace('M', ' Mo', $maxUpload);
 		$this->maxUpload['display'] = str_replace('K', ' Ko', $this->maxUpload['display']);
@@ -56,6 +57,16 @@ class plxMedias {
 		elseif(substr_count($maxUpload, 'M')) $this->maxUpload['value'] = str_replace('M', '', $maxUpload) * 1024 * 1024;
 		elseif(substr_count($maxUpload, 'G')) $this->maxUpload['value'] = str_replace('G', '', $maxUpload) * 1024 * 1024 * 1024;
 		else $this->maxUpload['value'] = 0;
+
+		# Taille maxi des données
+		$maxPost = strtoupper(ini_get("post_max_size"));
+		$this->maxPost['display'] = str_replace('M', ' Mo', $maxPost);
+		$this->maxPost['display'] = str_replace('K', ' Ko', $this->maxPost['display']);
+		if(substr_count($maxPost, 'K')) $this->maxPost['value'] = str_replace('K', '', $maxPost) * 1024;
+		elseif(substr_count($maxPost, 'M')) $this->maxPost['value'] = str_replace('M', '', $maxPost) * 1024 * 1024;
+		elseif(substr_count($maxPost, 'G')) $this->maxPost['value'] = str_replace('G', '', $maxPost) * 1024 * 1024 * 1024;
+		else $this->maxPost['value'] = 0;
+
 	}
 
 	/**

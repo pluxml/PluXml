@@ -103,7 +103,7 @@ function checkBox(cb) {
 						echo '</td><td>';
 						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
 						if($v['active']) {
-							echo '&nbsp;&nbsp;<a href="'.PLX_ROOT.'?static'.intval($k).'/'.$v['url'].'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
+							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
 						}
 						echo '</td></tr>';
 					}
@@ -124,7 +124,7 @@ function checkBox(cb) {
 					<td colspan="3"><?php echo L_STATICS_NEW_PAGE ?></td>
 					<td>
 					<?php
-						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';						
+						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
 						plxUtils::printInput($new_staticid.'_group', '', 'text', '10-100');
 						echo '</td><td>';
 						plxUtils::printInput($new_staticid.'_name', '', 'text', '10-255');

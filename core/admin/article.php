@@ -348,7 +348,7 @@ function refreshImg(dta) {
 				<?php if($artId!='' AND $artId!='0000') : ?>
 				<div class="grid">
 					<div class="col sml-12">
-						<?php $link = $plxAdmin->urlRewrite('index.php?article'.intval($artId).'/'.$url) ?>
+						<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
 						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
 						<?php echo '<input id="id_link" onclick="this.select()" class="readonly" readonly="readonly" type="text" value="'.$link.'" />' ?>
 					</div>

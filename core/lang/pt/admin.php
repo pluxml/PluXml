@@ -250,6 +250,7 @@ $LANG = array(
 'L_MEDIAS_CREATE_FOLDER'									=> 'Criar uma pasta',
 'L_MEDIAS_SUBMIT_FILE'										=> 'Enviar',
 'L_MEDIAS_MAX_UPOLAD_FILE'									=> 'Tamanho máximo dos ficheiros',
+'L_MEDIAS_MAX_POST_SIZE'									=> 'Tamanho máximo de dados',
 'L_MEDIAS_DIRECTORY'										=> 'Localização',
 'L_MEDIAS_FOLDER'											=> 'Arquivo',
 'L_MEDIAS_NEW_FOLDER'										=> 'Nova Pasta',
