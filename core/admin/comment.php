@@ -20,8 +20,8 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # Interdire de l'accès à la page si les commentaires sont désactivés
 if(!$plxAdmin->aConf['allow_com']) {
-    header('Location: index.php');
-    exit;
+	header('Location: index.php');
+	exit;
 }
 
 # validation de l'id de l'article si passé en paramètre
@@ -91,7 +91,7 @@ if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',
 } else {
 	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
 	# On génère notre lien
-	$article = '<a href="'.$plxAdmin->aConf['racine'].'index.php?article'.intval($result['numero']).'/'.$result['url'].'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
+	$article = '<a href="'.$plxAdmin->urlRewrite('?article'.intval($result['numero']).'/'.$result['url']).'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
 	$article .= plxUtils::strCheck($result['title']);
 	$article .= '</a>';
 }
@@ -101,7 +101,7 @@ $com=$plxAdmin->comInfoFromFilename($_GET['c'].'.xml');
 if($com['comStatus']=='_')
 	$statut = '<strong>'.L_COMMENT_OFFLINE.'</strong>';
 elseif($com['comStatus']=='')
-	$statut = '<a href="'.PLX_ROOT.'?article'.intval($plxAdmin->plxRecord_coms->f('article')).'/#c'.$plxAdmin->plxRecord_coms->f('index').'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
+	$statut = '<a href="'.$plxAdmin->urlRewrite('?article'.intval($plxAdmin->plxRecord_coms->f('article')).'/#c'.$plxAdmin->plxRecord_coms->f('index')).'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
 else
 	$statut = '';
 
@@ -118,7 +118,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 } else {
 	$author = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('author'));
 	$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
-	$content = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content'));	
+	$content = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content'));
 }
 
 ?>
@@ -131,7 +131,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<p><a class="back" href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 		<?php else : ?>
 		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
-		<?php endif; ?>	
+		<?php endif; ?>
 		<?php if($com['comStatus']=='') : ?>
 		<input type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
 		<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
@@ -140,7 +140,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<?php endif; ?>
 		<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
 		&nbsp;&nbsp;&nbsp;<input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
-		<?php echo plxToken::getTokenPostMethod() ?>	
+		<?php echo plxToken::getTokenPostMethod() ?>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
@@ -176,8 +176,8 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_site">
-				<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;'; 
-				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>'; 
+				<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;';
+				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>';
 				?>
 				</label>
 				<?php
@@ -188,7 +188,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_mail"><?php echo L_COMMENT_EMAIL_FIELD ?> : 
+				<label for="id_mail"><?php echo L_COMMENT_EMAIL_FIELD ?> :
 				<?php if($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
 				<?php echo '<a href="mailto:'.$plxAdmin->plxRecord_coms->f('mail').'">'.$plxAdmin->plxRecord_coms->f('mail').'</a>' ?>
 				<?php endif; ?>
