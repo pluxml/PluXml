@@ -311,7 +311,7 @@ class plxMedias {
 		# On teste l'existence du fichier et on formate le nom du fichier pour éviter les doublons
 		$i = 1;
 		$upFile = $this->path.$this->dir.plxUtils::title2filename($file['name']);
-		$name = substr($upFile, 0, strrpos($upFile,'.'));
+		$name = substr($file['name'], 0, strrpos($file['name'],'.'));
 		$ext = strrchr($upFile, '.');
 		while(file_exists($upFile)) {
 			$upFile = $this->path.$this->dir.$name.'.'.$i++.$ext;
