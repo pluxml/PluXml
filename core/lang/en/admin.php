@@ -283,6 +283,7 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'                                     => 'Copy link to clipboard',
 'L_MEDIAS_LINK_COPYCLP_ERR'                                 => 'Unable to copy link to clipboard',
 'L_MEDIAS_LINK_COPYCLP_DONE'                                => 'Copied link',
+'L_MEDIAS_DROP_CLICK'										=> 'Drop files here or click to select',
 'L_CONFIG_VIEW_FIELD'										=> 'Display preferences',
 'L_CONFIG_VIEW_SKIN_SELECT'									=> 'Skin',
 'L_CONFIG_VIEW_FILES_EDIT_TITLE'							=> 'Edit theme files',

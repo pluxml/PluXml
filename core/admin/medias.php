@@ -115,7 +115,7 @@ $curFolders = explode('/', $curFolder);
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
-<form action="medias.php" method="post" id="form_medias">
+<form name="form_medias" action="medias.php" method="post" id="form_medias">
 
 	<div class="inline-form" id="files_manager">
 
@@ -193,14 +193,20 @@ $curFolders = explode('/', $curFolder);
 						if($isImage AND is_file($href)) {
 							echo '<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.L_MEDIAS_THUMB.'</a>';
 							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
-							echo ' : '.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1]. ' ('.plxUtils::formatFilesize($v['thumb']['filesize']).')';
 						}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
-						echo '<td>'.plxUtils::formatFilesize($v['filesize']).'</td>';
+						echo '<td>'.plxUtils::formatFilesize($v['filesize']);
+						if($isImage AND is_file($href)) {
+							echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
+						}
+						echo '</td>';
 						$dimensions = '&nbsp;';
 						if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
 							$dimensions = $v['infos'][0].' x '.$v['infos'][1];
+						}
+						if($isImage AND is_file($href)) {
+							$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
 						}
 						echo '<td>'.$dimensions.'</td>';
 						echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
@@ -215,7 +221,7 @@ $curFolders = explode('/', $curFolder);
 	</div>
 </form>
 
-<form action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
+<form name="form_uploader" action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
 
 	<div id="files_uploader" style="display:none">
 
@@ -235,21 +241,25 @@ $curFolders = explode('/', $curFolder);
 				}
 				?>
 			</p>
-			<input type="submit" name="btn_upload" id="btn_upload" value="<?php echo L_MEDIAS_SUBMIT_FILE ?>" />
+			<button id="btn_upload" type="submit"><?php echo L_MEDIAS_SUBMIT_FILE ?></button>
+			<button id="btn_reset" type="submit">Reset</button>
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
-		<p><a class="back" href="javascript:void(0)" onclick="toggle_divs();return false"><?php echo L_MEDIAS_BACK ?></a></p>
+		<p><a class="back" href="medias.php"><?php echo L_MEDIAS_BACK ?></a></p>
 
 		<p>
 			<?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?>
 			<?php if($plxMedias->maxPost['value'] > 0) echo " / ".L_MEDIAS_MAX_POST_SIZE." : ".$plxMedias->maxPost['display']; ?>
 		</p>
 
+		<!-- DRAG & DROP UPLOADER -->
 		<div>
-			<input id="selector_0" type="file" multiple="multiple" name="selector_0[]" />
-			<div class="files_list" id="files_list" style="margin: 1rem 0 1rem 0;"></div>
+			<input id="myfiles" type="file" name="myfiles[]" multiple="multiple" />
+			<div id="filedrag"><?php echo L_MEDIAS_DROP_CLICK ?></div>
 		</div>
+		<div id="progress"></div>
+		<!-- -->
 
 		<div class="grid">
 			<div class="col sma-12 med-4">
@@ -371,6 +381,7 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	plugFilter();
 }
 </script>
+<script src="<?php echo PLX_CORE ?>/lib/filedrag.js"></script>
 
 <?php
 # Hook Plugins

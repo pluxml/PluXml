@@ -1371,10 +1371,12 @@ class plxShow {
 	 * @scope	static
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
-	public function staticUrl($type='relatif') {
+	public function staticUrl($type='relatif', $staticId=false) {
 
 		# Recupération ID URL
-		$staticId = $this->staticId();
+		if (empty($staticId) or !array_key_exists(str_pad($staticId,3,'0',STR_PAD_LEFT), $this->plxMotor->aStats)) {
+			$staticId = $this->staticId();
+		}
 		$staticIdFill = str_pad($staticId,3,'0',STR_PAD_LEFT);
 		if(!empty($staticId) AND isset($this->plxMotor->aStats[ $staticIdFill ]))
 			echo $this->plxMotor->urlRewrite('?static'.$staticId.'/'.$this->plxMotor->aStats[ $staticIdFill ]['url']);

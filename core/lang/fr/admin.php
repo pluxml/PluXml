@@ -331,6 +331,7 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'             => 'Copier le lien dans le presse-papier',
 'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Impossible de copier le lien dans le presse-papier',
 'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Lien copié',
+'L_MEDIAS_DROP_CLICK'				=> 'Déposez des fichiers ici ou cliquez pour sélectionner',
 
 # parametres_affichage.php
 

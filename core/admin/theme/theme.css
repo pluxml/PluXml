@@ -242,6 +242,12 @@ textarea {
 #medias-table {
 	margin-top: 10px;
 }
+#medias-table tbody tr td:nth-of-type(5) {
+	text-align: right;
+}
+#medias-table tbody tr td:nth-of-type(6) {
+	text-align: center;
+}
 .publication input {
 	font-weight: bold;
 	color: #777;
@@ -550,4 +556,60 @@ div.copy div {
 	margin-left: 5px;
 	border-radius: 2px;
 	border: 1px solid #888;
+}
+
+
+/* drag & drop uploader */
+
+#form_uploader #dragdrop {
+	text-align: center;
+}
+#form_uploader button {
+	display: none;
+}
+#form_uploader a.btn_delete {
+	display: inline;
+	color: #e43d29;
+	text-decoration: none;
+	margin-right: 5px;
+}
+#form_uploader #myfiles {
+	display: none;
+}
+#form_uploader #filedrag {
+	font-weight: bold;
+	text-align: center;
+	padding: 1em 0;
+	margin: 1em 0;
+	color: #555;
+	border: 2px dashed #555;
+	border-radius: 7px;
+	cursor: default;
+}
+#form_uploader #filedrag:hover {
+	color: #f00;
+	border-color: #f00;
+	border-style: solid;
+}
+#form_uploader .progress  {
+	display: inline-block;
+	width: 75px;
+	margin: 0 10px 10px 0;
+	font-size: 10px;
+	text-align: center;
+	overflow: hidden;
+}
+#form_uploader .progress img {
+	width: 100%;
+}
+#form_uploader .progress p {
+	background: #eee url("images/progress.png") 100% 0 repeat-y;
+	height: 5px;
+	margin: 0 0 2px;
+}
+#form_uploader .progress p.success {
+	background: #0c0 none 0 0 no-repeat;
+}
+#form_uploader .progress p.failed {
+	background: #c00 none 0 0 no-repeat;
 }
