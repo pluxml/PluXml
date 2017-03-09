@@ -242,6 +242,12 @@ textarea {
 #medias-table {
 	margin-top: 10px;
 }
+#medias-table td:nth-of-type(5) {
+	text-align: right;
+}
+#medias-table td:nth-of-type(6) {
+	text-align: center;
+}
 .publication input {
 	font-weight: bold;
 	color: #777;
