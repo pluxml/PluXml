@@ -117,6 +117,16 @@ $curFolders = explode('/', $curFolder);
 
 <form name="form_medias" action="medias.php" method="post" id="form_medias">
 
+	<!-- New Folder Dialog -->
+	<div id="dlgNewFolder" class="dialog">
+		<div class="dialog-content">
+			<span class="dialog-close">&times;</span>
+			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
+			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="15" />
+			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+		</div>
+	</div>
+
 	<div class="inline-form" id="files_manager">
 
 		<div class="inline-form action-bar">
@@ -139,6 +149,7 @@ $curFolders = explode('/', $curFolder);
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			&nbsp;&nbsp;&nbsp;
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
+			<button id="btnNewFolder"><?php echo L_MEDIAS_NEW_FOLDER ?></button>
 			<?php if(!empty($_SESSION['folder'])) { ?>
 			&nbsp;&nbsp;&nbsp;<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
 			<?php } ?>
@@ -151,18 +162,18 @@ $curFolders = explode('/', $curFolder);
 			<?php echo $plxMedias->contentFolder() ?>
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 		</div>
+
 		<div style="float:right">
-			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
-			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="10" />
-			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+			<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" />
 		</div>
+
 		<div style="clear:both" class="scrollable-table">
 			<table id="medias-table" class="full-width">
 				<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
-					<th><input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_title ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
 					<th><?php echo L_MEDIAS_EXTENSION ?></th>
 					<th><?php echo L_MEDIAS_FILESIZE ?></th>
 					<th><?php echo L_MEDIAS_DIMENSIONS ?></th>
@@ -181,26 +192,33 @@ $curFolders = explode('/', $curFolder);
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
-						if(is_file($v['path']) AND $isImage) {
-							echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
-						}
+							if(is_file($v['path']) AND $isImage) {
+								echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+							}
 						echo '</td>';
 						echo '<td>';
-						echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
-						echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
-						echo '<br />';
-						$href = plxUtils::thumbName($v['path']);
-						if($isImage AND is_file($href)) {
-							echo '<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.L_MEDIAS_THUMB.'</a>';
-							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
-							echo ' : '.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1]. ' ('.plxUtils::formatFilesize($v['thumb']['filesize']).')';
-						}
+							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
+							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							echo '<br />';
+							$href = plxUtils::thumbName($v['path']);
+							if($isImage AND is_file($href)) {
+								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
+								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
-						echo '<td>'.plxUtils::formatFilesize($v['filesize']).'</td>';
+						echo '<td>';
+							echo plxUtils::formatFilesize($v['filesize']);
+							if($isImage AND is_file($href)) {
+								echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
+							}
+						echo '</td>';
 						$dimensions = '&nbsp;';
 						if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
 							$dimensions = $v['infos'][0].' x '.$v['infos'][1];
+						}
+						if($isImage AND is_file($href)) {
+							$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
 						}
 						echo '<td>'.$dimensions.'</td>';
 						echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
@@ -373,6 +391,16 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	input = document.getElementById("medias-search");
 	input.value = localStorage.getItem("medias_search");
 	plugFilter();
+}
+var dlg = document.getElementById('dlgNewFolder');
+var btn = document.getElementById("btnNewFolder");
+var span = document.getElementsByClassName("dialog-close")[0];
+btn.onclick = function() {
+	dlg.style.display = "block";
+	return false;
+}
+span.onclick = function() {
+	dlg.style.display = "none";
 }
 </script>
 <script src="<?php echo PLX_CORE ?>/lib/filedrag.js"></script>

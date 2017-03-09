@@ -175,7 +175,7 @@ a.lnkdelete:hover {
 		left: 0;
 	}
 	.section .action-bar {
-		background-color: inherit;
+		/*background-color: inherit;*/
 		margin: 0 0 1.5rem 0;
 		padding: 0;
 		z-index: inherit;
@@ -241,6 +241,12 @@ textarea {
 }
 #medias-table {
 	margin-top: 10px;
+}
+#medias-table td:nth-of-type(5) {
+	text-align: right;
+}
+#medias-table td:nth-of-type(6) {
+	text-align: center;
 }
 .publication input {
 	font-weight: bold;
@@ -552,58 +558,39 @@ div.copy div {
 	border: 1px solid #888;
 }
 
-
-/* drag & drop uploader */
-
-#form_uploader #dragdrop {
-	text-align: center;
+/* The Dialog (background) */
+.dialog {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 9999; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-#form_uploader button {
-	display: none;
+/* Dialog Content */
+.dialog-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 40%;
+	min-width: 250px;
 }
-#form_uploader a.btn_delete {
-	display: inline;
-	color: #e43d29;
-	text-decoration: none;
-	margin-right: 5px;
-}
-#form_uploader #myfiles {
-	display: none;
-}
-#form_uploader #filedrag {
+/* The Close Button */
+.dialog-close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
 	font-weight: bold;
-	text-align: center;
-	padding: 1em 0;
-	margin: 1em 0;
-	color: #555;
-	border: 2px dashed #555;
-	border-radius: 7px;
-	cursor: default;
 }
-#form_uploader #filedrag:hover {
-	color: #f00;
-	border-color: #f00;
-	border-style: solid;
-}
-#form_uploader .progress  {
-	display: inline-block;
-	width: 75px;
-	margin: 0 10px 10px 0;
-	font-size: 10px;
-	text-align: center;
-	overflow: hidden;
-}
-#form_uploader .progress img {
-	width: 100%;
-}
-#form_uploader .progress p {
-	background: #eee url("images/progress.png") 100% 0 repeat-y;
-	height: 5px;
-	margin: 0 0 2px;
-}
-#form_uploader .progress p.success {
-	background: #0c0 none 0 0 no-repeat;
-}
-#form_uploader .progress p.failed {
-	background: #c00 none 0 0 no-repeat;
+.dialog-close:hover,
+.dialog-close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
 }
