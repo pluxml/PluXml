@@ -191,8 +191,7 @@ $curFolders = explode('/', $curFolder);
 							echo '<br />';
 							$href = plxUtils::thumbName($v['path']);
 							if($isImage AND is_file($href)) {
-								$t = L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href));
-								echo '<a onclick="'."this.target='_blank'".'" title="'.$t.'" href="'.$href.'">'.$t.'</a>';
+								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
 								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';
