@@ -45,7 +45,7 @@
 }
 
 li a.active {
-	color: #444;
+	color: #e42929;
 }
 
 /* ---------- Header ---------- */
@@ -83,7 +83,7 @@ body {
 	padding-bottom: 6rem;
 }
 .repertory {
-	margin-top: 6rem;
+	margin-top: 4rem;
 }
 .pagination {
 	margin-bottom: 6rem;
@@ -110,9 +110,6 @@ body {
 .p_next,
 .p_last {
 	display: inline-block;
-}
-.article header h2 {
-	margin-top: 6rem;
 }
 .article header h2 a {
 	color: #333;
@@ -314,6 +311,21 @@ body {
 /* affichage groupe des pages statiques */
 /*   sous forme de menus déroulants     */
 
+@media (max-width: 768px) {
+	.menu > li ul {
+		position: relative !important;
+	}
+	.menu > li ul  li:hover {
+		background-color: #fff;
+	}
+	.menu > li ul  li:hover a{
+		text-decoration: underline;
+	}
+	.responsive-menu ul li.active a,
+	.responsive-menu ul li.active:hover {
+		background-color: #fff;
+	}
+}
 .menu > li ul {
 	display: none;
 	position: absolute;
@@ -323,9 +335,19 @@ body {
 .menu > li:hover ul {
 	display: block;
 }
-.menu ul  li {
+.menu ul li {
 	display: block;
 	margin: 0;
 	padding: 0 1rem;
 	background-color: #fff;
+}
+.menu span.static.group.noactive {
+	color: #258fd6;
+}
+.menu span::before {
+	content: '\25bc';
+}
+.menu span.static.group.active,
+.menu ul  li.static.active a {
+	color: #e42929;
 }

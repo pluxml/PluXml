@@ -1264,13 +1264,13 @@ class plxShow {
 	 *
 	 * @param	extra			si renseigné: nom du lien vers la page d'accueil affiché en première position
 	 * @param	format			format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
-	 * @param	format_group	format du texte pour chaque groupe (variable : #group_class, #group_name)
+	 * @param	format_group	format du texte pour chaque groupe (variable : #group_class, #group_name, #group_status)
 	 * @param	menublog		position du menu Blog (si non renseigné le menu n'est pas affiché)
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function staticList($extra='', $format='<li id="#static_id" class="#static_class"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<span class="#group_class">#group_name</span>', $menublog=false) {
+	public function staticList($extra='', $format='<li id="#static_id" class="#static_class"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<span class="#group_class #group_status">#group_name</span>', $menublog=false) {
 
 		$menus = array();
 		# Hook Plugins
@@ -1285,6 +1285,7 @@ class plxShow {
 			$stat = str_replace('#static_status',($home==true?"active":"noactive"), $stat);
 			$menus[][] = $stat;
 		}
+		$group_active = "";
 		if($this->plxMotor->aStats) {
 			foreach($this->plxMotor->aStats as $k=>$v) {
 				if($v['active'] == 1 AND $v['menu'] == 'oui') { # La page  est bien active et dispo ds le menu
@@ -1302,6 +1303,8 @@ class plxShow {
 						$menus[][] =  $stat;
 					else
 						$menus[$v['group']][] =  $stat;
+					if($group_active=="" AND $home===false AND $this->staticId()==intval($k) AND $v['group']!='')
+						$group_active = $v['group'];
 				}
 			}
 		}
@@ -1334,6 +1337,7 @@ class plxShow {
 				else {
 					$group = str_replace('#group_id','static-group-'.plxUtils::title2url($k),$format_group);
 					$group = str_replace('#group_class','static group',$group);
+					$group = str_replace('#group_status',($group_active==$k?'active':'noactive'),$group);
 					$group = str_replace('#group_name',plxUtils::strCheck($k),$group);
 					echo "\n<li>\n\t".$group."\n\t<ul id=\"static-".plxUtils::title2url($k)."\">\t\t";
 					foreach($v as $kk => $vv) {
