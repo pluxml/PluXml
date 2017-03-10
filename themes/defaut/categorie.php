@@ -10,9 +10,10 @@
 
 					<ul class="repertory menu breadcrumb">
 						<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
-						<li><?php $plxShow->catName(); ?>
-						<?php $plxShow->catDescription(' : #cat_description'); ?></li>	
+						<li><?php $plxShow->catName(); ?></li>
 					</ul>
+
+					<p><?php $plxShow->catDescription('#cat_description'); ?></p>
 
 					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
@@ -35,7 +36,7 @@
 							</small>
 						</header>
 
-						<?php $plxShow->artThumbnail(); ?>				
+						<?php $plxShow->artThumbnail(); ?>
 						<?php $plxShow->artChapo(); ?>
 
 						<footer>

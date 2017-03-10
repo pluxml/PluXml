@@ -83,7 +83,7 @@ body {
 	padding-bottom: 6rem;
 }
 .repertory {
-	margin-top: 6rem;
+	margin-top: 4rem;
 }
 .pagination {
 	margin-bottom: 6rem;
@@ -110,9 +110,6 @@ body {
 .p_next,
 .p_last {
 	display: inline-block;
-}
-.article header h2 {
-	margin-top: 6rem;
 }
 .article header h2 a {
 	color: #333;
