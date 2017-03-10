@@ -311,6 +311,21 @@ body {
 /* affichage groupe des pages statiques */
 /*   sous forme de menus déroulants     */
 
+@media (max-width: 768px) {
+	.menu > li ul {
+		position: relative !important;
+	}
+	.menu > li ul  li:hover {
+		background-color: #fff;
+	}
+	.menu > li ul  li:hover a{
+		text-decoration: underline;
+	}
+	.responsive-menu ul li.active a,
+	.responsive-menu ul li.active:hover {
+		background-color: #fff;
+	}
+}
 .menu > li ul {
 	display: none;
 	position: absolute;
@@ -320,7 +335,7 @@ body {
 .menu > li:hover ul {
 	display: block;
 }
-.menu ul  li {
+.menu ul li {
 	display: block;
 	margin: 0;
 	padding: 0 1rem;
