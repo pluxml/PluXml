@@ -264,6 +264,30 @@ input[maxlength="3"] {
 #medias-table td:nth-of-type(6) {
 	text-align: center;
 }
+
+#nav_chapo + label span {
+	width: 12rem;
+	text-align: center;
+}
+/* chapo is hidden */
+#nav_chapo + label span:first-of-type,
+#nav_chapo + label + textarea {
+	display: none;
+}
+#nav_chapo + label span:last-of-type {
+	display: inline-block;
+}
+/* chapo is displayed */
+#nav_chapo:checked + label span:first-of-type {
+	display: inline-block;
+}
+#nav_chapo:checked + label + textarea {
+	display: block;
+}
+#nav_chapo:checked + label span:last-of-type {
+	display: none;
+}
+
 .publication input {
 	font-weight: bold;
 	color: #777;

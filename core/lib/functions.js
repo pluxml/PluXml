@@ -70,6 +70,8 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 		return (action ? confirm(msg) : false);
 	}
 }
+
+/* only used by core/admin/article.php script */
 function toggleDiv(divId,togglerId,on,off){
 	var toggler = document.getElementById(togglerId);
 	if(document.getElementById(divId).style.display == 'none') {
