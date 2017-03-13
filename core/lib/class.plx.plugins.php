@@ -35,7 +35,12 @@ class plxPlugins {
 		if(is_file($filename)) {
 			include_once($filename);
 			if (class_exists($plugName)) {
-				return new $plugName($this->default_lang);
+				$lang = $this->default_lang;
+				if (is_readable(PLX_PLUGINS.$plugName.'/lang/'.$lang.'.php')) {
+					return new $plugName($lang);
+				} else {
+					return new $plugName();
+				}
 			}
 		}
 		return false;
@@ -306,8 +311,7 @@ class plxPlugin {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function __construct($default_lang='') {
-		$this->default_lang = $default_lang;
+	public function __construct($lang=false) {
 		$plugName= get_class($this);
 		$this->plug = array(
 			'dir' 			=> PLX_PLUGINS,
@@ -316,7 +320,23 @@ class plxPlugin {
 			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
-		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
+
+		$folder = PLX_PLUGINS.$plugName.'/lang/';
+		if (empty($lang) or !is_readable($folder.$lang.'.php')) {
+			$prefered_langs = explode(' ', 'en fr nl es oc pt de it pl ro ru');
+			$lang = false;
+			foreach($prefered_langs as $pr) {
+				if (is_readable($folder.$pr.'.php')) {
+					$lang = $pr;
+					break;
+				}
+			}
+		}
+		$this->default_lang = $lang;
+		if (!empty($lang)) {
+			$this->aLang = $this->loadLang($folder.$lang.'.php');			
+		}
+
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
 			$this->getInfos();
