@@ -160,7 +160,7 @@ $curFolders = explode('/', $curFolder);
 		<div style="float:left">
 			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
 			<?php echo $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 		</div>
 
 		<div style="float:right">

@@ -73,7 +73,7 @@ class plxPlugins {
 					# Si le plugin a une méthode pour des actions de mises à jour
 					if(method_exists($instance, 'onUpdate')) {
 						if(is_file(PLX_PLUGINS.$name.'/update')) {
-							# on supprime le fichier update pour eviter d'appeler la methode onUpdate 
+							# on supprime le fichier update pour eviter d'appeler la methode onUpdate
 							# à chaque chargement du plugin
 							unlink(PLX_PLUGINS.$name.'/update');
 							$updAction = $instance->onUpdate();
@@ -160,7 +160,7 @@ class plxPlugins {
 	public function saveConfig($content) {
 
 		# activation des plugins
-		if(isset($content['selection']) AND $content['selection']=='activate') {
+		if(isset($content['selection']) AND $content['selection']=='activate' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($plugInstance = $this->getInstance($plugName)) {
 					if(method_exists($plugName, 'OnActivate'))
@@ -170,7 +170,7 @@ class plxPlugins {
 			}
 		}
 		# désactivation des plugins
-		elseif(isset($content['selection']) AND $content['selection']=='deactivate') {
+		elseif(isset($content['selection']) AND $content['selection']=='deactivate' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($plugInstance = $this->aPlugins[$plugName]) {
 					if(method_exists($plugName, 'OnDeActivate'))
@@ -180,7 +180,7 @@ class plxPlugins {
 			}
 		}
 		# suppression des plugins
-		elseif(isset($content['selection']) AND $content['selection']=='delete') {
+		elseif(isset($content['selection']) AND $content['selection']=='delete' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
 					# suppression fichier de config du plugin
@@ -630,7 +630,7 @@ class plxPlugin {
 	public function REL_PATH() {
 		return PLX_PLUGINS.get_class($this).'/';
 	}
-	
+
 	/**
 	 * Méthode qui retourne le chemin absolu du dossier du plugin
 	 *
