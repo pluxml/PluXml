@@ -307,8 +307,9 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function __construct($default_lang='') {
-		$this->default_lang = $default_lang;
+
 		$plugName= get_class($this);
+		$this->getPluginLang($plugName, $default_lang);
 		$this->plug = array(
 			'dir' 			=> PLX_PLUGINS,
 			'name' 			=> $plugName,
@@ -316,10 +317,45 @@ class plxPlugin {
 			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
-		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
 			$this->getInfos();
+
+	}
+
+	/**
+	 * Méthode qui charge le fichier de langue du plugin
+	 * Si la langue par défaut n'est pas disponible on tente de charger le fr.php sinon on prend le 1er fichier de langue dispo
+	 *
+	 * @param	default_lang	langue par défaut utilisée par PluXml
+	 * @return	null
+	 * @author	Stephane F
+	 **/
+
+	public function getPluginLang($plugName, $lang) {
+
+		$dirname = PLX_PLUGINS.$plugName.'/lang/';
+		$filename = $dirname.$lang.'.php';
+
+		if(!is_file($filename)) {
+			if(is_file($dirname.'fr.php'))
+				$lang = 'fr';
+			else {
+				if($dh = opendir($dirname)) {
+					while(false !== ($file = readdir($dh))) {
+						if(preg_match('/^([a-zA-Z]{2})\.php$/', $file, $capture)) {
+							$lang = $capture[1];
+							break;
+						}
+					}
+				}
+				closedir($dh);
+			}
+		}
+
+		$this->default_lang = $lang;
+		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
+
 	}
 
 	/**
