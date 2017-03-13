@@ -75,6 +75,8 @@ $LANG = array(
 'L_MODREWRITE_NOT_AVAILABLE'	=> 'Apache module mod_rewrite voor het herschrijven van URLs is niet beschikbaar',
 'L_LIBGD_INSTALLED'				=> 'GD-bibliotheek is geïnstalleerd',
 'L_LIBGD_NOT_INSTALLED'			=> 'GD-bibliotheek is niet geïnstalleerd of beschikbaar',
+'L_LIBXML_INSTALLED'			=> 'XML-bibliotheek is geïnstalleerd',
+'L_LIBXML_NOT_INSTALLED'		=> 'XML-bibliotheek is niet geïnstalleerd of beschikbaar',
 'L_MAIL_AVAILABLE'				=> 'Email verzendfunctie is beschikbaar',
 'L_MAIL_NOT_AVAILABLE'			=> 'Email verzendfunctie is niet beschikbaar',
 

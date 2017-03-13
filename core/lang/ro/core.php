@@ -75,6 +75,8 @@ $LANG = array(
 'L_MODREWRITE_NOT_AVAILABLE'	=> 'Apache URL Rewriting module mod_rewrite nu este disponibil',
 'L_LIBGD_INSTALLED'				=> 'Biblioteca GD este instalată',
 'L_LIBGD_NOT_INSTALLED'			=> 'Biblioteca GD nu este instalată',
+'L_LIBXML_INSTALLED'			=> 'Biblioteca XML este instalată',
+'L_LIBXML_NOT_INSTALLED'		=> 'Biblioteca XML nu este instalată',
 'L_MAIL_AVAILABLE'				=> 'Functia  de a trimite e-mail disponibilă',
 'L_MAIL_NOT_AVAILABLE'			=> 'Functia  de a trimite e-mail nu este disponibilă',
 

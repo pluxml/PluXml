@@ -325,6 +325,27 @@ class plxUtils {
 	}
 
 	/**
+	 * Méthode qui teste si la bibliothèque XML est installée
+	 *
+	 * @param	format		format d'affichage
+	 *
+	 **/
+	public static function testLibXml($format="<li><span style=\"color:#color\">#symbol #message</span></li>\n") {
+
+		if(function_exists('xml_parser_create')) {
+			$output = str_replace('#color', 'green', $format);
+			$output = str_replace('#symbol', '&#10004;', $output);
+			$output = str_replace('#message', L_LIBXML_INSTALLED, $output);
+			echo $output;
+		} else {
+			$output = str_replace('#color', 'red', $format);
+			$output = str_replace('#symbol', '&#10007;', $output);
+			$output = str_replace('#message', L_LIBXML_NOT_INSTALLED, $output);
+			echo $output;
+		}
+	}
+
+	/**
 	 * Méthode qui formate une chaine de caractères en supprimant des caractères non valides
 	 *
 	 * @param	str			chaine de caractères à formater

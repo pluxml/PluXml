@@ -75,6 +75,8 @@ $LANG = array(
 'L_MODREWRITE_NOT_AVAILABLE'	=> 'Moduł apache mod_rewrite nie jest dostępny',
 'L_LIBGD_INSTALLED'				=> 'Zainstalowane biblioteki GD',
 'L_LIBGD_NOT_INSTALLED'			=> 'Nie zainstalowane biblioteki GD',
+'L_LIBXML_INSTALLED'			=> 'Zainstalowane biblioteki XML',
+'L_LIBXML_NOT_INSTALLED'		=> 'Nie zainstalowane biblioteki XML',
 'L_MAIL_AVAILABLE'				=> 'Funkcja wysyłania poczty dostępna',
 'L_MAIL_NOT_AVAILABLE'			=> 'Funkcja wysyłania poczty nie jest dostępna',
 
