@@ -18,9 +18,9 @@
 
 						<?php $plxShow->staticContent(); ?>
 
-					</div>
+					</article>
 
-				</section>
+				</div>
 
 				<?php include(dirname(__FILE__).'/sidebar.php'); ?>
 
