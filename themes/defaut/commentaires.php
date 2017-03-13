@@ -35,8 +35,6 @@
 
 	<?php endif; ?>
 
-	<p><?php $plxShow->comFeed('rss',$plxShow->artId()); ?></p>
-
 	<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
 
 	<h3>
@@ -121,3 +119,5 @@ if(parent!='') { replyCom(parent) }
 	</p>
 
 	<?php endif; # Fin du if sur l'autorisation des commentaires ?>
+
+	<p><?php $plxShow->comFeed('rss',$plxShow->artId()); ?></p>
