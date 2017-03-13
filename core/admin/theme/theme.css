@@ -275,14 +275,29 @@ textarea {
 form .col {
 	position: inherit;
 }
+
 a.hint {
-	background-image: url(images/help.png);
 	width: 16px;
+	height: 16px;
 	cursor: help;
 	display: inline-block;
-	height: 16px;
 	text-decoration: none;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
+}
+a.hint::before {
+	color: #fff;
+	background-color: #999;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	border-radius: 100%;
+	font-size: 12px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-box-shadow: inset -1px -1px 1px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset -1px -1px 1px 0px rgba(0,0,0,0.25);
+	box-shadow: inset -1px -1px 1px 0px rgba(0,0,0,0.25);
+	content: '?';
 }
 a.hint span {
 	background-color: #777;
