@@ -135,7 +135,7 @@ class plxMotor {
 				$this->motif = '/^[0-9]{4}.(?:[0-9]|,)*(?:'.$this->homepageCats.')(?:[0-9]|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 			}
 		}
-		elseif($this->get AND preg_match('/^article([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('@^article/(\d+)(?:-(.*))?$@',$this->get,$capture)) {
 			$this->mode = 'article'; # Mode article
 			$this->template = 'article.php';
 			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complete sur 4 caracteres
@@ -143,13 +143,13 @@ class plxMotor {
 			if($this->getArticles()) {
 				# Redirection 301
 				if(!isset($capture[2]) OR $this->plxRecord_arts->f('url')!=$capture[2]) {
-					$this->redir301($this->urlRewrite('?article'.intval($this->cible).'/'.$this->plxRecord_arts->f('url')));
+					$this->redir301($this->urlRewrite('?article/'.intval($this->cible).'-'.$this->plxRecord_arts->f('url')));
 				}
 			} else {
 				$this->error404(L_UNKNOWN_ARTICLE);
 			}
 		}
-		elseif($this->get AND preg_match('/^static([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('@^static/(\d+)(?:-(.*))?$@',$this->get,$capture)) {
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
 			if(!isset($this->aStats[$this->cible]) OR !$this->aStats[$this->cible]['active']) {
 				$this->error404(L_UNKNOWN_STATIC);
@@ -163,11 +163,11 @@ class plxMotor {
 					$this->mode = 'static'; # Mode static
 					$this->template = $this->aStats[$this->cible]['template'];
 				} else {
-					$this->redir301($this->urlRewrite('?static'.intval($this->cible).'/'.$this->aStats[$this->cible]['url']));
+					$this->redir301($this->urlRewrite('?static/'.intval($this->cible).'-'.$this->aStats[$this->cible]['url']));
 				}
 			}
 		}
-		elseif($this->get AND preg_match('/^categorie([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('@^categorie/(\d+)(?:-(.*))?$@',$this->get,$capture)) {
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
 			if(!empty($this->aCats[$this->cible]) AND $this->aCats[$this->cible]['active'] AND $this->aCats[$this->cible]['url']==$capture[2]) {
 				$this->mode = 'categorie'; # Mode categorie
@@ -178,7 +178,7 @@ class plxMotor {
 			}
 			elseif(isset($this->aCats[$this->cible])) { # Redirection 301
 				if($this->aCats[$this->cible]['url']!=$capture[2]) {
-					$this->redir301($this->urlRewrite('?categorie'.intval($this->cible).'/'.$this->aCats[$this->cible]['url']));
+					$this->redir301($this->urlRewrite('?categorie/'.intval($this->cible).'-'.$this->aCats[$this->cible]['url']));
 				}
 			} else {
 				$this->error404(L_UNKNOWN_CATEGORY);
@@ -1018,11 +1018,14 @@ class plxMotor {
 
 		if($url=='' OR $url=='?') return $this->racine;
 
-		preg_match('/^([0-9a-z\_\-\.\/]+)?[\?]?([0-9a-z\_\-\.\/,&=%]+)?[\#]?(.*)$/i', $url, $args);
+		preg_match('/^([\w\-\.\/]+)?[\?]?([\w\-\.\/,&=%]+)?[\#]?(.*)$/i', $url, $args);
 
 		if($this->aConf['urlrewriting']) {
-			$new_url  = str_replace('index.php', '', $args[1]);
-			$new_url  = str_replace('feed.php', 'feed/', $new_url);
+			$new_url  = str_replace(
+				array('index.php', 'feed.php'),
+				array('', 'feed/'),
+				$args[1]
+			);
 			$new_url .= !empty($args[2])?$args[2]:'';
 			if(empty($new_url))	$new_url = $this->path_url;
 			$new_url .= !empty($args[3])?'#'.$args[3]:'';

@@ -57,7 +57,7 @@ foreach($plxMotor->aStats as $stat_num => $stat_info) {
 	if($stat_info['active']==1 AND $stat_num!=$plxMotor->aConf['homestatic']) {
 		echo "\n";
 		echo "\t<url>\n";
-		echo "\t\t<loc>".$plxMotor->urlRewrite("?static".intval($stat_num)."/".$stat_info['url'])."</loc>\n";
+		echo "\t\t<loc>".$plxMotor->urlRewrite("?static/".intval($stat_num)."-".$stat_info['url'])."</loc>\n";
 		echo "\t\t<lastmod>".plxDate::formatDate($plxMotor->aStats[$stat_num]['date_update'],'#num_year(4)-#num_month-#num_day')."</lastmod>\n";
 		echo "\t\t<changefreq>monthly</changefreq>\n";
 		echo "\t\t<priority>0.8</priority>\n";
@@ -70,7 +70,7 @@ foreach($plxMotor->aCats as $cat_num => $cat_info) {
 	if($cat_info['active']==1 AND $cat_info['menu']=='oui' AND ($cat_info['articles']!=0 OR $plxMotor->aConf['display_empty_cat'])) {
 		echo "\n";
 		echo "\t<url>\n";
-		echo "\t\t<loc>".$plxMotor->urlRewrite("?categorie".intval($cat_num)."/".$cat_info['url'])."</loc>\n";
+		echo "\t\t<loc>".$plxMotor->urlRewrite("?categorie/".intval($cat_num)."-".$cat_info['url'])."</loc>\n";
 		echo "\t\t<changefreq>weekly</changefreq>\n";
 		echo "\t\t<priority>0.8</priority>\n";
 		echo "\t</url>\n";
@@ -92,7 +92,7 @@ if($aFiles = $plxMotor->plxGlob_arts->query('/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$p
 			$num = intval($plxRecord_arts->f('numero'));
 			echo "\n";
 			echo "\t<url>\n";
-			echo "\t\t<loc>".$plxMotor->urlRewrite("?article".$num."/".plxUtils::strCheck($plxRecord_arts->f('url')))."</loc>\n";
+			echo "\t\t<loc>".$plxMotor->urlRewrite("?article/".$num."-".plxUtils::strCheck($plxRecord_arts->f('url')))."</loc>\n";
 			echo "\t\t<lastmod>".plxDate::formatDate($plxRecord_arts->f('date'),'#num_year(4)-#num_month-#num_day')."</lastmod>\n";
 			echo "\t\t<changefreq>monthly</changefreq>\n";
 			echo "\t\t<priority>0.5</priority>\n";
