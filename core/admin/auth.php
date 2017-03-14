@@ -157,13 +157,13 @@ plxUtils::cleanHeaders();
 						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
-								<input class="blue h5" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
 							</div>
 						</div>
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 			</div>
 		</section>
