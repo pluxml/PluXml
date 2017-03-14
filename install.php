@@ -324,6 +324,7 @@ plxUtils::cleanHeaders();
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
+						<?php plxUtils::testLibXml() ?>
 						<?php plxUtils::testMail() ?>
 					</ul>
 

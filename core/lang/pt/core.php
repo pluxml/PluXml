@@ -75,6 +75,8 @@ $LANG = array(
 'L_MODREWRITE_NOT_AVAILABLE'	=> 'Módulo apache de reescrever URLS  "mod_rewrite" indisponivél',
 'L_LIBGD_INSTALLED'				=> 'Bibliotéca GD instalada',
 'L_LIBGD_NOT_INSTALLED'			=> 'Bibliotéca GD não instalada',
+'L_LIBXML_INSTALLED'			=> 'Bibliotéca XML instalada',
+'L_LIBXML_NOT_INSTALLED'		=> 'Bibliotéca XML não instalada',
 'L_MAIL_AVAILABLE'				=> 'Função de envio de e-mail disponivél',
 'L_MAIL_NOT_AVAILABLE'			=> 'Função de envio de e-mail indisponivél',
 
