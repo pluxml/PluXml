@@ -16,11 +16,12 @@
 
 .nav {
 	background-color: #fff;
-	height: 5rem;
+	height: 4rem;
 	text-align: left;
+	margin-top: 1rem;
 }
 .nav ul {
-	line-height: 5rem;
+	line-height: 3rem;
 }
 @media (max-width: 767px) {
 	.nav {
@@ -28,6 +29,7 @@
 		max-height: 200px;
 		overflow-y: auto;
 		text-align: left;
+		margin-top: 0;
 	}
 	.nav>.container {
 		padding: 0;
@@ -324,6 +326,7 @@ body {
 	.responsive-menu ul li.active a,
 	.responsive-menu ul li.active:hover {
 		background-color: #fff;
+		color: #000;
 	}
 }
 .menu > li ul {

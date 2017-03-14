@@ -32,16 +32,17 @@ include(dirname(__FILE__).'/top.php');
 	<?php } ?>
 </ul>
 <ul class="unstyled-list">
-	<?php plxUtils::testWrite(PLX_ROOT) ?>	
+	<?php plxUtils::testWrite(PLX_ROOT) ?>
 	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_articles']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_commentaires']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_statiques']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['medias']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>	
+	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>
 	<?php plxUtils::testModReWrite() ?>
 	<?php plxUtils::testLibGD() ?>
+	<?php plxUtils::testLibXml() ?>
 	<?php plxUtils::testMail() ?>
 </ul>
 <p><?php echo L_CONFIG_INFOS_NB_CATS ?> <?php echo sizeof($plxAdmin->aCats); ?></p>

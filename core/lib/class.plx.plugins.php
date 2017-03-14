@@ -335,21 +335,25 @@ class plxPlugin {
 	public function getPluginLang($plugName, $lang) {
 
 		$dirname = PLX_PLUGINS.$plugName.'/lang/';
-		$filename = $dirname.$lang.'.php';
 
-		if(!is_file($filename)) {
-			if(is_file($dirname.'fr.php'))
-				$lang = 'fr';
-			else {
-				if($dh = opendir($dirname)) {
-					while(false !== ($file = readdir($dh))) {
-						if(preg_match('/^([a-zA-Z]{2})\.php$/', $file, $capture)) {
-							$lang = $capture[1];
-							break;
+		if(is_dir($dirname)) {
+
+			$filename = $dirname.$lang.'.php';
+
+			if(!is_file($filename)) {
+				if(is_file($dirname.'fr.php'))
+					$lang = 'fr';
+				else {
+					if($dh = opendir($dirname)) {
+						while(false !== ($file = readdir($dh))) {
+							if(preg_match('/^([a-zA-Z]{2})\.php$/', $file, $capture)) {
+								$lang = $capture[1];
+								break;
+							}
 						}
 					}
+					closedir($dh);
 				}
-				closedir($dh);
 			}
 		}
 
