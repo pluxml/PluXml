@@ -149,7 +149,7 @@ $curFolders = explode('/', $curFolder);
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			&nbsp;&nbsp;&nbsp;
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
-			<button id="btnNewFolder"><?php echo L_MEDIAS_NEW_FOLDER ?></button>
+			<button onclick="return false;" id="btnNewFolder"><?php echo L_MEDIAS_NEW_FOLDER ?></button>
 			<?php if(!empty($_SESSION['folder'])) { ?>
 			&nbsp;&nbsp;&nbsp;<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
 			<?php } ?>
@@ -198,12 +198,12 @@ $curFolders = explode('/', $curFolder);
 						echo '</td>';
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
-							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							echo '<br />';
 							$href = plxUtils::thumbName($v['path']);
 							if($isImage AND is_file($href)) {
 								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
-								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="copy">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
@@ -388,16 +388,7 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	input.value = localStorage.getItem("medias_search");
 	plugFilter();
 }
-var dlg = document.getElementById('dlgNewFolder');
-var btn = document.getElementById("btnNewFolder");
-var span = document.getElementsByClassName("dialog-close")[0];
-btn.onclick = function() {
-	dlg.style.display = "block";
-	return false;
-}
-span.onclick = function() {
-	dlg.style.display = "none";
-}
+new dialogBox("NewFolder");
 </script>
 
 <?php

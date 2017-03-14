@@ -551,17 +551,17 @@ tr.checked {
 	padding-left: 30px;
 }
 /* gestionnaire de médias - copie lien image */
-div.copy {
+div.ico {
 	font-size: 16px;
 	color: #ccc;
 	display: inline-block;
 	margin-left: 5px;
 }
-div.copy:hover {
+div.ico:hover {
 	cursor: pointer;
 	color: #555;
 }
-div.copy div {
+div.ico div {
 	font-size: 11px;
 	display: none;
 	background-color: #666;
