@@ -73,7 +73,7 @@ class plxPlugins {
 					# Si le plugin a une méthode pour des actions de mises à jour
 					if(method_exists($instance, 'onUpdate')) {
 						if(is_file(PLX_PLUGINS.$name.'/update')) {
-							# on supprime le fichier update pour eviter d'appeler la methode onUpdate 
+							# on supprime le fichier update pour eviter d'appeler la methode onUpdate
 							# à chaque chargement du plugin
 							unlink(PLX_PLUGINS.$name.'/update');
 							$updAction = $instance->onUpdate();
@@ -160,7 +160,7 @@ class plxPlugins {
 	public function saveConfig($content) {
 
 		# activation des plugins
-		if(isset($content['selection']) AND $content['selection']=='activate') {
+		if(isset($content['selection']) AND $content['selection']=='activate' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($plugInstance = $this->getInstance($plugName)) {
 					if(method_exists($plugName, 'OnActivate'))
@@ -170,7 +170,7 @@ class plxPlugins {
 			}
 		}
 		# désactivation des plugins
-		elseif(isset($content['selection']) AND $content['selection']=='deactivate') {
+		elseif(isset($content['selection']) AND $content['selection']=='deactivate' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($plugInstance = $this->aPlugins[$plugName]) {
 					if(method_exists($plugName, 'OnDeActivate'))
@@ -180,7 +180,7 @@ class plxPlugins {
 			}
 		}
 		# suppression des plugins
-		elseif(isset($content['selection']) AND $content['selection']=='delete') {
+		elseif(isset($content['selection']) AND $content['selection']=='delete' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
 				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
 					# suppression fichier de config du plugin
@@ -307,8 +307,9 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function __construct($default_lang='') {
-		$this->default_lang = $default_lang;
+
 		$plugName= get_class($this);
+		$this->getPluginLang($plugName, $default_lang);
 		$this->plug = array(
 			'dir' 			=> PLX_PLUGINS,
 			'name' 			=> $plugName,
@@ -316,10 +317,45 @@ class plxPlugin {
 			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
-		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
 			$this->getInfos();
+
+	}
+
+	/**
+	 * Méthode qui charge le fichier de langue du plugin
+	 * Si la langue par défaut n'est pas disponible on tente de charger le fr.php sinon on prend le 1er fichier de langue dispo
+	 *
+	 * @param	default_lang	langue par défaut utilisée par PluXml
+	 * @return	null
+	 * @author	Stephane F
+	 **/
+
+	public function getPluginLang($plugName, $lang) {
+
+		$dirname = PLX_PLUGINS.$plugName.'/lang/';
+		$filename = $dirname.$lang.'.php';
+
+		if(!is_file($filename)) {
+			if(is_file($dirname.'fr.php'))
+				$lang = 'fr';
+			else {
+				if($dh = opendir($dirname)) {
+					while(false !== ($file = readdir($dh))) {
+						if(preg_match('/^([a-zA-Z]{2})\.php$/', $file, $capture)) {
+							$lang = $capture[1];
+							break;
+						}
+					}
+				}
+				closedir($dh);
+			}
+		}
+
+		$this->default_lang = $lang;
+		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
+
 	}
 
 	/**
@@ -630,7 +666,7 @@ class plxPlugin {
 	public function REL_PATH() {
 		return PLX_PLUGINS.get_class($this).'/';
 	}
-	
+
 	/**
 	 * Méthode qui retourne le chemin absolu du dossier du plugin
 	 *

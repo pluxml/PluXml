@@ -20,9 +20,9 @@
 						
 						<?php eval($plxShow->callHook('MyMultiLingue', 'staticlinks')) ?>
 
-					</div>
+					</article>
 
-				</section>
+				</div>
 
 				<?php include(dirname(__FILE__).'/sidebar.php'); ?>
 
