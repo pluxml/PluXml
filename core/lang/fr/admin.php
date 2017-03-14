@@ -19,6 +19,9 @@ $LANG = array(
 'L_DELETE_FOLDER'				    => 'Supprimer dossier',
 'L_DELETE_SUCCESSFUL'				=> 'Suppression effectuée avec succès',
 'L_DELETE_FILE_ERR'					=> 'Erreur pendant le suppression du fichier',
+'L_RENAME_FILE_SUCCESSFUL'			=> 'Fichier renommé avec succès',
+'L_RENAME_FILE_ERR'					=> 'Erreur pendant le traitement du fichier',
+'L_RENAME_FILE'						=> 'Renommer fichier',
 
 'L_THUMBNAIL'						=> 'Image d\'accroche (facultatif)',
 'L_THUMBNAIL_SELECTION'				=> 'Sélectionner une image',
