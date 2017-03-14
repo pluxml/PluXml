@@ -219,6 +219,9 @@ select,
 textarea {
 	width: auto;
 }
+#medias-table td {
+	height: 6rem;
+}
 #articles-table td:nth-child(4),
 #comments-table td:nth-child(3),
 #medias-table td:nth-child(3),
