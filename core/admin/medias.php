@@ -132,7 +132,7 @@ $curFolders = explode('/', $curFolder);
 		</div>
 	</div>
 
-	<!-- Rename Image Dialog -->
+	<!-- Rename File Dialog -->
 	<div id="dlgRenameFile" class="dialog">
 		<div class="dialog-content">
 			<span class="dialog-close">&times;</span>
