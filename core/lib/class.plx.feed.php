@@ -74,7 +74,7 @@ class plxFeed extends plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxFeedPreChauffageBegin'))) return;
 
-		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie([0-9]+)/?#',$this->get,$capture)) {
+		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie/(\d+)/?#',$this->get,$capture)) {
 			$this->mode = 'article'; # Mode du flux
 			# On récupère la catégorie cible
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
@@ -84,7 +84,7 @@ class plxFeed extends plxMotor {
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/?$#',$this->get)) {
 			$this->mode = 'commentaire'; # Mode du flux
 		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag\/([a-z0-9-]+)/?$#',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag/(\w-]+)/?$#',$this->get,$capture)) {
 			$this->mode = 'tag';
 			$this->cible = $capture[1];
 			$ids = array();
@@ -108,7 +108,7 @@ class plxFeed extends plxMotor {
 				$this->motif = '';
 
 		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article([0-9]+)/?$#',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article/(\d+)/?$#',$this->get,$capture)) {
 			$this->mode = 'commentaire'; # Mode du flux
 			# On récupère l'article cible
 			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complète sur 4 caractères

@@ -1179,8 +1179,8 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowComFeed'))) return;
 
-		if($article != '' AND is_numeric($article)) # Fil Rss des commentaires d'un article
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires/article'.$article).'" title="'.L_COMFEED_RSS_ARTICLE.'">'.L_COMFEED_RSS_ARTICLE.'</a>';
+		if(! empty($article) AND is_numeric($article)) # Fil Rss des commentaires d'un article
+			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires/article/'.$article).'" title="'.L_COMFEED_RSS_ARTICLE.'">'.L_COMFEED_RSS_ARTICLE.'</a>';
 		else # Fil Rss des commentaires global
 			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires').'" title="'.L_COMFEED_RSS.'">'.L_COMFEED_RSS.'</a>';
 	}
