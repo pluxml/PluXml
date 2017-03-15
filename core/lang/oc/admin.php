@@ -329,7 +329,9 @@ $LANG = array(
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recrear miniaturas',
 'L_MEDIAS_LINK_COPYCLP'             => 'Copiar lo ligam al quichapapièrs',
 'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Fracàs de la còpia del ligam al quichapapièrs',
-'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Ligam copiat',	
+'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Ligam copiat',
+'L_MEDIAS_NEW_NAME'					=> 'Novèl nom',
+'L_MEDIAS_RENAME'					=> 'Renommar',
 
 # parametres_affichage.php
 

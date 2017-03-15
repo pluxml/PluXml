@@ -136,10 +136,10 @@ $curFolders = explode('/', $curFolder);
 	<div id="dlgRenameFile" class="dialog">
 		<div class="dialog-content">
 			<span class="dialog-close">&times;</span>
-			<?php echo "Nouveau nom " ?>&nbsp;:&nbsp;
+			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:&nbsp;
 			<input id="id_newname" type="text" name="newname" value="" maxlength="50" size="15" />
 			<input id="id_oldname" type="hidden" name="oldname" />
-			<input type="submit" name="btn_renamefile" value="<?php echo "Renommer" ?>" />
+			<input type="submit" name="btn_renamefile" value="<?php echo L_MEDIAS_RENAME ?>" />
 		</div>
 	</div>
 

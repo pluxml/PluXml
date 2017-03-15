@@ -334,6 +334,8 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'             => 'Copier le lien dans le presse-papier',
 'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Impossible de copier le lien dans le presse-papier',
 'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Lien copié',
+'L_MEDIAS_NEW_NAME'					=> 'Nouveau nom',
+'L_MEDIAS_RENAME'					=> 'Renommer',
 
 # parametres_affichage.php
 
