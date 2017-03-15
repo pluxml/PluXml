@@ -17,6 +17,9 @@ $LANG = array(
 'L_DELETE_FOLDER'				   							=> 'Удалить папку',
 'L_DELETE_SUCCESSFUL'										=> 'Успешное удаление',
 'L_DELETE_FILE_ERR'											=> 'Ошибка при удалении файла',
+'L_RENAME_FILE_SUCCESSFUL'									=> 'Файл успешно переименован',
+'L_RENAME_FILE_ERR'											=> 'Ошибка при обработке файла',
+'L_RENAME_FILE'												=> 'Переименуйте файл',
 'L_THUMBNAIL'												=> 'миниатюрами (необязательно)',
 'L_THUMBNAIL_SELECTION'										=> 'Выбрать Изображение',
 'L_THUMBNAIL_TITLE'											=> 'Изображение Название (необязательно)',
@@ -330,7 +333,9 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'                                     => 'Скопировать ссылку в буфер обмена',
 'L_MEDIAS_LINK_COPYCLP_ERR'                                 => 'Невозможно скопировать ссылку в буфер обмена',
 'L_MEDIAS_LINK_COPYCLP_DONE'                                => 'ссылка скопирована',
-'L_MEDIAS_DROP_CLICK'										=> 'Перетащите сюда файлы или выберите',
+'L_MEDIAS_NEW_NAME'											=> 'Новое имя',
+'L_MEDIAS_RENAME'											=> 'Переименование',
+
 
 # parametres_affichage.php
 

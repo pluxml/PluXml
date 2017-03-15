@@ -17,6 +17,9 @@ $LANG = array(
 'L_DELETE_FOLDER'				   				=> 'Eliminar carpeta',
 'L_DELETE_SUCCESSFUL'							=> 'Supresión correcta',
 'L_DELETE_FILE_ERR'								=> 'Error al borrar el archivo',
+'L_RENAME_FILE_SUCCESSFUL'						=> 'Archivo renombrado éxito',
+'L_RENAME_FILE_ERR'								=> 'Error al procesar el archivo',
+'L_RENAME_FILE'									=> 'Renombrar archivo',
 'L_THUMBNAIL'									=> 'Miniatura (opcional)',
 'L_THUMBNAIL_SELECTION'							=> 'Seleccionar Imagen',
 'L_THUMBNAIL_TITLE'								=> 'Título de imagen (opcional)',
@@ -327,7 +330,8 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'                         => 'Copiar enlace al portapapeles',
 'L_MEDIAS_LINK_COPYCLP_ERR'                     => 'No se puede copiar el enlace en el portapapeles',
 'L_MEDIAS_LINK_COPYCLP_DONE'                    => 'Enlace copiado',
-'L_MEDIAS_DROP_CLICK'							=> 'Soltar archivos aquí o hacer clic para seleccionar',
+'L_MEDIAS_NEW_NAME'								=> 'Nuevo nombre',
+'L_MEDIAS_RENAME'								=> 'Rebautizar',
 
 # parametres_affichage.php
 
@@ -568,6 +572,5 @@ $LANG = array(
 'L_HELP_TITLE'									=> 'Consulte la ayuda',
 'L_BACK_TO_THEMES'								=> 'Volver a la lista de temas',
 'L_CONFIG_THEME_UPDATE'							=> 'Cambiar tema',
-
 );
 ?>

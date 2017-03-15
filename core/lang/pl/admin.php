@@ -17,6 +17,9 @@ $LANG = array(
 'L_DELETE_FOLDER'				    => 'Usuń folder',
 'L_DELETE_SUCCESSFUL'				=> 'Skuteczne usuwanie',
 'L_DELETE_FILE_ERR'					=> 'Błąd podczas usuwania pliku',
+'L_RENAME_FILE_SUCCESSFUL'			=> 'Plik przemianowany powodzeniem',
+'L_RENAME_FILE_ERR'					=> 'Błąd podczas przetwarzania pliku',
+'L_RENAME_FILE'						=> 'Zmień nazwę pliku',
 'L_THUMBNAIL'						=> 'Miniaturka (opcjonalnie)',
 'L_THUMBNAIL_SELECTION'				=> 'Wybierz zdjęcie',
 'L_THUMBNAIL_TITLE'					=> 'Tytuł zdjęcia (opcjonalnie)',
@@ -328,7 +331,8 @@ przypadkowy',
 'L_MEDIAS_LINK_COPYCLP'             => 'Skopiuj link do schowka',
 'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Nie można skopiować link do schowka',
 'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Link został skopiowany',
-'L_MEDIAS_DROP_CLICK'				=> 'Upuść pliki tutaj lub kliknij, aby zaznaczyć',
+'L_MEDIAS_NEW_NAME'					=> 'Nowe imie',
+'L_MEDIAS_RENAME'					=> 'Przemianować',
 
 # parametres_affichage.php
 

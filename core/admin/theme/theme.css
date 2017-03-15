@@ -219,6 +219,13 @@ select,
 textarea {
 	width: auto;
 }
+#id_content, #id_chapo,
+#id_frontend, #id_backend {
+	resize: vertical;
+}
+#medias-table td {
+	height: 6rem;
+}
 #articles-table td:nth-child(4),
 #comments-table td:nth-child(3),
 #medias-table td:nth-child(3),

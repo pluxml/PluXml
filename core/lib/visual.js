@@ -60,10 +60,9 @@ function pwdStrength(id, s) {
 	var pwdstr=document.getElementById(id+'_strenght');
 	pwdstr.innerHTML='';if(no>0){pwdstr.innerHTML=s[no-1]};
 }
-function dialogBox(name) {
-	this.dlg = document.getElementById("dlg"+name);
-	this.btn = document.getElementById("btn"+name);
-	this.span = document.querySelector('#dlg'+name+' .dialog-close');
+function dialogBox(dlg) {
+	this.dlg = document.getElementById(dlg);
+	this.span = document.querySelector('#'+dlg+' .dialog-close');
 	var self = this;
 	this.open = function() {
 		self.dlg.style.display = "block";
@@ -77,6 +76,6 @@ function dialogBox(name) {
 		else
 		return element.addEventListener(evnt, funct, false);
 	}
-	this.addEvent(this.btn, 'click', this.open);
 	this.addEvent(this.span, 'click', this.close);
+	this.open();
 }

@@ -19,6 +19,9 @@ $LANG = array(
 'L_DELETE_FOLDER'				    => 'Supprimer dossier',
 'L_DELETE_SUCCESSFUL'				=> 'Suppression effectuée avec succès',
 'L_DELETE_FILE_ERR'					=> 'Erreur pendant le suppression du fichier',
+'L_RENAME_FILE_SUCCESSFUL'			=> 'Fichier renommé avec succès',
+'L_RENAME_FILE_ERR'					=> 'Erreur pendant le traitement du fichier',
+'L_RENAME_FILE'						=> 'Renommer fichier',
 
 'L_THUMBNAIL'						=> 'Image d\'accroche (facultatif)',
 'L_THUMBNAIL_SELECTION'				=> 'Sélectionner une image',
@@ -331,7 +334,8 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'             => 'Copier le lien dans le presse-papier',
 'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Impossible de copier le lien dans le presse-papier',
 'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Lien copié',
-'L_MEDIAS_DROP_CLICK'				=> 'Déposez des fichiers ici ou cliquez pour sélectionner',
+'L_MEDIAS_NEW_NAME'					=> 'Nouveau nom',
+'L_MEDIAS_RENAME'					=> 'Renommer',
 
 # parametres_affichage.php
 

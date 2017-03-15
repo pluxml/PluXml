@@ -45,6 +45,11 @@ if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
 	header('Location: medias.php');
 	exit;
 }
+if(!empty($_POST['btn_renamefile']) AND !empty($_POST['newname'])) {
+	$plxMedias->renameFile($_POST['oldname'], $_POST['newname']);
+	header('Location: medias.php');
+	exit;
+}
 elseif(!empty($_POST['folder']) AND $_POST['folder']!='.' AND !empty($_POST['btn_delete'])) {
 	if($plxMedias->deleteDir($_POST['folder'])) {
 		$_SESSION['folder'] = '';
@@ -127,6 +132,17 @@ $curFolders = explode('/', $curFolder);
 		</div>
 	</div>
 
+	<!-- Rename File Dialog -->
+	<div id="dlgRenameFile" class="dialog">
+		<div class="dialog-content">
+			<span class="dialog-close">&times;</span>
+			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:&nbsp;
+			<input id="id_newname" type="text" name="newname" value="" maxlength="50" size="15" />
+			<input id="id_oldname" type="hidden" name="oldname" />
+			<input type="submit" name="btn_renamefile" value="<?php echo L_MEDIAS_RENAME ?>" />
+		</div>
+	</div>
+
 	<div class="inline-form" id="files_manager">
 
 		<div class="inline-form action-bar">
@@ -149,7 +165,7 @@ $curFolders = explode('/', $curFolder);
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			&nbsp;&nbsp;&nbsp;
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
-			<button onclick="return false;" id="btnNewFolder"><?php echo L_MEDIAS_NEW_FOLDER ?></button>
+			<button onclick="dialogBox('dlgNewFolder');return false;" id="btnNewFolder"><?php echo L_MEDIAS_NEW_FOLDER ?></button>
 			<?php if(!empty($_SESSION['folder'])) { ?>
 			&nbsp;&nbsp;&nbsp;<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
 			<?php } ?>
@@ -199,6 +215,7 @@ $curFolders = explode('/', $curFolder);
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
 							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							echo '<div id="btnRenameImg'.$num.'" onclick="ImageRename(\''.$v['path'].'\')" title="'.L_RENAME_FILE.'" class="ico">&perp;</div>';
 							echo '<br />';
 							$href = plxUtils::thumbName($v['path']);
 							if($isImage AND is_file($href)) {
@@ -388,7 +405,11 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	input.value = localStorage.getItem("medias_search");
 	plugFilter();
 }
-new dialogBox("NewFolder");
+
+function ImageRename(oldimg) {
+	document.getElementById('id_oldname').value = oldimg;
+	dialogBox("dlgRenameFile");
+}
 </script>
 
 <?php

@@ -538,5 +538,62 @@ class plxMedias {
 		}
 
 	}
+
+	/**
+	 * Méthode qui renomme un fichier
+	 *
+	 * @param   oldname		ancien nom
+	 * @param	newname		nouveau nom
+	 * @return  boolean		faux si erreur sinon vrai
+	 * @author	Stephane F
+	 **/
+	public function renameFile($oldname, $newname) {
+
+		$result = false;
+
+		$dirname = dirname($oldname)."/";
+		$filename = basename($oldname);
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+		$newname = trim(basename($newname, pathinfo($newname, PATHINFO_EXTENSION)), '.');
+		$newname = $ext!="" ? $newname.'.'.$ext : $newname;
+
+		# Déplacement du fichier
+		if(is_readable($oldname) AND is_file($oldname)) {
+
+			# On teste l'existence du nouveau fichier et on formate le nom pour éviter les doublons
+			$i = 1;
+			$file = $dirname.plxUtils::title2filename($newname);
+			$name = substr($newname, 0, strrpos($newname,'.'));
+			while(file_exists($file)) {
+				$file = $dirname.$name.'.'.$i++.'.'.$ext;
+			}
+
+			# changement du nom du fichier
+			$result = rename($oldname, $file);
+
+			# changement du nom de la miniature
+			$old_thumbName = plxUtils::thumbName($oldname);
+			if($result AND is_readable($old_thumbName)) {
+				$new_thumbName = plxUtils::thumbName($file);
+				$result = rename($old_thumbName, $new_thumbName);
+			}
+
+			# changement du nom de la vignette
+			$path = str_replace($this->path, $this->path.'.thumbs/', $dirname);
+			$old_thumbName = $path.$filename;
+			if($result AND is_readable($old_thumbName)) {
+				$new_thumbName = $path.basename($file);
+				$result = rename($old_thumbName, $new_thumbName);
+			}
+
+		}
+
+		if($result)
+			return plxMsg::Info(L_RENAME_FILE_SUCCESSFUL);
+		else
+			return plxMsg::Error(L_RENAME_FILE_ERR);
+
+	}
 }
 ?>

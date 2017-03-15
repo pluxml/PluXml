@@ -17,6 +17,9 @@ $LANG = array(
 'L_DELETE_FOLDER'				   	=> 'Escafar dorsièr',
 'L_DELETE_SUCCESSFUL'				=> 'Supression efectuada amb succès',
 'L_DELETE_FILE_ERR'					=> 'Error pendent la supression del fichièr',
+'L_RENAME_FILE_SUCCESSFUL'			=> 'Modificacion efectuada amb succès',
+'L_RENAME_FILE_ERR'					=> 'Error pendent lo tractament del fichièr',
+'L_RENAME_FILE'						=> 'Modificacion del fichièr',
 'L_THUMBNAIL'						=> 'Imatge a la una (facultatiu)',
 'L_THUMBNAIL_SELECTION'				=> 'Seleccionar un imatge',
 'L_THUMBNAIL_TITLE'					=> 'Títol de l\'imatge (facultatiu)',
@@ -327,7 +330,8 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP'             => 'Copiar lo ligam al quichapapièrs',
 'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Fracàs de la còpia del ligam al quichapapièrs',
 'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Ligam copiat',
-'L_MEDIAS_DROP_CLICK'				=> 'Déposez des fichiers ici ou cliquez pour sélectionner',
+'L_MEDIAS_NEW_NAME'					=> 'Novèl nom',
+'L_MEDIAS_RENAME'					=> 'Renommar',
 
 # parametres_affichage.php
 
