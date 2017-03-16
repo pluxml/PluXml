@@ -22,6 +22,7 @@
 [+] Thème par défaut : affichage des groupes de pages statiques sous forme de menus déroulant
 [+] Plugins : si la langue par défaut n'est pas disponible on tente de charger le fr.php sinon on prend le 1er fichier de langue dispo
 [+] Test existence libraire XML à l'installation (onctribution Sbgodin)
+[+] plxShow::comLevel : paramètre pour le nom de la classe css servant à l'indentation des commentaires (contribution Jerry Wham)
 [+] #69: plxAdmin:editArticle - ajout du hook plxAdminEditArticleEnd
 [+] #177: Ajout de la protection du lien téléphone (contribution cfdev)
 [+] #191: plxShow:catList - Ajout de la variable #cat_description
