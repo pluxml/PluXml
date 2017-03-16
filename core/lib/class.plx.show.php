@@ -1029,15 +1029,16 @@ class plxShow {
 	/**
 	 * Méthode qui formate et affiche le niveau d'indentation du commentaire
 	 *
+	 * @param	class	nom de la classe css servant à l'indentation des commentaires
 	 * @return	stdout
 	 * @scope	article
-	 * @author	Stephane F.
+	 * @author	Stephane F., Jerry Wham
 	 **/
-	public function comLevel() {
+	public function comLevel($class='level') {
 		if($this->comNumLevel() > 5)
-			echo 'level-'.$this->comNumLevel().' level-max';
+			echo $class.'-'.$this->comNumLevel().' '.$class.'-max';
 		else
-			echo 'level-'.$this->comNumLevel();
+			echo $class.'-'.$this->comNumLevel();
 	}
 
 	/**
