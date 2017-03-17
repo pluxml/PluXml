@@ -1125,10 +1125,14 @@ class plxMotor {
 	 */
 	public function getItemsToTranslate($file, $lang) {
 		if (in_array($file, $this->aTrad)) {
+			$trad = $LANG = array();
 			if(file_exists(PLX_CORE.'lang/TEMPLATES/'.$file.'.php') && 
 				file_exists(PLX_CORE.'lang/'.$lang.'/'.$file.'.php')) {
 				$trad = array();
 				include(PLX_CORE.'lang/'.$lang.'/'.$file.'.php');
+			} else {
+				touch(PLX_CORE.'lang/'.$lang.'/'.$file.'.php');
+			}
 				$lang = $LANG;
 				include(PLX_CORE.'lang/TEMPLATES/'.$file.'.php');
 				foreach ($LANG as $key => $value) {
@@ -1139,7 +1143,6 @@ class plxMotor {
 					}
 				}
 				return $trad;
-			}
 		}
 		return false;
 	}
