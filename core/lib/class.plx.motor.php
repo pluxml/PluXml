@@ -107,6 +107,7 @@ class plxMotor {
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 	}
 
+	
 	/**
 	 * Méthode qui effectue une analyse de la situation et détermine
 	 * le mode à appliquer. Cette méthode alimente ensuite les variables
