@@ -57,14 +57,23 @@ if (ini_get('register_globals')) {
 # fonction de chargement d'un fichier de langue
 function loadLang($filename) {
 	if(file_exists($filename)) {
-		$LANG = array();
+		$trad = $LANG = array();
+		if (file_exists(PLX_CORE.'lang/_templates/'.basename($filename))) {
+			include_once(PLX_CORE.'lang/_templates/'.basename($filename));
+			$trad = $LANG;
+		}
 		include_once($filename);
+		$diff = array_diff_assoc($trad,$LANG);
 		foreach($LANG as $key => $value) {
 			if(!defined($key)) define($key,$value);
 		}
+		if (!empty($diff)) {
+			foreach ($diff as $key => $value) {
+				if(!defined($key)) define($key,$value);
+			}
+		}
 	}
 }
-
 # fonction qui retourne ou change le chemin des fichiers xml de configuration
 function path($s, $newvalue='') {
 	global $CONSTS;
