@@ -1045,6 +1045,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		plxUtils::write($xml, path('XMLFILE_TAGS'));
 
 	}
+	
+	/**
+	 * Méthode qui modifie les fichiers de langue
+	 *
+	 * @param $file string le fichier à modifier
+	 * @param $lang string la langue de traduction
+	 * @param $aLang array le tableau de langue à modifier
+	 * @param $content array le tableau de langue contenant les modifications
+	 *
+	 * @return string
+	 * @author Cyril MAGUIRE.
+	 */
+	public function editLang($file,$lang,$aLang,$content) {
+		foreach ($content as $key => $value) {
+			if (isset($aLang[$key]) && !empty($value)) {
+				$aLang[$key] = html_entity_decode($value, ENT_COMPAT, PLX_CHARSET);
+			}
+		}
+		if (is_file(PLX_CORE.'lang/'.$lang.'/'.$file.'.php')) {
+			file_put_contents(PLX_CORE.'lang/'.$lang.'/'.$file.'.php', "<?php\n\$LANG=".var_export($aLang,true).";\n?>");
+			return plxMsg::Info(L_SAVE_SUCCESSFUL);
+		}
+	}
 
 	/**
 	 * Méthode qui vérifie sur le site de PluXml la dernière version et la compare avec celle en local
