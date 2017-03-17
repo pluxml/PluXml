@@ -738,7 +738,7 @@ class plxUtils {
 	public static function getLangs() {
 		$array = array();
 		$glob = plxGlob::getInstance(PLX_CORE.'lang', true);
-		if($aFolders = $glob->query("/[a-z]+/i")) {
+		if($aFolders = $glob->query("/\A(?!_)[a-z]+/i")) {
 			foreach($aFolders as $folder) {
 				$array[$folder] = $folder;
 			}
