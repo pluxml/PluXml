@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Edition des paramètres de langue
+ * Edition des paramètres d'affichage
  *
  * @package PLX
- * @author  Cyril MAGUIRE
+ * @author  Florent MONTHEL, Stephane F
  **/
 
 include(dirname(__FILE__).'/prepend.php');
@@ -16,6 +16,10 @@ plxToken::validateFormToken($_POST);
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 $Lang = plxUtils::strCheck(plxUtils::getValue($_POST['langToTranslate'], (isset($_GET['lang']) && in_array($_GET['lang'], plxUtils::getLangs()) ? $_GET['lang'] : $lang) ));
+if (isset($_POST['newLang']) && !empty($_POST['newLang'])) {
+    $Lang = substr(plxUtils::strCheck($_POST['newLang']),0,2);
+}
+
 $fileToTranslate = plxUtils::getValue($_GET['file'], 'admin');
 
 if (isset($_GET['lang']) && in_array($_GET['lang'], plxUtils::getLangs())) {
@@ -69,6 +73,15 @@ include(dirname(__FILE__).'/top.php');
                 <?php plxUtils::printSelect('langToTranslate', plxUtils::getLangs(), $Lang) ?>
             </div> 
         </div>
+        <div class="grid">
+            <div class="col sml-12 med-5 label-centered">
+                <label for="id_default_lang"><?php echo L_CONFIG_LANG_NEW ?>&nbsp;:</label>
+            </div>
+            <div class="col sml-12 med-7">
+                <?php plxUtils::printInput('newLang', '', 'text', '2-4',false,'fieldnum'); ?>
+            </div> 
+        </div>
+
 
         <input type="hidden" name="readFile" value="true">
 
