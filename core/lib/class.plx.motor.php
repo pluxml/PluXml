@@ -1124,7 +1124,7 @@ class plxMotor {
 	public function getItemsToTranslate($file, $lang) {
 		if (in_array($file, $this->aTrad)) {
 			$trad = $LANG = array();
-			if(file_exists(PLX_CORE.'lang/TEMPLATES/'.$file.'.php') && 
+			if(file_exists(PLX_CORE.'lang/_templates/'.$file.'.php') && 
 				file_exists(PLX_CORE.'lang/'.$lang.'/'.$file.'.php')) {
 				$trad = array();
 				include(PLX_CORE.'lang/'.$lang.'/'.$file.'.php');
@@ -1135,12 +1135,12 @@ class plxMotor {
 					chmod(PLX_CORE.'lang/',0755);
 				}
 				foreach ($this->aTrad as $k => $f) {
-					include(PLX_CORE.'lang/TEMPLATES/'.$f.'.php');
+					include(PLX_CORE.'lang/_templates/'.$f.'.php');
 					file_put_contents(PLX_CORE.'lang/'.$lang.'/'.$f.'.php', "<?php\n\$LANG=".var_export($LANG,true).";\n?>");
 				}
 			}
 				$lang = $LANG;
-				include(PLX_CORE.'lang/TEMPLATES/'.$file.'.php');
+				include(PLX_CORE.'lang/_templates/'.$file.'.php');
 				foreach ($LANG as $key => $value) {
 					if (isset($lang[$key])) {
 						$trad[$key] = htmlentities($lang[$key], ENT_COMPAT, PLX_CHARSET);
