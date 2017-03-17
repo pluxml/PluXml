@@ -463,11 +463,13 @@ $LANG = array(
 # parametres_langues.php
 
 'L_MENU_CONFIG_LANG'                => 'Traduction',
+'L_MENU_CONFIG_LANG_TITLE'          => 'Modifier les fichiers de traduction ou ajouter une nouvelle langue',
 'L_CONFIG_LANG_SEE_FILE_TO_TRANSLATE' => 'Voir les fichiers à traduire',
 'L_CONFIG_LANG_UPDATE'              => 'Modifier le fichier de langue',
 'L_CONFIG_LANG_RECORD'              => 'Enregistrer le fichier de langue',
 'L_CONFIG_LANG_TO_TRANSLATE'        => 'Langue à traduire',
 'L_CONFIG_FILES_TO_TRANSLATE'       => 'Fichiers en cours de traduction',
+'L_CONFIG_LANG_NEW'                 => 'Nouvelle langue',
 
 # profil.php
 
