@@ -4,29 +4,29 @@
  * Classe plxMotor responsable du traitement global du script
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+ * @author	Anthony GU?IN, Florent MONTHEL, St?hane F
  **/
 class plxMotor {
 
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
 	public $path_url = false; # chemin de l'url du site
-	public $style = false; # Dossier contenant le thème
+	public $style = false; # Dossier contenant le th?e
 	public $tri; # Tri d'affichage des articles
 	public $tri_coms; # Tri d'affichage des commentaires
 	public $bypage = false; # Pagination des articles
-	public $page = 1; # Numéro de la page
+	public $page = 1; # Num?o de la page
 	public $motif = false; # Motif de recherche
 	public $mode = false; # Mode de traitement
 	public $template = false; # Template d'affichage
 	public $cible = false; # Article, categorie ou page statique cible
 
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
-	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
-	public $activeArts = array(); # Tableaux des articles appartenant aux catégories actives
+	public $homepageCats = false; # Liste des categories ?afficher sur la page d'accueil sous la forme 001|002|003 etc
+	public $activeArts = array(); # Tableaux des articles appartenant aux cat?ories actives
 
 	public $aConf = array(); # Tableau de configuration
-	public $aCats = array(); # Tableau de toutes les catégories
+	public $aCats = array(); # Tableau de toutes les cat?ories
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); #Tableau des utilisateurs
@@ -43,7 +43,7 @@ class plxMotor {
 	private static $instance;
 
 	/**
-	 * Méthode qui se charger de créer le Singleton plxMotor
+	 * M?hode qui se charger de cr?r le Singleton plxMotor
 	 *
 	 * @return	objet			return une instance de la classe plxMotor
 	 * @author	Stephane F
@@ -62,17 +62,17 @@ class plxMotor {
 	 *
 	 * @param	filename	emplacement du fichier XML de configuration
 	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Anthony GU?IN, Florent MONTHEL, St?hane F
 	 **/
 	protected function __construct($filename) {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
-		# récupération des paramètres dans l'url
+		# r?up?ation des param?res dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
-		# On vérifie s'il faut faire une mise à jour
+		# On v?ifie s'il faut faire une mise ?jour
 		if((!isset($this->aConf['version']) OR PLX_VERSION!=$this->aConf['version']) AND !defined('PLX_UPDATER')) {
 			header('Location: '.PLX_ROOT.'update/index.php');
 			exit;
@@ -83,38 +83,37 @@ class plxMotor {
 		$this->bypage = $this->aConf['bypage'];
 		$this->tri = $this->aConf['tri'];
 		$this->tri_coms = $this->aConf['tri_coms'];
-		# On récupère le chemin de l'url
+		# On r?up?e le chemin de l'url
 		$var = parse_url($this->racine);
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
 		# Traitement des plugins
-		# Détermination du fichier de langue (nb: la langue peut être modifiée par plugins via $_SESSION['lang'])
+		# D?ermination du fichier de langue (nb: la langue peut ?re modifi? par plugins via $_SESSION['lang'])
 		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
-		# Traitement sur les répertoires des articles et des commentaires
+		# Traitement sur les r?ertoires des articles et des commentaires
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
-		# Récupération des données dans les autres fichiers xml
+		# R?up?ation des donn?s dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getStatiques(path('XMLFILE_STATICS'));
 		$this->getTags(path('XMLFILE_TAGS'));
 		$this->getUsers(path('XMLFILE_USERS'));
-		# Récuperation des articles appartenant aux catégories actives
+		# R?uperation des articles appartenant aux cat?ories actives
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 	}
 
-	
 	/**
-	 * Méthode qui effectue une analyse de la situation et détermine
-	 * le mode à appliquer. Cette méthode alimente ensuite les variables
-	 * de classe adéquates
+	 * M?hode qui effectue une analyse de la situation et d?ermine
+	 * le mode ?appliquer. Cette m?hode alimente ensuite les variables
+	 * de classe ad?uates
 	 *
 	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Anthony GU?IN, Florent MONTHEL, St?hane F
 	 **/
 	public function prechauffage() {
 
@@ -152,7 +151,7 @@ class plxMotor {
 			}
 		}
 		elseif($this->get AND preg_match('/^static([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
-			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
+			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On compl?e sur 3 caract?es
 			if(!isset($this->aStats[$this->cible]) OR !$this->aStats[$this->cible]['active']) {
 				$this->error404(L_UNKNOWN_STATIC);
 			} else {
@@ -243,7 +242,7 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui fait une redirection de type 301
+	 * M?hode qui fait une redirection de type 301
 	 *
 	 * @return	null
 	 * @author	Stephane F
@@ -258,7 +257,7 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui retourne une erreur 404 Document non trouvé
+	 * M?hode qui retourne une erreur 404 Document non trouv?
 	 *
 	 * @return	null
 	 * @author	Stephane F
@@ -272,7 +271,7 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui effectue le traitement selon le mode du moteur
+	 * M?hode qui effectue le traitement selon le mode du moteur
 	 *
 	 * @return	null
 	 * @author	Florent MONTHEL, Stephane F
@@ -283,23 +282,23 @@ class plxMotor {
 		if(eval($this->plxPlugins->callHook('plxMotorDemarrageBegin'))) return;
 
 		if($this->mode == 'home' OR $this->mode == 'categorie' OR $this->mode == 'archives' OR $this->mode == 'tags') {
-			$this->getPage(); # Recuperation du numéro de la page courante
+			$this->getPage(); # Recuperation du num?o de la page courante
 			if(!$this->getArticles()) { # Si aucun article
 				$this->error404(L_NO_ARTICLE_PAGE);
 			}
 		}
 		elseif($this->mode == 'article') {
 
-			# On a validé le formulaire commentaire
+			# On a valid?le formulaire commentaire
 			if(!empty($_POST) AND $this->plxRecord_arts->f('allow_com') AND $this->aConf['allow_com']) {
-				# On récupère le retour de la création
+				# On r?up?e le retour de la cr?tion
 				$retour = $this->newCommentaire($this->cible,plxUtils::unSlash($_POST));
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire'));
-				if($retour[0] == 'c') { # Le commentaire a été publié
+				if($retour[0] == 'c') { # Le commentaire a ??publi?
 					header('Location: '.$url.'#'.$retour);
-				} elseif($retour == 'mod') { # Le commentaire est en modération
+				} elseif($retour == 'mod') { # Le commentaire est en mod?ation
 					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
 					header('Location: '.$url.'#form');
 				} else {
@@ -314,16 +313,16 @@ class plxMotor {
 				}
 				exit;
 			}
-			# Récupération des commentaires
+			# R?up?ation des commentaires
 			$this->getCommentaires('/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/',$this->mapTri($this->tri_coms));
 			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Cr?tion objet captcha
 		}
 		elseif($this->mode == 'preview') {
 			$this->mode='article';
 			$this->plxRecord_arts = new plxRecord($_SESSION['preview']);
 			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Cr?tion objet captcha
 		}
 
 		# Hook plugins
@@ -331,12 +330,12 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui parse le fichier de configuration et alimente
+	 * M?hode qui parse le fichier de configuration et alimente
 	 * le tableau aConf
 	 *
 	 * @param	filename	emplacement du fichier XML de configuration
 	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Anthony GU?IN, Florent MONTHEL, St?hane F
 	 **/
 	public function getConfiguration($filename) {
 
@@ -359,9 +358,9 @@ class plxMotor {
 					$this->aConf[ $values[ $iTags['parametre'][$i] ]['attributes']['name'] ] = '';
 			}
 		}
-		# détermination automatique de la racine du site
+		# d?ermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
-		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
+		# On g?e la non r?ression en cas d'ajout de param?res sur une version de pluxml d??install?
 		$this->aConf['bypage_admin'] = plxUtils::getValue($this->aConf['bypage_admin'],10);
 		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
 		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
@@ -385,12 +384,12 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui parse le fichier des catégories et alimente
+	 * M?hode qui parse le fichier des cat?ories et alimente
 	 * le tableau aCats
 	 *
-	 * @param	filename	emplacement du fichier XML des catégories
+	 * @param	filename	emplacement du fichier XML des cat?ories
 	 * @return	null
-	 * @author	Stéphane F
+	 * @author	St?hane F
 	 **/
 	public function getCategories($filename) {
 
@@ -412,7 +411,7 @@ class plxMotor {
 			for($i=0;$i<$nb;$i++) {
 				$attributes = $values[$iTags['categorie'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
-				# Recuperation du nom de la catégorie
+				# Recuperation du nom de la cat?orie
 				$this->aCats[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
 				# Recuperation du nom de la description
 				$this->aCats[$number]['description']=plxUtils::getValue($values[$iTags['description'][$i]]['value']);
@@ -433,9 +432,9 @@ class plxMotor {
 				$this->aCats[$number]['bypage']=isset($attributes['bypage'])?$attributes['bypage']:$this->bypage;
 				# Recuperation du fichier template
 				$this->aCats[$number]['template']=isset($attributes['template'])?$attributes['template']:'categorie.php';
-				# Récuperation état affichage de la catégorie dans le menu
+				# R?uperation ?at affichage de la cat?orie dans le menu
 				$this->aCats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
-				# Récuperation état activation de la catégorie dans le menu
+				# R?uperation ?at activation de la cat?orie dans le menu
 				$this->aCats[$number]['active']=isset($attributes['active'])?$attributes['active']:'1';
 				if($this->aCats[$number]['active']) $activeCats[]=$number;
 				# Recuperation affichage en page d'accueil
@@ -450,19 +449,19 @@ class plxMotor {
 				eval($this->plxPlugins->callHook('plxMotorGetCategories'));
 			}
 		}
-		$homepageCats [] = '000'; # on rajoute la catégorie 'Non classée'
-		$activeCats[] = '000'; # on rajoute la catégorie 'Non classée'
+		$homepageCats [] = '000'; # on rajoute la cat?orie 'Non class?'
+		$activeCats[] = '000'; # on rajoute la cat?orie 'Non class?'
 		$this->homepageCats = implode('|', $homepageCats);
 		$this->activeCats = implode('|', $activeCats);
 	}
 
 	/**
-	 * Méthode qui parse le fichier des pages statiques et alimente
+	 * M?hode qui parse le fichier des pages statiques et alimente
 	 * le tableau aStats
 	 *
 	 * @param	filename	emplacement du fichier XML des pages statiques
 	 * @return	null
-	 * @author	Stéphane F
+	 * @author	St?hane F
 	 **/
 	public function getStatiques($filename) {
 
@@ -481,31 +480,31 @@ class plxMotor {
 			for($i=0;$i<$nb;$i++) {
 				$attributes = $values[$iTags['statique'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
-				# Récupération du nom de la page statique
+				# R?up?ation du nom de la page statique
 				$this->aStats[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
-				# Récupération de la balise title
+				# R?up?ation de la balise title
 				$title_htmltag = plxUtils::getValue($iTags['title_htmltag'][$i]);
 				$this->aStats[$number]['title_htmltag']=plxUtils::getValue($values[$title_htmltag]['value']);
-				# Récupération du meta description
+				# R?up?ation du meta description
 				$meta_description = plxUtils::getValue($iTags['meta_description'][$i]);
 				$this->aStats[$number]['meta_description']=plxUtils::getValue($values[$meta_description]['value']);
-				# Récupération du meta keywords
+				# R?up?ation du meta keywords
 				$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][$i]);
 				$this->aStats[$number]['meta_keywords']=plxUtils::getValue($values[$meta_keywords]['value']);
-				# Récupération du groupe de la page statique
+				# R?up?ation du groupe de la page statique
 				$this->aStats[$number]['group']=plxUtils::getValue($values[$iTags['group'][$i]]['value']);
-				# Récupération de l'url de la page statique
+				# R?up?ation de l'url de la page statique
 				$this->aStats[$number]['url']=strtolower($attributes['url']);
-				# Récupération de l'etat de la page
+				# R?up?ation de l'etat de la page
 				$this->aStats[$number]['active']=intval($attributes['active']);
 				# On affiche la page statique dans le menu ?
 				$this->aStats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
-				# Récupération du fichier template
+				# R?up?ation du fichier template
 				$this->aStats[$number]['template']=isset($attributes['template'])?$attributes['template']:'static.php';
-				# Récupération de la date de création
+				# R?up?ation de la date de cr?tion
 				$date_creation = plxUtils::getValue($iTags['date_creation'][$i]);
 				$this->aStats[$number]['date_creation']=plxUtils::getValue($values[$date_creation]['value']);
-				# Récupération de la date de mise à jour
+				# R?up?ation de la date de mise ?jour
 				$date_update = plxUtils::getValue($iTags['date_update'][$i]);
 				$this->aStats[$number]['date_update']=plxUtils::getValue($values[$date_update]['value']);
 				# On verifie que la page statique existe bien
@@ -519,7 +518,7 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui parse le fichier des utilisateurs
+	 * M?hode qui parse le fichier des utilisateurs
 	 *
 	 * @param	filename	emplacement du fichier XML des passwd
 	 * @return	array		tableau des utilisateurs
@@ -563,11 +562,11 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui selon le paramètre tri retourne sort ou rsort (tri PHP)
+	 * M?hode qui selon le param?re tri retourne sort ou rsort (tri PHP)
 	 *
 	 * @param	tri	asc ou desc
 	 * @return	string
-	 * @author	Stéphane F.
+	 * @author	St?hane F.
 	 **/
 	protected function mapTri($tri) {
 
@@ -585,10 +584,10 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui récupère le numéro de la page active
+	 * M?hode qui r?up?e le num?o de la page active
 	 *
 	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
+	 * @author	Anthony GU?IN, Florent MONTHEL, Stephane F
 	 **/
 	protected function getPage() {
 
@@ -600,11 +599,11 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui récupere la liste des  articles
+	 * M?hode qui r?upere la liste des  articles
 	 *
-	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
-	 * @return	boolean	vrai si articles trouvés, sinon faux
-	 * @author	Stéphane F
+	 * @param	publi	before, after ou all => on r?up?e tous les fichiers (date) ?
+	 * @return	boolean	vrai si articles trouv?, sinon faux
+	 * @author	St?hane F
 	 **/
 	public function getArticles($publi='before') {
 
@@ -614,7 +613,7 @@ class plxMotor {
 		$start = $this->bypage*($this->page-1);
 		# On recupere nos fichiers (tries) selon le motif, la pagination, la date de publication
 		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$ordre,$start,$this->bypage,$publi)) {
-			# on mémorise le nombre total d'articles trouvés
+			# on m?orise le nombre total d'articles trouv?
 			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
 				$array[$k] = $this->parseArticle(PLX_ROOT.$this->aConf['racine_articles'].$v);
 			# On stocke les enregistrements dans un objet plxRecord
@@ -625,11 +624,11 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui retourne les informations $output en analysant
+	 * M?hode qui retourne les informations $output en analysant
 	 * le nom du fichier de l'article $filename
 	 *
-	 * @param	filename	fichier de l'article à traiter
-	 * @return	array		information à récupérer
+	 * @param	filename	fichier de l'article ?traiter
+	 * @return	array		information ?r?up?er
 	 * @author	Stephane F
 	 **/
 	public function artInfoFromFilename($filename) {
@@ -647,11 +646,11 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui parse l'article du fichier $filename
+	 * M?hode qui parse l'article du fichier $filename
 	 *
-	 * @param	filename	fichier de l'article à parser
+	 * @param	filename	fichier de l'article ?parser
 	 * @return	array
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Anthony GU?IN, Florent MONTHEL, St?hane F
 	 **/
 	public function parseArticle($filename) {
 
@@ -695,10 +694,10 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui retourne le nombre de commentaires respectants le motif $motif et le paramètre $publi
+	 * M?hode qui retourne le nombre de commentaires respectants le motif $motif et le param?re $publi
 	 *
 	 * @param	motif	motif de recherche des commentaires
-	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
+	 * @param	publi	before, after ou all => on r?up?e tous les fichiers (date) ?
 	 * @return	integer
 	 * @author	Florent MONTHEL
 	 **/
@@ -711,11 +710,11 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui retourne les informations $output en analysant
+	 * M?hode qui retourne les informations $output en analysant
 	 * le nom du fichier du commentaire $filename
 	 *
-	 * @param	filename	fichier du commentaire à traiter
-	 * @return	array		information à récupérer
+	 * @param	filename	fichier du commentaire ?traiter
+	 * @return	array		information ?r?up?er
 	 * @author	Stephane F
 	 **/
 	public function comInfoFromFilename($filename) {
@@ -734,9 +733,9 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui parse le commentaire du fichier $filename
+	 * M?hode qui parse le commentaire du fichier $filename
 	 *
-	 * @param	filename	fichier du commentaire à parser
+	 * @param	filename	fichier du commentaire ?parser
 	 * @return	array
 	 * @author	Florent MONTHEL
 	 **/
@@ -774,10 +773,10 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui trie récursivement les commentaires d'un article en fonction des parents
+	 * M?hode qui trie r?ursivement les commentaires d'un article en fonction des parents
 	 *
-	 * @return	array	liste des commentaires triés
-	 * @author	Stéphane F.
+	 * @return	array	liste des commentaires tri?
+	 * @author	St?hane F.
 	 **/
 	public function parentChildSort_r($idField, $parentField, $els, $parentID = 0, &$result = array(), &$level = 0){
 		foreach ($els as $key => $value) {
@@ -797,26 +796,26 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui enregistre dans un objet plxRecord tous les commentaires
+	 * M?hode qui enregistre dans un objet plxRecord tous les commentaires
 	 * respectant le motif $motif et la limite $limite
 	 *
 	 * @param	motif	motif de recherche des commentaires
 	 * @param	ordre	ordre du tri : sort ou rsort
 	 * @param	start	commencement
-	 * @param	limite	nombre de commentaires à retourner
-	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
+	 * @param	limite	nombre de commentaires ?retourner
+	 * @param	publi	before, after ou all => on r?up?e tous les fichiers (date) ?
 	 * @return	null
 	 * @author	Florent MONTHEL, Stephane F
 	 **/
 	public function getCommentaires($motif,$ordre='sort',$start=0,$limite=false,$publi='before') {
 
-		# On récupère les fichiers des commentaires
+		# On r?up?e les fichiers des commentaires
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
 			foreach($aFiles as $k=>$v)
 				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
 
-			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
+			# hi?archisation et indentation des commentaires seulement sur les ?rans requis
 			if( !(defined('PLX_ADMIN') OR defined('PLX_FEED')) OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
 				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
@@ -830,7 +829,7 @@ class plxMotor {
 	}
 
 	/**
-	 *  Méthode qui retourne le prochain id d'un commentaire pour un article précis
+	 *  M?hode qui retourne le prochain id d'un commentaire pour un article pr?is
 	 *
 	 * @param	idArt		id de l'article
 	 * @return	string		id d'un nouveau commentaire
@@ -853,12 +852,12 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui crée un nouveau commentaire pour l'article $artId
+	 * M?hode qui cr? un nouveau commentaire pour l'article $artId
 	 *
 	 * @param	artId	identifiant de l'article en question
 	 * @param	content	tableau contenant les valeurs du nouveau commentaire
 	 * @return	string
-	 * @author	Florent MONTHEL, Stéphane F
+	 * @author	Florent MONTHEL, St?hane F
 	 **/
 	public function newCommentaire($artId,$content) {
 
@@ -869,56 +868,56 @@ class plxMotor {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}
 
-		# On vérifie que le capcha est correct
+		# On v?ifie que le capcha est correct
 		if($this->aConf['capcha'] == 0 OR $_SESSION['capcha'] == sha1($content['rep'])) {
 			if(!empty($content['name']) AND !empty($content['content'])) { # Les champs obligatoires sont remplis
 				$comment=array();
 				$comment['type'] = 'normal';
 				$comment['author'] = plxUtils::strCheck(trim($content['name']));
 				$comment['content'] = plxUtils::strCheck(trim($content['content']));
-				# On vérifie le mail
+				# On v?ifie le mail
 				$comment['mail'] = (plxUtils::checkMail(trim($content['mail'])))?trim($content['mail']):'';
-				# On vérifie le site
+				# On v?ifie le site
 				$comment['site'] = (plxUtils::checkSite($content['site'])?$content['site']:'');
-				# On récupère l'adresse IP du posteur
+				# On r?up?e l'adresse IP du posteur
 				$comment['ip'] = plxUtils::getIp();
 				# index du commentaire
 				$idx = $this->nextIdArtComment($artId);
-				# Commentaire parent en cas de réponse
+				# Commentaire parent en cas de r?onse
 				if(isset($content['parent']) AND !empty($content['parent'])) {
 					$comment['parent'] = intval($content['parent']);
 				} else {
 					$comment['parent'] = '';
 				}
-				# On génère le nom du fichier
+				# On g??e le nom du fichier
 				$time = time();
-				if($this->aConf['mod_com']) # On modère le commentaire => underscore
+				if($this->aConf['mod_com']) # On mod?e le commentaire => underscore
 					$comment['filename'] = '_'.$artId.'.'.$time.'-'.$idx.'.xml';
 				else # On publie le commentaire directement
 					$comment['filename'] = $artId.'.'.$time.'-'.$idx.'.xml';
-				# On peut créer le commentaire
+				# On peut cr?r le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
-					if($this->aConf['mod_com']) # En cours de modération
+					if($this->aConf['mod_com']) # En cours de mod?ation
 						return 'mod';
 					else # Commentaire publie directement, on retourne son identifiant
 						return 'c'.$artId.'-'.$idx;
-				} else { # Erreur lors de la création du commentaire
+				} else { # Erreur lors de la cr?tion du commentaire
 					return L_NEWCOMMENT_ERR;
 				}
 			} else { # Erreur de remplissage des champs obligatoires
 				return L_NEWCOMMENT_FIELDS_REQUIRED;
 			}
-		} else { # Erreur de vérification capcha
+		} else { # Erreur de v?ification capcha
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}
 	}
 
 	/**
-	 * Méthode qui crée physiquement le fichier XML du commentaire
+	 * M?hode qui cr? physiquement le fichier XML du commentaire
 	 *
-	 * @param	comment	array avec les données du commentaire à ajouter
-	 * @return	booléen
-	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stéphane F
+	 * @param	comment	array avec les donn?s du commentaire ?ajouter
+	 * @return	bool?n
+	 * @author	Anthony GU?IN, Florent MONTHEL et St?hane F
 	 **/
 	public function addCommentaire($content) {
 		# Hook plugins
@@ -941,7 +940,7 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui parse le fichier des tags et alimente
+	 * M?hode qui parse le fichier des tags et alimente
 	 * le tableau aTags
 	 *
 	 * @param	filename	emplacement du fichier XML contenant les tags
@@ -974,24 +973,24 @@ class plxMotor {
 				$array[ $values[ $iTags['article'][$i] ]['attributes']['number'] ]['active'] = $values[ $iTags['article'][$i] ]['attributes']['active'];
 			}
 		}
-		# Mémorisation de la liste des tags
+		# M?orisation de la liste des tags
 		$this->aTags = $array;
 	}
 
 	/**
-	 * Méthode qui lance le téléchargement d'un document
+	 * M?hode qui lance le t??hargement d'un document
 	 *
-	 * @param	cible	cible de téléchargement cryptée
+	 * @param	cible	cible de t??hargement crypt?
 	 * @return	booleen
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function sendTelechargement($cible) {
 
-		# On décrypte le nom du fichier
+		# On d?rypte le nom du fichier
 		$file = PLX_ROOT.$this->aConf['medias'].plxEncrypt::decryptId($cible);
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
-		# On lance le téléchargement et on check le répertoire medias
+		# On lance le t??hargement et on check le r?ertoire medias
 		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
@@ -1010,11 +1009,11 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui réécrit les urls pour supprimer le ?
+	 * M?hode qui r?crit les urls pour supprimer le ?
 	 *
-	 * @param	url		url à réécrire
-	 * @return	string	url réécrite
-	 * @author	Stéphane F
+	 * @param	url		url ?r?crire
+	 * @return	string	url r?crite
+	 * @author	St?hane F
 	 **/
 	public function urlRewrite($url='') {
 
@@ -1039,10 +1038,10 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui comptabilise le nombre d'articles du site.
+	 * M?hode qui comptabilise le nombre d'articles du site.
 	 *
-	 * @param	select	critere de recherche: draft, published, all, n° categories séparés par un |
-	 * @param	userid	filtre sur les articles d'un utilisateur donné
+	 * @param	select	critere de recherche: draft, published, all, n? categories s?ar? par un |
+	 * @param	userid	filtre sur les articles d'un utilisateur donn?
 	 * @param	mod		filtre sur les articles en attente de validation
 	 * @param	publi	selection en fonciton de la date du jour (all, before, after)
 	 * @return	integer	nombre d'articles
@@ -1068,10 +1067,10 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui comptabilise le nombre de commentaires du site
+	 * M?hode qui comptabilise le nombre de commentaires du site
 	 *
 	 * @param	select	critere de recherche des commentaires: all, online, offline
-	 * @param	publi	type de sélection des commentaires: all, before, after
+	 * @param	publi	type de s?ection des commentaires: all, before, after
 	 * @return	integer	nombre de commentaires
 	 * @scope	global
 	 * @author	Stephane F
@@ -1095,26 +1094,25 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui recherche les articles appartenant aux catégories actives
+	 * M?hode qui recherche les articles appartenant aux cat?ories actives
 	 *
 	 * @return	null
 	 * @scope	global
-	 * @author	Stéphane F.
+	 * @author	St?hane F.
 	 **/
 	public function getActiveArts() {
 		if($this->plxGlob_arts->aFiles) {
 			$datetime=date('YmdHi');
 			foreach($this->plxGlob_arts->aFiles as $filename) {
 				if(preg_match('/^([0-9]{4}).(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.([0-9]{12}).[a-z0-9-]+.xml$/', $filename, $capture)) {
-					if($capture[2]<=$datetime) { # on ne prends que les articles publiés
+					if($capture[2]<=$datetime) { # on ne prends que les articles publi?
 						$this->activeArts[$capture[1]]=1;
 					}
 				}
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * Méthode qui retourne le tableau de langue du fichier entré en paramètre
 	 *
@@ -1131,7 +1129,15 @@ class plxMotor {
 				$trad = array();
 				include(PLX_CORE.'lang/'.$lang.'/'.$file.'.php');
 			} else {
-				touch(PLX_CORE.'lang/'.$lang.'/'.$file.'.php');
+				if (!is_dir(PLX_CORE.'lang/'.$lang)) {
+					chmod(PLX_CORE.'lang/',0777);
+					mkdir(PLX_CORE.'lang/'.$lang);
+					chmod(PLX_CORE.'lang/',0755);
+				}
+				foreach ($this->aTrad as $k => $f) {
+					include(PLX_CORE.'lang/TEMPLATES/'.$f.'.php');
+					file_put_contents(PLX_CORE.'lang/'.$lang.'/'.$f.'.php', "<?php\n\$LANG=".var_export($LANG,true).";\n?>");
+				}
 			}
 				$lang = $LANG;
 				include(PLX_CORE.'lang/TEMPLATES/'.$file.'.php');
