@@ -190,19 +190,26 @@ class plxUtils {
 	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
 	 * @return	stdout
 	 **/
-	public static function printInput($name, $value='', $type='text', $size='50-255', $readonly=false, $class='', $placeholder='', $extra='') {
+	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='') {
 
-		$size = explode('-',$size);
-		$placeholder = $placeholder!='' ? ' placeholder="'.$placeholder.'"' : '';
-		$extra = $extra!='' ? ' '.trim($extra) : '';
-		if($type!='hidden') {
-			if($readonly)
-				echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'" class="readonly" value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'" readonly="readonly"'.$placeholder.' />'."\n";
-			else
-				echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'"'.($class!=''?' class="'.$class.'"':'').' value="'.$value.'" size="'.$size[0].'" maxlength="'.$size[1].'"'.$placeholder.' />'."\n";
-		} else {
-			echo '<input'.$extra.' id="id_'.$name.'" name="'.$name.'" type="'.$type.'" value="'.$value.'" />'."\n";
-		}
+		 $params = array(
+			'id="id_'.$name.'"',
+			'name="'.$name.'"',
+			'type="'.$type.'"'
+		 );
+		 if(! empty($value)) { $params[] = 'value="'.$value.'"'; }
+		 if(! empty($extra)) { $params[] = $extra; }
+		 if($type != 'hidden') {
+			if($readonly === true) { $params[] = 'readony'; }
+			if(! empty($className)) { $params[] = $className; }
+			if(! empty($placeholder)) { $params[] = $placeholder; }
+			if(! empty($sizes) and (strpos($sizes, '-') !== false)) {
+				list($size, $maxlength) = explode('-', $sizes);
+				if(! empty($size)) { $params[] = 'size="'.$size.'"'; }
+				if(! empty($maxlength)) { $params[] = 'maxlength="'.$maxlength.'"'; }
+ 			}
+		 }
+		 echo '<input '.implode(' ', $params).'/>';
 	}
 
 	/**
