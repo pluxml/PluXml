@@ -15,12 +15,7 @@ plxToken::validateFormToken($_POST);
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
-if(isset($_POST['submit']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate'))) {
-	$plxAdmin->plxPlugins->saveConfig($_POST);
-	header('Location: parametres_plugins.php');
-	exit;
-}
-elseif(isset($_POST['update'])) {
+if(isset($_POST['update']) OR in_array($_POST['selection'], array('delete', 'activate', 'deactivate'))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
 	header('Location: parametres_plugins.php');
 	exit;
