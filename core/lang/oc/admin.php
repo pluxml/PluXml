@@ -546,7 +546,7 @@ $LANG = array(
 # user.php
 'L_USER_UNKNOWN'					=> 'Utilizator desconegut',
 'L_USER_LANG'						=> 'Lenga utilizada dins l\'administracion',
-'L_USER_MAIL'						=> 'Adreça corrièl',
+'L_USER_MAIL'						=> 'Adreça de corrièl',
 'L_USER_INFOS'						=> 'Informacions',
 'L_USER_UPDATE'						=> 'Metre a jorn aquel utilizator',
 'L_USER_PAGE_TITLE'					=> 'Edicion de las opcions de l\'utilizator',
