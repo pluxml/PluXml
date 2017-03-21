@@ -1313,7 +1313,7 @@ class plxShow {
 			if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
 				if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
 					$menu = str_replace('#static_id','page-blog',$format);
-					if ($this->plxMotor->get AND preg_match('/^(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'])) {
+					if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'])) {
 						$menu = str_replace('#static_status','active',$menu);
 					} else {
 						$menu = str_replace('#static_status','noactive',$menu);
@@ -1793,7 +1793,7 @@ class plxShow {
 		if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
 			if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
 				$name = str_replace('#page_id','page-blog',$format);
-				if ($this->plxMotor->get AND preg_match('/^(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'])) {
+				if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'])) {
 					$name = str_replace('#page_status','active',$name);
 				} else {
 					$name = str_replace('#page_status','noactive',$name);

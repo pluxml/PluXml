@@ -66,7 +66,7 @@ include(dirname(__FILE__).'/top.php');
 				<label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'text', '30-255') ?>
+				<?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'email', '30-255') ?>
 			</div>
 		</div>
 		<div class="grid">

@@ -50,7 +50,7 @@ include(dirname(__FILE__).'/top.php');
 		<table id="categories-table" class="full-width">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
+					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
 					<th><?php echo L_ID ?></th>
 					<th><?php echo L_CAT_LIST_NAME ?></th>
 					<th><?php echo L_CAT_LIST_URL ?></th>
