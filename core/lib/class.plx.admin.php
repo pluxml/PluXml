@@ -318,20 +318,18 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						$password = $this->aUsers[$user_id]['password'];
 					}
 
+					# control de l'adresse email
+					$email = trim($content[$user_id.'_email']);
+					if($email!='' AND !plxUtils::checkMail($email))	return plxMsg::Error(L_ERR_INVALID_EMAIL);
+
 					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
 					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
 					$this->aUsers[$user_id]['active'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['active']:$content[$user_id.'_active']);
 					$this->aUsers[$user_id]['profil'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['profil']:$content[$user_id.'_profil']);
 					$this->aUsers[$user_id]['password'] = $password;
 					$this->aUsers[$user_id]['salt'] = $salt;
-					if(isset($content[$user_id.'_email'])) {
-						$email = trim($content[$user_id.'_email']);
-						if(empty($email)) {
-							$this->aUsers[$user_id]['email'] = '';
-						} elseif(plxUtils::checkMail($email)) {
-							$this->aUsers[$user_id]['email'] = $email;
-						}
-					}
+					$this->aUsers[$user_id]['email'] = $email;
+
 					$this->aUsers[$user_id]['delete'] = (isset($this->aUsers[$user_id]['delete'])?$this->aUsers[$user_id]['delete']:0);
 					$this->aUsers[$user_id]['lang'] = (isset($this->aUsers[$user_id]['lang'])?$this->aUsers[$user_id]['lang']:$this->aConf['default_lang']);
 					$this->aUsers[$user_id]['infos'] = (isset($this->aUsers[$user_id]['infos'])?$this->aUsers[$user_id]['infos']:'');
