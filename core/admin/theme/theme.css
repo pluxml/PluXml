@@ -412,6 +412,9 @@ td {
 td.wrap {
 	white-space: normal;
 }
+th.checkbox {
+	width: 15px;
+}
 /* pour l'indentation des commentaires */
 .level-0 {
 	margin-left: 0;

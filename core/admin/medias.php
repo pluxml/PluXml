@@ -187,7 +187,7 @@ $curFolders = explode('/', $curFolder);
 			<table id="medias-table" class="full-width">
 				<thead>
 				<tr>
-					<th><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
+					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
 					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_title ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
 					<th><?php echo L_MEDIAS_EXTENSION ?></th>
