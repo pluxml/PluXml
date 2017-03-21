@@ -57,6 +57,7 @@ include(dirname(__FILE__).'/top.php');
 			<th><?php echo L_PROFIL_USER ?></th>
 			<th><?php echo L_PROFIL_LOGIN ?></th>
 			<th><?php echo L_PROFIL_PASSWORD ?></th>
+			<th><?php echo L_PROFIL_MAIL ?></th>
 			<th><?php echo L_PROFIL ?></th>
 			<th><?php echo L_CONFIG_USERS_ACTIVE ?></th>
 			<th><?php echo L_CONFIG_USERS_ACTION ?></th>
@@ -77,6 +78,8 @@ include(dirname(__FILE__).'/top.php');
 				plxUtils::printInput($_userid.'_login', plxUtils::strCheck($_user['login']), 'text', '10-255');
 				echo '</td><td>';
 				plxUtils::printInput($_userid.'_password', '', 'password', '10-255', false, '', '', 'onkeyup="pwdStrength(this.id)"');
+				echo '</td><td>';
+				plxUtils::printInput($_userid.'_email', plxUtils::strCheck($_user['email']), 'email', '10-255');
 				echo '</td><td>';
 				if($_userid=='001') {
 					plxUtils::printInput($_userid.'_profil', $_user['profil'], 'hidden');
@@ -114,6 +117,8 @@ include(dirname(__FILE__).'/top.php');
 				plxUtils::printInput($new_userid.'_login', '', 'text', '10-255');
 				echo '</td><td>';
 				plxUtils::printInput($new_userid.'_password', '', 'password', '10-255', false, '', '', 'onkeyup="pwdStrength(this.id)"');
+				echo '</td><td>';
+				plxUtils::printInput($new_userid.'_email', '', 'email', '10-255');
 				echo '</td><td>';
 				plxUtils::printSelect($new_userid.'_profil', $aProfils, PROFIL_WRITER);
 				echo '</td><td>';
