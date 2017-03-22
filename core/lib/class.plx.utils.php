@@ -200,7 +200,7 @@ class plxUtils {
 		 if(! empty($value)) { $params[] = 'value="'.$value.'"'; }
 		 if(! empty($extra)) { $params[] = $extra; }
 		 if($type != 'hidden') {
-			if($readonly === true) { $params[] = 'readony'; }
+			if($readonly === true) { $params[] = 'readonly="readonly" class="readonly"'; }
 			if(! empty($className)) { $params[] = $className; }
 			if(! empty($placeholder)) { $params[] = $placeholder; }
 			if(! empty($sizes) and (strpos($sizes, '-') !== false)) {
