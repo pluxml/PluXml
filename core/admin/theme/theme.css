@@ -618,4 +618,17 @@ div.ico div {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
+<<<<<<< f873e59a1417e260bfed80faf1da214f97bc5065
+=======
+}
+
+#statics-table input:not([type="checkbox"]),
+#categories-table input:not([type="checkbox"]),
+#users-table input:not([type="checkbox"]) {
+	width: 100%;
+}
+input[maxlength="3"] {
+	width: 4rem !important;
+	text-align: right;
+>>>>>>> Gestion de <input size="xxx" dans les tableaux
 }
