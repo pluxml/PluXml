@@ -29,6 +29,7 @@
 [+] #191: plxShow:catList - Ajout de la variable #cat_description
 [+] #194: Rédaction d'un article: optimisation de l'ajout rapide de tag (contribution MatthieuQuantin)
 [+] #212: Administration > Paramètres > Comptes utilisateurs : ajout de l'adresse email (contribution bazooka07)
+[+] #214: plxUtils::printInput : meilleur comportement responsive des champs input (contribution bazooka07)
 [-] Suppression icon help.png, remplacée par du css
 BUG Non affichage du nombre de commentaires d'un article si les commentaires sont fermés
 BUG plxUtils::removeAccents - amélioration de la prise en compte des caractères non latin
