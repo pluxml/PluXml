@@ -265,29 +265,31 @@ input[maxlength="3"] {
 	text-align: center;
 }
 
-#nav_chapo + label span {
-	width: 12rem;
-	text-align: center;
-}
-/* chapo is hidden */
-#nav_chapo + label {
-	cursor: pointer;
-}
-#nav_chapo + label span:first-of-type,
-#nav_chapo + label + textarea {
+.toggler {
 	display: none;
 }
-#nav_chapo + label span:last-of-type {
+.toggler + label span {
+	color: #258fd6;
+}
+.toggler + label span:hover {
+	cursor: pointer;
+	text-decoration: underline;
+	color: #444;
+}
+.toggler + label span:first-of-type, /* masquer */
+.toggler + label + div {
+	display: none;
+}
+.toggler + label span:last-of-type {
 	display: inline-block;
 }
-/* chapo is displayed */
-#nav_chapo:checked + label span:first-of-type {
+.toggler:checked + label span:first-of-type { /* afficher */
 	display: inline-block;
 }
-#nav_chapo:checked ~ #id_chapo {
+.toggler:checked + label + div {
 	display: block;
 }
-#nav_chapo:checked + label span:last-of-type {
+.toggler:checked + label span:last-of-type {
 	display: none;
 }
 

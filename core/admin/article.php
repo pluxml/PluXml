@@ -333,9 +333,11 @@ function refreshImg(dta) {
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<input type="checkbox" id="nav_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' checked' : ''; ?> style="display: none;" />
-						<label for="nav_chapo"><?php echo L_HEADLINE_FIELD;?><span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
-						<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
+						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' checked' : ''; ?> />
+						<label for="toggler_chapo"><?php echo L_HEADLINE_FIELD;?> : <span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
+						<div>
+							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
+						</div>
 					</div>
 				</div>
 				<div class="grid">
