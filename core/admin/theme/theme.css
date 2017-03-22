@@ -279,6 +279,16 @@ input[maxlength="3"] {
 .inline-form.update input {
 	font-size: 1.3rem;
 }
+.readonly {
+	background-color: #ddd;
+	color: #aaa;
+}
+input.readonly:focus {
+	border-color: #aaa;
+}
+input.readonly:hover {
+	cursor: not-allowed;
+}
 #id_link {
 	width:100%;
 }
