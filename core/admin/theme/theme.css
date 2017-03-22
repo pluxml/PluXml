@@ -574,6 +574,7 @@ tr.checked {
 	max-width: 100%;
 }
 /* champs de recherche */
+#index-search,
 #medias-search,
 #plugins-search {
 	background: url('images/search.png') 5px 7px no-repeat;

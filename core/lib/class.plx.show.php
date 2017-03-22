@@ -1271,7 +1271,7 @@ class plxShow {
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function staticList($extra='', $format='<li id="#static_id" class="#static_class"><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<span class="#group_class #group_status">#group_name</span>', $menublog=false) {
+	public function staticList($extra='', $format='<li class="#static_class #static_status" id="#static_id" ><a href="#static_url" class="#static_status" title="#static_name">#static_name</a></li>', $format_group='<span class="#group_class #group_status">#group_name</span>', $menublog=false) {
 
 		$menus = array();
 		# Hook Plugins
@@ -1280,7 +1280,7 @@ class plxShow {
 		# Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
 		if($extra != '') {
 			$stat = str_replace('#static_id','static-home',$format);
-			$stat = str_replace('#static_class','static-group',$stat);
+			$stat = str_replace('#static_class','static menu',$stat);
 			$stat = str_replace('#static_url',$this->plxMotor->urlRewrite(),$stat);
 			$stat = str_replace('#static_name',plxUtils::strCheck($extra),$stat);
 			$stat = str_replace('#static_status',($home==true?"active":"noactive"), $stat);
@@ -1291,7 +1291,7 @@ class plxShow {
 			foreach($this->plxMotor->aStats as $k=>$v) {
 				if($v['active'] == 1 AND $v['menu'] == 'oui') { # La page  est bien active et dispo ds le menu
 					$stat = str_replace('#static_id','static-'.intval($k),$format);
-					$stat = str_replace('#static_class','static-menu',$stat);
+					$stat = str_replace('#static_class','static menu',$stat);
 					if($v['url'][0]=='?') # url interne commençant par ?
 						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite($v['url']),$stat);
 					elseif(plxUtils::checkSite($v['url'],false)) # url externe en http ou autre
@@ -1299,7 +1299,7 @@ class plxShow {
 					else # url page statique
 						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite('?static'.intval($k).'/'.$v['url']),$stat);
 					$stat = str_replace('#static_name',plxUtils::strCheck($v['name']),$stat);
-					$stat = str_replace('#static_status',(($home===false AND $this->staticId()==intval($k))?'static active':'noactive'), $stat);
+					$stat = str_replace('#static_status',($this->staticId()==intval($k)?'active':'noactive'), $stat);
 					if($v['group']=='')
 						$menus[][] =  $stat;
 					else
@@ -1312,7 +1312,7 @@ class plxShow {
 		if($menublog) {
 			if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
 				if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
-					$menu = str_replace('#static_id','page-blog',$format);
+					$menu = str_replace('#static_id','static-blog',$format);
 					if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'].$this->plxMotor->mode)) {
 						$menu = str_replace('#static_status','active',$menu);
 					} else {
@@ -1320,7 +1320,7 @@ class plxShow {
 					}
 					$menu = str_replace('#static_url', $this->plxMotor->urlRewrite('?blog'),$menu);
 					$menu = str_replace('#static_name',L_PAGEBLOG_TITLE,$menu);
-					$menu = str_replace('#static_class','',$menu);
+					$menu = str_replace('#static_class','static menu',$menu);
 					array_splice($menus, (intval($menublog)-1), 0, array($menu));
 				}
 			}
@@ -1706,7 +1706,7 @@ class plxShow {
 		}
 
 		$mode = $this->plxMotor->mode;
-		
+
 		# Récupération de la liste des tags de l'article si on est en mode 'article'
 		# pour mettre en évidence les tags dans la sidebar s'ils sont attachés à l'article
 		$artTags = array();
@@ -1716,7 +1716,7 @@ class plxShow {
 				$artTags = array_map('trim', explode(',', $artTagList));
 			}
 		}
-		
+
 		# On affiche la liste
 		$size=0;
 		foreach($array as $tagname => $tag) {
@@ -1730,8 +1730,8 @@ class plxShow {
 			if($mode=='article' AND in_array($tag['name'],$artTags))
 				$name = str_replace('#tag_status','active', $name);
 			else
-				$name = str_replace('#tag_status',(($mode=='tags' AND $this->plxMotor->cible==$tag['url'])?'active':'noactive'), $name);			
-			
+				$name = str_replace('#tag_status',(($mode=='tags' AND $this->plxMotor->cible==$tag['url'])?'active':'noactive'), $name);
+
 			echo $name;
 		}
 	}
@@ -1802,18 +1802,19 @@ class plxShow {
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function pageBlog($format='<li id="#page_id"><a class="#page_status" href="#page_url" title="#page_name">#page_name</a></li>') {
+	public function pageBlog($format='<li class="#page_class #page_status" id="#page_id"><a href="#page_url" title="#page_name">#page_name</a></li>') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageBlog'))) return;
 
 		if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
 			if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
-				$name = str_replace('#page_id','page-blog',$format);
+				$name = str_replace('#page_id','static-blog',$format);
 				if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'].$this->plxMotor->mode)) {
 					$name = str_replace('#page_status','active',$name);
 				} else {
 					$name = str_replace('#page_status','noactive',$name);
 				}
+				$name = str_replace('#page_class','static menu',$name);
 				$name = str_replace('#page_url', $this->plxMotor->urlRewrite('?blog'),$name);
 				$name = str_replace('#page_name',L_PAGEBLOG_TITLE,$name);
 				echo $name;
