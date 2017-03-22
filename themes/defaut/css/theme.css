@@ -344,13 +344,14 @@ body {
 	padding: 0 1rem;
 	background-color: #fff;
 }
-.menu span.static.group.noactive {
+.static.group.active,
+.static.menu.active a {
+	color: #e42929;
+}
+.static.group.noactive,
+.static.menu.noactive a {
 	color: #258fd6;
 }
 .menu span::before {
 	content: '\25bc';
-}
-.menu span.static.group.active,
-.menu ul  li.static.active a {
-	color: #e42929;
 }
