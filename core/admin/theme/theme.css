@@ -223,6 +223,15 @@ textarea {
 #id_frontend, #id_backend {
 	resize: vertical;
 }
+#statics-table input:not([type="checkbox"]),
+#categories-table input:not([type="checkbox"]),
+#users-table input:not([type="checkbox"]) {
+	width: 100%;
+}
+input[maxlength="3"] {
+	width: 4rem !important;
+	text-align: right;
+}
 #medias-table td {
 	height: 6rem;
 }
@@ -269,6 +278,16 @@ textarea {
 .inline-form.creation input,
 .inline-form.update input {
 	font-size: 1.3rem;
+}
+.readonly {
+	background-color: #ddd;
+	color: #aaa;
+}
+input.readonly:focus {
+	border-color: #aaa;
+}
+input.readonly:hover {
+	cursor: not-allowed;
 }
 #id_link {
 	width:100%;

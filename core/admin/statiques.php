@@ -87,15 +87,15 @@ function checkBox(cb) {
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
 					echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$num.'\')" />';
 					echo '</td><td>';
-					plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '10-100');
+					plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '-100');
 					echo '</td><td>';
-					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '10-255');
+					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255');
 					echo '</td><td>';
-					plxUtils::printInput($k.'_url', $v['url'], 'text', '10-255');
+					plxUtils::printInput($k.'_url', $v['url'], 'text', '-255');
 					echo '</td><td>';
 					plxUtils::printSelect($k.'_active', array('1'=>L_YES,'0'=>L_NO), $v['active']);
 					echo '</td><td>';
-					plxUtils::printInput($k.'_ordre', $ordre, 'text', '1-3');
+					plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3');
 					echo '</td><td>';
 					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
 					$url = $v['url'];
@@ -125,16 +125,16 @@ function checkBox(cb) {
 					<td>
 					<?php
 						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
-						plxUtils::printInput($new_staticid.'_group', '', 'text', '10-100');
+						plxUtils::printInput($new_staticid.'_group', '', 'text', '-100');
 						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_name', '', 'text', '10-255');
+						plxUtils::printInput($new_staticid.'_name', '', 'text', '-255');
 						plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden');
 						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_url', '', 'text', '10-255');
+						plxUtils::printInput($new_staticid.'_url', '', 'text', '-255');
 						echo '</td><td>';
 						plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0');
 						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_ordre', ++$num, 'text', '1-3');
+						plxUtils::printInput($new_staticid.'_ordre', ++$num, 'text', '2-3');
 						echo '</td><td>';
 						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
 					?>
