@@ -197,19 +197,26 @@ class plxUtils {
 			'name="'.$name.'"',
 			'type="'.$type.'"'
 		 );
-		 if(! empty($value)) { $params[] = 'value="'.$value.'"'; }
-		 if(! empty($extra)) { $params[] = $extra; }
+		 if(!empty($value))
+			 $params[] = 'value="'.$value.'"';
+		 if(!empty($extra))
+			 $params[] = $extra;
 		 if($type != 'hidden') {
-			if($readonly === true) { $params[] = 'readonly="readonly" class="readonly"'; }
-			if(! empty($className)) { $params[] = $className; }
-			if(! empty($placeholder)) { $params[] = $placeholder; }
-			if(! empty($sizes) and (strpos($sizes, '-') !== false)) {
+			if($readonly === true)
+				$params[] = 'readonly="readonly" class="readonly"';
+			if(!empty($className))
+				$params[] = $className;
+			if(!empty($placeholder))
+				$params[] = $placeholder;
+			if(!empty($sizes) AND (strpos($sizes, '-') !== false)) {
 				list($size, $maxlength) = explode('-', $sizes);
-				if(! empty($size)) { $params[] = 'size="'.$size.'"'; }
-				if(! empty($maxlength)) { $params[] = 'maxlength="'.$maxlength.'"'; }
- 			}
+				if(!empty($size))
+					$params[] = 'size="'.$size.'"';
+				if(!empty($maxlength))
+					$params[] = 'maxlength="'.$maxlength.'"';
+			}
 		 }
-		 echo '<input '.implode(' ', $params).'/>';
+		 echo '<input '.implode(' ', $params).' />';
 	}
 
 	/**
