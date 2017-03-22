@@ -149,7 +149,7 @@ include(dirname(__FILE__).'/top.php');
 		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
 	<div class="col sml-6 text-right">
-		<input placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
+		<input id="index-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
 	</div>
 </div>
