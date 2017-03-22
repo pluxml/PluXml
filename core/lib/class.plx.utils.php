@@ -205,7 +205,7 @@ class plxUtils {
 			if($readonly === true)
 				$params[] = 'readonly="readonly" class="readonly"';
 			if(!empty($className))
-				$params[] = $className;
+				$params[] = 'class="'.$className.'"';
 			if(!empty($placeholder))
 				$params[] = $placeholder;
 			if(!empty($sizes) AND (strpos($sizes, '-') !== false)) {
