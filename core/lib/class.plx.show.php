@@ -1313,7 +1313,7 @@ class plxShow {
 			if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
 				if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
 					$menu = str_replace('#static_id','page-blog',$format);
-					if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'])) {
+					if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'].$this->plxMotor->mode)) {
 						$menu = str_replace('#static_status','active',$menu);
 					} else {
 						$menu = str_replace('#static_status','noactive',$menu);
@@ -1705,6 +1705,18 @@ class plxShow {
 
 		}
 
+		$mode = $this->plxMotor->mode;
+		
+		# Récupération de la liste des tags de l'article si on est en mode 'article'
+		# pour mettre en évidence les tags dans la sidebar s'ils sont attachés à l'article
+		$artTags = array();
+		if($mode=='article') {
+			$artTagList = $this->plxMotor->plxRecord_arts->f('tags');
+			if(!empty($artTagList)) {
+				$artTags = array_map('trim', explode(',', $artTagList));
+			}
+		}
+		
 		# On affiche la liste
 		$size=0;
 		foreach($array as $tagname => $tag) {
@@ -1715,7 +1727,11 @@ class plxShow {
 			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
 			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
 			$name = str_replace('#nb_art',$tag['count'],$name);
-			$name = str_replace('#tag_status',(($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$tag['url'])?'active':'noactive'), $name);
+			if($mode=='article' AND in_array($tag['name'],$artTags))
+				$name = str_replace('#tag_status','active', $name);
+			else
+				$name = str_replace('#tag_status',(($mode=='tags' AND $this->plxMotor->cible==$tag['url'])?'active':'noactive'), $name);			
+			
 			echo $name;
 		}
 	}
@@ -1793,7 +1809,7 @@ class plxShow {
 		if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
 			if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
 				$name = str_replace('#page_id','page-blog',$format);
-				if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'])) {
+				if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'].$this->plxMotor->mode)) {
 					$name = str_replace('#page_status','active',$name);
 				} else {
 					$name = str_replace('#page_status','noactive',$name);
