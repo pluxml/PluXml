@@ -480,19 +480,24 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'url de l'article de type relatif ou absolu
+	 * Méthode qui affiche ou retourne l'url de l'article
 	 *
-	 * @param	type (deprecated)	type de lien : relatif ou absolu
+	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @param 	extra 	paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'atricle
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Florent MONTHEL, Stephane F
 	 **/
-	public function artUrl($type='') {
+	public function artUrl($echo=true, $extra='') {
 
 		# On affiche l'URL
 		$id = intval($this->plxMotor->plxRecord_arts->f('numero'));
-		$url = $this->plxMotor->plxRecord_arts->f('url');
-		echo $this->plxMotor->urlRewrite('?article'.$id.'/'.$url);
+		$url = $this->plxMotor->urlRewrite('?article'.$id.'/'.$this->plxMotor->plxRecord_arts->f('url').$extra);
+		if($echo)
+			echo $url;
+		else
+			return $url;
+
 	}
 
 	/**
@@ -545,7 +550,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche ou renvoie l'auteur de l'article
 	 *
-	 * @param echo si à VRAI affichage à l'écran
+	 * @param 	echo si à VRAI affichage à l'écran
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
@@ -1369,22 +1374,28 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'url de la page statique de type relatif ou absolu
+	 * Méthode qui affiche ou retourne l'url de la page statique
 	 *
-	 * @param	type	type de lien : relatif ou absolu (URL complète)
+	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @param 	extra 	paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'atricle
 	 * @return	stdout
 	 * @scope	static
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
-	public function staticUrl($type='relatif', $staticId=false) {
+	public function staticUrl($echo=true, $extra='') {
 
 		# Recupération ID URL
 		if (empty($staticId) or !array_key_exists(str_pad($staticId,3,'0',STR_PAD_LEFT), $this->plxMotor->aStats)) {
 			$staticId = $this->staticId();
 		}
 		$staticIdFill = str_pad($staticId,3,'0',STR_PAD_LEFT);
-		if(!empty($staticId) AND isset($this->plxMotor->aStats[ $staticIdFill ]))
-			echo $this->plxMotor->urlRewrite('?static'.$staticId.'/'.$this->plxMotor->aStats[ $staticIdFill ]['url']);
+		if(!empty($staticId) AND isset($this->plxMotor->aStats[$staticIdFill])) {
+			$url = $this->plxMotor->urlRewrite('?static'.$staticId.'/'.$this->plxMotor->aStats[$staticIdFill]['url'].$extra);
+			if($echo)
+				echo $url;
+			else
+				return $url;
+		}
 	}
 
 	/**
