@@ -1374,20 +1374,26 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'url de la page statique de type relatif ou absolu
+	 * Méthode qui affiche ou retourne l'url de la page statique
 	 *
-	 * @param	type	type de lien : relatif ou absolu (URL complète)
+	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @param 	extra 	paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'atricle
 	 * @return	stdout
 	 * @scope	static
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
-	public function staticUrl($type='relatif') {
+	public function staticUrl($echo=true, $extra='') {
 
 		# Recupération ID URL
 		$staticId = $this->staticId();
 		$staticIdFill = str_pad($staticId,3,'0',STR_PAD_LEFT);
-		if(!empty($staticId) AND isset($this->plxMotor->aStats[ $staticIdFill ]))
-			echo $this->plxMotor->urlRewrite('?static'.$staticId.'/'.$this->plxMotor->aStats[ $staticIdFill ]['url']);
+		if(!empty($staticId) AND isset($this->plxMotor->aStats[$staticIdFill])) {
+			$url = $this->plxMotor->urlRewrite('?static'.$staticId.'/'.$this->plxMotor->aStats[$staticIdFill]['url'].$extra);
+			if($echo)
+				echo $url;
+			else
+				return $url;
+		}
 	}
 
 	/**
