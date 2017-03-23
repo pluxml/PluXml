@@ -483,15 +483,16 @@ class plxShow {
 	 * Méthode qui affiche ou retourne l'url de l'article
 	 *
 	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @param 	extra 	paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'atricle
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Florent MONTHEL, Stephane F
 	 **/
-	public function artUrl($echo=true) {
+	public function artUrl($echo=true, $extra='') {
 
 		# On affiche l'URL
 		$id = intval($this->plxMotor->plxRecord_arts->f('numero'));
-		$url = $this->plxMotor->urlRewrite('?article'.$id.'/'.$this->plxMotor->plxRecord_arts->f('url'));
+		$url = $this->plxMotor->urlRewrite('?article'.$id.'/'.$this->plxMotor->plxRecord_arts->f('url').$extra);
 		if($echo)
 			echo $url;
 		else
