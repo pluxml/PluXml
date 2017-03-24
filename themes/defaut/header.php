@@ -17,7 +17,7 @@
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" />
 </head>
 
-<body id="top">
+<body id="top" class="page mode-<?php $plxShow->mode(true) ?>">
 
 	<nav class="nav">
 		<div class="container">

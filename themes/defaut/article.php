@@ -6,7 +6,7 @@
 
 			<div class="grid">
 
-				<div class="col sml-12 med-8">
+				<div class="content col sml-12 med-8">
 
 					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 

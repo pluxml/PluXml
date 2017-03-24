@@ -5,7 +5,7 @@
 #
 # Package:		theme.css
 # Copyright (c) 2017 PluXml
-# Authors		Jos
+# Authors		Jos, Stephane F.
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -88,7 +88,7 @@ body {
 	margin-top: 4rem;
 }
 .pagination {
-	margin-bottom: 6rem;
+	margin: 3rem 0 3rem 0;
 }
 .pagination a {
 	background-color: #258fd6;
@@ -145,11 +145,9 @@ body {
 .article img.art_thumbnail {
 	padding: 15px 0 10px 0;
 }
-.article {
-	margin-bottom: 6rem;
-}
-.article.static {
-	margin-bottom: 0;
+.page.mode-article .article footer {
+	border-top: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
 }
 .comment {
 	background-image: url('../img/user.png');
@@ -226,9 +224,6 @@ body {
 	background-color: #666;
 	color: #fff;
 	transition-duration: .2s;
-}
-.aside {
-	padding-left: 5rem;
 }
 .aside h3 {
 	font-size: 1.5rem;
