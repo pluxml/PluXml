@@ -88,15 +88,18 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui retourne le mode d'affichage
+	 * Méthode qui affiche ou retourne le mode d'affichage
 	 *
+	 * @param   echo 	si à VRAI affichage écran (à FAUX par défaut pour gérer la non régression PluXml < 5.6)
 	 * @return	string	mode d'affichage (home, article, categorie, static ou erreur)
 	 * @scope	global
 	 * @author	Stephane F.
 	 **/
-	public function mode() {
-
-		return $this->plxMotor->mode;
+	public function mode($echo=false) {
+		if($echo)
+			echo $this->plxMotor->mode;
+		else
+			return $this->plxMotor->mode;
 	}
 
 	/**

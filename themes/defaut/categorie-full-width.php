@@ -6,7 +6,7 @@
 
 			<div class="grid">
 
-				<div class="col sml-12">
+				<div class="content col sml-12">
 
 					<ul class="repertory menu breadcrumb">
 						<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
