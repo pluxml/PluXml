@@ -225,6 +225,9 @@ body {
 	color: #fff;
 	transition-duration: .2s;
 }
+.aside {
+	padding: 0 2rem 0 2rem;
+}
 .aside h3 {
 	font-size: 1.5rem;
 	font-weight: bold;
