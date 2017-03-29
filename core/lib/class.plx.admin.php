@@ -113,6 +113,9 @@ class plxAdmin extends plxMotor {
 		# On réinitialise la pagination au cas où modif de bypage_admin
 		unset($_SESSION['page']);
 
+		# On réactulise la langue
+		$_SESSION['lang'] = $global['default_lang'];
+
 		# Actions sur le fichier htaccess
 		if(isset($content['urlrewriting']))
 			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
@@ -253,7 +256,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
 		$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
-		$_SESSION['lang'] = $content['lang'];
+		$_SESSION['admin_lang'] = $content['lang'];
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
