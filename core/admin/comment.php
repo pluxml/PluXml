@@ -200,7 +200,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
-				<?php plxUtils::printArea('content',$content, 60, 7,false,'full-width'); ?>
+				<?php plxUtils::printArea('content',$content, 0, 7); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
 			</div>
 		</div>

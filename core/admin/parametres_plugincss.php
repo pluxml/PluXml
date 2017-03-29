@@ -62,13 +62,13 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend),60,20,false,'full-width'); ?>
+				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend), 0, 20); ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend),60,20,false,'full-width'); ?>
+				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend), 0, 20); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
 				<?php echo plxToken::getTokenPostMethod() ?>
 			</div>

@@ -153,7 +153,7 @@ include(dirname(__FILE__).'/top.php');
 				<?php plxUtils::printInput('parent',$parent,'hidden'); ?>
 				<?php echo plxToken::getTokenPostMethod() ?>
 				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 7); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
 			</div>
 		</div>

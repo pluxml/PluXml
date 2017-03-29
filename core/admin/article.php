@@ -335,14 +335,14 @@ function refreshImg(dta) {
 					<div class="col sml-12">
 						<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;<a id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
 						<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>>
-						<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
+						<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8); ?>
 						</div>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,20,false,'full-width'); ?>
+						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20); ?>
 					</div>
 				</div>
 				<?php if($artId!='' AND $artId!='0000') : ?>

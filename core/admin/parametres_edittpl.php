@@ -76,11 +76,11 @@ include(dirname(__FILE__).'/top.php');
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>	
+		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
+		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
-		&nbsp;&nbsp;&nbsp;		
+		&nbsp;&nbsp;&nbsp;
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</div>
 
@@ -90,11 +90,11 @@ include(dirname(__FILE__).'/top.php');
 		<div class="col sml-12">
 			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
 			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 20); ?>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>
-	
+
 </form>
 
 <?php

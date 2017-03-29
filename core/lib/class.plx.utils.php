@@ -230,12 +230,27 @@ class plxUtils {
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @return	stdout
 	 **/
-	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $class='') {
+	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width') {
 
-		if($readonly)
-			echo '<textarea id="id_'.$name.'" name="'.$name.'" class="readonly" cols="'.$cols.'" rows="'.$rows.'" readonly="readonly">'.$value.'</textarea>'."\n";
-		else
-			echo '<textarea id="id_'.$name.'" name="'.$name.'"'.($class!=''?' class="'.$class.'"':'').' cols="'.$cols.'" rows="'.$rows.'">'.$value.'</textarea>'."\n";
+		$params = array(
+			'id="id_'.$name.'"',
+			'name="'.$name.'"'
+		);
+		if(! empty($cols)) {
+			$params[] = 'cols="'.$cols.'"';
+		}
+		if(! empty($rows)) {
+			$params[] = 'rows="'.$rows.'"';
+		}
+		if($readonly === true) {
+			$params = 'class="readonly"';
+			$params = 'readonly="readonly"';
+		} else {
+			if(! empty($className)) {
+				$params[] = 'class="'.$className.'"';
+			}
+		}
+		echo '<textarea '.implode(' ', $params).'>'.$value.'</textarea>';
 	}
 
 	/**

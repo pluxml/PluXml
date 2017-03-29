@@ -84,7 +84,7 @@ include(dirname(__FILE__).'/top.php');
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
+					<?php plxUtils::printArea('content', plxUtils::strCheck($content), 0, 30) ?>
 				</div>
 			</div>
 			<div class="grid">
