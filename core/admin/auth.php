@@ -95,12 +95,12 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
 			$_SESSION['profil'] = $user['profil'];
 			$_SESSION['hash'] = plxUtils::charAleatoire(10);
 			$_SESSION['domain'] = $session_domain;
-			# on définit $_SESSION['lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
+			# on définit $_SESSION['admin_lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
 			# ordre des traitements:
 			# page administration : chargement fichier prepend.php
 			# => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
 			# => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
-			$_SESSION['lang'] = $user['lang'];
+			$_SESSION['admin_lang'] = $user['lang'];
 			$connected = true;
 			break;
 		}

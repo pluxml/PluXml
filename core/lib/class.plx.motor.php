@@ -87,7 +87,9 @@ class plxMotor {
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
 		# Traitement des plugins
 		# Détermination du fichier de langue (nb: la langue peut être modifiée par plugins via $_SESSION['lang'])
-		$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->aConf['default_lang'];
+		$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
+		$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->aConf['default_lang'];
+		#--
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins

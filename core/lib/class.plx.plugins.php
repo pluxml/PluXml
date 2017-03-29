@@ -35,7 +35,11 @@ class plxPlugins {
 		if(is_file($filename)) {
 			include_once($filename);
 			if (class_exists($plugName)) {
-				return new $plugName($this->default_lang);
+				# réactualisation de la langue si elle a été modifié par un plugin
+				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
+				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
+				# chargement du plugin en créant une nouvelle instance
+				return new $plugName($lang);
 			}
 		}
 		return false;
