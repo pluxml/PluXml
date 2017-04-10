@@ -1,4 +1,8 @@
-## PLUXML 5.6 (sortie : xx/xx/2017) ##
+## PLUXML x.x (sortie : xx/xx/xxxx) ##
+
+BUG Suppression fichier plugin update impossible (droit fichier)
+
+## PLUXML 5.6 (sortie : 05/04/2017) ##
 
 [+] PluCSS 1.2
 [+] Contrôle de la force des mots de passe saisis
