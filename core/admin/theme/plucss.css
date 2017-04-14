@@ -187,7 +187,7 @@ th {
 tr {
 	border-bottom: 1px solid;
 }
-td, 
+td,
 th {
 	height: 3.5rem;
 	padding-left: .7rem;
@@ -456,14 +456,10 @@ input[type="submit"].red:hover {
 }
 .menu.expanded li a {
 	border-radius: .3rem;
-	display: block;
-	height: 3.5rem;
-	line-height: 3.5rem;
-	padding-left: .7rem;
-	padding-right: .7rem;
 }
 .menu.expanded li a:hover {
 	text-decoration: none;
+	color: #f00 !important;
 }
 .menu.breadcrumb li + li:before,
 .menu.expanded.breadcrumb > li + li a:before {
@@ -477,7 +473,7 @@ input[type="submit"].red:hover {
 .menu.expanded.breadcrumb > li + li:before {
 	content: none;
 }
-.menu.expanded li.active a,
+.menu.expanded li.active,
 .menu.expanded li.active:hover {
 	background-color: #258fd6;
 	color: #fff;
