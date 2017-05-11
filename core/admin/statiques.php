@@ -68,7 +68,7 @@ function checkBox(cb) {
 					<th><?php echo L_STATICS_TITLE ?></th>
 					<th><?php echo L_STATICS_URL ?></th>
 					<th><?php echo L_STATICS_ACTIVE ?></th>
-					<th><?php echo L_STATICS_ORDER ?></th>
+					<th data-id="order"><?php echo L_STATICS_ORDER ?></th>
 					<th><?php echo L_STATICS_MENU ?></th>
 					<th><?php echo L_STATICS_ACTION ?></th>
 				</tr>
@@ -81,8 +81,8 @@ function checkBox(cb) {
 			if($plxAdmin->aStats) {
 				foreach($plxAdmin->aStats as $k=>$v) { # Pour chaque page statique
 					$ordre = ++$num;
-					echo '<tr>';
-					echo '<td><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
+					echo '<tr draggable="true" ondragend="DragDrop.dragend(event, \'statics-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
+					echo '<td class="tb-drag-icon"><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
 					echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$num.'\')" />';

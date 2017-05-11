@@ -639,3 +639,15 @@ div.ico div {
 	text-decoration: none;
 	cursor: pointer;
 }
+/* Drag & Drop Table */
+.tb-drag-icon {
+	background-image: url(images/tb-drag-icon.gif);
+	background-repeat: repeat-y;
+	cursor: move;
+}
+#categories-table th:nth-child(1),
+#categories-table td:nth-child(1),
+#statics-table th:nth-child(1),
+#statics-table td:nth-child(1) {
+	padding-left: 12px;
+}

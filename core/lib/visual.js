@@ -79,3 +79,36 @@ function dialogBox(dlg) {
 	this.addEvent(this.span, 'click', this.close);
 	this.open();
 }
+var DragDrop = {
+	isbefore: function(a, b) {
+		if (a.parentNode == b.parentNode) {
+			for (var cur = a; cur; cur = cur.previousSibling) {
+				if (cur === b) return true;
+			}
+		}
+		return false;
+	},
+	dragenter: function(e) {
+		var targetelem = e.target;
+		if (targetelem.nodeName == "TD") {
+			targetelem = targetelem.parentNode;
+		}
+		if (this.isbefore(this.source, targetelem)) {
+			targetelem.parentNode.insertBefore(this.source, targetelem);
+		} else {
+			targetelem.parentNode.insertBefore(this.source, targetelem.nextSibling);
+		}
+	},
+	dragstart: function(e) {
+		this.source = e.target;
+		e.dataTransfer.effectAllowed = 'move';
+	},
+	dragend: function(e,tb) {
+		e.preventDefault();
+		var numcol = document.querySelectorAll('#'+tb+' thead th[data-id="order"]')[0].cellIndex;
+		var rows = document.querySelectorAll('#'+tb+' tbody tr');
+		for(var i=0;i<rows.length-1;i++) {
+			rows[i].cells[numcol].getElementsByTagName('input')[0].value = i+1;
+		}
+	}
+}
