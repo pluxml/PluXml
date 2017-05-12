@@ -90,14 +90,17 @@ var DragDrop = {
 	},
 	dragenter: function(e) {
 		var targetelem = e.target;
-		if (targetelem.nodeName == "TD") {
-			targetelem = targetelem.parentNode;
+		try {
+			if (targetelem.nodeName == "TD") {
+				targetelem = targetelem.parentNode;
+			}
+			if (this.isbefore(this.source, targetelem)) {
+				targetelem.parentNode.insertBefore(this.source, targetelem);
+			} else {
+				targetelem.parentNode.insertBefore(this.source, targetelem.nextSibling);
+			}
 		}
-		if (this.isbefore(this.source, targetelem)) {
-			targetelem.parentNode.insertBefore(this.source, targetelem);
-		} else {
-			targetelem.parentNode.insertBefore(this.source, targetelem.nextSibling);
-		}
+		catch(e) {}
 	},
 	dragstart: function(e) {
 		this.source = e.target;
