@@ -417,8 +417,8 @@ $LANG = array(
 'L_PLUXML_CHECK_VERSION'			=> 'Vérification du numéro de version de PluXml sur le site officiel PluXml.org',
 'L_PLUXML_UPDATE_UNAVAILABLE'		=> 'Impossible de vérifier les mises à jour tant que \'allow_url_fopen\' est désactivé sur ce système',
 'L_PLUXML_UPDATE_ERR'				=> 'La vérification de mise à jour a échoué pour une raison inconnue',
-'L_PLUXML_UPTODATE'					=> 'Vous utilisez la dernière version de PluXml',
-'L_PLUXML_UPDATE_AVAILABLE'			=> 'Une nouvelle version de PluXml est sortie ! Vous pouvez la télécharger sur',
+'L_PLUXML_UPTODATE'					=> 'Vous utilisez la dernière version (#VERSION#) ou une version plus récente de PluXml.',
+'L_PLUXML_UPDATE_AVAILABLE'			=> 'La nouvelle version #VERSION# de PluXml est sortie ! Vous pouvez la télécharger sur',
 
 # parametres_users.php
 

@@ -1062,23 +1062,25 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function checkMaj() {
 
-		# La fonction est active ?
-		if(!ini_get('allow_url_fopen')) return L_PLUXML_UPDATE_UNAVAILABLE;
-				$latest_version = '';
+		$ch = curl_init('http://telechargements.pluxml.org/latest-version');
+		curl_setopt_array($ch, array(
+			CURLOPT_RETURNTRANSFER	=>true,
+			CURLOPT_USERAGENT		=>'Wget/1.9',
+			CURLOPT_FOLLOWLOCATION	=> true,
+			CURLOPT_HEADER			=> false,
+			CURLOPT_FORBID_REUSE	=> true
+		));
+		$latest_version = curl_exec($ch);
+		curl_close($ch);
 
-		# Requete HTTP sur le site de PluXml
-		if($fp = @fopen('http://telechargements.pluxml.org/latest-version', 'r')) {
-					$latest_version = trim(fread($fp, 16));
-					fclose($fp);
-				}
 		if($latest_version == '')
 			return L_PLUXML_UPDATE_ERR;
 
 		# Comparaison
 		if(version_compare(PLX_VERSION, $latest_version, ">="))
-			return L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
+			return str_replace('#VERSION#', $latest_version, L_PLUXML_UPTODATE);
 		else
-		 	return L_PLUXML_UPDATE_AVAILABLE.' <a href="http://www.pluxml.org/">PluXml.org</a>';
+		 	return str_replace('#VERSION#', $latest_version, L_PLUXML_UPDATE_AVAILABLE).' <a href="http://www.pluxml.org/">PluXml.org</a>';
 	}
 
 }
