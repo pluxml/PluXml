@@ -61,7 +61,6 @@ class plxThemes {
 
 	public function getImgPreview($theme) {
 		$src = 	PLX_CORE.'admin/theme/images/theme.png';
-		$current = '';
 		foreach(explode(' ', 'png jpg gif') as $ext) {
 			$filename = $this->racineTheme.$theme.'/preview.'.$ext;
 			if(is_file($filename)) {
@@ -70,7 +69,7 @@ class plxThemes {
 			}
 		}
 
-		$current = $theme == $this->activeTheme ? ' current' : '';
+		$current = ($theme == $this->activeTheme) ? ' current' : '';
 		return <<< EOT
 <img class="img-preview$current" src="$src" alt="preview" />
 EOT;
