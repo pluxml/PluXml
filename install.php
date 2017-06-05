@@ -168,6 +168,9 @@ function install($content, $config) {
 	<meta_description><![CDATA[]]></meta_description>
 	<meta_keywords><![CDATA[]]></meta_keywords>
 	<title_htmltag><![CDATA[]]></title_htmltag>
+	<thumbnail><![CDATA['.plxUtils::cdataCheck('core/admin/theme/images/pluxml.png').']]></thumbnail>
+	<thumbnail_alt><![CDATA['.plxUtils::cdataCheck('Logo').']]></thumbnail_alt>
+	<thumbnail_title><![CDATA['.plxUtils::cdataCheck('PluXml').']]></thumbnail_title>
 	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
 	<date_update><![CDATA['.date('YmdHi').']]></date_update>
 </document>';
