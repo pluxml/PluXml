@@ -76,11 +76,12 @@ include(dirname(__FILE__).'/top.php');
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>	
+		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
+		<!-- ?php plxUtils::printSelect('template', $aTemplates, $tpl); ? -->
+		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, false);?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
-		&nbsp;&nbsp;&nbsp;		
+		&nbsp;&nbsp;&nbsp;
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</div>
 
@@ -94,7 +95,7 @@ include(dirname(__FILE__).'/top.php');
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>
-	
+
 </form>
 
 <?php

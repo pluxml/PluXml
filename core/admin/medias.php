@@ -30,10 +30,10 @@ elseif(!empty($_POST['folder'])) {
 	$_SESSION['folder'] = ($_POST['folder']=='.'?'':$_POST['folder']);
 }
 # Nouvel objet de type plxMedias
+$plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
 if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER)
-	$plxMedias = new plxMedias(PLX_ROOT.$_SESSION['medias'].$_SESSION['user'].'/',$_SESSION['folder']);
-else
-	$plxMedias = new plxMedias(PLX_ROOT.$_SESSION['medias'],$_SESSION['folder']);
+	$plxMediasRoot .= $_SESSION['user'].'/';
+$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
 
 #----
 
@@ -175,7 +175,7 @@ $curFolders = explode('/', $curFolder);
 
 		<div style="float:left">
 			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
-			<?php echo $plxMedias->contentFolder() ?>
+			<?php /* echo $plxMedias->contentFolder() */ plxUtils::printSelectDir('folder', $_SESSION['folder'], $plxMediasRoot); ?>
 			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
 		</div>
 

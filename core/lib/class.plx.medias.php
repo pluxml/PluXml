@@ -105,7 +105,7 @@ class plxMedias {
 	}
 
 	/**
-	 * Méthode qui retourne la liste des des fichiers d'un répertoire
+	 * Méthode qui retourne la liste des fichiers d'un répertoire
 	 *
 	 * @param	dir		répertoire de lecture
 	 * @return	files	tableau contenant la liste de tous les fichiers d'un dossier

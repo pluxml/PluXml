@@ -1061,5 +1061,93 @@ class plxUtils {
 			echo $obj;
 		echo "</pre>";
 	}
+
+	/**
+	 * $modeDir=true  pour ne choisir que les dossiers ( de médias, par Ex.)
+	 * $modeDir=false pour ne choisir que les fichiers ( du thème, par Ex. )
+	 * */
+
+	public static function printSelectDir($name, $currentValue, $root, $modeDir=true, $level=0, $prefixParent='') {
+
+		static $firstRootLength = 0;
+		// static $currentValue = '';
+		// static $modeDir = true;
+
+		$firstLevel = ($level == 0);
+		if($firstLevel){
+			// debogage :
+?>	<script type="text/javascript"> console.log('<?php echo $currentValue; ?>') </script> <?php
+			if(substr($root, -1) != '/')
+				$root .= '/';
+			$firstRootLength = strlen($root);
+			$value = ($modeDir) ? '.' : '';
+			$selected = ($value == $currentValue) ? ' selected' : '';
+			$caption = L_PLXMEDIAS_ROOT;
+			echo <<< EOT
+		<select id="id_$name" name="$name" class="scan-folders" required>
+			<option value="$value"$selected>$caption/</option>
+
+EOT;
+			$prefixParent = str_repeat(' ', 3); // espace insécable !
+		}
+
+		// begin loop
+		$children = array_filter(
+			scandir($root),
+			function($item) use($modeDir, $root) {
+				return ($item[0] != '.') and (!$modeDir or is_dir($root.$item));
+			}
+		);
+		natsort($children);
+		if(!empty($children)) {
+			$level++;
+			$cnt = count($children);
+			foreach($children as $child) {
+				$cnt--;
+				$prefix = $prefixParent;
+				// http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
+				if($cnt<=0) { // │├└─ ┃┣┗━
+					$prefix .= '└ '; // espace insécable !
+					$next = ' '; // espace insécable !
+				} else {
+					$prefix .= '├ '; // espace insécable !
+					$next = '│';
+				}
+				$next .= str_repeat(' ', 3);
+				$dataLevel = 'level-'.str_repeat('X', $level);
+				$value = substr($root.$child, $firstRootLength);
+				$selected = ($value == $currentValue) ? ' selected' : '';
+				$caption = basename($value);
+				if(is_dir($root.$child)) { // pour un dossier
+					if($modeDir) {
+						echo <<<EOT
+			<option value="$value/" data-level="$dataLevel" $selected>$prefix $caption/</option>
+
+EOT;
+					} else {
+						echo <<<EOT
+			<option value="" data-level="$dataLevel" class="folder">$prefix ${caption} ▼</option>
+
+EOT;
+					}
+					plxUtils::printSelectDir('', $currentValue, $root.$child.'/', $modeDir, $level, $prefixParent.$next);
+				} else { // pour un fichier
+					echo <<<EOT
+			<option value="$value" data-level="$dataLevel" $selected>$prefix $caption</option>
+
+EOT;
+				}
+			}
+		}
+		// end loop
+		if($firstLevel)
+			echo <<< EOT
+		</select>
+
+EOT;
+
+	}
+
 }
+
 ?>

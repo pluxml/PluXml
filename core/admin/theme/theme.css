@@ -657,3 +657,13 @@ div.ico div {
 #statics-table td:nth-child(1) {
 	padding-left: 12px;
 }
+/* ---- select pour fichiers (folding) --- */
+.scan-folders option[data-level^="level-XX"] {
+	display: none;
+}
+.scan-folders option[data-level^="level-XX"].visible {
+	display: block;
+}
+.scan-folders .folder {
+	font-weight: bold;
+}
