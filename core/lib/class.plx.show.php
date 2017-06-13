@@ -1388,7 +1388,9 @@ class plxShow {
 	public function staticUrl($echo=true, $extra='') {
 
 		# Recupération ID URL
-		$staticId = $this->staticId();
+		if (empty($staticId) or !array_key_exists(str_pad($staticId,3,'0',STR_PAD_LEFT), $this->plxMotor->aStats)) {
+			$staticId = $this->staticId();
+		}
 		$staticIdFill = str_pad($staticId,3,'0',STR_PAD_LEFT);
 		if(!empty($staticId) AND isset($this->plxMotor->aStats[$staticIdFill])) {
 			$url = $this->plxMotor->urlRewrite('?static'.$staticId.'/'.$this->plxMotor->aStats[$staticIdFill]['url'].$extra);

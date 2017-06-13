@@ -29,7 +29,9 @@
 
 						<?php $plxShow->artThumbnail(); ?>
 						<?php $plxShow->artContent(); ?>
-
+						
+						<?php eval($plxShow->callHook('MyMultiLingue', 'artlinks')) ?>
+						
 						<footer>
 							<small>
 								<span class="classified-in">
