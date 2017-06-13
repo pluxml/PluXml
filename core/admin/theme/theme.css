@@ -476,6 +476,11 @@ th.checkbox {
 	color: #fff;
 	padding: .2rem .3rem;
 }
+.author {
+    max-width: 12rem;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
 /* pour la fenêtre modale de la visionneuse d'image */
 .modal {
 	display: block;
