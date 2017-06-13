@@ -28,47 +28,55 @@ class plxThemes {
 	public	$activeTheme;
 	public	$aThemes = array(); # liste des themes
 
-	public function __construct($racineTheme, $activeTheme) {
+	public function __construct($racineTheme, $activeTheme, $lang=DEFAULT_LANG) {
 		$this->racineTheme = $racineTheme;
 		$this->activeTheme = $activeTheme;
+		$this->lang = $lang;
 		$this->getThemes();
 	}
 
 	public function getThemes() {
-		# on mets le theme actif en début de liste
-		if(is_dir($this->racineTheme.$this->activeTheme))
-			$this->aThemes[$this->activeTheme] = $this->activeTheme;
-		# liste des autres themes dispos
-		$files = plxGlob::getInstance($this->racineTheme, true);
-
-		if($styles = $files->query("/[a-z0-9-_\.\(\)]+/i", "", "sort")) {
-			foreach($styles as $k=>$v) {
-				if(is_file($this->racineTheme.$v.'/infos.xml')) {
-					if(substr($v,0,7) != 'mobile.' AND $v!=$this->activeTheme)
-						$this->aThemes[$v] = $v;
-				}
+		# on met le theme actif en début de liste
+		$activeTheme = $this->activeTheme;
+		if(is_dir($this->racineTheme.$activeTheme))
+			$this->aThemes[] = $activeTheme;
+		else
+			$activeTheme = false;
+		$racineThemes = $this->racineTheme;
+		$autresThemes = array_filter(
+			array_map(
+				function($item) use($racineThemes) {
+					return preg_replace('@^'.$racineThemes.'([^/]*)/css/$@', '\1', $item);
+				},
+				glob($racineThemes.'*/css/', GLOB_ONLYDIR)
+			),
+			function($item) use($activeTheme) {
+				return (($item !== $activeTheme) and !preg_match('@^mobile\..*$@i', $item));
 			}
-		}
+		);
+		if(!empty($autresThemes))
+			$this->aThemes = array_merge($this->aThemes, $autresThemes);
+
 	}
 
 	public function getImgPreview($theme) {
-		$img='';
-		if(is_file($this->racineTheme.$theme.'/preview.png'))
-			$img=$this->racineTheme.$theme.'/preview.png';
-		elseif(is_file($this->racineTheme.$theme.'/preview.jpg'))
-			$img=$this->racineTheme.$theme.'/preview.jpg';
-		elseif(is_file($this->racineTheme.$theme.'/preview.gif'))
-			$img=$this->racineTheme.$theme.'/preview.gif';
+		$src = 	PLX_CORE.'admin/theme/images/theme.png';
+		foreach(explode(' ', 'png jpg gif') as $ext) {
+			$filename = $this->racineTheme.$theme.'/preview.'.$ext;
+			if(is_file($filename)) {
+				$src = $filename;
+				break;
+			}
+		}
 
-		$current = $theme == $this->activeTheme ? ' current' : '';
-		if($img=='')
-			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" alt="" />';
-		else
-			return '<img class="img-preview'.$current.'" src="'.$img.'" alt="" />';
+		$current = ($theme == $this->activeTheme) ? ' current' : '';
+		return <<< EOT
+<img class="img-preview$current" src="$src" alt="preview" />
+EOT;
 	}
 
 	public function getInfos($theme) {
-		$aInfos = array();
+		$aInfos = array('folder' => $theme);
 		$filename = $this->racineTheme.$theme.'/infos.xml';
 		if(is_file($filename)){
 			$data = implode('',file($filename));
@@ -77,23 +85,91 @@ class plxThemes {
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
 			xml_parser_free($parser);
-			$aInfos = array(
-				'title'			=> (isset($iTags['title']) AND isset($values[$iTags['title'][0]]['value']))?$values[$iTags['title'][0]]['value']:'',
-				'author'		=> (isset($iTags['author']) AND isset($values[$iTags['author'][0]]['value']))?$values[$iTags['author'][0]]['value']:'',
-				'version'		=> (isset($iTags['version']) AND isset($values[$iTags['version'][0]]['value']))?$values[$iTags['version'][0]]['value']:'',
-				'date'			=> (isset($iTags['date']) AND isset($values[$iTags['date'][0]]['value']))?$values[$iTags['date'][0]]['value']:'',
-				'site'			=> (isset($iTags['site']) AND isset($values[$iTags['site'][0]]['value']))?$values[$iTags['site'][0]]['value']:'',
-				'description'	=> (isset($iTags['description']) AND isset($values[$iTags['description'][0]]['value']))?$values[$iTags['description'][0]]['value']:'',
-			);
+			foreach(explode(' ', 'title author version date site description') as $field) {
+				if(isset($iTags[$field]) AND !empty($values[$iTags[$field][0]]['value'])) {
+					$aInfos[$field] = $values[$iTags[$field][0]]['value'];
+				}
+			}
 		}
 		return $aInfos;
 	}
+
+	private function _strInfos($theme) {
+		$aInfos = $this->getInfos($theme);
+		$lines = array();
+		foreach(explode(' ', 'title date version site author description folder') as $field) {
+			if(!empty($aInfos[$field])) {
+				switch($field) {
+					case 'title':
+					  $lines[] = '<strong>'.ucFirst($aInfos[$field]).'</strong>';
+					  break;
+					case 'date':
+						if(!empty($aInfos['version']))
+							$lines[] = L_PLUGINS_VERSION.' : <strong>'.$aInfos['version'].'</strong> - '.$aInfos[$field];
+						else
+							$lines[] = L_PLUGINS_VERSION.' : <strong>'.$aInfos[$field].'</strong>';
+						break;
+					case 'version':
+						if(empty($aInfos['date']))
+							$lines[] = L_PLUGINS_VERSION.' : <strong>'.$aInfos[$field].'</strong>';
+						break;
+					case 'site':
+						$caption = (!empty($aInfos['author'])) ? $aInfos['author'] : $aInfos['site'];
+						$prefix = (!empty($aInfos['author'])) ?  L_PLUGINS_AUTHOR : 'Site';
+						$lines[] = $prefix.' : <a href="'.$aInfos[$field].'">'.$caption.'</a>';
+						break;
+					case 'author':
+						if(empty($aInfos['site']))
+							$lines[] = L_PLUGINS_AUTHOR.' : '.$aInfos['author'];
+						break;
+					case 'description':
+						$lines[] = $aInfos[$field];
+						break;
+					case 'folder':
+						$title = (empty($aInfos['title'])) ? '<strong>'.ucFirst($aInfos[$field]).'</strong>'."<br />\n" : '';
+						$lines[] =  $title.L_MEDIAS_FOLDER.' : '.$aInfos[$field];
+						break;
+				}
+			}
+		}
+		return (implode("<br />\n", $lines));
+	}
+
+	private function _printTheme($theme) {
+		$checked = ($theme == $this->activeTheme) ? ' checked="checked"' : '';
+		$preview = $this->getImgPreview($theme);
+		$aInfos = $this->_strInfos($theme);
+		$filename = $this->racineTheme.$theme.'/lang/'.$this->lang.'-help.php';
+		if(is_file($filename)) {
+			echo "<!--\n$filename\n-->\n";
+			$href = 'parametres_help.php?help=theme&page='.urlencode($theme);
+			$help =  "<br />\n".'<a title="'.L_HELP_TITLE.'" href="'.$href.'">'.L_HELP.'</a>';
+		} else
+			$help = '';
+		echo <<< EOT
+				<tr>
+					<td><input type="radio" id="id_$theme" name="style" value="$theme"$checked></td>
+					<td><label for="id_$theme">$preview</label></td>
+					<td>$aInfos$help</td>
+				</tr>
+EOT;
+	}
+
+	public function printThemes() {
+		if(!empty($this->aThemes)) {
+			foreach($this->aThemes as $theme) {
+				$this->_printTheme($theme);
+			}
+			return true;
+		} else
+			return false;
+	}
+
 }
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
-
-$plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
+$plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style'], $plxAdmin->aConf['default_lang']);
 
 ?>
 <form action="parametres_themes.php" method="post" id="form_settings">
@@ -106,54 +182,31 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>" />
 	</div>
 
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
 		<table id="themes-table" class="full-width">
 			<thead>
 				<tr>
 					<th colspan="2"><?php echo L_THEMES ?></th>
-					<th style="width: 100%">&nbsp;</th>
+					<th style="width: 100%;">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php
-				if($plxThemes->aThemes) {
-					$num=0;
-					foreach($plxThemes->aThemes as $theme) {
-						echo '<tr>';
-						# radio
-						$checked = $theme==$plxAdmin->aConf['style'] ? ' checked="checked"' : '';
-						echo '<td><input'.$checked.' type="radio" name="style" value="'.$theme.'" /></td>';
-						# img preview
-						echo '<td>'.$plxThemes->getImgPreview($theme).'</td>';
-						# theme infos
-						echo '<td class="wrap" style="vertical-align:top">';
-							if($aInfos = $plxThemes->getInfos($theme)) {
-								echo '<strong>'.$aInfos['title'].'</strong><br />';
-								echo 'Version : <strong>'.$aInfos['version'].'</strong> - ('.$aInfos['date'].')<br />';
-								echo L_PLUGINS_AUTHOR.' : '.$aInfos['author'].' - <a href="'.$aInfos['site'].'" title="">'.$aInfos['site'].'</a>';
-								echo '<br />'.$aInfos['description'].'<br />';
-							} else {
-								echo '<strong>'.$theme.'</strong>';
-							}
-							# lien aide
-							if(is_file(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$theme.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php'))
-								echo '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=theme&amp;page='.urlencode($theme).'">'.L_HELP.'</a>';
-
-						echo '</td>';
-						echo '</tr>';
-					}
-				} else {
-					echo '<tr><td colspan="2" class="center">'.L_NONE1.'</td></tr>';
-				}
-				?>
+<?php
+if(!$plxThemes->printThemes()) { ?>
+				<tr>
+					<td colspan="2" class="center"><?php echo L_NONE1; ?></td>
+				</tr>
+<?php
+}
+?>
 			</tbody>
 		</table>
 	</div>
 
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
+<?php echo plxToken::getTokenPostMethod() ?>
 
 </form>
 
