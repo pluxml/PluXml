@@ -1,7 +1,8 @@
 ## PLUXML x.x (sortie : xx/xx/xxxx) ##
 
+[+]	#230: Image d'accroche dans le premier article créer à l'installation
 Administration: Tri ordre des catégories et des pages statiques par drag&drop
-BUG Suppression fichier plugin update impossible (droit fichier)
+FIX Suppression fichier plugin update impossible (droit fichier)
 
 ## PLUXML 5.6 (sortie : 05/04/2017) ##
 
