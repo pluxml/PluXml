@@ -82,6 +82,7 @@
 }
 .aside .menu-config {
 	background-color: #333;
+	white-space: nowrap;
 }
 .aside .menu.expanded li a {
 	border-radius: 0;

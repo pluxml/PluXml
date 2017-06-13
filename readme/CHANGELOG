@@ -5,6 +5,7 @@
 [+] Prise en compte du fichier css des plugins sur la page auth.php
 Administration: Tri ordre des catégories et des pages statiques par drag&drop
 FIX Suppression fichier plugin update impossible (droit fichier)
+FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 
 ## PLUXML 5.6 (sortie : 05/04/2017) ##
 
