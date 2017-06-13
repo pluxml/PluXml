@@ -91,7 +91,7 @@ if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',
 } else {
 	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
 	# On génère notre lien
-	$article = '<a href="'.$plxAdmin->urlRewrite('?article'.intval($result['numero']).'/'.$result['url']).'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
+	$article = '<a href="'.$plxAdmin->urlRewrite('?article/'.intval($result['numero']).'-'.$result['url']).'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
 	$article .= plxUtils::strCheck($result['title']);
 	$article .= '</a>';
 }
@@ -101,7 +101,7 @@ $com=$plxAdmin->comInfoFromFilename($_GET['c'].'.xml');
 if($com['comStatus']=='_')
 	$statut = '<strong>'.L_COMMENT_OFFLINE.'</strong>';
 elseif($com['comStatus']=='')
-	$statut = '<a href="'.$plxAdmin->urlRewrite('?article'.intval($plxAdmin->plxRecord_coms->f('article')).'/#c'.$plxAdmin->plxRecord_coms->f('index')).'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
+	$statut = '<a href="'.$plxAdmin->urlRewrite('?article/'.intval($plxAdmin->plxRecord_coms->f('article')).'-#c'.$plxAdmin->plxRecord_coms->f('article').'-'.$plxAdmin->plxRecord_coms->f('index')).'" title="'.L_COMMENT_ONLINE_TITLE.'">'.L_COMMENT_ONLINE.'</a>';
 else
 	$statut = '';
 

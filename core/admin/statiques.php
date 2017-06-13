@@ -103,14 +103,14 @@ function checkBox(cb) {
 						echo '</td><td>';
 						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
 						if($v['active']) {
-							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
+							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static/'.intval($k).'-'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
 						}
-						echo '</td></tr>';
 					}
 					elseif($v['url'][0]=='?')
-						echo '</td><td><a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
+						echo '</td><td><a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
 					else
-						echo '</td><td><a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
+						echo '</td><td><a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
+					echo '</td></tr>';
 				}
 				# On récupère le dernier identifiant
 				$a = array_keys($plxAdmin->aStats);

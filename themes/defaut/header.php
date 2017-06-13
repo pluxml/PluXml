@@ -38,3 +38,5 @@
 			<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
 		</div>
 	</header>
+
+	<?php eval($plxShow->callHook('MyMultiLingue')) ?>

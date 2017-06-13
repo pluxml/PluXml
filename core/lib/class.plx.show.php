@@ -363,7 +363,7 @@ class plxShow {
 					if(($v['articles']>0 OR $this->plxMotor->aConf['display_empty_cat']) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
 						# On modifie nos motifs
 						$name = str_replace('#cat_id','cat-'.intval($k),$format);
-						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),$name);
+						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie/'.intval($k).'-'.$v['url']),$name);
 						$name = str_replace('#cat_name',plxUtils::strCheck($v['name']),$name);
 						$name = str_replace('#cat_status',($this->catId()==intval($k)?'active':'noactive'), $name);
 						$name = str_replace('#cat_description',plxUtils::strCheck($v['description']),$name);
@@ -518,7 +518,7 @@ class plxShow {
 			$title = plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 			$url = $this->plxMotor->plxRecord_arts->f('url');
 			# On effectue l'affichage
-			echo '<a href="'.$this->plxMotor->urlRewrite('?article'.$id.'/'.$url).'" title="'.$title.'">'.$title.'</a>';
+			echo '<a href="'.$this->plxMotor->urlRewrite('?article/'.$id.'-'.$url).'" title="'.$title.'">'.$title.'</a>';
 		} else { # Type normal
 			echo plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 		}
@@ -670,7 +670,7 @@ class plxShow {
 					else
 						$active = "noactive";
 					# On effectue l'affichage
-					$cats[] = '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$url).'" title="'.$name.'">'.$name.'</a>';
+					$cats[] = '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie/'.intval($catId).'-'.$url).'" title="'.$name.'">'.$name.'</a>';
 				} else { # La categorie n'existe pas
 					$cats[] =  L_UNCLASSIFIED;
 				}
@@ -760,7 +760,7 @@ class plxShow {
 			echo $this->plxMotor->plxRecord_arts->f('chapo')."\n";
 			if($format) {
 				$title = str_replace("#art_title", $title, $format);
-				echo '<p class="more"><a href="'.$this->plxMotor->urlRewrite('?article'.$id.'/'.$url).($anchor!=''?'#'.$anchor:'').'" title="'.$title.'">'.$title.'</a></p>'."\n";
+				echo '<p class="more"><a href="'.$this->plxMotor->urlRewrite('?article/'.$id.'-'.$url).($anchor!=''?'#'.$anchor:'').'" title="'.$title.'">'.$title.'</a></p>'."\n";
 			}
 		} else { # Pas de chapo, affichage du contenu
 			if($content === true) {
@@ -829,7 +829,7 @@ class plxShow {
 			# Fil Rss des articles d'une catégorie
 			$id=str_pad($categorie,3,'0',STR_PAD_LEFT);
 			if(isset($this->plxMotor->aCats[$id])) {
-				echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
+				echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie/'.$categorie.'-'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
 			}
 		} else {
 			# Fil Rss des articles
@@ -949,7 +949,7 @@ class plxShow {
 				# On modifie nos motifs
 				$row = str_replace('#art_id',$num,$format);
 				$row = str_replace('#cat_list', implode(', ',$catList),$row);
-				$row = str_replace('#art_url',$this->plxMotor->urlRewrite('?article'.$num.'/'.$art['url']),$row);
+				$row = str_replace('#art_url',$this->plxMotor->urlRewrite('?article/'.$num.'-'.$art['url']),$row);
 				$row = str_replace('#art_status',$status,$row);
 				$author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
 				$row = str_replace('#art_author',plxUtils::strCheck($author),$row);
@@ -1182,8 +1182,8 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowComFeed'))) return;
 
-		if($article != '' AND is_numeric($article)) # Fil Rss des commentaires d'un article
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires/article'.$article).'" title="'.L_COMFEED_RSS_ARTICLE.'">'.L_COMFEED_RSS_ARTICLE.'</a>';
+		if(! empty($article) AND is_numeric($article)) # Fil Rss des commentaires d'un article
+			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires/article/'.$article).'" title="'.L_COMFEED_RSS_ARTICLE.'">'.L_COMFEED_RSS_ARTICLE.'</a>';
 		else # Fil Rss des commentaires global
 			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires').'" title="'.L_COMFEED_RSS.'">'.L_COMFEED_RSS.'</a>';
 	}
@@ -1226,7 +1226,7 @@ class plxShow {
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if($artInfo['artDate']<=$datetime) { # on ne prends que les commentaires pour les articles publiés
 						if(empty($cat_ids) OR preg_match('/('.$cat_ids.')/', $artInfo['catId'])) {
-							$url = '?article'.intval($com['article']).'/'.$artInfo['artUrl'].'#c'.$com['article'].'-'.$com['index'];
+							$url = '?article/'.intval($com['article']).'-'.$artInfo['artUrl'].'#c'.$com['article'].'-'.$com['index'];
 							$date = $com['date'];
 							$content = strip_tags($com['content']);
 							# On modifie nos motifs
@@ -1305,7 +1305,7 @@ class plxShow {
 					elseif(plxUtils::checkSite($v['url'],false)) # url externe en http ou autre
 						$stat = str_replace('#static_url',$v['url'],$stat);
 					else # url page statique
-						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite('?static'.intval($k).'/'.$v['url']),$stat);
+						$stat = str_replace('#static_url',$this->plxMotor->urlRewrite('?static/'.intval($k).'-'.$v['url']),$stat);
 					$stat = str_replace('#static_name',plxUtils::strCheck($v['name']),$stat);
 					$stat = str_replace('#static_status',($this->staticId()==intval($k)?'active':'noactive'), $stat);
 					if($v['group']=='')
@@ -1388,7 +1388,9 @@ class plxShow {
 	public function staticUrl($echo=true, $extra='') {
 
 		# Recupération ID URL
-		$staticId = $this->staticId();
+		if (empty($staticId) or !array_key_exists(str_pad($staticId,3,'0',STR_PAD_LEFT), $this->plxMotor->aStats)) {
+			$staticId = $this->staticId();
+		}
 		$staticIdFill = str_pad($staticId,3,'0',STR_PAD_LEFT);
 		if(!empty($staticId) AND isset($this->plxMotor->aStats[$staticIdFill])) {
 			$url = $this->plxMotor->urlRewrite('?static'.$staticId.'/'.$this->plxMotor->aStats[$staticIdFill]['url'].$extra);

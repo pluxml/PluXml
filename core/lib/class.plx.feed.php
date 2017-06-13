@@ -74,7 +74,7 @@ class plxFeed extends plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxFeedPreChauffageBegin'))) return;
 
-		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie([0-9]+)/?#',$this->get,$capture)) {
+		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie/(\d+)/?#',$this->get,$capture)) {
 			$this->mode = 'article'; # Mode du flux
 			# On récupère la catégorie cible
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
@@ -84,7 +84,7 @@ class plxFeed extends plxMotor {
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/?$#',$this->get)) {
 			$this->mode = 'commentaire'; # Mode du flux
 		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag\/([a-z0-9-]+)/?$#',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag/(\w-]+)/?$#',$this->get,$capture)) {
 			$this->mode = 'tag';
 			$this->cible = $capture[1];
 			$ids = array();
@@ -108,7 +108,7 @@ class plxFeed extends plxMotor {
 				$this->motif = '';
 
 		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article([0-9]+)/?$#',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article/(\d+)/?$#',$this->get,$capture)) {
 			$this->mode = 'commentaire'; # Mode du flux
 			# On récupère l'article cible
 			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complète sur 4 caractères
@@ -145,21 +145,23 @@ class plxFeed extends plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxFeedDemarrageBegin'))) return;
 
-		# Flux de commentaires d'un article précis
-		if($this->mode == 'commentaire' AND $this->cible) {
-			if(!$this->getArticles()) { # Aucun article, on redirige
-				$this->cible = $this->cible + 0;
-				header('Location: '.$this->urlRewrite('?article'.$this->cible.'/'));
-				exit;
-			} else { # On récupère les commentaires
-				$regex = '/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/';
+		# Flux de commentaires
+		if($this->mode == 'commentaire') {
+			if($this->cible) {
+				# Flux de commentaires d'un article précis
+				if(!$this->getArticles()) { # Aucun article, on redirige
+					$this->cible = $this->cible + 0;
+					header('Location: '.$this->urlRewrite('?article'.$this->cible.'/'));
+					exit;
+				} else { # On récupère les commentaires
+					$regex = '/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/';
+					$this->getCommentaires($regex,'rsort',0,$this->bypage);
+				}
+			} else {
+				# Flux de commentaires global
+				$regex = '/^[0-9]{4}.[0-9]{10}-[0-9]+.xml$/';
 				$this->getCommentaires($regex,'rsort',0,$this->bypage);
 			}
-		}
-		# Flux de commentaires global
-		elseif($this->mode == 'commentaire') {
-			$regex = '/^[0-9]{4}.[0-9]{10}-[0-9]+.xml$/';
-			$this->getCommentaires($regex,'rsort',0,$this->bypage);
 		}
 		# Flux admin
 		elseif($this->mode == 'admin') {
@@ -226,7 +228,7 @@ class plxFeed extends plxMotor {
 		elseif($this->cible) { # Articles d'une catégorie
 			$catId = $this->cible + 0;
 			$title = $this->aConf['title'].' - '.$this->aCats[ $this->cible ]['name'];
-			$link = $this->urlRewrite('?categorie'.$catId.'/'.$this->aCats[ $this->cible ]['url']);
+			$link = $this->urlRewrite('?categorie/'.$catId.'-'.$this->aCats[ $this->cible ]['url']);
 		} else { # Articles globaux
 			$title = $this->aConf['title'];
 			$link = $this->urlRewrite();
@@ -251,8 +253,9 @@ class plxFeed extends plxMotor {
 				# On affiche le flux dans un buffer
 				$entry .= "\t<item>\n";
 				$entry .= "\t\t".'<title>'.plxUtils::strCheck($this->plxRecord_arts->f('title')).'</title> '."\n";
-				$entry .= "\t\t".'<link>'.$this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url')).'</link>'."\n";
-				$entry .= "\t\t".'<guid>'.$this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url')).'</guid>'."\n";
+				$url = $this->urlRewrite('?article/'.$artId.'-'.$this->plxRecord_arts->f('url'));
+				$entry .= "\t\t".'<link>'.$url.'</link>'."\n";
+				$entry .= "\t\t".'<guid>'.$url.'</guid>'."\n";
 				$entry .= "\t\t".'<description>'.plxUtils::strCheck(plxUtils::rel2abs($this->racine,$content)).'</description>'."\n";
 				$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_arts->f('date')).'</pubDate>'."\n";
 				$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($author).'</dc:creator>'."\n";
@@ -295,7 +298,7 @@ class plxFeed extends plxMotor {
 		if($this->cible) { # Commentaires d'un article
 			$artId = $this->plxRecord_arts->f('numero') + 0;
 			$title = $this->aConf['title'].' - '.$this->plxRecord_arts->f('title').' - '.L_FEED_COMMENTS;
-			$link = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url'));
+			$link = $this->urlRewrite('?article/'.$artId.'-'.$this->plxRecord_arts->f('url'));
 		} else { # Commentaires globaux
 			$title = $this->aConf['title'].' - '.L_FEED_COMMENTS;
 			$link = $this->urlRewrite();
@@ -312,13 +315,13 @@ class plxFeed extends plxMotor {
 						$title_com .= L_FEED_WRITTEN_BY.' '.$this->plxRecord_coms->f('author').' @ ';
 						$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
 						$comId = 'c'.$this->plxRecord_coms->f('article').'-'.$this->plxRecord_coms->f('index');
-						$link_com = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url').'#'.$comId);
+						$link_com = $this->urlRewrite('?article/'.$artId.'-'.$this->plxRecord_arts->f('url').'#'.$comId);
 					} else { # Commentaires globaux
 						$title_com = $this->plxRecord_coms->f('author').' @ ';
 						$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
 						$artInfo = $this->artInfoFromFilename($this->plxGlob_arts->aFiles[$this->plxRecord_coms->f('article')]);
 						$comId = 'c'.$this->plxRecord_coms->f('article').'-'.$this->plxRecord_coms->f('index');
-						$link_com = $this->urlRewrite('?article'.$artId.'/'.$artInfo['artUrl'].'#'.$comId);
+						$link_com = $this->urlRewrite('?article/'.$artId.'-'.$artInfo['artUrl'].'#'.$comId);
 					}
 					# On vérifie la date de publication
 					if($this->plxRecord_coms->f('date') > $last_updated)
