@@ -30,10 +30,10 @@ elseif(!empty($_POST['folder'])) {
 	$_SESSION['folder'] = ($_POST['folder']=='.'?'':$_POST['folder']);
 }
 # Nouvel objet de type plxMedias
+$plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
 if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER)
-	$plxMedias = new plxMedias(PLX_ROOT.$_SESSION['medias'].$_SESSION['user'].'/',$_SESSION['folder']);
-else
-	$plxMedias = new plxMedias(PLX_ROOT.$_SESSION['medias'],$_SESSION['folder']);
+	$plxMediasRoot .= $_SESSION['user'].'/';
+$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
 
 #----
 
