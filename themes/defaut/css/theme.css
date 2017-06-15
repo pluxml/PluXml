@@ -14,11 +14,17 @@
 
 /* ----- Menu ----- */
 
+nav {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
 .nav {
-	background-color: #fff;
+	background-color: #fbfbfb;
 	height: 4rem;
 	text-align: left;
-	margin-top: 1rem;
+	border-bottom: 1px solid #fafafa;
+	padding-top: 0.5rem;
 }
 .nav ul {
 	line-height: 3rem;

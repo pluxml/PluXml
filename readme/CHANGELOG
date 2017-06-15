@@ -5,6 +5,7 @@
 [+] Prise en compte du fichier css des plugins sur la page auth.php
 [+] Administration : Tri ordre des catégories et des pages statiques par drag&drop
 [+]	Affichage de l'image d'accroche dans les flux rss
+[+] Thème par défaut : entête de page fixe (contribution bazooka07)
 FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
