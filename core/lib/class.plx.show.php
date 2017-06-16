@@ -1,5 +1,7 @@
 <?php
 
+define('CAT_LIST_OPTION', '<option id="#cat_id" value="#cat_url" #cat_selected>#cat_name</li>');
+
 /**
  * Classe plxShow responsable de l'affichage sur stdout
  *
@@ -334,41 +336,56 @@ class plxShow {
 	 * position.
 	 *
 	 * @param	extra	nom du lien vers la page d'accueil
-	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #cat_description, #art_nb)
+	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_selected, #cat_url, #cat_name, #cat_description, #art_nb)
 	 * @param	include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
 	 * @param	exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, J.P. Pourrez
 	 **/
 	public function catList($extra='', $format='<li id="#cat_id" class="#cat_status"><a href="#cat_url" title="#cat_name">#cat_name</a></li>', $include='', $exclude='') {
+
+		/*
+		 * Pour afficher les catégories dans une balise <select..>,
+		 * on peut utiliser pour la variable $format, la constante CAT_LIST_OPTION
+		 * */
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastCatList'))) return;
 
-		# Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
-		if($extra != '') {
-			$name = str_replace('#cat_id','cat-home',$format);
-			$name = str_replace('#cat_url',$this->plxMotor->urlRewrite(),$name);
-			$name = str_replace('#cat_name',plxUtils::strCheck($extra),$name);
-			$name = str_replace('#cat_status',($this->catId()=='home'?'active':'noactive'), $name);
-			$name = str_replace('#art_nb','',$name);
-			echo $name;
+		# Si la variable $extra n'est pas vide, on affiche un lien vers la page d'accueil, avec $extra comme nom
+		if(!empty(trim($extra))) {
+			$motifs_extra = array(
+				'#cat_id'		=> 'cat-home',
+				'#cat_url'		=> $this->plxMotor->urlRewrite(),
+				'#cat_name'		=> plxUtils::strCheck($extra),
+				'#cat_status'	=> ($this->catId()=='home'?'active':'noactive'),
+				'#cat_selected'	=> ($this->catId()=='home'?'selected':''),
+				'(#art_nb)'		=> '',
+				'[#art_nb]'		=> '',
+				'#art_nb'		=> ''
+			);
+			echo str_replace(array_keys($motifs_extra), array_values($motifs_extra), $format)."\n";
 		}
-		# On verifie qu'il y a des categories
-		if($this->plxMotor->aCats) {
-			foreach($this->plxMotor->aCats as $k=>$v) {
-				$in = (empty($include) OR preg_match('/('.$include.')/', $k));
-				$ex = (!empty($exclude) AND preg_match('/('.$exclude.')/', $k));
-				if($in AND !$ex) {
-					if(($v['articles']>0 OR $this->plxMotor->aConf['display_empty_cat']) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
+		# On vérifie que le tableau des catégories n'est pas vide
+		if(!empty($this->plxMotor->aCats)) {
+			$motif_in = (!empty($include)) ? "/($include)/" : false;
+			$motif_ex = (!empty($exclude)) ? "/($exclude)/" : false;
+ 			foreach($this->plxMotor->aCats as $catId=>$infos) {
+				if((empty($motif_in) or preg_match($motif_in, $catId)) and (empty($motif_ex) or preg_match($motif_ex, $catId))) {
+					 # On vérifie si on a des articles
+					if((!empty($infos['articles']) OR $this->plxMotor->aConf['display_empty_cat']) AND ($infos['menu']=='oui') AND !empty($infos['active'])) {
 						# On modifie nos motifs
-						$name = str_replace('#cat_id','cat-'.intval($k),$format);
-						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),$name);
-						$name = str_replace('#cat_name',plxUtils::strCheck($v['name']),$name);
-						$name = str_replace('#cat_status',($this->catId()==intval($k)?'active':'noactive'), $name);
-						$name = str_replace('#cat_description',plxUtils::strCheck($v['description']),$name);
-						$name = str_replace('#art_nb',$v['articles'],$name);
-						echo $name;
+						$motifs = array(
+							'#cat_id'			=> 'cat-'.intval($catId),
+							'#cat_url'			=> $this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$infos['url']),
+							'#cat_name'			=> plxUtils::strCheck($infos['name']),
+							'#cat_status'		=> ($this->catId()==intval($catId)?'active':'noactive'),
+							'#cat_selected'		=> ($this->catId()==intval($catId)?'selected':''),
+							'#cat_description'	=> plxUtils::strCheck($infos['description']),
+							'#art_nb'			=> $infos['articles']
+						);
+						echo str_replace(array_keys($motifs), array_values($motifs), $format)."\n";
 					}
 				}
 			} # Fin du while
