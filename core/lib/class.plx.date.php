@@ -20,52 +20,65 @@ class plxDate {
 	 **/
 	public static function getCalendar($key, $value) {
 
-		$aMonth = array(
-			'01' => L_JANUARY,
-			'02' => L_FEBRUARY,
-			'03' => L_MARCH,
-			'04' => L_APRIL,
-			'05' => L_MAY,
-			'06' => L_JUNE,
-			'07' => L_JULY,
-			'08' => L_AUGUST,
-			'09' => L_SEPTEMBER,
-			'10' => L_OCTOBER,
-			'11' => L_NOVEMBER,
-			'12' => L_DECEMBER);
-		$aShortMonth = array(
-			'01' => L_SHORT_JANUARY,
-			'02' => L_SHORT_FEBRUARY,
-			'03' => L_SHORT_MARCH,
-			'04' => L_SHORT_APRIL,
-			'05' => L_SHORT_MAY,
-			'06' => L_SHORT_JUNE,
-			'07' => L_SHORT_JULY,
-			'08' => L_SHORT_AUGUST,
-			'09' => L_SHORT_SEPTEMBER,
-			'10' => L_SHORT_OCTOBER,
-			'11' => L_SHORT_NOVEMBER,
-			'12' => L_SHORT_DECEMBER);
-		$aDay = array(
-			'1' => L_MONDAY,
-			'2' => L_TUESDAY,
-			'3' => L_WEDNESDAY,
-			'4' => L_THURSDAY,
-			'5' => L_FRIDAY,
-			'6' => L_SATURDAY,
-			'0' => L_SUNDAY);
+		$names = array(
+			'month' => array(
+				'01' => L_JANUARY,
+				'02' => L_FEBRUARY,
+				'03' => L_MARCH,
+				'04' => L_APRIL,
+				'05' => L_MAY,
+				'06' => L_JUNE,
+				'07' => L_JULY,
+				'08' => L_AUGUST,
+				'09' => L_SEPTEMBER,
+				'10' => L_OCTOBER,
+				'11' => L_NOVEMBER,
+				'12' => L_DECEMBER
+			),
+			'short_month' => array(
+				'01' => L_SHORT_JANUARY,
+				'02' => L_SHORT_FEBRUARY,
+				'03' => L_SHORT_MARCH,
+				'04' => L_SHORT_APRIL,
+				'05' => L_SHORT_MAY,
+				'06' => L_SHORT_JUNE,
+				'07' => L_SHORT_JULY,
+				'08' => L_SHORT_AUGUST,
+				'09' => L_SHORT_SEPTEMBER,
+				'10' => L_SHORT_OCTOBER,
+				'11' => L_SHORT_NOVEMBER,
+				'12' => L_SHORT_DECEMBER
+			),
+			'long_month' => array(
+				'01' => L_LONG_JANUARY,
+				'02' => L_LONG_FEBRUARY,
+				'03' => L_LONG_MARCH,
+				'04' => L_LONG_APRIL,
+				'05' => L_LONG_MAY,
+				'06' => L_LONG_JUNE,
+				'07' => L_LONG_JULY,
+				'08' => L_LONG_AUGUST,
+				'09' => L_LONG_SEPTEMBER,
+				'10' => L_LONG_OCTOBER,
+				'11' => L_LONG_NOVEMBER,
+				'12' => L_LONG_DECEMBER
+			),
+			'day' => array(
+				'1' => L_MONDAY,
+				'2' => L_TUESDAY,
+				'3' => L_WEDNESDAY,
+				'4' => L_THURSDAY,
+				'5' => L_FRIDAY,
+				'6' => L_SATURDAY,
+				'0' => L_SUNDAY
+			)
+		);
 
-		switch ($key) {
-			case 'day':
-				$day = isset($aDay[$value]) ? $aDay[$value] : '';
-				return $day; break;
-			case 'month':
-				$month = isset($aMonth[$value]) ? $aMonth[$value] : '';
-				return $month; break;
-			case 'short_month':
-				$short_month = isset($aShortMonth[$value]) ? $aShortMonth[$value] : '';
-				return $short_month; break;
-		}
+		if(array_key_exists($key, $names) and array_key_exists($value, $names[$key]))
+			return $names[$key][$value];
+		else
+			return false;
+
 	}
 
 	/**
