@@ -1061,5 +1061,23 @@ class plxUtils {
 			echo $obj;
 		echo "</pre>";
 	}
+
+   /**
+	 * Envoie un message vers la console javascript pour aider au déboggage.
+	 * @author J.P. Pourrez alias bazooka07
+	 * @version 2017-06-09
+	 * */
+	public static function debugJS($obj, $msg='') {
+
+		if(!empty($msg)) $msg .= ' = ';
+		$msg .= (is_array($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
+		echo <<< EOT
+	<script type="text/javascript">
+		console.log(`$msg`);
+	</script>
+
+EOT;
+
+	}
 }
 ?>
