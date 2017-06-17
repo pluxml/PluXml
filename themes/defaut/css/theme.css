@@ -14,11 +14,17 @@
 
 /* ----- Menu ----- */
 
+nav {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
 .nav {
-	background-color: #fff;
+	background-color: #fbfbfb;
 	height: 4rem;
 	text-align: left;
-	margin-top: 1rem;
+	border-bottom: 1px solid #fafafa;
+	padding-top: 0.5rem;
 }
 .nav ul {
 	line-height: 3rem;
@@ -143,7 +149,8 @@ body {
 	padding-left: 0;
 }
 .article img.art_thumbnail {
-	padding: 15px 0 10px 0;
+	padding: 30px 15px 15px 0;
+    float: left;
 }
 .page.mode-article .article footer {
 	border-top: 1px solid #dedede;

@@ -234,6 +234,12 @@ class plxFeed extends plxMotor {
 		# On va boucler sur les articles (s'il y en a)
 		if($this->plxRecord_arts) {
 			while($this->plxRecord_arts->loop()) {
+				$thumb = '';
+				$src = $this->plxRecord_arts->f('thumbnail');
+				if($src!='') {
+					$src = (strpos($src, 'http')===false ? $this->racine.$src : $src);
+					$thumb = plxUtils::strCheck('<img src="'.$src.'" alt="" title="" />');
+				}
 				# Traitement initial
 				if($this->aConf['feed_chapo']) {
 					$content = $this->plxRecord_arts->f('chapo');
@@ -253,7 +259,7 @@ class plxFeed extends plxMotor {
 				$entry .= "\t\t".'<title>'.plxUtils::strCheck($this->plxRecord_arts->f('title')).'</title> '."\n";
 				$entry .= "\t\t".'<link>'.$this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url')).'</link>'."\n";
 				$entry .= "\t\t".'<guid>'.$this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url')).'</guid>'."\n";
-				$entry .= "\t\t".'<description>'.plxUtils::strCheck(plxUtils::rel2abs($this->racine,$content)).'</description>'."\n";
+				$entry .= "\t\t".'<description>'.$thumb.plxUtils::strCheck(plxUtils::rel2abs($this->racine,$content)).'</description>'."\n";
 				$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_arts->f('date')).'</pubDate>'."\n";
 				$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($author).'</dc:creator>'."\n";
 				# Hook plugins

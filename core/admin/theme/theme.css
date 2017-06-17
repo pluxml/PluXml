@@ -82,6 +82,7 @@
 }
 .aside .menu-config {
 	background-color: #333;
+	white-space: nowrap;
 }
 .aside .menu.expanded li a {
 	border-radius: 0;
@@ -474,6 +475,11 @@ th.checkbox {
 	background-color: #258fd6;
 	color: #fff;
 	padding: .2rem .3rem;
+}
+.author {
+    max-width: 12rem;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 /* pour la fenêtre modale de la visionneuse d'image */
 .modal {
