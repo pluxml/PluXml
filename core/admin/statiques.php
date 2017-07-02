@@ -81,7 +81,7 @@ function checkBox(cb) {
 			if($plxAdmin->aStats) {
 				foreach($plxAdmin->aStats as $k=>$v) { # Pour chaque page statique
 					$ordre = ++$num;
-					echo '<tr draggable="true" ondragend="DragDrop.dragend(event, \'statics-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
+					echo '<tr draggable="true" ondragover="event.preventDefault()" ondragend="DragDrop.dragend(event, \'statics-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
 					echo '<td class="tb-drag-icon"><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';

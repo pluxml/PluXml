@@ -70,7 +70,7 @@ include(dirname(__FILE__).'/top.php');
 			if($plxAdmin->aCats) {
 				foreach($plxAdmin->aCats as $k=>$v) { # Pour chaque catégorie
 					$ordre = ++$num;
-					echo '<tr draggable="true" ondragend="DragDrop.dragend(event, \'categories-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
+					echo '<tr draggable="true" ondragover="event.preventDefault()" ondragend="DragDrop.dragend(event, \'categories-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
 					echo '<td class="tb-drag-icon"><input type="checkbox" name="idCategory[]" value="'.$k.'" /><input type="hidden" name="catNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
 					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-50');
