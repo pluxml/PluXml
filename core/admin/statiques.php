@@ -31,28 +31,22 @@ if(!empty($_POST)) {
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
+
+$yes_no = array('1'=>L_YES,'0'=>L_NO);
 ?>
-<script>
-function checkBox(cb) {
-	cbs=document.getElementsByName('homeStatic[]');
-	for (var i = 0; i < cbs.length; i++) {
-		if(cbs[i].checked==true) {
-			cbs[i].checked = ((i+1) == cb) ? true: false;
-		}
-	}
-}
-</script>
 
 <form action="statiques.php" method="post" id="form_statics">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
 		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
-		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		<?php echo plxToken::getTokenPostMethod() ?>
-		&nbsp;&nbsp;&nbsp;
-		<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
+		<div class="flex-line">
+			<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
+			<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+			<?php echo plxToken::getTokenPostMethod() ?>
+			<span class="spacer">&nbsp;</span>
+			<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
+		</div>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
@@ -63,7 +57,10 @@ function checkBox(cb) {
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
 					<th><?php echo L_ID ?></th>
-					<th><?php echo L_STATICS_HOME_PAGE ?></th>
+					<th>
+						<input id="homepage" name="homeStatic" type="radio" name="" value="" style="display: none;" />
+						<label for="homepage"><img src="<?php echo PLX_CORE; ?>admin/theme/images/homepage.svg" alt="<?php echo L_HOMEPAGE ?>" title="<?php echo L_STATICS_HOME_PAGE; ?>"></label>
+					</th>
 					<th><?php echo L_STATICS_GROUP ?></th>
 					<th><?php echo L_STATICS_TITLE ?></th>
 					<th><?php echo L_STATICS_URL ?></th>
@@ -76,41 +73,56 @@ function checkBox(cb) {
 			<tbody>
 			<?php
 			# Initialisation de l'ordre
-			$num = 0;
+			$ordre = 0;
 			# Si on a des pages statiques
 			if($plxAdmin->aStats) {
 				foreach($plxAdmin->aStats as $k=>$v) { # Pour chaque page statique
-					$ordre = ++$num;
-					echo '<tr draggable="true" ondragend="DragDrop.dragend(event, \'statics-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
-					echo '<td class="tb-drag-icon"><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
-					echo '<td>'.$k.'</td><td>';
+					$ordre++;
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
-					echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$num.'\')" />';
-					echo '</td><td>';
-					plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '-100');
-					echo '</td><td>';
-					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255');
-					echo '</td><td>';
-					plxUtils::printInput($k.'_url', $v['url'], 'text', '-255');
-					echo '</td><td>';
-					plxUtils::printSelect($k.'_active', array('1'=>L_YES,'0'=>L_NO), $v['active']);
-					echo '</td><td>';
-					plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3');
-					echo '</td><td>';
-					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
 					$url = $v['url'];
 					if(!plxUtils::checkSite($url)) {
-						echo '</td><td>';
-						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
-						if($v['active']) {
-							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
-						}
-						echo '</td></tr>';
+						$href1 = 'statique.php?p='.$k;
+						$title1 = L_STATICS_SRC_TITLE;
+						$caption1 = L_STATICS_SRC;
+					} elseif($v['url'][0]=='?') {
+						$href1 = $plxAdmin->urlRewrite($v['url']);
+						$title1 = plxUtils::strCheck($v['name']);
+						$caption1 = L_VIEW;
+					} else {
+						$href1 = $v['url'];
+						$title1 = plxUtils::strCheck($v['name']);
+						$caption1 = L_VIEW;
 					}
-					elseif($v['url'][0]=='?')
-						echo '</td><td><a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
-					else
-						echo '</td><td><a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
+?>
+				<tr>
+					<td>
+						<input type="checkbox" name="idStatic[]" value="<?php echo $k; ?>" />
+						<input type="hidden" name="staticNum[]" value="<?php echo $k; ?>" /></td>
+					<td><?php echo $k; ?></td>
+					<td>
+						<input title="<?php echo L_STATICS_PAGE_HOME; ?>" type="radio" name="homeStatic" value="<?php echo $k; ?>"<?php echo $selected; ?> />
+					</td>
+					<td><?php plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '-100'); ?></td>
+					<td><?php plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255'); ?></td>
+					<td><?php plxUtils::printInput($k.'_url', $v['url'], 'text', '-255'); ?></td>
+					<td><?php plxUtils::printSelect($k.'_active', $yes_no, $v['active']); ?></td>
+					<td><?php plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3'); ?></td>
+					<td><?php plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']); ?></td>
+					<td>
+						<a href="<?php echo $href1; ?>" title="<?php echo $title1; ?>"><?php echo $caption1; ?></a>
+<?php
+					if($v['active']) {
+						$href2 = $plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']);
+						$title2 = L_STATIC_VIEW_PAGE;
+						$caption2 = L_VIEW;
+?>
+						<a href="<?php echo $href2; ?>" title="<?php echo $title2; ?>"><?php echo $caption2; ?></a>
+<?php
+					}
+?>
+					</td>
+				</tr>
+<?php
 				}
 				# On récupère le dernier identifiant
 				$a = array_keys($plxAdmin->aStats);
@@ -120,25 +132,20 @@ function checkBox(cb) {
 			}
 			$new_staticid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 			?>
-				<tr class="new">
+				<tr class="new"><?php /* nouvelle page statique */ ?>
 					<td colspan="3"><?php echo L_STATICS_NEW_PAGE ?></td>
 					<td>
-					<?php
-						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
-						plxUtils::printInput($new_staticid.'_group', '', 'text', '-100');
-						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_name', '', 'text', '-255');
-						plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden');
-						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_url', '', 'text', '-255');
-						echo '</td><td>';
-						plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0');
-						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_ordre', ++$num, 'text', '2-3');
-						echo '</td><td>';
-						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
-					?>
+						<input type="hidden" name="staticNum[]" value="<?php echo $new_staticid; ?>" />
+						<?php plxUtils::printInput($k.'_group', '', 'text', '-100'); ?>
 					</td>
+					<td>
+						<?php plxUtils::printInput($k.'_name', '', 'text', '-255'); ?>
+						<?php plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden'); ?>
+					</td>
+					<td><?php plxUtils::printInput($k.'_url', '', 'text', '-255'); ?></td>
+					<td><?php plxUtils::printSelect($k.'_active', $yes_no, 0); ?></td>
+					<td><?php plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3'); ?></td>
+					<td><?php plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']); ?></td>
 					<td>&nbsp;</td>
 				</tr>
 			</tbody>
@@ -146,6 +153,10 @@ function checkBox(cb) {
 	</div>
 
 </form>
+
+<script type="text/javascript">
+	dragAndDrop('#statics-table tbody tr:not(.new)', '#statics-table tbody tr:not(.new) input[name$="_ordre"]');
+</script>
 
 <?php
 # Hook Plugins

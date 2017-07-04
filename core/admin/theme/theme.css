@@ -110,13 +110,14 @@ a.lnkdelete:hover {
 .section .action-bar {
 	background-color: #eee;
 	border-bottom: 1px solid #ddd;
+	position: fixed;
+	top: 0;
 	left: 16.6666%;
+	right: 0;
 	margin-left: -1.5rem;
 	min-height: 10.5rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
-	position: fixed;
-	top: 0;
-	width: 100%;
+	/* width: 100%; */
 	z-index: 1;
 }
 .section .action-bar p,
@@ -229,6 +230,10 @@ textarea {
 #users-table input:not([type="checkbox"]) {
 	width: 100%;
 }
+[for="homepage"] img {
+	min-height: 15px;
+	height: 100% !important;
+}
 input[maxlength="3"] {
 	width: 4rem !important;
 	text-align: right;
@@ -255,6 +260,9 @@ input[maxlength="3"] {
 #medias-table img {
 	max-width: 48px;
 	padding-top: 7px;
+}
+#plugins-table tr.hide {
+	display: none;
 }
 #medias-table {
 	margin-top: 10px;
@@ -646,14 +654,20 @@ div.ico div {
 	cursor: pointer;
 }
 /* Drag & Drop Table */
-.tb-drag-icon {
-	background-image: url(images/tb-drag-icon.gif);
-	background-repeat: repeat-y;
-	cursor: move;
+tr[draggable] {
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAH0lEQVQI12OMTnjEAAX/oTQjMp+JgQBgwaUTxidoAgAf6QWm80FgrQAAAABJRU5ErkJggg==') left repeat-y;
 }
-#categories-table th:nth-child(1),
-#categories-table td:nth-child(1),
-#statics-table th:nth-child(1),
-#statics-table td:nth-child(1) {
+#categories-table th:first-of-type,
+#categories-table td:first-of-type,
+#statics-table th:first-of-type,
+#statics-table td:first-of-type,
+#plugins-table th:first-of-type,
+#plugins-table td:first-of-type {
 	padding-left: 12px;
+}
+.flex-line {
+	display: flex;
+}
+.flex-line .spacer {
+	flex-grow: 1;
 }

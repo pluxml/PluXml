@@ -150,8 +150,8 @@ class plxPlugins {
 					$aPlugins[$plugName] = $plugInstance;
 				}
 			}
+			ksort($aPlugins);
 		}
-		ksort($aPlugins);
 		return $aPlugins;
 	}
 

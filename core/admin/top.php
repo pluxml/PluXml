@@ -28,6 +28,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<script src="<?php echo PLX_CORE ?>lib/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/drag-and-drop.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
 
