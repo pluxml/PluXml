@@ -481,7 +481,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aCats[$cat_id]['name'] = $cat_name;
 					$this->aCats[$cat_id]['url'] = $cat_url;
 					$this->aCats[$cat_id]['tri'] = $content[$cat_id.'_tri'];
-					$this->aCats[$cat_id]['bypage'] = intval($content[$cat_id.'_bypage']);
+					$this->aCats[$cat_id]['bypage'] = !empty($content[$cat_id.'_bypage']) ? intval($content[$cat_id.'_bypage']) : '';
 					$this->aCats[$cat_id]['menu'] = $content[$cat_id.'_menu'];
 					$this->aCats[$cat_id]['active'] = $content[$cat_id.'_active'];
 					$this->aCats[$cat_id]['ordre'] = intval($content[$cat_id.'_ordre']);

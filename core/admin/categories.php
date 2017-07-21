@@ -112,7 +112,7 @@ include(dirname(__FILE__).'/top.php');
 						echo '</td><td>';
 						plxUtils::printSelect($new_catid.'_tri', $aTri, $plxAdmin->aConf['tri']);
 						echo '</td><td>';
-						plxUtils::printInput($new_catid.'_bypage', $plxAdmin->aConf['bypage'], 'text', '-3');
+						plxUtils::printInput($new_catid.'_bypage', '', 'text', '-3');
 						echo '</td><td>';
 						plxUtils::printInput($new_catid.'_ordre', ++$num, 'text', '-3');
 						echo '</td><td>';
