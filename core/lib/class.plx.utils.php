@@ -385,8 +385,8 @@ class plxUtils {
 	 * @return	string		nom d'url valide
 	 **/
 	public static function title2url($str) {
-
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = mb_convert_encoding($str, 'auto', 'UTF-8');
+		$str = plxUtils::removeAccents(mb_strtolower($str,mb_detect_encoding($str, "auto")),PLX_CHARSET);
 		$str = preg_replace('/[^[:alnum:]]+/',' ',$str);
 		return strtr(trim($str), ' ', '-');
 	}
@@ -398,8 +398,8 @@ class plxUtils {
 	 * @return	string		nom de fichier valide
 	 **/
 	public static function title2filename($str) {
-
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = mb_convert_encoding($str, 'auto', 'UTF-8');
+		$str = plxUtils::removeAccents(mb_strtolower($str,mb_detect_encoding($str, "auto")),PLX_CHARSET);
 		$str = str_replace('|','',$str);
 		$str = preg_replace('/\.{2,}/', '.', $str);
 		$str = preg_replace('/[^[:alnum:]|.|_]+/',' ',$str);
