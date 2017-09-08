@@ -1,0 +1,31 @@
+# plxUtils::formatMenu(..) est appelé uniquement à partir de core/admin/top.php
+#
+# la déclaration de la fonction est :
+# public static function formatMenu($name, $href, $title=false, $class=false, $onclick=false, $extra='', $highlight=true)
+#
+# pour afficher le n° de ligne, le 1er et 2ème paramètre d'appel de la fonction, faire :
+# grep -n formatMenu core/admin/*.php | sed 's/^[^:]\+:\([0-9]\+\):.*plxUtils::formatMenu(\([^,]\+\),\([^,]\+\),.*$/\1: \2, \3/' >> readme/formatMenu.log
+#
+# Dans la fonction, il n'est pas acceptable d'utiliser $name pour calculer $id car $name dépend directement de la langue et de l'alphabet utilisé
+# sans garantie que cela soit en caractères ascii.
+#
+# On supposera pour l'instant que $id est inutilisé par PluXml
+
+79: L_MENU_ARTICLES,  PLX_CORE.'admin/index.php?page=1'
+82: L_MENU_NEW_ARTICLES_TITLE,  PLX_CORE.'admin/article.php'
+84: L_MENU_NEW_ARTICLES_TITLE,  PLX_CORE.'admin/article.php'
+86: L_MENU_MEDIAS,  PLX_CORE.'admin/medias.php'
+89: L_MENU_STATICS,  PLX_CORE.'admin/statiques.php'
+94: L_MENU_COMMENTS,  PLX_CORE.'admin/comments.php?page=1'
+98: L_MENU_CATEGORIES,  PLX_CORE.'admin/categories.php'
+100: L_MENU_PROFIL,  PLX_CORE.'admin/profil.php'
+103: L_MENU_CONFIG,  PLX_CORE.'admin/parametres_base.php'
+105: L_MENU_CONFIG_BASE,  PLX_CORE.'admin/parametres_base.php'
+106: L_MENU_CONFIG_VIEW,  PLX_CORE.'admin/parametres_affichage.php'
+107: L_MENU_CONFIG_USERS,  PLX_CORE.'admin/parametres_users.php'
+108: L_MENU_CONFIG_ADVANCED,  PLX_CORE.'admin/parametres_avances.php'
+109: L_THEMES,  PLX_CORE.'admin/parametres_themes.php'
+110: L_MENU_CONFIG_PLUGINS,  PLX_CORE.'admin/parametres_plugins.php'
+111: L_MENU_CONFIG_INFOS,  PLX_CORE.'admin/parametres_infos.php'
+120: plxUtils::strCheck($plugInstance->adminMenu['title']),  PLX_CORE.'admin/plugin.php?p='.$plugName
+126: plxUtils::strCheck($plugInstance->getInfo('title')),  PLX_CORE.'admin/plugin.php?p='.$plugName
