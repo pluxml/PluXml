@@ -1,0 +1,28 @@
+# recensement de l'emploi des functions title2... utilisant la fonction removeAccents (Pb. translittération, cyrillic, polish, allemand, ...)
+# remplacer ces fonctions par plxUtils::urlify(...)
+# Pour le recensement, faire "grep -n 'plxUtils::title2' core/*/*.php > readme/title2.log" à la racine du site
+#
+# Ces fonctions ne devraient être utilisées qu'à l'intérieur de core/lib. Voir Pb. core/admin/article.php
+#
+# @author bazooka07
+
+
+core/admin/article.php:81:			$art['url'] = plxUtils::title2url($_POST['title']);
+core/admin/article.php:83:			$art['url'] = plxUtils::title2url($_POST['url']);
+core/admin/article.php:105:		$_POST['url'] = plxUtils::title2url(trim($_POST['url'])==''?$_POST['title']:$_POST['url']);
+core/admin/article.php:513:												$t = plxUtils::title2url($tag);
+core/admin/index.php:92:	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::title2filename($_GET['artTitle']).'(.*).xml$/';
+core/lib/class.plx.admin.php:457:				$this->aCats[$cat_id]['url'] = plxUtils::title2url($cat_name);
+core/lib/class.plx.admin.php:479:					$cat_url = ($cat_url!='' ? plxUtils::title2url($cat_url) : plxUtils::title2url($cat_name));
+core/lib/class.plx.admin.php:597:					$stat_url = ($url!=''?plxUtils::title2url($url):plxUtils::title2url($stat_name));
+core/lib/class.plx.admin.php:766:			$content['url'] = plxUtils::title2url($content['title']);
+core/lib/class.plx.admin.php:768:			$content['url'] = plxUtils::title2url($content['url']);
+core/lib/class.plx.medias.php:280:		$mydir .= plxUtils::title2filename(trim($newdir));
+core/lib/class.plx.medias.php:314:		$upFile = $this->path.$this->dir.plxUtils::title2filename($file['name']);
+core/lib/class.plx.medias.php:513:			$file = $dirname.plxUtils::title2filename($newname);
+core/lib/class.plx.show.php:702:				$t = plxUtils::title2url($tag);
+core/lib/class.plx.show.php:1347:					$group = str_replace('#group_id','static-group-'.plxUtils::title2url($k),$format_group);
+core/lib/class.plx.show.php:1351:					echo "\n<li>\n\t".$group."\n\t<ul id=\"static-".plxUtils::title2url($k)."\">\t\t";
+core/lib/class.plx.show.php:1516:			$url = plxUtils::title2url($id);
+core/lib/class.plx.show.php:1685:								$t = plxUtils::title2url($tag);
+core/lib/class.plx.utils.php:946:		$menu = '<li id="mnu_'.plxUtils::title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
