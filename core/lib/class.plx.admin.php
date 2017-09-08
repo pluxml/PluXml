@@ -593,8 +593,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			foreach($content['staticNum'] as $static_id) {
 				$stat_name = $content[$static_id.'_name'];
 				if($stat_name!='') {
-					$url = (isset($content[$static_id.'_url'])?trim($content[$static_id.'_url']):'');
-					$stat_url = ($url!=''?plxUtils::title2url($url):plxUtils::title2url($stat_name));
+					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url'], $this-aConf['default_lang']) : '';
+					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name, $this-aConf['default_lang']);
 					if($stat_url=='') $stat_url = L_DEFAULT_NEW_STATIC_URL;
 					# On vérifie si on a besoin de renommer le fichier de la page statique
 					if(isset($this->aStats[$static_id]) AND $this->aStats[$static_id]['url']!=$stat_url) {
@@ -604,7 +604,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					}
 					$this->aStats[$static_id]['group'] = trim($content[$static_id.'_group']);
 					$this->aStats[$static_id]['name'] = $stat_name;
-					$this->aStats[$static_id]['url'] = plxUtils::checkSite($url)?$url:$stat_url;
+					$this->aStats[$static_id]['url'] = plxUtils::checkSite($url) ? $url : $stat_url;
 					$this->aStats[$static_id]['active'] = $content[$static_id.'_active'];
 					$this->aStats[$static_id]['menu'] = $content[$static_id.'_menu'];
 					$this->aStats[$static_id]['ordre'] = intval($content[$static_id.'_ordre']);
@@ -762,10 +762,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		}
 
 		# Génération de notre url d'article
-		if(trim($content['url']) == '')
-			$content['url'] = plxUtils::title2url($content['title']);
-		else
-			$content['url'] = plxUtils::title2url($content['url']);
+		$tmpstr = (!empty($content['url'])) ? $content['url'] : $content['title'];
+		$content['url'] = plxUtils::urlify($tmpstr, $this->aConf['default_lang']);
+
 		# URL vide après le passage de la fonction ;)
 		if($content['url'] == '') $content['url'] = L_DEFAULT_NEW_ARTICLE_URL;
 
