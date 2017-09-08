@@ -391,7 +391,7 @@ class plxUtils {
 	 * @lower				transforme au final la chaine résultante en minuscules
 	 * @return				chaine valide pour une url
 	 * */
-	public urlify($str, $lang=false, $remove=true, $replace='-', $lower=false) {
+	public static function urlify($str, $lang=false, $remove=true, $replace='-', $lower=false) {
 		// $lang valeurs permises :	de en es fr it nl oc pl pt ro ru
 		// Pb avec certains caractères allemand en doublons avec des caractères latins
 		// Voir https://github.com/jbroadway/urlify/blob/master/URLify.php
