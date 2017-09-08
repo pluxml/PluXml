@@ -510,7 +510,7 @@ class plxMedias {
 			$old_stats = pathinfo($oldname);
 			$new_stats = pathinfo($newname);
 			$new_stats['dirname'] = $old_stats['dirname'].'/';
-			$new_stats['filename'] = plxUtils:urlify($new_stats['filename'], $this->lang);
+			$new_stats['filename'] = plxUtils::urlify($new_stats['filename'], $this->lang);
 			if(!empty($new_stats['extension'])) {
 				$tmpstr = $new_stats['extension'];
 				unset($new_stats['extension']);

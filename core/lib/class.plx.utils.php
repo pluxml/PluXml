@@ -440,7 +440,7 @@ class plxUtils {
 		$remove_words = array(
 			'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
 			'de' => 'das|der|die|für|am',
-			'fr' => 'à|le|la|un|une|vers|de|des|du'
+			'fr' => 'à|le|la|un|une|vers|de|des|du|vers'
 		);
 		if(($lang !== false) && (array_key_exists($lang, $alphabets))) {
 			uksort(
@@ -457,25 +457,19 @@ class plxUtils {
 			);
 		}
 
-		if($remove && !empty($lang)) && array_key_exists($lang, $remove_words) {
-			$clean_str = preg_replace(
-				'@\s+@g',
-				'_',
-				trim(
-					preg_replace(
-						'@\b('.$remove_words[$lang].')\b@g',
-						$replace,
-						html_entity_decode($str)
-					)
-				)
-			);
-		} else {
-			$clean_str = preg_replace(
-				'@\s+@g',
-				'_',
-				trim(html_entity_decode($str))
-			);
+		$clean_str = trim(html_entity_decode($str));
+		if($remove && !empty($lang) && array_key_exists($lang, $remove_words)) {
+			$tmpstr = preg_replace('@\b('.$remove_words[$lang].')\b@', $replace, $clean_str);
+			// fusion des caractères $replace.
+			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
 		}
+
+		// fusion des espaces et remplacement par le caractère "_".
+		$clean_str = preg_replace(
+			'@\s+@',
+			'_',
+			$clean_str
+		);
 
 		foreach($alphabets as $aLang => $alphab) {
 			$clean_str = str_replace(
