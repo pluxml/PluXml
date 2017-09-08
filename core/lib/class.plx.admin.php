@@ -454,7 +454,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			if($cat_name!='') {
 				$cat_id = $this->nextIdCategory();
 				$this->aCats[$cat_id]['name'] = $cat_name;
-				$this->aCats[$cat_id]['url'] = plxUtils::title2url($cat_name);
+				$this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name, $this->aConf['default_lang']);
 				$this->aCats[$cat_id]['tri'] = $this->aConf['tri'];
 				$this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
 				$this->aCats[$cat_id]['menu'] = 'oui';
@@ -475,9 +475,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			foreach($content['catNum'] as $cat_id) {
 				$cat_name = $content[$cat_id.'_name'];
 				if($cat_name!='') {
-					$cat_url = (isset($content[$cat_id.'_url'])?trim($content[$cat_id.'_url']):'');
-					$cat_url = ($cat_url!='' ? plxUtils::title2url($cat_url) : plxUtils::title2url($cat_name));
-					if($cat_url=='') $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+					$tmpstr = (!empty($content[$cat_id.'_url'])) ? $content[$cat_id.'_url'] : $cat_name;
+					$cat_url = plxUtils::urlify($tmpstr, $this->aConf['default_lang']);
+					if(empty($cat_url)) $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
 					$this->aCats[$cat_id]['name'] = $cat_name;
 					$this->aCats[$cat_id]['url'] = $cat_url;
 					$this->aCats[$cat_id]['tri'] = $content[$cat_id.'_tri'];
