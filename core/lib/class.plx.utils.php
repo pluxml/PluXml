@@ -379,6 +379,115 @@ class plxUtils {
 	}
 
 	/**
+	 * Méthode pour translittération ( transforme une chaine de caractères en caractères ascii ).
+	 *
+	 * Adaptation du script javascript employé par Django:
+	 * https://github.com/django/django/blob/master/django/contrib/admin/static/admin/js/urlify.js
+	 *
+	 * @param str			chaine de caractères à contrôler
+	 * @param lang			langue à retenir pour l'alphabet (latin, cyrrilique, polonais, ...)
+	 * @param remove		retire les mots sans valeur sémantique
+	 * @replace				caractère de remplacement pour les mots ci-dessus
+	 * @lower				transforme au final la chaine résultante en minuscules
+	 * @return				chaine valide pour une url
+	 * */
+	public urlify($str, $lang=false, $remove=true, $replace='-', $lower=false) {
+		// $lang valeurs permises :	de en es fr it nl oc pl pt ro ru
+		// Pb avec certains caractères allemand en doublons avec des caractères latins
+		// Voir https://github.com/jbroadway/urlify/blob/master/URLify.php
+
+		$alphabets = array(
+			'latin' => array(
+				'À'=> 'A', 'Á'=> 'A', 'Â'=> 'A', 'Ã'=> 'A', 'Ä'=> 'A', 'Å'=> 'A', 'Æ'=> 'AE',
+				'Ç'=> 'C', 'È'=> 'E', 'É'=> 'E', 'Ê'=> 'E', 'Ë'=> 'E', 'Ì'=> 'I', 'Í'=> 'I',
+				'Î'=> 'I', 'Ï'=> 'I', 'Ð'=> 'D', 'Ñ'=> 'N', 'Ò'=> 'O', 'Ó'=> 'O', 'Ô'=> 'O',
+				'Õ'=> 'O', 'Ö'=> 'O', 'Ő'=> 'O', 'Ø'=> 'O', 'Ù'=> 'U', 'Ú'=> 'U', 'Û'=> 'U',
+				'Ü'=> 'U', 'Ű'=> 'U', 'Ý'=> 'Y', 'Þ'=> 'TH', 'Ÿ'=> 'Y', 'ß'=> 'ss', 'à'=> 'a',
+				'á'=> 'a', 'â'=> 'a', 'ã'=> 'a', 'ä'=> 'a', 'å'=> 'a', 'æ'=> 'ae', 'ç'=> 'c',
+				'è'=> 'e', 'é'=> 'e', 'ê'=> 'e', 'ë'=> 'e', 'ì'=> 'i', 'í'=> 'i', 'î'=> 'i',
+				'ï'=> 'i', 'ð'=> 'd', 'ñ'=> 'n', 'ò'=> 'o', 'ó'=> 'o', 'ô'=> 'o', 'õ'=> 'o',
+				'ö'=> 'o', 'ő'=> 'o', 'ø'=> 'o', 'ù'=> 'u', 'ú'=> 'u', 'û'=> 'u', 'ü'=> 'u',
+				'ű'=> 'u', 'ý'=> 'y', 'þ'=> 'th', 'ÿ'=> 'y'
+			),
+			'de' => array(
+				'Ä' => 'Ae', 'Ö' => 'Oe', 'Ü' => 'Ue', 'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue',
+				'ß' => 'ss', 'ẞ' => 'SS'
+						),
+			'ro' => array(
+				'ă'=> 'a', 'î'=> 'i', 'ș'=> 's', 'ț'=> 't', 'â'=> 'a',
+				'Ă'=> 'A', 'Î'=> 'I', 'Ș'=> 'S', 'Ț'=> 'T', 'Â'=> 'A'
+			),
+			'pl' => array(
+				'ą'=> 'a', 'ć'=> 'c', 'ę'=> 'e', 'ł'=> 'l', 'ń'=> 'n', 'ó'=> 'o', 'ś'=> 's',
+				'ź'=> 'z', 'ż'=> 'z',
+				'Ą'=> 'A', 'Ć'=> 'C', 'Ę'=> 'E', 'Ł'=> 'L', 'Ń'=> 'N', 'Ó'=> 'O', 'Ś'=> 'S',
+				'Ź'=> 'Z', 'Ż'=> 'Z'
+			),
+			'ru' => array(
+				'а'=> 'a', 'б'=> 'b', 'в'=> 'v', 'г'=> 'g', 'д'=> 'd', 'е'=> 'e', 'ё'=> 'yo',
+				'ж'=> 'zh', 'з'=> 'z', 'и'=> 'i', 'й'=> 'j', 'к'=> 'k', 'л'=> 'l', 'м'=> 'm',
+				'н'=> 'n', 'о'=> 'o', 'п'=> 'p', 'р'=> 'r', 'с'=> 's', 'т'=> 't', 'у'=> 'u',
+				'ф'=> 'f', 'х'=> 'h', 'ц'=> 'c', 'ч'=> 'ch', 'ш'=> 'sh', 'щ'=> 'sh', 'ъ'=> '',
+				'ы'=> 'y', 'ь'=> '', 'э'=> 'e', 'ю'=> 'yu', 'я'=> 'ya',
+				'А'=> 'A', 'Б'=> 'B', 'В'=> 'V', 'Г'=> 'G', 'Д'=> 'D', 'Е'=> 'E', 'Ё'=> 'Yo',
+				'Ж'=> 'Zh', 'З'=> 'Z', 'И'=> 'I', 'Й'=> 'J', 'К'=> 'K', 'Л'=> 'L', 'М'=> 'M',
+				'Н'=> 'N', 'О'=> 'O', 'П'=> 'P', 'Р'=> 'R', 'С'=> 'S', 'Т'=> 'T', 'У'=> 'U',
+				'Ф'=> 'F', 'Х'=> 'H', 'Ц'=> 'C', 'Ч'=> 'Ch', 'Ш'=> 'Sh', 'Щ'=> 'Sh', 'Ъ'=> '',
+				'Ы'=> 'Y', 'Ь'=> '', 'Э'=> 'E', 'Ю'=> 'Yu', 'Я'=> 'Ya'
+			)
+		);
+
+		$remove_words = array(
+			'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
+			'de' => 'das|der|die|für|am',
+			'fr' => 'à|le|la|un|une|vers|de|des|du'
+		);
+		if(($lang !== false) && (array_key_exists($lang, $alphabets))) {
+			uksort(
+				// place $lang en début du tableau de clés associatives
+				$alphabets,
+				function($a, $b) use($lang) {
+					if($a == $lang)
+						return -1;
+					elseif ($b == $lang)
+						return 1;
+					else
+						return 0;
+				}
+			);
+		}
+
+		if($remove && !empty($lang)) && array_key_exists($lang, $remove_words) {
+			$clean_str = preg_replace(
+				'@\s+@g',
+				'_',
+				trim(
+					preg_replace(
+						'@\b('.$remove_words[$lang].')\b@g',
+						$replace,
+						html_entity_decode($str)
+					)
+				)
+			);
+		} else {
+			$clean_str = preg_replace(
+				'@\s+@g',
+				'_',
+				trim(html_entity_decode($str))
+			);
+		}
+
+		foreach($alphabets as $aLang => $alphab) {
+			$clean_str = str_replace(
+				array_keys($alphab),
+				array_values($alphab),
+				$clean_str
+			);
+		}
+		return ($lower) ? strtolower($clean_str) : $clean_str;
+	}
+
+	/**
 	 * Méthode qui convertit une chaine de caractères au format valide pour une url
 	 *
 	 * @param	str			chaine de caractères à formater
