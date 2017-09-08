@@ -276,10 +276,11 @@ class plxMedias {
 	 **/
 	public function newDir($newdir) {
 
-		$newdir = $this->path.$this->dir.$newdir;
+		$mydir = $this->path.$this->dir;
+		$mydir .= plxUtils::title2filename(trim($newdir));
 
-		if(!is_dir($newdir)) { # Si le dossier n'existe pas on le créer
-			if(!mkdir($newdir,0755))
+		if(!is_dir($mydir)) { # Si le dossier n'existe pas on le créer
+			if(!mkdir($mydir,0755))
 				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
 			else
 				return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);

@@ -38,8 +38,8 @@ $plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
 #----
 
 if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
-	$newdir = plxUtils::title2filename(trim($_POST['newfolder']));
-	if($plxMedias->newDir($newdir)) {
+	$newdir = $plxMedias->newDir($_POST['newfolder']);
+	if($newdir) {
 		$_SESSION['folder'] = $_SESSION['folder'].$newdir.'/';
 	}
 	header('Location: medias.php');
