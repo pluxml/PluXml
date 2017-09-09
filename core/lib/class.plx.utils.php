@@ -392,9 +392,12 @@ class plxUtils {
 	 * @return				chaine valide pour une url
 	 * */
 	public static function urlify($str, $lang=false, $remove=true, $replace='-', $lower=false) {
-		// $lang valeurs permises :	de en es fr it nl oc pl pt ro ru
-		// Pb avec certains caractères allemand en doublons avec des caractères latins
-		// Voir https://github.com/jbroadway/urlify/blob/master/URLify.php
+		/*
+		 * $lang valeurs permises :	de en es fr it nl oc pl pt ro ru
+		 * Pb avec certains caractères allemand en doublons avec des caractères latins
+		 * Voir https://github.com/jbroadway/urlify/blob/master/URLify.php
+		 * https://fr.wikipedia.org/wiki/Transcription_et_translitt%C3%A9ration
+		 * */
 
 		$alphabets = array(
 			'latin' => array(
@@ -437,10 +440,11 @@ class plxUtils {
 			)
 		);
 
+		// les expressions régulières ignorent les lettres accentuées
 		$remove_words = array(
 			'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
-			'de' => 'das|der|die|für|am',
-			'fr' => 'à|le|la|un|une|vers|de|des|du|vers'
+			'de' => 'das|der|die|fuer|am',
+			'fr' => 'a|le|la|un|une|vers|de|des|du|vers|en'
 		);
 		if(($lang !== false) && (array_key_exists($lang, $alphabets))) {
 			uksort(
@@ -458,18 +462,6 @@ class plxUtils {
 		}
 
 		$clean_str = trim(html_entity_decode($str));
-		if($remove && !empty($lang) && array_key_exists($lang, $remove_words)) {
-			$tmpstr = preg_replace('@\b('.$remove_words[$lang].')\b@', $replace, $clean_str);
-			// fusion des caractères $replace.
-			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
-		}
-
-		// fusion des espaces et remplacement par le caractère "_".
-		$clean_str = preg_replace(
-			'@\s+@',
-			'_',
-			$clean_str
-		);
 
 		foreach($alphabets as $aLang => $alphab) {
 			$clean_str = str_replace(
@@ -478,6 +470,21 @@ class plxUtils {
 				$clean_str
 			);
 		}
+
+		// les expressions régulières ignorent les lettres accentuées
+		if($remove && !empty($lang) && array_key_exists($lang, $remove_words)) {
+			$tmpstr = preg_replace('@\b('.$remove_words[$lang].')\b@', $replace, $clean_str);
+			// fusion des caractères $replace.
+			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
+		}
+
+		// fusion des espaces et remplacement par le caractère "-".
+		$clean_str = preg_replace(
+			'@\s+@',
+			'-',
+			$clean_str
+		);
+
 		return ($lower) ? strtolower($clean_str) : $clean_str;
 	}
 
