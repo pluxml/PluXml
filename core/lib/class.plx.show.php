@@ -55,7 +55,7 @@ class plxShow {
 	 **/
 	protected function __translitterate($msg) {
 
-		return plxUtils::urlify($msg, $this->plxMotor->aConf['default_lang']);
+		return plxUtils::urlify($msg);
 
 	}
 

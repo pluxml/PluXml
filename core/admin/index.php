@@ -89,7 +89,7 @@ if(is_numeric($_GET['artTitle'])) {
 	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
 	$motif = '/^'.$mod.$artId.'.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*).xml$/';
 } else {
-	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::urlify($_GET['artTitle'], $plxAdmin->aConf['default_lang']).'(.*).xml$/';
+	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::urlify($_GET['artTitle']).'(.*).xml$/';
 }
 # Calcul du nombre de page si on fait une recherche
 if($_GET['artTitle']!='') {

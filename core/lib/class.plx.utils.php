@@ -378,7 +378,7 @@ class plxUtils {
 		return $str;
 	}
 
-	public static function translitterate($str, $lang=false, $reverse=false) {
+	public static function translitterate($str, $reverse=false) {
 
 		/*
 		 * $lang valeurs permises :	de en es fr it nl oc pl pt ro ru
@@ -429,7 +429,7 @@ class plxUtils {
 		);
 
 		// On privilégie la langue employée par le site.
-		if(($lang !== false) && (array_key_exists($lang, $alphabets))) {
+		if((defined('PLX_SITE_LANG')) && (array_key_exists(PLX_SITE_LANG, $alphabets))) {
 			uksort(
 				// place $lang en début du tableau de clés associatives
 				$alphabets,
@@ -478,7 +478,7 @@ class plxUtils {
 	 * @lower				transforme au final la chaine résultante en minuscules
 	 * @return				chaine valide pour une url
 	 * */
-	public static function urlify($str, $lang=false, $remove=true, $replace='-', $lower=false) {
+	public static function urlify($str, $remove=true, $replace='-', $lower=false) {
 		// les expressions régulières ignorent les lettres accentuées
 		$remove_words = array(
 			'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',

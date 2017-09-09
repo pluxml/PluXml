@@ -454,7 +454,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			if($cat_name!='') {
 				$cat_id = $this->nextIdCategory();
 				$this->aCats[$cat_id]['name'] = $cat_name;
-				$this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name, $this->aConf['default_lang']);
+				$this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name);
 				$this->aCats[$cat_id]['tri'] = $this->aConf['tri'];
 				$this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
 				$this->aCats[$cat_id]['menu'] = 'oui';
@@ -476,7 +476,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$cat_name = $content[$cat_id.'_name'];
 				if($cat_name!='') {
 					$tmpstr = (!empty($content[$cat_id.'_url'])) ? $content[$cat_id.'_url'] : $cat_name;
-					$cat_url = plxUtils::urlify($tmpstr, $this->aConf['default_lang']);
+					$cat_url = plxUtils::urlify($tmpstr);
 					if(empty($cat_url)) $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
 					$this->aCats[$cat_id]['name'] = $cat_name;
 					$this->aCats[$cat_id]['url'] = $cat_url;
@@ -593,8 +593,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			foreach($content['staticNum'] as $static_id) {
 				$stat_name = $content[$static_id.'_name'];
 				if($stat_name!='') {
-					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url'], $this-aConf['default_lang']) : '';
-					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name, $this-aConf['default_lang']);
+					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url']) : '';
+					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
 					if($stat_url=='') $stat_url = L_DEFAULT_NEW_STATIC_URL;
 					# On vérifie si on a besoin de renommer le fichier de la page statique
 					if(isset($this->aStats[$static_id]) AND $this->aStats[$static_id]['url']!=$stat_url) {
@@ -763,7 +763,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Génération de notre url d'article
 		$tmpstr = (!empty($content['url'])) ? $content['url'] : $content['title'];
-		$content['url'] = plxUtils::urlify($tmpstr, $this->aConf['default_lang']);
+		$content['url'] = plxUtils::urlify($tmpstr);
 
 		# URL vide après le passage de la fonction ;)
 		if($content['url'] == '') $content['url'] = L_DEFAULT_NEW_ARTICLE_URL;

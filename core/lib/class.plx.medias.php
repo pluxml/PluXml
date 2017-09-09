@@ -279,7 +279,7 @@ class plxMedias {
 
 		if(!empty(trim($newdir))) {
 			$mydir = $this->path.$this->dir;
-			$mydir .= plxUtils::urlify(trim($newdir), $this->lang);
+			$mydir .= plxUtils::urlify(trim($newdir));
 
 			if(!is_dir($mydir)) { # Si le dossier n'existe pas on le créer
 				if(!mkdir($mydir,0755))
@@ -314,7 +314,7 @@ class plxMedias {
 
 		# On teste l'existence du fichier et on formate le nom du fichier pour éviter les doublons
 		$i = 1;
-		$upFile = $this->path.$this->dir.plxUtils::urlify($file['name'], $this->lang);
+		$upFile = $this->path.$this->dir.plxUtils::urlify($file['name']);
 		$name = substr($file['name'], 0, strrpos($file['name'],'.'));
 		$ext = strrchr($upFile, '.');
 		while(file_exists($upFile)) {
@@ -510,7 +510,7 @@ class plxMedias {
 			$old_stats = pathinfo($oldname);
 			$new_stats = pathinfo($newname);
 			$new_stats['dirname'] = $old_stats['dirname'].'/';
-			$new_stats['filename'] = plxUtils::urlify($new_stats['filename'], $this->lang);
+			$new_stats['filename'] = plxUtils::urlify($new_stats['filename']);
 			if(!empty($new_stats['extension'])) {
 				$tmpstr = $new_stats['extension'];
 				unset($new_stats['extension']);

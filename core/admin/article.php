@@ -78,7 +78,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
 		$art['nb_com'] = 0;
 		$tmpstr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
-		$art['url'] = urlify($tmpstr, $plxAdmin->aConf['default_lang']);
+		$art['url'] = urlify($tmpstr);
 		if(empty($art['url'])) $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
 
 		# Hook Plugins
@@ -100,7 +100,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 		$valid = true;
 		# Vérification de l'unicité de l'url
-		$url = plxUtils::urlify((!empty($_POST['url']) ? $_POST['url'] : $_POST['title']), $plxAdmin->aConf['default_lang']);
+		$url = plxUtils::urlify((!empty($_POST['url']) ? $_POST['url'] : $_POST['title']));
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
 			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.$url.xml$/", $filename)) {
 				if($numart!=str_replace('_', '',$_POST['artId'])) {
@@ -508,7 +508,7 @@ function refreshImg(dta) {
 									if($tags = array_map('trim', explode(',', $tag['tags']))) {
 										foreach($tags as $tag) {
 											if($tag!='') {
-												$t = plxUtils::urlify($tag, $plxAdmin->aConf['default_lang']);
+												$t = plxUtils::urlify($tag);
 												if(!isset($array[$tag]))
 													$array[$tag]=array('url'=>$t,'count'=>1);
 												else
