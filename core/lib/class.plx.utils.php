@@ -378,20 +378,8 @@ class plxUtils {
 		return $str;
 	}
 
-	/**
-	 * Méthode pour translittération ( transforme une chaine de caractères en caractères ascii ).
-	 *
-	 * Adaptation du script javascript employé par Django:
-	 * https://github.com/django/django/blob/master/django/contrib/admin/static/admin/js/urlify.js
-	 *
-	 * @param str			chaine de caractères à contrôler
-	 * @param lang			langue à retenir pour l'alphabet (latin, cyrrilique, polonais, ...)
-	 * @param remove		retire les mots sans valeur sémantique
-	 * @replace				caractère de remplacement pour les mots ci-dessus
-	 * @lower				transforme au final la chaine résultante en minuscules
-	 * @return				chaine valide pour une url
-	 * */
-	public static function urlify($str, $lang=false, $remove=true, $replace='-', $lower=false) {
+	public static function translitterate($str, $lang=false, $reverse=false) {
+
 		/*
 		 * $lang valeurs permises :	de en es fr it nl oc pl pt ro ru
 		 * Pb avec certains caractères allemand en doublons avec des caractères latins
@@ -440,12 +428,7 @@ class plxUtils {
 			)
 		);
 
-		// les expressions régulières ignorent les lettres accentuées
-		$remove_words = array(
-			'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
-			'de' => 'das|der|die|fuer|am',
-			'fr' => 'a|le|la|un|une|vers|de|des|du|vers|en'
-		);
+		// On privilégie la langue employée par le site.
 		if(($lang !== false) && (array_key_exists($lang, $alphabets))) {
 			uksort(
 				// place $lang en début du tableau de clés associatives
@@ -461,15 +444,52 @@ class plxUtils {
 			);
 		}
 
-		$clean_str = trim(html_entity_decode($str));
-
-		foreach($alphabets as $aLang => $alphab) {
-			$clean_str = str_replace(
-				array_keys($alphab),
-				array_values($alphab),
-				$clean_str
-			);
+		if(!$reverse) {
+			foreach($alphabets as $aLang => $alphab) {
+				$clean_str = str_replace(
+					array_keys($alphab),
+					array_values($alphab),
+					$str
+				);
+			}
+		} else {
+			foreach($alphabets as $aLang => $alphab) {
+				$clean_str = str_replace(
+					array_values($alphab),
+					array_keys($alphab),
+					$str
+				);
+			}
 		}
+
+		return $clean_str;
+	}
+
+	/**
+	 * Méthode pour translittération ( transforme une chaine de caractères en caractères ascii ).
+	 *
+	 * Adaptation du script javascript employé par Django:
+	 * https://github.com/django/django/blob/master/django/contrib/admin/static/admin/js/urlify.js
+	 *
+	 * @param str			chaine de caractères à contrôler
+	 * @param lang			langue à retenir pour l'alphabet (latin, cyrrilique, polonais, ...)
+	 * @param remove		retire les mots sans valeur sémantique
+	 * @replace				caractère de remplacement pour les mots ci-dessus
+	 * @lower				transforme au final la chaine résultante en minuscules
+	 * @return				chaine valide pour une url
+	 * */
+	public static function urlify($str, $lang=false, $remove=true, $replace='-', $lower=false) {
+		// les expressions régulières ignorent les lettres accentuées
+		$remove_words = array(
+			'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
+			'de' => 'das|der|die|fuer|am',
+			'fr' => 'a|le|la|un|une|vers|de|des|du|vers|en'
+		);
+
+		$clean_str = plxUtils::translitterate(
+			trim(html_entity_decode($str)),
+			$lang
+		);
 
 		// les expressions régulières ignorent les lettres accentuées
 		if($remove && !empty($lang) && array_key_exists($lang, $remove_words)) {
