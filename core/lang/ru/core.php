@@ -2,7 +2,7 @@
 
 $LANG = array(
 
-'L_LANGUE'						=> 'Russian',
+'L_LANGUE'						=> 'Pусский',
 
 'L_DATE_CREATION'				=> 'Дата создания',
 'L_DATE_UPDATE'					=> 'Дата обновляются',

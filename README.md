@@ -11,6 +11,7 @@ Principales caractéristiques
 * Gestion des commentaires
 * Gestionnaire de médias
 * Traduit en 11 langues (français, allemand, anglais, espagnol, italien, néerlandais, occitan, polonais, portugais, roumain, russe)
+* Support des alphabets cyrillic, polonais, allemand, ... pour la translittération des Urls
 * Thèmes personnalisables
 * Plugins
 * Réécriture d'url (nécessite le module apache mod_rewrite)
