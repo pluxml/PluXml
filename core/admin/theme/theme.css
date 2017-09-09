@@ -657,3 +657,53 @@ div.ico div {
 #statics-table td:nth-child(1) {
 	padding-left: 12px;
 }
+/* install.php */
+/* languages: de en es fr it nl oc pl pt ro ru */
+label[for="id_default_lang"] button {
+background-image: url('flags/flags-32.png');
+width: 32px;
+height: 32px;
+padding: 0;
+background-color: transparent;
+border: none;
+opacity: 0.75;
+}
+label[for="id_default_lang"] button:hover {
+	opacity: 1;
+}
+label[for="id_default_lang"] button.active {
+	opacity: 0.9;
+}
+label[for="id_default_lang"] button[data-lang="de"] {
+	background-position-y: 0;
+}
+label[for="id_default_lang"] button[data-lang="en"] {
+	background-position-y: -32px;
+}
+label[for="id_default_lang"] button[data-lang="es"] {
+	background-position-y: -64px;
+}
+label[for="id_default_lang"] button[data-lang="fr"] {
+	background-position-y: -96px;
+}
+label[for="id_default_lang"] button[data-lang="it"] {
+	background-position-y: -128px;
+}
+label[for="id_default_lang"] button[data-lang="nl"] {
+	background-position-y: -160px;
+}
+label[for="id_default_lang"] button[data-lang="oc"] {
+	background-position-y: -192px;
+}
+label[for="id_default_lang"] button[data-lang="pl"] {
+	background-position-y: -224px;
+}
+label[for="id_default_lang"] button[data-lang="pt"] {
+	background-position-y: -256px;
+}
+label[for="id_default_lang"] button[data-lang="ro"] {
+	background-position-y: -288px;
+}
+label[for="id_default_lang"] button[data-lang="ru"] {
+	background-position-y: -320px;
+}

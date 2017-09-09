@@ -14,11 +14,23 @@ include(PLX_CORE.'lib/class.plx.glob.php');
 include(PLX_CORE.'lib/class.plx.utils.php');
 include(PLX_CORE.'lib/class.plx.token.php');
 
-# Chargement des langues
-$lang = DEFAULT_LANG;
-if(isset($_POST['default_lang'])) $lang=$_POST['default_lang'];
-if(!array_key_exists($lang, plxUtils::getLangs())) {
+# Chargement des langues et initialisation du timezone
+if(
+	isset($_POST['default_lang']) and
+	array_key_exists($_POST['default_lang'], plxUtils::getLangs())
+) {
+	$lang=$_POST['default_lang'];
+	$timezone = plxTimezones::get_timezone($lang);
+} else {
 	$lang = DEFAULT_LANG;
+	if(
+		isset($_POST['timezone']) &&
+		array_key_exists($_POST['timezone'], plxTimezones::timezones())
+	) {
+		$timezone=$_POST['timezone'];
+	} else {
+		$timezone = plxTimezones::get_timezone($lang);
+	}
 }
 
 loadLang(PLX_CORE.'lang/'.$lang.'/install.php');
@@ -54,13 +66,6 @@ if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
-}
-
-# Initialisation du timezone
-$timezone = 'Europe/Paris';
-if(isset($_POST['timezone'])) $timezone=$_POST['timezone'];
-if(!array_key_exists($timezone, plxTimezones::timezones())) {
-	$timezone = date_default_timezone_get();
 }
 
 # Configuration de base
@@ -170,7 +175,7 @@ function install($content, $config) {
 	<title_htmltag><![CDATA[]]></title_htmltag>
 	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
 	<date_update><![CDATA['.date('YmdHi').']]></date_update>
-	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>	
+	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
 </document>';
 	plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
 
@@ -256,7 +261,34 @@ plxUtils::cleanHeaders();
 
 					<div class="grid">
 						<div class="col sml-12 med-5 label-centered">
-							<label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label>
+							<label for="id_default_lang">
+								<?php echo L_SELECT_LANG ?>&nbsp;:
+								<br />
+<?php
+/* Google translations, except french */
+	$select_langs = array(
+		'de' => 'Stellen Sie diese Seite auf Deutsch',
+		'en' => 'Set this site in English',
+		'es' => 'Utilice este sitio en español',
+		'fr' => 'Régler le site en français',
+		'it' => 'Utilizar este sitio en italiano',
+		'nl' => 'Gebruik deze site in het Nederlands',
+		'oc' => 'Seleccionatz vòstra lenga',
+		'pl' => 'Użyj tej strony w języku polskim',
+		'pt' => 'Use este site em português',
+		'ro' => 'Folosiți acest site în limba română',
+		'ru' => 'Использовать этот сайт на русском языке'
+	);
+	foreach(plxUtils::getLangs() as $lg) {
+		$title = (array_key_exists($lang, $select_langs)) ? $select_langs[$lg] : '';
+		$active = ($lg == $lang) ? ' class="active"' : '';
+		echo <<< EOT
+<button$active title="$title" data-lang="$lg">&nbsp;</button>
+
+EOT;
+	}
+?>
+							</label>
 						</div>
 						<div class="col sml-12 med-7">
 							<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
@@ -336,6 +368,28 @@ plxUtils::cleanHeaders();
 		</section>
 
 	</main>
+	<script type="text/javascript">
+		(function() {
+			'use strict';
+
+			function changeLang(event) {
+				if(event.target.tagName == 'BUTTON' && event.target.hasAttribute('data-lang')) {
+					event.preventDefault();
+					const select = document.querySelector('select[name="default_lang"]');
+					if(select != null) {
+						select.value = event.target.getAttribute('data-lang');
+						select.form.submit();
+					}
+				}
+			}
+
+			const node = document.querySelector('label[for="id_default_lang"]');
+			if(node != null) {
+				node.addEventListener('click', changeLang);
+			}
+
+		})();
+	</script>
 
 </body>
 

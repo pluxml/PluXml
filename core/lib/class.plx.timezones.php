@@ -55,7 +55,7 @@ class plxTimezones {
 		'Europe/Madrid'			=> "(GMT+01:00) Madrid",
 		'Europe/Paris'			=> "(GMT+01:00) Paris",
 		'Europe/Prague'			=> "(GMT+01:00) Prague",
-		'Europe/Rome'			=> "(GMT+01:00) Rome",
+		'Europe/Roma'			=> "(GMT+01:00) Rome",
 		'Europe/Sarajevo'		=> "(GMT+01:00) Sarajevo",
 		'Europe/Skopje'			=> "(GMT+01:00) Skopje",
 		'Europe/Stockholm'		=> "(GMT+01:00) Stockholm",
@@ -134,6 +134,23 @@ class plxTimezones {
 	 **/
 	public static function timezones() {
 		return plxTimezones::$_timezones;
+	}
+
+	public static function get_timezone($lang) {
+		$listing = array(
+			'de' => 'Europe/Berlin',
+			'en' => 'Europe/London',
+			'es' => 'Europe/Madrid',
+			'fr' => 'Europe/Paris',
+			'it' => 'Europe/Roma',
+			'nl' => 'Europe/Amsterdam',
+			'oc' => 'Europe/Paris',
+			'pl' => 'Europe/Warsaw',
+			'pt' => 'Europe/Lisbon',
+			'ro' => 'Europe/Berlin',
+			'ru' => 'Europe/Moscow'
+		);
+		return (array_key_exists($lang, $listing)) ? $listing[$lang] : 'Europe/Paris';
 	}
 
 }
