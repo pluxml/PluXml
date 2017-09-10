@@ -53,7 +53,7 @@ if(file_exists(path('XMLFILE_PARAMETERS'))) {
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-const HTACCESS_CONTENT = "<Files *>\nOrder allow,deny\nDeny from all\n</Files>";
+const HTACCESS_CONTENT = "<Files *>\n\tOrder allow,deny\n\tDeny from all\n</Files>";
 
 # Vérification de l'existence de quelques dossiers
 foreach(explode(' ', 'articles commentaires configuration medias statiques') as $fd) {
