@@ -78,7 +78,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
 		$art['nb_com'] = 0;
 		$tmpstr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
-		$art['url'] = urlify($tmpstr);
+		$art['url'] = plxUtils::urlify($tmpstr);
 		if(empty($art['url'])) $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
 
 		# Hook Plugins

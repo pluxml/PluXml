@@ -487,13 +487,12 @@ class plxUtils {
 		);
 
 		$clean_str = plxUtils::translitterate(
-			trim(html_entity_decode($str)),
-			$lang
+			trim(html_entity_decode($str))
 		);
 
 		// les expressions régulières ignorent les lettres accentuées
-		if($remove && !empty($lang) && array_key_exists($lang, $remove_words)) {
-			$tmpstr = preg_replace('@\b('.$remove_words[$lang].')\b@', $replace, $clean_str);
+		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
+			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@', $replace, $clean_str);
 			// fusion des caractères $replace.
 			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
 		}
