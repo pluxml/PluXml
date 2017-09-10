@@ -478,7 +478,7 @@ class plxUtils {
 	 * @lower				transforme au final la chaine résultante en minuscules
 	 * @return				chaine valide pour une url
 	 * */
-	public static function urlify($str, $remove=true, $replace='-', $lower=false) {
+	public static function urlify($str, $remove=true, $replace='-', $lower=true) {
 		// les expressions régulières ignorent les lettres accentuées
 		$remove_words = array(
 			'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
