@@ -53,9 +53,24 @@ if(file_exists(path('XMLFILE_PARAMETERS'))) {
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers médias
-if(!is_dir(PLX_ROOT.'data/medias')) {
-	@mkdir(PLX_ROOT.'data/medias',0755,true);
+const HTACCESS_CONTENT = "<Files *>\nOrder allow,deny\nDeny from all\n</Files>";
+
+# Vérification de l'existence de quelques dossiers
+foreach(explode(' ', 'articles commentaires configuration medias statiques') as $fd) {
+	$folder = PLX_ROOT.'data/'.$fd;
+	if(!is_dir($folder)) {
+		@mkdir($folder, 0755, true);
+	}
+	if($fd != 'medias') {
+		plxUtils::write('', $folder.'/index.html');
+		plxUtils::write(HTACCESS_CONTENT, $folder.'/.htaccess');
+	}
+}
+
+# Vérification de la présence du fichier data/.htaccess
+$htaccess = PLX_ROOT.'data/.htaccess';
+if(!file_exists($htaccess)) {
+	plxUtils::write('options -indexes', $htaccess);
 }
 
 # Vérification de l'existence du dossier data/configuration/plugins
