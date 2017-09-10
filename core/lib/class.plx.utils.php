@@ -504,6 +504,13 @@ class plxUtils {
 			$clean_str
 		);
 
+		// Supprime tous les caractères non reconnues par PluXml dans les noms de fichiers, except '_'
+		$clean_str = preg_replace(
+			'@[^\w-]@',
+			'',
+			$clean_str
+		);
+
 		return ($lower) ? strtolower($clean_str) : $clean_str;
 	}
 
