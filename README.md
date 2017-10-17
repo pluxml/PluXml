@@ -2,7 +2,7 @@ PluXml
 ======
 
 Principales caractéristiques
--------------------------------
+----------------------------
 
 * Aucune base de données requise
 * Portable sur clé USB
@@ -14,6 +14,12 @@ Principales caractéristiques
 * Thèmes personnalisables
 * Plugins
 * Réécriture d'url (nécessite le module apache mod_rewrite)
+
+Démonstration
+-------------
+
+* [Blog](http://demo.pluxml.org/)
+* [Administration](http://demo.pluxml.org/core/admin/auth.php?p=/core/admin/)
 
 Prérequis
 ---------
