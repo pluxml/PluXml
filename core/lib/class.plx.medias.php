@@ -342,14 +342,16 @@ class plxMedias {
 	public function uploadFiles($usrfiles, $post) {
 
 		$files = array();
-		if(isset($post['myfiles'])) {
-			foreach($post['myfiles'] as $key => $val) {
-				list($selnum, $selval) = explode('_', $val);
-				$files[] = array(
-					'name'		=> $usrfiles['selector_'.$selnum]['name'][$selval],
-					'size'		=> $usrfiles['selector_'.$selnum]['size'][$selval],
-					'tmp_name'	=> $usrfiles['selector_'.$selnum]['tmp_name'][$selval]
-				);
+		if(isset($post['myfiles'])) {#var_dump('$post myfiles',$post['myfiles']);
+			foreach($post['myfiles'] as $key => $val) {#var_dump('$key, $val',$key, $val);
+				list($selnum, $selval) = explode('_', $val);#var_dump('$selnum, $selval',$selnum, $selval);
+				if(isset($usrfiles['selector_'.$selnum]['name'][$selval])) {//bugs.php.net/bug.php?id=50684&edit=1 ::: ini_set('max_file_uploads', "50");#only with php.ini
+					$files[] = array(
+						'name'		=> $usrfiles['selector_'.$selnum]['name'][$selval],
+						'size'		=> $usrfiles['selector_'.$selnum]['size'][$selval],
+						'tmp_name'	=> $usrfiles['selector_'.$selnum]['tmp_name'][$selval]
+					);
+				}
 			}
 		}
 
