@@ -298,6 +298,7 @@ $LANG = array(
 'L_MEDIAS_TITLE'								=> 'Gestión de medios',
 'L_MEDIAS_DIRECTORY'							=> 'Localización',
 'L_MEDIAS_BACK'									=> 'Volver',
+'L_MEDIAS_MAX_FILE_UPLOAD'			=> 'Número máximo de archivos autorizados por la carga',
 'L_MEDIAS_MAX_UPOLAD_FILE'						=> 'Tamaño máximo de archivo',
 'L_MEDIAS_MAX_POST_SIZE'						=> 'Tamaño máximo de datos',
 'L_MEDIAS_SUBMIT_FILE'							=> 'Enviar',

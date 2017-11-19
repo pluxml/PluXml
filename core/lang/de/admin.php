@@ -248,6 +248,7 @@ $LANG = array(
 'L_MEDIAS_FILENAME'									=> 'Dateiname',
 'L_MEDIAS_ADD_FILE'									=> 'Dateien hochladen',
 'L_MEDIAS_BACK'										=> 'Zurück',
+'L_MEDIAS_MAX_FILE_UPLOAD'			=> 'Maximale Anzahl der Dateien, die durch das Hochladen erlaubt',#Höchstzahl von Dateien genehmigten téléversement
 'L_MEDIAS_TITLE'									=> 'Datei und Medienverwaltung',
 'L_MEDIAS_IMAGES'									=> 'Bilder',
 'L_MEDIAS_DOCUMENTS'								=> 'Dokumente',

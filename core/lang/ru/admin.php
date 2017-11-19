@@ -301,6 +301,7 @@ $LANG = array(
 'L_MEDIAS_TITLE'											=> 'Медиа',
 'L_MEDIAS_DIRECTORY'										=> 'Расположение',
 'L_MEDIAS_BACK'												=> 'Назад',
+'L_MEDIAS_MAX_FILE_UPLOAD'			=> 'Максимальное количество файлов, загрузка',
 'L_MEDIAS_MAX_UPOLAD_FILE'									=> 'Максимальный размер файла',
 'L_MEDIAS_MAX_POST_SIZE'									=> 'Максимальный размер данных',
 'L_MEDIAS_SUBMIT_FILE'										=> 'Загрузить',

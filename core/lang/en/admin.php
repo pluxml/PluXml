@@ -256,6 +256,7 @@ $LANG = array(
 'L_MEDIAS_FILENAME'											=> 'File name',
 'L_MEDIAS_ADD_FILE'											=> 'Add file',
 'L_MEDIAS_BACK'												=> 'Back',
+'L_MEDIAS_MAX_FILE_UPLOAD'			=> 'Maximum number of files allowed by uploading',
 'L_MEDIAS_TITLE'											=> 'Media manager',
 'L_MEDIAS_IMAGES'											=> 'Pictures',
 'L_MEDIAS_DOCUMENTS'										=> 'Documents',
