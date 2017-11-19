@@ -247,6 +247,7 @@ $LANG = array(
 'L_MEDIAS_FILENAME'											=> 'Naam bastand',
 'L_MEDIAS_ADD_FILE'											=> 'Bestand toevoegne',
 'L_MEDIAS_BACK'												=> 'Terug',
+'L_MEDIAS_MAX_FILE_UPLOAD'			=> 'Maximum aantal toegestane bestanden uploaden',
 'L_MEDIAS_TITLE'											=> 'Media beheren',
 'L_MEDIAS_IMAGES'											=> 'Afbeeldingen',
 'L_MEDIAS_DOCUMENTS'										=> 'Documenten',
