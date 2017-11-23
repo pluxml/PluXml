@@ -176,7 +176,7 @@ class plxMotor {
 				$this->motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->cible.')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/'; # Motif de recherche
 				$this->template = $this->aCats[$this->cible]['template'];
 				$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
-				$this->bypage = $this->aCats[$this->cible]['bypage'] > 0 ? $this->aCats[$this->cible]['bypage'] : $this->bypage;
+				$this->bypage = $this->aConf['bypage']; # articles par page de categorie
 			}
 			elseif(isset($this->aCats[$this->cible])) { # Redirection 301
 				if($this->aCats[$this->cible]['url']!=$capture[2]) {
