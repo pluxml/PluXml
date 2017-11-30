@@ -187,7 +187,7 @@ th {
 tr {
 	border-bottom: 1px solid;
 }
-td, 
+td,
 th {
 	height: 3.5rem;
 	padding-left: .7rem;
@@ -1497,4 +1497,25 @@ input[type="submit"].red:hover {
 	.lrg-no-padding {
 		padding: 0;
 	}
+}
+/* ------- MEDIASMANAGER ------ */
+body.mediasManager main.grid {
+	margin-left: 0;
+}
+@media (min-width: 48rem) {
+	body.mediasManager .col.med-offset-3 {
+	    margin-left: 0;
+	}
+	body.mediasManager .col.med-9 {
+	    width: 100%;
+	}
+}
+@media (min-width: 64rem) {
+	body.mediasManager .col.lrg-offset-2 {
+	    margin-left: 0;
+	}
+	body.mediasManager .col.lrg-10 {
+		width: 100%;
+	}
+
 }
