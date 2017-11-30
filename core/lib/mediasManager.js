@@ -1,3 +1,4 @@
+/*
 var popupCss = '\
 .aside {\
 	display: none;\
@@ -15,6 +16,7 @@ var popupCss = '\
 		width: 100%;\
 	}\
 }';
+*/
 
 var mediasManager = {
 
@@ -64,12 +66,8 @@ var mediasManager = {
 
 		if(window.name == this.opts.windowName) {
 
-			// ajout des règles CSS pour masquer les parties inutiles du gestionnaire de médias
-			var textNode = document.createTextNode(popupCss);
-			var style = document.createElement('style');
-			style.setAttribute('type', 'text/css');
-			style.appendChild(textNode);
-			document.getElementsByTagName('head')[0].appendChild(style);
+			// ajout d'une class à <body> pour masquer les parties inutiles du gestionnaire de médias
+			document.body.classList.add('mediasManager');
 
 			// ajout des évenements onclick pour récuper le lien de l'image
 			var tbody = document.querySelector('#medias-table tbody');
@@ -90,7 +88,7 @@ var mediasManager = {
 							mediasManager.addText(cibleId, target.href, replace);
 							mediasManager.updImg(cibleId+'_img', target.href);
 						}
-						window.close();						
+						window.close();
 						cibleId.focus();
 					}
 				});
