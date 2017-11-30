@@ -83,7 +83,6 @@ var mediasManager = {
 						var cibleId = launcher.cibleId;
 						var fallback = launcher.fallback;
 						var fn = window[fallback];
-						window.close();
 						if (typeof fn === "function") {
 							var fnparams = [cibleId, target.href, replace];
 							fn.apply(null, fnparams);
@@ -91,6 +90,7 @@ var mediasManager = {
 							mediasManager.addText(cibleId, target.href, replace);
 							mediasManager.updImg(cibleId+'_img', target.href);
 						}
+						window.close();						
 						cibleId.focus();
 					}
 				});
