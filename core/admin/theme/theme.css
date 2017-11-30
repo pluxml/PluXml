@@ -92,7 +92,9 @@
 	background-color: #fff;
 	color: #444;
 }
-
+body.mediasManager .aside {
+	display: none;
+}
 a.lnkdelete {
 	font-weight: bold;
 	text-decoration: underline;
@@ -118,6 +120,12 @@ a.lnkdelete:hover {
 	top: 0;
 	width: 100%;
 	z-index: 1;
+}
+body.mediasManager .section .action-bar {
+	left: 0;
+	right: 0;
+	margin-right: 0;
+	margin-left: 0;
 }
 .section .action-bar p,
 .section .action-bar ul {
