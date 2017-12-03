@@ -315,7 +315,7 @@ class plxMotor {
 				exit;
 			}
 			# Récupération des commentaires
-			$this->getCommentaires('/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/',$this->mapTri($this->tri_coms));
+			$this->getCommentaires('/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/',$this->tri_coms);
 			$this->template=$this->plxRecord_arts->f('template');
 			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
 		}
@@ -569,7 +569,7 @@ class plxMotor {
 	 * @return	string
 	 * @author	Stéphane F.
 	 **/
-	protected function mapTri($tri) {
+	protected function mapTri($tri) { /* obsolete ! 2017-12-03 */
 
 		if($tri=='desc')
 			return 'rsort';
@@ -577,6 +577,8 @@ class plxMotor {
 			return 'sort';
 		elseif($tri=='alpha')
 			return 'alpha';
+		elseif($tri=='ralpha')
+			return 'ralpha';
 		elseif($tri=='random')
 			return 'random';
 		else
@@ -608,12 +610,10 @@ class plxMotor {
 	 **/
 	public function getArticles($publi='before') {
 
-		# On fait notre traitement sur notre tri
-		$ordre = $this->mapTri($this->tri);
 		# On calcule la valeur start
 		$start = $this->bypage*($this->page-1);
 		# On recupere nos fichiers (tries) selon le motif, la pagination, la date de publication
-		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$ordre,$start,$this->bypage,$publi)) {
+		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
 			# on mémorise le nombre total d'articles trouvés
 			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
 				$array[$k] = $this->parseArticle(PLX_ROOT.$this->aConf['racine_articles'].$v);
