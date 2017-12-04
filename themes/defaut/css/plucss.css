@@ -4,9 +4,9 @@
 # This file is part of PluXml : http://www.pluxml.org
 #
 # Package		plucss.css
-# Version		1.2
+# Version		1.3
 # Copyright (c)	2014-2017 PluXml
-# Authors		Jos
+# Authors		Jos, Stéphane F
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -74,6 +74,7 @@ h5,
 h6 {
 	line-height: 1;
 	margin: 3rem 0 1.5rem 0;
+	font-weight: 500;
 }
 hr {
 	height: 0;
@@ -93,17 +94,19 @@ small {
 	font-size: 1.17rem;
 }
 sub,
-sup {
+sup,
+.sup {
 	font-size: 1.17rem;
 	line-height: 0;
 	position: relative;
 	vertical-align: baseline;
 }
-sup {
-	top: -0.5rem;
+sup,
+.sup {
+	top: -0.75rem;
 }
 sub {
-	bottom: -0.5rem;
+	bottom: -0.75rem;
 }
 svg:not(:root) {
 	overflow: hidden;
@@ -187,7 +190,7 @@ th {
 tr {
 	border-bottom: 1px solid;
 }
-td, 
+td,
 th {
 	height: 3.5rem;
 	padding-left: .7rem;
@@ -211,45 +214,43 @@ a:hover {
 cite:before {
 	content: "— ";
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-weight: 500;
-}
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
+.h1,.s1,
+.h2,.s2,
+.h3,.s3,
+.h4,.s4,
+.h5,.s5,
+.h6,.s6 {
 	height: auto;
 }
 h1,
-.h1 {
-	font-size: 4rem;
-}
-h2,
-.h2 {
-	font-size: 3.5rem;
-}
-h3,
-.h3 {
-	font-size: 3rem;
-}
-h4,
-.h4 {
+.h1,
+.s1 {
 	font-size: 2.5rem;
 }
-h5,
-.h5 {
+h2,
+.h2,
+.s2 {
 	font-size: 2rem;
 }
-h6,
-.h6 {
+h3,
+.h3,
+.s3 {
+	font-size: 1.67rem;
+}
+h4,
+.h4,
+.s4 {
 	font-size: 1.5rem;
+}
+h5,
+.h5,
+.s5 {
+	font-size: 1.33rem;
+}
+h6,
+.h6,
+.s6 {
+	font-size: 1.17rem;
 }
 .heading-large {
 	font-size: 8rem;
@@ -258,7 +259,7 @@ h6,
 	font-size: 6.5rem;
 }
 .heading-small {
-	font-size: 5rem;
+	font-size: 4rem;
 }
 .text-blue {
 	color: #258fd6;
@@ -280,7 +281,7 @@ ul.inline-list {
 ul.inline-list li {
 	display: inline-block;
 	list-style-type: none;
-	margin-left: 1.5rem;
+	margin-left: .5rem;
 	font-size: 1.5rem;
 }
 ul.inline-list li:first-child {
@@ -291,6 +292,22 @@ ul.unstyled-list {
 }
 ul.unstyled-list li {
 	list-style-type: none;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	font-style: italic;
+	color: #999;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	font-style: italic;
+	color: #999;
+}
+:-ms-input-placeholder { /* IE 10+ */
+	font-style: italic;
+	color: #999;
+}
+:-moz-placeholder { /* Firefox 18- */
+	font-style: italic;
+	color: #999;
 }
 
 /* ---------- TABLE ---------- */
@@ -421,6 +438,19 @@ input[type="reset"].red:hover,
 input[type="submit"].red:hover {
 	background-color: #bc2818;
 }
+button.yellow,
+input[type="button"].yellow,
+input[type="reset"].yellow,
+input[type="submit"].yellow {
+	background-color: #e0a800;
+	color: #eee;
+}
+button.yellow:hover,
+input[type="button"].yellow:hover,
+input[type="reset"].yellow:hover,
+input[type="submit"].yellow:hover {
+	background-color: #d39e00;
+}
 
 /* ---------- NAVIGATION ---------- */
 
@@ -535,7 +565,89 @@ input[type="submit"].red:hover {
 	}
 }
 
+/* Pagination */
+
+.pagination {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+.pagination ul,
+.pagination ul ul {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+.pagination li,
+.pagination li li {
+	display: inline-block;
+	font-size: 1.5rem;
+	list-style-type: none;
+	margin: 10px;
+	cursor: pointer;
+}
+.pagination li.active a {
+	color: #ff0000;
+}
+.pagination li.disabled a {
+	color: #999;
+}
+.pagination li.disabled a:hover {
+	text-decoration: none;
+}
+
 /* ---------- OTHER COMPONENTS ---------- */
+
+.modal-mask {
+	position: fixed;
+	z-index: 9998;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .5);
+	transition: opacity .3s ease;
+}
+.modal-container {
+	width: 450px;
+	margin: 40px auto 0;
+	padding: 20px 30px;
+	background-color: #fff;
+	border-radius: 2px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+	transition: all .3s ease;
+	font-family: Helvetica, Arial, sans-serif;
+}
+.modal-header {
+	margin-top: 0;
+}
+.modal-body {
+	margin: 20px 0;
+}
+.modal-footer {
+	margin: 20px 0;
+	text-align: right;
+}
+.modal-container button:hover {
+	color: #333;
+	background-color: transparent;
+}
+.modal-btn-close {
+	background: transparent;
+	border: 0;
+	height: 1rem;
+	line-height: 1rem;
+	margin-left: .2rem;
+	margin-right: -2px;
+	padding: 0 2px;
+	text-decoration: none;
+	width: 1rem;
+	color: #999;
+}
+.modal-btn-close:after {
+	display: inline-block;
+	content: "\00d7"; /* This will render the 'X' */
+}
 
 .gallery {
 	list-style: none;
@@ -582,7 +694,6 @@ input[type="submit"].red:hover {
 }
 .button:hover {
 	background-color: #555;
-	color: #fff;
 	text-decoration: none;
 	transition-duration: .2s;
 }
@@ -613,6 +724,13 @@ input[type="submit"].red:hover {
 }
 .button.red:hover {
 	background-color: #bc2818;
+}
+.button.yellow {
+	background-color: #e0a800;
+	color: #eee;
+}
+.button.yellow:hover {
+	background-color: #d39e00;
 }
 .progress {
 	background-color: #fff;
@@ -684,6 +802,95 @@ input[type="submit"].red:hover {
 	border-radius: .3rem;
 }
 
+/* -- Tooltip -- */
+
+a.tooltip {
+	position: relative;
+	display: inline;
+}
+a.tooltip span {
+	font-size: 1.3rem;
+	line-height: 1.7rem;
+	position: absolute;
+	min-width:140px;
+	color: #fff;
+	background: #555;
+	min-height: 30px;
+	text-align: center;
+	visibility: hidden;
+	border-radius: 4px;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease-in-out;
+	-moz-transition: opacity 0.3s ease-in-out;
+	-ms-transition: opacity 0.3s ease-in-out;
+	-o-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
+}
+a.tooltip span:after {
+	content: '';
+	position: absolute;
+ 	width: 0; height: 0;
+}
+a:hover.tooltip span {
+	visibility: visible;
+	opacity:1;
+	z-index: 999;
+}
+a.tooltip.tooltip-top span:after {
+	top: 100%;
+	left: 50%;
+	margin-left: -8px;
+	border-top: 8px solid #555;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+}
+a:hover.tooltip-top span {
+	bottom: 30px;
+	left: 50%;
+	margin-left: -76px;
+}
+a.tooltip.tooltip-right span:after {
+	top: 50%;
+	right: 100%;
+	margin-top: -8px;
+	border-right: 8px solid #555;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+}
+a:hover.tooltip-right span {
+	left: 100%;
+	top: 50%;
+	margin-top: -15px;
+	margin-left: 15px;
+}
+a.tooltip.tooltip-bottom span:after {
+	bottom: 100%;
+	left: 50%;
+	margin-left: -8px;
+	border-bottom: 8px solid #555;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;	
+}
+a:hover.tooltip-bottom span {
+	top: 30px;
+	left: 50%;
+	margin-left: -76px;
+}
+a.tooltip.tooltip-left span:after {
+	top: 50%;
+	left: 100%;
+	margin-top: -8px;
+	border-left: 8px solid #555;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+}
+a:hover.tooltip-left span {
+	right: 100%;
+	top: 50%;
+	margin-top: -15px;
+	margin-right: 15px;
+}
+
 /* ---------- HELPER ---------- */
 
 .text-left {
@@ -729,6 +936,11 @@ input[type="submit"].red:hover {
 }
 .no-padding {
 	padding: 0;
+}
+.sticky {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
 }
 
 /* ---------- GRID, GALLERY, AND HELPER ---------- */
@@ -927,31 +1139,22 @@ input[type="submit"].red:hover {
 	float: left;
 }
 .sml-h1 {
-	font-size: 4rem;
-}
-.sml-h2 {
-	font-size: 3.5rem;
-}
-.sml-h3 {
-	font-size: 3rem;
-}
-.sml-h4 {
 	font-size: 2.5rem;
 }
-.sml-h5 {
+.sml-h2 {
 	font-size: 2rem;
 }
-.sml-h6 {
+.sml-h3 {
+	font-size: 1.67rem;
+}
+.sml-h4 {
 	font-size: 1.5rem;
 }
-.sml-heading-large {
-	font-size: 8rem;
+.sml-h5 {
+	font-size: 1.33rem;
 }
-.sml-heading-medium {
-	font-size: 6.5rem;
-}
-.sml-heading-small {
-	font-size: 5rem;
+.sml-h6 {
+	font-size: 1.17rem;
 }
 .sml-text-left {
 	text-align: left;
@@ -1177,31 +1380,22 @@ input[type="submit"].red:hover {
 		float: left;
 	}
 	.med-h1 {
-		font-size: 4rem;
-	}
-	.med-h2 {
-		font-size: 3.5rem;
-	}
-	.med-h3 {
-		font-size: 3rem;
-	}
-	.med-h4 {
 		font-size: 2.5rem;
 	}
-	.med-h5 {
+	.med-h2 {
 		font-size: 2rem;
 	}
-	.med-h6 {
+	.med-h3 {
+		font-size: 1.67rem;
+	}
+	.med-h4 {
 		font-size: 1.5rem;
 	}
-	.med-heading-large {
-		font-size: 8rem;
+	.med-h5 {
+		font-size: 1.33rem;
 	}
-	.med-heading-medium {
-		font-size: 6.5rem;
-	}
-	.med-heading-small {
-		font-size: 5rem;
+	.med-h6 {
+		font-size: 1.17rem;
 	}
 	.med-text-left {
 		text-align: left;
@@ -1428,31 +1622,22 @@ input[type="submit"].red:hover {
 		float: left;
 	}
 	.lrg-h1 {
-		font-size: 4rem;
-	}
-	.lrg-h2 {
-		font-size: 3.5rem;
-	}
-	.lrg-h3 {
-		font-size: 3rem;
-	}
-	.lrg-h4 {
 		font-size: 2.5rem;
 	}
-	.lrg-h5 {
+	.lrg-h2 {
 		font-size: 2rem;
 	}
-	.lrg-h6 {
+	.lrg-h3 {
+		font-size: 1.67rem;
+	}
+	.lrg-h4 {
 		font-size: 1.5rem;
 	}
-	.lrg-heading-large {
-		font-size: 8rem;
+	.lrg-h5 {
+		font-size: 1.33rem;
 	}
-	.lrg-heading-medium {
-		font-size: 6.5rem;
-	}
-	.lrg-heading-small {
-		font-size: 5rem;
+	.lrg-h6 {
+		font-size: 1.17rem;
 	}
 	.lrg-text-left {
 		text-align: left;
