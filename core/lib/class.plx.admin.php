@@ -1055,30 +1055,64 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
-	 * Méthode qui vérifie sur le site de PluXml la dernière version et la compare avec celle en local
+	 * Méthode qui vérifie sur le site de PluXml la dernière version et la compare avec celle en local.
 	 *
-	 * @return	string	message contenant l'etat du control du numéro de version
-	 * @author	Florent MONTHEL, Amaury GRAILLAT et Stephane F
+	 * @param	url		adresse pour connaitre la dernière release
+	 * @param	href	lien vers page accueil
+	 * @param	caption titre à afficher
+	 * @return	string	contenu innerHTML de la balise <p> contenant l'etat et le style du contrôle du numéro de version
+	 * @author	Florent MONTHEL, Amaury GRAILLAT, Stephane F et J.P. Pourrez (aka bazooka07)
 	 **/
-	public function checkMaj() {
+	public function checkMaj($url='http://telechargements.pluxml.org/latest-version', $href='http://www.pluxml.org/', $caption='PluXml.org') {
 
-		# La fonction est active ?
-		if(!ini_get('allow_url_fopen')) return L_PLUXML_UPDATE_UNAVAILABLE;
-				$latest_version = '';
-
-		# Requete HTTP sur le site de PluXml
-		if($fp = @fopen('http://telechargements.pluxml.org/latest-version', 'r')) {
-					$latest_version = trim(fread($fp, 16));
-					fclose($fp);
+		$latest_version = false;
+		$msg = L_PLUXML_UPDATE_UNAVAILABLE;
+		$className = false;
+		$available = L_PLUXML_UPDATE_AVAILABLE;
+	 	$available .= <<< EOT
+ <a href="$href">$caption</a>
+EOT;
+		# Urls autorisés dans allow_url_open ou file_get_contents ?
+		if(ini_get('allow_url_fopen')) {
+			# Requete HTTP sur le site de PluXml
+			$msg = L_PLUXML_UPDATE_ERR;
+			$latest_version = @file_get_contents($url, false, null, 0, 16);
+			if(
+				!empty($http_response_header) and
+				preg_match('@^HTTP/[\d\.]+ 200@', $http_response_header[0]) and
+				!empty($latest_version)
+			) {
+				# Comparaison avec la dernière version officielle
+				if(version_compare(PLX_VERSION, $latest_version, ">=")) {
+					$msg = L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
+					$className = 'success';
 				}
-		if($latest_version == '')
-			return L_PLUXML_UPDATE_ERR;
+				else {
+				 	$msg = $available;
+				 	$className = 'blink';
+				}
+			}
+		}
+		if(empty($className)) {
+			$className = 'error';
+			$data = ' data-update=\''.
+				json_encode(
+					array(
+						'available'		=> $available,
+						'uptodate'		=> L_PLUXML_UPTODATE,
+						'version'		=> PLX_VERSION
+					),
+					JSON_UNESCAPED_UNICODE
+				).
+				'\'';
+		} else {
+			$data = '';
+		}
+		return <<< MSG
+	<span class="latest-version $className"$data>$msg</span>
 
-		# Comparaison
-		if(version_compare(PLX_VERSION, $latest_version, ">="))
-			return L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
-		else
-		 	return L_PLUXML_UPDATE_AVAILABLE.' <a href="http://www.pluxml.org/">PluXml.org</a>';
+MSG;
+
 	}
 
 }
