@@ -282,6 +282,7 @@ $LANG = array(
 'L_SORT_ASCENDING_DATE'										=> 'data ascendente',
 'L_SORT_DESCENDING_DATE'									=> 'data decrescente',
 'L_SORT_ALPHABETICAL'										=> 'alfabético',
+'L_SORT_REVERSE_ALPHABETICAL'		                        => 'alfabético inverso',
 'L_SORT_RANDOM'												=> 'aleatório',
 'L_OK'														=> 'Ok',
 'L_YES'														=> 'Sim',

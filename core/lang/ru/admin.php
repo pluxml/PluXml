@@ -155,6 +155,7 @@ $LANG = array(
 'L_SORT_ASCENDING_DATE'										=> 'Дата по возрастанию',
 'L_SORT_DESCENDING_DATE'									=> 'Дата по убыванию',
 'L_SORT_ALPHABETICAL'										=> 'В алфавитном порядке',
+'L_SORT_REVERSE_ALPHABETICAL'		                        => 'обратный алфавитный',
 'L_SORT_RANDOM'												=> 'алеаторный',
 'L_YES'														=> 'Да',
 'L_NO'														=> 'Нет',
