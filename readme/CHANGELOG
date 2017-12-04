@@ -9,6 +9,7 @@
 [+] Tri alphabétique inversé des articles et catégories  (contribution bazooka07)
 [+] PluCSS 1.3
 [+] #239 Test et affichage accès en écriture du dossier racine pour les thèmes
+[+] Gestionnaire de médias : affichage nombre maxi de fichiers par envoi
 FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
