@@ -15,6 +15,7 @@ FIX Administration : mauvais affichage des caractères spéciaux dans le nom de 
 FIX mediasManager.js : fonction callback inactive avec Firefox Quantum
 FIX #220 Problème affichage css thème par défaut
 FIX #237 urlRewrite et caractère &  
+FIX #249 ajout clés de traduction russe absentes
 FIX #256 plxPlugin::setParam : mauvais test su le paramètre $type (contribution bazooka07)
 FIX #260 Libellé de catégorie "Non classé" non affiché lors de la prévisualisation
 FIX #262 Suppression tris inutiles
