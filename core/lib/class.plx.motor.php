@@ -1034,7 +1034,7 @@ class plxMotor {
 			$new_url  = !empty($args[1])?$args[1]:$this->path_url;
 			$new_url .= !empty($args[2])?'?'.$args[2]:'';
 			$new_url .= !empty($args[3])?'#'.$args[3]:'';
-			return str_replace('&', '&amp;', $this->racine.$new_url);
+			return $this->racine.$new_url;
 		}
 	}
 
