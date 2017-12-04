@@ -323,6 +323,7 @@ plxUtils::cleanHeaders();
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>						
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testLibXml() ?>
