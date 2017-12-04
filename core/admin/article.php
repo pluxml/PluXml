@@ -65,7 +65,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['thumbnail'] = $_POST['thumbnail'];
 		$art['thumbnail_title'] = $_POST['thumbnail_title'];
 		$art['thumbnail_alt'] = $_POST['thumbnail_alt'];
-		$art['categorie'] = '';
+		$art['categorie'] = '000';
 		if(!empty($_POST['catId'])) {
 			$array=array();
 			foreach($_POST['catId'] as $k => $v) {
