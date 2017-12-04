@@ -155,8 +155,8 @@ $LANG = array(
 'L_SORT_ASCENDING_DATE'				=> 'data rosnąca',
 'L_SORT_DESCENDING_DATE'			=> 'data malejąco',
 'L_SORT_ALPHABETICAL'				=> 'alfabetycznie',
-'L_SORT_RANDOM'						=> '
-przypadkowy',
+'L_SORT_REVERSE_ALPHABETICAL'       => 'odwróć alfabetycznie',
+'L_SORT_RANDOM'						=> 'przypadkowy',
 'L_YES' 							=> 'Tak',
 'L_NO' 								=> 'Nie',
 'L_OK'								=> 'OK',
