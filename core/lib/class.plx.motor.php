@@ -704,7 +704,7 @@ class plxMotor {
 	 **/
 	public function getNbCommentaires($motif,$publi='before') {
 
-		if($coms = $this->plxGlob_coms->query($motif,'com','sort',0,false,$publi))
+		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
 			return sizeof($coms);
 		else
 			return 0;
@@ -1061,7 +1061,7 @@ class plxMotor {
 		else
 			$motif = $select;
 
-		if($arts = $this->plxGlob_arts->query('/^'.$mod.'[0-9]{4}.('.$motif.').'.$userId.'.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', 'sort', 0, false, $publi))
+		if($arts = $this->plxGlob_arts->query('/^'.$mod.'[0-9]{4}.('.$motif.').'.$userId.'.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', '', 0, false, $publi))
 			$nb = sizeof($arts);
 
 		return $nb;
@@ -1088,7 +1088,7 @@ class plxMotor {
 		else
 			$motif = $select;
 
-		if($coms = $this->plxGlob_coms->query($motif,'com','sort',0,false,$publi))
+		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
 			$nb = sizeof($coms);
 
 		return $nb;
