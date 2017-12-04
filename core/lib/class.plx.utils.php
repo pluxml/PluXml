@@ -596,14 +596,15 @@ class plxUtils {
 	/**
 	 * Méthode qui affiche un message
 	 *
-	 * @param	msg			message à afficher
-	 * @param	class		class css à utiliser pour formater l'affichage du message
-	 * @return	stdout
+	 * @param	string message à afficher
+	 * @param	string classe css à utiliser pour formater l'affichage du message
+	 * @param       string format des balises avant le message
+	 * @param	string format des balises après le message
+	 * @return      stdout
 	 **/
-	public static function showMsg($msg, $class='') {
-
-		if($class=='') echo '<p class="msg">'.$msg.'</p>';
-		else echo '<p class="'.$class.'">'.$msg.'</p>';
+	public static function showMsg($msg, $class='',$format_start='<p class="#CLASS">',$format_end='</p>') {
+		$format_start = str_replace('#CLASS',($class != '' ? $class : 'msg'),$format_start);
+		echo $format_start.$msg.$format_end;
 	}
 
 	/**
