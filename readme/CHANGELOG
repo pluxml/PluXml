@@ -17,6 +17,7 @@ FIX #220 Problème affichage css thème par défaut
 FIX #237 urlRewrite et caractère &  
 FIX #256 plxPlugin::setParam : mauvais test su le paramètre $type (contribution bazooka07)
 FIX #260 Libellé de catégorie "Non classé" non affiché lors de la prévisualisation
+FIX #262 Suppression tris inutiles
 
 ## PLUXML 5.6 (sortie : 05/04/2017) ##
 
