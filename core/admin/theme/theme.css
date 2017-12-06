@@ -838,11 +838,11 @@ table[data-rows-num] td:first-of-type {
 }
 
 table[data-rows-num] tr[draggable] {
-	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAH0lEQVQI12OMTnjEAAX/oTQjMp+JgQBgwaUTxidoAgAf6QWm80FgrQAAAABJRU5ErkJggg==') left repeat-y;
+	background: url(' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGUlEQVR42mNggIKCgoL/IIyLj1sB+TqhAAB5gyTxdLI4kwAAAABJRU5ErkJggg==') left repeat-y;
 }
 
 table[data-rows-num] tr[draggable]:hover {
-	background-color: #dbcdf9;
+	background-color: #f9f9f9;
 }
 
 table[data-rows-num] tr[draggable].dragElem {
@@ -850,5 +850,5 @@ table[data-rows-num] tr[draggable].dragElem {
 }
 
 table[data-rows-num] tr[draggable].over {
-	background-color: #aaa;
+	background-color: #d8d8d8;
 }
