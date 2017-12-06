@@ -8,8 +8,6 @@
  **/
 class plxShow {
 
-	const ARCH_LIST_OPTION = '<option value="#archives_url" id="#archives_id" #archives_selected>#archives_name (#archives_nbart)</option>';
-
 	public $plxMotor = false; # Objet plxMotor
 	private $lang; # fichier de traduction du theme
 
@@ -1753,14 +1751,12 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste des archives
 	 *
-	 * @param	format	format du texte pour l'affichage (variable : #archives_id, #archives_status, #archices_selected, #archives_nbart, #archives_url, #archives_name, #archives_month, #archives_year)
+	 * @param	format	format du texte pour l'affichage (variable : #archives_id, #archives_status, #archives_selected, #archives_nbart, #archives_url, #archives_name, #archives_month, #archives_year)
 	 * @return	stdout
 	 * @scope	global
 	 * @author	Stephane F, J.P. Pourrez
 	 * @version 2017-06-15
 	 *
-	 * Pour lister les archives dans un <select>, utiliser la constante plxShow::ARCH_LIST_OPTION pour le paramètre $format.
-	 * Dans le thème, régler font-family à Monospace pour ce <select>.
 	 **/
 	public function archList($format='<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a></li>'){
 
@@ -1810,7 +1806,6 @@ class plxShow {
 			krsort($cumuls_mois);
 			krsort($cumuls_ans);
 
-			$selected = (strpos($format, '#archives_selected') !== false);
 			# Affichage pour la période en cours
 			$page_actuelle = ($this->plxMotor->mode == "archives") ? $this->plxMotor->cible : '';
 			// mb_internal_encoding('utf-8');
@@ -1820,20 +1815,14 @@ class plxShow {
 				$mois = str_pad(($m % 12) + 1, 2, '0', STR_PAD_LEFT);
 				$annee = intval($m / 12);
 				$active = $page_actuelle == ''.$annee.$mois;
-				if($selected) {
-					$nom_mois = str_replace(' ', '&nbsp;', plxDate::getCalendar('long_month', $mois));
-					$nb_arts_caption = str_replace(' ', '&nbsp;', str_pad($nbarts, 4, ' ', STR_PAD_LEFT));
-				} else {
-					$nom_mois = plxDate::getCalendar('month', $mois);
-					$nb_arts_caption = $nbarts;
-				}
+				$nom_mois = plxDate::getCalendar('month', $mois);
 				$motifs =  array(
 					'#archives_id'		=> 'arch-month-'.str_pad($id, 2, '0', STR_PAD_LEFT),
 					'#archives_name'	=> $nom_mois.' '.$annee,
 					'#archives_year'	=> $annee,
 					'#archives_month'	=> $nom_mois,
 					'#archives_url'		=> $this->plxMotor->urlRewrite('?archives/'.$annee.'/'.$mois),
-					'#archives_nbart'	=> $nb_arts_caption,
+					'#archives_nbart'	=> $nbarts,
 					'#archives_status'	=> (($active) ? 'active' : 'noactive'),
 					'#archives_selected'=> (($active) ? 'selected' : '')
 				);
@@ -1845,20 +1834,13 @@ class plxShow {
 			foreach($cumuls_ans as $annee => $nbarts){
 				$id++;
 				$active = $page_actuelle == ''.$annee;
-				if($selected) {
-					$prefix_name = str_replace(' ', '&nbsp;', L_LONG_YEAR);
-					$nb_arts_caption = str_replace(' ', '&nbsp;', str_pad($nbarts, 4, ' ', STR_PAD_LEFT));
-				} else {
-					$prefix_name = L_YEAR;
-					$nb_arts_caption = $nbarts;
-				}
 				$motifs = array(
 					'#archives_id'		=> 'arch-year-'.str_pad($id, 2, '0', STR_PAD_LEFT),
-					'#archives_name'	=> "$prefix_name $annee",
+					'#archives_name'	=> L_YEAR.' '.$annee,
 					'#archives_year'	=> $annee,
 					'#archives_month'	=> L_YEAR,
 					'#archives_url'		=> $this->plxMotor->urlRewrite('?archives/'.$annee),
-					'#archives_nbart'	=> $nb_arts_caption,
+					'#archives_nbart'	=> $nbarts,
 					'#archives_status'	=> ($active) ? 'active' : 'noactive',
 					'#archives_selected'=> ($active) ? 'selected' : ''
 				);
@@ -1867,20 +1849,13 @@ class plxShow {
 
 			# Total des articles
 			if(strpos($format, '#archives_nbart') !== false) {
-				if($selected) {
-					$prefix_name = str_replace(' ', '&nbsp;', L_LONG_TOTAL.'     ');
-					$nb_arts_caption = str_replace(' ', '&nbsp;', str_pad($total, 4, ' ', STR_PAD_LEFT));
-				} else {
-					$prefix_name = L_TOTAL;
-					$nb_arts_caption = $total;
-				}
 				$motifs = array(
 					'#archives_id'		=> 'arch-total',
-					'#archives_name'	=> $prefix_name.' ',
+					'#archives_name'	=> L_TOTAL.' ',
 					'#archives_year'	=> str_repeat('–', 4),
 					'#archives_month'	=> L_TOTAL,
 					'#archives_url'		=> $this->plxMotor->urlRewrite(),
-					'#archives_nbart'	=> $nb_arts_caption,
+					'#archives_nbart'	=> $total,
 					'#archives_status'	=> ($active) ? 'active' : 'noactive',
 					'#archives_selected'=> ($active) ? 'selected' : ''
 				);

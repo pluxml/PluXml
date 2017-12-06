@@ -129,6 +129,9 @@ $LANG = array(
 
 'L_PAGEBLOG_TITLE'			=> 'Blog',
 
+'L_YEAR'					=> 'jahr',
+'L_TOTAL'					=> 'gesamt',
+
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'		=> 'Private URLs wurden in der Administration nicht konfiguriert!',
 'L_FEED_COMMENTS'			=> 'Kommentare',

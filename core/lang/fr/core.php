@@ -142,9 +142,7 @@ $LANG = array(
 'L_PAGEBLOG_TITLE'				=> 'Blog',
 
 'L_YEAR'						=> 'année',
-'L_LONG_YEAR'					=> 'année    ', # même nombre de caractères que 'L_LONG_JANUARY'
-'L_TOTAL'						=> 'Total',
-'L_LONG_TOTAL'					=> 'Total    ',
+'L_TOTAL'						=> 'total',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Les URLs privées n\'ont pas été initialisées dans vos paramètres d\'administration !',
