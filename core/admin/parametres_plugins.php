@@ -41,10 +41,10 @@ function pluginsList($plugins, $defaultLang, $type) {
 			else
 			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
 
-			$output .= '<tr class="top">';
+			$output .= '<tr class="top"'.($type?' draggable="true" ondragover="event.preventDefault()" ondragend="DragDrop.dragend(event, \'plugins-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)"':'').'>';
 
 				# checkbox
-				$output .= '<td>';
+				$output .= '<td'.($type?' class="tb-drag-icon"':'').'>';
 				$output .= '<input type="hidden" name="plugName[]" value="'.$plugName.'" />';
 				$output .= '<input type="checkbox" name="chkAction[]" value="'.$plugName.'" />';
 				$output .= '</td>';
@@ -150,7 +150,7 @@ include(dirname(__FILE__).'/top.php');
 					<th>&nbsp;</th>
 					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
 					<?php if($_SESSION['selPlugins']=='1') : ?>
-					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
+					<th data-id="order"><?php echo L_PLUGINS_LOADING_SORT ?></th>
 					<?php endif; ?>
 					<th><?php echo L_PLUGINS_ACTION ?></th>
 				</tr>
