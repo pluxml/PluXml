@@ -33,6 +33,18 @@ $LANG = array(
 'L_SHORT_OCTOBER'				=> 'oct',
 'L_SHORT_NOVEMBER'				=> 'nov',
 'L_SHORT_DECEMBER'				=> 'dec',
+'L_LONG_JANUARY'				=> 'january  ',
+'L_LONG_FEBRUARY'				=> 'february ',
+'L_LONG_MARCH'					=> 'march    ',
+'L_LONG_APRIL'					=> 'april    ',
+'L_LONG_MAY'					=> 'may      ',
+'L_LONG_JUNE'					=> 'june     ',
+'L_LONG_JULY'					=> 'july     ',
+'L_LONG_AUGUST'					=> 'august   ',
+'L_LONG_SEPTEMBER'				=> 'september',
+'L_LONG_OCTOBER'				=> 'october  ',
+'L_LONG_NOVEMBER'				=> 'november ',
+'L_LONG_DECEMBER'				=> 'december ',
 'L_JANUARY'						=> 'january',
 'L_FEBRUARY'					=> 'february',
 'L_MARCH'						=> 'march',
@@ -128,6 +140,9 @@ $LANG = array(
 'L_PAGINATION'					=> 'page %s of %s',
 
 'L_PAGEBLOG_TITLE'				=> 'Blog',
+
+'L_YEAR'						=> 'year',
+'L_TOTAL'						=> 'total',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Private URLs have not been initialized in your administration settings!',
