@@ -830,14 +830,17 @@ body.mediasManager .section .action-bar {
 	}
 }
 
-/* ----------- Drag and Drop for sorting the rows in a table ---------- */
+/* ----------- Drag and Drop for sorting table rows ---------- */
+
 table[data-rows-num] th:first-of-type,
 table[data-rows-num] td:first-of-type {
 	padding-left: 12px;
 }
+
 table[data-rows-num] tr[draggable] {
 	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAH0lEQVQI12OMTnjEAAX/oTQjMp+JgQBgwaUTxidoAgAf6QWm80FgrQAAAABJRU5ErkJggg==') left repeat-y;
 }
+
 table[data-rows-num] tr[draggable]:hover {
 	background-color: #dbcdf9;
 }
@@ -845,6 +848,7 @@ table[data-rows-num] tr[draggable]:hover {
 table[data-rows-num] tr[draggable].dragElem {
 	opacity: 0.3;
 }
+
 table[data-rows-num] tr[draggable].over {
 	background-color: #aaa;
 }
