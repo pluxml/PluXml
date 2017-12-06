@@ -6,7 +6,7 @@
 
 			<div class="grid">
 
-				<div class="content col sml-12 med-8">
+				<div class="content col sml-12 med-9">
 
 					<article class="article static" id="static-page-<?php echo $plxShow->staticId(); ?>">
 
