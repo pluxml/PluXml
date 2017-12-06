@@ -837,7 +837,7 @@ table[data-rows-num] td:first-of-type {
 	padding-left: 12px;
 }
 
-table[data-rows-num] tr[draggable] {
+table[data-rows-num] tr[draggable] td:first-child {
 	background: url(' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGUlEQVR42mNggIKCgoL/IIyLj1sB+TqhAAB5gyTxdLI4kwAAAABJRU5ErkJggg==') left repeat-y;
 }
 
