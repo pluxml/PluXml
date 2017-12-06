@@ -53,7 +53,7 @@ include(dirname(__FILE__).'/top.php');
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCategoriesTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
-		<table id="categories-table" class="full-width">
+		<table id="categories-table" class="full-width" data-rows-num='name$="_ordre"'>
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
@@ -71,13 +71,12 @@ include(dirname(__FILE__).'/top.php');
 			<tbody>
 			<?php
 			# Initialisation de l'ordre
-			$num = 0;
+			$ordre = 1;
 			# Si on a des catégories
 			if($plxAdmin->aCats) {
 				foreach($plxAdmin->aCats as $k=>$v) { # Pour chaque catégorie
-					$ordre = ++$num;
-					echo '<tr draggable="true" ondragend="DragDrop.dragend(event, \'categories-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
-					echo '<td class="tb-drag-icon"><input type="checkbox" name="idCategory[]" value="'.$k.'" /><input type="hidden" name="catNum[]" value="'.$k.'" /></td>';
+					echo '<tr>';
+					echo '<td><input type="checkbox" name="idCategory[]" value="'.$k.'" /><input type="hidden" name="catNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
 					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-50');
 					echo '</td><td>';
@@ -95,6 +94,7 @@ include(dirname(__FILE__).'/top.php');
 					echo '</td>';
 					echo '<td><a href="categorie.php?p='.$k.'">'.L_OPTIONS.'</a></td>';
 					echo '</tr>';
+					$ordre++;
 				}
 				# On récupère le dernier identifiant
 				$a = array_keys($plxAdmin->aCats);
@@ -120,7 +120,7 @@ include(dirname(__FILE__).'/top.php');
 						echo '</td><td>';
 						plxUtils::printInput($new_catid.'_bypage', $plxAdmin->aConf['bypage'], 'text', '-3');
 						echo '</td><td>';
-						plxUtils::printInput($new_catid.'_ordre', ++$num, 'text', '-3');
+						plxUtils::printInput($new_catid.'_ordre', $ordre, 'text', '-3');
 						echo '</td><td>';
 						plxUtils::printSelect($new_catid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
 						echo '</td><td>&nbsp;';
