@@ -125,6 +125,7 @@ plxUtils::cleanHeaders();
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css" media="screen" />
 	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
 	<?php
 	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
@@ -148,14 +149,14 @@ plxUtils::cleanHeaders();
 						<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
 						<div class="grid">
 							<div class="col sml-12">
-								<label for="id_login"><?php echo L_AUTH_LOGIN_FIELD ?>&nbsp;:</label>
-								<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width','','autofocus');?>
+								<i class="ico icon-user"></i>
+								<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
 							</div>
 						</div>
 						<div class="grid">
 							<div class="col sml-12">
-								<label for="id_password"><?php echo L_AUTH_PASSWORD_FIELD ?>&nbsp;:</label>
-								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width');?>
+								<i class="ico icon-lock"></i>
+								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
 							</div>
 						</div>
 						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
