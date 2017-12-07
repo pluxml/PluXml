@@ -1,4 +1,10 @@
-<?php if (!defined('PLX_ROOT')) exit; ?>
+<?php
+if (!defined('PLX_ROOT')) exit;
+
+$contentGrid = (!defined('FULL_WIDTH')) ? 'sml-12 med-9' : 'sml-12';
+$sidebarGrid = 'sml-12 med-3';
+
+?>
 <!DOCTYPE html>
 <html lang="<?php $plxShow->defaultLang() ?>">
 <head>
@@ -28,10 +34,10 @@
 				<div class="col sml-6">
 
 					<div class="logo">
-					
+
 						<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
 						<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
-					
+
 					</div>
 
 				</div>
@@ -58,5 +64,13 @@
 		</div>
 
 	</header>
-	
+
 	<div class="bg"></div>
+
+	<main class="main">
+
+		<div class="container">
+
+			<div class="grid">
+
+				<div class="content col <?php echo $contentGrid; ?>">
