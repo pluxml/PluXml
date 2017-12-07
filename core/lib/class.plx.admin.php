@@ -528,7 +528,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($cat['meta_description'])."]]></meta_description>";
 				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($cat['meta_keywords'])."]]></meta_keywords>";
 				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($cat['title_htmltag'])."]]></title_htmltag>";
-				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));
+				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));#hook plugin
 				$xml .= "</categorie>\n";
 			}
 			$xml .= "</document>";
