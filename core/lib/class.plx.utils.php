@@ -207,7 +207,7 @@ class plxUtils {
 			if(!empty($className))
 				$params[] = 'class="'.$className.'"';
 			if(!empty($placeholder))
-				$params[] = $placeholder;
+				$params[] = 'placeholder="'.$placeholder.'"';
 			if(!empty($sizes) AND (strpos($sizes, '-') !== false)) {
 				list($size, $maxlength) = explode('-', $sizes);
 				if(!empty($size))
