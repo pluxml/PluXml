@@ -19,22 +19,44 @@
 
 <body id="top" class="page mode-<?php $plxShow->mode(true) ?>">
 
-	<nav class="nav">
-		<div class="container">
-			<div class="responsive-menu">
-				<label for="menu"></label>
-				<input type="checkbox" id="menu">
-				<ul class="menu">
-					<?php $plxShow->staticList($plxShow->getLang('HOME'),'<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>'); ?>
-					<?php $plxShow->pageBlog('<li class="#page_class #page_status" id="#page_id"><a href="#page_url" title="#page_name">#page_name</a></li>'); ?>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<header class="header sticky">
 
-	<header class="header">
 		<div class="container">
-			<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
-			<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
+
+			<div class="grid">
+
+				<div class="col sml-6">
+
+					<div class="logo">
+					
+						<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
+						<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
+					
+					</div>
+
+				</div>
+
+				<div class="col sml-6">
+
+					<nav class="nav">
+
+						<div class="responsive-menu">
+							<label for="menu"></label>
+							<input type="checkbox" id="menu">
+							<ul class="menu">
+								<?php $plxShow->staticList($plxShow->getLang('HOME'),'<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>'); ?>
+								<?php $plxShow->pageBlog('<li class="#page_class #page_status" id="#page_id"><a href="#page_url" title="#page_name">#page_name</a></li>'); ?>
+							</ul>
+						</div>
+
+					</nav>
+
+				</div>
+
+			</div>
+
 		</div>
+
 	</header>
+	
+	<div class="bg"></div>

@@ -38,7 +38,14 @@ if ($array = $files->query('/^home(-[a-z0-9-_]+)?.php$/')) {
 if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 
 # Tableau du tri
-$aTriArts = array('desc'=>L_SORT_DESCENDING_DATE, 'asc'=>L_SORT_ASCENDING_DATE, 'alpha'=>L_SORT_ALPHABETICAL,'random'=>L_SORT_RANDOM);
+$aTriArts = array(
+	'desc'		=> L_SORT_DESCENDING_DATE,
+	'asc'		=> L_SORT_ASCENDING_DATE,
+	'alpha'		=> L_SORT_ALPHABETICAL,
+	'ralpha'	=> L_SORT_REVERSE_ALPHABETICAL,
+	'random'	=> L_SORT_RANDOM
+);
+
 $aTriComs = array('desc'=>L_SORT_DESCENDING_DATE, 'asc'=>L_SORT_ASCENDING_DATE);
 
 # On va tester les variables pour les images et miniatures

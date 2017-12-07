@@ -1751,57 +1751,115 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste des archives
 	 *
-	 * @param	format	format du texte pour l'affichage (variable : #archives_id, #archives_status, #archives_nbart, #archives_url, #archives_name, #archives_month, #archives_year)
+	 * @param	format	format du texte pour l'affichage (variable : #archives_id, #archives_status, #archives_selected, #archives_nbart, #archives_url, #archives_name, #archives_month, #archives_year)
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
+	 * @version 2017-06-15
+	 *
 	 **/
 	public function archList($format='<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a></li>'){
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArchList'))) return;
 
-		$curYear=date('Y');
-		$array = array();
-
+		# on compte le nombre d'articles pour chaque mois de la période et pour chaque année passée
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
+		if($files = $plxGlob_arts->query('/^\d{4}\.(?:\d{3},|home,)*('.$this->plxMotor->activeCats.')(?:,\d{3}|,home)*\.\d{3}\.\d{12}\.[\w-]+\.xml$/','art','rsort',0,false,'before')) {
+			# compte les années en mois !
+			$periode = 12; # on détaille pour les 12 derniers mois
+			$annee_mois_cc = intval(date('Y')) * 12;
+			$ce_mois_ci = $annee_mois_cc + intval(date('n')) - 1; # on compte les mois à partir de 0
+			$premier_mois = $ce_mois_ci - $periode; # 1er mois de la période
+			$cumuls_mois = array();
+			$cumuls_ans = array();
+			$total = 0;
 
-		if($files = $plxGlob_arts->query('/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/','art','rsort',0,false,'before')) {
+			# récupère l'année et le mois de chaque article
+			$motif = '@^\d{4}\.(?:\d{3}|home)+(?:,\d{3}|,home)*\.\d{3}\.(\d{4})(\d{2})\d{6}\.[\w-]+\.xml$@';
 			foreach($files as $id => $filename){
-				if(preg_match('/([0-9]{4}).((?:[0-9]|home|,)*(?:'.$this->plxMotor->activeCats.'|home)(?:[0-9]|home|,)*).[0-9]{3}.([0-9]{4})([0-9]{2})([0-9]{6}).([a-z0-9-]+).xml$/',$filename,$capture)){
-					if($capture[3]==$curYear) {
-						if(!isset($array[$capture[3]][$capture[4]])) $array[$capture[3]][$capture[4]]=1;
-						else $array[$capture[3]][$capture[4]]++;
-					} else {
-						if(!isset($array[$capture[3]])) $array[$capture[3]]=1;
-						else $array[$capture[3]]++;
+				if(preg_match($motif, $filename, $capture)){
+					$total++;
+					$annee = intval($capture[1]);
+					$annee_mois = $annee * 12;
+
+					# cumul pour chaque mois de la période
+					$mois = $annee_mois + intval($capture[2]) - 1; # Nb de mois depuis l'an 0
+					if($mois >= $premier_mois) {
+						# l'index de $cumuls_mois est le nombre de mois depuis l'an 0
+						if(isset($cumuls_mois[$mois]))
+							$cumuls_mois[$mois]++;
+						else
+							$cumuls_mois[$mois] = 1;
+					}
+
+					# cumul pour les années écoulées
+					if($annee_mois < $annee_mois_cc) {
+						# l'index de $cumuls_ans est l'année
+						if(isset($cumuls_ans[$annee]))
+							$cumuls_ans[$annee]++;
+						else
+							$cumuls_ans[$annee] = 1;
 					}
 				}
 			}
-			krsort($array);
-			# Affichage pour l'année en cours
-			if(isset($array[$curYear])) {
-				foreach($array[$curYear] as $month => $nbarts){
-					$name = str_replace('#archives_id','archives-'.$curYear.$month,$format);
-					$name = str_replace('#archives_name',plxDate::getCalendar('month', $month).' '.$curYear,$name);
-					$name = str_replace('#archives_year',$curYear,$name);
-					$name = str_replace('#archives_month',plxDate::getCalendar('month', $month),$name);
-					$name = str_replace('#archives_url', $this->plxMotor->urlRewrite('?archives/'.$curYear.'/'.$month), $name);
-					$name = str_replace('#archives_nbart',$nbarts,$name);
-					$name = str_replace('#archives_status',(($this->plxMotor->mode=="archives" AND $this->plxMotor->cible==$curYear.$month)?'active':'noactive'), $name);
-					echo $name;
-				}
+			krsort($cumuls_mois);
+			krsort($cumuls_ans);
+
+			# Affichage pour la période en cours
+			$page_actuelle = ($this->plxMotor->mode == "archives") ? $this->plxMotor->cible : '';
+			// mb_internal_encoding('utf-8');
+			$id = 0;
+			foreach($cumuls_mois as $m => $nbarts) {
+				$id++;
+				$mois = str_pad(($m % 12) + 1, 2, '0', STR_PAD_LEFT);
+				$annee = intval($m / 12);
+				$active = $page_actuelle == ''.$annee.$mois;
+				$nom_mois = plxDate::getCalendar('month', $mois);
+				$motifs =  array(
+					'#archives_id'		=> 'arch-month-'.str_pad($id, 2, '0', STR_PAD_LEFT),
+					'#archives_name'	=> $nom_mois.' '.$annee,
+					'#archives_year'	=> $annee,
+					'#archives_month'	=> $nom_mois,
+					'#archives_url'		=> $this->plxMotor->urlRewrite('?archives/'.$annee.'/'.$mois),
+					'#archives_nbart'	=> $nbarts,
+					'#archives_status'	=> (($active) ? 'active' : 'noactive'),
+					'#archives_selected'=> (($active) ? 'selected' : '')
+				);
+				echo str_replace(array_keys($motifs), array_values($motifs), $format);
 			}
-			# Affichage pour les années précédentes
-			unset($array[$curYear]);
-			foreach($array as $year => $nbarts){
-				$name = str_replace('#archives_id','archives-'.$year,$format);
-				$name = str_replace('#archives_name',$year,$name);
-				$name = str_replace('#archives_year',$year,$name);
-				$name = str_replace('#archives_month',$year,$name);
-				$name = str_replace('#archives_url', $this->plxMotor->urlRewrite('?archives/'.$year), $name);
-				$name = str_replace('#archives_nbart',$nbarts,$name);
-				$name = str_replace('#archives_status',(($this->plxMotor->mode=="archives" AND $this->plxMotor->cible==$year)?'active':'noactive'), $name);
-				echo $name;
+
+			# Affichage annuel
+			$id = 0;
+			foreach($cumuls_ans as $annee => $nbarts){
+				$id++;
+				$active = $page_actuelle == ''.$annee;
+				$motifs = array(
+					'#archives_id'		=> 'arch-year-'.str_pad($id, 2, '0', STR_PAD_LEFT),
+					'#archives_name'	=> L_YEAR.' '.$annee,
+					'#archives_year'	=> $annee,
+					'#archives_month'	=> L_YEAR,
+					'#archives_url'		=> $this->plxMotor->urlRewrite('?archives/'.$annee),
+					'#archives_nbart'	=> $nbarts,
+					'#archives_status'	=> ($active) ? 'active' : 'noactive',
+					'#archives_selected'=> ($active) ? 'selected' : ''
+				);
+				echo str_replace(array_keys($motifs), array_values($motifs), $format);
+			}
+
+			# Total des articles
+			if(strpos($format, '#archives_nbart') !== false) {
+				$motifs = array(
+					'#archives_id'		=> 'arch-total',
+					'#archives_name'	=> L_TOTAL.' ',
+					'#archives_year'	=> str_repeat('–', 4),
+					'#archives_month'	=> L_TOTAL,
+					'#archives_url'		=> $this->plxMotor->urlRewrite(),
+					'#archives_nbart'	=> $total,
+					'#archives_status'	=> ($active) ? 'active' : 'noactive',
+					'#archives_selected'=> ($active) ? 'selected' : ''
+				);
+				echo str_replace(array_keys($motifs), array_values($motifs), $format);
 			}
 		}
 	}

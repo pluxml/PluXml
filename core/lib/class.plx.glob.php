@@ -100,7 +100,7 @@ class plxGlob {
 	 *
 	 * @param	motif			motif de recherche des fichiers sous forme d'expression réguliere
 	 * @param	type			type de recherche: article ('art'), commentaire ('com') ou autre (''))
-	 * @param	tri				type de tri (sort, rsort, alpha)
+	 * @param	tri				type de tri (sort, rsort, alpha, ralpha)
 	 * @param	publi			recherche des fichiers avant ou après la date du jour
 	 * @return	array ou false
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
@@ -121,7 +121,7 @@ class plxGlob {
 						# On decoupe le nom du fichier
 						$index = explode('.',$file);
 						# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-						$key = ($tri === 'alpha' ? $index[4].'~'.$index[0] : $index[3].$index[0]);
+						$key = ($tri === 'alpha' OR $tri === 'ralpha') ? $index[4].'~'.$index[0] : $index[3].$index[0];
 						if($publi === 'before' AND $index[3] <= date('YmdHi'))
 							$array[$key] = $file;
 						elseif($publi === 'after' AND $index[3] >= date('YmdHi'))
@@ -187,13 +187,16 @@ class plxGlob {
 						shuffle($rs);
 						break;
 					case 'alpha':
+					case 'asc':
 					case 'sort':
 						ksort($rs);
 						break;
+					case 'ralpha':
+					case 'desc':
 					case 'rsort':
-					default:
 						krsort($rs);
 						break;
+					default:
 				}
 			} else {
 				switch ($tri) {
@@ -204,10 +207,11 @@ class plxGlob {
 					case 'sort':
 						sort($rs);
 						break;
+					case 'ralpha':
 					case 'rsort':
-					default:
 						rsort($rs);
 						break;
+					default:
 				}
 			}
 
@@ -223,5 +227,5 @@ class plxGlob {
 		return false;
 	}
 
-}
+} 
 ?>

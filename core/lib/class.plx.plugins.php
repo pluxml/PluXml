@@ -583,15 +583,12 @@ class plxPlugin {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function setParam($param, $value,$type='') {
+	public function setParam($param, $value, $type=false) {
 
-		if(in_array($type,array('numeric','string','cdata')))
-			$this->aParams[$param]['type']=$type;
-
-		if($this->aParams[$param]['type']=='numeric')
-				$this->aParams[$param]['value']=intval($value);
-			else
-				$this->aParams[$param]['value']=$value;
+		if(!empty($type) and in_array($type, array('numeric', 'string', 'cdata'))) {
+			$this->aParams[$param]['type'] = $type;
+			$this->aParams[$param]['value'] = ($type == 'numeric') ? intval($value) : $value;
+		}
 	}
 
 	/**

@@ -58,7 +58,7 @@ function checkBox(cb) {
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
-		<table id="statics-table" class="full-width">
+		<table id="statics-table" class="full-width"  data-rows-num='name$="_ordre"'>
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
@@ -76,16 +76,15 @@ function checkBox(cb) {
 			<tbody>
 			<?php
 			# Initialisation de l'ordre
-			$num = 0;
+			$ordre = 1;
 			# Si on a des pages statiques
 			if($plxAdmin->aStats) {
 				foreach($plxAdmin->aStats as $k=>$v) { # Pour chaque page statique
-					$ordre = ++$num;
-					echo '<tr draggable="true" ondragend="DragDrop.dragend(event, \'statics-table\')" ondragenter="DragDrop.dragenter(event)" ondragstart="DragDrop.dragstart(event)">';
-					echo '<td class="tb-drag-icon"><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
+					echo '<tr>';
+					echo '<td><input type="checkbox" name="idStatic[]" value="'.$k.'" /><input type="hidden" name="staticNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
-					echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$num.'\')" />';
+					echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$ordre.'\')" />';
 					echo '</td><td>';
 					plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '-100');
 					echo '</td><td>';
@@ -98,19 +97,20 @@ function checkBox(cb) {
 					plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3');
 					echo '</td><td>';
 					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
+					echo '</td><td>';
 					$url = $v['url'];
 					if(!plxUtils::checkSite($url)) {
-						echo '</td><td>';
 						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
 						if($v['active']) {
 							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
 						}
-						echo '</td></tr>';
 					}
 					elseif($v['url'][0]=='?')
-						echo '</td><td><a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
+						echo '<a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
 					else
-						echo '</td><td><a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a></td></tr>';
+						echo '<a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
+					echo '</td></tr>';
+					$ordre++;
 				}
 				# On récupère le dernier identifiant
 				$a = array_keys($plxAdmin->aStats);
@@ -134,7 +134,7 @@ function checkBox(cb) {
 						echo '</td><td>';
 						plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0');
 						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_ordre', ++$num, 'text', '2-3');
+						plxUtils::printInput($new_staticid.'_ordre', $ordre, 'text', '2-3');
 						echo '</td><td>';
 						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
 					?>

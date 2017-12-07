@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
-	<title><![CDATA[defaut]]></title>
-	<author><![CDATA[PluXml]]></author>
-	<version>5.6</version>
-	<date>31/01/2017</date>
+	<title>
+		<![CDATA[defaut]]>
+	</title>
+	<author>
+		<![CDATA[PluXml]]>
+	</author>
+	<version>5.7</version>
+	<date>06/12/2017</date>
 	<site>http://www.pluxml.org</site>
-	<description><![CDATA[Thème par défaut de PluXml 5.6]]></description>
+	<description>
+		<![CDATA[Thème par défaut de PluXml 5.7]]>
+	</description>
 </document>

@@ -129,6 +129,9 @@ $LANG = array(
 
 'L_PAGEBLOG_TITLE'				=> 'Blog',
 
+'L_YEAR'				        => 'jaar',
+'L_TOTAL'				    	=> 'totaal',
+
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Privé URLs zijn niet geïnitialiseerd in uw instellingen !',
 'L_FEED_COMMENTS'				=> 'Commentaren',

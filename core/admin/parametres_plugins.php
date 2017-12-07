@@ -119,6 +119,8 @@ $breadcrumbs = array();
 $breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='1'?'class="selected" ':'').'href="parametres_plugins.php?sel=1">'.L_PLUGINS_ACTIVE_LIST.'</a>&nbsp;('.$nbActivePlugins.')</li>';
 $breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='0'?'class="selected" ':'').'href="parametres_plugins.php?sel=0">'.L_PLUGINS_INACTIVE_LIST.'</a>&nbsp;('.$nbInactivePlugins.')</li>';
 
+$data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
+
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 
@@ -143,7 +145,7 @@ include(dirname(__FILE__).'/top.php');
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
-		<table id="plugins-table" class="full-width">
+		<table id="plugins-table" class="full-width"<?php if(!empty($data_rows_num)) echo $data_rows_num; ?>>
 			<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>

@@ -129,6 +129,9 @@ $LANG = array(
 
 'L_PAGEBLOG_TITLE'				=> 'Блог',
 
+'L_YEAR'				    	=> 'год',
+'L_TOTAL'				    	=> 'Всего',
+
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Закрытые URL не был инициализированы в настройках Админпанели!',
 'L_FEED_COMMENTS'				=> 'Комментарии',

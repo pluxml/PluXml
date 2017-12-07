@@ -596,14 +596,15 @@ class plxUtils {
 	/**
 	 * Méthode qui affiche un message
 	 *
-	 * @param	msg			message à afficher
-	 * @param	class		class css à utiliser pour formater l'affichage du message
-	 * @return	stdout
+	 * @param	string message à afficher
+	 * @param	string classe css à utiliser pour formater l'affichage du message
+	 * @param       string format des balises avant le message
+	 * @param	string format des balises après le message
+	 * @return      stdout
 	 **/
-	public static function showMsg($msg, $class='') {
-
-		if($class=='') echo '<p class="msg">'.$msg.'</p>';
-		else echo '<p class="'.$class.'">'.$msg.'</p>';
+	public static function showMsg($msg, $class='',$format_start='<p class="#CLASS">',$format_end='</p>') {
+		$format_start = str_replace('#CLASS',($class != '' ? $class : 'msg'),$format_start);
+		echo $format_start.$msg.$format_end;
 	}
 
 	/**
@@ -1055,11 +1056,29 @@ class plxUtils {
 
 	public static function debug($obj) {
 		echo "<pre>";
-		if(is_array($obj))
+		if(is_array($obj) OR is_object($obj))
 			print_r($obj);
 		else
 			echo $obj;
 		echo "</pre>";
 	}
+
+	/**
+	 * Envoie un message vers la console javascript pour aider au déboggage.
+	 * @author		J.P. Pourrez alias bazooka07
+	 * @version		2017-06-09
+	 * */
+	public static function debugJS($obj, $msg='') {
+
+		if(!empty($msg)) $msg .= ' = ';
+		$msg .= (is_array($obj) OR is_object($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
+		echo <<< EOT
+	<script type="text/javascript">
+		console.log(`$msg`);
+	</script>
+
+EOT;
+	}
+
 }
 ?>

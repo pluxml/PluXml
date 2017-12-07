@@ -277,10 +277,10 @@ $curFolders = explode('/', $curFolder);
 		<p><a class="back" href="javascript:void(0)" onclick="toggle_divs();return false"><?php echo L_MEDIAS_BACK ?></a></p>
 
 		<p>
-			<?php echo L_MEDIAS_MAX_FILE_UPLOAD ?> : <?php echo ini_get('max_file_uploads') ?> 
-		</p>
+			<?php echo L_MEDIAS_MAX_UPLOAD_NBFILE ?> : <?php echo ini_get('max_file_uploads') ?>
+ 		</p>
 		<p>
-			<?php echo L_MEDIAS_MAX_UPOLAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?>
+			<?php echo L_MEDIAS_MAX_UPLOAD_FILE ?> : <?php echo $plxMedias->maxUpload['display'] ?>
 			<?php if($plxMedias->maxPost['value'] > 0) echo " / ".L_MEDIAS_MAX_POST_SIZE." : ".$plxMedias->maxPost['display']; ?>
 		</p>
 

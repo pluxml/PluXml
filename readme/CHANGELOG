@@ -1,14 +1,29 @@
 ## PLUXML x.x (sortie : xx/xx/xxxx) ##
 
-[+]	#230: Image d'accroche dans le premier article créer à l'installation
-[+] #225: Ajout id à la balise <body> de la page auth.php
+[+] PluCSS 1.3
+[+] Nouveau thème par défaut
 [+] Prise en compte du fichier css des plugins sur la page auth.php
 [+] Administration : Tri ordre des catégories et des pages statiques par drag&drop
 [+]	Affichage de l'image d'accroche dans les flux rss
 [+] Thème par défaut : entête de page fixe (contribution bazooka07)
+[+] Tri alphabétique inversé des articles et catégories  (contribution bazooka07)
+[+] Gestionnaire de médias : affichage nombre maxi de fichiers par envoi
+[+] #225: Ajout id à la balise <body> de la page auth.php
+[+]	#230: Image d'accroche dans le premier article créer à l'installation
+[+] #239 Test et affichage accès en écriture du dossier racine pour les thèmes
+[+] #264 fonction debugJS (contribution bazooka07)
+[+] #265 Affichage des archives sur une périodes glissantes de 12 mois (contribution bazooka07)
+[+] #266 Tri des pages statiques, catégories et plugins par drag n drop (contribution bazooka07)
 FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
+FIX mediasManager.js : fonction callback inactive avec Firefox Quantum
+FIX #220 Problème affichage css thème par défaut
+FIX #237 urlRewrite et caractère &
+FIX #249 ajout clés de traduction russe absentes
+FIX #256 plxPlugin::setParam : mauvais test su le paramètre $type (contribution bazooka07)
+FIX #260 Libellé de catégorie "Non classé" non affiché lors de la prévisualisation
+FIX #262 Suppression tris inutiles
 
 ## PLUXML 5.6 (sortie : 05/04/2017) ##
 
