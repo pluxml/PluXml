@@ -16,9 +16,9 @@
 	font-family: 'open_sansregular';
 	src: url('../fonts/OpenSans-Regular-webfont.eot');
 	src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
-	url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
-	url('../fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+		url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+		url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+		url('../fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 
@@ -377,6 +377,7 @@ a.active {
 	}
 }
 
+/* -------- commentaires.php -------- */
 #id_answer {
 	margin-bottom: 1.5rem;
 	padding: 1.5rem;
@@ -425,6 +426,7 @@ a.active {
 .aside ul.tag-list {
 	list-style-type: none;
 	padding-left: 0;
+	text-align: center;
 }
 
 .aside ul.tag-list li {

@@ -1,4 +1,4 @@
-<?php include(dirname(__FILE__).'/header.php'); ?>
+					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
 					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 
@@ -9,7 +9,7 @@
 								</time>
 							</span>
 							<h2>
-								<?php $plxShow->artTitle(); ?>
+								<?php $plxShow->artTitle('link'); ?>
 							</h2>
 							<div>
 								<small>
@@ -17,7 +17,7 @@
 										<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?>
 									</span>
 									<span class="art-nb-com">
-										<a href="<?php $plxShow->artUrl(); ?>#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
+										<?php $plxShow->artNbCom(); ?>
 									</span>
 								</small>
 							</div>
@@ -34,12 +34,12 @@
 						</header>
 
 						<?php $plxShow->artThumbnail(); ?>
-						<?php $plxShow->artContent(); ?>
+						<?php $plxShow->artChapo(); ?>
 
 					</article>
 
-					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
+					<?php endwhile; ?>
 
-					<?php include(dirname(__FILE__).'/commentaires.php'); ?>
-
-<?php include(dirname(__FILE__).'/footer.php'); ?>
+					<nav class="pagination text-center">
+						<?php $plxShow->pagination(); ?>
+					</nav>

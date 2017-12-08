@@ -1,6 +1,6 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
 
-	<aside class="aside col sml-12 med-3">
+	<aside class="aside col <?php echo $sidebarGrid; ?>">
 
 		<h3>
 			<?php $plxShow->lang('CATEGORIES'); ?>
