@@ -15,6 +15,8 @@ plxToken::validateFormToken($_POST);
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
+$aPlugins = array_filter($plxAdmin->plxPlugins->aPlugins, function($v){return $v->CORE === 'plugin';});
+
 if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
 	header('Location: parametres_plugins.php');
@@ -99,7 +101,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 # récuperation de la liste des plugins inactifs
 $aInactivePlugins = $plxAdmin->plxPlugins->getInactivePlugins();
 # nombre de plugins actifs
-$nbActivePlugins = sizeof($plxAdmin->plxPlugins->aPlugins);
+$nbActivePlugins = sizeof($aPlugins);
 # nombre de plugins inactifs
 $nbInactivePlugins = sizeof($aInactivePlugins);
 # récuperation du type de plugins à afficher
@@ -109,7 +111,7 @@ $sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
 $_SESSION['selPlugins'] = $sel;
 if($sel=='1') {
 	$aSelList = array('' => L_FOR_SELECTION, 'deactivate'=> L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
-	$plugins = pluginsList($plxAdmin->plxPlugins->aPlugins, $plxAdmin->aConf['default_lang'], true);
+	$plugins = pluginsList($aPlugins, $plxAdmin->aConf['default_lang'], true);
 } else {
 	$aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
 	$plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);

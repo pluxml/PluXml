@@ -1,11 +1,11 @@
 <?php
 /**
- * Classe plxPlugins responsable de la gestion des plugins
+ * Classe plxCorePlugins responsable de la gestion des plugins
  *
  * @package PLX
  * @author	Stephane F
  **/
-class plxPlugins {
+class plxCorePlugins  {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins
@@ -31,7 +31,7 @@ class plxPlugins {
 	 * @author	Stephane F
 	 **/
 	public function getInstance($plugName) {
-		$filename = PLX_PLUGINS.$plugName.'/'.$plugName.'.php';
+		$filename = $this->ROOT_PATH.$plugName.'/'.$plugName.'.php';
 		if(is_file($filename)) {
 			include_once($filename);
 			if (class_exists($plugName)) {
@@ -53,12 +53,12 @@ class plxPlugins {
 	 **/
 	public function loadPlugins() {
 
-		if(!is_file(path('XMLFILE_PLUGINS'))) return;
+		if(!is_file($this->XML_FILE)) return;
 
 		$updAction = false;
 
 		# Mise en place du parseur XML
-		$data = implode('',file(path('XMLFILE_PLUGINS')));
+		$data = implode('',file($this->XML_FILE));
 		$parser = xml_parser_create(PLX_CHARSET);
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
@@ -76,11 +76,11 @@ class plxPlugins {
 					$this->aHooks = array_merge_recursive($this->aHooks, $instance->getHooks());
 					# Si le plugin a une méthode pour des actions de mises à jour
 					if(method_exists($instance, 'onUpdate')) {
-						if(is_file(PLX_PLUGINS.$name.'/update')) {
+						if(is_file($this->ROOT_PATH.$name.'/update')) {
 							# on supprime le fichier update pour eviter d'appeler la methode onUpdate
 							# à chaque chargement du plugin
-							chmod(PLX_PLUGINS.$name.'/update', 0644);
-							unlink(PLX_PLUGINS.$name.'/update');
+							chmod($this->ROOT_PATH.$name.'/update', 0644);
+							unlink($this->ROOT_PATH.$name.'/update');
 							$updAction = $instance->onUpdate();
 						}
 					}
@@ -142,7 +142,7 @@ class plxPlugins {
 	public function getInactivePlugins() {
 
 		$aPlugins = array();
-		$dirs = plxGlob::getInstance(PLX_PLUGINS, true);
+		$dirs = plxGlob::getInstance($this->ROOT_PATH, true);
 		if(sizeof($dirs->aFiles)>0) {
 			foreach($dirs->aFiles as $plugName) {
 				if(!isset($this->aPlugins[$plugName]) AND $plugInstance=$this->getInstance($plugName)) {
@@ -187,16 +187,16 @@ class plxPlugins {
 		# suppression des plugins
 		elseif(isset($content['selection']) AND $content['selection']=='delete' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
-				if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+				if($this->deleteDir(realpath($this->ROOT_PATH.$plugName))) {
 					# suppression fichier de config du plugin
-					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
-						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
+					if(is_file(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.xml'))
+						unlink(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.xml');
 					# suppression fichier site.css du plugin
-					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css'))
-						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
+					if(is_file(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.site.css'))
+						unlink(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.site.css');
 					# suppression fichier admin.css du plugin
-					if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css'))
-						unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
+					if(is_file(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.admin.css'))
+						unlink(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.admin.css');
 					unset($this->aPlugins[$plugName]);
 				}
 			}
@@ -224,10 +224,10 @@ class plxPlugins {
 		$xml .= "</document>";
 
 		# On écrit le fichier
-		if(plxUtils::write($xml,path('XMLFILE_PLUGINS')))
+		if(plxUtils::write($xml,$this->XML_FILE))
 			return plxMsg::Info(L_SAVE_SUCCESSFUL);
 		else
-			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PLUGINS'));
+			return plxMsg::Error(L_SAVE_ERR.' '.$this->XML_FILE);
 
 	}
 
@@ -265,32 +265,68 @@ class plxPlugins {
 
 		$cache = '';
 		foreach($this->aPlugins as $plugName => $plugInstance) {
-			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.'.$type.'.css';
+			$filename = PLX_ROOT.$this->CONFIG_PATH.$plugName.'.'.$type.'.css';
 			if(is_file($filename)) {
 				$cache .= trim(file_get_contents($filename));
 			} else {
-				$filename = PLX_PLUGINS.$plugName.'/css/'.$type.'.css';
+				$filename = $this->ROOT_PATH.$plugName.'/css/'.$type.'.css';
 				if(is_file($filename)) {
 					$cache .= trim(file_get_contents($filename));
 				}
 			}
 		}
-		if(is_file(PLX_PLUGINS.$type.'.css'))
-			unlink(PLX_PLUGINS.$type.'.css');
+		if(is_file($this->ROOT_PATH.$type.'.css'))
+			unlink($this->ROOT_PATH.$type.'.css');
 		if($cache!='') {
-			return plxUtils::write(plxUtils::minify($cache), PLX_PLUGINS.$type.'.css');
+			return plxUtils::write(plxUtils::minify($cache), $this->ROOT_PATH.$type.'.css');
 		}
 		return true;
 	}
 }
 
+
 /**
- * Classe plxPlugin destiné à créer un plugin
+ * Classe dérivée de plxCorePlugins destinée à gérer les plugins
  *
  * @package PLX
  * @author	Stephane F
  **/
-class plxPlugin {
+class plxPlugins extends plxCorePlugins{
+
+	public function __construct($default_lang='') {
+		$this->CONFIG_PATH = PLX_CONFIG_PATH.'plugins/';
+		$this->ROOT_PATH = PLX_ROOT.'plugins/';
+		$this->XML_FILE = path('XMLFILE_PLUGINS');
+		$this->CORE = 'plugin';
+		parent::__construct($default_lang);
+	}
+}
+
+/**
+ * Classe dérivée de plxCorePlugins destinée à gérer les modules
+ *
+ * @package PLX
+ * @author	Stephane F
+ **/
+class plxModules extends plxCorePlugins {
+
+	public function __construct($default_lang='') {
+		$this->CONFIG_PATH = PLX_CONFIG_PATH.'modules/';
+		$this->ROOT_PATH = PLX_CORE.'modules/';
+		$this->XML_FILE = path('XMLFILE_MODULES');
+		$this->CORE = 'module';
+		parent::__construct($default_lang);
+	}
+
+}
+
+/**
+ * Classe plxCorePlugin destinée à créer un plugin
+ *
+ * @package PLX
+ * @author	Stephane F
+ **/
+class plxCorePlugin {
 
 	protected $aInfos=array();  # tableau des infos sur le plugins venant du fichier infos.xml
 	protected $aParams=array(); # tableau des paramètres sur le plugins venant du fichier parameters.xml
@@ -314,14 +350,17 @@ class plxPlugin {
 	public function __construct($default_lang='') {
 
 		$plugName= get_class($this);
-		$this->getPluginLang($plugName, $default_lang);
+
 		$this->plug = array(
-			'dir' 			=> PLX_PLUGINS,
+			'dir' 			=> $this->ROOT_PATH,
 			'name' 			=> $plugName,
-			'filename'		=> PLX_PLUGINS.$plugName.'/'.$plugName.'.php',
-			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
-			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
+			'filename'		=> $this->ROOT_PATH.$plugName.'/'.$plugName.'.php',
+			'parameters.xml'=> PLX_ROOT.$this->CONFIG_PATH.$plugName.'.xml',
+			'infos.xml'		=> $this->ROOT_PATH.$plugName.'/infos.xml'
 		);
+
+		$this->getPluginLang($plugName, $default_lang);
+
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
 			$this->getInfos();
@@ -336,10 +375,9 @@ class plxPlugin {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-
 	public function getPluginLang($plugName, $lang) {
 
-		$dirname = PLX_PLUGINS.$plugName.'/lang/';
+		$dirname = $this->plug['dir'].$plugName.'/lang/';
 
 		if(is_dir($dirname)) {
 
@@ -363,7 +401,7 @@ class plxPlugin {
 		}
 
 		$this->default_lang = $lang;
-		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
+		$this->aLang = $this->loadLang($this->plug['dir'].$plugName.'/lang/'.$this->default_lang.'.php');
 
 	}
 
@@ -583,12 +621,15 @@ class plxPlugin {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function setParam($param, $value, $type=false) {
+	public function setParam($param, $value,$type='') {
 
-		if(!empty($type) and in_array($type, array('numeric', 'string', 'cdata'))) {
-			$this->aParams[$param]['type'] = $type;
-			$this->aParams[$param]['value'] = ($type == 'numeric') ? intval($value) : $value;
-		}
+		if(in_array($type,array('numeric','string','cdata')))
+			$this->aParams[$param]['type']=$type;
+
+		if($this->aParams[$param]['type']=='numeric')
+				$this->aParams[$param]['value']=intval($value);
+			else
+				$this->aParams[$param]['value']=$value;
 	}
 
 	/**
@@ -651,11 +692,24 @@ class plxPlugin {
 	 *
 	 * @param	hookname		nom du hook
 	 * @param	userfunction	nom de la fonction du plugin à executer
+	 * @param	scope			(string ou array) permet de charger le hook que si la page .php en cours fait partie du scope
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function addHook($hookname, $userfunction) {
-		if(method_exists(get_class($this), $userfunction)) {
+	public function addHook($hookname, $userfunction, $scope=null) {
+
+		$validHook = true;
+
+		$current_page = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_BASENAME);
+
+		if($scope!=null) {
+			if(is_array($scope))
+				$validHook = in_array($current_page, $scope);
+			else
+				$validHook = ($scope == $current_page);
+		}
+
+		if(method_exists(get_class($this), $userfunction) AND $validHook) {
 			$this->aHooks[$hookname][]=array(
 				'class'		=> get_class($this),
 				'method'	=> $userfunction
@@ -670,7 +724,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function REL_PATH() {
-		return PLX_PLUGINS.get_class($this).'/';
+		return $this->plug['dir'].get_class($this).'/';
 	}
 
 	/**
@@ -694,4 +748,42 @@ class plxPlugin {
 	}
 
 }
+
+
+/**
+ * Classe dérivée de plxCorePlugin destinée à créer un plugin
+ *
+ * @package PLX
+ * @author	Stephane F
+ **/
+class plxPlugin extends plxCorePlugin {
+
+	public function __construct($default_lang='') {
+		$this->CONFIG_PATH = PLX_CONFIG_PATH.'plugins/';
+		$this->ROOT_PATH = PLX_ROOT.'plugins/';
+		$this->XML_FILE = path('XMLFILE_PLUGINS');
+		$this->CORE = 'plugin';
+		parent::__construct($default_lang);
+	}
+
+}
+
+/**
+ * Classe dérivée de plxCorePlugin destinée à créer un module
+ *
+ * @package PLX
+ * @author	Stephane F
+ **/
+class plxModule extends plxCorePlugin {
+
+	public function __construct($default_lang='') {
+		$this->CONFIG_PATH = PLX_CONFIG_PATH.'modules/';
+		$this->ROOT_PATH = PLX_CORE.'modules/';
+		$this->XML_FILE = path('XMLFILE_MODULES');
+		$this->CORE = 'module';
+		parent::__construct($default_lang);
+	}
+
+}
+
 ?>

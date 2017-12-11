@@ -1,0 +1,5 @@
+options -indexes
+<Files "modules.xml">
+	Order allow,deny
+	Deny from all
+</Files>

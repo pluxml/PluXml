@@ -90,8 +90,16 @@ class plxMotor {
 		$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
 		$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->aConf['default_lang'];
 		#--
+		$plxModules = new plxModules($lang);
+		$plxModules->loadPlugins();
+		#--
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
+		#--
+		$this->plxPlugins->aHooks = array_merge_recursive($plxModules->aHooks, $this->plxPlugins->aHooks);
+		$this->plxPlugins->aPlugins = array_merge_recursive($plxModules->aPlugins, $this->plxPlugins->aPlugins);
+		#--
+		unset($plxModules);
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
@@ -864,7 +872,7 @@ class plxMotor {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
-
+		
 		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR $this->aConf['capcha'] AND (!isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token']))) {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}

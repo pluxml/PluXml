@@ -15,12 +15,13 @@ function getMicrotime() {
 define('PLX_MICROTIME', getMicrotime());
 
 $CONSTS = array(
-	'XMLFILE_PARAMETERS' 	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
-	'XMLFILE_CATEGORIES' 	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
-	'XMLFILE_STATICS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
-	'XMLFILE_USERS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
-	'XMLFILE_PLUGINS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
-	'XMLFILE_TAGS' 			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
+	'XMLFILE_PARAMETERS'	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
+	'XMLFILE_CATEGORIES'	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
+	'XMLFILE_STATICS'		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
+	'XMLFILE_USERS'			=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
+	'XMLFILE_PLUGINS'		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
+	'XMLFILE_TAGS'			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
+	'XMLFILE_MODULES'		=> PLX_CORE.'modules/modules.xml',
 );
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
