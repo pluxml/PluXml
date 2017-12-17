@@ -855,3 +855,28 @@ select {
 select {
 	padding: 0 18px 0 0;
 }
+/* ---- parametres_plugins ---- */
+#plugins-table tbody tr[data-usage] td.wrap strong:first-of-type {
+    padding: 0.2rem 0.5rem;
+}
+#plugins-table tbody tr[data-usage="admin"] td.wrap strong:first-of-type,
+#plugins-usage.in-action-bar strong[data-usage="admin"] {
+    background-color: red;
+    color: #fff;
+}
+#plugins-table tbody tr[data-usage="site"] td.wrap strong:first-of-type,
+#plugins-usage.in-action-bar strong[data-usage="site"] {
+    background-color: green;
+    color: #fff;
+}
+#plugins-usage.in-action-bar {
+    right: 1.5rem;
+    width: 15rem;
+    margin-top: 1rem;
+}
+#plugins-usage.in-action-bar strong {
+	display: inline-block;
+	width: 100%;
+	margin: 0.3rem 0;
+	text-align: center;
+}

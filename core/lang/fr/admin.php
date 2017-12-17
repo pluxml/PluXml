@@ -443,6 +443,7 @@ $LANG = array(
 'L_PLUGINS_CSS_TITLE'				=> 'Éditer le code CSS du plugin',
 'L_CONTENT_FIELD_FRONTEND'			=> 'Contenu fichier CSS site',
 'L_CONTENT_FIELD_BACKEND'			=> 'Contenu fichier CSS administrateur',
+'L_GENERAL_PURPOSE'					=> 'Tous usages',
 
 # parametres_plugins.php
 

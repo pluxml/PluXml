@@ -439,6 +439,7 @@ $LANG = array(
 'L_PLUGINS_CSS_TITLE'							=> 'Editar el código CSS del complemento',
 'L_CONTENT_FIELD_FRONTEND'						=> 'Contenido del archivo de código CSS para el sitio web',
 'L_CONTENT_FIELD_BACKEND'						=> 'Contenido del archivo de código CSS para el sitio de administración',
+'L_GENERAL_PURPOSE'								=> 'multiuso',
 
 # parametres_plugins.php
 

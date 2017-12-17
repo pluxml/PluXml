@@ -376,6 +376,7 @@ $LANG = array(
 'L_PLUGINS_CSS_TITLE'										=> 'Modificare il codice css del plugin',
 'L_CONTENT_FIELD_FRONTEND'									=> 'Sito web contenuto del file Css',
 'L_CONTENT_FIELD_BACKEND'									=> 'Amministratore contenuti css',
+'L_GENERAL_PURPOSE'											=> 'tutto l\'uso',
 'L_PLUGINS_TITLE'											=> 'Gestione plugin',
 'L_PLUGINS_VERSION'											=> 'Versione',
 'L_PLUGINS_AUTHOR'											=> 'Autore',
