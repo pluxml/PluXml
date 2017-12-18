@@ -41,7 +41,11 @@ function pluginsList($plugins, $defaultLang, $type) {
 			else
 			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
 
-			$output .= '<tr class="top">';
+			# plugin activé uniquement côté site (<scope> == 'site')
+			if(empty($plugInstance) and $plugInstance=plxPlugins::getInstance($plugName)) {
+				$plugInstance->getInfos();
+			}
+			$output .= '<tr class="top" data-scope="'.$plugInstance->getInfo('scope').'">';
 
 				# checkbox
 				$output .= '<td>';
@@ -129,7 +133,12 @@ include(dirname(__FILE__).'/top.php');
 <form action="parametres_plugins.php" method="post" id="form_plugins">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_PLUGINS_TITLE ?></h2>
+		<h2>
+			<?php echo L_PLUGINS_TITLE ?>
+			<span data-scope="admin">Admin</span>
+			<span data-scope="site">Site</span>
+		</h2>
+
 		<ul class="menu">
 			<?php echo implode($breadcrumbs); ?>
 		</ul>
@@ -162,9 +171,6 @@ include(dirname(__FILE__).'/top.php');
 			</tbody>
 		</table>
 	</div>
-
-	<?php if($_SESSION['selPlugins']=='1') : ?>
-	<?php endif; ?>
 
 </form>
 

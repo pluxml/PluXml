@@ -854,7 +854,6 @@ select {
 
 select {
 	padding: 0 18px 0 0;
-<<<<<<< HEAD
 }
 
 select {
@@ -865,9 +864,31 @@ select {
 }
 
 /*for IE10*/
+
 select::-ms-expand {
 	display: none;
 }
-=======
+
+
+/* ---- parametres_plugins ---- */
+
+#form_plugins span[data-scope] {
+	padding: 2px 5px 0 5px;
+	font-size: 1.2rem;
 }
->>>>>>> c85a04a4b20f1ee08bf073ca1db89b9061e04bb9
+
+#plugins-table tbody tr[data-scope] td.wrap strong:first-of-type {
+	padding: 0.2rem 0.5rem;
+}
+
+#form_plugins span[data-scope="admin"],
+#plugins-table tbody tr[data-scope="admin"] td.wrap strong:first-of-type {
+	background-color: #258fd6;
+	color: #fff;
+}
+
+#form_plugins span[data-scope="site"],
+#plugins-table tbody tr[data-scope="site"] td.wrap strong:first-of-type {
+	background-color: green;
+	color: #fff;
+}
