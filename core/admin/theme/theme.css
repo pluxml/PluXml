@@ -780,21 +780,6 @@ div.ico div {
 	cursor: pointer;
 }
 
-/* Drag & Drop Table */
-
-.tb-drag-icon {
-	background-image: url(images/tb-drag-icon.gif);
-	background-repeat: repeat-y;
-	cursor: move;
-}
-
-#categories-table th:nth-child(1),
-#categories-table td:nth-child(1),
-#statics-table th:nth-child(1),
-#statics-table td:nth-child(1) {
-	padding-left: 12px;
-}
-
 /* ------- MEDIASMANAGER ------ */
 
 body.mediasManager .aside {
@@ -869,6 +854,7 @@ select {
 
 select {
 	padding: 0 18px 0 0;
+<<<<<<< HEAD
 }
 
 select {
@@ -882,3 +868,6 @@ select {
 select::-ms-expand {
 	display: none;
 }
+=======
+}
+>>>>>>> c85a04a4b20f1ee08bf073ca1db89b9061e04bb9
