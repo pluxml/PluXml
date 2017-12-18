@@ -119,19 +119,19 @@ a.lnkdelete:hover {
 
 .section {
 	margin-bottom: 2rem;
-	margin-top: 12rem;
+	margin-top: 13rem;
 }
 
 .section .action-bar {
 	background-color: #eee;
 	border-bottom: 1px solid #ddd;
 	left: 16.6666%;
+	right: 0;
 	margin-left: -1.5rem;
-	min-height: 10.5rem;
+	height: 12rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
 	position: fixed;
 	top: 0;
-	width: 100%;
 	z-index: 1;
 }
 
@@ -870,29 +870,15 @@ select {
 select {
 	padding: 0 18px 0 0;
 }
-/* ----- latest version ------ */
-@-webkit-keyframes latest-version-blink {
-  50% { background-color: #fff; }
+
+select {
+	/*for firefox*/
+	-moz-appearance: none;
+	/*for chrome*/
+	-webkit-appearance: none;
 }
-@keyframes latest-version-blink {
-  50% { background-color: #fff; }
-}
-.latest-version {
-	background-color: #fff;
-	border: none;
-	margin: 0;
-	margin-left: -0.8rem;
-	padding: 0 0.8rem;
-	font-size: initial;
-}
-.latest-version.success  {
-	color: green;
-}
-.latest-version.error  {
-	color: red;
-}
-.latest-version.blink {
-	color: red;
-	-webkit-animation: latest-version-blink 1s steps(1) infinite;
-	animation: latest-version-blink 1s steps(1) infinite;
+
+/*for IE10*/
+select::-ms-expand {
+	display: none;
 }
