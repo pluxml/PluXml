@@ -6,5 +6,5 @@
 	<date>11/12/2017</date>
 	<site>http://www.pluxml.org</site>
 	<description><![CDATA[Image Capcha to protect comments]]></description>
-	<requirements></requirements>
+	<scope>site</scope>
 </document>
