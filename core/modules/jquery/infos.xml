@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<title><![CDATA[jQuery]]></title>
+	<author><![CDATA[Stéphane F.]]></author>
+	<version>3.2.1</version>
+	<date>16/06/2017</date>
+	<site>http://www.pluxml.org</site>
+	<description><![CDATA[jQuery javascript library]]></description>
+	<reference>https://jquery.com/</reference>
+	<requirements></requirements>
+</document>
