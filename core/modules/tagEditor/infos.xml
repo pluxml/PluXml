@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<title><![CDATA[tagEditor]]></title>
+	<author><![CDATA[Stéphane F.]]></author>
+	<version>1.0</version>
+	<date>19/12/2017</date>
+	<site>http://www.pluxml.org</site>
+	<description><![CDATA[A powerful and lightweight tag editor plugin for jQuery]]></description>
+	<scope>admin</scope>
+</document>
