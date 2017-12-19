@@ -119,19 +119,19 @@ a.lnkdelete:hover {
 
 .section {
 	margin-bottom: 2rem;
-	margin-top: 12rem;
+	margin-top: 13rem;
 }
 
 .section .action-bar {
 	background-color: #eee;
 	border-bottom: 1px solid #ddd;
 	left: 16.6666%;
+	right: 0;
 	margin-left: -1.5rem;
-	min-height: 10.5rem;
+	height: 12rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
 	position: fixed;
 	top: 0;
-	width: 100%;
 	z-index: 1;
 }
 
@@ -780,21 +780,6 @@ div.ico div {
 	cursor: pointer;
 }
 
-/* Drag & Drop Table */
-
-.tb-drag-icon {
-	background-image: url(images/tb-drag-icon.gif);
-	background-repeat: repeat-y;
-	cursor: move;
-}
-
-#categories-table th:nth-child(1),
-#categories-table td:nth-child(1),
-#statics-table th:nth-child(1),
-#statics-table td:nth-child(1) {
-	padding-left: 12px;
-}
-
 /* ------- MEDIASMANAGER ------ */
 
 body.mediasManager .aside {
@@ -869,4 +854,41 @@ select {
 
 select {
 	padding: 0 18px 0 0;
+}
+
+select {
+	/*for firefox*/
+	-moz-appearance: none;
+	/*for chrome*/
+	-webkit-appearance: none;
+}
+
+/*for IE10*/
+
+select::-ms-expand {
+	display: none;
+}
+
+
+/* ---- parametres_plugins ---- */
+
+#form_plugins span[data-scope] {
+	padding: 2px 5px 0 5px;
+	font-size: 1.2rem;
+}
+
+#plugins-table tbody tr[data-scope] td.wrap strong:first-of-type {
+	padding: 0.2rem 0.5rem;
+}
+
+#form_plugins span[data-scope="admin"],
+#plugins-table tbody tr[data-scope="admin"] td.wrap strong:first-of-type {
+	background-color: #258fd6;
+	color: #fff;
+}
+
+#form_plugins span[data-scope="site"],
+#plugins-table tbody tr[data-scope="site"] td.wrap strong:first-of-type {
+	background-color: green;
+	color: #fff;
 }
