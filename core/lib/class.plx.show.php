@@ -8,9 +8,6 @@
  **/
 class plxShow {
 
-	# const FORMAT_TAGLIST = '<li><a class="#tag_size #tag_status" href="#tag_url" title="#tag_name">#tag_name (#tag_count)</a></li>';
-	const FORMAT_TAGLIST = '<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name (#tag_count)</a></li>';
-
 	public $plxMotor = false; # Objet plxMotor
 	private $lang; # fichier de traduction du theme
 
@@ -1663,14 +1660,14 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
-	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
+	 * @param	format	format du texte pour chaque tag (variable : #tag_size, #tag_id, #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
 	 * @param	max		nombre maxi de tags à afficher
 	 * @param	order	tri des tags (random, alpha, '' = tri par popularité)
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
-	public function tagList($format=plxShow::FORMAT_TAGLIST, $max='', $order='random') {
+	public function tagList($format='<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='', $order='random') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagList'))) return;
 
@@ -1722,7 +1719,7 @@ class plxShow {
 				array_values($counters),
 				function($lastValue, $value) {
 					return ($lastValue > $value) ? $lastValue : $value;
-				},
+				}, 
 				0
 			);
 			$max_value *= 0.1; # Pour faire varier la taille des caractères de 1 à 11;
@@ -1756,7 +1753,6 @@ class plxShow {
 				$status = '';
 				switch($mode) {
 					case 'article':
-					case 'home':
 						if(in_array($tag, $artTags)) {
 							$status = 'active';
 						}
@@ -1766,7 +1762,7 @@ class plxShow {
 				}
 				$replaces = array(
 					'#tag_id'		=> 'tag-'.$id++,
-					'#tag_size'		=> 'tag-size-'.(1 + intval($counter / $max_value)), # taille des caratères
+					'#tag_size'		=> 'tag-size-'.(1 + intval($counter / $max_value)), # taille des caractères
 					'#tag_count'	=> $counter,
 					'#nb_art'		=> $counter,
 					'#tag_item'		=> $url,
