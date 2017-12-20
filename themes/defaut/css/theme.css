@@ -37,6 +37,13 @@ body {
 
 @media (min-width: 64rem) {
 	.container {
+		padding-left: 5rem;
+		padding-right: 5rem;
+	}
+}
+
+@media (min-width: 128rem) {
+	.container {
 		padding-left: 15rem;
 		padding-right: 15rem;
 	}
@@ -76,7 +83,16 @@ body {
 
 @media (max-width: 463px) {
 	.logo {
-		display: none;
+		background-size: 3rem;
+		background-position: 0 1.23rem;
+		padding-left: 0.1rem;
+	}
+	.header h1 * {
+		font-size: 1.23rem;
+		padding-left: 3rem;
+	}
+	.header h2 {
+		font-size: 1rem;
 	}
 	.bg {
 		height: 100px;
@@ -84,14 +100,16 @@ body {
 }
 
 /* ----- Nav / Menu ----- */
-
+.header.sticky div.grid{
+	overflow: initial;/* fix hidden sub-menu */
+}
 .nav {
-	text-align: right;
-	padding-top: 1.7rem;
+	padding-top: 2.7rem;
 }
 
 ul.menu {
-	margin-right: 30px;
+	margin: 0 15px 7.5px 15px;
+	border-radius: 15px;
 }
 
 .menu>li.menu {
@@ -128,8 +146,9 @@ ul.menu {
 
 @media (max-width: 767px) {
 	.nav {
+		background-color: #fff;
 		height: auto;
-		max-height: 200px;
+		max-height: 80%;
 		overflow-y: auto;
 		text-align: left;
 		margin-top: 0;
@@ -159,13 +178,17 @@ ul.menu {
 		position: relative !important;
 	}
 	.menu>li ul li:hover {
-		background-color: #fff;
+		background-color: #eee;
 	}
 	.menu>li ul li:hover a {
 		text-decoration: underline;
 	}
 	.responsive-menu ul li.active a,
 	.responsive-menu ul li.active:hover {
+		background-color: #eee;
+		color: #000;
+	}
+	.responsive-menu ul li {
 		background-color: #fff;
 		color: #000;
 	}
@@ -494,4 +517,13 @@ a.active {
 
 .footer p {
 	margin: 0;
+}
+
+@media print {
+	nav, .nav {
+		/* display:none; *//* pour cacher le menu du site */
+	}
+	.sticky {/* fix: le  head descend quant on scrlldwn en prévisu ff 43 */
+		position: initial;
+	}
 }
