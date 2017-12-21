@@ -19,7 +19,7 @@ $output='';
 $filename = realpath(PLX_PLUGINS.$plugin.'/config.php');
 if(is_file($filename)) {
 	# si le plugin n'est pas actif, aucune instance n'a été créée, on va donc la créer, sinon on prend celle qui existe
-	if(!isset($plxAdmin->plxPlugins->aPlugins[$plugin]))
+	if(empty($plxAdmin->plxPlugins->aPlugins[$plugin]))
 		$plxPlugin = $plxAdmin->plxPlugins->getInstance($plugin);
 	else
 		$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];

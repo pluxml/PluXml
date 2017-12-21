@@ -1660,36 +1660,32 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
-	 * @param	format	format du texte pour chaque tag (variable : #tag_size #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
+	 * @param	format	format du texte pour chaque tag (variable : #tag_size, #tag_id, #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
 	 * @param	max		nombre maxi de tags à afficher
-	 * @param	order	tri des tags (random, alpha, '')
+	 * @param	order	tri des tags (random, alpha, '' = tri par popularité)
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
-	public function tagList($format='<li><a class="#tag_size #tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='', $order='') {
+	public function tagList($format='<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='', $order='random') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagList'))) return;
 
-		$datetime = date('YmdHi');
-		$array=array();
-		$alphasort=array();
 		# On verifie qu'il y a des tags
 		if($this->plxMotor->aTags) {
+			$now = date('YmdHi');
 			# On liste les tags sans créer de doublon
+			$counters = array();
 			foreach($this->plxMotor->aTags as $idart => $tag) {
-				if(isset($this->plxMotor->activeArts[$idart]) AND $tag['date']<=$datetime AND $tag['active']) {
+				if(isset($this->plxMotor->activeArts[$idart]) AND $tag['date']<=$now AND $tag['active']) {
 					if($tags = array_map('trim', explode(',', $tag['tags']))) {
 						foreach($tags as $tag) {
-							if($tag!='') {
-								$t = plxUtils::title2url($tag);
-								if(!isset($array['_'.$tag])) {
-									$array['_'.$tag]=array('name'=>$tag,'url'=>$t,'count'=>1);
+							if(!empty($tag)) {
+								if(!array_key_exists($tag, $counters)) {
+									$counters[$tag] = 1;
+								} else {
+									$counters[$tag]++;
 								}
-								else
-									$array['_'.$tag]['count']++;
-								if(!in_array($t, $alphasort))
-									$alphasort[] = $t; # pour le tri alpha
 							}
 						}
 					}
@@ -1699,52 +1695,83 @@ class plxShow {
 			# tri des tags
 			switch($order) {
 				case 'alpha':
-					if($alphasort) array_multisort($alphasort, SORT_ASC, $array);
+					# Le tri alpha se fait sur la clé
+					ksort($counters); # éventuellement uksort pour tri spécifique sur $tag
 					break;
 				case 'random':
-					$arr_elem = array();
-					$keys = array_keys($array);
+					$keys = array_keys($counters);
 					shuffle($keys);
+					$arr_elem = array();
 					foreach ($keys as $key) {
-						$arr_elem[$key] = $array[$key];
+						$arr_elem[$key] = $counters[$key];
 					}
-					$array = $arr_elem;
+					$counters = $arr_elem;
 					break;
+				default:
+					arsort($counters);
 			}
 
 			# limite sur le nombre de tags à afficher
-			if($max!='') $array=array_slice($array, 0, intval($max), true);
+			if($max!='') $counters = array_slice($counters, 0, intval($max), true);
 
-		}
+			# Recherche de la valeur maxi pour $counters. A multiplier par 10.
+			$max_value = array_reduce(
+				array_values($counters),
+				function($lastValue, $value) {
+					return ($lastValue > $value) ? $lastValue : $value;
+				}, 
+				0
+			);
+			$max_value *= 0.1; # Pour faire varier la taille des caractères de 1 à 11;
 
-		$mode = $this->plxMotor->mode;
+			$mode = $this->plxMotor->mode;
 
-		# Récupération de la liste des tags de l'article si on est en mode 'article'
-		# pour mettre en évidence les tags dans la sidebar s'ils sont attachés à l'article
-		$artTags = array();
-		if($mode=='article') {
-			$artTagList = $this->plxMotor->plxRecord_arts->f('tags');
-			if(!empty($artTagList)) {
-				$artTags = array_map('trim', explode(',', $artTagList));
+			# Récupération de la liste des tags de l'article si on est en mode 'article'
+			# pour mettre en évidence dans la sidebar les tags attachés à l'article
+			$artTags = array();
+			switch($mode) {
+				case 'article':
+					$artTagList = $this->plxMotor->plxRecord_arts->f('tags');
+					if(!empty($artTagList)) {
+						$artTags = array_map('trim', explode(',', $artTagList));
+					}
+					break;
+				case 'home':
+					foreach($this->plxMotor->plxRecord_arts->result as $record) {
+						foreach(array_map('trim', explode(',', $record['tags'])) as $tag) {
+							if(!in_array($tag, $artTags)) {
+								$artTags[] = $tag;
+							}
+						}
+					}
 			}
-		}
 
-		# On affiche la liste
-		$size=0;
-		foreach($array as $tagname => $tag) {
-			$name = str_replace('#tag_id','tag-'.$size++,$format);
-			$name = str_replace('#tag_size','tag-size-'.($tag['count']>10?'max':$tag['count']),$name);
-			$name = str_replace('#tag_count',$tag['count'],$name);
-			$name = str_replace('#tag_item',$tag['url'],$name);
-			$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$tag['url']),$name);
-			$name = str_replace('#tag_name',plxUtils::strCheck($tag['name']),$name);
-			$name = str_replace('#nb_art',$tag['count'],$name);
-			if($mode=='article' AND in_array($tag['name'],$artTags))
-				$name = str_replace('#tag_status','active', $name);
-			else
-				$name = str_replace('#tag_status',(($mode=='tags' AND $this->plxMotor->cible==$tag['url'])?'active':'noactive'), $name);
-
-			echo $name;
+			# On affiche la liste
+			$id=0;
+			foreach($counters as $tag => $counter) {
+				$url = plxUtils::title2url($tag);
+				$status = '';
+				switch($mode) {
+					case 'article':
+						if(in_array($tag, $artTags)) {
+							$status = 'active';
+						}
+						break;
+					case 'tags':
+						$status = ($this->plxMotor->cible == $url) ? 'active' : 'noactive';
+				}
+				$replaces = array(
+					'#tag_id'		=> 'tag-'.$id++,
+					'#tag_size'		=> 'tag-size-'.(1 + intval($counter / $max_value)), # taille des caractères
+					'#tag_count'	=> $counter,
+					'#nb_art'		=> $counter,
+					'#tag_item'		=> $url,
+					'#tag_url'		=> $this->plxMotor->urlRewrite('?tag/'.$url),
+					'#tag_name'		=> plxUtils::strCheck($tag),
+					'#tag_status'	=> $status
+				);
+				echo str_replace(array_keys($replaces), array_values($replaces), $format);
+			}
 		}
 	}
 

@@ -14,6 +14,7 @@
 [+] #264 fonction debugJS (contribution bazooka07)
 [+] #265 Affichage des archives sur une périodes glissantes de 12 mois (contribution bazooka07)
 [+] #266 Tri des pages statiques, catégories et plugins par drag n drop (contribution bazooka07)
+[+] #269 Ajout scope[admin|site] dans les fichiers infos.xml des plugins pour charger un plugin uniquement coté admin, site ou les 2 (contribution bazooka07)
 FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)

@@ -70,19 +70,36 @@ class plxPlugins {
 			$nb = sizeof($iTags['plugin']);
 			# On boucle sur $nb
 			for($i = 0; $i < $nb; $i++) {
-				$name = $values[$iTags['plugin'][$i] ]['attributes']['name'];
-				if($instance=$this->getInstance($name)) {
-					$this->aPlugins[$name] = $instance;
-					$this->aHooks = array_merge_recursive($this->aHooks, $instance->getHooks());
-					# Si le plugin a une méthode pour des actions de mises à jour
-					if(method_exists($instance, 'onUpdate')) {
-						if(is_file(PLX_PLUGINS.$name.'/update')) {
-							# on supprime le fichier update pour eviter d'appeler la methode onUpdate
-							# à chaque chargement du plugin
-							chmod(PLX_PLUGINS.$name.'/update', 0644);
-							unlink(PLX_PLUGINS.$name.'/update');
-							$updAction = $instance->onUpdate();
+				$attributes = $values[ $iTags['plugin'][$i] ]['attributes'];
+				$name = $attributes['name'];
+				$scope = (!empty($attributes['scope'])) ? $attributes['scope'] : '';
+				if(
+					defined('PLX_ADMIN') or
+					empty($scope) or # retro-compatibilité pour plugin sans balise <scope>
+					($scope == 'site')
+				) {
+					if(
+						empty($scope) or
+						(defined('PLX_ADMIN') and $scope == 'admin') or
+						(!defined('PLX_ADMIN') and $scope == 'site')
+					) {
+						if($instance = $this->getInstance($name)) {
+							$this->aPlugins[$name] = $instance;
+							$this->aHooks = array_merge_recursive($this->aHooks, $instance->getHooks());
+							# Si le plugin a une méthode pour des actions de mises à jour
+							if(method_exists($instance, 'onUpdate')) {
+								if(is_file(PLX_PLUGINS.$name.'/update')) {
+									# on supprime le fichier update pour eviter d'appeler la methode onUpdate
+									# à chaque chargement du plugin
+									chmod(PLX_PLUGINS.$name.'/update', 0644);
+									unlink(PLX_PLUGINS.$name.'/update');
+									$updAction = $instance->onUpdate();
+								}
+							}
 						}
+					} else {
+						# Si PLX_ADMIN, on recense le plugin pour les styles CSS, sans charger sa class
+						$this->aPlugins[$name] = false;
 					}
 				}
 			}
@@ -218,8 +235,18 @@ class plxPlugins {
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
-		foreach($this->aPlugins as $k=>$v) {
-				$xml .= "\t<plugin name=\"$k\"></plugin>\n";
+		foreach($this->aPlugins as $name=>$plugin) {
+			if(!empty($plugin)) {
+				$scope = $plugin->getInfo('scope');
+			} elseif($plugInstance=$this->getInstance($name)) {
+				$scope = $plugInstance->getInfo('scope');
+			} else {
+				$scope = '';
+			}
+			$xml .= <<< PLUGIN
+	<plugin name="$name" scope="$scope"></plugin>
+
+PLUGIN;
 		}
 		$xml .= "</document>";
 
@@ -264,21 +291,24 @@ class plxPlugins {
 	public function cssCache($type) {
 
 		$cache = '';
-		foreach($this->aPlugins as $plugName => $plugInstance) {
-			$filename = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.'.$type.'.css';
-			if(is_file($filename)) {
-				$cache .= trim(file_get_contents($filename));
-			} else {
-				$filename = PLX_PLUGINS.$plugName.'/css/'.$type.'.css';
+		if(!preg_match('@\.css$@', $type)) $type .= '.css';
+		foreach(array_keys($this->aPlugins) as $plugName) {
+			$filesList = array(
+				PLX_ROOT.PLX_CONFIG_PATH."plugins/$plugName.$type",
+				PLX_PLUGINS."$plugName/css/$type"
+			);
+			foreach($filesList as $filename) {
 				if(is_file($filename)) {
 					$cache .= trim(file_get_contents($filename));
+					break;
 				}
 			}
 		}
-		if(is_file(PLX_PLUGINS.$type.'.css'))
-			unlink(PLX_PLUGINS.$type.'.css');
-		if($cache!='') {
-			return plxUtils::write(plxUtils::minify($cache), PLX_PLUGINS.$type.'.css');
+		$minify_filename = PLX_PLUGINS.$type;
+		if(!empty($cache)) {
+			return plxUtils::write(plxUtils::minify($cache), $minify_filename);
+		} elseif((is_file($minify_filename))) {
+			unlink($minify_filename);
 		}
 		return true;
 	}
@@ -631,6 +661,7 @@ class plxPlugin {
 			'date'			=> (isset($iTags['date']) AND isset($values[$iTags['date'][0]]['value']))?$values[$iTags['date'][0]]['value']:'',
 			'site'			=> (isset($iTags['site']) AND isset($values[$iTags['site'][0]]['value']))?$values[$iTags['site'][0]]['value']:'',
 			'description'	=> (isset($iTags['description']) AND isset($values[$iTags['description'][0]]['value']))?$values[$iTags['description'][0]]['value']:'',
+			'scope'			=> (isset($iTags['scope']) AND isset($values[$iTags['scope'][0]]['value']))?strtolower($values[$iTags['scope'][0]]['value']):''
 			);
 
 	}

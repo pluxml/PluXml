@@ -19,7 +19,7 @@ include(dirname(__FILE__).'/top.php');
 <div class="inline-form action-bar">
 	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
 	<p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong></p>
-	<p><span class="text-red"><?php echo $plxAdmin->checkMaj(); ?></span></p>
+	<?php echo $plxAdmin->checkMaj(); ?>
 </div>
 
 <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
@@ -40,7 +40,7 @@ include(dirname(__FILE__).'/top.php');
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_statiques']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['medias']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_themes']); ?>	
+	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_themes']); ?>
 	<?php plxUtils::testModReWrite() ?>
 	<?php plxUtils::testLibGD() ?>
 	<?php plxUtils::testLibXml() ?>
@@ -51,6 +51,7 @@ include(dirname(__FILE__).'/top.php');
 <p><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) ?>
+
 <?php
 # On inclut le footer
 include(dirname(__FILE__).'/foot.php');

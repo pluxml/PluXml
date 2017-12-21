@@ -207,7 +207,7 @@ class plxUtils {
 			if(!empty($className))
 				$params[] = 'class="'.$className.'"';
 			if(!empty($placeholder))
-				$params[] = $placeholder;
+				$params[] = 'placeholder="'.$placeholder.'"';
 			if(!empty($sizes) AND (strpos($sizes, '-') !== false)) {
 				list($size, $maxlength) = explode('-', $sizes);
 				if(!empty($size))
@@ -723,24 +723,22 @@ class plxUtils {
 		if (substr($base, -1) != '/')
 			$base .= '/';
 
-		# réécriture des liens commençant uniquement par une ancre
-		$url = plxUtils::getRacine().plxUtils::getGets();
-		$html = preg_replace('/(href=["|\'])#/', '$1'.$url.'#', $html);
-
+		# Ne pas convertir Les liens commençant avec href="#....". Liens internes à la page !
 		# on protège tous les liens externes au site, et on transforme tous les liens relatifs en absolus
 		# on ajoute le hostname si nécessaire
 		$mask = '=<<>>=';
-		$protect = '(\#|javascript|data|callto|content|fax|file|ftp|imap|irc|jabber|mailto|mms|news|pop|sip|smb|sms|ssh|tel|telnet|vnc|xmpp):?';
-		$patterns = array('#(href|src)=("|\')('.$protect.':)#i', '#(href|src)=("|\')([a-z]+://)#i', '#(href|src)=("|\')(?:\./)?([^/])#i');
-		$replaces = array('$1'.$mask.'$2$3', '$1'.$mask.'$2$3', '$1=$2'.$base.'$3');
-		if (preg_match('#^[a-z]+://#i', $base)) {
-			$patterns[] = '#(href|src)=("|\')/([^/])#i';
-			$replaces[] = '$1=$2'.$base.'$3';
-		}
+		$patterns = array(
+			'@(href|src|<object\s[^>]*data)=("|\')(#|[a-z]+:)@i', # lien interne ou utilisation d'un protocole type href="xxxx:...." à protéger.
+			'@(href|src|<object\s[^>]*data)=("|\')(?:\./)?([^/])@i' # lieu relatif à transformer
+		);
+		$replaces = array(
+			'$1'.$mask.'$2$3',
+			'$1=$2'.$base.'$3'
+		);
 		$result = preg_replace($patterns, $replaces, $html);
+
 		# on retire la protection des liens externes. Expressions régulières lentes et inutiles
-		$result = str_replace($mask, '=', $result);
-		return $result;
+		return str_replace($mask, '=', $result);
 
 	}
 
