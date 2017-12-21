@@ -20,7 +20,7 @@ function aFilter($v){//no anonymous func in php <5.2
 $aPlugins = array_filter($plxAdmin->plxPlugins->aPlugins, 'aFilter');
 
 if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
-$plxAdmin->plxPlugins->saveConfig($_POST);
+	$plxAdmin->plxPlugins->saveConfig($_POST);
 	header('Location: parametres_plugins.php');
 	exit;
 }
