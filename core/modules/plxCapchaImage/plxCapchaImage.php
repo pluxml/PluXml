@@ -48,6 +48,7 @@ class plxCapchaImage extends plxModule {
 	 **/
 	public function plxShowCapchaQ() {
 		$_SESSION['capcha']=$this->_getCode(5);
+		$_SESSION['capcha_token'] = sha1(uniqid(rand(), true));
 		echo '<img src="'.$this->URL().'capcha.php" alt="Capcha" id="capcha" />';
 		echo '<a id="capcha-reload" href="javascript:void(0)" onclick="document.getElementById(\'capcha\').src=\''.	$this->URL().'capcha.php?\' + Math.random(); return false;"><img src="'.$this->URL().'reload.png" title="" /></a><br />';
 		$this->lang('L_MESSAGE');
