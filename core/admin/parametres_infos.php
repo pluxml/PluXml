@@ -44,6 +44,7 @@ include(dirname(__FILE__).'/top.php');
 	<?php plxUtils::testModReWrite() ?>
 	<?php plxUtils::testLibGD() ?>
 	<?php plxUtils::testLibXml() ?>
+	<?php plxUtils::testGeoIp() ?>
 	<?php plxUtils::testMail() ?>
 </ul>
 <p><?php echo L_CONFIG_INFOS_NB_CATS ?> <?php echo sizeof($plxAdmin->aCats); ?></p>

@@ -360,6 +360,27 @@ class plxUtils {
 	}
 
 	/**
+	 * Méthode qui teste si la bibliothèque GeoIp est installée
+	 *
+	 * @param	format		format d'affichage
+	 *
+	 **/
+	public static function testGeoIp($format="<li><span style=\"color:#color\">#symbol #message</span></li>\n") {
+
+		if(function_exists('geoip_country_code_by_name')) {
+			$output = str_replace('#color', 'green', $format);
+			$output = str_replace('#symbol', '&#10004;', $output);
+			$output = str_replace('#message', L_LIBGEOIP_INSTALLED, $output);
+			echo $output;
+		} else {
+			$output = str_replace('#color', 'red', $format);
+			$output = str_replace('#symbol', '&#10007;', $output);
+			$output = str_replace('#message', L_LIBGEOIP_NOT_INSTALLED, $output);
+			echo $output;
+		}
+	}
+
+	/**
 	 * Méthode qui formate une chaine de caractères en supprimant des caractères non valides
 	 *
 	 * @param	str			chaine de caractères à formater

@@ -299,10 +299,11 @@ class plxMotor {
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire'));
 				if($retour[0] == 'c') { # Le commentaire a été publié
 					header('Location: '.$url.'#'.$retour);
-				} elseif($retour == 'mod') { # Le commentaire est en modération
+				} elseif($retour === 'mod') { # Le commentaire est en modération
 					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
 					header('Location: '.$url.'#form');
 				} else {
+					# Le commentaire est invalide
 					$_SESSION['msgcom'] = $retour;
 					$_SESSION['msg']['name'] = plxUtils::unSlash($_POST['name']);
 					$_SESSION['msg']['site'] = plxUtils::unSlash($_POST['site']);
@@ -863,7 +864,7 @@ class plxMotor {
 	public function newCommentaire($artId,$content) {
 
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return '';
 
 		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR $this->aConf['capcha'] AND (!isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token']))) {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
@@ -891,7 +892,8 @@ class plxMotor {
 					$comment['parent'] = '';
 				}
 				# On génère le nom du fichier
-				$time = time();
+				# $time = time();
+				$time = date('YmdHi');
 				if($this->aConf['mod_com']) # On modère le commentaire => underscore
 					$comment['filename'] = '_'.$artId.'.'.$time.'-'.$idx.'.xml';
 				else # On publie le commentaire directement

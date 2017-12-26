@@ -276,8 +276,11 @@ input[maxlength="3"] {
 	height: 6rem;
 }
 
+#comments-table tr {
+	vertical-align: top;
+}
+/* #comments-table td:nth-child(3), */
 #articles-table td:nth-child(4),
-#comments-table td:nth-child(3),
 #medias-table td:nth-child(3),
 #plugins-table td:nth-child(3) {
 	width: 100%;
@@ -298,6 +301,25 @@ input[maxlength="3"] {
 	white-space: normal;
 }
 
+#comments-table tbody td.wrap div {
+	min-width: 50rem;
+	max-height: 12rem;
+	overflow-y: auto;
+	padding-right: 1rem; /* for scrollbar */
+	word-break: normal;
+}
+#comments-table tbody td.action {
+	text-align: center;
+	white-space: initial;
+}
+#comments-table tbody td.action a {
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 0.3rem;
+}
+#comments-table tbody td.action a:hover {
+	background-color: #eee;
+}
 #plugins-table img,
 #medias-table img {
 	max-width: 48px;
@@ -864,6 +886,13 @@ select::-ms-expand {
 	display: none;
 }
 
+img.flag {
+	vertical-align: bottom;
+	border: 1px solid #eee;
+	box-shadow: 3px 3px 1px #ddd;
+	background-color: #eee; /* for Russia */
+	padding: 0 3px;
+}
 
 /* ---- parametres_plugins ---- */
 
@@ -886,4 +915,7 @@ select::-ms-expand {
 #plugins-table tbody tr[data-scope="site"] td.wrap strong:first-of-type {
 	background-color: green;
 	color: #fff;
+}
+table thead tr:hover {
+	background-color: initial;
 }

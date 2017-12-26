@@ -146,7 +146,14 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
 
 	<ul class="unstyled-list">
-		<li><?php echo L_COMMENT_IP_FIELD ?> : <?php echo $plxAdmin->plxRecord_coms->f('ip'); ?></li>
+<?php
+	$ipAddr = $plxAdmin->plxRecord_coms->f('ip');
+	if(!empty($ipAddr) and function_exists('geoip_country_code_by_name')) {
+		$country = geoip_country_code_by_name($ipAddr);
+		$ipAddr .= ' <img class="flag" src="'.PLX_CORE.'assets/img/flags/32/'.$country.'.png" alt="('.$country.')" title="'.$country.'"/>';
+	}
+?>
+		<li><?php echo L_COMMENT_IP_FIELD ?> : <?php echo $ipAddr; ?></li>
 		<li><?php echo L_COMMENT_STATUS_FIELD ?> : <?php echo $statut; ?></li>
 		<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong><?php echo $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
 		<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
