@@ -1134,19 +1134,20 @@ class plxShow {
 	/**
 	 * Méthode qui affiche si besoin le message généré par le système
 	 * suite à la création d'un commentaire
-	 * @param			format  format du texte à afficher (variable: #com_message)
-	 * @return		stdout
-	 * @scope			article
-	 * @author		Stephane F.
+	 * @param		format  format du texte à afficher (variable: #com_message)
+	 * @return		true si un message est affiché
+	 * @scope		article
+	 * @author		Stephane F, J.P Pourrez.
+	 * @version		2017-12-28
 	**/
-	public function comMessage($format='#com_message') {
+	public function comMessage($format='<p>#com_message</p>') {
 
-		if(isset($_SESSION['msgcom']) AND !empty($_SESSION['msgcom'])) {
-			$row = str_replace('#com_message',$_SESSION['msgcom'],$format);
-			echo $row;
-			$_SESSION['msgcom']='';
+		if(!empty($_SESSION['msgcom'])) {
+			echo str_replace('#com_message',$_SESSION['msgcom'],$format);
+			unset($_SESSION['msgcom']);
+			return true;
 		}
-
+		return false;
 	}
 
 	/**
@@ -1719,7 +1720,7 @@ class plxShow {
 				array_values($counters),
 				function($lastValue, $value) {
 					return ($lastValue > $value) ? $lastValue : $value;
-				}, 
+				},
 				0
 			);
 			$max_value *= 0.1; # Pour faire varier la taille des caractères de 1 à 11;
