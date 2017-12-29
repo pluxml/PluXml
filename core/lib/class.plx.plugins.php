@@ -31,7 +31,7 @@ class plxPlugins {
 	 * @author	Stephane F
 	 **/
 	public function getInstance($plugName) {
-		$filename = PLX_PLUGINS.$plugName.'/'.$plugName.'.php';
+		$filename = PLX_PLUGINS."$plugName/$plugName.php";
 		if(is_file($filename)) {
 			include_once($filename);
 			if (class_exists($plugName)) {
@@ -98,8 +98,10 @@ class plxPlugins {
 							}
 						}
 					} else {
-						# Si PLX_ADMIN, on recense le plugin pour les styles CSS, sans charger sa class
-						$this->aPlugins[$name] = false;
+						# Si PLX_ADMIN, on vérifie que le plugin existe et on le recense pour les styles CSS, sans charger sa class.
+						if(is_file(PLX_PLUGINS."$plugName/$plugName.php")) {
+							$this->aPlugins[$name] = false;
+						}
 					}
 				}
 			}
