@@ -148,7 +148,7 @@ $selector=selector($comSel, 'id_selection');
 	<?php if(isset($h3)) echo $h3 ?>
 
 	<div class="scrollable-table">
-		<table id="comments-table" class="full-width">
+		<table id="comments-table" class="full-width<?php if(function_exists('geoip_country_code_by_name')) echo ' flag'; ?>">
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
@@ -174,12 +174,15 @@ $selector=selector($comSel, 'id_selection');
 					$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
 					$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
 					$ipAddr = $plxAdmin->plxRecord_coms->f('ip');
-					if(!empty($ipAddr)) {
-						if(function_exists('geoip_country_code_by_name')) {
-							$country = geoip_country_code_by_name($ipAddr);
-							$ipAddr .= '<br /><img class="flag" src="'.PLX_CORE.'assets/img/flags/32/'.$country.'.png" alt="'.$country.'" title="'.$country.'"/>';
-						} else {
-							$ipAddr .= '<br /><img class="flag" data-ip="'.$ipAddr.'" src="'.PLX_CORE.'assets/img/flags/32/no-flag.png" />';
+					/* *
+					 * L'utilisation de la fonction geoip_region_by_name() nécessite la base de donnees GeoIPRegion.dat.
+					 * Celle-ci n'est pas installée automatiquement avec le module PHP GeoIp (Ubuntu 17.04).
+					 * */
+					$flag = '';
+					if(!empty($ipAddr) and function_exists('geoip_country_code_by_name')) {
+						$country = geoip_country_code_by_name($ipAddr);
+						if(!empty($country)) {
+							$flag = '<br /><img class="flag" src="'.PLX_FLAGS_32_PATH.$country.'.png" alt="'.$country.'" title="'.$country.'" />';
 						}
 					}
 					$author = $plxAdmin->plxRecord_coms->f('author');
@@ -199,7 +202,7 @@ $selector=selector($comSel, 'id_selection');
 					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
 					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'</td>';
 					echo '<td class="wrap"><div>'.$content.'</div></td>'; # for using max-height
-					echo '<td class="ip-address">'.$ipAddr.'</td>';
+					echo '<td class="ip-address" data-ip="'.$ipAddr.'">'.$ipAddr.$flag.'</td>';
 					echo '<td class="author">'.$author.$site.'</td>';
 					echo '<td class="action">';
 					echo '   <a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>';
@@ -265,50 +268,22 @@ $selector=selector($comSel, 'id_selection');
 		}
 
 		// https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
-		document.addEventListener('keydown', function(event) {
-			if (event.preventDefaulted) {
+		window.addEventListener('keydown', function(keyboardEvent) {
+			if (keyboardEvent.preventDefaulted) {
 			    return; // Do nothing if event already handled
 			}
-			switch(event.code) {
-				case 'ArrowLeft':	if (gotoPage('p')) { event.preventDefault(); }  break;
-				case 'ArrowRight':	if (gotoPage('n')) { event.preventDefault(); }  break;
-				case 'Home':		if (gotoPage('b')) { event.preventDefault(); }  break;
-				case 'End':			if (gotoPage('e')) { event.preventDefault(); }  break;
-				default:
-					// console.log('A key is depressed: ' + event.code);
+
+			if(!keyboardEvent.ctrlKey && !keyboardEvent.metaKey && !keyboardEvent.shiftKey) {
+				switch(keyboardEvent.code) {
+					case 'ArrowLeft':	if (gotoPage('p')) { keyboardEvent.preventDefault(); }  break;
+					case 'ArrowRight':	if (gotoPage('n')) { keyboardEvent.preventDefault(); }  break;
+					case 'Home':		if (gotoPage('b')) { keyboardEvent.preventDefault(); }  break;
+					case 'End':			if (gotoPage('e')) { keyboardEvent.preventDefault(); }  break;
+					default: // console.log('A key is depressed: ' + keyboardEvent.code);
+				}
 			}
 		});
 
-<?php	if(!function_exists('geoip_country_code_by_name')) { ?>
-		// Géo-localisation
-		const XHR =  new XMLHttpRequest();
-
-		const flags = document.body.querySelectorAll('#comments-table td.ip-address img[data-ip]');
-		var list = new Array();
-		for(var i=0, iMax=flags.length; i<iMax; i++) {
-			const node = flags[i];
-			const ip = node.getAttribute('data-ip');
-
-			if(typeof list[ip] === 'undefined') {
-				XHR.open('GET', 'http://ipinfo.io/' + ip + '/geo', false); // Requête synchrone
-				XHR.send(null);
-				if(XHR.status === 200) {
-					list[ip] = JSON.parse(XHR.responseText);
-				} else {
-					list[ip] = null;
-				}
-			}
-
-			if(list[ip] != null) {
-				const country = list[ip].country
-				node.src = '<?php echo PLX_CORE; ?>assets/img/flags/32/' + country + '.png';
-				node.alt = country;
-				node.title = [country, list[ip].region].join(' : ');
-			}
-		}
-
-
-<?php	} ?>
 	})();
 </script>
 <?php

@@ -2,6 +2,9 @@
 define('PLX_DEBUG', false);
 define('PLX_VERSION', '5.6');
 
+# Chemin d'accès aux images des drapeaux de chaque pays (dimensions 32x32px)
+const PLX_FLAGS_32_PATH = PLX_CORE.'assets/img/flags/32/';
+
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
