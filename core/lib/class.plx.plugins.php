@@ -99,7 +99,7 @@ class plxPlugins {
 						}
 					} else {
 						# Si PLX_ADMIN, on vérifie que le plugin existe et on le recense pour les styles CSS, sans charger sa class.
-						if(is_file(PLX_PLUGINS."$plugName/$plugName.php")) {
+						if(is_file(PLX_PLUGINS."$name/$name.php")) {
 							$this->aPlugins[$name] = false;
 						}
 					}
