@@ -887,6 +887,8 @@ select::-ms-expand {
 }
 
 img.flag {
+	width: 32px;
+	height: 32px;
 	vertical-align: bottom;
 	border: 1px solid #eee;
 	box-shadow: 3px 3px 1px #ddd;

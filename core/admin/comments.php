@@ -174,9 +174,13 @@ $selector=selector($comSel, 'id_selection');
 					$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
 					$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
 					$ipAddr = $plxAdmin->plxRecord_coms->f('ip');
-					if(!empty($ipAddr) and function_exists('geoip_country_code_by_name')) {
-						$country = geoip_country_code_by_name($ipAddr);
-						$ipAddr .= '<br /><img class="flag" src="'.PLX_CORE.'assets/img/flags/32/'.$country.'.png" alt="'.$country.'" title="'.$country.'"/>';
+					if(!empty($ipAddr)) {
+						if(function_exists('geoip_country_code_by_name')) {
+							$country = geoip_country_code_by_name($ipAddr);
+							$ipAddr .= '<br /><img class="flag" src="'.PLX_CORE.'assets/img/flags/32/'.$country.'.png" alt="'.$country.'" title="'.$country.'"/>';
+						} else {
+							$ipAddr .= '<br /><img class="flag" data-ip="'.$ipAddr.'" src="'.PLX_CORE.'assets/img/flags/32/no-flag.png" />';
+						}
 					}
 					$author = $plxAdmin->plxRecord_coms->f('author');
 					$mail = $plxAdmin->plxRecord_coms->f('mail');
@@ -274,6 +278,37 @@ $selector=selector($comSel, 'id_selection');
 					// console.log('A key is depressed: ' + event.code);
 			}
 		});
+
+<?php	if(!function_exists('geoip_country_code_by_name')) { ?>
+		// Géo-localisation
+		const XHR =  new XMLHttpRequest();
+
+		const flags = document.body.querySelectorAll('#comments-table td.ip-address img[data-ip]');
+		var list = new Array();
+		for(var i=0, iMax=flags.length; i<iMax; i++) {
+			const node = flags[i];
+			const ip = node.getAttribute('data-ip');
+
+			if(typeof list[ip] === 'undefined') {
+				XHR.open('GET', 'http://ipinfo.io/' + ip + '/geo', false); // Requête synchrone
+				XHR.send(null);
+				if(XHR.status === 200) {
+					list[ip] = JSON.parse(XHR.responseText);
+				} else {
+					list[ip] = null;
+				}
+			}
+
+			if(list[ip] != null) {
+				const country = list[ip].country
+				node.src = '<?php echo PLX_CORE; ?>assets/img/flags/32/' + country + '.png';
+				node.alt = country;
+				node.title = [country, list[ip].region].join(' : ');
+			}
+		}
+
+
+<?php	} ?>
 	})();
 </script>
 <?php
