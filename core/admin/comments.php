@@ -4,7 +4,8 @@
  * Listing des commentaires en attente de validation
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, J.P. Pourrez
+ * @verson	2018-01-15
  **/
 
 include(dirname(__FILE__).'/prepend.php');
@@ -25,21 +26,24 @@ if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	exit;
 }
 
-# Suppression des commentaires sélectionnés
-if(isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='delete') AND isset($_POST['idCom'])) {
-	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->delCommentaire($v);
-	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
-	exit;
-}
-# Validation des commentaires sélectionnés
-elseif(isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='online') AND isset($_POST['idCom'])) {
-	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'online');
-	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
-	exit;
-}
-# Mise hors-ligne des commentaires sélectionnés
-elseif (isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='offline') AND isset($_POST['idCom'])) {
-	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'offline');
+# Traitement de $_POST
+if(!empty($_POST['idCom']) and !empty($_POST['selection']) and !empty($_POST['btn_ok'])) {
+	switch($_POST['selection']) {
+		case 'delete' :
+			# Suppression des commentaires sélectionnés
+			foreach ($_POST['idCom'] as $comId) $plxAdmin->delCommentaire($comId);
+			break;
+		case 'online' :
+			# Validation des commentaires sélectionnés
+			foreach ($_POST['idCom'] as $comId) $plxAdmin->modCommentaire($comId, 'online');
+			break;
+		case 'offline' :
+			# Mise hors-ligne des commentaires sélectionnés
+			foreach ($_POST['idCom'] as $comId) $plxAdmin->modCommentaire($comId, 'offline');
+			break;
+		default:
+			eval($plxAdmin->plxPlugins->callHook('AdminCommentsPost'));
+	}
 	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 	exit;
 }
@@ -62,68 +66,51 @@ if(!empty($_GET['a'])) {
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 
+$comSels = array(
+	'online'	=> array('motif' => '/^\d{4}.(.*).xml$/',				'mod' => '', 'h2'			 => L_COMMENTS_ONLINE_LIST),
+	'offline'	=> array('motif' => '/^_\d{4}.(.*).xml$/',				'mod' => '_', 'h2'			 => L_COMMENTS_OFFLINE_LIST),
+	'all'		=> array('motif' => '/^[[:punct:]]?\d{4}.(.*).xml$/',	'mod' => '[[:punct:]]?', 'h2' => L_COMMENTS_ALL_LIST)
+);
+
 # Récupération du type de commentaire à afficher
-if(!empty($_GET['sel']) and in_array($_GET['sel'], array('online', 'offline', 'all')))
+if(!empty($_GET['sel']) and array_key_exists($_GET['sel'], $comSels))
 	$comSel = plxUtils::nullbyteRemove($_GET['sel']);
+elseif(!empty($_SESSION['selCom']) and array_key_exists($_SESSION['selCom'], $comSels))
+	$comSel = $_SESSION['selCom'];
 else
-	$comSel = (!empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all';
+	$comSel = 'all';
 
 if(!empty($_GET['a'])) {
-
-	switch ($comSel) {
-		case 'online':
-			$mod = '';
-			break;
-		case 'offline':
-			$mod = '_';
-			break;
-		default:
-			$mod = '[[:punct:]]?';
-	}
-	$comSelMotif = '/^'.$mod.str_replace('_','',$_GET['a']).'\.(.*)\.xml$/';
-	$_SESSION['selCom'] = 'all';
+	$comSelMotif = '/^'.$comSels[$comSel].str_replace('_','',$_GET['a']).'\.(.*)\.xml$/';
 	$nbComPagination=$plxAdmin->nbComments($comSelMotif);
-	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
+} else {
+	$comSelMotif = $comSels[$comSel]['motif'];
+	$nbComPagination=$plxAdmin->nbComments($comSel);
 }
-elseif($comSel=='online') {
-	$comSelMotif = '/^\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'online';
-	$nbComPagination=$plxAdmin->nbComments('online');
-	$h2 = '<h2>'.L_COMMENTS_ONLINE_LIST.'</h2>';
-}
-elseif($comSel=='offline') {
-	$comSelMotif = '/^_\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'offline';
-	$nbComPagination=$plxAdmin->nbComments('offline');
-	$h2 = '<h2>'.L_COMMENTS_OFFLINE_LIST.'</h2>';
-}
-elseif($comSel=='all') { // all
-	$comSelMotif = '/^[[:punct:]]?\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'all';
-	$nbComPagination=$plxAdmin->nbComments('all');
-	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
-}
+$_SESSION['selCom'] = $comSel;
+$h2 = "<h2>{$comSels[$comSel]['h2']}</h2>";
 
-if($portee!='') {
-	$h3 = '<h3>'.$portee.'</h3>';
-}
-
-$breadcrumbs = array();
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='all'?'class="selected" ':'').'href="comments.php?sel=all&page=1">'.L_ALL.'</a>&nbsp;('.$plxAdmin->nbComments('all').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='online'?'class="selected" ':'').'href="comments.php?sel=online&page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>';
+$breadcrumbs = array(
+	'<li><a '.($comSel=='all'?'class="selected" ':'').'href="comments.php?sel=all&page=1">'.L_ALL.'</a>&nbsp;('.$plxAdmin->nbComments('all').')</li>',
+	'<li><a '.($comSel=='online'?'class="selected" ':'').'href="comments.php?sel=online&page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>',
+	'<li><a '.($comSel=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>'
+);
 if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
 
 function selector($comSel, $id) {
+	$selectsList = array(
+		'online'	=> array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE),
+		'offline'	=> array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE),
+		'all'		=> array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE)
+	);
+	$select = $selectsList[$comSel];
+	$select['-'] = '-----';
+	$select['delete'] = L_COMMENT_DELETE;
+
 	ob_start();
-	if($comSel=='online')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
-	elseif($comSel=='offline')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
-	elseif($comSel=='all')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+	plxUtils::printSelect('selection', $select, '', false, 'no-margin', $id);
 	return ob_get_clean();
 }
 
@@ -145,7 +132,7 @@ $selector=selector($comSel, 'id_selection');
 		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	</div>
 
-	<?php if(isset($h3)) echo $h3 ?>
+	<?php if(!empty($portee)) echo "<h3>$portee</h3>"; ?>
 
 	<div class="scrollable-table">
 		<table id="comments-table" class="full-width<?php if(function_exists('geoip_country_code_by_name')) echo ' flag'; ?>">
