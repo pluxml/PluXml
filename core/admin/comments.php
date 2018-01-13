@@ -19,7 +19,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # validation de l'id de l'article si passé en paramètre
-if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
+if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
@@ -86,19 +86,19 @@ if(!empty($_GET['a'])) {
 	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
 elseif($comSel=='online') {
-	$comSelMotif = '/^[0-9]{4}.(.*).xml$/';
+	$comSelMotif = '/^\d{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'online';
 	$nbComPagination=$plxAdmin->nbComments('online');
 	$h2 = '<h2>'.L_COMMENTS_ONLINE_LIST.'</h2>';
 }
 elseif($comSel=='offline') {
-	$comSelMotif = '/^_[0-9]{4}.(.*).xml$/';
+	$comSelMotif = '/^_\d{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'offline';
 	$nbComPagination=$plxAdmin->nbComments('offline');
 	$h2 = '<h2>'.L_COMMENTS_OFFLINE_LIST.'</h2>';
 }
 elseif($comSel=='all') { // all
-	$comSelMotif = '/^[[:punct:]]?[0-9]{4}.(.*).xml$/';
+	$comSelMotif = '/^[[:punct:]]?\d{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments('all');
 	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
@@ -109,9 +109,9 @@ if($portee!='') {
 }
 
 $breadcrumbs = array();
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='all'?'class="selected" ':'').'href="comments.php?sel=all&amp;page=1">'.L_ALL.'</a>&nbsp;('.$plxAdmin->nbComments('all').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='online'?'class="selected" ':'').'href="comments.php?sel=online&amp;page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&amp;page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='all'?'class="selected" ':'').'href="comments.php?sel=all&page=1">'.L_ALL.'</a>&nbsp;('.$plxAdmin->nbComments('all').')</li>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='online'?'class="selected" ':'').'href="comments.php?sel=online&page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>';
+$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>';
 if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
@@ -205,8 +205,8 @@ $selector=selector($comSel, 'id_selection');
 					echo '<td class="ip-address" data-ip="'.$ipAddr.'">'.$ipAddr.$flag.'</td>';
 					echo '<td class="author">'.$author.$site.'</td>';
 					echo '<td class="action">';
-					echo '   <a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>';
-					echo '   <a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>';
+					echo '   <a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>';
+					echo '   <a href="comment.php?c='.$id.(!empty($_GET['a'])?'&a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>';
 					echo '   <a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a> <em>('.intval($artId).')</em>';
 					echo '</td></tr>';
 				}
@@ -234,7 +234,7 @@ $selector=selector($comSel, 'id_selection');
 		$start = $stop - 4;
 		if($start<1) $start=1;
 		# Génération des URLs
-		$sel = '&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'');
+		$sel = '&sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&a='.$_GET['a']:'');
 		$p_url = 'comments.php?page='.($plxAdmin->page-1).$sel;
 		$n_url = 'comments.php?page='.($plxAdmin->page+1).$sel;
 		$l_url = 'comments.php?page='.$last_page.$sel;
