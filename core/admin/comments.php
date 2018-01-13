@@ -19,7 +19,8 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 # Contrôle de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
-# validation de l'id de l'article si passé en paramètre
+# validation de l'id de l'article si passé en paramètre.
+# On vient de l'édition d'un article
 if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
@@ -59,8 +60,6 @@ if(!empty($_GET['a'])) {
 	# Infos sur l'article
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$globArt['0']);
 	$portee = L_COMMENTS_ARTICLE_SCOPE.' &laquo;'.$aArt['title'].'&raquo;';
-} else { # Commentaires globaux
-	$portee = '';
 }
 
 # On inclut le header
@@ -116,12 +115,10 @@ function selector($comSel, $id) {
 
 $selector=selector($comSel, 'id_selection');
 
+eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins
 ?>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
-
 <form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
-
 	<div class="inline-form action-bar">
 		<?php echo $h2 ?>
 		<ul class="menu">
@@ -131,9 +128,7 @@ $selector=selector($comSel, 'id_selection');
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 	</div>
-
 	<?php if(!empty($portee)) echo "<h3>$portee</h3>"; ?>
-
 	<div class="scrollable-table">
 		<table id="comments-table" class="full-width<?php if(function_exists('geoip_country_code_by_name')) echo ' flag'; ?>">
 			<thead>
@@ -147,18 +142,27 @@ $selector=selector($comSel, 'id_selection');
 				</tr>
 			</thead>
 			<tbody>
-
-			<?php
+<?php
 			# On va récupérer les commentaires
 			$plxAdmin->getPage();
 			$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
 			$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
 			if($coms) {
 				# $num=0;
+				$titles = array(
+					'answer'	=> L_COMMENT_ANSWER,
+					'edit'		=> L_COMMENT_EDIT_TITLE,
+					'artLink'	=> L_COMMENT_ARTICLE_LINKED_TITLE
+				);
+				$captions = array(
+					'answer'	=> L_COMMENT_ANSWER,
+					'edit'		=> L_COMMENT_EDIT,
+					'artLink'	=> L_COMMENT_ARTICLE_LINKED
+				);
 				while($plxAdmin->plxRecord_coms->loop()) { # On boucle
 					$artId = $plxAdmin->plxRecord_coms->f('article');
 					$status = $plxAdmin->plxRecord_coms->f('status');
-					$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
+					$idCom = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
 					$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
 					$ipAddr = $plxAdmin->plxRecord_coms->f('ip');
 					/* *
@@ -185,26 +189,35 @@ $selector=selector($comSel, 'id_selection');
 						$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
 					}
 					# On génère notre ligne
-					echo '<tr class="top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
-					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
-					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'</td>';
-					echo '<td class="wrap"><div>'.$content.'</div></td>'; # for using max-height
-					echo '<td class="ip-address" data-ip="'.$ipAddr.'">'.$ipAddr.$flag.'</td>';
-					echo '<td class="author">'.$author.$site.'</td>';
-					echo '<td class="action">';
-					echo '   <a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>';
-					echo '   <a href="comment.php?c='.$id.(!empty($_GET['a'])?'&a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>';
-					echo '   <a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a> <em>('.intval($artId).')</em>';
-					echo '</td></tr>';
-				}
+					$type = $plxAdmin->plxRecord_coms->f('type');
+					$dateCom = plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'));
+					$a = (!empty($_GET['a'])) ? '&a='.$_GET['a'] : ''; # On revient de l'édition d'un article
+					$artIdNum = intval($artId);
+
+					echo <<< ROW
+				<tr class="top type-$type">
+					<td><input type="checkbox" name="idCom[]" value="$idCom" /></td>
+					<td class="datetime">$dateCom</td>
+					<td class="content wrap"><div>
+$content
+					</div></td>
+					<td class="ip-address" data-ip="$ipAddr">$ipAddr$flag</td>
+					<td class="author">$author$site</td>
+					<td class="action">
+					   <a href="comment_new.php?c=$idCom.$a" title="{$titles['answer']}">{$captions['answer']}</a>
+					   <a href="comment.php?c=$idCom.$a" title="{$titles['edit']}">{$captions['edit']}</a>
+					   <a href="article.php?a=$artId" title="{$titles['artLink']}">{$captions['artLink']}</a> (<em>n° $artIdNum</em>)
+					</td>
+				</tr>\n
+ROW;
+				} # fin de boucle pour les commentaires
 			} else { # Pas de commentaires
 				echo '<tr><td colspan="6" class="center">'.L_NO_COMMENT.'</td></tr>';
 			}
-			?>
+?>
 			</tbody>
 		</table>
 	</div>
-
 </form>
 
 <p id="pagination">
