@@ -372,14 +372,22 @@ function refreshImg(dta) {
 							<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
 						</div>
 					</div>
+					<div id="id_thumbnail_img">
 					<?php
-					$imgUrl = PLX_ROOT.$thumbnail;
-					if(is_file($imgUrl)) {
-						echo '<div id="id_thumbnail_img"><img src="'.$imgUrl.'" alt="" /></div>';
+					if(preg_match('@^(?:https?|data):@', $thumbnail)) {
+						echo <<< REMOTE_THUMBNAIL
+						<img src="$thumbnail" title="$thumbnail" />\n
+REMOTE_THUMBNAIL;
 					} else {
-						echo '<div id="id_thumbnail_img"></div>';
+						$src = PLX_ROOT.$thumbnail;
+						if(is_file($src)) {
+							echo <<< LOCAL_THUMBNAIL
+						<img src="$src" title="$thumbnail" />\n
+LOCAL_THUMBNAIL;
+						}
 					}
 					?>
+					</div>
 				</div>
 			</div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
