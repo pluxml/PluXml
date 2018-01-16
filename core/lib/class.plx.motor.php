@@ -1015,15 +1015,13 @@ class plxMotor {
 	 * @param	url		url à réécrire
 	 * @return	string	url réécrite
 	 * @author	Stéphane F, J.P. Pourrez
-	 * @version	2018-01-16
 	 **/
 	public function urlRewrite($url='') {
 
 		# On teste si $url est une adresse absolue ou une image embarquée
-		if(
-			!empty(trim($url)) and
-			preg_match('@^(?:https?|data):@', $url)
-		) { return $url; }
+		if(!empty(trim($url)) and preg_match('@^(?:https?|data):@', $url)) {
+			return $url;
+		}
 
 		if($url=='' OR $url=='?') return $this->racine;
 
