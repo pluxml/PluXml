@@ -130,7 +130,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins
 	</div>
 	<?php if(!empty($portee)) echo "<h3>$portee</h3>"; ?>
 	<div class="scrollable-table">
-		<table id="comments-table" class="full-width<?php if(function_exists('geoip_country_code_by_name')) echo ' flag'; ?>">
+		<table id="comments-table" class="full-width">
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
@@ -165,17 +165,6 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins
 					$idCom = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
 					$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
 					$ipAddr = $plxAdmin->plxRecord_coms->f('ip');
-					/* *
-					 * L'utilisation de la fonction geoip_region_by_name() nécessite la base de donnees GeoIPRegion.dat.
-					 * Celle-ci n'est pas installée automatiquement avec le module PHP GeoIp (Ubuntu 17.04).
-					 * */
-					$flag = '';
-					if(!empty($ipAddr) and function_exists('geoip_country_code_by_name')) {
-						$country = geoip_country_code_by_name($ipAddr);
-						if(!empty($country)) {
-							$flag = '<br /><img class="flag" src="'.PLX_FLAGS_32_PATH.$country.'.png" alt="'.$country.'" title="'.$country.'" />';
-						}
-					}
 					$author = $plxAdmin->plxRecord_coms->f('author');
 					$mail = $plxAdmin->plxRecord_coms->f('mail');
 					if(!empty($mail)) {
@@ -183,7 +172,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins
 					}
 					$site = trim($plxAdmin->plxRecord_coms->f('site'));
 					if(!empty($site)) {
-						$site = '<br /><a href="'.$site.'" rel="nofollow noreferrer" target="_blank" title="'.$site.'">'.L_COMMENTS_SITE.'</a>';
+						$site = '<br /><a href="'.$site.'" rel="nofollow noreferrer" target="_blank" title="'.$site.'">'.L_COMMENTS_LIST_SITE.'</a>';
 					}
 					if($_SESSION['selCom']=='all') {
 						$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
@@ -201,7 +190,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins
 					<td class="content wrap"><div>
 $content
 					</div></td>
-					<td class="ip-address" data-ip="$ipAddr">$ipAddr$flag</td>
+					<td class="ip-address" data-ip="$ipAddr">$ipAddr</td>
 					<td class="author">$author$site</td>
 					<td class="action">
 					   <a href="comment_new.php?c=$idCom.$a" title="{$titles['answer']}">{$captions['answer']}</a>
