@@ -180,7 +180,12 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins
 					# On génère notre ligne
 					$type = $plxAdmin->plxRecord_coms->f('type');
 					$dateCom = plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'));
-					$a = (!empty($_GET['a'])) ? '&a='.$_GET['a'] : ''; # On revient de l'édition d'un article
+					$idComC =  $idCom;
+					if(!empty($_GET['a'])) {
+						# On revient de l'édition d'un article
+						$idComC .= '&a='.$_GET['a'];
+					}
+
 					$artIdNum = intval($artId);
 
 					echo <<< ROW
@@ -193,8 +198,8 @@ $content
 					<td class="ip-address" data-ip="$ipAddr">$ipAddr</td>
 					<td class="author">$author$site</td>
 					<td class="action">
-					   <a href="comment_new.php?c=$idCom.$a" title="{$titles['answer']}">{$captions['answer']}</a>
-					   <a href="comment.php?c=$idCom.$a" title="{$titles['edit']}">{$captions['edit']}</a>
+					   <a href="comment_new.php?c=$idComC" title="{$titles['answer']}">{$captions['answer']}</a>
+					   <a href="comment.php?c=$idComC" title="{$titles['edit']}">{$captions['edit']}</a>
 					   <a href="article.php?a=$artId" title="{$titles['artLink']}">{$captions['artLink']}</a> (<em>n° $artIdNum</em>)
 					</td>
 				</tr>\n
