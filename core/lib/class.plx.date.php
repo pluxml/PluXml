@@ -49,20 +49,6 @@ class plxDate {
 				'11' => L_SHORT_NOVEMBER,
 				'12' => L_SHORT_DECEMBER
 			),
-			'long_month' => array(
-				'01' => L_LONG_JANUARY,
-				'02' => L_LONG_FEBRUARY,
-				'03' => L_LONG_MARCH,
-				'04' => L_LONG_APRIL,
-				'05' => L_LONG_MAY,
-				'06' => L_LONG_JUNE,
-				'07' => L_LONG_JULY,
-				'08' => L_LONG_AUGUST,
-				'09' => L_LONG_SEPTEMBER,
-				'10' => L_LONG_OCTOBER,
-				'11' => L_LONG_NOVEMBER,
-				'12' => L_LONG_DECEMBER
-			),
 			'day' => array(
 				'1' => L_MONDAY,
 				'2' => L_TUESDAY,

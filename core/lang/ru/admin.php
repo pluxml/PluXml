@@ -248,7 +248,9 @@ $LANG = array(
 'L_COMMENTS_GLOBAL_SCOPE'									=> 'весь сайт',
 
 'L_COMMENTS_LIST_DATE'										=> 'Дата',
+'L_COMMENTS_LIST_IP_ADDRESS'								=> 'Айпи адрес',
 'L_COMMENTS_LIST_AUTHOR'									=> 'Автор',
+'L_COMMENTS_SITE'											=> 'Посмотрите на этот сайт',
 'L_COMMENTS_LIST_MESSAGE'									=> 'Сообщение',
 'L_COMMENTS_LIST_ACTION'									=> 'Действие',
 'L_COMMENT_EDIT'											=> 'Изменить',
