@@ -892,8 +892,7 @@ class plxMotor {
 					$comment['parent'] = '';
 				}
 				# On génère le nom du fichier
-				# $time = time();
-				$time = date('YmdHi');
+				$time = time();
 				if($this->aConf['mod_com']) # On modère le commentaire => underscore
 					$comment['filename'] = '_'.$artId.'.'.$time.'-'.$idx.'.xml';
 				else # On publie le commentaire directement
