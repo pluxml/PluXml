@@ -919,3 +919,13 @@ img.flag {
 table thead tr:hover {
 	background-color: initial;
 }
+
+/* ----------- article.php -------------- */
+#form_article fieldset ul.comsArt ul li span {
+	display: inline-block;
+	width: 12rem;
+}
+#form_article fieldset ul.comsArt ul li span:last-of-type {
+	width: 4rem;
+	text-align: right;
+}

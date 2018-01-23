@@ -260,6 +260,7 @@ if ($array = $files->query('/^article(-[a-z0-9-_]+)?.php$/')) {
 }
 if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 $cat_id='000';
+
 ?>
 
 <script>
@@ -430,35 +431,35 @@ function refreshImg(dta) {
 						</div>
 					</div>
 				</div>
-			<div class="grid">
-				<div class="col sml-12">
-					<label><?php echo L_DATE_CREATION ?>&nbsp;:</label>
-					<div class="inline-form creation">
-						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
-						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-							<img src="theme/images/date.png" alt="calendar" />
-						</a>
+				<div class="grid">
+					<div class="col sml-12">
+						<label><?php echo L_DATE_CREATION ?>&nbsp;:</label>
+						<div class="inline-form creation">
+							<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
+							<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
+							<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
+							<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+								<img src="theme/images/date.png" alt="calendar" />
+							</a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="grid">
-				<div class="col sml-12">
-					<?php plxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
-					<label><?php echo L_DATE_UPDATE ?>&nbsp;:</label>
-					<div class="inline-form update">
-						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
-						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-							<img src="theme/images/date.png" alt="calendar" />
-						</a>
+				<div class="grid">
+					<div class="col sml-12">
+						<?php plxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
+						<label><?php echo L_DATE_UPDATE ?>&nbsp;:</label>
+						<div class="inline-form update">
+							<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
+							<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
+							<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
+							<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+								<img src="theme/images/date.png" alt="calendar" />
+							</a>
+						</div>
 					</div>
 				</div>
-			</div>
 
 				<div class="grid">
 					<div class="col sml-12">
@@ -575,17 +576,30 @@ function refreshImg(dta) {
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
 
 				<?php if($artId != '0000') : ?>
-				<ul class="unstyled-list">
+				<ul class="unstyled-list comsArt">
 					<li>
 						<a href="comments.php?a=<?php echo $artId ?>&amp;page=1" title="<?php echo L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?php echo L_ARTICLE_MANAGE_COMMENTS ?></a>
-						<?php
-						# récupération du nombre de commentaires
-						$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$artId.'.(.*).xml$/','all');
-						$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$artId.'.(.*).xml$/','all');
-						?>
 						<ul>
-							<li><?php echo L_COMMENT_OFFLINE ?> : <a title="<?php echo L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?php echo $artId ?>&amp;page=1"><?php echo $nbComsToValidate ?></a></li>
-							<li><?php echo L_COMMENT_ONLINE ?> : <a title="<?php echo L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?php echo $artId ?>&amp;page=1"><?php echo $nbComsValidated ?></a></li>
+<?php
+	foreach(array(
+		'off'	=> array('prefix'=> '_', 'label' => L_COMMENT_OFFLINE, 'title' => L_NEW_COMMENTS_TITLE, 	),
+		'on'	=> array('prefix'=> '',	 'label' => L_COMMENT_ONLINE,  'title' => L_VALIDATED_COMMENTS_TITLE, )
+	) as $mode=>$values) {
+		# récupération du nombre de commentaires
+		$nbComs = $plxAdmin->getNbCommentaires('/^'.$values['prefix'].$artId.'\.(.*)\.xml$/','all');
+		if(!empty($nbComs)) {
+			$comsLink = <<< COM_LINK
+<a title="{$values['title']}" href="comments.php?sel={$mode}line&amp;a=$artId&amp;page=1">$nbComs</a>
+COM_LINK;
+		} else {
+			# No comment
+			$comsLink = $nbComs;
+		}
+		echo <<< LI
+							<li><span>{$values['label']}</span> : <span>$comsLink</span></li>\n
+LI;
+	}
+?>
 						</ul>
 					</li>
 					<li><a href="comment_new.php?a=<?php echo $artId ?>" title="<?php echo L_ARTICLE_NEW_COMMENT_TITLE ?>"><?php echo L_ARTICLE_NEW_COMMENT ?></a></li>

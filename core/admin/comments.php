@@ -52,23 +52,24 @@ if(!empty($_POST['idCom']) and !empty($_POST['selection']) and !empty($_POST['bt
 # Récupération des infos sur l'article attaché au commentaire si passé en paramètre
 if(!empty($_GET['a'])) {
 	# Infos sur notre article
-	if(!$globArt = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'\.(.*)\.xml$/','','sort',0,1)) {
+	$artIdReq = $_GET['a'];
+	if(!preg_match('@^\d{4}$@', $artIdReq) or !$globArt = $plxAdmin->plxGlob_arts->query('/^'.$artIdReq.'\.(.*)\.xml$/','','sort',0,1)) {
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 		header('Location: index.php');
 		exit;
 	}
 	# Infos sur l'article
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$globArt['0']);
-	$portee = L_COMMENTS_ARTICLE_SCOPE.' &laquo;'.$aArt['title'].'&raquo;';
+	$portee = L_COMMENTS_ARTICLE_SCOPE.' '.strtolower(L_ID).ltrim($artIdReq, '0').' &laquo;<a href="article.php?a='.$artIdReq.'">'.$aArt['title'].'</a>&raquo;';
 }
 
 # On inclut le header
 include(dirname(__FILE__).'/top.php');
 
 $comSels = array(
-	'online'	=> array('motif' => '/^\d{4}.(.*).xml$/',				'mod' => '', 'h2'			 => L_COMMENTS_ONLINE_LIST),
-	'offline'	=> array('motif' => '/^_\d{4}.(.*).xml$/',				'mod' => '_', 'h2'			 => L_COMMENTS_OFFLINE_LIST),
-	'all'		=> array('motif' => '/^[[:punct:]]?\d{4}.(.*).xml$/',	'mod' => '[[:punct:]]?', 'h2' => L_COMMENTS_ALL_LIST)
+	'online'	=> array('motif' => '/^\d{4}\.(.*)\.xml$/',				'mod' => '', 'h2'			 => L_COMMENTS_ONLINE_LIST),
+	'offline'	=> array('motif' => '/^_\d{4}\.(.*)\.xml$/',				'mod' => '_', 'h2'			 => L_COMMENTS_OFFLINE_LIST),
+	'all'		=> array('motif' => '/^[[:punct:]]?\d{4}\.(.*)\.xml$/',	'mod' => '[[:punct:]]?', 'h2' => L_COMMENTS_ALL_LIST)
 );
 
 # Récupération du type de commentaire à afficher
@@ -79,8 +80,8 @@ elseif(!empty($_SESSION['selCom']) and array_key_exists($_SESSION['selCom'], $co
 else
 	$comSel = 'all';
 
-if(!empty($_GET['a'])) {
-	$comSelMotif = '/^'.$comSels[$comSel].str_replace('_','',$_GET['a']).'\.(.*)\.xml$/';
+if(!empty($artIdReq)) {
+	$comSelMotif = '/^'.$comSels[$comSel]['mod'].$_GET['a'].'\.(.*)\.xml$/';
 	$nbComPagination=$plxAdmin->nbComments($comSelMotif);
 } else {
 	$comSelMotif = $comSels[$comSel]['motif'];
@@ -94,8 +95,8 @@ $breadcrumbs = array(
 	'<li><a '.($comSel=='online'?'class="selected" ':'').'href="comments.php?sel=online&page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>',
 	'<li><a '.($comSel=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>'
 );
-if(!empty($_GET['a'])) {
-	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
+if(!empty($artIdReq)) {
+	$breadcrumbs[] = '<a href="comment_new.php?a='.$artIdReq.'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
 
 function selector($comSel, $id) {
@@ -187,6 +188,14 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins
 					}
 
 					$artIdNum = intval($artId);
+					if(empty($artIdReq)) {
+						$artLink = <<< ART_LINK
+
+						<a href="article.php?a=$artId" title="{$titles['artLink']}">{$captions['artLink']}</a> (<em>n° $artIdNum</em>)
+ART_LINK;
+					} else {
+						$artLink = '';
+					}
 
 					echo <<< ROW
 				<tr class="top type-$type">
@@ -199,8 +208,7 @@ $content
 					<td class="author">$author$site</td>
 					<td class="action">
 					   <a href="comment_new.php?c=$idComC" title="{$titles['answer']}">{$captions['answer']}</a>
-					   <a href="comment.php?c=$idComC" title="{$titles['edit']}">{$captions['edit']}</a>
-					   <a href="article.php?a=$artId" title="{$titles['artLink']}">{$captions['artLink']}</a> (<em>n° $artIdNum</em>)
+					   <a href="comment.php?c=$idComC" title="{$titles['edit']}">{$captions['edit']}</a>$artLink
 					</td>
 				</tr>\n
 ROW;
