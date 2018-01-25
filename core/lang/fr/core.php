@@ -97,11 +97,12 @@ $LANG = array(
 'L_UNKNOWN_CATEGORY'			=> 'Cette catégorie est inexistante !',
 'L_NO_ARTICLE_PAGE'				=> 'Aucun article pour cette page !',
 'L_UNKNOWN_ARTICLE'				=> 'Cet article n\'existe pas ou n\'existe plus !',
-'L_COM_IN_MODERATION'			=> 'Le commentaire est en cours de modération par l\'administrateur de ce site',
+'L_COM_PUBLISHED'				=> 'Le commentaire est publié.',
+'L_COM_IN_MODERATION'			=> 'Le commentaire sera validé par l\'administrateur du site, dès que possible.',
 'L_UNKNOWN_STATIC'				=> 'Cette page n\'existe pas ou n\'existe plus !',
 'L_DOCUMENT_NOT_FOUND'			=> 'Le document spécifié est introuvable',
 'L_NEWCOMMENT_ERR'				=> 'Une erreur s\'est produite lors de la publication de ce commentaire',
-'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Merci de remplir tous les champs obligatoires requis',
+'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Merci de remplir tous les champs obligatoires',
 'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'La vérification anti-spam a échoué',
 
 # class.plx.show.php
