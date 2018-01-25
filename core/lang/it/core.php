@@ -85,6 +85,7 @@ $LANG = array(
 'L_UNKNOWN_CATEGORY'			=> 'Questa categoria non esiste !',
 'L_NO_ARTICLE_PAGE'				=> 'Nessun articolo per questa pagina !',
 'L_UNKNOWN_ARTICLE'				=> 'Questo articolo non esiste o non è più disponibile !',
+'L_COM_PUBLISHED'				=> 'Il commento è pubblicato',
 'L_COM_IN_MODERATION'			=> 'Il commento è in corso di moderazione',
 'L_UNKNOWN_STATIC'				=> 'Questa pagina non esiste o non è più disponibile !',
 'L_DOCUMENT_NOT_FOUND'			=> 'Il documento specificato non esiste',

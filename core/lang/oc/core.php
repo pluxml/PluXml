@@ -85,6 +85,7 @@ $LANG = array(
 'L_UNKNOWN_CATEGORY'			=> 'Aquesta categoria es inexistenta !',
 'L_NO_ARTICLE_PAGE'				=> 'Pas cap d\'article per aquesta pagina !',
 'L_UNKNOWN_ARTICLE'				=> 'Aqueste article existís pas o existís pas mai !',
+'L_COM_PUBLISHED'				=> 'Le commentaire est publié',
 'L_COM_IN_MODERATION'			=> 'Lo comentari es per se far moderar per l\'administrator d\'aquel siti',
 'L_UNKNOWN_STATIC'				=> 'Aquesta pagina existís pas o existís pas mai !',
 'L_DOCUMENT_NOT_FOUND'			=> 'Lo document especificat es introbable',
