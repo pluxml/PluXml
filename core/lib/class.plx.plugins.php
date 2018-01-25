@@ -225,7 +225,7 @@ class plxPlugins {
 									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
 								unset($this->aPlugins[$plugName]);
 							} else {
-								plxMsg::Error(sprintf(L_DELETE_PLUGIN_FAILURE, $plugName));
+								plxMsg::Error(L_PLUGINS_DELETE_ERROR." (".$plugName.")");
 								break;
 							}
 						}
@@ -247,11 +247,8 @@ class plxPlugins {
 		$this->cssCache('admin');
 
 		# Début du fichier XML
-		$cname = 'constant';
-		$xml = <<< XML_STARTS
-<?xml version='1.0' encoding="{$cname('PLX_CHARSET')}"?>
-<document>\n
-XML_STARTS;
+		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
+		$xml .= "<document>\n";
 
 		foreach($this->aPlugins as $name=>$plugin) {
 			if(!empty($plugin)) {
@@ -261,9 +258,7 @@ XML_STARTS;
 			} else {
 				$scope = '';
 			}
-			$xml .= <<< PLUGIN
-	<plugin name="$name" scope="$scope"></plugin>\n
-PLUGIN;
+			$xml .= "\t<plugin name=\"$name\" scope=\"$scope\"></plugin>\n";
 		}
 
 		$xml .= "</document>";
