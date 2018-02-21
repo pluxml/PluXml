@@ -173,17 +173,18 @@ $curFolders = explode('/', $curFolder);
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
-		<div style="float:left">
-			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
-			<?php echo $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="header">
+			<div>
+				<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
+				<?php echo $plxMedias->contentFolder() ?>
+				<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<div>
+				<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" />
+			</div>
 		</div>
 
-		<div style="float:right">
-			<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" />
-		</div>
-
-		<div style="clear:both" class="scrollable-table">
+		<div class="scrollable-table">
 			<table id="medias-table" class="full-width">
 				<thead>
 				<tr>
@@ -209,7 +210,7 @@ $curFolders = explode('/', $curFolder);
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 							if(is_file($v['path']) AND $isImage) {
-								echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+								echo '<img src="'.$v['.thumb'].'" title="'.plxUtils::strCheck($v['name']).'" data-src="'.$v['path'].'" class="thumb" />';
 							}
 						echo '</td>';
 						echo '<td>';
@@ -341,10 +342,15 @@ $curFolders = explode('/', $curFolder);
 </form>
 
 <div class="modal">
-	<input id="modal" type="checkbox" name="modal" tabindex="1">
-	<div class="modal__overlay">
-		<label for="modal">&#10006;</label>
-		<div id="modal__box" class="modal__box"></div>
+	<div class="modal-overlay">
+		<div class="modal-box">
+			<img src="" />
+		</div>
+		<button type="button" class="closeBtn">x</button>
+		<button type="button" class="prevBtn">◀</button>
+		<button type="button" class="nextBtn">▶</button>
+		<div class="counter">&nbsp;</div>
+		<input id="clipboard-entry" type="text" />
 	</div>
 </div>
 
@@ -360,12 +366,91 @@ function toggle_divs(){
 		manager.style.display = 'block';
 	}
 }
-function overlay(content) {
-	e = document.getElementById("modal__box");
-	e.innerHTML = '<img src="'+content+'" alt="" />';
-	e = document.getElementById("modal");
-	e.click();
-}
+(function() { // overlay
+	'use strict';
+	const imgs = Array.prototype.slice.call(document.querySelectorAll('img[data-src]'));
+	if(imgs.length > 0) {
+		const dialogBox = document.querySelector('.modal');
+		const img = document.querySelector('.modal .modal-box img');
+		const closeBtn = document.querySelector('.modal button.closeBtn');
+		const prevBtn = document.querySelector('.modal button.prevBtn');
+		const nextBtn = document.querySelector('.modal button.nextBtn');
+		const counter = document.querySelector('.modal div.counter');
+		var pos = null;
+		var imgSrcList = [];
+
+		function setImgSrc(index) {
+			if(index < 0 || index > imgSrcList.length - 1) { return; }
+			pos = index;
+			img.src = imgSrcList[pos];
+			prevBtn.disabled = (pos <= 0);
+			nextBtn.disabled = (pos >= imgSrcList.length -1);
+			counter.textContent = (pos + 1) + ' / ' + imgSrcList.length;
+		}
+
+		imgs.forEach(function(item) {
+			imgSrcList.push(item.getAttribute('data-src'));
+			item.addEventListener('click', function(event) {
+				setImgSrc(imgSrcList.indexOf(event.target.getAttribute('data-src')));
+				dialogBox.classList.add('active');
+				event.preventDefault();
+			})
+		});
+
+		closeBtn.addEventListener('click', function(event) {
+			dialogBox.classList.remove('active');
+			event.preventDefault();
+		});
+		prevBtn.addEventListener('click', function(event) {
+			setImgSrc(pos - 1);
+			event.preventDefault();
+		});
+		nextBtn.addEventListener('click', function(event) {
+			setImgSrc(pos + 1);
+			event.preventDefault();
+		});
+
+		document.addEventListener('keydown', function(event) {
+			if(dialogBox.classList.contains('active')) {
+				if(!event.altKey && !event.ctrlKey && !event.shiftKey) {
+					switch(event.key) {
+						case 'ArrowLeft':
+							setImgSrc(pos - 1);
+							break;
+						case ' ':
+						case 'ArrowRight':
+							setImgSrc(pos + 1);
+							break;
+						case 'Home':
+							setImgSrc(0);
+							break;
+						case 'End':
+							setImgSrc(imgSrcList.length - 1);
+							break;
+						case 'Escape' :
+							dialogBox.classList.remove('active');
+							break;
+						default:
+							return;
+							// console.log(event.key);
+					}
+					event.preventDefault();
+				} else if(event.ctrlKey && !event.shiftKey && event.key == 'c') {
+					var value = imgSrcList[pos].replace(/^(\.+\/)+/, '');
+					if(event.altKey) {
+						// On calcule l'url de la miniature
+						value = value.replace(/(\.(?:jpe?g|png|gif))$/, '.tb$1');
+					}
+					const entry = document.getElementById('clipboard-entry');
+					entry.value = value;
+					entry.select();
+					document.execCommand('copy');
+					alert('<?php echo L_MEDIAS_LINK_COPYCLP_DONE; ?>');
+				}
+			}
+		});
+	}
+})();
 function copy(elt, data) {
 	try {
 		var div = elt.querySelector("div");

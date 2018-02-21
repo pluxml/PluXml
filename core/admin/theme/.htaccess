@@ -1,0 +1,7 @@
+# a2enmod expires
+
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault "access plus 2 hours"
+</IfModule>
+
