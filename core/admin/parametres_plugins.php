@@ -159,10 +159,10 @@ include(dirname(__FILE__).'/top.php');
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
 					<th>&nbsp;</th>
-					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
-					<?php if($_SESSION['selPlugins']=='1') : ?>
+					<th><input type="text" id="plugins-search" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
+<?php if($_SESSION['selPlugins']=='1') : ?>
 					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
-					<?php endif; ?>
+<?php endif; ?>
 					<th><?php echo L_PLUGINS_ACTION ?></th>
 				</tr>
 			</thead>
@@ -175,30 +175,47 @@ include(dirname(__FILE__).'/top.php');
 </form>
 
 <script>
-function plugFilter() {
-	var input, filter, table, tr, td, i;
-	filter = document.getElementById("plugins-search").value;
-	table = document.getElementById("plugins-table");
-	tr = table.getElementsByTagName("tr");
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[2];
-		if (td != undefined) {
-			if (td.innerHTML.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-				tr[i].style.display = "";
+(function() {
+	'use strict';
+	const KEY = 'plugins_search';
+	const rows = document.querySelectorAll('#plugins-table tbody tr');
+	const filterInput = document.getElementById('plugins-search');
+
+	function pluginsFilter() {
+		var pattern = (filterInput.value.trim().length != 0) ? new RegExp(filterInput.value, 'i') : null;
+		for(var i=0, iMax=rows.length; i<iMax; i++) {
+			if(pattern == null || pattern.test(rows[i].cells[2].textContent)) {
+				rows[i].classList.remove('hide');
 			} else {
-				tr[i].style.display = "none";
+				rows[i].classList.add('hide');
+			}
+		}
+		if(typeof sessionStorage != 'undefined') {
+			if(pattern != null) {
+				sessionStorage.setItem(KEY, filterInput.value.trim());
+			} else {
+				sessionStorage.removeItem(KEY);
 			}
 		}
 	}
-	if (typeof(Storage) !== "undefined" && filter !== "undefined") {
-		localStorage.setItem("plugins_search", filter);
+
+	if(filterInput != null) {
+		filterInput.addEventListener('keyup', function(event) {
+			if(!event.altKey && !event.ctrlKey) {
+				event.preventDefault();
+				pluginsFilter();
+			}
+		});
+
+		if(typeof sessionStorage != 'undefined') {
+			const value = sessionStorage.getItem(KEY);
+			if(value != null) {
+				filterInput.value = value;
+				pluginsFilter()
+			}
+		}
 	}
-}
-if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") !== "undefined") {
-	input = document.getElementById("plugins-search");
-	input.value = localStorage.getItem("plugins_search");
-	plugFilter();
-}
+})();
 </script>
 
 <?php
