@@ -848,12 +848,7 @@ select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	overflow: hidden;
-	padding-right: 20px;
-	padding-left: 3px;
-}
-
-select {
-	padding: 0 18px 0 0;
+	padding: 0 20px 0 3px;
 }
 
 select {

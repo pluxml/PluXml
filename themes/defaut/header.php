@@ -9,8 +9,8 @@
 	<?php $plxShow->meta('keywords') ?>
 	<?php $plxShow->meta('author') ?>
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css" media="screen"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css" media="screen"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css" media="screen,print"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css" media="screen,print"/>
 	<?php $plxShow->templateCss() ?>
 	<?php $plxShow->pluginsCss() ?>
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" />
@@ -25,18 +25,18 @@
 
 			<div class="grid">
 
-				<div class="col sml-6">
+				<div class="col sml-4">
 
 					<div class="logo">
-					
+
 						<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
 						<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
-					
+
 					</div>
 
 				</div>
 
-				<div class="col sml-6">
+				<div class="col sml-8">
 
 					<nav class="nav">
 

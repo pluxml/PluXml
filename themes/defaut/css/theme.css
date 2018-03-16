@@ -37,6 +37,13 @@ body {
 
 @media (min-width: 64rem) {
 	.container {
+		padding-left: 5rem;
+		padding-right: 5rem;
+	}
+}
+
+@media (min-width: 128rem) {
+	.container {
 		padding-left: 15rem;
 		padding-right: 15rem;
 	}
@@ -76,7 +83,16 @@ body {
 
 @media (max-width: 463px) {
 	.logo {
-		display: none;
+		background-size: 3rem;
+		background-position: 0 1.23rem;
+		padding-left: 0.1rem;
+	}
+	.header h1 * {
+		font-size: 1.23rem;
+		padding-left: 3rem;
+	}
+	.header h2 {
+		font-size: 1rem;
 	}
 	.bg {
 		height: 100px;
@@ -84,14 +100,16 @@ body {
 }
 
 /* ----- Nav / Menu ----- */
-
+.header.sticky div.grid{
+	overflow: initial;/* fix hidden sub-menu */
+}
 .nav {
-	text-align: right;
-	padding-top: 1.7rem;
+	padding-top: 2.7rem;
 }
 
 ul.menu {
-	margin-right: 30px;
+	margin: 0 15px 7.5px 15px;
+	border-radius: 15px;
 }
 
 .menu>li.menu {
@@ -128,8 +146,9 @@ ul.menu {
 
 @media (max-width: 767px) {
 	.nav {
+		background-color: #fff;
 		height: auto;
-		max-height: 200px;
+		max-height: 80%;
 		overflow-y: auto;
 		text-align: left;
 		margin-top: 0;
@@ -159,13 +178,17 @@ ul.menu {
 		position: relative !important;
 	}
 	.menu>li ul li:hover {
-		background-color: #fff;
+		background-color: #eee;
 	}
 	.menu>li ul li:hover a {
 		text-decoration: underline;
 	}
 	.responsive-menu ul li.active a,
 	.responsive-menu ul li.active:hover {
+		background-color: #eee;
+		color: #000;
+	}
+	.responsive-menu ul li {
 		background-color: #fff;
 		color: #000;
 	}
@@ -422,64 +445,100 @@ a.active {
 	margin: 0;
 }
 
-.aside ul.tag-list {
-	list-style-type: none;
-	padding-left: 0;
-}
-
-.aside ul.tag-list li {
-	display: inline-block;
-	margin-right: 1.5rem;
-}
-
-.aside ul.tag-list li.tag-size-1 a {
-	font-size: 1rem;
-}
-
-.aside ul.tag-list li.tag-size-2 a {
-	font-size: 1.2rem;
-}
-
-.aside ul.tag-list li.tag-size-3 a {
-	font-size: 1.4rem;
-}
-
-.aside ul.tag-list li.tag-size-4 a {
-	font-size: 1.6rem;
-}
-
-.aside ul.tag-list li.tag-size-5 a {
-	font-size: 1.8rem;
-}
-
-.aside ul.tag-list li.tag-size-6 a {
-	font-size: 2rem;
-}
-
-.aside ul.tag-list li.tag-size-7 a {
-	font-size: 2.2rem;
-}
-
-.aside ul.tag-list li.tag-size-8 a {
-	font-size: 2.4rem;
-}
-
-.aside ul.tag-list li.tag-size-9 a {
-	font-size: 2.6rem
-}
-
-.aside ul.tag-list li.tag-size-10 a {
-	font-size: 2.8rem;
-}
-
-.aside ul.tag-list li.tag-size-max a {
-	font-size: 3rem;
-}
-
 @media (max-width: 768px) {
 	.aside {
 		padding-left: 1.5rem;
 	}
+}
+
+/* tags */
+
+.aside ul.tag-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.aside ul.tag-list li {
+	display: inline-block;
+}
+
+.aside ul.tag-list li a {
+	padding: 0 0.5rem 0 0;
+}
+
+.aside ul.tag-list li a.active {
+	font-weight: bold;
+	background-color: #68838b;
+	color: #fff;
+	padding: 0 0.5rem 0 0.5rem;
+}
+
+/* https://www.w3schools.com/colors/colors_trends.asp (The 10 Hottest Fall Colors for 2016) */
+
+.tag-size-1 a {
+	font-size: 1.0rem;
+	/* Riverside  */
+	color: #4C6A92;
+}
+
+.tag-size-2 a {
+	font-size: 1.2rem;
+	/* Airy Blue  */
+	color: #92B6D5;
+}
+
+.tag-size-3 a {
+	font-size: 1.4rem;
+	/* Sharkskin  */
+	color: #838487;
+}
+
+.tag-size-4 a {
+	font-size: 1.6rem;
+	/* Bodacious */
+	color: #B76BA3;
+}
+
+.tag-size-5 a {
+	color: #AF9483;
+	/* Warm Taupe */
+	font-size: 1.8rem;
+}
+
+.tag-size-6 a {
+	color: #AD5D5D;
+	/* Dusty Cedar */
+	font-size: 2.0rem;
+}
+
+.tag-size-7 a {
+	font-size: 2.2rem;
+	/* Lush Meadow */
+	color: #006E51;
+}
+
+.tag-size-8 a {
+	font-size: 2.4rem;
+	/* Spicy Mustard */
+	color: #D8AE47;
+}
+
+.tag-size-9 a {
+	font-size: 2.6rem;
+	/* Potter's Clay */
+	color: #9E4624;
+}
+
+.tag-size-10 a {
+	font-size: 2.8rem;
+	/* Aurora Red */
+	color: #B93A32;
+}
+
+.tag-size-11 a {
+	font-size: 3.0rem;
+	/* Snorkel Blue */
+	color: #034F84;
 }
 
 /* ---------- Footer ---------- */
@@ -494,4 +553,13 @@ a.active {
 
 .footer p {
 	margin: 0;
+}
+
+@media print {
+	nav, .nav {
+		/* display:none; *//* pour cacher le menu du site */
+	}
+	.sticky {/* fix: le  head descend quant on scrlldwn en prévisu ff 43 */
+		position: initial;
+	}
 }
