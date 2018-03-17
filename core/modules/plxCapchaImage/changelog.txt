@@ -1,2 +1,0 @@
-## Version 1.0 (12/12/2017) ##
-version initiale

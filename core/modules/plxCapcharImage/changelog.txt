@@ -1,0 +1,6 @@
+## V 1.0.1 (17/03/2018) ##
+renommé en plxCapcharImage
+Fix : Fatal error: Call to a member function getInfo() on a non-object in core/lib/class.plx.plugins.php on line 240
+
+## Version 1.0 (12/12/2017) ##
+version initiale
