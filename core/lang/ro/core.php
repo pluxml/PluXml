@@ -85,6 +85,7 @@ $LANG = array(
 'L_UNKNOWN_CATEGORY'			=> 'Aceasta categorie nu exista!',
 'L_NO_ARTICLE_PAGE'				=> 'Nu exista articole pentru aceasta pagina !',
 'L_UNKNOWN_ARTICLE'				=> 'Acest produs nu exista sau nu-i  sunt mai !',
+'L_COM_PUBLISHED'				=> 'Comentariul este publicat',
 'L_COM_IN_MODERATION'			=> 'Comentariul este moderat de catre administratorul acestui site',
 'L_UNKNOWN_STATIC'				=> 'Aceasta pagina nu exista sau nu-i sunt mai !',
 'L_DOCUMENT_NOT_FOUND'			=> 'Documentul mentionat nu a fost gasit',

@@ -267,7 +267,7 @@ function refreshImg(dta) {
 	if(dta.trim()==='') {
 		document.getElementById('id_thumbnail_img').innerHTML = '';
 	} else {
-		var link = dta.match(/^(https?:\/\/[^\s]+)/gi) ? dta : '<?php echo $plxAdmin->racine ?>'+dta;
+		var link = dta.match(/^(?:https?|data):/gi) ? dta : '<?php echo $plxAdmin->racine ?>'+dta;
 		document.getElementById('id_thumbnail_img').innerHTML = '<img src="'+link+'" alt="" />';
 	}
 }
@@ -361,7 +361,7 @@ function refreshImg(dta) {
 						<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 					</label>
-					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255-255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
+					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
 					<div class="grid" style="padding-top:10px">
 						<div class="col sml-12 lrg-6">
 							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_TITLE ?>&nbsp;:</label>
@@ -372,14 +372,18 @@ function refreshImg(dta) {
 							<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
 						</div>
 					</div>
+					<div id="id_thumbnail_img">
 					<?php
-					$imgUrl = PLX_ROOT.$thumbnail;
-					if(is_file($imgUrl)) {
-						echo '<div id="id_thumbnail_img"><img src="'.$imgUrl.'" alt="" /></div>';
+					$src = false;
+					if(preg_match('@^(?:https?|data):@', $thumbnail)) {
+						$src = $thumbnail;
 					} else {
-						echo '<div id="id_thumbnail_img"></div>';
+						$src = PLX_ROOT.$thumbnail;
+						$src = is_file($src) ? $src : false;
 					}
+					if($src) echo "<img src=\"$src\" title=\"$thumbnail\" />\n";
 					?>
+					</div>
 				</div>
 			</div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>

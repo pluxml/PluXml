@@ -85,6 +85,7 @@ $LANG = array(
 'L_UNKNOWN_CATEGORY'			=> 'Deze categorie bestaat niet !',
 'L_NO_ARTICLE_PAGE'				=> 'Geen artikel gevonden voor deze pagina !',
 'L_UNKNOWN_ARTICLE'				=> 'Dit artikel bestaat niet of niet meer !',
+'L_COM_PUBLISHED'				=> 'De opmerking is gepubliceerd',
 'L_COM_IN_MODERATION'			=> 'De commentaar wordt momenteel gemodereerd door de beheerder van deze site',
 'L_UNKNOWN_STATIC'				=> 'Deze pagina bestaat niet of niet meer !',
 'L_DOCUMENT_NOT_FOUND'			=> 'Het opgevraagde document is onvindbaar',
