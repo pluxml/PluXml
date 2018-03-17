@@ -14,7 +14,10 @@ plxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
-$aPlugins = array_filter($plxAdmin->plxPlugins->aPlugins, function($v){return $v->CORE === 'plugin';});
+function filterPlug($v){
+ return $v->CORE === 'plugin';
+}
+$aPlugins = array_filter($plxAdmin->plxPlugins->aPlugins, 'filterPlug');
 
 if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
@@ -41,7 +44,6 @@ function pluginsList($plugins, $defaultLang, $type) {
 				$icon=PLX_PLUGINS.$plugName.'/icon.gif';
 			else
 			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
-
 			# plugin activé uniquement côté site (<scope> == 'site')
 			if(empty($plugInstance) and $plugInstance=plxPlugins::getInstance($plugName)) {
 				$plugInstance->getInfos();
