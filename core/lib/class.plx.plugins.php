@@ -80,7 +80,7 @@ class plxCorePlugins  {
 				) {
 					if(
 						empty($scope) or
-						(defined('PLX_ADMIN') and $scope == 'admin') or
+						(defined('PLX_ADMIN')/* and ($scope == 'admin' or $scope == 'site')*/) or
 						(!defined('PLX_ADMIN') and $scope == 'site')
 					) {
 						if($instance = $this->getInstance($name)) {
@@ -91,8 +91,8 @@ class plxCorePlugins  {
 								if(is_file(PLX_PLUGINS.$name.'/update')) {
 									# on supprime le fichier update pour eviter d'appeler la methode onUpdate
 									# à chaque chargement du plugin
-									chmod(PLX_PLUGINS.$name.'/update', 0644);
-									unlink(PLX_PLUGINS.$name.'/update');
+									@chmod(PLX_PLUGINS.$name.'/update', 0644);
+									@unlink(PLX_PLUGINS.$name.'/update');
 									$updAction = $instance->onUpdate();
 								}
 							}
@@ -236,17 +236,19 @@ class plxCorePlugins  {
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
 		foreach($this->aPlugins as $name=>$plugin) {
-			if(!empty($plugin)) {
-				$scope = $plugin->getInfo('scope');
-			} elseif($plugInstance=$this->getInstance($name)) {
-				$scope = $plugInstance->getInfo('scope');
-			} else {
-				$scope = '';
-			}
-			$xml .= <<< PLUGIN
+			if(is_object($plugin) && $plugin->CORE=='plugin') {//Only Plug? lorsque l'on change l'ordre des plugins, les modules disparessent du fichier de conf plugins.xml, pourquoi pas là.
+				if(!empty($plugin)) {//plxCaptchImage module est un array (a cause de son scope: site, mais pourquoi?
+					$scope = $plugin->getInfo('scope');
+				} elseif($plugInstance=$this->getInstance($name)) {
+					$scope = $plugInstance->getInfo('scope');
+				} else {
+					$scope = '';
+				}
+				$xml .= <<< PLUGIN
 	<plugin name="$name" scope="$scope"></plugin>
 
 PLUGIN;
+			}
 		}
 		$xml .= "</document>";
 

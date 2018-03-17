@@ -14,7 +14,8 @@ plxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
-function filterPlug($v){
+function filterPlug($v){//si ds plugin.xml le scope est a site $v == false ??? var_dump($v);
+ if(!isset($v->CORE)) return FALSE;//v == false
  return $v->CORE === 'plugin';
 }
 $aPlugins = array_filter($plxAdmin->plxPlugins->aPlugins, 'filterPlug');

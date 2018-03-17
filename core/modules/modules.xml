@@ -2,5 +2,5 @@
 <document>
     <plugin name="jquery"></plugin>
     <plugin name="tagEditor"></plugin>
-<!--<plugin name="plxCapchaImage"></plugin> -->
+    <plugin name="plxCapchaImage"></plugin>
 </document>
