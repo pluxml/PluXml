@@ -3,7 +3,7 @@
  * Classe plxCapchaImage
  *
  **/
-class plxCapcharImage extends plxModule {
+class plxCapchaImage extends plxModule {
 
 	/**
 	 * Constructeur de la classe

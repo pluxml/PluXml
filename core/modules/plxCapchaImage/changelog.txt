@@ -1,4 +1,6 @@
 ## V 1.0.1 (17/03/2018) ##
+Retour a la normale avec comme nom : plxCapchaImage
+
 Renommé en plxCapcharImage pour tester, car il n'est pas instancié (il s'agit d'un tableau ?)
 Fatal error: Call to a member function getInfo() on a non-object in core/lib/class.plx.plugins.php on line 240
 Lorsque l'on active ou désactive un/des plugin(s)
