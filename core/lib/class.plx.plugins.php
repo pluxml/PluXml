@@ -80,7 +80,7 @@ class plxCorePlugins  {
 				) {
 					if(
 						empty($scope) or
-						(defined('PLX_ADMIN')/* and ($scope == 'admin' or $scope == 'site')*/) or
+						defined('PLX_ADMIN') or
 						(!defined('PLX_ADMIN') and $scope == 'site')
 					) {
 						if($instance = $this->getInstance($name)) {
@@ -236,8 +236,9 @@ class plxCorePlugins  {
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
 		foreach($this->aPlugins as $name=>$plugin) {
-			if(is_object($plugin) && $plugin->CORE=='plugin') {//Only Plug? lorsque l'on change l'ordre des plugins, les modules disparessent du fichier de conf plugins.xml, pourquoi pas là.
-				if(!empty($plugin)) {//plxCaptchImage module est un array (a cause de son scope: site, mais pourquoi?
+			#Fix, Lors du tri des plugins, les modules sont supprimés du fichier de conf plugins.xml, ici aussi.
+			if(is_object($plugin) && $plugin->CORE=='plugin') {
+				if(!empty($plugin)) {
 					$scope = $plugin->getInfo('scope');
 				} elseif($plugInstance=$this->getInstance($name)) {
 					$scope = $plugInstance->getInfo('scope');
