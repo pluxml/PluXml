@@ -48,13 +48,13 @@ function pluginsList($plugins, $defaultLang, $type) {
 			if(empty($plugInstance) and $plugInstance=plxPlugins::getInstance($plugName)) {
 				$plugInstance->getInfos();
 			}
-			$output .= '<tr class="top" data-scope="'.$plugInstance->getInfo('scope').'">';
+			$output .= '<tr class="top" data-scope="'.$plugInstance->getInfo('scope').'">'."\n";
 
 				# checkbox
 				$output .= '<td>';
 				$output .= '<input type="hidden" name="plugName[]" value="'.$plugName.'" />';
 				$output .= '<input type="checkbox" name="chkAction[]" value="'.$plugName.'" />';
-				$output .= '</td>';
+				$output .= "</td>\n";
 				# icon
 				$output .= '<td><img src="'.$icon.'" alt="" /></td>';
 
@@ -72,13 +72,13 @@ function pluginsList($plugins, $defaultLang, $type) {
 					$output .= L_PLUGINS_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
 					# site
 					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.plxUtils::strCheck($plugInstance->getInfo('site')).'">'.plxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
-				$output .= '</td>';
+				$output .= "</td>\n";
 
 				# colonne pour trier les plugins
 				if($type) {
 					$output .= '<td>';
 						$output .= '<input size="2" maxlength="3" type="text" name="plugOrdre['.$plugName.']" value="'.$ordre.'" />';
-					$output .= '</td>';
+					$output .= "</td>\n";
 				}
 
 				# affichage des liens du plugin
@@ -92,8 +92,8 @@ function pluginsList($plugins, $defaultLang, $type) {
 					# lien aide
 					if(is_file(PLX_PLUGINS.$plugName.'/lang/'.$defaultLang.'-help.php'))
 						$output .= '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=plugin&amp;page='.urlencode($plugName).'">'.L_HELP.'</a>';
-				$output .= '</td>';
-			$output .= '</tr>';
+				$output .= "</td>\n";
+			$output .= "</tr>\n";
 		}
 	}
 	else {
@@ -157,7 +157,7 @@ include(dirname(__FILE__).'/top.php');
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
-		<table id="plugins-table" class="full-width"<?php if(!empty($data_rows_num)) echo $data_rows_num; ?>>
+		<table id="plugins-table" class="full-width" <?php if(!empty($data_rows_num)) echo $data_rows_num; ?>>
 			<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>

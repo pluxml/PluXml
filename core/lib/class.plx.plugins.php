@@ -98,8 +98,10 @@ class plxCorePlugins  {
 							}
 						}
 					} else {
-						# Si PLX_ADMIN, on recense le plugin pour les styles CSS, sans charger sa class
-						$this->aPlugins[$name] = false;
+						# Si PLX_ADMIN, on vérifie que le plugin existe et on le recense pour les styles CSS, sans charger sa class.
+						if(is_file(PLX_PLUGINS."$name/$name.php")) {
+							$this->aPlugins[$name] = false;
+						}
 					}
 				}
 			}
@@ -181,6 +183,9 @@ class plxCorePlugins  {
 	 **/
 	public function saveConfig($content) {
 
+		# Pas de modification de la config des plugins, si on n'est pas en mode admin.
+		if(!defined('PLX_ADMIN')) { return false; }
+
 		# activation des plugins
 		if(isset($content['selection']) AND $content['selection']=='activate' AND empty($content['update'])) {
 			foreach($content['chkAction'] as $idx => $plugName) {
@@ -217,9 +222,8 @@ class plxCorePlugins  {
 					unset($this->aPlugins[$plugName]);
 				}
 			}
-		}
-		# tri des plugins par ordre de chargement
-		elseif(isset($content['update'])) {
+		} else {
+			# tri des plugins par ordre de chargement
 			$aPlugins = array();
 			asort($content['plugOrdre']);
 			foreach($content['plugOrdre'] as $plugName => $idx) {
@@ -235,6 +239,7 @@ class plxCorePlugins  {
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
+
 		foreach($this->aPlugins as $name=>$plugin) {
 			#Fix, Lors du tri des plugins, les modules sont supprimés du fichier de conf plugins.xml, ici aussi.
 			if(is_object($plugin) && $plugin->CORE=='plugin') {
@@ -245,12 +250,10 @@ class plxCorePlugins  {
 				} else {
 					$scope = '';
 				}
-				$xml .= <<< PLUGIN
-	<plugin name="$name" scope="$scope"></plugin>
-
-PLUGIN;
+				$xml .= "\t<plugin name=\"$name\" scope=\"$scope\"></plugin>\n";;
 			}
 		}
+
 		$xml .= "</document>";
 
 		# On écrit le fichier
@@ -272,16 +275,17 @@ PLUGIN;
 
 		if(is_dir($deldir) AND !is_link($deldir)) {
 			if($dh = opendir($deldir)) {
-				while(FALSE !== ($file = readdir($dh))) {
+				while(($file = readdir($dh)) != false) {
 					if($file != '.' AND $file != '..') {
-						$this->deleteDir(($deldir!='' ? $deldir.'/' : '').$file);
+						$this->deleteDir("$deldir/$file");
 					}
 				}
 				closedir($dh);
 			}
-			return rmdir($deldir);
+			return @rmdir($deldir);
 		}
-		return unlink($deldir);
+		# Suppression des messages de warning
+		return @unlink($deldir);
 	}
 
 	/**

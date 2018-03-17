@@ -85,6 +85,7 @@ $LANG = array(
 'L_UNKNOWN_CATEGORY'			=> 'Эта категория не существует!',
 'L_NO_ARTICLE_PAGE'				=> 'Нет статей в этой категории!',
 'L_UNKNOWN_ARTICLE'				=> 'Эта статья не существует!',
+'L_COM_PUBLISHED'				=> 'Комментарий опубликован',
 'L_COM_IN_MODERATION'			=> 'Спасибо! Ваш комментарий появится после проверки',
 'L_UNKNOWN_STATIC'				=> 'Эта страница не существует!',
 'L_DOCUMENT_NOT_FOUND'			=> 'Документ не найден',

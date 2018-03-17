@@ -85,6 +85,7 @@ $LANG = array(
 'L_UNKNOWN_CATEGORY'			=> 'Ta kategoria nie istnieje !',
 'L_NO_ARTICLE_PAGE'				=> 'Brak postów dla tej strony !',
 'L_UNKNOWN_ARTICLE'				=> 'Ten post nie istniał lub nie istnieje już !',
+'L_COM_PUBLISHED'				=> 'Komentarz został opublikowany',
 'L_COM_IN_MODERATION'			=> 'Komentarz jest sprawdzany przez administratora tej strony',
 'L_UNKNOWN_STATIC'				=> 'Ta strona nie istniała lub nie istnieje już !',
 'L_DOCUMENT_NOT_FOUND'			=> 'Podany dokument nie został znaleziony',

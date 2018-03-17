@@ -306,6 +306,7 @@ class plxMotor {
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire'));
 				if($retour[0] == 'c') { # Le commentaire a été publié
+					$_SESSION['msgcom'] = L_COM_PUBLISHED;				
 					header('Location: '.$url.'#'.$retour);
 				} elseif($retour == 'mod') { # Le commentaire est en modération
 					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
@@ -1022,9 +1023,14 @@ class plxMotor {
 	 *
 	 * @param	url		url à réécrire
 	 * @return	string	url réécrite
-	 * @author	Stéphane F
+	 * @author	Stéphane F, J.P. Pourrez
 	 **/
 	public function urlRewrite($url='') {
+
+		# On teste si $url est une adresse absolue ou une image embarquée
+		if(!empty(trim($url)) and preg_match('@^(?:https?|data):@', $url)) {
+			return $url;
+		}
 
 		if($url=='' OR $url=='?') return $this->racine;
 

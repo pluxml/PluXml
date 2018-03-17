@@ -69,7 +69,7 @@
 				</div>
 			</div>
 
-			<?php $plxShow->comMessage('<p id="com_message" class="text-red"><strong>#com_message</strong></p>'); ?>
+			<?php $plxShow->comMessage('<p id="com_message" class="#com_class"><strong>#com_message</strong></p>'); ?>
 
 			<?php if($plxShow->plxMotor->aConf['capcha']): ?>
 

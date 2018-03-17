@@ -1134,19 +1134,32 @@ class plxShow {
 	/**
 	 * Méthode qui affiche si besoin le message généré par le système
 	 * suite à la création d'un commentaire
-	 * @param			format  format du texte à afficher (variable: #com_message)
-	 * @return		stdout
-	 * @scope			article
-	 * @author		Stephane F.
+	 * @param		format  format du texte à afficher (variable: #com_message, #com_class)
+	 * @return		true si un message est affiché
+	 * @scope		article
+	 * @author		Stephane F, J.P Pourrez.
+	 * @version		2017-12-28
 	**/
-	public function comMessage($format='#com_message') {
+	public function comMessage($format='<p id="com_message" class="#com_class"><strong>#com_message</strong></p>') {
 
-		if(isset($_SESSION['msgcom']) AND !empty($_SESSION['msgcom'])) {
-			$row = str_replace('#com_message',$_SESSION['msgcom'],$format);
+		if(!empty($_SESSION['msgcom'])) {
+			switch ($_SESSION['msgcom']) {
+				case L_COM_IN_MODERATION:
+					$color = 'orange';
+					break;
+				case L_COM_PUBLISHED:
+					$color = 'green';
+					break;
+				default:
+					$color = 'red';
+			}
+			$row = str_replace('#com_message', $_SESSION['msgcom'], $format);
+			$row = str_replace('#com_class', 'alert '.$color, $row);
 			echo $row;
-			$_SESSION['msgcom']='';
+			unset($_SESSION['msgcom']);
+			return true;
 		}
-
+		return false;
 	}
 
 	/**
@@ -1380,7 +1393,7 @@ class plxShow {
 	 * Méthode qui affiche ou retourne l'url de la page statique
 	 *
 	 * @param	echo 	si à VRAI affichage à l'écran
-	 * @param 	extra 	paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'atricle
+	 * @param 	extra 	paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'article
 	 * @return	stdout
 	 * @scope	static
 	 * @author	Florent MONTHEL, Stéphane F
@@ -1719,7 +1732,7 @@ class plxShow {
 				array_values($counters),
 				function($lastValue, $value) {
 					return ($lastValue > $value) ? $lastValue : $value;
-				}, 
+				},
 				0
 			);
 			$max_value *= 0.1; # Pour faire varier la taille des caractères de 1 à 11;
