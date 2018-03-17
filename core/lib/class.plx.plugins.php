@@ -91,8 +91,8 @@ class plxCorePlugins  {
 								if(is_file(PLX_PLUGINS.$name.'/update')) {
 									# on supprime le fichier update pour eviter d'appeler la methode onUpdate
 									# à chaque chargement du plugin
-									@chmod(PLX_PLUGINS.$name.'/update', 0644);
-									@unlink(PLX_PLUGINS.$name.'/update');
+									chmod(PLX_PLUGINS.$name.'/update', 0644);
+									unlink(PLX_PLUGINS.$name.'/update');
 									$updAction = $instance->onUpdate();
 								}
 							}
