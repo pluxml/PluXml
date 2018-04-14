@@ -1,5 +1,7 @@
 ## PLUXML x.x (sortie : xx/xx/xxxx) ##
-
+[+] [admin css] thème default : Élargir les bords entre 64 & 128rem + regles css print (1024 & 2048px). (@sudwebdesign #d0b06f6)
+[+] [admin media] Indique le nombre Maximum de fichiers téléversable en un seul jet (number of files per upload + langues) (@sudwebdesign #6cbf7aa #f1e49e3 #a78448e)
+[+] [admin]  Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (@sudwebdesign #3940153)
 [+] PluCSS 1.3
 [+] Nouveau thème par défaut
 [+] Prise en compte du fichier css des plugins sur la page auth.php
@@ -15,6 +17,8 @@
 [+] #265 Affichage des archives sur une périodes glissantes de 12 mois (contribution bazooka07)
 [+] #266 Tri des pages statiques, catégories et plugins par drag n drop (contribution bazooka07)
 [+] #269 Ajout scope[admin|site] dans les fichiers infos.xml des plugins pour charger un plugin uniquement coté admin, site ou les 2 (contribution bazooka07)
+Fix Static Strict standards call : POO Plugin : parametres_plugins.php : Lorsque scope est spécifié sur "site", l'appel statique de getinstance provoque un message d'alerte (@sudwebdesign)
+Fix #c6b5175 Warning Archive d'une année : array_key_exists() : 1er arg string ou int :class.plx.date.php (@sudwebdesign)
 FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
