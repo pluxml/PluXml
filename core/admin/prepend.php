@@ -47,8 +47,17 @@ $plxAdmin = plxAdmin::getInstance();
 
 # Détermination de la langue à utiliser (modifiable par le hook AdminPrepend)
 $lang = $plxAdmin->aConf['default_lang'];
-if(isset($_SESSION['user'])) $lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
-
+if(isset($_SESSION['user'])) {
+	$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
+	# Si désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
+	if(!$plxAdmin->aUsers[$_SESSION['user']]['active'] OR $plxAdmin->aUsers[$_SESSION['user']]['delete']){
+		header('Location: auth.php?d=1');# Déconnecte l'utilisateur a la prochaine demande,
+		exit;
+	}
+	# Change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
+	if($plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
+		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
+}
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 

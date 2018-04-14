@@ -1,7 +1,8 @@
 ## PLUXML x.x (sortie : xx/xx/xxxx) ##
-[+] [admin css] thème default : Élargir les bords entre 64 & 128rem + regles css print (1024 & 2048px). (@sudwebdesign #d0b06f6)
+[+] [admin sessions] Change le profil de la session utilisateur sans qu'il est a se reconnecter s'il est re-profilé ou le déconnecte s'il est désactivé ou supprimé. Ceci dès sa prochaine action après le réglage d'un admin. (@sudwebdesign)
+[+] [admin css] thème default : Élargir les bords entre 64 & 128rem + règles css print (1024 & 2048px). (@sudwebdesign #d0b06f6)
 [+] [admin media] Indique le nombre Maximum de fichiers téléversable en un seul jet (number of files per upload + langues) (@sudwebdesign #6cbf7aa #f1e49e3 #a78448e)
-[+] [admin]  Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (@sudwebdesign #3940153)
+[+] [admin] Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (@sudwebdesign #3940153)
 [+] PluCSS 1.3
 [+] Nouveau thème par défaut
 [+] Prise en compte du fichier css des plugins sur la page auth.php
