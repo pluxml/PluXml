@@ -30,14 +30,14 @@ class plxCorePlugins  {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function getInstance($plugName) {
-		$filename = $this->ROOT_PATH.$plugName.'/'.$plugName.'.php';
+	public static function getInstance($plugName) {
+		$filename = PLX_PLUGINS."$plugName/$plugName.php";
 		if(is_file($filename)) {
 			include_once($filename);
 			if (class_exists($plugName)) {
 				# réactualisation de la langue si elle a été modifié par un plugin
 				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
+				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : DEFAULT_LANG;
 				# chargement du plugin en créant une nouvelle instance
 				return new $plugName($lang);
 			}
@@ -186,40 +186,50 @@ class plxCorePlugins  {
 		# Pas de modification de la config des plugins, si on n'est pas en mode admin.
 		if(!defined('PLX_ADMIN')) { return false; }
 
-		# activation des plugins
-		if(isset($content['selection']) AND $content['selection']=='activate' AND empty($content['update'])) {
-			foreach($content['chkAction'] as $idx => $plugName) {
-				if($plugInstance = $this->getInstance($plugName)) {
-					if(method_exists($plugName, 'OnActivate'))
-						$plugInstance->OnActivate();
-					$this->aPlugins[$plugName] = $plugInstance;
-				}
-			}
-		}
-		# désactivation des plugins
-		elseif(isset($content['selection']) AND $content['selection']=='deactivate' AND empty($content['update'])) {
-			foreach($content['chkAction'] as $idx => $plugName) {
-				if($plugInstance = $this->aPlugins[$plugName]) {
-					if(method_exists($plugName, 'OnDeActivate'))
-						$plugInstance->OnDeActivate();
-					unset($this->aPlugins[$plugName]);
-				}
-			}
-		}
-		# suppression des plugins
-		elseif(isset($content['selection']) AND $content['selection']=='delete' AND empty($content['update'])) {
-			foreach($content['chkAction'] as $idx => $plugName) {
-				if($this->deleteDir(realpath($this->ROOT_PATH.$plugName))) {
-					# suppression fichier de config du plugin
-					if(is_file(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.xml'))
-						unlink(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.xml');
-					# suppression fichier site.css du plugin
-					if(is_file(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.site.css'))
-						unlink(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.site.css');
-					# suppression fichier admin.css du plugin
-					if(is_file(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.admin.css'))
-						unlink(PLX_ROOT.$this->CONFIG_PATH.$plugName.'.admin.css');
-					unset($this->aPlugins[$plugName]);
+		if(empty($content['update'])) {
+			if(!empty($content['selection'])) {
+				switch($content['selection']) {
+					case 'activate':		# activation des plugins
+						foreach($content['chkAction'] as $idx => $plugName) {
+							if($plugInstance = $this->getInstance($plugName)) {
+								if(method_exists($plugName, 'OnActivate'))
+									$plugInstance->OnActivate();
+								$this->aPlugins[$plugName] = $plugInstance;
+							}
+						}
+						break;
+					case 'deactivate':	# désactivation des plugins
+						foreach($content['chkAction'] as $idx => $plugName) {
+							$plugInstance = $this->aPlugins[$plugName];
+							if(empty($plugInstance)) {
+								$plugInstance = $this->getInstance($plugName);
+							}
+							if($plugInstance) {
+								if(method_exists($plugName, 'OnDeActivate'))
+									$plugInstance->OnDeActivate();
+								unset($this->aPlugins[$plugName]);
+							}
+						}
+						break;
+					case 'delete':		# suppression des plugins
+						foreach($content['chkAction'] as $idx => $plugName) {
+							if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+								# suppression fichier de config du plugin
+								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
+									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
+								# suppression fichier site.css du plugin
+								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css'))
+									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
+								# suppression fichier admin.css du plugin
+								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css'))
+									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
+								unset($this->aPlugins[$plugName]);
+							} else {
+								plxMsg::Error(L_PLUGINS_DELETE_ERROR." (".$plugName.")");
+								break;
+							}
+						}
+						break;
 				}
 			}
 		} else {

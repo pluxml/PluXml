@@ -832,10 +832,11 @@ class plxUtils {
 		$basename = explode('?', basename($href));
 		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' active':'';
 		if($basename[0]=='plugin.php' AND isset($_GET['p']) AND $basename[1]!='p='.$_GET['p']) $active='';
-		$title = $title ? ' title="'.$title.'"':'';
 		$class = $class ? ' '.$class:'';
+		$title = $title ? ' title="'.$title.'"':'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$menu = '<li id="mnu_'.plxUtils::title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
+		$id = ($basename[0]=='plugin.php'?str_replace('p=','',$basename[1]):str_replace('.php','',$basename[0]));
+		$menu = '<li id="mnu_'.$id.'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
 		return $menu;
 	}
 
