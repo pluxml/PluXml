@@ -201,7 +201,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
-	 * Méthode qui control l'accès à une page en fonction du profil de l'utilisateur connecté
+	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
 	 * @param	profil		profil(s) autorisé(s)
 	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
