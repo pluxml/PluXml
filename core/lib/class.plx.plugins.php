@@ -30,14 +30,14 @@ class plxPlugins {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function getInstance($plugName) {
+	public static function getInstance($plugName) {
 		$filename = PLX_PLUGINS."$plugName/$plugName.php";
 		if(is_file($filename)) {
 			include_once($filename);
 			if (class_exists($plugName)) {
 				# réactualisation de la langue si elle a été modifié par un plugin
 				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
+				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : DEFAULT_LANG;
 				# chargement du plugin en créant une nouvelle instance
 				return new $plugName($lang);
 			}
