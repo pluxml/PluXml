@@ -8,8 +8,9 @@
 class plxCorePlugins  {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
-	public $aPlugins=array(); #tableau contenant les plugins
+	public $aPlugins=array(); # tableau contenant les plugins
 	public $default_lang; # langue par defaut utilisée par PluXml
+	public static $ROOT_PATH; # contient le chemin (modules ou plugins)
 
 	/**
 	 * Constructeur de la classe plxPlugins
@@ -23,15 +24,15 @@ class plxCorePlugins  {
 	}
 
 	/**
-	 * Méthode qui renvoit une instance d'un plugin
+	 * Méthode qui renvoit une instance d'un plugin ou d'un module
 	 *
 	 * @param	plugName	nom du plugin
-	 * @return	object		object de type plxPlugin / false en cas d'erreur
+	 * @return	object		object de type plxPlugin|plxModule ou false en cas d'erreur
 	 * @return	null
 	 * @author	Stephane F
 	 **/
 	public static function getInstance($plugName) {
-		$filename = PLX_PLUGINS."$plugName/$plugName.php";
+		$filename = self::$ROOT_PATH."$plugName/$plugName.php";
 		if(is_file($filename)) {
 			include_once($filename);
 			if (class_exists($plugName)) {
@@ -161,7 +162,7 @@ class plxCorePlugins  {
 	public function getInactivePlugins() {
 
 		$aPlugins = array();
-		$dirs = plxGlob::getInstance($this->ROOT_PATH, true);
+		$dirs = plxGlob::getInstance(self::$ROOT_PATH, true);
 		if(sizeof($dirs->aFiles)>0) {
 			foreach($dirs->aFiles as $plugName) {
 				if(!isset($this->aPlugins[$plugName]) AND $plugInstance=$this->getInstance($plugName)) {
@@ -342,7 +343,7 @@ class plxPlugins extends plxCorePlugins{
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'plugins/';
-		$this->ROOT_PATH = PLX_ROOT.'plugins/';
+		self::$ROOT_PATH = PLX_PLUGINS;//PLX_ROOT.'plugins/'
 		$this->XML_FILE = path('XMLFILE_PLUGINS');
 		$this->CORE = 'plugin';
 		parent::__construct($default_lang);
@@ -359,7 +360,7 @@ class plxModules extends plxCorePlugins {
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'modules/';
-		$this->ROOT_PATH = PLX_CORE.'modules/';
+		self::$ROOT_PATH = PLX_CORE.'modules/';
 		$this->XML_FILE = path('XMLFILE_MODULES');
 		$this->CORE = 'module';
 		parent::__construct($default_lang);
@@ -386,6 +387,7 @@ class plxCorePlugin {
 
 	public $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
 	public $adminMenu=false; # infos de customisation du menu pour accèder à la page admin.php du plugin
+	public static $ROOT_PATH; # contient le chemin (core/modules ou plugins)
 
 	/**
 	 * Constructeur de la classe plxPlugin
@@ -399,11 +401,11 @@ class plxCorePlugin {
 		$plugName= get_class($this);
 
 		$this->plug = array(
-			'dir' 			=> $this->ROOT_PATH,
+			'dir' 			=> self::$ROOT_PATH,
 			'name' 			=> $plugName,
-			'filename'		=> $this->ROOT_PATH.$plugName.'/'.$plugName.'.php',
+			'filename'		=> self::$ROOT_PATH.$plugName.'/'.$plugName.'.php',
 			'parameters.xml'=> PLX_ROOT.$this->CONFIG_PATH.$plugName.'.xml',
-			'infos.xml'		=> $this->ROOT_PATH.$plugName.'/infos.xml'
+			'infos.xml'		=> self::$ROOT_PATH.$plugName.'/infos.xml'
 		);
 
 		$this->getPluginLang($plugName, $default_lang);
@@ -797,7 +799,6 @@ class plxCorePlugin {
 
 }
 
-
 /**
  * Classe dérivée de plxCorePlugin destinée à créer un plugin
  *
@@ -808,7 +809,7 @@ class plxPlugin extends plxCorePlugin {
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'plugins/';
-		$this->ROOT_PATH = PLX_ROOT.'plugins/';
+		self::$ROOT_PATH = PLX_PLUGINS;//PLX_ROOT.'plugins/'
 		$this->XML_FILE = path('XMLFILE_PLUGINS');
 		$this->CORE = 'plugin';
 		parent::__construct($default_lang);
@@ -826,7 +827,7 @@ class plxModule extends plxCorePlugin {
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'modules/';
-		$this->ROOT_PATH = PLX_CORE.'modules/';
+		self::$ROOT_PATH = PLX_CORE.'modules/';
 		$this->XML_FILE = path('XMLFILE_MODULES');
 		$this->CORE = 'module';
 		parent::__construct($default_lang);

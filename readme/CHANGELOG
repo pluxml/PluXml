@@ -20,6 +20,7 @@
 [+] #265 Affichage des archives sur une périodes glissantes de 12 mois (contribution bazooka07)
 [+] #266 Tri des pages statiques, catégories et plugins par drag n drop (contribution bazooka07)
 [+] #269 Ajout scope[admin|site] dans les fichiers infos.xml des plugins pour charger un plugin uniquement coté admin, site ou les 2 (contribution bazooka07)
+Fix PLX_PLUGINS vers ROOT_PATH : getInstance() mauvais chemin des modules + POO $this -> static self var : class.plx.plugins.php : Nouveaux Modules instanciés (@sudwebdesign)
 Fix Static Strict standards call : POO Plugin : parametres_plugins.php : Lorsque scope est spécifié sur "site", l'appel statique de getinstance provoque un message d'alerte (@sudwebdesign)
 Fix #c6b5175 Warning Archive d'une année : array_key_exists() : 1er arg string ou int :class.plx.date.php (@sudwebdesign)
 FIX Suppression fichier plugin update impossible (droit fichier)
