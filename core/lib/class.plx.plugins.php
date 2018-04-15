@@ -1,9 +1,9 @@
 <?php
 /**
- * Classe plxCorePlugins responsable de la gestion des plugins
+ * Classe plxCorePlugins responsable de la gestion des plugins et des modules
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, Thomas I
  **/
 class plxCorePlugins  {
 
@@ -343,7 +343,7 @@ class plxPlugins extends plxCorePlugins{
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'plugins/';
-		self::$ROOT_PATH = PLX_PLUGINS;//PLX_ROOT.'plugins/'
+		self::$ROOT_PATH = PLX_PLUGINS;
 		$this->XML_FILE = path('XMLFILE_PLUGINS');
 		$this->CORE = 'plugin';
 		parent::__construct($default_lang);
@@ -360,7 +360,7 @@ class plxModules extends plxCorePlugins {
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'modules/';
-		self::$ROOT_PATH = PLX_CORE.'modules/';
+		self::$ROOT_PATH = PLX_MODULES;
 		$this->XML_FILE = path('XMLFILE_MODULES');
 		$this->CORE = 'module';
 		parent::__construct($default_lang);
@@ -809,7 +809,7 @@ class plxPlugin extends plxCorePlugin {
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'plugins/';
-		self::$ROOT_PATH = PLX_PLUGINS;//PLX_ROOT.'plugins/'
+		self::$ROOT_PATH = PLX_PLUGINS;
 		$this->XML_FILE = path('XMLFILE_PLUGINS');
 		$this->CORE = 'plugin';
 		parent::__construct($default_lang);
@@ -827,7 +827,7 @@ class plxModule extends plxCorePlugin {
 
 	public function __construct($default_lang='') {
 		$this->CONFIG_PATH = PLX_CONFIG_PATH.'modules/';
-		self::$ROOT_PATH = PLX_CORE.'modules/';
+		self::$ROOT_PATH = PLX_MODULES;
 		$this->XML_FILE = path('XMLFILE_MODULES');
 		$this->CORE = 'module';
 		parent::__construct($default_lang);
