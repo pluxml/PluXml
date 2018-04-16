@@ -528,7 +528,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($cat['meta_description'])."]]></meta_description>";
 				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($cat['meta_keywords'])."]]></meta_keywords>";
 				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($cat['title_htmltag'])."]]></title_htmltag>";
-				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));#hook plugin
+				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml')); # Hook Plugins
 				$xml .= "</categorie>\n";
 			}
 			$xml .= "</document>";
@@ -656,7 +656,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
 				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
 				# Hook plugins
-				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
+				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml')); # Hook Plugins
 				$xml .=	"</statique>\n";
 			}
 			$xml .= "</document>";
@@ -834,7 +834,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
 			$this->editTags();
 			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
-			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
+			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd')); # Hook Plugins
 			return plxMsg::Info($msg);
 		} else {
 			return plxMsg::Error(L_ARTICLE_SAVE_ERR);

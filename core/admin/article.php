@@ -386,7 +386,7 @@ function refreshImg(dta) {
 					</div>
 				</div>
 			</div>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) # Hook Plugins ?>
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
