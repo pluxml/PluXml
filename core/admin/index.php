@@ -177,7 +177,7 @@ include(dirname(__FILE__).'/top.php');
 			$datetime = date('YmdHi');
 			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
 				$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
-				$publi =  (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
+				$publi = (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
 				# Catégories : liste des libellés de toutes les categories
 				$draft='';
 				$libCats='';
