@@ -212,7 +212,7 @@ class plxShow {
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
 		elseif($this->plxMotor->mode == 'static') {
-			$title_htmltag =  $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
+			$title_htmltag = $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
 			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aStats[$this->plxMotor->cible]['name'];
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
@@ -672,7 +672,7 @@ class plxShow {
 					# On effectue l'affichage
 					$cats[] = '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$url).'" title="'.$name.'">'.$name.'</a>';
 				} else { # La categorie n'existe pas
-					$cats[] =  L_UNCLASSIFIED;
+					$cats[] = L_UNCLASSIFIED;
 				}
 			} else { # Categorie "home"
 				$cats[] = '<a class="active" href="'.$this->plxMotor->urlRewrite().'" title="'.L_HOMEPAGE.'">'.L_HOMEPAGE.'</a>';
@@ -1322,9 +1322,9 @@ class plxShow {
 					$stat = str_replace('#static_name',plxUtils::strCheck($v['name']),$stat);
 					$stat = str_replace('#static_status',($this->staticId()==intval($k)?'active':'noactive'), $stat);
 					if($v['group']=='')
-						$menus[][] =  $stat;
+						$menus[][] = $stat;
 					else
-						$menus[$v['group']][] =  $stat;
+						$menus[$v['group']][] = $stat;
 					if($group_active=="" AND $home===false AND $this->staticId()==intval($k) AND $v['group']!='')
 						$group_active = $v['group'];
 				}
@@ -1856,7 +1856,7 @@ class plxShow {
 				$annee = intval($m / 12);
 				$active = $page_actuelle == ''.$annee.$mois;
 				$nom_mois = plxDate::getCalendar('month', $mois);
-				$motifs =  array(
+				$motifs = array(
 					'#archives_id'		=> 'arch-month-'.str_pad($id, 2, '0', STR_PAD_LEFT),
 					'#archives_name'	=> $nom_mois.' '.$annee,
 					'#archives_year'	=> $annee,

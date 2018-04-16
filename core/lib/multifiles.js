@@ -1,5 +1,5 @@
 var nfiles = 0;
-var MultiSelector  =  {
+var MultiSelector = {
 
 	init: function() {
 		this.count = 0;
