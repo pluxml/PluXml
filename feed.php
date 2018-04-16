@@ -27,7 +27,7 @@ $plxFeed = plxFeed::getInstance();
 # Détermination de la langue à utiliser (modifiable par le hook : FeedBegin)
 $lang = $plxFeed->aConf['default_lang'];
 
-eval($plxFeed->plxPlugins->callHook('FeedBegin'));
+eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
 
 # Chargement du fichier de langue du core de PluXml
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
@@ -42,8 +42,7 @@ $plxFeed->fdemarrage();
 # Récuperation de la bufférisation
 $output = ob_get_clean();
 
-# Hook Plugins
-eval($plxFeed->plxPlugins->callHook('FeedEnd'));
+eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 
 # Restitution écran
 echo $output;

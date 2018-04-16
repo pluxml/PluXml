@@ -132,7 +132,7 @@ plxUtils::cleanHeaders();
 		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
 	?>
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) # Hook Plugins ?>
 </head>
 
 <body id="auth">
@@ -141,7 +141,7 @@ plxUtils::cleanHeaders();
 		<section class="grid">
 			<div class="logo"></div>
 			<div class="auth col sml-12 sml-centered med-5 lrg-3">
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) # Hook Plugins ?>
 				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 					<fieldset>
 						<?php echo plxToken::getTokenPostMethod() ?>
@@ -159,7 +159,7 @@ plxUtils::cleanHeaders();
 								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
 							</div>
 						</div>
-						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
+						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) # Hook Plugins ?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
 								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
@@ -174,6 +174,6 @@ plxUtils::cleanHeaders();
 		</section>
 	</main>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndBody')) ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndBody')) # Hook Plugins ?>
 </body>
 </html>
