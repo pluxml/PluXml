@@ -14,10 +14,11 @@ plxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
-function filterPlug($v){
- return $v->CORE === 'plugin';
+
+function isPlugin($v) {# C'est un plugin? (Booléen)
+	return $v->CORE === 'plugin';
 }
-$aPlugins = array_filter($plxAdmin->plxPlugins->aPlugins, 'filterPlug');
+$aPlugins = array_filter($plxAdmin->plxPlugins->aPlugins, 'isPlugin');# On Enleve les modules de la liste
 
 if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
