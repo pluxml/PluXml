@@ -1126,7 +1126,7 @@ class plxMotor {
 		$cible = ($admin) ? 'admin' : 'site';
 		$filename = "{$this->aConf['racine_plugins']}$cible.css";
 		if(is_file(PLX_ROOT.$filename)) {
-			$href = ($admin) ? PLX_ROOT.$filename : $this->plxMotor->urlRewrite($filename);
+			$href = ($admin) ? PLX_ROOT.$filename : $this->urlRewrite($filename);
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$filename) & self::TIME_MASK, 10, 36);
 			echo <<< LINK
 <link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
