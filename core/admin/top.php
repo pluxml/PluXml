@@ -21,10 +21,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?ver=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
 	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
-	<?php
-	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
-		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
-	?>
+	<?php $plxAdmin->pluginsCss(true); ?>
 	<script src="<?php echo PLX_CORE ?>lib/functions.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
