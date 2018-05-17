@@ -9,6 +9,8 @@
 
 include(dirname(__FILE__).'/prepend.php');
 
+const PARAMETRES_PLUGINS = true; // for checking if CSS cache needs updating
+
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 

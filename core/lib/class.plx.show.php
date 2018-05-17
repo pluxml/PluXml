@@ -1980,10 +1980,7 @@ class plxShow {
 	public function pluginsCss() {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPluginsCss'))) return;
-
-		$filename = $this->plxMotor->aConf['racine_plugins'].'site.css';
-		if(is_file(PLX_ROOT.$filename))
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($filename).'" media="screen" />'."\n";
+		$this->plxMotor->pluginsCss();
 	}
 
 	/**

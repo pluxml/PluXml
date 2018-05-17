@@ -299,30 +299,51 @@ class plxPlugins {
 	 * Méthode qui génère le fichier css admin.css ou site.css
 	 *
 	 * @param	type		type du fichier (admin|site)
+	 * @param   checking    vérifie si le cache CSS a besoin d'une mise à jour
 	 * @return	boolean		vrai si cache généré
-	 * @author	Stephane F
+	 * @author	Stephane F, Bazooka07
 	 **/
-	public function cssCache($type) {
+	public function cssCache($type, $checking=false) {
 
-		$cache = '';
-		if(!preg_match('@\.css$@', $type)) $type .= '.css';
+		if(empty($this->aPlugins)) { return true; } // No plugin
+
+		if(!preg_match('@\.css$@', $type)) { $type .= '.css'; }
+
+		// $minify_filename = PLX_PLUGINS.$type;
+		$minify_filename = PLX_ROOT.dirname(PLX_CONFIG_PATH).'/'.$type;
+
+		$updating = false;
+		$filesList = array();
+		$timestamp = (file_exists($minify_filename)) ? filemtime($minify_filename) : false;
 		foreach(array_keys($this->aPlugins) as $plugName) {
-			$filesList = array(
+			foreach(array(
 				PLX_ROOT.PLX_CONFIG_PATH."plugins/$plugName.$type",
 				PLX_PLUGINS."$plugName/css/$type"
-			);
-			foreach($filesList as $filename) {
-				if(is_file($filename)) {
-					$cache .= trim(file_get_contents($filename));
-					break;
+			) as $filename) {
+				if(file_exists($filename)) {
+					if(
+						$checking and
+						($timestamp === false or filemtime($filename) > $timestamp)
+					) {
+						$updating = true;
+					}
+					$filesList[] = $filename;
+					break; // Priorité aux feuilles CCS dans le dossier PLX_ROOT.PLX_CONFIG_PATH."plugins/"
 				}
 			}
 		}
-		$minify_filename = PLX_PLUGINS.$type;
-		if(!empty($cache)) {
-			return plxUtils::write(plxUtils::minify($cache), $minify_filename);
-		} elseif((is_file($minify_filename))) {
-			unlink($minify_filename);
+
+		if(empty($checking) or $updating) {
+			$cache = '';
+			foreach($filesList as $filename) {
+				$cache .= trim(file_get_contents($filename));
+			}
+			if(!empty($cache)) {
+				echo "\n<!-- New update for $minify_filename -->\n";
+				return plxUtils::write(plxUtils::minify($cache), $minify_filename);
+			} elseif((is_file($minify_filename))) {
+				return plxUtils::write('/* '. substr(date('r'), 0, -9) .' */', $minify_filename);
+			}
 		}
 		return true;
 	}
