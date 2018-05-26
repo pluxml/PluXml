@@ -59,7 +59,7 @@ $LANG = array(
 
 # class.plx.media.php
 
-'L_PLXMEDIAS_MEDIAS_FOLDER_ERR'		=> 'Impossible de crear lo dorsièr medias per l\'utilizator connectat',
+'L_PLXMEDIAS_MEDIAS_FOLDER_ERR'		=> 'Impossible de crear lo dorsièr mèdias per l\'utilizator connectat',
 'L_PLXMEDIAS_ROOT'					=> 'raiç',
 'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL'=> 'Fichièrs suprimits amb succès',
 'L_PLXMEDIAS_DELETE_FILES_ERR'		=> 'Error pendent la supression d\'un fichièr',
@@ -155,7 +155,7 @@ $LANG = array(
 'L_SORT_ASCENDING_DATE'				=> 'data creissenta',
 'L_SORT_DESCENDING_DATE'			=> 'data decreissenta',
 'L_SORT_ALPHABETICAL'				=> 'alfabetic',
-'L_SORT_REVERSE_ALPHABETICAL'       => 'alfabetic reverse',
+'L_SORT_REVERSE_ALPHABETICAL'       => 'alfabetic invèrs,',
 'L_SORT_RANDOM'						=> 'aleatòri',
 'L_YES' 							=> 'Òc',
 'L_NO' 								=> 'Non',
@@ -296,11 +296,11 @@ $LANG = array(
 # medias.php
 
 'L_MEDIAS_FILENAME'					=> 'Nom del fichièr',
-'L_MEDIAS_TITLE'					=> 'Gestion dels media',
+'L_MEDIAS_TITLE'					=> 'Gestion dels mèdia',
 'L_MEDIAS_DIRECTORY' 				=> 'Emplaçament',
 'L_MEDIAS_BACK'						=> 'Retorn a la lista dels mèdia',
 'L_MEDIAS_MAX_UPLOAD_FILE'			=> 'Talha maxi dels fichièrs',
-'L_MEDIAS_MAX_UPLOAD_NBFILE'		=> 'Nombre maxi de fichiers par envoi',
+'L_MEDIAS_MAX_UPLOAD_NBFILE'		=> 'Nombre maxi de fichièrs per mandadís',
 'L_MEDIAS_MAX_POST_SIZE'			=> 'Talha maxi de las donadas',
 'L_MEDIAS_SUBMIT_FILE'				=> 'Enviar',
 'L_MEDIAS_IMAGES'					=> 'Imatges',
@@ -371,7 +371,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CAPCHA'			=> 'Activar lo capcha anti-spam',
 'L_CONFIG_ADVANCED_ADMIN_KEY'		=> 'Clau d\'administracion (URLs privats)',
 'L_CONFIG_ADVANCED_KEY_HELP'		=> 'Vojar aquel camp per tornar generar la clau',
-'L_CONFIG_ADVANCED_USERFOLDERS'		=> 'Utilizar un dorsièr medias diferent per cada utilizator',
+'L_CONFIG_ADVANCED_USERFOLDERS'		=> 'Utilizar un dorsièr mèdias diferent per cada utilizator',
 'L_HELP_SLASH_END'					=> 'Oblidar pas lo slash a la fin',
 'L_CONFIG_ADVANCED_MEDIAS_FOLDER'	=> 'Emplaçament dels média (dorsièr)',
 'L_CONFIG_ADVANCED_ARTS_FOLDER'		=> 'Emplaçament dels articles (dorsièr)',
@@ -535,7 +535,7 @@ $LANG = array(
 'L_MENU_STATICS'					=> 'Paginas estaticas',
 'L_MENU_COMMENTS_TITLE'				=> 'Lista e modificacion dels comentaris',
 'L_MENU_COMMENTS'					=> 'Comentaris',
-'L_MENU_MEDIAS_TITLE'				=> 'Enviar e inserir un media',
+'L_MENU_MEDIAS_TITLE'				=> 'Enviar e inserir un mèdia',
 'L_MENU_MEDIAS'						=> 'Mèdia',
 'L_MENU_CATEGORIES_TITLE'			=> 'Crear, gerir, editar las categorias',
 'L_MENU_CATEGORIES'					=> 'Categorias',
