@@ -533,19 +533,33 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
 	 **/
-	public function artThumbnail($format='<img class="art_thumbnail" src="#img_url" alt="#img_alt" title="#img_title" />', $echo=true) {
+	public function artThumbnail($format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true) {
 
-		$imgUrl = $this->plxMotor->plxRecord_arts->f('thumbnail');
-		if($imgUrl) {
-			$row = str_replace('#img_url', $this->plxMotor->urlRewrite($imgUrl), $format);
-			$row = str_replace('#img_title', plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), $row);
-			$row = str_replace('#img_alt', $this->plxMotor->plxRecord_arts->f('thumbnail_alt'), $row);
+		$filename = trim($this->plxMotor->plxRecord_arts->f('thumbnail'));
+		if(!empty($filename)) {
+			$img_url = $this->plxMotor->urlRewrite($filename);
+			$img_thumb = plxUtils::thumbName($filename);
+			$result = str_replace(
+				array(
+					'#img_url',
+					'#img_thumb_url',
+					'#img_title',
+					'#img_alt'
+				),
+				array(
+					$img_url, // #img_url
+					(file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, // #img_thumb_url
+					plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), // #img_title
+					$this->plxMotor->plxRecord_arts->f('thumbnail_alt') // #img_alt
+				),
+				$format
+			);
 			if($echo)
-				echo $row;
+				echo $result;
 			else
-				return $row;
-		} else {
-			if(!$echo) return false;
+				return $result;
+		} elseif(!$echo) {
+			return false;
 		}
 
 	}
