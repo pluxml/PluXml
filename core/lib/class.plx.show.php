@@ -527,7 +527,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche l'image d'accroche
 	 *
-	 * @param	format	format d'affichage (variables: #img_url, #img_alt, #img_title)
+	 * @param	format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
 	 * @param	echo 	si à VRAI affichage à l'écran
 	 * @return	stdout
 	 * @scope	home,categorie,article,tags,archives
