@@ -237,6 +237,11 @@ a.active {
 
 /* ------- Article ------- */
 
+.article p {
+        text-align: justify;
+        text-justify: inter-word;	
+}
+
 .article header {
 	margin-top: 2rem;
 }
