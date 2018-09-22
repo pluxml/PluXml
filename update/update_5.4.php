@@ -11,14 +11,15 @@ class update_5_4 extends plxUpdate{
 	public function step1() {
 		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
 		# vérification de l'existence des dossiers médias
-		if(!is_dir(PLX_ROOT.'data/medias')) {
-			@mkdir(PLX_ROOT.'data/medias',0755,true);
+		$docRoot = substr(PLX_CONFIG_PATH, 0, -strlen('configuration/'));
+		if(!is_dir(PLX_ROOT.$docRoot.'medias')) {
+			@mkdir(PLX_ROOT.$docRoot.'medias',0755,true);
 		}
 		# nouveaux paramètres
 		$new_parameters = array();
 		$new_parameters['custom_admincss_file'] = '';
 		if(!isset($this->plxAdmin->aConf['images']) OR empty($this->plxAdmin->aConf['images']))
-			$new_parameters['medias'] = 'data/medias/';
+			$new_parameters['medias'] = $docRoot.'medias/';
 		else
 			$new_parameters['medias'] = $this->plxAdmin->aConf['images']; 
 		# on supprime les paramètres obsolètes

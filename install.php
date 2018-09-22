@@ -1,8 +1,9 @@
 <?php
-define('PLX_ROOT', './');
-define('PLX_CORE', PLX_ROOT.'core/');
+const PLX_ROOT = './';
+const PLX_CORE = PLX_ROOT.'core/';
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
+$docRoot = substr(PLX_CONFIG_PATH, 0, -strlen('configuration/'));
 
 # On démarre la session
 session_start();
@@ -16,7 +17,14 @@ include(PLX_CORE.'lib/class.plx.token.php');
 
 # Chargement des langues
 $lang = DEFAULT_LANG;
-if(isset($_POST['default_lang'])) $lang=$_POST['default_lang'];
+if(isset($_POST['default_lang'])) {
+	$lang=$_POST['default_lang'];
+} elseif(
+	filter_has_var(INPUT_SERVER, 'HTTP_ACCEPT_LANGUAGE') and
+	preg_match('@^([a-z]{2})@', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches)
+) {
+	$lang = $matches[1];
+}
 if(!array_key_exists($lang, plxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
 }
@@ -26,14 +34,14 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, '5.0.0', '<')){
-	header('Content-Type: text/plain charset=UTF-8');
+	header('Content-Type: text/plain;charset=UTF-8');
 	echo utf8_decode(L_WRONG_PHP_VERSION);
 	exit;
 }
 
 # On vérifie que PluXml n'est pas déjà installé
 if(file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Content-Type: text/plain charset=UTF-8');
+	header('Content-Type: text/plain;charset=UTF-8');
 	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
 	exit;
 }
@@ -41,16 +49,44 @@ if(file_exists(path('XMLFILE_PARAMETERS'))) {
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers médias
-if(!is_dir(PLX_ROOT.'data/medias')) {
-	@mkdir(PLX_ROOT.'data/medias',0755,true);
-}
+const FORBIDDEN = <<< FORBIDDEN
+<Files "*">
+	Order allow,deny
+	Deny from all
+</Files>\n
+FORBIDDEN;
 
-# Vérification de l'existence du dossier data/configuration/plugins
-if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
-	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
-}
+if(is_writable(PLX_ROOT.$docRoot) or mkdir(PLX_ROOT.$docRoot, 0755)) {
+	# Vérification de l'existence de tous les dossiers de données du site
+	foreach(array(
+		'configuration' => true,
+		'configuration/plugins' => false,
+		'articles' => true,
+		'commentaires' => true,
+		'statiques' => true,
+		'medias' => false,
+		'plugins' => false
+	) as $folder => $restricted) {
+		$target = PLX_ROOT.$docRoot.$folder;
+		if(!is_dir($target)) { @mkdir($target, 0755, true); }
+		$htaccess = "$target/.htaccess";
+		if($restricted and !file_exists($htaccess)) { 
+			file_put_contents($htaccess, FORBIDDEN);
+		}
+	}
 
+	# On vérifie l'existence de quelques fichiers dans le dossier de données
+	foreach(array(
+		'.htaccess' => "options -indexes\n",
+		'index.html' => ''
+	) as $filename => $content) {
+		$f = PLX_ROOT.$docRoot.$filename;
+		if(!file_exists($f)) {
+			file_put_contents($f, $content);
+		}
+	}
+}
+	
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
@@ -63,141 +99,174 @@ if(!array_key_exists($timezone, plxTimezones::timezones())) {
 	$timezone = date_default_timezone_get();
 }
 
+function xmlDocSave($filename, $content='', $root='document') {
+	$charset = PLX_CHARSET;
+	$xml = <<< OUTPUT
+<?xml version="1.0" encoding="$charset" ?>
+<$root>
+$content
+</$root>
+OUTPUT;
+	plxUtils::write($xml, $filename);	
+}
+
 # Configuration de base
-$config = array('title'=>'PluXml',
-				'description'=>plxUtils::strRevCheck(L_SITE_DESCRIPTION),
-				'meta_description'=>'',
-				'meta_keywords'=>'',
-				'timezone'=>$timezone,
-				'allow_com'=>1,
-				'mod_com'=>0,
-				'mod_art'=>0,
-				'capcha'=>1,
-				'style'=>'defaut',
-				'clef'=>plxUtils::charAleatoire(15),
-				'bypage'=>5,
-				'bypage_archives'=>5,
-				'bypage_tags'=>5,
-				'bypage_admin'=>10,
-				'bypage_admin_coms'=>10,
-				'bypage_feed'=>8,
-				'tri'=>'desc',
-				'tri_coms'=>'asc',
-				'images_l'=>800,
-				'images_h'=>600,
-				'miniatures_l'=>200,
-				'miniatures_h'=>100,
-				'thumbs'=>0,
-				'medias'=>'data/medias/',
-				'racine_articles'=>'data/articles/',
-				'racine_commentaires'=>'data/commentaires/',
-				'racine_statiques'=>'data/statiques/',
-				'racine_themes'=>'themes/',
-				'racine_plugins'=>'plugins/',
-				'homestatic'=>'',
-				'hometemplate'=>'home.php',
-				'urlrewriting'=>0,
-				'gzip'=>0,
-				'feed_chapo'=>0,
-				'feed_footer'=>'',
-				'version'=>PLX_VERSION,
-				'default_lang'=>$lang,
-				'userfolders'=>0,
-				'display_empty_cat'=>0,
-				'custom_admincss_file'=>''
-				);
+$config = array(
+	'title'=>'PluXml',
+	'description'=>plxUtils::strRevCheck(L_SITE_DESCRIPTION),
+	'meta_description'=>'',
+	'meta_keywords'=>'',
+	'timezone'=>$timezone,
+	'allow_com'=>1,
+	'mod_com'=>0,
+	'mod_art'=>0,
+	'capcha'=>1,
+	'style'=>'defaut',
+	'clef'=>plxUtils::charAleatoire(15),
+	'bypage'=>5,
+	'bypage_archives'=>5,
+	'bypage_tags'=>5,
+	'bypage_admin'=>10,
+	'bypage_admin_coms'=>10,
+	'bypage_feed'=>8,
+	'tri'=>'desc',
+	'tri_coms'=>'asc',
+	'images_l'=>800,
+	'images_h'=>600,
+	'miniatures_l'=>200,
+	'miniatures_h'=>100,
+	'thumbs'=>0,
+	'medias' =>					$docRoot.'medias/',
+	'racine_articles' =>		$docRoot.'articles/',
+	'racine_commentaires' =>	$docRoot.'commentaires/',
+	'racine_statiques' =>		$docRoot.'statiques/',
+	'racine_themes'=>'themes/',
+	'racine_plugins'=>'plugins/',
+	'homestatic'=>'',
+	'hometemplate'=>'home.php',
+	'urlrewriting'=>0,
+	'gzip'=>0,
+	'feed_chapo'=>0,
+	'feed_footer'=>'',
+	'version'=>PLX_VERSION,
+	'default_lang'=>$lang,
+	'userfolders'=>0,
+	'display_empty_cat'=>0,
+	'custom_admincss_file'=>''
+);
 
 function install($content, $config) {
 
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
 
+	$artDateStr = date('YmdHi');
+
 	# Création du fichier de configuration
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
+	$xml = '';
 	foreach($config  as $k=>$v) {
-		if(is_numeric($v))
-			$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
-		else
-			$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+		$value = (empty($v) or is_numeric($v)) ? $v : '<![CDATA['.plxUtils::cdataCheck($v).']]>';
+		$xml .= <<< PARAM
+		<parametre name="$k">$value</parametre>\n
+PARAM;
 	}
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_PARAMETERS'));
+	xmlDocSave(path('XMLFILE_PARAMETERS'), $xml);
 
 	# Création du fichier des utilisateurs
+	$name = trim($content['name']);
+	$login = trim($content['login']);
 	$salt = plxUtils::charAleatoire(10);
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= "<document>\n";
-	$xml .= "\t".'<user number="001" active="1" profil="0" delete="0">'."\n";
-	$xml .= "\t\t".'<login><![CDATA['.trim($content['login']).']]></login>'."\n";
-	$xml .= "\t\t".'<name><![CDATA['.trim($content['name']).']]></name>'."\n";
-	$xml .= "\t\t".'<infos><![CDATA[]]></infos>'."\n";
-	$xml .= "\t\t".'<password><![CDATA['.sha1($salt.md5(trim($content['pwd']))).']]></password>'."\n";
-	$xml .= "\t\t".'<salt><![CDATA['.$salt.']]></salt>'."\n";
-	$xml .= "\t\t".'<email><![CDATA[]]></email>'."\n";
-	$xml .= "\t\t".'<lang><![CDATA['.$config['default_lang'].']]></lang>'."\n";
-	$xml .= "\t</user>\n";
-	$xml .= "</document>";
-	plxUtils::write($xml,path('XMLFILE_USERS'));
+	$password = sha1($salt.md5(trim($content['pwd'])));
+	
+	$xml = <<< USERS
+	<user number="001" active="1" profil="0" delete="0">
+		<login><![CDATA[$login]]></login>
+		<name><![CDATA[$name]]></name>
+		<infos></infos>
+		<password>$password</password>
+		<salt>$salt</salt>
+		<email></email>
+		<lang>${config['default_lang']}</lang>
+	</user>
+USERS;
+	xmlDocSave(path('XMLFILE_USERS'), $xml);
 
-	# Création du fichier des categories
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	$xml .= "\t".'<categorie number="001" active="1" homepage="1" tri="'.$config['tri'].'" bypage="'.$config['bypage'].'" menu="oui" url="'.L_DEFAULT_CATEGORY_URL.'" template="categorie.php"><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE).']]></name><description><![CDATA[]]></description><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></categorie>'."\n";
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_CATEGORIES'));
+	# Création du fichier des catégories
+	$url = L_DEFAULT_CATEGORY_URL;
+	$name = plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE);
+	$xml = <<< CATS
+	<categorie number="001" active="1" homepage="1" tri="${config['tri']}" bypage="${config['bypage']}" menu="oui" url="$url" template="categorie.php">
+		<name><![CDATA[$name]]></name>
+		<description></description>
+		<meta_description></meta_description>
+		<meta_keywords></meta_keywords>
+		<title_htmltag></title_htmltag>
+	</categorie>
+CATS;
+	xmlDocSave(path('XMLFILE_CATEGORIES'), $xml);
 
 	# Création du fichier des pages statiques
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	$xml .= "\t".'<statique number="001" active="1" menu="oui" url="'.L_DEFAULT_STATIC_URL.'" template="static.php"><group><![CDATA[]]></group><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE).']]></name><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag><date_creation><![CDATA['.date('YmdHi').']]></date_creation><date_update><![CDATA['.date('YmdHi').']]></date_update></statique>'."\n";
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_STATICS'));
-	plxUtils::write(file_get_contents(PLX_CORE.'/lib/html.static.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
+	$url = L_DEFAULT_STATIC_URL;
+	$name = plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE);
+	$xml = <<< STATIQUES
+	<statique number="001" active="1" menu="oui" url="$url" template="static.php">
+		<group></group>
+		<name><![CDATA[$name]]></name>
+		<meta_description></meta_description>
+		<meta_keywords></meta_keywords>
+		<title_htmltag></title_htmltag>
+		<date_creation>$artDateStr</date_creation>
+		<date_update>$artDateStr></date_update>
+	</statique>
+STATIQUES;
+	xmlDocSave(path('XMLFILE_STATICS'), $xml);
+	plxUtils::write(
+		file_get_contents(PLX_CORE.'/lib/html.static.txt'),
+		PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php'
+	);
 
 	# Création du premier article
 	$html = explode('-----', file_get_contents(PLX_CORE.'/lib/html.article.txt'));
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>
-	<title><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE).']]></title>
+	$artTitle = plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE);
+	$url = L_DEFAULT_ARTICLE_URL;
+	$xml = <<< FIRST_ARTICLE
+	<title><![CDATA[$artTitle]]></title>
 	<allow_com>1</allow_com>
-	<template><![CDATA[article.php]]></template>
-	<chapo><![CDATA['.$html[0].']]></chapo>
-	<content><![CDATA['.$html[1].']]></content>
-	<tags><![CDATA[PluXml]]></tags>
-	<meta_description><![CDATA[]]></meta_description>
-	<meta_keywords><![CDATA[]]></meta_keywords>
-	<title_htmltag><![CDATA[]]></title_htmltag>
-	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
-	<date_update><![CDATA['.date('YmdHi').']]></date_update>
-	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>	
-</document>';
-	plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
+	<template>article.php</template>
+	<chapo><![CDATA[${html[0]}]]></chapo>
+	<content><![CDATA[${html[1]}]]></content>
+	<tags>PluXml</tags>
+	<meta_description></meta_description>
+	<meta_keywords></meta_keywords>
+	<title_htmltag></title_htmltag>
+	<date_creation>$artDateStr</date_creation>
+	<date_update>$artDateStr</date_update>
+	<thumbnail>core/admin/theme/images/pluxml.png</thumbnail>
+FIRST_ARTICLE;
+	$artFilename = PLX_ROOT."${config['racine_articles']}0001.001.001.$artDateStr.$url.xml";
+	xmlDocSave($artFilename, $xml);
 
 	# Création du fichier des tags servant de cache
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	$xml .= "\t".'<article number="0001" date="'.date('YmdHi').'" active="1"><![CDATA[PluXml]]></article>'."\n";
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_TAGS'));
+	$xml = <<< TAGS
+	<article number="0001" date="$artDateStr" active="1">PluXml</article>
+TAGS;
+	xmlDocSave(path('XMLFILE_TAGS'), $xml);
 
-	# Création du fichier des plugins
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_PLUGINS'));
+	# Création du fichier vide des plugins
+	xmlDocSave(path('XMLFILE_PLUGINS'));
 
 	# Création du premier commentaire
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<comment>
+	$content = plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT);
+	$xml = <<< COMMENTS
 	<author><![CDATA[pluxml]]></author>
-		<type>normal</type>
-		<ip>127.0.0.1</ip>
-		<mail><![CDATA[contact@pluxml.org]]></mail>
-		<site><![CDATA[http://www.pluxml.org]]></site>
-		<content><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT).']]></content>
-	</comment>';
-	plxUtils::write($xml,PLX_ROOT.$config['racine_commentaires'].'0001.'.date('U').'-1.xml');
+	<type>normal</type>
+	<ip>127.0.0.1</ip>
+	<mail>contact@pluxml.org</mail>
+	<site>http://www.pluxml.org</site>
+	<content><![CDATA[$content]]></content>
+COMMENTS;
+	$commFilename = PLX_ROOT.$config['racine_commentaires'].'0001.'.date('U').'-1.xml';
+	xmlDocSave($commFilename, $xml, 'comment');
 
 }
 
@@ -229,7 +298,6 @@ plxUtils::cleanHeaders();
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
 </head>
 
 <body>
@@ -337,6 +405,8 @@ plxUtils::cleanHeaders();
 		</section>
 
 	</main>
+
+<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
 
 </body>
 

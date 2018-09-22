@@ -1,3 +1,1 @@
-<?php
-define('PLX_CONFIG_PATH', 'data/configuration/');
-?>
+<?php const PLX_CONFIG_PATH = 'my-datas/configuration/'; ?>
