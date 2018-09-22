@@ -420,7 +420,7 @@ $LANG = array(
 
 # parametres_users.php
 
-'L_CONFIG_USERS_TITLE'				=> 'Gestion dels utilizaire',
+'L_CONFIG_USERS_TITLE'				=> 'Gestion dels utilizaires',
 'L_CONFIG_USER'						=> 'Utilizaire',
 'L_CONFIG_USERS_ID'					=> 'Numerò d\'utilizaire',
 'L_CONFIG_USERS_ACTIVE'				=> 'Actiu',
