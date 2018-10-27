@@ -74,7 +74,7 @@ class plxDate {
 			)
 		);
 
-		if(array_key_exists($key, $names) and array_key_exists($value, $names[$key]))
+		if($value and array_key_exists($key, $names) and array_key_exists($value, $names[$key]))
 			return $names[$key][$value];
 		else
 			return false;
