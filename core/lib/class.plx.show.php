@@ -1336,14 +1336,16 @@ FMT3;
 
 		# Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
 		if(!empty(trim($extra))) {
-			$replaces = array(
-				'#static_id'		=> 'static-home',
-				'#static_class'		=> 'static menu',
-				'#static_url'		=> $this->plxMotor->urlRewrite(),
-				'#static_name'		=> plxUtils::strCheck(trim($extra)),
-				'#static_status'	=> ($home == true) ? 'active' : 'noactive'
+			$menus[] = strtr(
+				$format,
+				array(
+					'#static_class'		=> 'static menu',
+					'#static_id'		=> 'static-home',
+					'#static_name'		=> plxUtils::strCheck(trim($extra)),
+					'#static_status'	=> ($home == true) ? 'active' : 'noactive',
+					'#static_url'		=> $this->plxMotor->urlRewrite()
+				)
 			);
-			$menus[] = str_replace(array_keys($replaces), array_values($replaces), $format);
 		}
 
 		# Affiche les pages statiques, avec un sous-menu si groupe
@@ -1360,20 +1362,22 @@ FMT3;
 						$url = $this->plxMotor->urlRewrite("?static${numPage}/${v['url']}");
 
 					$active = ($this->staticId() == $numPage);
-					$replaces = array(
-						'#static_id'		=> "static-${numPage}",
-						'#static_class'		=> 'static menu',
-						'#static_url'		=> $url,
-						'#static_name'		=> plxUtils::strCheck($v['name']),
-						'#static_status'	=> ($active) ? 'active' : 'noactive'
+					$entry = strtr(
+						$format,
+						array(
+							'#static_class'		=> 'static menu',
+							'#static_id'		=> "static-${numPage}",
+							'#static_name'		=> plxUtils::strCheck($v['name']),
+							'#static_status'	=> ($active) ? 'active' : 'noactive',
+							'#static_url'		=> $url
+						)
 					);
-
 					$group = trim($v['group']);
 					if(empty($group))
-						$menus[] = str_replace(array_keys($replaces), array_values($replaces), $format);
+						$menus[] = $entry;
 					else {
 						if(!array_key_exists($group, $menus)) { $menus[$group] = array(); }
-						$menus[$group][] = str_replace(array_keys($replaces), array_values($replaces), "\t\t${format}");
+						$menus[$group][] = $entry;
 						if(
 							empty($group_active) AND
 							empty($home) AND
@@ -1397,24 +1401,25 @@ FMT3;
 					$this->plxMotor->get and
 					preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'].$this->plxMotor->mode)
 				) ? 'active' : 'noactive';
-				$replaces = array(
-					'#static_id'		=> 'static-blog',
-					'#static_class'		=> 'static menu',
-					'#static_url'		=> $this->plxMotor->urlRewrite('?blog'),
-					'#static_name'		=> ucfirst(L_PAGEBLOG_TITLE),
-					'#static_status'	=> $status
+				$entry = strtr(
+					$format,
+					array(
+						'#static_class'		=> 'static menu',
+						'#static_id'		=> 'static-blog',
+						'#static_name'		=> ucfirst(L_PAGEBLOG_TITLE),
+						'#static_status'	=> $status,
+						'#static_url'		=> $this->plxMotor->urlRewrite('?blog')
+					)
 				);
 				if($menublog > 0) {
 					array_splice(
 						$menus,
 						$menublog-1,
 						0,
-						array(
-							str_replace(array_keys($replaces), array_values($replaces), $format)
-						)
+						array($entry)
 					);
 				} else {
-					$menus[] = str_replace(array_keys($replaces), array_values($replaces), $format);
+					$menus[] = $entry;
 				}
 			}
 		}
@@ -1432,16 +1437,18 @@ FMT3;
 				if($status and $this->plxMotor->mode === 'categorie') {
 					$group_active = ucfirst(L_CATEGORIES);
 				}
-				$replaces = array(
-					'#cat_id'		=> "static-cat-${idNum}",
-					'#cat_class'	=> 'static menu',
-					'#cat_url'		=> $this->plxMotor->urlRewrite("?categorie${idNum}/${catInfos['url']}"),
-					'#cat_name'		=> plxUtils::strCheck($catInfos['name']),
-					'#cat_nb'		=> $catInfos['articles'],
-					'#cat_title'	=> plxUtils::strCheck($catInfos['description']),
-					'#cat_status'	=> ($status) ? 'active' : 'noactive'
+				$catsMenu[] = strtr(
+					$format_cat,
+					array(
+						'#cat_class'	=> 'static menu',
+						'#cat_id'		=> "static-cat-${idNum}",
+						'#cat_name'		=> plxUtils::strCheck($catInfos['name']),
+						'#cat_nb'		=> $catInfos['articles'],
+						'#cat_status'	=> ($status) ? 'active' : 'noactive',
+						'#cat_title'	=> plxUtils::strCheck($catInfos['description']),
+						'#cat_url'		=> $this->plxMotor->urlRewrite("?categorie${idNum}/${catInfos['url']}")
+					)
 				);
-				$catsMenu[] = str_replace(array_keys($replaces), array_values($replaces), $format_cat);
 			}
 			if(!is_numeric($pos_cat)) {
 				$pos_cat = (!empty(trim($extra))) ? 1 : 0;
@@ -1473,13 +1480,15 @@ FMT3;
 					echo $v;
 				}
 				elseif(is_array($v)) {
-					$replaces = array(
-						'#group_id'		=> 'static-group-'.plxUtils::title2url($k),
-						'#group_class'	=> 'static group',
-						'#group_name'	=> plxUtils::strCheck($k),
-						'#group_status'	=> ($group_active === $k) ? 'active' : 'noactive'
+					$caption = strtr(
+						$format_group,
+						array(
+							'#group_class'	=> 'static group',
+							'#group_id'		=> 'static-group-'.plxUtils::title2url($k),
+							'#group_name'	=> plxUtils::strCheck($k),
+							'#group_status'	=> ($group_active === $k) ? 'active' : 'noactive'
+						)
 					);
-					$caption = str_replace(array_keys($replaces), array_values($replaces), $format_group);
 					$options_menu = implode('', array_values($v));
 					$id = plxUtils::title2url($k);
 					echo <<< SOUS_MENU
