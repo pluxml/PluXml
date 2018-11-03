@@ -6,7 +6,7 @@
  * @author	Stephane F.
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include(__DIR__ .'/prepend.php');
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -31,7 +31,7 @@ $aProfils = array(
 );
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include(__DIR__ .'/top.php');
 ?>
 
 <form action="parametres_users.php" method="post" id="form_users">
@@ -137,5 +137,5 @@ include(dirname(__FILE__).'/top.php');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include(__DIR__ .'/foot.php');
 ?>
