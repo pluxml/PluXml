@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include(__DIR__ .'/prepend.php');
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -30,7 +30,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include(__DIR__ .'/top.php');
 ?>
 <script>
 function checkBox(cb) {
@@ -151,5 +151,5 @@ function checkBox(cb) {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include(__DIR__ .'/foot.php');
 ?>

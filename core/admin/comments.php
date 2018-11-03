@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include(__DIR__ .'/prepend.php');
 
 # Contrôle du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -60,7 +60,7 @@ if(!empty($_GET['a'])) {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include(__DIR__ .'/top.php');
 
 # Récupération du type de commentaire à afficher
 $_GET['sel'] = !empty($_GET['sel']) ? $_GET['sel'] : '';
@@ -251,5 +251,5 @@ $selector=selector($comSel, 'id_selection');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include(__DIR__ .'/foot.php');
 ?>
