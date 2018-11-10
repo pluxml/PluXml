@@ -1138,7 +1138,7 @@ class plxMotor {
 			$this->plxPlugins->cssCache('site', true);
 		}
 
-		if(filesize(PLX_ROOT.$filename) > 40) { // if no CSS, save date of last checking
+		if(file_exists(PLX_ROOT.$filename) and filesize(PLX_ROOT.$filename) > 40) { // if no CSS, save date of last checking
 			$href = ($admin) ? PLX_ROOT.$filename : $this->urlRewrite($filename);
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$filename) & self::TIME_MASK, 10, 36);
 			echo <<< LINK

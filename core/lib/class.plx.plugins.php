@@ -235,20 +235,17 @@ class plxPlugins {
 		} else {
 			# tri des plugins par ordre de chargement
 			$aPlugins = array();
-			asort($content['plugOrdre']);
-			foreach($content['plugOrdre'] as $plugName => $idx) {
-				$aPlugins[$plugName] = $this->aPlugins[$plugName];
+			if(!empty($content['plugOrdre'])) {
+				asort($content['plugOrdre']);
+				foreach($content['plugOrdre'] as $plugName => $idx) {
+					$aPlugins[$plugName] = $this->aPlugins[$plugName];
+				}
 			}
 			$this->aPlugins = $aPlugins;
 		}
 
-		# génération du cache css des plugins
-		$this->cssCache('site');
-		$this->cssCache('admin');
-
 		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
+		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n<document>\n";
 
 		foreach($this->aPlugins as $name=>$plugin) {
 			if(!empty($plugin)) {
@@ -264,11 +261,15 @@ class plxPlugins {
 		$xml .= "</document>";
 
 		# On écrit le fichier
-		if(plxUtils::write($xml,path('XMLFILE_PLUGINS')))
-			return plxMsg::Info(L_SAVE_SUCCESSFUL);
-		else
-			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PLUGINS'));
+		if(plxUtils::write($xml,path('XMLFILE_PLUGINS'))) {
+			# génération du cache css des plugins
+			$this->cssCache('site');
+			$this->cssCache('admin');
 
+			return plxMsg::Info(L_SAVE_SUCCESSFUL);
+		} else {
+			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PLUGINS'));
+		}
 	}
 
 	/**
@@ -305,12 +306,16 @@ class plxPlugins {
 	 **/
 	public function cssCache($type, $checking=false) {
 
-		if(empty($this->aPlugins)) { return true; } // No plugin
-
 		if(!preg_match('@\.css$@', $type)) { $type .= '.css'; }
 
 		// $minify_filename = PLX_PLUGINS.$type;
 		$minify_filename = PLX_ROOT.dirname(PLX_CONFIG_PATH).'/'.$type;
+
+		if(empty($this->aPlugins)) {
+			// No plugin
+			if(file_exists($minify_filename)) { unlink($minify_filename); }
+			return true;
+		}
 
 		$updating = false;
 		$filesList = array();
@@ -342,7 +347,7 @@ class plxPlugins {
 				echo "\n<!-- New update for $minify_filename -->\n";
 				return plxUtils::write(plxUtils::minify($cache), $minify_filename);
 			} elseif((is_file($minify_filename))) {
-				return plxUtils::write('/* '. substr(date('r'), 0, -9) .' */', $minify_filename);
+				unlink($minify_filename);
 			}
 		}
 		return true;
