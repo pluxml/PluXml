@@ -9,7 +9,6 @@
 [+] Thème par défaut : entête de page fixe (contribution bazooka07)
 [+] Tri alphabétique inversé des articles et catégories  (contribution bazooka07)
 [+] Gestionnaire de médias : affichage nombre maxi de fichiers par envoi
-
 [+] #225 Ajout id à la balise <body> de la page auth.php
 [+] #230 Image d'accroche dans le premier article créé à l'installation
 [+] #239 Test et affichage accès en écriture du dossier racine pour les thèmes
