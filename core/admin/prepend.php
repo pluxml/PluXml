@@ -13,7 +13,7 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 # On démarre la session
 session_start();
 
-$session_domain = dirname(__FILE__);
+$session_domain = __DIR__ ;
 
 if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la page de login
 	# Test sur le domaine et sur l'identification
