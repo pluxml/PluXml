@@ -1777,7 +1777,7 @@ class plxShow {
 			$id=0;
 			foreach($counters as $tag => $counter) {
 				$url = plxUtils::title2url($tag);
-				$status = '';
+				$status = 'noactive';
 				switch($mode) {
 					case 'article':
 						if(in_array($tag, $artTags)) {
