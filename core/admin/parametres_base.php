@@ -7,8 +7,8 @@
  * @author	Florent MONTHEL, Stephane F
  **/
 
-include(__DIR__ .'/prepend.php');
-include(PLX_CORE.'lib/class.plx.timezones.php');
+include __DIR__ .'/prepend.php';
+include PLX_CORE.'lib/class.plx.timezones.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -24,7 +24,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include(__DIR__ .'/top.php');
+include __DIR__ .'/top.php';
 ?>
 
 <form action="parametres_base.php" method="post" id="form_settings">
@@ -120,5 +120,5 @@ include(__DIR__ .'/top.php');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
 # On inclut le footer
-include(__DIR__ .'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

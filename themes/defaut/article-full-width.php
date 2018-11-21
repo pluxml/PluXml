@@ -1,4 +1,4 @@
-<?php include(__DIR__.'/header.php'); ?>
+<?php include __DIR__.'/header.php'; ?>
 
 	<main class="main">
 
@@ -49,7 +49,7 @@
 
 					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
 
-					<?php include(__DIR__.'/commentaires.php'); ?>
+					<?php include __DIR__.'/commentaires.php'; ?>
 
 				</div>
 
@@ -59,4 +59,4 @@
 
 	</main>
 
-<?php include(__DIR__.'/footer.php'); ?>
+<?php include __DIR__.'/footer.php'; ?>

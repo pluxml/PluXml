@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include(__DIR__ .'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -44,7 +44,7 @@ if(is_file($filename)) {
 		<h2>'.plxUtils::strCheck($page).'</h2>
 		<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
 	</div>';
-	include($filename);
+	include "$filename";
 	$output=ob_get_clean();
 }
 else {
@@ -54,9 +54,9 @@ else {
 }
 
 # On inclut le header
-include(__DIR__ .'/top.php');
+include __DIR__ .'/top.php';
 # Affichage des données
 echo $output;
 # On inclut le footer
-include(__DIR__ .'/foot.php');
+include __DIR__ .'/foot.php';
 ?>
