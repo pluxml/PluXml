@@ -39,7 +39,7 @@ class plxShow {
 		# Chargement du fichier de lang du theme
 		$langfile = PLX_ROOT.$this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/lang/'.$this->plxMotor->aConf['default_lang'].'.php';
 		if(is_file($langfile)) {
-			include($langfile);
+			include "$langfile";
 			$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
 		}
 
@@ -1547,7 +1547,7 @@ class plxShow {
 			# on récupère l'id de la page pour tester si elle est active
 			if(preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
 				if($this->plxMotor->aStats[$c[1]]['active'])
-					include(PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0]);
+					include PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0];
 			}
 		}
 	}

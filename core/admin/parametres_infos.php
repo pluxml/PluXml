@@ -7,13 +7,13 @@
  * @author	Florent MONTHEL
  **/
 
-include(__DIR__ .'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # On inclut le header
-include(__DIR__ .'/top.php');
+include __DIR__ .'/top.php';
 ?>
 
 <div class="inline-form action-bar">
@@ -54,5 +54,5 @@ include(__DIR__ .'/top.php');
 
 <?php
 # On inclut le footer
-include(__DIR__ .'/foot.php');
+include __DIR__ .'/foot.php';
 ?>
