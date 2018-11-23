@@ -7,8 +7,8 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-# Variable pour retrouver la page d'authentification
-define('PLX_AUTHPAGE', true);
+# Constante pour retrouver la page d'authentification
+const PLX_AUTHPAGE = true;
 
 include __DIR__ .'/prepend.php';
 

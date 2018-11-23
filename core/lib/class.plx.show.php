@@ -6,6 +6,9 @@
  * @package PLX
  * @author	Florent MONTHEL, Stephane F
  **/
+
+const PLX_SHOW = true;
+
 class plxShow {
 
 	public $plxMotor = false; # Objet plxMotor

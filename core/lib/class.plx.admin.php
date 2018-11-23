@@ -7,7 +7,7 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
  **/
 
-define('PLX_ADMIN', true);
+const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {
 
