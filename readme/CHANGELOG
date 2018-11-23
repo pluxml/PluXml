@@ -21,7 +21,9 @@ FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
 FIX mediasManager.js : fonction callback inactive avec Firefox Quantum
+FIX Minification des fichiers CSS du thème de l'admin et du thème par défaut
 FIX #220 Problème affichage CSS thème par défaut
+FIX #225 Ajout id à la balise <body> de la page auth.php
 FIX #237 urlRewrite et caractère "&"
 FIX #249 ajout clés de traduction russe manquantes
 FIX #256 plxPlugin::setParam : mauvais test sur le paramètre "$type" (contribution bazooka07)
@@ -29,6 +31,7 @@ FIX #260 Libellé de catégorie "Non classé" non affiché lors de la prévisual
 FIX #262 Suppression tris inutiles
 FIX #289 Ajout de la class "noactive" par défaut sur les tags (contribution WorldBot)
 FIX #303 Récupération des archives d'une année (contribution sudwebdesign)
+FIX #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (contribution bazzoka07)
 
 ## PLUXML 5.6 (sortie : 05/04/2017) ##
 
