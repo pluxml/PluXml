@@ -9,8 +9,8 @@
 	<?php $plxShow->meta('keywords') ?>
 	<?php $plxShow->meta('author') ?>
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css" media="screen"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css" media="screen"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.min.css" media="screen"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.min.css" media="screen"/>
 	<?php $plxShow->templateCss() ?>
 	<?php $plxShow->pluginsCss() ?>
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" />
