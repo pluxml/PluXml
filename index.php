@@ -1,8 +1,8 @@
 <?php
 define('PLX_ROOT', './');
 define('PLX_CORE', PLX_ROOT.'core/');
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT. 'config.php';
+include PLX_CORE .'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -14,17 +14,17 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 session_start();
 
 # On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.capcha.php');
-include(PLX_CORE.'lib/class.plx.erreur.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.feed.php');
-include(PLX_CORE.'lib/class.plx.show.php');
-include(PLX_CORE.'lib/class.plx.encrypt.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
+include PLX_CORE .'lib/class.plx.date.php';
+include PLX_CORE .'lib/class.plx.glob.php';
+include PLX_CORE .'lib/class.plx.utils.php';
+include PLX_CORE .'lib/class.plx.capcha.php';
+include PLX_CORE .'lib/class.plx.erreur.php';
+include PLX_CORE .'lib/class.plx.record.php';
+include PLX_CORE .'lib/class.plx.motor.php';
+include PLX_CORE .'lib/class.plx.feed.php';
+include PLX_CORE .'lib/class.plx.show.php';
+include PLX_CORE .'lib/class.plx.encrypt.php';
+include PLX_CORE .'lib/class.plx.plugins.php';
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
@@ -58,7 +58,7 @@ if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].
 	# On impose le charset
 	header('Content-Type: text/html; charset='.PLX_CHARSET);
 	# Insertion du template
-	include(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
+	include PLX_ROOT .$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template;
 } else {
 	header('Content-Type: text/plain; charset='.PLX_CHARSET);
 	echo L_ERR_FILE_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
