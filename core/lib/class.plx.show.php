@@ -39,7 +39,7 @@ class plxShow {
 		# Chargement du fichier de lang du theme
 		$langfile = PLX_ROOT.$this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/lang/'.$this->plxMotor->aConf['default_lang'].'.php';
 		if(is_file($langfile)) {
-			include "$langfile";
+			include $langfile;
 			$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
 		}
 

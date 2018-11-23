@@ -44,7 +44,7 @@ if(is_file($filename)) {
 		<h2>'.plxUtils::strCheck($page).'</h2>
 		<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
 	</div>';
-	include "$filename";
+	include  $filename;
 	$output=ob_get_clean();
 }
 else {

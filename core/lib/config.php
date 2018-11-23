@@ -58,7 +58,7 @@ if (ini_get('register_globals')) {
 function loadLang($filename) {
 	if(file_exists($filename)) {
 		$LANG = array();
-		include_once "$filename";
+		include_once $filename;
 		foreach($LANG as $key => $value) {
 			if(!defined($key)) define($key,$value);
 		}
