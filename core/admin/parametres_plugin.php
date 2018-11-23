@@ -33,7 +33,7 @@ if(is_file($filename)) {
 		<h2>'.plxUtils::strCheck($plugin).'</h2>
 		<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
 	</div>';
-	include "$filename";
+	include $filename;
 	$output=ob_get_clean();
 }
 else {
