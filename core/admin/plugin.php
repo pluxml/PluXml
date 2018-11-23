@@ -24,7 +24,7 @@ if(!empty($plxAdmin->plxPlugins->aPlugins[$plugin]) AND is_file($filename)) {
 	<div class="inline-form action-bar">
 		<h2>'.plxUtils::strCheck($plugin).'</h2>
 	</div>';
-	include "$filename";
+	include $filename;
 	$output=ob_get_clean();
 }
 else {
