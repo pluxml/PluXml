@@ -14,6 +14,10 @@
 
 /* ---------- Authentication ---------- */
 
+#auth {
+	background-color: #f1f1f1;
+}
+
 .logo {
 	background-image: url(images/pluxml.png);
 	margin: 10% auto 20px auto;
@@ -22,8 +26,8 @@
 }
 
 .auth {
-	border: 1px solid #bbb;
-	border-radius: .6rem;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,.13);
 	overflow: hidden;
 }
 

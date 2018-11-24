@@ -124,7 +124,7 @@ plxUtils::cleanHeaders();
 	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.min.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.min.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css" media="screen" />
 	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
 	<?php
@@ -145,7 +145,7 @@ plxUtils::cleanHeaders();
 				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 					<fieldset>
 						<?php echo plxToken::getTokenPostMethod() ?>
-						<h1 class="h5 text-center"><strong><?php echo L_LOGIN_PAGE ?></strong></h1>
+						<h1 class="h4 text-center"><strong><?php echo L_LOGIN_PAGE ?></strong></h1>
 						<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
 						<div class="grid">
 							<div class="col sml-12">
@@ -161,16 +161,20 @@ plxUtils::cleanHeaders();
 						</div>
 						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
 						<div class="grid">
-							<div class="col sml-12 text-center">
+							<div class="col sml-6 text-left">
+								<small><a class="back" href="<?php echo PLX_ROOT; ?>">← <?php echo L_BACK_TO_SITE ?></a></small>
+							</div>
+							<div class="col sml-6 text-right">
 								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
 							</div>
 						</div>
 					</fieldset>
 				</form>
-				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
-				</p>
+				
 			</div>
+			<p class="text-center">
+				<small><?php echo L_POWERED_BY ?></small>
+			</p>
 		</section>
 	</main>
 
