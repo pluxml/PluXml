@@ -4,8 +4,8 @@
 # This file is part of PluXml : http://www.pluxml.org
 #
 # Package:		theme.css
-# Copyright (c) 2016, 2017 PluXml
-# Authors		Jos, Stephane F.
+# Copyright (c) 2018 PluXml
+# Authors		Jos, Stephane F., Pedro "P3ter" CADETE
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -102,6 +102,7 @@
 
 .aside .menu.expanded li a {
 	border-radius: 0;
+	padding-left: 30px;
 }
 
 .aside .menu.expanded li.active a,
