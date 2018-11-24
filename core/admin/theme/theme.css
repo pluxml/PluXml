@@ -115,11 +115,11 @@
 }
 
 .aside .menu.expanded li:hover {
-	background-color: #444;
+	background-color: #1f2428;
 }
 
 .aside .menu-config {
-	background-color: #333;
+	background-color: #32373c;
 	white-space: nowrap;
 }
 
