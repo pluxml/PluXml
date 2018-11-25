@@ -138,6 +138,35 @@ $LANG = array(
 'L_ARTICLE'													=> 'статья',
 'L_ARTICLE_ID'												=> 'ID',
 
+# articles.php
+    
+'L_SEARCH'													=> 'Поиск',
+'L_SEARCH_PLACEHOLDER'										=> 'ID или название',
+'L_ARTICLES_ALL_CATEGORIES'									=> 'Все категории ...',
+'L_ALL'														=> 'Всего',
+'L_ALL_PUBLISHED'											=> 'Опубликованные',
+'L_ALL_DRAFTS'												=> 'Черновики',
+'L_ALL_AWAITING_MODERATION'									=> 'Ожидают модерации',
+'L_ARTICLES_FILTER_BUTTON'									=> 'Фильтр',
+'L_CATEGORIES_TABLE'										=> 'Категории',
+'L_SPECIFIC_CATEGORIES_TABLE'								=> 'Особые категории',
+'L_ALL_ARTICLES_CATEGORIES_TABLE'							=> 'Все статьи',
+'L_ARTICLES_LIST'											=> 'Список статей',
+'L_ARTICLE_LIST_DATE'										=> 'Дата',
+'L_ARTICLE_LIST_TITLE'										=> 'Название',
+'L_ARTICLE_LIST_CATEGORIES'									=> 'Категории',
+'L_ARTICLE_LIST_NBCOMS'										=> 'Коммент.',
+'L_ARTICLE_LIST_AUTHOR'										=> 'Автор',
+'L_ARTICLE_LIST_ACTION'										=> 'Действие',
+'L_CATEGORY_HOME'											=> 'Главная',
+'L_CATEGORY_DRAFT'											=> 'Черновики',
+'L_ARTICLE_VIEW_TITLE'										=> 'Открыть эту статью',
+'L_ARTICLE_EDIT'											=> 'Изменить',
+'L_ARTICLE_EDIT_TITLE'										=> 'Изменить эту статью',
+'L_NEW_COMMENTS_TITLE'										=> 'Комментарии, ожидающие модерации',
+'L_VALIDATED_COMMENTS_TITLE'								=> 'Опубликованные комментарии',
+'L_NO_ARTICLE'												=> 'Нет статей',
+
 # auth.php
 
 'L_AUTH_PAGE_TITLE'											=> 'Страница авторизации',
@@ -266,35 +295,6 @@ $LANG = array(
 
 'L_COMMENT_SET_ONLINE'										=> 'Включить',
 'L_COMMENT_SET_OFFLINE'										=> 'Выключить',
-
-# index.php
-
-'L_SEARCH'													=> 'Поиск',
-'L_SEARCH_PLACEHOLDER'										=> 'ID или название',
-'L_ARTICLES_ALL_CATEGORIES'									=> 'Все категории ...',
-'L_ALL'														=> 'Всего',
-'L_ALL_PUBLISHED'											=> 'Опубликованные',
-'L_ALL_DRAFTS'												=> 'Черновики',
-'L_ALL_AWAITING_MODERATION'									=> 'Ожидают модерации',
-'L_ARTICLES_FILTER_BUTTON'									=> 'Фильтр',
-'L_CATEGORIES_TABLE'										=> 'Категории',
-'L_SPECIFIC_CATEGORIES_TABLE'								=> 'Особые категории',
-'L_ALL_ARTICLES_CATEGORIES_TABLE'							=> 'Все статьи',
-'L_ARTICLES_LIST'											=> 'Список статей',
-'L_ARTICLE_LIST_DATE'										=> 'Дата',
-'L_ARTICLE_LIST_TITLE'										=> 'Название',
-'L_ARTICLE_LIST_CATEGORIES'									=> 'Категории',
-'L_ARTICLE_LIST_NBCOMS'										=> 'Коммент.',
-'L_ARTICLE_LIST_AUTHOR'										=> 'Автор',
-'L_ARTICLE_LIST_ACTION'										=> 'Действие',
-'L_CATEGORY_HOME'											=> 'Главная',
-'L_CATEGORY_DRAFT'											=> 'Черновики',
-'L_ARTICLE_VIEW_TITLE'										=> 'Открыть эту статью',
-'L_ARTICLE_EDIT'											=> 'Изменить',
-'L_ARTICLE_EDIT_TITLE'										=> 'Изменить эту статью',
-'L_NEW_COMMENTS_TITLE'										=> 'Комментарии, ожидающие модерации',
-'L_VALIDATED_COMMENTS_TITLE'								=> 'Опубликованные комментарии',
-'L_NO_ARTICLE'												=> 'Нет статей',
 
 # medias.php
 

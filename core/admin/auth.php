@@ -4,7 +4,7 @@
  * Page d'authentification
  *
  * @package PLX
- * @author	Stephane F et Florent MONTHEL
+ * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
 # Variable pour retrouver la page d'authentification

@@ -138,6 +138,35 @@ $LANG = array(
 'L_ARTICLE'							=> 'post',
 'L_ARTICLE_ID'						=> 'Identyfikator',
 
+# articles.php
+    
+'L_SEARCH'							=> 'Szukaj',
+'L_SEARCH_PLACEHOLDER'				=> 'id lub tytuł',
+'L_ARTICLES_ALL_CATEGORIES'			=> 'Wszystkie kategorie...',
+'L_ALL'								=> 'Wszystkie',
+'L_ALL_PUBLISHED'					=> 'Opublikowane',
+'L_ALL_DRAFTS'						=> 'Projekty',
+'L_ALL_AWAITING_MODERATION'			=> 'Oczekiwanie na zatwierdzenie',
+'L_ARTICLES_FILTER_BUTTON'			=> 'Filtr',
+'L_CATEGORIES_TABLE'				=> 'Kategorie',
+'L_SPECIFIC_CATEGORIES_TABLE'		=> 'Konkretne kategorie',
+'L_ALL_ARTICLES_CATEGORIES_TABLE'	=> 'Wszystkie posty',
+'L_ARTICLES_LIST'					=> 'Lista postów',
+'L_ARTICLE_LIST_DATE'				=> 'Data',
+'L_ARTICLE_LIST_TITLE'				=> 'Tytuł',
+'L_ARTICLE_LIST_CATEGORIES'			=> 'Kategoria',
+'L_ARTICLE_LIST_NBCOMS'				=> 'Nr komentarzy',
+'L_ARTICLE_LIST_AUTHOR'				=> 'Autor',
+'L_ARTICLE_LIST_ACTION'				=> 'Akcja',
+'L_CATEGORY_HOME'					=> 'Start',
+'L_CATEGORY_DRAFT'					=> 'Projekt',
+'L_ARTICLE_VIEW_TITLE'				=> 'Zobacz ten post na stronie',
+'L_ARTICLE_EDIT'					=> 'Edytuj',
+'L_ARTICLE_EDIT_TITLE'				=> 'Edytuj ten post',
+'L_NEW_COMMENTS_TITLE' 				=> 'Komentarze oczekujące na zatwierdzenie',
+'L_VALIDATED_COMMENTS_TITLE' 		=> 'Komentarze zatwierdzone',
+'L_NO_ARTICLE'						=> 'Brak postów',
+
 # auth.php
 
 'L_AUTH_PAGE_TITLE'					=> 'administracja',
@@ -263,35 +292,6 @@ $LANG = array(
 'L_COMMENTS_ALL_LIST'				=> 'Lista komentarzy',
 'L_COMMENT_SET_ONLINE'				=> 'Aktywuj komentarz',
 'L_COMMENT_SET_OFFLINE'				=> 'Zdeaktywuj komentarz',
-
-# index.php
-
-'L_SEARCH'							=> 'Szukaj',
-'L_SEARCH_PLACEHOLDER'				=> 'id lub tytuł',
-'L_ARTICLES_ALL_CATEGORIES'			=> 'Wszystkie kategorie...',
-'L_ALL'								=> 'Wszystkie',
-'L_ALL_PUBLISHED'					=> 'Opublikowane',
-'L_ALL_DRAFTS'						=> 'Projekty',
-'L_ALL_AWAITING_MODERATION'			=> 'Oczekiwanie na zatwierdzenie',
-'L_ARTICLES_FILTER_BUTTON'			=> 'Filtr',
-'L_CATEGORIES_TABLE'				=> 'Kategorie',
-'L_SPECIFIC_CATEGORIES_TABLE'		=> 'Konkretne kategorie',
-'L_ALL_ARTICLES_CATEGORIES_TABLE'	=> 'Wszystkie posty',
-'L_ARTICLES_LIST'					=> 'Lista postów',
-'L_ARTICLE_LIST_DATE'				=> 'Data',
-'L_ARTICLE_LIST_TITLE'				=> 'Tytuł',
-'L_ARTICLE_LIST_CATEGORIES'			=> 'Kategoria',
-'L_ARTICLE_LIST_NBCOMS'				=> 'Nr komentarzy',
-'L_ARTICLE_LIST_AUTHOR'				=> 'Autor',
-'L_ARTICLE_LIST_ACTION'				=> 'Akcja',
-'L_CATEGORY_HOME'					=> 'Start',
-'L_CATEGORY_DRAFT'					=> 'Projekt',
-'L_ARTICLE_VIEW_TITLE'				=> 'Zobacz ten post na stronie',
-'L_ARTICLE_EDIT'					=> 'Edytuj',
-'L_ARTICLE_EDIT_TITLE'				=> 'Edytuj ten post',
-'L_NEW_COMMENTS_TITLE' 				=> 'Komentarze oczekujące na zatwierdzenie',
-'L_VALIDATED_COMMENTS_TITLE' 		=> 'Komentarze zatwierdzone',
-'L_NO_ARTICLE'						=> 'Brak postów',
 
 # medias.php
 

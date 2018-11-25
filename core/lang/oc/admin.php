@@ -138,6 +138,35 @@ $LANG = array(
 'L_ARTICLE'							=> 'article',
 'L_ARTICLE_ID'						=> 'Identificant',
 
+# articles.php
+    
+'L_SEARCH'							=> 'Recercar',
+'L_SEARCH_PLACEHOLDER'				=> 'identificant o títol',
+'L_ARTICLES_ALL_CATEGORIES'			=> 'Totas las categorias...',
+'L_ALL'								=> 'Totes',
+'L_ALL_PUBLISHED'					=> 'Publicats',
+'L_ALL_DRAFTS'						=> 'Borrolhons',
+'L_ALL_AWAITING_MODERATION'			=> 'En espèra de validacion',
+'L_ARTICLES_FILTER_BUTTON'			=> 'Filtrar',
+'L_CATEGORIES_TABLE'				=> 'Categorias',
+'L_SPECIFIC_CATEGORIES_TABLE'		=> 'Emplaçaments especifics',
+'L_ALL_ARTICLES_CATEGORIES_TABLE'	=> 'Totes los articles',
+'L_ARTICLES_LIST'					=> 'Lista dels articles',
+'L_ARTICLE_LIST_DATE'				=> 'Data',
+'L_ARTICLE_LIST_TITLE'				=> 'Títol',
+'L_ARTICLE_LIST_CATEGORIES'			=> 'Categoria',
+'L_ARTICLE_LIST_NBCOMS'				=> 'Nb coms',
+'L_ARTICLE_LIST_AUTHOR'				=> 'Autor',
+'L_ARTICLE_LIST_ACTION'				=> 'Accion',
+'L_CATEGORY_HOME'					=> 'Pagina d\'acuèlh',
+'L_CATEGORY_DRAFT'					=> 'Borrolhon',
+'L_ARTICLE_VIEW_TITLE'				=> 'Visualizar aquel article sul site',
+'L_ARTICLE_EDIT'					=> 'Editar',
+'L_ARTICLE_EDIT_TITLE'				=> 'Editar aquel article',
+'L_NEW_COMMENTS_TITLE' 				=> 'Comentaris en espèra de validacion',
+'L_VALIDATED_COMMENTS_TITLE' 		=> 'Comentaris publicats',
+'L_NO_ARTICLE'						=> 'Pas cap d\'article',
+
 # auth.php
 
 'L_AUTH_PAGE_TITLE'					=> 'Pagina d\'autentificacion',
@@ -263,35 +292,6 @@ $LANG = array(
 'L_COMMENTS_ALL_LIST'				=> 'Lista dels comentaris',
 'L_COMMENT_SET_ONLINE'				=> 'Metre en linha',
 'L_COMMENT_SET_OFFLINE'				=> 'Metre fòra linha',
-
-# index.php
-
-'L_SEARCH'							=> 'Recercar',
-'L_SEARCH_PLACEHOLDER'				=> 'identificant o títol',
-'L_ARTICLES_ALL_CATEGORIES'			=> 'Totas las categorias...',
-'L_ALL'								=> 'Totes',
-'L_ALL_PUBLISHED'					=> 'Publicats',
-'L_ALL_DRAFTS'						=> 'Borrolhons',
-'L_ALL_AWAITING_MODERATION'			=> 'En espèra de validacion',
-'L_ARTICLES_FILTER_BUTTON'			=> 'Filtrar',
-'L_CATEGORIES_TABLE'				=> 'Categorias',
-'L_SPECIFIC_CATEGORIES_TABLE'		=> 'Emplaçaments especifics',
-'L_ALL_ARTICLES_CATEGORIES_TABLE'	=> 'Totes los articles',
-'L_ARTICLES_LIST'					=> 'Lista dels articles',
-'L_ARTICLE_LIST_DATE'				=> 'Data',
-'L_ARTICLE_LIST_TITLE'				=> 'Títol',
-'L_ARTICLE_LIST_CATEGORIES'			=> 'Categoria',
-'L_ARTICLE_LIST_NBCOMS'				=> 'Nb coms',
-'L_ARTICLE_LIST_AUTHOR'				=> 'Autor',
-'L_ARTICLE_LIST_ACTION'				=> 'Accion',
-'L_CATEGORY_HOME'					=> 'Pagina d\'acuèlh',
-'L_CATEGORY_DRAFT'					=> 'Borrolhon',
-'L_ARTICLE_VIEW_TITLE'				=> 'Visualizar aquel article sul site',
-'L_ARTICLE_EDIT'					=> 'Editar',
-'L_ARTICLE_EDIT_TITLE'				=> 'Editar aquel article',
-'L_NEW_COMMENTS_TITLE' 				=> 'Comentaris en espèra de validacion',
-'L_VALIDATED_COMMENTS_TITLE' 		=> 'Comentaris publicats',
-'L_NO_ARTICLE'						=> 'Pas cap d\'article',
 
 # medias.php
 

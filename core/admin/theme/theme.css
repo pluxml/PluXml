@@ -12,6 +12,10 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+body {
+	background-color: F6F6F6;
+}
+
 .ico {
   position: absolute;
   text-indent: 5px;
@@ -68,7 +72,7 @@
 
 .aside,
 .aside a {
-	color: #ddd;
+	color: #eee;
 }
 
 .aside .header {
@@ -145,12 +149,12 @@ a.lnkdelete:hover {
 }
 
 .section .action-bar {
-	background-color: #eee;
-	border-bottom: 1px solid #ddd;
+	background-color: #32373c;
+	box-shadow: 0 2px 0px rgba(0,0,0,.09);
+	color: #eee;
 	left: 16.6666%;
 	right: 0;
 	margin-left: -1.5rem;
-	height: 12rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
 	position: fixed;
 	top: 0;
@@ -217,9 +221,8 @@ a.lnkdelete:hover {
 		left: 0;
 	}
 	.section .action-bar {
-		/*background-color: inherit;*/
 		margin: 0 0 1.5rem 0;
-		padding: 0;
+		padding: 1rem 0rem;
 		z-index: inherit;
 	}
 	.section {

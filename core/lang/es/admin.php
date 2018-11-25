@@ -138,6 +138,35 @@ $LANG = array(
 'L_ARTICLE'										=> 'artículo',
 'L_ARTICLE_ID'									=> 'Identificador',
 
+# articles.php
+    
+'L_SEARCH'										=> 'Búsqueda',
+'L_SEARCH_PLACEHOLDER'							=> 'identificador o título',
+'L_ARTICLES_ALL_CATEGORIES'						=> 'Todas las categorías...',
+'L_ALL'											=> 'Todos',
+'L_ALL_PUBLISHED'								=> 'Publicados',
+'L_ALL_DRAFTS'									=> 'Borradores',
+'L_ALL_AWAITING_MODERATION'						=> 'En espera de validación',
+'L_ARTICLES_FILTER_BUTTON'						=> 'Filtrar',
+'L_CATEGORIES_TABLE'							=> 'Categorías',
+'L_SPECIFIC_CATEGORIES_TABLE'					=> 'Categorías específicas',
+'L_ALL_ARTICLES_CATEGORIES_TABLE'				=> 'Todos los artículos',
+'L_ARTICLES_LIST'								=> 'Lista de artículos',
+'L_ARTICLE_LIST_DATE'							=> 'Fecha',
+'L_ARTICLE_LIST_TITLE'							=> 'Título',
+'L_ARTICLE_LIST_CATEGORIES'						=> 'Categoría',
+'L_ARTICLE_LIST_NBCOMS'							=> 'Cant. de comentarios',
+'L_ARTICLE_LIST_AUTHOR'							=> 'Autor',
+'L_ARTICLE_LIST_ACTION'							=> 'Acción',
+'L_CATEGORY_HOME'								=> 'Inicio',
+'L_CATEGORY_DRAFT'								=> 'Borrador',
+'L_ARTICLE_VIEW_TITLE'							=> 'Visualizar este artílo en el sitio',
+'L_ARTICLE_EDIT'								=> 'Editar',
+'L_ARTICLE_EDIT_TITLE'							=> 'Editar este artículo',
+'L_NEW_COMMENTS_TITLE'							=> 'Comentarios en espera de moderación',
+'L_VALIDATED_COMMENTS_TITLE'					=> 'Comentarios publicados',
+'L_NO_ARTICLE'									=> 'No existe este artículo',
+
 # auth.php
 
 'L_AUTH_PAGE_TITLE'								=> 'Página de autenticación',
@@ -263,35 +292,6 @@ $LANG = array(
 'L_COMMENTS_ALL_LIST'							=> 'Lista de comentarios',
 'L_COMMENT_SET_ONLINE'							=> 'Configurar como visible',
 'L_COMMENT_SET_OFFLINE'							=> 'Configurar como invisible',
-
-# index.php
-
-'L_SEARCH'										=> 'Búsqueda',
-'L_SEARCH_PLACEHOLDER'							=> 'identificador o título',
-'L_ARTICLES_ALL_CATEGORIES'						=> 'Todas las categorías...',
-'L_ALL'											=> 'Todos',
-'L_ALL_PUBLISHED'								=> 'Publicados',
-'L_ALL_DRAFTS'									=> 'Borradores',
-'L_ALL_AWAITING_MODERATION'						=> 'En espera de validación',
-'L_ARTICLES_FILTER_BUTTON'						=> 'Filtrar',
-'L_CATEGORIES_TABLE'							=> 'Categorías',
-'L_SPECIFIC_CATEGORIES_TABLE'					=> 'Categorías específicas',
-'L_ALL_ARTICLES_CATEGORIES_TABLE'				=> 'Todos los artículos',
-'L_ARTICLES_LIST'								=> 'Lista de artículos',
-'L_ARTICLE_LIST_DATE'							=> 'Fecha',
-'L_ARTICLE_LIST_TITLE'							=> 'Título',
-'L_ARTICLE_LIST_CATEGORIES'						=> 'Categoría',
-'L_ARTICLE_LIST_NBCOMS'							=> 'Cant. de comentarios',
-'L_ARTICLE_LIST_AUTHOR'							=> 'Autor',
-'L_ARTICLE_LIST_ACTION'							=> 'Acción',
-'L_CATEGORY_HOME'								=> 'Inicio',
-'L_CATEGORY_DRAFT'								=> 'Borrador',
-'L_ARTICLE_VIEW_TITLE'							=> 'Visualizar este artílo en el sitio',
-'L_ARTICLE_EDIT'								=> 'Editar',
-'L_ARTICLE_EDIT_TITLE'							=> 'Editar este artículo',
-'L_NEW_COMMENTS_TITLE'							=> 'Comentarios en espera de moderación',
-'L_VALIDATED_COMMENTS_TITLE'					=> 'Comentarios publicados',
-'L_NO_ARTICLE'									=> 'No existe este artículo',
 
 # medias.php
 
