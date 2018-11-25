@@ -494,5 +494,8 @@ $LANG = array(
 'L_CONFIG_THEME_UPDATE'										=> 'Change Theme',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Invalid creation date',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Invalid date updated',
+'L_CONFIG_ADVANCED_ROBOTS_TXT_MISSING'						=> 'missing',
+'L_CONFIG_ADVANCED_ROBOTS_TXT'								=> 'Setup "robots.txt" file',
+'L_CONFIG_INFOS_ROBOTS_TXT'									=> 'Dump of "robots.txt" file',
 );
 ?>

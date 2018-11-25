@@ -369,6 +369,8 @@ $LANG = array(
 
 'L_CONFIG_ADVANCED_DESC'			=> 'Configuration avancée',
 'L_CONFIG_ADVANCED_URL_REWRITE'		=> 'Activer la réécriture d\'URL',
+'L_CONFIG_ADVANCED_ROBOTS_TXT'		=> 'Gérer le fichier robots.txt',
+'L_CONFIG_ADVANCED_ROBOTS_TXT_MISSING' => 'absent',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'=> 'Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera modifié',
 'L_CONFIG_ADVANCED_GZIP'			=> 'Activer la compression GZIP',
 'L_CONFIG_ADVANCED_GZIP_HELP'		=> 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur',
@@ -421,6 +423,7 @@ $LANG = array(
 'L_PLUXML_UPDATE_ERR'				=> 'La vérification de mise à jour a échoué pour une raison inconnue',
 'L_PLUXML_UPTODATE'					=> 'Vous utilisez la dernière version de PluXml',
 'L_PLUXML_UPDATE_AVAILABLE'			=> 'Une nouvelle version de PluXml est sortie ! Vous pouvez la télécharger sur',
+'L_CONFIG_INFOS_ROBOTS_TXT'			=> 'Contenu du fichier "robots.txt" :',
 
 # parametres_users.php
 

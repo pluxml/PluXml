@@ -49,6 +49,17 @@ include __DIR__ .'/top.php';
 <p><?php echo L_CONFIG_INFOS_NB_CATS ?> <?php echo sizeof($plxAdmin->aCats); ?></p>
 <p><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></p>
 <p><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
+<?php
+$filename = $_SERVER['DOCUMENT_ROOT'] .'/robots.txt';
+if(file_exists($filename)) {
+?>
+<p><?php echo L_CONFIG_INFOS_ROBOTS_TXT; ?></p>
+<pre><code>
+<?php readfile($filename); ?>
+</code></pre>
+<?php
+}
+?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) ?>
 

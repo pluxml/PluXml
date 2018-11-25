@@ -11,6 +11,8 @@ define('PLX_ADMIN', true);
 
 class plxAdmin extends plxMotor {
 
+	const SIGNATURE_PLUXML = '@^(# BEGIN -- Pluxml\s*$.*^# END -- Pluxml\s*)$@ms';
+
 	private static $instance = null;
 
 	/**
@@ -121,6 +123,11 @@ class plxAdmin extends plxMotor {
 			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
+		# Actions sur le fichier robots.txt
+		if(isset($content['robots']))
+			if(!$this->robots($content['robots']))
+				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, 'robots.txt'));
+
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
 			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
@@ -196,6 +203,73 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			return true;
 		} else {
 			return plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
+		}
+
+	}
+
+	/**
+	 * Méthode qui génére le fichier robots.txt  à la racine du site.
+	 *
+	 * @param   url			url du site
+	 * @return	null
+	 * @author	J.P. Pourrez aka bazooka07
+	 **/
+	public function robots($enabled=true) {
+		# https://support.google.com/webmasters/answer/6062596?hl=en
+
+		$filename = $_SERVER['DOCUMENT_ROOT'] .'/robots.txt';
+
+		if(empty($enabled)) {
+			if(!file_exists($filename)) { return; }
+
+			$input = file_get_contents($filename);
+			if(!preg_match(self::SIGNATURE_PLUXML, $input, $matches)) { return; }
+			$rules = '';
+			$content = str_replace($matches[1], '', $input);
+		} else {
+			$path1 = parse_url($this->racine, PHP_URL_PATH);
+			$medias = $this->aConf['medias'];
+			$datasPath = dirname($medias).'/';
+			$timestamp = date('c');
+			$rules = <<< CONTENT
+# BEGIN -- Pluxml
+# Set on $timestamp
+User-agent: *
+Disallow: {$path1}install.php
+Disallow: {$path1}core/
+Disallow: {$path1}readme/
+Disallow: {$path1}update/
+Disallow: {$path1}{$datasPath}
+Disallow: {$path1}{$this->aConf['racine_plugins']}
+Disallow: {$path1}themes/
+Allow:    {$path1}{$medias}
+Allow:    {$path1}{$datasPath}documents/
+Allow:    {$path1}themes/{$this->aConf['style']}/img/
+Sitemap:  {$this->racine}sitemap.php
+# END -- Pluxml\n
+CONTENT;
+			if(file_exists($filename)) {
+				# update robots.txt file
+				$input = file_get_contents($filename);
+				if(preg_match(self::SIGNATURE_PLUXML, $input, $matches)) {
+					$content = str_replace($matches[1], '', $input);
+				} else {
+					$content = $input."\n".$rules;
+				}
+			} else {
+				# new robots.txt file
+				$content = $rules;
+			}
+		}
+
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxAdminRobots'));
+
+		if(!empty(trim($content))) {
+			return plxUtils::write($content, $filename);
+		} else {
+			unlink($filename);
+			return true;
 		}
 
 	}

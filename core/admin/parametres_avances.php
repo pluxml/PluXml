@@ -54,6 +54,21 @@ include __DIR__ .'/top.php';
 			</div>
 		</div>
 		<div class="grid">
+			<div class="col sml-12 med-5">
+				<label for="id_robots">
+<?php
+	echo L_CONFIG_ADVANCED_ROBOTS_TXT;
+	if(!file_exists($_SERVER['DOCUMENT_ROOT'].'/robots.txt')) {
+		echo '&nbsp;<span style="margin-top:5px" class="alert red float-right">'.L_CONFIG_ADVANCED_ROBOTS_TXT_MISSING.'</span>';
+	}
+?>&nbsp;:
+				</label>
+			</div>
+			<div class="col sml-12 med-7">
+<?php plxUtils::printSelect('robots',array('1'=>L_YES,'0'=>L_NO), (array_key_exists('robots', $plxAdmin->aConf)) ? $plxAdmin->aConf['robots'] : '1'); ?>
+			</div>
+		</div>
+		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
 				<label for="id_gzip"><?php echo L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
 			</div>
