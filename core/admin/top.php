@@ -121,13 +121,13 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						if($plugInstance AND is_file(PLX_PLUGINS.$plugName.'/admin.php')) {
 							if($plxAdmin->checkProfil($plugInstance->getAdminProfil(),false)) {
 								if($plugInstance->adminMenu) {
-									$menu = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->adminMenu['title']), PLX_CORE.'admin/plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->adminMenu['caption']));
+								    $menu = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->adminMenu['title']), PLX_CORE.'admin/plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->adminMenu['caption']), false, false, '', '<i class="ico icon-cog"></i>');
 									if($plugInstance->adminMenu['position']!='')
 										array_splice($menus, ($plugInstance->adminMenu['position']-1), 0, $menu);
 									else
 										$menus[] = $menu;
 								} else {
-									$menus[] = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->getInfo('title')), PLX_CORE.'admin/plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->getInfo('title')));
+								    $menus[] = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->getInfo('title')), PLX_CORE.'admin/plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->getInfo('title')), false, false, '', '<i class="ico icon-cog"></i>');
 								}
 							}
 						}
