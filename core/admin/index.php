@@ -26,6 +26,9 @@ include __DIR__ .'/top.php';
 	<h2><?php echo L_DASHBOARD_TITLE ?></h2>
 </div>
 
+<p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong></p>
+<?php echo $plxAdmin->checkMaj(); ?>
+
 <div class="grid">
 	<div class="col sml-6">
 
