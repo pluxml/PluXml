@@ -54,42 +54,42 @@ class plxAdmin extends plxMotor {
 	    $catIdSel = '';
 	    switch ($status) {
 	        case 'published':
-	            $catIdSel = '[home|0-9,]FILTER*';
-	            $mod='';
-	            break;
-	        case 'draft':
-	            $catIdSel = '[home|0-9,]*draftFILTER*';
-	            $mod='_?';
-	            break;
-	        case 'all':
-	            $catIdSel = '[home|draft|0-9,]FILTER*';
-	            $mod='_?';
-	            break;
-	        case 'mod':
-	            $catIdSel = '[home|draft|0-9,]FILTER*';
-	            $mod='_';
-	            break;
-	        default:
-	            $catIdSel = '[home|draft|0-9,]FILTER*';
-	            $mod='_?';
-	    }
+    	        $catIdSel = '[home|0-9,]*FILTER[home|0-9,]*';
+    	        $mod='';
+    	        break;
+    	    case 'draft':
+    	        $catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
+    	        $mod='_?';
+    	        break;
+    	    case 'all':
+    	        $catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
+    	        $mod='_?';
+    	        break;
+    	    case 'mod':
+    	        $catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
+    	        $mod='_';
+    	        break;
+    	    default:
+    	        $catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
+    	        $mod='_?';
+        }
     	switch ($cat) {
     	    case 'all' :
-    	        $catIdSel = str_replace('FILTER', '', $catIdSel); break;
+    	        $catIdSel = str_replace('FILTER', '', $catIdSel);
+    	        break;
     	    case '000' :
-    	        $catIdSel = str_replace('FILTER', '000', $catIdSel); break;
+    	        $catIdSel = str_replace('FILTER', '000', $catIdSel);
+    	        break;
     	    case 'home':
-    	        $catIdSel = str_replace('FILTER', 'home', $catIdSel); break;
+    	        $catIdSel = str_replace('FILTER', 'home', $catIdSel);
+    	        break;
     	    case preg_match('/^[0-9]{3}$/', $cat)==1:
-    	        if ($cat == '')
-    	            $catIdSel = str_replace('FILTER', '', $catIdSel);
-    	        else 
-    	            $catIdSel = str_replace('FILTER', ','.$cat, $catIdSel);
+    	        $catIdSel = str_replace('FILTER', $cat, $catIdSel);
     	    default:
     	        $catIdSel = str_replace('FILTER', '', $catIdSel);
     	}
     	if ($user == '')
-    	    $motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.[0-9]{3}.[0-9]{12}.(.*).xml$/';
+    	    $motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$_SESSION['user'].'.[0-9]{12}.(.*).xml$/';
     	else
     	    $motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$user.'.[0-9]{12}.(.*).xml$/';
     	return $motif;

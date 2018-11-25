@@ -28,104 +28,84 @@ include __DIR__ .'/top.php';
 
 <?php echo $plxAdmin->checkMaj(); ?>
 
-<?php
-    # Permettre l'affichage en fonction du profil utilisateur
-    $hideClass='sml-hide';
-	if($_SESSION['profil']<=PROFIL_MODERATOR) {
-		$hideClass='sml-show';
-	}
-?>
-
-<!--  Affichages des articles et commentaire en modération -->
-<div class="grid <?php echo $hideClass;?>">
+<div class="grid">
 	<div class="col sml-6">
 
-        <h3>Articles en modération</h3>
-		<?php
+        <h3>Mes brouillons</h3>
+        <?php
 		# Récupération des articles
-        $plxAdmin->prechauffage($plxAdmin->motif('mod','all', $userId));
+        $plxAdmin->prechauffage($plxAdmin->motif('draft','all'));
         $arts = $plxAdmin->getArticles('all');
         
         # Liste des articles
-		if($arts) { # On a des articles
-			# Initialisation de l'ordre
-			$num=0;
-			$datetime = date('YmdHi');
+		if($arts) {
 			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
-				$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
-				$publi =  (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
-				# Catégories : liste des libellés de toutes les categories
-				$draft='';
-				$libCats='';
-				$aCats = array();
-				$catIds = explode(',', $plxAdmin->plxRecord_arts->f('categorie'));
-				if(sizeof($catIds)>0) {
-					foreach($catIds as $catId) {
-						$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
-						if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
-						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
-						elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
-						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
-					}
-
-				}
-				# en attente de validation ?
-				$idArt = $plxAdmin->plxRecord_arts->f('numero');
-				$awaiting = $idArt[0]=='_' ? ' - <strong>'.L_AWAITING.'</strong>' : '';
-				# Commentaires
-				$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$idArt.'.(.*).xml$/','all');
-				$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$idArt.'.(.*).xml$/','all');
-				# On affiche la ligne
-				echo '<tr>';
-				echo '<td><input type="checkbox" name="idArt[]" value="'.$idArt.'" /></td>';
-				echo '<td>'.$idArt.'</td>';
-				echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
-				echo '<td class="wrap"><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')).'</a>'.$draft.$awaiting.'&nbsp;</td>';
-				echo '<td>';
-				if(sizeof($aCats)>1) {
-					echo '<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value=this.value;this.form.submit()">';
-					echo implode('', $aCats);
-					echo '</select>';
-				}
-				else echo strip_tags(implode('', $aCats));
-				echo '&nbsp;</td>';
-				echo '<td><a title="'.L_NEW_COMMENTS_TITLE.'" href="comments.php?sel=offline&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsToValidate.'</a> / <a title="'.L_VALIDATED_COMMENTS_TITLE.'" href="comments.php?sel=online&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsValidated.'</a>&nbsp;</td>';
-				echo '<td>'.plxUtils::strCheck($author).'&nbsp;</td>';
-				echo '<td>';
+			    $idArt = $plxAdmin->plxRecord_arts->f('numero');
+			    $author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
+				echo plxDate::formatDate($plxAdmin->plxRecord_arts->f('date'));
+				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')).'</a>';
+				echo plxUtils::strCheck($author);
 				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_ARTICLE_EDIT.'</a>';
-				if($publi AND $draft=='') # Si l'article est publié
-					echo ' <a href="'.$plxAdmin->urlRewrite('?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url')).'" title="'.L_ARTICLE_VIEW_TITLE.'">'.L_VIEW.'</a>';
-				echo "&nbsp;</td>";
-				echo "</tr>";
 			}
-		} else { # Aucun article
+		} else { # Aucun article dans la liste
 			echo L_NO_ARTICLE;
 		}
 		?>
 
-
 	</div>
 	<div class="col sml-6">
 
-		<h3>Commentaires en modération</h3>
-
-
-
+		<h3>Actualités</h3>
+		<p>Blog</p>
+		<p>Forum</p>
 	</div>
 </div>
 
-<div class="grid">
-	<div class="col sml-6">
+<!-- Affichages des commentaires en modération -->
+<?php 
+if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+    echo'
+        <div class="grid">
+            <div class="col sml-12">
+                <h3>Articles en modération</h3>';
+		
+	# Récupération des articles
+    $plxAdmin->prechauffage($plxAdmin->motif('mod','all', $userId));
+    $arts = $plxAdmin->getArticles('all');
+        
+    # Liste des articles
+	if($arts) {
+	   while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
+	       $idArt = $plxAdmin->plxRecord_arts->f('numero');
+		   $author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
+		   echo plxDate::formatDate($plxAdmin->plxRecord_arts->f('date'));
+		   echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')).'</a>';
+		   echo plxUtils::strCheck($author);
+		   echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_ARTICLE_EDIT.'</a>';
+		}
+	} else { # Aucun article dans la liste
+		echo L_NO_ARTICLE;
+	}
+	echo'
+        	</div>
+        </div>';
+}
+?>
 
-        <h3>Brouillons</h3>
-
-	</div>
-	<div class="col sml-6">
-
-		<h3>Titre h3</h3>
-
-	</div>
-</div>
+<!--  Affichages des articles en modération -->
+<?php 
+if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+    echo'
+        <div class="grid">
+        	<div class="col sml-12">
+        
+                <h3>Commenaires en modération</h3>
+        
+        
+        	</div>
+        </div>';
+}
+?>
 
 <?php
 # Hook Plugins
