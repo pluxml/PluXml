@@ -4,7 +4,7 @@
  * Listing des articles
  *
  * @package PLX
- * @author	Stephane F et Florent MONTHEL
+ * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
 include __DIR__ .'/prepend.php';
@@ -26,7 +26,7 @@ if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']
 $userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
 
 # Récuperation des paramètres
-if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published', 'draft','mod'))) {
+if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published','draft','mod'))) {
 	$_SESSION['sel_get']=plxUtils::nullbyteRemove($_GET['sel']);
 	$_SESSION['sel_cat']='';
 }

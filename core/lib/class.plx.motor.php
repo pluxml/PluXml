@@ -44,7 +44,7 @@ class plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxMotor
 	 *
-	 * @return	objet			return une instance de la classe plxMotor
+	 * @return	self			return une instance de la classe plxMotor
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -920,7 +920,7 @@ class plxMotor {
 	 * Méthode qui crée physiquement le fichier XML du commentaire
 	 *
 	 * @param	comment	array avec les données du commentaire à ajouter
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stéphane F
 	 **/
 	public function addCommentaire($content) {
@@ -985,7 +985,7 @@ class plxMotor {
 	 * Méthode qui lance le téléchargement d'un document
 	 *
 	 * @param	cible	cible de téléchargement cryptée
-	 * @return	booleen
+	 * @return	boolean
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function sendTelechargement($cible) {

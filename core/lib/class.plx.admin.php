@@ -4,7 +4,7 @@
  * Classe plxAdmin responsable des modifications dans l'administration
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
 define('PLX_ADMIN', true);
@@ -16,7 +16,7 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
 	 *
-	 * @return	objet			return une instance de la classe plxAdmin
+	 * @return	self			return une instance de la classe plxAdmin
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -38,6 +38,61 @@ class plxAdmin extends plxMotor {
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminConstruct'));
+	}
+
+	/**
+	 * Méthode qui construit un motif de recherche
+	 *
+	 * @param	status           statut de l'article
+	 * @param	cat              catégorie de l'article
+	 * @param   user           utilisateur ayant rédigé l'article
+	 * @return	string           le motif construit à passer dans prechauffage()
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function motif($status='', $cat='', $user='') {
+	    $motif = '';
+	    $catIdSel = '';
+	    switch ($status) {
+	        case 'published':
+	            $catIdSel = '[home|0-9,]FILTER*';
+	            $mod='';
+	            break;
+	        case 'draft':
+	            $catIdSel = '[home|0-9,]*draftFILTER*';
+	            $mod='_?';
+	            break;
+	        case 'all':
+	            $catIdSel = '[home|draft|0-9,]FILTER*';
+	            $mod='_?';
+	            break;
+	        case 'mod':
+	            $catIdSel = '[home|draft|0-9,]FILTER*';
+	            $mod='_';
+	            break;
+	        default:
+	            $catIdSel = '[home|draft|0-9,]FILTER*';
+	            $mod='_?';
+	    }
+    	switch ($cat) {
+    	    case 'all' :
+    	        $catIdSel = str_replace('FILTER', '', $catIdSel); break;
+    	    case '000' :
+    	        $catIdSel = str_replace('FILTER', '000', $catIdSel); break;
+    	    case 'home':
+    	        $catIdSel = str_replace('FILTER', 'home', $catIdSel); break;
+    	    case preg_match('/^[0-9]{3}$/', $cat)==1:
+    	        if ($cat == '')
+    	            $catIdSel = str_replace('FILTER', '', $catIdSel);
+    	        else 
+    	            $catIdSel = str_replace('FILTER', ','.$cat, $catIdSel);
+    	    default:
+    	        $catIdSel = str_replace('FILTER', '', $catIdSel);
+    	}
+    	if ($user == '')
+    	    $motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.[0-9]{3}.[0-9]{12}.(.*).xml$/';
+    	else
+    	    $motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$user.'.[0-9]{12}.(.*).xml$/';
+    	return $motif;
 	}
 
 	/**
@@ -890,7 +945,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	artId	identifiant de l'article en question
 	 * @param	content	string contenu du nouveau commentaire
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function newCommentaire($artId,$content) {
