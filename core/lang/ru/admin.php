@@ -296,6 +296,11 @@ $LANG = array(
 'L_COMMENT_SET_ONLINE'										=> 'Включить',
 'L_COMMENT_SET_OFFLINE'										=> 'Выключить',
 
+
+# index.php
+
+'L_DASHBOARD_TITLE'											=> 'Консоль',
+
 # medias.php
 
 'L_MEDIAS_FILENAME'											=> 'Имя файла',

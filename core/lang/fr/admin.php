@@ -297,6 +297,10 @@ $LANG = array(
 'L_COMMENT_SET_ONLINE'				=> 'Mettre en ligne',
 'L_COMMENT_SET_OFFLINE'				=> 'Mettre hors ligne',
 
+# index.php
+
+'L_DASHBOARD_TITLE'                  => 'Tableau de bord',
+
 # medias.php
 
 'L_MEDIAS_FILENAME'					=> 'Nom du fichier',

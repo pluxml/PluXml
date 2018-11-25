@@ -293,6 +293,10 @@ $LANG = array(
 'L_COMMENT_SET_ONLINE'							=> 'Configurar como visible',
 'L_COMMENT_SET_OFFLINE'							=> 'Configurar como invisible',
 
+# index.php
+
+'L_DASHBOARD_TITLE'								=> 'Escritorio',
+
 # medias.php
 
 'L_MEDIAS_FILENAME'								=> 'Nombre del archivo',

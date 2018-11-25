@@ -494,5 +494,6 @@ $LANG = array(
 'L_CONFIG_THEME_UPDATE'										=> 'Change Theme',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Invalid creation date',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Invalid date updated',
+'L_DASHBOARD_TITLE'									    	=> 'Dashboard',
 );
 ?>

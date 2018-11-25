@@ -494,5 +494,6 @@ $LANG = array(
 'L_CONFIG_THEME_UPDATE'										=> 'Înregistrarea temă',
 'L_ERR_INVALID_DATE_CREATION'								=> 'Data creării invalid',
 'L_ERR_INVALID_DATE_UPDATE'									=> 'Data invalid actualizat',
+'L_DASHBOARD_TITLE'											=> 'Panou control',
 );
 ?>

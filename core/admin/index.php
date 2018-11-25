@@ -22,7 +22,8 @@ include __DIR__ .'/top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <div class="inline-form action-bar">
-	<h2><?php echo L_ARTICLES_LIST ?></h2>
+	<i class="ico icon-th-large"></i>
+	<h2><?php echo L_DASHBOARD_TITLE ?></h2>
 </div>
 
 <div class="grid">

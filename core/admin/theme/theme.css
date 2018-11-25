@@ -129,7 +129,7 @@ body {
 
 .aside .menu.expanded li a {
 	border-radius: 0;
-	padding-left: 35px;
+	margin-left: 30px;
 }
 
 a.lnkdelete {
@@ -145,7 +145,7 @@ a.lnkdelete:hover {
 
 .section {
 	margin-bottom: 2rem;
-	margin-top: 13rem;
+	margin-top: 8rem;
 }
 
 .section .action-bar {
@@ -168,8 +168,7 @@ a.lnkdelete:hover {
 
 .section .action-bar h2 {
 	font-size: 2.5rem;
-	margin-top: 0;
-	margin-bottom: 0;
+	margin: 0px 40px 0px;
 }
 
 @media (max-width: 1023px) {

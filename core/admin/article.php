@@ -19,7 +19,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminArticlePrepend'));
 # validation de l'id de l'article si passé en parametre
 if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
-	header('Location: index.php');
+	header('Location: articles.php');
 	exit;
 }
 
@@ -43,7 +43,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		# On valide l'article
 		if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_POST['artId'].'.([home[draft|0-9,]*).'.$_SESSION['user'].'.(.+).xml$/')) == false) { # Article inexistant
 			plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
-			header('Location: index.php');
+			header('Location: articles.php');
 			exit;
 		}
 	}
@@ -94,7 +94,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	# Suppression d'un article
 	if(isset($_POST['delete'])) {
 		$plxAdmin->delArticle($_POST['artId']);
-		header('Location: index.php');
+		header('Location: articles.php');
 		exit;
 	}
 	# Mode création ou maj
@@ -176,7 +176,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	# On va rechercher notre article
 	if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'.(.+).xml$/')) == false) { # Article inexistant
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
-		header('Location: index.php');
+		header('Location: articles.php');
 		exit;
 	}
 	# On parse et alimente nos variables
@@ -204,7 +204,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 	if($author!=$_SESSION['user'] AND $_SESSION['profil']==PROFIL_WRITER) {
 		plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
-		header('Location: index.php');
+		header('Location: articles.php');
 		exit;
 	}
 	# Hook Plugins
@@ -279,7 +279,7 @@ function refreshImg(dta) {
 
 		<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
 
-		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+		<p><a class="back" href="articles.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?php echo L_ARTICLE_PREVIEW_BUTTON ?>"/>
 		<?php

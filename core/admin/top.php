@@ -76,7 +76,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					$menus = array();
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
 					
-					$menus[] = plxUtils::formatMenu('Tableau de bord', PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod, '<i class="ico icon-th-large"></i>');
+					$menus[] = plxUtils::formatMenu(L_DASHBOARD_TITLE, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod, '<i class="ico icon-th-large"></i>');
 					
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
 					$arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';

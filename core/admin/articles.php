@@ -18,7 +18,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
 # Suppression des articles selectionnes
 if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']=='delete') AND isset($_POST['idArt'])) {
 	foreach ($_POST['idArt'] as $k => $v) $plxAdmin->delArticle($v);
-	header('Location: index.php');
+	header('Location: articles.php');
 	exit;
 }
 
@@ -123,15 +123,15 @@ include __DIR__ .'/top.php';
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
-<form action="index.php" method="post" id="form_articles">
+<form action="articles.php" method="post" id="form_articles">
 
 <div class="inline-form action-bar">
 	<h2><?php echo L_ARTICLES_LIST ?></h2>
 	<ul class="menu">
-		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="articles.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="articles.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="articles.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="articles.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
 	</ul>
 	<?php
 	echo plxToken::getTokenPostMethod();
@@ -149,7 +149,7 @@ include __DIR__ .'/top.php';
 		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
 	<div class="col sml-6 text-right">
-		<input id="index-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
+		<input id="articles-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
 	</div>
 </div>
@@ -247,18 +247,18 @@ include __DIR__ .'/top.php';
 		if($start<1) $start=1;
 		# Génération des URLs
 		$artTitle = (!empty($_GET['artTitle'])?'&amp;artTitle='.urlencode($_GET['artTitle']):'');
-		$p_url = 'index.php?page='.($plxAdmin->page-1).$artTitle;
-		$n_url = 'index.php?page='.($plxAdmin->page+1).$artTitle;
-		$l_url = 'index.php?page='.$last_page.$artTitle;
-		$f_url = 'index.php?page=1'.$artTitle;
+		$p_url = 'articles.php?page='.($plxAdmin->page-1).$artTitle;
+		$n_url = 'articles.php?page='.($plxAdmin->page+1).$artTitle;
+		$l_url = 'articles.php?page='.$last_page.$artTitle;
+		$f_url = 'articles.php?page=1'.$artTitle;
 		# Affichage des liens de pagination
-		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'index.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page);
+		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'articles.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page);
 		$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
 		echo '<span class="p_first">'.$s.'</span>';
 		$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
 		echo '<span class="p_prev">'.$s.'</span>';
 		for($i=$start;$i<=$stop;$i++) {
-			$s = $i==$plxAdmin->page ? $i : '<a href="'.('index.php?page='.$i.$artTitle).'" title="'.$i.'">'.$i.'</a>';
+			$s = $i==$plxAdmin->page ? $i : '<a href="'.('articles.php?page='.$i.$artTitle).'" title="'.$i.'">'.$i.'</a>';
 			echo '<span class="p_current">'.$s.'</span>';
 		}
 		$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">&rsaquo;</a>' : '&rsaquo;';

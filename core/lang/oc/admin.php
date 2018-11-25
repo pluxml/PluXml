@@ -293,6 +293,11 @@ $LANG = array(
 'L_COMMENT_SET_ONLINE'				=> 'Metre en linha',
 'L_COMMENT_SET_OFFLINE'				=> 'Metre fòra linha',
 
+
+# index.php
+
+'L_DASHBOARD_TITLE'					=> 'Tablèu de bòrd',
+
 # medias.php
 
 'L_MEDIAS_FILENAME'					=> 'Nom del fichièr',

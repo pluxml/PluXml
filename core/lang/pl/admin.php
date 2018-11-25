@@ -293,6 +293,12 @@ $LANG = array(
 'L_COMMENT_SET_ONLINE'				=> 'Aktywuj komentarz',
 'L_COMMENT_SET_OFFLINE'				=> 'Zdeaktywuj komentarz',
 
+    
+# index.php
+
+'L_DASHBOARD_TITLE'					=> 'Kokpit',
+
+
 # medias.php
 
 'L_MEDIAS_FILENAME'					=> 'Nazwa pliku',
