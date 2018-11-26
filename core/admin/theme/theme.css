@@ -149,9 +149,10 @@ a.lnkdelete:hover {
 }
 
 .section .action-bar {
-	background-color: #32373c;
+	/*background-color: #32373c;*/
+	/*color: #eee;*/
+	background-color: #fff;
 	box-shadow: 0 2px 0px rgba(0,0,0,.09);
-	color: #eee;
 	left: 16.6666%;
 	right: 0;
 	margin-left: -1.5rem;
@@ -169,6 +170,17 @@ a.lnkdelete:hover {
 .section .action-bar h2 {
 	font-size: 2.5rem;
 	margin: 0px 40px 0px;
+}
+
+.section .panel {
+	margin: 10px 0px
+}
+
+.section .panel-content {
+	padding: 1rem;
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+	box-shadow: 0 1px 3px rgba(0,0,0,.13);
 }
 
 @media (max-width: 1023px) {
