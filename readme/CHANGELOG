@@ -20,6 +20,7 @@ FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
 FIX mediasManager.js : fonction callback inactive avec Firefox Quantum
 FIX #289 Ajout de la class noactive par défaut sur les tags (contribution WorldBot)
+FIX #303 Récupération des archives d'une année
 FIX #220 Problème affichage css thème par défaut
 FIX #237 urlRewrite et caractère &
 FIX #249 ajout clés de traduction russe absentes
