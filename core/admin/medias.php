@@ -209,7 +209,7 @@ $curFolders = explode('/', $curFolder);
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 							if(is_file($v['path']) AND $isImage) {
-								echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+								echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" width="48" height="48"/></a>';
 							}
 						echo '</td>';
 						echo '<td>';
