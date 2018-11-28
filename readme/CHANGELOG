@@ -5,9 +5,10 @@
 [+] Prise en compte du fichier css des plugins sur la page auth.php
 [+] Administration : Tri ordre des catégories et des pages statiques par drag&drop
 [+] Affichage de l'image d'accroche dans les flux rss
+[+] Tri alphabétique inversé des articles et catégories (contribution bazooka07)
+[+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
+[+] Gestionnaire de médias : affichage du nombre maximal de fichiers par envoi
 [+] Thème par défaut : entête de page fixe (contribution bazooka07)
-[+] Tri alphabétique inversé des articles et catégories  (contribution bazooka07)
-[+] Gestionnaire de médias : affichage nombre maxi de fichiers par envoi
 [+] #230 Image d'accroche dans le premier article créé à l'installation
 [+] #239 Test et affichage accès en écriture du dossier racine pour les thèmes
 [+] #264 fonction debugJS (contribution bazooka07)
