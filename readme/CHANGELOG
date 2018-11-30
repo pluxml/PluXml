@@ -1,4 +1,4 @@
-## PLUXML x.x (sortie : xx/xx/xxxx) ##
+## PLUXML 5.7 (sortie : xx/xx/xxxx) ##
 
 [+] PluCSS 1.3
 [+] Nouveau thème par défaut
@@ -24,7 +24,7 @@ FIX #303 Récupération des archives d'une année (contribution sudwebdesign)
 FIX #220 Problème affichage css thème par défaut
 FIX #237 urlRewrite et caractère &
 FIX #249 ajout clés de traduction russe absentes
-FIX #256 plxPlugin::setParam : mauvais test su le paramètre $type (contribution bazooka07)
+FIX #256 plxPlugin::setParam : mauvais test sur le paramètre $type (contribution bazooka07)
 FIX #260 Libellé de catégorie "Non classé" non affiché lors de la prévisualisation
 FIX #262 Suppression tris inutiles
 
