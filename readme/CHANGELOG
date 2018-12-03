@@ -2,32 +2,34 @@
 
 [+] PluCSS 1.3
 [+] Nouveau thème par défaut
-[+] Prise en compte du fichier css des plugins sur la page auth.php
+[+] Prise en compte du fichier CSS des plugins sur la page auth.php
 [+] Administration : Tri ordre des catégories et des pages statiques par drag&drop
-[+] Affichage de l'image d'accroche dans les flux rss
-[+] Tri alphabétique inversé des articles et catégories (contribution bazooka07)
-[+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
+[+] Affichage de l'image d'accroche dans les flux RSS
 [+] Gestionnaire de médias : affichage du nombre maximal de fichiers par envoi
+[+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
 [+] Thème par défaut : entête de page fixe (contribution bazooka07)
+[+] Tri alphabétique inversé des articles et catégories  (contribution bazooka07)
+[+] #225 Ajout id à la balise <body> de la page auth.php
 [+] #230 Image d'accroche dans le premier article créé à l'installation
 [+] #239 Test et affichage accès en écriture du dossier racine pour les thèmes
 [+] #264 fonction debugJS (contribution bazooka07)
 [+] #265 Affichage des archives sur une périodes glissantes de 12 mois (contribution bazooka07)
 [+] #266 Tri des pages statiques, catégories et plugins par drag n drop (contribution bazooka07)
 [+] #269 Ajout scope[admin|site] dans les fichiers infos.xml des plugins pour charger un plugin uniquement coté admin, site ou les 2 (contribution bazooka07)
+[+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (contribution bazzoka07)
 FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
 FIX mediasManager.js : fonction callback inactive avec Firefox Quantum
 FIX Minification des fichiers CSS du thème de l'admin et du thème par défaut
-FIX #220 Problème affichage css thème par défaut
+FIX #220 Problème affichage CSS thème par défaut
 FIX #225 Ajout id à la balise <body> de la page auth.php
-FIX #237 urlRewrite et caractère &
-FIX #249 ajout clés de traduction russe absentes
-FIX #256 plxPlugin::setParam : mauvais test sur le paramètre $type (contribution bazooka07)
+FIX #237 urlRewrite et caractère "&"
+FIX #249 ajout clés de traduction russe manquantes
+FIX #256 plxPlugin::setParam : mauvais test sur le paramètre "$type" (contribution bazooka07)
 FIX #260 Libellé de catégorie "Non classé" non affiché lors de la prévisualisation
 FIX #262 Suppression tris inutiles
-FIX #289 Ajout de la class noactive par défaut sur les tags (contribution WorldBot)
+FIX #289 Ajout de la class "noactive" par défaut sur les tags (contribution WorldBot)
 FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI  (contribution bazooka07)
 FIX #303 Récupération des archives d'une année (contribution sudwebdesign)
 FIX #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (contribution bazzoka07)

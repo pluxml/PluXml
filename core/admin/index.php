@@ -9,6 +9,9 @@
 
 include __DIR__ .'/prepend.php';
 
+# Control du token du formulaire
+plxToken::validateFormToken($_POST);
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
 
@@ -42,7 +45,7 @@ include __DIR__ .'/top.php';
             		# Récupération des articles
                     $plxAdmin->prechauffage($plxAdmin->motif('draft','all'));
                     $arts = $plxAdmin->getArticles('all');
-                    
+
                     # Liste des articles
             		if($arts) {
             			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
@@ -79,7 +82,7 @@ include __DIR__ .'/top.php';
 </div>
 
 <!-- Affichages des commentaires en modération -->
-<?php 
+<?php
 if($_SESSION['profil'] <= PROFIL_MODERATOR) {
     echo'
         <div class="grid">
@@ -96,7 +99,7 @@ if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 	# Récupération des articles
     $plxAdmin->prechauffage($plxAdmin->motif('mod','all', $userId));
     $arts = $plxAdmin->getArticles('all');
-        
+
     # Liste des articles
 	if($arts) {
 	   while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
@@ -121,7 +124,7 @@ if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 ?>
 
 <!--  Affichages des articles en modération -->
-<?php 
+<?php
 if($_SESSION['profil'] <= PROFIL_MODERATOR) {
     echo'
         <div class="grid">
