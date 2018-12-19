@@ -19,7 +19,7 @@ class plxDate {
 	 * @author	Stephane F.
 	 **/
 	public static function getCalendar($key, $value) {
-
+		if(!$value) return false;
 		$names = array(
 			'month' => array(
 				'01' => L_JANUARY,

@@ -299,11 +299,18 @@ a.active {
 
 /* ------- Comments ------- */
 
+#form {
+	border-top: 130px solid transparent;
+	margin: -130px 0 0;
+}
+
 .comment {
 	background-image: url('../img/user.png');
 	background-repeat: no-repeat;
 	margin-bottom: 2.5rem;
 	padding-left: 6rem;
+	border-top: 100px solid transparent;
+	margin-top: -100px;
 }
 
 .comment blockquote {
