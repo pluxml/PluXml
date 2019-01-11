@@ -1,3 +1,9 @@
+## PLUXML 6.0 (sortie : jj/mm/aaaa) ##
+
+[+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
+[+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut
+FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI  (contribution bazooka07)
+
 ## PLUXML 5.7 (sortie : 11/12/2018) ##
 
 [+] PluCSS 1.3
