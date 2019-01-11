@@ -275,13 +275,12 @@ function refreshImg(dta) {
 
 <form action="article.php" method="post" id="form_article">
 
-	<div class="grid inline-form action-bar">
+	<div class="inline-form action-bar">
 
 		<div class="grid">
 			<div class="col sml-12 med-5">
 				<i class="ico icon-plus-circled"></i>
 				<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
-				<p><a class="back" href="articles.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 			</div>
 			<div class="col sml-12 med-7">
 				<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?php echo L_ARTICLE_PREVIEW_BUTTON ?>"/>

@@ -145,7 +145,7 @@ a.lnkdelete:hover {
 
 .section {
 	margin-bottom: 2rem;
-	margin-top: 9rem;
+	margin-top: 6rem;
 }
 
 .section .action-bar {
@@ -160,6 +160,10 @@ a.lnkdelete:hover {
 	position: fixed;
 	top: 0;
 	z-index: 1;
+}
+
+.section .action-bar .col {
+	margin: 0rem;
 }
 
 .section .action-bar p,
