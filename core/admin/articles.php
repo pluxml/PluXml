@@ -126,29 +126,36 @@ include __DIR__ .'/top.php';
 <form action="articles.php" method="post" id="form_articles">
 
 <div class="inline-form action-bar">
-	<h2><?php echo L_ARTICLES_LIST ?></h2>
-	<ul class="menu">
-		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="articles.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="articles.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="articles.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="articles.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
-	</ul>
-	<?php
-	echo plxToken::getTokenPostMethod();
-	if($_SESSION['profil']<=PROFIL_MODERATOR) {
-		plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
-		echo '<input name="sel" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />&nbsp;&nbsp;&nbsp;';
-	}
-	?>
-	<?php plxUtils::printInput('page',1,'hidden'); ?>
+	<div class="grid">
+		<div class="col sml-12 med-7">
+			<i class="ico icon-doc-inv"></i>
+			<h2><?php echo L_ARTICLES_LIST ?></h2>
+			<ul class="menu">
+				<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="articles.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
+				<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="articles.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
+				<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="articles.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
+				<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="articles.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+			</ul>
+		</div>
+		<div class="col sml-12 med-5">
+			<?php
+			echo plxToken::getTokenPostMethod();
+			if($_SESSION['profil']<=PROFIL_MODERATOR) {
+				plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
+				echo '<input name="sel" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />&nbsp;&nbsp;&nbsp;';
+			}
+			?>
+			<?php plxUtils::printInput('page',1,'hidden'); ?>
+		</div>
+	</div>
 </div>
 
 <div class="grid">
-	<div class="col sml-6">
+	<div class="col sml-5">
 		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
-	<div class="col sml-6 text-right">
+	<div class="col sml-7 text-right">
 		<input id="articles-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
 	</div>
