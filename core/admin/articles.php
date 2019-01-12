@@ -16,7 +16,7 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
 
 # Suppression des articles selectionnes
-if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']=='delete') AND isset($_POST['idArt'])) {
+if(isset($_POST['delete'])) {
 	foreach ($_POST['idArt'] as $k => $v) $plxAdmin->delArticle($v);
 	header('Location: articles.php');
 	exit;
@@ -141,8 +141,7 @@ include __DIR__ .'/top.php';
 			<?php
 			echo plxToken::getTokenPostMethod();
 			if($_SESSION['profil']<=PROFIL_MODERATOR) {
-				plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
-				echo '<input name="sel" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" />&nbsp;&nbsp;&nbsp;';
+				echo '<input type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 			}
 			?>
 			<?php plxUtils::printInput('page',1,'hidden'); ?>
