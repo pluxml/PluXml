@@ -1870,7 +1870,7 @@ class plxShow {
 				$annee = intval($m / 12);
 				$active = $page_actuelle == ''.$annee.$mois;
 				$nom_mois = plxDate::getCalendar('month', $mois);
-				$motifs =  array(
+				echo strtr($format, array(
 					'#archives_id'		=> 'arch-month-'.str_pad($id, 2, '0', STR_PAD_LEFT),
 					'#archives_name'	=> $nom_mois.' '.$annee,
 					'#archives_year'	=> $annee,
@@ -1879,8 +1879,7 @@ class plxShow {
 					'#archives_nbart'	=> $nbarts,
 					'#archives_status'	=> (($active) ? 'active' : 'noactive'),
 					'#archives_selected'=> (($active) ? 'selected' : '')
-				);
-				echo str_replace(array_keys($motifs), array_values($motifs), $format);
+				));
 			}
 
 			# Affichage annuel
@@ -1888,7 +1887,7 @@ class plxShow {
 			foreach($cumuls_ans as $annee => $nbarts){
 				$id++;
 				$active = $page_actuelle == ''.$annee;
-				$motifs = array(
+				echo strtr($format, array(
 					'#archives_id'		=> 'arch-year-'.str_pad($id, 2, '0', STR_PAD_LEFT),
 					'#archives_name'	=> L_YEAR.' '.$annee,
 					'#archives_year'	=> $annee,
@@ -1897,23 +1896,25 @@ class plxShow {
 					'#archives_nbart'	=> $nbarts,
 					'#archives_status'	=> ($active) ? 'active' : 'noactive',
 					'#archives_selected'=> ($active) ? 'selected' : ''
-				);
-				echo str_replace(array_keys($motifs), array_values($motifs), $format);
+				));
 			}
 
 			# Total des articles
 			if(strpos($format, '#archives_nbart') !== false) {
-				$motifs = array(
+				$url = '';
+				if($this->plxMotor->aConf['homestatic'] != '' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
+					$url = ($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) ? '?blog' : '';
+				}
+				echo strtr($format, array(
 					'#archives_id'		=> 'arch-total',
 					'#archives_name'	=> L_TOTAL.' ',
 					'#archives_year'	=> str_repeat('–', 4),
 					'#archives_month'	=> L_TOTAL,
-					'#archives_url'		=> $this->plxMotor->urlRewrite(),
+					'#archives_url'		=> $this->plxMotor->urlRewrite($url),
 					'#archives_nbart'	=> $total,
 					'#archives_status'	=> ($active) ? 'active' : 'noactive',
 					'#archives_selected'=> ($active) ? 'selected' : ''
-				);
-				echo str_replace(array_keys($motifs), array_values($motifs), $format);
+				));
 			}
 		}
 	}
