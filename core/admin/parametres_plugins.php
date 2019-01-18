@@ -176,27 +176,26 @@ include __DIR__ .'/top.php';
 
 <script>
 function plugFilter() {
-	var input, filter, table, tr, td, i;
-	filter = document.getElementById("plugins-search").value;
-	table = document.getElementById("plugins-table");
-	tr = table.getElementsByTagName("tr");
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[2];
-		if (td != undefined) {
-			if (td.innerHTML.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-				tr[i].style.display = "";
-			} else {
-				tr[i].style.display = "none";
-			}
+	const filter = document.getElementById("plugins-search").value.trim().toLowerCase();
+	if(filter.length == 0) { return; }
+
+	const tBody0 = document.getElementById("plugins-table").tBodies[0];
+	for(var i=0, iMax=tBody0.rows.length; i<iMax; i++) {
+		const cell = tBody0.rows[i].cells[2];
+		if(cell.textContent.indexOf(filter) >= 0) {
+			tBody0.rows[i].classList.remove('hide');
+		} else {
+			tBody0.rows[i].classList.add('hide');
 		}
 	}
-	if (typeof(Storage) !== "undefined" && filter !== "undefined") {
+
+	if (typeof(Storage) !== 'undefined') {
 		localStorage.setItem("plugins_search", filter);
 	}
 }
-if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") !== "undefined") {
-	input = document.getElementById("plugins-search");
-	input.value = localStorage.getItem("plugins_search");
+
+if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") != null) {
+	document.getElementById("plugins-search").value = localStorage.getItem("plugins_search");
 	plugFilter();
 }
 </script>
