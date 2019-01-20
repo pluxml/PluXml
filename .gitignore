@@ -2,3 +2,5 @@
 /plugins/
 !/themes/defaut/
 /themes/
+.project
+.buildpath
