@@ -128,7 +128,6 @@ include __DIR__ .'/top.php';
 <div class="inline-form action-bar">
 	<div class="grid">
 		<div class="col sml-12 med-7">
-			<i class="ico icon-doc-inv"></i>
 			<h2><?php echo L_ARTICLES_LIST ?></h2>
 			<ul class="menu">
 				<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="articles.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>

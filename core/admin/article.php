@@ -279,7 +279,6 @@ function refreshImg(dta) {
 
 		<div class="grid">
 			<div class="col sml-12 med-5">
-				<i class="ico icon-plus-circled"></i>
 				<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
 			</div>
 			<div class="col sml-12 med-7">

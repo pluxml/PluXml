@@ -4,8 +4,8 @@
 # This file is part of PluXml : http://www.pluxml.org
 #
 # Package:		theme.css
-# Copyright (c) 2018 PluXml
-# Authors		Jos, Stephane F., Pedro "P3ter" CADETE
+# Copyright (c) 2019 PluXml
+# Authors		Pedro "P3ter" CADETE
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -173,7 +173,7 @@ a.lnkdelete:hover {
 
 .section .action-bar h2 {
 	font-size: 2.5rem;
-	margin: 0px 40px 0px;
+	margin: 0px 0px;
 }
 
 .section .panel {

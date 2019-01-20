@@ -27,7 +27,6 @@ include __DIR__ .'/top.php';
 <div class="inline-form action-bar">
 	<div class="grid">
 		<div class="col sml-12">
-			<i class="ico icon-th-large"></i>
 			<h2><?php echo L_DASHBOARD_TITLE ?></h2>
 		</div>
 	</div>
