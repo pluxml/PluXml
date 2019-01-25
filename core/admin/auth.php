@@ -45,7 +45,7 @@ if(isset($_SESSION['maxtry'])) {
 	$_SESSION['maxtry']['timer'] = time();
 }
 
-# Control et filtrage du parametre $_GET['p']
+# Erreur d'authentification
 $redirect=$plxAdmin->aConf['racine'].'core/admin/';
 if(!empty($_GET['p']) AND $error=='') {
 
@@ -116,6 +116,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
 }
 plxUtils::cleanHeaders();
 ?>
+
 <!DOCTYPE html>
 <html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
 <head>
@@ -140,37 +141,50 @@ plxUtils::cleanHeaders();
 	<main class="container">
 		<section class="grid">
 			<div class="logo"></div>
-			<div class="auth col sml-12 sml-centered med-5 lrg-3">
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
-					<fieldset>
-						<?php echo plxToken::getTokenPostMethod() ?>
-						<h1 class="h5 text-center"><strong><?php echo L_LOGIN_PAGE ?></strong></h1>
-						<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
-						<div class="grid">
-							<div class="col sml-12">
-								<i class="ico icon-user"></i>
-								<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
-							</div>
-						</div>
-						<div class="grid">
-							<div class="col sml-12">
-								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
-							</div>
-						</div>
-						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
-						<div class="grid">
-							<div class="col sml-12 text-center">
-								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
-							</div>
-						</div>
-					</fieldset>
-				</form>
-				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
-				</p>
-			</div>
+			
+			<?php
+			if (!empty($_GET['action']) AND $_GET['action'] == 'lostpassword') {
+            ?>
+            	<p>mot de passe perdu</p>
+           	<?php                         
+			}
+			else {
+			?>
+            	<div class="auth col sml-12 sml-centered med-5 lrg-3">
+            		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+            		<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+            			<fieldset>
+            				<?php echo plxToken::getTokenPostMethod() ?>
+            				<h1 class="h5 text-center"><strong><?php echo L_LOGIN_PAGE ?></strong></h1>
+            				<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
+            				<div class="grid">
+            					<div class="col sml-12">
+            						<i class="ico icon-user"></i>
+            						<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
+            					</div>
+            				</div>
+            				<div class="grid">
+            					<div class="col sml-12">
+            						<i class="ico icon-lock"></i>
+            						<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
+            					</div>
+            				</div>
+            				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
+            				<div class="grid">
+            					<div class="col sml-12 text-center">
+            						<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+            					</div>
+            				</div>
+            			</fieldset>
+            		</form>
+            		<p class="text-center">
+            			<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+            		</p>
+            	</div>
+			<?php 
+            }
+			?>
+			
 		</section>
 	</main>
 
