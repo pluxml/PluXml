@@ -16,7 +16,7 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
 	 *
-	 * @return	objet			return une instance de la classe plxAdmin
+	 * @return	self			return une instance de la classe plxAdmin
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -281,6 +281,30 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 	}
 
+	/**
+	 * Méthode qui génère un nouveau mot de passe pour un utilisateur
+	 *
+	 * @param   user l'ID de l'utilisateur
+	 * @return	string le nouveau mot de passe
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function newPassword($user) {
+	    $new_password = '';
+	    if (!empty($user)) {
+    	    foreach($this->aUsers as $user_id) {
+    	        if ($user == $user_id['login'] AND $user_id['active'] AND !$user_id['delete']) {
+               	    $new_password = plxUtils::charAleatoire();
+               	    $salt = $user_id['salt'];
+               	    $user_id['password'] = sha1($salt.md5($new_password));
+               	    $this->editUsers($user_id, true);
+               	    # envoi du mail
+               	    # TODO construire une mécanique de template de mail et une fonction passer des paramètre au template et remplacer les variables
+        	    }
+    	    }
+	    }
+	    return $new_password;
+	}
+	
 	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
@@ -890,7 +914,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	artId	identifiant de l'article en question
 	 * @param	content	string contenu du nouveau commentaire
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function newCommentaire($artId,$content) {

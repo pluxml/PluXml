@@ -27,10 +27,7 @@
 	overflow: hidden;
 }
 
-.auth .error {
-	background-color: #e43d29;
-	color: #eee;
-	padding: .7rem;
+.auth .alert {
 	text-align: center;
 }
 
