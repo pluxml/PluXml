@@ -127,9 +127,9 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
 /**
  * Changement de mot de passe
  */
-if(!empty($_POST['lostpassword_user'])) {
+if(!empty($_POST['lostpassword_id'])) {
     # création d'un nouveau mot de passe et envoi du mail
-    $new_password = $plxAdmin->newPassword($_POST['lostpassword_user']);
+    $new_password = $plxAdmin->newPassword($_POST['lostpassword_id']);
     
     # Changement de mot de passe réussi
     if (!empty($new_password)) {
@@ -140,7 +140,7 @@ if(!empty($_POST['lostpassword_user'])) {
     # Erreur lors du changement de mot de passe
     else {
         # écriture dans les logs du dépassement des 3 tentatives successives de connexion
-        @error_log("PluXml: Max login failed. IP : ".plxUtils::getIp());
+        @error_log("Lost password failed. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
         $msg = 'Erreur lors du changement de mot de passe';
         $error = 'alert red';
     }
@@ -190,7 +190,7 @@ plxUtils::cleanHeaders();
             				<div class="grid">
             					<div class="col sml-12">
             						<i class="ico icon-user"></i>
-            						<?php plxUtils::printInput('lostpassword_user', (!empty($_POST['lostpassword_user']))?plxUtils::strCheck($_POST['lostpassword_user']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
+            						<?php plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?plxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
             					</div>
             				</div>
 							<div class="grid">

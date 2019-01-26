@@ -284,15 +284,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui génère un nouveau mot de passe et envoi un mail à l'utilisateur
 	 *
-	 * @param   user        identifiant de l'utilisateur
+	 * @param   id_mail        identifiant de l'utilisateur
 	 * @return	string      le nouveau mot de passe
 	 * @author	Pedro "P3ter" CADETE
 	 **/
-	public function newPassword($id) {
+	public function newPassword($id_mail) {
 	    $new_password = '';
-	    if (!empty($id)) {
+	    if (!empty($id_mail)) {
     	    foreach($this->aUsers as $user_id => $user) {
-    	        if ($user['login']== $id AND $user['active'] AND !$user['delete']) {
+    	        if (($user['login']== $id_mail OR $user['email']== $id_mail) AND $user['active'] AND !$user['delete']) {
                	    $new_password = plxUtils::charAleatoire();
                	    $salt = $user['salt'];
                	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
