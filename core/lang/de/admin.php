@@ -135,6 +135,9 @@ $LANG = array(
 'L_ERR_WRONG_PASSWORD'								=> 'Benutzername und/oder Passwort sind falsch',
 'L_POWERED_BY'										=> 'Generiert von <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'									=> 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in% s Minuten',
+'L_LOST_PASSWORD'                                   => 'Passwort vergessen?',
+'L_LOST_PASSWORD_PAGE'                              => '',
+'L_LOST_PASSWORD_LOGIN'                             => 'Anmeldung',
 
 'L_CAT_TITLE'										=> 'Kategorien erstellen/ändern',
 'L_CAT_LIST_ID'										=> 'ID',

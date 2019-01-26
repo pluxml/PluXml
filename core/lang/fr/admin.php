@@ -153,6 +153,9 @@ $LANG = array(
 'L_ERR_WRONG_PASSWORD' 				=> 'Login et/ou mot de passe incorrect',
 'L_POWERED_BY'						=> 'Généré par <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					=> 'Nombre de tentative atteint<br />Réessayez dans %s minutes',
+'L_LOST_PASSWORD'                   => 'Mot de passe oublié ?',
+'L_LOST_PASSWORD_PAGE'              => '',
+'L_LOST_PASSWORD_LOGIN'             => 'Se connecter',
 
 #
 

@@ -149,6 +149,9 @@ $LANG = array(
 'L_ERR_WRONG_PASSWORD'							=> 'Nombre de usuario o contraseña incorrectos',
 'L_POWERED_BY'									=> 'Generado con <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'								=> 'Demasiado error en el inicio de sesión<br />Reintentar en% s minutos',
+'L_LOST_PASSWORD'                               => 'Contraseña olvidada ? ?',
+'L_LOST_PASSWORD_PAGE'                          => '',
+'L_LOST_PASSWORD_LOGIN'                         => 'Iniciar sesión',
 
 #
 

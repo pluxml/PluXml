@@ -4,7 +4,7 @@
  * Page d'authentification
  *
  * @package PLX
- * @author	Stephane F et Florent MONTHEL
+ * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
 # Variable pour retrouver la page d'authentification
@@ -143,11 +143,46 @@ plxUtils::cleanHeaders();
 			<div class="logo"></div>
 			
 			<?php
+			/**
+			 * Affichage du formulaire de récupération de mot de passe
+			 */
 			if (!empty($_GET['action']) AND $_GET['action'] == 'lostpassword') {
             ?>
-            	<p>mot de passe perdu</p>
+				<div class="auth col sml-12 sml-centered med-5 lrg-3">
+            		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+            		<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+            			<fieldset>
+            				<?php echo plxToken::getTokenPostMethod() ?>
+            				<h1 class="h5 text-center"><strong><?php echo L_LOST_PASSWORD_PAGE ?></strong></h1>
+            				<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
+            				<div class="grid">
+            					<div class="col sml-12">
+            						<i class="ico icon-user"></i>
+            						<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
+            					</div>
+            				</div>
+							<div class="grid">
+            					<div class="col sml-12">
+            						<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+            					</div>
+            				</div>
+            				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
+            				<div class="grid">
+            					<div class="col sml-12 text-center">
+            						<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+            					</div>
+            				</div>
+            			</fieldset>
+            		</form>
+            		<p class="text-center">
+            			<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+            		</p>
+            	</div>
            	<?php                         
 			}
+			/**
+			 * Affichage du formulaire de connexion à l'administration
+			 */
 			else {
 			?>
             	<div class="auth col sml-12 sml-centered med-5 lrg-3">
@@ -167,6 +202,11 @@ plxUtils::cleanHeaders();
             					<div class="col sml-12">
             						<i class="ico icon-lock"></i>
             						<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
+            					</div>
+            				</div>
+            				<div class="grid">
+            					<div class="col sml-12">
+            						<small><a href="?action=lostpassword"><?php echo L_LOST_PASSWORD ?></a></small>
             					</div>
             				</div>
             				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
