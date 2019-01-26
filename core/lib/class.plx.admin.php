@@ -282,20 +282,20 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
-	 * Méthode qui génère un nouveau mot de passe pour un utilisateur
+	 * Méthode qui génère un nouveau mot de passe et envoi un mail à l'utilisateur
 	 *
-	 * @param   user l'ID de l'utilisateur
-	 * @return	string le nouveau mot de passe
+	 * @param   user        identifiant de l'utilisateur
+	 * @return	string      le nouveau mot de passe
 	 * @author	Pedro "P3ter" CADETE
 	 **/
-	public function newPassword($user) {
+	public function newPassword($id) {
 	    $new_password = '';
-	    if (!empty($user)) {
-    	    foreach($this->aUsers as $user_id) {
-    	        if ($user == $user_id['login'] AND $user_id['active'] AND !$user_id['delete']) {
+	    if (!empty($id)) {
+    	    foreach($this->aUsers as $user_id => $user) {
+    	        if ($user['login']== $id AND $user['active'] AND !$user['delete']) {
                	    $new_password = plxUtils::charAleatoire();
-               	    $salt = $user_id['salt'];
-               	    $user_id['password'] = sha1($salt.md5($new_password));
+               	    $salt = $user['salt'];
+               	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
                	    $this->editUsers($user_id, true);
                	    # envoi du mail
                	    # TODO construire une mécanique de template de mail et une fonction passer des paramètre au template et remplacer les variables

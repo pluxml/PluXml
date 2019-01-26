@@ -178,7 +178,7 @@ plxUtils::cleanHeaders();
 			<div class="logo"></div>
 			
 			<?php
-			# Affichage du formulaire de récupération de mot de passe
+			# Affichage du formulaire de mot de passe oublié
 			if (!empty($_GET['action']) AND $_GET['action'] == 'lostpassword') {
             ?>
 				<div class="auth col sml-12 sml-centered med-5 lrg-3">
@@ -186,7 +186,7 @@ plxUtils::cleanHeaders();
             		<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
             			<fieldset>
             				<?php echo plxToken::getTokenPostMethod() ?>
-            				<h1 class="h5 text-center"><strong><?php echo L_LOST_PASSWORD ?></strong></h1>
+            				<h1 class="h5 text-center"><strong><?php echo L_LOST_PASSWORD_PAGE ?></strong></h1>
             				<div class="grid">
             					<div class="col sml-12">
             						<i class="ico icon-user"></i>
