@@ -14,7 +14,7 @@ class plxUtils {
 	 *
 	 * @param	var			string	variable à tester
 	 * @param	default		string	valeur par défaut
-	 * @return	valeur de la variable ou valeur par défaut passée en paramètre
+	 * @return	string      valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
 		return (isset($var) ? (!empty($var) ? $var : $default) : $default) ;
@@ -142,7 +142,7 @@ class plxUtils {
 	 * @param	readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
-	 * @return	stdout
+	 * @return	self
 	 **/
 	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
 
@@ -188,7 +188,7 @@ class plxUtils {
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	placeholder valeur du placeholder du champ (html5)
 	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
-	 * @return	stdout
+	 * @return	self        
 	 **/
 	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='') {
 
@@ -228,7 +228,7 @@ class plxUtils {
 	 * @params	rows		nombre de caractères affichés par ligne
 	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
-	 * @return	stdout
+	 * @return	self
 	 **/
 	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $class='') {
 
@@ -598,9 +598,9 @@ class plxUtils {
 	 *
 	 * @param	string message à afficher
 	 * @param	string classe css à utiliser pour formater l'affichage du message
-	 * @param       string format des balises avant le message
+	 * @param   string format des balises avant le message
 	 * @param	string format des balises après le message
-	 * @return      stdout
+	 * @return  self
 	 **/
 	public static function showMsg($msg, $class='',$format_start='<p class="#CLASS">',$format_end='</p>') {
 		$format_start = str_replace('#CLASS',($class != '' ? $class : 'msg'),$format_start);
@@ -696,7 +696,7 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne le type de compression disponible
 	 *
-	 * @return	stout
+	 * @return	string
 	 * @author	Stephane F., Amaury Graillat
 	 **/
 	public static function httpEncoding() {
@@ -763,7 +763,7 @@ class plxUtils {
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *
-	 * @return	stdio
+	 * @return	self
 	 * @author	Stephane F.
 	 **/
 	public static function cleanHeaders() {
