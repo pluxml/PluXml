@@ -26,9 +26,8 @@ $msg = '';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
 
-/**
- * Identifier une erreur de connexion 
- */
+
+# Identifier une erreur de connexion 
 if(isset($_SESSION['maxtry'])) {
 	if( intval($_SESSION['maxtry']['counter']) >= $maxlogin['counter'] AND (time() < $_SESSION['maxtry']['timer'] + $maxlogin['timer']) ) {
 		# écriture dans les logs du dépassement des 3 tentatives successives de connexion
@@ -48,9 +47,7 @@ if(isset($_SESSION['maxtry'])) {
 	$_SESSION['maxtry']['timer'] = time();
 }
 
-/**
- * Incrémente le nombre de tentative
- */
+# Incrémente le nombre de tentative
 $redirect=$plxAdmin->aConf['racine'].'core/admin/';
 if(!empty($_GET['p']) AND $error=='') {
 
@@ -72,9 +69,7 @@ if(!empty($_GET['p']) AND $error=='') {
 	}
 }
 
-/**
- * Déconnexion (paramètre url : ?d=1)
- */
+# Déconnexion (paramètre url : ?d=1)
 if(!empty($_GET['d']) AND $_GET['d']==1) {
 
 	$_SESSION = array();
@@ -92,9 +87,7 @@ if(!empty($_GET['d']) AND $_GET['d']==1) {
 	unset($formtoken);
 }
 
-/**
- * Authentification
- */
+# Authentification
 if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
 
 	$connected = false;
@@ -124,9 +117,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
 	}
 }
 
-/**
- * Changement de mot de passe
- */
+# Changement de mot de passe
 if(!empty($_POST['lostpassword_id'])) {
     # création d'un nouveau mot de passe et envoi du mail
     $new_password = $plxAdmin->newPassword($_POST['lostpassword_id']);
@@ -134,21 +125,19 @@ if(!empty($_POST['lostpassword_id'])) {
     # Changement de mot de passe réussi
     if (!empty($new_password)) {
         # message à affiche sur le mire de connexion
-        $msg = 'Changement de mot de passe réussi'.' '.$new_password;
+        $msg = L_LOST_PASSWORD_SUCCESS.' '.$new_password;
         $error = 'alert green';
     }
     # Erreur lors du changement de mot de passe
     else {
         # écriture dans les logs du dépassement des 3 tentatives successives de connexion
         @error_log("Lost password failed. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
-        $msg = 'Erreur lors du changement de mot de passe';
+        $msg = L_LOST_PASSWORD_ERROR;
         $error = 'alert red';
     }
 }
 
-/**
- * Construction de la page HTML
- */
+# Construction de la page HTML
 plxUtils::cleanHeaders();
 ?>
 
@@ -186,11 +175,14 @@ plxUtils::cleanHeaders();
             		<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
             			<fieldset>
             				<?php echo plxToken::getTokenPostMethod() ?>
-            				<h1 class="h5 text-center"><strong><?php echo L_LOST_PASSWORD_PAGE ?></strong></h1>
+            				<h1 class="h5 text-center"><strong><?php echo L_LOST_PASSWORD ?></strong></h1>
+            				<div class="alert blue">
+            					<?php echo L_LOST_PASSWORD_TEXT ?>
+            				</div>
             				<div class="grid">
             					<div class="col sml-12">
             						<i class="ico icon-user"></i>
-            						<?php plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?plxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
+            						<?php plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?plxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '10-255',false,'full-width',L_AUTH_LOST_FIELD,'autofocus');?>
             					</div>
             				</div>
 							<div class="grid">
