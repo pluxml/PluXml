@@ -289,20 +289,25 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function newPassword($id_mail) {
-	    $new_password = '';
-	    if (!empty($id_mail)) {
-    	    foreach($this->aUsers as $user_id => $user) {
+
+	    if (!empty($id_mail) and plxUtils::testMail(false)) {
+	        foreach($this->aUsers as $user_id => $user) {
     	        if (($user['login']== $id_mail OR $user['email']== $id_mail) AND $user['active'] AND !$user['delete']) {
-               	    $new_password = plxUtils::charAleatoire();
-               	    $salt = $user['salt'];
-               	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
-               	    $this->editUsers($user_id, true);
-               	    # envoi du mail
-               	    # TODO construire une mécanique de template de mail et une fonction passer des paramètre au template et remplacer les variables
+
+    	            # generation du mot de passe et envoi du mail
+    	            $new_password = plxUtils::charAleatoire();
+    	            if (plxUtils::sendMail('PluXml', 'noreply@pluxml.local', $user['email'], 'nouveau mot de passe', $new_password)) {
+        	            # chiffrement et enregistrement du mot de passe 
+                   	    $salt = $user['salt'];
+                   	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
+                   	    $this->editUsers($user_id, true);
+                   	    
+                   	    return $new_password;
+    	            }
         	    }
     	    }
 	    }
-	    return $new_password;
+        return $new_password = '';
 	}
 	
 	/**

@@ -119,13 +119,11 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
 
 # Changement de mot de passe
 if(!empty($_POST['lostpassword_id'])) {
-    # création d'un nouveau mot de passe et envoi du mail
-    $new_password = $plxAdmin->newPassword($_POST['lostpassword_id']);
     
-    # Changement de mot de passe réussi
-    if (!empty($new_password)) {
+    # génération d'un nouveau mot de passe
+    if (!empty($plxAdmin->newPassword($_POST['lostpassword_id']))) {
         # message à affiche sur le mire de connexion
-        $msg = L_LOST_PASSWORD_SUCCESS.' '.$new_password;
+        $msg = L_LOST_PASSWORD_SUCCESS;
         $error = 'alert green';
     }
     # Erreur lors du changement de mot de passe
