@@ -225,7 +225,7 @@ plxUtils::cleanHeaders();
             					</div>
             				</div>
             				<?php 
-            				if (plxUtils::testMail(false)) {
+            				if ($plxAdmin->aConf['lostpassword']) {
             				?>
                 				<div class="grid">
                 					<div class="col sml-12">
