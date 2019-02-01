@@ -224,12 +224,18 @@ plxUtils::cleanHeaders();
             						<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
             					</div>
             				</div>
-            				<div class="grid">
-            					<div class="col sml-12">
-            						<small><a href="?action=lostpassword"><?php echo L_LOST_PASSWORD ?></a></small>
-            					</div>
-            				</div>
-            				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
+            				<?php 
+            				if (plxUtils::testMail(false)) {
+            				?>
+                				<div class="grid">
+                					<div class="col sml-12">
+                						<small><a href="?action=lostpassword"><?php echo L_LOST_PASSWORD ?></a></small>
+                					</div>
+                				</div>
+                			<?php 
+            				}
+                            eval($plxAdmin->plxPlugins->callHook('AdminAuth'))
+                            ?>
             				<div class="grid">
             					<div class="col sml-12 text-center">
             						<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
