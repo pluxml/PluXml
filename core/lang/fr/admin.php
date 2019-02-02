@@ -105,7 +105,6 @@ $LANG = array(
 'L_NOW'								                => 'maintenant',
 'L_ARTICLE_CATEGORIES' 				                => 'Emplacements',
 'L_CATEGORY_HOME_PAGE' 			 	                => 'Page d\'accueil',
-'L_NEW_CATEGORY' 			 		                => 'Nouvelle catégorie',
 'L_ARTICLE_TAGS_FIELD' 				                => 'Mots clés',
 'L_ARTICLE_TAGS_FIELD_TITLE' 		                => 'Séparer les mots clés par une virgule',
 'L_ARTICLE_TOGGLER_TITLE' 			                => 'Liste des mots clés',
@@ -147,10 +146,10 @@ $LANG = array(
 'L_POWERED_BY'						                => 'Généré par <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					                => 'Nombre de tentative atteint<br />Réessayez dans %s minutes',
 'L_LOST_PASSWORD'                                   => 'Mot de passe oublié ?',
-'L_LOST_PASSWORD_TEXT'                              => 'Veuillez saisir votre login ou adresse e-mail pour recevoir un nouveau mot de passe.',
+'L_LOST_PASSWORD_TEXT'                              => 'Veuillez saisir votre login ou adresse e-mail pour recevoir un nouveau mot de passe',
 'L_LOST_PASSWORD_LOGIN'                             => 'Se connecter',
-'L_LOST_PASSWORD_SUCCESS'                           => 'Changement de mot de passe réussi.',
-'L_LOST_PASSWORD_ERROR'                             => 'Erreur lors du changement de mot de passe.',
+'L_LOST_PASSWORD_SUCCESS'                           => 'Un e-mail a été envoyé à l\'utilisateur',
+'L_LOST_PASSWORD_ERROR'                             => 'Erreur lors du changement de mot de passe',
 
 #
 
@@ -525,6 +524,7 @@ $LANG = array(
 'L_ERR_STATIC_ALREADY_EXISTS'		                => 'Titre de page statique déjà utilisé',
 
 # top.php
+
 'L_PROFIL_ADMIN'					                => 'Administrateur',
 'L_PROFIL_MANAGER'          	                    => 'Gestionnaire',
 'L_PROFIL_MODERATOR'				                => 'Modérateur',
@@ -557,6 +557,7 @@ $LANG = array(
 'L_WARNING_INSTALLATION_FILE'		                => 'Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le <a class="lnkdelete" href="?del=install">supprimer</a>.',
 
 # user.php
+
 'L_USER_UNKNOWN'					                => 'Utilisateur inconnu',
 'L_USER_LANG'						                => 'Langue utilisée dans l\'administration',
 'L_USER_MAIL'						                => 'Adresse email',

@@ -147,9 +147,9 @@ $LANG = array(
 'L_POWERED_BY'										=> 'Generiert von <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'									=> 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in% s Minuten',
 'L_LOST_PASSWORD'                                   => 'Passwort vergessen?',
-'L_LOST_PASSWORD_TEXT'                              => 'Bitte geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein, um ein neues Passwort zu erhalten.',
+'L_LOST_PASSWORD_TEXT'                              => 'Bitte geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein, um ein neues Passwort zu erhalten',
 'L_LOST_PASSWORD_LOGIN'                             => 'Anmeldung',
-'L_LOST_PASSWORD_SUCCESS'                           => 'Erfolgreiche Passwortänderung.',
+'L_LOST_PASSWORD_SUCCESS'                           => 'Eine E-Mail wurde an den Benutzer gesendet',
 'L_LOST_PASSWORD_ERROR'                             => 'Fehler beim Ändern des Passworts',
 
 #
@@ -183,6 +183,7 @@ $LANG = array(
 'L_FOR_SELECTION'									=> 'Aktion auswählen...',
 'L_CAT_APPLY_BUTTON'								=> 'Änderungen speichern',
 'L_CAT_UNKNOWN'										=> 'Unbekannte Kategorie',
+'L_ERR_CATEGORY_ALREADY_EXISTS'						=> 'Dieser Kategoriename existiert bereits',
 
 # categorie.php
 
@@ -377,6 +378,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_GZIP'							=> 'GZIP Kompression aktivieren',
 'L_CONFIG_ADVANCED_GZIP_HELP'						=> 'Komprimierung spart Bandreite, erhöht aber die Prozessorauslastung des Servers.',
 'L_CONFIG_ADVANCED_CAPCHA'							=> 'ANTI-SPAM Kontrolle aktivieren',
+'L_CONFIG_ADVANCED_LOSTPASSWORD'                    => 'Aktivieren Sie die Kennwortwiederherstellung',
 'L_CONFIG_ADVANCED_ADMIN_KEY'						=> 'Adminschlüssel (private URLs)',
 'L_CONFIG_ADVANCED_KEY_HELP'						=> 'Feld leeren um neuen Schlüssel zu generieren',
 'L_CONFIG_ADVANCED_USERFOLDERS'						=> 'Verwenden Sie unterschiedliche Medien Ordner für jeden Benutzer',
@@ -437,8 +439,6 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'								=> 'Änderungen speichern',
 'L_ERR_LOGIN_ALREADY_EXISTS'						=> 'Diese Login-ID wird bereits verwendet',
 'L_ERR_USERNAME_ALREADY_EXISTS'						=> 'Dieser Benutzername ist bereits vergeben',
-'L_ERR_CATEGORY_ALREADY_EXISTS'						=> 'Dieser Kategoriename existiert bereits',
-'L_ERR_STATIC_ALREADY_EXISTS'						=> 'wird bereits verwendet',
 
 # parametre_plugins.php
 
@@ -449,6 +449,9 @@ $LANG = array(
 'L_PLUGINS_CSS_TITLE'								=> 'Bearbeiten Sie den CSS-Code des Plugins',
 'L_CONTENT_FIELD_FRONTEND'							=> 'CSS-Datei-Inhalte Website',
 'L_CONTENT_FIELD_BACKEND'							=> 'CSS-Datei Content-Administrator',
+
+# parametres_plugins.php
+
 'L_PLUGINS_TITLE'									=> 'Pluginverwaltung',
 'L_PLUGINS_VERSION'									=> 'Version',
 'L_PLUGINS_AUTHOR'									=> 'Autor',
@@ -518,6 +521,7 @@ $LANG = array(
 'L_STATICS_SRC'										=> 'Ändern',
 'L_STATICS_NEW_PAGE'								=> 'Neue Seite',
 'L_STATICS_UPDATE'									=> 'Änderungen speichern',
+'L_ERR_STATIC_ALREADY_EXISTS'						=> 'wird bereits verwendet',
 
 # top.php
 
