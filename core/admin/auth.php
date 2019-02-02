@@ -20,8 +20,8 @@ $maxlogin['counter'] = 99; # nombre de tentative de connexion autorisé dans la 
 $maxlogin['timer'] = 3 * 60; # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
 
 # Initialiser les messages d'alerte
-$error = '';
 $msg = '';
+$css = '';
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
@@ -34,7 +34,7 @@ if(isset($_SESSION['maxtry'])) {
 		@error_log("PluXml: Max login failed. IP : ".plxUtils::getIp());
 		# message à affiche sur le mire de connexion
 		$msg = sprintf(L_ERR_MAXLOGIN, ($maxlogin['timer']/60));
-		$error = 'alert red';
+		$css = 'alert red';
 	}
 	if( time() > ($_SESSION['maxtry']['timer'] + $maxlogin['timer']) ) {
 		# on réinitialise le control brute force quand le temps d'attente limite est atteint
@@ -49,15 +49,15 @@ if(isset($_SESSION['maxtry'])) {
 
 # Incrémente le nombre de tentative
 $redirect=$plxAdmin->aConf['racine'].'core/admin/';
-if(!empty($_GET['p']) AND $error=='') {
+if(!empty($_GET['p']) AND $css=='') {
 
 	# on incremente la variable de session qui compte les tentatives de connexion
 	$_SESSION['maxtry']['counter']++;
 
 	$racine = parse_url($plxAdmin->aConf['racine']);
 	$get_p = parse_url(urldecode($_GET['p']));
-	$error = (!$get_p OR (isset($get_p['host']) AND $racine['host']!=$get_p['host']));
-	if(!$error AND !empty($get_p['path']) AND file_exists(PLX_ROOT.'core/admin/'.basename($get_p['path']))) {
+	$css = (!$get_p OR (isset($get_p['host']) AND $racine['host']!=$get_p['host']));
+	if(!$css AND !empty($get_p['path']) AND file_exists(PLX_ROOT.'core/admin/'.basename($get_p['path']))) {
 		# filtrage des parametres de l'url
 		$query='';
 		if(isset($get_p['query'])) {
@@ -88,7 +88,7 @@ if(!empty($_GET['d']) AND $_GET['d']==1) {
 }
 
 # Authentification
-if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
+if(!empty($_POST['login']) AND !empty($_POST['password']) AND $css=='') {
 
 	$connected = false;
 	foreach($plxAdmin->aUsers as $userid => $user) {
@@ -113,7 +113,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $error=='') {
 		exit;
 	} else {
 		$msg = L_ERR_WRONG_PASSWORD;
-		$error = 'alert red';
+		$css = 'alert red';
 	}
 }
 
@@ -124,14 +124,14 @@ if(!empty($_POST['lostpassword_id'])) {
     if (!empty($plxAdmin->newPassword($_POST['lostpassword_id']))) {
         # message à affiche sur le mire de connexion
         $msg = L_LOST_PASSWORD_SUCCESS;
-        $error = 'alert green';
+        $css = 'alert green';
     }
     # Erreur lors du changement de mot de passe
     else {
         # écriture dans les logs du dépassement des 3 tentatives successives de connexion
         @error_log("Lost password failed. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
         $msg = L_LOST_PASSWORD_ERROR;
-        $error = 'alert red';
+        $css = 'alert red';
     }
 }
 
@@ -211,7 +211,7 @@ plxUtils::cleanHeaders();
             			<fieldset>
             				<?php echo plxToken::getTokenPostMethod() ?>
             				<h1 class="h5 text-center"><strong><?php echo L_LOGIN_PAGE ?></strong></h1>
-            				<?php (!empty($msg))?plxUtils::showMsg($msg, $error):''; ?>
+            				<?php (!empty($msg))?plxUtils::showMsg($msg, $css):''; ?>
             				<div class="grid">
             					<div class="col sml-12">
             						<i class="ico icon-user"></i>
