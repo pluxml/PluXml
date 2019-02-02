@@ -128,8 +128,7 @@ if(!empty($_POST['lostpassword_id'])) {
     }
     # Erreur lors du changement de mot de passe
     else {
-        # écriture dans les logs du dépassement des 3 tentatives successives de connexion
-        @error_log("Lost password failed. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
+        @error_log("Lost password error. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
         $msg = L_LOST_PASSWORD_ERROR;
         $css = 'alert red';
     }
