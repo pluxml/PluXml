@@ -122,11 +122,10 @@ if(!empty($_POST['lostpassword_id'])) {
     
     # génération d'un nouveau mot de passe
     if (!empty($plxAdmin->newPassword($_POST['lostpassword_id']))) {
-        # message à affiche sur le mire de connexion
         $msg = L_LOST_PASSWORD_SUCCESS;
         $css = 'alert green';
     }
-    # Erreur lors du changement de mot de passe
+    # erreur lors du changement de mot de passe
     else {
         @error_log("Lost password error. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
         $msg = L_LOST_PASSWORD_ERROR;
