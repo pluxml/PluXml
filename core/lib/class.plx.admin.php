@@ -4,10 +4,11 @@
  * Classe plxAdmin responsable des modifications dans l'administration
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F et Pedro "P3ter" CADETE
  **/
 
 define('PLX_ADMIN', true);
+require 'class.plx.template.php';
 
 class plxAdmin extends plxMotor {
 
@@ -295,8 +296,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
     	        if (($user['login']== $id_mail OR $user['email']== $id_mail) AND $user['active'] AND !$user['delete']) {
 
     	            # generation du mot de passe et envoi du mail
-    	            $new_password = plxUtils::charAleatoire();
-    	            if (plxUtils::sendMail('PluXml', 'noreply@pluxml.local', $user['email'], 'nouveau mot de passe', $new_password)) {
+    	            $placeholdersValues = array(
+    	                "##TITLE##"     =>  "PluXml",
+    	                "##DATE##"      =>  "02/02/2019",
+    	                "##CONTENT##"   =>  $new_password = plxUtils::charAleatoire()
+    	            );
+    	            $body = new PlxTemplate("email-lostpassword.txt", $placeholdersValues);
+    	            if (plxUtils::sendMail('PluXml', 'noreply@pluxml.local', $user['email'], 'nouveau mot de passe', $body->getTemplateGeneratedContent())) {
         	            # chiffrement et enregistrement du mot de passe 
                    	    $salt = $user['salt'];
                    	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
