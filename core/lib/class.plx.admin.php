@@ -8,7 +8,6 @@
  **/
 
 define('PLX_ADMIN', true);
-require 'class.plx.template.php';
 
 class plxAdmin extends plxMotor {
 
@@ -297,12 +296,16 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
     	            # generation du mot de passe et envoi du mail
     	            $placeholdersValues = array(
-    	                "##TITLE##"     =>  "PluXml",
-    	                "##DATE##"      =>  "02/02/2019",
-    	                "##CONTENT##"   =>  $new_password = plxUtils::charAleatoire()
+    	                "##LOGIN##"     =>  $user['login'],
+    	                "##PASSWORD##"   =>  $new_password = plxUtils::charAleatoire()
     	            );
-    	            $body = new PlxTemplate("email-lostpassword.txt", $placeholdersValues);
-    	            if (plxUtils::sendMail('PluXml', 'noreply@pluxml.local', $user['email'], 'nouveau mot de passe', $body->getTemplateGeneratedContent())) {
+    	            $mailTemplate = $this->aTemplates['email-lostpassword.xml'];
+    	            if (plxUtils::sendMail(
+    	                   $mailTemplate->getTemplateEmailName(),
+    	                   $mailTemplate->getTemplateEmailFrom(),
+    	                   $user['email'],
+    	                   $mailTemplate->getTemplateEmailSubject(),
+    	                   $mailTemplate->getTemplateGeneratedContent($placeholdersValues))) {
         	            # chiffrement et enregistrement du mot de passe 
                    	    $salt = $user['salt'];
                    	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
