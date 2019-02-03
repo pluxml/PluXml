@@ -284,15 +284,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui génère un nouveau mot de passe et envoi un mail à l'utilisateur
 	 *
-	 * @param   id_mail     login ou adresse e-mail de l'utilisateur
-	 * @return	string      le nouveau mot de passe
+	 * @param   loginOrMail     login ou adresse e-mail de l'utilisateur
+	 * @return	string          le nouveau mot de passe
 	 * @author	Pedro "P3ter" CADETE
 	 **/
-	public function newPassword($id_mail) {
+	public function newPassword($loginOrMail) {
 
-	    if (!empty($id_mail) and plxUtils::testMail(false)) {
+	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 	        foreach($this->aUsers as $user_id => $user) {
-    	        if (($user['login']== $id_mail OR $user['email']== $id_mail) AND $user['active'] AND !$user['delete']) {
+    	        if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete']) {
 
     	            # generation du mot de passe et envoi du mail
     	            $placeholdersValues = array(
