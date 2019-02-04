@@ -9,7 +9,6 @@
 
 class PlxTemplate {
     
-    private $_templateFolder;                       // the template's relative path
     private $_templateName;                         // the template's name
     private $_templateType;                         // the template's type : post, page or email
     private $_templateEmailName;                    // the sender's name for an email template
@@ -18,8 +17,10 @@ class PlxTemplate {
     private $_templateRawContent;                   // the template's content from filesystem
     private $_templateGeneratedContent;             // generated content from a template
     
+    private static $_templateFolder = PLX_CORE."templates/";        // the path to the template's folder
+    
     /**
-     * Init the templat's name, its raw and generated content
+     * Init all template's attributs from his file name 
      * 
      * @param   $templateName                   string      template's file name
      * @param   $templatePlaceholderValues      array       placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
@@ -27,8 +28,7 @@ class PlxTemplate {
      */
     public function __construct (string $templateFileName, $templatePlaceholdersValues = array()){
         
-        $this->_templateFolder = PLX_CORE."templates/";
-        $template = $this->parseTemplate($this->_templateFolder.$templateFileName);
+        $template = $this->parseTemplate(self::$_templateFolder.$templateFileName);
         
         $this->setTemplateName($template['name']);
         $this->setTemplateType($template['type']);
