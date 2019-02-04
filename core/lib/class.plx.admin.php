@@ -292,7 +292,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 	        foreach($this->aUsers as $user_id => $user) {
-    	        if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete']) {
+	            if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
 
     	            # generation du mot de passe et envoi du mail
     	            $placeholdersValues = array(
