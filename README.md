@@ -19,8 +19,8 @@ Principales caractéristiques
 Démonstration
 -------------
 
-* [Blog](http://demo.pluxml.org/)
-* [Administration](http://demo.pluxml.org/core/admin/auth.php?p=/core/admin/)
+* [Blog](https://demo.pluxml.org/)
+* [Administration](https://demo.pluxml.org/core/admin/auth.php?p=/core/admin/)
 
 Prérequis
 ---------
@@ -48,7 +48,7 @@ Mise à jour d'une version existante de PluXml
 
 Liens
 -----
-* [Site officiel](http://www.pluxml.org/)
-* [Forum](http://forum.pluxml.org/)
-* [Thèmes](http://ressources.pluxml.org/)
-* [Documentation](http://telechargements.pluxml.org/docs/PluXml_-_Documentation.pdf)
+* [Site officiel](https://www.pluxml.org/)
+* [Forum](https://forum.pluxml.org/)
+* [Thèmes](https://ressources.pluxml.org/)
+* [Documentation](https://telechargements.pluxml.org/docs/PluXml_-_Documentation.pdf)
