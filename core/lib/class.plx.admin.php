@@ -282,14 +282,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
-	 * Méthode qui génère un nouveau mot de passe et envoi un mail à l'utilisateur
+	 * Méthode qui génère un nouveau mot de passe et envoi un mail à l'utilisateur grâce au template "email-lostpassword.xml"
 	 *
 	 * @param   loginOrMail     login ou adresse e-mail de l'utilisateur
-	 * @return	string          le nouveau mot de passe
+	 * @return	string          le nouveau mot de passe ou vide en cas d'erreur
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function newPassword($loginOrMail) {
 
+	    $mail = array();
 	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 	        foreach($this->aUsers as $user_id => $user) {
 	            if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
@@ -299,20 +300,25 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
     	                "##LOGIN##"     =>  $user['login'],
     	                "##PASSWORD##"   =>  $new_password = plxUtils::charAleatoire()
     	            );
-    	            $mailTemplate = $this->aTemplates['email-lostpassword.xml'];
-    	            if (plxUtils::sendMail(
-    	                   $mailTemplate->getTemplateEmailName(),
-    	                   $mailTemplate->getTemplateEmailFrom(),
-    	                   $user['email'],
-    	                   $mailTemplate->getTemplateEmailSubject(),
-    	                   $mailTemplate->getTemplateGeneratedContent($placeholdersValues))) {
-        	            # chiffrement et enregistrement du mot de passe 
-                   	    $salt = $user['salt'];
-                   	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
-                   	    $this->editUsers($user_id, true);
-                   	    
-                   	    return $new_password;
+    	            
+    	            # on vérifie qu'on arrive a générer le contenu du mail avant de l'envoyer et de chanegr le mot de passe
+    	            if (($mail['body'] = $this->aTemplates['email-lostpassword.xml']->getTemplateGeneratedContent($placeholdersValues)) == '1'){
+    	                return $new_password = '';
     	            }
+    	            else {
+    	                $mail['name'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailName();
+    	                $mail['from'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailFrom();
+    	                $mail['subject'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailSubject();
+    	                
+        	            if (plxUtils::sendMail($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'])){
+            	            # chiffrement et enregistrement du mot de passe 
+                       	    $salt = $user['salt'];
+                       	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
+                       	    $this->editUsers($user_id, true);
+                       	    
+                       	    return $new_password;
+        	            }
+                    }
         	    }
     	    }
 	    }

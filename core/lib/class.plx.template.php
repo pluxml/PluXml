@@ -16,8 +16,7 @@ class PlxTemplate {
     private $_templateEmailSubject;                 // the subject for an email template type 
     private $_templateRawContent;                   // the template's content from filesystem
     private $_templateGeneratedContent;             // generated content from a template
-    
-    private static $_templateFolder = PLX_CORE."templates/";        // the path to the template's folder
+    private $_templateFolder;                       // the path to the template's folder
     
     /**
      * Init all template's attributs from his file name 
@@ -26,9 +25,10 @@ class PlxTemplate {
      * @param   $templatePlaceholderValues      array       placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
      * @author  Pedro "P3ter" CADETE
      */
-    public function __construct (string $templateFileName, $templatePlaceholdersValues = array()){
+    public function __construct ($templateFolder, $templateFileName, $templatePlaceholdersValues = array()){
         
-        $template = $this->parseTemplate(self::$_templateFolder.$templateFileName);
+        $this->setTemplateFolder($templateFolder);
+        $template = $this->parseTemplate($this->_templateFolder.$templateFileName);
         
         $this->setTemplateName($template['name']);
         $this->setTemplateType($template['type']);
@@ -42,6 +42,19 @@ class PlxTemplate {
         if ($this->setTemplateRawContent($template['content']) AND !empty($templatePlaceholdersValues))
             $this->setTemplateGeneratedContent($templatePlaceholdersValues);
     }
+
+    /**
+     * Set the template's name
+     *
+     * @param   $folder   string      templates folder
+     * @return
+     * @author  Pedro "P3ter" CADETE
+     */
+    private function setTemplateFolder ($folder){
+        
+        $this->_templateFolder = $folder;
+        return;
+    }
     
     /**
      * Set the template's name
@@ -50,7 +63,7 @@ class PlxTemplate {
      * @return
      * @author  Pedro "P3ter" CADETE
      */
-    private function setTemplateName (string $name){
+    private function setTemplateName ($name){
         
         $this->_templateName = $name;
         return;
@@ -63,7 +76,7 @@ class PlxTemplate {
      * @return
      * @author  Pedro "P3ter" CADETE
      */
-    private function setTemplateType (string $type){
+    private function setTemplateType ($type){
         
         $this->_templateType = $type;
         return;
@@ -76,7 +89,7 @@ class PlxTemplate {
      * @return
      * @author  Pedro "P3ter" CADETE
      */
-    private function setTemplateEmailName (string $emailName){
+    private function setTemplateEmailName ($emailName){
         
         $this->_templateEmailName = $emailName;
         return;
@@ -89,7 +102,7 @@ class PlxTemplate {
      * @return
      * @author  Pedro "P3ter" CADETE
      */
-    private function setTemplateEmailFrom (string $emailFrom){
+    private function setTemplateEmailFrom ($emailFrom){
         
         $this->_templateEmailFrom = $emailFrom;
         return;
@@ -102,7 +115,7 @@ class PlxTemplate {
      * @return
      * @author  Pedro "P3ter" CADETE
      */
-    private function setTemplateEmailSubject (string $emailSubject){
+    private function setTemplateEmailSubject ($emailSubject){
         
         $this->_templateEmailSubject = $emailSubject;
         return;
@@ -115,7 +128,7 @@ class PlxTemplate {
      * @return
      * @author  Pedro "P3ter" CADETE
      */
-    private function setTemplateRawContent(string $content) {
+    private function setTemplateRawContent($content) {
         
         $this->_templateRawContent = $content;
         return;
@@ -125,13 +138,15 @@ class PlxTemplate {
      * Set the template's generated content
      *
      * @param   $templatePlaceholder    array       placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
-     * @return
+     * @return  string                              return "1" if no values for placeholders were given
      * @author  Pedro "P3ter" CADETE
      */
     private function setTemplateGeneratedContent(array $placeholdersValues) {
         
         if (!empty($this->_templateRawContent))
             $this->_templateGeneratedContent = str_replace(array_keys($placeholdersValues), array_values($placeholdersValues), $this->_templateRawContent);
+        else
+            $this->_templateGeneratedContent = '1';
         
         return;
     }
@@ -201,9 +216,9 @@ class PlxTemplate {
      * @return  string
      * @author  Pedro "P3ter" CADETE
      */
-    public function getTemplateGeneratedContent ($placeholdersValues){
+    public function getTemplateGeneratedContent ($placeholdersValues = NULL){
         
-        if (empty($this->_templateGeneratedContent) AND !empty($placeholdersValues))
+        if (empty($this->_templateGeneratedContent) AND $placeholdersValues != NULL)
             $this->setTemplateGeneratedContent($placeholdersValues);
 
         return $this->_templateGeneratedContent;

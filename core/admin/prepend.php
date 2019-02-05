@@ -1,6 +1,7 @@
 <?php
 define('PLX_ROOT', '../../');
 define('PLX_CORE', PLX_ROOT.'core/');
+define('PLX_TEMPLATES', PLX_CORE.'templates/');
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
 

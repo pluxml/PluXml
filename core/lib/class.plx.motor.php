@@ -111,7 +111,7 @@ class plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 		# Traitement des templates
-		$this->getTemplates(PLX_CORE."templates/");
+		$this->getTemplates(PLX_TEMPLATES);
 	}
 
 	/**
@@ -998,7 +998,7 @@ class plxMotor {
 	    
 	    $files = array_diff(scandir($templateFolder), array('..', '.'));
 	    foreach ($files as $file) {
-	        $this->aTemplates[$file] = new PlxTemplate($file);
+	        $this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
 	    }
 	    
 	    return;
