@@ -61,10 +61,17 @@ body {
 	z-index: 2;
 	background: #23282d;
 	padding: 1rem 2rem;
+	height: 60px;
 }
-
+.profil-nav .title {
+	padding: 10px
+}
 .profil-nav a {
     color: #eee;
+}
+
+.profil-nav .site-name a:hover {
+    text-decoration: none;
 }
 
 .profil-nav ul {
