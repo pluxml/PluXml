@@ -1,5 +1,5 @@
 <nav class="grid profil-nav">
-	<div class="col sml-12 med-6 text-left title">
+	<div class="col sml-6 text-left title">
     	<ul class="unstyled-list inline-list">
        		<li class="site-name">
        			<a href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><h1 class="h2 no-margin"><strong><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1></a>
@@ -14,7 +14,7 @@
        		<?php endif; ?>
        	</ul>
    	</div>
-   	<div class="col sml-12 med-6 text-right profil">
+   	<div class="col sml-6 text-right profil">
    		<img class="img-circle" src="<?php echo PLX_CORE ?>admin/theme/images/pluxml.png">
        	<!-- <ul class="unstyled-list inline-list">
     		<li>

@@ -137,7 +137,7 @@ body {
 }
 
 .aside .menu.expanded li {
-	padding: 0.2rem 1rem;
+	padding: 0.5rem 1rem;
 }
 
 .aside .menu.expanded li.active,
@@ -174,21 +174,15 @@ a.lnkdelete:hover {
 /* ---------- Section ---------- */
 
 .section {
+	padding-top: 1rem;
 	margin-bottom: 2rem;
 }
 
 .section .action-bar {
-	/*background-color: #32373c;*/
-	/*color: #eee;*/
 	background-color: #fff;
 	box-shadow: 0 2px 0px rgba(0,0,0,.09);
-	left: 16.6666%;
-	right: 0;
-	margin-left: -1.5rem;
+	margin: 1rem 0rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
-	/*position: fixed;*/
-	/*top: 0;*/
-	z-index: 1;
 }
 
 .section .action-bar .col {
@@ -237,16 +231,15 @@ a.lnkdelete:hover {
 		padding: 1rem;
 	}
 	.aside .responsive-menu {
-		max-height: 200px;
-		overflow-y: auto;
+		/*max-height: 200px;*/
+		/*overflow-y: auto;*/
 		position: fixed;
-		top: 0;
 		width: 100%;
 		z-index: 9999;
 	}
 	.aside .responsive-menu,
 	.aside .responsive-menu label {
-		background-color: #222;
+		background-color: #2c3238;
 		text-align: right;
 	}
 	.aside .back-site:after,
@@ -270,7 +263,7 @@ a.lnkdelete:hover {
 		z-index: inherit;
 	}
 	.section {
-		margin-top: 1.5rem;
+		margin-top: 4rem;
 		padding: 0 1rem 0 2.5rem;
 	}
 }
