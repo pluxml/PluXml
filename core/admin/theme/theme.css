@@ -53,6 +53,30 @@ body {
 	text-align: center;
 }
 
+/* ---------- Profil Navigation ---------- */
+
+.profil-nav {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	background: #23282d;
+	padding: 1rem 2rem;
+}
+
+.profil-nav a {
+    color: #eee;
+}
+
+.profil-nav ul {
+	margin: 0px;
+}
+
+.profil-nav img {
+	background: #fff;
+	width: 40px;
+	height: 40px;
+}
+
 /* ---------- Main ---------- */
 
 .main.grid {
@@ -62,12 +86,11 @@ body {
 /* ---------- Aside ---------- */
 
 .aside {
-	background-color: #23282d;
-	bottom: 0;
+	background-color: #2c3238;
 	overflow: auto;
 	padding-right: 0;
 	position: fixed;
-	top: 0;
+	height: 100%;
 }
 
 .aside,
@@ -145,7 +168,6 @@ a.lnkdelete:hover {
 
 .section {
 	margin-bottom: 2rem;
-	margin-top: 6rem;
 }
 
 .section .action-bar {
@@ -157,8 +179,8 @@ a.lnkdelete:hover {
 	right: 0;
 	margin-left: -1.5rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
-	position: fixed;
-	top: 0;
+	/*position: fixed;*/
+	/*top: 0;*/
 	z-index: 1;
 }
 

@@ -34,40 +34,11 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 
 <body id="<?php echo basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
 
+<?php include __DIR__ .'/profil-nav.php'; ?>
+
 <main class="main grid">
 
 	<aside class="aside col sml-12 med-3 lrg-2 sml-text-left">
-		<header class="header sml-text-center med-text-left">
-			<ul class="unstyled-list head">
-				<li>
-					<a href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><h1 class="h4 no-margin site-name"><strong><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1></a>
-				</li>
-				<li>
-					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a></small>
-				</li>
-				<?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
-				<li>
-					<small><a class="back-blog" href="<?php echo $plxAdmin->urlRewrite('?blog'); ?>" title="<?php echo L_BACK_TO_BLOG_TITLE ?>"><?php echo L_BACK_TO_BLOG;?></a></small>
-				</li>
-				<?php endif; ?>
-				<li>
-					<small><a class="logout" href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>"><?php echo L_ADMIN_LOGOUT ?></a></small>
-				</li>
-			</ul>
-			<ul class="unstyled-list profil">
-				<li>
-					<strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
-					<em>
-						<?php if($_SESSION['profil']==PROFIL_ADMIN) echo L_PROFIL_ADMIN;
-						elseif($_SESSION['profil']==PROFIL_MANAGER) echo L_PROFIL_MANAGER;
-						elseif($_SESSION['profil']==PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
-						elseif($_SESSION['profil']==PROFIL_EDITOR) echo L_PROFIL_EDITOR;
-						else echo L_PROFIL_WRITER; ?>
-					</em>
-				</li>
-				<li><small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small></li>
-			</ul>
-		</header>
 		<nav class="responsive-menu">
 			<label for="nav"><?php echo L_MENU ?></label>
 			<input type="checkbox" id="nav" />
@@ -138,6 +109,11 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					echo implode('', $menus);
 				?>
 			</ul>
+		   	<ul class="unstyled-list">
+   				<li>
+   					<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small>
+   				</li>
+   			</ul>
 		</nav>
 	</aside>
 
