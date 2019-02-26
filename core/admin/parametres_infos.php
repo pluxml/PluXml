@@ -16,7 +16,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 include __DIR__ .'/top.php';
 ?>
 
-<div class="inline-form action-bar">
+<div class="inline-form admin-title">
 	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
 </div>
 

@@ -70,7 +70,7 @@ include __DIR__ .'/top.php';
 
 <form action="statique.php" method="post" id="form_static">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_STATIC_TITLE ?> "<?php echo plxUtils::strCheck($title); ?>"</h2>
 		<p><a class="back" href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
 		<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;

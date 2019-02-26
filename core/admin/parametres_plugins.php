@@ -132,7 +132,7 @@ include __DIR__ .'/top.php';
 
 <form action="parametres_plugins.php" method="post" id="form_plugins">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2>
 			<?php echo L_PLUGINS_TITLE ?>
 			<span data-scope="admin">Admin</span>

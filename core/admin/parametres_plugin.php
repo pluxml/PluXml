@@ -29,7 +29,7 @@ if(is_file($filename)) {
 	# chargement de l'écran de paramétrage du plugin config.php
 	ob_start();
 	echo '
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2>'.plxUtils::strCheck($plugin).'</h2>
 		<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
 	</div>';

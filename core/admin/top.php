@@ -114,6 +114,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
    					<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small>
    				</li>
    			</ul>
+   			<?php echo $plxAdmin->checkMaj(); ?>
 		</nav>
 	</aside>
 

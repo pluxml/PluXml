@@ -40,7 +40,7 @@ include __DIR__ .'/top.php';
 
 <form action="categories.php" method="post" id="form_categories">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_CAT_TITLE ?></h2>
 		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>

@@ -125,7 +125,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 <form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_COMMENT_EDITING ?></h2>
 		<?php if(!empty($_GET['a'])) : ?>
 		<p><a class="back" href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>

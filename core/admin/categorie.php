@@ -51,7 +51,7 @@ include __DIR__ .'/top.php';
 
 <form action="categorie.php" method="post" id="form_category">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_EDITCAT_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aCats[$id]['name']); ?>"</h2>
 		<p><a class="back" href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
 		<?php echo plxToken::getTokenPostMethod() ?>

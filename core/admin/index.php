@@ -24,15 +24,13 @@ include __DIR__ .'/top.php';
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
-<div class="inline-form action-bar">
+<div class="admin-title">
 	<div class="grid">
 		<div class="col sml-12">
 			<h2><?php echo L_DASHBOARD_TITLE ?></h2>
 		</div>
 	</div>
 </div>
-
-<?php echo $plxAdmin->checkMaj(); ?>
 
 <div class="grid">
 	<div class="col sml-12 med-6 panel">

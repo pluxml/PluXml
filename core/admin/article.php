@@ -275,7 +275,7 @@ function refreshImg(dta) {
 
 <form action="article.php" method="post" id="form_article">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 
 		<div class="grid">
 			<div class="col sml-12 med-5">

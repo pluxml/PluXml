@@ -45,7 +45,7 @@ function checkBox(cb) {
 
 <form action="statiques.php" method="post" id="form_statics">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
 		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>

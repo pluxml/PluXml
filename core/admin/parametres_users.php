@@ -36,7 +36,7 @@ include __DIR__ .'/top.php';
 
 <form action="parametres_users.php" method="post" id="form_users">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>
 		<p>&nbsp;</p>
 		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>

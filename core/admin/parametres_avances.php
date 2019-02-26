@@ -28,7 +28,7 @@ include __DIR__ .'/top.php';
 
 <form action="parametres_avances.php" method="post" id="form_settings">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
 		<p>&nbsp;</p>
 		<?php echo plxToken::getTokenPostMethod() ?>

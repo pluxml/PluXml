@@ -40,7 +40,7 @@ $output='';
 if(is_file($filename)) {
 	ob_start();
 	echo '
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2>'.plxUtils::strCheck($page).'</h2>
 		<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
 	</div>';

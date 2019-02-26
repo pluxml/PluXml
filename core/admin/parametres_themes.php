@@ -98,7 +98,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 ?>
 <form action="parametres_themes.php" method="post" id="form_settings">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_CONFIG_VIEW_SKIN_SELECT ?> </h2>
 		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<input type="submit" value="<?php echo L_CONFIG_THEME_UPDATE ?>" />

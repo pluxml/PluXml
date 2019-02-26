@@ -21,7 +21,7 @@ if(!empty($plxAdmin->plxPlugins->aPlugins[$plugin]) AND is_file($filename)) {
 	$plxAdmin->checkProfil($plxPlugin->getAdminProfil());
 	ob_start();
 	echo '
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2>'.plxUtils::strCheck($plugin).'</h2>
 	</div>';
 	include $filename;

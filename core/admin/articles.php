@@ -125,7 +125,7 @@ include __DIR__ .'/top.php';
 
 <form action="articles.php" method="post" id="form_articles">
 
-<div class="inline-form action-bar">
+<div class="inline-form admin-title">
 	<div class="grid">
 		<div class="col sml-12 med-7">
 			<h2><?php echo L_ARTICLES_LIST ?></h2>

@@ -42,7 +42,7 @@ include __DIR__ .'/top.php';
 
 <form action="user.php" method="post" id="form_user">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_USER_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aUsers[$id]['name']); ?>"</h2>
 		<p><a class="back" href="parametres_users.php"><?php echo L_USER_BACK_TO_PAGE ?></a></p>
 		<?php echo plxToken::getTokenPostMethod() ?>

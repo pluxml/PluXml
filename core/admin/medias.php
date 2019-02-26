@@ -145,7 +145,7 @@ $curFolders = explode('/', $curFolder);
 
 	<div class="inline-form" id="files_manager">
 
-		<div class="inline-form action-bar">
+		<div class="inline-form admin-title">
 			<h2><?php echo L_MEDIAS_TITLE ?></h2>
 			<p>
 				<?php

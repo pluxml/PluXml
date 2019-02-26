@@ -136,7 +136,7 @@ $selector=selector($comSel, 'id_selection');
 
 <form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<?php echo $h2 ?>
 		<ul class="menu">
 			<?php echo implode($breadcrumbs); ?>

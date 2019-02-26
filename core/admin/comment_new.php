@@ -125,7 +125,7 @@ include __DIR__ .'/top.php';
 ?>
 <form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 
-	<div class="inline-form action-bar">
+	<div class="inline-form admin-title">
 		<h2><?php echo L_CREATE_NEW_COMMENT ?></h2>
 		<?php if(!empty($_GET['a'])) : ?>
 		<p><a class="back" href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
