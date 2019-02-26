@@ -124,7 +124,7 @@ include __DIR__ .'/top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <div class="admin-title">
-	<h2><?php echo L_ARTICLES_LIST ?></h2>
+	<h2><?php echo L_MENU_ARTICLES ?></h2>
 </div>
 
 <form action="articles.php" method="post" id="form_articles">
@@ -150,6 +150,9 @@ include __DIR__ .'/top.php';
     </div>
     
     <div class="scrollable-table panel">
+    	<div class="panel-content">
+    		<h3 class="no-margin"><?php echo L_ARTICLES_LIST ?></h3>
+    	</div>
     	<table id="articles-table" class="panel-content">
     		<thead>
     			<tr>
@@ -222,8 +225,6 @@ include __DIR__ .'/top.php';
         			echo '<tr><td colspan="8" class="center">'.L_NO_ARTICLE.'</td></tr>';
         		}
         		?>
-
-
     		</tbody>
     	</table>
     	<div class="panel-content">
