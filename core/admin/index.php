@@ -25,11 +25,7 @@ include __DIR__ .'/top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <div class="admin-title">
-	<div class="grid">
-		<div class="col sml-12">
-			<h2><?php echo L_DASHBOARD_TITLE ?></h2>
-		</div>
-	</div>
+	<h2><?php echo L_DASHBOARD_TITLE ?></h2>
 </div>
 
 <div class="grid">
