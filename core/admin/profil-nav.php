@@ -2,7 +2,7 @@
 	<div class="col sml-6 text-left title">
     	<ul class="unstyled-list inline-list">
        		<li class="site-name">
-       			<a href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><h1 class="h2 no-margin"><strong><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1></a>
+       			<a href="<?php echo PLX_ROOT ?>/core/admin" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><h1 class="h2 no-margin"><strong><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1></a>
        		</li>
        		<li>
        			<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a></small>

@@ -112,9 +112,15 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		   	<ul class="unstyled-list">
    				<li>
    					<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small>
+   					<?php 
+                        $maj = $plxAdmin->checkMaj();
+                        if ($maj['maj'] == true) {
+                            echo '<small><span class="label"><a href="/core/admin/parametres_infos.php">New</a></span></small>';
+                        }
+   					?>
    				</li>
    			</ul>
-   			<?php echo $plxAdmin->checkMaj(); ?>
+
 		</nav>
 	</aside>
 

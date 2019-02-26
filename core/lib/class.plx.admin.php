@@ -1112,8 +1112,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui vérifie sur le site de PluXml la dernière version et la compare avec celle en local.
 	 *
-	 * @return	string	contenu innerHTML de la balise <p> contenant l'etat et le style du contrôle du numéro de version
-	 * @author	Florent MONTHEL, Amaury GRAILLAT, Stephane F et J.P. Pourrez (aka bazooka07)
+	 * @return	$result     array      indique si une mise à jour est disponible et contient le message correspondant 
+	 * @author	Florent MONTHEL, Amaury GRAILLAT, Stephane F et J.P. Pourrez (aka bazooka07), Pedro "P3ter" CADETE
 	 **/
 	public function checkMaj() {
 
@@ -1122,7 +1122,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	    $caption='PluXml.org';
 
 		$latest_version = 'L_PLUXML_UPDATE_ERR';
-		$className = '';
+		$result = array(
+		    "maj" => false,
+		    "msg" => ""
+		);
 
 		# test avec allow_url_open ou file_get_contents ?
 		if(ini_get('allow_url_fopen')) {
@@ -1150,24 +1153,21 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		}
 
 		if($latest_version == 'UPDATE_UNAVAILABLE') {
-			$msg = L_PLUXML_UPDATE_UNAVAILABLE;
-			$className = 'red';
+		    $result['msg'] = L_PLUXML_UPDATE_UNAVAILABLE;
 		}
 		elseif($latest_version == 'L_PLUXML_UPDATE_ERR') {
-			$msg = L_PLUXML_UPDATE_ERR;
-			$className = 'red';
+		    $result['msg'] = L_PLUXML_UPDATE_ERR;
 		}
 		elseif(version_compare(PLX_VERSION, $latest_version, ">=")) {
-			$msg = L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
-			$className = 'green';
+		    $result['msg'] = L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
 		}
 		else {
-			$msg = sprintf('%s <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, $href, $caption);
-			$className = 'orange';
+		    $result['maj'] = true;
+		    $result['msg'] = sprintf('%s <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, $href, $caption);
+		    
 		}
 
-		return sprintf('<p id="latest-version" class="alert %s">%s</p>', $className, $msg);
-
+		return $result; 
 	}
 
 }

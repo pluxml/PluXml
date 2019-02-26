@@ -21,7 +21,16 @@ include __DIR__ .'/top.php';
 </div>
 
 <p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong></p>
-<?php echo $plxAdmin->checkMaj(); ?>
+<?php
+    $plxAdmin->checkMaj();
+    if ($maj['maj'] == false) {
+        $classCss = 'green';
+    }
+    else {
+        $classCss = 'red';
+    }
+    echo '<div class="alert '.$classCss.'">'.$maj['msg'].'</div>';
+?>
 
 <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
 
