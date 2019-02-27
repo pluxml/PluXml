@@ -197,7 +197,11 @@ a.lnkdelete:hover {
 	font-weight: bold;
 }
 
-.section tr {
+.section form .panel .col {
+	margin :0px;
+}
+
+.section .panel tr {
     border-color: #efefef;
 }
 
@@ -355,10 +359,6 @@ input[maxlength="3"] {
 #medias-table img {
 	max-width: initial !important;
 	vertical-align: bottom;
-}
-
-#medias-table {
-	margin-top: 10px;
 }
 
 #medias-table td:nth-of-type(5) {
