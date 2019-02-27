@@ -230,7 +230,7 @@ include __DIR__ .'/top.php';
     		</tbody>
     	</table>
     	
-    	<div class="grid panel-content">
+    	<div class="grid panel-content panel-bottom">
     	
         	<div class="col sml-12 med-4">
             	<?php

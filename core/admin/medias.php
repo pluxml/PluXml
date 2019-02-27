@@ -251,7 +251,7 @@ $curFolders = explode('/', $curFolder);
 			?>
 			</tbody>
 		</table>
-		<div class="panel-content">
+		<div class="panel-content panel-bottom">
 			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />

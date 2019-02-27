@@ -197,6 +197,10 @@ a.lnkdelete:hover {
 	background-color: #fff;
 }
 
+.section .panel-bottom {
+	background-color: #f7f8fa;
+}
+
 .section .panel-content h3 {
 	font-weight: bold;
 }
