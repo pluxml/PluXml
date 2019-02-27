@@ -152,7 +152,7 @@ include __DIR__ .'/top.php';
     </div>
 
     <div class="scrollable-table panel">
-    	<div class="panel-content">
+    	<div class="panel-content panel-title">
     		<h3 class="no-margin"><?php echo L_ARTICLES_LIST ?></h3>
     	</div>
     	<table id="articles-table" class="panel-content">

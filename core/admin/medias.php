@@ -186,7 +186,7 @@ $curFolders = explode('/', $curFolder);
 	</div>
 	
 	<div style="clear:both" class="scrollable-table panel">
-	   	<div class="panel-content">
+	   	<div class="panel-content panel-title">
 	   		<h3 class="no-margin"><?php echo L_MEDIAS_TITLE ?></h3>
     	</div>
 		<table id="medias-table" class="panel-content">

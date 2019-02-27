@@ -183,14 +183,18 @@ a.lnkdelete:hover {
 }
 
 .section .panel {
-	margin: 10px 0px
+	margin: 10px 0px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.13);
 }
 
+.section .panel-title {
+	background-color: #2c3238 !important;
+	color: #efefef;
+}
 .section .panel-content {
 	padding: 1rem;
-	background-color: #fff;
 	border-bottom: 1px solid #eee;
-	box-shadow: 0 1px 3px rgba(0,0,0,.13);
+	background-color: #fff;
 }
 
 .section .panel-content h3 {
@@ -198,7 +202,11 @@ a.lnkdelete:hover {
 }
 
 .section form .panel .col {
-	margin :0px;
+	margin: 0px;
+}
+
+.section .panel .grid {
+	margin: 0px;
 }
 
 .section .panel tr {
