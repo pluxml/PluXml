@@ -1,4 +1,4 @@
-## PLUXML 6.0 (sortie : jj/mm/aaaa) ##
+## PLUXML X.Y (sortie : jj/mm/aaaa) ##
 
 [+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
 [+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut
