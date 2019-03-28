@@ -188,9 +188,12 @@ class plxUtils {
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	placeholder valeur du placeholder du champ (html5)
 	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
-	 * @return	self        
+	 * @param   required    permet de rendre le champ obligatoire
+	 * @return	self
+	 * @author  unknow, Pedro "P3ter" CADETE        
 	 **/
-	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='') {
+
+	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
 		 $params = array(
 			'id="id_'.$name.'"',
@@ -202,6 +205,8 @@ class plxUtils {
 		 if(!empty($extra))
 			 $params[] = $extra;
 		 if($type != 'hidden') {
+		    if($required === true)
+		        $params[] = 'required="required"';
 			if($readonly === true)
 				$params[] = 'readonly="readonly" class="readonly"';
 			if(!empty($className))
