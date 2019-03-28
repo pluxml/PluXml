@@ -1,5 +1,6 @@
 ## PLUXML X.Y (sortie : jj/mm/aaaa) ##
 
+[+] Génération d'un nouveau mot de passe si oublié
 [+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
 [+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut
 [+] #312 En présence d'une homepage statique, le lien "archive total" redirige vers le blog (je-evrard, bazooka07 et P3ter)
