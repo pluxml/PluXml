@@ -330,7 +330,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau les informations sur les utilisateurs
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/
 	public function editUsers($content, $action=false) {
 
@@ -367,7 +367,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 					# control de l'adresse email
 					$email = trim($content[$user_id.'_email']);
-					if($email!='' AND !plxUtils::checkMail($email))	return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(isset($content[$user_id.'_newuser']) AND empty($email))
+					    //TODO add this message to lang
+					    return plxMsg::Error("Adresse email obligatoire");
+					if($email!='' AND !plxUtils::checkMail($email))	
+					    return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
 					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
 					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
