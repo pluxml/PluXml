@@ -352,7 +352,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$username = trim($content[$user_id.'_name']);
 				if($username!='' AND trim($content[$user_id.'_login'])!='') {
 
-					# control du mot de passe
+				    # control du mot de passe
 					$salt = plxUtils::charAleatoire(10);
 					if(trim($content[$user_id.'_password'])!='')
 						$password=sha1($salt.md5($content[$user_id.'_password']));
@@ -368,9 +368,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					# control de l'adresse email
 					$email = trim($content[$user_id.'_email']);
 					if(isset($content[$user_id.'_newuser']) AND empty($email))
-					    //TODO add this message to lang
-					    return plxMsg::Error("Adresse email obligatoire");
-					if($email!='' AND !plxUtils::checkMail($email))	
+					    return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(!empty($email) AND !plxUtils::checkMail($email))	
 					    return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
 					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
