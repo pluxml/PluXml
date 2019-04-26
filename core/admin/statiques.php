@@ -43,22 +43,25 @@ function checkBox(cb) {
 }
 </script>
 
+<div class="admin-title">
+	<h2><?php echo L_MENU_STATICS ?></h2>
+</div>
+
 <form action="statiques.php" method="post" id="form_statics">
 
-	<div class="inline-form admin-title">
-		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
-		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+	<div class="inline-form panel panel-content">
 		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		<?php echo plxToken::getTokenPostMethod() ?>
-		&nbsp;&nbsp;&nbsp;
-		<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
 
-	<div class="scrollable-table">
-		<table id="statics-table" class="full-width"  data-rows-num='name$="_ordre"'>
+	<div class="scrollable-table panel">
+		<div class="panel-content panel-title">
+	   		<h3 class="no-margin"><?php echo L_STATICS_PAGE_TITLE ?></h3>
+    	</div>
+		<table id="statics-table" class="full-width panel-content"  data-rows-num='name$="_ordre"'>
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
@@ -143,6 +146,9 @@ function checkBox(cb) {
 				</tr>
 			</tbody>
 		</table>
+		<div class="panel-content panel-bottom">
+			<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
+		</div>
 	</div>
 
 </form>
