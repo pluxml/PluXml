@@ -1,9 +1,9 @@
 <?php
 /**
- * Classe de mise a jour pour PluXml version 5.5
+ * Classe de mise a jour pour PluXml version 5.8
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Pedro "P3ter" CADETE
  **/
 class update_5_8 extends plxUpdate{
 

@@ -291,6 +291,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function newPassword($loginOrMail) {
 
 	    $mail = array();
+	    $new_password = '';
 	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 	        foreach($this->aUsers as $user_id => $user) {
 	            if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
@@ -301,11 +302,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
     	                "##PASSWORD##"   =>  $new_password = plxUtils::charAleatoire()
     	            );
     	            
-    	            # on vérifie qu'on arrive a générer le contenu du mail avant de l'envoyer et de chanegr le mot de passe
-    	            if (($mail['body'] = $this->aTemplates['email-lostpassword.xml']->getTemplateGeneratedContent($placeholdersValues)) == '1'){
-    	                return $new_password = '';
-    	            }
-    	            else {
+    	            # on vérifie qu'on arrive à générer le contenu du mail avant de l'envoyer et de changer le mot de passe
+    	            if (($mail['body'] = $this->aTemplates['email-lostpassword.xml']->getTemplateGeneratedContent($placeholdersValues)) != '1'){
     	                $mail['name'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailName();
     	                $mail['from'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailFrom();
     	                $mail['subject'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailSubject();
@@ -319,10 +317,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                        	    return $new_password;
         	            }
                     }
+                    else {
+                        return $new_password = '';
+                    }
         	    }
-    	    }
+	        }
+	        return $new_password;
 	    }
-        return $new_password = '';
+        return $new_password;
 	}
 	
 	/**
