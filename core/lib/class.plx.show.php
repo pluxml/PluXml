@@ -2059,5 +2059,26 @@ class plxShow {
 		);
 	}
 
+	/**
+	 * Method in charge of giving an RSS feed URL for current page posts
+	 * 
+	 * @param      mode    the view mode from plxMotor->mode (categorie, tags)
+	 * @return     self
+	 * @author     Pedro "P3ter" CADETE
+	 */
+	public function urlPostsRssFeed($mode = 'home')
+	{
+	    switch ($mode) {
+	        case 'categorie':
+	            $categorie = $this->catId();
+	            $id = str_pad($categorie, 3, '0', STR_PAD_LEFT);
+	            return $this->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']);
+	        case 'tags':
+	            $tag = plxUtils::strCheck($this->plxMotor->cible);
+	            return $this->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag));
+	        default :
+	            return $this->urlRewrite('feed.php?rss');
+	    }
+	}
 }
 ?>

@@ -1,10 +1,12 @@
 ## PLUXML X.X (sortie : jj/mm/aaaa) ##
 
-[+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
+[+] Amélioration des performances du gestionnaire de médias (bazooka07)
+[+] #135 Contextualiser le lien du flux RSS dans le <head> en fonction du mode catégorie, tag, ou autre (bazooka07, P3ter)
 [+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut
-[+] #312 En présence d'une homepage statique, le lien "archive total" redirige vers le blog (je-evrard, bazooka07 et P3ter)
-[+] #312 Remplacement de la fonction str_replace() par strtr() pour les liens vers les pages archives (bazooka07 et P3ter)
-FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI  (contribution bazooka07)
+[+] #312 En présence d'une homepage statique, le lien "archive total" redirige vers le blog (je-evrard, bazooka07, P3ter)
+[+] #312 Remplacement de la fonction str_replace() par strtr() pour les liens vers les pages archives (bazooka07, P3ter)
+FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI  (bazooka07)
+
 
 ## PLUXML 5.7 (sortie : 11/12/2018) ##
 
