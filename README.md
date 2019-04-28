@@ -1,6 +1,11 @@
 PluXml
 ======
-Créez un site Web performant en toute simplicité
+Créez un site web performant en toute simplicité et sans base de données.
+
+[**Télécharger**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
+
+* Version stable : [master](https://github.com/pluxml/PluXml/tree/master)
+* Version en développement : [develop](https://github.com/pluxml/PluXml/tree/develop)
 
 Principales caractéristiques
 ----------------------------
