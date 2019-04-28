@@ -333,7 +333,7 @@ function refreshImg(dta) {
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' checked' : ''; ?> />
+						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
 						<label for="toggler_chapo"><?php echo L_HEADLINE_FIELD;?> : <span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
 						<div>
 							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
@@ -500,14 +500,11 @@ function refreshImg(dta) {
 
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_tags">
-							<?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE ?></span></a>
-						</label>
-						<div class="inline-form">
-							<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-							<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
-						</div>
-						<div id="tags" style="display:none; margin-top: 1rem">
+						<label for="tags"><?php echo L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
+						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+                        <input class="toggler" type="checkbox" id="toggler_tags"<?php echo (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
+                        <label for="toggler_tags"><span>-</span><span>+</span></label>						
+						<div style="margin-top: 1rem">
 							<?php
 							if($plxAdmin->aTags) {
 								$array=array();
@@ -532,6 +529,10 @@ function refreshImg(dta) {
 							else echo L_NO_TAG;
 							?>
 						</div>
+						
+						
+						
+						
 					</div>
 				</div>
 				<div class="grid">

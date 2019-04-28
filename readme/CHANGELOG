@@ -2,7 +2,7 @@
 
 [+] Amélioration des performances du gestionnaire de médias (bazooka07)
 [+] #135 Contextualiser le lien du flux RSS dans le <head> en fonction du mode catégorie, tag, ou autre (bazooka07, P3ter)
-[+] #207 Afficher et masquer le chapeau d'un article dans l'administration en CSS3 au lieu d'utiliser du JS (bazooka07, Stéphane, P3ter)
+[+] #207 Afficher/masquer le chapeau et les tags d'un article dans l'administration en CSS3 au lieu d'utiliser du JS (bazooka07, Stéphane, P3ter)
 [+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut
 [+] #312 En présence d'une homepage statique, le lien "archive total" redirige vers le blog (je-evrard, bazooka07, P3ter)
 [+] #312 Remplacement de la fonction str_replace() par strtr() pour les liens vers les pages archives (bazooka07, P3ter)

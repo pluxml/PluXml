@@ -319,6 +319,9 @@ input[maxlength="3"] {
 .toggler {
 	display: none;
 }
+.toggler + label {
+	display: inline;
+}
 .toggler + label span {
 	color: #258fd6;
 }
