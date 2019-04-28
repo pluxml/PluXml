@@ -529,12 +529,9 @@ function refreshImg(dta) {
 							else echo L_NO_TAG;
 							?>
 						</div>
-						
-						
-						
-						
 					</div>
 				</div>
+
 				<div class="grid">
 					<div class="col sml-12">
 						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
