@@ -70,16 +70,6 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 		return (action ? confirm(msg) : false);
 	}
 }
-function toggleDiv(divId,togglerId,on,off){
-	var toggler = document.getElementById(togglerId);
-	if(document.getElementById(divId).style.display == 'none') {
-		document.getElementById(divId).style.display = 'block';
-		toggler.innerHTML=off;
-	} else {
-		document.getElementById(divId).style.display = 'none';
-		toggler.innerHTML=on;
-	}
-}
 function insTag(where, tag) {
 	var formfield = document.getElementsByName(where)['0'];
 	var tags = formfield.value.split(', ');

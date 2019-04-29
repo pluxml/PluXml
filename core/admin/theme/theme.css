@@ -381,6 +381,37 @@ input[maxlength="3"] {
 	text-align: center;
 }
 
+.toggler {
+	display: none;
+}
+.toggler + label {
+	display: inline;
+}
+.toggler + label span {
+	color: #258fd6;
+}
+.toggler + label span:hover {
+	cursor: pointer;
+	text-decoration: underline;
+	color: #444;
+}
+.toggler + label span:first-of-type, /* masquer */
+.toggler + label + div {
+	display: none;
+}
+.toggler + label span:last-of-type {
+	display: inline-block;
+}
+.toggler:checked + label span:first-of-type { /* afficher */
+	display: inline-block;
+}
+.toggler:checked + label + div {
+	display: block;
+}
+.toggler:checked + label span:last-of-type {
+	display: none;
+}
+
 .publication input {
 	font-weight: bold;
 	color: #777;
