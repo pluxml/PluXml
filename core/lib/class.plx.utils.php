@@ -169,7 +169,7 @@ class plxUtils {
 				}
 				echo '</optgroup>'."\n";
 			} else {
-				if($a == $selected)
+			    if(strval($a) == $selected)
 					echo "\t".'<option value="'.$a.'" selected="selected">'.$b.'</option>'."\n";
 				else
 					echo "\t".'<option value="'.$a.'">'.$b.'</option>'."\n";
