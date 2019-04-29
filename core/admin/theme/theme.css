@@ -4,8 +4,8 @@
 # This file is part of PluXml : http://www.pluxml.org
 #
 # Package:		theme.css
-# Copyright (c) 2016, 2017 PluXml
-# Authors		Jos, Stephane F.
+# Copyright (c) 2019 PluXml
+# Authors		Jos, Stephane F., Pedro "P3ter" CADETE
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -311,6 +311,37 @@ input[maxlength="3"] {
 
 #medias-table td:nth-of-type(6) {
 	text-align: center;
+}
+
+.toggler {
+	display: none;
+}
+.toggler + label {
+	display: inline;
+}
+.toggler + label span {
+	color: #258fd6;
+}
+.toggler + label span:hover {
+	cursor: pointer;
+	text-decoration: underline;
+	color: #444;
+}
+.toggler + label span:first-of-type, /* masquer */
+.toggler + label + div {
+	display: none;
+}
+.toggler + label span:last-of-type {
+	display: inline-block;
+}
+.toggler:checked + label span:first-of-type { /* afficher */
+	display: inline-block;
+}
+.toggler:checked + label + div {
+	display: block;
+}
+.toggler:checked + label span:last-of-type {
+	display: none;
 }
 
 .publication input {
