@@ -152,6 +152,7 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function htaccess($action, $url) {
 
+	    $capture = '';
 		$base = parse_url($url);
 
 $plxhtaccess = '
@@ -313,16 +314,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                        	    $salt = $user['salt'];
                        	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
                        	    $this->editUsers($user_id, true);
-                       	    
-                       	    return $new_password;
         	            }
                     }
                     else {
-                        return $new_password = '';
+                        $new_password = '';
                     }
         	    }
 	        }
-	        return $new_password;
 	    }
         return $new_password;
 	}
@@ -1052,6 +1050,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function modCommentaire(&$id, $mod) {
 
+	    $capture = '';
+	    
 		# Génération du nom du fichier
 		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
 		if(!file_exists($oldfilename)) # Commentaire inexistant
@@ -1118,6 +1118,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$latest_version = 'L_PLUXML_UPDATE_ERR';
 		$className = '';
 
+		$http_response_header = '';
 		# test avec allow_url_open ou file_get_contents ?
 		if(ini_get('allow_url_fopen')) {
 			$latest_version = @file_get_contents($url, false, null, 0, 16);
