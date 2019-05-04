@@ -332,6 +332,17 @@ function refreshImg(dta) {
 					</div>
 				</div>
 				<div class="grid">
+					<div class="col sml-12 small">
+						<?php if($artId!='' AND $artId!='0000') : ?>
+							<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
+					 			<small>
+					 				<strong><?php echo L_LINK_FIELD ?>&nbsp;(<a href="#articleLink" style="text-transform: lowercase;"><?php echo L_ARTICLE_EDIT ?></a>)&nbsp;:&nbsp;</strong>
+					 				<a onclick="this.target=\'_blank\';return true;" href="<?php echo $link ?>" title="<?php echo L_LINK_ACCESS ?> : <?php echo $link ?>"><?php echo $link ?></a>
+					 			</small>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="grid">
 					<div class="col sml-12">
 						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
 						<label for="toggler_chapo"><?php echo L_HEADLINE_FIELD;?> : <span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
@@ -348,7 +359,7 @@ function refreshImg(dta) {
 				</div>
 				<?php if($artId!='' AND $artId!='0000') : ?>
 				<div class="grid">
-					<div class="col sml-12">
+					<div id="articleLink" class="col sml-12">
 						<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
 						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
 						<?php echo '<input id="id_link" onclick="this.select()" readonly="readonly" type="text" value="'.$link.'" />' ?>
