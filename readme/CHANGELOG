@@ -1,6 +1,7 @@
 ## PLUXML X.X (sortie : jj/mm/aaaa) ##
 
 [+] Amélioration des performances du gestionnaire de médias (bazooka07)
+[+] #40 Ne pas afficher le meta du site en mode article, static, categorie
 [+] #135 Contextualiser le lien du flux RSS dans le <head> en fonction du mode catégorie, tag, ou autre (bazooka07, P3ter)
 [+] #207 Afficher/masquer le chapeau et les tags d'un article dans l'administration en CSS3 au lieu d'utiliser du JS (bazooka07, Stéphane, P3ter)
 [+] #216 Refacto de la fonction plxUtils::printArea() (bazooka07)
