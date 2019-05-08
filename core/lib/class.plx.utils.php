@@ -490,6 +490,7 @@ class plxUtils {
 	 * @param	thumb_height	hauteur de la miniature
 	 * @param	quality			qualité de l'image
 	 * @return	boolean			vrai si image créée
+	 * @author  unknown, Pedro "P3ter" CADETE
 	 **/
 	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
@@ -548,12 +549,20 @@ class plxUtils {
 				imagefill($canvas, 0, 0, $color);
 				imagesavealpha($canvas, true);
 				break;
+			case 'webp':
+			    $image_data = imagecreatefromwebp($src_image);
+			    break;
+			case 'x-ms-bmp':
+			    //$image_data = imagecreatefrombmp($src_image); // Only PHP 7+
+			    $image_data = false;
+			    break;
 			default:
 				return false; // Unsupported format
 			break;
 		}
 
 		// Verify import
+		
 		if($image_data == false) return false;
 
 		// Calculate measurements (square crop)
@@ -590,13 +599,19 @@ class plxUtils {
 				case 'jpg':
 				case 'jpeg':
 					return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
-				break;
+				    break;
 				case 'png':
 					return (imagepng($canvas, $dest_image) AND is_file($dest_image));
-				break;
+				    break;
 				case 'gif':
 					return (imagegif($canvas, $dest_image) AND is_file($dest_image));
-				break;
+				    break;
+				case 'bmp':
+				    return (imagebmp($canvas, $dest_image) AND is_file($dest_image));
+				    break;
+				case 'webp':
+				    return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
+				    break;
 				default:
 					return false; // Unsupported format
 				break;
@@ -1012,7 +1027,7 @@ class plxUtils {
 	    
 	    $matches = '';
 	    
-		if(preg_match('/^(.*\.)(jpe?g|png|gif)$/iD', $filename, $matches)) {
+		if(preg_match('/^(.*\.)(jpe?g|png|gif|bmp|webp)$/iD', $filename, $matches)) {
 			return $matches[1].'tb.'.$matches[2];
 		} else {
 			return $filename;
