@@ -464,7 +464,7 @@ STOP;
 			if(is_file($this->path.$this->dir.$file)) {
 				$thumName = plxUtils::thumbName($file);
 				$ext = strtolower(strrchr($this->path.$this->dir.$file,'.'));
-				if(in_array($ext, array('.gif', '.jpg', '.jpeg', '.png', '.webp'))) {
+				if(in_array($ext, $this->img_supported)) {
 					if(plxUtils::makeThumb($this->path.$this->dir.$file, $this->path.$this->dir.$thumName, $width, $height, 80))
 						$count++;
 				}
