@@ -109,7 +109,6 @@ $LANG = array(
 'L_NOW'								=> 'ara',
 'L_ARTICLE_CATEGORIES' 				=> 'Emplaçaments',
 'L_CATEGORY_HOME_PAGE' 			 	=> 'Pagina d\'acuèlh',
-'L_NEW_CATEGORY' 			 		=> 'Novèla categoria',
 'L_ARTICLE_TAGS_FIELD' 				=> 'Mots claus',
 'L_ARTICLE_TAGS_FIELD_TITLE' 		=> 'Separar los mots claus per una virgula',
 'L_ARTICLE_TOGGLER_TITLE' 			=> 'Lista dels mots claus',

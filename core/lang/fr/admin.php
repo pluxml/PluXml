@@ -113,7 +113,6 @@ $LANG = array(
 'L_NOW'								=> 'maintenant',
 'L_ARTICLE_CATEGORIES' 				=> 'Emplacements',
 'L_CATEGORY_HOME_PAGE' 			 	=> 'Page d\'accueil',
-'L_NEW_CATEGORY' 			 		=> 'Nouvelle catégorie',
 'L_ARTICLE_TAGS_FIELD' 				=> 'Mots clés',
 'L_ARTICLE_TAGS_FIELD_TITLE' 		=> 'Séparer les mots clés par une virgule',
 'L_ARTICLE_TOGGLER_TITLE' 			=> 'Liste des mots clés',
