@@ -351,6 +351,7 @@ $curFolders = explode('/', $curFolder);
 
 <script>
 
+// zoombox
 var all = document.querySelectorAll(".overlay");
 var mbox = document.getElementById("modal__box");
 var mb = document.getElementById("modal");
@@ -365,7 +366,9 @@ window.addEventListener("keydown", function (event) {
 	// validate if the press key is the escape key
 	if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
     	mbox.innerHTML = "";
-    	mb.click();
+    	if (mb.checked === true) {
+    		mb.click();
+    	}
     }	
 });
 
