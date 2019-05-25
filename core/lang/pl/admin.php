@@ -109,7 +109,6 @@ $LANG = array(
 'L_NOW'								=> 'teraz',
 'L_ARTICLE_CATEGORIES' 				=> 'Kategoria',
 'L_CATEGORY_HOME_PAGE' 			 	=> 'Strona główna',
-'L_NEW_CATEGORY' 			 		=> 'Nowa kategoria',
 'L_ARTICLE_TAGS_FIELD' 				=> 'Tagi',
 'L_ARTICLE_TAGS_FIELD_TITLE' 		=> 'Tagi oddzielaj przecinkami',
 'L_ARTICLE_TOGGLER_TITLE' 			=> 'Lista tagów',

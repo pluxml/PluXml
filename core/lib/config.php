@@ -24,17 +24,17 @@ $CONSTS = array(
 );
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
-define('PLX_CHARSET', 'UTF-8');
+const PLX_CHARSET = 'UTF-8';
 
 # Langue par défaut
-define('DEFAULT_LANG', 'fr');
+const DEFAULT_LANG = 'fr';
 
 # profils utilisateurs de pluxml
-define('PROFIL_ADMIN', 0);
-define('PROFIL_MANAGER', 1);
-define('PROFIL_MODERATOR', 2);
-define('PROFIL_EDITOR', 3);
-define('PROFIL_WRITER', 4);
+const PROFIL_ADMIN = 0;
+const PROFIL_MANAGER = 1;
+const PROFIL_MODERATOR	= 2;
+const PROFIL_EDITOR	= 3;
+const PROFIL_WRITER	= 4;
 
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');

@@ -41,6 +41,8 @@ class plxUtils {
 	 **/
 	public static function unSlash($content) {
 
+	    $new_content = '';
+
 		if(get_magic_quotes_gpc() == 1) {
 			if(is_array($content)) { # On traite un tableau
 				foreach($content as $k=>$v) { # On parcourt le tableau
@@ -168,7 +170,7 @@ class plxUtils {
 				}
 				echo '</optgroup>'."\n";
 			} else {
-				if($a == $selected)
+			    if(strval($a) == $selected)
 					echo "\t".'<option value="'.$a.'" selected="selected">'.$b.'</option>'."\n";
 				else
 					echo "\t".'<option value="'.$a.'">'.$b.'</option>'."\n";
@@ -192,7 +194,6 @@ class plxUtils {
 	 * @return	self
 	 * @author  unknow, Pedro "P3ter" CADETE        
 	 **/
-
 	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
 		 $params = array(
@@ -235,12 +236,28 @@ class plxUtils {
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @return	self
 	 **/
-	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $class='') {
+	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width') {
 
-		if($readonly)
-			echo '<textarea id="id_'.$name.'" name="'.$name.'" class="readonly" cols="'.$cols.'" rows="'.$rows.'" readonly="readonly">'.$value.'</textarea>'."\n";
-		else
-			echo '<textarea id="id_'.$name.'" name="'.$name.'"'.($class!=''?' class="'.$class.'"':'').' cols="'.$cols.'" rows="'.$rows.'">'.$value.'</textarea>'."\n";
+	    $params = array(
+	        'id="id_'.$name.'"',
+	        'name="'.$name.'"'
+        );
+	    
+	    if(! empty($cols)) {
+	        $params[] = 'cols="'.$cols.'"';
+	    }
+	    if(! empty($rows)) {
+	        $params[] = 'rows="'.$rows.'"';
+	    }
+	    if($readonly === true) {
+	        $params = 'class="readonly"';
+	        $params = 'readonly="readonly"';
+	    } else {
+	        if(! empty($className)) {
+	            $params[] = 'class="'.$className.'"';
+	        }
+	    }
+	    echo '<textarea '.implode(' ', $params).'>'.$value.'</textarea>';
 	}
 
 	/**
@@ -480,6 +497,7 @@ class plxUtils {
 	 * @param	thumb_height	hauteur de la miniature
 	 * @param	quality			qualité de l'image
 	 * @return	boolean			vrai si image créée
+	 * @author  unknown, Pedro "P3ter" CADETE
 	 **/
 	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
@@ -538,6 +556,13 @@ class plxUtils {
 				imagefill($canvas, 0, 0, $color);
 				imagesavealpha($canvas, true);
 				break;
+			case 'webp':
+			    $image_data = imagecreatefromwebp($src_image);
+			    break;
+			case 'x-ms-bmp':
+			    //$image_data = imagecreatefrombmp($src_image); // Only PHP 7+
+			    $image_data = false;
+			    break;
 			default:
 				return false; // Unsupported format
 			break;
@@ -580,13 +605,19 @@ class plxUtils {
 				case 'jpg':
 				case 'jpeg':
 					return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
-				break;
+				    break;
 				case 'png':
 					return (imagepng($canvas, $dest_image) AND is_file($dest_image));
-				break;
+				    break;
 				case 'gif':
 					return (imagegif($canvas, $dest_image) AND is_file($dest_image));
-				break;
+				    break;
+				case 'bmp':
+				    return (imagebmp($canvas, $dest_image) AND is_file($dest_image));
+				    break;
+				case 'webp':
+				    return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
+				    break;
 				default:
 					return false; // Unsupported format
 				break;
@@ -605,7 +636,6 @@ class plxUtils {
 	 * @param	string classe css à utiliser pour formater l'affichage du message
 	 * @param   string format des balises avant le message
 	 * @param	string format des balises après le message
-	 * @return  self
 	 **/
 	public static function showMsg($msg, $class='',$format_start='<p class="#CLASS">',$format_end='</p>') {
 		$format_start = str_replace('#CLASS',($class != '' ? $class : 'msg'),$format_start);
@@ -701,7 +731,7 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne le type de compression disponible
 	 *
-	 * @return	string
+	 * @return	string or boolean
 	 * @author	Stephane F., Amaury Graillat
 	 **/
 	public static function httpEncoding() {
@@ -768,7 +798,6 @@ class plxUtils {
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *
-	 * @return	self
 	 * @author	Stephane F.
 	 **/
 	public static function cleanHeaders() {
@@ -859,6 +888,14 @@ class plxUtils {
 	*/
 	public static function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
 		if ($considerHtml) {
+		    
+		    $lines = '';
+		    $tag_matchings = '';
+		    $total_length = strlen($ending);
+		    $open_tags = array();
+		    $truncate = '';
+		    $entities = '';
+		    
 			// if the plain text is shorter than the maximum length, return the whole text
 			if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
 				return $text;
@@ -866,10 +903,6 @@ class plxUtils {
 
 			// splits all html-tags to scanable lines
 			preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
-
-			$total_length = strlen($ending);
-			$open_tags = array();
-			$truncate = '';
 
 			foreach ($lines as $line_matchings) {
 				// if there is any html-tag in this line, handle it and add it (uncounted) to the output
@@ -997,7 +1030,10 @@ class plxUtils {
 	 * @return	string	nom de la miniature au format fichier.tb.ext
 	*/
 	public static function thumbName($filename) {
-		if(preg_match('/^(.*\.)(jpe?g|png|gif)$/iD', $filename, $matches)) {
+	    
+	    $matches = '';
+	    
+		if(preg_match('/^(.*\.)(jpe?g|png|gif|bmp|webp)$/iD', $filename, $matches)) {
 			return $matches[1].'tb.'.$matches[2];
 		} else {
 			return $filename;

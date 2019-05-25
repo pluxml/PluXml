@@ -4,7 +4,7 @@
  * Gestion des médias
  *
  * @package PLX
- * @author  Stephane F
+ * @author  Stephane F, Pedro "P3ter" CADETE
  **/
 
 include __DIR__ .'/prepend.php';
@@ -203,14 +203,15 @@ $curFolders = explode('/', $curFolder);
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg', '.jpeg'));
-						$ordre = ++$num;
+					    $isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 							if(is_file($v['path']) AND $isImage) {
-								echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" width="48" height="48"/></a>';
+								echo '<a class="overlay" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
 							}
+							else 
+							    echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
 						echo '</td>';
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
@@ -349,6 +350,28 @@ $curFolders = explode('/', $curFolder);
 </div>
 
 <script>
+
+// zoombox
+var all = document.querySelectorAll(".overlay");
+var mbox = document.getElementById("modal__box");
+var mb = document.getElementById("modal");
+for (var i = 0, nb = all.length; i < nb; i++) {
+	all[i].addEventListener('click', function(e) {
+		e.preventDefault();
+		mbox.innerHTML = '<img src="'+this.href+'" alt="" />';
+		mb.click();
+	},false);
+}
+window.addEventListener("keydown", function (event) {
+	// validate if the press key is the escape key
+	if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
+    	mbox.innerHTML = "";
+    	if (mb.checked === true) {
+    		mb.click();
+    	}
+    }	
+});
+
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
 	var manager = document.getElementById('files_manager');
@@ -359,12 +382,6 @@ function toggle_divs(){
 		uploader.style.display = 'none';
 		manager.style.display = 'block';
 	}
-}
-function overlay(content) {
-	e = document.getElementById("modal__box");
-	e.innerHTML = '<img src="'+content+'" alt="" />';
-	e = document.getElementById("modal");
-	e.click();
 }
 function copy(elt, data) {
 	try {

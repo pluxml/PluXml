@@ -6,6 +6,9 @@
  * @package PLX
  * @author	Florent MONTHEL, Stephane F, Amaury Graillat
  **/
+
+const PLX_FEED = true;
+
 class plxFeed extends plxMotor {
 
 	private static $instance = null;

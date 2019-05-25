@@ -7,7 +7,7 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F et Pedro "P3ter" CADETE
  **/
 
-define('PLX_ADMIN', true);
+const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {
 

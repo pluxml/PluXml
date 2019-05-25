@@ -109,7 +109,6 @@ $LANG = array(
 'L_NOW'											=> 'ahora',
 'L_ARTICLE_CATEGORIES'							=> 'Categorías',
 'L_CATEGORY_HOME_PAGE'							=> 'Página de inicio',
-'L_NEW_CATEGORY'								=> 'Nueva categoría', # duplicated in categories.php section
 'L_ARTICLE_TAGS_FIELD'							=> 'Etiquetas',
 'L_ARTICLE_TAGS_FIELD_TITLE'					=> 'Separe las etiquetas con comas',
 'L_ARTICLE_TOGGLER_TITLE'						=> 'Lista de etiquetas',

@@ -109,7 +109,6 @@ $LANG = array(
 'L_NOW'														=> 'сейчас',
 'L_ARTICLE_CATEGORIES'										=> 'Категории',
 'L_CATEGORY_HOME_PAGE'										=> 'Главная страница',
-'L_NEW_CATEGORY'											=> 'Новая категория',
 'L_ARTICLE_TAGS_FIELD'										=> 'Ключевые слова',
 'L_ARTICLE_TAGS_FIELD_TITLE'								=> 'Разделяйте теги запятыми',
 'L_ARTICLE_TOGGLER_TITLE'									=> 'Список тегов',

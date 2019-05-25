@@ -7,8 +7,8 @@
  * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
-# Variable pour retrouver la page d'authentification
-define('PLX_AUTHPAGE', true);
+# Constante pour retrouver la page d'authentification
+const PLX_AUTHPAGE = true;
 
 include __DIR__ .'/prepend.php';
 
