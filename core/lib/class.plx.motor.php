@@ -4,8 +4,11 @@
  * Classe plxMotor responsable du traitement global du script
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
+
+require 'class.plx.template.php';
+
 class plxMotor {
 
 	public $get = false; # Donnees variable GET
@@ -30,6 +33,7 @@ class plxMotor {
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); #Tableau des utilisateurs
+	public $aTemplates = null; # Tableau des templates
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
@@ -106,6 +110,8 @@ class plxMotor {
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
+		# Traitement des templates
+		$this->getTemplates(PLX_TEMPLATES);
 	}
 
 	/**
@@ -980,7 +986,24 @@ class plxMotor {
 		# Mémorisation de la liste des tags
 		$this->aTags = $array;
 	}
-
+	
+    /**
+	 * Method in charge of making the template list in $_aTemplate array
+	 *
+	 * @param  string      the template's folder
+	 * @return	
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function getTemplates($templateFolder) {
+	    
+	    $files = array_diff(scandir($templateFolder), array('..', '.'));
+	    foreach ($files as $file) {
+	        $this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+	    }
+	    
+	    return;
+	}
+	
 	/**
 	 * Méthode qui lance le téléchargement d'un document
 	 *

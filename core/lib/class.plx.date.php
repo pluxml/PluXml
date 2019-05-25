@@ -16,10 +16,10 @@ class plxDate {
 	 * @param	key		constante: 'day', 'month' ou 'short_month'
 	 * @param	value	numero du mois ou du jour
 	 * @return	string	libellé du mois (long ou court) ou du jour
-	 * @author	Stephane F.
+	 * @author	Stephane F., Pedro "P3ter" CADETE
 	 **/
 	public static function getCalendar($key, $value) {
-		if(!$value) return false;
+		if(!is_int($value)) return false;
 		$names = array(
 			'month' => array(
 				'01' => L_JANUARY,
@@ -138,6 +138,7 @@ class plxDate {
 	 **/
 	public static function date2Array($date) {
 
+	    $capture = '';
 		preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9:]{2})([0-9:]{2})/',$date,$capture);
 		return array (
 			'year' 	=> $capture[1],

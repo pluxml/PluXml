@@ -7,7 +7,7 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-define('PLX_ADMIN', true);
+const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {
 
@@ -207,6 +207,7 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function htaccess($action, $url) {
 
+	    $capture = '';
 		$base = parse_url($url);
 
 $plxhtaccess = '
@@ -337,11 +338,54 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
+	 * Méthode qui génère un nouveau mot de passe et envoi un mail à l'utilisateur grâce au template "email-lostpassword.xml"
+	 *
+	 * @param   loginOrMail     login ou adresse e-mail de l'utilisateur
+	 * @return	string          le nouveau mot de passe ou vide en cas d'erreur
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function newPassword($loginOrMail) {
+
+	    $mail = array();
+	    $new_password = '';
+	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
+	        foreach($this->aUsers as $user_id => $user) {
+	            if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
+
+    	            # generation du mot de passe et envoi du mail
+    	            $placeholdersValues = array(
+    	                "##LOGIN##"     =>  $user['login'],
+    	                "##PASSWORD##"   =>  $new_password = plxUtils::charAleatoire()
+    	            );
+    	            
+    	            # on vérifie qu'on arrive à générer le contenu du mail avant de l'envoyer et de changer le mot de passe
+    	            if (($mail['body'] = $this->aTemplates['email-lostpassword.xml']->getTemplateGeneratedContent($placeholdersValues)) != '1'){
+    	                $mail['name'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailName();
+    	                $mail['from'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailFrom();
+    	                $mail['subject'] = $this->aTemplates['email-lostpassword.xml']->getTemplateEmailSubject();
+    	                
+        	            if (plxUtils::sendMail($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'])){
+            	            # chiffrement et enregistrement du mot de passe 
+                       	    $salt = $user['salt'];
+                       	    $this->aUsers[$user_id]['password'] = sha1($salt.md5($new_password));
+                       	    $this->editUsers($user_id, true);
+        	            }
+                    }
+                    else {
+                        $new_password = '';
+                    }
+        	    }
+	        }
+	    }
+        return $new_password;
+	}
+	
+	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
 	 * @param	content	tableau les informations sur les utilisateurs
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/
 	public function editUsers($content, $action=false) {
 
@@ -363,7 +407,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$username = trim($content[$user_id.'_name']);
 				if($username!='' AND trim($content[$user_id.'_login'])!='') {
 
-					# control du mot de passe
+				    # control du mot de passe
 					$salt = plxUtils::charAleatoire(10);
 					if(trim($content[$user_id.'_password'])!='')
 						$password=sha1($salt.md5($content[$user_id.'_password']));
@@ -378,7 +422,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 					# control de l'adresse email
 					$email = trim($content[$user_id.'_email']);
-					if($email!='' AND !plxUtils::checkMail($email))	return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(isset($content[$user_id.'_newuser']) AND empty($email))
+					    return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(!empty($email) AND !plxUtils::checkMail($email))	
+					    return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
 					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
 					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
@@ -1058,6 +1105,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function modCommentaire(&$id, $mod) {
 
+	    $capture = '';
+	    
 		# Génération du nom du fichier
 		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
 		if(!file_exists($oldfilename)) # Commentaire inexistant
@@ -1112,7 +1161,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui vérifie sur le site de PluXml la dernière version et la compare avec celle en local.
 	 *
-	 * @return	$result     array      indique si une mise à jour est disponible et contient le message correspondant 
+* @return	$result     array      indique si une mise à jour est disponible et contient le message correspondant 
 	 * @author	Florent MONTHEL, Amaury GRAILLAT, Stephane F et J.P. Pourrez (aka bazooka07), Pedro "P3ter" CADETE
 	 **/
 	public function checkMaj() {
@@ -1127,6 +1176,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		    "msg" => ""
 		);
 
+		$http_response_header = '';
 		# test avec allow_url_open ou file_get_contents ?
 		if(ini_get('allow_url_fopen')) {
 			$latest_version = @file_get_contents($url, false, null, 0, 16);

@@ -72,7 +72,7 @@ include __DIR__ .'/top.php';
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']),95,8,false,'full-width') ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']), 0, 8) ?>
 			</div>
 		</div>
 	</fieldset>

@@ -109,7 +109,6 @@ $LANG = array(
 'L_NOW'								=> 'ara',
 'L_ARTICLE_CATEGORIES' 				=> 'Emplaçaments',
 'L_CATEGORY_HOME_PAGE' 			 	=> 'Pagina d\'acuèlh',
-'L_NEW_CATEGORY' 			 		=> 'Novèla categoria',
 'L_ARTICLE_TAGS_FIELD' 				=> 'Mots claus',
 'L_ARTICLE_TAGS_FIELD_TITLE' 		=> 'Separar los mots claus per una virgula',
 'L_ARTICLE_TOGGLER_TITLE' 			=> 'Lista dels mots claus',
@@ -178,6 +177,9 @@ $LANG = array(
 'L_ERR_WRONG_PASSWORD' 				=> 'Identificant e/o senhal incorrèct',
 'L_POWERED_BY'						=> 'Generat per <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					=> 'Nombre de pròvas atent<br />Tornatz ensajar dins %s minutas',
+'L_LOST_PASSWORD'                   => 'Senhal oblidada?',
+'L_LOST_PASSWORD_PAGE'              => '',
+'L_LOST_PASSWORD_LOGIN'             => 'Iniciar Sessió',
 
 #
 

@@ -109,7 +109,6 @@ $LANG = array(
 'L_NOW'								=> 'teraz',
 'L_ARTICLE_CATEGORIES' 				=> 'Kategoria',
 'L_CATEGORY_HOME_PAGE' 			 	=> 'Strona główna',
-'L_NEW_CATEGORY' 			 		=> 'Nowa kategoria',
 'L_ARTICLE_TAGS_FIELD' 				=> 'Tagi',
 'L_ARTICLE_TAGS_FIELD_TITLE' 		=> 'Tagi oddzielaj przecinkami',
 'L_ARTICLE_TOGGLER_TITLE' 			=> 'Lista tagów',
@@ -178,6 +177,9 @@ $LANG = array(
 'L_ERR_WRONG_PASSWORD' 				=> 'Login i / lub hasło niepoprawne',
 'L_POWERED_BY'						=> 'Silnik <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					=> 'Zbyt wielu nieudanych<br />ponownych prób logowania w% s minut',
+'L_LOST_PASSWORD'                   => 'Zapomniałeś hasła?',
+'L_LOST_PASSWORD_PAGE'              => '',
+'L_LOST_PASSWORD_LOGIN'             => 'Zaloguj Się',
 
 #
 

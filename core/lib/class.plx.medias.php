@@ -4,7 +4,7 @@
  * Classe plxMedias regroupant les fonctions pour gérer la librairie des medias
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, Pedro "P3ter" CADETE
  **/
 class plxMedias {
 
@@ -15,9 +15,10 @@ class plxMedias {
 	public $maxUpload = array(); # valeur upload_max_filesize
 	public $maxPost = array(); # valeur post_max_size
 
-	public $img_exts = '/\.(jpe?g|png|gif|bmp)$/i';
-	public $doc_exts = '/\.(7z|aiff|asf|avi|csv|docx?|epub|fla|flv|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpe?g|ods|odt|odp|ogg|pdf|pptx?|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|svg|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xcf|xlsx?|zip)$/i';
-
+	public $img_supported = array('.png', '.gif', '.jpg', '.jpeg', '.bmp', '.webp'); # images formats supported
+	public $img_exts = '/\.(jpe?g|png|gif|bmp|webp)$/i';
+	public $doc_exts = '/\.(7z|aiff|asf|avi|csv|docx?|epub|fla|flv|gpx|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpe?g|ods|odt|odp|ogg|pdf|pptx?|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|svg|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xcf|xlsx?|zip)$/i';
+	
 	/**
 	 * Constructeur qui initialise la variable de classe
 	 *
@@ -91,13 +92,15 @@ class plxMedias {
 	}
 
 	/**
-	 * Méthode qui retourne la liste des des fichiers d'un répertoire
+	 * Méthode qui retourne la liste des fichiers d'un répertoire
 	 *
 	 * @param	dir		répertoire de lecture
 	 * @return	array	tableau contenant la liste de tous les fichiers d'un dossier
 	 * @author	Stephane F
 	 **/
 	private function _getDirFiles($dir) {
+	    
+	    $matches = '';
 	    
 	    $src = $this->path.$dir;
 	    if(!is_dir($src)) return array();
@@ -112,7 +115,7 @@ class plxMedias {
 	            if(is_dir($filename)) { continue; }
 	            
 	            $thumbInfos = false;
-	            if(preg_match('@\.(jpe?g|png|gif)$@i', $filename, $matches)) {
+	            if(preg_match($this->img_exts, $filename, $matches)) {
 	                $thumbName = plxUtils::thumbName($filename);
 	                if(file_exists($thumbName)) {
 	                    $thumbInfos = array(
@@ -143,6 +146,8 @@ class plxMedias {
 	                'infos' 	=> $imgSize,
 	                'thumb' 	=> $thumbInfos
 	            );
+	            $sample = '';
+	            $sampleOk = "";
 	        }
 	        
 	        ksort($files);
@@ -290,7 +295,7 @@ STOP;
 	 * @param	file	fichier à uploader
 	 * @param	resize	taille du fichier à redimensionner si renseigné
 	 * @param	thumb	taille de la miniature à créer si renseigné
-	 * @return  msg		message contenant le résultat de l'envoi du fichier
+	 * @return  string	message contenant le résultat de l'envoi du fichier
 	 * @author	Stephane F
 	 **/
 	private function _uploadFile($file, $resize, $thumb) {
@@ -332,7 +337,7 @@ STOP;
 	 *
 	 * @param	usrfiles 	fichiers utilisateur à uploader
 	 * @param	post		paramètres
-	 * @return  msg			résultat de l'envoi des fichiers
+	 * @return  string		résultat de l'envoi des fichiers
 	 * @author	Stephane F
 	 **/
 	public function uploadFiles($usrfiles, $post) {
@@ -459,7 +464,7 @@ STOP;
 			if(is_file($this->path.$this->dir.$file)) {
 				$thumName = plxUtils::thumbName($file);
 				$ext = strtolower(strrchr($this->path.$this->dir.$file,'.'));
-				if(in_array($ext, array('.gif', '.jpg', '.jpeg', '.png'))) {
+				if(in_array($ext, $this->img_supported)) {
 					if(plxUtils::makeThumb($this->path.$this->dir.$file, $this->path.$this->dir.$thumName, $width, $height, 80))
 						$count++;
 				}

@@ -6,6 +6,9 @@
  * @package PLX
  * @author	Florent MONTHEL, Stephane F
  **/
+
+const PLX_SHOW = true;
+
 class plxShow {
 
 	public $plxMotor = false; # Objet plxMotor
@@ -185,6 +188,8 @@ class plxShow {
 	 **/
 	public function pageTitle($format='',$sep=";") {
 
+	    $capture = '';
+	    
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageTitle'))) return;
 
@@ -244,7 +249,7 @@ class plxShow {
 	 *
 	 * @param	meta	nom du meta à afficher (description, keywords,author)
 	 * @scope	global
-	 * @author	Stéphane F
+	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/
 	public function meta($meta='') {
 		# Hook Plugins
@@ -260,30 +265,26 @@ class plxShow {
 				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
 			return;
 		}
-		if($this->plxMotor->mode == 'article') {
-			if($meta=='author')
-				echo '<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
-			else {
-				$meta_content=trim($this->plxMotor->plxRecord_arts->f('meta_'.$meta));
-				if(!empty($meta_content))
-					echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
-				elseif(!empty($this->plxMotor->aConf['meta_'.$meta]))
-					echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
-			}
-			return;
+		
+        if($this->plxMotor->mode == 'article') {
+            if($meta=='author')
+                echo '<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
+            else {
+                $meta_content=trim($this->plxMotor->plxRecord_arts->f('meta_'.$meta));
+                if(!empty($meta_content))
+                    echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
+            }
+            return;
 		}
+
 		if($this->plxMotor->mode == 'static') {
 			if(!empty($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]))
 				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
-			elseif(!empty($this->plxMotor->aConf['meta_'.$meta]))
-				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 		if($this->plxMotor->mode == 'categorie') {
 			if(!empty($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]))
 				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
-			elseif(!empty($this->plxMotor->aConf['meta_'.$meta]))
-				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 	}
@@ -896,7 +897,10 @@ class plxShow {
 	 * @author	Florent MONTHEL, Stephane F
 	 **/
 	public function lastArtList($format='<li><a href="#art_url" title="#art_title">#art_title</a></li>',$max=5,$cat_id='',$ending='', $sort='rsort') {
-		# Hook Plugins
+		
+	    $capture = '';
+	    
+	    # Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) return;
 		# Génération de notre motif
 		if(empty($cat_id))
@@ -1185,6 +1189,8 @@ class plxShow {
 	 **/
 	public function lastComList($format='<li><a href="#com_url">#com_author L_SAID :</a><br/>#com_content(50)</li>',$max=5,$art_id='',$cat_ids='') {
 
+	    $capture = '';
+	    
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastComList'))) return;
 
@@ -1508,7 +1514,8 @@ class plxShow {
 	 **/
 	public function pagination() {
 
-		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
+	    $capture = '';
+	    $plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
 		$aFiles = $plxGlob_arts->query($this->plxMotor->motif,'art','',0,false,'before');
 
 		if($aFiles AND $this->plxMotor->bypage AND sizeof($aFiles)>$this->plxMotor->bypage) {
@@ -1755,6 +1762,8 @@ class plxShow {
 	 **/
 	public function archList($format='<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a></li>'){
 
+	    $capture = '';
+	    
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArchList'))) return;
 

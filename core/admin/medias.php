@@ -207,40 +207,45 @@ $curFolders = explode('/', $curFolder);
 				$num = 0;
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
-				foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-					$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg', '.jpeg'));
-					$ordre = ++$num;
-					echo '<tr>';
-					echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
-					echo '<td class="icon">';
-					if(is_file($v['path']) AND $isImage) {
-						echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" width="48" height="48"/></a>';
-					}
-					echo '</td>';
-					echo '<td>';
-					echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
-					echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
-					echo '<div id="btnRenameImg'.$num.'" onclick="ImageRename(\''.$v['path'].'\')" title="'.L_RENAME_FILE.'" class="ico">&perp;</div>';
-					echo '<br />';
-					$href = plxUtils::thumbName($v['path']);
-					if($isImage AND is_file($href)) {
-						echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
-						echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
-					}
-					echo '</td>';
-					echo '<td>'.strtoupper($v['extension']).'</td>';
-					echo '<td>';
-					echo plxUtils::formatFilesize($v['filesize']);
-					if($isImage AND is_file($href)) {
-						echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
-					}
-					echo '</td>';
-					$dimensions = '&nbsp;';
-					if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
-						$dimensions = $v['infos'][0].' x '.$v['infos'][1];
-					}
-					if($isImage AND is_file($href)) {
-						$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
+					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
+					    $isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
+						echo '<tr>';
+						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
+						echo '<td class="icon">';
+							if(is_file($v['path']) AND $isImage) {
+								echo '<a class="overlay" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+							}
+							else 
+							    echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
+						echo '</td>';
+						echo '<td>';
+							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
+							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							echo '<div id="btnRenameImg'.$num.'" onclick="ImageRename(\''.$v['path'].'\')" title="'.L_RENAME_FILE.'" class="ico">&perp;</div>';
+							echo '<br />';
+							$href = plxUtils::thumbName($v['path']);
+							if($isImage AND is_file($href)) {
+								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
+								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							}
+						echo '</td>';
+						echo '<td>'.strtoupper($v['extension']).'</td>';
+						echo '<td>';
+							echo plxUtils::formatFilesize($v['filesize']);
+							if($isImage AND is_file($href)) {
+								echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
+							}
+						echo '</td>';
+						$dimensions = '&nbsp;';
+						if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
+							$dimensions = $v['infos'][0].' x '.$v['infos'][1];
+						}
+						if($isImage AND is_file($href)) {
+							$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
+						}
+						echo '<td>'.$dimensions.'</td>';
+						echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
+						echo '</tr>';
 					}
 					echo '<td>'.$dimensions.'</td>';
 					echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
@@ -359,6 +364,28 @@ $curFolders = explode('/', $curFolder);
 </div>
 
 <script>
+
+// zoombox
+var all = document.querySelectorAll(".overlay");
+var mbox = document.getElementById("modal__box");
+var mb = document.getElementById("modal");
+for (var i = 0, nb = all.length; i < nb; i++) {
+	all[i].addEventListener('click', function(e) {
+		e.preventDefault();
+		mbox.innerHTML = '<img src="'+this.href+'" alt="" />';
+		mb.click();
+	},false);
+}
+window.addEventListener("keydown", function (event) {
+	// validate if the press key is the escape key
+	if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
+    	mbox.innerHTML = "";
+    	if (mb.checked === true) {
+    		mb.click();
+    	}
+    }	
+});
+
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
 	var manager = document.getElementById('files_manager');
@@ -369,12 +396,6 @@ function toggle_divs(){
 		uploader.style.display = 'none';
 		manager.style.display = 'block';
 	}
-}
-function overlay(content) {
-	e = document.getElementById("modal__box");
-	e.innerHTML = '<img src="'+content+'" alt="" />';
-	e = document.getElementById("modal");
-	e.click();
 }
 function copy(elt, data) {
 	try {
