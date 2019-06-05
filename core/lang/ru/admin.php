@@ -149,8 +149,10 @@ $LANG = array(
 'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Слишком много неудачных Войти<br />Повторите попытку через% S минут',
 'L_LOST_PASSWORD'                                           => 'Забыли пароль?',
-'L_LOST_PASSWORD_PAGE'                                      => '',
+'L_LOST_PASSWORD_TEXT'                                      => '',
 'L_LOST_PASSWORD_LOGIN'                                     => 'Aвторизоваться',
+'L_LOST_PASSWORD_SUCCESS'                                   => '',
+'L_LOST_PASSWORD_ERROR'                                     => '',
 
 #
 
