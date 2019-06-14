@@ -3,7 +3,7 @@
  * Edition des paramètres avancés
  *
  * @package PLX
- * @author	Florent MONTHEL, Stephane F
+ * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
 include __DIR__ .'/prepend.php';
@@ -68,6 +68,14 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printSelect('capcha',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['capcha']);?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_lostpassword"><?php echo L_CONFIG_ADVANCED_LOSTPASSWORD ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('lostpassword',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['lostpassword']);?>
 			</div>
 		</div>
 		<div class="grid">

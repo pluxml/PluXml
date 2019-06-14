@@ -1,6 +1,6 @@
 <?php
-const PLX_DEBUG = false;
-const PLX_VERSION = '5.7';
+define('PLX_DEBUG', true);
+define('PLX_VERSION', '5.8-alpha.2');
 
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);

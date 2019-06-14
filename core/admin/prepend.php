@@ -1,6 +1,7 @@
 <?php
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
+const PLX_TEMPLATES = PLX_CORE.'templates/';
 
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';

@@ -74,6 +74,7 @@ $config = array('title'=>'PluXml',
 				'mod_com'=>0,
 				'mod_art'=>0,
 				'capcha'=>1,
+                'lostpassword'=>1,
 				'style'=>'defaut',
 				'clef'=>plxUtils::charAleatoire(15),
 				'bypage'=>5,
@@ -135,7 +136,7 @@ function install($content, $config) {
 	$xml .= "\t\t".'<infos><![CDATA[]]></infos>'."\n";
 	$xml .= "\t\t".'<password><![CDATA['.sha1($salt.md5(trim($content['pwd']))).']]></password>'."\n";
 	$xml .= "\t\t".'<salt><![CDATA['.$salt.']]></salt>'."\n";
-	$xml .= "\t\t".'<email><![CDATA[]]></email>'."\n";
+	$xml .= "\t\t".'<email><![CDATA['.trim($content['email']).']]></email>'."\n";
 	$xml .= "\t\t".'<lang><![CDATA['.$config['default_lang'].']]></lang>'."\n";
 	$xml .= "\t</user>\n";
 	$xml .= "</document>";
@@ -209,6 +210,7 @@ if(!empty($_POST['install'])) {
 	elseif(trim($_POST['login']=='')) $msg = L_ERR_MISSING_LOGIN;
 	elseif(trim($_POST['pwd']=='')) $msg = L_ERR_MISSING_PASSWORD;
 	elseif($_POST['pwd']!=$_POST['pwd2']) $msg = L_ERR_PASSWORD_CONFIRMATION;
+	elseif(trim($_POST['email']=='')) $msg = L_ERR_MISSING_EMAIL;
 	else {
 		install($_POST, $config);
 		header('Location: '.plxUtils::getRacine());
@@ -216,10 +218,12 @@ if(!empty($_POST['install'])) {
 	}
 	$name=$_POST['name'];
 	$login=$_POST['login'];
+	$email=$_POST['email'];
 }
 else {
 	$name='';
 	$login='';
+	$email='';
 }
 plxUtils::cleanHeaders();
 ?>
@@ -270,7 +274,7 @@ plxUtils::cleanHeaders();
 							<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus') ?>
+							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus', '', '', '', '', 'required') ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -278,7 +282,7 @@ plxUtils::cleanHeaders();
 							<label for="id_login"><?php echo L_LOGIN ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('login', $login, 'text', '20-255') ?>
+							<?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', '', 'required') ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -286,7 +290,7 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"') ?>
+							<?php plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"', 'required') ?>
 							<span id="id_pwd_strenght"></span>
 						</div>
 					</div>
@@ -295,7 +299,15 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd2', '', 'password', '20-255') ?>
+							<?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', '', 'required') ?>
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col sml-12 med-5 label-centered">
+							<label for="id_email"><?php echo L_EMAIL ?>&nbsp;:</label>
+						</div>
+						<div class="col sml-12 med-7">
+							<?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', '', 'required') ?>
 						</div>
 					</div>
 					<div class="grid">

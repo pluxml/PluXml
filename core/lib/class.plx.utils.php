@@ -144,6 +144,7 @@ class plxUtils {
 	 * @param	readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
+	 * @return	self
 	 **/
 	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
 
@@ -189,8 +190,11 @@ class plxUtils {
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	placeholder valeur du placeholder du champ (html5)
 	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
+	 * @param   required    permet de rendre le champ obligatoire
+	 * @return	self
+	 * @author  unknow, Pedro "P3ter" CADETE        
 	 **/
-	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='') {
+	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
 		 $params = array(
 			'id="id_'.$name.'"',
@@ -202,6 +206,8 @@ class plxUtils {
 		 if(!empty($extra))
 			 $params[] = $extra;
 		 if($type != 'hidden') {
+		    if($required === true)
+		        $params[] = 'required="required"';
 			if($readonly === true)
 				$params[] = 'readonly="readonly" class="readonly"';
 			if(!empty($className))
@@ -228,6 +234,7 @@ class plxUtils {
 	 * @params	rows		nombre de caractères affichés par ligne
 	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
+	 * @return	self
 	 **/
 	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width') {
 
@@ -562,7 +569,6 @@ class plxUtils {
 		}
 
 		// Verify import
-		
 		if($image_data == false) return false;
 
 		// Calculate measurements (square crop)
