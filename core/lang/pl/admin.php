@@ -178,8 +178,10 @@ $LANG = array(
 'L_POWERED_BY'						=> 'Silnik <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					=> 'Zbyt wielu nieudanych<br />ponownych prób logowania w% s minut',
 'L_LOST_PASSWORD'                   => 'Zapomniałeś hasła?',
-'L_LOST_PASSWORD_PAGE'              => '',
+'L_LOST_PASSWORD_TEXT'              => 'Wprowadź swój login lub adres e-mail, aby otrzymać nowe hasło',
 'L_LOST_PASSWORD_LOGIN'             => 'Zaloguj Się',
+'L_LOST_PASSWORD_SUCCESS'           => 'E-mail został wysłany do użytkownika',
+'L_LOST_PASSWORD_ERROR'             => 'Błąd podczas zmiany hasła',
 
 #
 
