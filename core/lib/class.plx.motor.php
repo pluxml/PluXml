@@ -557,7 +557,7 @@ class plxMotor {
 				$this->aUsers[$number]['profil']=$attributes['profil'];
 				$this->aUsers[$number]['login']=plxUtils::getValue($values[$iTags['login'][$i]]['value']);
 				$this->aUsers[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
-				$this->aUsers[$number]['password']=plxUtils::getValue($values[$iTags['password'][$i] ]['value']);
+				$this->aUsers[$number]['password']=plxUtils::getValue($values[$iTags['password'][$i]]['value']);
 				$salt = plxUtils::getValue($iTags['salt'][$i]);
 				$this->aUsers[$number]['salt']=plxUtils::getValue($values[$salt]['value']);
 				$this->aUsers[$number]['infos']=plxUtils::getValue($values[$iTags['infos'][$i]]['value']);
@@ -565,6 +565,8 @@ class plxMotor {
 				$this->aUsers[$number]['email']=plxUtils::getValue($values[$email]['value']);
 				$lang = isset($iTags['lang'][$i]) ? $values[$iTags['lang'][$i]]['value']:'';
 				$this->aUsers[$number]['lang'] = $lang!='' ? $lang : $this->aConf['default_lang'];
+				$this->aUsers[$number]['password_token']=plxUtils::getValue($values[$iTags['password_token'][$i]]['value']);
+				$this->aUsers[$number]['password_token_expiry']=plxUtils::getValue($values[$iTags['password_token_expiry'][$i]]['value']);
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxMotorGetUsers'));
 			}
