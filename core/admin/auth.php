@@ -135,7 +135,8 @@ if(!empty($_POST['lostpassword_id'])) {
 
 # Change password
 if(!empty($_POST['password'])){
-    $plxAdmin->editPassword($_POST);
+    $msg = $plxAdmin->editPassword($_POST);
+    $css = 'alert green';
 }
 
 # Construction de la page HTML
@@ -208,47 +209,58 @@ plxUtils::cleanHeaders();
                 break;
                 case 'changepassword':
                     # Affichage du formulaire de changement de mot passe
-                    #TODO VERIFIER VALIDITE DU TOKEN AVANT AFFICHAGE DU FORMULAIRE
+                    $lostPasswordToken = $_GET['token'];
+                    if ($plxAdmin->verifyLostPasswordToken($lostPasswordToken)) {
             ?>
-					<div class="auth col sml-12 sml-centered med-5 lrg-3">
-                		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                		<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
-                			<fieldset>
-                				<?php echo plxToken::getTokenPostMethod() ?>
-                				<h1 class="h5 text-center"><strong><?php echo L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
-                				<div class="alert blue">
-                					<?php echo L_LOST_PASSWORD_TEXT ?>
-                				</div>
-                				<div class="grid">
-                					<div class="col sml-12">
-                						<i class="ico icon-user"></i>
-                						<?php plxUtils::printInput('password1', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
-                					</div>
-                				</div>
-                				<div class="grid">
-                					<div class="col sml-12">
-                						<i class="ico icon-user"></i>
-                						<?php plxUtils::printInput('password2', '', 'password', '20-255') ?>
-                					</div>
-                				</div>
-    							<div class="grid">
-                					<div class="col sml-12">
-                						<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
-                					</div>
-                				</div>
-                				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
-                				<div class="grid">
-                					<div class="col sml-12 text-center">
-										<input type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
-                					</div>
-                				</div>
-                			</fieldset>
-                		</form>
-                		<p class="text-center">
-                			<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
-                		</p>
-                	</div>
+    					<div class="auth col sml-12 sml-centered med-5 lrg-3">
+                    		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+                    		<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                    			<fieldset>
+                    				<?php echo plxToken::getTokenPostMethod() ?>
+                    				<input name="lostPasswordToken" value="<?php echo $lostPasswordToken ?>" type="hidden" />
+                    				<h1 class="h5 text-center"><strong><?php echo L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
+                    				<div class="grid">
+                    					<div class="col sml-12">
+                    						<i class="ico icon-lock"></i>
+                    						<?php plxUtils::printInput('password1', '', 'password', '10-255',false,'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+                    					</div>
+                    				</div>
+                    				<div class="grid">
+                    					<div class="col sml-12">
+                    						<i class="ico icon-lock"></i>
+                    						<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
+                    					</div>
+                    				</div>
+        							<div class="grid">
+                    					<div class="col sml-12">
+                    						<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+                    					</div>
+                    				</div>
+                    				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
+                    				<div class="grid">
+                    					<div class="col sml-12 text-center">
+    										<input type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
+                    					</div>
+                    				</div>
+                    			</fieldset>
+                    		</form>
+                    		<p class="text-center">
+                    			<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+                    		</p>
+                    	</div>
             <?php
+                    }
+                    else {
+            ?>
+                        <div class="auth col sml-12 sml-centered med-5 lrg-3">
+                        <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+                        	<h1 class="h5 text-center"><strong><?php echo L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
+                    		<div class="alert red">
+                    			TOKEN EXPIRED
+							</div>
+                    	</div>
+			<?php
+                    }
                 break;
                 default:
                     # Affichage du formulaire de connexion à l'administration

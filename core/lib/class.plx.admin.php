@@ -269,15 +269,31 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau contenant le nouveau mot de passe de l'utilisateur
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, PEdro "P3ter" CADETE
 	 **/
 	public function editPassword($content) {
 
-		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2']))
-			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
+	    $token = '';
+	    
+	    if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
+	        return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
+	    }
 
-		$salt = $this->aUsers[$_SESSION['user']]['salt'];
-		$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
+	    if(!empty($token = $content['lostPasswordToken'])) {
+			foreach($this->aUsers as $user_id => $user) {
+			    if ($user['password_token'] == $token) {
+			        $salt = $this->aUsers[$user_id]['salt'];
+			        $this->aUsers[$user_id]['password'] = sha1($salt.md5($content['password1']));
+			        $this->aUsers[$user_id]['password_token'] == '';
+			        $this->aUsers[$user_id]['password_token_expiry'] == '';
+			    }
+			}
+		}
+		else {
+		    $salt = $this->aUsers[$_SESSION['user']]['salt'];
+		    $this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
+		}
+
 		return $this->editUsers(null, true);
 
 	}
@@ -292,8 +308,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function sendLostPasswordEmail($loginOrMail) {
 
 	    $mail = array();
+	    $tokenExpiry = 24;
 	    $lostPasswordToken = plxToken::generateToken();
-	    $lostPasswordTokenExpiry = plxToken::generateTokenExperyDate();
+	    $lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 	    $templateName = 'email-lostpassword.xml';
 
 	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
@@ -304,7 +321,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
     	            $placeholdersValues = array(
     	                "##LOGIN##"            => $user['login'],
     	                "##URL_PASSWORD##"     => $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
-    	                "##URL_EXPIRY##"       => $lostPasswordTokenExpiry
+    	                "##URL_EXPIRY##"       => $tokenExpiry
     	            );
     	            
     	            # test if e-mail creation is OK
@@ -327,6 +344,25 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	        }
 	    }
 	    return $lostPasswordToken;
+	}
+	
+	/**
+	 * Verify the lost password token validity
+	 * 
+	 * @param  token       the token to verify
+	 * @return boolean     true if the token exist and is not expire
+	 * @author Pedro "P3ter" CADETE
+	 */
+	public function verifyLostPasswordToken($token) {
+
+	    $valid = false;
+
+	    foreach($this->aUsers as $user_id => $user) {
+	        if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date(YmdHi)) {
+	            $valid = true;
+	        }
+	    }
+	    return $valid;
 	}
 	
 	/**
