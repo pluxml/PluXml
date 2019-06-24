@@ -120,12 +120,10 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $css=='') {
 # Send lost password e-mail
 if(!empty($_POST['lostpassword_id'])) {
     
-    # génération d'un nouveau mot de passe
     if (!empty($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']))) {
         $msg = L_LOST_PASSWORD_SUCCESS;
         $css = 'alert green';
     }
-    # erreur lors du changement de mot de passe
     else {
         @error_log("Lost password error. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
         $msg = L_LOST_PASSWORD_ERROR;
@@ -134,9 +132,23 @@ if(!empty($_POST['lostpassword_id'])) {
 }
 
 # Change password
-if(!empty($_POST['password'])){
-    $msg = $plxAdmin->editPassword($_POST);
-    $css = 'alert green';
+if(!empty($_POST['editpassword'])){
+    unset($_SESSION['error']);
+    unset($_SESSION['info']);
+    
+    $plxAdmin->editPassword($_POST);
+    
+    if (!empty($msg = $_SESSION['error'])) {
+        $css = 'alert red';
+    }
+    else {
+        if (!empty($msg = $_SESSION['info'])) {
+            $css = 'alert green';
+        }
+    }
+    
+    unset($_SESSION['error']);
+    unset($_SESSION['info']);
 }
 
 # Construction de la page HTML
@@ -239,7 +251,7 @@ plxUtils::cleanHeaders();
                     				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
                     				<div class="grid">
                     					<div class="col sml-12 text-center">
-    										<input type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
+    										<input type="submit" name="editpassword" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
                     					</div>
                     				</div>
                     			</fieldset>
@@ -258,6 +270,11 @@ plxUtils::cleanHeaders();
                     		<div class="alert red">
                     			TOKEN EXPIRED
 							</div>
+							<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+							<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
+                    		<p class="text-center">
+                    			<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+                    		</p>
                     	</div>
 			<?php
                     }

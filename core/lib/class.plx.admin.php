@@ -274,6 +274,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editPassword($content) {
 
 	    $token = '';
+	    $action = false;
 	    
 	    if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
 	        return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
@@ -284,17 +285,20 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			    if ($user['password_token'] == $token) {
 			        $salt = $this->aUsers[$user_id]['salt'];
 			        $this->aUsers[$user_id]['password'] = sha1($salt.md5($content['password1']));
-			        $this->aUsers[$user_id]['password_token'] == '';
-			        $this->aUsers[$user_id]['password_token_expiry'] == '';
+			        $this->aUsers[$user_id]['password_token'] = '';
+			        $this->aUsers[$user_id]['password_token_expiry'] = '';
+			        $action = true;
+			        break;
 			    }
 			}
 		}
 		else {
 		    $salt = $this->aUsers[$_SESSION['user']]['salt'];
 		    $this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
+		    $action = true;
 		}
 
-		return $this->editUsers(null, true);
+		return $this->editUsers(null, $action);
 
 	}
 
@@ -478,6 +482,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$this->aUsers = $save;
 				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
 			}
+		}
+		else {
+		    return plxMsg::Error(L_SAVE_ERR);
 		}
 	}
 
