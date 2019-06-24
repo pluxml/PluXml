@@ -152,7 +152,7 @@ $LANG = array(
 'L_LOST_PASSWORD_TEXT'                          => 'Por favor, introduzca su nombre de usuario o dirección de correo electrónico para recibir una nueva contraseña',
 'L_LOST_PASSWORD_LOGIN'                         => 'Iniciar sesión',
 'L_LOST_PASSWORD_SUCCESS'                       => 'Se ha enviado un correo electrónico al usuario',
-'L_LOST_PASSWORD_ERROR'                         => 'Error al cambiar la contraseña',
+'L_LOST_PASSWORD_ERROR'                         => 'El enlace ha caducado',
 
 #
 

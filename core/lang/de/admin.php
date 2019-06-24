@@ -150,7 +150,7 @@ $LANG = array(
 'L_LOST_PASSWORD_TEXT'                              => 'Bitte geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein, um ein neues Passwort zu erhalten',
 'L_LOST_PASSWORD_LOGIN'                             => 'Anmeldung',
 'L_LOST_PASSWORD_SUCCESS'                           => 'Eine E-Mail wurde an den Benutzer gesendet',
-'L_LOST_PASSWORD_ERROR'                             => 'Fehler beim Ändern des Passworts',
+'L_LOST_PASSWORD_ERROR'                             => 'Der Link ist abgelaufen',
 
 #
 

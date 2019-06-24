@@ -126,13 +126,14 @@ if(!empty($_POST['lostpassword_id'])) {
     }
     else {
         @error_log("Lost password error. ID : ".$_POST['lostpassword_id']." IP : ".plxUtils::getIp());
-        $msg = L_LOST_PASSWORD_ERROR;
+        $msg = L_UNKNOWN_ERROR;
         $css = 'alert red';
     }
 }
 
 # Change password
 if(!empty($_POST['editpassword'])){
+    
     unset($_SESSION['error']);
     unset($_SESSION['info']);
     
@@ -268,7 +269,7 @@ plxUtils::cleanHeaders();
                         <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
                         	<h1 class="h5 text-center"><strong><?php echo L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
                     		<div class="alert red">
-                    			TOKEN EXPIRED
+                    			<?php echo L_LOST_PASSWORD_ERROR ?>
 							</div>
 							<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
 							<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
