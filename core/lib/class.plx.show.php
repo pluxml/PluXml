@@ -921,21 +921,47 @@ class plxShow {
 	 *
 	 * @param	format	format du texte pour chaque article
 	 * @param	max		nombre d'articles maximum
-	 * @param	cat_id	ids des catégories cible
+	 * @param	cat_id	ids des catégories cible (numérique ou urls) : séparés par des |
 	 * @param   ending	texte à ajouter en fin de ligne
 	 * @param	sort	tri de l'affichage des articles (sort|rsort|alpha|random)
 	 * @return	stdout
 	 * @scope	global
-	 * @author	Florent MONTHEL, Stephane F
+	 * @author	Florent MONTHEL, Stephane F, Cyril MAGUIRE, Thomas Ingles
 	 **/
-	public function lastArtList($format='<li><a href="#art_url" title="#art_title">#art_title</a></li>',$max=5,$cat_id='',$ending='', $sort='rsort') {
+	public function lastArtList($format='',$max=5,$cat_id='',$ending='', $sort='rsort') {
+		$format = empty($format)? '<li><a href="#art_url" title="#art_title">#art_title</a></li>': $format;# V5.8 format par defaut si vide
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) return;
 		# Génération de notre motif
-		if(empty($cat_id))
-			$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
-		else
-			$motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.str_pad($cat_id,3,'0',STR_PAD_LEFT).')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+		$all = (isset($all)? $all: empty($cat_id));# pour le hook : si $all = TRUE, n'y passe pas
+		$cats = $this->plxMotor->activeCats . '|home';# toutes les categories active
+		if(!$all) {
+			if(is_numeric($cat_id)) # inclusion à partir de l'id de la categorie
+				$cats = str_pad($cat_id,3,'0',STR_PAD_LEFT);
+			else { # inclusion à partir de url de la categorie
+				$cat_id .= '|';
+				foreach ($this->plxMotor->aCats as $key => $value) {
+					if(strpos($cat_id,$value['url'].'|') !== false) {
+						$cats = explode('|',$cat_id);
+						if (in_array($value['url'], $cats)) {
+							$cat_id = str_replace($value['url'].'|',$key.'|',$cat_id);
+						}
+					}
+				}
+				$cat_id = substr($cat_id,0,-1);
+				if (empty($cat_id)) {
+					$all = true;
+				}else{
+					$cats = $cat_id;
+				}
+			}
+		}
+		if(empty($motif)){# pour le hook. motif par defaut s'il n'a point créé cette variable
+			if($all)
+				$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$cats.')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			else
+				$motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.$cats.')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+		}
 
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
