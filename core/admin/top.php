@@ -17,19 +17,19 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
 	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> - <?php echo L_ADMIN ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/css/knacss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/css/theme.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?ver=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="theme/css/knacss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="theme/css/theme.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="theme/fonts/fontello.css?ver=<?php echo PLX_VERSION ?>" media="screen" />
+	<link rel="icon" href="theme/images/favicon.png" />
 	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
 	<?php
 	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
 		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
 	?>
-	<script src="<?php echo PLX_CORE ?>theme/js/functions.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>theme/js/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>theme/js/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="<?php echo PLX_CORE ?>theme/js/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script src="theme/js/functions.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script src="theme/js/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script src="theme/js/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
+	<script defer src="theme/js/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
 </head>
 
