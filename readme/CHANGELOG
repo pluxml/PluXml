@@ -13,6 +13,7 @@
 [+] #215 Mise en avant du lien de l'article en cours de modification dans l'administration (sudwebdesign, P3ter)
 [+] #216 Refacto de la fonction plxUtils::printArea() (bazooka07)
 [+] #280 Support des formats de fichiers .gpx, .bmp et .webp par le gestionnaire de média (P3ter)
+[+] #293 Amélioration de la sécurité du repertoire data (bazooka07)
 [+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (P3ter)
 [+] #309 Remplacement de define() par const (bazooka07)
 [+] #312 En présence d'une homepage statique, le lien "archive total" redirige vers le blog (je-evrard, bazooka07, P3ter)

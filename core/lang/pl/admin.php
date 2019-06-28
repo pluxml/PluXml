@@ -181,7 +181,7 @@ $LANG = array(
 'L_LOST_PASSWORD_TEXT'              => 'Wprowadź swój login lub adres e-mail, aby otrzymać nowe hasło',
 'L_LOST_PASSWORD_LOGIN'             => 'Zaloguj Się',
 'L_LOST_PASSWORD_SUCCESS'           => 'E-mail został wysłany do użytkownika',
-'L_LOST_PASSWORD_ERROR'             => 'Błąd podczas zmiany hasła',
+'L_LOST_PASSWORD_ERROR'             => 'Link wygasł',
 
 #
 

@@ -19,7 +19,7 @@ class plxDate {
 	 * @author	Stephane F., Pedro "P3ter" CADETE
 	 **/
 	public static function getCalendar($key, $value) {
-		if(!is_int($value)) return false;
+	    if(!is_numeric($value)) return false;
 		$names = array(
 			'month' => array(
 				'01' => L_JANUARY,

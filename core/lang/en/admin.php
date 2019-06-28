@@ -149,7 +149,7 @@ $LANG = array(
 'L_LOST_PASSWORD_TEXT'                                      => 'Please enter your login or email address to receive a new password',
 'L_LOST_PASSWORD_LOGIN'                                     => 'Log in',
 'L_LOST_PASSWORD_SUCCESS'                                   => 'An email has been sent to the user',
-'L_LOST_PASSWORD_ERROR'                                     => 'Error while changing password',
+'L_LOST_PASSWORD_ERROR'                                     => 'The link has expired',
 
 #
 

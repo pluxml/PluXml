@@ -178,7 +178,7 @@ $LANG = array(
 'L_LOST_PASSWORD_TEXT'                              => 'Veuillez saisir votre login ou adresse e-mail pour recevoir un nouveau mot de passe',
 'L_LOST_PASSWORD_LOGIN'                             => 'Se connecter',
 'L_LOST_PASSWORD_SUCCESS'                           => 'Un e-mail a été envoyé à l\'utilisateur',
-'L_LOST_PASSWORD_ERROR'                             => 'Erreur lors du changement de mot de passe',
+'L_LOST_PASSWORD_ERROR'                             => 'Le lien est expiré',
 
 #
 
