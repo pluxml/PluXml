@@ -34,7 +34,7 @@ body {
 }
 
 .logo {
-	background-image: url(images/pluxml.png);
+	background-image: url(../images/pluxml.png);
 	margin: 10% auto 20px auto;
 	height: 80px;
 	width: 123px;
