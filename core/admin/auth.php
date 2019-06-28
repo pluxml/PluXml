@@ -172,11 +172,9 @@ plxUtils::cleanHeaders();
 	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
 		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
 	?>
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
+	<link rel="icon" href="theme/images/favicon.png" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
-	
 	<script src="theme/js/visual.js"></script>
-	
 </head>
 
 <body id="auth">
