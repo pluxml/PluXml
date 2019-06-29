@@ -17,7 +17,7 @@
     <script src="theme/js/visual.js"></script>
     <script src="theme/js/mediasManager.js"></script>
     <script defer src="theme/js/multifiles.js"></script>
-    
+
     <?= $hookAdminTopEndHead ?>
 </head>
 
@@ -63,29 +63,28 @@
         		</ul>
         	</nav>
         </aside>
-    
+
     	<main id="main" role="main" class="flex-item-fluid pam">
 			<?= $adminMessage ?>
     		<?= $hookAdminTopBottom ?>
-    		
+
     		<?= $mainContent ?>
-	
+
 		</main>
 
-</div>
+	</div>
 
-<?= $hookAdminFootEndBody ?>
+	<?= $hookAdminFootEndBody ?>
 
-<script src="<?php echo PLX_CORE ?>theme/js/drag-and-drop.js"></script>
-<script>
-	setMsg();
-	mediasManager.construct({
-		windowName : "<?php echo L_MEDIAS_TITLE ?>",
-		racine:	"<?php echo plxUtils::getRacine() ?>",
-		urlManager: "core/admin/medias.php"
-	});
-</script>
+    <script src="<?php echo PLX_CORE ?>theme/js/drag-and-drop.js"></script>
+    <script>
+    	setMsg();
+    	mediasManager.construct({
+    		windowName : "<?php echo L_MEDIAS_TITLE ?>",
+    		racine:	"<?php echo plxUtils::getRacine() ?>",
+    		urlManager: "core/admin/medias.php"
+    	});
+    </script>
 
 </body>
-
 </html>
