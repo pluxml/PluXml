@@ -46,24 +46,15 @@ body {
 	overflow: hidden;
 }
 
-.auth .alert {
-	text-align: center;
-}
-
 /* ---------- Profil Navigation ---------- */
 
-.profil-nav {
-	position: sticky;
-	top: 0;
-	z-index: 2;
+.header {
 	background: #0085d9;
-	padding: 1rem 2rem;
-	height: 60px;
 }
-.profil-nav .title {
+.header .title {
 	padding: 10px
 }
-.profil-nav a {
+.header a {
     color: #eee;
 }
 
@@ -71,13 +62,9 @@ body {
 
 .aside {
 	background-color: #202831;
-	overflow: auto;
-	padding-right: 0;
-	position: fixed;
-	height: 100%;
 }
 
-.aside .unstyled-list.profil {
+.aside .unstyled.profil {
 	background-color: #32373c;
 	border-top: 1px solid #484e5c;
 	border-bottom: 1px solid #484e5c;
