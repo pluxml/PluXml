@@ -23,27 +23,22 @@
 
 <body id="<?= $scriptName ?>">
 
-	<header id="header" role="banner" class="autogrid pam header">
-    	<div class="">
-        	<ul class="unstyled">
-           		<li class="inbl">
-           			<a href="<?= $adminUrl ?>"><h1 class="h2 no-margin"><strong><?= $siteTitle ?></strong></h1></a>
-           		</li>
-           		<li class="inbl">
-           			<small><a class="back-site" href="<?= $siteUrl ?>" title="<?= $siteTitle ?>"><?= $backToSite ?></a></small>
-           		</li>
-           		<?= $blogLink ?>
-           	</ul>
-    	</div>
+	<header id="header" role="banner" class="autogrid pas header">
+		<div>
+			<a href="<?= $adminUrl ?>"><h1 class="h3-like"><strong><?= $siteTitle ?></strong></h1></a>
+		</div>
     	<div class="txtright">
-    		<img class="img-circle" src="<?= $profilPicture ?>">
            	<ul class="unstyled">
+           		<li class="inbl">
+            		<a class="" href="<?= $siteUrl ?>" title="<?= $siteTitle ?>"><small><?= $backToSite ?></small></a>
+            	</li>
+				<?= $blogLink ?>
         		<li class="inbl">
-        			<strong><?= $userName ?></strong>
+        			<a class="logout" href="<?= $logOutUrl ?>" title="<?= $logOutTitle ?>"><small><?= $logOut ?></small></a>
         		</li>
         		<li class="inbl">
-        			<small><a class="logout" href="<? $logOutUrl ?>" title="<?= $logOutTitle ?>"><?= $logOut ?></a></small>
-        		</li>
+        			<span class="badge"><img class="profil" src="<?= $profilPicture ?>"></span>
+				</li>
         	</ul>
         </div>
 	</header>
