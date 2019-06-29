@@ -28,7 +28,5 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 }
 
 # Call the views
-include __DIR__ .'/views/dashboard.php';
-include __DIR__ .'/views/main.php';
-
-?>
+include __DIR__ .'/views/dashboardView.php';
+include __DIR__ .'/views/mainView.php';
