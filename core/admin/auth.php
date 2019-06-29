@@ -192,9 +192,6 @@ plxUtils::cleanHeaders();
                 			<fieldset>
                 				<?php echo plxToken::getTokenPostMethod() ?>
                 				<h1 class="h5 text-center"><strong><?php echo L_LOST_PASSWORD ?></strong></h1>
-                				<div class="alert blue">
-                					<?php echo L_LOST_PASSWORD_TEXT ?>
-                				</div>
                 				<div class="grid">
                 					<div class="col sml-12">
                 						<i class="ico icon-user"></i>

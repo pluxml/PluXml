@@ -136,7 +136,6 @@ $LANG = array(
 'L_POWERED_BY'												=> 'Propulsado por: <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Demasiados login falhou<br />Repetir em% s minutos',
 'L_LOST_PASSWORD'                                           => 'Senha esquecida?',
-'L_LOST_PASSWORD_TEXT'                                      => 'Por favor, digite seu login ou endereço de e-mail para receber uma nova senha',
 'L_LOST_PASSWORD_LOGIN'                                     => 'Conexão',
 'L_LOST_PASSWORD_SUCCESS'                                   => 'Um email foi enviado para o usuário',
 'L_LOST_PASSWORD_ERROR'                                     => 'O link expirou',
