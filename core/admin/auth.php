@@ -173,6 +173,7 @@ plxUtils::cleanHeaders();
 	?>
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
+	<script src="<?php echo PLX_CORE ?>lib/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
 </head>
 
 <body id="auth">
