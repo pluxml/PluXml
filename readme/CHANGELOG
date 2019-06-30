@@ -1,6 +1,6 @@
 ## PLUXML 5.8 (sortie : jj/mm/aaaa) ##
 
-[+] Feature "Mot de passe oublié" : envoi d'un nouveau mot de passe par mail (P3ter)
+[+] Feature "Mot de passe oublié" : envoi d'un lien par mail permettant la création d'un nouveau mot de passe (P3ter)
 [+] Feature "Mot de passe oublié" : l'adresse e-mail devient obligatoire à l'installation de PluXml et à la création d'un utilisateur (P3ter)
 [+] Amélioration des performances du gestionnaire de médias (bazooka07)
 [+] #40 Ne pas afficher le meta du site en mode article, static, categorie (Stéphane)
