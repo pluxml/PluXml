@@ -50,7 +50,7 @@
         </div>
 	</header>
 
-   	<main id="main" role="main" class="pam">
+   	<main id="main" role="main" class="ptm pbm pll prl">
 		<?= $adminMessage ?>
     	<?= $hookAdminTopBottom ?>
     	<?= $mainContent ?>
