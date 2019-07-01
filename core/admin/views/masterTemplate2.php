@@ -25,25 +25,25 @@
 
 	<div class="flex-container--column">
 
-	<header id="header" role="banner" class="grid-6 pas header">
+	<header id="header" role="banner" class="grid-6 header">
 		<div>
-			<a href="<?= $adminUrl ?>"><h1 class="h3-like"><strong><?= $siteTitle ?></strong></h1></a>
+			<a href="<?= $adminUrl ?>"><h1 class="h3-like pas"><strong><?= $siteTitle ?></strong></h1></a>
 		</div>
 		<nav id="navigation" role="navigation" class="col-4">
-        	<ul id="responsive-menu" class="menu vertical expanded">
+        	<ul id="responsive-menu" class="man">
         		<?= $menuContent ?>
         	</ul>
 		</nav>
     	<div class="txtright">
            	<ul class="unstyled">
-           		<li class="inbl">
+           		<li class="inbl pas">
             		<a class="" href="<?= $siteUrl ?>" title="<?= $siteTitle ?>"><small><?= $backToSite ?></small></a>
             	</li>
 				<?= $blogLink ?>
-        		<li class="inbl">
+        		<li class="inbl pas">
         			<a class="logout" href="<?= $logOutUrl ?>" title="<?= $logOutTitle ?>"><small><?= $logOut ?></small></a>
         		</li>
-        		<li class="inbl">
+        		<li class="inbl pas">
         			<span class="badge"><img class="profil" src="<?= $profilPicture ?>"></span>
 				</li>
         	</ul>

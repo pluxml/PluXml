@@ -46,7 +46,8 @@ body {
 .header {
 	top: 0;
 	position: sticky;
-	background: #0085d9;
+	/*background-color: #0085d9;*/
+	background-color: #1563A3;
 }
 
 .header .menu {
@@ -56,6 +57,18 @@ body {
 .header img.profil {
 	width: 20px;
 	height: 100%
+}
+
+.header a {
+	color: #fff;
+}
+
+.header li {
+	padding: 5px;
+}
+
+.header li:hover {
+	background-color: #3D9CF6;
 }
 
 /* ---------- Footer ---------- */
