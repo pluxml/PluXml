@@ -27,6 +27,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
             exit;
 }
 
-# Call the views
-include __DIR__ .'/views/mainView.php';
+# Call the views (mainView must be the last to be called, because it's include the masterTemplate)
 include __DIR__ .'/views/dashboardView.php';
+include __DIR__ .'/views/mainView.php';
