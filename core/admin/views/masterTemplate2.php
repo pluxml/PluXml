@@ -25,17 +25,17 @@
 
 	<div class="flex-container--column">
 
-	<header id="header" role="banner" class="grid-6 header">
+	<header id="header" role="banner" class="flex-container header">
 		<div>
-			<a href="<?= $adminUrl ?>"><h1 class="h3-like pas"><strong><?= $siteTitle ?></strong></h1></a>
+			<a href="<?= $adminUrl ?>"><h1 class="h4-like man pas"><?= $siteTitle ?></h1></a>
 		</div>
-		<nav id="navigation" role="navigation" class="col-4">
-        	<ul id="responsive-menu" class="man">
+		<nav id="navigation" role="navigation" class="item-fluid">
+        	<ul class="pan man">
         		<?= $menuContent ?>
         	</ul>
 		</nav>
-    	<div class="txtright">
-           	<ul class="unstyled">
+    	<div class="fr">
+           	<ul class="pan man">
            		<li class="inbl pas">
             		<a class="" href="<?= $siteUrl ?>" title="<?= $siteTitle ?>"><small><?= $backToSite ?></small></a>
             	</li>
@@ -51,9 +51,9 @@
 	</header>
 
    	<main id="main" role="main" class="pam">
-			<?= $adminMessage ?>
-    		<?= $hookAdminTopBottom ?>
-    		<?= $mainContent ?>
+		<?= $adminMessage ?>
+    	<?= $hookAdminTopBottom ?>
+    	<?= $mainContent ?>
 	</main>
 
 	<footer class="footer pam">
