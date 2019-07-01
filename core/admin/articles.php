@@ -118,5 +118,5 @@ $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
 # Call the views
-include __DIR__ .'/views/articlesView.php';
 include __DIR__ .'/views/mainView.php';
+include __DIR__ .'/views/articlesView.php';
