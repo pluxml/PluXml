@@ -117,6 +117,6 @@ $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_CATEGORY_HOME_PAGE;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
-# Call the views
-include __DIR__ .'/views/articlesView.php';
+# Call the views (mainView must be the last to be called, because it's include the masterTemplate)
+include __DIR__ .'/views/dashboardView.php';
 include __DIR__ .'/views/mainView.php';

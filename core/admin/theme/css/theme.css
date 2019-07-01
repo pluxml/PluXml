@@ -44,7 +44,13 @@ body {
 /* ---------- Profil Navigation ---------- */
 
 .header {
+	top: 0;
+	position: sticky;
 	background: #0085d9;
+}
+
+.header .menu {
+	display: inline-block;
 }
 
 .header img.profil {
@@ -52,8 +58,14 @@ body {
 	height: 100%
 }
 
-/* ---------- Aside ---------- */
+/* ---------- Footer ---------- */
 
+.footer {
+	background-color: #e7e9ed;
+}
+
+/* ---------- Aside ---------- */
+/*
 .aside {
 	background-color: #202831;
 }
@@ -87,3 +99,4 @@ body {
 	background-color: #161c22;
 	white-space: nowrap;
 }
+*/

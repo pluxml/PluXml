@@ -110,7 +110,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
 $menuContent = implode('', $menus);
 ?>
 
-<?php include 'masterTemplate.php'; ?>
+<?php include 'masterTemplate2.php'; ?>
 
 
 
