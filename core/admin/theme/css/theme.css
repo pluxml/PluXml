@@ -44,8 +44,6 @@ body {
 /* ---------- Profil Navigation ---------- */
 
 .header {
-	position: fixed;
-	width: 100%;
 	background: #0085d9;
 }
 
@@ -57,9 +55,6 @@ body {
 /* ---------- Aside ---------- */
 
 .aside {
-	height: 100vh;
-	position: fixed;
-	margin-top: 60px;
 	background-color: #202831;
 }
 
@@ -91,10 +86,4 @@ body {
 .aside .menu-config {
 	background-color: #161c22;
 	white-space: nowrap;
-}
-
-/* ---------- Aside ---------- */
-.main {
-	margin-left: 250px;
-	margin-top: 60px;
 }
