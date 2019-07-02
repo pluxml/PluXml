@@ -47,7 +47,7 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
 
 <?php ob_start(); ?>
 	<?php if(is_file(PLX_ROOT.'install.php')): ?>
-    	<p class="alert red"><?php echo L_WARNING_INSTALLATION_FILE ?></p>
+    	<p class="alert"><?php echo L_WARNING_INSTALLATION_FILE ?></p>
         <?php plxMsg::Display();?>
 	<?php endif; ?>
 <?php $adminMessage = ob_get_clean();?>
