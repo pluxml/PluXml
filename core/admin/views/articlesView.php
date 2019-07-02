@@ -1,10 +1,10 @@
 <?php ob_start(); ?>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
+<?php 
+$adminTitle = L_MENU_ARTICLES;
+?>
 
-<div class="admin-title">
-	<h2><?php echo L_MENU_ARTICLES ?></h2>
-</div>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <form action="articles.php" method="post" id="form_articles">
 

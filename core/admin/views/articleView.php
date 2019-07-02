@@ -1,5 +1,9 @@
 <?php ob_start(); ?>
 
+<?php 
+$adminTitle = (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING;
+?>
+
 <script>
 function refreshImg(dta) {
 	if(dta.trim()==='') {
@@ -16,9 +20,6 @@ function refreshImg(dta) {
 	<div class="inline-form admin-title">
 
 		<div class="grid">
-			<div class="col sml-12 med-5">
-				<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
-			</div>
 			<div class="col sml-12 med-7">
 				<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?php echo L_ARTICLE_PREVIEW_BUTTON ?>"/>
 				<?php

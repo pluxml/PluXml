@@ -16,15 +16,24 @@ body {
 	background-color: #f6f6f6;
 }
 
+.page {
+	height: 100vh;
+}
+
+.alert {
+	margin-bottom: 12px;
+}
+
 .ico {
   position: absolute;
   text-indent: 5px;
   margin-top: 4px;
 }
 
-.page {
-	height: 100vh;
+.bk-white {
+	background-color: #fff;
 }
+
 /* ---------- Authentication ---------- */
 
 #auth {

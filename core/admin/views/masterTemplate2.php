@@ -50,6 +50,10 @@
         </div>
 	</header>
 
+	<div>
+		<h2 class="pas bk-white"><?= $adminTitle?></h2>
+	</div>
+
    	<main id="main" role="main" class="item-fluid ptm pbm pll prl">
 		<?= $adminMessage ?>
     	<?= $hookAdminTopBottom ?>
