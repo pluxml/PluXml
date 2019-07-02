@@ -22,6 +22,9 @@ body {
   margin-top: 4px;
 }
 
+.page {
+	height: 100vh;
+}
 /* ---------- Authentication ---------- */
 
 #auth {
@@ -61,6 +64,10 @@ body {
 
 .header a {
 	color: #fff;
+}
+
+.header ul {
+	line-height: 4rem;
 }
 
 .header li {

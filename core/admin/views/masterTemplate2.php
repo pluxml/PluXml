@@ -23,7 +23,7 @@
 
 <body id="<?= $scriptName ?>">
 
-	<div class="flex-container--column">
+	<div class="flex-container--column page">
 
 	<header id="header" role="banner" class="flex-container header">
 		<div>
@@ -50,16 +50,15 @@
         </div>
 	</header>
 
-   	<main id="main" role="main" class="ptm pbm pll prl">
+   	<main id="main" role="main" class="item-fluid ptm pbm pll prl">
 		<?= $adminMessage ?>
     	<?= $hookAdminTopBottom ?>
     	<?= $mainContent ?>
 	</main>
 
-	<footer class="footer pam">
-	
-    	<ul class="unstyled">
-        	<li class="inbl">
+	<footer class="footer ">
+    	<ul class="pan man">
+        	<li class="inbl pas">
             	<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?= $pluxmlVersion ?></a></small>
     			<?= $pluxmlMaj ?>
     		</li>
@@ -76,7 +75,6 @@
         		urlManager: "core/admin/medias.php"
         	});
         </script>
-    
     </footer>
     
     </div>
