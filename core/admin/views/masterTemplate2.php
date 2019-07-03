@@ -26,8 +26,8 @@
 	<div class="flex-container--column page">
 
 	<header id="header" role="banner" class="flex-container header">
-		<div>
-			<a href="<?= $adminUrl ?>"><h1 class="h4-like man pas pll"><?= $siteTitle ?></h1></a>
+		<div class="pls prl title">
+			<a href="<?= $adminUrl ?>"><strong><?= $siteTitle ?></strong></a>
 		</div>
 		<nav id="navigation" role="navigation" class="item-fluid">
         	<ul class="pan man">
@@ -51,7 +51,7 @@
 	</header>
 
 	<div>
-		<h2 class="pas pll bk-white"><?= $adminTitle?></h2>
+		<h1 class="h3-like pas pll bk-white"><?= $adminTitle?></h1>
 	</div>
 
    	<main id="main" role="main" class="item-fluid pts pbs pll prl">

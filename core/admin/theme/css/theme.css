@@ -62,6 +62,10 @@ body {
 	background-color: #1563A3;
 }
 
+.header .title {
+	line-height: 4rem;
+}
+
 .header .menu {
 	display: inline-block;
 }
@@ -76,7 +80,7 @@ body {
 }
 
 .header ul {
-	line-height: 4rem;
+	line-height: 3rem;
 }
 
 .header li {
