@@ -60,7 +60,7 @@
     	<?= $mainContent ?>
 	</main>
 
-	<footer class="footer ">
+	<footer class="footer">
     	<ul class="pan man">
         	<li class="inbl pas">
             	<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?= $pluxmlVersion ?></a></small>
