@@ -8,33 +8,32 @@ $adminTitle = L_MENU_ARTICLES;
 
 <form action="articles.php" method="post" id="form_articles">
 
-    <div class="panel  panel-content">
-        <div class="inline-form">
-    		<ul class="menu">
-        		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="articles.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
-        		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="articles.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
-        		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="articles.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-        		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="articles.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+    <div class="autogrid has-gutter mbm">
+        <div class="pas bk-white">
+    		<ul class="man pan">
+    			<li class="inbl pts pbs prs"><strong><?= L_ARTICLES_FILTER_BY ?></strong></li>
+        		<li class="inbl pas"><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="articles.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
+        		<li class="inbl pas"><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="articles.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
+        		<li class="inbl pas"><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="articles.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
+        		<li class="inbl pas"><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="articles.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
     		</ul>
         </div>
         
-        <div class="grid ">
-        	<div class="col sml-5">
+        <div class="autogrid pas bk-white">
+        	<div>
         		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
         		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
         	</div>
-        	<div class="col sml-7 text-right">
+        	<div>
         		<input id="articles-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
         		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
         	</div>
         </div>
     </div>
 
-    <div class="scrollable-table panel">
-    	<div class="panel-content panel-title">
-    		<h3 class="no-margin"><?php echo L_ARTICLES_LIST ?></h3>
-    	</div>
-    	<table id="articles-table" class="panel-content">
+    <div class="pas bk-white">
+   		<h3 class=""><?php echo L_ARTICLES_LIST ?></h3>
+    	<table class="table">
     		<thead>
     			<tr>
     				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
@@ -109,18 +108,16 @@ $adminTitle = L_MENU_ARTICLES;
     		</tbody>
     	</table>
     	
-    	<div class="grid panel-content panel-bottom">
-    	
-        	<div class="col sml-12 med-4">
-            	<?php
-                    echo plxToken::getTokenPostMethod();
-                    if($_SESSION['profil']<=PROFIL_MODERATOR) {
-                        echo '<input type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
-                    }
-                ?>
-                <?php plxUtils::printInput('page',1,'hidden'); ?>
-        	</div>
-        	<div id="pagination"  class="col sml-12 med-8 text-right">
+    	<div class="">
+           	<?php
+                echo plxToken::getTokenPostMethod();
+                if($_SESSION['profil']<=PROFIL_MODERATOR) {
+                    echo '<input type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
+                }
+            ?>
+            <?php plxUtils::printInput('page',1,'hidden'); ?>
+
+        	<div id="pagination"  class="">
             	<?php
             	# Hook Plugins
             	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));

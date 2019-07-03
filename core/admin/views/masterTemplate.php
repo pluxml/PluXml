@@ -23,63 +23,65 @@
 
 <body id="<?= $scriptName ?>">
 
-	<header id="header" role="banner" class="autogrid pas header">
-		<div>
-			<a href="<?= $adminUrl ?>"><h1 class="h3-like"><strong><?= $siteTitle ?></strong></h1></a>
+	<div class="flex-container--column page">
+
+	<header id="header" role="banner" class="flex-container header">
+		<div class="pls prl title">
+			<a href="<?= $adminUrl ?>"><strong><?= $siteTitle ?></strong></a>
 		</div>
-    	<div class="txtright">
-           	<ul class="unstyled">
-           		<li class="inbl">
+		<nav id="navigation" role="navigation" class="item-fluid">
+        	<ul class="pan man">
+        		<?= $menuContent ?>
+        	</ul>
+		</nav>
+    	<div class="fr">
+           	<ul class="pan man">
+           		<li class="inbl pas">
             		<a class="" href="<?= $siteUrl ?>" title="<?= $siteTitle ?>"><small><?= $backToSite ?></small></a>
             	</li>
 				<?= $blogLink ?>
-        		<li class="inbl">
+        		<li class="inbl pas">
         			<a class="logout" href="<?= $logOutUrl ?>" title="<?= $logOutTitle ?>"><small><?= $logOut ?></small></a>
         		</li>
-        		<li class="inbl">
+        		<li class="inbl pas">
         			<span class="badge"><img class="profil" src="<?= $profilPicture ?>"></span>
 				</li>
         	</ul>
         </div>
 	</header>
 
-    <div class="flex-container">
-    
-        <aside class="mod w250p pam aside">
-        	<nav id="navigation" role="navigation">
-        		<ul id="responsive-menu" class="menu vertical expanded">
-        			<?= $menuContent ?>
-        		</ul>
-        		<ul class="unstyled">
-           			<li>
-           				<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?= $pluxmlVersion ?></a></small>
-           				<?= $pluxmlMaj ?>
-        			</li>
-        		</ul>
-        	</nav>
-        </aside>
-
-    	<main id="main" role="main" class="flex-item-fluid pam">
-			<?= $adminMessage ?>
-    		<?= $hookAdminTopBottom ?>
-
-    		<?= $mainContent ?>
-
-		</main>
-
+	<div>
+		<h1 class="h3-like pas pll bk-white"><?= $adminTitle?></h1>
 	</div>
 
-	<?= $hookAdminFootEndBody ?>
+   	<main id="main" role="main" class="item-fluid pts pbs pll prl">
+		<?= $adminMessage ?>
+    	<?= $hookAdminTopBottom ?>
+    	<?= $mainContent ?>
+	</main>
 
-    <script src="<?php echo PLX_CORE ?>theme/js/drag-and-drop.js"></script>
-    <script>
-    	setMsg();
-    	mediasManager.construct({
-    		windowName : "<?php echo L_MEDIAS_TITLE ?>",
-    		racine:	"<?php echo plxUtils::getRacine() ?>",
-    		urlManager: "core/admin/medias.php"
-    	});
-    </script>
+	<footer class="footer">
+    	<ul class="pan man">
+        	<li class="inbl pas">
+            	<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?= $pluxmlVersion ?></a></small>
+    			<?= $pluxmlMaj ?>
+    		</li>
+    	</ul>
+    	
+    	<?= $hookAdminFootEndBody ?>
+    
+        <script src="<?php echo PLX_CORE ?>theme/js/drag-and-drop.js"></script>
+        <script>
+        	setMsg();
+        	mediasManager.construct({
+        		windowName : "<?php echo L_MEDIAS_TITLE ?>",
+        		racine:	"<?php echo plxUtils::getRacine() ?>",
+        		urlManager: "core/admin/medias.php"
+        	});
+        </script>
+    </footer>
+    
+    </div>
 
 </body>
 </html>
