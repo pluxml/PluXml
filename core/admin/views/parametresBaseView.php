@@ -1,5 +1,6 @@
 <?php 
 $adminTitle = L_CONFIG_BASE_CONFIG_TITLE;
+$inputChecked = true;
 ?>
 
 <?php ob_start(); ?>

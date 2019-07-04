@@ -127,22 +127,18 @@ body {
 	white-space: nowrap;
 }
 
-.aside .dropbtn {
-	cursor: pointer;
-}
+/* ---------- Toggler ---------- */
 
-.dropdown {
-	position: relative;
+.toggler {
+	display: none;
+}
+.toggler + label span:first-of-type, /* masquer */
+.toggler + label + div {
+	display: none;
+}
+.toggler:checked + label span:first-of-type { /* afficher */
 	display: inline-block;
 }
-
-.dropdown-content {
-	display: none;
-	background-color: #161c22;
-}
-
-.dropdown-content a {
+.toggler:checked + label + div {
 	display: block;
 }
-
-.show {display:block;}
