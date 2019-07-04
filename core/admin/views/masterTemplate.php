@@ -44,7 +44,7 @@
         			<a class="logout" href="<?= $logOutUrl ?>" title="<?= $logOutTitle ?>"><small><?= $logOut ?></small></a>
         		</li>
         		<li class="inbl pas">
-        			<span class="badge"><img class="profil" src="<?= $profilPicture ?>"></span>
+        			<span class="badge"><a href=<?= $profileUrl ?>><img class="profil" src="<?= $profilPicture ?>"></a></span>
 				</li>
         	</ul>
         </div>

@@ -12,6 +12,7 @@ $userName = plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']);
 $logOutUrl = PLX_CORE.'admin/auth.php?d=1';
 $logOutTitle = L_ADMIN_LOGOUT_TITLE;
 $logOut = L_ADMIN_LOGOUT;
+$profileUrl = PLX_CORE.'admin/profile.php';
 $pluxmlVersion = $plxAdmin->aConf['version'];
 $hookAdminTopEndHead = eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
 $hookAdminTopBottomHead = eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
@@ -73,7 +74,6 @@ if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 }
 if($_SESSION['profil'] <= PROFIL_EDITOR)
     $menus[] = plxUtils::formatMenu(L_MENU_CATEGORIES, PLX_CORE.'admin/categories.php', L_MENU_CATEGORIES_TITLE, false, false, '', '<i class="ico icon-tag"></i>');
-    $menus[] = plxUtils::formatMenu(L_MENU_PROFIL, PLX_CORE.'admin/profile.php', L_MENU_PROFIL_TITLE, false, false, '', '<i class="ico icon-user"></i>');
 if($_SESSION['profil'] == PROFIL_ADMIN) {
     $menus[] = plxUtils::formatMenu(L_MENU_CONFIG, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', '<i class="ico icon-sliders"></i>', false);
     if (preg_match('/parametres/',basename($_SERVER['SCRIPT_NAME']))) {
