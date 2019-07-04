@@ -79,8 +79,8 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
         ?>
         <?php if($_SESSION['profil'] == PROFIL_ADMIN): ?>
     		<li class="dropdown">
-    			<div class="dropbtn"><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG ?></a></div>
-    			<div class="dropdown-content pas">
+    			<div onclick="asideDropdown()" class="dropbtn"><?php echo L_MENU_CONFIG ?></div>
+    			<div id="asideDropdown" class="dropdown-content pas">
     				<a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a>
     				<a href="<?php echo PLX_CORE.'admin/parametresAffichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a>
     				<a href="<?php echo PLX_CORE.'admin/parametresUsers.php' ?>" title="<?php echo L_MENU_CONFIG_USERS_TITLE ?>"><?php echo L_MENU_CONFIG_USERS ?></a>

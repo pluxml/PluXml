@@ -16,23 +16,16 @@ body {
 	background-color: #f6f6f6;
 }
 
-.page {
-	min-height: 100vh;
-}
-
-.alert {
-	margin-bottom: 12px;
-}
-
 .ico {
   position: absolute;
   text-indent: 5px;
   margin-top: 4px;
 }
 
-.bk-white {
-	background-color: #fff;
-}
+.page {min-height: 100vh;}
+
+.alert {margin-bottom: 12px;}
+.bk-white {background-color: #fff;}
 
 /* ---------- Authentication ---------- */
 
@@ -91,49 +84,6 @@ body {
 	background-color: #3D9CF6;
 }
 
-.dropbtn {
-	color: #fff;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-.header .dropdown {
-	position: relative;
-	display: inline-block;
-}
-
-.header .dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #3D9CF6;
-	min-width: 200px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
-}
-
-.header .dropdown-content a {
-	text-decoration: none;
-	display: block;
-}
-
-.header .dropdown-content a:hover {
-	text-decoration: underline;
-}
-
-.header .dropdown:hover .dropdown-content {
-	display: block;
-}
-
-.header .dropdown:hover .dropbtn {
-	background-color: 
-}
-
-@media only screen and (max-width: 768px) {
-	.header .dropdown:hover .dropdown-content {
-		display: none;
-	}
-}
-
 /* ---------- Footer ---------- */
 
 .footer {
@@ -141,8 +91,9 @@ body {
 }
 
 /* ---------- Aside ---------- */
-/*
+
 .aside {
+	color: #aaa;
 	background-color: #202831;
 }
 
@@ -175,4 +126,23 @@ body {
 	background-color: #161c22;
 	white-space: nowrap;
 }
-*/
+
+.aside .dropbtn {
+	cursor: pointer;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	background-color: #161c22;
+}
+
+.dropdown-content a {
+	display: block;
+}
+
+.show {display:block;}

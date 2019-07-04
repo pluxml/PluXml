@@ -3,8 +3,8 @@ $adminTitle = L_CONFIG_BASE_CONFIG_TITLE;
 ?>
 
 <?php ob_start(); ?>
-	<ul class="bk-white">
-		<li class="pls prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a></li>
+	<ul class="bk-white pan">
+		<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a></li>
     	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresAffichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a></li>
     	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresUsers.php' ?>" title="<?php echo L_MENU_CONFIG_USERS_TITLE ?>"><?php echo L_MENU_CONFIG_USERS ?></a></li>
     	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresAvances.php' ?>" title="<?php echo L_MENU_CONFIG_ADVANCED_TITLE?>"><?php echo L_MENU_CONFIG_ADVANCED ?></a></li>
