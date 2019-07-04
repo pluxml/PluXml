@@ -54,7 +54,7 @@
 		<h1 class="h3-like pas pll bk-white"><?= $adminTitle?></h1>
 	</div>
 
-   	<main id="main" role="main" class="item-fluid pts pbs pll prl">
+   	<main id="main" role="main" class="item-fluid pts pbs pll prl mbm">
 		<?= $adminMessage ?>
     	<?= $hookAdminTopBottom ?>
     	<?= $mainContent ?>

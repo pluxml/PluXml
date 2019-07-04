@@ -17,8 +17,8 @@ function refreshImg(dta) {
 
 <form action="article.php" method="post" id="form_article">
 
-	<div class="autogrid has-gutter mbm">
-		<div class="pas bk-white">
+	<div class="grid-4 mbm">
+		<div class="col-3 pas bk-white">
 			<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?php echo L_ARTICLE_PREVIEW_BUTTON ?>"/>
 			<?php
 				if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
@@ -53,7 +53,7 @@ function refreshImg(dta) {
 				}
 			?>
 		</div>
-		<div class="pas bk-white txtright">
+		<div class="pas bk-white">
     		<p>
     			<?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
         			<strong>
@@ -74,9 +74,9 @@ function refreshImg(dta) {
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
 
-	<div class="autogrid has-gutter">
+	<div class="grid-4 has-gutter">
 
-		<div class="pas bk-white">
+		<div class="col-3 pas bk-white">
 
 			<fieldset>
 				<div class="grid">
