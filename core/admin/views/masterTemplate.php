@@ -51,7 +51,8 @@
 	</header>
 
 	<div>
-		<h1 class="h3-like pas pll bk-white"><?= $adminTitle?></h1>
+		<h1 class="h3-like man pas pll bk-white"><?= $adminTitle?></h1>
+		<?= $adminSubMenu ?>
 	</div>
 
    	<main id="main" role="main" class="item-fluid pts pbs pll prl mbm">
@@ -60,7 +61,7 @@
     	<?= $mainContent ?>
 	</main>
 
-	<footer class="footer">
+	<footer class="footer bk-grey">
     	<ul class="pan man">
         	<li class="inbl pas">
             	<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?= $pluxmlVersion ?></a></small>

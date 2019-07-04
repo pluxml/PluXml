@@ -1,41 +1,28 @@
-<?php
-
-/**
- * Edition des paramètres de base
- *
- * @package PLX
- * @author	Florent MONTHEL, Stephane F
- **/
-
-include __DIR__ .'/prepend.php';
-include PLX_CORE.'lib/class.plx.timezones.php';
-
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-# On édite la configuration
-if(!empty($_POST)) {
-	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
-	header('Location: parametres_base.php');
-	exit;
-}
-
-# On inclut le header
-include __DIR__ .'/top.php';
+<?php 
+$adminTitle = L_CONFIG_BASE_CONFIG_TITLE;
 ?>
+
+<?php ob_start(); ?>
+	<ul class="bk-white">
+		<li class="pls prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a></li>
+    	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresAffichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a></li>
+    	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresUsers.php' ?>" title="<?php echo L_MENU_CONFIG_USERS_TITLE ?>"><?php echo L_MENU_CONFIG_USERS ?></a></li>
+    	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresAvances.php' ?>" title="<?php echo L_MENU_CONFIG_ADVANCED_TITLE?>"><?php echo L_MENU_CONFIG_ADVANCED ?></a></li>
+    	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresThemes.php' ?>" title="<?php echo L_THEMES_TITLE ?>"><?php echo L_THEMES ?></a></li>
+    	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresPlugins.php' ?>" title="<?php echo L_MENU_CONFIG_PLUGINS_TITLE ?>"><?php echo L_MENU_CONFIG_PLUGINS ?></a></li>
+    	<li class="prs inbl"><a href="<?php echo PLX_CORE.'admin/parametresInfos.php' ?>" title="<?php echo L_MENU_CONFIG_INFOS_TITLE ?>"><?php echo L_MENU_CONFIG_INFOS ?></a></li>
+	</ul>
+<?php $adminSubMenu = ob_get_clean(); ?>
+
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop')) # Hook Plugins ?>
+
+<?php ob_start(); ?>
 
 <form action="parametres_base.php" method="post" id="form_settings">
 
 	<div class="inline-form admin-title">
-		<h2><?php echo L_CONFIG_BASE_CONFIG_TITLE ?></h2>
-		<p>&nbsp;</p>
 		<input type="submit" value="<?php echo L_CONFIG_BASE_UPDATE ?>" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop')) # Hook Plugins ?>
 
 	<fieldset class="config">
 		<div class="grid">
@@ -119,6 +106,6 @@ include __DIR__ .'/top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
-# On inclut le footer
-include __DIR__ .'/foot.php';
 ?>
+
+<?php $mainContent = ob_get_clean(); ?>

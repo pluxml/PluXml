@@ -1,10 +1,10 @@
-<?php ob_start(); ?>
-
 <?php 
 $adminTitle = L_DASHBOARD_TITLE;
 ?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
+
+<?php ob_start(); ?>
 
 <div class="autogrid has-gutter mbm">
 	<div class="pas bk-white">

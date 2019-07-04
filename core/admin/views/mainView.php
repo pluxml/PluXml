@@ -79,15 +79,15 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
         ?>
         <?php if($_SESSION['profil'] == PROFIL_ADMIN): ?>
     		<li class="dropdown">
-    			<div class="dropbtn"><a href="<?php echo PLX_CORE.'admin/parametres_base.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG ?></a></div>
+    			<div class="dropbtn"><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG ?></a></div>
     			<div class="dropdown-content pas">
-    				<a href="<?php echo PLX_CORE.'admin/parametres_base.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a>
-    				<a href="<?php echo PLX_CORE.'admin/parametres_affichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a>
-    				<a href="<?php echo PLX_CORE.'admin/parametres_users.php' ?>" title="<?php echo L_MENU_CONFIG_USERS_TITLE ?>"><?php echo L_MENU_CONFIG_USERS ?></a>
-    				<a href="<?php echo PLX_CORE.'admin/parametres_avances.php' ?>" title="<?php echo L_MENU_CONFIG_ADVANCED_TITLE?>"><?php echo L_MENU_CONFIG_ADVANCED ?></a>
-    				<a href="<?php echo PLX_CORE.'admin/parametres_themes.php' ?>" title="<?php echo L_THEMES_TITLE ?>"><?php L_THEMES ?></a>
-    				<a href="<?php echo PLX_CORE.'admin/parametres_plugins.php' ?>" title="<?php echo L_MENU_CONFIG_PLUGINS_TITLE ?>"><?php echo L_MENU_CONFIG_PLUGINS ?></a>
-    				<a href="<?php echo PLX_CORE.'admin/parametres_infos.php' ?>" title="<?php echo L_MENU_CONFIG_INFOS_TITLE ?>"><?php echo L_MENU_CONFIG_INFOS ?></a>
+    				<a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a>
+    				<a href="<?php echo PLX_CORE.'admin/parametresAffichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a>
+    				<a href="<?php echo PLX_CORE.'admin/parametresUsers.php' ?>" title="<?php echo L_MENU_CONFIG_USERS_TITLE ?>"><?php echo L_MENU_CONFIG_USERS ?></a>
+    				<a href="<?php echo PLX_CORE.'admin/parametresAvances.php' ?>" title="<?php echo L_MENU_CONFIG_ADVANCED_TITLE?>"><?php echo L_MENU_CONFIG_ADVANCED ?></a>
+    				<a href="<?php echo PLX_CORE.'admin/parametresThemes.php' ?>" title="<?php echo L_THEMES_TITLE ?>"><?php echo L_THEMES ?></a>
+    				<a href="<?php echo PLX_CORE.'admin/parametresPlugins.php' ?>" title="<?php echo L_MENU_CONFIG_PLUGINS_TITLE ?>"><?php echo L_MENU_CONFIG_PLUGINS ?></a>
+    				<a href="<?php echo PLX_CORE.'admin/parametresInfos.php' ?>" title="<?php echo L_MENU_CONFIG_INFOS_TITLE ?>"><?php echo L_MENU_CONFIG_INFOS ?></a>
     			</div>
     		</li>
     		<?php 
