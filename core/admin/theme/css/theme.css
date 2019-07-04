@@ -91,6 +91,12 @@ body {
 	background-color: #3D9CF6;
 }
 
+.dropbtn {
+	color: #fff;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .header .dropdown {
 	position: relative;
 	display: inline-block;
@@ -115,12 +121,17 @@ body {
 }
 
 .header .dropdown:hover .dropdown-content {
-  display: block;
+	display: block;
 }
 
 .header .dropdown:hover .dropbtn {
 	background-color: 
 }
+
+@media only screen and (max-width: 768px) {
+	.header .dropdown:hover .dropdown-content {
+		display: none;
+	}
 
 /* ---------- Footer ---------- */
 
