@@ -79,8 +79,8 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
         ?>
         <?php if($_SESSION['profil'] == PROFIL_ADMIN): ?>
         	<input class="toggler" type="checkbox" id="toggler_menu" <?php if ($inputChecked == true) echo 'checked' ?>>
-        	<label for="toggler"><?php echo L_MENU_CONFIG ?></label>
-        	<div class="toggler-menu">
+        	<label for="toggler_menu"><?php echo L_MENU_CONFIG ?></label>
+        	<div class="toggler-submenu">
         		<ul class="man pas unstyled">
     				<li><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a></li>
     				<li><a href="<?php echo PLX_CORE.'admin/parametresAffichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a></li>
