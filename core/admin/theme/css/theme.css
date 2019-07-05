@@ -51,7 +51,6 @@ body {
 .header {
 	top: 0;
 	position: sticky;
-	/*background-color: #0085d9;*/
 	background-color: #1563A3;
 }
 
@@ -101,17 +100,41 @@ body {
 	color: #fff;
 }
 
-.aside .version {
-	color: #aaa;
+.aside .menu a {
+	padding: 10px 5px 10px 20px;
+	display: block;
+}
+
+.aside .menu-config a {
+	padding: 10px 5px 10px 30px;
+	display: block;
+	font-size: 1.4rem;
+}
+
+.aside li.menu:hover, .aside label.menu:hover {
+	background-color: #161c22; 
+}
+
+.aside li.menu-config:hover {
+	background-color: #313d4d; 
 }
 
 .aside label {
+	width: 100%;
 	text-decoration: underline;
 	cursor: pointer;
 }
 
 .aside .toggler-submenu {
-	background-color: #161c22;
+	background-color: #27313d;
+}
+
+.aside li.active, .aside li.active:hover {
+	background-color: #1563A3;
+}
+
+.aside .version {
+	color: #aaa;
 }
 
 /* ---------- Toggler ---------- */

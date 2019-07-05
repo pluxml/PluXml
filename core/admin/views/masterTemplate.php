@@ -80,12 +80,6 @@
             	urlManager: "core/admin/medias.php"
 			});
     	</script>
-    	<script>
-        	function asideDropdown() {
-        	  document.getElementById("asideDropdown").classList.toggle("show");
-        	}
-
-    	</script>
 	</footer>
 	
 </div>
