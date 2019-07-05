@@ -80,12 +80,12 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
         ?>
         <?php if($_SESSION['profil'] == PROFIL_ADMIN): ?>
         	<input class="toggler" type="checkbox" id="toggler_menu" <?php if ($inputChecked == true) echo 'checked' ?>>
-        	<label for="toggler_menu" class="man menu"><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG ?></a></label>
+        	<label for="toggler_menu" class="man menu"><a href="<?php echo PLX_CORE.'admin/config-general.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG ?></a></label>
         	<div class="toggler-submenu">
         		<ul class="man pan unstyled">
     				<?php 
-    					echo plxUtils::formatMenu(L_MENU_CONFIG_BASE, PLX_CORE.'admin/parametresBase.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
-    					echo plxUtils::formatMenu(L_MENU_CONFIG_VIEW, PLX_CORE.'admin/parametres_affichage.php', L_MENU_CONFIG_VIEW_TITLE, 'menu-config');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_BASE, PLX_CORE.'admin/config-general.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_VIEW, PLX_CORE.'admin/config-display.php', L_MENU_CONFIG_VIEW_TITLE, 'menu-config');
     					echo plxUtils::formatMenu(L_MENU_CONFIG_USERS, PLX_CORE.'admin/parametres_users.php', L_MENU_CONFIG_USERS_TITLE, 'menu-config');
     					echo plxUtils::formatMenu(L_MENU_CONFIG_ADVANCED, PLX_CORE.'admin/parametres_avances.php', L_MENU_CONFIG_ADVANCED_TITLE, 'menu-config');
     					echo plxUtils::formatMenu(L_THEMES, PLX_CORE.'admin/parametres_themes.php', L_THEMES_TITLE, 'menu-config');
