@@ -2,6 +2,7 @@
 
 <?php 
 $adminTitle = L_CONFIG_VIEW_FIELD;
+$inputChecked = true;
 ?>
 
 <form action="parametres_affichage.php" method="post" id="form_settings">
