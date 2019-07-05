@@ -54,7 +54,7 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
 <?php $adminMessage = ob_get_clean();?>
 
 <?php ob_start(); ############### MENU ############### ?>
-	<ul class="pan man">
+	<ul class="unstyled pan man">
         <?php 
             $menus = array();
             $userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
@@ -79,9 +79,9 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
         ?>
         <?php if($_SESSION['profil'] == PROFIL_ADMIN): ?>
         	<input class="toggler" type="checkbox" id="toggler_menu" <?php if ($inputChecked == true) echo 'checked' ?>>
-        	<label for="toggler_menu"><?php echo L_MENU_CONFIG ?></label>
-        	<div class="pls">
-        		<ul>
+        	<label for="toggler"><?php echo L_MENU_CONFIG ?></label>
+        	<div class="toggler-menu">
+        		<ul class="man pas unstyled">
     				<li><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a></li>
     				<li><a href="<?php echo PLX_CORE.'admin/parametresAffichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a></li>
     				<li><a href="<?php echo PLX_CORE.'admin/parametresUsers.php' ?>" title="<?php echo L_MENU_CONFIG_USERS_TITLE ?>"><?php echo L_MENU_CONFIG_USERS ?></a></li>

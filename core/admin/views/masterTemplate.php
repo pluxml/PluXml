@@ -47,12 +47,10 @@
 
 	<div class="grid-10 item-fluid">
     	<aside class="col-1-small-all aside">
-    		<nav id="navigation" role="navigation">
-            	<ul class="pan man">
-            		<?= $menuContent ?>
-            	</ul>
+    		<nav id="navigation" role="navigation" class="pas">
+           		<?= $menuContent ?>
     		</nav>
-    		<ul class="pan man">
+    		<ul class="pan man unstyled">
            		<li class="inbl pas">
                		<small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?= $pluxmlVersion ?></a></small>
        				<?= $pluxmlMaj ?>

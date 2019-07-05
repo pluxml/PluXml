@@ -97,28 +97,16 @@ body {
 	background-color: #202831;
 }
 
-.aside .unstyled.profil {
-	background-color: #32373c;
-	border-top: 1px solid #484e5c;
-	border-bottom: 1px solid #484e5c;
-}
-
 .aside .version {
 	color: #aaa;
 }
 
-.aside .menu.expanded .badge,
-.aside .menu.expanded .active a .badge {
-	background-color: #e43d29;
-}
-.aside .menu.expanded li.active,
-.aside .menu.expanded li.active:hover,
-.aside .menu.expanded li.active a,
-.aside .menu.expanded li.active:hover {
-	background-color: #fff;
+.aside label {
+	text-decoration: underline;
+	cursor: pointer;
 }
 
-.aside .menu.expanded li:hover {
+.aside .toggler-menu {
 	background-color: #1f2428;
 }
 
