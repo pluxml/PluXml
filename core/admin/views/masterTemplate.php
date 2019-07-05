@@ -62,7 +62,6 @@
 		<div class="flex-container--column col-9-small-all">    
         	<div class="pas pll bk-white">
         		<h1 class="man h3-like"><?= $adminTitle?></h1>
-        		<?= $adminSubMenu ?>
         	</div>
            	<main id="main" role="main" class="item-fluid pts pbs pll prl mbm">
         		<?= $adminMessage ?>
