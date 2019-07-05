@@ -47,7 +47,7 @@
 
 	<div class="grid-10 item-fluid">
     	<aside class="col-1-small-all aside">
-    		<nav id="navigation" role="navigation" class="pas">
+    		<nav id="navigation" role="navigation">
            		<?= $menuContent ?>
     		</nav>
     		<ul class="pan man unstyled">

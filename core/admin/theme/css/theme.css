@@ -93,8 +93,12 @@ body {
 /* ---------- Aside ---------- */
 
 .aside {
-	color: #aaa;
+	color: #fff;
 	background-color: #202831;
+}
+
+.aside a {
+	color: #fff;
 }
 
 .aside .version {
@@ -107,12 +111,7 @@ body {
 }
 
 .aside .toggler-submenu {
-	background-color: #1f2428;
-}
-
-.aside .menu-config {
 	background-color: #161c22;
-	white-space: nowrap;
 }
 
 /* ---------- Toggler ---------- */

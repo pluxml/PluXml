@@ -54,41 +54,43 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
 <?php $adminMessage = ob_get_clean();?>
 
 <?php ob_start(); ############### MENU ############### ?>
-	<ul class="unstyled pan man">
+	<ul class="man pan unstyled">
         <?php 
             $menus = array();
             $userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
-            echo plxUtils::formatMenu(L_DASHBOARD_TITLE, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod);
+            echo plxUtils::formatMenu(L_DASHBOARD_TITLE, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, 'pas', false, $arts_mod);
             $nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
             $arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
-            echo plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/articles.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod);
+            echo plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/articles.php?page=1', L_MENU_ARTICLES_TITLE, 'pas', false, $arts_mod);
             if(isset($_GET['a'])) # edition article
-                echo plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, false, false, '', '', false);
+                echo plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, 'pas', false, '', '', false);
             else # nouvel article
-                echo plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, false, false);
-                echo plxUtils::formatMenu(L_MENU_MEDIAS, PLX_CORE.'admin/medias.php', L_MENU_MEDIAS_TITLE, false, false);
+                echo plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, 'pas', false);
+                echo plxUtils::formatMenu(L_MENU_MEDIAS, PLX_CORE.'admin/medias.php', L_MENU_MEDIAS_TITLE, 'pas', false);
             if($_SESSION['profil'] <= PROFIL_MANAGER)
-                echo plxUtils::formatMenu(L_MENU_STATICS, PLX_CORE.'admin/statiques.php', L_MENU_STATICS_TITLE, false, false);
+                echo plxUtils::formatMenu(L_MENU_STATICS, PLX_CORE.'admin/statiques.php', L_MENU_STATICS_TITLE, 'pas', false);
             if($_SESSION['profil'] <= PROFIL_MODERATOR) {
                 $nbcoms = $plxAdmin->nbComments('offline');
                 $coms_offline = $nbcoms>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
-                echo plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
+                echo plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, 'pas', false, $coms_offline);
             }
             if($_SESSION['profil'] <= PROFIL_EDITOR)
-                echo plxUtils::formatMenu(L_MENU_CATEGORIES, PLX_CORE.'admin/categories.php', L_MENU_CATEGORIES_TITLE, false, false);
+                echo plxUtils::formatMenu(L_MENU_CATEGORIES, PLX_CORE.'admin/categories.php', L_MENU_CATEGORIES_TITLE, 'pas', false);
         ?>
         <?php if($_SESSION['profil'] == PROFIL_ADMIN): ?>
         	<input class="toggler" type="checkbox" id="toggler_menu" <?php if ($inputChecked == true) echo 'checked' ?>>
-        	<label for="toggler_menu"><?php echo L_MENU_CONFIG ?></label>
+        	<label for="toggler_menu" class="pls"><?php echo L_MENU_CONFIG ?></label>
         	<div class="toggler-submenu">
-        		<ul class="man pas unstyled">
-    				<li><a href="<?php echo PLX_CORE.'admin/parametresBase.php' ?>" title="<?php echo L_MENU_CONFIG_BASE_TITLE ?>"><?php echo L_MENU_CONFIG_BASE ?></a></li>
-    				<li><a href="<?php echo PLX_CORE.'admin/parametresAffichage.php' ?>" title="<?php echo L_MENU_CONFIG_VIEW_TITLE ?>"><?php echo L_MENU_CONFIG_VIEW ?></a></li>
-    				<li><a href="<?php echo PLX_CORE.'admin/parametresUsers.php' ?>" title="<?php echo L_MENU_CONFIG_USERS_TITLE ?>"><?php echo L_MENU_CONFIG_USERS ?></a></li>
-    				<li><a href="<?php echo PLX_CORE.'admin/parametresAvances.php' ?>" title="<?php echo L_MENU_CONFIG_ADVANCED_TITLE?>"><?php echo L_MENU_CONFIG_ADVANCED ?></a></li>
-    				<li><a href="<?php echo PLX_CORE.'admin/parametresThemes.php' ?>" title="<?php echo L_THEMES_TITLE ?>"><?php echo L_THEMES ?></a></li>
-    				<li><a href="<?php echo PLX_CORE.'admin/parametresPlugins.php' ?>" title="<?php echo L_MENU_CONFIG_PLUGINS_TITLE ?>"><?php echo L_MENU_CONFIG_PLUGINS ?></a></li>
-    				<li><a href="<?php echo PLX_CORE.'admin/parametresInfos.php' ?>" title="<?php echo L_MENU_CONFIG_INFOS_TITLE ?>"><?php echo L_MENU_CONFIG_INFOS ?></a></li>
+        		<ul class="man pan unstyled">
+    				<?php 
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_BASE, PLX_CORE.'admin/parametresBase.php', L_MENU_CONFIG_BASE_TITLE, 'pas plm');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_VIEW, PLX_CORE.'admin/parametres_affichage.php', L_MENU_CONFIG_VIEW_TITLE, 'pas plm');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_USERS, PLX_CORE.'admin/parametres_users.php', L_MENU_CONFIG_USERS_TITLE, 'pas plm');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_ADVANCED, PLX_CORE.'admin/parametres_avances.php', L_MENU_CONFIG_ADVANCED_TITLE, 'pas plm');
+    					echo plxUtils::formatMenu(L_THEMES, PLX_CORE.'admin/parametres_themes.php', L_THEMES_TITLE, 'pas plm');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_PLUGINS, PLX_CORE.'admin/parametres_plugins.php', L_MENU_CONFIG_PLUGINS_TITLE, 'pas plm');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_INFOS, PLX_CORE.'admin/parametres_infos.php', L_MENU_CONFIG_INFOS_TITLE, 'pas plm');
+					?>
     			</ul>
     		</div>
     		<?php 
