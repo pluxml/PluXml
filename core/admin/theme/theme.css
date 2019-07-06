@@ -297,8 +297,8 @@ input[maxlength="3"] {
 
 #plugins-table img,
 #medias-table img {
-	max-width: initial !important;
-	vertical-align: bottom;
+	max-width: 48px;
+	padding-top: 7px;
 }
 
 #medias-table {
