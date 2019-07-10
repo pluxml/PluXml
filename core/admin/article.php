@@ -336,7 +336,7 @@ function refreshImg(dta) {
 						<?php if($artId!='' AND $artId!='0000') : ?>
 							<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
 					 			<small>
-					 				<strong><?php echo L_LINK_FIELD ?>&nbsp;(<a href="#articleLink" style="text-transform: lowercase;"><?php echo L_ARTICLE_EDIT ?></a>)&nbsp;:&nbsp;</strong>
+					 				<strong><?php echo L_LINK_FIELD ?>&nbsp;(<a href="#id_url" style="text-transform: lowercase;"><?php echo L_ARTICLE_EDIT ?></a>)&nbsp;:&nbsp;</strong>
 					 				<a onclick="this.target=\'_blank\';return true;" href="<?php echo $link ?>" title="<?php echo L_LINK_ACCESS ?> : <?php echo $link ?>"><?php echo $link ?></a>
 					 			</small>
 						<?php endif; ?>
@@ -357,15 +357,6 @@ function refreshImg(dta) {
 						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20); ?>
 					</div>
 				</div>
-				<?php if($artId!='' AND $artId!='0000') : ?>
-				<div class="grid">
-					<div id="articleLink" class="col sml-12">
-						<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
-						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
-						<?php echo '<input id="id_link" onclick="this.select()" readonly="readonly" type="text" value="'.$link.'" />' ?>
-					</div>
-				</div>
-				<?php endif; ?>
 			</fieldset>
 			<div class="grid gridthumb">
 				<div class="col sml-12">
