@@ -1,44 +1,11 @@
-<?php
-/**
- * Edition des utilisateurs
- *
- * @package PLX
- * @author	Stephane F.
- **/
-
-include __DIR__ .'/prepend.php';
-
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-# Edition des utilisateurs
-if (!empty($_POST)) {
-	$plxAdmin->editUsers($_POST);
-	header('Location: parametres_users.php');
-	exit;
-}
-
-# Tableau des profils
-$aProfils = array(
-	PROFIL_ADMIN => L_PROFIL_ADMIN,
-	PROFIL_MANAGER => L_PROFIL_MANAGER,
-	PROFIL_MODERATOR => L_PROFIL_MODERATOR,
-	PROFIL_EDITOR => L_PROFIL_EDITOR,
-	PROFIL_WRITER => L_PROFIL_WRITER
-);
-
-# On inclut le header
-include __DIR__ .'/top.php';
+<?php 
+$adminTitle = L_CONFIG_USERS_TITLE;
+$inputChecked = true;
 ?>
 
 <form action="parametres_users.php" method="post" id="form_users">
 
 	<div class="inline-form admin-title">
-		<h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>
-		<p>&nbsp;</p>
 		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		<?php echo plxToken::getTokenPostMethod() ?>
@@ -136,6 +103,6 @@ include __DIR__ .'/top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
-# On inclut le footer
-include __DIR__ .'/foot.php';
 ?>
+
+<?php $mainContent = ob_get_clean(); ?>
