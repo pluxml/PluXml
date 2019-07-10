@@ -5,6 +5,13 @@ $adminTitle = L_DASHBOARD_TITLE;
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <?php ob_start(); ?>
+	<?php if(is_file(PLX_ROOT.'install.php')): ?>
+    	<p class="alert"><?php echo L_WARNING_INSTALLATION_FILE ?></p>
+        <?php plxMsg::Display();?>
+	<?php endif; ?>
+<?php $adminMessage = ob_get_clean();?>
+
+<?php ob_start(); ?>
 
 <div class="autogrid has-gutter mbm">
 	<div class="pas bk-white">
