@@ -1,41 +1,18 @@
-<?php
-/**
- * Edition des paramètres avancés
- *
- * @package PLX
- * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
- **/
-
-include __DIR__ .'/prepend.php';
-
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-# On édite la configuration
-if(!empty($_POST)) {
-	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
-	unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
-	header('Location: parametres_avances.php');
-	exit;
-}
-
-# On inclut le header
-include __DIR__ .'/top.php';
+<?php 
+$adminTitle = L_CONFIG_ADVANCED_DESC;
+$inputChecked = true;
 ?>
+
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
+
+<?php ob_start(); ?>
 
 <form action="parametres_avances.php" method="post" id="form_settings">
 
 	<div class="inline-form admin-title">
-		<h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
-		<p>&nbsp;</p>
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<input type="submit" value="<?php echo L_CONFIG_ADVANCED_UPDATE ?>" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
 
 	<fieldset>
 		<div class="grid">
@@ -173,6 +150,6 @@ include __DIR__ .'/top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
-# On inclut le footer
-include __DIR__ .'/foot.php';
 ?>
+
+<?php $mainContent = ob_get_clean(); ?>

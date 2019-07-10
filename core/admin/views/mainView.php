@@ -87,10 +87,10 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
     					echo plxUtils::formatMenu(L_MENU_CONFIG_BASE, PLX_CORE.'admin/config-general.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
     					echo plxUtils::formatMenu(L_MENU_CONFIG_VIEW, PLX_CORE.'admin/config-display.php', L_MENU_CONFIG_VIEW_TITLE, 'menu-config');
     					echo plxUtils::formatMenu(L_MENU_CONFIG_USERS, PLX_CORE.'admin/config-users.php', L_MENU_CONFIG_USERS_TITLE, 'menu-config');
-    					echo plxUtils::formatMenu(L_MENU_CONFIG_ADVANCED, PLX_CORE.'admin/parametres_avances.php', L_MENU_CONFIG_ADVANCED_TITLE, 'menu-config');
-    					echo plxUtils::formatMenu(L_THEMES, PLX_CORE.'admin/parametres_themes.php', L_THEMES_TITLE, 'menu-config');
-    					echo plxUtils::formatMenu(L_MENU_CONFIG_PLUGINS, PLX_CORE.'admin/parametres_plugins.php', L_MENU_CONFIG_PLUGINS_TITLE, 'menu-config');
-    					echo plxUtils::formatMenu(L_MENU_CONFIG_INFOS, PLX_CORE.'admin/parametres_infos.php', L_MENU_CONFIG_INFOS_TITLE, 'menu-config');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_ADVANCED, PLX_CORE.'admin/config-advanced.php', L_MENU_CONFIG_ADVANCED_TITLE, 'menu-config');
+    					echo plxUtils::formatMenu(L_THEMES, PLX_CORE.'admin/config-themes.php', L_THEMES_TITLE, 'menu-config');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_PLUGINS, PLX_CORE.'admin/config-plugins.php', L_MENU_CONFIG_PLUGINS_TITLE, 'menu-config');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_INFOS, PLX_CORE.'admin/config-infos.php', L_MENU_CONFIG_INFOS_TITLE, 'menu-config');
 					?>
     			</ul>
     		</div>

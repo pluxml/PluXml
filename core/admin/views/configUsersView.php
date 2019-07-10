@@ -3,6 +3,10 @@ $adminTitle = L_CONFIG_USERS_TITLE;
 $inputChecked = true;
 ?>
 
+<?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
+
+<?php ob_start(); ?>
+
 <form action="parametres_users.php" method="post" id="form_users">
 
 	<div class="inline-form admin-title">
@@ -12,8 +16,6 @@ $inputChecked = true;
 		&nbsp;&nbsp;&nbsp;
 		<input type="submit" name="update" value="<?php echo L_CONFIG_USERS_UPDATE ?>" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
 	<table id="users-table" class="full-width">
