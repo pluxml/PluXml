@@ -1,24 +1,9 @@
-<?php
-
-/**
- * Edition des paramètres d'affichage
- *
- * @package PLX
- * @author	Florent MONTHEL
- **/
-
-include __DIR__ .'/prepend.php';
-
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-# On inclut le header
-include __DIR__ .'/top.php';
+<?php 
+$adminTitle = L_CONFIG_INFOS_TITLE;
+$inputChecked = true;
 ?>
 
-<div class="inline-form admin-title">
-	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
-</div>
+<?php ob_start(); ?>
 
 <p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong></p>
 <?php
@@ -60,9 +45,9 @@ include __DIR__ .'/top.php';
 <p><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></p>
 <p><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) ?>
-
-<?php
-# On inclut le footer
-include __DIR__ .'/foot.php';
+<?php 
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos'))
 ?>
+
+<?php $mainContent = ob_get_clean(); ?>

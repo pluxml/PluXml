@@ -90,7 +90,7 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
     					echo plxUtils::formatMenu(L_MENU_CONFIG_ADVANCED, PLX_CORE.'admin/config-advanced.php', L_MENU_CONFIG_ADVANCED_TITLE, 'menu-config');
     					echo plxUtils::formatMenu(L_THEMES, PLX_CORE.'admin/config-themes.php', L_THEMES_TITLE, 'menu-config');
     					echo plxUtils::formatMenu(L_MENU_CONFIG_PLUGINS, PLX_CORE.'admin/config-plugins.php', L_MENU_CONFIG_PLUGINS_TITLE, 'menu-config');
-    					echo plxUtils::formatMenu(L_MENU_CONFIG_INFOS, PLX_CORE.'admin/config-infos.php', L_MENU_CONFIG_INFOS_TITLE, 'menu-config');
+    					echo plxUtils::formatMenu(L_MENU_CONFIG_INFOS, PLX_CORE.'admin/config-system.php', L_MENU_CONFIG_INFOS_TITLE, 'menu-config');
 					?>
     			</ul>
     		</div>
