@@ -136,7 +136,6 @@ $LANG = array(
 'L_POWERED_BY'												=> 'Realizat de <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Prea multe nu a reușit autentificare<br />Reîncercare în% s minute',
 'L_LOST_PASSWORD'                                           => 'Parola uitată?',
-'L_LOST_PASSWORD_TEXT'                                      => 'Introduceți adresa de conectare sau adresa de e-mail pentru a primi o nouă parolă',
 'L_LOST_PASSWORD_LOGIN'                                     => 'Conectare',
 'L_LOST_PASSWORD_SUCCESS'                                   => 'Un e-mail a fost trimis utilizatorului',
 'L_LOST_PASSWORD_ERROR'                                     => 'Legătura a expirat',

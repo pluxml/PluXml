@@ -136,7 +136,6 @@ $LANG = array(
 'L_POWERED_BY'												=> 'Gegenereerd door <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Te veel mislukte login<br />Probeer het over% s minuten',
 'L_LOST_PASSWORD'                                           => 'Wachtwoord vergeten?',
-'L_LOST_PASSWORD_TEXT'                                      => ' Voer uw login- of e-mailadres in om een nieuw wachtwoord te ontvangen',
 'L_LOST_PASSWORD_LOGIN'                                     => 'Aanmelden',
 'L_LOST_PASSWORD_SUCCESS'                                   => 'Er is een e-mail verzonden naar de gebruiker',
 'L_LOST_PASSWORD_ERROR'                                     => 'De link is verlopen',

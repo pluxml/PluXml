@@ -178,7 +178,6 @@ $LANG = array(
 'L_POWERED_BY'						=> 'Generat per <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					=> 'Nombre de pròvas atent<br />Tornatz ensajar dins %s minutas',
 'L_LOST_PASSWORD'                   => 'Senhal oblidada?',
-'L_LOST_PASSWORD_TEXT'              => 'Introduïu la vostra adreça de correu electrònic o d\'inici de sessió per rebre una contrasenya nova',
 'L_LOST_PASSWORD_LOGIN'             => 'Iniciar Sessió',
 'L_LOST_PASSWORD_SUCCESS'           => 'S\'ha enviat un correu electrònic a l\'usuari',
 'L_LOST_PASSWORD_ERROR'             => 'L’enllaç ha caducat',
