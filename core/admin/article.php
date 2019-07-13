@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include_once __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 if(!isset($_POST['preview']))
@@ -259,5 +259,5 @@ if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 $cat_id='000';
 
 # Call the views (mainView must be the last to be called, because it's include the masterTemplate)
-include __DIR__ .'/views/articleView.php';
-include __DIR__ .'/views/mainView.php';
+include_once __DIR__ .'/views/articleView.php';
+include_once __DIR__ .'/views/mainView.php';

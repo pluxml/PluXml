@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include __DIR__ .'/prepend.php';
+include_once __DIR__ .'/prepend.php';
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -43,9 +43,9 @@ else {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include_once __DIR__ .'/top.php';
 # Affichage des données
 echo $output;
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include_once __DIR__ .'/foot.php';
 ?>

@@ -7,7 +7,7 @@
  * @author	Florent MONTHEL, Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
+include_once __DIR__ .'/prepend.php';
 include PLX_CORE.'lib/class.plx.timezones.php';
 
 # Control du token du formulaire
@@ -24,5 +24,5 @@ if(!empty($_POST)) {
 }
 
 # Call the views (mainView must be the last to be called, because it's include the masterTemplate)
-include __DIR__ .'/views/configGeneralView.php';
-include __DIR__ .'/views/mainView.php';
+include_once __DIR__ .'/views/configGeneralView.php';
+include_once __DIR__ .'/views/mainView.php';

@@ -7,7 +7,7 @@
  * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/prepend.php';
+include_once __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -118,5 +118,5 @@ $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
 # Call the views (mainView must be the last to be called, because it's include the masterTemplate)
-include __DIR__ .'/views/articlesView.php';
-include __DIR__ .'/views/mainView.php';
+include_once __DIR__ .'/views/articlesView.php';
+include_once __DIR__ .'/views/mainView.php';

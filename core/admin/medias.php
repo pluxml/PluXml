@@ -7,7 +7,7 @@
  * @author  Stephane F, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/prepend.php';
+include_once __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -114,5 +114,5 @@ $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION[
 $curFolders = explode('/', $curFolder);
 
 # Call the views (mainView must be the last to be called, because it's include the masterTemplate)
-include __DIR__ .'/views/mediasView.php';
-include __DIR__ .'/views/mainView.php';
+include_once __DIR__ .'/views/mediasView.php';
+include_once __DIR__ .'/views/mainView.php';

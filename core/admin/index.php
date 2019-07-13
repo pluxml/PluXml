@@ -7,7 +7,7 @@
  * @author	Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/prepend.php';
+include_once __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -28,5 +28,5 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 }
 
 # Call the views (mainView must be the last to be called, because it's include the masterTemplate)
-include __DIR__ .'/views/dashboardView.php';
-include __DIR__ .'/views/mainView.php';
+include_once __DIR__ .'/views/dashboardView.php';
+include_once __DIR__ .'/views/mainView.php';

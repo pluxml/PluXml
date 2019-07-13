@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
+include_once __DIR__ .'/prepend.php';
 
 # Contrôle du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -128,5 +128,5 @@ function selector($comSel, $id) {
 $selector=selector($comSel, 'id_selection');
 
 # Call the views (mainView must be the last to be called, because it's include the masterTemplate)
-include __DIR__ .'/views/commentsView.php';
-include __DIR__ .'/views/mainView.php';
+include_once __DIR__ .'/views/commentsView.php';
+include_once __DIR__ .'/views/mainView.php';
