@@ -12,12 +12,6 @@
     <link rel="icon" href="theme/images/favicon.png" />
     <?= $custom_admincss ?>
     <?= $plugin_admincss ?>
-
-    <script src="theme/js/functions.js"></script>
-    <script src="theme/js/visual.js"></script>
-    <script src="theme/js/mediasManager.js"></script>
-    <script defer src="theme/js/multifiles.js"></script>
-
     <?= $hookAdminTopEndHead ?>
 </head>
 
@@ -70,8 +64,11 @@
     </div>
     
    	<footer class="footer">
-       	<?= $hookAdminFootEndBody ?>
-		<script src="<?php echo PLX_CORE ?>theme/js/drag-and-drop.js"></script>
+   		<script src="theme/js/functions.js"></script>
+    	<script src="theme/js/visual.js"></script>
+    	<script src="theme/js/mediasManager.js"></script>
+    	<script defer src="theme/js/multifiles.js"></script>
+       	<script src="<?php echo PLX_CORE ?>theme/js/drag-and-drop.js"></script>
         <script>
 			setMsg();
             mediasManager.construct({
@@ -80,8 +77,9 @@
             	urlManager: "core/admin/medias.php"
 			});
     	</script>
+    	<?= $hookAdminFootEndBody ?>
 	</footer>
-	
+
 </div>
 </body>
 </html>
