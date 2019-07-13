@@ -115,7 +115,7 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
 eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
 ?>
 
-<?php include 'masterTemplate.php'; ?>
+<?php require_once 'masterTemplate.php'; ?>
 
 
 
