@@ -51,7 +51,7 @@ $hookAdminFootEndBody = eval ($plxAdmin->plxPlugins->callHook('AdminFootEndBody'
         <?php 
             $menus = array();
             $userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
-            echo plxUtils::formatMenu(L_DASHBOARD_TITLE, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod, '', false);
+            echo plxUtils::formatMenu(L_DASHBOARD_TITLE, PLX_CORE.'admin/dashboard.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod, '', false);
             $nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
             $arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
             echo plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/articles.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod);
