@@ -336,7 +336,7 @@ function refreshImg(dta) {
 						<?php if($artId!='' AND $artId!='0000') : ?>
 							<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
 					 			<small>
-					 				<strong><?php echo L_LINK_FIELD ?>&nbsp;(<a href="#id_url" style="text-transform: lowercase;"><?php echo L_ARTICLE_EDIT ?></a>)&nbsp;:&nbsp;</strong>
+					 				<strong><?php echo L_LINK_FIELD ?>&nbsp;:</strong>
 					 				<a onclick="this.target=\'_blank\';return true;" href="<?php echo $link ?>" title="<?php echo L_LINK_ACCESS ?> : <?php echo $link ?>"><?php echo $link ?></a>
 					 			</small>
 						<?php endif; ?>
