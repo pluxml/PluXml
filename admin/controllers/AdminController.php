@@ -25,8 +25,6 @@ class AdminController {
 # Constante pour retrouver la page d'authentification
 const PLX_AUTHPAGE = true;
 
-include_once __DIR__ .'/prepend.php';
-
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
