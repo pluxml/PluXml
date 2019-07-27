@@ -7,9 +7,11 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
+namespace models;
+
 const PLX_ADMIN = true;
 
-class plxAdmin extends plxMotor {
+class PlxAdminModel extends PlxMotorModel {
 
 	private static $instance = null;
 
@@ -32,7 +34,7 @@ class plxAdmin extends plxMotor {
 	 * @return	null
 	 * @author	Florent MONTHEL
 	 **/
-	protected function __construct($filename) {
+	public function __construct($filename) {
 
 		parent::__construct($filename);
 

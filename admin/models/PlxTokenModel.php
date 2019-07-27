@@ -3,9 +3,11 @@
  * Classe plxToken responsable du controle des formulaires
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, Pedro "P3ter" CADETE
  **/
-class plxToken {
+namespace models;
+
+class PlxTokenModel {
 
 	/**
 	 * Méthode qui affiche le champ input contenant le token

@@ -7,9 +7,11 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
 
+namespace models;
+
 require 'class.plx.template.php';
 
-class plxMotor {
+class PlxMotorModel {
 
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
@@ -67,7 +69,7 @@ class plxMotor {
 	 * @return	null
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
-	protected function __construct($filename) {
+	public function __construct($filename) {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);

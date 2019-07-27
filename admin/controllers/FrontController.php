@@ -4,7 +4,7 @@
  * Front controller
  *
  * @package PLX
- * @author	Alejandro GERVASIO (https://www.sitepoint.com/front-controller-pattern-1/)  
+ * @author	Pedro "P3ter" CADETE based on Alejandro GERVASIO work (https://www.sitepoint.com/front-controller-pattern-1/)  
  **/
 namespace controllers;
 
@@ -40,7 +40,7 @@ class FrontController
             throw new \InvalidArgumentException(
                 'The action controller' . $controller . 'has not been defined.');
         }
-        $this->controller = $controller;
+        $this->_controller = $controller;
         return $this;
     }
 
@@ -50,16 +50,19 @@ class FrontController
             throw new \InvalidArgumentException(
                 'The controller action' . $action . 'has been not defined.');
         }
-        $this->action = $action;
+        $this->_action = $action;
         return $this;
     }
 
     public function setParams(array $params) {
-        $this->params = $params;
+        $this->_params = $params;
         return $this;
     }
 
     public function run() {
+        printf('<br>controller : ' . $this->_controller . '<br>');
+        printf('action : ' . $this->_action . '<br>');
+        printf('params : ' . $this->_params . '<br>');
         call_user_func_array(array(new $this->controller, $this->action), $this->params);
     }
     

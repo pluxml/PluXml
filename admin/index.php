@@ -25,7 +25,7 @@ $frontController->run();
 #####################
 #### OLD PREPEND ####
 #####################
-const PLX_ROOT = '../../';
+const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT .'core/';
 const PLX_TEMPLATES = PLX_CORE.'templates/';
 
@@ -65,13 +65,13 @@ include_once PLX_CORE.'lib/class.plx.plugins.php';
 include_once PLX_CORE.'lib/class.plx.token.php';
 
 # Echappement des caractères
-if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
+if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = \plxUtils::unSlash($_POST);
 
 # On impose le charset
 header('Content-Type: text/html; charset='.PLX_CHARSET);
 
 # Creation de l'objet principal et premier traitement
-$plxAdmin = plxAdmin::getInstance();
+$plxAdmin = \plxAdmin::getInstance();
 
 # Détermination de la langue à utiliser (modifiable par le hook AdminPrepend)
 $lang = $plxAdmin->aConf['default_lang'];
