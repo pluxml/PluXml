@@ -1,11 +1,26 @@
 <?php
 
 /**
- * Page d'authentification
+ * Authentification to admin panel
  *
  * @package PLX
  * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
+
+namespace controllers;
+
+class AdminController {
+    
+}
+
+
+
+
+
+
+
+
+
 
 # Constante pour retrouver la page d'authentification
 const PLX_AUTHPAGE = true;
