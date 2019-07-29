@@ -46,7 +46,7 @@ class FrontController
     }
 
     public function setAction($action) {
-        $reflector = new \ReflectionClass($this->controller);
+        $reflector = new \ReflectionClass($this->_controller);
         if (!$reflector->hasMethod($action)) {
             throw new \InvalidArgumentException(
                 'The controller action ' . $action . ' has been not defined.');
@@ -62,12 +62,13 @@ class FrontController
 
     public function run() {
         call_user_func_array(array(new $this->_controller, $this->_action), $this->_params);
+
     }
     
     private function parseUri() {
-        $path = trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), "/");
-        $path = preg_replace('/[^a-zA-Z0-9]/', "", $path);
-        @list($controller, $action, $params) = explode("/", $path, 3);
+        $path = trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), '/');
+        $path = preg_replace('[^a-zA-Z0-9]', "", $path);
+        @list($controller, $action, $params) = explode('/', $path, 3);
         if (isset($controller)) {
             $this->setController($controller);
         }
