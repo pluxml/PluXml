@@ -10,12 +10,13 @@ namespace controllers;
 
 class FrontController
 {
-    const DEFAULT_CONTROLLER = __NAMESPACE__ . "AdminController";
-    const DEFAULT_ACTION     = "index";
+    const DEFAULT_CONTROLLER = __NAMESPACE__ . '\\' . 'AdminController';
+    const DEFAULT_ACTION     = 'indexAction';
+    const DEFAULT_PARAMS     = array();
 
-    private $_controller    = self::DEFAULT_CONTROLLER;
-    private $_action        = self::DEFAULT_ACTION;
-    private $_params        = array();
+    private $_controller     = self::DEFAULT_CONTROLLER;
+    private $_action         = self::DEFAULT_ACTION;
+    private $_params         = self::DEFAULT_PARAMS;
 
     public function __construct(array $options = array()) {
         if (empty($options)) {
@@ -38,7 +39,7 @@ class FrontController
         $controller = __NAMESPACE__ . '\\' . ucfirst(strtolower($controller)) . 'Controller';
         if (!class_exists($controller)) {
             throw new \InvalidArgumentException(
-                'The action controller' . $controller . 'has not been defined.');
+                'The controller ' . $controller . ' has not been defined.');
         }
         $this->_controller = $controller;
         return $this;
@@ -48,7 +49,7 @@ class FrontController
         $reflector = new \ReflectionClass($this->controller);
         if (!$reflector->hasMethod($action)) {
             throw new \InvalidArgumentException(
-                'The controller action' . $action . 'has been not defined.');
+                'The controller action ' . $action . ' has been not defined.');
         }
         $this->_action = $action;
         return $this;
@@ -60,10 +61,7 @@ class FrontController
     }
 
     public function run() {
-        printf('<br>controller : ' . $this->_controller . '<br>');
-        printf('action : ' . $this->_action . '<br>');
-        printf('params : ' . $this->_params . '<br>');
-        call_user_func_array(array(new $this->controller, $this->action), $this->params);
+        call_user_func_array(array(new $this->_controller, $this->_action), $this->_params);
     }
     
     private function parseUri() {

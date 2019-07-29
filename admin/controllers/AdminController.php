@@ -19,7 +19,7 @@ class AdminController {
     }
     
     public static function indexAction() {
-        require_once '../views/authView.php';
+        require_once __DIR__ . '/../views/scripts/authView.php';
     }
 }
 
