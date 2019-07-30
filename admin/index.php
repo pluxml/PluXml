@@ -13,6 +13,14 @@ use controllers\FrontController;
 
 require_once __DIR__ . '/autoloader.php';
 
+# Checking PluXml installation before continue
+if(!file_exists(path('XMLFILE_PARAMETERS'))) {
+    header('Location: ../install.php');
+    exit;
+}
+
+session_start();
+
 $autoloader = new Autoloader;
 $autoloader->register();
 
@@ -38,8 +46,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
     exit;
 }
 
-# On démarre la session
-session_start();
 
 $session_domain = __DIR__ ;
 
