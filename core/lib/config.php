@@ -1,6 +1,4 @@
 <?php
-define('PLX_DEBUG', true);
-define('PLX_VERSION', '5.8');
 
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
@@ -13,28 +11,6 @@ function getMicrotime() {
 
 # Initialisation du timer d'execution
 define('PLX_MICROTIME', getMicrotime());
-
-$CONSTS = array(
-	'XMLFILE_PARAMETERS' 	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
-	'XMLFILE_CATEGORIES' 	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
-	'XMLFILE_STATICS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
-	'XMLFILE_USERS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
-	'XMLFILE_PLUGINS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
-	'XMLFILE_TAGS' 			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
-);
-
-# Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
-const PLX_CHARSET = 'UTF-8';
-
-# Langue par défaut
-const DEFAULT_LANG = 'fr';
-
-# profils utilisateurs de pluxml
-const PROFIL_ADMIN = 0;
-const PROFIL_MANAGER = 1;
-const PROFIL_MODERATOR	= 2;
-const PROFIL_EDITOR	= 3;
-const PROFIL_WRITER	= 4;
 
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');
