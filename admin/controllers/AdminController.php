@@ -9,24 +9,12 @@
 
 namespace controllers;
 
-class AdminController {
+class AdminController extends IndexController {
 
-    const PLX_ROOT_DIR = '../';
-    const PLX_ADMIN_DIR = PLX_ROOT_DIR . 'admin/';
-    const PLX_VIEWS_COMMON_DIR = PLX_ADMIN_DIR . 'views/common/';
-    const PLX_VIEWS_LAYOUTS_DIR = PLX_ADMIN_DIR . 'views/layouts/';
-    const PLX_VIEWS_SCRIPTS_DIR = PLX_ADMIN_DIR . 'views/common/';
-    
-    private $_rootDir = Self::PLX_ROOT_DIR;
-    private $_adminDir = Self::PLX_ADMIN_DIR;
-    private $_viewsCommonDir = Self::PLX_VIEWS_COMMON_DIR;
-    private $_viewsLayoutDir = Self::PLX_VIEWS_LAYOUTS_DIR;
-    private $_viewsScriptsDir = Self::PLX_VIEWS_SCRIPTS_DIR;
-    
     public function __construct(){
 
     }
-    
+
     public function indexAction() {
         require_once $this->_viewsLayoutDir . 'authView.php';
     }
