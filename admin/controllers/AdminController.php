@@ -16,7 +16,7 @@ class AdminController extends IndexController {
     }
 
     public function indexAction() {
-        require_once $this->_viewsLayoutDir . 'authView.php';
+        require_once $this->_viewsScriptsDir . 'authView.php';
     }
 }
 
