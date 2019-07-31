@@ -14,7 +14,7 @@ class PlxConfigModel {
     private $_configIniArray = array(); //from PLX_CONFIG_INI_FILE parsing
     
     public function __construct() {
-        setConfigIniArray();
+        $this->setConfigIniArray();
     }
 
     public function getConfigIniFile() {

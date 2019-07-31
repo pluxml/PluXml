@@ -16,6 +16,9 @@ class Autoloader{
 
     private static function autoload($class){
         $class = strtr($class, '\\', '/');
-        require $class.'.php';
+        if (strpos($class, 'models') === 0) 
+            require '../core/' . $class.'.php';
+        else
+            require $class.'.php';
     }
 }
