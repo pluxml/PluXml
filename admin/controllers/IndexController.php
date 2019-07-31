@@ -27,7 +27,7 @@ class IndexController {
 
 	# Checking PluXml installation before continue
 	if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	    header('Location: ../install.php');
+	    header('Location: ' . $this->_adminDir . 'install.php');
 	    exit;
 	}
 
