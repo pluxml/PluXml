@@ -9,7 +9,7 @@
 
 namespace controllers;
 
-class AdminController extends IndexController {
+class IndexController {
 
     const PLX_ROOT_DIR = '../';
     const PLX_ADMIN_DIR = PLX_ROOT_DIR . 'admin/';
@@ -24,6 +24,7 @@ class AdminController extends IndexController {
     private $_viewsScriptsDir = Self::PLX_VIEWS_SCRIPTS_DIR;
     
     public function __construct(){
+
 	# Checking PluXml installation before continue
 	if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	    header('Location: ../install.php');
