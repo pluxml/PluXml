@@ -2,7 +2,6 @@
 
 /**
  * Router / Dispatcher
- *
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
@@ -21,7 +20,7 @@ $frontController->run();
 
 
 
-
+/**
 #####################
 #### OLD PREPEND ####
 #####################
@@ -85,3 +84,4 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
+**/

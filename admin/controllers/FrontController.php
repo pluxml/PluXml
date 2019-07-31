@@ -2,7 +2,6 @@
 
 /**
  * Front controller
- *
  * @package PLX
  * @author	Pedro "P3ter" CADETE based on Alejandro GERVASIO work (https://www.sitepoint.com/front-controller-pattern-1/)  
  **/

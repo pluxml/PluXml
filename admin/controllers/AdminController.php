@@ -2,7 +2,6 @@
 
 /**
  * Authentification to admin panel
- *
  * @package PLX
  * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
@@ -12,11 +11,17 @@ namespace controllers;
 class AdminController extends IndexController {
 
     public function __construct(){
-
+        // This page don't need user authentification
+        $this->setAuthPage(true);
+        parent::__construct();
     }
 
+    /**
+     * Index action default view call
+     * @author Pedro "P3ter" CADETE
+     */
     public function indexAction() {
-        require_once $this->_viewsScriptsDir . 'authView.php';
+        require_once $this->getViewsScriptsDir() . 'authView.php';
     }
 }
 
