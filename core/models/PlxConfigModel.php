@@ -26,7 +26,7 @@ class PlxConfigModel {
     }
     
     private function setConfigIni() {
-        return $this->_configIni = parse_ini_file($this->_configIniFile);
+        return $this->_configIni = parse_ini_file($this->getConfigIniFile());
     }
 
 }
