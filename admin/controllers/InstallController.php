@@ -1,4 +1,29 @@
 <?php
+
+/**
+ * PluXml Installation
+ * @package PLX
+ * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
+ **/
+
+namespace controllers;
+
+class InstallController extends IndexController {
+
+    public function __construct(){
+        
+    }
+
+    /**
+     * Index action default view call
+     * @author Pedro "P3ter" CADETE
+     */
+    public function indexAction() {
+        require_once $this->getViewsScriptsDir() . 'installView.php';
+    }
+}
+
+/*
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
 
@@ -354,3 +379,4 @@ plxUtils::cleanHeaders();
 </body>
 
 </html>
+*/
