@@ -24,22 +24,20 @@ class IndexController {
     private $_viewsLayoutDir = Self::PLX_ROOT_DIR . Self::PLX_VIEWS_LAYOUTS_DIR;
     private $_viewsScriptsDir = Self::PLX_ROOT_DIR . Self::PLX_VIEWS_SCRIPTS_DIR;
     private $_authPage = false;
-    private $_config; //new PlxConfigModel
     
+    private $_config; //new PlxConfigModel
+
     public function __construct(){
         session_start();
         
         $this->setConfig();
 
         // Checking PluXml installation before continue
-        printf($this->_rootDir . $this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'));
-        
-        if(!file_exists($this->_rootDir . $this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
+        if(!is_file($this->_rootDir . $this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
             printf(' <br>true <br>');
             header('Location: ' . $this->_rootDir . 'install');
     	    exit;
     	}
-    	else printf(' <br>false <br>');
     	
     	if($this->_authPage !== true){ # si on est pas sur la page de login
     	    # Test sur le domaine et sur l'identification
@@ -109,7 +107,7 @@ class IndexController {
      * @author Pedro "P3ter" CADETE
      */
     
-    private function getConfig() {
+    public function getConfig() {
         return $this->_config;
     }
     
