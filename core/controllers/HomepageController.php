@@ -21,6 +21,6 @@ class HomepageController extends IndexController {
      * @author Pedro "P3ter" CADETE
      */
     public function indexAction() {
-        require_once $this->getThemeDir() . 'homepageView.php';
+        require_once $this->getThemeDir() . 'home.php';
     }
 }

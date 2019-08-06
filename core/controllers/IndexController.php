@@ -136,7 +136,7 @@ class IndexController {
         if (!empty($this->_config->getConfiguration('racine_themes') && $this->_config->getConfiguration('style'))) 
             $themeDir = $this->_config->getConfiguration('racine_themes') . $this->_config->getConfiguration('style');
         else
-            $themeDir = self::PLX_THEME_DIR;
+            $themeDir = self::PLX_DEFAULT_THEME_DIR;
         return $this->_themeDir = $themeDir;
     }
 }

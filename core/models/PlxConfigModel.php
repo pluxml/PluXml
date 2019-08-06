@@ -31,7 +31,7 @@ class PlxConfigModel {
     }
 
     /**
-     * Get $_configIni the array from $_configIniFile
+     * Get $_configIni the array from PLX_CONFIG_INI_FILE
      * @param string $key
      */
     public function getConfigIni(string $key) {
@@ -97,7 +97,7 @@ class PlxConfigModel {
         $aConf['userfolders'] = PlxUtilsModel::getValue($aConf['userfolders'],0);
         $aConf['meta_description'] = PlxUtilsModel::getValue($aConf['meta_description']);
         $aConf['meta_keywords'] = PlxUtilsModel::getValue($aConf['meta_keywords']);
-        $aConf['default_lang'] = PlxUtilsModel::getValue($aConf['default_lang'],DEFAULT_LANG);
+        $aConf['default_lang'] = PlxUtilsModel::getValue($aConf['default_lang'],$this->getConfigIni('DEFAULT_LANG'));
         $aConf['racine_plugins'] = PlxUtilsModel::getValue($aConf['racine_plugins'], 'plugins/');
         $aConf['racine_themes'] = PlxUtilsModel::getValue($aConf['racine_themes'], 'themes/');
         $aConf['mod_art'] = PlxUtilsModel::getValue($aConf['mod_art'],0);

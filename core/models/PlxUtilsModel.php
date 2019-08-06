@@ -134,7 +134,7 @@ class PlxUtilsModel {
 		else
 			$localIP = getHostByName(getHostName());
 
-		return plxUtils::isValidIp($ip) ? $ip : $localIP;
+		return $this->isValidIp($ip) ? $ip : $localIP;
 	}
 
 	/**
@@ -407,7 +407,7 @@ class PlxUtilsModel {
 	 **/
 	public static function title2url($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower($this->removeAccents($str,PLX_CHARSET));
 		$str = preg_replace('/[^[:alnum:]]+/',' ',$str);
 		return strtr(trim($str), ' ', '-');
 	}
@@ -420,7 +420,7 @@ class PlxUtilsModel {
 	 **/
 	public static function title2filename($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower($this->removeAccents($str,PLX_CHARSET));
 		$str = str_replace('|','',$str);
 		$str = preg_replace('/\.{2,}/', '.', $str);
 		$str = preg_replace('/[^[:alnum:]|.|_]+/',' ',$str);
@@ -653,7 +653,7 @@ class PlxUtilsModel {
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
 		$racine = rtrim($protocol.$servername.$serverport.$dirname, '/\\').'/';
-		if(!plxUtils::checkSite($racine, false))
+		if(!self::checkSite($racine, false))
 			die('Error: wrong or invalid url');
 		return $racine;
 	}
@@ -868,7 +868,7 @@ class PlxUtilsModel {
 		$title = $title ? ' title="'.$title.'"':'';
 		$class = $class ? ' '.$class:'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$menu = '<li id="mnu_'.plxUtils::title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
+		$menu = '<li id="mnu_'.$this->title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
 		return $menu;
 	}
 
