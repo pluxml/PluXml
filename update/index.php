@@ -54,7 +54,7 @@ $plxUpdater = new plxUpdater($versions);
 ?>
 <?php
 plxUtils::cleanHeaders();
-session_start();
+//session_start();
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 ?>

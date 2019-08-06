@@ -28,8 +28,6 @@ class IndexController {
     private $_config; //new PlxConfigModel
 
     public function __construct(){
-        session_start();
-        
         $this->setConfig();
 
         // Checking PluXml installation before continue

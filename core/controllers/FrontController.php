@@ -9,7 +9,7 @@ namespace controllers;
 
 class FrontController
 {
-    const DEFAULT_CONTROLLER = __NAMESPACE__ . '\\' . 'AdminController';
+    const DEFAULT_CONTROLLER = __NAMESPACE__ . '\\' . 'HomepageController';
     const DEFAULT_ACTION     = 'indexAction';
     const DEFAULT_PARAMS     = array();
 
@@ -66,14 +66,14 @@ class FrontController
     private function parseUri() {
         $path = trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), '/');
         $path = preg_replace('[^a-zA-Z0-9]', "", $path);
-        @list($controller, $action, $params) = explode('/', $path, 3);
-        if (isset($controller)) {
+        list($controller, $action, $params) = explode('/', $path, 3);
+        if (!empty($controller)) {
             $this->setController($controller);
         }
-        if (isset($action)) {
+        if (!empty($action)) {
             $this->setAction($action);
         }
-        if (isset($params)) {
+        if (!empty($params)) {
             $this->setParams(explode("/", $params));
         }
     }
