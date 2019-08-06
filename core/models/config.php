@@ -41,12 +41,4 @@ function loadLang($filename) {
 	}
 }
 
-# fonction qui retourne ou change le chemin des fichiers xml de configuration
-function path($s, $newvalue='') {
-	global $CONSTS;
-	if(!empty($newvalue))
-		$CONSTS[$s]=$newvalue;
-	if(isset($CONSTS[$s]))
-		return $CONSTS[$s];
-}
 ?>

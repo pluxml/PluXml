@@ -1,12 +1,14 @@
 <?php
 
 /**
- * Classe plxUtils rassemblant les fonctions utiles à PluXml
+ * Usefull PluXml functions
  *
  * @package PLX
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
-class plxUtils {
+namespace models;
+
+class PlxUtilsModel {
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.

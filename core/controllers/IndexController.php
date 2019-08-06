@@ -16,15 +16,17 @@ class IndexController {
     const PLX_VIEWS_COMMON_DIR = 'views/common/';
     const PLX_VIEWS_LAYOUTS_DIR = 'views/layouts/';
     const PLX_VIEWS_SCRIPTS_DIR = 'views/scripts/';
+    const PLX_DEFAULT_THEME_DIR = 'themes/default/';
     
-    private $_coreDir = Self::PLX_CORE_DIR;
-    private $_viewsCommonDir = Self::PLX_CORE_DIR . Self::PLX_VIEWS_COMMON_DIR;
-    private $_viewsLayoutDir = Self::PLX_CORE_DIR . Self::PLX_VIEWS_LAYOUTS_DIR;
-    private $_viewsScriptsDir = Self::PLX_CORE_DIR . Self::PLX_VIEWS_SCRIPTS_DIR;
+    private $_coreDir = self::PLX_CORE_DIR;
+    private $_viewsCommonDir = self::PLX_CORE_DIR . self::PLX_VIEWS_COMMON_DIR;
+    private $_viewsLayoutDir = self::PLX_CORE_DIR . self::PLX_VIEWS_LAYOUTS_DIR;
+    private $_viewsScriptsDir = self::PLX_CORE_DIR . self::PLX_VIEWS_SCRIPTS_DIR;
     private $_authPage = false;
-    
-    private $_config; //new PlxConfigModel
+    private $_themeDir = '';
 
+    private $_config; # new PlxConfigModel
+    
     public function __construct(){
         $this->setConfig();
 
@@ -43,6 +45,8 @@ class IndexController {
     	        exit;
     	    }
     	}
+    	
+    	$this->setThemeDir();
     }
     
     /**
@@ -99,6 +103,10 @@ class IndexController {
         return $this->_config;
     }
     
+    public function getThemeDir() {
+        return $this->_themeDir;
+    }
+    
     /**
      * Set $_authPage
      * Used for identify the authentification page to block PluXml backoffice access
@@ -117,6 +125,19 @@ class IndexController {
      */
     private function setConfig() {
         return $this->_config = new PlxConfigModel();
+    }
+    
+    /**
+     * set $_themeDir
+     * @return string
+     * @author Pedro "P3ter" CADETE
+     */
+    private function setThemeDir(){
+        if (!empty($this->_config->getConfiguration('racine_themes') && $this->_config->getConfiguration('style'))) 
+            $themeDir = $this->_config->getConfiguration('racine_themes') . $this->_config->getConfiguration('style');
+        else
+            $themeDir = self::PLX_THEME_DIR;
+        return $this->_themeDir = $themeDir;
     }
 }
 ?>
