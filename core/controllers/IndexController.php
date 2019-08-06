@@ -12,17 +12,15 @@ use models\PlxConfigModel;
 
 class IndexController {
 
-    const PLX_ROOT_DIR = '../';
-    const PLX_ADMIN_DIR = 'admin/';
-    const PLX_VIEWS_COMMON_DIR = 'admin/views/common/';
-    const PLX_VIEWS_LAYOUTS_DIR = 'admin/views/layouts/';
-    const PLX_VIEWS_SCRIPTS_DIR = 'admin/views/scripts/';
+    const PLX_CORE_DIR = 'core/';
+    const PLX_VIEWS_COMMON_DIR = 'views/common/';
+    const PLX_VIEWS_LAYOUTS_DIR = 'views/layouts/';
+    const PLX_VIEWS_SCRIPTS_DIR = 'views/scripts/';
     
-    private $_rootDir = Self::PLX_ROOT_DIR;
-    private $_adminDir = Self::PLX_ROOT_DIR . Self::PLX_ADMIN_DIR;
-    private $_viewsCommonDir = Self::PLX_ROOT_DIR . Self::PLX_VIEWS_COMMON_DIR;
-    private $_viewsLayoutDir = Self::PLX_ROOT_DIR . Self::PLX_VIEWS_LAYOUTS_DIR;
-    private $_viewsScriptsDir = Self::PLX_ROOT_DIR . Self::PLX_VIEWS_SCRIPTS_DIR;
+    private $_coreDir = Self::PLX_CORE_DIR;
+    private $_viewsCommonDir = Self::PLX_CORE_DIR . Self::PLX_VIEWS_COMMON_DIR;
+    private $_viewsLayoutDir = Self::PLX_CORE_DIR . Self::PLX_VIEWS_LAYOUTS_DIR;
+    private $_viewsScriptsDir = Self::PLX_CORE_DIR . Self::PLX_VIEWS_SCRIPTS_DIR;
     private $_authPage = false;
     
     private $_config; //new PlxConfigModel
@@ -31,9 +29,10 @@ class IndexController {
         $this->setConfig();
 
         // Checking PluXml installation before continue
-        if(!is_file($this->_rootDir . $this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
+        if(!is_file($this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
             printf(' <br>true <br>');
-            header('Location: ' . $this->_rootDir . 'install');
+            printf('config : '.$this->_coreDir . $this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'));
+            header('Location: ' . $this->_coreDir . 'install');
     	    exit;
     	}
     	
@@ -47,21 +46,12 @@ class IndexController {
     }
     
     /**
-     * Get $_rootDir
+     * Get $_coreDir
      * @return string
      * @author Pedro "P3ter" CADETE
      */
-    public function getRootDir(){
-        return $this->_rootDir;
-    }
-    
-    /**
-     * Get $_adminDir
-     * @return string
-     * @author Pedro "P3ter" CADETE
-     */
-    public function getAdminDir(){
-        return $this->_adminDir;
+    public function getCoreDir(){
+        return $this->_coreDir;
     }
     
     /**
