@@ -1,4 +1,3 @@
-<?php if (!defined('PLX_ROOT')) exit; ?>
 <!DOCTYPE html>
 <html lang="<?php $plxShow->defaultLang() ?>">
 <head>
