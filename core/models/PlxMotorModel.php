@@ -56,7 +56,7 @@ class PlxMotorModel {
 	public static function getInstance(){
 		if (!isset(self::$instance)) {
 			self::$instance = false;
-			self::$instance = new plxMotor(path('XMLFILE_PARAMETERS'));
+			self::$instance = new PlxMotorModel(path('XMLFILE_PARAMETERS'));
 		}
 		return self::$instance;
 	}

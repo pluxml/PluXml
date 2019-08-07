@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Classe plxShow responsable de l'affichage sur stdout
+ * Insert HTML elements in a view
  *
  * @package PLX
- * @author	Florent MONTHEL, Stephane F
+ * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-const PLX_SHOW = true;
+namespace models;
 
-class plxShow {
+class PlxShowModel {
 
 	public $plxMotor = false; # Objet plxMotor
 	private $lang; # fichier de traduction du theme
@@ -24,7 +24,7 @@ class plxShow {
 	 **/
 	public static function getInstance(){
 		if (!isset(self::$instance))
-			self::$instance = new plxShow();
+			self::$instance = new PlxMotorModel();
 		return self::$instance;
 	}
 
@@ -37,7 +37,7 @@ class plxShow {
 	 **/
 	protected function __construct() {
 
-		$this->plxMotor = plxMotor::getInstance();
+		$this->plxMotor = PlxMotorModel::getInstance();
 
 		# Chargement du fichier de lang du theme
 		$langfile = PLX_ROOT.$this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/lang/'.$this->plxMotor->aConf['default_lang'].'.php';
@@ -70,7 +70,7 @@ class plxShow {
 	 **/
 	public function httpEncoding() {
 
-		$encoding = plxUtils::httpEncoding();
+		$encoding = PlxUtilsModel::httpEncoding();
 		if($this->plxMotor->aConf['gzip'] AND $encoding)
 			printf(L_HTTPENCODING, strtoupper($encoding));
 
