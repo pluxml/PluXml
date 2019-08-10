@@ -36,14 +36,14 @@ class IndexController {
     	    exit;
     	}
     	
-    	// Checking PluXml version
-    	if((!isset($this->aConf['version']) OR PLX_VERSION!=$this->aConf['version']) AND !defined('PLX_UPDATER')) {
-    	    header('Location: '. $this->_coreDir .'update/index.php');
+    	// Checking PluXml version in core/models/config.ini and data/configuration.xml
+    	if($this->getConfig()->getConfigIni('PLX_VERSION') != $this->getConfig()->getConfiguration('version')) {
+    	    header('Location: update/index.php');
     	    exit;
     	}
     	
     	if($this->_authPage !== true){ # si on est pas sur la page de login
-    	    # Test sur le domaine et sur l'identification
+    	    // Test sur le domaine et sur l'identification
     	    if((isset($_SESSION['domain']) AND $_SESSION['domain']!=$session_domain) OR (!isset($_SESSION['user']) OR $_SESSION['user']=='')){
     	        header('Location: index.php?p='.htmlentities($_SERVER['REQUEST_URI']));
     	        exit;

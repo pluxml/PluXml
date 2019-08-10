@@ -44,7 +44,7 @@ class PlxConfigModel {
      * @return string
      */
     public function getConfiguration(string $property) {
-        return $this->_configiguration[$property];
+        return $this->_configuration[$property];
     }
 
     /**
