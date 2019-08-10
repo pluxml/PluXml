@@ -3,9 +3,11 @@
  * Classe plxPlugins responsable de la gestion des plugins
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, Pedro "P3ter" CADETE
  **/
-class plxPlugins {
+namespace models;
+
+class PlxPluginsModels {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins
