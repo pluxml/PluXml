@@ -69,7 +69,6 @@ class PlxMotorModel {
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
 	protected function __construct() {
-
 	    $this->_plxConfig = new PlxConfigModel();
 		# récupération des paramètres dans l'url
 		$this->get = PlxUtilsModel::getGets();

@@ -12,7 +12,7 @@ class PlxConfigModel {
     
     private $_configIniFile = self::PLX_CONFIG_INI_FILE;
     private $_configIni = array(); # from PLX_CONFIG_INI_FILE parsing
-    private $_configuration = array(); # from user configuration file defined in PLX_CONFIG_INI_FILE
+    public $_configuration = array(); # from user configuration file defined in PLX_CONFIG_INI_FILE
 
     public function __construct() {
         $this->setConfigIni();
