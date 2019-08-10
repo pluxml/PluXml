@@ -32,8 +32,6 @@ class IndexController {
 
         // Checking PluXml installation before continue
         if(!is_file($this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
-            printf(' <br>true <br>');
-            printf('config : '.$this->_coreDir . $this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'));
             header('Location: ' . $this->_coreDir . 'install');
     	    exit;
     	}

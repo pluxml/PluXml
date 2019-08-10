@@ -9,8 +9,6 @@
 
 namespace models;
 
-require 'class.plx.template.php';
-
 class PlxMotorModel {
 
 	public $get = false; # Donnees variable GET
@@ -30,7 +28,6 @@ class PlxMotorModel {
 	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
 	public $activeArts = array(); # Tableaux des articles appartenant aux catégories actives
 
-	public $aConf = array(); # Tableau de configuration
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
@@ -54,9 +51,10 @@ class PlxMotorModel {
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
-		if (!isset(self::$instance)) {
+		$plxConfig = new PlxConfigModel();
+	    if (!isset(self::$instance)) {
 			self::$instance = false;
-			self::$instance = new PlxMotorModel(path('XMLFILE_PARAMETERS'));
+			self::$instance = new PlxMotorModel($plxConfig->getConfigIni('XMLFILE_PARAMETERS'));
 		}
 		return self::$instance;
 	}
@@ -71,8 +69,6 @@ class PlxMotorModel {
 	 **/
 	public function __construct($filename) {
 
-		# On parse le fichier de configuration
-		$this->getConfiguration($filename);
 		# récupération des paramètres dans l'url
 		$this->get = PlxUtilsModel::getGets();
 		# gestion du timezone
@@ -339,60 +335,6 @@ class PlxMotorModel {
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorDemarrageEnd'));
-	}
-
-	/**
-	 * Méthode qui parse le fichier de configuration et alimente
-	 * le tableau aConf
-	 *
-	 * @param	filename	emplacement du fichier XML de configuration
-	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
-	 **/
-	public function getConfiguration($filename) {
-
-		# Mise en place du parseur XML
-		$data = implode('',file($filename));
-		$parser = xml_parser_create(PLX_CHARSET);
-		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
-		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
-		xml_parse_into_struct($parser,$data,$values,$iTags);
-		xml_parser_free($parser);
-		# On verifie qu'il existe des tags "parametre"
-		if(isset($iTags['parametre'])) {
-			# On compte le nombre de tags "parametre"
-			$nb = sizeof($iTags['parametre']);
-			# On boucle sur $nb
-			for($i = 0; $i < $nb; $i++) {
-				if(isset($values[ $iTags['parametre'][$i] ]['value'])) # On a une valeur pour ce parametre
-					$this->aConf[ $values[ $iTags['parametre'][$i] ]['attributes']['name'] ] = $values[ $iTags['parametre'][$i] ]['value'];
-				else # On n'a pas de valeur
-					$this->aConf[ $values[ $iTags['parametre'][$i] ]['attributes']['name'] ] = '';
-			}
-		}
-		# détermination automatique de la racine du site
-		$this->aConf['racine'] = PlxUtilsModel::getRacine();
-		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
-		$this->aConf['bypage_admin'] = PlxUtilsModel::getValue($this->aConf['bypage_admin'],10);
-		$this->aConf['tri_coms'] = PlxUtilsModel::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
-		$this->aConf['bypage_admin_coms'] = PlxUtilsModel::getValue($this->aConf['bypage_admin_coms'],10);
-		$this->aConf['bypage_archives'] = PlxUtilsModel::getValue($this->aConf['bypage_archives'],5);
-		$this->aConf['bypage_tags'] = PlxUtilsModel::getValue($this->aConf['bypage_tags'],5);
-		$this->aConf['userfolders'] = PlxUtilsModel::getValue($this->aConf['userfolders'],0);
-		$this->aConf['meta_description'] = PlxUtilsModel::getValue($this->aConf['meta_description']);
-		$this->aConf['meta_keywords'] = PlxUtilsModel::getValue($this->aConf['meta_keywords']);
-		$this->aConf['default_lang'] = PlxUtilsModel::getValue($this->aConf['default_lang'],DEFAULT_LANG);
-		$this->aConf['racine_plugins'] = PlxUtilsModel::getValue($this->aConf['racine_plugins'], 'plugins/');
-		$this->aConf['racine_themes'] = PlxUtilsModel::getValue($this->aConf['racine_themes'], 'themes/');
-		$this->aConf['mod_art'] = PlxUtilsModel::getValue($this->aConf['mod_art'],0);
-		$this->aConf['display_empty_cat'] = PlxUtilsModel::getValue($this->aConf['display_empty_cat'],0);
-		$this->aConf['timezone'] = PlxUtilsModel::getValue($this->aConf['timezone'],@date_default_timezone_get());
-		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
-		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
-		$this->aConf['custom_admincss_file'] = PlxUtilsModel::getValue($this->aConf['custom_admincss_file']);
-		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
-		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
-
 	}
 
 	/**
