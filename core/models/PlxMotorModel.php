@@ -73,11 +73,7 @@ class PlxMotorModel {
 		$this->get = PlxUtilsModel::getGets();
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
-		# On vérifie s'il faut faire une mise à jour
-		if((!isset($this->aConf['version']) OR PLX_VERSION!=$this->aConf['version']) AND !defined('PLX_UPDATER')) {
-			header('Location: '.PLX_ROOT.'update/index.php');
-			exit;
-		}
+
 		# Chargement des variables
 		$this->style = $this->aConf['style'];
 		$this->racine = $this->aConf['racine'];
