@@ -4,9 +4,11 @@
  * Classe plxGlob responsable de la récupération des fichiers à traiter
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL, Amaury Graillat et Stéphane F.
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Amaury Graillat et Stéphane F., Pedro "P3ter" CADETE
  **/
-class plxGlob {
+namespace models;
+
+class PlxGlobModel {
 
 	public $count = 0; # Le nombre de resultats
 	public $aFiles = array(); # Tableau des fichiers

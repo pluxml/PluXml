@@ -34,8 +34,8 @@ class PlxMotorModel extends PlxModel {
 	public $aUsers = array(); #Tableau des utilisateurs
 	public $aTemplates = null; # Tableau des templates
 
-	public $plxGlob_arts = null; # Objet plxGlob des articles
-	public $plxGlob_coms = null; # Objet plxGlob des commentaires
+	public $PlxGlobModel_arts = null; # Objet PlxGlobModel des articles
+	public $PlxGlobModel_coms = null; # Objet PlxGlobModel des commentaires
 	public $plxRecord_arts = null; # Objet plxRecord des articles
 	public $plxRecord_coms = null; # Objet plxRecord des commentaires
 	public $plxCapcha = null; # Objet plxCapcha
@@ -93,8 +93,8 @@ class PlxMotorModel extends PlxModel {
 		# Hook plugins
 		eval($this->PlxPluginsModels->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
-		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_articles'),false,true,'arts');
-		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires'));
+		$this->PlxGlobModel_arts = PlxGlobModel::getInstance(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_articles'),false,true,'arts');
+		$this->PlxGlobModel_coms = PlxGlobModel::getInstance(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires'));
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getStatiques(path('XMLFILE_STATICS'));
@@ -133,7 +133,7 @@ class PlxMotorModel extends PlxModel {
 			$this->template = $this->getPlxConfig()->getConfiguration('hometemplate');
 			$this->bypage = $this->getPlxConfig()->getConfiguration('bypage'); # Nombre d'article par page
 			# On regarde si on a des articles en mode "home"
-			if($this->plxGlob_arts->query('/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/')) {
+			if($this->PlxGlobModel_arts->query('/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/')) {
 				$this->motif = '/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 			} else { # Sinon on recupere tous les articles
 				$this->motif = '/^[0-9]{4}.(?:[0-9]|,)*(?:'.$this->homepageCats.')(?:[0-9]|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
@@ -393,7 +393,7 @@ class PlxMotorModel extends PlxModel {
 				if($this->aCats[$number]['active'] AND $this->aCats[$number]['homepage']) $homepageCats[]=$number;
 				# Recuperation du nombre d'article de la categorie
 				$motif = '/^[0-9]{4}.[home,|0-9,]*'.$number.'[0-9,]*.[0-9]{3}.[0-9]{12}.[A-Za-z0-9-]+.xml$/';
-				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
+				$arts = $this->PlxGlobModel_arts->query($motif,'art','',0,false,'before');
 				$this->aCats[$number]['articles'] = ($arts?sizeof($arts):0);
 				# Hook plugins
 				eval($this->PlxPluginsModels->callHook('plxMotorGetCategories'));
@@ -564,7 +564,7 @@ class PlxMotorModel extends PlxModel {
 		# On calcule la valeur start
 		$start = $this->bypage*($this->page-1);
 		# On recupere nos fichiers (tries) selon le motif, la pagination, la date de publication
-		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
+		if($aFiles = $this->PlxGlobModel_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
 			# on mémorise le nombre total d'articles trouvés
 			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
 				$array[$k] = $this->parseArticle(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_articles').$v);
@@ -655,7 +655,7 @@ class PlxMotorModel extends PlxModel {
 	 **/
 	public function getNbCommentaires($motif,$publi='before') {
 
-		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
+		if($coms = $this->PlxGlobModel_coms->query($motif,'com','',0,false,$publi))
 			return sizeof($coms);
 		else
 			return 0;
@@ -762,7 +762,7 @@ class PlxMotorModel extends PlxModel {
 	public function getCommentaires($motif,$ordre='sort',$start=0,$limite=false,$publi='before') {
 
 		# On récupère les fichiers des commentaires
-		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
+		$aFiles = $this->PlxGlobModel_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
 			foreach($aFiles as $k=>$v)
 				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires').$v);
@@ -1034,7 +1034,7 @@ class PlxMotorModel extends PlxModel {
 		else
 			$motif = $select;
 
-		if($arts = $this->plxGlob_arts->query('/^'.$mod.'[0-9]{4}.('.$motif.').'.$userId.'.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', '', 0, false, $publi))
+		if($arts = $this->PlxGlobModel_arts->query('/^'.$mod.'[0-9]{4}.('.$motif.').'.$userId.'.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', '', 0, false, $publi))
 			$nb = sizeof($arts);
 
 		return $nb;
@@ -1061,7 +1061,7 @@ class PlxMotorModel extends PlxModel {
 		else
 			$motif = $select;
 
-		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
+		if($coms = $this->PlxGlobModel_coms->query($motif,'com','',0,false,$publi))
 			$nb = sizeof($coms);
 
 		return $nb;
@@ -1075,9 +1075,9 @@ class PlxMotorModel extends PlxModel {
 	 * @author	Stéphane F.
 	 **/
 	public function getActiveArts() {
-		if($this->plxGlob_arts->aFiles) {
+		if($this->PlxGlobModel_arts->aFiles) {
 			$datetime=date('YmdHi');
-			foreach($this->plxGlob_arts->aFiles as $filename) {
+			foreach($this->PlxGlobModel_arts->aFiles as $filename) {
 				if(preg_match('/^([0-9]{4}).(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.([0-9]{12}).[a-z0-9-]+.xml$/', $filename, $capture)) {
 					if($capture[2]<=$datetime) { # on ne prends que les articles publiés
 						$this->activeArts[$capture[1]]=1;
