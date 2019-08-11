@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe plxGlob responsable de la récupération des fichiers à traiter
+ * Classe PlxGlobModel responsable de la récupération des fichiers à traiter
  *
  * @package PLX
  * @author	Anthony GUÉRIN, Florent MONTHEL, Amaury Graillat et Stéphane F., Pedro "P3ter" CADETE
@@ -39,19 +39,20 @@ class PlxGlobModel {
 	}
 
 	/**
-	 * Méthode qui se charger de créer le Singleton plxGlob
+	 * Méthode qui se charger de créer le Singleton PlxGlobModel
 	 *
 	 * @param	dir				répertoire à lire
 	 * @param	rep				boolean pour ne prendre que les répertoires sans les fichiers
 	 * @param	onlyfilename	boolean pour ne récupérer que le nom des fichiers sans le chemin
 	 * @param	type			type de fichier lus (arts ou '')
-	 * @return	objet			return une instance de la classe plxGlob
+	 * @return	self			return une instance de la classe PlxGlobModel
 	 * @author	Stephane F
 	 **/
 	public static function getInstance($dir,$rep=false,$onlyfilename=true,$type=''){
-		$basename = str_replace(PLX_ROOT, '', $dir);
+		//$basename = str_replace(PLX_ROOT, '', $dir);
+	    $basename = $dir;
 		if (!isset(self::$instance[$basename]))
-			self::$instance[$basename] = new plxGlob($dir,$rep,$onlyfilename,$type);
+			self::$instance[$basename] = new PlxGlobModel($dir,$rep,$onlyfilename,$type);
 		return self::$instance[$basename];
 	}
 

@@ -93,8 +93,8 @@ class PlxMotorModel extends PlxModel {
 		# Hook plugins
 		eval($this->PlxPluginsModels->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
-		$this->PlxGlobModel_arts = PlxGlobModel::getInstance(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_articles'),false,true,'arts');
-		$this->PlxGlobModel_coms = PlxGlobModel::getInstance(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires'));
+		$this->PlxGlobModel_arts = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_articles'),false,true,'arts');
+		$this->PlxGlobModel_coms = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_commentaires'));
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getStatiques(path('XMLFILE_STATICS'));
