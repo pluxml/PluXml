@@ -64,11 +64,11 @@ class PlxMotorModel extends PlxModel {
 	 *
 	 * @param	filename	emplacement du fichier XML de configuration
 	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
 	 **/
 	protected function __construct() {
         parent::__construct();
-	    
+
 		# récupération des paramètres dans l'url
 		$this->get = PlxUtilsModel::getGets();
 		# gestion du timezone
