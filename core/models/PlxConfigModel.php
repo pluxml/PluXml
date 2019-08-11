@@ -7,12 +7,12 @@
 namespace models;
 
 class PlxConfigModel {
-    
+
     const PLX_CONFIG_INI_FILE = 'config.ini';
     
     private $_configIniFile = self::PLX_CONFIG_INI_FILE;
     private $_configIni = array(); # from PLX_CONFIG_INI_FILE parsing
-    public $_configuration = array(); # from user configuration file defined in PLX_CONFIG_INI_FILE
+    private $_configuration = array(); # from user configuration file defined in PLX_CONFIG_INI_FILE
 
     public function __construct() {
         $this->setConfigIni();

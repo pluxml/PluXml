@@ -7,7 +7,7 @@
  **/
 namespace models;
 
-class PlxPluginsModels {
+class PlxPluginsModels extends PlxModel {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins
@@ -21,6 +21,7 @@ class PlxPluginsModels {
 	 * @author	Stephane F
 	 **/
 	public function __construct($default_lang='') {
+	    parent::__construct();
 		$this->default_lang=$default_lang;
 	}
 
@@ -55,12 +56,12 @@ class PlxPluginsModels {
 	 **/
 	public function loadPlugins() {
 
-		if(!is_file(path('XMLFILE_PLUGINS'))) return;
+		if(!is_file($this->getPlxConfig()->getConfiguration('XMLFILE_PLUGINS'))) return;
 
 		$updAction = false;
 
-		# Mise en place du parseur XML
-		$data = implode('',file(path('XMLFILE_PLUGINS')));
+		// XML parser construction 
+		$data = implode('',file($this->getPlxConfig()->getConfiguration('XMLFILE_PLUGINS')));
 		$parser = xml_parser_create(PLX_CHARSET);
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
