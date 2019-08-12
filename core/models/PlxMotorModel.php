@@ -956,7 +956,7 @@ class PlxMotorModel extends PlxModel {
 	public function sendTelechargement($cible) {
 
 		# On décrypte le nom du fichier
-		$file = PLX_ROOT.$this->getPlxConfig()->getConfiguration('medias').plxEncrypt::decryptId($cible);
+		$file = PLX_ROOT.$this->getPlxConfig()->getConfiguration('medias').PlxEncryptModel::decryptId($cible);
 		# Hook plugins
 		if(eval($this->PlxPluginsModels->callHook('plxMotorSendDownload'))) return;
 		# On lance le téléchargement et on check le répertoire medias

@@ -5,10 +5,11 @@
  * @package PLX
  * @author	Stephane F
  **/
+namespace models;
 
 const ENCRYPTION_KEY = 'ab12cd34#$';
 
-class plxEncrypt {
+class PlxEncryptModel {
 
 	/**
 	 * Méthode qui crypte le texte $plainText
@@ -40,12 +41,12 @@ class plxEncrypt {
 
 	public static function encryptId($int, $class='') {
 
-		return plxEncrypt::base64url_encode($int.'*'.substr(sha1($class.$int.ENCRYPTION_KEY), 0, 6));
+		return PlxEncryptModel::base64url_encode($int.'*'.substr(sha1($class.$int.ENCRYPTION_KEY), 0, 6));
 	}
 
 	public static function decryptId($int, $class='') {
 
-		$parts = explode('*', plxEncrypt::base64url_decode($int));
+	    $parts = explode('*', PlxEncryptModel::base64url_decode($int));
 		if(sizeof($parts) != 2)
 			return 0;
 		return substr(sha1($class.$parts[0].ENCRYPTION_KEY), 0, 6) === $parts[1] ? $parts[0] : 0;
