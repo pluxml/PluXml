@@ -39,7 +39,7 @@ class PlxMotorModel extends PlxModel {
 	public $PlxRecordModel_arts = null; # Objet PlxRecordModel des articles
 	public $PlxRecordModel_coms = null; # Objet PlxRecordModel des commentaires
 	public $plxCapcha = null; # Objet plxCapcha
-	public $plxErreur = null; # Objet plxErreur
+	public $PlxErrorModel = null; # Objet PlxErrorModel
 	public $PlxPluginsModels = null; # Objet PlxPluginsModels
 	
 	private static $instance;
@@ -268,7 +268,7 @@ class PlxMotorModel extends PlxModel {
 	public function error404($msg) {
 		header("Status: 404 Not Found");
 		header("HTTP/1.0 404 Not Found");
-		$this->plxErreur = new plxErreur($msg);
+		$this->PlxErrorModel = new PlxErrorModel($msg);
 		$this->mode = 'erreur';
 		$this->template = 'erreur.php';
 	}

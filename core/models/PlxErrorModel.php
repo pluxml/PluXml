@@ -6,7 +6,9 @@
  * @package PLX
  * @author	Florent MONTHEL
  **/
-class plxErreur {
+namespace models;
+
+class PlxErrorModel {
 
 	private $message = false; # Message d'erreur
 
