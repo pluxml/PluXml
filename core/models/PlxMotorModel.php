@@ -38,7 +38,7 @@ class PlxMotorModel extends PlxModel {
 	public $PlxGlobModel_coms = null; # Objet PlxGlobModel des commentaires
 	public $PlxRecordModel_arts = null; # Objet PlxRecordModel des articles
 	public $PlxRecordModel_coms = null; # Objet PlxRecordModel des commentaires
-	public $plxCapcha = null; # Objet plxCapcha
+	public $PlxCapchaModel = null; # Objet PlxCapchaModel
 	public $PlxErrorModel = null; # Objet PlxErrorModel
 	public $PlxPluginsModels = null; # Objet PlxPluginsModels
 	
@@ -320,13 +320,13 @@ class PlxMotorModel extends PlxModel {
 			# Récupération des commentaires
 			$this->getCommentaires('/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/',$this->tri_coms);
 			$this->template=$this->PlxRecordModel_arts->f('template');
-			if($this->getPlxConfig()->getConfiguration('capcha')) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+			if($this->getPlxConfig()->getConfiguration('capcha')) $this->PlxCapchaModel = new PlxCapchaModel(); # Création objet captcha
 		}
 		elseif($this->mode == 'preview') {
 			$this->mode='article';
 			$this->PlxRecordModel_arts = new PlxRecordModel($_SESSION['preview']);
 			$this->template=$this->PlxRecordModel_arts->f('template');
-			if($this->getPlxConfig()->getConfiguration('capcha')) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+			if($this->getPlxConfig()->getConfiguration('capcha')) $this->PlxCapchaModel = new PlxCapchaModel(); # Création objet captcha
 		}
 
 		# Hook plugins

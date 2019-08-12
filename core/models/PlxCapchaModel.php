@@ -6,7 +6,9 @@
  * @package PLX
  * @author	Anthony GUÉRIN, Stéphane F
  **/
-class plxCapcha {
+namespace models;
+
+class PlxCapchaModel {
 
 	private $word = false; # Mot du capcha
 	private $num = false; # Numero de la lettre selectionne
