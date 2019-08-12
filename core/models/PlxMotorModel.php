@@ -34,13 +34,13 @@ class PlxMotorModel extends PlxModel {
 	public $aUsers = array(); #Tableau des utilisateurs
 	public $aTemplates = null; # Tableau des templates
 
-	public $PlxGlobModel_arts = null; # Objet PlxGlobModel des articles
-	public $PlxGlobModel_coms = null; # Objet PlxGlobModel des commentaires
-	public $PlxRecordModel_arts = null; # Objet PlxRecordModel des articles
-	public $PlxRecordModel_coms = null; # Objet PlxRecordModel des commentaires
-	public $PlxCapchaModel = null; # Objet PlxCapchaModel
-	public $PlxErrorModel = null; # Objet PlxErrorModel
-	public $PlxPluginsModels = null; # Objet PlxPluginsModels
+	public $plxGlob_arts = null; # Objet PlxGlobModel des articles
+	public $plxGlob_coms = null; # Objet PlxGlobModel des commentaires
+	public $plxRecord_arts = null; # Objet PlxRecordModel des articles
+	public $plxRecord_coms = null; # Objet PlxRecordModel des commentaires
+	public $plxCapcha = null; # Objet PlxCapchaModel
+	public $plxError = null; # Objet PlxErrorModel
+	public $plxPlugins = null; # Objet PlxPluginsModels
 	
 	private static $instance;
 
@@ -88,13 +88,13 @@ class PlxMotorModel extends PlxModel {
 		$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
 		$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->getPlxConfig()->getConfiguration('default_lang');
 		#--
-		$this->PlxPluginsModels = new PlxPluginsModels($lang);
-		$this->PlxPluginsModels->loadPlugins();
+		$this->plxPlugins = new PlxPluginsModels($lang);
+		$this->plxPlugins->loadPlugins();
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorConstructLoadPlugins'));
+		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
-		$this->PlxGlobModel_arts = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_articles'),false,true,'arts');
-		$this->PlxGlobModel_coms = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_commentaires'));
+		$this->plxGlob_arts = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_articles'),false,true,'arts');
+		$this->plxGlob_coms = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_commentaires'));
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories($this->getPlxConfig()->getConfiguration('XMLFILE_CATEGORIES'));
 		$this->getStatiques($this->getPlxConfig()->getConfiguration('XMLFILE_STATICS'));
@@ -103,7 +103,7 @@ class PlxMotorModel extends PlxModel {
 		# Récuperation des articles appartenant aux catégories actives
 		$this->getActiveArts();
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorConstruct'));
+		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 		# Traitement des templates
 		$this->getTemplates($this->getPlxConfig()->getConfigIni('XMLDIR_TEMPLATES'));
 	}
@@ -119,7 +119,7 @@ class PlxMotorModel extends PlxModel {
 	public function prechauffage() {
 
 		# Hook plugins
-		if(eval($this->PlxPluginsModels->callHook('plxMotorPreChauffageBegin'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) return;
 
 		if(!$this->get AND $this->getPlxConfig()->getConfiguration('homestatic')!='' AND isset($this->aStats[$this->getPlxConfig()->getConfiguration('homestatic')]) AND $this->aStats[$this->getPlxConfig()->getConfiguration('homestatic')]['active']) {
 			$this->mode = 'static'; # Mode static
@@ -133,7 +133,7 @@ class PlxMotorModel extends PlxModel {
 			$this->template = $this->getPlxConfig()->getConfiguration('hometemplate');
 			$this->bypage = $this->getPlxConfig()->getConfiguration('bypage'); # Nombre d'article par page
 			# On regarde si on a des articles en mode "home"
-			if($this->PlxGlobModel_arts->query('/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/')) {
+			if($this->plxGlob_arts->query('/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/')) {
 				$this->motif = '/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 			} else { # Sinon on recupere tous les articles
 				$this->motif = '/^[0-9]{4}.(?:[0-9]|,)*(?:'.$this->homepageCats.')(?:[0-9]|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
@@ -146,8 +146,8 @@ class PlxMotorModel extends PlxModel {
 			$this->motif = '/^'.$this->cible.'.((?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/'; # Motif de recherche
 			if($this->getArticles()) {
 				# Redirection 301
-				if(!isset($capture[2]) OR $this->PlxRecordModel_arts->f('url')!=$capture[2]) {
-					$this->redir301($this->urlRewrite('?article'.intval($this->cible).'/'.$this->PlxRecordModel_arts->f('url')));
+				if(!isset($capture[2]) OR $this->plxRecord_arts->f('url')!=$capture[2]) {
+					$this->redir301($this->urlRewrite('?article'.intval($this->cible).'/'.$this->plxRecord_arts->f('url')));
 				}
 			} else {
 				$this->error404(L_UNKNOWN_ARTICLE);
@@ -241,7 +241,7 @@ class PlxMotorModel extends PlxModel {
 		}
 
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorPreChauffageEnd'));
+		eval($this->plxPlugins->callHook('plxMotorPreChauffageEnd'));
 	}
 
 	/**
@@ -252,7 +252,7 @@ class PlxMotorModel extends PlxModel {
 	 **/
 	public function redir301($url) {
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorRedir301'));
+		eval($this->plxPlugins->callHook('plxMotorRedir301'));
 		# Redirection 301
 		header('Status: 301 Moved Permanently', false, 301);
 		header('Location: '.$url);
@@ -268,7 +268,7 @@ class PlxMotorModel extends PlxModel {
 	public function error404($msg) {
 		header("Status: 404 Not Found");
 		header("HTTP/1.0 404 Not Found");
-		$this->PlxErrorModel = new PlxErrorModel($msg);
+		$this->plxError = new PlxErrorModel($msg);
 		$this->mode = 'erreur';
 		$this->template = 'erreur.php';
 	}
@@ -282,7 +282,7 @@ class PlxMotorModel extends PlxModel {
 	public function demarrage() {
 
 		# Hook plugins
-		if(eval($this->PlxPluginsModels->callHook('plxMotorDemarrageBegin'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorDemarrageBegin'))) return;
 
 		if($this->mode == 'home' OR $this->mode == 'categorie' OR $this->mode == 'archives' OR $this->mode == 'tags') {
 			$this->getPage(); # Recuperation du numéro de la page courante
@@ -293,12 +293,12 @@ class PlxMotorModel extends PlxModel {
 		elseif($this->mode == 'article') {
 
 			# On a validé le formulaire commentaire
-			if(!empty($_POST) AND $this->PlxRecordModel_arts->f('allow_com') AND $this->getPlxConfig()->getConfiguration('allow_com')) {
+			if(!empty($_POST) AND $this->plxRecord_arts->f('allow_com') AND $this->getPlxConfig()->getConfiguration('allow_com')) {
 				# On récupère le retour de la création
 				$retour = $this->newCommentaire($this->cible,PlxUtilsModel::unSlash($_POST));
 				# Url de l'article
-				$url = $this->urlRewrite('?article'.intval($this->PlxRecordModel_arts->f('numero')).'/'.$this->PlxRecordModel_arts->f('url'));
-				eval($this->PlxPluginsModels->callHook('plxMotorDemarrageNewCommentaire'));
+				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
+				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire'));
 				if($retour[0] == 'c') { # Le commentaire a été publié
 					$_SESSION['msgcom'] = L_COM_PUBLISHED;
 					header('Location: '.$url.'#'.$retour);
@@ -312,25 +312,25 @@ class PlxMotorModel extends PlxModel {
 					$_SESSION['msg']['mail'] = PlxUtilsModel::unSlash($_POST['mail']);
 					$_SESSION['msg']['content'] = PlxUtilsModel::unSlash($_POST['content']);
 					$_SESSION['msg']['parent'] = PlxUtilsModel::unSlash($_POST['parent']);
-					eval($this->PlxPluginsModels->callHook('plxMotorDemarrageCommentSessionMessage'));
+					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage'));
 					header('Location: '.$url.'#form');
 				}
 				exit;
 			}
 			# Récupération des commentaires
 			$this->getCommentaires('/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/',$this->tri_coms);
-			$this->template=$this->PlxRecordModel_arts->f('template');
-			if($this->getPlxConfig()->getConfiguration('capcha')) $this->PlxCapchaModel = new PlxCapchaModel(); # Création objet captcha
+			$this->template=$this->plxRecord_arts->f('template');
+			if($this->getPlxConfig()->getConfiguration('capcha')) $this->plxCapcha = new PlxCapchaModel(); # Création objet captcha
 		}
 		elseif($this->mode == 'preview') {
 			$this->mode='article';
-			$this->PlxRecordModel_arts = new PlxRecordModel($_SESSION['preview']);
-			$this->template=$this->PlxRecordModel_arts->f('template');
-			if($this->getPlxConfig()->getConfiguration('capcha')) $this->PlxCapchaModel = new PlxCapchaModel(); # Création objet captcha
+			$this->plxRecord_arts = new PlxRecordModel($_SESSION['preview']);
+			$this->template=$this->plxRecord_arts->f('template');
+			if($this->getPlxConfig()->getConfiguration('capcha')) $this->plxCapcha = new PlxCapchaModel(); # Création objet captcha
 		}
 
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorDemarrageEnd'));
+		eval($this->plxPlugins->callHook('plxMotorDemarrageEnd'));
 	}
 
 	/**
@@ -393,10 +393,10 @@ class PlxMotorModel extends PlxModel {
 				if($this->aCats[$number]['active'] AND $this->aCats[$number]['homepage']) $homepageCats[]=$number;
 				# Recuperation du nombre d'article de la categorie
 				$motif = '/^[0-9]{4}.[home,|0-9,]*'.$number.'[0-9,]*.[0-9]{3}.[0-9]{12}.[A-Za-z0-9-]+.xml$/';
-				$arts = $this->PlxGlobModel_arts->query($motif,'art','',0,false,'before');
+				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
 				$this->aCats[$number]['articles'] = ($arts?sizeof($arts):0);
 				# Hook plugins
-				eval($this->PlxPluginsModels->callHook('plxMotorGetCategories'));
+				eval($this->plxPlugins->callHook('plxMotorGetCategories'));
 			}
 		}
 		$homepageCats [] = '000'; # on rajoute la catégorie 'Non classée'
@@ -462,7 +462,7 @@ class PlxMotorModel extends PlxModel {
 				# On test si le fichier est lisible
 				$this->aStats[$number]['readable'] = (is_readable($file) ? 1 : 0);
 				# Hook plugins
-				eval($this->PlxPluginsModels->callHook('plxMotorGetStatiques'));
+				eval($this->plxPlugins->callHook('plxMotorGetStatiques'));
 			}
 		}
 	}
@@ -508,7 +508,7 @@ class PlxMotorModel extends PlxModel {
 				$this->aUsers[$number]['password_token']=PlxUtilsModel::getValue($values[$iTags['password_token'][$i]]['value']);
 				$this->aUsers[$number]['password_token_expiry']=PlxUtilsModel::getValue($values[$iTags['password_token_expiry'][$i]]['value']);
 				# Hook plugins
-				eval($this->PlxPluginsModels->callHook('plxMotorGetUsers'));
+				eval($this->plxPlugins->callHook('plxMotorGetUsers'));
 			}
 		}
 	}
@@ -564,12 +564,12 @@ class PlxMotorModel extends PlxModel {
 		# On calcule la valeur start
 		$start = $this->bypage*($this->page-1);
 		# On recupere nos fichiers (tries) selon le motif, la pagination, la date de publication
-		if($aFiles = $this->PlxGlobModel_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
+		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
 			# on mémorise le nombre total d'articles trouvés
 			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
 				$array[$k] = $this->parseArticle($this->getPlxConfig()->getConfiguration('racine_articles').$v);
 			# On stocke les enregistrements dans un objet PlxRecordModel
-			$this->PlxRecordModel_arts = new PlxRecordModel($array);
+			$this->plxRecord_arts = new PlxRecordModel($array);
 			return true;
 		}
 		else return false;
@@ -640,7 +640,7 @@ class PlxMotorModel extends PlxModel {
 		$art['date_creation'] = isset($iTags['date_creation']) ? PlxUtilsModel::getValue($values[$iTags['date_creation'][0]]['value']) : $art['date'];
 		$art['date_update'] = isset($iTags['date_update']) ? PlxUtilsModel::getValue($values[$iTags['date_update'][0]]['value']) : $art['date'];
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorParseArticle'));
+		eval($this->plxPlugins->callHook('plxMotorParseArticle'));
 		# On retourne le tableau
 		return $art;
 	}
@@ -655,7 +655,7 @@ class PlxMotorModel extends PlxModel {
 	 **/
 	public function getNbCommentaires($motif,$publi='before') {
 
-		if($coms = $this->PlxGlobModel_coms->query($motif,'com','',0,false,$publi))
+		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
 			return sizeof($coms);
 		else
 			return 0;
@@ -719,7 +719,7 @@ class PlxMotorModel extends PlxModel {
 		$com['date'] = $tmp['comDate'];
 		$com['index'] = $tmp['comIdx'];
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorParseCommentaire'));
+		eval($this->plxPlugins->callHook('plxMotorParseCommentaire'));
 		# On retourne le tableau
 		return $com;
 	}
@@ -762,7 +762,7 @@ class PlxMotorModel extends PlxModel {
 	public function getCommentaires($motif,$ordre='sort',$start=0,$limite=false,$publi='before') {
 
 		# On récupère les fichiers des commentaires
-		$aFiles = $this->PlxGlobModel_coms->query($motif,'com',$ordre,$start,$limite,$publi);
+		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
 			foreach($aFiles as $k=>$v)
 				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires').$v);
@@ -773,7 +773,7 @@ class PlxMotorModel extends PlxModel {
 			}
 
 			# On stocke les enregistrements dans un objet PlxRecordModel
-			$this->PlxRecordModel_coms = new PlxRecordModel($array);
+			$this->plxRecord_coms = new PlxRecordModel($array);
 
 			return true;
 		}
@@ -814,7 +814,7 @@ class PlxMotorModel extends PlxModel {
 	public function newCommentaire($artId,$content) {
 
 		# Hook plugins
-		if(eval($this->PlxPluginsModels->callHook('plxMotorNewCommentaire'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
 
 		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR $this->getPlxConfig()->getConfiguration('capcha') AND (!isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token']))) {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
@@ -873,7 +873,7 @@ class PlxMotorModel extends PlxModel {
 	 **/
 	public function addCommentaire($content) {
 		# Hook plugins
-		if(eval($this->PlxPluginsModels->callHook('plxMotorAddCommentaire'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
 		# On genere le contenu de notre fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<comment>\n";
@@ -885,7 +885,7 @@ class PlxMotorModel extends PlxModel {
 		$xml .= "\t<content><![CDATA[".PlxUtilsModel::cdataCheck($content['content'])."]]></content>\n";
 		$xml .= "\t<parent><![CDATA[".PlxUtilsModel::cdataCheck($content['parent'])."]]></parent>\n";
 		# Hook plugins
-		eval($this->PlxPluginsModels->callHook('plxMotorAddCommentaireXml'));
+		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
 		$xml .= "</comment>\n";
 		# On ecrit ce contenu dans notre fichier XML
 		return PlxUtilsModel::write($xml, PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires').$content['filename']);
@@ -958,7 +958,7 @@ class PlxMotorModel extends PlxModel {
 		# On décrypte le nom du fichier
 		$file = PLX_ROOT.$this->getPlxConfig()->getConfiguration('medias').PlxEncryptModel::decryptId($cible);
 		# Hook plugins
-		if(eval($this->PlxPluginsModels->callHook('plxMotorSendDownload'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
 		# On lance le téléchargement et on check le répertoire medias
 		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->getPlxConfig()->getConfiguration('medias')).'#'), str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
@@ -1034,7 +1034,7 @@ class PlxMotorModel extends PlxModel {
 		else
 			$motif = $select;
 
-		if($arts = $this->PlxGlobModel_arts->query('/^'.$mod.'[0-9]{4}.('.$motif.').'.$userId.'.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', '', 0, false, $publi))
+		if($arts = $this->plxGlob_arts->query('/^'.$mod.'[0-9]{4}.('.$motif.').'.$userId.'.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', '', 0, false, $publi))
 			$nb = sizeof($arts);
 
 		return $nb;
@@ -1061,7 +1061,7 @@ class PlxMotorModel extends PlxModel {
 		else
 			$motif = $select;
 
-		if($coms = $this->PlxGlobModel_coms->query($motif,'com','',0,false,$publi))
+		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
 			$nb = sizeof($coms);
 
 		return $nb;
@@ -1075,9 +1075,9 @@ class PlxMotorModel extends PlxModel {
 	 * @author	Stéphane F.
 	 **/
 	public function getActiveArts() {
-		if($this->PlxGlobModel_arts->aFiles) {
+		if($this->plxGlob_arts->aFiles) {
 			$datetime=date('YmdHi');
-			foreach($this->PlxGlobModel_arts->aFiles as $filename) {
+			foreach($this->plxGlob_arts->aFiles as $filename) {
 				if(preg_match('/^([0-9]{4}).(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.([0-9]{12}).[a-z0-9-]+.xml$/', $filename, $capture)) {
 					if($capture[2]<=$datetime) { # on ne prends que les articles publiés
 						$this->activeArts[$capture[1]]=1;
