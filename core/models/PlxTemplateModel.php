@@ -6,8 +6,9 @@
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
+namespace models;
 
-class PlxTemplate {
+class PlxTemplateModel {
     
     private $_templateName;                         // the template's name
     private $_templateType;                         // the template's type : post, page or email
@@ -245,14 +246,14 @@ class PlxTemplate {
         xml_parser_free($parser);
         
         # getting datas from the parser
-        $template['name'] = plxUtils::getValue($values[$index['name'][0]]['value']);
-        $template['type'] = plxUtils::getValue($values[$index['type'][0]]['value']);
+        $template['name'] = PlxUtilsModel::getValue($values[$index['name'][0]]['value']);
+        $template['type'] = PlxUtilsModel::getValue($values[$index['type'][0]]['value']);
         if ($template['type'] == 'email') {
-            $template['emailname'] = plxUtils::getValue($values[$index['emailname'][0]]['value']);
-            $template['emailfrom'] = plxUtils::getValue($values[$index['emailfrom'][0]]['value']);
-            $template['emailsubject'] = plxUtils::getValue($values[$index['emailsubject'][0]]['value']);
+            $template['emailname'] = PlxUtilsModel::getValue($values[$index['emailname'][0]]['value']);
+            $template['emailfrom'] = PlxUtilsModel::getValue($values[$index['emailfrom'][0]]['value']);
+            $template['emailsubject'] = PlxUtilsModel::getValue($values[$index['emailsubject'][0]]['value']);
         }
-        $template['content'] = plxUtils::getValue($values[$index['content'][0]]['value']);
+        $template['content'] = PlxUtilsModel::getValue($values[$index['content'][0]]['value']);
         
         return $template;
     }

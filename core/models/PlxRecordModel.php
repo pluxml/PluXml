@@ -6,7 +6,9 @@
  * @package PLX
  * @author	Anthony GUÉRIN et Florent MONTHEL
  **/
-class plxRecord {
+namespace models;
+
+class PlxRecordModel {
 
 	public $size = false; # Nombre d'elements dans le tableau $result
 	public $i = -1; # Position dans le tableau $result
@@ -29,7 +31,7 @@ class plxRecord {
 	/**
 	 * Méthode qui incrémente judicieusement la variable $i
 	 *
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Anthony GUÉRIN
 	 **/
 	public function loop() {
