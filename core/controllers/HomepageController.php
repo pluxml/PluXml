@@ -8,8 +8,8 @@
 
 namespace controllers;
 
-use models\PlxShowModel;
 use models\PlxMotorModel;
+use models\PlxShowModel;
 
 class HomepageController extends IndexController {
 
@@ -17,14 +17,6 @@ class HomepageController extends IndexController {
         // This page don't need user authentification
         $this->setAuthPage(true);
         parent::__construct();
-
-        $plxMotor = PlxMotorModel::getInstance();
-        $plxMotor->prechauffage();
-        $plxMotor->demarrage();
-        
-        $lang = $this->getConfig()->getConfiguration('default_lang');
-
-        $plxShow = PlxShowModel::getInstance();
     }
 
     /**
@@ -32,6 +24,15 @@ class HomepageController extends IndexController {
      * @author Pedro "P3ter" CADETE
      */
     public function indexAction() {
+        $plxMotor = PlxMotorModel::getInstance();
+        $plxMotor->prechauffage();
+        $plxMotor->demarrage();
+        
+        //TODO need a class PlxLangModel
+        $lang = $this->getConfig()->getConfiguration('default_lang');
+        
+        $plxShow = PlxShowModel::getInstance();
+        
         require_once $this->getThemeDir() . 'home.php';
     }
 }

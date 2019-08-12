@@ -9,6 +9,7 @@
 namespace admin;
 
 use controllers\FrontController;
+use models\PlxShowModel;
 
 require_once __DIR__ . '/autoloader.php';
 
