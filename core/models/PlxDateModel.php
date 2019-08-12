@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Classe plxDate rassemblant les fonctions utiles à PluXml
+ * Classe PlxDateModel rassemblant les fonctions utiles à PluXml
  * concernant la manipulation des dates
  *
  * @package PLX
  * @author	Stephane F., Amauray Graillat
  **/
+namespace models;
 
-class plxDate {
+class PlxDateModel {
 
 	/**
 	 * Méthode qui retourne le libellé du mois ou du jour passé en paramètre
@@ -104,9 +105,9 @@ class plxDate {
 		$format = str_replace('#time', $hour.':'.$minute, $format);
 		$format = str_replace('#minute', $minute, $format);
 		$format = str_replace('#hour', $hour, $format);
-		$format = str_replace('#day', plxDate::getCalendar('day', $day_num), $format);
-		$format = str_replace('#short_month', plxDate::getCalendar('short_month', $month), $format);
-		$format = str_replace('#month', plxDate::getCalendar('month', $month), $format);
+		$format = str_replace('#day', PlxDateModel::getCalendar('day', $day_num), $format);
+		$format = str_replace('#short_month', PlxDateModel::getCalendar('short_month', $month), $format);
+		$format = str_replace('#month', PlxDateModel::getCalendar('month', $month), $format);
 		$format = str_replace('#num_day(1)', intval($day), $format);
 		$format = str_replace('#num_day(2)', $day, $format);
 		$format = str_replace('#num_day', $day, $format);
@@ -176,7 +177,7 @@ class plxDate {
 	 **/
 	public static function dateIso2rfc822($date) {
 
-		$tmpDate = plxDate::date2Array($date);
+		$tmpDate = PlxDateModel::date2Array($date);
 		return date(DATE_RSS, mktime(substr($tmpDate['time'],0,2), substr($tmpDate['time'],3,2), 0, $tmpDate['month'], $tmpDate['day'], $tmpDate['year']));
 	}
 

@@ -675,7 +675,7 @@ class PlxMotorModel extends PlxModel {
 			return array(
 				'comStatus'	=> $capture[1],
 				'artId'		=> $capture[2],
-				'comDate'	=> plxDate::timestamp2Date($capture[3]),
+				'comDate'	=> PlxDateModel::timestamp2Date($capture[3]),
 				'comId'		=> $capture[3].'-'.$capture[4],
 				'comIdx'	=> $capture[4],
 
