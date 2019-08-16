@@ -9,6 +9,8 @@
 namespace controllers;
 
 use models\PlxConfigModel;
+use models\PlxMotorModel;
+use models\PlxShowModel;
 
 class IndexController {
 
@@ -27,8 +29,14 @@ class IndexController {
 
     private $_config; # new PlxConfigModel
     
+    public $plxMotor; # new PlxMotorModel
+    public $plxShow; #new PlxShowModel
+    
     public function __construct(){
         $this->setConfig();
+        $this->setThemeDir();
+        $this->setPlxMotor();
+        $this->setPlxShow();
 
         // Checking PluXml installation before continue
         if(!is_file($this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
@@ -50,7 +58,11 @@ class IndexController {
     	    }
     	}
     	
-    	$this->setThemeDir();
+    	// actions requirements
+    	$this->getPlxMotor()->prechauffage();
+    	$this->getPlxMotor()->demarrage();
+    	//TODO need a class PlxLangModel
+    	$lang = $this->getConfig()->getConfiguration('default_lang');
     }
     
     /**
@@ -107,10 +119,27 @@ class IndexController {
         return $this->_config;
     }
     
+    /**
+     * Get $_themeDir
+     * @return string
+     * @author Pedro "P3ter" CADETE
+     */
     public function getThemeDir() {
         return $this->_themeDir;
     }
     
+    /**
+     * Get $plxMotor
+     * @return \models\PlxMotorModel
+     * @author Pedro "P3ter" CADETE
+     */
+    public function getPlxMotor() {
+        return $this->plxMotor;
+    }
+    
+    public function getPlxShow() {
+        return $this->plxShow;
+    }
     /**
      * Set $_authPage
      * Used for identify the authentification page to block PluXml backoffice access
@@ -119,7 +148,8 @@ class IndexController {
      * @author Pedro "P3ter" CADETE
      */
     public function setAuthPage($value) {
-        return $this->_authPage = $value;
+        $this->_authPage = $value;
+        return;
     }
 
     /**
@@ -128,7 +158,28 @@ class IndexController {
      * @author Pedro "P3ter" CADETE
      */
     private function setConfig() {
-        return $this->_config = new PlxConfigModel();
+        $this->_config = new PlxConfigModel();
+        return;
+    }
+    
+    /**
+     * Set $plxMotor
+     * @return \models\PlxMotorModel
+     * @author Pedro "P3ter" CADETE
+     */
+    private function setPlxMotor() {
+        $this->plxMotor = PlxMotorModel::getInstance();
+        return;
+    }
+    
+    /**
+     * Set $plxShow
+     * @return \models\PlxShowModel
+     * @author Pedro "P3ter" CADETE
+     */
+    private function setPlxShow() {
+        $this->plxShow = PlxShowModel::getInstance();
+        return;
     }
     
     /**
@@ -141,7 +192,8 @@ class IndexController {
             $themeDir = $this->_config->getConfiguration('racine_themes') . $this->_config->getConfiguration('style');
         else
             $themeDir = self::PLX_DEFAULT_THEME_DIR;
-        return $this->_themeDir = $themeDir . '/';
+        $this->_themeDir = $themeDir . '/';
+        return;
     }
 }
 ?>

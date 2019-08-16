@@ -1,15 +1,12 @@
 <?php
 
 /**
- * Homepage blog or static page
+ * HomepageController show blog or static page
  * @package PLX
- * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
+ * @author	Pedro "P3ter" CADETE
  **/
 
 namespace controllers;
-
-use models\PlxMotorModel;
-use models\PlxShowModel;
 
 class HomepageController extends IndexController {
 
@@ -24,15 +21,8 @@ class HomepageController extends IndexController {
      * @author Pedro "P3ter" CADETE
      */
     public function indexAction() {
-        $plxMotor = PlxMotorModel::getInstance();
-        $plxMotor->prechauffage();
-        $plxMotor->demarrage();
-        
-        //TODO need a class PlxLangModel
-        $lang = $this->getConfig()->getConfiguration('default_lang');
-        
-        $plxShow = PlxShowModel::getInstance();
-        
+        $plxMotor = $this->getPlxMotor();
+        $plxShow = $this->getPlxShow();
         require_once $this->getThemeDir() . 'home.php';
     }
 }
