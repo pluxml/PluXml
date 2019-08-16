@@ -8,8 +8,12 @@
  **/
 namespace models;
 
-class PlxUtilsModel {
+class PlxUtilsModel extends PlxModel{
 
+    public function __construct(){
+        parent::__construct();
+    }
+    
 	/**
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre
@@ -700,8 +704,8 @@ class PlxUtilsModel {
 	 * @return	string		chaine de caractères tenant compte du charset
 	 **/
 	public static function strCheck($str) {
-
-		return htmlspecialchars($str,ENT_QUOTES,PLX_CHARSET);
+        $plxConfig = new PlxConfigModel();
+		return htmlspecialchars($str,ENT_QUOTES,$plxConfig->getConfigIni('PLX_CHARSET'));
 	}
 
 	/**
@@ -723,8 +727,8 @@ class PlxUtilsModel {
 	 * @return	string		chaine de caractères tenant compte du charset
 	 **/
 	public static function strRevCheck($str) {
-
-		return html_entity_decode($str,ENT_QUOTES,PLX_CHARSET);
+	    $plxConfig = new PlxConfigModel();
+	    return html_entity_decode($str,ENT_QUOTES,$plxConfig->getConfigIni('PLX_CHARSET'));
 	}
 
 	/**
@@ -784,7 +788,7 @@ class PlxUtilsModel {
 	 **/
 	public static function getLangs() {
 		$array = array();
-		$glob = plxGlob::getInstance(PLX_CORE.'lang', true);
+		$glob = PlxGlobModel::getInstance(PLX_CORE.'lang', true);
 		if($aFolders = $glob->query("/[a-z]+/i")) {
 			foreach($aFolders as $folder) {
 				$array[$folder] = $folder;
@@ -800,12 +804,13 @@ class PlxUtilsModel {
 	 * @author	Stephane F.
 	 **/
 	public static function cleanHeaders() {
+	    $plxConfig = new PlxConfigModel();
 		@header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
 		@header('Last-Modified: '.gmdate( 'D, d M Y H:i:s' ).' GMT');
 		@header('Cache-Control: no-cache, must-revalidate, max-age=0');
 		@header('Cache: no-cache');
 		@header('Pragma: no-cache');
-		@header('Content-Type: text/html; charset='.PLX_CHARSET);
+		@header('Content-Type: text/html; charset='.$plxConfig->getConfigIni('PLX_CHARSET'));
 	}
 
 	/**

@@ -29,8 +29,8 @@ class IndexController {
 
     private $_config; # new PlxConfigModel
     
-    public $plxMotor; # new PlxMotorModel
-    public $plxShow; #new PlxShowModel
+    private $plxMotor; # new PlxMotorModel
+    private $plxShow; #new PlxShowModel
     
     public function __construct(){
         $this->setConfig();
@@ -61,8 +61,8 @@ class IndexController {
     	// actions requirements
     	$this->getPlxMotor()->prechauffage();
     	$this->getPlxMotor()->demarrage();
-    	//TODO need a class PlxLangModel
-    	$lang = $this->getConfig()->getConfiguration('default_lang');
+    	//TODO need a class PlxLangModel if needed
+    	//$lang = $this->getConfig()->getConfiguration('default_lang');
     }
     
     /**
