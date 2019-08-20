@@ -44,6 +44,8 @@ class IndexController {
     	}
     	
     	// Checking PluXml version in core/models/config.ini and data/configuration.xml
+    	printf($this->getConfig()->getConfigIni('PLX_VERSION'));
+    	printf($this->getConfig()->getConfiguration('version'));
     	if($this->getConfig()->getConfigIni('PLX_VERSION') != $this->getConfig()->getConfiguration('version')) {
     	    header('Location: update/index.php');
     	    exit;
@@ -157,7 +159,7 @@ class IndexController {
      * @author Pedro "P3ter" CADETE
      */
     private function setConfig() {
-        $this->_config = new PlxConfigModel();
+        $this->_config = PlxConfigModel::getInstance();
         return;
     }
     

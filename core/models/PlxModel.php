@@ -27,7 +27,7 @@ class PlxModel {
      * @return \models\PlxConfigModel
      */
     private function setPlxConfig() {
-        return $this->_plxConfig = new PlxConfigModel();
+        return $this->_plxConfig = PlxConfigModel::getInstance();
     }
     
     

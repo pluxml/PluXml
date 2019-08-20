@@ -14,12 +14,31 @@ class PlxConfigModel {
     private $_configIni = array(); # from PLX_CONFIG_INI_FILE parsing
     private $_configuration = array(); # from user configuration file defined in PLX_CONFIG_INI_FILE
 
+    private static $instance;
+
+    /**
+     * PlxCOnfigModel singleton creation
+     *
+     * @return	self return a PlxConfigModel instance
+     * @author	Pedro "P3ter" CADETE
+     **/
+    public static function getInstance(){
+        if (!isset(self::$instance)) {
+            self::$instance = false;
+            self::$instance = new PlxConfigModel();
+        }
+        return self::$instance;
+    }
+    
     public function __construct() {
         $this->setConfigIni();
         
         if (is_file($this->getConfigIni('XMLFILE_PARAMETERS'))) {
             $this->setConfiguration($this->getConfigIni('XMLFILE_PARAMETERS'));
         }
+        
+        printf($this->getConfigIni('XMLFILE_PARAMETERS'));
+        printf($this->getConfigIniFile());
     }
 
     /**
