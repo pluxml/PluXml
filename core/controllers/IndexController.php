@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Authentification to admin panel
+ * IndexController requirements to all controllers
  * @package PLX
- * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
+ * @author	Pedro "P3ter" CADETE
  **/
 
 namespace controllers;
