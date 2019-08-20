@@ -19,7 +19,7 @@ class IndexController {
     const PLX_VIEWS_LAYOUTS_DIR = 'views/layouts/';
     const PLX_VIEWS_SCRIPTS_DIR = 'views/scripts/';
     const PLX_DEFAULT_THEME_DIR = 'themes/default/';
-    
+
     private $_coreDir = self::PLX_CORE_DIR;
     private $_viewsCommonDir = self::PLX_CORE_DIR . self::PLX_VIEWS_COMMON_DIR;
     private $_viewsLayoutDir = self::PLX_CORE_DIR . self::PLX_VIEWS_LAYOUTS_DIR;
@@ -28,10 +28,9 @@ class IndexController {
     private $_themeDir = '';
 
     private $_config; # new PlxConfigModel
-    
     private $plxMotor; # new PlxMotorModel
     private $plxShow; #new PlxShowModel
-    
+
     public function __construct(){
         $this->setConfig();
         $this->setThemeDir();
@@ -39,8 +38,9 @@ class IndexController {
         $this->setPlxShow();
 
         // Checking PluXml installation before continue
+        printf($this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'));
         if(!is_file($this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
-            header('Location: ' . $this->_coreDir . 'install');
+            header('Location: install');
     	    exit;
     	}
     	
