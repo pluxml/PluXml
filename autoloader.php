@@ -6,8 +6,6 @@
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
-namespace admin;
-
 class Autoloader{
 
     public function register(){

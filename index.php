@@ -6,12 +6,10 @@
  * @author	Pedro "P3ter" CADETE
  **/
 
-namespace admin;
-
 use controllers\FrontController;
 use models\PlxShowModel;
 
-require_once __DIR__ . '/autoloader.php';
+require_once 'autoloader.php';
 
 session_start();
 
