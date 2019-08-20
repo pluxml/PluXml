@@ -5,15 +5,13 @@
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
-namespace controllers;
-
 use controllers\FrontController;
 
-require_once 'autoloader.php';
+require_once __DIR__ . '/autoloader.php';
 
 session_start();
 
-$autoloader = new Autoloader;
+$autoloader = new Autoloader();
 $autoloader->register();
 
 $frontController = new FrontController();
