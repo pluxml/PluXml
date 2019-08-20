@@ -5,6 +5,7 @@
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
+namespace controllers;
 
 use controllers\FrontController;
 
