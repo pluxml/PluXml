@@ -17,7 +17,7 @@ class PlxConfigModel {
     private static $instance;
 
     /**
-     * PlxCOnfigModel singleton creation
+     * PlxConfigModel singleton creation
      *
      * @return	self return a PlxConfigModel instance
      * @author	Pedro "P3ter" CADETE
