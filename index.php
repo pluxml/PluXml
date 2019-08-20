@@ -7,7 +7,6 @@
  **/
 
 use controllers\FrontController;
-use models\PlxShowModel;
 
 require_once 'autoloader.php';
 
