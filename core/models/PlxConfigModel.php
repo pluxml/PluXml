@@ -79,7 +79,7 @@ class PlxConfigModel {
      */
     private function setConfiguration(string $filename){
         $aConf = array(); # contains all the properties from $filename
-        
+
         // XML parser
         $data = implode('',file($filename));
         $parser = xml_parser_create($this->getConfigIni('PLX_CHARSET'));
