@@ -38,7 +38,7 @@ class IndexController {
         $this->setPlxShow();
 
         // Checking PluXml installation before continue
-        if(!is_file($this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
+        if(!is_file($this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION'))) {
             header('Location: install');
     	    exit;
     	}

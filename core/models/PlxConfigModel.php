@@ -33,12 +33,9 @@ class PlxConfigModel {
     public function __construct() {
         $this->setConfigIni();
         
-        if (is_file($this->getConfigIni('XMLFILE_PARAMETERS'))) {
-            $this->setConfiguration($this->getConfigIni('XMLFILE_PARAMETERS'));
+        if (is_file($this->getConfigIni('XMLFILE_CONFIGURATION'))) {
+            $this->setConfiguration($this->getConfigIni('XMLFILE_CONFIGURATION'));
         }
-        
-        printf($this->getConfigIni('XMLFILE_PARAMETERS'));
-        printf($this->getConfigIniFile());
     }
 
     /**
