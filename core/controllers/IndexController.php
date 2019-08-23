@@ -15,17 +15,20 @@ use models\PlxShowModel;
 class IndexController {
 
     const PLX_CORE_DIR = 'core/';
+    const PLX_CORE_LANG_DIR = 'core/lang';
     const PLX_VIEWS_COMMON_DIR = 'views/common/';
     const PLX_VIEWS_LAYOUTS_DIR = 'views/layouts/';
     const PLX_VIEWS_SCRIPTS_DIR = 'views/scripts/';
     const PLX_DEFAULT_THEME_DIR = 'themes/default/';
 
     private $_coreDir = self::PLX_CORE_DIR;
+    private $_coreLangDir = self::PLX_CORE_LANG_DIR;
     private $_viewsCommonDir = self::PLX_CORE_DIR . self::PLX_VIEWS_COMMON_DIR;
     private $_viewsLayoutDir = self::PLX_CORE_DIR . self::PLX_VIEWS_LAYOUTS_DIR;
     private $_viewsScriptsDir = self::PLX_CORE_DIR . self::PLX_VIEWS_SCRIPTS_DIR;
     private $_authPage = false;
-    private $_themeDir = '';
+    private $_themeDir = 'themes/default/'; # "default" theme by default
+    private $_coreLang = 'en'; # english by default
 
     private $_config; # new PlxConfigModel
     private $plxMotor; # new PlxMotorModel
@@ -33,16 +36,21 @@ class IndexController {
 
     public function __construct(){
         $this->setConfig();
+        $this->setCoreLang();
         $this->setThemeDir();
         $this->setPlxMotor();
         $this->setPlxShow();
+
+        // Loading langs files
+        $this->plxMotor->loadLang($this->getCoreLangDir() . 'lang/' . $this->getCoreLang() . '/admin.php');
+        $this->plxMotor->loadLang($this->_coreLangDir . 'lang/' . $this->_coreLang . '/core.php');
 
         // Checking PluXml installation before continue
         if(!is_file($this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION'))) {
             header('Location: install');
     	    exit;
     	}
-    	
+
     	// Checking PluXml version in core/models/config.ini and data/configuration.xml
     	if($this->getConfig()->getConfigIni('PLX_VERSION') != $this->getConfig()->getConfiguration('version')) {
     	    header('Location: update/index.php');
@@ -60,8 +68,6 @@ class IndexController {
     	// actions requirements
     	$this->getPlxMotor()->prechauffage();
     	$this->getPlxMotor()->demarrage();
-    	//TODO need a class PlxLangModel if needed
-    	//$lang = $this->getConfig()->getConfiguration('default_lang');
     }
     
     /**
@@ -139,6 +145,25 @@ class IndexController {
     public function getPlxShow() {
         return $this->plxShow;
     }
+    
+    /**
+     * Get $_coreLangDir
+     * @return string
+     * @author Pedro "P3ter" CADETE
+     */
+    public function getCoreLangDir() {
+        return $this->_coreLangDir;
+    }
+   
+    /**
+     * Get $_coreLang
+     * @return string
+     * @author Pedro "P3ter" CADETE
+     */
+    public function getCoreLang() {
+        return $this->_coreLang;
+    }
+
     /**
      * Set $_authPage
      * Used for identify the authentification page to block PluXml backoffice access
@@ -192,6 +217,18 @@ class IndexController {
         else
             $themeDir = self::PLX_DEFAULT_THEME_DIR;
         $this->_themeDir = $themeDir . '/';
+        return;
+    }
+    
+    /**
+     * set$_coreLang
+     * @return string
+     * @author Pedro "P3ter" CADETE
+     */
+    private function setCoreLang() {
+        $default_lang = $this->getConfig()->getConfiguration('default_lang');
+        if (!empty($default_lang))
+            $this->_coreLang = $this->getConfig()->getConfiguration('default_lang');
         return;
     }
 }

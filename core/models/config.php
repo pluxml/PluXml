@@ -30,15 +30,4 @@ if (ini_get('register_globals')) {
 	}
 }
 
-# fonction de chargement d'un fichier de langue
-function loadLang($filename) {
-	if(file_exists($filename)) {
-		$LANG = array();
-		include_once $filename;
-		foreach($LANG as $key => $value) {
-			if(!defined($key)) define($key,$value);
-		}
-	}
-}
-
 ?>
