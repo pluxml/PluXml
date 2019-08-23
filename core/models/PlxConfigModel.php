@@ -81,7 +81,7 @@ class PlxConfigModel {
         $aConf = array(); # contains all the properties from $filename
 
         // XML parser
-        $data = implode('',file($filename));
+        $data = file_get_contents($filename);
         $parser = xml_parser_create($this->getConfigIni('PLX_CHARSET'));
         $values = array();
         $iTags = array();

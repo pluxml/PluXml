@@ -44,8 +44,6 @@ class IndexController {
     	}
     	
     	// Checking PluXml version in core/models/config.ini and data/configuration.xml
-    	printf('<br>ini : '. $this->getConfig()->getConfigIni('PLX_VERSION'));
-    	printf('<br>data : '.$this->getConfig()->getConfiguration('version'));
     	if($this->getConfig()->getConfigIni('PLX_VERSION') != $this->getConfig()->getConfiguration('version')) {
     	    header('Location: update/index.php');
     	    exit;
