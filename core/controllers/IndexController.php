@@ -15,7 +15,7 @@ use models\PlxShowModel;
 class IndexController {
 
     const PLX_CORE_DIR = 'core/';
-    const PLX_CORE_LANG_DIR = 'core/lang';
+    const PLX_CORE_LANG_DIR = 'core/lang/';
     const PLX_VIEWS_COMMON_DIR = 'views/common/';
     const PLX_VIEWS_LAYOUTS_DIR = 'views/layouts/';
     const PLX_VIEWS_SCRIPTS_DIR = 'views/scripts/';
@@ -42,8 +42,8 @@ class IndexController {
         $this->setPlxShow();
 
         // Loading langs files
-        $this->plxMotor->loadLang($this->getCoreLangDir() . 'lang/' . $this->getCoreLang() . '/admin.php');
-        $this->plxMotor->loadLang($this->_coreLangDir . 'lang/' . $this->_coreLang . '/core.php');
+        $this->plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
+        $this->plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
 
         // Checking PluXml installation before continue
         if(!is_file($this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION'))) {
@@ -185,7 +185,7 @@ class IndexController {
         $this->_config = PlxConfigModel::getInstance();
         return;
     }
-    
+
     /**
      * Set $plxMotor
      * @return \models\PlxMotorModel
@@ -195,7 +195,7 @@ class IndexController {
         $this->plxMotor = PlxMotorModel::getInstance();
         return;
     }
-    
+
     /**
      * Set $plxShow
      * @return \models\PlxShowModel
@@ -205,7 +205,7 @@ class IndexController {
         $this->plxShow = PlxShowModel::getInstance();
         return;
     }
-    
+
     /**
      * set $_themeDir
      * @return string
@@ -219,7 +219,7 @@ class IndexController {
         $this->_themeDir = $themeDir . '/';
         return;
     }
-    
+
     /**
      * set$_coreLang
      * @return string

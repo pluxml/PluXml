@@ -41,7 +41,7 @@ class PlxShowModel extends PlxModel {
 		$this->plxMotor = PlxMotorModel::getInstance();
 
 		# Chargement du fichier de lang du theme
-		$langfile = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/lang/'.$this->plxMotor->aConf['default_lang'].'.php';
+		$langfile = $this->getPlxConfig()->getConfiguration('racine_themes').$this->plxMotor->style.'/lang/'.$this->getPlxConfig()->getConfiguration('default_lang').'.php';
 		if(is_file($langfile)) {
 			include $langfile;
 			$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
@@ -138,9 +138,9 @@ class PlxShowModel extends PlxModel {
 	 **/
 	public function defaultLang($echo=true) {
 		if($echo)
-			echo $this->plxMotor->aConf['default_lang'];
+			echo $this->getPlxConfig()->getConfiguration('default_lang');
 		else
-			return $this->plxMotor->aConf['default_lang'];
+			return $this->getPlxConfig()->getConfiguration('default_lang');
 	}
 
 
@@ -174,7 +174,7 @@ class PlxShowModel extends PlxModel {
 	 **/
 	public function template() {
 
-		echo $this->plxMotor->urlRewrite($this->plxMotor->aConf['racine_themes'].$this->plxMotor->style);
+		echo $this->plxMotor->urlRewrite($this->getPlxConfig()->getConfiguration('racine_themes').$this->plxMotor->style);
 
 	}
 
@@ -1908,7 +1908,7 @@ class PlxShowModel extends PlxModel {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTemplateCss'))) return;
 
-		$theme = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/';
+		$theme = $this->getPlxConfig()->getConfiguration('racine_themes').$this->plxMotor->style.'/';
 		$min_css = str_replace('php','min.css',$this->plxMotor->template);
 		$css = str_replace('php','css',$this->plxMotor->template);
 
