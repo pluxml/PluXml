@@ -8,12 +8,18 @@
  **/
 namespace models;
 
-class PlxUtilsModel extends PlxModel{
-
-    public function __construct(){
-        parent::__construct();
-    }
+class PlxUtilsModel {
     
+    /**
+     * Get an instance of PlxConfigModel
+     * @return \models\PlxConfigModel
+     * @author Pedro "P3ter" CADETE
+     */
+    public static function getPlxConfig() {
+        $plxConfig = PlxConfigModel::getInstance();
+        return $plxConfig;
+    }
+
 	/**
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre
@@ -138,7 +144,7 @@ class PlxUtilsModel extends PlxModel{
 		else
 			$localIP = getHostByName(getHostName());
 
-		return $this->isValidIp($ip) ? $ip : $localIP;
+		return PlxUtilsModel::isValidIp($ip) ? $ip : $localIP;
 	}
 
 	/**
@@ -410,8 +416,7 @@ class PlxUtilsModel extends PlxModel{
 	 * @return	string		nom d'url valide
 	 **/
 	public static function title2url($str) {
-
-		$str = strtolower($this->removeAccents($str,PLX_CHARSET));
+	    $str = strtolower(PlxUtilsModel::removeAccents($str, PlxUtilsModel::getPlxConfig()->getConfigIni('PLX_CHARSET')));
 		$str = preg_replace('/[^[:alnum:]]+/',' ',$str);
 		return strtr(trim($str), ' ', '-');
 	}
@@ -423,8 +428,8 @@ class PlxUtilsModel extends PlxModel{
 	 * @return	string		nom de fichier valide
 	 **/
 	public static function title2filename($str) {
-
-		$str = strtolower($this->removeAccents($str,PLX_CHARSET));
+	    
+		$str = strtolower(PlxUtilsModel::removeAccents($str,PlxUtilsModel::getPlxConfig()->getConfigIni('PLX_CHARSET')));
 		$str = str_replace('|','',$str);
 		$str = preg_replace('/\.{2,}/', '.', $str);
 		$str = preg_replace('/[^[:alnum:]|.|_]+/',' ',$str);
@@ -801,16 +806,15 @@ class PlxUtilsModel extends PlxModel{
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *
-	 * @author	Stephane F.
+	 * @author	Stephane F., Pedro "P3ter" CADETE
 	 **/
 	public static function cleanHeaders() {
-	    $plxConfig = new PlxConfigModel();
 		@header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
 		@header('Last-Modified: '.gmdate( 'D, d M Y H:i:s' ).' GMT');
 		@header('Cache-Control: no-cache, must-revalidate, max-age=0');
 		@header('Cache: no-cache');
 		@header('Pragma: no-cache');
-		@header('Content-Type: text/html; charset='.$plxConfig->getConfigIni('PLX_CHARSET'));
+		@header('Content-Type: text/html; charset='.PlxUtilsModel::getPlxConfig()->getConfigIni('PLX_CHARSET'));
 	}
 
 	/**
@@ -838,9 +842,9 @@ class PlxUtilsModel extends PlxModel{
 		$headers .= 'MIME-Version: 1.0'."\r\n";
 		// Content-Type
 		if($contentType == 'html')
-			$headers .= 'Content-type: text/html; charset="'.PLX_CHARSET.'"'."\r\n";
+			$headers .= 'Content-type: text/html; charset="'.PlxUtilsModel::getPlxConfig()->getConfigIni('PLX_CHARSET').'"'."\r\n";
 		else
-			$headers .= 'Content-type: text/plain; charset="'.PLX_CHARSET.'"'."\r\n";
+			$headers .= 'Content-type: text/plain; charset="'.PlxUtilsModel::getPlxConfig()->getConfigIni('PLX_CHARSET').'"'."\r\n";
 
 		$headers .= 'Content-transfer-encoding: 8bit'."\r\n";
 		$headers .= 'Date: '.date("D, j M Y G:i:s O")."\r\n"; // Sat, 7 Jun 2001 12:35:58 -0700
@@ -873,7 +877,7 @@ class PlxUtilsModel extends PlxModel{
 		$title = $title ? ' title="'.$title.'"':'';
 		$class = $class ? ' '.$class:'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$menu = '<li id="mnu_'.$this->title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
+		$menu = '<li id="mnu_'.PlxUtilsModel::title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
 		return $menu;
 	}
 

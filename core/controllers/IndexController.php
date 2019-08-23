@@ -11,6 +11,7 @@ namespace controllers;
 use models\PlxConfigModel;
 use models\PlxMotorModel;
 use models\PlxShowModel;
+use models\PlxUtilsModel;
 
 class IndexController {
 
@@ -32,7 +33,7 @@ class IndexController {
 
     private $_config; # new PlxConfigModel
     private $plxMotor; # new PlxMotorModel
-    private $plxShow; #new PlxShowModel
+    private $plxShow; # new PlxShowModel
 
     public function __construct(){
         $this->setConfig();
