@@ -910,7 +910,7 @@ class PlxShowModel extends PlxModel {
 			$motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.str_pad($cat_id,3,'0',STR_PAD_LEFT).')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 
 		# Nouvel objet PlxGlobModel et récupération des fichiers
-		$PlxGlobModel_arts = clone $this->plxMotor->PlxGlobModel_arts;
+		$PlxGlobModel_arts = clone $this->plxMotor->plxGlob_arts;
 		if($aFiles = $PlxGlobModel_arts->query($motif,'art',$sort,0,$max,'before')) {
 			foreach($aFiles as $v) { # On parcourt tous les fichiers
 				$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$v);
@@ -992,7 +992,7 @@ class PlxShowModel extends PlxModel {
 
 		# On affiche l'URL
 		$artId = $this->plxMotor->plxRecord_coms->f('article');
-		$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->PlxGlobModel_arts->aFiles[$artId]);
+		$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$artId]);
 		echo $this->urlRewrite('?article'.intval($artId).'/'.$artInfo['artUrl'].'#'.$this->ComId(false));
 	}
 
@@ -1213,7 +1213,7 @@ class PlxShowModel extends PlxModel {
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
 				if(isset($this->plxMotor->activeArts[substr($v,0,4)])) {
 					$com = $this->plxMotor->parseCommentaire(PLX_ROOT.$this->plxMotor->aConf['racine_commentaires'].$v);
-					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->PlxGlobModel_arts->aFiles[$com['article']]);
+					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if($artInfo['artDate']<=$datetime) { # on ne prends que les commentaires pour les articles publiés
 						if(empty($cat_ids) OR preg_match('/('.$cat_ids.')/', $artInfo['catId'])) {
 							$url = '?article'.intval($com['article']).'/'.$artInfo['artUrl'].'#c'.$com['article'].'-'.$com['index'];
@@ -1240,7 +1240,7 @@ class PlxShowModel extends PlxModel {
 									$row = str_replace('#com_art_title',$aComArtTitles[$com['article']],$row);
 								}
 								else {
-									if($file = $this->plxMotor->PlxGlobModel_arts->query('/^'.$com['article'].'.(.*).xml$/')) {
+									if($file = $this->plxMotor->plxGlob_arts->query('/^'.$com['article'].'.(.*).xml$/')) {
 										$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$file[0]);
 										$aComArtTitles[$com['article']] = $art_title = $art['title'];
 										$row = str_replace('#com_art_title',$art_title,$row);
@@ -1516,7 +1516,7 @@ class PlxShowModel extends PlxModel {
 	public function pagination() {
 
 	    $capture = '';
-	    $PlxGlobModel_arts = clone $this->plxMotor->PlxGlobModel_arts;
+	    $PlxGlobModel_arts = clone $this->plxMotor->plxGlob_arts;
 		$aFiles = $PlxGlobModel_arts->query($this->plxMotor->motif,'art','',0,false,'before');
 
 		if($aFiles AND $this->plxMotor->bypage AND sizeof($aFiles)>$this->plxMotor->bypage) {
@@ -1769,7 +1769,7 @@ class PlxShowModel extends PlxModel {
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArchList'))) return;
 
 		# on compte le nombre d'articles pour chaque mois de la période et pour chaque année passée
-		$PlxGlobModel_arts = clone $this->plxMotor->PlxGlobModel_arts;
+		$PlxGlobModel_arts = clone $this->plxMotor->plxGlob_arts;
 		if($files = $PlxGlobModel_arts->query('/^\d{4}\.(?:\d{3},|home,)*('.$this->plxMotor->activeCats.')(?:,\d{3}|,home)*\.\d{3}\.\d{12}\.[\w-]+\.xml$/','art','rsort',0,false,'before')) {
 			# compte les années en mois !
 			$periode = 12; # on détaille pour les 12 derniers mois
