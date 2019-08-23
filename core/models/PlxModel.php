@@ -36,7 +36,7 @@ class PlxModel {
      * load lang file and create globals constants
      * @return \models\PlxConfigModel
      */
-    function loadLang($filename) {
+    public function loadLang($filename) {
 	if(file_exists($filename)) {
 		$LANG = array();
 		include_once $filename;
