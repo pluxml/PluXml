@@ -532,7 +532,7 @@ class PlxShowModel extends PlxModel {
 				),
 				array(
 					$img_url, // #img_url
-					(file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, // #img_thumb_url
+					(file_exists($img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, // #img_thumb_url
 					PlxUtilsModel::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), // #img_title
 					$this->plxMotor->plxRecord_arts->f('thumbnail_alt') // #img_alt
 				),

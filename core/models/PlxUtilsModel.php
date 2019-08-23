@@ -428,7 +428,6 @@ class PlxUtilsModel {
 	 * @return	string		nom de fichier valide
 	 **/
 	public static function title2filename($str) {
-	    
 		$str = strtolower(PlxUtilsModel::removeAccents($str,PlxUtilsModel::getPlxConfig()->getConfigIni('PLX_CHARSET')));
 		$str = str_replace('|','',$str);
 		$str = preg_replace('/\.{2,}/', '.', $str);
