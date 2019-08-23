@@ -350,7 +350,7 @@ class PlxMotorModel extends PlxModel {
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
-		$parser = xml_parser_create(PLX_CHARSET);
+		$parser = xml_parser_create($this->getPlxConfig()->getConfigIni('PLX_CHARSET'));
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
@@ -419,7 +419,7 @@ class PlxMotorModel extends PlxModel {
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
-		$parser = xml_parser_create(PLX_CHARSET);
+		$parser = xml_parser_create($this->getPlxConfig()->getConfigIni('PLX_CHARSET'));
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
@@ -458,7 +458,7 @@ class PlxMotorModel extends PlxModel {
 				$date_update = PlxUtilsModel::getValue($iTags['date_update'][$i]);
 				$this->aStats[$number]['date_update']=PlxUtilsModel::getValue($values[$date_update]['value']);
 				# On verifie que la page statique existe bien
-				$file = PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_statiques').$number.'.'.$attributes['url'].'.php';
+				$file = $this->getPlxConfig()->getConfiguration('racine_statiques').$number.'.'.$attributes['url'].'.php';
 				# On test si le fichier est lisible
 				$this->aStats[$number]['readable'] = (is_readable($file) ? 1 : 0);
 				# Hook plugins
@@ -480,7 +480,7 @@ class PlxMotorModel extends PlxModel {
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
-		$parser = xml_parser_create(PLX_CHARSET);
+		$parser = xml_parser_create($this->getPlxConfig()->getConfigIni('PLX_CHARSET'));
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
@@ -605,6 +605,9 @@ class PlxMotorModel extends PlxModel {
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
 	public function parseArticle($filename) {
+	    $art = array();
+	    $values = array();
+	    $iTags = array();
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
@@ -695,7 +698,7 @@ class PlxMotorModel extends PlxModel {
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
-		$parser = xml_parser_create(PLX_CHARSET);
+		$parser = xml_parser_create($this->getPlxConfig()->getConfigIni('PLX_CHARSET'));
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
@@ -765,7 +768,7 @@ class PlxMotorModel extends PlxModel {
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
 			foreach($aFiles as $k=>$v)
-				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires').$v);
+				$array[$k] = $this->parseCommentaire($this->getPlxConfig()->getConfiguration('racine_commentaires').$v);
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
 			if( !(defined('PLX_ADMIN') OR defined('PLX_FEED')) OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
@@ -790,7 +793,7 @@ class PlxMotorModel extends PlxModel {
 	 public function nextIdArtComment($idArt) {
 
 		$ret = '0';
-		if($dh = opendir(PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires'))) {
+		if($dh = opendir($this->getPlxConfig()->getConfiguration('racine_commentaires'))) {
 			$Idxs = array();
 			while(false !== ($file = readdir($dh))) {
 				if(preg_match("/_?".$idArt.".[0-9]+-([0-9]+).xml/", $file, $capture)) {
@@ -875,7 +878,7 @@ class PlxMotorModel extends PlxModel {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
 		# On genere le contenu de notre fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
+		$xml = "<?xml version='1.0' encoding='".$this->getPlxConfig()->getConfigIni('PLX_CHARSET')."'?>\n";
 		$xml .= "<comment>\n";
 		$xml .= "\t<author><![CDATA[".PlxUtilsModel::cdataCheck($content['author'])."]]></author>\n";
 		$xml .= "\t<type>".$content['type']."</type>\n";
@@ -888,7 +891,7 @@ class PlxMotorModel extends PlxModel {
 		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
 		$xml .= "</comment>\n";
 		# On ecrit ce contenu dans notre fichier XML
-		return PlxUtilsModel::write($xml, PLX_ROOT.$this->getPlxConfig()->getConfiguration('racine_commentaires').$content['filename']);
+		return PlxUtilsModel::write($xml, $this->getPlxConfig()->getConfiguration('racine_commentaires').$content['filename']);
 	}
 
 	/**
@@ -905,7 +908,7 @@ class PlxMotorModel extends PlxModel {
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
-		$parser = xml_parser_create(PLX_CHARSET);
+		$parser = xml_parser_create($this->getPlxConfig()->getConfigIni('PLX_CHARSET'));
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
@@ -956,11 +959,11 @@ class PlxMotorModel extends PlxModel {
 	public function sendTelechargement($cible) {
 
 		# On décrypte le nom du fichier
-		$file = PLX_ROOT.$this->getPlxConfig()->getConfiguration('medias').PlxEncryptModel::decryptId($cible);
+		$file = $this->getPlxConfig()->getConfiguration('medias').PlxEncryptModel::decryptId($cible);
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
 		# On lance le téléchargement et on check le répertoire medias
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->getPlxConfig()->getConfiguration('medias')).'#'), str_replace('\\', '/', realpath($file)))) {
+		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath($this->getPlxConfig()->getConfiguration('medias')).'#'), str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
 			header('Content-Disposition: attachment; filename='.basename($file));

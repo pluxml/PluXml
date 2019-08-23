@@ -1,5 +1,3 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
-
 	<aside class="aside col sml-12 med-3">
 
 		<h3>

@@ -913,7 +913,7 @@ class PlxShowModel extends PlxModel {
 		$PlxGlobModel_arts = clone $this->plxMotor->plxGlob_arts;
 		if($aFiles = $PlxGlobModel_arts->query($motif,'art',$sort,0,$max,'before')) {
 			foreach($aFiles as $v) { # On parcourt tous les fichiers
-				$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$v);
+				$art = $this->plxMotor->parseArticle($this->plxMotor->aConf['racine_articles'].$v);
 				$num = intval($art['numero']);
 				$date = $art['date'];
 				if(($this->plxMotor->mode == 'article') AND ($art['numero'] == $this->plxMotor->cible))
@@ -1204,15 +1204,15 @@ class PlxShowModel extends PlxModel {
 		$count=1;
 		$datetime=date('YmdHi');
 		# Nouvel objet PlxGlobModel et récupération des fichiers
-		$PlxGlobModel_coms = clone $this->plxMotor->PlxGlobModel_coms;
-		if($aFiles = $PlxGlobModel_coms->query($motif,'com','rsort',0,false,'before')) {
+		$plxGlob_coms = clone $this->plxMotor->plxGlob_coms;
+		if($aFiles = $plxGlob_coms->query($motif,'com','rsort',0,false,'before')) {
 			$aComArtTitles = array(); # tableau contenant les titres des articles
 			$isComArtTitle = (strpos($format, '#com_art_title')!=FALSE) ? true : false;
 			# On parcourt les fichiers des commentaires
 			foreach($aFiles as $v) {
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
 				if(isset($this->plxMotor->activeArts[substr($v,0,4)])) {
-					$com = $this->plxMotor->parseCommentaire(PLX_ROOT.$this->plxMotor->aConf['racine_commentaires'].$v);
+					$com = $this->plxMotor->parseCommentaire($this->plxMotor->aConf['racine_commentaires'].$v);
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if($artInfo['artDate']<=$datetime) { # on ne prends que les commentaires pour les articles publiés
 						if(empty($cat_ids) OR preg_match('/('.$cat_ids.')/', $artInfo['catId'])) {
@@ -1241,7 +1241,7 @@ class PlxShowModel extends PlxModel {
 								}
 								else {
 									if($file = $this->plxMotor->plxGlob_arts->query('/^'.$com['article'].'.(.*).xml$/')) {
-										$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$file[0]);
+										$art = $this->plxMotor->parseArticle($this->plxMotor->aConf['racine_articles'].$file[0]);
 										$aComArtTitles[$com['article']] = $art_title = $art['title'];
 										$row = str_replace('#com_art_title',$art_title,$row);
 									}
@@ -1420,7 +1420,7 @@ class PlxShowModel extends PlxModel {
 	public function staticDate($format='#day #num_day #month #num_year(4)') {
 
 		# On genere le nom du fichier dont on veux récupérer la date
-		$file = PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
+		$file = $this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
 		$file .= '.'.$this->plxMotor->aStats[ $this->plxMotor->cible ]['url'].'.php';
 		# Test de l'existence du fichier
 		if(!file_exists($file)) return;
@@ -1465,7 +1465,7 @@ class PlxShowModel extends PlxModel {
 		# On va verifier que la page a inclure est lisible
 		if($this->plxMotor->aStats[ $this->plxMotor->cible ]['readable'] == 1) {
 			# On genere le nom du fichier a inclure
-			$file = PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
+			$file = $this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
 			$file .= '.'.$this->plxMotor->aStats[ $this->plxMotor->cible ]['url'].'.php';
 			# Inclusion du fichier
 			ob_start();
@@ -1491,7 +1491,7 @@ class PlxShowModel extends PlxModel {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return ;
 		# On génère un nouvel objet PlxGlobModel
-		$PlxGlobModel_stats = PlxGlobModel::getInstance(PLX_ROOT.$this->plxMotor->aConf['racine_statiques']);
+		$PlxGlobModel_stats = PlxGlobModel::getInstance($this->plxMotor->aConf['racine_statiques']);
 		if(is_numeric($id)) # inclusion à partir de l'id de la page
 			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
 		else { # inclusion à partir du titre de la page
@@ -1502,7 +1502,7 @@ class PlxShowModel extends PlxModel {
 			# on récupère l'id de la page pour tester si elle est active
 			if(preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
 				if($this->plxMotor->aStats[$c[1]]['active'])
-					include PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0];
+					include $this->plxMotor->aConf['racine_statiques'].$files[0];
 			}
 		}
 	}

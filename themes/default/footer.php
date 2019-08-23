@@ -1,5 +1,3 @@
-<?php if (!defined('PLX_ROOT')) exit; ?>
-
 	<footer class="footer">
 		<div class="container">
 			<p>
