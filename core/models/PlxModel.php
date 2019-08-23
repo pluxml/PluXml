@@ -31,7 +31,7 @@ class PlxModel {
     private function setPlxConfig() {
         return $this->_plxConfig = PlxConfigModel::getInstance();
     }
-    
+
     /**
      * load lang file and create globals constants
      * @return \models\PlxConfigModel
@@ -45,5 +45,4 @@ class PlxModel {
 		}
 	}
     }
-    
 }
