@@ -162,8 +162,6 @@ class IndexController {
     /**
      * Get $_coreLang
      * @return string        // debug mode activation
-        if($this->getConfig()->getConfigIni('PLX_DEBUG'))
-            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
      * @author Pedro "P3ter" CADETE
      */
     public function getCoreLang() {

@@ -1,8 +1,5 @@
 <?php
 
-# Gestion des erreurs PHP
-if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');
 $img_thumb = array('50x50', '75x75', '100x100');
