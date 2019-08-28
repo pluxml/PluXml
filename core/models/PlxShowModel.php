@@ -72,7 +72,7 @@ class PlxShowModel extends PlxModel {
 	public function httpEncoding() {
 
 		$encoding = PlxUtilsModel::httpEncoding();
-		if($this->plxMotor->aConf['gzip'] AND $encoding)
+		if($this->plxMotor->getPlxConfig()->getConfiguration('gzip') AND $encoding)
 			printf(L_HTTPENCODING, strtoupper($encoding));
 
 	}
@@ -192,23 +192,23 @@ class PlxShowModel extends PlxModel {
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageTitle'))) return;
 
 		if($this->plxMotor->mode == 'home') {
-			$title = $this->plxMotor->aConf['title'];
-			$subtitle = $this->plxMotor->aConf['description'];
+			$title = $this->plxMotor->getPlxConfig()->getConfiguration('title');
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('description');
 		}
 		elseif($this->plxMotor->mode == 'categorie') {
 			$title_htmltag = $this->plxMotor->aCats[$this->plxMotor->cible ]['title_htmltag'];
 			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aCats[$this->plxMotor->cible]['name'];
-			$subtitle = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('title');
 		}
 		elseif($this->plxMotor->mode == 'article') {
 			$title_htmltag = $this->plxMotor->plxRecord_arts->f('title_htmltag');
 			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->plxRecord_arts->f('title');
-			$subtitle = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('title');
 		}
 		elseif($this->plxMotor->mode == 'static') {
 			$title_htmltag =  $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
 			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aStats[$this->plxMotor->cible]['name'];
-			$subtitle = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('title');
 		}
 		elseif($this->plxMotor->mode == 'archives') {
 			preg_match('/^(\d{4})(\d{2})?(\d{2})?/',$this->plxMotor->cible, $capture);
@@ -216,19 +216,19 @@ class PlxShowModel extends PlxModel {
 			$month = !empty($capture[2]) ? ' '.PlxDateModel::getCalendar('month', $capture[2]) : '';
 			$day = !empty($capture[3]) ? ' '.PlxDateModel::getCalendar('day', $capture[3]) : '';
 			$title = L_PAGETITLE_ARCHIVES.$day.$month.$year;
-			$subtitle = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('title');
 		}
 		elseif($this->plxMotor->mode == 'tags') {
 			$title = L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName;
-			$subtitle = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('title');
 		}
 		elseif($this->plxMotor->mode == 'erreur') {
 			$title = $this->plxMotor->plxErreur->getMessage();
-			$subtitle = $this->plxMotor->aConf['title'];
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('title');
 		}
 		else { # mode par défaut
-			$title = $this->plxMotor->aConf['title'];
-			$subtitle = $this->plxMotor->aConf['description'];
+			$title = $this->plxMotor->getPlxConfig()->getConfiguration('title');
+			$subtitle = $this->plxMotor->getPlxConfig()->getConfiguration('description');
 		}
 
 		$fmt = '';
@@ -259,8 +259,8 @@ class PlxShowModel extends PlxModel {
 		$meta=strtolower($meta);
 
 		if($this->plxMotor->mode == 'home') {
-			if(!empty($this->plxMotor->aConf['meta_'.$meta]))
-				echo '<meta name="'.$meta.'" content="'.PlxUtilsModel::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
+			if(!empty($this->plxMotor->getPlxConfig()->getConfiguration('meta_'.$meta)))
+				echo '<meta name="'.$meta.'" content="'.PlxUtilsModel::strCheck($this->plxMotor->getPlxConfig()->getConfiguration('meta_'.$meta)).'" />'."\n";
 			return;
 		}
 		
@@ -296,7 +296,8 @@ class PlxShowModel extends PlxModel {
 	 **/
 	public function mainTitle($type='') {
 
-		$title = PlxUtilsModel::strCheck($this->plxMotor->aConf['title']);
+		$title = PlxUtilsModel::strCheck($this->plxMotor->getPlxConfig()->getConfiguration('title'));
+		printf($this->plxMotor->getPlxConfig()->getConfiguration('title'));
 		if($type == 'link') # Type lien
 			echo '<a class="maintitle" href="'.$this->plxMotor->urlRewrite().'" title="'.$title.'">'.$title.'</a>';
 		else # Type normal
@@ -311,7 +312,7 @@ class PlxShowModel extends PlxModel {
 	 **/
 	public function subTitle() {
 
-		echo PlxUtilsModel::strCheck($this->plxMotor->aConf['description']);
+		echo PlxUtilsModel::strCheck($this->plxMotor->getPlxConfig()->getConfiguration('description'));
 	}
 
 	/**
@@ -346,7 +347,7 @@ class PlxShowModel extends PlxModel {
 				$in = (empty($include) OR preg_match('/('.$include.')/', $k));
 				$ex = (!empty($exclude) AND preg_match('/('.$exclude.')/', $k));
 				if($in AND !$ex) {
-					if(($v['articles']>0 OR $this->plxMotor->aConf['display_empty_cat']) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
+					if(($v['articles']>0 OR $this->plxMotor->getPlxConfig()->getConfiguration('display_empty_cat')) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
 						# On modifie nos motifs
 						$name = str_replace('#cat_id','cat-'.intval($k),$format);
 						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),$name);
@@ -446,7 +447,7 @@ class PlxShowModel extends PlxModel {
 		# Mode home
 		elseif($this->plxMotor->mode == 'home') {
 			if($type == 'link')
-				echo '<a href="'.$this->plxMotor->urlRewrite().'" title="'.PlxUtilsModel::strCheck($this->plxMotor->aConf['title']).'">'.L_HOMEPAGE.'</a>';
+				echo '<a href="'.$this->plxMotor->urlRewrite().'" title="'.PlxUtilsModel::strCheck($this->plxMotor->getPlxConfig()->getConfiguration('title')).'">'.L_HOMEPAGE.'</a>';
 			else
 				echo L_HOMEPAGE;
 		} else {
@@ -910,7 +911,7 @@ class PlxShowModel extends PlxModel {
 		$PlxGlobModel_arts = clone $this->plxMotor->plxGlob_arts;
 		if($aFiles = $PlxGlobModel_arts->query($motif,'art',$sort,0,$max,'before')) {
 			foreach($aFiles as $v) { # On parcourt tous les fichiers
-				$art = $this->plxMotor->parseArticle($this->plxMotor->aConf['racine_articles'].$v);
+				$art = $this->plxMotor->parseArticle($this->plxMotor->getPlxConfig()->getConfiguration('racine_articles').$v);
 				$num = intval($art['numero']);
 				$date = $art['date'];
 				if(($this->plxMotor->mode == 'article') AND ($art['numero'] == $this->plxMotor->cible))
@@ -1209,7 +1210,7 @@ class PlxShowModel extends PlxModel {
 			foreach($aFiles as $v) {
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
 				if(isset($this->plxMotor->activeArts[substr($v,0,4)])) {
-					$com = $this->plxMotor->parseCommentaire($this->plxMotor->aConf['racine_commentaires'].$v);
+					$com = $this->plxMotor->parseCommentaire($this->plxMotor->getPlxConfig()->getConfiguration('racine_commentaires').$v);
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if($artInfo['artDate']<=$datetime) { # on ne prends que les commentaires pour les articles publiés
 						if(empty($cat_ids) OR preg_match('/('.$cat_ids.')/', $artInfo['catId'])) {
@@ -1238,7 +1239,7 @@ class PlxShowModel extends PlxModel {
 								}
 								else {
 									if($file = $this->plxMotor->plxGlob_arts->query('/^'.$com['article'].'.(.*).xml$/')) {
-										$art = $this->plxMotor->parseArticle($this->plxMotor->aConf['racine_articles'].$file[0]);
+										$art = $this->plxMotor->parseArticle($this->plxMotor->getPlxConfig()->getConfiguration('racine_articles').$file[0]);
 										$aComArtTitles[$com['article']] = $art_title = $art['title'];
 										$row = str_replace('#com_art_title',$art_title,$row);
 									}
@@ -1304,8 +1305,8 @@ class PlxShowModel extends PlxModel {
 			}
 		}
 		if($menublog) {
-			if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
-				if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
+			if($this->plxMotor->getPlxConfig()->getConfiguration('homestatic')!='' AND isset($this->plxMotor->aStats[$this->plxMotor->getPlxConfig()->getConfiguration('homestatic')])) {
+				if($this->plxMotor->aStats[$this->plxMotor->getPlxConfig()->getConfiguration('homestatic')]['active']) {
 					$menu = str_replace('#static_id','static-blog',$format);
 					if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'].$this->plxMotor->mode)) {
 						$menu = str_replace('#static_status','active',$menu);
@@ -1417,7 +1418,7 @@ class PlxShowModel extends PlxModel {
 	public function staticDate($format='#day #num_day #month #num_year(4)') {
 
 		# On genere le nom du fichier dont on veux récupérer la date
-		$file = $this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
+		$file = $this->plxMotor->getPlxConfig()->getConfiguration('racine_statiques').$this->plxMotor->cible;
 		$file .= '.'.$this->plxMotor->aStats[ $this->plxMotor->cible ]['url'].'.php';
 		# Test de l'existence du fichier
 		if(!file_exists($file)) return;
@@ -1462,7 +1463,7 @@ class PlxShowModel extends PlxModel {
 		# On va verifier que la page a inclure est lisible
 		if($this->plxMotor->aStats[ $this->plxMotor->cible ]['readable'] == 1) {
 			# On genere le nom du fichier a inclure
-			$file = $this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
+			$file = $this->plxMotor->getPlxConfig()->getConfiguration('racine_statiques').$this->plxMotor->cible;
 			$file .= '.'.$this->plxMotor->aStats[ $this->plxMotor->cible ]['url'].'.php';
 			# Inclusion du fichier
 			ob_start();
@@ -1488,7 +1489,7 @@ class PlxShowModel extends PlxModel {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return ;
 		# On génère un nouvel objet PlxGlobModel
-		$PlxGlobModel_stats = PlxGlobModel::getInstance($this->plxMotor->aConf['racine_statiques']);
+		$PlxGlobModel_stats = PlxGlobModel::getInstance($this->plxMotor->getPlxConfig()->getConfiguration('racine_statiques'));
 		if(is_numeric($id)) # inclusion à partir de l'id de la page
 			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
 		else { # inclusion à partir du titre de la page
@@ -1499,7 +1500,7 @@ class PlxShowModel extends PlxModel {
 			# on récupère l'id de la page pour tester si elle est active
 			if(preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
 				if($this->plxMotor->aStats[$c[1]]['active'])
-					include $this->plxMotor->aConf['racine_statiques'].$files[0];
+					include $this->plxMotor->getPlxConfig()->getConfiguration('racine_statiques').$files[0];
 			}
 		}
 	}
@@ -1850,8 +1851,8 @@ class PlxShowModel extends PlxModel {
 			# Total des articles
 			if(strpos($format, '#archives_nbart') !== false) {
 				$url = '';
-				if($this->plxMotor->aConf['homestatic'] != '' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
-					$url = ($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) ? '?blog' : '';
+				if($this->plxMotor->getPlxConfig()->getConfiguration('homestatic') != '' AND isset($this->plxMotor->aStats[$this->plxMotor->getPlxConfig()->getConfiguration('homestatic')])) {
+					$url = ($this->plxMotor->aStats[$this->plxMotor->getPlxConfig()->getConfiguration('homestatic')]['active']) ? '?blog' : '';
 				}
 				echo strtr($format, array(
 					'#archives_id'		=> 'arch-total',
@@ -1878,8 +1879,8 @@ class PlxShowModel extends PlxModel {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageBlog'))) return;
 
-		if($this->plxMotor->aConf['homestatic']!='' AND isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
-			if($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
+		if($this->plxMotor->getPlxConfig()->getConfiguration('homestatic')!='' AND isset($this->plxMotor->aStats[$this->plxMotor->getPlxConfig()->getConfiguration('homestatic')])) {
+			if($this->plxMotor->aStats[$this->plxMotor->getPlxConfig()->getConfiguration('homestatic')]['active']) {
 				$name = str_replace('#page_id','static-blog',$format);
 				if ($this->plxMotor->get AND preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'].$this->plxMotor->mode)) {
 					$name = str_replace('#page_status','active',$name);
