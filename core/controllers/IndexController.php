@@ -11,7 +11,6 @@ namespace controllers;
 use models\PlxConfigModel;
 use models\PlxMotorModel;
 use models\PlxShowModel;
-use models\PlxUtilsModel;
 
 class IndexController {
 
@@ -32,8 +31,8 @@ class IndexController {
     private $_coreLang = 'en'; # english by default
 
     private $_config; # new PlxConfigModel
-    private $plxMotor; # new PlxMotorModel
-    private $plxShow; # new PlxShowModel
+    private $_plxMotor; # new PlxMotorModel
+    private $_plxShow; # new PlxShowModel
 
     public function __construct(){
         $this->setConfig();
@@ -42,9 +41,13 @@ class IndexController {
         $this->setPlxMotor();
         $this->setPlxShow();
 
+        // debug mode activation
+        if($this->getConfig()->getConfigIni('PLX_DEBUG'))
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
         // Loading langs files
-        $this->plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
-        $this->plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
+        $this->_plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
+        $this->_plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
 
         // Checking PluXml installation before continue
         if(!is_file($this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION'))) {
@@ -135,16 +138,16 @@ class IndexController {
     }
     
     /**
-     * Get $plxMotor
+     * Get $_plxMotor
      * @return \models\PlxMotorModel
      * @author Pedro "P3ter" CADETE
      */
     public function getPlxMotor() {
-        return $this->plxMotor;
+        return $this->_plxMotor;
     }
     
     public function getPlxShow() {
-        return $this->plxShow;
+        return $this->_plxShow;
     }
     
     /**
@@ -158,7 +161,9 @@ class IndexController {
    
     /**
      * Get $_coreLang
-     * @return string
+     * @return string        // debug mode activation
+        if($this->getConfig()->getConfigIni('PLX_DEBUG'))
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
      * @author Pedro "P3ter" CADETE
      */
     public function getCoreLang() {
@@ -188,22 +193,22 @@ class IndexController {
     }
 
     /**
-     * Set $plxMotor
+     * Set $_plxMotor
      * @return \models\PlxMotorModel
      * @author Pedro "P3ter" CADETE
      */
     private function setPlxMotor() {
-        $this->plxMotor = PlxMotorModel::getInstance();
+        $this->_plxMotor = PlxMotorModel::getInstance();
         return;
     }
 
     /**
-     * Set $plxShow
+     * Set $_plxShow
      * @return \models\PlxShowModel
      * @author Pedro "P3ter" CADETE
      */
     private function setPlxShow() {
-        $this->plxShow = PlxShowModel::getInstance();
+        $this->_plxShow = PlxShowModel::getInstance();
         return;
     }
 
