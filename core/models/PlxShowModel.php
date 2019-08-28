@@ -297,7 +297,6 @@ class PlxShowModel extends PlxModel {
 	public function mainTitle($type='') {
 
 		$title = PlxUtilsModel::strCheck($this->plxMotor->getPlxConfig()->getConfiguration('title'));
-		printf($this->plxMotor->getPlxConfig()->getConfiguration('title'));
 		if($type == 'link') # Type lien
 			echo '<a class="maintitle" href="'.$this->plxMotor->urlRewrite().'" title="'.$title.'">'.$title.'</a>';
 		else # Type normal
