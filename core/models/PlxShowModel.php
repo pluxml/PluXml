@@ -151,7 +151,6 @@ class PlxShowModel extends PlxModel {
 	 * @author	Florent MONTHEL
 	 **/
 	public function get() {
-
 		echo $this->plxMotor->get;
 	}
 
@@ -162,8 +161,8 @@ class PlxShowModel extends PlxModel {
 	 * @author	Anthony GUÉRIN et Florent MONTHEL
 	 **/
 	public function chrono() {
-
-		echo round(getMicrotime()-PLX_MICROTIME,3).'s';
+	    $plxmicrotime = $this->setPlxMicrotime();
+		echo round($plxmicrotime - $this->getPlxMicrotime(), 3) . 's';
 	}
 
 	/**
@@ -173,7 +172,6 @@ class PlxShowModel extends PlxModel {
 	 * @author	Stephane F
 	 **/
 	public function template() {
-
 		echo $this->plxMotor->urlRewrite($this->getPlxConfig()->getConfiguration('racine_themes').$this->plxMotor->style);
 
 	}
@@ -188,7 +186,6 @@ class PlxShowModel extends PlxModel {
 	 * @author	Stéphane F
 	 **/
 	public function pageTitle($format='',$sep=";") {
-
 	    $capture = '';
 	    
 		# Hook Plugins

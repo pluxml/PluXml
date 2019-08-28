@@ -1089,17 +1089,6 @@ class PlxUtilsModel {
 		return $str;
 	}
 
-/*
-	function arrayRemoveDuplicate($array, $field) {
-		foreach ($array as $element)
-			$cmp[] = $element[$field];
-		$unique = array_unique($cmp);
-		foreach ($unique as $k => $v)
-			$new[] = $array[$k];
-		return $new;
-	}
-*/
-
 	public static function debug($obj) {
 		echo "<pre>";
 		if(is_array($obj) OR is_object($obj))
@@ -1125,6 +1114,5 @@ class PlxUtilsModel {
 
 EOT;
 	}
-
 }
 ?>

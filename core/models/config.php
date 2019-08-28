@@ -3,15 +3,6 @@
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
-# Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
-function getMicrotime() {
-	$t = explode(' ',microtime());
-	return $t[0]+$t[1];
-}
-
-# Initialisation du timer d'execution
-define('PLX_MICROTIME', getMicrotime());
-
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');
 $img_thumb = array('50x50', '75x75', '100x100');
