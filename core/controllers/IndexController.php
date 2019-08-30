@@ -50,7 +50,9 @@ class IndexController {
         $this->_plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
 
         // Checking PluXml installation before continue
-        if(!is_file($this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION'))) {
+        $configurationFile = $this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION');
+        $configurationFileOldPluxmlVersion = 'data/configuration/parametres.xml';
+        if(!is_file($configurationFile) AND !is_file($configurationFileOldPluxmlVersion)) {
             header('Location: install');
     	    exit;
     	}
