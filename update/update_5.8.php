@@ -11,7 +11,7 @@ class update_5_8 extends plxUpdate{
 	public function step1() {
 	    echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
 	    
-	    $new_parameter = array();
+	    $new_parameters = array();
 	    $new_parameters['lostpassword'] = '1';
 	    $this->updateParameters($new_parameters);
 
