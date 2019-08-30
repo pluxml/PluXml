@@ -62,7 +62,7 @@ class IndexController {
     	    header('Location: update/index.php');
     	    exit;
     	}
-    	
+
     	if($this->_authPage !== true){ # si on est pas sur la page de login
     	    // Test sur le domaine et sur l'identification
     	    if((isset($_SESSION['domain']) AND $_SESSION['domain']!=$session_domain) OR (!isset($_SESSION['user']) OR $_SESSION['user']=='')){
@@ -70,12 +70,12 @@ class IndexController {
     	        exit;
     	    }
     	}
-    	
+
     	// actions requirements
     	$this->getPlxMotor()->prechauffage();
     	$this->getPlxMotor()->demarrage();
     }
-    
+
     /**
      * Get $_coreDir
      * @return string
@@ -84,7 +84,7 @@ class IndexController {
     public function getCoreDir(){
         return $this->_coreDir;
     }
-    
+
     /**
      * Get $_viewsCommonDir
      * @return string
@@ -93,7 +93,7 @@ class IndexController {
     public function getViewsCommonDir(){
         return $this->_viewsCommonDir;
     }
-    
+
     /**
      * Get $_viewsLayoutDir
      * @return string
@@ -101,7 +101,7 @@ class IndexController {
     public function getViewsLayoutDir(){
         return $this->_viewsLayoutDir;
     }
-    
+
     /**
      * Get $_viewsScriptsDir
      * @return string
@@ -110,7 +110,7 @@ class IndexController {
     public function getViewsScriptsDir(){
         return $this->_viewsScriptsDir;
     }
-    
+
     /**
      * Get $_authPage
      * @return boolean
@@ -125,11 +125,10 @@ class IndexController {
      * @return array
      * @author Pedro "P3ter" CADETE
      */
-    
     public function getConfig() {
         return $this->_config;
     }
-    
+
     /**
      * Get $_themeDir
      * @return string
@@ -138,7 +137,7 @@ class IndexController {
     public function getThemeDir() {
         return $this->_themeDir;
     }
-    
+
     /**
      * Get $_plxMotor
      * @return \models\PlxMotorModel
@@ -147,11 +146,15 @@ class IndexController {
     public function getPlxMotor() {
         return $this->_plxMotor;
     }
-    
+
+    /**
+     * Get $_plxShow
+     * @return \models\PlxShowModel
+     */
     public function getPlxShow() {
         return $this->_plxShow;
     }
-    
+
     /**
      * Get $_coreLangDir
      * @return string
@@ -160,7 +163,7 @@ class IndexController {
     public function getCoreLangDir() {
         return $this->_coreLangDir;
     }
-   
+
     /**
      * Get $_coreLang
      * @return string        // debug mode activation
