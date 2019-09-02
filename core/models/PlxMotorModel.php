@@ -96,10 +96,10 @@ class PlxMotorModel extends PlxModel {
 		$this->plxGlob_arts = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_articles'),false,true,'arts');
 		$this->plxGlob_coms = PlxGlobModel::getInstance($this->getPlxConfig()->getConfiguration('racine_commentaires'));
 		# Récupération des données dans les autres fichiers xml
-		$this->getCategories($this->getPlxConfig()->getConfiguration('XMLFILE_CATEGORIES'));
-		$this->getStatiques($this->getPlxConfig()->getConfiguration('XMLFILE_STATICS'));
-		$this->getTags($this->getPlxConfig()->getConfiguration('XMLFILE_TAGS'));
-		$this->getUsers($this->getPlxConfig()->getConfiguration('XMLFILE_USERS'));
+		$this->getCategories($this->getPlxConfig()->getConfigIni('XMLFILE_CATEGORIES'));
+		$this->getStatiques($this->getPlxConfig()->getConfigIni('XMLFILE_STATICS'));
+		$this->getTags($this->getPlxConfig()->getConfigIni('XMLFILE_TAGS'));
+		$this->getUsers($this->getPlxConfig()->getConfigIni('XMLFILE_USERS'));
 		# Récuperation des articles appartenant aux catégories actives
 		$this->getActiveArts();
 		# Hook plugins
