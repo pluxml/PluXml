@@ -1,5 +1,3 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
-
 	<?php if($plxShow->plxMotor->plxRecord_coms): ?>
 
 		<h3 id="comments">
