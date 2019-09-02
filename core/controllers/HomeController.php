@@ -1,14 +1,14 @@
 <?php
 
 /**
- * StaticpageController show a static page
+ * HomeController show blog or static page
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
 
 namespace controllers;
 
-class StaticpageController extends IndexController {
+class HomeController extends IndexController {
 
     public function __construct(){
         // This page don't need user authentification
@@ -23,6 +23,6 @@ class StaticpageController extends IndexController {
     public function indexAction() {
         $plxMotor = $this->getPlxMotor();
         $plxShow = $this->getPlxShow();
-        require_once $this->getThemeDir() . 'static.php';
+        require_once $this->getThemeDir() . 'home.php';
     }
 }

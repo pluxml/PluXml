@@ -1,14 +1,14 @@
 <?php
 
 /**
- * ArticlepageController show an article
+ * ArticleController show an article
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
 
 namespace controllers;
 
-class ArticlepageController extends IndexController {
+class ArticleController extends IndexController {
 
     public function __construct(){
         // This page don't need user authentification

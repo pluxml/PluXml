@@ -206,7 +206,7 @@ class PlxMotorModel extends PlxModel {
 			foreach($this->aTags as $idart => $tag) {
 				if($tag['date']<=$datetime) {
 					$tags = array_map("trim", explode(',', $tag['tags']));
-					$tagUrls = array_map(array('PlxUtilsModel', 'title2url'), $tags);
+					$tagUrls = array_map(array('models\PlxUtilsModel', 'title2url'), $tags);
 					if(in_array($this->cible, $tagUrls)) {
 						if(!isset($ids[$idart])) $ids[$idart] = $idart;
 						if(!isset($this->cibleName)) {

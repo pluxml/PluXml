@@ -1,14 +1,14 @@
 <?php
 
 /**
- * HomepageController show blog or static page
+ * TagController show all articles from the same tag
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
 
 namespace controllers;
 
-class HomepageController extends IndexController {
+class TagController extends IndexController {
 
     public function __construct(){
         // This page don't need user authentification
@@ -23,6 +23,6 @@ class HomepageController extends IndexController {
     public function indexAction() {
         $plxMotor = $this->getPlxMotor();
         $plxShow = $this->getPlxShow();
-        require_once $this->getThemeDir() . 'home.php';
+        require_once $this->getThemeDir() . 'tags.php';
     }
 }

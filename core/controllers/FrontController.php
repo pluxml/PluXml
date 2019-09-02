@@ -9,7 +9,7 @@ namespace controllers;
 
 class FrontController
 {
-    const DEFAULT_CONTROLLER = __NAMESPACE__ . '\\' . 'HomepageController';
+    const DEFAULT_CONTROLLER = __NAMESPACE__ . '\\' . 'HomeController';
     const DEFAULT_ACTION     = 'indexAction';
     const DEFAULT_PARAMS     = array();
 
@@ -75,10 +75,16 @@ class FrontController
             $pathPlx5 = parse_url($_SERVER["REQUEST_URI"], PHP_URL_QUERY);
             switch ($pathPlx5) {
                 case strpos($pathPlx5, 'static'):
-                    $this->setController('Staticpage');
+                    $this->setController('Static');
                     break;
                 case strpos($pathPlx5, 'article'):
-                    $this->setController('Articlepage');
+                    $this->setController('Article');
+                    break;
+                case strpos($pathPlx5, 'categorie'):
+                    $this->setController('Category');
+                    break;
+                case strpos($pathPlx5, 'tag'):
+                    $this->setController('Tag');
                     break;
             }
         }
