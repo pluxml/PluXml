@@ -67,8 +67,20 @@ class FrontController
         $path = trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), '/');
         $path = preg_replace('[^a-zA-Z0-9]', "", $path);
         list($controller, $action, $params) = explode('/', $path, 3);
-        if (!empty($controller)) {
+        if (!empty($controller) and $controller != 'index.php') {
             $this->setController($controller);
+        }
+        // compatibility with PluXml 5 and older
+        else if (!empty($controller)) {
+            $pathPlx5 = parse_url($_SERVER["REQUEST_URI"], PHP_URL_QUERY);
+            switch ($pathPlx5) {
+                case strpos($pathPlx5, 'static'):
+                    $this->setController('Staticpage');
+                    break;
+                case strpos($pathPlx5, 'article'):
+                    $this->setController('Articlepage');
+                    break;
+            }
         }
         if (!empty($action)) {
             $this->setAction($action);
