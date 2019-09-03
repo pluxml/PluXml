@@ -11,6 +11,7 @@ namespace controllers;
 use models\PlxConfigModel;
 use models\PlxMotorModel;
 use models\PlxShowModel;
+use models\PlxAdminModel;
 
 class IndexController {
 
@@ -33,6 +34,7 @@ class IndexController {
     private $_config; # new PlxConfigModel
     private $_plxMotor; # new PlxMotorModel
     private $_plxShow; # new PlxShowModel
+    private $_plxAdmin; # new PlxAdminModel
 
     public function __construct(){
         $this->setConfig();
@@ -156,6 +158,13 @@ class IndexController {
     }
 
     /**
+     * Get $_plxAdmin
+     * @return \models\PlxAdminModel
+     */
+    public function getPlxAdmin() {
+        return $this->_plxAdmin;
+    }
+    /**
      * Get $_coreLangDir
      * @return string
      * @author Pedro "P3ter" CADETE
@@ -215,6 +224,10 @@ class IndexController {
         return;
     }
 
+    private function setPlxAdmin() {
+        $this->_plxAdmin = PlxAdminModel::getInstance();
+        return;
+    }
     /**
      * set $_themeDir
      * @return string

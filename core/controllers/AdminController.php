@@ -21,6 +21,7 @@ class AdminController extends IndexController {
      * @author Pedro "P3ter" CADETE
      */
     public function indexAction() {
+        $plxAdmin = $this->getPlxAdmin();
         require_once $this->getViewsScriptsDir() . 'authView.php';
     }
 }

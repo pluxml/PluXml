@@ -1,6 +1,3 @@
-<h1>authView.php</h1>
-
-
 <!DOCTYPE html>
 <html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
 <head>
@@ -12,10 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="theme/css/knacss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="theme/css/theme.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="theme/fonts/fontello.css" media="screen" />
-	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
+	<?php if(is_file($plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
 	<?php
-	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
-		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
+	if(file_exists($plxAdmin->aConf['racine_plugins'].'admin.css'))
+		echo '<link rel="stylesheet" type="text/css" href="'.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
 	?>
 	<link rel="icon" href="theme/images/favicon.png" />
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) ?>
@@ -51,7 +48,7 @@
                 			</fieldset>
                 		</form>
                 	</div>
-                   	<p class="mas">←&nbsp;<a href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+                   	<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
            	<?php                         
                 break;
                 case 'changepassword':
@@ -82,7 +79,7 @@
                     			</fieldset>
                     		</form>
                     	</div>
-                   		<p class="mas">←&nbsp;<a href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+                   		<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
             <?php
                     }
                     else {
@@ -96,7 +93,7 @@
 							<p class="mts"><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></p>
 							<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
                     	</div>
-                   		<p class="mas">←&nbsp;<a href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+                   		<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
 			<?php
                     }
                 break;
@@ -132,7 +129,7 @@
                 			</fieldset>
                 		</form>
                 	</div>
-               		<p class="mas">←&nbsp;<a href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+               		<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
 			<?php 
             }
 			?>
