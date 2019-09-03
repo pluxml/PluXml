@@ -32,13 +32,13 @@
             ?>
     				<div class="auth">
                 		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                		<form action="auth.php<?php echo !empty($redirect)?'?p='.\plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                		<form action="auth.php<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
                 			<fieldset>
-                				<?php echo plxToken::getTokenPostMethod() ?>
+                				<?php echo $plxToken->getTokenPostMethod() ?>
                 				<h1 class="h5-like txtcenter"><?php echo L_LOST_PASSWORD ?></h1>
                					<label class="w100">
                						<?php echo L_AUTH_LOST_FIELD ?>
-               						<?php \plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?\plxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '', false, 'w100', '', 'autofocus');?>
+               						<?php $plxUtils->printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?$plxUtils->strCheck($_POST['lostpassword_id']):'', 'text', '', false, 'w100', '', 'autofocus');?>
                					</label>
              					<p><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></p>
                 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
@@ -58,18 +58,18 @@
             ?>
     					<div class="auth">
                     		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                    		<form action="auth.php<?php echo !empty($redirect)?'?p='.\plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                    		<form action="auth.php<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
                     			<fieldset>
-                    				<?php echo plxToken::getTokenPostMethod() ?>
+                    				<?php echo $plxToken->getTokenPostMethod() ?>
                     				<input name="lostPasswordToken" value="<?php echo $lostPasswordToken ?>" type="hidden" />
                     				<h1 class="h5-like txtcenter"><?php echo L_PROFIL_CHANGE_PASSWORD ?></h1>
                    					<label class="w100">
                    						<?php echo L_PROFIL_PASSWORD ?>
-                   						<?php \plxUtils::printInput('password1', '', 'password', '', false, 'w100', '', 'onkeyup="pwdStrength(this.id)"') ?>
+                   						<?php $plxUtils->printInput('password1', '', 'password', '', false, 'w100', '', 'onkeyup="pwdStrength(this.id)"') ?>
                    					</label>
                    					<label class="w100">
                    						<?php echo L_PROFIL_CONFIRM_PASSWORD ?>
-                   						<?php \plxUtils::printInput('password2', '', 'password', '', false, 'w100') ?>
+                   						<?php $plxUtils->printInput('password2', '', 'password', '', false, 'w100') ?>
                    					</label>
                						<p><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></p>
                     				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
@@ -102,18 +102,18 @@
 			?>
                 	<div class="auth">
                 		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                		<form action="auth.php<?php echo !empty($redirect)?'?p='.\plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                		<form action="auth.php<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
                 			<fieldset>
-                				<?php echo plxToken::getTokenPostMethod() ?>
+                				<?php echo $plxToken->getTokenPostMethod() ?>
                 				<h1 class="h5-like txtcenter"><?php echo L_LOGIN_PAGE ?></h1>
-                				<?php (!empty($msg))?\plxUtils::showMsg($msg, $css):''; ?>
+                				<?php (!empty($msg))?$plxUtils->showMsg($msg, $css):''; ?>
                					<label class="w100">
                						<?php echo L_AUTH_LOGIN_FIELD ?>
-               						<?php \plxUtils::printInput('login', (!empty($_POST['login']))?\plxUtils::strCheck($_POST['login']):'', 'text', '',false,'w100','','autofocus');?>
+               						<?php $plxUtils->printInput('login', (!empty($_POST['login']))?$plxUtils->strCheck($_POST['login']):'', 'text', '',false,'w100','','autofocus');?>
                					</label>
                					<label class="w100">
                						<?php echo L_AUTH_PASSWORD_FIELD ?>
-               						<?php \plxUtils::printInput('password', '', 'password','',false, 'w100');?>
+               						<?php $plxUtils->printInput('password', '', 'password','',false, 'w100');?>
                					</label>
                 				<?php 
                 				if ($plxAdmin->aConf['lostpassword']) {

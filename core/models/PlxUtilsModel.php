@@ -9,7 +9,7 @@
 namespace models;
 
 class PlxUtilsModel {
-    
+
     /**
      * Get an instance of PlxConfigModel
      * @return \models\PlxConfigModel
