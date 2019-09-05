@@ -48,7 +48,7 @@
                 			</fieldset>
                 		</form>
                 	</div>
-                   	<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+                   	<p class="mas">←&nbsp;<a href="<?php echo $plxUtils->getRacine() ?>"><?php echo L_BACK_TO_SITE ?></a></p>
            	<?php                         
                 break;
                 case 'changepassword':
@@ -79,7 +79,7 @@
                     			</fieldset>
                     		</form>
                     	</div>
-                   		<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+                   		<p class="mas">←&nbsp;<a href="<?php echo $plxUtils->getRacine() ?>"><?php echo L_BACK_TO_SITE ?></a></p>
             <?php
                     }
                     else {
@@ -93,7 +93,7 @@
 							<p class="mts"><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></p>
 							<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')) ?>
                     	</div>
-                   		<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+                   		<p class="mas">←&nbsp;<a href="<?php echo $plxUtils->getRacine() ?>"><?php echo L_BACK_TO_SITE ?></a></p>
 			<?php
                     }
                 break;
@@ -129,7 +129,7 @@
                 			</fieldset>
                 		</form>
                 	</div>
-               		<p class="mas">←&nbsp;<a href="<?php echo 'TODO' ?>"><?php echo L_BACK_TO_SITE ?></a></p>
+               		<p class="mas">←&nbsp;<a href="<?php echo $plxUtils->getRacine() ?>"><?php echo L_BACK_TO_SITE ?></a></p>
 			<?php 
             }
 			?>

@@ -45,6 +45,7 @@ class FrontController
     }
 
     public function setAction($action) {
+        $action = $action . 'Action';
         $reflector = new \ReflectionClass($this->_controller);
         if (!$reflector->hasMethod($action)) {
             throw new \InvalidArgumentException(
