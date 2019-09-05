@@ -9,10 +9,14 @@ namespace models;
 class PlxConfigModel {
 
     const PLX_CONFIG_INI_FILE = 'config.ini';
+    const PLX_VERSIONS_INI_FILE = 'update/version.ini';
     
     private $_configIniFile = self::PLX_CONFIG_INI_FILE;
     private $_configIni = array(); # from PLX_CONFIG_INI_FILE parsing
     private $_configuration = array(); # from user configuration file defined in PLX_CONFIG_INI_FILE
+    
+    private $_versionsIniFile = self::PLX_VERSIONS_INI_FILE;
+    private $_versionsIniArray = array(); # from PLX_VERSIONS_INI_FILE parsing
 
     private static $instance;
 
@@ -32,6 +36,7 @@ class PlxConfigModel {
     
     public function __construct() {
         $this->setConfigIni();
+        $this->setVersionsIniArray();
         
         if (is_file($this->getConfigIni('XMLFILE_CONFIGURATION'))) {
             $this->setConfiguration($this->getConfigIni('XMLFILE_CONFIGURATION'));
@@ -125,6 +130,30 @@ class PlxConfigModel {
         $aConf['medias'] = isset($aConf['medias']) ? $aConf['medias'] : 'data/images/';
 
         return $this->_configuration = $aConf;
+    }
+    
+    /**
+     * Get $_versionIniFile
+     * @return string
+     */
+    public function getVersionsIniFile() {
+        return $this->_versionIniFile;
+    }
+    
+    /**
+     * Get $_versionIniValue the array from PLX_VERSIONS_INI_FILE
+     * @param string $key
+     */
+    public function getVersionsIniArray() {
+        return $this->_versionIniArray;
+    }
+    
+    /**
+     * Set $_versionsIniValues an array from PLX_CONFIG_INI_FILE parsing
+     * @return array
+     */
+    private function setVersionsIniArray() {
+        return $this->_versionsIniArray = parse_ini_file($this->getVersionsIniFile());
     }
 }
 

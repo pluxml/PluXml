@@ -10,11 +10,6 @@ namespace models;
 
 class PlxUpdaterModel {
 
-    const PLX_VERSIONS_INI_FILE = 'update/version.ini';
-    
-    private $_versionsIniFile = self::PLX_VERSIONS_INI_FILE;
-    private $_versionsIniValues = array(); # from PLX_VERSIONS_INI_FILE parsing
-    
 	public $newVersion = '';
 	public $oldVersion = '' ;
 	public $allVersions = null;
@@ -33,30 +28,6 @@ class PlxUpdaterModel {
 		$this->allVersions = $versions;
 		$this->plxAdmin = PlxAdminModel::getInstance();
 		$this->getVersions();
-	}
-
-	/**
-	 * Get $_versionIniFile
-	 * @return string
-	 */
-	public function getVersionsIniFile() {
-	    return $this->_versionIniFile;
-	}
-
-	/**
-	 * Get $_versionIniValue the array from PLX_VERSIONS_INI_FILE
-	 * @param string $key
-	 */
-	public function getVersionsIniValues(string $key) {
-	    return $this->_versionIniValues[$key];
-	}
-
-	/**
-	 * Set $_versionsIniValues an array from PLX_CONFIG_INI_FILE parsing
-	 * @return array
-	 */
-	private function setVersionsIniValues() {
-	    return $this->_versionsIniValues = parse_ini_file($this->getVersionsIniFile());
 	}
 
 	/**
