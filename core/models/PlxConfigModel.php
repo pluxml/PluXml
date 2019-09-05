@@ -55,7 +55,7 @@ class PlxConfigModel {
     }
 
     /**
-     * Get $_configiguration an array from the user configuration file defined in PLX_CONFIG_INI_FILE  
+     * Get $_configuration an array from the user configuration file defined in PLX_CONFIG_INI_FILE  
      * @param string $property
      * @return string
      */

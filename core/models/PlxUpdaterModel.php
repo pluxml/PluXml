@@ -1,21 +1,25 @@
 <?php
 
 /**
- * Classe plxUpdater responsable du gestionnaire des mises à jour
+ * PlxUpdaterModel PluXml updates management
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, Pedro "P3ter" CADETE
  **/
+namespace models;
 
-define('PLX_UPDATE', PLX_ROOT.'update/');
+class PlxUpdaterModel {
 
-class plxUpdater {
-
+    const PLX_VERSIONS_INI_FILE = 'update/version.ini';
+    
+    private $_versionsIniFile = self::PLX_VERSIONS_INI_FILE;
+    private $_versionsIniValues = array(); # from PLX_VERSIONS_INI_FILE parsing
+    
 	public $newVersion = '';
 	public $oldVersion = '' ;
 	public $allVersions = null;
 
-	public $plxAdmin; # objet plxAdmin
+	public $plxAdmin; # objet PlxAdminModel
 
 	/**
 	 * Constructeur de la classe plxUpdater
@@ -25,9 +29,34 @@ class plxUpdater {
 	 * @author	Stephane F
 	 **/
 	public function __construct($versions) {
+	    $this->setVersionsIniValues();
 		$this->allVersions = $versions;
-		$this->plxAdmin = plxAdmin::getInstance();
+		$this->plxAdmin = PlxAdminModel::getInstance();
 		$this->getVersions();
+	}
+
+	/**
+	 * Get $_versionIniFile
+	 * @return string
+	 */
+	public function getVersionsIniFile() {
+	    return $this->_versionIniFile;
+	}
+
+	/**
+	 * Get $_versionIniValue the array from PLX_VERSIONS_INI_FILE
+	 * @param string $key
+	 */
+	public function getVersionsIniValues(string $key) {
+	    return $this->_versionIniValues[$key];
+	}
+
+	/**
+	 * Set $_versionsIniValues an array from PLX_CONFIG_INI_FILE parsing
+	 * @return array
+	 */
+	private function setVersionsIniValues() {
+	    return $this->_versionsIniValues = parse_ini_file($this->getVersionsIniFile());
 	}
 
 	/**
@@ -157,7 +186,7 @@ class plxUpdate {
 	 * @author	Stephane F
 	 **/
 	public function __construct() {
-		$this->plxAdmin = plxAdmin::getInstance();
+		$this->plxAdmin = PlxAdminModel::getInstance();
 		if(!isset($this->plxAdmin->aConf['plugins']))
 			$this->plxAdmin->aConf['plugins']='data/configuration/plugins.xml';
 	}

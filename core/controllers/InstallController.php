@@ -8,10 +8,10 @@
 
 namespace controllers;
 
-class InstallController extends IndexController {
+class InstallController extends AdminController {
 
-    public function __construct(){
-        
+    public function __construct() {
+        parent::__construct();
     }
 
     /**
