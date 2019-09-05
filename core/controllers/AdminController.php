@@ -90,6 +90,7 @@ class AdminController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
+        $plxLayoutDir = $this->getViewsLayoutDir();
         require_once $this->getViewsScriptsDir() . 'authView.php';
     }
 }

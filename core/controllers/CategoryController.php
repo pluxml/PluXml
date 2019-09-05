@@ -23,6 +23,6 @@ class CategoryController extends IndexController {
     public function indexAction() {
         $plxMotor = $this->getPlxMotor();
         $plxShow = $this->getPlxShow();
-        require_once $this->getThemeDir() . 'categorie.php';
+        require_once $this->getUserThemePath() . 'categorie.php';
     }
 }

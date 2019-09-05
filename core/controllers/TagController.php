@@ -23,6 +23,6 @@ class TagController extends IndexController {
     public function indexAction() {
         $plxMotor = $this->getPlxMotor();
         $plxShow = $this->getPlxShow();
-        require_once $this->getThemeDir() . 'tags.php';
+        require_once $this->getUserThemePath() . 'tags.php';
     }
 }

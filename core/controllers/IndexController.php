@@ -26,8 +26,8 @@ class IndexController {
     private $_viewsCommonDir = self::PLX_CORE_DIR . self::PLX_VIEWS_COMMON_DIR;
     private $_viewsLayoutDir = self::PLX_CORE_DIR . self::PLX_VIEWS_LAYOUTS_DIR;
     private $_viewsScriptsDir = self::PLX_CORE_DIR . self::PLX_VIEWS_SCRIPTS_DIR;
+    private $_userThemePath = self::PLX_DEFAULT_THEME_DIR;
     private $_authPage = false;
-    private $_themeDir = 'themes/default/'; # "default" theme by default
     private $_coreLang = 'en'; # english by default
 
     private $_config; # new PlxConfigModel
@@ -37,7 +37,7 @@ class IndexController {
     public function __construct(){
         $this->setConfig();
         $this->setCoreLang();
-        $this->setThemeDir();
+        $this->setUserThemePath();
         $this->setPlxMotor();
         $this->setPlxShow();
 
@@ -130,12 +130,12 @@ class IndexController {
     }
 
     /**
-     * Get $_themeDir
+     * Get $_userThemePath
      * @return string
      * @author Pedro "P3ter" CADETE
      */
-    public function getThemeDir() {
-        return $this->_themeDir;
+    public function getUserThemePath() {
+        return $this->_userThemePath;
     }
 
     /**
@@ -216,16 +216,15 @@ class IndexController {
     }
 
     /**
-     * set $_themeDir
+     * set $_userThemePath
      * @return string
      * @author Pedro "P3ter" CADETE
      */
-    private function setThemeDir(){
-        if (!empty($this->_config->getConfiguration('racine_themes') && $this->_config->getConfiguration('style'))) 
-            $themeDir = $this->_config->getConfiguration('racine_themes') . $this->_config->getConfiguration('style');
-        else
-            $themeDir = self::PLX_DEFAULT_THEME_DIR;
-        $this->_themeDir = $themeDir . '/';
+    private function setUserThemePath(){
+        $themesDirectory = $this->getConfig()->getConfiguration('racine_theme');
+        $themeName = $this->getConfig()->getConfiguration('style'); 
+        if (!empty($themesDirectory && $themeName))
+            $this->_userThemePath = $themesDirectory . $themeName . '/';
         return;
     }
 
@@ -237,7 +236,7 @@ class IndexController {
     private function setCoreLang() {
         $default_lang = $this->getConfig()->getConfiguration('default_lang');
         if (!empty($default_lang))
-            $this->_coreLang = $this->getConfig()->getConfiguration('default_lang');
+            $this->_coreLang = $default_lang;
         return;
     }
 }

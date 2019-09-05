@@ -6,9 +6,9 @@
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
 	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
-	<link rel="stylesheet" type="text/css" href="theme/css/knacss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="theme/css/theme.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="theme/fonts/fontello.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= $plxLayoutDir.'css/knacss.css'?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= $plxLayoutDir.'css/theme.css'?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= $plxLayoutDir.'fonts/fontello.css'?>" media="screen" />
 	<?php if(is_file($plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
 	<?php
 	if(file_exists($plxAdmin->aConf['racine_plugins'].'admin.css'))

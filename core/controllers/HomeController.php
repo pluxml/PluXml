@@ -23,6 +23,6 @@ class HomeController extends IndexController {
     public function indexAction() {
         $plxMotor = $this->getPlxMotor();
         $plxShow = $this->getPlxShow();
-        require_once $this->getThemeDir() . 'home.php';
+        require_once $this->getUserThemePath() . 'home.php';
     }
 }

@@ -23,6 +23,6 @@ class StaticController extends IndexController {
     public function indexAction() {
         $plxMotor = $this->getPlxMotor();
         $plxShow = $this->getPlxShow();
-        require_once $this->getThemeDir() . 'static.php';
+        require_once $this->getUserThemePath() . 'static.php';
     }
 }
