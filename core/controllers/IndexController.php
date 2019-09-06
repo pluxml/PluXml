@@ -20,6 +20,7 @@ class IndexController {
     const PLX_VIEWS_LAYOUTS_DIR = 'views/layouts/';
     const PLX_VIEWS_SCRIPTS_DIR = 'views/scripts/';
     const PLX_DEFAULT_THEME_DIR = 'themes/default/';
+    const PLX_DEFAULT_CORE_LANG = 'en';
 
     private $_coreDir = self::PLX_CORE_DIR;
     private $_coreLangDir = self::PLX_CORE_LANG_DIR;
@@ -28,7 +29,7 @@ class IndexController {
     private $_viewsScriptsDir = self::PLX_CORE_DIR . self::PLX_VIEWS_SCRIPTS_DIR;
     private $_userThemePath = self::PLX_DEFAULT_THEME_DIR;
     private $_authPage = false;
-    private $_coreLang = 'en'; # english by default
+    private $_coreLang = self::PLX_DEFAULT_CORE_LANG;
 
     private $_config; # new PlxConfigModel
     private $_plxMotor; # new PlxMotorModel
@@ -46,8 +47,8 @@ class IndexController {
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
         // Loading langs files
-        $this->_plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
-        $this->_plxMotor->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
+        $this->getPlxMotor()->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
+        $this->getPlxMotor()->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
 
         // Checking PluXml installation before continue
         $configurationFile = $this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION');
@@ -63,7 +64,7 @@ class IndexController {
     	    exit;
     	}
 
-    	if($this->_authPage !== true){ # si on est pas sur la page de login
+    	if($this->getAuthPage() !== true){ # si on est pas sur la page de login
     	    // Test sur le domaine et sur l'identification
     	    if((isset($_SESSION['domain']) AND $_SESSION['domain']!=$session_domain) OR (!isset($_SESSION['user']) OR $_SESSION['user']=='')){
     	        header('Location: index.php?p='.htmlentities($_SERVER['REQUEST_URI']));
