@@ -99,10 +99,10 @@ class AdminController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getViewsLayoutDir();
+        $plxLayoutDir = $this->getPlxMotor()->getViewsLayoutDir();
 
         # Display the view
         PlxUtilsModel::cleanHeaders();
-        require_once $this->getViewsScriptsDir() . 'dashboardView.php';
+        require_once $this->getPlxMotor()->getViewsScriptsDir() . 'dashboardView.php';
     }
 }

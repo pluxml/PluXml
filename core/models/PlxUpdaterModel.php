@@ -54,7 +54,7 @@ class PlxUpdaterModel extends PlxModel {
 	 * Méthode qui récupère l'ancien et le nouveau n° de version de pluxml
 	 *
 	 * @return	null
-	 * @author	Stéphane F
+	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/
 	public function getVersions() {
 

@@ -16,6 +16,7 @@ class UpdateController extends AdminController {
 
     public function __construct() {
         parent::__construct();
+        
         $plxVersions = $this->getConfig()->getVersionsIniArray();
         $this->setPlxUpdater($plxVersions);
     }
@@ -44,7 +45,9 @@ class UpdateController extends AdminController {
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
         $plxUpdater = $this->getPlxUpdater();
-        $lang = $this->getCoreLang();
+        $plxLayoutDir = $this->getPlxMotor()->getViewsLayoutDir();
+        $lang = $this->getPlxMotor()->getCoreLang();
+        $charset = $this->getConfig()->getConfigIni('PLX_CHARSET');
 
         // Checking PHP version (7.3 is required)
         if(version_compare(PHP_VERSION, '7.3.0', '<')){
@@ -60,6 +63,6 @@ class UpdateController extends AdminController {
 
         $plxUtils->cleanHeaders();
         $plxToken->validateFormToken($_POST);
-        require_once $this->getViewsScriptsDir() . 'updateView.php';
+        require_once $this->getPlxMotor()->getViewsScriptsDir() . 'updateView.php';
     }
 }

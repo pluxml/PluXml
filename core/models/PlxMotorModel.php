@@ -106,6 +106,13 @@ class PlxMotorModel extends PlxModel {
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 		# Traitement des templates
 		$this->getTemplates($this->getPlxConfig()->getConfigIni('XMLDIR_TEMPLATES'));
+
+		// Loading langs files
+		$this->setCoreLang($this->getPlxConfig()->getConfiguration('default_lang'));
+		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
+		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
+		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/update.php');
+		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/install.php');
 	}
 
 	/**

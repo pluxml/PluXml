@@ -19,7 +19,7 @@ class InstallController extends AdminController {
      * @author Pedro "P3ter" CADETE
      */
     public function indexAction() {
-        require_once $this->getViewsScriptsDir() . 'installView.php';
+        require_once $this->getPlxMotor()->getViewsScriptsDir() . 'installView.php';
     }
 }
 
