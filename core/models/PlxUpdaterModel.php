@@ -8,7 +8,7 @@
  **/
 namespace models;
 
-class PlxUpdaterModel {
+class PlxUpdaterModel extends PlxModel {
 
 	public $newVersion = '';
 	public $oldVersion = '' ;
@@ -24,7 +24,7 @@ class PlxUpdaterModel {
 	 * @author	Stephane F
 	 **/
 	public function __construct($versions) {
-	    $this->setVersionsIniValues();
+	    parent::__construct();
 		$this->allVersions = $versions;
 		$this->plxAdmin = PlxAdminModel::getInstance();
 		$this->getVersions();
@@ -65,10 +65,11 @@ class PlxUpdaterModel {
 			$this->oldVersion='';
 
 		# Récupère le nouveau n° de version de PluXml
-		if(defined('PLX_VERSION')) { # PluXml à partir de la version 5.5
-			$this->newVersion = PLX_VERSION;
-		} elseif(is_readable(PLX_ROOT.'version')) {
-			$f = file(PLX_ROOT.'version');
+		$numVersion = $this->getPlxConfig()->getConfigIni('PLX_VERSION');
+		if(!empty($version)) { # PluXml à partir de la version 5.5
+			$this->newVersion = $numVersion;
+		} elseif(is_readable('/version')) {
+			$f = file('/version');
 			$this->newVersion = $f['0'];
 		}
 	}

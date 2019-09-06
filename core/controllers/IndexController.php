@@ -60,8 +60,10 @@ class IndexController {
 
     	// Checking PluXml version in core/models/config.ini and data/configuration.xml
     	if($this->getConfig()->getConfigIni('PLX_VERSION') != $this->getConfig()->getConfiguration('version')) {
-    	    header('Location: update');
-    	    exit;
+    	    if ($_SERVER['REQUEST_URI'] != '/update') {
+    	       header('Location: update');
+    	       exit;
+    	    }
     	}
 
     	if($this->getAuthPage() !== true){ # si on est pas sur la page de login

@@ -15,9 +15,9 @@ class UpdateController extends AdminController {
     private $_plxUpdater; # new PlxUpdaterModel
 
     public function __construct() {
+        parent::__construct();
         $plxVersions = $this->getConfig()->getVersionsIniArray();
         $this->setPlxUpdater($plxVersions);
-        parent::__construct();
     }
 
     /**
@@ -46,12 +46,6 @@ class UpdateController extends AdminController {
         $plxUpdater = $this->getPlxUpdater();
         $lang = $this->getCoreLang();
 
-        // Checking PluXml installation
-        if(!file_exists($this->getConfig()->getConfigIni('XMLFILE_PARAMETERS'))) {
-            header('Location: install');
-            exit;
-        }
-
         // Checking PHP version (7.3 is required)
         if(version_compare(PHP_VERSION, '7.3.0', '<')){
             header('Content-Type: text/plain charset=UTF-8');
@@ -64,7 +58,7 @@ class UpdateController extends AdminController {
             $_POST = $plxUtils->unSlash($_POST);
         }
 
-        $plxToken->cleanHeaders();
+        $plxUtils->cleanHeaders();
         $plxToken->validateFormToken($_POST);
         require_once $this->getViewsScriptsDir() . 'updateView.php';
     }
