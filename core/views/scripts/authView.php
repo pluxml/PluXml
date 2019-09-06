@@ -24,7 +24,38 @@
 	<main class="flex-container mtl">
 		<section class="item-center w350p">
 			<div class="logo"></div>
+				<div class="auth">
+                		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+                		<form action="auth/login<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                			<fieldset>
+                				<?php echo $plxToken->getTokenPostMethod() ?>
+                				<h1 class="h5-like txtcenter"><?php echo L_LOGIN_PAGE ?></h1>
+                				<?php (!empty($msg))?$plxUtils->showMsg($msg, $css):''; ?>
+               					<label class="w100">
+               						<?php echo L_AUTH_LOGIN_FIELD ?>
+               						<?php $plxUtils->printInput('login', (!empty($_POST['login']))?$plxUtils->strCheck($_POST['login']):'', 'text', '',false,'w100','','autofocus');?>
+               					</label>
+               					<label class="w100">
+               						<?php echo L_AUTH_PASSWORD_FIELD ?>
+               						<?php $plxUtils->printInput('password', '', 'password','',false, 'w100');?>
+               					</label>
+                				<?php 
+                				if ($plxAdmin->aConf['lostpassword']) {
+                				?>
+               						<p><a href="?action=lostpassword"><?php echo L_LOST_PASSWORD ?></a></p>
+                    			<?php 
+                				}
+                                eval($plxAdmin->plxPlugins->callHook('AdminAuth'))
+                                ?>
+               					<div class="txtcenter">
+               						<input role="button" class="btn--primary" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+                				</div>
+                			</fieldset>
+                		</form>
+                	</div>
+               		<p class="mas">←&nbsp;<a href="<?php echo $plxUtils->getRacine() ?>"><?php echo L_BACK_TO_SITE ?></a></p>
 
+<!-- 
 			<?php
 			switch ($_GET['action']){
 			    case 'lostpassword':
@@ -32,7 +63,7 @@
             ?>
     				<div class="auth">
                 		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                		<form action="auth.php<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                		<form action="admin/lostPassword<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
                 			<fieldset>
                 				<?php echo $plxToken->getTokenPostMethod() ?>
                 				<h1 class="h5-like txtcenter"><?php echo L_LOST_PASSWORD ?></h1>
@@ -58,7 +89,7 @@
             ?>
     					<div class="auth">
                     		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                    		<form action="auth.php<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                    		<form action="admin/changePassword<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
                     			<fieldset>
                     				<?php echo $plxToken->getTokenPostMethod() ?>
                     				<input name="lostPasswordToken" value="<?php echo $lostPasswordToken ?>" type="hidden" />
@@ -102,7 +133,7 @@
 			?>
                 	<div class="auth">
                 		<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                		<form action="auth.php<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+                		<form action="auth/login<?php echo !empty($redirect)?'?p='.$plxUtils->strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
                 			<fieldset>
                 				<?php echo $plxToken->getTokenPostMethod() ?>
                 				<h1 class="h5-like txtcenter"><?php echo L_LOGIN_PAGE ?></h1>
@@ -133,6 +164,7 @@
 			<?php 
             }
 			?>
+-->
 		</section>
 	</main>
 

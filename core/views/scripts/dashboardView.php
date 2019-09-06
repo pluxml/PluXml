@@ -1,3 +1,5 @@
+<h1>Admin Dashboard</h1>
+
 <?php 
 $adminTitle = L_DASHBOARD_TITLE;
 ?>
