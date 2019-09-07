@@ -10,7 +10,7 @@ class PlxConfigModel {
 
     const PLX_CONFIG_INI_FILE = 'config.ini';
     const PLX_VERSIONS_INI_FILE = '/update/versions.ini';
-    
+
     private $_configIniFile = self::PLX_CONFIG_INI_FILE;
     private $_configIni = array(); # from PLX_CONFIG_INI_FILE parsing
     private $_configuration = array(); # from user configuration file defined in PLX_CONFIG_INI_FILE
@@ -24,7 +24,6 @@ class PlxConfigModel {
      * PlxConfigModel singleton creation
      *
      * @return	self return a PlxConfigModel instance
-     * @author	Pedro "P3ter" CADETE
      **/
     public static function getInstance(){
         if (!isset(self::$instance)) {
@@ -33,20 +32,20 @@ class PlxConfigModel {
         }
         return self::$instance;
     }
-    
+
     public function __construct() {
         $this->setConfigIni();
         $this->setVersionsIniArray();
         
         // Set PluXml user configuration (data/configuration/)
-        $plxDataConfig = $this->getConfigIni('XMLFILE_CONFIGURATION');
-        $plxDataConfigOld = 'data/configuration/parametres.xml'; # PluXml 5 and before compatibility 
-        if (is_file($plxDataConfig)) {
+        $plxDataConfigFile = $this->getConfigIni('XMLFILE_CONFIGURATION');
+        $plxDataConfigFileOld = 'data/configuration/parametres.xml'; # PluXml 5 and before compatibility 
+        if (is_file($plxDataConfigFile)) {
             printf('new');
-            $this->setConfiguration($plxDataConfig);
+            $this->setConfiguration($plxDataConfigFile);
         }
-        else if (is_file($plxDataConfigOld)) {
-            $this->setConfiguration($plxDataConfigOld, true);
+        else if (is_file($plxDataConfigFileOld)) {
+            $this->setConfiguration($plxDataConfigFileOld, true);
         }
     }
 
@@ -82,7 +81,7 @@ class PlxConfigModel {
     private function setConfigIni() {
         return $this->_configIni = parse_ini_file($this->getConfigIniFile());
     }
-    
+
     /**
      * Set the $_configuration array with configuration.xml properties
      * @param string $filename
@@ -119,7 +118,7 @@ class PlxConfigModel {
                         $aConf[ $values[ $iTags[$key][$i] ]['attributes']['name'] ] = '';
             }
         }
-        
+
         // root url automatic definition
         $aConf['racine'] = PlxUtilsModel::getRacine();
         
