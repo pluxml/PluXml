@@ -792,7 +792,7 @@ class PlxUtilsModel {
 	 **/
 	public static function getLangs() {
 		$array = array();
-		$glob = PlxGlobModel::getInstance(PLX_CORE.'lang', true);
+		$glob = PlxGlobModel::getInstance(PlxMotorModel::PLX_CORE_LANG_DIR, true);
 		if($aFolders = $glob->query("/[a-z]+/i")) {
 			foreach($aFolders as $folder) {
 				$array[$folder] = $folder;

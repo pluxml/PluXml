@@ -14,9 +14,10 @@ session_start();
 $autoloader = new Autoloader();
 $autoloader->register();
 
-$frontController = new FrontController();
-$frontController->run();
-
+if (!strpos($_SERVER["REQUEST_URI"], 'core')) {
+    $frontController = new FrontController();
+    $frontController->run();
+}
 
 
 /**

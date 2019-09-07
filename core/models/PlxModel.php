@@ -33,7 +33,6 @@ class PlxModel {
     /**
      * Get $_plxConfig an array with the user configuration
      * @return array|\models\PlxConfigModel
-     * @author Pedro "P3ter" CADETE
      */
     public function getPlxConfig() {
         return $this->_plxConfig;
@@ -42,7 +41,6 @@ class PlxModel {
     /**
      * Get $_plxMicroTime 
      * @return string
-     * @author Pedro "P3ter" CADETE
      */
     public function getPlxMicrotime() {
         return $this->_plxMicroTime;
@@ -51,7 +49,6 @@ class PlxModel {
     /**
      * Get $_coreDir
      * @return string
-     * @author Pedro "P3ter" CADETE
      */
     public function getCoreDir(){
         return $this->_coreDir;
@@ -60,7 +57,6 @@ class PlxModel {
     /**
      * Get $_viewsCommonDir
      * @return string
-     * @author Pedro "P3ter" CADETE
      */
     public function getViewsCommonDir(){
         return $this->_viewsCommonDir;
@@ -77,7 +73,6 @@ class PlxModel {
     /**
      * Get $_viewsScriptsDir
      * @return string
-     * @author Pedro "P3ter" CADETE
      */
     public function getViewsScriptsDir(){
         return $this->_viewsScriptsDir;
@@ -104,7 +99,6 @@ class PlxModel {
     /**
      * Set $_plxConfig with PlxConfigModel class
      * @return \models\PlxConfigModel
-     * @author Pedro "P3ter" CADETE
      */
     private function setPlxConfig() {
         $this->_plxConfig = PlxConfigModel::getInstance();
@@ -114,11 +108,21 @@ class PlxModel {
     /**
      * Set $_plxMicroTime a UNIX timestamp with microsecondes
      * @return string
-     * @author Pedro "P3ter" CADETE
      */
     private function setPlxMicrotime() {
         $t = explode(' ',microtime());
         $this->_plxMicroTime = $t[0]+$t[1];
+        return;
+    }
+
+    /**
+     * set$_coreLang
+     * @return string
+     */
+    public function setCoreLang($lang) {
+        if (!empty($lang)) {
+            $this->_coreLang = $lang;
+        }
         return;
     }
 
@@ -131,19 +135,10 @@ class PlxModel {
     		$LANG = array();
     		include_once $filename;
     		foreach($LANG as $key => $value) {
-    			if(!defined($key)) define($key,$value);
+    		    if(!defined($key)) {
+    		        define($key,$value);
+    		    }
     		}
     	}
-    }
-
-	/**
-	 * set$_coreLang
-	 * @return string
-	 * @author Pedro "P3ter" CADETE
-	 */
-    public function setCoreLang($lang) {
-        if (!empty($lang))
-            $this->_coreLang = $lang;
-            return;
     }
 }

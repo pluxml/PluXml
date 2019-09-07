@@ -59,14 +59,17 @@ class PlxUpdaterModel extends PlxModel {
 	public function getVersions() {
 
 		# Récupère l'ancien n° de version de Pluxml
-		if(isset($this->plxAdmin->aConf['version']))
-			$this->oldVersion = $this->plxAdmin->aConf['version'];
-		if(!isset($this->allVersions[$this->oldVersion]))
-			$this->oldVersion='';
+	    $numVersion = $this->getPlxConfig()->getConfiguration('version');
+	    if(isset($numVersion)) {
+	        $this->oldVersion = $numVersion;
+	    }
+	    if(!isset($this->allVersions[$numVersion])) {
+	        $this->oldVersion='';
+	    }
 
 		# Récupère le nouveau n° de version de PluXml
 		$numVersion = $this->getPlxConfig()->getConfigIni('PLX_VERSION');
-		if(!empty($version)) { # PluXml à partir de la version 5.5
+		if(!empty($numVersion)) { # PluXml à partir de la version 5.5
 			$this->newVersion = $numVersion;
 		} elseif(is_readable('/version')) {
 			$f = file('/version');

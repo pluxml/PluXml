@@ -9,7 +9,7 @@ namespace models;
 class PlxConfigModel {
 
     const PLX_CONFIG_INI_FILE = 'config.ini';
-    const PLX_VERSIONS_INI_FILE = 'update/versions.ini';
+    const PLX_VERSIONS_INI_FILE = '/update/versions.ini';
     
     private $_configIniFile = self::PLX_CONFIG_INI_FILE;
     private $_configIni = array(); # from PLX_CONFIG_INI_FILE parsing
@@ -145,7 +145,7 @@ class PlxConfigModel {
      * @param string $key
      */
     public function getVersionsIniArray() {
-        return $this->_versionIniArray;
+        return $this->_versionsIniArray;
     }
     
     /**
@@ -153,7 +153,8 @@ class PlxConfigModel {
      * @return array
      */
     private function setVersionsIniArray() {
-        return $this->_versionsIniArray = parse_ini_file($this->getVersionsIniFile());
+        $this->_versionsIniArray = parse_ini_file(__DIR__.$this->getVersionsIniFile());
+        return;
     }
 }
 
