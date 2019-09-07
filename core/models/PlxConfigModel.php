@@ -38,8 +38,15 @@ class PlxConfigModel {
         $this->setConfigIni();
         $this->setVersionsIniArray();
         
-        if (is_file($this->getConfigIni('XMLFILE_CONFIGURATION'))) {
-            $this->setConfiguration($this->getConfigIni('XMLFILE_CONFIGURATION'));
+        // Set PluXml user configuration (data/configuration/)
+        $plxDataConfig = $this->getConfigIni('XMLFILE_CONFIGURATION');
+        $plxDataConfigOld = 'data/configuration/parametres.xml'; # PluXml 5 and before compatibility 
+        if (is_file($plxDataConfig)) {
+            printf('new');
+            $this->setConfiguration($plxDataConfig);
+        }
+        else if (is_file($plxDataConfigOld)) {
+            $this->setConfiguration($plxDataConfigOld, true);
         }
     }
 
@@ -79,11 +86,18 @@ class PlxConfigModel {
     /**
      * Set the $_configuration array with configuration.xml properties
      * @param string $filename
+     * @param boolean $keyType true for PluXml 5 and before compatibility
      * @return array
      * @author Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
      */
-    private function setConfiguration(string $filename){
+    private function setConfiguration(string $filename, bool $keyType = false){
         $aConf = array(); # contains all the properties from $filename
+        $key = 'property'; # xml element name in configuration.xml
+
+        // PluXml 5 and before compatibility
+        if ($keyType) {
+            $key = 'parametre';
+        }
 
         // XML parser
         $data = file_get_contents($filename);
@@ -94,15 +108,15 @@ class PlxConfigModel {
         xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
         xml_parse_into_struct($parser,$data,$values,$iTags);
         xml_parser_free($parser);
-        
+
         // put the properties in $aConf array if the "property" XML element exist
-        if(isset($iTags['property'])) {
-            $nb = sizeof($iTags['property']);
+        if(isset($iTags[$key])) {
+            $nb = sizeof($iTags[$key]);
             for($i = 0; $i < $nb; $i++) {
-                if(isset($values[ $iTags['property'][$i] ]['value'])) # the property contains a value
-                    $aConf[ $values[ $iTags['property'][$i] ]['attributes']['name'] ] = $values[ $iTags['property'][$i] ]['value'];
+                if(isset($values[ $iTags[$key][$i] ]['value'])) # the property contains a value
+                    $aConf[ $values[ $iTags[$key][$i] ]['attributes']['name'] ] = $values[ $iTags[$key][$i] ]['value'];
                     else # the property has no value
-                        $aConf[ $values[ $iTags['property'][$i] ]['attributes']['name'] ] = '';
+                        $aConf[ $values[ $iTags[$key][$i] ]['attributes']['name'] ] = '';
             }
         }
         
