@@ -41,7 +41,6 @@ class PlxConfigModel {
         $plxDataConfigFile = $this->getConfigIni('XMLFILE_CONFIGURATION');
         $plxDataConfigFileOld = 'data/configuration/parametres.xml'; # PluXml 5 and before compatibility 
         if (is_file($plxDataConfigFile)) {
-            printf('new');
             $this->setConfiguration($plxDataConfigFile);
         }
         else if (is_file($plxDataConfigFileOld)) {
