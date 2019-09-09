@@ -1,3 +1,6 @@
+<?php
+use models\PlxTimezonesModel;
+?>
 <!DOCTYPE html>
 <head>
 	<meta charset="<?= strtolower($charset) ?>" />
@@ -86,7 +89,7 @@
 							<label for="id_timezone"><?= L_TIMEZONE ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php $plxUtils->printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
+							<?php $plxUtils->printSelect('timezone', $allTimezones, $timezone); ?>
 						</div>
 					</div>
 

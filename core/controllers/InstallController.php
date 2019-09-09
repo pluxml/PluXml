@@ -8,6 +8,8 @@
 
 namespace controllers;
 
+use models\PlxTimezonesModel;
+
 class InstallController extends AdminController {
 
     public function __construct() {
@@ -30,6 +32,7 @@ class InstallController extends AdminController {
         $lang = $this->getPlxMotor()->getCoreLang();
         $charset = $this->getConfig()->getConfigIni('PLX_CHARSET');
         $version = $plxAdmin->getPlxConfig()->getConfigIni('PLX_VERSION');
+        $allTimezones = PlxTimezonesModel::timezones();
 
         # Display the view
         $this->getPlxUtils()->cleanHeaders();
