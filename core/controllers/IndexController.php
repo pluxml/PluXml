@@ -37,13 +37,14 @@ class IndexController {
         $configurationFile = $this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION');
         $configurationFileOldPluxmlVersion = 'data/configuration/parametres.xml';
         if(!is_file($configurationFile) AND !is_file($configurationFileOldPluxmlVersion)) {
-            header('Location: install');
-    	    exit;
+            if ($_SERVER['REQUEST_URI'] != '/install') { # prevent from infinite redirections
+                header('Location: install');
+                exit;
+            }
     	}
-
-    	// Checking PluXml version in core/models/config.ini and data/configuration.xml
-    	if($this->getConfig()->getConfigIni('PLX_VERSION') != $this->getConfig()->getConfiguration('version')) {
-    	    if ($_SERVER['REQUEST_URI'] != '/update') {
+    	// If installation already done, checking PluXml version in core/models/config.ini and data/configuration.xml
+    	else if($this->getConfig()->getConfigIni('PLX_VERSION') != $this->getConfig()->getConfiguration('version')) {
+    	    if ($_SERVER['REQUEST_URI'] != '/update') { # prevent from infinite redirections
     	       header('Location: update');
     	       exit;
     	    }
