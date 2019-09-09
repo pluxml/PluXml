@@ -11,6 +11,10 @@ namespace controllers;
 class InstallController extends AdminController {
 
     public function __construct() {
+
+        // This page don't need user authentification
+        $this->setAuthPage(true);
+
         parent::__construct();
     }
 
@@ -19,6 +23,16 @@ class InstallController extends AdminController {
      * @author Pedro "P3ter" CADETE
      */
     public function indexAction() {
+        $plxAdmin = $this->getPlxAdmin();
+        $plxUtils = $this->getPlxUtils();
+        $plxToken = $this->getPlxToken();
+        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
+        $lang = $this->getPlxMotor()->getCoreLang();
+        $charset = $this->getConfig()->getConfigIni('PLX_CHARSET');
+        $version = $plxAdmin->getPlxConfig()->getConfigIni('PLX_VERSION');
+
+        # Display the view
+        $this->getPlxUtils()->cleanHeaders();
         require_once $this->getPlxMotor()->getViewsScriptsDir() . 'installView.php';
     }
 }

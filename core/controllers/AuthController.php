@@ -8,79 +8,13 @@
 
 namespace controllers;
 
-use models\PlxAdminModel;
-use models\PlxUtilsModel;
-use models\PlxTokenModel;
-
-class AuthController extends IndexController {
-
-    private $_plxAdmin; # new PlxAdminModel
-    private $_plxUtils; # new PlxAdminModel
-    private $_plxToken; # new PlxAdminModel
+class AuthController extends AdminController {
 
     public function __construct(){
-        $this->setPlxAdmin();
-        $this->setPlxUtils();
-        $this->setPlxToken();
-
         // This page don't need user authentification
         $this->setAuthPage(true);
 
         parent::__construct();
-    }
-    
-    /**
-     * Get $_plxAdmin
-     * @return \models\PlxAdminModel
-     * @author Pedro "P3ter" CADETE
-     */
-    public function getPlxAdmin() {
-        return $this->_plxAdmin;
-    }
-
-    /**
-     * Set $_plxAdmin
-     * @author Pedro "P3ter" CADETE
-     */
-    private function setPlxAdmin() {
-        $this->_plxAdmin = PlxAdminModel::getInstance();
-        return;
-    }
-    
-    /**
-     * Get $_plxUtils
-     * @return \models\PlxUtilsModel
-     * @author Pedro "P3ter" CADETE
-     */
-    public function getPlxUtils() {
-        return $this->_plxUtils;
-    }
-
-    /**
-     * Set $_plxUtils
-     * @author Pedro "P3ter" CADETE
-     */
-    private function setPlxUtils() {
-        $this->_plxUtils = new PlxUtilsModel;
-        return;
-    }
-
-    /**
-     * Get $_plxToken
-     * @return \models\PlxTokenModel
-     * @author Pedro "P3ter" CADETE
-     */
-    public function getPlxToken() {
-        return $this->_plxToken;
-    }
-
-    /**
-     * Set $_plxToken
-     * @author Pedro "P3ter" CADETE
-     */
-    private function setPlxToken() {
-        $this->_plxToken = new PlxTokenModel;
-        return;
     }
 
     /**
@@ -91,11 +25,13 @@ class AuthController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getViewsLayoutDir();
+        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
+        $lang = $plxAdmin->getPlxConfig()->getConfiguration('default_lang');
+        $charset = $this->getConfig()->getConfigIni('PLX_CHARSET');
 
         if($connected) {
             unset($_SESSION['maxtry']);
-            PlxUtilsModel::cleanHeaders();
+            $this->getPlxUtils()->cleanHeaders();
             header('Location: '.htmlentities($redirect));
             exit;
         } else if (!$connected){
@@ -104,7 +40,7 @@ class AuthController extends IndexController {
         }
 
         # Form token control
-        PlxTokenModel::validateFormToken($_POST);
+        $this->getPlxToken()->validateFormToken($_POST);
 
         # brut force protection
         $maxlogin['counter'] = 99; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
@@ -121,7 +57,7 @@ class AuthController extends IndexController {
         if(isset($_SESSION['maxtry'])) {
             if( intval($_SESSION['maxtry']['counter']) >= $maxlogin['counter'] AND (time() < $_SESSION['maxtry']['timer'] + $maxlogin['timer']) ) {
                 # écriture dans les logs du dépassement des 3 tentatives successives de connexion
-                @error_log("PluXml: Max login failed. IP : ".PlxUtilsModel::getIp());
+                @error_log("PluXml: Max login failed. IP : ".$this->getPlxUtils()->getIp());
                 # message à affiche sur le mire de connexion
                 $msg = sprintf(L_ERR_MAXLOGIN, ($maxlogin['timer']/60));
                 $css = 'alert--danger';
@@ -160,8 +96,8 @@ class AuthController extends IndexController {
         }
 
         # Display the view
-        PlxUtilsModel::cleanHeaders();
-        require_once $this->getViewsScriptsDir() . 'authView.php';
+        $this->getPlxUtils()->cleanHeaders();
+        require_once $this->getPlxAdmin()->getViewsScriptsDir() . 'authView.php';
     }
 
     /**
@@ -172,7 +108,7 @@ class AuthController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getViewsLayoutDir();
+        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
         
         if(!empty($_POST['login']) AND !empty($_POST['password']) AND $css=='') {
             $connected = false;
@@ -180,7 +116,7 @@ class AuthController extends IndexController {
                 if ($_POST['login']==$user['login'] AND sha1($user['salt'].md5($_POST['password']))===$user['password'] AND $user['active'] AND !$user['delete']) {
                     $_SESSION['user'] = $userid;
                     $_SESSION['profil'] = $user['profil'];
-                    $_SESSION['hash'] = PlxUtilsModel::charAleatoire(10);
+                    $_SESSION['hash'] = $this->getPlxUtils()->charAleatoire(10);
                     $_SESSION['domain'] = $session_domain;
                     # on définit $_SESSION['admin_lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
                     # ordre des traitements:
@@ -206,7 +142,7 @@ class AuthController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getViewsLayoutDir();
+        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
 
         $formtoken = $_SESSION['formtoken']; # sauvegarde du token du formulaire
         $_SESSION = array();
@@ -217,8 +153,8 @@ class AuthController extends IndexController {
         unset($formtoken);
 
         # Display the view
-        PlxUtilsModel::cleanHeaders();
-        require_once $this->getViewsScriptsDir() . 'authView.php';
+        $this->getPlxUtils()->cleanHeaders();
+        require_once $this->getPlxAdmin()->getViewsScriptsDir() . 'authView.php';
     }
 
     /**
@@ -229,7 +165,7 @@ class AuthController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getViewsLayoutDir();
+        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
 
         # Call the default action to display the view
         $this->indexAction();
@@ -243,7 +179,7 @@ class AuthController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getViewsLayoutDir();
+        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
         
         if(!empty($_POST['lostpassword_id'])) {
             if (!empty($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']))) {
@@ -251,7 +187,7 @@ class AuthController extends IndexController {
                 $css = 'alert--success';
             }
             else {
-                @error_log("Lost password error. ID : ".$_POST['lostpassword_id']." IP : ".PlxUtilsModel::getIp());
+                @error_log("Lost password error. ID : ".$_POST['lostpassword_id']." IP : ".$this->getPlxUtils()->getIp());
                 $msg = L_UNKNOWN_ERROR;
                 $css = 'alert--danger';
             }
@@ -269,7 +205,7 @@ class AuthController extends IndexController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getViewsLayoutDir();
+        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
         
         if(!empty($_POST['editpassword'])) {
             unset($_SESSION['error']);
