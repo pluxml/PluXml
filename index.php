@@ -1,6 +1,7 @@
 <?php
-define('PLX_ROOT', './');
-define('PLX_CORE', PLX_ROOT.'core/');
+const PLX_ROOT = './';
+const PLX_CORE = PLX_ROOT.'core/';
+
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
 

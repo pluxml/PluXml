@@ -33,7 +33,7 @@ class plxPlugins {
 	public function getInstance($plugName) {
 		$filename = PLX_PLUGINS."$plugName/$plugName.php";
 		if(is_file($filename)) {
-			include_once($filename);
+			include_once $filename;
 			if (class_exists($plugName)) {
 				# réactualisation de la langue si elle a été modifié par un plugin
 				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
@@ -489,7 +489,7 @@ class plxPlugin {
 	 **/
 	public function loadLang($filename) {
 		if(!is_file($filename)) return;
-		include($filename);
+		include $filename;
 		return $LANG;
 	}
 

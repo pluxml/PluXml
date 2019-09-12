@@ -4,10 +4,10 @@
  * Classe plxAdmin responsable des modifications dans l'administration
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F et Pedro "P3ter" CADETE
  **/
 
-define('PLX_ADMIN', true);
+const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {
 
@@ -16,7 +16,7 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
 	 *
-	 * @return	objet			return une instance de la classe plxAdmin
+	 * @return	self			return une instance de la classe plxAdmin
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -152,6 +152,7 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function htaccess($action, $url) {
 
+	    $capture = '';
 		$base = parse_url($url);
 
 $plxhtaccess = '
@@ -268,25 +269,112 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau contenant le nouveau mot de passe de l'utilisateur
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, PEdro "P3ter" CADETE
 	 **/
 	public function editPassword($content) {
 
-		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2']))
-			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
+	    $token = '';
+	    $action = false;
+	    
+	    if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
+	        return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
+	    }
 
-		$salt = $this->aUsers[$_SESSION['user']]['salt'];
-		$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
-		return $this->editUsers(null, true);
+	    if(!empty($token = $content['lostPasswordToken'])) {
+			foreach($this->aUsers as $user_id => $user) {
+			    if ($user['password_token'] == $token) {
+			        $salt = $this->aUsers[$user_id]['salt'];
+			        $this->aUsers[$user_id]['password'] = sha1($salt.md5($content['password1']));
+			        $this->aUsers[$user_id]['password_token'] = '';
+			        $this->aUsers[$user_id]['password_token_expiry'] = '';
+			        $action = true;
+			        break;
+			    }
+			}
+		}
+		else {
+		    $salt = $this->aUsers[$_SESSION['user']]['salt'];
+		    $this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
+		    $action = true;
+		}
+
+		return $this->editUsers(null, $action);
 
 	}
 
+	/**
+	 * Create a token and send a link by a-mail with "email-lostpassword.xml" template
+	 *
+	 * @param   loginOrMail     user login or e-mail address
+	 * @return	string          token to password reset
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function sendLostPasswordEmail($loginOrMail) {
+
+	    $mail = array();
+	    $tokenExpiry = 24;
+	    $lostPasswordToken = plxToken::generateToken();
+	    $lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
+	    $templateName = 'email-lostpassword.xml';
+
+	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
+	        foreach($this->aUsers as $user_id => $user) {
+	            if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
+
+    	            # token and e-mail creation
+    	            $placeholdersValues = array(
+    	                "##LOGIN##"            => $user['login'],
+    	                "##URL_PASSWORD##"     => $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
+    	                "##URL_EXPIRY##"       => $tokenExpiry
+    	            );
+    	            
+    	            # test if e-mail creation is OK
+    	            if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1'){
+    	                $mail['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
+    	                $mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
+    	                $mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
+    	                
+    	                # sending the e-mail and if OK store the token
+        	            if (plxUtils::sendMail($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'])){
+        	                $this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
+        	                $this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
+        	                $this->editUsers($user_id, true);
+        	            }
+                    }
+                    else {
+                        $lostPasswordToken = '';
+                    }
+        	    }
+	        }
+	    }
+	    return $lostPasswordToken;
+	}
+	
+	/**
+	 * Verify the lost password token validity
+	 * 
+	 * @param  token       the token to verify
+	 * @return boolean     true if the token exist and is not expire
+	 * @author Pedro "P3ter" CADETE
+	 */
+	public function verifyLostPasswordToken($token) {
+
+	    $valid = false;
+
+	    foreach($this->aUsers as $user_id => $user) {
+	        if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date(YmdHi)) {
+	            $valid = true;
+	        }
+	    }
+	    return $valid;
+	}
+	
 	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
 	 * @param	content	tableau les informations sur les utilisateurs
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/
 	public function editUsers($content, $action=false) {
 
@@ -308,7 +396,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$username = trim($content[$user_id.'_name']);
 				if($username!='' AND trim($content[$user_id.'_login'])!='') {
 
-					# control du mot de passe
+				    # control du mot de passe
 					$salt = plxUtils::charAleatoire(10);
 					if(trim($content[$user_id.'_password'])!='')
 						$password=sha1($salt.md5($content[$user_id.'_password']));
@@ -323,7 +411,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 					# control de l'adresse email
 					$email = trim($content[$user_id.'_email']);
-					if($email!='' AND !plxUtils::checkMail($email))	return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(isset($content[$user_id.'_newuser']) AND empty($email))
+					    return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(!empty($email) AND !plxUtils::checkMail($email))	
+					    return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
 					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
 					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
@@ -336,6 +427,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aUsers[$user_id]['delete'] = (isset($this->aUsers[$user_id]['delete'])?$this->aUsers[$user_id]['delete']:0);
 					$this->aUsers[$user_id]['lang'] = (isset($this->aUsers[$user_id]['lang'])?$this->aUsers[$user_id]['lang']:$this->aConf['default_lang']);
 					$this->aUsers[$user_id]['infos'] = (isset($this->aUsers[$user_id]['infos'])?$this->aUsers[$user_id]['infos']:'');
+					
+					$this->aUsers[$user_id]['password_token'] = trim($content[$user_id.'_password_token']);
+					$this->aUsers[$user_id]['password_token_expiry'] = trim($content[$user_id.'_password_token_expiry']);
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
 					$action = true;
@@ -373,6 +467,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "\t\t".'<salt><![CDATA['.plxUtils::cdataCheck($user['salt']).']]></salt>'."\n";
 				$xml .= "\t\t".'<email><![CDATA['.plxUtils::cdataCheck($user['email']).']]></email>'."\n";
 				$xml .= "\t\t".'<lang><![CDATA['.plxUtils::cdataCheck($user['lang']).']]></lang>'."\n";
+				$xml .= "\t\t".'<password_token><![CDATA['.plxUtils::cdataCheck($user['password_token']).']]></password_token>'."\n";
+				$xml .= "\t\t".'<password_token_expiry><![CDATA['.plxUtils::cdataCheck($user['password_token_expiry']).']]></password_token_expiry>'."\n";
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
 				$xml .= "\t</user>\n";
@@ -386,6 +482,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$this->aUsers = $save;
 				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
 			}
+		}
+		else {
+		    return plxMsg::Error(L_SAVE_ERR);
 		}
 	}
 
@@ -890,7 +989,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	artId	identifiant de l'article en question
 	 * @param	content	string contenu du nouveau commentaire
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function newCommentaire($artId,$content) {
@@ -1003,6 +1102,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function modCommentaire(&$id, $mod) {
 
+	    $capture = '';
+	    
 		# Génération du nom du fichier
 		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
 		if(!file_exists($oldfilename)) # Commentaire inexistant
@@ -1069,6 +1170,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$latest_version = 'L_PLUXML_UPDATE_ERR';
 		$className = '';
 
+		$http_response_header = '';
 		# test avec allow_url_open ou file_get_contents ?
 		if(ini_get('allow_url_fopen')) {
 			$latest_version = @file_get_contents($url, false, null, 0, 16);

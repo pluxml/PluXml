@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -91,7 +91,7 @@ class plxThemes {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
 
@@ -161,5 +161,5 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

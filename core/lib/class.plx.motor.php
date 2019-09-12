@@ -4,8 +4,11 @@
  * Classe plxMotor responsable du traitement global du script
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
+
+require 'class.plx.template.php';
+
 class plxMotor {
 
 	public $get = false; # Donnees variable GET
@@ -30,6 +33,7 @@ class plxMotor {
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); #Tableau des utilisateurs
+	public $aTemplates = null; # Tableau des templates
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
@@ -44,7 +48,7 @@ class plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxMotor
 	 *
-	 * @return	objet			return une instance de la classe plxMotor
+	 * @return	self			return une instance de la classe plxMotor
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -106,6 +110,8 @@ class plxMotor {
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
+		# Traitement des templates
+		$this->getTemplates(PLX_TEMPLATES);
 	}
 
 	/**
@@ -126,7 +132,9 @@ class plxMotor {
 			$this->cible = $this->aConf['homestatic'];
 			$this->template = $this->aStats[ $this->cible ]['template'];
 		}
-		elseif(!$this->get OR preg_match('/^(blog|blog\/page[0-9]*|\/?page[0-9]*)$/',$this->get)) {
+		elseif(empty($this->get) 
+		    	OR preg_match('@^(blog|blog\/page[0-9]*|\/?page[0-9]*)$@', $this->get) 
+		    	OR !preg_match('@^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+@', $this->get)) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
 			$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
@@ -298,7 +306,7 @@ class plxMotor {
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire'));
 				if($retour[0] == 'c') { # Le commentaire a été publié
-					$_SESSION['msgcom'] = L_COM_PUBLISHED;				
+					$_SESSION['msgcom'] = L_COM_PUBLISHED;
 					header('Location: '.$url.'#'.$retour);
 				} elseif($retour == 'mod') { # Le commentaire est en modération
 					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
@@ -549,7 +557,7 @@ class plxMotor {
 				$this->aUsers[$number]['profil']=$attributes['profil'];
 				$this->aUsers[$number]['login']=plxUtils::getValue($values[$iTags['login'][$i]]['value']);
 				$this->aUsers[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
-				$this->aUsers[$number]['password']=plxUtils::getValue($values[$iTags['password'][$i] ]['value']);
+				$this->aUsers[$number]['password']=plxUtils::getValue($values[$iTags['password'][$i]]['value']);
 				$salt = plxUtils::getValue($iTags['salt'][$i]);
 				$this->aUsers[$number]['salt']=plxUtils::getValue($values[$salt]['value']);
 				$this->aUsers[$number]['infos']=plxUtils::getValue($values[$iTags['infos'][$i]]['value']);
@@ -557,6 +565,8 @@ class plxMotor {
 				$this->aUsers[$number]['email']=plxUtils::getValue($values[$email]['value']);
 				$lang = isset($iTags['lang'][$i]) ? $values[$iTags['lang'][$i]]['value']:'';
 				$this->aUsers[$number]['lang'] = $lang!='' ? $lang : $this->aConf['default_lang'];
+				$this->aUsers[$number]['password_token']=plxUtils::getValue($values[$iTags['password_token'][$i]]['value']);
+				$this->aUsers[$number]['password_token_expiry']=plxUtils::getValue($values[$iTags['password_token_expiry'][$i]]['value']);
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxMotorGetUsers'));
 			}
@@ -918,7 +928,7 @@ class plxMotor {
 	 * Méthode qui crée physiquement le fichier XML du commentaire
 	 *
 	 * @param	comment	array avec les données du commentaire à ajouter
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stéphane F
 	 **/
 	public function addCommentaire($content) {
@@ -978,12 +988,29 @@ class plxMotor {
 		# Mémorisation de la liste des tags
 		$this->aTags = $array;
 	}
-
+	
+    /**
+	 * Method in charge of making the template list in $_aTemplate array
+	 *
+	 * @param  string      the template's folder
+	 * @return	
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function getTemplates($templateFolder) {
+	    
+	    $files = array_diff(scandir($templateFolder), array('..', '.'));
+	    foreach ($files as $file) {
+	        $this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+	    }
+	    
+	    return;
+	}
+	
 	/**
 	 * Méthode qui lance le téléchargement d'un document
 	 *
 	 * @param	cible	cible de téléchargement cryptée
-	 * @return	booleen
+	 * @return	boolean
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function sendTelechargement($cible) {

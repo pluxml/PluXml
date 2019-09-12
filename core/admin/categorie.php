@@ -7,7 +7,7 @@
  * @author	Stephane F.
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -46,7 +46,7 @@ if ($array = $files->query('/^categorie(-[a-z0-9-_]+)?.php$/')) {
 if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 
 <form action="categorie.php" method="post" id="form_category">
@@ -71,7 +71,7 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_EDITCAT_DESCRIPTION ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aCats[$id]['description']),95,8,false,'full-width') ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aCats[$id]['description']),0,8) ?>
 			</div>
 		</div>
 		<div class="grid">
@@ -106,5 +106,5 @@ include(dirname(__FILE__).'/top.php');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCategoryFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

@@ -7,7 +7,7 @@
  * @author	Stephane F.
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -37,7 +37,7 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de l'utilisateur
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 
 <form action="user.php" method="post" id="form_user">
@@ -72,7 +72,7 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']),95,8,false,'full-width') ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']), 0, 8) ?>
 			</div>
 		</div>
 	</fieldset>
@@ -84,5 +84,5 @@ include(dirname(__FILE__).'/top.php');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUserFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

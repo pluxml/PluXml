@@ -1,4 +1,4 @@
-<?php include(dirname(__FILE__).'/header.php'); ?>
+<?php include __DIR__.'/header.php'; ?>
 
 	<main class="main" role="main">
 
@@ -74,4 +74,4 @@
 
 	</main>
 
-<?php include(dirname(__FILE__).'/footer.php'); ?>
+<?php include __DIR__.'/footer.php'; ?>

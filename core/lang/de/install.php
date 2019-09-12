@@ -26,6 +26,7 @@ $LANG = array(
 'L_LOGIN'							=> 'Benutzername',
 'L_PASSWORD'						=> 'Passwort',
 'L_PASSWORD_CONFIRMATION'			=> 'Passwort wiederholen',
+'L_EMAIL'						    => 'E-Mail-Adresse',
 'L_INPUT_INSTALL'					=> 'Installieren',
 'L_TIMEZONE'						=> 'Zeitzone',
 'L_PWD_VERY_WEAK'					=> 'Sehr schwaches Passwort',

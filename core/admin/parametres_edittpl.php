@@ -5,7 +5,7 @@
  * @author	Stephane F
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -70,17 +70,17 @@ if(file_exists($filename) AND filesize($filename) > 0) {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 <form action="parametres_edittpl.php" method="post" id="form_edittpl">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>	
+		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
+		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
-		&nbsp;&nbsp;&nbsp;		
+		&nbsp;&nbsp;&nbsp;
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</div>
 
@@ -90,16 +90,16 @@ include(dirname(__FILE__).'/top.php');
 		<div class="col sml-12">
 			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
 			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 20); ?>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>
-	
+
 </form>
 
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

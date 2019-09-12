@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -109,7 +109,7 @@ else
 $date = plxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 	$author = $plxAdmin->plxRecord_coms->f('author');
@@ -200,7 +200,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
-				<?php plxUtils::printArea('content',$content, 60, 7,false,'full-width'); ?>
+				<?php plxUtils::printArea('content',$content, 0, 7); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
 			</div>
 		</div>
@@ -212,5 +212,5 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 if(!isset($_POST['preview']))
@@ -233,7 +233,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 # On construit la liste des utilisateurs
 foreach($plxAdmin->aUsers as $_userid => $_user) {
@@ -332,28 +332,31 @@ function refreshImg(dta) {
 					</div>
 				</div>
 				<div class="grid">
+					<div class="col sml-12 small">
+						<?php if($artId!='' AND $artId!='0000') : ?>
+							<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
+					 			<small>
+					 				<strong><?php echo L_LINK_FIELD ?>&nbsp;:</strong>
+					 				<a onclick="this.target=\'_blank\';return true;" href="<?php echo $link ?>" title="<?php echo L_LINK_ACCESS ?> : <?php echo $link ?>"><?php echo $link ?></a>
+					 			</small>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;<a id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
-						<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>>
-						<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
+						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
+						<label for="toggler_chapo"><?php echo L_HEADLINE_FIELD;?> : <span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
+						<div>
+							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8); ?>
 						</div>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,20,false,'full-width'); ?>
+						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20); ?>
 					</div>
 				</div>
-				<?php if($artId!='' AND $artId!='0000') : ?>
-				<div class="grid">
-					<div class="col sml-12">
-						<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
-						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
-						<?php echo '<input id="id_link" onclick="this.select()" readonly="readonly" type="text" value="'.$link.'" />' ?>
-					</div>
-				</div>
-				<?php endif; ?>
 			</fieldset>
 			<div class="grid gridthumb">
 				<div class="col sml-12">
@@ -499,14 +502,11 @@ function refreshImg(dta) {
 
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_tags">
-							<?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE ?></span></a>
-						</label>
-						<div class="inline-form">
-							<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-							<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
-						</div>
-						<div id="tags" style="display:none; margin-top: 1rem">
+						<label for="tags"><?php echo L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
+						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+                        <input class="toggler" type="checkbox" id="toggler_tags"<?php echo (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
+                        <label for="toggler_tags"><span>-</span><span>+</span></label>						
+						<div style="margin-top: 1rem">
 							<?php
 							if($plxAdmin->aTags) {
 								$array=array();
@@ -533,6 +533,7 @@ function refreshImg(dta) {
 						</div>
 					</div>
 				</div>
+
 				<div class="grid">
 					<div class="col sml-12">
 						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
@@ -608,5 +609,5 @@ function refreshImg(dta) {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

@@ -109,7 +109,6 @@ $LANG = array(
 'L_NOW'														=> 'сейчас',
 'L_ARTICLE_CATEGORIES'										=> 'Категории',
 'L_CATEGORY_HOME_PAGE'										=> 'Главная страница',
-'L_NEW_CATEGORY'											=> 'Новая категория',
 'L_ARTICLE_TAGS_FIELD'										=> 'Ключевые слова',
 'L_ARTICLE_TAGS_FIELD_TITLE'								=> 'Разделяйте теги запятыми',
 'L_ARTICLE_TOGGLER_TITLE'									=> 'Список тегов',
@@ -149,6 +148,10 @@ $LANG = array(
 'L_ERR_WRONG_PASSWORD'										=> 'Неправильный логин или пароль',
 'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Слишком много неудачных Войти<br />Повторите попытку через% S минут',
+'L_LOST_PASSWORD'                                           => 'Забыли пароль?',
+'L_LOST_PASSWORD_LOGIN'                                     => 'Aвторизоваться',
+'L_LOST_PASSWORD_SUCCESS'                                   => 'Письмо было отправлено пользователю',
+'L_LOST_PASSWORD_ERROR'                                     => 'Срок действия ссылки истек',
 
 #
 

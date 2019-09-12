@@ -9,9 +9,11 @@ $LANG = array(
 'L_SAVE_FILE'										=> 'Speichern Sie die Datei',
 'L_SAVE_FILE_SUCCESSFULLY'							=> 'Datei erfolgreich gespeichert',
 'L_SAVE_FILE_ERROR'									=> 'Fehler beim Speichern der Datei für',
+
 'L_REPLY'											=> 'Antworten',
 'L_REPLY_TO'										=> 'Antworten',
 'L_CANCEL'											=> 'Abbrechen',
+
 'L_DELETE'											=> 'Löschen',
 'L_DELETE_FILE' 				    				=> 'Datei löschen',
 'L_DELETE_FOLDER'				   					=> 'Verzeichnis löschen',
@@ -20,10 +22,17 @@ $LANG = array(
 'L_RENAME_FILE_SUCCESSFUL'							=> 'Datei umbenannt erfolgreich',
 'L_RENAME_FILE_ERR'									=> 'Fehler beim Verarbeiten der Datei',
 'L_RENAME_FILE'										=> 'Datei umbenennen',
+
 'L_THUMBNAIL'										=> 'Vorschaubild (optional)',
 'L_THUMBNAIL_SELECTION'								=> 'Bild auswählen',
 'L_THUMBNAIL_TITLE'									=> 'Bildtitel (optional)',
 'L_THUMBNAIL_ALT'									=> 'Alternativtext des Bildes (optional)',
+
+'L_ERR_INVALID_DATE_CREATION'						=> 'Ungültige Erstellungsdatum',
+'L_ERR_INVALID_DATE_UPDATE'							=> 'Datum ungültig aktualisiert',
+
+# class.plx.admin.php
+
 'L_SAVE_SUCCESSFUL'									=> 'Daten erfolgreich gespeichert',
 'L_SAVE_ERR'										=> 'Fehler während des Speicherns',
 'L_NO_ENTRY'										=> 'Datenzugriff verboten',
@@ -42,15 +51,10 @@ $LANG = array(
 'L_ARTICLE_SAVE_ERR'								=> 'Fehler beim Speichern des Artikels.',
 'L_ARTICLE_DELETE_ERR'								=> 'Fehler beim Löschen des Artikels.',
 'L_ERR_UNKNOWN_COMMENT'								=> 'Der angeforderte Kommentar existiert nicht oder nicht mehr',
-'L_COMMENT_SAVE_SUCCESSFUL'							=> 'Kommentar erfolgreich geändert',
-'L_COMMENT_UPDATE_ERR'								=> 'Fehler während der Kommentaraktualisierung',
-'L_COMMENT_DELETE_SUCCESSFUL'						=> 'Kommentar erfolgreich gelöscht',
-'L_COMMENT_DELETE_ERR'								=> 'Fehler beim Löschen.',
-'L_COMMENT_VALIDATE_SUCCESSFUL'						=> 'Validierung erfolgreich',
-'L_COMMENT_VALIDATE_ERR'							=> 'Fehler bei der Validierung.',
-'L_COMMENT_MODERATE_SUCCESSFUL'						=> 'Durch den Moderator akzeptiert',
-'L_COMMENT_MODERATE_ERR'							=> 'Fehler oder durch Moderator abgelehnt',
-'L_COMMENT_WRITTEN_BY'								=> 'Geschrieben von',
+'L_ERR_URL_ALREADY_EXISTS'  						=> 'Url bereits im Einsatz. Bitte ändern Sie den Wert des Feldes \'Url\'',
+
+# class.plx.media.php
+
 'L_PLXMEDIAS_MEDIAS_FOLDER_ERR'						=> 'Der Ordner "Medias" konnte für diesen Benutzer nicht angelegt werden',
 'L_PLXMEDIAS_ROOT'									=> 'Grundverzeichnis',
 'L_PLXMEDIAS_NEW_FOLDER_ERR'						=> 'Der Ordner konnte nicht angelegt werden',
@@ -77,6 +81,9 @@ $LANG = array(
 'L_PLXMEDIAS_RECREATE_THUMBS_ERR'					=> 'Fehler beim Erstellen des Miniaturansichten',
 'L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL'				=> 'Miniaturansicht erfolgreich erstellt',
 'L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL'			=> 'Miniaturansichten erfolgreich erstellt',
+
+# article.php
+
 'L_DEFAULT_NEW_ARTICLE_TITLE'						=> 'Neuer Artikel',
 'L_ERR_INVALID_PUBLISHING_DATE'						=> 'Ungültiges Erscheinungsdatum.',
 'L_ERR_UNKNOWN_ARTICLE'								=> 'Der angeforderte Artikel existiert nicht oder nicht mehr!',
@@ -126,15 +133,38 @@ $LANG = array(
 'L_ARTICLE_CHAPO_DISPLAY'							=> 'anzeigen',
 'L_ARTICLE'											=> 'artikel',
 'L_ARTICLE_ID'										=> 'ID',
+
+# auth.php
+
 'L_AUTH_PAGE_TITLE'									=> 'Anmeldung',
 'L_LOGOUT_SUCCESSFUL'								=> 'Sie wurden erfolgreich abgemeldet',
 'L_LOGIN_PAGE'										=> 'Administrator Anmeldung',
 'L_AUTH_LOGIN_FIELD'								=> 'Benutzer',
 'L_AUTH_PASSWORD_FIELD'								=> 'Passwort',
+'L_AUTH_LOST_FIELD'                                 => 'Login ou adresse e-mail',
 'L_SUBMIT_BUTTON'									=> 'Anmelden',
 'L_ERR_WRONG_PASSWORD'								=> 'Benutzername und/oder Passwort sind falsch',
 'L_POWERED_BY'										=> 'Generiert von <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'									=> 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in% s Minuten',
+'L_LOST_PASSWORD'                                   => 'Passwort vergessen?',
+'L_LOST_PASSWORD_LOGIN'                             => 'Anmeldung',
+'L_LOST_PASSWORD_SUCCESS'                           => 'Eine E-Mail wurde an den Benutzer gesendet',
+'L_LOST_PASSWORD_ERROR'                             => 'Der Link ist abgelaufen',
+
+#
+
+'L_SORT_ASCENDING_DATE'								=> 'Datum aufsteigend',
+'L_SORT_DESCENDING_DATE'							=> 'Datum absteigend',
+'L_SORT_ALPHABETICAL'								=> 'alphabetisch',
+'L_SORT_REVERSE_ALPHABETICAL'		                => 'rückwärts alphabetisch',
+'L_SORT_RANDOM'										=> 'aleatorischen',
+'L_OK'												=> 'Ok',
+'L_YES'												=> 'Ja',
+'L_NO'												=> 'Nein',
+'L_NONE1'											=> 'kein',
+'L_NONE2'											=> 'kein',
+
+# categories.php
 
 'L_CAT_TITLE'										=> 'Kategorien erstellen/ändern',
 'L_CAT_LIST_ID'										=> 'ID',
@@ -152,6 +182,10 @@ $LANG = array(
 'L_FOR_SELECTION'									=> 'Aktion auswählen...',
 'L_CAT_APPLY_BUTTON'								=> 'Änderungen speichern',
 'L_CAT_UNKNOWN'										=> 'Unbekannte Kategorie',
+'L_ERR_CATEGORY_ALREADY_EXISTS'						=> 'Dieser Kategoriename existiert bereits',
+
+# categorie.php
+
 'L_EDITCAT_PAGE_TITLE'								=> 'Kategorieoptionen ändern',
 'L_EDITCAT_DISPLAY_HOMEPAGE'						=> 'Zeige Artikel in dieser Kategorie auf der Startseite',
 'L_EDITCAT_DESCRIPTION'								=> 'Beschreibung',
@@ -161,6 +195,9 @@ $LANG = array(
 'L_EDITCAT_TITLE_HTMLTAG'							=> 'Title-Tag Inhalte (optional)',
 'L_EDITCAT_META_DESCRIPTION'						=> 'META Tag "description" - Inhalt für diese Kategorie (optional)',
 'L_EDITCAT_META_KEYWORDS'							=> 'META Tag "keywords" - Inhalt für diese Kategorie (optional)',
+
+# commentaire.php
+
 'L_COMMENT_ORPHAN'									=> 'keinen Artikel',
 'L_COMMENT_ORPHAN_STATUS'							=> 'verwaist (Sie sollten diesen Kommentar löschen)',
 'L_COMMENT_ARTICLE_LINKED'							=> 'Artikel',
@@ -185,6 +222,23 @@ $LANG = array(
 'L_COMMENT_OFFLINE_BUTTON'							=> 'Offline stellen',
 'L_COMMENT_ANSWER_BUTTON'							=> 'Antworten',
 'L_COMMENT_UPDATE_BUTTON'							=> 'Aktualisieren',
+'L_COMMENT_WRITTEN_BY'								=> 'Geschrieben von',
+'L_COMMENT_SAVE_SUCCESSFUL'							=> 'Kommentar erfolgreich geändert',
+'L_COMMENT_UPDATE_ERR'								=> 'Fehler während der Kommentaraktualisierung',
+'L_COMMENT_DELETE_SUCCESSFUL'						=> 'Kommentar erfolgreich gelöscht',
+'L_COMMENT_DELETE_ERR'								=> 'Fehler beim Löschen.',
+'L_COMMENT_VALIDATE_SUCCESSFUL'						=> 'Validierung erfolgreich',
+'L_COMMENT_VALIDATE_ERR'							=> 'Fehler bei der Validierung.',
+'L_COMMENT_MODERATE_SUCCESSFUL'						=> 'Durch den Moderator akzeptiert',
+'L_COMMENT_MODERATE_ERR'							=> 'Fehler oder durch Moderator abgelehnt',
+
+# sous_navigation/commentaires.php
+
+'L_COMMENT_NEW_COMMENT_TITLE'						=> 'Einen neuen Kommentar für diesen Artikel schreiben',
+'L_COMMENT_NEW_COMMENT'								=> 'Einen neuen Kommentar schreiben',
+
+# commentaire_new.php
+    
 'L_ERR_ANSWER_UNKNOWN_COMMENT'						=> 'Der Kommentar, auf den Sie antworten wollen, existiert nicht oder nicht mehr!',
 'L_ERR_ANSWER_OFFLINE_COMMENT'						=> 'Der Kommentar ist offline, Antworten ist nicht möglich!',
 'L_ERR_COMMENT_UNKNOWN_ARTICLE'						=> 'Der gefragte Artikel existiert nicht oder nicht mehr. Sie können keinen Kommentar erstellen!',
@@ -195,12 +249,9 @@ $LANG = array(
 'L_ARTICLE_COMMENTS_LIST'							=> 'Kommentare dieses Artikels (neueste zuerst)',
 'L_COMMENT_ANSWER_TITLE'							=> 'Auf diesen Kommentar antworten',
 'L_COMMENT_ANSWER'									=> 'Antworten',
-'L_COMMENTS_ONLINE_LIST'							=> 'Liste der veröffentlichten Kommentare',
-'L_COMMENTS_ALL_LIST'								=> 'Liste aller Kommentare',
-'L_COMMENT_SET_ONLINE'								=> 'Online nehmen',
-'L_COMMENT_SET_OFFLINE'								=> 'Offline nehmen',
-'L_COMMENT_NEW_COMMENT_TITLE'						=> 'Einen neuen Kommentar für diesen Artikel schreiben',
-'L_COMMENT_NEW_COMMENT'								=> 'Einen neuen Kommentar schreiben',
+
+# comments.php
+
 'L_COMMENTS_ARTICLE_SCOPE'							=> 'Artikel',
 'L_COMMENTS_GLOBAL_SCOPE'							=> 'ganze Website',
 'L_COMMENTS_OFFLINE_LIST'							=> 'Liste der wartenden Kommentare ',
@@ -216,6 +267,20 @@ $LANG = array(
 'L_COMMENT_ONLINE_FEEDS_TITLE'						=> 'Feed der Online-Kommentare (Rss)',
 'L_COMMENT_ONLINE_FEEDS'							=> 'Online-Kommentare',
 'L_COMMENTS_PRIVATE_FEEDS'							=> 'Private Feed',
+'L_COMMENTS_ONLINE_LIST'							=> 'Liste der veröffentlichten Kommentare',
+'L_COMMENTS_ALL_LIST'								=> 'Liste aller Kommentare',
+'L_COMMENT_SET_ONLINE'								=> 'Online nehmen',
+'L_COMMENT_SET_OFFLINE'								=> 'Offline nehmen',
+
+# index.php
+
+'L_SEARCH'											=> 'Suche',
+'L_SEARCH_PLACEHOLDER'								=> 'benutzernamen oder titel',
+'L_ARTICLES_ALL_CATEGORIES'							=> 'Alle Kategorien ...',
+'L_ALL'												=> 'Alle',
+'L_ALL_PUBLISHED'									=> 'Veröffentlicht',
+'L_ALL_DRAFTS'										=> 'Entwürfe',
+'L_ALL_AWAITING_MODERATION'							=> 'erwarten Moderation',
 'L_ARTICLES_FILTER_BUTTON'							=> 'Filtern',
 'L_CATEGORIES_TABLE'								=> 'Kategorien',
 'L_SPECIFIC_CATEGORIES_TABLE'						=> 'Exakter Ort',
@@ -235,33 +300,29 @@ $LANG = array(
 'L_NEW_COMMENTS_TITLE'								=> 'Wartende Kommentare',
 'L_VALIDATED_COMMENTS_TITLE'						=> 'Publizierte Kommentare',
 'L_NO_ARTICLE'										=> 'Kein(e) Artikel',
-'L_SEARCH'											=> 'Suche',
-'L_SEARCH_PLACEHOLDER'								=> 'benutzernamen oder titel',
-'L_ARTICLES_ALL_CATEGORIES'							=> 'Alle Kategorien ...',
-'L_ALL'												=> 'Alle',
-'L_ALL_PUBLISHED'									=> 'Veröffentlicht',
-'L_ALL_DRAFTS'										=> 'Entwürfe',
-'L_ALL_AWAITING_MODERATION'							=> 'erwarten Moderation',
-'L_MEDIAS_DELETE_FOLDER'							=> 'Ordner löschen',
-'L_MEDIAS_DELETE_FOLDER_CONFIRM'					=> 'Ordner inkl. Inhalt löschen %s?',
-'L_MEDIAS_NO_FILE'									=> 'Keine Datei(en)',
+
+# medias.php
+
 'L_MEDIAS_FILENAME'									=> 'Dateiname',
-'L_MEDIAS_ADD_FILE'									=> 'Dateien hochladen',
-'L_MEDIAS_BACK'										=> 'Zurück',
 'L_MEDIAS_TITLE'									=> 'Datei und Medienverwaltung',
-'L_MEDIAS_IMAGES'									=> 'Bilder',
-'L_MEDIAS_DOCUMENTS'								=> 'Dokumente',
-'L_MEDIAS_CREATE_FOLDER'							=> 'Ordner erstellen',
-'L_MEDIAS_SUBMIT_FILE'								=> 'Abschicken',
+'L_MEDIAS_DIRECTORY'								=> 'Ort',
+'L_MEDIAS_BACK'										=> 'Zurück',
 'L_MEDIAS_MAX_UPLOAD_FILE'							=> 'Maximale Größe der Datei',
 'L_MEDIAS_MAX_UPLOAD_NBFILE'						=> 'Maximale Anzahl an Dateien pro upload',
 'L_MEDIAS_MAX_POST_SIZE'							=> 'Maximale Datengröße',
-'L_MEDIAS_DIRECTORY'								=> 'Ort',
+'L_MEDIAS_SUBMIT_FILE'								=> 'Abschicken',
+'L_MEDIAS_IMAGES'									=> 'Bilder',
+'L_MEDIAS_DOCUMENTS'								=> 'Dokumente',
+'L_MEDIAS_ADD_FILE'									=> 'Dateien hochladen',
+'L_MEDIAS_DELETE_FOLDER'							=> 'Ordner löschen',
+'L_MEDIAS_DELETE_FOLDER_CONFIRM'					=> 'Ordner inkl. Inhalt löschen %s?',
 'L_MEDIAS_FOLDER'									=> 'Datei',
 'L_MEDIAS_NEW_FOLDER'								=> 'Neuer Ordner',
+'L_MEDIAS_CREATE_FOLDER'							=> 'Ordner erstellen',
 'L_MEDIAS_FILESIZE'									=> 'Größe',
 'L_MEDIAS_DATE'										=> 'Datum',
 'L_MEDIAS_DIMENSIONS'								=> 'Abmessungen',
+'L_MEDIAS_NO_FILE'									=> 'Keine Datei(en)',
 'L_MEDIAS_RESIZE'									=> 'Bilder skalieren',
 'L_MEDIAS_RESIZE_NO'								=> 'Originalgröße',
 'L_MEDIAS_THUMBS'									=> 'Miniaturansicht erstellen',
@@ -281,16 +342,9 @@ $LANG = array(
 'L_MEDIAS_LINK_COPYCLP_DONE'                        => 'Link kopiert',
 'L_MEDIAS_NEW_NAME'									=> 'Neuer Name',
 'L_MEDIAS_RENAME'									=> 'Umbenennen',
-'L_SORT_ASCENDING_DATE'								=> 'Datum aufsteigend',
-'L_SORT_DESCENDING_DATE'							=> 'Datum absteigend',
-'L_SORT_ALPHABETICAL'								=> 'alphabetisch',
-'L_SORT_REVERSE_ALPHABETICAL'		                => 'rückwärts alphabetisch',
-'L_SORT_RANDOM'										=> 'aleatorischen',
-'L_OK'												=> 'Ok',
-'L_YES'												=> 'Ja',
-'L_NO'												=> 'Nein',
-'L_NONE1'											=> 'kein',
-'L_NONE2'											=> 'kein',
+
+# parametres_affichage.php
+    
 'L_CONFIG_VIEW_FIELD'								=> 'Darstellungsoptionen',
 'L_CONFIG_VIEW_SKIN_SELECT'							=> 'Themenauswahl',
 'L_CONFIG_VIEW_FILES_EDIT_TITLE'					=> 'Themendateien editieren',
@@ -314,12 +368,16 @@ $LANG = array(
 'L_CONFIG_VIEW_UPDATE'								=> 'Änderungen speichern',
 'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT'					=> 'Leere Kategorien (ohne Artikel) anzeigen',
 'L_CONFIG_HOMETEMPLATE'								=> 'Vorlage der Homepage',
+
+# parametres_avances.php
+
 'L_CONFIG_ADVANCED_DESC'							=> 'Erweiterte Einstellungen',
 'L_CONFIG_ADVANCED_URL_REWRITE'						=> 'Adressweiterleitung aktivieren (URL rewrite)',
 'L_CONFIG_ADVANCED_URL_REWRITE_ALERT'				=> 'Achtung! Es ist bereits eine .htaccess Datei im Grundverzeichnis von PluXml vorhanden. Diese Datei wird beim Aktivieren modifiziert.',
 'L_CONFIG_ADVANCED_GZIP'							=> 'GZIP Kompression aktivieren',
 'L_CONFIG_ADVANCED_GZIP_HELP'						=> 'Komprimierung spart Bandreite, erhöht aber die Prozessorauslastung des Servers.',
 'L_CONFIG_ADVANCED_CAPCHA'							=> 'ANTI-SPAM Kontrolle aktivieren',
+'L_CONFIG_ADVANCED_LOSTPASSWORD'                    => 'Aktivieren Sie die Kennwortwiederherstellung',
 'L_CONFIG_ADVANCED_ADMIN_KEY'						=> 'Adminschlüssel (private URLs)',
 'L_CONFIG_ADVANCED_KEY_HELP'						=> 'Feld leeren um neuen Schlüssel zu generieren',
 'L_CONFIG_ADVANCED_USERFOLDERS'						=> 'Verwenden Sie unterschiedliche Medien Ordner für jeden Benutzer',
@@ -333,6 +391,9 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'					=> 'Ort der Konfigurationsdateien (Ordner)',
 'L_CONFIG_ADVANCED_UPDATE'							=> 'Änderungen speichern',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'						=> 'Standort und den Namen der benutzerdefinierten CSS-Datei des Verwaltungsbereich (optional)',
+
+# parametres_base.php
+
 'L_CONFIG_BASE_CONFIG_TITLE'						=> 'Grundeinstellungen',
 'L_CONFIG_BASE_SITE_TITLE'							=> 'Titel der Website',
 'L_CONFIG_BASE_SITE_SLOGAN'							=> 'Untertitel/Beschreibung der Website',
@@ -345,10 +406,16 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'								=> 'Grundeinstellungen speichern',
 'L_CONFIG_META_DESCRIPTION'							=> 'META Tag "description" - Inhalt (optional)',
 'L_CONFIG_META_KEYWORDS'							=> 'META Tag "keywords" - Inhalt (optional)',
+
+# parametres_edittpl.php
+
 'L_CONFIG_EDITTPL_ERROR_NOTHEME'					=> 'Dieses Thema existiert nicht!',
 'L_CONFIG_EDITTPL_TITLE'							=> 'Thema editieren',
 'L_CONFIG_EDITTPL_SELECT_FILE'						=> 'Wählen Sie die Datei, die Sie editieren wollen:',
 'L_CONFIG_EDITTPL_LOAD'								=> 'Laden',
+
+# parametres_infos.php
+
 'L_CONFIG_INFOS_TITLE'								=> 'PluXml Systemnachrichten',
 'L_CONFIG_INFOS_DESCRIPTION'						=> 'Systemstatus und nützliche Informationen zum Betrieb von PluXml',
 'L_CONFIG_INFOS_NB_CATS'							=> 'Anzahl der Kategorien:',
@@ -359,6 +426,9 @@ $LANG = array(
 'L_PLUXML_UPDATE_ERR'								=> 'Updatefunktion mit unbekanntem Fehler abgebrochen.',
 'L_PLUXML_UPTODATE'									=> 'Sie benutzen die aktuellste Version von PluXml',
 'L_PLUXML_UPDATE_AVAILABLE'							=> 'Eine neue Version ist verfügbar! Sie können sie hier herunterladen: ',
+
+# parametres_users.php
+
 'L_CONFIG_USERS_TITLE'								=> 'Benutzerverwaltung',
 'L_CONFIG_USER'										=> 'Benutzer',
 'L_CONFIG_USERS_ID'									=> 'Benutzer-ID',
@@ -368,8 +438,9 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'								=> 'Änderungen speichern',
 'L_ERR_LOGIN_ALREADY_EXISTS'						=> 'Diese Login-ID wird bereits verwendet',
 'L_ERR_USERNAME_ALREADY_EXISTS'						=> 'Dieser Benutzername ist bereits vergeben',
-'L_ERR_CATEGORY_ALREADY_EXISTS'						=> 'Dieser Kategoriename existiert bereits',
-'L_ERR_STATIC_ALREADY_EXISTS'						=> 'wird bereits verwendet',
+
+# parametre_plugins.php
+
 'L_BACK_TO_PLUGINS'									=> 'Zurück zur Plugins-Seite',
 'L_NO_PLUGIN'										=> 'Keine Plugins',
 'L_PLUGIN_NO_CONFIG'								=> 'Plugin nicht konfiguriert',
@@ -377,6 +448,9 @@ $LANG = array(
 'L_PLUGINS_CSS_TITLE'								=> 'Bearbeiten Sie den CSS-Code des Plugins',
 'L_CONTENT_FIELD_FRONTEND'							=> 'CSS-Datei-Inhalte Website',
 'L_CONTENT_FIELD_BACKEND'							=> 'CSS-Datei Content-Administrator',
+
+# parametres_plugins.php
+
 'L_PLUGINS_TITLE'									=> 'Pluginverwaltung',
 'L_PLUGINS_VERSION'									=> 'Version',
 'L_PLUGINS_AUTHOR'									=> 'Autor',
@@ -398,6 +472,9 @@ $LANG = array(
 'L_PLUGINS_APPLY_BUTTON'							=> 'Ändern Sie die Liste der Plugins',
 'L_PLUGINS_ACTIVE_LIST'								=> 'Aktive plugins',
 'L_PLUGINS_INACTIVE_LIST'							=> 'Inaktive plugins',
+
+# profil.php
+
 'L_PROFIL_EDIT_TITLE'								=> 'Benutzerprofil bearbeiten',
 'L_PROFIL'											=> 'Profil',
 'L_PROFIL_LOGIN'									=> 'Login',
@@ -410,6 +487,9 @@ $LANG = array(
 'L_PROFIL_PASSWORD'									=> 'Neues Passwort',
 'L_PROFIL_CONFIRM_PASSWORD'							=> 'Neues Passwort wiederholen',
 'L_PROFIL_UPDATE_PASSWORD'							=> 'Passwortänderung speichern',
+
+# statique.php
+
 'L_STATIC_BACK_TO_PAGE'								=> 'Zurück zur Liste',
 'L_STATIC_UNKNOWN_PAGE'								=> 'Diese statische Seite existiert nicht oder nicht mehr!',
 'L_STATIC_TITLE'									=> 'Quellcodes der statischen Seite editieren',
@@ -419,6 +499,9 @@ $LANG = array(
 'L_STATIC_TITLE_HTMLTAG'							=> 'Title-Tag Inhalte (optional)',
 'L_STATIC_META_DESCRIPTION'							=> 'META Tag "description" - Inhalt für diese statische Seite (optional)',
 'L_STATIC_META_KEYWORDS'							=> 'META Tag "keywords" - Inhalt für diese statische Seite (optional)',
+
+# statiques.php
+
 'L_STATICS_PAGE_TITLE'								=> 'Statische Seiten erstellen/edtitieren',
 'L_STATICS_ID'										=> 'ID',
 'L_STATICS_GROUP'									=> 'Gruppe',
@@ -437,6 +520,10 @@ $LANG = array(
 'L_STATICS_SRC'										=> 'Ändern',
 'L_STATICS_NEW_PAGE'								=> 'Neue Seite',
 'L_STATICS_UPDATE'									=> 'Änderungen speichern',
+'L_ERR_STATIC_ALREADY_EXISTS'						=> 'wird bereits verwendet',
+
+# top.php
+
 'L_PROFIL_ADMIN'									=> 'Admin',
 'L_PROFIL_MANAGER'									=> 'Manager',
 'L_PROFIL_MODERATOR'								=> 'Moderator',
@@ -467,6 +554,9 @@ $LANG = array(
 'L_MENU_PROFIL_TITLE'								=> 'Mein Benutzerprofil verwalten',
 'L_MENU_PROFIL'										=> 'Mein Profil',
 'L_WARNING_INSTALLATION_FILE'						=> 'Die Datei install.php existiert noch im Grundverzeichnis von PluXml.<br />Sie sollten diese aus Sicherheitsgründen <a class="lnkdelete" href="?del=install">löschen</a>.',
+
+# user.php
+
 'L_USER_UNKNOWN'									=> 'Unbekannter Benutzer',
 'L_USER_LANG'										=> 'Spracher des Admins',
 'L_USER_MAIL'										=> 'E-Mail-Adresse',
@@ -474,6 +564,9 @@ $LANG = array(
 'L_USER_UPDATE'										=> 'Benutzer aktualisieren',
 'L_USER_PAGE_TITLE'									=> 'Benutzeroptionen bearbeiten',
 'L_USER_BACK_TO_PAGE'								=> 'Zurück zur Benutzerliste',
+
+#
+
 'L_MENU_CONFIG_BASE_TITLE'							=> 'PluXml Grundeinstellungen bearbeiten',
 'L_MENU_CONFIG_BASE'								=> 'Grundeinstellungen',
 'L_MENU_CONFIG_VIEW_TITLE'							=> 'PluXml Anzeigeoptionen bearbeiten',
@@ -486,14 +579,11 @@ $LANG = array(
 'L_MENU_CONFIG_INFOS'								=> 'Nachrichten',
 'L_MENU_CONFIG_PLUGINS_TITLE'						=> 'Plugins verwalten',
 'L_MENU_CONFIG_PLUGINS'								=> 'Plugins',
-'L_ERR_URL_ALREADY_EXISTS'							=> 'Url bereits im Einsatz. Bitte ändern Sie den Wert des Feldes \'Url\'',
 'L_THEMES'											=> 'Themes',
 'L_THEMES_TITLE'									=> 'Verwalten von Themen',
 'L_HELP'											=> 'Hilfe',
 'L_HELP_TITLE'										=> 'Siehe Hilfe',
 'L_BACK_TO_THEMES'									=> 'Zurück Hilfe',
 'L_CONFIG_THEME_UPDATE'								=> 'Theme ändern',
-'L_ERR_INVALID_DATE_CREATION'						=> 'Ungültige Erstellungsdatum',
-'L_ERR_INVALID_DATE_UPDATE'							=> 'Datum ungültig aktualisiert',
 );
 ?>
