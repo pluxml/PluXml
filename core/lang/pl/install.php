@@ -26,6 +26,7 @@ $LANG = array(
 'L_LOGIN'							=> 'Login admina',
 'L_PASSWORD'						=> 'Hasło',
 'L_PASSWORD_CONFIRMATION'			=> 'Potwierdź hasło',
+'L_EMAIL'						    => 'Adres e-mail',
 'L_INPUT_INSTALL'					=> 'Zainstaluj',
 'L_TIMEZONE'						=> 'Strefa czasowa',
 'L_PWD_VERY_WEAK'					=> 'Bardzo słabe hasło',

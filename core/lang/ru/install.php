@@ -26,6 +26,7 @@ $LANG = array(
 'L_LOGIN'							=> 'Логин Администратора',
 'L_PASSWORD'						=> 'Пароль',
 'L_PASSWORD_CONFIRMATION'			=> 'Подтвердить пароль',
+'L_EMAIL'						    => 'Адрес электронной почты',
 'L_INPUT_INSTALL'					=> 'Установка',
 'L_TIMEZONE'						=> 'Часовой пояс',
 'L_PWD_VERY_WEAK'					=> 'очень слабый пароль',

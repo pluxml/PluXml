@@ -26,6 +26,7 @@ $LANG = array(
 'L_LOGIN'							=> 'Username-ul Administratorului',
 'L_PASSWORD'						=> 'Parola',
 'L_PASSWORD_CONFIRMATION'			=> 'Confirmarea Parolei',
+'L_EMAIL'						    => 'Adresa de email',
 'L_INPUT_INSTALL'					=> 'Instalează',
 'L_TIMEZONE'						=> 'Time Zone',
 'L_PWD_VERY_WEAK'					=> 'Parola foarte slabă',

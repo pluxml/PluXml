@@ -26,6 +26,7 @@ $LANG = array(
 'L_LOGIN'							=> 'Login van de beheerder',
 'L_PASSWORD'						=> 'Wachtwoord',
 'L_PASSWORD_CONFIRMATION'			=> 'Bevestig het wachtwoord',
+'L_EMAIL'						    => 'E-mailadres',
 'L_INPUT_INSTALL'					=> 'Installeer',
 'L_TIMEZONE'						=> 'Tijdzone',
 'L_PWD_VERY_WEAK'					=> 'Zeer zwak wachtwoord',

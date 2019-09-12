@@ -26,6 +26,7 @@ $LANG = array(
 'L_LOGIN'							=> 'Identificant de connexion a l\'administracion',
 'L_PASSWORD'						=> 'Senhal',
 'L_PASSWORD_CONFIRMATION'			=> 'Confirmacion del senhal',
+'L_EMAIL'						    => 'Posta elektroniko helbidea',
 'L_INPUT_INSTALL'					=> 'Installar',
 'L_TIMEZONE'						=> 'Fus orari',
 'L_PWD_VERY_WEAK'					=> 'Senhal fòrça feble',
