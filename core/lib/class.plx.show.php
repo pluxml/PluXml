@@ -896,19 +896,20 @@ class plxShow {
 	 * @scope	global
 	 * @author	Florent MONTHEL, Stephane F, Cyril MAGUIRE, Thomas Ingles
 	 **/
-	public function lastArtList($format='', $max=5, $cat_id='', $ending='', $sort='rsort') {
+    public function lastArtList($format='', $max=5, $cat_id='', $ending='', $sort='rsort') {
 
-    $capture = '';
+        $capture = '';
 
 		$format = empty($format)? '<li><a href="#art_url" title="#art_title">#art_title</a></li>': $format; # V5.8 format par defaut si vide
 
-	  # Hook Plugins
+        // Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) return;
-		# Génération de notre motif
-		$all = (isset($all)? $all: empty($cat_id));# pour le hook : si $all = TRUE, n'y passe pas
-		$cats = $this->plxMotor->activeCats . '|home';# toutes les categories active
+
+		// Génération de notre motif
+		$all = (isset($all)? $all: empty($cat_id)); # pour le hook : si $all = TRUE, n'y passe pas
+		$cats = $this->plxMotor->activeCats . '|home'; # toutes les categories active
 		if(!$all) {
-			if(is_numeric($cat_id)) # inclusion à partir de l'id de la categorie
+            if(is_numeric($cat_id)) # inclusion à partir de l'id de la categorie
 				$cats = str_pad($cat_id,3,'0',STR_PAD_LEFT);
 			else { # inclusion à partir de url de la categorie
 				$cat_id .= '|';
@@ -928,14 +929,14 @@ class plxShow {
 				}
 			}
 		}
-		if(empty($motif)){# pour le hook. motif par defaut s'il n'a point créé cette variable
+		if(empty($motif)){ # pour le hook. motif par defaut s'il n'a point créé cette variable
 			if($all)
 				$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$cats.')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 			else
 				$motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.$cats.')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
 		}
 
-		# Nouvel objet plxGlob et récupération des fichiers
+		// Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
 		if($aFiles = $plxGlob_arts->query($motif,'art',$sort,0,$max,'before')) {
 			foreach($aFiles as $v) { # On parcourt tous les fichiers
@@ -946,7 +947,8 @@ class plxShow {
 					$status = 'active';
 				else
 					$status = 'noactive';
-				# Mise en forme de la liste des catégories
+
+				// Mise en forme de la liste des catégories
 				$catList = array();
 				$catIds = explode(',', $art['categorie']);
 				foreach ($catIds as $idx => $catId) {
@@ -958,7 +960,8 @@ class plxShow {
 						$catList[] = L_UNCLASSIFIED;
 					}
 				}
-				# On modifie nos motifs
+
+				// On modifie nos motifs
 				$row = str_replace('#art_id',$num,$format);
 				$row = str_replace('#cat_list', implode(', ',$catList),$row);
 				$row = str_replace('#art_url',$this->plxMotor->urlRewrite('?article'.$num.'/'.$art['url']),$row);
@@ -983,9 +986,11 @@ class plxShow {
 				$row = str_replace('#img_url',$this->plxMotor->urlRewrite($art['thumbnail']),$row);
 				$row = str_replace('#img_title',$art['thumbnail_title'],$row);
 				$row = str_replace('#img_alt',$art['thumbnail_alt'],$row);
-				# Hook plugin
+
+				// Hook plugin
 				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
-				# On genère notre ligne
+
+				// On genère notre ligne
 				echo $row;
 			}
 		}
