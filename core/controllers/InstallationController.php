@@ -8,12 +8,11 @@
 
 namespace controllers;
 
-use models\PlxTimezonesModel;
+use models\PlxUtilsModel;
 
-class InstallController extends AdminController {
-
+class InstallationController extends AdminController {
+    
     public function __construct() {
-
         // This page don't need user authentification
         $this->setAuthPage(true);
 
@@ -28,15 +27,20 @@ class InstallController extends AdminController {
         $plxAdmin = $this->getPlxAdmin();
         $plxUtils = $this->getPlxUtils();
         $plxToken = $this->getPlxToken();
-        $plxLayoutDir = $this->getPlxAdmin()->getViewsLayoutDir();
-        $lang = $this->getPlxMotor()->getCoreLang();
-        $charset = $this->getConfig()->getConfigIni('PLX_CHARSET');
-        $version = $plxAdmin->getPlxConfig()->getConfigIni('PLX_VERSION');
-        $allTimezones = PlxTimezonesModel::timezones();
+        $plxViewData = $this->getViewData()->getViewAdminData(); // get object data from AdminController
 
         # Display the view
-        $this->getPlxUtils()->cleanHeaders();
+        PlxUtilsModel::cleanHeaders();
         require_once $this->getPlxMotor()->getViewsScriptsDir() . 'installView.php';
+    }
+    
+    public function changeLangAction($selectedLang) {
+        $this->getViewData()->viewAdminDataPopulator('lang', $selectedLang);
+        
+    }
+    
+    public function startInstallationAction() {
+
     }
 }
 

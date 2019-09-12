@@ -1,14 +1,11 @@
-<?php
-use models\PlxTimezonesModel;
-?>
 <!DOCTYPE html>
 <head>
-	<meta charset="<?= strtolower($charset) ?>" />
+	<meta charset="<?= strtolower($plxViewData['charset']) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_PLUXML_INSTALLATION.' '.L_VERSION.' '.$version ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= $plxLayoutDir.'css/plucss.css' ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?= $plxLayoutDir.'css/theme.css' ?>" media="screen" />
-	<script src="<?= $plxLayoutDir.'js/visual.js' ?>"></script>
+	<link rel="stylesheet" type="text/css" href="<?= $plxViewData['layoutDir'].'css/plucss.css' ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= $plxViewData['layoutDir'].'css/theme.css' ?>" media="screen" />
+	<script src="<?= $plxViewData['layoutDir'].'js/visual.js' ?>"></script>
 </head>
 
 <body>
@@ -23,13 +20,13 @@ use models\PlxTimezonesModel;
 
 			<header>
 
-				<h1><?= L_PLUXML_VERSION.' '.$version ?> - <?= L_INSTALL_TITLE ?></h1>
+				<h1><?= L_PLUXML_VERSION.' '.$plxViewData['version'] ?> - <?= L_INSTALL_TITLE ?></h1>
 
 			</header>
 
 			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
 
-			<form action="install.php" method="post">
+			<form action="installation/changeLang" method="post">
 
 				<fieldset>
 

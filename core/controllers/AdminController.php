@@ -8,79 +8,62 @@
 
 namespace controllers;
 
-use models\PlxAdminModel;
 use models\PlxUtilsModel;
+use models\PlxViewAdminDataModel;
+use models\PlxAdminModel;
 use models\PlxTokenModel;
 
 class AdminController extends IndexController {
 
     private $_plxAdmin; # new PlxAdminModel
-    private $_plxUtils; # new PlxAdminModel
-    private $_plxToken; # new PlxAdminModel
+    private $_plxUtils; # new PlxUtilsModel
+    private $_plxToken; # new PlxTokenModel
+    private $_plxViewData; # new PlxViewAdminDataModel
 
     public function __construct(){
         $this->setPlxAdmin();
         $this->setPlxUtils();
         $this->setPlxToken();
+        
+        // Set object data for views
+        $this->setViewAdminData();
 
         // This page don't need user authentification
         $this->setAuthPage(true);
 
         parent::__construct();
     }
+
+    public function getViewData() {
+        return $this->_plxViewData;
+    }
     
-    /**
-     * Get $_plxAdmin
-     * @return \models\PlxAdminModel
-     * @author Pedro "P3ter" CADETE
-     */
     public function getPlxAdmin() {
         return $this->_plxAdmin;
     }
-
-    /**
-     * Set $_plxAdmin
-     * @author Pedro "P3ter" CADETE
-     */
-    private function setPlxAdmin() {
-        $this->_plxAdmin = PlxAdminModel::getInstance();
-        return;
-    }
     
-    /**
-     * Get $_plxUtils
-     * @return \models\PlxUtilsModel
-     * @author Pedro "P3ter" CADETE
-     */
     public function getPlxUtils() {
         return $this->_plxUtils;
     }
-
-    /**
-     * Set $_plxUtils
-     * @author Pedro "P3ter" CADETE
-     */
-    private function setPlxUtils() {
-        $this->_plxUtils = new PlxUtilsModel;
-        return;
-    }
-
-    /**
-     * Get $_plxToken
-     * @return \models\PlxTokenModel
-     * @author Pedro "P3ter" CADETE
-     */
+    
     public function getPlxToken() {
         return $this->_plxToken;
     }
-
-    /**
-     * Set $_plxToken
-     * @author Pedro "P3ter" CADETE
-     */
+    
+    private function setPlxAdmin() {
+        $this->_plxAdmin = PlxAdminModel::getInstance();
+    }
+    
+    private function setPlxUtils() {
+        $this->_plxUtils = new PlxUtilsModel;
+    }
+    
     private function setPlxToken() {
-        $this->_plxToken = new PlxTokenModel;
-        return;
+        $this->_plxToken = new PlxTokenModel();
+    }
+
+    private function setViewAdminData() {
+        $this->_plxViewData = new PlxViewAdminDataModel();
     }
 
     /**
