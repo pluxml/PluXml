@@ -109,10 +109,8 @@ class PlxMotorModel extends PlxModel {
 
 		// Loading langs files
 		$this->setCoreLang($this->getPlxConfig()->getConfiguration('default_lang'));
-		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
 		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/core.php');
-		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/update.php');
-		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/install.php');
+		$this->loadLang($this->getCoreLangDir() . $this->getCoreLang() . '/admin.php');
 	}
 
 	/**

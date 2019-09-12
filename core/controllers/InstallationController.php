@@ -8,10 +8,8 @@
 
 namespace controllers;
 
-use models\PlxUtilsModel;
-
 class InstallationController extends AdminController {
-    
+
     public function __construct() {
         // This page don't need user authentification
         $this->setAuthPage(true);
@@ -19,26 +17,26 @@ class InstallationController extends AdminController {
         parent::__construct();
     }
 
-    /**
-     * Index action default view call
-     * @author Pedro "P3ter" CADETE
-     */
     public function indexAction() {
-        $plxAdmin = $this->getPlxAdmin();
-        $plxUtils = $this->getPlxUtils();
-        $plxToken = $this->getPlxToken();
-        $plxViewData = $this->getViewData()->getViewAdminData(); // get object data from AdminController
+        $plxAdmin = $this->getPlxAdmin(); # get PlxAdminModel instance
+        $plxUtils = $this->getPlxUtils(); # new PlxUtilsModel
+        $plxToken = $this->getPlxToken(); # new PlxTokenModel
+        
+        if (!empty($lang = $_POST['default_lang'])) {
+            $this->getPlxAdmin()->setCoreLang($lang);
+            $this->getViewData()->setViewDataArray('lang', $lang);
+        }
 
-        # Display the view
-        PlxUtilsModel::cleanHeaders();
+        // Loading lang constants
+        $this->getPlxAdmin()->loadLang($this->getPlxAdmin()->getCoreLangDir() . $this->getPlxAdmin()->getCoreLang() . '/core.php');
+        $this->getPlxAdmin()->loadLang($this->getPlxAdmin()->getCoreLangDir() . $this->getPlxAdmin()->getCoreLang() . '/install.php');
+
+
+        // Display the view
+        $plxViewData = $this->getViewData()->getViewDataArray(); # get the view data array
         require_once $this->getPlxMotor()->getViewsScriptsDir() . 'installView.php';
     }
-    
-    public function changeLangAction($selectedLang) {
-        $this->getViewData()->viewAdminDataPopulator('lang', $selectedLang);
-        
-    }
-    
+
     public function startInstallationAction() {
 
     }

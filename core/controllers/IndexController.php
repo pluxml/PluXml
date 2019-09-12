@@ -37,7 +37,7 @@ class IndexController {
         $configurationFile = $this->getConfig()->getConfigIni('XMLFILE_CONFIGURATION');
         $configurationFileOldPluxmlVersion = 'data/configuration/parametres.xml';
         if(!is_file($configurationFile) AND !is_file($configurationFileOldPluxmlVersion)) {
-            if ($_SERVER['REQUEST_URI'] != '/installation') { # prevent from infinite redirections
+            if (strpos('/installation', $_SERVER['REQUEST_URI']) != 0) { # prevent from infinite redirections
                 header('Location: /installation');
                 exit;
             }

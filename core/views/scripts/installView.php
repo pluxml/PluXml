@@ -26,7 +26,7 @@
 
 			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
 
-			<form action="installation/changeLang" method="post">
+			<form action="installation" method="post">
 
 				<fieldset>
 
