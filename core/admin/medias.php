@@ -90,19 +90,19 @@ $sort_date = 'date_desc';
 switch ($sort) {
 	case 'title_asc':
 		$sort_title = 'title_desc';
-		usort($plxMedias->aFiles, create_function('$b, $a', 'return strcmp($a["name"], $b["name"]);'));
+		usort($plxMedias->aFiles, function($b, $a){return strcmp($a["name"], $b["name"]);});
 		break;
 	case 'title_desc':
 		$sort_title = 'title_asc';
-		usort($plxMedias->aFiles, create_function('$a, $b', 'return strcmp($a["name"], $b["name"]);'));
+		usort($plxMedias->aFiles, function($a, $b){return strcmp($a["name"], $b["name"]);});
 		break;
 	case 'date_asc':
 		$sort_date = 'date_desc';
-		usort($plxMedias->aFiles, create_function('$b, $a', 'return strcmp($a["date"], $b["date"]);'));
+		usort($plxMedias->aFiles, function($b, $a){return strcmp($a["date"], $b["date"]);});
 		break;
 	case 'date_desc':
 		$sort_date = 'date_asc';
-		usort($plxMedias->aFiles, create_function('$a, $b', 'return strcmp($a["date"], $b["date"]);'));
+		usort($plxMedias->aFiles, function($b, $a){return strcmp($a["date"], $b["date"]);});
 		break;
 }
 $_SESSION['sort_medias']=$sort;
