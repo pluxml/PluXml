@@ -33,9 +33,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	if(isset($_POST['draft']) AND !in_array('draft',$_POST['catId'])) array_unshift($_POST['catId'], 'draft');
 	# si aucune catégorie sélectionnée on place l'article dans la catégorie "non classé"
 	if(sizeof($_POST['catId'])==1 AND $_POST['catId'][0]=='draft') $_POST['catId'][]='000';
-	else $_POST['catId'] = array_filter($_POST['catId'], create_function('$a', 'return $a!="000";'));
+	else $_POST['catId'] = array_filter($_POST['catId'], function($a){return $a!="000";});
 	# Si demande de publication ou demande de validation, on supprime la catégorie draft si elle existe
-	if((isset($_POST['update']) OR isset($_POST['publish']) OR isset($_POST['moderate'])) AND isset($_POST['catId'])) $_POST['catId'] = array_filter($_POST['catId'], create_function('$a', 'return $a!="draft";'));
+	if((isset($_POST['update']) OR isset($_POST['publish']) OR isset($_POST['moderate'])) AND isset($_POST['catId'])) $_POST['catId'] = array_filter($_POST['catId'], function($a){return $a!="draft";});
 	# Si profil PROFIL_WRITER on vérifie l'id du rédacteur connecté et celui de l'article
 	if($_SESSION['profil']==PROFIL_WRITER AND isset($_POST['author']) AND $_SESSION['user']!=$_POST['author']) $_POST['author']=$_SESSION['user'];
 	# Si profil PROFIL_WRITER on vérifie que l'article n'est pas celui d'un autre utilisateur

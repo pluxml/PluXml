@@ -596,7 +596,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				}
 			}
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aCats)>0) uasort($this->aCats, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
+			if(sizeof($this->aCats)>0) uasort($this->aCats, function($a, $b){return $a["ordre"]>$b["ordre"];});
 		}
 		# sauvegarde
 		if($action) {
@@ -721,7 +721,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				}
 			}
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aStats)>0) uasort($this->aStats, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
+			if(sizeof($this->aStats)>0) uasort($this->aStats, function($a, $b){return $a["ordre"]>$b["ordre"];});
 		}
 		# sauvegarde
 		if($action) {
