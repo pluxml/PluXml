@@ -993,7 +993,7 @@ class plxUtils {
 	 * @return	string	nom de la miniature au format fichier.tb.ext
 	*/
 	public static function thumbName($filename) {
-		if(preg_match('/^(.*\.)([^.]+)$/D', $filename, $matches)) {
+		if(preg_match('/^(.*\.)(jpe?g|png|gif)$/iD', $filename, $matches)) {
 			return $matches[1].'tb.'.$matches[2];
 		} else {
 			return $filename;

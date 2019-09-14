@@ -1062,9 +1062,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function checkMaj() {
 
-		$url='http://telechargements.pluxml.org/latest-version';
-		$href='http://www.pluxml.org/';
-		$caption='PluXml.org';
+	    $url='https://www.pluxml.org/download/latest-version.txt';
+	    $href='https://www.pluxml.org/';
+	    $caption='PluXml.org';
 
 		$latest_version = 'L_PLUXML_UPDATE_ERR';
 		$className = '';

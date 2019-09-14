@@ -5,7 +5,7 @@
 #
 # Package:		theme.css
 # Copyright (c) 2017 PluXml
-# Authors		Stephane F.
+# Authors		Stephane F., Pedro "P3ter" CADETE.
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -32,7 +32,6 @@ body {
 	background-color: #fff;
 }
 
-
 /* ---------- Header ---------- */
 
 @media (min-width: 64rem) {
@@ -51,6 +50,7 @@ body {
 
 .header {
 	background-color: #fff;
+	border-bottom: 1px solid #ddd;
 	padding-top: 1.3rem;
 	height: 9rem;
 	z-index: 2;
@@ -322,11 +322,18 @@ a.active {
 
 /* ------- Comments ------- */
 
+#form {
+	border-top: 130px solid transparent;
+	margin: -130px 0 0;
+}
+
 .comment {
 	background-image: url('../img/user.png');
 	background-repeat: no-repeat;
 	margin-bottom: 2.5rem;
 	padding-left: 6rem;
+	border-top: 100px solid transparent;
+	margin-top: -100px;
 }
 
 .comment blockquote {
