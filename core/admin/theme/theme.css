@@ -143,7 +143,7 @@ a.lnkdelete:hover {
 	margin-bottom: 0;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1200px) {
 	.section .action-bar {
 		left: 25%;
 	}
@@ -826,7 +826,7 @@ body.mediasManager .section .action-bar {
 	margin-left: 0;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 992px) {
 	body.mediasManager .col.med-offset-3 {
 		margin-left: 0;
 	}
@@ -835,7 +835,7 @@ body.mediasManager .section .action-bar {
 	}
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 1200px) {
 	body.mediasManager .col.lrg-offset-2 {
 		margin-left: 0;
 	}

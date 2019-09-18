@@ -34,13 +34,6 @@ body {
 
 /* ---------- Header ---------- */
 
-@media (min-width: 64rem) {
-	.container {
-		padding-left: 15rem;
-		padding-right: 15rem;
-	}
-}
-
 .header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
