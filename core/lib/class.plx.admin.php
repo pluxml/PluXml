@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 /**
  * Classe plxAdmin responsable des modifications dans l'administration
  *
@@ -303,15 +305,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
-	 * Create a token and send a link by a-mail with "email-lostpassword.xml" template
+	 * Create a token and send a link by e-mail with "email-lostpassword.xml" template
 	 *
 	 * @param   loginOrMail     user login or e-mail address
 	 * @return	string          token to password reset
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function sendLostPasswordEmail($loginOrMail) {
-
-	    $mail = array();
+	    
+	    $mail = new PHPMailer();
 	    $tokenExpiry = 24;
 	    $lostPasswordToken = plxToken::generateToken();
 	    $lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
@@ -320,22 +322,19 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	    if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 	        foreach($this->aUsers as $user_id => $user) {
 	            if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
-
     	            # token and e-mail creation
     	            $placeholdersValues = array(
     	                "##LOGIN##"            => $user['login'],
     	                "##URL_PASSWORD##"     => $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
     	                "##URL_EXPIRY##"       => $tokenExpiry
     	            );
-    	            
-    	            # test if e-mail creation is OK
-    	            if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1'){
-    	                $mail['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
-    	                $mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
-    	                $mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
-    	                
+    	            # test if e-mail body creation is OK
+    	            if (($mail->Body = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1'){
+    	                $mail->Subject = $this->aTemplates[$templateName]->getTemplateEmailSubject();
+    	                $mail->setFrom($this->aTemplates[$templateName]->getTemplateEmailFrom(), $this->aTemplates[$templateName]->getTemplateEmailName());
+    	                $mail->addAddress($user['email']);
     	                # sending the e-mail and if OK store the token
-        	            if (plxUtils::sendMail($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'])){
+        	            if ($mail->send()){
         	                $this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
         	                $this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
         	                $this->editUsers($user_id, true);
@@ -347,6 +346,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
         	    }
 	        }
 	    }
+
 	    return $lostPasswordToken;
 	}
 	

@@ -37,6 +37,9 @@ include_once PLX_CORE.'lib/class.plx.encrypt.php';
 include_once PLX_CORE.'lib/class.plx.medias.php';
 include_once PLX_CORE.'lib/class.plx.plugins.php';
 include_once PLX_CORE.'lib/class.plx.token.php';
+include_once PLX_CORE.'lib/class.phpmailer.php';
+include_once PLX_CORE.'lib/class.phpmailer.smtp.php';
+include_once PLX_CORE.'lib/class.phpmailer.exception.php';
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
