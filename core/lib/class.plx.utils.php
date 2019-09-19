@@ -6,6 +6,9 @@
  * @package PLX
  * @author	Florent MONTHEL et Stephane F
  **/
+
+use PHPMailer\PHPMailer\PHPMailer;
+
 class plxUtils {
 
 	/**
@@ -847,6 +850,35 @@ class plxUtils {
 			$headers .= 'Bcc: '.$bcc."\r\n";
 
 		return mail($to, $subject, $body, $headers);
+	}
+	
+	/**
+	 * Send an e-mail with PhpMailer class
+	 * @param string $name         Sender's name
+	 * @param string $from         Sender's e-mail address
+	 * @param string $to           Destination e-mail address
+	 * @param string $subject      E-mail subject
+	 * @param string $body         E-mail body content
+	 * @param boolean $isHtml      True if body content use HTML
+	 * @param string $mailer       SMTP or php sendmail() function by default
+	 * @return boolean
+	 * @author Pedro "P3ter" CADETE
+	 */
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail') {
+
+	    $mail = new PHPMailer();
+
+	    $mail->Subject = $subject;
+	    $mail->Body = $body;
+	    $mail->setFrom($from, $name);
+	    $mail->addAddress($to);
+	    $mail->Mailer = $mailer;
+
+	    if ($isHtml) {
+	        $mail->isHTML(true);
+	    }
+
+	    return $mail->send();
 	}
 
 	/**
