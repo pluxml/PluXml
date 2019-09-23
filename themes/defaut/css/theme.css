@@ -4,7 +4,7 @@
 # This file is part of PluXml : http://www.pluxml.org
 #
 # Package:		theme.css
-# Copyright (c) 2017 PluXml
+# Copyright (c) 2017-2019 PluXml
 # Authors		Stephane F., Pedro "P3ter" CADETE.
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
@@ -67,20 +67,28 @@ body {
 	height: 250px;
 }
 
-@media (max-width: 463px) {
-	.logo {
-		display: none;
-	}
-	.bg {
-		height: 100px;
-	}
-}
-
 /* ----- Nav / Menu ----- */
 
 .nav {
 	text-align: right;
 	padding-top: 1.7rem;
+}
+
+@media (max-width: 463px) {
+	.header {
+		height: 7rem;
+	}
+	.logo {
+		background: none;
+		padding-left: 0;
+		height: inherit;
+	}
+	.heading-small {
+		font-size: 3rem;
+	}
+	.nav {
+		padding-top: 0rem;
+	}
 }
 
 ul.menu {
