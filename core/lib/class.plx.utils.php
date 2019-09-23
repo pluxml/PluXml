@@ -879,7 +879,7 @@ class plxUtils {
 
 	    // configure and use SMTP (only php7+)
 	    //TODO add php version test 
-	    if ($mailer == 'smtp') {
+	    if ($mailer === 'smtp') {
 	        $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP
 	        $mail->Host = ''; // Spécifier le serveur SMTP
 	        $mail->SMTPAuth = true; // Activer authentication SMTP
