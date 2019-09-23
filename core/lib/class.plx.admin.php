@@ -333,7 +333,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                         $mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
                         $mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
                         # sending the e-mail and if OK store the token
-                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'])){
+                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false,'smtp')){
                             $this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
                             $this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
                             $this->editUsers($user_id, true);

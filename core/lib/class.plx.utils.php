@@ -873,9 +873,20 @@ class plxUtils {
 	    $mail->setFrom($from, $name);
 	    $mail->addAddress($to);
 	    $mail->Mailer = $mailer;
-
 	    if ($isHtml) {
 	        $mail->isHTML(true);
+	    }
+
+	    // configure and use SMTP (only php7+)
+	    //TODO add php version test 
+	    if ($mailer == 'smtp') {
+	        $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP
+	        $mail->Host = ''; // Spécifier le serveur SMTP
+	        $mail->SMTPAuth = true; // Activer authentication SMTP
+	        $mail->Username = ''; // Votre adresse email d'envoi
+	        $mail->Password = ''; // Le mot de passe de cette adresse email
+	        $mail->SMTPSecure = ''; // Accepter SSL
+	        $mail->Port = 465;
 	    }
 
 	    return $mail->send();
