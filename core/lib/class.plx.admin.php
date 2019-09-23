@@ -464,18 +464,23 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                     $this->aUsers = $save;
                     return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
                 }
-                else
+                else {
                     $users_name[] = $user['name'];
+                }
                 # control de l'unicité du login de l'utilisateur
-                if(in_array($user['login'], $users_login))
+                if(in_array($user['login'], $users_login)) {
                     return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
-                else
+                }
+                else {
                     $users_login[] = $user['login'];
+                }
                 # control de l'unicité de l'adresse e-mail
-                if(in_array($user['email'], $users_email))
+                if(in_array($user['email'], $users_email)) {
                     return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
-                else
+                }
+                else {
                     $users_email[] = $user['email'];
+                }
                 $xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">'."\n";
                 $xml .= "\t\t".'<login><![CDATA['.plxUtils::cdataCheck($user['login']).']]></login>'."\n";
                 $xml .= "\t\t".'<name><![CDATA['.plxUtils::cdataCheck($user['name']).']]></name>'."\n";
