@@ -438,6 +438,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'										=> 'Modify the users\' list',
 'L_ERR_LOGIN_ALREADY_EXISTS'								=> 'Login ID already used',
 'L_ERR_USERNAME_ALREADY_EXISTS'								=> 'Username already in use',
+'L_ERR_EMAIL_ALREADY_EXISTS'                                => 'Email adress already in use',
 
 # parametre_plugins.php
 

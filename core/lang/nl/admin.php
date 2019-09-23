@@ -371,6 +371,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'										=> 'Lijst van gebruikers aanpassen',
 'L_ERR_LOGIN_ALREADY_EXISTS'								=> 'Login ID al in gebruik',
 'L_ERR_USERNAME_ALREADY_EXISTS'								=> 'Gebruikersnaam al in gebruik',
+'L_ERR_EMAIL_ALREADY_EXISTS'                                => 'E-mailadres al in gebruik',
 'L_ERR_CATEGORY_ALREADY_EXISTS'								=> 'Categorie naam al in gebruik',
 'L_ERR_STATIC_ALREADY_EXISTS'								=> 'Zoals reeds gebruikt',
 'L_BACK_TO_PLUGINS'											=> 'Terug naar Plugin-pagina',

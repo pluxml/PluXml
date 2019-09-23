@@ -438,6 +438,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'								=> 'Änderungen speichern',
 'L_ERR_LOGIN_ALREADY_EXISTS'						=> 'Diese Login-ID wird bereits verwendet',
 'L_ERR_USERNAME_ALREADY_EXISTS'						=> 'Dieser Benutzername ist bereits vergeben',
+'L_ERR_EMAIL_ALREADY_EXISTS'                        => 'E-Mail-Adresse bereits verwendet',
 
 # parametre_plugins.php
 

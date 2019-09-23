@@ -432,6 +432,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'							=> 'Modificar la lista de usuarios',
 'L_ERR_LOGIN_ALREADY_EXISTS'					=> 'Ya existe un usuario con ese identificador',
 'L_ERR_USERNAME_ALREADY_EXISTS'					=> 'Ya existe un usuario con ese nombre',
+'L_ERR_EMAIL_ALREADY_EXISTS'                    => 'Dirección de correo electrónico ya está en uso',
 
 # parametre_plugins.php
 

@@ -371,6 +371,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'										=> 'Alterar a lista dos utilizadores',
 'L_ERR_LOGIN_ALREADY_EXISTS'								=> 'ID de login já utilizados',
 'L_ERR_USERNAME_ALREADY_EXISTS'								=> 'Nome de Usuário já está em uso',
+'L_ERR_EMAIL_ALREADY_EXISTS'                                => 'Endereço de email já está em uso',
 'L_ERR_CATEGORY_ALREADY_EXISTS'								=> 'Categoria nome já utilizado',
 'L_ERR_STATIC_ALREADY_EXISTS'								=> 'Como já foi utilizado',
 'L_BACK_TO_PLUGINS'											=> 'Voltar á página dos plugins',

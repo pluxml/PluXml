@@ -476,7 +476,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                 }
                 # control de l'unicité de l'adresse e-mail
                 if(in_array($user['email'], $users_email)) {
-                    return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+                    return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
                 }
                 else {
                     $users_email[] = $user['email'];

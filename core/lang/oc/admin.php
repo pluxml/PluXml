@@ -432,6 +432,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modificar la lista dels utilizaires',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identificant de connexion ja utilizat',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilizator ja utilizat',
+'L_ERR_EMAIL_ALREADY_EXISTS'        => 'Adreça de correu electrònic ja utilizat',
 
 # parametre_plugins.php
 

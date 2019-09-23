@@ -436,6 +436,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'										=> 'Сохранить список пользователей',
 'L_ERR_LOGIN_ALREADY_EXISTS'								=> 'Такой логин уже используется',
 'L_ERR_USERNAME_ALREADY_EXISTS'								=> 'Такое имя пользователя уже используется',
+'L_ERR_EMAIL_ALREADY_EXISTS'                                => 'Адрес электронной почты уже используется',
 
 # parametre_plugins.php
 
