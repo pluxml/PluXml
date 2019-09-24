@@ -889,7 +889,6 @@ class plxUtils {
 	        $mail->Password = $smtpPassword;
 	        $mail->SMTPSecure = 'ssl';
 	        $mail->Port = 465;
-	        $mail->SMTPDebug = 2;
 	    }
 
 	    return $mail->send();
