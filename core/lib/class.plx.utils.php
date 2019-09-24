@@ -854,17 +854,20 @@ class plxUtils {
 	
 	/**
 	 * Send an e-mail with PhpMailer class
-	 * @param string $name         Sender's name
-	 * @param string $from         Sender's e-mail address
-	 * @param string $to           Destination e-mail address
-	 * @param string $subject      E-mail subject
-	 * @param string $body         E-mail body content
-	 * @param boolean $isHtml      True if body content use HTML
-	 * @param string $mailer       SMTP or php sendmail() function by default
+	 * @param string $name             Sender's name
+	 * @param string $from             Sender's e-mail address
+	 * @param string $to               Destination e-mail address
+	 * @param string $subject          E-mail subject
+	 * @param string $body             E-mail body content
+	 * @param boolean $isHtml          True if body content use HTML
+	 * @param string $mailer           SMTP or php sendmail() function by default
+	 * @param string $smtpHost         SMTP server DNS or IP
+	 * @param string $smtpUsername     SMTP Username
+	 * @param string $smtpPassword     SMTP Password
 	 * @return boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
-	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail') {
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword) {
 
 	    $mail = new PHPMailer();
 
@@ -878,15 +881,26 @@ class plxUtils {
 	    }
 
 	    // configure and use SMTP (only php7+)
-	    //TODO add php version test 
 	    if ($mailer === 'smtp') {
-	        $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP
-	        $mail->Host = ''; // Spécifier le serveur SMTP
-	        $mail->SMTPAuth = true; // Activer authentication SMTP
-	        $mail->Username = ''; // Votre adresse email d'envoi
-	        $mail->Password = ''; // Le mot de passe de cette adresse email
-	        $mail->SMTPSecure = ''; // Accepter SSL
+	        $mail->isSMTP();
+	        $mail->Host = $smtpHost;
+	        $mail->SMTPAuth = true;
+	        $mail->Username = $smtpUsername;
+	        $mail->Password = $smtpPassword;
+	        $mail->SMTPSecure = 'ssl';
 	        $mail->Port = 465;
+	        $mail->SMTPDebug = 2;
+	        // workaround for PHP 5
+	        if (version_compare(PHP_VERSION, '5.6.0', '<=')) {
+	            printf('true');
+	            $mail->SMTPOptions = array(
+	                'ssl' => array(
+	                    'verify_peer' => false,
+	                    'verify_peer_name' => false,
+	                    'allow_self_signed' => true
+	                )
+	            );
+	        }
 	    }
 
 	    return $mail->send();

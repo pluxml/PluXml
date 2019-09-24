@@ -317,23 +317,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
         $lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
         $templateName = 'email-lostpassword.xml';
         $error = true;
-
+        
         if (!empty($loginOrMail) and plxUtils::testMail(false)) {
             foreach($this->aUsers as $user_id => $user) {
                 if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
-                    # token and e-mail creation
+                    // token and e-mail creation
                     $placeholdersValues = array(
                         "##LOGIN##"            => $user['login'],
                         "##URL_PASSWORD##"     => $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
                         "##URL_EXPIRY##"       => $tokenExpiry
                     );
-                    # test if e-mail creation is OK
+                    // test if e-mail creation is OK
                     if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1'){
                         $mail['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
                         $mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
                         $mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
-                        # sending the e-mail and if OK store the token
-                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false,'smtp')){
+                        // configure the SMTP mailer if activated, sending the e-mail and if OK store the token
+                        if ($this->aConf['smtp_activation']) {
+                            $mailer = 'smtp';
+                            $smtpHost = $this->aConf['smtp_server'];
+                            $smtpUsername = $this->aConf['smtp_username'];
+                            $smtpPassword = $this->aConf['smtp_password'];
+                        }
+                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false, $mailer, $smtpHost, $smtpUsername, $smtpPassword)){
                             $this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
                             $this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
                             $this->editUsers($user_id, true);

@@ -166,6 +166,40 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
 			</div>
 		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_custom_admincss_file">Activer l'envoi de mail par SMTP :</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('smtp_activation',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['smtp_activation']);?>
+				<a class="hint"><span>Activation SMTP</span></a>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_custom_admincss_file">Serveur SMTP :</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('smtp_server', $plxAdmin->aConf['smtp_server']); ?>
+				<a class="hint"><span>Nom de domaine ou adresse IP du serveur</span></a>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_custom_admincss_file">Nom d'utilisateur :</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('smtp_username', $plxAdmin->aConf['smtp_username']); ?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_custom_admincss_file">Mot de passe :</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password']); ?>
+			</div>
+		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) ?>
 </form>
