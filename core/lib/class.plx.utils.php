@@ -880,7 +880,7 @@ class plxUtils {
 	        $mail->isHTML(true);
 	    }
 
-	    // configure and use SMTP (only php7+)
+	    // configure and use SMTP
 	    if ($mailer === 'smtp') {
 	        $mail->isSMTP();
 	        $mail->Host = $smtpHost;
