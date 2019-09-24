@@ -890,17 +890,6 @@ class plxUtils {
 	        $mail->SMTPSecure = 'ssl';
 	        $mail->Port = 465;
 	        $mail->SMTPDebug = 2;
-	        // workaround for PHP 5
-	        if (version_compare(PHP_VERSION, '5.6.0', '<=')) {
-	            printf('true');
-	            $mail->SMTPOptions = array(
-	                'ssl' => array(
-	                    'verify_peer' => false,
-	                    'verify_peer_name' => false,
-	                    'allow_self_signed' => true
-	                )
-	            );
-	        }
 	    }
 
 	    return $mail->send();
