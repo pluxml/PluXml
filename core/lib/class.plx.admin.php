@@ -316,8 +316,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
         $lostPasswordToken = plxToken::generateToken();
         $lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
         $templateName = 'email-lostpassword.xml';
-        $error = true;
-        
+        $error = false;
+
         if (!empty($loginOrMail) and plxUtils::testMail(false)) {
             foreach($this->aUsers as $user_id => $user) {
                 if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
@@ -352,13 +352,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                         $error = true;
                     }
                 }
-                else {
-                    $error = true;
-                }
             }
-        }
-        else {
-            $error = true;
         }
         
         if ($error) {
