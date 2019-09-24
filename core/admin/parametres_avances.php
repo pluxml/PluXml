@@ -72,14 +72,6 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_lostpassword"><?php echo L_CONFIG_ADVANCED_LOSTPASSWORD ?>&nbsp;:</label>
-			</div>
-			<div class="col sml-12 med-7">
-				<?php plxUtils::printSelect('lostpassword',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['lostpassword']);?>
-			</div>
-		</div>
-		<div class="grid">
-			<div class="col sml-12 med-5 label-centered">
 				<label for="id_userfolders"><?php echo L_CONFIG_ADVANCED_USERFOLDERS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -164,6 +156,15 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
+			</div>
+		</div>
+		<div><h2>Réinitialisation de mot passe</h2></div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_lostpassword"><?php echo L_CONFIG_ADVANCED_LOSTPASSWORD ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('lostpassword',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['lostpassword']);?>
 			</div>
 		</div>
 		<div class="grid">
