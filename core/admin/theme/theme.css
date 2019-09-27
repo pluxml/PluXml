@@ -143,7 +143,7 @@ a.lnkdelete:hover {
 	margin-bottom: 0;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
 	.section .action-bar {
 		left: 25%;
 	}
