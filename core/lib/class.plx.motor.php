@@ -442,6 +442,10 @@ class plxMotor {
 				$this->aCats[$number]['bypage']=isset($attributes['bypage'])?$attributes['bypage']:$this->bypage;
 				# Recuperation du fichier template
 				$this->aCats[$number]['template']=isset($attributes['template'])?$attributes['template']:'categorie.php';
+				# Récupération des informations de l'image représentant la catégorie
+				$this->aCats[$number]['thumbnail']=plxUtils::getValue($values[$iTags['thumbnail'][$i]]['value']);
+				$this->aCats[$number]['thumbnail_title']=plxUtils::getValue($values[$iTags['thumbnail_title'][$i]]['value']);
+				$this->aCats[$number]['thumbnail_alt']=plxUtils::getValue($values[$iTags['thumbnail_alt'][$i]]['value']);
 				# Récuperation état affichage de la catégorie dans le menu
 				$this->aCats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
 				# Récuperation état activation de la catégorie dans le menu
