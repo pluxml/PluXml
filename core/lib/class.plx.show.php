@@ -471,6 +471,45 @@ class plxShow {
 	}
 
 	/**
+	 * Méthode qui affiche l'image d'accroche
+	 *
+	 * @param	format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
+	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @return	stdout
+	 * @scope	home,categorie,article,tags,archives
+	 * @author	Stephane F
+	 **/
+	public function catThumbnail($format='<a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true) {
+		$filename = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail']);
+		if(!empty($filename)) {
+			$img_url = $this->plxMotor->urlRewrite($filename);
+			$img_thumb = plxUtils::thumbName($filename);
+			$result = str_replace(
+				array(
+					'#img_url',
+					'#img_thumb_url',
+					'#img_title',
+					'#img_alt'
+				),
+				array(
+					$img_url, // #img_url
+					(file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, // #img_thumb_url
+					plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_title']), // #img_title
+					plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_alt']) // #img_alt
+				),
+				$format
+			);
+
+			if($echo)
+				echo $result;
+			else
+				return $result;
+		} elseif(!$echo) {
+			return false;
+		}
+	}
+
+	/**
 	 * Méthode qui retourne l'identifiant de l'article en question (sans les 0 supplémentaires)
 	 *
 	 * @return	int

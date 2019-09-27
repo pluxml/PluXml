@@ -298,7 +298,7 @@ class plxMotor {
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire'));
 				if($retour[0] == 'c') { # Le commentaire a été publié
-					$_SESSION['msgcom'] = L_COM_PUBLISHED;				
+					$_SESSION['msgcom'] = L_COM_PUBLISHED;
 					header('Location: '.$url.'#'.$retour);
 				} elseif($retour == 'mod') { # Le commentaire est en modération
 					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
@@ -434,6 +434,10 @@ class plxMotor {
 				$this->aCats[$number]['bypage']=isset($attributes['bypage'])?$attributes['bypage']:$this->bypage;
 				# Recuperation du fichier template
 				$this->aCats[$number]['template']=isset($attributes['template'])?$attributes['template']:'categorie.php';
+				# Récupération des informations de l'image représentant la catégorie
+				$this->aCats[$number]['thumbnail']=plxUtils::getValue($values[$iTags['thumbnail'][$i]]['value']);
+				$this->aCats[$number]['thumbnail_title']=plxUtils::getValue($values[$iTags['thumbnail_title'][$i]]['value']);
+				$this->aCats[$number]['thumbnail_alt']=plxUtils::getValue($values[$iTags['thumbnail_alt'][$i]]['value']);
 				# Récuperation état affichage de la catégorie dans le menu
 				$this->aCats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
 				# Récuperation état activation de la catégorie dans le menu
