@@ -391,6 +391,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'					=> 'Ort der Konfigurationsdateien (Ordner)',
 'L_CONFIG_ADVANCED_UPDATE'							=> 'Änderungen speichern',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'						=> 'Standort und den Namen der benutzerdefinierten CSS-Datei des Verwaltungsbereich (optional)',
+'L_CONFIG_ADVANCED_TITLE_SMTP'                      => 'Senden von E-Mails mit SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                 => 'Aktivieren Sie E-Mails, die einen SMTP-Server senden',
+'L_CONFIG_ADVANCED_SMTP_SERVER'                     => 'SMTP-Hostname',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'                   => 'SMTP username',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'                   => 'SMTP-Benutzername',
+'L_CONFIG_ADVANCED_SMTP_PORT'                       => 'SMTP-Port',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'                   => 'SMTP-Verschlüsselung',
 
 # parametres_base.php
 
@@ -438,6 +445,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'								=> 'Änderungen speichern',
 'L_ERR_LOGIN_ALREADY_EXISTS'						=> 'Diese Login-ID wird bereits verwendet',
 'L_ERR_USERNAME_ALREADY_EXISTS'						=> 'Dieser Benutzername ist bereits vergeben',
+'L_ERR_EMAIL_ALREADY_EXISTS'                        => 'E-Mail-Adresse bereits verwendet',
 
 # parametre_plugins.php
 

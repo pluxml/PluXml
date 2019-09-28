@@ -225,7 +225,40 @@ class plxUtils {
 					$params[] = 'maxlength="'.$maxlength.'"';
 			}
 		 }
-		 echo '<input '.implode(' ', $params).' />';
+		 echo '<input '.implode(' ', $params).'/>';
+	}
+	
+	/**
+	 * Méthode qui affiche des boutons radio
+	 *
+	 * @param  string $name         nom des radio boutons
+	 * @param  string $value        valeur correspond au radio bouton
+	 * @param  string $className    class css à utiliser pour formater l'affichage
+	 * @param  string $checked      valeur par défaut
+	 * @param  boolean $required    permet de rendre le champ obligatoire
+	 * @return self
+	 * @author Pedro "P3ter" CADETE
+	 **/
+	public static function printInputRadio($name, $array, $checked='', $className='', $extra='') {
+
+	    $params = array(
+	        'id="id_'.$name.'"',
+	        'name="'.$name.'"',
+	    );
+	    if(!empty($extra)) {
+	        $params[] = $extra;
+	    }
+        if(!empty($className)) {
+            $params[] = 'class="'.$className.'"';
+        }
+        foreach($array as $a => $b) {
+            if ($a == $checked) {
+                echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).' checked>&nbsp;'.$b.'<br>';
+            }
+            else {
+                echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).'>&nbsp;'.$b.'<br>';
+            }
+        }
 	}
 
 	/**
@@ -854,17 +887,20 @@ class plxUtils {
 	
 	/**
 	 * Send an e-mail with PhpMailer class
-	 * @param string $name         Sender's name
-	 * @param string $from         Sender's e-mail address
-	 * @param string $to           Destination e-mail address
-	 * @param string $subject      E-mail subject
-	 * @param string $body         E-mail body content
-	 * @param boolean $isHtml      True if body content use HTML
-	 * @param string $mailer       SMTP or php sendmail() function by default
+	 * @param string $name             Sender's name
+	 * @param string $from             Sender's e-mail address
+	 * @param string $to               Destination e-mail address
+	 * @param string $subject          E-mail subject
+	 * @param string $body             E-mail body content
+	 * @param boolean $isHtml          True if body content use HTML
+	 * @param string $mailer           SMTP or php sendmail() function by default
+	 * @param string $smtpHost         SMTP server DNS or IP
+	 * @param string $smtpUsername     SMTP Username
+	 * @param string $smtpPassword     SMTP Password
 	 * @return boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
-	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail') {
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure) {
 
 	    $mail = new PHPMailer();
 
@@ -873,9 +909,22 @@ class plxUtils {
 	    $mail->setFrom($from, $name);
 	    $mail->addAddress($to);
 	    $mail->Mailer = $mailer;
-
 	    if ($isHtml) {
 	        $mail->isHTML(true);
+	    }
+
+	    // configure and use SMTP
+	    if ($mailer === 'smtp') {
+	        $mail->isSMTP();
+	        $mail->Host = $smtpHost;
+	        $mail->SMTPAuth = true;
+	        $mail->Username = $smtpUsername;
+	        $mail->Password = $smtpPassword;
+	        $mail->Port = $smtpPort;
+	        $mail->SMTPDebug;
+	        if ($smtpSecure == 'ssl' OR $smtpSecure == 'tls') {
+	            $mail->SMTPSecure = $smtpSecure;
+	        }
 	    }
 
 	    return $mail->send();

@@ -13,6 +13,12 @@ class update_5_8 extends plxUpdate{
 	    
 	    $new_parameters = array();
 	    $new_parameters['lostpassword'] = '1';
+	    $new_parameters['smtp_activation'] = '0';
+	    $new_parameters['smtp_server'] = '';
+	    $new_parameters['smtp_username'] = '';
+	    $new_parameters['smtp_password'] = '';
+	    $new_parameters['smtp_port'] = '465';
+	    $new_parameters['smtp_security'] = 'ssl';
 	    $this->updateParameters($new_parameters);
 
 		return true;

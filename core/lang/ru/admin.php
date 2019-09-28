@@ -389,6 +389,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Расположение файлов конфигурации (каталог)',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Сохранить дополнительные настройки',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Место и имя пользовательских файлов CSS области управления (опция)',
+'L_CONFIG_ADVANCED_TITLE_SMTP'                      => 'Отправка писем по SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                 => 'Разрешить отправку писем по SMTP-серверу',
+'L_CONFIG_ADVANCED_SMTP_SERVER'                     => 'Имя хоста SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'                   => 'Имя пользователя SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'                   => 'Пароль SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'                       => 'Порт SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'                   => 'SMTP-шифрование',
 
 # parametres_base.php
 
@@ -436,6 +443,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'										=> 'Сохранить список пользователей',
 'L_ERR_LOGIN_ALREADY_EXISTS'								=> 'Такой логин уже используется',
 'L_ERR_USERNAME_ALREADY_EXISTS'								=> 'Такое имя пользователя уже используется',
+'L_ERR_EMAIL_ALREADY_EXISTS'                                => 'Адрес электронной почты уже используется',
 
 # parametre_plugins.php
 

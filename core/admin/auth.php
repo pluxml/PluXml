@@ -119,7 +119,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $css=='') {
 
 # Send lost password e-mail
 if(!empty($_POST['lostpassword_id'])) {
-    
+
     if (!empty($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']))) {
         $msg = L_LOST_PASSWORD_SUCCESS;
         $css = 'alert green';

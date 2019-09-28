@@ -106,7 +106,13 @@ $config = array('title'=>'PluXml',
 				'default_lang'=>$lang,
 				'userfolders'=>0,
 				'display_empty_cat'=>0,
-				'custom_admincss_file'=>''
+				'custom_admincss_file'=>'',
+                'smtp_activation'=>0,
+                'smtp_server'=>'',
+                'smtp_username'=>'',
+                'smtp_password'=>'',
+                'smtp_port'=>'465',
+                'smtp_security'=>'ssl'
 				);
 
 function install($content, $config) {

@@ -303,46 +303,62 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
     }
     
     /**
-     * Create a token and send a link by a-mail with "email-lostpassword.xml" template
+     * Create a token and send a link by e-mail with "email-lostpassword.xml" template
      *
      * @param   loginOrMail     user login or e-mail address
      * @return	string          token to password reset
      * @author	Pedro "P3ter" CADETE
      **/
     public function sendLostPasswordEmail($loginOrMail) {
-        
+
         $mail = array();
         $tokenExpiry = 24;
         $lostPasswordToken = plxToken::generateToken();
         $lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
         $templateName = 'email-lostpassword.xml';
+        $error = false;
 
         if (!empty($loginOrMail) and plxUtils::testMail(false)) {
             foreach($this->aUsers as $user_id => $user) {
                 if (($user['login']== $loginOrMail OR $user['email']== $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
-                    # token and e-mail creation
+                    // token and e-mail creation
                     $placeholdersValues = array(
                         "##LOGIN##"            => $user['login'],
                         "##URL_PASSWORD##"     => $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
                         "##URL_EXPIRY##"       => $tokenExpiry
                     );
-                    # test if e-mail creation is OK
+                    // test if e-mail creation is OK
                     if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1'){
                         $mail['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
                         $mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
                         $mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
-                        # sending the e-mail and if OK store the token
-                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'])){
+                        // configure the SMTP mailer if activated, sending the e-mail and if OK store the token
+                        if ($this->aConf['smtp_activation']) {
+                            $mailer = 'smtp';
+                            $smtpHost = $this->aConf['smtp_server'];
+                            $smtpUsername = $this->aConf['smtp_username'];
+                            $smtpPassword = $this->aConf['smtp_password'];
+                            $smtpPort = $this->aConf['smtp_port'];
+                            $smtpSecure = $this->aConf['smtp_security'];
+                        }
+                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false, $mailer, $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure)){
                             $this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
                             $this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
                             $this->editUsers($user_id, true);
                         }
+                        else {
+                            $error = true;
+                        }
                     }
                     else {
-                        $lostPasswordToken = '';
+                        $error = true;
                     }
                 }
             }
+        }
+        
+        if ($error) {
+            $lostPasswordToken = '';
         }
 
         return $lostPasswordToken;
@@ -438,38 +454,48 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
         if($action) {
             $users_name = array();
             $users_login = array();
+            $users_email = array();
+
             # On génére le fichier XML
             $xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
             $xml .= "<document>\n";
+
             foreach($this->aUsers as $user_id => $user) {
-                
                 # control de l'unicité du nom de l'utilisateur
                 if(in_array($user['name'], $users_name)) {
                     $this->aUsers = $save;
                     return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
                 }
-                else
+                else {
                     $users_name[] = $user['name'];
-                    
-                    # control de l'unicité du login de l'utilisateur
-                    if(in_array($user['login'], $users_login))
-                        return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
-                        else
-                            $users_login[] = $user['login'];
-                            
-                            $xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">'."\n";
-                            $xml .= "\t\t".'<login><![CDATA['.plxUtils::cdataCheck($user['login']).']]></login>'."\n";
-                            $xml .= "\t\t".'<name><![CDATA['.plxUtils::cdataCheck($user['name']).']]></name>'."\n";
-                            $xml .= "\t\t".'<infos><![CDATA['.plxUtils::cdataCheck($user['infos']).']]></infos>'."\n";
-                            $xml .= "\t\t".'<password><![CDATA['.plxUtils::cdataCheck($user['password']).']]></password>'."\n";
-                            $xml .= "\t\t".'<salt><![CDATA['.plxUtils::cdataCheck($user['salt']).']]></salt>'."\n";
-                            $xml .= "\t\t".'<email><![CDATA['.plxUtils::cdataCheck($user['email']).']]></email>'."\n";
-                            $xml .= "\t\t".'<lang><![CDATA['.plxUtils::cdataCheck($user['lang']).']]></lang>'."\n";
-                            $xml .= "\t\t".'<password_token><![CDATA['.plxUtils::cdataCheck($user['password_token']).']]></password_token>'."\n";
-                            $xml .= "\t\t".'<password_token_expiry><![CDATA['.plxUtils::cdataCheck($user['password_token_expiry']).']]></password_token_expiry>'."\n";
-                            # Hook plugins
-                            eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
-                            $xml .= "\t</user>\n";
+                }
+                # control de l'unicité du login de l'utilisateur
+                if(in_array($user['login'], $users_login)) {
+                    return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
+                }
+                else {
+                    $users_login[] = $user['login'];
+                }
+                # control de l'unicité de l'adresse e-mail
+                if(in_array($user['email'], $users_email)) {
+                    return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+                }
+                else {
+                    $users_email[] = $user['email'];
+                }
+                $xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">'."\n";
+                $xml .= "\t\t".'<login><![CDATA['.plxUtils::cdataCheck($user['login']).']]></login>'."\n";
+                $xml .= "\t\t".'<name><![CDATA['.plxUtils::cdataCheck($user['name']).']]></name>'."\n";
+                $xml .= "\t\t".'<infos><![CDATA['.plxUtils::cdataCheck($user['infos']).']]></infos>'."\n";
+                $xml .= "\t\t".'<password><![CDATA['.plxUtils::cdataCheck($user['password']).']]></password>'."\n";
+                $xml .= "\t\t".'<salt><![CDATA['.plxUtils::cdataCheck($user['salt']).']]></salt>'."\n";
+                $xml .= "\t\t".'<email><![CDATA['.plxUtils::cdataCheck($user['email']).']]></email>'."\n";
+                $xml .= "\t\t".'<lang><![CDATA['.plxUtils::cdataCheck($user['lang']).']]></lang>'."\n";
+                $xml .= "\t\t".'<password_token><![CDATA['.plxUtils::cdataCheck($user['password_token']).']]></password_token>'."\n";
+                $xml .= "\t\t".'<password_token_expiry><![CDATA['.plxUtils::cdataCheck($user['password_token_expiry']).']]></password_token_expiry>'."\n";
+                # Hook plugins
+                eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
+                $xml .= "\t</user>\n";
             }
             $xml .= "</document>";
             
