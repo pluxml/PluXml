@@ -110,7 +110,9 @@ $config = array('title'=>'PluXml',
                 'smtp_activation'=>0,
                 'smtp_server'=>'',
                 'smtp_username'=>'',
-                'smtp_password'=>''
+                'smtp_password'=>'',
+                'smtp_port'=>'465',
+                'smtp_security'=>'ssl'
 				);
 
 function install($content, $config) {

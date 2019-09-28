@@ -225,7 +225,40 @@ class plxUtils {
 					$params[] = 'maxlength="'.$maxlength.'"';
 			}
 		 }
-		 echo '<input '.implode(' ', $params).' />';
+		 echo '<input '.implode(' ', $params).'/>';
+	}
+	
+	/**
+	 * Méthode qui affiche des boutons radio
+	 *
+	 * @param  string $name         nom des radio boutons
+	 * @param  string $value        valeur correspond au radio bouton
+	 * @param  string $className    class css à utiliser pour formater l'affichage
+	 * @param  string $checked      valeur par défaut
+	 * @param  boolean $required    permet de rendre le champ obligatoire
+	 * @return self
+	 * @author Pedro "P3ter" CADETE
+	 **/
+	public static function printInputRadio($name, $array, $checked='', $className='', $extra='') {
+
+	    $params = array(
+	        'id="id_'.$name.'"',
+	        'name="'.$name.'"',
+	    );
+	    if(!empty($extra)) {
+	        $params[] = $extra;
+	    }
+        if(!empty($className)) {
+            $params[] = 'class="'.$className.'"';
+        }
+        foreach($array as $a => $b) {
+            if ($a == $checked) {
+                echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).' checked>&nbsp;'.$b.'<br>';
+            }
+            else {
+                echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).'>&nbsp;'.$b.'<br>';
+            }
+        }
 	}
 
 	/**
@@ -867,7 +900,7 @@ class plxUtils {
 	 * @return boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
-	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword) {
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure) {
 
 	    $mail = new PHPMailer();
 
@@ -887,8 +920,11 @@ class plxUtils {
 	        $mail->SMTPAuth = true;
 	        $mail->Username = $smtpUsername;
 	        $mail->Password = $smtpPassword;
-	        $mail->SMTPSecure = 'ssl';
-	        $mail->Port = 465;
+	        $mail->Port = $smtpPort;
+	        $mail->SMTPDebug;
+	        if ($smtpSecure == 'ssl' OR $smtpSecure == 'tls') {
+	            $mail->SMTPSecure = $smtpSecure;
+	        }
 	    }
 
 	    return $mail->send();

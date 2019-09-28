@@ -64,6 +64,14 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
+				<label for="id_lostpassword"><?php echo L_CONFIG_ADVANCED_LOSTPASSWORD ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('lostpassword',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['lostpassword']);?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_capcha"><?php echo L_CONFIG_ADVANCED_CAPCHA ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
@@ -158,15 +166,7 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
 			</div>
 		</div>
-		<div><h2><?php echo L_CONFIG_ADVANCED_TITLE_RESETPASSWORD ?></h2></div>
-		<div class="grid">
-			<div class="col sml-12 med-5 label-centered">
-				<label for="id_lostpassword"><?php echo L_CONFIG_ADVANCED_LOSTPASSWORD ?>&nbsp;:</label>
-			</div>
-			<div class="col sml-12 med-7">
-				<?php plxUtils::printSelect('lostpassword',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['lostpassword']);?>
-			</div>
-		</div>
+		<div><h2><?php echo L_CONFIG_ADVANCED_TITLE_SMTP ?></h2></div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
 				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_ACTIVATION ?>&nbsp;:</label>
@@ -197,6 +197,22 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password']); ?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_PORT ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('smtp_port', $plxAdmin->aConf['smtp_port']); ?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_SECURITY ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInputRadio('smtp_security', array('0'=>L_NONE1,'ssl'=>'SSL', 'tls'=>'TLS'), $plxAdmin->aConf['smtp_security']); ?>
 			</div>
 		</div>
 	</fieldset>

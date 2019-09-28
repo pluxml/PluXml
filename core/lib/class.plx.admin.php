@@ -338,8 +338,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                             $smtpHost = $this->aConf['smtp_server'];
                             $smtpUsername = $this->aConf['smtp_username'];
                             $smtpPassword = $this->aConf['smtp_password'];
+                            $smtpPort = $this->aConf['smtp_port'];
+                            $smtpSecure = $this->aConf['smtp_security'];
                         }
-                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false, $mailer, $smtpHost, $smtpUsername, $smtpPassword)){
+                        if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false, $mailer, $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure)){
                             $this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
                             $this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
                             $this->editUsers($user_id, true);
