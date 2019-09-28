@@ -585,6 +585,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                 $this->aCats[$cat_id]['homepage'] = 1;
                 $this->aCats[$cat_id]['description'] = '';
                 $this->aCats[$cat_id]['template'] = 'categorie.php';
+                $this->aCats[$cat_id]['thumbnail'] = '';
+                $this->aCats[$cat_id]['thumbnail_title'] = '';
+                $this->aCats[$cat_id]['thumbnail_alt'] = '';
                 $this->aCats[$cat_id]['title_htmltag'] = '';
                 $this->aCats[$cat_id]['meta_description'] = '';
                 $this->aCats[$cat_id]['meta_keywords'] = '';
@@ -611,6 +614,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                     $this->aCats[$cat_id]['homepage'] = (isset($this->aCats[$cat_id]['homepage'])?$this->aCats[$cat_id]['homepage']:1);
                     $this->aCats[$cat_id]['description'] = (isset($this->aCats[$cat_id]['description'])?$this->aCats[$cat_id]['description']:'');
                     $this->aCats[$cat_id]['template'] = (isset($this->aCats[$cat_id]['template'])?$this->aCats[$cat_id]['template']:'categorie.php');
+                    $this->aCats[$cat_id]['thumbnail'] = (isset($this->aCats[$cat_id]['thumbnail'])?$this->aCats[$cat_id]['thumbnail']:'');
+                    $this->aCats[$cat_id]['thumbnail_title'] = (isset($this->aCats[$cat_id]['thumbnail_title'])?$this->aCats[$cat_id]['thumbnail_title']:'');
+                    $this->aCats[$cat_id]['thumbnail_alt'] = (isset($this->aCats[$cat_id]['thumbnail_alt'])?$this->aCats[$cat_id]['thumbnail_alt']:'');
                     $this->aCats[$cat_id]['title_htmltag'] = (isset($this->aCats[$cat_id]['title_htmltag'])?$this->aCats[$cat_id]['title_htmltag']:'');
                     $this->aCats[$cat_id]['meta_description'] = (isset($this->aCats[$cat_id]['meta_description'])?$this->aCats[$cat_id]['meta_description']:'');
                     $this->aCats[$cat_id]['meta_keywords'] = (isset($this->aCats[$cat_id]['meta_keywords'])?$this->aCats[$cat_id]['meta_keywords']:'');
@@ -651,6 +657,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
                             $xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($cat['meta_description'])."]]></meta_description>";
                             $xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($cat['meta_keywords'])."]]></meta_keywords>";
                             $xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($cat['title_htmltag'])."]]></title_htmltag>";
+                            $xml .= "<thumbnail><![CDATA[".plxUtils::cdataCheck($cat['thumbnail'])."]]></thumbnail>";
+                            $xml .= "<thumbnail_alt><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_alt'])."]]></thumbnail_alt>";
+                            $xml .= "<thumbnail_title><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_title'])."]]></thumbnail_title>";
                             eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));
                             $xml .= "</categorie>\n";
             }
@@ -677,6 +686,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
         $this->aCats[$content['id']]['homepage'] = intval($content['homepage']);
         $this->aCats[$content['id']]['description'] = trim($content['content']);
         $this->aCats[$content['id']]['template'] = $content['template'];
+        $this->aCats[$content['id']]['thumbnail'] = $content['thumbnail'];
+        $this->aCats[$content['id']]['thumbnail_title'] = $content['thumbnail_title'];
+        $this->aCats[$content['id']]['thumbnail_alt'] = $content['thumbnail_alt'];
         $this->aCats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
         $this->aCats[$content['id']]['meta_description'] = trim($content['meta_description']);
         $this->aCats[$content['id']]['meta_keywords'] = trim($content['meta_keywords']);
@@ -1240,6 +1252,5 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
         return sprintf('<p id="latest-version" class="alert %s">%s</p>', $className, $msg);
         
     }
-    
 }
 ?>
