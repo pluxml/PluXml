@@ -385,6 +385,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplacement des fichiers de configuration (dossier)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modifier la configuration avancée',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement et nom du fichier css personnel pour la personnalisation de l\'interface d\'administration (option)',
+'L_CONFIG_ADVANCED_TITLE_SMTP'      => 'Wysyłanie wiadomości e-mail za pomocą SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Włącz wysyłanie wiadomości e-mail przez serwer SMTP',
+'L_CONFIG_ADVANCED_SMTP_SERVER'     => 'Nazwa hosta SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'   => 'Nazwa użytkownika SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'   => 'Hasło SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'       => 'Port SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'   => 'Szyfrowanie SMTP',
 
 # parametres_base.php
 

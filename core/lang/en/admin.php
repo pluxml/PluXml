@@ -391,6 +391,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Configuration files (folder) location',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Save advanced configuration',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Location and name of custom css file of the administration area (optional)',
+'L_CONFIG_ADVANCED_TITLE_SMTP'                              => 'Sending emails with SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                         => 'Enable emails sending by an SMTP server',
+'L_CONFIG_ADVANCED_SMTP_SERVER'                             => 'SMTP hostname',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'                           => 'SMTP username',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'                           => 'SMTP password',
+'L_CONFIG_ADVANCED_SMTP_PORT'                               => 'SMTP port',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'                           => 'SMTP encryption',
 
 # parametres_base.php
 

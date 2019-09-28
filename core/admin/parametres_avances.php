@@ -196,7 +196,7 @@ include __DIR__ .'/top.php';
 				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_PASSWORD ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password']); ?>
+				<?php plxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password'], 'password'); ?>
 			</div>
 		</div>
 		<div class="grid">

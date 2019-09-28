@@ -385,6 +385,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplaçament dels fichièrs de configuracion (dorsièr)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modificar la configuracion avançada',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Lòc e nom del fichièr css personnal per personalizar l\'interfàcia d\'administracion (opcion)',
+'L_CONFIG_ADVANCED_TITLE_SMTP'      => 'S\'està enviant correus electrònics amb SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Habiliteu els missatges de correu electrònic enviats per un servidor SMTP',
+'L_CONFIG_ADVANCED_SMTP_SERVER'     => 'Nom d\'amfitrió SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'   => 'Nom d\'usuari de SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'   => 'Contrasenya SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'       => 'Port SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'   => 'Xifratge SMTP',
 
 # parametres_base.php
 
