@@ -72,6 +72,7 @@ $config = array('title'=>'PluXml',
 				'allow_com'=>1,
 				'mod_com'=>0,
 				'mod_art'=>0,
+				'disable_rss'=>0,
 				'capcha'=>1,
 				'style'=>'defaut',
 				'clef'=>plxUtils::charAleatoire(15),
@@ -170,7 +171,7 @@ function install($content, $config) {
 	<title_htmltag><![CDATA[]]></title_htmltag>
 	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
 	<date_update><![CDATA['.date('YmdHi').']]></date_update>
-	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>	
+	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
 </document>';
 	plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
 
@@ -323,7 +324,7 @@ plxUtils::cleanHeaders();
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>						
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testLibXml() ?>

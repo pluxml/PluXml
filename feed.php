@@ -32,6 +32,11 @@ eval($plxFeed->plxPlugins->callHook('FeedBegin'));
 # Chargement du fichier de langue du core de PluXml
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
+if($plxFeed->aConf['disable_rss']) {
+	header('Location: index.php');
+	exit;
+}
+
 # On démarre la bufferisation
 ob_start();
 ob_implicit_flush(0);
