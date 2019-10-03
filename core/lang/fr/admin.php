@@ -413,6 +413,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'				                => 'Modifier la configuration de base',
 'L_CONFIG_META_DESCRIPTION'			                => 'Contenu de la balise meta "description" du site (optionnel)',
 'L_CONFIG_META_KEYWORDS'			                => 'Contenu de la balise meta "keywords" du site (optionnel)',
+'L_CONFIG_BASE_ENABLE_RSS'                          => 'Désactiver l\'affichage des flux RSS',
 
 # parametres_edittpl.php
 

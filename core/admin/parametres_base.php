@@ -110,6 +110,14 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printSelect('mod_art',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['mod_art']); ?>
 			</div>
 		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_disable_rss"><?php echo L_CONFIG_BASE_ENABLE_RSS ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('disable_rss',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['disable_rss']); ?>
+			</div>
+		</div>		
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
