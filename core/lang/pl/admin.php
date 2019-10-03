@@ -407,7 +407,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'				=> 'Zapisz zmiany',
 'L_CONFIG_META_DESCRIPTION'			=> 'Zawartość tagu "opisu" strony (opcjonalnie)',
 'L_CONFIG_META_KEYWORDS'			=> 'Zawartość tagu "słowa kluczowego" strony (opcjonalnie)',
-'L_CONFIG_BASE_ENABLE_RSS'          => 'Wyłącz wyświetlanie kanałów RSS',
+'L_CONFIG_BASE_ENABLE_RSS'          => 'Wyświetl kanały RSS',
 
 # parametres_edittpl.php
 

@@ -59,11 +59,9 @@
 						<?php $plxShow->pagination(); ?>
 					</nav>
 
-					<?php if($plxShow->aConf['disable_rss']) { ?>
 					<span>
 						<?php $plxShow->tagFeed() ?>
 					</span>
-					<?php } ?>
 
 				</div>
 

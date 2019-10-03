@@ -119,6 +119,5 @@ if(parent!='') { replyCom(parent) }
 	</p>
 
 	<?php endif; # Fin du if sur l'autorisation des commentaires ?>
-	<?php if($plxShow->aConf['disable_rss']) { ?>
+
 	<p><?php $plxShow->comFeed('rss',$plxShow->artId()); ?></p>
-	<?php } ?>

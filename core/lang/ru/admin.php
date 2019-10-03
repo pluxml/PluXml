@@ -411,7 +411,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'										=> 'Сохранить основные настройки',
 'L_CONFIG_META_DESCRIPTION'									=> 'Мета-тег описания "Description" (необязательно)',
 'L_CONFIG_META_KEYWORDS'									=> 'Мета-тег ключевых слов "Keywords" (необязательно)',
-'L_CONFIG_BASE_ENABLE_RSS'                                  => 'Отключить отображение RSS-каналов',
+'L_CONFIG_BASE_ENABLE_RSS'                                  => 'Отображать RSS-каналы',
 
 # parametres_edittpl.php
 

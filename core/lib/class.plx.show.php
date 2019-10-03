@@ -849,16 +849,18 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed'))) return;
 
-		if($categorie != '' AND is_numeric($categorie)) {
-			# Fil Rss des articles d'une catégorie
-			$id=str_pad($categorie,3,'0',STR_PAD_LEFT);
-			if(isset($this->plxMotor->aCats[$id])) {
-				echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
-			}
-		} else {
-			# Fil Rss des articles
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss').'" title="'.L_ARTFEED_RSS.'">'.L_ARTFEED_RSS.'</a>';
-		}
+		if ($this->plxMotor->aConf['enable_rss']) {
+		    if($categorie != '' AND is_numeric($categorie)) {
+		        # Fil Rss des articles d'une catégorie
+		        $id=str_pad($categorie,3,'0',STR_PAD_LEFT);
+		        if(isset($this->plxMotor->aCats[$id])) {
+		            echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
+		        }
+		    } else {
+		        # Fil Rss des articles
+		        echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss').'" title="'.L_ARTFEED_RSS.'">'.L_ARTFEED_RSS.'</a>';
+		    }
+        }
 	}
 
 	/**
@@ -1241,10 +1243,12 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowComFeed'))) return;
 
-		if($article != '' AND is_numeric($article)) # Fil Rss des commentaires d'un article
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires/article'.$article).'" title="'.L_COMFEED_RSS_ARTICLE.'">'.L_COMFEED_RSS_ARTICLE.'</a>';
-		else # Fil Rss des commentaires global
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires').'" title="'.L_COMFEED_RSS.'">'.L_COMFEED_RSS.'</a>';
+		if ($this->plxMotor->aConf['enable_rss']) {
+		    if($article != '' AND is_numeric($article))   # Fil Rss des commentaires d'un article
+                echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires/article'.$article).'" title="'.L_COMFEED_RSS_ARTICLE.'">'.L_COMFEED_RSS_ARTICLE.'</a>';
+            else # Fil Rss des commentaires global
+                echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires').'" title="'.L_COMFEED_RSS.'">'.L_COMFEED_RSS.'</a>';
+		}
 	}
 
 	/**
@@ -1697,11 +1701,11 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagFeed'))) return;
 
-		if($tag=='' AND $this->plxMotor->mode == 'tags')
-			$tag = $this->plxMotor->cible;
-
-		echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)).'" title="'.L_ARTFEED_RSS_TAG.'">'.L_ARTFEED_RSS_TAG.'</a>';
-
+		if ($this->plxMotor->aConf['enable_rss']) {
+		    if($tag=='' AND $this->plxMotor->mode == 'tags')
+		        $tag = $this->plxMotor->cible;
+            echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)).'" title="'.L_ARTFEED_RSS_TAG.'">'.L_ARTFEED_RSS_TAG.'</a>';
+		}
 	}
 
 	/**

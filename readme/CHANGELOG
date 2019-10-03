@@ -12,7 +12,7 @@
 [+] #207 Afficher/masquer le chapeau et les tags d'un article dans l'administration en CSS3 au lieu d'utiliser du JS (bazooka07, Stéphane, P3ter)
 [+] #215 Mise en avant du lien de l'article en cours de modification dans l'administration (sudwebdesign, P3ter)
 [+] #216 Refacto de la fonction plxUtils::printArea() (bazooka07)
-[+] #232 Ajout de la possibilité de désactiver l'affichage des flux RSS (Philippe-M) 
+[+] #232 Ajout de la possibilité de désactiver l'affichage des flux RSS (Philippe-M)
 [+] #280 Support des formats de fichiers .gpx, .bmp et .webp par le gestionnaire de média (P3ter)
 [+] #293 Amélioration de la sécurité du repertoire data (bazooka07)
 [+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (P3ter)

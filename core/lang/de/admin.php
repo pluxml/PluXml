@@ -413,7 +413,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'								=> 'Grundeinstellungen speichern',
 'L_CONFIG_META_DESCRIPTION'							=> 'META Tag "description" - Inhalt (optional)',
 'L_CONFIG_META_KEYWORDS'							=> 'META Tag "keywords" - Inhalt (optional)',
-'L_CONFIG_BASE_ENABLE_RSS'                          => 'Deaktivieren Sie die Anzeige von RSS-Feeds',
+'L_CONFIG_BASE_ENABLE_RSS'                          => 'RSS-Feeds anzeigen',
 
 # parametres_edittpl.php
 

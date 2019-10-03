@@ -12,6 +12,7 @@ class update_5_8 extends plxUpdate{
 	    echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
 	    
 	    $new_parameters = array();
+	    $new_parameters['enable_rss'] = '1';
 	    $new_parameters['lostpassword'] = '1';
 	    $new_parameters['smtp_activation'] = '0';
 	    $new_parameters['smtp_server'] = '';
