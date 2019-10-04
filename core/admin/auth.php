@@ -76,15 +76,6 @@ if(!empty($_GET['d']) AND $_GET['d']==1) {
 	session_destroy();
 	header('Location: auth.php');
 	exit;
-
-	$formtoken = $_SESSION['formtoken']; # sauvegarde du token du formulaire
-	$_SESSION = array();
-	session_destroy();
-	session_start();
-	$msg = L_LOGOUT_SUCCESSFUL;
-	$_GET['p']='';
-	$_SESSION['formtoken']=$formtoken; # restauration du token du formulaire
-	unset($formtoken);
 }
 
 # Authentification
