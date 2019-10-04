@@ -14,9 +14,9 @@
 					</ul>
 
 					<p><?php $plxShow->catDescription('#cat_description'); ?></p>
+					<p><?php $plxShow->catThumbnail(); ?></p>
 
 					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
-
 
 					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 
