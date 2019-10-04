@@ -4,7 +4,7 @@
  * Edition des paramètres de base
  *
  * @package PLX
- * @author	Florent MONTHEL, Stephane F
+ * @author	Florent MONTHEL, Stephane F, Philippe-M, Pedro "P3ter" CADETE"
  **/
 
 include __DIR__ .'/prepend.php';
