@@ -59,9 +59,7 @@
 						<?php $plxShow->pagination(); ?>
 					</nav>
 
-					<span>
-						<?php $plxShow->tagFeed() ?>
-					</span>
+					<?php $plxShow->tagFeed('', '', '<span><a href="#feedUrl" title="#feedTitle">#feedName</a></span>') ?>
 
 				</div>
 

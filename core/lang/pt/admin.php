@@ -355,6 +355,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'										=> 'Alterar a configuração de base',
 'L_CONFIG_META_DESCRIPTION'									=> 'Conteúdo da baliza meta "description" do web-site (opção)',
 'L_CONFIG_META_KEYWORDS'									=> 'Conteúdo da baliza meta "keywords" do web-site (opção)',
+'L_CONFIG_BASE_ENABLE_RSS'                                  => 'Exibir feeds RSS',
 'L_CONFIG_EDITTPL_ERROR_NOTHEME'							=> 'O tema não existe !',
 'L_CONFIG_EDITTPL_TITLE'									=> 'Edição do tema',
 'L_CONFIG_EDITTPL_SELECT_FILE'								=> 'Ecolha do ficheiro a editar :',

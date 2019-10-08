@@ -407,6 +407,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'							=> 'Guardar la configuración básica',
 'L_CONFIG_META_DESCRIPTION'						=> 'Contenido de la metaetiqueta de description («description», opcional)',
 'L_CONFIG_META_KEYWORDS'						=> 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)',
+'L_CONFIG_BASE_ENABLE_RSS'                      => 'Mostrar canales RSS',
 
 # parametres_edittpl.php
 

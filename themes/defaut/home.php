@@ -54,12 +54,9 @@
 						<?php $plxShow->pagination(); ?>
 					</nav>
 
-					<span>
-						<?php $plxShow->artFeed('rss',$plxShow->catId()); ?>
-					</span>
+					<?php $plxShow->artFeed('rss',$plxShow->catId(), '<span><a href="#feedUrl" title="#feedTitle">#feedName</a></span>'); ?>
 
 				</div>
-
 
 				<?php include __DIR__.'/sidebar.php'; ?>
 

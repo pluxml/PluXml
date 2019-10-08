@@ -4,7 +4,7 @@
  * Edition des paramètres de base
  *
  * @package PLX
- * @author	Florent MONTHEL, Stephane F
+ * @author	Florent MONTHEL, Stephane F, Philippe-M, Pedro "P3ter" CADETE"
  **/
 
 include __DIR__ .'/prepend.php';
@@ -110,6 +110,14 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printSelect('mod_art',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['mod_art']); ?>
 			</div>
 		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_enable_rss"><?php echo L_CONFIG_BASE_ENABLE_RSS ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('enable_rss',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['enable_rss']); ?>
+			</div>
+		</div>		
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>

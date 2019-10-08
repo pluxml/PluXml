@@ -389,13 +389,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Расположение файлов конфигурации (каталог)',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Сохранить дополнительные настройки',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Место и имя пользовательских файлов CSS области управления (опция)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'                      => 'Отправка писем по SMTP',
-'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                 => 'Разрешить отправку писем по SMTP-серверу',
-'L_CONFIG_ADVANCED_SMTP_SERVER'                     => 'Имя хоста SMTP',
-'L_CONFIG_ADVANCED_SMTP_USERNAME'                   => 'Имя пользователя SMTP',
-'L_CONFIG_ADVANCED_SMTP_PASSWORD'                   => 'Пароль SMTP',
-'L_CONFIG_ADVANCED_SMTP_PORT'                       => 'Порт SMTP',
-'L_CONFIG_ADVANCED_SMTP_SECURITY'                   => 'SMTP-шифрование',
+'L_CONFIG_ADVANCED_TITLE_SMTP'                              => 'Отправка писем по SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                         => 'Разрешить отправку писем по SMTP-серверу',
+'L_CONFIG_ADVANCED_SMTP_SERVER'                             => 'Имя хоста SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'                           => 'Имя пользователя SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'                           => 'Пароль SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'                               => 'Порт SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'                           => 'SMTP-шифрование',
 
 # parametres_base.php
 
@@ -411,6 +411,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'										=> 'Сохранить основные настройки',
 'L_CONFIG_META_DESCRIPTION'									=> 'Мета-тег описания "Description" (необязательно)',
 'L_CONFIG_META_KEYWORDS'									=> 'Мета-тег ключевых слов "Keywords" (необязательно)',
+'L_CONFIG_BASE_ENABLE_RSS'                                  => 'Отображать RSS-каналы',
 
 # parametres_edittpl.php
 

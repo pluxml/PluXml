@@ -10,7 +10,7 @@
 
 					<ul class="repertory menu breadcrumb">
 						<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
-						<li><?php echo plxDate::formatDate($plxShow->plxMotor->cible, $plxShow->lang('ARCHIVES').' #month #num_year(4)') ?></li>	
+						<li><?php echo plxDate::formatDate($plxShow->plxMotor->cible, $plxShow->lang('ARCHIVES').' #month #num_year(4)') ?></li>
 					</ul>
 
 					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
@@ -52,16 +52,14 @@
 						<?php $plxShow->artChapo(); ?>
 
 					</article>
-					
+
 					<?php endwhile; ?>
 
 					<nav class="pagination text-center">
 						<?php $plxShow->pagination(); ?>
 					</nav>
 
-					<span>
-						<?php $plxShow->artFeed('rss',$plxShow->catId()); ?>
-					</span>
+					<?php $plxShow->artFeed('rss',$plxShow->catId(), '<span><a href="#feedUrl" title="#feedTitle">#feedName</a></span>'); ?>
 
 				</div>
 

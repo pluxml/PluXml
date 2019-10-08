@@ -4,7 +4,7 @@
  * Classe plxShow responsable de l'affichage sur stdout
  *
  * @package PLX
- * @author	Florent MONTHEL, Stephane F
+ * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
 const PLX_SHOW = true;
@@ -842,22 +842,31 @@ class plxShow {
 	 *
 	 * @param	type		type de flux (obsolete)
 	 * @param	categorie	identifiant (sans les 0) d'une catégorie
+	 * @param	format		format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
 	 * @scope	home,categorie,article,tags,archives
-	 * @author	Florent MONTHEL, Stephane F
+	 * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function artFeed($type='rss', $categorie='') {
+	public function artFeed($type='rss', $categorie='', $format='<a href="#feedUrl" title="#feedTitle">#feedName</a>') {
 		# Hook Plugins
-		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed'))) return;
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))
+			return;
 
-		if($categorie != '' AND is_numeric($categorie)) {
-			# Fil Rss des articles d'une catégorie
-			$id=str_pad($categorie,3,'0',STR_PAD_LEFT);
-			if(isset($this->plxMotor->aCats[$id])) {
-				echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']).'" title="'.L_ARTFEED_RSS_CATEGORY.'">'.L_ARTFEED_RSS_CATEGORY.'</a>';
+		if ($this->plxMotor->aConf ['enable_rss']) {
+			if ($categorie != '' and is_numeric ( $categorie )) {
+				// Fil Rss des articles d'une catégorie
+				$id = str_pad ( $categorie, 3, '0', STR_PAD_LEFT );
+				if (isset ( $this->plxMotor->aCats [$id] )) {
+					$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']), $format);
+					$result = str_replace('#feedTitle', L_ARTFEED_RSS_CATEGORY, $result);
+					$result = str_replace('#feedName', L_ARTFEED_RSS_CATEGORY, $result);
+				}
+			} else {
+				// Fil Rss des articles
+				$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss'), $format);
+				$result = str_replace('#feedTitle', L_ARTFEED_RSS, $result);
+				$result = str_replace('#feedName', L_ARTFEED_RSS, $result);
 			}
-		} else {
-			# Fil Rss des articles
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss').'" title="'.L_ARTFEED_RSS.'">'.L_ARTFEED_RSS.'</a>';
+			echo $result;
 		}
 	}
 
@@ -1233,18 +1242,28 @@ class plxShow {
 	 * d'un article précis (si $article renseigné) ou du site tout entier
 	 *
 	 * @param	type		type de flux (obsolete)
-	 * @param	article	identifiant (sans les 0) d'un article
+	 * @param	article		identifiant (sans les 0) d'un article
+	 * @param	format		format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
 	 * @scope	global
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function comFeed($type='rss', $article='') {
-		# Hook Plugins
-		if(eval($this->plxMotor->plxPlugins->callHook('plxShowComFeed'))) return;
+	public function comFeed($type='rss', $article='', $format='<a href="#feedUrl" title="#feedTitle">#feedName</a>') {
+			// Hook Plugins
+		if (eval ( $this->plxMotor->plxPlugins->callHook ( 'plxShowComFeed' ) ))
+			return;
 
-		if($article != '' AND is_numeric($article)) # Fil Rss des commentaires d'un article
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires/article'.$article).'" title="'.L_COMFEED_RSS_ARTICLE.'">'.L_COMFEED_RSS_ARTICLE.'</a>';
-		else # Fil Rss des commentaires global
-			echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/commentaires').'" title="'.L_COMFEED_RSS.'">'.L_COMFEED_RSS.'</a>';
+		if ($this->plxMotor->aConf ['enable_rss']) {
+			if ($article != '' and is_numeric ( $article )) { # Fil Rss des commentaires d'un article
+				$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss/commentaires/article'.$article), $format);
+				$result = str_replace('#feedTitle', L_COMFEED_RSS_ARTICLE, $result);
+				$result = str_replace('#feedName', L_COMFEED_RSS_ARTICLE, $result);
+			} else { # Fil Rss des commentaires global
+				$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite ( 'feed.php?rss/commentaires' ), $format);
+				$result = str_replace('#feedTitle', L_COMFEED_RSS, $result);
+				$result = str_replace('#feedName', L_COMFEED_RSS, $result);
+			}
+			echo $result;
+		}
 	}
 
 	/**
@@ -1688,22 +1707,28 @@ class plxShow {
 	 *
 	 * @param	type		type de flux (obsolete)
 	 * @param	tag			nom du tag
-	 * @scope					home,categorie,article,tags,archives
-	 * @author				Stephane F
+	 * @param	format		format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
+	 * @scope				home,categorie,article,tags,archives
+	 * @author				Stephane F, Pedro "P3ter" CADETE
 	 **/
 
-	public function tagFeed($type='rss', $tag='') {
+	 public function tagFeed($type='rss', $tag='', $format='<a href="#feedUrl" title="#feedTitle">#feedName</a>') {
 
 		# Hook Plugins
-		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagFeed'))) return;
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagFeed'))) 
+			return;
 
-		if($tag=='' AND $this->plxMotor->mode == 'tags')
-			$tag = $this->plxMotor->cible;
-
-		echo '<a href="'.$this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)).'" title="'.L_ARTFEED_RSS_TAG.'">'.L_ARTFEED_RSS_TAG.'</a>';
-
+		if ($this->plxMotor->aConf ['enable_rss']) {
+			if ($tag == '' and $this->plxMotor->mode == 'tags') {
+				$tag = $this->plxMotor->cible;
+			}
+			$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag)), $format);
+			$result = str_replace('#feedTitle', L_ARTFEED_RSS_TAG, $result);
+			$result = str_replace('#feedName', L_ARTFEED_RSS_TAG, $result);
+			echo $result;
+		}
 	}
-
+	
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
