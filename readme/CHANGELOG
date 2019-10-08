@@ -30,6 +30,7 @@ FIX #323 La fonction plxUtils::printSelect ne fonctione pas avec un "selected" d
 FIX #324 Correction couleur des selecteurs si le theme du navigateur est inversé (sudwebdesign)
 FIX #326 Remplacement de "create_function()" déprécié depuis PHP 5.3 (faille et dégradation des performances) (P3ter)
 FIX #329 Mauvais affichage du nom du site et du menu avec Safari (P3ter)
+FIX #334 Thème par défaut : affichage cassé des sous-menu de pages statiques (sudwebdesign)
 
 ## PLUXML 5.7 (sortie : 11/12/2018) ##
 

@@ -67,6 +67,10 @@ body {
 	height: 250px;
 }
 
+.header.sticky:hover .grid {
+	overflow: unset
+}
+
 /* ----- Nav / Menu ----- */
 
 .nav {
