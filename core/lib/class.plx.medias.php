@@ -167,8 +167,8 @@ class plxMedias {
 	            function($item) use($currentFolder) {
 	                $selected = ($item['path'] == $currentFolder) ? ' selected' : '';
 	                return <<< OPTION
-                        <option class="level_{$item['level']}" value="${item['path']}"$selected>/${item['path']}</option>
-OPTION;
+				                        <option class="level_{$item['level']}" value="${item['path']}"$selected>/${item['path']}</option>
+				OPTION;
 	            },
 	            $this->aDirs
             );
@@ -176,12 +176,12 @@ OPTION;
 	    $selectedRoot = (empty($this->dir)) ? ' selected' : '';
 	    $caption = L_PLXMEDIAS_ROOT;
 	    $start = <<< START
-            <select class="folder" id="folder" name="folder">
-                <option value="."$selectedRoot>($caption)</option>\n
-START;
+		            <select class="folder" id="folder" name="folder">
+		                <option value="."$selectedRoot>($caption)</option>\n
+		START;
 	    $stop = <<< STOP
-            </select>\n
-STOP;
+		            </select>\n
+		STOP;
 	    return $start . ((!empty($options)) ? implode("\n", $options) : '') . $stop;
 	}
 
@@ -273,19 +273,21 @@ STOP;
 	 *
 	 * @param	newdir	nom du répertoire à créer
 	 * @return  boolean	faux si erreur sinon vrai
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez (bazooka07)
 	 **/
 	public function newDir($newdir) {
-
-		$newdir = $this->path.$this->dir.$newdir;
-
-		if(!is_dir($newdir)) { # Si le dossier n'existe pas on le créer
-			if(!mkdir($newdir,0755))
-				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
-			else
-				return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
-		} else {
-			return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
+		if (!empty(trim($newdir))) {
+			$mydir = $this->path.$this->dir;
+			$mydir .= plxUtils::urlify(trim($newdir));
+			// Si le dossier n'existe pas on le créer
+			if (!is_dir($mydir)) { 
+				if (!mkdir($mydir, 0755))
+					return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
+				else
+					return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
+			} else {
+				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
+			}
 		}
 	}
 
@@ -296,9 +298,12 @@ STOP;
 	 * @param	resize	taille du fichier à redimensionner si renseigné
 	 * @param	thumb	taille de la miniature à créer si renseigné
 	 * @return  string	message contenant le résultat de l'envoi du fichier
-	 * @author	Stephane F
+	 * @author	Stephane F, Pedro "P3ter" CADETE
 	 **/
 	private function _uploadFile($file, $resize, $thumb) {
+
+		$i = 1;
+		$filename = array();
 
 		if($file['name'] == '')
 			return false;
@@ -309,13 +314,12 @@ STOP;
 		if(!preg_match($this->img_exts, $file['name']) AND !preg_match($this->doc_exts, $file['name']))
 			return L_PLXMEDIAS_WRONG_FILEFORMAT;
 
-		# On teste l'existence du fichier et on formate le nom du fichier pour éviter les doublons
-		$i = 1;
-		$upFile = $this->path.$this->dir.plxUtils::title2filename($file['name']);
-		$name = substr($file['name'], 0, strrpos($file['name'],'.'));
-		$ext = strrchr($upFile, '.');
+		// On teste l'existence du fichier et on formate son nom pour éviter les doublons
+		$filename = pathinfo($file['name']);
+		$filename['filename'] = plxUtils::urlify($filename['filename']);
+		$upFile = $this->path.$this->dir.$filename['filename'].".".$filename['extension'];
 		while(file_exists($upFile)) {
-			$upFile = $this->path.$this->dir.$name.'.'.$i++.$ext;
+			$upFile = $this->path.$this->dir.$filename['filename'].'-'.$i++.".".$filename['extension'];
 		}
 
 		if(!move_uploaded_file($file['tmp_name'],$upFile)) { # Erreur de copie
@@ -492,55 +496,46 @@ STOP;
 	 * @param   oldname		ancien nom
 	 * @param	newname		nouveau nom
 	 * @return  boolean		faux si erreur sinon vrai
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. "bazooka07" Pourrez, Pedro "P3ter" CADETE
 	 **/
 	public function renameFile($oldname, $newname) {
-
 		$result = false;
-
-		$dirname = dirname($oldname)."/";
-		$filename = basename($oldname);
-		$ext = pathinfo($filename, PATHINFO_EXTENSION);
-
-		$newname = trim(basename($newname, pathinfo($newname, PATHINFO_EXTENSION)), '.');
-		$newname = $ext!="" ? $newname.'.'.$ext : $newname;
-
+		$new_stats = array();
 		# Déplacement du fichier
 		if(is_readable($oldname) AND is_file($oldname)) {
-
+			$dirname = dirname($oldname)."/";
+			$old_stats = pathinfo($oldname);
+			$tmp_stats = pathinfo($newname);
+			$new_stats['dirname'] = $old_stats['dirname'].'/';
+			$new_stats['filename'] = plxUtils::urlify($tmp_stats['filename']);
+			$new_stats['counter'] = '';
+			$new_stats['extension'] = '.'.$old_stats['extension'];
 			# On teste l'existence du nouveau fichier et on formate le nom pour éviter les doublons
 			$i = 1;
-			$file = $dirname.plxUtils::title2filename($newname);
-			$name = substr($newname, 0, strrpos($newname,'.'));
-			while(file_exists($file)) {
-				$file = $dirname.$name.'.'.$i++.'.'.$ext;
+			while(file_exists(implode('', array_values($new_stats)))) {
+				$new_stats['counter'] = str_pad($i, 2, '-', STR_PAD_LEFT);
+				$i++;
 			}
-
 			# changement du nom du fichier
-			$result = rename($oldname, $file);
-
-			# changement du nom de la miniature
-			$old_thumbName = plxUtils::thumbName($oldname);
-			if($result AND is_readable($old_thumbName)) {
-				$new_thumbName = plxUtils::thumbName($file);
-				$result = rename($old_thumbName, $new_thumbName);
+			$filename = implode('', array_values($new_stats));
+			if(rename($oldname, $filename)) {
+				# changement du nom de la miniature
+				$old_thumbName = plxUtils::thumbName($oldname);
+				if(is_writable($old_thumbName)) {
+					$new_thumbName = plxUtils::thumbName($filename);
+					if(rename($old_thumbName, $new_thumbName)) {
+						# changement du nom de la vignette
+						$path = str_replace($this->path, $this->path.'.thumbs/', $dirname);
+						$old_thumbName = $path.$filename;
+						if(is_writable($old_thumbName)) {
+							$new_thumbName = $path.basename($file);
+							$result = rename($old_thumbName, $new_thumbName);
+						}
+					}
+				}
 			}
-
-			# changement du nom de la vignette
-			$path = str_replace($this->path, $this->path.'.thumbs/', $dirname);
-			$old_thumbName = $path.$filename;
-			if($result AND is_readable($old_thumbName)) {
-				$new_thumbName = $path.basename($file);
-				$result = rename($old_thumbName, $new_thumbName);
-			}
-
 		}
-
-		if($result)
-			return plxMsg::Info(L_RENAME_FILE_SUCCESSFUL);
-		else
-			return plxMsg::Error(L_RENAME_FILE_ERR);
-
+		return ($result) ? plxMsg::Info(L_RENAME_FILE_SUCCESSFUL) : plxMsg::Error(L_RENAME_FILE_ERR);
 	}
 }
 ?>

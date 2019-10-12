@@ -77,11 +77,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['date_creation'] = $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4);
 		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
 		$art['nb_com'] = 0;
-		if(trim($_POST['url']) == '')
-			$art['url'] = plxUtils::title2url($_POST['title']);
-		else
-			$art['url'] = plxUtils::title2url($_POST['url']);
-		if($art['url'] == '') $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
+		$tmpstr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
+		$art['url'] = plxUtils::urlify($tmpstr);
+		if(empty($art['url'])) $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
 
 		# Hook Plugins
 		eval($plxAdmin->plxPlugins->callHook('AdminArticlePreview'));
@@ -102,11 +100,11 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 		$valid = true;
 		# Vérification de l'unicité de l'url
-		$_POST['url'] = plxUtils::title2url(trim($_POST['url'])==''?$_POST['title']:$_POST['url']);
+		$url = plxUtils::urlify(!empty($_POST['url']) ? $_POST['url'] : $_POST['title']);
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
-			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.".$_POST["url"].".xml$/", $filename)) {
+			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.$url.xml$/", $filename)) {
 				if($numart!=str_replace('_', '',$_POST['artId'])) {
-					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($_POST["url"])) AND $valid;
+					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($url)) AND $valid;
 				}
 			}
 		}
@@ -514,7 +512,7 @@ function refreshImg(dta) {
 									if($tags = array_map('trim', explode(',', $tag['tags']))) {
 										foreach($tags as $tag) {
 											if($tag!='') {
-												$t = plxUtils::title2url($tag);
+												$t = plxUtils::urlify($tag);
 												if(!isset($array[$tag]))
 													$array[$tag]=array('url'=>$t,'count'=>1);
 												else

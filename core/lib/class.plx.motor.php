@@ -71,6 +71,7 @@ class plxMotor {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
+		define('PLX_SITE_LANG', $this->aConf['default_lang']);
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
@@ -212,7 +213,7 @@ class plxMotor {
 			foreach($this->aTags as $idart => $tag) {
 				if($tag['date']<=$datetime) {
 					$tags = array_map("trim", explode(',', $tag['tags']));
-					$tagUrls = array_map(array('plxUtils', 'title2url'), $tags);
+					$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
 					if(in_array($this->cible, $tagUrls)) {
 						if(!isset($ids[$idart])) $ids[$idart] = $idart;
 						if(!isset($this->cibleName)) {
@@ -650,7 +651,7 @@ class plxMotor {
 	public function artInfoFromFilename($filename) {
 
 		# On effectue notre capture d'informations
-		if(preg_match('/(_?[0-9]{4}).([0-9,|home|draft]*).([0-9]{3}).([0-9]{12}).([a-z0-9-]+).xml$/',$filename,$capture)) {
+		if(preg_match('/(_?\d{4})\.([\d,|home|draft]*)\.(\d{3})\.(\d{12})\.([\w-]+)\.xml$/',$filename,$capture)) {
 			return array(
 				'artId'		=> $capture[1],
 				'catId'		=> $capture[2],

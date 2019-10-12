@@ -3,6 +3,7 @@
 [+] PluCSS 1.3.1
 [+] Feature "Mot de passe oublié" : envoi d'un lien par mail permettant la création d'un nouveau mot de passe (P3ter)
 [+] Feature "Mot de passe oublié" : l'adresse e-mail devient obligatoire à l'installation de PluXml et à la création d'un utilisateur (P3ter)
+[+] Ajout de la translitteration des URLs des articles, des pages et des médias pour le Russe, le Polonais, le Roumain et l'Allemand (bazooka07, P3ter)
 [+] Amélioration des performances du gestionnaire de médias (bazooka07)
 [+] Thème par défaut : ajout du titre et du sous-titre sur mobile (P3ter)
 [+] Ajout de la fonction plxUtils::printInputRadio permettant d'afficher des boutons radio (P3ter)
