@@ -577,7 +577,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
             if($cat_name!='') {
                 $cat_id = $this->nextIdCategory();
                 $this->aCats[$cat_id]['name'] = $cat_name;
-                $this->aCats[$cat_id]['url'] = plxUtils::title2url($cat_name);
+                $this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name);
                 $this->aCats[$cat_id]['tri'] = $this->aConf['tri'];
                 $this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
                 $this->aCats[$cat_id]['menu'] = 'oui';
@@ -601,9 +601,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
             foreach($content['catNum'] as $cat_id) {
                 $cat_name = $content[$cat_id.'_name'];
                 if($cat_name!='') {
-                    $cat_url = (isset($content[$cat_id.'_url'])?trim($content[$cat_id.'_url']):'');
-                    $cat_url = ($cat_url!='' ? plxUtils::title2url($cat_url) : plxUtils::title2url($cat_name));
-                    if($cat_url=='') $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+                	$tmpstr = (!empty($content[$cat_id.'_url'])) ? $content[$cat_id.'_url'] : $cat_name;
+                	$cat_url = plxUtils::urlify($tmpstr);
+                	if(empty($cat_url)) $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
                     $this->aCats[$cat_id]['name'] = $cat_name;
                     $this->aCats[$cat_id]['url'] = $cat_url;
                     $this->aCats[$cat_id]['tri'] = $content[$cat_id.'_tri'];
@@ -728,8 +728,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
             foreach($content['staticNum'] as $static_id) {
                 $stat_name = $content[$static_id.'_name'];
                 if($stat_name!='') {
-                    $url = (isset($content[$static_id.'_url'])?trim($content[$static_id.'_url']):'');
-                    $stat_url = ($url!=''?plxUtils::title2url($url):plxUtils::title2url($stat_name));
+                	$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url']) : '';
+                	$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
                     if($stat_url=='') $stat_url = L_DEFAULT_NEW_STATIC_URL;
                     # On vérifie si on a besoin de renommer le fichier de la page statique
                     if(isset($this->aStats[$static_id]) AND $this->aStats[$static_id]['url']!=$stat_url) {
@@ -882,7 +882,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
      * @param	content		données saisies de l'article
      * @param	&id			retourne le numero de l'article
      * @return	string
-     * @author	Stephane F. et Florent MONTHEL
+     * @author	Stephane F., Florent MONTHEL
      **/
     public function editArticle($content, &$id) {
         
@@ -897,10 +897,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
             }
             
             # Génération de notre url d'article
-            if(trim($content['url']) == '')
-                $content['url'] = plxUtils::title2url($content['title']);
-                else
-                    $content['url'] = plxUtils::title2url($content['url']);
+            $tmpstr = (!empty($content['url'])) ? $content['url'] : $content['title'];
+            $content['url'] = plxUtils::urlify($tmpstr);
+
                     # URL vide après le passage de la fonction ;)
                     if($content['url'] == '') $content['url'] = L_DEFAULT_NEW_ARTICLE_URL;
                     

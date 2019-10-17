@@ -27,7 +27,7 @@ $CONSTS = array(
 const PLX_CHARSET = 'UTF-8';
 
 # Langue par défaut
-const DEFAULT_LANG = 'fr';
+const DEFAULT_LANG = 'en';
 
 # profils utilisateurs de pluxml
 const PROFIL_ADMIN = 0;

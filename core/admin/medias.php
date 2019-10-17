@@ -33,13 +33,13 @@ elseif(!empty($_POST['folder'])) {
 $plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
 if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER)
 	$plxMediasRoot .= $_SESSION['user'].'/';
-$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
+$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']); 
 
 #----
 
 if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
-	$newdir = plxUtils::title2filename(trim($_POST['newfolder']));
-	if($plxMedias->newDir($newdir)) {
+	$newdir = $plxMedias->newDir($_POST['newfolder']);
+	if($newdir) {
 		$_SESSION['folder'] = $_SESSION['folder'].$newdir.'/';
 	}
 	header('Location: medias.php');
@@ -203,24 +203,25 @@ $curFolders = explode('/', $curFolder);
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-					    $isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
+						$isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
+						$title = pathinfo($v['name'], PATHINFO_FILENAME);
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 							if(is_file($v['path']) AND $isImage) {
-								echo '<a class="overlay" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+								echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" /></a>';
 							}
 							else 
-							    echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
+								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
 						echo '</td>';
 						echo '<td>';
-							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
+							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
 							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							echo '<div id="btnRenameImg'.$num.'" onclick="ImageRename(\''.$v['path'].'\')" title="'.L_RENAME_FILE.'" class="ico">&perp;</div>';
 							echo '<br />';
 							$href = plxUtils::thumbName($v['path']);
 							if($isImage AND is_file($href)) {
-								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
+								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
 								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';

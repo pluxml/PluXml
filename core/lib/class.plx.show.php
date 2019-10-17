@@ -729,7 +729,7 @@ class plxShow {
 		if(!empty($taglist)) {
 			$tags = array_map('trim', explode(',', $taglist));
 			foreach($tags as $idx => $tag) {
-				$t = plxUtils::title2url($tag);
+				$t = plxUtils::urlify($tag);
 				$name = str_replace('#tag_url',$this->plxMotor->urlRewrite('?tag/'.$t),$format);
 				$name = str_replace('#tag_name',plxUtils::strCheck($tag),$name);
 				$name = str_replace('#tag_status',(($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$t)?'active':'noactive'), $name);
@@ -1422,11 +1422,11 @@ class plxShow {
 					echo "\n".(is_array($v) ? $v[0] : $v);
 				}
 				else {
-					$group = str_replace('#group_id','static-group-'.plxUtils::title2url($k),$format_group);
+					$group = str_replace('#group_id','static-group-'.plxUtils::urlify($k),$format_group);
 					$group = str_replace('#group_class','static group',$group);
 					$group = str_replace('#group_status',($group_active==$k?'active':'noactive'),$group);
 					$group = str_replace('#group_name',plxUtils::strCheck($k),$group);
-					echo "\n<li class=\"menu\">\n\t".$group."\n\t<ul id=\"static-".plxUtils::title2url($k)."\" class=\"sub-menu\">\t\t";
+					echo "\n<li class=\"menu\">\n\t".$group."\n\t<ul id=\"static-".plxUtils::urlify($k)."\" class=\"sub-menu\">\t\t";
 					foreach($v as $kk => $vv) {
 						echo "\n\t\t".$vv;
 					}
@@ -1584,7 +1584,7 @@ class plxShow {
 		if(is_numeric($id)) # inclusion à partir de l'id de la page
 			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
 		else { # inclusion à partir du titre de la page
-			$url = plxUtils::title2url($id);
+			$url = plxUtils::urlify($id);
 			$regx = '/^[0-9]{3}.'.$url.'.php$/';
 		}
 		if($files = $plxGlob_stats->query($regx)) {
@@ -1821,7 +1821,7 @@ class plxShow {
 			# On affiche la liste
 			$id=0;
 			foreach($counters as $tag => $counter) {
-				$url = plxUtils::title2url($tag);
+				$url = plxUtils::urlify($tag);
 				$status = 'noactive';
 				switch($mode) {
 					case 'article':
