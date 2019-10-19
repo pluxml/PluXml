@@ -499,14 +499,14 @@ class PHPMailer
 	 *
 	 * Parameters:
 	 *   bool $result		result of the send action
-	 *   array   $to			email addresses of the recipients
-	 *   array   $cc			cc email addresses
-	 *   array   $bcc		   bcc email addresses
-	 *   string  $subject	   the subject
-	 *   string  $body		  the email body
-	 *   string  $from		  email address of sender
-	 *   string  $extra		 extra information of possible use
-	 *						  "smtp_transaction_id' => last smtp transaction id
+	 *   array   $to		email addresses of the recipients
+	 *   array   $cc		cc email addresses
+	 *   array   $bcc		bcc email addresses
+	 *   string  $subject	the subject
+	 *   string  $body		the email body
+	 *   string  $from		email address of sender
+	 *   string  $extra		extra information of possible use
+	 *						"smtp_transaction_id' => last smtp transaction id
 	 *
 	 * @var string
 	 */
@@ -853,7 +853,7 @@ class PHPMailer
 				//Indent for readability, except for trailing break
 					str_replace(
 						"\n",
-						"\n				   \t				  ",
+						"\n                   \t                  ",
 						trim($str)
 					)
 				),

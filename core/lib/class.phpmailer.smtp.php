@@ -268,7 +268,7 @@ class SMTP
 				//Indent for readability, except for trailing break
 					str_replace(
 						"\n",
-						"\n				   \t				  ",
+						"\n                   \t                  ",
 						trim($str)
 					)
 				),
