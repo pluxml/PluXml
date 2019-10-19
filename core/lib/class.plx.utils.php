@@ -17,7 +17,7 @@ class plxUtils {
 	 *
 	 * @param	var			string	variable à tester
 	 * @param	default		string	valeur par défaut
-	 * @return	string      valeur de la variable ou valeur par défaut passée en paramètre
+	 * @return	string	  valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
 		return (isset($var) ? (!empty($var) ? $var : $default) : $default) ;
@@ -44,7 +44,7 @@ class plxUtils {
 	 **/
 	public static function unSlash($content) {
 
-	    $new_content = '';
+		$new_content = '';
 
 		if(get_magic_quotes_gpc() == 1) {
 			if(is_array($content)) { # On traite un tableau
@@ -173,7 +173,7 @@ class plxUtils {
 				}
 				echo '</optgroup>'."\n";
 			} else {
-			    if(strval($a) == $selected)
+				if(strval($a) == $selected)
 					echo "\t".'<option value="'.$a.'" selected="selected">'.$b.'</option>'."\n";
 				else
 					echo "\t".'<option value="'.$a.'">'.$b.'</option>'."\n";
@@ -193,9 +193,9 @@ class plxUtils {
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	placeholder valeur du placeholder du champ (html5)
 	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
-	 * @param   required    permet de rendre le champ obligatoire
+	 * @param   required	permet de rendre le champ obligatoire
 	 * @return	self
-	 * @author  unknow, Pedro "P3ter" CADETE        
+	 * @author  unknow, Pedro "P3ter" CADETE
 	 **/
 	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
@@ -209,8 +209,8 @@ class plxUtils {
 		 if(!empty($extra))
 			 $params[] = $extra;
 		 if($type != 'hidden') {
-		    if($required === true)
-		        $params[] = 'required="required"';
+			if($required === true)
+				$params[] = 'required="required"';
 			if($readonly === true)
 				$params[] = 'readonly="readonly" class="readonly"';
 			if(!empty($className))
@@ -227,38 +227,38 @@ class plxUtils {
 		 }
 		 echo '<input '.implode(' ', $params).'/>';
 	}
-	
+
 	/**
 	 * Méthode qui affiche des boutons radio
 	 *
-	 * @param  string $name         nom des radio boutons
-	 * @param  string $value        valeur correspond au radio bouton
-	 * @param  string $className    class css à utiliser pour formater l'affichage
-	 * @param  string $checked      valeur par défaut
-	 * @param  boolean $required    permet de rendre le champ obligatoire
+	 * @param  string $name		 nom des radio boutons
+	 * @param  string $value		valeur correspond au radio bouton
+	 * @param  string $className	class css à utiliser pour formater l'affichage
+	 * @param  string $checked	  valeur par défaut
+	 * @param  boolean $required	permet de rendre le champ obligatoire
 	 * @return self
 	 * @author Pedro "P3ter" CADETE
 	 **/
 	public static function printInputRadio($name, $array, $checked='', $className='', $extra='') {
 
-	    $params = array(
-	        'id="id_'.$name.'"',
-	        'name="'.$name.'"',
-	    );
-	    if(!empty($extra)) {
-	        $params[] = $extra;
-	    }
-        if(!empty($className)) {
-            $params[] = 'class="'.$className.'"';
-        }
-        foreach($array as $a => $b) {
-            if ($a == $checked) {
-                echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).' checked>&nbsp;'.$b.'<br>';
-            }
-            else {
-                echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).'>&nbsp;'.$b.'<br>';
-            }
-        }
+		$params = array(
+			'id="id_'.$name.'"',
+			'name="'.$name.'"',
+		);
+		if(!empty($extra)) {
+			$params[] = $extra;
+		}
+		if(!empty($className)) {
+			$params[] = 'class="'.$className.'"';
+		}
+		foreach($array as $a => $b) {
+			if ($a == $checked) {
+				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).' checked>&nbsp;'.$b.'<br>';
+			}
+			else {
+				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).'>&nbsp;'.$b.'<br>';
+			}
+		}
 	}
 
 	/**
@@ -274,26 +274,26 @@ class plxUtils {
 	 **/
 	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width') {
 
-	    $params = array(
-	        'id="id_'.$name.'"',
-	        'name="'.$name.'"'
-        );
-	    
-	    if(! empty($cols)) {
-	        $params[] = 'cols="'.$cols.'"';
-	    }
-	    if(! empty($rows)) {
-	        $params[] = 'rows="'.$rows.'"';
-	    }
-	    if($readonly === true) {
-	        $params = 'class="readonly"';
-	        $params = 'readonly="readonly"';
-	    } else {
-	        if(! empty($className)) {
-	            $params[] = 'class="'.$className.'"';
-	        }
-	    }
-	    echo '<textarea '.implode(' ', $params).'>'.$value.'</textarea>';
+		$params = array(
+			'id="id_'.$name.'"',
+			'name="'.$name.'"'
+		);
+
+		if(! empty($cols)) {
+			$params[] = 'cols="'.$cols.'"';
+		}
+		if(! empty($rows)) {
+			$params[] = 'rows="'.$rows.'"';
+		}
+		if($readonly === true) {
+			$params = 'class="readonly"';
+			$params = 'readonly="readonly"';
+		} else {
+			if(! empty($className)) {
+				$params[] = 'class="'.$className.'"';
+			}
+		}
+		echo '<textarea '.implode(' ', $params).'>'.$value.'</textarea>';
 	}
 
 	/**
@@ -688,12 +688,12 @@ class plxUtils {
 				imagesavealpha($canvas, true);
 				break;
 			case 'webp':
-			    $image_data = imagecreatefromwebp($src_image);
-			    break;
+				$image_data = imagecreatefromwebp($src_image);
+				break;
 			case 'x-ms-bmp':
-			    //$image_data = imagecreatefrombmp($src_image); // Only PHP 7+
-			    $image_data = false;
-			    break;
+				//$image_data = imagecreatefrombmp($src_image); // Only PHP 7+
+				$image_data = false;
+				break;
 			default:
 				return false; // Unsupported format
 			break;
@@ -736,19 +736,19 @@ class plxUtils {
 				case 'jpg':
 				case 'jpeg':
 					return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
-				    break;
+					break;
 				case 'png':
 					return (imagepng($canvas, $dest_image) AND is_file($dest_image));
-				    break;
+					break;
 				case 'gif':
 					return (imagegif($canvas, $dest_image) AND is_file($dest_image));
-				    break;
+					break;
 				case 'bmp':
-				    return (imagebmp($canvas, $dest_image) AND is_file($dest_image));
-				    break;
+					return (imagebmp($canvas, $dest_image) AND is_file($dest_image));
+					break;
 				case 'webp':
-				    return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
-				    break;
+					return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
+					break;
 				default:
 					return false; // Unsupported format
 				break;
@@ -780,7 +780,7 @@ class plxUtils {
 	 **/
 	public static function getRacine() {
 
-		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )?        'https://' : "http://";
+		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )?		'https://' : "http://";
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
@@ -979,50 +979,50 @@ class plxUtils {
 
 		return mail($to, $subject, $body, $headers);
 	}
-	
+
 	/**
 	 * Send an e-mail with PhpMailer class
-	 * @param string $name             Sender's name
-	 * @param string $from             Sender's e-mail address
-	 * @param string $to               Destination e-mail address
-	 * @param string $subject          E-mail subject
-	 * @param string $body             E-mail body content
-	 * @param boolean $isHtml          True if body content use HTML
-	 * @param string $mailer           SMTP or php sendmail() function by default
-	 * @param string $smtpHost         SMTP server DNS or IP
-	 * @param string $smtpUsername     SMTP Username
-	 * @param string $smtpPassword     SMTP Password
+	 * @param string $name			Sender's name
+	 * @param string $from			Sender's e-mail address
+	 * @param string $to			Destination e-mail address
+	 * @param string $subject		E-mail subject
+	 * @param string $body			E-mail body content
+	 * @param boolean $isHtml		True if body content use HTML
+	 * @param string $mailer		SMTP or php sendmail() function by default
+	 * @param string $smtpHost		SMTP server DNS or IP
+	 * @param string $smtpUsername	SMTP Username
+	 * @param string $smtpPassword	SMTP Password
 	 * @return boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
 	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure) {
 
-	    $mail = new PHPMailer();
+		$mail = new PHPMailer();
 
-	    $mail->Subject = $subject;
-	    $mail->Body = $body;
-	    $mail->setFrom($from, $name);
-	    $mail->addAddress($to);
-	    $mail->Mailer = $mailer;
-	    if ($isHtml) {
-	        $mail->isHTML(true);
-	    }
+		$mail->Subject = $subject;
+		$mail->Body = $body;
+		$mail->setFrom($from, $name);
+		$mail->addAddress($to);
+		$mail->Mailer = $mailer;
+		if ($isHtml) {
+			$mail->isHTML(true);
+		}
 
-	    // configure and use SMTP
-	    if ($mailer === 'smtp') {
-	        $mail->isSMTP();
-	        $mail->Host = $smtpHost;
-	        $mail->SMTPAuth = true;
-	        $mail->Username = $smtpUsername;
-	        $mail->Password = $smtpPassword;
-	        $mail->Port = $smtpPort;
-	        $mail->SMTPDebug;
-	        if ($smtpSecure == 'ssl' OR $smtpSecure == 'tls') {
-	            $mail->SMTPSecure = $smtpSecure;
-	        }
-	    }
+		// configure and use SMTP
+		if ($mailer === 'smtp') {
+			$mail->isSMTP();
+			$mail->Host = $smtpHost;
+			$mail->SMTPAuth = true;
+			$mail->Username = $smtpUsername;
+			$mail->Password = $smtpPassword;
+			$mail->Port = $smtpPort;
+			$mail->SMTPDebug;
+			if ($smtpSecure == 'ssl' OR $smtpSecure == 'tls') {
+				$mail->SMTPSecure = $smtpSecure;
+			}
+		}
 
-	    return $mail->send();
+		return $mail->send();
 	}
 
 	/**
@@ -1064,14 +1064,14 @@ class plxUtils {
 	*/
 	public static function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
 		if ($considerHtml) {
-		    
-		    $lines = '';
-		    $tag_matchings = '';
-		    $total_length = strlen($ending);
-		    $open_tags = array();
-		    $truncate = '';
-		    $entities = '';
-		    
+
+			$lines = '';
+			$tag_matchings = '';
+			$total_length = strlen($ending);
+			$open_tags = array();
+			$truncate = '';
+			$entities = '';
+
 			// if the plain text is shorter than the maximum length, return the whole text
 			if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
 				return $text;
@@ -1206,9 +1206,8 @@ class plxUtils {
 	 * @return	string	nom de la miniature au format fichier.tb.ext
 	*/
 	public static function thumbName($filename) {
-	    
-	    $matches = '';
-	    
+
+		$matches = '';
 		if(preg_match('/^(.*\.)(jpe?g|png|gif|bmp|webp)$/iD', $filename, $matches)) {
 			return $matches[1].'tb.'.$matches[2];
 		} else {
@@ -1227,7 +1226,7 @@ class plxUtils {
 		/* Supprime les commentaires */
 		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
 		/* Supprime les tabs, espaces, saut de ligne, etc. */
-		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
+		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '	', '	'), '', $buffer);
 		return $buffer;
 	}
 
@@ -1291,9 +1290,7 @@ class plxUtils {
 			<script type="text/javascript">
 				console.log(`$msg`);
 			</script>
-		
-		EOT;
+EOT;
 	}
 
 }
-?>
