@@ -25,8 +25,8 @@ function pluginsList($plugins, $defaultLang, $type) {
 # plugins		array()		contient la liste des plugins à afficher
 # defaultLang	string		langue utilisée dans l'admin
 # type			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
-
 	$output='';
+	$plxAdmin = plxAdmin::getInstance();#OR global $plxAdmin;
 	if(sizeof($plugins)>0) {
 		$num=0;
 		foreach($plugins as $plugName => $plugInstance) {
@@ -42,7 +42,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
 
 			# plugin activé uniquement côté site (<scope> == 'site')
-			if(empty($plugInstance) and $plugInstance=plxPlugins::getInstance($plugName)) {
+			if(empty($plugInstance) and $plugInstance=$plxAdmin->plxPlugins->getInstance($plugName)) {
 				$plugInstance->getInfos();
 			}
 			$output .= '<tr class="top" data-scope="'.$plugInstance->getInfo('scope').'">'."\n";
