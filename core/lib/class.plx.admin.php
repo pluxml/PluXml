@@ -16,13 +16,13 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
 	 *
-	 * @return	self			return une instance de la classe plxAdmin
+	 * @return	self	return une instance de la classe plxAdmin
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
 		if (!isset(self::$instance))
 			self::$instance = new plxAdmin(path('XMLFILE_PARAMETERS'));
-			return self::$instance;
+		return self::$instance;
 	}
 
 	/**
@@ -104,8 +104,8 @@ class plxAdmin extends plxMotor {
 			if($k!='racine') {
 				if(is_numeric($v))
 					$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
-					else
-						$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+				else
+					$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
 			}
 		}
 		$xml .= "</document>";
@@ -121,32 +121,32 @@ class plxAdmin extends plxMotor {
 			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
-				# Mise à jour du fichier parametres.xml
-				if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
-					return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
+		# Mise à jour du fichier parametres.xml
+		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
+			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
 
-					# Si nouvel emplacement du dossier de configuration
-					if(isset($content['config_path'])) {
-						$newpath=trim($content['config_path']);
-						if($newpath!=PLX_CONFIG_PATH) {
-							# relocalisation du dossier de configuration de PluXml
-							if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
-								return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
-								# mise à jour du fichier de configuration config.php
-								if(!plxUtils::write("<?php define('PLX_CONFIG_PATH', '".$newpath."') ?>", PLX_ROOT.'config.php'))
-									return plxMsg::Error(L_SAVE_ERR.' config.php');
-						}
-					}
+		# Si nouvel emplacement du dossier de configuration
+		if(isset($content['config_path'])) {
+			$newpath=trim($content['config_path']);
+			if($newpath!=PLX_CONFIG_PATH) {
+				# relocalisation du dossier de configuration de PluXml
+				if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
+					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
+				# mise à jour du fichier de configuration config.php
+				if(!plxUtils::write("<?php define('PLX_CONFIG_PATH', '".$newpath."') ?>", PLX_ROOT.'config.php'))
+					return plxMsg::Error(L_SAVE_ERR.' config.php');
+			}
+		}
 
-					return plxMsg::Info(L_SAVE_SUCCESSFUL);
+		return plxMsg::Info(L_SAVE_SUCCESSFUL);
 
 	}
 
 	/**
 	 * Méthode qui crée le fichier .htaccess en cas de réécriture d'urls
 	 *
-	 * @param	action		création (add) ou suppression (remove)
-	 * @param   url			url du site
+	 * @param	action	création (add) ou suppression (remove)
+	 * @param	url		url du site
 	 * @return	null
 	 * @author	Stephane F, Amaury Graillat
 	 **/
@@ -175,29 +175,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(is_file(PLX_ROOT.'.htaccess'))
 			$htaccess = file_get_contents(PLX_ROOT.'.htaccess');
 
-			switch($action) {
-				case '0': # désactivation
-					if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
-						$htaccess = str_replace($capture[2], '', $htaccess);
-						break;
-				case '1': # activation
-					if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
-						$htaccess = trim($capture[1]).$plxhtaccess.trim($capture[3]);
-						else
-							$htaccess .= $plxhtaccess;
-							break;
-			}
+		switch($action) {
+			case '0': # désactivation
+				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
+					$htaccess = str_replace($capture[2], '', $htaccess);
+				break;
+			case '1': # activation
+				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
+					$htaccess = trim($capture[1]).$plxhtaccess.trim($capture[3]);
+				else
+					$htaccess .= $plxhtaccess;
+				break;
+		}
 
-			# Hook plugins
-			eval($this->plxPlugins->callHook('plxAdminHtaccess'));
-			# On écrit le fichier .htaccess à la racine de PluXml
-			$htaccess = trim($htaccess);
-			if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess')) {
-				unlink(PLX_ROOT.'.htaccess');
-				return true;
-			} else {
-				return plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
-			}
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxAdminHtaccess'));
+		# On écrit le fichier .htaccess à la racine de PluXml
+		$htaccess = trim($htaccess);
+		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess')) {
+			unlink(PLX_ROOT.'.htaccess');
+			return true;
+		} else {
+			return plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
+		}
 
 	}
 
@@ -229,8 +229,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		} else {
 			if(is_array($args))
 				return in_array($_SESSION['profil'], $args);
-				else
-					return $_SESSION['profil']==$profil;
+			else
+				return $_SESSION['profil']==$profil;
 		}
 	}
 
@@ -249,19 +249,19 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
 				return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-				if(!in_array($content['lang'], plxUtils::getLangs()))
-					return plxMsg::Error(L_UNKNOWN_ERROR);
+			if(!in_array($content['lang'], plxUtils::getLangs()))
+				return plxMsg::Error(L_UNKNOWN_ERROR);
 
-					$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
-					$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
-					$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
-					$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
+			$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
+			$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
+			$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
+			$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
-					$_SESSION['admin_lang'] = $content['lang'];
+			$_SESSION['admin_lang'] = $content['lang'];
 
-					# Hook plugins
-					if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
-					return $this->editUsers(null, true);
+			# Hook plugins
+			if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
+			return $this->editUsers(null, true);
 	}
 
 	/**
@@ -305,8 +305,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Create a token and send a link by e-mail with "email-lostpassword.xml" template
 	 *
-	 * @param   loginOrMail	 user login or e-mail address
-	 * @return	string		  token to password reset
+	 * @param	loginOrMail	user login or e-mail address
+	 * @return	string		token to password reset
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function sendLostPasswordEmail($loginOrMail) {
@@ -328,7 +328,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						"##URL_EXPIRY##"	   => $tokenExpiry
 					);
 					// test if e-mail creation is OK
-					if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1'){
+					if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
 						$mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
@@ -341,7 +341,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 							$smtpPort = $this->aConf['smtp_port'];
 							$smtpSecure = $this->aConf['smtp_security'];
 						}
-						if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false, $mailer, $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure)){
+						if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false, $mailer, $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure)) {
 							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
 							$this->editUsers($user_id, true);
@@ -367,9 +367,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Verify the lost password token validity
 	 *
-	 * @param  token	   the token to verify
-	 * @return boolean	 true if the token exist and is not expire
-	 * @author Pedro "P3ter" CADETE
+	 * @param	token	the token to verify
+	 * @return	boolean	true if the token exist and is not expire
+	 * @author	Pedro "P3ter" CADETE
 	 */
 	public function verifyLostPasswordToken($token) {
 
@@ -414,39 +414,39 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$salt = plxUtils::charAleatoire(10);
 					if(trim($content[$user_id.'_password'])!='')
 						$password=sha1($salt.md5($content[$user_id.'_password']));
-						elseif(isset($content[$user_id.'_newuser'])) {
-							$this->aUsers = $save;
-							return plxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
-						}
-						else {
-							$salt = $this->aUsers[$user_id]['salt'];
-							$password = $this->aUsers[$user_id]['password'];
-						}
+					elseif(isset($content[$user_id.'_newuser'])) {
+						$this->aUsers = $save;
+						return plxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
+					}
+					else {
+						$salt = $this->aUsers[$user_id]['salt'];
+						$password = $this->aUsers[$user_id]['password'];
+					}
 
-						# control de l'adresse email
-						$email = trim($content[$user_id.'_email']);
-						if(isset($content[$user_id.'_newuser']) AND empty($email))
-							return plxMsg::Error(L_ERR_INVALID_EMAIL);
-							if(!empty($email) AND !plxUtils::checkMail($email))
-								return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					# control de l'adresse email
+					$email = trim($content[$user_id.'_email']);
+					if(isset($content[$user_id.'_newuser']) AND empty($email))
+						return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(!empty($email) AND !plxUtils::checkMail($email))
+						return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-								$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
-								$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
-								$this->aUsers[$user_id]['active'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['active']:$content[$user_id.'_active']);
-								$this->aUsers[$user_id]['profil'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['profil']:$content[$user_id.'_profil']);
-								$this->aUsers[$user_id]['password'] = $password;
-								$this->aUsers[$user_id]['salt'] = $salt;
-								$this->aUsers[$user_id]['email'] = $email;
+					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
+					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
+					$this->aUsers[$user_id]['active'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['active']:$content[$user_id.'_active']);
+					$this->aUsers[$user_id]['profil'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['profil']:$content[$user_id.'_profil']);
+					$this->aUsers[$user_id]['password'] = $password;
+					$this->aUsers[$user_id]['salt'] = $salt;
+					$this->aUsers[$user_id]['email'] = $email;
 
-								$this->aUsers[$user_id]['delete'] = (isset($this->aUsers[$user_id]['delete'])?$this->aUsers[$user_id]['delete']:0);
-								$this->aUsers[$user_id]['lang'] = (isset($this->aUsers[$user_id]['lang'])?$this->aUsers[$user_id]['lang']:$this->aConf['default_lang']);
-								$this->aUsers[$user_id]['infos'] = (isset($this->aUsers[$user_id]['infos'])?$this->aUsers[$user_id]['infos']:'');
+					$this->aUsers[$user_id]['delete'] = (isset($this->aUsers[$user_id]['delete'])?$this->aUsers[$user_id]['delete']:0);
+					$this->aUsers[$user_id]['lang'] = (isset($this->aUsers[$user_id]['lang'])?$this->aUsers[$user_id]['lang']:$this->aConf['default_lang']);
+					$this->aUsers[$user_id]['infos'] = (isset($this->aUsers[$user_id]['infos'])?$this->aUsers[$user_id]['infos']:'');
 
-								$this->aUsers[$user_id]['password_token'] = trim($content[$user_id.'_password_token']);
-								$this->aUsers[$user_id]['password_token_expiry'] = trim($content[$user_id.'_password_token_expiry']);
-								# Hook plugins
-								eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
-								$action = true;
+					$this->aUsers[$user_id]['password_token'] = trim($content[$user_id.'_password_token']);
+					$this->aUsers[$user_id]['password_token_expiry'] = trim($content[$user_id.'_password_token_expiry']);
+					# Hook plugins
+					eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
+					$action = true;
 				}
 			}
 		}
@@ -540,7 +540,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 *  Méthode qui retourne le prochain id d'une catégorie
 	 *
-	 * @return	string		id d'un nouvel article sous la forme 001
+	 * @return	string	id d'un nouvel article sous la forme 001
 	 * @author	Stephane F.
 	 **/
 	public function nextIdCategory() {
@@ -645,32 +645,33 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				else
 					$cats_name[] = $cat['name'];
 
-					# control de l'unicité de l'url de la catégorie
-					if(in_array($cat['url'], $cats_url))
-						return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['url']));
-						else
-							$cats_url[] = $cat['url'];
+				# controle de l'unicité de l'url de la catégorie
+				if(in_array($cat['url'], $cats_url))
+					return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['url']));
+				else
+					$cats_url[] = $cat['url'];
 
-							$xml .= "\t<categorie number=\"".$cat_id."\" active=\"".$cat['active']."\" homepage=\"".$cat['homepage']."\" tri=\"".$cat['tri']."\" bypage=\"".$cat['bypage']."\" menu=\"".$cat['menu']."\" url=\"".$cat['url']."\" template=\"".basename($cat['template'])."\">";
-							$xml .= "<name><![CDATA[".plxUtils::cdataCheck($cat['name'])."]]></name>";
-							$xml .= "<description><![CDATA[".plxUtils::cdataCheck($cat['description'])."]]></description>";
-							$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($cat['meta_description'])."]]></meta_description>";
-							$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($cat['meta_keywords'])."]]></meta_keywords>";
-							$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($cat['title_htmltag'])."]]></title_htmltag>";
-							$xml .= "<thumbnail><![CDATA[".plxUtils::cdataCheck($cat['thumbnail'])."]]></thumbnail>";
-							$xml .= "<thumbnail_alt><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_alt'])."]]></thumbnail_alt>";
-							$xml .= "<thumbnail_title><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_title'])."]]></thumbnail_title>";
-							eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));
-							$xml .= "</categorie>\n";
+				$xml .= "\t<categorie number=\"".$cat_id."\" active=\"".$cat['active']."\" homepage=\"".$cat['homepage']."\" tri=\"".$cat['tri']."\" bypage=\"".$cat['bypage']."\" menu=\"".$cat['menu']."\" url=\"".$cat['url']."\" template=\"".basename($cat['template'])."\">";
+				$xml .= "<name><![CDATA[".plxUtils::cdataCheck($cat['name'])."]]></name>";
+				$xml .= "<description><![CDATA[".plxUtils::cdataCheck($cat['description'])."]]></description>";
+				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($cat['meta_description'])."]]></meta_description>";
+				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($cat['meta_keywords'])."]]></meta_keywords>";
+				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($cat['title_htmltag'])."]]></title_htmltag>";
+				$xml .= "<thumbnail><![CDATA[".plxUtils::cdataCheck($cat['thumbnail'])."]]></thumbnail>";
+				$xml .= "<thumbnail_alt><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_alt'])."]]></thumbnail_alt>";
+				$xml .= "<thumbnail_title><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_title'])."]]></thumbnail_title>";
+				# Hook plugins
+				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));
+				$xml .= "</categorie>\n";
 			}
 			$xml .= "</document>";
 			# On écrit le fichier
 			if(plxUtils::write($xml,path('XMLFILE_CATEGORIES')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-				else {
-					$this->aCats = $save;
-					return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_CATEGORIES'));
-				}
+			else {
+				$this->aCats = $save;
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_CATEGORIES'));
+			}
 		}
 	}
 
@@ -757,7 +758,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				}
 			}
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aStats)>0) uasort($this->aStats, function($a, $b){return $a["ordre"]>$b["ordre"];});
+			if(sizeof($this->aStats)>0)
+				uasort($this->aStats, function($a, $b){return $a["ordre"]>$b["ordre"];});
 		}
 		# sauvegarde
 		if($action) {
@@ -798,17 +800,17 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			# On écrit le fichier si une action valide a été faite
 			if(plxUtils::write($xml,path('XMLFILE_STATICS')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-				else {
-					$this->aStats = $save;
-					return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_STATICS'));
-				}
+			else {
+				$this->aStats = $save;
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_STATICS'));
+			}
 		}
 	}
 
 	/**
 	 * Méthode qui lit le fichier d'une page statique
 	 *
-	 * @param	num	numero du fichier de la page statique
+	 * @param	num		numero du fichier de la page statique
 	 * @return	string	contenu de la page
 	 * @author	Stephane F.
 	 **/
@@ -855,15 +857,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			# On écrit le fichier
 			if(plxUtils::write($content['content'],$filename))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-				else
-					return plxMsg::Error(L_SAVE_ERR.' '.$filename);
+			else
+				return plxMsg::Error(L_SAVE_ERR.' '.$filename);
 		}
 	}
 
 	/**
 	 *  Méthode qui retourne le prochain id d'un article
 	 *
-	 * @return	string		id d'un nouvel article sous la forme 0001
+	 * @return	string	id d'un nouvel article sous la forme 0001
 	 * @author	Stephane F.
 	 **/
 	public function nextIdArticle() {
@@ -879,8 +881,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui effectue une création ou mise a jour d'un article
 	 *
-	 * @param	content		données saisies de l'article
-	 * @param	&id			retourne le numero de l'article
+	 * @param	content	données saisies de l'article
+	 * @param	&id		retourne le numero de l'article
 	 * @return	string
 	 * @author	Stephane F., Florent MONTHEL
 	 **/
@@ -890,89 +892,90 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if($id == '0000' OR $id == '')
 			$id = $this->nextIdArticle();
 
-			# Vérification de l'intégrité de l'identifiant
-			if(!preg_match('/^_?[0-9]{4}$/',$id)) {
-				$id='';
-				return L_ERR_INVALID_ARTICLE_IDENT;
+		# Vérifie l'intégrité de l'identifiant
+		if(!preg_match('/^_?[0-9]{4}$/',$id)) {
+			$id='';
+			return L_ERR_INVALID_ARTICLE_IDENT;
+		}
+
+		# Génération de notre url d'article
+		$tmpstr = (!empty($content['url'])) ? $content['url'] : $content['title'];
+		$content['url'] = plxUtils::urlify($tmpstr);
+
+		# URL vide après le passage de la fonction ;)
+		if($content['url'] == '') $content['url'] = L_DEFAULT_NEW_ARTICLE_URL;
+
+		# Hook plugins
+		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
+
+		# Suppression des doublons dans les tags
+		$tags = array_map('trim', explode(',', trim($content['tags'])));
+		$tags_unique = array_unique($tags);
+		$content['tags'] = implode(', ', $tags_unique);
+
+		# Formate des dates de creation et de mise à jour
+		$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
+		$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
+		$date_update = $date_update==$content['date_update_old'] ? date('YmdHi') : $date_update;
+		# Génération du fichier XML
+		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
+		$xml .= "<document>\n";
+		$xml .= "\t".'<title><![CDATA['.plxUtils::cdataCheck(trim($content['title'])).']]></title>'."\n";
+		$xml .= "\t".'<allow_com>'.$content['allow_com'].'</allow_com>'."\n";
+		$xml .= "\t".'<template><![CDATA['.basename($content['template']).']]></template>'."\n";
+		$xml .= "\t".'<chapo><![CDATA['.plxUtils::cdataCheck(trim($content['chapo'])).']]></chapo>'."\n";
+		$xml .= "\t".'<content><![CDATA['.plxUtils::cdataCheck(trim($content['content'])).']]></content>'."\n";
+		$xml .= "\t".'<tags><![CDATA['.plxUtils::cdataCheck(trim($content['tags'])).']]></tags>'."\n";
+		$meta_description = plxUtils::getValue($content['meta_description']);
+		$xml .= "\t".'<meta_description><![CDATA['.plxUtils::cdataCheck(trim($meta_description)).']]></meta_description>'."\n";
+		$meta_keywords = plxUtils::getValue($content['meta_keywords']);
+		$xml .= "\t".'<meta_keywords><![CDATA['.plxUtils::cdataCheck(trim($meta_keywords)).']]></meta_keywords>'."\n";
+		$title_htmltag = plxUtils::getValue($content['title_htmltag']);
+		$xml .= "\t".'<title_htmltag><![CDATA['.plxUtils::cdataCheck(trim($title_htmltag)).']]></title_htmltag>'."\n";
+		$thumbnail = plxUtils::getValue($content['thumbnail']);
+		$xml .= "\t".'<thumbnail><![CDATA['.plxUtils::cdataCheck(trim($thumbnail)).']]></thumbnail>'."\n";
+		$thumbnail_alt = plxUtils::getValue($content['thumbnail_alt']);
+		$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>'."\n";
+		$thumbnail_title = plxUtils::getValue($content['thumbnail_title']);
+		$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>'."\n";
+		$xml .= "\t".'<date_creation><![CDATA['.plxUtils::cdataCheck($date_creation).']]></date_creation>'."\n";
+		$xml .= "\t".'<date_update><![CDATA['.plxUtils::cdataCheck($date_update).']]></date_update>'."\n";
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
+		$xml .= "</document>\n";
+		# Recherche du nom du fichier correspondant à l'id
+		$oldArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/','','sort',0,1,'all');
+
+		# Si demande de modération de l'article
+		if(isset($content['moderate']))
+			$id = '_'.str_replace('_','',$id);
+		# Si demande de publication
+		if(isset($content['publish']) OR isset($content['draft']))
+			$id = str_replace('_','',$id);
+
+		# On genère le nom de notre fichier
+		$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
+		if(!preg_match('/^[0-9]{12}$/',$time)) $time = date('YmdHi'); # Check de la date au cas ou...
+		if(empty($content['catId'])) $content['catId']=array('000'); # Catégorie non classée
+		$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$time.'.'.$content['url'].'.xml';
+		# On va mettre à jour notre fichier
+		if(plxUtils::write($xml,$filename)) {
+			# suppression ancien fichier si nécessaire
+			if($oldArt) {
+				$oldfilename = PLX_ROOT.$this->aConf['racine_articles'].$oldArt['0'];
+				if($oldfilename!=$filename AND file_exists($oldfilename))
+					unlink($oldfilename);
 			}
-
-			# Génération de notre url d'article
-			$tmpstr = (!empty($content['url'])) ? $content['url'] : $content['title'];
-			$content['url'] = plxUtils::urlify($tmpstr);
-
-					# URL vide après le passage de la fonction ;)
-					if($content['url'] == '') $content['url'] = L_DEFAULT_NEW_ARTICLE_URL;
-
-					# Hook plugins
-					if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
-
-					# Suppression des doublons dans les tags
-					$tags = array_map('trim', explode(',', trim($content['tags'])));
-					$tags_unique = array_unique($tags);
-					$content['tags'] = implode(', ', $tags_unique);
-
-					# Formate des dates de creation et de mise à jour
-					$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
-					$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
-					$date_update = $date_update==$content['date_update_old'] ? date('YmdHi') : $date_update;
-					# Génération du fichier XML
-					$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-					$xml .= "<document>\n";
-					$xml .= "\t".'<title><![CDATA['.plxUtils::cdataCheck(trim($content['title'])).']]></title>'."\n";
-					$xml .= "\t".'<allow_com>'.$content['allow_com'].'</allow_com>'."\n";
-					$xml .= "\t".'<template><![CDATA['.basename($content['template']).']]></template>'."\n";
-					$xml .= "\t".'<chapo><![CDATA['.plxUtils::cdataCheck(trim($content['chapo'])).']]></chapo>'."\n";
-					$xml .= "\t".'<content><![CDATA['.plxUtils::cdataCheck(trim($content['content'])).']]></content>'."\n";
-					$xml .= "\t".'<tags><![CDATA['.plxUtils::cdataCheck(trim($content['tags'])).']]></tags>'."\n";
-					$meta_description = plxUtils::getValue($content['meta_description']);
-					$xml .= "\t".'<meta_description><![CDATA['.plxUtils::cdataCheck(trim($meta_description)).']]></meta_description>'."\n";
-					$meta_keywords = plxUtils::getValue($content['meta_keywords']);
-					$xml .= "\t".'<meta_keywords><![CDATA['.plxUtils::cdataCheck(trim($meta_keywords)).']]></meta_keywords>'."\n";
-					$title_htmltag = plxUtils::getValue($content['title_htmltag']);
-					$xml .= "\t".'<title_htmltag><![CDATA['.plxUtils::cdataCheck(trim($title_htmltag)).']]></title_htmltag>'."\n";
-					$thumbnail = plxUtils::getValue($content['thumbnail']);
-					$xml .= "\t".'<thumbnail><![CDATA['.plxUtils::cdataCheck(trim($thumbnail)).']]></thumbnail>'."\n";
-					$thumbnail_alt = plxUtils::getValue($content['thumbnail_alt']);
-					$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>'."\n";
-					$thumbnail_title = plxUtils::getValue($content['thumbnail_title']);
-					$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>'."\n";
-					$xml .= "\t".'<date_creation><![CDATA['.plxUtils::cdataCheck($date_creation).']]></date_creation>'."\n";
-					$xml .= "\t".'<date_update><![CDATA['.plxUtils::cdataCheck($date_update).']]></date_update>'."\n";
-					# Hook plugins
-					eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
-					$xml .= "</document>\n";
-					# Recherche du nom du fichier correspondant à l'id
-					$oldArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/','','sort',0,1,'all');
-
-					# Si demande de modération de l'article
-					if(isset($content['moderate']))
-						$id = '_'.str_replace('_','',$id);
-						# Si demande de publication
-						if(isset($content['publish']) OR isset($content['draft']))
-							$id = str_replace('_','',$id);
-
-							# On genère le nom de notre fichier
-							$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
-							if(!preg_match('/^[0-9]{12}$/',$time)) $time = date('YmdHi'); # Check de la date au cas ou...
-							if(empty($content['catId'])) $content['catId']=array('000'); # Catégorie non classée
-							$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$time.'.'.$content['url'].'.xml';
-							# On va mettre à jour notre fichier
-							if(plxUtils::write($xml,$filename)) {
-								# suppression ancien fichier si nécessaire
-								if($oldArt) {
-									$oldfilename = PLX_ROOT.$this->aConf['racine_articles'].$oldArt['0'];
-									if($oldfilename!=$filename AND file_exists($oldfilename))
-										unlink($oldfilename);
-								}
-								# mise à jour de la liste des tags
-								$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
-								$this->editTags();
-								$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
-								eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
-								return plxMsg::Info($msg);
-							} else {
-								return plxMsg::Error(L_ARTICLE_SAVE_ERR);
-							}
+			# mise à jour de la liste des tags
+			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
+			$this->editTags();
+			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
+			return plxMsg::Info($msg);
+		} else {
+			return plxMsg::Error(L_ARTICLE_SAVE_ERR);
+		}
 	}
 
 	/**
@@ -987,36 +990,36 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# Vérification de l'intégrité de l'identifiant
 		if(!preg_match('/^_?[0-9]{4}$/',$id))
 			return L_ERR_INVALID_ARTICLE_IDENT;
-			# Variable d'état
-			$resDelArt = $resDelCom = true;
-			# Suppression de l'article
-			if($globArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/')) {
-				unlink(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
-				$resDelArt = !file_exists(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
+		# Variable d'état
+		$resDelArt = $resDelCom = true;
+		# Suppression de l'article
+		if($globArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/')) {
+			unlink(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
+			$resDelArt = !file_exists(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
+		}
+		# Suppression des commentaires
+		if($globComs = $this->plxGlob_coms->query('/^_?'.str_replace('_','',$id).'.(.*).xml$/')) {
+			$nb_coms=sizeof($globComs);
+			for($i=0; $i<$nb_coms; $i++) {
+				unlink(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]);
+				$resDelCom = (!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]) AND $resDelCom);
 			}
-			# Suppression des commentaires
-			if($globComs = $this->plxGlob_coms->query('/^_?'.str_replace('_','',$id).'.(.*).xml$/')) {
-				$nb_coms=sizeof($globComs);
-				for($i=0; $i<$nb_coms; $i++) {
-					unlink(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]);
-					$resDelCom = (!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]) AND $resDelCom);
-				}
-			}
+		}
 
-			# Hook plugins
-			if(eval($this->plxPlugins->callHook('plxAdminDelArticle'))) return;
+		# Hook plugins
+		if(eval($this->plxPlugins->callHook('plxAdminDelArticle'))) return;
 
-			# On renvoi le résultat
-			if($resDelArt AND $resDelCom) {
-				# mise à jour de la liste des tags
-				if(isset($this->aTags[$id])) {
-					unset($this->aTags[$id]);
-					$this->editTags();
-				}
-				return plxMsg::Info(L_ARTICLE_DELETE_SUCCESSFUL);
+		# On renvoi le résultat
+		if($resDelArt AND $resDelCom) {
+			# mise à jour de la liste des tags
+			if(isset($this->aTags[$id])) {
+				unset($this->aTags[$id]);
+				$this->editTags();
 			}
-			else
-				return plxMsg::Error(L_ARTICLE_DELETE_ERR);
+			return plxMsg::Info(L_ARTICLE_DELETE_SUCCESSFUL);
+		}
+		else
+			return plxMsg::Error(L_ARTICLE_DELETE_ERR);
 	}
 
 	/**
@@ -1044,15 +1047,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# On peut créer le commentaire
 		if($this->addCommentaire($comment)) # Commentaire OK
 			return true;
-			else
-				return false;
+		else
+			return false;
 	}
 
 	/**
 	 * Méthode qui effectue une mise a jour d'un commentaire
 	 *
 	 * @param	content	données du commentaire à mettre à jour
-	 * @param	id	identifiant du commentaire
+	 * @param	id		identifiant du commentaire
 	 * @return	string
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
@@ -1062,47 +1065,47 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time']))
 			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
 
-			$comment=array();
-			# Génération du nom du fichier
-			$comment['filename'] = $id.'.xml';
-			if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename'])) # Commentaire inexistant
-				return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
-				# Contrôle des saisies
-				if(trim($content['mail'])!='' AND !plxUtils::checkMail(trim($content['mail'])))
-					return plxMsg::Error(L_ERR_INVALID_EMAIL);
-					if(trim($content['site'])!='' AND !plxUtils::checkSite($content['site']))
-						return plxMsg::Error(L_ERR_INVALID_SITE);
-						# On récupère les infos du commentaire
-						$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
-						# Formatage des données
-						if($com['type'] != 'admin') {
-							$comment['author'] = plxUtils::strCheck(trim($content['author']));
-							$comment['site'] = plxUtils::strCheck(trim($content['site']));
-							$comment['content'] = plxUtils::strCheck(trim($content['content']));
-						} else {
-							$comment['author'] = trim($content['author']);
-							$comment['site'] = trim($content['site']);
-							$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
-						}
-						$comment['ip'] = $com['ip'];
-						$comment['type'] = $com['type'];
-						$comment['mail'] = $content['mail'];
-						$comment['site'] = $content['site'];
-						$comment['parent'] = $com['parent'];
-						# Génération du nouveau nom du fichier
-						$time = explode(':', $content['date_publication_time']);
-						$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
-						$com = $this->comInfoFromFilename($id.'.xml');
-						$newid = $com['comStatus'].$com['artId'].'.'.$newtimestamp.'-'.$com['comIdx'];
-						$comment['filename'] = $newid.'.xml';
-						# Suppression de l'ancien commentaire
-						$this->delCommentaire($id);
-						# Création du nouveau commentaire
-						$id = $newid;
-						if($this->addCommentaire($comment))
-							return plxMsg::Info(L_COMMENT_SAVE_SUCCESSFUL);
-							else
-								return plxMsg::Error(L_COMMENT_UPDATE_ERR);
+		$comment=array();
+		# Génération du nom du fichier
+		$comment['filename'] = $id.'.xml';
+		if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename'])) # Commentaire inexistant
+			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
+		# Contrôle des saisies
+		if(trim($content['mail'])!='' AND !plxUtils::checkMail(trim($content['mail'])))
+			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+		if(trim($content['site'])!='' AND !plxUtils::checkSite($content['site']))
+			return plxMsg::Error(L_ERR_INVALID_SITE);
+		# On récupère les infos du commentaire
+		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
+		# Formatage des données
+		if($com['type'] != 'admin') {
+			$comment['author'] = plxUtils::strCheck(trim($content['author']));
+			$comment['site'] = plxUtils::strCheck(trim($content['site']));
+			$comment['content'] = plxUtils::strCheck(trim($content['content']));
+		} else {
+			$comment['author'] = trim($content['author']);
+			$comment['site'] = trim($content['site']);
+			$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
+		}
+		$comment['ip'] = $com['ip'];
+		$comment['type'] = $com['type'];
+		$comment['mail'] = $content['mail'];
+		$comment['site'] = $content['site'];
+		$comment['parent'] = $com['parent'];
+		# Génération du nouveau nom du fichier
+		$time = explode(':', $content['date_publication_time']);
+		$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
+		$com = $this->comInfoFromFilename($id.'.xml');
+		$newid = $com['comStatus'].$com['artId'].'.'.$newtimestamp.'-'.$com['comIdx'];
+		$comment['filename'] = $newid.'.xml';
+		# Suppression de l'ancien commentaire
+		$this->delCommentaire($id);
+		# Création du nouveau commentaire
+		$id = $newid;
+		if($this->addCommentaire($comment))
+			return plxMsg::Info(L_COMMENT_SAVE_SUCCESSFUL);
+		else
+			return plxMsg::Error(L_COMMENT_UPDATE_ERR);
 	}
 
 	/**
@@ -1123,8 +1126,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# On refait un test file_exists pour savoir si unlink à fonctionner
 		if(!file_exists($filename))
 			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
-			else
-				return plxMsg::Error(L_COMMENT_DELETE_ERR);
+		else
+			return plxMsg::Error(L_COMMENT_DELETE_ERR);
 	}
 
 	/**
@@ -1143,28 +1146,28 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
 		if(!file_exists($oldfilename)) # Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
-			# Modérer ou valider ?
-			if(preg_match('/([[:punct:]]?)[0-9]{4}.[0-9]{10}-[0-9]+$/',$id,$capture)) {
-				$id=str_replace($capture[1],'',$id);
-			}
-			if($mod=='offline')
-				$id = '_'.$id;
-				# Génération du nouveau nom de fichier
-				$newfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
-				# On renomme le fichier
-				@rename($oldfilename,$newfilename);
-				# Contrôle
-				if(is_readable($newfilename)) {
-					if($mod == 'online')
-						return plxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
-						else
-							return plxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
-				} else {
-					if($mod == 'online')
-						return plxMsg::Error(L_COMMENT_VALIDATE_ERR);
-						else
-							return plxMsg::Error(L_COMMENT_MODERATE_ERR);
-				}
+		# Modérer ou valider ?
+		if(preg_match('/([[:punct:]]?)[0-9]{4}.[0-9]{10}-[0-9]+$/',$id,$capture)) {
+			$id=str_replace($capture[1],'',$id);
+		}
+		if($mod=='offline')
+			$id = '_'.$id;
+		# Génération du nouveau nom de fichier
+		$newfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
+		# On renomme le fichier
+		@rename($oldfilename,$newfilename);
+		# Contrôle
+		if(is_readable($newfilename)) {
+			if($mod == 'online')
+				return plxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
+			else
+				return plxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
+		} else {
+			if($mod == 'online')
+				return plxMsg::Error(L_COMMENT_VALIDATE_ERR);
+			else
+				return plxMsg::Error(L_COMMENT_MODERATE_ERR);
+		}
 	}
 
 	/**
