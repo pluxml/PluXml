@@ -739,4 +739,3 @@ class plxPlugin {
 	}
 
 }
-?>

@@ -431,4 +431,3 @@ class plxFeed extends plxMotor {
 		echo '</rss>';
 	}
 }
-?>

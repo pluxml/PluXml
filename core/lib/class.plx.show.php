@@ -188,8 +188,8 @@ class plxShow {
 	 **/
 	public function pageTitle($format='',$sep=";") {
 
-	    $capture = '';
-	    
+		$capture = '';
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPageTitle'))) return;
 
@@ -265,16 +265,16 @@ class plxShow {
 				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
 			return;
 		}
-		
-        if($this->plxMotor->mode == 'article') {
-            if($meta=='author')
-                echo '<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
-            else {
-                $meta_content=trim($this->plxMotor->plxRecord_arts->f('meta_'.$meta));
-                if(!empty($meta_content))
-                    echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
-            }
-            return;
+
+		if($this->plxMotor->mode == 'article') {
+			if($meta=='author')
+				echo '<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
+			else {
+				$meta_content=trim($this->plxMotor->plxRecord_arts->f('meta_'.$meta));
+				if(!empty($meta_content))
+					echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
+			}
+			return;
 		}
 
 		if($this->plxMotor->mode == 'static') {
@@ -944,20 +944,20 @@ class plxShow {
 	 * @scope	global
 	 * @author	Florent MONTHEL, Stephane F, Cyril MAGUIRE, Thomas Ingles
 	 **/
-    public function lastArtList($format='', $max=5, $cat_id='', $ending='', $sort='rsort') {
+	public function lastArtList($format='', $max=5, $cat_id='', $ending='', $sort='rsort') {
 
-        $capture = '';
+		$capture = '';
 
 		$format = empty($format)? '<li><a href="#art_url" title="#art_title">#art_title</a></li>': $format; # V5.8 format par defaut si vide
 
-        // Hook Plugins
+		// Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) return;
 
 		// Génération de notre motif
 		$all = (isset($all)? $all: empty($cat_id)); # pour le hook : si $all = TRUE, n'y passe pas
 		$cats = $this->plxMotor->activeCats . '|home'; # toutes les categories active
 		if(!$all) {
-            if(is_numeric($cat_id)) # inclusion à partir de l'id de la categorie
+			if(is_numeric($cat_id)) # inclusion à partir de l'id de la categorie
 				$cats = str_pad($cat_id,3,'0',STR_PAD_LEFT);
 			else { # inclusion à partir de url de la categorie
 				$cat_id .= '|';
@@ -1279,8 +1279,8 @@ class plxShow {
 	 **/
 	public function lastComList($format='<li><a href="#com_url">#com_author L_SAID :</a><br/>#com_content(50)</li>',$max=5,$art_id='',$cat_ids='') {
 
-	    $capture = '';
-	    
+		$capture = '';
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastComList'))) return;
 
@@ -1502,7 +1502,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche la date de la dernière modification de la page statique selon le format choisi
 	 *
-	 * @param	format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+	 * @param	format	format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
 	 * @scope	static
 	 * @author	Anthony T.
 	 **/
@@ -1604,8 +1604,8 @@ class plxShow {
 	 **/
 	public function pagination() {
 
-	    $capture = '';
-	    $plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
+		$capture = '';
+		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
 		$aFiles = $plxGlob_arts->query($this->plxMotor->motif,'art','',0,false,'before');
 
 		if($aFiles AND $this->plxMotor->bypage AND sizeof($aFiles)>$this->plxMotor->bypage) {
@@ -1715,7 +1715,7 @@ class plxShow {
 	 public function tagFeed($type='rss', $tag='', $format='<a href="#feedUrl" title="#feedTitle">#feedName</a>') {
 
 		# Hook Plugins
-		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagFeed'))) 
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagFeed')))
 			return;
 
 		if ($this->plxMotor->aConf ['enable_rss']) {
@@ -1728,7 +1728,7 @@ class plxShow {
 			echo $result;
 		}
 	}
-	
+
 	/**
 	 * Méthode qui affiche la liste de tous les tags.
 	 *
@@ -1858,8 +1858,8 @@ class plxShow {
 	 **/
 	public function archList($format='<li id="#archives_id"><a class="#archives_status" href="#archives_url" title="#archives_name">#archives_name</a></li>'){
 
-	    $capture = '';
-	    
+		$capture = '';
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArchList'))) return;
 
@@ -1995,7 +1995,7 @@ class plxShow {
 	/**
 	 * Méthode qui ajoute, s'il existe, le fichier css associé à un template
 	 *
-	 * @param	css_dir     répertoire de stockage des fichiers css (avec un / à la fin)
+	 * @param	css_dir	 répertoire de stockage des fichiers css (avec un / à la fin)
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
@@ -2033,7 +2033,7 @@ class plxShow {
 	/**
 	 * Méthode qui affiche une clé de traduction appelée à partir du thème
 	 *
-	 * @param	key          clé de traduction à afficher
+	 * @param	key		  clé de traduction à afficher
 	 * @return	string
 	 * @scope	global
 	 * @author	Stephane F
@@ -2048,7 +2048,7 @@ class plxShow {
 	/**
 	 * Méthode qui renvoie une clé de traduction appelée à partir du thème
 	 *
-	 * @param	key	         clé de traduction à afficher
+	 * @param	key			 clé de traduction à afficher
 	 * @return	string
 	 * @scope	global
 	 * @author	Stephane F
@@ -2104,28 +2104,27 @@ class plxShow {
 
 	/**
 	 * Method in charge of giving an RSS feed URL for current page posts
-	 * 
-	 * @param      mode        the view mode from plxMotor->mode (categorie, tags)
-	 * @return     string      the contextualised rss feed URL 
-	 * @author     Pedro "P3ter" CADETE
+	 *
+	 * @param	  mode		the view mode from plxMotor->mode (categorie, tags)
+	 * @return	 string	  the contextualised rss feed URL
+	 * @author	 Pedro "P3ter" CADETE
 	 */
 	public function urlPostsRssFeed($mode = 'home')
 	{
-	    $url = '';
-	    switch ($mode) {
-	        case 'categorie':
-	            $categorie = $this->catId();
-	            $id = str_pad($categorie, 3, '0', STR_PAD_LEFT);
-	            $url = $this->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']);
-	            break;
-	        case 'tags':
-	            $tag = plxUtils::strCheck($this->plxMotor->cible);
-	            $url = $this->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag));
-	            break;
-	        default :
-	            $url = $this->urlRewrite('feed.php?rss');
-	    }
-	    return $url;
+		$url = '';
+		switch ($mode) {
+			case 'categorie':
+				$categorie = $this->catId();
+				$id = str_pad($categorie, 3, '0', STR_PAD_LEFT);
+				$url = $this->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']);
+				break;
+			case 'tags':
+				$tag = plxUtils::strCheck($this->plxMotor->cible);
+				$url = $this->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag));
+				break;
+			default :
+				$url = $this->urlRewrite('feed.php?rss');
+		}
+		return $url;
 	}
 }
-?>

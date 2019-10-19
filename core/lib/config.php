@@ -73,4 +73,3 @@ function path($s, $newvalue='') {
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
 }
-?>

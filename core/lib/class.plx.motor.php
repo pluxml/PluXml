@@ -133,9 +133,9 @@ class plxMotor {
 			$this->cible = $this->aConf['homestatic'];
 			$this->template = $this->aStats[ $this->cible ]['template'];
 		}
-		elseif(empty($this->get) 
-		    	OR preg_match('@^(blog|blog\/page[0-9]*|\/?page[0-9]*)$@', $this->get) 
-		    	OR !preg_match('@^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+@', $this->get)) {
+		elseif(empty($this->get)
+				OR preg_match('@^(blog|blog\/page[0-9]*|\/?page[0-9]*)$@', $this->get)
+				OR !preg_match('@^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+@', $this->get)) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
 			$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
@@ -993,24 +993,24 @@ class plxMotor {
 		# Mémorisation de la liste des tags
 		$this->aTags = $array;
 	}
-	
-    /**
+
+	/**
 	 * Method in charge of making the template list in $_aTemplate array
 	 *
-	 * @param  string      the template's folder
-	 * @return	
+	 * @param  string	  the template's folder
+	 * @return
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function getTemplates($templateFolder) {
-	    
-	    $files = array_diff(scandir($templateFolder), array('..', '.'));
-	    foreach ($files as $file) {
-	        $this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
-	    }
-	    
-	    return;
+
+		$files = array_diff(scandir($templateFolder), array('..', '.'));
+		foreach ($files as $file) {
+			$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+		}
+
+		return;
 	}
-	
+
 	/**
 	 * Méthode qui lance le téléchargement d'un document
 	 *
@@ -1153,4 +1153,3 @@ class plxMotor {
 	}
 
 }
-?>

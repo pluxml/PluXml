@@ -227,5 +227,4 @@ class plxGlob {
 		return false;
 	}
 
-} 
-?>
+}
