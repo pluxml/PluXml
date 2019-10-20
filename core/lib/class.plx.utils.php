@@ -17,7 +17,7 @@ class plxUtils {
 	 *
 	 * @param	var			string	variable à tester
 	 * @param	default		string	valeur par défaut
-	 * @return	string	  valeur de la variable ou valeur par défaut passée en paramètre
+	 * @return	string		valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
 		return (isset($var) ? (!empty($var) ? $var : $default) : $default) ;
@@ -192,10 +192,10 @@ class plxUtils {
 	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	placeholder valeur du placeholder du champ (html5)
-	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
-	 * @param   required	permet de rendre le champ obligatoire
+	 * @param	extra		extra paramètre pour du javascript par exemple (onclick)
+	 * @param	required	permet de rendre le champ obligatoire
 	 * @return	self
-	 * @author  unknow, Pedro "P3ter" CADETE
+	 * @author	unknow, Pedro "P3ter" CADETE
 	 **/
 	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
@@ -231,13 +231,13 @@ class plxUtils {
 	/**
 	 * Méthode qui affiche des boutons radio
 	 *
-	 * @param  string $name		 nom des radio boutons
-	 * @param  string $value		valeur correspond au radio bouton
-	 * @param  string $className	class css à utiliser pour formater l'affichage
-	 * @param  string $checked	  valeur par défaut
-	 * @param  boolean $required	permet de rendre le champ obligatoire
-	 * @return self
-	 * @author Pedro "P3ter" CADETE
+	 * @param	string $name		 nom des radio boutons
+	 * @param	string $value		valeur correspond au radio bouton
+	 * @param	string $className	class css à utiliser pour formater l'affichage
+	 * @param	string $checked		valeur par défaut
+	 * @param	boolean $required	permet de rendre le champ obligatoire
+	 * @return	self
+	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public static function printInputRadio($name, $array, $checked='', $className='', $extra='') {
 
@@ -439,7 +439,7 @@ class plxUtils {
 	/**
 	 * Method to translitterate (transform a string with only ASCII characters)
 	 * Inspired by https://github.com/jbroadway/urlify/blob/master/URLify.php
-	 * @param	string		$str		the string to translitterate
+	 * @param	string		$str	the string to translitterate
 	 * @param	boolean		$reverse
 	 * @return	string
 	 * @author J.P. Pourrez (bazooka07)
@@ -522,7 +522,7 @@ class plxUtils {
 			'-',
 			$clean_str
 		);
-		// Supprime tous les caractères non reconnues par PluXml dans les noms de fichiers, except '_'
+		# Supprime tous les caractères non reconnues par PluXml dans les noms de fichiers, except '_'
 		$clean_str = preg_replace(
 			'@[^\w-]@',
 			'',
@@ -628,22 +628,22 @@ class plxUtils {
 	 * @param	thumb_height	hauteur de la miniature
 	 * @param	quality			qualité de l'image
 	 * @return	boolean			vrai si image créée
-	 * @author  unknown, Pedro "P3ter" CADETE
+	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
 	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 
-		// Get dimensions of existing image
+		# Get dimensions of existing image
 		$image = getimagesize($src_image);
 
-		// Check for valid dimensions
+		# Check for valid dimensions
 		if($image[0] <= 0 || $image[1] <= 0) return false;
 
-		// Determine format from MIME-Type
+		# Determine format from MIME-Type
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
 
-		// calcul du ration si nécessaire
+		# calcul du ration si nécessaire
 		if($thumb_width!=$thumb_height) {
 			# Calcul du ratio
 			$x_offset = $y_offset = 0;
@@ -669,7 +669,7 @@ class plxUtils {
 
 		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
 
-		// Import image
+		# Import image
 		switch( $image['format'] ) {
 			case 'jpg':
 			case 'jpeg':
@@ -691,33 +691,33 @@ class plxUtils {
 				$image_data = imagecreatefromwebp($src_image);
 				break;
 			case 'x-ms-bmp':
-				//$image_data = imagecreatefrombmp($src_image); // Only PHP 7+
+				#$image_data = imagecreatefrombmp($src_image); # Only PHP 7+
 				$image_data = false;
 				break;
 			default:
-				return false; // Unsupported format
+				return false; # Unsupported format
 			break;
 		}
 
-		// Verify import
+		# Verify import
 		if($image_data == false) return false;
 
-		// Calculate measurements (square crop)
+		# Calculate measurements (square crop)
 		if($thumb_width==$thumb_height) {
 			if($image[0] > $image[1]) {
-				// For landscape images
+				# For landscape images
 				$x_offset = ($image[0] - $image[1]) / 2;
 				$y_offset = 0;
 				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
 			} else {
-				// For portrait and square images
+				# For portrait and square images
 				$x_offset = 0;
 				$y_offset = ($image[1] - $image[0]) / 2;
 				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
 			}
 		}
 
-		// Resize and crop
+		# Resize and crop
 		if( imagecopyresampled(
 			$canvas,
 			$image_data,
@@ -731,7 +731,7 @@ class plxUtils {
 			$square_size_h
 		)) {
 
-			// Create thumbnail
+			# Create thumbnail
 			switch( strtolower(preg_replace('/^.*\./', '', $dest_image)) ) {
 				case 'jpg':
 				case 'jpeg':
@@ -750,7 +750,7 @@ class plxUtils {
 					return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
 					break;
 				default:
-					return false; // Unsupported format
+					return false;# Unsupported format
 				break;
 			}
 
@@ -763,10 +763,10 @@ class plxUtils {
 	/**
 	 * Méthode qui affiche un message
 	 *
-	 * @param	string message à afficher
-	 * @param	string classe css à utiliser pour formater l'affichage du message
-	 * @param   string format des balises avant le message
-	 * @param	string format des balises après le message
+	 * @param	string	message à afficher
+	 * @param	string	classe css à utiliser pour formater l'affichage du message
+	 * @param	string	format des balises avant le message
+	 * @param	string	format des balises après le message
 	 **/
 	public static function showMsg($msg, $class='',$format_start='<p class="#CLASS">',$format_end='</p>') {
 		$format_start = str_replace('#CLASS',($class != '' ? $class : 'msg'),$format_start);
@@ -776,7 +776,7 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne l'url de base du site
 	 *
-	 * @return	string		url de base du site
+	 * @return	string	url de base du site
 	 **/
 	public static function getRacine() {
 
@@ -793,8 +793,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères au hasard
 	 *
-	 * @param	taille		nombre de caractère de la chaine à retourner (par défaut sur 10 caractères)
-	 * @return	string		chaine de caractères au hasard
+	 * @param	taille	nombre de caractère de la chaine à retourner (par défaut sur 10 caractères)
+	 * @return	string	chaine de caractères au hasard
 	 **/
 	public static function charAleatoire($taille='10') {
 
@@ -811,7 +811,7 @@ class plxUtils {
 	 *
 	 * @param	str			chaine de caractères à couper
 	 * @param	length		nombre de caractères ou nombre de mots à garder (par défaut 25)
-	 * @param   type		à renseigner avec la valeur 'word' pour couper en nombre de mots. Par défaut la césure se fait en nombre de caractères
+	 * @param	type		à renseigner avec la valeur 'word' pour couper en nombre de mots. Par défaut la césure se fait en nombre de caractères
 	 * @param	add_text	texte à ajouter après la chaine coupée (par défaut '...' est ajouté)
 	 * @return	string		chaine de caractères coupée
 	 **/
@@ -828,8 +828,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères formatée en fonction du charset
 	 *
-	 * @param	str			chaine de caractères
-	 * @return	string		chaine de caractères tenant compte du charset
+	 * @param	str		chaine de caractères
+	 * @return	string	chaine de caractères tenant compte du charset
 	 **/
 	public static function strCheck($str) {
 
@@ -839,8 +839,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères nettoyée des cdata
 	 *
-	 * @param	str			chaine de caractères à nettoyer
-	 * @return	string		chaine de caractères nettoyée
+	 * @param	str		chaine de caractères à nettoyer
+	 * @return	string	chaine de caractères nettoyée
 	 * @author	Stephane F
 	 **/
 	public static function cdataCheck($str) {
@@ -851,8 +851,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères HTML en fonction du charset
 	 *
-	 * @param	str			chaine de caractères
-	 * @return	string		chaine de caractères tenant compte du charset
+	 * @param	str		chaine de caractères
+	 * @return	string	chaine de caractères tenant compte du charset
 	 **/
 	public static function strRevCheck($str) {
 
@@ -879,9 +879,9 @@ class plxUtils {
 	/**
 	 * Méthode qui converti les liens relatifs en liens absolus
 	 *
-	 * @param	base		url du site qui sera rajoutée devant les liens relatifs
-	 * @param	html		chaine de caractères à convertir
-	 * @return	string		chaine de caractères modifiée
+	 * @param	base	url du site qui sera rajoutée devant les liens relatifs
+	 * @param	html	chaine de caractères à convertir
+	 * @return	string	chaine de caractères modifiée
 	 * @author	Stephane F., Amaury Graillat, J.P. Pourrez
 	 **/
 	public static function rel2abs($base, $html) {
@@ -948,7 +948,7 @@ class plxUtils {
 	* @param	to		array/string	Adresse(s) du(des) destinataires(s)
 	* @param	subject	string			Objet du mail
 	* @param	body	string			contenu du mail
-	* @return			boolean			renvoie FAUX en cas d'erreur d'envoi
+	* @return	boolean	renvoie FAUX en cas d'erreur d'envoi
 	* @author	Amaury Graillat
 	**/
 	public static function sendMail($name, $from, $to, $subject, $body, $contentType="text", $cc=false, $bcc=false) {
@@ -963,14 +963,14 @@ class plxUtils {
 		$headers  = "From: ".$name." <".$from.">\r\n";
 		$headers .= "Reply-To: ".$from."\r\n";
 		$headers .= 'MIME-Version: 1.0'."\r\n";
-		// Content-Type
+		# Content-Type
 		if($contentType == 'html')
 			$headers .= 'Content-type: text/html; charset="'.PLX_CHARSET.'"'."\r\n";
 		else
 			$headers .= 'Content-type: text/plain; charset="'.PLX_CHARSET.'"'."\r\n";
 
 		$headers .= 'Content-transfer-encoding: 8bit'."\r\n";
-		$headers .= 'Date: '.date("D, j M Y G:i:s O")."\r\n"; // Sat, 7 Jun 2001 12:35:58 -0700
+		$headers .= 'Date: '.date("D, j M Y G:i:s O")."\r\n"; # Sat, 7 Jun 2001 12:35:58 -0700
 
 		if($cc != "")
 			$headers .= 'Cc: '.$cc."\r\n";
@@ -982,17 +982,17 @@ class plxUtils {
 
 	/**
 	 * Send an e-mail with PhpMailer class
-	 * @param string $name			Sender's name
-	 * @param string $from			Sender's e-mail address
-	 * @param string $to			Destination e-mail address
-	 * @param string $subject		E-mail subject
-	 * @param string $body			E-mail body content
-	 * @param boolean $isHtml		True if body content use HTML
-	 * @param string $mailer		SMTP or php sendmail() function by default
-	 * @param string $smtpHost		SMTP server DNS or IP
-	 * @param string $smtpUsername	SMTP Username
-	 * @param string $smtpPassword	SMTP Password
-	 * @return boolean
+	 * @param	string	$name			Sender's name
+	 * @param	string	$from			Sender's e-mail address
+	 * @param	string	$to				Destination e-mail address
+	 * @param	string	$subject		E-mail subject
+	 * @param	string	$body			E-mail body content
+	 * @param	boolean	$isHtml			True if body content use HTML
+	 * @param	string	$mailer			SMTP or php sendmail() function by default
+	 * @param	string	$smtpHost		SMTP server DNS or IP
+	 * @param	string	$smtpUsername	SMTP Username
+	 * @param	string	$smtpPassword	SMTP Password
+	 * @return	boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
 	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure) {
@@ -1008,7 +1008,7 @@ class plxUtils {
 			$mail->isHTML(true);
 		}
 
-		// configure and use SMTP
+		# configure and use SMTP
 		if ($mailer === 'smtp') {
 			$mail->isSMTP();
 			$mail->Host = $smtpHost;
@@ -1028,13 +1028,13 @@ class plxUtils {
 	/**
 	* Méthode qui formate un lien pour la barre des menus
 	*
-	* @param	name	string 			titre du menu
-	* @param	href	string 			lien du menu
-	* @param	title	string			contenu de la balise title
-	* @param	class	string			contenu de la balise class
-	* @param	onclick	string			contenu de la balise onclick
-	* @param	extra	string			extra texte à afficher
-	* @return			string			balise <a> formatée
+	* @param	name	string	titre du menu
+	* @param	href	string	lien du menu
+	* @param	title	string	contenu de la balise title
+	* @param	class	string	contenu de la balise class
+	* @param	onclick	string	contenu de la balise onclick
+	* @param	extra	string	extra texte à afficher
+	* @return	string	balise <a> formatée
 	* @author	Stephane F.
 	**/
 	public static function formatMenu($name, $href, $title=false, $class=false, $onclick=false, $extra='', $highlight=true) {
@@ -1055,12 +1055,12 @@ class plxUtils {
 	 * Cuts a string to the length of $length and replaces the last characters
 	 * with the ending if the text is longer than length.
 	 *
-	 * @param string  $text String to truncate.
-	 * @param integer $length Length of returned string, including ellipsis.
-	 * @param string  $ending Ending to be appended to the trimmed string.
-	 * @param boolean $exact If false, $text will not be cut mid-word
-	 * @param boolean $considerHtml If true, HTML tags would be handled correctly
-	 * @return string Trimmed string.
+	 * @param	string	$text String to truncate.
+	 * @param	intege	$length Length of returned string, including ellipsis.
+	 * @param	string	$ending Ending to be appended to the trimmed string.
+	 * @param	boolean	$exact If false, $text will not be cut mid-word
+	 * @param	boolean	$considerHtml If true, HTML tags would be handled correctly
+	 * @return	string	Trimmed string.
 	*/
 	public static function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
 		if ($considerHtml) {
@@ -1072,64 +1072,64 @@ class plxUtils {
 			$truncate = '';
 			$entities = '';
 
-			// if the plain text is shorter than the maximum length, return the whole text
+			# if the plain text is shorter than the maximum length, return the whole text
 			if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
 				return $text;
 			}
 
-			// splits all html-tags to scanable lines
+			# splits all html-tags to scanable lines
 			preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
 
 			foreach ($lines as $line_matchings) {
-				// if there is any html-tag in this line, handle it and add it (uncounted) to the output
+				# if there is any html-tag in this line, handle it and add it (uncounted) to the output
 				if (!empty($line_matchings[1])) {
-					// if it's an "empty element" with or without xhtml-conform closing slash (f.e. <br/>)
+					# if it's an "empty element" with or without xhtml-conform closing slash (f.e. <br/>)
 					if (preg_match('/^<(\s*.+?\/\s*|\s*(img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param)(\s.+?)?)>$/is', $line_matchings[1])) {
-						// do nothing
-					// if tag is a closing tag (f.e. </b>)
+						# do nothing
+					# if tag is a closing tag (f.e. </b>)
 					} else if (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
-						// delete tag from $open_tags list
+						# delete tag from $open_tags list
 						$pos = array_search($tag_matchings[1], $open_tags);
 						if ($pos !== false) {
 							unset($open_tags[$pos]);
 						}
-					// if tag is an opening tag (f.e. <b>)
+					# if tag is an opening tag (f.e. <b>)
 					} else if (preg_match('/^<\s*([^\s>!]+).*?>$/s', $line_matchings[1], $tag_matchings)) {
-						// add tag to the beginning of $open_tags list
+						# add tag to the beginning of $open_tags list
 						array_unshift($open_tags, strtolower($tag_matchings[1]));
 					}
-					// add html-tag to $truncate'd text
+					# add html-tag to $truncate'd text
 					$truncate .= $line_matchings[1];
 				}
 
-				// calculate the length of the plain text part of the line; handle entities as one character
+				# calculate the length of the plain text part of the line; handle entities as one character
 				$content_length = strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
 				if ($total_length+$content_length> $length) {
-					// the number of characters which are left
+					# the number of characters which are left
 					$left = $length - $total_length;
 					$entities_length = 0;
-					// search for html entities
+					# search for html entities
 					if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
-						// calculate the real length of all entities in the legal range
+						# calculate the real length of all entities in the legal range
 						foreach ($entities[0] as $entity) {
 							if ($entity[1]+1-$entities_length <= $left) {
 								$left--;
 								$entities_length += strlen($entity[0]);
 							} else {
-								// no more characters left
+								# no more characters left
 								break;
 							}
 						}
 					}
 					$truncate .= substr($line_matchings[2], 0, $left+$entities_length);
-					// maximum lenght is reached, so get off the loop
+					# maximum lenght is reached, so get off the loop
 					break;
 				} else {
 					$truncate .= $line_matchings[2];
 					$total_length += $content_length;
 				}
 
-				// if the maximum length is reached, get off the loop
+				# if the maximum length is reached, get off the loop
 				if($total_length>= $length) {
 					break;
 				}
@@ -1142,21 +1142,21 @@ class plxUtils {
 			}
 		}
 
-		// if the words shouldn't be cut in the middle...
+		# if the words shouldn't be cut in the middle...
 		if (!$exact) {
-			// ...search the last occurance of a space...
+			# ...search the last occurance of a space...
 			$spacepos = strrpos($truncate, ' ');
 			if (isset($spacepos)) {
-				// ...and cut the text in this position
+				# ...and cut the text in this position
 				$truncate = substr($truncate, 0, $spacepos);
 			}
 		}
 
-		// add the defined ending to the text
+		# add the defined ending to the text
 		$truncate .= $ending;
 		/*
 		if($considerHtml) {
-			// close all unclosed html-tags
+			# close all unclosed html-tags
 			foreach ($open_tags as $tag) {
 				$truncate .= '</' . $tag . '>';
 			}
@@ -1169,8 +1169,8 @@ class plxUtils {
 	/**
 	 * Protège une chaine contre un null byte
 	 *
-	 * @param	string chaine à nettoyer
-	 * @return	string chaine nettoyée
+	 * @param	string	chaine à nettoyer
+	 * @return	string	chaine nettoyée
 	*/
 	public static function nullbyteRemove($string) {
 		return str_replace("\0", '', $string);
@@ -1202,7 +1202,7 @@ class plxUtils {
 	/**
 	 * Formate le nom d'une miniature à partir d'un nom de fichier
 	 *
-	 * @param	string  nom d'un fichier
+	 * @param	string	nom d'un fichier
 	 * @return	string	nom de la miniature au format fichier.tb.ext
 	*/
 	public static function thumbName($filename) {
@@ -1218,8 +1218,8 @@ class plxUtils {
 	/**
 	 * Méthode qui minifie un buffer
 	 *
-	 * @param	string		chaine de caractères à minifier
-	 * @return	string		chaine de caractères minifiée
+	 * @param	string	chaine de caractères à minifier
+	 * @return	string	chaine de caractères minifiée
 	 * @author	Frédéric Kaplon
 	 **/
 	public static function minify($buffer) {
@@ -1233,18 +1233,18 @@ class plxUtils {
 	/**
 	 * Méthode qui converti les urls contenus dans une chaine en liens cliquables.
 	 *
-	 * @param	string		chaîne d'entrée
-	 * @param	string		Optionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
-	 * @return	string		Retourne une copie de la chaîne str dont les urls ont été encapsulées dans des balises <a>.
+	 * @param	string	chaîne d'entrée
+	 * @param	string	ptionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
+	 * @return	string	Retourne une copie de la chaîne str dont les urls ont été encapsulées dans des balises <a>.
 	 * @author	http://code.seebz.net/p/autolink-php/
 	 *	Exemple 1:
 	 *		$str = 'A link : http://example.com/?param=value#anchor.';
 	 *		$str = autolink($str);
-	 *		echo $str; // A link : <a href="http://example.com/?param=value#anchor">http://example.com/?param=value#anchor</a>.
-	 *  Exemple 2:
+	 *		echo $str; # A link : <a href="http://example.com/?param=value#anchor">http://example.com/?param=value#anchor</a>.
+	 *	Exemple 2:
 	 *		$str = 'http://example.com/';
 	 *		$str = autolink($str, array("target"=>"_blank","rel"=>"nofollow"));
-	 *		echo $str; // <a href="http://example.com/" target="_blank" rel="nofollow">http://example.com/</a>
+	 *		echo $str; # <a href="http://example.com/" target="_blank" rel="nofollow">http://example.com/</a>
 	 **/
 	public static function autolink($str, $attributes=array()) {
 		$attrs = '';
@@ -1279,8 +1279,8 @@ class plxUtils {
 
 	/**
 	 * Envoie un message vers la console javascript pour aider au déboggage.
-	 * @author		J.P. Pourrez alias bazooka07
-	 * @version		2017-06-09
+	 * @author	J.P. Pourrez alias bazooka07
+	 * @version	2017-06-09
 	 * */
 	public static function debugJS($obj, $msg='') {
 

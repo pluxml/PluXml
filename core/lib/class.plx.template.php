@@ -1,7 +1,7 @@
 <?php
 
 /**
- * plxTemplates class is in charge of templates management
+ * plxTemplates class is in charge of mails templates management
  *
  * @package PLX
  * @author	Pedro "P3ter" CADETE
@@ -9,23 +9,24 @@
 
 class PlxTemplate {
 
-	private $_templateName;						 // the template's name
-	private $_templateType;						 // the template's type : post, page or email
-	private $_templateEmailName;					// the sender's name for an email template
-	private $_templateEmailFrom;					// the sender's email address for email template type
-	private $_templateEmailSubject;				 // the subject for an email template type
-	private $_templateRawContent;				   // the template's content from filesystem
-	private $_templateGeneratedContent;			 // generated content from a template
-	private $_templateFolder;					   // the path to the template's folder
+	private $_templateName;				# the template's name
+	private $_templateType;				# the template's type : post, page or email
+	private $_templateEmailName;		# the sender's name for an email template
+	private $_templateEmailFrom;		# the sender's email address for email template type
+	private $_templateEmailSubject;		# the subject for an email template type
+	private $_templateRawContent;		# the template's content from filesystem
+	private $_templateGeneratedContent;	# generated content from a template
+	private $_templateFolder;			# the path to the template's folder
 
 	/**
 	 * Init all template's attributs from his file name
 	 *
-	 * @param   $templateName				   string	  template's file name
-	 * @param   $templatePlaceholderValues	  array	   placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$templateName				string	template's file name
+	 * @param	$templatePlaceholderValues	array	placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function __construct ($templateFolder, $templateFileName, $templatePlaceholdersValues = array()){
+	public function __construct($templateFolder, $templateFileName, $templatePlaceholdersValues = array()) {
 
 		$this->setTemplateFolder($templateFolder);
 		$template = $this->parseTemplate($this->_templateFolder.$templateFileName);
@@ -46,100 +47,93 @@ class PlxTemplate {
 	/**
 	 * Set the template's name
 	 *
-	 * @param   $folder   string	  templates folder
-	 * @return
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$folder	string	templates folder
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	private function setTemplateFolder ($folder){
+	private function setTemplateFolder($folder) {
 
 		$this->_templateFolder = $folder;
-		return;
 	}
 
 	/**
 	 * Set the template's name
 	 *
-	 * @param   $name   string	  template's name
-	 * @return
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$name	string	template's name
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	private function setTemplateName ($name){
+	private function setTemplateName($name) {
 
 		$this->_templateName = $name;
-		return;
 	}
 
 	/**
 	 * Set the template's type
 	 *
-	 * @param   $type   string	  template's type (post, page, email)
-	 * @return
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$type	string	template's type (post, page, email)
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	private function setTemplateType ($type){
+	private function setTemplateType($type) {
 
 		$this->_templateType = $type;
-		return;
 	}
 
 	/**
 	 * Set the name of the email sender
 	 *
-	 * @param   $emailName   string	  template's emailname
-	 * @return
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$emailName	string	template's emailname
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	private function setTemplateEmailName ($emailName){
+	private function setTemplateEmailName($emailName) {
 
 		$this->_templateEmailName = $emailName;
-		return;
 	}
 
 	/**
 	 * Set the "from" email address
 	 *
-	 * @param   $emailFrom   string	  template's emailfrom
-	 * @return
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$emailFrom	string	template's emailfrom
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	private function setTemplateEmailFrom ($emailFrom){
+	private function setTemplateEmailFrom($emailFrom) {
 
 		$this->_templateEmailFrom = $emailFrom;
-		return;
 	}
 
 	/**
 	 * Set the email subject
 	 *
-	 * @param   $emailFrom   string	  template's emailsubject
-	 * @return
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$emailFrom	string	template's emailsubject
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	private function setTemplateEmailSubject ($emailSubject){
+	private function setTemplateEmailSubject($emailSubject) {
 
 		$this->_templateEmailSubject = $emailSubject;
-		return;
 	}
 
 	/**
 	 * Set the template's content
 	 *
-	 * @param   content	 string	  template's content
-	 * @return
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	content	string	template's content
+	 * @return	void
+	 * @author	Pedro "P3ter" CADETE
 	 */
 	private function setTemplateRawContent($content) {
 
 		$this->_templateRawContent = $content;
-		return;
 	}
 
 	/**
 	 * Set the template's generated content
 	 *
-	 * @param   $templatePlaceholder	array	   placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
-	 * @return  string							  return "1" if no values for placeholders were given
-	 * @author  Pedro "P3ter" CADETE
+	 * @param	$templatePlaceholder	array	placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
+	 * @return	string	return "1" if no values for placeholders were given
+	 * @author	Pedro "P3ter" CADETE
 	 */
 	private function setTemplateGeneratedContent(array $placeholdersValues) {
 
@@ -147,76 +141,74 @@ class PlxTemplate {
 			$this->_templateGeneratedContent = str_replace(array_keys($placeholdersValues), array_values($placeholdersValues), $this->_templateRawContent);
 		else
 			$this->_templateGeneratedContent = '1';
-
-		return;
 	}
 
 	/**
 	 * Get the template's name
-	 * @return  string
-	 * @author  Pedro "P3ter" CADETE
+	 * @return	string
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function getTemplateName (){
+	public function getTemplateName() {
 
 		return $this->_templateName;
 	}
 
 	/**
 	 * Get the template's type
-	 * @return  string
-	 * @author  Pedro "P3ter" CADETE
+	 * @return	string
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function getTemplateType (){
+	public function getTemplateType() {
 
 		return $this->_templateType;
 	}
 
 	/**
 	 * Get the template's emailName
-	 * @return  string
-	 * @author  Pedro "P3ter" CADETE
+	 * @return	string
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function getTemplateEmailName (){
+	public function getTemplateEmailName() {
 
 		return $this->_templateEmailName;
 	}
 
 	/**
 	 * Get the template's emailFrom
-	 * @return  string
-	 * @author  Pedro "P3ter" CADETE
+	 * @return	string
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function getTemplateEmailFrom (){
+	public function getTemplateEmailFrom() {
 
 		return $this->_templateEmailFrom;
 	}
 
 	/**
 	 * Get the template's emailSubject
-	 * @return  string
-	 * @author  Pedro "P3ter" CADETE
+	 * @return	string
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function getTemplateEmailSubject (){
+	public function getTemplateEmailSubject() {
 
 		return $this->_templateEmailSubject;
 	}
 
 	/**
 	 * Get the template's raw content
-	 * @return  string
-	 * @author  Pedro "P3ter" CADETE
+	 * @return	string
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function getTemplateRawContent (){
+	public function getTemplateRawContent() {
 
 		return $this->_templateRawContent;
 	}
 
 	/**
 	 * Get the generated content from the raw template
-	 * @return  string
-	 * @author  Pedro "P3ter" CADETE
+	 * @return	string
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	public function getTemplateGeneratedContent ($placeholdersValues = NULL){
+	public function getTemplateGeneratedContent($placeholdersValues = NULL) {
 
 		if (empty($this->_templateGeneratedContent) AND $placeholdersValues != NULL)
 			$this->setTemplateGeneratedContent($placeholdersValues);

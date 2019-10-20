@@ -44,8 +44,8 @@ class plxToken {
 	/**
 	 * Create a token to reset user password
 	 *
-	 * @return string	 the token
-	 * @author Pedro "P3ter" CADETE
+	 * @return	string	the token
+	 * @author	Pedro "P3ter" CADETE
 	 */
 	public static function generateToken() {
 		return sha1(mt_rand(0, 1000000));
@@ -54,9 +54,9 @@ class plxToken {
 	/**
 	 * Generate Token expiry date
 	 *
-	 * @param  int		hours before expiration
-	 * @return string	expiry date
-	 * @author Pedro "P3ter" CADETE
+	 * @param	int		hours before expiration
+	 * @return	string	expiry date
+	 * @author	Pedro "P3ter" CADETE
 	 */
 
 	public static function generateTokenExperyDate($hours = 24) {

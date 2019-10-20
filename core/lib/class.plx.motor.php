@@ -32,8 +32,8 @@ class plxMotor {
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
-	public $aUsers = array(); #Tableau des utilisateurs
-	public $aTemplates = null; # Tableau des templates
+	public $aUsers = array(); # Tableau des utilisateurs
+	public $aTemplates = null; # Tableau des templates des méls
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
@@ -995,10 +995,10 @@ class plxMotor {
 	}
 
 	/**
-	 * Method in charge of making the template list in $_aTemplate array
+	 * Méthode qui alimente le tableau aTemplate
 	 *
-	 * @param  string	  the template's folder
-	 * @return
+	 * @param	string	dossier templates des méls
+	 * @return	null
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function getTemplates($templateFolder) {
@@ -1007,8 +1007,6 @@ class plxMotor {
 		foreach ($files as $file) {
 			$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
 		}
-
-		return;
 	}
 
 	/**
