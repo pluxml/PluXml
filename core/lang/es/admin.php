@@ -13,8 +13,8 @@ $LANG = array(
 'L_REPLY_TO'									=> 'Contestación',
 'L_CANCEL'										=> 'Cancelar',
 'L_DELETE'										=> 'Eliminar',
-'L_DELETE_FILE' 				    			=> 'Eliminar archivo',
-'L_DELETE_FOLDER'				   				=> 'Eliminar carpeta',
+'L_DELETE_FILE' 								=> 'Eliminar archivo',
+'L_DELETE_FOLDER'								=> 'Eliminar carpeta',
 'L_DELETE_SUCCESSFUL'							=> 'Supresión correcta',
 'L_DELETE_FILE_ERR'								=> 'Error al borrar el archivo',
 'L_RENAME_FILE_SUCCESSFUL'						=> 'Archivo renombrado éxito',
@@ -144,21 +144,36 @@ $LANG = array(
 'L_LOGIN_PAGE'									=> 'Iniciar sesión en la zona de administración',
 'L_AUTH_LOGIN_FIELD'							=> 'Nombre de usuario',
 'L_AUTH_PASSWORD_FIELD'							=> 'Contraseña',
+'L_AUTH_LOST_FIELD'								=> 'Nombre de usuario o correo electrónico',
 'L_SUBMIT_BUTTON'								=> 'Enviar',
 'L_ERR_WRONG_PASSWORD'							=> 'Nombre de usuario o contraseña incorrectos',
 'L_POWERED_BY'									=> 'Generado con <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'								=> 'Demasiado error en el inicio de sesión<br />Reintentar en% s minutos',
-'L_LOST_PASSWORD'                               => 'Contraseña olvidada ?',
-'L_LOST_PASSWORD_LOGIN'                         => 'Iniciar sesión',
-'L_LOST_PASSWORD_SUCCESS'                       => 'Se ha enviado un correo electrónico al usuario',
-'L_LOST_PASSWORD_ERROR'                         => 'El enlace ha caducado',
+'L_LOST_PASSWORD'								=> 'Contraseña olvidada ?',
+'L_LOST_PASSWORD_LOGIN'							=> 'Iniciar sesión',
+'L_LOST_PASSWORD_SUCCESS'						=> 'Se ha enviado un correo electrónico al usuario',
+'L_LOST_PASSWORD_ERROR'							=> 'El enlace ha caducado',
+'L_LOST_PASSWORD_SUBJECT'						=> 'Recreación de una contraseña',
+'L_LOST_PASSWORD_BODY'							=> 'Saludo ##LOGIN##,
+
+Se ha iniciado una solicitud para restablecer el sésamo.
+
+Para cambiar su contraseña, siga el siguiente enlace:
+
+##URL_PASSWORD##
+
+Si esta solicitud es ilegítima, ignore este mensaje.
+
+Este enlace expira en ##URL_EXPIRY## horas.
+
+Este es un mel automático, no hay necesidad de responder, gracias.',
 
 #
 
 'L_SORT_ASCENDING_DATE'							=> 'más antiguo a más reciente',
 'L_SORT_DESCENDING_DATE'						=> 'más reciente a más antiguo',
 'L_SORT_ALPHABETICAL'							=> 'alfabético',
-'L_SORT_REVERSE_ALPHABETICAL'                   => 'reverso alfabético',
+'L_SORT_REVERSE_ALPHABETICAL'					=> 'reverso alfabético',
 'L_SORT_RANDOM'									=> 'aleatorio',
 'L_YES'											=> 'Si',
 'L_NO'											=> 'No',
@@ -332,9 +347,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'							=> 'Centro',
 'L_MEDIAS_ALIGN_RIGHT'							=> 'Derecha',
 'L_MEDIAS_RECREATE_THUMB'						=> 'Crear miniatura nuevamente',
-'L_MEDIAS_LINK_COPYCLP'                         => 'Copiar enlace al portapapeles',
-'L_MEDIAS_LINK_COPYCLP_ERR'                     => 'No se puede copiar el enlace en el portapapeles',
-'L_MEDIAS_LINK_COPYCLP_DONE'                    => 'Enlace copiado',
+'L_MEDIAS_LINK_COPYCLP'							=> 'Copiar enlace al portapapeles',
+'L_MEDIAS_LINK_COPYCLP_ERR'						=> 'No se puede copiar el enlace en el portapapeles',
+'L_MEDIAS_LINK_COPYCLP_DONE'					=> 'Enlace copiado',
 'L_MEDIAS_NEW_NAME'								=> 'Nuevo nombre',
 'L_MEDIAS_RENAME'								=> 'Rebautizar',
 
@@ -385,13 +400,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'				=> 'Ubicación de la carpeta de configuración',
 'L_CONFIG_ADVANCED_UPDATE'						=> 'Guardar configuración avanzada',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'					=> 'Ubicación y nombre del archivo CSS personalizado del área de administración (opcional)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'                  => 'Envío de correos electrónicos con SMTP',
-'L_CONFIG_ADVANCED_SMTP_ACTIVATION'             => 'Habilite el envío de correos electrónicos por un servidor SMTP',
-'L_CONFIG_ADVANCED_SMTP_SERVER'                 => 'Nombre de host SMTP',
-'L_CONFIG_ADVANCED_SMTP_USERNAME'               => 'Nombre de usuario SMTP',
-'L_CONFIG_ADVANCED_SMTP_PASSWORD'               => 'Contraseña SMTP',
-'L_CONFIG_ADVANCED_SMTP_PORT'                   => 'Puerto SMTP',
-'L_CONFIG_ADVANCED_SMTP_SECURITY'               => 'Cifrado SMTP',
+'L_CONFIG_ADVANCED_TITLE_SMTP'					=> 'Envío de correos electrónicos con SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'				=> 'Habilite el envío de correos electrónicos por un servidor SMTP',
+'L_CONFIG_ADVANCED_SMTP_SERVER'					=> 'Nombre de host SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'				=> 'Nombre de usuario SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'				=> 'Contraseña SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'					=> 'Puerto SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'				=> 'Cifrado SMTP',
 
 # parametres_base.php
 
@@ -407,7 +422,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'							=> 'Guardar la configuración básica',
 'L_CONFIG_META_DESCRIPTION'						=> 'Contenido de la metaetiqueta de description («description», opcional)',
 'L_CONFIG_META_KEYWORDS'						=> 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)',
-'L_CONFIG_BASE_ENABLE_RSS'                      => 'Mostrar canales RSS',
+'L_CONFIG_BASE_ENABLE_RSS'						=> 'Mostrar canales RSS',
 
 # parametres_edittpl.php
 
@@ -440,7 +455,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'							=> 'Modificar la lista de usuarios',
 'L_ERR_LOGIN_ALREADY_EXISTS'					=> 'Ya existe un usuario con ese identificador',
 'L_ERR_USERNAME_ALREADY_EXISTS'					=> 'Ya existe un usuario con ese nombre',
-'L_ERR_EMAIL_ALREADY_EXISTS'                    => 'Dirección de correo electrónico ya está en uso',
+'L_ERR_EMAIL_ALREADY_EXISTS'					=> 'Dirección de correo electrónico ya está en uso',
 
 # parametre_plugins.php
 

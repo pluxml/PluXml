@@ -12,9 +12,9 @@ $LANG = array(
 'L_REPLY'							=> 'Respondre',
 'L_REPLY_TO'						=> 'Respondre a',
 'L_CANCEL'							=> 'Anullar',
-'L_DELETE' 						    => 'Suprimir',
-'L_DELETE_FILE' 				  	=> 'Escafar fiquièr',
-'L_DELETE_FOLDER'				   	=> 'Escafar dorsièr',
+'L_DELETE' 							=> 'Suprimir',
+'L_DELETE_FILE' 					=> 'Escafar fiquièr',
+'L_DELETE_FOLDER'					=> 'Escafar dorsièr',
 'L_DELETE_SUCCESSFUL'				=> 'Supression efectuada amb succès',
 'L_DELETE_FILE_ERR'					=> 'Error pendent la supression del fichièr',
 'L_RENAME_FILE_SUCCESSFUL'			=> 'Modificacion efectuada amb succès',
@@ -144,21 +144,37 @@ $LANG = array(
 'L_LOGIN_PAGE'						=> 'Connexion a la zòna d\'administracion',
 'L_AUTH_LOGIN_FIELD'				=> 'Identificant de connexion',
 'L_AUTH_PASSWORD_FIELD'				=> 'Senhal',
+'L_AUTH_LOST_FIELD'					=> 'Identificant ò adreiça email',
+
 'L_SUBMIT_BUTTON'					=> 'Validar',
 'L_ERR_WRONG_PASSWORD' 				=> 'Identificant e/o senhal incorrèct',
 'L_POWERED_BY'						=> 'Generat per <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					=> 'Nombre de pròvas atent<br />Tornatz ensajar dins %s minutas',
-'L_LOST_PASSWORD'                   => 'Senhal oblidada?',
-'L_LOST_PASSWORD_LOGIN'             => 'Iniciar Sessió',
-'L_LOST_PASSWORD_SUCCESS'           => 'S\'ha enviat un correu electrònic a l\'usuari',
-'L_LOST_PASSWORD_ERROR'             => 'L’enllaç ha caducat',
-    
+'L_LOST_PASSWORD'					=> 'Senhal oblidada?',
+'L_LOST_PASSWORD_LOGIN'				=> 'Iniciar Sessió',
+'L_LOST_PASSWORD_SUCCESS'			=> 'S\'ha enviat un correu electrònic a l\'usuari',
+'L_LOST_PASSWORD_ERROR'				=> 'L’enllaç ha caducat',
+'L_LOST_PASSWORD_SUBJECT'			=> 'Recrear un mot de passa',
+'L_LOST_PASSWORD_BODY'				=> 'Salutacion ##LOGIN##,
+
+una demana de remise a zero de vòste sesame a ete initié.
+
+per cambiar vòste mot de passe, se vos plai corsar o laç sota :
+
+##URL_PASSWORD##
+
+si una demana èst illégitime, no aver nat compde de aguest message.
+
+aguest laç expire dins ##URL_EXPIRY## heures.
+
+aiçò èst un mel automatique, inutil de repondre, merci.',
+
 #
 
 'L_SORT_ASCENDING_DATE'				=> 'data creissenta',
 'L_SORT_DESCENDING_DATE'			=> 'data decreissenta',
 'L_SORT_ALPHABETICAL'				=> 'alfabetic',
-'L_SORT_REVERSE_ALPHABETICAL'       => 'alfabetic invèrs,',
+'L_SORT_REVERSE_ALPHABETICAL'		=> 'alfabetic invèrs,',
 'L_SORT_RANDOM'						=> 'aleatòri',
 'L_YES' 							=> 'Òc',
 'L_NO' 								=> 'Non',
@@ -208,7 +224,7 @@ $LANG = array(
 'L_COMMENT_ONLINE'					=> 'En linha',
 'L_COMMENT_ONLINE_TITLE'			=> 'Visualizar aqueste comentari en linha',
 'L_BACK_TO_ARTICLE_COMMENTS'		=> 'Tornar a la lista dels comentaris d\'aquel article',
-'L_BACK_TO_COMMENTS'        		=> 'Tornar a la lista dels comentaris',
+'L_BACK_TO_COMMENTS'				=> 'Tornar a la lista dels comentaris',
 'L_COMMENT_EDITING' 				=> 'Edicion d\'un comentari',
 'L_COMMENT_AUTHOR_FIELD'			=> 'Autor',
 'L_COMMENT_TYPE_FIELD'				=> 'Tipe de comentari',
@@ -260,7 +276,7 @@ $LANG = array(
 'L_COMMENT_OFFLINE_FEEDS'			=> 'Comentaris fòra-linha',
 'L_COMMENT_ONLINE_FEEDS_TITLE'		=> 'Flus rss dels comentaris en-linha',
 'L_COMMENT_ONLINE_FEEDS'			=> 'Comentaris en-linha',
-'L_COMMENTS_PRIVATE_FEEDS'		    => 'Flus de sindicacion privats',
+'L_COMMENTS_PRIVATE_FEEDS'			=> 'Flus de sindicacion privats',
 'L_COMMENTS_ONLINE_LIST'			=> 'Lista dels comentaris publicats',
 'L_COMMENTS_OFFLINE_LIST'			=> 'Lista dels comentaris en espèra de validacion',
 'L_COMMENTS_ALL_LIST'				=> 'Lista dels comentaris',
@@ -332,9 +348,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centre',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Drecha',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Recrear miniaturas',
-'L_MEDIAS_LINK_COPYCLP'             => 'Copiar lo ligam al quichapapièrs',
-'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Fracàs de la còpia del ligam al quichapapièrs',
-'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Ligam copiat',
+'L_MEDIAS_LINK_COPYCLP'				=> 'Copiar lo ligam al quichapapièrs',
+'L_MEDIAS_LINK_COPYCLP_ERR'			=> 'Fracàs de la còpia del ligam al quichapapièrs',
+'L_MEDIAS_LINK_COPYCLP_DONE'		=> 'Ligam copiat',
 'L_MEDIAS_NEW_NAME'					=> 'Novèl nom',
 'L_MEDIAS_RENAME'					=> 'Renommar',
 
@@ -385,13 +401,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplaçament dels fichièrs de configuracion (dorsièr)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modificar la configuracion avançada',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Lòc e nom del fichièr css personnal per personalizar l\'interfàcia d\'administracion (opcion)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'      => 'S\'està enviant correus electrònics amb SMTP',
+'L_CONFIG_ADVANCED_TITLE_SMTP'		=> 'S\'està enviant correus electrònics amb SMTP',
 'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Habiliteu els missatges de correu electrònic enviats per un servidor SMTP',
-'L_CONFIG_ADVANCED_SMTP_SERVER'     => 'Nom d\'amfitrió SMTP',
-'L_CONFIG_ADVANCED_SMTP_USERNAME'   => 'Nom d\'usuari de SMTP',
-'L_CONFIG_ADVANCED_SMTP_PASSWORD'   => 'Contrasenya SMTP',
-'L_CONFIG_ADVANCED_SMTP_PORT'       => 'Port SMTP',
-'L_CONFIG_ADVANCED_SMTP_SECURITY'   => 'Xifratge SMTP',
+'L_CONFIG_ADVANCED_SMTP_SERVER'	 => 'Nom d\'amfitrió SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'	=> 'Nom d\'usuari de SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'	=> 'Contrasenya SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'		=> 'Port SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'	=> 'Xifratge SMTP',
 
 # parametres_base.php
 
@@ -407,7 +423,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'				=> 'Modificar la configuracion de basa',
 'L_CONFIG_META_DESCRIPTION'			=> 'Contengut de la balisa meta "descripcion" del site (opcion)',
 'L_CONFIG_META_KEYWORDS'			=> 'Contengut de las balisas meta "keywords" del site (opcion)',
-'L_CONFIG_BASE_ENABLE_RSS'          => 'Mostra els fluxos RSS',
+'L_CONFIG_BASE_ENABLE_RSS'			=> 'Mostra els fluxos RSS',
 
 # parametres_edittpl.php
 
@@ -440,7 +456,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modificar la lista dels utilizaires',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identificant de connexion ja utilizat',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilizator ja utilizat',
-'L_ERR_EMAIL_ALREADY_EXISTS'        => 'Adreça de correu electrònic ja utilizat',
+'L_ERR_EMAIL_ALREADY_EXISTS'		=> 'Adreça de correu electrònic ja utilizat',
 
 # parametre_plugins.php
 

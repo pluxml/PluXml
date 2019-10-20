@@ -15,8 +15,8 @@ $LANG = array(
 'L_CANCEL'											=> 'Abbrechen',
 
 'L_DELETE'											=> 'Löschen',
-'L_DELETE_FILE' 				    				=> 'Datei löschen',
-'L_DELETE_FOLDER'				   					=> 'Verzeichnis löschen',
+'L_DELETE_FILE' 									=> 'Datei löschen',
+'L_DELETE_FOLDER'									=> 'Verzeichnis löschen',
 'L_DELETE_SUCCESSFUL'								=> 'Erfolgreiche Löschung',
 'L_DELETE_FILE_ERR'									=> 'Fehler beim Löschen der Datei',
 'L_RENAME_FILE_SUCCESSFUL'							=> 'Datei umbenannt erfolgreich',
@@ -51,7 +51,7 @@ $LANG = array(
 'L_ARTICLE_SAVE_ERR'								=> 'Fehler beim Speichern des Artikels.',
 'L_ARTICLE_DELETE_ERR'								=> 'Fehler beim Löschen des Artikels.',
 'L_ERR_UNKNOWN_COMMENT'								=> 'Der angeforderte Kommentar existiert nicht oder nicht mehr',
-'L_ERR_URL_ALREADY_EXISTS'  						=> 'Url bereits im Einsatz. Bitte ändern Sie den Wert des Feldes \'Url\'',
+'L_ERR_URL_ALREADY_EXISTS'							=> 'Url bereits im Einsatz. Bitte ändern Sie den Wert des Feldes \'Url\'',
 
 # class.plx.media.php
 
@@ -141,22 +141,36 @@ $LANG = array(
 'L_LOGIN_PAGE'										=> 'Administrator Anmeldung',
 'L_AUTH_LOGIN_FIELD'								=> 'Benutzer',
 'L_AUTH_PASSWORD_FIELD'								=> 'Passwort',
-'L_AUTH_LOST_FIELD'                                 => 'Login ou adresse e-mail',
+'L_AUTH_LOST_FIELD'									=> 'Benutzer oder E-Mail-Adresse',
 'L_SUBMIT_BUTTON'									=> 'Anmelden',
 'L_ERR_WRONG_PASSWORD'								=> 'Benutzername und/oder Passwort sind falsch',
 'L_POWERED_BY'										=> 'Generiert von <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'									=> 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in% s Minuten',
-'L_LOST_PASSWORD'                                   => 'Passwort vergessen?',
-'L_LOST_PASSWORD_LOGIN'                             => 'Anmeldung',
-'L_LOST_PASSWORD_SUCCESS'                           => 'Eine E-Mail wurde an den Benutzer gesendet',
-'L_LOST_PASSWORD_ERROR'                             => 'Der Link ist abgelaufen',
+'L_LOST_PASSWORD'									=> 'Passwort vergessen?',
+'L_LOST_PASSWORD_LOGIN'								=> 'Anmeldung',
+'L_LOST_PASSWORD_SUCCESS'							=> 'Eine E-Mail wurde an den Benutzer gesendet',
+'L_LOST_PASSWORD_ERROR'								=> 'Der Link ist abgelaufen',
+'L_LOST_PASSWORD_SUBJECT'							=> 'Erstellen eines Kennworts',
+'L_LOST_PASSWORD_BODY'								=> 'begrüßung ##LOGIN##,
+
+Eine Anforderung zum Zurücksetzen Ihres Sesams wurde initiiert.
+
+Um Ihr Passwort zu ändern, folgen Sie bitte dem untenstehenden Link:
+
+##URL_PASSWORD##
+
+Wenn diese Anforderung illegitim ist, ignorieren Sie diese Meldung.
+
+Dieser Link läuft in ##URL_EXPIRY## Stunden ab.
+
+Dies ist eine automatische mel, keine Notwendigkeit, es zu beantworten, danke.',
 
 #
 
 'L_SORT_ASCENDING_DATE'								=> 'Datum aufsteigend',
 'L_SORT_DESCENDING_DATE'							=> 'Datum absteigend',
 'L_SORT_ALPHABETICAL'								=> 'alphabetisch',
-'L_SORT_REVERSE_ALPHABETICAL'		                => 'rückwärts alphabetisch',
+'L_SORT_REVERSE_ALPHABETICAL'						=> 'rückwärts alphabetisch',
 'L_SORT_RANDOM'										=> 'aleatorischen',
 'L_OK'												=> 'Ok',
 'L_YES'												=> 'Ja',
@@ -238,7 +252,7 @@ $LANG = array(
 'L_COMMENT_NEW_COMMENT'								=> 'Einen neuen Kommentar schreiben',
 
 # commentaire_new.php
-    
+
 'L_ERR_ANSWER_UNKNOWN_COMMENT'						=> 'Der Kommentar, auf den Sie antworten wollen, existiert nicht oder nicht mehr!',
 'L_ERR_ANSWER_OFFLINE_COMMENT'						=> 'Der Kommentar ist offline, Antworten ist nicht möglich!',
 'L_ERR_COMMENT_UNKNOWN_ARTICLE'						=> 'Der gefragte Artikel existiert nicht oder nicht mehr. Sie können keinen Kommentar erstellen!',
@@ -337,14 +351,14 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'								=> 'Center',
 'L_MEDIAS_ALIGN_RIGHT'								=> 'Rechts',
 'L_MEDIAS_RECREATE_THUMB'							=> 'Miniaturansicht neu erstellen',
-'L_MEDIAS_LINK_COPYCLP'                             => 'Link kopieren kopieren',
-'L_MEDIAS_LINK_COPYCLP_ERR'                         => 'Können Sie den Link in die Zwischenablage zu kopieren',
-'L_MEDIAS_LINK_COPYCLP_DONE'                        => 'Link kopiert',
+'L_MEDIAS_LINK_COPYCLP'								=> 'Link kopieren kopieren',
+'L_MEDIAS_LINK_COPYCLP_ERR'							=> 'Können Sie den Link in die Zwischenablage zu kopieren',
+'L_MEDIAS_LINK_COPYCLP_DONE'						=> 'Link kopiert',
 'L_MEDIAS_NEW_NAME'									=> 'Neuer Name',
 'L_MEDIAS_RENAME'									=> 'Umbenennen',
 
 # parametres_affichage.php
-    
+
 'L_CONFIG_VIEW_FIELD'								=> 'Darstellungsoptionen',
 'L_CONFIG_VIEW_SKIN_SELECT'							=> 'Themenauswahl',
 'L_CONFIG_VIEW_FILES_EDIT_TITLE'					=> 'Themendateien editieren',
@@ -377,7 +391,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_GZIP'							=> 'GZIP Kompression aktivieren',
 'L_CONFIG_ADVANCED_GZIP_HELP'						=> 'Komprimierung spart Bandreite, erhöht aber die Prozessorauslastung des Servers.',
 'L_CONFIG_ADVANCED_CAPCHA'							=> 'ANTI-SPAM Kontrolle aktivieren',
-'L_CONFIG_ADVANCED_LOSTPASSWORD'                    => 'Aktivieren Sie die Kennwortwiederherstellung',
+'L_CONFIG_ADVANCED_LOSTPASSWORD'					=> 'Aktivieren Sie die Kennwortwiederherstellung',
 'L_CONFIG_ADVANCED_ADMIN_KEY'						=> 'Adminschlüssel (private URLs)',
 'L_CONFIG_ADVANCED_KEY_HELP'						=> 'Feld leeren um neuen Schlüssel zu generieren',
 'L_CONFIG_ADVANCED_USERFOLDERS'						=> 'Verwenden Sie unterschiedliche Medien Ordner für jeden Benutzer',
@@ -391,13 +405,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'					=> 'Ort der Konfigurationsdateien (Ordner)',
 'L_CONFIG_ADVANCED_UPDATE'							=> 'Änderungen speichern',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'						=> 'Standort und den Namen der benutzerdefinierten CSS-Datei des Verwaltungsbereich (optional)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'                      => 'Senden von E-Mails mit SMTP',
-'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                 => 'Aktivieren Sie E-Mails, die einen SMTP-Server senden',
-'L_CONFIG_ADVANCED_SMTP_SERVER'                     => 'SMTP-Hostname',
-'L_CONFIG_ADVANCED_SMTP_USERNAME'                   => 'SMTP username',
-'L_CONFIG_ADVANCED_SMTP_PASSWORD'                   => 'SMTP-Benutzername',
-'L_CONFIG_ADVANCED_SMTP_PORT'                       => 'SMTP-Port',
-'L_CONFIG_ADVANCED_SMTP_SECURITY'                   => 'SMTP-Verschlüsselung',
+'L_CONFIG_ADVANCED_TITLE_SMTP'						=> 'Senden von E-Mails mit SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'					=> 'Aktivieren Sie E-Mails, die einen SMTP-Server senden',
+'L_CONFIG_ADVANCED_SMTP_SERVER'						=> 'SMTP-Hostname',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'					=> 'SMTP username',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'					=> 'SMTP-Benutzername',
+'L_CONFIG_ADVANCED_SMTP_PORT'						=> 'SMTP-Port',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'					=> 'SMTP-Verschlüsselung',
 
 # parametres_base.php
 
@@ -413,7 +427,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'								=> 'Grundeinstellungen speichern',
 'L_CONFIG_META_DESCRIPTION'							=> 'META Tag "description" - Inhalt (optional)',
 'L_CONFIG_META_KEYWORDS'							=> 'META Tag "keywords" - Inhalt (optional)',
-'L_CONFIG_BASE_ENABLE_RSS'                          => 'RSS-Feeds anzeigen',
+'L_CONFIG_BASE_ENABLE_RSS'							=> 'RSS-Feeds anzeigen',
 
 # parametres_edittpl.php
 
@@ -430,7 +444,7 @@ $LANG = array(
 'L_CONFIG_INFOS_NB_STATICS'							=> 'Anzahl der statischen Seiten:',
 'L_CONFIG_INFOS_WRITER'								=> 'Benutzername der aktuellen SESSION:',
 'L_PLUXML_CHECK_VERSION'							=> 'Aktualitätsprüfung von PluXml (über PluXml.org)',
-'L_PLUXML_UPDATE_UNAVAILABLE'						=> 'Update hat nicht funktioniert. Sie sollten  \'allow_url_fopen\' aktivieren.',
+'L_PLUXML_UPDATE_UNAVAILABLE'						=> 'Update hat nicht funktioniert. Sie sollten	\'allow_url_fopen\' aktivieren.',
 'L_PLUXML_UPDATE_ERR'								=> 'Updatefunktion mit unbekanntem Fehler abgebrochen.',
 'L_PLUXML_UPTODATE'									=> 'Sie benutzen die aktuellste Version von PluXml',
 'L_PLUXML_UPDATE_AVAILABLE'							=> 'Eine neue Version ist verfügbar! Sie können sie hier herunterladen: ',
@@ -446,7 +460,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'								=> 'Änderungen speichern',
 'L_ERR_LOGIN_ALREADY_EXISTS'						=> 'Diese Login-ID wird bereits verwendet',
 'L_ERR_USERNAME_ALREADY_EXISTS'						=> 'Dieser Benutzername ist bereits vergeben',
-'L_ERR_EMAIL_ALREADY_EXISTS'                        => 'E-Mail-Adresse bereits verwendet',
+'L_ERR_EMAIL_ALREADY_EXISTS'						=> 'E-Mail-Adresse bereits verwendet',
 
 # parametre_plugins.php
 

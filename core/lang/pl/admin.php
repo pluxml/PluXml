@@ -12,9 +12,9 @@ $LANG = array(
 'L_REPLY'							=> 'Odpowiedź',
 'L_REPLY_TO'						=> 'Odpowiedź',
 'L_CANCEL'							=> 'Anulować',
-'L_DELETE' 						    => 'Usuń',
-'L_DELETE_FILE' 				    => 'Usuń plik',
-'L_DELETE_FOLDER'				    => 'Usuń folder',
+'L_DELETE' 							=> 'Usuń',
+'L_DELETE_FILE' 					=> 'Usuń plik',
+'L_DELETE_FOLDER'					=> 'Usuń folder',
 'L_DELETE_SUCCESSFUL'				=> 'Skuteczne usuwanie',
 'L_DELETE_FILE_ERR'					=> 'Błąd podczas usuwania pliku',
 'L_RENAME_FILE_SUCCESSFUL'			=> 'Plik przemianowany powodzeniem',
@@ -144,21 +144,36 @@ $LANG = array(
 'L_LOGIN_PAGE'						=> 'Logowanie do panelu administracyjnego',
 'L_AUTH_LOGIN_FIELD'				=> 'Login',
 'L_AUTH_PASSWORD_FIELD'				=> 'Hasło',
+'L_AUTH_LOST_FIELD'					=> 'Login lub adres e-mail',
 'L_SUBMIT_BUTTON'					=> 'Zaloguj',
 'L_ERR_WRONG_PASSWORD' 				=> 'Login i / lub hasło niepoprawne',
 'L_POWERED_BY'						=> 'Silnik <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'					=> 'Zbyt wielu nieudanych<br />ponownych prób logowania w% s minut',
-'L_LOST_PASSWORD'                   => 'Zapomniałeś hasła?',
-'L_LOST_PASSWORD_LOGIN'             => 'Zaloguj Się',
-'L_LOST_PASSWORD_SUCCESS'           => 'E-mail został wysłany do użytkownika',
-'L_LOST_PASSWORD_ERROR'             => 'Link wygasł',
+'L_LOST_PASSWORD'					=> 'Zapomniałeś hasła?',
+'L_LOST_PASSWORD_LOGIN'				=> 'Zaloguj Się',
+'L_LOST_PASSWORD_SUCCESS'			=> 'E-mail został wysłany do użytkownika',
+'L_LOST_PASSWORD_ERROR'				=> 'Link wygasł',
+'L_LOST_PASSWORD_SUBJECT'			=> 'Ponowne tworzenie hasła',
+'L_LOST_PASSWORD_BODY'				=> 'Powitanie ##LOGIN##,
+
+Zainicjowano żądanie zresetowania sezamu.
+
+Aby zmienić hasło, należy skorzystać z poniższego linku:
+
+##URL_PASSWORD##
+
+Jeśli to żądanie jest bezprawne, Zignoruj ten komunikat.
+
+Ten link wygasa w ciągu ##URL_EXPIRY## godzin.
+
+To jest automatyczny Mel, nie ma potrzeby, aby odpowiedzieć, dziękuję.',
 
 #
 
 'L_SORT_ASCENDING_DATE'				=> 'data rosnąca',
 'L_SORT_DESCENDING_DATE'			=> 'data malejąco',
 'L_SORT_ALPHABETICAL'				=> 'alfabetycznie',
-'L_SORT_REVERSE_ALPHABETICAL'       => 'odwróć alfabetycznie',
+'L_SORT_REVERSE_ALPHABETICAL'		=> 'odwróć alfabetycznie',
 'L_SORT_RANDOM'						=> 'przypadkowy',
 'L_YES' 							=> 'Tak',
 'L_NO' 								=> 'Nie',
@@ -208,7 +223,7 @@ $LANG = array(
 'L_COMMENT_ONLINE'					=> 'Aktywne',
 'L_COMMENT_ONLINE_TITLE'			=> 'Przejdż do tego komentarza',
 'L_BACK_TO_ARTICLE_COMMENTS'		=> 'Przejdż do listy komentarzy z tego artykułu',
-'L_BACK_TO_COMMENTS'        		=> 'Przejdż do listy komentarzy',
+'L_BACK_TO_COMMENTS'				=> 'Przejdż do listy komentarzy',
 'L_COMMENT_EDITING' 				=> 'Edytuj komentarz',
 'L_COMMENT_AUTHOR_FIELD'			=> 'Autor',
 'L_COMMENT_TYPE_FIELD'				=> 'Typ komentarza',
@@ -260,7 +275,7 @@ $LANG = array(
 'L_COMMENT_OFFLINE_FEEDS'			=> 'Komentarze nieaktywne',
 'L_COMMENT_ONLINE_FEEDS_TITLE'		=> 'Kanał RSS dla komentarzy w trybie online',
 'L_COMMENT_ONLINE_FEEDS'			=> 'Komentarze aktywne',
-'L_COMMENTS_PRIVATE_FEEDS'		    => 'Prywatne kanały',
+'L_COMMENTS_PRIVATE_FEEDS'			=> 'Prywatne kanały',
 'L_COMMENTS_ONLINE_LIST'			=> 'Lista opublikowanych komentarzy',
 'L_COMMENTS_OFFLINE_LIST'			=> 'Lista komentarzy oczekujących na zatwierdzenie',
 'L_COMMENTS_ALL_LIST'				=> 'Lista komentarzy',
@@ -332,9 +347,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'				=> 'Centrum',
 'L_MEDIAS_ALIGN_RIGHT'				=> 'Prawo',
 'L_MEDIAS_RECREATE_THUMB'			=> 'Odtworzyć miniatury',
-'L_MEDIAS_LINK_COPYCLP'             => 'Skopiuj link do schowka',
-'L_MEDIAS_LINK_COPYCLP_ERR'         => 'Nie można skopiować link do schowka',
-'L_MEDIAS_LINK_COPYCLP_DONE'        => 'Link został skopiowany',
+'L_MEDIAS_LINK_COPYCLP'				=> 'Skopiuj link do schowka',
+'L_MEDIAS_LINK_COPYCLP_ERR'			=> 'Nie można skopiować link do schowka',
+'L_MEDIAS_LINK_COPYCLP_DONE'		=> 'Link został skopiowany',
 'L_MEDIAS_NEW_NAME'					=> 'Nowe imie',
 'L_MEDIAS_RENAME'					=> 'Przemianować',
 
@@ -385,13 +400,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'	=> 'Emplacement des fichiers de configuration (dossier)',
 'L_CONFIG_ADVANCED_UPDATE'			=> 'Modifier la configuration avancée',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'		=> 'Emplacement et nom du fichier css personnel pour la personnalisation de l\'interface d\'administration (option)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'      => 'Wysyłanie wiadomości e-mail za pomocą SMTP',
-'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Włącz wysyłanie wiadomości e-mail przez serwer SMTP',
-'L_CONFIG_ADVANCED_SMTP_SERVER'     => 'Nazwa hosta SMTP',
-'L_CONFIG_ADVANCED_SMTP_USERNAME'   => 'Nazwa użytkownika SMTP',
-'L_CONFIG_ADVANCED_SMTP_PASSWORD'   => 'Hasło SMTP',
-'L_CONFIG_ADVANCED_SMTP_PORT'       => 'Port SMTP',
-'L_CONFIG_ADVANCED_SMTP_SECURITY'   => 'Szyfrowanie SMTP',
+'L_CONFIG_ADVANCED_TITLE_SMTP'		=> 'Wysyłanie wiadomości e-mail za pomocą SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'	=> 'Włącz wysyłanie wiadomości e-mail przez serwer SMTP',
+'L_CONFIG_ADVANCED_SMTP_SERVER'		=> 'Nazwa hosta SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'	=> 'Nazwa użytkownika SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'	=> 'Hasło SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'		=> 'Port SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'	=> 'Szyfrowanie SMTP',
 
 # parametres_base.php
 
@@ -407,7 +422,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'				=> 'Zapisz zmiany',
 'L_CONFIG_META_DESCRIPTION'			=> 'Zawartość tagu "opisu" strony (opcjonalnie)',
 'L_CONFIG_META_KEYWORDS'			=> 'Zawartość tagu "słowa kluczowego" strony (opcjonalnie)',
-'L_CONFIG_BASE_ENABLE_RSS'          => 'Wyświetl kanały RSS',
+'L_CONFIG_BASE_ENABLE_RSS'			=> 'Wyświetl kanały RSS',
 
 # parametres_edittpl.php
 
@@ -440,7 +455,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'				=> 'Modifier la liste des utilisateurs',
 'L_ERR_LOGIN_ALREADY_EXISTS'		=> 'Identifiant de connexion déjà utilisé',
 'L_ERR_USERNAME_ALREADY_EXISTS'		=> 'Nom d\'utilisateur déjà utilisé',
-'L_ERR_EMAIL_ALREADY_EXISTS'        => 'Adres mailowy już w użyciu',
+'L_ERR_EMAIL_ALREADY_EXISTS'		=> 'Adres mailowy już w użyciu',
 
 # parametre_plugins.php
 

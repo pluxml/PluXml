@@ -7,8 +7,6 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
 
-require 'class.plx.template.php';
-
 class plxMotor {
 
 	public $get = false; # Donnees variable GET
@@ -111,8 +109,6 @@ class plxMotor {
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
-		# Traitement des templates
-		$this->getTemplates(PLX_TEMPLATES);
 	}
 
 	/**
@@ -992,21 +988,6 @@ class plxMotor {
 		}
 		# Mémorisation de la liste des tags
 		$this->aTags = $array;
-	}
-
-	/**
-	 * Méthode qui alimente le tableau aTemplate
-	 *
-	 * @param	string	dossier templates des méls
-	 * @return	null
-	 * @author	Pedro "P3ter" CADETE
-	 **/
-	public function getTemplates($templateFolder) {
-
-		$files = array_diff(scandir($templateFolder), array('..', '.'));
-		foreach ($files as $file) {
-			$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
-		}
 	}
 
 	/**

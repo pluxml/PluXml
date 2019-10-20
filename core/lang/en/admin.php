@@ -15,8 +15,8 @@ $LANG = array(
 'L_CANCEL'													=> 'Cancel',
 
 'L_DELETE'													=> 'Delete',
-'L_DELETE_FILE' 				    						=> 'Delete file',
-'L_DELETE_FOLDER'				   							=> 'Delete folder',
+'L_DELETE_FILE' 											=> 'Delete file',
+'L_DELETE_FOLDER'												=> 'Delete folder',
 'L_DELETE_SUCCESSFUL'										=> 'Successfully deleted',
 'L_DELETE_FILE_ERR'											=> 'Error while deleting file',
 'L_RENAME_FILE_SUCCESSFUL'									=> 'Successfully renamed file',
@@ -125,7 +125,7 @@ $LANG = array(
 'L_ARTICLE_OFFLINE_BUTTON'									=> 'Switch offline',
 'L_ARTICLE_UPDATE_BUTTON'									=> 'Save',
 'L_CATEGORY_ADD_BUTTON'										=> 'Add',
-'L_ARTICLE_META_DESCRIPTION'								=> '"Description" Meta tag content  (optional)',
+'L_ARTICLE_META_DESCRIPTION'								=> '"Description" Meta tag content (optional)',
 'L_ARTICLE_META_KEYWORDS'									=> '"Keywords" Meta tag content (optional)',
 'L_ARTICLE_TITLE_HTMLTAG'									=> 'Title tag contents (optional)',
 'L_ARTICLE_CHAPO_HIDE'										=> 'hide',
@@ -140,15 +140,29 @@ $LANG = array(
 'L_LOGIN_PAGE'												=> 'Login to administration',
 'L_AUTH_LOGIN_FIELD'										=> 'Login',
 'L_AUTH_PASSWORD_FIELD'										=> 'Password',
-'L_AUTH_LOST_FIELD'                                         => 'Login or email address',
+'L_AUTH_LOST_FIELD'											=> 'Login or email address',
 'L_SUBMIT_BUTTON'											=> 'Submit',
 'L_ERR_WRONG_PASSWORD'										=> 'Incorrect login or password',
 'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Too many failed login<br />Retry in % s minutes',
-'L_LOST_PASSWORD'                                           => 'Lost your password ?',
-'L_LOST_PASSWORD_LOGIN'                                     => 'Log in',
-'L_LOST_PASSWORD_SUCCESS'                                   => 'An email has been sent to the user',
-'L_LOST_PASSWORD_ERROR'                                     => 'The link has expired',
+'L_LOST_PASSWORD'											=> 'Lost your password ?',
+'L_LOST_PASSWORD_LOGIN'										=> 'Log in',
+'L_LOST_PASSWORD_SUCCESS'									=> 'An email has been sent to the user',
+'L_LOST_PASSWORD_ERROR'										=> 'The link has expired',
+'L_LOST_PASSWORD_SUBJECT'									=> 'Recreating a password',
+'L_LOST_PASSWORD_BODY'										=> 'Greeting ##LOGIN##
+
+A request to reset your sesame has been initiated.
+
+To change your password, please follow the link below:
+
+##URL_PASSWORD##
+
+If this request is illegitimate, ignore this message.
+
+This link expires in ##URL_EXPIRY## hours.
+
+This is an automatic email, no need to answer it, thank you.',
 
 #
 
@@ -193,8 +207,8 @@ $LANG = array(
 'L_EDITCAT_BACK_TO_PAGE'									=> 'Back to categories',
 'L_EDITCAT_UPDATE'											=> 'Update this category',
 'L_EDITCAT_TITLE_HTMLTAG'									=> 'Title tag contents (optional)',
-'L_EDITCAT_META_DESCRIPTION'								=> '"Description" Meta tag content  (optional)',
-'L_EDITCAT_META_KEYWORDS'									=> '"Keywords" Meta tag content  (optional)',
+'L_EDITCAT_META_DESCRIPTION'								=> '"Description" Meta tag content	(optional)',
+'L_EDITCAT_META_KEYWORDS'									=> '"Keywords" Meta tag content	(optional)',
 
 # commentaire.php
 
@@ -308,7 +322,7 @@ $LANG = array(
 'L_MEDIAS_DIRECTORY'										=> 'Location',
 'L_MEDIAS_BACK'												=> 'Back',
 'L_MEDIAS_MAX_UPLOAD_FILE'									=> 'Maximum file size',
-'L_MEDIAS_MAX_UPLOAD_NBFILE'					        	=> 'Max number of files per upload',
+'L_MEDIAS_MAX_UPLOAD_NBFILE'								=> 'Max number of files per upload',
 'L_MEDIAS_MAX_POST_SIZE'									=> 'Maximum data size',
 'L_MEDIAS_SUBMIT_FILE'										=> 'Send',
 'L_MEDIAS_IMAGES'											=> 'Pictures',
@@ -337,9 +351,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'										=> 'Center',
 'L_MEDIAS_ALIGN_RIGHT'										=> 'Right',
 'L_MEDIAS_RECREATE_THUMB'									=> 'Recreate thumbnail',
-'L_MEDIAS_LINK_COPYCLP'                                     => 'Copy link to clipboard',
-'L_MEDIAS_LINK_COPYCLP_ERR'                                 => 'Unable to copy link to clipboard',
-'L_MEDIAS_LINK_COPYCLP_DONE'                                => 'Copied link',
+'L_MEDIAS_LINK_COPYCLP'										=> 'Copy link to clipboard',
+'L_MEDIAS_LINK_COPYCLP_ERR'									=> 'Unable to copy link to clipboard',
+'L_MEDIAS_LINK_COPYCLP_DONE'								=> 'Copied link',
 'L_MEDIAS_NEW_NAME'											=> 'New name',
 'L_MEDIAS_RENAME'											=> 'Rename',
 
@@ -377,7 +391,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_GZIP'									=> 'Enable GZIP compression',
 'L_CONFIG_ADVANCED_GZIP_HELP'								=> 'Makes it possible to compress pages to save bandwidth, but could increase CPU usage',
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Enable anti spam-capcha',
-'L_CONFIG_ADVANCED_LOSTPASSWORD'                            => 'Enable password recovery',
+'L_CONFIG_ADVANCED_LOSTPASSWORD'							=> 'Enable password recovery',
 'L_CONFIG_ADVANCED_ADMIN_KEY'								=> 'Administration key (private URLs)',
 'L_CONFIG_ADVANCED_KEY_HELP'								=> 'Leave this field empty to rebuild key',
 'L_CONFIG_ADVANCED_USERFOLDERS'								=> 'Use separate medias folders for every user',
@@ -391,13 +405,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Configuration files (folder) location',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Save advanced configuration',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Location and name of custom css file of the administration area (optional)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'                              => 'Sending emails with SMTP',
-'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                         => 'Enable emails sending by an SMTP server',
-'L_CONFIG_ADVANCED_SMTP_SERVER'                             => 'SMTP hostname',
-'L_CONFIG_ADVANCED_SMTP_USERNAME'                           => 'SMTP username',
-'L_CONFIG_ADVANCED_SMTP_PASSWORD'                           => 'SMTP password',
-'L_CONFIG_ADVANCED_SMTP_PORT'                               => 'SMTP port',
-'L_CONFIG_ADVANCED_SMTP_SECURITY'                           => 'SMTP encryption',
+'L_CONFIG_ADVANCED_TITLE_SMTP'								=> 'Sending emails with SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'							=> 'Enable emails sending by an SMTP server',
+'L_CONFIG_ADVANCED_SMTP_SERVER'								=> 'SMTP hostname',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'							=> 'SMTP username',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'							=> 'SMTP password',
+'L_CONFIG_ADVANCED_SMTP_PORT'								=> 'SMTP port',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'							=> 'SMTP encryption',
 
 # parametres_base.php
 
@@ -413,7 +427,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'										=> 'Save basic configuration',
 'L_CONFIG_META_DESCRIPTION'									=> 'Content of "description" meta tag (optional)',
 'L_CONFIG_META_KEYWORDS'									=> 'Content of "keywords" meta tag (optional)',
-'L_CONFIG_BASE_ENABLE_RSS'                                  => 'Display RSS feeds',
+'L_CONFIG_BASE_ENABLE_RSS'									=> 'Display RSS feeds',
 
 # parametres_edittpl.php
 
@@ -446,7 +460,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'										=> 'Modify the users\' list',
 'L_ERR_LOGIN_ALREADY_EXISTS'								=> 'Login ID already used',
 'L_ERR_USERNAME_ALREADY_EXISTS'								=> 'Username already in use',
-'L_ERR_EMAIL_ALREADY_EXISTS'                                => 'Email adress already in use',
+'L_ERR_EMAIL_ALREADY_EXISTS'								=> 'Email adress already in use',
 
 # parametre_plugins.php
 
