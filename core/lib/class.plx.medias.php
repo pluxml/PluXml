@@ -518,7 +518,7 @@ STOP;
 			}
 			# changement du nom du fichier
 			$filename = implode('', array_values($new_stats));
-			if(rename($oldname, $filename)) {
+			if($result = rename($oldname, $filename)) {
 				# changement du nom de la miniature
 				$old_thumbName = plxUtils::thumbName($oldname);
 				if(is_writable($old_thumbName)) {
@@ -535,6 +535,6 @@ STOP;
 				}
 			}
 		}
-		return ($result) ? plxMsg::Info(L_RENAME_FILE_SUCCESSFUL) : plxMsg::Error(L_RENAME_FILE_ERR);
+		return $result? plxMsg::Info(L_RENAME_FILE_SUCCESSFUL): plxMsg::Error(L_RENAME_FILE_ERR);
 	}
 }
