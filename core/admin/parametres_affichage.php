@@ -183,7 +183,7 @@ include __DIR__ .'/top.php';
 				<label for="id_feed_chapo"><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aConf['feed_footer']),0,5); ?>
+				<?php plxUtils::printSelect('feed_chapo',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['feed_chapo']);?>
 				<a class="hint"><span><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE_HELP ?></span></a>
 			</div>
 		</div>
