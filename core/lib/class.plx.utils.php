@@ -159,7 +159,7 @@ class plxUtils {
 			$id = ($id!='' ? ' id="'.$id.'"' : '');
 
 		if($readonly)
-			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly">'."\n";
+			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly'.($class!=''?' '.$class:'').'">'."\n";
 		else
 			echo '<select'.$id.' name="'.$name.'"'.($class!=''?' class="'.$class.'"':'').'>'."\n";
 		foreach($array as $a => $b) {
@@ -929,15 +929,19 @@ class plxUtils {
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *
-	 * @author	Stephane F.
+	 * @param	type	string 			type de source #since 5.8
+	 * @param	charset	string 			type d'encodage #since 5.8
+	 * @return	stdio
+	 * @author	Stephane F., Thomas Ingles
 	 **/
-	public static function cleanHeaders() {
-		@header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
-		@header('Last-Modified: '.gmdate( 'D, d M Y H:i:s' ).' GMT');
-		@header('Cache-Control: no-cache, must-revalidate, max-age=0');
-		@header('Cache: no-cache');
-		@header('Pragma: no-cache');
-		@header('Content-Type: text/html; charset='.PLX_CHARSET);
+	public static function cleanHeaders($type='text/html', $charset=PLX_CHARSET) {
+		header_remove();
+		header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
+		header('Last-Modified: '.gmdate( 'D, d M Y H:i:s' ).' GMT');
+		header('Cache-Control: no-cache, must-revalidate, max-age=0');
+		header('Cache: no-cache');
+		header('Pragma: no-cache');
+		header('Content-Type: '.$type.'; charset='.$charset);
 	}
 
 	/**
@@ -1035,7 +1039,7 @@ class plxUtils {
 	* @param	onclick	string	contenu de la balise onclick
 	* @param	extra	string	extra texte à afficher
 	* @return	string	balise <a> formatée
-	* @author	Stephane F.
+	* @author	Stephane F., Thomas Ingles
 	**/
 	public static function formatMenu($name, $href, $title=false, $class=false, $onclick=false, $extra='', $highlight=true) {
 		$menu = '';
@@ -1045,7 +1049,8 @@ class plxUtils {
 		$title = $title ? ' title="'.$title.'"':'';
 		$class = $class ? ' '.$class:'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$menu = '<li class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
+		$id = ($basename[0]=='plugin.php'?strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
+		$menu = '<li id="mnu_'.$id.'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
 		return $menu;
 	}
 
