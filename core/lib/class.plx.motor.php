@@ -31,7 +31,6 @@ class plxMotor {
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); # Tableau des utilisateurs
-	public $aTemplates = null; # Tableau des templates des méls
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
