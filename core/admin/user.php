@@ -76,7 +76,7 @@ include __DIR__ .'/top.php';
 			</div>
 		</div>
 	</fieldset>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminUser')) ?>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminUser')) # Hook Plugins ?>
 
 </form>
 

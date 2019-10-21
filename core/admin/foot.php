@@ -4,7 +4,7 @@
 
 </main>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) # Hook Plugins ?>
 
 <script src="<?php echo PLX_CORE ?>lib/drag-and-drop.js"></script>
 <script>

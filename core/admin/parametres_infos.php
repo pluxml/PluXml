@@ -50,7 +50,7 @@ include __DIR__ .'/top.php';
 <p><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></p>
 <p><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 
 <?php
 # On inclut le footer

@@ -54,11 +54,11 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['allow_com'] = $_POST['allow_com'];
 		$art['template'] = basename($_POST['template']);
 		$art['chapo'] = trim($_POST['chapo']);
-		$art['content'] =  trim($_POST['content']);
+		$art['content'] = trim($_POST['content']);
 		$art['tags'] = trim($_POST['tags']);
 		$art['meta_description'] = $_POST['meta_description'];
-		$art['meta_keywords'] =  $_POST['meta_keywords'];
-		$art['title_htmltag'] =  $_POST['title_htmltag'];
+		$art['meta_keywords'] = $_POST['meta_keywords'];
+		$art['title_htmltag'] = $_POST['title_htmltag'];
 		$art['filename'] = '';
 		$art['numero'] = $_POST['artId'];
 		$art['author'] = $_POST['author'];
@@ -157,7 +157,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$date_update['time'] = $_POST['date_update_time'];
 	$date_update_old = $_POST['date_update_old'];
 	$chapo = trim($_POST['chapo']);
-	$content =  trim($_POST['content']);
+	$content = trim($_POST['content']);
 	$tags = trim($_POST['tags']);
 	$url = $_POST['url'];
 	$allow_com = $_POST['allow_com'];
@@ -181,8 +181,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
 	$title = trim($result['title']);
 	$chapo = trim($result['chapo']);
-	$content =  trim($result['content']);
-	$tags =  trim($result['tags']);
+	$content = trim($result['content']);
+	$tags = trim($result['tags']);
 	$author = $result['author'];
 	$url = $result['url'];
 	$date = plxDate::date2Array($result['date']);
@@ -193,8 +193,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$artId = $result['numero'];
 	$allow_com = $result['allow_com'];
 	$template = $result['template'];
-	$meta_description=$result['meta_description'];
-	$meta_keywords=$result['meta_keywords'];
+	$meta_description = $result['meta_description'];
+	$meta_keywords = $result['meta_keywords'];
 	$title_htmltag = $result['title_htmltag'];
 	$thumbnail = $result['thumbnail'];
 	$thumbnail_title = $result['thumbnail_title'];
@@ -387,7 +387,7 @@ function refreshImg(dta) {
 					</div>
 				</div>
 			</div>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) # Hook Plugins ?>
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
