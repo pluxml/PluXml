@@ -202,7 +202,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
-	 * Méthode qui control l'accès à une page en fonction du profil de l'utilisateur connecté
+	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
 	 * @param	profil		profil(s) autorisé(s)
 	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
@@ -411,7 +411,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$username = trim($content[$user_id.'_name']);
 				if($username!='' AND trim($content[$user_id.'_login'])!='') {
 
-					# control du mot de passe
+					# controle du mot de passe
 					$salt = plxUtils::charAleatoire(10);
 					if(trim($content[$user_id.'_password'])!='')
 						$password=sha1($salt.md5($content[$user_id.'_password']));
@@ -424,7 +424,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						$password = $this->aUsers[$user_id]['password'];
 					}
 
-					# control de l'adresse email
+					# controle de l'adresse email
 					$email = trim($content[$user_id.'_email']);
 					if(isset($content[$user_id.'_newuser']) AND empty($email))
 						return plxMsg::Error(L_ERR_INVALID_EMAIL);
@@ -462,7 +462,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "<document>\n";
 
 			foreach($this->aUsers as $user_id => $user) {
-				# control de l'unicité du nom de l'utilisateur
+				# controle de l'unicité du nom de l'utilisateur
 				if(in_array($user['name'], $users_name)) {
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
@@ -470,14 +470,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				else {
 					$users_name[] = $user['name'];
 				}
-				# control de l'unicité du login de l'utilisateur
+				# controle de l'unicité du login de l'utilisateur
 				if(in_array($user['login'], $users_login)) {
 					return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
 				}
 				else {
 					$users_login[] = $user['login'];
 				}
-				# control de l'unicité de l'adresse e-mail
+				# controle de l'unicité de l'adresse e-mail
 				if(in_array($user['email'], $users_email)) {
 					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
 				}
@@ -522,11 +522,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editUser($content) {
 
-		# control de l'adresse email
+		# controle de l'adresse email
 		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-			# control de la langue sélectionnée
+			# controle de la langue sélectionnée
 			if(!in_array($content['lang'], plxUtils::getLangs()))
 				return plxMsg::Error(L_UNKNOWN_ERROR);
 
@@ -638,7 +638,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "<document>\n";
 			foreach($this->aCats as $cat_id => $cat) {
 
-				# control de l'unicité du nom de la categorie
+				# controle de l'unicité du nom de la categorie
 				if(in_array($cat['name'], $cats_name)) {
 					$this->aCats = $save;
 					return plxMsg::Error(L_ERR_CATEGORY_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['name']));
@@ -771,31 +771,31 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "<document>\n";
 			foreach($this->aStats as $static_id => $static) {
 
-				# control de l'unicité du titre de la page
+				# controle de l'unicité du titre de la page
 				if(in_array($static['name'], $statics_name))
 					return plxMsg::Error(L_ERR_STATIC_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['name']));
-					else
-						$statics_name[] = $static['name'];
+				else
+					$statics_name[] = $static['name'];
 
-						# control de l'unicité de l'url de la page
-						if(in_array($static['url'], $statics_url)) {
-							$this->aStats = $save;
-							return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['url']));
-						}
-						else
-							$statics_url[] = $static['url'];
+				# controle de l'unicité de l'url de la page
+				if(in_array($static['url'], $statics_url)) {
+					$this->aStats = $save;
+					return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['url']));
+				}
+				else
+					$statics_url[] = $static['url'];
 
-							$xml .= "\t<statique number=\"".$static_id."\" active=\"".$static['active']."\" menu=\"".$static['menu']."\" url=\"".$static['url']."\" template=\"".basename($static['template'])."\">";
-							$xml .= "<group><![CDATA[".plxUtils::cdataCheck($static['group'])."]]></group>";
-							$xml .= "<name><![CDATA[".plxUtils::cdataCheck($static['name'])."]]></name>";
-							$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($static['meta_description'])."]]></meta_description>";
-							$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($static['meta_keywords'])."]]></meta_keywords>";
-							$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($static['title_htmltag'])."]]></title_htmltag>";
-							$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
-							$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
-							# Hook plugins
-							eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
-							$xml .=	"</statique>\n";
+				$xml .= "\t<statique number=\"".$static_id."\" active=\"".$static['active']."\" menu=\"".$static['menu']."\" url=\"".$static['url']."\" template=\"".basename($static['template'])."\">";
+				$xml .= "<group><![CDATA[".plxUtils::cdataCheck($static['group'])."]]></group>";
+				$xml .= "<name><![CDATA[".plxUtils::cdataCheck($static['name'])."]]></name>";
+				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($static['meta_description'])."]]></meta_description>";
+				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($static['meta_keywords'])."]]></meta_keywords>";
+				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($static['title_htmltag'])."]]></title_htmltag>";
+				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
+				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
+				# Hook plugins
+				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
+				$xml .=	"</statique>\n";
 			}
 			$xml .= "</document>";
 			# On écrit le fichier si une action valide a été faite
@@ -1255,4 +1255,5 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		return sprintf('<p id="latest-version" class="alert %s">%s</p>', $className, $msg);
 
 	}
+
 }

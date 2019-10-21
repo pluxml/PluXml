@@ -300,7 +300,7 @@ class plxMotor {
 				$retour = $this->newCommentaire($this->cible,plxUtils::unSlash($_POST));
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
-				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire'));
+				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
 				if($retour[0] == 'c') { # Le commentaire a été publié
 					$_SESSION['msgcom'] = L_COM_PUBLISHED;
 					header('Location: '.$url.'#'.$retour);
@@ -314,7 +314,7 @@ class plxMotor {
 					$_SESSION['msg']['mail'] = plxUtils::unSlash($_POST['mail']);
 					$_SESSION['msg']['content'] = plxUtils::unSlash($_POST['content']);
 					$_SESSION['msg']['parent'] = plxUtils::unSlash($_POST['parent']);
-					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage'));
+					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
 					header('Location: '.$url.'#form');
 				}
 				exit;
