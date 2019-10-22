@@ -8,8 +8,9 @@
 [+] [admin media] Indique le nombre Maximum de fichiers téléversable en un seul jet (number of files per upload + langues) (sudwebdesign)
 [+] [admin] Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (sudwebdesign)
 [+] [theme defaut révisé] theme.css, entête et le menu fonctionne avec de nombreux plugins (sudwebdesign)
-[+] Hook : plxAdminEditUsersBegin : class.plx.admin.php : editUsers() : avec if() return;
-[+] auth.php 7 Hook plugins
+[+] plxUtils::cleanHeaders() nouveau params : $type='text/html', $charset=PLX_CHARSET (sudwebdesign)
+[+] Hook : plxAdminEditUsersBegin : class.plx.admin.php : editUsers() : avec if() return; (sudwebdesign)
+[+] auth.php 7 Hook plugins (sudwebdesign)
 AdminAuthBegin
 AdminAuthTopLostPassword
 AdminAuthLostPassword

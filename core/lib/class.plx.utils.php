@@ -1239,7 +1239,7 @@ class plxUtils {
 	 * Méthode qui converti les urls contenus dans une chaine en liens cliquables.
 	 *
 	 * @param	string	chaîne d'entrée
-	 * @param	string	ptionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
+	 * @param	string	Optionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
 	 * @return	string	Retourne une copie de la chaîne str dont les urls ont été encapsulées dans des balises <a>.
 	 * @author	http://code.seebz.net/p/autolink-php/
 	 *	Exemple 1:
@@ -1299,8 +1299,8 @@ EOT;
 
 	}
 
-	static function _printSelectDirFilter($item){//[php5.0 compat] of _printSelectDir
-		global $modeDir, $root, $extsText;//in global
+	static function _printSelectDirFilter($item){#[php5.0 compat] of _printSelectDir
+		global $modeDir, $root, $extsText;#in global
 		$ext = pathinfo($item,PATHINFO_EXTENSION);
 		$return = ($item[0] != '.' and
 			( (is_dir($root.$item) ) or
@@ -1328,18 +1328,18 @@ EOT;
 		static $extsText = false;
 		static $currentValue = '';
 
-		// initialisation des variables statiques
+		# initialisation des variables statiques
 		if($level == 0) {
 			$firstRootLength = strlen($root);
 			$modeDir = $modeDir1;
 			if(!$modeDir1 and $textOnly) {
 				$extsText = 'php css html htm xml js json txt me md';
-				// plxUtils::debugJS($extsText, 'extsText');
+				# plxUtils::debugJS($extsText, 'extsText');
 			}
 			$currentValue = $choice1;
 		}
 
-//transmet a _printSelectDirFilter func [php5.0]
+		# Transmet a _printSelectDirFilter func [php5.0]
 		$GLOBALS['modeDir'] = $modeDir;
 		$GLOBALS['root'] = $root;
 		$GLOBALS['extsText'] = $extsText;
@@ -1353,16 +1353,16 @@ EOT;
 			foreach($children as $child) {
 				$cnt--;
 				$prefix = $prefixParent;
-				// http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
+				# http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
 				if($cnt<=0) {
-					$prefix .= '└ '; // espace insécable !
-					$next = ' '; // espace insécable !
+					$prefix .= '└ '; # espace insécable !
+					$next = ' '; # espace insécable !
 				} else {
-					$prefix .= '├ '; // espace insécable !
-					$next = '│'; // espace insécable !
+					$prefix .= '├ '; # espace insécable !
+					$next = '│'; # espace insécable !
 				}
 				$dirOk = (is_dir($root.$child));
-				$next .= str_repeat(' ', 3); // espace insécable ! 3 = strlen($prefix.$next)
+				$next .= str_repeat(' ', 3); # espace insécable ! 3 = strlen($prefix.$next)
 				$dataLevel = 'level-'.str_repeat('X', $level);
 				$value = substr($root.$child, $firstRootLength);
 				$selected = ($value == rtrim($currentValue, '/')) ? ' selected' : '';
@@ -1376,7 +1376,7 @@ EOT;
 
 				$classAttr = (!empty($classList)) ? ' class="'.implode(' ', $classList).'"' : '';
 
-				if($dirOk) { // pour un dossier
+				if($dirOk) { # pour un dossier
 					if($modeDir) {
 						echo <<<EOT
 			<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
@@ -1389,7 +1389,7 @@ EOT;
 EOT;
 					}
 					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
-				} else { // pour un fichier
+				} else { # pour un fichier
 					echo <<<EOT
 			<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
 
