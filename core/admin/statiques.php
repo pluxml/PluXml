@@ -68,7 +68,7 @@ function checkBox(cb) {
 					<th><?php echo L_STATICS_TITLE ?></th>
 					<th><?php echo L_STATICS_URL ?></th>
 					<th><?php echo L_STATICS_ACTIVE ?></th>
-					<th data-id="order"><?php echo L_STATICS_ORDER ?></th>
+					<th><?php echo L_STATICS_ORDER ?></th>
 					<th><?php echo L_STATICS_MENU ?></th>
 					<th><?php echo L_STATICS_ACTION ?></th>
 				</tr>
