@@ -856,7 +856,33 @@ table[data-rows-num] th:first-of-type,
 table[data-rows-num] td:first-of-type {
 	padding-left: 12px;
 }
-
+/* ---- select pour fichiers (folding) --- */
+.scan-folders.fold option[data-level^="level-XX"] {
+	display: none;
+}
+.scan-folders.fold option[data-level^="level-XX"].visible {
+	display: block;
+}
+.scan-folders .folder {
+	font-weight: bold;
+}
+/* Fonctionne uniquement avec Firefox */
+.scan-folders.data-files :not([value=""])::after {
+	margin-left: 0.3rem;
+	content: '▩';
+}
+.scan-folders.data-files [value$="css"]::after {
+	color: #003399;
+}
+.scan-folders.data-files [value$="php"]::after {
+	color: #990066;
+}
+.scan-folders.data-files [value$="html"]::after {
+	color: #009999;
+}
+.scan-folders.data-files [value$="txt"]::after {
+	color: #ff9800;
+}
 table[data-rows-num] tr[draggable] td:first-child {
 	background: url(' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGUlEQVR42mNggIKCgoL/IIyLj1sB+TqhAAB5gyTxdLI4kwAAAABJRU5ErkJggg==') left repeat-y;
 }
