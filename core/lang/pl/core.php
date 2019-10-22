@@ -2,7 +2,7 @@
 
 $LANG = array(
 
-'L_LANGUE'						=> 'pl',
+'L_LANGUE'						=> 'Polska',
 
 'L_DATE_CREATION'				=> 'Data utworzenia',
 'L_DATE_UPDATE'					=> 'Data zaktualizowane',

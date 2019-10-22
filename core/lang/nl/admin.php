@@ -9,6 +9,7 @@ $LANG = array(
 'L_SAVE_FILE'												=> 'Sla het bestand op',
 'L_SAVE_FILE_SUCCESSFULLY'									=> 'Bestand succesvol opgeslagen',
 'L_SAVE_FILE_ERROR'											=> 'Fout bij het ​​opslaan van het bestand voor',
+'L_FILE_REQUIRED'											=> 'Selecteer een bestand',
 'L_REPLY'													=> 'Antwoord',
 'L_REPLY_TO'												=> 'Antwoord',
 'L_CANCEL'													=> 'Annuleren',
@@ -20,10 +21,17 @@ $LANG = array(
 'L_RENAME_FILE_SUCCESSFUL'									=> 'Bestand met succes omgedoopt',
 'L_RENAME_FILE_ERR'											=> 'Fout bij het verwerken van het bestand',
 'L_RENAME_FILE'												=> 'Hernoem bestand',
+
 'L_THUMBNAIL'												=> 'Thumbnail (facultatief)',
 'L_THUMBNAIL_SELECTION'										=> 'Selecteer Afbeelding',
 'L_THUMBNAIL_TITLE'											=> 'Beeld (facultatief)',
 'L_THUMBNAIL_ALT'											=> 'Alternatieve tekst van het beeld (facultatief)',
+
+'L_ERR_INVALID_DATE_CREATION'								=> 'Ongeldige aanmaakdatum',
+'L_ERR_INVALID_DATE_UPDATE'									=> 'Ongeldige datum bijgewerkt',
+
+# class.plx.admin.php
+
 'L_SAVE_SUCCESSFUL'											=> 'Gegevens succesvol opgeslagen',
 'L_SAVE_ERR'												=> 'Fout bij het opslaan van de gegevens',
 'L_NO_ENTRY'												=> 'Geen toegang',
@@ -42,15 +50,10 @@ $LANG = array(
 'L_ARTICLE_SAVE_ERR'										=> 'Fout bij het opslaan van het artikel',
 'L_ARTICLE_DELETE_ERR'										=> 'Fout tijdens het verwijderen van het artikel',
 'L_ERR_UNKNOWN_COMMENT'										=> 'De opgevraagde commentaar bestaat niet of niet meer',
-'L_COMMENT_SAVE_SUCCESSFUL'									=> 'Commentaar succesvol opgeslagen',
-'L_COMMENT_UPDATE_ERR'										=> 'Fout tijdens aanpassen van de commentaar',
-'L_COMMENT_DELETE_SUCCESSFUL'								=> 'Commentaar succesvol verwijderd',
-'L_COMMENT_DELETE_ERR'										=> 'Er is een fout opgetreden bij het verwijderen van de commentaar',
-'L_COMMENT_VALIDATE_SUCCESSFUL'								=> 'Validatie van de commentaar succesvol doorgevoerd',
-'L_COMMENT_VALIDATE_ERR'									=> 'Er is een fout opgetreden bij het valideren van de commentaar',
-'L_COMMENT_MODERATE_SUCCESSFUL'								=> 'Moderatie succesvol uitgevoerd',
-'L_COMMENT_MODERATE_ERR'									=> 'Er is een fout opgetreden tijdens de moderatie',
-'L_COMMENT_WRITTEN_BY'										=> 'Geschreven door',
+'L_ERR_URL_ALREADY_EXISTS'									=> 'Url al in gebruik. Moet u de waarde van het veld \'Url\'',
+
+# class.plx.media.php
+
 'L_PLXMEDIAS_MEDIAS_FOLDER_ERR'								=> 'Het is onmogelijk de MEDIA folder aan te maken voor deze gebruiker',
 'L_PLXMEDIAS_ROOT'											=> 'root-map',
 'L_PLXMEDIAS_NEW_FOLDER_ERR'								=> 'Kan de map niet aanmaken',
@@ -77,6 +80,9 @@ $LANG = array(
 'L_PLXMEDIAS_RECREATE_THUMBS_ERR'							=> 'Fout bij het ??aanmaken van thumbnail',
 'L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL'						=> 'Thumbnail succes aangemaakt',
 'L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL'					=> 'Thumbnails gemaakt met succes',
+
+# article.php
+
 'L_DEFAULT_NEW_ARTICLE_TITLE'								=> 'Nieuw Artikel',
 'L_ERR_INVALID_PUBLISHING_DATE'								=> 'Ongeldige publicatiedatum',
 'L_ERR_UNKNOWN_ARTICLE'										=> 'Het opgevraagde artikel bestaat niet of niet meer !',
@@ -126,6 +132,9 @@ $LANG = array(
 'L_ARTICLE_CHAPO_DISPLAY'									=> 'tonen',
 'L_ARTICLE'													=> 'artikel',
 'L_ARTICLE_ID'												=> 'ID',
+
+# auth.php
+
 'L_AUTH_PAGE_TITLE'											=> 'Aanmeldpagina',
 'L_LOGOUT_SUCCESSFUL'										=> 'U bent succesvol aangemeld',
 'L_LOGIN_PAGE'												=> 'Aanmelden in administratie',
@@ -171,6 +180,9 @@ Dit is een automatische Mel, niet nodig om het te beantwoorden, dank je.',
 'L_FOR_SELECTION'											=> 'Met geselecteerde...',
 'L_CAT_APPLY_BUTTON'										=> 'Categorielijst aanpassen',
 'L_CAT_UNKNOWN'												=> 'onbekende categorie',
+
+# categorie.php
+
 'L_EDITCAT_PAGE_TITLE'										=> 'Categorie-opties aanpassen',
 'L_EDITCAT_DESCRIPTION'										=> 'Beschrijving',
 'L_EDITCAT_DISPLAY_HOMEPAGE'								=> 'Toon items in deze categorie op de home page',
@@ -180,6 +192,9 @@ Dit is een automatische Mel, niet nodig om het te beantwoorden, dank je.',
 'L_EDITCAT_TITLE_HTMLTAG'									=> 'Title tag inhoud (optioneel)',
 'L_EDITCAT_META_DESCRIPTION'								=> 'META-informatie voor deze categorie (optie)',
 'L_EDITCAT_META_KEYWORDS'									=> 'META-informatie voor de "keywords" voor deze categorie (optie)',
+
+# commentaire.php
+
 'L_COMMENT_ORPHAN'											=> 'geen artikel',
 'L_COMMENT_ORPHAN_STATUS'									=> 'Niet zichtbaar (Wij raden u aan deze commentaar te verwijderen)',
 'L_COMMENT_ARTICLE_LINKED'									=> 'Artikel',
@@ -204,6 +219,23 @@ Dit is een automatische Mel, niet nodig om het te beantwoorden, dank je.',
 'L_COMMENT_OFFLINE_BUTTON'									=> 'Offline plaatsen',
 'L_COMMENT_ANSWER_BUTTON'									=> 'Antwoorden op commentaar',
 'L_COMMENT_UPDATE_BUTTON'									=> 'Aanpassingen doorvoeren',
+'L_COMMENT_WRITTEN_BY'										=> 'Geschreven door',
+'L_COMMENT_SAVE_SUCCESSFUL'									=> 'Commentaar succesvol opgeslagen',
+'L_COMMENT_UPDATE_ERR'										=> 'Fout tijdens aanpassen van de commentaar',
+'L_COMMENT_DELETE_SUCCESSFUL'								=> 'Commentaar succesvol verwijderd',
+'L_COMMENT_DELETE_ERR'										=> 'Er is een fout opgetreden bij het verwijderen van de commentaar',
+'L_COMMENT_VALIDATE_SUCCESSFUL'								=> 'Validatie van de commentaar succesvol doorgevoerd',
+'L_COMMENT_VALIDATE_ERR'									=> 'Er is een fout opgetreden bij het valideren van de commentaar',
+'L_COMMENT_MODERATE_SUCCESSFUL'								=> 'Moderatie succesvol uitgevoerd',
+'L_COMMENT_MODERATE_ERR'									=> 'Er is een fout opgetreden tijdens de moderatie',
+
+# sous_navigation/commentaires.php
+
+'L_COMMENT_NEW_COMMENT_TITLE'								=> 'Nieuwe commentaar schrijven voor dit artikel',
+'L_COMMENT_NEW_COMMENT'										=> 'Nieuwe commentaar schrijven',
+
+# commentaire_new.php
+
 'L_ERR_ANSWER_UNKNOWN_COMMENT'								=> 'De commentaar bestaat niet of niet meer!',
 'L_ERR_ANSWER_OFFLINE_COMMENT'								=> 'Commentaar is offline. Kan niet antwoorden op commentaar !',
 'L_ERR_COMMENT_UNKNOWN_ARTICLE'								=> 'Het artikel bestaat niet of niet meer. Onmogelijk te antwoorden !',
@@ -214,8 +246,9 @@ Dit is een automatische Mel, niet nodig om het te beantwoorden, dank je.',
 'L_ARTICLE_COMMENTS_LIST'									=> 'Commentaar van dit artikel (nieuwste commentaar eerst)',
 'L_COMMENT_ANSWER_TITLE'									=> 'Antwoorden op deze commentaar',
 'L_COMMENT_ANSWER'											=> 'Antwoorden',
-'L_COMMENT_NEW_COMMENT_TITLE'								=> 'Nieuwe commentaar schrijven voor dit artikel',
-'L_COMMENT_NEW_COMMENT'										=> 'Nieuwe commentaar schrijven',
+
+# comments.php
+
 'L_COMMENTS_ARTICLE_SCOPE'									=> 'Artikel',
 'L_COMMENTS_GLOBAL_SCOPE'									=> 'volledige site',
 'L_COMMENTS_OFFLINE_LIST'									=> 'Commentaar dat wacht op goedkeuring ',
@@ -514,14 +547,11 @@ Dit is een automatische Mel, niet nodig om het te beantwoorden, dank je.',
 'L_MENU_CONFIG_INFOS'										=> 'Informatie',
 'L_MENU_CONFIG_PLUGINS_TITLE'								=> 'Plugins beheren',
 'L_MENU_CONFIG_PLUGINS'										=> 'Plugins',
-'L_ERR_URL_ALREADY_EXISTS'									=> 'Url al in gebruik. Moet u de waarde van het veld \'Url\'',
 'L_THEMES'													=> 'Thema\'s',
 'L_THEMES_TITLE'											=> 'Het beheren van thema\'s',
 'L_HELP'													=> 'Hulp',
 'L_HELP_TITLE'												=> 'Zie hulp',
 'L_BACK_TO_THEMES'											=> 'Terug naar de onderwerpen van de pagina',
 'L_CONFIG_THEME_UPDATE'										=> 'Change Theme',
-'L_ERR_INVALID_DATE_CREATION'								=> 'Ongeldige aanmaakdatum',
-'L_ERR_INVALID_DATE_UPDATE'									=> 'Ongeldige datum bijgewerkt',
 );
 ?>
