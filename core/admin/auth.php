@@ -287,10 +287,10 @@ plxUtils::cleanHeaders();
 									<small><a href="?action=lostpassword"><?php echo L_LOST_PASSWORD ?></a></small>
 								</div>
 							</div>
-						<?php
+<?php
 						}
 						eval($plxAdmin->plxPlugins->callHook('AdminAuth')) # Hook Plugins
-						?>
+?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
 								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
