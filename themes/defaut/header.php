@@ -25,7 +25,7 @@
 
 			<div class="grid">
 
-				<div class="col sml-6">
+				<div class="col sml-6 med-5 lrg-4">
 
 					<div class="logo">
 
@@ -36,12 +36,12 @@
 
 				</div>
 
-				<div class="col sml-6">
+				<div class="col sml-6 med-7 lrg-8">
 
 					<nav class="nav">
 
 						<div class="responsive-menu">
-							<label for="menu"></label>
+							<label for="menu"><span class="float-left"><?php $plxShow->lang('MENU') ?></span></label>
 							<input type="checkbox" id="menu">
 							<ul class="menu">
 								<?php $plxShow->staticList($plxShow->getLang('HOME'),'<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>'); ?>
