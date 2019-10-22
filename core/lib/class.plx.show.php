@@ -198,7 +198,7 @@ class plxShow {
 			$subtitle = $this->plxMotor->aConf['description'];
 		}
 		elseif($this->plxMotor->mode == 'categorie') {
-			$title_htmltag = $this->plxMotor->aCats[$this->plxMotor->cible ]['title_htmltag'];
+			$title_htmltag = $this->plxMotor->aCats[$this->plxMotor->cible]['title_htmltag'];
 			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aCats[$this->plxMotor->cible]['name'];
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
@@ -208,7 +208,7 @@ class plxShow {
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
 		elseif($this->plxMotor->mode == 'static') {
-			$title_htmltag =  $this->plxMotor->aStats[$this->plxMotor->cible ]['title_htmltag'];
+			$title_htmltag = $this->plxMotor->aStats[$this->plxMotor->cible]['title_htmltag'];
 			$title = $title_htmltag !='' ? $title_htmltag : $this->plxMotor->aStats[$this->plxMotor->cible]['name'];
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
@@ -703,7 +703,7 @@ class plxShow {
 					# On effectue l'affichage
 					$cats[] = '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$url).'" title="'.$name.'">'.$name.'</a>';
 				} else { # La categorie n'existe pas
-					$cats[] =  L_UNCLASSIFIED;
+					$cats[] = L_UNCLASSIFIED;
 				}
 			} else { # Categorie "home"
 				$cats[] = '<a class="active" href="'.$this->plxMotor->urlRewrite().'" title="'.L_HOMEPAGE.'">'.L_HOMEPAGE.'</a>';
@@ -1387,9 +1387,9 @@ class plxShow {
 					$stat = str_replace('#static_name',plxUtils::strCheck($v['name']),$stat);
 					$stat = str_replace('#static_status',($this->staticId()==intval($k)?'active':'noactive'), $stat);
 					if($v['group']=='')
-						$menus[][] =  $stat;
+						$menus[][] = $stat;
 					else
-						$menus[$v['group']][] =  $stat;
+						$menus[$v['group']][] = $stat;
 					if($group_active=="" AND $home===false AND $this->staticId()==intval($k) AND $v['group']!='')
 						$group_active = $v['group'];
 				}
@@ -1700,7 +1700,7 @@ class plxShow {
 			else
 				echo $tagName;
 		}
-	 }
+	}
 
 	/**
 	 * Méthode qui affiche un lien vers le fil Rss des articles d'un tag
@@ -1739,7 +1739,7 @@ class plxShow {
 	 * @scope	global
 	 * @author	Stephane F, J.P. Pourrez
 	 **/
-	public function tagList($format='<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name</a></li>', $max='', $order='random') {
+	public function tagList($format='<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name (#tag_count)</a></li>', $max='', $order='random') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTagList'))) return;
 
@@ -2008,10 +2008,10 @@ class plxShow {
 		$css = str_replace('php','css',$this->plxMotor->template);
 
 		if(is_file($theme.$css_dir.$min_css)) {
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$min_css).'" media="screen" />'."\n";
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$min_css).'?v='.filemtime($theme.$css_dir.$min_css).'" media="screen" />'."\n";
 		}
 		elseif(is_file($theme.$css_dir.$css)) {
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'" media="screen" />'."\n";
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'?v='.filemtime($theme.$css_dir.$min_css).'" media="screen" />'."\n";
 		}
 	}
 
@@ -2027,7 +2027,7 @@ class plxShow {
 
 		$filename = $this->plxMotor->aConf['racine_plugins'].'site.css';
 		if(is_file(PLX_ROOT.$filename))
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($filename).'" media="screen" />'."\n";
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($filename).'?v='.filemtime(PLX_ROOT.$filename).'" media="screen" />'."\n";
 	}
 
 	/**
