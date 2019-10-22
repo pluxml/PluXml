@@ -395,6 +395,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		$save = $this->aUsers;
 
+		# Hook plugins
+		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) return;
+
 		# suppression
 		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser']) AND empty($content['update'])) {
 			foreach($content['idUser'] as $user_id) {
