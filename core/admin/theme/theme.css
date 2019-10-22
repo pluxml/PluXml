@@ -11,9 +11,13 @@
 #
 # ------------------- END LICENSE BLOCK -------------------
 */
+body{
+	font-family: ubuntu,Arial;
+	font-size: 1.6rem;
+	line-height: 1.6;
+}
 
 /* ---------- Authentication ---------- */
-
 .logo {
 	background-image: url(images/pluxml.png);
 	margin: 10% auto 20px auto;
@@ -125,7 +129,7 @@ a.lnkdelete:hover {
 	left: 16.6666%;
 	right: 0;
 	margin-left: -1.5rem;
-	height: 12rem;
+	min-height: 12rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
 	position: fixed;
 	top: 0;
@@ -870,17 +874,17 @@ table[data-rows-num] tr[draggable].over {
 }
 
 select {
-	height: 30px;
-	margin: 8px 0;
+	margin: 0;
 	color: #000;
 	background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAPFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQLyYwAAAAE3RSTlMADQ46Ozw9SElKS0y5x+zz9Pj5WslQRAAAAQdJREFUeJztzlcOwkAQBFFyxjbM/e9KFsbrNGK3V6Cq/1a/yYSIiIiIiIiIiIiIfqRp8kF/q2LtG+yLedT/yk4uwf5sZUTBsjJzCa7/FlFw//cI7v/xBMvSzCV4/scSLF7/ZueN6z+OoPY/TlD7jyI4mLkEH/9mh68Bs6NL0Pg/zr4G+AQJ/l2CJP8OQaL/ULAV/48UJPwfJUj6P0KQ+H9QkPx/QCD4DwU78X+PQPTfKZD9dwiE/60C6X+LQPwfCtT/gUD+3yfQ/HcLVP9dAt1/u0D53ybQ/ocC9X9ToP//FOT4rwvy/L8Fuf5fgnz/D0HO/5sg7/9VkPmfiIiIiIiIiIiIiP6gC0vzP5P1npi3AAAAAElFTkSuQmCC") no-repeat;
 	background-size: 20px;
 	background-position: right center;
-	font-family: 'Arial';
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	overflow: hidden;
 	padding: 0 20px 0 3px;
+	max-width: 45.6vw;
+	margin-bottom: 8px !important;
 }
 
 select {
