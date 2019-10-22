@@ -33,7 +33,7 @@ elseif(!empty($_POST['folder'])) {
 $plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
 if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER)
 	$plxMediasRoot .= $_SESSION['user'].'/';
-$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']); 
+$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']);
 
 #----
 
@@ -163,20 +163,19 @@ $curFolders = explode('/', $curFolder);
 			</p>
 			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-			&nbsp;&nbsp;&nbsp;
+			<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 			<button onclick="dialogBox('dlgNewFolder');return false;" id="btnNewFolder"><?php echo L_MEDIAS_NEW_FOLDER ?></button>
 			<?php if(!empty($_SESSION['folder'])) { ?>
-			&nbsp;&nbsp;&nbsp;<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
+			<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
 			<?php } ?>
 			<input type="hidden" name="sort" value="" />
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
 		<div style="float:left">
-			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
-			<?php echo $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
+			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;
 		</div>
 
 		<div style="float:right">
@@ -211,7 +210,7 @@ $curFolders = explode('/', $curFolder);
 							if(is_file($v['path']) AND $isImage) {
 								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" /></a>';
 							}
-							else 
+							else
 								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
 						echo '</td>';
 						echo '<td>';
@@ -370,7 +369,7 @@ window.addEventListener("keydown", function (event) {
     	if (mb.checked === true) {
     		mb.click();
     	}
-    }	
+    }
 });
 
 function toggle_divs(){

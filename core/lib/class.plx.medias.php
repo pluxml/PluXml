@@ -155,34 +155,13 @@ class plxMedias {
 	}
 
 	/**
-	 * Méthode qui formate l'affichage de la liste déroulante des dossiers
+	 * Méthode qui affiche la liste déroulante des dossiers
 	 *
-	 * @return	string	chaine formatée à afficher
+	 * @return	void
 	 * @author	Stephane F, Danielsan, J.P. "bazooka07" Pourrez
 	 **/
 	public function contentFolder() {
-		$currentFolder = $this->dir;
-		if(!empty($this->aDirs)) {
-			$options = array_map(
-				function($item) use($currentFolder) {
-					$selected = ($item['path'] == $currentFolder) ? ' selected' : '';
-					return <<< OPTION
-				 <option class="level_{$item['level']}" value="${item['path']}"$selected>/${item['path']}</option>
-OPTION;
-				},
-				$this->aDirs
-			);
-		}
-		$selectedRoot = (empty($this->dir)) ? ' selected' : '';
-		$caption = L_PLXMEDIAS_ROOT;
-		$start = <<< START
-					<select class="folder" id="folder" name="folder">
-						<option value="."$selectedRoot>($caption)</option>\n
-START;
-		$stop = <<< STOP
-					</select>\n
-STOP;
-		return $start . ((!empty($options)) ? implode("\n", $options) : '') . $stop;
+		plxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin');
 	}
 
 	/**
