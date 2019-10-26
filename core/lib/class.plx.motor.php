@@ -130,7 +130,7 @@ class plxMotor {
 		}
 		elseif(empty($this->get)
 				OR preg_match('@^(blog|blog\/page[0-9]*|\/?page[0-9]*)$@', $this->get)
-				OR !preg_match('@^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+@', $this->get)) {
+				AND !preg_match('@^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+@', $this->get)) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
 			$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
