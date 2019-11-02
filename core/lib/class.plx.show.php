@@ -2011,7 +2011,7 @@ class plxShow {
 			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$min_css).'?v='.filemtime($theme.$css_dir.$min_css).'" media="screen" />'."\n";
 		}
 		elseif(is_file($theme.$css_dir.$css)) {
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'?v='.filemtime($theme.$css_dir.$min_css).'" media="screen" />'."\n";
+			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'?v='.filemtime($theme.$css_dir.$css).'" media="screen" />'."\n";
 		}
 	}
 
