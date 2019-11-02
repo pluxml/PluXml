@@ -14,7 +14,7 @@ $LANG = array(
 'L_UPDATE_BACK'						=> 'Tornar al siti',
 'L_UPDATE_WARNING1'					=> 'Anatz metre a jorn vòstra anciana version de PluXml',
 'L_UPDATE_SELECT_VERSION'			=> 'Volgatz seleccionar dins la lista çai jos vòstra anciana version de PluXml a metre a jorn.',
-'L_UPDATE_WARNING2'					=> 'Se vòstra anciana version es pas listada aicí, es qu\'existís pas cap de procedura automatizada de mesa a jorn car vòstra version es tròp vièlha.<br />Nous vous suggérons de télécharger la dernière version de <a href="http://www.pluxml.org">PluXml</a> et de faire une nouvelle installation.',
+'L_UPDATE_WARNING2'					=> 'Se vòstra anciana version es pas listada aicí, es qu\'existís pas cap de procedura automatizada de mesa a jorn car vòstra version es tròp vièlha.<br />Nous vous suggérons de télécharger la dernière version de <a href="https://www.pluxml.org">PluXml</a> et de faire une nouvelle installation.',
 'L_UPDATE_WARNING3'					=> 'Atencion, abans d\'amodar la mesa a jorn, oblidetz pas de far una salvagarda de vòstras donadas en fasent une còpia del dorsièr "data"',
 'L_UPDATE_START'					=> 'Amodar la mesa a jorn',
 

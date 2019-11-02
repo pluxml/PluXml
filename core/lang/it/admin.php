@@ -135,7 +135,7 @@ $LANG = array(
 'L_AUTH_LOST_FIELD'											=> 'Indirizzo di accesso o e-mail',
 'L_SUBMIT_BUTTON'											=> 'Collegati',
 'L_ERR_WRONG_PASSWORD'										=> 'Nome utente e/o password non corretti',
-'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
+'L_POWERED_BY'												=> 'Powered by <a href="https://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Troppi fallito login<br />Riprova tra% s minuti',
 'L_LOST_PASSWORD'											=> 'Password dimenticata ?',
 'L_LOST_PASSWORD_LOGIN'										=> 'Accesso',

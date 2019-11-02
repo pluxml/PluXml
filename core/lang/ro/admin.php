@@ -135,7 +135,7 @@ $LANG = array(
 'L_AUTH_LOST_FIELD'											=> 'Username sau adresa de e-mail',
 'L_SUBMIT_BUTTON'											=> 'OK',
 'L_ERR_WRONG_PASSWORD'										=> 'Username sau parola incorecta',
-'L_POWERED_BY'												=> 'Realizat de <a href="http://www.pluxml.org">PluXml</a>',
+'L_POWERED_BY'												=> 'Realizat de <a href="https://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Prea multe nu a reușit autentificare<br />Reîncercare în% s minute',
 'L_LOST_PASSWORD'											=> 'Parola uitată?',
 'L_LOST_PASSWORD_LOGIN'										=> 'Conectare',

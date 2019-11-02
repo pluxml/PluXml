@@ -143,7 +143,7 @@ $LANG = array(
 'L_AUTH_LOST_FIELD'											=> 'Uw Login of e-mailadres',
 'L_SUBMIT_BUTTON'											=> 'Verzenden',
 'L_ERR_WRONG_PASSWORD'										=> 'Login en/of wachtwoord ongeldig',
-'L_POWERED_BY'												=> 'Gegenereerd door <a href="http://www.pluxml.org">PluXml</a>',
+'L_POWERED_BY'												=> 'Gegenereerd door <a href="https://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Te veel mislukte login<br />Probeer het over% s minuten',
 'L_LOST_PASSWORD'											=> 'Wachtwoord vergeten?',
 'L_LOST_PASSWORD_LOGIN'										=> 'Aanmelden',

@@ -145,7 +145,7 @@ $LANG = array(
 'L_AUTH_LOST_FIELD'									=> 'Benutzer oder E-Mail-Adresse',
 'L_SUBMIT_BUTTON'									=> 'Anmelden',
 'L_ERR_WRONG_PASSWORD'								=> 'Benutzername und/oder Passwort sind falsch',
-'L_POWERED_BY'										=> 'Generiert von <a href="http://www.pluxml.org">PluXml</a>',
+'L_POWERED_BY'										=> 'Generiert von <a href="https://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'									=> 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in% s Minuten',
 'L_LOST_PASSWORD'									=> 'Passwort vergessen?',
 'L_LOST_PASSWORD_LOGIN'								=> 'Anmeldung',

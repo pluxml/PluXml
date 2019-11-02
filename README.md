@@ -40,7 +40,7 @@ Que ce soit en local sur votre ordinateur ou sur internet, votre hébergement do
 Procédure d'installation
 ------------------------
 
-* Récuperez l'archive téléchargeable [sur cette page](http://www.pluxml.org/) et dézippez la à la racine de votre site
+* Récuperez l'archive téléchargeable [sur cette page](https://www.pluxml.org/) et dézippez la à la racine de votre site
 * Connectez-vous à votre site et suivez la procédure d'installation affichée à l'écran
 
 Mise à jour d'une version existante de PluXml

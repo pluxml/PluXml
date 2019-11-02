@@ -148,7 +148,7 @@ $LANG = array(
 'L_AUTH_LOST_FIELD'											=> 'Логин или адрес электронной почты',
 'L_SUBMIT_BUTTON'											=> 'Войти',
 'L_ERR_WRONG_PASSWORD'										=> 'Неправильный логин или пароль',
-'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
+'L_POWERED_BY'												=> 'Powered by <a href="https://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Слишком много неудачных Войти<br />Повторите попытку через% S минут',
 'L_LOST_PASSWORD'											=> 'Забыли пароль?',
 'L_LOST_PASSWORD_LOGIN'										=> 'Aвторизоваться',
