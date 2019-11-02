@@ -389,7 +389,7 @@ input.readonly:hover {
 
 .alert {
 	margin: 0 0 1rem;
-	border: .25rem solid;
+	border: 1px solid;
 	border-radius: .5rem;
 }
 
