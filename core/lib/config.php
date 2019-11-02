@@ -1,7 +1,8 @@
 <?php
-define('PLX_DEBUG', true);
-define('PLX_VERSION', '5.8');
-
+const PLX_DEBUG = true;
+const PLX_VERSION = '5.8';
+const PLX_URL_REPO = 'https://www.pluxml.org';
+const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 

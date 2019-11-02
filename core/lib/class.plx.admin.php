@@ -1205,8 +1205,6 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function checkMaj() {
 
-		$url='https://www.pluxml.org/download/latest-version.txt';
-		$href='https://www.pluxml.org/';
 		$caption='PluXml.org';
 
 		$latest_version = 'L_PLUXML_UPDATE_ERR';
@@ -1215,7 +1213,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$http_response_header = '';
 		# test avec allow_url_open ou file_get_contents ?
 		if(ini_get('allow_url_fopen')) {
-			$latest_version = @file_get_contents($url, false, null, 0, 16);
+			$latest_version = @file_get_contents(PLX_URL_VERSION, false, null, 0, 16);
 			if(
 				empty($http_response_header) OR
 				!preg_match('@^HTTP/[\d\.]+ 200@', $http_response_header[0]) OR
@@ -1225,11 +1223,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				}
 		}
 		# test avec curl
-		else {
+		elseif(function_exists('curl_init')) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_URL, PLX_URL_VERSION);
 			$latest_version = curl_exec($ch);
 			$info = curl_getinfo($ch);
 			if ($latest_version === false || $info['http_code'] != 200) {
@@ -1251,7 +1249,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$className = 'green';
 		}
 		else {
-			$msg = sprintf('%s <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, $href, $caption);
+			$msg = sprintf('%s <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, PLX_URL_REPO, $caption);
 			$className = 'orange';
 		}
 
