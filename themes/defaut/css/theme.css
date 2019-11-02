@@ -130,6 +130,7 @@ ul.menu {}
 }
 ul.menu .noactive:hover,
 ul.menu .active span,
+ul.menu span.active,
 ul.menu li.active a,
 ul.menu a.active,
 ul.menu li span:hover,
