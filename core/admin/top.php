@@ -20,16 +20,20 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
-	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
-	<?php
+<?php
+	if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file']))
+		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'?v='.date('yzhis',filemtime(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])).'" media="screen" />'."\n";
 	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
-		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
-	?>
+		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css?v='.$plxAdmin->plxPlugins->cssTimes['admin'].'" media="screen" />'."\n";
+?>
 	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) # Hook Plugins ?>
+<?php
+	# Hook Plugins
+	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
+?>
 </head>
 
 <body id="<?php echo basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
@@ -42,11 +46,11 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 				<li>
 					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a></small>
 				</li>
-				<?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
+<?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
 				<li>
 					<small><a class="back-blog" href="<?php echo $plxAdmin->urlRewrite('?blog'); ?>" title="<?php echo L_BACK_TO_BLOG_TITLE ?>"><?php echo L_BACK_TO_BLOG;?></a></small>
 				</li>
-				<?php endif; ?>
+<?php endif; ?>
 				<li>
 					<small><a class="logout" href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>"><?php echo L_ADMIN_LOGOUT ?></a></small>
 				</li>
@@ -72,7 +76,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 			<label for="nav"><?php echo L_MENU ?></label>
 			<input type="checkbox" id="nav" />
 			<ul id="responsive-menu" class="menu vertical expanded">
-				<?php
+<?php
 					$menus = array();
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
@@ -133,16 +137,18 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					# Hook Plugins
 					eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
 					echo implode('', $menus);
-				?>
+?>
 			</ul>
 		</nav>
 	</aside>
 
 	<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
-		<?php
-		if(is_file(PLX_ROOT.'install.php')) echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>';
+<?php
+		if(is_file(PLX_ROOT.'install.php'))
+			echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>'."\n";
 		plxMsg::Display();
-		?>
 
-		<?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')) # Hook Plugins ?>
+		# Hook Plugins
+		eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+?>

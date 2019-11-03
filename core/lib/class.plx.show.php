@@ -262,29 +262,29 @@ class plxShow {
 
 		if($this->plxMotor->mode == 'home') {
 			if(!empty($this->plxMotor->aConf['meta_'.$meta]))
-				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
+				echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 
 		if($this->plxMotor->mode == 'article') {
 			if($meta=='author')
-				echo '<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
+				echo "\n".'<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
 			else {
 				$meta_content=trim($this->plxMotor->plxRecord_arts->f('meta_'.$meta));
 				if(!empty($meta_content))
-					echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
+					echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
 			}
 			return;
 		}
 
 		if($this->plxMotor->mode == 'static') {
 			if(!empty($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]))
-				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
+				echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 		if($this->plxMotor->mode == 'categorie') {
 			if(!empty($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]))
-				echo '<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
+				echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 	}
@@ -1997,21 +1997,21 @@ class plxShow {
 	 *
 	 * @param	css_dir	 répertoire de stockage des fichiers css (avec un / à la fin)
 	 * @scope	global
-	 * @author	Stephane F
+	 * @author	Stephane F, Thomas Ingles
 	 **/
 	public function templateCss($css_dir='') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTemplateCss'))) return;
 
-		$theme = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/';
+		$css_dir = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/' . $css_dir;#add themes/theme_folder/
 		$min_css = str_replace('php','min.css',$this->plxMotor->template);
 		$css = str_replace('php','css',$this->plxMotor->template);
 
-		if(is_file($theme.$css_dir.$min_css)) {
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$min_css).'?v='.filemtime($theme.$css_dir.$min_css).'" media="screen" />'."\n";
+		if(is_file($css_dir.$min_css)) {
+			echo "\n".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($css_dir.$min_css).'?v='.date('yzhis',filemtime($css_dir.$min_css)).'" media="screen" />'."\n";
 		}
-		elseif(is_file($theme.$css_dir.$css)) {
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($theme.$css_dir.$css).'?v='.filemtime($theme.$css_dir.$css).'" media="screen" />'."\n";
+		elseif(is_file($css_dir.$css)) {
+			echo "\n".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($css_dir.$css).'?v='.date('yzhis',filemtime($css_dir.$css)).'" media="screen" />'."\n";
 		}
 	}
 
@@ -2027,7 +2027,7 @@ class plxShow {
 
 		$filename = $this->plxMotor->aConf['racine_plugins'].'site.css';
 		if(is_file(PLX_ROOT.$filename))
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($filename).'?v='.filemtime(PLX_ROOT.$filename).'" media="screen" />'."\n";
+			echo "\t".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($filename).'?v='.$this->plxMotor->plxPlugins->cssTimes['site'].'" media="screen" />'."\n";
 	}
 
 	/**

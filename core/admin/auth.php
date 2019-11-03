@@ -156,13 +156,15 @@ plxUtils::cleanHeaders();
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.min.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
-	<?php
-	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
-		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
-?>
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead')) # Hook Plugins ?>
+<?php
+	if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file']))
+		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'?v='.date('yzhis',filemtime(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])).'" media="screen" />'."\n";
+	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
+		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css?v='.$plxAdmin->plxPlugins->cssTimes['admin'].'" media="screen" />'."\n";
+	# Hook Plugins
+	eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead'));
+?>
 	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
 </head>
 <body id="auth">
@@ -170,12 +172,14 @@ plxUtils::cleanHeaders();
 		<section class="grid">
 			<div class="logo"></div>
 			<div class="auth col sml-12 sml-centered med-5 lrg-3">
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin')) # Hook plugins ?>
 <?php
+				# Hook plugins
+				eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin'));
 				switch ($_GET['action']){
 					case 'lostpassword': # Affichage du formulaire d'envoi du mail de changement de mot de passe
+						# Hook plugins
+						eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword'));
 ?>
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword')) # Hook plugins ?>
 				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 					<fieldset>
 						<?php echo plxToken::getTokenPostMethod() ?>
@@ -191,7 +195,10 @@ plxUtils::cleanHeaders();
 								<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
 							</div>
 						</div>
-						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthLostPassword')) # Hook plugins ?>
+<?php
+						# Hook plugins
+						eval($plxAdmin->plxPlugins->callHook('AdminAuthLostPassword'));
+?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
 								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
@@ -207,8 +214,9 @@ plxUtils::cleanHeaders();
 		case 'changepassword': # Affichage du formulaire de changement de mot passe
 			$lostPasswordToken = $_GET['token'];
 			if ($plxAdmin->verifyLostPasswordToken($lostPasswordToken)) {
+				# Hook plugins
+				eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword'));
 ?>
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword')) # Hook plugins ?>
 				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 					<fieldset>
 						<?php echo plxToken::getTokenPostMethod() ?>
@@ -231,7 +239,10 @@ plxUtils::cleanHeaders();
 								<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
 							</div>
 						</div>
-						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePassword')) # Hook plugins ?>
+<?php
+						# Hook plugins
+						eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePassword'));
+?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
 								<input type="submit" name="editpassword" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
@@ -245,8 +256,9 @@ plxUtils::cleanHeaders();
 <?php
 			}
 			else {
+				# Hook plugins
+				eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError'));
 ?>
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError')) # Hook plugins ?>
 				<h1 class="h5 text-center"><strong><?php echo L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
 				<div class="alert red">
 					<?php echo L_LOST_PASSWORD_ERROR ?>
@@ -289,7 +301,8 @@ plxUtils::cleanHeaders();
 							</div>
 <?php
 						}
-						eval($plxAdmin->plxPlugins->callHook('AdminAuth')) # Hook Plugins
+						# Hook Plugins
+						eval($plxAdmin->plxPlugins->callHook('AdminAuth'));
 ?>
 						<div class="grid">
 							<div class="col sml-12 text-center">

@@ -9,6 +9,7 @@ class plxPlugins {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins
+	public $cssTimes=array('admin'=>'', 'site'=>''); # init du tableau des temps epoc des fichiers site et admin.css #v5.8
 	public $default_lang; # langue par defaut utilisée par PluXml
 
 	/**
@@ -20,6 +21,10 @@ class plxPlugins {
 	 **/
 	public function __construct($default_lang='') {
 		$this->default_lang=$default_lang;
+		$this->cssTimes=array(
+		'admin' => is_file(PLX_PLUGINS.'admin.css')?date('yzhis',filemtime(PLX_PLUGINS.'admin.css')):''
+		,'site' => is_file(PLX_PLUGINS.'site.css')?date('yzhis',filemtime(PLX_PLUGINS.'site.css')):''
+		);# tableau des temps epoc de site et admin.css #v5.8
 	}
 
 	/**
