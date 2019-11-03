@@ -262,29 +262,29 @@ class plxShow {
 
 		if($this->plxMotor->mode == 'home') {
 			if(!empty($this->plxMotor->aConf['meta_'.$meta]))
-				echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
+				echo "\t".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aConf['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 
 		if($this->plxMotor->mode == 'article') {
 			if($meta=='author')
-				echo "\n".'<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
+				echo "\t".'<meta name="author" content="'.$this->artAuthor(false).'" />'."\n";
 			else {
 				$meta_content=trim($this->plxMotor->plxRecord_arts->f('meta_'.$meta));
 				if(!empty($meta_content))
-					echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
+					echo "\t".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($meta_content).'" />'."\n";
 			}
 			return;
 		}
 
 		if($this->plxMotor->mode == 'static') {
 			if(!empty($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]))
-				echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
+				echo "\t".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aStats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 		if($this->plxMotor->mode == 'categorie') {
 			if(!empty($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]))
-				echo "\n".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
+				echo "\t".'<meta name="'.$meta.'" content="'.plxUtils::strCheck($this->plxMotor->aCats[ $this->plxMotor->cible ]['meta_'.$meta]).'" />'."\n";
 			return;
 		}
 	}

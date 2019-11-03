@@ -5,15 +5,19 @@
 	<meta charset="<?php $plxShow->charset('min'); ?>">
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php $plxShow->pageTitle(); ?></title>
-	<?php $plxShow->meta('description') ?>
-	<?php $plxShow->meta('keywords') ?>
-	<?php $plxShow->meta('author') ?>
+<?php
+	$plxShow->meta('description');
+	$plxShow->meta('keywords');
+	$plxShow->meta('author');
+?>
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.min.css?v=1.3.1" media="screen,print"/>
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?php echo PLX_VERSION ?>" media="screen,print"/>
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/print.css?v=<?php echo PLX_VERSION ?>" media="print"/>
-<?php $plxShow->templateCss() ?>
-<?php $plxShow->pluginsCss() ?>
+<?php
+	$plxShow->templateCss();
+	$plxShow->pluginsCss();
+?>
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlPostsRssFeed($plxShow->plxMotor->mode) ?>" />
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" />
 </head>
