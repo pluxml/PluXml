@@ -2000,18 +2000,18 @@ class plxShow {
 	 * @author	Stephane F, Thomas Ingles
 	 **/
 	public function templateCss($css_dir='') {
+
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowTemplateCss'))) return;
 
 		$css_dir = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/' . $css_dir;#add themes/theme_folder/
 		$min_css = str_replace('php','min.css',$this->plxMotor->template);
 		$css = str_replace('php','css',$this->plxMotor->template);
-
 		if(is_file($css_dir.$min_css)) {
-			echo "\n".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($css_dir.$min_css).'?v='.date('yzhis',filemtime($css_dir.$min_css)).'" media="screen" />'."\n";
+			plxUtils::printLinkCss($css_dir.$min_css);
 		}
 		elseif(is_file($css_dir.$css)) {
-			echo "\n".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($css_dir.$css).'?v='.date('yzhis',filemtime($css_dir.$css)).'" media="screen" />'."\n";
+			plxUtils::printLinkCss($css_dir.$css);
 		}
 	}
 
@@ -2024,10 +2024,7 @@ class plxShow {
 	public function pluginsCss() {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowPluginsCss'))) return;
-
-		$filename = $this->plxMotor->aConf['racine_plugins'].'site.css';
-		if(is_file(PLX_ROOT.$filename))
-			echo "\t".'<link rel="stylesheet" type="text/css" href="'.$this->plxMotor->urlRewrite($filename).'?v='.$this->plxMotor->plxPlugins->cssTimes['site'].'" media="screen" />'."\n";
+		plxUtils::printLinkCss($this->plxMotor->aConf['racine_plugins'].'site.css');
 	}
 
 	/**

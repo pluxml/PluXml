@@ -10,6 +10,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 
 class plxUtils {
+	const TIME_MASK = 4194303;# printLinkCss : 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.
@@ -183,7 +184,7 @@ class plxUtils {
 	}
 
 	/**
-	 * Méthode qui affiche un zone de saisie
+	 * Méthode qui affiche une zone de saisie
 	 *
 	 * @param	name		nom de la zone de saisie
 	 * @param	value		valeur contenue dans la zone de saisie
@@ -1432,6 +1433,25 @@ EOT;
 
 EOT;
 
+	}
+
+	/**
+	 * Méthode qui affiche la balise <link> partir d'un nom de fichier
+	 * since 5.8
+	 * @file	string	nom d'un fichier
+	 * @amin	bool	false == Public & urlrwrite(), true == admin
+	 * @return	void
+	 * Inspiré de forum.pluxml.org/discussion/6281/une-feuille-css-peut-en-cacher-une-autre
+	 */
+	public static function printLinkCss($file, $admin=false) {
+		$plxMotor = ($admin) ? false : plxMotor::getinstance();
+		if(is_file(PLX_ROOT.$file)) {
+			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
+			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & self::TIME_MASK, 10, 36);
+			echo <<< LINK
+\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
+LINK;
+		}
 	}
 
 }

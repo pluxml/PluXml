@@ -21,10 +21,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
 <?php
-	if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file']))
-		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'?v='.date('yzhis',filemtime(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])).'" media="screen" />'."\n";
-	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
-		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css?v='.$plxAdmin->plxPlugins->cssTimes['admin'].'" media="screen" />'."\n";
+	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
+	plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'].'admin.css', true);
 ?>
 	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
