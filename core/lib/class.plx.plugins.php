@@ -9,7 +9,6 @@ class plxPlugins {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins
-	public $cssTimes=array('admin'=>'', 'site'=>''); # init du tableau des temps epoc des fichiers site et admin.css #v5.8
 	public $default_lang; # langue par defaut utilisée par PluXml
 
 	/**
