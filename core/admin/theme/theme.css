@@ -256,10 +256,12 @@ select,
 textarea {
 	width: auto;
 }
-input[type="text"],
-input[type="password"] {
-	max-width: 95%;
+@media(min-width:768px) and (max-width:1199px) {
+	.sidebar input[type="text"] {
+		width: 100%;
+	}
 }
+
 #id_content,
 #id_chapo,
 #id_frontend,
@@ -360,12 +362,12 @@ input[maxlength="3"] {
 
 .day,
 .month {
-	width: 2.8rem;
+	width: 2.8rem !important;
 }
 
 .year,
 .time {
-	width: 4.5rem;
+	width: 4.5rem !important;
 }
 
 .inline-form.publication input,
