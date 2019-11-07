@@ -10,7 +10,6 @@
 use PHPMailer\PHPMailer\PHPMailer;
 
 class plxUtils {
-	const TIME_MASK = 4194303;# printLinkCss : 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.
@@ -1300,7 +1299,13 @@ EOT;
 
 	}
 
-	static function _printSelectDirFilter($item){#[php5.0 compat] of _printSelectDir
+	/**
+	 * fonction privée statique qui détermine s'il s'agit de fichier ou dossier.
+	 * Since 5.8
+	 * @author J.P. Pourrez alias bazooka07
+	 * #[php5.0 compat] for _printSelectDir
+	 */
+	static function _printSelectDirFilter($item){
 		global $modeDir, $root, $extsText;#in global
 		$ext = pathinfo($item,PATHINFO_EXTENSION);
 		$return = ($item[0] != '.' and
@@ -1313,8 +1318,10 @@ EOT;
 
 	/**
 	 * fonction privée statique recursive qui imprime les options d'une arborescence de fichiers ou dossiers.
+	 * Since 5.8
 	 * @author J.P. Pourrez alias bazooka07
-	 * @version 2017-11-21
+	 *
+	 *
 	 * @param string $root nom du dossier
 	 * @param integer $level niveau de profondeur dans l'arborescence des dossiers
 	 * @param string $prefixParent prefixe pour l'affichage de la valeur de l'option
@@ -1340,7 +1347,7 @@ EOT;
 			$currentValue = $choice1;
 		}
 
-		# Transmet a _printSelectDirFilter func [php5.0]
+		# Transmet a _printSelectDirFilter func [php 5.0]
 		$GLOBALS['modeDir'] = $modeDir;
 		$GLOBALS['root'] = $root;
 		$GLOBALS['extsText'] = $extsText;
@@ -1402,6 +1409,7 @@ EOT;
 
 	/**
 	 * function publique pour afficher l'arborescence de dossiers et fichiers dans un tag <select..>.
+	 * Since 5.8
 	 * $modeDir=true  pour ne choisir que les dossiers : voir plxMedias contentFolder()
 	 * $modeDir=false pour ne choisir que les fichiers du thème
 	 * @author J.P. Pourrez alias bazooka07,
@@ -1437,17 +1445,20 @@ EOT;
 
 	/**
 	 * Méthode qui affiche la balise <link> partir d'un nom de fichier
-	 * since 5.8
+	 * Since 5.8
 	 * @file	string	nom d'un fichier
 	 * @amin	bool	false == Public & urlrwrite(), true == admin
 	 * @return	void
 	 * Inspiré de forum.pluxml.org/discussion/6281/une-feuille-css-peut-en-cacher-une-autre
+	 * # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
+	 * @author J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
 	 */
 	public static function printLinkCss($file, $admin=false) {
+
 		$plxMotor = ($admin) ? false : plxMotor::getinstance();
 		if(is_file(PLX_ROOT.$file)) {
 			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
-			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & self::TIME_MASK, 10, 36);
+			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36);
 			echo <<< LINK
 \t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
 LINK;
