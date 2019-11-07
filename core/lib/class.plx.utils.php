@@ -1300,27 +1300,9 @@ EOT;
 	}
 
 	/**
-	 * fonction privée statique qui détermine s'il s'agit de fichier ou dossier.
-	 * Since 5.8
-	 * @author J.P. Pourrez alias bazooka07
-	 * #[php5.0 compat] for _printSelectDir
-	 */
-	static function _printSelectDirFilter($item){
-		global $modeDir, $root, $extsText;#in global
-		$ext = pathinfo($item,PATHINFO_EXTENSION);
-		$return = ($item[0] != '.' and
-			( (is_dir($root.$item) ) or
-				(!$modeDir and (!empty($ext) and (strpos($extsText,$ext) !== false) or empty($extsText)))
-			)
-		);
-		return $return;
-	}
-
-	/**
 	 * fonction privée statique recursive qui imprime les options d'une arborescence de fichiers ou dossiers.
 	 * Since 5.8
 	 * @author J.P. Pourrez alias bazooka07
-	 *
 	 *
 	 * @param string $root nom du dossier
 	 * @param integer $level niveau de profondeur dans l'arborescence des dossiers
@@ -1347,12 +1329,16 @@ EOT;
 			$currentValue = $choice1;
 		}
 
-		# Transmet a _printSelectDirFilter func [php 5.0]
-		$GLOBALS['modeDir'] = $modeDir;
-		$GLOBALS['root'] = $root;
-		$GLOBALS['extsText'] = $extsText;
-
-		$children = array_filter(scandir($root),array('plxUtils','_printSelectDirFilter'));
+		$children = array_filter(scandir($root),
+			function ($item) use(&$modeDir, &$root, &$extsText) {# détermine s'il s'agit de fichier ou dossier php 5.3+
+				$ext = pathinfo($item,PATHINFO_EXTENSION);
+				return  ($item[0] != '.' and
+					( (is_dir($root.$item) ) or
+						(!$modeDir and (!empty($ext) and (strpos($extsText,$ext) !== false) or empty($extsText)))
+					)
+				);
+			}
+		);
 		natsort($children);
 
 		if(!empty($children)) {
