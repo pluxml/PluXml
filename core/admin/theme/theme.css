@@ -14,7 +14,7 @@
 body{
 	font-family: ubuntu,Arial;
 	font-size: 1.6rem;
-	line-height: 1.6;
+	line-height: 1;
 }
 
 /* ---------- Authentication ---------- */
@@ -59,7 +59,7 @@ body{
 }
 
 .aside .header {
-	line-height: 1.2;
+	line-height: 1.45rem;
 }
 
 .aside .unstyled-list {
@@ -135,6 +135,7 @@ a.lnkdelete:hover {
 	position: fixed;
 	top: 0;
 	z-index: 1;
+	line-height: 1.5;
 }
 
 .section .action-bar p,
@@ -169,7 +170,7 @@ a.lnkdelete:hover {
 		padding: 1rem;
 	}
 	.aside .responsive-menu {
-		max-height: 200px;
+		max-height: 100%;
 		overflow-y: auto;
 		position: fixed;
 		top: 0;
@@ -255,7 +256,10 @@ select,
 textarea {
 	width: auto;
 }
-
+input[type="text"],
+input[type="password"] {
+	max-width: 95%;
+}
 #id_content,
 #id_chapo,
 #id_frontend,
@@ -408,6 +412,7 @@ a.hint {
 	display: inline-block;
 	text-decoration: none;
 	font-size: 1.2rem;
+	line-height: 1.5;
 }
 
 a.hint::before {
