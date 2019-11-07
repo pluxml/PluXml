@@ -395,7 +395,7 @@ input.readonly:hover {
 
 .alert {
 	margin: 0 0 1rem;
-	border: 1px solid;
+	padding: 1rem;
 	border-radius: .5rem;
 }
 
