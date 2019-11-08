@@ -32,7 +32,7 @@ body {
 /* ---------- Header ---------- */
 
 .heading-small {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 .header {
 	background-color: #fff;
@@ -506,7 +506,7 @@ article:after {
 		margin-left: -12rem;
 	}
 	.heading-small {
-		font-size: 5rem;
+		font-size: 3rem;
 	}
 }
 
@@ -524,7 +524,7 @@ article:after {
 		margin-left: -7rem;
 	}
 	.heading-small {
-		font-size: 4rem;
+		font-size: 2.5rem;
 	}
 }
 
@@ -533,6 +533,10 @@ article:after {
 		background-size: 5rem;
 		background-position: 2.5rem 0;
 		padding-left: 7.5rem;
+	}
+	.heading-small {
+		line-height: .5;
+		margin-bottom: .5rem
 	}
 	.header a:hover {
 		color: #eee;
@@ -545,7 +549,7 @@ article:after {
 	}
 	.header,
 	.footer {
-		padding: 2rem 0;
+		padding: 1rem 0;
 	}
 	.aside {
 		padding-left: 1.5rem;
@@ -629,7 +633,7 @@ article:after {
 		height: 7rem;
 	}
 	.logo {
-		background-position: 2rem 0;
+		background-position: 1rem 0;
 		padding-left: 2rem;
 		background-size: 2rem;
 	}
