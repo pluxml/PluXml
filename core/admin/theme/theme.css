@@ -823,7 +823,7 @@ div.ico div {
 	cursor: pointer;
 }
 
-/* ------- MEDIASMANAGER ------ */
+/* ------- Popup Medias Manager ------ */
 
 body.mediasManager .aside {
 	display: none;
@@ -839,23 +839,11 @@ body.mediasManager .section .action-bar {
 	margin-right: 0;
 	margin-left: 0;
 }
-
-@media (min-width: 992px) {
-	body.mediasManager .col.med-offset-3 {
-		margin-left: 0;
-	}
-	body.mediasManager .col.med-9 {
-		width: 100%;
-	}
-}
-
-@media (min-width: 1200px) {
-	body.mediasManager .col.lrg-offset-2 {
-		margin-left: 0;
-	}
-	body.mediasManager .col.lrg-10 {
-		width: 100%;
-	}
+/* Remove offsets & enlarge (screens>767px) */
+body.mediasManager .col.med-offset-3,
+body.mediasManager .col.lrg-offset-2 {
+	width: 100%;
+	margin-left: 0;
 }
 
 /* ----------- Drag and Drop for sorting table rows ---------- */
