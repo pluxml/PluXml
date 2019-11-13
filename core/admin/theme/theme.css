@@ -144,7 +144,7 @@ a.lnkdelete:hover {
 }
 
 .section .action-bar h2 {
-	font-size: 2.5rem;
+	font-size: xx-large;
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -198,10 +198,14 @@ a.lnkdelete:hover {
 		left: 0;
 	}
 	.section .action-bar {
-		/*background-color: inherit;*/
+		text-align: center;
 		margin: 0 0 1.5rem 0;
 		padding: 0;
 		z-index: inherit;
+		font-size: medium;
+	}
+	.section .action-bar h2 {
+		font-size: x-large;
 	}
 	.section {
 		margin-top: 1.5rem;
@@ -408,23 +412,20 @@ form .col {
 }
 
 a.hint {
-	width: 16px;
-	height: 16px;
+	width: 0;
+	height: 0;
 	cursor: help;
 	display: inline-block;
 	text-decoration: none;
-	font-size: 1.2rem;
-	line-height: 1.5;
 }
 
 a.hint::before {
 	color: #fff;
 	background-color: #999;
-	width: 16px;
-	height: 16px;
+	padding: .2rem .6rem;
 	display: inline-block;
 	border-radius: 100%;
-	font-size: 12px;
+	font-size: small;
 	text-align: center;
 	text-decoration: none;
 	-webkit-box-shadow: inset -1px -1px 1px 0px rgba(0, 0, 0, 0.25);
@@ -443,6 +444,7 @@ a.hint span {
 	padding: .4rem;
 	position: absolute;
 	z-index: 9999;
+	border-radius: .1rem;
 }
 
 a.hint:hover span,
@@ -491,13 +493,12 @@ a.hint:focus span {
 }
 
 @media (max-width: 767px) {
-	.section .action-bar {
-		text-align: center;
-	}
 	.in-action-bar {
+		text-align: center;
 		position: absolute;
 		margin-top: 3.5rem;
-		z-index: -1;
+		z-index: 1;
+		font-size: medium;
 	}
 	#plugin .section,
 	#parametres_plugin .section,
