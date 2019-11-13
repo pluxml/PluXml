@@ -80,7 +80,7 @@ include __DIR__ .'/top.php';
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
-		&nbsp;&nbsp;&nbsp;
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</div>
 
