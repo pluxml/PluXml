@@ -562,7 +562,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @param	content	tableau multidimensionnel des catégories
 	 * @param	action	permet de forcer la mise àjour du fichier
 	 * @return	string
-	 * @author	Stephane F
+	 * @author	Stephane F, Pedro "P3ter" CADETE, sudwebdesign
 	 **/
 	public function editCategories($content, $action=false) {
 
@@ -571,11 +571,45 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# suppression
 		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idCategory']) AND empty($content['update'])) {
 			foreach($content['idCategory'] as $cat_id) {
+				# On renomme les fichiers des articles de cette catégorie #since 5.8
+				$motif = '/^[0-9]{4}.(?:[0-9]|home|draft|,)*(?:'.$cat_id.')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/'; # Motif de recherche
+				$tri = 'desc';
+				$start = 1;
+				$bypage = 10000;# max arts + 1
+				$publi='before';
+				# On recupere nos fichiers (tries)
+				if($aFiles = $this->plxGlob_arts->query($motif,'art',$tri,$start,$bypage,$publi)) {
+					foreach($aFiles as $k=>$v) {# On parcourt tous les fichiers
+						# On découpe grâce aux
+						$a = explode(".", $v);# points
+						$aCat = explode(',',$a[1]);# virgules
+						# Cet article
+						$plus = (count($aCat) > 1);# appartient à plus d'une categorie
+						$home = in_array('home',$aCat);# est classé ds l'accueil
+						$draft = in_array('draft',$aCat);# est non publié
+						# On retire la catégorie brouillon (draft)
+						if($draft) unset($aCat[0]);
+						foreach($aCat as $i=>$d) {# Pour toutes les catégories
+							if ($cat_id == $d) {
+								if($plus or $home) unset($aCat[$i]);#On supprime de la liste (si multiple cat)
+								else $aCat[$i] = '000';#RAZ si juste classé avec celle-ci
+							}
+						}
+						# On remet la catégorie brouillon
+						if($draft) $aCat[0] = 'draft';
+						# On recole
+						$a[1] = implode(',',$aCat);# la/les catégorie(s) modifiés
+						$a = implode(".", $a);# toutes les parties du nom
+						# On renomme le fichier xml de l'article
+						rename(PLX_ROOT.$this->aConf['racine_articles'].$v, PLX_ROOT.$this->aConf['racine_articles'].$a);
+					}
+				}
+				# On supprime du tableau général
 				unset($this->aCats[$cat_id]);
 				$action = true;
 			}
 		}
-		# ajout nouvelle catégorie à partir de la page article
+		# Ajout d'une nouvelle catégorie à partir de la page article
 		elseif(!empty($content['new_category'])) {
 			$cat_name = $content['new_catname'];
 			if($cat_name!='') {
