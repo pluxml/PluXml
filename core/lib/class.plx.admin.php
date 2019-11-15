@@ -320,20 +320,17 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
 				if (($user['login'] == $loginOrMail OR $user['email'] == $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
-					# token and e-mail creation
+					// token and e-mail creation
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
 						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
 						"##URL_EXPIRY##"	=> $tokenExpiry
 					);
-					$mail['body'] = str_replace(array_keys($placeholdersValues), array_values($placeholdersValues), L_LOST_PASSWORD_BODY);
-					$mail['name'] = 'no-reply ' . $this->aConf['title'];
-					$mail['from'] = $user['email'];#or what?
-					$mail['subject'] = L_LOST_PASSWORD_SUBJECT;# or L_LOST_PASSWORD
-
-					# Verifie si e-mail crée
-					if (!empty($mail['body'])) {
-						# configure the SMTP mailer if activated, sending the e-mail and if OK store the token
+					if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
+						$mail['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
+						$mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
+						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
+						// configure the SMTP mailer if activated, sending the e-mail and if OK store the token
 						if ($this->aConf['smtp_activation']) {
 							$mailer = 'smtp';
 							$smtpHost = $this->aConf['smtp_server'];

@@ -31,6 +31,7 @@ class plxMotor {
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); # Tableau des utilisateurs
+	public $aTemplates = null; # Tableau des templates
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
@@ -108,6 +109,8 @@ class plxMotor {
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
+		# Recuperation des templates
+		$this->getTemplates(PLX_TEMPLATES);
 	}
 
 	/**
@@ -987,6 +990,20 @@ class plxMotor {
 		}
 		# Mémorisation de la liste des tags
 		$this->aTags = $array;
+	}
+	
+	/**
+	 * Méthode qui alimente le tableau aTemplate
+	 *
+	 * @param	string	dossier contenant les templates
+	 * @return	null
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function getTemplates($templateFolder) {
+		$files = array_diff(scandir($templateFolder), array('..', '.'));
+		foreach ($files as $file) {
+			$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+		}
 	}
 
 	/**

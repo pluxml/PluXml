@@ -12,8 +12,7 @@
 ?>
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.min.css?v=1.3.1" media="screen,print"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?php echo PLX_VERSION ?>" media="screen,print"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/print.css?v=<?php echo PLX_VERSION ?>" media="print"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?php echo PLX_VERSION ?>" media="screen"/>
 <?php
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
