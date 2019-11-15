@@ -342,11 +342,14 @@ class plxShow {
 			$name = str_replace('#art_nb','',$name);
 			echo $name;
 		}
+
 		# On verifie qu'il y a des categories
 		if($this->plxMotor->aCats) {
-			foreach($this->plxMotor->aCats as $k=>$v) {
-				$in = (empty($include) OR preg_match('/('.$include.')/', $k));
-				$ex = (!empty($exclude) AND preg_match('/('.$exclude.')/', $k));
+			if(!empty($include)){$include=str_pad($include,3,'0',STR_PAD_LEFT);}
+			if(!empty($exclude)){$exclude=str_pad($exclude,3,'0',STR_PAD_LEFT);}
+			foreach($this->plxMotor->aCats AS $k=>$v) {
+				$in=(empty($include) OR preg_match('/(\b'.$include.'\b)/',$k));
+				$ex=(!empty($exclude) AND preg_match('/(\b'.$exclude.'\b)/',$k));
 				if($in AND !$ex) {
 					if(($v['articles']>0 OR $this->plxMotor->aConf['display_empty_cat']) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
 						# On modifie nos motifs
