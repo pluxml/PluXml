@@ -558,15 +558,33 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
      * @param	content	tableau multidimensionnel des catégories
      * @param	action	permet de forcer la mise àjour du fichier
      * @return	string
-     * @author	Stephane F
+     * @author	Stephane F, Pedro "P3ter" CADETE
      **/
     public function editCategories($content, $action=false) {
-        
+
         $save = $this->aCats;
-        
+
         # suppression
         if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idCategory']) AND empty($content['update'])) {
             foreach($content['idCategory'] as $cat_id) {
+                // change article category to the default category id
+                foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
+                    $filenameArray = explode(".", $filename);
+                    $filenameArrayCat = explode(",", $filenameArray[1]);
+                    if (in_array($cat_id, $filenameArrayCat)) {
+                        $key = array_search($cat_id, $filenameArrayCat);
+                        if(count(preg_grep('[0-9]{3}', $filenameArrayCat)) > 1) {
+                            // this article has more than one category
+                            unset($filenameArrayCat[$key]);
+                        }
+                        else {
+                            $filenameArrayCat[$key] = '000';
+                        }
+                        $filenameArray[1] = implode(",", $filenameArrayCat);
+                        $filenameNew = implode(".", $filenameArray);
+                        rename(PLX_ROOT.$this->aConf['racine_articles'].$filename, PLX_ROOT.$this->aConf['racine_articles'].$filenameNew);
+                    }
+                }
                 unset($this->aCats[$cat_id]);
                 $action = true;
             }

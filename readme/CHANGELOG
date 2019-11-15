@@ -32,6 +32,7 @@ FIX #324 Correction couleur des selecteurs si le theme du navigateur est invers�
 FIX #326 Remplacement de "create_function()" déprécié depuis PHP 5.3 (faille et dégradation des performances) (P3ter)
 FIX #329 Mauvais affichage du nom du site et du menu avec Safari (P3ter)
 FIX #334 Thème par défaut : affichage cassé des sous-menu de pages statiques (sudwebdesign)
+FIX #343 Article n'est plus affiché après suppression de la catégorie (P3ter)
 FIX #345 $plxShow->catList affiche la catégorie 10 à tort (bazooka07)
 
 ## PLUXML 5.7 (sortie : 11/12/2018) ##
