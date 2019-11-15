@@ -929,9 +929,9 @@ class plxUtils {
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *
-	 * @param	type	string 			type de source #since 5.8
-	 * @param	charset	string 			type d'encodage #since 5.8
-	 * @return	stdio
+	 * @param	type	string 		type de source
+	 * @param	charset	string 		type d'encodage
+	 * @return	void
 	 * @author	Stephane F., Thomas Ingles
 	 **/
 	public static function cleanHeaders($type='text/html', $charset=PLX_CHARSET) {
@@ -1061,7 +1061,7 @@ class plxUtils {
 	 * with the ending if the text is longer than length.
 	 *
 	 * @param	string	$text String to truncate.
-	 * @param	intege	$length Length of returned string, including ellipsis.
+	 * @param	integer	$length Length of returned string, including ellipsis.
 	 * @param	string	$ending Ending to be appended to the trimmed string.
 	 * @param	boolean	$exact If false, $text will not be cut mid-word
 	 * @param	boolean	$considerHtml If true, HTML tags would be handled correctly
@@ -1262,17 +1262,6 @@ class plxUtils {
 		return $str;
 	}
 
-/*
-	function arrayRemoveDuplicate($array, $field) {
-		foreach ($array as $element)
-			$cmp[] = $element[$field];
-		$unique = array_unique($cmp);
-		foreach ($unique as $k => $v)
-			$new[] = $array[$k];
-		return $new;
-	}
-*/
-
 	public static function debug($obj) {
 		echo "<pre>";
 		if(is_array($obj) OR is_object($obj))
@@ -1300,16 +1289,14 @@ EOT;
 	}
 
 	/**
-	 * fonction privée statique recursive qui imprime les options d'une arborescence de fichiers ou dossiers.
-	 * Since 5.8
-	 * @author J.P. Pourrez alias bazooka07
-	 *
-	 * @param string $root nom du dossier
-	 * @param integer $level niveau de profondeur dans l'arborescence des dossiers
-	 * @param string $prefixParent prefixe pour l'affichage de la valeur de l'option
-	 * @param string $choice1 sélection initiale de l'utilisateur. Utilisé seulement au niveau 0
-	 * @param boolean $modeDir1 mode pour afficher uniquement les dossiers
-	 * @return void(0) On envoie directemenr le code HTML en sortie
+	 * Fonction privée statique recursive qui imprime les options d'une arborescence de fichiers ou dossiers.
+	 * @param	string	$root nom du dossier
+	 * @param	integer	$level			niveau de profondeur dans l'arborescence des dossiers
+	 * @param	string	$prefixParent	prefixe pour l'affichage de la valeur de l'option
+	 * @param	string	$choice1		sélection initiale de l'utilisateur. Utilisé seulement au niveau 0
+	 * @param	boolean	$modeDir1		mode pour afficher uniquement les dossiers
+	 * @return	void					on envoie directemenr le code HTML en sortie
+	 * @author	J.P. Pourrez alias bazooka07
 	 * */
 	private static function _printSelectDir($root, $level, $prefixParent, $choice1='', $modeDir1=true, $textOnly= true) {
 
@@ -1394,17 +1381,16 @@ EOT;
 	}
 
 	/**
-	 * function publique pour afficher l'arborescence de dossiers et fichiers dans un tag <select..>.
-	 * Since 5.8
+	 * Function publique pour afficher l'arborescence de dossiers et fichiers dans un tag <select..>.
+	 * @param	string	$name nom de l'input dans le formulaire
+	 * @param	string	$currentValue sélection initiale de l'utilisateur
+	 * @param	string	$root dossier initial dans l'arborescence
+	 * @param	string	$class Classe css a appliquer au sélecteur #sudwebdesign
+	 * @param	boolean	$modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
+	 * @return	void
+	 * @author	J.P. Pourrez alias bazooka07
 	 * $modeDir=true  pour ne choisir que les dossiers : voir plxMedias contentFolder()
 	 * $modeDir=false pour ne choisir que les fichiers du thème
-	 * @author J.P. Pourrez alias bazooka07,
-	 * @version 2019-10-22
-	 * @param string $name nom de l'input dans le formulaire
-	 * @param string $currentValue sélection initiale de l'utilisateur
-	 * @param string $root dossier initial dans l'arborescence
-	 * @param string $class Classe css a appliquer au sélecteur #sudwebdesign
-	 * @param boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
 	 * */
 	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true) {
 
@@ -1431,12 +1417,9 @@ EOT;
 
 	/**
 	 * Méthode qui affiche la balise <link> partir d'un nom de fichier
-	 * Since 5.8
-	 * @file	string	nom d'un fichier
-	 * @amin	bool	false == Public & urlrwrite(), true == admin
+	 * @param	string	file	nom d'un fichier
+	 * @param	boolean	admin	false == Public & urlrwrite(), true == admin
 	 * @return	void
-	 * Inspiré de forum.pluxml.org/discussion/6281/une-feuille-css-peut-en-cacher-une-autre
-	 * # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 	 * @author J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
 	 */
 	public static function printLinkCss($file, $admin=false) {
@@ -1444,7 +1427,7 @@ EOT;
 		$plxMotor = ($admin) ? false : plxMotor::getinstance();
 		if(is_file(PLX_ROOT.$file)) {
 			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
-			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36);
+			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 			echo <<< LINK
 \t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
 LINK;

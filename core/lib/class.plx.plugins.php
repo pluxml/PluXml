@@ -30,7 +30,7 @@ class plxPlugins {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function getInstance($plugName) {
+	public static function getInstance($plugName) {
 		$filename = PLX_PLUGINS."$plugName/$plugName.php";
 		if(is_file($filename)) {
 			include_once $filename;
