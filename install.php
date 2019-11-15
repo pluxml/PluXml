@@ -203,7 +203,7 @@ function install($content, $config) {
 		<type>normal</type>
 		<ip>127.0.0.1</ip>
 		<mail><![CDATA[contact@pluxml.org]]></mail>
-		<site><![CDATA[http://www.pluxml.org]]></site>
+		<site><![CDATA['.PLX_URL_REPO.']]></site>
 		<content><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT).']]></content>
 	</comment>';
 	plxUtils::write($xml,PLX_ROOT.$config['racine_commentaires'].'0001.'.date('U').'-1.xml');

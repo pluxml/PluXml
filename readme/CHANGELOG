@@ -1,5 +1,32 @@
 ## PLUXML 5.8 (sortie : jj/mm/aaaa) ##
 
+[+] Theme admin retouché improve responsive-menu 100%<768px + fonts Ubuntu, line-heights (sudwebdesign)
+
+[+] plxUtils::printLinkCss Méthode qui affiche la balise <link> partir d'un fichier * Inspiré de forum.pluxml.org/discussion/6281/une-feuille-css-peut-en-cacher-une-autre (bazooka07 & sudwebdesign)
+[+] Fix CORS feed.php + header('Access-Control-Allow-Origin: *'); #autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing : enable-cors.org/server_php.html + developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin (sudwebdesign)
+
+[+] CodesBook : Les "Hook Plugins" en commentaire complétés
+[+] [admin menu] Les id de liste pour chaque menu sont fixes : url basename (style compatible multilingue) : class.plx.utils.php : formatMenu() : portée css id admin/top.php : li#mnu_nomPageAdminSansPointPhp ou li#mnu_LeNomDuPlugin (sudwebdesign)
+[+] [admin sessions] Change le profil de la session utilisateur sans qu'il est a se reconnecter s'il est re-profilé ou le déconnecte s'il est désactivé ou supprimé. Ceci dès sa prochaine action après le réglage d'un admin. (sudwebdesign)
+[+] [admin css] thème default : fontes ubuntu,arial : Élargir les bords entre 64 & 128rem + règles css print (1024 & 2048px). (sudwebdesign)
+[+] [admin] plxUtils::printSelectDir utilisé ds editTpl & media (bazooka07 forked by sudwebdesign)
+[+] [admin media] Indique le nombre Maximum de fichiers téléversable en un seul jet (number of files per upload + langues) (sudwebdesign)
+[+] [admin] Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (sudwebdesign)
+[+] [theme defaut révisé] theme.css, entête et le menu fonctionne avec de nombreux plugins (sudwebdesign)
+[+] plxUtils::cleanHeaders() nouveau params : $type='text/html', $charset=PLX_CHARSET (sudwebdesign)
+[+] Hook : plxAdminEditUsersBegin : class.plx.admin.php : editUsers() : avec if() return; (sudwebdesign)
+[+] auth.php 7 Hook plugins (sudwebdesign)
+FIX Traductions manquantes en Polonais #332
+AdminAuthBegin
+AdminAuthTopLostPassword
+AdminAuthLostPassword
+AdminAuthTopChangePassword
+AdminAuthChangePassword
+AdminAuthTopChangePasswordError
+AdminAuthChangePasswordError
+
+
+
 [+] PluCSS 1.3.1
 [+] Feature "Mot de passe oublié" : envoi d'un lien par mail permettant la création d'un nouveau mot de passe (P3ter)
 [+] Feature "Mot de passe oublié" : l'adresse e-mail devient obligatoire à l'installation de PluXml et à la création d'un utilisateur (P3ter)
@@ -22,7 +49,7 @@
 [+] #312 Remplacement de la fonction str_replace() par strtr() pour les liens vers les pages archives (bazooka07, P3ter)
 [+] #313 Fermer l'overlay des médias avec la touche "ESC/ECHAP" du clavier (jerrywham)
 [+] #317 #325 plxShow->lastArtList() rechercher des catégories par leur url plutôt que par leur ID (jerrywham, sudwebdesign)
-[+] #331 #330 Ajout d'une image d'accroche sur une catégorie (Philippe-M) 
+[+] #331 #330 Ajout d'une image d'accroche sur une catégorie (Philippe-M)
 FIX #287 Capcha : ajout d'un espace insécable avant le "?" (P3ter)
 FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI (bazooka07)
 FIX #318 L_NEW_CATEGORY en doublon pour certaines langues (P3ter)

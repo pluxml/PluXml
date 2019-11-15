@@ -5,14 +5,19 @@
 	<meta charset="<?php $plxShow->charset('min'); ?>">
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php $plxShow->pageTitle(); ?></title>
-	<?php $plxShow->meta('description') ?>
-	<?php $plxShow->meta('keywords') ?>
-	<?php $plxShow->meta('author') ?>
+<?php
+	$plxShow->meta('description');
+	$plxShow->meta('keywords');
+	$plxShow->meta('author');
+?>
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.min.css" media="screen"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css" media="screen"/>
-	<?php $plxShow->templateCss() ?>
-	<?php $plxShow->pluginsCss() ?>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.min.css?v=1.3.1" media="screen,print"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?php echo PLX_VERSION ?>" media="screen,print"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/print.css?v=<?php echo PLX_VERSION ?>" media="print"/>
+<?php
+	$plxShow->templateCss();
+	$plxShow->pluginsCss();
+?>
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlPostsRssFeed($plxShow->plxMotor->mode) ?>" />
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" />
 </head>
@@ -25,7 +30,7 @@
 
 			<div class="grid">
 
-				<div class="col sml-6">
+				<div class="col sml-6 med-5 lrg-4">
 
 					<div class="logo">
 
@@ -36,12 +41,12 @@
 
 				</div>
 
-				<div class="col sml-6">
+				<div class="col sml-6 med-7 lrg-8">
 
 					<nav class="nav">
 
 						<div class="responsive-menu">
-							<label for="menu"></label>
+							<label for="menu"><span class="float-left"><?php $plxShow->lang('MENU') ?></span></label>
 							<input type="checkbox" id="menu">
 							<ul class="menu">
 								<?php $plxShow->staticList($plxShow->getLang('HOME'),'<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>'); ?>

@@ -9,12 +9,13 @@ $LANG = array(
 'L_SAVE_FILE'												=> 'Сохраните файл',
 'L_SAVE_FILE_SUCCESSFULLY'									=> 'Файл успешно сохранены',
 'L_SAVE_FILE_ERROR'											=> 'Ошибка при сохранении файла',
+'L_FILE_REQUIRED'											=> 'Выберите файл',
 'L_REPLY'													=> 'ответ',
 'L_REPLY_TO'												=> 'ответ',
 'L_CANCEL'													=> 'отменить',
 'L_DELETE'													=> 'Удалить',
-'L_DELETE_FILE' 				    						=> 'Удалить файл',
-'L_DELETE_FOLDER'				   							=> 'Удалить папку',
+'L_DELETE_FILE' 											=> 'Удалить файл',
+'L_DELETE_FOLDER'											=> 'Удалить папку',
 'L_DELETE_SUCCESSFUL'										=> 'Успешное удаление',
 'L_DELETE_FILE_ERR'											=> 'Ошибка при удалении файла',
 'L_RENAME_FILE_SUCCESSFUL'									=> 'Файл успешно переименован',
@@ -144,21 +145,36 @@ $LANG = array(
 'L_LOGIN_PAGE'												=> 'Вход в Админпанель',
 'L_AUTH_LOGIN_FIELD'										=> 'Логин',
 'L_AUTH_PASSWORD_FIELD'										=> 'Пароль',
+'L_AUTH_LOST_FIELD'											=> 'Логин или адрес электронной почты',
 'L_SUBMIT_BUTTON'											=> 'Войти',
 'L_ERR_WRONG_PASSWORD'										=> 'Неправильный логин или пароль',
-'L_POWERED_BY'												=> 'Powered by <a href="http://www.pluxml.org">PluXml</a>',
+'L_POWERED_BY'												=> 'Powered by <a href="https://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'											=> 'Слишком много неудачных Войти<br />Повторите попытку через% S минут',
-'L_LOST_PASSWORD'                                           => 'Забыли пароль?',
-'L_LOST_PASSWORD_LOGIN'                                     => 'Aвторизоваться',
-'L_LOST_PASSWORD_SUCCESS'                                   => 'Письмо было отправлено пользователю',
-'L_LOST_PASSWORD_ERROR'                                     => 'Срок действия ссылки истек',
+'L_LOST_PASSWORD'											=> 'Забыли пароль?',
+'L_LOST_PASSWORD_LOGIN'										=> 'Aвторизоваться',
+'L_LOST_PASSWORD_SUCCESS'									=> 'Письмо было отправлено пользователю',
+'L_LOST_PASSWORD_ERROR'										=> 'Срок действия ссылки истек',
+'L_LOST_PASSWORD_SUBJECT'									=> 'Воссоздание пароля',
+'L_LOST_PASSWORD_BODY'										=> 'Приветствие ##LOGIN##,
+
+Начат запрос на сбросить кунжут.
+
+Чтобы изменить пароль, пожалуйста, перейдите по ссылке ниже:
+
+##URL_PASSWORD##
+
+Если этот запрос является незаконным, игнорируйте это сообщение.
+
+Срок действия этой ссылки истекает через ##URL_EXPIRY## часа.
+
+Это автоматический мел, не нужно отвечать на него, спасибо.',
 
 #
 
 'L_SORT_ASCENDING_DATE'										=> 'Дата по возрастанию',
 'L_SORT_DESCENDING_DATE'									=> 'Дата по убыванию',
 'L_SORT_ALPHABETICAL'										=> 'В алфавитном порядке',
-'L_SORT_REVERSE_ALPHABETICAL'		                        => 'обратный алфавитный',
+'L_SORT_REVERSE_ALPHABETICAL'								=> 'обратный алфавитный',
 'L_SORT_RANDOM'												=> 'алеаторный',
 'L_YES'														=> 'Да',
 'L_NO'														=> 'Нет',
@@ -306,7 +322,7 @@ $LANG = array(
 'L_MEDIAS_DIRECTORY'										=> 'Расположение',
 'L_MEDIAS_BACK'												=> 'Назад',
 'L_MEDIAS_MAX_UPLOAD_FILE'									=> 'Максимальный размер файла',
-'L_MEDIAS_MAX_UPLOAD_NBFILE'					        	=> 'Максимальное количество файлов на загрузку',
+'L_MEDIAS_MAX_UPLOAD_NBFILE'								=> 'Максимальное количество файлов на загрузку',
 'L_MEDIAS_MAX_POST_SIZE'									=> 'Максимальный размер данных',
 'L_MEDIAS_SUBMIT_FILE'										=> 'Загрузить',
 'L_MEDIAS_IMAGES'											=> 'Изображения',
@@ -335,9 +351,9 @@ $LANG = array(
 'L_MEDIAS_ALIGN_CENTER'										=> 'Центр',
 'L_MEDIAS_ALIGN_RIGHT'										=> 'Право',
 'L_MEDIAS_RECREATE_THUMB'									=> 'Обновить эскизы',
-'L_MEDIAS_LINK_COPYCLP'                                     => 'Скопировать ссылку в буфер обмена',
-'L_MEDIAS_LINK_COPYCLP_ERR'                                 => 'Невозможно скопировать ссылку в буфер обмена',
-'L_MEDIAS_LINK_COPYCLP_DONE'                                => 'ссылка скопирована',
+'L_MEDIAS_LINK_COPYCLP'										=> 'Скопировать ссылку в буфер обмена',
+'L_MEDIAS_LINK_COPYCLP_ERR'									=> 'Невозможно скопировать ссылку в буфер обмена',
+'L_MEDIAS_LINK_COPYCLP_DONE'								=> 'ссылка скопирована',
 'L_MEDIAS_NEW_NAME'											=> 'Новое имя',
 'L_MEDIAS_RENAME'											=> 'Переименование',
 
@@ -378,7 +394,7 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CAPCHA'									=> 'Включить анти-спам Capcha',
 'L_CONFIG_ADVANCED_ADMIN_KEY'								=> 'Административный ключ (для приватных URL)',
 'L_CONFIG_ADVANCED_KEY_HELP'								=> 'Оставьте это поле пустым, чтобы восстановить ключ',
-'L_CONFIG_ADVANCED_USERFOLDERS'								=> 'Используйте другую папку средств массовой информации для каждого пользователя',
+'L_CONFIG_ADVANCED_USERFOLDERS'								=> 'Используйте другую папку средств массовой информации для каждого Редактор',
 'L_HELP_SLASH_END'											=> 'Не забудьте слеш / в конце',
 'L_CONFIG_ADVANCED_MEDIAS_FOLDER'							=> 'Медиа место (папка)',
 'L_CONFIG_ADVANCED_ARTS_FOLDER'								=> 'Папка для статей',
@@ -389,13 +405,13 @@ $LANG = array(
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'							=> 'Расположение файлов конфигурации (каталог)',
 'L_CONFIG_ADVANCED_UPDATE'									=> 'Сохранить дополнительные настройки',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'								=> 'Место и имя пользовательских файлов CSS области управления (опция)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'                              => 'Отправка писем по SMTP',
-'L_CONFIG_ADVANCED_SMTP_ACTIVATION'                         => 'Разрешить отправку писем по SMTP-серверу',
-'L_CONFIG_ADVANCED_SMTP_SERVER'                             => 'Имя хоста SMTP',
-'L_CONFIG_ADVANCED_SMTP_USERNAME'                           => 'Имя пользователя SMTP',
-'L_CONFIG_ADVANCED_SMTP_PASSWORD'                           => 'Пароль SMTP',
-'L_CONFIG_ADVANCED_SMTP_PORT'                               => 'Порт SMTP',
-'L_CONFIG_ADVANCED_SMTP_SECURITY'                           => 'SMTP-шифрование',
+'L_CONFIG_ADVANCED_TITLE_SMTP'								=> 'Отправка писем по SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'							=> 'Разрешить отправку писем по SMTP-серверу',
+'L_CONFIG_ADVANCED_SMTP_SERVER'								=> 'Имя хоста SMTP',
+'L_CONFIG_ADVANCED_SMTP_USERNAME'							=> 'Имя пользователя SMTP',
+'L_CONFIG_ADVANCED_SMTP_PASSWORD'							=> 'Пароль SMTP',
+'L_CONFIG_ADVANCED_SMTP_PORT'								=> 'Порт SMTP',
+'L_CONFIG_ADVANCED_SMTP_SECURITY'							=> 'SMTP-шифрование',
 
 # parametres_base.php
 
@@ -411,7 +427,7 @@ $LANG = array(
 'L_CONFIG_BASE_UPDATE'										=> 'Сохранить основные настройки',
 'L_CONFIG_META_DESCRIPTION'									=> 'Мета-тег описания "Description" (необязательно)',
 'L_CONFIG_META_KEYWORDS'									=> 'Мета-тег ключевых слов "Keywords" (необязательно)',
-'L_CONFIG_BASE_ENABLE_RSS'                                  => 'Отображать RSS-каналы',
+'L_CONFIG_BASE_ENABLE_RSS'									=> 'Отображать RSS-каналы',
 
 # parametres_edittpl.php
 
@@ -444,7 +460,7 @@ $LANG = array(
 'L_CONFIG_USERS_UPDATE'										=> 'Сохранить список пользователей',
 'L_ERR_LOGIN_ALREADY_EXISTS'								=> 'Такой логин уже используется',
 'L_ERR_USERNAME_ALREADY_EXISTS'								=> 'Такое имя пользователя уже используется',
-'L_ERR_EMAIL_ALREADY_EXISTS'                                => 'Адрес электронной почты уже используется',
+'L_ERR_EMAIL_ALREADY_EXISTS'								=> 'Адрес электронной почты уже используется',
 
 # parametre_plugins.php
 

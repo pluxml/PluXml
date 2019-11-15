@@ -54,7 +54,7 @@ class plxGlob {
 	}
 
 	/**
-	 * Méthode qui se charger de mémoriser le contenu d'un dossier
+	 * Méthode qui se charge de mémoriser le contenu d'un dossier
 	 *
 	 * @param	type			type de fichier lus (arts ou '')
 	 * @return	null
@@ -227,5 +227,4 @@ class plxGlob {
 		return false;
 	}
 
-} 
-?>
+}

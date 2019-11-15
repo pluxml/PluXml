@@ -40,28 +40,27 @@ class plxToken {
 		}
 
 	}
-	
+
 	/**
 	 * Create a token to reset user password
-	 * 
-	 * @return string      the token
-	 * @author Pedro "P3ter" CADETE
+	 *
+	 * @return	string	the token
+	 * @author	Pedro "P3ter" CADETE
 	 */
 	public static function generateToken() {
-	    return sha1(mt_rand(0, 1000000));
+		return sha1(mt_rand(0, 1000000));
 	}
-	
+
 	/**
 	 * Generate Token expiry date
-	 * 
-	 * @param  int         hours before expiration
-	 * @return string      expiry date
-	 * @author Pedro "P3ter" CADETE
+	 *
+	 * @param	int		hours before expiration
+	 * @return	string	expiry date
+	 * @author	Pedro "P3ter" CADETE
 	 */
-	
+
 	public static function generateTokenExperyDate($hours = 24) {
-	    return date(YmdHis, mktime(date(H)+$hours, date(i), date(s), date(m), date(d), date(Y)));
+		return date(YmdHis, mktime(date(H)+$hours, date(i), date(s), date(m), date(d), date(Y)));
 	}
-	
+
 }
-?>

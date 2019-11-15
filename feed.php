@@ -11,6 +11,11 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	exit;
 }
 
+# Autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing
+# https://enable-cors.org/server_php.html
+# https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+header('Access-Control-Allow-Origin: *');
+
 # On inclut les librairies nécessaires
 include(PLX_CORE.'lib/class.plx.date.php');
 include(PLX_CORE.'lib/class.plx.glob.php');
@@ -26,7 +31,7 @@ $plxFeed = plxFeed::getInstance();
 # Détermination de la langue à utiliser (modifiable par le hook : FeedBegin)
 $lang = $plxFeed->aConf['default_lang'];
 
-eval($plxFeed->plxPlugins->callHook('FeedBegin'));
+eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
 
 # Chargement du fichier de langue du core de PluXml
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
@@ -46,8 +51,7 @@ $plxFeed->fdemarrage();
 # Récuperation de la bufférisation
 $output = ob_get_clean();
 
-# Hook Plugins
-eval($plxFeed->plxPlugins->callHook('FeedEnd'));
+eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 
 # Restitution écran
 echo $output;

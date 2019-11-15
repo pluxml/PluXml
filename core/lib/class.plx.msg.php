@@ -49,4 +49,3 @@ class plxMsg {
 		unset($_SESSION['info']);
 	}
 }
-?>

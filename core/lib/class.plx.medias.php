@@ -18,7 +18,7 @@ class plxMedias {
 	public $img_supported = array('.png', '.gif', '.jpg', '.jpeg', '.bmp', '.webp'); # images formats supported
 	public $img_exts = '/\.(jpe?g|png|gif|bmp|webp)$/i';
 	public $doc_exts = '/\.(7z|aiff|asf|avi|csv|docx?|epub|fla|flv|gpx|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpe?g|ods|odt|odp|ogg|pdf|pptx?|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|svg|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xcf|xlsx?|zip)$/i';
-	
+
 	/**
 	 * Constructeur qui initialise la variable de classe
 	 *
@@ -73,22 +73,22 @@ class plxMedias {
 	 * @author	Stephane F, J.P. "bazooka07" Pourrez
 	 **/
 	private function _getAllDirs() {
-	    $result = array();
-	    $pattern = '*/';
-	    $offset = strlen($this->path);
-	    for($i=1; $i<10; $i++) {
-	        $dirs = glob($this->path . str_repeat($pattern, $i), GLOB_ONLYDIR);
-	        if(empty($dirs)) { break; }
-	        foreach($dirs as $d) {
-	            $path = substr($d, $offset);
-	            $result[] = array(
-	                'level' => $i,
-	                'path'	=> $path
-	            );
-	        }
-	    }
-	    usort($result, function($a, $b) { return strcasecmp($a['path'], $b['path']); });
-	    return $result;
+		$result = array();
+		$pattern = '*/';
+		$offset = strlen($this->path);
+		for($i=1; $i<10; $i++) {
+			$dirs = glob($this->path . str_repeat($pattern, $i), GLOB_ONLYDIR);
+			if(empty($dirs)) { break; }
+			foreach($dirs as $d) {
+				$path = substr($d, $offset);
+				$result[] = array(
+					'level' => $i,
+					'path'	=> $path
+				);
+			}
+		}
+		usort($result, function($a, $b) { return strcasecmp($a['path'], $b['path']); });
+		return $result;
 	}
 
 	/**
@@ -99,90 +99,69 @@ class plxMedias {
 	 * @author	Stephane F
 	 **/
 	private function _getDirFiles($dir) {
-	    
-	    $matches = '';
-	    
-	    $src = $this->path.$dir;
-	    if(!is_dir($src)) return array();
-	    
-	    $defaultSample = PLX_CORE.'admin/theme/images/file.png';
-	    $offset = strlen($this->path);
-	    $files = array();
-	    foreach(array_filter(
-	        glob($src.'*'),
-	        function($item) { return !preg_match('@\.tb\.\w+$@', $item); } # On rejette les miniatures
-	        ) as $filename) {
-	            if(is_dir($filename)) { continue; }
-	            
-	            $thumbInfos = false;
-	            if(preg_match($this->img_exts, $filename, $matches)) {
-	                $thumbName = plxUtils::thumbName($filename);
-	                if(file_exists($thumbName)) {
-	                    $thumbInfos = array(
-	                        'infos' 	=> getimagesize($thumbName),
-	                        'filesize'	=> filesize($thumbName)
-	                    );
-	                }
-	                $sample = $this->path. '.thumbs/' .substr($filename, $offset);
-	                $sampleOk = (
-	                    file_exists($sample) or
-	                    plxUtils::makeThumb(
-	                        $filename,
-	                        $sample
-	                        )
-	                    );
-	                $imgSize = getimagesize($filename);
-	            } else {
-	                $imgSize = false;
-	            }
-	            $stats = stat($filename);
-	            $files[basename($filename)] = array(
-	                '.thumb'	=> (!empty($sampleOk)) ? $sample : $defaultSample,
-	                'name' 		=> basename($filename),
-	                'path' 		=> $filename,
-	                'date' 		=> $stats['mtime'],
-	                'filesize' 	=> $stats['size'],
-	                'extension'	=> '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION)),
-	                'infos' 	=> $imgSize,
-	                'thumb' 	=> $thumbInfos
-	            );
-	            $sample = '';
-	            $sampleOk = "";
-	        }
-	        
-	        ksort($files);
-	        return $files;
+
+		$matches = '';
+
+		$src = $this->path.$dir;
+		if(!is_dir($src)) return array();
+
+		$defaultSample = PLX_CORE.'admin/theme/images/file.png';
+		$offset = strlen($this->path);
+		$files = array();
+		foreach(array_filter(
+			glob($src.'*'),
+			function($item) { return !preg_match('@\.tb\.\w+$@', $item); } # On rejette les miniatures
+			) as $filename) {
+				if(is_dir($filename)) { continue; }
+
+				$thumbInfos = false;
+				if(preg_match($this->img_exts, $filename, $matches)) {
+					$thumbName = plxUtils::thumbName($filename);
+					if(file_exists($thumbName)) {
+						$thumbInfos = array(
+							'infos' 	=> getimagesize($thumbName),
+							'filesize'	=> filesize($thumbName)
+						);
+					}
+					$sample = $this->path. '.thumbs/' .substr($filename, $offset);
+					$sampleOk = (
+						file_exists($sample) or
+						plxUtils::makeThumb(
+							$filename,
+							$sample
+							)
+						);
+					$imgSize = getimagesize($filename);
+				} else {
+					$imgSize = false;
+				}
+				$stats = stat($filename);
+				$files[basename($filename)] = array(
+					'.thumb'	=> (!empty($sampleOk)) ? $sample : $defaultSample,
+					'name' 		=> basename($filename),
+					'path' 		=> $filename,
+					'date' 		=> $stats['mtime'],
+					'filesize' 	=> $stats['size'],
+					'extension'	=> '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION)),
+					'infos' 	=> $imgSize,
+					'thumb' 	=> $thumbInfos
+				);
+				$sample = '';
+				$sampleOk = "";
+			}
+
+			ksort($files);
+			return $files;
 	}
-	
+
 	/**
-	 * Méthode qui formate l'affichage de la liste déroulante des dossiers
+	 * Méthode qui affiche la liste déroulante des dossiers
 	 *
-	 * @return	string	chaine formatée à afficher
+	 * @return	void
 	 * @author	Stephane F, Danielsan, J.P. "bazooka07" Pourrez
 	 **/
 	public function contentFolder() {
-	    $currentFolder = $this->dir;
-	    if(!empty($this->aDirs)) {
-	        $options = array_map(
-	            function($item) use($currentFolder) {
-	                $selected = ($item['path'] == $currentFolder) ? ' selected' : '';
-	                return <<< OPTION
-				                        <option class="level_{$item['level']}" value="${item['path']}"$selected>/${item['path']}</option>
-				OPTION;
-	            },
-	            $this->aDirs
-            );
-	    }
-	    $selectedRoot = (empty($this->dir)) ? ' selected' : '';
-	    $caption = L_PLXMEDIAS_ROOT;
-	    $start = <<< START
-		            <select class="folder" id="folder" name="folder">
-		                <option value="."$selectedRoot>($caption)</option>\n
-		START;
-	    $stop = <<< STOP
-		            </select>\n
-		STOP;
-	    return $start . ((!empty($options)) ? implode("\n", $options) : '') . $stop;
+		plxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin');
 	}
 
 	/**
@@ -280,7 +259,7 @@ class plxMedias {
 			$mydir = $this->path.$this->dir;
 			$mydir .= plxUtils::urlify(trim($newdir));
 			// Si le dossier n'existe pas on le créer
-			if (!is_dir($mydir)) { 
+			if (!is_dir($mydir)) {
 				if (!mkdir($mydir, 0755))
 					return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
 				else
@@ -518,7 +497,7 @@ class plxMedias {
 			}
 			# changement du nom du fichier
 			$filename = implode('', array_values($new_stats));
-			if(rename($oldname, $filename)) {
+			if($result = rename($oldname, $filename)) {
 				# changement du nom de la miniature
 				$old_thumbName = plxUtils::thumbName($oldname);
 				if(is_writable($old_thumbName)) {
@@ -535,7 +514,6 @@ class plxMedias {
 				}
 			}
 		}
-		return ($result) ? plxMsg::Info(L_RENAME_FILE_SUCCESSFUL) : plxMsg::Error(L_RENAME_FILE_ERR);
+		return $result? plxMsg::Info(L_RENAME_FILE_SUCCESSFUL): plxMsg::Error(L_RENAME_FILE_ERR);
 	}
 }
-?>

@@ -19,7 +19,7 @@ class plxDate {
 	 * @author	Stephane F., Pedro "P3ter" CADETE
 	 **/
 	public static function getCalendar($key, $value) {
-	    if(!is_numeric($value)) return false;
+		if(!is_numeric($value)) return false;
 		$names = array(
 			'month' => array(
 				'01' => L_JANUARY,
@@ -138,7 +138,7 @@ class plxDate {
 	 **/
 	public static function date2Array($date) {
 
-	    $capture = '';
+		$capture = '';
 		preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9:]{2})([0-9:]{2})/',$date,$capture);
 		return array (
 			'year' 	=> $capture[1],
@@ -181,4 +181,3 @@ class plxDate {
 	}
 
 }
-?>

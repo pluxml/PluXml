@@ -18,7 +18,7 @@ include __DIR__ .'/top.php';
 
 <div class="inline-form action-bar">
 	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
-	<p><strong><?php echo L_PLUXML_CHECK_VERSION ?></strong></p>
+	<p><?php echo L_PLUXML_CHECK_VERSION ?></p>
 	<?php echo $plxAdmin->checkMaj(); ?>
 </div>
 
@@ -50,7 +50,7 @@ include __DIR__ .'/top.php';
 <p><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></p>
 <p><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 
 <?php
 # On inclut le footer
