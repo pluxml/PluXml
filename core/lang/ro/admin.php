@@ -141,21 +141,6 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'										=> 'Conectare',
 'L_LOST_PASSWORD_SUCCESS'									=> 'Un e-mail a fost trimis utilizatorului',
 'L_LOST_PASSWORD_ERROR'										=> 'Legătura a expirat',
-'L_LOST_PASSWORD_SUBJECT'									=> 'Recrearea unei parole',
-'L_LOST_PASSWORD_BODY'										=> 'Salut ##LOGIN##,
-
-O cerere de resetare a Susan a fost initiata.
-
-Pentru a schimba parola, vă rugăm să urmați link-ul de mai jos:
-
-##URL_PASSWORD##
-
-Dacă această solicitare este nelegitimă, ignorați acest mesaj.
-
-Acest link expiră în ##URL_EXPIRY## de ore.
-
-Acesta este un Mel automat, nu este nevoie să răspundă, vă mulțumesc.',
-
 'L_CAT_TITLE'												=> 'Crearea şi editarea categoriei',
 'L_CAT_LIST_ID'												=> 'Id',
 'L_CAT_LIST_ACTIVE'											=> 'Activ',

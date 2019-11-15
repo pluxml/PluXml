@@ -155,20 +155,6 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'				=> 'Iniciar Sessió',
 'L_LOST_PASSWORD_SUCCESS'			=> 'S\'ha enviat un correu electrònic a l\'usuari',
 'L_LOST_PASSWORD_ERROR'				=> 'L’enllaç ha caducat',
-'L_LOST_PASSWORD_SUBJECT'			=> 'Recrear un mot de passa',
-'L_LOST_PASSWORD_BODY'				=> 'Salutacion ##LOGIN##,
-
-una demana de remise a zero de vòste sesame a ete initié.
-
-per cambiar vòste mot de passe, se vos plai corsar o laç sota :
-
-##URL_PASSWORD##
-
-si una demana èst illégitime, no aver nat compde de aguest message.
-
-aguest laç expire dins ##URL_EXPIRY## heures.
-
-aiçò èst un mel automatique, inutil de repondre, merci.',
 
 #
 

@@ -149,20 +149,8 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'										=> 'Aanmelden',
 'L_LOST_PASSWORD_SUCCESS'									=> 'Er is een e-mail verzonden naar de gebruiker',
 'L_LOST_PASSWORD_ERROR'										=> 'De link is verlopen',
-'L_LOST_PASSWORD_SUBJECT'									=> 'Een wachtwoord opnieuw',
-'L_LOST_PASSWORD_BODY'										=> 'Groet ##LOGIN##,
 
-Een verzoek om uw sesam opnieuw in te stellen is geïnitieerd.
-
-Om uw wachtwoord te wijzigen, volgt u de onderstaande link:
-
-##URL_PASSWORD##
-
-Als deze aanvraag onwettig is, negeert u dit bericht.
-
-Deze link verloopt over ##URL_EXPIRY## uur.
-
-Dit is een automatische Mel, niet nodig om het te beantwoorden, dank je.',
+#
 
 'L_CAT_TITLE'												=> 'Aanmaken en aanpassen van categorie?n',
 'L_CAT_LIST_ID'												=> 'ID',

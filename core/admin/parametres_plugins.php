@@ -42,7 +42,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
 
 			# plugin activé uniquement côté site (<scope> == 'site')
-			if(empty($plugInstance) and $plugInstance = plxPlugins::getInstance($plugName)) {
+			if(empty($plugInstance) and $plugInstance=$plxAdmin->plxPlugins->getInstance($plugName)) {
 				$plugInstance->getInfos();
 			}
 			$output .= '<tr class="top" data-scope="'.$plugInstance->getInfo('scope').'">'."\n";

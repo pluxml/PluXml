@@ -141,20 +141,6 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'										=> 'Accesso',
 'L_LOST_PASSWORD_SUCCESS'									=> 'E\' stata inviata una e-mail all\'utente',
 'L_LOST_PASSWORD_ERROR'										=> 'Il collegamento è scaduto',
-'L_LOST_PASSWORD_SUBJECT'									=> 'Ricreazione di una password',
-'L_LOST_PASSWORD_BODY'										=> 'Saluto ##LOGIN##,
-
-È stata avviata una richiesta di reset del sesamo.
-
-Per modificare la password, segui il link qui sotto:
-
-##URL_PASSWORD##
-
-Se questa richiesta è illegittima, ignorare questo messaggio.
-
-Questo collegamento scade tra ##URL_EXPIRY## ore.
-
-è bisogno di rispondere, grazie.',
 'L_CAT_TITLE'												=> 'Gestione categorie',
 'L_CAT_LIST_ID'												=> 'ID',
 'L_CAT_LIST_ACTIVE'											=> 'Attiva',

@@ -1008,6 +1008,7 @@ class plxUtils {
 		$mail->setFrom($from, $name);
 		$mail->addAddress($to);
 		$mail->Mailer = $mailer;
+		$mail->CharSet="UTF-8";
 		if ($isHtml) {
 			$mail->isHTML(true);
 		}

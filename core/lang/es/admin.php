@@ -154,20 +154,6 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'							=> 'Iniciar sesión',
 'L_LOST_PASSWORD_SUCCESS'						=> 'Se ha enviado un correo electrónico al usuario',
 'L_LOST_PASSWORD_ERROR'							=> 'El enlace ha caducado',
-'L_LOST_PASSWORD_SUBJECT'						=> 'Recreación de una contraseña',
-'L_LOST_PASSWORD_BODY'							=> 'Saludo ##LOGIN##,
-
-Se ha iniciado una solicitud para restablecer el sésamo.
-
-Para cambiar su contraseña, siga el siguiente enlace:
-
-##URL_PASSWORD##
-
-Si esta solicitud es ilegítima, ignore este mensaje.
-
-Este enlace expira en ##URL_EXPIRY## horas.
-
-Este es un mel automático, no hay necesidad de responder, gracias.',
 
 #
 

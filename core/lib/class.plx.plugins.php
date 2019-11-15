@@ -30,7 +30,7 @@ class plxPlugins {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public static function getInstance($plugName) {
+	public function getInstance($plugName) {
 		$filename = PLX_PLUGINS."$plugName/$plugName.php";
 		if(is_file($filename)) {
 			include_once $filename;
@@ -497,7 +497,7 @@ class plxPlugin {
 	 * Méthode qui affiche une clé de traduction dans la langue par défaut de PluXml
 	 *
 	 * @param	key		clé de traduction à récuperer
-	 * @return	stdio
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function lang($key='') {

@@ -1,40 +1,19 @@
 ## PLUXML 5.8 (sortie : jj/mm/aaaa) ##
-
-[+] Theme admin retouché improve responsive-menu 100%<768px + fonts Ubuntu, line-heights (sudwebdesign)
-
-[+] plxUtils::printLinkCss Méthode qui affiche la balise <link> partir d'un fichier * Inspiré de forum.pluxml.org/discussion/6281/une-feuille-css-peut-en-cacher-une-autre (bazooka07 & sudwebdesign)
-[+] Fix CORS feed.php + header('Access-Control-Allow-Origin: *'); #autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing : enable-cors.org/server_php.html + developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin (sudwebdesign)
-
-[+] CodesBook : Les "Hook Plugins" en commentaire complétés
-[+] [admin menu] Les id de liste pour chaque menu sont fixes : url basename (style compatible multilingue) : class.plx.utils.php : formatMenu() : portée css id admin/top.php : li#mnu_nomPageAdminSansPointPhp ou li#mnu_LeNomDuPlugin (sudwebdesign)
-[+] [admin sessions] Change le profil de la session utilisateur sans qu'il est a se reconnecter s'il est re-profilé ou le déconnecte s'il est désactivé ou supprimé. Ceci dès sa prochaine action après le réglage d'un admin. (sudwebdesign)
-[+] [admin css] thème default : fontes ubuntu,arial : Élargir les bords entre 64 & 128rem + règles css print (1024 & 2048px). (sudwebdesign)
-[+] [admin] plxUtils::printSelectDir utilisé ds editTpl & media (bazooka07 forked by sudwebdesign)
-[+] [admin media] Indique le nombre Maximum de fichiers téléversable en un seul jet (number of files per upload + langues) (sudwebdesign)
-[+] [admin] Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (sudwebdesign)
-[+] [theme defaut révisé] theme.css, entête et le menu fonctionne avec de nombreux plugins (sudwebdesign)
-[+] plxUtils::cleanHeaders() nouveau params : $type='text/html', $charset=PLX_CHARSET (sudwebdesign)
-[+] Hook : plxAdminEditUsersBegin : class.plx.admin.php : editUsers() : avec if() return; (sudwebdesign)
-[+] auth.php 7 Hook plugins (sudwebdesign)
-FIX Traductions manquantes en Polonais #332
-AdminAuthBegin
-AdminAuthTopLostPassword
-AdminAuthLostPassword
-AdminAuthTopChangePassword
-AdminAuthChangePassword
-AdminAuthTopChangePasswordError
-AdminAuthChangePasswordError
-
-
-
 [+] PluCSS 1.3.1
 [+] Feature "Mot de passe oublié" : envoi d'un lien par mail permettant la création d'un nouveau mot de passe (P3ter)
 [+] Feature "Mot de passe oublié" : l'adresse e-mail devient obligatoire à l'installation de PluXml et à la création d'un utilisateur (P3ter)
 [+] Ajout de la translitteration des URLs des articles, des pages et des médias pour le Russe, le Polonais, le Roumain et l'Allemand (bazooka07, P3ter)
+[+] Thème par défaut : ajout du titre et du sous-titre sur mobile, modification des breakpoints et de la largeur des bords, modification de l'entête (P3ter, sudwebdesign)
 [+] Amélioration des performances du gestionnaire de médias (bazooka07)
-[+] Thème par défaut : ajout du titre et du sous-titre sur mobile (P3ter)
+[+] Les modifications sur les profils utilisateurs sont immédiatement visibles, inutile de se re-connecter (sudwebdesign)
+[+] Un utilisateur supprimé ou désactivé est déconnecté automatiquement (sudwebdesign)
+[+] Administration des médias : affichage du nombre maximum de fichiers téléversables en une seule fois (sudwebdesign)
 [+] Ajout de la fonction plxUtils::printInputRadio permettant d'afficher des boutons radio (P3ter)
 [+] Ajout de la fonction plxUtils::sendMailPhpMailer permettant d'envoyer des mails au travers d'un serveur SMTP (P3ter)
+[+] Ajout de la fonction plxUtils::printLinkCss permettant d'afficher une balise <link> avec la date de modification du fichier (bazooka07, sudwebdesign)
+[+] Ajout de la fonction plxUtils::printSelectDir permettant d'afficher une arborescence dans l'administration des médias et des templates (bazooka07, sudwebdesign)
+[+] Plugins : ajout de nouveaux hooks sur la page d'authentification AdminAuthBegin, AdminAuthTopLostPassword, AdminAuthLostPassword, AdminAuthTopChangePassword, AdminAuthChangePassword, AdminAuthTopChangePasswordError, AdminAuthChangePasswordError  (sudwebdesign)
+[+] Ajout de paramètres à la fonction plxUtils::cleanHeaders() (sudwebdesign)
 [+] #40 Ne pas afficher le meta du site en mode article, static, categorie (Stéphane)
 [+] #135 Contextualiser le lien du flux RSS dans le <head> en fonction du mode catégorie, tag, ou autre (bazooka07, P3ter)
 [+] #207 Afficher/masquer le chapeau et les tags d'un article dans l'administration en CSS3 au lieu d'utiliser du JS (bazooka07, Stéphane, P3ter)
@@ -50,6 +29,8 @@ AdminAuthChangePasswordError
 [+] #313 Fermer l'overlay des médias avec la touche "ESC/ECHAP" du clavier (jerrywham)
 [+] #317 #325 plxShow->lastArtList() rechercher des catégories par leur url plutôt que par leur ID (jerrywham, sudwebdesign)
 [+] #331 #330 Ajout d'une image d'accroche sur une catégorie (Philippe-M)
+FIX Correction de la gestion des ID CSS dans les menus (sudwebdesign)
+FIX Autorisation du cross-origin dans les flux RSS/ATOM (sudwebdesign)
 FIX #287 Capcha : ajout d'un espace insécable avant le "?" (P3ter)
 FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI (bazooka07)
 FIX #318 L_NEW_CATEGORY en doublon pour certaines langues (P3ter)
@@ -58,6 +39,7 @@ FIX #323 La fonction plxUtils::printSelect ne fonctione pas avec un "selected" d
 FIX #324 Correction couleur des selecteurs si le theme du navigateur est inversé (sudwebdesign)
 FIX #326 Remplacement de "create_function()" déprécié depuis PHP 5.3 (faille et dégradation des performances) (P3ter)
 FIX #329 Mauvais affichage du nom du site et du menu avec Safari (P3ter)
+FIX #332 Traductions manquantes en Polonais (sudwebdesign)
 FIX #334 Thème par défaut : affichage cassé des sous-menu de pages statiques (sudwebdesign)
 FIX #343 Article n'est plus affiché après suppression de la catégorie (P3ter)
 FIX #345 $plxShow->catList affiche la catégorie 10 à tort (bazooka07)

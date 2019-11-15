@@ -2,6 +2,7 @@
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
 const PLX_TEMPLATES = PLX_CORE.'templates/';
+const PLX_TEMPLATES_DATA = PLX_ROOT.'data/templates/';
 
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
@@ -37,6 +38,7 @@ include_once PLX_CORE.'lib/class.plx.encrypt.php';
 include_once PLX_CORE.'lib/class.plx.medias.php';
 include_once PLX_CORE.'lib/class.plx.plugins.php';
 include_once PLX_CORE.'lib/class.plx.token.php';
+include_once PLX_CORE.'lib/class.plx.template.php';
 include_once PLX_CORE.'lib/class.phpmailer.php';
 include_once PLX_CORE.'lib/class.phpmailer.smtp.php';
 include_once PLX_CORE.'lib/class.phpmailer.exception.php';
