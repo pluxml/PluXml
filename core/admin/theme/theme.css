@@ -11,11 +11,6 @@
 #
 # ------------------- END LICENSE BLOCK -------------------
 */
-body{
-	font-family: ubuntu,Arial;
-	font-size: 1.6rem;
-	line-height: 1;
-}
 
 /* ---------- Authentication ---------- */
 
@@ -522,9 +517,8 @@ a.hint:focus span {
 	margin: 0 auto;
 	padding: .25rem 1rem;
 	border: .25rem solid;
-	border-radius: .5rem;
-	font-weight: bold;
 	color: #000;
+	width: 100%
 }
 
 .error {

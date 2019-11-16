@@ -1,32 +1,4 @@
 ## PLUXML 5.8 (sortie : jj/mm/aaaa) ##
-
-[+] Theme admin retouché improve responsive-menu 100%<768px + fonts Ubuntu, line-heights (sudwebdesign)
-
-[+] plxUtils::printLinkCss Méthode qui affiche la balise <link> partir d'un fichier * Inspiré de forum.pluxml.org/discussion/6281/une-feuille-css-peut-en-cacher-une-autre (bazooka07 & sudwebdesign)
-[+] Fix CORS feed.php + header('Access-Control-Allow-Origin: *'); #autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing : enable-cors.org/server_php.html + developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin (sudwebdesign)
-
-[+] CodesBook : Les "Hook Plugins" en commentaire complétés
-[+] [admin menu] Les id de liste pour chaque menu sont fixes : url basename (style compatible multilingue) : class.plx.utils.php : formatMenu() : portée css id admin/top.php : li#mnu_nomPageAdminSansPointPhp ou li#mnu_LeNomDuPlugin (sudwebdesign)
-[+] [admin sessions] Change le profil de la session utilisateur sans qu'il est a se reconnecter s'il est re-profilé ou le déconnecte s'il est désactivé ou supprimé. Ceci dès sa prochaine action après le réglage d'un admin. (sudwebdesign)
-[+] [admin css] thème default : fontes ubuntu,arial : Élargir les bords entre 64 & 128rem + règles css print (1024 & 2048px). (sudwebdesign)
-[+] [admin] plxUtils::printSelectDir utilisé ds editTpl & media (bazooka07 forked by sudwebdesign)
-[+] [admin media] Indique le nombre Maximum de fichiers téléversable en un seul jet (number of files per upload + langues) (sudwebdesign)
-[+] [admin] Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (sudwebdesign)
-[+] [theme defaut révisé] theme.css, entête et le menu fonctionne avec de nombreux plugins (sudwebdesign)
-[+] plxUtils::cleanHeaders() nouveau params : $type='text/html', $charset=PLX_CHARSET (sudwebdesign)
-[+] Hook : plxAdminEditUsersBegin : class.plx.admin.php : editUsers() : avec if() return; (sudwebdesign)
-[+] auth.php 7 Hook plugins (sudwebdesign)
-FIX Traductions manquantes en Polonais #332
-AdminAuthBegin
-AdminAuthTopLostPassword
-AdminAuthLostPassword
-AdminAuthTopChangePassword
-AdminAuthChangePassword
-AdminAuthTopChangePasswordError
-AdminAuthChangePasswordError
-
-
-
 [+] PluCSS 1.3.1
 [+] Feature "Mot de passe oublié" : envoi d'un lien par mail permettant la création d'un nouveau mot de passe (P3ter)
 [+] Feature "Mot de passe oublié" : l'adresse e-mail devient obligatoire à l'installation de PluXml et à la création d'un utilisateur (P3ter)
@@ -58,9 +30,34 @@ FIX #323 La fonction plxUtils::printSelect ne fonctione pas avec un "selected" d
 FIX #324 Correction couleur des selecteurs si le theme du navigateur est inversé (sudwebdesign)
 FIX #326 Remplacement de "create_function()" déprécié depuis PHP 5.3 (faille et dégradation des performances) (P3ter)
 FIX #329 Mauvais affichage du nom du site et du menu avec Safari (P3ter)
+FIX #332 Traductions manquantes en Polonais (sudwebdesign)
 FIX #334 Thème par défaut : affichage cassé des sous-menu de pages statiques (sudwebdesign)
 FIX #343 Article n'est plus affiché après suppression de la catégorie (P3ter)
 FIX #345 $plxShow->catList affiche la catégorie 10 à tort (bazooka07)
+
+
+[+] Theme admin retouché improve responsive-menu 100%<768px + fonts Ubuntu, line-heights (sudwebdesign)
+[+] plxUtils::printLinkCss Méthode qui affiche la balise <link> partir d'un fichier * Inspiré de forum.pluxml.org/discussion/6281/une-feuille-css-peut-en-cacher-une-autre (bazooka07 & sudwebdesign)
+[+] Fix CORS feed.php + header('Access-Control-Allow-Origin: *'); #autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing : enable-cors.org/server_php.html + developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin (sudwebdesign)
+[+] CodesBook : Les "Hook Plugins" en commentaire complétés
+[+] [admin menu] Les id de liste pour chaque menu sont fixes : url basename (style compatible multilingue) : class.plx.utils.php : formatMenu() : portée css id admin/top.php : li#mnu_nomPageAdminSansPointPhp ou li#mnu_LeNomDuPlugin (sudwebdesign)
+[+] [admin sessions] Change le profil de la session utilisateur sans qu'il est a se reconnecter s'il est re-profilé ou le déconnecte s'il est désactivé ou supprimé. Ceci dès sa prochaine action après le réglage d'un admin. (sudwebdesign)
+[+] [admin css] thème default : fontes ubuntu,arial : Élargir les bords entre 64 & 128rem + règles css print (1024 & 2048px). (sudwebdesign)
+[+] [admin] plxUtils::printSelectDir utilisé ds editTpl & media (bazooka07 forked by sudwebdesign)
+[+] [admin media] Indique le nombre Maximum de fichiers téléversable en un seul jet (number of files per upload + langues) (sudwebdesign)
+[+] [admin] Typo L_CONFIG_ADVANCED_USERFOLDERS : ce réglage est destiné qu'aux rédacteurs du site. (sudwebdesign)
+[+] [theme defaut révisé] theme.css, entête et le menu fonctionne avec de nombreux plugins (sudwebdesign)
+[+] plxUtils::cleanHeaders() nouveau params : $type='text/html', $charset=PLX_CHARSET (sudwebdesign)
+[+] Hook : plxAdminEditUsersBegin : class.plx.admin.php : editUsers() : avec if() return; (sudwebdesign)
+[+] auth.php 7 Hook plugins (sudwebdesign)
+AdminAuthBegin
+AdminAuthTopLostPassword
+AdminAuthLostPassword
+AdminAuthTopChangePassword
+AdminAuthChangePassword
+AdminAuthTopChangePasswordError
+AdminAuthChangePasswordError
+
 
 ## PLUXML 5.7 (sortie : 11/12/2018) ##
 
