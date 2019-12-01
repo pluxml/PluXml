@@ -153,7 +153,7 @@ plxUtils::cleanHeaders();
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.min.css?v=<?php echo PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
