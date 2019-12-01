@@ -272,28 +272,19 @@ class plxUtils {
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @return	self
 	 **/
-	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width') {
-
-		$params = array(
-			'id="id_'.$name.'"',
-			'name="'.$name.'"'
+	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width', $extras=false) {
+		$attrs = array(
+			'id="id_' . $name . '"',
+			'name="' . $name . '"'
 		);
-
-		if(! empty($cols)) {
-			$params[] = 'cols="'.$cols.'"';
-		}
-		if(! empty($rows)) {
-			$params[] = 'rows="'.$rows.'"';
-		}
-		if($readonly === true) {
-			$params = 'class="readonly"';
-			$params = 'readonly="readonly"';
-		} else {
-			if(! empty($className)) {
-				$params[] = 'class="'.$className.'"';
-			}
-		}
-		echo '<textarea '.implode(' ', $params).'>'.$value.'</textarea>';
+		if(!empty($cols) and is_integer($cols)) { $attrs[] = 'cols="' . $cols . '"'; }
+		if(!empty($rows) and is_integer($rows)) { $attrs[] = 'rows="' . $rows . '"'; }
+		$classList = array();
+		if($readonly === true) { $classList[] = 'readonly'; }
+		if(!empty($class) and is_string($class) and strlen(trim($class)) > 0) { $classList[] = trim($class); }
+		if(!empty($classList)) { $attrs[] = 'class="' . implode(' ', $classList) . '"'; }
+		if(!empty($extras)) { $attrs[] = $extras; }
+		echo '<textarea ' . implode(' ', $attrs) . '>' . $value . '</textarea>';
 	}
 
 	/**
