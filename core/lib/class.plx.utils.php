@@ -264,36 +264,40 @@ class plxUtils {
 	/**
 	 * Méthode qui affiche une zone de texte
 	 *
-	 * @param	name		nom de la zone de texte
-	 * @param	value		valeur contenue dans la zone de texte
-	 * @param	cols		nombre de caractères affichés par colonne
-	 * @params	rows		nombre de caractères affichés par ligne
-	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
-	 * @param	class		class css à utiliser pour formater l'affichage
+	 * @param	string	name		nom de la zone de texte
+	 * @param	string	value		valeur contenue dans la zone de texte
+	 * @param	string	cols		nombre de caractères affichés par colonne
+	 * @param	string	rows		nombre de caractères affichés par ligne
+	 * @param	boolean	readonly	vrai si le champ est en lecture seule (par défaut à faux)
+	 * @param	string	class		class css à utiliser pour formater l'affichage
+	 * @param	boolean	extra		extra permet d'ajouter un élément HTML (exemple : un "onclick" en javascript)
 	 * @return	self
-	 **/
-	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width') {
-
-		$params = array(
-			'id="id_'.$name.'"',
-			'name="'.$name.'"'
+	 */
+	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width', $extra='') {
+		$attrs = array (
+				'id="id_' . $name . '"',
+				'name="' . $name . '"'
 		);
-
-		if(! empty($cols)) {
-			$params[] = 'cols="'.$cols.'"';
+		if (!empty($cols) and is_integer($cols)) {
+			$attrs [] = 'cols="' . $cols . '"';
 		}
-		if(! empty($rows)) {
-			$params[] = 'rows="'.$rows.'"';
+		if (!empty($rows) and is_integer($rows)) {
+			$attrs[] = 'rows="' . $rows . '"';
 		}
-		if($readonly === true) {
-			$params = 'class="readonly"';
-			$params = 'readonly="readonly"';
-		} else {
-			if(! empty($className)) {
-				$params[] = 'class="'.$className.'"';
-			}
+		$classList = array();
+		if ($readonly === true) {
+			$classList[] = 'readonly';
 		}
-		echo '<textarea '.implode(' ', $params).'>'.$value.'</textarea>';
+		if (!empty($className) and is_string($className) and strlen(trim($className)) > 0) {
+			$classList[] = trim($className);
+		}
+		if (!empty($classList)) {
+			$attrs[] = 'class="' . implode(' ', $classList) . '"';
+		}
+		if (!empty($extra)) {
+			$attrs[] = $extra;
+		}
+		echo '<textarea ' . implode(' ', $attrs) . '>' . $value . '</textarea>';
 	}
 
 	/**
@@ -1281,10 +1285,10 @@ class plxUtils {
 		if(!empty($msg)) $msg .= ' = ';
 		$msg .= (is_array($obj) OR is_object($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
 		echo <<< EOT
-			<script type="text/javascript">
-				console.log(`$msg`);
-			</script>
-EOT;
+					<script type="text/javascript">
+						console.log(`$msg`);
+					</script>
+		EOT;
 
 	}
 
@@ -1360,21 +1364,21 @@ EOT;
 				if($dirOk) { # pour un dossier
 					if($modeDir) {
 						echo <<<EOT
-			<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
-
-EOT;
+									<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
+						
+						EOT;
 					} else {
 						echo <<<EOT
-			<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
-
-EOT;
+									<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+						
+						EOT;
 					}
 					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
-			<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
-
-EOT;
+								<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
+					
+					EOT;
 				}
 			}
 		}
@@ -1403,15 +1407,15 @@ EOT;
 		$disabled = (!$modeDir)? ' disabled': '';
 		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
 		echo <<< EOT
-		<select id="id_$name" name="$name" class="$class">
-			<option$disabled value="$value"$selected>$caption/</option>
-
-EOT;
+				<select id="id_$name" name="$name" class="$class">
+					<option$disabled value="$value"$selected>$caption/</option>
+		
+		EOT;
 		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
 		echo <<< EOT
-		</select>
-
-EOT;
+				</select>
+		
+		EOT;
 
 	}
 
@@ -1429,8 +1433,8 @@ EOT;
 			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 			echo <<< LINK
-\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
-LINK;
+			\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
+			LINK;
 		}
 	}
 

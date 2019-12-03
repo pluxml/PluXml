@@ -22,6 +22,7 @@
 [+] #313 Fermer l'overlay des médias avec la touche "ESC/ECHAP" du clavier (jerrywham)
 [+] #317 #325 plxShow->lastArtList() rechercher des catégories par leur url plutôt que par leur ID (jerrywham, sudwebdesign)
 [+] #331 #330 Ajout d'une image d'accroche sur une catégorie (Philippe-M)
+[+] #348 Ajout d'un paramètre "extra" à la fonction plxUtils->printArea (bazooka07)
 FIX #287 Capcha : ajout d'un espace insécable avant le "?" (P3ter)
 FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI (bazooka07)
 FIX #318 L_NEW_CATEGORY en doublon pour certaines langues (P3ter)
