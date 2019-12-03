@@ -154,20 +154,6 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'				=> 'Zaloguj Się',
 'L_LOST_PASSWORD_SUCCESS'			=> 'E-mail został wysłany do użytkownika',
 'L_LOST_PASSWORD_ERROR'				=> 'Link wygasł',
-'L_LOST_PASSWORD_SUBJECT'			=> 'Ponowne tworzenie hasła',
-'L_LOST_PASSWORD_BODY'				=> 'Powitanie ##LOGIN##,
-
-Zainicjowano żądanie zresetowania sezamu.
-
-Aby zmienić hasło, należy skorzystać z poniższego linku:
-
-##URL_PASSWORD##
-
-Jeśli to żądanie jest bezprawne, Zignoruj ten komunikat.
-
-Ten link wygasa w ciągu ##URL_EXPIRY## godzin.
-
-To jest automatyczny Mel, nie ma potrzeby, aby odpowiedzieć, dziękuję.',
 
 #
 

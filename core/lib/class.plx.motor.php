@@ -109,8 +109,9 @@ class plxMotor {
 		$this->getActiveArts();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
-		# Recuperation des templates
+		# Get templates from core/templates and data/templates
 		$this->getTemplates(PLX_TEMPLATES);
+		$this->getTemplates(PLX_TEMPLATES_DATA);
 	}
 
 	/**

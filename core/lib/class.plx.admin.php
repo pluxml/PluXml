@@ -314,7 +314,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$tokenExpiry = 24;
 		$lostPasswordToken = plxToken::generateToken();
 		$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
-		$templateName = 'email-lostpassword.xml';
+		$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 		$error = false;
 
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
@@ -326,9 +326,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
 						"##URL_EXPIRY##"	=> $tokenExpiry
 					);
-					if (($mail['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
-						$mail['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
-						$mail['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
+					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
+						if (!empty($this->aConf['title'])) {
+							$mail ['name'] = $this->aConf['title'];
+							$mail ['from'] = "noreply@".$this->aConf['racine'];
+						} else {
+							$mail ['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
+							$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
+						}
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
 						// configure the SMTP mailer if activated, sending the e-mail and if OK store the token
 						if ($this->aConf['smtp_activation']) {

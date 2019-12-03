@@ -141,20 +141,8 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'										=> 'Conexão',
 'L_LOST_PASSWORD_SUCCESS'									=> 'Um email foi enviado para o usuário',
 'L_LOST_PASSWORD_ERROR'										=> 'O link expirou',
-'L_LOST_PASSWORD_SUBJECT'									=> 'Recriando uma senha',
-'L_LOST_PASSWORD_BODY'										=> 'Saudação ##LOGIN##,
 
-Uma solicitação para redefinir seu gergelim foi iniciada.
-
-Para alterar sua senha, por favor, siga o link abaixo:
-
-##URL_PASSWORD##
-
-Se essa solicitação for ilegítima, ignore esta mensagem.
-
-Este link expira em ##URL_EXPIRY## horas.
-
-Este é um mel automático, não há necessidade de responder, obrigado.',
+#
 
 'L_CAT_TITLE'												=> 'Criação e edição das cetegorias',
 'L_CAT_LIST_ID'												=> 'Nome interno',
