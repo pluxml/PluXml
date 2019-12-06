@@ -34,15 +34,11 @@ body {
 .heading-small {
 	font-size: 2rem;
 }
-
-#header, #title, #subtitle {
-	transition: 0.2s;
-}
 .header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 	padding-top: 1.3rem;
-	height: 9rem;
+	height: 7rem;
 	z-index: 2;
 }
 .header a {
@@ -51,14 +47,13 @@ body {
 .header a:hover {
 	text-decoration: none;
 }
-#logo {
+.logo {
 	background: url("../img/pluxml-logo-black.png") top left no-repeat;
-	height: 8rem;
-	background-size: 8rem;
+	height: 5rem;
+	background-size: 6rem;
 	background-position: 5rem 0;
 	padding-left: 15rem;
 	margin-left: -5rem;
-	transition: 0.2s;
 }
 .bg {
 	background: url(../img/bg.jpg) no-repeat top left;
@@ -68,20 +63,7 @@ body {
 	background-size: cover;
 	height: 250px;
 }
-.header.sticky:hover .grid {
-	overflow: unset
-}
-/* ----- Nav / Menu ----- */
-.header.sticky div.grid{
-	overflow: unset;/* fix hidden sub-menu */
-}
-.sticky {
-	width: 100%;
-}
 .nav {
-	position: sticky;
-	top: 0;
-	z-index: 4; /* responsive slide is in 3 */
 	text-align: right;
 	padding-top: 0;
 }
@@ -494,7 +476,7 @@ article:after {
 		padding-left: 15rem;
 		padding-right: 15rem;
 	}
-	#logo {
+	.logo {
 		background: url("../img/pluxml-logo-black.png") top left no-repeat;
 		height: 12rem;
 		background-size: 12rem;
@@ -512,21 +494,24 @@ article:after {
 		padding-left: 5rem;
 		padding-right: 5rem;
 	}
-	#logo {
-		background: url("../img/pluxml-logo-black.png") top left no-repeat;
-		height: 7rem;
-		background-size: 7rem;
-		background-position: 3.5rem 0;
-		padding-left: 10.5rem;
-		margin-left: -7rem;
-	}
+
 	.heading-small {
 		font-size: 2.5rem;
 	}
 }
 
 @media (max-width: 767px) {
-	#logo {
+	.header {
+		position: sticky;
+		top: 0;
+	}
+	.header:hover .grid {
+	overflow: unset
+	}
+	.header div.grid{
+		overflow: unset;/* fix hidden sub-menu */
+	}
+	.logo {
 		background-size: 5rem;
 		background-position: 2.5rem 0;
 		padding-left: 8rem;
@@ -553,6 +538,9 @@ article:after {
 		padding-left: 1.5rem;
 	}
 	.nav {
+		position: sticky;
+		top: 0;
+		z-index: 4; /* responsive slide is in 3 */
 		height: auto;
 		max-height: 80%;
 		overflow-y: auto;
@@ -629,7 +617,7 @@ article:after {
 	.header {
 		height: 7rem;
 	}
-	#logo {
+	.logo {
 		background-position: 1rem 0;
 		padding-left: 2rem;
 		background-size: 4rem;

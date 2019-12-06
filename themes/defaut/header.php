@@ -23,7 +23,7 @@
 
 <body id="top" class="page mode-<?php $plxShow->mode(true) ?>">
 
-	<header id="header" class="header sticky">
+	<header class="header">
 
 		<div class="container">
 
@@ -31,11 +31,9 @@
 
 				<div class="col sml-6 med-5 lrg-4">
 
-					<div id="logo">
-
-						<h1 id="title" class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
-						<h2 id="subtitle" class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
-
+					<div class="logo">
+						<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
+						<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
 					</div>
 
 				</div>
