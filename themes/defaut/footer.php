@@ -20,6 +20,8 @@
 			</ul>
 		</div>
 	</footer>
+	
+	<script type="text/javascript" src="<?php $plxShow->template(); ?>/js/theme.js"></script>
 
 </body>
 

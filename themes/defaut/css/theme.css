@@ -32,7 +32,11 @@ body {
 /* ---------- Header ---------- */
 
 .heading-small {
-    font-size: 2rem;
+	font-size: 2rem;
+}
+
+#header, #title, #subtitle {
+	transition: 0.2s;
 }
 .header {
 	background-color: #fff;
@@ -41,24 +45,21 @@ body {
 	height: 9rem;
 	z-index: 2;
 }
-
 .header a {
 	color: #222;
 }
-
 .header a:hover {
 	text-decoration: none;
 }
-
-.logo {
+#logo {
 	background: url("../img/pluxml-logo-black.png") top left no-repeat;
 	height: 8rem;
 	background-size: 8rem;
 	background-position: 5rem 0;
 	padding-left: 15rem;
-	margin-left: -2rem;
+	margin-left: -5rem;
+	transition: 0.2s;
 }
-
 .bg {
 	background: url(../img/bg.jpg) no-repeat top left;
 	-webkit-background-size: cover;
@@ -67,11 +68,9 @@ body {
 	background-size: cover;
 	height: 250px;
 }
-
 .header.sticky:hover .grid {
 	overflow: unset
 }
-
 /* ----- Nav / Menu ----- */
 .header.sticky div.grid{
 	overflow: unset;/* fix hidden sub-menu */
@@ -103,7 +102,6 @@ ul.menu {}
 .menu>li>span {
 	cursor: default;
 }
-
 .menu>li ul {/* sub menu */
 	display: none;
 	position: absolute;
@@ -116,7 +114,6 @@ ul.menu {}
 .menu>li:hover ul {/* show sub menu */
 	display: block;
 }
-
 .menu ul li {
 	display: block;
 	margin: 0;
