@@ -1,11 +1,12 @@
 // zoombox
 var all = document.querySelectorAll(".overlay");
+var mo = document.getElementById("modal__overlay");
 var mbox = document.getElementById("modal__box");
 var mb = document.getElementById("modal");
 for (var i = 0, nb = all.length; i < nb; i++) {
 	all[i].addEventListener('click', function(e) {
 		e.preventDefault();
-		mbox.innerHTML = '<img src="'+this.href+'" alt="" />';
+		mbox.innerHTML = '<img src="'+this.href+'" alt="" /><label for="modal">&#10006;</label>';
 		mb.click();
 	},false);
 }
@@ -17,6 +18,12 @@ window.addEventListener("keydown", function (event) {
     		mb.click();
     	}
     }
+});
+mo.addEventListener("click", function (event) {
+   	mbox.innerHTML = "";
+   	if (mb.checked === true) {
+   		mb.click();
+   	}
 });
 
 function toggle_divs(){

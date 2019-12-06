@@ -343,8 +343,7 @@ $curFolders = explode('/', $curFolder);
 
 <div class="modal">
 	<input id="modal" type="checkbox" name="modal" tabindex="1">
-	<div class="modal__overlay">
-		<label for="modal">&#10006;</label>
+	<div id="modal__overlay" class="modal__overlay">
 		<div id="modal__box" class="modal__box"></div>
 	</div>
 </div>
