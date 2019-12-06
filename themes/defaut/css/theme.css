@@ -494,7 +494,7 @@ article:after {
 		padding-left: 15rem;
 		padding-right: 15rem;
 	}
-	.logo {
+	#logo {
 		background: url("../img/pluxml-logo-black.png") top left no-repeat;
 		height: 12rem;
 		background-size: 12rem;
@@ -512,7 +512,7 @@ article:after {
 		padding-left: 5rem;
 		padding-right: 5rem;
 	}
-	.logo {
+	#logo {
 		background: url("../img/pluxml-logo-black.png") top left no-repeat;
 		height: 7rem;
 		background-size: 7rem;
@@ -526,10 +526,11 @@ article:after {
 }
 
 @media (max-width: 767px) {
-	.logo {
+	#logo {
 		background-size: 5rem;
 		background-position: 2.5rem 0;
-		padding-left: 7.5rem;
+		padding-left: 8rem;
+		margin-left: -1rem;
 	}
 	.heading-small {
 		line-height: .5;
@@ -560,7 +561,6 @@ article:after {
 		z-index: 10;
 		border-radius: 1rem;
 		background-color: #fff;
-		box-shadow: 0 1px 1px rgba(0,0,0,.7);/* inset; */
 	}
 	.nav>.container {
 		padding: 0;
@@ -629,10 +629,13 @@ article:after {
 	.header {
 		height: 7rem;
 	}
-	.logo {
+	#logo {
 		background-position: 1rem 0;
 		padding-left: 2rem;
-		background-size: 2rem;
+		background-size: 4rem;
+		padding-left: 6rem;
+		margin-left: -1rem;
+		height: 5rem;
 	}
 	.heading-small {
 		font-size: 3rem;
