@@ -1405,8 +1405,14 @@ EOT;
 	 * @param string $root dossier initial dans l'arborescence
 	 * @param string $class Classe css a appliquer au sélecteur #sudwebdesign
 	 * @param boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
+	 * @param str|bool id : si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre name
 	 * */
-	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true) {
+	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true) {
+
+		if(is_bool($id))
+			$id = ($id ? ' id="id_'.$name.'"' : '');
+		else
+			$id = ($id!='' ? ' id="'.$id.'"' : '');
 
 		if(substr($root, -1) != '/')
 			$root .= '/';
@@ -1417,7 +1423,7 @@ EOT;
 		$disabled = (!$modeDir)? ' disabled': '';
 		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
 		echo <<< EOT
-		<select id="id_$name" name="$name" class="$class">
+		<select $id name="$name" class="$class">
 			<option$disabled value="$value"$selected>$caption/</option>
 
 EOT;
