@@ -46,7 +46,7 @@ class plxUtils {
 
 		$new_content = '';
 
-		if(get_magic_quotes_gpc() == 1) {
+		if(ini_get('magic_quotes_gpc') == 1) {
 			if(is_array($content)) { # On traite un tableau
 				foreach($content as $k=>$v) { # On parcourt le tableau
 					if(is_array($v)) {
