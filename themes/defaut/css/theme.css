@@ -32,33 +32,29 @@ body {
 /* ---------- Header ---------- */
 
 .heading-small {
-    font-size: 2rem;
+	font-size: 2rem;
 }
 .header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 	padding-top: 1.3rem;
-	height: 9rem;
+	height: 7rem;
 	z-index: 2;
 }
-
 .header a {
 	color: #222;
 }
-
 .header a:hover {
 	text-decoration: none;
 }
-
 .logo {
 	background: url("../img/pluxml-logo-black.png") top left no-repeat;
-	height: 8rem;
-	background-size: 8rem;
+	height: 5rem;
+	background-size: 6rem;
 	background-position: 5rem 0;
-	padding-left: 15rem;
-	margin-left: -2rem;
+	padding-left: 12rem;
+	margin-left: -5rem;
 }
-
 .bg {
 	background: url(../img/bg.jpg) no-repeat top left;
 	-webkit-background-size: cover;
@@ -67,22 +63,7 @@ body {
 	background-size: cover;
 	height: 250px;
 }
-
-.header.sticky:hover .grid {
-	overflow: unset
-}
-
-/* ----- Nav / Menu ----- */
-.header.sticky div.grid{
-	overflow: unset;/* fix hidden sub-menu */
-}
-.sticky {
-	width: 100%;
-}
 .nav {
-	position: sticky;
-	top: 0;
-	z-index: 4; /* responsive slide is in 3 */
 	text-align: right;
 	padding-top: 0;
 }
@@ -103,7 +84,6 @@ ul.menu {}
 .menu>li>span {
 	cursor: default;
 }
-
 .menu>li ul {/* sub menu */
 	display: none;
 	position: absolute;
@@ -116,7 +96,6 @@ ul.menu {}
 .menu>li:hover ul {/* show sub menu */
 	display: block;
 }
-
 .menu ul li {
 	display: block;
 	margin: 0;
@@ -515,24 +494,28 @@ article:after {
 		padding-left: 5rem;
 		padding-right: 5rem;
 	}
-	.logo {
-		background: url("../img/pluxml-logo-black.png") top left no-repeat;
-		height: 7rem;
-		background-size: 7rem;
-		background-position: 3.5rem 0;
-		padding-left: 10.5rem;
-		margin-left: -7rem;
-	}
+
 	.heading-small {
 		font-size: 2.5rem;
 	}
 }
 
 @media (max-width: 767px) {
+	.header {
+		position: sticky;
+		top: 0;
+	}
+	.header:hover .grid {
+	overflow: unset
+	}
+	.header div.grid{
+		overflow: unset;/* fix hidden sub-menu */
+	}
 	.logo {
 		background-size: 5rem;
 		background-position: 2.5rem 0;
-		padding-left: 7.5rem;
+		padding-left: 8rem;
+		margin-left: -1rem;
 	}
 	.heading-small {
 		line-height: .5;
@@ -555,6 +538,9 @@ article:after {
 		padding-left: 1.5rem;
 	}
 	.nav {
+		position: sticky;
+		top: 0;
+		z-index: 4; /* responsive slide is in 3 */
 		height: auto;
 		max-height: 80%;
 		overflow-y: auto;
@@ -563,7 +549,6 @@ article:after {
 		z-index: 10;
 		border-radius: 1rem;
 		background-color: #fff;
-		box-shadow: 0 1px 1px rgba(0,0,0,.7);/* inset; */
 	}
 	.nav>.container {
 		padding: 0;
@@ -635,7 +620,10 @@ article:after {
 	.logo {
 		background-position: 1rem 0;
 		padding-left: 2rem;
-		background-size: 2rem;
+		background-size: 4rem;
+		padding-left: 6rem;
+		margin-left: -1rem;
+		height: 5rem;
 	}
 	.heading-small {
 		font-size: 3rem;

@@ -38,7 +38,7 @@ $LANG = array(
 'L_ERR_USER_EMPTY'									=> 'Veuillez saisir un nom d\'utilisateur',
 'L_ERR_PASSWORD_EMPTY'								=> 'Veuillez saisir un mot de passe',
 'L_ERR_PASSWORD_EMPTY_CONFIRMATION'					=> 'Mauvaise confirmation ou mot de passe vide',
-'L_ERR_INVALID_EMAIL'								=> 'Adresse mél invalide',
+'L_ERR_INVALID_EMAIL'								=> 'Adresse e-mail invalide',
 'L_ERR_INVALID_SITE'								=> 'Adresse du site invalide',
 'L_ERR_INVALID_ARTICLE_IDENT'						=> 'Identifiant d\'article invalide !',
 'L_DEFAULT_NEW_CATEGORY_URL'						=> 'nouvelle-categorie',
@@ -139,29 +139,15 @@ $LANG = array(
 'L_LOGIN_PAGE'										=> 'Connexion à la zone d\'administration',
 'L_AUTH_LOGIN_FIELD'								=> 'Login de connexion',
 'L_AUTH_PASSWORD_FIELD'								=> 'Mot de passe',
-'L_AUTH_LOST_FIELD'									=> 'Login ou adresse mél',
+'L_AUTH_LOST_FIELD'									=> 'Login ou adresse e-mail',
 'L_SUBMIT_BUTTON'									=> 'Valider',
 'L_ERR_WRONG_PASSWORD' 								=> 'Login et/ou mot de passe incorrect',
 'L_POWERED_BY'										=> 'Généré par <a href="https://www.pluxml.org">PluXml</a>',
 'L_ERR_MAXLOGIN'									=> 'Nombre de tentative atteint<br />Réessayez dans %s minutes',
 'L_LOST_PASSWORD'									=> 'Mot de passe oublié ?',
 'L_LOST_PASSWORD_LOGIN'								=> 'Se connecter',
-'L_LOST_PASSWORD_SUCCESS'							=> 'Un mél a été envoyé à l\'utilisateur',
+'L_LOST_PASSWORD_SUCCESS'							=> 'Un e-mail a été envoyé à l\'utilisateur',
 'L_LOST_PASSWORD_ERROR'								=> 'Le lien est expiré',
-'L_LOST_PASSWORD_SUBJECT'							=> 'Recréer un mot de passe',
-'L_LOST_PASSWORD_BODY' => 'Salutation ##LOGIN##,
-
-Une demande de remise à zéro de votre sésame a été initié.
-
-Pour modifier votre mot de passe, veuillez suivre le lien ci-dessous :
-
-##URL_PASSWORD##
-
-Si cette demande est illégitime, ne tenir aucun compte de ce message.
-
-Ce lien expire dans ##URL_EXPIRY## heures.
-
-Ceci est un mél automatique, inutile d’y répondre, merci.',
 
 #
 
@@ -226,7 +212,7 @@ Ceci est un mél automatique, inutile d’y répondre, merci.',
 'L_COMMENT_DATE_FIELD'								=> 'Date et heure de publication',
 'L_COMMENT_IP_FIELD'								=> 'IP',
 'L_COMMENT_SITE_FIELD'								=> 'Site',
-'L_COMMENT_EMAIL_FIELD'								=> 'Mél',
+'L_COMMENT_EMAIL_FIELD'								=> 'e-mail',
 'L_COMMENT_STATUS_FIELD'							=> 'Statut',
 'L_COMMENT_LINKED_ARTICLE_FIELD'					=> 'Article attaché',
 'L_COMMENT_ARTICLE_FIELD'							=> 'Commentaire',
@@ -404,8 +390,8 @@ Ceci est un mél automatique, inutile d’y répondre, merci.',
 'L_CONFIG_ADVANCED_CONFIG_FOLDER'					=> 'Emplacement des fichiers de configuration (dossier)',
 'L_CONFIG_ADVANCED_UPDATE'							=> 'Modifier la configuration avancée',
 'L_CONFIG_CUSTOM_CSSADMIN_PATH'						=> 'Emplacement et nom du fichier css personnel pour la personnalisation de l\'interface d\'administration (option)',
-'L_CONFIG_ADVANCED_TITLE_SMTP'						=> 'Envoi de mél par SMTP',
-'L_CONFIG_ADVANCED_SMTP_ACTIVATION'					=> 'Activer l\'envoi de mél par serveur SMTP',
+'L_CONFIG_ADVANCED_TITLE_SMTP'						=> 'Envoi de e-mail par SMTP',
+'L_CONFIG_ADVANCED_SMTP_ACTIVATION'					=> 'Activer l\'envoi de e-mail par serveur SMTP',
 'L_CONFIG_ADVANCED_SMTP_SERVER'						=> 'Hôte SMTP',
 'L_CONFIG_ADVANCED_SMTP_USERNAME'					=> 'Nom d\'utilisateur SMTP',
 'L_CONFIG_ADVANCED_SMTP_PASSWORD'					=> 'Mot de passe SMTP',
@@ -459,7 +445,7 @@ Ceci est un mél automatique, inutile d’y répondre, merci.',
 'L_CONFIG_USERS_UPDATE'								=> 'Modifier la liste des utilisateurs',
 'L_ERR_LOGIN_ALREADY_EXISTS'						=> 'Identifiant de connexion déjà utilisé',
 'L_ERR_USERNAME_ALREADY_EXISTS'						=> 'Nom d\'utilisateur déjà utilisé',
-'L_ERR_EMAIL_ALREADY_EXISTS'						=> 'Adresse mél déjà utilisée',
+'L_ERR_EMAIL_ALREADY_EXISTS'						=> 'Adresse e-mail déjà utilisée',
 
 # parametre_plugins.php
 
@@ -501,7 +487,7 @@ Ceci est un mél automatique, inutile d’y répondre, merci.',
 'L_PROFIL'											=> 'Profil',
 'L_PROFIL_LOGIN'									=> 'Identifiant de connexion',
 'L_PROFIL_USER'										=> 'Nom d\'utilisateur',
-'L_PROFIL_MAIL'										=> 'Adresse mél',
+'L_PROFIL_MAIL'										=> 'Adresse e-mail',
 'L_PROFIL_ADMIN_LANG'								=> 'Langue utilisée dans l\'administration',
 'L_PROFIL_INFOS'									=> 'Informations',
 'L_PROFIL_UPDATE'									=> 'Modifier votre profil',
@@ -581,7 +567,7 @@ Ceci est un mél automatique, inutile d’y répondre, merci.',
 
 'L_USER_UNKNOWN'									=> 'Utilisateur inconnu',
 'L_USER_LANG'										=> 'Langue utilisée dans l\'administration',
-'L_USER_MAIL'										=> 'Adresse mél',
+'L_USER_MAIL'										=> 'Adresse e-mail',
 'L_USER_INFOS'										=> 'Informations',
 'L_USER_UPDATE'										=> 'Mettre à jour cet utilisateur',
 'L_USER_PAGE_TITLE'									=> 'Édition des options de l\'utilisateur',

@@ -314,26 +314,28 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$tokenExpiry = 24;
 		$lostPasswordToken = plxToken::generateToken();
 		$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
-		$templateName = 'email-lostpassword.xml';
+		$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 		$error = false;
 
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
 				if (($user['login'] == $loginOrMail OR $user['email'] == $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
-					# token and e-mail creation
+					// token and e-mail creation
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
 						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
 						"##URL_EXPIRY##"	=> $tokenExpiry
 					);
-					$mail['body'] = str_replace(array_keys($placeholdersValues), array_values($placeholdersValues), L_LOST_PASSWORD_BODY);
-					$mail['name'] = 'no-reply ' . $this->aConf['title'];
-					$mail['from'] = $user['email'];#or what?
-					$mail['subject'] = L_LOST_PASSWORD_SUBJECT;# or L_LOST_PASSWORD
-
-					# Verifie si e-mail crée
-					if (!empty($mail['body'])) {
-						# configure the SMTP mailer if activated, sending the e-mail and if OK store the token
+					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
+						if (!empty($this->aConf['title'])) {
+							$mail ['name'] = $this->aConf['title'];
+							$mail ['from'] = "noreply@".$this->aConf['racine'];
+						} else {
+							$mail ['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
+							$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
+						}
+						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
+						// configure the SMTP mailer if activated, sending the e-mail and if OK store the token
 						if ($this->aConf['smtp_activation']) {
 							$mailer = 'smtp';
 							$smtpHost = $this->aConf['smtp_server'];
@@ -571,40 +573,24 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# suppression
 		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idCategory']) AND empty($content['update'])) {
 			foreach($content['idCategory'] as $cat_id) {
-				# On renomme les fichiers des articles de cette catégorie #since 5.8
-				$motif = '/^[0-9]{4}.(?:[0-9]|home|draft|,)*(?:'.$cat_id.')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/'; # Motif de recherche
-				$tri = 'desc';
-				$start = 1;
-				$bypage = 10000;# max arts + 1
-				$publi='before';
-				# On recupere nos fichiers (tries)
-				if($aFiles = $this->plxGlob_arts->query($motif,'art',$tri,$start,$bypage,$publi)) {
-					foreach($aFiles as $k=>$v) {# On parcourt tous les fichiers
-						# On découpe grâce aux
-						$a = explode(".", $v);# points
-						$aCat = explode(',',$a[1]);# virgules
-						# Cet article
-						$plus = (count($aCat) > 1);# appartient à plus d'une categorie
-						$home = in_array('home',$aCat);# est classé ds l'accueil
-						$draft = in_array('draft',$aCat);# est non publié
-						# On retire la catégorie brouillon (draft)
-						if($draft) unset($aCat[0]);
-						foreach($aCat as $i=>$d) {# Pour toutes les catégories
-							if ($cat_id == $d) {
-								if($plus or $home) unset($aCat[$i]);#On supprime de la liste (si multiple cat)
-								else $aCat[$i] = '000';#RAZ si juste classé avec celle-ci
-							}
+				// change article category to the default category id
+				foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
+					$filenameArray = explode(".", $filename);
+					$filenameArrayCat = explode(",", $filenameArray[1]);
+					if (in_array($cat_id, $filenameArrayCat)) {
+						$key = array_search($cat_id, $filenameArrayCat);
+						if(count(preg_grep('[0-9]{3}', $filenameArrayCat)) > 1) {
+							// this article has more than one category
+							unset($filenameArrayCat[$key]);
 						}
-						# On remet la catégorie brouillon
-						if($draft) $aCat[0] = 'draft';
-						# On recole
-						$a[1] = implode(',',$aCat);# la/les catégorie(s) modifiés
-						$a = implode(".", $a);# toutes les parties du nom
-						# On renomme le fichier xml de l'article
-						rename(PLX_ROOT.$this->aConf['racine_articles'].$v, PLX_ROOT.$this->aConf['racine_articles'].$a);
+						else {
+							$filenameArrayCat[$key] = '000';
+						}
+						$filenameArray[1] = implode(",", $filenameArrayCat);
+						$filenameNew = implode(".", $filenameArray);
+						rename(PLX_ROOT.$this->aConf['racine_articles'].$filename, PLX_ROOT.$this->aConf['racine_articles'].$filenameNew);
 					}
 				}
-				# On supprime du tableau général
 				unset($this->aCats[$cat_id]);
 				$action = true;
 			}

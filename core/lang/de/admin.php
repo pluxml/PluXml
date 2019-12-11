@@ -151,20 +151,6 @@ $LANG = array(
 'L_LOST_PASSWORD_LOGIN'								=> 'Anmeldung',
 'L_LOST_PASSWORD_SUCCESS'							=> 'Eine E-Mail wurde an den Benutzer gesendet',
 'L_LOST_PASSWORD_ERROR'								=> 'Der Link ist abgelaufen',
-'L_LOST_PASSWORD_SUBJECT'							=> 'Erstellen eines Kennworts',
-'L_LOST_PASSWORD_BODY'								=> 'begrüßung ##LOGIN##,
-
-Eine Anforderung zum Zurücksetzen Ihres Sesams wurde initiiert.
-
-Um Ihr Passwort zu ändern, folgen Sie bitte dem untenstehenden Link:
-
-##URL_PASSWORD##
-
-Wenn diese Anforderung illegitim ist, ignorieren Sie diese Meldung.
-
-Dieser Link läuft in ##URL_EXPIRY## Stunden ab.
-
-Dies ist eine automatische mel, keine Notwendigkeit, es zu beantworten, danke.',
 
 #
 

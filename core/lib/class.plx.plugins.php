@@ -497,7 +497,7 @@ class plxPlugin {
 	 * Méthode qui affiche une clé de traduction dans la langue par défaut de PluXml
 	 *
 	 * @param	key		clé de traduction à récuperer
-	 * @return	stdio
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function lang($key='') {

@@ -11,11 +11,6 @@
 #
 # ------------------- END LICENSE BLOCK -------------------
 */
-body{
-	font-family: ubuntu,Arial;
-	font-size: 1.6rem;
-	line-height: 1;
-}
 
 /* ---------- Authentication ---------- */
 
@@ -522,9 +517,8 @@ a.hint:focus span {
 	margin: 0 auto;
 	padding: .25rem 1rem;
 	border: .25rem solid;
-	border-radius: .5rem;
-	font-weight: bold;
 	color: #000;
+	width: 100%
 }
 
 .error {
@@ -629,7 +623,6 @@ th.checkbox {
 }
 
 .modal__overlay {
-	background: #000;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -652,6 +645,7 @@ th.checkbox {
 }
 
 .modal label {
+	background-color: #444;
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
@@ -659,6 +653,8 @@ th.checkbox {
 	-webkit-transition: all 0.55s;
 	transition: all 0.55s;
 	padding: 10px;
+	font-size: 2rem;
+	vertical-align: top;
 }
 
 @media (max-width: 767px) {
@@ -671,7 +667,7 @@ th.checkbox {
 }
 
 .modal label:hover {
-	color: #258fd6;
+	color: #fff;
 	-webkit-transform: scale(0.97);
 	-ms-transform: scale(0.97);
 	transform: scale(0.97);
@@ -690,6 +686,9 @@ th.checkbox {
 	-webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 	transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 	visibility: hidden;
+	align-items: center;
+	display: flex;
+	justify-content: center;
 }
 
 input:checked~.modal__overlay {

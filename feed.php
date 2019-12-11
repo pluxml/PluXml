@@ -11,7 +11,9 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	exit;
 }
 
-#autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing : enable-cors.org/server_php.html + developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+# Autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing
+# https://enable-cors.org/server_php.html
+# https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 header('Access-Control-Allow-Origin: *');
 
 # On inclut les librairies nécessaires
