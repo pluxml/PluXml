@@ -8,6 +8,9 @@
  **/
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+require '../vendor/autoload.php';
 
 class plxUtils {
 
@@ -1003,22 +1006,23 @@ class plxUtils {
 	 * @return	boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
-	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure) {
-
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure, $debug=false) {
 		$mail = new PHPMailer();
-
+		if ($debug) {
+			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+		} 
 		$mail->Subject = $subject;
 		$mail->Body = $body;
 		$mail->setFrom($from, $name);
 		$mail->addAddress($to);
 		$mail->Mailer = $mailer;
-		$mail->CharSet="UTF-8";
+		$mail->CharSet = "UTF-8";
 		if ($isHtml) {
 			$mail->isHTML(true);
 		}
-
-		# configure and use SMTP
+		// configure and use SMTP
 		if ($mailer === 'smtp') {
+			error_log('smtp');
 			$mail->isSMTP();
 			$mail->Host = $smtpHost;
 			$mail->SMTPAuth = true;
@@ -1026,12 +1030,14 @@ class plxUtils {
 			$mail->Password = $smtpPassword;
 			$mail->Port = $smtpPort;
 			$mail->SMTPDebug;
-			if ($smtpSecure == 'ssl' OR $smtpSecure == 'tls') {
+			if ($smtpSecure == 'ssl' or $smtpSecure == 'tls') {
 				$mail->SMTPSecure = $smtpSecure;
+				error_log('secure');
 			}
 		}
+		$result = $mail->send();
 
-		return $mail->send();
+		return $result ;
 	}
 
 	/**
@@ -1286,10 +1292,10 @@ class plxUtils {
 		if(!empty($msg)) $msg .= ' = ';
 		$msg .= (is_array($obj) OR is_object($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
 		echo <<< EOT
-			<script type="text/javascript">
-				console.log(`$msg`);
-			</script>
-EOT;
+					<script type="text/javascript">
+						console.log(`$msg`);
+					</script>
+		EOT;
 
 	}
 
@@ -1365,21 +1371,21 @@ EOT;
 				if($dirOk) { # pour un dossier
 					if($modeDir) {
 						echo <<<EOT
-							<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
-
-EOT;
+													<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
+						
+						EOT;
 					} else {
 						echo <<<EOT
-							<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
-
-EOT;
+													<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+						
+						EOT;
 					}
 					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
-						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
-
-EOT;
+											<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
+					
+					EOT;
 				}
 			}
 		}
@@ -1408,15 +1414,15 @@ EOT;
 		$disabled = (!$modeDir)? ' disabled': '';
 		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
 		echo <<< EOT
-		<select id="id_$name" name="$name" class="$class">
-			<option$disabled value="$value"$selected>$caption/</option>
-
-EOT;
+				<select id="id_$name" name="$name" class="$class">
+					<option$disabled value="$value"$selected>$caption/</option>
+		
+		EOT;
 		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
 		echo <<< EOT
-		</select>
-
-EOT;
+				</select>
+		
+		EOT;
 	}
 
 	/**
@@ -1433,8 +1439,8 @@ EOT;
 			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 			echo <<< LINK
-\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
-LINK;
+			\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
+			LINK;
 		}
 	}
 
