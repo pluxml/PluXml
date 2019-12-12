@@ -9,8 +9,10 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\OAuth;
+use League\OAuth2\Client\Provider\Google;
 
-require '../vendor/autoload.php';
+require PLX_CORE.'vendor/autoload.php';
 
 class plxUtils {
 
@@ -999,14 +1001,11 @@ class plxUtils {
 	 * @param	string	$subject		E-mail subject
 	 * @param	string	$body			E-mail body content
 	 * @param	boolean	$isHtml			True if body content use HTML
-	 * @param	string	$mailer			SMTP or php sendmail() function by default
-	 * @param	string	$smtpHost		SMTP server DNS or IP
-	 * @param	string	$smtpUsername	SMTP Username
-	 * @param	string	$smtpPassword	SMTP Password
+	 * @param	array	$conf			PHPMailer configuration (username, password, ...)
 	 * @return	boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
-	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure, $debug=false) {
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $conf, $debug=false) {
 		$mail = new PHPMailer();
 		if ($debug) {
 			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
@@ -1015,28 +1014,51 @@ class plxUtils {
 		$mail->Body = $body;
 		$mail->setFrom($from, $name);
 		$mail->addAddress($to);
-		$mail->Mailer = $mailer;
+		$mail->Mailer = $conf['email_method'];
 		$mail->CharSet = "UTF-8";
 		if ($isHtml) {
 			$mail->isHTML(true);
 		}
-		// configure and use SMTP
-		if ($mailer === 'smtp') {
-			error_log('smtp');
-			$mail->isSMTP();
-			$mail->Host = $smtpHost;
-			$mail->SMTPAuth = true;
-			$mail->Username = $smtpUsername;
-			$mail->Password = $smtpPassword;
-			$mail->Port = $smtpPort;
-			$mail->SMTPDebug;
-			if ($smtpSecure == 'ssl' or $smtpSecure == 'tls') {
-				$mail->SMTPSecure = $smtpSecure;
-				error_log('secure');
-			}
+		switch ($conf['email_method']) {
+			case 'smtp':
+				$mail->isSMTP();
+				$mail->Host = $conf['smtp_server'];
+				$mail->SMTPAuth = true;
+				$mail->Username = $conf['smtp_username'];
+				$mail->Password = $conf['smtp_password'];
+				$mail->Port = $conf['smtp_port'];
+				$mail->SMTPDebug;
+				if ($conf['smtp_security'] == 'ssl' or $conf['smtp_security'] == 'tls') {
+					$mail->SMTPSecure = $conf['smtp_security'];
+				}
+				break;
+			case 'smtpoauth':
+				$mail->isSMTP();
+				$mail->Host = 'smtp.gmail.com';
+				$mail->Port = 587;
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+				$mail->SMTPAuth = true;
+				$mail->AuthType = 'XOAUTH2';
+				$provider = new Google(
+					[
+						'clientId' => $conf['smtpOauth2_clientId'],
+						'clientSecret' => $conf['smtpOauth2_clientSecret'],
+					]
+				);
+				$mail->setOAuth(
+						new OAuth(
+							[
+								'provider' => $provider,
+								'clientId' => $conf['smtpOauth2_clientId'],
+								'clientSecret' => $conf['smtpOauth2_clientSecret'],
+								'refreshToken' => $conf['smtpOauth2_refreshToken'],
+								'userName' => $conf['smtpOauth2_emailAdress'],
+							]
+						)
+					);
+				break;
 		}
 		$result = $mail->send();
-
 		return $result ;
 	}
 
