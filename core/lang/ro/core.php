@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Home',
 'L_UNCLASSIFIED'				=> 'Neclasificat',
 'L_INFO_PHP_VERSION'			=> 'Versiune php',
-'L_INFO_MAGIC_QUOTES'			=> 'Starea "magic quotes"',
 'L_INFO_CHARSET'				=> 'encoding',
 
 # index.php
