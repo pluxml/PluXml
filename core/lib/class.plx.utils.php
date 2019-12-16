@@ -58,7 +58,6 @@ class plxUtils {
 		} else { # On traite une chaine
 			$new_content = stripslashes($content);
 		}
-		# On retourne le tableau modifie
 		return $new_content;
 	}
 

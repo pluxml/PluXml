@@ -233,7 +233,7 @@ if(!empty($_POST['install'])) {
 	$name=$_POST['name'];
 	$login=$_POST['login'];
 	$email=$_POST['email'];
-	$data=$_POST['data'];#samples
+	$data=$_POST['data'];
 }
 else {
 	$name='';
