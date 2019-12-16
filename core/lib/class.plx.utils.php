@@ -46,24 +46,20 @@ class plxUtils {
 
 		$new_content = '';
 
-		if(ini_get('magic_quotes_gpc') == 1) {
-			if(is_array($content)) { # On traite un tableau
-				foreach($content as $k=>$v) { # On parcourt le tableau
-					if(is_array($v)) {
-						foreach($v as $key=>$val)
-							$new_content[$k][$key] = stripslashes($val);
-					} else {
-						$new_content[ $k ] = stripslashes($v);
-					}
+		if(is_array($content)) { # On traite un tableau
+			foreach($content as $k=>$v) { # On parcourt le tableau
+				if(is_array($v)) {
+					foreach($v as $key=>$val)
+						$new_content[$k][$key] = stripslashes($val);
+				} else {
+					$new_content[$k] = stripslashes($v);
 				}
-			} else { # On traite une chaine
-				$new_content = stripslashes($content);
 			}
-			# On retourne le tableau modifie
-			return $new_content;
-		} else {
-			return $content;
+		} else { # On traite une chaine
+			$new_content = stripslashes($content);
 		}
+		# On retourne le tableau modifie
+		return $new_content;
 	}
 
 	/**
