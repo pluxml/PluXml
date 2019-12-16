@@ -41,24 +41,27 @@ class plxUtils {
 	 *
 	 * @param	content				variable ou tableau
 	 * @return	array ou string		tableau ou variable avec les antislashs supprimés
+	 * @author  J.P. Pourrez aka bazooka07
 	 **/
 	public static function unSlash($content) {
 
-		$new_content = '';
-
-		if(is_array($content)) { # On traite un tableau
+		 # On traite un tableau
+		if(is_array($content)) {
+			$new_content = array();
 			foreach($content as $k=>$v) { # On parcourt le tableau
 				if(is_array($v)) {
+					$new_content[$k] = array();
 					foreach($v as $key=>$val)
 						$new_content[$k][$key] = stripslashes($val);
 				} else {
 					$new_content[$k] = stripslashes($v);
 				}
 			}
-		} else { # On traite une chaine
-			$new_content = stripslashes($content);
+			return $new_content;
 		}
-		return $new_content;
+
+		# On traite une chaine
+		return stripslashes($content);
 	}
 
 	/**
