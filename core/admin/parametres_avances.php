@@ -247,7 +247,12 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '', true); ?>
-				<a href="get_oauth_token.php?provider=Google"><button type="button">Générer un token</button></a>
+				<?php
+					if (empty($plxAdmin->aConf['smtpOauth2_clientSecret']) AND empty($plxAdmin->aConf['smtpOauth2_clientId']) and empty($plxAdmin->aConf['smtpOauth2_emailAdress'])) {
+						$disabled = "disabled";
+					}
+				?>
+				<a href="get_oauth_token.php?provider=Google"><button type="button" <?php echo $disabled ?>>Générer un token</button></a>
 			</div>
 		</div>
 	</fieldset>
