@@ -166,11 +166,11 @@ function install($content, $config) {
 	$xml .= '</document>';
 	plxUtils::write($xml,path('XMLFILE_STATICS'));
 	if($content['data']>0)
-		plxUtils::write(file_get_contents(PLX_CORE.'/lib/html.static.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
+		plxUtils::write(file_get_contents(PLX_CORE.'/templates/install-page.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
 
 	if($content['data']>0){
 		# Création du premier article
-		$html = explode('-----', file_get_contents(PLX_CORE.'/lib/html.article.txt'));
+		$html = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
 		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 		$xml .= '<document>
 	<title><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE).']]></title>
