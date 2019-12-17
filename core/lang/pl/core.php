@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Strona startowa',
 'L_UNCLASSIFIED'				=> 'Bez kategorii',
 'L_INFO_PHP_VERSION'			=> 'Wersja PHP',
-'L_INFO_MAGIC_QUOTES'			=> 'Stan "magicznych cudzysłowów"',
 'L_INFO_CHARSET'				=> 'kodowanie',
 
 # index.php

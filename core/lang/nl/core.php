@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Onthaal',
 'L_UNCLASSIFIED'				=> 'Niet geclassificeerd',
 'L_INFO_PHP_VERSION'			=> 'PHP-versie',
-'L_INFO_MAGIC_QUOTES'			=> '"magic quotes" staan nu',
 'L_INFO_CHARSET'				=> 'codering',
 
 # index.php
