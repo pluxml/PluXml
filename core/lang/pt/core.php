@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Índice',
 'L_UNCLASSIFIED'				=> 'Não categorizado;',
 'L_INFO_PHP_VERSION'			=> 'Versão de php',
-'L_INFO_MAGIC_QUOTES'			=> 'Estado dos "magic quotes"',
 'L_INFO_CHARSET'				=> 'codagem',
 
 # index.php

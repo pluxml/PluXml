@@ -30,6 +30,7 @@
 [+] #317 #325 plxShow->lastArtList() rechercher des catégories par leur url plutôt que par leur ID (jerrywham, sudwebdesign)
 [+] #331 #330 Ajout d'une image d'accroche sur une catégorie (Philippe-M)
 [+] #348 Ajout d'un paramètre "extra" à la fonction plxUtils->printArea (bazooka07)
+[+] #349 Lors de l'installation, possibilité de créer ou non les données d'exemples (sudwebdesign)
 FIX Correction de la gestion des ID CSS dans les menus (sudwebdesign)
 FIX Autorisation du cross-origin dans les flux RSS/ATOM (sudwebdesign)
 FIX #287 Capcha : ajout d'un espace insécable avant le "?" (P3ter)
@@ -45,6 +46,7 @@ FIX #332 Traductions manquantes en Polonais (sudwebdesign)
 FIX #334 Thème par défaut : affichage cassé des sous-menu de pages statiques (sudwebdesign)
 FIX #343 Article n'est plus affiché après suppression de la catégorie (P3ter)
 FIX #345 $plxShow->catList affiche la catégorie 10 à tort (bazooka07)
+FIX #349 Suppression de l'utilisation de la fonction "get_magic_quotes_gpc()" dépréciée en PHP 7.4 (sudwebdesign)
 
 ## PLUXML 5.7 (sortie : 11/12/2018) ##
 

@@ -46,29 +46,27 @@ class plxUtils {
 	 *
 	 * @param	content				variable ou tableau
 	 * @return	array ou string		tableau ou variable avec les antislashs supprimés
+	 * @author  J.P. Pourrez aka bazooka07
 	 **/
 	public static function unSlash($content) {
 
-		$new_content = '';
-
-		if(get_magic_quotes_gpc() == 1) {
-			if(is_array($content)) { # On traite un tableau
-				foreach($content as $k=>$v) { # On parcourt le tableau
-					if(is_array($v)) {
-						foreach($v as $key=>$val)
-							$new_content[$k][$key] = stripslashes($val);
-					} else {
-						$new_content[ $k ] = stripslashes($v);
-					}
+		 # On traite un tableau
+		if(is_array($content)) {
+			$new_content = array();
+			foreach($content as $k=>$v) { # On parcourt le tableau
+				if(is_array($v)) {
+					$new_content[$k] = array();
+					foreach($v as $key=>$val)
+						$new_content[$k][$key] = stripslashes($val);
+				} else {
+					$new_content[$k] = stripslashes($v);
 				}
-			} else { # On traite une chaine
-				$new_content = stripslashes($content);
 			}
-			# On retourne le tableau modifie
 			return $new_content;
-		} else {
-			return $content;
 		}
+
+		# On traite une chaine
+		return stripslashes($content);
 	}
 
 	/**
@@ -1415,17 +1413,24 @@ class plxUtils {
 
 	/**
 	 * Function publique pour afficher l'arborescence de dossiers et fichiers dans un tag <select..>.
-	 * @param	string	$name nom de l'input dans le formulaire
-	 * @param	string	$currentValue sélection initiale de l'utilisateur
-	 * @param	string	$root dossier initial dans l'arborescence
-	 * @param	string	$class Classe css a appliquer au sélecteur #sudwebdesign
-	 * @param	boolean	$modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
+	 * Since 5.8
+	 * @param	string $name nom de l'input dans le formulaire
+	 * @param	string $currentValue sélection initiale de l'utilisateur
+	 * @param	string $root dossier initial dans l'arborescence
+	 * @param	string $class Classe css a appliquer au sélecteur #sudwebdesign
+	 * @param	boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
+	 * @param	str|bool id : si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre name
 	 * @return	void
-	 * @author	J.P. Pourrez alias bazooka07
-	 * $modeDir=true  pour ne choisir que les dossiers : voir plxMedias contentFolder()
-	 * $modeDir=false pour ne choisir que les fichiers du thème
+	 * @author	J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
+	 * $modeDir=true	pour ne choisir que les dossiers : voir plxMedias contentFolder()
+	 * $modeDir=false	pour ne choisir que les fichiers du thème
 	 * */
-	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true) {
+	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true) {
+
+		if(is_bool($id))
+			$id = ($id ? ' id="id_'.$name.'"' : '');
+		else
+			$id = ($id!='' ? ' id="'.$id.'"' : '');
 
 		if(substr($root, -1) != '/')
 			$root .= '/';
@@ -1436,15 +1441,13 @@ class plxUtils {
 		$disabled = (!$modeDir)? ' disabled': '';
 		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
 		echo <<< EOT
-				<select id="id_$name" name="$name" class="$class">
-					<option$disabled value="$value"$selected>$caption/</option>
-		
-		EOT;
+		<select $id name="$name" class="$class">
+			<option$disabled value="$value"$selected>$caption/</option>
+EOT;
 		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
 		echo <<< EOT
-				</select>
-		
-		EOT;
+		</select>
+EOT;
 	}
 
 	/**
