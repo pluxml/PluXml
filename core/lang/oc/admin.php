@@ -144,16 +144,16 @@ $LANG = array (
 		'L_LOGIN_PAGE' => 'Connexion a la zòna d\'administracion',
 		'L_AUTH_LOGIN_FIELD' => 'Identificant de connexion',
 		'L_AUTH_PASSWORD_FIELD' => 'Senhal',
-		'L_AUTH_LOST_FIELD' => 'Identificant ò adreiça email',
+		'L_AUTH_LOST_FIELD' => 'Identificant o adreça electronica',
 
 		'L_SUBMIT_BUTTON' => 'Validar',
 		'L_ERR_WRONG_PASSWORD' => 'Identificant e/o senhal incorrèct',
 		'L_POWERED_BY' => 'Generat per <a href="https://www.pluxml.org">PluXml</a>',
 		'L_ERR_MAXLOGIN' => 'Nombre de pròvas atent<br />Tornatz ensajar dins %s minutas',
-		'L_LOST_PASSWORD' => 'Senhal oblidada?',
-		'L_LOST_PASSWORD_LOGIN' => 'Iniciar Sessió',
+		'L_LOST_PASSWORD' => 'Senhal oblidat ?',
+		'L_LOST_PASSWORD_LOGIN' => 'Se connectar',
 		'L_LOST_PASSWORD_SUCCESS' => 'S\'ha enviat un correu electrònic a l\'usuari',
-		'L_LOST_PASSWORD_ERROR' => 'L’enllaç ha caducat',
+		'L_LOST_PASSWORD_ERROR' => 'Lo ligam a expirat',
 
 		//
 
@@ -323,7 +323,7 @@ $LANG = array (
 		'L_MEDIAS_RESIZE' => 'Retalhar los imatges',
 		'L_MEDIAS_RESIZE_NO' => 'Talha originala',
 		'L_MEDIAS_THUMBS' => 'Crear miniaturas',
-		'L_MEDIAS_THUMBS_NONE' => 'Pas de miniatura',
+		'L_MEDIAS_THUMBS_NONE' => 'Cap de miniatura',
 		'L_MEDIAS_MODIFY' => 'Modificar',
 		'L_MEDIAS_THUMB' => 'Miniatura',
 		'L_MEDIAS_EXTENSION' => 'Extension',
@@ -376,9 +376,9 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Activar lo capcha anti-spam',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Clau d\'administracion (URLs privats)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Vojar aquel camp per tornar generar la clau',
-		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Utilizar un dorsièr medias diferent per cada redactor',
+		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Utilizar un dorsièr mèdias diferent per cada redactor',
 		'L_HELP_SLASH_END' => 'Oblidar pas lo slash a la fin',
-		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Emplaçament dels média (dorsièr)',
+		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Emplaçament dels mèdia (dorsièr)',
 		'L_CONFIG_ADVANCED_ARTS_FOLDER' => 'Emplaçament dels articles (dorsièr)',
 		'L_CONFIG_ADVANCED_COMS_FOLDER' => 'Emplaçament dels comentaris (dorsièr)',
 		'L_CONFIG_ADVANCED_STATS_FOLDER' => 'Emplaçament de las paginas estaticas (dorsièr)',
@@ -390,12 +390,12 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'Enviament de correu electrònic',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'Mètode d’enviament per correu electrònic',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'S\'està enviant correus electrònics amb SMTP',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Habiliteu els missatges de correu electrònic enviats per un servidor SMTP',
-		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'Nom d\'amfitrió SMTP',
-		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'Nom d\'usuari de SMTP',
-		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'Contrasenya SMTP',
-		'L_CONFIG_ADVANCED_SMTP_PORT' => 'Port SMTP',
-		'L_CONFIG_ADVANCED_SMTP_SECURITY' => 'Xifratge SMTP',
+		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Activar los corrièls amb SMTP',
+		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'Òst SMTP',
+		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'Nom d\'utilizaire de SMTP',
+		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'Senhal SMTP',
+		'L_CONFIG_ADVANCED_SMTP_PORT' => 'Pòrt SMTP',
+		'L_CONFIG_ADVANCED_SMTP_SECURITY' => 'Chiframent SMTP',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TITLE' => 'S\'està enviant correus electrònics amb SMTP i OAUTH2',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL' => 'Correu electrònic',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID' => 'ID de client',
@@ -416,7 +416,7 @@ $LANG = array (
 		'L_CONFIG_BASE_UPDATE' => 'Modificar la configuracion de basa',
 		'L_CONFIG_META_DESCRIPTION' => 'Contengut de la balisa meta "descripcion" del site (opcion)',
 		'L_CONFIG_META_KEYWORDS' => 'Contengut de las balisas meta "keywords" del site (opcion)',
-		'L_CONFIG_BASE_ENABLE_RSS' => 'Mostra els fluxos RSS',
+		'L_CONFIG_BASE_ENABLE_RSS' => 'Mostrar los flux RSS',
 
 		// parametres_edittpl.php
 
@@ -449,7 +449,7 @@ $LANG = array (
 		'L_CONFIG_USERS_UPDATE' => 'Modificar la lista dels utilizaires',
 		'L_ERR_LOGIN_ALREADY_EXISTS' => 'Identificant de connexion ja utilizat',
 		'L_ERR_USERNAME_ALREADY_EXISTS' => 'Nom d\'utilizator ja utilizat',
-		'L_ERR_EMAIL_ALREADY_EXISTS' => 'Adreça de correu electrònic ja utilizat',
+		'L_ERR_EMAIL_ALREADY_EXISTS' => 'Adreça de corrièl ja utilizada',
 
 		// parametre_plugins.php
 
