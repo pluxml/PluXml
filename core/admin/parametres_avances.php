@@ -252,7 +252,7 @@ include __DIR__ .'/top.php';
 						$disabled = "disabled";
 					}
 				?>
-				<a href="get_oauth_token.php?provider=Google"><button type="button" <?php echo $disabled ?>>Générer un token</button></a>
+				<a href="get_oauth_token.php?provider=Google"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
 			</div>
 		</div>
 	</fieldset>

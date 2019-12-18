@@ -352,6 +352,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID' => 'ID client',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Cheia secretă a clientului',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Generați un jeton',
 		'L_CONFIG_BASE_CONFIG_TITLE' => 'Configurarea bazei',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Denumirea sitului',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Descriere sitului',

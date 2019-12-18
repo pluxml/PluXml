@@ -386,6 +386,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID' => 'Klant ID',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Client geheime sleutel',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Genereer een token',
 		'L_CONFIG_BASE_CONFIG_TITLE' => 'Basisconfiguratie',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Titel van de site',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Ondertitel van de site',

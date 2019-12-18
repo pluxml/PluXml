@@ -351,6 +351,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID' => 'ID cliente',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Chiave segreta del cliente',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Genera un token',
 		'L_CONFIG_BASE_CONFIG_TITLE' => 'Configurazione base',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Titolo del sito',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Sottotitolo/descrizione del sito',

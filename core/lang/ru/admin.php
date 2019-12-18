@@ -402,7 +402,8 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL' => 'Адрес электронной почты',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID' => 'Идентификатор клиента',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Секретный ключ клиента',
-		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'токен',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Создать токен',
 
 		// parametres_base.php
 

@@ -391,13 +391,21 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_CONFIG_FOLDER' => 'Ort der Konfigurationsdateien (Ordner)',
 		'L_CONFIG_ADVANCED_UPDATE' => 'Änderungen speichern',
 		'L_CONFIG_CUSTOM_CSSADMIN_PATH' => 'Standort und den Namen der benutzerdefinierten CSS-Datei des Verwaltungsbereich (optional)',
-		'L_CONFIG_ADVANCED_TITLE_SMTP' => 'Senden von E-Mails mit SMTP',
+		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'E-Mail senden',
+		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'E-Mail-Versandmethode',
+		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'Senden von E-Mails mit SMTP',
 		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Aktivieren Sie E-Mails, die einen SMTP-Server senden',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'SMTP-Hostname',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'SMTP username',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'SMTP-Benutzername',
 		'L_CONFIG_ADVANCED_SMTP_PORT' => 'SMTP-Port',
 		'L_CONFIG_ADVANCED_SMTP_SECURITY' => 'SMTP-Verschlüsselung',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TITLE' => 'Senden von E-Mails mit SMTP und OAUTH2',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL' => 'E-Mail-Addresse',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID' => 'Kunden-ID',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Geheimer Client-Schlüssel',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Erzeugen Sie ein Token',
 
 		// parametres_base.php
 

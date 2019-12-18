@@ -401,6 +401,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID' => 'ID de client',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Clau secreta del client',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Genereu un token',
 
 		// parametres_base.php
 
