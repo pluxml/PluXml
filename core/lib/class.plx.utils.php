@@ -8,6 +8,11 @@
  **/
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\OAuth;
+use League\OAuth2\Client\Provider\Google;
+
+require PLX_CORE.'vendor/autoload.php';
 
 class plxUtils {
 
@@ -994,42 +999,65 @@ class plxUtils {
 	 * @param	string	$subject		E-mail subject
 	 * @param	string	$body			E-mail body content
 	 * @param	boolean	$isHtml			True if body content use HTML
-	 * @param	string	$mailer			SMTP or php sendmail() function by default
-	 * @param	string	$smtpHost		SMTP server DNS or IP
-	 * @param	string	$smtpUsername	SMTP Username
-	 * @param	string	$smtpPassword	SMTP Password
+	 * @param	array	$conf			PHPMailer configuration (username, password, ...)
 	 * @return	boolean
 	 * @author Pedro "P3ter" CADETE
 	 */
-	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $mailer='sendmail', $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure) {
-
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $conf, $debug=false) {
 		$mail = new PHPMailer();
-
+		if ($debug) {
+			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+		} 
 		$mail->Subject = $subject;
 		$mail->Body = $body;
 		$mail->setFrom($from, $name);
 		$mail->addAddress($to);
-		$mail->Mailer = $mailer;
-		$mail->CharSet="UTF-8";
+		$mail->Mailer = $conf['email_method'];
+		$mail->CharSet = "UTF-8";
 		if ($isHtml) {
 			$mail->isHTML(true);
 		}
-
-		# configure and use SMTP
-		if ($mailer === 'smtp') {
-			$mail->isSMTP();
-			$mail->Host = $smtpHost;
-			$mail->SMTPAuth = true;
-			$mail->Username = $smtpUsername;
-			$mail->Password = $smtpPassword;
-			$mail->Port = $smtpPort;
-			$mail->SMTPDebug;
-			if ($smtpSecure == 'ssl' OR $smtpSecure == 'tls') {
-				$mail->SMTPSecure = $smtpSecure;
-			}
+		switch ($conf['email_method']) {
+			case 'smtp':
+				$mail->isSMTP();
+				$mail->Host = $conf['smtp_server'];
+				$mail->SMTPAuth = true;
+				$mail->Username = $conf['smtp_username'];
+				$mail->Password = $conf['smtp_password'];
+				$mail->Port = $conf['smtp_port'];
+				$mail->SMTPDebug;
+				if ($conf['smtp_security'] == 'ssl' or $conf['smtp_security'] == 'tls') {
+					$mail->SMTPSecure = $conf['smtp_security'];
+				}
+				break;
+			case 'smtpoauth':
+				$mail->isSMTP();
+				$mail->Host = 'smtp.gmail.com';
+				$mail->Port = 587;
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+				$mail->SMTPAuth = true;
+				$mail->AuthType = 'XOAUTH2';
+				$provider = new Google(
+					[
+						'clientId' => $conf['smtpOauth2_clientId'],
+						'clientSecret' => $conf['smtpOauth2_clientSecret'],
+					]
+				);
+				$mail->setOAuth(
+						new OAuth(
+							[
+								'provider' => $provider,
+								'clientId' => $conf['smtpOauth2_clientId'],
+								'clientSecret' => $conf['smtpOauth2_clientSecret'],
+								'refreshToken' => $conf['smtpOauth2_refreshToken'],
+								'userName' => $conf['smtpOauth2_emailAdress'],
+							]
+						)
+					);
+				break;
 		}
-
-		return $mail->send();
+		$result = $mail->send();
+		return $result ;
 	}
 
 	/**
@@ -1284,10 +1312,10 @@ class plxUtils {
 		if(!empty($msg)) $msg .= ' = ';
 		$msg .= (is_array($obj) OR is_object($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
 		echo <<< EOT
-			<script type="text/javascript">
-				console.log(`$msg`);
-			</script>
-EOT;
+					<script type="text/javascript">
+						console.log(`$msg`);
+					</script>
+		EOT;
 
 	}
 
@@ -1363,21 +1391,21 @@ EOT;
 				if($dirOk) { # pour un dossier
 					if($modeDir) {
 						echo <<<EOT
-							<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
-
-EOT;
+													<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
+						
+						EOT;
 					} else {
 						echo <<<EOT
-							<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
-
-EOT;
+													<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+						
+						EOT;
 					}
 					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
-						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
-
-EOT;
+											<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
+					
+					EOT;
 				}
 			}
 		}
@@ -1415,12 +1443,10 @@ EOT;
 		echo <<< EOT
 		<select $id name="$name" class="$class">
 			<option$disabled value="$value"$selected>$caption/</option>
-
 EOT;
 		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
 		echo <<< EOT
 		</select>
-
 EOT;
 	}
 
@@ -1438,8 +1464,8 @@ EOT;
 			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 			echo <<< LINK
-\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
-LINK;
+			\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
+			LINK;
 		}
 	}
 

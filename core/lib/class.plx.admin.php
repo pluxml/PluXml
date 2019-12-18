@@ -329,22 +329,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						if (!empty($this->aConf['title'])) {
 							$mail ['name'] = $this->aConf['title'];
-							$mail ['from'] = "noreply@".$this->aConf['racine'];
 						} else {
 							$mail ['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
-							$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
 						}
+						$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
-						// configure the SMTP mailer if activated, sending the e-mail and if OK store the token
-						if ($this->aConf['smtp_activation']) {
-							$mailer = 'smtp';
-							$smtpHost = $this->aConf['smtp_server'];
-							$smtpUsername = $this->aConf['smtp_username'];
-							$smtpPassword = $this->aConf['smtp_password'];
-							$smtpPort = $this->aConf['smtp_port'];
-							$smtpSecure = $this->aConf['smtp_security'];
-						}
-						if (plxUtils::sendMailPhpMailer($mail['name'],$mail['from'],$user['email'],$mail['subject'],$mail['body'], false, $mailer, $smtpHost, $smtpUsername, $smtpPassword, $smtpPort, $smtpSecure)) {
+						// send the e-mail and if it is OK store the token
+						if (plxUtils::sendMailPhpMailer($mail['name'], $mail['from'], $user['email'], $mail['subject'], $mail['body'], false, $this->aConf, false)) {
 							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
 							$this->editUsers($user_id, true);

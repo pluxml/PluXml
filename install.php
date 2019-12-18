@@ -108,12 +108,16 @@ $config = array('title'=>'PluXml',
 				'userfolders'=>0,
 				'display_empty_cat'=>0,
 				'custom_admincss_file'=>'',
-				'smtp_activation'=>0,
-				'smtp_server'=>'',
-				'smtp_username'=>'',
-				'smtp_password'=>'',
-				'smtp_port'=>'465',
-				'smtp_security'=>'ssl'
+				'email_method' => 'sendmail',
+				'smtp_server' => '',
+				'smtp_username' => '',
+				'smtp_password' => '',
+				'smtp_port' => '465',
+				'smtp_security' => 'ssl',
+				'smtpOauth2_emailAdress' => '',
+				'smtpOauth2_clientId'=> '',
+				'smtpOauth2_clientSecret' => '',
+				'smtpOauth2_refreshToken' => ''
 				);
 
 function install($content, $config) {

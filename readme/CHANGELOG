@@ -9,7 +9,7 @@
 [+] Un utilisateur supprimé ou désactivé est déconnecté automatiquement (sudwebdesign)
 [+] Administration des médias : affichage du nombre maximum de fichiers téléversables en une seule fois (sudwebdesign)
 [+] Ajout de la fonction plxUtils::printInputRadio permettant d'afficher des boutons radio (P3ter)
-[+] Ajout de la fonction plxUtils::sendMailPhpMailer permettant d'envoyer des mails au travers d'un serveur SMTP (P3ter)
+[+] Ajout de la fonction plxUtils::sendMailPhpMailer permettant d'envoyer des mails avec ou sans OAUTH2 (P3ter)
 [+] Ajout de la fonction plxUtils::printLinkCss permettant d'afficher une balise <link> avec la date de modification du fichier (bazooka07, sudwebdesign)
 [+] Ajout de la fonction plxUtils::printSelectDir permettant d'afficher une arborescence dans l'administration des médias et des templates (bazooka07, sudwebdesign)
 [+] Plugins : ajout de nouveaux hooks sur la page d'authentification AdminAuthBegin, AdminAuthTopLostPassword, AdminAuthLostPassword, AdminAuthTopChangePassword, AdminAuthChangePassword, AdminAuthTopChangePasswordError, AdminAuthChangePasswordError  (sudwebdesign)
