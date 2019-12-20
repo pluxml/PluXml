@@ -1007,7 +1007,7 @@ class plxUtils {
 		$mail = new PHPMailer();
 		if ($debug) {
 			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-		} 
+		}
 		$mail->Subject = $subject;
 		$mail->Body = $body;
 		$mail->setFrom($from, $name);
@@ -1312,11 +1312,10 @@ class plxUtils {
 		if(!empty($msg)) $msg .= ' = ';
 		$msg .= (is_array($obj) OR is_object($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
 		echo <<< EOT
-					<script type="text/javascript">
-						console.log(`$msg`);
-					</script>
-		EOT;
-
+			<script type="text/javascript">
+				console.log(`$msg`);
+			</script>
+EOT;
 	}
 
 	/**
@@ -1391,21 +1390,21 @@ class plxUtils {
 				if($dirOk) { # pour un dossier
 					if($modeDir) {
 						echo <<<EOT
-													<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
-						
-						EOT;
+							<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
+
+EOT;
 					} else {
 						echo <<<EOT
-													<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
-						
-						EOT;
+							<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+
+EOT;
 					}
 					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
-											<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
-					
-					EOT;
+						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
+
+EOT;
 				}
 			}
 		}
@@ -1464,8 +1463,8 @@ EOT;
 			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 			echo <<< LINK
-			\t<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
-			LINK;
+	<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
+LINK;
 		}
 	}
 
