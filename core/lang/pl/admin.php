@@ -401,6 +401,17 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Tajny klucz klienta',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Wygeneruj token',
+		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP' => 'Necessitar ajuda : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).',
+		'L_CONFIG_ADVANCED_EMAIL_METHOD_HELP' => 'No es requereix cap configuració per a sendmail.',
+		'L_CONFIG_ADVANCED_SMTP_SERVER_HELP' => 'Nom del servidor SMTP (exemple : ssl0.ovh.net)',
+		'L_CONFIG_ADVANCED_SMTP_USERNAME_HELP' => 'Nom d\'usuari de l\'amfitrió SMTP (exemple : pluxml@monserveursmtp.com)',
+		'L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP' => 'Contrasenya de l’usuari a l’amfitrió SMTP',
+		'L_CONFIG_ADVANCED_SMTP_PORT_HELP' => 'Número de port amfitrió SMTP (predeterminat : 465)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP' => 'PluXml permet generar fitxes només per al servei <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Necessiteu ajuda per generar el nom d’usuari i la clau secreta : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP' => 'Adreça usada al servei OAUTH2 (example: pluxml@gmail.com)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP' => 'Identificador de client al servei OAUTH2 (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP' => 'La clau de client del servei OAUTH2 (example: PrsvKp6aprKpoP8snnCoC8-x)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP' => 'Deseu l\'identificador de client i el codi secret de client per tal de generar el token.',
 
 		// parametres_base.php
 

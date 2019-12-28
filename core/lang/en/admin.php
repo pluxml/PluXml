@@ -403,6 +403,17 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Client secret key',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Generate a token',
+		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP' => 'Need help: <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).',
+		'L_CONFIG_ADVANCED_EMAIL_METHOD_HELP' => 'No configuration is required for sendmail.',
+		'L_CONFIG_ADVANCED_SMTP_SERVER_HELP' => 'SMTP server name (example: ssl0.ovh.net)',
+		'L_CONFIG_ADVANCED_SMTP_USERNAME_HELP' => 'User name on the SMTP host (example: pluxml@monserveursmtp.com)',
+		'L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP' => 'User password on the SMTP host',
+		'L_CONFIG_ADVANCED_SMTP_PORT_HELP' => 'SMTP host port number (default: 465)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP' => 'PluXml allows to generate tokens only for the service <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Need help to generate the username and secret key: <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP' => 'Address used on the OAUTH2 service (example: pluxml@gmail.com)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP' => 'Customer ID on the OAUTH2 service (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP' => 'The client key on the OAUTH2 service (example: PrsvKp6aprKpoP8snnCoC8-x)',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP' => 'Save the customer ID and customer secret code so that you can generate the token.',
 
 		// parametres_base.php
 
