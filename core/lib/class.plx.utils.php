@@ -524,12 +524,15 @@ class plxUtils {
 			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@', $replace, $clean_str);
 			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
 		}
+		# remove accents
+		$clean_str = plxUtils::removeAccents($clean_str,PLX_CHARSET);
+		# remove whitespace
 		$clean_str = preg_replace(
 			'@\s+@',
 			'-',
 			$clean_str
 		);
-		# Supprime tous les caractères non reconnues par PluXml dans les noms de fichiers, except '_'
+		# remove non-alphanumeric character
 		$clean_str = preg_replace(
 			'@[^\w-]@',
 			'',
