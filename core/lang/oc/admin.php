@@ -495,7 +495,7 @@ $LANG = array(
 
 'L_STATICS_PAGE_TITLE'				=> 'Creacion e edicion de las paginas estaticas',
 'L_STATICS_ID'						=> 'Identificant',
-'L_STATICS_GROUP'					=> 'Grope',
+'L_STATICS_GROUP'					=> 'Grop',
 'L_STATICS_TITLE'					=> 'Títol',
 'L_STATICS_URL'						=> 'Url',
 'L_STATICS_ACTIVE'					=> 'Activa',
