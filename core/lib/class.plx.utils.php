@@ -364,21 +364,28 @@ class plxUtils {
 	 **/
 	public static function testMail($io=true, $format="<li><span style=\"color:#color\">#symbol #message</span></li>\n") {
 
-		if($return=function_exists('mail')) {
-			if($io==true) {
-				$output = str_replace('#color', 'green', $format);
-				$output = str_replace('#symbol', '&#10004;', $output);
-				$output = str_replace('#message', L_MAIL_AVAILABLE, $output);
-				echo $output;
+		if($return = function_exists('mail')) {
+			if(!empty($io)) {
+				echo strtr(
+					$format, array(
+						'#color'	=> 'green',
+						'#symbol'	=> '&#10004;',
+						'#message'	=> L_MAIL_AVAILABLE
+					)
+				);
 			}
 		} else {
-			if($io==true) {
-				$output = str_replace('#color', 'red', $format);
-				$output = str_replace('#symbol', '&#10007;', $output);
-				$output = str_replace('#message', L_MAIL_NOT_AVAILABLE, $output);
-				echo $output;
+			if(!empty($io)) {
+				echo strtr(
+					$format, array(
+						'#color'	=> 'red',
+						'#symbol'	=> '&#10007;',
+						'#message'	=> L_MAIL_NOT_AVAILABLE
+					)
+				);
 			}
 		}
+
 		return $return;
 	}
 
@@ -963,33 +970,31 @@ class plxUtils {
 	* @param	subject	string			Objet du mail
 	* @param	body	string			contenu du mail
 	* @return	boolean	renvoie FAUX en cas d'erreur d'envoi
-	* @author	Amaury Graillat
+	* @author	J.P. Pourrez (aka bazooka07), Amaury Graillat
 	**/
 	public static function sendMail($name, $from, $to, $subject, $body, $contentType="text", $cc=false, $bcc=false) {
 
-		if(is_array($to))
-			$to = implode(', ', $to);
-		if(is_array($cc))
-			$cc = implode(', ', $cc);
-		if(is_array($bcc))
-			$bcc = implode(', ', $bcc);
+		if(empty(trim($to)) or empty(trim($subject))) { return; }
 
-		$headers  = "From: ".$name." <".$from.">\r\n";
-		$headers .= "Reply-To: ".$from."\r\n";
-		$headers .= 'MIME-Version: 1.0'."\r\n";
-		# Content-Type
-		if($contentType == 'html')
-			$headers .= 'Content-type: text/html; charset="'.PLX_CHARSET.'"'."\r\n";
-		else
-			$headers .= 'Content-type: text/plain; charset="'.PLX_CHARSET.'"'."\r\n";
+		$headers = array(
+			'MIME-Version'				=> '1.0',
+			'Content-Type'				=> (($contentType === 'html') ? 'text/html' : 'text/plain') . ';charset=' . PLX_CHARSET,
+			'Content-Transfer-Encoding'	=> '8bit',
+			'Date'						=> date('D, j M Y G:i:s O') # Sat, 7 Jun 2001 12:35:58 -0700
+		);
 
-		$headers .= 'Content-transfer-encoding: 8bit'."\r\n";
-		$headers .= 'Date: '.date("D, j M Y G:i:s O")."\r\n"; # Sat, 7 Jun 2001 12:35:58 -0700
+		if(!empty($from)) {
+			$headers['From'] = (!empty($name)) ? $name . " <$from>" : $from;
+			$headers['Reply-To'] = $from;
+		}
 
-		if($cc != "")
-			$headers .= 'Cc: '.$cc."\r\n";
-		if($bcc != "")
-			$headers .= 'Bcc: '.$bcc."\r\n";
+		if(empty($cc)) {
+			$headers['Cc'] = (is_array($cc)) ? implode(', ', $cc) : $cc;
+		}
+
+		if(empty($bcc)) {
+			$headers['Cc'] = (is_array($Bcc)) ? implode(', ', $bcc) : $bcc;
+		}
 
 		return mail($to, $subject, $body, $headers);
 	}

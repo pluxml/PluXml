@@ -12,8 +12,20 @@ include __DIR__ .'/prepend.php';
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
-# On inclut le header
-include __DIR__ .'/top.php';
+# Control du token du formulaire
+plxToken::validateFormToken($_POST);
+
+$email = filter_var($plxAdmin->aUsers[$_SESSION['user']]['email'], FILTER_VALIDATE_EMAIL);
+$emailBuild = (is_string($email) and filter_has_var(INPUT_POST, 'sendmail-test'));
+if($emailBuild) {
+	#body of E-mail starts here
+	ob_start();
+} else {
+	# direct Output
+	# On inclut le header
+	include __DIR__ .'/top.php';
+}
+
 ?>
 
 <div class="inline-form action-bar">
@@ -44,7 +56,16 @@ include __DIR__ .'/top.php';
 	<?php plxUtils::testModReWrite() ?>
 	<?php plxUtils::testLibGD() ?>
 	<?php plxUtils::testLibXml() ?>
-	<?php plxUtils::testMail() ?>
+	<?php
+	if(plxUtils::testMail() and is_string($email) and !$emailBuild) {
+?>
+		<form method="post">
+			<?php echo plxToken::getTokenPostMethod() ?>
+			<input type="submit" name="sendmail-test" value="<?= L_MAIL_TEST ?>" />
+		</form>
+<?php
+	}
+?>
 </ul>
 <p><?php echo L_CONFIG_INFOS_NB_CATS ?> <?php echo sizeof($plxAdmin->aCats); ?></p>
 <p><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></p>
@@ -53,6 +74,26 @@ include __DIR__ .'/top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 
 <?php
+if($emailBuild) {
+	$content = ob_get_clean();
+	$head = <<< HEAD
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<title>sans titre</title>
+</head><body>
+HEAD;
+	$foot = '</body></html>';
+	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title']);
+	if(plxUtils::sendMail('', '', $email, $subject, $header . $content . $footer, 'html')) {
+		plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
+	} else {
+		plxMsg::Error(L_MAIL_TEST_FAILURE);
+	}
+	header('Location: ' . basename(__FILE__));
+	exit;
+}
+
 # On inclut le footer
 include __DIR__ .'/foot.php';
 ?>
