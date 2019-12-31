@@ -449,6 +449,10 @@ $LANG = array (
 		'L_PLUXML_UPDATE_ERR' => 'La verificacion de mesa a jorn s\'es abocada per una rason desconeguda',
 		'L_PLUXML_UPTODATE' => 'Utilizatz la darrièra version de PluXml',
 		'L_PLUXML_UPDATE_AVAILABLE' => 'Una novèla version de PluXml es sortida ! La podètz telecargar sus',
+		'L_MAIL_TEST' => 'Enviar un e-mail de tèst',
+		'L_MAIL_TEST_SUBJECT' => 'E-mail de tèst enviat dempuèi %s',
+		'L_MAIL_TEST_SENT_TO' => 'E-mail de tèst enviat a %s. Verificar voitre ranqueja mail',
+		'L_MAIL_TEST_FAILURE' => 'Fracàs del mand de l\'e-mail de tèst',
 
 		// parametres_users.php
 
