@@ -75,6 +75,7 @@ if($emailBuild) {
 
 <?php
 if($emailBuild) {
+	$content = ob_get_clean();
 	$head = <<< HEAD
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -83,13 +84,31 @@ if($emailBuild) {
 </head><body>
 HEAD;
 	$foot = '</body></html>';
-	$body = $head . ob_get_clean() . $foot;
 	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title']);
 
-	if(plxUtils::sendMail('', '', $email, $subject, $header . $body . $footer, 'html')) {
-		plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
+	// Webmaster
+	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
+	$from = $plxAdmin->aUsers['001']['email'];
+
+	if(empty($plxAdmin->aConf['email_method']) or $plxAdmin->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils, 'sendMailPhpMailer')) {
+		# fonction mail() intrinséque à PHP
+		$method = '<p style="font-size: 80%;"><em>mail() function from PHP</em></p>';
+		$body = $head . $content . $method . $foot;
+		if(plxUtils::sendMail('', '', $email, $subject, $body, 'html')) {
+			plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
+		} else {
+			plxMsg::Error(L_MAIL_TEST_FAILURE);
+		}
 	} else {
-		plxMsg::Error(L_MAIL_TEST_FAILURE);
+		# module externe PHPMailer -
+		$method = '<p style="font-size: 80%;"><em>' . $plxAdmin->aConf['email_method'] . ' via PHPMailer</em></p>';
+		$body = $head . $content . $method . $foot;
+
+		if(plxUtils::sendMailPhpMailer($name, $from, $email, $subject, $header . $body . $footer, true, $plxAdmin->aConf)) {
+			plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
+		} else {
+			plxMsg::Error(L_MAIL_TEST_FAILURE);
+		}
 	}
 
 	header('Location: ' . basename(__FILE__));

@@ -980,7 +980,8 @@ class plxUtils {
 			'MIME-Version'				=> '1.0',
 			'Content-Type'				=> (($contentType === 'html') ? 'text/html' : 'text/plain') . ';charset=' . PLX_CHARSET,
 			'Content-Transfer-Encoding'	=> '8bit',
-			'Date'						=> date('D, j M Y G:i:s O') # Sat, 7 Jun 2001 12:35:58 -0700
+			'Date'						=> date('D, j M Y G:i:s O'), # Sat, 7 Jun 2001 12:35:58 -0700
+			'X-Mailer'					=> 'PHP/' . phpversion()
 		);
 
 		if(!empty($from)) {
@@ -1003,7 +1004,7 @@ class plxUtils {
 					function($v, $k) { return "$k: $v"; },
 					array_values($headers),
 					array_keys($headers)
-				))
+				)) . "\r\n"
 		);
 	}
 
@@ -1037,10 +1038,10 @@ class plxUtils {
 			case 'smtp':
 				$mail->isSMTP();
 				$mail->Host = $conf['smtp_server'];
+				$mail->Port = $conf['smtp_port'];
 				$mail->SMTPAuth = true;
 				$mail->Username = $conf['smtp_username'];
 				$mail->Password = $conf['smtp_password'];
-				$mail->Port = $conf['smtp_port'];
 				$mail->SMTPDebug;
 				if ($conf['smtp_security'] == 'ssl' or $conf['smtp_security'] == 'tls') {
 					$mail->SMTPSecure = $conf['smtp_security'];
@@ -1050,8 +1051,8 @@ class plxUtils {
 				$mail->isSMTP();
 				$mail->Host = 'smtp.gmail.com';
 				$mail->Port = 587;
-				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 				$mail->AuthType = 'XOAUTH2';
 				$provider = new Google(
 					[
