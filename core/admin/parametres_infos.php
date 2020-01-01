@@ -75,7 +75,6 @@ if($emailBuild) {
 
 <?php
 if($emailBuild) {
-	$content = ob_get_clean();
 	$head = <<< HEAD
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -84,12 +83,15 @@ if($emailBuild) {
 </head><body>
 HEAD;
 	$foot = '</body></html>';
+	$body = $head . ob_get_clean() . $foot;
 	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title']);
-	if(plxUtils::sendMail('', '', $email, $subject, $header . $content . $footer, 'html')) {
+
+	if(plxUtils::sendMail('', '', $email, $subject, $header . $body . $footer, 'html')) {
 		plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
 	} else {
 		plxMsg::Error(L_MAIL_TEST_FAILURE);
 	}
+
 	header('Location: ' . basename(__FILE__));
 	exit;
 }
