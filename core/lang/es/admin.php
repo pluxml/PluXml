@@ -447,6 +447,10 @@ $LANG = array (
 		'L_PLUXML_UPDATE_ERR' => 'Falló la comprobación de actualizaciones por una razón desconocida',
 		'L_PLUXML_UPTODATE' => 'Está utilizando la última versión de PluXml',
 		'L_PLUXML_UPDATE_AVAILABLE' => 'Existe una nueva versión de PluXml! Puede descargarla desde',
+		'L_MAIL_TEST' => 'Enviar un correo electrónico de prueba',
+		'L_MAIL_TEST_SUBJECT' => 'Correo electrónico de prueba enviado desde %s',
+		'L_MAIL_TEST_SENT_TO' => 'Correo electrónico de prueba enviado a %s. Revisa tu correo',
+		'L_MAIL_TEST_FAILURE' => 'Problema para enviar el correo electrónico de prueba',
 
 		// parametres_users.php
 
