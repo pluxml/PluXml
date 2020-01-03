@@ -3,6 +3,7 @@ const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
 const PLX_TEMPLATES = PLX_CORE.'templates/';
 const PLX_TEMPLATES_DATA = PLX_ROOT.'data/templates/';
+const SESSION_LIFETIME = 7200;
 
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
@@ -15,6 +16,7 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 
 # On démarre la session
 session_start();
+setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 
 $session_domain = __DIR__ ;
 
