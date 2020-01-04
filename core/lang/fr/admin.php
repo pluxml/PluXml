@@ -403,7 +403,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Code secret du client',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Générer un token',
-		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP' => 'Besoin d\'aide : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).',
+		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP' => 'Besoin d\'aide : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">documentation de PluXml</a>&nbsp;(fr).',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD_HELP' => 'Aucune configuration n\'est requise pour sendmail.',
 		'L_CONFIG_ADVANCED_SMTP_SERVER_HELP' => 'Nom du serveur SMTP (exemple : ssl0.ovh.net)',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME_HELP' => 'Nom de l\'utilisateur sur l\'hôte SMTP (exemple : pluxml@monserveursmtp.com)',
