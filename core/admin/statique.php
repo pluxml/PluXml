@@ -7,7 +7,7 @@
  * @author	Stephane F. et Florent MONTHEL
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticPrepend'));
 
@@ -65,7 +65,7 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 
 <form action="statique.php" method="post" id="form_static">
@@ -84,7 +84,7 @@ include(dirname(__FILE__).'/top.php');
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printArea('content', plxUtils::strCheck($content),140,30,false,'full-width') ?>
+					<?php plxUtils::printArea('content', plxUtils::strCheck($content), 0, 30) ?>
 				</div>
 			</div>
 			<div class="grid">
@@ -150,5 +150,5 @@ include(dirname(__FILE__).'/top.php');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

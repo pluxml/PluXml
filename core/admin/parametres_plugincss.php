@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -46,7 +46,7 @@ $file_frontend_init = PLX_PLUGINS.basename($plugin).'/css/site.css';
 $frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_contents($file_frontend_init)) : $frontend;
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 ?>
 
@@ -62,13 +62,13 @@ include(dirname(__FILE__).'/top.php');
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend),60,20,false,'full-width'); ?>
+				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend), 0, 20); ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend),60,20,false,'full-width'); ?>
+				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend), 0, 20); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
 				<?php echo plxToken::getTokenPostMethod() ?>
 			</div>
@@ -77,5 +77,5 @@ include(dirname(__FILE__).'/top.php');
 </form>
 <?php
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

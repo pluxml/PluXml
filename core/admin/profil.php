@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -29,7 +29,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 ?>
@@ -66,7 +66,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_PROFIL_INFOS ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($_profil['infos']),140,5,false,'full-width'); ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($_profil['infos']), 0, 5); ?>
 			</div>
 		</div>
 	</fieldset>
@@ -103,5 +103,5 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminProfilFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

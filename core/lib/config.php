@@ -1,7 +1,8 @@
 <?php
-define('PLX_DEBUG', false);
-define('PLX_VERSION', '5.7');
-
+const PLX_DEBUG = true;
+const PLX_VERSION = '5.8';
+const PLX_URL_REPO = 'https://www.pluxml.org';
+const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
@@ -15,26 +16,26 @@ function getMicrotime() {
 define('PLX_MICROTIME', getMicrotime());
 
 $CONSTS = array(
-	'XMLFILE_PARAMETERS' 	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
-	'XMLFILE_CATEGORIES' 	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
-	'XMLFILE_STATICS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
-	'XMLFILE_USERS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
-	'XMLFILE_PLUGINS' 		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
-	'XMLFILE_TAGS' 			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
+	'XMLFILE_PARAMETERS'	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
+	'XMLFILE_CATEGORIES'	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
+	'XMLFILE_STATICS'		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
+	'XMLFILE_USERS'			=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
+	'XMLFILE_PLUGINS'		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
+	'XMLFILE_TAGS'			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
 );
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
-define('PLX_CHARSET', 'UTF-8');
+const PLX_CHARSET = 'UTF-8';
 
 # Langue par défaut
-define('DEFAULT_LANG', 'fr');
+const DEFAULT_LANG = 'en';
 
 # profils utilisateurs de pluxml
-define('PROFIL_ADMIN', 0);
-define('PROFIL_MANAGER', 1);
-define('PROFIL_MODERATOR', 2);
-define('PROFIL_EDITOR', 3);
-define('PROFIL_WRITER', 4);
+const PROFIL_ADMIN = 0;
+const PROFIL_MANAGER = 1;
+const PROFIL_MODERATOR	= 2;
+const PROFIL_EDITOR	= 3;
+const PROFIL_WRITER	= 4;
 
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');
@@ -58,7 +59,7 @@ if (ini_get('register_globals')) {
 function loadLang($filename) {
 	if(file_exists($filename)) {
 		$LANG = array();
-		include_once($filename);
+		include_once $filename;
 		foreach($LANG as $key => $value) {
 			if(!defined($key)) define($key,$value);
 		}
@@ -73,4 +74,3 @@ function path($s, $newvalue='') {
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
 }
-?>

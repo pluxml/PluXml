@@ -33,7 +33,7 @@ class plxPlugins {
 	public function getInstance($plugName) {
 		$filename = PLX_PLUGINS."$plugName/$plugName.php";
 		if(is_file($filename)) {
-			include_once($filename);
+			include_once $filename;
 			if (class_exists($plugName)) {
 				# réactualisation de la langue si elle a été modifié par un plugin
 				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
@@ -489,7 +489,7 @@ class plxPlugin {
 	 **/
 	public function loadLang($filename) {
 		if(!is_file($filename)) return;
-		include($filename);
+		include $filename;
 		return $LANG;
 	}
 
@@ -497,7 +497,7 @@ class plxPlugin {
 	 * Méthode qui affiche une clé de traduction dans la langue par défaut de PluXml
 	 *
 	 * @param	key		clé de traduction à récuperer
-	 * @return	stdio
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function lang($key='') {
@@ -739,4 +739,3 @@ class plxPlugin {
 	}
 
 }
-?>

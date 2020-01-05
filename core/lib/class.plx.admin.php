@@ -4,10 +4,10 @@
  * Classe plxAdmin responsable des modifications dans l'administration
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F et Pedro "P3ter" CADETE
  **/
 
-define('PLX_ADMIN', true);
+const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {
 
@@ -16,7 +16,7 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
 	 *
-	 * @return	objet			return une instance de la classe plxAdmin
+	 * @return	self	return une instance de la classe plxAdmin
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -67,14 +67,14 @@ class plxAdmin extends plxMotor {
 		# On check pour avoir le numero de page
 		if(!empty($_GET['page']) AND is_numeric($_GET['page']) AND $_GET['page'] > 0)
 			$this->page = $_GET['page'];
-		elseif($savePage) {
-			if(!empty($_POST['sel_cat']))
-				$this->page = 1;
-			else
-				$this->page = !empty($_SESSION['page'][$pageName])?intval($_SESSION['page'][$pageName]):1;
-		}
-		# On sauvegarde
-		if($savePage) $_SESSION['page'][$pageName] = $this->page;
+			elseif($savePage) {
+				if(!empty($_POST['sel_cat']))
+					$this->page = 1;
+					else
+						$this->page = !empty($_SESSION['page'][$pageName])?intval($_SESSION['page'][$pageName]):1;
+			}
+			# On sauvegarde
+			if($savePage) $_SESSION['page'][$pageName] = $this->page;
 	}
 
 	/**
@@ -145,16 +145,17 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui crée le fichier .htaccess en cas de réécriture d'urls
 	 *
-	 * @param	action		création (add) ou suppression (remove)
-	 * @param   url			url du site
+	 * @param	action	création (add) ou suppression (remove)
+	 * @param	url		url du site
 	 * @return	null
 	 * @author	Stephane F, Amaury Graillat
 	 **/
 	public function htaccess($action, $url) {
 
+		$capture = '';
 		$base = parse_url($url);
 
-$plxhtaccess = '
+		$plxhtaccess = '
 # BEGIN -- Pluxml
 Options -Multiviews
 <IfModule mod_rewrite.c>
@@ -201,7 +202,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
-	 * Méthode qui control l'accès à une page en fonction du profil de l'utilisateur connecté
+	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
 	 * @param	profil		profil(s) autorisé(s)
 	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
@@ -245,22 +246,22 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(isset($content['profil']) AND trim($content['name'])=='')
 			return plxMsg::Error(L_ERR_USER_EMPTY);
 
-		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
-			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+			if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
+				return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-		if(!in_array($content['lang'], plxUtils::getLangs()))
-			return plxMsg::Error(L_UNKNOWN_ERROR);
+			if(!in_array($content['lang'], plxUtils::getLangs()))
+				return plxMsg::Error(L_UNKNOWN_ERROR);
 
-		$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
-		$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
-		$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
-		$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
+			$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
+			$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
+			$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
+			$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
-		$_SESSION['admin_lang'] = $content['lang'];
+			$_SESSION['admin_lang'] = $content['lang'];
 
-		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
-		return $this->editUsers(null, true);
+			# Hook plugins
+			if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
+			return $this->editUsers(null, true);
 	}
 
 	/**
@@ -268,17 +269,112 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau contenant le nouveau mot de passe de l'utilisateur
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, PEdro "P3ter" CADETE
 	 **/
 	public function editPassword($content) {
 
-		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2']))
+		$token = '';
+		$action = false;
+
+		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
 			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
+		}
 
-		$salt = $this->aUsers[$_SESSION['user']]['salt'];
-		$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
-		return $this->editUsers(null, true);
+		if(!empty($token = $content['lostPasswordToken'])) {
+			foreach($this->aUsers as $user_id => $user) {
+				if ($user['password_token'] == $token) {
+					$salt = $this->aUsers[$user_id]['salt'];
+					$this->aUsers[$user_id]['password'] = sha1($salt.md5($content['password1']));
+					$this->aUsers[$user_id]['password_token'] = '';
+					$this->aUsers[$user_id]['password_token_expiry'] = '';
+					$action = true;
+					break;
+				}
+			}
+		}
+		else {
+			$salt = $this->aUsers[$_SESSION['user']]['salt'];
+			$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
+			$action = true;
+		}
 
+		return $this->editUsers(null, $action);
+
+	}
+
+	/**
+	 * Create a token and send a link by e-mail with "email-lostpassword.xml" template
+	 *
+	 * @param	loginOrMail	user login or e-mail address
+	 * @return	string		token to password reset
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function sendLostPasswordEmail($loginOrMail) {
+		$mail = array();
+		$tokenExpiry = 24;
+		$lostPasswordToken = plxToken::generateToken();
+		$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
+		$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
+		$error = false;
+
+		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
+			foreach($this->aUsers as $user_id => $user) {
+				if (($user['login'] == $loginOrMail OR $user['email'] == $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
+					// token and e-mail creation
+					$placeholdersValues = array(
+						"##LOGIN##"			=> $user['login'],
+						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
+						"##URL_EXPIRY##"	=> $tokenExpiry
+					);
+					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
+						if (!empty($this->aConf['title'])) {
+							$mail ['name'] = $this->aConf['title'];
+						} else {
+							$mail ['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
+						}
+						$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
+						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
+						// send the e-mail and if it is OK store the token
+						if (plxUtils::sendMailPhpMailer($mail['name'], $mail['from'], $user['email'], $mail['subject'], $mail['body'], false, $this->aConf, false)) {
+							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
+							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
+							$this->editUsers($user_id, true);
+						}
+						else {
+							$error = true;
+						}
+					}
+					else {
+						$error = true;
+					}
+				}
+			}
+		}
+
+		if ($error) {
+			$lostPasswordToken = '';
+		}
+
+		return $lostPasswordToken;
+	}
+
+	/**
+	 * Verify the lost password token validity
+	 *
+	 * @param	token	the token to verify
+	 * @return	boolean	true if the token exist and is not expire
+	 * @author	Pedro "P3ter" CADETE
+	 */
+	public function verifyLostPasswordToken($token) {
+
+		$valid = false;
+
+		foreach($this->aUsers as $user_id => $user) {
+			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date(YmdHi)) {
+				$valid = true;
+			}
+		}
+		return $valid;
 	}
 
 	/**
@@ -286,11 +382,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau les informations sur les utilisateurs
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/
 	public function editUsers($content, $action=false) {
 
 		$save = $this->aUsers;
+
+		# Hook plugins
+		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) return;
 
 		# suppression
 		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser']) AND empty($content['update'])) {
@@ -308,7 +407,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$username = trim($content[$user_id.'_name']);
 				if($username!='' AND trim($content[$user_id.'_login'])!='') {
 
-					# control du mot de passe
+					# controle du mot de passe
 					$salt = plxUtils::charAleatoire(10);
 					if(trim($content[$user_id.'_password'])!='')
 						$password=sha1($salt.md5($content[$user_id.'_password']));
@@ -321,9 +420,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						$password = $this->aUsers[$user_id]['password'];
 					}
 
-					# control de l'adresse email
+					# controle de l'adresse email
 					$email = trim($content[$user_id.'_email']);
-					if($email!='' AND !plxUtils::checkMail($email))	return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(isset($content[$user_id.'_newuser']) AND empty($email))
+						return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					if(!empty($email) AND !plxUtils::checkMail($email))
+						return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
 					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
 					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
@@ -336,6 +438,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aUsers[$user_id]['delete'] = (isset($this->aUsers[$user_id]['delete'])?$this->aUsers[$user_id]['delete']:0);
 					$this->aUsers[$user_id]['lang'] = (isset($this->aUsers[$user_id]['lang'])?$this->aUsers[$user_id]['lang']:$this->aConf['default_lang']);
 					$this->aUsers[$user_id]['infos'] = (isset($this->aUsers[$user_id]['infos'])?$this->aUsers[$user_id]['infos']:'');
+
+					$this->aUsers[$user_id]['password_token'] = trim($content[$user_id.'_password_token']);
+					$this->aUsers[$user_id]['password_token_expiry'] = trim($content[$user_id.'_password_token_expiry']);
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
 					$action = true;
@@ -346,25 +451,35 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if($action) {
 			$users_name = array();
 			$users_login = array();
+			$users_email = array();
+
 			# On génére le fichier XML
 			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
 			$xml .= "<document>\n";
-			foreach($this->aUsers as $user_id => $user) {
 
-				# control de l'unicité du nom de l'utilisateur
+			foreach($this->aUsers as $user_id => $user) {
+				# controle de l'unicité du nom de l'utilisateur
 				if(in_array($user['name'], $users_name)) {
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
 				}
-				else
+				else {
 					$users_name[] = $user['name'];
-
-				# control de l'unicité du login de l'utilisateur
-				if(in_array($user['login'], $users_login))
+				}
+				# controle de l'unicité du login de l'utilisateur
+				if(in_array($user['login'], $users_login)) {
 					return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
-				else
+				}
+				else {
 					$users_login[] = $user['login'];
-
+				}
+				# controle de l'unicité de l'adresse e-mail
+				if(in_array($user['email'], $users_email)) {
+					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+				}
+				else {
+					$users_email[] = $user['email'];
+				}
 				$xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">'."\n";
 				$xml .= "\t\t".'<login><![CDATA['.plxUtils::cdataCheck($user['login']).']]></login>'."\n";
 				$xml .= "\t\t".'<name><![CDATA['.plxUtils::cdataCheck($user['name']).']]></name>'."\n";
@@ -373,6 +488,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "\t\t".'<salt><![CDATA['.plxUtils::cdataCheck($user['salt']).']]></salt>'."\n";
 				$xml .= "\t\t".'<email><![CDATA['.plxUtils::cdataCheck($user['email']).']]></email>'."\n";
 				$xml .= "\t\t".'<lang><![CDATA['.plxUtils::cdataCheck($user['lang']).']]></lang>'."\n";
+				$xml .= "\t\t".'<password_token><![CDATA['.plxUtils::cdataCheck($user['password_token']).']]></password_token>'."\n";
+				$xml .= "\t\t".'<password_token_expiry><![CDATA['.plxUtils::cdataCheck($user['password_token_expiry']).']]></password_token_expiry>'."\n";
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
 				$xml .= "\t</user>\n";
@@ -382,10 +499,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			# On écrit le fichier
 			if(plxUtils::write($xml,path('XMLFILE_USERS')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-			else {
-				$this->aUsers = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
-			}
+				else {
+					$this->aUsers = $save;
+					return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
+				}
+		}
+		else {
+			return plxMsg::Error(L_SAVE_ERR);
 		}
 	}
 
@@ -398,29 +518,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editUser($content) {
 
-		# control de l'adresse email
+		# controle de l'adresse email
 		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-		# control de la langue sélectionnée
-		if(!in_array($content['lang'], plxUtils::getLangs()))
-			return plxMsg::Error(L_UNKNOWN_ERROR);
+			# controle de la langue sélectionnée
+			if(!in_array($content['lang'], plxUtils::getLangs()))
+				return plxMsg::Error(L_UNKNOWN_ERROR);
 
-		$this->aUsers[$content['id']]['email'] = $content['email'];
-		$this->aUsers[$content['id']]['infos'] = trim($content['content']);
-		$this->aUsers[$content['id']]['lang'] = $content['lang'];
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxAdminEditUser'));
-		return $this->editUsers(null,true);
+				$this->aUsers[$content['id']]['email'] = $content['email'];
+				$this->aUsers[$content['id']]['infos'] = trim($content['content']);
+				$this->aUsers[$content['id']]['lang'] = $content['lang'];
+				# Hook plugins
+				eval($this->plxPlugins->callHook('plxAdminEditUser'));
+				return $this->editUsers(null,true);
 	}
 
 	/**
 	 *  Méthode qui retourne le prochain id d'une catégorie
 	 *
-	 * @return	string		id d'un nouvel article sous la forme 001
+	 * @return	string	id d'un nouvel article sous la forme 001
 	 * @author	Stephane F.
 	 **/
-	 public function nextIdCategory() {
+	public function nextIdCategory() {
 		if(is_array($this->aCats)) {
 			$idx = key(array_slice($this->aCats, -1, 1, true));
 			return str_pad($idx+1,3, '0', STR_PAD_LEFT);
@@ -435,7 +555,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @param	content	tableau multidimensionnel des catégories
 	 * @param	action	permet de forcer la mise àjour du fichier
 	 * @return	string
-	 * @author	Stephane F
+	 * @author	Stephane F, Pedro "P3ter" CADETE, sudwebdesign
 	 **/
 	public function editCategories($content, $action=false) {
 
@@ -444,17 +564,35 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# suppression
 		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idCategory']) AND empty($content['update'])) {
 			foreach($content['idCategory'] as $cat_id) {
+				// change article category to the default category id
+				foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
+					$filenameArray = explode(".", $filename);
+					$filenameArrayCat = explode(",", $filenameArray[1]);
+					if (in_array($cat_id, $filenameArrayCat)) {
+						$key = array_search($cat_id, $filenameArrayCat);
+						if(count(preg_grep('[0-9]{3}', $filenameArrayCat)) > 1) {
+							// this article has more than one category
+							unset($filenameArrayCat[$key]);
+						}
+						else {
+							$filenameArrayCat[$key] = '000';
+						}
+						$filenameArray[1] = implode(",", $filenameArrayCat);
+						$filenameNew = implode(".", $filenameArray);
+						rename(PLX_ROOT.$this->aConf['racine_articles'].$filename, PLX_ROOT.$this->aConf['racine_articles'].$filenameNew);
+					}
+				}
 				unset($this->aCats[$cat_id]);
 				$action = true;
 			}
 		}
-		# ajout nouvelle catégorie à partir de la page article
+		# Ajout d'une nouvelle catégorie à partir de la page article
 		elseif(!empty($content['new_category'])) {
 			$cat_name = $content['new_catname'];
 			if($cat_name!='') {
 				$cat_id = $this->nextIdCategory();
 				$this->aCats[$cat_id]['name'] = $cat_name;
-				$this->aCats[$cat_id]['url'] = plxUtils::title2url($cat_name);
+				$this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name);
 				$this->aCats[$cat_id]['tri'] = $this->aConf['tri'];
 				$this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
 				$this->aCats[$cat_id]['menu'] = 'oui';
@@ -462,6 +600,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$this->aCats[$cat_id]['homepage'] = 1;
 				$this->aCats[$cat_id]['description'] = '';
 				$this->aCats[$cat_id]['template'] = 'categorie.php';
+				$this->aCats[$cat_id]['thumbnail'] = '';
+				$this->aCats[$cat_id]['thumbnail_title'] = '';
+				$this->aCats[$cat_id]['thumbnail_alt'] = '';
 				$this->aCats[$cat_id]['title_htmltag'] = '';
 				$this->aCats[$cat_id]['meta_description'] = '';
 				$this->aCats[$cat_id]['meta_keywords'] = '';
@@ -475,9 +616,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			foreach($content['catNum'] as $cat_id) {
 				$cat_name = $content[$cat_id.'_name'];
 				if($cat_name!='') {
-					$cat_url = (isset($content[$cat_id.'_url'])?trim($content[$cat_id.'_url']):'');
-					$cat_url = ($cat_url!='' ? plxUtils::title2url($cat_url) : plxUtils::title2url($cat_name));
-					if($cat_url=='') $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+					$tmpstr = (!empty($content[$cat_id.'_url'])) ? $content[$cat_id.'_url'] : $cat_name;
+					$cat_url = plxUtils::urlify($tmpstr);
+					if(empty($cat_url)) $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
 					$this->aCats[$cat_id]['name'] = $cat_name;
 					$this->aCats[$cat_id]['url'] = $cat_url;
 					$this->aCats[$cat_id]['tri'] = $content[$cat_id.'_tri'];
@@ -488,6 +629,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aCats[$cat_id]['homepage'] = (isset($this->aCats[$cat_id]['homepage'])?$this->aCats[$cat_id]['homepage']:1);
 					$this->aCats[$cat_id]['description'] = (isset($this->aCats[$cat_id]['description'])?$this->aCats[$cat_id]['description']:'');
 					$this->aCats[$cat_id]['template'] = (isset($this->aCats[$cat_id]['template'])?$this->aCats[$cat_id]['template']:'categorie.php');
+					$this->aCats[$cat_id]['thumbnail'] = (isset($this->aCats[$cat_id]['thumbnail'])?$this->aCats[$cat_id]['thumbnail']:'');
+					$this->aCats[$cat_id]['thumbnail_title'] = (isset($this->aCats[$cat_id]['thumbnail_title'])?$this->aCats[$cat_id]['thumbnail_title']:'');
+					$this->aCats[$cat_id]['thumbnail_alt'] = (isset($this->aCats[$cat_id]['thumbnail_alt'])?$this->aCats[$cat_id]['thumbnail_alt']:'');
 					$this->aCats[$cat_id]['title_htmltag'] = (isset($this->aCats[$cat_id]['title_htmltag'])?$this->aCats[$cat_id]['title_htmltag']:'');
 					$this->aCats[$cat_id]['meta_description'] = (isset($this->aCats[$cat_id]['meta_description'])?$this->aCats[$cat_id]['meta_description']:'');
 					$this->aCats[$cat_id]['meta_keywords'] = (isset($this->aCats[$cat_id]['meta_keywords'])?$this->aCats[$cat_id]['meta_keywords']:'');
@@ -497,7 +641,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				}
 			}
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aCats)>0) uasort($this->aCats, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
+			if(sizeof($this->aCats)>0) uasort($this->aCats, function($a, $b){return $a["ordre"]>$b["ordre"];});
 		}
 		# sauvegarde
 		if($action) {
@@ -508,7 +652,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "<document>\n";
 			foreach($this->aCats as $cat_id => $cat) {
 
-				# control de l'unicité du nom de la categorie
+				# controle de l'unicité du nom de la categorie
 				if(in_array($cat['name'], $cats_name)) {
 					$this->aCats = $save;
 					return plxMsg::Error(L_ERR_CATEGORY_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['name']));
@@ -516,7 +660,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				else
 					$cats_name[] = $cat['name'];
 
-				# control de l'unicité de l'url de la catégorie
+				# controle de l'unicité de l'url de la catégorie
 				if(in_array($cat['url'], $cats_url))
 					return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['url']));
 				else
@@ -528,6 +672,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($cat['meta_description'])."]]></meta_description>";
 				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($cat['meta_keywords'])."]]></meta_keywords>";
 				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($cat['title_htmltag'])."]]></title_htmltag>";
+				$xml .= "<thumbnail><![CDATA[".plxUtils::cdataCheck($cat['thumbnail'])."]]></thumbnail>";
+				$xml .= "<thumbnail_alt><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_alt'])."]]></thumbnail_alt>";
+				$xml .= "<thumbnail_title><![CDATA[".plxUtils::cdataCheck($cat['thumbnail_title'])."]]></thumbnail_title>";
+				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));
 				$xml .= "</categorie>\n";
 			}
@@ -554,6 +702,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$this->aCats[$content['id']]['homepage'] = intval($content['homepage']);
 		$this->aCats[$content['id']]['description'] = trim($content['content']);
 		$this->aCats[$content['id']]['template'] = $content['template'];
+		$this->aCats[$content['id']]['thumbnail'] = $content['thumbnail'];
+		$this->aCats[$content['id']]['thumbnail_title'] = $content['thumbnail_title'];
+		$this->aCats[$content['id']]['thumbnail_alt'] = $content['thumbnail_alt'];
 		$this->aCats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
 		$this->aCats[$content['id']]['meta_description'] = trim($content['meta_description']);
 		$this->aCats[$content['id']]['meta_keywords'] = trim($content['meta_keywords']);
@@ -593,8 +744,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			foreach($content['staticNum'] as $static_id) {
 				$stat_name = $content[$static_id.'_name'];
 				if($stat_name!='') {
-					$url = (isset($content[$static_id.'_url'])?trim($content[$static_id.'_url']):'');
-					$stat_url = ($url!=''?plxUtils::title2url($url):plxUtils::title2url($stat_name));
+					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url']) : '';
+					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
 					if($stat_url=='') $stat_url = L_DEFAULT_NEW_STATIC_URL;
 					# On vérifie si on a besoin de renommer le fichier de la page statique
 					if(isset($this->aStats[$static_id]) AND $this->aStats[$static_id]['url']!=$stat_url) {
@@ -622,7 +773,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				}
 			}
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aStats)>0) uasort($this->aStats, create_function('$a, $b', 'return $a["ordre"]>$b["ordre"];'));
+			if(sizeof($this->aStats)>0)
+				uasort($this->aStats, function($a, $b){return $a["ordre"]>$b["ordre"];});
 		}
 		# sauvegarde
 		if($action) {
@@ -633,13 +785,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "<document>\n";
 			foreach($this->aStats as $static_id => $static) {
 
-				# control de l'unicité du titre de la page
+				# controle de l'unicité du titre de la page
 				if(in_array($static['name'], $statics_name))
 					return plxMsg::Error(L_ERR_STATIC_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['name']));
 				else
 					$statics_name[] = $static['name'];
 
-				# control de l'unicité de l'url de la page
+				# controle de l'unicité de l'url de la page
 				if(in_array($static['url'], $statics_url)) {
 					$this->aStats = $save;
 					return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['url']));
@@ -673,7 +825,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui lit le fichier d'une page statique
 	 *
-	 * @param	num	numero du fichier de la page statique
+	 * @param	num		numero du fichier de la page statique
 	 * @return	string	contenu de la page
 	 * @author	Stephane F.
 	 **/
@@ -728,7 +880,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 *  Méthode qui retourne le prochain id d'un article
 	 *
-	 * @return	string		id d'un nouvel article sous la forme 0001
+	 * @return	string	id d'un nouvel article sous la forme 0001
 	 * @author	Stephane F.
 	 **/
 	public function nextIdArticle() {
@@ -744,10 +896,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui effectue une création ou mise a jour d'un article
 	 *
-	 * @param	content		données saisies de l'article
-	 * @param	&id			retourne le numero de l'article
+	 * @param	content	données saisies de l'article
+	 * @param	&id		retourne le numero de l'article
 	 * @return	string
-	 * @author	Stephane F. et Florent MONTHEL
+	 * @author	Stephane F., Florent MONTHEL
 	 **/
 	public function editArticle($content, &$id) {
 
@@ -755,17 +907,16 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if($id == '0000' OR $id == '')
 			$id = $this->nextIdArticle();
 
-		# Vérification de l'intégrité de l'identifiant
+		# Vérifie l'intégrité de l'identifiant
 		if(!preg_match('/^_?[0-9]{4}$/',$id)) {
 			$id='';
 			return L_ERR_INVALID_ARTICLE_IDENT;
 		}
 
 		# Génération de notre url d'article
-		if(trim($content['url']) == '')
-			$content['url'] = plxUtils::title2url($content['title']);
-		else
-			$content['url'] = plxUtils::title2url($content['url']);
+		$tmpstr = (!empty($content['url'])) ? $content['url'] : $content['title'];
+		$content['url'] = plxUtils::urlify($tmpstr);
+
 		# URL vide après le passage de la fonction ;)
 		if($content['url'] == '') $content['url'] = L_DEFAULT_NEW_ARTICLE_URL;
 
@@ -834,6 +985,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
 			$this->editTags();
 			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
 			return plxMsg::Info($msg);
 		} else {
@@ -890,7 +1042,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	artId	identifiant de l'article en question
 	 * @param	content	string contenu du nouveau commentaire
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function newCommentaire($artId,$content) {
@@ -918,7 +1070,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * Méthode qui effectue une mise a jour d'un commentaire
 	 *
 	 * @param	content	données du commentaire à mettre à jour
-	 * @param	id	identifiant du commentaire
+	 * @param	id		identifiant du commentaire
 	 * @return	string
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
@@ -1003,6 +1155,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function modCommentaire(&$id, $mod) {
 
+		$capture = '';
+
 		# Génération du nom du fichier
 		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
 		if(!file_exists($oldfilename)) # Commentaire inexistant
@@ -1062,30 +1216,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function checkMaj() {
 
-	    $url='https://www.pluxml.org/download/latest-version.txt';
-	    $href='https://www.pluxml.org/';
-	    $caption='PluXml.org';
+		$caption='PluXml.org';
 
 		$latest_version = 'L_PLUXML_UPDATE_ERR';
 		$className = '';
 
+		$http_response_header = '';
 		# test avec allow_url_open ou file_get_contents ?
 		if(ini_get('allow_url_fopen')) {
-			$latest_version = @file_get_contents($url, false, null, 0, 16);
+			$latest_version = @file_get_contents(PLX_URL_VERSION, false, null, 0, 16);
 			if(
 				empty($http_response_header) OR
 				!preg_match('@^HTTP/[\d\.]+ 200@', $http_response_header[0]) OR
 				empty($latest_version)
-			) {
-				$latest_version = 'UPDATE_UNAVAILABLE';
-			}
+				) {
+					$latest_version = 'UPDATE_UNAVAILABLE';
+				}
 		}
 		# test avec curl
-		else {
+		elseif(function_exists('curl_init')) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_URL, PLX_URL_VERSION);
 			$latest_version = curl_exec($ch);
 			$info = curl_getinfo($ch);
 			if ($latest_version === false || $info['http_code'] != 200) {
@@ -1107,7 +1260,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$className = 'green';
 		}
 		else {
-			$msg = sprintf('%s <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, $href, $caption);
+			$msg = sprintf('%s <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, PLX_URL_REPO, $caption);
 			$className = 'orange';
 		}
 
@@ -1116,4 +1269,3 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 }
-?>

@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 $plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
 $plugin = plxUtils::nullbyteRemove($plugin);
@@ -24,7 +24,7 @@ if(!empty($plxAdmin->plxPlugins->aPlugins[$plugin]) AND is_file($filename)) {
 	<div class="inline-form action-bar">
 		<h2>'.plxUtils::strCheck($plugin).'</h2>
 	</div>';
-	include($filename);
+	include $filename;
 	$output=ob_get_clean();
 }
 else {
@@ -34,9 +34,9 @@ else {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 # Affichage des données
 echo $output;
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

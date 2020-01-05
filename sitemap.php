@@ -1,6 +1,7 @@
 <?php
-define('PLX_ROOT', './');
-define('PLX_CORE', PLX_ROOT.'core/');
+const PLX_ROOT = './';
+const PLX_CORE = PLX_ROOT .'core/';
+
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
 
@@ -64,7 +65,7 @@ foreach($plxMotor->aStats as $stat_num => $stat_info) {
 		echo "\t</url>\n";
 	}
 }
-eval($plxMotor->plxPlugins->callHook('SitemapStatics'));
+eval($plxMotor->plxPlugins->callHook('SitemapStatics')); # Hook Plugins
 # Les catégories
 foreach($plxMotor->aCats as $cat_num => $cat_info) {
 	if($cat_info['active']==1 AND $cat_info['menu']=='oui' AND ($cat_info['articles']!=0 OR $plxMotor->aConf['display_empty_cat'])) {
@@ -76,7 +77,7 @@ foreach($plxMotor->aCats as $cat_num => $cat_info) {
 		echo "\t</url>\n";
 	}
 }
-eval($plxMotor->plxPlugins->callHook('SitemapCategories'));
+eval($plxMotor->plxPlugins->callHook('SitemapCategories')); # Hook Plugins
 # Les articles
 if($aFiles = $plxMotor->plxGlob_arts->query('/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/','art','rsort', 0, false, 'before')) {
 	$plxRecord_arts = false;
@@ -100,7 +101,7 @@ if($aFiles = $plxMotor->plxGlob_arts->query('/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$p
 		}
 	}
 }
-eval($plxMotor->plxPlugins->callHook('SitemapArticles'));
+eval($plxMotor->plxPlugins->callHook('SitemapArticles')); # Hook Plugins
 ?>
 </urlset>
 <?php
@@ -108,8 +109,7 @@ eval($plxMotor->plxPlugins->callHook('SitemapArticles'));
 # Récuperation de la bufférisation
 $output = ob_get_clean();
 
-# Hook Plugins
-eval($plxMotor->plxPlugins->callHook('SitemapEnd'));
+eval($plxMotor->plxPlugins->callHook('SitemapEnd')); # Hook Plugins
 
 # Restitution écran
 echo $output;

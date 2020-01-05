@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -30,7 +30,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 <script>
 function checkBox(cb) {
@@ -51,7 +51,7 @@ function checkBox(cb) {
 		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		<?php echo plxToken::getTokenPostMethod() ?>
-		&nbsp;&nbsp;&nbsp;
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
 	</div>
 
@@ -68,7 +68,7 @@ function checkBox(cb) {
 					<th><?php echo L_STATICS_TITLE ?></th>
 					<th><?php echo L_STATICS_URL ?></th>
 					<th><?php echo L_STATICS_ACTIVE ?></th>
-					<th data-id="order"><?php echo L_STATICS_ORDER ?></th>
+					<th><?php echo L_STATICS_ORDER ?></th>
 					<th><?php echo L_STATICS_MENU ?></th>
 					<th><?php echo L_STATICS_ACTION ?></th>
 				</tr>
@@ -151,5 +151,5 @@ function checkBox(cb) {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

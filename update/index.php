@@ -54,6 +54,7 @@ $plxUpdater = new plxUpdater($versions);
 ?>
 <?php
 plxUtils::cleanHeaders();
+session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);

@@ -5,38 +5,40 @@
 	<meta charset="<?php $plxShow->charset('min'); ?>">
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php $plxShow->pageTitle(); ?></title>
-	<?php $plxShow->meta('description') ?>
-	<?php $plxShow->meta('keywords') ?>
-	<?php $plxShow->meta('author') ?>
+<?php
+	$plxShow->meta('description');
+	$plxShow->meta('keywords');
+	$plxShow->meta('author');
+?>
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css" media="screen"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css" media="screen"/>
-	<?php $plxShow->templateCss() ?>
-	<?php $plxShow->pluginsCss() ?>
-	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" />
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css?v=1.3.1" media="screen,print"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?php echo PLX_VERSION ?>" media="screen"/>
+<?php
+	$plxShow->templateCss();
+	$plxShow->pluginsCss();
+?>
+	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlPostsRssFeed($plxShow->plxMotor->mode) ?>" />
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" />
 </head>
 
 <body id="top" class="page mode-<?php $plxShow->mode(true) ?>">
 
-	<header class="header sticky">
+	<header class="header">
 
 		<div class="container">
 
 			<div class="grid">
 
-				<div class="col sml-6">
+				<div class="col sml-6 med-5 lrg-4">
 
 					<div class="logo">
-					
 						<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
 						<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
-					
 					</div>
 
 				</div>
 
-				<div class="col sml-6">
+				<div class="col sml-6 med-7 lrg-8">
 
 					<nav class="nav">
 
@@ -58,5 +60,5 @@
 		</div>
 
 	</header>
-	
+
 	<div class="bg"></div>

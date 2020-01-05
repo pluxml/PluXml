@@ -14,7 +14,7 @@ $LANG = array(
 'L_UPDATE_BACK'						=> 'Powrót do strony głównej',
 'L_UPDATE_WARNING1'					=> 'Twoja wersja PluXml wymaga aktualizacji',
 'L_UPDATE_SELECT_VERSION'			=> 'Proszę wybrać wersję PluXml, którą chcesz zaktualizować.',
-'L_UPDATE_WARNING2'					=> 'Jeżeli nie ma twojej wersji na liście, może to oznaczać że jest zbyt stara i nie posiada automatycznej aktualizacji. <br />Sugerujemy, aby pobrać najnowszą wersję <a href="http://www.pluxml.org">PluXml</a> i wykonać nową instalację.',
+'L_UPDATE_WARNING2'					=> 'Jeżeli nie ma twojej wersji na liście, może to oznaczać że jest zbyt stara i nie posiada automatycznej aktualizacji. <br />Sugerujemy, aby pobrać najnowszą wersję <a href="https://www.pluxml.org">PluXml</a> i wykonać nową instalację.',
 'L_UPDATE_WARNING3'					=> 'OSTRZEŻENIE przed rozpoczęciem aktualizacji należy wykonać kopię zapasową danych folderu "data"',
 'L_UPDATE_START'					=> 'Rozpocznij aktualizację',
 

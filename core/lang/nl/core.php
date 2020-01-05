@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Onthaal',
 'L_UNCLASSIFIED'				=> 'Niet geclassificeerd',
 'L_INFO_PHP_VERSION'			=> 'PHP-versie',
-'L_INFO_MAGIC_QUOTES'			=> '"magic quotes" staan nu',
 'L_INFO_CHARSET'				=> 'codering',
 
 # index.php
@@ -33,6 +32,18 @@ $LANG = array(
 'L_SHORT_OCTOBER'				=> 'okt',
 'L_SHORT_NOVEMBER'				=> 'nov',
 'L_SHORT_DECEMBER'				=> 'dec',
+'L_LONG_JANUARY'				=> 'januari  ',
+'L_LONG_FEBRUARY'				=> 'februari ',
+'L_LONG_MARCH'					=> 'maart    ',
+'L_LONG_APRIL'					=> 'april    ',
+'L_LONG_MAY'					=> 'mei      ',
+'L_LONG_JUNE'					=> 'juni     ',
+'L_LONG_JULY'					=> 'juli     ',
+'L_LONG_AUGUST'					=> 'augustus ',
+'L_LONG_SEPTEMBER'				=> 'september',
+'L_LONG_OCTOBER'				=> 'oktober  ',
+'L_LONG_NOVEMBER'				=> 'november ',
+'L_LONG_DECEMBER'				=> 'december ',
 'L_JANUARY'						=> 'januari',
 'L_FEBRUARY'					=> 'februari',
 'L_MARCH'						=> 'maart',
@@ -66,8 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'negende',
 'L_TENTH'						=> 'tiende',
 'L_NTH'							=> 'de',
-'L_CAPCHA_QUESTION'				=> 'Welke is de <span class="capcha-letter">%s</span> letter van het woord <span class="capcha-word">%s</span> ?',
-
+'L_CAPCHA_QUESTION'				=> 'Welke is de <span class="capcha-letter">%s</span> letter van het woord <span class="capcha-word">%s</span>&nbsp;?',
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s is toegankelijk met schrijfrechten',
 'L_WRITE_NOT_ACCESS'			=> '%s is niet toegankelijk met schrijfrechten of bestaat niet',

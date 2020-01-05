@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 if(!isset($_POST['preview']))
@@ -33,9 +33,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	if(isset($_POST['draft']) AND !in_array('draft',$_POST['catId'])) array_unshift($_POST['catId'], 'draft');
 	# si aucune catégorie sélectionnée on place l'article dans la catégorie "non classé"
 	if(sizeof($_POST['catId'])==1 AND $_POST['catId'][0]=='draft') $_POST['catId'][]='000';
-	else $_POST['catId'] = array_filter($_POST['catId'], create_function('$a', 'return $a!="000";'));
+	else $_POST['catId'] = array_filter($_POST['catId'], function($a){return $a!="000";});
 	# Si demande de publication ou demande de validation, on supprime la catégorie draft si elle existe
-	if((isset($_POST['update']) OR isset($_POST['publish']) OR isset($_POST['moderate'])) AND isset($_POST['catId'])) $_POST['catId'] = array_filter($_POST['catId'], create_function('$a', 'return $a!="draft";'));
+	if((isset($_POST['update']) OR isset($_POST['publish']) OR isset($_POST['moderate'])) AND isset($_POST['catId'])) $_POST['catId'] = array_filter($_POST['catId'], function($a){return $a!="draft";});
 	# Si profil PROFIL_WRITER on vérifie l'id du rédacteur connecté et celui de l'article
 	if($_SESSION['profil']==PROFIL_WRITER AND isset($_POST['author']) AND $_SESSION['user']!=$_POST['author']) $_POST['author']=$_SESSION['user'];
 	# Si profil PROFIL_WRITER on vérifie que l'article n'est pas celui d'un autre utilisateur
@@ -54,11 +54,11 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['allow_com'] = $_POST['allow_com'];
 		$art['template'] = basename($_POST['template']);
 		$art['chapo'] = trim($_POST['chapo']);
-		$art['content'] =  trim($_POST['content']);
+		$art['content'] = trim($_POST['content']);
 		$art['tags'] = trim($_POST['tags']);
 		$art['meta_description'] = $_POST['meta_description'];
-		$art['meta_keywords'] =  $_POST['meta_keywords'];
-		$art['title_htmltag'] =  $_POST['title_htmltag'];
+		$art['meta_keywords'] = $_POST['meta_keywords'];
+		$art['title_htmltag'] = $_POST['title_htmltag'];
 		$art['filename'] = '';
 		$art['numero'] = $_POST['artId'];
 		$art['author'] = $_POST['author'];
@@ -77,11 +77,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['date_creation'] = $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4);
 		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
 		$art['nb_com'] = 0;
-		if(trim($_POST['url']) == '')
-			$art['url'] = plxUtils::title2url($_POST['title']);
-		else
-			$art['url'] = plxUtils::title2url($_POST['url']);
-		if($art['url'] == '') $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
+		$tmpstr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
+		$art['url'] = plxUtils::urlify($tmpstr);
+		if(empty($art['url'])) $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
 
 		# Hook Plugins
 		eval($plxAdmin->plxPlugins->callHook('AdminArticlePreview'));
@@ -102,11 +100,11 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 		$valid = true;
 		# Vérification de l'unicité de l'url
-		$_POST['url'] = plxUtils::title2url(trim($_POST['url'])==''?$_POST['title']:$_POST['url']);
+		$url = plxUtils::urlify(!empty($_POST['url']) ? $_POST['url'] : $_POST['title']);
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
-			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.".$_POST["url"].".xml$/", $filename)) {
+			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.$url.xml$/", $filename)) {
 				if($numart!=str_replace('_', '',$_POST['artId'])) {
-					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($_POST["url"])) AND $valid;
+					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($url)) AND $valid;
 				}
 			}
 		}
@@ -159,7 +157,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$date_update['time'] = $_POST['date_update_time'];
 	$date_update_old = $_POST['date_update_old'];
 	$chapo = trim($_POST['chapo']);
-	$content =  trim($_POST['content']);
+	$content = trim($_POST['content']);
 	$tags = trim($_POST['tags']);
 	$url = $_POST['url'];
 	$allow_com = $_POST['allow_com'];
@@ -183,8 +181,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
 	$title = trim($result['title']);
 	$chapo = trim($result['chapo']);
-	$content =  trim($result['content']);
-	$tags =  trim($result['tags']);
+	$content = trim($result['content']);
+	$tags = trim($result['tags']);
 	$author = $result['author'];
 	$url = $result['url'];
 	$date = plxDate::date2Array($result['date']);
@@ -195,8 +193,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$artId = $result['numero'];
 	$allow_com = $result['allow_com'];
 	$template = $result['template'];
-	$meta_description=$result['meta_description'];
-	$meta_keywords=$result['meta_keywords'];
+	$meta_description = $result['meta_description'];
+	$meta_keywords = $result['meta_keywords'];
 	$title_htmltag = $result['title_htmltag'];
 	$thumbnail = $result['thumbnail'];
 	$thumbnail_title = $result['thumbnail_title'];
@@ -233,7 +231,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 # On construit la liste des utilisateurs
 foreach($plxAdmin->aUsers as $_userid => $_user) {
@@ -288,12 +286,12 @@ function refreshImg(dta) {
 					if($artId!='0000') # nouvel article
 					echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
 					echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="moderate" value="'.L_ARTICLE_MODERATE_BUTTON.'"/> ';
-					echo '&nbsp;&nbsp;&nbsp;<input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
+					echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 				} else {
 					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a'])) { # en attente
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
-						echo '&nbsp;&nbsp;&nbsp;<input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
+						echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 					} else {
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="moderate" value="'.L_ARTICLE_MODERATE_BUTTON.'"/> ';
@@ -311,7 +309,7 @@ function refreshImg(dta) {
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_OFFLINE_BUTTON . '"/> ';
 				}
 				if($artId!='0000')
-					echo '&nbsp;&nbsp;&nbsp;<input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
+					echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 			}
 		?>
 
@@ -332,28 +330,31 @@ function refreshImg(dta) {
 					</div>
 				</div>
 				<div class="grid">
+					<div class="col sml-12 small">
+						<?php if($artId!='' AND $artId!='0000') : ?>
+							<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
+					 			<small>
+					 				<strong><?php echo L_LINK_FIELD ?>&nbsp;:</strong>
+					 				<a onclick="this.target=\'_blank\';return true;" href="<?php echo $link ?>" title="<?php echo L_LINK_ACCESS ?> : <?php echo $link ?>"><?php echo $link ?></a>
+					 			</small>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_chapo"><?php echo L_HEADLINE_FIELD ?>&nbsp;:&nbsp;<a id="toggler_chapo" href="javascript:void(0)" onclick="toggleDiv('toggle_chapo', 'toggler_chapo', '<?php echo L_ARTICLE_CHAPO_DISPLAY ?>','<?php echo L_ARTICLE_CHAPO_HIDE ?>')"><?php echo $chapo==''?L_ARTICLE_CHAPO_DISPLAY:L_ARTICLE_CHAPO_HIDE ?></a></label>
-						<div id="toggle_chapo"<?php echo $chapo!=''?'':' style="display:none"' ?>>
-						<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),35,8,false,'full-width'); ?>
+						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
+						<label for="toggler_chapo"><?php echo L_HEADLINE_FIELD;?> : <span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
+						<div>
+							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8); ?>
 						</div>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),35,20,false,'full-width'); ?>
+						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20); ?>
 					</div>
 				</div>
-				<?php if($artId!='' AND $artId!='0000') : ?>
-				<div class="grid">
-					<div class="col sml-12">
-						<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
-						<label for="id_link"><?php echo L_LINK_FIELD ?>&nbsp;:&nbsp;<?php echo '<a onclick="this.target=\'_blank\';return true;" href="'.$link.'" title="'.L_LINK_ACCESS.'">'.L_LINK_VIEW.'</a>'; ?></label>
-						<?php echo '<input id="id_link" onclick="this.select()" readonly="readonly" type="text" value="'.$link.'" />' ?>
-					</div>
-				</div>
-				<?php endif; ?>
 			</fieldset>
 			<div class="grid gridthumb">
 				<div class="col sml-12">
@@ -386,7 +387,7 @@ function refreshImg(dta) {
 					</div>
 				</div>
 			</div>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) ?>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) # Hook Plugins ?>
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
@@ -489,7 +490,7 @@ function refreshImg(dta) {
 					<div class="col sml-12">
 						<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
 						<div class="inline-form">
-							<?php plxUtils::printInput('new_catname','','text','17-50')	?>
+							<?php plxUtils::printInput('new_catname','','text','17-50') ?>
 							<input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
 						</div>
 					</div>
@@ -499,14 +500,11 @@ function refreshImg(dta) {
 
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_tags">
-							<?php echo L_ARTICLE_TAGS_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE ?></span></a>
-						</label>
-						<div class="inline-form">
-							<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-							<a title="<?php echo L_ARTICLE_TOGGLER_TITLE ?>" id="toggler" href="javascript:void(0)" onclick="toggleDiv('tags','toggler','+','-')" style="outline:none; text-decoration: none">+</a>
-						</div>
-						<div id="tags" style="display:none; margin-top: 1rem">
+						<label for="tags"><?php echo L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
+						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+						<input class="toggler" type="checkbox" id="toggler_tags"<?php echo (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
+						<label for="toggler_tags"><span>-</span><span>+</span></label>
+						<div style="margin-top: 1rem">
 							<?php
 							if($plxAdmin->aTags) {
 								$array=array();
@@ -514,7 +512,7 @@ function refreshImg(dta) {
 									if($tags = array_map('trim', explode(',', $tag['tags']))) {
 										foreach($tags as $tag) {
 											if($tag!='') {
-												$t = plxUtils::title2url($tag);
+												$t = plxUtils::urlify($tag);
 												if(!isset($array[$tag]))
 													$array[$tag]=array('url'=>$t,'count'=>1);
 												else
@@ -525,7 +523,8 @@ function refreshImg(dta) {
 								}
 								array_multisort($array);
 								foreach($array as $tagname => $tag) {
-									echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.addslashes($tagname).'\')" title="'.plxUtils::strCheck($tagname).' ('.$tag['count'].')">'.plxUtils::strCheck($tagname).'</a> ('.$tag['count'].')&nbsp;&nbsp;';
+									echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.addslashes($tagname).'\')" title="'.plxUtils::strCheck($tagname).' ('.$tag['count'].')">'.
+									str_replace(' ', '&nbsp;', plxUtils::strCheck($tagname)).'</a>&nbsp;('.$tag['count'].')&nbsp; ';
 								}
 							}
 							else echo L_NO_TAG;
@@ -533,6 +532,7 @@ function refreshImg(dta) {
 						</div>
 					</div>
 				</div>
+
 				<div class="grid">
 					<div class="col sml-12">
 						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
@@ -608,5 +608,5 @@ function refreshImg(dta) {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

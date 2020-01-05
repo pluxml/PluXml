@@ -1,0 +1,35 @@
+/*
+# ------------------ BEGIN LICENSE BLOCK ------------------
+#
+# This file is part of PluXml : https://www.pluxml.org
+#
+# Package:		print.css
+# Copyright (c) 2019 PluXml
+# Authors		Thomas "sudwebdesign" Ingles.
+# Licensed under the GPL license.
+# See http://www.gnu.org/licenses/gpl.html
+#
+# ------------------- END LICENSE BLOCK -------------------
+*/
+
+/* ----- Menu ----- */
+
+@media print {
+	body, .logo{
+		padding: 0;
+		margin: 0;
+	}
+	.bg{
+		height: 2.22rem;
+		background: #fff;
+	}
+	nav, .nav {/* pour cacher le menu du site */
+		/* display:none; */
+	}
+	.header{
+		border-bottom: 0px solid #transparent;
+	}
+	.sticky {/* position: initial;  fixe: le head descend quant on scrlldwn en prévisu ff 43 */
+		display:none;/* cache l'entête  */
+	}
+}

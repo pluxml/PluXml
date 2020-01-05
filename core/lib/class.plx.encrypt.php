@@ -6,7 +6,7 @@
  * @author	Stephane F
  **/
 
-define('ENCRYPTION_KEY', 'ab12cd34#$');
+const ENCRYPTION_KEY = 'ab12cd34#$';
 
 class plxEncrypt {
 
@@ -52,4 +52,3 @@ class plxEncrypt {
 	}
 
 }
-?>

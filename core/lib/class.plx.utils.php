@@ -6,6 +6,14 @@
  * @package PLX
  * @author	Florent MONTHEL et Stephane F
  **/
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\OAuth;
+use League\OAuth2\Client\Provider\Google;
+
+require PLX_CORE.'vendor/autoload.php';
+
 class plxUtils {
 
 	/**
@@ -14,7 +22,7 @@ class plxUtils {
 	 *
 	 * @param	var			string	variable à tester
 	 * @param	default		string	valeur par défaut
-	 * @return	valeur de la variable ou valeur par défaut passée en paramètre
+	 * @return	string		valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
 		return (isset($var) ? (!empty($var) ? $var : $default) : $default) ;
@@ -38,27 +46,27 @@ class plxUtils {
 	 *
 	 * @param	content				variable ou tableau
 	 * @return	array ou string		tableau ou variable avec les antislashs supprimés
+	 * @author  J.P. Pourrez aka bazooka07
 	 **/
 	public static function unSlash($content) {
 
-		if(get_magic_quotes_gpc() == 1) {
-			if(is_array($content)) { # On traite un tableau
-				foreach($content as $k=>$v) { # On parcourt le tableau
-					if(is_array($v)) {
-						foreach($v as $key=>$val)
-							$new_content[$k][$key] = stripslashes($val);
-					} else {
-						$new_content[ $k ] = stripslashes($v);
-					}
+		 # On traite un tableau
+		if(is_array($content)) {
+			$new_content = array();
+			foreach($content as $k=>$v) { # On parcourt le tableau
+				if(is_array($v)) {
+					$new_content[$k] = array();
+					foreach($v as $key=>$val)
+						$new_content[$k][$key] = stripslashes($val);
+				} else {
+					$new_content[$k] = stripslashes($v);
 				}
-			} else { # On traite une chaine
-				$new_content = stripslashes($content);
 			}
-			# On retourne le tableau modifie
 			return $new_content;
-		} else {
-			return $content;
 		}
+
+		# On traite une chaine
+		return stripslashes($content);
 	}
 
 	/**
@@ -142,7 +150,7 @@ class plxUtils {
 	 * @param	readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
-	 * @return	stdout
+	 * @return	self
 	 **/
 	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
 
@@ -154,7 +162,7 @@ class plxUtils {
 			$id = ($id!='' ? ' id="'.$id.'"' : '');
 
 		if($readonly)
-			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly">'."\n";
+			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly'.($class!=''?' '.$class:'').'">'."\n";
 		else
 			echo '<select'.$id.' name="'.$name.'"'.($class!=''?' class="'.$class.'"':'').'>'."\n";
 		foreach($array as $a => $b) {
@@ -168,7 +176,7 @@ class plxUtils {
 				}
 				echo '</optgroup>'."\n";
 			} else {
-				if($a == $selected)
+				if(strval($a) == $selected)
 					echo "\t".'<option value="'.$a.'" selected="selected">'.$b.'</option>'."\n";
 				else
 					echo "\t".'<option value="'.$a.'">'.$b.'</option>'."\n";
@@ -178,7 +186,7 @@ class plxUtils {
 	}
 
 	/**
-	 * Méthode qui affiche un zone de saisie
+	 * Méthode qui affiche une zone de saisie
 	 *
 	 * @param	name		nom de la zone de saisie
 	 * @param	value		valeur contenue dans la zone de saisie
@@ -187,10 +195,12 @@ class plxUtils {
 	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	placeholder valeur du placeholder du champ (html5)
-	 * @param   extra		extra paramètre pour du javascript par exemple (onclick)
-	 * @return	stdout
+	 * @param	extra		extra paramètre pour du javascript par exemple (onclick)
+	 * @param	required	permet de rendre le champ obligatoire
+	 * @return	self
+	 * @author	unknow, Pedro "P3ter" CADETE
 	 **/
-	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='') {
+	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
 		 $params = array(
 			'id="id_'.$name.'"',
@@ -202,6 +212,8 @@ class plxUtils {
 		 if(!empty($extra))
 			 $params[] = $extra;
 		 if($type != 'hidden') {
+			if($required === true)
+				$params[] = 'required="required"';
 			if($readonly === true)
 				$params[] = 'readonly="readonly" class="readonly"';
 			if(!empty($className))
@@ -216,26 +228,79 @@ class plxUtils {
 					$params[] = 'maxlength="'.$maxlength.'"';
 			}
 		 }
-		 echo '<input '.implode(' ', $params).' />';
+		 echo '<input '.implode(' ', $params).'/>';
+	}
+
+	/**
+	 * Méthode qui affiche des boutons radio
+	 *
+	 * @param	string $name		 nom des radio boutons
+	 * @param	string $value		valeur correspond au radio bouton
+	 * @param	string $className	class css à utiliser pour formater l'affichage
+	 * @param	string $checked		valeur par défaut
+	 * @param	boolean $required	permet de rendre le champ obligatoire
+	 * @return	self
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public static function printInputRadio($name, $array, $checked='', $className='', $extra='') {
+
+		$params = array(
+			'id="id_'.$name.'"',
+			'name="'.$name.'"',
+		);
+		if(!empty($extra)) {
+			$params[] = $extra;
+		}
+		if(!empty($className)) {
+			$params[] = 'class="'.$className.'"';
+		}
+		foreach($array as $a => $b) {
+			if ($a == $checked) {
+				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).' checked>&nbsp;'.$b.'<br>';
+			}
+			else {
+				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).'>&nbsp;'.$b.'<br>';
+			}
+		}
 	}
 
 	/**
 	 * Méthode qui affiche une zone de texte
 	 *
-	 * @param	name		nom de la zone de texte
-	 * @param	value		valeur contenue dans la zone de texte
-	 * @param	cols		nombre de caractères affichés par colonne
-	 * @params	rows		nombre de caractères affichés par ligne
-	 * @param	readonly	vrai si le champ est en lecture seule (par défaut à faux)
-	 * @param	class		class css à utiliser pour formater l'affichage
-	 * @return	stdout
-	 **/
-	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $class='') {
-
-		if($readonly)
-			echo '<textarea id="id_'.$name.'" name="'.$name.'" class="readonly" cols="'.$cols.'" rows="'.$rows.'" readonly="readonly">'.$value.'</textarea>'."\n";
-		else
-			echo '<textarea id="id_'.$name.'" name="'.$name.'"'.($class!=''?' class="'.$class.'"':'').' cols="'.$cols.'" rows="'.$rows.'">'.$value.'</textarea>'."\n";
+	 * @param	string	name		nom de la zone de texte
+	 * @param	string	value		valeur contenue dans la zone de texte
+	 * @param	string	cols		nombre de caractères affichés par colonne
+	 * @param	string	rows		nombre de caractères affichés par ligne
+	 * @param	boolean	readonly	vrai si le champ est en lecture seule (par défaut à faux)
+	 * @param	string	class		class css à utiliser pour formater l'affichage
+	 * @param	boolean	extra		extra permet d'ajouter un élément HTML (exemple : un "onclick" en javascript)
+	 * @return	self
+	 */
+	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width', $extra='') {
+		$attrs = array (
+				'id="id_' . $name . '"',
+				'name="' . $name . '"'
+		);
+		if (!empty($cols) and is_integer($cols)) {
+			$attrs [] = 'cols="' . $cols . '"';
+		}
+		if (!empty($rows) and is_integer($rows)) {
+			$attrs[] = 'rows="' . $rows . '"';
+		}
+		$classList = array();
+		if ($readonly === true) {
+			$classList[] = 'readonly';
+		}
+		if (!empty($className) and is_string($className) and strlen(trim($className)) > 0) {
+			$classList[] = trim($className);
+		}
+		if (!empty($classList)) {
+			$attrs[] = 'class="' . implode(' ', $classList) . '"';
+		}
+		if (!empty($extra)) {
+			$attrs[] = $extra;
+		}
+		echo '<textarea ' . implode(' ', $attrs) . '>' . $value . '</textarea>';
 	}
 
 	/**
@@ -299,21 +364,28 @@ class plxUtils {
 	 **/
 	public static function testMail($io=true, $format="<li><span style=\"color:#color\">#symbol #message</span></li>\n") {
 
-		if($return=function_exists('mail')) {
-			if($io==true) {
-				$output = str_replace('#color', 'green', $format);
-				$output = str_replace('#symbol', '&#10004;', $output);
-				$output = str_replace('#message', L_MAIL_AVAILABLE, $output);
-				echo $output;
+		if($return = function_exists('mail')) {
+			if(!empty($io)) {
+				echo strtr(
+					$format, array(
+						'#color'	=> 'green',
+						'#symbol'	=> '&#10004;',
+						'#message'	=> L_MAIL_AVAILABLE
+					)
+				);
 			}
 		} else {
-			if($io==true) {
-				$output = str_replace('#color', 'red', $format);
-				$output = str_replace('#symbol', '&#10007;', $output);
-				$output = str_replace('#message', L_MAIL_NOT_AVAILABLE, $output);
-				echo $output;
+			if(!empty($io)) {
+				echo strtr(
+					$format, array(
+						'#color'	=> 'red',
+						'#symbol'	=> '&#10007;',
+						'#message'	=> L_MAIL_NOT_AVAILABLE
+					)
+				);
 			}
 		}
+
 		return $return;
 	}
 
@@ -376,6 +448,104 @@ class plxUtils {
 		$str = preg_replace('#\&([A-za-z]{2})(?:lig)\;#', '\1', $str); # pour les ligatures e.g. '&oelig;'
 		$str = preg_replace('#\&[^;]+\;#', '', $str); # supprime les autres caractères
 		return $str;
+	}
+
+	/**
+	 * Method to translitterate (transform a string with only ASCII characters)
+	 * Inspired by https://github.com/jbroadway/urlify/blob/master/URLify.php
+	 * @param	string		$str	the string to translitterate
+	 * @param	boolean		$reverse
+	 * @return	string
+	 * @author J.P. Pourrez (bazooka07)
+	 */
+	public static function translitterate($str, $reverse=false) {
+
+		$alphabets = array(
+				'de' => array(
+						'Ä' => 'Ae', 'Ö' => 'Oe', 'Ü' => 'Ue', 'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue',
+						'ß' => 'ss', 'ẞ' => 'SS'
+				),
+				'ro' => array(
+						'ă'=> 'a', 'î'=> 'i', 'ș'=> 's', 'ț'=> 't', 'â'=> 'a',
+						'Ă'=> 'A', 'Î'=> 'I', 'Ș'=> 'S', 'Ț'=> 'T', 'Â'=> 'A'
+				),
+				'pl' => array(
+						'ą'=> 'a', 'ć'=> 'c', 'ę'=> 'e', 'ł'=> 'l', 'ń'=> 'n', 'ó'=> 'o', 'ś'=> 's',
+						'ź'=> 'z', 'ż'=> 'z',
+						'Ą'=> 'A', 'Ć'=> 'C', 'Ę'=> 'E', 'Ł'=> 'L', 'Ń'=> 'N', 'Ó'=> 'O', 'Ś'=> 'S',
+						'Ź'=> 'Z', 'Ż'=> 'Z'
+				),
+				'ru' => array(
+						'а'=> 'a', 'б'=> 'b', 'в'=> 'v', 'г'=> 'g', 'д'=> 'd', 'е'=> 'e', 'ё'=> 'yo',
+						'ж'=> 'zh', 'з'=> 'z', 'и'=> 'i', 'й'=> 'j', 'к'=> 'k', 'л'=> 'l', 'м'=> 'm',
+						'н'=> 'n', 'о'=> 'o', 'п'=> 'p', 'р'=> 'r', 'с'=> 's', 'т'=> 't', 'у'=> 'u',
+						'ф'=> 'f', 'х'=> 'h', 'ц'=> 'c', 'ч'=> 'ch', 'ш'=> 'sh', 'щ'=> 'sh', 'ъ'=> '',
+						'ы'=> 'y', 'ь'=> '', 'э'=> 'e', 'ю'=> 'yu', 'я'=> 'ya',
+						'А'=> 'A', 'Б'=> 'B', 'В'=> 'V', 'Г'=> 'G', 'Д'=> 'D', 'Е'=> 'E', 'Ё'=> 'Yo',
+						'Ж'=> 'Zh', 'З'=> 'Z', 'И'=> 'I', 'Й'=> 'J', 'К'=> 'K', 'Л'=> 'L', 'М'=> 'M',
+						'Н'=> 'N', 'О'=> 'O', 'П'=> 'P', 'Р'=> 'R', 'С'=> 'S', 'Т'=> 'T', 'У'=> 'U',
+						'Ф'=> 'F', 'Х'=> 'H', 'Ц'=> 'C', 'Ч'=> 'Ch', 'Ш'=> 'Sh', 'Щ'=> 'Sh', 'Ъ'=> '',
+						'Ы'=> 'Y', 'Ь'=> '', 'Э'=> 'E', 'Ю'=> 'Yu', 'Я'=> 'Ya'
+				)
+		);
+		if ((defined('PLX_SITE_LANG')) && (array_key_exists(PLX_SITE_LANG, $alphabets))) {
+			uksort ( $alphabets, function ($a, $b) use ($lang) {
+				if ($a == $lang)
+					return - 1;
+				elseif ($b == $lang)
+					return 1;
+				else
+					return 0;
+			} );
+		}
+		if (!$reverse) {
+			foreach ($alphabets as $aLang => $alphab) {
+				$clean_str = str_replace (array_keys($alphab), array_values($alphab), $str);
+			}
+		} else {
+			foreach ($alphabets as $aLang => $alphab) {
+				$clean_str = str_replace (array_values($alphab), array_keys($alphab), $str);
+			}
+		}
+		return $clean_str;
+	}
+
+	/**
+	 * Method to transform a string in a valid URL using translitteration
+	 * @param	string	$str		chaine de caractères à contrôler
+	 * @param	boolean	$remove		retire les mots sans valeur sémantique
+	 * @param	string	$replace
+	 * @param	boolean	$lower
+	 * @return	string				valid URL
+	 * @author J.P. Pourrez (bazooka07)
+	 * */
+	public static function urlify($str, $remove=true, $replace='-', $lower=true) {
+
+		$remove_words = array(
+				'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
+				'de' => 'das|der|die|fuer|am',
+				'fr' => 'a|le|la|un|une|vers|de|des|du|vers|en'
+		);
+		$clean_str = plxUtils::translitterate(trim(html_entity_decode($str)));
+		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
+			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@', $replace, $clean_str);
+			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
+		}
+		# remove accents
+		$clean_str = plxUtils::removeAccents($clean_str,PLX_CHARSET);
+		# remove whitespace
+		$clean_str = preg_replace(
+			'@\s+@',
+			'-',
+			$clean_str
+		);
+		# remove non-alphanumeric character
+		$clean_str = preg_replace(
+			'@[^\w-]@',
+			'',
+			$clean_str
+		);
+		return ($lower) ? strtolower($clean_str) : $clean_str;
 	}
 
 	/**
@@ -475,21 +645,22 @@ class plxUtils {
 	 * @param	thumb_height	hauteur de la miniature
 	 * @param	quality			qualité de l'image
 	 * @return	boolean			vrai si image créée
+	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
 	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 
-		// Get dimensions of existing image
+		# Get dimensions of existing image
 		$image = getimagesize($src_image);
 
-		// Check for valid dimensions
+		# Check for valid dimensions
 		if($image[0] <= 0 || $image[1] <= 0) return false;
 
-		// Determine format from MIME-Type
+		# Determine format from MIME-Type
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
 
-		// calcul du ration si nécessaire
+		# calcul du ration si nécessaire
 		if($thumb_width!=$thumb_height) {
 			# Calcul du ratio
 			$x_offset = $y_offset = 0;
@@ -515,7 +686,7 @@ class plxUtils {
 
 		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
 
-		// Import image
+		# Import image
 		switch( $image['format'] ) {
 			case 'jpg':
 			case 'jpeg':
@@ -533,30 +704,37 @@ class plxUtils {
 				imagefill($canvas, 0, 0, $color);
 				imagesavealpha($canvas, true);
 				break;
+			case 'webp':
+				$image_data = imagecreatefromwebp($src_image);
+				break;
+			case 'x-ms-bmp':
+				#$image_data = imagecreatefrombmp($src_image); # Only PHP 7+
+				$image_data = false;
+				break;
 			default:
-				return false; // Unsupported format
+				return false; # Unsupported format
 			break;
 		}
 
-		// Verify import
+		# Verify import
 		if($image_data == false) return false;
 
-		// Calculate measurements (square crop)
+		# Calculate measurements (square crop)
 		if($thumb_width==$thumb_height) {
 			if($image[0] > $image[1]) {
-				// For landscape images
+				# For landscape images
 				$x_offset = ($image[0] - $image[1]) / 2;
 				$y_offset = 0;
 				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
 			} else {
-				// For portrait and square images
+				# For portrait and square images
 				$x_offset = 0;
 				$y_offset = ($image[1] - $image[0]) / 2;
 				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
 			}
 		}
 
-		// Resize and crop
+		# Resize and crop
 		if( imagecopyresampled(
 			$canvas,
 			$image_data,
@@ -570,20 +748,26 @@ class plxUtils {
 			$square_size_h
 		)) {
 
-			// Create thumbnail
+			# Create thumbnail
 			switch( strtolower(preg_replace('/^.*\./', '', $dest_image)) ) {
 				case 'jpg':
 				case 'jpeg':
 					return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
-				break;
+					break;
 				case 'png':
 					return (imagepng($canvas, $dest_image) AND is_file($dest_image));
-				break;
+					break;
 				case 'gif':
 					return (imagegif($canvas, $dest_image) AND is_file($dest_image));
-				break;
+					break;
+				case 'bmp':
+					return (imagebmp($canvas, $dest_image) AND is_file($dest_image));
+					break;
+				case 'webp':
+					return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
+					break;
 				default:
-					return false; // Unsupported format
+					return false;# Unsupported format
 				break;
 			}
 
@@ -596,11 +780,10 @@ class plxUtils {
 	/**
 	 * Méthode qui affiche un message
 	 *
-	 * @param	string message à afficher
-	 * @param	string classe css à utiliser pour formater l'affichage du message
-	 * @param       string format des balises avant le message
-	 * @param	string format des balises après le message
-	 * @return      stdout
+	 * @param	string	message à afficher
+	 * @param	string	classe css à utiliser pour formater l'affichage du message
+	 * @param	string	format des balises avant le message
+	 * @param	string	format des balises après le message
 	 **/
 	public static function showMsg($msg, $class='',$format_start='<p class="#CLASS">',$format_end='</p>') {
 		$format_start = str_replace('#CLASS',($class != '' ? $class : 'msg'),$format_start);
@@ -610,11 +793,11 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne l'url de base du site
 	 *
-	 * @return	string		url de base du site
+	 * @return	string	url de base du site
 	 **/
 	public static function getRacine() {
 
-		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )?        'https://' : "http://";
+		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https://': 'http://';
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
@@ -627,8 +810,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères au hasard
 	 *
-	 * @param	taille		nombre de caractère de la chaine à retourner (par défaut sur 10 caractères)
-	 * @return	string		chaine de caractères au hasard
+	 * @param	taille	nombre de caractère de la chaine à retourner (par défaut sur 10 caractères)
+	 * @return	string	chaine de caractères au hasard
 	 **/
 	public static function charAleatoire($taille='10') {
 
@@ -645,7 +828,7 @@ class plxUtils {
 	 *
 	 * @param	str			chaine de caractères à couper
 	 * @param	length		nombre de caractères ou nombre de mots à garder (par défaut 25)
-	 * @param   type		à renseigner avec la valeur 'word' pour couper en nombre de mots. Par défaut la césure se fait en nombre de caractères
+	 * @param	type		à renseigner avec la valeur 'word' pour couper en nombre de mots. Par défaut la césure se fait en nombre de caractères
 	 * @param	add_text	texte à ajouter après la chaine coupée (par défaut '...' est ajouté)
 	 * @return	string		chaine de caractères coupée
 	 **/
@@ -662,8 +845,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères formatée en fonction du charset
 	 *
-	 * @param	str			chaine de caractères
-	 * @return	string		chaine de caractères tenant compte du charset
+	 * @param	str		chaine de caractères
+	 * @return	string	chaine de caractères tenant compte du charset
 	 **/
 	public static function strCheck($str) {
 
@@ -673,8 +856,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères nettoyée des cdata
 	 *
-	 * @param	str			chaine de caractères à nettoyer
-	 * @return	string		chaine de caractères nettoyée
+	 * @param	str		chaine de caractères à nettoyer
+	 * @return	string	chaine de caractères nettoyée
 	 * @author	Stephane F
 	 **/
 	public static function cdataCheck($str) {
@@ -685,8 +868,8 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne une chaine de caractères HTML en fonction du charset
 	 *
-	 * @param	str			chaine de caractères
-	 * @return	string		chaine de caractères tenant compte du charset
+	 * @param	str		chaine de caractères
+	 * @return	string	chaine de caractères tenant compte du charset
 	 **/
 	public static function strRevCheck($str) {
 
@@ -696,7 +879,7 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne le type de compression disponible
 	 *
-	 * @return	stout
+	 * @return	string or boolean
 	 * @author	Stephane F., Amaury Graillat
 	 **/
 	public static function httpEncoding() {
@@ -713,9 +896,9 @@ class plxUtils {
 	/**
 	 * Méthode qui converti les liens relatifs en liens absolus
 	 *
-	 * @param	base		url du site qui sera rajoutée devant les liens relatifs
-	 * @param	html		chaine de caractères à convertir
-	 * @return	string		chaine de caractères modifiée
+	 * @param	base	url du site qui sera rajoutée devant les liens relatifs
+	 * @param	html	chaine de caractères à convertir
+	 * @return	string	chaine de caractères modifiée
 	 * @author	Stephane F., Amaury Graillat, J.P. Pourrez
 	 **/
 	public static function rel2abs($base, $html) {
@@ -763,16 +946,19 @@ class plxUtils {
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *
-	 * @return	stdio
-	 * @author	Stephane F.
+	 * @param	type	string 		type de source
+	 * @param	charset	string 		type d'encodage
+	 * @return	void
+	 * @author	Stephane F., Thomas Ingles
 	 **/
-	public static function cleanHeaders() {
-		@header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
-		@header('Last-Modified: '.gmdate( 'D, d M Y H:i:s' ).' GMT');
-		@header('Cache-Control: no-cache, must-revalidate, max-age=0');
-		@header('Cache: no-cache');
-		@header('Pragma: no-cache');
-		@header('Content-Type: text/html; charset='.PLX_CHARSET);
+	public static function cleanHeaders($type='text/html', $charset=PLX_CHARSET) {
+		header_remove();
+		header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
+		header('Last-Modified: '.gmdate( 'D, d M Y H:i:s' ).' GMT');
+		header('Cache-Control: no-cache, must-revalidate, max-age=0');
+		header('Cache: no-cache');
+		header('Pragma: no-cache');
+		header('Content-Type: '.$type.'; charset='.$charset);
 	}
 
 	/**
@@ -783,49 +969,125 @@ class plxUtils {
 	* @param	to		array/string	Adresse(s) du(des) destinataires(s)
 	* @param	subject	string			Objet du mail
 	* @param	body	string			contenu du mail
-	* @return			boolean			renvoie FAUX en cas d'erreur d'envoi
-	* @author	Amaury Graillat
+	* @return	boolean	renvoie FAUX en cas d'erreur d'envoi
+	* @author	J.P. Pourrez (aka bazooka07), Amaury Graillat
 	**/
 	public static function sendMail($name, $from, $to, $subject, $body, $contentType="text", $cc=false, $bcc=false) {
 
-		if(is_array($to))
-			$to = implode(', ', $to);
-		if(is_array($cc))
-			$cc = implode(', ', $cc);
-		if(is_array($bcc))
-			$bcc = implode(', ', $bcc);
+		if(empty(trim($to)) or empty(trim($subject))) { return; }
 
-		$headers  = "From: ".$name." <".$from.">\r\n";
-		$headers .= "Reply-To: ".$from."\r\n";
-		$headers .= 'MIME-Version: 1.0'."\r\n";
-		// Content-Type
-		if($contentType == 'html')
-			$headers .= 'Content-type: text/html; charset="'.PLX_CHARSET.'"'."\r\n";
-		else
-			$headers .= 'Content-type: text/plain; charset="'.PLX_CHARSET.'"'."\r\n";
+		$headers = array(
+			'MIME-Version'				=> '1.0',
+			'Content-Type'				=> (($contentType === 'html') ? 'text/html' : 'text/plain') . ';charset=' . PLX_CHARSET,
+			'Content-Transfer-Encoding'	=> '8bit',
+			'Date'						=> date('D, j M Y G:i:s O'), # Sat, 7 Jun 2001 12:35:58 -0700
+			'X-Mailer'					=> 'PHP/' . phpversion()
+		);
 
-		$headers .= 'Content-transfer-encoding: 8bit'."\r\n";
-		$headers .= 'Date: '.date("D, j M Y G:i:s O")."\r\n"; // Sat, 7 Jun 2001 12:35:58 -0700
+		if(!empty($from)) {
+			$headers['From'] = (!empty($name)) ? $name . " <$from>" : $from;
+			$headers['Reply-To'] = $from;
+		}
 
-		if($cc != "")
-			$headers .= 'Cc: '.$cc."\r\n";
-		if($bcc != "")
-			$headers .= 'Bcc: '.$bcc."\r\n";
+		if(empty($cc)) {
+			$headers['Cc'] = (is_array($cc)) ? implode(', ', $cc) : $cc;
+		}
 
-		return mail($to, $subject, $body, $headers);
+		if(empty($bcc)) {
+			$headers['Cc'] = (is_array($Bcc)) ? implode(', ', $bcc) : $bcc;
+		}
+
+		return mail($to, $subject, $body,
+			version_compare(PHP_VERSION, '7.2', '>=') ?
+				$headers :
+				implode("\r\n", array_map(
+					function($v, $k) { return "$k: $v"; },
+					array_values($headers),
+					array_keys($headers)
+				)) . "\r\n"
+		);
+	}
+
+	/**
+	 * Send an e-mail with PhpMailer class
+	 * @param	string	$name			Sender's name
+	 * @param	string	$from			Sender's e-mail address
+	 * @param	string	$to				Destination e-mail address
+	 * @param	string	$subject		E-mail subject
+	 * @param	string	$body			E-mail body content
+	 * @param	boolean	$isHtml			True if body content use HTML
+	 * @param	array	$conf			PHPMailer configuration (username, password, ...)
+	 * @return	boolean
+	 * @author Pedro "P3ter" CADETE
+	 */
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $conf, $debug=false) {
+		$mail = new PHPMailer();
+		if ($debug) {
+			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+		}
+		$mail->Subject = $subject;
+		$mail->Body = $body;
+		$mail->setFrom($from, $name);
+		$mail->addAddress($to);
+		$mail->Mailer = $conf['email_method'];
+		$mail->CharSet = "UTF-8";
+		if ($isHtml) {
+			$mail->isHTML(true);
+		}
+		switch ($conf['email_method']) {
+			case 'smtp':
+				$mail->isSMTP();
+				$mail->Host = $conf['smtp_server'];
+				$mail->Port = $conf['smtp_port'];
+				$mail->SMTPAuth = true;
+				$mail->Username = $conf['smtp_username'];
+				$mail->Password = $conf['smtp_password'];
+				$mail->SMTPDebug;
+				if ($conf['smtp_security'] == 'ssl' or $conf['smtp_security'] == 'tls') {
+					$mail->SMTPSecure = $conf['smtp_security'];
+				}
+				break;
+			case 'smtpoauth':
+				$mail->isSMTP();
+				$mail->Host = 'smtp.gmail.com';
+				$mail->Port = 587;
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+				$mail->AuthType = 'XOAUTH2';
+				$provider = new Google(
+					[
+						'clientId' => $conf['smtpOauth2_clientId'],
+						'clientSecret' => $conf['smtpOauth2_clientSecret'],
+					]
+				);
+				$mail->setOAuth(
+						new OAuth(
+							[
+								'provider' => $provider,
+								'clientId' => $conf['smtpOauth2_clientId'],
+								'clientSecret' => $conf['smtpOauth2_clientSecret'],
+								'refreshToken' => $conf['smtpOauth2_refreshToken'],
+								'userName' => $conf['smtpOauth2_emailAdress'],
+							]
+						)
+					);
+				break;
+		}
+		$result = $mail->send();
+		return $result ;
 	}
 
 	/**
 	* Méthode qui formate un lien pour la barre des menus
 	*
-	* @param	name	string 			titre du menu
-	* @param	href	string 			lien du menu
-	* @param	title	string			contenu de la balise title
-	* @param	class	string			contenu de la balise class
-	* @param	onclick	string			contenu de la balise onclick
-	* @param	extra	string			extra texte à afficher
-	* @return			string			balise <a> formatée
-	* @author	Stephane F.
+	* @param	name	string	titre du menu
+	* @param	href	string	lien du menu
+	* @param	title	string	contenu de la balise title
+	* @param	class	string	contenu de la balise class
+	* @param	onclick	string	contenu de la balise onclick
+	* @param	extra	string	extra texte à afficher
+	* @return	string	balise <a> formatée
+	* @author	Stephane F., Thomas Ingles
 	**/
 	public static function formatMenu($name, $href, $title=false, $class=false, $onclick=false, $extra='', $highlight=true) {
 		$menu = '';
@@ -835,7 +1097,8 @@ class plxUtils {
 		$title = $title ? ' title="'.$title.'"':'';
 		$class = $class ? ' '.$class:'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$menu = '<li id="mnu_'.plxUtils::title2url($name).'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
+		$id = ($basename[0]=='plugin.php'?strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
+		$menu = '<li id="mnu_'.$id.'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
 		return $menu;
 	}
 
@@ -845,77 +1108,81 @@ class plxUtils {
 	 * Cuts a string to the length of $length and replaces the last characters
 	 * with the ending if the text is longer than length.
 	 *
-	 * @param string  $text String to truncate.
-	 * @param integer $length Length of returned string, including ellipsis.
-	 * @param string  $ending Ending to be appended to the trimmed string.
-	 * @param boolean $exact If false, $text will not be cut mid-word
-	 * @param boolean $considerHtml If true, HTML tags would be handled correctly
-	 * @return string Trimmed string.
+	 * @param	string	$text String to truncate.
+	 * @param	integer	$length Length of returned string, including ellipsis.
+	 * @param	string	$ending Ending to be appended to the trimmed string.
+	 * @param	boolean	$exact If false, $text will not be cut mid-word
+	 * @param	boolean	$considerHtml If true, HTML tags would be handled correctly
+	 * @return	string	Trimmed string.
 	*/
 	public static function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
 		if ($considerHtml) {
-			// if the plain text is shorter than the maximum length, return the whole text
+
+			$lines = '';
+			$tag_matchings = '';
+			$total_length = strlen($ending);
+			$open_tags = array();
+			$truncate = '';
+			$entities = '';
+
+			# if the plain text is shorter than the maximum length, return the whole text
 			if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
 				return $text;
 			}
 
-			// splits all html-tags to scanable lines
+			# splits all html-tags to scanable lines
 			preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
 
-			$total_length = strlen($ending);
-			$open_tags = array();
-			$truncate = '';
-
 			foreach ($lines as $line_matchings) {
-				// if there is any html-tag in this line, handle it and add it (uncounted) to the output
+				# if there is any html-tag in this line, handle it and add it (uncounted) to the output
 				if (!empty($line_matchings[1])) {
-					// if it's an "empty element" with or without xhtml-conform closing slash (f.e. <br/>)
+					# if it's an "empty element" with or without xhtml-conform closing slash (f.e. <br/>)
 					if (preg_match('/^<(\s*.+?\/\s*|\s*(img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param)(\s.+?)?)>$/is', $line_matchings[1])) {
-						// do nothing
-					// if tag is a closing tag (f.e. </b>)
+						# do nothing
+					# if tag is a closing tag (f.e. </b>)
 					} else if (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
-						// delete tag from $open_tags list
+						# delete tag from $open_tags list
 						$pos = array_search($tag_matchings[1], $open_tags);
 						if ($pos !== false) {
 							unset($open_tags[$pos]);
 						}
-					// if tag is an opening tag (f.e. <b>)
+					# if tag is an opening tag (f.e. <b>)
 					} else if (preg_match('/^<\s*([^\s>!]+).*?>$/s', $line_matchings[1], $tag_matchings)) {
-						// add tag to the beginning of $open_tags list
+						# add tag to the beginning of $open_tags list
 						array_unshift($open_tags, strtolower($tag_matchings[1]));
 					}
-					// add html-tag to $truncate'd text
+					# add html-tag to $truncate'd text
 					$truncate .= $line_matchings[1];
 				}
 
-				// calculate the length of the plain text part of the line; handle entities as one character
+				# calculate the length of the plain text part of the line; handle entities as one character
 				$content_length = strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
 				if ($total_length+$content_length> $length) {
-					// the number of characters which are left
+					# the number of characters which are left
 					$left = $length - $total_length;
 					$entities_length = 0;
-					// search for html entities
+					# search for html entities
 					if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
-						// calculate the real length of all entities in the legal range
+						# calculate the real length of all entities in the legal range
 						foreach ($entities[0] as $entity) {
 							if ($entity[1]+1-$entities_length <= $left) {
 								$left--;
 								$entities_length += strlen($entity[0]);
 							} else {
-								// no more characters left
+								# no more characters left
 								break;
 							}
 						}
 					}
 					$truncate .= substr($line_matchings[2], 0, $left+$entities_length);
-					// maximum lenght is reached, so get off the loop
+					# maximum lenght is reached, so get off the loop
 					break;
 				} else {
 					$truncate .= $line_matchings[2];
 					$total_length += $content_length;
 				}
 
-				// if the maximum length is reached, get off the loop
+				# if the maximum length is reached, get off the loop
 				if($total_length>= $length) {
 					break;
 				}
@@ -928,21 +1195,21 @@ class plxUtils {
 			}
 		}
 
-		// if the words shouldn't be cut in the middle...
+		# if the words shouldn't be cut in the middle...
 		if (!$exact) {
-			// ...search the last occurance of a space...
+			# ...search the last occurance of a space...
 			$spacepos = strrpos($truncate, ' ');
 			if (isset($spacepos)) {
-				// ...and cut the text in this position
+				# ...and cut the text in this position
 				$truncate = substr($truncate, 0, $spacepos);
 			}
 		}
 
-		// add the defined ending to the text
+		# add the defined ending to the text
 		$truncate .= $ending;
 		/*
 		if($considerHtml) {
-			// close all unclosed html-tags
+			# close all unclosed html-tags
 			foreach ($open_tags as $tag) {
 				$truncate .= '</' . $tag . '>';
 			}
@@ -955,8 +1222,8 @@ class plxUtils {
 	/**
 	 * Protège une chaine contre un null byte
 	 *
-	 * @param	string chaine à nettoyer
-	 * @return	string chaine nettoyée
+	 * @param	string	chaine à nettoyer
+	 * @return	string	chaine nettoyée
 	*/
 	public static function nullbyteRemove($string) {
 		return str_replace("\0", '', $string);
@@ -988,11 +1255,13 @@ class plxUtils {
 	/**
 	 * Formate le nom d'une miniature à partir d'un nom de fichier
 	 *
-	 * @param	string  nom d'un fichier
+	 * @param	string	nom d'un fichier
 	 * @return	string	nom de la miniature au format fichier.tb.ext
 	*/
 	public static function thumbName($filename) {
-		if(preg_match('/^(.*\.)(jpe?g|png|gif)$/iD', $filename, $matches)) {
+
+		$matches = '';
+		if(preg_match('/^(.*\.)(jpe?g|png|gif|bmp|webp)$/iD', $filename, $matches)) {
 			return $matches[1].'tb.'.$matches[2];
 		} else {
 			return $filename;
@@ -1002,8 +1271,8 @@ class plxUtils {
 	/**
 	 * Méthode qui minifie un buffer
 	 *
-	 * @param	string		chaine de caractères à minifier
-	 * @return	string		chaine de caractères minifiée
+	 * @param	string	chaine de caractères à minifier
+	 * @return	string	chaine de caractères minifiée
 	 * @author	Frédéric Kaplon
 	 **/
 	public static function minify($buffer) {
@@ -1017,18 +1286,18 @@ class plxUtils {
 	/**
 	 * Méthode qui converti les urls contenus dans une chaine en liens cliquables.
 	 *
-	 * @param	string		chaîne d'entrée
-	 * @param	string		Optionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
-	 * @return	string		Retourne une copie de la chaîne str dont les urls ont été encapsulées dans des balises <a>.
+	 * @param	string	chaîne d'entrée
+	 * @param	string	Optionnel. Si spécifié, ce paramètre doit être un tableau associatif de format $arr['attribute'] = $value.
+	 * @return	string	Retourne une copie de la chaîne str dont les urls ont été encapsulées dans des balises <a>.
 	 * @author	http://code.seebz.net/p/autolink-php/
 	 *	Exemple 1:
 	 *		$str = 'A link : http://example.com/?param=value#anchor.';
 	 *		$str = autolink($str);
-	 *		echo $str; // A link : <a href="http://example.com/?param=value#anchor">http://example.com/?param=value#anchor</a>.
-	 *  Exemple 2:
+	 *		echo $str; # A link : <a href="http://example.com/?param=value#anchor">http://example.com/?param=value#anchor</a>.
+	 *	Exemple 2:
 	 *		$str = 'http://example.com/';
 	 *		$str = autolink($str, array("target"=>"_blank","rel"=>"nofollow"));
-	 *		echo $str; // <a href="http://example.com/" target="_blank" rel="nofollow">http://example.com/</a>
+	 *		echo $str; # <a href="http://example.com/" target="_blank" rel="nofollow">http://example.com/</a>
 	 **/
 	public static function autolink($str, $attributes=array()) {
 		$attrs = '';
@@ -1041,17 +1310,6 @@ class plxUtils {
 		return $str;
 	}
 
-/*
-	function arrayRemoveDuplicate($array, $field) {
-		foreach ($array as $element)
-			$cmp[] = $element[$field];
-		$unique = array_unique($cmp);
-		foreach ($unique as $k => $v)
-			$new[] = $array[$k];
-		return $new;
-	}
-*/
-
 	public static function debug($obj) {
 		echo "<pre>";
 		if(is_array($obj) OR is_object($obj))
@@ -1063,20 +1321,168 @@ class plxUtils {
 
 	/**
 	 * Envoie un message vers la console javascript pour aider au déboggage.
-	 * @author		J.P. Pourrez alias bazooka07
-	 * @version		2017-06-09
+	 * @author	J.P. Pourrez alias bazooka07
+	 * @version	2017-06-09
 	 * */
 	public static function debugJS($obj, $msg='') {
 
 		if(!empty($msg)) $msg .= ' = ';
 		$msg .= (is_array($obj) OR is_object($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
 		echo <<< EOT
-	<script type="text/javascript">
-		console.log(`$msg`);
-	</script>
-
+			<script type="text/javascript">
+				console.log(`$msg`);
+			</script>
 EOT;
 	}
 
+	/**
+	 * Fonction privée statique recursive qui imprime les options d'une arborescence de fichiers ou dossiers.
+	 * @param	string	$root nom du dossier
+	 * @param	integer	$level			niveau de profondeur dans l'arborescence des dossiers
+	 * @param	string	$prefixParent	prefixe pour l'affichage de la valeur de l'option
+	 * @param	string	$choice1		sélection initiale de l'utilisateur. Utilisé seulement au niveau 0
+	 * @param	boolean	$modeDir1		mode pour afficher uniquement les dossiers
+	 * @return	void					on envoie directemenr le code HTML en sortie
+	 * @author	J.P. Pourrez alias bazooka07
+	 * */
+	private static function _printSelectDir($root, $level, $prefixParent, $choice1='', $modeDir1=true, $textOnly= true) {
+
+		static $firstRootLength = 0;
+		static $modeDir = true;
+		static $extsText = false;
+		static $currentValue = '';
+
+		# initialisation des variables statiques
+		if($level == 0) {
+			$firstRootLength = strlen($root);
+			$modeDir = $modeDir1;
+			if(!$modeDir1 and $textOnly) {
+				$extsText = 'php css html htm xml js json txt me md';
+				# plxUtils::debugJS($extsText, 'extsText');
+			}
+			$currentValue = $choice1;
+		}
+
+		$children = array_filter(scandir($root),
+			function ($item) use(&$modeDir, &$root, &$extsText) {# détermine s'il s'agit de fichier ou dossier php 5.3+
+				$ext = pathinfo($item,PATHINFO_EXTENSION);
+				return  ($item[0] != '.' and
+					( (is_dir($root.$item) ) or
+						(!$modeDir and (!empty($ext) and (strpos($extsText,$ext) !== false) or empty($extsText)))
+					)
+				);
+			}
+		);
+		natsort($children);
+
+		if(!empty($children)) {
+			$level++;
+			$cnt = count($children);
+			foreach($children as $child) {
+				$cnt--;
+				$prefix = $prefixParent;
+				# http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
+				if($cnt<=0) {
+					$prefix .= '└ '; # espace insécable !
+					$next = ' '; # espace insécable !
+				} else {
+					$prefix .= '├ '; # espace insécable !
+					$next = '│'; # espace insécable !
+				}
+				$dirOk = (is_dir($root.$child));
+				$next .= str_repeat(' ', 3); # espace insécable ! 3 = strlen($prefix.$next)
+				$dataLevel = 'level-'.str_repeat('X', $level);
+				$value = substr($root.$child, $firstRootLength);
+				$selected = ($value == rtrim($currentValue, '/')) ? ' selected' : '';
+				$caption = basename($value);
+				$classList = array();
+				#if(strpos($currentValue, dirname($value)) === 0)
+				if(strpos($value, dirname($value)) === 0)
+					$classList[] = 'visible';
+				if(!$modeDir and $dirOk)
+					$classList[] = 'folder';
+
+				$classAttr = (!empty($classList)) ? ' class="'.implode(' ', $classList).'"' : '';
+
+				if($dirOk) { # pour un dossier
+					if($modeDir) {
+						echo <<<EOT
+							<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
+
+EOT;
+					} else {
+						echo <<<EOT
+							<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+
+EOT;
+					}
+					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
+				} else { # pour un fichier
+					echo <<<EOT
+						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
+
+EOT;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Function publique pour afficher l'arborescence de dossiers et fichiers dans un tag <select..>.
+	 * Since 5.8
+	 * @param	string $name nom de l'input dans le formulaire
+	 * @param	string $currentValue sélection initiale de l'utilisateur
+	 * @param	string $root dossier initial dans l'arborescence
+	 * @param	string $class Classe css a appliquer au sélecteur #sudwebdesign
+	 * @param	boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
+	 * @param	str|bool id : si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre name
+	 * @return	void
+	 * @author	J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
+	 * $modeDir=true	pour ne choisir que les dossiers : voir plxMedias contentFolder()
+	 * $modeDir=false	pour ne choisir que les fichiers du thème
+	 * */
+	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true) {
+
+		if(is_bool($id))
+			$id = ($id ? ' id="id_'.$name.'"' : '');
+		else
+			$id = ($id!='' ? ' id="'.$id.'"' : '');
+
+		if(substr($root, -1) != '/')
+			$root .= '/';
+		$value = ($modeDir) ? '.' : '';
+		$selected = ($value == $currentValue)? ' selected': '';
+		$caption = L_PLXMEDIAS_ROOT;
+		$data_files = (!$modeDir)? ' data-files': '';
+		$disabled = (!$modeDir)? ' disabled': '';
+		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
+		echo <<< EOT
+		<select $id name="$name" class="$class">
+			<option$disabled value="$value"$selected>$caption/</option>
+EOT;
+		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
+		echo <<< EOT
+		</select>
+EOT;
+	}
+
+	/**
+	 * Méthode qui affiche la balise <link> partir d'un nom de fichier
+	 * @param	string	file	nom d'un fichier
+	 * @param	boolean	admin	false == Public & urlrwrite(), true == admin
+	 * @return	void
+	 * @author J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
+	 */
+	public static function printLinkCss($file, $admin=false) {
+
+		$plxMotor = ($admin) ? false : plxMotor::getinstance();
+		if(is_file(PLX_ROOT.$file)) {
+			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
+			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
+			echo <<< LINK
+	<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
+LINK;
+		}
+	}
+
 }
-?>

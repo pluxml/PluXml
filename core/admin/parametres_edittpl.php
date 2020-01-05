@@ -5,12 +5,12 @@
  * @author	Stephane F
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
-# Control du token du formulaire
+# Controle du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
+# Controle de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # Initialisation
@@ -48,7 +48,7 @@ function listFolderFiles($dir, $include, $root=''){
 		if($ff!='.' && $ff!='..') {
 			$ext = strtolower(strrchr($ff,'.'));
 			if(!is_dir($dir.'/'.$ff) AND is_array($include) AND in_array($ext,$include)) {
-				$f = str_replace($root, "", PLX_ROOT.ltrim($dir.'/'.$ff,'./'));
+				$f = str_replace($root, '', PLX_ROOT.ltrim($dir.'/'.$ff,'./'));
 				$content[$f] = $f;
 			}
 			if(is_dir($dir.'/'.$ff))
@@ -70,17 +70,17 @@ if(file_exists($filename) AND filesize($filename) > 0) {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 <form action="parametres_edittpl.php" method="post" id="form_edittpl">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>	
+		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelect('template', $aTemplates, $tpl); ?> 
+		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
-		&nbsp;&nbsp;&nbsp;		
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</div>
 
@@ -90,16 +90,16 @@ include(dirname(__FILE__).'/top.php');
 		<div class="col sml-12">
 			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
 			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,20,false,'full-width'); ?>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 20); ?>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>
-	
+
 </form>
 
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

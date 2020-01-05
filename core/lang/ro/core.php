@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Home',
 'L_UNCLASSIFIED'				=> 'Neclasificat',
 'L_INFO_PHP_VERSION'			=> 'Versiune php',
-'L_INFO_MAGIC_QUOTES'			=> 'Starea "magic quotes"',
 'L_INFO_CHARSET'				=> 'encoding',
 
 # index.php
@@ -33,6 +32,18 @@ $LANG = array(
 'L_SHORT_OCTOBER'				=> 'oct',
 'L_SHORT_NOVEMBER'				=> 'noem',
 'L_SHORT_DECEMBER'				=> 'dec',
+'L_LONG_JANUARY'				=> 'ianuarie  ',
+'L_LONG_FEBRUARY'				=> 'februarie ',
+'L_LONG_MARCH'					=> 'martie    ',
+'L_LONG_APRIL'					=> 'aprilie   ',
+'L_LONG_MAY'					=> 'mai       ',
+'L_LONG_JUNE'					=> 'iunie     ',
+'L_LONG_JULY'					=> 'iulie     ',
+'L_LONG_AUGUST'					=> 'august    ',
+'L_LONG_SEPTEMBER'				=> 'septembrie',
+'L_LONG_OCTOBER'				=> 'octombrie ',
+'L_LONG_NOVEMBER'				=> 'noiembrie ',
+'L_LONG_DECEMBER'				=> 'decembrie ',
 'L_JANUARY'						=> 'ianuarie',
 'L_FEBRUARY'					=> 'februarie',
 'L_MARCH'						=> 'martie',
@@ -66,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'a noua',
 'L_TENTH'						=> 'a zecea',
 'L_NTH'							=> 'lea',
-'L_CAPCHA_QUESTION'				=> 'Care este <span class="capcha-letter">%s</span> litera a cuvantului <span class="capcha-word">%s</span> ?',
+'L_CAPCHA_QUESTION'				=> 'Care este <span class="capcha-letter">%s</span> litera a cuvantului <span class="capcha-word">%s</span>&nbsp;?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s are acces de scriere',

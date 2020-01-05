@@ -4,11 +4,11 @@
  * Edition des paramètres de base
  *
  * @package PLX
- * @author	Florent MONTHEL, Stephane F
+ * @author	Florent MONTHEL, Stephane F, Philippe-M, Pedro "P3ter" CADETE"
  **/
 
-include(dirname(__FILE__).'/prepend.php');
-include(PLX_CORE.'lib/class.plx.timezones.php');
+include __DIR__ .'/prepend.php';
+include PLX_CORE.'lib/class.plx.timezones.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -24,7 +24,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 
 <form action="parametres_base.php" method="post" id="form_settings">
@@ -110,6 +110,14 @@ include(dirname(__FILE__).'/top.php');
 				<?php plxUtils::printSelect('mod_art',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['mod_art']); ?>
 			</div>
 		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_enable_rss"><?php echo L_CONFIG_BASE_ENABLE_RSS ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('enable_rss',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['enable_rss']); ?>
+			</div>
+		</div>		
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
@@ -120,5 +128,5 @@ include(dirname(__FILE__).'/top.php');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

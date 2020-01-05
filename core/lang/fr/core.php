@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Accueil',
 'L_UNCLASSIFIED'				=> 'Non classé',
 'L_INFO_PHP_VERSION'			=> 'Version de PHP',
-'L_INFO_MAGIC_QUOTES'			=> 'État des "magic quotes"',
 'L_INFO_CHARSET'				=> 'encodage',
 
 # index.php
@@ -78,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'neuvième',
 'L_TENTH'						=> 'dixième',
 'L_NTH'							=> 'ème',
-'L_CAPCHA_QUESTION'				=> 'Quelle est la <span class="capcha-letter">%s</span> lettre du mot <span class="capcha-word">%s</span> ?',
+'L_CAPCHA_QUESTION'				=> 'Quelle est la <span class="capcha-letter">%s</span> lettre du mot <span class="capcha-word">%s</span>&nbsp;?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s est accessible en écriture',

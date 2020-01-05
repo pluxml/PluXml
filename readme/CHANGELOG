@@ -1,3 +1,54 @@
+## PLUXML 5.8 (sortie : 05/01/2020) ##
+[+] PluCSS 1.3.1
+[+] Feature "Mot de passe oublié" : envoi d'un lien par mail permettant la création d'un nouveau mot de passe (P3ter)
+[+] Feature "Mot de passe oublié" : l'adresse e-mail devient obligatoire à l'installation de PluXml et à la création d'un utilisateur (P3ter)
+[+] Ajout de la translitteration des URLs des articles, des pages et des médias pour le Russe, le Polonais, le Roumain et l'Allemand (bazooka07, P3ter)
+[+] Thème par défaut : ajout du titre et du sous-titre sur mobile, modification des breakpoints et de la largeur des bords, modification de l'entête (P3ter, sudwebdesign)
+[+] Amélioration des performances du gestionnaire de médias (bazooka07)
+[+] Les modifications sur les profils utilisateurs sont immédiatement visibles, inutile de se re-connecter (sudwebdesign)
+[+] Un utilisateur supprimé ou désactivé est déconnecté automatiquement (sudwebdesign)
+[+] Administration des médias : affichage du nombre maximum de fichiers téléversables en une seule fois (sudwebdesign)
+[+] Ajout de la fonction plxUtils::printInputRadio permettant d'afficher des boutons radio (P3ter)
+[+] Ajout de la fonction plxUtils::sendMailPhpMailer permettant d'envoyer des mails avec ou sans OAUTH2 (P3ter)
+[+] Ajout de la fonction plxUtils::printLinkCss permettant d'afficher une balise <link> avec la date de modification du fichier (bazooka07, sudwebdesign)
+[+] Ajout de la fonction plxUtils::printSelectDir permettant d'afficher une arborescence dans l'administration des médias et des templates (bazooka07, sudwebdesign)
+[+] Plugins : ajout de nouveaux hooks sur la page d'authentification AdminAuthBegin, AdminAuthTopLostPassword, AdminAuthLostPassword, AdminAuthTopChangePassword, AdminAuthChangePassword, AdminAuthTopChangePasswordError, AdminAuthChangePasswordError  (sudwebdesign)
+[+] Ajout de paramètres à la fonction plxUtils::cleanHeaders() (sudwebdesign)
+[+] #40 Ne pas afficher le meta du site en mode article, static, categorie (Stéphane)
+[+] #135 Contextualiser le lien du flux RSS dans le <head> en fonction du mode catégorie, tag, ou autre (bazooka07, P3ter)
+[+] #207 Afficher/masquer le chapeau et les tags d'un article dans l'administration en CSS3 au lieu d'utiliser du JS (bazooka07, Stéphane, P3ter)
+[+] #215 Mise en avant du lien de l'article en cours de modification dans l'administration (sudwebdesign, P3ter)
+[+] #216 Refacto de la fonction plxUtils::printArea() (bazooka07)
+[+] #232 Ajout de la possibilité de désactiver l'affichage des flux RSS (Philippe-M)
+[+] #280 Support des formats de fichiers .gpx, .bmp et .webp par le gestionnaire de média (P3ter)
+[+] #293 Amélioration de la sécurité du repertoire data (bazooka07)
+[+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (P3ter)
+[+] #309 Remplacement de define() par const (bazooka07)
+[+] #312 En présence d'une homepage statique, le lien "archive total" redirige vers le blog (je-evrard, bazooka07, P3ter)
+[+] #312 Remplacement de la fonction str_replace() par strtr() pour les liens vers les pages archives (bazooka07, P3ter)
+[+] #313 Fermer l'overlay des médias avec la touche "ESC/ECHAP" du clavier (jerrywham)
+[+] #317 #325 plxShow->lastArtList() rechercher des catégories par leur url plutôt que par leur ID (jerrywham, sudwebdesign)
+[+] #331 #330 Ajout d'une image d'accroche sur une catégorie (Philippe-M)
+[+] #348 Ajout d'un paramètre "extra" à la fonction plxUtils->printArea (bazooka07)
+[+] #349 Lors de l'installation, possibilité de créer ou non les données d'exemples (sudwebdesign)
+FIX Correction de la gestion des ID CSS dans les menus (sudwebdesign)
+FIX Autorisation du cross-origin dans les flux RSS/ATOM (sudwebdesign)
+FIX #253 Faille XSS : modification des paramètres du cookie session (bazooka07, P3ter)
+FIX #287 Capcha : ajout d'un espace insécable avant le "?" (P3ter)
+FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI (bazooka07)
+FIX #315 Les espaces dans la recherche de medias font disparaitre les résultats (P3ter)
+FIX #318 L_NEW_CATEGORY en doublon pour certaines langues (P3ter)
+FIX #322 plxDate::getCalendar() ne retourne jamais L_SUNDAY (jerrywham, P3ter)
+FIX #323 La fonction plxUtils::printSelect ne fonctione pas avec un "selected" de type numérique (Philippe-M)
+FIX #324 Correction couleur des selecteurs si le theme du navigateur est inversé (sudwebdesign)
+FIX #326 Remplacement de "create_function()" déprécié depuis PHP 5.3 (faille et dégradation des performances) (P3ter)
+FIX #329 Mauvais affichage du nom du site et du menu avec Safari (P3ter)
+FIX #332 Traductions manquantes en Polonais (sudwebdesign)
+FIX #334 Thème par défaut : affichage cassé des sous-menu de pages statiques (sudwebdesign)
+FIX #343 Article n'est plus affiché après suppression de la catégorie (P3ter)
+FIX #345 $plxShow->catList affiche la catégorie 10 à tort (bazooka07)
+FIX #349 Suppression de l'utilisation de la fonction "get_magic_quotes_gpc()" dépréciée en PHP 7.4 (sudwebdesign)
+
 ## PLUXML 5.7 (sortie : 11/12/2018) ##
 
 [+] PluCSS 1.3
@@ -6,6 +57,7 @@
 [+] Administration : Tri ordre des catégories et des pages statiques par drag&drop
 [+] Affichage de l'image d'accroche dans les flux RSS
 [+] Gestionnaire de médias : affichage du nombre maximal de fichiers par envoi
+[+] Amélioration des performances du gestionnaire de médias (contribution bazooka07)
 [+] Thème par défaut : entête de page fixe (contribution bazooka07)
 [+] Tri alphabétique inversé des articles et catégories  (contribution bazooka07)
 [+] #225 Ajout id à la balise <body> de la page auth.php
@@ -15,18 +67,23 @@
 [+] #265 Affichage des archives sur une périodes glissantes de 12 mois (contribution bazooka07)
 [+] #266 Tri des pages statiques, catégories et plugins par drag n drop (contribution bazooka07)
 [+] #269 Ajout scope[admin|site] dans les fichiers infos.xml des plugins pour charger un plugin uniquement coté admin, site ou les 2 (contribution bazooka07)
+[+] #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (contribution bazzoka07)
 FIX Suppression fichier plugin update impossible (droit fichier)
 FIX Chevauchement des menus de l'administration avec un facteur de zoom > 100%
 FIX Administration : mauvais affichage des caractères spéciaux dans le nom de l'auteur d'un commentaire (contribution bazooka07)
 FIX mediasManager.js : fonction callback inactive avec Firefox Quantum
+FIX Minification des fichiers CSS du thème de l'admin et du thème par défaut
 FIX #220 Problème affichage CSS thème par défaut
+FIX #225 Ajout id à la balise <body> de la page auth.php
 FIX #237 urlRewrite et caractère "&"
 FIX #249 ajout clés de traduction russe manquantes
 FIX #256 plxPlugin::setParam : mauvais test sur le paramètre "$type" (contribution bazooka07)
 FIX #260 Libellé de catégorie "Non classé" non affiché lors de la prévisualisation
 FIX #262 Suppression tris inutiles
 FIX #289 Ajout de la class "noactive" par défaut sur les tags (contribution WorldBot)
+FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI  (contribution bazooka07)
 FIX #303 Récupération des archives d'une année (contribution sudwebdesign)
+FIX #305 Remplacement dirname(__FILE__) par __DIR__ dans l'admin et le thème par défaut (contribution bazzoka07)
 
 ## PLUXML 5.6 (sortie : 05/04/2017) ##
 

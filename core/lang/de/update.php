@@ -14,7 +14,7 @@ $LANG = array(
 'L_UPDATE_BACK'				=> 'Zurück zur Website',
 'L_UPDATE_WARNING1'			=> 'Ihr altes PluXml wird aktualisiert.',
 'L_UPDATE_SELECT_VERSION'	=> 'Wählen Sie Ihre alte PluXml Version.',
-'L_UPDATE_WARNING2'			=> 'Wenn Ihre alte PluXml Version nicht angezeigt wird, ist sie zu alt.<br />Wir empfehlen Ihnen die neuste Version von <a href="http://www.pluxml.org">PluXml</a> zu laden und neu zu installieren.',
+'L_UPDATE_WARNING2'			=> 'Wenn Ihre alte PluXml Version nicht angezeigt wird, ist sie zu alt.<br />Wir empfehlen Ihnen die neuste Version von <a href="https://www.pluxml.org">PluXml</a> zu laden und neu zu installieren.',
 'L_UPDATE_WARNING3'			=> 'Warnung: Vergessen Sie nicht, vor der Aktualisierung das Verzeichnis "data" zu sichern.',
 'L_UPDATE_START'			=> 'Aktualisierung starten',
 

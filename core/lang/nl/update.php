@@ -14,7 +14,7 @@ $LANG = array(
 'L_UPDATE_BACK'						=> 'Terug naar de site',
 'L_UPDATE_WARNING1'					=> 'U staat op het punt uw oude versie van PluXml bij te werken',
 'L_UPDATE_SELECT_VERSION'			=> 'Gelieve in onderstaande lijst de huidige versie van uw PluXml-installatie te kiezen om bij te werken.',
-'L_UPDATE_WARNING2'					=> 'Indien u uw versie van PluXml niet terug kan vinden in de lijst dan betekent dit dat uw huidige versie van PluXml te oud is om automatisch bij te werken.<br />Wij raden u aan de laatste versie van <a href="http://www.pluxml.org">PluXml</a> te downloaden en een nieuwe installatie uit te voeren.',
+'L_UPDATE_WARNING2'					=> 'Indien u uw versie van PluXml niet terug kan vinden in de lijst dan betekent dit dat uw huidige versie van PluXml te oud is om automatisch bij te werken.<br />Wij raden u aan de laatste versie van <a href="https://www.pluxml.org">PluXml</a> te downloaden en een nieuwe installatie uit te voeren.',
 'L_UPDATE_WARNING3'					=> 'Opgapast, wij raden u aan om vooraleer u een update uitvoert een kopie te maken van uw gegevens in de map "data"',
 'L_UPDATE_START'					=> 'Start het bijwerken',
 

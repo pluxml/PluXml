@@ -16,20 +16,22 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.min.css?ver=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css?ver=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?ver=<?php echo PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css?v=<?php echo PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css?v=<?php echo PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
-	<?php if(is_file(PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'])) echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['custom_admincss_file'].'" media="screen" />'."\n" ?>
-	<?php
-	if(file_exists(PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css'))
-		echo '<link rel="stylesheet" type="text/css" href="'.PLX_ROOT.$plxAdmin->aConf['racine_plugins'].'admin.css" media="screen" />'."\n";
-	?>
-	<script src="<?php echo PLX_CORE ?>lib/functions.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/visual.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?ver=<?php echo PLX_VERSION ?>"></script>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead')) ?>
+<?php
+	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
+	plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'].'admin.css', true);
+?>
+	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
+<?php
+	# Hook Plugins
+	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
+?>
 </head>
 
 <body id="<?php echo basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
@@ -42,11 +44,12 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 				<li>
 					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a></small>
 				</li>
-				<?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
 				<li>
+<?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
 					<small><a class="back-blog" href="<?php echo $plxAdmin->urlRewrite('?blog'); ?>" title="<?php echo L_BACK_TO_BLOG_TITLE ?>"><?php echo L_BACK_TO_BLOG;?></a></small>
+<?php else: ?>&nbsp;
+<?php endif; ?>
 				</li>
-				<?php endif; ?>
 				<li>
 					<small><a class="logout" href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>"><?php echo L_ADMIN_LOGOUT ?></a></small>
 				</li>
@@ -65,14 +68,14 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						else echo L_PROFIL_WRITER; ?>
 					</em>
 				</li>
-				<li><small><a class="version" title="PluXml" href="http://www.pluxml.org">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small></li>
+				<li><small><a class="version" title="PluXml" href="<?php echo PLX_REPO_URL ?>">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small></li>
 			</ul>
 		</header>
 		<nav class="responsive-menu">
 			<label for="nav"><?php echo L_MENU ?></label>
 			<input type="checkbox" id="nav" />
 			<ul id="responsive-menu" class="menu vertical expanded">
-				<?php
+<?php
 					$menus = array();
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
@@ -133,16 +136,18 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					# Hook Plugins
 					eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
 					echo implode('', $menus);
-				?>
+?>
 			</ul>
 		</nav>
 	</aside>
 
 	<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
-		<?php
-		if(is_file(PLX_ROOT.'install.php')) echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>';
+<?php
+		if(is_file(PLX_ROOT.'install.php'))
+			echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>'."\n";
 		plxMsg::Display();
-		?>
 
-		<?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')) ?>
+		# Hook Plugins
+		eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+?>

@@ -1,8 +1,12 @@
 <?php
-define('PLX_ROOT', '../../');
-define('PLX_CORE', PLX_ROOT.'core/');
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+const PLX_ROOT = '../../';
+const PLX_CORE = PLX_ROOT .'core/';
+const PLX_TEMPLATES = PLX_CORE.'templates/';
+const PLX_TEMPLATES_DATA = PLX_ROOT.'data/templates/';
+const SESSION_LIFETIME = 7200;
+
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -12,8 +16,9 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 
 # On démarre la session
 session_start();
+setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 
-$session_domain = dirname(__FILE__);
+$session_domain = __DIR__ ;
 
 if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la page de login
 	# Test sur le domaine et sur l'identification
@@ -24,17 +29,21 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 }
 
 # On inclut les librairies nécessaires
-include_once(PLX_CORE.'lib/class.plx.date.php');
-include_once(PLX_CORE.'lib/class.plx.glob.php');
-include_once(PLX_CORE.'lib/class.plx.utils.php');
-include_once(PLX_CORE.'lib/class.plx.msg.php');
-include_once(PLX_CORE.'lib/class.plx.record.php');
-include_once(PLX_CORE.'lib/class.plx.motor.php');
-include_once(PLX_CORE.'lib/class.plx.admin.php');
-include_once(PLX_CORE.'lib/class.plx.encrypt.php');
-include_once(PLX_CORE.'lib/class.plx.medias.php');
-include_once(PLX_CORE.'lib/class.plx.plugins.php');
-include_once(PLX_CORE.'lib/class.plx.token.php');
+include_once PLX_CORE.'lib/class.plx.date.php';
+include_once PLX_CORE.'lib/class.plx.glob.php';
+include_once PLX_CORE.'lib/class.plx.utils.php';
+include_once PLX_CORE.'lib/class.plx.msg.php';
+include_once PLX_CORE.'lib/class.plx.record.php';
+include_once PLX_CORE.'lib/class.plx.motor.php';
+include_once PLX_CORE.'lib/class.plx.admin.php';
+include_once PLX_CORE.'lib/class.plx.encrypt.php';
+include_once PLX_CORE.'lib/class.plx.medias.php';
+include_once PLX_CORE.'lib/class.plx.plugins.php';
+include_once PLX_CORE.'lib/class.plx.token.php';
+include_once PLX_CORE.'lib/class.plx.template.php';
+include_once PLX_CORE.'lib/class.phpmailer.php';
+include_once PLX_CORE.'lib/class.phpmailer.smtp.php';
+include_once PLX_CORE.'lib/class.phpmailer.exception.php';
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
@@ -47,8 +56,17 @@ $plxAdmin = plxAdmin::getInstance();
 
 # Détermination de la langue à utiliser (modifiable par le hook AdminPrepend)
 $lang = $plxAdmin->aConf['default_lang'];
-if(isset($_SESSION['user'])) $lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
-
+if(isset($_SESSION['user'])) {
+	$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
+	# Si désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
+	if(!$plxAdmin->aUsers[$_SESSION['user']]['active'] OR $plxAdmin->aUsers[$_SESSION['user']]['delete']){
+		header('Location: auth.php?d=1');# Déconnecte l'utilisateur a la prochaine demande,
+		exit;
+	}
+	# Change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
+	if($plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
+		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
+}
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 

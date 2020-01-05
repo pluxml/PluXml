@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -25,8 +25,8 @@ function pluginsList($plugins, $defaultLang, $type) {
 # plugins		array()		contient la liste des plugins à afficher
 # defaultLang	string		langue utilisée dans l'admin
 # type			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
-
 	$output='';
+	$plxAdmin = plxAdmin::getInstance();#OR global $plxAdmin;
 	if(sizeof($plugins)>0) {
 		$num=0;
 		foreach($plugins as $plugName => $plugInstance) {
@@ -42,7 +42,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
 
 			# plugin activé uniquement côté site (<scope> == 'site')
-			if(empty($plugInstance) and $plugInstance=plxPlugins::getInstance($plugName)) {
+			if(empty($plugInstance) and $plugInstance=$plxAdmin->plxPlugins->getInstance($plugName)) {
 				$plugInstance->getInfos();
 			}
 			$output .= '<tr class="top" data-scope="'.$plugInstance->getInfo('scope').'">'."\n";
@@ -126,7 +126,7 @@ $breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='0'?'class="selected" ':'')
 $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 ?>
 
@@ -145,7 +145,7 @@ include(dirname(__FILE__).'/top.php');
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		&nbsp;&nbsp;&nbsp;
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<?php if($sel==1) { ?>
 		<input type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
 		<?php } ?>
@@ -205,5 +205,5 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") !=
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>
