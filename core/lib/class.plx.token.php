@@ -60,7 +60,7 @@ class plxToken {
 	 */
 
 	public static function generateTokenExperyDate($hours = 24) {
-		return date(YmdHis, mktime(date(H)+$hours, date(i), date(s), date(m), date(d), date(Y)));
+		return date('YmdHis', mktime(date('H')+$hours, date('i'), date('s'), date('m'), date('d'), date('Y')));
 	}
 
 }

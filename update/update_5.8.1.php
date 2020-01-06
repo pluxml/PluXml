@@ -1,0 +1,32 @@
+<?php
+/**
+ * Classe de mise a jour pour PluXml version 5.8
+ *
+ * @package PLX
+ * @author	Pedro "P3ter" CADETE
+ **/
+class update_5_8_1 extends plxUpdate{
+
+	/**
+	 * Update category file with new fields thumbnail, thumbnail_title, thumbnail_alt
+	 * @return boolean
+	 */
+	public function step1() {
+		echo L_UPDATE_FILE." (".path('XMLFILE_CATEGORIES').")<br />";
+		$data = file_get_contents(path('XMLFILE_CATEGORIES'));
+		$tag = 'categorie';
+		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
+			foreach($matches[0] as $match) {
+				if(!preg_match('/<thumbnail>/', $match)) {
+					$str = str_replace('</'.$tag.'>', '<thumbnail><![CDATA[]]></thumbnail><thumbnail_title><![CDATA[]]></thumbnail_title><thumbnail_alt><![CDATA[]]></thumbnail_alt></'.$tag.'>', $match);
+					$data = str_replace($match, $str, $data);
+				}
+			}
+			if(!plxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
+				echo '<p class="error">'.L_UPDATE_ERR_FILE.'</p>';
+				return false;
+			}
+		}
+		return true;
+	}
+}

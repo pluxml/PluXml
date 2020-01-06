@@ -130,11 +130,11 @@ if(!empty($_POST['editpassword'])){
 
 	$plxAdmin->editPassword($_POST);
 
-	if (!empty($msg = $_SESSION['error'])) {
+	if (!empty($msg = isset($_SESSION['error']) ? $_SESSION['error'] : '')) {
 		$css = 'alert red';
 	}
 	else {
-		if (!empty($msg = $_SESSION['info'])) {
+		if (!empty($msg = isset($_SESSION['info']) ? $_SESSION['info'] : '')) {
 			$css = 'alert green';
 		}
 	}
@@ -173,7 +173,7 @@ plxUtils::cleanHeaders();
 <?php
 				# Hook plugins
 				eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin'));
-				switch ($_GET['action']){
+				switch (isset($_GET['action']) ? $_GET['action'] : false){
 					case 'lostpassword': # Affichage du formulaire d'envoi du mail de changement de mot de passe
 						# Hook plugins
 						eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword'));

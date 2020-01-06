@@ -17,6 +17,7 @@ include(PLX_CORE.'lib/class.plx.utils.php');
 include(PLX_CORE.'lib/class.plx.token.php');
 
 # Chargement des langues
+$lang = DEFAULT_LANG;
 if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
 	$lang = $_POST['default_lang'];
 }
@@ -158,7 +159,7 @@ function install($content, $config) {
 	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 	$xml .= '<document>'."\n";
 	if($content['data']>0)
-		$xml .= "\t".'<categorie number="001" active="1" homepage="1" tri="'.$config['tri'].'" bypage="'.$config['bypage'].'" menu="oui" url="'.L_DEFAULT_CATEGORY_URL.'" template="categorie.php"><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE).']]></name><description><![CDATA[]]></description><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag></categorie>'."\n";
+		$xml .= "\t".'<categorie number="001" active="1" homepage="1" tri="'.$config['tri'].'" bypage="'.$config['bypage'].'" menu="oui" url="'.L_DEFAULT_CATEGORY_URL.'" template="categorie.php"><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE).']]></name><description><![CDATA[]]></description><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag><thumbnail><![CDATA[]]></thumbnail><thumbnail_title><![CDATA[]]></thumbnail_title><thumbnail_alt><![CDATA[]]></thumbnail_alt></categorie>'."\n";
 
 	$xml .= '</document>';
 	plxUtils::write($xml,path('XMLFILE_CATEGORIES'));

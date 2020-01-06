@@ -370,7 +370,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$valid = false;
 
 		foreach($this->aUsers as $user_id => $user) {
-			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date(YmdHi)) {
+			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date('YmdHi')) {
 				$valid = true;
 			}
 		}

@@ -7,6 +7,8 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
 
+include_once PLX_CORE.'lib/class.plx.template.php';
+
 class plxMotor {
 
 	public $get = false; # Donnees variable GET
@@ -41,6 +43,9 @@ class plxMotor {
 	public $plxErreur = null; # Objet plxErreur
 	public $plxPlugins = null; # Objet plxPlugins
 
+	private static $plxTemplates = PLX_CORE.'templates/';
+	private static $plxTemplatesData = PLX_ROOT.'data/templates/';
+	
 	private static $instance;
 
 	/**
@@ -110,8 +115,8 @@ class plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 		# Get templates from core/templates and data/templates
-		$this->getTemplates(PLX_TEMPLATES);
-		$this->getTemplates(PLX_TEMPLATES_DATA);
+		$this->getTemplates(self::$plxTemplates);
+		$this->getTemplates(self::$plxTemplatesData);
 	}
 
 	/**
@@ -443,9 +448,12 @@ class plxMotor {
 				# Recuperation du fichier template
 				$this->aCats[$number]['template']=isset($attributes['template'])?$attributes['template']:'categorie.php';
 				# Récupération des informations de l'image représentant la catégorie
-				$this->aCats[$number]['thumbnail']=plxUtils::getValue($values[$iTags['thumbnail'][$i]]['value']);
-				$this->aCats[$number]['thumbnail_title']=plxUtils::getValue($values[$iTags['thumbnail_title'][$i]]['value']);
-				$this->aCats[$number]['thumbnail_alt']=plxUtils::getValue($values[$iTags['thumbnail_alt'][$i]]['value']);
+				$thumbnail = plxUtils::getValue($iTags['thumbnail'][$i]);
+				$this->aCats[$number]['thumbnail']=plxUtils::getValue($values[$thumbnail]['value']);
+				$thumbnail_title = plxUtils::getValue($iTags['thumbnail_title'][$i]);
+				$this->aCats[$number]['thumbnail_title']=plxUtils::getValue($values[$thumbnail_title]['value']);
+				$thumbnail_alt = plxUtils::getValue($iTags['thumbnail_alt'][$i]);
+				$this->aCats[$number]['thumbnail_alt']=plxUtils::getValue($values[$thumbnail_alt]['value']);
 				# Récuperation état affichage de la catégorie dans le menu
 				$this->aCats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
 				# Récuperation état activation de la catégorie dans le menu
@@ -569,8 +577,10 @@ class plxMotor {
 				$this->aUsers[$number]['email']=plxUtils::getValue($values[$email]['value']);
 				$lang = isset($iTags['lang'][$i]) ? $values[$iTags['lang'][$i]]['value']:'';
 				$this->aUsers[$number]['lang'] = $lang!='' ? $lang : $this->aConf['default_lang'];
-				$this->aUsers[$number]['password_token']=plxUtils::getValue($values[$iTags['password_token'][$i]]['value']);
-				$this->aUsers[$number]['password_token_expiry']=plxUtils::getValue($values[$iTags['password_token_expiry'][$i]]['value']);
+				$password_token = plxUtils::getValue($iTags['password_token'][$i]);
+				$this->aUsers[$number]['password_token']=plxUtils::getValue($values[$password_token]['value']);
+				$password_token_expiry = plxUtils::getValue($iTags['password_token_expiry'][$i]);
+				$this->aUsers[$number]['password_token_expiry']=plxUtils::getValue($values[$password_token_expiry]['value']);
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxMotorGetUsers'));
 			}
@@ -1002,8 +1012,10 @@ class plxMotor {
 	 **/
 	public function getTemplates($templateFolder) {
 		$files = array_diff(scandir($templateFolder), array('..', '.'));
-		foreach ($files as $file) {
-			$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+		if (!empty($files)) {
+			foreach ($files as $file) {
+				$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+			}
 		}
 	}
 

@@ -237,14 +237,21 @@ class PlxTemplate {
 		xml_parser_free($parser);
 
 		# getting datas from the parser
-		$template['name'] = plxUtils::getValue($values[$index['name'][0]]['value']);
-		$template['type'] = plxUtils::getValue($values[$index['type'][0]]['value']);
+		$name = plxUtils::getValue($index['name'][0]);
+		$template['name'] = plxUtils::getValue($values[$name]['value']);
+		$type = plxUtils::getValue($index['type'][0]);
+		$template['type'] = plxUtils::getValue($values[$type]['value']);
 		if ($template['type'] == 'email') {
-			$template['emailname'] = plxUtils::getValue($values[$index['emailname'][0]]['value']);
-			$template['emailfrom'] = plxUtils::getValue($values[$index['emailfrom'][0]]['value']);
-			$template['emailsubject'] = plxUtils::getValue($values[$index['emailsubject'][0]]['value']);
+			$emailname = plxUtils::getValue($index['emailname'][0]);
+			$template['emailname'] = plxUtils::getValue($values[$emailname]['value']);
+			$emailfrom = plxUtils::getValue($index['emailfrom'][0]);
+			$template['emailfrom'] = plxUtils::getValue($values[$emailfrom]['value']);
+			$emailsubject = plxUtils::getValue($index['emailsubject'][0]);
+			$template['emailsubject'] = plxUtils::getValue($values[$emailsubject]['value']);
+
 		}
-		$template['content'] = plxUtils::getValue($values[$index['content'][0]]['value']);
+		$content = plxUtils::getValue($index['content'][0]);
+		$template['content'] = plxUtils::getValue($values[$content]['value']);
 
 		return $template;
 	}
