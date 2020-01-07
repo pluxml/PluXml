@@ -1,8 +1,9 @@
-## PLUXML 5.81 (sortie : 07/01/2020) ##
+## PLUXML 5.8.1 (sortie : 07/01/2020) ##
 FIX #360 Undefined index: password_token
 FIX #361 Use of undefined constant PLX_TEMPLATES
-FIX #363 Notice: Undefined index: name
 FIX #362 Uncaught Error: Class 'PlxTemplate' not found
+FIX #363 Notice: Undefined index: name
+FIX #364 warning messages and use browser language
 
 ## PLUXML 5.8 (sortie : 05/01/2020) ##
 [+] PluCSS 1.3.1
