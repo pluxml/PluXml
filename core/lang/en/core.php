@@ -81,7 +81,7 @@ $LANG = array(
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s has write access',
-'L_WRITE_NOT_ACCESS'			=> '%s does not have write access or does not exist',
+'L_WRITE_NOT_ACCESS'			=> '%s has no writing access or is missing',
 'L_MODREWRITE_AVAILABLE'		=> 'Apache URL Rewriting module mod_rewrite available',
 'L_MODREWRITE_NOT_AVAILABLE'	=> 'Apache URL Rewriting module mod_rewrite unavailable',
 'L_LIBGD_INSTALLED'				=> 'GD library installed',

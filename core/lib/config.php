@@ -1,10 +1,11 @@
 <?php
 const PLX_DEBUG = false;
-const PLX_VERSION = '5.8';
+const PLX_VERSION = '5.8.1';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
+
 # Gestion des erreurs PHP
-if(PLX_DEBUG) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 # Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
 function getMicrotime() {

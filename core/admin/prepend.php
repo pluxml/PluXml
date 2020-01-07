@@ -1,8 +1,6 @@
 <?php
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
-const PLX_TEMPLATES = PLX_CORE.'templates/';
-const PLX_TEMPLATES_DATA = PLX_ROOT.'data/templates/';
 const SESSION_LIFETIME = 7200;
 
 include PLX_ROOT.'config.php';
@@ -40,7 +38,6 @@ include_once PLX_CORE.'lib/class.plx.encrypt.php';
 include_once PLX_CORE.'lib/class.plx.medias.php';
 include_once PLX_CORE.'lib/class.plx.plugins.php';
 include_once PLX_CORE.'lib/class.plx.token.php';
-include_once PLX_CORE.'lib/class.plx.template.php';
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
