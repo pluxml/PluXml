@@ -487,8 +487,8 @@ class plxShow {
 				array(
 					$img_url, # #img_url
 					(file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, # #img_thumb_url
-					plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_title']), # #img_title
-					plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_alt']) # #img_alt
+					plxUtils::strCheck(plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_title'])), # #img_title
+					plxUtils::strCheck(plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_alt'])) # #img_alt
 				),
 				$format
 			);

@@ -1,4 +1,4 @@
-## PLUXML 5.8 Release Candidate (sortie : 19/12/2019) ##
+## PLUXML 5.8 (sortie : 05/01/2020) ##
 [+] PluCSS 1.3.1
 [+] Feature "Mot de passe oublié" : envoi d'un lien par mail permettant la création d'un nouveau mot de passe (P3ter)
 [+] Feature "Mot de passe oublié" : l'adresse e-mail devient obligatoire à l'installation de PluXml et à la création d'un utilisateur (P3ter)
@@ -33,6 +33,7 @@
 [+] #349 Lors de l'installation, possibilité de créer ou non les données d'exemples (sudwebdesign)
 FIX Correction de la gestion des ID CSS dans les menus (sudwebdesign)
 FIX Autorisation du cross-origin dans les flux RSS/ATOM (sudwebdesign)
+FIX #253 Faille XSS : modification des paramètres du cookie session (bazooka07, P3ter)
 FIX #287 Capcha : ajout d'un espace insécable avant le "?" (P3ter)
 FIX #302 Renvoie vers index.php si un paramètre est inconnu dans l'URI (bazooka07)
 FIX #315 Les espaces dans la recherche de medias font disparaitre les résultats (P3ter)

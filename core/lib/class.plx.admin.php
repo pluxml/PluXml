@@ -370,7 +370,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$valid = false;
 
 		foreach($this->aUsers as $user_id => $user) {
-			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date(YmdHi)) {
+			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date('YmdHi')) {
 				$valid = true;
 			}
 		}
@@ -439,8 +439,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aUsers[$user_id]['lang'] = (isset($this->aUsers[$user_id]['lang'])?$this->aUsers[$user_id]['lang']:$this->aConf['default_lang']);
 					$this->aUsers[$user_id]['infos'] = (isset($this->aUsers[$user_id]['infos'])?$this->aUsers[$user_id]['infos']:'');
 
-					$this->aUsers[$user_id]['password_token'] = trim($content[$user_id.'_password_token']);
-					$this->aUsers[$user_id]['password_token_expiry'] = trim($content[$user_id.'_password_token_expiry']);
+					$this->aUsers[$user_id]['password_token'] = (isset($this->aUsers[$user_id]['_password_token'])?$this->aUsers[$user_id]['_password_token']:'');
+					$this->aUsers[$user_id]['password_token_expiry'] = (isset($this->aUsers[$user_id]['_password_token_expiry'])?$this->aUsers[$user_id]['_password_token_expiry']:'');
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
 					$action = true;
