@@ -17,7 +17,7 @@ include(PLX_CORE.'lib/class.plx.utils.php');
 include(PLX_CORE.'lib/class.plx.token.php');
 
 # Chargement des langues
-$lang = DEFAULT_LANG;
+$lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
 if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
 	$lang = $_POST['default_lang'];
 }
