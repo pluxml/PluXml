@@ -10,6 +10,8 @@
 include_once PLX_CORE.'lib/class.plx.template.php';
 
 class plxMotor {
+	const PLX_TEMPLATES = PLX_CORE . 'templates/';
+	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
 
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
@@ -43,9 +45,6 @@ class plxMotor {
 	public $plxErreur = null; # Objet plxErreur
 	public $plxPlugins = null; # Objet plxPlugins
 
-	private static $plxTemplates = PLX_CORE.'templates/';
-	private static $plxTemplatesData = PLX_ROOT.'data/templates/';
-	
 	private static $instance;
 
 	/**
@@ -115,8 +114,8 @@ class plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 		# Get templates from core/templates and data/templates
-		$this->getTemplates(self::$plxTemplates);
-		$this->getTemplates(self::$plxTemplatesData);
+		$this->getTemplates(self::PLX_TEMPLATES);
+		$this->getTemplates(self::PLX_TEMPLATES_DATA);
 	}
 
 	/**
@@ -1002,7 +1001,7 @@ class plxMotor {
 		# Mémorisation de la liste des tags
 		$this->aTags = $array;
 	}
-	
+
 	/**
 	 * Méthode qui alimente le tableau aTemplate
 	 *
@@ -1011,10 +1010,12 @@ class plxMotor {
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function getTemplates($templateFolder) {
-		$files = array_diff(scandir($templateFolder), array('..', '.'));
-		if (!empty($files)) {
-			foreach ($files as $file) {
-				$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+		if(is_dir($templateFolder)) {
+			$files = array_diff(scandir($templateFolder), array('..', '.'));
+			if (!empty($files)) {
+				foreach ($files as $file) {
+					$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+				}
 			}
 		}
 	}

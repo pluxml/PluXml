@@ -52,4 +52,15 @@ class update_5_8_1 extends plxUpdate{
 		}
 		return true;
 	}
+	
+	/**
+	 * Create data/templates folder if is missing
+	 * @return boolean
+	 */
+	public function step3() {
+		if(!is_dir(PLX_ROOT.'data/templates')) {
+			@mkdir(PLX_ROOT.'data/templates',0755,true);
+		}
+		return true;
+	}
 }
