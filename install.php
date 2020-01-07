@@ -54,6 +54,11 @@ if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
 	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
 }
 
+# Vérification de l'existence du dossier data/templates
+if(!is_dir(PLX_ROOT.'data/templates')) {
+	@mkdir(PLX_ROOT.'data/templates',0755,true);
+}
+
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);

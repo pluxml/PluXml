@@ -1011,10 +1011,12 @@ class plxMotor {
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function getTemplates($templateFolder) {
-		$files = array_diff(scandir($templateFolder), array('..', '.'));
-		if (!empty($files)) {
-			foreach ($files as $file) {
-				$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+		if(is_dir($templateFolder)) {
+			$files = array_diff(scandir($templateFolder), array('..', '.'));
+			if (!empty($files)) {
+				foreach ($files as $file) {
+					$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+				}
 			}
 		}
 	}
