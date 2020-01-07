@@ -1,10 +1,10 @@
 <?php
-define('PLX_ROOT', '../');
-define('PLX_CORE', PLX_ROOT.'core/');
+const PLX_ROOT = '../';
+const PLX_CORE = PLX_ROOT . 'core/';
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
 
-define('PLX_UPDATER', true);
+const PLX_UPDATER = true;
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
