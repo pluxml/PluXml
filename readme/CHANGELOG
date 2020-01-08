@@ -1,3 +1,3 @@
-## PLUXML 6.0 (YYYY/MM/DD)) ##
+## PLUXML 6.0 (YYYY/MM/DD) ##
 FIX #365 plxUtils::getLangs() optimisations (bazooka07)
-FIX #367 plxUtils::sendmail() minors correction (bazooka07)
+FIX #367 plxUtils::sendmail() minor correction (bazooka07)
