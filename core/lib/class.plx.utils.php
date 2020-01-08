@@ -987,12 +987,12 @@ class plxUtils {
 			$headers['Reply-To'] = $from;
 		}
 
-		if(empty($cc)) {
+		if(!empty($cc)) {
 			$headers['Cc'] = (is_array($cc)) ? implode(', ', $cc) : $cc;
 		}
 
-		if(empty($bcc)) {
-			$headers['Cc'] = (is_array($Bcc)) ? implode(', ', $bcc) : $bcc;
+		if(!empty($bcc)) {
+			$headers['Cc'] = (is_array($bcc)) ? implode(', ', $bcc) : $bcc;
 		}
 
 		return mail($to, $subject, $body,
