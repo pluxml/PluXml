@@ -90,7 +90,7 @@ HEAD;
 	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
 	$from = $plxAdmin->aUsers['001']['email'];
 
-	if(empty($plxAdmin->aConf['email_method']) or $plxAdmin->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils, 'sendMailPhpMailer')) {
+	if(empty($plxAdmin->aConf['email_method']) or $plxAdmin->aConf['email_method'] == 'sendmail' or !method_exists('plxUtils', 'sendMailPhpMailer')) {
 		# fonction mail() intrinséque à PHP
 		$method = '<p style="font-size: 80%;"><em>mail() function from PHP</em></p>';
 		$body = $head . $content . $method . $foot;
@@ -104,7 +104,7 @@ HEAD;
 		$method = '<p style="font-size: 80%;"><em>' . $plxAdmin->aConf['email_method'] . ' via PHPMailer</em></p>';
 		$body = $head . $content . $method . $foot;
 
-		if(plxUtils::sendMailPhpMailer($name, $from, $email, $subject, $header . $body . $footer, true, $plxAdmin->aConf)) {
+		if(plxUtils::sendMailPhpMailer($name, $from, $email, $subject, $head . $body . $foot, true, $plxAdmin->aConf)) {
 			plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
 		} else {
 			plxMsg::Error(L_MAIL_TEST_FAILURE);
