@@ -932,15 +932,13 @@ class plxUtils {
 	 * @author	Stephane F.
 	 **/
 	public static function getLangs() {
-		$array = array();
-		$glob = plxGlob::getInstance(PLX_CORE.'lang', true);
-		if($aFolders = $glob->query("/[a-z]+/i")) {
-			foreach($aFolders as $folder) {
-				$array[$folder] = $folder;
-			}
-		}
-		ksort($array);
-		return $array;
+		$result = array_map(
+			function($dir1) {
+				return preg_replace('#.*/([a-z]{2})$#', '$1', $dir1);
+			},
+			glob(PLX_CORE . 'lang/*', GLOB_ONLYDIR)
+		);
+		return $result;
 	}
 
 	/**
