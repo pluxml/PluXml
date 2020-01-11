@@ -1,0 +1,15 @@
+{
+	"name": "pluxml/pluxml",
+	"authors": [
+		{
+			"name": "Pedro CADETE",
+			"email": "p3ter@pluxml.org"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Pluxml\\": "core/lib"
+		}
+	},
+	"require": {}
+}

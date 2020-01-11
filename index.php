@@ -5,6 +5,17 @@ const PLX_CORE = PLX_ROOT.'core/';
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
 
+require 'vendor/autoload.php';
+use Pluxml\Router\plxRouter;
+
+// PluXml router initialisation
+$router = new plxRouter($_GET['url']);
+$router->get('/', function(){echo 'Homepage';});
+$router->get('/posts', function(){echo 'Tous les articles';});
+$router->get('/posts:id', function($id){echo 'Afficher article '.$id;});
+$router->post('/posts:id', function($id){echo 'Poster article '.$id;});
+$router->run();
+
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	header('Location: '.PLX_ROOT.'install.php');
