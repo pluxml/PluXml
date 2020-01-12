@@ -12,7 +12,7 @@ namespace Pluxml\Router;
 class plxRouter {
 
 	private $url;
-	private $routes = array();
+	private $routes = [];
 
 	public function __construct($url) {
 		$this->setUrl($url);
@@ -21,6 +21,7 @@ class plxRouter {
 	public function get($path, $callable) {
 		$route = new plxRoute($path, $callable);
 		$this->setRoutes('GET', $route);
+		return $route;
 	}
 
 	public function post($path, $callable) {

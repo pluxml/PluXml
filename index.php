@@ -12,8 +12,18 @@ use Pluxml\Router\plxRouter;
 $router = new plxRouter(isset($_GET['url']) ? $_GET['url'] : null);
 $router->get('/', function(){echo 'Homepage';});
 $router->get('/posts', function(){echo 'Tous les articles';});
-$router->get('/posts/:id', function($id){echo 'Afficher article '.$id;});
-$router->post('/posts/:id', function($id){echo 'Poster article '.$id;});
+$router->get('/posts/:id-:slug', function($id, $slug){echo "Article $slug : $id";})->with('id', '[0-9]+')->with('slug', '[a-z\-0-9]+');
+$router->get('/posts/:id', function($id){
+?>
+	<form action="" method="post">
+		<input type="text" name="name">
+		<button type="submit">Envoyer</button>
+	</form>
+	
+
+<?php
+});
+$router->post('/posts/:id', function($id){echo 'Poster article '.$id.'<pre>'.print_r($_POST, true).'</pre>';});
 $router->run();
 
 # On verifie que PluXml est installé
