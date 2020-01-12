@@ -9,8 +9,6 @@
 
 namespace Pluxml\Router;
 
-use Pluxml;
-
 class plxRoute {
 	
 	private $path;
