@@ -23,15 +23,13 @@ class plxRoute {
 	public function match($url) {
 		$result = false;
 		$matches = '';
-
 		$url = trim($url, '/');
-		$path = preg_replace('#:[\w]+#', '([^/]+)', $this->getPath());
+		$path = preg_replace('#:([\w]+)#', '([^/]+)', $this->getPath());
 		$regex = "#^$path$#i";
 		if(preg_match($regex, $url, $matches)) {
 			array_shift($matches);
 			$this->setMatches($matches);
 			$result = true;
-			var_dump($matches);
 		}
 
 		return $result;
