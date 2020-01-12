@@ -1,13 +1,15 @@
 <?php
 
 /**
- * Classe plxRoute URL route
+ * plxRoute class define a route for the PluXml router
  *
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
 
 namespace Pluxml\Router;
+
+use Pluxml;
 
 class plxRoute {
 	
@@ -39,17 +41,31 @@ class plxRoute {
 		}
 		return $result;
 	}
-
-	private function paramMatch($match) {
-		if (isset($this->getParams($match[1]))) {
-			return '('.$this->getParams($match[1]).')';
+	
+	public function getRouteUrl($params) {
+		$path = $this->getPath();
+		foreach ($params as $key => $value) {
+			$path = str_replace(":$key", $value, $path);
 		}
-		return '([^/]+)';
+		return $path;
 	}
 
 	public function call() {
-		var_dump($this->getMatches());
-		return call_user_func_array($this->getCallable(), $this->getMatches());
+		if (is_string($this->getCallable())) {
+			$params = explode("#", $this->getCallable());
+			$controller = "Pluxml\\Controllers\\" . $params[0] . "Controller";
+			$controller = new $controller();
+			return call_user_func_array([$controller, $params[1]], $this->getMatches());
+		} else {
+			return call_user_func_array($this->getCallable(), $this->getMatches());
+		}
+	}
+
+	private function paramMatch($match) {
+		if (!empty($this->getParams($match[1]))) {
+			return '('.$this->getParams($match[1]).')';
+		}
+		return '([^/]+)';
 	}
 
 	/**
@@ -69,10 +85,10 @@ class plxRoute {
 	/**
 	 * @return array
 	 */
-	private function getParams($match = null) {
+	private function getParams($param = null) {
 		$params = $this->params;
-		if (!empty($match)) {
-			$params = $this->params[$match];
+		if (!empty($param) AND isset($this->params[$param])) {
+			$params = $this->params[$param];
 		}
 		return $params;
 	}
@@ -82,7 +98,7 @@ class plxRoute {
 	 * @param string $regex
 	 */
 	private function setParams($param, $regex) {
-		$this->params[$param] = $regex;
+		$this->params[$param] = str_replace('(', '(?:', $regex);
 	}
 	
 	/**
