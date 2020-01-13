@@ -928,16 +928,21 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne la liste des langues disponibles dans un tableau
 	 *
-	 * @return	string		chaine de caractères modifiée
-	 * @author	Stephane F.
+	 * @return	tableau associatif
+	 * @author	J.P. Pourrez, Stephane F.
 	 **/
 	public static function getLangs() {
-		$result = array_map(
-			function($dir1) {
-				return preg_replace('#.*/([a-z]{2})$#', '$1', $dir1);
-			},
-			glob(PLX_CORE . 'lang/*', GLOB_ONLYDIR)
-		);
+		$result = array();
+		foreach(
+			array_map(
+				function($dir1) {
+					return preg_replace('#.*/([a-z]{2})$#', '$1', $dir1);
+				},
+				glob(PLX_CORE . 'lang/*', GLOB_ONLYDIR)
+			) as $lang
+		) {
+			$result[$lang] = $lang;
+		}
 		return $result;
 	}
 
