@@ -1,3 +1,4 @@
 ## PLUXML 6.0 (YYYY/MM/DD) ##
+[+] #371 Recherche de mise à jour en Javascript si "curl" ou "file_get_contents" ne peut-être utilisé (bazooka07)
 FIX #365 plxUtils::getLangs() optimisations (bazooka07)
 FIX #367 plxUtils::sendmail() minor correction (bazooka07)
