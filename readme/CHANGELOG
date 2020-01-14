@@ -1,4 +1,5 @@
 ## PLUXML 6.0 (YYYY/MM/DD) ##
-[+] #371 Recherche de mise à jour en Javascript si "curl" ou "file_get_contents" ne peut-être utilisé (bazooka07)
+[+] #371 Check PluXml update using javascript if "curl" or "file_get_contents" can not be used (bazooka07)
 FIX #365 plxUtils::getLangs() optimisations (bazooka07)
 FIX #367 plxUtils::sendmail() minor correction (bazooka07)
+FIX #372 [i18n] missing L_CONFIG_ADVANCED_LOSTPASSWORD in oc, es, pl, pt, ro, ru, it (P3ter)

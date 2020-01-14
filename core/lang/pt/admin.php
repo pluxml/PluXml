@@ -328,6 +328,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_GZIP' => 'Activar a compressão GZIP',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Permite de comprimir as páginas afim de economizar os dados transferidos entre o servidor e o seu computer, em consequência aumenta a carga do servidor ! Desactive se o sue web-site fôr muito visitado',
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Activar o capcha anti-spam',
+		'L_CONFIG_ADVANCED_LOSTPASSWORD' => 'Ativar recuperação de senha',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Chave de administração (URLS privadas)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Esvaziar o campo afim de regenerar a chave novamente',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Utilizar uma pasta medias diferente para cada Editor',

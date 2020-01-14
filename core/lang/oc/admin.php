@@ -374,6 +374,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_GZIP' => 'Activar la compression GZIP',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Permet de compressar las paginas per estalviar de banda passanta, ça que la pòt augmentar la carga processor',
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Activar lo capcha anti-spam',
+		'L_CONFIG_ADVANCED_LOSTPASSWORD' => 'Activar la recuperacion de mot de passa',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Clau d\'administracion (URLs privats)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Vojar aquel camp per tornar generar la clau',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Utilizar un dorsièr mèdias diferent per cada redactor',
