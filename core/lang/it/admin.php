@@ -325,6 +325,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_GZIP' => 'Abilita la compressione GZIP',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Consente la compressione delle pagine per ridurre la banda utilizzata, ciò potrebbe richiedere un maggiore utilizzo del processore',
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Abilita il capcha anti-spam',
+		'L_CONFIG_ADVANCED_LOSTPASSWORD' => 'Abilita il recupero della password',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Chiave di amministrazione (URL privati)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Svuota questo campo per rigenerare la chiave',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Usare delle cartelle medias diverse per ogni redattore',

@@ -12,6 +12,7 @@ const PLX_ADMIN = true;
 class plxAdmin extends plxMotor {
 
 	private static $instance = null;
+	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
@@ -1216,10 +1217,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function checkMaj() {
 
-		$caption='PluXml.org';
-
 		$latest_version = 'L_PLUXML_UPDATE_ERR';
 		$className = '';
+		$this->update_link = sprintf('%s : <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, PLX_URL_REPO, PLX_URL_REPO);
 
 		$http_response_header = '';
 		# test avec allow_url_open ou file_get_contents ?
@@ -1260,7 +1260,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$className = 'green';
 		}
 		else {
-			$msg = sprintf('%s <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, PLX_URL_REPO, $caption);
+			$msg = $this->update_link;
 			$className = 'orange';
 		}
 
