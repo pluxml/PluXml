@@ -8,9 +8,11 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
@@ -27,7 +29,7 @@ $userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user'])
 
 # Récuperation des paramètres
 if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published', 'draft','mod'))) {
-	$_SESSION['sel_get']=plxUtils::nullbyteRemove($_GET['sel']);
+	$_SESSION['sel_get']=PlxUtils::nullbyteRemove($_GET['sel']);
 	$_SESSION['sel_cat']='';
 }
 else
@@ -78,9 +80,9 @@ case preg_match('/^[0-9]{3}$/', $_SESSION['sel_cat'])==1:
 $nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId);
 
 # Récupération du texte à rechercher
-$artTitle = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
+$artTitle = (!empty($_GET['artTitle']))?PlxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
 if(empty($artTitle)) {
-	 $artTitle = (!empty($_POST['artTitle']))?plxUtils::unSlash(trim(urldecode($_POST['artTitle']))):'';
+	 $artTitle = (!empty($_POST['artTitle']))?PlxUtils::unSlash(trim(urldecode($_POST['artTitle']))):'';
 }
 $_GET['artTitle'] = $artTitle;
 
@@ -89,7 +91,7 @@ if(is_numeric($_GET['artTitle'])) {
 	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
 	$motif = '/^'.$mod.$artId.'.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*).xml$/';
 } else {
-	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::urlify($_GET['artTitle']).'(.*).xml$/';
+	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.PlxUtils::urlify($_GET['artTitle']).'(.*).xml$/';
 }
 # Calcul du nombre de page si on fait une recherche
 if($_GET['artTitle']!='') {
@@ -108,8 +110,8 @@ $aFilterCat['home'] = L_CATEGORY_HOME;
 $aFilterCat['000'] = L_UNCLASSIFIED;
 if($plxAdmin->aCats) {
 	foreach($plxAdmin->aCats as $k=>$v) {
-		$aCat[$k] = plxUtils::strCheck($v['name']);
-		$aFilterCat[$k] = plxUtils::strCheck($v['name']);
+		$aCat[$k] = PlxUtils::strCheck($v['name']);
+		$aFilterCat[$k] = PlxUtils::strCheck($v['name']);
 	}
 	$aAllCat[L_CATEGORIES_TABLE] = $aCat;
 }
@@ -134,22 +136,22 @@ include __DIR__ .'/top.php';
 		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
 	</ul>
 	<?php
-	echo plxToken::getTokenPostMethod();
+	echo PlxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
-		plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
+		PlxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
 		echo '<input name="sel" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>';
 	}
 	?>
-	<?php plxUtils::printInput('page',1,'hidden'); ?>
+	<?php PlxUtils::printInput('page',1,'hidden'); ?>
 </div>
 
 <div class="grid">
 	<div class="col sml-6">
-		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
+		<?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
 	<div class="col sml-6 text-right">
-		<input id="index-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
+		<input id="index-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo PlxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
 	</div>
 </div>
@@ -176,7 +178,7 @@ include __DIR__ .'/top.php';
 			$num=0;
 			$datetime = date('YmdHi');
 			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
-				$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
+				$author = PlxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
 				$publi = (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
 				# Catégories : liste des libellés de toutes les categories
 				$draft='';
@@ -189,7 +191,7 @@ include __DIR__ .'/top.php';
 						if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
 						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
 						elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
-						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
+						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.PlxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
 					}
 
 				}
@@ -204,7 +206,7 @@ include __DIR__ .'/top.php';
 				echo '<td><input type="checkbox" name="idArt[]" value="'.$idArt.'" /></td>';
 				echo '<td>'.$idArt.'</td>';
 				echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
-				echo '<td class="wrap"><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')).'</a>'.$draft.$awaiting.'&nbsp;</td>';
+				echo '<td class="wrap"><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.PlxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')).'</a>'.$draft.$awaiting.'&nbsp;</td>';
 				echo '<td>';
 				if(sizeof($aCats)>1) {
 					echo '<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value=this.value;this.form.submit()">';
@@ -214,7 +216,7 @@ include __DIR__ .'/top.php';
 				else echo strip_tags(implode('', $aCats));
 				echo '&nbsp;</td>';
 				echo '<td><a title="'.L_NEW_COMMENTS_TITLE.'" href="comments.php?sel=offline&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsToValidate.'</a> / <a title="'.L_VALIDATED_COMMENTS_TITLE.'" href="comments.php?sel=online&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsValidated.'</a>&nbsp;</td>';
-				echo '<td>'.plxUtils::strCheck($author).'&nbsp;</td>';
+				echo '<td>'.PlxUtils::strCheck($author).'&nbsp;</td>';
 				echo '<td>';
 				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_ARTICLE_EDIT.'</a>';
 				if($publi AND $draft=='') # Si l'article est publié

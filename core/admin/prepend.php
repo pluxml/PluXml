@@ -1,10 +1,15 @@
 <?php
+
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
 const SESSION_LIFETIME = 7200;
 
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
+
+require_once PLX_ROOT.'vendor/autoload.php';
+use Pluxml\PlxAdmin;
+use Pluxml\PlxUtils;
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -26,27 +31,14 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 	}
 }
 
-# On inclut les librairies nécessaires
-include_once PLX_CORE.'lib/class.plx.date.php';
-include_once PLX_CORE.'lib/class.plx.glob.php';
-include_once PLX_CORE.'lib/class.plx.utils.php';
-include_once PLX_CORE.'lib/class.plx.msg.php';
-include_once PLX_CORE.'lib/class.plx.record.php';
-include_once PLX_CORE.'lib/class.plx.motor.php';
-include_once PLX_CORE.'lib/class.plx.admin.php';
-include_once PLX_CORE.'lib/class.plx.encrypt.php';
-include_once PLX_CORE.'lib/class.plx.medias.php';
-include_once PLX_CORE.'lib/class.plx.plugins.php';
-include_once PLX_CORE.'lib/class.plx.token.php';
-
 # Echappement des caractères
-if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
+if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = PlxUtils::unSlash($_POST);
 
 # On impose le charset
 header('Content-Type: text/html; charset='.PLX_CHARSET);
 
 # Creation de l'objet principal et premier traitement
-$plxAdmin = plxAdmin::getInstance();
+$plxAdmin = PlxAdmin::getInstance();
 
 # Détermination de la langue à utiliser (modifiable par le hook AdminPrepend)
 $lang = $plxAdmin->aConf['default_lang'];

@@ -1,11 +1,12 @@
 <?php
 /**
- * Classe plxPlugins responsable de la gestion des plugins
- *
- * @package PLX
+ * PlxPlugins clas manage PluXml plugins
  * @author	Stephane F
  **/
-class plxPlugins {
+
+namespace Pluxml;
+
+class PlxPlugins {
 
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins

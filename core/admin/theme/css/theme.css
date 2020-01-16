@@ -1,0 +1,20 @@
+/*
+# ------------------ BEGIN LICENSE BLOCK ------------------
+#
+# This file is part of PluXml : https://www.pluxml.org
+#
+# Authors: Pedro "P3ter" CADETE
+# Licensed under the GPL license.
+# See http://www.gnu.org/licenses/gpl.html
+#
+# ------------------- END LICENSE BLOCK -------------------
+*/
+
+/* ---------- Authentication ---------- */
+
+.logo {
+	background-image: url(images/pluxml.png);
+	margin: 10% auto 20px auto;
+	height: 80px;
+	width: 123px;
+}

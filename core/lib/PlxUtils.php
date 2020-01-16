@@ -7,14 +7,14 @@
  * @author	Florent MONTHEL et Stephane F
  **/
 
+namespace Pluxml;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\OAuth;
 use League\OAuth2\Client\Provider\Google;
 
-require PLX_CORE.'vendor/autoload.php';
-
-class plxUtils {
+class PlxUtils {
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.

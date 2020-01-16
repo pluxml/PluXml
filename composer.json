@@ -1,0 +1,19 @@
+{
+	"name": "pluxml/pluxml",
+	"authors": [
+		{
+			"name": "Pedro CADETE",
+			"email": "p3ter@pluxml.org"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Pluxml\\": "core/lib"
+		}
+	},
+	"require": {
+		"phpmailer/phpmailer": "^6.1",
+		"league/oauth2-client": "^2.4",
+		"league/oauth2-google": "^3.0"
+	}
+}

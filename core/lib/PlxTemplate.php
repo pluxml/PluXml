@@ -1,11 +1,11 @@
 <?php
 
 /**
- * plxTemplates class is in charge of mails templates management
- *
- * @package PLX
+ * plxTemplates class is in charge of templates management (e-mails, ...)
  * @author	Pedro "P3ter" CADETE
  **/
+
+namespace Pluxml;
 
 class PlxTemplate {
 

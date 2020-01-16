@@ -1,18 +1,18 @@
 <?php
 
 /**
- * Classe plxAdmin responsable des modifications dans l'administration
- *
- * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F et Pedro "P3ter" CADETE
+ * PlxAdmin class manage modifications in the PluXml administration
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
+
+namespace Pluxml;
 
 const PLX_ADMIN = true;
 
-class plxAdmin extends plxMotor {
+class PlxAdmin extends PlxMotor {
 
 	private static $instance = null;
-	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
+	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin

@@ -1,11 +1,14 @@
 <?php
 /**
- * Classe plxToken responsable du controle des formulaires
+ * PlxToken class is in charge of tokens and forms control
  *
  * @package PLX
  * @author	Stephane F
  **/
-class plxToken {
+
+namespace Pluxml;
+
+class PlxToken {
 
 	/**
 	 * Méthode qui affiche le champ input contenant le token

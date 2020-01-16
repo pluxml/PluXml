@@ -7,9 +7,9 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
 
-include_once PLX_CORE.'lib/class.plx.template.php';
+namespace Pluxml;
 
-class plxMotor {
+class PlxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
 
@@ -75,7 +75,7 @@ class plxMotor {
 		$this->getConfiguration($filename);
 		define('PLX_SITE_LANG', $this->aConf['default_lang']);
 		# récupération des paramètres dans l'url
-		$this->get = plxUtils::getGets();
+		$this->get = PlxUtils::getGets();
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
 		# On vérifie s'il faut faire une mise à jour
@@ -97,13 +97,13 @@ class plxMotor {
 		$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
 		$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->aConf['default_lang'];
 		#--
-		$this->plxPlugins = new plxPlugins($lang);
+		$this->plxPlugins = new PlxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
-		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
-		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
+		$this->plxGlob_arts = PlxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
+		$this->plxGlob_coms = PlxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getStatiques(path('XMLFILE_STATICS'));
@@ -216,7 +216,7 @@ class plxMotor {
 			foreach($this->aTags as $idart => $tag) {
 				if($tag['date']<=$datetime) {
 					$tags = array_map("trim", explode(',', $tag['tags']));
-					$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
+					$tagUrls = array_map(array('PlxUtils', 'urlify'), $tags);
 					if(in_array($this->cible, $tagUrls)) {
 						if(!isset($ids[$idart])) $ids[$idart] = $idart;
 						if(!isset($this->cibleName)) {
@@ -305,7 +305,7 @@ class plxMotor {
 			# On a validé le formulaire commentaire
 			if(!empty($_POST) AND $this->plxRecord_arts->f('allow_com') AND $this->aConf['allow_com']) {
 				# On récupère le retour de la création
-				$retour = $this->newCommentaire($this->cible,plxUtils::unSlash($_POST));
+				$retour = $this->newCommentaire($this->cible,PlxUtils::unSlash($_POST));
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
@@ -317,11 +317,11 @@ class plxMotor {
 					header('Location: '.$url.'#form');
 				} else {
 					$_SESSION['msgcom'] = $retour;
-					$_SESSION['msg']['name'] = plxUtils::unSlash($_POST['name']);
-					$_SESSION['msg']['site'] = plxUtils::unSlash($_POST['site']);
-					$_SESSION['msg']['mail'] = plxUtils::unSlash($_POST['mail']);
-					$_SESSION['msg']['content'] = plxUtils::unSlash($_POST['content']);
-					$_SESSION['msg']['parent'] = plxUtils::unSlash($_POST['parent']);
+					$_SESSION['msg']['name'] = PlxUtils::unSlash($_POST['name']);
+					$_SESSION['msg']['site'] = PlxUtils::unSlash($_POST['site']);
+					$_SESSION['msg']['mail'] = PlxUtils::unSlash($_POST['mail']);
+					$_SESSION['msg']['content'] = PlxUtils::unSlash($_POST['content']);
+					$_SESSION['msg']['parent'] = PlxUtils::unSlash($_POST['parent']);
 					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
 					header('Location: '.$url.'#form');
 				}
@@ -373,25 +373,25 @@ class plxMotor {
 			}
 		}
 		# détermination automatique de la racine du site
-		$this->aConf['racine'] = plxUtils::getRacine();
+		$this->aConf['racine'] = PlxUtils::getRacine();
 		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
-		$this->aConf['bypage_admin'] = plxUtils::getValue($this->aConf['bypage_admin'],10);
-		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
-		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
-		$this->aConf['bypage_archives'] = plxUtils::getValue($this->aConf['bypage_archives'],5);
-		$this->aConf['bypage_tags'] = plxUtils::getValue($this->aConf['bypage_tags'],5);
-		$this->aConf['userfolders'] = plxUtils::getValue($this->aConf['userfolders'],0);
-		$this->aConf['meta_description'] = plxUtils::getValue($this->aConf['meta_description']);
-		$this->aConf['meta_keywords'] = plxUtils::getValue($this->aConf['meta_keywords']);
-		$this->aConf['default_lang'] = plxUtils::getValue($this->aConf['default_lang'],DEFAULT_LANG);
-		$this->aConf['racine_plugins'] = plxUtils::getValue($this->aConf['racine_plugins'], 'plugins/');
-		$this->aConf['racine_themes'] = plxUtils::getValue($this->aConf['racine_themes'], 'themes/');
-		$this->aConf['mod_art'] = plxUtils::getValue($this->aConf['mod_art'],0);
-		$this->aConf['display_empty_cat'] = plxUtils::getValue($this->aConf['display_empty_cat'],0);
-		$this->aConf['timezone'] = plxUtils::getValue($this->aConf['timezone'],@date_default_timezone_get());
+		$this->aConf['bypage_admin'] = PlxUtils::getValue($this->aConf['bypage_admin'],10);
+		$this->aConf['tri_coms'] = PlxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
+		$this->aConf['bypage_admin_coms'] = PlxUtils::getValue($this->aConf['bypage_admin_coms'],10);
+		$this->aConf['bypage_archives'] = PlxUtils::getValue($this->aConf['bypage_archives'],5);
+		$this->aConf['bypage_tags'] = PlxUtils::getValue($this->aConf['bypage_tags'],5);
+		$this->aConf['userfolders'] = PlxUtils::getValue($this->aConf['userfolders'],0);
+		$this->aConf['meta_description'] = PlxUtils::getValue($this->aConf['meta_description']);
+		$this->aConf['meta_keywords'] = PlxUtils::getValue($this->aConf['meta_keywords']);
+		$this->aConf['default_lang'] = PlxUtils::getValue($this->aConf['default_lang'],DEFAULT_LANG);
+		$this->aConf['racine_plugins'] = PlxUtils::getValue($this->aConf['racine_plugins'], 'plugins/');
+		$this->aConf['racine_themes'] = PlxUtils::getValue($this->aConf['racine_themes'], 'themes/');
+		$this->aConf['mod_art'] = PlxUtils::getValue($this->aConf['mod_art'],0);
+		$this->aConf['display_empty_cat'] = PlxUtils::getValue($this->aConf['display_empty_cat'],0);
+		$this->aConf['timezone'] = PlxUtils::getValue($this->aConf['timezone'],@date_default_timezone_get());
 		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
-		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
+		$this->aConf['custom_admincss_file'] = PlxUtils::getValue($this->aConf['custom_admincss_file']);
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
 
@@ -426,18 +426,18 @@ class plxMotor {
 				$attributes = $values[$iTags['categorie'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
 				# Recuperation du nom de la catégorie
-				$this->aCats[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
+				$this->aCats[$number]['name']=PlxUtils::getValue($values[$iTags['name'][$i]]['value']);
 				# Recuperation du nom de la description
-				$this->aCats[$number]['description']=plxUtils::getValue($values[$iTags['description'][$i]]['value']);
+				$this->aCats[$number]['description']=PlxUtils::getValue($values[$iTags['description'][$i]]['value']);
 				# Recuperation de la balise title
-				$title_htmltag = plxUtils::getValue($iTags['title_htmltag'][$i]);
-				$this->aCats[$number]['title_htmltag']=plxUtils::getValue($values[$title_htmltag]['value']);
+				$title_htmltag = PlxUtils::getValue($iTags['title_htmltag'][$i]);
+				$this->aCats[$number]['title_htmltag']=PlxUtils::getValue($values[$title_htmltag]['value']);
 				# Recuperation du meta description
-				$meta_description = plxUtils::getValue($iTags['meta_description'][$i]);
-				$this->aCats[$number]['meta_description']=plxUtils::getValue($values[$meta_description]['value']);
+				$meta_description = PlxUtils::getValue($iTags['meta_description'][$i]);
+				$this->aCats[$number]['meta_description']=PlxUtils::getValue($values[$meta_description]['value']);
 				# Recuperation du meta keywords
-				$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][$i]);
-				$this->aCats[$number]['meta_keywords']=plxUtils::getValue($values[$meta_keywords]['value']);
+				$meta_keywords = PlxUtils::getValue($iTags['meta_keywords'][$i]);
+				$this->aCats[$number]['meta_keywords']=PlxUtils::getValue($values[$meta_keywords]['value']);
 				# Recuperation de l'url de la categorie
 				$this->aCats[$number]['url']=strtolower($attributes['url']);
 				# Recuperation du tri de la categorie si besoin est
@@ -447,12 +447,12 @@ class plxMotor {
 				# Recuperation du fichier template
 				$this->aCats[$number]['template']=isset($attributes['template'])?$attributes['template']:'categorie.php';
 				# Récupération des informations de l'image représentant la catégorie
-				$thumbnail = plxUtils::getValue($iTags['thumbnail'][$i]);
-				$this->aCats[$number]['thumbnail']=plxUtils::getValue($values[$thumbnail]['value']);
-				$thumbnail_title = plxUtils::getValue($iTags['thumbnail_title'][$i]);
-				$this->aCats[$number]['thumbnail_title']=plxUtils::getValue($values[$thumbnail_title]['value']);
-				$thumbnail_alt = plxUtils::getValue($iTags['thumbnail_alt'][$i]);
-				$this->aCats[$number]['thumbnail_alt']=plxUtils::getValue($values[$thumbnail_alt]['value']);
+				$thumbnail = PlxUtils::getValue($iTags['thumbnail'][$i]);
+				$this->aCats[$number]['thumbnail']=PlxUtils::getValue($values[$thumbnail]['value']);
+				$thumbnail_title = PlxUtils::getValue($iTags['thumbnail_title'][$i]);
+				$this->aCats[$number]['thumbnail_title']=PlxUtils::getValue($values[$thumbnail_title]['value']);
+				$thumbnail_alt = PlxUtils::getValue($iTags['thumbnail_alt'][$i]);
+				$this->aCats[$number]['thumbnail_alt']=PlxUtils::getValue($values[$thumbnail_alt]['value']);
 				# Récuperation état affichage de la catégorie dans le menu
 				$this->aCats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
 				# Récuperation état activation de la catégorie dans le menu
@@ -502,18 +502,18 @@ class plxMotor {
 				$attributes = $values[$iTags['statique'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
 				# Récupération du nom de la page statique
-				$this->aStats[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
+				$this->aStats[$number]['name']=PlxUtils::getValue($values[$iTags['name'][$i]]['value']);
 				# Récupération de la balise title
-				$title_htmltag = plxUtils::getValue($iTags['title_htmltag'][$i]);
-				$this->aStats[$number]['title_htmltag']=plxUtils::getValue($values[$title_htmltag]['value']);
+				$title_htmltag = PlxUtils::getValue($iTags['title_htmltag'][$i]);
+				$this->aStats[$number]['title_htmltag']=PlxUtils::getValue($values[$title_htmltag]['value']);
 				# Récupération du meta description
-				$meta_description = plxUtils::getValue($iTags['meta_description'][$i]);
-				$this->aStats[$number]['meta_description']=plxUtils::getValue($values[$meta_description]['value']);
+				$meta_description = PlxUtils::getValue($iTags['meta_description'][$i]);
+				$this->aStats[$number]['meta_description']=PlxUtils::getValue($values[$meta_description]['value']);
 				# Récupération du meta keywords
-				$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][$i]);
-				$this->aStats[$number]['meta_keywords']=plxUtils::getValue($values[$meta_keywords]['value']);
+				$meta_keywords = PlxUtils::getValue($iTags['meta_keywords'][$i]);
+				$this->aStats[$number]['meta_keywords']=PlxUtils::getValue($values[$meta_keywords]['value']);
 				# Récupération du groupe de la page statique
-				$this->aStats[$number]['group']=plxUtils::getValue($values[$iTags['group'][$i]]['value']);
+				$this->aStats[$number]['group']=PlxUtils::getValue($values[$iTags['group'][$i]]['value']);
 				# Récupération de l'url de la page statique
 				$this->aStats[$number]['url']=strtolower($attributes['url']);
 				# Récupération de l'etat de la page
@@ -523,11 +523,11 @@ class plxMotor {
 				# Récupération du fichier template
 				$this->aStats[$number]['template']=isset($attributes['template'])?$attributes['template']:'static.php';
 				# Récupération de la date de création
-				$date_creation = plxUtils::getValue($iTags['date_creation'][$i]);
-				$this->aStats[$number]['date_creation']=plxUtils::getValue($values[$date_creation]['value']);
+				$date_creation = PlxUtils::getValue($iTags['date_creation'][$i]);
+				$this->aStats[$number]['date_creation']=PlxUtils::getValue($values[$date_creation]['value']);
 				# Récupération de la date de mise à jour
-				$date_update = plxUtils::getValue($iTags['date_update'][$i]);
-				$this->aStats[$number]['date_update']=plxUtils::getValue($values[$date_update]['value']);
+				$date_update = PlxUtils::getValue($iTags['date_update'][$i]);
+				$this->aStats[$number]['date_update']=PlxUtils::getValue($values[$date_update]['value']);
 				# On verifie que la page statique existe bien
 				$file = PLX_ROOT.$this->aConf['racine_statiques'].$number.'.'.$attributes['url'].'.php';
 				# On test si le fichier est lisible
@@ -566,20 +566,20 @@ class plxMotor {
 				$this->aUsers[$number]['active']=$attributes['active'];
 				$this->aUsers[$number]['delete']=$attributes['delete'];
 				$this->aUsers[$number]['profil']=$attributes['profil'];
-				$this->aUsers[$number]['login']=plxUtils::getValue($values[$iTags['login'][$i]]['value']);
-				$this->aUsers[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
-				$this->aUsers[$number]['password']=plxUtils::getValue($values[$iTags['password'][$i]]['value']);
-				$salt = plxUtils::getValue($iTags['salt'][$i]);
-				$this->aUsers[$number]['salt']=plxUtils::getValue($values[$salt]['value']);
-				$this->aUsers[$number]['infos']=plxUtils::getValue($values[$iTags['infos'][$i]]['value']);
-				$email = plxUtils::getValue($iTags['email'][$i]);
-				$this->aUsers[$number]['email']=plxUtils::getValue($values[$email]['value']);
+				$this->aUsers[$number]['login']=PlxUtils::getValue($values[$iTags['login'][$i]]['value']);
+				$this->aUsers[$number]['name']=PlxUtils::getValue($values[$iTags['name'][$i]]['value']);
+				$this->aUsers[$number]['password']=PlxUtils::getValue($values[$iTags['password'][$i]]['value']);
+				$salt = PlxUtils::getValue($iTags['salt'][$i]);
+				$this->aUsers[$number]['salt']=PlxUtils::getValue($values[$salt]['value']);
+				$this->aUsers[$number]['infos']=PlxUtils::getValue($values[$iTags['infos'][$i]]['value']);
+				$email = PlxUtils::getValue($iTags['email'][$i]);
+				$this->aUsers[$number]['email']=PlxUtils::getValue($values[$email]['value']);
 				$lang = isset($iTags['lang'][$i]) ? $values[$iTags['lang'][$i]]['value']:'';
 				$this->aUsers[$number]['lang'] = $lang!='' ? $lang : $this->aConf['default_lang'];
-				$password_token = plxUtils::getValue($iTags['password_token'][$i]);
-				$this->aUsers[$number]['password_token']=plxUtils::getValue($values[$password_token]['value']);
-				$password_token_expiry = plxUtils::getValue($iTags['password_token_expiry'][$i]);
-				$this->aUsers[$number]['password_token_expiry']=plxUtils::getValue($values[$password_token_expiry]['value']);
+				$password_token = PlxUtils::getValue($iTags['password_token'][$i]);
+				$this->aUsers[$number]['password_token']=PlxUtils::getValue($values[$password_token]['value']);
+				$password_token_expiry = PlxUtils::getValue($iTags['password_token_expiry'][$i]);
+				$this->aUsers[$number]['password_token_expiry']=PlxUtils::getValue($values[$password_token_expiry]['value']);
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxMotorGetUsers'));
 			}
@@ -642,7 +642,7 @@ class plxMotor {
 			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
 				$array[$k] = $this->parseArticle(PLX_ROOT.$this->aConf['racine_articles'].$v);
 			# On stocke les enregistrements dans un objet plxRecord
-			$this->plxRecord_arts = new plxRecord($array);
+			$this->plxRecord_arts = new PlxRecord($array);
 			return true;
 		}
 		else return false;
@@ -687,20 +687,21 @@ class plxMotor {
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
 		# Recuperation des valeurs de nos champs XML
-		$art['title'] = plxUtils::getValue($values[$iTags['title'][0]]['value']);
-		$art['allow_com'] = plxUtils::getValue($values[$iTags['allow_com'][0]]['value']);
-		$art['template'] = plxUtils::getValue($values[$iTags['template'][0]]['value'],'article.php');
-		$art['chapo'] = plxUtils::getValue($values[$iTags['chapo'][0]]['value']);
-		$art['content'] = plxUtils::getValue($values[$iTags['content'][0]]['value']);
-		$art['tags'] = plxUtils::getValue($values[ $iTags['tags'][0] ]['value']);
-		$meta_description = plxUtils::getValue($iTags['meta_description'][0]);
-		$art['meta_description'] = plxUtils::getValue($values[$meta_description]['value']);
-		$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][0]);
-		$art['meta_keywords'] = plxUtils::getValue($values[$meta_keywords]['value']);
-		$art['title_htmltag'] = isset($iTags['title_htmltag']) ? plxUtils::getValue($values[$iTags['title_htmltag'][0]]['value']) : '';
-		$art['thumbnail'] = isset($iTags['thumbnail']) ? plxUtils::getValue($values[$iTags['thumbnail'][0]]['value']) : '';
-		$art['thumbnail_title'] = isset($iTags['thumbnail_title']) ? plxUtils::getValue($values[$iTags['thumbnail_title'][0]]['value']) : '';
-		$art['thumbnail_alt'] = isset($iTags['thumbnail_alt']) ? plxUtils::getValue($values[$iTags['thumbnail_alt'][0]]['value']) : '';
+		$art['title'] = PlxUtils::getValue($values[$iTags['title'][0]]['value']);
+		$art['allow_com'] = PlxUtils::getValue($values[$iTags['allow_com'][0]]['value']);
+		$art['template'] = PlxUtils::getValue($values[$iTags['template'][0]]['value'],'article
+		.php');
+		$art['chapo'] = PlxUtils::getValue($values[$iTags['chapo'][0]]['value']);
+		$art['content'] = PlxUtils::getValue($values[$iTags['content'][0]]['value']);
+		$art['tags'] = PlxUtils::getValue($values[ $iTags['tags'][0] ]['value']);
+		$meta_description = PlxUtils::getValue($iTags['meta_description'][0]);
+		$art['meta_description'] = PlxUtils::getValue($values[$meta_description]['value']);
+		$meta_keywords = PlxUtils::getValue($iTags['meta_keywords'][0]);
+		$art['meta_keywords'] = PlxUtils::getValue($values[$meta_keywords]['value']);
+		$art['title_htmltag'] = isset($iTags['title_htmltag']) ? PlxUtils::getValue($values[$iTags['title_htmltag'][0]]['value']) : '';
+		$art['thumbnail'] = isset($iTags['thumbnail']) ? PlxUtils::getValue($values[$iTags['thumbnail'][0]]['value']) : '';
+		$art['thumbnail_title'] = isset($iTags['thumbnail_title']) ? PlxUtils::getValue($values[$iTags['thumbnail_title'][0]]['value']) : '';
+		$art['thumbnail_alt'] = isset($iTags['thumbnail_alt']) ? PlxUtils::getValue($values[$iTags['thumbnail_alt'][0]]['value']) : '';
 		# Informations obtenues en analysant le nom du fichier
 		$art['filename'] = $filename;
 		$tmp = $this->artInfoFromFilename($filename);
@@ -710,8 +711,8 @@ class plxMotor {
 		$art['url'] = $tmp['artUrl'];
 		$art['date'] = $tmp['artDate'];
 		$art['nb_com'] = $this->getNbCommentaires('/^'.$art['numero'].'.[0-9]{10}.[0-9]+.xml$/');
-		$art['date_creation'] = isset($iTags['date_creation']) ? plxUtils::getValue($values[$iTags['date_creation'][0]]['value']) : $art['date'];
-		$art['date_update'] = isset($iTags['date_update']) ? plxUtils::getValue($values[$iTags['date_update'][0]]['value']) : $art['date'];
+		$art['date_creation'] = isset($iTags['date_creation']) ? PlxUtils::getValue($values[$iTags['date_creation'][0]]['value']) : $art['date'];
+		$art['date_update'] = isset($iTags['date_update']) ? PlxUtils::getValue($values[$iTags['date_update'][0]]['value']) : $art['date'];
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorParseArticle'));
 		# On retourne le tableau
@@ -774,16 +775,16 @@ class plxMotor {
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
 		# Recuperation des valeurs de nos champs XML
-		$com['author'] = plxUtils::getValue($values[ $iTags['author'][0]]['value']);
+		$com['author'] = PlxUtils::getValue($values[ $iTags['author'][0]]['value']);
 		if(isset($iTags['type']))
-			$com['type'] = plxUtils::getValue($values[ $iTags['type'][0]]['value'],'normal');
+			$com['type'] = PlxUtils::getValue($values[ $iTags['type'][0]]['value'],'normal');
 		else
 			$com['type'] = 'normal';
-		$com['ip'] = plxUtils::getValue($values[$iTags['ip'][0]]['value']);
-		$com['mail'] = plxUtils::getValue($values[$iTags['mail'][0]]['value']);
-		$com['site'] = plxUtils::getValue($values[$iTags['site'][0]]['value']);
+		$com['ip'] = PlxUtils::getValue($values[$iTags['ip'][0]]['value']);
+		$com['mail'] = PlxUtils::getValue($values[$iTags['mail'][0]]['value']);
+		$com['site'] = PlxUtils::getValue($values[$iTags['site'][0]]['value']);
 		$com['content'] = trim($values[ $iTags['content'][0] ]['value']);
-		$com['parent'] = isset($iTags['parent'])?plxUtils::getValue($values[$iTags['parent'][0]]['value']):'';
+		$com['parent'] = isset($iTags['parent'])?PlxUtils::getValue($values[$iTags['parent'][0]]['value']):'';
 		# Informations obtenues en analysant le nom du fichier
 		$tmp = $this->comInfoFromFilename(basename($filename));
 		$com['status'] = $tmp['comStatus'];
@@ -846,7 +847,7 @@ class plxMotor {
 			}
 
 			# On stocke les enregistrements dans un objet plxRecord
-			$this->plxRecord_coms = new plxRecord($array);
+			$this->plxRecord_coms = new PlxRecord($array);
 
 			return true;
 		}
@@ -898,14 +899,14 @@ class plxMotor {
 			if(!empty($content['name']) AND !empty($content['content'])) { # Les champs obligatoires sont remplis
 				$comment=array();
 				$comment['type'] = 'normal';
-				$comment['author'] = plxUtils::strCheck(trim($content['name']));
-				$comment['content'] = plxUtils::strCheck(trim($content['content']));
+				$comment['author'] = PlxUtils::strCheck(trim($content['name']));
+				$comment['content'] = PlxUtils::strCheck(trim($content['content']));
 				# On vérifie le mail
-				$comment['mail'] = (plxUtils::checkMail(trim($content['mail'])))?trim($content['mail']):'';
+				$comment['mail'] = (PlxUtils::checkMail(trim($content['mail'])))?trim($content['mail']):'';
 				# On vérifie le site
-				$comment['site'] = (plxUtils::checkSite($content['site'])?$content['site']:'');
+				$comment['site'] = (PlxUtils::checkSite($content['site'])?$content['site']:'');
 				# On récupère l'adresse IP du posteur
-				$comment['ip'] = plxUtils::getIp();
+				$comment['ip'] = PlxUtils::getIp();
 				# index du commentaire
 				$idx = $this->nextIdArtComment($artId);
 				# Commentaire parent en cas de réponse
@@ -950,18 +951,18 @@ class plxMotor {
 		# On genere le contenu de notre fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<comment>\n";
-		$xml .= "\t<author><![CDATA[".plxUtils::cdataCheck($content['author'])."]]></author>\n";
+		$xml .= "\t<author><![CDATA[".PlxUtils::cdataCheck($content['author'])."]]></author>\n";
 		$xml .= "\t<type>".$content['type']."</type>\n";
 		$xml .= "\t<ip>".$content['ip']."</ip>\n";
-		$xml .= "\t<mail><![CDATA[".plxUtils::cdataCheck($content['mail'])."]]></mail>\n";
-		$xml .= "\t<site><![CDATA[".plxUtils::cdataCheck($content['site'])."]]></site>\n";
-		$xml .= "\t<content><![CDATA[".plxUtils::cdataCheck($content['content'])."]]></content>\n";
-		$xml .= "\t<parent><![CDATA[".plxUtils::cdataCheck($content['parent'])."]]></parent>\n";
+		$xml .= "\t<mail><![CDATA[".PlxUtils::cdataCheck($content['mail'])."]]></mail>\n";
+		$xml .= "\t<site><![CDATA[".PlxUtils::cdataCheck($content['site'])."]]></site>\n";
+		$xml .= "\t<content><![CDATA[".PlxUtils::cdataCheck($content['content'])."]]></content>\n";
+		$xml .= "\t<parent><![CDATA[".PlxUtils::cdataCheck($content['parent'])."]]></parent>\n";
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
 		$xml .= "</comment>\n";
 		# On ecrit ce contenu dans notre fichier XML
-		return plxUtils::write($xml, PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
+		return PlxUtils::write($xml, PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
 	}
 
 	/**

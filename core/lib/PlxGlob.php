@@ -1,12 +1,13 @@
 <?php
 
 /**
- * Classe plxGlob responsable de la récupération des fichiers à traiter
- *
- * @package PLX
+ * PlxGlob class get files from a specific context
  * @author	Anthony GUÉRIN, Florent MONTHEL, Amaury Graillat et Stéphane F.
  **/
-class plxGlob {
+
+namespace Pluxml;
+
+class PlxGlob {
 
 	public $count = 0; # Le nombre de resultats
 	public $aFiles = array(); # Tableau des fichiers

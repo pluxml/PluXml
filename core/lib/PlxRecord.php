@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Classe plxRecord responsable du parcourt des enregistrements
- *
- * @package PLX
+ * PlxRecord class in charge of browsing records
  * @author	Anthony GUÉRIN et Florent MONTHEL
  **/
-class plxRecord {
+namespace Pluxml;
+
+class PlxRecord {
 
 	public $size = false; # Nombre d'elements dans le tableau $result
 	public $i = -1; # Position dans le tableau $result
@@ -29,7 +29,7 @@ class plxRecord {
 	/**
 	 * Méthode qui incrémente judicieusement la variable $i
 	 *
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Anthony GUÉRIN
 	 **/
 	public function loop() {
