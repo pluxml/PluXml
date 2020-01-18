@@ -12,16 +12,30 @@
 
 /* ---------- Authentication ---------- */
 
-.logo {
+main.auth .logo {
 	background-image: url(../images/pluxml.png);
 	height: 80px;
 	width: 123px;
 }
-
 main.auth {
 	height: 100vh;
+	background-color: #2d2d44;
 }
-
-section .form {
-	border: 1px solid;
+main.auth .form {
+	background-color: #fbf8ef;
+	border-radius: 5px;
+}
+main.auth input.txt {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	background-color: #fbf8ef;
+	padding: 10px 10px;
+	border-bottom: 2px solid #ddd;
+}
+main.auth .btn--margin-top {
+	margin-top: 30px;
+}
+main.auth .back {
+	color: white;
+	text-decoration: none;
 }

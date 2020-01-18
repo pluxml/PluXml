@@ -163,62 +163,62 @@ $datas = json_encode($builkDatas);
 </head>
 <body id="auth">
 	<main id="vue" class="auth flex-container--column">
-		<section class="item-center">
+		<section class="w350p item-center">
 			<div class="logo item-center"></div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin')) ?>
-			<div v-if="lostpassword" class="form">
+			<div v-if="lostpassword" class="form mtm">
 				<? eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword')); ?>
 				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
-					<fieldset>
+					<fieldset class="pan flex-container--column">
 						<?= PlxToken::getTokenPostMethod() ?>
-						<h1><strong><?= L_LOST_PASSWORD ?></strong>	</h1>
-						<?php PlxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?PlxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '10-255',false,'full-width',L_AUTH_LOST_FIELD,'autofocus');?>
-						<small><a v-on:click="lostpassword = false" href="#"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
+						<h1 class="h3-like txtcenter mtm"><?= L_LOST_PASSWORD ?></h1>
+						<?php PlxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?PlxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '10-255',false,'txt',L_AUTH_LOST_FIELD,'autofocus');?>
 						<?php eval ( $plxAdmin->plxPlugins->callHook ( 'AdminAuthLostPassword' ) ); ?>
-						<input class="blue" type="submit" value="<?= L_SUBMIT_BUTTON ?>" />
+						<input class="btn--margin-top btn--primary" type="submit" value="<?= L_SUBMIT_BUTTON ?>" />
+						<span v-on:click="lostpassword = false" class="btn--warning"><?= L_LOST_PASSWORD_LOGIN ?></span>
 					</fieldset>
 				</form>
 			</div>
-			<div v-else-if="changepassword" class="form">
+			<div v-else-if="changepassword" class="form mtm">
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword')); ?>
 				<div v-if="verifyLostPasswordToken">
 					<form action="auth.php<?= !empty($redirect)?'?p='.PlxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
-						<fieldset>
+						<fieldset class="pan flex-container--column">
 							<?= PlxToken::getTokenPostMethod() ?>
 							<input name="lostPasswordToken" value="<?= $lostPasswordToken ?>" type="hidden" />
-							<h1 class="h5 text-center"><strong><?= L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
-							<?php PlxUtils::printInput('password1', '', 'password', '10-255',false,'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
-							<?php PlxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
-							<small><a v-on:click="changepassword = false" href="#"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
+							<h1 class="h3-like txtcenter mtm"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
+							<?php PlxUtils::printInput('password1', '', 'password', '10-255',false,'txt', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+							<?php PlxUtils::printInput('password2', '', 'password', '10-255',false,'txt', L_PROFIL_CONFIRM_PASSWORD) ?>
 							<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePassword'));	?>
-							<input type="submit" name="editpassword" value="<?= L_PROFIL_UPDATE_PASSWORD ?>" />
+							<input class="btn--margin-top btn--primary" name="editpassword" value="<?= L_PROFIL_UPDATE_PASSWORD ?>" />
+							<span v-on:click="changepassword = false" class="btn--warning"><?= L_LOST_PASSWORD_LOGIN ?></span>
 						</fieldset>
 					</form>
 				</div>
-				<div v-else>
+				<div v-else class="flex-container--column">
 					<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError')); ?>
-					<h1 class="h5 text-center"><strong><?= L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
+					<h1 class="h3-like txtcenter mtm"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
 					<div class="alert red"><?= L_LOST_PASSWORD_ERROR ?></div>
-					<small><a v-on:click="changepassword = false" href="#"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
+					<span v-on:click="changepassword = false" class="btn--margin-top btn--primary"><?= L_LOST_PASSWORD_LOGIN ?></span>
 					<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) ?>
 				</div>
 			</div>
-			<div v-else class="form">
+			<div v-else class="form mtm">
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
 				<form action="auth.php<?= !empty($redirect)?'?p='.PlxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
-					<fieldset>
+					<fieldset class="pan flex-container--column">
 						<?= PlxToken::getTokenPostMethod() ?>
-						<h1 class="h5 text-center"><strong><?= L_LOGIN_PAGE ?></strong></h1>
+						<h1 class="h3-like txtcenter mtm"><?= L_LOGIN_PAGE ?></h1>
 						<?php (!empty($msg))?PlxUtils::showMsg($msg, $css):''; ?>
-						<?php PlxUtils::printInput('login', (!empty($_POST['login']))?PlxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
-						<?php PlxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
-						<small v-if="lostPasswordActivated"><a v-on:click="lostpassword = true" href="#"><?= L_LOST_PASSWORD ?></a></small>
+						<?php PlxUtils::printInput('login', (!empty($_POST['login']))?PlxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'txt',L_AUTH_LOGIN_FIELD,'autofocus');?>
+						<?php PlxUtils::printInput('password', '', 'password','10-255',false,'txt', L_AUTH_PASSWORD_FIELD);?>
 						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')); ?>
-						<input class="blue" type="submit" value="<?= L_SUBMIT_BUTTON ?>" />
+						<input class="btn--margin-top btn--primary" type="submit" value="<?= L_SUBMIT_BUTTON ?>" />
+						<span v-if="lostPasswordActivated" v-on:click="lostpassword = true" class="btn--warning"><?= L_LOST_PASSWORD ?></span>
 					</fieldset>
 				</form>
 			</div>
-			<p><small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_BACK_TO_SITE ?></a> - <?= L_POWERED_BY ?></small></p>
+			<p><small><a class="back" href="<?= PLX_ROOT; ?>">&larr;&nbsp;<?= L_BACK_TO_SITE ?></small></p>
 		</section>
 	</main>
 	<script>
