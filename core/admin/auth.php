@@ -156,11 +156,10 @@ $datas = json_encode($builkDatas);
 	<?php
 		PlxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 		PlxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'].'admin.css', true);
-		# Hook Plugins
 		eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead'));
 	?>
 	<script src="<?= PLX_CORE ?>lib/visual.js?v=<?= PLX_VERSION ?>"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="<?= PLX_CORE ?>lib/vue.js"></script>
 </head>
 <body id="auth">
 	<main id="vue" class="auth flex-container--column">
