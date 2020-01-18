@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Classe plxFeed responsable du traitement global des flux de syndication
- *
- * @package PLX
+ * PlxFeed is in charge of syndication feeds
  * @author	Florent MONTHEL, Stephane F, Amaury Graillat
  **/
 
+namespace Pluxml;
+
 const PLX_FEED = true;
 
-class plxFeed extends plxMotor {
+class PlxFeed extends plxMotor {
 
 	private static $instance = null;
 
@@ -38,7 +38,7 @@ class plxFeed extends plxMotor {
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
 		# récupération des paramètres dans l'url
-		$this->get = plxUtils::getGets();
+		$this->get = PlxUtils::getGets();
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
 		# chargement des variables
@@ -47,13 +47,13 @@ class plxFeed extends plxMotor {
 		$this->tri = 'desc';
 		$this->clef = (!empty($this->aConf['clef']))?$this->aConf['clef']:'';
 		# Traitement des plugins
-		$this->plxPlugins = new plxPlugins($this->aConf['default_lang']);
+		$this->plxPlugins = new PlxPlugins($this->aConf['default_lang']);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxFeedConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
-		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
-		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
+		$this->plxGlob_arts = PlxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
+		$this->plxGlob_coms = PlxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getUsers(path('XMLFILE_USERS'));
@@ -241,7 +241,7 @@ class plxFeed extends plxMotor {
 				$src = $this->plxRecord_arts->f('thumbnail');
 				if($src!='') {
 					$src = (strpos($src, 'http')===false ? $this->racine.$src : $src);
-					$thumb = plxUtils::strCheck('<img src="'.$src.'" alt="" title="" />');
+					$thumb = PlxUtils::strCheck('<img src="'.$src.'" alt="" title="" />');
 				}
 				# Traitement initial
 				if($this->aConf['feed_chapo']) {
@@ -259,12 +259,12 @@ class plxFeed extends plxMotor {
 
 				# On affiche le flux dans un buffer
 				$entry .= "\t<item>\n";
-				$entry .= "\t\t".'<title>'.plxUtils::strCheck($this->plxRecord_arts->f('title')).'</title> '."\n";
+				$entry .= "\t\t".'<title>'.PlxUtils::strCheck($this->plxRecord_arts->f('title')).'</title> '."\n";
 				$entry .= "\t\t".'<link>'.$this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url')).'</link>'."\n";
 				$entry .= "\t\t".'<guid>'.$this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url')).'</guid>'."\n";
-				$entry .= "\t\t".'<description>'.$thumb.plxUtils::strCheck(plxUtils::rel2abs($this->racine,$content)).'</description>'."\n";
-				$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_arts->f('date')).'</pubDate>'."\n";
-				$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($author).'</dc:creator>'."\n";
+				$entry .= "\t\t".'<description>'.$thumb.PlxUtils::strCheck(PlxUtils::rel2abs($this->racine,$content)).'</description>'."\n";
+				$entry .= "\t\t".'<pubDate>'.PlxDate::dateIso2rfc822($this->plxRecord_arts->f('date')).'</pubDate>'."\n";
+				$entry .= "\t\t".'<dc:creator>'.PlxUtils::strCheck($author).'</dc:creator>'."\n";
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxFeedRssArticlesXml'));
 				$entry .= "\t</item>\n";
@@ -276,12 +276,12 @@ class plxFeed extends plxMotor {
 		echo '<?xml version="1.0" encoding="'.PLX_CHARSET.'" ?>'."\n";
 		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">'."\n";
 		echo '<channel>'."\n";
-		echo "\t".'<title>'.plxUtils::strCheck($title).'</title>'."\n";
+		echo "\t".'<title>'.PlxUtils::strCheck($title).'</title>'."\n";
 		echo "\t".'<link>'.$link.'</link>'."\n";
 		echo "\t".'<language>' . $this->aConf['default_lang'] . '</language>'."\n";
-		echo "\t".'<description>'.plxUtils::strCheck($this->aConf['description']).'</description>'."\n";
+		echo "\t".'<description>'.PlxUtils::strCheck($this->aConf['description']).'</description>'."\n";
 		echo "\t".'<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="'.$this->urlRewrite('feed.php?'.$this->get).'" />'."\n";
-		$last_updated = plxDate::dateIso2rfc822($last_updated);
+		$last_updated = PlxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
 		echo "\t".'<generator>PluXml</generator>'."\n";
 		echo $entry;
@@ -338,9 +338,9 @@ class plxFeed extends plxMotor {
 					$entry .= "\t\t".'<title>'.strip_tags(html_entity_decode($title_com, ENT_QUOTES, PLX_CHARSET)).'</title> '."\n";
 					$entry .= "\t\t".'<link>'.$link_com.'</link>'."\n";
 					$entry .= "\t\t".'<guid>'.$link_com.'</guid>'."\n";
-					$entry .= "\t\t".'<description>'.plxUtils::strCheck(strip_tags($this->plxRecord_coms->f('content'))).'</description>'."\n";
-					$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
-					$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
+					$entry .= "\t\t".'<description>'.PlxUtils::strCheck(strip_tags($this->plxRecord_coms->f('content'))).'</description>'."\n";
+					$entry .= "\t\t".'<pubDate>'.PlxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
+					$entry .= "\t\t".'<dc:creator>'.PlxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxFeedRssCommentsXml'));
 					$entry .= "\t</item>\n";
@@ -358,9 +358,9 @@ class plxFeed extends plxMotor {
 		$entry .= "\t".'<title>'.strip_tags(html_entity_decode($title, ENT_QUOTES, PLX_CHARSET)).'</title> '."\n";
 		echo "\t".'<link>'.$link.'</link>'."\n";
 		echo "\t".'<language>' . $this->aConf['default_lang'] . '</language>'."\n";
-		echo "\t".'<description>'.plxUtils::strCheck($this->aConf['description']).'</description>'."\n";
+		echo "\t".'<description>'.PlxUtils::strCheck($this->aConf['description']).'</description>'."\n";
 
-		$last_updated = plxDate::dateIso2rfc822($last_updated);
+		$last_updated = PlxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
 		echo "\t".'<generator>PluXml</generator>'."\n";
 		echo $entry;
@@ -394,7 +394,7 @@ class plxFeed extends plxMotor {
 				$artId = $this->plxRecord_coms->f('article') + 0;
 				$comId = $this->cible.$this->plxRecord_coms->f('article').'.'.$this->plxRecord_coms->f('numero');
 				$title_com = $this->plxRecord_coms->f('author').' @ ';
-				$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
+				$title_com .= PlxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
 				$link_com = $this->racine.'core/admin/comment.php?c='.$comId;
 				# On vérifie la date de publication
 				if($this->plxRecord_coms->f('date') > $last_updated)
@@ -404,9 +404,9 @@ class plxFeed extends plxMotor {
 				$entry .= "\t\t".'<title>'.strip_tags(html_entity_decode($title_com, ENT_QUOTES, PLX_CHARSET)).'</title> '."\n";
 				$entry .= "\t\t".'<link>'.$link_com.'</link>'."\n";
 				$entry .= "\t\t".'<guid>'.$link_com.'</guid>'."\n";
-				$entry .= "\t\t".'<description>'.plxUtils::strCheck(strip_tags($this->plxRecord_coms->f('content'))).'</description>'."\n";
-				$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
-				$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
+				$entry .= "\t\t".'<description>'.PlxUtils::strCheck(strip_tags($this->plxRecord_coms->f('content'))).'</description>'."\n";
+				$entry .= "\t\t".'<pubDate>'.PlxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
+				$entry .= "\t\t".'<dc:creator>'.PlxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxFeedAdminCommentsXml'));
 				$entry .= "\t</item>\n";
@@ -418,12 +418,12 @@ class plxFeed extends plxMotor {
 		echo '<?xml version="1.0" encoding="'.PLX_CHARSET.'" ?>'."\n";
 		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">'."\n";
 		echo '<channel>'."\n";
-		echo "\t".'<title>'.plxUtils::strCheck($title).'</title>'."\n";
-		echo "\t".'<description>'.plxUtils::strCheck($this->aConf['description']).'</description>'."\n";
+		echo "\t".'<title>'.PlxUtils::strCheck($title).'</title>'."\n";
+		echo "\t".'<description>'.PlxUtils::strCheck($this->aConf['description']).'</description>'."\n";
 		echo "\t".'<link>'.$link.'</link>'."\n";
 		echo "\t".'<language>' . $this->aConf['default_lang'] . '</language>'."\n";
 		echo "\t".'<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="' . $link_feed . '" />'."\n";
-		$last_updated = plxDate::dateIso2rfc822($last_updated);
+		$last_updated = PlxDate::dateIso2rfc822($last_updated);
 		echo "\t".'<lastBuildDate>'.$last_updated.'</lastBuildDate>'."\n";
 		echo "\t".'<generator>PluXml</generator>'."\n";
 		echo $entry;

@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Classe plxTimezones rassemblant les fonctions utiles à PluXml
- * concernant les fuseaux horaires
- *
- * @package PLX
+ * PlxTimezones manage timezones
  * @author	Stephane F
  **/
 
-class plxTimezones {
+namespace Pluxml;
+
+class PlxTimezones {
 
 	private static $_timezones = array(
 		'Pacific/Midway'		=> "(GMT-11:00) Midway Island",
@@ -133,7 +132,6 @@ class plxTimezones {
 	 * @author	Stephane F.
 	 **/
 	public static function timezones() {
-		return plxTimezones::$_timezones;
+		return PlxTimezones::$_timezones;
 	}
-
 }

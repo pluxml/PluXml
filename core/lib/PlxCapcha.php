@@ -1,12 +1,13 @@
 <?php
 
 /**
- * Classe plxCapcha responsable du traitement antispam
- *
- * @package PLX
+ * PlxCapcha class manage the spam filter
  * @author	Anthony GUÉRIN, Stéphane F
  **/
-class plxCapcha {
+
+namespace Pluxml;
+
+class PlxCapcha {
 
 	private $word = false; # Mot du capcha
 	private $num = false; # Numero de la lettre selectionne

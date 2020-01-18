@@ -13,8 +13,15 @@
 /* ---------- Authentication ---------- */
 
 .logo {
-	background-image: url(images/pluxml.png);
-	margin: 10% auto 20px auto;
+	background-image: url(../images/pluxml.png);
 	height: 80px;
 	width: 123px;
+}
+
+main.auth {
+	height: 100vh;
+}
+
+section .form {
+	border: 1px solid;
 }

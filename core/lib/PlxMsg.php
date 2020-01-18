@@ -1,12 +1,13 @@
 <?php
 
 /**
- * Classe plxMsg qui gère les messages d'informations ou d'erreurs
- *
- * @package PLX
+ * PlxMsg manage information and error messages
  * @author	Stephane F
  **/
-class plxMsg {
+
+namespace Pluxml;
+
+class PlxMsg {
 
 	/**
 	 * Méthode qui mémorise un message d'information

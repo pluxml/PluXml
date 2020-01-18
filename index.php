@@ -2,8 +2,13 @@
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT.'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
+
+require_once PLX_ROOT.'vendor/autoload.php';
+use Pluxml\PlxMotor;
+use Pluxml\PlxShow;
+use Pluxml\PlxUtils;
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -15,21 +20,8 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
 
-# On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.capcha.php');
-include(PLX_CORE.'lib/class.plx.erreur.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.feed.php');
-include(PLX_CORE.'lib/class.plx.show.php');
-include(PLX_CORE.'lib/class.plx.encrypt.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
-
 # Creation de l'objet principal et lancement du traitement
-$plxMotor = plxMotor::getInstance();
+$plxMotor = PlxMotor::getInstance();
 
 # Détermination de la langue à utiliser (modifiable par le hook : Index)
 $lang = $plxMotor->aConf['default_lang'];
@@ -44,7 +36,7 @@ $plxMotor->prechauffage();
 $plxMotor->demarrage();
 
 # Creation de l'objet d'affichage
-$plxShow = plxShow::getInstance();
+$plxShow = PlxShow::getInstance();
 
 eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
 
@@ -82,12 +74,12 @@ eval($plxMotor->plxPlugins->callHook('IndexEnd'));
 
 # On applique la réécriture d'url si nécessaire
 if($plxMotor->aConf['urlrewriting']) {
-	$output = plxUtils::rel2abs($plxMotor->aConf['racine'], $output);
+	$output = PlxUtils::rel2abs($plxMotor->aConf['racine'], $output);
 }
 
 # On applique la compression gzip si nécessaire et disponible
 if($plxMotor->aConf['gzip']) {
-	if($encoding=plxUtils::httpEncoding()) {
+	if($encoding=PlxUtils::httpEncoding()) {
 		header('Content-Encoding: '.$encoding);
 		$output = gzencode($output,-1,FORCE_GZIP);
 	}

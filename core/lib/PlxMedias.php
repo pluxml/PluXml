@@ -1,12 +1,13 @@
 <?php
 
 /**
- * Classe plxMedias regroupant les fonctions pour gérer la librairie des medias
- *
- * @package PLX
+ * PlxMedias manage the medias gallery
  * @author	Stephane F, Pedro "P3ter" CADETE
  **/
-class plxMedias {
+
+namespace Pluxml;
+
+class PlxMedias {
 
 	public $path = null; # chemin vers les médias
 	public $dir = null;
@@ -36,7 +37,7 @@ class plxMedias {
 		# Création du dossier réservé à l'utilisateur connecté s'il n'existe pas
 		if(!is_dir($this->path)) {
 			if(!mkdir($this->path,0755))
-				return plxMsg::Error(L_PLXMEDIAS_MEDIAS_FOLDER_ERR);
+				return PlxMsg::Error(L_PLXMEDIAS_MEDIAS_FOLDER_ERR);
 		}
 		# Création du dossier réservé aux miniatures
 		if(!is_dir($this->path.'.thumbs/'.$this->dir)) {
@@ -116,7 +117,7 @@ class plxMedias {
 
 				$thumbInfos = false;
 				if(preg_match($this->img_exts, $filename, $matches)) {
-					$thumbName = plxUtils::thumbName($filename);
+					$thumbName = PlxUtils::thumbName($filename);
 					if(file_exists($thumbName)) {
 						$thumbInfos = array(
 							'infos' 	=> getimagesize($thumbName),
@@ -126,7 +127,7 @@ class plxMedias {
 					$sample = $this->path. '.thumbs/' .substr($filename, $offset);
 					$sampleOk = (
 						file_exists($sample) or
-						plxUtils::makeThumb(
+						PlxUtils::makeThumb(
 							$filename,
 							$sample
 							)
@@ -161,7 +162,7 @@ class plxMedias {
 	 * @author	Stephane F, Danielsan, J.P. "bazooka07" Pourrez
 	 **/
 	public function contentFolder() {
-		plxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin', true, 'folder');
+		PlxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin', true, 'folder');
 	}
 
 	/**
@@ -184,7 +185,7 @@ class plxMedias {
 				if(is_file($this->path.'.thumbs/'.$this->dir.$file))
 					unlink($this->path.'.thumbs/'.$this->dir.$file);
 				# Suppression de la miniature
-				$thumName = plxUtils::thumbName($file);
+				$thumName = PlxUtils::thumbName($file);
 				if(is_file($this->path.$this->dir.$thumName))
 					unlink($this->path.$this->dir.$thumName);
 			}
@@ -192,15 +193,15 @@ class plxMedias {
 
 		if(sizeof($files)==1) {
 			if($count==0)
-				return plxMsg::Info(L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL);
+				return PlxMsg::Info(L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL);
 			else
-				return plxMsg::Error(L_PLXMEDIAS_DELETE_FILE_ERR);
+				return PlxMsg::Error(L_PLXMEDIAS_DELETE_FILE_ERR);
 		}
 		else {
 			if($count==0)
-				return plxMsg::Info(L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL);
+				return PlxMsg::Info(L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL);
 			else
-				return plxMsg::Error(L_PLXMEDIAS_DELETE_FILES_ERR);
+				return PlxMsg::Error(L_PLXMEDIAS_DELETE_FILES_ERR);
 		}
 	}
 
@@ -242,9 +243,9 @@ class plxMedias {
 
 		# suppression du dossier des images et de son contenu
 		if($this->_deleteDir($this->path.$deldir))
-			return plxMsg::Info(L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL);
+			return PlxMsg::Info(L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL);
 		else
-			return plxMsg::Error(L_PLXMEDIAS_DEL_FOLDER_ERR);
+			return PlxMsg::Error(L_PLXMEDIAS_DEL_FOLDER_ERR);
 	}
 
 	/**
@@ -257,15 +258,15 @@ class plxMedias {
 	public function newDir($newdir) {
 		if (!empty(trim($newdir))) {
 			$mydir = $this->path.$this->dir;
-			$mydir .= plxUtils::urlify(trim($newdir));
+			$mydir .= PlxUtils::urlify(trim($newdir));
 			// Si le dossier n'existe pas on le créer
 			if (!is_dir($mydir)) {
 				if (!mkdir($mydir, 0755))
-					return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
+					return PlxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
 				else
-					return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
+					return PlxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
 			} else {
-				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
+				return PlxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
 			}
 		}
 	}
@@ -295,7 +296,7 @@ class plxMedias {
 
 		// On teste l'existence du fichier et on formate son nom pour éviter les doublons
 		$filename = pathinfo($file['name']);
-		$filename['filename'] = plxUtils::urlify($filename['filename']);
+		$filename['filename'] = PlxUtils::urlify($filename['filename']);
 		$upFile = $this->path.$this->dir.$filename['filename'].".".$filename['extension'];
 		while(file_exists($upFile)) {
 			$upFile = $this->path.$this->dir.$filename['filename'].'-'.$i++.".".$filename['extension'];
@@ -305,11 +306,11 @@ class plxMedias {
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
 			if(preg_match($this->img_exts, $file['name'])) {
-				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48);
+				PlxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48);
 				if($resize)
-					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
+					PlxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
 				if($thumb)
-					plxUtils::makeThumb($upFile, plxUtils::thumbName($upFile), $thumb['width'], $thumb['height'], 80);
+					PlxUtils::makeThumb($upFile, PlxUtils::thumbName($upFile), $thumb['width'], $thumb['height'], 80);
 			}
 		}
 		return L_PLXMEDIAS_UPLOAD_SUCCESSFUL;
@@ -360,13 +361,13 @@ class plxMedias {
 			if($res=$this->_uploadFile($file, $resize, $thumb)) {
 				switch($res) {
 					case L_PLXMEDIAS_WRONG_FILESIZE:
-						return plxMsg::Error(L_PLXMEDIAS_WRONG_FILESIZE);
+						return PlxMsg::Error(L_PLXMEDIAS_WRONG_FILESIZE);
 						break;
 					case L_PLXMEDIAS_WRONG_FILEFORMAT:
-						return plxMsg::Error(L_PLXMEDIAS_WRONG_FILEFORMAT);
+						return PlxMsg::Error(L_PLXMEDIAS_WRONG_FILEFORMAT);
 						break;
 					case L_PLXMEDIAS_UPLOAD_ERR:
-						return plxMsg::Error(L_PLXMEDIAS_UPLOAD_ERR);
+						return PlxMsg::Error(L_PLXMEDIAS_UPLOAD_ERR);
 						break;
 					case L_PLXMEDIAS_UPLOAD_SUCCESSFUL:
 						$count++;
@@ -376,9 +377,9 @@ class plxMedias {
 		}
 
 		if($count==1)
-			return plxMsg::Info(L_PLXMEDIAS_UPLOAD_SUCCESSFUL);
+			return PlxMsg::Info(L_PLXMEDIAS_UPLOAD_SUCCESSFUL);
 		elseif($count>1)
-			return plxMsg::Info(L_PLXMEDIAS_UPLOADS_SUCCESSFUL);
+			return PlxMsg::Info(L_PLXMEDIAS_UPLOADS_SUCCESSFUL);
 	}
 
 	/**
@@ -405,7 +406,7 @@ class plxMedias {
 				$count++;
 			}
 			# Déplacement de la miniature
-			$thumbName = plxUtils::thumbName($file);
+			$thumbName = PlxUtils::thumbName($file);
 			if($result AND is_readable($this->path.$src_dir.$thumbName)) {
 				$result = rename($this->path.$src_dir.$thumbName, $this->path.$dst_dir.$thumbName);
 			}
@@ -417,15 +418,15 @@ class plxMedias {
 
 		if(sizeof($files)==1) {
 			if($count==0)
-				return plxMsg::Error(L_PLXMEDIAS_MOVE_FILE_ERR);
+				return PlxMsg::Error(L_PLXMEDIAS_MOVE_FILE_ERR);
 			else
-				return plxMsg::Info(L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL);
+				return PlxMsg::Info(L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL);
 		}
 		else {
 			if($count==0)
-				return plxMsg::Error(L_PLXMEDIAS_MOVE_FILES_ERR);
+				return PlxMsg::Error(L_PLXMEDIAS_MOVE_FILES_ERR);
 			else
-				return plxMsg::Info(L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL);
+				return PlxMsg::Info(L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL);
 		}
 
 	}
@@ -445,10 +446,10 @@ class plxMedias {
 		foreach($files as $file) {
 			$file=basename($file);
 			if(is_file($this->path.$this->dir.$file)) {
-				$thumName = plxUtils::thumbName($file);
+				$thumName = PlxUtils::thumbName($file);
 				$ext = strtolower(strrchr($this->path.$this->dir.$file,'.'));
 				if(in_array($ext, $this->img_supported)) {
-					if(plxUtils::makeThumb($this->path.$this->dir.$file, $this->path.$this->dir.$thumName, $width, $height, 80))
+					if(PlxUtils::makeThumb($this->path.$this->dir.$file, $this->path.$this->dir.$thumName, $width, $height, 80))
 						$count++;
 				}
 			}
@@ -456,15 +457,15 @@ class plxMedias {
 
 		if(sizeof($files)==1) {
 			if($count==0)
-				return plxMsg::Error(L_PLXMEDIAS_RECREATE_THUMB_ERR);
+				return PlxMsg::Error(L_PLXMEDIAS_RECREATE_THUMB_ERR);
 			else
-				return plxMsg::Info(L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL);
+				return PlxMsg::Info(L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL);
 		}
 		else {
 			if($count==0)
-				return plxMsg::Error(L_PLXMEDIAS_RECREATE_THUMBS_ERR);
+				return PlxMsg::Error(L_PLXMEDIAS_RECREATE_THUMBS_ERR);
 			else
-				return plxMsg::Info(L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL);
+				return PlxMsg::Info(L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL);
 		}
 
 	}
@@ -486,7 +487,7 @@ class plxMedias {
 			$old_stats = pathinfo($oldname);
 			$tmp_stats = pathinfo($newname);
 			$new_stats['dirname'] = $old_stats['dirname'].'/';
-			$new_stats['filename'] = plxUtils::urlify($tmp_stats['filename']);
+			$new_stats['filename'] = PlxUtils::urlify($tmp_stats['filename']);
 			$new_stats['counter'] = '';
 			$new_stats['extension'] = '.'.$old_stats['extension'];
 			# On teste l'existence du nouveau fichier et on formate le nom pour éviter les doublons
@@ -499,9 +500,9 @@ class plxMedias {
 			$filename = implode('', array_values($new_stats));
 			if($result = rename($oldname, $filename)) {
 				# changement du nom de la miniature
-				$old_thumbName = plxUtils::thumbName($oldname);
+				$old_thumbName = PlxUtils::thumbName($oldname);
 				if(is_writable($old_thumbName)) {
-					$new_thumbName = plxUtils::thumbName($filename);
+					$new_thumbName = PlxUtils::thumbName($filename);
 					if(rename($old_thumbName, $new_thumbName)) {
 						# changement du nom de la vignette
 						$path = str_replace($this->path, $this->path.'.thumbs/', $dirname);
@@ -514,6 +515,6 @@ class plxMedias {
 				}
 			}
 		}
-		return $result? plxMsg::Info(L_RENAME_FILE_SUCCESSFUL): plxMsg::Error(L_RENAME_FILE_ERR);
+		return $result? PlxMsg::Info(L_RENAME_FILE_SUCCESSFUL): PlxMsg::Error(L_RENAME_FILE_ERR);
 	}
 }

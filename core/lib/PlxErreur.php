@@ -1,12 +1,10 @@
 <?php
 
 /**
- * Classe plxErreur responsable des erreurs de traitement
- *
- * @package PLX
+ * PlxErreur manage errors
  * @author	Florent MONTHEL
  **/
-class plxErreur {
+class PlxErreur {
 
 	private $message = false; # Message d'erreur
 

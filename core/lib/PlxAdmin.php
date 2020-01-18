@@ -22,7 +22,7 @@ class PlxAdmin extends PlxMotor {
 	 **/
 	public static function getInstance(){
 		if (!isset(self::$instance))
-			self::$instance = new plxAdmin(path('XMLFILE_PARAMETERS'));
+			self::$instance = new PlxAdmin(path('XMLFILE_PARAMETERS'));
 		return self::$instance;
 	}
 

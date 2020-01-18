@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Classe plxDate rassemblant les fonctions utiles à PluXml
+ * PlxData classe is in charge of dates
  * concernant la manipulation des dates
- *
- * @package PLX
  * @author	Stephane F., Amauray Graillat
  **/
 
-class plxDate {
+namespace Pluxml;
+
+class PlxDate {
 
 	/**
 	 * Méthode qui retourne le libellé du mois ou du jour passé en paramètre
@@ -176,7 +176,7 @@ class plxDate {
 	 **/
 	public static function dateIso2rfc822($date) {
 
-		$tmpDate = plxDate::date2Array($date);
+		$tmpDate = PlxDate::date2Array($date);
 		return date(DATE_RSS, mktime(substr($tmpDate['time'],0,2), substr($tmpDate['time'],3,2), 0, $tmpDate['month'], $tmpDate['day'], $tmpDate['year']));
 	}
 
