@@ -7,7 +7,9 @@
  * @author	Stephane F
  **/
 
-define('PLX_UPDATE', PLX_ROOT.'update/');
+const PLX_UPDATE = PLX_ROOT . 'update/';
+
+use Pluxml\PlxAdmin;
 
 class plxUpdater {
 
@@ -26,7 +28,7 @@ class plxUpdater {
 	 **/
 	public function __construct($versions) {
 		$this->allVersions = $versions;
-		$this->plxAdmin = plxAdmin::getInstance();
+		$this->plxAdmin = PlxAdmin::getInstance();
 		$this->getVersions();
 	}
 
