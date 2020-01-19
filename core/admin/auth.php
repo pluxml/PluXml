@@ -5,12 +5,12 @@
  * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
+
 const PLX_AUTHPAGE = true;
 
 include __DIR__ .'/prepend.php';
-use Pluxml\PlxToken;
-use Pluxml\PlxUtils;
-use Pluxml\PlxVueData;
 
 //Form token validation
 PlxToken::validateFormToken($_POST);

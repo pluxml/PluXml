@@ -10,6 +10,7 @@
 include __DIR__ .'/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
+use Pluxml\PlxDate;
 
 # Control du token du formulaire
 PlxToken::validateFormToken($_POST);
@@ -205,7 +206,7 @@ include __DIR__ .'/top.php';
 				echo '<tr>';
 				echo '<td><input type="checkbox" name="idArt[]" value="'.$idArt.'" /></td>';
 				echo '<td>'.$idArt.'</td>';
-				echo '<td>'.plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
+				echo '<td>'.PlxDate::formatDate($plxAdmin->plxRecord_arts->f('date')).'&nbsp;</td>';
 				echo '<td class="wrap"><a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.PlxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')).'</a>'.$draft.$awaiting.'&nbsp;</td>';
 				echo '<td>';
 				if(sizeof($aCats)>1) {

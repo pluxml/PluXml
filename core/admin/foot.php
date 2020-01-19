@@ -1,4 +1,5 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
+<?php use Pluxml\PlxUtils ?>
 
 		</section>
 
@@ -11,7 +12,7 @@
 	setMsg();
 	mediasManager.construct({
 		windowName : "<?php echo L_MEDIAS_TITLE ?>",
-		racine:	"<?php echo plxUtils::getRacine() ?>",
+		racine:	"<?php echo PlxUtils::getRacine() ?>",
 		urlManager: "core/admin/medias.php"
 	});
 
@@ -50,7 +51,8 @@
 		var targets = document.querySelectorAll(query);
 		if(typeof targets === 'array' && targets.length > 0) {
 			targets.forEach(function(element) {
-				if(element.options.length > 30) { <!-- Nombre minimum d'entrées de dossiers ou fichiers pour cacher l'arborescence des dossiers
+				if(element.options.length > 30) { 
+					//Nombre minimum d'entrées de dossiers ou fichiers pour cacher l'arborescence des dossiers
 					element.addEventListener('change', selectChangeEvt);
 				} else {
 					// Pas assez de fichier, on déplie tout (unfold)
