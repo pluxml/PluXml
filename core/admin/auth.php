@@ -218,7 +218,7 @@ $datas = json_encode($builkDatas);
 					</fieldset>
 				</form>
 			</div>
-			<p><small><a class="back" href="<?= PLX_ROOT; ?>">&larr;&nbsp;<?= L_BACK_TO_SITE ?></small></p>
+			<p><small><a class="back" href="<?= PLX_ROOT; ?>">&larr;&nbsp;<?= L_BACK_TO_SITE ?></a></small></p>
 		</section>
 	</main>
 	<script>
