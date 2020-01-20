@@ -8,9 +8,11 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxGlob;
+use Pluxml\PlxToken;
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -39,7 +41,7 @@ class plxThemes {
 		if(is_dir($this->racineTheme.$this->activeTheme))
 			$this->aThemes[$this->activeTheme] = $this->activeTheme;
 		# liste des autres themes dispos
-		$files = plxGlob::getInstance($this->racineTheme, true);
+		$files = PlxGlob::getInstance($this->racineTheme, true);
 
 		if($styles = $files->query("/[a-z0-9-_\.\(\)]+/i", "", "sort")) {
 			foreach($styles as $k=>$v) {
@@ -153,7 +155,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
+	<?php echo PlxToken::getTokenPostMethod() ?>
 
 </form>
 

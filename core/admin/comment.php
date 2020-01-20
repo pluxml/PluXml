@@ -8,9 +8,13 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxDate;
+use Pluxml\PlxMsg;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentPrepend'));
@@ -73,9 +77,9 @@ if(!empty($_POST) AND !empty($_POST['comId'])) {
 }
 
 # On va récupérer les infos sur le commentaire
-if(!$plxAdmin->getCommentaires('/^'.plxUtils::nullbyteRemove($_GET['c']).'.xml$/','',0,1,'all')) {
+if(!$plxAdmin->getCommentaires('/^'.PlxUtils::nullbyteRemove($_GET['c']).'.xml$/','',0,1,'all')) {
 	# Commentaire inexistant, on redirige
-	plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
+	PlxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 	header('Location: comments.php');
 	exit;
 }
@@ -92,7 +96,7 @@ if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',
 	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
 	# On génère notre lien
 	$article = '<a href="'.$plxAdmin->urlRewrite('?article'.intval($result['numero']).'/'.$result['url']).'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
-	$article .= plxUtils::strCheck($result['title']);
+	$article .= PlxUtils::strCheck($result['title']);
 	$article .= '</a>';
 }
 
@@ -106,7 +110,7 @@ else
 	$statut = '';
 
 # Date du commentaire
-$date = plxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
+$date = PlxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
 
 # On inclut le header
 include __DIR__ .'/top.php';
@@ -116,14 +120,14 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 	$site = $plxAdmin->plxRecord_coms->f('site');
 	$content = $plxAdmin->plxRecord_coms->f('content');
 } else {
-	$author = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('author'));
-	$site = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
-	$content = plxUtils::strCheck($plxAdmin->plxRecord_coms->f('content'));
+	$author = PlxUtils::strCheck($plxAdmin->plxRecord_coms->f('author'));
+	$site = PlxUtils::strCheck($plxAdmin->plxRecord_coms->f('site'));
+	$content = PlxUtils::strCheck($plxAdmin->plxRecord_coms->f('content'));
 }
 
 ?>
 
-<form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
+<form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.PlxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_COMMENT_EDITING ?></h2>
@@ -140,7 +144,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<?php endif; ?>
 		<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<?php echo PlxToken::getTokenPostMethod() ?>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
@@ -153,15 +157,15 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 	</ul>
 
 	<fieldset>
-		<?php plxUtils::printInput('comId',$_GET['c'],'hidden'); ?>
+		<?php PlxUtils::printInput('comId',$_GET['c'],'hidden'); ?>
 
 		<div class="grid inline-form publication">
 			<div class="col sml-12">
 				<label><?php echo L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
-				<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
-				<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
-				<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+				<?php PlxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
+				<?php PlxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
+				<?php PlxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
+				<?php PlxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
 				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
 			</div>
 		</div>
@@ -169,7 +173,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_author"><?php echo L_COMMENT_AUTHOR_FIELD ?> :</label>
-				<?php plxUtils::printInput('author',$author,'text','40-255') ?>
+				<?php PlxUtils::printInput('author',$author,'text','40-255') ?>
 			</div>
 		</div>
 
@@ -181,7 +185,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 				?>
 				</label>
 				<?php
-				plxUtils::printInput('site',$site,'text','40-255');
+				PlxUtils::printInput('site',$site,'text','40-255');
 				?>
 			</div>
 		</div>
@@ -193,14 +197,14 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 				<?php echo '<a href="mailto:'.$plxAdmin->plxRecord_coms->f('mail').'">'.$plxAdmin->plxRecord_coms->f('mail').'</a>' ?>
 				<?php endif; ?>
 				</label>
-				<?php plxUtils::printInput('mail',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')),'text','40-255') ?>
+				<?php PlxUtils::printInput('mail',PlxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')),'text','40-255') ?>
 			</div>
 		</div>
 
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
-				<?php plxUtils::printArea('content',$content, 0, 7); ?>
+				<?php PlxUtils::printArea('content',$content, 0, 7); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
 			</div>
 		</div>

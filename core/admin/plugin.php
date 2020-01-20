@@ -7,9 +7,11 @@
  * @author	Stephane F
  **/
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxMsg;
+use Pluxml\PlxUtils;
 
 $plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
-$plugin = plxUtils::nullbyteRemove($plugin);
+$plugin = PlxUtils::nullbyteRemove($plugin);
 
 $output='';
 # chargement du fichier d'administration du plugin
@@ -22,13 +24,13 @@ if(!empty($plxAdmin->plxPlugins->aPlugins[$plugin]) AND is_file($filename)) {
 	ob_start();
 	echo '
 	<div class="inline-form action-bar">
-		<h2>'.plxUtils::strCheck($plugin).'</h2>
+		<h2>'.PlxUtils::strCheck($plugin).'</h2>
 	</div>';
 	include $filename;
 	$output=ob_get_clean();
 }
 else {
-	plxMsg::Error(L_NO_ENTRY);
+	PlxMsg::Error(L_NO_ENTRY);
 	header('Location: index.php');
 	exit;
 }

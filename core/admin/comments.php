@@ -8,9 +8,13 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxDate;
+use Pluxml\PlxMsg;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Contrôle du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
@@ -20,7 +24,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # validation de l'id de l'article si passé en paramètre
 if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
-	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
+	PlxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
 }
@@ -65,7 +69,7 @@ include __DIR__ .'/top.php';
 # Récupération du type de commentaire à afficher
 $_GET['sel'] = !empty($_GET['sel']) ? $_GET['sel'] : '';
 if(in_array($_GET['sel'], array('online', 'offline', 'all')))
-	$comSel = plxUtils::nullbyteRemove($_GET['sel']);
+	$comSel = PlxUtils::nullbyteRemove($_GET['sel']);
 else
 	$comSel = ((isset($_SESSION['selCom']) AND !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
 
@@ -120,11 +124,11 @@ if(!empty($_GET['a'])) {
 function selector($comSel, $id) {
 	ob_start();
 	if($comSel=='online')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		PlxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='offline')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		PlxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='all')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		PlxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
 	return ob_get_clean();
 }
 
@@ -179,7 +183,7 @@ $selector=selector($comSel, 'id_selection');
 					# On génère notre ligne
 					echo '<tr class="top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
 					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
-					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
+					echo '<td class="datetime">'.PlxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
 					echo '<td class="wrap">'.$content.'&nbsp;</td>';
 					echo '<td class="author">'.$plxAdmin->plxRecord_coms->f('author').'&nbsp;</td>';
 					echo '<td class="action">';

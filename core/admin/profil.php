@@ -8,9 +8,11 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminProfilPrepend'));
@@ -38,7 +40,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_PROFIL_EDIT_TITLE ?></h2>
-		<p><label><?php echo L_PROFIL_LOGIN ?>&nbsp;:&nbsp;<strong><?php echo plxUtils::strCheck($_profil['login']) ?></strong></label></p>
+		<p><label><?php echo L_PROFIL_LOGIN ?>&nbsp;:&nbsp;<strong><?php echo PlxUtils::strCheck($_profil['login']) ?></strong></label></p>
 		<input type="submit" name="profil" value="<?php echo L_PROFIL_UPDATE ?>" />
 	</div>
 
@@ -48,30 +50,30 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_name"><?php echo L_PROFIL_USER ?>&nbsp;:</label>
-				<?php plxUtils::printInput('name', plxUtils::strCheck($_profil['name']), 'text', '20-255') ?>
+				<?php PlxUtils::printInput('name', PlxUtils::strCheck($_profil['name']), 'text', '20-255') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_email"><?php echo L_PROFIL_MAIL ?>&nbsp;:</label>
-				<?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'text', '30-255') ?>
+				<?php PlxUtils::printInput('email', PlxUtils::strCheck($_profil['email']), 'text', '30-255') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_lang"><?php echo L_PROFIL_ADMIN_LANG ?>&nbsp;:</label>
-				<?php plxUtils::printSelect('lang', plxUtils::getLangs(), $_profil['lang']) ?>
+				<?php PlxUtils::printSelect('lang', PlxUtils::getLangs(), $_profil['lang']) ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_PROFIL_INFOS ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($_profil['infos']), 0, 5); ?>
+				<?php PlxUtils::printArea('content',PlxUtils::strCheck($_profil['infos']), 0, 5); ?>
 			</div>
 		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminProfil')) # Hook Plugins ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
+	<?php echo PlxToken::getTokenPostMethod() ?>
 
 </form>
 
@@ -81,18 +83,18 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_password1"><?php echo L_PROFIL_PASSWORD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('password1', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
+				<?php PlxUtils::printInput('password1', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_password2"><?php echo L_PROFIL_CONFIRM_PASSWORD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('password2', '', 'password', '20-255') ?>
+				<?php PlxUtils::printInput('password2', '', 'password', '20-255') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<?php echo plxToken::getTokenPostMethod() ?>
+				<?php echo PlxToken::getTokenPostMethod() ?>
 				<input type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
 			</div>
 		</div>

@@ -8,12 +8,16 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxDate;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
+use Pluxml\PlxMedias;
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Sécurisation du chemin du dossier
-if(isset($_POST['folder']) AND $_POST['folder']!='.' AND !plxUtils::checkSource($_POST['folder'])) {
+if(isset($_POST['folder']) AND $_POST['folder']!='.' AND !PlxUtils::checkSource($_POST['folder'])) {
 	$_POST['folder']='.';
 }
 
@@ -33,7 +37,7 @@ elseif(!empty($_POST['folder'])) {
 $plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
 if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER)
 	$plxMediasRoot .= $_SESSION['user'].'/';
-$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']);
+$plxMedias = new PlxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']);
 
 #----
 
@@ -113,7 +117,7 @@ $selectionList = array(''=>L_FOR_SELECTION,'move'=>L_PLXMEDIAS_MOVE_FOLDER,'thum
 # On inclut le header
 include __DIR__ .'/top.php';
 
-$curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
+$curFolder = '/'.PlxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
 $curFolders = explode('/', $curFolder);
 
 ?>
@@ -161,7 +165,7 @@ $curFolders = explode('/', $curFolder);
 				}
 				?>
 			</p>
-			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
+			<?php PlxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 			<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
@@ -218,17 +222,17 @@ $curFolders = explode('/', $curFolder);
 							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							echo '<div id="btnRenameImg'.$num.'" onclick="ImageRename(\''.$v['path'].'\')" title="'.L_RENAME_FILE.'" class="ico">&perp;</div>';
 							echo '<br />';
-							$href = plxUtils::thumbName($v['path']);
+							$href = PlxUtils::thumbName($v['path']);
 							if($isImage AND is_file($href)) {
-								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
+								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$href.'">'.PlxUtils::strCheck(basename($href)).'</a>';
 								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
 						echo '<td>';
-							echo plxUtils::formatFilesize($v['filesize']);
+							echo PlxUtils::formatFilesize($v['filesize']);
 							if($isImage AND is_file($href)) {
-								echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
+								echo '<br />'.PlxUtils::formatFilesize($v['thumb']['filesize']);
 							}
 						echo '</td>';
 						$dimensions = '&nbsp;';
@@ -239,7 +243,7 @@ $curFolders = explode('/', $curFolder);
 							$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
 						}
 						echo '<td>'.$dimensions.'</td>';
-						echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
+						echo '<td>'.PlxDate::formatDate(PlxDate::timestamp2Date($v['date'])).'</td>';
 						echo '</tr>';
 					}
 				}

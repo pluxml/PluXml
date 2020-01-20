@@ -6,9 +6,12 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxMsg;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Controle du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Controle de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -26,17 +29,17 @@ $filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/'.$tpl)
 
 # On teste l'existence du thème
 if(empty($style) OR !is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style)) {
-	plxMsg::Error(L_CONFIG_EDITTPL_ERROR_NOTHEME);
+	PlxMsg::Error(L_CONFIG_EDITTPL_ERROR_NOTHEME);
 	header('Location: parametres_affichage.php');
 	exit;
 }
 
 # Traitement du formulaire: sauvegarde du template
 if(isset($_POST['submit']) AND trim($_POST['content']) != '') {
-	if(plxUtils::write($_POST['content'], $filename))
-		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
+	if(PlxUtils::write($_POST['content'], $filename))
+		PlxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
 	else
-		plxMsg::Error(L_SAVE_FILE_ERROR);
+		PlxMsg::Error(L_SAVE_FILE_ERROR);
 }
 
 # On récupère les fichiers templates du thèmes
@@ -75,10 +78,10 @@ include __DIR__ .'/top.php';
 <form action="parametres_edittpl.php" method="post" id="form_edittpl">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
+		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo PlxUtils::strCheck($style) ?>&raquo;</h2>
 		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
+		<?php echo PlxToken::getTokenPostMethod() ?>
+		<?php PlxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
@@ -89,8 +92,8 @@ include __DIR__ .'/top.php';
 	<div class="grid">
 		<div class="col sml-12">
 			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 20); ?>
+			<?php PlxUtils::printInput('tpl',PlxUtils::strCheck($tpl),'hidden'); ?>
+			<?php PlxUtils::printArea('content',PlxUtils::strCheck($content), 0, 20); ?>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>

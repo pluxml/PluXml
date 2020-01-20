@@ -10,7 +10,7 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
-/* ---------- Authentication ---------- */
+/* ==== AUTHENTIFICATION ==== */
 
 main.auth .logo {
 	background-image: url(../images/pluxml.png);
@@ -41,4 +41,21 @@ main.auth a.back {
 }
 main.auth a.back:hover {
 	text-decoration: underline;
+}
+
+/* ==== ASIDE ==== */
+main .main {
+	height: 100vh;
+}
+
+main .aside {
+	background-color: #2d2d44;
+}
+
+main .header {
+	background-color: #1e1e2c;
+}
+
+main .section {
+	background-color: #fbf8ef;
 }

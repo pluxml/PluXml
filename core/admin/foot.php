@@ -2,7 +2,7 @@
 <?php use Pluxml\PlxUtils ?>
 
 		</section>
-
+	</div>
 </main>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) # Hook Plugins ?>

@@ -8,9 +8,11 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsPrepend'));
@@ -48,9 +50,9 @@ function checkBox(cb) {
 	<div class="inline-form action-bar">
 		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
 		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
-		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
+		<?php PlxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<?php echo PlxToken::getTokenPostMethod() ?>
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
 	</div>
@@ -86,29 +88,29 @@ function checkBox(cb) {
 					$selected = $plxAdmin->aConf['homestatic']==$k ? ' checked="checked"' : '';
 					echo '<input title="'.L_STATICS_PAGE_HOME.'" type="checkbox" name="homeStatic[]" value="'.$k.'"'.$selected.' onclick="checkBox(\''.$ordre.'\')" />';
 					echo '</td><td>';
-					plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '-100');
+					PlxUtils::printInput($k.'_group', PlxUtils::strCheck($v['group']), 'text', '-100');
 					echo '</td><td>';
-					plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255');
+					PlxUtils::printInput($k.'_name', PlxUtils::strCheck($v['name']), 'text', '-255');
 					echo '</td><td>';
-					plxUtils::printInput($k.'_url', $v['url'], 'text', '-255');
+					PlxUtils::printInput($k.'_url', $v['url'], 'text', '-255');
 					echo '</td><td>';
-					plxUtils::printSelect($k.'_active', array('1'=>L_YES,'0'=>L_NO), $v['active']);
+					PlxUtils::printSelect($k.'_active', array('1'=>L_YES,'0'=>L_NO), $v['active']);
 					echo '</td><td>';
-					plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3');
+					PlxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3');
 					echo '</td><td>';
-					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
+					PlxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
 					echo '</td><td>';
 					$url = $v['url'];
-					if(!plxUtils::checkSite($url)) {
+					if(!PlxUtils::checkSite($url)) {
 						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
 						if($v['active']) {
-							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
+							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.PlxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
 						}
 					}
 					elseif($v['url'][0]=='?')
-						echo '<a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
+						echo '<a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.PlxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
 					else
-						echo '<a href="'.$v['url'].'" title="'.plxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
+						echo '<a href="'.$v['url'].'" title="'.PlxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
 					echo '</td></tr>';
 					$ordre++;
 				}
@@ -125,18 +127,18 @@ function checkBox(cb) {
 					<td>
 					<?php
 						echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
-						plxUtils::printInput($new_staticid.'_group', '', 'text', '-100');
+						PlxUtils::printInput($new_staticid.'_group', '', 'text', '-100');
 						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_name', '', 'text', '-255');
-						plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden');
+						PlxUtils::printInput($new_staticid.'_name', '', 'text', '-255');
+						PlxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden');
 						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_url', '', 'text', '-255');
+						PlxUtils::printInput($new_staticid.'_url', '', 'text', '-255');
 						echo '</td><td>';
-						plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0');
+						PlxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0');
 						echo '</td><td>';
-						plxUtils::printInput($new_staticid.'_ordre', $ordre, 'text', '2-3');
+						PlxUtils::printInput($new_staticid.'_ordre', $ordre, 'text', '2-3');
 						echo '</td><td>';
-						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
+						PlxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
 					?>
 					</td>
 					<td>&nbsp;</td>

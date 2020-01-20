@@ -8,17 +8,22 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxDate;
+use Pluxml\PlxGlob;
+use Pluxml\PlxMsg;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Control du token du formulaire
 if(!isset($_POST['preview']))
-	plxToken::validateFormToken($_POST);
+	PlxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticlePrepend'));
 
 # validation de l'id de l'article si passé en parametre
 if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
-	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
+	PlxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
 }
@@ -42,7 +47,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	if($_SESSION['profil']==PROFIL_WRITER AND isset($_POST['artId']) AND $_POST['artId']!='0000') {
 		# On valide l'article
 		if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_POST['artId'].'.([home[draft|0-9,]*).'.$_SESSION['user'].'.(.+).xml$/')) == false) { # Article inexistant
-			plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
+			PlxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 			header('Location: index.php');
 			exit;
 		}
@@ -78,7 +83,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
 		$art['nb_com'] = 0;
 		$tmpstr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
-		$art['url'] = plxUtils::urlify($tmpstr);
+		$art['url'] = PlxUtils::urlify($tmpstr);
 		if(empty($art['url'])) $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
 
 		# Hook Plugins
@@ -100,25 +105,25 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 		$valid = true;
 		# Vérification de l'unicité de l'url
-		$url = plxUtils::urlify(!empty($_POST['url']) ? $_POST['url'] : $_POST['title']);
+		$url = PlxUtils::urlify(!empty($_POST['url']) ? $_POST['url'] : $_POST['title']);
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
 			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.$url.xml$/", $filename)) {
 				if($numart!=str_replace('_', '',$_POST['artId'])) {
-					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($url)) AND $valid;
+					$valid = PlxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".PlxUtils::strCheck($url)) AND $valid;
 				}
 			}
 		}
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($_POST['date_publication_day'],$_POST['date_publication_month'],$_POST['date_publication_year'],$_POST['date_publication_time'])) {
-			$valid = plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE) AND $valid;
+		if(!PlxDate::checkDate($_POST['date_publication_day'],$_POST['date_publication_month'],$_POST['date_publication_year'],$_POST['date_publication_time'])) {
+			$valid = PlxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE) AND $valid;
 		}
 		# Vérification de la validité de la date de creation
-		if(!plxDate::checkDate($_POST['date_creation_day'],$_POST['date_creation_month'],$_POST['date_creation_year'],$_POST['date_creation_time'])) {
-			$valid = plxMsg::Error(L_ERR_INVALID_DATE_CREATION) AND $valid;
+		if(!PlxDate::checkDate($_POST['date_creation_day'],$_POST['date_creation_month'],$_POST['date_creation_year'],$_POST['date_creation_time'])) {
+			$valid = PlxMsg::Error(L_ERR_INVALID_DATE_CREATION) AND $valid;
 		}
 		# Vérification de la validité de la date de mise à jour
-		if(!plxDate::checkDate($_POST['date_update_day'],$_POST['date_update_month'],$_POST['date_update_year'],$_POST['date_update_time'])) {
-			$valid = plxMsg::Error(L_ERR_INVALID_DATE_UPDATE) AND $valid;
+		if(!PlxDate::checkDate($_POST['date_update_day'],$_POST['date_update_month'],$_POST['date_update_year'],$_POST['date_update_time'])) {
+			$valid = PlxMsg::Error(L_ERR_INVALID_DATE_UPDATE) AND $valid;
 		}
 		if($valid) {
 			$plxAdmin->editArticle($_POST,$_POST['artId']);
@@ -173,7 +178,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 } elseif(!empty($_GET['a'])) { # On n'a rien validé, c'est pour l'édition d'un article
 	# On va rechercher notre article
 	if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'.(.+).xml$/')) == false) { # Article inexistant
-		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
+		PlxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;
 	}
@@ -185,9 +190,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$tags = trim($result['tags']);
 	$author = $result['author'];
 	$url = $result['url'];
-	$date = plxDate::date2Array($result['date']);
-	$date_creation = plxDate::date2Array($result['date_creation']);
-	$date_update = plxDate::date2Array($result['date_update']);
+	$date = PlxDate::date2Array($result['date']);
+	$date_creation = PlxDate::date2Array($result['date_creation']);
+	$date_update = PlxDate::date2Array($result['date_update']);
 	$date_update_old = $result['date_update'];
 	$catId = explode(',', $result['categorie']);
 	$artId = $result['numero'];
@@ -201,7 +206,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$thumbnail_alt = $result['thumbnail_alt'];
 
 	if($author!=$_SESSION['user'] AND $_SESSION['profil']==PROFIL_WRITER) {
-		plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
+		PlxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
 		header('Location: index.php');
 		exit;
 	}
@@ -209,7 +214,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleParseData'));
 
 } else { # On a rien validé, c'est pour la création d'un article
-	$title = plxUtils::strRevCheck(L_DEFAULT_NEW_ARTICLE_TITLE);
+	$title = PlxUtils::strRevCheck(L_DEFAULT_NEW_ARTICLE_TITLE);
 	$chapo = $url = '';
 	$content = '';
 	$tags = '';
@@ -237,21 +242,21 @@ include __DIR__ .'/top.php';
 foreach($plxAdmin->aUsers as $_userid => $_user) {
 	if($_user['active'] AND !$_user['delete'] ) {
 		if($_user['profil']==PROFIL_ADMIN)
-			$_users[L_PROFIL_ADMIN][$_userid] = plxUtils::strCheck($_user['name']);
+			$_users[L_PROFIL_ADMIN][$_userid] = PlxUtils::strCheck($_user['name']);
 		elseif($_user['profil']==PROFIL_MANAGER)
-			$_users[L_PROFIL_MANAGER][$_userid] = plxUtils::strCheck($_user['name']);
+			$_users[L_PROFIL_MANAGER][$_userid] = PlxUtils::strCheck($_user['name']);
 		elseif($_user['profil']==PROFIL_MODERATOR)
-			$_users[L_PROFIL_MODERATOR][$_userid] = plxUtils::strCheck($_user['name']);
+			$_users[L_PROFIL_MODERATOR][$_userid] = PlxUtils::strCheck($_user['name']);
 		elseif($_user['profil']==PROFIL_EDITOR)
-			$_users[L_PROFIL_EDITOR][$_userid] = plxUtils::strCheck($_user['name']);
+			$_users[L_PROFIL_EDITOR][$_userid] = PlxUtils::strCheck($_user['name']);
 		else
-			$_users[L_PROFIL_WRITER][$_userid] = plxUtils::strCheck($_user['name']);
+			$_users[L_PROFIL_WRITER][$_userid] = PlxUtils::strCheck($_user['name']);
 	}
 }
 
 # On récupère les templates des articles
 $aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
+$files = PlxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 if ($array = $files->query('/^article(-[a-z0-9-_]+)?.php$/')) {
 	foreach($array as $k=>$v)
 		$aTemplates[$v] = $v;
@@ -324,9 +329,9 @@ function refreshImg(dta) {
 			<fieldset>
 				<div class="grid">
 					<div class="col sml-12">
-						<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
+						<?php PlxUtils::printInput('artId',$artId,'hidden'); ?>
 						<label for="id_title"><?php echo L_ARTICLE_TITLE ?>&nbsp;:</label>
-						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
+						<?php PlxUtils::printInput('title',PlxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
 					</div>
 				</div>
 				<div class="grid">
@@ -345,14 +350,14 @@ function refreshImg(dta) {
 						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
 						<label for="toggler_chapo"><?php echo L_HEADLINE_FIELD;?> : <span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
 						<div>
-							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8); ?>
+							<?php PlxUtils::printArea('chapo',PlxUtils::strCheck($chapo),0,8); ?>
 						</div>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20); ?>
+						<?php PlxUtils::printArea('content',PlxUtils::strCheck($content),0,20); ?>
 					</div>
 				</div>
 			</fieldset>
@@ -362,15 +367,15 @@ function refreshImg(dta) {
 						<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 					</label>
-					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
+					<?php PlxUtils::printInput('thumbnail',PlxUtils::strCheck($thumbnail),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
 					<div class="grid" style="padding-top:10px">
 						<div class="col sml-12 lrg-6">
 							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_TITLE ?>&nbsp;:</label>
-							<?php plxUtils::printInput('thumbnail_title',plxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
+							<?php PlxUtils::printInput('thumbnail_title',PlxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
 						</div>
 						<div class="col sml-12 lrg-6">
 							<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_ALT ?>&nbsp;:</label>
-							<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
+							<?php PlxUtils::printInput('thumbnail_alt',PlxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
 						</div>
 					</div>
 					<div id="id_thumbnail_img">
@@ -388,7 +393,7 @@ function refreshImg(dta) {
 				</div>
 			</div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) # Hook Plugins ?>
-			<?php echo plxToken::getTokenPostMethod() ?>
+			<?php echo PlxToken::getTokenPostMethod() ?>
 		</div>
 
 		<div class="sidebar col sml-12 med-5 lrg-4">
@@ -413,10 +418,10 @@ function refreshImg(dta) {
 						<label for="id_author"><?php echo L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
 						<?php
 						if($_SESSION['profil'] < PROFIL_WRITER)
-							plxUtils::printSelect('author', $_users, $author);
+							PlxUtils::printSelect('author', $_users, $author);
 						else {
 							echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
-							echo '<strong>'.plxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
+							echo '<strong>'.PlxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
 						}
 						?>
 					</div>
@@ -425,10 +430,10 @@ function refreshImg(dta) {
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_DATE ?>&nbsp;:</label>
 						<div class="inline-form publication">
-							<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
-							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
-							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
-							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+							<?php PlxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
+							<?php PlxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
+							<?php PlxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
+							<?php PlxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
 							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 								<img src="theme/images/date.png" alt="calendar" />
 							</a>
@@ -439,10 +444,10 @@ function refreshImg(dta) {
 				<div class="col sml-12">
 					<label><?php echo L_DATE_CREATION ?>&nbsp;:</label>
 					<div class="inline-form creation">
-						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+						<?php PlxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
+						<?php PlxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
+						<?php PlxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
+						<?php PlxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
@@ -451,13 +456,13 @@ function refreshImg(dta) {
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
-					<?php plxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
+					<?php PlxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
 					<label><?php echo L_DATE_UPDATE ?>&nbsp;:</label>
 					<div class="inline-form update">
-						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+						<?php PlxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
+						<?php PlxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
+						<?php PlxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
+						<?php PlxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
@@ -476,9 +481,9 @@ function refreshImg(dta) {
 							foreach($plxAdmin->aCats as $cat_id => $cat_name) {
 								$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
 								if($plxAdmin->aCats[$cat_id]['active'])
-									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
+									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.PlxUtils::strCheck($cat_name['name']).'</label>';
 								else
-									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
+									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.PlxUtils::strCheck($cat_name['name']).'</label>';
 							}
 						?>
 					</div>
@@ -490,7 +495,7 @@ function refreshImg(dta) {
 					<div class="col sml-12">
 						<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
 						<div class="inline-form">
-							<?php plxUtils::printInput('new_catname','','text','17-50') ?>
+							<?php PlxUtils::printInput('new_catname','','text','17-50') ?>
 							<input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
 						</div>
 					</div>
@@ -501,7 +506,7 @@ function refreshImg(dta) {
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="tags"><?php echo L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
-						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+						<?php PlxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
 						<input class="toggler" type="checkbox" id="toggler_tags"<?php echo (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
 						<label for="toggler_tags"><span>-</span><span>+</span></label>
 						<div style="margin-top: 1rem">
@@ -512,7 +517,7 @@ function refreshImg(dta) {
 									if($tags = array_map('trim', explode(',', $tag['tags']))) {
 										foreach($tags as $tag) {
 											if($tag!='') {
-												$t = plxUtils::urlify($tag);
+												$t = PlxUtils::urlify($tag);
 												if(!isset($array[$tag]))
 													$array[$tag]=array('url'=>$t,'count'=>1);
 												else
@@ -523,8 +528,8 @@ function refreshImg(dta) {
 								}
 								array_multisort($array);
 								foreach($array as $tagname => $tag) {
-									echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.addslashes($tagname).'\')" title="'.plxUtils::strCheck($tagname).' ('.$tag['count'].')">'.
-									str_replace(' ', '&nbsp;', plxUtils::strCheck($tagname)).'</a>&nbsp;('.$tag['count'].')&nbsp; ';
+									echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.addslashes($tagname).'\')" title="'.PlxUtils::strCheck($tagname).' ('.$tag['count'].')">'.
+									str_replace(' ', '&nbsp;', PlxUtils::strCheck($tagname)).'</a>&nbsp;('.$tag['count'].')&nbsp; ';
 								}
 							}
 							else echo L_NO_TAG;
@@ -537,9 +542,9 @@ function refreshImg(dta) {
 					<div class="col sml-12">
 						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
 						<label for="id_allow_com"><?php echo L_ALLOW_COMMENTS ?>&nbsp;:</label>
-						<?php plxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
+						<?php PlxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
 						<?php else: ?>
-						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
+						<?php PlxUtils::printInput('allow_com','0','hidden'); ?>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -548,31 +553,31 @@ function refreshImg(dta) {
 						<label for="id_url">
 							<?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_URL_FIELD_TITLE ?></span></a>
 						</label>
-						<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
+						<?php PlxUtils::printInput('url',$url,'text','27-255'); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_template"><?php echo L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printSelect('template', $aTemplates, $template); ?>
+						<?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_title_htmltag"><?php echo L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
-						<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','27-255'); ?>
+						<?php PlxUtils::printInput('title_htmltag',PlxUtils::strCheck($title_htmltag),'text','27-255'); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_meta_description"><?php echo L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label>
-						<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','27-255'); ?>
+						<?php PlxUtils::printInput('meta_description',PlxUtils::strCheck($meta_description),'text','27-255'); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_meta_keywords"><?php echo L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label>
-						<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','27-255'); ?>
+						<?php PlxUtils::printInput('meta_keywords',PlxUtils::strCheck($meta_keywords),'text','27-255'); ?>
 					</div>
 				</div>
 

@@ -8,9 +8,12 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxAdmin;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -26,7 +29,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 # defaultLang	string		langue utilisée dans l'admin
 # type			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
 	$output='';
-	$plxAdmin = plxAdmin::getInstance();#OR global $plxAdmin;
+	$plxAdmin = PlxAdmin::getInstance();#OR global $plxAdmin;
 	if(sizeof($plugins)>0) {
 		$num=0;
 		foreach($plugins as $plugName => $plugInstance) {
@@ -60,15 +63,15 @@ function pluginsList($plugins, $defaultLang, $type) {
 					# message d'alerte si plugin non configuré
 					if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) $output .= '<span style="margin-top:5px" class="alert red float-right">'.L_PLUGIN_NO_CONFIG.'</span>';
 					# title + version
-					$output .= '<strong>'.plxUtils::strCheck($plugInstance->getInfo('title')).'</strong> - '.L_PLUGINS_VERSION.' <strong>'.plxUtils::strCheck($plugInstance->getInfo('version')).'</strong>';
+					$output .= '<strong>'.PlxUtils::strCheck($plugInstance->getInfo('title')).'</strong> - '.L_PLUGINS_VERSION.' <strong>'.PlxUtils::strCheck($plugInstance->getInfo('version')).'</strong>';
 					# date
-					if($plugInstance->getInfo('date')!='') $output .= ' ('.plxUtils::strCheck($plugInstance->getInfo('date')).')';
+					if($plugInstance->getInfo('date')!='') $output .= ' ('.PlxUtils::strCheck($plugInstance->getInfo('date')).')';
 					# description
-					$output .= '<br />'.plxUtils::strCheck($plugInstance->getInfo('description')).'<br />';
+					$output .= '<br />'.PlxUtils::strCheck($plugInstance->getInfo('description')).'<br />';
 					# author
-					$output .= L_PLUGINS_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
+					$output .= L_PLUGINS_AUTHOR.' : '.PlxUtils::strCheck($plugInstance->getInfo('author'));
 					# site
-					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.plxUtils::strCheck($plugInstance->getInfo('site')).'">'.plxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
+					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.PlxUtils::strCheck($plugInstance->getInfo('site')).'">'.PlxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
 				$output .= "</td>\n";
 
 				# colonne pour trier les plugins
@@ -107,7 +110,7 @@ $nbActivePlugins = sizeof($plxAdmin->plxPlugins->aPlugins);
 # nombre de plugins inactifs
 $nbInactivePlugins = sizeof($aInactivePlugins);
 # récuperation du type de plugins à afficher
-$_GET['sel'] = isset($_GET['sel']) ? intval(plxUtils::nullbyteRemove($_GET['sel'])) : '';
+$_GET['sel'] = isset($_GET['sel']) ? intval(PlxUtils::nullbyteRemove($_GET['sel'])) : '';
 $session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : '1';
 $sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
 $_SESSION['selPlugins'] = $sel;
@@ -142,8 +145,8 @@ include __DIR__ .'/top.php';
 		<ul class="menu">
 			<?php echo implode($breadcrumbs); ?>
 		</ul>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
+		<?php echo PlxToken::getTokenPostMethod() ?>
+		<?php PlxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<?php if($sel==1) { ?>

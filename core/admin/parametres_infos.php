@@ -8,12 +8,15 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxMsg;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 $email = filter_var($plxAdmin->aUsers[$_SESSION['user']]['email'], FILTER_VALIDATE_EMAIL);
 $emailBuild = (is_string($email) and filter_has_var(INPUT_POST, 'sendmail-test'));
@@ -44,23 +47,23 @@ if($emailBuild) {
 	<?php } ?>
 </ul>
 <ul class="unstyled-list">
-	<?php plxUtils::testWrite(PLX_ROOT) ?>
-	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_articles']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_commentaires']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_statiques']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['medias']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_themes']); ?>
-	<?php plxUtils::testModReWrite() ?>
-	<?php plxUtils::testLibGD() ?>
-	<?php plxUtils::testLibXml() ?>
+	<?php PlxUtils::testWrite(PLX_ROOT) ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH); ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'); ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_articles']); ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_commentaires']); ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_statiques']); ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['medias']); ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>
+	<?php PlxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_themes']); ?>
+	<?php PlxUtils::testModReWrite() ?>
+	<?php PlxUtils::testLibGD() ?>
+	<?php PlxUtils::testLibXml() ?>
 	<?php
-	if(plxUtils::testMail() and is_string($email) and !$emailBuild) {
+	if(PlxUtils::testMail() and is_string($email) and !$emailBuild) {
 ?>
 		<form method="post">
-			<?php echo plxToken::getTokenPostMethod() ?>
+			<?php echo PlxToken::getTokenPostMethod() ?>
 			<input type="submit" name="sendmail-test" value="<?= L_MAIL_TEST ?>" />
 		</form>
 <?php
@@ -90,24 +93,24 @@ HEAD;
 	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
 	$from = $plxAdmin->aUsers['001']['email'];
 
-	if(empty($plxAdmin->aConf['email_method']) or $plxAdmin->aConf['email_method'] == 'sendmail' or !method_exists('plxUtils', 'sendMailPhpMailer')) {
+	if(empty($plxAdmin->aConf['email_method']) or $plxAdmin->aConf['email_method'] == 'sendmail' or !method_exists('PlxUtils', 'sendMailPhpMailer')) {
 		# fonction mail() intrinséque à PHP
 		$method = '<p style="font-size: 80%;"><em>mail() function from PHP</em></p>';
 		$body = $head . $content . $method . $foot;
-		if(plxUtils::sendMail('', '', $email, $subject, $body, 'html')) {
-			plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
+		if(PlxUtils::sendMail('', '', $email, $subject, $body, 'html')) {
+			PlxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
 		} else {
-			plxMsg::Error(L_MAIL_TEST_FAILURE);
+			PlxMsg::Error(L_MAIL_TEST_FAILURE);
 		}
 	} else {
 		# module externe PHPMailer -
 		$method = '<p style="font-size: 80%;"><em>' . $plxAdmin->aConf['email_method'] . ' via PHPMailer</em></p>';
 		$body = $head . $content . $method . $foot;
 
-		if(plxUtils::sendMailPhpMailer($name, $from, $email, $subject, $head . $body . $foot, true, $plxAdmin->aConf)) {
-			plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
+		if(PlxUtils::sendMailPhpMailer($name, $from, $email, $subject, $head . $body . $foot, true, $plxAdmin->aConf)) {
+			PlxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
 		} else {
-			plxMsg::Error(L_MAIL_TEST_FAILURE);
+			PlxMsg::Error(L_MAIL_TEST_FAILURE);
 		}
 	}
 

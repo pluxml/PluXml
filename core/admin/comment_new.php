@@ -8,9 +8,13 @@
  **/
 
 include __DIR__ .'/prepend.php';
+use Pluxml\PlxDate;
+use Pluxml\PlxMsg;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
 
 # Contrôle du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentNewPrepend'));
@@ -27,7 +31,7 @@ if(!$plxAdmin->aConf['allow_com']) {
 # validation de l'id de l'article si passé en paramètre avec $_GET['a']
 if(isset($_GET['a'])) {
 	if(!preg_match('/^_?([0-9]{4})$/',$_GET['a'], $capture)) {
-		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
+		PlxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;
 	} else {
@@ -37,7 +41,7 @@ if(isset($_GET['a'])) {
 # validation de l'id de l'article si passé en paramètre avec $_GET['c']
 if(isset($_GET['c'])) {
 	if(!preg_match('/^_?([0-9]{4}).(.*)$/',$_GET['c'], $capture)) {
-		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
+		PlxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;
 	} else {
@@ -50,20 +54,20 @@ if(!empty($_GET['c'])) { # Mode "answer"
 	# On check que le commentaire existe et est "online"
 	if(!$plxAdmin->getCommentaires('/^'.plxUtils::nullbyteRemove($_GET['c']).'.xml$/','',0,1,'all')) {
 		# On redirige
-		plxMsg::Error(L_ERR_ANSWER_UNKNOWN_COMMENT);
+		PlxMsg::Error(L_ERR_ANSWER_UNKNOWN_COMMENT);
 		header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 		exit;
 	}
 	# Commentaire offline
 	if(preg_match('/^_/',$_GET['c'])) {
 		# On redirige
-		plxMsg::Error(L_ERR_ANSWER_OFFLINE_COMMENT);
+		PlxMsg::Error(L_ERR_ANSWER_OFFLINE_COMMENT);
 		header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
 		exit;
 	}
 	# On va rechercher notre article
 	if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',0,1)) == false) { # Article inexistant
-		plxMsg::Error(L_ERR_COMMENT_UNKNOWN_ARTICLE);
+		PlxMsg::Error(L_ERR_COMMENT_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;
 	}
@@ -87,7 +91,7 @@ if(!empty($_GET['c'])) { # Mode "answer"
 } elseif(!empty($_GET['a'])) { # Mode "new"
 	# On check l'article si il existe bien
 	if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'.(.+).xml$/','','sort',0,1)) == false) {
-		plxMsg::Error(L_ERR_COMMENT_UNEXISTENT_ARTICLE);
+		PlxMsg::Error(L_ERR_COMMENT_UNEXISTENT_ARTICLE);
 		header('Location: index.php');
 		exit;
 	}
@@ -112,9 +116,9 @@ if(!empty($_GET['c'])) { # Mode "answer"
 if(!empty($_POST) AND !empty($_POST['content'])) {
 	# Création du commentaire
 	if(!$plxAdmin->newCommentaire(str_replace('_','',$artId),$_POST)) { # Erreur
-		plxMsg::Error(L_ERR_CREATING_COMMENT);
+		PlxMsg::Error(L_ERR_CREATING_COMMENT);
 	} else { # Ok
-		plxMsg::Info(L_CREATING_COMMENT_SUCCESSFUL);
+		PlxMsg::Info(L_CREATING_COMMENT_SUCCESSFUL);
 	}
 	header('Location: comment_new.php?a='.$artId);
 	exit;
@@ -151,7 +155,7 @@ include __DIR__ .'/top.php';
 			<div class="col sml-12">
 				<div id="id_answer"></div>
 				<?php plxUtils::printInput('parent',$parent,'hidden'); ?>
-				<?php echo plxToken::getTokenPostMethod() ?>
+				<?php echo PlxToken::getTokenPostMethod() ?>
 				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?>&nbsp;:</label>
 				<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
@@ -168,7 +172,7 @@ include __DIR__ .'/top.php';
 			<div id="com-<?php echo $plxAdmin->plxRecord_coms->f('index'); ?>">
 				<small>
 					<span class="nbcom">#<?php echo $plxAdmin->plxRecord_coms->i+1 ?></span>&nbsp;
-					<time datetime="<?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?></time> -
+					<time datetime="<?php echo PlxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php echo PlxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?></time> -
 					<?php echo L_COMMENT_WRITTEN_BY ?>&nbsp;<strong><?php echo $plxAdmin->plxRecord_coms->f('author'); ?></strong>
 					- <a href="comment.php<?php echo (!empty($_GET['a']))?'?c='.$comId.'&amp;a='.$_GET['a']:'?c='.$comId; ?>" title="<?php echo L_COMMENT_EDIT_TITLE ?>"><?php echo L_COMMENT_EDIT ?></a>
 					- <a href="#form_comment" onclick="replyCom('<?php echo $plxAdmin->plxRecord_coms->f('index') ?>')"><?php echo L_COMMENT_ANSWER ?></a>

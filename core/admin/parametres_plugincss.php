@@ -6,16 +6,20 @@
  * @package PLX
  * @author	Stephane F
  **/
+use Pluxml\PlxMsg;
+use Pluxml\PlxToken;
+use Pluxml\PlxUtils;
+
 include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
-plxToken::validateFormToken($_POST);
+PlxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 $plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
-$plugin = plxUtils::nullbyteRemove($plugin);
+$plugin = PlxUtils::nullbyteRemove($plugin);
 
 # chargement du fichier css du plugin pour le frontend
 $file_frontend = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.basename($plugin).'.site.css';
@@ -24,16 +28,16 @@ $file_backend = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.basename($plugin).'.admin.cs
 
 # Traitement du formulaire: sauvegarde du code css et regénération du cache
 if(isset($_POST['submit'])) {
-	$ret_f = plxUtils::write(trim($_POST['frontend']), $file_frontend);
-	$ret_b = plxUtils::write(trim($_POST['backend']), $file_backend);
+	$ret_f = PlxUtils::write(trim($_POST['frontend']), $file_frontend);
+	$ret_b = PlxUtils::write(trim($_POST['backend']), $file_backend);
 	if($ret_f AND $ret_b) {
 		$ret_1 = $plxAdmin->plxPlugins->cssCache('site');
 		$ret_2 = $plxAdmin->plxPlugins->cssCache('admin');
 	}
 	if($ret_f AND $ret_b AND $ret_1 AND $ret_2)
-		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
+		PlxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
 	else
-		plxMsg::Error(L_SAVE_FILE_ERROR);
+		PlxMsg::Error(L_SAVE_FILE_ERROR);
 	header('Location: parametres_plugincss.php?p='.urlencode($plugin));
 	exit;
 }
@@ -53,7 +57,7 @@ include __DIR__ .'/top.php';
 <form action="parametres_plugincss.php?p=<?php echo urlencode($plugin) ?>" method="post" id="form_file">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo plxUtils::strCheck($plugin) ?></h2>
+		<h2><?php echo PlxUtils::strCheck($plugin) ?></h2>
 		<?php echo '<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
 	</div>
@@ -62,15 +66,15 @@ include __DIR__ .'/top.php';
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend), 0, 20); ?>
+				<?php PlxUtils::printArea('frontend',PlxUtils::strCheck($frontend), 0, 20); ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend), 0, 20); ?>
+				<?php PlxUtils::printArea('backend',PlxUtils::strCheck($backend), 0, 20); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
-				<?php echo plxToken::getTokenPostMethod() ?>
+				<?php echo PlxToken::getTokenPostMethod() ?>
 			</div>
 		</div>
 	</fieldset>

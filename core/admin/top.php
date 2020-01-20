@@ -49,9 +49,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 ?>
 </head>
 <body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
-<main class="main">
-	<aside class="aside">
-		<header class="header">
+<main class="main flex-container--column">
+	<header class="header">
 			<ul>
 				<li>
 					<small><a href="<?= PLX_ROOT ?>" title="<?= L_BACK_TO_SITE_TITLE ?>"><?= L_BACK_TO_SITE;?></a></small>
@@ -83,6 +82,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 				<li><small><a title="PluXml" href="<?= PLX_URL_REPO ?>">PluXml <?= $plxAdmin->aConf['version'] ?></a></small></li>
 			</ul>
 		</header>
+	<div class="flex-container">
+	<aside class="aside w20">
 		<nav class="responsive-menu">
 			<label for="nav"><?= L_MENU ?></label>
 			<input type="checkbox" id="nav" />
@@ -153,7 +154,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		</nav>
 	</aside>
 
-	<section>
+	<section class="section item-fluid">
 
 <?php
 		if(is_file(PLX_ROOT.'install.php'))
