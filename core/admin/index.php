@@ -128,9 +128,9 @@ include __DIR__ .'/top.php';
 
 <form action="index.php" method="post" id="form_articles">
 
-<div class="inline-form action-bar">
+<div>
 	<h2><?php echo L_ARTICLES_LIST ?></h2>
-	<ul class="menu">
+	<ul>
 		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
 		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
 		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
@@ -146,19 +146,19 @@ include __DIR__ .'/top.php';
 	<?php PlxUtils::printInput('page',1,'hidden'); ?>
 </div>
 
-<div class="grid">
-	<div class="col sml-6">
+<div>
+	<div>
 		<?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
-	<div class="col sml-6 text-right">
+	<div>
 		<input id="index-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo PlxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
 	</div>
 </div>
 
-<div class="scrollable-table">
-	<table id="articles-table" class="full-width">
+<div>
+	<table>
 		<thead>
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
@@ -235,7 +235,7 @@ include __DIR__ .'/top.php';
 
 </form>
 
-<p id="pagination">
+<p>
 	<?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
