@@ -7,9 +7,13 @@
  * @author	Stephane F
  **/
 
-define('PLX_UPDATE', PLX_ROOT.'update/');
+namespace PluxmlUpdater;
 
-class plxUpdater {
+use Pluxml\PlxAdmin;
+
+const PLX_UPDATE = PLX_ROOT.'update/';
+
+class PlxUpdater {
 
 	public $newVersion = '';
 	public $oldVersion = '' ;
@@ -26,7 +30,7 @@ class plxUpdater {
 	 **/
 	public function __construct($versions) {
 		$this->allVersions = $versions;
-		$this->plxAdmin = plxAdmin::getInstance();
+		$this->plxAdmin = PlxAdmin::getInstance();
 		$this->getVersions();
 	}
 
@@ -157,7 +161,7 @@ class plxUpdate {
 	 * @author	Stephane F
 	 **/
 	public function __construct() {
-		$this->plxAdmin = plxAdmin::getInstance();
+		$this->plxAdmin = PlxAdmin::getInstance();
 		if(!isset($this->plxAdmin->aConf['plugins']))
 			$this->plxAdmin->aConf['plugins']='data/configuration/plugins.xml';
 	}

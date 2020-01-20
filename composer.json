@@ -8,7 +8,8 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Pluxml\\": "core/lib"
+			"Pluxml\\": "core/lib",
+			"PluxmlUpdater\\": "update/lib"
 		}
 	},
 	"require": {

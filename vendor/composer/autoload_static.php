@@ -18,6 +18,7 @@ class ComposerStaticInit50fd7eb916c2e1ceb136ad0f2170c6d8
         array (
             'Psr\\Http\\Message\\' => 17,
             'Pluxml\\' => 7,
+            'PluxmlUpdater\\' => 14,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'L' => 
@@ -40,6 +41,10 @@ class ComposerStaticInit50fd7eb916c2e1ceb136ad0f2170c6d8
         'Pluxml\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/lib',
+        ),
+        'PluxmlUpdater\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/update/lib',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (

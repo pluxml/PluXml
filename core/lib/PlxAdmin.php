@@ -7,6 +7,8 @@
 
 namespace Pluxml;
 
+use Pluxml\PlxMsg;
+
 const PLX_ADMIN = true;
 
 class PlxAdmin extends PlxMotor {
@@ -120,11 +122,11 @@ class PlxAdmin extends PlxMotor {
 		# Actions sur le fichier htaccess
 		if(isset($content['urlrewriting']))
 			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
-				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
+				return PlxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
-			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
+			return PlxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
 
 		# Si nouvel emplacement du dossier de configuration
 		if(isset($content['config_path'])) {
@@ -132,14 +134,14 @@ class PlxAdmin extends PlxMotor {
 			if($newpath!=PLX_CONFIG_PATH) {
 				# relocalisation du dossier de configuration de PluXml
 				if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
-					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
+					return PlxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
 				# mise à jour du fichier de configuration config.php
 				if(!plxUtils::write("<?php define('PLX_CONFIG_PATH', '".$newpath."') ?>", PLX_ROOT.'config.php'))
-					return plxMsg::Error(L_SAVE_ERR.' config.php');
+					return PlxMsg::Error(L_SAVE_ERR.' config.php');
 			}
 		}
 
-		return plxMsg::Info(L_SAVE_SUCCESSFUL);
+		return PlxMsg::Info(L_SAVE_SUCCESSFUL);
 
 	}
 
@@ -216,13 +218,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if($redirect) {
 			if(is_array($args)) {
 				if(!in_array($_SESSION['profil'], $args)) {
-					plxMsg::Error(L_NO_ENTRY);
+					PlxMsg::Error(L_NO_ENTRY);
 					header('Location: index.php');
 					exit;
 				}
 			} else {
 				if($_SESSION['profil']!=$profil) {
-					plxMsg::Error(L_NO_ENTRY);
+					PlxMsg::Error(L_NO_ENTRY);
 					header('Location: index.php');
 					exit;
 				}
@@ -245,13 +247,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editProfil($content) {
 
 		if(isset($content['profil']) AND trim($content['name'])=='')
-			return plxMsg::Error(L_ERR_USER_EMPTY);
+			return PlxMsg::Error(L_ERR_USER_EMPTY);
 
 			if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
-				return plxMsg::Error(L_ERR_INVALID_EMAIL);
+				return PlxMsg::Error(L_ERR_INVALID_EMAIL);
 
 			if(!in_array($content['lang'], plxUtils::getLangs()))
-				return plxMsg::Error(L_UNKNOWN_ERROR);
+				return PlxMsg::Error(L_UNKNOWN_ERROR);
 
 			$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
 			$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
@@ -278,7 +280,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$action = false;
 
 		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
-			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
+			return PlxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
 		}
 
 		if(!empty($token = $content['lostPasswordToken'])) {
@@ -414,7 +416,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						$password=sha1($salt.md5($content[$user_id.'_password']));
 					elseif(isset($content[$user_id.'_newuser'])) {
 						$this->aUsers = $save;
-						return plxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
+						return PlxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
 					}
 					else {
 						$salt = $this->aUsers[$user_id]['salt'];
@@ -424,9 +426,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					# controle de l'adresse email
 					$email = trim($content[$user_id.'_email']);
 					if(isset($content[$user_id.'_newuser']) AND empty($email))
-						return plxMsg::Error(L_ERR_INVALID_EMAIL);
+						return PlxMsg::Error(L_ERR_INVALID_EMAIL);
 					if(!empty($email) AND !plxUtils::checkMail($email))
-						return plxMsg::Error(L_ERR_INVALID_EMAIL);
+						return PlxMsg::Error(L_ERR_INVALID_EMAIL);
 
 					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
 					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
@@ -462,21 +464,21 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				# controle de l'unicité du nom de l'utilisateur
 				if(in_array($user['name'], $users_name)) {
 					$this->aUsers = $save;
-					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
+					return PlxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
 				}
 				else {
 					$users_name[] = $user['name'];
 				}
 				# controle de l'unicité du login de l'utilisateur
 				if(in_array($user['login'], $users_login)) {
-					return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
+					return PlxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
 				}
 				else {
 					$users_login[] = $user['login'];
 				}
 				# controle de l'unicité de l'adresse e-mail
 				if(in_array($user['email'], $users_email)) {
-					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+					return PlxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
 				}
 				else {
 					$users_email[] = $user['email'];
@@ -499,14 +501,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 			# On écrit le fichier
 			if(plxUtils::write($xml,path('XMLFILE_USERS')))
-				return plxMsg::Info(L_SAVE_SUCCESSFUL);
+				return PlxMsg::Info(L_SAVE_SUCCESSFUL);
 				else {
 					$this->aUsers = $save;
-					return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
+					return PlxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
 				}
 		}
 		else {
-			return plxMsg::Error(L_SAVE_ERR);
+			return PlxMsg::Error(L_SAVE_ERR);
 		}
 	}
 
@@ -521,11 +523,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# controle de l'adresse email
 		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
-			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+			return PlxMsg::Error(L_ERR_INVALID_EMAIL);
 
 			# controle de la langue sélectionnée
 			if(!in_array($content['lang'], plxUtils::getLangs()))
-				return plxMsg::Error(L_UNKNOWN_ERROR);
+				return PlxMsg::Error(L_UNKNOWN_ERROR);
 
 				$this->aUsers[$content['id']]['email'] = $content['email'];
 				$this->aUsers[$content['id']]['infos'] = trim($content['content']);
@@ -656,14 +658,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				# controle de l'unicité du nom de la categorie
 				if(in_array($cat['name'], $cats_name)) {
 					$this->aCats = $save;
-					return plxMsg::Error(L_ERR_CATEGORY_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['name']));
+					return PlxMsg::Error(L_ERR_CATEGORY_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['name']));
 				}
 				else
 					$cats_name[] = $cat['name'];
 
 				# controle de l'unicité de l'url de la catégorie
 				if(in_array($cat['url'], $cats_url))
-					return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['url']));
+					return PlxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['url']));
 				else
 					$cats_url[] = $cat['url'];
 
@@ -683,10 +685,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "</document>";
 			# On écrit le fichier
 			if(plxUtils::write($xml,path('XMLFILE_CATEGORIES')))
-				return plxMsg::Info(L_SAVE_SUCCESSFUL);
+				return PlxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aCats = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_CATEGORIES'));
+				return PlxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_CATEGORIES'));
 			}
 		}
 	}
@@ -788,14 +790,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 				# controle de l'unicité du titre de la page
 				if(in_array($static['name'], $statics_name))
-					return plxMsg::Error(L_ERR_STATIC_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['name']));
+					return PlxMsg::Error(L_ERR_STATIC_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['name']));
 				else
 					$statics_name[] = $static['name'];
 
 				# controle de l'unicité de l'url de la page
 				if(in_array($static['url'], $statics_url)) {
 					$this->aStats = $save;
-					return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['url']));
+					return PlxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['url']));
 				}
 				else
 					$statics_url[] = $static['url'];
@@ -815,10 +817,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$xml .= "</document>";
 			# On écrit le fichier si une action valide a été faite
 			if(plxUtils::write($xml,path('XMLFILE_STATICS')))
-				return plxMsg::Info(L_SAVE_SUCCESSFUL);
+				return PlxMsg::Info(L_SAVE_SUCCESSFUL);
 			else {
 				$this->aStats = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_STATICS'));
+				return PlxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_STATICS'));
 			}
 		}
 	}
@@ -872,9 +874,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$filename = PLX_ROOT.$this->aConf['racine_statiques'].$content['id'].'.'.$this->aStats[ $content['id'] ]['url'].'.php';
 			# On écrit le fichier
 			if(plxUtils::write($content['content'],$filename))
-				return plxMsg::Info(L_SAVE_SUCCESSFUL);
+				return PlxMsg::Info(L_SAVE_SUCCESSFUL);
 			else
-				return plxMsg::Error(L_SAVE_ERR.' '.$filename);
+				return PlxMsg::Error(L_SAVE_ERR.' '.$filename);
 		}
 	}
 
@@ -988,9 +990,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
-			return plxMsg::Info($msg);
+			return PlxMsg::Info($msg);
 		} else {
-			return plxMsg::Error(L_ARTICLE_SAVE_ERR);
+			return PlxMsg::Error(L_ARTICLE_SAVE_ERR);
 		}
 	}
 
@@ -1032,10 +1034,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				unset($this->aTags[$id]);
 				$this->editTags();
 			}
-			return plxMsg::Info(L_ARTICLE_DELETE_SUCCESSFUL);
+			return PlxMsg::Info(L_ARTICLE_DELETE_SUCCESSFUL);
 		}
 		else
-			return plxMsg::Error(L_ARTICLE_DELETE_ERR);
+			return PlxMsg::Error(L_ARTICLE_DELETE_ERR);
 	}
 
 	/**
@@ -1079,18 +1081,18 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Vérification de la validité de la date de publication
 		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time']))
-			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
+			return PlxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
 
 		$comment=array();
 		# Génération du nom du fichier
 		$comment['filename'] = $id.'.xml';
 		if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename'])) # Commentaire inexistant
-			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
+			return PlxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		# Contrôle des saisies
 		if(trim($content['mail'])!='' AND !plxUtils::checkMail(trim($content['mail'])))
-			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+			return PlxMsg::Error(L_ERR_INVALID_EMAIL);
 		if(trim($content['site'])!='' AND !plxUtils::checkSite($content['site']))
-			return plxMsg::Error(L_ERR_INVALID_SITE);
+			return PlxMsg::Error(L_ERR_INVALID_SITE);
 		# On récupère les infos du commentaire
 		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
 		# Formatage des données
@@ -1119,9 +1121,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# Création du nouveau commentaire
 		$id = $newid;
 		if($this->addCommentaire($comment))
-			return plxMsg::Info(L_COMMENT_SAVE_SUCCESSFUL);
+			return PlxMsg::Info(L_COMMENT_SAVE_SUCCESSFUL);
 		else
-			return plxMsg::Error(L_COMMENT_UPDATE_ERR);
+			return PlxMsg::Error(L_COMMENT_UPDATE_ERR);
 	}
 
 	/**
@@ -1141,9 +1143,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		}
 		# On refait un test file_exists pour savoir si unlink à fonctionner
 		if(!file_exists($filename))
-			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
+			return PlxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
 		else
-			return plxMsg::Error(L_COMMENT_DELETE_ERR);
+			return PlxMsg::Error(L_COMMENT_DELETE_ERR);
 	}
 
 	/**
@@ -1161,7 +1163,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# Génération du nom du fichier
 		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
 		if(!file_exists($oldfilename)) # Commentaire inexistant
-			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
+			return PlxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		# Modérer ou valider ?
 		if(preg_match('/([[:punct:]]?)[0-9]{4}.[0-9]{10}-[0-9]+$/',$id,$capture)) {
 			$id=str_replace($capture[1],'',$id);
@@ -1175,14 +1177,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# Contrôle
 		if(is_readable($newfilename)) {
 			if($mod == 'online')
-				return plxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
+				return PlxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
 			else
-				return plxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
+				return PlxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
 		} else {
 			if($mod == 'online')
-				return plxMsg::Error(L_COMMENT_VALIDATE_ERR);
+				return PlxMsg::Error(L_COMMENT_VALIDATE_ERR);
 			else
-				return plxMsg::Error(L_COMMENT_MODERATE_ERR);
+				return PlxMsg::Error(L_COMMENT_MODERATE_ERR);
 		}
 	}
 

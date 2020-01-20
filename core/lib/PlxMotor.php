@@ -9,6 +9,9 @@
 
 namespace Pluxml;
 
+use Pluxml\PlxCapcha;
+use Pluxml\PlxDate;
+
 class PlxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
@@ -330,13 +333,13 @@ class PlxMotor {
 			# Récupération des commentaires
 			$this->getCommentaires('/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/',$this->tri_coms);
 			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+			if($this->aConf['capcha']) $this->plxCapcha = new PlxCapcha(); # Création objet captcha
 		}
 		elseif($this->mode == 'preview') {
 			$this->mode='article';
 			$this->plxRecord_arts = new plxRecord($_SESSION['preview']);
 			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+			if($this->aConf['capcha']) $this->plxCapcha = new PlxCapcha(); # Création objet captcha
 		}
 
 		# Hook plugins
