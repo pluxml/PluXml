@@ -5,7 +5,11 @@
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
-class update_5_8_1 extends plxUpdate{
+
+use PluxmlUpdater\PlxUpdate;
+use Pluxml\PlxUtils;
+
+class update_5_8_1 extends PlxUpdate{
 
 	/**
 	 * Update category file with new fields thumbnail, thumbnail_title, thumbnail_alt
@@ -22,7 +26,7 @@ class update_5_8_1 extends plxUpdate{
 					$data = str_replace($match, $str, $data);
 				}
 			}
-			if(!plxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
+			if(!PlxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
 				echo '<p class="error">'.L_UPDATE_ERR_FILE.'</p>';
 				return false;
 			}
@@ -45,7 +49,7 @@ class update_5_8_1 extends plxUpdate{
 					$data = str_replace($match, $str, $data);
 				}
 			}
-			if(!plxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
+			if(!PlxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
 				echo '<p class="error">'.L_UPDATE_ERR_FILE.'</p>';
 				return false;
 			}

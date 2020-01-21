@@ -5,7 +5,11 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_1_6 extends plxUpdate{
+
+use PluxmlUpdater\PlxUpdate;
+use Pluxml\PlxUtils;
+
+class update_5_1_6 extends PlxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
@@ -32,7 +36,7 @@ class update_5_1_6 extends plxUpdate{
 			$old = 'RewriteRule ^([^feed\/].*)$ index.php?$1 [L]';
 			$new = 'RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]';
 			$htaccess = str_replace($old, $new, $htaccess);
-			if(!plxUtils::write($htaccess,PLX_ROOT.'.htaccess')) {
+			if(!PlxUtils::write($htaccess,PLX_ROOT.'.htaccess')) {
 				echo '<p class="error">'.L_UPDATE_ERR_UPDATE_HTACCESS_FILE.'</p>';
 				return false;
 			}
@@ -52,7 +56,7 @@ class update_5_1_6 extends plxUpdate{
 					$data = str_replace($match, $str, $data);
 				}
 			}
-			if(!plxUtils::write($data, PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
+			if(!PlxUtils::write($data, PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
 				echo '<p class="error">'.L_UPDATE_ERR_FILE.'</p>';
 				return false;
 			}
@@ -71,7 +75,7 @@ class update_5_1_6 extends plxUpdate{
 					$data = str_replace($match, $str, $data);
 				}
 			}
-			if(!plxUtils::write($data, PLX_ROOT.$this->plxAdmin->aConf['categories'])) {
+			if(!PlxUtils::write($data, PLX_ROOT.$this->plxAdmin->aConf['categories'])) {
 				echo '<p class="error">'.L_UPDATE_ERR_FILE.'</p>';
 				return false;
 			}

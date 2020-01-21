@@ -5,7 +5,11 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_2 extends plxUpdate{
+
+use PluxmlUpdater\PlxUpdate;
+use Pluxml\PlxUtils;
+
+class update_5_2 extends PlxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
@@ -33,7 +37,7 @@ class update_5_2 extends plxUpdate{
 				$xml .= "\t<plugin name=\"$k\"></plugin>\n";
 		}
 		$xml .= "</document>";
-		if(!plxUtils::write($xml,path('XMLFILE_PLUGINS'))) {
+		if(!PlxUtils::write($xml,path('XMLFILE_PLUGINS'))) {
 			echo '<p class="error">'.L_UPDATE_ERR_FILE_PROCESSING.'</p>';
 			return false;
 		}

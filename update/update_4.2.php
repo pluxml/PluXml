@@ -1,11 +1,15 @@
 <?php
+
 /**
  * Classe de mise a jour pour PluXml version 4.2
  *
  * @package PLX
  * @author	Stephane F
  **/
-class update_4_2 extends plxUpdate{
+
+use PluxmlUpdater\PlxUpdate;
+
+class update_4_2 extends PlxUpdate{
 
 	function step1() {
 

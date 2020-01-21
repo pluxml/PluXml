@@ -6,9 +6,12 @@
  * @author	Stephane F
  **/
 
+use PluxmlUpdater\PlxUpdate;
+use Pluxml\PlxUtils;
+
 define('PLX_CONF', PLX_ROOT.'data/configuration/parametres.xml');
 
-class update_5_1_7 extends plxUpdate{
+class update_5_1_7 extends PlxUpdate{
 
 	# mise à jour dossier de configuration
 	public function step1() {
@@ -24,30 +27,30 @@ class update_5_1_7 extends plxUpdate{
 		}
 
 		# Protection du dossier de configuration
-		plxUtils::write("<Files *>\n\tOrder allow,deny\n\tDeny from all\n</Files>", PLX_ROOT.PLX_CONFIG_PATH.".htaccess");
-		plxUtils::write("", PLX_ROOT.PLX_CONFIG_PATH."index.html");
+		PlxUtils::write("<Files *>\n\tOrder allow,deny\n\tDeny from all\n</Files>", PLX_ROOT.PLX_CONFIG_PATH.".htaccess");
+		PlxUtils::write("", PLX_ROOT.PLX_CONFIG_PATH."index.html");
 		# Relocalisation des fichiers de configuration si besoin
-		if(!plxUtils::write(file_get_contents(PLX_CONF), path('XMLFILE_PARAMETERS'))) {
+		if(!PlxUtils::write(file_get_contents(PLX_CONF), path('XMLFILE_PARAMETERS'))) {
 			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path('XMLFILE_PARAMETERS').'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['statiques']), path('XMLFILE_STATICS'))) {
+		if(!PlxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['statiques']), path('XMLFILE_STATICS'))) {
 			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path('XMLFILE_STATICS').'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['categories']), path('XMLFILE_CATEGORIES'))) {
+		if(!PlxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['categories']), path('XMLFILE_CATEGORIES'))) {
 			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path('XMLFILE_CATEGORIES').'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['users']), path('XMLFILE_USERS'))) {
+		if(!PlxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['users']), path('XMLFILE_USERS'))) {
 			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path('XMLFILE_USERS').'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['tags']), path('XMLFILE_TAGS'))) {
+		if(!PlxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['tags']), path('XMLFILE_TAGS'))) {
 			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path('XMLFILE_TAGS').'</p>';
 			return false;
 		}
-		if(!plxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['plugins']), path('XMLFILE_PLUGINS'))) {
+		if(!PlxUtils::write(file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['plugins']), path('XMLFILE_PLUGINS'))) {
 			echo '<p class="error">'.L_UPDATE_ERR_FILE.' : '.path('XMLFILE_PLUGINS').'</p>';
 			return false;
 		}
@@ -90,7 +93,7 @@ class update_5_1_7 extends plxUpdate{
 					$title = $plugAttrs->getInfo('title');
 				else
 					$title = $plugAttrs['title'];
-				if(plxUtils::write(file_get_contents($plugParamFile), PLX_ROOT.PLX_CONFIG_PATH.'/plugins/'.$plugName.'.xml')) {
+				if(PlxUtils::write(file_get_contents($plugParamFile), PLX_ROOT.PLX_CONFIG_PATH.'/plugins/'.$plugName.'.xml')) {
 					echo '<span style="color:green">&#10004; '.$title.'</span><br />';
 					unlink($plugParamFile);
 				}

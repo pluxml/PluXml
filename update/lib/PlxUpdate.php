@@ -12,7 +12,7 @@ use Pluxml\PlxAdmin;
 
 const PLX_UPDATE = PLX_ROOT.'update/';
 
-class plxUpdate {
+class PlxUpdate {
 
 	protected $plxAdmin; # objet de type plxAdmin
 

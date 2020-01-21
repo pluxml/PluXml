@@ -5,7 +5,10 @@
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
-class update_5_8 extends plxUpdate{
+
+use PluxmlUpdater\PlxUpdate;
+
+class update_5_8 extends PlxUpdate{
 
 	# mise à jour fichier parametres.xml (récupération du mot de passe)
 	public function step1() {

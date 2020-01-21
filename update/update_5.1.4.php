@@ -5,7 +5,12 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_1_4 extends plxUpdate{
+
+use PluxmlUpdater\PlxUpdate;
+use Pluxml\PlxGlob;
+use Pluxml\PlxUtils;
+
+class update_5_1_4 extends PlxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
@@ -24,15 +29,15 @@ class update_5_1_4 extends plxUpdate{
 	# Migration des articles: ajout nouveau champ title_htmltag
 	public function step2() {
 		echo L_UPDATE_ARTICLES_CONVERSION."<br />";
-		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
-        if($files = $plxGlob_arts->query('/(.*).xml$/','art')) {
+		$plxGlob_arts = PlxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
+		if($files = $plxGlob_arts->query('/(.*).xml$/','art')) {
 			foreach($files as $filename){
 				if(is_readable($filename)) {
 					$data = file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename);
 					if(!preg_match('/\]\]<\/title_htmltag>/', $data)) {
 						$data = preg_replace("/<\/document>$/", "\t<title_htmltag>\n\t\t<![CDATA[]]>\n\t</title_htmltag>\n</document>", $data);
 					}
-					if(!plxUtils::write($data, PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename)) {
+					if(!PlxUtils::write($data, PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename)) {
 						echo '<p class="error">'.L_UPDATE_ERR_FILE_PROCESSING.' : '.$filename.'</p>';
 						return false;
 					}

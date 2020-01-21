@@ -5,7 +5,12 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_0 extends plxUpdate{
+
+use Pluxml\PlxGlob;
+use Pluxml\PlxUtils;
+use PluxmlUpdater\PlxUpdate;
+
+class update_5_0 extends PlxUpdate{
 
 	/* Création des nouveaux paramètres dans le fichier parametres.xml */
 	public function step1() {
@@ -31,7 +36,7 @@ class update_5_0 extends plxUpdate{
 		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>';
 		$xml .= '<document>'."\n";
 		$xml .= '</document>';
-		if(!plxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['tags'])) {
+		if(!PlxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['tags'])) {
 			echo '<p class="error">'.L_UPDATE_ERR_CREATE_TAGS_FILE.'</p>';
 			return false;
 		}
@@ -69,8 +74,8 @@ class update_5_0 extends plxUpdate{
 	/* Migration des articles: formatage xml + renommage des fichiers */
 	public function step5() {
 		echo L_UPDATE_ARTICLES_CONVERSION."<br />";
-		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
-        if($files = $plxGlob_arts->query('/^[0-9]{4}.([0-9]{3}|home|draft).[0-9]{12}.[a-z0-9-]+.xml$/','art')) {
+		$plxGlob_arts = PlxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
+		if($files = $plxGlob_arts->query('/^[0-9]{4}.([0-9]{3}|home|draft).[0-9]{12}.[a-z0-9-]+.xml$/','art')) {
 			foreach($files as $id => $filename){
 				$art = $this->parseArticle(PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename);
 				if(!$this->plxAdmin->editArticle($art, $art['numero'])) {
@@ -93,7 +98,7 @@ class update_5_0 extends plxUpdate{
 				$xml .= "\t<statique number=\"".$static_id."\" active=\"".$static['active']."\" menu=\"".$static['menu']."\" url=\"".$static['url']."\" template=\"static.php\"><group><![CDATA[]]></group><name><![CDATA[".$static['name']."]]></name></statique>\n";
 			}
 			$xml .= "</document>";
-			if(!plxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
+			if(!PlxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
 				echo '<p class="error">'.L_UPDATE_ERR_STATICS_MIGRATION.' (data/configuration/statiques.xml)</p>';
 				return false;
 			}
@@ -117,7 +122,7 @@ class update_5_0 extends plxUpdate{
 				$xml .= "\t</user>\n";
 			}
 			$xml .= '</document>';
-			if(!plxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['users'])) {
+			if(!PlxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['users'])) {
 				echo '<p class="error">'.L_UPDATE_ERR_CREATE_USERS_FILE.' (data/configuration/users.xml)</p>';
 				return false;
 			}
@@ -149,7 +154,7 @@ class update_5_0 extends plxUpdate{
     Order allow,deny
     Deny from all
 </Files>';
-			if(!plxUtils::write($txt,PLX_ROOT.'.htaccess')) {
+			if(!PlxUtils::write($txt,PLX_ROOT.'.htaccess')) {
 				echo '<p class="error">'.L_UPDATE_ERR_CREATE_HTACCESS_FILE.'</p>';
 				return false;
 			}
