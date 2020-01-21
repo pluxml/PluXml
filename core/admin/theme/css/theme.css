@@ -12,50 +12,81 @@
 
 /* ==== AUTHENTIFICATION ==== */
 
-main.auth .logo {
+.auth .logo {
 	background-image: url(../images/pluxml.png);
 	height: 80px;
 	width: 123px;
 }
-main.auth {
+.auth {
 	height: 100vh;
 	background-color: #2d2d44;
 }
-main.auth .form {
+.auth .form {
 	background-color: #fbf8ef;
 	box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.15);
 }
-main.auth input.txt {
+.auth input.txt {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	background-color: #fbf8ef;
 	padding: 10px 10px;
 	border-bottom: 2px solid #ddd;
 }
-main.auth .btn--margin-top {
+.auth .btn--margin-top {
 	margin-top: 30px;
 }
-main.auth a.back {
+.auth a.back {
 	color: white;
 	text-decoration: none;
 }
-main.auth a.back:hover {
+.auth a.back:hover {
 	text-decoration: underline;
 }
 
-/* ==== ASIDE ==== */
-main .main {
-	height: 100vh;
+/* ==== HEADER ==== */
+.admin {
+	height: 92%
 }
-
-main .aside {
-	background-color: #2d2d44;
+header {
+	position: fixed;
+	top: 0;
+	overflow: hidden;
+	height: 8%;
+	width: 100%;
 }
-
-main .header {
+.header-left {
+	color: #fff;
+}
+.header-left {
+	border-bottom: 1px solid #222;
 	background-color: #1e1e2c;
 }
+.header-right {
+	border-bottom: 1px solid #ddd;
+	background-color: #fff;
+}
+.header-right li {
+	display: inline-block;
+}
 
-main .section {
-	background-color: #fbf8ef;
+/* ==== ASIDE ==== */
+.main {
+	height: 100vh;
+}
+.aside {
+	position: fixed;
+	top: 8%;
+	overflow: auto;
+	height: 100%;
+	color: #fff;
+	background-color: #2d2d44;
+}
+.aside a {
+	color: #fff;
+}
+
+/* ==== SECTION ==== */
+.section {
+	padding: 4% 0px 0px 15%;
+	background-color: #efefef;
 }

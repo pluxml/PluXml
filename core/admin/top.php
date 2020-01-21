@@ -50,25 +50,12 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 </head>
 <body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
 <main class="main flex-container--column">
-	<header class="header">
-			<ul>
-				<li>
-					<small><a href="<?= PLX_ROOT ?>" title="<?= L_BACK_TO_SITE_TITLE ?>"><?= L_BACK_TO_SITE;?></a></small>
-				</li>
-				<li>
-<?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
-					<small><a href="<?= $plxAdmin->urlRewrite('?blog'); ?>" title="<?= L_BACK_TO_BLOG_TITLE ?>"><?= L_BACK_TO_BLOG;?></a></small>
-<?php else: ?>&nbsp;
-<?php endif; ?>
-				</li>
-				<li>
-					<small><a href="<?= PLX_CORE ?>admin/auth.php?d=1" title="<?= L_ADMIN_LOGOUT_TITLE ?>"><?= L_ADMIN_LOGOUT ?></a></small>
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<h1><strong><?= PlxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1>
-				</li>
+	<header class="flex-container">
+		<div class="header-left w15">
+			<h1><strong><?= PlxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1>
+		</div>
+		<div class="header-right txtright item-fluid">
+			<ul class="unstyled">
 				<li>
 					<strong><?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
 					<em>
@@ -79,15 +66,27 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						else echo L_PROFIL_WRITER; ?>
 					</em>
 				</li>
-				<li><small><a title="PluXml" href="<?= PLX_URL_REPO ?>">PluXml <?= $plxAdmin->aConf['version'] ?></a></small></li>
+				<li>
+					<small><a href="<?= PLX_CORE ?>admin/auth.php?d=1" title="<?= L_ADMIN_LOGOUT_TITLE ?>"><?= L_ADMIN_LOGOUT ?></a></small>
+				</li>
+				<li>
+<?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
+					<small><a href="<?= $plxAdmin->urlRewrite('?blog'); ?>" title="<?= L_BACK_TO_BLOG_TITLE ?>"><?= L_BACK_TO_BLOG;?></a></small>
+<?php else: ?>&nbsp;
+<?php endif; ?>
+				</li>
+				<li>
+					<small><a href="<?= PLX_ROOT ?>" title="<?= L_BACK_TO_SITE_TITLE ?>"><?= L_BACK_TO_SITE;?></a></small>
+				</li>
 			</ul>
+			</div>
 		</header>
-	<div class="flex-container">
-	<aside class="aside w20">
+	<div class="admin flex-container">
+	<aside class="aside w15">
 		<nav class="responsive-menu">
 			<label for="nav"><?= L_MENU ?></label>
 			<input type="checkbox" id="nav" />
-			<ul>
+			<ul class="unstyled">
 <?php
 					$menus = array();
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
@@ -152,6 +151,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 ?>
 			</ul>
 		</nav>
+		<small><a title="PluXml" href="<?= PLX_URL_REPO ?>">PluXml <?= $plxAdmin->aConf['version'] ?></a></small>
 	</aside>
 
 	<section class="section item-fluid">
