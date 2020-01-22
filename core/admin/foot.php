@@ -1,6 +1,7 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
 <?php use Pluxml\PlxUtils ?>
 
+			</div>
 		</section>
 	</div>
 </main>

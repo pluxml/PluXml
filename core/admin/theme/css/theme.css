@@ -10,6 +10,16 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+.backgrey {
+	background-color: #2e353d; 
+}
+.backpurple {
+	background-color: #2d2d44;
+}
+.backpurple2 {
+	background-color: #1e1e2c;
+}
+
 /* ==== AUTHENTIFICATION ==== */
 
 .auth .logo {
@@ -19,7 +29,6 @@
 }
 .auth {
 	height: 100vh;
-	background-color: #2d2d44;
 }
 .auth .form {
 	background-color: #fbf8ef;
@@ -43,50 +52,51 @@
 	text-decoration: underline;
 }
 
-/* ==== HEADER ==== */
-.admin {
-	height: 92%
-}
-header {
-	position: fixed;
-	top: 0;
-	overflow: hidden;
-	height: 8%;
-	width: 100%;
-}
-.header-left {
-	color: #fff;
-}
-.header-left {
-	border-bottom: 1px solid #222;
-	background-color: #1e1e2c;
-}
-.header-right {
-	border-bottom: 1px solid #ddd;
-	background-color: #fff;
-}
-.header-right li {
-	display: inline-block;
-}
-
 /* ==== ASIDE ==== */
 .main {
 	height: 100vh;
 }
 .aside {
 	position: fixed;
-	top: 8%;
+	top: 0;
 	overflow: auto;
 	height: 100%;
 	color: #fff;
-	background-color: #2d2d44;
+}
+.aside h1, .aside li, .aside .plxversion {
+	padding: 5px 10px 10px 20px;
+}
+.aside li:hover {
+	background-color: #1e1e2c;
+}
+.aside i {
+	margin-right: 10px;
 }
 .aside a {
 	color: #fff;
 }
 
+/* ==== HEADER ==== */
+.header {
+	padding: 5px 10px 5px;
+	position: fixed;
+	top: 0;
+	overflow: hidden;
+	height: 40px;
+	width: 85%;
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+}
+.header li {
+	display: inline-block;
+}
+
 /* ==== SECTION ==== */
 .section {
-	padding: 4% 0px 0px 15%;
+	padding: 50px 0px 0px 15%;
 	background-color: #efefef;
+}
+
+.section .admin {
+	padding: 0px 20px 20px;
 }

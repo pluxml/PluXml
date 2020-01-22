@@ -162,7 +162,7 @@ $datas = json_encode($builkDatas);
 	<script src="<?= PLX_CORE ?>lib/vue.js"></script>
 </head>
 <body id="auth">
-	<main id="vue" class="auth flex-container--column">
+	<main id="vue" class="auth backpurple flex-container--column">
 		<section class="w350p item-center">
 			<div class="logo item-center"></div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin')) ?>
