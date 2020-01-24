@@ -43,14 +43,15 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<script src="<?= PLX_CORE ?>lib/visual.js?v=<?= PLX_VERSION ?>"></script>
 	<script src="<?= PLX_CORE ?>lib/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
 	<script defer src="<?= PLX_CORE ?>lib/multifiles.js?v=<?= PLX_VERSION ?>"></script>
+	<script src="<?= PLX_CORE ?>lib/vue.js"></script>
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
 ?>
 </head>
 <body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
-<main class="main flex-container">
-	<aside class="aside backblue w15">
+<main id="app" class="main grid-6-small-1 ">
+	<aside id="aside" class="aside col-1 row-2-small-1 ">
 		<header class="asideheader">
 			<h1 class="h4-like txtcenter"><?= PlxUtils::strCheck($plxAdmin->aConf['title']) ?></h1>
 			<ul class="unstyled">
@@ -65,8 +66,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 			</ul>
 		</header>
 		<nav class="nav">
-			<label for="nav"><?= L_MENU ?></label>
-			<input type="checkbox" id="nav" />
 			<ul class="unstyled">
 <?php
 					$menus = array();
@@ -135,22 +134,28 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		<div class="plxversion"><a title="PluXml" href="<?= PLX_URL_REPO ?>"><small>PluXml <?= $plxAdmin->aConf['version'] ?></small></a></div>
 	</aside>
 
-	<section class="section item-fluid">
-		<header class="header txtright">
-			<ul class="unstyled">
-				<li class="badge" ><img src="theme/images/pluxml.png"/></li>
-				<li>
-					<?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?>&nbsp;
-					<small><em><?php
-						if ($_SESSION ['profil'] == PROFIL_ADMIN) echo L_PROFIL_ADMIN;
-						elseif ($_SESSION ['profil'] == PROFIL_MANAGER) echo L_PROFIL_MANAGER;
-						elseif ($_SESSION ['profil'] == PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
-						elseif ($_SESSION ['profil'] == PROFIL_EDITOR) echo L_PROFIL_EDITOR;
-						else echo L_PROFIL_WRITER;
-					?></em></small>
-				</li>
-				<li><a href="<?= PLX_CORE ?>admin/auth.php?d=1" title="<?= L_ADMIN_LOGOUT_TITLE ?>"><i class="icon-logout"></i></a></li>
-			</ul>
+	<section class="section col-5">
+		<header class="header flex-container">
+			<input type="checkbox" id="menu-toggle" class="hidden">
+			<label for="menu-toggle">
+				<button class="nav-button" type="button" role="button" aria-label="open/close navigation"><a href="javascript:void(0);" class="icon" onclick="myFunction()"><i></i></a></button>
+			</label>
+			<div class="item-fluid txtright">
+				<ul class="unstyled">
+					<li class="badge" ><img src="theme/images/pluxml.png"/></li>
+					<li>
+						<?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?>&nbsp;
+						<small><em><?php
+							if ($_SESSION ['profil'] == PROFIL_ADMIN) echo L_PROFIL_ADMIN;
+							elseif ($_SESSION ['profil'] == PROFIL_MANAGER) echo L_PROFIL_MANAGER;
+							elseif ($_SESSION ['profil'] == PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
+							elseif ($_SESSION ['profil'] == PROFIL_EDITOR) echo L_PROFIL_EDITOR;
+							else echo L_PROFIL_WRITER;
+						?></em></small>
+					</li>
+					<li><a href="<?= PLX_CORE ?>admin/auth.php?d=1" title="<?= L_ADMIN_LOGOUT_TITLE ?>"><i class="icon-logout"></i></a></li>
+				</ul>
+			</div>
 		</header>
 		<div class="admin">
 <?php

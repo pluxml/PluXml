@@ -16,6 +16,10 @@
 	--backsection: #f5f6f6;
 	--backheader: #fff;
 	--backheaderborder: #ddd;
+	--primary: #0275d8;
+}
+.hidden {
+	display: none;
 }
 
 /* ==== AUTHENTIFICATION ==== */
@@ -56,10 +60,10 @@
 	height: 100vh;
 }
 .aside {
-	position: fixed;
+	/*position: fixed;
 	top: 0;
 	overflow: auto;
-	height: 100%;
+	height: 100%;*/
 	color: #fff;
 	background-color: var(--backaside);
 }
@@ -91,6 +95,8 @@
 	background-color: var(--backaside2);
 }
 .aside .active {
+	border-left: 6px solid var(--primary);
+	padding-left: -6px;
 	font-weight: bold;
 }
 .aside i {
@@ -102,14 +108,17 @@
 
 /* ==== HEADER ==== */
 .header {
-	padding: 5px 10px 5px;
+/*	padding: 5px 10px 5px;
 	position: fixed;
 	top: 0;
 	overflow: hidden;
 	height: 40px;
-	width: 85%;
+	width: 85%;*/
 	background-color: var(--backheader);
 	border-bottom: 1px solid var(--backheaderborder);
+}
+.header .nav-button {
+	display: none;
 }
 .header li {
 	display: inline-block;
@@ -122,10 +131,30 @@
 
 /* ==== SECTION ==== */
 .section {
-	padding: 50px 0px 0px 15%;
+	/*padding: 50px 0px 0px 15%;*/
 	background-color: var(--backsection);
 }
 
 .section .admin {
 	padding: 0px 20px 20px;
+}
+
+@media (max-width : 575px) {
+	.js-enabled .nav-button {
+		display: inline-block;
+	}
+	.aside {
+		display: none;
+	}
+}
+
+/* styling opened nav */
+.js-enabled .aside {
+	transition: transform .25s;
+	will-change: transform;
+}
+.js-enabled .aside.is-opened {
+	/*transform: translateX(60vw);*/
+	display: block;
+	with: 100%
 }

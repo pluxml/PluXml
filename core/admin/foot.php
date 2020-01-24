@@ -8,6 +8,52 @@
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) # Hook Plugins ?>
 
+<script>
+/*new Vue({
+	el: '#app',
+	data: <?= $datas ?>
+})*/
+</script>
+<script>
+/**!
+Navigation Button Toggle class
+*/
+(function() {
+
+// old browser or not ?
+if ( !('querySelector' in document && 'addEventListener' in window) ) {
+return;
+}
+window.document.documentElement.className += ' js-enabled';
+
+function toggleNav() {
+
+// Define targets by their class or id
+var target = document.querySelector('.aside');
+var button = document.querySelector('.nav-button');
+
+// click-touch event
+if ( button ) {
+  button.addEventListener('click',
+  function (e) {
+      button.classList.toggle('is-active');
+    target.classList.toggle('is-opened');
+    e.preventDefault();
+  }, false );
+}
+} // end toggleNav()
+
+toggleNav();
+}());
+/*function myFunction() {
+	  var x = document.getElementById("aside");
+	  if (x.style.display === "block") {
+	    x.style.display = "none";
+	  } else {
+	    x.style.display = "block";
+	  }
+	}*/
+</script>
 <script src="<?php echo PLX_CORE ?>lib/drag-and-drop.js"></script>
 <script>
 	setMsg();
