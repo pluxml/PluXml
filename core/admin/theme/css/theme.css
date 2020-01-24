@@ -9,15 +9,13 @@
 #
 # ------------------- END LICENSE BLOCK -------------------
 */
-
-.backgrey {
-	background-color: #2e353d; 
-}
-.backpurple {
-	background-color: #2d2d44;
-}
-.backpurple2 {
-	background-color: #1e1e2c;
+:root {
+	--backaside: #2f383f;
+	--backaside2: #38424b;
+	--backasideborder : #42494f;
+	--backsection: #f5f6f6;
+	--backheader: #fff;
+	--backheaderborder: #ddd;
 }
 
 /* ==== AUTHENTIFICATION ==== */
@@ -28,10 +26,11 @@
 	width: 123px;
 }
 .auth {
+	background-color: var(--backaside);
 	height: 100vh;
 }
 .auth .form {
-	background-color: #fbf8ef;
+	background-color: var(--backsection);
 	box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.15);
 }
 .auth input.txt {
@@ -62,12 +61,37 @@
 	overflow: auto;
 	height: 100%;
 	color: #fff;
+	background-color: var(--backaside);
 }
-.aside h1, .aside li, .aside .plxversion {
-	padding: 5px 10px 10px 20px;
+.aside .asideheader ul {
+	padding: 5px 30px;
+	border-top: 1px solid var(--backasideborder);
+	border-bottom: 1px solid var(--backasideborder);
 }
-.aside li:hover {
-	background-color: #1e1e2c;
+.aside .asideheader h1 {
+	padding: 10px 10px;
+}
+.aside li a {
+	font-size: 1.4rem;
+	text-decoration: none;
+}
+.aside .nav {
+	border-bottom: 1px solid var(--backasideborder);
+}
+.aside .nav li, .aside .plxversion {
+	padding: 5px 10px 10px 30px;
+}
+.aside .plxversion {
+	margin-top: 10px;
+}
+.aside .plxversion a {
+	text-decoration: none;
+}
+.aside .active, .aside .submenu {
+	background-color: var(--backaside2);
+}
+.aside .active {
+	font-weight: bold;
 }
 .aside i {
 	margin-right: 10px;
@@ -84,17 +108,22 @@
 	overflow: hidden;
 	height: 40px;
 	width: 85%;
-	background-color: #fff;
-	border-bottom: 1px solid #ddd;
+	background-color: var(--backheader);
+	border-bottom: 1px solid var(--backheaderborder);
 }
 .header li {
 	display: inline-block;
+}
+.header li.badge {
+	width: 30px;
+	height: 30px;
+	margin-right: 5px;
 }
 
 /* ==== SECTION ==== */
 .section {
 	padding: 50px 0px 0px 15%;
-	background-color: #efefef;
+	background-color: var(--backsection);
 }
 
 .section .admin {
