@@ -65,8 +65,10 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 				</li>
 			</ul>
 		</header>
-		<nav class="nav">
-			<ul class="unstyled">
+		<nav class="responsive-menu">
+			<label for="nav"><?php echo L_MENU ?></label>
+			<input type="checkbox" id="nav">
+			<ul id="responsive-menu" class="unstyled">
 <?php
 					$menus = array();
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
@@ -136,10 +138,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 
 	<section class="section col-5">
 		<header class="header flex-container">
-			<input type="checkbox" id="menu-toggle" class="hidden">
-			<label for="menu-toggle">
-				<button class="nav-button" type="button" role="button" aria-label="open/close navigation"><a href="javascript:void(0);" class="icon" onclick="myFunction()"><i></i></a></button>
-			</label>
 			<div class="item-fluid txtright">
 				<ul class="unstyled">
 					<li class="badge" ><img src="theme/images/pluxml.png"/></li>
