@@ -128,7 +128,7 @@ include __DIR__ .'/top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <div class="adminheader">
-	<h2>Tableau de bord (lang)</h2>
+	<h2><?= L_ARTICLES_LIST ?></h2>
 	<ul>
 		<li><a <?= ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?= L_ALL ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
 		<li><a <?= ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?= L_ALL_PUBLISHED ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>

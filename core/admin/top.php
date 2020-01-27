@@ -6,7 +6,6 @@
  **/
 
 use Pluxml\PlxUtils;
-use Pluxml\PlxMsg;
 
 if(!defined('PLX_ROOT')) {
 	exit;
@@ -74,7 +73,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
 					$arts_mod = $nbartsmod>0 ? '&nbsp;<span class="tag--primary" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
-					$menus[] = PlxUtils::formatMenu('<i class="icon-doc-inv"></i>'.L_MENU_ARTICLES, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
+					$menus[] = PlxUtils::formatMenu('<i class="icon-doc-inv"></i>'.'Tableau de bord (lang)', PLX_CORE.'admin/index.php?page=1', 'Tableau de bord (lang)', false, false);
+					$menus[] = PlxUtils::formatMenu('<i class="icon-doc-inv"></i>'.L_MENU_ARTICLES, PLX_CORE.'admin/articles.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
 
 					if(isset($_GET['a'])) # edition article
 						$menus[] = PlxUtils::formatMenu('<i class="icon-pencil"></i>'.L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, false, false, '', false);
@@ -155,12 +155,3 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 				</ul>
 			</div>
 		</header>
-		<div class="admin">
-<?php
-		if(is_file(PLX_ROOT.'install.php'))
-			echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>'."\n";
-		PlxMsg::Display();
-
-		# Hook Plugins
-		eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
-?>
