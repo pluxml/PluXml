@@ -170,13 +170,20 @@
 }
 
 .table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 0px;
+	width: 100%;
+	border-collapse: collapse;
 	background-color: var(--backheader);
+	overflow: auto;
 }
 .table th {
 	background-color: var(--backaside2);
 	color: #fff;
 }
-.table td, .table th {
+.table th, .table td {
+	white-space: nowrap;
 	padding: 10px 5px;
 	border: 0px;
 	border-bottom: 1px solid var(--backheaderborder);
