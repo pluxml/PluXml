@@ -29,7 +29,7 @@ class plxRecord {
 	/**
 	 * Méthode qui incrémente judicieusement la variable $i
 	 *
-	 * @return	booléen
+	 * @return	boolean
 	 * @author	Anthony GUÉRIN
 	 **/
 	public function loop() {

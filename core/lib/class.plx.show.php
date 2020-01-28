@@ -468,7 +468,7 @@ class plxShow {
 	 *
 	 * @param	format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
 	 * @param	echo 	si à VRAI affichage à l'écran
-	 * @return	stdout
+	 * @return	string
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F, Philippe-M
 	 **/
@@ -1094,10 +1094,8 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui retourne le niveau d'indentation du commentaire
-	 *
-	 * @return	integer		numéro du niveau d'indentation du commentaire
-	 * @scope	article
+	 * Get comment indent number
+	 * @return	integer		level number for comment indentation
 	 * @author	Stephane F.
 	 **/
 	public function comNumLevel() {
@@ -1105,17 +1103,16 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui formate et affiche le niveau d'indentation du commentaire
-	 *
-	 * @param	class	nom de la classe css servant à l'indentation des commentaires
-	 * @scope	article
-	 * @author	Stephane F., Jerry Wham
+	 * Add CSS class fort comments indentation
+	 * @param	class	css class used to indent comments
+	 * @author	Stephane F., Jerry Wham, Pedro "P3ter" CADETE
 	 **/
 	public function comLevel($class='level') {
-		if($this->comNumLevel() > 5)
-			echo $class.'-'.$this->comNumLevel().' '.$class.'-max';
+		$numLevel = $this->comNumLevel();
+		if($numLevel > 5)
+			echo $class.'-'.$numLevel.' '.$class.'-max';
 		else
-			echo $class.'-'.$this->comNumLevel();
+			echo $class.'-'.$numLevel;
 	}
 
 	/**
