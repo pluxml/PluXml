@@ -19,6 +19,10 @@
 	--primary: #0275d8;
 }
 
+body {
+	background-color: var(--backsection);
+}
+
 /* ==== AUTHENTIFICATION ==== */
 
 .auth .logo {
