@@ -185,7 +185,7 @@ $datas = json_encode($builkDatas);
 					<form action="auth.php<?= !empty($redirect)?'?p='.PlxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 						<fieldset class="pan flex-container--column">
 							<?= PlxToken::getTokenPostMethod() ?>
-							<input name="lostPasswordToken" value="<?= $lostPasswordToken ?>" type="hidden" />
+							<input name="lostPasswordToken" value="<?= $_GET['token']; ?>" type="hidden" />
 							<h1 class="h3-like txtcenter mtm"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
 							<?php PlxUtils::printInput('password1', '', 'password', '10-255',false,'txt', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
 							<?php PlxUtils::printInput('password2', '', 'password', '10-255',false,'txt', L_PROFIL_CONFIRM_PASSWORD) ?>

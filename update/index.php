@@ -3,9 +3,9 @@ const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
 const PLX_UPDATER = true; # prevent from redirect loop with PlxMotor __construct()
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
-include PLX_ROOT.'update/versions.php';
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
+include 'versions.php';
 
 require_once PLX_ROOT.'vendor/autoload.php';
 use Pluxml\PlxUtils;
@@ -24,9 +24,9 @@ if(isset($_POST['default_lang'])) $lang=$_POST['default_lang'];
 if(!array_key_exists($lang, PlxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
 }
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
-loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
-loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
+foreach(array('core', 'admin', 'update') as $ctx) {
+	loadLang(PLX_CORE . 'lang/' . $lang . '/' . $ctx . '.php');
+};
 
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, '5.0.0', '<')){
@@ -58,16 +58,16 @@ PlxToken::validateFormToken($_POST);
 	<title><?php echo L_UPDATE_TITLE.' '.PlxUtils::strCheck($plxUpdater->newVersion) ?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/css/knacss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/css/theme.css" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.gif" />
+	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.png" />
 </head>
 <body>
 
-	<main class="main grid">
-		<aside class="aside col sml-12 med-3 lrg-2">
+	<main class="main grid-6-small-1">
+		<aside class="aside col-1">
 		</aside>
-		<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top: 0">
+		<section class="section col-5 pam">
 			<header>
-				<h1><?php echo L_UPDATE_TITLE.' '.PlxUtils::strCheck($plxUpdater->newVersion) ?></h1>
+				<h1 class="h2-like"><?php echo L_UPDATE_TITLE.' '.PlxUtils::strCheck($plxUpdater->newVersion) ?></h1>
 			</header>
 			<?php if(empty($_POST['submit'])) : ?>
 				<?php if($plxUpdater->oldVersion==$plxUpdater->newVersion) : ?>
@@ -76,21 +76,19 @@ PlxToken::validateFormToken($_POST);
 				<p><a href="<?php echo PLX_ROOT; ?>" title="<?php echo L_UPDATE_BACK ?>"><?php echo L_UPDATE_BACK ?></a></p>
 				<?php else: ?>
 				<form action="index.php" method="post">
-					<fieldset>
-						<div class="grid">
-							<div class="col sml-9 med-7 label-centered">
-								<label for="id_default_lang"><?php echo L_SELECT_LANG ?></label>
-							</div>
-							<div class="col sml-3 med-2">
-								<?php PlxUtils::printSelect('default_lang', PlxUtils::getLangs(), $lang) ?>&nbsp;
-							</div>
-							<div class="col med-3">
-								<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
-								<?php echo PlxToken::getTokenPostMethod() ?>
-							</div>
+					<fieldset class="pln">
+						<div class="inbl">
+							<label for="id_default_lang"><?php echo L_SELECT_LANG ?></label>
+						</div>
+						<div class="inbl">
+							<?php PlxUtils::printSelect('default_lang', PlxUtils::getLangs(), $lang) ?>&nbsp;
+						</div>
+						<div class="inbl">
+							<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
+							<?php echo PlxToken::getTokenPostMethod() ?>
 						</div>
 					</fieldset>
-					<fieldset>
+					<fieldset class="pln">
 						<p><strong><?php echo L_UPDATE_WARNING1.' '.$plxUpdater->oldVersion ?></strong></p>
 						<?php if(empty($plxUpdater->oldVersion)) : ?>
 						<p><?php echo L_UPDATE_SELECT_VERSION ?></p>
@@ -98,7 +96,7 @@ PlxToken::validateFormToken($_POST);
 						<p><?php echo L_UPDATE_WARNING2 ?></p>
 						<?php endif; ?>
 						<p><?php echo L_UPDATE_WARNING3 ?></p>
-						<p><input type="submit" name="submit" value="<?php echo L_UPDATE_START ?>" /></p>
+						<p><input class="btn--primary" type="submit" name="submit" value="<?php echo L_UPDATE_START ?>" /></p>
 					</fieldset>
 				</form>
 				<?php endif; ?>
