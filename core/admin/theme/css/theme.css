@@ -58,13 +58,13 @@ body {
 
 /* ==== ASIDE ==== */
 .main {
-	height: 100vh;
+	height: 100%;
 }
 .aside {
-	/*position: fixed;
+	position: fixed;
 	top: 0;
+	bottom: 0;
 	overflow: auto;
-	height: 100%;*/
 	color: #fff;
 	background-color: var(--backaside);
 }
@@ -133,34 +133,32 @@ body {
 	}
 }
 
-/* ==== HEADER ==== */
-.header {
-/*	padding: 5px 10px 5px;
-	position: fixed;
-	top: 0;
-	overflow: hidden;
-	height: 40px;
-	width: 85%;*/
-	background-color: var(--backheader);
-	border-bottom: 1px solid var(--backheaderborder);
-}
-.header .responsive-menu-button {
-	display: none;
-}
-.header li {
-	display: inline-block;
-}
-.header li.badge {
-	width: 30px;
-	height: 30px;
-	margin-right: 5px;
-}
-
 /* ==== SECTION ==== */
 .section {
 	background-color: var(--backsection);
 }
-
+.section .header {
+	padding: 5px 10px 5px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	overflow: hidden;
+	height: 40px;
+	width: auto;
+	background-color: var(--backheader);
+	border-bottom: 1px solid var(--backheaderborder);
+}
+.section .header .responsive-menu-button {
+	display: none;
+}
+.section .header li {
+	display: inline-block;
+}
+.section .header li.badge {
+	width: 30px;
+	height: 30px;
+	margin-right: 5px;
+}
 .section .adminheader {
 	padding: 10px 20px 20px;
 	background-color: var(--backheader);
@@ -174,13 +172,14 @@ body {
 }
 
 .table {
+	overflow: auto;
 	border-collapse: collapse;
 	border-spacing: 0;
 	border: 0px;
 	width: 100%;
 	border-collapse: collapse;
+	box-shadow: 0px 0px 2px 1px #bbb;
 	background-color: var(--backheader);
-	overflow: auto;
 }
 .table th {
 	background-color: var(--backaside2);
@@ -197,4 +196,7 @@ body {
 }
 .table tr:hover {
 	background-color: var(--backsection);
+}
+.table .checkbox {
+    border-radius: 0px;
 }
