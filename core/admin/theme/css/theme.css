@@ -23,6 +23,12 @@ body {
 	background-color: var(--backsection);
 }
 
+[type="submit"] {
+	background-color: var(--primary);
+	box-shadow: none;
+	padding: 1rem 1.5rem;
+}
+
 /* ==== AUTHENTIFICATION ==== */
 
 .auth .logo {
