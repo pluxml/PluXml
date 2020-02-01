@@ -6,6 +6,7 @@
  **/
 
 use Pluxml\PlxUtils;
+use Pluxml\PlxMsg;
 
 if(!defined('PLX_ROOT')) {
 	exit;

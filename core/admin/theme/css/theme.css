@@ -23,12 +23,6 @@ body {
 	background-color: var(--backsection);
 }
 
-[type="submit"] {
-	background-color: var(--primary);
-	box-shadow: none;
-	padding: 1rem 1.5rem;
-}
-
 /* ==== AUTHENTIFICATION ==== */
 
 .auth .logo {
@@ -74,17 +68,34 @@ body {
 	color: #fff;
 	background-color: var(--backaside);
 }
+.aside i {
+	margin-right: 10px;
+}
+.aside a {
+	color: #fff;
+}
 .aside .asideheader ul {
 	padding: 5px 30px;
 	border-top: 1px solid var(--backasideborder);
 	border-bottom: 1px solid var(--backasideborder);
 }
-.aside .asideheader h1 {
-	padding: 10px 10px;
+.aside ul {
+	padding-left: 6px;
 }
 .aside li a {
 	font-size: 1.4rem;
 	text-decoration: none;
+}
+.aside li.active {
+	margin-left: -6px;
+	font-weight: bold;
+	border-left: 6px solid var(--primary);
+}
+.aside li span {
+	margin-left: 10px;
+}
+.aside .asideheader h1 {
+	padding: 10px 10px;
 }
 .aside .responsive-menu {
 	border-bottom: 1px solid var(--backasideborder);
@@ -100,17 +111,6 @@ body {
 }
 .aside .active, .aside .submenu {
 	background-color: var(--backaside2);
-}
-.aside .active {
-	border-left: 6px solid var(--primary);
-	padding-left: -6px;
-	font-weight: bold;
-}
-.aside i {
-	margin-right: 10px;
-}
-.aside a {
-	color: #fff;
 }
 
 #nav,/* fix old android browser (always open) */
@@ -168,17 +168,39 @@ body {
 	margin-right: 5px;
 }
 .section .adminheader {
-	padding: 10px 20px 20px;
+	padding: 10px 20px 5px;
 	background-color: var(--backheader);
 	border-bottom: 1px solid var(--backheaderborder);
 }
+.section .adminheader ul {
+	padding: 0;
+}
 .section .adminheader li {
 	display: inline-block;
+	margin-right: 20px;
 }
 .section .admin {
 	padding: 0px 20px 20px;
 }
 
+/* ==== COMPONENTS ==== */
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+[type="submit"] {
+	background-color: var(--primary);
+	box-shadow: none;
+	padding: 1rem 1.5rem;
+}
+[type="text"], select {
+	padding: 1rem 2rem 1rem 1rem;
+	background-color: #fff;
+	box-shadow: 0px 0px 2px 1px #bbb;
+}
 .table {
 	overflow: auto;
 	border-collapse: collapse;
