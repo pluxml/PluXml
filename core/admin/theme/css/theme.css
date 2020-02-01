@@ -141,6 +141,8 @@ body {
 
 /* ==== SECTION ==== */
 .section {
+	margin-top: 40px;
+	margin-left: 15%;
 	background-color: var(--backsection);
 }
 .section .header {
@@ -148,9 +150,9 @@ body {
 	position: fixed;
 	top: 0;
 	right: 0;
+	left: 15%;
 	overflow: hidden;
 	height: 40px;
-	width: auto;
 	background-color: var(--backheader);
 	border-bottom: 1px solid var(--backheaderborder);
 }
@@ -182,14 +184,10 @@ body {
 	border-collapse: collapse;
 	border-spacing: 0;
 	border: 0px;
-	width: 100%;
+	width: auto;
 	border-collapse: collapse;
 	box-shadow: 0px 0px 2px 1px #bbb;
 	background-color: var(--backheader);
-}
-.table th {
-	background-color: var(--backaside2);
-	color: #fff;
 }
 .table th, .table td {
 	white-space: nowrap;
@@ -200,9 +198,17 @@ body {
 .table tfoot td {
 	background-color: var(--backheaderborder);
 }
-.table tr:hover {
+.table tbody tr:hover {
 	background-color: var(--backsection);
 }
 .table .checkbox {
-    border-radius: 0px;
+	width: 26px;
+	border-radius: 0px;
+	box-shadow: none;
+}
+.table td, .table input {
+	vertical-align: middle;
+}
+.table button {
+	padding: 5px 8px;
 }

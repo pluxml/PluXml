@@ -49,8 +49,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 ?>
 </head>
 <body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
-<main id="app" class="main grid-6-small-1">
-	<aside id="aside" class="aside col-1">
+<main id="app" class="main">
+	<aside id="aside" class="aside w15">
 		<header class="asideheader">
 			<h1 class="h4-like txtcenter"><?= PlxUtils::strCheck($plxAdmin->aConf['title']) ?></h1>
 			<ul class="unstyled">
@@ -135,7 +135,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		</nav>
 		<div class="plxversion"><a title="PluXml" href="<?= PLX_URL_REPO ?>"><small>PluXml <?= $plxAdmin->aConf['version'] ?></small></a></div>
 	</aside>
-	<section class="section col-5">
+	<section class="section grid-1">
 		<header class="header">
 			<div class="txtright">
 				<ul class="unstyled">

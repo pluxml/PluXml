@@ -11,7 +11,6 @@ include __DIR__ .'/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 use Pluxml\PlxDate;
-use Pluxml\PlxMsg;
 
 # Control du token du formulaire
 PlxToken::validateFormToken($_POST);
@@ -163,11 +162,11 @@ eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
 				<th><?= L_ID ?></th>
 				<th><?= L_ARTICLE_LIST_DATE ?></th>
-				<th><?= L_ARTICLE_LIST_TITLE ?></th>
+				<th class="w100"><?= L_ARTICLE_LIST_TITLE ?></th>
 				<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
 				<th><?= L_ARTICLE_LIST_NBCOMS ?></th>
 				<th><?= L_ARTICLE_LIST_AUTHOR ?></th>
-				<th class="action"><?= L_ARTICLE_LIST_ACTION ?></th>
+				<th><?= L_ARTICLE_LIST_ACTION ?></th>
 			</tr>
 		</thead>
 		<tbody>
