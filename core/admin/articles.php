@@ -126,26 +126,31 @@ include __DIR__ .'/top.php';
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
+<?php 
+$nbArticlesDraft = $plxAdmin->nbArticles('draft', $userId);
+$nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
+
+?>
+
 <div class="adminheader">
-	<h2><?= L_ARTICLES_LIST ?></h2>
+	<h2 class="h3-like"><?= L_ARTICLES_LIST ?></h2>
 	<ul>
-		<li><a <?= ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="articles.php?sel=all&amp;page=1"><?= L_ALL ?></a>&nbsp;<span class="tag"><?= $plxAdmin->nbArticles('all', $userId) ?></span></li>
-		<li><a <?= ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="articles.php?sel=published&amp;page=1"><?= L_ALL_PUBLISHED ?></a>&nbsp;<span class="tag"><?= $plxAdmin->nbArticles('published', $userId, '') ?></span></li>
-		<li><a <?= ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="articles.php?sel=draft&amp;page=1"><?= L_ALL_DRAFTS ?></a>&nbsp;<span class="tag--info"><?= $plxAdmin->nbArticles('draft', $userId) ?></span></li>
-		<li><a <?= ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="articles.php?sel=mod&amp;page=1"><?= L_ALL_AWAITING_MODERATION ?></a>&nbsp;<span class="tag--warning"><?= $plxAdmin->nbArticles('all', $userId, '_') ?></span></li>
+		<li <?= ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>><a href="articles.php?sel=all&amp;page=1"><?= L_ALL ?></a>&nbsp;<span class="tag"><?= $plxAdmin->nbArticles('all', $userId) ?></span></li>
+		<li <?= ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>><a href="articles.php?sel=published&amp;page=1"><?= L_ALL_PUBLISHED ?></a>&nbsp;<span class="tag"><?= $plxAdmin->nbArticles('published', $userId, '') ?></span></li>
+		<li <?= ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>><a href="articles.php?sel=draft&amp;page=1"><?= L_ALL_DRAFTS ?></a><?php if ($nbArticlesWaiting > 0) : ?>&nbsp;<span class="tag"><?= $nbArticlesWaiting ?></span><?php endif; ?></li>
+		<li <?= ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>><a href="articles.php?sel=mod&amp;page=1"><?= L_ALL_AWAITING_MODERATION ?></a><?php if ($nbArticlesWaiting > 0) : ?>&nbsp;<span class="tag"><?= $nbArticlesWaiting ?></span><?php endif; ?></li>
 	</ul>
 </div>
 
 <div class="admin">
-<?php
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
-?>
+
+<?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')); # Hook Plugins ?>
 
 <form action="articles.php" method="post" id="form_articles">
 
 <div class="mts mbs grillade-2-small-1">
 	<div>
+		<?= PlxToken::getTokenPostMethod(); ?>
 		<?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?> btn--primary" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>">
 	</div>
@@ -231,12 +236,10 @@ eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
 		<tfoot>
 			<tr>
 				<td colspan="7">
-					<?php
-						echo PlxToken::getTokenPostMethod();
-						if($_SESSION['profil']<=PROFIL_MODERATOR) {
-							echo '<input class="btn--warning" name="delete" type="button" value="'.L_DELETE.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>';
-						}
-						PlxUtils::printInput('page',1,'hidden'); ?>
+					<?php if($_SESSION['profil']<=PROFIL_MODERATOR) : ?>
+						<input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" />
+						<?php PlxUtils::printInput('page',1,'hidden'); ?> 
+					<?php endif; ?>
 				</td>
 				<td>
 					<?php

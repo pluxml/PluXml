@@ -729,7 +729,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$save = $this->aStats;
 
 		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idStatic']) AND empty($content['update'])) {
+		if(isset($content['delete']) AND isset($content['idStatic']) AND empty($content['update'])) {
 			foreach($content['idStatic'] as $static_id) {
 				$filename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$this->aStats[$static_id]['url'].'.php';
 				if(is_file($filename)) unlink($filename);

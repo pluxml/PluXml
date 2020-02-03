@@ -23,7 +23,7 @@ include __DIR__ .'/top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <div class="adminheader">
-	<h2>Tableau de bord (lang)</h2>
+	<h2 class="h3-like">Tableau de bord (lang)</h2>
 </div>
 
 <div class="admin">

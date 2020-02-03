@@ -74,7 +74,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
 					$arts_mod = $nbartsmod>0 ? '&nbsp;<span class="tag--primary" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
-					$menus[] = PlxUtils::formatMenu('<i class="icon-doc-inv"></i>'.'Tableau de bord (lang)', PLX_CORE.'admin/index.php?page=1', 'Tableau de bord (lang)', false, false);
+					$menus[] = PlxUtils::formatMenu('<i class="icon-doc-inv"></i>'.'Tableau de bord', PLX_CORE.'admin/index.php?page=1', 'Tableau de bord (lang)', false, false);
 					$menus[] = PlxUtils::formatMenu('<i class="icon-doc-inv"></i>'.L_MENU_ARTICLES, PLX_CORE.'admin/articles.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
 
 					if(isset($_GET['a'])) # edition article
@@ -85,7 +85,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						$menus[] = PlxUtils::formatMenu('<i class="icon-camera"></i>'.L_MENU_MEDIAS, PLX_CORE.'admin/medias.php', L_MENU_MEDIAS_TITLE);
 
 					if($_SESSION['profil'] <= PROFIL_MANAGER)
-						$menus[] = PlxUtils::formatMenu('<i class="icon-doc-text-inv"></i>'.L_MENU_STATICS, PLX_CORE.'admin/statiques.php', L_MENU_STATICS_TITLE);
+						$menus[] = PlxUtils::formatMenu('<i class="icon-doc-text-inv"></i>'.L_MENU_STATICS, PLX_CORE.'admin/pages.php', L_MENU_STATICS_TITLE);
 
 					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 						$nbcoms = $plxAdmin->nbComments('offline');

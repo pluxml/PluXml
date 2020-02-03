@@ -80,16 +80,16 @@ body {
 	border-bottom: 1px solid var(--backasideborder);
 }
 .aside ul {
-	padding-left: 6px;
+	padding-left: 3px;
 }
 .aside li a {
 	font-size: 1.4rem;
 	text-decoration: none;
 }
 .aside li.active {
-	margin-left: -6px;
+	margin-left: -3px;
 	font-weight: bold;
-	border-left: 6px solid var(--primary);
+	border-left: 3px solid var(--primary);
 }
 .aside li span {
 	margin-left: 10px;
@@ -101,7 +101,7 @@ body {
 	border-bottom: 1px solid var(--backasideborder);
 }
 .aside .responsive-menu li, .aside .plxversion {
-	padding: 5px 10px 10px 30px;
+	padding: 5px 10px 10px 10px;
 }
 .aside .plxversion {
 	margin-top: 10px;
@@ -146,7 +146,7 @@ body {
 	background-color: var(--backsection);
 }
 .section .header {
-	padding: 5px 10px 5px;
+	padding: 5px 10px 0px;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -168,16 +168,24 @@ body {
 	margin-right: 5px;
 }
 .section .adminheader {
-	padding: 10px 20px 5px;
+	padding: 10px 20px 0px;
 	background-color: var(--backheader);
 	border-bottom: 1px solid var(--backheaderborder);
 }
 .section .adminheader ul {
+	margin : 0px;
 	padding: 0;
 }
 .section .adminheader li {
 	display: inline-block;
-	margin-right: 20px;
+	margin-right: 40px;
+	padding-bottom: 10px;
+}
+.section .adminheader li.selected {
+	border-bottom: 2px solid var(--primary);
+}
+.section .adminheader li a {
+	text-decoration: none;
 }
 .section .admin {
 	padding: 0px 20px 20px;
@@ -199,16 +207,15 @@ a:hover {
 [type="text"], select {
 	padding: 1rem 2rem 1rem 1rem;
 	background-color: #fff;
-	box-shadow: 0px 0px 2px 1px #bbb;
+	box-shadow: inset 0 0 0 1px var(--backheaderborder);
 }
 .table {
 	overflow: auto;
 	border-collapse: collapse;
 	border-spacing: 0;
-	border: 0px;
 	width: auto;
 	border-collapse: collapse;
-	box-shadow: 0px 0px 2px 1px #bbb;
+	border: 1px solid var(--backheaderborder);
 	background-color: var(--backheader);
 }
 .table th, .table td {

@@ -276,18 +276,14 @@ function refreshImg(dta) {
 }
 </script>
 
-
-
-
-
 <form action="article.php" method="post" id="form_article">
 
 <div class="adminheader autogrillade">
 	<div class="col-1">
-		<h2><?= (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
+		<h2 class="h3-like"><?= (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
 		<p><a class="back" href="articles.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 	</div>
-	<div class="col-1 ptm txtright">
+	<div class="col-1 mts txtright">
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
 			<?php
 				if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
