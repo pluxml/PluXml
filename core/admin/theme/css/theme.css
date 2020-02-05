@@ -213,10 +213,10 @@ a:hover {
 	overflow: auto;
 	border-collapse: collapse;
 	border-spacing: 0;
-	width: auto;
 	border-collapse: collapse;
 	border: 1px solid var(--backheaderborder);
 	background-color: var(--backheader);
+	width: auto;
 }
 .table th, .table td {
 	white-space: nowrap;
@@ -240,4 +240,10 @@ a:hover {
 }
 .table button {
 	padding: 5px 8px;
+}
+.table[data-rows-num] th:first-of-type, .table[data-rows-num] td:first-of-type {
+	padding-left: 12px;
+}
+.table[data-rows-num] tr[draggable] td:first-child {
+	background: url(' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGUlEQVR42mNggIKCgoL/IIyLj1sB+TqhAAB5gyTxdLI4kwAAAABJRU5ErkJggg==') left repeat-y;
 }
