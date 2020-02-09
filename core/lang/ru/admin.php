@@ -376,6 +376,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_GZIP' => 'Включить GZIP сжатие',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Это cделает возможным сжатие страниц для увеличения пропускной способности, но может увеличить использование процессора',
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Включить анти-спам Capcha',
+		'L_CONFIG_ADVANCED_LOSTPASSWORD' => 'Включить восстановление пароля',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Административный ключ (для приватных URL)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Оставьте это поле пустым, чтобы восстановить ключ',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Используйте другую папку средств массовой информации для каждого Редактор',

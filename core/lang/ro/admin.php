@@ -325,6 +325,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_GZIP' => 'Activeaza compresia GZIP',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Comprimă paginile pentru a salva de lăţime de bandă, însă acest lucru poate creşte sarcina procesorului',
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Activeaza capcha anti-spam',
+		'L_CONFIG_ADVANCED_LOSTPASSWORD' => 'Activați recuperarea parolei',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Cheie de administrare (URL-uri private)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Clar acest domeniu pentru a regenera cheie',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Folosind medias dosar pentru fiecare editor diferite',

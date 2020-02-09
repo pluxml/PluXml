@@ -359,6 +359,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_GZIP' => 'GZIP compressie activeren',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Compressie activeren zal het verbruik van uw bandbreedte naar beneden halen, maar kan uw processor wat meer belasten',
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Anti-spam CAPTCHA gebruiken',
+		'L_CONFIG_ADVANCED_LOSTPASSWORD' => 'Schakel wachtwoordherstel in',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Code voor versleuteling gegevens (Prive URLs)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Maak dit veld leeg om een nieuwe sleutel te genereren',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Gebruik verschillende media map voor elke redacteur',

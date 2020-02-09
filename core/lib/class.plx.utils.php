@@ -461,90 +461,82 @@ class plxUtils {
 	public static function translitterate($str, $reverse=false) {
 
 		$alphabets = array(
-				'de' => array(
-						'Ä' => 'Ae', 'Ö' => 'Oe', 'Ü' => 'Ue', 'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue',
-						'ß' => 'ss', 'ẞ' => 'SS'
-				),
-				'ro' => array(
-						'ă'=> 'a', 'î'=> 'i', 'ș'=> 's', 'ț'=> 't', 'â'=> 'a',
-						'Ă'=> 'A', 'Î'=> 'I', 'Ș'=> 'S', 'Ț'=> 'T', 'Â'=> 'A'
-				),
-				'pl' => array(
-						'ą'=> 'a', 'ć'=> 'c', 'ę'=> 'e', 'ł'=> 'l', 'ń'=> 'n', 'ó'=> 'o', 'ś'=> 's',
-						'ź'=> 'z', 'ż'=> 'z',
-						'Ą'=> 'A', 'Ć'=> 'C', 'Ę'=> 'E', 'Ł'=> 'L', 'Ń'=> 'N', 'Ó'=> 'O', 'Ś'=> 'S',
-						'Ź'=> 'Z', 'Ż'=> 'Z'
-				),
-				'ru' => array(
-						'а'=> 'a', 'б'=> 'b', 'в'=> 'v', 'г'=> 'g', 'д'=> 'd', 'е'=> 'e', 'ё'=> 'yo',
-						'ж'=> 'zh', 'з'=> 'z', 'и'=> 'i', 'й'=> 'j', 'к'=> 'k', 'л'=> 'l', 'м'=> 'm',
-						'н'=> 'n', 'о'=> 'o', 'п'=> 'p', 'р'=> 'r', 'с'=> 's', 'т'=> 't', 'у'=> 'u',
-						'ф'=> 'f', 'х'=> 'h', 'ц'=> 'c', 'ч'=> 'ch', 'ш'=> 'sh', 'щ'=> 'sh', 'ъ'=> '',
-						'ы'=> 'y', 'ь'=> '', 'э'=> 'e', 'ю'=> 'yu', 'я'=> 'ya',
-						'А'=> 'A', 'Б'=> 'B', 'В'=> 'V', 'Г'=> 'G', 'Д'=> 'D', 'Е'=> 'E', 'Ё'=> 'Yo',
-						'Ж'=> 'Zh', 'З'=> 'Z', 'И'=> 'I', 'Й'=> 'J', 'К'=> 'K', 'Л'=> 'L', 'М'=> 'M',
-						'Н'=> 'N', 'О'=> 'O', 'П'=> 'P', 'Р'=> 'R', 'С'=> 'S', 'Т'=> 'T', 'У'=> 'U',
-						'Ф'=> 'F', 'Х'=> 'H', 'Ц'=> 'C', 'Ч'=> 'Ch', 'Ш'=> 'Sh', 'Щ'=> 'Sh', 'Ъ'=> '',
-						'Ы'=> 'Y', 'Ь'=> '', 'Э'=> 'E', 'Ю'=> 'Yu', 'Я'=> 'Ya'
-				)
+			'de' => array(
+				'Ä' => 'Ae', 'Ö' => 'Oe', 'Ü' => 'Ue', 'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue',
+				'ß' => 'ss', 'ẞ' => 'SS'
+			),
+			'ro' => array(
+				'ă'=> 'a', 'î'=> 'i', 'ș'=> 's', 'ț'=> 't', 'â'=> 'a',
+				'Ă'=> 'A', 'Î'=> 'I', 'Ș'=> 'S', 'Ț'=> 'T', 'Â'=> 'A'
+			),
+			'pl' => array(
+				'ą'=> 'a', 'ć'=> 'c', 'ę'=> 'e', 'ł'=> 'l', 'ń'=> 'n', 'ó'=> 'o', 'ś'=> 's',
+				'ź'=> 'z', 'ż'=> 'z',
+				'Ą'=> 'A', 'Ć'=> 'C', 'Ę'=> 'E', 'Ł'=> 'L', 'Ń'=> 'N', 'Ó'=> 'O', 'Ś'=> 'S',
+				'Ź'=> 'Z', 'Ż'=> 'Z'
+			),
+			'ru' => array(
+				'а'=> 'a', 'б'=> 'b', 'в'=> 'v', 'г'=> 'g', 'д'=> 'd', 'е'=> 'e', 'ё'=> 'yo',
+				'ж'=> 'zh', 'з'=> 'z', 'и'=> 'i', 'й'=> 'j', 'к'=> 'k', 'л'=> 'l', 'м'=> 'm',
+				'н'=> 'n', 'о'=> 'o', 'п'=> 'p', 'р'=> 'r', 'с'=> 's', 'т'=> 't', 'у'=> 'u',
+				'ф'=> 'f', 'х'=> 'h', 'ц'=> 'c', 'ч'=> 'ch', 'ш'=> 'sh', 'щ'=> 'sh', 'ъ'=> '',
+				'ы'=> 'y', 'ь'=> '', 'э'=> 'e', 'ю'=> 'yu', 'я'=> 'ya',
+				'А'=> 'A', 'Б'=> 'B', 'В'=> 'V', 'Г'=> 'G', 'Д'=> 'D', 'Е'=> 'E', 'Ё'=> 'Yo',
+				'Ж'=> 'Zh', 'З'=> 'Z', 'И'=> 'I', 'Й'=> 'J', 'К'=> 'K', 'Л'=> 'L', 'М'=> 'M',
+				'Н'=> 'N', 'О'=> 'O', 'П'=> 'P', 'Р'=> 'R', 'С'=> 'S', 'Т'=> 'T', 'У'=> 'U',
+				'Ф'=> 'F', 'Х'=> 'H', 'Ц'=> 'C', 'Ч'=> 'Ch', 'Ш'=> 'Sh', 'Щ'=> 'Sh', 'Ъ'=> '',
+				'Ы'=> 'Y', 'Ь'=> '', 'Э'=> 'E', 'Ю'=> 'Yu', 'Я'=> 'Ya'
+			)
 		);
-		if ((defined('PLX_SITE_LANG')) && (array_key_exists(PLX_SITE_LANG, $alphabets))) {
-			uksort ( $alphabets, function ($a, $b) use ($lang) {
-				if ($a == $lang)
-					return - 1;
-				elseif ($b == $lang)
-					return 1;
-				else
-					return 0;
-			} );
+
+		if(!(defined('PLX_SITE_LANG')) or !array_key_exists(PLX_SITE_LANG, $alphabets)) {
+			return $str;
 		}
+
 		if (!$reverse) {
-			foreach ($alphabets as $aLang => $alphab) {
-				$clean_str = str_replace (array_keys($alphab), array_values($alphab), $str);
-			}
-		} else {
-			foreach ($alphabets as $aLang => $alphab) {
-				$clean_str = str_replace (array_values($alphab), array_keys($alphab), $str);
-			}
+			return strtr($str, $alphabets[PLX_SITE_LANG]);
 		}
-		return $clean_str;
+
+		arsort($alphabets[PLX_SITE_LANG]); # Hack against str_replace
+
+		return str_replace(
+			array_values($alphabets[PLX_SITE_LANG]),
+			array_keys($alphabets[PLX_SITE_LANG]),
+			$str
+		);
 	}
 
 	/**
 	 * Method to transform a string in a valid URL using translitteration
-	 * @param	string	$str		chaine de caractères à contrôler
+	 * @param	string	$strchaine de caractères à contrôler
 	 * @param	boolean	$remove		retire les mots sans valeur sémantique
 	 * @param	string	$replace
 	 * @param	boolean	$lower
 	 * @return	string				valid URL
-	 * @author J.P. Pourrez (bazooka07)
+	 * @author	J.P. Pourrez (bazooka07)
 	 * */
 	public static function urlify($str, $remove=true, $replace='-', $lower=true) {
 
 		$remove_words = array(
-				'en' => 'a|an|as|at|before|but|by|for|from|is|in|into|like|of|off|on|onto|per|since|than|the|this|that|to|up|via|with',
-				'de' => 'das|der|die|fuer|am',
-				'fr' => 'a|le|la|un|une|vers|de|des|du|vers|en'
+			'en' => 'a|an|as|at|before|but|by|for|from|is|into|in|like|off?|on|onto|per|since|than|the|this|that|to|up|via|with',
+			'de' => 'das|der|die|fur|am',
+			'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
 		);
+
 		$clean_str = plxUtils::translitterate(trim(html_entity_decode($str)));
+		
 		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
-			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@', $replace, $clean_str);
+			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@u', $replace, $clean_str);
 			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
 		}
-		# remove accents
+
+		// remove accents
 		$clean_str = plxUtils::removeAccents($clean_str,PLX_CHARSET);
-		# remove whitespace
-		$clean_str = preg_replace(
-			'@\s+@',
-			'-',
-			$clean_str
-		);
-		# remove non-alphanumeric character
-		$clean_str = preg_replace(
-			'@[^\w-]@',
-			'',
-			$clean_str
-		);
+		// remove whitespace
+		$clean_str = preg_replace('@\s+@',$replace,$clean_str);
+		// remove non-alphanumeric character
+		$clean_str = trim(preg_replace('@[^\w-]@','',$clean_str),'-');
+
 		return ($lower) ? strtolower($clean_str) : $clean_str;
 	}
 
@@ -928,19 +920,22 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne la liste des langues disponibles dans un tableau
 	 *
-	 * @return	string		chaine de caractères modifiée
-	 * @author	Stephane F.
+	 * @return	tableau associatif
+	 * @author	J.P. Pourrez, Stephane F.
 	 **/
 	public static function getLangs() {
-		$array = array();
-		$glob = plxGlob::getInstance(PLX_CORE.'lang', true);
-		if($aFolders = $glob->query("/[a-z]+/i")) {
-			foreach($aFolders as $folder) {
-				$array[$folder] = $folder;
-			}
+		$result = array();
+		foreach(
+			array_map(
+				function($dir1) {
+					return preg_replace('#.*/([a-z]{2})$#', '$1', $dir1);
+				},
+				glob(PLX_CORE . 'lang/*', GLOB_ONLYDIR)
+			) as $lang
+		) {
+			$result[$lang] = $lang;
 		}
-		ksort($array);
-		return $array;
+		return $result;
 	}
 
 	/**
@@ -989,12 +984,12 @@ class plxUtils {
 			$headers['Reply-To'] = $from;
 		}
 
-		if(empty($cc)) {
+		if(!empty($cc)) {
 			$headers['Cc'] = (is_array($cc)) ? implode(', ', $cc) : $cc;
 		}
 
-		if(empty($bcc)) {
-			$headers['Cc'] = (is_array($Bcc)) ? implode(', ', $bcc) : $bcc;
+		if(!empty($bcc)) {
+			$headers['Cc'] = (is_array($bcc)) ? implode(', ', $bcc) : $bcc;
 		}
 
 		return mail($to, $subject, $body,

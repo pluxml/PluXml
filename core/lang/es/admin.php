@@ -373,6 +373,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_GZIP' => 'Activar compresión GZIP',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Permite comprimir las páginas para ahorrar ancho de banda, pero puede aumentar la carga del procesador',
 		'L_CONFIG_ADVANCED_CAPCHA' => 'Activar protección nti-spam («CAPTCHA»)',
+		'L_CONFIG_ADVANCED_LOSTPASSWORD' => 'Habilitar recuperación de contraseña',
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Clave de administración (URLs privadas)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Deje este campo vacío para regenerar la clave',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Utilizar carpetas diferentes para medias en cada redactor',
