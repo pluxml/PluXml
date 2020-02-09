@@ -1,7 +1,7 @@
-## PLUXML 6.0 (YYYY/MM/DD) ##
+## PLUXML 5.8.2 (2020/02/09) ##
 [+] #371 Check PluXml update using javascript if "curl" or "file_get_contents" can not be used (bazooka07)
 FIX #365 plxUtils::getLangs() optimisations (bazooka07)
 FIX #367 plxUtils::sendmail() minor correction (bazooka07)
 FIX #369 Comments indentation does not work on frontend (P3ter)
 FIX #372 [i18n] missing L_CONFIG_ADVANCED_LOSTPASSWORD in oc, es, pl, pt, ro, ru, it (P3ter)
-FIX #379 Add UTF-8 to plxUtils::urlify() (bazooka07)
+FIX #378 Add UTF-8 to plxUtils::urlify() (bazooka07)
