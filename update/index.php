@@ -61,11 +61,8 @@ PlxToken::validateFormToken($_POST);
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.png" />
 </head>
 <body>
-
-	<main class="main grid-6-small-1">
-		<aside class="aside col-1">
-		</aside>
-		<section class="section col-5 pam">
+	<main class="mal">
+		<section class="pal">
 			<header>
 				<h1 class="h2-like"><?php echo L_UPDATE_TITLE.' '.PlxUtils::strCheck($plxUpdater->newVersion) ?></h1>
 			</header>
