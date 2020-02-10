@@ -102,7 +102,7 @@ PlxToken::validateFormToken($_POST);
 			$version = isset($_POST['version']) ? $_POST['version'] : $plxUpdater->oldVersion;
 			$plxUpdater->startUpdate($version);
 			?>
-			<p><a href="<?php echo PLX_ROOT; ?>" title="<?php echo L_UPDATE_BACK ?>"><?php echo L_UPDATE_BACK ?></a></p>
+			<a href="<?php echo PLX_ROOT; ?>" title="<?php echo L_UPDATE_BACK ?>"><span class="mtm btn--primary"><?php echo L_UPDATE_BACK ?></span></a>
 			<?php endif; ?>
 		</section>
 	</main>
