@@ -47,7 +47,7 @@ function checkBox(cb) {
 
 <form action="pages.php" method="post" id="form_statics">
 
-	<div class="adminheader autogrillade">
+	<div class="adminheader autogrid">
 		<div class="col-1">
 			<h2 class="h3-like"><?= L_STATICS_PAGE_TITLE ?></h2>
 		</div>

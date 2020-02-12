@@ -278,7 +278,7 @@ function refreshImg(dta) {
 
 <form action="article.php" method="post" id="form_article">
 
-<div class="adminheader autogrillade">
+<div class="adminheader autogrid">
 	<div class="col-1">
 		<h2 class="h3-like"><?= (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
 		<p><a class="back" href="articles.php"><?= L_BACK_TO_ARTICLES ?></a></p>
@@ -324,7 +324,7 @@ function refreshImg(dta) {
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
 
-	<div class="grillade-6-small-1">
+	<div class="grid-6-small-1">
 		<div class="col-4-small-1">
 			<div class="">
 				<fieldset>
@@ -385,7 +385,7 @@ function refreshImg(dta) {
 		</div>
 
 		<div class="col-2-small-1"> <!-- sidebar -->
-			<div class="col-1">
+			<div class="">
 				<p><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
 					<strong>
 					<?php
@@ -436,7 +436,7 @@ function refreshImg(dta) {
 						</a>
 					</div>
 				</div>
-				<div class="grid">
+				<div class="">
 					<?php PlxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
 					<label><?= L_DATE_UPDATE ?>&nbsp;:</label>
 					<div>
@@ -466,7 +466,7 @@ function refreshImg(dta) {
 					</div>
 		
 					<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
-					<div class="grid">
+					<div class="">
 						<label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
 						<div>
 							<?php PlxUtils::printInput('new_catname','','text','17-50') ?>

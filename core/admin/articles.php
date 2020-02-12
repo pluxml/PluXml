@@ -148,7 +148,7 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 
 <form action="articles.php" method="post" id="form_articles">
 
-<div class="mts mbs grillade-2-small-1">
+<div class="mts mbs grid-2-small-1">
 	<div>
 		<?= PlxToken::getTokenPostMethod(); ?>
 		<?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
