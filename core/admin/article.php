@@ -263,6 +263,14 @@ if ($array = $files->query('/^article(-[a-z0-9-_]+)?.php$/')) {
 }
 if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 $cat_id='000';
+
+//Vue.js datas initialisation
+$builkDatas = array(
+		'category' => false,
+		'tags' => false,
+);
+$datas = json_encode($builkDatas);
+
 ?>
 
 <script>
@@ -284,6 +292,20 @@ function refreshImg(dta) {
 		<p><a class="back" href="articles.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 	</div>
 	<div class="col-1 mts txtright">
+		<p class="pas inbl"><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
+			<strong>
+				<?php //TODO create a PlxAdmin fonction to get article status (P3ter)
+					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a']))
+						echo L_AWAITING;
+					elseif(in_array('draft', $catId)) {
+						echo L_DRAFT;
+						echo '<input type="hidden" name="catId[]" value="draft" />';
+					}
+					else
+						echo L_PUBLISHED;
+				?>
+			</strong>
+		</p>
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
 			<?php
 				if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
@@ -320,13 +342,13 @@ function refreshImg(dta) {
 	</div>
 </div>
 
-<div class="admin mtm">
+<div class="">
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
 
-	<div class="grid-6-small-1">
-		<div class="col-4-small-1">
-			<div class="">
+	<div class="grid-8-small-1">
+		<div class="col-6-small-1">
+			<div class="txtcenter">
 				<fieldset>
 					<div>
 						<?php PlxUtils::printInput('artId',$artId,'hidden'); ?>
@@ -354,101 +376,55 @@ function refreshImg(dta) {
 						<?php PlxUtils::printArea('content',PlxUtils::strCheck($content),0,20); ?>
 					</div>
 				</fieldset>
-				<div class="">
-					<label for="id_thumbnail">
-						<?= L_THUMBNAIL ?>&nbsp;:&nbsp;
-						<a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
-					</label>
-					<?php PlxUtils::printInput('thumbnail',PlxUtils::strCheck($thumbnail),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
-					<div>
-						<label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label>
-						<?php PlxUtils::printInput('thumbnail_title',PlxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
-						<label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label>
-						<?php PlxUtils::printInput('thumbnail_alt',PlxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
-					</div>
-					<div id="id_thumbnail_img">
-					<?php
-					$src = false;
-					if(preg_match('@^(?:https?|data):@', $thumbnail)) {
-						$src = $thumbnail;
-					} else {
-						$src = PLX_ROOT.$thumbnail;
-						$src = is_file($src) ? $src : false;
-					}
-					if($src) echo "<img src=\"$src\" title=\"$thumbnail\" />\n";
-					?>
-					</div>
-				</div>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) # Hook Plugins ?>
 				<?= PlxToken::getTokenPostMethod() ?>
 			</div>
 		</div>
 
-		<div class="col-2-small-1"> <!-- sidebar -->
-			<div class="">
-				<p><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
-					<strong>
+		<div class="col-2-small-1 sidebar">
+			<fieldset class="pan flex-container--column">
+				<div>
+					<label for="id_author"><?= L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
 					<?php
-					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a']))
-						echo L_AWAITING;
-					elseif(in_array('draft', $catId)) {
-						echo L_DRAFT;
-						echo '<input type="hidden" name="catId[]" value="draft" />';
-					}
-					else
-						echo L_PUBLISHED;
-					?>
-					</strong>
-				</p>
-				<fieldset>
-					<div>
-						<label for="id_author"><?= L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
-						<?php
 						if($_SESSION['profil'] < PROFIL_WRITER)
 							PlxUtils::printSelect('author', $_users, $author);
 						else {
 							echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
 							echo '<strong>'.PlxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
 						}
-						?>
-					</div>
-					<div>
-						<label><?= L_ARTICLE_DATE ?>&nbsp;:</label>
-						<div>
-							<?php PlxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
-							<?php PlxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
-							<?php PlxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
-							<?php PlxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
-							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-								<img src="theme/images/date.png" alt="calendar" />
-							</a>
-						</div>
-					</div>
-				<div>
-					<label><?= L_DATE_CREATION ?>&nbsp;:</label>
-					<div>
-						<?php PlxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
-						<?php PlxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
-						<?php PlxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
-						<?php PlxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
-						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-							<img src="theme/images/date.png" alt="calendar" />
-						</a>
-					</div>
+					?>
 				</div>
-				<div class="">
+				<div>
+					<label><?= L_ARTICLE_DATE ?>&nbsp;:</label>
+					<?php PlxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
+					<?php PlxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
+					<?php PlxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
+					<?php PlxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+					<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+						<img src="theme/images/date.png" alt="calendar" />
+					</a>
+					<label><?= L_DATE_CREATION ?>&nbsp;:</label>
+					<?php PlxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
+					<?php PlxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
+					<?php PlxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
+					<?php PlxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+					<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+						<img src="theme/images/date.png" alt="calendar" />
+					</a>
 					<?php PlxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
 					<label><?= L_DATE_UPDATE ?>&nbsp;:</label>
-					<div>
-						<?php PlxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
-						<?php PlxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
-						<?php PlxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
-						<?php PlxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
-						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-							<img src="theme/images/date.png" alt="calendar" />
-						</a>
-					</div>
-					<div>
+					<?php PlxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
+					<?php PlxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
+					<?php PlxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
+					<?php PlxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+					<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+						<img src="theme/images/date.png" alt="calendar" />
+					</a>
+				</div>
+				<div class="expender">
+					<span v-if="category" v-on:click="category = false">Category</span>
+					<span v-if="!category" v-on:click="category = true">Category</span>
+					<div v-if="category">
 						<label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 						<?php
 							$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
@@ -463,19 +439,17 @@ function refreshImg(dta) {
 									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.PlxUtils::strCheck($cat_name['name']).'</label>';
 							}
 						?>
-					</div>
-		
-					<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
-					<div class="">
-						<label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
-						<div>
+						<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
+							<label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
 							<?php PlxUtils::printInput('new_catname','','text','17-50') ?>
 							<input type="submit" name="new_category" value="<?= L_CATEGORY_ADD_BUTTON ?>" />
-						</div>
+						<?php endif; ?>
 					</div>
-					<?php endif; ?>
-	
-					<div>
+				</div>
+				<div class="expender">
+					<span v-if="tags" v-on:click="tags = false">Tags</span>
+					<span v-if="!tags" v-on:click="tags = true">Tags</span>
+					<div v-if="tags">
 						<label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
 						<?php PlxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
 						<input class="toggler" type="checkbox" id="toggler_tags"<?= (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
@@ -507,66 +481,89 @@ function refreshImg(dta) {
 							?>
 						</div>
 					</div>
-	
-					<div>
-						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
-						<label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
-						<?php PlxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
-						<?php else: ?>
-						<?php PlxUtils::printInput('allow_com','0','hidden'); ?>
-						<?php endif; ?>
-					</div>
-					<div>
-						<label for="id_url">
-							<?= L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_URL_FIELD_TITLE ?></span></a>
-						</label>
-						<?php PlxUtils::printInput('url',$url,'text','27-255'); ?>
-					</div>
-					<div>
-						<label for="id_template"><?= L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
-						<?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
-					</div>
-					<div>
-						<label for="id_title_htmltag"><?= L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
-						<?php PlxUtils::printInput('title_htmltag',PlxUtils::strCheck($title_htmltag),'text','27-255'); ?>
-					</div>
-					<div>
-						<label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label>
-						<?php PlxUtils::printInput('meta_description',PlxUtils::strCheck($meta_description),'text','27-255'); ?>
-					</div>
-					<div>
-						<label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label>
-						<?php PlxUtils::printInput('meta_keywords',PlxUtils::strCheck($meta_keywords),'text','27-255'); ?>
-					</div>
-	
-					<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
-	
-					<?php if($artId != '0000') : ?>
-					<ul class="unstyled">
-						<li>
-							<a href="comments.php?a=<?= $artId ?>&amp;page=1" title="<?= L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?= L_ARTICLE_MANAGE_COMMENTS ?></a>
-							<?php
-							# récupération du nombre de commentaires
-							$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$artId.'.(.*).xml$/','all');
-							$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$artId.'.(.*).xml$/','all');
-							?>
-							<ul>
-								<li><?= L_COMMENT_OFFLINE ?> : <a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsToValidate ?></a></li>
-								<li><?= L_COMMENT_ONLINE ?> : <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsValidated ?></a></li>
-							</ul>
-						</li>
-						<li><a href="comment_new.php?a=<?= $artId ?>" title="<?= L_ARTICLE_NEW_COMMENT_TITLE ?>"><?= L_ARTICLE_NEW_COMMENT ?></a></li>
-					</ul>
+				</div>
+
+				<div>
+					<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
+					<label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
+					<?php PlxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
+					<?php else: ?>
+					<?php PlxUtils::printInput('allow_com','0','hidden'); ?>
 					<?php endif; ?>
-	
-				</fieldset>
-	
-			</div>
-	
+				</div>
+				<div>
+					<label for="id_url">
+						<?= L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_URL_FIELD_TITLE ?></span></a>
+					</label>
+					<?php PlxUtils::printInput('url',$url,'text','27-255'); ?>
+				</div>
+				<div>
+					<label for="id_template"><?= L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
+					<?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
+				</div>
+				<div>
+					<label for="id_title_htmltag"><?= L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
+					<?php PlxUtils::printInput('title_htmltag',PlxUtils::strCheck($title_htmltag),'text','27-255'); ?>
+				</div>
+				<div>
+					<label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label>
+					<?php PlxUtils::printInput('meta_description',PlxUtils::strCheck($meta_description),'text','27-255'); ?>
+				</div>
+				<div>
+					<label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label>
+					<?php //TODO is this still used by Google ? (P3ter)
+						PlxUtils::printInput('meta_keywords',PlxUtils::strCheck($meta_keywords),'text','27-255'); 
+					?>
+				</div>
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
+				<?php if($artId != '0000') : ?>
+				<ul class="unstyled">
+					<li>
+						<a href="comments.php?a=<?= $artId ?>&amp;page=1" title="<?= L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?= L_ARTICLE_MANAGE_COMMENTS ?></a>
+						<?php
+						# récupération du nombre de commentaires
+						$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$artId.'.(.*).xml$/','all');
+						$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$artId.'.(.*).xml$/','all');
+						?>
+						<ul>
+							<li><?= L_COMMENT_OFFLINE ?> : <a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsToValidate ?></a></li>
+							<li><?= L_COMMENT_ONLINE ?> : <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsValidated ?></a></li>
+						</ul>
+					</li>
+					<li><a href="comment_new.php?a=<?= $artId ?>" title="<?= L_ARTICLE_NEW_COMMENT_TITLE ?>"><?= L_ARTICLE_NEW_COMMENT ?></a></li>
+				</ul>
+				<?php endif; ?>
+				
+				<div class="">
+					<label for="id_thumbnail">
+						<?= L_THUMBNAIL ?>&nbsp;:&nbsp;
+						<a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
+					</label>
+					<?php PlxUtils::printInput('thumbnail',PlxUtils::strCheck($thumbnail),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
+					<div>
+						<label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label>
+						<?php PlxUtils::printInput('thumbnail_title',PlxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
+						<label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label>
+						<?php PlxUtils::printInput('thumbnail_alt',PlxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
+					</div>
+					<div id="id_thumbnail_img">
+						<?php
+						$src = false;
+						if(preg_match('@^(?:https?|data):@', $thumbnail)) {
+							$src = $thumbnail;
+						} else {
+							$src = PLX_ROOT.$thumbnail;
+							$src = is_file($src) ? $src : false;
+						}
+						if($src) echo "<img src=\"$src\" title=\"$thumbnail\" />\n";
+						?>
+					</div>
+				</div>
+			</fieldset>
 		</div>
 	</div>
-</form>
 </div>
+</form>
 
 <?php
 # Hook Plugins

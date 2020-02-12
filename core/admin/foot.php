@@ -9,10 +9,10 @@
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) # Hook Plugins ?>
 
 <script>
-/*new Vue({
-	el: '#app',
-	data: <?= $datas ?>
-})*/
+	new Vue({
+		el: '#app',
+		data: <?= $datas ?>
+	})
 </script>
 <script src="<?php echo PLX_CORE ?>lib/drag-and-drop.js"></script>
 <script>

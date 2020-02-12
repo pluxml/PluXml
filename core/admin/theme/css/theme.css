@@ -101,7 +101,7 @@ body {
 	border-bottom: 1px solid var(--backasideborder);
 }
 .aside .responsive-menu li, .aside .plxversion {
-	padding: 5px 10px 10px 10px;
+	padding: 5px 10px 10px 30px;
 }
 .aside .plxversion {
 	margin-top: 10px;
@@ -190,7 +190,14 @@ body {
 .section .admin {
 	padding: 0px 20px 20px;
 }
-
+.section .sidebar {
+	font-size: 1.4rem;
+	background-color: var(--backheader);
+}
+.section .sidebar .expender {
+	padding: 2rem;
+	border: 1px solid var(--backheaderborder);
+}
 /* ==== COMPONENTS ==== */
 a {
 	text-decoration: none;
