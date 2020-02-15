@@ -53,7 +53,7 @@ function checkBox(cb) {
 		</div>
 		<div class="col-1 txtright mbs">
 			<?= PlxToken::getTokenPostMethod() ?>
-			<input type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
+			<input class="btn--primary" type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
 		</div>
 	</div>
 

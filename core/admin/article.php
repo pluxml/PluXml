@@ -286,12 +286,12 @@ function refreshImg(dta) {
 
 <form action="article.php" method="post" id="form_article">
 
-<div class="adminheader autogrid">
-	<div class="col-1">
+<div class="adminheader grid-6">
+	<div class="col-2">
 		<h2 class="h3-like"><?= (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
 		<p><a class="back" href="articles.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 	</div>
-	<div class="col-1 mts txtright">
+	<div class="col-4 mtm txtright">
 		<p class="pas inbl"><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
 			<strong>
 				<?php //TODO create a PlxAdmin fonction to get article status (P3ter)
@@ -306,18 +306,18 @@ function refreshImg(dta) {
 				?>
 			</strong>
 		</p>
-		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
+		<input class="btn--primary" type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
 			<?php
 				if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 					if(in_array('draft', $catId)) { # brouillon
 						if($artId!='0000') # nouvel article
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="moderate" value="'.L_ARTICLE_MODERATE_BUTTON.'"/> ';
+						echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
+						echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="moderate" value="'.L_ARTICLE_MODERATE_BUTTON.'"/> ';
 						echo '<span>&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 					} else {
 						if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a'])) { # en attente
-							echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
-							echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
+							echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
+							echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
 							echo '<span>&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 						} else {
 							echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
@@ -326,17 +326,17 @@ function refreshImg(dta) {
 					}
 				} else {
 					if(in_array('draft', $catId)) {
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_DRAFT_BUTTON . '"/> ';
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
+						echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_DRAFT_BUTTON . '"/> ';
+						echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
 					} else {
 						if(!isset($_GET['a']) OR preg_match('/^_[0-9]{4}$/',$_GET['a']))
-							echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
+							echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
 						else
-							echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
-							echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_OFFLINE_BUTTON . '"/> ';
+							echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
+							echo '<input class="btn--primary" onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_OFFLINE_BUTTON . '"/> ';
 					}
 					if($artId!='0000')
-						echo '<span>&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
+						echo '<span>&nbsp;&nbsp;&nbsp;</span><input class="btn--warning" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 				}
 			?>
 	</div>

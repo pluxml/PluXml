@@ -152,11 +152,11 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 	<div>
 		<?= PlxToken::getTokenPostMethod(); ?>
 		<?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
-		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?> btn--primary" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>">
+		<button class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?> btn--primary" type="submit"><i class="icon-tags"></i><?= L_ARTICLES_FILTER_BUTTON ?></button>
 	</div>
 	<div class="txtright">
 		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= PlxUtils::strCheck($_GET['artTitle']) ?>" />
-		<input class="<?= (!empty($_GET['artTitle'])?' select':'') ?> btn--primary" type="submit" value="<?= L_SEARCH ?>" />
+		<button class="<?= (!empty($_GET['artTitle'])?' select':'') ?> btn--primary" type="submit"><i class="icon-search"></i><?= L_SEARCH ?></button>
 	</div>
 </div>
 
@@ -222,9 +222,9 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 				echo '<td><a title="'.L_NEW_COMMENTS_TITLE.'" href="comments.php?sel=offline&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsToValidate.'</a> / <a title="'.L_VALIDATED_COMMENTS_TITLE.'" href="comments.php?sel=online&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsValidated.'</a>&nbsp;</td>';
 				echo '<td>'.PlxUtils::strCheck($author).'&nbsp;</td>';
 				echo '<td>';
-				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'"><button>'.L_ARTICLE_EDIT.'</button></a>';
+				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'"><button><i class="icon-pencil"></i></button></a>';
 				if($publi AND $draft=='') # Si l'article est publié
-					echo ' <a href="'.$plxAdmin->urlRewrite('?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url')).'" title="'.L_ARTICLE_VIEW_TITLE.'"><button>'.L_VIEW.'</button></a>';
+					echo ' <a href="'.$plxAdmin->urlRewrite('?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url')).'" title="'.L_ARTICLE_VIEW_TITLE.'"><button><i class="icon-eye"></i></button></a>';
 				echo "&nbsp;</td>";
 				echo "</tr>";
 			}
@@ -237,7 +237,8 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 			<tr>
 				<td colspan="7">
 					<?php if($_SESSION['profil']<=PROFIL_MODERATOR) : ?>
-						<input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" />
+						<!-- <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" />-->
+						<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash-empty"></i><?= L_DELETE?></button>
 						<?php PlxUtils::printInput('page',1,'hidden'); ?> 
 					<?php endif; ?>
 				</td>
