@@ -235,46 +235,45 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7">
+				<td colspan="3">
 					<?php if($_SESSION['profil']<=PROFIL_MODERATOR) : ?>
 						<!-- <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" />-->
 						<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash-empty"></i><?= L_DELETE?></button>
 						<?php PlxUtils::printInput('page',1,'hidden'); ?> 
 					<?php endif; ?>
 				</td>
-				<td>
+				<td colspan="5" class="pagination right">
 					<?php
 						# Hook Plugins
 						eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
-						# Affichage de la pagination
-						if($arts) { # Si on a des articles (hors page)
-							# Calcul des pages
+						//TODO PlxAdmin pagination function
+						if($arts) { # if there is articles
+							//Pagination preparation
 							$last_page = ceil($nbArtPagination/$plxAdmin->bypage);
 							$stop = $plxAdmin->page + 2;
 							if($stop<5) $stop=5;
 							if($stop>$last_page) $stop=$last_page;
 							$start = $stop - 4;
 							if($start<1) $start=1;
-							# Génération des URLs
+							// URL preparation
 							$artTitle = (!empty($_GET['artTitle'])?'&amp;artTitle='.urlencode($_GET['artTitle']):'');
 							$p_url = 'articles.php?page='.($plxAdmin->page-1).$artTitle;
 							$n_url = 'articles.php?page='.($plxAdmin->page+1).$artTitle;
 							$l_url = 'articles.php?page='.$last_page.$artTitle;
 							$f_url = 'articles.php?page=1'.$artTitle;
-							# Affichage des liens de pagination
-							printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'articles.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page);
-							$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
-							echo '<span class="p_first">'.$s.'</span>';
-							$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
-							echo '<span class="p_prev">'.$s.'</span>';
+							// Display pagination links
+							$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'"><span class="btn"><i class="icon-angle-double-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-left"></i></span>';
+							echo $s;
+							$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'"><span class="btn"><i class="icon-angle-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-left"></i></span>';
+							echo $s;
 							for($i=$start;$i<=$stop;$i++) {
-								$s = $i==$plxAdmin->page ? $i : '<a href="'.('articles.php?page='.$i.$artTitle).'" title="'.$i.'">'.$i.'</a>';
-								echo '<span class="p_current">'.$s.'</span>';
+								$s = $i==$plxAdmin->page ? '<span class="current btn">'.$i.'</span>' : '<a href="'.('articles.php?page='.$i.$artTitle).'" title="'.$i.'"><span class="btn">'.$i.'</span></a>';
+								echo $s;
 							}
-							$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">&rsaquo;</a>' : '&rsaquo;';
-							echo '<span class="p_next">'.$s.'</span>';
-							$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">&raquo;</a>' : '&raquo;';
-							echo '<span class="p_last">'.$s.'</span>';
+							$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'"><span class="btn"><i class="icon-angle-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-right"></i></span>';
+							echo $s;
+							$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'"><span class="btn"><i class="icon-angle-double-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-right"></i></span>';
+							echo $s;
 						}
 					?>
 				</td>

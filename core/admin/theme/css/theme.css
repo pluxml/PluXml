@@ -179,7 +179,7 @@ body {
 .section .adminheader li {
 	display: inline-block;
 	margin-right: 40px;
-	padding-bottom: 10px;
+	padding: 4px 10px;
 }
 .section .adminheader li.selected {
 	border-bottom: 2px solid var(--primary);
@@ -216,7 +216,7 @@ a:hover {
 }
 .table th, .table td {
 	white-space: nowrap;
-	padding: 10px 5px;
+	padding: 6px 5px;
 	border: 0px;
 	border-bottom: 1px solid var(--backheaderborder);
 }
@@ -243,6 +243,21 @@ a:hover {
 .table[data-rows-num] tr[draggable] td:first-child {
 	background: url(' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGUlEQVR42mNggIKCgoL/IIyLj1sB+TqhAAB5gyTxdLI4kwAAAABJRU5ErkJggg==') left repeat-y;
 }
+.table .pagination .btn {
+	margin-left: 5px;
+}
+.table .pagination a:hover {
+	text-decoration: none;
+}
+.table .pagination .current {
+	font-weight: bold;
+}
+.table [class^="tag--"] {
+	margin-left: 10px;
+}
+.table .right {
+	text-align: right;
+}
 
 [type="submit"], button.submit {
 	box-shadow: none;
@@ -250,6 +265,9 @@ a:hover {
 }
 button [class^="icon-"] {
 	margin-right: 8px;
+}
+.table button [class^="icon-"] {
+	margin-right: 0px;
 }
 [type="text"], select {
 	padding: 0.8rem 2rem 0.5rem 1rem;
