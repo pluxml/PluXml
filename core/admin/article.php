@@ -381,6 +381,7 @@ function refreshImg(dta) {
 			</div>
 		</div>
 
+		<!-- SIDEBAR -->
 		<div class="col-2-small-1 sidebar">
 			<fieldset class="pan flex-container--column">
 				<div>
