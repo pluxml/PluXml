@@ -190,6 +190,11 @@ body {
 .section .admin {
 	padding: 0px 20px 20px;
 }
+
+.section .tableheader {
+	background-color: var(--backheaderborder);
+}
+
 .section .sidebar {
 	font-size: 1.4rem;
 	background-color: var(--backheader);

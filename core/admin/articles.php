@@ -148,8 +148,9 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 
 <form action="articles.php" method="post" id="form_articles">
 
-<div class="mts mbs grid-2-small-1">
+<div class="mtm pas grid-2-small-1 tableheader">
 	<div>
+		<a href="<?= PLX_CORE ?>admin/article.php"><span class="btn btn--primary"><i class="icon-pencil"></i><?= L_MENU_NEW_ARTICLES ?></span></a>
 		<?= PlxToken::getTokenPostMethod(); ?>
 		<?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<button class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?> btn--primary" type="submit"><i class="icon-tags"></i><?= L_ARTICLES_FILTER_BUTTON ?></button>

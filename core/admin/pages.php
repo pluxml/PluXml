@@ -45,20 +45,17 @@ function checkBox(cb) {
 }
 </script>
 
-<form action="pages.php" method="post" id="form_statics">
+<div class="adminheader">
+	<h2 class="h3-like"><?= L_STATICS_PAGE_TITLE ?></h2>
+</div>
 
-	<div class="adminheader autogrid">
-		<div class="col-1">
-			<h2 class="h3-like"><?= L_STATICS_PAGE_TITLE ?></h2>
-		</div>
-		<div class="col-1 txtright mbs">
+<div class="admin mtm">
+	<form action="pages.php" method="post" id="form_statics">
+		<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
+		<div class="mtm pas tableheader">
 			<?= PlxToken::getTokenPostMethod() ?>
 			<input class="btn--primary" type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
 		</div>
-	</div>
-
-	<div class="admin mtm">
-		<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
 		<div>
 			<table class="table" data-rows-num='name$="_ordre"'>
 				<thead>
@@ -155,8 +152,8 @@ function checkBox(cb) {
 				</tfoot>
 			</table>
 		</div>
-	</div>
-</form>
+	</form>
+</div>
 
 
 <?php
