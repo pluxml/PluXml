@@ -268,6 +268,10 @@ $cat_id='000';
 $builkDatas = array(
 		'category' => false,
 		'tags' => false,
+		'comments' => false,
+		'url' => false,
+		'seo' => false,
+		'tab' => true
 );
 $datas = json_encode($builkDatas);
 
@@ -356,15 +360,6 @@ function refreshImg(dta) {
 						<?php PlxUtils::printInput('title',PlxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
 					</div>
 					<div>
-						<?php if($artId!='' AND $artId!='0000') : ?>
-							<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
-							<small>
-								<strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
-								<a onclick="this.target=\'_blank\';return true;" href="<?= $link ?>" title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
-							</small>
-						<?php endif; ?>
-					</div>
-					<div>
 						<input class="toggler" type="checkbox" id="toggler_chapo"<?= (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
 						<label for="toggler_chapo"><?= L_HEADLINE_FIELD;?> : <span><?= L_ARTICLE_CHAPO_HIDE;?></span><span><?= L_ARTICLE_CHAPO_DISPLAY;?></span></label>
 						<div>
@@ -383,172 +378,195 @@ function refreshImg(dta) {
 
 		<!-- SIDEBAR -->
 		<div class="col-2-small-1 sidebar">
-			<fieldset class="pan flex-container--column">
-				<div>
-					<label for="id_author"><?= L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
-					<?php
-						if($_SESSION['profil'] < PROFIL_WRITER)
-							PlxUtils::printSelect('author', $_users, $author);
-						else {
-							echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
-							echo '<strong>'.PlxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
-						}
-					?>
-				</div>
-				<div>
-					<label><?= L_ARTICLE_DATE ?>&nbsp;:</label>
-					<?php PlxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
-					<?php PlxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
-					<?php PlxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
-					<?php PlxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
-					<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-						<img src="theme/images/date.png" alt="calendar" />
-					</a>
-					<label><?= L_DATE_CREATION ?>&nbsp;:</label>
-					<?php PlxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
-					<?php PlxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
-					<?php PlxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
-					<?php PlxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
-					<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-						<img src="theme/images/date.png" alt="calendar" />
-					</a>
-					<?php PlxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
-					<label><?= L_DATE_UPDATE ?>&nbsp;:</label>
-					<?php PlxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
-					<?php PlxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
-					<?php PlxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
-					<?php PlxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
-					<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-						<img src="theme/images/date.png" alt="calendar" />
-					</a>
-				</div>
-				<div class="expender">
-					<span v-if="category" v-on:click="category = false">Category</span>
-					<span v-if="!category" v-on:click="category = true">Category</span>
-					<div v-if="category">
-						<label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
+			<div>
+				<span class="btn" v-on:click="tab=true">tab1</span>
+				<span class="btn" v-on:click="tab=false">tab2</span>
+			</div>
+			<fieldset class="pan">
+				<div v-if="tab" class="flex-container--column">
+					<div>
+						<label for="id_author"><?= L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
 						<?php
-							$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
-							echo '<label for="cat_unclassified"><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
-							$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
-							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
-							foreach($plxAdmin->aCats as $cat_id => $cat_name) {
-								$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
-								if($plxAdmin->aCats[$cat_id]['active'])
-									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.PlxUtils::strCheck($cat_name['name']).'</label>';
-								else
-									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.PlxUtils::strCheck($cat_name['name']).'</label>';
+							if($_SESSION['profil'] < PROFIL_WRITER)
+								PlxUtils::printSelect('author', $_users, $author);
+							else {
+								echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
+								echo '<strong>'.PlxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
 							}
 						?>
-						<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
-							<label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
-							<?php PlxUtils::printInput('new_catname','','text','17-50') ?>
-							<input type="submit" name="new_category" value="<?= L_CATEGORY_ADD_BUTTON ?>" />
-						<?php endif; ?>
 					</div>
-				</div>
-				<div class="expender">
-					<span v-if="tags" v-on:click="tags = false">Tags</span>
-					<span v-if="!tags" v-on:click="tags = true">Tags</span>
-					<div v-if="tags">
-						<label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
-						<?php PlxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-						<input class="toggler" type="checkbox" id="toggler_tags"<?= (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
-						<label for="toggler_tags"><span>-</span><span>+</span></label>
-						<div style="margin-top: 1rem">
+					<div class="flex-container--column">
+						<div>
+							<label><?= L_ARTICLE_DATE ?>&nbsp;:</label><br>
+							<?php PlxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
+							<?php PlxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
+							<?php PlxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
+							<?php PlxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+								<img src="theme/images/date.png" alt="calendar" />
+							</a>
+						</div>
+						<div>
+							<label><?= L_DATE_CREATION ?>&nbsp;:</label><br>
+							<?php PlxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
+							<?php PlxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
+							<?php PlxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
+							<?php PlxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+								<img src="theme/images/date.png" alt="calendar" />
+							</a>
+						</div>
+						<div>
+							<?php PlxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
+							<label><?= L_DATE_UPDATE ?>&nbsp;:</label><br>
+							<?php PlxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
+							<?php PlxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
+							<?php PlxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
+							<?php PlxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+								<img src="theme/images/date.png" alt="calendar" />
+							</a>
+						</div>
+					</div>
+					<div>
+						<label for="id_template"><?= L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
+						<?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
+					</div>
+					<div class="expender">
+						<span v-if="url" v-on:click="url=false">URL</span>
+						<span v-if="!url" v-on:click="url=true">URL</span>
+						<div v-if="url">
+							<label for="id_url">
+								<?= L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_URL_FIELD_TITLE ?></span></a>
+							</label>
+							<?php PlxUtils::printInput('url',$url,'text','27-255'); ?>
+							<?php if($artId!='' AND $artId!='0000') : ?>
+								<?php $link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url) ?>
+								<p>
+									<strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
+									<a onclick="this.target=\'_blank\';return true;" href="<?= $link ?>" title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
+								</p>
+							<?php endif; ?>
+						</div>
+					</div>
+					<div class="expender">
+						<span v-if="category" v-on:click="category=false">Category</span>
+						<span v-if="!category" v-on:click="category=true">Category</span>
+						<div v-if="category">
+							<label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 							<?php
-							if($plxAdmin->aTags) {
-								$array=array();
-								foreach($plxAdmin->aTags as $tag) {
-									if($tags = array_map('trim', explode(',', $tag['tags']))) {
-										foreach($tags as $tag) {
-											if($tag!='') {
-												$t = PlxUtils::urlify($tag);
-												if(!isset($array[$tag]))
-													$array[$tag]=array('url'=>$t,'count'=>1);
-												else
-													$array[$tag]['count']++;
+								$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
+								echo '<label for="cat_unclassified"><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
+								$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
+								echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
+								foreach($plxAdmin->aCats as $cat_id => $cat_name) {
+									$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
+									if($plxAdmin->aCats[$cat_id]['active'])
+										echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.PlxUtils::strCheck($cat_name['name']).'</label>';
+									else
+										echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.PlxUtils::strCheck($cat_name['name']).'</label>';
+								}
+							?>
+							<?php if($_SESSION['profil'] < PROFIL_WRITER) : ?>
+								<label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
+								<?php PlxUtils::printInput('new_catname','','text','17-50') ?>
+								<input type="submit" name="new_category" value="<?= L_CATEGORY_ADD_BUTTON ?>" />
+							<?php endif; ?>
+						</div>
+					</div>
+					<div class="expender">
+						<span v-if="tags" v-on:click="tags=false">Tags</span>
+						<span v-if="!tags" v-on:click="tags=true">Tags</span>
+						<div v-if="tags">
+							<label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
+							<?php PlxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+							<input class="toggler" type="checkbox" id="toggler_tags"<?= (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
+							<label for="toggler_tags"><span>-</span><span>+</span></label>
+							<div style="margin-top: 1rem">
+								<?php
+								if($plxAdmin->aTags) {
+									$array=array();
+									foreach($plxAdmin->aTags as $tag) {
+										if($tags = array_map('trim', explode(',', $tag['tags']))) {
+											foreach($tags as $tag) {
+												if($tag!='') {
+													$t = PlxUtils::urlify($tag);
+													if(!isset($array[$tag]))
+														$array[$tag]=array('url'=>$t,'count'=>1);
+													else
+														$array[$tag]['count']++;
+												}
 											}
 										}
 									}
+									array_multisort($array);
+									foreach($array as $tagname => $tag) {
+										echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.addslashes($tagname).'\')" title="'.PlxUtils::strCheck($tagname).' ('.$tag['count'].')">'.
+										str_replace(' ', '&nbsp;', PlxUtils::strCheck($tagname)).'</a>&nbsp;('.$tag['count'].')&nbsp; ';
+									}
 								}
-								array_multisort($array);
-								foreach($array as $tagname => $tag) {
-									echo '<a href="javascript:void(0)" onclick="insTag(\'tags\',\''.addslashes($tagname).'\')" title="'.PlxUtils::strCheck($tagname).' ('.$tag['count'].')">'.
-									str_replace(' ', '&nbsp;', PlxUtils::strCheck($tagname)).'</a>&nbsp;('.$tag['count'].')&nbsp; ';
-								}
-							}
-							else echo L_NO_TAG;
+								else echo L_NO_TAG;
+								?>
+							</div>
+						</div>
+					</div>
+					<div class="expender">
+						<span v-if="comments" v-on:click="comments=false">Comments</span>
+						<span v-if="!comments" v-on:click="comments=true">Comments</span>
+						<div v-if="comments">
+							<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
+							<label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
+							<?php PlxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
+							<?php else: ?>
+							<?php PlxUtils::printInput('allow_com','0','hidden'); ?>
+							<?php endif; ?>
+							<?php if($artId != '0000') : ?>
+								<ul class="unstyled">
+									<li>
+										<a href="comments.php?a=<?= $artId ?>&amp;page=1" title="<?= L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?= L_ARTICLE_MANAGE_COMMENTS ?></a>
+										<?php
+											// récupération du nombre de commentaires
+											$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$artId.'.(.*).xml$/','all');
+											$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$artId.'.(.*).xml$/','all');
+										?>
+										<ul>
+											<li><?= L_COMMENT_OFFLINE ?> : <a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsToValidate ?></a></li>
+											<li><?= L_COMMENT_ONLINE ?> : <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsValidated ?></a></li>
+										</ul>
+									</li>
+									<li><a href="comment_new.php?a=<?= $artId ?>" title="<?= L_ARTICLE_NEW_COMMENT_TITLE ?>"><?= L_ARTICLE_NEW_COMMENT ?></a></li>
+								</ul>
+							<?php endif; ?>
+						</div>
+					</div>
+					<div class="expender">
+						<span v-if="seo" v-on:click="seo=false">SEO</span>
+						<span v-if="!seo" v-on:click="seo=true">SEO</span>
+						<div v-if="seo">
+							<label for="id_title_htmltag"><?= L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label><br>
+							<?php PlxUtils::printInput('title_htmltag',PlxUtils::strCheck($title_htmltag),'text','27-255'); ?>
+							<label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label><br>
+							<?php PlxUtils::printInput('meta_description',PlxUtils::strCheck($meta_description),'text','27-255'); ?>
+							<label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label><br>
+							<?php //TODO is this still used by Google ? (P3ter)
+								PlxUtils::printInput('meta_keywords',PlxUtils::strCheck($meta_keywords),'text','27-255'); 
 							?>
 						</div>
 					</div>
+					<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
 				</div>
-
-				<div>
-					<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
-					<label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
-					<?php PlxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
-					<?php else: ?>
-					<?php PlxUtils::printInput('allow_com','0','hidden'); ?>
-					<?php endif; ?>
-				</div>
-				<div>
-					<label for="id_url">
-						<?= L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_URL_FIELD_TITLE ?></span></a>
-					</label>
-					<?php PlxUtils::printInput('url',$url,'text','27-255'); ?>
-				</div>
-				<div>
-					<label for="id_template"><?= L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
-					<?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
-				</div>
-				<div>
-					<label for="id_title_htmltag"><?= L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
-					<?php PlxUtils::printInput('title_htmltag',PlxUtils::strCheck($title_htmltag),'text','27-255'); ?>
-				</div>
-				<div>
-					<label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label>
-					<?php PlxUtils::printInput('meta_description',PlxUtils::strCheck($meta_description),'text','27-255'); ?>
-				</div>
-				<div>
-					<label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label>
-					<?php //TODO is this still used by Google ? (P3ter)
-						PlxUtils::printInput('meta_keywords',PlxUtils::strCheck($meta_keywords),'text','27-255'); 
-					?>
-				</div>
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
-				<?php if($artId != '0000') : ?>
-				<ul class="unstyled">
-					<li>
-						<a href="comments.php?a=<?= $artId ?>&amp;page=1" title="<?= L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?= L_ARTICLE_MANAGE_COMMENTS ?></a>
-						<?php
-						# récupération du nombre de commentaires
-						$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$artId.'.(.*).xml$/','all');
-						$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$artId.'.(.*).xml$/','all');
-						?>
-						<ul>
-							<li><?= L_COMMENT_OFFLINE ?> : <a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsToValidate ?></a></li>
-							<li><?= L_COMMENT_ONLINE ?> : <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsValidated ?></a></li>
-						</ul>
-					</li>
-					<li><a href="comment_new.php?a=<?= $artId ?>" title="<?= L_ARTICLE_NEW_COMMENT_TITLE ?>"><?= L_ARTICLE_NEW_COMMENT ?></a></li>
-				</ul>
-				<?php endif; ?>
 				
-				<div class="">
+				<div v-else class="flex-container--column">
 					<label for="id_thumbnail">
 						<?= L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
-					</label>
+					</label><br>
 					<?php PlxUtils::printInput('thumbnail',PlxUtils::strCheck($thumbnail),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
-					<div>
-						<label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label>
-						<?php PlxUtils::printInput('thumbnail_title',PlxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
-						<label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label>
-						<?php PlxUtils::printInput('thumbnail_alt',PlxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
-					</div>
-					<div id="id_thumbnail_img">
-						<?php
+					<label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label><br>
+					<?php PlxUtils::printInput('thumbnail_title',PlxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
+					<label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label><br>
+					<?php PlxUtils::printInput('thumbnail_alt',PlxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
+					<?php
 						$src = false;
 						if(preg_match('@^(?:https?|data):@', $thumbnail)) {
 							$src = $thumbnail;
@@ -557,8 +575,7 @@ function refreshImg(dta) {
 							$src = is_file($src) ? $src : false;
 						}
 						if($src) echo "<img src=\"$src\" title=\"$thumbnail\" />\n";
-						?>
-					</div>
+					?>
 				</div>
 			</fieldset>
 		</div>
