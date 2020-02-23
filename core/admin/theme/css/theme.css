@@ -257,7 +257,7 @@ a:hover {
 .table .pagination .current {
 	font-weight: bold;
 }
-.table [class^="tag--"] {
+.table [class^="tag"] {
 	margin-left: 10px;
 }
 .table .right {
