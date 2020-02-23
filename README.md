@@ -56,4 +56,4 @@ Liens
 * [Site officiel](https://www.pluxml.org/)
 * [Forum](https://forum.pluxml.org/)
 * [Thèmes et plugins](https://ressources.pluxml.org/)
-* [Documentation](https://telechargements.pluxml.org/docs/PluXml_-_Documentation.pdf)
+* [Documentation](https://wiki.pluxml.org/)
