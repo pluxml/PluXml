@@ -40,33 +40,35 @@ $aTri = array(
 include __DIR__ .'/top.php';
 ?>
 
-<form action="categories.php" method="post" id="form_categories">
-
+<div class="adminheader">
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CAT_TITLE ?></h2>
-		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
-		<?php PlxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCategory[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		<?php echo PlxToken::getTokenPostMethod() ?>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input type="submit" name="update" value="<?php echo L_CAT_APPLY_BUTTON ?>" />
+		<h2 class="h3-like"><?= L_CAT_TITLE ?></h2>
+		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 	</div>
+</div>
 
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminCategoriesTop')) # Hook Plugins ?>
+<div class="admin">
+	<form action="categories.php" method="post" id="form_categories">
+		<div class="mtm pas tableheader">
+			<?= PlxToken::getTokenPostMethod() ?>
+			<!--<input type="submit" name="update" value="<?= L_CAT_APPLY_BUTTON ?>" />-->
+			<button class="btn--primary" type="submit"><?= L_CAT_APPLY_BUTTON ?></button>
+		</div>
 
-	<div class="scrollable-table">
-		<table id="categories-table" class="full-width" data-rows-num='name$="_ordre"'>
+		<?php eval($plxAdmin->plxPlugins->callHook('AdminCategoriesTop')) # Hook Plugins ?>
+
+		<table id="categories-table" class="table" data-rows-num='name$="_ordre"'>
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
-					<th><?php echo L_ID ?></th>
-					<th><?php echo L_CAT_LIST_NAME ?></th>
-					<th><?php echo L_CAT_LIST_URL ?></th>
-					<th><?php echo L_CAT_LIST_ACTIVE ?></th>
-					<th><?php echo L_CAT_LIST_SORT ?></th>
-					<th><?php echo L_CAT_LIST_BYPAGE ?></th>
-					<th data-id="order"><?php echo L_CAT_LIST_ORDER ?></th>
-					<th><?php echo L_CAT_LIST_MENU ?></th>
+					<th><?= L_ID ?></th>
+					<th class="w100"><?= L_CAT_LIST_NAME ?></th>
+					<th><?= L_CAT_LIST_URL ?></th>
+					<th><?= L_CAT_LIST_ACTIVE ?></th>
+					<th><?= L_CAT_LIST_SORT ?></th>
+					<th><?= L_CAT_LIST_BYPAGE ?></th>
+					<th data-id="order"><?= L_CAT_LIST_ORDER ?></th>
+					<th><?= L_CAT_LIST_MENU ?></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -80,7 +82,7 @@ include __DIR__ .'/top.php';
 					echo '<tr>';
 					echo '<td><input type="checkbox" name="idCategory[]" value="'.$k.'" /><input type="hidden" name="catNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
-					PlxUtils::printInput($k.'_name', PlxUtils::strCheck($v['name']), 'text', '-50');
+					PlxUtils::printInput($k.'_name', PlxUtils::strCheck($v['name']), 'text', '-50', '', 'w100');
 					echo '</td><td>';
 					PlxUtils::printInput($k.'_url', $v['url'], 'text', '-50');
 					echo '</td><td>';
@@ -106,8 +108,8 @@ include __DIR__ .'/top.php';
 			}
 			$new_catid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 			?>
-				<tr class="new">
-					<td colspan="2"><?php echo L_NEW_CATEGORY ?></td>
+				<tr>
+					<td colspan="2"><?= L_NEW_CATEGORY ?></td>
 					<td>
 					<?php
 						echo '<input type="hidden" name="catNum[]" value="'.$new_catid.'" />';
@@ -130,10 +132,17 @@ include __DIR__ .'/top.php';
 					</td>
 				</tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">
+						<?php PlxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
+						<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCategory[]', '<?= L_CONFIRM_DELETE ?>')" />
+					</td>
+				</tr>
+			</tfoot>
 		</table>
-	</div>
-
-</form>
+	</form>
+</div>
 
 <?php
 # Hook Plugins
