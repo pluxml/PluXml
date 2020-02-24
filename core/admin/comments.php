@@ -117,9 +117,15 @@ if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
 
+# On va récupérer les commentaires
+$plxAdmin->getPage();
+$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
+$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
+
 //Vue.js datas initialisation
 $builkDatas = array(
-		'comSel' => $comSel,
+		'coms' => $coms, # true if there are comments
+		'comSel' => $comSel, # comments list filter : all, online, offline
 );
 $datas = json_encode($builkDatas);
 
@@ -164,10 +170,6 @@ $datas = json_encode($builkDatas);
 				</thead>
 				<tbody>
 					<?php
-					# On va récupérer les commentaires
-					$plxAdmin->getPage();
-					$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
-					$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
 					if($coms) {
 						$num=0;
 						while($plxAdmin->plxRecord_coms->loop()) { # On boucle
@@ -198,14 +200,14 @@ $datas = json_encode($builkDatas);
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash-empty"></i><?= L_DELETE?></button>
+							<button v-if="coms" class="submit btn--warning" name="delete" type="submit"><i class="icon-trash-empty"></i><?= L_DELETE?></button>
 						</td>
 						<td colspan="3" class="pagination right">
 							<?php
 								# Hook Plugins
 								eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
 								# Affichage de la pagination
-								if($coms) { # Si on a des articles (hors page)
+								if($coms) { # Si on a des commentaires
 									# Calcul des pages
 									$last_page = ceil($nbComPagination/$plxAdmin->aConf['bypage_admin_coms']);
 									$stop = $plxAdmin->page + 2;
@@ -213,26 +215,25 @@ $datas = json_encode($builkDatas);
 									if($stop>$last_page) $stop=$last_page;
 									$start = $stop - 4;
 									if($start<1) $start=1;
-									# Génération des URLs
+									// URL generation
 									$sel = '&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'');
 									$p_url = 'comments.php?page='.($plxAdmin->page-1).$sel;
 									$n_url = 'comments.php?page='.($plxAdmin->page+1).$sel;
 									$l_url = 'comments.php?page='.$last_page.$sel;
 									$f_url = 'comments.php?page=1'.$sel;
-									# Affichage des liens de pagination
-									printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'comments.php?page=\'+this.value+\''.$sel.'\'" value="'.$plxAdmin->page.'" />', $last_page);
-									$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
-									echo '<span class="p_first">'.$s.'</span>';
-									$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
-									echo '<span class="p_prev">'.$s.'</span>';
+									// Display pagination links
+									$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'"><span class="btn"><i class="icon-angle-double-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-left"></i></span>';
+									echo $s;
+									$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'"><span class="btn"><i class="icon-angle-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-left"></i></span>';
+									echo $s;
 									for($i=$start;$i<=$stop;$i++) {
-										$s = $i==$plxAdmin->page ? $i : '<a href="'.('comments.php?page='.$i.$sel).'" title="'.$i.'">'.$i.'</a>';
-										echo '<span class="p_current">'.$s.'</span>';
+										$s = $i==$plxAdmin->page ? '<span class="current btn">'.$i.'</span>' : '<a href="'.('comments.php?page='.$i.$artTitle).'" title="'.$i.'"><span class="btn">'.$i.'</span></a>';
+										echo $s;
 									}
-									$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">&rsaquo;</a>' : '&rsaquo;';
-									echo '<span class="p_next">'.$s.'</span>';
-									$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">&raquo;</a>' : '&raquo;';
-									echo '<span class="p_last">'.$s.'</span>';
+									$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'"><span class="btn"><i class="icon-angle-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-right"></i></span>';
+									echo $s;
+									$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'"><span class="btn"><i class="icon-angle-double-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-right"></i></span>';
+									echo $s;
 								}
 							?>
 						</td>
