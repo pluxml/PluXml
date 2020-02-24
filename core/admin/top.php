@@ -140,9 +140,9 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		<header class="header">
 			<div class="txtright">
 				<ul class="unstyled">
-					<li class="badge" ><img src="theme/images/pluxml.png"/></li>
+					<li class="badge" ><a href="profil.php"><img src="theme/images/pluxml.png"/></a></li>
 					<li>
-						<?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?>&nbsp;
+						<a href="profil.php"><?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></a>&nbsp;
 						<small><em><?php
 							if ($_SESSION ['profil'] == PROFIL_ADMIN) echo L_PROFIL_ADMIN;
 							elseif ($_SESSION ['profil'] == PROFIL_MANAGER) echo L_PROFIL_MANAGER;

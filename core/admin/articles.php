@@ -129,7 +129,6 @@ include __DIR__ .'/top.php';
 <?php 
 $nbArticlesDraft = $plxAdmin->nbArticles('draft', $userId);
 $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
-
 ?>
 
 <div class="adminheader">
