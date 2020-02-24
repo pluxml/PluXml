@@ -154,7 +154,7 @@ $datas = json_encode($builkDatas);
 			</div>
 			<!--<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />-->
 		</div>
-	
+
 		<?php if(isset($h3)) echo $h3 ?>
 	
 		<div>

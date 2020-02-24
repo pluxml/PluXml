@@ -64,7 +64,7 @@ function checkBox(cb) {
 						<th><?= L_ID ?></th>
 						<th><?= L_STATICS_HOME_PAGE ?></th>
 						<th><?= L_STATICS_GROUP ?></th>
-						<th><?= L_STATICS_TITLE ?></th>
+						<th class="w100"><?= L_STATICS_TITLE ?></th>
 						<th><?= L_STATICS_URL ?></th>
 						<th><?= L_STATICS_ACTIVE ?></th>
 						<th><?= L_STATICS_ORDER ?></th>
@@ -87,7 +87,7 @@ function checkBox(cb) {
 						echo '</td><td>';
 						PlxUtils::printInput($k.'_group', PlxUtils::strCheck($v['group']), 'text', '-100');
 						echo '</td><td>';
-						PlxUtils::printInput($k.'_name', PlxUtils::strCheck($v['name']), 'text', '-255');
+						PlxUtils::printInput($k.'_name', PlxUtils::strCheck($v['name']), 'text', '-255', '', 'w100');
 						echo '</td><td>';
 						PlxUtils::printInput($k.'_url', $v['url'], 'text', '-255');
 						echo '</td><td>';
@@ -99,15 +99,15 @@ function checkBox(cb) {
 						echo '</td><td>';
 						$url = $v['url'];
 						if(!PlxUtils::checkSite($url)) {
-							echo '<a href="page.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'"><button>'.L_STATICS_SRC.'</button></a>';
+							echo '<a href="page.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'"><button><i class="icon-pencil"></i></button></a>';
 							if($v['active']) {
-								echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.PlxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'"><button>'.L_VIEW.'</button></a>';
+								echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.PlxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'"><button><i class="icon-eye"></i></button></a>';
 							}
 						}
 						elseif($v['url'][0]=='?')
-							echo '<a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.PlxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
+							echo '<a href="'.$plxAdmin->urlRewrite($v['url']).'" title="'.PlxUtils::strCheck($v['name']).'"><button><i class="icon-eye"></i></button></a>';
 						else
-							echo '<a href="'.$v['url'].'" title="'.PlxUtils::strCheck($v['name']).'">'.L_VIEW.'</a>';
+							echo '<a href="'.$v['url'].'" title="'.PlxUtils::strCheck($v['name']).'"><button><i class="icon-eye"></i></button></a>';
 						echo '</td></tr>';
 						$ordre++;
 					}
@@ -126,7 +126,7 @@ function checkBox(cb) {
 							echo '<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />';
 							PlxUtils::printInput($new_staticid.'_group', '', 'text', '-100');
 							echo '</td><td>';
-							PlxUtils::printInput($new_staticid.'_name', '', 'text', '-255');
+							PlxUtils::printInput($new_staticid.'_name', '', 'text', '-255', '', 'w100');
 							PlxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden');
 							echo '</td><td>';
 							PlxUtils::printInput($new_staticid.'_url', '', 'text', '-255');

@@ -256,7 +256,7 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 							if($stop>$last_page) $stop=$last_page;
 							$start = $stop - 4;
 							if($start<1) $start=1;
-							// URL preparation
+							// URL generation
 							$artTitle = (!empty($_GET['artTitle'])?'&amp;artTitle='.urlencode($_GET['artTitle']):'');
 							$p_url = 'articles.php?page='.($plxAdmin->page-1).$artTitle;
 							$n_url = 'articles.php?page='.($plxAdmin->page+1).$artTitle;
