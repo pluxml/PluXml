@@ -117,18 +117,11 @@ if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
 
-function selector($comSel, $id) {
-	ob_start();
-	if($comSel=='online')
-		PlxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
-	elseif($comSel=='offline')
-		PlxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
-	elseif($comSel=='all')
-		PlxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
-	return ob_get_clean();
-}
-
-$selector=selector($comSel, 'id_selection');
+//Vue.js datas initialisation
+$builkDatas = array(
+		'comSel' => $comSel,
+);
+$datas = json_encode($builkDatas);
 
 ?>
 
@@ -146,9 +139,14 @@ $selector=selector($comSel, 'id_selection');
 	<form action="comments.php<?= !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
 		<div class="mtm pas  tableheader">
-			<?= $selector ?>
 			<?= plxToken::getTokenPostMethod() ?>
-			<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
+			<button v-if="comSel==='online'" class="submit btn--primary" name="offline" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_OFFLINE?></button>
+			<button v-else-if="comSel==='offline'" class="submit btn--primary" name="online" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_ONLINE?></button>
+			<div v-else>
+				<button class="submit btn--primary" name="online" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_ONLINE?></button>
+				<button class="submit btn--primary" name="offline" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_OFFLINE?></button>
+			</div>
+			<!--<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />-->
 		</div>
 	
 		<?php if(isset($h3)) echo $h3 ?>
@@ -200,7 +198,7 @@ $selector=selector($comSel, 'id_selection');
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							suppression
+							<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash-empty"></i><?= L_DELETE?></button>
 						</td>
 						<td colspan="3" class="pagination right">
 							<?php
