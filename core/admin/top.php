@@ -96,7 +96,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					if($_SESSION['profil'] <= PROFIL_EDITOR)
 						$menus[] = PlxUtils::formatMenu('<i class="icon-tags"></i>'.L_MENU_CATEGORIES, PLX_CORE.'admin/categories.php', L_MENU_CATEGORIES_TITLE);
 
-						$menus[] = PlxUtils::formatMenu('<i class="icon-user-1"></i>'.L_MENU_PROFIL, PLX_CORE.'admin/profil.php', L_MENU_PROFIL_TITLE);
+						$menus[] = PlxUtils::formatMenu('<i class="icon-user-1"></i>'.L_MENU_PROFIL, PLX_CORE.'admin/profile.php', L_MENU_PROFIL_TITLE);
 
 					if($_SESSION['profil'] == PROFIL_ADMIN) {
 						$menus[] = PlxUtils::formatMenu('<i class="icon-sliders"></i>'.L_MENU_CONFIG, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', false);
@@ -140,9 +140,9 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		<header class="header">
 			<div class="txtright">
 				<ul class="unstyled">
-					<li class="badge" ><a href="profil.php"><img src="theme/images/pluxml.png"/></a></li>
+					<li class="badge" ><a href="profile.php"><img src="theme/images/pluxml.png"/></a></li>
 					<li>
-						<a href="profil.php"><?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></a>&nbsp;
+						<a href="profile.php"><?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></a>&nbsp;
 						<small><em><?php
 							if ($_SESSION ['profil'] == PROFIL_ADMIN) echo L_PROFIL_ADMIN;
 							elseif ($_SESSION ['profil'] == PROFIL_MANAGER) echo L_PROFIL_MANAGER;

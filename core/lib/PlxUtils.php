@@ -276,7 +276,7 @@ class PlxUtils {
 	 * @param	boolean	extra		extra permet d'ajouter un élément HTML (exemple : un "onclick" en javascript)
 	 * @return	self
 	 */
-	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width', $extra='') {
+	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='w100', $extra='') {
 		$attrs = array (
 				'id="id_' . $name . '"',
 				'name="' . $name . '"'

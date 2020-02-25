@@ -41,10 +41,8 @@ include __DIR__ .'/top.php';
 ?>
 
 <div class="adminheader">
-	<div class="inline-form action-bar">
-		<h2 class="h3-like"><?= L_CAT_TITLE ?></h2>
-		<p><a class="back" href="articles.php"><?= L_BACK_TO_ARTICLES ?></a></p>
-	</div>
+	<h2 class="h3-like"><?= L_CAT_TITLE ?></h2>
+	<p><a class="back" href="articles.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 </div>
 
 <div class="admin">
