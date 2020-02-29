@@ -99,16 +99,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						$menus[] = PlxUtils::formatMenu('<i class="icon-user-1"></i>'.L_MENU_PROFIL, PLX_CORE.'admin/profile.php', L_MENU_PROFIL_TITLE);
 
 					if($_SESSION['profil'] == PROFIL_ADMIN) {
-						$menus[] = PlxUtils::formatMenu('<i class="icon-sliders"></i>'.L_MENU_CONFIG, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', false);
-						if (preg_match('/parametres/',basename($_SERVER['SCRIPT_NAME']))) {
-							$menus[] = PlxUtils::formatMenu(L_MENU_CONFIG_BASE, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_BASE_TITLE, 'submenu');
-							$menus[] = PlxUtils::formatMenu(L_MENU_CONFIG_VIEW, PLX_CORE.'admin/parametres_affichage.php', L_MENU_CONFIG_VIEW_TITLE, 'submenu');
-							$menus[] = PlxUtils::formatMenu(L_MENU_CONFIG_USERS, PLX_CORE.'admin/parametres_users.php', L_MENU_CONFIG_USERS_TITLE, 'submenu');
-							$menus[] = PlxUtils::formatMenu(L_MENU_CONFIG_ADVANCED, PLX_CORE.'admin/parametres_avances.php', L_MENU_CONFIG_ADVANCED_TITLE, 'submenu');
-							$menus[] = PlxUtils::formatMenu(L_THEMES, PLX_CORE.'admin/parametres_themes.php', L_THEMES_TITLE, 'submenu');
-							$menus[] = PlxUtils::formatMenu(L_MENU_CONFIG_PLUGINS, PLX_CORE.'admin/parametres_plugins.php', L_MENU_CONFIG_PLUGINS_TITLE, 'submenu');
-							$menus[] = PlxUtils::formatMenu(L_MENU_CONFIG_INFOS, PLX_CORE.'admin/parametres_infos.php', L_MENU_CONFIG_INFOS_TITLE, 'submenu');
-						}
+						$menus[] = PlxUtils::formatMenu('<i class="icon-sliders"></i>'.L_MENU_CONFIG, PLX_CORE.'admin/configuration.php', L_MENU_CONFIG_TITLE);
 					}
 
 					# récuperation des menus admin pour les plugins

@@ -6,7 +6,6 @@
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 
@@ -20,21 +19,19 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 if(!empty($_POST)) {
 	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
 	unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
-	header('Location: parametres_avances.php');
+	header('Location: configuration.php');
 	exit;
 }
 
-# On inclut le header
-include __DIR__ .'/top.php';
 ?>
 
-<form action="parametres_avances.php" method="post" id="form_settings">
-
-	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
-		<p>&nbsp;</p>
-		<?php echo PlxToken::getTokenPostMethod() ?>
-		<input type="submit" value="<?php echo L_CONFIG_ADVANCED_UPDATE ?>" />
+<form action="configuration.php" method="post" id="form_settings">
+	<div class="autogrid">
+		<h3 class="h4-like"><?= L_CONFIG_ADVANCED_DESC ?></h3>
+		<div class="txtright">
+			<?= PlxToken::getTokenPostMethod() ?>
+			<input v-on:click="panelToDisplay='advanced'" class="btn--primary" type="submit" value="<?= L_CONFIG_ADVANCED_UPDATE ?>" />
+		</div>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
@@ -42,31 +39,31 @@ include __DIR__ .'/top.php';
 	<fieldset>
 		<div class="grid">
 			<div class="col sml-12 med-5">
-				<label for="id_urlrewriting"><?php echo L_CONFIG_ADVANCED_URL_REWRITE ?>&nbsp;:</label>
+				<label for="id_urlrewriting"><?= L_CONFIG_ADVANCED_URL_REWRITE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php if(PlxUtils::testModRewrite(false)) : ?>
 					<?php PlxUtils::printSelect('urlrewriting',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['urlrewriting']);?>
 					<?php if(is_file(PLX_ROOT.'.htaccess') AND $plxAdmin->aConf['urlrewriting']==0) { ?>
-						<br /><span class="text-red"><?php echo L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?></span>
+						<br /><span class="text-red"><?= L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?></span>
 					<?php } ?>
 				<?php else: ?>
-					<?php echo L_MODREWRITE_NOT_AVAILABLE ?>
+					<?= L_MODREWRITE_NOT_AVAILABLE ?>
 				<?php endif; ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_gzip"><?php echo L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
+				<label for="id_gzip"><?= L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printSelect('gzip',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['gzip']);?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_GZIP_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_GZIP_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_lostpassword"><?php echo L_CONFIG_ADVANCED_LOSTPASSWORD ?>&nbsp;:</label>
+				<label for="id_lostpassword"><?= L_CONFIG_ADVANCED_LOSTPASSWORD ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printSelect('lostpassword',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['lostpassword']);?>
@@ -74,7 +71,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_capcha"><?php echo L_CONFIG_ADVANCED_CAPCHA ?>&nbsp;:</label>
+				<label for="id_capcha"><?= L_CONFIG_ADVANCED_CAPCHA ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printSelect('capcha',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['capcha']);?>
@@ -82,7 +79,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_userfolders"><?php echo L_CONFIG_ADVANCED_USERFOLDERS ?>&nbsp;:</label>
+				<label for="id_userfolders"><?= L_CONFIG_ADVANCED_USERFOLDERS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printSelect('userfolders',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['userfolders']);?>
@@ -90,177 +87,177 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_clef"><?php echo L_CONFIG_ADVANCED_ADMIN_KEY ?>&nbsp;:</label>
+				<label for="id_clef"><?= L_CONFIG_ADVANCED_ADMIN_KEY ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('clef', $plxAdmin->aConf['clef'], 'text', '30-30'); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_KEY_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_KEY_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_config_path"><?php echo L_CONFIG_ADVANCED_CONFIG_FOLDER ?>&nbsp;:</label>
+				<label for="id_config_path"><?= L_CONFIG_ADVANCED_CONFIG_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('config_path', PLX_CONFIG_PATH) ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?= L_HELP_SLASH_END ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_racine_articles"><?php echo L_CONFIG_ADVANCED_ARTS_FOLDER ?>&nbsp;:</label>
+				<label for="id_racine_articles"><?= L_CONFIG_ADVANCED_ARTS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('racine_articles', $plxAdmin->aConf['racine_articles']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?= L_HELP_SLASH_END ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_racine_commentaires"><?php echo L_CONFIG_ADVANCED_COMS_FOLDER ?>&nbsp;:</label>
+				<label for="id_racine_commentaires"><?= L_CONFIG_ADVANCED_COMS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('racine_commentaires', $plxAdmin->aConf['racine_commentaires']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?= L_HELP_SLASH_END ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_racine_statiques"><?php echo L_CONFIG_ADVANCED_STATS_FOLDER ?>&nbsp;:</label>
+				<label for="id_racine_statiques"><?= L_CONFIG_ADVANCED_STATS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('racine_statiques', $plxAdmin->aConf['racine_statiques']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?= L_HELP_SLASH_END ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_medias"><?php echo L_CONFIG_ADVANCED_MEDIAS_FOLDER ?>&nbsp;:</label>
+				<label for="id_medias"><?= L_CONFIG_ADVANCED_MEDIAS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('medias', $plxAdmin->aConf['medias']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?= L_HELP_SLASH_END ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_racine_themes"><?php echo L_CONFIG_ADVANCED_THEMES_FOLDER ?>&nbsp;:</label>
+				<label for="id_racine_themes"><?= L_CONFIG_ADVANCED_THEMES_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('racine_themes', $plxAdmin->aConf['racine_themes']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?= L_HELP_SLASH_END ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_racine_plugins"><?php echo L_CONFIG_ADVANCED_PLUGINS_FOLDER ?>&nbsp;:</label>
+				<label for="id_racine_plugins"><?= L_CONFIG_ADVANCED_PLUGINS_FOLDER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('racine_plugins', $plxAdmin->aConf['racine_plugins']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?= L_HELP_SLASH_END ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_CUSTOM_CSSADMIN_PATH ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_CUSTOM_CSSADMIN_PATH ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
 			</div>
 		</div>
 		<div>
-			<h2><?php echo L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE ?>&nbsp;:</h2>
-			<p><small><?php echo L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP ?></small></p>
+			<h2><?= L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE ?>&nbsp;:</h2>
+			<p><small><?= L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP ?></small></p>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_EMAIL_METHOD ?>&nbsp;:</label>
-				<small><?php echo L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_EMAIL_METHOD ?>&nbsp;:</label>
+				<small><?= L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInputRadio('email_method', array('sendmail'=>'sendmail', 'smtp'=>'SMTP', 'smtpoauth'=>'OAUTH2'), $plxAdmin->aConf['email_method']); ?>
 			</div>
 		</div>
-		<div><h3><?php echo L_CONFIG_ADVANCED_SMTP_TITLE ?></h3></div>
+		<div><h3><?= L_CONFIG_ADVANCED_SMTP_TITLE ?></h3></div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_SERVER ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_SERVER ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtp_server', $plxAdmin->aConf['smtp_server']); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTP_SERVER_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTP_SERVER_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_USERNAME ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_USERNAME ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtp_username', $plxAdmin->aConf['smtp_username']); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTP_USERNAME_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTP_USERNAME_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_PASSWORD ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_PASSWORD ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password'], 'password'); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_PORT ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_PORT ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtp_port', $plxAdmin->aConf['smtp_port']); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTP_PORT_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTP_PORT_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_SECURITY ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_SECURITY ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInputRadio('smtp_security', array('0'=>L_NONE1,'ssl'=>'SSL', 'tls'=>'TLS'), $plxAdmin->aConf['smtp_security']); ?>
 			</div>
 		</div>
 		<div>
-			<h3><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TITLE ?></h3>
-			<p><small><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP ?></small></p>
+			<h3><?= L_CONFIG_ADVANCED_SMTPOAUTH_TITLE ?></h3>
+			<p><small><?= L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP ?></small></p>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtpOauth2_emailAdress', $plxAdmin->aConf['smtpOauth2_emailAdress']); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtpOauth2_clientId', $plxAdmin->aConf['smtpOauth2_clientId']); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY ?>&nbsp;:</label>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtpOauth2_clientSecret', $plxAdmin->aConf['smtpOauth2_clientSecret']); ?>
-				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP ?></span></a>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN ?>&nbsp;:</label>
-				<small><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP ?></small>
+				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN ?>&nbsp;:</label>
+				<small><?= L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP ?></small>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php PlxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '', true); ?>
@@ -269,16 +266,9 @@ include __DIR__ .'/top.php';
 						$disabled = "disabled";
 					}
 				?>
-				<a href="get_oauth_token.php?provider=Google"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
+				<a href="get_oauth_token.php?provider=Google"><button type="button" <?= $disabled ?>><?= L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
 			</div>
 		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) # Hook Plugins ?>
 </form>
-
-<?php
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
-# On inclut le footer
-include __DIR__ .'/foot.php';
-?>

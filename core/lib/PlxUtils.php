@@ -920,7 +920,7 @@ class PlxUtils {
 	/**
 	 * Méthode qui retourne la liste des langues disponibles dans un tableau
 	 *
-	 * @return	tableau associatif
+	 * @return	array
 	 * @author	J.P. Pourrez, Stephane F.
 	 **/
 	public static function getLangs() {

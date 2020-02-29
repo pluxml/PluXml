@@ -190,11 +190,19 @@ body {
 .section .admin {
 	padding: 0px 20px 20px;
 }
-
+.section .admin ul.configMenu li {
+	cursor: pointer;
+	padding: 0.5rem;
+}
+.section .admin ul.configMenu li.active {
+	background-color: var(--backheaderborder);
+}
+.section .admin ul.configMenu li:hover {
+	background-color: var(--backheaderborder);
+}
 .section .tableheader {
 	background-color: var(--backheaderborder);
 }
-
 .section .sidebar {
 	font-size: 1.4rem;
 	background-color: var(--backheader);
@@ -263,7 +271,11 @@ a:hover {
 .table .right {
 	text-align: right;
 }
-
+.panel {
+	padding: 1rem;
+	background-color: var(--backheader);
+	box-shadow: inset 0 0 0 1px var(--backheaderborder);
+}
 [type="submit"], button.submit {
 	box-shadow: none;
 	padding: 1rem 1.5rem;
