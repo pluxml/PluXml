@@ -46,25 +46,54 @@ $datas = json_encode($builkDatas);
 			<li v-on:click="panelToDisplay='users'"><span><?= L_MENU_CONFIG_USERS ?></span></li>
 			<li v-on:click="panelToDisplay='plugins'"><span><?= L_MENU_CONFIG_PLUGINS ?></span></li>
 			<li v-on:click="panelToDisplay='themes'"><span><?= L_THEMES ?></span></li>
-			<li v-on:click="panelToDisplay='infos'"><span><?= L_MENU_CONFIG_INFOS ?></span></li>
+			<li v-on:click="panelToDisplay='about'"><span><?= L_MENU_CONFIG_INFOS ?></span></li>
 		</ul>
 	</div>
 	<div v-if="panelToDisplay=='basic'" class="panel col-5">
-		<?php include __DIR__ .'/tags/configurationBasic.php'; ?>
+		<?php
+			include __DIR__ .'/tags/configurationBasic.php';
+			eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
+		?>
 	</div>
 	<div v-if="panelToDisplay=='display'"class="panel col-5">
-		<?php include __DIR__ .'/tags/configurationDisplay.php'; ?>
+		<?php
+			include __DIR__ .'/tags/configurationDisplay.php';
+			eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayFoot'));
+		?>
 	</div>
 	<div v-if="panelToDisplay=='advanced'"class="panel col-5">
-		<?php include __DIR__ .'/tags/configurationAdvanced.php'; ?>
+		<?php
+			include __DIR__ .'/tags/configurationAdvanced.php';
+			eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
+		?>
+	</div>
+	<div v-if="panelToDisplay=='users'"class="panel col-5">
+		<?php 
+			include __DIR__ .'/tags/configurationUsers.php';
+			eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
+		?>
+	</div>
+	<div v-if="panelToDisplay=='plugins'"class="panel col-5">
+		<?php 
+			include __DIR__ .'/tags/configurationPlugins.php';
+			eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
+		?>
+	</div>
+	<div v-if="panelToDisplay=='themes'"class="panel col-5">
+		<?php 
+			include __DIR__ .'/tags/configurationThemes.php';
+			eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
+		?>
+	</div>
+	<div v-if="panelToDisplay=='about'"class="panel col-5">
+		<?php 
+			include __DIR__ .'/tags/configurationAbout.php';
+			eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
+		?>
 	</div>
 </div>
 
 <?php
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
-eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayFoot'));
-eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
 # On inclut le footer
 include __DIR__ .'/foot.php';
 ?>

@@ -7,20 +7,16 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
 use Pluxml\PlxGlob;
 use Pluxml\PlxToken;
 
 # Control du token du formulaire
 PlxToken::validateFormToken($_POST);
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
 # On édite la configuration
 if(!empty($_POST)) {
 	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
-	header('Location: parametres_themes.php');
+	header('Location: configuration.php');
 	exit;
 }
 
@@ -92,13 +88,10 @@ class plxThemes {
 	}
 }
 
-# On inclut le header
-include __DIR__ .'/top.php';
-
 $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
 
 ?>
-<form action="parametres_themes.php" method="post" id="form_settings">
+<form action="configuration.php" method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_VIEW_SKIN_SELECT ?> </h2>
@@ -158,10 +151,3 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 	<?php echo PlxToken::getTokenPostMethod() ?>
 
 </form>
-
-<?php
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
-# On inclut le footer
-include __DIR__ .'/foot.php';
-?>

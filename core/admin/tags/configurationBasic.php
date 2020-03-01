@@ -2,8 +2,8 @@
 
 /**
  * Basic configuration
- * Part of core/admin/parametres_base.php
- * @author	Pedro "P3ter" CADETE"
+ * Part of core/admin/configuration.php
+ * @author	Stephane F., Pedro "P3ter" CADETE"
  **/
 use Pluxml\PlxUtils;
 use Pluxml\PlxToken;

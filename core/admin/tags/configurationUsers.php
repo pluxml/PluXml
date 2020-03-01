@@ -1,25 +1,21 @@
 <?php
+
 /**
- * Edition des utilisateurs
- *
- * @package PLX
- * @author	Stephane F.
+ * Users creation and configuration
+ * Part of core/admin/configuration.php
+ * @author	Stephane F., Pedro "P3ter" CADETE"
  **/
 
-include __DIR__ .'/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 
 # Control du token du formulaire
 PlxToken::validateFormToken($_POST);
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
 # Edition des utilisateurs
 if (!empty($_POST)) {
 	$plxAdmin->editUsers($_POST);
-	header('Location: parametres_users.php');
+	header('Location: configuration.php');
 	exit;
 }
 
@@ -32,21 +28,19 @@ $aProfils = array(
 	PROFIL_WRITER => L_PROFIL_WRITER
 );
 
-# On inclut le header
-include __DIR__ .'/top.php';
 ?>
 
-<form action="parametres_users.php" method="post" id="form_users">
-
-	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>
-		<p>&nbsp;</p>
-		<?php PlxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		<?php echo PlxToken::getTokenPostMethod() ?>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input type="submit" name="update" value="<?php echo L_CONFIG_USERS_UPDATE ?>" />
+<form action="configuration.php" method="post" id="form_users">
+	<div class="autogrid">
+		<h3 class="h4-like"><?= L_CONFIG_USERS_TITLE ?></h3>
+		<div class="txtright">
+			<input class="btn--primary" type="submit" value="<?= L_CONFIG_USERS_UPDATE ?>" />
+			<?php PlxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
+			<input type="submit" name="submit" value="<?= L_OK ?>"/>
+			<?= PlxToken::getTokenPostMethod() ?>
+		</div>
 	</div>
+
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
 
@@ -55,14 +49,14 @@ include __DIR__ .'/top.php';
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
-			<th><?php echo L_ID ?></th>
-			<th><?php echo L_PROFIL_USER ?></th>
-			<th><?php echo L_PROFIL_LOGIN ?></th>
-			<th><?php echo L_PROFIL_PASSWORD ?></th>
-			<th><?php echo L_PROFIL_MAIL ?></th>
-			<th><?php echo L_PROFIL ?></th>
-			<th><?php echo L_CONFIG_USERS_ACTIVE ?></th>
-			<th><?php echo L_CONFIG_USERS_ACTION ?></th>
+			<th><?= L_ID ?></th>
+			<th><?= L_PROFIL_USER ?></th>
+			<th><?= L_PROFIL_LOGIN ?></th>
+			<th><?= L_PROFIL_PASSWORD ?></th>
+			<th><?= L_PROFIL_MAIL ?></th>
+			<th><?= L_PROFIL ?></th>
+			<th><?= L_CONFIG_USERS_ACTIVE ?></th>
+			<th><?= L_CONFIG_USERS_ACTION ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -108,7 +102,7 @@ include __DIR__ .'/top.php';
 	$new_userid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 	?>
 		<tr class="new">
-			<td colspan="2"><?php echo L_CONFIG_USERS_NEW; ?></td>
+			<td colspan="2"><?= L_CONFIG_USERS_NEW; ?></td>
 			<td>
 			<?php
 				echo '<input type="hidden" name="userNum[]" value="'.$new_userid.'" />';
@@ -134,10 +128,3 @@ include __DIR__ .'/top.php';
 	</div>
 
 </form>
-
-<?php
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
-# On inclut le footer
-include __DIR__ .'/foot.php';
-?>

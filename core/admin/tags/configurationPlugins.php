@@ -7,7 +7,6 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
 use Pluxml\PlxAdmin;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
@@ -15,12 +14,9 @@ use Pluxml\PlxUtils;
 # Control du token du formulaire
 PlxToken::validateFormToken($_POST);
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
 if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
-	header('Location: parametres_plugins.php');
+	header('Location: configuration.php');
 	exit;
 }
 
@@ -128,12 +124,9 @@ $breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='0'?'class="selected" ':'')
 
 $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 
-# On inclut le header
-include __DIR__ .'/top.php';
-
 ?>
 
-<form action="parametres_plugins.php" method="post" id="form_plugins">
+<form action="configuration.php" method="post" id="form_plugins">
 
 	<div class="inline-form action-bar">
 		<h2>
@@ -203,10 +196,3 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") !=
 	plugFilter();
 }
 </script>
-
-<?php
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
-# On inclut le footer
-include __DIR__ .'/foot.php';
-?>

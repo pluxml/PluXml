@@ -7,7 +7,6 @@
  * @author	Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
 use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
@@ -23,12 +22,7 @@ $emailBuild = (is_string($email) and filter_has_var(INPUT_POST, 'sendmail-test')
 if($emailBuild) {
 	# body of test e-mail starts here
 	ob_start();
-} else {
-	# direct output
-	# administration header
-	include __DIR__ .'/top.php';
 }
-
 ?>
 
 <div class="inline-form action-bar">
@@ -169,6 +163,4 @@ if(preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
 	</script>
 <?php
 }
-# On inclut le footer
-include __DIR__ .'/foot.php';
 ?>
