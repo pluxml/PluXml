@@ -7,6 +7,7 @@
 
 namespace Pluxml;
 
+use Pluxml\PlxAdmin;
 use Pluxml\PlxMsg;
 
 const PLX_ADMIN = true;

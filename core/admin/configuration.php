@@ -24,7 +24,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 
 //Vue.js datas initialisation
 $builkDatas = array(
@@ -95,5 +95,5 @@ $datas = json_encode($builkDatas);
 
 <?php
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

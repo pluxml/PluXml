@@ -11,6 +11,7 @@ namespace Pluxml;
 
 use Pluxml\PlxCapcha;
 use Pluxml\PlxDate;
+use PlxErreur;
 
 class PlxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
@@ -59,7 +60,7 @@ class PlxMotor {
 	public static function getInstance(){
 		if (!isset(self::$instance)) {
 			self::$instance = false;
-			self::$instance = new plxMotor(path('XMLFILE_PARAMETERS'));
+			self::$instance = new PlxMotor(path('XMLFILE_PARAMETERS'));
 		}
 		return self::$instance;
 	}
@@ -1145,6 +1146,25 @@ class PlxMotor {
 		return $nb;
 	}
 
+	/**
+	 * Count pages
+	 *
+	 * @param	boolean $active	
+	 * @return	integer				pages cout
+	 * @author	Pedro "P3ter" CADETE
+	 **/
+	public function nbPages($active=false) {
+
+		$page = array();
+		$nb = 0;
+		foreach ($this->aStats as $page) {
+			if ($active AND $page['active'] == 1) {
+				$nb++;
+			}
+		}
+		return $nb;
+	}
+	
 	/**
 	 * Méthode qui recherche les articles appartenant aux catégories actives
 	 *

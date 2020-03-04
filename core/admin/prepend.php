@@ -8,6 +8,7 @@ include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
 
 require_once PLX_ROOT.'vendor/autoload.php';
+
 use Pluxml\PlxAdmin;
 use Pluxml\PlxUtils;
 
