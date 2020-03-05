@@ -7,7 +7,7 @@
  * @author	Stephane F.
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
@@ -40,7 +40,7 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de l'utilisateur
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 
 <form action="user.php" method="post" id="form_user">
@@ -87,5 +87,5 @@ include __DIR__ .'/top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUserFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

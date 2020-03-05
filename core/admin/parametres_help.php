@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxMsg;
 use Pluxml\PlxUtils;
 
@@ -56,9 +56,9 @@ else {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 # Affichage des données
 echo $output;
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 
@@ -32,7 +32,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 <script>
 function checkBox(cb) {
@@ -160,5 +160,5 @@ function checkBox(cb) {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

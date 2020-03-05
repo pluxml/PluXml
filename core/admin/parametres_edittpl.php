@@ -5,7 +5,7 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
@@ -73,7 +73,7 @@ if(file_exists($filename) AND filesize($filename) > 0) {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 <form action="parametres_edittpl.php" method="post" id="form_edittpl">
 
@@ -104,5 +104,5 @@ include __DIR__ .'/top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

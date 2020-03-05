@@ -7,7 +7,7 @@
  * @author  Stephane F, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxDate;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
@@ -115,7 +115,7 @@ $_SESSION['sort_medias']=$sort;
 $selectionList = array(''=>L_FOR_SELECTION,'move'=>L_PLXMEDIAS_MOVE_FOLDER,'thumbs'=>L_MEDIAS_RECREATE_THUMB,'-'=>'-----','delete' =>L_DELETE_FILE);
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 
 $curFolder = '/'.PlxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
 $curFolders = explode('/', $curFolder);
@@ -368,5 +368,5 @@ $curFolders = explode('/', $curFolder);
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

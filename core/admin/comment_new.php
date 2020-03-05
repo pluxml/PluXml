@@ -7,7 +7,7 @@
  * @author	Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxDate;
 use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
@@ -125,7 +125,7 @@ if(!empty($_POST) AND !empty($_POST['content'])) {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 <form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 
@@ -203,5 +203,5 @@ if(parent!='') { replyCom(parent) }
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentNewFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

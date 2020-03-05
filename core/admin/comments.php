@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxDate;
 use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
@@ -64,7 +64,7 @@ if(!empty($_GET['a'])) {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 
 # Récupération du type de commentaire à afficher
 $_GET['sel'] = !empty($_GET['sel']) ? $_GET['sel'] : '';
@@ -260,5 +260,5 @@ $datas = json_encode($builkDatas);
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

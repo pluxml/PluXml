@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 
@@ -37,7 +37,7 @@ $aTri = array(
 );
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 
 <div class="adminheader">
@@ -146,5 +146,5 @@ include __DIR__ .'/top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCategoriesFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

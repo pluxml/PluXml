@@ -10,7 +10,7 @@ use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 
 # Control du token du formulaire
 PlxToken::validateFormToken($_POST);
@@ -50,7 +50,7 @@ $file_frontend_init = PLX_PLUGINS.basename($plugin).'/css/site.css';
 $frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_contents($file_frontend_init)) : $frontend;
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 
 ?>
 
@@ -81,5 +81,5 @@ include __DIR__ .'/top.php';
 </form>
 <?php
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

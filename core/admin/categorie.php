@@ -7,7 +7,7 @@
  * @author	Stephane F.
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxGlob;
 use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
@@ -50,7 +50,7 @@ if ($array = $files->query('/^categorie(-[a-z0-9-_]+)?.php$/')) {
 if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 
 <form action="categorie.php" method="post" id="form_category">
@@ -142,5 +142,5 @@ include __DIR__ .'/top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCategoryFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

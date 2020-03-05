@@ -7,7 +7,7 @@
  * @author	Stephane F. et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxDate;
 use Pluxml\PlxGlob;
 use Pluxml\PlxMsg;
@@ -71,7 +71,7 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 
 <form action="statique.php" method="post" id="form_static">
@@ -156,5 +156,5 @@ include __DIR__ .'/top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

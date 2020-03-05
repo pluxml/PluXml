@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 
 use Pluxml\PlxMsg;
 
@@ -40,67 +40,29 @@ $nbpages = $plxAdmin->nbPages(true);
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
 	?>
-	
-	<div class="grid-3-small-1 has-gutter-xl mtl">
-		<div class="grid-3-small-1">
-			<div class="panel">
-				<span class="count"><?= $nbarts ?></span><br>
-				<small>published articles</small>
-			</div>
-			<div class="panel-grey">
-				<span class="count"><?= $nbarts ?></span><br>
-				<small>published articles</small>
-			</div>
-			<div class="panel-grey">
-				<span class="count"><?= $nbarts ?></span><br>
-				<small>published articles</small>
-			</div>
+
+	<div class="grid-3-small-1 has-gutter-xl mtm">
+		<div class="panel">
+			<p><i class="icon-pencil"></i><a href=""><?= $nbarts.'&nbsp;'.L_MENU_ARTICLES ?></a></p>
+			<p><i class="icon-doc-text-inv"></i><a href=""><?= $nbcomments.'&nbsp;'.L_MENU_STATICS ?></a></p>
+			<p><i class="icon-comment"></i><a href=""><?= $nbpages.'&nbsp;'.L_MENU_COMMENTS ?></a></p>
 		</div>
-		<div class="grid-3-small-1">
-			<div class="panel">
-				<span class="count"><?= $nbcomments ?></span><br>
-				<small>published comments</small>
-			</div>
-			<div class="panel-grey">
-				<span class="count"><?= $nbcomments ?></span><br>
-				<small>published comments</small>
-			</div>
-			<div class="panel-grey">
-				<span class="count"><?= $nbcomments ?></span><br>
-				<small>published comments</small>
-			</div>
+		<div class="panel">
+			<strong><?= L_ALL_DRAFTS ?></strong>
 		</div>
-		<div class="grid-3-small-1">
-			<div class="panel">
-				<span class="count"><?= $nbpages ?></span><br>
-				<small>published pages</small>
-			</div>
-			<div class="panel-grey">
-				<span class="count"><?= $nbpages ?></span><br>
-				<small>published pages</small>
-			</div>
-			<div class="panel-grey">
-				<span class="count"><?= $nbpages ?></span><br>
-				<small>published pages</small>
-			</div>
+		<div class="panel">
+			<strong><?= L_ALL_AWAITING_MODERATION ?></strong>
 		</div>
+
 	</div>
-	
-	<div class="grid-3-small-1 has-gutter-xl mtl">
+
+	<div class="grid-2-small-1 has-gutter-xl mtl">
 		<div class="panel">
-			brouillons
+			commentaire en modération ou dernier comm
 		</div>
 		<div class="panel">
-			articles moderation
+			flux rss PluXml
 		</div>
-		<div class="panel">
-			commentaire en modération
-			ou dernier comm
-		</div>
-	</div>
-	
-	<div class="panel mtl">
-		flux rss PluXml
 	</div>
 </div>
 <?php

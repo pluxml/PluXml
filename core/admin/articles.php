@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 use Pluxml\PlxDate;
@@ -121,7 +121,7 @@ $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 ?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
@@ -289,5 +289,5 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

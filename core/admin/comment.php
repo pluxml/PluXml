@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include __DIR__ .'/tags/prepend.php';
 use Pluxml\PlxDate;
 use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
@@ -113,7 +113,7 @@ else
 $date = PlxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include __DIR__ .'/tags/top.php';
 
 if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 	$author = $plxAdmin->plxRecord_coms->f('author');
@@ -216,5 +216,5 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include __DIR__ .'/tags/foot.php';
 ?>

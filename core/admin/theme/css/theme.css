@@ -145,6 +145,14 @@ body {
 	margin-left: 15%;
 	background-color: var(--backsection);
 }
+.section a {
+	color: var(--primary);
+	text-decoration: none;
+}
+.section a:hover {
+	color: var(--primary);
+	text-decoration: underline;
+}
 .section .header {
 	padding: 5px 10px 0px;
 	position: fixed;
@@ -200,9 +208,6 @@ body {
 .section .admin ul.configMenu li:hover {
 	background-color: var(--backheaderborder);
 }
-.section .count {
-	font-size: 4rem;
-}
 .section .tableheader {
 	background-color: var(--backheaderborder);
 }
@@ -215,12 +220,6 @@ body {
 	border: 1px solid var(--backheaderborder);
 }
 /* ==== COMPONENTS ==== */
-a {
-	text-decoration: none;
-}
-a:hover {
-	text-decoration: underline;
-}
 .table {
 	overflow: auto;
 	border-collapse: collapse;
@@ -277,10 +276,6 @@ a:hover {
 .panel {
 	padding: 1rem;
 	background-color: var(--backheader);
-	box-shadow: inset 0 0 0 1px var(--backheaderborder);
-}
-.panel-grey {
-	padding: 1rem;
 	box-shadow: inset 0 0 0 1px var(--backheaderborder);
 }
 [type="submit"], button.submit {
