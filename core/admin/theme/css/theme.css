@@ -193,6 +193,7 @@ body {
 	border-bottom: 2px solid var(--primary);
 }
 .section .adminheader li a {
+	color: #000;
 	text-decoration: none;
 }
 .section .admin {

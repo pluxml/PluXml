@@ -42,10 +42,15 @@ $nbpages = $plxAdmin->nbPages(true);
 	?>
 
 	<div class="grid-3-small-1 has-gutter-xl mtm">
-		<div class="panel panel-content">
-			<p><i class="icon-pencil"></i><a href=""><?= $nbarts.'&nbsp;'.L_MENU_ARTICLES ?></a></p>
-			<p><i class="icon-doc-text-inv"></i><a href=""><?= $nbcomments.'&nbsp;'.L_MENU_STATICS ?></a></p>
-			<p><i class="icon-comment"></i><a href=""><?= $nbpages.'&nbsp;'.L_MENU_COMMENTS ?></a></p>
+		<div class="panel">
+			<div class="panel-header">
+				<strong>Statistiques (L)</strong>
+			</div>
+			<div class="panel-content">
+				<p><i class="icon-pencil"></i><a href=""><?= $nbarts.'&nbsp;'.L_MENU_ARTICLES ?></a></p>
+				<p><i class="icon-doc-text-inv"></i><a href=""><?= $nbcomments.'&nbsp;'.L_MENU_STATICS ?></a></p>
+				<p><i class="icon-comment"></i><a href=""><?= $nbpages.'&nbsp;'.L_MENU_COMMENTS ?></a></p>
+			</div>
 		</div>
 		<div class="panel">
 			<div class="panel-header">
