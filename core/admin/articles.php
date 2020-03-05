@@ -136,7 +136,7 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
 	<ul>
 		<li <?= ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>><a href="articles.php?sel=all&amp;page=1"><?= L_ALL ?></a>&nbsp;<span class="tag"><?= $plxAdmin->nbArticles('all', $userId) ?></span></li>
 		<li <?= ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>><a href="articles.php?sel=published&amp;page=1"><?= L_ALL_PUBLISHED ?></a>&nbsp;<span class="tag"><?= $plxAdmin->nbArticles('published', $userId, '') ?></span></li>
-		<li <?= ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>><a href="articles.php?sel=draft&amp;page=1"><?= L_ALL_DRAFTS ?></a><?php if ($nbArticlesWaiting > 0) : ?>&nbsp;<span class="tag"><?= $nbArticlesWaiting ?></span><?php endif; ?></li>
+		<li <?= ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>><a href="articles.php?sel=draft&amp;page=1"><?= L_ALL_DRAFTS ?></a><?php if ($nbArticlesDraft > 0) : ?>&nbsp;<span class="tag"><?= $nbArticlesDraft ?></span><?php endif; ?></li>
 		<li <?= ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>><a href="articles.php?sel=mod&amp;page=1"><?= L_ALL_AWAITING_MODERATION ?></a><?php if ($nbArticlesWaiting > 0) : ?>&nbsp;<span class="tag"><?= $nbArticlesWaiting ?></span><?php endif; ?></li>
 	</ul>
 </div>
