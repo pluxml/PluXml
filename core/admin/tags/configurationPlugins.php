@@ -128,16 +128,18 @@ $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 
 <form action="configuration.php" method="post" id="form_plugins">
 
-	<div class="inline-form action-bar">
-		<h2>
+	<div class="panel-header">
+		<h3 class="h4-like">
 			<?php echo L_PLUGINS_TITLE ?>
 			<span data-scope="admin">Admin</span>
 			<span data-scope="site">Site</span>
-		</h2>
-
+		</h3>
 		<ul class="menu">
 			<?php echo implode($breadcrumbs); ?>
 		</ul>
+	</div>
+
+	<div class="panel-content">
 		<?php echo PlxToken::getTokenPostMethod() ?>
 		<?php PlxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
@@ -145,29 +147,28 @@ $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 		<?php if($sel==1) { ?>
 		<input type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
 		<?php } ?>
+
+		<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
+	
+		<div class="scrollable-table">
+			<table id="plugins-table" class="full-width" <?php if(!empty($data_rows_num)) echo $data_rows_num; ?>>
+				<thead>
+					<tr>
+						<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
+						<th>&nbsp;</th>
+						<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
+						<?php if($_SESSION['selPlugins']=='1') : ?>
+						<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
+						<?php endif; ?>
+						<th><?php echo L_PLUGINS_ACTION ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php echo $plugins ?>
+				</tbody>
+			</table>
+		</div>
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
-
-	<div class="scrollable-table">
-		<table id="plugins-table" class="full-width" <?php if(!empty($data_rows_num)) echo $data_rows_num; ?>>
-			<thead>
-				<tr>
-					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
-					<th>&nbsp;</th>
-					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
-					<?php if($_SESSION['selPlugins']=='1') : ?>
-					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
-					<?php endif; ?>
-					<th><?php echo L_PLUGINS_ACTION ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php echo $plugins ?>
-			</tbody>
-		</table>
-	</div>
-
 </form>
 
 <script>

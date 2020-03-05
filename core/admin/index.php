@@ -4,7 +4,7 @@
  * Listing des articles
  *
  * @package PLX
- * @author	Stephane F et Florent MONTHEL
+ * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
 include __DIR__ .'/tags/prepend.php';
@@ -42,25 +42,35 @@ $nbpages = $plxAdmin->nbPages(true);
 	?>
 
 	<div class="grid-3-small-1 has-gutter-xl mtm">
-		<div class="panel">
+		<div class="panel panel-content">
 			<p><i class="icon-pencil"></i><a href=""><?= $nbarts.'&nbsp;'.L_MENU_ARTICLES ?></a></p>
 			<p><i class="icon-doc-text-inv"></i><a href=""><?= $nbcomments.'&nbsp;'.L_MENU_STATICS ?></a></p>
 			<p><i class="icon-comment"></i><a href=""><?= $nbpages.'&nbsp;'.L_MENU_COMMENTS ?></a></p>
 		</div>
 		<div class="panel">
-			<strong><?= L_ALL_DRAFTS ?></strong>
+			<div class="panel-header">
+				<strong><?= L_ALL_DRAFTS ?></strong>
+			</div>
+			<div class="panel-content">
+				
+			</div>
 		</div>
 		<div class="panel">
-			<strong><?= L_ALL_AWAITING_MODERATION ?></strong>
+			<div class="panel-header">
+				<strong><?= L_ALL_AWAITING_MODERATION ?></strong>
+			</div>
+			<div class="panel-content">
+				
+			</div>
 		</div>
 
 	</div>
 
 	<div class="grid-2-small-1 has-gutter-xl mtl">
-		<div class="panel">
+		<div class="panel panel-content">
 			commentaire en modération ou dernier comm
 		</div>
-		<div class="panel">
+		<div class="panel panel-content">
 			flux rss PluXml
 		</div>
 	</div>

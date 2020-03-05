@@ -1154,7 +1154,6 @@ class PlxMotor {
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function nbPages($active=false) {
-
 		$page = array();
 		$nb = 0;
 		foreach ($this->aStats as $page) {

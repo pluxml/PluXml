@@ -274,10 +274,17 @@ body {
 	text-align: right;
 }
 .panel {
+	background-color: var(--backheader);
+	box-shadow: inset 0 0 0 1px var(--backheaderborder);
+}
+.panel-header{
 	padding: 1rem;
 	background-color: var(--backheader);
 	box-shadow: inset 0 0 0 1px var(--backheaderborder);
 }
+.panel-content {
+	padding: 1rem;
+}{
 [type="submit"], button.submit {
 	box-shadow: none;
 	padding: 1rem 1.5rem;
