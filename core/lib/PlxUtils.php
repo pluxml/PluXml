@@ -1337,10 +1337,10 @@ EOT;
 	 * @param	string	$prefixParent	prefixe pour l'affichage de la valeur de l'option
 	 * @param	string	$choice1		sélection initiale de l'utilisateur. Utilisé seulement au niveau 0
 	 * @param	boolean	$modeDir1		mode pour afficher uniquement les dossiers
-	 * @return	void					on envoie directemenr le code HTML en sortie
+	 * @param	boolean	$treeview	display folders and files in a treeview if true
 	 * @author	J.P. Pourrez alias bazooka07
 	 * */
-	private static function _printSelectDir($root, $level, $prefixParent, $choice1='', $modeDir1=true, $textOnly= true) {
+	private static function _printSelectDir($root, $level, $prefixParent, $choice1='', $modeDir1=true, $textOnly= true, $treeview=false) {
 
 		static $firstRootLength = 0;
 		static $modeDir = true;
@@ -1391,30 +1391,31 @@ EOT;
 				$selected = ($value == rtrim($currentValue, '/')) ? ' selected' : '';
 				$caption = basename($value);
 				$classList = array();
-				#if(strpos($currentValue, dirname($value)) === 0)
 				if(strpos($value, dirname($value)) === 0)
 					$classList[] = 'visible';
 				if(!$modeDir and $dirOk)
 					$classList[] = 'folder';
 
 				$classAttr = (!empty($classList)) ? ' class="'.implode(' ', $classList).'"' : '';
+				
+				$tagChild = $treeview ? 'span' : 'option';
 
 				if($dirOk) { # pour un dossier
 					if($modeDir) {
 						echo <<<EOT
-							<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
+							<$tagChild value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</$tagChild>
 
 EOT;
 					} else {
 						echo <<<EOT
-							<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+							<$tagChild disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</$tagChild>
 
 EOT;
 					}
 					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
-						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
+						<$tagChild value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</$tagChild>
 
 EOT;
 				}
@@ -1423,20 +1424,18 @@ EOT;
 	}
 
 	/**
-	 * Function publique pour afficher l'arborescence de dossiers et fichiers dans un tag <select..>.
+	 * Display folder treeview and files
 	 * Since 5.8
-	 * @param	string $name nom de l'input dans le formulaire
-	 * @param	string $currentValue sélection initiale de l'utilisateur
-	 * @param	string $root dossier initial dans l'arborescence
-	 * @param	string $class Classe css a appliquer au sélecteur #sudwebdesign
-	 * @param	boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
-	 * @param	str|bool id : si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre name
-	 * @return	void
-	 * @author	J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
-	 * $modeDir=true	pour ne choisir que les dossiers : voir plxMedias contentFolder()
-	 * $modeDir=false	pour ne choisir que les fichiers du thème
-	 * */
-	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true) {
+	 * @param	string 	$name 		form input name
+	 * @param	string 	$currentValue
+	 * @param	string 	$root
+	 * @param	string 	$class 	css class to apply
+	 * @param	boolean 	$modeDir 	display files if true
+	 * @param	string|boolean	$id		generate an id from the attribute name if true or generate an id from the $name parameter
+	 * @param	boolean	$treeview	display folders and files in a treeview if true
+	 * @author	J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign, Pedro "P3ter" CADETE
+	 */
+	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true, $treeview=false) {
 
 		if(is_bool($id))
 			$id = ($id ? ' id="id_'.$name.'"' : '');
@@ -1451,13 +1450,21 @@ EOT;
 		$data_files = (!$modeDir)? ' data-files': '';
 		$disabled = (!$modeDir)? ' disabled': '';
 		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
+		if ($treeview) {
+			$tag = 'div';
+			$tagchild = 'span';
+		}
+		else {
+			$tag = 'select';
+			$tagChild = 'option';
+		}
 		echo <<< EOT
-		<select $id name="$name" class="$class">
-			<option$disabled value="$value"$selected>$caption/</option>
+		<$tag $id name="$name" class="$class">
+			<$tagchild $disabled value="$value"$selected>$caption/</$tagchild>
 EOT;
-		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
+		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir, true);
 		echo <<< EOT
-		</select>
+		</$tag>
 EOT;
 	}
 

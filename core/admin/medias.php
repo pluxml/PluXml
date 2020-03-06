@@ -130,7 +130,8 @@ $curFolders = explode('/', $curFolder);
 
 <div class="admin mtm grid-6">
 	<div class="col-1 mtl">
-		media navigation
+		<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
+		<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 	</div>
 	<div class="panel col-5">
 		<form action="medias.php" method="post" id="form_medias">
@@ -183,11 +184,6 @@ $curFolders = explode('/', $curFolder);
 					<?php } ?>
 					<input type="hidden" name="sort" value="" />
 					<?php echo plxToken::getTokenPostMethod() ?>
-				</div>
-
-				<div style="float:left">
-					<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
-					<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 				</div>
 
 				<div style="float:right">
