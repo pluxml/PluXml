@@ -43,7 +43,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<script src="<?= PLX_CORE ?>lib/visual.js?v=<?= PLX_VERSION ?>"></script>
 	<script src="<?= PLX_CORE ?>lib/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
 	<script defer src="<?= PLX_CORE ?>lib/multifiles.js?v=<?= PLX_VERSION ?>"></script>
-	<script src="<?= PLX_CORE ?>lib/vue.js"></script>
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));

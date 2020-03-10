@@ -44,9 +44,13 @@ body {
 	background-color: #fbf8ef;
 	padding: 10px 10px;
 	border-bottom: 2px solid #ddd;
+	margin-bottom: 2rem;
 }
 .auth .btn--margin-top {
 	margin-top: 30px;
+}
+.auth span a {
+	text-decoration: none;
 }
 .auth a.back {
 	color: white;
