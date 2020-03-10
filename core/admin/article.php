@@ -379,11 +379,11 @@ function refreshImg(dta) {
 		<!-- SIDEBAR -->
 		<div class="col-2-small-1 sidebar">
 			<div>
-				<span class="btn" v-on:click="tab=true">tab1</span>
-				<span class="btn" v-on:click="tab=false">tab2</span>
+				<span class="btn">tab1</span>
+				<span class="btn">tab2</span>
 			</div>
 			<fieldset class="pan">
-				<div v-if="tab" class="flex-container--column">
+				<div class="flex-container--column">
 					<div>
 						<label for="id_author"><?= L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
 						<?php
@@ -433,9 +433,8 @@ function refreshImg(dta) {
 						<?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
 					</div>
 					<div class="expender">
-						<span v-if="url" v-on:click="url=false">URL</span>
-						<span v-if="!url" v-on:click="url=true">URL</span>
-						<div v-if="url">
+						<span>URL</span>
+						<div>
 							<label for="id_url">
 								<?= L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_URL_FIELD_TITLE ?></span></a>
 							</label>
@@ -450,9 +449,8 @@ function refreshImg(dta) {
 						</div>
 					</div>
 					<div class="expender">
-						<span v-if="category" v-on:click="category=false">Category</span>
-						<span v-if="!category" v-on:click="category=true">Category</span>
-						<div v-if="category">
+						<span>Category</span>
+						<div>
 							<label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 							<?php
 								$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
@@ -475,9 +473,8 @@ function refreshImg(dta) {
 						</div>
 					</div>
 					<div class="expender">
-						<span v-if="tags" v-on:click="tags=false">Tags</span>
-						<span v-if="!tags" v-on:click="tags=true">Tags</span>
-						<div v-if="tags">
+						<span>Tags</span>
+						<div>
 							<label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
 							<?php PlxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
 							<input class="toggler" type="checkbox" id="toggler_tags"<?= (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
@@ -511,9 +508,8 @@ function refreshImg(dta) {
 						</div>
 					</div>
 					<div class="expender">
-						<span v-if="comments" v-on:click="comments=false">Comments</span>
-						<span v-if="!comments" v-on:click="comments=true">Comments</span>
-						<div v-if="comments">
+						<span>Comments</span>
+						<div>
 							<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
 							<label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
 							<?php PlxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
@@ -540,9 +536,8 @@ function refreshImg(dta) {
 						</div>
 					</div>
 					<div class="expender">
-						<span v-if="seo" v-on:click="seo=false">SEO</span>
-						<span v-if="!seo" v-on:click="seo=true">SEO</span>
-						<div v-if="seo">
+						<span>SEO</span>
+						<div>
 							<label for="id_title_htmltag"><?= L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label><br>
 							<?php PlxUtils::printInput('title_htmltag',PlxUtils::strCheck($title_htmltag),'text','27-255'); ?>
 							<label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label><br>
@@ -556,7 +551,7 @@ function refreshImg(dta) {
 					<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
 				</div>
 				
-				<div v-else class="flex-container--column">
+				<div>
 					<label for="id_thumbnail">
 						<?= L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>

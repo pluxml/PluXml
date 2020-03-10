@@ -62,7 +62,7 @@ if(!is_numeric($plxAdmin->aConf['miniatures_h'])) $plxAdmin->aConf['miniatures_h
 			<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		</div>
 		<div class="txtright">
-			<input v-on:click="panelToDisplay='display'" class="btn--primary" type="submit" value="<?= L_CONFIG_VIEW_UPDATE ?>" />
+			<input class="btn--primary" type="submit" value="<?= L_CONFIG_VIEW_UPDATE ?>" />
 		</div>
 	</div>
 

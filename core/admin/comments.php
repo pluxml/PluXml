@@ -121,14 +121,6 @@ if(!empty($_GET['a'])) {
 $plxAdmin->getPage();
 $start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
 $coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
-
-//Vue.js datas initialisation
-$builkDatas = array(
-		'coms' => $coms, # true if there are comments
-		'comSel' => $comSel, # comments list filter : all, online, offline
-);
-$datas = json_encode($builkDatas);
-
 ?>
 
 <div class="adminheader">
@@ -146,12 +138,14 @@ $datas = json_encode($builkDatas);
 
 		<div class="mtm pas  tableheader">
 			<?= plxToken::getTokenPostMethod() ?>
-			<button v-if="comSel==='online'" class="submit btn--primary" name="offline" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_OFFLINE?></button>
-			<button v-else-if="comSel==='offline'" class="submit btn--primary" name="online" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_ONLINE?></button>
-			<div v-else>
+			<?php if ($comSel == 'online'): ?>
+				<button class="submit btn--primary" name="offline" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_OFFLINE?></button>
+			<?php elseif ($comSel == 'offline'): ?>
+				<button class="submit btn--primary" name="online" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_ONLINE?></button>
+			<?php else: ?>
 				<button class="submit btn--primary" name="online" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_ONLINE?></button>
 				<button class="submit btn--primary" name="offline" type="submit"><i class="icon-comment"></i><?= L_COMMENT_SET_OFFLINE?></button>
-			</div>
+			<?php endif ?>
 			<!--<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />-->
 		</div>
 
@@ -197,10 +191,11 @@ $datas = json_encode($builkDatas);
 					}
 					?>
 				</tbody>
+				<?php if ($coms): ?>
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<button v-if="coms" class="submit btn--warning" name="delete" type="submit"><i class="icon-trash-empty"></i><?= L_DELETE?></button>
+							<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash-empty"></i><?= L_DELETE?></button>
 						</td>
 						<td colspan="3" class="pagination right">
 							<?php
@@ -239,6 +234,7 @@ $datas = json_encode($builkDatas);
 						</td>
 					</tr>
 				</tfoot>
+				<?php endif ?>
 			</table>
 		</div>
 	

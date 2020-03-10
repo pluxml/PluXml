@@ -30,7 +30,7 @@ if(!empty($_POST)) {
 		<h3 class="h4-like"><?= L_CONFIG_ADVANCED_DESC ?></h3>
 		<div class="txtright">
 			<?= PlxToken::getTokenPostMethod() ?>
-			<input v-on:click="panelToDisplay='advanced'" class="btn--primary" type="submit" value="<?= L_CONFIG_ADVANCED_UPDATE ?>" />
+			<input class="btn--primary" type="submit" value="<?= L_CONFIG_ADVANCED_UPDATE ?>" />
 		</div>
 	</div>
 

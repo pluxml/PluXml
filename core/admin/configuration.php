@@ -25,12 +25,6 @@ if(!empty($_POST)) {
 
 # On inclut le header
 include __DIR__ .'/tags/top.php';
-
-//Vue.js datas initialisation
-$builkDatas = array(
-		'panelToDisplay' => 'basic',
-);
-$datas = json_encode($builkDatas);
 ?>
 
 <div class="adminheader">
@@ -40,52 +34,52 @@ $datas = json_encode($builkDatas);
 <div class="admin mtm grid-6">
 	<div class="col-1 mtl">
 		<ul class="mlm configMenu unstyled">
-			<li v-on:click="panelToDisplay='basic'"><span><?= L_MENU_CONFIG_BASE ?></span></li>
-			<li v-on:click="panelToDisplay='display'"><span><?= L_MENU_CONFIG_VIEW ?></span></li>
-			<li v-on:click="panelToDisplay='advanced'"><span><?= L_MENU_CONFIG_ADVANCED ?></span></li>
-			<li v-on:click="panelToDisplay='users'"><span><?= L_MENU_CONFIG_USERS ?></span></li>
-			<li v-on:click="panelToDisplay='plugins'"><span><?= L_MENU_CONFIG_PLUGINS ?></span></li>
-			<li v-on:click="panelToDisplay='themes'"><span><?= L_THEMES ?></span></li>
-			<li v-on:click="panelToDisplay='about'"><span><?= L_MENU_CONFIG_INFOS ?></span></li>
+			<li><?= L_MENU_CONFIG_BASE ?></li>
+			<li><?= L_MENU_CONFIG_VIEW ?></li>
+			<li><?= L_MENU_CONFIG_ADVANCED ?></li>
+			<li><?= L_MENU_CONFIG_USERS ?></li>
+			<li><?= L_MENU_CONFIG_PLUGINS ?></li>
+			<li><?= L_THEMES ?></li>
+			<li><?= L_MENU_CONFIG_INFOS ?></li>
 		</ul>
 	</div>
-	<div v-if="panelToDisplay=='basic'" class="panel col-5">
+	<div class="panel col-5">
 		<?php
 			include __DIR__ .'/tags/configurationBasic.php';
 			eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
 		?>
 	</div>
-	<div v-if="panelToDisplay=='display'"class="panel col-5">
+	<div class="panel col-5">
 		<?php
 			include __DIR__ .'/tags/configurationDisplay.php';
 			eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayFoot'));
 		?>
 	</div>
-	<div v-if="panelToDisplay=='advanced'"class="panel col-5">
+	<div class="panel col-5">
 		<?php
 			include __DIR__ .'/tags/configurationAdvanced.php';
 			eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
 		?>
 	</div>
-	<div v-if="panelToDisplay=='users'"class="panel col-5">
+	<div class="panel col-5">
 		<?php 
 			include __DIR__ .'/tags/configurationUsers.php';
 			eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
 		?>
 	</div>
-	<div v-if="panelToDisplay=='plugins'"class="panel col-5">
+	<div class="panel col-5">
 		<?php 
 			include __DIR__ .'/tags/configurationPlugins.php';
 			eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
 		?>
 	</div>
-	<div v-if="panelToDisplay=='themes'"class="panel col-5">
+	<div class="panel col-5">
 		<?php 
 			include __DIR__ .'/tags/configurationThemes.php';
 			eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
 		?>
 	</div>
-	<div v-if="panelToDisplay=='about'"class="panel col-5">
+	<div class="panel col-5">
 		<?php 
 			include __DIR__ .'/tags/configurationAbout.php';
 			eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
