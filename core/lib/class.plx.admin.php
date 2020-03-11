@@ -314,7 +314,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		/*
 		$mail = array();
 		$tokenExpiry = 24;
-		$lostPasswordToken = plxToken::generateToken();
+		$lostPasswordToken = plxToken::getTokenPostMethod('', false);
 		$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 		$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 		$error = false;

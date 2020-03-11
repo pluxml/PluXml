@@ -3,7 +3,7 @@
  * Classe plxToken responsable du controle des formulaires
  *
  * @package PLX
- * @author	Stephane F, J.P. Pourrez
+ * @author	Stephane F, Pedro "P3ter" CADETE, J.P. Pourrez
  **/
 class plxToken {
 	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -14,7 +14,7 @@ class plxToken {
 	 * Méthode qui affiche le champ input contenant le token
 	 *
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function getTokenPostMethod($length=32, $html=true) {
 
@@ -33,7 +33,7 @@ class plxToken {
 	 *
 	 * @param	$request	(deprecated)
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function validateFormToken($request='') {
 
@@ -57,23 +57,12 @@ class plxToken {
 	}
 
 	/**
-	 * Create a token to reset user password
-	 *
-	 * @return	string	the token
-	 * @author	Pedro "P3ter" CADETE
-	 */
-	public static function generateToken() {
-		return sha1(mt_rand(0, 1000000));
-	}
-
-	/**
 	 * Generate Token expiry date
 	 *
 	 * @param	int		hours before expiration
 	 * @return	string	expiry date
 	 * @author	Pedro "P3ter" CADETE
 	 */
-
 	public static function generateTokenExperyDate($hours = 24) {
 		return date('YmdHis', mktime(date('H')+$hours, date('i'), date('s'), date('m'), date('d'), date('Y')));
 	}
