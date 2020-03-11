@@ -6,19 +6,25 @@
  * @author	Stephane F
  **/
 class plxToken {
+	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const LIFETIME = 3600; // seconds
 
 	/**
 	 * Méthode qui affiche le champ input contenant le token
 	 *
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	J.P. Pourrez, Stephane F
 	 **/
-	public static function getTokenPostMethod() {
-
-		$token = sha1(mt_rand(0, 1000000));
+	public static function getTokenPostMethod($length=32, $html=true) {
+		$range = strlen(plxToken::TEMPLATE);
+		$result = array();
+		mt_srand((float)microtime() * 1000000);
+		for($i=0; $i<$length; $i++) {
+			$result[] = self::TEMPLATE[mt_rand() % $range];
+		}
+		$token = implode('', $result);
 		$_SESSION['formtoken'][$token] = time();
-		return '<input name="token" value="'.$token.'" type="hidden" />';
-
+		return ($html) ? '<input name="token" value="'.$token.'" type="hidden" />' : $token;
 	}
 
 	/**
@@ -26,17 +32,26 @@ class plxToken {
 	 *
 	 * @param	$request	(deprecated)
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	J.P. Pourrez, Stephane F
 	 **/
 	public static function validateFormToken($request='') {
 
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
+			$limit = time() - self::LIFETIME;
 
-			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < time() - 3600) { # 3600 seconds
+			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < $limit) {
 				unset($_SESSION['formtoken']);
 				die('Security error : invalid or expired token');
 			}
 			unset($_SESSION['formtoken'][$_POST['token']]);
+			// autoclean up !
+			if(!empty($_SESSION['formtoken'])) {
+				foreach($_SESSION['formtoken'] as $token=>$lifetime) {
+					if($lifetime < $limit) {
+						unset($_SESSION['formtoken'][$token]);
+					}
+				}
+			}
 		}
 
 	}
