@@ -40,7 +40,7 @@ namespace PHPMailer\PHPMailer;
 use League\OAuth2\Client\Provider\Google;
 
 // Include PluXml requirements
-include __DIR__.'/tags/prepend.php';
+include __DIR__.'/prepend.php';
 
 if (!isset($_GET['code']) && !isset($_GET['provider'])) {
 	include __DIR__ .'/top.php';

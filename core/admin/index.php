@@ -7,7 +7,7 @@
  * @author	Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/tags/prepend.php';
+include __DIR__ .'/prepend.php';
 
 use Pluxml\PlxMsg;
 

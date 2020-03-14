@@ -7,7 +7,7 @@
  * @author  Stephane F, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/tags/prepend.php';
+include __DIR__ .'/prepend.php';
 use Pluxml\PlxDate;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;

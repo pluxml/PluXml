@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/tags/prepend.php';
+include __DIR__ .'/prepend.php';
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 

@@ -1,19 +1,37 @@
 <?php
 
 /**
- * Basic configuration
- * Part of core/admin/configuration.php
+ * Basic configuration controller
  * @author	Stephane F., Pedro "P3ter" CADETE"
  **/
 use Pluxml\PlxUtils;
 use Pluxml\PlxToken;
 use Pluxml\PlxTimezones;
+
+include __DIR__ .'/prepend.php';
+
+//CSRF token validation
+PlxToken::validateFormToken($_POST);
+
+//Control access page (admin profil needed)
+$plxAdmin->checkProfil(PROFIL_ADMIN);
+
+//PluXml configuration update
+if(!empty($_POST)) {
+	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
+	header('Location: configurationBasic.php');
+	exit;
+}
+
+//View call preparation
+ob_start(); 
 ?>
 
-<form action="configuration.php" method="post" id="form_settings">
+<form action="configurationBasic.php" method="post" id="form_settings">
 	<div class="autogrid panel-header">
 		<h3 class="h4-like"><?= L_CONFIG_BASE_CONFIG_TITLE ?></h3>
 		<div class="txtright">
+			<?= PlxToken::getTokenPostMethod() ?>
 			<input class="btn--primary" type="submit" value="<?= L_CONFIG_BASE_UPDATE ?>" />
 		</div>
 	</div>
@@ -41,5 +59,12 @@ use Pluxml\PlxTimezones;
 		<?php PlxUtils::printSelect('enable_rss',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['enable_rss']); ?>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
-	<?= PlxToken::getTokenPostMethod() ?>
 </form>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot')); ?>
+
+<?php
+// View call
+$content = ob_get_contents();
+ob_end_clean();
+include __DIR__ .'/views/configurationView.php';
+?>

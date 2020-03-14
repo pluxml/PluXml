@@ -10,7 +10,7 @@ use Pluxml\PlxMsg;
 use Pluxml\PlxToken;
 use Pluxml\PlxUtils;
 
-include __DIR__ .'/tags/prepend.php';
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 PlxToken::validateFormToken($_POST);

@@ -7,7 +7,7 @@
  * @author	Florent MONTHEL, Stephane F, Philippe-M, Pedro "P3ter" CADETE"
  **/
 
-include __DIR__ .'/tags/prepend.php';
+include __DIR__ .'/prepend.php';
 use Pluxml\PlxToken;
 
 # Control du token du formulaire

@@ -10,7 +10,7 @@ use Pluxml\PlxUtils;
 
 const PLX_AUTHPAGE = true;
 
-include __DIR__ .'/tags/prepend.php';
+include __DIR__ .'/prepend.php';
 
 //Form token validation
 PlxToken::validateFormToken($_POST);

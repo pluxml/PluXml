@@ -98,7 +98,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						$menus[] = PlxUtils::formatMenu('<i class="icon-user-1"></i>'.L_MENU_PROFIL, PLX_CORE.'admin/profile.php', L_MENU_PROFIL_TITLE);
 
 					if($_SESSION['profil'] == PROFIL_ADMIN) {
-						$menus[] = PlxUtils::formatMenu('<i class="icon-sliders"></i>'.L_MENU_CONFIG, PLX_CORE.'admin/configuration.php', L_MENU_CONFIG_TITLE);
+						$menus[] = PlxUtils::formatMenu('<i class="icon-sliders"></i>'.L_MENU_CONFIG, PLX_CORE.'admin/configurationBasic.php', L_MENU_CONFIG_TITLE);
 					}
 
 					# récuperation des menus admin pour les plugins

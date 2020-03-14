@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include __DIR__ .'/tags/prepend.php';
+include __DIR__ .'/prepend.php';
 use Pluxml\PlxMsg;
 use Pluxml\PlxUtils;
 
