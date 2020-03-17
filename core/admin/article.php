@@ -360,7 +360,7 @@ function refreshImg(dta) {
 						<?php PlxUtils::printInput('title',PlxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
 					</div>
 					<div>
-						<input class="toggler" type="checkbox" id="toggler_chapo"<?= (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
+						<input class="toggler" type="checkbox" id="toggler_chapo"<?= (empty($_GET['a']) || ! empty(trim($chapo))) ? ' checked' : ''; ?> />
 						<label for="toggler_chapo"><?= L_HEADLINE_FIELD;?> : <span><?= L_ARTICLE_CHAPO_HIDE;?></span><span><?= L_ARTICLE_CHAPO_DISPLAY;?></span></label>
 						<div>
 							<?php PlxUtils::printArea('chapo',PlxUtils::strCheck($chapo),0,8); ?>

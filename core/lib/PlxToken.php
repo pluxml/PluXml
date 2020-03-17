@@ -2,26 +2,32 @@
 /**
  * PlxToken class is in charge of tokens and forms control
  *
- * @package PLX
+ * @package	PLX
  * @author	Stephane F
  **/
 
 namespace Pluxml;
 
 class PlxToken {
+	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const LIFETIME = 3600; // seconds
 
 	/**
 	 * Méthode qui affiche le champ input contenant le token
 	 *
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
-	public static function getTokenPostMethod() {
-
-		$token = sha1(mt_rand(0, 1000000));
+	public static function getTokenPostMethod($length=32, $html=true) {
+		$range = strlen(plxToken::TEMPLATE);
+		$result = array();
+		mt_srand((float)microtime() * 1000000);
+		for($i=0; $i<$length; $i++) {
+			$result[] = self::TEMPLATE[mt_rand() % $range];
+		}
+		$token = implode('', $result);
 		$_SESSION['formtoken'][$token] = time();
-		return '<input name="token" value="'.$token.'" type="hidden" />';
-
+		return ($html) ? '<input name="token" value="'.$token.'" type="hidden" />' : $token;
 	}
 
 	/**
@@ -29,29 +35,28 @@ class PlxToken {
 	 *
 	 * @param	$request	(deprecated)
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function validateFormToken($request='') {
 
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
+			$limit = time() - self::LIFETIME;
 
-			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < time() - 3600) { # 3600 seconds
+			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < $limit) {
 				unset($_SESSION['formtoken']);
 				die('Security error : invalid or expired token');
 			}
 			unset($_SESSION['formtoken'][$_POST['token']]);
+			// cleanup old tokens 
+			if(!empty($_SESSION['formtoken'])) {
+				foreach($_SESSION['formtoken'] as $token=>$lifetime) {
+					if($lifetime < $limit) {
+						unset($_SESSION['formtoken'][$token]);
+					}
+				}
+			}
 		}
 
-	}
-
-	/**
-	 * Create a token to reset user password
-	 *
-	 * @return	string	the token
-	 * @author	Pedro "P3ter" CADETE
-	 */
-	public static function generateToken() {
-		return sha1(mt_rand(0, 1000000));
 	}
 
 	/**
@@ -61,7 +66,6 @@ class PlxToken {
 	 * @return	string	expiry date
 	 * @author	Pedro "P3ter" CADETE
 	 */
-
 	public static function generateTokenExperyDate($hours = 24) {
 		return date('YmdHis', mktime(date('H')+$hours, date('i'), date('s'), date('m'), date('d'), date('Y')));
 	}
