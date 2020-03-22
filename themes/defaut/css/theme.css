@@ -1,11 +1,11 @@
 /*
 # ------------------ BEGIN LICENSE BLOCK ------------------
 #
-# This file is part of PluXml : http://www.pluxml.org
+# This file is part of PluXml : https://www.pluxml.org
 #
 # Package:		theme.css
-# Copyright (c) 2017 PluXml
-# Authors		Stephane F., Pedro "P3ter" CADETE.
+# Copyright (c) 2017-2019 PluXml
+# Authors		Stephane F., Pedro "P3ter" CADETE., Thomas "sudwebdesign" Ingles.
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -21,9 +21,7 @@
 	url('../fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
-
 }
-
 body {
 	font-family: 'open_sansregular', sans-serif;
 	font-size: 1.7em;
@@ -31,47 +29,32 @@ body {
 	color: #3A4145;
 	background-color: #fff;
 }
-
 /* ---------- Header ---------- */
 
-@media (min-width: 64rem) {
-	.container {
-		padding-left: 5rem;
-		padding-right: 5rem;
-	}
+.heading-small {
+	font-size: 2rem;
 }
-
-@media (min-width: 128rem) {
-	.container {
-		padding-left: 15rem;
-		padding-right: 15rem;
-	}
-}
-
 .header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 	padding-top: 1.3rem;
-	height: 9rem;
+	height: 7rem;
 	z-index: 2;
 }
-
 .header a {
 	color: #222;
 }
-
 .header a:hover {
 	text-decoration: none;
 }
-
 .logo {
 	background: url("../img/pluxml-logo-black.png") top left no-repeat;
-	height: 10rem;
-	background-size: 8rem;
-	background-position: 2rem 0;
-	padding-left: 11rem;
+	height: 5rem;
+	background-size: 6rem;
+	background-position: 5rem 0;
+	padding-left: 12rem;
+	margin-left: -5rem;
 }
-
 .bg {
 	background: url(../img/bg.jpg) no-repeat top left;
 	-webkit-background-size: cover;
@@ -80,58 +63,39 @@ body {
 	background-size: cover;
 	height: 250px;
 }
-
-@media (max-width: 463px) {
-	.logo {
-		background-size: 3rem;
-		background-position: 0 1.23rem;
-		padding-left: 0.1rem;
-	}
-	.header h1 * {
-		font-size: 1.23rem;
-		padding-left: 3rem;
-	}
-	.header h2 {
-		font-size: 1rem;
-	}
-	.bg {
-		height: 100px;
-	}
-}
-
-/* ----- Nav / Menu ----- */
-.header.sticky div.grid{
-	overflow: initial;/* fix hidden sub-menu */
-}
 .nav {
-	padding-top: 2.7rem;
+	text-align: right;
+	padding-top: 0;
 }
 
-ul.menu {
-	margin: 0 15px 7.5px 15px;
-	border-radius: 15px;
+ul.menu {}
+
+.menu>li {
+	font-size: 1.5rem;
+	margin-left: .5rem;
 }
 
-.menu>li.menu {
-	padding: 5px 5px 2px 5px;
+.menu>li {
+	border-bottom: 3px solid transparent;
 }
-
-.menu>li.menu:hover {
+.menu>li:hover {
 	border-bottom: 3px solid #222;
 }
-
-.menu>li ul {
+.menu>li>span {
+	cursor: default;
+}
+.menu>li ul {/* sub menu */
 	display: none;
 	position: absolute;
 	padding: 0;
 	line-height: 2.8rem;
 	z-index: 10;
+	border-bottom: 3px solid #222;
 }
 
-.menu>li:hover ul {
+.menu>li:hover ul {/* show sub menu */
 	display: block;
 }
-
 .menu ul li {
 	display: block;
 	margin: 0;
@@ -140,78 +104,46 @@ ul.menu {
 	text-align: left;
 }
 
-.menu span::before {
+.menu>li span::before {/* \/ menu */
 	content: '\25bc';
 }
-
-@media (max-width: 767px) {
-	.nav {
-		background-color: #fff;
-		height: auto;
-		max-height: 80%;
-		overflow-y: auto;
-		text-align: left;
-		margin-top: 0;
-		z-index: 10;
-	}
-	.nav>.container {
-		padding: 0;
-	}
-	li.menu {
-		padding: 5px 5px 2px 5px;
-		background: #efefef;
-	}
-	li.menu:hover {
-		border: none;
-	}
-	.responsive-menu label {
-		background-color: transparent;
-		color: #333;
-		font-size: 3.5rem;
-		margin: .75rem;
-		text-align: right;
-	}
-	.responsive-menu label:before {
-		content: '\2630';
-	}
-	.menu>li ul {
-		position: relative !important;
-	}
-	.menu>li ul li:hover {
-		background-color: #eee;
-	}
-	.menu>li ul li:hover a {
-		text-decoration: underline;
-	}
-	.responsive-menu ul li.active a,
-	.responsive-menu ul li.active:hover {
-		background-color: #eee;
-		color: #000;
-	}
-	.responsive-menu ul li {
-		background-color: #fff;
-		color: #000;
-	}
+ul.menu .noactive:hover,
+ul.menu .active span,
+ul.menu span.active,
+ul.menu li.active a,
+ul.menu a.active,
+ul.menu li span:hover,
+ul.menu li a:hover {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
+	color: #000 !important;
 }
 
-
-li.active a,
-a.active {
-	color: #000;
-}
-
-.static.group.active,
-.static.menu.active a {
-	color: #000;
-	white-space: nowrap;
-}
-
-.static.group.noactive,
-.static.menu.noactive a {
+ul.menu li span,
+ul.menu li a {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
+	display: inline-block;
+	height: 1.23rem;
+	line-height: 1.23rem;
+	padding-left: .35rem;
+	padding-right: .35rem;
+	width: 100%;
+/*	cursor: pointer;*/
+	background-color: rgba(255,255,255,.55);
+	border-radius: 1px;
 	color: #258fd6;
-	white-space: nowrap;
 }
+ul.menu li span a,
+ul.menu li a span {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
+	white-space: nowrap;
+	display: inline;
+	margin-right: -.35rem;
+	padding-left: 0;
+}
+ul.menu li.noactive a,
+ul.menu a.noactive{
+/*	background-color: rgba(255,255,255,.55);*/
+	border-radius: 1px;
+	color: #258fd6;
 
+}
 /* ---------- Main ---------- */
 
 .main {
@@ -259,6 +191,12 @@ a.active {
 
 
 /* ------- Article ------- */
+
+article:after {
+	display:block;
+	content: "";
+	clear: both;
+}
 
 .article header {
 	margin-top: 2rem;
@@ -384,29 +322,6 @@ a.active {
 	margin-left: 25rem;
 }
 
-@media (max-width: 768px) {
-	.comment {
-		background-image: none;
-		padding-left: 0;
-	}
-	.level-1 {
-		margin-left: 1rem;
-	}
-	.level-2 {
-		margin-left: 2rem;
-	}
-	.level-3 {
-		margin-left: 3rem;
-	}
-	.level-4 {
-		margin-left: 4rem;
-	}
-	.level-5,
-	.level-max {
-		margin-left: 5rem;
-	}
-}
-
 #id_answer {
 	margin-bottom: 1.5rem;
 	padding: 1.5rem;
@@ -452,13 +367,8 @@ a.active {
 	margin: 0;
 }
 
-@media (max-width: 768px) {
-	.aside {
-		padding-left: 1.5rem;
-	}
-}
 
-/* tags */
+/* --------- tags ---------- */
 
 .aside ul.tag-list {
 	list-style-type: none;
@@ -561,12 +471,182 @@ a.active {
 .footer p {
 	margin: 0;
 }
-
-@media print {
-	nav, .nav {
-		/* display:none; *//* pour cacher le menu du site */
+@media (min-width: 128rem) {
+	.container {
+		padding-left: 15rem;
+		padding-right: 15rem;
 	}
-	.sticky {/* fix: le  head descend quant on scrlldwn en prévisu ff 43 */
-		position: initial;
+	.logo {
+		background: url("../img/pluxml-logo-black.png") top left no-repeat;
+		height: 12rem;
+		background-size: 12rem;
+		background-position: 6rem 0;
+		padding-left: 18rem;
+		margin-left: -12rem;
+	}
+	.heading-small {
+		font-size: 3rem;
+	}
+}
+
+@media (min-width: 64rem) {
+	.container {
+		padding-left: 5rem;
+		padding-right: 5rem;
+	}
+
+	.heading-small {
+		font-size: 2.5rem;
+	}
+}
+
+@media (max-width: 767px) {
+	.header {
+		position: sticky;
+		top: 0;
+	}
+	.header:hover .grid {
+	overflow: unset
+	}
+	.header div.grid{
+		overflow: unset;/* fix hidden sub-menu */
+	}
+	.logo {
+		background-size: 5rem;
+		background-position: 2.5rem 0;
+		padding-left: 8rem;
+		margin-left: -1rem;
+	}
+	.heading-small {
+		line-height: .5;
+		margin-bottom: .5rem
+	}
+	.header a:hover {
+		color: #eee;
+	}
+	.header h1 * {
+		font-size: 1.61rem;
+	}
+	.header h2 {
+		font-size: 1.23rem;
+	}
+	.header,
+	.footer {
+		padding: 1rem 0;
+	}
+	.aside {
+		padding-left: 1.5rem;
+	}
+	.nav {
+		position: sticky;
+		top: 0;
+		z-index: 4; /* responsive slide is in 3 */
+		height: auto;
+		max-height: 80%;
+		overflow-y: auto;
+		text-align: left;
+		margin-top: 0;
+		z-index: 10;
+		border-radius: 1rem;
+		background-color: #fff;
+	}
+	.nav>.container {
+		padding: 0;
+	}
+	ul.menu {
+		padding: 0 15px 7.5px 15px;
+	}
+	.menu li {
+		background: #efefef;
+	}
+	.menu li:hover {}
+	.menu>li span::before {/* sub menu icon */
+		margin-left: -1.5rem;
+	}
+	.responsive-menu label {
+		background-color: transparent;
+		color: #333;
+		font-size: 2.6rem;
+		text-align: right;
+	}
+	.responsive-menu label:after {
+		content: '\2630';
+	}
+	.responsive-menu label > span {
+		font-size: 1.6rem;
+	}
+	.menu>li ul {
+		position: relative !important;
+		border-bottom: 0px solid transparent;
+	}
+	.menu>li ul li:hover {
+		background-color: #fff;
+	}
+	.menu>li ul li:hover a {
+/*		text-decoration: underline; */
+	}
+	 ul.menu li.active a,
+	 ul.menu li.active:hover,
+	 ul.menu li,
+	 ul.menu li:hover {
+		background-color: #fff;
+/*		color: #000;*/
+	}
+	.comment {
+		background-image: none;
+		padding-left: 0;
+	}
+	.level-1 {
+		margin-left: 1rem;
+	}
+	.level-2 {
+		margin-left: 2rem;
+	}
+	.level-3 {
+		margin-left: 3rem;
+	}
+	.level-4 {
+		margin-left: 4rem;
+	}
+	.level-5,
+	.level-max {
+		margin-left: 5rem;
+	}
+}
+@media (max-width: 463px) {
+	.header {
+		height: 7rem;
+	}
+	.logo {
+		background-position: 1rem 0;
+		padding-left: 2rem;
+		background-size: 4rem;
+		padding-left: 6rem;
+		margin-left: -1rem;
+		height: 5rem;
+	}
+	.heading-small {
+		font-size: 3rem;
+	}
+	.nav {
+		padding-top: 0rem;
+	}
+	ul.menu {
+		margin: 0 2px .5px 2px;
+		border-radius: 15px;
+	}
+
+	.header h1 * {
+		font-size: 1.23rem;
+	}
+	.header h2 {
+		font-size: 1rem;
+	}
+	.bg {
+		height: 100px;
+	}
+	.static.group,
+	.static.menu a {
+		padding: 0;
 	}
 }

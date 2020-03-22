@@ -6,7 +6,7 @@
  * @author	Stephane F.
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -31,7 +31,7 @@ $aProfils = array(
 );
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 ?>
 
 <form action="parametres_users.php" method="post" id="form_users">
@@ -42,7 +42,7 @@ include(dirname(__FILE__).'/top.php');
 		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
 		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		<?php echo plxToken::getTokenPostMethod() ?>
-		&nbsp;&nbsp;&nbsp;
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input type="submit" name="update" value="<?php echo L_CONFIG_USERS_UPDATE ?>" />
 	</div>
 
@@ -137,5 +137,5 @@ include(dirname(__FILE__).'/top.php');
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

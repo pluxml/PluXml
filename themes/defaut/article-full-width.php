@@ -1,4 +1,4 @@
-<?php include(dirname(__FILE__) . '/header.php'); ?>
+<?php include __DIR__.'/header.php'; ?>
 
 	<main class="main">
 
@@ -26,7 +26,7 @@
 										<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?>
 									</span>
 									<span class="art-nb-com">
-										<a href="<?php $plxShow->artUrl(); ?>#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
+										<a href="#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
 									</span>
 								</small>
 							</div>
@@ -49,7 +49,7 @@
 
 					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
 
-					<?php include(dirname(__FILE__).'/commentaires.php'); ?>
+					<?php include __DIR__.'/commentaires.php'; ?>
 
 				</div>
 
@@ -59,4 +59,4 @@
 
 	</main>
 
-<?php include(dirname(__FILE__).'/footer.php'); ?>
+<?php include __DIR__.'/footer.php'; ?>

@@ -2,7 +2,7 @@
 
 $LANG = array(
 
-'L_LANGUE'						=> 'pl',
+'L_LANGUE'						=> 'Polska',
 
 'L_DATE_CREATION'				=> 'Data utworzenia',
 'L_DATE_UPDATE'					=> 'Data zaktualizowane',
@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Strona startowa',
 'L_UNCLASSIFIED'				=> 'Bez kategorii',
 'L_INFO_PHP_VERSION'			=> 'Wersja PHP',
-'L_INFO_MAGIC_QUOTES'			=> 'Stan "magicznych cudzysłowów"',
 'L_INFO_CHARSET'				=> 'kodowanie',
 
 # index.php
@@ -30,9 +29,21 @@ $LANG = array(
 'L_SHORT_JULY'					=> 'lipiec',
 'L_SHORT_AUGUST'				=> 'sierpień',
 'L_SHORT_SEPTEMBER'				=> 'wrzesień',
-'L_SHORT_OCTOBER'				=> 'pażdziernik',
+'L_SHORT_OCTOBER'				=> 'październik',
 'L_SHORT_NOVEMBER'				=> 'listopad',
 'L_SHORT_DECEMBER'				=> 'grudzień',
+'L_LONG_JANUARY'				=> 'styczeń    ',
+'L_LONG_FEBRUARY'				=> 'luty       ',
+'L_LONG_MARCH'					=> 'marzec     ',
+'L_LONG_APRIL'					=> 'kwiecień   ',
+'L_LONG_MAY'					=> 'maj        ',
+'L_LONG_JUNE'					=> 'czerwiec   ',
+'L_LONG_JULY'					=> 'lipiec     ',
+'L_LONG_AUGUST'					=> 'sierpień   ',
+'L_LONG_SEPTEMBER'				=> 'wrzesień   ',
+'L_LONG_OCTOBER'				=> 'październik',
+'L_LONG_NOVEMBER'				=> 'listopad   ',
+'L_LONG_DECEMBER'				=> 'grudzień   ',
 'L_JANUARY'						=> 'styczeń',
 'L_FEBRUARY'					=> 'luty',
 'L_MARCH'						=> 'marzec',
@@ -42,7 +53,7 @@ $LANG = array(
 'L_JULY'						=> 'lipiec',
 'L_AUGUST'						=> 'sierpień',
 'L_SEPTEMBER'					=> 'wrzesień',
-'L_OCTOBER'						=> 'pażdziernik',
+'L_OCTOBER'						=> 'październik',
 'L_NOVEMBER'					=> 'listopad',
 'L_DECEMBER'					=> 'grudzień',
 'L_MONDAY'						=> 'poniedziałek',
@@ -66,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'dziewiąta',
 'L_TENTH'						=> 'dziesiąta',
 'L_NTH'							=> 'n-ta',
-'L_CAPCHA_QUESTION'				=> 'Jaka jest <span class="capcha-letter">%s</span> litera w słowie <span class="capcha-word">%s</span> ?',
+'L_CAPCHA_QUESTION'				=> 'Jaka jest <span class="capcha-letter">%s</span> litera w słowie <span class="capcha-word">%s</span>&nbsp;?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s jest zapisywalny',

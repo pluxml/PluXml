@@ -4,10 +4,10 @@
  * Gestion des médias
  *
  * @package PLX
- * @author  Stephane F
+ * @author  Stephane F, Pedro "P3ter" CADETE
  **/
 
-include(dirname(__FILE__).'/prepend.php');
+include __DIR__ .'/prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -33,13 +33,13 @@ elseif(!empty($_POST['folder'])) {
 $plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
 if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER)
 	$plxMediasRoot .= $_SESSION['user'].'/';
-$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
+$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']);
 
 #----
 
 if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
-	$newdir = plxUtils::title2filename(trim($_POST['newfolder']));
-	if($plxMedias->newDir($newdir)) {
+	$newdir = $plxMedias->newDir($_POST['newfolder']);
+	if($newdir) {
 		$_SESSION['folder'] = $_SESSION['folder'].$newdir.'/';
 	}
 	header('Location: medias.php');
@@ -90,19 +90,19 @@ $sort_date = 'date_desc';
 switch ($sort) {
 	case 'title_asc':
 		$sort_title = 'title_desc';
-		usort($plxMedias->aFiles, create_function('$b, $a', 'return strcmp($a["name"], $b["name"]);'));
+		usort($plxMedias->aFiles, function($b, $a){return strcmp($a["name"], $b["name"]);});
 		break;
 	case 'title_desc':
 		$sort_title = 'title_asc';
-		usort($plxMedias->aFiles, create_function('$a, $b', 'return strcmp($a["name"], $b["name"]);'));
+		usort($plxMedias->aFiles, function($a, $b){return strcmp($a["name"], $b["name"]);});
 		break;
 	case 'date_asc':
 		$sort_date = 'date_desc';
-		usort($plxMedias->aFiles, create_function('$b, $a', 'return strcmp($a["date"], $b["date"]);'));
+		usort($plxMedias->aFiles, function($b, $a){return strcmp($a["date"], $b["date"]);});
 		break;
 	case 'date_desc':
 		$sort_date = 'date_asc';
-		usort($plxMedias->aFiles, create_function('$a, $b', 'return strcmp($a["date"], $b["date"]);'));
+		usort($plxMedias->aFiles, function($b, $a){return strcmp($a["date"], $b["date"]);});
 		break;
 }
 $_SESSION['sort_medias']=$sort;
@@ -111,7 +111,7 @@ $_SESSION['sort_medias']=$sort;
 $selectionList = array(''=>L_FOR_SELECTION,'move'=>L_PLXMEDIAS_MOVE_FOLDER,'thumbs'=>L_MEDIAS_RECREATE_THUMB,'-'=>'-----','delete' =>L_DELETE_FILE);
 
 # On inclut le header
-include(dirname(__FILE__).'/top.php');
+include __DIR__ .'/top.php';
 
 $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
 $curFolders = explode('/', $curFolder);
@@ -163,20 +163,19 @@ $curFolders = explode('/', $curFolder);
 			</p>
 			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-			&nbsp;&nbsp;&nbsp;
+			<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 			<input type="submit" onclick="toggle_divs();return false" value="<?php echo L_MEDIAS_ADD_FILE ?>" />
 			<button onclick="dialogBox('dlgNewFolder');return false;" id="btnNewFolder"><?php echo L_MEDIAS_NEW_FOLDER ?></button>
 			<?php if(!empty($_SESSION['folder'])) { ?>
-			&nbsp;&nbsp;&nbsp;<input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
+			<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input type="submit" name="btn_delete" class="red" value="<?php echo L_DELETE_FOLDER ?>" onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')" />
 			<?php } ?>
 			<input type="hidden" name="sort" value="" />
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
 
 		<div style="float:left">
-			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;
-			<?php echo $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
+			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		</div>
 
 		<div style="float:right">
@@ -203,23 +202,25 @@ $curFolders = explode('/', $curFolder);
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-						$isImage = in_array(strtolower($v['extension']), array('.png', '.gif', '.jpg', '.jpeg'));
-						$ordre = ++$num;
+						$isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
+						$title = pathinfo($v['name'], PATHINFO_FILENAME);
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 							if(is_file($v['path']) AND $isImage) {
-								echo '<a onclick="overlay(\''.$v['path'].'\');return false;" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'"><img alt="" src="'.$v['.thumb'].'" class="thumb" /></a>';
+								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" /></a>';
 							}
+							else
+								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
 						echo '</td>';
 						echo '<td>';
-							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.plxUtils::strCheck($v['name']).'" href="'.$v['path'].'">'.plxUtils::strCheck($v['name']).'</a>';
+							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
 							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							echo '<div id="btnRenameImg'.$num.'" onclick="ImageRename(\''.$v['path'].'\')" title="'.L_RENAME_FILE.'" class="ico">&perp;</div>';
 							echo '<br />';
 							$href = plxUtils::thumbName($v['path']);
 							if($isImage AND is_file($href)) {
-								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.L_MEDIAS_THUMB.' : '.plxUtils::strCheck(basename($href)).'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
+								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
 								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';
@@ -342,82 +343,16 @@ $curFolders = explode('/', $curFolder);
 
 <div class="modal">
 	<input id="modal" type="checkbox" name="modal" tabindex="1">
-	<div class="modal__overlay">
-		<label for="modal">&#10006;</label>
+	<div id="modal__overlay" class="modal__overlay">
 		<div id="modal__box" class="modal__box"></div>
 	</div>
 </div>
 
-<script>
-function toggle_divs(){
-	var uploader = document.getElementById('files_uploader');
-	var manager = document.getElementById('files_manager');
-	if(uploader.style.display == 'none') {
-		uploader.style.display = 'block';
-		manager.style.display = 'none';
-	} else {
-		uploader.style.display = 'none';
-		manager.style.display = 'block';
-	}
-}
-function overlay(content) {
-	e = document.getElementById("modal__box");
-	e.innerHTML = '<img src="'+content+'" alt="" />';
-	e = document.getElementById("modal");
-	e.click();
-}
-function copy(elt, data) {
-	try {
-		var div = elt.querySelector("div");
-		var aux = document.createElement("input");
-		aux.setAttribute("value", data);
-		document.body.appendChild(aux);
-		aux.select();
-		document.execCommand("copy");
-		document.body.removeChild(aux);
-		div.setAttribute("style", "display:inline-block");
-		t = setTimeout(function(){
-			div.setAttribute("style", "display:none");
-			clearTimeout(t);
-		}, 1000);
-	} catch (err) {
-		alert('<?php echo L_MEDIAS_LINK_COPYCLP_ERR ?>');
-	}
-}
-function plugFilter() {
-	var input, filter, table, tr, td, i;
-	filter = document.getElementById("medias-search").value;
-	table = document.getElementById("medias-table");
-	tr = table.getElementsByTagName("tr");
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[2];
-		if (td != undefined) {
-			if (td.innerHTML.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-				tr[i].style.display = "";
-			} else {
-				tr[i].style.display = "none";
-			}
-		}
-	}
-	if (typeof(Storage) !== "undefined" && filter !== "undefined") {
-		localStorage.setItem("medias_search", filter);
-	}
-}
-if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !== "undefined") {
-	input = document.getElementById("medias-search");
-	input.value = localStorage.getItem("medias_search");
-	plugFilter();
-}
-
-function ImageRename(oldimg) {
-	document.getElementById('id_oldname').value = oldimg;
-	dialogBox("dlgRenameFile");
-}
-</script>
+<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/medias.js"></script>
 
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasFoot'));
 # On inclut le footer
-include(dirname(__FILE__).'/foot.php');
+include __DIR__ .'/foot.php';
 ?>

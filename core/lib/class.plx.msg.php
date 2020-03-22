@@ -36,7 +36,7 @@ class plxMsg {
 	 * Méthode qui affiche le message en mémoire
 	 *
 	 * @param	null
-	 * @return	stdout
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public static function Display() {
@@ -49,4 +49,3 @@ class plxMsg {
 		unset($_SESSION['info']);
 	}
 }
-?>

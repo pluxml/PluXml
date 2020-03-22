@@ -82,6 +82,7 @@ class plxUpdater {
 	public function updateVersion() {
 
 		# on relit le fichier de paramètre pour récupérer les éventuels nouveaux ajoutés par la mise à jour
+		$new_params = array();
 		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
 		$new_params['version'] = $this->newVersion;
 		$this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $new_params);
@@ -91,7 +92,7 @@ class plxUpdater {
 	/**
 	 * Méthode qui execute les mises à jour étape par étape
 	 *
-	 * @return	stdout
+	 * @return	boolean
 	 * @author	Stéphane F
 	 **/
 	public function doUpdate() {
@@ -165,7 +166,7 @@ class plxUpdate {
 	 * Méthode qui met à jour le fichier parametre.xml en important les nouveaux paramètres
 	 *
 	 * @param	new_params		tableau contenant la liste des nouveaux paramètres avec leur valeur par défaut.
-	 * @return	stdio
+	 * @return	string
 	 * @author	Stéphane F
 	 **/
 	public function updateParameters($new_params) {

@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Homepage',
 'L_UNCLASSIFIED'				=> 'Non classificato',
 'L_INFO_PHP_VERSION'			=> 'Versione di php',
-'L_INFO_MAGIC_QUOTES'			=> 'Stato delle "magic quotes"',
 'L_INFO_CHARSET'				=> 'encoding',
 
 # index.php
@@ -33,6 +32,18 @@ $LANG = array(
 'L_SHORT_OCTOBER'				=> 'ott',
 'L_SHORT_NOVEMBER'				=> 'nov',
 'L_SHORT_DECEMBER'				=> 'dic',
+'L_LONG_JANUARY'				=> 'gennaio ',
+'L_LONG_FEBRUARY'				=> 'febbraio ',
+'L_LONG_MARCH'					=> 'marzo    ',
+'L_LONG_APRIL'					=> 'aprile   ',
+'L_LONG_MAY'					=> 'mggio    ',
+'L_LONG_JUNE'					=> 'giugno   ',
+'L_LONG_JULY'					=> 'luglio   ',
+'L_LONG_AUGUST'					=> 'agosto   ',
+'L_LONG_SEPTEMBER'				=> 'settembre',
+'L_LONG_OCTOBER'				=> 'ottobre  ',
+'L_LONG_NOVEMBER'				=> 'novembre ',
+'L_LONG_DECEMBER'				=> 'dicembre ',
 'L_JANUARY'						=> 'gennaio',
 'L_FEBRUARY'					=> 'febbraio',
 'L_MARCH'						=> 'marzo',
@@ -66,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'nona',
 'L_TENTH'						=> 'decima',
 'L_NTH'							=> 'esima',
-'L_CAPCHA_QUESTION'				=> 'Qual\'è la <span class="capcha-letter">%s</span> lettera della parola <span class="capcha-word">%s</span> ?',
+'L_CAPCHA_QUESTION'				=> 'Qual\'è la <span class="capcha-letter">%s</span> lettera della parola <span class="capcha-word">%s</span>&nbsp;?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s è accessibile in scrittura',

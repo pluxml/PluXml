@@ -105,13 +105,15 @@ var DragDrop = {
 	dragstart: function(e) {
 		this.source = e.target;
 		e.dataTransfer.effectAllowed = 'move';
+		e.dataTransfer.setData('clipBoard', e.target);//old Browser
 	},
 	dragend: function(e,tb) {
 		e.preventDefault();
 		var numcol = document.querySelectorAll('#'+tb+' thead th[data-id="order"]')[0].cellIndex;
 		var rows = document.querySelectorAll('#'+tb+' tbody tr');
-		for(var i=0;i<rows.length-1;i++) {
-			rows[i].cells[numcol].getElementsByTagName('input')[0].value = i+1;
+		for(var i=0;i<rows.length;i++) {
+			if(rows[i].cells[numcol].getElementsByTagName('input')[0])
+				rows[i].cells[numcol].getElementsByTagName('input')[0].value = i+1;
 		}
 	}
 }

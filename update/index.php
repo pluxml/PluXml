@@ -1,10 +1,10 @@
 <?php
-define('PLX_ROOT', '../');
-define('PLX_CORE', PLX_ROOT.'core/');
+const PLX_ROOT = '../';
+const PLX_CORE = PLX_ROOT . 'core/';
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
 
-define('PLX_UPDATER', true);
+const PLX_UPDATER = true;
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -27,7 +27,7 @@ include(PLX_ROOT.'update/versions.php');
 include(PLX_ROOT.'update/class.plx.updater.php');
 
 # Chargement des langues
-$lang = DEFAULT_LANG;
+$lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
 if(isset($_POST['default_lang'])) $lang=$_POST['default_lang'];
 if(!array_key_exists($lang, plxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
@@ -54,6 +54,7 @@ $plxUpdater = new plxUpdater($versions);
 ?>
 <?php
 plxUtils::cleanHeaders();
+session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -94,15 +95,13 @@ plxToken::validateFormToken($_POST);
 				<form action="index.php" method="post">
 					<fieldset>
 						<div class="grid">
-							<div class="col sml-12 med-5 label-centered">
+							<div class="col sml-9 med-7 label-centered">
 								<label for="id_default_lang"><?php echo L_SELECT_LANG ?></label>
 							</div>
-							<div class="col sml-12 med-7">
+							<div class="col sml-3 med-2">
 								<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
 							</div>
-						</div>
-						<div class="grid">
-							<div class="col sml-12">
+							<div class="col med-3">
 								<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
 								<?php echo plxToken::getTokenPostMethod() ?>
 							</div>

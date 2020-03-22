@@ -1,11 +1,11 @@
 /*
 # ------------------ BEGIN LICENSE BLOCK ------------------
 #
-# This file is part of PluXml : http://www.pluxml.org
+# This file is part of PluXml : https://www.pluxml.org
 #
 # Package:		theme.css
-# Copyright (c) 2016, 2017 PluXml
-# Authors		Jos, Stephane F.
+# Copyright (c) 2019 PluXml
+# Authors		Jos, Stephane F., Pedro "P3ter" CADETE
 # Licensed under the GPL license.
 # See http://www.gnu.org/licenses/gpl.html
 #
@@ -27,10 +27,7 @@
 	overflow: hidden;
 }
 
-.auth .error {
-	background-color: #e43d29;
-	color: #eee;
-	padding: .7rem;
+.auth .alert {
 	text-align: center;
 }
 
@@ -57,7 +54,7 @@
 }
 
 .aside .header {
-	line-height: 1.3;
+	line-height: 1.45rem;
 }
 
 .aside .unstyled-list {
@@ -128,11 +125,12 @@ a.lnkdelete:hover {
 	left: 16.6666%;
 	right: 0;
 	margin-left: -1.5rem;
-	height: 12rem;
+	min-height: 12rem;
 	padding: .7rem 1.7rem .7rem 1.7rem;
 	position: fixed;
 	top: 0;
 	z-index: 1;
+	line-height: 1.5;
 }
 
 .section .action-bar p,
@@ -141,12 +139,12 @@ a.lnkdelete:hover {
 }
 
 .section .action-bar h2 {
-	font-size: 2.5rem;
+	font-size: xx-large;
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1199px) {
 	.section .action-bar {
 		left: 25%;
 	}
@@ -167,7 +165,7 @@ a.lnkdelete:hover {
 		padding: 1rem;
 	}
 	.aside .responsive-menu {
-		max-height: 200px;
+		max-height: 100%;
 		overflow-y: auto;
 		position: fixed;
 		top: 0;
@@ -195,10 +193,14 @@ a.lnkdelete:hover {
 		left: 0;
 	}
 	.section .action-bar {
-		/*background-color: inherit;*/
+		text-align: center;
 		margin: 0 0 1.5rem 0;
 		padding: 0;
 		z-index: inherit;
+		font-size: medium;
+	}
+	.section .action-bar h2 {
+		font-size: x-large;
 	}
 	.section {
 		margin-top: 1.5rem;
@@ -252,6 +254,11 @@ input,
 select,
 textarea {
 	width: auto;
+}
+@media(min-width:768px) and (max-width:1199px) {
+	.sidebar input[type="text"] {
+		width: 100%;
+	}
 }
 
 #id_content,
@@ -316,6 +323,37 @@ input[maxlength="3"] {
 	text-align: center;
 }
 
+.toggler {
+	display: none;
+}
+.toggler + label {
+	display: inline;
+}
+.toggler + label span {
+	color: #258fd6;
+}
+.toggler + label span:hover {
+	cursor: pointer;
+	text-decoration: underline;
+	color: #444;
+}
+.toggler + label span:first-of-type, /* masquer */
+.toggler + label + div {
+	display: none;
+}
+.toggler + label span:last-of-type {
+	display: inline-block;
+}
+.toggler:checked + label span:first-of-type { /* afficher */
+	display: inline-block;
+}
+.toggler:checked + label + div {
+	display: block;
+}
+.toggler:checked + label span:last-of-type {
+	display: none;
+}
+
 .publication input {
 	font-weight: bold;
 	color: #777;
@@ -323,12 +361,12 @@ input[maxlength="3"] {
 
 .day,
 .month {
-	width: 2.8rem;
+	width: 2.8rem !important;
 }
 
 .year,
 .time {
-	width: 4.5rem;
+	width: 4.5rem !important;
 }
 
 .inline-form.publication input,
@@ -356,6 +394,8 @@ input.readonly:hover {
 
 .alert {
 	margin: 0 0 1rem;
+	padding: 1rem;
+	border-radius: .5rem;
 }
 
 .help {
@@ -367,22 +407,20 @@ form .col {
 }
 
 a.hint {
-	width: 16px;
-	height: 16px;
+	width: 0;
+	height: 0;
 	cursor: help;
 	display: inline-block;
 	text-decoration: none;
-	font-size: 1.2rem;
 }
 
 a.hint::before {
 	color: #fff;
 	background-color: #999;
-	width: 16px;
-	height: 16px;
+	padding: .2rem .6rem;
 	display: inline-block;
 	border-radius: 100%;
-	font-size: 12px;
+	font-size: small;
 	text-align: center;
 	text-decoration: none;
 	-webkit-box-shadow: inset -1px -1px 1px 0px rgba(0, 0, 0, 0.25);
@@ -401,6 +439,7 @@ a.hint span {
 	padding: .4rem;
 	position: absolute;
 	z-index: 9999;
+	border-radius: .1rem;
 }
 
 a.hint:hover span,
@@ -449,13 +488,12 @@ a.hint:focus span {
 }
 
 @media (max-width: 767px) {
-	.section .action-bar {
-		text-align: center;
-	}
 	.in-action-bar {
+		text-align: center;
 		position: absolute;
 		margin-top: 3.5rem;
-		z-index: -1;
+		z-index: 1;
+		font-size: medium;
 	}
 	#plugin .section,
 	#parametres_plugin .section,
@@ -477,11 +515,10 @@ a.hint:focus span {
 	z-index: 999999;
 	text-align: center;
 	margin: 0 auto;
-	padding: 2px 15px 2px 15px;
-	border: 1px solid;
-	font-size: 13px;
-	font-weight: bold;
+	padding: .25rem 1rem;
+	border: .25rem solid;
 	color: #000;
+	width: 100%
 }
 
 .error {
@@ -586,7 +623,6 @@ th.checkbox {
 }
 
 .modal__overlay {
-	background: #000;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -609,6 +645,7 @@ th.checkbox {
 }
 
 .modal label {
+	background-color: #444;
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
@@ -616,6 +653,8 @@ th.checkbox {
 	-webkit-transition: all 0.55s;
 	transition: all 0.55s;
 	padding: 10px;
+	font-size: 2rem;
+	vertical-align: top;
 }
 
 @media (max-width: 767px) {
@@ -628,7 +667,7 @@ th.checkbox {
 }
 
 .modal label:hover {
-	color: #258fd6;
+	color: #fff;
 	-webkit-transform: scale(0.97);
 	-ms-transform: scale(0.97);
 	transform: scale(0.97);
@@ -647,6 +686,9 @@ th.checkbox {
 	-webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 	transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 	visibility: hidden;
+	align-items: center;
+	display: flex;
+	justify-content: center;
 }
 
 input:checked~.modal__overlay {
@@ -781,7 +823,7 @@ div.ico div {
 	cursor: pointer;
 }
 
-/* ------- MEDIASMANAGER ------ */
+/* ------- Popup Medias Manager ------ */
 
 body.mediasManager .aside {
 	display: none;
@@ -797,23 +839,11 @@ body.mediasManager .section .action-bar {
 	margin-right: 0;
 	margin-left: 0;
 }
-
-@media (min-width: 48rem) {
-	body.mediasManager .col.med-offset-3 {
-		margin-left: 0;
-	}
-	body.mediasManager .col.med-9 {
-		width: 100%;
-	}
-}
-
-@media (min-width: 64rem) {
-	body.mediasManager .col.lrg-offset-2 {
-		margin-left: 0;
-	}
-	body.mediasManager .col.lrg-10 {
-		width: 100%;
-	}
+/* Remove offsets & enlarge (screens>767px) */
+body.mediasManager .col.med-offset-3,
+body.mediasManager .col.lrg-offset-2 {
+	width: 100%;
+	margin-left: 0;
 }
 
 /* ----------- Drag and Drop for sorting table rows ---------- */
@@ -822,7 +852,33 @@ table[data-rows-num] th:first-of-type,
 table[data-rows-num] td:first-of-type {
 	padding-left: 12px;
 }
-
+/* ---- select pour fichiers (folding) --- */
+.scan-folders.fold option[data-level^="level-XX"] {
+	display: none;
+}
+.scan-folders.fold option[data-level^="level-XX"].visible {
+	display: block;
+}
+.scan-folders .folder {
+	font-weight: bold;
+}
+/* Fonctionne uniquement avec Firefox */
+.scan-folders.data-files :not([value=""])::after {
+	margin-left: 0.3rem;
+	content: '▩';
+}
+.scan-folders.data-files [value$="css"]::after {
+	color: #003399;
+}
+.scan-folders.data-files [value$="php"]::after {
+	color: #990066;
+}
+.scan-folders.data-files [value$="html"]::after {
+	color: #009999;
+}
+.scan-folders.data-files [value$="txt"]::after {
+	color: #ff9800;
+}
 table[data-rows-num] tr[draggable] td:first-child {
 	background: url(' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGUlEQVR42mNggIKCgoL/IIyLj1sB+TqhAAB5gyTxdLI4kwAAAABJRU5ErkJggg==') left repeat-y;
 }
@@ -840,31 +896,20 @@ table[data-rows-num] tr[draggable].over {
 }
 
 select {
-	height: 30px;
-	margin: 8px 0;
+	margin: 0;
+	color: #000;
 	background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAPFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQLyYwAAAAE3RSTlMADQ46Ozw9SElKS0y5x+zz9Pj5WslQRAAAAQdJREFUeJztzlcOwkAQBFFyxjbM/e9KFsbrNGK3V6Cq/1a/yYSIiIiIiIiIiIiIfqRp8kF/q2LtG+yLedT/yk4uwf5sZUTBsjJzCa7/FlFw//cI7v/xBMvSzCV4/scSLF7/ZueN6z+OoPY/TlD7jyI4mLkEH/9mh68Bs6NL0Pg/zr4G+AQJ/l2CJP8OQaL/ULAV/48UJPwfJUj6P0KQ+H9QkPx/QCD4DwU78X+PQPTfKZD9dwiE/60C6X+LQPwfCtT/gUD+3yfQ/HcLVP9dAt1/u0D53ybQ/ocC9X9ToP//FOT4rwvy/L8Fuf5fgnz/D0HO/5sg7/9VkPmfiIiIiIiIiIiIiP6gC0vzP5P1npi3AAAAAElFTkSuQmCC") no-repeat;
 	background-size: 20px;
 	background-position: right center;
-	font-family: 'Arial';
-	-webkit-appearance: none;
-	-moz-appearance: none;
+	-webkit-appearance: none;/*for chrome*/
+	-moz-appearance: none;/*for firefox*/
 	overflow: hidden;
 	padding: 0 20px 0 3px;
+	max-width: 45.6vw;
 }
-
-select {
-	/*for firefox*/
-	-moz-appearance: none;
-	/*for chrome*/
-	-webkit-appearance: none;
-}
-
-/*for IE10*/
-
-select::-ms-expand {
+select::-ms-expand {/*for IE10*/
 	display: none;
 }
-
 
 /* ---- parametres_plugins ---- */
 

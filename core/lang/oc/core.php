@@ -12,7 +12,6 @@ $LANG = array(
 'L_HOMEPAGE'					=> 'Acuèlh',
 'L_UNCLASSIFIED'				=> 'Non classat',
 'L_INFO_PHP_VERSION'			=> 'Version de php',
-'L_INFO_MAGIC_QUOTES'			=> 'Estat dels "magic quotes"',
 'L_INFO_CHARSET'				=> 'encodatge',
 
 # index.php
@@ -33,6 +32,18 @@ $LANG = array(
 'L_SHORT_OCTOBER'				=> 'oct',
 'L_SHORT_NOVEMBER'				=> 'nov',
 'L_SHORT_DECEMBER'				=> 'dec',
+'L_LONG_JANUARY'				=> 'genièr  ',
+'L_LONG_FEBRUARY'				=> 'febrièr ',
+'L_LONG_MARCH'					=> 'març    ',
+'L_LONG_APRIL'					=> 'abril   ',
+'L_LONG_MAY'					=> 'mai     ',
+'L_LONG_JUNE'					=> 'junh    ',
+'L_LONG_JULY'					=> 'julhet  ',
+'L_LONG_AUGUST'					=> 'agost   ',
+'L_LONG_SEPTEMBER'				=> 'setembre',
+'L_LONG_OCTOBER'				=> 'octòbre ',
+'L_LONG_NOVEMBER'				=> 'novembre',
+'L_LONG_DECEMBER'				=> 'decembre',
 'L_JANUARY'						=> 'genièr',
 'L_FEBRUARY'					=> 'febrièr',
 'L_MARCH'						=> 'març',
@@ -66,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'novena',
 'L_TENTH'						=> 'desena',
 'L_NTH'							=> 'ena',
-'L_CAPCHA_QUESTION'				=> 'Quina es la <span class="capcha-letter">%s</span> letra del mot <span class="capcha-word">%s</span> ?',
+'L_CAPCHA_QUESTION'				=> 'Quina es la <span class="capcha-letter">%s</span> letra del mot <span class="capcha-word">%s</span>&nbsp;?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s es accessible en escritura',

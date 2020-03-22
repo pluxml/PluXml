@@ -1,4 +1,4 @@
-<?php include(dirname(__FILE__).'/header.php'); ?>
+<?php include __DIR__.'/header.php'; ?>
 
 	<main class="main">
 
@@ -14,6 +14,7 @@
 					</ul>
 
 					<p><?php $plxShow->catDescription('#cat_description'); ?></p>
+					<p><?php $plxShow->catThumbnail(); ?></p>
 
 					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
@@ -54,20 +55,18 @@
 						<?php $plxShow->artChapo(); ?>
 
 					</article>
-					
+
 					<?php endwhile; ?>
 
 					<nav class="pagination text-center">
 						<?php $plxShow->pagination(); ?>
 					</nav>
 
-					<span>
-						<?php $plxShow->artFeed('rss',$plxShow->catId()); ?>
-					</span>
+					<?php $plxShow->artFeed('rss',$plxShow->catId(), '<span><a href="#feedUrl" title="#feedTitle">#feedName</a></span>'); ?>
 
 				</div>
 
-				<?php include(dirname(__FILE__).'/sidebar.php'); ?>
+				<?php include __DIR__.'/sidebar.php'; ?>
 
 			</div>
 
@@ -75,4 +74,4 @@
 
 	</main>
 
-<?php include(dirname(__FILE__).'/footer.php'); ?>
+<?php include __DIR__.'/footer.php'; ?>
