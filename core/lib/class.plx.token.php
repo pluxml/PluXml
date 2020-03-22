@@ -32,6 +32,13 @@ class plxToken {
 
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
 
+			if(empty($_POST)) {
+				$_SESSION['error'] = 'Maybe too large files! Length posted is '
+				. intval($_SERVER['CONTENT_LENGTH']). 'bytes ('
+				. ini_get('upload_max_filesize') . 'bytes Max / file'
+				. ini_get('post_max_size') . 'bytes Max total)';
+				return;//Wip to fix upload medias : Warning: POST Content-Length of ## bytes exceeds the limit of ## bytes in Unknown on line 0 #Fix : Never reported tu user ANG go die : Security error : invalid or expired token
+			}
 			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < time() - 3600) { # 3600 seconds
 				unset($_SESSION['formtoken']);
 				die('Security error : invalid or expired token');

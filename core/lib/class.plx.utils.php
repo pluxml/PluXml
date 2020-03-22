@@ -57,7 +57,7 @@ class plxUtils {
 				if(is_array($v)) {
 					$new_content[$k] = array();
 					foreach($v as $key=>$val)
-						$new_content[$k][$key] = self::unSlash($val);#recursive si tablea
+						$new_content[$k][$key] = self::unSlash($val);#recursive si tableau
 				} else {
 					$new_content[$k] = stripslashes($v);
 				}
