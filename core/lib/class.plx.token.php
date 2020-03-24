@@ -32,13 +32,14 @@ class plxToken {
 	 *
 	 * @param	$request	(deprecated)
 	 * @return	stdio/null
-	 * @author	Stephane F, J.P. Pourrez
+	 * @author	Stephane F, J.P. Pourrez, Sudwebdesign
 	 **/
 	public static function validateFormToken($request='') {
-
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
 			$limit = time() - self::LIFETIME;
-
+			if(empty($_POST)) {
+				return;
+			}
 			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < $limit) {
 				unset($_SESSION['formtoken']);
 				die('Security error : invalid or expired token');
@@ -53,7 +54,6 @@ class plxToken {
 				}
 			}
 		}
-
 	}
 
 	/**

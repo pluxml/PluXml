@@ -252,7 +252,6 @@ $LANG = array (
 		'L_MEDIAS_FILENAME' => 'Filename',
 		'L_MEDIAS_ADD_FILE' => 'Adăugaţi fişiere',
 		'L_MEDIAS_BACK' => 'Back',
-		'L_MEDIAS_MAX_FILE_UPLOAD' => 'Numărul maxim de fișiere permise prin încărcarea',
 		'L_MEDIAS_TITLE' => 'Management Media',
 		'L_MEDIAS_IMAGES' => 'Images',
 		'L_MEDIAS_DOCUMENTS' => 'Documente',
