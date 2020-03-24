@@ -342,7 +342,7 @@ function refreshImg(dta) {
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' unchecked' : ''; ?> />
+						<input class="toggler" type="checkbox" id="toggler_chapo"<?php echo (empty($_GET['a']) || ! empty(trim($chapo))) ? ' checked' : ''; ?> />
 						<label for="toggler_chapo"><?php echo L_HEADLINE_FIELD;?> : <span><?php echo L_ARTICLE_CHAPO_HIDE;?></span><span><?php echo L_ARTICLE_CHAPO_DISPLAY;?></span></label>
 						<div>
 							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8); ?>
@@ -502,7 +502,7 @@ function refreshImg(dta) {
 					<div class="col sml-12">
 						<label for="tags"><?php echo L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
 						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
-						<input class="toggler" type="checkbox" id="toggler_tags"<?php echo (empty($_GET['a']) || ! empty(trim($tags))) ? ' unchecked' : ''; ?> />
+						<input class="toggler" type="checkbox" id="toggler_tags"<?php echo (empty($_GET['a']) || ! empty(trim($tags))) ? ' checked' : ''; ?> />
 						<label for="toggler_tags"><span>-</span><span>+</span></label>
 						<div style="margin-top: 1rem">
 							<?php
