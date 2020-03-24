@@ -32,17 +32,12 @@ class plxToken {
 	 *
 	 * @param	$request	(deprecated)
 	 * @return	stdio/null
-	 * @author	Stephane F, J.P. Pourrez
+	 * @author	Stephane F, J.P. Pourrez, Sudwebdesign
 	 **/
 	public static function validateFormToken($request='') {
-
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
 			$limit = time() - self::LIFETIME;
 			if(empty($_POST)) {
-				$_SESSION['error'] = 'Maybe too large files! Length posted is '
-				. intval($_SERVER['CONTENT_LENGTH']). 'bytes ('
-				. ini_get('upload_max_filesize') . 'bytes Max / file'
-				. ini_get('post_max_size') . 'bytes Max total)';
 				return;
 			}
 			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < $limit) {
@@ -59,7 +54,6 @@ class plxToken {
 				}
 			}
 		}
-
 	}
 
 	/**
