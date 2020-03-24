@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-define('PLX_UPDATE', PLX_ROOT.'update/');
+define('PLX_UPDATE', PLX_ROOT.'update/');#legacy PHP<5.6
 
 class plxUpdater {
 
