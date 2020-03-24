@@ -57,7 +57,7 @@ class plxUtils {
 				if(is_array($v)) {
 					$new_content[$k] = array();
 					foreach($v as $key=>$val)
-						$new_content[$k][$key] = self::unSlash($val);#recursive si tableau
+						$new_content[$k][$key] = self::unSlash($val);
 				} else {
 					$new_content[$k] = stripslashes($v);
 				}
@@ -920,7 +920,7 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne la liste des langues disponibles dans un tableau
 	 *
-	 * @return	tableau associatif
+	 * @return	array
 	 * @author	J.P. Pourrez, Stephane F.
 	 **/
 	public static function getLangs() {
