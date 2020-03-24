@@ -6,11 +6,12 @@
  * @package PLX
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
+
 include_once PLX_CORE.'lib/class.plx.template.php';
 
 class plxMotor {
-	const PLX_TEMPLATES = PLX_TEMPLATES;#fix const with php5.5 : Parse error: syntax error, unexpected '.', expecting ',' or ';'
-	const PLX_TEMPLATES_DATA = PLX_TEMPLATES_DATA;#déclaration moved in config
+	const PLX_TEMPLATES = PLX_CORE . 'templates/';
+	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
 
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
@@ -72,7 +73,7 @@ class plxMotor {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
-		if(!defined('PLX_SITE_LANG')) define('PLX_SITE_LANG', $this->aConf['default_lang']);
+		define('PLX_SITE_LANG', $this->aConf['default_lang']);
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
