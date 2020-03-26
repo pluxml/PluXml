@@ -17,6 +17,9 @@ PlxToken::validateFormToken($_POST);
 //Control access page (admin profil needed)
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
+//Necessary to set "active" CSS class on the administration main menu
+$_SERVER['SCRIPT_NAME'] = 'configurationBasic.php';
+
 //PluXml configuration update
 if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);

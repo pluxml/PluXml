@@ -14,6 +14,10 @@ PlxToken::validateFormToken($_POST);
 //Control access page (admin profil needed)
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
+//Necessary to set "active" CSS class on the administration main menu
+$_SERVER['SCRIPT_NAME'] = 'configurationBasic.php';
+
+
 $email = filter_var($plxAdmin->aUsers[$_SESSION['user']]['email'], FILTER_VALIDATE_EMAIL);
 $emailBuild = (is_string($email) and filter_has_var(INPUT_POST, 'sendmail-test'));
 if($emailBuild) {
