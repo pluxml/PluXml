@@ -3,7 +3,7 @@
  * Basic configuration view
  *
  * @package PLX
- * @author	Pedro "P3ter" CADETE
+ * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
 use Pluxml\PlxToken;
@@ -59,8 +59,6 @@ include __DIR__ .'/../tags/top.php';
 		<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot')); ?>
 	</div>
 </div>
-
-<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot')); ?>
 
 <?php
 // Footer
