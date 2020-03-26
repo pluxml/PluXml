@@ -81,7 +81,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					else # nouvel article
 						$menus[] = PlxUtils::formatMenu('<i class="icon-pencil"></i>'.L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES);
 
-						$menus[] = PlxUtils::formatMenu('<i class="icon-camera"></i>'.L_MENU_MEDIAS, PLX_CORE.'admin/medias.php', L_MENU_MEDIAS_TITLE);
+						$menus[] = PlxUtils::formatMenu('<i class="icon-camera"></i>'.L_MENU_MEDIAS, PLX_CORE.'admin/medias.php?mode=grid', L_MENU_MEDIAS_TITLE);
 
 					if($_SESSION['profil'] <= PROFIL_MANAGER)
 						$menus[] = PlxUtils::formatMenu('<i class="icon-doc-text-inv"></i>'.L_MENU_STATICS, PLX_CORE.'admin/pages.php', L_MENU_STATICS_TITLE);
