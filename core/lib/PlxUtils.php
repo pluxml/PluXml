@@ -57,7 +57,7 @@ class PlxUtils {
 				if(is_array($v)) {
 					$new_content[$k] = array();
 					foreach($v as $key=>$val)
-						$new_content[$k][$key] = stripslashes($val);
+						$new_content[$k][$key] = self::unSlash($val);
 				} else {
 					$new_content[$k] = stripslashes($v);
 				}
@@ -524,7 +524,7 @@ class PlxUtils {
 		);
 
 		$clean_str = plxUtils::translitterate(trim(html_entity_decode($str)));
-		
+
 		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
 			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@u', $replace, $clean_str);
 			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
@@ -1089,8 +1089,8 @@ class PlxUtils {
 		$basename = explode('?', basename($href));
 		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' active':'';
 		if($basename[0]=='plugin.php' AND isset($_GET['p']) AND $basename[1]!='p='.$_GET['p']) $active='';
-		$title = $title ? ' title="'.$title.'"':'';
 		$class = $class ? ' '.$class:'';
+		$title = $title ? ' title="'.$title.'"':'';
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
 		$id = ($basename[0]=='plugin.php'?strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
 		$menu = '<li id="mnu_'.$id.'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';

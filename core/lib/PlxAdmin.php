@@ -812,7 +812,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
 				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
 				# Hook plugins
-				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
+				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml')); # Hook Plugins
 				$xml .=	"</statique>\n";
 			}
 			$xml .= "</document>";

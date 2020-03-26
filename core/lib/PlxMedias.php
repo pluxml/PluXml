@@ -330,6 +330,7 @@ class PlxMedias {
 		if(isset($post['myfiles'])) {
 			foreach($post['myfiles'] as $key => $val) {
 				list($selnum, $selval) = explode('_', $val);
+				if(ini_get('max_file_uploads')-1 < $selval) break;
 				$files[] = array(
 					'name'		=> $usrfiles['selector_'.$selnum]['name'][$selval],
 					'size'		=> $usrfiles['selector_'.$selnum]['size'][$selval],

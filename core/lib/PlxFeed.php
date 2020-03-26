@@ -16,7 +16,7 @@ class PlxFeed extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
 	 *
-	 * @return	objet			retourne une instance de la classe plxFeed
+	 * @return	plxFeed		retourne une instance de la classe plxFeed
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -212,8 +212,6 @@ class PlxFeed extends plxMotor {
 
 	/**
 	 * Méthode qui affiche le flux rss des articles du site
-	 *
-	 * @return	flux sur stdout
 	 * @author	Florent MONTHEL, Stephane F, Amaury GRAILLAT
 	 **/
 	public function getRssArticles() {
@@ -291,8 +289,6 @@ class PlxFeed extends plxMotor {
 
 	/**
 	 * Méthode qui affiche le flux rss des commentaires du site
-	 *
-	 * @return	flux sur stdout
 	 * @author	Florent MONTHEL, Amaury GRAILLAT
 	 **/
 	public function getRssComments() {
@@ -370,8 +366,6 @@ class PlxFeed extends plxMotor {
 
 	/**
 	 * Méthode qui affiche le flux RSS des commentaires du site pour l'administration
-	 *
-	 * @return	flux sur stdout
 	 * @author	Florent MONTHEL, Amaury GRAILLAT
 	 **/
 	public function getAdminComments() {
