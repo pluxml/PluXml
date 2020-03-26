@@ -1,8 +1,6 @@
 <?php 
 /**
  * Basic configuration view
- *
- * @package PLX
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
