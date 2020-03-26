@@ -771,6 +771,12 @@ div.ico div {
 	border: 1px solid #888;
 }
 
+#medias-table div.ico {
+	color: #000;
+	font-size: 16pt;
+	margin: 0 0.3rem;
+}
+
 /* The Dialog (background) */
 
 .dialog {
