@@ -27,7 +27,7 @@ class PlxPlugins {
 	 * Méthode qui renvoit une instance d'un plugin
 	 *
 	 * @param	plugName	nom du plugin
-	 * @return	object		object de type plxPlugin / false en cas d'erreur
+	 * @return	object		object de type PlxPlugin / false en cas d'erreur
 	 * @return	null
 	 * @author	Stephane F
 	 **/
@@ -330,12 +330,12 @@ class PlxPlugins {
 }
 
 /**
- * Classe plxPlugin destiné à créer un plugin
+ * Classe PlxPlugin destiné à créer un plugin
  *
  * @package PLX
  * @author	Stephane F
  **/
-class plxPlugin {
+class PlxPlugin {
 
 	protected $aInfos=array();  # tableau des infos sur le plugins venant du fichier infos.xml
 	protected $aParams=array(); # tableau des paramètres sur le plugins venant du fichier parameters.xml
@@ -350,7 +350,7 @@ class plxPlugin {
 	public $adminMenu=false; # infos de customisation du menu pour accèder à la page admin.php du plugin
 
 	/**
-	 * Constructeur de la classe plxPlugin
+	 * Constructeur de la classe PlxPlugin
 	 *
 	 * @param	default_lang	langue par défaut utilisée par PluXml
 	 * @return	null
