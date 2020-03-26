@@ -205,13 +205,21 @@ body {
 }
 .section .admin ul.configMenu li {
 	cursor: pointer;
-	padding: 0.5rem;
 }
 .section .admin ul.configMenu li.active {
 	background-color: var(--backheaderborder);
 }
 .section .admin ul.configMenu li:hover {
 	background-color: var(--backheaderborder);
+}
+.section .admin ul.configMenu li a {
+	display: block;
+	width: 100%;
+	padding: 0.5rem;
+	color: #000;
+}
+.section .admin ul.configMenu li a:hover{
+	text-decoration: none;
 }
 .section .tableheader {
 	background-color: var(--backheaderborder);
