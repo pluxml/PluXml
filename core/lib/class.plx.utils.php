@@ -524,7 +524,7 @@ class plxUtils {
 		);
 
 		$clean_str = plxUtils::translitterate(trim(html_entity_decode($str)));
-		
+
 		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
 			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@u', $replace, $clean_str);
 			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
@@ -989,16 +989,16 @@ class plxUtils {
 		}
 
 		if(!empty($bcc)) {
-			$headers['Cc'] = (is_array($bcc)) ? implode(', ', $bcc) : $bcc;
+			$headers['Bcc'] = (is_array($bcc)) ? implode(', ', $bcc) : $bcc;
 		}
 
 		return mail($to, $subject, $body,
 			version_compare(PHP_VERSION, '7.2', '>=') ?
 				$headers :
 				implode("\r\n", array_map(
-					function($v, $k) { return "$k: $v"; },
-					array_values($headers),
-					array_keys($headers)
+					function($k, $v) { return "$k: $v"; },
+					array_keys($headers),
+					array_values($headers)
 				)) . "\r\n"
 		);
 	}
