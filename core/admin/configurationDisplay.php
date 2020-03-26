@@ -1,6 +1,6 @@
 <?php
 /**
- * Display configuration
+ * Display configuration controller
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
@@ -25,7 +25,7 @@ if(!empty($_POST)) {
 	$_POST['miniatures_h']=PlxUtils::getValue($_POST['miniatures_h'],100);
 	unset($_POST['content']);
 	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
-	header('Location: configuration.php');
+	header('Location: configurationDisplay.php');
 	exit;
 }
 

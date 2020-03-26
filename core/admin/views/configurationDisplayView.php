@@ -1,8 +1,6 @@
 <?php 
 /**
  * Basic configuration view
- *
- * @package PLX
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
@@ -23,7 +21,7 @@ include __DIR__ .'/../tags/top.php';
 		<?php include __DIR__ .'/../tags/configurationMenu.php'; ?>
 	</div>
 	<div class="panel col-5">
-		<form action="configuration.php" method="post" id="form_settings">
+		<form action="configurationDisplay.php" method="post" id="form_settings">
 			<div class="autogrid panel-header">
 				<div>
 					<h3 class="h4-like"><?= L_CONFIG_VIEW_FIELD ?></h3>
@@ -77,7 +75,6 @@ include __DIR__ .'/../tags/top.php';
 		<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayFoot')); ?>
 	</div>
 </div>
-
 
 <?php
 // Footer
