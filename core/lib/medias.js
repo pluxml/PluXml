@@ -39,6 +39,13 @@ tbody.addEventListener('click', function(event) {
 		aux.style.display = 'none';
 		return;
 	}
+
+	if(event.target.hasAttribute('data-rename')) {
+		event.preventDefault();
+		document.getElementById('id_oldname').value = event.target.dataset.rename;
+		dialogBox("dlgRenameFile");
+		return;
+	}
 });
 window.addEventListener("keydown", function (event) {
 	// validate if the press key is the escape key
@@ -86,9 +93,4 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	input = document.getElementById("medias-search");
 	input.value = localStorage.getItem("medias_search");
 	plugFilter();
-}
-
-function ImageRename(oldimg) {
-	document.getElementById('id_oldname').value = oldimg;
-	dialogBox("dlgRenameFile");
 }
