@@ -1,29 +1,28 @@
 // zoombox
-var all = document.querySelectorAll(".overlay");
+var all = document.getElementById('medias-table-tbody');
 var mo = document.getElementById("modal__overlay");
 var mbox = document.getElementById("modal__box");
 var mb = document.getElementById("modal");
-for (var i = 0, nb = all.length; i < nb; i++) {
-	all[i].addEventListener('click', function(e) {
-		e.preventDefault();
-		mbox.innerHTML = '<img src="'+this.href+'" alt="" /><label for="modal">&#10006;</label>';
-		mb.click();
-	},false);
-}
+var zoomboxImg = document.getElementById('zoombox-img');
+all.addEventListener('click', function(event) {
+	if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
+		event.preventDefault();
+		const src = event.target.src.replace(/\/.thumbs?\b/, '');
+		zoomboxImg.src = src;
+		zoomboxImg.alt = src.replace(/.*\/([^\/]*)$/, '$1');
+		mb.checked = true;
+	}
+});
 window.addEventListener("keydown", function (event) {
 	// validate if the press key is the escape key
 	if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
-    	mbox.innerHTML = "";
-    	if (mb.checked === true) {
-    		mb.click();
-    	}
+    	event.preventDefault();
+    	mb.checked = false;
     }
 });
 mo.addEventListener("click", function (event) {
-   	mbox.innerHTML = "";
-   	if (mb.checked === true) {
-   		mb.click();
-   	}
+	event.preventDefault();
+   	mb.checked = false;
 });
 
 function toggle_divs(){
@@ -41,7 +40,7 @@ function copy(elt, data) {
 	try {
 		var div = elt.querySelector("div");
 		var aux = document.createElement("input");
-		aux.setAttribute("value", data);
+		aux.value = data;
 		document.body.appendChild(aux);
 		aux.select();
 		document.execCommand("copy");

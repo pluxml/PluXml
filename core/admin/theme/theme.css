@@ -633,6 +633,7 @@ th.checkbox {
 }
 
 .modal__box {
+	position: relative;
 	text-align: center;
 }
 
@@ -645,6 +646,8 @@ th.checkbox {
 }
 
 .modal label {
+	position: absolute;
+	right: 0;
 	background-color: #444;
 	color: #fff;
 	cursor: pointer;
@@ -674,7 +677,8 @@ th.checkbox {
 }
 
 .modal__box img {
-	max-height: 100%;
+	max-height: 100vh;
+	max-width: 100vw;
 }
 
 .modal__overlay {
@@ -775,6 +779,10 @@ div.ico div {
 	color: #000;
 	font-size: 16pt;
 	margin: 0 0.3rem;
+}
+
+a.overlay {
+	display: block;
 }
 
 /* The Dialog (background) */

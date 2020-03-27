@@ -120,7 +120,21 @@ $curFolders = explode('/', $curFolder);
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
-<form action="medias.php" method="post" id="form_medias">
+<form method="post">
+	<!-- Rename File Dialog -->
+	<div id="dlgRenameFile" class="dialog">
+		<div class="dialog-content">
+			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:&nbsp;
+			<input id="id_newname" type="text" name="newname" value="" maxlength="50" size="15" />
+			<input id="id_oldname" type="hidden" name="oldname" />
+			<?php echo plxToken::getTokenPostMethod() ?>
+			<input type="submit" name="btn_renamefile" value="<?php echo L_MEDIAS_RENAME ?>" />
+			<span class="dialog-close">&times;</span>
+		</div>
+	</div>
+</form>
+
+<form method="post" id="form_medias">
 
 	<!-- New Folder Dialog -->
 	<div id="dlgNewFolder" class="dialog">
@@ -129,17 +143,6 @@ $curFolders = explode('/', $curFolder);
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
 			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="15" />
 			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
-		</div>
-	</div>
-
-	<!-- Rename File Dialog -->
-	<div id="dlgRenameFile" class="dialog">
-		<div class="dialog-content">
-			<span class="dialog-close">&times;</span>
-			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:&nbsp;
-			<input id="id_newname" type="text" name="newname" value="" maxlength="50" size="15" />
-			<input id="id_oldname" type="hidden" name="oldname" />
-			<input type="submit" name="btn_renamefile" value="<?php echo L_MEDIAS_RENAME ?>" />
 		</div>
 	</div>
 
@@ -195,7 +198,7 @@ $curFolders = explode('/', $curFolder);
 					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_date ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
 				</tr>
 				</thead>
-				<tbody>
+				<tbody id="medias-table-tbody">
 				<?php
 				# Initialisation de l'ordre
 				$num = 0;
@@ -344,7 +347,10 @@ $curFolders = explode('/', $curFolder);
 <div class="modal">
 	<input id="modal" type="checkbox" name="modal" tabindex="1">
 	<div id="modal__overlay" class="modal__overlay">
-		<div id="modal__box" class="modal__box"></div>
+		<div id="modal__box" class="modal__box">
+			<img id="zoombox-img" />
+			<label for="modal">&#10006;</label>
+		</div>
 	</div>
 </div>
 
