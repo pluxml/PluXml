@@ -13,6 +13,31 @@ tbody.addEventListener('click', function(event) {
 		zoomboxImg.alt = title;
 		zoomboxImg.title = title;
 		mb.checked = true;
+		return;
+	}
+
+	if(event.target.hasAttribute('data-copy')) {
+		event.preventDefault();
+		const aux = document.getElementById('clipboard');
+		if(aux == null) {
+			console.error('#clipboard element not found');
+			return;
+		}
+
+		aux.style.display = 'initial';
+		aux.value = event.target.dataset.copy;
+		aux.select();
+		document.execCommand('copy');
+		const notice = event.target.firstElementChild;
+		notice.style.display = 'inline-block';
+		var t = setTimeout(function() {
+			aux.value = '';
+			notice.style.display = 'none';
+			clearTimeout(t);
+		}, 1000);
+		aux.value = '';
+		aux.style.display = 'none';
+		return;
 	}
 });
 window.addEventListener("keydown", function (event) {
@@ -26,7 +51,6 @@ mo.addEventListener("click", function (event) {
 	event.preventDefault();
    	mb.checked = false;
 });
-
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
 	var manager = document.getElementById('files_manager');
@@ -36,24 +60,6 @@ function toggle_divs(){
 	} else {
 		uploader.style.display = 'none';
 		manager.style.display = 'block';
-	}
-}
-function copy(elt, data) {
-	try {
-		var div = elt.querySelector("div");
-		var aux = document.createElement("input");
-		aux.value = data;
-		document.body.appendChild(aux);
-		aux.select();
-		document.execCommand("copy");
-		document.body.removeChild(aux);
-		div.setAttribute("style", "display:inline-block");
-		t = setTimeout(function(){
-			div.setAttribute("style", "display:none");
-			clearTimeout(t);
-		}, 1000);
-	} catch (err) {
-		alert('<?php echo L_MEDIAS_LINK_COPYCLP_ERR ?>');
 	}
 }
 function plugFilter() {
