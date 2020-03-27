@@ -1,15 +1,17 @@
 // zoombox
-var all = document.getElementById('medias-table-tbody');
+var tbody = document.getElementById('medias-table-tbody');
 var mo = document.getElementById("modal__overlay");
-var mbox = document.getElementById("modal__box");
+// var mbox = document.getElementById("modal__box");
 var mb = document.getElementById("modal");
 var zoomboxImg = document.getElementById('zoombox-img');
-all.addEventListener('click', function(event) {
+tbody.addEventListener('click', function(event) {
 	if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
 		event.preventDefault();
 		const src = event.target.src.replace(/\/.thumbs?\b/, '');
+		const title = src.replace(/.*\/([^\/]*)$/, '$1');
 		zoomboxImg.src = src;
-		zoomboxImg.alt = src.replace(/.*\/([^\/]*)$/, '$1');
+		zoomboxImg.alt = title;
+		zoomboxImg.title = title;
 		mb.checked = true;
 	}
 });
