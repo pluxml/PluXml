@@ -504,7 +504,6 @@ $LANG = array (
 		'L_PROFIL' => 'Профиль',
 		'L_PROFIL_LOGIN' => 'Логин',
 		'L_PROFIL_USER' => 'Имя, Фамилия',
-		'L_PROFIL_MAIL' => 'Email адрес',
 		'L_PROFIL_ADMIN_LANG' => 'Язык Административной панели',
 		'L_PROFIL_INFOS' => 'Информация о Вас (отображается под текстом статей)',
 		'L_PROFIL_UPDATE' => 'Изменить Ваш профиль',

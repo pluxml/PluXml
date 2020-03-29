@@ -500,7 +500,6 @@ $LANG = array (
 		'L_PROFIL' => 'Perfil',
 		'L_PROFIL_LOGIN' => 'Cuenta de usuario',
 		'L_PROFIL_USER' => 'Nombre de usuario',
-		'L_PROFIL_MAIL' => 'Dirección de correo',
 		'L_PROFIL_ADMIN_LANG' => 'Idioma de administración',
 		'L_PROFIL_INFOS' => 'Información',
 		'L_PROFIL_UPDATE' => 'Guardar perfil',
