@@ -164,7 +164,7 @@ $LANG = array (
 
 		'L_CAT_TITLE' => 'Création et édition des catégories',
 		'L_CAT_LIST_ID' => 'Identifiant',
-		'L_CAT_LIST_ACTIVE' => 'Active',
+		'L_ACTIVE' => 'Active',
 		'L_CAT_LIST_NAME' => 'Nom de la catégorie',
 		'L_CAT_LIST_URL' => 'URL',
 		'L_CAT_LIST_SORT' => 'Tri des articles',
@@ -530,7 +530,6 @@ $LANG = array (
 		'L_STATICS_GROUP' => 'Groupe',
 		'L_STATICS_TITLE' => 'Titre',
 		'L_STATICS_URL' => 'Url',
-		'L_STATICS_ACTIVE' => 'Active',
 		'L_STATICS_ORDER' => 'Ordre',
 		'L_STATICS_MENU' => 'Menu',
 		'L_STATICS_TEMPLATE_FIELD' => 'Template',

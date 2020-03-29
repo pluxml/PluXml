@@ -144,7 +144,7 @@ $LANG = array (
 
 		'L_CAT_TITLE' => 'Criação e edição das cetegorias',
 		'L_CAT_LIST_ID' => 'Nome interno',
-		'L_CAT_LIST_ACTIVE' => 'Activa',
+		'L_ACTIVE' => 'Activa',
 		'L_CAT_LIST_NAME' => 'Nome da categoria',
 		'L_CAT_LIST_URL' => 'Url',
 		'L_CAT_LIST_SORT' => 'Classificação',
@@ -458,7 +458,6 @@ $LANG = array (
 		'L_STATICS_GROUP' => 'Groupo',
 		'L_STATICS_TITLE' => 'Titúlo',
 		'L_STATICS_URL' => 'Url',
-		'L_STATICS_ACTIVE' => 'Activa',
 		'L_STATICS_ORDER' => 'Ordem',
 		'L_STATICS_MENU' => 'Menu',
 		'L_STATICS_TEMPLATE_FIELD' => 'Template',

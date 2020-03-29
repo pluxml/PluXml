@@ -152,7 +152,7 @@ $LANG = array (
 
 		'L_CAT_TITLE' => 'Aanmaken en aanpassen van categorie?n',
 		'L_CAT_LIST_ID' => 'ID',
-		'L_CAT_LIST_ACTIVE' => 'Actief',
+		'L_ACTIVE' => 'Actief',
 		'L_CAT_LIST_NAME' => 'Naam categorie',
 		'L_CAT_LIST_URL' => 'URL',
 		'L_CAT_LIST_SORT' => 'Artikels sorteren',
@@ -490,7 +490,6 @@ $LANG = array (
 		'L_STATICS_GROUP' => 'Groep',
 		'L_STATICS_TITLE' => 'Titel',
 		'L_STATICS_URL' => 'URL',
-		'L_STATICS_ACTIVE' => 'Actief',
 		'L_STATICS_ORDER' => 'Volgorde',
 		'L_STATICS_MENU' => 'Menu',
 		'L_STATICS_TEMPLATE_FIELD' => 'Layout',
