@@ -170,7 +170,7 @@ $LANG = array (
 
 		'L_CAT_TITLE' => 'Управление категориями',
 		'L_CAT_LIST_ID' => 'ID',
-		'L_CAT_LIST_ACTIVE' => 'Активно',
+		'L_ACTIVE' => 'Активно',
 		'L_CAT_LIST_NAME' => 'Название категории',
 		'L_CAT_LIST_URL' => 'Url',
 		'L_CAT_LIST_SORT' => 'Сортировка статей',
@@ -532,7 +532,6 @@ $LANG = array (
 		'L_STATICS_GROUP' => 'Группа',
 		'L_STATICS_TITLE' => 'Название',
 		'L_STATICS_URL' => 'Url',
-		'L_STATICS_ACTIVE' => 'Активно',
 		'L_STATICS_ORDER' => 'Позиция',
 		'L_STATICS_MENU' => 'Меню',
 		'L_STATICS_TEMPLATE_FIELD' => 'Тема',

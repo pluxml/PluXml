@@ -171,7 +171,7 @@ $LANG = array (
 
 		'L_CAT_TITLE' => 'Creacion e edicion de las categorias',
 		'L_CAT_LIST_ID' => 'Identificant',
-		'L_CAT_LIST_ACTIVE' => 'Activa',
+		'L_ACTIVE' => 'Activa',
 		'L_CAT_LIST_NAME' => 'Nom de la categoria',
 		'L_CAT_LIST_URL' => 'Url',
 		'L_CAT_LIST_SORT' => 'Tria dels articles',
@@ -530,7 +530,6 @@ $LANG = array (
 		'L_STATICS_GROUP' => 'Grop',
 		'L_STATICS_TITLE' => 'Títol',
 		'L_STATICS_URL' => 'Url',
-		'L_STATICS_ACTIVE' => 'Activa',
 		'L_STATICS_ORDER' => 'Òrdre',
 		'L_STATICS_MENU' => 'Menú',
 		'L_STATICS_TEMPLATE_FIELD' => 'Modèl',

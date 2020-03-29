@@ -164,7 +164,7 @@ $LANG = array (
 
 		'L_CAT_TITLE' => 'Category Manager',
 		'L_CAT_LIST_ID' => 'ID',
-		'L_CAT_LIST_ACTIVE' => 'Active',
+		'L_ACTIVE' => 'Active',
 		'L_CAT_LIST_NAME' => 'Category name',
 		'L_CAT_LIST_URL' => 'Url',
 		'L_CAT_LIST_SORT' => 'Article sorting',
@@ -530,7 +530,6 @@ $LANG = array (
 		'L_STATICS_GROUP' => 'Group',
 		'L_STATICS_TITLE' => 'Title',
 		'L_STATICS_URL' => 'Url',
-		'L_STATICS_ACTIVE' => 'Active',
 		'L_STATICS_ORDER' => 'Rank',
 		'L_STATICS_MENU' => 'Menu',
 		'L_STATICS_TEMPLATE_FIELD' => 'Template',

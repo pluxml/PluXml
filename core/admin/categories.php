@@ -60,7 +60,7 @@ include __DIR__ .'/top.php';
 					<th><?php echo L_ID ?></th>
 					<th><?php echo L_CAT_LIST_NAME ?></th>
 					<th><?php echo L_CAT_LIST_URL ?></th>
-					<th><?php echo L_CAT_LIST_ACTIVE ?></th>
+					<th><?= L_ACTIVE ?></th>
 					<th><?php echo L_CAT_LIST_SORT ?></th>
 					<th><?php echo L_CAT_LIST_BYPAGE ?></th>
 					<th data-id="order"><?php echo L_CAT_LIST_ORDER ?></th>
