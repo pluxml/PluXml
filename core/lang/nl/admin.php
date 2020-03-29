@@ -468,7 +468,6 @@ $LANG = array (
 		'L_PROFIL' => 'Profiel',
 		'L_PROFIL_LOGIN' => 'Kies uw loginnaam',
 		'L_PROFIL_USER' => 'Kies uw gebruikersnaam',
-		'L_PROFIL_MAIL' => 'Emailadres',
 		'L_PROFIL_ADMIN_LANG' => 'Taal van administratiegedeelte',
 		'L_PROFIL_INFOS' => 'Informatie',
 		'L_PROFIL_UPDATE' => 'Uw profiel aanpassen',

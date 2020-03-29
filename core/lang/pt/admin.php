@@ -436,7 +436,6 @@ $LANG = array (
 		'L_PROFIL' => 'Perfil',
 		'L_PROFIL_LOGIN' => 'Login de conexão',
 		'L_PROFIL_USER' => 'Nome do utilizador',
-		'L_PROFIL_MAIL' => 'Enderêco de e-mail',
 		'L_PROFIL_ADMIN_LANG' => 'Idioma do utilizador na administração',
 		'L_PROFIL_INFOS' => 'Informações',
 		'L_PROFIL_UPDATE' => 'Alterar o seu perfil',
