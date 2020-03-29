@@ -163,7 +163,7 @@ include __DIR__ .'/top.php';
 					<?php if($_SESSION['selPlugins']=='1') : ?>
 					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
 					<?php endif; ?>
-					<th><?php echo L_PLUGINS_ACTION ?></th>
+					<th><?= L_ACTION ?></th>
 				</tr>
 			</thead>
 			<tbody>
