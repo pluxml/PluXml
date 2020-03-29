@@ -60,7 +60,7 @@ include __DIR__ .'/top.php';
 			<th><?php echo L_PROFIL_MAIL ?></th>
 			<th><?php echo L_PROFIL ?></th>
 			<th><?php echo L_CONFIG_USERS_ACTIVE ?></th>
-			<th><?php echo L_CONFIG_USERS_ACTION ?></th>
+			<th><?= L_ACTION ?></th>
 		</tr>
 	</thead>
 	<tbody>
