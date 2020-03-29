@@ -2,7 +2,6 @@
 
 $LANG = array(
 
-'L_SAVE_SUCCESSFUL'					=> 'Data was successfully saved',
 'L_UPDATE_TITLE'					=> 'PluXml update',
 'L_WRONG_PHP_VERSION'				=> 'PluXml requires PHP 5 or higher.',
 

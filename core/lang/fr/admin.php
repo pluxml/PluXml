@@ -128,7 +128,6 @@ $LANG = array (
 		'L_ARTICLE_TITLE_HTMLTAG' => 'Contenu balise title (option)',
 		'L_ARTICLE_CHAPO_HIDE' => 'masquer',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'afficher',
-		'L_ARTICLE' => 'article',
 		'L_ARTICLE_ID' => 'Identifiant',
 
 		// auth.php
@@ -172,7 +171,6 @@ $LANG = array (
 		'L_CAT_LIST_BYPAGE' => 'Nb art/page',
 		'L_CAT_LIST_ORDER' => 'Ordre',
 		'L_CAT_LIST_MENU' => 'Menu',
-		'L_CATEGORY' => 'Catégorie',
 		'L_DISPLAY' => 'Afficher',
 		'L_HIDE' => 'Masquer',
 		'L_OPTIONS' => 'Options',
@@ -297,7 +295,6 @@ $LANG = array (
 		'L_ARTICLE_EDIT_TITLE' => 'Éditer cet article',
 		'L_NEW_COMMENTS_TITLE' => 'Commentaires en attente de validation',
 		'L_VALIDATED_COMMENTS_TITLE' => 'Commentaires publiés',
-		'L_NO_ARTICLE' => 'Aucun article',
 
 		// medias.php
 

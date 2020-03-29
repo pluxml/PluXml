@@ -2,7 +2,6 @@
 
 $LANG = array(
 
-'L_SAVE_SUCCESSFUL'					=> 'Inregistrarea datelor a avut loc cu succes',
 'L_UPDATE_TITLE'					=> 'Actualizare PluXml',
 'L_WRONG_PHP_VERSION'				=> 'PluXml necesită PHP 5 sau o versiune mai mare pentru a lucra.',
 

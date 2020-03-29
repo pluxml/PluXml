@@ -4,9 +4,6 @@ $LANG = array(
 
 # install.php
 'L_INSTALL_TITLE'					=> 'Installatie',
-'L_WRONG_PHP_VERSION'				=> 'PluXml heeft PHP-versie 5 of hoger nodig om goed te functioneren.',
-'L_SELECT_LANG'						=> 'Kies uw taal',
-'L_INPUT_CHANGE'					=> 'Verander',
 'L_INSTALL_DATA'					=> 'Voorbeeldgegevens installeren',
 'L_YES'								=> 'Ja',
 'L_NO'								=> 'Niet',
@@ -26,7 +23,6 @@ $LANG = array(
 'L_SITE_DESCRIPTION'				=> 'Blog of Cms in XML !',
 'L_VERSION'							=> 'versie',
 'L_USERNAME'						=> 'Naam van de beheerder',
-'L_LOGIN'							=> 'Login van de beheerder',
 'L_PASSWORD'						=> 'Wachtwoord',
 'L_PASSWORD_CONFIRMATION'			=> 'Bevestig het wachtwoord',
 'L_EMAIL'						    => 'E-mailadres',

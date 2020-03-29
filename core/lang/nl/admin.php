@@ -129,7 +129,6 @@ $LANG = array (
 		'L_ARTICLE_TITLE_HTMLTAG' => 'Title tag inhoud (optioneel)',
 		'L_ARTICLE_CHAPO_HIDE' => 'verstoppen',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'tonen',
-		'L_ARTICLE' => 'artikel',
 		'L_ARTICLE_ID' => 'ID',
 
 		// auth.php
@@ -160,7 +159,6 @@ $LANG = array (
 		'L_CAT_LIST_BYPAGE' => 'Aantal art/pag',
 		'L_CAT_LIST_ORDER' => 'Volgorde',
 		'L_CAT_LIST_MENU' => 'Menu',
-		'L_CATEGORY' => 'Categorie',
 		'L_DISPLAY' => 'Tonen',
 		'L_HIDE' => 'Onzichtbaar maken',
 		'L_OPTIONS' => 'Opties',
@@ -273,7 +271,6 @@ $LANG = array (
 		'L_ARTICLE_EDIT_TITLE' => 'Artikel aanpassen',
 		'L_NEW_COMMENTS_TITLE' => 'Commentaar die op goedkeuring wacht',
 		'L_VALIDATED_COMMENTS_TITLE' => 'Geplubliceerde commentaar',
-		'L_NO_ARTICLE' => 'Geen artikel',
 		'L_SEARCH' => 'Zoek',
 		'L_SEARCH_PLACEHOLDER' => 'artikel-ID of titel',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Alle categorie?n ...',
