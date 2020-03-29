@@ -4,9 +4,6 @@ $LANG = array(
 
 # install.php
 'L_INSTALL_TITLE'					=> 'Installazione',
-'L_WRONG_PHP_VERSION'				=> 'PluXml ha bisogno di PHP5 o superiore per funzionare.',
-'L_SELECT_LANG'						=> 'Selezionare la lingua',
-'L_INPUT_CHANGE'					=> 'Cambia',
 'L_INSTALL_DATA'					=> 'Installare dati di esempioInstall sample data',
 'L_YES'								=> 'Sì',
 'L_NO'								=> 'Non',
@@ -26,7 +23,6 @@ $LANG = array(
 'L_SITE_DESCRIPTION'				=> 'Blog o Cms XML powered !',
 'L_VERSION'							=> 'versione',
 'L_USERNAME'						=> 'Nome dell\'amministratore',
-'L_LOGIN'							=> 'Nome utente dell\'amministrazione',
 'L_PASSWORD'						=> 'Password',
 'L_PASSWORD_CONFIRMATION'			=> 'Conferma password',
 'L_EMAIL'						    => 'Indirizzo email',

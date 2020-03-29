@@ -134,7 +134,6 @@ $LANG = array (
 		'L_ARTICLE_TITLE_HTMLTAG' => 'Мета-тег заголовка страницы "Title" (необязательно)',
 		'L_ARTICLE_CHAPO_HIDE' => 'скрыть',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'показать',
-		'L_ARTICLE' => 'статья',
 		'L_ARTICLE_ID' => 'ID',
 
 		// auth.php
@@ -178,7 +177,6 @@ $LANG = array (
 		'L_CAT_LIST_BYPAGE' => 'Статей/страниц',
 		'L_CAT_LIST_ORDER' => 'Позиция',
 		'L_CAT_LIST_MENU' => 'Меню',
-		'L_CATEGORY' => 'Категории',
 		'L_DISPLAY' => 'Показ',
 		'L_HIDE' => 'Скрыть',
 		'L_OPTIONS' => 'Настроить',
@@ -298,7 +296,6 @@ $LANG = array (
 		'L_ARTICLE_EDIT_TITLE' => 'Изменить эту статью',
 		'L_NEW_COMMENTS_TITLE' => 'Комментарии, ожидающие модерации',
 		'L_VALIDATED_COMMENTS_TITLE' => 'Опубликованные комментарии',
-		'L_NO_ARTICLE' => 'Нет статей',
 
 		// medias.php
 

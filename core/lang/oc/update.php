@@ -2,7 +2,6 @@
 
 $LANG = array(
 
-'L_SAVE_SUCCESSFUL'					=> 'Enregistrament de las donadas efectuat amb succès',
 'L_UPDATE_TITLE'					=> 'Mesa a jorn PluXml',
 'L_WRONG_PHP_VERSION'				=> 'PluXml requerís PHP 5 o superior per foncionar.',
 

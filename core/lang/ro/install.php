@@ -4,9 +4,6 @@ $LANG = array(
 
 # install.php
 'L_INSTALL_TITLE'					=> 'Instalaţie',
-'L_WRONG_PHP_VERSION'				=> 'PluXml necesită PHP 5 sau o versiune mai mare pentru a lucra.',
-'L_SELECT_LANG'						=> 'Alegeţi limba dorită',
-'L_INPUT_CHANGE'					=> 'Schimbă',
 'L_INSTALL_DATA'					=> 'Instalarea datelor eșantion',
 'L_YES'								=> 'Da',
 'L_NO'								=> 'Nu',
@@ -26,7 +23,6 @@ $LANG = array(
 'L_SITE_DESCRIPTION'				=> 'Site pe baza la Xml !',
 'L_VERSION'							=> 'versiunea',
 'L_USERNAME'						=> 'Numele Administratorului',
-'L_LOGIN'							=> 'Username-ul Administratorului',
 'L_PASSWORD'						=> 'Parola',
 'L_PASSWORD_CONFIRMATION'			=> 'Confirmarea Parolei',
 'L_EMAIL'						    => 'Adresa de email',
