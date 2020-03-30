@@ -182,7 +182,6 @@ $LANG = array (
 
 		// commentaire.php
 
-		'L_COMMENT_ORPHAN' => 'keinen Artikel',
 		'L_COMMENT_ORPHAN_STATUS' => 'verwaist (Sie sollten diesen Kommentar löschen)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Artikel zu diesem Kommentar',
 		'L_COMMENT_OFFLINE' => 'Offline',
