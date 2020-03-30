@@ -116,7 +116,6 @@ $LANG = array(
 'L_ARTICLE'						=> 'articolul',
 'L_ARTICLES'					=> 'articole',
 'L_ARTAUTHOR_UNKNOWN'			=> 'necunoscut',
-'L_ARTTAGS_NONE'				=> 'nimic',
 'L_ARTCHAPO'					=> 'Continuati lectura #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'RSS Feed Elementele din această categorie',
 'L_ARTFEED_RSS_TAG'				=> 'RSS Feed Elementele din această etichetă',

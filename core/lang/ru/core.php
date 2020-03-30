@@ -116,7 +116,6 @@ $LANG = array(
 'L_ARTICLE'						=> 'статья',
 'L_ARTICLES'					=> 'статей',
 'L_ARTAUTHOR_UNKNOWN'			=> 'неизвестный',
-'L_ARTTAGS_NONE'				=> 'нет',
 'L_ARTCHAPO'					=> 'Читать далее',
 'L_ARTFEED_RSS_CATEGORY'		=> 'RSS-поток категорий',
 'L_ARTFEED_RSS_TAG'				=> 'RSS-поток статей в этом теге',

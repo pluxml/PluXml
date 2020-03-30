@@ -744,7 +744,7 @@ class plxShow {
 				if ($idx!=sizeof($tags)-1) echo $separator.' ';
 			}
 		}
-		else echo L_ARTTAGS_NONE;
+		else echo L_NONE1;
 	}
 
 	/**
