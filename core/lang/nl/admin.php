@@ -215,7 +215,6 @@ $LANG = array (
 		'L_CREATING_COMMENT_SUCCESSFUL' => 'Commentaar plaatsen succesvol',
 		'L_CREATE_NEW_COMMENT' => 'Commentaar schrijven',
 		'L_ARTICLE_COMMENTS_LIST' => 'Commentaar van dit artikel (nieuwste commentaar eerst)',
-		'L_COMMENT_ANSWER_TITLE' => 'Antwoorden op deze commentaar',
 		'L_COMMENT_ANSWER' => 'Antwoorden',
 
 		// comments.php

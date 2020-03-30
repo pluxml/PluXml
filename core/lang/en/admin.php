@@ -229,7 +229,6 @@ $LANG = array (
 		'L_CREATING_COMMENT_SUCCESSFUL' => 'Comment succesfully created',
 		'L_CREATE_NEW_COMMENT' => 'Write a comment',
 		'L_ARTICLE_COMMENTS_LIST' => 'Comments for this article (from most recent to the oldest)',
-		'L_COMMENT_ANSWER_TITLE' => 'Reply to this comment',
 		'L_COMMENT_ANSWER' => 'Answer',
 
 		// comments.php

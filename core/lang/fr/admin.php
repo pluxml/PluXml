@@ -229,7 +229,6 @@ $LANG = array (
 		'L_CREATING_COMMENT_SUCCESSFUL' => 'Le commentaire a été crée avec succès',
 		'L_CREATE_NEW_COMMENT' => 'Rédiger un commentaire',
 		'L_ARTICLE_COMMENTS_LIST' => 'Commentaires de cet article',
-		'L_COMMENT_ANSWER_TITLE' => 'Répondre à ce commentaire',
 		'L_COMMENT_ANSWER' => 'Répondre',
 
 		// comments.php
