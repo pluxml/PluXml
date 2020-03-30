@@ -54,7 +54,7 @@ if(!empty($_GET['a'])) {
 	}
 	# Infos sur l'article
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$globArt['0']);
-	$portee = L_COMMENTS_ARTICLE_SCOPE.' &laquo;'.$aArt['title'].'&raquo;';
+	$portee = ucfirst(L_ARTICLE) . ' &laquo;' . $aArt['title'] . '&raquo;';
 } else { # Commentaires globaux
 	$portee = '';
 }
@@ -70,7 +70,7 @@ else
 	$comSel = ((isset($_SESSION['selCom']) AND !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
 
 if(!empty($_GET['a'])) {
-	
+
 	switch ($comSel) {
 		case 'online':
 			$mod = '';
@@ -185,7 +185,7 @@ $selector=selector($comSel, 'id_selection');
 					echo '<td class="action">';
 					echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
 					echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>&nbsp;&nbsp;';
-					echo '<a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a>';
+					echo '<a href="article.php?a=' . $artId . '" title="' . L_COMMENT_ARTICLE_LINKED_TITLE . '">' . ucfirst(L_ARTICLE) . '</a>';
 					echo '</td></tr>';
 				}
 			} else { # Pas de commentaires

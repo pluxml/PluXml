@@ -137,7 +137,7 @@ include __DIR__ .'/top.php';
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
 
-	<h3 class="no-margin"><?php echo L_COMMENTS_ARTICLE_SCOPE ?> &laquo;<?php echo plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
+	<h3 class="no-margin"><?= ucfirst(L_ARTICLE) ?> &laquo;<?= plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
 
 	<ul class="unstyled-list">
 		<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
