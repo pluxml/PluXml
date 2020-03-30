@@ -101,7 +101,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					if($_SESSION['profil'] <= PROFIL_EDITOR)
 						$menus[] = plxUtils::formatMenu(L_CATEGORIES, PLX_CORE.'admin/categories.php', L_MENU_CATEGORIES_TITLE);
 
-					$menus[] = plxUtils::formatMenu(L_MENU_PROFIL, PLX_CORE.'admin/profil.php', L_MENU_PROFIL_TITLE);
+					$menus[] = plxUtils::formatMenu(L_PROFIL, PLX_CORE.'admin/profil.php', L_MENU_PROFIL_TITLE);
 
 					if($_SESSION['profil'] == PROFIL_ADMIN) {
 						$menus[] = plxUtils::formatMenu(L_MENU_CONFIG, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', false);

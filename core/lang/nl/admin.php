@@ -490,7 +490,6 @@ $LANG = array (
 		'L_MENU_CONFIG_TITLE' => 'PluXml configureren',
 		'L_MENU_CONFIG' => 'Parameters',
 		'L_MENU_PROFIL_TITLE' => 'Uw gebruikersprofiel beheren',
-		'L_MENU_PROFIL' => 'Profiel',
 		'L_WARNING_INSTALLATION_FILE' => 'het bestand install.php is nog aanwezig in de basismap van uw PluXml.<br />Om veiligheidsredenen raden wij u aan dit bestand te <a class="lnkdelete" href="?del=install">verwijderen</a> of te hernoemen.',
 		'L_USER_UNKNOWN' => 'Onbekende gebruiker',
 		'L_USER_LANG' => 'Gebruikte taal in adminstratief gedeelte',
