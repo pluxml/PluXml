@@ -169,7 +169,7 @@ include __DIR__ .'/top.php';
 				<small>
 					<span class="nbcom">#<?php echo $plxAdmin->plxRecord_coms->i+1 ?></span>&nbsp;
 					<time datetime="<?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?></time> -
-					<?php echo L_COMMENT_WRITTEN_BY ?>&nbsp;<strong><?php echo $plxAdmin->plxRecord_coms->f('author'); ?></strong>
+					<?php echo L_WRITTEN_BY ?>&nbsp;<strong><?php echo $plxAdmin->plxRecord_coms->f('author'); ?></strong>
 					- <a href="comment.php<?php echo (!empty($_GET['a']))?'?c='.$comId.'&amp;a='.$_GET['a']:'?c='.$comId; ?>" title="<?php echo L_COMMENT_EDIT_TITLE ?>"><?php echo L_COMMENT_EDIT ?></a>
 					- <a href="#form_comment" onclick="replyCom('<?php echo $plxAdmin->plxRecord_coms->f('index') ?>')"><?php echo L_COMMENT_ANSWER ?></a>
 				</small>
