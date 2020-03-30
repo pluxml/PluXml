@@ -403,7 +403,6 @@ $LANG = array (
 
 		// parametres_base.php
 
-		'L_CONFIG_BASE_CONFIG_TITLE' => 'Basic configuration',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Site title',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Subtitle / Site description',
 		'L_CONFIG_BASE_URL_HELP' => 'Don\'t forget the slash at the end',
@@ -574,7 +573,7 @@ $LANG = array (
 		//
 
 		'L_MENU_CONFIG_BASE_TITLE' => 'Edit basic PluXml configuration',
-		'L_MENU_CONFIG_BASE' => 'Basic configuration',
+		'L_CONFIG_BASE' => 'Basic configuration',
 		'L_MENU_CONFIG_VIEW_TITLE' => 'Change your PluXml\'s display settings',
 		'L_MENU_CONFIG_VIEW' => 'Display settings',
 		'L_MENU_CONFIG_USERS_TITLE' => 'Manage user accounts on your PluXml',

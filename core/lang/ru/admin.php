@@ -405,7 +405,6 @@ $LANG = array (
 
 		// parametres_base.php
 
-		'L_CONFIG_BASE_CONFIG_TITLE' => 'Основные настройки',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Название сайта',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Слоган сайта',
 		'L_CONFIG_BASE_URL_HELP' => 'Не забудьте слеш / в конце',
@@ -574,7 +573,7 @@ $LANG = array (
 		//
 
 		'L_MENU_CONFIG_BASE_TITLE' => 'Изменение конфигурации',
-		'L_MENU_CONFIG_BASE' => 'Конфигурация сайта --',
+		'L_CONFIG_BASE' => 'Конфигурация сайта --',
 		'L_MENU_CONFIG_VIEW_TITLE' => 'Настройки отображения сайта',
 		'L_MENU_CONFIG_VIEW' => 'Отображение сайта --',
 		'L_MENU_CONFIG_USERS_TITLE' => 'Управление учетными записями пользователей',
