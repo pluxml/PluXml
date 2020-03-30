@@ -472,7 +472,7 @@ function refreshImg(dta) {
 							$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
 							echo '<label for="cat_unclassified"><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
 							$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
-							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
+							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_HOMEPAGE .'</label>';
 							foreach($plxAdmin->aCats as $cat_id => $cat_name) {
 								$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
 								if($plxAdmin->aCats[$cat_id]['active'])

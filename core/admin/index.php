@@ -104,7 +104,7 @@ $arts = $plxAdmin->getArticles('all'); # Recuperation des articles
 
 # Génération de notre tableau des catégories
 $aFilterCat['all'] = L_ARTICLES_ALL_CATEGORIES;
-$aFilterCat['home'] = L_CATEGORY_HOME;
+$aFilterCat['home'] = L_HOMEPAGE;
 $aFilterCat['000'] = L_UNCLASSIFIED;
 if($plxAdmin->aCats) {
 	foreach($plxAdmin->aCats as $k=>$v) {
@@ -113,7 +113,7 @@ if($plxAdmin->aCats) {
 	}
 	$aAllCat[L_CATEGORIES] = $aCat;
 }
-$aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_CATEGORY_HOME_PAGE;
+$aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_HOMEPAGE;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
@@ -187,7 +187,7 @@ include __DIR__ .'/top.php';
 					foreach($catIds as $catId) {
 						$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
 						if($catId=='draft') $draft = ' - <strong>'.L_DRAFT.'</strong>';
-						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
+						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_HOMEPAGE.'</option>';
 						elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
 						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
 					}
