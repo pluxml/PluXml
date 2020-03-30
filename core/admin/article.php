@@ -491,7 +491,7 @@ function refreshImg(dta) {
 						<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
 						<div class="inline-form">
 							<?php plxUtils::printInput('new_catname','','text','17-50') ?>
-							<input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
+							<input type="submit" name="new_category" value="<?php echo L_ADD ?>" />
 						</div>
 					</div>
 				</div>
