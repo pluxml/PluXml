@@ -266,7 +266,6 @@ $LANG = array (
 		'L_ALL' => 'Todos',
 		'L_ALL_PUBLISHED' => 'Publicados',
 		'L_ALL_DRAFTS' => 'Borradores',
-		'L_ALL_AWAITING_MODERATION' => 'En espera de validación',
 		'L_ARTICLES_FILTER_BUTTON' => 'Filtrar',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Categorías específicas',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Todos los artículos',

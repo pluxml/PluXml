@@ -229,7 +229,6 @@ $LANG = array (
 		'L_ALL' => 'Toate',
 		'L_ALL_PUBLISHED' => 'Publicat',
 		'L_ALL_DRAFTS' => 'Schiţe',
-		'L_ALL_AWAITING_MODERATION' => 'Până la validare',
 		'L_MEDIAS_DELETE_FOLDER' => 'Ştergeţi Directoriu',
 		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Sunteti sigur ca doriti sa stergeţi directoriul şi conţinutul lui %s ?',
 		'L_MEDIAS_NO_FILE' => 'Nici un fişier',

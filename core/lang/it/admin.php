@@ -229,7 +229,6 @@ $LANG = array (
 		'L_ALL' => 'Tutte le',
 		'L_ALL_PUBLISHED' => 'Edizione',
 		'L_ALL_DRAFTS' => 'Bozze',
-		'L_ALL_AWAITING_MODERATION' => 'In attesa di convalida',
 		'L_MEDIAS_DELETE_FOLDER' => 'Cancella questa cartella',
 		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Vuoi cancellare la cartella %s e il suo contenuto ?',
 		'L_MEDIAS_NO_FILE' => 'Nessun file',

@@ -269,7 +269,6 @@ $LANG = array (
 		'L_ALL' => 'Всего',
 		'L_ALL_PUBLISHED' => 'Опубликованные',
 		'L_ALL_DRAFTS' => 'Черновики',
-		'L_ALL_AWAITING_MODERATION' => 'Ожидают модерации',
 		'L_ARTICLES_FILTER_BUTTON' => 'Фильтр',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Особые категории',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Все статьи',

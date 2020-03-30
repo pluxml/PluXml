@@ -268,7 +268,6 @@ $LANG = array (
 		'L_ALL' => 'Tous',
 		'L_ALL_PUBLISHED' => 'Publiés',
 		'L_ALL_DRAFTS' => 'Brouillons',
-		'L_ALL_AWAITING_MODERATION' => 'En attente de validation',
 		'L_ARTICLES_FILTER_BUTTON' => 'Filtrer',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Emplacements spécifiques',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Tous les articles',
