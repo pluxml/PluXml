@@ -401,7 +401,6 @@ $LANG = array (
 
 		// parametres_base.php
 
-		'L_CONFIG_BASE_CONFIG_TITLE' => 'Configuración básica',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Título del sitio',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Subtítulo y descripción del sitio',
 		'L_CONFIG_BASE_URL_HELP' => 'No olvide la barra al final',
@@ -570,7 +569,7 @@ $LANG = array (
 		//
 
 		'L_MENU_CONFIG_BASE_TITLE' => 'Editar configuración básica de PluXml',
-		'L_MENU_CONFIG_BASE' => 'Configuración básica',
+		'L_CONFIG_BASE' => 'Configuración básica',
 		'L_MENU_CONFIG_VIEW_TITLE' => 'Esitar sus opciones de visualización de PluXml',
 		'L_MENU_CONFIG_VIEW' => 'Opciones de visualización',
 		'L_MENU_CONFIG_USERS_TITLE' => 'Gestionar cuentas de usuario de PluXml',

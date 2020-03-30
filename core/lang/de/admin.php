@@ -405,7 +405,6 @@ $LANG = array (
 
 		// parametres_base.php
 
-		'L_CONFIG_BASE_CONFIG_TITLE' => 'Grundeinstellungen',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Titel der Website',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Untertitel/Beschreibung der Website',
 		'L_CONFIG_BASE_URL_HELP' => 'Schägstrich (Slash) am Ende nicht vergessen!',
@@ -576,7 +575,7 @@ $LANG = array (
 		//
 
 		'L_MENU_CONFIG_BASE_TITLE' => 'PluXml Grundeinstellungen bearbeiten',
-		'L_MENU_CONFIG_BASE' => 'Grundeinstellungen',
+		'L_CONFIG_BASE' => 'Grundeinstellungen',
 		'L_MENU_CONFIG_VIEW_TITLE' => 'PluXml Anzeigeoptionen bearbeiten',
 		'L_MENU_CONFIG_VIEW' => 'Anzeigeoptionen',
 		'L_MENU_CONFIG_USERS_TITLE' => 'PluXml Benutzerverwaltung',
