@@ -24,7 +24,6 @@ $LANG = array(
 'L_VERSION'							=> 'versie',
 'L_USERNAME'						=> 'Naam van de beheerder',
 'L_PASSWORD'						=> 'Wachtwoord',
-'L_PASSWORD_CONFIRMATION'			=> 'Bevestig het wachtwoord',
 'L_EMAIL'						    => 'E-mailadres',
 'L_INPUT_INSTALL'					=> 'Installeer',
 'L_TIMEZONE'						=> 'Tijdzone',

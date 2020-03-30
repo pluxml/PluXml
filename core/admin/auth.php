@@ -229,7 +229,7 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
+								<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_CONFIRM_PASSWORD) ?>
 							</div>
 						</div>
 						<div class="grid">

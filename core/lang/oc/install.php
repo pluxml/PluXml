@@ -24,7 +24,6 @@ $LANG = array(
 'L_VERSION'							=> 'version',
 'L_USERNAME'						=> 'Nom de l\'administrator',
 'L_PASSWORD'						=> 'Senhal',
-'L_PASSWORD_CONFIRMATION'			=> 'Confirmacion del senhal',
 'L_EMAIL'						    => 'Adreça electronica',
 'L_INPUT_INSTALL'					=> 'Installar',
 'L_TIMEZONE'						=> 'Fus orari',

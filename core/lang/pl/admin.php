@@ -492,7 +492,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Zapisz zmiany',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Zmiana hasła',
 		'L_PROFIL_PASSWORD' => 'Hasło',
-		'L_PROFIL_CONFIRM_PASSWORD' => 'Powtórz hasło',
+		'L_CONFIRM_PASSWORD' => 'Powtórz hasło',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Zmień hasło',
 
 		// statique.php

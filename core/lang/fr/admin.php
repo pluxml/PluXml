@@ -493,7 +493,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Modifier votre profil',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Changement du mot de passe',
 		'L_PROFIL_PASSWORD' => 'Mot de passe',
-		'L_PROFIL_CONFIRM_PASSWORD' => 'Confirmation du mot de passe',
+		'L_CONFIRM_PASSWORD' => 'Confirmation du mot de passe',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Changer votre mot de passe',
 
 		// statique.php

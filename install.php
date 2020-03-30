@@ -331,7 +331,7 @@ plxUtils::cleanHeaders();
 					</div>
 					<div class="grid">
 						<div class="col sml-12 med-5 label-centered">
-							<label for="id_pwd2"><?php echo L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
+							<label for="id_pwd2"><?php echo L_CONFIRM_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
 							<?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', '', 'required') ?>

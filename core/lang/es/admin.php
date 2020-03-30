@@ -491,7 +491,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Guardar perfil',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Cambiar contraseña',
 		'L_PROFIL_PASSWORD' => 'Contraseña',
-		'L_PROFIL_CONFIRM_PASSWORD' => 'Confirme la contraseña',
+		'L_CONFIRM_PASSWORD' => 'Confirme la contraseña',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Cambiar contraseña',
 
 		// statique.php

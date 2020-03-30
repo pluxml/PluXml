@@ -493,7 +493,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Modificar vòstre perfil',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Cambiament del senhal',
 		'L_PROFIL_PASSWORD' => 'Senhal',
-		'L_PROFIL_CONFIRM_PASSWORD' => 'Confirmacion del senhal',
+		'L_CONFIRM_PASSWORD' => 'Confirmacion del senhal',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Cambiar vòstre senhal',
 
 		// statique.php
