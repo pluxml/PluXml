@@ -1,7 +1,6 @@
 <?php
 $LANG = array (
 
-		'L_ID' => '#',
 		'L_MENU' => 'Menu',
 		'L_UNKNOWN_ERROR' => 'Errore sconosciuto',
 		'L_CONFIRM_DELETE' => 'Confermare l\'eliminazione ?',
@@ -120,7 +119,6 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'Contenuto del meta tag "keywords" (facoltativo)',
 		'L_ARTICLE_CHAPO_HIDE' => 'nascondere',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'mostrare',
-		'L_ID' => 'ID',
 		'L_AUTH_PAGE_TITLE' => 'Pagina di autenticazione',
 		'L_LOGOUT_SUCCESSFUL' => 'Disconnessione avvenuta con successo',
 		'L_LOGIN_PAGE' => 'Pannello di amministrazione',

@@ -1,7 +1,6 @@
 <?php
 $LANG = array (
 
-		'L_ID' => 'N°',
 		'L_MENU' => 'Menu',
 		'L_UNKNOWN_ERROR' => 'Erreur inconnue',
 		'L_CONFIRM_DELETE' => 'Confirmer la suppression ?',
@@ -124,7 +123,6 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'Contenu balise meta "keywords" (option)',
 		'L_ARTICLE_CHAPO_HIDE' => 'masquer',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'afficher',
-		'L_ID' => 'Identifiant',
 
 		// auth.php
 

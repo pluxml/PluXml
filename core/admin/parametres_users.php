@@ -53,7 +53,7 @@ include __DIR__ .'/top.php';
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
-			<th><?php echo L_ID ?></th>
+			<th>#</th>
 			<th><?php echo L_PROFIL_USER ?></th>
 			<th><?php echo L_PROFIL_LOGIN ?></th>
 			<th><?php echo L_PROFIL_PASSWORD ?></th>

@@ -1,7 +1,6 @@
 <?php
 $LANG = array (
 
-		'L_ID' => '#',
 		'L_MENU' => 'меню',
 		'L_UNKNOWN_ERROR' => 'Неизвестная ошибка',
 		'L_CONFIRM_DELETE' => 'Подтвердите удаление ?',
@@ -130,7 +129,6 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'Мета-тег ключевых слов "Keywords" (необязательно)',
 		'L_ARTICLE_CHAPO_HIDE' => 'скрыть',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'показать',
-		'L_ID' => 'ID',
 
 		// auth.php
 

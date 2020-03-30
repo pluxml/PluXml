@@ -62,7 +62,7 @@ function checkBox(cb) {
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
-					<th><?php echo L_ID ?></th>
+					<th>#</th>
 					<th><?php echo L_STATICS_HOME_PAGE ?></th>
 					<th><?php echo L_STATICS_GROUP ?></th>
 					<th><?php echo L_STATICS_TITLE ?></th>

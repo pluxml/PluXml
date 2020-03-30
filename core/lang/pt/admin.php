@@ -1,7 +1,6 @@
 <?php
 $LANG = array (
 
-		'L_ID' => '#',
 		'L_MENU' => 'Menu',
 		'L_UNKNOWN_ERROR' => 'Erro desconhecido',
 		'L_CONFIRM_DELETE' => 'Confirme a eliminação ?',
@@ -120,7 +119,6 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'Conteúdo da baliza meta "keywords" (opção)',
 		'L_ARTICLE_CHAPO_HIDE' => 'esconder',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'mostrar',
-		'L_ID' => 'Nome interno',
 		'L_AUTH_PAGE_TITLE' => 'Página de identificação',
 		'L_LOGOUT_SUCCESSFUL' => 'Foi correctamente deconectado',
 		'L_LOGIN_PAGE' => 'Conexão á zona de administração ',
