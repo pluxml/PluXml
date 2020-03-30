@@ -226,7 +226,6 @@ $LANG = array (
 		'L_ARTICLE_LIST_CATEGORIES' => 'Categoria',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nro coms',
 		'L_CATEGORY_HOME' => 'Índice',
-		'L_CATEGORY_DRAFT' => 'Brouillon',
 		'L_ARTICLE_VIEW_TITLE' => 'Visualizar este artigo no web-site',
 		'L_ARTICLE_EDIT' => 'Editar',
 		'L_ARTICLE_EDIT_TITLE' => 'Editar este artigo',

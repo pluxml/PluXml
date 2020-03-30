@@ -280,7 +280,6 @@ $LANG = array (
 		'L_ARTICLE_LIST_CATEGORIES' => 'Kategoria',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nr komentarzy',
 		'L_CATEGORY_HOME' => 'Start',
-		'L_CATEGORY_DRAFT' => 'Projekt',
 		'L_ARTICLE_VIEW_TITLE' => 'Zobacz ten post na stronie',
 		'L_ARTICLE_EDIT' => 'Edytuj',
 		'L_ARTICLE_EDIT_TITLE' => 'Edytuj ten post',

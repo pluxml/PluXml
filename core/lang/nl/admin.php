@@ -258,7 +258,6 @@ $LANG = array (
 		'L_ARTICLE_LIST_CATEGORIES' => 'Categorie',
 		'L_ARTICLE_LIST_NBCOMS' => 'Aantal comm.',
 		'L_CATEGORY_HOME' => 'Home',
-		'L_CATEGORY_DRAFT' => 'Klad',
 		'L_ARTICLE_VIEW_TITLE' => 'Bekijk het artikel op de site',
 		'L_ARTICLE_EDIT' => 'Aanpassen',
 		'L_ARTICLE_EDIT_TITLE' => 'Artikel aanpassen',
