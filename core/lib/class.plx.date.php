@@ -15,7 +15,7 @@ class plxDate {
 	 *
 	 * @param	key		constante: 'day', 'month' ou 'short_month'
 	 * @param	value	numero du mois ou du jour
-	 * @return	string	libellé du mois (long ou court) ou du jour
+	 * @return	string	libellé du mois (normal ou raccourci) ou du jour
 	 * @author	Stephane F., Pedro "P3ter" CADETE
 	 **/
 	public static function getCalendar($key, $value) {
@@ -48,20 +48,6 @@ class plxDate {
 				'10' => L_SHORT_OCTOBER,
 				'11' => L_SHORT_NOVEMBER,
 				'12' => L_SHORT_DECEMBER
-			),
-			'long_month' => array(
-				'01' => L_LONG_JANUARY,
-				'02' => L_LONG_FEBRUARY,
-				'03' => L_LONG_MARCH,
-				'04' => L_LONG_APRIL,
-				'05' => L_LONG_MAY,
-				'06' => L_LONG_JUNE,
-				'07' => L_LONG_JULY,
-				'08' => L_LONG_AUGUST,
-				'09' => L_LONG_SEPTEMBER,
-				'10' => L_LONG_OCTOBER,
-				'11' => L_LONG_NOVEMBER,
-				'12' => L_LONG_DECEMBER
 			),
 			'day' => array(
 				'1' => L_MONDAY,
