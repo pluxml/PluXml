@@ -64,7 +64,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Pliki zostały pomyślnie usunięte',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Wystąpił błąd podczas usuwania plików',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Plik został pomyślnie usunięty',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Wystąpił błąd podczas usuwania pliku',
 		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Wystąpił błąd podczas usuwania folderu',
 		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'Folder został pomyślnie usunięty',
 		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Wystąpił błąd podczas tworzenia folderu',

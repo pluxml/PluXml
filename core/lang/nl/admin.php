@@ -69,7 +69,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Succesvol verwijderde bestanden',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Fout tijdens het verwijderen van een bestand',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Bestand met succes verwijderd',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Fout tijdens het verwijderen van het bestand',
 		'L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL' => 'Bestanden succesvol verplaatst',
 		'L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL' => 'Bestand succesvol verwijderd',
 		'L_PLXMEDIAS_MOVE_FILES_ERR' => 'Er is een fout opgetreden tijdens het verplaatsen van de bestanden',

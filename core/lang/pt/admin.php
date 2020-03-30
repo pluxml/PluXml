@@ -67,7 +67,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Removido com sucesso arquivos',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Erro ao excluir um arquivo',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Arquivo excluído com sucesso',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Erro ao apagar o arquivo',
 		'L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL' => 'Ficheiros movidos com sucesso',
 		'L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL' => 'Ficheiro movido com sucesso',
 		'L_PLXMEDIAS_MOVE_FILES_ERR' => 'Ocorreu um erro durante o processo moção dos ficheiros',

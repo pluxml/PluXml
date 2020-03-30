@@ -194,7 +194,7 @@ class plxMedias {
 			if($count==0)
 				return plxMsg::Info(L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL);
 			else
-				return plxMsg::Error(L_PLXMEDIAS_DELETE_FILE_ERR);
+				return plxMsg::Error(L_DELETE_FILE_ERR);
 		}
 		else {
 			if($count==0)
