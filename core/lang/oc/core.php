@@ -116,7 +116,6 @@ $LANG = array(
 'L_ARTICLE'						=> 'article',
 'L_ARTICLES'					=> 'articles',
 'L_ARTAUTHOR_UNKNOWN'			=> 'desconegut',
-'L_ARTTAGS_NONE'				=> 'cap',
 'L_ARTCHAPO'					=> 'Legir la seguida de #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Fil Rss dels articles d\'aquesta categoria',
 'L_ARTFEED_RSS_TAG'				=> 'Fil Rss dels articles d\'aqueste mot clau',

@@ -116,7 +116,6 @@ $LANG = array(
 'L_ARTICLE'						=> 'artículo',
 'L_ARTICLES'					=> 'artículos',
 'L_ARTAUTHOR_UNKNOWN'			=> 'desconocido',
-'L_ARTTAGS_NONE'				=> 'ninguna',
 'L_ARTCHAPO'					=> 'Leer más #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Sindicación RSS de los artículos de esta categoría',
 'L_ARTFEED_RSS_TAG'				=> 'Sindicación RSS de los artículos de esta etiqueta',

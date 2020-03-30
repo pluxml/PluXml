@@ -115,7 +115,6 @@ $LANG = array(
 'L_ARTICLE'						=> 'artikel',
 'L_ARTICLES'					=> 'artikels',
 'L_ARTAUTHOR_UNKNOWN'			=> 'onbekend',
-'L_ARTTAGS_NONE'				=> 'geen',
 'L_ARTCHAPO'					=> 'Lees het vervolg #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Rss-feed van artikels uit deze categorie',
 'L_ARTFEED_RSS_TAG'				=> 'Rss-feed van artikels uit deze tag',

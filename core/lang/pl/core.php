@@ -116,7 +116,6 @@ $LANG = array(
 'L_ARTICLE'						=> 'post',
 'L_ARTICLES'					=> 'posty',
 'L_ARTAUTHOR_UNKNOWN'			=> 'brak danych',
-'L_ARTTAGS_NONE'				=> 'brak',
 'L_ARTCHAPO'					=> 'Czytaj więcej',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Kanał RSS z kategorii',
 'L_ARTFEED_RSS_TAG'				=> 'Kanał RSS z tagu',
