@@ -1,6 +1,5 @@
 <?php
 
-
 const L_LANGUE						= 'Română';
 
 const L_DATE_CREATION				= 'Data crearii';
@@ -8,7 +7,7 @@ const L_DATE_UPDATE					= 'Data de actualizare';
 
 # common
 const L_PLUXML_VERSION				= 'Pluxml version';
-const L_HOMEPAGE					= 'Home';
+const L_HOMEPAGE					= 'Pagina principala';
 const L_UNCLASSIFIED				= 'Neclasificat';
 const L_INFO_PHP_VERSION			= 'Versiune php';
 const L_INFO_CHARSET				= 'encoding';
@@ -136,7 +135,6 @@ const L_TOTAL				    	= 'total';
 
 # class.plx.feed.php
 const L_FEED_NO_PRIVATE_URL			= 'URL-uri private nu au fost initializate in parametrii dvs. de administrare !';
-const L_COMMENTS					= 'Comentarii';
 const L_FEED_ONLINE_COMMENTS		= 'Comentarii online';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentarii offline';
 const L_WRITTEN_BY					= 'Scris de';

@@ -1,6 +1,5 @@
 <?php
 
-
 const L_LANGUE						= 'Nederlands';
 
 const L_DATE_CREATION				= 'Aanmaakdatum';
@@ -8,7 +7,7 @@ const L_DATE_UPDATE					= 'Geactualiseerd';
 
 # common
 const L_PLUXML_VERSION				= 'PluXml versie';
-const L_HOMEPAGE					= 'Onthaal';
+const L_HOMEPAGE					= 'Startpagina';
 const L_UNCLASSIFIED				= 'Niet geclassificeerd';
 const L_INFO_PHP_VERSION			= 'PHP-versie';
 const L_INFO_CHARSET				= 'codering';
@@ -135,7 +134,6 @@ const L_TOTAL				    	= 'totaal';
 
 # class.plx.feed.php
 const L_FEED_NO_PRIVATE_URL			= 'Privé URLs zijn niet geïnitialiseerd in uw instellingen !';
-const L_COMMENTS					= 'Commentaren';
 const L_FEED_ONLINE_COMMENTS		= 'Online commentaren';
 const L_FEED_OFFLINE_COMMENTS		= 'Offline commentaren';
 const L_WRITTEN_BY					= 'Geschreven door';

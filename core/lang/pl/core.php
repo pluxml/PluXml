@@ -1,6 +1,5 @@
 <?php
 
-
 const L_LANGUE						= 'Polska';
 
 const L_DATE_CREATION				= 'Data utworzenia';
@@ -136,7 +135,6 @@ const L_TOTAL				    	= 'całkowity';
 
 # class.plx.feed.php
 const L_FEED_NO_PRIVATE_URL			= 'Prywatne adresy URL nie zostały zainicjowane w ustawieniach administracji !';
-const L_COMMENTS					= 'Komentarze';
 const L_FEED_ONLINE_COMMENTS		= 'Aktywne komentarze';
 const L_FEED_OFFLINE_COMMENTS		= 'Nieaktywne komentarze';
 const L_WRITTEN_BY					= 'Napisane przez';

@@ -7,7 +7,7 @@ const L_DATE_UPDATE					= 'Date de mise à jour';
 
 # common
 const L_PLUXML_VERSION				= 'PluXml version';
-const L_HOMEPAGE					= 'Accueil';
+const L_HOMEPAGE					= 'Page d\'accueil';
 const L_UNCLASSIFIED				= 'Non classé';
 const L_INFO_PHP_VERSION			= 'Version de PHP';
 const L_INFO_CHARSET				= 'encodage';
