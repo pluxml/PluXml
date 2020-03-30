@@ -130,7 +130,6 @@ $LANG = array (
 		'L_LOGOUT_SUCCESSFUL' => 'Sètz estat corrèctament desconnectat',
 		'L_LOGIN_PAGE' => 'Connexion a la zòna d\'administracion',
 		'L_AUTH_LOGIN_FIELD' => 'Identificant de connexion',
-		'L_AUTH_PASSWORD_FIELD' => 'Senhal',
 		'L_AUTH_LOST_FIELD' => 'Identificant o adreça electronica',
 
 		'L_SUBMIT_BUTTON' => 'Validar',
@@ -459,7 +458,6 @@ $LANG = array (
 		'L_INFOS' => 'Informacions',
 		'L_PROFIL_UPDATE' => 'Modificar vòstre perfil',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Cambiament del senhal',
-		'L_PROFIL_PASSWORD' => 'Senhal',
 		'L_CONFIRM_PASSWORD' => 'Confirmacion del senhal',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Cambiar vòstre senhal',
 

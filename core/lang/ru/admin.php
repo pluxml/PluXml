@@ -130,7 +130,6 @@ $LANG = array (
 		'L_LOGOUT_SUCCESSFUL' => 'Успешный выход',
 		'L_LOGIN_PAGE' => 'Вход в Админпанель',
 		'L_AUTH_LOGIN_FIELD' => 'Логин',
-		'L_AUTH_PASSWORD_FIELD' => 'Пароль',
 		'L_AUTH_LOST_FIELD' => 'Логин или адрес электронной почты',
 		'L_SUBMIT_BUTTON' => 'Войти',
 		'L_ERR_WRONG_PASSWORD' => 'Неправильный логин или пароль',
@@ -461,7 +460,6 @@ $LANG = array (
 		'L_INFOS' => 'Информация о Вас (отображается под текстом статей)',
 		'L_PROFIL_UPDATE' => 'Изменить Ваш профиль',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Изменение пароля',
-		'L_PROFIL_PASSWORD' => 'Пароль',
 		'L_CONFIRM_PASSWORD' => 'Повторить пароль',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Изменить пароль',
 
