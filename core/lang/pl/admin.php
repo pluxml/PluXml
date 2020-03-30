@@ -303,8 +303,7 @@ $LANG = array (
 
 		'L_CONFIG_VIEW' => 'Opcje wyświetlania',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Wybierz szablon',
-		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Edycja plików z szablonu',
-		'L_CONFIG_VIEW_FILES_EDIT' => 'Edytuj szablon',
+		'L_TEMPLATES_EDIT' => 'Edytuj szablon',
 		'L_CONFIG_VIEW_BYPAGE' => 'Nombre d\'articles affichés par page',
 		'L_CONFIG_VIEW_BYPAGE_ARCHIVES' => 'Nombre d\'articles affichés par page dans les archives',
 		'L_CONFIG_VIEW_BYPAGE_TAGS' => 'Artykuły na stronie w tagach',

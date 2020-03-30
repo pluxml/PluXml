@@ -307,8 +307,7 @@ $LANG = array (
 
 		'L_CONFIG_VIEW' => 'Darstellungsoptionen',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Themenauswahl',
-		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Themendateien editieren',
-		'L_CONFIG_VIEW_FILES_EDIT' => 'Themendateien editieren',
+		'L_TEMPLATES_EDIT' => 'Themendateien editieren',
 		'L_CONFIG_VIEW_BYPAGE' => 'Angezeigte Artikel pro Seite',
 		'L_CONFIG_VIEW_BYPAGE_ARCHIVES' => 'Angezeigte Artikel pro Seite (Archiv)',
 		'L_CONFIG_VIEW_BYPAGE_TAGS' => 'Angezeigte Artikel pro Seite in Tags',

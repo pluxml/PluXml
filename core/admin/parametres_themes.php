@@ -103,7 +103,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<input type="submit" value="<?php echo L_CONFIG_THEME_UPDATE ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>" />
+		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?php echo L_TEMPLATES_EDIT ?>" />
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>

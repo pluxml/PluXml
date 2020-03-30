@@ -305,8 +305,7 @@ $LANG = array (
 
 		'L_CONFIG_VIEW' => 'Display preferences',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Skin',
-		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Edit theme files',
-		'L_CONFIG_VIEW_FILES_EDIT' => 'Edit theme files',
+		'L_TEMPLATES_EDIT' => 'Edit theme files',
 		'L_CONFIG_VIEW_BYPAGE' => 'Articles per page',
 		'L_CONFIG_VIEW_BYPAGE_ARCHIVES' => 'Articles per page in archives',
 		'L_CONFIG_VIEW_BYPAGE_TAGS' => 'Articles per page in tags',
