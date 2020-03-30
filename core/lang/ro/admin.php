@@ -18,7 +18,6 @@ $LANG = array (
 		'L_DELETE_SUCCESSFUL' => 'Stergere de succes',
 		'L_DELETE_FILE_ERR' => 'Eroare la ștergerea fișierului',
 		'L_RENAME_FILE_SUCCESSFUL' => 'Fișierul a fost redenumit cu succes',
-		'L_RENAME_FILE_ERR' => 'Eroare în timpul procesării fișierului',
 		'L_RENAME_FILE' => 'Redenumește fisierul',
 		'L_THUMBNAIL' => 'Miniatură (opţional)',
 		'L_THUMBNAIL_SELECTION' => 'Selectați Image',
