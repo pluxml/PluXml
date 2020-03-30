@@ -313,7 +313,7 @@ $LANG = array (
 
 		// parametres_affichage.php
 
-		'L_CONFIG_VIEW_FIELD' => 'Opciones de visualización',
+		'L_CONFIG_VIEW' => 'Opciones de visualización',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Elegir tema',
 		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Editar archivos del tema',
 		'L_CONFIG_VIEW_FILES_EDIT' => 'Editar archivos del tema',

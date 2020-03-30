@@ -316,7 +316,7 @@ $LANG = array (
 
 		// parametres_affichage.php
 
-		'L_CONFIG_VIEW_FIELD' => 'Настройки',
+		'L_CONFIG_VIEW' => 'Настройки',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Тема',
 		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Редактирование файлов темы',
 		'L_CONFIG_VIEW_FILES_EDIT' => 'Редактирование файлов темы',
