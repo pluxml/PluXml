@@ -97,8 +97,8 @@ $LANG = array(
 # class.plx.show.php
 
 'L_HTTPENCODING'				=> 'Compression %s activada',
-'L_PAGETITLE_ARCHIVES'			=> 'Archius',
-'L_PAGETITLE_TAG'				=> 'Tag',
+'L_ARCHIVES'			=> 'Archius',
+'L_TAG'				=> 'Tag',
 'L_NO_CATEGORY'					=> 'pas cap de categoria',
 'L_CATEGORY'					=> 'categoria',
 'L_CATEGORIES'					=> 'categorias',

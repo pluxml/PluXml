@@ -97,8 +97,8 @@ $LANG = array(
 # class.plx.show.php
 
 'L_HTTPENCODING'				=> 'Сжатие %s активированно',
-'L_PAGETITLE_ARCHIVES'			=> 'Архив',
-'L_PAGETITLE_TAG'				=> 'Тэги',
+'L_ARCHIVES'			=> 'Архив',
+'L_TAG'				=> 'Тэги',
 'L_NO_CATEGORY'					=> 'без категории',
 'L_CATEGORY'					=> 'категория',
 'L_CATEGORIES'					=> 'категории',
