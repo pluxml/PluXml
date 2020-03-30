@@ -76,7 +76,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_template"><?php echo L_EDITCAT_TEMPLATE ?>&nbsp;:</label>
+				<label for="id_template"><?php echo L_TEMPLATE ?>&nbsp;:</label>
 				<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aCats[$id]['template']) ?>
 			</div>
 		</div>

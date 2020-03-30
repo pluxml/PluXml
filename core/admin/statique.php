@@ -89,7 +89,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
-					<label for="id_template"><?php echo L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
+					<label for="id_template"><?php echo L_TEMPLATE ?>&nbsp;:</label>
 					<?php plxUtils::printSelect('template', $aTemplates, $template) ?>
 				</div>
 			</div>
