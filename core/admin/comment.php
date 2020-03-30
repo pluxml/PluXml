@@ -133,7 +133,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
 		<?php endif; ?>
 		<?php if($com['comStatus']=='') : ?>
-		<input type="submit" name="offline" value="<?php echo L_OFFLINE ?>" />
+		<input type="submit" name="offline" value="<?php echo L_SET_OFFLINE ?>" />
 		<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
 		<?php else : ?>
 		<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
