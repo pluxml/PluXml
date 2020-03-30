@@ -149,7 +149,7 @@ $LANG = array(
 'L_COMMENTS'				=> 'Комментарии',
 'L_FEED_ONLINE_COMMENTS'		=> 'Комментарии онлайн',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Комментарии оффлайн',
-'L_FEED_WRITTEN_BY'				=> 'Автор',
+'L_WRITTEN_BY'				=> 'Автор',
 
 );
 ?>

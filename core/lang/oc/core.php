@@ -149,6 +149,6 @@ $LANG = array(
 'L_COMMENTS'				=> 'Comentaris',
 'L_FEED_ONLINE_COMMENTS'		=> 'Comentaris en linha',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Comentaris fòra linha',
-'L_FEED_WRITTEN_BY'				=> 'Redigit per',
+'L_WRITTEN_BY'				=> 'Redigit per',
 );
 ?>

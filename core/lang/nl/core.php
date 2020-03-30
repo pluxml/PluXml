@@ -148,7 +148,7 @@ $LANG = array(
 'L_COMMENTS'				=> 'Commentaren',
 'L_FEED_ONLINE_COMMENTS'		=> 'Online commentaren',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Offline commentaren',
-'L_FEED_WRITTEN_BY'				=> 'Geschreven door',
+'L_WRITTEN_BY'				=> 'Geschreven door',
 
 );
 ?>
