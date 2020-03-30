@@ -223,7 +223,6 @@ $LANG = array (
 		'L_ARTICLE_LIST_CATEGORIES' => 'Categorii',
 		'L_ARTICLE_LIST_NBCOMS' => 'Statistici',
 		'L_CATEGORY_HOME' => 'Home',
-		'L_CATEGORY_DRAFT' => 'Proiect de',
 		'L_ARTICLE_VIEW_TITLE' => 'Vezi acest articol pe site-ul',
 		'L_ARTICLE_EDIT' => 'Editează',
 		'L_ARTICLE_EDIT_TITLE' => 'Editează articolul dat',

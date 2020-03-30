@@ -223,7 +223,6 @@ $LANG = array (
 		'L_ARTICLE_LIST_CATEGORIES' => 'Categoria',
 		'L_ARTICLE_LIST_NBCOMS' => 'No commenti',
 		'L_CATEGORY_HOME' => 'Homepage',
-		'L_CATEGORY_DRAFT' => 'Bozza',
 		'L_ARTICLE_VIEW_TITLE' => 'Visualizza questo articolo sul sito',
 		'L_ARTICLE_EDIT' => 'Modifica',
 		'L_ARTICLE_EDIT_TITLE' => 'Modifica questo articolo',

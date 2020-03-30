@@ -284,7 +284,6 @@ $LANG = array (
 		'L_ARTICLE_LIST_CATEGORIES' => 'Kategorie',
 		'L_ARTICLE_LIST_NBCOMS' => 'Kom. Nummer',
 		'L_CATEGORY_HOME' => 'Homepage',
-		'L_CATEGORY_DRAFT' => 'Entwurf',
 		'L_ARTICLE_VIEW_TITLE' => 'Den Artikel auf der Website ansehen',
 		'L_ARTICLE_EDIT' => 'editieren',
 		'L_ARTICLE_EDIT_TITLE' => 'Diesen Artikel bearbeiten',

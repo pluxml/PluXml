@@ -282,7 +282,6 @@ $LANG = array (
 		'L_ARTICLE_LIST_CATEGORIES' => 'Category',
 		'L_ARTICLE_LIST_NBCOMS' => 'N° coms',
 		'L_CATEGORY_HOME' => 'Home',
-		'L_CATEGORY_DRAFT' => 'Draft',
 		'L_ARTICLE_VIEW_TITLE' => 'View this article online',
 		'L_ARTICLE_EDIT' => 'Edit',
 		'L_ARTICLE_EDIT_TITLE' => 'Edit this article',
