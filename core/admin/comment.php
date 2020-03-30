@@ -85,7 +85,7 @@ $artId = $plxAdmin->plxRecord_coms->f('article');
 # On va rechercher notre article
 if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',0,1)) == false) {
 	# On indique que le commentaire est attaché à aucun article
-	$article = '<strong>'.L_COMMENT_ORPHAN.'</strong>';
+	$article = '<strong>'.L_NO_ARTICLE.'</strong>';
 	# Statut du commentaire
 	$statut = '<strong>'.L_COMMENT_ORPHAN_STATUS.'</strong>';
 } else {

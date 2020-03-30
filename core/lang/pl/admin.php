@@ -184,7 +184,6 @@ $LANG = array (
 
 		// commentaire.php
 
-		'L_COMMENT_ORPHAN' => 'brak komentarza',
 		'L_COMMENT_ORPHAN_STATUS' => 'Nie jest wyświetlany (radzimy usunąć ten komentarz)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Edytuj artykuł z tego komentarza',
 		'L_COMMENT_OFFLINE' => 'Nieaktywne',

@@ -184,7 +184,6 @@ $LANG = array (
 
 		// commentaire.php
 
-		'L_COMMENT_ORPHAN' => 'sin artículo',
 		'L_COMMENT_ORPHAN_STATUS' => 'invisible (sugerimos elimiar este comentario)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Artículo asociado a este comentario',
 		'L_COMMENT_OFFLINE' => 'desconectado',

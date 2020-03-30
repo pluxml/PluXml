@@ -166,7 +166,6 @@ $LANG = array (
 
 		// commentaire.php
 
-		'L_COMMENT_ORPHAN' => 'geen artikel',
 		'L_COMMENT_ORPHAN_STATUS' => 'Niet zichtbaar (Wij raden u aan deze commentaar te verwijderen)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Artikel van deze commentaar',
 		'L_COMMENT_OFFLINE' => 'offline',

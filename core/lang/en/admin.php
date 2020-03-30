@@ -180,7 +180,6 @@ $LANG = array (
 
 		// commentaire.php
 
-		'L_COMMENT_ORPHAN' => 'no article',
 		'L_COMMENT_ORPHAN_STATUS' => 'not displayed (we advise you to delete this comment)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Article linked to this comment',
 		'L_COMMENT_OFFLINE' => 'offline',

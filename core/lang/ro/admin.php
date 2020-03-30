@@ -148,7 +148,6 @@ $LANG = array (
 		'L_EDITCAT_UPDATE' => 'Actualizeaza această categorie',
 		'L_EDITCAT_META_DESCRIPTION' => 'Conţinutul tag-ului meta "descriere" pentru această categorie (opţional)',
 		'L_EDITCAT_META_KEYWORDS' => 'Conţinutul tag-ului meta "cuvinte-cheie" pentru această categorie (opţional)',
-		'L_COMMENT_ORPHAN' => 'nici un articol',
 		'L_COMMENT_ORPHAN_STATUS' => 'nu sunt vizibile (vă recomandăm să ştergeţi acest comentariu)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Articolul anexat la acest comentariu',
 		'L_COMMENT_OFFLINE' => 'Offline',

@@ -148,7 +148,6 @@ $LANG = array (
 		'L_EDITCAT_UPDATE' => 'Aggiorna questa categoria',
 		'L_EDITCAT_META_DESCRIPTION' => 'Contenuto del meta tag "description" per questa categoria (facoltativo)',
 		'L_EDITCAT_META_KEYWORDS' => 'Contenuto del meta tag "keywords" per questa categoria (facoltativo)',
-		'L_COMMENT_ORPHAN' => 'nessun articolo',
 		'L_COMMENT_ORPHAN_STATUS' => 'non visibile (consiglio: cancella questo commento)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Articolo collegato a questo commento',
 		'L_COMMENT_OFFLINE' => 'disabilitato',

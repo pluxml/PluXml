@@ -185,7 +185,6 @@ $LANG = array (
 
 		// commentaire.php
 
-		'L_COMMENT_ORPHAN' => 'pas cap d\'article',
 		'L_COMMENT_ORPHAN_STATUS' => 'non visible (vos conselham de suprimir aqueste comentari)',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Article estacat a-n aquel comentari',
 		'L_COMMENT_OFFLINE' => 'Fòra linha',
