@@ -132,7 +132,7 @@ include __DIR__ .'/top.php';
 		<?php else : ?>
 		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
 		<?php endif; ?>
-		<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+		<input type="submit" name="create" value="<?php echo L_SAVE ?>"/>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
