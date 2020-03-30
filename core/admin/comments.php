@@ -120,11 +120,11 @@ if(!empty($_GET['a'])) {
 function selector($comSel, $id) {
 	ob_start();
 	if($comSel=='online')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_SET_OFFLINE, '-'=>'-----', 'delete' => L_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='offline')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='all')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_SET_OFFLINE,  '-'=>'-----','delete' => L_DELETE), '', false,'no-margin',$id);
 	return ob_get_clean();
 }
 
