@@ -13,6 +13,8 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Без категории',
 'L_INFO_PHP_VERSION'			=> 'PHP версия',
 'L_INFO_CHARSET'				=> 'кодировка',
+'L_NONE1'						=> 'нет',
+'L_NONE2'						=> 'отсутствует',
 'L_PASSWORD'					=> 'Пароль',
 'L_TIMEZONE'					=> 'Часовой пояс',
 

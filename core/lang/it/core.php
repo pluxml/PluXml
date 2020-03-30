@@ -13,6 +13,8 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Non classificato',
 'L_INFO_PHP_VERSION'			=> 'Versione di php',
 'L_INFO_CHARSET'				=> 'encoding',
+'L_NONE1'						=> 'nessuno',
+'L_NONE2'						=> 'nessuna',
 'L_PASSWORD'					=> 'Password',
 'L_TIMEZONE'					=> 'Fuso orario',
 
