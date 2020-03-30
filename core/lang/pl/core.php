@@ -146,7 +146,7 @@ $LANG = array(
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Prywatne adresy URL nie zostały zainicjowane w ustawieniach administracji !',
-'L_FEED_COMMENTS'				=> 'Komentarze',
+'L_COMMENTS'				=> 'Komentarze',
 'L_FEED_ONLINE_COMMENTS'		=> 'Aktywne komentarze',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Nieaktywne komentarze',
 'L_FEED_WRITTEN_BY'				=> 'Napisane przez',

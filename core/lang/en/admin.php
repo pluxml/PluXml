@@ -551,7 +551,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'List or Edit Static pages',
 		'L_MENU_STATICS' => 'Static pages',
 		'L_MENU_COMMENTS_TITLE' => 'List or Edit Comments',
-		'L_MENU_COMMENTS' => 'Comments',
 		'L_MENU_MEDIAS_TITLE' => 'Upload and insert media',
 		'L_MENU_MEDIAS' => 'Media',
 		'L_MENU_CATEGORIES_TITLE' => 'Create, manage, edit categories',

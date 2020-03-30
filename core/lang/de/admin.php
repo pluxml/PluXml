@@ -553,7 +553,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'Statische Seiten Verwaltung',
 		'L_MENU_STATICS' => 'Statische Seiten',
 		'L_MENU_COMMENTS_TITLE' => 'Kommentarverwaltung',
-		'L_MENU_COMMENTS' => 'Kommentare',
 		'L_MENU_MEDIAS_TITLE' => 'Dateien hochladen und verwalten',
 		'L_MENU_MEDIAS' => 'Mediathek',
 		'L_MENU_CATEGORIES_TITLE' => 'Kategorieverwaltung',

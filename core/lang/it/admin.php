@@ -471,7 +471,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'Gestisci le pagine statiche',
 		'L_MENU_STATICS' => 'Pagine statiche',
 		'L_MENU_COMMENTS_TITLE' => 'Gestisci i commenti',
-		'L_MENU_COMMENTS' => 'Commenti',
 		'L_MENU_MEDIAS_TITLE' => 'Gestisci i media',
 		'L_MENU_MEDIAS' => 'Media',
 		'L_MENU_CATEGORIES_TITLE' => 'Gestisci le categorie',

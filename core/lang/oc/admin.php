@@ -550,7 +550,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'Lista e modificacion de las paginas estaticas',
 		'L_MENU_STATICS' => 'Paginas estaticas',
 		'L_MENU_COMMENTS_TITLE' => 'Lista e modificacion dels comentaris',
-		'L_MENU_COMMENTS' => 'Comentaris',
 		'L_MENU_MEDIAS_TITLE' => 'Enviar e inserir un mèdia',
 		'L_MENU_MEDIAS' => 'Mèdia',
 		'L_MENU_CATEGORIES_TITLE' => 'Crear, gerir, editar las categorias',
