@@ -257,7 +257,6 @@ $LANG = array (
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Особые категории',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Все статьи',
 		'L_ARTICLES_LIST' => 'Список статей',
-		'L_ARTICLE_LIST_TITLE' => 'Название',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Категории',
 		'L_ARTICLE_LIST_NBCOMS' => 'Коммент.',
 		'L_HOMEPAGE' => 'Главная',
@@ -487,7 +486,6 @@ $LANG = array (
 
 		'L_STATICS_PAGE_TITLE' => 'Создание и редактирование статических страниц',
 		'L_STATICS_GROUP' => 'Группа',
-		'L_STATICS_TITLE' => 'Название',
 		'L_STATICS_URL' => 'Url',
 		'L_STATICS_PAGE_HOME' => 'Сделать Главной страницей',
 		'L_STATICS_HOME_PAGE' => 'Главной<br />страница',

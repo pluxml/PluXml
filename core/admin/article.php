@@ -325,7 +325,7 @@ function refreshImg(dta) {
 				<div class="grid">
 					<div class="col sml-12">
 						<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
-						<label for="id_title"><?php echo L_ARTICLE_TITLE ?>&nbsp;:</label>
+						<label for="id_title"><?php echo L_TITLE ?>&nbsp;:</label>
 						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
 					</div>
 				</div>

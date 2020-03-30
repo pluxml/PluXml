@@ -256,7 +256,6 @@ $LANG = array (
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Emplacements spécifiques',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Tous les articles',
 		'L_ARTICLES_LIST' => 'Liste des articles',
-		'L_ARTICLE_LIST_TITLE' => 'Titre',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Catégorie',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nb coms',
 		'L_HOMEPAGE' => 'Page d\'accueil',
@@ -485,7 +484,6 @@ $LANG = array (
 
 		'L_STATICS_PAGE_TITLE' => 'Création et édition des pages statiques',
 		'L_STATICS_GROUP' => 'Groupe',
-		'L_STATICS_TITLE' => 'Titre',
 		'L_STATICS_URL' => 'Url',
 		'L_STATICS_PAGE_HOME' => 'Définir en tant que page d\'accueil',
 		'L_STATICS_HOME_PAGE' => 'Page<br />d\'accueil',
