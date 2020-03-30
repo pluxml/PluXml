@@ -18,7 +18,6 @@ $LANG = array (
 		'L_DELETE_SUCCESSFUL' => 'Apagado com sucesso',
 		'L_DELETE_FILE_ERR' => 'Erro ao excluir o arquivo',
 		'L_RENAME_FILE_SUCCESSFUL' => 'Arquivo renomeado com sucesso',
-		'L_RENAME_FILE_ERR' => 'Erro ao processar o arquivo',
 		'L_RENAME_FILE' => 'Renomear arquivo',
 		'L_THUMBNAIL' => 'Miniatura (facultativo)',
 		'L_THUMBNAIL_SELECTION' => 'Selecionar Imagem',

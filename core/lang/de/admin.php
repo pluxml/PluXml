@@ -20,7 +20,6 @@ $LANG = array (
 		'L_DELETE_SUCCESSFUL' => 'Erfolgreiche Löschung',
 		'L_DELETE_FILE_ERR' => 'Fehler beim Löschen der Datei',
 		'L_RENAME_FILE_SUCCESSFUL' => 'Datei umbenannt erfolgreich',
-		'L_RENAME_FILE_ERR' => 'Fehler beim Verarbeiten der Datei',
 		'L_RENAME_FILE' => 'Datei umbenennen',
 
 		'L_THUMBNAIL' => 'Vorschaubild (optional)',

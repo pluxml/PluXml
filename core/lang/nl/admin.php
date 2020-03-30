@@ -18,7 +18,6 @@ $LANG = array (
 		'L_DELETE_SUCCESSFUL' => 'Succesvol wissen',
 		'L_DELETE_FILE_ERR' => 'Fout bij het verwijderen van het bestand',
 		'L_RENAME_FILE_SUCCESSFUL' => 'Bestand met succes omgedoopt',
-		'L_RENAME_FILE_ERR' => 'Fout bij het verwerken van het bestand',
 		'L_RENAME_FILE' => 'Hernoem bestand',
 
 		'L_THUMBNAIL' => 'Thumbnail (facultatief)',
