@@ -61,7 +61,7 @@ include __DIR__ .'/top.php';
 <form action="parametres_affichage.php" method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_VIEW_FIELD ?></h2>
+		<h2><?php echo L_CONFIG_VIEW ?></h2>
 		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<input type="submit" value="<?php echo L_CONFIG_VIEW_UPDATE ?>" />
 	</div>

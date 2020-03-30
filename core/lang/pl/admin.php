@@ -313,7 +313,7 @@ $LANG = array (
 
 		// parametres_affichage.php
 
-		'L_CONFIG_VIEW_FIELD' => 'Opcje wyświetlania',
+		'L_CONFIG_VIEW' => 'Opcje wyświetlania',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Wybierz szablon',
 		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Edycja plików z szablonu',
 		'L_CONFIG_VIEW_FILES_EDIT' => 'Edytuj szablon',
