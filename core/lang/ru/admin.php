@@ -356,7 +356,7 @@ $LANG = array (
 
 		// parametres_avances.php
 
-		'L_CONFIG_ADVANCED_DESC' => 'Расширенные настройки (опытный пользователь)',
+		'L_CONFIG_ADVANCED' => 'Расширенные настройки (опытный пользователь)',
 		'L_CONFIG_ADVANCED_URL_REWRITE' => 'Включить URL rewrite',
 		'L_CONFIG_ADVANCED_URL_REWRITE_ALERT' => 'Внимание .htaccess файл уже присутствует в корневом каталоге вашего PluXml. При включении URL переписывания этот файл будет изменен',
 		'L_CONFIG_ADVANCED_GZIP' => 'Включить GZIP сжатие',
@@ -580,7 +580,6 @@ $LANG = array (
 		'L_MENU_CONFIG_USERS_TITLE' => 'Управление учетными записями пользователей',
 		'L_MENU_CONFIG_USERS' => 'Пользователи --',
 		'L_MENU_CONFIG_ADVANCED_TITLE' => 'Дополнительные настройки',
-		'L_MENU_CONFIG_ADVANCED' => 'Дополнительные настройки --',
 		'L_MENU_CONFIG_INFOS_TITLE' => 'Информация о сайте',
 		'L_MENU_CONFIG_INFOS' => 'Информация --',
 		'L_MENU_CONFIG_PLUGINS_TITLE' => 'Плагины',
