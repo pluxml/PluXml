@@ -411,7 +411,6 @@ $LANG = array (
 		'L_CONFIG_BASE_URL_HELP' => 'Oblidar pas lo slash a la fin',
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Lenga per defaut del site',
 		'L_CONFIG_BASE_TIMEZONE' => 'Fus orari',
-		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Autorizar los comentaris',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Moderar los comentaris a la creacion',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Moderar los articles pels perfils Redactor e Editor',
 		'L_CONFIG_BASE_UPDATE' => 'Modificar la configuracion de basa',

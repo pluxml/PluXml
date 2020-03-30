@@ -411,7 +411,6 @@ $LANG = array (
 		'L_CONFIG_BASE_URL_HELP' => 'Ne pas oublier le slash à la fin',
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Langue par défaut du site',
 		'L_CONFIG_BASE_TIMEZONE' => 'Fuseau horaire',
-		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Autoriser les commentaires',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Modérer les commentaires à la création',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Modérer les articles pour les profils Rédacteur et Éditeur',
 		'L_CONFIG_BASE_UPDATE' => 'Modifier la configuration de base',

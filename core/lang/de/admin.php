@@ -413,7 +413,6 @@ $LANG = array (
 		'L_CONFIG_BASE_URL_HELP' => 'Schägstrich (Slash) am Ende nicht vergessen!',
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Standardsprache der Website',
 		'L_CONFIG_BASE_TIMEZONE' => 'Zeitzone',
-		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Kommentare erlaubt',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Kommentare moderieren',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Artikel moderieren/bearbeiten',
 		'L_CONFIG_BASE_UPDATE' => 'Grundeinstellungen speichern',
