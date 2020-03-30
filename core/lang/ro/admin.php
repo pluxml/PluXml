@@ -67,7 +67,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'eliminat cu succes fişiere',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Eroare la ştergerea unui fişier',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Fişier şters cu succes',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Eroare la ştergerea fişierului',
 		'L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL' => 'Fişiere mutate cu succes',
 		'L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL' => 'Fişier mutat cu succes',
 		'L_PLXMEDIAS_MOVE_FILES_ERR' => 'Eroare în timpul mutarii fişierelor',

@@ -58,7 +58,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Successfully removed files',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Error while deleting a file',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'File successfully deleted',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Error while deleting the file',
 		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Error during the folder deletion',
 		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'Folder sucessfully deleted',
 		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Could\'t create folder',

@@ -64,7 +64,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Archivos eliminados correctamente',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Error al eliminar un archivo',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Archivo eliminado correctamente',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Error al eliminar el archivo',
 		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Error al eliminar la carpeta',
 		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'Carpeta eliminada correctamente',
 		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'No se pudo crear la carpeta',

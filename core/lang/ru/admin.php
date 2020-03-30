@@ -64,7 +64,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Файлы успешно удалены',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Ошибка при удалении файла',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Файл успешно удален',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Ошибка при удалении файла',
 		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Ошибка во время удаления папки',
 		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'Папка успешно удалена',
 		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Не удается создать папку',

@@ -64,7 +64,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Fichièrs suprimits amb succès',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Error pendent la supression d\'un fichièr',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Fichièr suprimit amb succès',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Error pendent la supression del fichièr',
 		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Error pendent la supression del dorsièr',
 		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'Dorsièr suprimit amb succès',
 		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Impossible de crear lo dorsièr',

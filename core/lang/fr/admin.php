@@ -58,7 +58,6 @@ $LANG = array (
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Fichiers supprimés avec succès',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Erreur pendant le suppression d\'un fichier',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Fichier supprimé avec succès',
-		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Erreur pendant le suppression du fichier',
 		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Erreur pendant la suppression du dossier',
 		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'Dossier supprimé avec succès',
 		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Impossible de créer le dossier',
