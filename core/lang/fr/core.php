@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Non classé',
 'L_INFO_PHP_VERSION'			=> 'Version de PHP',
 'L_INFO_CHARSET'				=> 'encodage',
+'L_TIMEZONE'					=> 'Fuseau horaire',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'Le thème principal de PluXml est introuvable',
@@ -20,15 +21,15 @@ $LANG = array(
 'L_ERR_PAGE_NOT_FOUND'			=> 'Page non trouvée',
 
 # class.plx.date.php
-'L_SHORT_JANUARY'				=> 'janv',
-'L_SHORT_FEBRUARY'				=> 'févr',
-'L_SHORT_MARCH'					=> 'mars',
-'L_SHORT_APRIL'					=> 'avril',
+'L_SHORT_JANUARY'				=> 'jan',
+'L_SHORT_FEBRUARY'				=> 'fév',
+'L_SHORT_MARCH'					=> 'mar',
+'L_SHORT_APRIL'					=> 'avr',
 'L_SHORT_MAY'					=> 'mai',
-'L_SHORT_JUNE'					=> 'juin',
-'L_SHORT_JULY'					=> 'juil',
-'L_SHORT_AUGUST'				=> 'août',
-'L_SHORT_SEPTEMBER'				=> 'sept',
+'L_SHORT_JUNE'					=> 'jun',
+'L_SHORT_JULY'					=> 'jul',
+'L_SHORT_AUGUST'				=> 'aoû',
+'L_SHORT_SEPTEMBER'				=> 'sep',
 'L_SHORT_OCTOBER'				=> 'oct',
 'L_SHORT_NOVEMBER'				=> 'nov',
 'L_SHORT_DECEMBER'				=> 'déc',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '»',
 'L_PAGINATION'					=> 'page %s sur %s',
 
-'L_BLOG'				=> 'Blog',
+'L_BLOG'						=> 'Blog',
 
 'L_YEAR'						=> 'année',
 'L_TOTAL'						=> 'total',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Les URLs privées n\'ont pas été initialisées dans vos paramètres d\'administration !',
-'L_COMMENTS'				=> 'Commentaires',
+'L_COMMENTS'					=> 'Commentaires',
 'L_FEED_ONLINE_COMMENTS'		=> 'Commentaires en ligne',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Commentaires hors ligne',
-'L_WRITTEN_BY'				=> 'Rédigé par',
+'L_WRITTEN_BY'					=> 'Rédigé par',
 
 );
 ?>

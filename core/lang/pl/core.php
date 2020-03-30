@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Bez kategorii',
 'L_INFO_PHP_VERSION'			=> 'Wersja PHP',
 'L_INFO_CHARSET'				=> 'kodowanie',
+'L_TIMEZONE'					=> 'Strefa czasowa',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'Nie odnaleziono głównego szablonu PluXml',
@@ -20,18 +21,18 @@ $LANG = array(
 'L_ERR_PAGE_NOT_FOUND'			=> 'Nie znaleziono strony',
 
 # class.plx.date.php
-'L_SHORT_JANUARY'				=> 'styczeń',
-'L_SHORT_FEBRUARY'				=> 'luty',
-'L_SHORT_MARCH'					=> 'marzec',
-'L_SHORT_APRIL'					=> 'kwiecień',
+'L_SHORT_JANUARY'				=> 'sty',
+'L_SHORT_FEBRUARY'				=> 'lut',
+'L_SHORT_MARCH'					=> 'mar',
+'L_SHORT_APRIL'					=> 'kwi',
 'L_SHORT_MAY'					=> 'maj',
-'L_SHORT_JUNE'					=> 'czerwiec',
-'L_SHORT_JULY'					=> 'lipiec',
-'L_SHORT_AUGUST'				=> 'sierpień',
-'L_SHORT_SEPTEMBER'				=> 'wrzesień',
-'L_SHORT_OCTOBER'				=> 'październik',
-'L_SHORT_NOVEMBER'				=> 'listopad',
-'L_SHORT_DECEMBER'				=> 'grudzień',
+'L_SHORT_JUNE'					=> 'cze',
+'L_SHORT_JULY'					=> 'lip',
+'L_SHORT_AUGUST'				=> 'sie',
+'L_SHORT_SEPTEMBER'				=> 'wrz',
+'L_SHORT_OCTOBER'				=> 'paź',
+'L_SHORT_NOVEMBER'				=> 'lis',
+'L_SHORT_DECEMBER'				=> 'gru',
 'L_JANUARY'						=> 'styczeń',
 'L_FEBRUARY'					=> 'luty',
 'L_MARCH'						=> 'marzec',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '»',
 'L_PAGINATION'					=> 'strona %s z %s',
 
-'L_BLOG'				=> 'Blog',
+'L_BLOG'						=> 'Blog',
 
 'L_YEAR'				    	=> 'rok',
 'L_TOTAL'				    	=> 'całkowity',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Prywatne adresy URL nie zostały zainicjowane w ustawieniach administracji !',
-'L_COMMENTS'				=> 'Komentarze',
+'L_COMMENTS'					=> 'Komentarze',
 'L_FEED_ONLINE_COMMENTS'		=> 'Aktywne komentarze',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Nieaktywne komentarze',
-'L_WRITTEN_BY'				=> 'Napisane przez',
+'L_WRITTEN_BY'					=> 'Napisane przez',
 
 );
 ?>

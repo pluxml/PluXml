@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Uncategorized',
 'L_INFO_PHP_VERSION'			=> 'PHP version',
 'L_INFO_CHARSET'				=> 'charset',
+'L_TIMEZONE'					=> 'Time Zone',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'Main PluXml theme not found',
@@ -25,10 +26,10 @@ $LANG = array(
 'L_SHORT_MARCH'					=> 'mar',
 'L_SHORT_APRIL'					=> 'apr',
 'L_SHORT_MAY'					=> 'may',
-'L_SHORT_JUNE'					=> 'june',
-'L_SHORT_JULY'					=> 'july',
+'L_SHORT_JUNE'					=> 'jun',
+'L_SHORT_JULY'					=> 'jul',
 'L_SHORT_AUGUST'				=> 'aug',
-'L_SHORT_SEPTEMBER'				=> 'sept',
+'L_SHORT_SEPTEMBER'				=> 'sep',
 'L_SHORT_OCTOBER'				=> 'oct',
 'L_SHORT_NOVEMBER'				=> 'nov',
 'L_SHORT_DECEMBER'				=> 'dec',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '»',
 'L_PAGINATION'					=> 'page %s of %s',
 
-'L_BLOG'				=> 'Blog',
+'L_BLOG'						=> 'Blog',
 
 'L_YEAR'						=> 'year',
 'L_TOTAL'						=> 'total',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Private URLs have not been initialized in your administration settings!',
-'L_COMMENTS'				=> 'Comments',
+'L_COMMENTS'					=> 'Comments',
 'L_FEED_ONLINE_COMMENTS'		=> 'Online comments',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Offline comments',
-'L_WRITTEN_BY'				=> 'Written by',
+'L_WRITTEN_BY'					=> 'Written by',
 
 );
 ?>

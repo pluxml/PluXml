@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Без категории',
 'L_INFO_PHP_VERSION'			=> 'PHP версия',
 'L_INFO_CHARSET'				=> 'кодировка',
+'L_TIMEZONE'					=> 'Часовой пояс',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'Тема не найдена',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '&raquo;',
 'L_PAGINATION'					=> 'страниц %s из %s',
 
-'L_BLOG'				=> 'Блог',
+'L_BLOG'						=> 'Блог',
 
 'L_YEAR'				    	=> 'год',
 'L_TOTAL'				    	=> 'Всего',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Закрытые URL не был инициализированы в настройках Админпанели!',
-'L_COMMENTS'				=> 'Комментарии',
+'L_COMMENTS'					=> 'Комментарии',
 'L_FEED_ONLINE_COMMENTS'		=> 'Комментарии онлайн',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Комментарии оффлайн',
-'L_WRITTEN_BY'				=> 'Автор',
+'L_WRITTEN_BY'					=> 'Автор',
 
 );
 ?>
