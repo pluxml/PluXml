@@ -128,7 +128,6 @@ $LANG = array (
 		'L_LOGOUT_SUCCESSFUL' => 'Sie wurden erfolgreich abgemeldet',
 		'L_LOGIN_PAGE' => 'Administrator Anmeldung',
 		'L_AUTH_LOGIN_FIELD' => 'Benutzer',
-		'L_AUTH_PASSWORD_FIELD' => 'Passwort',
 		'L_AUTH_LOST_FIELD' => 'Benutzer oder E-Mail-Adresse',
 		'L_SUBMIT_BUTTON' => 'Anmelden',
 		'L_ERR_WRONG_PASSWORD' => 'Benutzername und/oder Passwort sind falsch',
@@ -461,7 +460,6 @@ $LANG = array (
 		'L_INFOS' => 'Nachrichten',
 		'L_PROFIL_UPDATE' => 'Benutzerprofil speichern',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Passwort ändern',
-		'L_PROFIL_PASSWORD' => 'Neues Passwort',
 		'L_CONFIRM_PASSWORD' => 'Neues Passwort wiederholen',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Passwortänderung speichern',
 

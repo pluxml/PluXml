@@ -130,7 +130,6 @@ $LANG = array (
 		'L_LOGOUT_SUCCESSFUL' => 'Poprawne wylogowanie',
 		'L_LOGIN_PAGE' => 'Logowanie do panelu administracyjnego',
 		'L_AUTH_LOGIN_FIELD' => 'Login',
-		'L_AUTH_PASSWORD_FIELD' => 'Hasło',
 		'L_AUTH_LOST_FIELD' => 'Login lub adres e-mail',
 		'L_SUBMIT_BUTTON' => 'Zaloguj',
 		'L_ERR_WRONG_PASSWORD' => 'Login i / lub hasło niepoprawne',
@@ -458,7 +457,6 @@ $LANG = array (
 		'L_INFOS' => 'Informacja',
 		'L_PROFIL_UPDATE' => 'Zapisz zmiany',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Zmiana hasła',
-		'L_PROFIL_PASSWORD' => 'Hasło',
 		'L_CONFIRM_PASSWORD' => 'Powtórz hasło',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Zmień hasło',
 

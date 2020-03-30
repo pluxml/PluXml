@@ -125,7 +125,6 @@ $LANG = array (
 		'L_LOGOUT_SUCCESSFUL' => 'Vous avez correctement été déconnecté',
 		'L_LOGIN_PAGE' => 'Connexion à la zone d\'administration',
 		'L_AUTH_LOGIN_FIELD' => 'Login de connexion',
-		'L_AUTH_PASSWORD_FIELD' => 'Mot de passe',
 		'L_AUTH_LOST_FIELD' => 'Login ou adresse e-mail',
 		'L_SUBMIT_BUTTON' => 'Valider',
 		'L_ERR_WRONG_PASSWORD' => 'Login et/ou mot de passe incorrect',
@@ -459,7 +458,6 @@ $LANG = array (
 		'L_INFOS' => 'Informations',
 		'L_PROFIL_UPDATE' => 'Modifier votre profil',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Changement du mot de passe',
-		'L_PROFIL_PASSWORD' => 'Mot de passe',
 		'L_CONFIRM_PASSWORD' => 'Confirmation du mot de passe',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Changer votre mot de passe',
 

@@ -47,7 +47,7 @@ include __DIR__ .'/top.php';
 			<th>#</th>
 			<th><?php echo L_PROFIL_USER ?></th>
 			<th><?php echo L_PROFIL_LOGIN ?></th>
-			<th><?php echo L_PROFIL_PASSWORD ?></th>
+			<th><?php echo L_PASSWORD ?></th>
 			<th><?php echo L_USER_MAIL ?></th>
 			<th><?php echo L_PROFIL ?></th>
 			<th><?php echo L_CONFIG_USERS_ACTIVE ?></th>
