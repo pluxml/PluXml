@@ -63,7 +63,7 @@ include __DIR__ .'/top.php';
 					<th><?= L_ACTIVE ?></th>
 					<th><?php echo L_CAT_LIST_SORT ?></th>
 					<th><?php echo L_CAT_LIST_BYPAGE ?></th>
-					<th data-id="order"><?php echo L_CAT_LIST_ORDER ?></th>
+					<th data-id="order"><?php echo L_ORDER ?></th>
 					<th><?php echo L_MENU ?></th>
 					<th>&nbsp;</th>
 				</tr>
