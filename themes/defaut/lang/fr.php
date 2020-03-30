@@ -33,7 +33,7 @@ $LANG = array(
 # common
 'WRITTEN_BY'			=> 'Rédigé par',
 'CLASSIFIED_IN'			=> 'Classé dans',
-'TAGS'					=> 'Mots clés',
+'TAGS'					=> 'Mots-clés',
 
 # commentaires.php
 'SAID'					=> 'a dit',

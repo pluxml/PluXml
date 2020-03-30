@@ -217,11 +217,11 @@ class plxShow {
 			$year = !empty($capture[1]) ? ' '.$capture[1] : '';
 			$month = !empty($capture[2]) ? ' '.plxDate::getCalendar('month', $capture[2]) : '';
 			$day = !empty($capture[3]) ? ' '.plxDate::getCalendar('day', $capture[3]) : '';
-			$title = L_PAGETITLE_ARCHIVES.$day.$month.$year;
+			$title = L_ARCHIVES.$day.$month.$year;
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
 		elseif($this->plxMotor->mode == 'tags') {
-			$title = L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName;
+			$title = L_TAG . ' '.$this->plxMotor->cibleName;
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
 		elseif($this->plxMotor->mode == 'erreur') {
