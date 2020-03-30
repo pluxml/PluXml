@@ -130,7 +130,7 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'Мета-тег ключевых слов "Keywords" (необязательно)',
 		'L_ARTICLE_CHAPO_HIDE' => 'скрыть',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'показать',
-		'L_ARTICLE_ID' => 'ID',
+		'L_ID' => 'ID',
 
 		// auth.php
 
@@ -165,7 +165,6 @@ $LANG = array (
 		// categories.php
 
 		'L_CAT_TITLE' => 'Управление категориями',
-		'L_CAT_LIST_ID' => 'ID',
 		'L_ACTIVE' => 'Активно',
 		'L_CAT_LIST_NAME' => 'Название категории',
 		'L_CAT_LIST_URL' => 'Url',
@@ -437,7 +436,6 @@ $LANG = array (
 
 		'L_CONFIG_USERS_TITLE' => 'Пользователи',
 		'L_CONFIG_USER' => 'Пользователи',
-		'L_CONFIG_USERS_ID' => 'ID Пользователя',
 		'L_CONFIG_USERS_ACTIVE' => 'Активен',
 		'L_CONFIG_USERS_NEW' => 'Новый пользователь',
 		'L_CONFIG_USERS_UPDATE' => 'Сохранить список пользователей',
@@ -505,7 +503,6 @@ $LANG = array (
 		// statiques.php
 
 		'L_STATICS_PAGE_TITLE' => 'Создание и редактирование статических страниц',
-		'L_STATICS_ID' => 'ID',
 		'L_STATICS_GROUP' => 'Группа',
 		'L_STATICS_TITLE' => 'Название',
 		'L_STATICS_URL' => 'Url',

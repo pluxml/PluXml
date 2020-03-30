@@ -127,7 +127,7 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'META Tag "keywords" (optional)',
 		'L_ARTICLE_CHAPO_HIDE' => 'verbergen',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'anzeigen',
-		'L_ARTICLE_ID' => 'ID',
+		'L_ID' => 'ID',
 
 		// auth.php
 
@@ -162,7 +162,6 @@ $LANG = array (
 		// categories.php
 
 		'L_CAT_TITLE' => 'Kategorien erstellen/ändern',
-		'L_CAT_LIST_ID' => 'ID',
 		'L_ACTIVE' => 'Aktiv',
 		'L_CAT_LIST_NAME' => 'Name der Kategorie',
 		'L_CAT_LIST_URL' => 'URL',
@@ -437,7 +436,6 @@ $LANG = array (
 
 		'L_CONFIG_USERS_TITLE' => 'Benutzerverwaltung',
 		'L_CONFIG_USER' => 'Benutzer',
-		'L_CONFIG_USERS_ID' => 'Benutzer-ID',
 		'L_CONFIG_USERS_ACTIVE' => 'Aktiv',
 		'L_CONFIG_USERS_NEW' => 'Neuer Benutzer',
 		'L_CONFIG_USERS_UPDATE' => 'Änderungen speichern',
@@ -505,7 +503,6 @@ $LANG = array (
 		// statiques.php
 
 		'L_STATICS_PAGE_TITLE' => 'Statische Seiten erstellen/edtitieren',
-		'L_STATICS_ID' => 'ID',
 		'L_STATICS_GROUP' => 'Gruppe',
 		'L_STATICS_TITLE' => 'Titel',
 		'L_STATICS_URL' => 'URL',
