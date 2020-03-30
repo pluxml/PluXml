@@ -254,7 +254,6 @@ $LANG = array (
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Konkretne kategorie',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Wszystkie posty',
 		'L_ARTICLES_LIST' => 'Lista postów',
-		'L_ARTICLE_LIST_TITLE' => 'Tytuł',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Kategoria',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nr komentarzy',
 		'L_HOMEPAGE' => 'Start',
@@ -484,7 +483,6 @@ $LANG = array (
 
 		'L_STATICS_PAGE_TITLE' => 'Utwórz lub edytuj strone statyczną',
 		'L_STATICS_GROUP' => 'Grupa',
-		'L_STATICS_TITLE' => 'Tytuł',
 		'L_STATICS_URL' => 'URL',
 		'L_STATICS_PAGE_HOME' => 'Ustaw jako stronę główną',
 		'L_STATICS_HOME_PAGE' => 'Strona główna',

@@ -255,7 +255,6 @@ $LANG = array (
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Emplaçaments especifics',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Totes los articles',
 		'L_ARTICLES_LIST' => 'Lista dels articles',
-		'L_ARTICLE_LIST_TITLE' => 'Títol',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Categoria',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nb coms',
 		'L_HOMEPAGE' => 'Pagina d\'acuèlh',
@@ -485,7 +484,6 @@ $LANG = array (
 
 		'L_STATICS_PAGE_TITLE' => 'Creacion e edicion de las paginas estaticas',
 		'L_STATICS_GROUP' => 'Grop',
-		'L_STATICS_TITLE' => 'Títol',
 		'L_STATICS_URL' => 'Url',
 		'L_STATICS_PAGE_HOME' => 'Definir en tant que pagina d\'acuèlh',
 		'L_STATICS_HOME_PAGE' => 'Pagina<br />d\'acuèlh',
