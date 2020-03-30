@@ -82,7 +82,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Fonction d\'envoi de mail non disponible',
 
 # class.plx.motor.php
-'L_ARTICLE_NO_TAG'				=> 'Aucun article pour ce mot clé !',
+'L_ARTICLE_NO_TAG'				=> 'Aucun article pour ce mot-clé !',
 'L_UNKNOWN_CATEGORY'			=> 'Cette catégorie est inexistante !',
 'L_NO_ARTICLE_PAGE'				=> 'Aucun article pour cette page !',
 'L_UNKNOWN_ARTICLE'				=> 'Cet article n\'existe pas ou n\'existe plus !',
@@ -97,8 +97,8 @@ $LANG = array(
 # class.plx.show.php
 
 'L_HTTPENCODING'				=> 'Compression %s activée',
-'L_PAGETITLE_ARCHIVES'			=> 'Archives',
-'L_PAGETITLE_TAG'				=> 'Tag',
+'L_ARCHIVES'			=> 'Archives',
+'L_TAG'				=> 'Mot-clé',
 'L_NO_CATEGORY'					=> 'aucune catégorie',
 'L_CATEGORY'					=> 'catégorie',
 'L_CATEGORIES'					=> 'catégories',
@@ -108,7 +108,7 @@ $LANG = array(
 'L_ARTAUTHOR_UNKNOWN'			=> 'inconnu',
 'L_ARTCHAPO'					=> 'Lire la suite de #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Fil RSS des articles de cette catégorie',
-'L_ARTFEED_RSS_TAG'				=> 'Fil RSS des articles de ce mot clé',
+'L_ARTFEED_RSS_TAG'				=> 'Fil RSS des articles de ce mot-clé',
 'L_ARTFEED_RSS'					=> 'Fil RSS des articles',
 'L_NO_COMMENT'					=> 'Aucun commentaire',
 'L_COMMENT'						=> 'commentaire',
