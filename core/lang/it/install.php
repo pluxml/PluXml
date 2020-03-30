@@ -26,7 +26,6 @@ $LANG = array(
 'L_PASSWORD'						=> 'Password',
 'L_EMAIL'						    => 'Indirizzo email',
 'L_INPUT_INSTALL'					=> 'Installa',
-'L_TIMEZONE'						=> 'Fuso orario',
 'L_PWD_VERY_WEAK'					=> 'Password molto debole',
 'L_PWD_WEAK'						=> 'Password debole',
 'L_PWD_GOOD'						=> 'Buona password',

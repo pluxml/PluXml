@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Niet geclassificeerd',
 'L_INFO_PHP_VERSION'			=> 'PHP-versie',
 'L_INFO_CHARSET'				=> 'codering',
+'L_TIMEZONE'					=> 'Tijdzone',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'De standaardlayout van PluXml werd niet gevonden',
@@ -22,13 +23,13 @@ $LANG = array(
 # class.plx.date.php
 'L_SHORT_JANUARY'				=> 'jan',
 'L_SHORT_FEBRUARY'				=> 'feb',
-'L_SHORT_MARCH'					=> 'maart',
+'L_SHORT_MARCH'					=> 'mar',
 'L_SHORT_APRIL'					=> 'apr',
 'L_SHORT_MAY'					=> 'mei',
-'L_SHORT_JUNE'					=> 'juni',
-'L_SHORT_JULY'					=> 'juli',
+'L_SHORT_JUNE'					=> 'jun',
+'L_SHORT_JULY'					=> 'jul',
 'L_SHORT_AUGUST'				=> 'aug',
-'L_SHORT_SEPTEMBER'				=> 'sept',
+'L_SHORT_SEPTEMBER'				=> 'sep',
 'L_SHORT_OCTOBER'				=> 'okt',
 'L_SHORT_NOVEMBER'				=> 'nov',
 'L_SHORT_DECEMBER'				=> 'dec',
@@ -125,17 +126,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '»',
 'L_PAGINATION'					=> 'pagina %s in %s',
 
-'L_BLOG'				=> 'Blog',
+'L_BLOG'						=> 'Blog',
 
 'L_YEAR'				        => 'jaar',
 'L_TOTAL'				    	=> 'totaal',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Privé URLs zijn niet geïnitialiseerd in uw instellingen !',
-'L_COMMENTS'				=> 'Commentaren',
+'L_COMMENTS'					=> 'Commentaren',
 'L_FEED_ONLINE_COMMENTS'		=> 'Online commentaren',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Offline commentaren',
-'L_WRITTEN_BY'				=> 'Geschreven door',
+'L_WRITTEN_BY'					=> 'Geschreven door',
 
 );
 ?>

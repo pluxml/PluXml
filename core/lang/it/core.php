@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Non classificato',
 'L_INFO_PHP_VERSION'			=> 'Versione di php',
 'L_INFO_CHARSET'				=> 'encoding',
+'L_TIMEZONE'					=> 'Fuso orario',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'Tema principale non trovato',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '»',
 'L_PAGINATION'					=> 'pagina %s su %s',
 
-'L_BLOG'				=> 'Blog',
+'L_BLOG'						=> 'Blog',
 
 'L_YEAR'					    => 'anno',
 'L_TOTAL'				    	=> 'totale',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Gli URL privati non sono stati configurati !',
-'L_COMMENTS'				=> 'Commenti',
+'L_COMMENTS'					=> 'Commenti',
 'L_FEED_ONLINE_COMMENTS'		=> 'Commenti online',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Commenti chiusi',
-'L_WRITTEN_BY'				=> 'Pubblicato da',
+'L_WRITTEN_BY'					=> 'Pubblicato da',
 
 );
 ?>

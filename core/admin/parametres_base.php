@@ -80,7 +80,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_timezone"><?php echo L_CONFIG_BASE_TIMEZONE ?>&nbsp;:</label>
+				<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $plxAdmin->aConf['timezone']); ?>

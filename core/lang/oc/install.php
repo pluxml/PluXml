@@ -26,7 +26,6 @@ $LANG = array(
 'L_PASSWORD'						=> 'Senhal',
 'L_EMAIL'						    => 'Adreça electronica',
 'L_INPUT_INSTALL'					=> 'Installar',
-'L_TIMEZONE'						=> 'Fus orari',
 'L_PWD_VERY_WEAK'					=> 'Senhal fòrça feble',
 'L_PWD_WEAK'						=> 'Senhal feble',
 'L_PWD_GOOD'						=> 'Senhal bon',

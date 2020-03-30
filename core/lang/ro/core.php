@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Neclasificat',
 'L_INFO_PHP_VERSION'			=> 'Versiune php',
 'L_INFO_CHARSET'				=> 'encoding',
+'L_TIMEZONE'					=> 'Time Zone',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'Tema principala este gasita',
@@ -25,12 +26,12 @@ $LANG = array(
 'L_SHORT_MARCH'					=> 'mar',
 'L_SHORT_APRIL'					=> 'apr',
 'L_SHORT_MAY'					=> 'mai',
-'L_SHORT_JUNE'					=> 'iunie',
-'L_SHORT_JULY'					=> 'iulie',
+'L_SHORT_JUNE'					=> 'iun',
+'L_SHORT_JULY'					=> 'iul',
 'L_SHORT_AUGUST'				=> 'aug',
-'L_SHORT_SEPTEMBER'				=> 'sept',
+'L_SHORT_SEPTEMBER'				=> 'sep',
 'L_SHORT_OCTOBER'				=> 'oct',
-'L_SHORT_NOVEMBER'				=> 'noem',
+'L_SHORT_NOVEMBER'				=> 'nom',
 'L_SHORT_DECEMBER'				=> 'dec',
 'L_JANUARY'						=> 'ianuarie',
 'L_FEBRUARY'					=> 'februarie',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '»',
 'L_PAGINATION'					=> 'pagina %s din %s',
 
-'L_BLOG'				=> 'Blog',
+'L_BLOG'						=> 'Blog',
 
 'L_YEAR'				    	=> 'an',
 'L_TOTAL'				    	=> 'total',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'URL-uri private nu au fost initializate in parametrii dvs. de administrare !',
-'L_COMMENTS'				=> 'Comentarii',
+'L_COMMENTS'					=> 'Comentarii',
 'L_FEED_ONLINE_COMMENTS'		=> 'Comentarii online',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Comentarii offline',
-'L_WRITTEN_BY'				=> 'Scris de',
+'L_WRITTEN_BY'					=> 'Scris de',
 
 );
 ?>

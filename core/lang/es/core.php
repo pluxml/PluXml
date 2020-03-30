@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'				=> 'Sin categoría',
 'L_INFO_PHP_VERSION'			=> 'Versión de PHP',
 'L_INFO_CHARSET'				=> 'codificación',
+'L_TIMEZONE'					=> 'Huso horario',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'			=> 'No se encontró el tema principal de PluXml',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '»',
 'L_PAGINATION'					=> 'página %s de %s',
 
-'L_BLOG'				=> 'Blog',
+'L_BLOG'						=> 'Blog',
 
 'L_YEAR'					    => 'año',
 'L_TOTAL'					    => 'total',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Las URLs privadas no han sido inicializadas en sus parámetros de administración!',
-'L_COMMENTS'				=> 'Comentarios',
+'L_COMMENTS'					=> 'Comentarios',
 'L_FEED_ONLINE_COMMENTS'		=> 'Comentarios de usuarios',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Comentarios sin conexión',
-'L_WRITTEN_BY'				=> 'Escrito por',
+'L_WRITTEN_BY'					=> 'Escrito por',
 
 );
 ?>

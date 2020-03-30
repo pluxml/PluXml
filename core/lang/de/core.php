@@ -13,6 +13,7 @@ $LANG = array(
 'L_UNCLASSIFIED'			=> 'Nicht kategorisiert',
 'L_INFO_PHP_VERSION'		=> 'PHP Version',
 'L_INFO_CHARSET'			=> 'Kodierung',
+'L_TIMEZONE'				=> 'Zeitzone',
 
 # index.php
 'L_ERR_THEME_NOTFOUND'		=> 'Der Haupttheme von PluXml konnte nicht gefunden werden.',
@@ -22,13 +23,13 @@ $LANG = array(
 # class.plx.date.php
 'L_SHORT_JANUARY'			=> 'jan',
 'L_SHORT_FEBRUARY'			=> 'feb',
-'L_SHORT_MARCH'				=> 'märz',
+'L_SHORT_MARCH'				=> 'mär',
 'L_SHORT_APRIL'				=> 'apr',
 'L_SHORT_MAY'				=> 'mai',
-'L_SHORT_JUNE'				=> 'juni',
-'L_SHORT_JULY'				=> 'juli',
+'L_SHORT_JUNE'				=> 'jun',
+'L_SHORT_JULY'				=> 'jul',
 'L_SHORT_AUGUST'			=> 'aug',
-'L_SHORT_SEPTEMBER'			=> 'sept',
+'L_SHORT_SEPTEMBER'			=> 'sep',
 'L_SHORT_OCTOBER'			=> 'okt',
 'L_SHORT_NOVEMBER'			=> 'nov',
 'L_SHORT_DECEMBER'			=> 'dez',
@@ -126,17 +127,17 @@ $LANG = array(
 'L_PAGINATION_LAST'			=> '»',
 'L_PAGINATION'				=> 'Seite %s auf %s',
 
-'L_BLOG'			=> 'Blog',
+'L_BLOG'					=> 'Blog',
 
 'L_YEAR'					=> 'jahr',
 'L_TOTAL'					=> 'gesamt',
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'		=> 'Private URLs wurden in der Administration nicht konfiguriert!',
-'L_COMMENTS'			=> 'Kommentare',
+'L_COMMENTS'				=> 'Kommentare',
 'L_FEED_ONLINE_COMMENTS'	=> 'Online Kommentare',
 'L_FEED_OFFLINE_COMMENTS'	=> 'Offline Kommentaire',
-'L_WRITTEN_BY'			=> 'Geschrieben von',
+'L_WRITTEN_BY'				=> 'Geschrieben von',
 
 );
 ?>
