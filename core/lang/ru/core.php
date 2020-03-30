@@ -139,7 +139,7 @@ $LANG = array(
 'L_PAGINATION_LAST'				=> '&raquo;',
 'L_PAGINATION'					=> 'страниц %s из %s',
 
-'L_PAGEBLOG_TITLE'				=> 'Блог',
+'L_BLOG'				=> 'Блог',
 
 'L_YEAR'				    	=> 'год',
 'L_TOTAL'				    	=> 'Всего',

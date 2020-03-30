@@ -1409,7 +1409,7 @@ class plxShow {
 						$menu = str_replace('#static_status','noactive',$menu);
 					}
 					$menu = str_replace('#static_url', $this->plxMotor->urlRewrite('?blog'),$menu);
-					$menu = str_replace('#static_name',L_PAGEBLOG_TITLE,$menu);
+					$menu = str_replace('#static_name',L_BLOG,$menu);
 					$menu = str_replace('#static_class','static menu',$menu);
 					array_splice($menus, (intval($menublog)-1), 0, array($menu));
 				}
@@ -1990,7 +1990,7 @@ class plxShow {
 				}
 				$name = str_replace('#page_class','static menu',$name);
 				$name = str_replace('#page_url', $this->plxMotor->urlRewrite('?blog'),$name);
-				$name = str_replace('#page_name',L_PAGEBLOG_TITLE,$name);
+				$name = str_replace('#page_name',L_BLOG,$name);
 				echo $name;
 			}
 		}
