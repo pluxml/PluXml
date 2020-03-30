@@ -304,8 +304,7 @@ $LANG = array (
 
 		'L_CONFIG_VIEW' => 'Opcions d\'afichatge',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Causida del tèma',
-		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Editar los fichièrs del tèma',
-		'L_CONFIG_VIEW_FILES_EDIT' => 'Editar los fichièrs del tèma',
+		'L_TEMPLATES_EDIT' => 'Editar los fichièrs del tèma',
 		'L_CONFIG_VIEW_BYPAGE' => 'Nombre d\'articles afichats per pagina',
 		'L_CONFIG_VIEW_BYPAGE_ARCHIVES' => 'Nombre d\'articles afichats per pagina dins los archius',
 		'L_CONFIG_VIEW_BYPAGE_TAGS' => 'Nombre d\'articles afichats per pagina dins los mots claus',

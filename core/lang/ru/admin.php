@@ -306,8 +306,7 @@ $LANG = array (
 
 		'L_CONFIG_VIEW' => 'Настройки',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Тема',
-		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Редактирование файлов темы',
-		'L_CONFIG_VIEW_FILES_EDIT' => 'Редактирование файлов темы',
+		'L_TEMPLATES_EDIT' => 'Редактирование файлов темы',
 		'L_CONFIG_VIEW_BYPAGE' => 'Статей на странице',
 		'L_CONFIG_VIEW_BYPAGE_ARCHIVES' => 'Статей на странице в архиве',
 		'L_CONFIG_VIEW_BYPAGE_TAGS' => 'Статьи на странице в тегах',
