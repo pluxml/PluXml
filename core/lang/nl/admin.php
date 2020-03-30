@@ -103,7 +103,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Lijst van sleutelwoorden',
 		'L_NO_TAG' => 'Geen tag',
 		'L_ALLOW_COMMENTS' => 'Commentaar toelaten',
-		'L_ARTICLE_URL_FIELD' => 'URL',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'de URL wordt automatisch bij het aanmaken gecr?eerd',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Commentaar beheren',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Commentaren van dit artikel beheren',

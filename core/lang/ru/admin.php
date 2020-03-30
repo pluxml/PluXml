@@ -107,7 +107,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Список тегов',
 		'L_NO_TAG' => 'Нет тегов',
 		'L_ALLOW_COMMENTS' => 'Разрешить комментарии',
-		'L_ARTICLE_URL_FIELD' => 'Url',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'Поле URL заполнится автоматически после создания статьи',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Управление комментариями',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Управление комментариями к данной статье',

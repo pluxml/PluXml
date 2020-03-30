@@ -107,7 +107,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Lista tagów',
 		'L_NO_TAG' => 'Brak tagów',
 		'L_ALLOW_COMMENTS' => 'Zezwól na komentarze',
-		'L_ARTICLE_URL_FIELD' => 'URL',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'URL automatycznie wypełni pole gdy post zostanie utworzony',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Zarządzaj komentarzami',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Zarządzaj komentarzaami dla tego posta',
