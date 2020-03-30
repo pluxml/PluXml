@@ -65,7 +65,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_content"><?php echo L_PROFIL_INFOS ?>&nbsp;:</label>
+				<label for="id_content"><?php echo L_INFOS ?>&nbsp;:</label>
 				<?php plxUtils::printArea('content',plxUtils::strCheck($_profil['infos']), 0, 5); ?>
 			</div>
 		</div>
