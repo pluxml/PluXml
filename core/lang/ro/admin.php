@@ -1,7 +1,6 @@
 <?php
 $LANG = array (
 
-		'L_ID' => '#',
 		'L_MENU' => 'Meniu',
 		'L_UNKNOWN_ERROR' => 'Eroare necunoscută',
 		'L_CONFIRM_DELETE' => 'Confirmați ștergerea ?',
@@ -120,7 +119,6 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'Meta tag-ul "Cuvinte cheie" (opţional)',
 		'L_ARTICLE_CHAPO_HIDE' => 'ascunde',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'afişa',
-		'L_ID' => 'ID',
 		'L_AUTH_PAGE_TITLE' => 'Pagina de autentificare',
 		'L_LOGOUT_SUCCESSFUL' => 'Vati deconectat cu succes',
 		'L_LOGIN_PAGE' => 'Conectare in zona de administrare ',
