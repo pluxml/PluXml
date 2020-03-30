@@ -125,7 +125,7 @@ $LANG = array (
 		'L_ARTICLE_META_KEYWORDS' => 'Inhoud meta-tag "keywords" (optioneel)',
 		'L_ARTICLE_CHAPO_HIDE' => 'verstoppen',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'tonen',
-		'L_ARTICLE_ID' => 'ID',
+		'L_ID' => 'ID',
 
 		// auth.php
 
@@ -147,7 +147,6 @@ $LANG = array (
 		//
 
 		'L_CAT_TITLE' => 'Aanmaken en aanpassen van categorie?n',
-		'L_CAT_LIST_ID' => 'ID',
 		'L_ACTIVE' => 'Actief',
 		'L_CAT_LIST_NAME' => 'Naam categorie',
 		'L_CAT_LIST_URL' => 'URL',
@@ -408,7 +407,6 @@ $LANG = array (
 		'L_MAIL_TEST_FAILURE' => 'Probleem voor het verzenden van de test-e-mail',
 		'L_CONFIG_USERS_TITLE' => 'Gebruikers beheren',
 		'L_CONFIG_USER' => 'Gebruiker',
-		'L_CONFIG_USERS_ID' => 'Gebruikersnummer',
 		'L_CONFIG_USERS_ACTIVE' => 'Actief',
 		'L_CONFIG_USERS_NEW' => 'Nieuwe gebruiker',
 		'L_CONFIG_USERS_UPDATE' => 'Lijst van gebruikers aanpassen',
@@ -463,7 +461,6 @@ $LANG = array (
 		'L_STATIC_META_DESCRIPTION' => 'META-tag "description" voor deze statische pagina (optioneel)',
 		'L_STATIC_META_KEYWORDS' => 'META-tag "keywords" voor deze statische pagina (optioneel)',
 		'L_STATICS_PAGE_TITLE' => 'Aanmaken en aanpassen van statische paginas',
-		'L_STATICS_ID' => 'Naam pagina',
 		'L_STATICS_GROUP' => 'Groep',
 		'L_STATICS_TITLE' => 'Titel',
 		'L_STATICS_URL' => 'URL',
