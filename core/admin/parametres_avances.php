@@ -101,7 +101,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('config_path', PLX_CONFIG_PATH) ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?php echo L_SLASH_END_REQUIRED ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
@@ -110,7 +110,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('racine_articles', $plxAdmin->aConf['racine_articles']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?php echo L_SLASH_END_REQUIRED ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
@@ -119,7 +119,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('racine_commentaires', $plxAdmin->aConf['racine_commentaires']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?php echo L_SLASH_END_REQUIRED ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
@@ -128,7 +128,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('racine_statiques', $plxAdmin->aConf['racine_statiques']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?php echo L_SLASH_END_REQUIRED ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
@@ -137,7 +137,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('medias', $plxAdmin->aConf['medias']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?php echo L_SLASH_END_REQUIRED ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
@@ -146,7 +146,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('racine_themes', $plxAdmin->aConf['racine_themes']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?php echo L_SLASH_END_REQUIRED ?></span></a>
 			</div>
 		</div>
 		<div class="grid">
@@ -155,7 +155,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('racine_plugins', $plxAdmin->aConf['racine_plugins']); ?>
-				<a class="hint"><span><?php echo L_HELP_SLASH_END ?></span></a>
+				<a class="hint"><span><?php echo L_SLASH_END_REQUIRED ?></span></a>
 			</div>
 		</div>
 		<div class="grid">

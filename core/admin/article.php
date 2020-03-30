@@ -306,7 +306,7 @@ function refreshImg(dta) {
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
 					else
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_SAVE . '"/> ';
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_OFFLINE . '"/> ';
+						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_SET_OFFLINE . '"/> ';
 				}
 				if($artId!='0000')
 					echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
