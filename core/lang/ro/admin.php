@@ -419,7 +419,6 @@ $LANG = array (
 		'L_PLUGINS_DELETE_SUCCESSFUL' => 'Ştergerea a decurs cu succes',
 		'L_PLUGINS_CONFIG' => 'Configurare',
 		'L_PLUGINS_CONFIG_TITLE' => 'Configurarea plugin-ului',
-		'L_PLUGINS_HELP' => 'Ajutor',
 		'L_PLUGINS_HELP_TITLE' => 'A se vedea Utilizarea plugin-ului',
 		'L_PLUGINS_REQUIREMENTS' => 'Cerinţe preliminare',
 		'L_PLUGINS_REQUIREMENTS_HELP' => 'Lista de plugin-uri prezente şi active pentru activaţie',

@@ -486,7 +486,6 @@ $LANG = array (
 		'L_PLUGINS_DELETE_SUCCESSFUL' => 'Löschen war erfolgreich',
 		'L_PLUGINS_CONFIG' => 'Konfiguration',
 		'L_PLUGINS_CONFIG_TITLE' => 'Pluginkonfiguration',
-		'L_PLUGINS_HELP' => 'Hilfe',
 		'L_PLUGINS_HELP_TITLE' => 'Siehe die Benutzung von Plugins',
 		'L_PLUGINS_REQUIREMENTS' => 'Voraussetzungen',
 		'L_PLUGINS_REQUIREMENTS_HELP' => 'Vorausgesetzte Plugins (installiert und aktiviert), damit dieses Plugin verwendet werden kann',

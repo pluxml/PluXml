@@ -482,7 +482,6 @@ $LANG = array (
 		'L_PLUGINS_DELETE_SUCCESSFUL' => 'Complemento eliminado correctamente',
 		'L_PLUGINS_CONFIG' => 'Configuración',
 		'L_PLUGINS_CONFIG_TITLE' => 'Configuración del complemento',
-		'L_PLUGINS_HELP' => 'Ayudar',
 		'L_PLUGINS_HELP_TITLE' => 'Consulte Uso del plug-in',
 		'L_PLUGINS_REQUIREMENTS' => 'Requerimientos',
 		'L_PLUGINS_REQUIREMENTS_HELP' => 'Complementos disponibles y activos necesarios para activar este complemento',

@@ -418,7 +418,6 @@ $LANG = array (
 		'L_PLUGINS_DELETE_SUCCESSFUL' => 'Cancellazione avvenuta con successo',
 		'L_PLUGINS_CONFIG' => 'Configurazione',
 		'L_PLUGINS_CONFIG_TITLE' => 'Configurazione del plugin',
-		'L_PLUGINS_HELP' => 'Aiutare',
 		'L_PLUGINS_HELP_TITLE' => 'Vedere Utilizzo del plug-in',
 		'L_PLUGINS_REQUIREMENTS' => 'Prerequisiti',
 		'L_PLUGINS_REQUIREMENTS_HELP' => 'Lista dei plugin presenti e attivi per attivare questo plugin',

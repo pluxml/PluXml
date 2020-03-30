@@ -453,7 +453,6 @@ $LANG = array (
 		'L_PLUGINS_DELETE_SUCCESSFUL' => 'Verwijdering succesvl doorgevoerd',
 		'L_PLUGINS_CONFIG' => 'Configuratie',
 		'L_PLUGINS_CONFIG_TITLE' => 'Configuratie van de plugin',
-		'L_PLUGINS_HELP' => 'Helpen',
 		'L_PLUGINS_HELP_TITLE' => 'Zie Met behulp van de plugin',
 		'L_PLUGINS_REQUIREMENTS' => 'Benodigdheden',
 		'L_PLUGINS_REQUIREMENTS_HELP' => 'Lijst van beschikbare en actieve plugins voor deze plugin',
