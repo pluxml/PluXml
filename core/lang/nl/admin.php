@@ -182,7 +182,6 @@ $LANG = array (
 
 		'L_COMMENT_ORPHAN' => 'geen artikel',
 		'L_COMMENT_ORPHAN_STATUS' => 'Niet zichtbaar (Wij raden u aan deze commentaar te verwijderen)',
-		'L_COMMENT_ARTICLE_LINKED' => 'Artikel',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Artikel van deze commentaar',
 		'L_COMMENT_OFFLINE' => 'offline',
 		'L_COMMENT_ONLINE' => 'online',
@@ -234,7 +233,6 @@ $LANG = array (
 
 		// comments.php
 
-		'L_COMMENTS_ARTICLE_SCOPE' => 'Artikel',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'volledige site',
 		'L_COMMENTS_OFFLINE_LIST' => 'Commentaar dat wacht op goedkeuring ',
 		'L_COMMENTS_LIST_DATE' => 'Datum',

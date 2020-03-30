@@ -196,7 +196,6 @@ $LANG = array (
 
 		'L_COMMENT_ORPHAN' => 'no article',
 		'L_COMMENT_ORPHAN_STATUS' => 'not displayed (we advise you to delete this comment)',
-		'L_COMMENT_ARTICLE_LINKED' => 'Article',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Article linked to this comment',
 		'L_COMMENT_OFFLINE' => 'offline',
 		'L_COMMENT_ONLINE' => 'online',
@@ -248,7 +247,6 @@ $LANG = array (
 
 		// comments.php
 
-		'L_COMMENTS_ARTICLE_SCOPE' => 'Article',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'entire site',
 		'L_COMMENTS_LIST_DATE' => 'Date',
 		'L_COMMENTS_LIST_AUTHOR' => 'Author',

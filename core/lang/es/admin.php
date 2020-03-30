@@ -201,7 +201,6 @@ $LANG = array (
 
 		'L_COMMENT_ORPHAN' => 'sin artículo',
 		'L_COMMENT_ORPHAN_STATUS' => 'invisible (sugerimos elimiar este comentario)',
-		'L_COMMENT_ARTICLE_LINKED' => 'Artículo',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Artículo asociado a este comentario',
 		'L_COMMENT_OFFLINE' => 'desconectado',
 		'L_COMMENT_ONLINE' => 'conectado',
@@ -246,7 +245,6 @@ $LANG = array (
 
 		// comments.php
 
-		'L_COMMENTS_ARTICLE_SCOPE' => 'Artículo',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'todo el sitio',
 		'L_COMMENTS_LIST_DATE' => 'Fecha',
 		'L_COMMENTS_LIST_AUTHOR' => 'Autor',

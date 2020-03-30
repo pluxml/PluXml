@@ -201,7 +201,6 @@ $LANG = array (
 
 		'L_COMMENT_ORPHAN' => 'нет статьи',
 		'L_COMMENT_ORPHAN_STATUS' => 'не отображается (мы советуем вам удалить этот комментарий',
-		'L_COMMENT_ARTICLE_LINKED' => 'Статья',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Статьи, связанные с этим комментарием',
 		'L_COMMENT_OFFLINE' => 'выключенных',
 		'L_COMMENT_ONLINE' => 'включенных',
@@ -246,7 +245,6 @@ $LANG = array (
 
 		// comments.php
 
-		'L_COMMENTS_ARTICLE_SCOPE' => 'Статья',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'весь сайт',
 
 		'L_COMMENTS_LIST_DATE' => 'Дата',

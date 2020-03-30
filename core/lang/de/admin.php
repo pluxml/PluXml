@@ -198,7 +198,6 @@ $LANG = array (
 
 		'L_COMMENT_ORPHAN' => 'keinen Artikel',
 		'L_COMMENT_ORPHAN_STATUS' => 'verwaist (Sie sollten diesen Kommentar löschen)',
-		'L_COMMENT_ARTICLE_LINKED' => 'Artikel',
 		'L_COMMENT_ARTICLE_LINKED_TITLE' => 'Artikel zu diesem Kommentar',
 		'L_COMMENT_OFFLINE' => 'Offline',
 		'L_COMMENT_ONLINE' => 'Online',
@@ -250,7 +249,6 @@ $LANG = array (
 
 		// comments.php
 
-		'L_COMMENTS_ARTICLE_SCOPE' => 'Artikel',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'ganze Website',
 		'L_COMMENTS_OFFLINE_LIST' => 'Liste der wartenden Kommentare ',
 		'L_COMMENTS_LIST_DATE' => 'Datum',
