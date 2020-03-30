@@ -102,7 +102,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Tag list',
 		'L_NO_TAG' => 'No tag',
 		'L_ALLOW_COMMENTS' => 'Allow comments',
-		'L_ARTICLE_URL_FIELD' => 'Url',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'URL field auto-fills when the article is created',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Manage comments',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Manage comments on this article',

@@ -107,7 +107,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Lista de etiquetas',
 		'L_NO_TAG' => 'Ninguna etiqueta',
 		'L_ALLOW_COMMENTS' => 'Permitir comentarios',
-		'L_ARTICLE_URL_FIELD' => 'URL',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'La URL se llena automáticamente durante la creación',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Moderar los comentarios',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Moderar los comentarios de este artículo',

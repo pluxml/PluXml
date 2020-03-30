@@ -105,7 +105,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Schlagwortliste',
 		'L_NO_TAG' => 'Kein Schlagwort',
 		'L_ALLOW_COMMENTS' => 'Kommentare erlauben',
-		'L_ARTICLE_URL_FIELD' => 'URL',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'URL wird bei der Artikelerstellung automatisch generiert',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Kommentare verwalten',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Kommentare dieses Artikels verwalten',

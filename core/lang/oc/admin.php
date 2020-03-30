@@ -107,7 +107,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Lista dels mots claus',
 		'L_NO_TAG' => 'Pas cap de tag',
 		'L_ALLOW_COMMENTS' => 'Autorizar los comentaris',
-		'L_ARTICLE_URL_FIELD' => 'Url',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'l\'URL s\'emplís automaticament a la creacion',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Gerir los comentaris',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Gerir los comentaris d\'aqueste article',

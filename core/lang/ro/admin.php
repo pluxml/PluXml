@@ -97,7 +97,6 @@ $LANG = array (
 		'L_ARTICLE_TOGGLER_TITLE' => 'Listă de cuvinte cheie',
 		'L_NO_TAG' => 'Fara tag-uri',
 		'L_ALLOW_COMMENTS' => 'Permiteţi Comentarii',
-		'L_ARTICLE_URL_FIELD' => 'Url',
 		'L_ARTICLE_URL_FIELD_TITLE' => 'Article Url Field Title',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Administreaza Comentariile',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Gestionarea comentariilor din acest articol',

@@ -546,7 +546,7 @@ function refreshImg(dta) {
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_url">
-							<?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_URL_FIELD_TITLE ?></span></a>
+							<?php echo L_URL ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_URL_FIELD_TITLE ?></span></a>
 						</label>
 						<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
 					</div>
