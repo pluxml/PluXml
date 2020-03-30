@@ -59,7 +59,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_lang"><?php echo L_PROFIL_ADMIN_LANG ?>&nbsp;:</label>
+				<label for="id_lang"><?php echo L_USER_LANG ?>&nbsp;:</label>
 				<?php plxUtils::printSelect('lang', plxUtils::getLangs(), $_profil['lang']) ?>
 			</div>
 		</div>

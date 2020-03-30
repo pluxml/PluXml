@@ -408,7 +408,6 @@ $LANG = array (
 		'L_PROFIL' => 'Profil',
 		'L_PROFIL_LOGIN' => 'Login',
 		'L_PROFIL_USER' => 'Username',
-		'L_PROFIL_ADMIN_LANG' => 'Limba utilizată',
 		'L_INFOS' => 'Informaţii',
 		'L_PROFIL_UPDATE' => 'Editează-ţi profilul',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Schimbarea parolei',

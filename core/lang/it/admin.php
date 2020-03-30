@@ -407,7 +407,6 @@ $LANG = array (
 		'L_PROFIL' => 'Profilo',
 		'L_PROFIL_LOGIN' => 'Nome utente',
 		'L_PROFIL_USER' => 'Nome utente',
-		'L_PROFIL_ADMIN_LANG' => 'Lingua usata nel pannello di amministrazione',
 		'L_INFOS' => 'Informazioni',
 		'L_PROFIL_UPDATE' => 'Modifica il profilo',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Cambia la password',
