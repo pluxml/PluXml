@@ -151,8 +151,6 @@ $LANG = array (
 		'L_YES' => 'Òc',
 		'L_NO' => 'Non',
 		'L_OK' => 'Ok',
-		'L_NONE1' => 'cap',
-		'L_NONE2' => 'cap',
 
 		// categories.php
 
@@ -253,7 +251,6 @@ $LANG = array (
 		'L_ARTICLES_LIST' => 'Lista dels articles',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Categoria',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nb coms',
-		'L_HOMEPAGE' => 'Pagina d\'acuèlh',
 		'L_ARTICLE_VIEW_TITLE' => 'Visualizar aquel article sul site',
 		'L_EDIT' => 'Editar',
 		'L_ARTICLE_EDIT_TITLE' => 'Editar aquel article',
@@ -509,7 +506,6 @@ $LANG = array (
 		'L_MENU_MEDIAS_TITLE' => 'Enviar e inserir un mèdia',
 		'L_MENU_MEDIAS' => 'Mèdia',
 		'L_MENU_CATEGORIES_TITLE' => 'Crear, gerir, editar las categorias',
-		'L_CATEGORIES' => 'Categorias',
 		'L_MENU_CONFIG_TITLE' => 'Configurar PluXml',
 		'L_MENU_CONFIG' => 'Paramètres',
 		'L_MENU_PROFIL_TITLE' => 'Gerir vòstre perfil utilizaire',
