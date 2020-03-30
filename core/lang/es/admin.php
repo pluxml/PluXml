@@ -353,7 +353,7 @@ $LANG = array (
 
 		// parametres_avances.php
 
-		'L_CONFIG_ADVANCED_DESC' => 'Configuración avanzada',
+		'L_CONFIG_ADVANCED' => 'Configuración avanzada',
 		'L_CONFIG_ADVANCED_URL_REWRITE' => 'Activar la reescritura de URLs',
 		'L_CONFIG_ADVANCED_URL_REWRITE_ALERT' => 'Advertencia: ya existe un archivo «.htaccess» en la raíz de su instalación de PluXml. Si activa la reescritura de URLs, se modificará este archivo',
 		'L_CONFIG_ADVANCED_GZIP' => 'Activar compresión GZIP',
@@ -576,7 +576,6 @@ $LANG = array (
 		'L_MENU_CONFIG_USERS_TITLE' => 'Gestionar cuentas de usuario de PluXml',
 		'L_MENU_CONFIG_USERS' => 'Cuentas de usuario',
 		'L_MENU_CONFIG_ADVANCED_TITLE' => 'Editar configuración avanzada de PluXml',
-		'L_MENU_CONFIG_ADVANCED' => 'Configuración avanzada',
 		'L_MENU_CONFIG_INFOS_TITLE' => 'Información de PluXml',
 		'L_MENU_CONFIG_INFOS' => 'Información',
 		'L_MENU_CONFIG_PLUGINS_TITLE' => 'Gestionar complementos',
