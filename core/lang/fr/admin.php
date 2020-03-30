@@ -154,7 +154,7 @@ $LANG = array (
 		'L_CAT_TITLE' => 'Création et édition des catégories',
 		'L_ACTIVE' => 'Active',
 		'L_CAT_LIST_NAME' => 'Nom de la catégorie',
-		'L_URL' => 'URL',
+		'L_URL' => 'Url',
 		'L_ARTICLES_SORT' => 'Tri des articles',
 		'L_CAT_LIST_BYPAGE' => 'Nb art/page',
 		'L_ORDER' => 'Ordre',
@@ -331,7 +331,7 @@ $LANG = array (
 		// parametres_avances.php
 
 		'L_CONFIG_ADVANCED' => 'Configuration avancée',
-		'L_CONFIG_ADVANCED_URL_REWRITE' => 'Activer la réécriture d\'URL',
+		'L_CONFIG_ADVANCED_URL_REWRITE' => 'Activer la réécriture d\'Url',
 		'L_CONFIG_ADVANCED_URL_REWRITE_ALERT' => 'Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera modifié',
 		'L_CONFIG_ADVANCED_GZIP' => 'Activer la compression GZIP',
 		'L_CONFIG_ADVANCED_GZIP_HELP' => 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur',

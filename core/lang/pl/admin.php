@@ -159,7 +159,7 @@ $LANG = array (
 		'L_CAT_TITLE' => 'Utworz lub edytuj kategorie',
 		'L_ACTIVE' => 'Aktywna',
 		'L_CAT_LIST_NAME' => 'Nazwa kategorii',
-		'L_URL' => 'URL',
+		'L_URL' => 'Url',
 		'L_ARTICLES_SORT' => 'Sortowanie artykułów',
 		'L_CAT_LIST_BYPAGE' => 'Nr. artykułu/strony',
 		'L_ORDER' => 'Kolejność',
@@ -481,7 +481,7 @@ $LANG = array (
 
 		'L_STATICS_PAGE_TITLE' => 'Utwórz lub edytuj strone statyczną',
 		'L_STATICS_GROUP' => 'Grupa',
-		'L_STATICS_URL' => 'URL',
+		'L_STATICS_URL' => 'Url',
 		'L_STATICS_PAGE_HOME' => 'Ustaw jako stronę główną',
 		'L_STATICS_HOME_PAGE' => 'Strona główna',
 		'L_PAGE' => 'strona',
