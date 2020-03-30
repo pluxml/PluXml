@@ -184,7 +184,7 @@ $selector=selector($comSel, 'id_selection');
 					echo '<td class="author">'.$plxAdmin->plxRecord_coms->f('author').'&nbsp;</td>';
 					echo '<td class="action">';
 					echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
-					echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>&nbsp;&nbsp;';
+					echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_EDIT.'</a>&nbsp;&nbsp;';
 					echo '<a href="article.php?a=' . $artId . '" title="' . L_COMMENT_ARTICLE_LINKED_TITLE . '">' . ucfirst(L_ARTICLE) . '</a>';
 					echo '</td></tr>';
 				}
