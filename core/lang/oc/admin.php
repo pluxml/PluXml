@@ -244,7 +244,6 @@ $LANG = array (
 		// comments.php
 
 		'L_COMMENTS_GLOBAL_SCOPE' => 'site entièr',
-		'L_COMMENTS_LIST_DATE' => 'Data',
 		'L_COMMENTS_LIST_MESSAGE' => 'Messatge',
 		'L_COMMENT_EDIT' => 'Editar',
 		'L_COMMENT_EDIT_TITLE' => 'Editar aquel comentari',
@@ -273,7 +272,6 @@ $LANG = array (
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Emplaçaments especifics',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Totes los articles',
 		'L_ARTICLES_LIST' => 'Lista dels articles',
-		'L_ARTICLE_LIST_DATE' => 'Data',
 		'L_ARTICLE_LIST_TITLE' => 'Títol',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Categoria',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nb coms',
@@ -303,7 +301,7 @@ $LANG = array (
 		'L_MEDIAS_NEW_FOLDER' => 'Novèl dorsièr',
 		'L_MEDIAS_CREATE_FOLDER' => 'Crear',
 		'L_MEDIAS_FILESIZE' => 'Talha',
-		'L_MEDIAS_DATE' => 'Data',
+		'L_DATE' => 'Data',
 		'L_MEDIAS_DIMENSIONS' => 'Dimensions',
 		'L_MEDIAS_NO_FILE' => 'Pas cap de fichièr',
 		'L_MEDIAS_RESIZE' => 'Retalhar los imatges',

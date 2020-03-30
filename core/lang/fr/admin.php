@@ -245,7 +245,6 @@ $LANG = array (
 		// comments.php
 
 		'L_COMMENTS_GLOBAL_SCOPE' => 'site entier',
-		'L_COMMENTS_LIST_DATE' => 'Date',
 		'L_COMMENTS_LIST_MESSAGE' => 'Message',
 		'L_COMMENT_EDIT' => 'Éditer',
 		'L_COMMENT_EDIT_TITLE' => 'Éditer ce commentaire',
@@ -274,7 +273,6 @@ $LANG = array (
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Emplacements spécifiques',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Tous les articles',
 		'L_ARTICLES_LIST' => 'Liste des articles',
-		'L_ARTICLE_LIST_DATE' => 'Date',
 		'L_ARTICLE_LIST_TITLE' => 'Titre',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Catégorie',
 		'L_ARTICLE_LIST_NBCOMS' => 'Nb coms',
@@ -304,7 +302,7 @@ $LANG = array (
 		'L_MEDIAS_NEW_FOLDER' => 'Nouveau dossier',
 		'L_MEDIAS_CREATE_FOLDER' => 'Créer',
 		'L_MEDIAS_FILESIZE' => 'Taille',
-		'L_MEDIAS_DATE' => 'Date',
+		'L_DATE' => 'Date',
 		'L_MEDIAS_DIMENSIONS' => 'Dimensions',
 		'L_MEDIAS_NO_FILE' => 'Aucun fichier',
 		'L_MEDIAS_RESIZE' => 'Redimensionner images',

@@ -192,7 +192,7 @@ $curFolders = explode('/', $curFolder);
 					<th><?php echo L_MEDIAS_EXTENSION ?></th>
 					<th><?php echo L_MEDIAS_FILESIZE ?></th>
 					<th><?php echo L_MEDIAS_DIMENSIONS ?></th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_date ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_date ?>';document.forms[0].submit();return true;"><?php echo L_DATE ?></a></th>
 				</tr>
 				</thead>
 				<tbody>
