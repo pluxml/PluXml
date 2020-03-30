@@ -559,7 +559,7 @@ function refreshImg(dta) {
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_title_htmltag"><?php echo L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
+						<label for="id_title_htmltag"><?php echo L_TITLE_HTMLTAG ?>&nbsp;:</label>
 						<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','27-255'); ?>
 					</div>
 				</div>

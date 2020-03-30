@@ -124,7 +124,6 @@ $LANG = array (
 		'L_ADD' => "Ajouter",
 		'L_ARTICLE_META_DESCRIPTION' => 'Contenu balise meta "description" (option)',
 		'L_ARTICLE_META_KEYWORDS' => 'Contenu balise meta "keywords" (option)',
-		'L_ARTICLE_TITLE_HTMLTAG' => 'Contenu balise title (option)',
 		'L_ARTICLE_CHAPO_HIDE' => 'masquer',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'afficher',
 		'L_ARTICLE_ID' => 'Identifiant',
@@ -187,7 +186,6 @@ $LANG = array (
 		'L_EDITCAT_TEMPLATE' => 'Template',
 		'L_EDITCAT_BACK_TO_PAGE' => 'Retour à la liste des catégories',
 		'L_EDITCAT_UPDATE' => 'Mettre à jour cette catégorie',
-		'L_EDITCAT_TITLE_HTMLTAG' => 'Contenu balise title (option)',
 		'L_EDITCAT_META_DESCRIPTION' => 'Contenu de la balise meta "description" pour cette catégorie (option)',
 		'L_EDITCAT_META_KEYWORDS' => 'Contenu de la balise meta "keywords" pour cette catégorie (option)',
 
@@ -504,7 +502,7 @@ $LANG = array (
 		'L_STATIC_VIEW_PAGE' => 'Visualiser la page',
 		'L_STATIC_ON_SITE' => 'sur le site',
 		'L_STATIC_UPDATE' => 'Enregistrer cette page statique',
-		'L_STATIC_TITLE_HTMLTAG' => 'Contenu balise title (option)',
+		'L_TITLE_HTMLTAG' => 'Contenu balise title (option)',
 		'L_STATIC_META_DESCRIPTION' => 'Contenu de la balise meta "description" pour cette page statique (option)',
 		'L_STATIC_META_KEYWORDS' => 'Contenu de la balise meta "keywords" pour cette page statique (option)',
 

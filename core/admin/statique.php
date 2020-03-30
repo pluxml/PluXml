@@ -95,7 +95,7 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
-					<label for="id_title_htmltag"><?php echo L_STATIC_TITLE_HTMLTAG ?>&nbsp;:</label>
+					<label for="id_title_htmltag"><?php echo L_TITLE_HTMLTAG ?>&nbsp;:</label>
 					<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','50-255'); ?>
 				</div>
 			</div>

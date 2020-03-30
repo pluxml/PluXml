@@ -130,7 +130,6 @@ $LANG = array (
 		'L_ADD' => 'Ajustar',
 		'L_ARTICLE_META_DESCRIPTION' => 'Contengut balisa meta « descripcion » (opcion)',
 		'L_ARTICLE_META_KEYWORDS' => 'Contengut balisa meta « keywords » (opcion)',
-		'L_ARTICLE_TITLE_HTMLTAG' => 'Contengut balisa title (opcion)',
 		'L_ARTICLE_CHAPO_HIDE' => 'mascar',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'afichar',
 		'L_ARTICLE_ID' => 'Identificant',
@@ -193,7 +192,6 @@ $LANG = array (
 		'L_EDITCAT_TEMPLATE' => 'Modèl',
 		'L_EDITCAT_BACK_TO_PAGE' => 'Tornar a la lista de las categorias',
 		'L_EDITCAT_UPDATE' => 'Metre a jorn aquesta categoria',
-		'L_EDITCAT_TITLE_HTMLTAG' => 'Contengut balisa title (opcion)',
 		'L_EDITCAT_META_DESCRIPTION' => 'Contengut de la balisa meta "descripcion" per aquesta categoria (opcion)',
 		'L_EDITCAT_META_KEYWORDS' => 'Contengut de la balisa meta "keywords" per aquesta categoria (opcion)',
 
@@ -504,7 +502,7 @@ $LANG = array (
 		'L_STATIC_VIEW_PAGE' => 'Visualizar la pagina',
 		'L_STATIC_ON_SITE' => 'sul site',
 		'L_STATIC_UPDATE' => 'Enregistrar aquela pagina estatica',
-		'L_STATIC_TITLE_HTMLTAG' => 'Contengut balisa títol (opcion)',
+		'L_TITLE_HTMLTAG' => 'Contengut balisa títol (opcion)',
 		'L_STATIC_META_DESCRIPTION' => 'Contengut de la balisa meta « descripcion » per aquela pagina estatica (opcion)',
 		'L_STATIC_META_KEYWORDS' => 'Contengut de la balisa meta « keywords » per aquela pagina estatica (opcion)',
 

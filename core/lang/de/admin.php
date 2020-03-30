@@ -127,7 +127,6 @@ $LANG = array (
 		'L_ADD' => 'Hinzufügen',
 		'L_ARTICLE_META_DESCRIPTION' => 'META Tag "description" (optional)',
 		'L_ARTICLE_META_KEYWORDS' => 'META Tag "keywords" (optional)',
-		'L_ARTICLE_TITLE_HTMLTAG' => 'Title-Tag Inhalte (optional)',
 		'L_ARTICLE_CHAPO_HIDE' => 'verbergen',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'anzeigen',
 		'L_ARTICLE_ID' => 'ID',
@@ -189,7 +188,6 @@ $LANG = array (
 		'L_EDITCAT_TEMPLATE' => 'Vorlage',
 		'L_EDITCAT_BACK_TO_PAGE' => 'Zurück zur Liste der Kategorien',
 		'L_EDITCAT_UPDATE' => 'Kategorie aktualisieren',
-		'L_EDITCAT_TITLE_HTMLTAG' => 'Title-Tag Inhalte (optional)',
 		'L_EDITCAT_META_DESCRIPTION' => 'META Tag "description" - Inhalt für diese Kategorie (optional)',
 		'L_EDITCAT_META_KEYWORDS' => 'META Tag "keywords" - Inhalt für diese Kategorie (optional)',
 
@@ -506,7 +504,7 @@ $LANG = array (
 		'L_STATIC_VIEW_PAGE' => 'Voransicht von',
 		'L_STATIC_ON_SITE' => 'im Frontend',
 		'L_STATIC_UPDATE' => 'Änderungen speichern',
-		'L_STATIC_TITLE_HTMLTAG' => 'Title-Tag Inhalte (optional)',
+		'L_TITLE_HTMLTAG' => 'Title-Tag Inhalte (optional)',
 		'L_STATIC_META_DESCRIPTION' => 'META Tag "description" - Inhalt für diese statische Seite (optional)',
 		'L_STATIC_META_KEYWORDS' => 'META Tag "keywords" - Inhalt für diese statische Seite (optional)',
 

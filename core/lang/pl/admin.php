@@ -130,7 +130,6 @@ $LANG = array (
 		'L_ADD' => "Dodaj",
 		'L_ARTICLE_META_DESCRIPTION' => 'Zawartość tagu "opisu" (opcjonalnie)',
 		'L_ARTICLE_META_KEYWORDS' => 'Zawartość tagu "słowa kluczowego" (opcjonalnie)',
-		'L_ARTICLE_TITLE_HTMLTAG' => 'Zawartość tagu "tytułu" (opcjonalnie)',
 		'L_ARTICLE_CHAPO_HIDE' => 'ukryj',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'pokaż',
 		'L_ARTICLE_ID' => 'Identyfikator',
@@ -192,7 +191,6 @@ $LANG = array (
 		'L_EDITCAT_TEMPLATE' => 'Szablon',
 		'L_EDITCAT_BACK_TO_PAGE' => 'Przejdż do listy kategorii',
 		'L_EDITCAT_UPDATE' => 'Zapisz zmiany',
-		'L_EDITCAT_TITLE_HTMLTAG' => 'Zawartość tagu "tytułu" (opcjonalnie)',
 		'L_EDITCAT_META_DESCRIPTION' => 'Zawartość tagu "opisu" (opcjonalnie)',
 		'L_EDITCAT_META_KEYWORDS' => 'Zawartość tagu "słowa kluczowego" (opcjonalnie)',
 
@@ -503,7 +501,7 @@ $LANG = array (
 		'L_STATIC_VIEW_PAGE' => 'Przeglądnij',
 		'L_STATIC_ON_SITE' => 'strona',
 		'L_STATIC_UPDATE' => 'Zapisz zmiany',
-		'L_STATIC_TITLE_HTMLTAG' => 'Zawartość tagu "tytułu" (opcjonalnie)',
+		'L_TITLE_HTMLTAG' => 'Zawartość tagu "tytułu" (opcjonalnie)',
 		'L_STATIC_META_DESCRIPTION' => 'Zawartość tagu "opisu" (opcjonalnie)',
 		'L_STATIC_META_KEYWORDS' => 'Zawartość tagu "słowa kluczowe" (opcjonalnie)',
 
