@@ -111,7 +111,7 @@ if($plxAdmin->aCats) {
 		$aCat[$k] = plxUtils::strCheck($v['name']);
 		$aFilterCat[$k] = plxUtils::strCheck($v['name']);
 	}
-	$aAllCat[L_CATEGORIES_TABLE] = $aCat;
+	$aAllCat[L_CATEGORIES] = $aCat;
 }
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_CATEGORY_HOME_PAGE;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
