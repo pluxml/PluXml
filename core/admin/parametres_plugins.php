@@ -112,10 +112,10 @@ $session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : '1';
 $sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
 $_SESSION['selPlugins'] = $sel;
 if($sel=='1') {
-	$aSelList = array('' => L_FOR_SELECTION, 'deactivate'=> L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
+	$aSelList = array('' => L_FOR_SELECTION, 'deactivate'=> L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_DELETE);
 	$plugins = pluginsList($plxAdmin->plxPlugins->aPlugins, $plxAdmin->aConf['default_lang'], true);
 } else {
-	$aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
+	$aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_DELETE);
 	$plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);
 }
 # fil d'ariane
