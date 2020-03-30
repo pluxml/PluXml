@@ -83,9 +83,9 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
 
 					if(isset($_GET['a'])) # edition article
-						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, false, false, '', false);
+						$menus[] = plxUtils::formatMenu(L_NEW_ARTICLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, false, false, '', false);
 					else # nouvel article
-						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES);
+						$menus[] = plxUtils::formatMenu(L_NEW_ARTICLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES);
 
 					$menus[] = plxUtils::formatMenu(L_MENU_MEDIAS, PLX_CORE.'admin/medias.php', L_MENU_MEDIAS_TITLE);
 

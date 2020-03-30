@@ -79,7 +79,7 @@ $LANG = array (
 
 		// article.php
 
-		'L_DEFAULT_NEW_ARTICLE_TITLE' => 'Nieuw Artikel',
+		'L_NEW_ARTICLE' => 'Nieuw Artikel',
 		'L_ERR_INVALID_PUBLISHING_DATE' => 'Ongeldige publicatiedatum',
 		'L_ERR_UNKNOWN_ARTICLE' => 'Het opgevraagde artikel bestaat niet of niet meer !',
 		'L_ERR_FORBIDDEN_ARTICLE' => 'U beschikt niet over de nodige rechten om het artikel te lezen',
@@ -482,8 +482,6 @@ $LANG = array (
 		'L_BACK_TO_BLOG_TITLE' => 'Terug naar blog',
 		'L_MENU_ARTICLES' => 'Artikels',
 		'L_MENU_ARTICLES_TITLE' => 'Lijst en aanpassingen artikels',
-		'L_MENU_NEW_ARTICLES' => 'Nieuw artikel',
-		'L_MENU_NEW_ARTICLES_TITLE' => 'Nieuw artikel',
 		'L_MENU_STATICS_TITLE' => 'Lijst en aanpassingen statische paginas',
 		'L_MENU_STATICS' => 'Statische paginas',
 		'L_MENU_COMMENTS_TITLE' => 'Lijst en aanpassingen commentaren',

@@ -85,7 +85,7 @@ $LANG = array (
 
 		// article.php
 
-		'L_DEFAULT_NEW_ARTICLE_TITLE' => 'Заголовок статьи',
+		'L_NEW_ARTICLE' => 'Заголовок статьи',
 		'L_ERR_INVALID_PUBLISHING_DATE' => 'Неверная дата публикации',
 		'L_ERR_UNKNOWN_ARTICLE' => 'Статья не существует',
 		'L_ERR_FORBIDDEN_ARTICLE' => 'Вы должны иметь необходимые права на доступ к этой статье!',
@@ -527,8 +527,6 @@ $LANG = array (
 		'L_BACK_TO_BLOG_TITLE' => 'Вернуться к блогу',
 		'L_MENU_ARTICLES' => 'Статьи',
 		'L_MENU_ARTICLES_TITLE' => 'Список и редактирование статей',
-		'L_MENU_NEW_ARTICLES' => 'Новая статья',
-		'L_MENU_NEW_ARTICLES_TITLE' => 'Новая статья',
 		'L_MENU_STATICS_TITLE' => 'Список и редактирование статических страниц',
 		'L_MENU_STATICS' => 'Страницы',
 		'L_MENU_COMMENTS_TITLE' => 'Список и редактирование комментариев',
