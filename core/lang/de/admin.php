@@ -81,7 +81,7 @@ $LANG = array (
 
 		// article.php
 
-		'L_DEFAULT_NEW_ARTICLE_TITLE' => 'Neuer Artikel',
+		'L_NEW_ARTICLE' => 'Neuer Artikel',
 		'L_ERR_INVALID_PUBLISHING_DATE' => 'Ungültiges Erscheinungsdatum.',
 		'L_ERR_UNKNOWN_ARTICLE' => 'Der angeforderte Artikel existiert nicht oder nicht mehr!',
 		'L_ERR_FORBIDDEN_ARTICLE' => 'Sie haben keine Berechtigung, auf diesen Artikel zuzugreifen!',
@@ -528,8 +528,6 @@ $LANG = array (
 		'L_BACK_TO_BLOG_TITLE' => 'Zurück zum Blog',
 		'L_MENU_ARTICLES' => 'Artikel',
 		'L_MENU_ARTICLES_TITLE' => 'Artikelverwaltung',
-		'L_MENU_NEW_ARTICLES' => 'Neuer Artikel',
-		'L_MENU_NEW_ARTICLES_TITLE' => 'Neuer Artikel',
 		'L_MENU_STATICS_TITLE' => 'Statische Seiten Verwaltung',
 		'L_MENU_STATICS' => 'Statische Seiten',
 		'L_MENU_COMMENTS_TITLE' => 'Kommentarverwaltung',

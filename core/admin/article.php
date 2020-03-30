@@ -28,7 +28,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 	if(!isset($_POST['catId'])) $_POST['catId']=array();
 	# Titre par défaut si titre vide
-	if(trim($_POST['title'])=='') $_POST['title'] = L_DEFAULT_NEW_ARTICLE_TITLE;
+	if(trim($_POST['title'])=='') $_POST['title'] = L_NEW_ARTICLE;
 	# Si demande d'enregistrement en brouillon on ajoute la categorie draft à la liste et on retire la demande de validation
 	if(isset($_POST['draft']) AND !in_array('draft',$_POST['catId'])) array_unshift($_POST['catId'], 'draft');
 	# si aucune catégorie sélectionnée on place l'article dans la catégorie "non classé"
@@ -209,7 +209,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleParseData'));
 
 } else { # On a rien validé, c'est pour la création d'un article
-	$title = plxUtils::strRevCheck(L_DEFAULT_NEW_ARTICLE_TITLE);
+	$title = plxUtils::strRevCheck(L_NEW_ARTICLE);
 	$chapo = $url = '';
 	$content = '';
 	$tags = '';
@@ -275,7 +275,7 @@ function refreshImg(dta) {
 
 	<div class="inline-form action-bar">
 
-		<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
+		<h2><?php echo (empty($_GET['a']))?L_NEW_ARTICLE:L_ARTICLE_EDITING; ?></h2>
 
 		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 

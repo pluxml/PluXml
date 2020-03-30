@@ -85,7 +85,7 @@ $LANG = array (
 
 		// article.php
 
-		'L_DEFAULT_NEW_ARTICLE_TITLE' => 'Novèl article',
+		'L_NEW_ARTICLE' => 'Novèl article',
 		'L_ERR_INVALID_PUBLISHING_DATE' => 'Data de publicacion invalida',
 		'L_ERR_UNKNOWN_ARTICLE' => 'L\'article demandat existís pas o existís pas mai !',
 		'L_ERR_FORBIDDEN_ARTICLE' => 'Avètz pas los dreches per accedir a-n aquel article !',
@@ -525,8 +525,6 @@ $LANG = array (
 		'L_BACK_TO_BLOG_TITLE' => 'Retorn a la pagina del blòg',
 		'L_MENU_ARTICLES' => 'Articles',
 		'L_MENU_ARTICLES_TITLE' => 'Lista e modificacion d\'articles',
-		'L_MENU_NEW_ARTICLES' => 'Novèl article',
-		'L_MENU_NEW_ARTICLES_TITLE' => 'Novèl article',
 		'L_MENU_STATICS_TITLE' => 'Lista e modificacion de las paginas estaticas',
 		'L_MENU_STATICS' => 'Paginas estaticas',
 		'L_MENU_COMMENTS_TITLE' => 'Lista e modificacion dels comentaris',
