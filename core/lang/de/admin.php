@@ -536,7 +536,6 @@ $LANG = array (
 		'L_MENU_CONFIG_TITLE' => 'PluXml Konfiguration',
 		'L_MENU_CONFIG' => 'Konfiguration',
 		'L_MENU_PROFIL_TITLE' => 'Mein Benutzerprofil verwalten',
-		'L_MENU_PROFIL' => 'Mein Profil',
 		'L_WARNING_INSTALLATION_FILE' => 'Die Datei install.php existiert noch im Grundverzeichnis von PluXml.<br />Sie sollten diese aus Sicherheitsgründen <a class="lnkdelete" href="?del=install">löschen</a>.',
 
 		// user.php

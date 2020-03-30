@@ -533,7 +533,6 @@ $LANG = array (
 		'L_MENU_CONFIG_TITLE' => 'Configurar PluXml',
 		'L_MENU_CONFIG' => 'Paramètres',
 		'L_MENU_PROFIL_TITLE' => 'Gerir vòstre perfil utilizaire',
-		'L_MENU_PROFIL' => 'Perfil',
 		'L_WARNING_INSTALLATION_FILE' => 'Lo fichièr install.php es present a la raiç de vòstre PluXml.<br />Per de rasons de seguretat, es fòrtament conselhat d\'o <a class="lnkdelete" href="?del=install">suprimir</a>.',
 
 		// user.php

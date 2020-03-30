@@ -458,7 +458,6 @@ $LANG = array (
 		'L_MENU_CONFIG_TITLE' => 'Configurar PluXml',
 		'L_MENU_CONFIG' => 'Parâmetros',
 		'L_MENU_PROFIL_TITLE' => 'Gerir o perfil do utilizador',
-		'L_MENU_PROFIL' => 'Perfil',
 		'L_WARNING_INSTALLATION_FILE' => 'O ficheiro install.php está presente na raíz de PluXml.<br />Por razões de segurança apague (<a class="lnkdelete" href="?del=install">delete</a>) este ficheiro.',
 		'L_USER_UNKNOWN' => 'Utilizador desconhecido',
 		'L_USER_LANG' => 'Idioma utilizado na administração',
