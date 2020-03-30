@@ -150,8 +150,6 @@ $LANG = array (
 		'L_YES' => 'Да',
 		'L_NO' => 'Нет',
 		'L_OK' => 'Ok',
-		'L_NONE1' => 'нет',
-		'L_NONE2' => 'отсутствует',
 
 		// categories.php
 
@@ -255,7 +253,6 @@ $LANG = array (
 		'L_ARTICLES_LIST' => 'Список статей',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Категории',
 		'L_ARTICLE_LIST_NBCOMS' => 'Коммент.',
-		'L_HOMEPAGE' => 'Главная',
 		'L_ARTICLE_VIEW_TITLE' => 'Открыть эту статью',
 		'L_EDIT' => 'Изменить',
 		'L_ARTICLE_EDIT_TITLE' => 'Изменить эту статью',
@@ -511,7 +508,6 @@ $LANG = array (
 		'L_MENU_MEDIAS_TITLE' => 'Загрузить и вставить изображение',
 		'L_MENU_MEDIAS' => 'Медиа',
 		'L_MENU_CATEGORIES_TITLE' => 'Создание, управление и редактирование категорий',
-		'L_CATEGORIES' => 'Категории',
 		'L_MENU_CONFIG_TITLE' => 'Конфигурация PluXml',
 		'L_MENU_CONFIG' => 'Настройки',
 		'L_MENU_PROFIL_TITLE' => 'Управление профилем пользователя',

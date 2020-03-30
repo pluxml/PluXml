@@ -145,8 +145,6 @@ $LANG = array (
 		'L_YES' => 'Yes',
 		'L_NO' => 'No',
 		'L_OK' => 'Ok',
-		'L_NONE1' => 'none',
-		'L_NONE2' => 'none',
 
 		// categories.php
 
@@ -254,7 +252,6 @@ $LANG = array (
 		'L_ARTICLES_LIST' => 'Article list',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Category',
 		'L_ARTICLE_LIST_NBCOMS' => 'N° coms',
-		'L_HOMEPAGE' => 'Home',
 		'L_ARTICLE_VIEW_TITLE' => 'View this article online',
 		'L_EDIT' => 'Edit',
 		'L_ARTICLE_EDIT_TITLE' => 'Edit this article',
@@ -510,7 +507,6 @@ $LANG = array (
 		'L_MENU_MEDIAS_TITLE' => 'Upload and insert media',
 		'L_MENU_MEDIAS' => 'Media',
 		'L_MENU_CATEGORIES_TITLE' => 'Create, manage, edit categories',
-		'L_CATEGORIES' => 'Categories',
 		'L_MENU_CONFIG_TITLE' => 'Configure PluXml',
 		'L_MENU_CONFIG' => 'Parameters',
 		'L_MENU_PROFIL_TITLE' => 'Manage your user profiles',

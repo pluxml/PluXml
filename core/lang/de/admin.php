@@ -148,8 +148,6 @@ $LANG = array (
 		'L_OK' => 'Ok',
 		'L_YES' => 'Ja',
 		'L_NO' => 'Nein',
-		'L_NONE1' => 'kein',
-		'L_NONE2' => 'kein',
 
 		// categories.php
 
@@ -256,7 +254,6 @@ $LANG = array (
 		'L_ARTICLES_LIST' => 'Artikelliste',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Kategorie',
 		'L_ARTICLE_LIST_NBCOMS' => 'Kom. Nummer',
-		'L_HOMEPAGE' => 'Homepage',
 		'L_ARTICLE_VIEW_TITLE' => 'Den Artikel auf der Website ansehen',
 		'L_EDIT' => 'editieren',
 		'L_ARTICLE_EDIT_TITLE' => 'Diesen Artikel bearbeiten',
@@ -512,7 +509,6 @@ $LANG = array (
 		'L_MENU_MEDIAS_TITLE' => 'Dateien hochladen und verwalten',
 		'L_MENU_MEDIAS' => 'Mediathek',
 		'L_MENU_CATEGORIES_TITLE' => 'Kategorieverwaltung',
-		'L_CATEGORIES' => 'Kategorien',
 		'L_MENU_CONFIG_TITLE' => 'PluXml Konfiguration',
 		'L_MENU_CONFIG' => 'Konfiguration',
 		'L_MENU_PROFIL_TITLE' => 'Mein Benutzerprofil verwalten',
