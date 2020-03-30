@@ -164,7 +164,7 @@ include __DIR__ .'/top.php';
 				<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
 				<th><?php echo L_ARTICLE_LIST_CATEGORIES ?></th>
 				<th><?php echo L_ARTICLE_LIST_NBCOMS ?></th>
-				<th><?php echo L_ARTICLE_LIST_AUTHOR ?></th>
+				<th><?php echo L_AUTHOR ?></th>
 				<th class="action"><?= L_ACTION ?></th>
 			</tr>
 		</thead>

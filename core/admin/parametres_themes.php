@@ -132,7 +132,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 							if($aInfos = $plxThemes->getInfos($theme)) {
 								echo '<strong>'.$aInfos['title'].'</strong><br />';
 								echo 'Version : <strong>'.$aInfos['version'].'</strong> - ('.$aInfos['date'].')<br />';
-								echo L_PLUGINS_AUTHOR.' : '.$aInfos['author'].' - <a href="'.$aInfos['site'].'" title="">'.$aInfos['site'].'</a>';
+								echo L_AUTHOR.' : '.$aInfos['author'].' - <a href="'.$aInfos['site'].'" title="">'.$aInfos['site'].'</a>';
 								echo '<br />'.$aInfos['description'].'<br />';
 							} else {
 								echo '<strong>'.$theme.'</strong>';

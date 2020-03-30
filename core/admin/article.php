@@ -410,7 +410,7 @@ function refreshImg(dta) {
 			<fieldset>
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_author"><?php echo L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
+						<label for="id_author"><?php echo L_AUTHOR ?>&nbsp;:&nbsp;</label>
 						<?php
 						if($_SESSION['profil'] < PROFIL_WRITER)
 							plxUtils::printSelect('author', $_users, $author);

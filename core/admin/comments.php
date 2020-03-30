@@ -155,7 +155,7 @@ $selector=selector($comSel, 'id_selection');
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
 					<th class="datetime"><?php echo L_COMMENTS_LIST_DATE ?></th>
 					<th class="message"><?php echo L_COMMENTS_LIST_MESSAGE ?></th>
-					<th class="author"><?php echo L_COMMENTS_LIST_AUTHOR ?></th>
+					<th class="author"><?php echo L_AUTHOR ?></th>
 					<th class="action"><?= L_ACTION ?></th>
 				</tr>
 			</thead>

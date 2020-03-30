@@ -168,7 +168,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_author"><?php echo L_COMMENT_AUTHOR_FIELD ?> :</label>
+				<label for="id_author"><?php echo L_AUTHOR ?> :</label>
 				<?php plxUtils::printInput('author',$author,'text','40-255') ?>
 			</div>
 		</div>
