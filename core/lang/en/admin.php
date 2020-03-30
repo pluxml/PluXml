@@ -205,7 +205,6 @@ $LANG = array (
 		'L_COMMENT_ARTICLE_FIELD' => 'Comments',
 		'L_COMMENT_DELETE_CONFIRM' => 'Delete this comment?',
 		'L_COMMENT_PUBLISH_BUTTON' => 'Confirm publication',
-		'L_COMMENT_OFFLINE_BUTTON' => 'Switch offline',
 		'L_COMMENT_ANSWER_BUTTON' => 'Reply to this comment',
 		'L_COMMENT_UPDATE_BUTTON' => 'Update',
 		'L_COMMENT_WRITTEN_BY' => 'Written by',
@@ -251,7 +250,6 @@ $LANG = array (
 		'L_COMMENTS_OFFLINE_LIST' => 'Comments awaiting moderation',
 		'L_COMMENTS_ALL_LIST' => 'Comments List',
 		'L_COMMENT_SET_ONLINE' => 'Set online',
-		'L_COMMENT_SET_OFFLINE' => 'Set Offline',
 
 		// index.php
 
