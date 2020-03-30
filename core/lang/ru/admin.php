@@ -227,7 +227,6 @@ $LANG = array (
 		'L_CREATING_COMMENT_SUCCESSFUL' => 'Комментарий успешно создан',
 		'L_CREATE_NEW_COMMENT' => 'Написать комментарий',
 		'L_ARTICLE_COMMENTS_LIST' => 'Комментарии к статье (от новых к старым)',
-		'L_COMMENT_ANSWER_TITLE' => 'Ответить на этот комментарий',
 		'L_COMMENT_ANSWER' => 'Ответ',
 
 		// comments.php

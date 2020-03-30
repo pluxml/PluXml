@@ -181,7 +181,6 @@ $LANG = array (
 		'L_CREATING_COMMENT_SUCCESSFUL' => 'Comentariul a fost creat cu succes',
 		'L_CREATE_NEW_COMMENT' => 'Scrie un comentariu',
 		'L_ARTICLE_COMMENTS_LIST' => 'Comentarii la acest articol (mai nou de la vechi la cele mai)',
-		'L_COMMENT_ANSWER_TITLE' => 'Răspundeţi la acest comentariu',
 		'L_COMMENT_ANSWER' => 'Raspunde',
 		'L_COMMENT_NEW_COMMENT_TITLE' => 'Scrie un comentariu nou pentru acest articol',
 		'L_COMMENT_NEW_COMMENT' => 'Scrie un comentariu nou',

@@ -181,7 +181,6 @@ $LANG = array (
 		'L_CREATING_COMMENT_SUCCESSFUL' => 'Il commento è stato creato con successo',
 		'L_CREATE_NEW_COMMENT' => 'Scrivi un commento',
 		'L_ARTICLE_COMMENTS_LIST' => 'Commenti dell\'articolo (dal più recente al più vecchio)',
-		'L_COMMENT_ANSWER_TITLE' => 'Rispondi a questo commento',
 		'L_COMMENT_ANSWER' => 'Rispondi',
 		'L_COMMENT_NEW_COMMENT_TITLE' => 'Scrivi un nuovo commento per questo articolo',
 		'L_COMMENT_NEW_COMMENT' => 'Scrivi un nuovo commento',
