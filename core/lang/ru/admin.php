@@ -130,7 +130,6 @@ $LANG = array (
 		'L_ADD' => 'Добавить',
 		'L_ARTICLE_META_DESCRIPTION' => 'Мета-тег описания "Description" (необязательно)',
 		'L_ARTICLE_META_KEYWORDS' => 'Мета-тег ключевых слов "Keywords" (необязательно)',
-		'L_ARTICLE_TITLE_HTMLTAG' => 'Мета-тег заголовка страницы "Title" (необязательно)',
 		'L_ARTICLE_CHAPO_HIDE' => 'скрыть',
 		'L_ARTICLE_CHAPO_DISPLAY' => 'показать',
 		'L_ARTICLE_ID' => 'ID',
@@ -192,7 +191,6 @@ $LANG = array (
 		'L_EDITCAT_TEMPLATE' => 'Тема',
 		'L_EDITCAT_BACK_TO_PAGE' => 'Вернуться к категориям',
 		'L_EDITCAT_UPDATE' => 'Обновление этой категории',
-		'L_EDITCAT_TITLE_HTMLTAG' => 'Заголовок для тега "Title" (необязательно)',
 		'L_EDITCAT_META_DESCRIPTION' => 'Мета-тег описания "Description" (необязательно)',
 		'L_EDITCAT_META_KEYWORDS' => 'Мета-тег ключевых слов "Keywords" (необязательно)',
 
@@ -506,7 +504,7 @@ $LANG = array (
 		'L_STATIC_VIEW_PAGE' => 'Просмотр страницы',
 		'L_STATIC_ON_SITE' => 'на сайте',
 		'L_STATIC_UPDATE' => 'Сохранить эту страницу',
-		'L_STATIC_TITLE_HTMLTAG' => 'Заголовок для тега "Title" (необязательно)',
+		'L_TITLE_HTMLTAG' => 'Заголовок для тега "Title" (необязательно)',
 		'L_STATIC_META_DESCRIPTION' => 'Мета-тег описания "Description" этой статической страницы (необязательно)',
 		'L_STATIC_META_KEYWORDS' => 'Мета-тег ключевых слов "Keywords" этой статической страницы (необязательно)',
 
