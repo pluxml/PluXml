@@ -244,7 +244,6 @@ $LANG = array (
 
 		'L_COMMENTS_GLOBAL_SCOPE' => 'весь сайт',
 
-		'L_COMMENTS_LIST_DATE' => 'Дата',
 		'L_COMMENTS_LIST_MESSAGE' => 'Сообщение',
 		'L_COMMENT_EDIT' => 'Изменить',
 		'L_COMMENT_EDIT_TITLE' => 'Изменить этот комментарий',
@@ -275,7 +274,6 @@ $LANG = array (
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Особые категории',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Все статьи',
 		'L_ARTICLES_LIST' => 'Список статей',
-		'L_ARTICLE_LIST_DATE' => 'Дата',
 		'L_ARTICLE_LIST_TITLE' => 'Название',
 		'L_ARTICLE_LIST_CATEGORIES' => 'Категории',
 		'L_ARTICLE_LIST_NBCOMS' => 'Коммент.',
@@ -305,7 +303,7 @@ $LANG = array (
 		'L_MEDIAS_NEW_FOLDER' => 'Новая папка',
 		'L_MEDIAS_CREATE_FOLDER' => 'Создать папку',
 		'L_MEDIAS_FILESIZE' => 'Размер файла',
-		'L_MEDIAS_DATE' => 'Дата',
+		'L_DATE' => 'Дата',
 		'L_MEDIAS_DIMENSIONS' => 'Разрешения',
 		'L_MEDIAS_NO_FILE' => 'Нет файлов',
 		'L_MEDIAS_RESIZE' => 'Изменение размера изображения',
