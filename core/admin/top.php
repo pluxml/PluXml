@@ -42,7 +42,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		<header class="header sml-text-center med-text-right">
 			<ul class="unstyled-list head">
 				<li>
-					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a></small>
+					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_HOMEPAGE_TITLE ?>"><?php echo L_HOMEPAGE;?></a></small>
 				</li>
 				<li>
 <?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>

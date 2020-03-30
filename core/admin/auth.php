@@ -205,7 +205,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 		break;
@@ -249,7 +249,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 			}
@@ -264,7 +264,7 @@ plxUtils::cleanHeaders();
 				<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) # Hook plugins ?>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 			}
@@ -310,7 +310,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 	}

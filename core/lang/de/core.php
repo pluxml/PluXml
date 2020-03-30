@@ -1,6 +1,5 @@
 <?php
 
-
 const L_LANGUE					= 'Deutsch';
 
 const L_DATE_CREATION			= 'Erstellungsdatum';

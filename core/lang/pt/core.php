@@ -1,6 +1,5 @@
 <?php
 
-
 const L_LANGUE						= 'Português';
 
 const L_DATE_CREATION				= 'Data de criação';
@@ -8,7 +7,7 @@ const L_DATE_UPDATE					= 'Data atualizada';
 
 # common
 const L_PLUXML_VERSION				= 'Versão de Pluxml';
-const L_HOMEPAGE					= 'Índice';
+const L_HOMEPAGE					= 'Pagina inicial';
 const L_UNCLASSIFIED				= 'Não categorizado;';
 const L_INFO_PHP_VERSION			= 'Versão de php';
 const L_INFO_CHARSET				= 'codagem';
@@ -136,7 +135,6 @@ const L_TOTAL				    	= 'total';
 
 # class.plx.feed.php
 const L_FEED_NO_PRIVATE_URL			= 'Os URLS privados não foram inicializados nos parâmetros de administração !';
-const L_COMMENTS					= 'Comentários';
 const L_FEED_ONLINE_COMMENTS		= 'Comentários online';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentários offline';
 const L_WRITTEN_BY					= 'Escrito por';

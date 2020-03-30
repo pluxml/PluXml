@@ -1,6 +1,5 @@
 <?php
 
-
 const L_LANGUE						= 'English';
 
 const L_DATE_CREATION				= 'Creation date';
@@ -136,7 +135,6 @@ const L_TOTAL						= 'total';
 
 # class.plx.feed.php
 const L_FEED_NO_PRIVATE_URL			= 'Private URLs have not been initialized in your administration settings!';
-const L_COMMENTS					= 'Comments';
 const L_FEED_ONLINE_COMMENTS		= 'Online comments';
 const L_FEED_OFFLINE_COMMENTS		= 'Offline comments';
 const L_WRITTEN_BY					= 'Written by';

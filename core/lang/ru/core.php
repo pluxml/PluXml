@@ -1,6 +1,5 @@
 <?php
 
-
 const L_LANGUE						= 'Pусский';
 
 const L_DATE_CREATION				= 'Дата создания';
@@ -8,7 +7,7 @@ const L_DATE_UPDATE					= 'Дата обновляются';
 
 # common
 const L_PLUXML_VERSION				= 'PluXml версия';
-const L_HOMEPAGE					= 'Главная';
+const L_HOMEPAGE					= 'домашняя страница';
 const L_UNCLASSIFIED				= 'Без категории';
 const L_INFO_PHP_VERSION			= 'PHP версия';
 const L_INFO_CHARSET				= 'кодировка';
@@ -136,7 +135,6 @@ const L_TOTAL				    	= 'Всего';
 
 # class.plx.feed.php
 const L_FEED_NO_PRIVATE_URL			= 'Закрытые URL не был инициализированы в настройках Админпанели!';
-const L_COMMENTS					= 'Комментарии';
 const L_FEED_ONLINE_COMMENTS		= 'Комментарии онлайн';
 const L_FEED_OFFLINE_COMMENTS		= 'Комментарии оффлайн';
 const L_WRITTEN_BY					= 'Автор';
