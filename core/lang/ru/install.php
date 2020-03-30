@@ -24,7 +24,6 @@ $LANG = array(
 'L_VERSION'							=> 'версия',
 'L_USERNAME'						=> 'Имя Администратора',
 'L_PASSWORD'						=> 'Пароль',
-'L_PASSWORD_CONFIRMATION'			=> 'Подтвердить пароль',
 'L_EMAIL'						    => 'Адрес электронной почты',
 'L_INPUT_INSTALL'					=> 'Установка',
 'L_TIMEZONE'						=> 'Часовой пояс',

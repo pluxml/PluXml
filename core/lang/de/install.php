@@ -24,7 +24,6 @@ $LANG = array(
 'L_VERSION'							=> 'Version',
 'L_USERNAME'						=> 'Name des Administrators',
 'L_PASSWORD'						=> 'Passwort',
-'L_PASSWORD_CONFIRMATION'			=> 'Passwort wiederholen',
 'L_EMAIL'						    => 'E-Mail-Adresse',
 'L_INPUT_INSTALL'					=> 'Installieren',
 'L_TIMEZONE'						=> 'Zeitzone',

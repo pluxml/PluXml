@@ -24,7 +24,6 @@ $LANG = array(
 'L_VERSION'							=> 'version',
 'L_USERNAME'						=> 'Admin username',
 'L_PASSWORD'						=> 'Password',
-'L_PASSWORD_CONFIRMATION'			=> 'Confirm password',
 'L_EMAIL'						    => 'E-mail adress',
 'L_INPUT_INSTALL'					=> 'Install',
 'L_TIMEZONE'						=> 'Time Zone',
