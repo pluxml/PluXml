@@ -486,7 +486,6 @@ $LANG = array (
 		'L_PLUGINS_DELETE_SUCCESSFUL' => 'Удалено успешно',
 		'L_PLUGINS_CONFIG' => 'Конфигурация',
 		'L_PLUGINS_CONFIG_TITLE' => 'Конфигурация плагина',
-		'L_PLUGINS_HELP' => 'помощь',
 		'L_PLUGINS_HELP_TITLE' => 'Смотрите раздел Использование плагина',
 		'L_PLUGINS_REQUIREMENTS' => 'Системные требования',
 		'L_PLUGINS_REQUIREMENTS_HELP' => 'Доступные и активные плагины',
