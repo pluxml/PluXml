@@ -207,7 +207,6 @@ $LANG = array (
 		'L_COMMENT_ARTICLE_FIELD' => 'Kommentar',
 		'L_COMMENT_DELETE_CONFIRM' => 'Diesen Kommentar löschen?',
 		'L_COMMENT_PUBLISH_BUTTON' => 'Publizieren bestätigen',
-		'L_COMMENT_OFFLINE_BUTTON' => 'Offline stellen',
 		'L_COMMENT_ANSWER_BUTTON' => 'Antworten',
 		'L_COMMENT_UPDATE_BUTTON' => 'Aktualisieren',
 		'L_COMMENT_WRITTEN_BY' => 'Geschrieben von',
@@ -253,7 +252,6 @@ $LANG = array (
 		'L_COMMENTS_ONLINE_LIST' => 'Liste der veröffentlichten Kommentare',
 		'L_COMMENTS_ALL_LIST' => 'Liste aller Kommentare',
 		'L_COMMENT_SET_ONLINE' => 'Online nehmen',
-		'L_COMMENT_SET_OFFLINE' => 'Offline nehmen',
 
 		// index.php
 

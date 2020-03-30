@@ -205,7 +205,6 @@ $LANG = array (
 		'L_COMMENT_ARTICLE_FIELD' => 'Commentaire',
 		'L_COMMENT_DELETE_CONFIRM' => 'Supprimer ce commentaire ?',
 		'L_COMMENT_PUBLISH_BUTTON' => 'Valider la publication',
-		'L_COMMENT_OFFLINE_BUTTON' => 'Mettre hors ligne',
 		'L_COMMENT_ANSWER_BUTTON' => 'Répondre à ce commentaire',
 		'L_COMMENT_UPDATE_BUTTON' => 'Mettre à jour',
 		'L_COMMENT_WRITTEN_BY' => 'Rédigé par',
@@ -251,7 +250,6 @@ $LANG = array (
 		'L_COMMENTS_OFFLINE_LIST' => 'Liste des commentaires en attente de validation',
 		'L_COMMENTS_ALL_LIST' => 'Liste des commentaires',
 		'L_COMMENT_SET_ONLINE' => 'Mettre en ligne',
-		'L_COMMENT_SET_OFFLINE' => 'Mettre hors ligne',
 
 		// index.php
 

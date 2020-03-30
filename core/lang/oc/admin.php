@@ -211,7 +211,6 @@ $LANG = array (
 		'L_COMMENT_ARTICLE_FIELD' => 'Comentari',
 		'L_COMMENT_DELETE_CONFIRM' => 'Suprimir aqueste comentari ?',
 		'L_COMMENT_PUBLISH_BUTTON' => 'Validar la publicacion',
-		'L_COMMENT_OFFLINE_BUTTON' => 'Metre fòra linha',
 		'L_COMMENT_ANSWER_BUTTON' => 'Respondre a-n aquel comentari',
 		'L_COMMENT_UPDATE_BUTTON' => 'Metre a jorn',
 		'L_COMMENT_WRITTEN_BY' => 'Redigit per',
@@ -250,7 +249,6 @@ $LANG = array (
 		'L_COMMENTS_OFFLINE_LIST' => 'Lista dels comentaris en espèra de validacion',
 		'L_COMMENTS_ALL_LIST' => 'Lista dels comentaris',
 		'L_COMMENT_SET_ONLINE' => 'Metre en linha',
-		'L_COMMENT_SET_OFFLINE' => 'Metre fòra linha',
 
 		// index.php
 

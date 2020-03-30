@@ -210,7 +210,6 @@ $LANG = array (
 		'L_COMMENT_ARTICLE_FIELD' => 'Komentarz',
 		'L_COMMENT_DELETE_CONFIRM' => 'Usunąć ten komentarz ?',
 		'L_COMMENT_PUBLISH_BUTTON' => 'Zatwierdz',
-		'L_COMMENT_OFFLINE_BUTTON' => 'Zdeaktywuj',
 		'L_COMMENT_ANSWER_BUTTON' => 'Odpowiedź na komentarz',
 		'L_COMMENT_UPDATE_BUTTON' => 'Zaktualizuj',
 		'L_COMMENT_WRITTEN_BY' => 'Napisane przez',
@@ -249,7 +248,6 @@ $LANG = array (
 		'L_COMMENTS_OFFLINE_LIST' => 'Lista komentarzy oczekujących na zatwierdzenie',
 		'L_COMMENTS_ALL_LIST' => 'Lista komentarzy',
 		'L_COMMENT_SET_ONLINE' => 'Aktywuj komentarz',
-		'L_COMMENT_SET_OFFLINE' => 'Zdeaktywuj komentarz',
 
 		// index.php
 

@@ -210,7 +210,6 @@ $LANG = array (
 		'L_COMMENT_ARTICLE_FIELD' => 'Comentarios',
 		'L_COMMENT_DELETE_CONFIRM' => 'Desea eliminar este comentario?',
 		'L_COMMENT_PUBLISH_BUTTON' => 'Aprobar la publicación',
-		'L_COMMENT_OFFLINE_BUTTON' => 'Cambiar a invisible',
 		'L_COMMENT_ANSWER_BUTTON' => 'Responder a este comentario',
 		'L_COMMENT_UPDATE_BUTTON' => 'Actualizar',
 		'L_COMMENT_WRITTEN_BY' => 'Escrito por',
@@ -249,7 +248,6 @@ $LANG = array (
 		'L_COMMENTS_OFFLINE_LIST' => 'Comentarios esperando moderación',
 		'L_COMMENTS_ALL_LIST' => 'Lista de comentarios',
 		'L_COMMENT_SET_ONLINE' => 'Configurar como visible',
-		'L_COMMENT_SET_OFFLINE' => 'Configurar como invisible',
 
 		// index.php
 

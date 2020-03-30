@@ -210,7 +210,6 @@ $LANG = array (
 		'L_COMMENT_ARTICLE_FIELD' => 'Комментарии',
 		'L_COMMENT_DELETE_CONFIRM' => 'Удалить этот комментарий?',
 		'L_COMMENT_PUBLISH_BUTTON' => 'Подтверждение публикации',
-		'L_COMMENT_OFFLINE_BUTTON' => 'Не отображать',
 		'L_COMMENT_ANSWER_BUTTON' => 'Ответить на этот комментарий',
 		'L_COMMENT_UPDATE_BUTTON' => 'Обновить',
 		'L_COMMENT_WRITTEN_BY' => 'Автор',
@@ -252,7 +251,6 @@ $LANG = array (
 		'L_COMMENTS_ALL_LIST' => 'Список комментариев',
 
 		'L_COMMENT_SET_ONLINE' => 'Включить',
-		'L_COMMENT_SET_OFFLINE' => 'Выключить',
 
 		// index.php
 
