@@ -270,7 +270,6 @@ $LANG = array (
 		'L_ALL' => 'Alle',
 		'L_ALL_PUBLISHED' => 'Veröffentlicht',
 		'L_ALL_DRAFTS' => 'Entwürfe',
-		'L_ALL_AWAITING_MODERATION' => 'erwarten Moderation',
 		'L_ARTICLES_FILTER_BUTTON' => 'Filtern',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Exakter Ort',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Alle Artikel',

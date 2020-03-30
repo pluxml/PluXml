@@ -266,7 +266,6 @@ $LANG = array (
 		'L_ALL' => 'Wszystkie',
 		'L_ALL_PUBLISHED' => 'Opublikowane',
 		'L_ALL_DRAFTS' => 'Projekty',
-		'L_ALL_AWAITING_MODERATION' => 'Oczekiwanie na zatwierdzenie',
 		'L_ARTICLES_FILTER_BUTTON' => 'Filtr',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Konkretne kategorie',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Wszystkie posty',

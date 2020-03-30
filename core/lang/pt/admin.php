@@ -232,7 +232,6 @@ $LANG = array (
 		'L_ALL' => 'Todos',
 		'L_ALL_PUBLISHED' => 'Publicação',
 		'L_ALL_DRAFTS' => 'Rascunhos',
-		'L_ALL_AWAITING_MODERATION' => 'Validação pendente',
 		'L_MEDIAS_DELETE_FOLDER' => 'Suprimir a	pasta',
 		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Suprimir a pasta %s e o seu conteúdo ?',
 		'L_MEDIAS_NO_FILE' => 'Nenhum ficheiro',

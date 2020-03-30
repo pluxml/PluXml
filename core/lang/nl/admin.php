@@ -264,7 +264,6 @@ $LANG = array (
 		'L_ALL' => 'Alle',
 		'L_ALL_PUBLISHED' => 'Gepubliceerd',
 		'L_ALL_DRAFTS' => 'Concepten',
-		'L_ALL_AWAITING_MODERATION' => 'In afwachting van de validatie',
 		'L_MEDIAS_DELETE_FOLDER' => 'Map verwijderen',
 		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Map en inhoud van de map verwijderen %s ?',
 		'L_MEDIAS_NO_FILE' => 'Geen bestand',

@@ -267,7 +267,6 @@ $LANG = array (
 		'L_ALL' => 'Totes',
 		'L_ALL_PUBLISHED' => 'Publicats',
 		'L_ALL_DRAFTS' => 'Borrolhons',
-		'L_ALL_AWAITING_MODERATION' => 'En espèra de validacion',
 		'L_ARTICLES_FILTER_BUTTON' => 'Filtrar',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Emplaçaments especifics',
 		'L_ALL_ARTICLES_CATEGORIES_TABLE' => 'Totes los articles',
