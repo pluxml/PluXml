@@ -474,7 +474,6 @@ const L_STATICS_PAGE_TITLE = 'Utwórz lub edytuj strone statyczną';
 const L_STATICS_GROUP = 'Grupa';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Ustaw jako stronę główną';
-const L_STATICS_HOME_PAGE = 'Strona główna';
 const L_PAGE = 'strona';
 const L_VIEW = 'Podgląd';
 const L_STATICS_SRC_TITLE = 'Edytuj kod źródłowy strony';

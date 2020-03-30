@@ -404,7 +404,6 @@ const L_STATICS_PAGE_TITLE = 'Criação e edição das páginas státicas';
 const L_STATICS_GROUP = 'Groupo';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Definir como página inicial';
-const L_STATICS_HOME_PAGE = 'Página<br />de inicio';
 const L_PAGE = 'Página';
 const L_VIEW = 'Vêr';
 const L_STATICS_SRC_TITLE = 'Editar o código fonte desta página';

@@ -435,7 +435,6 @@ const L_STATICS_PAGE_TITLE = 'Aanmaken en aanpassen van statische paginas';
 const L_STATICS_GROUP = 'Groep';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Instellen als homepage';
-const L_STATICS_HOME_PAGE = 'Startpagina';
 const L_PAGE = 'Pagina';
 const L_VIEW = 'Bekijken';
 const L_STATICS_SRC_TITLE = 'Bron van deze pagina aanpassen';

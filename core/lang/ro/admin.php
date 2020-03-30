@@ -401,7 +401,6 @@ const L_STATICS_PAGE_TITLE = 'Crearea şi publicarea paginei statice';
 const L_STATICS_GROUP = 'Grupa';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Setaţi ca pagina de start';
-const L_STATICS_HOME_PAGE = 'Home';
 const L_PAGE = 'Pagină';
 const L_VIEW = 'Vizualizează';
 const L_STATICS_SRC_TITLE = 'Editează codul sursă a acestei pagini';

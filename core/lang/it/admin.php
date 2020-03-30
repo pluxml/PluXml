@@ -400,7 +400,6 @@ const L_STATICS_PAGE_TITLE = 'Gestione pagine statiche';
 const L_STATICS_GROUP = 'Gruppo';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Imposta come pagine iniziale';
-const L_STATICS_HOME_PAGE = 'Homepage';
 const L_PAGE = 'Pagina';
 const L_VIEW = 'Visualizza';
 const L_STATICS_SRC_TITLE = 'Modifica il codice di questa pagina';
