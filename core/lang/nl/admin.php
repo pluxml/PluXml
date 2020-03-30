@@ -109,7 +109,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Template',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Commentaar beheren',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Commentaren van dit artikel beheren',
-		'L_ARTICLE_NEW_COMMENT' => 'Commentaar ingeven',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Commentaar ingeven voor dit artikel',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Dit artikel daadwerkelijk verwijderen ?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Overzicht',

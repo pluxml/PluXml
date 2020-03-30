@@ -114,7 +114,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Plantilla',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Moderar los comentarios',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Moderar los comentarios de este artículo',
-		'L_ARTICLE_NEW_COMMENT' => 'Escribir un comentario',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Escribir un comentario sobre este artículo',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Eliminar este artículo?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Previsualización',

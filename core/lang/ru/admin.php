@@ -114,7 +114,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Шаблон',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Управление комментариями',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Управление комментариями к данной статье',
-		'L_ARTICLE_NEW_COMMENT' => 'Создать комментарий',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Создать комментарий к этой статье',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Удалить эту статью?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Предварительный просмотр',

@@ -114,7 +114,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Modèl',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Gerir los comentaris',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Gerir los comentaris d\'aqueste article',
-		'L_ARTICLE_NEW_COMMENT' => 'Escriure un comentari',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Escriure un comentari sus aqueste article',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Suprimir aqueste article ?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Apercebut',

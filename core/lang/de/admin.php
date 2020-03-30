@@ -111,7 +111,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Template',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Kommentare verwalten',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Kommentare dieses Artikels verwalten',
-		'L_ARTICLE_NEW_COMMENT' => 'Kommentar schreiben',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Einen Kommentar zu diesem Artikel schreiben',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Diesen Artikel löschen?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Vorschau',
