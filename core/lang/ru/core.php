@@ -146,7 +146,7 @@ $LANG = array(
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Закрытые URL не был инициализированы в настройках Админпанели!',
-'L_FEED_COMMENTS'				=> 'Комментарии',
+'L_COMMENTS'				=> 'Комментарии',
 'L_FEED_ONLINE_COMMENTS'		=> 'Комментарии онлайн',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Комментарии оффлайн',
 'L_FEED_WRITTEN_BY'				=> 'Автор',

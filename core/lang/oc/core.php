@@ -146,7 +146,7 @@ $LANG = array(
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Las URLs privadas son pas estadas inicializadas dins vòstres paramètres d\'administracion !',
-'L_FEED_COMMENTS'				=> 'Comentaris',
+'L_COMMENTS'				=> 'Comentaris',
 'L_FEED_ONLINE_COMMENTS'		=> 'Comentaris en linha',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Comentaris fòra linha',
 'L_FEED_WRITTEN_BY'				=> 'Redigit per',

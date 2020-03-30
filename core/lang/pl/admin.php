@@ -549,7 +549,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'Lista i edytor stron statycznych',
 		'L_MENU_STATICS' => 'Strony statyczne',
 		'L_MENU_COMMENTS_TITLE' => 'Lista i edytor komentarzy',
-		'L_MENU_COMMENTS' => 'Komentarze',
 		'L_MENU_MEDIAS_TITLE' => 'Dodaj i zarządzaj materiałami',
 		'L_MENU_MEDIAS' => 'Media',
 		'L_MENU_CATEGORIES_TITLE' => 'Lista i edytor kategorii',

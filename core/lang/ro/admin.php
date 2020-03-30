@@ -473,7 +473,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'Listează şi editează paginile statice',
 		'L_MENU_STATICS' => 'Pagini statice',
 		'L_MENU_COMMENTS_TITLE' => 'Listează şi editează comentariile',
-		'L_MENU_COMMENTS' => 'Comentarii',
 		'L_MENU_MEDIAS_TITLE' => 'Încărcaţi şi modificaţi imaginile',
 		'L_MENU_MEDIAS' => 'Imagini',
 		'L_MENU_CATEGORIES_TITLE' => 'Crează,gestionează,editează categoriile',

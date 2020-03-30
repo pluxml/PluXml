@@ -145,7 +145,7 @@ $LANG = array(
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'Privé URLs zijn niet geïnitialiseerd in uw instellingen !',
-'L_FEED_COMMENTS'				=> 'Commentaren',
+'L_COMMENTS'				=> 'Commentaren',
 'L_FEED_ONLINE_COMMENTS'		=> 'Online commentaren',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Offline commentaren',
 'L_FEED_WRITTEN_BY'				=> 'Geschreven door',

@@ -507,7 +507,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'Lijst en aanpassingen statische paginas',
 		'L_MENU_STATICS' => 'Statische paginas',
 		'L_MENU_COMMENTS_TITLE' => 'Lijst en aanpassingen commentaren',
-		'L_MENU_COMMENTS' => 'Commentaren',
 		'L_MENU_MEDIAS_TITLE' => 'Media uploaden en toevoegen',
 		'L_MENU_MEDIAS' => 'Media',
 		'L_MENU_CATEGORIES_TITLE' => 'Categorie?n aanmaken, beheren, verwijderen',

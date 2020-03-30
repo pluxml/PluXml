@@ -552,7 +552,6 @@ $LANG = array (
 		'L_MENU_STATICS_TITLE' => 'Список и редактирование статических страниц',
 		'L_MENU_STATICS' => 'Страницы',
 		'L_MENU_COMMENTS_TITLE' => 'Список и редактирование комментариев',
-		'L_MENU_COMMENTS' => 'Комментарии',
 		'L_MENU_MEDIAS_TITLE' => 'Загрузить и вставить изображение',
 		'L_MENU_MEDIAS' => 'Медиа',
 		'L_MENU_CATEGORIES_TITLE' => 'Создание, управление и редактирование категорий',

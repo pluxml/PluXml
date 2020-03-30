@@ -146,7 +146,7 @@ $LANG = array(
 
 # class.plx.feed.php
 'L_FEED_NO_PRIVATE_URL'			=> 'URL-uri private nu au fost initializate in parametrii dvs. de administrare !',
-'L_FEED_COMMENTS'				=> 'Comentarii',
+'L_COMMENTS'				=> 'Comentarii',
 'L_FEED_ONLINE_COMMENTS'		=> 'Comentarii online',
 'L_FEED_OFFLINE_COMMENTS'		=> 'Comentarii offline',
 'L_FEED_WRITTEN_BY'				=> 'Scris de',
