@@ -66,7 +66,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 					# description
 					$output .= '<br />'.plxUtils::strCheck($plugInstance->getInfo('description')).'<br />';
 					# author
-					$output .= L_PLUGINS_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
+					$output .= L_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
 					# site
 					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.plxUtils::strCheck($plugInstance->getInfo('site')).'">'.plxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
 				$output .= "</td>\n";

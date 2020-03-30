@@ -140,7 +140,7 @@ include __DIR__ .'/top.php';
 	<h3 class="no-margin"><?= ucfirst(L_ARTICLE) ?> &laquo;<?= plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
 
 	<ul class="unstyled-list">
-		<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
+		<li><?php echo L_AUTHOR ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
 		<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
 		<li><?php echo L_COMMENT_SITE_FIELD ?> : <?php echo '<a href="'.$plxAdmin->racine.'">'.$plxAdmin->racine.'</a>'; ?></li>
 		<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
