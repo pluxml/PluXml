@@ -108,7 +108,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Template',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Gérer les commentaires',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Gérer les commentaires de cet article',
-		'L_ARTICLE_NEW_COMMENT' => 'Rédiger un commentaire',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Rédiger un commentaire sur cet article',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Supprimer cet article ?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Aperçu',

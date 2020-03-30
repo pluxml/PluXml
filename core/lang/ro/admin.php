@@ -104,7 +104,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Template',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Administreaza Comentariile',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Gestionarea comentariilor din acest articol',
-		'L_ARTICLE_NEW_COMMENT' => 'Scrie un comentariu',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Scrie un comentariu la acest articol',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Ştergeţi acest articol ?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Preview',

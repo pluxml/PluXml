@@ -114,7 +114,6 @@ $LANG = array (
 		'L_ARTICLE_TEMPLATE_FIELD' => 'Szablon',
 		'L_ARTICLE_MANAGE_COMMENTS' => 'Zarządzaj komentarzami',
 		'L_ARTICLE_MANAGE_COMMENTS_TITLE' => 'Zarządzaj komentarzaami dla tego posta',
-		'L_ARTICLE_NEW_COMMENT' => 'Napisz komentarz',
 		'L_ARTICLE_NEW_COMMENT_TITLE' => 'Napisz komentarz dla tego posta',
 		'L_ARTICLE_DELETE_CONFIRM' => 'Usuń ten post ?',
 		'L_ARTICLE_PREVIEW_BUTTON' => 'Podgląd',
