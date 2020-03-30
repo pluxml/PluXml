@@ -1032,7 +1032,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				unset($this->aTags[$id]);
 				$this->editTags();
 			}
-			return plxMsg::Info(L_ARTICLE_DELETE_SUCCESSFUL);
+			return plxMsg::Info(L_DELETE_SUCCESSFUL);
 		}
 		else
 			return plxMsg::Error(L_ARTICLE_DELETE_ERR);
@@ -1141,7 +1141,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		}
 		# On refait un test file_exists pour savoir si unlink à fonctionner
 		if(!file_exists($filename))
-			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
+			return plxMsg::Info(L_DELETE_SUCCESSFUL);
 		else
 			return plxMsg::Error(L_COMMENT_DELETE_ERR);
 	}
