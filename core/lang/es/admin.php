@@ -473,7 +473,6 @@ const L_STATICS_PAGE_TITLE = 'Crear y editar páginas estáticas';
 const L_STATICS_GROUP = 'Grupo';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Establecer como página de inicio';
-const L_STATICS_HOME_PAGE = 'Página de inicio';
 const L_PAGE = 'Página';
 const L_VIEW = 'Visualizar';
 const L_STATICS_SRC_TITLE = 'Editar código fuente de esta página';

@@ -477,7 +477,6 @@ const L_STATICS_PAGE_TITLE = 'Создание и редактирование �
 const L_STATICS_GROUP = 'Группа';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Сделать Главной страницей';
-const L_STATICS_HOME_PAGE = 'Главной<br />страница';
 const L_PAGE = 'Страница';
 const L_VIEW = 'Показать';
 const L_STATICS_SRC_TITLE = 'Изменение исходного кода этой страницы';

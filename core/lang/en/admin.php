@@ -475,7 +475,6 @@ const L_STATICS_PAGE_TITLE = 'Create and edit static pages';
 const L_STATICS_GROUP = 'Group';
 const L_STATICS_URL = 'Url';
 const L_STATICS_PAGE_HOME = 'Set as Homepage';
-const L_STATICS_HOME_PAGE = 'Homepage';
 const L_PAGE = 'Page';
 const L_VIEW = 'See';
 const L_STATICS_SRC_TITLE = 'Edit source code for this page';
