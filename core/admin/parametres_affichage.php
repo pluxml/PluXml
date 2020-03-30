@@ -80,7 +80,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_tri"><?php echo L_CONFIG_VIEW_SORT ?>&nbsp;:</label>
+				<label for="id_tri"><?php echo L_ARTICLES_SORT ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printSelect('tri', $aTriArts, $plxAdmin->aConf['tri']); ?>
