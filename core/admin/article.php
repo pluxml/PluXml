@@ -289,7 +289,7 @@ function refreshImg(dta) {
 					echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 				} else {
 					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a'])) { # en attente
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
+						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_SAVE . '"/> ';
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
 						echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 					} else {
@@ -305,7 +305,7 @@ function refreshImg(dta) {
 					if(!isset($_GET['a']) OR preg_match('/^_[0-9]{4}$/',$_GET['a']))
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
 					else
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
+						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_SAVE . '"/> ';
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_OFFLINE_BUTTON . '"/> ';
 				}
 				if($artId!='0000')
