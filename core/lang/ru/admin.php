@@ -413,7 +413,6 @@ $LANG = array (
 		'L_CONFIG_BASE_URL_HELP' => 'Не забудьте слеш / в конце',
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Язык сайта по умолчанию',
 		'L_CONFIG_BASE_TIMEZONE' => 'Часовой пояс',
-		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Разрешить комментарии',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Модерация комментариев',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Модерация статей для профилей Редактор и Издатель',
 		'L_CONFIG_BASE_UPDATE' => 'Сохранить основные настройки',
