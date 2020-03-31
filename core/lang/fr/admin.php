@@ -492,7 +492,6 @@ const L_ADMIN = 'Administration';
 const L_LOGIN = 'Connecté en tant que';
 const L_ADMIN_LOGOUT = 'Déconnexion';
 const L_ADMIN_LOGOUT_TITLE = 'Quitter la session d\'administration';
-const L_BACK_HOMEPAGE_TITLE = 'Retour à la page d\'accueil du site';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Retour à la page du blog';
 const L_MENU_ARTICLES = 'Articles';

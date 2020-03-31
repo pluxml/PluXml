@@ -310,7 +310,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 	}

@@ -414,7 +414,6 @@ const L_ADMIN = 'Amministrazione';
 const L_LOGIN = 'Connesso come';
 const L_ADMIN_LOGOUT = 'Disconnettiti';
 const L_ADMIN_LOGOUT_TITLE = 'Esci dal pannello di amministrazione';
-const L_BACK_HOMEPAGE_TITLE = 'Ritorna al sito';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Ritorna al blog';
 const L_MENU_ARTICLES = 'Articoli';

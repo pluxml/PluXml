@@ -495,7 +495,6 @@ const L_ADMIN = 'Admin';
 const L_LOGIN = 'Angemeldet als ';
 const L_ADMIN_LOGOUT = 'Abmelden';
 const L_ADMIN_LOGOUT_TITLE = 'Administration beenden';
-const L_BACK_HOMEPAGE_TITLE = 'Zurück zum startseite';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Zurück zum Blog';
 const L_MENU_ARTICLES = 'Artikel';

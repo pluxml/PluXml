@@ -8,6 +8,7 @@ const L_DATE_UPDATE					= 'Data aggiornamento';
 # common
 const L_PLUXML_VERSION				= 'PluXml versione';
 const L_HOMEPAGE					= 'Pagina principale';
+const L_BACK_HOMEPAGE_TITLE			= 'Ritorna al sito';
 const L_UNCLASSIFIED				= 'Non classificato';
 const L_INFO_PHP_VERSION			= 'Versione di php';
 const L_INFO_CHARSET				= 'encoding';
