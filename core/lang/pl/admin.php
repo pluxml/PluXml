@@ -491,7 +491,6 @@ const L_ADMIN = 'Administracja';
 const L_LOGIN = 'Login';
 const L_ADMIN_LOGOUT = 'Wyloguj';
 const L_ADMIN_LOGOUT_TITLE = 'Opuść panel administracyjny';
-const L_BACK_HOMEPAGE_TITLE = 'Przejdż do strony głównej';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Przejdż do strony bloga';
 const L_MENU_ARTICLES = 'Artykuły';

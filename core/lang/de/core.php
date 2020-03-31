@@ -8,6 +8,7 @@ const L_DATE_UPDATE				= 'Datum der Aktualisierung';
 # common
 const L_PLUXML_VERSION			= 'Pluxml Version';
 const L_HOMEPAGE				= 'Startseite';
+const L_BACK_HOMEPAGE_TITLE 	= 'Zurück zum startseite';
 const L_UNCLASSIFIED			= 'Nicht kategorisiert';
 const L_INFO_PHP_VERSION		= 'PHP Version';
 const L_INFO_CHARSET			= 'Kodierung';

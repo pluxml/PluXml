@@ -493,7 +493,6 @@ const L_ADMIN = 'Administration';
 const L_LOGIN = 'Connected as';
 const L_ADMIN_LOGOUT = 'Disconnect';
 const L_ADMIN_LOGOUT_TITLE = 'Leave administrator\'s session';
-const L_BACK_HOMEPAGE_TITLE = 'Back to homepage';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Back to blog';
 const L_MENU_ARTICLES = 'Articles';

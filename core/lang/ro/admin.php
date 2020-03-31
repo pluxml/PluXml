@@ -415,7 +415,6 @@ const L_ADMIN = 'Administrare';
 const L_LOGIN = 'Logat ca';
 const L_ADMIN_LOGOUT = 'Deconectare';
 const L_ADMIN_LOGOUT_TITLE = 'Log Out Admin';
-const L_BACK_HOMEPAGE_TITLE = 'Mergi la pagina principală';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Inapoi la blog';
 const L_MENU_ARTICLES = 'Articole';

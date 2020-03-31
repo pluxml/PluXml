@@ -449,7 +449,6 @@ const L_ADMIN = 'Administratie';
 const L_LOGIN = 'Aangemeld als';
 const L_ADMIN_LOGOUT = 'Afmelden';
 const L_ADMIN_LOGOUT_TITLE = 'Sluit adminstratie-sessie';
-const L_BACK_HOMEPAGE_TITLE = 'Terug naar home';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Terug naar blog';
 const L_MENU_ARTICLES = 'Artikels';

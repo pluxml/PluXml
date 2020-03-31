@@ -8,6 +8,7 @@ const L_DATE_UPDATE					= 'Дата обновляются';
 # common
 const L_PLUXML_VERSION				= 'PluXml версия';
 const L_HOMEPAGE					= 'домашняя страница';
+const L_BACK_HOMEPAGE_TITLE			= 'Вернуться на главную страницу';
 const L_UNCLASSIFIED				= 'Без категории';
 const L_INFO_PHP_VERSION			= 'PHP версия';
 const L_INFO_CHARSET				= 'кодировка';
