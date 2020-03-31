@@ -21,15 +21,6 @@ if (!empty($_POST)) {
 	exit;
 }
 
-# Tableau des profils
-$aProfils = array(
-	PROFIL_ADMIN => L_PROFIL_ADMIN,
-	PROFIL_MANAGER => L_PROFIL_MANAGER,
-	PROFIL_MODERATOR => L_PROFIL_MODERATOR,
-	PROFIL_EDITOR => L_PROFIL_EDITOR,
-	PROFIL_WRITER => L_PROFIL_WRITER
-);
-
 # On inclut le header
 include __DIR__ .'/top.php';
 ?>
@@ -84,11 +75,11 @@ include __DIR__ .'/top.php';
 				if($_userid=='001') {
 					plxUtils::printInput($_userid.'_profil', $_user['profil'], 'hidden');
 					plxUtils::printInput($_userid.'_active', $_user['active'], 'hidden');
-					plxUtils::printSelect($_userid.'__profil', $aProfils, $_user['profil'], true, 'readonly');
+					plxUtils::printSelect($_userid.'__profil', PROFIL_NAMES, $_user['profil'], true, 'readonly');
 					echo '</td><td>';
 					plxUtils::printSelect($_userid.'__active', array('1'=>L_YES,'0'=>L_NO), $_user['active'], true, 'readonly');
 				} else {
-					plxUtils::printSelect($_userid.'_profil', $aProfils, $_user['profil']);
+					plxUtils::printSelect($_userid.'_profil', PROFIL_NAMES, $_user['profil']);
 					echo '</td><td>';
 					plxUtils::printSelect($_userid.'_active', array('1'=>L_YES,'0'=>L_NO), $_user['active']);
 				}
@@ -120,7 +111,7 @@ include __DIR__ .'/top.php';
 				echo '</td><td>';
 				plxUtils::printInput($new_userid.'_email', '', 'email', '');
 				echo '</td><td>';
-				plxUtils::printSelect($new_userid.'_profil', $aProfils, PROFIL_WRITER);
+				plxUtils::printSelect($new_userid.'_profil', PROFIL_NAMES, PROFIL_WRITER);
 				echo '</td><td>';
 				plxUtils::printSelect($new_userid.'_active', array('1'=>L_YES,'0'=>L_NO), '1');
 				echo '</td>';

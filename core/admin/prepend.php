@@ -68,6 +68,15 @@ eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
+# Tableau des profils
+const PROFIL_NAMES = array(
+	PROFIL_ADMIN		=> L_PROFIL_ADMIN,
+	PROFIL_MANAGER		=> L_PROFIL_MANAGER,
+	PROFIL_MODERATOR	=> L_PROFIL_MODERATOR,
+	PROFIL_EDITOR		=> L_PROFIL_EDITOR,
+	PROFIL_WRITER		=> L_PROFIL_WRITER
+);
+
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
