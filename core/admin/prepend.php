@@ -61,8 +61,6 @@ if(isset($_SESSION['user'])) {
 	if($plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
 }
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 
 # Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
 loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
@@ -76,6 +74,16 @@ const PROFIL_NAMES = array(
 	PROFIL_EDITOR		=> L_PROFIL_EDITOR,
 	PROFIL_WRITER		=> L_PROFIL_WRITER
 );
+
+# On vérifie que PHP 5 ou superieur soit installé
+if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
+	header('Content-Type: text/plain charset=UTF-8');
+	echo utf8_decode(L_WRONG_PHP_VERSION);
+	exit;
+}
+
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
