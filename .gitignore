@@ -1,5 +1,5 @@
-/data/
-/plugins/
+/data
+/plugins
 !/themes/defaut/
 /themes/
 .project

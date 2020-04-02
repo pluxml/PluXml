@@ -11,17 +11,9 @@ session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS
 session_start();
 
 # On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'timezones',
-	'date',
-	'glob',
-	'utils',
-	'token'
-);
-foreach(ALL_CLASSES as $aClass) {
+foreach(explode(' ', 'timezones date glob utils token') as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
 }
-
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
@@ -48,22 +40,48 @@ if(file_exists(path('XMLFILE_PARAMETERS'))) {
 	exit;
 }
 
-# Control du token du formulaire
+# Controle du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers médias
-if(!is_dir(PLX_ROOT.'data/medias')) {
-	@mkdir(PLX_ROOT.'data/medias',0755,true);
+# Dossier des données par défaut : data/
+$data = 'data' . DIRECTORY_SEPARATOR;
+# Les .htaccess
+$htaccess = array(
+'<Files *>
+    Order allow,deny
+    Deny from all
+</Files>',
+'options -indexes
+<Files "*">
+	SetHandler default-handler
+</Files>',
+'Options -Indexes'
+);
+
+# Vérification de l'existence des dossiers et fichiers principaux et si besoin on les crées
+foreach(explode(' ', 'medias articles commentaires configuration statiques templates') AS $folder) {
+	if(!is_dir(PLX_ROOT . $data . $folder)) {
+		@mkdir(PLX_ROOT . $data . $folder,0755,true);
+		if(strpos($folder, 'medias') === FALSE)
+			@file_put_contents(PLX_ROOT . $data . $folder . DIRECTORY_SEPARATOR . '.htaccess', $htaccess[0]);
+		touch(PLX_ROOT . $data . $folder . DIRECTORY_SEPARATOR . 'index.html');
+	}
 }
+@file_put_contents(PLX_ROOT . $data . '.htaccess', $htaccess[1]);
+touch(PLX_ROOT . $data . 'index.html');
 
 # Vérification de l'existence du dossier data/configuration/plugins
-if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
-	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
+if(!is_dir(PLX_ROOT . PLX_CONFIG_PATH . 'plugins')) {
+	@mkdir(PLX_ROOT . PLX_CONFIG_PATH . 'plugins',0755,true);
+	@file_put_contents(PLX_ROOT . PLX_CONFIG_PATH . 'plugins' . DIRECTORY_SEPARATOR . '.htaccess', $htaccess[2]);
+	touch(PLX_ROOT . PLX_CONFIG_PATH . 'plugins' . DIRECTORY_SEPARATOR . 'index.html');
 }
 
-# Vérification de l'existence du dossier data/templates
-if(!is_dir(PLX_ROOT.'data/templates')) {
-	@mkdir(PLX_ROOT.'data/templates',0755,true);
+# Vérification de l'existence du dossier plugins
+if(!is_dir(PLX_ROOT . 'plugins')) {
+	@mkdir(PLX_ROOT . 'plugins',0755,true);
+	@file_put_contents(PLX_ROOT . 'plugins' . DIRECTORY_SEPARATOR . '.htaccess', $htaccess[2]);
+	touch(PLX_ROOT . 'plugins' . DIRECTORY_SEPARATOR . 'index.html');
 }
 
 # Echappement des caractères

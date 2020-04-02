@@ -17,20 +17,7 @@ session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS
 session_start();
 
 # On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'date',
-	'glob',
-	'utils',
-	'capcha',
-	'erreur',
-	'record',
-	'motor',
-	'feed',
-	'show',
-	'encrypt',
-	'plugins'
-);
-foreach(ALL_CLASSES as $aClass) {
+foreach(explode(' ', 'date glob utils capcha erreur record motor feed show encrypt plugins') as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
 }
 

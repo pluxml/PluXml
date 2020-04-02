@@ -1,11 +1,9 @@
 <?php
-
-const PHP_VERSION_MIN = '5.6.0';
-
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.8.2';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
+const PHP_VERSION_MIN = '5.5.0';
 
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);

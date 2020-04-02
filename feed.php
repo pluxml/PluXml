@@ -17,16 +17,7 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 header('Access-Control-Allow-Origin: *');
 
 # On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'date',
-	'glob',
-	'utils',
-	'record',
-	'motor',
-	'feed',
-	'plugins'
-);
-foreach(ALL_CLASSES as $aClass) {
+foreach(explode(' ', 'date glob utils record motor feed plugins') as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
 }
 
