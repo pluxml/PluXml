@@ -1,6 +1,7 @@
 ## PLUXML 5.8.3 (yyyy/mm/dd) ##
-Fix Change lang if empty required fields & Install with push "enter" (sudwebdesign)
-Fix lib/config.php const2define PLX_URL_VERSION #php55legacy (sudwebdesign)
+FIX #386 Bcc typo in plxUtils::sendmail (bazooka07)
+FIX Change lang if empty required fields & Install with push "enter" (sudwebdesign)
+FIX lib/config.php const2define PLX_URL_VERSION #php55legacy (sudwebdesign)
 [+] Load classes with loop in index.php, install.php, feed.php, update/index.php: (bazooka07, sudwebdesign)
 [+] New constant PHP_VERSION_MIN (bazooka07) 5.5 (sudwebdesign)
 [+] Use output buffer (ob_start() ob_get_clean();) to simplify human readable install.php #DevFriendly (bazooka07)
