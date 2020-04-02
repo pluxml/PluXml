@@ -6,12 +6,11 @@
  * @package PLX
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
-
 include_once PLX_CORE.'lib/class.plx.template.php';
 
 class plxMotor {
-	const PLX_TEMPLATES = PLX_CORE . 'templates/';
-	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
+	const PLX_TEMPLATES = PLX_TEMPLATES;#declaration in
+	const PLX_TEMPLATES_DATA = PLX_TEMPLATES_DATA;#lib/config.php
 
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
@@ -73,7 +72,7 @@ class plxMotor {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
-		define('PLX_SITE_LANG', $this->aConf['default_lang']);
+		if(!defined('PLX_SITE_LANG')) define('PLX_SITE_LANG', $this->aConf['default_lang']);
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
