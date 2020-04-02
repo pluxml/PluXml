@@ -132,15 +132,15 @@ include __DIR__ .'/top.php';
 		<?php else : ?>
 		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
 		<?php endif; ?>
-		<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+		<input type="submit" name="create" value="<?php echo L_SAVE ?>"/>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
 
-	<h3 class="no-margin"><?php echo L_COMMENTS_ARTICLE_SCOPE ?> &laquo;<?php echo plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
+	<h3 class="no-margin"><?= ucfirst(L_ARTICLE) ?> &laquo;<?= plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
 
 	<ul class="unstyled-list">
-		<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
+		<li><?php echo L_AUTHOR ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
 		<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
 		<li><?php echo L_COMMENT_SITE_FIELD ?> : <?php echo '<a href="'.$plxAdmin->racine.'">'.$plxAdmin->racine.'</a>'; ?></li>
 		<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
@@ -169,8 +169,8 @@ include __DIR__ .'/top.php';
 				<small>
 					<span class="nbcom">#<?php echo $plxAdmin->plxRecord_coms->i+1 ?></span>&nbsp;
 					<time datetime="<?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?></time> -
-					<?php echo L_COMMENT_WRITTEN_BY ?>&nbsp;<strong><?php echo $plxAdmin->plxRecord_coms->f('author'); ?></strong>
-					- <a href="comment.php<?php echo (!empty($_GET['a']))?'?c='.$comId.'&amp;a='.$_GET['a']:'?c='.$comId; ?>" title="<?php echo L_COMMENT_EDIT_TITLE ?>"><?php echo L_COMMENT_EDIT ?></a>
+					<?php echo L_WRITTEN_BY ?>&nbsp;<strong><?php echo $plxAdmin->plxRecord_coms->f('author'); ?></strong>
+					- <a href="comment.php<?php echo (!empty($_GET['a']))?'?c='.$comId.'&amp;a='.$_GET['a']:'?c='.$comId; ?>" title="<?php echo L_COMMENT_EDIT_TITLE ?>"><?php echo L_EDIT ?></a>
 					- <a href="#form_comment" onclick="replyCom('<?php echo $plxAdmin->plxRecord_coms->f('index') ?>')"><?php echo L_COMMENT_ANSWER ?></a>
 				</small>
 				<blockquote class="type-<?php echo $plxAdmin->plxRecord_coms->f('type'); ?>"><?php echo nl2br($plxAdmin->plxRecord_coms->f('content')); ?></blockquote>

@@ -53,19 +53,19 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_email"><?php echo L_PROFIL_MAIL ?>&nbsp;:</label>
+				<label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label>
 				<?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'text', '30-255') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_lang"><?php echo L_PROFIL_ADMIN_LANG ?>&nbsp;:</label>
+				<label for="id_lang"><?php echo L_USER_LANG ?>&nbsp;:</label>
 				<?php plxUtils::printSelect('lang', plxUtils::getLangs(), $_profil['lang']) ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_content"><?php echo L_PROFIL_INFOS ?>&nbsp;:</label>
+				<label for="id_content"><?php echo L_INFOS ?>&nbsp;:</label>
 				<?php plxUtils::printArea('content',plxUtils::strCheck($_profil['infos']), 0, 5); ?>
 			</div>
 		</div>
@@ -80,13 +80,13 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 	<fieldset>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_password1"><?php echo L_PROFIL_PASSWORD ?>&nbsp;:</label>
+				<label for="id_password1"><?php echo L_PASSWORD ?>&nbsp;:</label>
 				<?php plxUtils::printInput('password1', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_password2"><?php echo L_PROFIL_CONFIRM_PASSWORD ?>&nbsp;:</label>
+				<label for="id_password2"><?php echo L_CONFIRM_PASSWORD ?>&nbsp;:</label>
 				<?php plxUtils::printInput('password2', '', 'password', '20-255') ?>
 			</div>
 		</div>

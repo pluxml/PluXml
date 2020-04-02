@@ -299,10 +299,10 @@ class plxFeed extends plxMotor {
 		$entry = '';
 		if($this->cible) { # Commentaires d'un article
 			$artId = $this->plxRecord_arts->f('numero') + 0;
-			$title = $this->aConf['title'].' - '.$this->plxRecord_arts->f('title').' - '.L_FEED_COMMENTS;
+			$title = $this->aConf['title'].' - '.$this->plxRecord_arts->f('title').' - ' . ucfirst(L_COMMENTS);
 			$link = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url'));
 		} else { # Commentaires globaux
-			$title = $this->aConf['title'].' - '.L_FEED_COMMENTS;
+			$title = $this->aConf['title'].' - ' . ucfirst(L_COMMENTS);
 			$link = $this->urlRewrite();
 		}
 

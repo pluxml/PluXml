@@ -61,7 +61,7 @@ include __DIR__ .'/top.php';
 <form action="parametres_affichage.php" method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_VIEW_FIELD ?></h2>
+		<h2><?php echo L_CONFIG_VIEW ?></h2>
 		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<input type="submit" value="<?php echo L_CONFIG_VIEW_UPDATE ?>" />
 	</div>
@@ -80,7 +80,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_tri"><?php echo L_CONFIG_VIEW_SORT ?>&nbsp;:</label>
+				<label for="id_tri"><?php echo L_ARTICLES_SORT ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printSelect('tri', $aTriArts, $plxAdmin->aConf['tri']); ?>

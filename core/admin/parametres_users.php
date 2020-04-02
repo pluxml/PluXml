@@ -53,14 +53,14 @@ include __DIR__ .'/top.php';
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
-			<th><?php echo L_ID ?></th>
+			<th>#</th>
 			<th><?php echo L_PROFIL_USER ?></th>
 			<th><?php echo L_PROFIL_LOGIN ?></th>
-			<th><?php echo L_PROFIL_PASSWORD ?></th>
-			<th><?php echo L_PROFIL_MAIL ?></th>
+			<th><?php echo L_PASSWORD ?></th>
+			<th><?php echo L_USER_MAIL ?></th>
 			<th><?php echo L_PROFIL ?></th>
 			<th><?php echo L_CONFIG_USERS_ACTIVE ?></th>
-			<th><?php echo L_CONFIG_USERS_ACTION ?></th>
+			<th><?= L_ACTION ?></th>
 		</tr>
 	</thead>
 	<tbody>
