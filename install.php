@@ -1,7 +1,7 @@
 <?php
 
 const PLX_ROOT = './';
-define('PLX_CORE', PLX_ROOT.'core/');#legacy PHP<5.6
+const PLX_CORE = PLX_ROOT .'core/';
 
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';

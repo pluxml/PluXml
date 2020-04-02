@@ -1,6 +1,6 @@
 <?php
 const PLX_ROOT = '../../';
-define('PLX_CORE', PLX_ROOT.'core/');#legacy PHP<5.6
+const PLX_CORE = PLX_ROOT .'core/';
 const SESSION_LIFETIME = 7200;
 
 include PLX_ROOT.'config.php';
@@ -79,3 +79,5 @@ eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
+
+?>

@@ -19,10 +19,11 @@ class plxDate {
 	 * @author	Stephane F., Pedro "P3ter" CADETE
 	 **/
 	public static function getCalendar($key, $value) {
+		$value = $value ? $value : intval($value);
 		if(!is_numeric($value)) return false;
 		$names = array(
 			'month' => array(
-				0 => '',//All
+				0 => '', //All
 				'01' => L_JANUARY,
 				'02' => L_FEBRUARY,
 				'03' => L_MARCH,
@@ -37,7 +38,7 @@ class plxDate {
 				'12' => L_DECEMBER
 			),
 			'short_month' => array(
-				0 => '',//All
+				0 => '', //All
 				'01' => L_SHORT_JANUARY,
 				'02' => L_SHORT_FEBRUARY,
 				'03' => L_SHORT_MARCH,

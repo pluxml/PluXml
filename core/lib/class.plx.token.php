@@ -2,23 +2,29 @@
 /**
  * Classe plxToken responsable du controle des formulaires
  *
- * @package PLX
+ * @package	PLX
  * @author	Stephane F
  **/
 class plxToken {
+	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const LIFETIME = 3600; // seconds
 
 	/**
 	 * Méthode qui affiche le champ input contenant le token
 	 *
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
-	public static function getTokenPostMethod() {
-
-		$token = sha1(mt_rand(0, 1000000));
+	public static function getTokenPostMethod($length=32, $html=true) {
+		$range = strlen(plxToken::TEMPLATE);
+		$result = array();
+		mt_srand((float)microtime() * 1000000);
+		for($i=0; $i<$length; $i++) {
+			$result[] = self::TEMPLATE[mt_rand() % $range];
+		}
+		$token = implode('', $result);
 		$_SESSION['formtoken'][$token] = time();
-		return '<input name="token" value="'.$token.'" type="hidden" />';
-
+		return ($html) ? '<input name="token" value="'.$token.'" type="hidden" />' : $token;
 	}
 
 	/**
@@ -26,36 +32,28 @@ class plxToken {
 	 *
 	 * @param	$request	(deprecated)
 	 * @return	stdio/null
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez, Sudwebdesign
 	 **/
 	public static function validateFormToken($request='') {
-
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
-
+			$limit = time() - self::LIFETIME;
 			if(empty($_POST)) {
-				$_SESSION['error'] = 'Maybe too large files! Length posted is '
-				. intval($_SERVER['CONTENT_LENGTH']). 'bytes ('
-				. ini_get('upload_max_filesize') . 'bytes Max / file'
-				. ini_get('post_max_size') . 'bytes Max total)';
-				return;//Wip to fix upload medias : Warning: POST Content-Length of ## bytes exceeds the limit of ## bytes in Unknown on line 0 #Fix : Never reported tu user ANG go die : Security error : invalid or expired token
+				return;
 			}
-			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < time() - 3600) { # 3600 seconds
+			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < $limit) {
 				unset($_SESSION['formtoken']);
 				die('Security error : invalid or expired token');
 			}
 			unset($_SESSION['formtoken'][$_POST['token']]);
+			// cleanup old tokens 
+			if(!empty($_SESSION['formtoken'])) {
+				foreach($_SESSION['formtoken'] as $token=>$lifetime) {
+					if($lifetime < $limit) {
+						unset($_SESSION['formtoken'][$token]);
+					}
+				}
+			}
 		}
-
-	}
-
-	/**
-	 * Create a token to reset user password
-	 *
-	 * @return	string	the token
-	 * @author	Pedro "P3ter" CADETE
-	 */
-	public static function generateToken() {
-		return sha1(mt_rand(0, 1000000));
 	}
 
 	/**
@@ -65,7 +63,6 @@ class plxToken {
 	 * @return	string	expiry date
 	 * @author	Pedro "P3ter" CADETE
 	 */
-
 	public static function generateTokenExperyDate($hours = 24) {
 		return date('YmdHis', mktime(date('H')+$hours, date('i'), date('s'), date('m'), date('d'), date('Y')));
 	}
