@@ -389,7 +389,7 @@ plxUtils::cleanHeaders();
 						</div>
 						<div class="col med-7">
 							<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
-							<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
+							<input type="button" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" onclick="var x=document.getElementsByTagName('input'); for(i=0;i<x.length;i++){x[i].required=false;}this.type='submit';"/>
 							<?php echo plxToken::getTokenPostMethod() ?>
 						</div>
 					</div>
