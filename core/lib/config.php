@@ -2,6 +2,7 @@
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.8.2';
 const PLX_URL_REPO = 'https://www.pluxml.org';
+const PHP_VERSION_MIN = '5.5.0';
 define('PLX_URL_VERSION', PLX_URL_REPO.'/download/latest-version.txt');#legacy PHP<5.6
 define('PLX_TEMPLATES', PLX_CORE . 'templates/');#fix plxMotor class const with php5.5 : Parse error: syntax error, unexpected '.', expecting ',' or ';'
 define('PLX_TEMPLATES_DATA', PLX_ROOT . 'data/templates/');#if in const have concatenated values

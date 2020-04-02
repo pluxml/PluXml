@@ -1,3 +1,12 @@
+## PLUXML 5.8.3 (site-2004) ##
+[+] Load classes with loop in index.php, install.php, feed.php, update/index.php: (bazooka07, sudwebdesign)
+[+] New constant PHP_VERSION_MIN (bazooka07) 5.5 (sudwebdesign)
+[+] Use output buffer (ob_start() ob_get_clean();) to simplify human readable install.php #DevFriendly (bazooka07)
+[+] Required attributes it's active on install page (bazooka07)
+[+] Stop with exit command after load lang (bazooka07)
+[+] Install Auto create plugins, data folders +minimum files (sudwebdesign)
+[+] gitignore unfollow data & plugins folders & it's removed (sudwebdesign)
+
 ## PLUXML 5.8.2 (2020/02/09) ##
 [+] #371 Check PluXml update using javascript if "curl" or "file_get_contents" can not be used (bazooka07)
 FIX #365 plxUtils::getLangs() optimisations (bazooka07)
