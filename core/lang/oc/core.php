@@ -1,5 +1,4 @@
 <?php
-
 const L_LANGUE						= 'Occitan';
 
 const L_DATE_CREATION				= 'Data de creacion';
@@ -139,4 +138,3 @@ const L_FEED_NO_PRIVATE_URL			= 'Las URLs privadas son pas estadas inicializadas
 const L_FEED_ONLINE_COMMENTS		= 'Comentaris en linha';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentaris fòra linha';
 const L_WRITTEN_BY					= 'Redigit per';
-?>

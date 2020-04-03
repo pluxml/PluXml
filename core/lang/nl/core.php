@@ -1,5 +1,4 @@
 <?php
-
 const L_LANGUE						= 'Nederlands';
 
 const L_DATE_CREATION				= 'Aanmaakdatum';
@@ -138,5 +137,3 @@ const L_FEED_NO_PRIVATE_URL			= 'Privé URLs zijn niet geïnitialiseerd in uw in
 const L_FEED_ONLINE_COMMENTS		= 'Online commentaren';
 const L_FEED_OFFLINE_COMMENTS		= 'Offline commentaren';
 const L_WRITTEN_BY					= 'Geschreven door';
-
-?>

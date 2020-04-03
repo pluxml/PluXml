@@ -1,6 +1,4 @@
 <?php
-
-
 const L_UPDATE_TITLE					= 'Mesa a jorn PluXml';
 const L_WRONG_PHP_VERSION				= 'PluXml requerís PHP 5 o superior per foncionar.';
 
@@ -53,4 +51,3 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migracion dels fichièrs de parametratge d
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Mesa a jorn del fichièr plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Migracion dels comentaris';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Error pendent la migracion dels comentaris';
-?>

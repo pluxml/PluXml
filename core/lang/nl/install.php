@@ -1,6 +1,4 @@
 <?php
-
-
 # install.php
 const L_INSTALL_TITLE					= 'Installatie';
 const L_INSTALL_DATA					= 'Voorbeeldgegevens installeren';
@@ -29,4 +27,3 @@ const L_PWD_VERY_WEAK					= 'Zeer zwak wachtwoord';
 const L_PWD_WEAK						= 'Zwak wachtwoord';
 const L_PWD_GOOD						= 'Goed wachtwoord';
 const L_PWD_STRONG						= 'Sterk wachtwoord';
-?>

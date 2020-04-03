@@ -1,5 +1,4 @@
 <?php
-
 const L_LANGUE						= 'Italiano';
 
 const L_DATE_CREATION				= 'Data di creazione';
@@ -139,5 +138,3 @@ const L_FEED_NO_PRIVATE_URL			= 'Gli URL privati non sono stati configurati !';
 const L_FEED_ONLINE_COMMENTS		= 'Commenti online';
 const L_FEED_OFFLINE_COMMENTS		= 'Commenti chiusi';
 const L_WRITTEN_BY					= 'Pubblicato da';
-
-?>

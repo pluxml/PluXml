@@ -1,6 +1,4 @@
 <?php
-
-
 # install.php
 const L_INSTALL_TITLE					= 'Instalacja';
 const L_INSTALL_DATA					= 'Instalowanie przykładowych danych';
@@ -29,4 +27,3 @@ const L_PWD_VERY_WEAK					= 'Bardzo słabe hasło';
 const L_PWD_WEAK						= 'Słabe hasło';
 const L_PWD_GOOD						= 'Dobre hasło';
 const L_PWD_STRONG						= 'Silne hasło';
-?>

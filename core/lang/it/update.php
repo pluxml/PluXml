@@ -1,6 +1,4 @@
 <?php
-
-
 const L_UPDATE_TITLE					= 'Aggiornamento PluXml';
 const L_WRONG_PHP_VERSION				= 'PluXml richiede PHP5 o superiore per funzionare.';
 
@@ -53,4 +51,3 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'La migrazione di file dalle impostazioni d
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Aggiornamento del file plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Commenti migrazione';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Errore durante la migrazione commenti';
-?>

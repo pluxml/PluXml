@@ -1,5 +1,4 @@
 <?php
-
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Unknown error';
 const L_CONFIRM_DELETE = 'Confirm the deletion?';
@@ -534,5 +533,4 @@ const L_THEMES_TITLE = 'Manage themes';
 const L_HELP = 'Help';
 const L_HELP_TITLE = 'See help';
 const L_BACK_TO_THEMES = 'Back to themes';
-const L_CONFIG_THEME_UPDATE = 'Change Theme'
-?>
+const L_CONFIG_THEME_UPDATE = 'Change Theme';

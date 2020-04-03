@@ -1,5 +1,4 @@
 <?php
-
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Onbekende fout';
 const L_CONFIRM_DELETE = 'Bevestig de verwijdering ?';
@@ -484,5 +483,4 @@ const L_THEMES_TITLE = 'Het beheren van thema\'s';
 const L_HELP = 'Hulp';
 const L_HELP_TITLE = 'Zie hulp';
 const L_BACK_TO_THEMES = 'Terug naar de onderwerpen van de pagina';
-const L_CONFIG_THEME_UPDATE = 'Change Theme'
-?>
+const L_CONFIG_THEME_UPDATE = 'Change Theme';

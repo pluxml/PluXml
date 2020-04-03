@@ -1,5 +1,4 @@
 <?php
-
 const L_LANGUE						= 'Pусский';
 
 const L_DATE_CREATION				= 'Дата создания';
@@ -139,5 +138,3 @@ const L_FEED_NO_PRIVATE_URL			= 'Закрытые URL не был инициал
 const L_FEED_ONLINE_COMMENTS		= 'Комментарии онлайн';
 const L_FEED_OFFLINE_COMMENTS		= 'Комментарии оффлайн';
 const L_WRITTEN_BY					= 'Автор';
-
-?>

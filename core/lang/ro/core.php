@@ -1,5 +1,4 @@
 <?php
-
 const L_LANGUE						= 'Română';
 
 const L_DATE_CREATION				= 'Data crearii';
@@ -139,5 +138,3 @@ const L_FEED_NO_PRIVATE_URL			= 'URL-uri private nu au fost initializate in para
 const L_FEED_ONLINE_COMMENTS		= 'Comentarii online';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentarii offline';
 const L_WRITTEN_BY					= 'Scris de';
-
-?>

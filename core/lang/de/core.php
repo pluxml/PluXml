@@ -1,5 +1,4 @@
 <?php
-
 const L_LANGUE					= 'Deutsch';
 
 const L_DATE_CREATION			= 'Erstellungsdatum';
@@ -139,5 +138,3 @@ const L_FEED_NO_PRIVATE_URL		= 'Private URLs wurden in der Administration nicht 
 const L_FEED_ONLINE_COMMENTS	= 'Online Kommentare';
 const L_FEED_OFFLINE_COMMENTS	= 'Offline Kommentaire';
 const L_WRITTEN_BY				= 'Geschrieben von';
-
-?>

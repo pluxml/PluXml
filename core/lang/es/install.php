@@ -1,6 +1,4 @@
 <?php
-
-
 # install.php
 const L_INSTALL_TITLE				= 'Instalación';
 const L_INSTALL_DATA				= 'Instalar datos de muestra';
@@ -29,4 +27,3 @@ const L_PWD_VERY_WEAK				= 'Contraseña muy débil';
 const L_PWD_WEAK					= 'Contraseña débil';
 const L_PWD_GOOD					= 'Buena contraseña';
 const L_PWD_STRONG					= 'Contraseña segura';
-?>

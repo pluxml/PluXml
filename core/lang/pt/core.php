@@ -1,5 +1,4 @@
 <?php
-
 const L_LANGUE						= 'Português';
 
 const L_DATE_CREATION				= 'Data de criação';
@@ -139,5 +138,3 @@ const L_FEED_NO_PRIVATE_URL			= 'Os URLS privados não foram inicializados nos p
 const L_FEED_ONLINE_COMMENTS		= 'Comentários online';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentários offline';
 const L_WRITTEN_BY					= 'Escrito por';
-
-?>

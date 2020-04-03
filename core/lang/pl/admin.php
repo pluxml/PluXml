@@ -1,5 +1,4 @@
 <?php
-
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Nieznany błąd';
 const L_CONFIRM_DELETE = 'Na pewno chcesz usunąć ?';
@@ -531,5 +530,4 @@ const L_THEMES_TITLE = 'Zarządzanie tematy';
 const L_HELP = 'Pomoc';
 const L_HELP_TITLE = 'Zobacz pomoc';
 const L_BACK_TO_THEMES = 'Powrót do tematów strony';
-const L_CONFIG_THEME_UPDATE = 'Zmień styl'
-?>
+const L_CONFIG_THEME_UPDATE = 'Zmień styl';

@@ -1,6 +1,4 @@
 <?php
-
-
 # install.php
 const L_INSTALL_TITLE					= 'Инсталяция';
 const L_INSTALL_DATA					= 'Установка выборочных данных';
@@ -29,4 +27,3 @@ const L_PWD_VERY_WEAK					= 'очень слабый пароль';
 const L_PWD_WEAK						= 'слабый пароль';
 const L_PWD_GOOD						= 'хороший пароль';
 const L_PWD_STRONG						= 'Надежный пароль';
-?>

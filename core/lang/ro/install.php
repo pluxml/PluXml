@@ -1,6 +1,4 @@
 <?php
-
-
 # install.php
 const L_INSTALL_TITLE					= 'Instalaţie';
 const L_INSTALL_DATA					= 'Instalarea datelor eșantion';
@@ -29,4 +27,3 @@ const L_PWD_VERY_WEAK					= 'Parola foarte slabă';
 const L_PWD_WEAK						= 'Parolă slabă';
 const L_PWD_GOOD						= 'Parolă bună';
 const L_PWD_STRONG						= 'Parolă puternică';
-?>

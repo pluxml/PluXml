@@ -1,6 +1,4 @@
 <?php
-
-
 # install.php
 const L_INSTALL_TITLE					= 'Installacion';
 const L_INSTALL_DATA					= 'Installar las donadas d\'exemple';
@@ -29,4 +27,3 @@ const L_PWD_VERY_WEAK					= 'Senhal fòrça feble';
 const L_PWD_WEAK						= 'Senhal feble';
 const L_PWD_GOOD						= 'Senhal bon';
 const L_PWD_STRONG						= 'Senhal fòrt';
-?>
