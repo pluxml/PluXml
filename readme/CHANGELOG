@@ -1,5 +1,6 @@
 ## PLUXML 5.8.3 (yyyy/mm/dd) ##
-[+] New icons (copy url & rename) on media manager + Fix rename with push "enter" (bazooka07)
+[+] #389 Improve & Fix duplicate langs constants (bazooka07) & remove the PHP closing tag at the end of the files (sudwebdesign)
+[+] #387 New icons (copy urls & rename) on media manager + Fix rename with push "Enter" (bazooka07)
 FIX #386 Bcc typo in plxUtils::sendmail (bazooka07)
 FIX Change lang if empty required fields & Install with push "enter" (sudwebdesign)
 FIX lib/config.php const2define PLX_URL_VERSION #php55legacy (sudwebdesign)

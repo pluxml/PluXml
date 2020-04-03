@@ -54,7 +54,7 @@ if(!empty($_GET['a'])) {
 	}
 	# Infos sur l'article
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$globArt['0']);
-	$portee = L_COMMENTS_ARTICLE_SCOPE.' &laquo;'.$aArt['title'].'&raquo;';
+	$portee = ucfirst(L_ARTICLE) . ' &laquo;' . $aArt['title'] . '&raquo;';
 } else { # Commentaires globaux
 	$portee = '';
 }
@@ -70,7 +70,7 @@ else
 	$comSel = ((isset($_SESSION['selCom']) AND !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
 
 if(!empty($_GET['a'])) {
-	
+
 	switch ($comSel) {
 		case 'online':
 			$mod = '';
@@ -120,11 +120,11 @@ if(!empty($_GET['a'])) {
 function selector($comSel, $id) {
 	ob_start();
 	if($comSel=='online')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_SET_OFFLINE, '-'=>'-----', 'delete' => L_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='offline')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_DELETE), '', false,'no-margin',$id);
 	elseif($comSel=='all')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_SET_OFFLINE,  '-'=>'-----','delete' => L_DELETE), '', false,'no-margin',$id);
 	return ob_get_clean();
 }
 
@@ -153,10 +153,10 @@ $selector=selector($comSel, 'id_selection');
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
-					<th class="datetime"><?php echo L_COMMENTS_LIST_DATE ?></th>
+					<th class="datetime"><?php echo L_DATE ?></th>
 					<th class="message"><?php echo L_COMMENTS_LIST_MESSAGE ?></th>
-					<th class="author"><?php echo L_COMMENTS_LIST_AUTHOR ?></th>
-					<th class="action"><?php echo L_COMMENTS_LIST_ACTION ?></th>
+					<th class="author"><?php echo L_AUTHOR ?></th>
+					<th class="action"><?= L_ACTION ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -184,8 +184,8 @@ $selector=selector($comSel, 'id_selection');
 					echo '<td class="author">'.$plxAdmin->plxRecord_coms->f('author').'&nbsp;</td>';
 					echo '<td class="action">';
 					echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
-					echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_COMMENT_EDIT.'</a>&nbsp;&nbsp;';
-					echo '<a href="article.php?a='.$artId.'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">'.L_COMMENT_ARTICLE_LINKED.'</a>';
+					echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_EDIT.'</a>&nbsp;&nbsp;';
+					echo '<a href="article.php?a=' . $artId . '" title="' . L_COMMENT_ARTICLE_LINKED_TITLE . '">' . ucfirst(L_ARTICLE) . '</a>';
 					echo '</td></tr>';
 				}
 			} else { # Pas de commentaires

@@ -10,7 +10,7 @@
 
 class plxTimezones {
 
-	private static $_timezones = array(
+	const TIMEZONES = array(
 		'Pacific/Midway'		=> "(GMT-11:00) Midway Island",
 		'US/Samoa'				=> "(GMT-11:00) Samoa",
 		'US/Hawaii'				=> "(GMT-10:00) Hawaii",
@@ -133,7 +133,7 @@ class plxTimezones {
 	 * @author	Stephane F.
 	 **/
 	public static function timezones() {
-		return plxTimezones::$_timezones;
+		return plxTimezones::TIMEZONES;
 	}
 
 }

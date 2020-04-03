@@ -1,0 +1,100 @@
+Files are scanned in this order :
+core
+admin
+update
+install
+
+Multiple usage of the same key :
+Key                             | New file | 1st file
+----------------------------------------------------------------------
+L_ARTICLE                       | admin   | core   
+L_CATEGORY                      | admin   | core   
+L_NO_ARTICLE                    | admin   | core   
+L_SAVE_SUCCESSFUL               | update  | admin  
+L_WRONG_PHP_VERSION             | install | update 
+L_SELECT_LANG                   | install | update 
+L_INPUT_CHANGE                  | install | update 
+L_LOGIN                         | install | admin  
+
+Current key                     | File    | first key in use                | File    | translation
+--------------------------------------------------------------------------------------------------------------
+L_COMMENTS_LIST_ACTION          | admin   | L_PLUGINS_ACTION                | admin   | Action
+L_CONFIG_USERS_ACTION           | admin   | L_PLUGINS_ACTION                | admin   | Action
+L_STATICS_ACTION                | admin   | L_PLUGINS_ACTION                | admin   | Action
+L_ARTICLE_LIST_ACTION           | admin   | L_PLUGINS_ACTION                | admin   | Action
+L_CAT_LIST_ACTIVE               | admin   | L_STATICS_ACTIVE                | admin   | Active
+L_PROFIL_MAIL                   | admin   | L_USER_MAIL                     | admin   | Adresse email
+L_PLUGINS_HELP                  | admin   | L_HELP                          | admin   | Aide
+L_MEDIAS_ADD                    | admin   | L_CATEGORY_ADD_BUTTON           | admin   | Ajouter
+L_COMMENT_ARTICLE_LINKED        | admin   | L_COMMENTS_ARTICLE_SCOPE        | admin   | Article
+L_MEDIAS_ALIGN_NONE             | admin   | L_PLUGINS_REQUIREMENTS_NONE     | admin   | Aucun
+L_ARTICLE_LIST_AUTHORS          | admin   | L_COMMENT_AUTHOR_FIELD          | admin   | Auteur
+L_ARTICLE_LIST_AUTHOR           | admin   | L_COMMENT_AUTHOR_FIELD          | admin   | Auteur
+L_COMMENTS_LIST_AUTHOR          | admin   | L_COMMENT_AUTHOR_FIELD          | admin   | Auteur
+L_PLUGINS_AUTHOR                | admin   | L_COMMENT_AUTHOR_FIELD          | admin   | Auteur
+L_CONFIG_BASE_ALLOW_COMMENTS    | admin   | L_ALLOW_COMMENTS                | admin   | Autoriser les commentaires
+L_BACK_TO_BLOG                  | admin   | L_PAGEBLOG_TITLE                | core    | Blog
+L_CATEGORY_DRAFT                | admin   | L_DRAFT                         | admin   | Brouillon
+L_CATEGORIES_TABLE              | admin   | L_MENU_CATEGORIES               | admin   | Catégories
+L_MENU_COMMENTS                 | admin   | L_FEED_COMMENTS                 | core    | Commentaires
+L_MENU_CONFIG_ADVANCED          | admin   | L_CONFIG_ADVANCED_DESC          | admin   | Configuration avancée
+L_CONFIG_BASE_CONFIG_TITLE      | admin   | L_MENU_CONFIG_BASE              | admin   | Configuration de base
+L_PASSWORD_CONFIRMATION         | install | L_PROFIL_CONFIRM_PASSWORD       | admin   | Confirmation du mot de passe
+L_EDITCAT_TITLE_HTMLTAG         | admin   | L_STATIC_TITLE_HTMLTAG          | admin   | Contenu balise title (option)
+L_ARTICLE_TITLE_HTMLTAG         | admin   | L_STATIC_TITLE_HTMLTAG          | admin   | Contenu balise title (option)
+L_ARTICLE_LIST_DATE             | admin   | L_MEDIAS_DATE                   | admin   | Date
+L_COMMENTS_LIST_DATE            | admin   | L_MEDIAS_DATE                   | admin   | Date
+L_ALL_AWAITING_MODERATION       | admin   | L_AWAITING                      | admin   | En attente de validation
+L_COMMENT_SAVE_BUTTON           | admin   | L_ARTICLE_UPDATE_BUTTON         | admin   | Enregistrer
+L_PLXMEDIAS_DELETE_FILE_ERR     | admin   | L_DELETE_FILE_ERR               | admin   | Erreur pendant le suppression du fichier
+L_UPDATE_ERR_FILE_PROCESSING    | update  | L_RENAME_FILE_ERR               | admin   | Erreur pendant le traitement du fichier
+L_TIMEZONE                      | install | L_CONFIG_BASE_TIMEZONE          | admin   | Fuseau horaire
+L_STATICS_ID                    | admin   | L_CONFIG_USERS_ID               | admin   | Identifiant
+L_ARTICLE_ID                    | admin   | L_CONFIG_USERS_ID               | admin   | Identifiant
+L_CAT_LIST_ID                   | admin   | L_CONFIG_USERS_ID               | admin   | Identifiant
+L_USER_INFOS                    | admin   | L_PROFIL_INFOS                  | admin   | Informations
+L_MENU_CONFIG_INFOS             | admin   | L_PROFIL_INFOS                  | admin   | Informations
+L_PROFIL_ADMIN_LANG             | admin   | L_USER_LANG                     | admin   | Langue utilisée dans l'administration
+L_MENU                          | admin   | L_STATICS_MENU                  | admin   | Menu
+L_CAT_LIST_MENU                 | admin   | L_STATICS_MENU                  | admin   | Menu
+L_COMMENT_SET_OFFLINE           | admin   | L_ARTICLE_OFFLINE_BUTTON        | admin   | Mettre hors ligne
+L_COMMENT_OFFLINE_BUTTON        | admin   | L_ARTICLE_OFFLINE_BUTTON        | admin   | Mettre hors ligne
+L_PROFIL_PASSWORD               | admin   | L_AUTH_PASSWORD_FIELD           | admin   | Mot de passe
+L_PASSWORD                      | install | L_AUTH_PASSWORD_FIELD           | admin   | Mot de passe
+L_CONFIG_BASE_URL_HELP          | admin   | L_HELP_SLASH_END                | admin   | Ne pas oublier le slash à la fin
+L_MENU_NEW_ARTICLES_TITLE       | admin   | L_DEFAULT_NEW_ARTICLE_TITLE     | admin   | Nouvel article
+L_MENU_NEW_ARTICLES             | admin   | L_DEFAULT_NEW_ARTICLE_TITLE     | admin   | Nouvel article
+L_CONFIG_VIEW_FIELD             | admin   | L_MENU_CONFIG_VIEW              | admin   | Options d'affichage
+L_STATICS_ORDER                 | admin   | L_CAT_LIST_ORDER                | admin   | Ordre
+L_CATEGORY_HOME_PAGE            | admin   | L_CATEGORY_HOME                 | admin   | Page d'accueil
+L_MENU_PROFIL                   | admin   | L_PROFIL                        | admin   | Profil
+L_ARTICLE_NEW_COMMENT           | admin   | L_CREATE_NEW_COMMENT            | admin   | Rédiger un commentaire
+L_COMMENT_WRITTEN_BY            | admin   | L_FEED_WRITTEN_BY               | core    | Rédigé par
+L_COMMENT_ANSWER                | admin   | L_REPLY                         | admin   | Répondre
+L_COMMENT_ANSWER_BUTTON         | admin   | L_COMMENT_ANSWER_TITLE          | admin   | Répondre à ce commentaire
+L_COMMENT_DELETE_SUCCESSFUL     | admin   | L_DELETE_SUCCESSFUL             | admin   | Suppression effectuée avec succès
+L_PLUGINS_DELETE_SUCCESSFUL     | admin   | L_DELETE_SUCCESSFUL             | admin   | Suppression effectuée avec succès
+L_ARTICLE_DELETE_SUCCESSFUL     | admin   | L_DELETE_SUCCESSFUL             | admin   | Suppression effectuée avec succès
+L_PLUGINS_DELETE                | admin   | L_MEDIAS_DELETE_FOLDER          | admin   | Supprimer
+L_DELETE                        | admin   | L_MEDIAS_DELETE_FOLDER          | admin   | Supprimer
+L_COMMENT_DELETE                | admin   | L_MEDIAS_DELETE_FOLDER          | admin   | Supprimer
+L_STATICS_TEMPLATE_FIELD        | admin   | L_EDITCAT_TEMPLATE              | admin   | Template
+L_ARTICLE_TEMPLATE_FIELD        | admin   | L_EDITCAT_TEMPLATE              | admin   | Template
+L_STATICS_TITLE                 | admin   | L_ARTICLE_TITLE                 | admin   | Titre
+L_ARTICLE_LIST_TITLE            | admin   | L_ARTICLE_TITLE                 | admin   | Titre
+L_CONFIG_VIEW_SORT              | admin   | L_CAT_LIST_SORT                 | admin   | Tri des articles
+L_ARTICLE_URL_FIELD             | admin   | L_CAT_LIST_URL                  | admin   | URL
+L_SHORT_AUGUST                  | core    | L_AUGUST                        | core    | août
+L_NONE1                         | admin   | L_ARTTAGS_NONE                  | core    | aucun
+L_COMMENT_ORPHAN                | admin   | L_NO_ARTICLE                    | core    | aucun article
+L_SHORT_APRIL                   | core    | L_APRIL                         | core    | avril
+L_SHORT_JUNE                    | core    | L_JUNE                          | core    | juin
+L_MAY                           | core    | L_SHORT_MAY                     | core    | mai
+L_SHORT_MARCH                   | core    | L_MARCH                         | core    | mars
+L_LONG_SEPTEMBER                | core    | L_SEPTEMBER                     | core    | septembre
+L_COMMENT_EDIT                  | admin   | L_ARTICLE_EDIT                  | admin   | Éditer
+L_STATICS_SRC                   | admin   | L_ARTICLE_EDIT                  | admin   | Éditer
+L_CONFIG_VIEW_FILES_EDIT_TITLE  | admin   | L_CONFIG_VIEW_FILES_EDIT        | admin   | Éditer les fichiers du thème
+duplicates : 77
+useful keys : 613
+

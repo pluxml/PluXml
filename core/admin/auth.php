@@ -205,7 +205,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 		break;
@@ -223,13 +223,13 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password1', '', 'password', '10-255',false,'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+								<?php plxUtils::printInput('password1', '', 'password', '10-255',false,'full-width', L_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
 							</div>
 						</div>
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
+								<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_CONFIRM_PASSWORD) ?>
 							</div>
 						</div>
 						<div class="grid">
@@ -249,7 +249,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 			}
@@ -264,7 +264,7 @@ plxUtils::cleanHeaders();
 				<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) # Hook plugins ?>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 			}
@@ -286,7 +286,7 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
+								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_PASSWORD);?>
 							</div>
 						</div>
 <?php
@@ -310,7 +310,7 @@ plxUtils::cleanHeaders();
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_HOMEPAGE ?></a> - <?php echo L_POWERED_BY ?></small>
 				</p>
 <?php
 	}
