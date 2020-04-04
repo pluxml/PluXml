@@ -120,7 +120,21 @@ $curFolders = explode('/', $curFolder);
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
-<form action="medias.php" method="post" id="form_medias">
+<form method="post">
+	<!-- Rename File Dialog -->
+	<div id="dlgRenameFile" class="dialog">
+		<div class="dialog-content">
+			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:&nbsp;
+			<input id="id_newname" type="text" name="newname" value="" maxlength="50" size="15" />
+			<input id="id_oldname" type="hidden" name="oldname" />
+			<?php echo plxToken::getTokenPostMethod() ?>
+			<input type="submit" name="btn_renamefile" value="<?php echo L_MEDIAS_RENAME ?>" />
+			<span class="dialog-close">&times;</span>
+		</div>
+	</div>
+</form>
+
+<form method="post" id="form_medias">
 
 	<!-- New Folder Dialog -->
 	<div id="dlgNewFolder" class="dialog">
@@ -129,17 +143,6 @@ $curFolders = explode('/', $curFolder);
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
 			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="15" />
 			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
-		</div>
-	</div>
-
-	<!-- Rename File Dialog -->
-	<div id="dlgRenameFile" class="dialog">
-		<div class="dialog-content">
-			<span class="dialog-close">&times;</span>
-			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:&nbsp;
-			<input id="id_newname" type="text" name="newname" value="" maxlength="50" size="15" />
-			<input id="id_oldname" type="hidden" name="oldname" />
-			<input type="submit" name="btn_renamefile" value="<?php echo L_MEDIAS_RENAME ?>" />
 		</div>
 	</div>
 
@@ -195,7 +198,7 @@ $curFolders = explode('/', $curFolder);
 					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_date ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
 				</tr>
 				</thead>
-				<tbody>
+				<tbody id="medias-table-tbody">
 				<?php
 				# Initialisation de l'ordre
 				$num = 0;
@@ -215,13 +218,13 @@ $curFolders = explode('/', $curFolder);
 						echo '</td>';
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
-							echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $v['path']).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
-							echo '<div id="btnRenameImg'.$num.'" onclick="ImageRename(\''.$v['path'].'\')" title="'.L_RENAME_FILE.'" class="ico">&perp;</div>';
+							echo '<div data-copy="'.str_replace(PLX_ROOT, '', $v['path']).'" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#128203;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+							echo '<div data-rename="'.$v['path'].'" title="'.L_RENAME_FILE.'" class="ico">&#9998;</div>';
 							echo '<br />';
 							$href = plxUtils::thumbName($v['path']);
 							if($isImage AND is_file($href)) {
 								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
-								echo '<div onclick="copy(this, \''.str_replace(PLX_ROOT, '', $href).'\')" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#8629;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
+								echo '<div data-copy="'.str_replace(PLX_ROOT, '', $href).'" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#128203;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';
 						echo '<td>'.strtoupper($v['extension']).'</td>';
@@ -344,9 +347,14 @@ $curFolders = explode('/', $curFolder);
 <div class="modal">
 	<input id="modal" type="checkbox" name="modal" tabindex="1">
 	<div id="modal__overlay" class="modal__overlay">
-		<div id="modal__box" class="modal__box"></div>
+		<div id="modal__box" class="modal__box">
+			<img id="zoombox-img" />
+			<label for="modal">&#10006;</label>
+		</div>
 	</div>
 </div>
+
+<input id="clipboard" type="text" value="" style="display: none;" />
 
 <script type="text/javascript" src="<?php echo PLX_CORE ?>lib/medias.js"></script>
 
