@@ -989,16 +989,16 @@ class plxUtils {
 		}
 
 		if(!empty($bcc)) {
-			$headers['Cc'] = (is_array($bcc)) ? implode(', ', $bcc) : $bcc;
+			$headers['Bcc'] = (is_array($bcc)) ? implode(', ', $bcc) : $bcc;
 		}
 
 		return mail($to, $subject, $body,
 			version_compare(PHP_VERSION, '7.2', '>=') ?
 				$headers :
 				implode("\r\n", array_map(
-					function($v, $k) { return "$k: $v"; },
-					array_values($headers),
-					array_keys($headers)
+					function($k, $v) { return "$k: $v"; },
+					array_keys($headers),
+					array_values($headers)
 				)) . "\r\n"
 		);
 	}
