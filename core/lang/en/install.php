@@ -1,6 +1,8 @@
 <?php
 # install.php
 const L_INSTALL_TITLE					= 'Installation';
+const L_SELECT_LANG						= 'Choose your language';
+const L_INPUT_CHANGE					= 'Change';
 const L_INSTALL_DATA					= 'Install sample data';
 const L_YES								= 'Yes';
 const L_NO								= 'No';
@@ -16,11 +18,13 @@ const L_ERR_MISSING_USER				= 'Please fill in the contributor\'s field !';
 const L_ERR_MISSING_LOGIN				= 'Please fill the login field !';
 const L_ERR_MISSING_PASSWORD			= 'Please fill the password field !';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Invalid password confirmation !';
+const L_ERR_MISSING_EMAIL					= 'Please fill e-mail adress field !';
 const L_PLUXML_INSTALLATION				= 'PluXml installation';
 const L_SITE_DESCRIPTION				= 'Blog or CMS, XML powered !';
 const L_VERSION							= 'version';
 const L_USERNAME						= 'Admin username';
-const L_PASSWORD						= 'Password';
+const L_LOGIN							= 'Admin login';
+const L_CONFIRM_PASSWORD				= 'Confirm password';
 const L_EMAIL						    = 'E-mail adress';
 const L_INPUT_INSTALL					= 'Install';
 const L_PWD_VERY_WEAK					= 'Very weak password';

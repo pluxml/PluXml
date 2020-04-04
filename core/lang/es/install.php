@@ -1,6 +1,8 @@
 <?php
 # install.php
 const L_INSTALL_TITLE				= 'Instalación';
+const L_SELECT_LANG					= 'Seleccione su idioma';
+const L_INPUT_CHANGE				= 'Cambiar';
 const L_INSTALL_DATA				= 'Instalar datos de muestra';
 const L_YES							= 'Sí';
 const L_NO							= 'No';
@@ -16,11 +18,13 @@ const L_ERR_MISSING_USER			= 'Indique el nombre del editor!';
 const L_ERR_MISSING_LOGIN			= 'Indique el nombre de usuario!';
 const L_ERR_MISSING_PASSWORD		= 'Indique una contraseña!';
 const L_ERR_PASSWORD_CONFIRMATION	= 'La contraseña es incorrecta!';
+const L_ERR_MISSING_EMAIL					= 'Indique el dirección de correo electrónico!';
 const L_PLUXML_INSTALLATION			= 'Instalación de PluXml';
 const L_SITE_DESCRIPTION			= 'Blog o CMS con XML!';
 const L_VERSION						= 'versión';
 const L_USERNAME					= 'Nombre del administrador';
-const L_PASSWORD					= 'Contraseña';
+const L_LOGIN						= 'Nombre de usuario del administrador';
+const L_CONFIRM_PASSWORD			= 'Confirmar contraseña';
 const L_EMAIL						= 'Dirección de correo electrónico';
 const L_INPUT_INSTALL				= 'Instalar';
 const L_PWD_VERY_WEAK				= 'Contraseña muy débil';

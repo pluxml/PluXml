@@ -1,6 +1,8 @@
 <?php
 # install.php
 const L_INSTALL_TITLE					= 'Installatie';
+const L_SELECT_LANG						= 'Kies uw taal';
+const L_INPUT_CHANGE					= 'Verander';
 const L_INSTALL_DATA					= 'Voorbeeldgegevens installeren';
 const L_YES								= 'Ja';
 const L_NO								= 'Niet';
@@ -16,11 +18,13 @@ const L_ERR_MISSING_USER				= 'Vul de naam van de redacteur in !';
 const L_ERR_MISSING_LOGIN				= 'Vul een loginnaam in !';
 const L_ERR_MISSING_PASSWORD			= 'Vul een wachtwoord in !';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Bevestiging van wachtwoord mislukt !';
+const L_ERR_MISSING_EMAIL					= 'Vul een E-mailadres !';
 const L_PLUXML_INSTALLATION				= 'Installatie van PluXml';
 const L_SITE_DESCRIPTION				= 'Blog of Cms in XML !';
 const L_VERSION							= 'versie';
 const L_USERNAME						= 'Naam van de beheerder';
-const L_PASSWORD						= 'Wachtwoord';
+const L_LOGIN							= 'Login van de beheerder';
+const L_CONFIRM_PASSWORD				= 'Bevestig het wachtwoord';
 const L_EMAIL						    = 'E-mailadres';
 const L_INPUT_INSTALL					= 'Installeer';
 const L_PWD_VERY_WEAK					= 'Zeer zwak wachtwoord';

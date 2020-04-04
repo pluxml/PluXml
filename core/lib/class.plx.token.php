@@ -13,14 +13,15 @@ class plxToken {
 	 * Méthode qui affiche le champ input contenant le token
 	 *
 	 * @return	stdio/null
-	 * @author	Stephane F, J.P. Pourrez
+	 * @author	Stephane F, J.P. Pourrez, Thomas Ingles
 	 **/
 	public static function getTokenPostMethod($length=32, $html=true) {
-		$range = strlen(plxToken::TEMPLATE);
+		$tmp = self::TEMPLATE;
+		$range = strlen($tmp);
 		$result = array();
 		mt_srand((float)microtime() * 1000000);
 		for($i=0; $i<$length; $i++) {
-			$result[] = self::TEMPLATE[mt_rand() % $range];
+			$result[] = $tmp[mt_rand() % $range];
 		}
 		$token = implode('', $result);
 		$_SESSION['formtoken'][$token] = time();
@@ -45,7 +46,7 @@ class plxToken {
 				die('Security error : invalid or expired token');
 			}
 			unset($_SESSION['formtoken'][$_POST['token']]);
-			// cleanup old tokens 
+			// cleanup old tokens
 			if(!empty($_SESSION['formtoken'])) {
 				foreach($_SESSION['formtoken'] as $token=>$lifetime) {
 					if($lifetime < $limit) {

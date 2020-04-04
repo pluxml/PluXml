@@ -38,7 +38,6 @@ const L_UPDATE_ERR_CREATE_HTACCESS_FILE	= 'Произошла ошибка во 
 const L_UPDATE_UPDATE_HTACCESS_FILE		= 'Обновление файла .htaccess';
 const L_UPDATE_ERR_UPDATE_HTACCESS_FILE	= 'Произошла ошибка во время обновления файла .htaccess';
 const L_UPDATE_CATEGORIES_MIGRATION		= 'Миграция файла категорий';
-const L_UPDATE_CATEGORIES_MIGRATION		= 'Миграция файла категорий';
 const L_UPDATE_ERR_CATEGORIES_MIGRATION	= 'Произошла ошибка во время миграции файла категорий';
 const L_UPDATE_CREATE_PLUGINS_FILE		= 'Создается plugins.xml';
 const L_UPDATE_ERR_CREATE_PLUGINS_FILE	= 'Произошла ошибка во время создания plugins.xml';

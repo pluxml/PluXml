@@ -1,6 +1,8 @@
 <?php
 # install.php
 const L_INSTALL_TITLE					= 'Instalacja';
+const L_SELECT_LANG						= 'Wybierz język';
+const L_INPUT_CHANGE					= 'Zmień';
 const L_INSTALL_DATA					= 'Instalowanie przykładowych danych';
 const L_YES								= 'Tak';
 const L_NO								= 'Nie';
@@ -15,12 +17,14 @@ const L_ERR_PLUXML_ALREADY_INSTALLED	= 'PluXml jest już zainstalowany !';
 const L_ERR_MISSING_USER				= 'Proszę wpisać nazwę !';
 const L_ERR_MISSING_LOGIN				= 'Proszę wpisać login !';
 const L_ERR_MISSING_PASSWORD			= 'Proszę wpisać hasło !';
-const L_ERR_PASSWORD_CONFIRMATION		= 'Niepoprawne potwierdzenie hasła';
+const L_ERR_PASSWORD_CONFIRMATION		= 'Niepoprawne potwierdzenie hasła !';
+const L_ERR_MISSING_EMAIL					= 'Proszę wpisać adres e-mail !';
 const L_PLUXML_INSTALLATION				= 'Instalacja PluXml';
 const L_SITE_DESCRIPTION				= 'Blog i CMS oparty na XML !';
 const L_VERSION							= 'wersja';
 const L_USERNAME						= 'Nazwa admina';
-const L_PASSWORD						= 'Hasło';
+const L_LOGIN							= 'Login admina';
+const L_CONFIRM_PASSWORD				= 'Potwierdź hasło';
 const L_EMAIL						    = 'Adres e-mail';
 const L_INPUT_INSTALL					= 'Zainstaluj';
 const L_PWD_VERY_WEAK					= 'Bardzo słabe hasło';

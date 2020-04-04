@@ -1,4 +1,10 @@
-## PLUXML 5.8.3 (yyyy/mm/dd) ##
+## PLUXML 5.8.3.legacy (yyyy/mm/dd) ##
+Fix Install don't work if short open tag = On (sudwebdesign)
+Fix Russian duplicate key L_UPDATE_CATEGORIES_MIGRATION on update.php lang file (sudwebdesign)
+Fix Italian comma (,) to semicolon (;) in update.php lang file (sudwebdesign)
+Fix Missing keys for install.php (all langs) (sudwebdesign)
+Fix plxTimezones::timezones to run with PHP5 (sudwebdesign)
+Fix plxToken::getTokenPostMethod to run with PHP5 (sudwebdesign)
 [+] #389 Improve & Fix duplicate langs constants (bazooka07) & remove the PHP closing tag at the end of the files (sudwebdesign)
 [+] #387 New icons (copy urls & rename) on media manager + Fix rename with push "Enter" (bazooka07)
 FIX #386 Bcc typo in plxUtils::sendmail (bazooka07)

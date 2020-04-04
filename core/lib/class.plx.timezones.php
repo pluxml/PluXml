@@ -5,12 +5,12 @@
  * concernant les fuseaux horaires
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, Thomas Ingles
  **/
 
 class plxTimezones {
 
-	const TIMEZONES = array(
+	static $TIMEZONES = array(
 		'Pacific/Midway'		=> "(GMT-11:00) Midway Island",
 		'US/Samoa'				=> "(GMT-11:00) Samoa",
 		'US/Hawaii'				=> "(GMT-10:00) Hawaii",
@@ -133,7 +133,7 @@ class plxTimezones {
 	 * @author	Stephane F.
 	 **/
 	public static function timezones() {
-		return plxTimezones::TIMEZONES;
+		return self::$TIMEZONES;
 	}
 
 }

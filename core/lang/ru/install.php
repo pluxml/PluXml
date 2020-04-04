@@ -1,6 +1,8 @@
 <?php
 # install.php
 const L_INSTALL_TITLE					= 'Инсталяция';
+const L_SELECT_LANG						= 'Выберите ваш язык';
+const L_INPUT_CHANGE					= 'Изменить';
 const L_INSTALL_DATA					= 'Установка выборочных данных';
 const L_YES								= 'Да';
 const L_NO								= 'Не';
@@ -16,11 +18,13 @@ const L_ERR_MISSING_USER				= 'Пожалуйста, заполните поля
 const L_ERR_MISSING_LOGIN				= 'Пожалуйста, заполните поле Логин!';
 const L_ERR_MISSING_PASSWORD			= 'Пожалуйста, заполните поле Пароль!';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Неверный пароль!';
+const L_ERR_MISSING_EMAIL					= 'Пожалуйста, заполните поле адрес электронной почты!';
 const L_PLUXML_INSTALLATION				= 'Установка PluXml, ';
 const L_SITE_DESCRIPTION				= 'Блог или CMS на XML!';
 const L_VERSION							= 'версия';
 const L_USERNAME						= 'Имя Администратора';
-const L_PASSWORD						= 'Пароль';
+const L_LOGIN							= 'Логин Администратора';
+const L_CONFIRM_PASSWORD				= 'Подтвердить пароль';
 const L_EMAIL						    = 'Адрес электронной почты';
 const L_INPUT_INSTALL					= 'Установка';
 const L_PWD_VERY_WEAK					= 'очень слабый пароль';

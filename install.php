@@ -1,5 +1,4 @@
 <?php
-
 const PLX_ROOT = './';
 define('PLX_CORE', PLX_ROOT . 'core/');
 
@@ -17,9 +16,7 @@ foreach(explode(' ', 'timezones date glob utils token') as $aClass) {
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
-if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
-	$lang = $_POST['default_lang'];
-}
+if(isset($_POST['default_lang'])) $lang=$_POST['default_lang'];
 if(!array_key_exists($lang, plxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
 }
@@ -62,9 +59,10 @@ $htaccess = array(
 foreach(explode(' ', 'medias articles commentaires configuration statiques templates') AS $folder) {
 	if(!is_dir(PLX_ROOT . $data . $folder)) {
 		@mkdir(PLX_ROOT . $data . $folder,0755,true);
-		if(strpos($folder, 'medias') === FALSE)
+		if(strpos($folder, 'medias') === FALSE){
 			@file_put_contents(PLX_ROOT . $data . $folder . DIRECTORY_SEPARATOR . '.htaccess', $htaccess[0]);
-		touch(PLX_ROOT . $data . $folder . DIRECTORY_SEPARATOR . 'index.html');
+			touch(PLX_ROOT . $data . $folder . DIRECTORY_SEPARATOR . 'index.html');
+		}
 	}
 }
 @file_put_contents(PLX_ROOT . $data . '.htaccess', $htaccess[1]);
@@ -158,13 +156,15 @@ function install($content, $config) {
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
 
+	# short_open_tag = on
+	$xmlHead = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'.PHP_EOL;
+
 	# Création du fichier de configuration
 	ob_start();
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
+	echo $xmlHead; ?>
 <document>
 <?php
-	foreach($config  as $k=>$v) {
+	foreach($config as $k=>$v) {
 ?>
 	<parametre name="<?= $k ?>"><?= is_numeric($v) ? $v : '<![CDATA[' . plxUtils::cdataCheck($v) . ']]>' ?></parametre>
 <?php
@@ -178,9 +178,8 @@ function install($content, $config) {
 	# Création du fichier des utilisateurs
 	$salt = plxUtils::charAleatoire(10);
 	ob_start();
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
-<document>\n";
+	echo $xmlHead; ?>
+<document>
 	<user number="001" active="1" profil="0" delete="0">
 		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
 		<name><![CDATA[<?= trim($content['name']) ?>]]></name>
@@ -197,8 +196,7 @@ function install($content, $config) {
 
 	# Création du fichier des categories
 	ob_start();
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
+	echo $xmlHead; ?>
 <document>
 <?php
 	if($content['data'] > 0) {
@@ -224,8 +222,7 @@ function install($content, $config) {
 
 	# Création du fichier des pages statiques
 	ob_start();
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
+	echo $xmlHead; ?>
 <document>
 <?php
 	if($content['data'] > 0) {
@@ -257,8 +254,7 @@ function install($content, $config) {
 	if($content['data'] > 0) {
 		# Création du premier article
 		list($chapo, $article) = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
+		echo $xmlHead; ?>
 <document>
 	<title><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE) ?>]]></title>
 	<allow_com>1</allow_com>
@@ -280,8 +276,7 @@ function install($content, $config) {
 
 	# Création du fichier des tags servant de cache
 	ob_start();
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
+	echo $xmlHead; ?>
 <document>
 <?php
 	if($content['data'] > 0) {
@@ -297,8 +292,7 @@ function install($content, $config) {
 
 	# Création du fichier des plugins
 	ob_start();
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
+	echo $xmlHead; ?>
 <document>
 </document>
 <?php
@@ -308,8 +302,7 @@ function install($content, $config) {
 	if($content['data'] > 0) {
 		# Création du premier commentaire
 		ob_start();
-?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
+	echo $xmlHead; ?>
 <comment>
 	<author>pluxml</author>
 	<type>normal</type>
@@ -350,7 +343,6 @@ if(!empty($_POST['install'])) {
 }
 plxUtils::cleanHeaders();
 ?>
-
 <!DOCTYPE html>
 <head>
 	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
@@ -479,15 +471,9 @@ EOT;
 						<?php plxUtils::testLibXml() ?>
 						<?php plxUtils::testMail() ?>
 					</ul>
-
 				</fieldset>
-
 			</form>
-
 		</section>
-
 	</main>
-
 </body>
-
 </html>
