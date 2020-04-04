@@ -43,7 +43,7 @@ class plxGlob {
 	 * @param	rep				boolean pour ne prendre que les répertoires sans les fichiers
 	 * @param	onlyfilename	boolean pour ne récupérer que le nom des fichiers sans le chemin
 	 * @param	type			type de fichier lus (arts ou '')
-	 * @return	objet			return une instance de la classe plxGlob
+	 * @return	plxGlob			return une instance de la classe plxGlob
 	 * @author	Stephane F
 	 **/
 	public static function getInstance($dir,$rep=false,$onlyfilename=true,$type=''){

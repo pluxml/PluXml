@@ -313,7 +313,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function sendLostPasswordEmail($loginOrMail) {
 		$mail = array();
 		$tokenExpiry = 24;
-		$lostPasswordToken = plxToken::generateToken();
+		$lostPasswordToken = plxToken::getTokenPostMethod('', false);
 		$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 		$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 		$error = false;
@@ -809,7 +809,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
 				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
 				# Hook plugins
-				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
+				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml')); # Hook Plugins
 				$xml .=	"</statique>\n";
 			}
 			$xml .= "</document>";
