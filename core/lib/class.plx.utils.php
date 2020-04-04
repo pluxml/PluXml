@@ -1086,12 +1086,10 @@ class plxUtils {
 	**/
 	public static function formatMenu($caption, $href, $title=false, $aClass=false, $onclick=false, $extra='', $highlight=true) {
 		$basename = explode('?', basename($href));
-<<<<<<< HEAD
 		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' active':'';
 		if($basename[0]=='plugin.php' AND isset($_GET['p']) AND $basename[1]!='p='.$_GET['p']) $active='';
 		$class = $class ? ' '.$class:'';
 		$title = $title ? ' title="'.$title.'"':'';
-=======
 		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? 'active' : '';
 		if($basename[0] == 'plugin.php' AND isset($_GET['p']) AND $basename[1] != 'p=' . $_GET['p']) $active = '';
 		$classList = array(
@@ -1101,7 +1099,6 @@ class plxUtils {
 		if(!empty($aClass)) { $classList[] = $aClass; }
 		$className = implode(' ', $classList);
 		$title = (!empty($title)) ? ' title="' . $title . '"' : '';
->>>>>>> Remplace tableau $LANG dans core/lang/fr/*.php par déclarations
 		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
 		$id = ($basename[0]=='plugin.php' ? strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
 		$caption = ucfirst($caption);
