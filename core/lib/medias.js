@@ -1,31 +1,63 @@
 // zoombox
-var all = document.querySelectorAll(".overlay");
+var tbody = document.getElementById('medias-table-tbody');
 var mo = document.getElementById("modal__overlay");
-var mbox = document.getElementById("modal__box");
+// var mbox = document.getElementById("modal__box");
 var mb = document.getElementById("modal");
-for (var i = 0, nb = all.length; i < nb; i++) {
-	all[i].addEventListener('click', function(e) {
-		e.preventDefault();
-		mbox.innerHTML = '<img src="'+this.href+'" alt="" /><label for="modal">&#10006;</label>';
-		mb.click();
-	},false);
-}
+var zoomboxImg = document.getElementById('zoombox-img');
+tbody.addEventListener('click', function(event) {
+	if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
+		event.preventDefault();
+		const src = event.target.src.replace(/\/.thumbs?\b/, '');
+		const title = src.replace(/.*\/([^\/]*)$/, '$1');
+		zoomboxImg.src = src;
+		zoomboxImg.alt = title;
+		zoomboxImg.title = title;
+		mb.checked = true;
+		return;
+	}
+
+	if(event.target.hasAttribute('data-copy')) {
+		event.preventDefault();
+		const aux = document.getElementById('clipboard');
+		if(aux == null) {
+			console.error('#clipboard element not found');
+			return;
+		}
+
+		aux.style.display = 'initial';
+		aux.value = event.target.dataset.copy;
+		aux.select();
+		document.execCommand('copy');
+		const notice = event.target.firstElementChild;
+		notice.style.display = 'inline-block';
+		var t = setTimeout(function() {
+			aux.value = '';
+			notice.style.display = 'none';
+			clearTimeout(t);
+		}, 1000);
+		aux.value = '';
+		aux.style.display = 'none';
+		return;
+	}
+
+	if(event.target.hasAttribute('data-rename')) {
+		event.preventDefault();
+		document.getElementById('id_oldname').value = event.target.dataset.rename;
+		dialogBox("dlgRenameFile");
+		return;
+	}
+});
 window.addEventListener("keydown", function (event) {
 	// validate if the press key is the escape key
 	if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
-    	mbox.innerHTML = "";
-    	if (mb.checked === true) {
-    		mb.click();
-    	}
+    	event.preventDefault();
+    	mb.checked = false;
     }
 });
 mo.addEventListener("click", function (event) {
-   	mbox.innerHTML = "";
-   	if (mb.checked === true) {
-   		mb.click();
-   	}
+	event.preventDefault();
+   	mb.checked = false;
 });
-
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
 	var manager = document.getElementById('files_manager');
@@ -35,24 +67,6 @@ function toggle_divs(){
 	} else {
 		uploader.style.display = 'none';
 		manager.style.display = 'block';
-	}
-}
-function copy(elt, data) {
-	try {
-		var div = elt.querySelector("div");
-		var aux = document.createElement("input");
-		aux.setAttribute("value", data);
-		document.body.appendChild(aux);
-		aux.select();
-		document.execCommand("copy");
-		document.body.removeChild(aux);
-		div.setAttribute("style", "display:inline-block");
-		t = setTimeout(function(){
-			div.setAttribute("style", "display:none");
-			clearTimeout(t);
-		}, 1000);
-	} catch (err) {
-		alert('<?php echo L_MEDIAS_LINK_COPYCLP_ERR ?>');
 	}
 }
 function plugFilter() {
@@ -79,9 +93,4 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	input = document.getElementById("medias-search");
 	input.value = localStorage.getItem("medias_search");
 	plugFilter();
-}
-
-function ImageRename(oldimg) {
-	document.getElementById('id_oldname').value = oldimg;
-	dialogBox("dlgRenameFile");
 }
