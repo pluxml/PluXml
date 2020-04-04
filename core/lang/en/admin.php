@@ -449,12 +449,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Inactive plugins';
 
 const L_PROFIL_EDIT_TITLE = 'Profile edit';
 const L_PROFIL = 'Profile';
-const L_PROFIL_LOGIN = 'Login';
 const L_PROFIL_USER = 'Username';
 const L_INFOS = 'Information';
 const L_PROFIL_UPDATE = 'Save profile';
 const L_PROFIL_CHANGE_PASSWORD = 'Change password';
-const L_CONFIRM_PASSWORD = 'Confirm password';
 const L_PROFIL_UPDATE_PASSWORD = 'Change password';
 
 // statique.php

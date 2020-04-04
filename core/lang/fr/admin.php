@@ -448,12 +448,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Plugins inactifs';
 
 const L_PROFIL_EDIT_TITLE = 'Édition de votre profil';
 const L_PROFIL = 'Profil';
-const L_PROFIL_LOGIN = 'Identifiant de connexion';
 const L_PROFIL_USER = 'Nom d\'utilisateur';
 const L_INFOS = 'Informations';
 const L_PROFIL_UPDATE = 'Modifier votre profil';
 const L_PROFIL_CHANGE_PASSWORD = 'Changement du mot de passe';
-const L_CONFIRM_PASSWORD = 'Confirmation du mot de passe';
 const L_PROFIL_UPDATE_PASSWORD = 'Changer votre mot de passe';
 
 // statique.php

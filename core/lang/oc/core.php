@@ -16,6 +16,10 @@ const L_NONE1						= 'cap';
 const L_NONE2						= 'cap';
 const L_PASSWORD					= 'Senhal';
 const L_TIMEZONE					= 'Fus orari';
+const L_SELECT_LANG					= 'Seleccionatz vòstra lenga';
+const L_CONFIRM_PASSWORD			= 'Confirmacion del senhal';
+const L_PROFIL_LOGIN				= 'Identificant de connexion';
+const L_INPUT_CHANGE				= 'Cambiar';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Lo tèma principal de PluXml es introbable';

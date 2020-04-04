@@ -16,6 +16,10 @@ const L_NONE1						= 'ninguno';
 const L_NONE2						= 'ninguna';
 const L_PASSWORD					= 'Contraseña';
 const L_TIMEZONE					= 'Huso horario';
+const L_SELECT_LANG					= 'Seleccione su idioma';
+const L_CONFIRM_PASSWORD			= 'Confirme la contraseña';
+const L_PROFIL_LOGIN				= 'Cuenta de usuario';
+const L_INPUT_CHANGE				= 'Cambiar';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'No se encontró el tema principal de PluXml';

@@ -447,12 +447,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Complementos desactivados';
 
 const L_PROFIL_EDIT_TITLE = 'Edición de perfiles';
 const L_PROFIL = 'Perfil';
-const L_PROFIL_LOGIN = 'Cuenta de usuario';
 const L_PROFIL_USER = 'Nombre de usuario';
 const L_INFOS = 'Información';
 const L_PROFIL_UPDATE = 'Guardar perfil';
 const L_PROFIL_CHANGE_PASSWORD = 'Cambiar contraseña';
-const L_CONFIRM_PASSWORD = 'Confirme la contraseña';
 const L_PROFIL_UPDATE_PASSWORD = 'Cambiar contraseña';
 
 // statique.php

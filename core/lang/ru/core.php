@@ -16,6 +16,10 @@ const L_NONE1						= 'нет';
 const L_NONE2						= 'отсутствует';
 const L_PASSWORD					= 'Пароль';
 const L_TIMEZONE					= 'Часовой пояс';
+const L_SELECT_LANG					= 'Выберите ваш язык';
+const L_CONFIRM_PASSWORD			= 'Повторить пароль';
+const L_PROFIL_LOGIN				= 'Логин';
+const L_INPUT_CHANGE				= 'Изменить';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Тема не найдена';

@@ -449,12 +449,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Plugins inactius';
 
 const L_PROFIL_EDIT_TITLE = 'Edicion de vòstre perfil';
 const L_PROFIL = 'Perfil';
-const L_PROFIL_LOGIN = 'Identificant de connexion';
 const L_PROFIL_USER = 'Nom d\'utilizaire';
 const L_INFOS = 'Informacions';
 const L_PROFIL_UPDATE = 'Modificar vòstre perfil';
 const L_PROFIL_CHANGE_PASSWORD = 'Cambiament del senhal';
-const L_CONFIRM_PASSWORD = 'Confirmacion del senhal';
 const L_PROFIL_UPDATE_PASSWORD = 'Cambiar vòstre senhal';
 
 // statique.php

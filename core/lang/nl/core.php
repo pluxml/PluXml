@@ -16,6 +16,10 @@ const L_NONE1						= 'geen';
 const L_NONE2						= 'geen';
 const L_PASSWORD					= 'Wachtwoord';
 const L_TIMEZONE					= 'Tijdzone';
+const L_SELECT_LANG					= 'Kies uw taal';
+const L_CONFIRM_PASSWORD			= 'Wachtwoord bevestigen';
+const L_PROFIL_LOGIN				= 'Kies uw loginnaam';
+const L_INPUT_CHANGE				= 'Verander';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'De standaardlayout van PluXml werd niet gevonden';

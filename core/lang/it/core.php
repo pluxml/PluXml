@@ -16,6 +16,10 @@ const L_NONE1						= 'nessuno';
 const L_NONE2						= 'nessuna';
 const L_PASSWORD					= 'Password';
 const L_TIMEZONE					= 'Fuso orario';
+const L_SELECT_LANG					= 'Seleziona la lingua';
+const L_CONFIRM_PASSWORD			= 'Conferma la password';
+const L_PROFIL_LOGIN				= 'Nome utente';
+const L_INPUT_CHANGE				= 'Cambia';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principale non trovato';

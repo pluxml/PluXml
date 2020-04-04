@@ -448,12 +448,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Plugins inactifs';
 
 const L_PROFIL_EDIT_TITLE = 'Edytuj profil';
 const L_PROFIL = 'Profil';
-const L_PROFIL_LOGIN = 'Zalogowany jako';
 const L_PROFIL_USER = 'Nazwa użytkownika';
 const L_INFOS = 'Informacja';
 const L_PROFIL_UPDATE = 'Zapisz zmiany';
 const L_PROFIL_CHANGE_PASSWORD = 'Zmiana hasła';
-const L_CONFIRM_PASSWORD = 'Powtórz hasło';
 const L_PROFIL_UPDATE_PASSWORD = 'Zmień hasło';
 
 // statique.php

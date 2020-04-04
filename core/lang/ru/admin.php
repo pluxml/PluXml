@@ -451,12 +451,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Неактивные плагины';
 
 const L_PROFIL_EDIT_TITLE = 'Редактирование профиля';
 const L_PROFIL = 'Профиль';
-const L_PROFIL_LOGIN = 'Логин';
 const L_PROFIL_USER = 'Имя, Фамилия';
 const L_INFOS = 'Информация о Вас (отображается под текстом статей)';
 const L_PROFIL_UPDATE = 'Изменить Ваш профиль';
 const L_PROFIL_CHANGE_PASSWORD = 'Изменение пароля';
-const L_CONFIRM_PASSWORD = 'Повторить пароль';
 const L_PROFIL_UPDATE_PASSWORD = 'Изменить пароль';
 
 // statique.php

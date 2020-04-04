@@ -451,12 +451,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Inaktive plugins';
 
 const L_PROFIL_EDIT_TITLE = 'Benutzerprofil bearbeiten';
 const L_PROFIL = 'Profil';
-const L_PROFIL_LOGIN = 'Login';
 const L_PROFIL_USER = 'Benutzername';
 const L_INFOS = 'Nachrichten';
 const L_PROFIL_UPDATE = 'Benutzerprofil speichern';
 const L_PROFIL_CHANGE_PASSWORD = 'Passwort ändern';
-const L_CONFIRM_PASSWORD = 'Neues Passwort wiederholen';
 const L_PROFIL_UPDATE_PASSWORD = 'Passwortänderung speichern';
 
 // statique.php

@@ -16,6 +16,10 @@ const L_NONE1						= 'nu';
 const L_NONE2						= 'nimic';
 const L_PASSWORD					= 'Parola';
 const L_TIMEZONE					= 'Time Zone';
+const L_SELECT_LANG					= 'Alegeţi limba dorită';
+const L_CONFIRM_PASSWORD			= 'Confirmaţi parola';
+const L_PROFIL_LOGIN				= 'Login';
+const L_INPUT_CHANGE				= 'Schimbă';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principala este gasita';

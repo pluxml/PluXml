@@ -16,6 +16,10 @@ const L_NONE1						= 'brak';
 const L_NONE2						= 'brak';
 const L_PASSWORD					= 'Hasło';
 const L_TIMEZONE					= 'Strefa czasowa';
+const L_SELECT_LANG					= 'Wybierz język';
+const L_CONFIRM_PASSWORD			= 'Powtórz hasło';
+const L_PROFIL_LOGIN				= 'Zalogowany jako';
+const L_INPUT_CHANGE				= 'Zmień';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Nie odnaleziono głównego szablonu PluXml';
