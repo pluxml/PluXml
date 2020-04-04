@@ -37,15 +37,15 @@ const PLX_CHARSET = 'UTF-8';
 const DEFAULT_LANG = 'en';
 
 # profils utilisateurs de pluxml
-const PROFIL_ADMIN = 0;
-const PROFIL_MANAGER = 1;
+const PROFIL_ADMIN		= 0;
+const PROFIL_MANAGER	= 1;
 const PROFIL_MODERATOR	= 2;
-const PROFIL_EDITOR	= 3;
-const PROFIL_WRITER	= 4;
+const PROFIL_EDITOR		= 3;
+const PROFIL_WRITER		= 4;
 
 # taille redimensionnement des images et miniatures
-$img_redim = array('320x200', '500x380', '640x480');
-$img_thumb = array('50x50', '75x75', '100x100');
+const IMG_REDIM = array('320x200', '500x380', '640x480');
+const IMG_THUMB = array('50x50', '75x75', '100x100');
 
 # On sécurise notre environnement si dans php.ini: register_globals = On
 if (ini_get('register_globals')) {

@@ -60,13 +60,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 				</li>
 				<li>
 					<strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
-					<em>
-						<?php if($_SESSION['profil']==PROFIL_ADMIN) echo L_PROFIL_ADMIN;
-						elseif($_SESSION['profil']==PROFIL_MANAGER) echo L_PROFIL_MANAGER;
-						elseif($_SESSION['profil']==PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
-						elseif($_SESSION['profil']==PROFIL_EDITOR) echo L_PROFIL_EDITOR;
-						else echo L_PROFIL_WRITER; ?>
-					</em>
+					<em><?php echo PROFIL_NAMES[$_SESSION['profil']]; ?></em>
 				</li>
 				<li><small><a class="version" title="PluXml" href="<?php echo PLX_URL_REPO ?>">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small></li>
 			</ul>

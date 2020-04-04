@@ -299,7 +299,7 @@ $curFolders = explode('/', $curFolder);
 					<li><?php echo L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
 					<li><input type="radio" checked="checked" name="resize" value="" />&nbsp;<?php echo L_MEDIAS_RESIZE_NO ?></li>
 					<?php
-						foreach($img_redim as $redim) {
+						foreach(IMG_REDIM as $redim) {
 							echo '<li><input type="radio" name="resize" value="'.$redim.'" />&nbsp;'.$redim.'</li>';
 						}
 					?>
@@ -322,7 +322,7 @@ $curFolders = explode('/', $curFolder);
 						<input<?php echo $sel ?> type="radio" name="thumb" value="" />&nbsp;<?php echo L_MEDIAS_THUMBS_NONE ?>
 					</li>
 					<?php
-						foreach($img_thumb as $thumb) {
+						foreach(IMG_THUMB as $thumb) {
 							echo '<li><input type="radio" name="thumb" value="'.$thumb.'" />&nbsp;'.$thumb.'</li>';
 						}
 					?>
