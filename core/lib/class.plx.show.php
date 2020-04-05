@@ -217,11 +217,11 @@ class plxShow {
 			$year = !empty($capture[1]) ? ' '.$capture[1] : '';
 			$month = !empty($capture[2]) ? ' '.plxDate::getCalendar('month', $capture[2]) : '';
 			$day = !empty($capture[3]) ? ' '.plxDate::getCalendar('day', $capture[3]) : '';
-			$title = L_PAGETITLE_ARCHIVES.$day.$month.$year;
+			$title = L_ARCHIVES.$day.$month.$year;
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
 		elseif($this->plxMotor->mode == 'tags') {
-			$title = L_PAGETITLE_TAG.' '.$this->plxMotor->cibleName;
+			$title = L_TAG . ' '.$this->plxMotor->cibleName;
 			$subtitle = $this->plxMotor->aConf['title'];
 		}
 		elseif($this->plxMotor->mode == 'erreur') {
@@ -744,7 +744,7 @@ class plxShow {
 				if ($idx!=sizeof($tags)-1) echo $separator.' ';
 			}
 		}
-		else echo L_ARTTAGS_NONE;
+		else echo L_NONE1;
 	}
 
 	/**
@@ -1409,7 +1409,7 @@ class plxShow {
 						$menu = str_replace('#static_status','noactive',$menu);
 					}
 					$menu = str_replace('#static_url', $this->plxMotor->urlRewrite('?blog'),$menu);
-					$menu = str_replace('#static_name',L_PAGEBLOG_TITLE,$menu);
+					$menu = str_replace('#static_name',L_BLOG,$menu);
 					$menu = str_replace('#static_class','static menu',$menu);
 					array_splice($menus, (intval($menublog)-1), 0, array($menu));
 				}
@@ -1990,7 +1990,7 @@ class plxShow {
 				}
 				$name = str_replace('#page_class','static menu',$name);
 				$name = str_replace('#page_url', $this->plxMotor->urlRewrite('?blog'),$name);
-				$name = str_replace('#page_name',L_PAGEBLOG_TITLE,$name);
+				$name = str_replace('#page_name',L_BLOG,$name);
 				echo $name;
 			}
 		}

@@ -57,14 +57,14 @@ include __DIR__ .'/top.php';
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
-					<th><?php echo L_ID ?></th>
+					<th>#</th>
 					<th><?php echo L_CAT_LIST_NAME ?></th>
-					<th><?php echo L_CAT_LIST_URL ?></th>
-					<th><?php echo L_CAT_LIST_ACTIVE ?></th>
-					<th><?php echo L_CAT_LIST_SORT ?></th>
+					<th><?php echo L_URL ?></th>
+					<th><?= L_ACTIVE ?></th>
+					<th><?php echo L_ARTICLES_SORT ?></th>
 					<th><?php echo L_CAT_LIST_BYPAGE ?></th>
-					<th data-id="order"><?php echo L_CAT_LIST_ORDER ?></th>
-					<th><?php echo L_CAT_LIST_MENU ?></th>
+					<th data-id="order"><?php echo L_ORDER ?></th>
+					<th><?php echo L_MENU ?></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>

@@ -104,16 +104,16 @@ $arts = $plxAdmin->getArticles('all'); # Recuperation des articles
 
 # Génération de notre tableau des catégories
 $aFilterCat['all'] = L_ARTICLES_ALL_CATEGORIES;
-$aFilterCat['home'] = L_CATEGORY_HOME;
+$aFilterCat['home'] = L_HOMEPAGE;
 $aFilterCat['000'] = L_UNCLASSIFIED;
 if($plxAdmin->aCats) {
 	foreach($plxAdmin->aCats as $k=>$v) {
 		$aCat[$k] = plxUtils::strCheck($v['name']);
 		$aFilterCat[$k] = plxUtils::strCheck($v['name']);
 	}
-	$aAllCat[L_CATEGORIES_TABLE] = $aCat;
+	$aAllCat[L_CATEGORIES] = $aCat;
 }
-$aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_CATEGORY_HOME_PAGE;
+$aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_HOMEPAGE;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
@@ -131,7 +131,7 @@ include __DIR__ .'/top.php';
 		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
 		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
 		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_AWAITING ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
 	</ul>
 	<?php
 	echo plxToken::getTokenPostMethod();
@@ -159,13 +159,13 @@ include __DIR__ .'/top.php';
 		<thead>
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
-				<th><?php echo L_ID ?></th>
-				<th><?php echo L_ARTICLE_LIST_DATE ?></th>
-				<th><?php echo L_ARTICLE_LIST_TITLE ?></th>
+				<th>#</th>
+				<th><?php echo L_DATE ?></th>
+				<th><?php echo L_TITLE ?></th>
 				<th><?php echo L_ARTICLE_LIST_CATEGORIES ?></th>
 				<th><?php echo L_ARTICLE_LIST_NBCOMS ?></th>
-				<th><?php echo L_ARTICLE_LIST_AUTHOR ?></th>
-				<th class="action"><?php echo L_ARTICLE_LIST_ACTION ?></th>
+				<th><?php echo L_AUTHOR ?></th>
+				<th class="action"><?= L_ACTION ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -186,8 +186,8 @@ include __DIR__ .'/top.php';
 				if(sizeof($catIds)>0) {
 					foreach($catIds as $catId) {
 						$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
-						if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
-						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
+						if($catId=='draft') $draft = ' - <strong>'.L_DRAFT.'</strong>';
+						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_HOMEPAGE.'</option>';
 						elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
 						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
 					}
@@ -216,7 +216,7 @@ include __DIR__ .'/top.php';
 				echo '<td><a title="'.L_NEW_COMMENTS_TITLE.'" href="comments.php?sel=offline&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsToValidate.'</a> / <a title="'.L_VALIDATED_COMMENTS_TITLE.'" href="comments.php?sel=online&amp;a='.$plxAdmin->plxRecord_arts->f('numero').'&amp;page=1">'.$nbComsValidated.'</a>&nbsp;</td>';
 				echo '<td>'.plxUtils::strCheck($author).'&nbsp;</td>';
 				echo '<td>';
-				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_ARTICLE_EDIT.'</a>';
+				echo '<a href="article.php?a='.$idArt.'" title="'.L_ARTICLE_EDIT_TITLE.'">'.L_EDIT.'</a>';
 				if($publi AND $draft=='') # Si l'article est publié
 					echo ' <a href="'.$plxAdmin->urlRewrite('?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url')).'" title="'.L_ARTICLE_VIEW_TITLE.'">'.L_VIEW.'</a>';
 				echo "&nbsp;</td>";

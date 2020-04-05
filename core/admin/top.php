@@ -42,7 +42,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		<header class="header sml-text-center med-text-right">
 			<ul class="unstyled-list head">
 				<li>
-					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a></small>
+					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_HOMEPAGE_TITLE ?>"><?php echo L_HOMEPAGE;?></a></small>
 				</li>
 				<li>
 <?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
@@ -77,9 +77,9 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
 
 					if(isset($_GET['a'])) # edition article
-						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, false, false, '', false);
+						$menus[] = plxUtils::formatMenu(L_NEW_ARTICLE, PLX_CORE.'admin/article.php', L_NEW_ARTICLE, false, false, '', false);
 					else # nouvel article
-						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES);
+						$menus[] = plxUtils::formatMenu(L_NEW_ARTICLE, PLX_CORE.'admin/article.php', L_NEW_ARTICLE);
 
 					$menus[] = plxUtils::formatMenu(L_MENU_MEDIAS, PLX_CORE.'admin/medias.php', L_MENU_MEDIAS_TITLE);
 
@@ -89,24 +89,24 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 						$nbcoms = $plxAdmin->nbComments('offline');
 						$coms_offline = $nbcoms>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
-						$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
+						$menus[] = plxUtils::formatMenu(L_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
 					}
 
 					if($_SESSION['profil'] <= PROFIL_EDITOR)
-						$menus[] = plxUtils::formatMenu(L_MENU_CATEGORIES, PLX_CORE.'admin/categories.php', L_MENU_CATEGORIES_TITLE);
+						$menus[] = plxUtils::formatMenu(L_CATEGORIES, PLX_CORE.'admin/categories.php', L_MENU_CATEGORIES_TITLE);
 
-					$menus[] = plxUtils::formatMenu(L_MENU_PROFIL, PLX_CORE.'admin/profil.php', L_MENU_PROFIL_TITLE);
+					$menus[] = plxUtils::formatMenu(L_PROFIL, PLX_CORE.'admin/profil.php', L_MENU_PROFIL_TITLE);
 
 					if($_SESSION['profil'] == PROFIL_ADMIN) {
 						$menus[] = plxUtils::formatMenu(L_MENU_CONFIG, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', false);
 						if (preg_match('/parametres/',basename($_SERVER['SCRIPT_NAME']))) {
-							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_BASE, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
+							$menus[] = plxUtils::formatMenu(L_CONFIG_BASE, PLX_CORE.'admin/parametres_base.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_VIEW, PLX_CORE.'admin/parametres_affichage.php', L_MENU_CONFIG_VIEW_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_USERS, PLX_CORE.'admin/parametres_users.php', L_MENU_CONFIG_USERS_TITLE, 'menu-config');
-							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_ADVANCED, PLX_CORE.'admin/parametres_avances.php', L_MENU_CONFIG_ADVANCED_TITLE, 'menu-config');
+							$menus[] = plxUtils::formatMenu(L_CONFIG_ADVANCED, PLX_CORE.'admin/parametres_avances.php', L_MENU_CONFIG_ADVANCED_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_THEMES, PLX_CORE.'admin/parametres_themes.php', L_THEMES_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_PLUGINS, PLX_CORE.'admin/parametres_plugins.php', L_MENU_CONFIG_PLUGINS_TITLE, 'menu-config');
-							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_INFOS, PLX_CORE.'admin/parametres_infos.php', L_MENU_CONFIG_INFOS_TITLE, 'menu-config');
+							$menus[] = plxUtils::formatMenu(L_INFOS, PLX_CORE.'admin/parametres_infos.php', L_MENU_CONFIG_INFOS_TITLE, 'menu-config');
 						}
 					}
 

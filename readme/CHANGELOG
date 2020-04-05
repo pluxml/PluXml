@@ -3,6 +3,8 @@
 [+] #385 Enhancement for CSRF token (bazooka07)
 [+] #385 Refacto lostpassword token generation (P3ter)
 [+] #387 New "rename" and "copy to clipboard" icons in medias administration page (bazooka07)
+[+] #389 lang files cleaning (bazooka07)
+[+] #389 $LANGS array replaced with constants (bazooka07)
 FIX #286 Do not unset CSRF token if $_POST is empty (sudwebdesign)
 FIX #286 Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE (sudwebdesign) 
 FIX #286 Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS (sudwebdesign)
