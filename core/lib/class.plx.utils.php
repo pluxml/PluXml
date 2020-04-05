@@ -16,6 +16,8 @@ require PLX_CORE.'vendor/autoload.php';
 
 class plxUtils {
 
+	const THUMB_WIDTH = 48;
+	const THUMB_HEIGHT = 48;
 	/**
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre
@@ -639,7 +641,7 @@ class plxUtils {
 	 * @return	boolean			vrai si image créée
 	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
-	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
+	public static function makeThumb($src_image, $dest_image, $thumb_width = self::THUMB_WIDTH, $thumb_height = self::THUMB_HEIGHT, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 

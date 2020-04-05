@@ -305,7 +305,7 @@ class plxMedias {
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
 			if(preg_match($this->img_exts, $file['name'])) {
-				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48);
+				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile));
 				if($resize)
 					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
 				if($thumb)
