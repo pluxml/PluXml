@@ -21,7 +21,7 @@
 <h3>Ordered List</h3>
 <ol>
 <li>List Item 1</li>
-<li>List Item 2</li>
+<li>List Item 2
 <ol>
 <li>Nested list item A</li>
 <li>Nested list item B</li>
@@ -84,5 +84,5 @@ Beware the Jubjub bird, and shun
 <h2>Blockquotes</h2>
 <p>Let&#8217;s keep it simple. Italics are good to help set it off from the body text (and italic Georgia is lovely at this size). Be sure to style the citation.</p>
 <blockquote><p>Good afternoon, gentlemen. I am a HAL 9000 computer. I became operational at the H.A.L. plant in Urbana, Illinois on the 12th of January 1992. My instructor was Mr. Langley, and he taught me to sing a song. If you&#8217;d like to hear it I can sing it for you.</p>
-<p><cite>— <a href="https://en.wikipedia.org/wiki/HAL_9000" target="_blank">HAL 9000</a></cite></p></blockquote>
+<p><cite>— <a href="http://en.wikipedia.org/wiki/HAL_9000">HAL 9000</a></cite></p></blockquote>
 <p>And here&#8217;s a bit of trailing text.</p>

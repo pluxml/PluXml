@@ -1,10 +1,9 @@
 <?php
-
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT.'core/';
 
-include PLX_ROOT.'config.php';
-include PLX_CORE.'lib/config.php';
+include(PLX_ROOT.'config.php');
+include(PLX_CORE.'lib/config.php');
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -17,22 +16,17 @@ session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS
 session_start();
 
 # On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'date',
-	'glob',
-	'utils',
-	'capcha',
-	'erreur',
-	'record',
-	'motor',
-	'feed',
-	'show',
-	'encrypt',
-	'plugins'
-);
-foreach(ALL_CLASSES as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-}
+include(PLX_CORE.'lib/class.plx.date.php');
+include(PLX_CORE.'lib/class.plx.glob.php');
+include(PLX_CORE.'lib/class.plx.utils.php');
+include(PLX_CORE.'lib/class.plx.capcha.php');
+include(PLX_CORE.'lib/class.plx.erreur.php');
+include(PLX_CORE.'lib/class.plx.record.php');
+include(PLX_CORE.'lib/class.plx.motor.php');
+include(PLX_CORE.'lib/class.plx.feed.php');
+include(PLX_CORE.'lib/class.plx.show.php');
+include(PLX_CORE.'lib/class.plx.encrypt.php');
+include(PLX_CORE.'lib/class.plx.plugins.php');
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
@@ -46,13 +40,6 @@ eval($plxMotor->plxPlugins->callHook('Index'));
 # chargement du fichier de langue
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
-# On vérifie que PHP 5 ou superieur soit installé
-if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
-	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
-	exit;
-}
-
 $plxMotor->prechauffage();
 $plxMotor->demarrage();
 
@@ -61,38 +48,31 @@ $plxShow = plxShow::getInstance();
 
 eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
 
-# Traitements du thème
-if(empty($plxMotor->style) or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
-	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
-	exit;
-}
-
-# On teste si le template existe
-if(!file_exists(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
-	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_FILE_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
-	exit;
-}
-
 # On démarre la bufferisation
 ob_start();
 ob_implicit_flush(0);
 
-# On impose le charset
-header('Content-Type: text/html; charset='.PLX_CHARSET);
+# Traitements du thème
+if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
+	header('Content-Type: text/plain; charset='.PLX_CHARSET);
+	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
+} elseif(file_exists(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
+	# On impose le charset
+	header('Content-Type: text/html; charset='.PLX_CHARSET);
+	# Insertion du template
+	include(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
+} else {
+	header('Content-Type: text/plain; charset='.PLX_CHARSET);
+	echo L_ERR_FILE_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
+}
 
-# Insertion du template
-include(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
-
-# Récupération de la bufférisation
+# Récuperation de la bufférisation
 $output = ob_get_clean();
 
 # Hooks spécifiques au thème
 ob_start();
 eval($plxMotor->plxPlugins->callHook('ThemeEndHead')); # Hook Plugins
 $output = str_replace('</head>', ob_get_clean().'</head>', $output);
-
 ob_start();
 eval($plxMotor->plxPlugins->callHook('ThemeEndBody')); # Hook Plugins
 $output = str_replace('</body>', ob_get_clean().'</body>', $output);
@@ -115,4 +95,5 @@ if($plxMotor->aConf['gzip']) {
 
 # Restitution écran
 echo $output;
+exit;
 ?>
