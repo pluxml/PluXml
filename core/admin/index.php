@@ -272,6 +272,7 @@ include __DIR__ .'/top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexFoot'));
+
 # On inclut le footer
 include __DIR__ .'/foot.php';
 ?>

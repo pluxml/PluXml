@@ -1,8 +1,9 @@
 <?php
+
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
 
 const PLX_UPDATER = true;
 
@@ -13,16 +14,22 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 }
 
 # On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.msg.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.admin.php');
-include(PLX_CORE.'lib/class.plx.encrypt.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
-include(PLX_CORE.'lib/class.plx.token.php');
+const ALL_CLASSES = array(
+	'date',
+	'glob',
+	'utils',
+	'msg',
+	'record',
+	'motor',
+	'admin',
+	'encrypt',
+	'plugins',
+	'token'
+);
+foreach(ALL_CLASSES as $aClass) {
+	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
+}
+
 include(PLX_ROOT.'update/versions.php');
 include(PLX_ROOT.'update/class.plx.updater.php');
 
@@ -37,7 +44,7 @@ loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
 
 # On vérifie que PHP 5 ou superieur soit installé
-if(version_compare(PHP_VERSION, '5.0.0', '<')){
+if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
 	echo utf8_decode(L_WRONG_PHP_VERSION);
 	exit;
