@@ -320,26 +320,26 @@ const L_CONFIG_HOMETEMPLATE = 'Template de la page d\'accueil';
 
 // parametres_avances.php
 
-const L_CONFIG_ADVANCED = 'Configuration avancée';
-const L_CONFIG_ADVANCED_URL_REWRITE = 'Activer la réécriture d\'urls';
-const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera modifié';
-const L_CONFIG_ADVANCED_GZIP = 'Activer la compression GZIP';
-const L_CONFIG_ADVANCED_GZIP_HELP = 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur';
-const L_CONFIG_ADVANCED_CAPCHA = 'Activer le capcha anti-spam';
+const L_CONFIG_ADVANCED = 'Zaawansowana konfiguracja';
+const L_CONFIG_ADVANCED_URL_REWRITE = 'Aktywuj przepisywanie adresów URL';
+const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Pamiętaj, że plik .htaccess jest już obecny w katalogu głównym twojego PluXml. Po aktywowaniu przepisywania adresu URL plik ten zostanie zmodyfikowany';
+const L_CONFIG_ADVANCED_GZIP = 'Włącz kompresję GZIP';
+const L_CONFIG_ADVANCED_GZIP_HELP = 'Kompresuj strony, aby zaoszczędzić przepustowość, jednak może to zwiększyć obciążenie procesora';
+const L_CONFIG_ADVANCED_CAPCHA = 'Aktywuj capcha spamu';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Włącz odzyskiwanie hasła';
-const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clef d\'administration (URLs privés)';
-const L_CONFIG_ADVANCED_KEY_HELP = 'Vider ce champs pour régénérer la clef';
-const L_CONFIG_ADVANCED_USERFOLDERS = 'Utiliser un dossier medias différent pour chaque rédacteur';
-const L_SLASH_END_REQUIRED = 'Ne pas oublier le slash à la fin';
-const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Emplacement des médias (dossier)';
-const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Emplacement des articles (dossier)';
-const L_CONFIG_ADVANCED_COMS_FOLDER = 'Emplacement des commentaires (dossier)';
-const L_CONFIG_ADVANCED_STATS_FOLDER = 'Emplacement des pages statiques (dossier)';
-const L_CONFIG_ADVANCED_THEMES_FOLDER = 'Emplacement des thèmes (dossier)';
-const L_CONFIG_ADVANCED_PLUGINS_FOLDER = 'Emplacement des plugins (dossier)';
-const L_CONFIG_ADVANCED_CONFIG_FOLDER = 'Emplacement des fichiers de configuration (dossier)';
-const L_CONFIG_ADVANCED_UPDATE = 'Modifier la configuration avancée';
-const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Emplacement et nom du fichier css personnel pour la personnalisation de l\'interface d\'administration (option)';
+const L_CONFIG_ADVANCED_ADMIN_KEY = 'Klucz administracyjny (prywatne adresy URL)';
+const L_CONFIG_ADVANCED_KEY_HELP = 'Wyczyść to pole, aby zregenerować klucz';
+const L_CONFIG_ADVANCED_USERFOLDERS = 'Użyj innego folderu multimediów dla każdego pisarza';
+const L_SLASH_END_REQUIRED = 'Nie zapomnij o końcu na końcu';
+const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Lokalizacja multimediów (folder)';
+const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Lokalizacja przedmiotów (folder)';
+const L_CONFIG_ADVANCED_COMS_FOLDER = 'Lokalizacja komentarzy (folder)';
+const L_CONFIG_ADVANCED_STATS_FOLDER = 'Lokalizacja stron statycznych (folder)';
+const L_CONFIG_ADVANCED_THEMES_FOLDER = 'Lokalizacja motywów (folder)';
+const L_CONFIG_ADVANCED_PLUGINS_FOLDER = 'Lokalizacja wtyczek (folder)';
+const L_CONFIG_ADVANCED_CONFIG_FOLDER = 'Lokalizacja plików konfiguracyjnych (folder)';
+const L_CONFIG_ADVANCED_UPDATE = 'Zmień zaawansowaną konfigurację';
+const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Lokalizacja i nazwa osobistego pliku css do dostosowania interfejsu administracyjnego (opcjonalnie)';
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Wysyłanie wiadomości e-mail';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Metoda wysyłania wiadomości e-mail';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Wysyłanie wiadomości e-mail za pomocą SMTP';
@@ -389,16 +389,16 @@ const L_CONFIG_EDITTPL_LOAD = 'Zmień';
 
 // parametres_infos.php
 
-const L_CONFIG_INFOS_TITLE = 'Informations relatives à PluXml';
-const L_CONFIG_INFOS_DESCRIPTION = 'Ces informations vous renseignent sur le fonctionnement de votre PluXml et peuvent s\'avérer utiles pour son dépannage.';
-const L_CONFIG_INFOS_NB_CATS = 'Nombre de catégories :';
-const L_CONFIG_INFOS_NB_STATICS = 'Nombre de pages statiques :';
+const L_CONFIG_INFOS_TITLE = 'Informacje o PluXml';
+const L_CONFIG_INFOS_DESCRIPTION = 'Informacje te informują o działaniu PluXml i mogą być przydatne do rozwiązywania problemów.';
+const L_CONFIG_INFOS_NB_CATS = 'Liczba kategorii:';
+const L_CONFIG_INFOS_NB_STATICS = 'Liczba stron statycznych:';
 const L_CONFIG_INFOS_WRITER = 'Nom du rédacteur en session :';
-const L_PLUXML_CHECK_VERSION = 'Vérification du numéro de version de PluXml sur le site officiel PluXml.org';
-const L_PLUXML_UPDATE_UNAVAILABLE = 'Impossible de vérifier les mises à jour tant que \'allow_url_fopen\' est désactivé sur ce système';
-const L_PLUXML_UPDATE_ERR = 'La vérification de mise à jour a échoué pour une raison inconnue';
-const L_PLUXML_UPTODATE = 'Vous utilisez la dernière version de PluXml';
-const L_PLUXML_UPDATE_AVAILABLE = 'Une nouvelle version de PluXml est sortie ! Vous pouvez la télécharger sur';
+const L_PLUXML_CHECK_VERSION = 'Sprawdzanie numeru wersji PluXml na oficjalnej stronie PluXml.org';
+const L_PLUXML_UPDATE_UNAVAILABLE = 'Nie można sprawdzić aktualizacji, gdy „allow_url_fopen” jest wyłączony w tym systemie';
+const L_PLUXML_UPDATE_ERR = 'Kontrola aktualizacji nie powiodła się z nieznanego powodu';
+const L_PLUXML_UPTODATE = 'Używasz najnowszej wersji PluXml';
+const L_PLUXML_UPDATE_AVAILABLE = 'Nowa wersja PluXml jest już dostępna! Możesz pobrać na';
 const L_MAIL_TEST = 'Wyślij e-mail testowy';
 const L_MAIL_TEST_SUBJECT = 'E-mail testowy wysłany z %s';
 const L_MAIL_TEST_SENT_TO = 'Testowy e-mail wysłany do %s. Sprawdź swoją skrzynkę pocztową';
@@ -406,43 +406,43 @@ const L_MAIL_TEST_FAILURE = 'Problem z wysłaniem e-maila testowego';
 
 // parametres_users.php
 
-const L_CONFIG_USERS_TITLE = 'Gestion des utilisateurs';
-const L_CONFIG_USER = 'utilisateur';
-const L_CONFIG_USERS_ACTIVE = 'Actif';
-const L_CONFIG_USERS_NEW = 'Nouvel utilisateur';
+const L_CONFIG_USERS_TITLE = 'Zarządzanie użytkownikami';
+const L_CONFIG_USER = 'użytkownik';
+const L_CONFIG_USERS_ACTIVE = 'Aktywny';
+const L_CONFIG_USERS_NEW = 'Nowy użytkownik';
 const L_CONFIG_USERS_UPDATE = 'Modifier la liste des utilisateurs';
-const L_ERR_LOGIN_ALREADY_EXISTS = 'Identifiant de connexion déjà utilisé';
-const L_ERR_USERNAME_ALREADY_EXISTS = 'Nom d\'utilisateur déjà utilisé';
+const L_ERR_LOGIN_ALREADY_EXISTS = 'Identyfikator połączenia jest już używany';
+const L_ERR_USERNAME_ALREADY_EXISTS = 'Nazwa użytkownika jest już w użyciu';
 const L_ERR_EMAIL_ALREADY_EXISTS = 'Adres mailowy już w użyciu';
 
 // parametre_plugins.php
 
-const L_BACK_TO_PLUGINS = 'Retour à la page des plugins';
-const L_NO_PLUGIN = 'Aucun plugin';
-const L_PLUGIN_NO_CONFIG = 'Plugin non configuré';
-const L_PLUGINS_CSS = 'Code css';
-const L_PLUGINS_CSS_TITLE = 'Éditer le code css du plugin';
-const L_CONTENT_FIELD_FRONTEND = 'Contenu fichier css site';
-const L_CONTENT_FIELD_BACKEND = 'Contenu fichier css administrateur';
+const L_BACK_TO_PLUGINS = 'Powrót do strony wtyczek';
+const L_NO_PLUGIN = 'Brak wtyczki';
+const L_PLUGIN_NO_CONFIG = 'Wtyczka nie jest skonfigurowana';
+const L_PLUGINS_CSS = 'Kod CSS';
+const L_PLUGINS_CSS_TITLE = 'Edytuj kod css wtyczki';
+const L_CONTENT_FIELD_FRONTEND = 'Plik strony css zawartości';
+const L_CONTENT_FIELD_BACKEND = 'Zawartość pliku css administratora';
 
 // parametres_plugins.php
 
-const L_PLUGINS_TITLE = 'Gestion des plugins';
-const L_PLUGINS_VERSION = 'Version';
-const L_PLUGINS_ACTIVATE = 'Activer';
-const L_PLUGINS_DEACTIVATE = 'Désactiver';
-const L_PLUGINS_DELETE_ERROR = 'Une erreur s\'est produite pendant la suppression';
-const L_PLUGINS_CONFIG = 'Configuration';
-const L_PLUGINS_CONFIG_TITLE = 'Configuration du plugin';
+const L_PLUGINS_TITLE = 'Zarządzanie wtyczkami';
+const L_PLUGINS_VERSION = 'Wersja';
+const L_PLUGINS_ACTIVATE = 'Aktywuj';
+const L_PLUGINS_DEACTIVATE = 'Dezaktywuj';
+const L_PLUGINS_DELETE_ERROR = 'Wystąpił błąd podczas usuwania';
+const L_PLUGINS_CONFIG = 'Konfiguracja';
+const L_PLUGINS_CONFIG_TITLE = 'Konfiguracja wtyczki';
 const L_PLUGINS_HELP_TITLE = 'Patrz Korzystanie z wtyczki';
-const L_PLUGINS_REQUIREMENTS = 'Pré-requis';
-const L_PLUGINS_REQUIREMENTS_HELP = 'Liste des plugins présents et actifs pour activer ce plugin';
-const L_PLUGINS_ALPHA_SORT = 'Trier par ordre alphabétique les plugins';
-const L_PLUGINS_LOADING_SORT = 'Ordre de chargement';
-const L_ACTION = 'Action';
-const L_PLUGINS_APPLY_BUTTON = 'Modifier la liste des plugins';
-const L_PLUGINS_ACTIVE_LIST = 'Plugins actifs';
-const L_PLUGINS_INACTIVE_LIST = 'Plugins inactifs';
+const L_PLUGINS_REQUIREMENTS = 'Warunki wstępne';
+const L_PLUGINS_REQUIREMENTS_HELP = 'Lista wtyczek obecnych i aktywnych w celu aktywacji tej wtyczki';
+const L_PLUGINS_ALPHA_SORT = 'Sortuj wtyczki alfabetycznie';
+const L_PLUGINS_LOADING_SORT = 'Ładowanie zamówienia';
+const L_ACTION = 'Akcja';
+const L_PLUGINS_APPLY_BUTTON = 'Zmodyfikuj listę wtyczek';
+const L_PLUGINS_ACTIVE_LIST = 'Aktywne wtyczki';
+const L_PLUGINS_INACTIVE_LIST = 'Nieaktywne wtyczki';
 
 // profil.php
 
