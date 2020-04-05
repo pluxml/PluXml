@@ -135,6 +135,8 @@ $config = array(
 	'smtpOauth2_refreshToken'	=> ''
 );
 
+const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET . '" ?>' . PHP_EOL;
+
 function install($content, $config) {
 
 	# gestion du timezone
@@ -143,7 +145,7 @@ function install($content, $config) {
 	# Création du fichier de configuration
 	ob_start();
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
+
 <document>
 <?php
 	foreach($config  as $k=>$v) {
@@ -154,15 +156,14 @@ function install($content, $config) {
 ?>
 </document>
 <?php
-	$xml = ob_get_clean();
+	$xml = XML_HEADER . ob_get_clean();
 	plxUtils::write($xml, path('XMLFILE_PARAMETERS'));
 
 	# Création du fichier des utilisateurs
 	$salt = plxUtils::charAleatoire(10);
 	ob_start();
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
-<document>\n";
+<document>
 	<user number="001" active="1" profil="0" delete="0">
 		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
 		<name><![CDATA[<?= trim($content['name']) ?>]]></name>
@@ -174,13 +175,12 @@ function install($content, $config) {
 	</user>
 </document>
 <?php
-	$xml = ob_get_clean();
+	$xml = XML_HEADER . ob_get_clean();
 	plxUtils::write($xml, path('XMLFILE_USERS'));
 
 	# Création du fichier des categories
 	ob_start();
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
 <document>
 <?php
 	if($content['data'] > 0) {
@@ -201,13 +201,12 @@ function install($content, $config) {
 ?>
 </document>
 <?php
-	$xml = ob_get_clean();
+	$xml = XML_HEADER . ob_get_clean();
 	plxUtils::write($xml, path('XMLFILE_CATEGORIES'));
 
 	# Création du fichier des pages statiques
 	ob_start();
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
 <document>
 <?php
 	if($content['data'] > 0) {
@@ -226,7 +225,7 @@ function install($content, $config) {
 ?>
 </document>
 <?php
-	$xml = ob_get_clean();
+	$xml = XML_HEADER . ob_get_clean();
 	plxUtils::write($xml, path('XMLFILE_STATICS'));
 
 	if($content['data'] > 0) {
@@ -240,7 +239,6 @@ function install($content, $config) {
 		# Création du premier article
 		list($chapo, $article) = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
 <document>
 	<title><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE) ?>]]></title>
 	<allow_com>1</allow_com>
@@ -256,14 +254,13 @@ function install($content, $config) {
 	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
 </document>
 <?php
-		$xml = ob_get_clean();
+		$xml = XML_HEADER . ob_get_clean();
 		plxUtils::write($xml, PLX_ROOT.$config['racine_articles'] . '0001.001.001.' . date('YmdHi') . '.' . L_DEFAULT_ARTICLE_URL . '.xml');
 	}
 
 	# Création du fichier des tags servant de cache
 	ob_start();
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>" ?>
 <document>
 <?php
 	if($content['data'] > 0) {
@@ -274,13 +271,12 @@ function install($content, $config) {
 ?>
 </document>
 <?php
-	$xml = ob_get_clean();
+	$xml = XML_HEADER . ob_get_clean();
 	plxUtils::write($xml, path('XMLFILE_TAGS'));
 
 	# Création du fichier des plugins
 	ob_start();
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
 <document>
 </document>
 <?php
@@ -291,7 +287,6 @@ function install($content, $config) {
 		# Création du premier commentaire
 		ob_start();
 ?>
-<?xml version="1.0" encoding="<?= PLX_CHARSET ?>"?>
 <comment>
 	<author>pluxml</author>
 	<type>normal</type>
@@ -301,7 +296,7 @@ function install($content, $config) {
 	<content><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT) ?>]]></content>
 </comment>
 <?php
-		$xml = ob_get_clean();
+		$xml = XML_HEADER . ob_get_clean();
 		plxUtils::write($xml, PLX_ROOT . $config['racine_commentaires'] . '0001.' . date('U') . '-1.xml');
 	}
 }
