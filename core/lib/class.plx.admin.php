@@ -460,25 +460,25 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 			foreach($this->aUsers as $user_id => $user) {
 				# controle de l'unicité du nom de l'utilisateur
-				if(in_array($user['name'], $users_name)) {
+			    if(in_array($user['name'], $users_name)) {
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
 				}
-				else {
+				else if ($user['delete'] == 0) {
 					$users_name[] = $user['name'];
 				}
 				# controle de l'unicité du login de l'utilisateur
 				if(in_array($user['login'], $users_login)) {
 					return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
 				}
-				else {
+				else if ($user['delete'] == 0) {
 					$users_login[] = $user['login'];
 				}
 				# controle de l'unicité de l'adresse e-mail
 				if(in_array($user['email'], $users_email)) {
 					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
 				}
-				else {
+				else if ($user['delete'] == 0) {
 					$users_email[] = $user['email'];
 				}
 				$xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">'."\n";
