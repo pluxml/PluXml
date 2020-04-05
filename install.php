@@ -127,8 +127,6 @@ $config = array('title'=>'PluXml',
 				'smtpOauth2_refreshToken' => ''
 				);
 
-const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET . '" ?>' . PHP_EOL;
-
 function install($content, $config) {
 
 	# gestion du timezone
