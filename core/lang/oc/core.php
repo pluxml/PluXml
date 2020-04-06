@@ -7,6 +7,7 @@ const L_DATE_UPDATE					= 'Data de misa a jorn';
 
 # common
 const L_PLUXML_VERSION				= 'Pluxml version';
+const L_WRONG_PHP_VERSION			= 'PluXml requerís PHP %s o superior per foncionar.';
 const L_HOMEPAGE					= 'Acuèlh';
 const L_BACK_HOMEPAGE_TITLE			= 'Tornar a la pagina d\'acuèlh del site';
 const L_UNCLASSIFIED				= 'Non classat';

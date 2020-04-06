@@ -2,7 +2,6 @@
 
 
 const L_UPDATE_TITLE					= 'Обновление PluXml';
-const L_WRONG_PHP_VERSION				= 'Для PluXml необходим PHP версии 5 или выше.';
 
 
 const L_UPDATE_UPTODATE					= 'Ваша PluXml имеет актуальную версию.';

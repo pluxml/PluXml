@@ -2,7 +2,6 @@
 
 
 const L_UPDATE_TITLE					= 'Updates voor PluXml';
-const L_WRONG_PHP_VERSION				= 'PluXml heeft PHP-versie 5 of hoger nodig om te functioneren';
 
 
 const L_UPDATE_UPTODATE					= 'Uw PluXml is al up to date';

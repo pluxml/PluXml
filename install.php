@@ -22,7 +22,6 @@ foreach(ALL_CLASSES as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
 }
 
-
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
 if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
@@ -34,10 +33,10 @@ if(!array_key_exists($lang, plxUtils::getLangs())) {
 loadLang(PLX_CORE.'lang/'.$lang.'/install.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
-# On vérifie que PHP 5 ou superieur soit installé
+# On vérifie que PHP PHP_VERSION_MIN ou supérieur soit installé
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain; charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	printf(L_WRONG_PHP_VERSION, PHP_VERSION_MIN);
 	exit;
 }
 
@@ -51,41 +50,29 @@ if(file_exists(path('XMLFILE_PARAMETERS'))) {
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers médias
-if(!is_dir(PLX_ROOT.'data/medias')) {
-	@mkdir(PLX_ROOT.'data/medias',0755,true);
-}
-
-# Vérification de l'existence du dossier data/configuration/plugins
-if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
-	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
-}
-
-# Vérification de l'existence du dossier data/templates
-if(!is_dir(PLX_ROOT.'data/templates')) {
-	@mkdir(PLX_ROOT.'data/templates',0755,true);
-}
-
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
 }
 
 # Initialisation du timezone
-$timezone = 'Europe/Paris';
-if(isset($_POST['timezone'])) $timezone=$_POST['timezone'];
-if(!array_key_exists($timezone, plxTimezones::timezones())) {
-	$timezone = date_default_timezone_get();
+if(isset($_POST['timezone'])) {
+	$timezone = $_POST['timezone'];
+	if(array_key_exists($timezone, plxTimezones::timezones())) {
+		$config['timezone'] = $timezone;
+	}
+
 }
 
 # Configuration de base
+$root = dirname(PLX_CONFIG_PATH) . '/';
 $config = array(
 	'version'			=> PLX_VERSION,
 	'title'				=> 'PluXml',
 	'description'		=> plxUtils::strRevCheck(L_SITE_DESCRIPTION),
 	'meta_description'	=> 'A flat CMS with XML',
 	'meta_keywords'		=> 'cms',
-	'timezone'			=> $timezone,
+	'timezone'			=> date_default_timezone_get(),
 	'allow_com'			=> 1,
 	'mod_com'			=> 0,
 	'mod_art'			=> 0,
@@ -107,10 +94,10 @@ $config = array(
 	'miniatures_l'		=> 200,
 	'miniatures_h'		=> 100,
 	'thumbs'			=> 0,
-	'medias'			=> 'data/medias/',
-	'racine_articles'	=> 'data/articles/',
-	'racine_commentaires'=> 'data/commentaires/',
-	'racine_statiques'	=> 'data/statiques/',
+	'medias'			=> $root . 'medias/',
+	'racine_articles'	=> $root . 'articles/',
+	'racine_commentaires'=> $root . 'commentaires/',
+	'racine_statiques'	=> $root . 'statiques/',
 	'racine_themes'		=> 'themes/',
 	'racine_plugins'	=> 'plugins/',
 	'homestatic'		=> '',
@@ -137,18 +124,34 @@ $config = array(
 
 function install($content, $config) {
 
+	# Vérification de l'existence des dossiers médias, configuration/plugins et templates
+	$folders = array(
+		PLX_ROOT . $config['medias'],
+		PLX_ROOT . PLX_CONFIG_PATH.'plugins',
+		PLX_ROOT . dirname(PLX_CONFIG_PATH) . '/templates'
+	);
+	foreach($folders as $f) {
+		if(!is_dir($f)) {
+			@mkdir($f, 0755, true);
+		}
+	}
+
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
 
 	# Création du fichier de configuration
 	ob_start();
 ?>
-
 <document>
 <?php
 	foreach($config  as $k=>$v) {
+		$no_quotes = (
+			empty($v) or
+			is_numeric($v) or
+			preg_match('~^(?:tri|email_method|clef|default_lang|smtp_security|version|racine_|medias|style)~', $k)
+		);
 ?>
-	<parametre name="<?= $k ?>"><?= is_numeric($v) ? $v : '<![CDATA[' . plxUtils::cdataCheck($v) . ']]>' ?></parametre>
+	<parametre name="<?= $k ?>"><?= $no_quotes ? $v : '<![CDATA[' . plxUtils::cdataCheck($v) . ']]>' ?></parametre>
 <?php
 	}
 ?>
@@ -165,10 +168,10 @@ function install($content, $config) {
 	<user number="001" active="1" profil="0" delete="0">
 		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
 		<name><![CDATA[<?= trim($content['name']) ?>]]></name>
-		<infos></infos>
-		<password><![CDATA[<?= sha1($salt.md5(trim($content['pwd']))) ?>]]></password>
+		<infos>Webmaster</infos>
+		<password><?= sha1($salt.md5(trim($content['pwd']))) ?></password>
 		<salt><?= $salt ?></salt>
-		<email><![CDATA[<?= trim($content['email']) ?>]]></email>
+		<email><?= trim($content['email']) ?></email>
 		<lang><?= $config['default_lang'] ?></lang>
 	</user>
 </document>
@@ -240,7 +243,7 @@ function install($content, $config) {
 <document>
 	<title><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE) ?>]]></title>
 	<allow_com>1</allow_com>
-	<template><![CDATA[article.php]]></template>
+	<template>article.php</template>
 	<chapo><![CDATA[<?= $chapo ?>]]></chapo>
 	<content><![CDATA[<?= $article ?>]]></content>
 	<tags>PluXml</tags>
@@ -249,7 +252,7 @@ function install($content, $config) {
 	<title_htmltag></title_htmltag>
 	<date_creation><?= date('YmdHi') ?></date_creation>
 	<date_update><?= date('YmdHi') ?></date_update>
-	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
+	<thumbnail>core/admin/theme/images/pluxml.png</thumbnail>
 </document>
 <?php
 		$xml = XML_HEADER . ob_get_clean();
@@ -278,7 +281,7 @@ function install($content, $config) {
 <document>
 </document>
 <?php
-	$xml = ob_get_clean();
+	$xml = XML_HEADER . ob_get_clean();
 	plxUtils::write($xml,path('XMLFILE_PLUGINS'));
 
 	if($content['data'] > 0) {
@@ -427,7 +430,7 @@ EOT;
 							<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
 						</div>
 						<div class="col med-7">
-							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
+							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $config['timezone']); ?>
 						</div>
 					</div>
 

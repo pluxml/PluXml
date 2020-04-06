@@ -2,7 +2,6 @@
 
 
 const L_UPDATE_TITLE					= 'Mesa a jorn PluXml';
-const L_WRONG_PHP_VERSION				= 'PluXml requerís PHP 5 o superior per foncionar.';
 
 
 const L_UPDATE_UPTODATE					= 'Vòstre PluXml es ja a jorn.';
