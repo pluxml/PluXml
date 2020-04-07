@@ -2,6 +2,7 @@
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.8.3';
 const PLX_URL_REPO = 'https://www.pluxml.org';
+const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 
 # Gestion des erreurs PHP

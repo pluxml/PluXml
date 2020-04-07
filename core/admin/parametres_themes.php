@@ -100,7 +100,10 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_VIEW_SKIN_SELECT ?> </h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+		<p><?php
+			$tag = '<a href="' . PLX_URL_RESSOURCES . '" target="_blank">' . PLX_URL_RESSOURCES . '</a>';
+			printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, $tag);
+		?></p>
 		<input type="submit" value="<?php echo L_CONFIG_THEME_UPDATE ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?php echo L_TEMPLATES_EDIT ?>" />

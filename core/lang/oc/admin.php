@@ -310,7 +310,7 @@ const L_CONFIG_VIEW_IMAGES = 'Talha dels imatges (largor x nautor)';
 const L_CONFIG_VIEW_THUMBS = 'Talha de las miniaturas (largor x nautor)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Utilizar una pagina estatica coma pagina d\'acuèlh';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Atencion aquela pagina es inactiva';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Telecargar mai tèmas sus <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Telecargar mai tèmas sus : %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Nombre d\'articles/comentaris afichats suls fils Rss';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Afichar pas que lo chapô dins los flux Rss dels articles';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Se lo chapô es void, lo contengut es afichat';

@@ -313,7 +313,7 @@ const L_CONFIG_VIEW_IMAGES = 'Bildgröße (Breite x Höhe)';
 const L_CONFIG_VIEW_THUMBS = 'Größe der Miniaturansicht (Breite x Höhe)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Eine statische Seite als Homepage verwenden';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Achtung! Diese Seite ist inaktiv';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Themen von <a href="http://ressources.pluxml.org">ressources.pluxml.org</a> laden.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Themen von %s laden.';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Anzahl der angezeigten Artikel/Kommentare im RSS Feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Im RSS Feed nur Vorspann des Artikels zeigen';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Wenn der Vorspann leer ist, Inhalt anzeigen';
