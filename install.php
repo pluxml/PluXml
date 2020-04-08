@@ -1,7 +1,17 @@
 <?php
-
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
+
+const PLX_DATA_PATH = PLX_ROOT.'data/';
+const PLX_DATA_ARTICLES_PATH = PLX_DATA_PATH.'articles';
+const PLX_DATA_STATIQUES_PATH = PLX_DATA_PATH.'statiques';
+const PLX_DATA_COMMENTAIRES_PATH = PLX_DATA_PATH.'commentaires';
+const PLX_DATA_PLUGINS_PATH = PLX_DATA_PATH.'plugins';
+const PLX_DATA_MEDIAS_PATH = PLX_DATA_PATH.'medias';
+const PLX_DATA_TEMPLATES_PATH = PLX_DATA_PATH.'templates';
+
+const PLX_PLUGINS_PATH = PLX_ROOT.'themes/';
+const PLX_THEMES_PATH = PLX_ROOT.'plugins/';
 
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
@@ -24,7 +34,7 @@ foreach(ALL_CLASSES as $aClass) {
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
-if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
+if(!empty($_POST) AND $_POST['default_lang']){
 	$lang = $_POST['default_lang'];
 }
 if(!array_key_exists($lang, plxUtils::getLangs())) {
@@ -43,7 +53,7 @@ if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 # On vérifie que PluXml n'est pas déjà installé
 if(file_exists(path('XMLFILE_PARAMETERS'))) {
 	header('Content-Type: text/plain; charset=UTF-8');
-	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
+	echo L_ERR_PLUXML_ALREADY_INSTALLED;
 	exit;
 }
 
@@ -55,17 +65,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
 }
 
-# Initialisation du timezone
-if(isset($_POST['timezone'])) {
-	$timezone = $_POST['timezone'];
-	if(array_key_exists($timezone, plxTimezones::timezones())) {
-		$config['timezone'] = $timezone;
-	}
+# Vérification de l'existence des dossiers médias, configuration/plugins et templates
+$folders = array(
+    PLX_DATA_MEDIAS_PATH,
+    PLX_DATA_TEMPLATES_PATH,
+    PLX_CONFIG_PATH.'plugins/'
+);
+foreach($folders as $f) {
+    if(!is_dir($f)) {
+        @mkdir($f, 0755, true);
+    }
+}
 
+# Initialisation du timezone
+$timezone = 'Europe/Paris';
+if(isset($_POST['timezone'])) $timezone=$_POST['timezone'];
+if(!array_key_exists($timezone, plxTimezones::timezones())) {
+    $timezone = date_default_timezone_get();
 }
 
 # Configuration de base
-$root = dirname(PLX_CONFIG_PATH) . '/';
 $config = array(
 	'version'			=> PLX_VERSION,
 	'title'				=> 'PluXml',
@@ -94,12 +113,6 @@ $config = array(
 	'miniatures_l'		=> 200,
 	'miniatures_h'		=> 100,
 	'thumbs'			=> 0,
-	'medias'			=> $root . 'medias/',
-	'racine_articles'	=> $root . 'articles/',
-	'racine_commentaires'=> $root . 'commentaires/',
-	'racine_statiques'	=> $root . 'statiques/',
-	'racine_themes'		=> 'themes/',
-	'racine_plugins'	=> 'plugins/',
 	'homestatic'		=> '',
 	'hometemplate'		=> 'home.php',
 	'urlrewriting'		=> 0,
@@ -124,18 +137,13 @@ $config = array(
 
 function install($content, $config) {
 
-	# Vérification de l'existence des dossiers médias, configuration/plugins et templates
-	$folders = array(
-		PLX_ROOT . $config['medias'],
-		PLX_ROOT . PLX_CONFIG_PATH.'plugins',
-		PLX_ROOT . dirname(PLX_CONFIG_PATH) . '/templates'
-	);
-	foreach($folders as $f) {
-		if(!is_dir($f)) {
-			@mkdir($f, 0755, true);
-		}
-	}
-
+    # Initialisation du timezone
+    if(isset($_POST['timezone'])) {
+        $timezone = $_POST['timezone'];
+        if(array_key_exists($timezone, plxTimezones::timezones())) {
+            $config['timezone'] = $timezone;
+        }
+    }
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
 
@@ -232,7 +240,7 @@ function install($content, $config) {
 	if($content['data'] > 0) {
 		plxUtils::write(
 			file_get_contents(PLX_CORE.'/templates/install-page.txt'),
-			PLX_ROOT . $config['racine_statiques'] . '001.' . L_DEFAULT_STATIC_URL . '.php'
+			PLX_DATA_STATIQUES_PATH . '001.' . L_DEFAULT_STATIC_URL . '.php'
 		);
 	}
 
@@ -256,7 +264,7 @@ function install($content, $config) {
 </document>
 <?php
 		$xml = XML_HEADER . ob_get_clean();
-		plxUtils::write($xml, PLX_ROOT.$config['racine_articles'] . '0001.001.001.' . date('YmdHi') . '.' . L_DEFAULT_ARTICLE_URL . '.xml');
+		plxUtils::write($xml, PLX_DATA_ARTICLES_PATH . '0001.001.001.' . date('YmdHi') . '.' . L_DEFAULT_ARTICLE_URL . '.xml');
 	}
 
 	# Création du fichier des tags servant de cache
@@ -298,13 +306,13 @@ function install($content, $config) {
 </comment>
 <?php
 		$xml = XML_HEADER . ob_get_clean();
-		plxUtils::write($xml, PLX_ROOT . $config['racine_commentaires'] . '0001.' . date('U') . '-1.xml');
+		plxUtils::write($xml, PLX_DATA_COMMENTAIRES_PATH . '0001.' . date('U') . '-1.xml');
 	}
 }
 
 $msg='';
 if(!empty($_POST['install'])) {
-
+    
 	if(trim($_POST['name']=='')) $msg = L_ERR_MISSING_USER;
 	elseif(trim($_POST['login']=='')) $msg = L_ERR_MISSING_LOGIN;
 	elseif(trim($_POST['pwd']=='')) $msg = L_ERR_MISSING_PASSWORD;
@@ -371,6 +379,15 @@ plxUtils::cleanHeaders();
 							<?php echo plxToken::getTokenPostMethod() ?>
 						</div>
 					</div>
+					
+				</fieldset>
+
+			</form>
+
+			<form method="post">
+
+				<fieldset>
+
 					<div class="grid">
 						<div class="col med-5 label-centered">
 							<label for="id_default_lang"><?php echo L_INSTALL_DATA ?>&nbsp;:</label>
@@ -430,7 +447,7 @@ EOT;
 							<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
 						</div>
 						<div class="col med-7">
-							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $config['timezone']); ?>
+							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 						</div>
 					</div>
 
@@ -446,12 +463,12 @@ EOT;
 						<?php plxUtils::testWrite(PLX_ROOT) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
+						<?php plxUtils::testWrite(PLX_DATA_ARTICLES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_DATA_COMMENTAIRES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_DATA_STATIQUES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_DATA_MEDIAS_PATH) ?>
+						<?php plxUtils::testWrite(PLX_THEMES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_PLUGINS_PATH) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testLibXml() ?>
