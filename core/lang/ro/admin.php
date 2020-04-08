@@ -264,7 +264,7 @@ const L_CONFIG_VIEW_IMAGES = 'Dimensiune imagine (latime x inaltime)';
 const L_CONFIG_VIEW_THUMBS = 'Thumbnail dimensiuni (latime x inaltime)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Utilizaţi o pagină statică ca Home-page';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Atenţie, această pagină este inactivă';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Descarcă alte teme <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Descarcă alte teme : %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Numărul de articole	şi comentarii postate pe fluxul Rss';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Vezi Headerul în articolele RSS';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Dacă headerul este gol, conţinutul este afişat';

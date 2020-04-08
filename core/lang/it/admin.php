@@ -264,7 +264,7 @@ const L_CONFIG_VIEW_IMAGES = 'Immagine Dimensioni (larghezza x altezza)';
 const L_CONFIG_VIEW_THUMBS = 'Dimensione delle miniature (larghezza x altezza)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Usa una pagina statica come homepage';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Attenzione, questa pagina non è attiva';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Scarica altri temi su <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Scarica altri temi su : %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Numero di articoli/commenti visualizzati';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Visualizzare solo la premessa degli articoli';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Se la premessa è vuota, visualizza il contenuto';
