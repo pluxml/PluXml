@@ -182,7 +182,7 @@ function install($content, $config) {
 	<user number="001" active="1" profil="0" delete="0">
 		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
 		<name><![CDATA[<?= trim($content['name']) ?>]]></name>
-		<infos>Webmaster</infos>
+		<infos></infos>
 		<password><?= sha1($salt.md5(trim($content['pwd']))) ?></password>
 		<salt><?= $salt ?></salt>
 		<email><?= trim($content['email']) ?></email>
