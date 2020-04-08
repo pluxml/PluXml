@@ -253,6 +253,9 @@ function install($content, $config) {
 	if($content['data'] > 0) {
 		# Création du premier article
 		list($chapo, $article) = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
+	
+	# Création du premier article
+	ob_start();
 ?>
 <document>
 	<title><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE) ?>]]></title>
