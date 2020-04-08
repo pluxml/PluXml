@@ -10,8 +10,8 @@ const PLX_DATA_PLUGINS_PATH = PLX_DATA_PATH.'plugins/';
 const PLX_DATA_MEDIAS_PATH = PLX_DATA_PATH.'medias/';
 const PLX_DATA_TEMPLATES_PATH = PLX_DATA_PATH.'templates/';
 
-const PLX_PLUGINS_PATH = PLX_ROOT.'themes/';
-const PLX_THEMES_PATH = PLX_ROOT.'plugins/';
+const PLX_PLUGINS_PATH = PLX_ROOT.'plugins/';
+const PLX_THEMES_PATH = PLX_ROOT.'themes/';
 
 include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
@@ -113,6 +113,12 @@ $config = array(
 	'miniatures_l'		=> 200,
 	'miniatures_h'		=> 100,
 	'thumbs'			=> 0,
+    'medias'            => PLX_DATA_MEDIAS_PATH,
+    'racine_articles'   => PLX_DATA_ARTICLES_PATH,
+    'racine_commentaires'=> PLX_DATA_COMMENTAIRES_PATH,
+    'racine_statiques'  => PLX_DATA_STATIQUES_PATH,
+    'racine_themes'     => PLX_THEMES_PATH,
+    'racine_plugins'    => PLX_PLUGINS_PATH,
 	'homestatic'		=> '',
 	'hometemplate'		=> 'home.php',
 	'urlrewriting'		=> 0,
