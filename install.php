@@ -3,12 +3,12 @@ const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
 
 const PLX_DATA_PATH = PLX_ROOT.'data/';
-const PLX_DATA_ARTICLES_PATH = PLX_DATA_PATH.'articles';
-const PLX_DATA_STATIQUES_PATH = PLX_DATA_PATH.'statiques';
-const PLX_DATA_COMMENTAIRES_PATH = PLX_DATA_PATH.'commentaires';
-const PLX_DATA_PLUGINS_PATH = PLX_DATA_PATH.'plugins';
-const PLX_DATA_MEDIAS_PATH = PLX_DATA_PATH.'medias';
-const PLX_DATA_TEMPLATES_PATH = PLX_DATA_PATH.'templates';
+const PLX_DATA_ARTICLES_PATH = PLX_DATA_PATH.'articles/';
+const PLX_DATA_STATIQUES_PATH = PLX_DATA_PATH.'statiques/';
+const PLX_DATA_COMMENTAIRES_PATH = PLX_DATA_PATH.'commentaires/';
+const PLX_DATA_PLUGINS_PATH = PLX_DATA_PATH.'plugins/';
+const PLX_DATA_MEDIAS_PATH = PLX_DATA_PATH.'medias/';
+const PLX_DATA_TEMPLATES_PATH = PLX_DATA_PATH.'templates/';
 
 const PLX_PLUGINS_PATH = PLX_ROOT.'themes/';
 const PLX_THEMES_PATH = PLX_ROOT.'plugins/';
