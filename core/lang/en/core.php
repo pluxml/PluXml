@@ -7,6 +7,7 @@ const L_DATE_UPDATE					= 'Date updated';
 
 # common
 const L_PLUXML_VERSION				= 'PluXml version';
+const L_WRONG_PHP_VERSION			= 'PluXml requires PHP %s or higher.';
 const L_HOMEPAGE					= 'Homepage';
 const L_BACK_HOMEPAGE_TITLE			= 'Back to homepage';
 const L_UNCLASSIFIED				= 'Uncategorized';

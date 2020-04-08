@@ -2,23 +2,39 @@
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+const PLX_DATA_PATH = PLX_ROOT.'data/';
+const PLX_DATA_ARTICLES_PATH = PLX_DATA_PATH.'articles';
+const PLX_DATA_STATIQUES_PATH = PLX_DATA_PATH.'statiques';
+const PLX_DATA_COMMENTAIRES_PATH = PLX_DATA_PATH.'commentaires';
+const PLX_DATA_PLUGINS_PATH = PLX_DATA_PATH.'plugins';
+const PLX_DATA_MEDIAS_PATH = PLX_DATA_PATH.'medias';
+const PLX_DATA_TEMPLATES_PATH = PLX_DATA_PATH.'templates';
+
+const PLX_PLUGINS_PATH = PLX_ROOT.'themes/';
+const PLX_THEMES_PATH = PLX_ROOT.'plugins/';
+
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
 
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
 
 # On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.timezones.php');
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.token.php');
+const ALL_CLASSES = array(
+	'timezones',
+	'date',
+	'glob',
+	'utils',
+	'token'
+);
+foreach(ALL_CLASSES as $aClass) {
+	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
+}
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
-if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
+if(!empty($_POST) AND $_POST['default_lang']){
 	$lang = $_POST['default_lang'];
 }
 if(!array_key_exists($lang, plxUtils::getLangs())) {
@@ -27,210 +43,276 @@ if(!array_key_exists($lang, plxUtils::getLangs())) {
 loadLang(PLX_CORE.'lang/'.$lang.'/install.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
-# On vérifie que PHP 5 ou superieur soit installé
-if(version_compare(PHP_VERSION, '5.0.0', '<')){
-	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+# On vérifie que PHP PHP_VERSION_MIN ou supérieur soit installé
+if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
+	header('Content-Type: text/plain; charset=UTF-8');
+	printf(L_WRONG_PHP_VERSION, PHP_VERSION_MIN);
 	exit;
 }
 
 # On vérifie que PluXml n'est pas déjà installé
 if(file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
+	header('Content-Type: text/plain; charset=UTF-8');
+	echo L_ERR_PLUXML_ALREADY_INSTALLED;
 	exit;
 }
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers médias
-if(!is_dir(PLX_ROOT.'data/medias')) {
-	@mkdir(PLX_ROOT.'data/medias',0755,true);
-}
-
-# Vérification de l'existence du dossier data/configuration/plugins
-if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
-	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
-}
-
-# Vérification de l'existence du dossier data/templates
-if(!is_dir(PLX_ROOT.'data/templates')) {
-	@mkdir(PLX_ROOT.'data/templates',0755,true);
-}
-
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
+}
+
+# Vérification de l'existence des dossiers médias, configuration/plugins et templates
+$folders = array(
+    PLX_DATA_MEDIAS_PATH,
+    PLX_DATA_TEMPLATES_PATH,
+    PLX_CONFIG_PATH.'plugins/'
+);
+foreach($folders as $f) {
+    if(!is_dir($f)) {
+        @mkdir($f, 0755, true);
+    }
 }
 
 # Initialisation du timezone
 $timezone = 'Europe/Paris';
 if(isset($_POST['timezone'])) $timezone=$_POST['timezone'];
 if(!array_key_exists($timezone, plxTimezones::timezones())) {
-	$timezone = date_default_timezone_get();
+    $timezone = date_default_timezone_get();
 }
 
 # Configuration de base
-$config = array('title'=>'PluXml',
-				'description'=>plxUtils::strRevCheck(L_SITE_DESCRIPTION),
-				'meta_description'=>'',
-				'meta_keywords'=>'',
-				'timezone'=>$timezone,
-				'allow_com'=>1,
-				'mod_com'=>0,
-				'mod_art'=>0,
-				'enable_rss'=>1,
-				'capcha'=>1,
-				'lostpassword'=>1,
-				'style'=>'defaut',
-				'clef'=>plxUtils::charAleatoire(15),
-				'bypage'=>5,
-				'bypage_archives'=>5,
-				'bypage_tags'=>5,
-				'bypage_admin'=>10,
-				'bypage_admin_coms'=>10,
-				'bypage_feed'=>8,
-				'tri'=>'desc',
-				'tri_coms'=>'asc',
-				'images_l'=>800,
-				'images_h'=>600,
-				'miniatures_l'=>200,
-				'miniatures_h'=>100,
-				'thumbs'=>0,
-				'medias'=>'data/medias/',
-				'racine_articles'=>'data/articles/',
-				'racine_commentaires'=>'data/commentaires/',
-				'racine_statiques'=>'data/statiques/',
-				'racine_themes'=>'themes/',
-				'racine_plugins'=>'plugins/',
-				'homestatic'=>'',
-				'hometemplate'=>'home.php',
-				'urlrewriting'=>0,
-				'gzip'=>0,
-				'feed_chapo'=>0,
-				'feed_footer'=>'',
-				'version'=>PLX_VERSION,
-				'default_lang'=>$lang,
-				'userfolders'=>0,
-				'display_empty_cat'=>0,
-				'custom_admincss_file'=>'',
-				'email_method' => 'sendmail',
-				'smtp_server' => '',
-				'smtp_username' => '',
-				'smtp_password' => '',
-				'smtp_port' => '465',
-				'smtp_security' => 'ssl',
-				'smtpOauth2_emailAdress' => '',
-				'smtpOauth2_clientId'=> '',
-				'smtpOauth2_clientSecret' => '',
-				'smtpOauth2_refreshToken' => ''
-				);
+$config = array(
+	'version'			=> PLX_VERSION,
+	'title'				=> 'PluXml',
+	'description'		=> plxUtils::strRevCheck(L_SITE_DESCRIPTION),
+	'meta_description'	=> 'A flat CMS with XML',
+	'meta_keywords'		=> 'cms',
+	'timezone'			=> date_default_timezone_get(),
+	'allow_com'			=> 1,
+	'mod_com'			=> 0,
+	'mod_art'			=> 0,
+	'enable_rss'		=> 1,
+	'capcha'			=> 1,
+	'lostpassword'		=> 1,
+	'style'				=> 'defaut',
+	'clef'				=> plxUtils::charAleatoire(15),
+	'bypage'			=> 5,
+	'bypage_archives'	=> 5,
+	'bypage_tags'		=> 5,
+	'bypage_admin'		=> 10,
+	'bypage_admin_coms'	=> 10,
+	'bypage_feed'		=> 8,
+	'tri'				=> 'desc',
+	'tri_coms'			=> 'asc',
+	'images_l'			=> 800,
+	'images_h'			=> 600,
+	'miniatures_l'		=> 200,
+	'miniatures_h'		=> 100,
+	'thumbs'			=> 0,
+	'homestatic'		=> '',
+	'hometemplate'		=> 'home.php',
+	'urlrewriting'		=> 0,
+	'gzip'				=> 0,
+	'feed_chapo'		=> 0,
+	'feed_footer'		=> '',
+	'default_lang'		=> $lang,
+	'userfolders'		=> 0,
+	'display_empty_cat'	=> 0,
+	'custom_admincss_file'	=> '',
+	'email_method'		=> 'sendmail',
+	'smtp_server'		=> '',
+	'smtp_username'		=> '',
+	'smtp_password' 	=> '',
+	'smtp_port'			=> '465',
+	'smtp_security'		=> 'ssl',
+	'smtpOauth2_emailAdress'	=> '',
+	'smtpOauth2_clientId'		=> '',
+	'smtpOauth2_clientSecret'	=> '',
+	'smtpOauth2_refreshToken'	=> ''
+);
 
 function install($content, $config) {
 
+    # Initialisation du timezone
+    if(isset($_POST['timezone'])) {
+        $timezone = $_POST['timezone'];
+        if(array_key_exists($timezone, plxTimezones::timezones())) {
+            $config['timezone'] = $timezone;
+        }
+    }
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
 
 	# Création du fichier de configuration
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
+	ob_start();
+?>
+<document>
+<?php
 	foreach($config  as $k=>$v) {
-		if(is_numeric($v))
-			$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
-		else
-			$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+		$no_quotes = (
+			empty($v) or
+			is_numeric($v) or
+			preg_match('~^(?:tri|email_method|clef|default_lang|smtp_security|version|racine_|medias|style)~', $k)
+		);
+?>
+	<parametre name="<?= $k ?>"><?= $no_quotes ? $v : '<![CDATA[' . plxUtils::cdataCheck($v) . ']]>' ?></parametre>
+<?php
 	}
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_PARAMETERS'));
+?>
+</document>
+<?php
+	$xml = XML_HEADER . ob_get_clean();
+	plxUtils::write($xml, path('XMLFILE_PARAMETERS'));
 
 	# Création du fichier des utilisateurs
 	$salt = plxUtils::charAleatoire(10);
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= "<document>\n";
-	$xml .= "\t".'<user number="001" active="1" profil="0" delete="0">'."\n";
-	$xml .= "\t\t".'<login><![CDATA['.trim($content['login']).']]></login>'."\n";
-	$xml .= "\t\t".'<name><![CDATA['.trim($content['name']).']]></name>'."\n";
-	$xml .= "\t\t".'<infos><![CDATA[]]></infos>'."\n";
-	$xml .= "\t\t".'<password><![CDATA['.sha1($salt.md5(trim($content['pwd']))).']]></password>'."\n";
-	$xml .= "\t\t".'<salt><![CDATA['.$salt.']]></salt>'."\n";
-	$xml .= "\t\t".'<email><![CDATA['.trim($content['email']).']]></email>'."\n";
-	$xml .= "\t\t".'<lang><![CDATA['.$config['default_lang'].']]></lang>'."\n";
-	$xml .= "\t</user>\n";
-	$xml .= "</document>";
-	plxUtils::write($xml,path('XMLFILE_USERS'));
+	ob_start();
+?>
+<document>
+	<user number="001" active="1" profil="0" delete="0">
+		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
+		<name><![CDATA[<?= trim($content['name']) ?>]]></name>
+		<infos>Webmaster</infos>
+		<password><?= sha1($salt.md5(trim($content['pwd']))) ?></password>
+		<salt><?= $salt ?></salt>
+		<email><?= trim($content['email']) ?></email>
+		<lang><?= $config['default_lang'] ?></lang>
+	</user>
+</document>
+<?php
+	$xml = XML_HEADER . ob_get_clean();
+	plxUtils::write($xml, path('XMLFILE_USERS'));
 
 	# Création du fichier des categories
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	if($content['data']>0)
-		$xml .= "\t".'<categorie number="001" active="1" homepage="1" tri="'.$config['tri'].'" bypage="'.$config['bypage'].'" menu="oui" url="'.L_DEFAULT_CATEGORY_URL.'" template="categorie.php"><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE).']]></name><description><![CDATA[]]></description><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag><thumbnail><![CDATA[]]></thumbnail><thumbnail_title><![CDATA[]]></thumbnail_title><thumbnail_alt><![CDATA[]]></thumbnail_alt></categorie>'."\n";
-
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_CATEGORIES'));
+	ob_start();
+?>
+<document>
+<?php
+	if($content['data'] > 0) {
+?>
+	<categorie number="001" active="1" homepage="1" tri="<?= $config['tri'] ?>" bypage="<?= $config['bypage'] ?>" menu="oui" url="<?= L_DEFAULT_CATEGORY_URL ?>" template="categorie.php">
+		<name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE) ?>]]></name>
+		<description></description>
+		<meta_description></meta_description>
+		<meta_keywords></meta_keywords>
+		<title_htmltag></title_htmltag>
+		<thumbnail></thumbnail>
+		<thumbnail_title></thumbnail_title>
+		<thumbnail_alt></thumbnail_alt>
+	</categorie>
+<?php
+		echo PHP_EOL;
+	}
+?>
+</document>
+<?php
+	$xml = XML_HEADER . ob_get_clean();
+	plxUtils::write($xml, path('XMLFILE_CATEGORIES'));
 
 	# Création du fichier des pages statiques
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	if($content['data']>0)
-		$xml .= "\t".'<statique number="001" active="1" menu="oui" url="'.L_DEFAULT_STATIC_URL.'" template="static.php"><group><![CDATA[]]></group><name><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE).']]></name><meta_description><![CDATA[]]></meta_description><meta_keywords><![CDATA[]]></meta_keywords><title_htmltag><![CDATA[]]></title_htmltag><date_creation><![CDATA['.date('YmdHi').']]></date_creation><date_update><![CDATA['.date('YmdHi').']]></date_update></statique>'."\n";
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_STATICS'));
-	if($content['data']>0)
-		plxUtils::write(file_get_contents(PLX_CORE.'/templates/install-page.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
-
-	if($content['data']>0){
-		# Création du premier article
-		$html = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
-		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-		$xml .= '<document>
-	<title><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE).']]></title>
-	<allow_com>1</allow_com>
-	<template><![CDATA[article.php]]></template>
-	<chapo><![CDATA['.$html[0].']]></chapo>
-	<content><![CDATA['.$html[1].']]></content>
-	<tags><![CDATA[PluXml]]></tags>
-	<meta_description><![CDATA[]]></meta_description>
-	<meta_keywords><![CDATA[]]></meta_keywords>
-	<title_htmltag><![CDATA[]]></title_htmltag>
-	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
-	<date_update><![CDATA['.date('YmdHi').']]></date_update>
-	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
-</document>';
-		plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
+	ob_start();
+?>
+<document>
+<?php
+	if($content['data'] > 0) {
+?>
+	<statique number="001" active="1" menu="oui" url="<?= L_DEFAULT_STATIC_URL ?>" template="static.php">
+		<group></group>
+		<name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE) ?>]]></name>
+		<meta_description></meta_description>
+		<meta_keywords></meta_keywords>
+		<title_htmltag></title_htmltag>
+		<date_creation><?= date('YmdHi') ?></date_creation>
+		<date_update><?= date('YmdHi') ?></date_update>
+	</statique>
+<?php
 	}
+?>
+</document>
+<?php
+	$xml = XML_HEADER . ob_get_clean();
+	plxUtils::write($xml, path('XMLFILE_STATICS'));
+
+	if($content['data'] > 0) {
+		plxUtils::write(
+			file_get_contents(PLX_CORE.'/templates/install-page.txt'),
+			PLX_DATA_STATIQUES_PATH . '001.' . L_DEFAULT_STATIC_URL . '.php'
+		);
+	}
+
+	if($content['data'] > 0) {
+		# Création du premier article
+		list($chapo, $article) = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
+?>
+<document>
+	<title><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE) ?>]]></title>
+	<allow_com>1</allow_com>
+	<template>article.php</template>
+	<chapo><![CDATA[<?= $chapo ?>]]></chapo>
+	<content><![CDATA[<?= $article ?>]]></content>
+	<tags>PluXml</tags>
+	<meta_description></meta_description>
+	<meta_keywords></meta_keywords>
+	<title_htmltag></title_htmltag>
+	<date_creation><?= date('YmdHi') ?></date_creation>
+	<date_update><?= date('YmdHi') ?></date_update>
+	<thumbnail>core/admin/theme/images/pluxml.png</thumbnail>
+</document>
+<?php
+		$xml = XML_HEADER . ob_get_clean();
+		plxUtils::write($xml, PLX_DATA_ARTICLES_PATH . '0001.001.001.' . date('YmdHi') . '.' . L_DEFAULT_ARTICLE_URL . '.xml');
+	}
+
 	# Création du fichier des tags servant de cache
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	if($content['data']>0)
-		$xml .= "\t".'<article number="0001" date="'.date('YmdHi').'" active="1"><![CDATA[PluXml]]></article>'."\n";
-	$xml .= '</document>';
-	plxUtils::write($xml,path('XMLFILE_TAGS'));
+	ob_start();
+?>
+<document>
+<?php
+	if($content['data'] > 0) {
+?>
+	<article number="0001" date="<?= date('YmdHi') ?>" active="1">PluXml</article>
+<?php
+	}
+?>
+</document>
+<?php
+	$xml = XML_HEADER . ob_get_clean();
+	plxUtils::write($xml, path('XMLFILE_TAGS'));
 
 	# Création du fichier des plugins
-	$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-	$xml .= '<document>'."\n";
-	$xml .= '</document>';
+	ob_start();
+?>
+<document>
+</document>
+<?php
+	$xml = XML_HEADER . ob_get_clean();
 	plxUtils::write($xml,path('XMLFILE_PLUGINS'));
 
-	if($content['data']>0) {
+	if($content['data'] > 0) {
 		# Création du premier commentaire
-		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-		$xml .= '<comment>
-		<author><![CDATA[pluxml]]></author>
-			<type>normal</type>
-			<ip>127.0.0.1</ip>
-			<mail><![CDATA[contact@pluxml.org]]></mail>
-			<site><![CDATA['.PLX_URL_REPO.']]></site>
-			<content><![CDATA['.plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT).']]></content>
-		</comment>';
-		plxUtils::write($xml,PLX_ROOT.$config['racine_commentaires'].'0001.'.date('U').'-1.xml');
+		ob_start();
+?>
+<comment>
+	<author>pluxml</author>
+	<type>normal</type>
+	<ip>127.0.0.1</ip>
+	<mail><![CDATA[contact@pluxml.org]]></mail>
+	<site><![CDATA[<?= PLX_URL_REPO ?>]]></site>
+	<content><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT) ?>]]></content>
+</comment>
+<?php
+		$xml = XML_HEADER . ob_get_clean();
+		plxUtils::write($xml, PLX_DATA_COMMENTAIRES_PATH . '0001.' . date('U') . '-1.xml');
 	}
 }
 
 $msg='';
 if(!empty($_POST['install'])) {
-
+    
 	if(trim($_POST['name']=='')) $msg = L_ERR_MISSING_USER;
 	elseif(trim($_POST['login']=='')) $msg = L_ERR_MISSING_LOGIN;
 	elseif(trim($_POST['pwd']=='')) $msg = L_ERR_MISSING_PASSWORD;
@@ -241,12 +323,12 @@ if(!empty($_POST['install'])) {
 		header('Location: '.plxUtils::getRacine());
 		exit;
 	}
+
 	$name=$_POST['name'];
 	$login=$_POST['login'];
 	$email=$_POST['email'];
 	$data=$_POST['data'];
-}
-else {
+} else {
 	$name='';
 	$login='';
 	$email='';
@@ -254,124 +336,139 @@ else {
 }
 plxUtils::cleanHeaders();
 ?>
+
 <!DOCTYPE html>
 <head>
-	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
+	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
-	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
+	<title><?= L_PLUXML_INSTALLATION . ' ' . L_VERSION . ' ' . PLX_VERSION ?></title>
+	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </head>
 
 <body>
 
 	<main class="main grid">
 
-		<aside class="aside col sml-12 med-3 lrg-2">
+		<aside class="aside col med-3 lrg-2">
 
 		</aside>
 
-		<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top: 0">
+		<section class="section col med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top: 0">
 
 			<header>
 
-				<h1><?php echo L_PLUXML_VERSION.' '.PLX_VERSION ?> - <?php echo L_INSTALL_TITLE ?></h1>
+				<h1><?= L_PLUXML_VERSION.' '.PLX_VERSION ?> - <?= L_INSTALL_TITLE ?></h1>
 
 			</header>
 
 			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
 
-			<form action="install.php" method="post">
+			<form method="post">
 
 				<fieldset>
 
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
+						<div class="col med-7">
 							<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
 							<input type="submit" name="select_lang" value="<?php echo L_INPUT_CHANGE ?>" />
 							<?php echo plxToken::getTokenPostMethod() ?>
 						</div>
 					</div>
+					
+				</fieldset>
+
+			</form>
+
+			<form method="post">
+
+				<fieldset>
+
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_default_lang"><?php echo L_INSTALL_DATA ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
-							<?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>&nbsp;
+						<div class="col med-7">
+							<?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>
 						</div>
 					</div>
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus', '', '', '', '', 'required') ?>
+						<div class="col med-7">
+							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus required') ?>
 						</div>
 					</div>
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_login"><?php echo L_PROFIL_LOGIN ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', '', 'required') ?>
+						<div class="col med-7">
+							<?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', 'required') ?>
 						</div>
 					</div>
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"', 'required') ?>
+						<div class="col med-7">
+							<?php
+							list($very, $weak, $good, $strong) = array(L_PWD_VERY_WEAK, L_PWD_WEAK, L_PWD_GOOD, L_PWD_STRONG);
+							$extras = <<< EOT
+onkeyup="pwdStrength(this.id, ['$very', '$weak', '$good', '$strong']);" required
+EOT;
+							plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', $extras) ?>
 							<span id="id_pwd_strenght"></span>
 						</div>
 					</div>
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_pwd2"><?php echo L_CONFIRM_PASSWORD ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', '', 'required') ?>
+						<div class="col med-7">
+							<?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', 'required') ?>
 						</div>
 					</div>
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_email"><?php echo L_EMAIL ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', '', 'required') ?>
+						<div class="col med-7">
+							<?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', 'required') ?>
 						</div>
 					</div>
 					<div class="grid">
-						<div class="col sml-12 med-5 label-centered">
+						<div class="col med-5 label-centered">
 							<label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
 						</div>
-						<div class="col sml-12 med-7">
+						<div class="col med-7">
 							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 						</div>
 					</div>
 
 					<input class="blue" type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>" />
-					<?php echo plxToken::getTokenPostMethod() ?>
+					<?= plxToken::getTokenPostMethod() ?>
 
 					<ul class="unstyled-list">
-						<li><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></li>
-						<li><?php echo L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
-						<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-						<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
-						<?php } ?>
+						<li><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></li>
+						<li><?= L_INFO_PHP_VERSION.' : ' . phpversion() ?></li>
+<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+						<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
+<?php } ?>
 						<?php plxUtils::testWrite(PLX_ROOT) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
+						<?php plxUtils::testWrite(PLX_DATA_ARTICLES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_DATA_COMMENTAIRES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_DATA_STATIQUES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_DATA_MEDIAS_PATH) ?>
+						<?php plxUtils::testWrite(PLX_THEMES_PATH) ?>
+						<?php plxUtils::testWrite(PLX_PLUGINS_PATH) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testLibXml() ?>

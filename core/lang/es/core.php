@@ -7,6 +7,7 @@ const L_DATE_UPDATE					= 'Fecha de actualización';
 
 # common
 const L_PLUXML_VERSION				= 'Versión de PluXml';
+const L_WRONG_PHP_VERSION			= 'PluXml necesita PHP %s posterior.';
 const L_HOMEPAGE					= 'Página principal';
 const L_BACK_HOMEPAGE_TITLE			= 'Volver a la página de inicio';
 const L_UNCLASSIFIED				= 'Sin categoría';

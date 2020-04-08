@@ -77,6 +77,16 @@ const PROFIL_NAMES = array(
 	PROFIL_WRITER		=> L_PROFIL_WRITER
 );
 
+# On vérifie que PHP 5 ou superieur soit installé
+if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
+	header('Content-Type: text/plain charset=UTF-8');
+	printf(L_WRONG_PHP_VERSION, PHP_VERSION_MIN);
+	exit;
+}
+
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
+
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;

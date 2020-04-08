@@ -7,6 +7,7 @@ const L_DATE_UPDATE					= 'Дата обновляются';
 
 # common
 const L_PLUXML_VERSION				= 'PluXml версия';
+const L_WRONG_PHP_VERSION			= 'Для PluXml необходим PHP версии %s или выше.';
 const L_HOMEPAGE					= 'домашняя страница';
 const L_BACK_HOMEPAGE_TITLE			= 'Вернуться на главную страницу';
 const L_UNCLASSIFIED				= 'Без категории';

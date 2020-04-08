@@ -7,6 +7,7 @@ const L_DATE_UPDATE					= 'Data de actualizare';
 
 # common
 const L_PLUXML_VERSION				= 'Pluxml version';
+const L_WRONG_PHP_VERSION			= 'PluXml necesită PHP %s sau o versiune mai mare pentru a lucra.';
 const L_HOMEPAGE					= 'Pagina principala';
 const L_BACK_HOMEPAGE_TITLE			= 'Mergi la pagina principală';
 const L_UNCLASSIFIED				= 'Neclasificat';

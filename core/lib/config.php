@@ -1,4 +1,7 @@
 <?php
+
+const PHP_VERSION_MIN = '5.6.0';
+
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.8.3';
 const PLX_URL_REPO = 'https://www.pluxml.org';
@@ -32,6 +35,9 @@ $CONSTS = array(
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
 const PLX_CHARSET = 'UTF-8';
+
+# Entête de tous les fichiers .xml
+const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET . '" ?>' . PHP_EOL;
 
 # Langue par défaut
 const DEFAULT_LANG = 'en';
