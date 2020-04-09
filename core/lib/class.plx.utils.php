@@ -864,8 +864,14 @@ class plxUtils {
 	 * @author	Stephane F
 	 **/
 	public static function cdataCheck($str) {
-		$str = str_ireplace('!CDATA', '&#33;CDATA', $str);
-		return str_replace(']]>', ']]&gt;', $str);
+		$value = trim($str);
+		if(empty($value) or is_numeric($value)) { return $value; }
+		if(!preg_match('#^<!\[CDATA\[(.*)\]\]>#s', $value, $matches)) {
+			return '<![CDATA[' .
+				str_replace(']]>', ']]&gt;', str_ireplace('!CDATA', '&#33;CDATA', $value)) . ']]>';
+		}
+		$value = str_replace(']]>', ']]&gt;', preg_replace('#<!\[(cdata)\[#i', '&lt;&#33;[$1[', $matches[1]));
+		return '<![CDATA[' . $value . ']]>';
 	}
 
 	/**
