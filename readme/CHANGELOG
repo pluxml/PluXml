@@ -1,4 +1,5 @@
 ## PLUXML 5.8.3.legacy (yyyy/mm/dd) ##
+Fix Impossible to add an email address if exits on deleted users : Like : https://github.com/pluxml/PluXml/issues/393 (p3ter + sudwebdesign)
 Fix sitemap.php & feed.php to work with #php55legacy (sudwebdesign)
 Fix medias.php rename field size to 255 + enlarge dialog box (sudwebdesign)
 [+] medias.php add width & height to all thumbs images (bazooka07 + sudwebdesign) : Like https://github.com/pluxml/PluXml/pull/395

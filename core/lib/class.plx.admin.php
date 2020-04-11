@@ -99,17 +99,16 @@ class plxAdmin extends plxMotor {
 		if(empty($global['clef'])) $global['clef'] = plxUtils::charAleatoire(15);
 
 		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
+		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>' . PHP_EOL .'<document>' . PHP_EOL;
 		foreach($global as $k=>$v) {
 			if($k!='racine') {
 				if(is_numeric($v))
-					$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
+					$xml .= "\t".'<parametre name="'.$k.'">'.$v.'</parametre>' . PHP_EOL;
 				else
-					$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+					$xml .= "\t".'<parametre name="'.$k.'"><![CDATA['.plxUtils::cdataCheck($v).']]></parametre>' . PHP_EOL;
 			}
 		}
-		$xml .= "</document>";
+		$xml .= '</document>';
 
 		# On réinitialise la pagination au cas où modif de bypage_admin
 		unset($_SESSION['page']);
@@ -321,7 +320,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
 				if (($user['login'] == $loginOrMail OR $user['email'] == $loginOrMail) AND $user['active'] AND !$user['delete'] AND !empty($user['email'])) {
-					// token and e-mail creation
+					# token and e-mail creation
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
 						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
@@ -335,7 +334,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						}
 						$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
-						// send the e-mail and if it is OK store the token
+						# send the e-mail and if it's OK store the token
 						if (plxUtils::sendMailPhpMailer($mail['name'], $mail['from'], $user['email'], $mail['subject'], $mail['body'], false, $this->aConf, false)) {
 							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
@@ -455,55 +454,49 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$users_email = array();
 
 			# On génére le fichier XML
-			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
-			$xml .= "<document>\n";
+			$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>' . PHP_EOL .'<document>' . PHP_EOL;
 
 			foreach($this->aUsers as $user_id => $user) {
-				# controle de l'unicité du nom de l'utilisateur
-				if(in_array($user['name'], $users_name)) {
-					$this->aUsers = $save;
-					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
+				if($user['delete'] == 0){
+					# controle de l'unicité du nom de l'utilisateur
+					if(in_array($user['name'], $users_name))
+						return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
+					else
+						$users_name[] = $user['name'];
+					# controle de l'unicité du login de l'utilisateur
+					if(in_array($user['login'], $users_login))
+						return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
+					else
+						$users_login[] = $user['login'];
+					# controle de l'unicité de l'adresse e-mail
+					if(in_array($user['email'], $users_email))
+						return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+					else
+						$users_email[] = $user['email'];
 				}
-				else {
-					$users_name[] = $user['name'];
-				}
-				# controle de l'unicité du login de l'utilisateur
-				if(in_array($user['login'], $users_login)) {
-					return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
-				}
-				else {
-					$users_login[] = $user['login'];
-				}
-				# controle de l'unicité de l'adresse e-mail
-				if(in_array($user['email'], $users_email)) {
-					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
-				}
-				else {
-					$users_email[] = $user['email'];
-				}
-				$xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">'."\n";
-				$xml .= "\t\t".'<login><![CDATA['.plxUtils::cdataCheck($user['login']).']]></login>'."\n";
-				$xml .= "\t\t".'<name><![CDATA['.plxUtils::cdataCheck($user['name']).']]></name>'."\n";
-				$xml .= "\t\t".'<infos><![CDATA['.plxUtils::cdataCheck($user['infos']).']]></infos>'."\n";
-				$xml .= "\t\t".'<password><![CDATA['.plxUtils::cdataCheck($user['password']).']]></password>'."\n";
-				$xml .= "\t\t".'<salt><![CDATA['.plxUtils::cdataCheck($user['salt']).']]></salt>'."\n";
-				$xml .= "\t\t".'<email><![CDATA['.plxUtils::cdataCheck($user['email']).']]></email>'."\n";
-				$xml .= "\t\t".'<lang><![CDATA['.plxUtils::cdataCheck($user['lang']).']]></lang>'."\n";
-				$xml .= "\t\t".'<password_token><![CDATA['.plxUtils::cdataCheck($user['password_token']).']]></password_token>'."\n";
-				$xml .= "\t\t".'<password_token_expiry><![CDATA['.plxUtils::cdataCheck($user['password_token_expiry']).']]></password_token_expiry>'."\n";
+				$xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">' . PHP_EOL;
+				$xml .= "\t\t".'<login><![CDATA['.plxUtils::cdataCheck($user['login']).']]></login>' . PHP_EOL;
+				$xml .= "\t\t".'<name><![CDATA['.plxUtils::cdataCheck($user['name']).']]></name>' . PHP_EOL;
+				$xml .= "\t\t".'<infos><![CDATA['.plxUtils::cdataCheck($user['infos']).']]></infos>' . PHP_EOL;
+				$xml .= "\t\t".'<password><![CDATA['.plxUtils::cdataCheck($user['password']).']]></password>' . PHP_EOL;
+				$xml .= "\t\t".'<salt><![CDATA['.plxUtils::cdataCheck($user['salt']).']]></salt>' . PHP_EOL;
+				$xml .= "\t\t".'<email><![CDATA['.plxUtils::cdataCheck($user['email']).']]></email>' . PHP_EOL;
+				$xml .= "\t\t".'<lang><![CDATA['.plxUtils::cdataCheck($user['lang']).']]></lang>' . PHP_EOL;
+				$xml .= "\t\t".'<password_token><![CDATA['.plxUtils::cdataCheck($user['password_token']).']]></password_token>' . PHP_EOL;
+				$xml .= "\t\t".'<password_token_expiry><![CDATA['.plxUtils::cdataCheck($user['password_token_expiry']).']]></password_token_expiry>' . PHP_EOL;
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
-				$xml .= "\t</user>\n";
+				$xml .= "\t".'</user>' . PHP_EOL;
 			}
-			$xml .= "</document>";
+			$xml .= '</document>';
 
 			# On écrit le fichier
 			if(plxUtils::write($xml,path('XMLFILE_USERS')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-				else {
-					$this->aUsers = $save;
-					return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
-				}
+			else {
+				$this->aUsers = $save;
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
+			}
 		}
 		else {
 			return plxMsg::Error(L_SAVE_ERR);
@@ -649,8 +642,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$cats_name = array();
 			$cats_url = array();
 			# On génére le fichier XML
-			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
-			$xml .= "<document>\n";
+			$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>' . PHP_EOL .'<document>' . PHP_EOL;
 			foreach($this->aCats as $cat_id => $cat) {
 
 				# controle de l'unicité du nom de la categorie
@@ -782,8 +774,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$statics_name = array();
 			$statics_url = array();
 			# On génére le fichier XML
-			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
-			$xml .= "<document>\n";
+			$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>' . PHP_EOL .'<document>' . PHP_EOL;
 			foreach($this->aStats as $static_id => $static) {
 
 				# controle de l'unicité du titre de la page
@@ -800,19 +791,19 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				else
 					$statics_url[] = $static['url'];
 
-				$xml .= "\t<statique number=\"".$static_id."\" active=\"".$static['active']."\" menu=\"".$static['menu']."\" url=\"".$static['url']."\" template=\"".basename($static['template'])."\">";
-				$xml .= "<group><![CDATA[".plxUtils::cdataCheck($static['group'])."]]></group>";
-				$xml .= "<name><![CDATA[".plxUtils::cdataCheck($static['name'])."]]></name>";
-				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($static['meta_description'])."]]></meta_description>";
-				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($static['meta_keywords'])."]]></meta_keywords>";
-				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($static['title_htmltag'])."]]></title_htmltag>";
-				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
-				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
+				$xml .= "\t".'<statique number="'.$static_id.'" active="'.$static['active'].'" menu="'.$static['menu'].'" url="'.$static['url'].'" template="'.basename($static['template']).'">';
+				$xml .= '<group><![CDATA['.plxUtils::cdataCheck($static['group']).']]></group>';
+				$xml .= '<name><![CDATA['.plxUtils::cdataCheck($static['name']).']]></name>';
+				$xml .= '<meta_description><![CDATA['.plxUtils::cdataCheck($static['meta_description']).']]></meta_description>';
+				$xml .= '<meta_keywords><![CDATA['.plxUtils::cdataCheck($static['meta_keywords']).']]></meta_keywords>';
+				$xml .= '<title_htmltag><![CDATA['.plxUtils::cdataCheck($static['title_htmltag']).']]></title_htmltag>';
+				$xml .= '<date_creation><![CDATA['.plxUtils::cdataCheck($static['date_creation']).']]></date_creation>';
+				$xml .= '<date_update><![CDATA['.plxUtils::cdataCheck($static['date_update']).']]></date_update>';
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml')); # Hook Plugins
-				$xml .=	"</statique>\n";
+				$xml .=	'</statique>' . PHP_EOL;
 			}
-			$xml .= "</document>";
+			$xml .= '</document>';
 			# On écrit le fichier si une action valide a été faite
 			if(plxUtils::write($xml,path('XMLFILE_STATICS')))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
@@ -934,31 +925,30 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
 		$date_update = $date_update==$content['date_update_old'] ? date('YmdHi') : $date_update;
 		# Génération du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-		$xml .= "\t".'<title><![CDATA['.plxUtils::cdataCheck(trim($content['title'])).']]></title>'."\n";
-		$xml .= "\t".'<allow_com>'.$content['allow_com'].'</allow_com>'."\n";
-		$xml .= "\t".'<template><![CDATA['.basename($content['template']).']]></template>'."\n";
-		$xml .= "\t".'<chapo><![CDATA['.plxUtils::cdataCheck(trim($content['chapo'])).']]></chapo>'."\n";
-		$xml .= "\t".'<content><![CDATA['.plxUtils::cdataCheck(trim($content['content'])).']]></content>'."\n";
-		$xml .= "\t".'<tags><![CDATA['.plxUtils::cdataCheck(trim($content['tags'])).']]></tags>'."\n";
+		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>' . PHP_EOL .'<document>' . PHP_EOL;
+		$xml .= "\t".'<title><![CDATA['.plxUtils::cdataCheck(trim($content['title'])).']]></title>' . PHP_EOL;
+		$xml .= "\t".'<allow_com>'.$content['allow_com'].'</allow_com>' . PHP_EOL;
+		$xml .= "\t".'<template><![CDATA['.basename($content['template']).']]></template>' . PHP_EOL;
+		$xml .= "\t".'<chapo><![CDATA['.plxUtils::cdataCheck(trim($content['chapo'])).']]></chapo>' . PHP_EOL;
+		$xml .= "\t".'<content><![CDATA['.plxUtils::cdataCheck(trim($content['content'])).']]></content>' . PHP_EOL;
+		$xml .= "\t".'<tags><![CDATA['.plxUtils::cdataCheck(trim($content['tags'])).']]></tags>' . PHP_EOL;
 		$meta_description = plxUtils::getValue($content['meta_description']);
-		$xml .= "\t".'<meta_description><![CDATA['.plxUtils::cdataCheck(trim($meta_description)).']]></meta_description>'."\n";
+		$xml .= "\t".'<meta_description><![CDATA['.plxUtils::cdataCheck(trim($meta_description)).']]></meta_description>' . PHP_EOL;
 		$meta_keywords = plxUtils::getValue($content['meta_keywords']);
-		$xml .= "\t".'<meta_keywords><![CDATA['.plxUtils::cdataCheck(trim($meta_keywords)).']]></meta_keywords>'."\n";
+		$xml .= "\t".'<meta_keywords><![CDATA['.plxUtils::cdataCheck(trim($meta_keywords)).']]></meta_keywords>' . PHP_EOL;
 		$title_htmltag = plxUtils::getValue($content['title_htmltag']);
-		$xml .= "\t".'<title_htmltag><![CDATA['.plxUtils::cdataCheck(trim($title_htmltag)).']]></title_htmltag>'."\n";
+		$xml .= "\t".'<title_htmltag><![CDATA['.plxUtils::cdataCheck(trim($title_htmltag)).']]></title_htmltag>' . PHP_EOL;
 		$thumbnail = plxUtils::getValue($content['thumbnail']);
-		$xml .= "\t".'<thumbnail><![CDATA['.plxUtils::cdataCheck(trim($thumbnail)).']]></thumbnail>'."\n";
+		$xml .= "\t".'<thumbnail><![CDATA['.plxUtils::cdataCheck(trim($thumbnail)).']]></thumbnail>' . PHP_EOL;
 		$thumbnail_alt = plxUtils::getValue($content['thumbnail_alt']);
-		$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>'."\n";
+		$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>' . PHP_EOL;
 		$thumbnail_title = plxUtils::getValue($content['thumbnail_title']);
-		$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>'."\n";
-		$xml .= "\t".'<date_creation><![CDATA['.plxUtils::cdataCheck($date_creation).']]></date_creation>'."\n";
-		$xml .= "\t".'<date_update><![CDATA['.plxUtils::cdataCheck($date_update).']]></date_update>'."\n";
+		$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>' . PHP_EOL;
+		$xml .= "\t".'<date_creation><![CDATA['.plxUtils::cdataCheck($date_creation).']]></date_creation>' . PHP_EOL;
+		$xml .= "\t".'<date_update><![CDATA['.plxUtils::cdataCheck($date_update).']]></date_update>' . PHP_EOL;
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
-		$xml .= "</document>\n";
+		$xml .= '</document>' . PHP_EOL;
 		# Recherche du nom du fichier correspondant à l'id
 		$oldArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/','','sort',0,1,'all');
 
@@ -1197,12 +1187,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editTags() {
 
 		# Génération du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
+		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>' . PHP_EOL .'<document>' . PHP_EOL;
 		foreach($this->aTags as $id => $tag) {
-			$xml .= "\t".'<article number="'.$id.'" date="'.$tag['date'].'" active="'.$tag['active'].'"><![CDATA['.plxUtils::cdataCheck($tag['tags']).']]></article>'."\n";
+			$xml .= "\t".'<article number="'.$id.'" date="'.$tag['date'].'" active="'.$tag['active'].'"><![CDATA['.plxUtils::cdataCheck($tag['tags']).']]></article>' . PHP_EOL;
 		}
-		$xml .= "</document>";
+		$xml .= '</document>';
 
 		# On écrit le fichier
 		plxUtils::write($xml, path('XMLFILE_TAGS'));
@@ -1255,7 +1244,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$msg = L_PLUXML_UPDATE_ERR;
 			$className = 'red';
 		}
-		elseif(version_compare(PLX_VERSION, $latest_version, ">=")) {
+		elseif(version_compare(PLX_VERSION, $latest_version, '>=')) {
 			$msg = L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
 			$className = 'green';
 		}
