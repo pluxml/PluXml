@@ -1,4 +1,6 @@
 ## PLUXML 5.8.3.legacy (yyyy/mm/dd) ##
+Fix medias.php rename field size to 255 + enlarge dialog box (sudwebdesign)
+[+] medias.php add width & height to all thumbs images (bazooka07 + sudwebdesign) : Like https://github.com/pluxml/PluXml/pull/395
 Fix Install don't work if short open tag = On (sudwebdesign)
 Fix Russian duplicate key L_UPDATE_CATEGORIES_MIGRATION on update.php lang file (sudwebdesign)
 Fix Italian comma (,) to semicolon (;) in update.php lang file (sudwebdesign)

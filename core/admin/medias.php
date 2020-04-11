@@ -120,28 +120,25 @@ $curFolders = explode('/', $curFolder);
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
-<form method="post">
-	<!-- Rename File Dialog -->
+<form method="post"><!-- Rename File Dialog -->
 	<div id="dlgRenameFile" class="dialog">
 		<div class="dialog-content">
-			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:&nbsp;
-			<input id="id_newname" type="text" name="newname" value="" maxlength="50" size="15" />
+			<span class="dialog-close">&times;</span>
+			<?php echo L_MEDIAS_NEW_NAME ?>&nbsp;:<br />
+			<input id="id_newname" type="text" name="newname" value="" maxlength="255" size="40" /><br />
 			<input id="id_oldname" type="hidden" name="oldname" />
 			<?php echo plxToken::getTokenPostMethod() ?>
 			<input type="submit" name="btn_renamefile" value="<?php echo L_MEDIAS_RENAME ?>" />
-			<span class="dialog-close">&times;</span>
 		</div>
 	</div>
 </form>
 
 <form method="post" id="form_medias">
-
-	<!-- New Folder Dialog -->
-	<div id="dlgNewFolder" class="dialog">
+	<div id="dlgNewFolder" class="dialog"><!-- New Folder Dialog -->
 		<div class="dialog-content">
 			<span class="dialog-close">&times;</span>
-			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
-			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="15" />
+			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:<br />
+			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="255" size="40" /><br />
 			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
 		</div>
 	</div>
@@ -151,7 +148,7 @@ $curFolders = explode('/', $curFolder);
 		<div class="inline-form action-bar">
 			<h2><?php echo L_MEDIAS_TITLE ?></h2>
 			<p>
-				<?php
+<?php
 				echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[0].folder.value=\'.\';document.forms[0].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
 				if($curFolders) {
 					$path='';
@@ -162,7 +159,7 @@ $curFolders = explode('/', $curFolder);
 						}
 					}
 				}
-				?>
+?>
 			</p>
 			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
@@ -199,9 +196,7 @@ $curFolders = explode('/', $curFolder);
 				</tr>
 				</thead>
 				<tbody id="medias-table-tbody">
-				<?php
-				# Initialisation de l'ordre
-				$num = 0;
+<?php
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
@@ -210,11 +205,10 @@ $curFolders = explode('/', $curFolder);
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
-							if(is_file($v['path']) AND $isImage) {
-								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" /></a>';
-							}
+							if(is_file($v['path']) AND $isImage)
+								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" '.getimagesize($v['.thumb'])[3].' /></a>';
 							else
-								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
+								echo '<img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" '.getimagesize($v['.thumb'])[3].' />';
 						echo '</td>';
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
@@ -247,7 +241,7 @@ $curFolders = explode('/', $curFolder);
 					}
 				}
 				else echo '<tr><td colspan="7" class="center">'.L_MEDIAS_NO_FILE.'</td></tr>';
-				?>
+?>
 				</tbody>
 			</table>
 		</div>

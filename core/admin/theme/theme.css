@@ -817,8 +817,9 @@ a.overlay {
 	margin: auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 40%;
+	width: 100%;
 	min-width: 250px;
+	max-width: 640px;
 }
 
 /* The Close Button */
