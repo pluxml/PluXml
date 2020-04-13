@@ -1090,8 +1090,6 @@ class plxUtils {
 		$basename = explode('?', basename($href));
 		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' active':'';
 		if($basename[0]=='plugin.php' AND isset($_GET['p']) AND $basename[1]!='p='.$_GET['p']) $active='';
-		$class = $class ? ' '.$class:'';
-		$title = $title ? ' title="'.$title.'"':'';
 		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? 'active' : '';
 		if($basename[0] == 'plugin.php' AND isset($_GET['p']) AND $basename[1] != 'p=' . $_GET['p']) $active = '';
 		$classList = array(
@@ -1100,12 +1098,15 @@ class plxUtils {
 		if(!empty($active)) { $classList[] = 'active'; }
 		if(!empty($aClass)) { $classList[] = $aClass; }
 		$className = implode(' ', $classList);
-		$title = (!empty($title)) ? ' title="' . $title . '"' : '';
-		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
+
+		$onclick = $onclick ? ' onclick="' . $onclick . '"':'';
+		$title = $title ? ' title="' . $title . '"' : '';
+		$extra = ((!empty($extra))) ? ' ' . trim($extra) : '';
+
 		$id = ($basename[0]=='plugin.php' ? strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
 		$caption = ucfirst($caption);
 		return <<< EOT
-<li id="mnu_$id" class="$className"><a href="$href" $onclick $title>$caption $extra</a></li>
+<li id="mnu_$id" class="$className"><a href="$href"$title$onclick>$caption$extra</a></li>
 EOT;
 	}
 
