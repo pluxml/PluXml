@@ -882,14 +882,20 @@ class plxMotor {
 	 * @param	artId	identifiant de l'article en question
 	 * @param	content	tableau contenant les valeurs du nouveau commentaire
 	 * @return	string
-	 * @author	Florent MONTHEL, Stéphane F
+	 * @author	Florent MONTHEL, Stéphane F, J.P. Pourrez
 	 **/
-	public function newCommentaire($artId,$content) {
+	public function newCommentaire($artId, $content) {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
 
-		if(strtolower($_SERVER['REQUEST_METHOD'])!= 'post' OR $this->aConf['capcha'] AND (!isset($_SESSION["capcha_token"]) OR !isset($_POST['capcha_token']) OR ($_SESSION["capcha_token"]!=$_POST['capcha_token']))) {
+		if(
+			!empty($this->aConf['capcha']) AND (
+				empty($_SESSION['capcha_token']) OR
+				empty($_POST['capcha_token']) or
+				($_SESSION['capcha_token'] != $_POST['capcha_token'])
+			)
+		) {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}
 

@@ -1658,7 +1658,9 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaQ'))) return;
 		echo $this->plxMotor->plxCapcha->q();
-		echo '<input type="hidden" name="capcha_token" value="'.$_SESSION['capcha_token'].'" />';
+?>
+		<input type="hidden" name="capcha_token" value="<?= $_SESSION['capcha_token'] ?>" />
+<?php
 	}
 
 	/**
