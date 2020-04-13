@@ -25,7 +25,7 @@ switch($help) {
 		$back_to = 'parametres_plugins.php';
 		break;
 	case 'theme':
-		$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$page.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php');
+		$filename = realpath($plxAdmin->aConf['racine_themes'].$page.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php');
 		$back_to_title = L_BACK_TO_THEMES;
 		$back_to = 'parametres_themes.php';
 		break;

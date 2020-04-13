@@ -46,10 +46,9 @@ class plxGlob {
 	 * @return	plxGlob			return une instance de la classe plxGlob
 	 * @author	Stephane F
 	 **/
-	public static function getInstance($dir,$rep=false,$onlyfilename=true,$type=''){
-		$basename = str_replace(PLX_ROOT, '', $dir);
+	public static function getInstance($basename,$rep=false,$onlyfilename=true,$type=''){
 		if (!isset(self::$instance[$basename]))
-			self::$instance[$basename] = new plxGlob($dir,$rep,$onlyfilename,$type);
+			self::$instance[$basename] = new plxGlob($basename,$rep,$onlyfilename,$type);
 		return self::$instance[$basename];
 	}
 

@@ -57,7 +57,7 @@ if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
 
 # On récupère les templates des pages statiques
 $aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
+$files = plxGlob::getInstance($plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 	foreach($array as $k=>$v)
 		$aTemplates[$v] = $v;

@@ -40,7 +40,7 @@ class plxShow {
 		$this->plxMotor = plxMotor::getInstance();
 
 		# Chargement du fichier de lang du theme
-		$langfile = PLX_ROOT.$this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/lang/'.$this->plxMotor->aConf['default_lang'].'.php';
+		$langfile = $this->plxMotor->aConf['racine_themes'].$this->plxMotor->style.'/lang/'.$this->plxMotor->aConf['default_lang'].'.php';
 		if(is_file($langfile)) {
 			include $langfile;
 			$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
@@ -486,7 +486,7 @@ class plxShow {
 				),
 				array(
 					$img_url, # #img_url
-					(file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, # #img_thumb_url
+					(file_exists($img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, # #img_thumb_url
 					plxUtils::strCheck(plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_title'])), # #img_title
 					plxUtils::strCheck(plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_alt'])) # #img_alt
 				),
@@ -577,7 +577,7 @@ class plxShow {
 				),
 				array(
 					$img_url, # #img_url
-					(file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, # #img_thumb_url
+					(file_exists($img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, # #img_thumb_url
 					plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), # #img_title
 					$this->plxMotor->plxRecord_arts->f('thumbnail_alt') # #img_alt
 				),
@@ -995,7 +995,7 @@ class plxShow {
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
 		if($aFiles = $plxGlob_arts->query($motif,'art',$sort,0,$max,'before')) {
 			foreach($aFiles as $v) { # On parcourt tous les fichiers
-				$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$v);
+				$art = $this->plxMotor->parseArticle($this->plxMotor->aConf['racine_articles'].$v);
 				$num = intval($art['numero']);
 				$date = $art['date'];
 				if(($this->plxMotor->mode == 'article') AND ($art['numero'] == $this->plxMotor->cible))
@@ -1305,7 +1305,7 @@ class plxShow {
 			foreach($aFiles as $v) {
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
 				if(isset($this->plxMotor->activeArts[substr($v,0,4)])) {
-					$com = $this->plxMotor->parseCommentaire(PLX_ROOT.$this->plxMotor->aConf['racine_commentaires'].$v);
+					$com = $this->plxMotor->parseCommentaire($this->plxMotor->aConf['racine_commentaires'].$v);
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if($artInfo['artDate']<=$datetime) { # on ne prends que les commentaires pour les articles publiés
 						if(empty($cat_ids) OR preg_match('/('.$cat_ids.')/', $artInfo['catId'])) {
@@ -1334,7 +1334,7 @@ class plxShow {
 								}
 								else {
 									if($file = $this->plxMotor->plxGlob_arts->query('/^'.$com['article'].'.(.*).xml$/')) {
-										$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$file[0]);
+										$art = $this->plxMotor->parseArticle($this->plxMotor->aConf['racine_articles'].$file[0]);
 										$aComArtTitles[$com['article']] = $art_title = $art['title'];
 										$row = str_replace('#com_art_title',$art_title,$row);
 									}
@@ -1513,7 +1513,7 @@ class plxShow {
 	public function staticDate($format='#day #num_day #month #num_year(4)') {
 
 		# On genere le nom du fichier dont on veux récupérer la date
-		$file = PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
+		$file = $this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
 		$file .= '.'.$this->plxMotor->aStats[ $this->plxMotor->cible ]['url'].'.php';
 		# Test de l'existence du fichier
 		if(!file_exists($file)) return;
@@ -1558,7 +1558,7 @@ class plxShow {
 		# On va verifier que la page a inclure est lisible
 		if($this->plxMotor->aStats[ $this->plxMotor->cible ]['readable'] == 1) {
 			# On genere le nom du fichier a inclure
-			$file = PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
+			$file = $this->plxMotor->aConf['racine_statiques'].$this->plxMotor->cible;
 			$file .= '.'.$this->plxMotor->aStats[ $this->plxMotor->cible ]['url'].'.php';
 			# Inclusion du fichier
 			ob_start();
@@ -1584,7 +1584,7 @@ class plxShow {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return ;
 		# On génère un nouvel objet plxGlob
-		$plxGlob_stats = plxGlob::getInstance(PLX_ROOT.$this->plxMotor->aConf['racine_statiques']);
+		$plxGlob_stats = plxGlob::getInstance($this->plxMotor->aConf['racine_statiques']);
 		if(is_numeric($id)) # inclusion à partir de l'id de la page
 			$regx = '/^'.str_pad($id,3,'0',STR_PAD_LEFT).'.[a-z0-9-]+.php$/';
 		else { # inclusion à partir du titre de la page
@@ -1595,7 +1595,7 @@ class plxShow {
 			# on récupère l'id de la page pour tester si elle est active
 			if(preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
 				if($this->plxMotor->aStats[$c[1]]['active'])
-					include PLX_ROOT.$this->plxMotor->aConf['racine_statiques'].$files[0];
+					include $this->plxMotor->aConf['racine_statiques'].$files[0];
 			}
 		}
 	}

@@ -10,8 +10,7 @@
 include_once PLX_CORE.'lib/class.plx.template.php';
 
 class plxMotor {
-	const PLX_TEMPLATES = PLX_CORE . 'templates/';
-	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
+	const PLX_TEMPLATES_DATA = PLX_DATA_PATH.'templates/';
 
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
@@ -102,8 +101,8 @@ class plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
-		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
-		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
+		$this->plxGlob_arts = plxGlob::getInstance($this->aConf['racine_articles'],false,true,'arts');
+		$this->plxGlob_coms = plxGlob::getInstance($this->aConf['racine_commentaires']);
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getStatiques(path('XMLFILE_STATICS'));
@@ -114,7 +113,7 @@ class plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 		# Get templates from core/templates and data/templates
-		$this->getTemplates(self::PLX_TEMPLATES);
+		$this->getTemplates(self::PLX_TEMPLATES_PATH);
 		$this->getTemplates(self::PLX_TEMPLATES_DATA);
 	}
 
@@ -393,7 +392,7 @@ class plxMotor {
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
-		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
+		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', $this->aConf['racine_plugins']);
 
 	}
 
@@ -529,7 +528,7 @@ class plxMotor {
 				$date_update = plxUtils::getValue($iTags['date_update'][$i]);
 				$this->aStats[$number]['date_update']=plxUtils::getValue($values[$date_update]['value']);
 				# On verifie que la page statique existe bien
-				$file = PLX_ROOT.$this->aConf['racine_statiques'].$number.'.'.$attributes['url'].'.php';
+				$file = $this->aConf['racine_statiques'].$number.'.'.$attributes['url'].'.php';
 				# On test si le fichier est lisible
 				$this->aStats[$number]['readable'] = (is_readable($file) ? 1 : 0);
 				# Hook plugins
@@ -640,7 +639,7 @@ class plxMotor {
 		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
 			# on mémorise le nombre total d'articles trouvés
 			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
-				$array[$k] = $this->parseArticle(PLX_ROOT.$this->aConf['racine_articles'].$v);
+				$array[$k] = $this->parseArticle($this->aConf['racine_articles'].$v);
 			# On stocke les enregistrements dans un objet plxRecord
 			$this->plxRecord_arts = new plxRecord($array);
 			return true;
@@ -838,7 +837,7 @@ class plxMotor {
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
 			foreach($aFiles as $k=>$v)
-				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
+				$array[$k] = $this->parseCommentaire($this->aConf['racine_commentaires'].$v);
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
 			if( !(defined('plxAdmin::PLX_ADMIN') OR defined('plxFeed::PLX_FEED')) OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
@@ -863,7 +862,7 @@ class plxMotor {
 	 public function nextIdArtComment($idArt) {
 
 		$ret = '0';
-		if($dh = opendir(PLX_ROOT.$this->aConf['racine_commentaires'])) {
+		if($dh = opendir($this->aConf['racine_commentaires'])) {
 			$Idxs = array();
 			while(false !== ($file = readdir($dh))) {
 				if(preg_match("/_?".$idArt.".[0-9]+-([0-9]+).xml/", $file, $capture)) {
@@ -961,7 +960,7 @@ class plxMotor {
 		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
 		$xml .= "</comment>\n";
 		# On ecrit ce contenu dans notre fichier XML
-		return plxUtils::write($xml, PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
+		return plxUtils::write($xml, $this->aConf['racine_commentaires'].$content['filename']);
 	}
 
 	/**
@@ -1030,11 +1029,11 @@ class plxMotor {
 	public function sendTelechargement($cible) {
 
 		# On décrypte le nom du fichier
-		$file = PLX_ROOT.$this->aConf['medias'].plxEncrypt::decryptId($cible);
+		$file = $this->aConf['medias'].plxEncrypt::decryptId($cible);
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
 		# On lance le téléchargement et on check le répertoire medias
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
+		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath($this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
 			header('Content-Disposition: attachment; filename='.basename($file));

@@ -53,7 +53,7 @@ if(!empty($_GET['a'])) {
 		exit;
 	}
 	# Infos sur l'article
-	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$globArt['0']);
+	$aArt = $plxAdmin->parseArticle($plxAdmin->aConf['racine_articles'].$globArt['0']);
 	$portee = ucfirst(L_ARTICLE) . ' &laquo;' . $aArt['title'] . '&raquo;';
 } else { # Commentaires globaux
 	$portee = '';

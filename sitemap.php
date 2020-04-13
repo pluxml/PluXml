@@ -91,7 +91,7 @@ if($aFiles = $plxMotor->plxGlob_arts->query('/^\d{4}.(?:\d|home|,)*(?:'.$plxMoto
 	$plxRecord_arts = false;
 	$array=array();
 	foreach($aFiles as $k=>$v) { # On parcourt tous les fichiers
-		$array[ $k ] = $plxMotor->parseArticle(PLX_ROOT.$plxMotor->aConf['racine_articles'].$v);
+		$array[ $k ] = $plxMotor->parseArticle($plxMotor->aConf['racine_articles'].$v);
 	}
 	# On stocke les enregistrements dans un objet plxRecord
 	$plxRecord_arts = new plxRecord($array);

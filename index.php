@@ -62,16 +62,16 @@ $plxShow = plxShow::getInstance();
 eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
 
 # Traitements du thème
-if(empty($plxMotor->style) or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
+if(empty($plxMotor->style) or !is_dir($plxMotor->aConf['racine_themes'].$plxMotor->style)) {
 	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
+	echo L_ERR_THEME_NOTFOUND.' ('.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
 	exit;
 }
 
 # On teste si le template existe
-if(!file_exists(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
+if(!file_exists($plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
 	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_FILE_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
+	echo L_ERR_FILE_NOTFOUND.' ('.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
 	exit;
 }
 
@@ -83,7 +83,7 @@ ob_implicit_flush(0);
 header('Content-Type: text/html; charset='.PLX_CHARSET);
 
 # Insertion du template
-include(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
+include($plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
 
 # Récupération de la bufférisation
 $output = ob_get_clean();

@@ -70,7 +70,7 @@ if(!empty($_GET['c'])) { # Mode "answer"
 	# Variables de traitement
 	if(!empty($_GET['a'])) $get = 'c='.$_GET['c'].'&amp;a='.$_GET['a'];
 	else $get = 'c='.$_GET['c'];
-	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
+	$aArt = $plxAdmin->parseArticle($plxAdmin->aConf['racine_articles'].$aFile['0']);
 	# Variable du formulaire
 	$content = '';
 	$article = '<a href="article.php?a='.$aArt['numero'].'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
@@ -94,7 +94,7 @@ if(!empty($_GET['c'])) { # Mode "answer"
 	# Variables de traitement
 	$artId = $_GET['a'];
 	$get = 'a='.$_GET['a'];
-	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
+	$aArt = $plxAdmin->parseArticle($plxAdmin->aConf['racine_articles'].$aFile['0']);
 	# Variable du formulaire
 	$content = '';
 	$article = '<a href="article.php?a='.$aArt['numero'].'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';

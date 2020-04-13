@@ -18,14 +18,14 @@ $tpl = isset($_POST['tpl'])?$_POST['tpl']:'home.php';
 if(!empty($_POST['load'])) $tpl = $_POST['template'];
 
 $style = $plxAdmin->aConf['style'];
-$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
-if(!preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/').'#'), str_replace('\\', '/', $filename))) {
+$filename = realpath($plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
+if(!preg_match('#^'.str_replace('\\', '/', realpath($plxAdmin->aConf['racine_themes'].$style.'/').'#'), str_replace('\\', '/', $filename))) {
 	$tpl='home.php';
 }
-$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
+$filename = realpath($plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
 
 # On teste l'existence du thème
-if(empty($style) OR !is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style)) {
+if(empty($style) OR !is_dir($plxAdmin->aConf['racine_themes'].$style)) {
 	plxMsg::Error(L_CONFIG_EDITTPL_ERROR_NOTHEME);
 	header('Location: parametres_affichage.php');
 	exit;
@@ -57,7 +57,7 @@ function listFolderFiles($dir, $include, $root=''){
 	}
 	return $content;
 }
-$root = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style;
+$root = $plxAdmin->aConf['racine_themes'].$style;
 $aTemplates=listFolderFiles($root, array('.php','.css','.htm','.html','.txt','.js','.xml'), $root);
 
 # On récupère le contenu du fichier template
@@ -78,7 +78,7 @@ include __DIR__ .'/top.php';
 		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
 		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<?php echo plxToken::getTokenPostMethod() ?>
-		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
+		<?php plxUtils::printSelectDir('template', $tpl, $plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
 		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />

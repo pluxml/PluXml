@@ -93,7 +93,7 @@ class plxThemes {
 # On inclut le header
 include __DIR__ .'/top.php';
 
-$plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
+$plxThemes = new plxThemes($plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
 
 ?>
 <form action="parametres_themes.php" method="post" id="form_settings">
@@ -141,7 +141,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 								echo '<strong>'.$theme.'</strong>';
 							}
 							# lien aide
-							if(is_file(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$theme.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php'))
+							if(is_file($plxAdmin->aConf['racine_themes'].$theme.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php'))
 								echo '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=theme&amp;page='.urlencode($theme).'">'.L_HELP.'</a>';
 
 						echo '</td>';

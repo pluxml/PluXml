@@ -89,7 +89,7 @@ if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',
 	# Statut du commentaire
 	$statut = '<strong>'.L_COMMENT_ORPHAN_STATUS.'</strong>';
 } else {
-	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
+	$result = $plxAdmin->parseArticle($plxAdmin->aConf['racine_articles'].$aFile['0']);
 	# On génère notre lien
 	$article = '<a href="'.$plxAdmin->urlRewrite('?article'.intval($result['numero']).'/'.$result['url']).'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
 	$article .= plxUtils::strCheck($result['title']);

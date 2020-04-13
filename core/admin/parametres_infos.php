@@ -47,12 +47,12 @@ if($emailBuild) {
 	<?php plxUtils::testWrite(PLX_ROOT) ?>
 	<?php plxUtils::testWrite(PLX_CONFIG_PATH); ?>
 	<?php plxUtils::testWrite(PLX_CONFIG_PATH.'plugins/'); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_articles']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_commentaires']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_statiques']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['medias']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_themes']); ?>
+	<?php plxUtils::testWrite($plxAdmin->aConf['racine_articles']); ?>
+	<?php plxUtils::testWrite($plxAdmin->aConf['racine_commentaires']); ?>
+	<?php plxUtils::testWrite($plxAdmin->aConf['racine_statiques']); ?>
+	<?php plxUtils::testWrite($plxAdmin->aConf['medias']); ?>
+	<?php plxUtils::testWrite($plxAdmin->aConf['racine_plugins']); ?>
+	<?php plxUtils::testWrite($plxAdmin->aConf['racine_themes']); ?>
 	<?php plxUtils::testModReWrite() ?>
 	<?php plxUtils::testLibGD() ?>
 	<?php plxUtils::testLibXml() ?>

@@ -466,8 +466,8 @@ EOT;
 						<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
 <?php } ?>
 						<?php plxUtils::testWrite(PLX_ROOT) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
+						<?php plxUtils::testWrite(PLX_CONFIG_PATH) ?>
+						<?php plxUtils::testWrite(PLX_CONFIG_PATH.'plugins/') ?>
 						<?php plxUtils::testWrite(PLX_DATA_ARTICLES_PATH) ?>
 						<?php plxUtils::testWrite(PLX_DATA_COMMENTAIRES_PATH) ?>
 						<?php plxUtils::testWrite(PLX_DATA_STATIQUES_PATH) ?>
