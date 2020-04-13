@@ -7,6 +7,7 @@
  **/
 class plxToken {
 	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const TEMPLATE_LENGTH = 61; // strlen(self::TEMPLATE);
 	const LIFETIME = 3600; // seconds
 
 	/**
@@ -16,13 +17,11 @@ class plxToken {
 	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function getTokenPostMethod($length=32, $html=true) {
-		$range = strlen(plxToken::TEMPLATE);
-		$result = array();
-		mt_srand((float)microtime() * 1000000);
-		for($i=0; $i<$length; $i++) {
-			$result[] = self::TEMPLATE[mt_rand() % $range];
-		}
-		$token = implode('', $result);
+		$token = substr(
+			str_shuffle(self::TEMPLATE),
+			mt_rand(0, self::TEMPLATE_LENGTH - $length),
+			$length
+		);
 		$_SESSION['formtoken'][$token] = time();
 		return ($html) ? '<input name="token" value="'.$token.'" type="hidden" />' : $token;
 	}
@@ -45,7 +44,7 @@ class plxToken {
 				die('Security error : invalid or expired token');
 			}
 			unset($_SESSION['formtoken'][$_POST['token']]);
-			// cleanup old tokens 
+			// cleanup old tokens
 			if(!empty($_SESSION['formtoken'])) {
 				foreach($_SESSION['formtoken'] as $token=>$lifetime) {
 					if($lifetime < $limit) {
