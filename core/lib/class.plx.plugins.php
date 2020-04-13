@@ -215,14 +215,14 @@ class plxPlugins {
 						foreach($content['chkAction'] as $idx => $plugName) {
 							if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
 								# suppression fichier de config du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
+								if(is_file(PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
+									unlink(PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
 								# suppression fichier site.css du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
+								if(is_file(PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css'))
+									unlink(PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
 								# suppression fichier admin.css du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
+								if(is_file(PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css'))
+									unlink(PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
 								unset($this->aPlugins[$plugName]);
 							} else {
 								plxMsg::Error(L_PLUGINS_DELETE_ERROR." (".$plugName.")");
@@ -308,7 +308,7 @@ class plxPlugins {
 		if(!preg_match('@\.css$@', $type)) $type .= '.css';
 		foreach(array_keys($this->aPlugins) as $plugName) {
 			$filesList = array(
-				PLX_ROOT.PLX_CONFIG_PATH."plugins/$plugName.$type",
+				PLX_CONFIG_PATH."plugins/$plugName.$type",
 				PLX_PLUGINS."$plugName/css/$type"
 			);
 			foreach($filesList as $filename) {
@@ -363,7 +363,7 @@ class plxPlugin {
 			'dir' 			=> PLX_PLUGINS,
 			'name' 			=> $plugName,
 			'filename'		=> PLX_PLUGINS.$plugName.'/'.$plugName.'.php',
-			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
+			'parameters.xml'=> PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
 		$this->loadParams();

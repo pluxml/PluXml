@@ -45,8 +45,8 @@ if($emailBuild) {
 </ul>
 <ul class="unstyled-list">
 	<?php plxUtils::testWrite(PLX_ROOT) ?>
-	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH); ?>
-	<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'); ?>
+	<?php plxUtils::testWrite(PLX_CONFIG_PATH); ?>
+	<?php plxUtils::testWrite(PLX_CONFIG_PATH.'plugins/'); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_articles']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_commentaires']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_statiques']); ?>
