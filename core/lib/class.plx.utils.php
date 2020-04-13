@@ -18,6 +18,12 @@ class plxUtils {
 
 	const THUMB_WIDTH = 48;
 	const THUMB_HEIGHT = 48;
+	const REMOVE_WORDS = array(
+		'en' => 'an?|as|at|before|but|by|for|from|is|in(?:to)?|like|off?on(?:to)?|per|since|than|the|this|that|to|up|via|with',
+		'de' => 'das|der|die|fur|am',
+		'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
+	);
+
 	/**
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre
@@ -98,7 +104,7 @@ class plxUtils {
 		# On vérifie le site via une expression régulière
 		# Méthode imme_emosol - http://mathiasbynens.be/demo/url-regex
 		# modifiée par Amaury Graillat pour prendre en compte les tirets dans les urls
-		if(preg_match('@(https?|ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
+		if(preg_match('@(https?|s?ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
 				return true;
 		else {
 			if($reset) $site='';
@@ -440,7 +446,7 @@ class plxUtils {
 	 * @param	charset		charset à utiliser dans le formatage de la chaine (par défaut utf-8)
 	 * @return	string		chaine formatée
 	 **/
-	public static function removeAccents($str,$charset='utf-8') {
+	public static function removeAccents($str, $charset=PLX_CHARSET) {
 
 		$str = htmlentities($str, ENT_NOQUOTES, $charset);
 		$a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ');
@@ -448,7 +454,7 @@ class plxUtils {
 		$str = str_replace($a, $b, $str);
 		$str = preg_replace('#\&([A-za-z])(?:acute|cedil|circ|grave|ring|tilde|uml|uro)\;#', '\1', $str);
 		$str = preg_replace('#\&([A-za-z]{2})(?:lig)\;#', '\1', $str); # pour les ligatures e.g. '&oelig;'
-		$str = preg_replace('#\&[^;]+\;#', '', $str); # supprime les autres caractères
+		$str = preg_replace('#\&[^;]+\;#', '', $str); # supprime les entités HTML
 		return $str;
 	}
 
@@ -514,32 +520,35 @@ class plxUtils {
 	 * @param	boolean	$remove		retire les mots sans valeur sémantique
 	 * @param	string	$replace
 	 * @param	boolean	$lower
-	 * @return	string				valid URL
+	 * @return	string	valid URL
 	 * @author	J.P. Pourrez (bazooka07)
 	 * */
-	public static function urlify($str, $remove=true, $replace='-', $lower=true) {
+	public static function urlify($url, $remove=true, $replace='-', $lower=true) {
 
-		$remove_words = array(
-			'en' => 'a|an|as|at|before|but|by|for|from|is|into|in|like|off?|on|onto|per|since|than|the|this|that|to|up|via|with',
-			'de' => 'das|der|die|fur|am',
-			'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
-		);
+		$scheme = parse_url($url, PHP_URL_SCHEME);
+		if(!empty($scheme)) {
+			if($scheme == 'data') { return $url; }
 
-		$clean_str = plxUtils::translitterate(trim(html_entity_decode($str)));
+			$url = substr($url, strlen($scheme) + 3); // http://
+		}
+		$clean_url = plxUtils::translitterate(trim(html_entity_decode($url)));
 
-		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
-			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@u', $replace, $clean_str);
-			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
+		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, self::REMOVE_WORDS)) {
+			$clean_url = preg_replace('@\b(' . self::REMOVE_WORDS[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
 		}
 
 		// remove accents
-		$clean_str = plxUtils::removeAccents($clean_str,PLX_CHARSET);
-		// remove whitespace
-		$clean_str = preg_replace('@\s+@',$replace,$clean_str);
-		// remove non-alphanumeric character
-		$clean_str = trim(preg_replace('@[^\w-]@','',$clean_str),'-');
+		$clean_url = plxUtils::removeAccents($clean_url, PLX_CHARSET);
 
-		return ($lower) ? strtolower($clean_str) : $clean_str;
+		// remove whitespace
+		$clean_url = preg_replace('@[\s' . $replace . ']+@', $replace, $clean_url);
+
+		// remove non-alphanumeric character
+		$clean_url = trim(preg_replace('@[^\w\.-]+@', '', $clean_url), '-');
+
+		if($lower) { $clean_url = strtolower($clean_url); }
+
+		return (empty($scheme)) ? $clean_url : $scheme . '://' . $clean_url;
 	}
 
 	/**
