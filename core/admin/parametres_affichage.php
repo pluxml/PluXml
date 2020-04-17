@@ -62,7 +62,7 @@ include __DIR__ .'/top.php';
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_VIEW ?></h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+		<p><?php $link = '<a href="'.PLX_URL_RESSOURCES.'">'.PLX_URL_RESSOURCES.'</a>'; printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, $link); ?></p>
 		<input type="submit" value="<?php echo L_CONFIG_VIEW_UPDATE ?>" />
 	</div>
 
