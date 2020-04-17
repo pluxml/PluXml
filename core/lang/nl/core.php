@@ -21,6 +21,7 @@ const L_SELECT_LANG					= 'Kies uw taal';
 const L_CONFIRM_PASSWORD			= 'Wachtwoord bevestigen';
 const L_PROFIL_LOGIN				= 'Kies uw loginnaam';
 const L_INPUT_CHANGE				= 'Verander';
+const L_COMMENTS_CLOSED				= 'Commentaren zijn afgesloten';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'De standaardlayout van PluXml werd niet gevonden';
