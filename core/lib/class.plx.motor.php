@@ -137,23 +137,23 @@ class plxMotor {
 			$this->template = $this->aStats[ $this->cible ]['template'];
 		}
 		elseif(empty($this->get)
-				OR preg_match('@^(blog|blog\/page[0-9]*|\/?page[0-9]*)$@', $this->get)
-				AND !preg_match('@^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+@', $this->get)) {
+				OR preg_match('#^(blog|blog\/page\d*|\/?page\d*)$#', $this->get)
+				AND !preg_match('#^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+#', $this->get)) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
 			$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
 			# On regarde si on a des articles en mode "home"
-			if($this->plxGlob_arts->query('/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/')) {
-				$this->motif = '/^[0-9]{4}.(home[0-9,]*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			if($this->plxGlob_arts->query('#^\d{4}\.(home[0-9,]*)\.\d{3}\.\d{12}\.[\w-]+\.xml$#')) {
+				$this->motif = '#^\d{4}.(home[0-9,]*).\d{3}.\d{12}.[\w-]+.xml$#';
 			} else { # Sinon on recupere tous les articles
-				$this->motif = '/^[0-9]{4}.(?:[0-9]|,)*(?:'.$this->homepageCats.')(?:[0-9]|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+				$this->motif = '#^\d{4}.(?:\d|,)*(?:'.$this->homepageCats.')(?:\d|,)*.\d{3}.\d{12}.[\w-]+.xml$#';
 			}
 		}
-		elseif($this->get AND preg_match('/^article([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^article(\d+)\/?([\w-]+)?#',$this->get,$capture)) {
 			$this->mode = 'article'; # Mode article
 			$this->template = 'article.php';
 			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complete sur 4 caracteres
-			$this->motif = '/^'.$this->cible.'.((?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/'; # Motif de recherche
+			$this->motif = '#^'.$this->cible.'.(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#'; # Motif de recherche
 			if($this->getArticles()) {
 				# Redirection 301
 				if(!isset($capture[2]) OR $this->plxRecord_arts->f('url')!=$capture[2]) {
@@ -163,7 +163,7 @@ class plxMotor {
 				$this->error404(L_UNKNOWN_ARTICLE);
 			}
 		}
-		elseif($this->get AND preg_match('/^static([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^static(\d+)\/?([\w-]+)?#',$this->get,$capture)) {
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
 			if(!isset($this->aStats[$this->cible]) OR !$this->aStats[$this->cible]['active']) {
 				$this->error404(L_UNKNOWN_STATIC);
@@ -181,11 +181,11 @@ class plxMotor {
 				}
 			}
 		}
-		elseif($this->get AND preg_match('/^categorie([0-9]+)\/?([a-z0-9-]+)?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^categorie(\d+)\/?([\w-]+)?#',$this->get,$capture)) {
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
 			if(!empty($this->aCats[$this->cible]) AND $this->aCats[$this->cible]['active'] AND $this->aCats[$this->cible]['url']==$capture[2]) {
 				$this->mode = 'categorie'; # Mode categorie
-				$this->motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->cible.')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/'; # Motif de recherche
+				$this->motif = '#^\d{4}.((?:\d|home|,)*(?:'.$this->cible.')(?:\d|home|,)*).\d{3}.\d{12}.[\w-]+.xml$#'; # Motif de recherche
 				$this->template = $this->aCats[$this->cible]['template'];
 				$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
 				$this->bypage = $this->aCats[$this->cible]['bypage'] > 0 ? $this->aCats[$this->cible]['bypage'] : $this->bypage;
@@ -198,18 +198,18 @@ class plxMotor {
 				$this->error404(L_UNKNOWN_CATEGORY);
 			}
 		}
-		elseif($this->get AND preg_match('/^archives\/([0-9]{4})[\/]?([0-9]{2})?[\/]?([0-9]{2})?/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^archives\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#',$this->get,$capture)) {
 			$this->mode = 'archives';
 			$this->template = 'archives.php';
 			$this->bypage = $this->aConf['bypage_archives'];
 			$this->cible = $search = $capture[1];
 			if(!empty($capture[2])) $this->cible = ($search .= $capture[2]);
-			else $search .= '[0-9]{2}';
+			else $search .= '\d{2}';
 			if(!empty($capture[3])) $search .= $capture[3];
-			else $search .= '[0-9]{2}';
-			$this->motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.'.$search.'[0-9]{4}.[a-z0-9-]+.xml$/';
+			else $search .= '\d{2}';
+			$this->motif = '#^\d{4}.(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.'.$search.'\d{4}.[\w-]+.xml$#';
 		}
-		elseif($this->get AND preg_match('/^tag\/([a-z0-9-]+)/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^tag\/([\w-]+)#',$this->get,$capture)) {
 			$this->cible = $capture[1];
 			$ids = array();
 			$datetime = date('YmdHi');
@@ -229,16 +229,16 @@ class plxMotor {
 			if(sizeof($ids)>0) {
 				$this->mode = 'tags'; # Affichage en mode home
 				$this->template = 'tags.php';
-				$this->motif = '/('.implode('|', $ids).').(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+				$this->motif = '#('.implode('|', $ids).').(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#';
 				$this->bypage = $this->aConf['bypage_tags']; # Nombre d'article par page
 			} else {
 				$this->error404(L_ARTICLE_NO_TAG);
 			}
 		}
-		elseif($this->get AND preg_match('/^preview\/?/',$this->get) AND isset($_SESSION['preview'])) {
+		elseif($this->get AND preg_match('#^preview\/?#',$this->get) AND isset($_SESSION['preview'])) {
 			$this->mode = 'preview';
 		}
-		elseif($this->get AND preg_match('/^(telechargement|download)\/(.+)$/',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^(telechargement|download)\/(.+)$#',$this->get,$capture)) {
 			if($this->sendTelechargement($capture[2])) {
 				$this->mode = 'telechargement'; # Mode telechargement
 				$this->cible = $capture[2];
@@ -328,7 +328,7 @@ class plxMotor {
 				exit;
 			}
 			# Récupération des commentaires
-			$this->getCommentaires('/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/',$this->tri_coms);
+			$this->getCommentaires('#^'.$this->cible.'.\d{10}-\d+.xml$#',$this->tri_coms);
 			$this->template=$this->plxRecord_arts->f('template');
 			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
 		}
@@ -463,7 +463,7 @@ class plxMotor {
 				$this->aCats[$number]['homepage'] = in_array($this->aCats[$number]['homepage'],array('0','1')) ? $this->aCats[$number]['homepage'] : 1;
 				if($this->aCats[$number]['active'] AND $this->aCats[$number]['homepage']) $homepageCats[]=$number;
 				# Recuperation du nombre d'article de la categorie
-				$motif = '/^[0-9]{4}.[home,|0-9,]*'.$number.'[0-9,]*.[0-9]{3}.[0-9]{12}.[A-Za-z0-9-]+.xml$/';
+				$motif = '#^\d{4}.[home,|0-9,]*'.$number.'\d*.\d{3}.\d{12}.[A-Za-z0-9-]+.xml$#';
 				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
 				$this->aCats[$number]['articles'] = ($arts?sizeof($arts):0);
 				# Hook plugins
@@ -619,7 +619,7 @@ class plxMotor {
 	protected function getPage() {
 
 		# On check pour avoir le numero de page
-		if(preg_match('/page([0-9]*)/',$this->get,$capture))
+		if(preg_match('#page(\d*)#',$this->get,$capture))
 			$this->page = $capture[1];
 		else
 			$this->page = 1;
@@ -659,7 +659,7 @@ class plxMotor {
 	public function artInfoFromFilename($filename) {
 
 		# On effectue notre capture d'informations
-		if(preg_match('/(_?\d{4})\.([\d,|home|draft]*)\.(\d{3})\.(\d{12})\.([\w-]+)\.xml$/',$filename,$capture)) {
+		if(preg_match('#(_?\d{4})\.([\d,|home|draft]*)\.(\d{3})\.(\d{12})\.([\w-]+)\.xml$#',$filename,$capture)) {
 			return array(
 				'artId'		=> $capture[1],
 				'catId'		=> $capture[2],
@@ -709,7 +709,7 @@ class plxMotor {
 		$art['categorie'] = $tmp['catId'];
 		$art['url'] = $tmp['artUrl'];
 		$art['date'] = $tmp['artDate'];
-		$art['nb_com'] = $this->getNbCommentaires('/^'.$art['numero'].'.[0-9]{10}.[0-9]+.xml$/');
+		$art['nb_com'] = $this->getNbCommentaires('#^'.$art['numero'].'.\d{10}.\d+.xml$#');
 		$art['date_creation'] = isset($iTags['date_creation']) ? plxUtils::getValue($values[$iTags['date_creation'][0]]['value']) : $art['date'];
 		$art['date_update'] = isset($iTags['date_update']) ? plxUtils::getValue($values[$iTags['date_update'][0]]['value']) : $art['date'];
 		# Hook plugins
@@ -744,7 +744,7 @@ class plxMotor {
 	 **/
 	public function comInfoFromFilename($filename) {
 		# On effectue notre capture d'informations
-		if(preg_match('/([[:punct:]]?)([0-9]{4}).([0-9]{10})-([0-9]+).xml$/',$filename,$capture)) {
+		if(preg_match('#([[:punct:]]?)(\d{4}).(\d{10})-(\d+).xml$#',$filename,$capture)) {
 			return array(
 				'comStatus'	=> $capture[1],
 				'artId'		=> $capture[2],
@@ -841,7 +841,7 @@ class plxMotor {
 				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
-			if( !(defined('plxAdmin::PLX_ADMIN') OR defined('plxFeed::PLX_FEED')) OR preg_match('/comment_new/',basename($_SERVER['SCRIPT_NAME']))) {
+			if( !(defined('plxAdmin::PLX_ADMIN') OR defined('plxFeed::PLX_FEED')) OR preg_match('#comment_new#',basename($_SERVER['SCRIPT_NAME']))) {
 				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
 
@@ -866,7 +866,7 @@ class plxMotor {
 		if($dh = opendir(PLX_ROOT.$this->aConf['racine_commentaires'])) {
 			$Idxs = array();
 			while(false !== ($file = readdir($dh))) {
-				if(preg_match("/_?".$idArt.".[0-9]+-([0-9]+).xml/", $file, $capture)) {
+				if(preg_match("/_?".$idArt.".\d+-(\d+).xml/", $file, $capture)) {
 					if ($capture[1] > $ret)
 						$ret = $capture[1];
 				}
@@ -1034,7 +1034,7 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
 		# On lance le téléchargement et on check le répertoire medias
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
+		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '#', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
 			header('Content-Disposition: attachment; filename='.basename($file));
@@ -1067,7 +1067,7 @@ class plxMotor {
 
 		if($url=='' OR $url=='?') return $this->racine;
 
-		preg_match('/^([0-9a-z\_\-\.\/]+)?[\?]?([0-9a-z\_\-\.\/,&=%]+)?[\#]?(.*)$/i', $url, $args);
+		preg_match('#^([0-9a-z\_\-\.\/]+)?[\?]?([0-9a-z\_\-\.\/,&=%]+)?[\#]?(.*)$#i', $url, $args);
 
 		if($this->aConf['urlrewriting']) {
 			$new_url  = str_replace('index.php', '', $args[1]);
@@ -1096,7 +1096,7 @@ class plxMotor {
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function nbArticles($select='all', $userId='[0-9]{3}', $mod='_?', $publi='all') {
+	public function nbArticles($select='all', $userId='\d{3}', $mod='_?', $publi='all') {
 
 		$nb = 0;
 		if($select == 'all')
@@ -1108,7 +1108,7 @@ class plxMotor {
 		else
 			$motif = $select;
 
-		if($arts = $this->plxGlob_arts->query('/^'.$mod.'[0-9]{4}.('.$motif.').'.$userId.'.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', '', 0, false, $publi))
+		if($arts = $this->plxGlob_arts->query('#^'.$mod.'\d{4}.('.$motif.').'.$userId.'.\d{12}.[\w-]+.xml$#', 'art', '', 0, false, $publi))
 			$nb = sizeof($arts);
 
 		return $nb;
@@ -1127,11 +1127,11 @@ class plxMotor {
 
 		$nb = 0;
 		if($select == 'all')
-			$motif = '/[^[:punct:]?][0-9]{4}.(.*).xml$/';
+			$motif = '#[^[:punct:]?]\d{4}.(.*).xml$#';
 		elseif($select=='offline')
-			$motif = '/^_[0-9]{4}.(.*).xml$/';
+			$motif = '#^_\d{4}.(.*).xml$#';
 		elseif($select=='online')
-			$motif = '/^[0-9]{4}.(.*).xml$/';
+			$motif = '#^\d{4}.(.*).xml$#';
 		else
 			$motif = $select;
 
@@ -1152,7 +1152,7 @@ class plxMotor {
 		if($this->plxGlob_arts->aFiles) {
 			$datetime=date('YmdHi');
 			foreach($this->plxGlob_arts->aFiles as $filename) {
-				if(preg_match('/^([0-9]{4}).(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.([0-9]{12}).[a-z0-9-]+.xml$/', $filename, $capture)) {
+				if(preg_match('#^(\d{4}).(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.(\d{12}).[\w-]+.xml$#', $filename, $capture)) {
 					if($capture[2]<=$datetime) { # on ne prends que les articles publiés
 						$this->activeArts[$capture[1]]=1;
 					}
