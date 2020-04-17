@@ -471,6 +471,11 @@ article:after {
 .footer p {
 	margin: 0;
 }
+
+.footer a:hover {
+	text-decoration: none;
+}
+
 @media (min-width: 128rem) {
 	.container {
 		padding-left: 15rem;
