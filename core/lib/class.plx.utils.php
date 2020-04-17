@@ -1096,15 +1096,30 @@ class plxUtils {
 	* @author	Stephane F., Thomas Ingles
 	**/
 	public static function formatMenu($caption, $href, $title=false, $aClass=false, $onclick=false, $extra='', $highlight=true) {
-		$basename = explode('?', basename($href));
-		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' active':'';
-		if($basename[0]=='plugin.php' AND isset($_GET['p']) AND $basename[1]!='p='.$_GET['p']) $active='';
-		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? 'active' : '';
-		if($basename[0] == 'plugin.php' AND isset($_GET['p']) AND $basename[1] != 'p=' . $_GET['p']) $active = '';
+		$url_parts = parse_url($href);
+		$page = basename($url_parts['path'], '.php');
+		$id = pathinfo($page,  PATHINFO_FILENAME);
+		$page = rtrim($page, 's');
+		$script = rtrim(basename($_SERVER['SCRIPT_NAME'], '.php'), 's');
 		$classList = array(
 			'menu'
 		);
-		if(!empty($active)) { $classList[] = 'active'; }
+		if($highlight) {
+			switch($script) {
+				case 'article' :
+					if(
+						($page == 'index' and filter_has_var(INPUT_GET, 'a')) or
+						($page == 'article' and !filter_has_var(INPUT_GET, 'a'))
+					) {
+						$classList[] = 'active';
+					}
+					break;
+				default:
+					if($script == $page) {
+						$classList[] = 'active';
+					}
+			}
+		}
 		if(!empty($aClass)) { $classList[] = $aClass; }
 		$className = implode(' ', $classList);
 
@@ -1112,7 +1127,6 @@ class plxUtils {
 		$title = $title ? ' title="' . $title . '"' : '';
 		$extra = ((!empty($extra))) ? ' ' . trim($extra) : '';
 
-		$id = ($basename[0]=='plugin.php' ? strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
 		$caption = ucfirst($caption);
 		return <<< EOT
 <li id="mnu_$id" class="$className"><a href="$href"$title$onclick>$caption$extra</a></li>
