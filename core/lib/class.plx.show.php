@@ -1664,8 +1664,9 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche la réponse du capcha cryptée en sha1
 	 * DEPRECATED
+	 * 
+	 * Méthode qui affiche la réponse du capcha cryptée en sha1
 	 *
 	 * @scope	global
 	 * @author	Florent MONTHEL, Stephane F.
