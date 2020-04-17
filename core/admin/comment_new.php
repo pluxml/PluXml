@@ -20,6 +20,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # Interdire de l'accès à la page si les commentaires sont désactivés
 if(!$plxAdmin->aConf['allow_com']) {
+	plxMsg::Error(L_COMMENTS_CLOSED);
 	header('Location: index.php');
 	exit;
 }

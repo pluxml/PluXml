@@ -18,8 +18,15 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 # Contrôle de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
+# Les commentaires ne sont pas autorisés
+if(empty($plxAdmin->aConf['allow_com']) {
+	plxMsg::Error(L_COMMENTS_CLOSED);
+	header('Location: index.php');
+	exit;
+}
+
 # validation de l'id de l'article si passé en paramètre
-if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
+if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
