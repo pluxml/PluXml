@@ -80,29 +80,26 @@ class plxDate {
 	 **/
 	public static function formatDate($date, $format='#num_day/#num_month/#num_year(4)') {
 
-		# On decoupe notre date
-		$year4 = substr($date, 0, 4);
-		$year2 = substr($date, 2, 2);
 		$month = substr($date, 4, 2);
-		$day = substr($date, 6, 2);
 		$day_num = date('w',mktime(0,0,0,intval($month),intval($day),intval($year4)));
 		$hour = substr($date,8,2);
 		$minute = substr($date,10,2);
 
 		# On retourne notre date au format humain
-		$format = str_replace('#time', $hour.':'.$minute, $format);
-		$format = str_replace('#minute', $minute, $format);
-		$format = str_replace('#hour', $hour, $format);
-		$format = str_replace('#day', plxDate::getCalendar('day', $day_num), $format);
-		$format = str_replace('#short_month', plxDate::getCalendar('short_month', $month), $format);
-		$format = str_replace('#month', plxDate::getCalendar('month', $month), $format);
-		$format = str_replace('#num_day(1)', intval($day), $format);
-		$format = str_replace('#num_day(2)', $day, $format);
-		$format = str_replace('#num_day', $day, $format);
-		$format = str_replace('#num_month', $month, $format);
-		$format = str_replace('#num_year(2)', $year2 , $format);
-		$format = str_replace('#num_year(4)', $year4 , $format);
-		return $format;
+		return strtr($format, array(
+			'#time'			=> $hour.':' . $minute,
+			'#minute'		=> $minute,
+			'#hour'			=> $hour,
+			'#day'			=> plxDate::getCalendar('day', $day_num),
+			'#short_month'	=> plxDate::getCalendar('short_month', $month),
+			'#month'		=> plxDate::getCalendar('month', $month),
+			'#num_day(1)'	=> intval(substr($date, 6, 2)),
+			'#num_day(2)'	=> substr($date, 6, 2),
+			'#num_day'		=> substr($date, 6, 2),
+			'#num_month'	=> $month,
+			'#num_year(2)'	=> substr($date, 2, 2),
+			'#num_year(4)'	=> substr($date, 0, 4)
+		));
 	}
 
 	/**
