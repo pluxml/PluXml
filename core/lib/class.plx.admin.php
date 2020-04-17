@@ -205,33 +205,47 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
-	 * @param	profil		profil(s) autorisé(s)
+	 * @param	profil		profil(s) autorisé(s). Doit être numérique ou tableau de numérique
 	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
-	 * @return	null
-	 * @author	Stephane F
+	 * @return	boolean or void
+	 * @author	Stephane F, J.P. Pourrez
+	 *
+	 * Pour recensement dans code : grep -n checkProfil *.php update/*.php core/{admin,lib}/*.php
 	 **/
 	public function checkProfil($profil, $redirect=true) {
-		$args = func_get_args();
-		if($redirect===true or $redirect===false) $args=$args[0];
-		if($redirect) {
-			if(is_array($args)) {
-				if(!in_array($_SESSION['profil'], $args)) {
+		if(!is_bool($redirect)) {
+			plxMsg::Error(L_NO_ENTRY);
+			header('Location: index.php');
+			exit;
+		}
+
+		if(is_array($profil)) {
+			$matches = array_filter($profil, function($item) { return is_numeric($item); });
+		} elseif(is_numeric($profil)) {
+			// limite haute profil
+			if($redirect) {
+				if($_SESSION['profil'] > $profil) {
 					plxMsg::Error(L_NO_ENTRY);
 					header('Location: index.php');
 					exit;
 				}
+				return;
 			} else {
-				if($_SESSION['profil']!=$profil) {
-					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
-					exit;
-				}
+				return ($_SESSION['profil'] <= $profil);
 			}
 		} else {
-			if(is_array($args))
-				return in_array($_SESSION['profil'], $args);
-			else
-				return $_SESSION['profil']==$profil;
+			preg_match_all('#(\d+)#', $profil, $matches);
+		}
+
+		if($redirect) {
+			if(empty($matches) or !in_array($_SESSION['profil'], $matches) or $_SESSION['profil'] > PROFIL_WRITER) {
+				plxMsg::Error(L_NO_ENTRY);
+				header('Location: index.php');
+				exit;
+			}
+			return;
+		} else {
+			return (!empty($matches) and in_array($_SESSION['profil'], $matches) and $_SESSION['profil'] <= PROFIL_WRITER);
 		}
 	}
 

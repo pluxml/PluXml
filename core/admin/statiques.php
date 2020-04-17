@@ -16,7 +16,7 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsPrepend'));
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
+$plxAdmin->checkProfil(PROFIL_MANAGER);
 
 # On édite les pages statiques
 if(!empty($_POST)) {

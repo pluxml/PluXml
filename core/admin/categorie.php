@@ -16,7 +16,7 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminCategoryPrepend'));
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR);
+$plxAdmin->checkProfil(PROFIL_EDITOR);
 
 # On édite la catégorie
 if(!empty($_POST) AND isset($plxAdmin->aCats[ $_POST['id'] ])) {

@@ -43,12 +43,13 @@ const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET . '" ?>' . PHP
 # Langue par défaut
 const DEFAULT_LANG = 'en';
 
-# profils utilisateurs de pluxml
-const PROFIL_ADMIN		= 0;
-const PROFIL_MANAGER	= 1;
-const PROFIL_MODERATOR	= 2;
-const PROFIL_EDITOR		= 3;
-const PROFIL_WRITER		= 4;
+# profils utilisateurs de pluxml. Look at core/admin/top.php for more information
+const PROFIL_ADMIN		= 0; // all grants
+const PROFIL_MANAGER	= 1; // grants for statiques, comments, categories, articles,
+const PROFIL_MODERATOR	= 2; // grants for comments, categories
+const PROFIL_EDITOR		= 3; // grants for categories
+const PROFIL_WRITER		= 4; // grants only for editing his own articles and managing his own medias if checked in parameters.xml
+// For plugins, grants are setting by plxPlugin::setConfigProfil and plxPlugin::setAdminProfil
 
 # taille redimensionnement des images et miniatures
 const IMG_REDIM = array('320x200', '500x380', '640x480');
