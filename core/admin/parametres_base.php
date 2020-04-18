@@ -18,7 +18,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # On édite la configuration
 if(!empty($_POST)) {
-	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
+	$plxAdmin->editConfiguration($_POST);
 	header('Location: parametres_base.php');
 	exit;
 }
@@ -117,7 +117,7 @@ include __DIR__ .'/top.php';
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printSelect('enable_rss',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['enable_rss']); ?>
 			</div>
-		</div>		
+		</div>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
