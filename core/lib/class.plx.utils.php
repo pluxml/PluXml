@@ -857,15 +857,25 @@ class plxUtils {
 	}
 
 	/**
-	 * Méthode qui retourne une chaine de caractères nettoyée des cdata
+	 * Méthode qui controle une chaine de caractères pour un fichier .xml
+	 * Si la chaine est vide ou numérique : la chaine est retournée sans modification
+	 * Autrement, la chaine est encadrée automatiquement par "<![CDATA[ ... ]]>" si besoin.
+	 * Si "<![CDATA[" et "]]>" sont présents à l'intérieur de la chaine, alors conversion
+	 * en entités HTML.
 	 *
 	 * @param	str		chaine de caractères à nettoyer
 	 * @return	string	chaine de caractères nettoyée
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function cdataCheck($str) {
-		$str = str_ireplace('!CDATA', '&#33;CDATA', $str);
-		return str_replace(']]>', ']]&gt;', $str);
+		$value = trim($str);
+		if(empty($value) or is_numeric($value)) { return $value; }
+		if(!preg_match('#^<!\[CDATA\[(.*)\]\]>#s', $value, $matches)) {
+			return '<![CDATA[' .
+				str_replace(']]>', ']]&gt;', str_ireplace('!CDATA', '&#33;CDATA', $value)) . ']]>';
+		}
+		$value = str_replace(']]>', ']]&gt;', preg_replace('#<!\[(cdata)\[#i', '&lt;&#33;[$1[', $matches[1]));
+		return '<![CDATA[' . $value . ']]>';
 	}
 
 	/**
