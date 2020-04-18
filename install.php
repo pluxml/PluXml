@@ -169,10 +169,16 @@ function install($content, $config)
     $salt = plxUtils::charAleatoire(10);
     ob_start();
     ?>
-<document> <user number="001" active="1" profil="0" delete="0"> <login><![CDATA[<?= trim($content['login']) ?>]]></login>
-<name><![CDATA[<?= trim($content['name']) ?>]]></name> <infos></infos> <password><?= sha1($salt.md5(trim($content['pwd']))) ?></password>
-<salt><?= $salt ?></salt> <email><?= trim($content['email']) ?></email>
-<lang><?= $config['default_lang'] ?></lang> </user> </document>
+<document>
+	<user number="001" active="1" profil="0" delete="0">
+		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
+		<name><![CDATA[<?= trim($content['name']) ?>]]></name>
+		<infos></infos>
+		<password><?= sha1($salt.md5(trim($content['pwd']))) ?></password>
+		<salt><?= $salt ?></salt> <email><?= trim($content['email']) ?></email>
+		<lang><?= $config['default_lang'] ?></lang>
+	</user>
+</document>
 <?php
     $xml = XML_HEADER . ob_get_clean();
     plxUtils::write($xml, path('XMLFILE_USERS'));
@@ -183,16 +189,18 @@ function install($content, $config)
 <document>
 <?php
     if ($content['data'] > 0) {
-        ?>
-	<categorie number="001" active="1" homepage="1"
-    tri="<?= $config['tri'] ?>" bypage="<?= $config['bypage'] ?>"
-    menu="oui" url="<?= L_DEFAULT_CATEGORY_URL ?>"
-    template="categorie.php"> <name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE) ?>]]></name>
-<description></description> <meta_description></meta_description> <meta_keywords></meta_keywords>
-<title_htmltag></title_htmltag> <thumbnail></thumbnail> <thumbnail_title></thumbnail_title>
-<thumbnail_alt></thumbnail_alt> </categorie>
+?>
+	<categorie number="001" active="1" homepage="1" tri="<?= $config['tri'] ?>" bypage="<?= $config['bypage'] ?>" menu="oui" url="<?= L_DEFAULT_CATEGORY_URL ?>" template="categorie.php">
+		<name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE) ?>]]></name>
+		<description></description>
+		<meta_description></meta_description>
+		<meta_keywords></meta_keywords>
+		<title_htmltag></title_htmltag>
+		<thumbnail></thumbnail>
+		<thumbnail_title></thumbnail_title>
+		<thumbnail_alt></thumbnail_alt>
+	</categorie>
 <?php
-        echo PHP_EOL;
     }
     ?>
 </document>
@@ -205,17 +213,20 @@ function install($content, $config)
     ?>
 <document>
 <?php
-    if ($content['data'] > 0) {
-        ?>
-	<statique number="001" active="1" menu="oui"
-    url="<?= L_DEFAULT_STATIC_URL ?>" template="static.php"> <group></group>
-<name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE) ?>]]></name>
-<meta_description></meta_description> <meta_keywords></meta_keywords> <title_htmltag></title_htmltag>
-<date_creation><?= date('YmdHi') ?></date_creation> <date_update><?= date('YmdHi') ?></date_update>
-</statique>
+	if ($content['data'] > 0) {
+?>
+	<statique number="001" active="1" menu="oui" url="<?= L_DEFAULT_STATIC_URL ?>" template="static.php">
+		<group></group>
+		<name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE) ?>]]></name>
+		<meta_description></meta_description>
+		<meta_keywords></meta_keywords>
+		<title_htmltag></title_htmltag>
+		<date_creation><?= date('YmdHi') ?></date_creation>
+		<date_update><?= date('YmdHi') ?></date_update>
+	</statique>
 <?php
     }
-    ?>
+?>
 </document>
 <?php
     $xml = XML_HEADER . ob_get_clean();
@@ -263,7 +274,8 @@ function install($content, $config)
     // Création du fichier des plugins
     ob_start();
     ?>
-<document> </document>
+<document>
+</document>
 <?php
     $xml = XML_HEADER . ob_get_clean();
     plxUtils::write($xml, path('XMLFILE_PLUGINS'));
@@ -271,11 +283,17 @@ function install($content, $config)
     if ($content['data'] > 0) {
         // Création du premier commentaire
         ob_start();
-        ?>
-<comment> <author>pluxml</author> <type>normal</type> <ip>127.0.0.1</ip>
-<mail><![CDATA[contact@pluxml.org]]></mail> <site><![CDATA[<?= PLX_URL_REPO ?>]]></site>
-<content><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT) ?>]]></content>
-</comment>
+?>
+<document>
+	<comment>
+		<author>pluxml</author>
+		<type>normal</type>
+		<ip>127.0.0.1</ip>
+		<mail><![CDATA[contact@pluxml.org]]></mail>
+		<site><![CDATA[<?= PLX_URL_REPO ?>]]></site>
+		<content><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT) ?>]]></content>
+	</comment>
+</document>
 <?php
         $xml = XML_HEADER . ob_get_clean();
         plxUtils::write($xml, PLX_ROOT . $config['racine_commentaires'] . '0001.' . date('U') . '-1.xml');
@@ -321,15 +339,12 @@ plxUtils::cleanHeaders();
 
 <!DOCTYPE html>
 <head>
-<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
-<meta name="viewport"
-    content="width=device-width, user-scalable=yes, initial-scale=1.0">
-<title><?= L_PLUXML_INSTALLATION . ' ' . L_VERSION . ' ' . PLX_VERSION ?></title>
-<link rel="stylesheet" type="text/css"
-    href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-<link rel="stylesheet" type="text/css"
-    href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
-<script src="<?= PLX_CORE ?>lib/visual.js"></script>
+	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+	<title><?= L_PLUXML_INSTALLATION . ' ' . L_VERSION . ' ' . PLX_VERSION ?></title>
+	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </head>
 <body>
     <main class="main grid">
@@ -390,17 +405,19 @@ plxUtils::cleanHeaders();
                             <label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
                         </div>
                         <div class="col med-7">
-							<?php
+						<?php
     list ($very, $weak, $good, $strong) = array(
         L_PWD_VERY_WEAK,
         L_PWD_WEAK,
         L_PWD_GOOD,
         L_PWD_STRONG
     );
-    $extras = <<< EOT
-    onkeyup="pwdStrength(this.id, ['$very', '$weak', '$good', '$strong']);" required
-    EOT;
-    plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', $extras)?>
+	$extras = <<< EOT
+onkeyup="pwdStrength(this.id, ['$very', '$weak', '$good', '$strong']);" required
+EOT;
+plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', $extras);
+?>
+
                             <span id="id_pwd_strenght"></span>
                         </div>
                     </div>
