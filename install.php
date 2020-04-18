@@ -104,6 +104,7 @@ $config = array(
     'homestatic' => '',
     'hometemplate' => 'home.php',
     'urlrewriting' => 0,
+    'cleanurl' => 0,
     'gzip' => 0,
     'feed_chapo' => 0,
     'feed_footer' => '',

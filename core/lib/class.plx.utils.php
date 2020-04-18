@@ -146,7 +146,7 @@ class plxUtils {
 		else
 			$localIP = getHostByName(getHostName());
 
-		return plxUtils::isValidIp($ip) ? $ip : $localIP;
+		return self::isValidIp($ip) ? $ip : $localIP;
 	}
 
 	/**
@@ -497,7 +497,7 @@ class plxUtils {
 			)
 		);
 
-		if(!(defined('PLX_SITE_LANG')) or !array_key_exists(PLX_SITE_LANG, $alphabets)) {
+		if(!(defined('PLX_SITE_LANG')) || !array_key_exists(PLX_SITE_LANG, $alphabets)) {
 			return $str;
 		}
 
@@ -505,7 +505,7 @@ class plxUtils {
 			return strtr($str, $alphabets[PLX_SITE_LANG]);
 		}
 
-		arsort($alphabets[PLX_SITE_LANG]); # Hack against str_replace
+		arsort($alphabets[PLX_SITE_LANG]);
 
 		return str_replace(
 			array_values($alphabets[PLX_SITE_LANG]),
@@ -523,22 +523,22 @@ class plxUtils {
 	 * @return	string	valid URL
 	 * @author	J.P. Pourrez (bazooka07)
 	 * */
-	public static function urlify($url, $remove=true, $replace='-', $lower=true) {
+	public static function urlify($url, $replace='-', $lower=true) {
 
 		$scheme = parse_url($url, PHP_URL_SCHEME);
 		if(!empty($scheme)) {
 			if($scheme == 'data') { return $url; }
-
 			$url = substr($url, strlen($scheme) + 3); // http://
 		}
-		$clean_url = plxUtils::translitterate(trim(html_entity_decode($url)));
 
-		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, self::REMOVE_WORDS)) {
+		$clean_url = self::translitterate(trim(html_entity_decode($url)));
+		
+		if(self::getConfigParam('cleanurl') && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, self::REMOVE_WORDS)) {
 			$clean_url = preg_replace('@\b(' . self::REMOVE_WORDS[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
 		}
 
 		// remove accents
-		$clean_url = plxUtils::removeAccents($clean_url, PLX_CHARSET);
+		$clean_url = self::removeAccents($clean_url, PLX_CHARSET);
 
 		// remove whitespace
 		$clean_url = preg_replace('@[\s' . $replace . ']+@', $replace, $clean_url);
@@ -559,7 +559,7 @@ class plxUtils {
 	 **/
 	public static function title2url($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower(self::removeAccents($str,PLX_CHARSET));
 		$str = preg_replace('/[^[:alnum:]]+/',' ',$str);
 		return strtr(trim($str), ' ', '-');
 	}
@@ -572,7 +572,7 @@ class plxUtils {
 	 **/
 	public static function title2filename($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower(self::removeAccents($str,PLX_CHARSET));
 		$str = str_replace('|','',$str);
 		$str = preg_replace('/\.{2,}/', '.', $str);
 		$str = preg_replace('/[^[:alnum:]|.|_]+/',' ',$str);
@@ -805,7 +805,7 @@ class plxUtils {
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
 		$racine = rtrim($protocol.$servername.$serverport.$dirname, '/\\').'/';
-		if(!plxUtils::checkSite($racine, false))
+		if(!self::checkSite($racine, false))
 			die('Error: wrong or invalid url');
 		return $racine;
 	}
@@ -1016,6 +1016,8 @@ class plxUtils {
 
 	/**
 	 * Send an e-mail with PhpMailer class
+	 * TODO use plxUtils::getConfigParam() instead of the $conf parameter
+	 * 
 	 * @param	string	$name			Sender's name
 	 * @param	string	$from			Sender's e-mail address
 	 * @param	string	$to				Destination e-mail address
@@ -1389,7 +1391,7 @@ EOT;
 			$modeDir = $modeDir1;
 			if(!$modeDir1 and $textOnly) {
 				$extsText = 'php css html htm xml js json txt me md';
-				# plxUtils::debugJS($extsText, 'extsText');
+				# self::debugJS($extsText, 'extsText');
 			}
 			$currentValue = $choice1;
 		}
@@ -1447,7 +1449,7 @@ EOT;
 
 EOT;
 					}
-					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
+					self::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
 						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
@@ -1491,7 +1493,7 @@ EOT;
 		<select $id name="$name" class="$class">
 			<option$disabled value="$value"$selected>$caption/</option>
 EOT;
-		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
+		self::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
 		echo <<< EOT
 		</select>
 EOT;
@@ -1516,4 +1518,17 @@ LINK;
 		}
 	}
 
+	/**
+	 * Get the value for a specific PluXml configuration key
+	 * (data/configuration/parametres.xml)
+	 * 
+	 * @param String $param
+	 * @return mixed
+	 * @author Pedro "P3ter" CADETE
+	 */
+	public static function getConfigParam(String $param) {
+
+		$plxMotor = plxMotor::getInstance();
+		return $plxMotor->aConf[$param];
+	}
 }
