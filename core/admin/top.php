@@ -16,18 +16,18 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="theme/plucss.css?v=<?php echo PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="theme/theme.css?v=<?php echo PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" href="theme/fontello/css/fontello.css" media="screen" />
+	<link rel="icon" href="theme/images/favicon.png" />
 <?php
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 	plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'].'admin.css', true);
 ?>
-	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="../lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="../lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="../lib/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script defer src="../lib/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
