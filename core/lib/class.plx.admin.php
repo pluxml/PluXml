@@ -81,61 +81,72 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui édite le fichier XML de configuration selon le tableau $global et $content
 	 *
-	 * @param	global	tableau contenant toute la configuration PluXml
 	 * @param	content	tableau contenant la configuration à modifier
 	 * @return	string
 	 * @author	Florent MONTHEL
 	 **/
-	public function editConfiguration($global,$content) {
+	public function editConfiguration($content=false) {
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 
-		foreach($content as $k=>$v) {
-			if(!in_array($k,array('token','config_path'))) # parametres à ne pas mettre dans le fichier
-				$global[$k] = $v;
+		if(!empty($content)) {
+			foreach($content as $k=>$v) {
+				if(!in_array($k,array('token','config_path'))) # parametres à ne pas mettre dans le fichier
+					$this->aConf[$k] = $v;
+			}
 		}
+
 		# On teste la clef
-		if(empty($global['clef'])) $global['clef'] = plxUtils::charAleatoire(15);
+		if(empty($this->aConf['clef'])) $this->aConf['clef'] = plxUtils::charAleatoire(15);
 
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-		foreach($global as $k=>$v) {
+		ob_start();
+?>
+<document>
+<?php
+		foreach($this->aConf as $k=>$v) {
 			if($k!='racine') {
-				if(is_numeric($v))
-					$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
-				else
-					$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+				$value = is_numeric($v) ? $v : '<![CDATA[' . plxUtils::cdataCheck($v) . ']]>';
+?>
+	<parametre name="<?= $k ?>"><?= $value ?></parametre>
+<?php
 			}
 		}
-		$xml .= "</document>";
+?>
+</document>
+<?php
 
 		# On réinitialise la pagination au cas où modif de bypage_admin
 		unset($_SESSION['page']);
 
-		# On réactulise la langue
-		$_SESSION['lang'] = $global['default_lang'];
+		# On réactualise la langue
+		$_SESSION['lang'] = $this->aConf['default_lang'];
 
 		# Actions sur le fichier htaccess
-		if(isset($content['urlrewriting']))
-			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
+		if(!empty($content['urlrewriting']))
+			if(!$this->htaccess($content['urlrewriting'], $this->aConf['racine']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
 		# Mise à jour du fichier parametres.xml
-		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
+		if(!plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PARAMETERS')))
 			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
 
 		# Si nouvel emplacement du dossier de configuration
 		if(isset($content['config_path'])) {
-			$newpath=trim($content['config_path']);
-			if($newpath!=PLX_CONFIG_PATH) {
+			$newpath = trim($content['config_path']);
+			if($newpath != PLX_CONFIG_PATH) {
 				# relocalisation du dossier de configuration de PluXml
-				if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
+				if(!rename(PLX_ROOT.PLX_CONFIG_PATH, PLX_ROOT . $newpath))
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
 				# mise à jour du fichier de configuration config.php
-				if(!plxUtils::write("<?php define('PLX_CONFIG_PATH', '".$newpath."') ?>", PLX_ROOT.'config.php'))
-					return plxMsg::Error(L_SAVE_ERR.' config.php');
+				$output = <<< OUTPUT
+<?php const PLX_CONFIG_PATH = '$newpath') ?>
+
+OUTPUT;
+				if(!plxUtils::write($output, PLX_ROOT . 'config.php'))
+					return plxMsg::Error(L_SAVE_ERR . ' config.php');
 			}
 		}
 
@@ -757,9 +768,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$filename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$this->aStats[$static_id]['url'].'.php';
 				if(is_file($filename)) unlink($filename);
 				# si la page statique supprimée est la page d'accueil on met à jour le parametre
-				if($static_id==$this->aConf['homestatic']) {
-					$this->aConf['homestatic']='';
-					$this->editConfiguration($this->aConf,$this->aConf);
+				if($static_id == $this->aConf['homestatic']) {
+					$this->aConf['homestatic'] = '';
+					$this->editConfiguration();
 				}
 				unset($this->aStats[$static_id]);
 				$action = true;

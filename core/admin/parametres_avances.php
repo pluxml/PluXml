@@ -16,8 +16,9 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # On édite la configuration
 if(!empty($_POST)) {
-	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
-	unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
+	$plxAdmin->editConfiguration($_POST);
+	# réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
+	unset($_SESSION['medias']);
 	header('Location: parametres_avances.php');
 	exit;
 }

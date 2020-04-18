@@ -122,7 +122,7 @@ if (!isset($_GET['code'])) {
     $tokenToStore['smtpOauth2_refreshToken'] = $token->getRefreshToken();
     // Store the token in the PluXMl configuration and redirect to the administration page
     if (!empty($tokenToStore)) {
-    	$plxAdmin->editConfiguration($plxAdmin->aConf, $tokenToStore);
+    	$plxAdmin->editConfiguration($tokenToStore);
     }
     header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
 }
