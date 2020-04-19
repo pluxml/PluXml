@@ -829,28 +829,29 @@ class plxMotor {
 	 * @param	start	commencement
 	 * @param	limite	nombre de commentaires à retourner
 	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
-	 * @return	null
-	 * @author	Florent MONTHEL, Stephane F
+	 * @return	bool	true if there is comments else false
+	 * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
 	public function getCommentaires($motif,$ordre='sort',$start=0,$limite=false,$publi='before') {
 
 		# On récupère les fichiers des commentaires
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
-			foreach($aFiles as $k=>$v)
+			foreach($aFiles as $k=>$v) {
 				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
+			}
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
-			if( !(defined('plxAdmin::PLX_ADMIN') OR defined('plxFeed::PLX_FEED')) OR preg_match('#comment_new#',basename($_SERVER['SCRIPT_NAME']))) {
+			if (!preg_match('#comments#',basename($_SERVER['SCRIPT_NAME']))) {
 				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
 
 			# On stocke les enregistrements dans un objet plxRecord
 			$this->plxRecord_coms = new plxRecord($array);
 
-			return true;
 		}
-		else return false;
+
+		return !empty($aFiles);
 	}
 
 	/**

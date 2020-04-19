@@ -7,6 +7,7 @@ FIX Headline and Tags toggles always closed in article edition #382 (sudwebdesig
 FIX Error when adding or modifying a user #393 (P3ter)
 FIX Alternative to PHPMailer with sendmail #401 (bazooka07)
 FIX Used of an extern URL as a static page #403 (bazooka07)
+FIX Comments list sorting #419 (P3ter)
 
 ## PLUXML 5.8.2 (2020/02/09) ##
 [+] #371 Check PluXml update using javascript if "curl" or "file_get_contents" can not be used (bazooka07)
