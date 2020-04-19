@@ -1,5 +1,6 @@
 ## PLUXML 5.8.3 (yyyy/mm/dd) ##
 [+] New "rename" and "copy to clipboard" icons in medias administration page #387 (bazooka07)
+[+] Add Fontello config.json and new icons #417 (bazooka07)
 [+] Enable or disable short words removal in URL generation, disabled by default (P3ter)
 [+] Add plxUtils::getConfigParam() which return the value of a specific PluXml configuration key (P3ter)
 [+] Enhancement for CSRF token #385 (bazooka07)
