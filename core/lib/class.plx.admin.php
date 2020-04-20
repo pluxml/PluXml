@@ -444,8 +444,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
-	 * @param	$content	array les informations sur les utilisateurs
-	 * @param	$save		bool les catégories dans un fichier .xml
+	 * @param	content	tableau les informations sur les utilisateurs
+	 * @param	$save	enregistre les catégories dans un fichier .xml
 	 * @return	string
 	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/
