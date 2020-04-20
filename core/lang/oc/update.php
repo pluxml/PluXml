@@ -15,7 +15,7 @@ const L_UPDATE_START					= 'Amodar la mesa a jorn';
 
 const L_UPDATE_ENDED					= 'Mesa a jorn de la version %s terminada.';
 const L_UPDATE_INPROGRESS				= 'Aplicacions de las mesas a jorn version';
-const L_UPDATE_ERROR					= 'Una error s\'es produsida al temps de la mesa a jorn.';
+const L_UPDATE_ERROR					= 'Una error s\'es produsida al temps de la mesa a jorn (%s).';
 const L_UPDATE_SUCCESSFUL				= 'Totas las mesas a jorn son estadas aplicadas amb succès !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Mesa a jorn del fichièr parametres.xml';

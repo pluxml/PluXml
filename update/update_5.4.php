@@ -2,10 +2,12 @@
 /**
  * Classe de mise a jour pour PluXml version 5.4
  *
+ * Release on 13 Jul 2015
+ *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, J.P. Pourrez
  **/
-class update_5_4 extends plxUpdate{
+class update_5_4 extends plxUpdate {
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
@@ -14,17 +16,18 @@ class update_5_4 extends plxUpdate{
 		if(!is_dir(PLX_ROOT.'data/medias')) {
 			@mkdir(PLX_ROOT.'data/medias',0755,true);
 		}
-		# nouveaux paramètres
-		$new_parameters = array();
-		$new_parameters['custom_admincss_file'] = '';
-		if(!isset($this->plxAdmin->aConf['images']) OR empty($this->plxAdmin->aConf['images']))
-			$new_parameters['medias'] = 'data/medias/';
-		else
-			$new_parameters['medias'] = $this->plxAdmin->aConf['images']; 
+
+		# nouveaux dossier pour les médias
+		$medias = empty($this->plxAdmin->aConf['images']) ? dirname(PLX_CONFIG_PATH) . '/medias/' : $this->plxAdmin->aConf['images'];
+
 		# on supprime les paramètres obsolètes
 		unset($this->plxAdmin->aConf['images']);
 		unset($this->plxAdmin->aConf['documents']);
-		$this->updateParameters($new_parameters);
+
+		echo $this->updateParameters(array(
+			'custom_admincss_file'	=> '',
+			'medias'				=> $medias;
+		));
 		return true; # pas d'erreurs
 	}
 

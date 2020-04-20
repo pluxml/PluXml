@@ -15,7 +15,7 @@ const L_UPDATE_START					= 'Come¸ar a actualização';
 
 const L_UPDATE_ENDED					= 'Actualização terminada.';
 const L_UPDATE_INPROGRESS				= 'Aplicação das actualizações';
-const L_UPDATE_ERROR					= 'Um erro ocorreu durante o processo de actualização.';
+const L_UPDATE_ERROR					= 'Ocorreu um erro ao atualizar na etapa %s.';
 const L_UPDATE_SUCCESSFUL				= 'Todas a actualizaçõés foram aplicadas com sucesso !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Actualização do ficheiro... parametres.xml';

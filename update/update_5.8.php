@@ -2,6 +2,8 @@
 /**
  * Classe de mise a jour pour PluXml version 5.8
  *
+ * Release on 5 Jan 2020
+ *
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
@@ -9,22 +11,22 @@ class update_5_8 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml (récupération du mot de passe)
 	public function step1() {
-	echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
 
-		$new_parameters = array();
-		$new_parameters['enable_rss'] = '1';
-		$new_parameters['lostpassword'] = '1';
-		$new_parameters['email_method'] = 'sendmail';
-		$new_parameters['smtp_server'] = '';
-		$new_parameters['smtp_username'] = '';
-		$new_parameters['smtp_password'] = '';
-		$new_parameters['smtp_port'] = '465';
-		$new_parameters['smtp_security'] = 'ssl';
-		$new_parameters['smtpOauth2_emailAdress'] = '';
-		$new_parameters['smtpOauth2_clientId'] = '';
-		$new_parameters['smtpOauth2_clientSecret'] = '';
-		$new_parameters['smtpOauth2_refreshToken'] = '';
-		$this->updateParameters ( $new_parameters );
+		echo $this->updateParameters(array(
+			'enable_rss'				=> '1',
+			'lostpassword'				=> '1',
+			'email_method'				=> 'sendmail',
+			'smtp_server'				=> '',
+			'smtp_username'				=> '',
+			'smtp_password'				=> '',
+			'smtp_port'					=> '465',
+			'smtp_security'				=> 'ssl',
+			'smtpOauth2_emailAdress'	=> '',
+			'smtpOauth2_clientId'		=> '',
+			'smtpOauth2_clientSecret'	=> '',
+			'smtpOauth2_refreshToken'	=> ''
+		));
 
 		return true;
 	}

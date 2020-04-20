@@ -7,12 +7,43 @@
  * @author	Stephane F
  **/
 
-define('PLX_UPDATE', PLX_ROOT.'update/');
+if(!defined('PLX_ROOT')) { exit; }
+
+const PLX_UPDATE = PLX_ROOT . 'update/';
 
 class plxUpdater {
 
-	public $newVersion = '';
-	public $oldVersion = '' ;
+	const VERSIONS = array (
+		'4.2',
+		'4.3',
+		'4.3.1',
+		'4.3.2',
+		'5.0',
+		'5.0.1',
+		'5.0.2',
+		'5.1',
+		'5.1.1',
+		'5.1.2',
+		'5.1.3',
+		'5.1.4',
+		'5.1.5',
+		'5.1.6',
+		'5.1.7',
+		'5.2',
+		'5.3',
+		'5.3.1',
+		'5.4',
+		'5.5',
+		'5.6',
+		'5.7',
+		'5.8',
+		'5.8.1',
+		'5.8.2',
+		'5.8.3'
+	);
+
+	public $newVersion = '1.0.0';
+	public $oldVersion = '1.0.0' ;
 	public $allVersions = null;
 
 	public $plxAdmin; # objet plxAdmin
@@ -24,8 +55,7 @@ class plxUpdater {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function __construct($versions) {
-		$this->allVersions = $versions;
+	public function __construct() {
 		$this->plxAdmin = plxAdmin::getInstance();
 		$this->getVersions();
 	}
@@ -40,10 +70,8 @@ class plxUpdater {
 	public function startUpdate($version='') {
 
 		# suppression des versions qui ont déjà été mises à jour
-		$offset = array_search($version, array_keys($this->allVersions));
-		if($offset!='') {
-			$this->allVersions = array_slice($this->allVersions, $offset+1, null, true);
-		}
+		$offset = array_search($version, self::VERSIONS);
+		$this->allVersions = ($offset !== false) ? array_slice(self::VERSIONS, $offset+1, null, true) : self::VERSIONS;
 
 		# démarrage des mises à jour
 		if($this->doUpdate())
@@ -77,65 +105,63 @@ class plxUpdater {
 	 * Méthode qui met à jour le n° de version dans le fichier parametres.xml
 	 *
 	 * @return	null
-	 * @author	Stéphane F
+	 * @author	Stéphane F, J.P. Pourrez
+	 *
+	 * 2020-04-20 : PluXml 5.8.3 réduction des paramètres de plxAdmin::editConfiguration()
 	 **/
 	public function updateVersion() {
 
 		# on relit le fichier de paramètre pour récupérer les éventuels nouveaux ajoutés par la mise à jour
-		$new_params = array();
 		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
-		$new_params['version'] = $this->newVersion;
-		$this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $new_params);
+		$this->plxAdmin->editConfiguration(array(
+			'version'	=> $this->newVersion
+		));
 		printf(L_UPDATE_ENDED.'<br />', $this->newVersion);
 	}
 
 	/**
-	 * Méthode qui execute les mises à jour étape par étape
+	 * Méthode qui execute les mises à jour étape par étape pour chaque version
 	 *
-	 * @return	boolean
+	 * @return	boolean true if success
 	 * @author	Stéphane F
+	 * 2020-04-20 : optimisation code
 	 **/
 	public function doUpdate() {
+		foreach($this->allVersions as $num_version) {
+			$filename = PLX_UPDATE . 'update_' . $num_version . '.php';
 
-		$errors = false;
-		foreach($this->allVersions as $num_version => $upd_filename) {
+			if(!file_exists($filename)) { continue; }
 
-			if($upd_filename!='') {
+?>
+	<p><strong><?= L_UPDATE_INPROGRESS ?> <?= $num_version ?></strong>
+<?php
+			# inclusion du fichier de mise à jour
+			include $filename;
 
-				echo '<p><strong>'.L_UPDATE_INPROGRESS.' '.$num_version.'</strong></p>';
-				# inclusion du fichier de mise à jour
-				include(PLX_UPDATE.$upd_filename);
+			# création d'un instance de l'objet de mise à jour
+			$class_name = 'update_'.str_replace('.', '_', $num_version);
+			$class_update = new $class_name();
 
-				# création d'un instance de l'objet de mise à jour
-				$class_name = 'update_'.str_replace('.', '_', $num_version);
-				$class_update = new $class_name();
-
-				# appel des différentes étapes de mise à jour
-				$next = true;
-				$step = 1;
-				while($next AND !$errors) {
-					$method_name = 'step'.$step;
-					if(method_exists($class_name, $method_name)) {
-						if(!$class_update->$method_name()) {
-							$errors = true; # erreur détectée
-						} else {
-							$step++; # étape suivante
-						}
-					}
-					else $next = false;
+			# appel des différentes étapes de mise à jour. 10 étapes maxi
+			for($step=1; $step<10; $step++) {
+				$method_name = 'step' . $step;
+				if(!method_exists($class_name, $method_name)) {
+					break;
 				}
-				echo '<br />';
+
+				if(!$class_update->$method_name()) {
+?>
+	<p class="error"><?= printf(L_UPDATE_ERROR, $step) ?></p>
+<?php
+					return false;
+					break; # erreur détectée
+				}
 			}
-
 		}
-		echo '<br />';
-
-		if($errors)
-			echo '<p class="error">'.L_UPDATE_ERROR.'</p>';
-		else
-			echo '<p class="msg">'.L_UPDATE_SUCCESSFUL.'</p>';
-
-		return !$errors;
+?>
+	<p class="msg"><?php L_UPDATE_SUCCESSFUL ?></p>
+<?php
+		return true;
 	}
 
 }
@@ -144,7 +170,8 @@ class plxUpdater {
  * Classe plxUpdate responsable d'exécuter des actions de mises à jour
  *
  * @package PLX
- * @author	Stephane F
+ * @author	Stephane F, J.P. Pourrez
+ *
  **/
 class plxUpdate {
 
@@ -154,27 +181,33 @@ class plxUpdate {
 	 * Constructeur qui initialise l'objet plxAdmin par référence
 	 *
 	 * @return	null
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
+	 *
+	 * 2020-04-20 : correction plxAdmin->aConf['plugins']
 	 **/
 	public function __construct() {
 		$this->plxAdmin = plxAdmin::getInstance();
 		if(!isset($this->plxAdmin->aConf['plugins']))
-			$this->plxAdmin->aConf['plugins']='data/configuration/plugins.xml';
+			$this->plxAdmin->aConf['plugins'] = PLX_CONFIG_PATH . 'plugins/';
 	}
 
 	/**
+	 *
+	 *
 	 * Méthode qui met à jour le fichier parametre.xml en important les nouveaux paramètres
 	 *
 	 * @param	new_params		tableau contenant la liste des nouveaux paramètres avec leur valeur par défaut.
 	 * @return	string
 	 * @author	Stéphane F
+	 *
+	 * PluXml 5.8.3 : Réduction paramètres pour plxAdmin::editConfiguration()
 	 **/
 	public function updateParameters($new_params) {
 
 		# enregistrement des nouveaux paramètres
-		$ret = $this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $new_params);
+		$message = $this->plxAdmin->editConfiguration($new_params);
 		# valeur de retour
-		return $ret.'<br />';
+		return '<p>' . $message . '</p>';
 
 	}
 

@@ -15,7 +15,7 @@ const L_UPDATE_START					= 'Start actualizare';
 
 const L_UPDATE_ENDED					= 'Actualizarea versiunii, %s finalizate.';
 const L_UPDATE_INPROGRESS				= 'Cerere versiune actualizari';
-const L_UPDATE_ERROR					= 'O eroare a fost generata in timpul actualizarii.';
+const L_UPDATE_ERROR					= 'A apărut o eroare la actualizarea la pasul %s.';
 const L_UPDATE_SUCCESSFUL				= 'Toate actualizarile au fost aplicate cu succes !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Fisierul de actualizare parametres.xml';

@@ -2,6 +2,8 @@
 /**
  * Classe de mise a jour pour PluXml version 5.8
  *
+ * Release on on 7 Jan 2020
+ *
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
@@ -13,6 +15,7 @@ class update_5_8_1 extends plxUpdate{
 	 */
 	public function step1() {
 		echo L_UPDATE_FILE." (".path('XMLFILE_CATEGORIES').")<br />";
+
 		$data = file_get_contents(path('XMLFILE_CATEGORIES'));
 		$tag = 'categorie';
 		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
@@ -29,7 +32,7 @@ class update_5_8_1 extends plxUpdate{
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Update users file with new fields password_token, password_token_expiry
 	 * @return boolean
@@ -52,7 +55,7 @@ class update_5_8_1 extends plxUpdate{
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Create data/templates folder if is missing
 	 * @return boolean
