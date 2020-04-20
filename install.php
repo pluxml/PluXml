@@ -101,6 +101,7 @@ $config = array(
     'racine_statiques' => $root . 'statiques/',
     'racine_themes' => 'themes/',
     'racine_plugins' => 'plugins/',
+    'custom_admincss_file' => '',
     'homestatic' => '',
     'hometemplate' => 'home.php',
     'urlrewriting' => 0,
@@ -110,7 +111,6 @@ $config = array(
     'default_lang' => $lang,
     'userfolders' => 0,
     'display_empty_cat' => 0,
-    'custom_admincss_file' => '',
     'email_method' => 'sendmail',
     'smtp_server' => '',
     'smtp_username' => '',
@@ -135,8 +135,7 @@ foreach ($folders as $f) {
     }
 }
 
-function install($content, $config)
-{
+function install($content, $config) {
 
     // Initialisation du timezone
     if (isset($_POST['timezone'])) {
@@ -153,29 +152,28 @@ function install($content, $config)
     ?>
 <document>
 <?php
-    foreach ($config as $k => $v) {
-        $no_quotes = (empty($v) or is_numeric($v) or preg_match('~^(?:tri|email_method|clef|default_lang|smtp_security|version|racine_|medias|style)~', $k));
-        ?>
-	<parametre name="<?= $k ?>"><?= $no_quotes ? $v : '<![CDATA[' . plxUtils::cdataCheck($v) . ']]>' ?></parametre>
+	foreach ($config as $k => $v) {
+?>
+	<parametre name="<?= $k ?>"><?= plxUtils::cdataCheck($v) ?></parametre>
 <?php
     }
-    ?>
+?>
 </document>
 <?php
-    $xml = XML_HEADER . ob_get_clean();
-    plxUtils::write($xml, path('XMLFILE_PARAMETERS'));
+    plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PARAMETERS'));
 
     // Création du fichier des utilisateurs
     $salt = plxUtils::charAleatoire(10);
     ob_start();
-    ?>
+?>
 <document>
 	<user number="001" active="1" profil="0" delete="0">
-		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
-		<name><![CDATA[<?= trim($content['name']) ?>]]></name>
+		<login><?= trim($content['login']) ?></login>
+		<name><?= plxUtils::cdataCheck(trim($content['name'])) ?></name>
 		<infos></infos>
 		<password><?= sha1($salt.md5(trim($content['pwd']))) ?></password>
-		<salt><?= $salt ?></salt> <email><?= trim($content['email']) ?></email>
+		<salt><?= $salt ?></salt>
+		<email><?= trim($content['email']) ?></email>
 		<lang><?= $config['default_lang'] ?></lang>
 	</user>
 </document>
@@ -185,14 +183,14 @@ function install($content, $config)
 
     // Création du fichier des categories
     ob_start();
-    ?>
+?>
 <document>
 <?php
     if ($content['data'] > 0) {
 ?>
 	<categorie number="001" active="1" homepage="1" tri="<?= $config['tri'] ?>" bypage="<?= $config['bypage'] ?>" menu="oui" url="<?= L_DEFAULT_CATEGORY_URL ?>" template="categorie.php">
-		<name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE) ?>]]></name>
-		<description></description>
+		<name><?= plxUtils::cdataCheck(plxUtils::strRevCheck(L_DEFAULT_CATEGORY_TITLE)) ?></name>
+		<description>Sample</description>
 		<meta_description></meta_description>
 		<meta_keywords></meta_keywords>
 		<title_htmltag></title_htmltag>
@@ -202,25 +200,24 @@ function install($content, $config)
 	</categorie>
 <?php
     }
-    ?>
+?>
 </document>
 <?php
-    $xml = XML_HEADER . ob_get_clean();
-    plxUtils::write($xml, path('XMLFILE_CATEGORIES'));
+    plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_CATEGORIES'));
 
     // Création du fichier des pages statiques
     ob_start();
-    ?>
+?>
 <document>
 <?php
 	if ($content['data'] > 0) {
 ?>
 	<statique number="001" active="1" menu="oui" url="<?= L_DEFAULT_STATIC_URL ?>" template="static.php">
 		<group></group>
-		<name><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE) ?>]]></name>
+		<name><?= plxUtils::cdataCheck(plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE)) ?></name>
 		<meta_description></meta_description>
 		<meta_keywords></meta_keywords>
-		<title_htmltag></title_htmltag>
+		<title_htmltag>plxUtils::cdataCheck('Sample of a static page')</title_htmltag>
 		<date_creation><?= date('YmdHi') ?></date_creation>
 		<date_update><?= date('YmdHi') ?></date_update>
 	</statique>
@@ -242,13 +239,20 @@ function install($content, $config)
 
         // Création du premier article
         ob_start();
-        ?>
+?>
 <document>
-<title><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE) ?>]]></title>
-<allow_com>1</allow_com> <template>article.php</template> <chapo><![CDATA[<?= $chapo ?>]]></chapo>
-<content><![CDATA[<?= $article ?>]]></content> <tags>PluXml</tags> <meta_description></meta_description>
-<meta_keywords></meta_keywords> <title_htmltag></title_htmltag> <date_creation><?= date('YmdHi') ?></date_creation>
-<date_update><?= date('YmdHi') ?></date_update> <thumbnail>core/admin/theme/images/pluxml.png</thumbnail>
+	<title><?= plxUtils::cdataCheck(plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE)) ?></title>
+	<allow_com>1</allow_com>
+	<template>article.php</template>
+	<chapo><?= plxUtils::cdataCheck($chapo) ?></chapo>
+	<content><?= plxUtils::cdataCheck($article) ?></content>
+	<tags>PluXml</tags>
+	<meta_description>A sample of article</meta_description>
+	<meta_keywords>pluxml</meta_keywords>
+	<title_htmltag></title_htmltag>
+	<date_creation><?= date('YmdHi') ?></date_creation>
+	<date_update><?= date('YmdHi') ?></date_update>
+	<thumbnail>core/admin/theme/images/pluxml.png</thumbnail>
 </document>
 <?php
         $xml = XML_HEADER . ob_get_clean();
@@ -289,9 +293,9 @@ function install($content, $config)
 		<author>pluxml</author>
 		<type>normal</type>
 		<ip>127.0.0.1</ip>
-		<mail><![CDATA[contact@pluxml.org]]></mail>
-		<site><![CDATA[<?= PLX_URL_REPO ?>]]></site>
-		<content><![CDATA[<?= plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT) ?>]]></content>
+		<mail>contact@pluxml.org</mail>
+		<site><?= PLX_URL_REPO ?></site>
+		<content><?= plxUtils::cdataCheck(plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT)) ?></content>
 	</comment>
 </document>
 <?php

@@ -953,21 +953,31 @@ class plxMotor {
 	public function addCommentaire($content) {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
+
 		# On genere le contenu de notre fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<comment>\n";
-		$xml .= "\t<author><![CDATA[".plxUtils::cdataCheck($content['author'])."]]></author>\n";
-		$xml .= "\t<type>".$content['type']."</type>\n";
-		$xml .= "\t<ip>".$content['ip']."</ip>\n";
-		$xml .= "\t<mail><![CDATA[".plxUtils::cdataCheck($content['mail'])."]]></mail>\n";
-		$xml .= "\t<site><![CDATA[".plxUtils::cdataCheck($content['site'])."]]></site>\n";
-		$xml .= "\t<content><![CDATA[".plxUtils::cdataCheck($content['content'])."]]></content>\n";
-		$xml .= "\t<parent><![CDATA[".plxUtils::cdataCheck($content['parent'])."]]></parent>\n";
+		ob_start();
+?>
+<comment>
+	<author><?= plxUtils::cdataCheck($content['author']) ?></author>
+	<type><?= $content['type'] ?></type>
+	<ip><?= $content['ip'] ?></ip>
+	<mail><?= plxUtils::cdataCheck($content['mail']) ?></mail>
+	<site><?= plxUtils::cdataCheck($content['site']) ?></site>
+	<content><?= plxUtils::cdataCheck($content['content']) ?></content>
+	<parent><?= plxUtils::cdataCheck($content['parent']) ?></parent>
+<?php
 		# Hook plugins
+		$xml = '';
 		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
-		$xml .= "</comment>\n";
+		if(!empty($xml)) {
+			echo $xml;
+		}
+
+?>
+</comment>
+<?php
 		# On ecrit ce contenu dans notre fichier XML
-		return plxUtils::write($xml, PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
+		return plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $this->aConf['racine_commentaires'] . $content['filename']);
 	}
 
 	/**
