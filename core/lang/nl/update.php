@@ -15,7 +15,7 @@ const L_UPDATE_START					= 'Start het bijwerken';
 
 const L_UPDATE_ENDED					= 'Het bijwerken van de %s versie is afgerond.';
 const L_UPDATE_INPROGRESS				= 'Bezig met bijwerken van de versie';
-const L_UPDATE_ERROR					= 'Er is een fout opgetreden tijdens het bijwerken.';
+const L_UPDATE_ERROR					= 'Er is een fout opgetreden bij het bijwerken in stap # %s.';
 const L_UPDATE_SUCCESSFUL				= 'Alle bijwerkingen zijn succesvol doorgevoerd !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Bijwerken van het bestand parametres.xml';

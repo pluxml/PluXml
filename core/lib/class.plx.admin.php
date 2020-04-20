@@ -1303,6 +1303,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editTags() {
 
 		# Génération du fichier XML
+		ksort();
 		ob_start();
 ?>
 <document>

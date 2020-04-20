@@ -14,7 +14,7 @@ const L_UPDATE_START					= 'Démarrer la mise à jour';
 
 const L_UPDATE_ENDED					= 'Mise à jour de la version %s terminée.';
 const L_UPDATE_INPROGRESS				= 'Applications des mises à jour version';
-const L_UPDATE_ERROR					= 'Une erreur s\'est produite pendant la mise à jour.';
+const L_UPDATE_ERROR					= 'Une erreur s\'est produite lors de la mise à jour à l\'étape %s.';
 const L_UPDATE_SUCCESSFUL				= 'Toutes les mises à jour ont été appliquées avec succès !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Mise à jour du fichier parametres.xml';

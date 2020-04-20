@@ -2,6 +2,8 @@
 /**
  * Classe de mise a jour pour PluXml version 5.5
  *
+ * Release on 4 Apr 2016
+ *
  * @package PLX
  * @author	Stephane F
  **/

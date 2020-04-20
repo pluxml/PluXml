@@ -374,6 +374,7 @@ class plxMotor {
 		}
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
+
 		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
 		$this->aConf['bypage_admin'] = plxUtils::getValue($this->aConf['bypage_admin'],10);
 		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);

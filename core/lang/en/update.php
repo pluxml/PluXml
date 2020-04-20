@@ -15,7 +15,7 @@ const L_UPDATE_START					= 'Start the update';
 
 const L_UPDATE_ENDED					= 'Update complete';
 const L_UPDATE_INPROGRESS				= 'Applying version updates';
-const L_UPDATE_ERROR					= 'An error occured during the update.';
+const L_UPDATE_ERROR					= 'An error occured for updating at step #%s.';
 const L_UPDATE_SUCCESSFUL				= 'All the updates were successfully completed !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Updating parametres.xml';
