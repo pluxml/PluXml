@@ -42,8 +42,8 @@ class plxUpdater {
 		'5.8.3'
 	);
 
-	public $newVersion = '1.0.0';
-	public $oldVersion = '1.0.0' ;
+	public $newVersion = '';
+	public $oldVersion = '' ;
 	public $allVersions = null;
 
 	public $plxAdmin; # objet plxAdmin
@@ -87,10 +87,12 @@ class plxUpdater {
 	public function getVersions() {
 
 		# Récupère l'ancien n° de version de Pluxml
-		if(isset($this->plxAdmin->aConf['version']))
-			$this->oldVersion = $this->plxAdmin->aConf['version'];
-		if(!isset($this->allVersions[$this->oldVersion]))
-			$this->oldVersion='';
+		if(array_key_exists('version', $this->plxAdmin->aConf)) {
+			$version = $this->plxAdmin->aConf['version'];
+			if(in_array($version, self::VERSIONS)) {
+				$this->oldVersion = $version;
+			}
+		}
 
 		# Récupère le nouveau n° de version de PluXml
 		if(defined('PLX_VERSION')) { # PluXml à partir de la version 5.5

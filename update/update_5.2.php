@@ -17,9 +17,12 @@ class update_5_2 extends plxUpdate{
 		unset($this->plxAdmin->aConf['racine']);
 
 		# mise à jour du fichier des parametres
+		/*
+		 * Inutile! Voir non-régression dans plxMotor::getConfiguration()
 		echo $this->updateParameters(array(
 			'hometemplate' => 'home.php'
 		));
+		* */
 		return true; # pas d'erreurs
 	}
 
@@ -27,7 +30,7 @@ class update_5_2 extends plxUpdate{
 	public function step2() {
 		echo L_UPDATE_UPDATE_PLUGINS_FILE."<br />";
 		# récupération de la liste des plugins
-		$aPlugins = $this->loadConfig();
+		$aPlugins = $this->loadPluginsConfig();
 		# Migration du format du fichier plugins.xml
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
@@ -51,11 +54,10 @@ class update_5_2 extends plxUpdate{
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function loadConfig() {
-
-		$aPlugins = array();
+	public function loadPluginsConfig() {
 
 		if(!is_file(path('XMLFILE_PLUGINS'))) return false;
+
 		# Mise en place du parseur XML
 		$data = implode('',file(path('XMLFILE_PLUGINS')));
 		$parser = xml_parser_create(PLX_CHARSET);
@@ -63,23 +65,23 @@ class update_5_2 extends plxUpdate{
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
+
 		# On verifie qu'il existe des tags "plugin"
 		if(isset($iTags['plugin'])) {
-			# On compte le nombre de tags "plugin"
-			$nb = sizeof($iTags['plugin']);
+			$aPlugins = array();
 			# On boucle sur $nb
-			for($i = 0; $i < $nb; $i++) {
+			for($i = 0, $nb = sizeof($iTags['plugin']); $i < $nb; $i++) {
 				$name = $values[$iTags['plugin'][$i] ]['attributes']['name'];
-				$activate = $values[$iTags['plugin'][$i] ]['attributes']['activate'];
-				$value = isset($values[$iTags['plugin'][$i]]['value']) ? $values[$iTags['plugin'][$i]]['value'] : '';
 				$aPlugins[$name] = array(
-					'activate' 	=> $activate,
-					'title'		=> $value,
+					'activate' 	=> $values[$iTags['plugin'][$i] ]['attributes']['activate'],
+					'title'		=> isset($values[$iTags['plugin'][$i]]['value']) ? $values[$iTags['plugin'][$i]]['value'] : '',
 					'instance'	=> null,
 				);
 			}
+			return $aPlugins;
 		}
-		return $aPlugins;
+
+		return false;
 	}
 
 

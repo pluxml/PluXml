@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 # Création de l'objet principal et lancement du traitement
-$plxUpdater = new plxUpdater($versions);
+$plxUpdater = new plxUpdater();
 
 ?>
 <?php
