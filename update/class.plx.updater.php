@@ -42,8 +42,8 @@ class plxUpdater {
 		'5.8.3'
 	);
 
-	public $newVersion = '1.0.0';
-	public $oldVersion = '1.0.0' ;
+	public $newVersion = '';
+	public $oldVersion = '' ;
 	public $allVersions = null;
 
 	public $plxAdmin; # objet plxAdmin
