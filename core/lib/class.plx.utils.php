@@ -864,15 +864,21 @@ class plxUtils {
 	 * en entités HTML.
 	 *
 	 * @param	str		chaine de caractères à nettoyer
+	 * @param	closure	la chaine de caractères nettoyée sera encadrée par "<![CDATA[ .. ]]>" si besoin
 	 * @return	string	chaine de caractères nettoyée
 	 * @author	Stephane F, J.P. Pourrez
 	 **/
-	public static function cdataCheck($str) {
+	public static function cdataCheck($str, $closure=true) {
 		$value = trim($str);
 		if(empty($value) or is_numeric($value)) { return $value; }
+		# tests $closure in last time : $matches mus be set !!!
 		if(!preg_match('#^<!\[CDATA\[(.*)\]\]>#s', $value, $matches)) {
-			return '<![CDATA[' .
-				str_replace(']]>', ']]&gt;', str_ireplace('!CDATA', '&#33;CDATA', $value)) . ']]>';
+			if($closure) {
+				return '<![CDATA[' .
+					str_replace(']]>', ']]&gt;', str_ireplace('!CDATA', '&#33;CDATA', $value)) . ']]>';
+			} else {
+				return str_replace(']]>', ']]&gt;', str_ireplace('!CDATA', '&#33;CDATA', $value));
+			}
 		}
 		$value = str_replace(']]>', ']]&gt;', preg_replace('#<!\[(cdata)\[#i', '&lt;&#33;[$1[', $matches[1]));
 		return '<![CDATA[' . $value . ']]>';

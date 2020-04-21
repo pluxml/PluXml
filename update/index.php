@@ -30,8 +30,8 @@ foreach(ALL_CLASSES as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
 }
 
-include(PLX_ROOT.'update/versions.php');
-include(PLX_ROOT.'update/class.plx.updater.php');
+include PLX_ROOT.'update/versions.php';
+include PLX_ROOT.'update/class.plx.updater.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
