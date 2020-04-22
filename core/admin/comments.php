@@ -19,14 +19,14 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 $plxAdmin->checkProfil(PROFIL_MODERATOR);
 
 # Les commentaires ne sont pas autorisés
-if(empty($plxAdmin->aConf['allow_com']) {
+if(empty($plxAdmin->aConf['allow_com'])) {
 	plxMsg::Error(L_COMMENTS_CLOSED);
 	header('Location: index.php');
 	exit;
 }
 
 # Les commentaires ne sont pas autorisés
-if(empty($plxAdmin->aConf['allow_com']) {
+if(empty($plxAdmin->aConf['allow_com'])) {
 	plxMsg::Error(L_COMMENTS_CLOSED);
 	header('Location: index.php');
 	exit;
