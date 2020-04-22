@@ -21,6 +21,7 @@ const L_SELECT_LANG					= 'Alegeţi limba dorită';
 const L_CONFIRM_PASSWORD			= 'Confirmaţi parola';
 const L_PROFIL_LOGIN				= 'Login';
 const L_INPUT_CHANGE				= 'Schimbă';
+const COMMENTS_CLOSED				= 'Comentariile sunt &#238;nchise';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principala este gasita';
