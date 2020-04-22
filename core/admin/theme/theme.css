@@ -277,7 +277,7 @@ a.btnDelete {
 
 .logout::before {
 	font-family: fontello;
-	content: '\e80a\'';
+	content: '\e80a';
 	transform: rotate(180deg);
 	display: inline-block;
 	margin-right: 1rem;
