@@ -88,7 +88,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					if($_SESSION['profil'] <= PROFIL_MANAGER)
 						$menus[] = plxUtils::formatMenu(L_MENU_STATICS, PLX_CORE.'admin/statiques.php', L_MENU_STATICS_TITLE);
 
-					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+					if(!empty($plxAdmin->aConf['allow_com']) and $_SESSION['profil'] <= PROFIL_MODERATOR) {
 						$nbcoms = $plxAdmin->nbComments('offline');
 						$coms_offline = $nbcoms>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
 						$menus[] = plxUtils::formatMenu(L_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);

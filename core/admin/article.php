@@ -532,17 +532,22 @@ function refreshImg(dta) {
 						</div>
 					</div>
 				</div>
-
+<?php
+if(!empty($plxAdmin->aConf['allow_com']) and $_SESSION['profil'] <= PROFIL_MODERATOR) {
+?>
 				<div class="grid">
 					<div class="col sml-12">
-						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
 						<label for="id_allow_com"><?php echo L_ALLOW_COMMENTS ?>&nbsp;:</label>
 						<?php plxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
-						<?php else: ?>
-						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
-						<?php endif; ?>
 					</div>
 				</div>
+<?php
+} else {
+?>
+						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
+<?php
+}
+?>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_url">
@@ -578,7 +583,9 @@ function refreshImg(dta) {
 
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
 
-				<?php if($artId != '0000') : ?>
+<?php
+if(!empty($plxAdmin->aConf['allow_com']) and $_SESSION['profil'] <= PROFIL_MODERATOR and $artId != '0000') {
+?>
 				<ul class="unstyled-list">
 					<li>
 						<a href="comments.php?a=<?php echo $artId ?>&amp;page=1" title="<?php echo L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?php echo L_ARTICLE_MANAGE_COMMENTS ?></a>
@@ -594,7 +601,9 @@ function refreshImg(dta) {
 					</li>
 					<li><a href="comment_new.php?a=<?php echo $artId ?>" title="<?php echo L_ARTICLE_NEW_COMMENT_TITLE ?>"><?php echo L_CREATE_NEW_COMMENT ?></a></li>
 				</ul>
-				<?php endif; ?>
+<?php
+}
+?>
 
 			</fieldset>
 
