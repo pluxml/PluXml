@@ -21,6 +21,7 @@ const L_SELECT_LANG					= 'Choose your language';
 const L_CONFIRM_PASSWORD			= 'Confirm password';
 const L_PROFIL_LOGIN				= 'Login';
 const L_INPUT_CHANGE				= 'Change';
+const L_COMMENTS_CLOSED				= 'Comments are closed';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Main PluXml theme not found';

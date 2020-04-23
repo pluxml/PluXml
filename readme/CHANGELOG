@@ -21,6 +21,8 @@ FIX Fix medias administration zoombox and javascript optimisations #387 (bazooka
 FIX Error when adding or modifying a user #393 (P3ter)
 FIX Default theme : double underline on footer menu #393 (P3ter)
 FIX Comments list sorting #419 (P3ter)
+FIX Comment editor is empty #418 (P3ter)
+FIX Article edition always show comments as enabled #402 (bazooka07)
 
 ## PLUXML 5.8.2 (2020/02/09) ##
 [+] #371 Check PluXml update using javascript if "curl" or "file_get_contents" can not be used (bazooka07)

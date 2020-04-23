@@ -21,6 +21,7 @@ const L_SELECT_LANG					= 'Seleziona la lingua';
 const L_CONFIRM_PASSWORD			= 'Conferma la password';
 const L_PROFIL_LOGIN				= 'Nome utente';
 const L_INPUT_CHANGE				= 'Cambia';
+const L_COMMENTS_CLOSED				= 'Commenti bloccati';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principale non trovato';

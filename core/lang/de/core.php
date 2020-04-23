@@ -21,6 +21,7 @@ const L_SELECT_LANG				= 'Wählen Sie Ihre Sprache';
 const L_CONFIRM_PASSWORD		= 'Neues Passwort wiederholen';
 const L_PROFIL_LOGIN			= 'Login';
 const L_INPUT_CHANGE			= 'Ändern';
+const L_COMMENTS_CLOSED			= 'Die Kommentare sind geschlossen';
 
 # index.php
 const L_ERR_THEME_NOTFOUND		= 'Der Haupttheme von PluXml konnte nicht gefunden werden.';
