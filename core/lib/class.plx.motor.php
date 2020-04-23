@@ -106,7 +106,20 @@ class plxMotor {
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
-	public $aUsers = array();  # Tableau des utilisateurs
+	public $aUsers = array(  # Tableau des utilisateurs
+		'001'		=> array(
+		'active'	=> 1,
+		'profil'	=> PROFIL_ADMIN,
+		'delete'	=> 0,
+		'login'		=> 'Me',
+		'name'		=> 'Default user',
+		'infos'		=> '',
+		'password'	=> '',
+		'salt'		=> '',
+		'email'		=> '',
+		'lang'		=> '',
+		)
+	);
 	public $aTemplates = null; # Tableau des templates
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
@@ -454,6 +467,7 @@ class plxMotor {
 				$this->aConf[$k] = preg_replace('@^data/@', $root, $this->aConf[$k]);
 			}
 		}
+		$this->aConf['timezone'] = date_default_timezone_get();
 
 		# Mise en place du parseur XML
 		if(!empty($filename) and file_exists($filename)) {
@@ -480,27 +494,6 @@ class plxMotor {
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
 
-		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
-		$this->aConf['bypage_admin'] = plxUtils::getValue($this->aConf['bypage_admin'],10);
-		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
-		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
-		$this->aConf['bypage_archives'] = plxUtils::getValue($this->aConf['bypage_archives'],5);
-		$this->aConf['bypage_tags'] = plxUtils::getValue($this->aConf['bypage_tags'],5);
-		$this->aConf['userfolders'] = plxUtils::getValue($this->aConf['userfolders'],0);
-		$this->aConf['meta_description'] = plxUtils::getValue($this->aConf['meta_description']);
-		$this->aConf['meta_keywords'] = plxUtils::getValue($this->aConf['meta_keywords']);
-		$this->aConf['default_lang'] = plxUtils::getValue($this->aConf['default_lang'],DEFAULT_LANG);
-		$this->aConf['racine_plugins'] = plxUtils::getValue($this->aConf['racine_plugins'], 'plugins/');
-		$this->aConf['racine_themes'] = plxUtils::getValue($this->aConf['racine_themes'], 'themes/');
-		$this->aConf['mod_art'] = plxUtils::getValue($this->aConf['mod_art'],0);
-		$this->aConf['display_empty_cat'] = plxUtils::getValue($this->aConf['display_empty_cat'],0);
-		$this->aConf['timezone'] = plxUtils::getValue($this->aConf['timezone'],@date_default_timezone_get());
-		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
-		# PluXml 5.1.7 et plus
-		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
-
-		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
-		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
 	}
 

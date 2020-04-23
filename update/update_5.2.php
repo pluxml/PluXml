@@ -24,7 +24,6 @@ class update_5_2 extends plxUpdate{
 		echo $this->updateParameters(array(
 			'hometemplate' => 'home.php'
 		));
-		* */
 		return true; # pas d'erreurs
 	}
 	*/
@@ -92,8 +91,7 @@ class update_5_2 extends plxUpdate{
 				$name = $values[$iTags['plugin'][$i] ]['attributes']['name'];
 				$aPlugins[$name] = array(
 					'activate' 	=> $values[$iTags['plugin'][$i] ]['attributes']['activate'],
-					'title'		=> isset($values[$iTags['plugin'][$i]]['value']) ? $values[$iTags['plugin'][$i]]['value'] : '',
-					'instance'	=> null,
+					# 'title'		=> isset($values[$iTags['plugin'][$i]]['value']) ? $values[$iTags['plugin'][$i]]['value'] : '',
 				);
 			}
 			return $aPlugins;
