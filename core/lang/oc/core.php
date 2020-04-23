@@ -22,6 +22,7 @@ const L_CONFIRM_PASSWORD			= 'Confirmacion del senhal';
 const L_PROFIL_LOGIN				= 'Identificant de connexion';
 const L_INPUT_CHANGE				= 'Cambiar';
 const L_COMMENTS_CLOSED				= 'Los comentaris son barrats';
+const L_SITE_DESCRIPTION			= 'Blòg o Cms a l\'Xml !';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Lo tèma principal de PluXml es introbable';

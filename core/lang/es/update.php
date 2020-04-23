@@ -50,4 +50,6 @@ const L_UPDATE_PLUG_MOVEPARAMFILE			= 'Actualización de archivos de parámetros
 const L_UPDATE_UPDATE_PLUGINS_FILE			= 'Actualización del archivo «plugins.xml»';
 const L_UPDATE_COMMENTS_MIGRATION			= 'Comentarios de migración';
 const L_UPDATE_ERR_COMMENTS_MIGRATION		= 'Error al migrar comentarios';
+const L_UPDATE_NEW_FOLDER					= 'nueva carpeta : %s';
+const L_UPDATE_DEPRECATED_PARAMETER			= 'Parámetro obsoleto : %s';
 ?>

@@ -22,6 +22,7 @@ const L_CONFIRM_PASSWORD			= 'Wachtwoord bevestigen';
 const L_PROFIL_LOGIN				= 'Kies uw loginnaam';
 const L_INPUT_CHANGE				= 'Verander';
 const L_COMMENTS_CLOSED				= 'Commentaren zijn afgesloten';
+const L_SITE_DESCRIPTION			= 'Blog of Cms in XML !';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'De standaardlayout van PluXml werd niet gevonden';

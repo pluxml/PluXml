@@ -42,8 +42,8 @@ class plxUpdater {
 		'5.8.3'
 	);
 
-	public $newVersion = '';
-	public $oldVersion = '' ;
+	public $newVersion = false;
+	public $oldVersion = false;
 	public $allVersions = null;
 
 	public $plxAdmin; # objet plxAdmin
@@ -57,6 +57,9 @@ class plxUpdater {
 	 **/
 	public function __construct() {
 		$this->plxAdmin = plxAdmin::getInstance();
+		if(empty(trim($this->plxAdmin->aConf['description']))) {
+			$this->plxAdmin->aConf['description'] = plxUtils::strRevCheck(L_SITE_DESCRIPTION);
+		}
 		$this->getVersions();
 	}
 
@@ -74,8 +77,12 @@ class plxUpdater {
 		$this->allVersions = ($offset !== false) ? array_slice(self::VERSIONS, $offset+1, null, true) : self::VERSIONS;
 
 		# démarrage des mises à jour
-		if($this->doUpdate())
+		if($this->doUpdate()) {
+			# On désactive l'URL-Rewriting par précaution
+			$this->pxAdmin->aConf['urlrewriting'] = 0;
+
 			$this->updateVersion();
+		}
 	}
 
 	/**
@@ -114,11 +121,13 @@ class plxUpdater {
 	public function updateVersion() {
 
 		# on relit le fichier de paramètre pour récupérer les éventuels nouveaux ajoutés par la mise à jour
-		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
+		# $this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
 		$this->plxAdmin->editConfiguration(array(
 			'version'	=> $this->newVersion
 		));
-		printf(L_UPDATE_ENDED.'<br />', $this->newVersion);
+?>
+		<p><strong><?php printf(L_UPDATE_ENDED, $this->newVersion); ?></strong></p>
+<?php
 	}
 
 	/**
@@ -153,7 +162,7 @@ class plxUpdater {
 
 				if(!$class_update->$method_name()) {
 ?>
-	<p class="error"><?= printf(L_UPDATE_ERROR, $step) ?></p>
+	<p class="error"><?php printf(L_UPDATE_ERROR, $step) ?></p>
 <?php
 					return false;
 					break; # erreur détectée
@@ -189,8 +198,10 @@ class plxUpdate {
 	 **/
 	public function __construct() {
 		$this->plxAdmin = plxAdmin::getInstance();
-		if(!isset($this->plxAdmin->aConf['plugins']))
-			$this->plxAdmin->aConf['plugins'] = PLX_CONFIG_PATH . 'plugins/';
+		# Version antérieur à 5.1.7 ???
+		if(array_key_exists('plugins', $this->plxAdmin->aConf)) {
+			unset($this->plxAdmin->aConf['plugins']);
+		}
 	}
 
 	/**

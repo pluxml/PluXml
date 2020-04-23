@@ -50,4 +50,6 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migratie van bestanden van plug-in paramet
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Bijwerken van het bestand plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Migratie opmerkingen';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Fout bij het migreren opmerkingen';
+const L_UPDATE_NEW_FOLDER				= 'Nieuwe map : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Verouderde parameter : %s';
 ?>

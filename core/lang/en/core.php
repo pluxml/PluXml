@@ -22,6 +22,7 @@ const L_CONFIRM_PASSWORD			= 'Confirm password';
 const L_PROFIL_LOGIN				= 'Login';
 const L_INPUT_CHANGE				= 'Change';
 const L_COMMENTS_CLOSED				= 'Comments are closed';
+const L_SITE_DESCRIPTION			= 'Blog or CMS, XML powered !';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Main PluXml theme not found';
