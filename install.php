@@ -7,6 +7,8 @@ const PLX_CORE = PLX_ROOT . 'core/';
 include PLX_ROOT . 'config.php';
 include PLX_CORE . 'lib/config.php';
 
+const PLX_INSTALLER = true;
+
 // On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
@@ -64,6 +66,8 @@ if (isset($_POST['timezone'])) {
 if (! array_key_exists($timezone, plxTimezones::timezones())) {
     $timezone = date_default_timezone_get();
 }
+
+		$this->aConf['description'] = plxUtils::strRevCheck(L_SITE_DESCRIPTION);
 
 // Configuration de base
 $root = dirname(PLX_CONFIG_PATH) . '/';
@@ -353,7 +357,10 @@ plxUtils::cleanHeaders();
 </head>
 <body>
     <main class="main grid">
-        <aside class="aside col med-3 lrg-2"></aside>
+        <aside class="aside col med-3 lrg-2">
+			<p><img src="<?= PLX_CORE ?>admin/theme/images/pluxml.png" alt="Logo" /></p>
+			<p><a href="<?= PLX_URL_REPO ?>" target="_blank"><?= PLX_URL_REPO ?></a></p>
+        </aside>
         <section
             class="section col med-9 med-offset-3 lrg-10 lrg-offset-2"
             style="margin-top: 0">

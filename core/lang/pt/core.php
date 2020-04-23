@@ -22,6 +22,7 @@ const L_CONFIRM_PASSWORD			= 'Confirmação da senha';
 const L_PROFIL_LOGIN				= 'Login de conexão';
 const L_INPUT_CHANGE				= 'Alterar';
 const L_COMMENTS_CLOSED				= 'Os coment&aacute;rios est&atilde;o fechados';
+const L_SITE_DESCRIPTION			= 'Blog ou Cms á Xml !';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principal PluXml não foi encontrado';

@@ -33,7 +33,7 @@ class plxUtils {
 	 * @return	string		valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
-		return (isset($var) ? (!empty($var) ? $var : $default) : $default) ;
+		return (isset($var) and !empty($var)) ? $var : $default;
 	}
 
 	/**
@@ -532,7 +532,7 @@ class plxUtils {
 		}
 
 		$clean_url = self::translitterate(trim(html_entity_decode($url)));
-		
+
 		if(self::getConfigParam('cleanurl') && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, self::REMOVE_WORDS)) {
 			$clean_url = preg_replace('@\b(' . self::REMOVE_WORDS[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
 		}
@@ -1033,7 +1033,7 @@ class plxUtils {
 	/**
 	 * Send an e-mail with PhpMailer class
 	 * TODO use plxUtils::getConfigParam() instead of the $conf parameter
-	 * 
+	 *
 	 * @param	string	$name			Sender's name
 	 * @param	string	$from			Sender's e-mail address
 	 * @param	string	$to				Destination e-mail address
@@ -1539,7 +1539,7 @@ EOT;
 	/**
 	 * Get the value for a specific PluXml configuration key
 	 * (data/configuration/parametres.xml)
-	 * 
+	 *
 	 * @param String $param
 	 * @return mixed
 	 * @author Pedro "P3ter" CADETE

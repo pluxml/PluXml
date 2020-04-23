@@ -9,25 +9,34 @@
  **/
 class update_5_4 extends plxUpdate {
 
-	# mise à jour fichier parametres.xml
+	# Création du dossier pour les médias
+	# Suppression des dossiers images et documents
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<p><?= L_UPDATE_UPDATE_PLUGINS_FILE ?></p>
+<?php
 		# vérification de l'existence des dossiers médias
-		if(!is_dir(PLX_ROOT.'data/medias')) {
-			@mkdir(PLX_ROOT.'data/medias',0755,true);
+		$folder =  PLX_ROOT . $this->plxAdmin->aConf['images'];
+		if(is_dir($folder)) {
+			$this->plxAdmin->aConf['medias'] = $this->plxAdmin->aConf['images'];
+		} else {
+			$folder = PLX_ROOT . $this->plxAdmin->aConf['medias'];
+			@mkdir($folder, 0755, true);
+?>
+		<p><?php printf(L_UPDATE_NEW_FOLDER, $folder); ?></p>
+<?php
 		}
 
-		# nouveaux dossier pour les médias
-		$medias = empty($this->plxAdmin->aConf['images']) ? dirname(PLX_CONFIG_PATH) . '/medias/' : $this->plxAdmin->aConf['images'];
-
 		# on supprime les paramètres obsolètes
-		unset($this->plxAdmin->aConf['images']);
-		unset($this->plxAdmin->aConf['documents']);
+		foreach(array('images', 'documents') as $k) {
+			if(array_key_exists($k, $this->plxAdmin->aConf)) {
+				unset($this->plxAdmin->aConf[$k]);
+?>
+		<p><?php printf(L_UPDATE_DEPRECATED_PARAMETER, $k); ?></p>
+<?php
+			}
+		}
 
-		echo $this->updateParameters(array(
-			'custom_admincss_file'	=> '',
-			'medias'				=> $medias;
-		));
 		return true; # pas d'erreurs
 	}
 

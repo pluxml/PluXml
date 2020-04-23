@@ -22,6 +22,7 @@ const L_CONFIRM_PASSWORD			= 'Confirmaţi parola';
 const L_PROFIL_LOGIN				= 'Login';
 const L_INPUT_CHANGE				= 'Schimbă';
 const COMMENTS_CLOSED				= 'Comentariile sunt &#238;nchise';
+const L_SITE_DESCRIPTION			= 'Site pe baza la Xml !';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principala este gasita';

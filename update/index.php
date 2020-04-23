@@ -2,7 +2,7 @@
 
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
-include PLX_ROOT.'config.php'; # définit PLX_CONFIG
+include PLX_ROOT.'config.php'; # définit PLX_CONFIG_PATH
 include PLX_CORE.'lib/config.php';
 
 # On verifie que PluXml est installé
@@ -77,14 +77,24 @@ plxToken::validateFormToken($_POST);
 </head>
 <body>
 	<main class="main grid">
-		<aside class="aside col med-3 lrg-2">
+		<aside class="aside col med-3 lrg-2 text-center">
+			<p><img src="<?= PLX_CORE ?>admin/theme/images/pluxml.png" alt="Logo" /></p>
+			<p><a href="<?= PLX_URL_REPO ?>" target="_blank"><?= PLX_URL_REPO ?></a></p>
 		</aside>
 		<section class="section col med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top: 0">
 			<header>
 				<h1><?= L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?></h1>
 			</header>
 <?php
-if(empty($_POST['submit'])) {
+$root = PLX_ROOT . dirname(PLX_CONFIG_PATH);
+$writable = is_writable($root);
+if(!$writable) {
+?>
+				<p class="alert red"><?php printf(L_WRITE_NOT_ACCESS, $root) ?></p>
+<?php
+}
+
+if(!$writable or empty($_POST['submit'])) {
 	if(version_compare($plxUpdater->oldVersion, $plxUpdater->newVersion) >= 0) {
 ?>
 				<p><strong><?= L_UPDATE_UPTODATE ?></strong></p>
@@ -122,7 +132,7 @@ if(empty($_POST['submit'])) {
 		}
 ?>
 						<p><?= L_UPDATE_WARNING3 ?></p>
-						<p><input type="submit" name="submit" value="<?= L_UPDATE_START ?>" /></p>
+						<p><input type="submit" name="submit" value="<?= L_UPDATE_START ?>" <?php if(!$writable) { echo 'disabled'; } ?> /></p>
 					</fieldset>
 				</form>
 <?php
@@ -131,7 +141,9 @@ if(empty($_POST['submit'])) {
 	$version = isset($_POST['version']) ? $_POST['version'] : $plxUpdater->oldVersion;
 	$plxUpdater->startUpdate($version);
 ?>
-			<p><a href="<?= PLX_ROOT; ?>" title="<?= L_UPDATE_BACK ?>"><?= L_UPDATE_BACK ?></a></p>
+			<form action="<?= PLX_ROOT ?>">
+				<input type="submit" value="<?= L_UPDATE_BACK ?>" />
+			</form>
 <?php
 }
 ?>

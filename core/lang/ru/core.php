@@ -22,6 +22,7 @@ const L_CONFIRM_PASSWORD			= 'Повторить пароль';
 const L_PROFIL_LOGIN				= 'Логин';
 const L_INPUT_CHANGE				= 'Изменить';
 const L_COMMENTS_CLOSED				= 'Комментарии запрещенны';
+const L_SITE_DESCRIPTION			= 'Блог или CMS на XML!';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Тема не найдена';

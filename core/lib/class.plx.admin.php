@@ -525,13 +525,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$users_login[] = $user['login'];
 			}
 			# controle de l'unicité de l'adresse e-mail
-			if(in_array($user['email'], $users_email)) {
-				$this->aUsers = $archive;
-				ob_clean();
-				return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
-			}
-			else if ($user['delete'] == 0) {
-				$users_email[] = $user['email'];
+			if(!empty($user['email'])) {
+				if(in_array($user['email'], $users_email)) {
+					$this->aUsers = $archive;
+					ob_clean();
+					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+				}
+				else if ($user['delete'] == 0) {
+					$users_email[] = $user['email'];
+				}
 			}
 ?>
 	<user number="<?= $user_id ?>" active="<?= $user['active'] ?>" profil="<?= $user['profil'] ?>" delete="<?= $user['delete'] ?>">
@@ -611,7 +613,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau multidimensionnel des catégories
 	 * @param	save	enregistre les catégories dans un fichier .xml
-	 * @return	string
+	 * @return	boolean	true if success
 	 * @author	Stephane F, Pedro "P3ter" CADETE, sudwebdesign, J.P. Pourrez
 	 **/
 	public function editCategories($content, $save=false) {
