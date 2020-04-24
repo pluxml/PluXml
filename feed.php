@@ -51,7 +51,7 @@ switch($plxFeed->mode) {
 	case 'article'		:
 		if(!empty($plxFeed->cible)) {
 			# catégorie
-			$filename = L_CATEGORIES . '-' . $plxFeed->cible;
+			$filename = L_CATEGORIE . '-' . $plxFeed->cible;
 		} else {
 			$filename = L_ARTICLES;
 		}

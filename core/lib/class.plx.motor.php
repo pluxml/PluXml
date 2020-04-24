@@ -106,20 +106,7 @@ class plxMotor {
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
-	public $aUsers = array(  # Tableau des utilisateurs
-		'001'		=> array(
-		'active'	=> 1,
-		'profil'	=> PROFIL_ADMIN,
-		'delete'	=> 0,
-		'login'		=> 'Me',
-		'name'		=> 'Default user',
-		'infos'		=> '',
-		'password'	=> '',
-		'salt'		=> '',
-		'email'		=> '',
-		'lang'		=> '',
-		)
-	);
+	public $aUsers = array();  # Tableau des utilisateurs
 	public $aTemplates = null; # Tableau des templates
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
@@ -467,7 +454,6 @@ class plxMotor {
 				$this->aConf[$k] = preg_replace('@^data/@', $root, $this->aConf[$k]);
 			}
 		}
-		$this->aConf['timezone'] = date_default_timezone_get();
 
 		# Mise en place du parseur XML
 		if(!empty($filename) and file_exists($filename)) {
@@ -494,7 +480,7 @@ class plxMotor {
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
 
-		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
+		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 	}
 
 	/**

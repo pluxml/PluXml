@@ -71,67 +71,6 @@ if (! array_key_exists($timezone, plxTimezones::timezones())) {
 	$timezone = date_default_timezone_get();
 }
 
-		$this->aConf['description'] = plxUtils::strRevCheck(L_SITE_DESCRIPTION);
-
-// Configuration de base
-$root = dirname(PLX_CONFIG_PATH) . '/';
-$config = array(
-    'version' => PLX_VERSION,
-    'title' => 'PluXml',
-    'description' => plxUtils::strRevCheck(L_SITE_DESCRIPTION),
-    'meta_description' => 'A flat CMS with XML',
-    'meta_keywords' => 'cms',
-    'timezone' => date_default_timezone_get(),
-    'allow_com' => 1,
-    'mod_com' => 0,
-    'mod_art' => 0,
-    'enable_rss' => 1,
-    'capcha' => 1,
-    'lostpassword' => 1,
-    'style' => 'defaut',
-    'clef' => plxUtils::charAleatoire(15),
-    'bypage' => 5,
-    'bypage_archives' => 5,
-    'bypage_tags' => 5,
-    'bypage_admin' => 10,
-    'bypage_admin_coms' => 10,
-    'bypage_feed' => 8,
-    'tri' => 'desc',
-    'tri_coms' => 'asc',
-    'images_l' => 800,
-    'images_h' => 600,
-    'miniatures_l' => 200,
-    'miniatures_h' => 100,
-    'thumbs' => 0,
-    'medias' => $root . 'medias/',
-    'racine_articles' => $root . 'articles/',
-    'racine_commentaires' => $root . 'commentaires/',
-    'racine_statiques' => $root . 'statiques/',
-    'racine_themes' => 'themes/',
-    'racine_plugins' => 'plugins/',
-    'custom_admincss_file' => '',
-    'homestatic' => '',
-    'hometemplate' => 'home.php',
-    'urlrewriting' => 0,
-    'cleanurl' => 0,
-    'gzip' => 0,
-    'feed_chapo' => 0,
-    'feed_footer' => '',
-    'default_lang' => $lang,
-    'userfolders' => 0,
-    'display_empty_cat' => 0,
-    'email_method' => 'sendmail',
-    'smtp_server' => '',
-    'smtp_username' => '',
-    'smtp_password' => '',
-    'smtp_port' => '465',
-    'smtp_security' => 'ssl',
-    'smtpOauth2_emailAdress' => '',
-    'smtpOauth2_clientId' => '',
-    'smtpOauth2_clientSecret' => '',
-    'smtpOauth2_refreshToken' => ''
-);
-
 // Vérification de l'existence des dossiers médias, configuration/plugins et templates
 $folders = array(
 	PLX_ROOT . $config['medias'],
