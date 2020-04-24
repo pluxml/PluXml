@@ -21,9 +21,6 @@ foreach(ALL_CLASSES as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
 }
 
-# On impose le charset
-header('Content-Type: text/xml; charset='.PLX_CHARSET);
-
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
@@ -114,6 +111,9 @@ eval($plxMotor->plxPlugins->callHook('SitemapArticles')); # Hook Plugins
 $output = XML_HEADER . ob_get_clean();
 
 eval($plxMotor->plxPlugins->callHook('SitemapEnd')); # Hook Plugins
+
+# On impose le charset
+header('Content-Type: text/xml; charset='.PLX_CHARSET);
 
 # Restitution écran
 echo $output;
