@@ -9,6 +9,18 @@
 
 if(!defined('PLX_CONFIG_PATH') or !defined('PLX_VERSION')) { exit; }
 
+if(!class_exists('plxUtils')) {
+	include_once PLX_CORE . 'lib/class.plx.utils.php';
+}
+
+if(!defined('PLX_INSTALLER') and !defined('PLX_UPGRADER')) {
+	foreach(array('glob', 'record', 'plugins') as $aClass) {
+		if(!class_exists('plx' . ucfirst($aClass))) {
+			include_once PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
+		}
+	}
+}
+
 include_once PLX_CORE.'lib/class.plx.template.php';
 
 class plxMotor {
@@ -35,16 +47,29 @@ class plxMotor {
 	public $aConf = array(  # Tableau de configuration. Valeurs par défaut.
 		'version' 						=> PLX_VERSION,
 		'title'							=> 'PluXml',
-		'bypage_admin'					=> 10,
-	    'tri'							=> 'desc',
-		'tri_coms'						=> 'desc',
-		'bypage_admin_coms'				=> 10,
-		'bypage_archives'				=> 5,
-		'bypage_tags'					=> 5,
-		'userfolders'					=> 0,
+		'description'					=> '',
 		'meta_description'				=> '',
 		'meta_keywords'					=> 'cms,xml,pluxml,' . DEFAULT_LANG,
-		'default_lang'					=> DEFAULT_LANG,
+		'timezone'						=> 'Europe/Paris',
+		'allow_com'						=> 1,
+		'mod_com'						=> 0,
+		'mod_art'						=> 0,
+		'capcha'						=> 1,
+		'style'							=> 'defaut',
+		'clef'							=> '', # A générer
+	    'bypage'						=> 5,
+		'bypage_archives'				=> 5,
+		'bypage_tags'					=> 5,
+		'bypage_admin'					=> 10,
+		'bypage_admin_coms'				=> 10,
+		'bypage_feed'					=> 8,
+	    'tri'							=> 'desc',
+		'tri_coms'						=> 'asc',
+	    'images_l'						=> 800,
+	    'images_h'						=> 600,
+	    'miniatures_l'					=> 200,
+	    'miniatures_h'					=> 100,
+		'thumbs'						=> 1,
 		'medias'						=> 'data/medias/',
 		'racine_articles'				=> 'data/articles/',
 		'racine_commentaires'			=> 'data/commentaires/',
@@ -52,13 +77,14 @@ class plxMotor {
 		'racine_themes'					=> 'themes/',
 		'racine_plugins'				=> 'plugins/',
 		'custom_admincss_file'			=> '',
-		'racine_plugins'				=> 'plugins/',
-		'racine_themes'					=> 'themes/',
-		'custom_admincss_file'			=> '',
-		'mod_art'						=> 0,
+		'homestatic'					=> '',
+		'urlrewriting'					=> 0,
+		'gzip'							=> 0,
+		'feed_chapo'					=> 0,
+		'feed_footer'					=> '',
+		'default_lang'					=> DEFAULT_LANG,
+		'userfolders'					=> 0,
 		'display_empty_cat'				=> 0,
-		'timezone'						=> 'Europe/Paris',
-		'thumbs'						=> 1,
 		# PluXml 5.1.7 et plus
 		'hometemplate'					=> 'home.php',
 		# PluXml 5.8 et plus
@@ -80,20 +106,7 @@ class plxMotor {
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
-	public $aUsers = array(  # Tableau des utilisateurs
-		'001'		=> array(
-		'active'	=> 1,
-		'profil'	=> PROFIL_ADMIN,
-		'delete'	=> 0,
-		'login'		=> 'Me',
-		'name'		=> 'Default user',
-		'infos'		=> '',
-		'password'	=> '',
-		'salt'		=> '',
-		'email'		=> '',
-		'lang'		=> '',
-		)
-	);
+	public $aUsers = array();  # Tableau des utilisateurs
 	public $aTemplates = null; # Tableau des templates
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
@@ -167,13 +180,15 @@ class plxMotor {
 		$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
 		$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->aConf['default_lang'];
 
-		# Récupération de la liste des plugins actifs
-		$this->plxPlugins = new plxPlugins($lang);
-		$this->plxPlugins->loadPlugins();
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
+		if(class_exists('plxPlugins')) {
+			# Récupération de la liste des plugins actifs
+			$this->plxPlugins = new plxPlugins($lang);
+			$this->plxPlugins->loadPlugins();
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
+		}
 
-		if(!defined('PLX_UPDATER')) {
+		if(class_exists('plxGlob')) {
 			# Traitement sur les répertoires des articles et des commentaires
 			$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 			$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
@@ -187,8 +202,10 @@ class plxMotor {
 		$this->getTags(path('XMLFILE_TAGS'));
 		$this->getUsers(path('XMLFILE_USERS'));
 
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxMotorConstruct'));
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxMotorConstruct'));
+		}
 
 		# Get templates from core/templates and data/templates
 		$this->getTemplates(self::PLX_TEMPLATES);
@@ -382,7 +399,7 @@ class plxMotor {
 			# On a validé le formulaire commentaire
 			if(!empty($_POST) AND $this->plxRecord_arts->f('allow_com') AND $this->aConf['allow_com']) {
 				# On récupère le retour de la création
-				$retour = $this->newCommentaire($this->cible,plxUtils::unSlash($_POST));
+				$retour = $this->newCommentaire($this->cible, plxUtils::unSlash($_POST));
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
@@ -437,7 +454,6 @@ class plxMotor {
 				$this->aConf[$k] = preg_replace('@^data/@', $root, $this->aConf[$k]);
 			}
 		}
-		$this->aConf['timezone'] = date_default_timezone_get();
 
 		# Mise en place du parseur XML
 		if(!empty($filename) and file_exists($filename)) {
@@ -464,7 +480,7 @@ class plxMotor {
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
 
-		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
+		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 	}
 
 	/**
@@ -1033,8 +1049,10 @@ class plxMotor {
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stéphane F
 	 **/
 	public function addCommentaire($content) {
-		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
+		}
 
 		# On genere le contenu de notre fichier XML
 		ob_start();
@@ -1048,11 +1066,13 @@ class plxMotor {
 	<content><?= plxUtils::cdataCheck($content['content']) ?></content>
 	<parent><?= plxUtils::cdataCheck($content['parent']) ?></parent>
 <?php
-		# Hook plugins
-		$xml = '';
-		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
-		if(!empty($xml)) {
-			echo $xml;
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			$xml = '';
+			eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
+			if(!empty($xml)) {
+				echo $xml;
+			}
 		}
 
 ?>

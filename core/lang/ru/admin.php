@@ -26,7 +26,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Неверный дате обновлени�
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Данные успешно сохранены';
 const L_SAVE_ERR = 'Ошибка при сохранении данных';
 const L_NO_ENTRY = 'Войти невозможно';
 const L_ERR_USER_EMPTY = 'Имя пользователя';
@@ -38,7 +37,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Неверный ID статьи';
 const L_DEFAULT_NEW_CATEGORY_URL = 'новая-категория';
 const L_DEFAULT_NEW_STATIC_URL = 'новая-страница';
 const L_DEFAULT_NEW_ARTICLE_URL = 'новая-статья';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Статья успешно создана';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Статья успешно обновлена';
 const L_ARTICLE_SAVE_ERR = 'Статьи не могут быть сохранены';
 const L_ARTICLE_DELETE_ERR = 'Ошибка: статья не может быть удалена';

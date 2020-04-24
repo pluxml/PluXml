@@ -26,7 +26,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Data de mesa a jorn invalida';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Enregistrament de las donadas efectuat amb succès';
 const L_SAVE_ERR = 'Error pendent l\'enregistrament de las donadas';
 const L_NO_ENTRY = 'Accès defendut';
 const L_ERR_USER_EMPTY = 'Volgatz picar un nom d\'utilizaire';
@@ -38,7 +37,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Identificant d\'article invalid !';
 const L_DEFAULT_NEW_CATEGORY_URL = 'novèla-categoria';
 const L_DEFAULT_NEW_STATIC_URL = 'novèla-pagina';
 const L_DEFAULT_NEW_ARTICLE_URL = 'nouvel-article';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Article creat amb succès';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Article mes a jorn amb succès';
 const L_ARTICLE_SAVE_ERR = 'Error al temps de la salvagarda de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Una error es subrevenguda pendent la supression de l\'article';

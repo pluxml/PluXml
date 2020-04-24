@@ -7,6 +7,12 @@
  * @author	Florent MONTHEL, Stephane F, Amaury Graillat
  **/
 
+foreach(array('motor', 'date') as $k) {
+	if(!class_exists('plx' . ucfirst($k))) {
+		include_once PLX_CORE . 'lib/class.plx.' . $k . '.php';
+	}
+}
+
 const PLX_FEED = true;
 
 class plxFeed extends plxMotor {
@@ -37,31 +43,43 @@ class plxFeed extends plxMotor {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
+
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
+
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
+
 		# chargement des variables
 		$this->racine = $this->aConf['racine'];
 		$this->bypage = $this->aConf['bypage_feed'];
 		$this->tri = 'desc';
 		$this->clef = (!empty($this->aConf['clef']))?$this->aConf['clef']:'';
+
 		# Traitement des plugins
 		$this->plxPlugins = new plxPlugins($this->aConf['default_lang']);
 		$this->plxPlugins->loadPlugins();
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxFeedConstructLoadPlugins'));
+
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxFeedConstructLoadPlugins'));
+		}
+
 		# Traitement sur les répertoires des articles et des commentaires
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'],false,true,'arts');
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires']);
+
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getUsers(path('XMLFILE_USERS'));
 		$this->getTags(path('XMLFILE_TAGS'));
 		# Récupération des articles appartenant aux catégories actives
 		$this->getActiveArts();
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxFeedConstruct'));
+
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxFeedConstruct'));
+		}
 	}
 
 	/**
@@ -74,8 +92,10 @@ class plxFeed extends plxMotor {
 	 **/
 	public function fprechauffage() {
 
-		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxFeedPreChauffageBegin'))) return;
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			if(eval($this->plxPlugins->callHook('plxFeedPreChauffageBegin'))) return;
+		}
 
 		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie(\d+)/?#',$this->get,$capture)) {
 			$this->mode = 'article'; # Mode du flux
@@ -132,8 +152,11 @@ class plxFeed extends plxMotor {
 			# On modifie le motif de recherche
 			$this->motif = '#^\d{4}.(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#';
 		}
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxFeedPreChauffageEnd'));
+
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxFeedPreChauffageEnd'));
+		}
 
 	}
 
@@ -145,8 +168,10 @@ class plxFeed extends plxMotor {
 	 **/
 	public function fdemarrage() {
 
-		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxFeedDemarrageBegin'))) return;
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			if(eval($this->plxPlugins->callHook('plxFeedDemarrageBegin'))) return;
+		}
 
 		# Flux de commentaires d'un article précis
 		if($this->mode == 'commentaire' AND $this->cible) {
@@ -205,8 +230,11 @@ class plxFeed extends plxMotor {
 			case 'admin' : $this->getAdminComments(); break;
 			default : break;
 		}
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxFeedDemarrageEnd'));
+
+		if(!empty($this->plxPlugins)) {
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxFeedDemarrageEnd'));
+		}
 
 	}
 
@@ -221,12 +249,12 @@ class plxFeed extends plxMotor {
 		$entry_link = '';
 		$entry = '';
 		if($this->mode == 'tag') {
-			$title = $this->aConf['title'].' - '.L_PAGETITLE_TAG.' '.$this->cible;
-			$link = $this->urlRewrite('?tag/'.$this->cible);
+			$title = $this->aConf['title'] . ' - '. L_ARTFEED_RSS_TAG .' : ' . $this->cible;
+			$link = $this->urlRewrite('?tag/' . $this->cible);
 		}
 		elseif($this->cible) { # Articles d'une catégorie
 			$catId = $this->cible + 0;
-			$title = $this->aConf['title'].' - '.$this->aCats[ $this->cible ]['name'];
+			$title = $this->aConf['title'] . ' - '.$this->aCats[ $this->cible ]['name'];
 			$link = $this->urlRewrite('?categorie'.$catId.'/'.$this->aCats[ $this->cible ]['url']);
 		} else { # Articles globaux
 			$title = $this->aConf['title'];
@@ -263,8 +291,12 @@ class plxFeed extends plxMotor {
 				$entry .= "\t\t".'<description>'.$thumb.plxUtils::strCheck(plxUtils::rel2abs($this->racine,$content)).'</description>'."\n";
 				$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_arts->f('date')).'</pubDate>'."\n";
 				$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($author).'</dc:creator>'."\n";
-				# Hook plugins
-				eval($this->plxPlugins->callHook('plxFeedRssArticlesXml'));
+
+				if(!empty($this->plxPlugins)) {
+					# Hook plugins
+					eval($this->plxPlugins->callHook('plxFeedRssArticlesXml'));
+				}
+
 				$entry .= "\t</item>\n";
 			}
 		}
@@ -314,7 +346,7 @@ class plxFeed extends plxMotor {
 					$artId = $this->plxRecord_coms->f('article') + 0;
 					if($this->cible) { # Commentaires d'un article
 						$title_com = $this->plxRecord_arts->f('title').' - ';
-						$title_com .= L_FEED_WRITTEN_BY.' '.$this->plxRecord_coms->f('author').' @ ';
+						$title_com .= L_WRITTEN_BY . ' ' . $this->plxRecord_coms->f('author') . ' @ ';
 						$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
 						$comId = 'c'.$this->plxRecord_coms->f('article').'-'.$this->plxRecord_coms->f('index');
 						$link_com = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url').'#'.$comId);
@@ -337,15 +369,18 @@ class plxFeed extends plxMotor {
 					$entry .= "\t\t".'<description>'.plxUtils::strCheck(strip_tags($this->plxRecord_coms->f('content'))).'</description>'."\n";
 					$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
 					$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
-					# Hook plugins
-					eval($this->plxPlugins->callHook('plxFeedRssCommentsXml'));
+
+					if(!empty($this->plxPlugins)) {
+						# Hook plugins
+						eval($this->plxPlugins->callHook('plxFeedRssCommentsXml'));
+					}
+
 					$entry .= "\t</item>\n";
 				}
 			}
 		}
 
 		# On affiche le flux
-		header('Content-Type: application/rss+xml; charset='.PLX_CHARSET);
 		echo '<?xml version="1.0" encoding="'.PLX_CHARSET.'" ?>'."\n";
 		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">'."\n";
 		echo '<channel>'."\n";
@@ -401,8 +436,12 @@ class plxFeed extends plxMotor {
 				$entry .= "\t\t".'<description>'.plxUtils::strCheck(strip_tags($this->plxRecord_coms->f('content'))).'</description>'."\n";
 				$entry .= "\t\t".'<pubDate>'.plxDate::dateIso2rfc822($this->plxRecord_coms->f('date')).'</pubDate>'."\n";
 				$entry .= "\t\t".'<dc:creator>'.plxUtils::strCheck($this->plxRecord_coms->f('author')).'</dc:creator>'."\n";
-				# Hook plugins
-				eval($this->plxPlugins->callHook('plxFeedAdminCommentsXml'));
+
+				if(!empty($this->plxPlugins)) {
+					# Hook plugins
+					eval($this->plxPlugins->callHook('plxFeedAdminCommentsXml'));
+				}
+
 				$entry .= "\t</item>\n";
 			}
 		}

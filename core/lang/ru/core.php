@@ -23,6 +23,8 @@ const L_PROFIL_LOGIN				= 'Логин';
 const L_INPUT_CHANGE				= 'Изменить';
 const L_COMMENTS_CLOSED				= 'Комментарии запрещенны';
 const L_SITE_DESCRIPTION			= 'Блог или CMS на XML!';
+const L_SAVE_SUCCESSFUL				= 'Данные успешно сохранены';
+const L_ARTICLE_SAVE_SUCCESSFUL		= 'Статья успешно создана';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Тема не найдена';

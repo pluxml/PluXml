@@ -26,7 +26,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Nieprawidłowa data zaktualizowane';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Zapisywanie zakończone powodzeniem';
 const L_SAVE_ERR = 'Wystąpił błąd podczas zapisywania';
 const L_NO_ENTRY = 'Dostęp zabroniony';
 const L_ERR_USER_EMPTY = 'Wpisz nazwę użytkownika';
@@ -38,7 +37,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Nieważny ID posta !';
 const L_DEFAULT_NEW_CATEGORY_URL = 'nowa-kategoria';
 const L_DEFAULT_NEW_STATIC_URL = 'nowa-strona';
 const L_DEFAULT_NEW_ARTICLE_URL = 'nowy-post';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Post został pomyślnie utworzony';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Post został pomyślnie edytowany';
 const L_ARTICLE_SAVE_ERR = 'Wystąpił błąd podczas zapisywania posta';
 const L_ARTICLE_DELETE_ERR = 'Wystąpił błąd podczas usuwania posta';
