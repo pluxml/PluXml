@@ -120,4 +120,4 @@ if(parent!='') { replyCom(parent) }
 
 	<?php endif; # Fin du if sur l'autorisation des commentaires ?>
 
-	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle">#feedName</a></p>'); ?>
+	<p><?php $plxShow->comFeed(true, $plxShow->artId()); ?></p>
