@@ -30,7 +30,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Datum ungültig aktualisiert';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Daten erfolgreich gespeichert';
 const L_SAVE_ERR = 'Fehler während des Speicherns';
 const L_NO_ENTRY = 'Datenzugriff verboten';
 const L_ERR_USER_EMPTY = 'Bitte Benutzernamen eingeben';
@@ -42,7 +41,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Ungültige Artikel-ID!';
 const L_DEFAULT_NEW_CATEGORY_URL = 'neue-kategorie';
 const L_DEFAULT_NEW_STATIC_URL = 'neue-seite';
 const L_DEFAULT_NEW_ARTICLE_URL = 'neuer-artikel';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Artikel erfolgreich angelegt';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Artikel erfolgreich aktualisiert';
 const L_ARTICLE_SAVE_ERR = 'Fehler beim Speichern des Artikels.';
 const L_ARTICLE_DELETE_ERR = 'Fehler beim Löschen des Artikels.';

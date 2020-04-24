@@ -38,7 +38,7 @@ $aTri = array(
 include __DIR__ .'/top.php';
 ?>
 
-<form action="categories.php" method="post" id="form_categories">
+<form method="post" id="form_categories">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CAT_TITLE ?></h2>

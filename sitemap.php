@@ -14,13 +14,8 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 # On inclut les librairies nécessaires
 const ALL_CLASSES = array(
 	'date',
-	'glob',
-	'utils',
-//	'capcha',
 	'erreur',
-	'record',
 	'motor',
-	'plugins'
 );
 foreach(ALL_CLASSES as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';

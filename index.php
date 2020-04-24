@@ -18,17 +18,12 @@ session_start();
 
 # On inclut les librairies nécessaires
 const ALL_CLASSES = array(
-	'date',
-	'glob',
-	'utils',
+	// 'date',
 	'capcha',
 	'erreur',
-	'record',
-	'motor',
+	'encrypt',
 	'feed',
 	'show',
-	'encrypt',
-	'plugins'
 );
 foreach(ALL_CLASSES as $aClass) {
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
