@@ -5,10 +5,14 @@
  * concernant la manipulation des dates
  *
  * @package PLX
- * @author	Stephane F., Amauray Graillat
+ * @author	Stephane F., Amauray Graillat, J.P. Pourrez
  **/
 
 class plxDate {
+
+	const PATTERN = '@^(\d{4})(\d{2})(\d{2})(\d{2}):?(\d{2})@';
+	const FORMAT_DATE = '#num_day/#num_month/#num_year(4)';
+	const FORMAT_TIME = '#day #num_day #month #num_year(4), #hour:#minute';
 
 	/**
 	 * Méthode qui retourne le libellé du mois ou du jour passé en paramètre
@@ -17,6 +21,8 @@ class plxDate {
 	 * @param	value	numero du mois ou du jour
 	 * @return	string	libellé du mois (normal ou raccourci) ou du jour
 	 * @author	Stephane F., Pedro "P3ter" CADETE
+	 *
+	 * Ne pas mettre $names en constante ! la class plxDate peut être déclarée avant le chargement des traductions.
 	 **/
 	public static function getCalendar($key, $value) {
 		$value = $value ? $value : intval($value);
@@ -76,34 +82,35 @@ class plxDate {
 	 * @param	date	date/heure au format YYYYMMDDHHMM
 	 * @param	format	format d'affichage
 	 * @return	string	date/heure formatée
-	 * @author	Stephane F.
+	 * @author	Stephane F., J.P. Pourrez
 	 **/
-	public static function formatDate($date, $format='#num_day/#num_month/#num_year(4)') {
+	public static function formatDate($date, $format=self::FORMAT_DATE) {
 
-		$month = substr($date, 4, 2);
-		$day_num = date('w',mktime(0,0,0,intval($month),intval($day),intval($year4)));
+		$parts = self::date2Array($date);
+
+		$day_of_week = date('w', mktime(0, 0, 0, intval($parts['month']), intval($parts['day']), intval($parts['year4'])));
 		$hour = substr($date,8,2);
 		$minute = substr($date,10,2);
 
 		# On retourne notre date au format humain
 		return strtr($format, array(
-			'#time'			=> $hour.':' . $minute,
-			'#minute'		=> $minute,
-			'#hour'			=> $hour,
-			'#day'			=> plxDate::getCalendar('day', $day_num),
-			'#short_month'	=> plxDate::getCalendar('short_month', $month),
-			'#month'		=> plxDate::getCalendar('month', $month),
-			'#num_day(1)'	=> intval(substr($date, 6, 2)),
-			'#num_day(2)'	=> substr($date, 6, 2),
-			'#num_day'		=> substr($date, 6, 2),
-			'#num_month'	=> $month,
-			'#num_year(2)'	=> substr($date, 2, 2),
-			'#num_year(4)'	=> substr($date, 0, 4)
+			'#time'			=> $parts['hour'] . ':' . $parts['minute'],
+			'#minute'		=> $parts['minute'],
+			'#hour'			=> $parts['hour'],
+			'#day'			=> self::getCalendar('day', $day_of_week),
+			'#short_month'	=> self::getCalendar('short_month', $parts['month']),
+			'#month'		=> self::getCalendar('month', $parts['month']),
+			'#num_day(1)'	=> intval($parts['day']),
+			'#num_day(2)'	=> $parts['day'],
+			'#num_day'		=> $parts['day'],
+			'#num_month'	=> $parts['month'],
+			'#num_year(2)'	=> substr($parts['year'], -2),
+			'#num_year(4)'	=> $parts['year'],
 		));
 	}
 
 	/**
-	 * Méthode qui convertis un timestamp en date/time
+	 * Méthode qui convertit un timestamp en date/time
 	 *
 	 * @param	timestamp	timstamp au format unix
 	 * @return	string		date au format YYYYMMDDHHMM
@@ -124,16 +131,18 @@ class plxDate {
 	 **/
 	public static function date2Array($date) {
 
-		$capture = '';
-		preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9:]{2})([0-9:]{2})/',$date,$capture);
-		return array (
-			'year' 	=> $capture[1],
-			'month' => $capture[2],
-			'day' 	=> $capture[3],
-			'hour'	=> $capture[4],
-			'minute'=> $capture[5],
-			'time' 	=> $capture[4].':'.$capture[5]
-		);
+		if(preg_match(self::PATTERN, $date, $capture)) {
+			return array (
+				'year' 	=> $capture[1],
+				'month' => $capture[2],
+				'day' 	=> $capture[3],
+				'hour'	=> $capture[4],
+				'minute'=> $capture[5],
+				'time' 	=> $capture[4] . ':' . $capture[5],
+			);
+		}
+
+		return false;
 	}
 
 	/**
