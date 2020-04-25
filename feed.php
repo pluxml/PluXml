@@ -51,7 +51,7 @@ switch($plxFeed->mode) {
 	case 'article'		:
 		if(!empty($plxFeed->cible)) {
 			# catégorie
-			$filename = L_CATEGORIE . '-' . $plxFeed->cible;
+			$filename = L_CATEGORIES . '-' . $plxFeed->cible;
 		} else {
 			$filename = L_ARTICLES;
 		}
@@ -66,6 +66,10 @@ switch($plxFeed->mode) {
 		break;
 	case 'categorie'	: $filename = L_CATEGORIE . '-' . $plxFeed->cible; break;
 	case 'tag'			: $filename = str_replace('-', '_', L_TAG) . '-' . $plxFeed->cible; break;
+	case 'admin'		:
+		$filename = L_COMMENTS . '-admin';
+		$filename .= ($plxFeed->cible == '_') ? '-offline' : '-online';
+		break;
 	default				: $filename = L_ALL;
 }
 
