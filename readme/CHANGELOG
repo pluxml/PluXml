@@ -15,6 +15,7 @@ FIX Missing polish translations #374 (P3ter)
 FIX Article edition always show comments as enabled #402 (bazooka07)
 
 ## PLUXML 5.8.3 (yyyy/mm/dd) ##
+[+] Enhancement for CSRF token #385 (bazooka07)
 [+] New "rename" and "copy to clipboard" icons in medias administration page #387 (bazooka07)
 [+] plxMotor and plxFeed regex refacto #380 (P3ter, bazooka07)
 [+] plxToken and plxCapcha optimisations #406 (bazooka07)
