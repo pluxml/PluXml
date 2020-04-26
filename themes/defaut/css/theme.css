@@ -115,6 +115,7 @@ ul.menu a.active,
 ul.menu li span:hover,
 ul.menu li a:hover {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
 	color: #000 !important;
+	text-decoration: none;
 }
 
 ul.menu li span,
