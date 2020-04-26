@@ -3,7 +3,7 @@
  * Classe plxToken responsable du controle des formulaires
  *
  * @package	PLX
- * @author	Stephane F
+ * @author	Stephane F, Pedro "P3ter" CADETE, J.P. Pourrez
  **/
 class plxToken {
 	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -17,12 +17,14 @@ class plxToken {
 	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function getTokenPostMethod($length=32, $html=true) {
+
 		$token = substr(
 			str_shuffle(self::TEMPLATE),
 			mt_rand(0, self::TEMPLATE_LENGTH - $length),
 			$length
 		);
 		$_SESSION['formtoken'][$token] = time();
+
 		return ($html) ? '<input name="token" value="'.$token.'" type="hidden" />' : $token;
 	}
 
@@ -44,6 +46,7 @@ class plxToken {
 				die('Security error : invalid or expired token');
 			}
 			unset($_SESSION['formtoken'][$_POST['token']]);
+
 			// cleanup old tokens
 			if(!empty($_SESSION['formtoken'])) {
 				foreach($_SESSION['formtoken'] as $token=>$lifetime) {
