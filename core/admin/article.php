@@ -504,7 +504,7 @@ function refreshImg(dta) {
 						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
 						<input class="toggler" type="checkbox" id="toggler_tags"<?php echo (empty($_GET['a']) || ! empty(trim($tags))) ? ' checked' : ''; ?> />
 						<label for="toggler_tags"><span>-</span><span>+</span></label>
-						<div style="margin-top: 1rem">
+						<div id="tags" style="margin-top: 1rem">
 							<?php
 							if($plxAdmin->aTags) {
 								$array=array();
