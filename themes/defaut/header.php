@@ -4,7 +4,7 @@
 <head>
 	<meta charset="<?php $plxShow->charset('min'); ?>">
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
-	<title><?php $plxShow->pageTitle(); ?></title>
+	<title><?php $plxShow->mainTitle(); ?></title>
 <?php
 	$plxShow->meta('description');
 	$plxShow->meta('keywords');
