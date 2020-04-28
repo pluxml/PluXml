@@ -32,6 +32,6 @@ $versions = array (
 	'5.8' => 'update_5.8.php',
 	'5.8.1' => 'update_5.8.1.php',
 	'5.8.2' => '',
-	'5.8.3' => 'update_5.8.3.php',
+	'5.8.3' => 'update_5.8.3.php'
 );
 ?>

@@ -231,20 +231,36 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * Pour recensement dans code : grep -n checkProfil *.php update/*.php core/{admin,lib}/*.php
 	 **/
 	public function checkProfil($profil, $redirect=true) {
+
+		$url = (array_key_exists('HTTP_REFERER', $_SERVER)) ? basename($_SERVER['HTTP_REFERER']) : 'index.php';
+		$location = 'Location: ' . $url;
+
 		if(!is_bool($redirect)) {
 			plxMsg::Error(L_NO_ENTRY);
-			header('Location: index.php');
+			header($location);
 			exit;
 		}
 
 		if(is_array($profil)) {
-			$matches = array_filter($profil, function($item) { return is_numeric($item); });
+			$items = array_filter($profil, function($item) { return is_numeric($item); });
+			if(empty($items) or !in_array($_SESSION['profil'], $items) or $_SESSION['profil'] >= PROFIL_WRITER) {
+				# Accès refusé
+				plxMsg::Error(L_NO_ENTRY);
+				if($redirect) {
+					header($location);
+					exit;
+				} else {
+					return false;
+				}
+			}
+
+			return true;
 		} elseif(is_numeric($profil)) {
 			// limite haute profil
 			if($redirect) {
 				if($_SESSION['profil'] > $profil) {
 					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
+					header($location);
 					exit;
 				}
 				return;
@@ -252,18 +268,22 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				return ($_SESSION['profil'] <= $profil);
 			}
 		} else {
-			preg_match_all('#(\d+)#', $profil, $matches);
+			if(empty(preg_match_all('#(\d+)#', $profil, $matches))) {
+				plxMsg::Error(L_NO_ENTRY);
+				header($location);
+				exit;
+			}
 		}
 
 		if($redirect) {
-			if(empty($matches) or !in_array($_SESSION['profil'], $matches) or $_SESSION['profil'] > PROFIL_WRITER) {
+			if(empty($matches) or !in_array($_SESSION['profil'], $matches[1]) or $_SESSION['profil'] >= PROFIL_WRITER) {
 				plxMsg::Error(L_NO_ENTRY);
-				header('Location: index.php');
+				header($location);
 				exit;
 			}
 			return;
 		} else {
-			return (!empty($matches) and in_array($_SESSION['profil'], $matches) and $_SESSION['profil'] <= PROFIL_WRITER);
+			return (!empty($matches) and in_array($_SESSION['profil'], $matches[1]) and $_SESSION['profil'] < PROFIL_WRITER);
 		}
 	}
 
@@ -424,8 +444,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
-	 * @param	content	tableau les informations sur les utilisateurs
-	 * @param	$save	enregistre les catégories dans un fichier .xml
+	 * @param	$content	array les informations sur les utilisateurs
+	 * @param	$save		bool les catégories dans un fichier .xml
 	 * @return	string
 	 * @author	Stéphane F, Pedro "P3ter" CADETE
 	 **/

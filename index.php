@@ -62,10 +62,15 @@ $plxShow = plxShow::getInstance();
 eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
 
 # Traitements du thème
-if(empty($plxMotor->style) or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
-	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
-	exit;
+if(empty($plxMotor->style) or !is_dir(PLX_ROOT . $plxMotor->aConf['racine_themes'] . $plxMotor->style)) {
+	if(!is_dir(PLX_ROOT . $plxMotor->aConf['racine_themes'] . 'defaut')) {
+		header('Content-Type: text/plain; charset='.PLX_CHARSET);
+		echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
+		exit;
+	}
+
+	# fallback si thème perso pas trouvé
+	$plxMotor->style = 'defaut';
 }
 
 # On teste si le template existe
