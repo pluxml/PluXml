@@ -19,7 +19,6 @@ const L_ERR_MISSING_LOGIN				= 'Пожалуйста, заполните пол�
 const L_ERR_MISSING_PASSWORD			= 'Пожалуйста, заполните поле Пароль!';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Неверный пароль!';
 const L_PLUXML_INSTALLATION				= 'Установка PluXml, ';
-const L_SITE_DESCRIPTION				= 'Блог или CMS на XML!';
 const L_VERSION							= 'версия';
 const L_USERNAME						= 'Имя Администратора';
 const L_PASSWORD						= 'Пароль';

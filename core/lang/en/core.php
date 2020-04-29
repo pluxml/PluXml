@@ -22,6 +22,9 @@ const L_CONFIRM_PASSWORD			= 'Confirm password';
 const L_PROFIL_LOGIN				= 'Login';
 const L_INPUT_CHANGE				= 'Change';
 const L_COMMENTS_CLOSED				= 'Comments are closed';
+const L_SITE_DESCRIPTION			= 'Blog or CMS, XML powered !';
+const L_SAVE_SUCCESSFUL				= 'Data was succesfully saved';
+const L_ARTICLE_SAVE_SUCCESSFUL		= 'Post was succesfully created';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Main PluXml theme not found';

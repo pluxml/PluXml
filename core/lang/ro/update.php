@@ -15,7 +15,7 @@ const L_UPDATE_START					= 'Start actualizare';
 
 const L_UPDATE_ENDED					= 'Actualizarea versiunii, %s finalizate.';
 const L_UPDATE_INPROGRESS				= 'Cerere versiune actualizari';
-const L_UPDATE_ERROR					= 'O eroare a fost generata in timpul actualizarii.';
+const L_UPDATE_ERROR					= 'A apărut o eroare la actualizarea la pasul %s.';
 const L_UPDATE_SUCCESSFUL				= 'Toate actualizarile au fost aplicate cu succes !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Fisierul de actualizare parametres.xml';
@@ -50,4 +50,6 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migrarea fişierelor de setări parametrii
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Fisierul de actualizare plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Comentariile de migrare';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Eroare la migrarea comentarii';
+const L_UPDATE_NEW_FOLDER				= 'Dosar nou : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Parametru depreciat : %s';
 ?>

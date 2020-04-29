@@ -25,7 +25,7 @@ if (!empty($_POST)) {
 include __DIR__ .'/top.php';
 ?>
 
-<form action="parametres_users.php" method="post" id="form_users">
+<form method="post" id="form_users">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>

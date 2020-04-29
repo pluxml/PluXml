@@ -7,6 +7,12 @@
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
+foreach(array('motor', 'date') as $k) {
+	if(!class_exists('plx'. ucfirst($k))) {
+		include_once PLX_CORE . 'lib/class.plx.' . $k . '.php';
+	}
+}
+
 const PLX_SHOW = true;
 
 class plxShow {
@@ -839,31 +845,36 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function artFeed($type='rss', $categorie='', $format='<a href="#feedUrl" title="#feedTitle">#feedName</a>') {
-		# Hook Plugins
-		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))
-			return;
-
-		if ($this->plxMotor->aConf ['enable_rss']) {
-			if ($categorie != '' and is_numeric ( $categorie )) {
-				# Fil Rss des articles d'une catégorie
-				$id = str_pad ( $categorie, 3, '0', STR_PAD_LEFT );
-				if (isset ( $this->plxMotor->aCats [$id] )) {
-					echo strtr($format,array(
-						'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']),
-						'#feedTitle'	=> L_ARTFEED_RSS_CATEGORY,
-						'#feedName'		=> L_ARTFEED_RSS_CATEGORY
-					));
-				}
-			} else {
-				# Fil Rss des articles
-					echo strtr($format,array(
-						'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss'),
-						'#feedTitle'	=> L_ARTFEED_RSS,
-						'#feedName'		=> L_ARTFEED_RSS
-					));
-			}
+	public function artFeed($type='rss', $categorie='', $format='<a href="#feedUrl" title="#feedTitle" download>#feedName</a>') {
+		if(!empty($this->plxMotor->plxPlugins)) {
+			# Hook Plugins
+			if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))
+				return;
 		}
+
+		if(empty($this->plxMotor->aConf ['enable_rss'])) { return; }
+
+		if(!empty($categorie) and is_numeric($categorie)) {
+			# Fil Rss des articles d'une catégorie
+			$id = str_pad ( $categorie, 3, '0', STR_PAD_LEFT );
+			if(array_key_exists($id, $this->plxMotor->aCats)) {
+				echo strtr($format,array(
+					'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']),
+					'#feedTitle'	=> L_ARTFEED_RSS_CATEGORY,
+					'#feedName'		=> L_ARTFEED_RSS_CATEGORY,
+					'#filename'		=> L_CATEGORY . '-' . $id . '.rss',
+				));
+			}
+		} else {
+			# Fil Rss des articles
+				echo strtr($format,array(
+					'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss'),
+					'#feedTitle'	=> L_ARTFEED_RSS,
+					'#feedName'		=> L_ARTFEED_RSS,
+					'#filename'		=> L_ARTICLES . '.rss',
+				));
+		}
+
 	}
 
 	/**
@@ -1664,7 +1675,7 @@ class plxShow {
 
 	/**
 	 * DEPRECATED
-	 * 
+	 *
 	 * Méthode qui affiche la réponse du capcha cryptée en sha1
 	 *
 	 * @scope	global

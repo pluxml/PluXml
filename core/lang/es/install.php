@@ -19,7 +19,6 @@ const L_ERR_MISSING_LOGIN			= 'Indique el nombre de usuario!';
 const L_ERR_MISSING_PASSWORD		= 'Indique una contraseña!';
 const L_ERR_PASSWORD_CONFIRMATION	= 'La contraseña es incorrecta!';
 const L_PLUXML_INSTALLATION			= 'Instalación de PluXml';
-const L_SITE_DESCRIPTION			= 'Blog o CMS con XML!';
 const L_VERSION						= 'versión';
 const L_USERNAME					= 'Nombre del administrador';
 const L_PASSWORD					= 'Contraseña';

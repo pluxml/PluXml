@@ -27,17 +27,9 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 }
 
 # On inclut les librairies nécessaires
-include_once PLX_CORE.'lib/class.plx.date.php';
-include_once PLX_CORE.'lib/class.plx.glob.php';
-include_once PLX_CORE.'lib/class.plx.utils.php';
-include_once PLX_CORE.'lib/class.plx.msg.php';
-include_once PLX_CORE.'lib/class.plx.record.php';
-include_once PLX_CORE.'lib/class.plx.motor.php';
-include_once PLX_CORE.'lib/class.plx.admin.php';
-include_once PLX_CORE.'lib/class.plx.encrypt.php';
-include_once PLX_CORE.'lib/class.plx.medias.php';
-include_once PLX_CORE.'lib/class.plx.plugins.php';
-include_once PLX_CORE.'lib/class.plx.token.php';
+foreach(array('date', 'msg', 'encrypt', 'medias', 'token', 'admin') as $k) {
+	include_once PLX_CORE . 'lib/class.plx.'. $k . '.php';
+}
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);

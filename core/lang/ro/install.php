@@ -19,7 +19,6 @@ const L_ERR_MISSING_LOGIN				= 'Vă rugăm să introduceti corect username-ul !'
 const L_ERR_MISSING_PASSWORD			= 'Vă rugăm să introduceti corect parola!';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Confirmarea parolă incorectă !';
 const L_PLUXML_INSTALLATION				= 'Instalaţia PluXml';
-const L_SITE_DESCRIPTION				= 'Site pe baza la Xml !';
 const L_VERSION							= 'versiunea';
 const L_USERNAME						= 'Numele Administratorului';
 const L_PASSWORD						= 'Parola';

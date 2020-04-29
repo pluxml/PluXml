@@ -15,7 +15,7 @@ const L_UPDATE_START					= 'Inizia l\'aggiornamento';
 
 const L_UPDATE_ENDED					= 'Aggiornamento completato.';
 const L_UPDATE_INPROGRESS				= 'Aggiornamento in corso';
-const L_UPDATE_ERROR					= 'Errore durante l\'aggiornamento.';
+const L_UPDATE_ERROR					= 'Si è verificato un errore durante l\'aggiornamento al passaggio %s.';
 const L_UPDATE_SUCCESSFUL				= 'Tutti gli aggiornamenti sono stati eseguiti con successo !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Aggiornamento del file parametres.xml';
@@ -50,4 +50,6 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'La migrazione di file dalle impostazioni d
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Aggiornamento del file plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Commenti migrazione';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Errore durante la migrazione commenti';
+const L_UPDATE_NEW_FOLDER				= 'nuova cartella : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Parametro obsoleto : %s';
 ?>

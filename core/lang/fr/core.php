@@ -22,6 +22,9 @@ const L_CONFIRM_PASSWORD			= 'Confirmation du mot de passe';
 const L_PROFIL_LOGIN				= 'Identifiant de connexion';
 const L_INPUT_CHANGE				= 'Changer';
 const L_COMMENTS_CLOSED				= 'Les commentaires sont fermés';
+const L_SITE_DESCRIPTION			= 'Blog ou Cms à l\'Xml.';
+const L_SAVE_SUCCESSFUL				= 'Enregistrement des données effectué avec succès';
+const L_ARTICLE_SAVE_SUCCESSFUL		= 'Article créé avec succès';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Le thème principal de PluXml est introuvable';

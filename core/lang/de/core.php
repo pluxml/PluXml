@@ -22,6 +22,9 @@ const L_CONFIRM_PASSWORD		= 'Neues Passwort wiederholen';
 const L_PROFIL_LOGIN			= 'Login';
 const L_INPUT_CHANGE			= 'Ändern';
 const L_COMMENTS_CLOSED			= 'Die Kommentare sind geschlossen';
+const L_SITE_DESCRIPTION		= 'Blog oder CMS basierend auf Xml!';
+const L_SAVE_SUCCESSFUL			= 'Daten erfolgreich gespeichert';
+const L_ARTICLE_SAVE_SUCCESSFUL = 'Artikel erfolgreich angelegt';
 
 # index.php
 const L_ERR_THEME_NOTFOUND		= 'Der Haupttheme von PluXml konnte nicht gefunden werden.';
