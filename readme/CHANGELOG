@@ -26,6 +26,7 @@ FIX Alternative to PHPMailer with sendmail #401 (bazooka07)
 FIX Used of an extern URL as a static page #403 (bazooka07)
 FIX Comment editor is empty #418 (P3ter)
 FIX Comments list sorting #419 (P3ter)
+FIX Comments feed link is displayed even if comments are disabled #429 (guiguid)
 FIX Default theme : double underline on footer menu (P3ter)  
 
 ## PLUXML 5.8.2 (2020/02/09) ##
