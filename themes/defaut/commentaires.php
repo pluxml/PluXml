@@ -112,6 +112,8 @@ var parent = document.getElementById('id_parent').value;
 if(parent!='') { replyCom(parent) }
 </script>
 
+	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle">#feedName</a></p>'); ?>
+
 	<?php else: ?>
 
 	<p>
@@ -119,5 +121,3 @@ if(parent!='') { replyCom(parent) }
 	</p>
 
 	<?php endif; # Fin du if sur l'autorisation des commentaires ?>
-
-	<p><?php $plxShow->comFeed(true, $plxShow->artId()); ?></p>
