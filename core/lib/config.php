@@ -73,6 +73,8 @@ if (ini_get('register_globals')) {
 function loadLang($filename) {
 	if(file_exists($filename)) {
 		include_once $filename;
+
+		# Compatibilité avec anciennes versions de PluXml. Deprecated !
 		if(!empty($LANG)) {
 			foreach($LANG as $key => $value) {
 				if(!defined($key)) define($key,$value);
@@ -89,3 +91,9 @@ function path($s, $newvalue='') {
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
 }
+
+# Auto-chargement des librairies de classes
+spl_autoload_register(function($aClass) {
+	# plxMotor => PLX_CORE . 'lib/class.plx.motor.php'
+	include_once PLX_CORE . 'lib/class.plx.' . strtolower(substr($aClass, 3)) . '.php';
+});

@@ -7,12 +7,6 @@
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-foreach(array('motor', 'date') as $k) {
-	if(!class_exists('plx'. ucfirst($k))) {
-		include_once PLX_CORE . 'lib/class.plx.' . $k . '.php';
-	}
-}
-
 const PLX_SHOW = true;
 
 class plxShow {

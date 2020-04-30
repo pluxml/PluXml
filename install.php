@@ -6,7 +6,6 @@
 # --------------------------------------
 
 const PLX_ROOT = './';
-
 const PLX_CORE = PLX_ROOT . 'core/';
 
 include PLX_ROOT . 'config.php';
@@ -17,17 +16,6 @@ const PLX_INSTALLER = true;
 // On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
-
-// On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'timezones',
-	'token',
-	'msg',
-	'admin',
-);
-foreach (ALL_CLASSES as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-}
 
 // Chargement des langues
 $lang = (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;

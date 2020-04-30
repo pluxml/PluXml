@@ -11,16 +11,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	exit;
 }
 
-# On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'date',
-	'erreur',
-	'motor',
-);
-foreach(ALL_CLASSES as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-}
-
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 

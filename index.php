@@ -4,7 +4,7 @@ const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT . 'core/';
 
 include PLX_ROOT . 'config.php';
-include PLX_CORE . 'lib/config.php';
+include PLX_CORE . 'lib/config.php'; # Autochargement des classes
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -15,21 +15,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
-
-# On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	// 'date',
-	'capcha',
-	'erreur',
-	'encrypt',
-	'feed',
-	'show',
-);
-foreach(ALL_CLASSES as $aClass) {
-	if(!class_exists('plx' . ucfirst($aClass))) {
-		include_once PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-	}
-}
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();

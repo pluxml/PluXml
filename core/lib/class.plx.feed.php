@@ -7,12 +7,6 @@
  * @author	Florent MONTHEL, Stephane F, Amaury Graillat
  **/
 
-foreach(array('motor', 'date') as $k) {
-	if(!class_exists('plx' . ucfirst($k))) {
-		include_once PLX_CORE . 'lib/class.plx.' . $k . '.php';
-	}
-}
-
 const PLX_FEED = true;
 
 class plxFeed extends plxMotor {

@@ -7,10 +7,6 @@
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F et Pedro "P3ter" CADETE
  **/
 
-if(!class_exists('plxMotor')) {
-	include_once PLX_CORE . 'lib/class.plx.motor.php';
-}
-
 const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {

@@ -16,9 +16,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 # https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 header('Access-Control-Allow-Origin: *');
 
-# On inclut les librairies nécessaires
-include PLX_CORE . 'lib/class.plx.feed.php';
-
 # Creation de l'objet principal et lancement du traitement
 $plxFeed = plxFeed::getInstance();
 

@@ -9,20 +9,6 @@
 
 if(!defined('PLX_CONFIG_PATH') or !defined('PLX_VERSION')) { exit; }
 
-if(!class_exists('plxUtils')) {
-	include_once PLX_CORE . 'lib/class.plx.utils.php';
-}
-
-if(!defined('PLX_INSTALLER') and !defined('PLX_UPGRADER')) {
-	foreach(array('glob', 'record', 'plugins') as $aClass) {
-		if(!class_exists('plx' . ucfirst($aClass))) {
-			include_once PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-		}
-	}
-}
-
-include_once PLX_CORE.'lib/class.plx.template.php';
-
 class plxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
