@@ -20,14 +20,14 @@ const ALL_CLASSES = array(
 	'utils',
 	'msg',
 	'record',
-	'motor',
 	'admin',
 	'encrypt',
-	'plugins',
-	'token'
+	'token',
 );
 foreach(ALL_CLASSES as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
+	if(!class_exists('plx' . ucfirst($aClass))) {
+		include_once PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
+	}
 }
 
 include PLX_ROOT.'update/class.plx.updater.php';

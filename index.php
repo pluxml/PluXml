@@ -26,7 +26,9 @@ const ALL_CLASSES = array(
 	'show',
 );
 foreach(ALL_CLASSES as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
+	if(!class_exists('plx' . ucfirst($aClass))) {
+		include_once PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
+	}
 }
 
 # Creation de l'objet principal et lancement du traitement
