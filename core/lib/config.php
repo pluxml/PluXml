@@ -10,6 +10,9 @@ const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 
+# Chargement de PLX_CONFIG_PATH
+include PLX_ROOT . 'config.php';
+
 # Gestion des erreurs PHP
 if(PLX_DEBUG){
 	error_reporting(E_ALL);

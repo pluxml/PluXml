@@ -2,8 +2,6 @@
 
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT . 'core/';
-
-include PLX_ROOT . 'config.php';
 include PLX_CORE . 'lib/config.php'; # Autochargement des classes
 
 # On verifie que PluXml est installé

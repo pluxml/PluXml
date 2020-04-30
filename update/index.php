@@ -2,12 +2,11 @@
 
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
-include PLX_ROOT.'config.php'; # définit PLX_CONFIG_PATH
-include PLX_CORE.'lib/config.php';
+include PLX_CORE . 'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
+	header('Location: ' . PLX_ROOT . 'install.php');
 	exit;
 }
 
@@ -38,8 +37,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 # Création de l'objet principal et lancement du traitement
 $plxUpdater = new plxUpdater();
 
-?>
-<?php
 plxUtils::cleanHeaders();
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
