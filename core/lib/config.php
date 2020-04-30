@@ -1,5 +1,7 @@
 <?php
 
+if(!defined('PLX_ROOT')) { exit('Missing PLX_ROOT'); }
+
 const PHP_VERSION_MIN = '5.6.0';
 
 const PLX_DEBUG = false;
