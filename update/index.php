@@ -13,25 +13,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 
 const PLX_UPDATER = true;
 
-# On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'date',
-	'glob',
-	'utils',
-	'msg',
-	'record',
-	'admin',
-	'encrypt',
-	'token',
-);
-foreach(ALL_CLASSES as $aClass) {
-	if(!class_exists('plx' . ucfirst($aClass))) {
-		include_once PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-	}
-}
-
-include PLX_ROOT.'update/class.plx.updater.php';
-
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
 if(isset($_POST['default_lang'])) $lang=$_POST['default_lang'];
