@@ -4,12 +4,6 @@ const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
 include PLX_CORE . 'lib/config.php';
 
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ' . PLX_ROOT . 'install.php');
-	exit;
-}
-
 const PLX_UPDATER = true;
 
 # Chargement des langues

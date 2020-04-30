@@ -39,6 +39,13 @@ $CONSTS = array(
 	'XMLFILE_TAGS'			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
 );
 
+# On verifie que PluXml est installé
+const SCRIPT_INSTALL = 'install.php';
+if(strtolower(basename($_SERVER['SCRIPT_NAME'], '')) != SCRIPT_INSTALL and !file_exists(path('XMLFILE_PARAMETERS'))) {
+	header('Location: ' . PLX_ROOT . SCRIPT_INSTALL);
+	exit;
+}
+
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
 const PLX_CHARSET = 'UTF-8';
 

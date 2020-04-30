@@ -4,12 +4,6 @@ const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT . 'core/';
 include PLX_CORE . 'lib/config.php'; # Autochargement des classes
 
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ' . PLX_ROOT.'install.php');
-	exit;
-}
-
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
