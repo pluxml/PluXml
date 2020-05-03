@@ -7,12 +7,6 @@
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-foreach(array('motor', 'date') as $k) {
-	if(!class_exists('plx'. ucfirst($k))) {
-		include_once PLX_CORE . 'lib/class.plx.' . $k . '.php';
-	}
-}
-
 const PLX_SHOW = true;
 
 class plxShow {
@@ -845,7 +839,7 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function artFeed($type='rss', $categorie='', $format='<a href="#feedUrl" title="#feedTitle" download>#feedName</a>') {
+	public function artFeed($type, $categorie='', $format='<a href="#feedUrl" title="#feedTitle" download>#feedName</a>') {
 		if(!empty($this->plxMotor->plxPlugins)) {
 			# Hook Plugins
 			if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))

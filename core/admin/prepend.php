@@ -1,16 +1,9 @@
 <?php
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
-const SESSION_LIFETIME = 7200;
-
-include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
 
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
-	exit;
-}
+const SESSION_LIFETIME = 7200;
 
 # On démarre la session
 session_start();

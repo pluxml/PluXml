@@ -1,5 +1,7 @@
 <?php
 
+if(!defined('PLX_ROOT')) { exit('Missing PLX_ROOT'); }
+
 const PHP_VERSION_MIN = '5.6.0';
 
 const PLX_DEBUG = false;
@@ -7,6 +9,9 @@ const PLX_VERSION = '5.8.3';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
+
+# Chargement de PLX_CONFIG_PATH
+include PLX_ROOT . 'config.php';
 
 # Gestion des erreurs PHP
 if(PLX_DEBUG){
@@ -33,6 +38,13 @@ $CONSTS = array(
 	'XMLFILE_PLUGINS'		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
 	'XMLFILE_TAGS'			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
 );
+
+# On verifie que PluXml est installé
+const SCRIPT_INSTALL = 'install.php';
+if(strtolower(basename($_SERVER['SCRIPT_NAME'], '')) != SCRIPT_INSTALL and !file_exists(path('XMLFILE_PARAMETERS'))) {
+	header('Location: ' . PLX_ROOT . SCRIPT_INSTALL);
+	exit;
+}
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
 const PLX_CHARSET = 'UTF-8';
@@ -73,6 +85,8 @@ if (ini_get('register_globals')) {
 function loadLang($filename) {
 	if(file_exists($filename)) {
 		include_once $filename;
+
+		# Compatibilité avec anciennes versions de PluXml. Deprecated !
 		if(!empty($LANG)) {
 			foreach($LANG as $key => $value) {
 				if(!defined($key)) define($key,$value);
@@ -89,3 +103,9 @@ function path($s, $newvalue='') {
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
 }
+
+# Auto-chargement des librairies de classes
+spl_autoload_register(function($aClass) {
+	# plxMotor => PLX_CORE . 'lib/class.plx.motor.php'
+	include_once PLX_CORE . 'lib/class.plx.' . strtolower(substr($aClass, 3)) . '.php';
+});

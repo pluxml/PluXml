@@ -7,6 +7,8 @@
 [+] $LANGS array replaced with constants #389 (bazooka07)
 [+] lostpassword token generation refacto #385 (P3ter)
 [+] plxDate and plxShow optimisations : str_replace() replaced by strtr() #407 (bazooka07)
+[+] Default theme : add font-display swap #427 (guiguid)
+[+] plx classes autoload #431 (bazooka07)
 FIX Do not unset CSRF token if $_POST is empty #286 (sudwebdesign)
 FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign) 
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)

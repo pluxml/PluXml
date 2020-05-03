@@ -2,35 +2,9 @@
 
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
-include PLX_ROOT.'config.php'; # définit PLX_CONFIG_PATH
-include PLX_CORE.'lib/config.php';
-
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
-	exit;
-}
+include PLX_CORE . 'lib/config.php';
 
 const PLX_UPDATER = true;
-
-# On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'date',
-	'glob',
-	'utils',
-	'msg',
-	'record',
-	'motor',
-	'admin',
-	'encrypt',
-	'plugins',
-	'token'
-);
-foreach(ALL_CLASSES as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-}
-
-include PLX_ROOT.'update/class.plx.updater.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
@@ -57,8 +31,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 # Création de l'objet principal et lancement du traitement
 $plxUpdater = new plxUpdater();
 
-?>
-<?php
 plxUtils::cleanHeaders();
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();

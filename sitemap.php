@@ -1,25 +1,7 @@
 <?php
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT . 'core/';
-
-include PLX_ROOT . 'config.php';
 include PLX_CORE . 'lib/config.php';
-
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ' . PLX_ROOT . 'install.php');
-	exit;
-}
-
-# On inclut les librairies nécessaires
-const ALL_CLASSES = array(
-	'date',
-	'erreur',
-	'motor',
-);
-foreach(ALL_CLASSES as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-}
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
