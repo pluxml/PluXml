@@ -2,6 +2,8 @@
 /**
  * Classe de mise a jour pour PluXml version 5.1.7
  *
+ * Release on 22 Jan 2013
+ *
  * @package PLX
  * @author	Stephane F
  **/
@@ -59,8 +61,6 @@ class update_5_1_7 extends plxUpdate{
 	public function step2() {
 
 		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
-		$new_parameters['config_path'] = PLX_CONFIG_PATH;
-		$new_parameters['thumbs'] = 1;
 		# on supprime les parametres obsoletes
 		unset($this->plxAdmin->aConf['statiques']);
 		unset($this->plxAdmin->aConf['categories']);
@@ -68,7 +68,10 @@ class update_5_1_7 extends plxUpdate{
 		unset($this->plxAdmin->aConf['tags']);
 		unset($this->plxAdmin->aConf['plugins']);
 		# mise à jour du fichier des parametres
-		$this->updateParameters($new_parameters);
+		echo $this->updateParameters(array(
+			'config_path'	=> PLX_CONFIG_PATH,
+			'thumbs'		=> 1
+		));
 
 		return true; # pas d'erreurs
 	}

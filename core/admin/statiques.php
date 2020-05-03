@@ -40,7 +40,7 @@ function checkBox(cb) {
 }
 </script>
 
-<form action="statiques.php" method="post" id="form_statics">
+<form method="post" id="form_statics">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>

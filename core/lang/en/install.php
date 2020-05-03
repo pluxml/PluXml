@@ -19,7 +19,6 @@ const L_ERR_MISSING_LOGIN				= 'Please fill the login field !';
 const L_ERR_MISSING_PASSWORD			= 'Please fill the password field !';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Invalid password confirmation !';
 const L_PLUXML_INSTALLATION				= 'PluXml installation';
-const L_SITE_DESCRIPTION				= 'Blog or CMS, XML powered !';
 const L_VERSION							= 'version';
 const L_USERNAME						= 'Admin username';
 const L_PASSWORD						= 'Password';
