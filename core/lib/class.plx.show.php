@@ -839,7 +839,7 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function artFeed($type='rss', $categorie='', $format='<a href="#feedUrl" title="#feedTitle" download>#feedName</a>') {
+	public function artFeed($type, $categorie='', $format='<a href="#feedUrl" title="#feedTitle" download>#feedName</a>') {
 		if(!empty($this->plxMotor->plxPlugins)) {
 			# Hook Plugins
 			if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))

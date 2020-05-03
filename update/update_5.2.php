@@ -9,27 +9,7 @@
  **/
 class update_5_2 extends plxUpdate{
 
-	# Deprecated - 2020-04-22 - PluXml 5.8.3
-	/*
-	# mise à jour fichier parametres.xml
-	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
-
-		# on supprime les parametres obsoletes
-		# Inutile : plxAdmin::aConf['racine'] n'est pas sauvegardé.
-		# unset($this->plxAdmin->aConf['racine']);
-
-		# mise à jour du fichier des parametres
-		# Inutile! Voir non-régression dans plxMotor::getConfiguration()
-		echo $this->updateParameters(array(
-			'hometemplate' => 'home.php'
-		));
-		return true; # pas d'erreurs
-	}
-	*/
-
 	# mise à jour fichier plugins.xml
-	# public function step2() {
 	public function step1() {
 ?>
 		<p><?= L_UPDATE_UPDATE_PLUGINS_FILE ?></p>
@@ -54,15 +34,13 @@ class update_5_2 extends plxUpdate{
 			return false;
 		}
 
-		# Pour version < 5.1.7 ???
+		# Pour version < 5.1.7 ?
 		if(array_key_exists('plugins', $this->plxAdmin->aConf)) {
 			unset($this->plxAdmin->aConf['plugins']);
 		}
 
 		return true;
 	}
-
-	/*=====*/
 
 	/**
 	 * Méthode qui charge le fichier plugins.xml (ancien format)
@@ -91,7 +69,6 @@ class update_5_2 extends plxUpdate{
 				$name = $values[$iTags['plugin'][$i] ]['attributes']['name'];
 				$aPlugins[$name] = array(
 					'activate' 	=> $values[$iTags['plugin'][$i] ]['attributes']['activate'],
-					# 'title'		=> isset($values[$iTags['plugin'][$i]]['value']) ? $values[$iTags['plugin'][$i]]['value'] : '',
 				);
 			}
 			return $aPlugins;
