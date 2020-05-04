@@ -951,51 +951,44 @@ class plxShow {
 	 * @param   ending	texte à ajouter en fin de ligne
 	 * @param	sort	tri de l'affichage des articles (sort|rsort|alpha|random)
 	 * @scope	global
-	 * @author	Florent MONTHEL, Stephane F, Cyril MAGUIRE, Thomas Ingles
+	 * @author	Florent MONTHEL, Stephane F, Cyril MAGUIRE, Thomas Ingles, J.P. Pourrez (bazooka07)
 	 **/
-	public function lastArtList($format='', $max=5, $cat_id='', $ending='', $sort='rsort') {
-
-		$capture = '';
-
-		$format = empty($format)? '<li><a href="#art_url" title="#art_title">#art_title</a></li>': $format; # V5.8 format par defaut si vide
+	public function lastArtList($format='<li><a href="#art_url" title="#art_title">#art_title</a></li>', $max=5, $cat_id='', $ending='', $sort='rsort') {
 
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) return;
 
 		# Génération de notre motif
-		$all = (isset($all)? $all: empty($cat_id)); # pour le hook : si $all = TRUE, n'y passe pas
-		$cats = $this->plxMotor->activeCats . '|home'; # toutes les categories active
-		if(!$all) {
-			if(is_numeric($cat_id)) # inclusion à partir de l'id de la categorie
-				$cats = str_pad($cat_id,3,'0',STR_PAD_LEFT);
-			else { # inclusion à partir de url de la categorie
-				$cat_id .= '|';
-				foreach ($this->plxMotor->aCats as $key => $value) {
-					if(strpos($cat_id,$value['url'].'|') !== false) {
-						$cats = explode('|',$cat_id);
-						if (in_array($value['url'], $cats)) {
-							$cat_id = str_replace($value['url'].'|',$key.'|',$cat_id);
+		if(!empty($cat_id)) {
+			if(is_numeric($cat_id)) {
+				$cat_list = str_pad($cat_id, 3, '0', STR_PAD_LEFT);
+			} elseif(preg_match_all('@\d{3}@', $cat_id, $matches)) { # Pas capture, on utilisera $matches[0]
+				$cat_list = '(?:' . implode('|', $matches[0]) . ')';
+			} else {
+				# $cat_id est l'Url de la catégorie
+				if(preg_match('@([^/#]+)(?:#.*)$@', $cat_id, $matches)) {
+					$url = $matches[1];
+					# On recherche la catégorie avec cette url
+					foreach($this->plxMotor->aCats as $id=>$infos) {
+						if(!empty($infos['active']) and $infos['url'] == $url) {
+							$cat_list = $id;
+							break;
 						}
 					}
-				}
-				$cat_id = substr($cat_id,0,-1);
-				if (empty($cat_id)) {
-					$all = true;
-				}else{
-					$cats = $cat_id;
+
+					# Echec ?
+					if(empty($cat_list)) { return; }
 				}
 			}
+		} else {
+			$cat_list = '\d{3}';
 		}
-		if(empty($motif)){# pour le hook. motif par defaut s'il n'a point créé cette variable
-			if($all)
-				$motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$cats.')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
-			else
-				$motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.$cats.')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
-		}
+
+		$motif = '@\d{4}\.(?:home,|\d{3},)*'. $cat_list . '(?:,\d{3})*\..*\.xml$@';
 
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
-		if($aFiles = $plxGlob_arts->query($motif,'art',$sort,0,$max,'before')) {
+		if($aFiles = $plxGlob_arts->query($motif, 'art', $sort, 0, $max, 'before')) {
 			foreach($aFiles as $v) { # On parcourt tous les fichiers
 				$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$v);
 				$num = intval($art['numero']);
@@ -1005,8 +998,8 @@ class plxShow {
 				# Mise en forme de la liste des catégories
 				$catList = array();
 				$catIds = explode(',', $art['categorie']);
-				foreach ($catIds as $idx => $catId) {
-					if(isset($this->plxMotor->aCats[$catId])) { # La catégorie existe
+				foreach ($catIds as $catId) {
+					if(!empty($this->plxMotor->aCats[$catId]) and $this->plxMotor->aCats[$catId]['active']) { # La catégorie existe et est active
 						$catName = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
 						$catUrl = $this->plxMotor->aCats[$catId]['url'];
 						$catList[] = '<a title="'.$catName.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$catUrl).'">'.$catName.'</a>';
@@ -1042,12 +1035,12 @@ class plxShow {
 					'#img_title'			=> $art['thumbnail_title'],
 					'#img_alt'				=> $art['thumbnail_alt']
 				));
-				$row = plxDate::formatDate($date,$row); # ????
+				$row = plxDate::formatDate($date, $row); # ????
 
 				# Hook plugin
 				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
 
-				# On genère notre ligne
+				# On génère notre ligne
 				echo $row;
 			}
 		}
