@@ -271,7 +271,7 @@ function refreshImg(dta) {
 }
 </script>
 
-<form action="variables.php" method="post" id="form_article">
+<form action="article.php" method="post" id="form_article">
 
 	<div class="inline-form action-bar">
 
