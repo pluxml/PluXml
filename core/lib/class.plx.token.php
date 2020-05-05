@@ -25,7 +25,7 @@ class plxToken {
 		);
 		$_SESSION['formtoken'][$token] = time();
 
-		return '<input name="token" value="'.$token.'" type="hidden" />';
+		return ($html) ? '<input name="token" value="'.$token.'" type="hidden" />' : $token;
 	}
 
 	/**
@@ -36,10 +36,12 @@ class plxToken {
 	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function validateFormToken($request='') {
-
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
-
-			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < time() - 3600) { # 3600 seconds
+			$limit = time() - self::LIFETIME;
+			if(empty($_POST)) {
+				return;
+			}
+			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < $limit) {
 				unset($_SESSION['formtoken']);
 				die('Security error : invalid or expired token');
 			}
