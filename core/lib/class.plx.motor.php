@@ -463,7 +463,7 @@ class plxMotor {
 				$this->aCats[$number]['homepage'] = in_array($this->aCats[$number]['homepage'],array('0','1')) ? $this->aCats[$number]['homepage'] : 1;
 				if($this->aCats[$number]['active'] AND $this->aCats[$number]['homepage']) $homepageCats[]=$number;
 				# Recuperation du nombre d'article de la categorie
-				$motif = '#^\d{4}.[home,|0-9,]*'.$number.'\d*.\d{3}.\d{12}.[A-Za-z0-9-]+.xml$#';
+				$motif = "#^\d{4}\.(home,|\d{3},)*$number.*\.\d{3}\.\d{12}\.[\w-]+\.xml$#";
 				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
 				$this->aCats[$number]['articles'] = ($arts?sizeof($arts):0);
 				# Hook plugins
