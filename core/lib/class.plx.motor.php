@@ -541,7 +541,7 @@ class plxMotor {
 				);
 
 				# Recuperation du nombre d'article de la categorie
-				$motif = '#^\d{4}\.(?:home,|\d{3},)*' . $number . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+				$motif = "#^\d{4}\.(?:home,|\d{3},)*$number(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#";
 				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
 				if(!empty($arts)) { $this->aCats[$number]['articles'] = sizeof($arts); }
 
