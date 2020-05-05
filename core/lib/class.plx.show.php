@@ -322,10 +322,10 @@ class plxShow {
 	 * page d'accueil (nommé $extra) sera mis en place en première
 	 * position.
 	 *
-	 * @param	extra	nom du lien vers la page d'accueil
-	 * @param	format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #cat_description, #art_nb)
-	 * @param	include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
-	 * @param	exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
+	 * @param	string	$extra	nom du lien vers la page d'accueil
+	 * @param	string	$format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #cat_description, #art_nb)
+	 * @param	string	$include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
+	 * @param	string	$exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
 	 * @scope	global
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
@@ -355,8 +355,8 @@ class plxShow {
 			foreach($this->plxMotor->aCats as $k=>$v) {
 				$in = (empty($include) or preg_match ('/(\b'.$include.'\b)/', $k));
 				$ex = (!empty($exclude) and preg_match ('/(\b'.$exclude.'\b)/', $k));
-				if($in AND !$ex) {
-					if(($v['articles']>0 OR $this->plxMotor->aConf['display_empty_cat']) AND ($v['menu']=='oui') AND $v['active']) { # On a des articles
+				if($in && !$ex) {
+					if(($v['articles']>0 || $this->plxMotor->aConf['display_empty_cat']) && ($v['menu']=='oui') && $v['active']) { # On a des articles
 						# On modifie nos motifs
 						echo strtr($format, array(
 							'#cat_id'			=> 'cat-' . intval($k),
