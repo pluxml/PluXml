@@ -883,28 +883,36 @@ class plxShow {
 	public function artNbCom($f1='L_NO_COMMENT',$f2='#nb L_COMMENT',$f3='#nb L_COMMENTS') {
 
 		$nb = intval($this->plxMotor->plxRecord_arts->f('nb_com'));
-		$num = intval($this->plxMotor->plxRecord_arts->f('numero'));
-		$url = $this->plxMotor->plxRecord_arts->f('url');
+		$artId = intval($this->plxMotor->plxRecord_arts->f('numero'));
 
 		if($nb==0) {
 			$txt = str_replace('L_NO_COMMENT', L_NO_COMMENT, $f1);
-			$title = $nb.' '.L_NO_COMMENT;
+			$title = L_NO_COMMENT;
 		}
 		elseif($nb==1) {
-			$txt = str_replace('L_COMMENT', L_COMMENT, $f2);
-			$title = $nb.' '.L_COMMENT;
+			$txt = strtr($f2, array(
+				'L_COMMENT'	=> L_COMMENT,
+				'#nb'		=> '1',
+			));
+			$title = '1 ' . L_COMMENT;
 		}
 		else {
-			$txt = str_replace('L_COMMENTS', L_COMMENTS, $f3);
-			$title = $nb.' '.L_COMMENTS;
+			$txt = strtr($f3, array(
+				'L_COMMENTS'	=> L_COMMENTS,
+				'#nb'			=> $nb,
+			));
+			$title = $nb . ' ' . L_COMMENTS;
 		}
-		$txt = str_replace('#nb',$nb,$txt);
 
-		if($this->plxMotor->mode == 'article')
+		if($this->plxMotor->mode == 'article') {
 			echo $txt;
-		else
-			echo '<a href="'.$this->plxMotor->urlRewrite('?article'.$num.'/'.$url).'#comments" title="'.$title.'">'.$txt.'</a>';
-
+		} else {
+			$url = $this->plxMotor->plxRecord_arts->f('url');
+			$classList = ($nb > 0) ? 'class="has-comment"' : '';
+?>
+<a <?= $classList ?> href="<?= $this->plxMotor->urlRewrite('?article' . $artId . '/' . $url) ?>#comments" title="<?= $title ?>"><?= $txt ?></a>
+<?php
+		}
 	}
 
 	/**
