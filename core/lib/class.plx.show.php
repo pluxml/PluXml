@@ -555,40 +555,41 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'image d'accroche d'un article linké vers l'article (variable $type='link') ou vers l'image
+	 * Méthode qui affiche l'image d'accroche d'un article avec un lien vers l'article ou vers l'image
 	 *
-	 * @param	type	type d'affichage : link => sous forme de lien
-	 * @param	format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
-	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @param	string $format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
+	 * @param	bool $echo		si à VRAI affichage à l'écran
+	 * @param	string $link	href de l'image : 'article' pour un lien vers l'article ou vide pour une lien vers l'image
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F, Thatoo
 	 **/
-	public function artThumbnail($type='',$format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true) {
+	public function artThumbnail($format='<a href="#url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $link='article') {
 
 		$filename = trim($this->plxMotor->plxRecord_arts->f('thumbnail'));
 		if(!empty($filename)) {
-			$img_url = $this->plxMotor->urlRewrite($filename);
-			$img_thumb = plxUtils::thumbName($filename);
-			$id = intval($this->plxMotor->plxRecord_arts->f('numero'));
-			$url_art = $this->plxMotor->plxRecord_arts->f('url');
-			if($type == 'link') {
-				$url=$this->plxMotor->urlRewrite('?article'.$id.'/'.$url_art); #art_url
-				} else { # Type normal
-				$url=$img_url; # #img_url
+			$imgUrl = $this->plxMotor->urlRewrite($filename);
+			$imgThumb = plxUtils::thumbName($filename);
+			$artId = intval($this->plxMotor->plxRecord_arts->f('numero'));
+			$artUrl = $this->plxMotor->plxRecord_arts->f('url');
+
+			if($link == 'article') {
+				$url = $this->plxMotor->urlRewrite('?article'.$artId.'/'.$artUrl);
+				} else {
+				$url = $imgUrl;
 				}
 
 			$result = str_replace(
 				array(
-					'#img_url',
+					'#url',
 					'#img_thumb_url',
 					'#img_title',
 					'#img_alt'
 				),
 				array(
 						$url,
-					(file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url, # #img_thumb_url
-					plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), # #img_title
-					$this->plxMotor->plxRecord_arts->f('thumbnail_alt') # #img_alt
+						(file_exists(PLX_ROOT.$imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl, // #img_thumb_url
+						plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')), // #img_title
+						$this->plxMotor->plxRecord_arts->f('thumbnail_alt') // #img_alt
 				),
 				$format
 			);
@@ -599,7 +600,6 @@ class plxShow {
 		} elseif(!$echo) {
 			return false;
 		}
-
 	}
 
 	/**
