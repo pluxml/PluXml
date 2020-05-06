@@ -14,6 +14,7 @@ FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign)
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)
 FIX Missing polish translations #374 (P3ter)
 FIX Article edition always show comments as enabled #402 (bazooka07)
+FIX $plxShow->artNbCom() with no comments #432 (bazooka07)
 
 ## PLUXML 5.8.3 (yyyy/mm/dd) ##
 [+] Enhancement for CSRF token #385 (bazooka07)
