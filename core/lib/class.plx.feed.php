@@ -275,7 +275,8 @@ class plxFeed extends plxMotor {
 				$src = $this->plxRecord_arts->f('thumbnail');
 				if($src!='') {
 					$src = (strpos($src, 'http')===false ? $this->racine.$src : $src);
-					$thumb = plxUtils::strCheck('<img src="'.$src.'" alt="" title="" />');
+					$alt = plxUtils::strCheck($this->plxRecord_arts->f('thumbnail_alt'));
+					$thumb = '<img src="' . plxUtils::strCheck($src) .'" alt="' . $alt . '" />' . PHP_EOL;
 				}
 				# Traitement initial
 				if($this->aConf['feed_chapo']) {
@@ -292,7 +293,7 @@ class plxFeed extends plxMotor {
 			<title><?= plxUtils::cdataCheck($this->plxRecord_arts->f('title')) ?></title>
 			<link><?= $this->urlRewrite('?article' . $artId . '/' . $this->plxRecord_arts->f('url')) ?></link>
 			<guid><?= $this->urlRewrite('?article' . $artId . '/' . $this->plxRecord_arts->f('url')) ?></guid>
-			<description><?= $thumb . plxUtils::cdataCheck(plxUtils::rel2abs($this->racine, $content)) ?></description>
+			<description><?= plxUtils::cdataCheck(plxUtils::rel2abs($this->racine, $thumb . $content)) ?></description>
 			<pubDate><?= plxDate::dateIso2rfc822($this->plxRecord_arts->f('date')) ?></pubDate>
 			<dc:creator><?= plxUtils::cdataCheck($author) ?></dc:creator>
 <?php
