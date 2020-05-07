@@ -2121,16 +2121,16 @@ class plxShow {
 	 */
 	public function urlPostsRssFeed($mode = false) {
 		if(empty($mode)) {
-			$mode = $this->plxMotor->mode
+			$mode = $this->plxMotor->mode;
 		}
 
 		switch ($mode) {
 			case 'categorie':
-				$query = $query = 'rss/categorie' . $categorie . '/' . $this->plxMotor->aCats[$this->plxMotor->cible]['url']);
+				$query = $query = 'rss/categorie' . $categorie . '/' . $this->plxMotor->aCats[$this->plxMotor->cible]['url'];
 				break;
 			case 'tags':
 				$tag = plxUtils::strCheck($this->plxMotor->cible);
-				$query = 'rss/tag/' . plxUtils::strCheck($tag));
+				$query = 'rss/tag/' . plxUtils::strCheck($tag);
 				break;
 			default :
 				$query = 'rss'; # in fact, as mode == 'home'
