@@ -2118,26 +2118,26 @@ class plxShow {
 	/**
 	 * Method in charge of giving an RSS feed URL for current page posts
 	 *
-	 * @param	  mode		the view mode from plxMotor->mode (categorie, tags)
+	 * @param	  mode		the view mode from plxMotor->mode (categorie, tags, home)
 	 * @return	 string	  the contextualised rss feed URL
-	 * @author	 Pedro "P3ter" CADETE
+	 * @author	 Pedro "P3ter" CADETE, J.P. Pourrez "bazooka07"
 	 */
-	public function urlPostsRssFeed($mode = 'home')
-	{
-		$url = '';
+	public function urlPostsRssFeed($mode = false) {
+		if(empty($mode)) {
+			$mode = $this->plxMotor->mode;
+		}
+
 		switch ($mode) {
 			case 'categorie':
-				$categorie = $this->catId();
-				$id = str_pad($categorie, 3, '0', STR_PAD_LEFT);
-				$url = $this->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']);
+				$query = $query = 'rss/categorie' . $categorie . '/' . $this->plxMotor->aCats[$this->plxMotor->cible]['url'];
 				break;
 			case 'tags':
 				$tag = plxUtils::strCheck($this->plxMotor->cible);
-				$url = $this->urlRewrite('feed.php?rss/tag/'.plxUtils::strCheck($tag));
+				$query = 'rss/tag/' . plxUtils::strCheck($tag);
 				break;
 			default :
-				$url = $this->urlRewrite('feed.php?rss');
+				$query = 'rss'; # in fact, as mode == 'home'
 		}
-		return $url;
+		return $this->urlRewrite('feed.php?' . $query);
 	}
 }
