@@ -1074,7 +1074,7 @@ class plxMotor {
 	 *
 	 * @param	filename	emplacement du fichier XML contenant les tags
 	 * @return	null
-	 * @author	Stephane F.
+	 * @author	Stephane F., J.P. Pourrez (bazooka07)
 	 **/
 	public function getTags($filename) {
 
@@ -1091,15 +1091,14 @@ class plxMotor {
 		# On verifie qu'il existe des tags "file"
 		if(isset($iTags['article'])) {
 			# On compte le nombre de tags "file"
-			$nb = sizeof($iTags['article']);
-			# On boucle sur $nb
-			for($i = 0; $i < $nb; $i++) {
-				if(isset($values[ $iTags['article'][$i] ]['value']))
-					$array[ $values[ $iTags['article'][$i] ]['attributes']['number'] ]['tags'] = trim($values[ $iTags['article'][$i] ]['value']);
-				else
-					$array[ $values[ $iTags['article'][$i] ]['attributes']['number'] ]['tags'] = '';
-				$array[ $values[ $iTags['article'][$i] ]['attributes']['number'] ]['date'] = $values[ $iTags['article'][$i] ]['attributes']['date'];
-				$array[ $values[ $iTags['article'][$i] ]['attributes']['number'] ]['active'] = $values[ $iTags['article'][$i] ]['attributes']['active'];
+			foreach($iTags['article'] as $k) {
+				$datas = $values[$k];
+				$idArt = $datas['attributes']['number'];
+				$array[$idArt] = array(
+					'tags'		=> (!empty($datas['value'])) ? trim($datas['value']) : '',
+					'date'		=> $datas['attributes']['date'],
+					'active'	=> $datas['attributes']['active'],
+				);
 			}
 		}
 		# Mémorisation de la liste des tags
