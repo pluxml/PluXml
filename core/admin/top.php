@@ -25,12 +25,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 <?php
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 	plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'].'admin.css', true);
-?>
-	<script src="../lib/functions.js?v=<?= PLX_VERSION ?>"></script>
-	<script src="../lib/visual.js?v=<?= PLX_VERSION ?>"></script>
-	<script src="../lib/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
-	<script defer src="../lib/multifiles.js?v=<?= PLX_VERSION ?>"></script>
-<?php
+
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
 ?>
@@ -140,9 +135,13 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
 <?php
-		if(is_file(PLX_ROOT.'install.php'))
-			echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>'."\n";
 		plxMsg::Display();
+
+		if(is_file(PLX_ROOT.'install.php')) {
+?>
+		<p class="alert red"><?= L_WARNING_INSTALLATION_FILE ?></p>
+<?php
+		}
 
 		# Hook Plugins
 		eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));

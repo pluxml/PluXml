@@ -6,9 +6,12 @@
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) # Hook Plugins ?>
 
-<script src="<?php echo PLX_CORE ?>lib/drag-and-drop.js"></script>
+<script src="../lib/functions.js?v=<?= PLX_VERSION ?>"></script>
+<script src="../lib/visual.js?v=<?= PLX_VERSION ?>"></script>
+<script src="../lib/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
+<script src="../lib/multifiles.js?v=<?= PLX_VERSION ?>"></script>
+<script src="../lib/drag-and-drop.js"></script>
 <script>
-	setMsg();
 	mediasManager.construct({
 		windowName : "<?php echo L_MEDIAS_TITLE ?>",
 		racine:	"<?php echo plxUtils::getRacine() ?>",
