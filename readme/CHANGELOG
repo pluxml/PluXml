@@ -11,6 +11,7 @@
 [+] plx classes autoload #431 (bazooka07)
 [+] $plxShow->lastArtList() optimisations #433 (bazooka07)
 [+] $plxShow->urlPostsRssFeed() optimisations #435 (bazooka07)
+[+] $plxMotor->getTags() optimisations #437 (bazooka07)
 FIX Do not unset CSRF token if $_POST is empty #286 (sudwebdesign)
 FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign) 
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)
