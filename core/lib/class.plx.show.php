@@ -557,7 +557,7 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F, Thatoo, J.P. Pourrez (bazooka07))
 	 **/
-	public function artThumbnail($format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $article=true) {
+	public function artThumbnail($format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $article=false) {
 
 		$filename = trim($this->plxMotor->plxRecord_arts->f('thumbnail'));
 
