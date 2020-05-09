@@ -563,8 +563,16 @@ a.hint:focus span {
 	transition: top 1s ease;
 }
 
+@media (max-width: 767px) {
+	.notification {
+		top: -20rem;
+		right: 0;
+		left: 0;
+	}
+}
+
 .notification.active {
-	top: -6rem;
+	top: -13rem;
 }
 
 .error {
@@ -573,9 +581,7 @@ a.hint:focus span {
 }
 
 .success {
-	/* background-color: #a5e183; */
-	/* border-color: #66c682; */
-	color: #420b1d;
+	color: #000000;
 	background: rgb(64,230,76);
 	background: radial-gradient(circle, rgba(64,230,76,1) 35%, rgba(124,193,56,1) 98%);
 	border: none;
