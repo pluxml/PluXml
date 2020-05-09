@@ -552,40 +552,43 @@ class plxShow {
 	 *
 	 * @param	string $format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
 	 * @param	bool $echo		si à VRAI affichage à l'écran
-	 * @param	string $link	href de l'image : 'article' pour un lien vers l'article ou vide pour une lien vers l'image
+	 * @param	bool $article	si vrai, #img_url pointe sur l'article à la place de l'image
+	 * @return	bool|string
 	 * @scope	home,categorie,article,tags,archives
-	 * @author	Stephane F, Thatoo
+	 * @author	Stephane F, Thatoo, J.P. Pourrez (bazooka07))
 	 **/
-	public function artThumbnail($format='<a href="#url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $link='article') {
+	public function artThumbnail($format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $article=true) {
 
 		$filename = trim($this->plxMotor->plxRecord_arts->f('thumbnail'));
+
+		if(empty($filename) and empty($echo)) { return false; }
 
 		if(!empty($filename)) {
 			$imgUrl = $this->plxMotor->urlRewrite($filename);
 			$imgThumb = plxUtils::thumbName($filename);
+		} else {
+			$imgUrl = '';
+		}
+
+		if($article) {
 			$artId = intval($this->plxMotor->plxRecord_arts->f('numero'));
 			$artUrl = $this->plxMotor->plxRecord_arts->f('url');
-
-			if($link == 'article') {
-				$url = $this->plxMotor->urlRewrite('?article'.$artId.'/'.$artUrl);
-				} else {
-				$url = $imgUrl;
-			}
-
-			$result = strtr($format, array(
-				'#url'			=> $url,
-				'#img_thumb_url'	=> (file_exists(PLX_ROOT.$imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl,
-				'#img_title'		=> plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')),
-				'#img_alt'			=> $this->plxMotor->plxRecord_arts->f('thumbnail_alt')
-			));
-
-			if($echo)
-				echo $result;
-			else
-				return $result;
-		} elseif(!$echo) {
-			return false;
+			$url = $this->plxMotor->urlRewrite('?article' . $artId . '/' . $artUrl);
+		} else {
+			$url = $imgUrl;
 		}
+
+		$result = strtr($format, array(
+			'#img_url'			=> $url,
+			'#img_thumb_url'	=> (!empty($imgThumb) and file_exists(PLX_ROOT.$imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl,
+			'#img_title'		=> plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')),
+			'#img_alt'			=> $this->plxMotor->plxRecord_arts->f('thumbnail_alt')
+		));
+
+		if($echo)
+			echo $result;
+		else
+			return $result;
 	}
 
 	/**
