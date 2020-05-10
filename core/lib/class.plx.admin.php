@@ -1030,7 +1030,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			);
 		}
 
-		if(!empty($content['template']) and preg_match('@^statique(.*)\.php$@', $content['template'])) {
+		if(!empty($content['template']) and preg_match('@^static(.*)\.php$@', $content['template'])) {
 			$this->aStats[$statId]['template'] = $content['template'];
 		}
 
