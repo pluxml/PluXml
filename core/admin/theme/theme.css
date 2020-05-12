@@ -612,6 +612,30 @@ th.checkbox {
 	width: 15px;
 }
 
+/* sorted table */
+th.sort {
+	cursor: pointer;
+	padding: 0.3rem;
+	white-space: nowrap;
+}
+th.sort:hover {
+	background-color: #ccc;
+}
+th.sort::after {
+	content: '🔼🔽'; /* 🠋🠉▲▼ */
+	margin-left: 0.5rem;
+	letter-spacing: 0.3rem;
+}
+th.sort:nth-of-type(3)::after {
+	margin-left: 2rem;
+}
+th.sort.active.reverse::after {
+	content: '🔼 '; /* no-breaking space ! */
+}
+th.sort.active::after {
+	content: ' 🔽';
+}
+
 /* pour l'indentation des commentaires */
 
 .level-0 {
