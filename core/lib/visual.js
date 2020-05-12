@@ -49,6 +49,10 @@ function dialogBox(dlg) {
 	var self = this;
 	this.open = function() {
 		self.dlg.style.display = "block";
+		var entry = self.dlg.querySelector('input[type="text"]');
+		if(entry != null) {
+			entry.focus();
+		}
 	}
 	this.close = function() {
 		self.dlg.style.display = "none";

@@ -38,9 +38,9 @@ $plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf
 #----
 
 if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
-	$newdir = $plxMedias->newDir($_POST['newfolder']);
-	if($newdir) {
-		$_SESSION['folder'] = $_SESSION['folder'].$newdir.'/';
+	$newdir = plxUtils::title2filename(trim($_POST['newfolder']));
+	if($plxMedias->newDir($newdir)) {
+		$_SESSION['folder'] = $_SESSION['folder'] . $newdir . '/';
 	}
 	header('Location: medias.php');
 	exit;
@@ -139,10 +139,10 @@ $curFolders = explode('/', $curFolder);
 	<!-- New Folder Dialog -->
 	<div id="dlgNewFolder" class="dialog">
 		<div class="dialog-content">
-			<span class="dialog-close">&times;</span>
 			<?php echo L_MEDIAS_NEW_FOLDER ?>&nbsp;:&nbsp;
 			<input id="id_newfolder" type="text" name="newfolder" value="" maxlength="50" size="15" />
 			<input type="submit" name="btn_newfolder" value="<?php echo L_MEDIAS_CREATE_FOLDER ?>" />
+			<span class="dialog-close">&times;</span>
 		</div>
 	</div>
 
