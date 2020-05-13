@@ -19,6 +19,7 @@ FIX Missing polish translations #374 (P3ter)
 FIX Article edition always show comments as enabled #402 (bazooka07)
 FIX $plxShow->artNbCom() with no comments #432 (bazooka07)
 FIX $plxShow->lastArtList() chapo and content length #433 (P3ter)
+FIX Templates sorting in static page admin #440 (bazooka07)
 
 ## PLUXML 5.8.3 (yyyy/mm/dd) ##
 [+] Enhancement for CSRF token #385 (bazooka07)
