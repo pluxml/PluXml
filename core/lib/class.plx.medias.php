@@ -105,7 +105,7 @@ class plxMedias {
 		$src = $this->path.$dir;
 		if(!is_dir($src)) return array();
 
-		$defaultSample = PLX_ADMIN_PATH . 'theme/images/file.png';
+		$defaultSample = 'theme/images/file.png';
 		$offset = strlen($this->path);
 		$files = array();
 		foreach(array_filter(

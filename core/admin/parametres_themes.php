@@ -61,7 +61,7 @@ class plxThemes {
 			$img=$this->racineTheme.$theme.'/preview.gif';
 
 		$current = $theme == $this->activeTheme ? ' current' : '';
-		$src = (!empty($img)) ? $img : PLX_ADMIN_PATH . 'theme/images/theme.png';
+		$src = (!empty($img)) ? $img : 'theme/images/theme.png';
 		return '<img class="img-preview' . $current . '" src="' . $src . '" alt="preview" />';
 	}
 

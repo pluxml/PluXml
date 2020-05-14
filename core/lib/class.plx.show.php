@@ -2142,6 +2142,6 @@ class plxShow {
 	}
 
 	public function admin() {
-		echo $this->plxMotor->urlRewrite(substr(PLX_ADMIN_PATH, str_len(PLX_CORE)));
+		echo $this->plxMotor->urlRewrite(substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)));
 	}
 }
