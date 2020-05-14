@@ -396,15 +396,13 @@ class plxFeed extends plxMotor {
 	 **/
 	public function getAdminComments() {
 		# Traitement initial
-		if($this->cible == '_') { # Commentaires hors ligne
-			$link = $this->racine . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)) . 'comments.php?sel=offline';
-			$title = $this->aConf['title'].' - '.L_FEED_OFFLINE_COMMENTS;
-			$link_feed = $this->racine.'feed.php?admin' . $this->clef.'/commentaires/hors-ligne';
-		} else { # Commentaires en ligne
-			$link = $this->racine . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)) . 'comments.php?sel=online';
-			$title = $this->aConf['title'].' - '.L_FEED_ONLINE_COMMENTS;
-			$link_feed = $this->racine.'feed.php?admin'.$this->clef.'/commentaires/en-ligne';
-		}
+		$url_base = $this->racine . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT));
+
+		$offline = ($this->cible == '_'); # Commentaires en/hors ligne
+		$link = $url_base . 'comments.php?sel=' . ($offline ? 'offline' : 'online');
+		$title = $this->aConf['title'].' - ' . ($offline ? L_FEED_OFFLINE_COMMENTS : L_FEED_ONLINE_COMMENTS);
+		$link_feed = $this->racine.'feed.php?admin' . $this->clef . '/commentaires/' . ($offline ? 'hors-ligne' : 'en-ligne');
+
 		$lastBuildDate = (!empty($this->plxRecord_coms)) ? $this->plxRecord_coms->lastUpdated() : date(self::FORMAT_DATE);
 
 		# On affiche le flux
@@ -422,13 +420,12 @@ class plxFeed extends plxMotor {
 <?php
 		# On va boucler sur les commentaires (s'il y en a)
 		if(!empty($this->plxRecord_coms)) {
-			$link_path = $this->racine . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)) . 'comment.php?c=';
 			while($this->plxRecord_coms->loop()) {
 				$artId = $this->plxRecord_coms->f('article') + 0;
 				$comId = $this->cible.$this->plxRecord_coms->f('article').'.'.$this->plxRecord_coms->f('numero');
 				$title_com = $this->plxRecord_coms->f('author').' @ ';
 				$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'), plxDate::FORMAT_TIME);
-				$link_com = $link_path . $comId;
+				$link_com = $url_base . 'comment.php?c=' . $comId;
 				# On vérifie la date de publication
 				if($this->plxRecord_coms->f('date') > $last_updated)
 					$last_updated = $this->plxRecord_coms->f('date');
