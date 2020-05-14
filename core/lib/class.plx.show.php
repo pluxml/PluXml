@@ -2140,4 +2140,8 @@ class plxShow {
 		}
 		return $this->urlRewrite('feed.php?' . $query);
 	}
+
+	public function admin() {
+		echo $this->plxMotor->urlRewrite(substr(PLX_ADMIN_PATH, str_len(PLX_CORE)));
+	}
 }
