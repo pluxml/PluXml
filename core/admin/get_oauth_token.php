@@ -40,10 +40,10 @@ namespace PHPMailer\PHPMailer;
 use League\OAuth2\Client\Provider\Google;
 
 // Include PluXml requirements
-include __DIR__.'/prepend.php';
+include 'prepend.php';
 
 if (!isset($_GET['code']) && !isset($_GET['provider'])) {
-	include __DIR__ .'/top.php';
+	include 'top.php';
 ?>
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_ADVANCED ?></h2>
@@ -124,5 +124,6 @@ if (!isset($_GET['code'])) {
     if (!empty($tokenToStore)) {
     	$plxAdmin->editConfiguration($tokenToStore);
     }
-    header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
+    // header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
+    header('Location: parametres_avances.php'));
 }

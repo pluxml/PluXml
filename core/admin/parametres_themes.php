@@ -61,10 +61,8 @@ class plxThemes {
 			$img=$this->racineTheme.$theme.'/preview.gif';
 
 		$current = $theme == $this->activeTheme ? ' current' : '';
-		if($img=='')
-			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" alt="" />';
-		else
-			return '<img class="img-preview'.$current.'" src="'.$img.'" alt="" />';
+		$src = (!empty($img)) ? $img : PLX_ADMIN_PATH . 'theme/images/theme.png';
+		return '<img class="img-preview' . $current . '" src="' . $src . '" alt="preview" />';
 	}
 
 	public function getInfos($theme) {

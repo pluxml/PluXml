@@ -1,8 +1,7 @@
 <?php
 
 const PLX_ROOT = './';
-const PLX_CORE = PLX_ROOT . 'core/';
-include PLX_CORE . 'lib/config.php'; # Autochargement des classes
+include PLX_ROOT . 'core/lib/config.php'; # Autochargement des classes
 
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
