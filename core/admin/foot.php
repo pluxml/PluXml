@@ -13,9 +13,9 @@
 <script src="../lib/drag-and-drop.js"></script>
 <script>
 	mediasManager.construct({
-		windowName : "<?php echo L_MEDIAS_TITLE ?>",
-		racine:	"<?php echo plxUtils::getRacine() ?>",
-		urlManager: "core/admin/medias.php"
+		windowName : '<?php echo L_MEDIAS_TITLE ?>',
+		racine:	'<?php echo plxUtils::getRacine() ?>',
+		urlManager: 'medias.php'
 	});
 
 	(function(query) {

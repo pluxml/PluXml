@@ -48,7 +48,7 @@ if(isset($_SESSION['maxtry'])) {
 }
 
 # Incrémente le nombre de tentative
-$redirect = $plxAdmin->aConf['racine'] . 'core/admin/';
+$redirect = 'index.php';
 if(!empty($_GET['p']) AND $css=='') {
 
 	# on incremente la variable de session qui compte les tentatives de connexion
