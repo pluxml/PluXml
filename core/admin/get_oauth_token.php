@@ -125,5 +125,5 @@ if (!isset($_GET['code'])) {
     	$plxAdmin->editConfiguration($tokenToStore);
     }
     // header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
-    header('Location: parametres_avances.php'));
+    header('Location: parametres_avances.php');
 }
