@@ -88,6 +88,7 @@ class plxMotor {
 		'smtpOauth2_refreshToken'		=> '',
 		# PluXml 5.8.3 et plus
 		'cleanurl'						=> 0,
+		'thumbnail'						=> '',
 	);
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
