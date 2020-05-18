@@ -17,6 +17,8 @@
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
 ?>
+<?php $plxShow->artNavigation("\t" . '<link rel="#dir" href="#url" />'); ?>
+<?php $plxShow->canonical(); ?>
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlPostsRssFeed() ?>" />
 	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" />
 </head>

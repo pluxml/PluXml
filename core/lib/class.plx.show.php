@@ -11,6 +11,29 @@ const PLX_SHOW = true;
 
 class plxShow {
 
+	const ART_DIRECTIONS = array('first', 'prev', 'next', 'last', 'up');
+	const ART_DIRECTIONS_CAPTIONS = array(
+		'first'	=> L_ART_FIRST,
+		'prev'	=> L_ART_PREV,
+		'next'	=> L_ART_NEXT,
+		'last'	=> L_ART_LAST,
+		'up'	=> L_ART_UP,
+	);
+	const ART_DIRECTIONS_ICONS = array(
+		'first'	=> '◂◂',
+		'prev'	=> '◀',
+		'next'	=> '️️▶',
+		'last'	=> '▸▸',
+		'up'	=> '▲',
+	);
+	const ART_DIRECTIONS_EMOJIS = array(
+		'first'	=> '⏪', // :rewind:
+		'prev'	=> '◀️', // :arrow_backward:
+		'next'	=> '▶️', // :arrow_forward:
+		'last'	=> '⏩', // :fast_forward:
+		'up'	=> '⏫', // :arrow_double_up:
+	);
+
 	public $plxMotor = false; # Objet plxMotor
 	private $lang; # fichier de traduction du theme
 
@@ -1660,6 +1683,90 @@ class plxShow {
 			if(($this->plxMotor->page + 1) < $last_page) # Si la page active++ < derniere page on affiche un lien derniere page
 				echo '&nbsp;<span class="p_last"><a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">'.L_PAGINATION_LAST.'</a></span>';
 		}
+	}
+
+	/*
+	 * Méthode qui affiche les liens vers les premier, précèdent, suivant et dernier articles dans une catégorie, une archive ou pour un mot-clé (tag).
+	 *
+	 * @param	format gabarit pour afficher le résultat
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 * */
+	public function artNavigation($format='<li><a href="#url" rel="#dir" title="#title">#icon</a></li>') {
+		if(empty($_SESSION['previous']) or !array_key_exists('artIds', $_SESSION['previous'])) { return; }
+
+		foreach(self::ART_DIRECTIONS as $direction) {
+			if(!empty($_SESSION['previous']['artIds'][$direction]) or $direction == 'up') {
+				if($direction != 'up') {
+					# On pointe des articles
+					$filename = PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $_SESSION['previous']['artIds'][$direction];
+					$art = $this->plxMotor->parseArticle($filename);
+					$query = '?article' . intval($art['numero']) . '/' . $art['url'];
+					$title = $art['title'];
+				} else {
+					# On remonte pour afficher la liste des articles
+					$cible = $_SESSION['previous']['cible'];
+					$mode = $_SESSION['previous']['mode'];
+					$query = '?' . $mode;
+					switch($mode) {
+						case 'categorie':
+							$query .= intval($cible) . '/' . $this->plxMotor->aCats[$cible]['url'];
+							$title = ucfirst(L_CATEGORY) . ' ' . $this->plxMotor->aCats[$cible]['name'];
+							$bypage = $this->plxMotor->aCats[$cible]['bypage'];
+							break;
+						case 'tags':
+							$query = '?tag/' . $cible;
+							$title = ucfirst(L_TAG) . ' ' . $cible;
+							$bypage = $this->plxMotor->aConf['bypage_tags'];
+							break;
+						case 'archives':
+							$query .= '/' . substr($cible, 0, 4);
+							if(strlen($cible) > 4) { $query .= '/' . substr($cible, 4); }
+							$title = ucfirst('L_ARCHIVES') . ' ' . $cible;
+							$bypage = $this->aConf['bypage_archives'];
+							break;
+						default: # home
+							$query = '';
+					}
+
+					if(strpos($format, '<link') === false) {
+						if($bypage <= 0) { $bypage = $this->plxMotor->bypage; }
+						$page = intval(ceil($_SESSION['previous']['position'] / $bypage));
+						if($page > 1) {
+							$query .= (($mode != 'home') ? '/page' : '?page') . $page;
+						}
+					}
+				}
+				echo strtr($format, array(
+					'#url'		=> $this->plxMotor->urlRewrite('index.php' . $query),
+					'#dir'		=> $direction,
+					'#title'	=> $title,
+					'#caption'	=> self::ART_DIRECTIONS_CAPTIONS[$direction],
+					'#icon'		=> self::ART_DIRECTIONS_ICONS[$direction],
+					'#emoji'	=> self::ART_DIRECTIONS_EMOJIS[$direction],
+				)) . PHP_EOL;
+			}
+		}
+	}
+
+	public function artNavigationRange() {
+?>
+<span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
+<?php
+	}
+
+	public function canonical() {
+		$id = $this->plxMotor->cible;
+		switch($this->plxMotor->mode) {
+			case 'categorie'	: $query = '?categorie' . intval($id) . '/' . $this->plxMotor->aCats[$id]['url']; break;
+			case 'tags'			: $query = '?tags/' . $id; break;
+			case 'archives'		: $query = '?archives/' . $id; break;
+			case 'static'		: $query = '?static' . intval($id) . '/' . $this->plxMotor->aStats[$id]['url']; break;
+			case 'article'		: $query = '?article' . intval($id) . '/' . $this->plxMotor->plxRecord_arts->f('url'); break;
+			default				: $query = '';
+		}
+?>
+	<link rel="canonical" href="<?= $this->plxMotor->aConf['racine'] . 'index.php' . $query ?>" />
+<?php
 	}
 
 	/**

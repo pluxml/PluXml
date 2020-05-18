@@ -48,6 +48,15 @@
 
 					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
 
+			<div class="art-navigation-overlay">
+				<ul class="art-navigation">
+<?php
+		$plxShow->artNavigation();
+?>
+				</ul>
+				<?php $plxShow->artNavigationRange(); ?>
+			</div>
+
 					<?php include __DIR__.'/commentaires.php'; ?>
 
 				</div>

@@ -149,4 +149,10 @@ const L_FEED_ONLINE_COMMENTS		= 'Комментарии онлайн';
 const L_FEED_OFFLINE_COMMENTS		= 'Комментарии оффлайн';
 const L_WRITTEN_BY					= 'Автор';
 
+# plxShow::artNavigation
+const L_ART_FIRST					= 'первый';
+const L_ART_PREV					= 'предыдущий';
+const L_ART_NEXT					= 'следующий';
+const L_ART_LAST					= 'прошлой';
+const L_ART_UP						= 'подниматься';
 ?>

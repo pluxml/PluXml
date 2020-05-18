@@ -507,6 +507,36 @@ article:after {
 	}
 }
 
+/* ----- article pagination ----- */
+.art-navigation-overlay {
+	display: flex;
+	margin: 0 0 0 0.25rem;
+}
+.art-navigation {
+	display: flex;
+	justify-content: center;
+	flex-grow: 1;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.art-navigation a {
+	display: inline-block;
+	min-width: 3rem;
+	margin: 0 0.8rem;
+	padding-bottom: 0.3rem;
+	background-color: #258fd6;
+	color: #eee;
+	text-align: center;
+	font-size: 1.5rem;
+	text-transform: capitalize;
+	border-radius: 0.3rem;
+	cursor: pointer;
+}
+.art-navigation-overlay > span {
+	align-self: center;
+}
+
 @media (max-width: 767px) {
 	.header {
 		position: sticky;

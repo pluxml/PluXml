@@ -149,4 +149,10 @@ const L_FEED_ONLINE_COMMENTS	= 'Online Kommentare';
 const L_FEED_OFFLINE_COMMENTS	= 'Offline Kommentaire';
 const L_WRITTEN_BY				= 'Geschrieben von';
 
+# plxShow::artNavigation
+const L_ART_FIRST					= 'Erste';
+const L_ART_PREV					= 'Früher';
+const L_ART_NEXT					= 'Nächste';
+const L_ART_LAST					= 'Letzte';
+const L_ART_UP						= 'Oben';
 ?>
