@@ -1,4 +1,5 @@
 ## PLUXML 5.8.3 (yyyy/mm/dd) ##
+[+] New Fontello icons on authentification page and in the admin panel (bazooka07)
 [+] Enhancement for CSRF token #385 (bazooka07)
 [+] New "rename" and "copy to clipboard" icons in medias administration page #387 (bazooka07)
 [+] plxMotor and plxFeed regex refacto #380 (P3ter, bazooka07)
@@ -13,7 +14,8 @@ FIX Used of an extern URL as a static page #403 (bazooka07)
 FIX Comment editor is empty #418 (P3ter)
 FIX Comments list sorting #419 (P3ter)
 FIX Comments feed link is displayed even if comments are disabled #429 (guiguid)
-FIX Default theme : double underline on footer menu (P3ter)  
+FIX Default theme : double underline on footer menu (P3ter)
+FIX Oauth2 token generation button #445 (bazooka07)
 
 ## PLUXML 5.8.2 (2020/02/09) ##
 [+] #371 Check PluXml update using javascript if "curl" or "file_get_contents" can not be used (bazooka07)
