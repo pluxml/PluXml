@@ -11,27 +11,12 @@ const PLX_SHOW = true;
 
 class plxShow {
 
-	const ART_DIRECTIONS = array('first', 'prev', 'next', 'last', 'up');
-	const ART_DIRECTIONS_CAPTIONS = array(
-		'first'	=> L_ART_FIRST,
-		'prev'	=> L_ART_PREV,
-		'next'	=> L_ART_NEXT,
-		'last'	=> L_ART_LAST,
-		'up'	=> L_ART_UP,
-	);
-	const ART_DIRECTIONS_ICONS = array(
-		'first'	=> '◂◂',
-		'prev'	=> '◀',
-		'next'	=> '️️▶',
-		'last'	=> '▸▸',
-		'up'	=> '▲',
-	);
-	const ART_DIRECTIONS_EMOJIS = array(
-		'first'	=> '⏪', // :rewind:
-		'prev'	=> '◀️', // :arrow_backward:
-		'next'	=> '▶️', // :arrow_forward:
-		'last'	=> '⏩', // :fast_forward:
-		'up'	=> '⏫', // :arrow_double_up:
+	const ART_DIRECTIONS = array(
+		'first'	=> array('◂◂',	'⏪',	L_ART_FIRST),	// :rewind:
+		'prev'	=> array('◀',	'◀️',	L_ART_PREV),	// :arrow_backward:
+		'next'	=> array('️️▶',	'▶️',	L_ART_NEXT),	// :arrow_forward:
+		'last'	=> array('▸▸',	'⏩',	L_ART_LAST),	// :fast_forward:
+		'up'	=> array('▲',	'⏫',	L_ART_UP),		// :arrow_double_up:
 	);
 
 	public $plxMotor = false; # Objet plxMotor
@@ -1689,12 +1674,17 @@ class plxShow {
 	 * Méthode qui affiche les liens vers les premier, précèdent, suivant et dernier articles dans une catégorie, une archive ou pour un mot-clé (tag).
 	 *
 	 * @param	format gabarit pour afficher le résultat
+	 * @param	buttons liste des boutons à afficher
 	 * @author	Jean-Pierre Pourrez "bazooka07"
 	 * */
-	public function artNavigation($format='<li><a href="#url" rel="#dir" title="#title">#icon</a></li>') {
-		if(empty($_SESSION['previous']) or !array_key_exists('artIds', $_SESSION['previous'])) { return; }
+	public function artNavigation($format='<li><a href="#url" rel="#dir" title="#title">#icon</a></li>', $buttons='first prev next last up') {
+		if(
+			empty($_SESSION['previous']) or
+			!array_key_exists('artIds', $_SESSION['previous']) or
+			preg_match_all('@\b(?:' . implode('|', array_keys(self::ART_DIRECTIONS)). ')\b@', $buttons, $matches) == 0
+		) { return; }
 
-		foreach(self::ART_DIRECTIONS as $direction) {
+		foreach($matches[0] as $direction) {
 			if(!empty($_SESSION['previous']['artIds'][$direction]) or $direction == 'up') {
 				if($direction != 'up') {
 					# On pointe des articles
@@ -1736,18 +1726,24 @@ class plxShow {
 						}
 					}
 				}
+				list($icon, $emoji, $caption) = self::ART_DIRECTIONS[$direction];
 				echo strtr($format, array(
 					'#url'		=> $this->plxMotor->urlRewrite('index.php' . $query),
 					'#dir'		=> $direction,
 					'#title'	=> $title,
-					'#caption'	=> self::ART_DIRECTIONS_CAPTIONS[$direction],
-					'#icon'		=> self::ART_DIRECTIONS_ICONS[$direction],
-					'#emoji'	=> self::ART_DIRECTIONS_EMOJIS[$direction],
+					'#caption'	=> $caption,
+					'#icon'		=> $icon,
+					'#emoji'	=> $emoji,
 				)) . PHP_EOL;
 			}
 		}
 	}
 
+	/*
+	 * Imprime le lien canonique de la page
+	 *
+	 * @author Jean-Pierre Pourrez "Bazooka07"
+	 * */
 	public function artNavigationRange() {
 ?>
 <span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
