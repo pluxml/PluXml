@@ -31,7 +31,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 ?>
 </head>
 
-<body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
+<body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>" class="profil-<?= $_SESSION['profil'] ?>">
 
 <main class="main grid">
 
