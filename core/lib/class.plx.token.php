@@ -2,7 +2,7 @@
 /**
  * Classe plxToken responsable du controle des formulaires
  *
- * @package PLX
+ * @package	PLX
  * @author	Stephane F, Pedro "P3ter" CADETE, J.P. Pourrez
  **/
 class plxToken {
@@ -33,7 +33,7 @@ class plxToken {
 	 *
 	 * @param	$request	(deprecated)
 	 * @return	stdio/null
-	 * @author	Stephane F, J.P. Pourrez
+	 * @author	Stephane F, J.P. Pourrez, Sudwebdesign
 	 **/
 	public static function validateFormToken($request='') {
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {

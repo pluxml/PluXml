@@ -15,7 +15,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminStaticPrepend'));
 plxToken::validateFormToken($_POST);
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
+$plxAdmin->checkProfil(PROFIL_MANAGER);
 
 # On édite la page statique
 if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
@@ -62,7 +62,11 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 	foreach($array as $k=>$v)
 		$aTemplates[$v] = $v;
 }
-if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
+if(empty($aTemplates)) {
+	$aTemplates[''] = L_NONE1;
+} else {
+	asort($aTemplates);
+}
 
 # On inclut le header
 include __DIR__ .'/top.php';
@@ -89,13 +93,13 @@ include __DIR__ .'/top.php';
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
-					<label for="id_template"><?php echo L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
+					<label for="id_template"><?php echo L_TEMPLATE ?>&nbsp;:</label>
 					<?php plxUtils::printSelect('template', $aTemplates, $template) ?>
 				</div>
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
-					<label for="id_title_htmltag"><?php echo L_STATIC_TITLE_HTMLTAG ?>&nbsp;:</label>
+					<label for="id_title_htmltag"><?php echo L_TITLE_HTMLTAG ?>&nbsp;:</label>
 					<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','50-255'); ?>
 				</div>
 			</div>

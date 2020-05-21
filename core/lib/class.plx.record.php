@@ -62,4 +62,26 @@ class plxRecord {
 			return false;
 	}
 
+	/**
+	 * Méthode pour retrouver la plus récente date
+	 *
+	 * @param	$field	nom du champ contenant la date
+	 * @return	Date la plus récente
+	 * @author	J.P. Pourrez
+	 *
+	 * Utilisé pour les flux RSS
+	 * */
+	public function lastUpdated($field='date') {
+		$last = '197001010100';
+		for($i=0; $i<$this->size; $i++) {
+			if(array_key_exists($field, $this->result[$i])) {
+				$value = $this->result[$i][$field];
+				if(preg_match('@^\d{12,}$@', $value) and $last < $value) {
+					$last = $value;
+				}
+			}
+		}
+		return $last;
+	}
+
 }

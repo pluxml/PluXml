@@ -1,16 +1,9 @@
 <?php
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
-const SESSION_LIFETIME = 7200;
-
-include PLX_ROOT.'config.php';
 include PLX_CORE.'lib/config.php';
 
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
-	exit;
-}
+const SESSION_LIFETIME = 7200;
 
 # On démarre la session
 session_start();
@@ -27,17 +20,9 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 }
 
 # On inclut les librairies nécessaires
-include_once PLX_CORE.'lib/class.plx.date.php';
-include_once PLX_CORE.'lib/class.plx.glob.php';
-include_once PLX_CORE.'lib/class.plx.utils.php';
-include_once PLX_CORE.'lib/class.plx.msg.php';
-include_once PLX_CORE.'lib/class.plx.record.php';
-include_once PLX_CORE.'lib/class.plx.motor.php';
-include_once PLX_CORE.'lib/class.plx.admin.php';
-include_once PLX_CORE.'lib/class.plx.encrypt.php';
-include_once PLX_CORE.'lib/class.plx.medias.php';
-include_once PLX_CORE.'lib/class.plx.plugins.php';
-include_once PLX_CORE.'lib/class.plx.token.php';
+foreach(array('date', 'msg', 'encrypt', 'medias', 'token', 'admin') as $k) {
+	include_once PLX_CORE . 'lib/class.plx.'. $k . '.php';
+}
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
@@ -67,6 +52,25 @@ eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 # Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
 loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+
+# Tableau des profils
+const PROFIL_NAMES = array(
+	PROFIL_ADMIN		=> L_PROFIL_ADMIN,
+	PROFIL_MANAGER		=> L_PROFIL_MANAGER,
+	PROFIL_MODERATOR	=> L_PROFIL_MODERATOR,
+	PROFIL_EDITOR		=> L_PROFIL_EDITOR,
+	PROFIL_WRITER		=> L_PROFIL_WRITER
+);
+
+# On vérifie que PHP 5 ou superieur soit installé
+if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
+	header('Content-Type: text/plain charset=UTF-8');
+	printf(L_WRONG_PHP_VERSION, PHP_VERSION_MIN);
+	exit;
+}
+
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins

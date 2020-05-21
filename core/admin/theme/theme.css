@@ -244,6 +244,45 @@ a.btnDelete {
 	text-align: center;
 }
 
+/* Fontello */
+.ico {
+	position: absolute;
+	font-size: 14pt;
+	z-index: 5;
+}
+
+.ico + input {
+	padding-left: 3rem;
+}
+
+.back::before {
+	content: '\e815';
+	font-family: fontello;
+	margin-right: 1rem;
+	font-size: 14pt;
+}
+
+#auth .back::before {
+	font-family: fontello;
+	content: '\e80d';
+	margin-right: 0.75rem;
+	font-size: 12pt;
+}
+
+.aside .back-site::before {
+	font-family: fontello;
+	content: '\e80d';
+	margin-right: 1rem;
+}
+
+.logout::before {
+	font-family: fontello;
+	content: '\e80a';
+	transform: rotate(180deg);
+	display: inline-block;
+	margin-right: 1rem;
+}
+
 .new td[colspan="2"],
 .new td[colspan="3"] {
 	text-align: center;
@@ -510,25 +549,42 @@ a.hint:focus span {
 }
 
 .notification {
-	position: fixed;
-	top: -1px;
-	z-index: 999999;
+	position: absolute;
+	top: -18rem;
+	right: 25rem;
+	left: 25rem;
+	margin: 0;
+	padding: 0.5rem 0;
+	line-height: 1.6;
 	text-align: center;
-	margin: 0 auto;
-	padding: .25rem 1rem;
-	border: .25rem solid;
 	color: #000;
-	width: 100%
+	border: .25rem solid;
+	z-index: 999999;
+	transition: top 1s ease;
+}
+
+@media (max-width: 767px) {
+	.notification {
+		top: -20rem;
+		right: 0;
+		left: 0;
+	}
+}
+
+.notification.active {
+	top: -13rem;
 }
 
 .error {
 	background-color: #ffcfcf;
-	border-color: #df8f8f;
+	border-color: #eacfcf;
 }
 
 .success {
-	background-color: #fff1a8;
-	border-color: #e6db55;
+	color: #000000;
+	background: rgb(64,230,76);
+	background: radial-gradient(circle, rgba(64,230,76,1) 35%, rgba(124,193,56,1) 98%);
+	border: none;
 }
 
 .warning {

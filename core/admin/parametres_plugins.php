@@ -66,7 +66,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 					# description
 					$output .= '<br />'.plxUtils::strCheck($plugInstance->getInfo('description')).'<br />';
 					# author
-					$output .= L_PLUGINS_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
+					$output .= L_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
 					# site
 					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.plxUtils::strCheck($plugInstance->getInfo('site')).'">'.plxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
 				$output .= "</td>\n";
@@ -112,10 +112,10 @@ $session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : '1';
 $sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
 $_SESSION['selPlugins'] = $sel;
 if($sel=='1') {
-	$aSelList = array('' => L_FOR_SELECTION, 'deactivate'=> L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
+	$aSelList = array('' => L_FOR_SELECTION, 'deactivate'=> L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_DELETE);
 	$plugins = pluginsList($plxAdmin->plxPlugins->aPlugins, $plxAdmin->aConf['default_lang'], true);
 } else {
-	$aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
+	$aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_DELETE);
 	$plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);
 }
 # fil d'ariane
@@ -163,7 +163,7 @@ include __DIR__ .'/top.php';
 					<?php if($_SESSION['selPlugins']=='1') : ?>
 					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
 					<?php endif; ?>
-					<th><?php echo L_PLUGINS_ACTION ?></th>
+					<th><?= L_ACTION ?></th>
 				</tr>
 			</thead>
 			<tbody>

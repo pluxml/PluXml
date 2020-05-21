@@ -16,10 +16,11 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminCommentPrepend'));
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
+$plxAdmin->checkProfil(PROFIL_MODERATOR);
 
 # Interdire de l'accès à la page si les commentaires sont désactivés
 if(!$plxAdmin->aConf['allow_com']) {
+	plxMsg::Error(L_COMMENTS_CLOSED);
 	header('Location: index.php');
 	exit;
 }
@@ -85,7 +86,7 @@ $artId = $plxAdmin->plxRecord_coms->f('article');
 # On va rechercher notre article
 if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',0,1)) == false) {
 	# On indique que le commentaire est attaché à aucun article
-	$article = '<strong>'.L_COMMENT_ORPHAN.'</strong>';
+	$article = '<strong>'.L_NO_ARTICLE.'</strong>';
 	# Statut du commentaire
 	$statut = '<strong>'.L_COMMENT_ORPHAN_STATUS.'</strong>';
 } else {
@@ -133,7 +134,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
 		<?php endif; ?>
 		<?php if($com['comStatus']=='') : ?>
-		<input type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
+		<input type="submit" name="offline" value="<?php echo L_SET_OFFLINE ?>" />
 		<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
 		<?php else : ?>
 		<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
@@ -168,7 +169,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_author"><?php echo L_COMMENT_AUTHOR_FIELD ?> :</label>
+				<label for="id_author"><?php echo L_AUTHOR ?> :</label>
 				<?php plxUtils::printInput('author',$author,'text','40-255') ?>
 			</div>
 		</div>

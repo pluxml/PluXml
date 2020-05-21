@@ -16,7 +16,7 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminCategoryPrepend'));
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR);
+$plxAdmin->checkProfil(PROFIL_EDITOR);
 
 # On édite la catégorie
 if(!empty($_POST) AND isset($plxAdmin->aCats[ $_POST['id'] ])) {
@@ -76,7 +76,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_template"><?php echo L_EDITCAT_TEMPLATE ?>&nbsp;:</label>
+				<label for="id_template"><?php echo L_TEMPLATE ?>&nbsp;:</label>
 				<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aCats[$id]['template']) ?>
 			</div>
 		</div>
@@ -114,7 +114,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_title_htmltag"><?php echo L_EDITCAT_TITLE_HTMLTAG ?>&nbsp;:</label>
+				<label for="id_title_htmltag"><?php echo L_TITLE_HTMLTAG ?>&nbsp;:</label>
 				<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($plxAdmin->aCats[$id]['title_htmltag']),'text','50-255'); ?>
 			</div>
 		</div>

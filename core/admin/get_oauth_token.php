@@ -46,7 +46,7 @@ if (!isset($_GET['code']) && !isset($_GET['provider'])) {
 	include __DIR__ .'/top.php';
 ?>
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
+		<h2><?php echo L_CONFIG_ADVANCED ?></h2>
 	</div>
 	<div>
 		<p>Select Provider:</p>
@@ -122,7 +122,7 @@ if (!isset($_GET['code'])) {
     $tokenToStore['smtpOauth2_refreshToken'] = $token->getRefreshToken();
     // Store the token in the PluXMl configuration and redirect to the administration page
     if (!empty($tokenToStore)) {
-    	$plxAdmin->editConfiguration($plxAdmin->aConf, $tokenToStore);
+    	$plxAdmin->editConfiguration($tokenToStore);
     }
     header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
 }

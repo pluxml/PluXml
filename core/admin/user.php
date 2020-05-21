@@ -71,7 +71,7 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
+				<label for="id_content"><?php echo L_INFOS ?>&nbsp;:</label>
 				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']), 0, 8) ?>
 			</div>
 		</div>

@@ -194,7 +194,7 @@ class plxMedias {
 			if($count==0)
 				return plxMsg::Info(L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL);
 			else
-				return plxMsg::Error(L_PLXMEDIAS_DELETE_FILE_ERR);
+				return plxMsg::Error(L_DELETE_FILE_ERR);
 		}
 		else {
 			if($count==0)
@@ -305,7 +305,7 @@ class plxMedias {
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
 			if(preg_match($this->img_exts, $file['name'])) {
-				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48);
+				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile));
 				if($resize)
 					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
 				if($thumb)
@@ -329,6 +329,7 @@ class plxMedias {
 		if(isset($post['myfiles'])) {
 			foreach($post['myfiles'] as $key => $val) {
 				list($selnum, $selval) = explode('_', $val);
+				if(ini_get('max_file_uploads')-1 < $selval) break;
 				$files[] = array(
 					'name'		=> $usrfiles['selector_'.$selnum]['name'][$selval],
 					'size'		=> $usrfiles['selector_'.$selnum]['size'][$selval],

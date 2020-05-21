@@ -16,7 +16,7 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminCategoriesPrepend'));
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR);
+$plxAdmin->checkProfil(PROFIL_EDITOR);
 
 # On édite les catégories
 if(!empty($_POST)) {
@@ -38,7 +38,7 @@ $aTri = array(
 include __DIR__ .'/top.php';
 ?>
 
-<form action="categories.php" method="post" id="form_categories">
+<form method="post" id="form_categories">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CAT_TITLE ?></h2>
@@ -57,14 +57,14 @@ include __DIR__ .'/top.php';
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
-					<th><?php echo L_ID ?></th>
+					<th>#</th>
 					<th><?php echo L_CAT_LIST_NAME ?></th>
-					<th><?php echo L_CAT_LIST_URL ?></th>
-					<th><?php echo L_CAT_LIST_ACTIVE ?></th>
-					<th><?php echo L_CAT_LIST_SORT ?></th>
+					<th><?php echo L_URL ?></th>
+					<th><?= L_ACTIVE ?></th>
+					<th><?php echo L_ARTICLES_SORT ?></th>
 					<th><?php echo L_CAT_LIST_BYPAGE ?></th>
-					<th data-id="order"><?php echo L_CAT_LIST_ORDER ?></th>
-					<th><?php echo L_CAT_LIST_MENU ?></th>
+					<th data-id="order"><?php echo L_ORDER ?></th>
+					<th><?php echo L_MENU ?></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>

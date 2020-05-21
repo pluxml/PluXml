@@ -31,7 +31,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
 if(isset($_SESSION['maxtry'])) {
 	if( intval($_SESSION['maxtry']['counter']) >= $maxlogin['counter'] AND (time() < $_SESSION['maxtry']['timer'] + $maxlogin['timer']) ) {
 		# écriture dans les logs du dépassement des 3 tentatives successives de connexion
-		@error_log("PluXml: Max login failed. IP : ".plxUtils::getIp());
+		@error_log('PluXml: Max login failed. IP : ' . plxUtils::getIp());
 		# message à affiche sur le mire de connexion
 		$msg = sprintf(L_ERR_MAXLOGIN, ($maxlogin['timer']/60));
 		$css = 'alert red';
@@ -48,7 +48,7 @@ if(isset($_SESSION['maxtry'])) {
 }
 
 # Incrémente le nombre de tentative
-$redirect=$plxAdmin->aConf['racine'].'core/admin/';
+$redirect = $plxAdmin->aConf['racine'] . 'core/admin/';
 if(!empty($_GET['p']) AND $css=='') {
 
 	# on incremente la variable de session qui compte les tentatives de connexion
@@ -65,7 +65,7 @@ if(!empty($_GET['p']) AND $css=='') {
 			$query=($query[0]!='d'?'?'.$get_p['query']:'');
 		}
 		# url de redirection
-		$redirect=$get_p['path'].$query;
+		$redirect = $get_p['path'].$query;
 	}
 }
 
@@ -100,7 +100,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $css=='') {
 	}
 	if($connected) {
 		unset($_SESSION['maxtry']);
-		header('Location: '.htmlentities($redirect));
+		header('Location: ' . htmlentities($redirect));
 		exit;
 	} else {
 		$msg = L_ERR_WRONG_PASSWORD;
@@ -147,23 +147,23 @@ if(!empty($_POST['editpassword'])){
 plxUtils::cleanHeaders();
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
+<html lang="<?= $plxAdmin->aConf['default_lang'] ?>">
 <head>
 	<meta name="robots" content="noindex, nofollow" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
-	<title>PluXml - <?php echo L_AUTH_PAGE_TITLE ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET); ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
+	<title>PluXml - <?= L_AUTH_PAGE_TITLE ?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?= strtolower(PLX_CHARSET); ?>" />
+	<link rel="stylesheet" type="text/css" href="theme/plucss.css?v=<?= PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="theme/theme.css?v=<?= PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" href="theme/fontello/css/fontello.css" media="screen" />
+	<link rel="icon" href="theme/images/favicon.png" />
 <?php
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 	plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'].'admin.css', true);
+
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead'));
 ?>
-	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
 </head>
 <body id="auth">
 	<main class="container">
@@ -178,10 +178,11 @@ plxUtils::cleanHeaders();
 						# Hook plugins
 						eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword'));
 ?>
-				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+
+				<form action="auth.php<?= !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
 					<fieldset>
-						<?php echo plxToken::getTokenPostMethod() ?>
-						<h1 class="h5 text-center"><strong><?php echo L_LOST_PASSWORD ?></strong></h1>
+						<?= plxToken::getTokenPostMethod() ?>
+						<h1 class="h5 text-center"><strong><?= L_LOST_PASSWORD ?></strong></h1>
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-user"></i>
@@ -190,7 +191,7 @@ plxUtils::cleanHeaders();
 						</div>
 						<div class="grid">
 							<div class="col sml-12">
-								<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+								<small><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
 							</div>
 						</div>
 <?php
@@ -199,13 +200,13 @@ plxUtils::cleanHeaders();
 ?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
-								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+								<input class="blue" type="submit" value="<?= L_SUBMIT_BUTTON ?>" />
 							</div>
 						</div>
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?= PLX_ROOT; ?>" title="<?= L_BACK_HOMEPAGE_TITLE; ?>"><?= L_HOMEPAGE ?></a> - <?= L_POWERED_BY ?></small>
 				</p>
 <?php
 		break;
@@ -215,26 +216,26 @@ plxUtils::cleanHeaders();
 				# Hook plugins
 				eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword'));
 ?>
-				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+				<form action="auth.php<?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>" method="post" id="form_auth">
 					<fieldset>
-						<?php echo plxToken::getTokenPostMethod() ?>
-						<input name="lostPasswordToken" value="<?php echo $lostPasswordToken ?>" type="hidden" />
-						<h1 class="h5 text-center"><strong><?php echo L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
+						<?= plxToken::getTokenPostMethod() ?>
+						<input name="lostPasswordToken" value="<?= $lostPasswordToken ?>" type="hidden" />
+						<h1 class="h5 text-center"><strong><?= L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password1', '', 'password', '10-255',false,'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+								<?php plxUtils::printInput('password1', '', 'password', '10-255',false,'full-width', L_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
 							</div>
 						</div>
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
+								<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_CONFIRM_PASSWORD) ?>
 							</div>
 						</div>
 						<div class="grid">
 							<div class="col sml-12">
-								<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+								<small><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
 							</div>
 						</div>
 <?php
@@ -243,13 +244,13 @@ plxUtils::cleanHeaders();
 ?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
-								<input type="submit" name="editpassword" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
+								<input type="submit" name="editpassword" value="<?= L_PROFIL_UPDATE_PASSWORD ?>" />
 							</div>
 						</div>
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_BACK_HOMEPAGE ?></a> - <?= L_POWERED_BY ?></small>
 				</p>
 <?php
 			}
@@ -257,14 +258,14 @@ plxUtils::cleanHeaders();
 				# Hook plugins
 				eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError'));
 ?>
-				<h1 class="h5 text-center"><strong><?php echo L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
+				<h1 class="h5 text-center"><strong><?= L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
 				<div class="alert red">
-					<?php echo L_LOST_PASSWORD_ERROR ?>
+					<?= L_LOST_PASSWORD_ERROR ?>
 				</div>
-				<small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+				<small><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) # Hook plugins ?>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_BACK_HOMEPAGE ?></a> - <?= L_POWERED_BY ?></small>
 				</p>
 <?php
 			}
@@ -272,10 +273,10 @@ plxUtils::cleanHeaders();
 		default: # Affichage du formulaire de connexion à l'administration
 ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) # Hook plugins ?>
-				<form action="auth.php<?php echo !empty($redirect)?'?p='.plxUtils::strCheck(urlencode($redirect)):'' ?>" method="post" id="form_auth">
+				<form action="auth.php<?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>" method="post" id="form_auth">
 					<fieldset>
-						<?php echo plxToken::getTokenPostMethod() ?>
-						<h1 class="h5 text-center"><strong><?php echo L_LOGIN_PAGE ?></strong></h1>
+						<?= plxToken::getTokenPostMethod() ?>
+						<h1 class="h5 text-center"><strong><?= L_LOGIN_PAGE ?></strong></h1>
 						<?php (!empty($msg))?plxUtils::showMsg($msg, $css):''; ?>
 						<div class="grid">
 							<div class="col sml-12">
@@ -286,7 +287,7 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_AUTH_PASSWORD_FIELD);?>
+								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_PASSWORD);?>
 							</div>
 						</div>
 <?php
@@ -294,7 +295,7 @@ plxUtils::cleanHeaders();
 ?>
 							<div class="grid">
 								<div class="col sml-12">
-									<small><a href="?action=lostpassword"><?php echo L_LOST_PASSWORD ?></a></small>
+									<small><a href="?action=lostpassword"><?= L_LOST_PASSWORD ?></a></small>
 								</div>
 							</div>
 <?php
@@ -304,13 +305,13 @@ plxUtils::cleanHeaders();
 ?>
 						<div class="grid">
 							<div class="col sml-12 text-center">
-								<input class="blue" type="submit" value="<?php echo L_SUBMIT_BUTTON ?>" />
+								<input class="blue" type="submit" value="<?= L_SUBMIT_BUTTON ?>" />
 							</div>
 						</div>
 					</fieldset>
 				</form>
 				<p class="text-center">
-					<small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a> - <?php echo L_POWERED_BY ?></small>
+					<small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_HOMEPAGE ?></a> - <?= L_POWERED_BY ?></small>
 				</p>
 <?php
 	}
@@ -321,5 +322,8 @@ plxUtils::cleanHeaders();
 	</main>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndBody')) # Hook Plugins ?>
+
+	<script src="../lib/visual.js?v=<?= PLX_VERSION ?>"></script>
+
 </body>
 </html>

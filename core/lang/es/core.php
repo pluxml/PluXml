@@ -1,155 +1,152 @@
 <?php
 
-$LANG = array(
+const L_LANGUE						= 'Español';
 
-'L_LANGUE'						=> 'Español',
-
-'L_DATE_CREATION'				=> 'Fecha de creación',
-'L_DATE_UPDATE'					=> 'Fecha de actualización',
+const L_DATE_CREATION				= 'Fecha de creación';
+const L_DATE_UPDATE					= 'Fecha de actualización';
 
 # common
-'L_PLUXML_VERSION'				=> 'Versión de PluXml',
-'L_HOMEPAGE'					=> 'Inicio',
-'L_UNCLASSIFIED'				=> 'Sin categoría',
-'L_INFO_PHP_VERSION'			=> 'Versión de PHP',
-'L_INFO_CHARSET'				=> 'codificación',
+const L_PLUXML_VERSION				= 'Versión de PluXml';
+const L_WRONG_PHP_VERSION			= 'PluXml necesita PHP %s posterior.';
+const L_HOMEPAGE					= 'Página principal';
+const L_BACK_HOMEPAGE_TITLE			= 'Volver a la página de inicio';
+const L_UNCLASSIFIED				= 'Sin categoría';
+const L_INFO_PHP_VERSION			= 'Versión de PHP';
+const L_INFO_CHARSET				= 'codificación';
+const L_NONE1						= 'ninguno';
+const L_NONE2						= 'ninguna';
+const L_PASSWORD					= 'Contraseña';
+const L_TIMEZONE					= 'Huso horario';
+const L_SELECT_LANG					= 'Seleccione su idioma';
+const L_CONFIRM_PASSWORD			= 'Confirme la contraseña';
+const L_PROFIL_LOGIN				= 'Cuenta de usuario';
+const L_INPUT_CHANGE				= 'Cambiar';
+const L_COMMENTS_CLOSED				= 'Comentarios cerrados';
+const L_SITE_DESCRIPTION			= 'Blog o CMS con XML!';
+const L_SAVE_SUCCESSFUL				= 'Se guradaron los datos correctamente';
+const L_ARTICLE_SAVE_SUCCESSFUL		= 'Artículo creado correctamente';
 
 # index.php
-'L_ERR_THEME_NOTFOUND'			=> 'No se encontró el tema principal de PluXml',
-'L_ERR_FILE_NOTFOUND'			=> 'No se encontró el archivo destino de PluXml',
-'L_ERR_PAGE_NOT_FOUND'			=> 'No se encontró la página',
+const L_ERR_THEME_NOTFOUND			= 'No se encontró el tema principal de PluXml';
+const L_ERR_FILE_NOTFOUND			= 'No se encontró el archivo destino de PluXml';
+const L_ERR_PAGE_NOT_FOUND			= 'No se encontró la página';
 
 # class.plx.date.php
-'L_SHORT_JANUARY'				=> 'ene',
-'L_SHORT_FEBRUARY'				=> 'feb',
-'L_SHORT_MARCH'					=> 'mar',
-'L_SHORT_APRIL'					=> 'abr',
-'L_SHORT_MAY'					=> 'may',
-'L_SHORT_JUNE'					=> 'jun',
-'L_SHORT_JULY'					=> 'jul',
-'L_SHORT_AUGUST'				=> 'ago',
-'L_SHORT_SEPTEMBER'				=> 'sep',
-'L_SHORT_OCTOBER'				=> 'oct',
-'L_SHORT_NOVEMBER'				=> 'nov',
-'L_SHORT_DECEMBER'				=> 'dic',
-'L_LONG_JANUARY'				=> 'enero     ',
-'L_LONG_FEBRUARY'				=> 'febrero   ',
-'L_LONG_MARCH'					=> 'marzo     ',
-'L_LONG_APRIL'					=> 'abril     ',
-'L_LONG_MAY'					=> 'mayo      ',
-'L_LONG_JUNE'					=> 'junio     ',
-'L_LONG_JULY'					=> 'julio     ',
-'L_LONG_AUGUST'					=> 'agosto    ',
-'L_LONG_SEPTEMBER'				=> 'septiembre',
-'L_LONG_OCTOBER'				=> 'octubre   ',
-'L_LONG_NOVEMBER'				=> 'noviembre ',
-'L_LONG_DECEMBER'				=> 'diciembre ',
-'L_JANUARY'						=> 'enero',
-'L_FEBRUARY'					=> 'febrero',
-'L_MARCH'						=> 'marzo',
-'L_APRIL'						=> 'abril',
-'L_MAY'							=> 'mayo',
-'L_JUNE'						=> 'junio',
-'L_JULY'						=> 'julio',
-'L_AUGUST'						=> 'agosto',
-'L_SEPTEMBER'					=> 'septiembre',
-'L_OCTOBER'						=> 'octubre',
-'L_NOVEMBER'					=> 'noviembre',
-'L_DECEMBER'					=> 'diciembre',
-'L_MONDAY'						=> 'lunes',
-'L_TUESDAY'						=> 'martes',
-'L_WEDNESDAY'					=> 'miércoles',
-'L_THURSDAY'					=> 'jueves',
-'L_FRIDAY'						=> 'viernes',
-'L_SATURDAY'					=> 'sábado',
-'L_SUNDAY'						=> 'domingo',
+const L_SHORT_JANUARY				= 'ene';
+const L_SHORT_FEBRUARY				= 'feb';
+const L_SHORT_MARCH					= 'mar';
+const L_SHORT_APRIL					= 'abr';
+const L_SHORT_MAY					= 'may';
+const L_SHORT_JUNE					= 'jun';
+const L_SHORT_JULY					= 'jul';
+const L_SHORT_AUGUST				= 'ago';
+const L_SHORT_SEPTEMBER				= 'sep';
+const L_SHORT_OCTOBER				= 'oct';
+const L_SHORT_NOVEMBER				= 'nov';
+const L_SHORT_DECEMBER				= 'dic';
+const L_JANUARY						= 'enero';
+const L_FEBRUARY					= 'febrero';
+const L_MARCH						= 'marzo';
+const L_APRIL						= 'abril';
+const L_MAY							= 'mayo';
+const L_JUNE						= 'junio';
+const L_JULY						= 'julio';
+const L_AUGUST						= 'agosto';
+const L_SEPTEMBER					= 'septiembre';
+const L_OCTOBER						= 'octubre';
+const L_NOVEMBER					= 'noviembre';
+const L_DECEMBER					= 'diciembre';
+const L_MONDAY						= 'lunes';
+const L_TUESDAY						= 'martes';
+const L_WEDNESDAY					= 'miércoles';
+const L_THURSDAY					= 'jueves';
+const L_FRIDAY						= 'viernes';
+const L_SATURDAY					= 'sábado';
+const L_SUNDAY						= 'domingo';
 
 # class.plx.capcha.php
-'L_LAST'						=> 'última',
-'L_FIRST'						=> 'primera',
-'L_SECOND'						=> 'segunda',
-'L_THIRD'						=> 'tercera',
-'L_FOURTH'						=> 'cuarta',
-'L_FIFTH'						=> 'quinta',
-'L_SIXTH'						=> 'sexta',
-'L_SEVENTH'						=> 'septima',
-'L_EIGTH'						=> 'octava',
-'L_NINTH'						=> 'novena',
-'L_TENTH'						=> 'décima',
-'L_NTH'							=> 'º',
-'L_CAPCHA_QUESTION'				=> 'Cuál es la <span class="capcha-letter">%s</span> letra en la palabra <span class="capcha-word">%s</span>?',
+const L_LAST						= 'última';
+const L_FIRST						= 'primera';
+const L_SECOND						= 'segunda';
+const L_THIRD						= 'tercera';
+const L_FOURTH						= 'cuarta';
+const L_FIFTH						= 'quinta';
+const L_SIXTH						= 'sexta';
+const L_SEVENTH						= 'septima';
+const L_EIGTH						= 'octava';
+const L_NINTH						= 'novena';
+const L_TENTH						= 'décima';
+const L_NTH							= 'º';
+const L_CAPCHA_QUESTION				= 'Cuál es la <span class="capcha-letter">%s</span> letra en la palabra <span class="capcha-word">%s</span>?';
 
 # class.plx.utils.php
-'L_WRITE_ACCESS'				=> 'Puede editar %s',
-'L_WRITE_NOT_ACCESS'			=> 'No se puede editar %s o no existe',
-'L_MODREWRITE_AVAILABLE'		=> 'Módulo de Apache para re-escritura de URLs («mod_rewrite») disponible',
-'L_MODREWRITE_NOT_AVAILABLE'	=> 'Módulo de Apache para re-escritura de URLs («mod_rewrite») no disponible',
-'L_LIBGD_INSTALLED'				=> 'Biblioteca GD instalada',
-'L_LIBGD_NOT_INSTALLED'			=> 'Biblioteca GD no instalada',
-'L_LIBXML_INSTALLED'			=> 'Biblioteca XML instalada',
-'L_LIBXML_NOT_INSTALLED'		=> 'Biblioteca XML no instalada',
-'L_MAIL_AVAILABLE'				=> 'Función de envío de correos disponible',
-'L_MAIL_NOT_AVAILABLE'			=> 'Función de envío de correos no disponible',
+const L_WRITE_ACCESS				= 'Puede editar %s';
+const L_WRITE_NOT_ACCESS			= 'No se puede editar %s o no existe';
+const L_MODREWRITE_AVAILABLE		= 'Módulo de Apache para re-escritura de URLs («mod_rewrite») disponible';
+const L_MODREWRITE_NOT_AVAILABLE	= 'Módulo de Apache para re-escritura de URLs («mod_rewrite») no disponible';
+const L_LIBGD_INSTALLED				= 'Biblioteca GD instalada';
+const L_LIBGD_NOT_INSTALLED			= 'Biblioteca GD no instalada';
+const L_LIBXML_INSTALLED			= 'Biblioteca XML instalada';
+const L_LIBXML_NOT_INSTALLED		= 'Biblioteca XML no instalada';
+const L_MAIL_AVAILABLE				= 'Función de envío de correos disponible';
+const L_MAIL_NOT_AVAILABLE			= 'Función de envío de correos no disponible';
 
 # class.plx.motor.php
-'L_ARTICLE_NO_TAG'				=> 'No existen artículos para esta etiqueta!',
-'L_UNKNOWN_CATEGORY'			=> 'Esta categoría no existe!',
-'L_NO_ARTICLE_PAGE'				=> 'No existen artículos para esta página!',
-'L_UNKNOWN_ARTICLE'				=> 'Este artículo no existe!',
-'L_COM_PUBLISHED'				=> 'El comentario está publicado',
-'L_COM_IN_MODERATION'			=> 'Comentario en proceso de moderación por el administrador de este sitio',
-'L_UNKNOWN_STATIC'				=> 'Esta página no existe!',
-'L_DOCUMENT_NOT_FOUND'			=> 'No se encotró el documento especificado!',
-'L_NEWCOMMENT_ERR'				=> 'Se ha producido un error al publicar este comentario',
-'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Ingrese todos los campos obligatorios',
-'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'Falló La comprobación anti-spam',
+const L_ARTICLE_NO_TAG				= 'No existen artículos para esta etiqueta!';
+const L_UNKNOWN_CATEGORY			= 'Esta categoría no existe!';
+const L_NO_ARTICLE_PAGE				= 'No existen artículos para esta página!';
+const L_UNKNOWN_ARTICLE				= 'Este artículo no existe!';
+const L_COM_PUBLISHED				= 'El comentario está publicado';
+const L_COM_IN_MODERATION			= 'Comentario en proceso de moderación por el administrador de este sitio';
+const L_UNKNOWN_STATIC				= 'Esta página no existe!';
+const L_DOCUMENT_NOT_FOUND			= 'No se encotró el documento especificado!';
+const L_NEWCOMMENT_ERR				= 'Se ha producido un error al publicar este comentario';
+const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Ingrese todos los campos obligatorios';
+const L_NEWCOMMENT_ERR_ANTISPAM		= 'Falló La comprobación anti-spam';
 
 # class.plx.show.php
 
-'L_HTTPENCODING'				=> 'Compresión %s activada',
-'L_PAGETITLE_ARCHIVES'			=> 'Archivos',
-'L_PAGETITLE_TAG'				=> 'Etiqueta',
-'L_NO_CATEGORY'					=> 'ninguna categoría',
-'L_CATEGORY'					=> 'categoría',
-'L_CATEGORIES'					=> 'categorías',
-'L_NO_ARTICLE'					=> 'ningún artículo',
-'L_ARTICLE'						=> 'artículo',
-'L_ARTICLES'					=> 'artículos',
-'L_ARTAUTHOR_UNKNOWN'			=> 'desconocido',
-'L_ARTTAGS_NONE'				=> 'ninguna',
-'L_ARTCHAPO'					=> 'Leer más #art_title',
-'L_ARTFEED_RSS_CATEGORY'		=> 'Sindicación RSS de los artículos de esta categoría',
-'L_ARTFEED_RSS_TAG'				=> 'Sindicación RSS de los artículos de esta etiqueta',
-'L_ARTFEED_RSS'					=> 'Sindicación RSS de los artículos',
-'L_NO_COMMENT'					=> 'sin comentarios',
-'L_COMMENT'						=> 'comentario',
-'L_COMMENTS'					=> 'comentarios',
-'L_COMFEED_RSS_ARTICLE'			=> 'Sindicación RSS de los comentarios de este artículo',
-'L_COMFEED_RSS'					=> 'Sindicación RSS de los comentarios',
-'L_STATICCONTENT_INPROCESS'		=> 'Página en proceso de edición',
-'L_SAID'						=> 'ha dicho',
+const L_HTTPENCODING				= 'Compresión %s activada';
+const L_ARCHIVES			= 'Archivos';
+const L_TAG				= 'Etiqueta';
+const L_NO_CATEGORY					= 'ninguna categoría';
+const L_CATEGORY					= 'categoría';
+const L_CATEGORIES					= 'categorías';
+const L_NO_ARTICLE					= 'sin artículo';
+const L_ARTICLE						= 'artículo';
+const L_ARTICLES					= 'artículos';
+const L_ARTAUTHOR_UNKNOWN			= 'desconocido';
+const L_ARTCHAPO					= 'Leer más #art_title';
+const L_ARTFEED_RSS_CATEGORY		= 'Sindicación RSS de los artículos de esta categoría';
+const L_ARTFEED_RSS_TAG				= 'Sindicación RSS de los artículos de esta etiqueta';
+const L_ARTFEED_RSS					= 'Sindicación RSS de los artículos';
+const L_NO_COMMENT					= 'sin comentarios';
+const L_COMMENT						= 'comentario';
+const L_COMMENTS					= 'comentarios';
+const L_COMFEED_RSS_ARTICLE			= 'Sindicación RSS de los comentarios de este artículo';
+const L_COMFEED_RSS					= 'Sindicación RSS de los comentarios';
+const L_STATICCONTENT_INPROCESS		= 'Página en proceso de edición';
+const L_SAID						= 'ha dicho';
 
-'L_PAGINATION_FIRST_TITLE'		=> 'Ir a la primera página',
-'L_PAGINATION_FIRST'			=> '«',
-'L_PAGINATION_PREVIOUS_TITLE'	=> 'Página anterior',
-'L_PAGINATION_PREVIOUS'			=> 'anterior',
-'L_PAGINATION_NEXT_TITLE'		=> 'Página siguiente',
-'L_PAGINATION_NEXT'				=> 'siguiente',
-'L_PAGINATION_LAST_TITLE'		=> 'Ir a la última página',
-'L_PAGINATION_LAST'				=> '»',
-'L_PAGINATION'					=> 'página %s de %s',
+const L_PAGINATION_FIRST_TITLE		= 'Ir a la primera página';
+const L_PAGINATION_FIRST			= '«';
+const L_PAGINATION_PREVIOUS_TITLE	= 'Página anterior';
+const L_PAGINATION_PREVIOUS			= 'anterior';
+const L_PAGINATION_NEXT_TITLE		= 'Página siguiente';
+const L_PAGINATION_NEXT				= 'siguiente';
+const L_PAGINATION_LAST_TITLE		= 'Ir a la última página';
+const L_PAGINATION_LAST				= '»';
+const L_PAGINATION					= 'página %s de %s';
 
-'L_PAGEBLOG_TITLE'				=> 'Blog',
+const L_BLOG						= 'Blog';
 
-'L_YEAR'					    => 'año',
-'L_TOTAL'					    => 'total',
+const L_YEAR					    = 'año';
+const L_TOTAL					    = 'total';
 
 # class.plx.feed.php
-'L_FEED_NO_PRIVATE_URL'			=> 'Las URLs privadas no han sido inicializadas en sus parámetros de administración!',
-'L_FEED_COMMENTS'				=> 'Comentarios',
-'L_FEED_ONLINE_COMMENTS'		=> 'Comentarios de usuarios',
-'L_FEED_OFFLINE_COMMENTS'		=> 'Comentarios sin conexión',
-'L_FEED_WRITTEN_BY'				=> 'Escrito por',
+const L_FEED_NO_PRIVATE_URL			= 'Las URLs privadas no han sido inicializadas en sus parámetros de administración!';
+const L_FEED_ONLINE_COMMENTS		= 'Comentarios de usuarios';
+const L_FEED_OFFLINE_COMMENTS		= 'Comentarios sin conexión';
+const L_WRITTEN_BY					= 'Escrito por';
 
-);
 ?>

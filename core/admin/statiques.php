@@ -16,14 +16,11 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsPrepend'));
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
+$plxAdmin->checkProfil(PROFIL_MANAGER);
 
 # On édite les pages statiques
 if(!empty($_POST)) {
-	if(isset($_POST['homeStatic']))
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>$_POST['homeStatic'][0]));
-	else
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>''));
+	$plxAdmin->editConfiguration(!empty($_POST['homeStatic']) ? array('homestatic'=>$_POST['homeStatic'][0]) : array('homestatic'=>''));
 	$plxAdmin->editStatiques($_POST);
 	header('Location: statiques.php');
 	exit;
@@ -43,7 +40,7 @@ function checkBox(cb) {
 }
 </script>
 
-<form action="statiques.php" method="post" id="form_statics">
+<form method="post" id="form_statics">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
@@ -62,15 +59,15 @@ function checkBox(cb) {
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')" /></th>
-					<th><?php echo L_ID ?></th>
-					<th><?php echo L_STATICS_HOME_PAGE ?></th>
+					<th>#</th>
+					<th><?php echo L_HOMEPAGE ?></th>
 					<th><?php echo L_STATICS_GROUP ?></th>
-					<th><?php echo L_STATICS_TITLE ?></th>
+					<th><?php echo L_TITLE ?></th>
 					<th><?php echo L_STATICS_URL ?></th>
-					<th><?php echo L_STATICS_ACTIVE ?></th>
-					<th><?php echo L_STATICS_ORDER ?></th>
-					<th><?php echo L_STATICS_MENU ?></th>
-					<th><?php echo L_STATICS_ACTION ?></th>
+					<th><?= L_ACTIVE ?></th>
+					<th><?php echo L_ORDER ?></th>
+					<th><?php echo L_MENU ?></th>
+					<th><?= L_ACTION ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -100,7 +97,7 @@ function checkBox(cb) {
 					echo '</td><td>';
 					$url = $v['url'];
 					if(!plxUtils::checkSite($url)) {
-						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_STATICS_SRC.'</a>';
+						echo '<a href="statique.php?p='.$k.'" title="'.L_STATICS_SRC_TITLE.'">'.L_EDIT.'</a>';
 						if($v['active']) {
 							echo '&nbsp;&nbsp;<a href="'.$plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']).'" title="'.L_STATIC_VIEW_PAGE.' '.plxUtils::strCheck($v['name']).' '.L_STATIC_ON_SITE.'">'.L_VIEW.'</a>';
 						}

@@ -1,29 +1,12 @@
 <?php
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
-
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
-
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
-	exit;
-}
+include PLX_CORE.'lib/config.php';
 
 # Autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing
 # https://enable-cors.org/server_php.html
 # https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 header('Access-Control-Allow-Origin: *');
-
-# On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.feed.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
 
 # Creation de l'objet principal et lancement du traitement
 $plxFeed = plxFeed::getInstance();
@@ -31,7 +14,9 @@ $plxFeed = plxFeed::getInstance();
 # Détermination de la langue à utiliser (modifiable par le hook : FeedBegin)
 $lang = $plxFeed->aConf['default_lang'];
 
-eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
+if(!empty($plxFeed->plxPlugins)) {
+	eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
+}
 
 # Chargement du fichier de langue du core de PluXml
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
@@ -51,9 +36,38 @@ $plxFeed->fdemarrage();
 # Récuperation de la bufférisation
 $output = ob_get_clean();
 
-eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
+switch($plxFeed->mode) {
+	case 'article'		:
+		if(!empty($plxFeed->cible)) {
+			# catégorie
+			$filename = L_CATEGORIES . '-' . $plxFeed->cible;
+		} else {
+			$filename = L_ARTICLES;
+		}
+		break;
+	case 'comment'		:
+	case 'commentaire'	:
+		$filename = L_COMMENTS;
+		# commentaires pour un article particulier
+		if(!empty($plxFeed->cible)) {
+			$filename .= '-' . L_ARTICLE . '-' . $plxFeed->cible;
+		}
+		break;
+	case 'categorie'	: $filename = L_CATEGORIE . '-' . $plxFeed->cible; break;
+	case 'tag'			: $filename = str_replace('-', '_', L_TAG) . '-' . $plxFeed->cible; break;
+	case 'admin'		:
+		$filename = L_COMMENTS . '-admin';
+		$filename .= ($plxFeed->cible == '_') ? '-offline' : '-online';
+		break;
+	default				: $filename = L_ALL;
+}
+
+if(!empty($plxFeed->plxPlugins)) {
+	eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
+}
 
 # Restitution écran
+header('Content-Type: text/xml; charset=' . strtolower(PLX_CHARSET));
+header('Content-Disposition: attachment; filename="' . plxUtils::urlify($filename) . '.rss' . '"');
 echo $output;
-exit;
 ?>

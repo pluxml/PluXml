@@ -28,7 +28,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 	if(!isset($_POST['catId'])) $_POST['catId']=array();
 	# Titre par défaut si titre vide
-	if(trim($_POST['title'])=='') $_POST['title'] = L_DEFAULT_NEW_ARTICLE_TITLE;
+	if(trim($_POST['title'])=='') $_POST['title'] = L_NEW_ARTICLE;
 	# Si demande d'enregistrement en brouillon on ajoute la categorie draft à la liste et on retire la demande de validation
 	if(isset($_POST['draft']) AND !in_array('draft',$_POST['catId'])) array_unshift($_POST['catId'], 'draft');
 	# si aucune catégorie sélectionnée on place l'article dans la catégorie "non classé"
@@ -209,7 +209,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleParseData'));
 
 } else { # On a rien validé, c'est pour la création d'un article
-	$title = plxUtils::strRevCheck(L_DEFAULT_NEW_ARTICLE_TITLE);
+	$title = plxUtils::strRevCheck(L_NEW_ARTICLE);
 	$chapo = $url = '';
 	$content = '';
 	$tags = '';
@@ -275,7 +275,7 @@ function refreshImg(dta) {
 
 	<div class="inline-form action-bar">
 
-		<h2><?php echo (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
+		<h2><?php echo (empty($_GET['a']))?L_NEW_ARTICLE:L_ARTICLE_EDITING; ?></h2>
 
 		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
 
@@ -289,7 +289,7 @@ function refreshImg(dta) {
 					echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 				} else {
 					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a'])) { # en attente
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
+						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_SAVE . '"/> ';
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
 						echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 					} else {
@@ -305,8 +305,8 @@ function refreshImg(dta) {
 					if(!isset($_GET['a']) OR preg_match('/^_[0-9]{4}$/',$_GET['a']))
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
 					else
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
-						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_OFFLINE_BUTTON . '"/> ';
+						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_SAVE . '"/> ';
+						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_SET_OFFLINE . '"/> ';
 				}
 				if($artId!='0000')
 					echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
@@ -325,7 +325,7 @@ function refreshImg(dta) {
 				<div class="grid">
 					<div class="col sml-12">
 						<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
-						<label for="id_title"><?php echo L_ARTICLE_TITLE ?>&nbsp;:</label>
+						<label for="id_title"><?php echo L_TITLE ?>&nbsp;:</label>
 						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
 					</div>
 				</div>
@@ -410,7 +410,7 @@ function refreshImg(dta) {
 			<fieldset>
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_author"><?php echo L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
+						<label for="id_author"><?php echo L_AUTHOR ?>&nbsp;:&nbsp;</label>
 						<?php
 						if($_SESSION['profil'] < PROFIL_WRITER)
 							plxUtils::printSelect('author', $_users, $author);
@@ -472,7 +472,7 @@ function refreshImg(dta) {
 							$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
 							echo '<label for="cat_unclassified"><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
 							$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
-							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_CATEGORY_HOME_PAGE .'</label>';
+							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_HOMEPAGE .'</label>';
 							foreach($plxAdmin->aCats as $cat_id => $cat_name) {
 								$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
 								if($plxAdmin->aCats[$cat_id]['active'])
@@ -491,7 +491,7 @@ function refreshImg(dta) {
 						<label for="id_new_catname"><?php echo L_NEW_CATEGORY ?>&nbsp;:</label>
 						<div class="inline-form">
 							<?php plxUtils::printInput('new_catname','','text','17-50') ?>
-							<input type="submit" name="new_category" value="<?php echo L_CATEGORY_ADD_BUTTON ?>" />
+							<input type="submit" name="new_category" value="<?php echo L_ADD ?>" />
 						</div>
 					</div>
 				</div>
@@ -532,34 +532,39 @@ function refreshImg(dta) {
 						</div>
 					</div>
 				</div>
-
+<?php
+if(!empty($plxAdmin->aConf['allow_com']) and $_SESSION['profil'] <= PROFIL_MODERATOR) {
+?>
 				<div class="grid">
 					<div class="col sml-12">
-						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
 						<label for="id_allow_com"><?php echo L_ALLOW_COMMENTS ?>&nbsp;:</label>
 						<?php plxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
-						<?php else: ?>
-						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
-						<?php endif; ?>
 					</div>
 				</div>
+<?php
+} else {
+?>
+						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
+<?php
+}
+?>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_url">
-							<?php echo L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_URL_FIELD_TITLE ?></span></a>
+							<?php echo L_URL ?>&nbsp;:&nbsp;<a class="hint"><span><?php echo L_ARTICLE_URL_FIELD_TITLE ?></span></a>
 						</label>
 						<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_template"><?php echo L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
+						<label for="id_template"><?php echo L_TEMPLATE ?>&nbsp;:</label>
 						<?php plxUtils::printSelect('template', $aTemplates, $template); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<label for="id_title_htmltag"><?php echo L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
+						<label for="id_title_htmltag"><?php echo L_TITLE_HTMLTAG ?>&nbsp;:</label>
 						<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','27-255'); ?>
 					</div>
 				</div>
@@ -578,7 +583,9 @@ function refreshImg(dta) {
 
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleSidebar')) # Hook Plugins ?>
 
-				<?php if($artId != '0000') : ?>
+<?php
+if(!empty($plxAdmin->aConf['allow_com']) and $_SESSION['profil'] <= PROFIL_MODERATOR and $artId != '0000') {
+?>
 				<ul class="unstyled-list">
 					<li>
 						<a href="comments.php?a=<?php echo $artId ?>&amp;page=1" title="<?php echo L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?php echo L_ARTICLE_MANAGE_COMMENTS ?></a>
@@ -592,9 +599,11 @@ function refreshImg(dta) {
 							<li><?php echo L_COMMENT_ONLINE ?> : <a title="<?php echo L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?php echo $artId ?>&amp;page=1"><?php echo $nbComsValidated ?></a></li>
 						</ul>
 					</li>
-					<li><a href="comment_new.php?a=<?php echo $artId ?>" title="<?php echo L_ARTICLE_NEW_COMMENT_TITLE ?>"><?php echo L_ARTICLE_NEW_COMMENT ?></a></li>
+					<li><a href="comment_new.php?a=<?php echo $artId ?>" title="<?php echo L_ARTICLE_NEW_COMMENT_TITLE ?>"><?php echo L_CREATE_NEW_COMMENT ?></a></li>
 				</ul>
-				<?php endif; ?>
+<?php
+}
+?>
 
 			</fieldset>
 

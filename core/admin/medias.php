@@ -195,13 +195,11 @@ $curFolders = explode('/', $curFolder);
 					<th><?php echo L_MEDIAS_EXTENSION ?></th>
 					<th><?php echo L_MEDIAS_FILESIZE ?></th>
 					<th><?php echo L_MEDIAS_DIMENSIONS ?></th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_date ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_date ?>';document.forms[0].submit();return true;"><?php echo L_DATE ?></a></th>
 				</tr>
 				</thead>
 				<tbody id="medias-table-tbody">
 				<?php
-				# Initialisation de l'ordre
-				$num = 0;
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
@@ -211,10 +209,14 @@ $curFolders = explode('/', $curFolder);
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
 							if(is_file($v['path']) AND $isImage) {
-								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" /></a>';
+								// $attrs = getimagesize($v['.thumb'])[3];
+								$attrs = 'width="' . plxUtils::THUMB_WIDTH . '" height="' . plxUtils::THUMB_HEIGHT . '"';
+								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img src="'.$v['.thumb'].'" ' . $attrs . 'alt="'.$title.'" class="thumb" /></a>';
 							}
-							else
-								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
+							else {
+								$attrs = getimagesize($v['.thumb'])[3];
+								echo '<img src="'.$v['.thumb'].'" ' . $attrs . ' alt="' . substr($v['extension'], 1) . '" class="thumb" />';
+							}
 						echo '</td>';
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
@@ -299,7 +301,7 @@ $curFolders = explode('/', $curFolder);
 					<li><?php echo L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
 					<li><input type="radio" checked="checked" name="resize" value="" />&nbsp;<?php echo L_MEDIAS_RESIZE_NO ?></li>
 					<?php
-						foreach($img_redim as $redim) {
+						foreach(IMG_REDIM as $redim) {
 							echo '<li><input type="radio" name="resize" value="'.$redim.'" />&nbsp;'.$redim.'</li>';
 						}
 					?>
@@ -322,7 +324,7 @@ $curFolders = explode('/', $curFolder);
 						<input<?php echo $sel ?> type="radio" name="thumb" value="" />&nbsp;<?php echo L_MEDIAS_THUMBS_NONE ?>
 					</li>
 					<?php
-						foreach($img_thumb as $thumb) {
+						foreach(IMG_THUMB as $thumb) {
 							echo '<li><input type="radio" name="thumb" value="'.$thumb.'" />&nbsp;'.$thumb.'</li>';
 						}
 					?>

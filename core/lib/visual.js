@@ -23,24 +23,6 @@ function fadeOut(objId,opacity) {
 		}
 	}
 }
-function setMsg() {
-	if(document.getElementById('msg')) {
-		objDiv = document.getElementById('msg');
-		objSidebar = document.getElementById('sidebar')
-		if (typeof window.innerWidth != 'undefined') {
-			wndWidth = window.innerWidth;
-		}
-		else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth !='undefined' && document.documentElement.clientWidth != 0) {
-			wndWidth = document.documentElement.clientWidth;
-		}
-		else {
-			wndWidth = document.getElementsByTagName('body')[0].clientWidth;
-		}
-		xpos = Math.round((wndWidth-objDiv.offsetWidth)/2);
-		objDiv.style.left=xpos+'px';
-		fadeOut('msg');
-	}
-}
 function pwdStrength(id, s) {
 	// Colors: white = empty, red = very weak, orange = weak, yellow = good, green = strong
 	var color = ['#fff', '#ff0000', '#ff9900', '#ffcc00', '#33cc33'];
@@ -60,6 +42,7 @@ function pwdStrength(id, s) {
 	var pwdstr=document.getElementById(id+'_strenght');
 	pwdstr.innerHTML='';if(no>0){pwdstr.innerHTML=s[no-1]};
 }
+
 function dialogBox(dlg) {
 	this.dlg = document.getElementById(dlg);
 	this.span = document.querySelector('#'+dlg+' .dialog-close');
@@ -79,6 +62,21 @@ function dialogBox(dlg) {
 	this.addEvent(this.span, 'click', this.close);
 	this.open();
 }
+
+(function() {
+	const el = document.getElementById('msg');
+	if(el != null) {
+		var timer1 = null;
+		el.addEventListener('transitionend', function(event) {
+			timer1 = setTimeout(function() {
+				el.classList.remove('active');
+				clearTimeout(timer1);
+			}, 3000);
+		});
+		el.classList.add('active');
+	}
+})()
+
 var DragDrop = {
 	isbefore: function(a, b) {
 		if (a.parentNode == b.parentNode) {
