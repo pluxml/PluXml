@@ -12,7 +12,7 @@ const PLX_ADMIN = true;
 class plxAdmin extends plxMotor {
 
 	const PATTERN_CONFIG_CDATA = '@^(:?clef|custom_admincss_file|default_lang|email_method|hometemplate|medias|racine_(:?article|commentaire|plugin|statique|theme)s|style|timezone|tri(:?_coms)?|smtp_security|version)$@';
-	const PATTERN_RACINES = '@^(:?custom_admincss_file|medias|racine_(:?article|commentaire|plugin|statique|theme)s)$@';
+	const PATTERN_RACINES = '@^(:?medias|racine_(:?article|commentaire|plugin|statique|theme)s)$@';
 	const EMPTY_FIELDS_CATEGORIE = array(
 		'description', 'thumbnail', 'thumbnail_title', 'thumbnail_alt',
 		'title_htmltag', 'meta_description', 'meta_keywords'
