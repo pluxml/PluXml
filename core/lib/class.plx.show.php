@@ -466,33 +466,34 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'image d'accroche d'une catégorie
+	 * Display the category thumbnail
+	 * Use the default thumbnail if the category does not have one
 	 *
-	 * @param	format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
-	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @param	format	display format (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
+	 * @param	echo 	print if true
 	 * @return	string
 	 * @scope	home,categorie,article,tags,archives
-	 * @author	Stephane F, Philippe-M
+	 * @author	Stephane F, Philippe-M, J.P. Pourrez (bazooka07)
 	 **/
 	public function catThumbnail($format='<a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true) {
 		$catId = $this->plxMotor->cible;
 		$filename = plxUtils::getValue($this->plxMotor->aCats[$catId]['thumbnail']);
 		if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
-			$img_url = $this->plxMotor->urlRewrite($filename);
-			$img_thumb = plxUtils::thumbName($filename);
+			$imgUrl = $this->plxMotor->urlRewrite($filename);
+			$imgThumb = plxUtils::thumbName($filename);
 		} else {
 			# On essaie la vignette (thumbnail) par défaut du site
 			$filename = plxUtils::getValue($this->plxMotor->aConf['thumbnail']);
 			if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
-				$img_url = $this->plxMotor->urlRewrite($filename);
-				$img_thumb = plxUtils::thumbName($filename);
+				$imgUrl = $this->plxMotor->urlRewrite($filename);
+				$imgThumb = plxUtils::thumbName($filename);
 			}
 		}
 
-		if(!empty($img_url)) {
+		if(!empty($imgUrl)) {
 			$result = strtr($format, array(
-				'#img_url'			=> $img_url,
-				'#img_thumb_url'	=> (file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url,
+				'#img_url'			=> $imgUrl,
+				'#img_thumb_url'	=> (file_exists(PLX_ROOT.$imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl,
 				'#img_title'		=> plxUtils::strCheck($this->plxMotor->aCats[$catId]['thumbnail_title']),
 				'#img_alt'			=> plxUtils::strCheck($this->plxMotor->aCats[$catId]['thumbnail_alt'])
 			));
@@ -559,14 +560,15 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'image d'accroche d'un article avec un lien vers l'article ou vers l'image
+	 * Display the article thumbnail with a link to the article or to the image
+	 * If the article does not have a thumbnail, the category thumbnail or the default one is used
 	 *
-	 * @param	string $format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
-	 * @param	bool $echo		si à VRAI affichage à l'écran
-	 * @param	bool $article	si vrai, #img_url pointe sur l'article à la place de l'image
+	 * @param	string $format	disply format (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
+	 * @param	bool $echo		print is TRUE
+	 * @param	bool $article	if TRUE, #img_url is the article instead of the thumbnail url
 	 * @return	bool|string
 	 * @scope	home,categorie,article,tags,archives
-	 * @author	Stephane F, Thatoo, J.P. Pourrez (bazooka07))
+	 * @author	Stephane F, Thatoo, J.P. Pourrez (bazooka07)
 	 **/
 	public function artThumbnail($format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $article=false) {
 
@@ -591,7 +593,7 @@ class plxShow {
 
 			if(empty($imgUrl)) {
 				# On essaie la vignette (thumbnail) par défaut du site
-				$filename = plxUtils::getValue($plxMotor->aConf['thumbnail']);
+				$filename = plxUtils::getValue($this->plxMotor->aConf['thumbnail']);
 				if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
 					$imgUrl = $this->plxMotor->urlRewrite($filename);
 					$imgThumb = plxUtils::thumbName($filename);
