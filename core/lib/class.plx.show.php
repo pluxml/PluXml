@@ -466,24 +466,36 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'image d'accroche d'une catégorie
+	 * Display the category thumbnail
+	 * Use the default thumbnail if the category does not have one
 	 *
-	 * @param	format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
-	 * @param	echo 	si à VRAI affichage à l'écran
+	 * @param	format	display format (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
+	 * @param	echo 	print if true
 	 * @return	string
 	 * @scope	home,categorie,article,tags,archives
-	 * @author	Stephane F, Philippe-M
+	 * @author	Stephane F, Philippe-M, J.P. Pourrez (bazooka07)
 	 **/
 	public function catThumbnail($format='<a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true) {
-		$filename = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail']);
-		if(!empty($filename)) {
-			$img_url = $this->plxMotor->urlRewrite($filename);
-			$img_thumb = plxUtils::thumbName($filename);
+		$catId = $this->plxMotor->cible;
+		$filename = plxUtils::getValue($this->plxMotor->aCats[$catId]['thumbnail']);
+		if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
+			$imgUrl = $this->plxMotor->urlRewrite($filename);
+			$imgThumb = plxUtils::thumbName($filename);
+		} else {
+			# On essaie la vignette (thumbnail) par défaut du site
+			$filename = plxUtils::getValue($this->plxMotor->aConf['thumbnail']);
+			if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
+				$imgUrl = $this->plxMotor->urlRewrite($filename);
+				$imgThumb = plxUtils::thumbName($filename);
+			}
+		}
+
+		if(!empty($imgUrl)) {
 			$result = strtr($format, array(
-				'#img_url'			=> $img_url,
-				'#img_thumb_url'	=> (file_exists(PLX_ROOT.$img_thumb)) ? $this->plxMotor->urlRewrite($img_thumb) : $img_url,
-				'#img_title'		=> plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_title']),
-				'#img_alt'			=> plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_alt'])
+				'#img_url'			=> $imgUrl,
+				'#img_thumb_url'	=> (file_exists(PLX_ROOT.$imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl,
+				'#img_title'		=> plxUtils::strCheck($this->plxMotor->aCats[$catId]['thumbnail_title']),
+				'#img_alt'			=> plxUtils::strCheck($this->plxMotor->aCats[$catId]['thumbnail_alt'])
 			));
 
 			if($echo)
@@ -548,46 +560,70 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui affiche l'image d'accroche d'un article avec un lien vers l'article ou vers l'image
+	 * Display the article thumbnail with a link to the article or to the image
+	 * If the article does not have a thumbnail, the category thumbnail or the default one is used
 	 *
-	 * @param	string $format	format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
-	 * @param	bool $echo		si à VRAI affichage à l'écran
-	 * @param	bool $article	si vrai, #img_url pointe sur l'article à la place de l'image
+	 * @param	string $format	disply format (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
+	 * @param	bool $echo		print is TRUE
+	 * @param	bool $article	if TRUE, #img_url is the article instead of the thumbnail url
 	 * @return	bool|string
 	 * @scope	home,categorie,article,tags,archives
-	 * @author	Stephane F, Thatoo, J.P. Pourrez (bazooka07))
+	 * @author	Stephane F, Thatoo, J.P. Pourrez (bazooka07)
 	 **/
 	public function artThumbnail($format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $article=false) {
 
 		$filename = trim($this->plxMotor->plxRecord_arts->f('thumbnail'));
 
-		if(!empty($filename)) {
+		if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
 			$imgUrl = $this->plxMotor->urlRewrite($filename);
 			$imgThumb = plxUtils::thumbName($filename);
 		} else {
-			$imgUrl = '';
-			$echo = false;
+			# on essaie avec les catégories de l'article
+			$artCatIds = $this->artCatIds();
+			if($artCatIds != '000' and preg_match_all('@(\d{3})@', $artCatIds, $matches)) {
+				foreach($matches[1] as $catId) {
+					$filename = $this->plxMotor->aCats[$catId]['thumbnail'];
+					if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
+						$imgUrl = $this->plxMotor->urlRewrite($filename);
+						$imgThumb = plxUtils::thumbName($filename);
+						break;
+					}
+				}
+			}
+
+			if(empty($imgUrl)) {
+				# On essaie la vignette (thumbnail) par défaut du site
+				$filename = plxUtils::getValue($this->plxMotor->aConf['thumbnail']);
+				if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
+					$imgUrl = $this->plxMotor->urlRewrite($filename);
+					$imgThumb = plxUtils::thumbName($filename);
+				}
+			}
 		}
 
-		if($article) {
-			$artId = intval($this->plxMotor->plxRecord_arts->f('numero'));
-			$artUrl = $this->plxMotor->plxRecord_arts->f('url');
-			$url = $this->plxMotor->urlRewrite('?article' . $artId . '/' . $artUrl);
-		} else {
-			$url = $imgUrl;
+		if(!empty($imgUrl)) {
+			if($article) {
+				$artId = intval($this->plxMotor->plxRecord_arts->f('numero'));
+				$artUrl = $this->plxMotor->plxRecord_arts->f('url');
+				$url = $this->plxMotor->urlRewrite('?article' . $artId . '/' . $artUrl);
+			} else {
+				$url = $imgUrl;
+			}
+
+			$result = strtr($format, array(
+				'#img_url'			=> $url,
+				'#img_thumb_url'	=> (!empty($imgThumb) and file_exists(PLX_ROOT.$imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl,
+				'#img_title'		=> plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')),
+				'#img_alt'			=> $this->plxMotor->plxRecord_arts->f('thumbnail_alt')
+			));
+
+			if($echo)
+				echo $result;
+			else
+				return $result;
+		} elseif(!$echo) {
+			return false;
 		}
-
-		$result = strtr($format, array(
-			'#img_url'			=> $url,
-			'#img_thumb_url'	=> (!empty($imgThumb) and file_exists(PLX_ROOT.$imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl,
-			'#img_title'		=> plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')),
-			'#img_alt'			=> $this->plxMotor->plxRecord_arts->f('thumbnail_alt')
-		));
-
-		if($echo)
-			echo $result;
-		else
-			return $result;
 	}
 
 	/**

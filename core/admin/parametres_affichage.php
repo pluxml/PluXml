@@ -171,6 +171,35 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printSelect('thumbs',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['thumbs']);?>
 			</div>
 		</div>
+		<div class="grid gridthumb">
+			<div class="col sml-12 med-5 label-centered">
+				<label for="id_thumbnail">
+					<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
+					<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
+				</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($plxAdmin->aConf['thumbnail']),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
+			</div>
+			<div id="id_thumbnail_img" class="col sml-12">
+<?php
+				$thumbnail = $plxAdmin->aConf['thumbnail'];
+				if(!empty($thumbnail)) {
+					if(preg_match('@^(?:https?|data):@', $thumbnail)) {
+						$src = $thumbnail;
+					} else {
+						$src = PLX_ROOT . $thumbnail;
+						$src = is_file($src) ? $src : false;
+					}
+					if(!empty($src)) {
+?>
+				<img src="<?= $src ?>" title="<?= $thumbnail ?>" />
+<?php
+					}
+				}
+?>
+			</div>
+		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
 				<label for="id_bypage_feed"><?php echo L_CONFIG_VIEW_BYPAGE_FEEDS ?>&nbsp;:</label>
