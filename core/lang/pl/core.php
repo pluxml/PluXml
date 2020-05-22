@@ -6,6 +6,7 @@ const L_DATE_UPDATE					= 'Data zaktualizowane';
 
 # common
 const L_PLUXML_VERSION				= 'Wersja PluXml';
+const L_WRONG_PHP_VERSION			= 'PluXml wymaga PHP %s lub nowszego, do uruchomienia.';
 const L_HOMEPAGE					= 'Strona startowa';
 const L_BACK_HOMEPAGE_TITLE			= 'Przejdż do strony głównej';
 const L_UNCLASSIFIED				= 'Bez kategorii';
@@ -15,6 +16,11 @@ const L_NONE1						= 'brak';
 const L_NONE2						= 'brak';
 const L_PASSWORD					= 'Hasło';
 const L_TIMEZONE					= 'Strefa czasowa';
+const L_SELECT_LANG					= 'Wybierz język';
+const L_CONFIRM_PASSWORD			= 'Powtórz hasło';
+const L_PROFIL_LOGIN				= 'Zalogowany jako';
+const L_INPUT_CHANGE				= 'Zmień';
+const L_COMMENTS_CLOSED				= 'Komentarze zostały wyłączone';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Nie odnaleziono głównego szablonu PluXml';

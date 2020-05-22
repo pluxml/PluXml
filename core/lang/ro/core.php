@@ -6,6 +6,7 @@ const L_DATE_UPDATE					= 'Data de actualizare';
 
 # common
 const L_PLUXML_VERSION				= 'Pluxml version';
+const L_WRONG_PHP_VERSION			= 'PluXml necesită PHP %s sau o versiune mai mare pentru a lucra.';
 const L_HOMEPAGE					= 'Pagina principala';
 const L_BACK_HOMEPAGE_TITLE			= 'Mergi la pagina principală';
 const L_UNCLASSIFIED				= 'Neclasificat';
@@ -15,6 +16,11 @@ const L_NONE1						= 'nu';
 const L_NONE2						= 'nimic';
 const L_PASSWORD					= 'Parola';
 const L_TIMEZONE					= 'Time Zone';
+const L_SELECT_LANG					= 'Alegeţi limba dorită';
+const L_CONFIRM_PASSWORD			= 'Confirmaţi parola';
+const L_PROFIL_LOGIN				= 'Login';
+const L_INPUT_CHANGE				= 'Schimbă';
+const COMMENTS_CLOSED				= 'Comentariile sunt &#238;nchise';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principala este gasita';

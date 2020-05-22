@@ -24,11 +24,6 @@ foreach(explode(' ', 'date glob utils record motor feed plugins') as $aClass) {
 # Creation de l'objet principal et lancement du traitement
 $plxFeed = plxFeed::getInstance();
 
-if(empty($plxFeed->aConf['enable_rss'])) {
-	header('Location: index.php');
-	exit;
-}
-
 # Détermination de la langue à utiliser (modifiable par le hook : FeedBegin)
 $lang = $plxFeed->aConf['default_lang'];
 
@@ -36,6 +31,11 @@ eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
 
 # Chargement du fichier de langue du core de PluXml
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+
+if(!$plxFeed->aConf['enable_rss']) {
+	header('Location: index.php');
+	exit;
+}
 
 # On démarre la bufferisation
 ob_start();

@@ -310,7 +310,7 @@ const L_CONFIG_VIEW_IMAGES = 'Taille des images (largeur x hauteur)';
 const L_CONFIG_VIEW_THUMBS = 'Taille des miniatures (largeur x hauteur)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Utiliser une page statique comme page d\'accueil';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Attention cette page est inactive';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Télécharger d\'autres thèmes sur <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Télécharger d\'autres thèmes sur : %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Nombre d\'articles/commentaires affichés sur les fils RSS';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Afficher uniquement le chapô dans les flux RSS des articles';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Si le chapô est vide, le contenu est affiché';
@@ -324,6 +324,8 @@ const L_CONFIG_HOMETEMPLATE = 'Template de la page d\'accueil';
 const L_CONFIG_ADVANCED = 'Configuration avancée';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Activer la réécriture d\'Url';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Attention un fichier .htaccess est déjà présent à la racine de votre PluXml. En activant la réécriture d\'url ce fichier sera modifié';
+const L_CONFIG_CLEAN_URLS = 'Supprimer les mots courts dans les URLs';
+const L_CONFIG_CLEAN_URLS_HELP = 'Permet de générer des URLs plus courtes pour les articles et les pages';
 const L_CONFIG_ADVANCED_GZIP = 'Activer la compression GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activer le capcha anti-spam';
@@ -448,12 +450,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Plugins inactifs';
 
 const L_PROFIL_EDIT_TITLE = 'Édition de votre profil';
 const L_PROFIL = 'Profil';
-const L_PROFIL_LOGIN = 'Identifiant de connexion';
 const L_PROFIL_USER = 'Nom d\'utilisateur';
 const L_INFOS = 'Informations';
 const L_PROFIL_UPDATE = 'Modifier votre profil';
 const L_PROFIL_CHANGE_PASSWORD = 'Changement du mot de passe';
-const L_CONFIRM_PASSWORD = 'Confirmation du mot de passe';
 const L_PROFIL_UPDATE_PASSWORD = 'Changer votre mot de passe';
 
 // statique.php

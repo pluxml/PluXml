@@ -312,7 +312,7 @@ const L_CONFIG_VIEW_IMAGES = 'Bildgröße (Breite x Höhe)';
 const L_CONFIG_VIEW_THUMBS = 'Größe der Miniaturansicht (Breite x Höhe)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Eine statische Seite als Homepage verwenden';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Achtung! Diese Seite ist inaktiv';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Themen von <a href="http://ressources.pluxml.org">ressources.pluxml.org</a> laden.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Themen von %s laden.';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Anzahl der angezeigten Artikel/Kommentare im RSS Feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Im RSS Feed nur Vorspann des Artikels zeigen';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Wenn der Vorspann leer ist, Inhalt anzeigen';
@@ -326,6 +326,8 @@ const L_CONFIG_HOMETEMPLATE = 'Vorlage der Homepage';
 const L_CONFIG_ADVANCED = 'Erweiterte Einstellungen';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Adressweiterleitung aktivieren (URL rewrite)';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Achtung! Es ist bereits eine .htaccess Datei im Grundverzeichnis von PluXml vorhanden. Diese Datei wird beim Aktivieren modifiziert.';
+const L_CONFIG_CLEAN_URLS = 'Entfernen Sie kurze Wörter aus URLs';
+const L_CONFIG_CLEAN_URLS_HELP = 'Generieren Sie kürzere URLs für Artikel und Seiten';
 const L_CONFIG_ADVANCED_GZIP = 'GZIP Kompression aktivieren';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Komprimierung spart Bandreite, erhöht aber die Prozessorauslastung des Servers.';
 const L_CONFIG_ADVANCED_CAPCHA = 'ANTI-SPAM Kontrolle aktivieren';
@@ -450,12 +452,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Inaktive plugins';
 
 const L_PROFIL_EDIT_TITLE = 'Benutzerprofil bearbeiten';
 const L_PROFIL = 'Profil';
-const L_PROFIL_LOGIN = 'Login';
 const L_PROFIL_USER = 'Benutzername';
 const L_INFOS = 'Nachrichten';
 const L_PROFIL_UPDATE = 'Benutzerprofil speichern';
 const L_PROFIL_CHANGE_PASSWORD = 'Passwort ändern';
-const L_CONFIRM_PASSWORD = 'Neues Passwort wiederholen';
 const L_PROFIL_UPDATE_PASSWORD = 'Passwortänderung speichern';
 
 // statique.php

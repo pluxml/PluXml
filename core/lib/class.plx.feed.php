@@ -77,17 +77,17 @@ class plxFeed extends plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxFeedPreChauffageBegin'))) return;
 
-		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie([0-9]+)/?#',$this->get,$capture)) {
+		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie(\d+)/?#',$this->get,$capture)) {
 			$this->mode = 'article'; # Mode du flux
 			# On récupère la catégorie cible
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
 			# On modifie le motif de recherche
-			$this->motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:'.$this->cible.')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			$this->motif = '#^\d{4}.((?:\d|home|,)*(?:'.$this->cible.')(?:\d|home|,)*).\d{3}.\d{12}.[\w-]+.xml$#';
 		}
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/?$#',$this->get)) {
 			$this->mode = 'commentaire'; # Mode du flux
 		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag\/([a-z0-9-]+)/?$#',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag/([\w-]+)/?$#', $this->get, $capture)) {
 			$this->mode = 'tag';
 			$this->cible = $capture[1];
 			$ids = array();
@@ -106,19 +106,19 @@ class plxFeed extends plxMotor {
 				}
 			}
 			if(sizeof($ids)>0) {
-				$this->motif = '/('.implode('|', $ids).').(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+				$this->motif = '#('.implode('|', $ids).').(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#';
 			} else
 				$this->motif = '';
 
 		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article([0-9]+)/?$#',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article(\d+)/?$#',$this->get,$capture)) {
 			$this->mode = 'commentaire'; # Mode du flux
 			# On récupère l'article cible
 			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complète sur 4 caractères
 			# On modifie le motif de recherche
-			$this->motif = '/^'.$this->cible.'.(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			$this->motif = '#^'.$this->cible.'.(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#';
 		}
-		elseif($this->get AND preg_match('#^admin([a-zA-Z0-9]+)/commentaires/(hors|en)-ligne/?$#',$this->get,$capture)) {
+		elseif($this->get AND preg_match('#^admin([\w-]+)/commentaires/(hors|en)-ligne/?$#',$this->get,$capture)) {
 			$this->mode = 'admin'; # Mode du flux
 			$this->cible = '-';	# /!\: il ne faut pas initialiser à blanc sinon ça prend par défaut les commentaires en ligne (faille sécurité)
 			if ($capture[1] == $this->clef) {
@@ -130,7 +130,7 @@ class plxFeed extends plxMotor {
 		} else {
 			$this->mode = 'article'; # Mode du flux
 			# On modifie le motif de recherche
-			$this->motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:'.$this->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+			$this->motif = '#^\d{4}.(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#';
 		}
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxFeedPreChauffageEnd'));
@@ -155,13 +155,13 @@ class plxFeed extends plxMotor {
 				header('Location: '.$this->urlRewrite('?article'.$this->cible.'/'));
 				exit;
 			} else { # On récupère les commentaires
-				$regex = '/^'.$this->cible.'.[0-9]{10}-[0-9]+.xml$/';
+				$regex = '/^'.$this->cible.'.\d{10}-\d+.xml$/';
 				$this->getCommentaires($regex,'rsort',0,$this->bypage);
 			}
 		}
 		# Flux de commentaires global
 		elseif($this->mode == 'commentaire') {
-			$regex = '/^[0-9]{4}.[0-9]{10}-[0-9]+.xml$/';
+			$regex = '#^\d{4}.\d{10}-\d+.xml$#';
 			$this->getCommentaires($regex,'rsort',0,$this->bypage);
 		}
 		# Flux admin
@@ -172,7 +172,7 @@ class plxFeed extends plxMotor {
 				exit;
 			}
 			# On récupère les commentaires
-			$this->getCommentaires('/^'.$this->cible.'[0-9]{4}.[0-9]{10}-[0-9]+.xml$/','rsort',0,$this->bypage,'all');
+			$this->getCommentaires('#^'.$this->cible.'\d{4}.\d{10}-\d+.xml$#','rsort',0,$this->bypage,'all');
 		}
 		# Flux d'articles pour un tag
 		elseif($this->mode == 'tag') {

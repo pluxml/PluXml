@@ -310,7 +310,7 @@ const L_CONFIG_VIEW_IMAGES = 'Image Size (width x height)';
 const L_CONFIG_VIEW_THUMBS = 'Thumbnails size (width x height)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Use a static page as Homepage';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Warning: this page is inactive';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Download themes at <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Download themes at : %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'N° of Articles or comments in the Rss feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Only display headlines in the Rss article feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Headline field is empty, content is displayed instead';
@@ -324,6 +324,8 @@ const L_CONFIG_HOMETEMPLATE = 'Template of the homepage';
 const L_CONFIG_ADVANCED = 'Advanced configuration';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Enable url rewriting';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Warning: a .htaccess file already exists at your PluXml\'s installation root. Activating url rewriting will overwrite this file';
+const L_CONFIG_CLEAN_URLS = 'Remove short words from URLs';
+const L_CONFIG_CLEAN_URLS_HELP = 'Generate shorter URLs for articles and pages';
 const L_CONFIG_ADVANCED_GZIP = 'Enable GZIP compression';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Makes it possible to compress pages to save bandwidth, but could increase CPU usage';
 const L_CONFIG_ADVANCED_CAPCHA = 'Enable anti spam-capcha';
@@ -448,12 +450,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Inactive plugins';
 
 const L_PROFIL_EDIT_TITLE = 'Profile edit';
 const L_PROFIL = 'Profile';
-const L_PROFIL_LOGIN = 'Login';
 const L_PROFIL_USER = 'Username';
 const L_INFOS = 'Information';
 const L_PROFIL_UPDATE = 'Save profile';
 const L_PROFIL_CHANGE_PASSWORD = 'Change password';
-const L_CONFIRM_PASSWORD = 'Confirm password';
 const L_PROFIL_UPDATE_PASSWORD = 'Change password';
 
 // statique.php

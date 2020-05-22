@@ -6,6 +6,7 @@ const L_DATE_UPDATE					= 'Data de misa a jorn';
 
 # common
 const L_PLUXML_VERSION				= 'Pluxml version';
+const L_WRONG_PHP_VERSION			= 'PluXml requerís PHP %s o superior per foncionar.';
 const L_HOMEPAGE					= 'Acuèlh';
 const L_BACK_HOMEPAGE_TITLE			= 'Tornar a la pagina d\'acuèlh del site';
 const L_UNCLASSIFIED				= 'Non classat';
@@ -15,6 +16,11 @@ const L_NONE1						= 'cap';
 const L_NONE2						= 'cap';
 const L_PASSWORD					= 'Senhal';
 const L_TIMEZONE					= 'Fus orari';
+const L_SELECT_LANG					= 'Seleccionatz vòstra lenga';
+const L_CONFIRM_PASSWORD			= 'Confirmacion del senhal';
+const L_PROFIL_LOGIN				= 'Identificant de connexion';
+const L_INPUT_CHANGE				= 'Cambiar';
+const L_COMMENTS_CLOSED				= 'Los comentaris son barrats';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Lo tèma principal de PluXml es introbable';

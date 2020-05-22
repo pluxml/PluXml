@@ -309,7 +309,7 @@ const L_CONFIG_VIEW_IMAGES = 'Talha dels imatges (largor x nautor)';
 const L_CONFIG_VIEW_THUMBS = 'Talha de las miniaturas (largor x nautor)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Utilizar una pagina estatica coma pagina d\'acuèlh';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Atencion aquela pagina es inactiva';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Telecargar mai tèmas sus <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Telecargar mai tèmas sus : %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Nombre d\'articles/comentaris afichats suls fils Rss';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Afichar pas que lo chapô dins los flux Rss dels articles';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Se lo chapô es void, lo contengut es afichat';
@@ -323,6 +323,8 @@ const L_CONFIG_HOMETEMPLATE = 'Modèl de la pagina d\'acuèlh';
 const L_CONFIG_ADVANCED = 'Configuracion avançada';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Activar la reescritura d\'urls';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atencion un fichièr .htaccess es ja present a la raiç de vòstre PluXml. En activent la reescritura d\'url aquel fichièr serà modificat';
+const L_CONFIG_CLEAN_URLS = 'Suprimir los mots corts dins los URLs';
+const L_CONFIG_CLEAN_URLS_HELP = 'Permet de generar de URLs mai cortas pels articles e las paginas';
 const L_CONFIG_ADVANCED_GZIP = 'Activar la compression GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Permet de compressar las paginas per estalviar de banda passanta, ça que la pòt augmentar la carga processor';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activar lo capcha anti-spam';
@@ -448,12 +450,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Plugins inactius';
 
 const L_PROFIL_EDIT_TITLE = 'Edicion de vòstre perfil';
 const L_PROFIL = 'Perfil';
-const L_PROFIL_LOGIN = 'Identificant de connexion';
 const L_PROFIL_USER = 'Nom d\'utilizaire';
 const L_INFOS = 'Informacions';
 const L_PROFIL_UPDATE = 'Modificar vòstre perfil';
 const L_PROFIL_CHANGE_PASSWORD = 'Cambiament del senhal';
-const L_CONFIRM_PASSWORD = 'Confirmacion del senhal';
 const L_PROFIL_UPDATE_PASSWORD = 'Cambiar vòstre senhal';
 
 // statique.php

@@ -6,6 +6,7 @@ const L_DATE_UPDATE				= 'Datum der Aktualisierung';
 
 # common
 const L_PLUXML_VERSION			= 'Pluxml Version';
+const L_WRONG_PHP_VERSION		= 'PluXml benötigt mindestens PHP %s um zu funktionieren.';
 const L_HOMEPAGE				= 'Startseite';
 const L_BACK_HOMEPAGE_TITLE 	= 'Zurück zum startseite';
 const L_UNCLASSIFIED			= 'Nicht kategorisiert';
@@ -15,6 +16,11 @@ const L_NONE1					= 'kein';
 const L_NONE2					= 'keine';
 const L_PASSWORD				= 'Passwort';
 const L_TIMEZONE				= 'Zeitzone';
+const L_SELECT_LANG				= 'Wählen Sie Ihre Sprache';
+const L_CONFIRM_PASSWORD		= 'Neues Passwort wiederholen';
+const L_PROFIL_LOGIN			= 'Login';
+const L_INPUT_CHANGE			= 'Ändern';
+const L_COMMENTS_CLOSED			= 'Die Kommentare sind geschlossen';
 
 # index.php
 const L_ERR_THEME_NOTFOUND		= 'Der Haupttheme von PluXml konnte nicht gefunden werden.';

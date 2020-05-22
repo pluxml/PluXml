@@ -308,7 +308,7 @@ const L_CONFIG_VIEW_IMAGES = 'Tamaño de la imagen (largo x ancho)';
 const L_CONFIG_VIEW_THUMBS = 'Tamaño de las miniaturas (largo x ancho)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Utilizar una página estática como página de inicio';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Advertencia: esta página está desactivada';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Descargar otros temas en <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Descargar otros temas en : %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Cantidad de artículos en la sindicación RSS';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Sómo mostrar subtítulos en la sindicación RSS de los artículos';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'En caso de que el subtítulo esté vacío, se mostrará el contenido';
@@ -322,6 +322,8 @@ const L_CONFIG_HOMETEMPLATE = 'Plantilla de la página principal';
 const L_CONFIG_ADVANCED = 'Configuración avanzada';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Activar la reescritura de URLs';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Advertencia: ya existe un archivo «.htaccess» en la raíz de su instalación de PluXml. Si activa la reescritura de URLs, se modificará este archivo';
+const L_CONFIG_CLEAN_URLS = 'Eliminar palabras cortas de las URL';
+const L_CONFIG_CLEAN_URLS_HELP = 'Generar URL más cortas para artículos y páginas.';
 const L_CONFIG_ADVANCED_GZIP = 'Activar compresión GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Permite comprimir las páginas para ahorrar ancho de banda, pero puede aumentar la carga del procesador';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activar protección nti-spam («CAPTCHA»)';
@@ -446,12 +448,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Complementos desactivados';
 
 const L_PROFIL_EDIT_TITLE = 'Edición de perfiles';
 const L_PROFIL = 'Perfil';
-const L_PROFIL_LOGIN = 'Cuenta de usuario';
 const L_PROFIL_USER = 'Nombre de usuario';
 const L_INFOS = 'Información';
 const L_PROFIL_UPDATE = 'Guardar perfil';
 const L_PROFIL_CHANGE_PASSWORD = 'Cambiar contraseña';
-const L_CONFIRM_PASSWORD = 'Confirme la contraseña';
 const L_PROFIL_UPDATE_PASSWORD = 'Cambiar contraseña';
 
 // statique.php

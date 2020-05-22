@@ -7,6 +7,7 @@
  **/
 class plxToken {
 	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const TEMPLATE_LENGTH = 61; // strlen(self::TEMPLATE);
 	const LIFETIME = 3600; // seconds
 
 	/**
@@ -16,14 +17,11 @@ class plxToken {
 	 * @author	Stephane F, J.P. Pourrez, Thomas Ingles
 	 **/
 	public static function getTokenPostMethod($length=32, $html=true) {
-		$tmp = self::TEMPLATE;
-		$range = strlen($tmp);
-		$result = array();
-		mt_srand((float)microtime() * 1000000);
-		for($i=0; $i<$length; $i++) {
-			$result[] = $tmp[mt_rand() % $range];
-		}
-		$token = implode('', $result);
+		$token = substr(
+			str_shuffle(self::TEMPLATE),
+			mt_rand(0, self::TEMPLATE_LENGTH - $length),
+			$length
+		);
 		$_SESSION['formtoken'][$token] = time();
 		return ($html) ? '<input name="token" value="'.$token.'" type="hidden" />' : $token;
 	}

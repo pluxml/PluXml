@@ -6,6 +6,7 @@ const L_DATE_UPDATE					= 'Data aggiornamento';
 
 # common
 const L_PLUXML_VERSION				= 'PluXml versione';
+const L_WRONG_PHP_VERSION			= 'PluXml richiede PHP %s o superiore per funzionare.';
 const L_HOMEPAGE					= 'Pagina principale';
 const L_BACK_HOMEPAGE_TITLE			= 'Ritorna al sito';
 const L_UNCLASSIFIED				= 'Non classificato';
@@ -15,6 +16,11 @@ const L_NONE1						= 'nessuno';
 const L_NONE2						= 'nessuna';
 const L_PASSWORD					= 'Password';
 const L_TIMEZONE					= 'Fuso orario';
+const L_SELECT_LANG					= 'Seleziona la lingua';
+const L_CONFIRM_PASSWORD			= 'Conferma la password';
+const L_PROFIL_LOGIN				= 'Nome utente';
+const L_INPUT_CHANGE				= 'Cambia';
+const L_COMMENTS_CLOSED				= 'Commenti bloccati';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principale non trovato';

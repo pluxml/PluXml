@@ -17,13 +17,14 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # On édite la configuration
 if(!empty($_POST)) {
-	$_POST['feed_footer']=$_POST['content'];
-	$_POST['images_l']=plxUtils::getValue($_POST['images_l'],800);
-	$_POST['images_h']=plxUtils::getValue($_POST['images_h'],600);
-	$_POST['miniatures_l']=plxUtils::getValue($_POST['miniatures_l'],200);
-	$_POST['miniatures_h']=plxUtils::getValue($_POST['miniatures_h'],100);
+	$_POST['feed_footer']	= $_POST['content'];
+	$_POST['images_l']		= plxUtils::getValue($_POST['images_l'], 800);
+	$_POST['images_h']		= plxUtils::getValue($_POST['images_h'], 600);
+	$_POST['miniatures_l']	= plxUtils::getValue($_POST['miniatures_l'], 200);
+	$_POST['miniatures_h']	= plxUtils::getValue($_POST['miniatures_h'], 100);
 	unset($_POST['content']);
-	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
+
+	$plxAdmin->editConfiguration($_POST);
 	header('Location: parametres_affichage.php');
 	exit;
 }
@@ -62,7 +63,7 @@ include __DIR__ .'/top.php';
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_CONFIG_VIEW ?></h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+		<p><?php $link = '<a href="'.PLX_URL_RESSOURCES.'">'.PLX_URL_RESSOURCES.'</a>'; printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, $link); ?></p>
 		<input type="submit" value="<?php echo L_CONFIG_VIEW_UPDATE ?>" />
 	</div>
 

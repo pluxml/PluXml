@@ -247,9 +247,10 @@ class plxPlugins {
 		$this->cssCache('admin');
 
 		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-
+		ob_start();
+?>
+<document>
+<?php
 		foreach($this->aPlugins as $name=>$plugin) {
 			if(!empty($plugin)) {
 				$scope = $plugin->getInfo('scope');
@@ -258,13 +259,15 @@ class plxPlugins {
 			} else {
 				$scope = '';
 			}
-			$xml .= "\t<plugin name=\"$name\" scope=\"$scope\"></plugin>\n";
+?>
+	<plugin name="<?= $name ?>" scope="<?= $scope ?>"></plugin>
+<?php
 		}
-
-		$xml .= "</document>";
-
+?>
+</document>
+<?php
 		# On écrit le fichier
-		if(plxUtils::write($xml,path('XMLFILE_PLUGINS')))
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PLUGINS')))
 			return plxMsg::Info(L_SAVE_SUCCESSFUL);
 		else
 			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PLUGINS'));
@@ -566,25 +569,25 @@ class plxPlugin {
 	public function saveParams() {
 
 		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
+		ob_start();
+?>
+<document>
+<?php
 		foreach($this->aParams as $k=>$v) {
 			switch($v['type']) {
-				case 'numeric':
-					$xml .= "\t<parameter name=\"$k\" type=\"".$v['type']."\">".intval($v['value'])."</parameter>\n";
-					break;
-				case 'string':
-					$xml .= "\t<parameter name=\"$k\" type=\"".$v['type']."\">".plxUtils::cdataCheck(plxUtils::strCheck($v['value']))."</parameter>\n";
-					break;
-				case 'cdata':
-					$xml .= "\t<parameter name=\"$k\" type=\"".$v['type']."\"><![CDATA[".plxUtils::cdataCheck($v['value'])."]]></parameter>\n";
-					break;
+				case 'numeric': $value = intval($v['value']); break;
+				default:		$value = plxUtils::cdataCheck($v['value']);
 			}
+?>
+	<parameter name="<?= $k ?>" type="<?= $v['type'] ?>"><?= $value ?></parameter>
+<?php
 		}
-		$xml .= "</document>";
+?>
+</document>
+<?php
 
 		# On écrit le fichier
-		if(plxUtils::write($xml,$this->plug['parameters.xml'])) {
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), $this->plug['parameters.xml'])) {
 			# suppression ancien fichier parameters.xml s'il existe encore (5.1.7+)
 			if(file_exists($this->plug['dir'].$this->plug['name'].'/parameters.xml'))
 				unlink($this->plug['dir'].$this->plug['name'].'/parameters.xml');

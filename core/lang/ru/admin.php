@@ -311,7 +311,7 @@ const L_CONFIG_VIEW_IMAGES = 'Размер изображения (Ширина 
 const L_CONFIG_VIEW_THUMBS = 'Размер эскизов (Ширина х Высота)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Использовать статическую страницу как Главную страницу';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Внимание: Эта страница неактивна';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Загрузка тем <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Загрузка тем %s';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'N° статьи или комментария в RSS-потоке';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Отображать только заголовки статей в RSS-потоке';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Поле Заголовка пустое, вместо него отображается содержимое статьи';
@@ -325,6 +325,8 @@ const L_CONFIG_HOMETEMPLATE = 'Шаблон главной страницы';
 const L_CONFIG_ADVANCED = 'Расширенные настройки (опытный пользователь)';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Включить URL rewrite';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Внимание .htaccess файл уже присутствует в корневом каталоге вашего PluXml. При включении URL переписывания этот файл будет изменен';
+const L_CONFIG_CLEAN_URLS = 'Удалить короткие слова из URL';
+const L_CONFIG_CLEAN_URLS_HELP = 'Создать более короткие URL для статей и страниц';
 const L_CONFIG_ADVANCED_GZIP = 'Включить GZIP сжатие';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Это cделает возможным сжатие страниц для увеличения пропускной способности, но может увеличить использование процессора';
 const L_CONFIG_ADVANCED_CAPCHA = 'Включить анти-спам Capcha';
@@ -450,12 +452,10 @@ const L_PLUGINS_INACTIVE_LIST = 'Неактивные плагины';
 
 const L_PROFIL_EDIT_TITLE = 'Редактирование профиля';
 const L_PROFIL = 'Профиль';
-const L_PROFIL_LOGIN = 'Логин';
 const L_PROFIL_USER = 'Имя, Фамилия';
 const L_INFOS = 'Информация о Вас (отображается под текстом статей)';
 const L_PROFIL_UPDATE = 'Изменить Ваш профиль';
 const L_PROFIL_CHANGE_PASSWORD = 'Изменение пароля';
-const L_CONFIRM_PASSWORD = 'Повторить пароль';
 const L_PROFIL_UPDATE_PASSWORD = 'Изменить пароль';
 
 // statique.php

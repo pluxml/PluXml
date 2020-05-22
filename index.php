@@ -1,14 +1,13 @@
 <?php
-
 const PLX_ROOT = './';
-define('PLX_CORE', PLX_ROOT.'core/');
+define('PLX_CORE', PLX_ROOT . 'core/');
 
-include PLX_ROOT.'config.php';
-include PLX_CORE.'lib/config.php';
+include PLX_ROOT . 'config.php';
+include PLX_CORE . 'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
+	header('Location: ' . PLX_ROOT.'install.php');
 	exit;
 }
 
@@ -36,7 +35,7 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	printf(L_WRONG_PHP_VERSION, PHP_VERSION_MIN);
 	exit;
 }
 

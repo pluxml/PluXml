@@ -16,10 +16,24 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 
 # Contrôle de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
+$plxAdmin->checkProfil(PROFIL_MODERATOR);
+
+# Les commentaires ne sont pas autorisés
+if(empty($plxAdmin->aConf['allow_com'])) {
+	plxMsg::Error(L_COMMENTS_CLOSED);
+	header('Location: index.php');
+	exit;
+}
+
+# Les commentaires ne sont pas autorisés
+if(empty($plxAdmin->aConf['allow_com'])) {
+	plxMsg::Error(L_COMMENTS_CLOSED);
+	header('Location: index.php');
+	exit;
+}
 
 # validation de l'id de l'article si passé en paramètre
-if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
+if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
@@ -87,19 +101,19 @@ if(!empty($_GET['a'])) {
 	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
 elseif($comSel=='online') {
-	$comSelMotif = '/^[0-9]{4}.(.*).xml$/';
+	$comSelMotif = '/^\d{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'online';
 	$nbComPagination=$plxAdmin->nbComments('online');
 	$h2 = '<h2>'.L_COMMENTS_ONLINE_LIST.'</h2>';
 }
 elseif($comSel=='offline') {
-	$comSelMotif = '/^_[0-9]{4}.(.*).xml$/';
+	$comSelMotif = '/^_\d{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'offline';
 	$nbComPagination=$plxAdmin->nbComments('offline');
 	$h2 = '<h2>'.L_COMMENTS_OFFLINE_LIST.'</h2>';
 }
 elseif($comSel=='all') { // all
-	$comSelMotif = '/^[[:punct:]]?[0-9]{4}.(.*).xml$/';
+	$comSelMotif = '/^[[:punct:]]?\d{4}.(.*).xml$/';
 	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments('all');
 	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';

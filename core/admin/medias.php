@@ -208,7 +208,7 @@ $curFolders = explode('/', $curFolder);
 							if(is_file($v['path']) AND $isImage)
 								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" '.getimagesize($v['.thumb'])[3].' /></a>';
 							else
-								echo '<img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" '.getimagesize($v['.thumb'])[3].' />';
+								echo '<img alt="'.$title.'" src="'.$v['.thumb'].'" '.getimagesize($v['.thumb'])[3].' class="thumb" />';
 						echo '</td>';
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';

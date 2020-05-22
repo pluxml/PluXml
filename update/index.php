@@ -17,8 +17,8 @@ foreach(explode(' ', 'date glob utils msg record motor admin encrypt plugins tok
 	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
 }
 
-include(PLX_ROOT.'update/versions.php');
-include(PLX_ROOT.'update/class.plx.updater.php');
+include PLX_ROOT.'update/versions.php';
+include PLX_ROOT.'update/class.plx.updater.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
@@ -33,7 +33,7 @@ loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	printf(L_WRONG_PHP_VERSION, PHP_VERSION_MIN);
 	exit;
 }
 

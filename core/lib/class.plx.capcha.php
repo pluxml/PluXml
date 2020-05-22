@@ -4,10 +4,12 @@
  * Classe plxCapcha responsable du traitement antispam
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Stéphane F
+ * @author	Anthony GUÉRIN, Stéphane F, J.P. Pourrez
  **/
 class plxCapcha {
 
+	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789';
+	const TEMPLATE_LENGTH = 36;
 	private $word = false; # Mot du capcha
 	private $num = false; # Numero de la lettre selectionne
 	private $numletter = false; # Traduction du numero de la lettre
@@ -21,8 +23,7 @@ class plxCapcha {
 	public function __construct() {
 
 		# Initialisation des variables de classe
-		$this->word = $this->createWord();
-		$this->num = $this->chooseNum();
+		$this->createWord();
 		$this->numletter = $this->num2letter();
 	}
 
@@ -34,23 +35,25 @@ class plxCapcha {
 	 * @return	string	mot composant le capcha
 	 * @author	Anthony GUÉRIN, Stephane F
 	 **/
-	public function createWord($min=4, $max=6) {
+	public function createWord($min=5, $max=8) {
 
 		# On genere une taille compris entre min et max
 		$size = mt_rand($min,$max);
-		# Definition de l'alphabet
-		$alphabet = 'abcdefghijklmnopqrstuvwxyz';
-		$size_a = strlen($alphabet);
-		# On genere un tableau word
-		$word='';
-		for($i = 0; $i < $size; $i++)
-			$word .= $alphabet[mt_rand(0,$size_a-1)];
+
 		# On retourne la valeur
-		return $word;
+		$this->word = substr(
+			str_shuffle(self::TEMPLATE),
+			mt_rand(0, self::TEMPLATE_LENGTH - $size),
+			$size
+		);
+
+		$this->num = mt_rand(0, $size - 1);
 	}
 
 	/**
-	 * Méthode qui choisit un numéro de lettre dans le mot chois
+	 * DEPRECATED since PluXml 5.8.3 (2020)
+	 *
+	 * Méthode qui choisit un numéro de lettre dans le mot choisi
 	 *
 	 * @return	int
 	 * @author	Anthony GUÉRIN
@@ -70,25 +73,25 @@ class plxCapcha {
 	public function num2letter() {
 
 		# Num = derniere lettre du mot
-		if($this->num == strlen($this->word))
+		if($this->num == strlen($this->word) - 1) {
 			return L_LAST;
+		}
+
 		# On genere un tableau associatif
-		$array = array(
-			'1' => L_FIRST,
-			'2' => L_SECOND,
-			'3' => L_THIRD,
-			'4' => L_FOURTH,
-			'5' => L_FIFTH,
-			'6' => L_SIXTH,
-			'7' => L_SEVENTH,
-			'8' => L_EIGTH,
-			'9' => L_NINTH,
-			'10' => L_TENTH);
-		# La valeur existe dans le tableau
-		if(isset($array[ $this->num ]))
-			return $array[ $this->num ];
-		else # Sinon on retourne une valeur generique
-			return $this->num.L_NTH;
+		$letters = array(
+			L_FIRST,
+			L_SECOND,
+			L_THIRD,
+			L_FOURTH,
+			L_FIFTH,
+			L_SIXTH,
+			L_SEVENTH,
+			L_EIGTH,
+			L_NINTH,
+			L_TENTH
+		);
+
+		return ($this->num < count($letters)) ? $letters[$this->num] : ($this->num - 1) . L_NTH;
 	}
 
 	/**
@@ -100,18 +103,19 @@ class plxCapcha {
 	public function q() {
 		# Generation de la question capcha
 		$_SESSION['capcha_token'] = sha1(uniqid(rand(), true));
-		$_SESSION['capcha'] = sha1($this->word[$this->num-1]);
-		return sprintf(L_CAPCHA_QUESTION,$this->numletter,$this->word);
+		$_SESSION['capcha'] = sha1($this->word[$this->num]);
+		return sprintf(L_CAPCHA_QUESTION, $this->numletter, $this->word);
 	}
 
 	/**
-	 * Méthode qui retourne la réponse du capcha (sha1)
 	 * DEPRECATED
+	 * 
+	 * Méthode qui retourne la réponse du capcha (sha1)
 	 *
 	 **/
 	public function r() {
 		# Generation du hash de la reponse
-		return sha1($this->word[$this->num-1]);
+		return sha1($this->word[$this->num - 1]);
 	}
 
 }

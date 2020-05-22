@@ -96,7 +96,7 @@ class plxUtils {
 		# On vérifie le site via une expression régulière
 		# Méthode imme_emosol - http://mathiasbynens.be/demo/url-regex
 		# modifiée par Amaury Graillat pour prendre en compte les tirets dans les urls
-		if(preg_match('@(https?|ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
+		if(preg_match('@(https?|s?ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
 				return true;
 		else {
 			if($reset) $site='';
@@ -138,7 +138,7 @@ class plxUtils {
 		else
 			$localIP = getHostByName(getHostName());
 
-		return plxUtils::isValidIp($ip) ? $ip : $localIP;
+		return self::isValidIp($ip) ? $ip : $localIP;
 	}
 
 	/**
@@ -438,7 +438,7 @@ class plxUtils {
 	 * @param	charset		charset à utiliser dans le formatage de la chaine (par défaut utf-8)
 	 * @return	string		chaine formatée
 	 **/
-	public static function removeAccents($str,$charset='utf-8') {
+	public static function removeAccents($str, $charset=PLX_CHARSET) {
 
 		$str = htmlentities($str, ENT_NOQUOTES, $charset);
 		$a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ');
@@ -446,7 +446,7 @@ class plxUtils {
 		$str = str_replace($a, $b, $str);
 		$str = preg_replace('#\&([A-za-z])(?:acute|cedil|circ|grave|ring|tilde|uml|uro)\;#', '\1', $str);
 		$str = preg_replace('#\&([A-za-z]{2})(?:lig)\;#', '\1', $str); # pour les ligatures e.g. '&oelig;'
-		$str = preg_replace('#\&[^;]+\;#', '', $str); # supprime les autres caractères
+		$str = preg_replace('#\&[^;]+\;#', '', $str); # supprime les entités HTML
 		return $str;
 	}
 
@@ -489,7 +489,7 @@ class plxUtils {
 			)
 		);
 
-		if(!(defined('PLX_SITE_LANG')) or !array_key_exists(PLX_SITE_LANG, $alphabets)) {
+		if(!(defined('PLX_SITE_LANG')) || !array_key_exists(PLX_SITE_LANG, $alphabets)) {
 			return $str;
 		}
 
@@ -512,10 +512,10 @@ class plxUtils {
 	 * @param	boolean	$remove		retire les mots sans valeur sémantique
 	 * @param	string	$replace
 	 * @param	boolean	$lower
-	 * @return	string				valid URL
+	 * @return	string	valid URL
 	 * @author	J.P. Pourrez (bazooka07)
 	 * */
-	public static function urlify($str, $remove=true, $replace='-', $lower=true) {
+	public static function urlify($url, $replace='-', $lower=true) {
 
 		$remove_words = array(
 			'en' => 'a|an|as|at|before|but|by|for|from|is|into|in|like|off?|on|onto|per|since|than|the|this|that|to|up|via|with',
@@ -523,21 +523,30 @@ class plxUtils {
 			'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
 		);
 
-		$clean_str = plxUtils::translitterate(trim(html_entity_decode($str)));
+		$scheme = parse_url($url, PHP_URL_SCHEME);
+		if(!empty($scheme)) {
+			if($scheme == 'data') { return $url; }
+			$url = substr($url, strlen($scheme) + 3); // http://
+		}
 
-		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
-			$tmpstr = preg_replace('@\b('.$remove_words[PLX_SITE_LANG].')\b@u', $replace, $clean_str);
-			$clean_str = preg_replace('@\s*'.$replace.'(\s*'.$replace.')*\s*@', $replace, $tmpstr);
+		$clean_url = self::translitterate(trim(html_entity_decode($url)));
+
+		if(self::getConfigParam('cleanurl') && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
+			$clean_url = preg_replace('@\b(' . self::REMOVE_WORDS[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
 		}
 
 		// remove accents
-		$clean_str = plxUtils::removeAccents($clean_str,PLX_CHARSET);
-		// remove whitespace
-		$clean_str = preg_replace('@\s+@',$replace,$clean_str);
-		// remove non-alphanumeric character
-		$clean_str = trim(preg_replace('@[^\w-]@','',$clean_str),'-');
+		$clean_url = self::removeAccents($clean_url, PLX_CHARSET);
 
-		return ($lower) ? strtolower($clean_str) : $clean_str;
+		// remove whitespace
+		$clean_url = preg_replace('@[\s' . $replace . ']+@', $replace, $clean_url);
+
+		// remove non-alphanumeric character
+		$clean_url = trim(preg_replace('@[^\w\.-]+@', '', $clean_url), '-');
+
+		if($lower) { $clean_url = strtolower($clean_url); }
+
+		return (empty($scheme)) ? $clean_url : $scheme . '://' . $clean_url;
 	}
 
 	/**
@@ -548,7 +557,7 @@ class plxUtils {
 	 **/
 	public static function title2url($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower(self::removeAccents($str,PLX_CHARSET));
 		$str = preg_replace('/[^[:alnum:]]+/',' ',$str);
 		return strtr(trim($str), ' ', '-');
 	}
@@ -561,7 +570,7 @@ class plxUtils {
 	 **/
 	public static function title2filename($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower(self::removeAccents($str,PLX_CHARSET));
 		$str = str_replace('|','',$str);
 		$str = preg_replace('/\.{2,}/', '.', $str);
 		$str = preg_replace('/[^[:alnum:]|.|_]+/',' ',$str);
@@ -639,7 +648,7 @@ class plxUtils {
 	 * @return	boolean			vrai si image créée
 	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
-	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
+	public static function makeThumb($src_image, $dest_image, $thumb_width = self::THUMB_WIDTH, $thumb_height = self::THUMB_HEIGHT, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 
@@ -794,7 +803,7 @@ class plxUtils {
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
 		$racine = rtrim($protocol.$servername.$serverport.$dirname, '/\\').'/';
-		if(!plxUtils::checkSite($racine, false))
+		if(!self::checkSite($racine, false))
 			die('Error: wrong or invalid url');
 		return $racine;
 	}
@@ -846,15 +855,31 @@ class plxUtils {
 	}
 
 	/**
-	 * Méthode qui retourne une chaine de caractères nettoyée des cdata
+	 * Méthode qui controle une chaine de caractères pour un fichier .xml
+	 * Si la chaine est vide ou numérique : la chaine est retournée sans modification
+	 * Autrement, la chaine est encadrée automatiquement par "<![CDATA[ ... ]]>" si besoin.
+	 * Si "<![CDATA[" et "]]>" sont présents à l'intérieur de la chaine, alors conversion
+	 * en entités HTML.
 	 *
 	 * @param	str		chaine de caractères à nettoyer
+	 * @param	closure	la chaine de caractères nettoyée sera encadrée par "<![CDATA[ .. ]]>" si besoin
 	 * @return	string	chaine de caractères nettoyée
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez
 	 **/
-	public static function cdataCheck($str) {
-		$str = str_ireplace('!CDATA', '&#33;CDATA', $str);
-		return str_replace(']]>', ']]&gt;', $str);
+	public static function cdataCheck($str, $closure=true) {
+		$value = trim($str);
+		if(empty($value) or is_numeric($value)) { return $value; }
+		# tests $closure in last time : $matches mus be set !!!
+		if(!preg_match('#^<!\[CDATA\[(.*)\]\]>#s', $value, $matches)) {
+			if($closure) {
+				return '<![CDATA[' .
+					str_replace(']]>', ']]&gt;', str_ireplace('!CDATA', '&#33;CDATA', $value)) . ']]>';
+			} else {
+				return str_replace(']]>', ']]&gt;', str_ireplace('!CDATA', '&#33;CDATA', $value));
+			}
+		}
+		$value = str_replace(']]>', ']]&gt;', preg_replace('#<!\[(cdata)\[#i', '&lt;&#33;[$1[', $matches[1]));
+		return '<![CDATA[' . $value . ']]>';
 	}
 
 	/**
@@ -1005,6 +1030,8 @@ class plxUtils {
 
 	/**
 	 * Send an e-mail with PhpMailer class
+	 * TODO use plxUtils::getConfigParam() instead of the $conf parameter @sudwebdesign
+	 *
 	 * @param	string	$name			Sender's name
 	 * @param	string	$from			Sender's e-mail address
 	 * @param	string	$to				Destination e-mail address
@@ -1085,19 +1112,38 @@ class plxUtils {
 	* @author	Stephane F., Thomas Ingles, Jean-pierre Bourrez
 	**/
 	public static function formatMenu($caption, $href, $title=false, $aClass=false, $onclick=false, $extra='', $highlight=true) {
-		$basename = explode('?', basename($href));
-		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? 'active' : '';
-		if($basename[0] == 'plugin.php' AND isset($_GET['p']) AND $basename[1] != 'p=' . $_GET['p']) $active = '';
+		$url_parts = parse_url($href);#var_dump($url_parts);
+		$page = basename($url_parts['path'], '.php');
+		$id = pathinfo($page,  PATHINFO_FILENAME);
+		$page = rtrim($page, 's');
+		$script = rtrim(basename($_SERVER['SCRIPT_NAME'], '.php'), 's');
 		$classList = array('menu');
-		if(!empty($active)) { $classList[] = 'active'; }
+		if($highlight) {
+			switch($page) {
+				case 'plugin' :
+					$id = str_replace('p=','',$url_parts['query']);
+					if(filter_has_var(INPUT_GET, 'p') AND $url_parts['query'] == 'p=' . $_GET['p']) {
+						$classList[] = 'active';
+					}
+					break;
+				default:
+					if($script == $page) {
+						$classList[] = 'active';
+					}
+					break;
+			}
+			#$classList[] = $script.' '.$page;#debug
+		}
 		if(!empty($aClass)) { $classList[] = $aClass; }
 		$className = implode(' ', $classList);
-		$title = (!empty($title)) ? ' title="' . $title . '"' : '';
-		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$id = ($basename[0]=='plugin.php' ? strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
+
+		$onclick = $onclick ? ' onclick="' . $onclick . '"':'';
+		$title = $title ? ' title="' . $title . '"' : '';
+		$extra = empty($extra)? '': ' ' . trim($extra);
+
 		$caption = ucfirst($caption);
 		return <<< EOT
-<li id="mnu_$id" class="$className"><a href="$href" $onclick $title>$caption $extra</a></li>
+<li id="mnu_$id" class="$className"><a href="$href"$title$onclick>$caption$extra</a></li>
 EOT;
 	}
 
@@ -1357,7 +1403,7 @@ EOT;
 			$modeDir = $modeDir1;
 			if(!$modeDir1 and $textOnly) {
 				$extsText = 'php css html htm xml js json txt me md';
-				# plxUtils::debugJS($extsText, 'extsText');
+				# self::debugJS($extsText, 'extsText');
 			}
 			$currentValue = $choice1;
 		}
@@ -1415,7 +1461,7 @@ EOT;
 
 EOT;
 					}
-					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
+					self::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
 						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
@@ -1459,7 +1505,7 @@ EOT;
 		<select $id name="$name" class="$class">
 			<option$disabled value="$value"$selected>$caption/</option>
 EOT;
-		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
+		self::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
 		echo <<< EOT
 		</select>
 EOT;
@@ -1474,14 +1520,29 @@ EOT;
 	 */
 	public static function printLinkCss($file, $admin=false) {
 
+		if(empty($file)) { $return; }
+
 		$plxMotor = ($admin) ? false : plxMotor::getinstance();
-		if(is_file(PLX_ROOT.$file)) {
+		if(is_file(PLX_ROOT . $file)) {
 			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
-			echo <<< LINK
-	<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
-LINK;
+?>
+	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
+<?php
 		}
 	}
 
+	/**
+	 * Get the value for a specific PluXml configuration key
+	 * (data/configuration/parametres.xml)
+	 *
+	 * @param String $param
+	 * @return mixed
+	 * @author Pedro "P3ter" CADETE
+	 */
+	public static function getConfigParam(String $param) {
+
+		$plxMotor = plxMotor::getInstance();
+		return $plxMotor->aConf[$param];
+	}
 }

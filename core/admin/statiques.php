@@ -16,14 +16,11 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsPrepend'));
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
+$plxAdmin->checkProfil(PROFIL_MANAGER);
 
 # On édite les pages statiques
 if(!empty($_POST)) {
-	if(isset($_POST['homeStatic']))
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>$_POST['homeStatic'][0]));
-	else
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>''));
+	$plxAdmin->editConfiguration(!empty($_POST['homeStatic']) ? array('homestatic'=>$_POST['homeStatic'][0]) : array('homestatic'=>''));
 	$plxAdmin->editStatiques($_POST);
 	header('Location: statiques.php');
 	exit;
