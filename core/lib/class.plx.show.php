@@ -568,13 +568,12 @@ class plxShow {
 
 		$filename = trim($this->plxMotor->plxRecord_arts->f('thumbnail'));
 
-		if(empty($filename) and empty($echo)) { return false; }
-
 		if(!empty($filename)) {
 			$imgUrl = $this->plxMotor->urlRewrite($filename);
 			$imgThumb = plxUtils::thumbName($filename);
 		} else {
 			$imgUrl = '';
+			$echo = false;
 		}
 
 		if($article) {
