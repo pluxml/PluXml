@@ -571,6 +571,7 @@ class plxShow {
 	public function artThumbnail($format='<a href="#img_url"><img class="art_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true, $article=false) {
 
 		$filename = trim($this->plxMotor->plxRecord_arts->f('thumbnail'));
+
 		if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
 			$imgUrl = $this->plxMotor->urlRewrite($filename);
 			$imgThumb = plxUtils::thumbName($filename);
