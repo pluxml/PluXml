@@ -104,8 +104,10 @@ function path($s, $newvalue='') {
 		return $CONSTS[$s];
 }
 
-# Auto-chargement des librairies de classes
+# Auto-chargement des librairies de classes de PluXml.
+# Le nom de la class doit commencer par plx, suivi d'une lettre majuscule.
+# Exception avec PlxTemplate
 spl_autoload_register(function($aClass) {
 	# plxMotor => PLX_CORE . 'lib/class.plx.motor.php'
-	include_once PLX_CORE . 'lib/class.plx.' . strtolower(substr($aClass, 3)) . '.php';
+	return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once PLX_CORE . 'lib/class.plx.' . strtolower($matches[1]) . '.php';
 });
