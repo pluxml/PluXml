@@ -357,6 +357,7 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'E-Mail-Addresse';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Kunden-ID';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Geheimer Client-Schlüssel';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Brauchen Sie Hilfe : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">Dokumentation von PluXml</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Erzeugen Sie ein Token';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Aucune configuration n\'est requise pour sendmail.<br>';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom du serveur SMTP (exemple : ssl0.ovh.net)';

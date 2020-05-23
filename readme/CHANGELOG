@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 ## PLUXML 5.8.4.legacy (yyyy/mm/dd) ##
+Fix admin L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP miss in de lang
 Fix : themes defaut theme.css : overflow submenu theme : long sub Menus are invisible (sudwebdesign)
 Fix : media : rename & copy icons on top of action bar : add z-index:0 for media icon (sudwebdesign)
 
