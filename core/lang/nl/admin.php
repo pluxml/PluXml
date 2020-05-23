@@ -27,7 +27,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Ongeldige datum bijgewerkt';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Gegevens succesvol opgeslagen';
 const L_SAVE_ERR = 'Fout bij het opslaan van de gegevens';
 const L_NO_ENTRY = 'Geen toegang';
 const L_ERR_USER_EMPTY = 'Gelieve een gebruikersnaam in te geven';
@@ -39,7 +38,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Ongeldig artikel-ID';
 const L_DEFAULT_NEW_CATEGORY_URL = 'nieuwe-categorie';
 const L_DEFAULT_NEW_STATIC_URL = 'nieuwe-pagina';
 const L_DEFAULT_NEW_ARTICLE_URL = 'nieuw-artikel';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Artikel succesvol aangemaakt';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Artikel succesvol bijgewerkt';
 const L_ARTICLE_SAVE_ERR = 'Fout bij het opslaan van het artikel';
 const L_ARTICLE_DELETE_ERR = 'Fout tijdens het verwijderen van het artikel';

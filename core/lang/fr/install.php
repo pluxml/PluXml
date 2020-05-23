@@ -20,7 +20,6 @@ const L_ERR_MISSING_PASSWORD			= 'Veuillez renseigner un mot de passe.';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Confirmation du mot de passe incorrecte.';
 const L_ERR_MISSING_EMAIL					= 'Veuillez renseigner une adresse de courrier électronique.';
 const L_PLUXML_INSTALLATION				= 'Installation de PluXml';
-const L_SITE_DESCRIPTION				= 'Blog ou Cms à l\'Xml.';
 const L_VERSION							= 'version';
 const L_USERNAME						= 'Nom de l\'administrateur';
 const L_LOGIN							= 'Identifiant de connexion à l\'administration';

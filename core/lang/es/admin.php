@@ -25,7 +25,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Fecha no válida actualiza';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Se guradaron los datos correctamente';
 const L_SAVE_ERR = 'Error al guardar los datos';
 const L_NO_ENTRY = 'Acceso denegado';
 const L_ERR_USER_EMPTY = 'Introduzca un nombre de usuario';
@@ -37,7 +36,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Identificador de artículo incorrecto!';
 const L_DEFAULT_NEW_CATEGORY_URL = 'nueva-categoria';
 const L_DEFAULT_NEW_STATIC_URL = 'nueva-pagina';
 const L_DEFAULT_NEW_ARTICLE_URL = 'nuevo-articulo';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Artículo creado correctamente';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Artículo actualizado correctamente';
 const L_ARTICLE_SAVE_ERR = 'Error al guardar el artículo';
 const L_ARTICLE_DELETE_ERR = 'Error al eliminar el artículo';

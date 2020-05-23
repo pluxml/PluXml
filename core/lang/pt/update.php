@@ -13,7 +13,7 @@ const L_UPDATE_START					= 'Come¸ar a actualização';
 
 const L_UPDATE_ENDED					= 'Actualização terminada.';
 const L_UPDATE_INPROGRESS				= 'Aplicação das actualizações';
-const L_UPDATE_ERROR					= 'Um erro ocorreu durante o processo de actualização.';
+const L_UPDATE_ERROR					= 'Ocorreu um erro ao atualizar na etapa %s.';
 const L_UPDATE_SUCCESSFUL				= 'Todas a actualizaçõés foram aplicadas com sucesso !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Actualização do ficheiro... parametres.xml';
@@ -48,3 +48,5 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migrando arquivos parâmetros no arquivo d
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Actualização do ficheiro... plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Comentários de migração';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Erro durante a migração comentários';
+const L_UPDATE_NEW_FOLDER				= 'Nova pasta : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Parâmetro preterido : %s';

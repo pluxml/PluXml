@@ -25,7 +25,7 @@ class plxUtils {
 	 * @return	string		valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
-		return (isset($var) ? (!empty($var) ? $var : $default) : $default) ;
+		return (isset($var) and !empty($var)) ? $var : $default;
 	}
 
 	/**
@@ -602,7 +602,6 @@ class plxUtils {
 	 * @return	boolean				retourne vrai si l'écriture s'est bien déroulée
 	 **/
 	public static function write($xml, $filename) {
-
 		if(file_exists($filename)) {
 			$f = fopen($filename.'.tmp', 'w'); # On ouvre le fichier temporaire
 			fwrite($f, trim($xml)); # On écrit
@@ -648,7 +647,7 @@ class plxUtils {
 	 * @return	boolean			vrai si image créée
 	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
-	public static function makeThumb($src_image, $dest_image, $thumb_width = self::THUMB_WIDTH, $thumb_height = self::THUMB_HEIGHT, $jpg_quality = 90) {
+	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 
@@ -1030,7 +1029,7 @@ class plxUtils {
 
 	/**
 	 * Send an e-mail with PhpMailer class
-	 * TODO use plxUtils::getConfigParam() instead of the $conf parameter @sudwebdesign
+	 * TODO use plxUtils::getConfigParam() instead of the $conf parameter
 	 *
 	 * @param	string	$name			Sender's name
 	 * @param	string	$from			Sender's e-mail address

@@ -13,7 +13,7 @@ const L_UPDATE_START					= 'Démarrer la mise à jour';
 
 const L_UPDATE_ENDED					= 'Mise à jour de la version %s terminée.';
 const L_UPDATE_INPROGRESS				= 'Applications des mises à jour version';
-const L_UPDATE_ERROR					= 'Une erreur s\'est produite pendant la mise à jour.';
+const L_UPDATE_ERROR					= 'Une erreur s\'est produite lors de la mise à jour à l\'étape %s.';
 const L_UPDATE_SUCCESSFUL				= 'Toutes les mises à jour ont été appliquées avec succès !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Mise à jour du fichier parametres.xml';
@@ -48,3 +48,5 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migration des fichiers de paramétrage des
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Mise à jour du fichier plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Migration des commentaires';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Erreur pendant la migration des commentaires';
+const L_UPDATE_NEW_FOLDER				= 'Nouveau dossier : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Paramètre obsolète : %s';

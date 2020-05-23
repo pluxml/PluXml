@@ -27,7 +27,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Invalid date updated';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Data was succesfully saved';
 const L_SAVE_ERR = 'Error while saving data';
 const L_NO_ENTRY = 'No entry';
 const L_ERR_USER_EMPTY = 'Please enter a username';
@@ -39,7 +38,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Wrong article id !';
 const L_DEFAULT_NEW_CATEGORY_URL = 'new-category';
 const L_DEFAULT_NEW_STATIC_URL = 'new-page';
 const L_DEFAULT_NEW_ARTICLE_URL = 'new-article';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Post was succesfully created';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Post was succesfully updated';
 const L_ARTICLE_SAVE_ERR = 'Post couldn\'t be saved';
 const L_ARTICLE_DELETE_ERR = 'An error occured : post couldn\'t be deleted';

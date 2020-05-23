@@ -21,6 +21,9 @@ const L_CONFIRM_PASSWORD			= 'Powtórz hasło';
 const L_PROFIL_LOGIN				= 'Zalogowany jako';
 const L_INPUT_CHANGE				= 'Zmień';
 const L_COMMENTS_CLOSED				= 'Komentarze zostały wyłączone';
+const L_SITE_DESCRIPTION			= 'Blog i CMS oparty na XML !';
+const L_SAVE_SUCCESSFUL				= 'Zapisywanie zakończone powodzeniem';
+const L_ARTICLE_SAVE_SUCCESSFUL		= 'Post został pomyślnie utworzony';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Nie odnaleziono głównego szablonu PluXml';

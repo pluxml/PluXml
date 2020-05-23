@@ -1,24 +1,11 @@
 <?php
 const PLX_ROOT = './';
 define('PLX_CORE', PLX_ROOT . 'core/');
-
-include PLX_ROOT . 'config.php';
-include PLX_CORE . 'lib/config.php';
-
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ' . PLX_ROOT.'install.php');
-	exit;
-}
+include PLX_CORE . 'lib/config.php'; # Autochargement des classes
 
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
-
-# On inclut les librairies nécessaires
-foreach(explode(' ', 'date glob utils capcha erreur record motor feed show encrypt plugins') as $aClass) {
-	include PLX_CORE . 'lib/class.plx.' . $aClass . '.php';
-}
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
@@ -48,10 +35,15 @@ $plxShow = plxShow::getInstance();
 eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
 
 # Traitements du thème
-if(empty($plxMotor->style) or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
-	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
-	exit;
+if(empty($plxMotor->style) or !is_dir(PLX_ROOT . $plxMotor->aConf['racine_themes'] . $plxMotor->style)) {
+	if(!is_dir(PLX_ROOT . $plxMotor->aConf['racine_themes'] . 'defaut')) {
+		header('Content-Type: text/plain; charset='.PLX_CHARSET);
+		echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
+		exit;
+	}
+
+	# fallback si thème perso pas trouvé
+	$plxMotor->style = 'defaut';
 }
 
 # On teste si le template existe

@@ -13,7 +13,7 @@ const L_UPDATE_START					= 'Start the update';
 
 const L_UPDATE_ENDED					= 'Update complete';
 const L_UPDATE_INPROGRESS				= 'Applying version updates';
-const L_UPDATE_ERROR					= 'An error occured during the update.';
+const L_UPDATE_ERROR					= 'An error occured for updating at step #%s.';
 const L_UPDATE_SUCCESSFUL				= 'All the updates were successfully completed !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Updating parametres.xml';
@@ -48,3 +48,5 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migration of plugins parameter file in the
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Updating plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Comments migration';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Error while migrating comments';
+const L_UPDATE_NEW_FOLDER				= 'new folder : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Deprecated parameter : %s';

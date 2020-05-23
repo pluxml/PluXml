@@ -20,7 +20,6 @@ const L_ERR_MISSING_PASSWORD			= 'Volgatz entre-senhar un senhal !';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Confirmacion del senhal incorrècta !';
 const L_ERR_MISSING_EMAIL					= 'Volgatz entre-senhar un adreça electronica !';
 const L_PLUXML_INSTALLATION				= 'Installacion de PluXml';
-const L_SITE_DESCRIPTION				= 'Blòg o Cms a l\'Xml !';
 const L_VERSION							= 'version';
 const L_USERNAME						= 'Nom de l\'administrator';
 const L_LOGIN							= 'Identificant de connexion a l\'administracion';

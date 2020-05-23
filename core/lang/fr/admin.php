@@ -27,7 +27,6 @@ const L_ERR_INVALID_DATE_UPDATE = 'Date de mise à jour invalide';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Enregistrement des données effectué avec succès';
 const L_SAVE_ERR = 'Erreur pendant l\'enregistrement des données';
 const L_NO_ENTRY = 'Accès interdit';
 const L_ERR_USER_EMPTY = 'Veuillez saisir un nom d\'utilisateur';
@@ -39,7 +38,6 @@ const L_ERR_INVALID_ARTICLE_IDENT = 'Identifiant d\'article invalide !';
 const L_DEFAULT_NEW_CATEGORY_URL = 'nouvelle-categorie';
 const L_DEFAULT_NEW_STATIC_URL = 'nouvelle-page';
 const L_DEFAULT_NEW_ARTICLE_URL = 'nouvel-article';
-const L_ARTICLE_SAVE_SUCCESSFUL = 'Article créé avec succès';
 const L_ARTICLE_MODIFY_SUCCESSFUL = 'Article mis à jour avec succès';
 const L_ARTICLE_SAVE_ERR = 'Erreur lors de la sauvegarde de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Une erreur est survenue pendant la suppression de la l\'article';

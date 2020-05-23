@@ -13,7 +13,7 @@ const L_UPDATE_START					= 'Rozpocznij aktualizację';
 
 const L_UPDATE_ENDED					= 'Aktualizacja do wersji %s zakończona.';
 const L_UPDATE_INPROGRESS				= 'Wersja aplikacji aktualizacji';
-const L_UPDATE_ERROR					= 'Wystąpił błąd podczas aktualizacji.';
+const L_UPDATE_ERROR					= 'Wystąpił błąd podczas aktualizacji w kroku %s.';
 const L_UPDATE_SUCCESSFUL				= 'Wszystkie aktualizacje zostały z powodzeniem zastosowane!';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Aktualizacja pliku parametres.xml';
@@ -48,3 +48,5 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migracja wtyczek parametrów pliku w folde
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Aktualizacja pliku plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Uwagi dotyczące migracji';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Błąd podczas migracji komentarzy';
+const L_UPDATE_NEW_FOLDER				= 'nowy folder : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Nieaktualny parametr : %s';

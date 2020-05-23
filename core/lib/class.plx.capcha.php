@@ -61,7 +61,7 @@ class plxCapcha {
 	public function chooseNum() {
 
 		# On choisit un numero entre 1 et la taille du mot
-		return mt_rand(1,strlen($this->word));
+		return mt_rand(1,strlen($this->_word));
 	}
 
 	/**

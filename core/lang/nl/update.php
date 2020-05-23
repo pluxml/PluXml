@@ -13,7 +13,7 @@ const L_UPDATE_START					= 'Start het bijwerken';
 
 const L_UPDATE_ENDED					= 'Het bijwerken van de %s versie is afgerond.';
 const L_UPDATE_INPROGRESS				= 'Bezig met bijwerken van de versie';
-const L_UPDATE_ERROR					= 'Er is een fout opgetreden tijdens het bijwerken.';
+const L_UPDATE_ERROR					= 'Er is een fout opgetreden bij het bijwerken in stap # %s.';
 const L_UPDATE_SUCCESSFUL				= 'Alle bijwerkingen zijn succesvol doorgevoerd !';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Bijwerken van het bestand parametres.xml';
@@ -48,3 +48,5 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Migratie van bestanden van plug-in paramet
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Bijwerken van het bestand plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Migratie opmerkingen';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Fout bij het migreren opmerkingen';
+const L_UPDATE_NEW_FOLDER				= 'Nieuwe map : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Verouderde parameter : %s';

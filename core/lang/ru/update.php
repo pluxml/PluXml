@@ -13,7 +13,7 @@ const L_UPDATE_START					= 'Начать обновление';
 
 const L_UPDATE_ENDED					= 'Обновление завершено';
 const L_UPDATE_INPROGRESS				= 'Происходит обновление';
-const L_UPDATE_ERROR					= 'Во время обновления произошла ошибка.';
+const L_UPDATE_ERROR					= 'Произошла ошибка при обновлении на шаге № %s.';
 const L_UPDATE_SUCCESSFUL				= 'Обновление завершено успешно!';
 
 const L_UPDATE_UPDATE_PARAMETERS_FILE	= 'Обновление parametres.xml';
@@ -48,3 +48,5 @@ const L_UPDATE_PLUG_MOVEPARAMFILE		= 'Миграция файлов плагин
 const L_UPDATE_UPDATE_PLUGINS_FILE		= 'Обновление plugins.xml';
 const L_UPDATE_COMMENTS_MIGRATION		= 'Миграция комментарии';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Ошибка при переходе комментарии';
+const L_UPDATE_NEW_FOLDER				= 'Новая папка : %s';
+const L_UPDATE_DEPRECATED_PARAMETER		= 'Устаревший параметр : %s';

@@ -62,7 +62,11 @@ if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 	foreach($array as $k=>$v)
 		$aTemplates[$v] = $v;
 }
-if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
+if(empty($aTemplates)) {
+	$aTemplates[''] = L_NONE1;
+} else {
+	asort($aTemplates);
+}
 
 # On inclut le header
 include __DIR__ .'/top.php';
