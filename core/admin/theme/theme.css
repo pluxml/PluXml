@@ -835,6 +835,7 @@ div.ico div {
 	color: #000;
 	font-size: 16pt;
 	margin: 0 0.3rem;
+	z-index: 0;
 }
 
 a.overlay {

@@ -1,6 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 ## PLUXML 5.8.4.legacy (yyyy/mm/dd) ##
+Fix : media : rename & copy icons on top of action bar : add z-index:0 for media icon (sudwebdesign)
+
 Fix Impossible to add an email address if exits on deleted users : Like : https://github.com/pluxml/PluXml/issues/393 (p3ter + sudwebdesign)
 Fix sitemap.php & feed.php to work with #php55legacy (sudwebdesign)
 Fix medias.php rename field size to 255 + enlarge dialog box (sudwebdesign)
