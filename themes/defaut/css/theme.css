@@ -31,6 +31,9 @@ body {
 	background-color: #fff;
 }
 /* ---------- Header ---------- */
+.header .grid {/* Fix sub Menu are (in)visible; ) */
+	overflow: initial;
+}
 
 .heading-small {
 	font-size: 2rem;
