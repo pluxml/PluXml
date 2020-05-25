@@ -148,4 +148,10 @@ const L_FEED_ONLINE_COMMENTS		= 'Online commentaren';
 const L_FEED_OFFLINE_COMMENTS		= 'Offline commentaren';
 const L_WRITTEN_BY					= 'Geschreven door';
 
+# plxShow::artNavigation
+const L_ART_FIRST					= 'Eerste';
+const L_ART_PREV					= 'Vorige';
+const L_ART_NEXT					= 'De volgende';
+const L_ART_LAST					= 'Laatste';
+const L_ART_UP						= 'Omhoog gaan';
 ?>
