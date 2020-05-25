@@ -1,5 +1,7 @@
 ## PLUXML 6.0 (yyyy/mm/dd) ##
 [+] Categories and articles use a configurable default thumbnail #446 (bazooka07)
+[+] Medias : table sorting #441 (bazooka07)
+[+] Medias : redirect to folder after creation #441 (bazooka07)
 [+] Add Fontello config.json #417 (bazooka07)
 [+] Add a CSS class to admin body depending on profil level #448 (bazooka07)
 [+] Default theme : add font-display swap #427 (guiguid)
