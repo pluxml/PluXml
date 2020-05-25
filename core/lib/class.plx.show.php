@@ -11,7 +11,7 @@ const PLX_SHOW = true;
 
 class plxShow {
 
-	const ART_DIRECTIONS = array(
+	private const ART_DIRECTIONS = array(
 		'first'	=> array('◂◂',	'⏪',	L_ART_FIRST),	// :rewind:
 		'prev'	=> array('◀',	'◀️',	L_ART_PREV),	// :arrow_backward:
 		'next'	=> array('️️▶',	'▶️',	L_ART_NEXT),	// :arrow_forward:
@@ -1670,13 +1670,13 @@ class plxShow {
 		}
 	}
 
-	/*
-	 * Méthode qui affiche les liens vers les premier, précèdent, suivant et dernier articles dans une catégorie, une archive ou pour un mot-clé (tag).
+	/**
+	 * Display links to first, previous, next and last article inside a category, a tag or an archive.
 	 *
-	 * @param	format gabarit pour afficher le résultat
-	 * @param	buttons liste des boutons à afficher
-	 * @author	Jean-Pierre Pourrez "bazooka07"
-	 * */
+	 * @param string $format the template to display
+	 * @param string $buttons buttons list to display
+	 * @author Jean-Pierre Pourrez "bazooka07"
+	 */
 	public function artNavigation($format='<li><a href="#url" rel="#dir" title="#title">#icon</a></li>', $buttons='first prev next last up') {
 		if(
 			empty($_SESSION['previous']) or
@@ -1687,13 +1687,13 @@ class plxShow {
 		foreach($matches[0] as $direction) {
 			if(!empty($_SESSION['previous']['artIds'][$direction]) or $direction == 'up') {
 				if($direction != 'up') {
-					# On pointe des articles
+					# Get the article for the given direction
 					$filename = PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $_SESSION['previous']['artIds'][$direction];
 					$art = $this->plxMotor->parseArticle($filename);
 					$query = '?article' . intval($art['numero']) . '/' . $art['url'];
 					$title = $art['title'];
 				} else {
-					# On remonte pour afficher la liste des articles
+					# Get the articles list for the given mode
 					$cible = $_SESSION['previous']['cible'];
 					$mode = $_SESSION['previous']['mode'];
 					$query = '?' . $mode;
@@ -1739,17 +1739,22 @@ class plxShow {
 		}
 	}
 
-	/*
-	 * Imprime le lien canonique de la page
+	/**
+	 * Display article navigation position
 	 *
 	 * @author Jean-Pierre Pourrez "Bazooka07"
-	 * */
+	 */
 	public function artNavigationRange() {
 ?>
 <span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
 <?php
 	}
 
+	/**
+	 * Display the canonical link
+	 *
+	 * @author Jean-Pierre Pourrez "Bazooka07"
+	 */
 	public function canonical() {
 		$id = $this->plxMotor->cible;
 		switch($this->plxMotor->mode) {

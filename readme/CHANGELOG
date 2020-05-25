@@ -1,4 +1,5 @@
 ## PLUXML 6.0 (yyyy/mm/dd) ##
+[+] Articles navigation buttons inside a category, a tag or an archive #447 (bazooka07)
 [+] Add Fontello config.json and new icons #417 (bazooka07)
 [+] Enable or disable short words removal in URL generation, disabled by default (P3ter)
 [+] Add plxUtils::getConfigParam() which return the value of a specific PluXml configuration key (P3ter)
