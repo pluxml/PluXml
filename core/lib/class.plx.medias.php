@@ -258,7 +258,7 @@ class plxMedias {
 		if (!empty(trim($newdir))) {
 			$mydir = $this->path . $this->dir . plxUtils::urlify(trim($newdir));
 			if(is_dir($mydir)) {
-				// Le dossier existe déjà !
+				// Le dossier existe déjà
 				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
 			}
 
