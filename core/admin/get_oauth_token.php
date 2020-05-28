@@ -16,6 +16,7 @@
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Get an OAuth2 token from an OAuth2 provider.
  * * Install this script on your server so that it's accessible
@@ -36,6 +37,7 @@ namespace PHPMailer\PHPMailer;
  * Plenty to choose from here:
  * @see http://oauth2-client.thephpleague.com/providers/thirdparty/
  */
+
 // @see https://github.com/thephpleague/oauth2-google
 use League\OAuth2\Client\Provider\Google;
 
@@ -43,20 +45,20 @@ use League\OAuth2\Client\Provider\Google;
 include 'prepend.php';
 
 if (!isset($_GET['code']) && !isset($_GET['provider'])) {
-	include 'top.php';
-?>
-	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_ADVANCED ?></h2>
-	</div>
-	<div>
-		<p>Select Provider:</p>
-		<a href='?provider=Google'>Google</a><br/>
-	</div>
-<?php
-exit;
+    include 'top.php';
+    ?>
+    <div class="inline-form action-bar">
+        <h2><?php echo L_CONFIG_ADVANCED ?></h2>
+    </div>
+    <div>
+        <p>Select Provider:</p>
+        <a href='?provider=Google'>Google</a><br/>
+    </div>
+    <?php
+    exit;
 }
 
-require PLX_CORE.'vendor/autoload.php';
+require PLX_CORE . 'vendor/autoload.php';
 
 $providerName = '';
 
@@ -122,8 +124,7 @@ if (!isset($_GET['code'])) {
     $tokenToStore['smtpOauth2_refreshToken'] = $token->getRefreshToken();
     // Store the token in the PluXMl configuration and redirect to the administration page
     if (!empty($tokenToStore)) {
-    	$plxAdmin->editConfiguration($tokenToStore);
+        $plxAdmin->editConfiguration($tokenToStore);
     }
-    // header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
     header('Location: parametres_avances.php');
 }
