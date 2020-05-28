@@ -427,13 +427,12 @@ class plxMotor {
 				foreach($aFiles as $key=>$value) {
 					if(substr($value, 0, 4) == $this->cible) {
 						if($key > 0) {
-							$artIds['first'] = $aFiles[0];
-							if($key > 1) { $artIds['prev'] = $aFiles[$key - 1]; }
+							if($key > 1) { $artIds['first'] = $aFiles[0]; }
+							$artIds['prev'] = $aFiles[$key - 1];
 						}
 						if($key < count($aFiles) - 1) {
-							$artIds['last'] = $aFiles[count($aFiles) - 1];
-							if($key < count($aFiles) - 2) { $artIds['next'] = $aFiles[$key + 1]; }
-
+							if($key < count($aFiles) - 2) { $artIds['last'] = $aFiles[count($aFiles) - 1]; }
+							$artIds['next'] = $aFiles[$key + 1];
 						}
 						$_SESSION['previous']['position'] = $key + 1;
 						$_SESSION['previous']['count'] = count($aFiles);
