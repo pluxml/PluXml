@@ -18,8 +18,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?= L_ADMIN ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?= strtolower(PLX_CHARSET) ?>" />
-	<link rel="stylesheet" href="theme/plucss.css?v=<?= PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" href="theme/theme.css?v=<?= PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" href="theme/css/plucss.css?v=<?= PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" href="theme/css/theme.css?v=<?= PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" href="theme/fontello/css/fontello.css" media="screen" />
 	<link rel="icon" href="theme/images/favicon.png" />
 <?php

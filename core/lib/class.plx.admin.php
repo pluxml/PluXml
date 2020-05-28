@@ -374,14 +374,6 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
 	 **/
 	public function sendLostPasswordEmail($loginOrMail) {
-		/*
-		$mail = array();
-		$tokenExpiry = 24;
-		$lostPasswordToken = plxToken::getTokenPostMethod('', false);
-		$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
-		$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
-		$error = false;
-		* */
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
 				if(!$user['active'] or $user['delete'] or empty($user['email'])) { continue; }
@@ -391,7 +383,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					// token and e-mail creation
 					$mail = array();
 					$tokenExpiry = 24;
-					$lostPasswordToken = plxToken::generateToken();
+					$lostPasswordToken = plxToken::getTokenPostMethod(32, false);
 					$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 					$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 
