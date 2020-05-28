@@ -13,6 +13,9 @@ const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 # Chargement de PLX_CONFIG_PATH
 include PLX_ROOT . 'config.php';
 
+const PLX_CORE = PLX_ROOT . 'core/';
+const PLX_ADMIN_PATH = PLX_CORE . 'admin/';
+
 # Gestion des erreurs PHP
 if(PLX_DEBUG){
 	error_reporting(E_ALL);

@@ -10,7 +10,7 @@
 # Constante pour retrouver la page d'authentification
 const PLX_AUTHPAGE = true;
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -48,7 +48,7 @@ if(isset($_SESSION['maxtry'])) {
 }
 
 # Incrémente le nombre de tentative
-$redirect = $plxAdmin->aConf['racine'] . 'core/admin/';
+$redirect = 'index.php';
 if(!empty($_GET['p']) AND $css=='') {
 
 	# on incremente la variable de session qui compte les tentatives de connexion
@@ -57,7 +57,7 @@ if(!empty($_GET['p']) AND $css=='') {
 	$racine = parse_url($plxAdmin->aConf['racine']);
 	$get_p = parse_url(urldecode($_GET['p']));
 	$css = (!$get_p OR (isset($get_p['host']) AND $racine['host']!=$get_p['host']));
-	if(!$css AND !empty($get_p['path']) AND file_exists(PLX_ROOT.'core/admin/'.basename($get_p['path']))) {
+	if(!$css AND !empty($get_p['path']) AND file_exists(PLX_ADMIN_PATH . basename($get_p['path']))) {
 		# filtrage des parametres de l'url
 		$query='';
 		if(isset($get_p['query'])) {

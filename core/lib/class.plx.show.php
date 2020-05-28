@@ -2283,4 +2283,13 @@ class plxShow {
 		}
 		return $this->urlRewrite('feed.php?' . $query);
 	}
+
+	/**
+	 * Display a link to the PluXml backoffice using the PLX_ADMIN_PATH const defined in config.php
+	 *
+	 * @author J.P. Pourrez "bazooka07"
+	 */
+	public function admin() {
+		echo $this->plxMotor->urlRewrite(substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)));
+	}
 }

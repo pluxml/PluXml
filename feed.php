@@ -1,7 +1,6 @@
 <?php
 const PLX_ROOT = './';
-const PLX_CORE = PLX_ROOT .'core/';
-include PLX_CORE.'lib/config.php';
+include PLX_ROOT . 'core/lib/config.php';
 
 # Autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing
 # https://enable-cors.org/server_php.html

@@ -956,7 +956,7 @@ class plxMotor {
 			}
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
-			if (!preg_match('#comments\.php|comment\.php#',basename($_SERVER['SCRIPT_NAME']))) {
+			if (!preg_match('#comments?\.php#',basename($_SERVER['SCRIPT_NAME']))) {
 				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
 
