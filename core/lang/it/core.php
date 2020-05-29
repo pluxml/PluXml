@@ -147,3 +147,10 @@ const L_FEED_NO_PRIVATE_URL			= 'Gli URL privati non sono stati configurati !';
 const L_FEED_ONLINE_COMMENTS		= 'Commenti online';
 const L_FEED_OFFLINE_COMMENTS		= 'Commenti chiusi';
 const L_WRITTEN_BY					= 'Pubblicato da';
+
+# plxShow::artNavigation
+const L_ART_FIRST					= 'Primo';
+const L_ART_PREV					= 'Precedente';
+const L_ART_NEXT					= 'Il prossimo';
+const L_ART_LAST					= 'Scorso';
+const L_ART_UP						= 'Vai su';

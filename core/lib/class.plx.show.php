@@ -11,6 +11,14 @@ const PLX_SHOW = true;
 
 class plxShow {
 
+	private const ART_DIRECTIONS = array(
+		'first'	=> array('◂◂',	'⏪',	L_ART_FIRST),	// :rewind:
+		'prev'	=> array('◀',	'◀️',	L_ART_PREV),	// :arrow_backward:
+		'next'	=> array('️️▶',	'▶️',	L_ART_NEXT),	// :arrow_forward:
+		'last'	=> array('▸▸',	'⏩',	L_ART_LAST),	// :fast_forward:
+		'up'	=> array('▲',	'⏫',	L_ART_UP),		// :arrow_double_up:
+	);
+
 	public $plxMotor = false; # Objet plxMotor
 	private $lang; # fichier de traduction du theme
 
@@ -1699,6 +1707,106 @@ class plxShow {
 	}
 
 	/**
+	 * Display links to first, previous, next and last article inside a category, a tag or an archive.
+	 *
+	 * @param string $format the template to display
+	 * @param string $buttons buttons list to display
+	 * @author Jean-Pierre Pourrez "bazooka07"
+	 */
+	public function artNavigation($format='<li><a href="#url" rel="#dir" title="#title">#icon</a></li>', $buttons='first prev next last up') {
+		if(
+			empty($_SESSION['previous']) or
+			!array_key_exists('artIds', $_SESSION['previous']) or
+			preg_match_all('@\b(?:' . implode('|', array_keys(self::ART_DIRECTIONS)). ')\b@', $buttons, $matches) == 0
+		) { return; }
+
+		foreach($matches[0] as $direction) {
+			if(!empty($_SESSION['previous']['artIds'][$direction]) or $direction == 'up') {
+				if($direction != 'up') {
+					# Get the article for the given direction
+					$filename = PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $_SESSION['previous']['artIds'][$direction];
+					$art = $this->plxMotor->parseArticle($filename);
+					$query = '?article' . intval($art['numero']) . '/' . $art['url'];
+					$title = $art['title'];
+				} else {
+					# Get the articles list for the given mode
+					$cible = $_SESSION['previous']['cible'];
+					$mode = $_SESSION['previous']['mode'];
+					$query = '?' . $mode;
+					switch($mode) {
+						case 'categorie':
+							$query .= intval($cible) . '/' . $this->plxMotor->aCats[$cible]['url'];
+							$title = ucfirst(L_CATEGORY) . ' ' . $this->plxMotor->aCats[$cible]['name'];
+							$bypage = $this->plxMotor->aCats[$cible]['bypage'];
+							break;
+						case 'tags':
+							$query = '?tag/' . $cible;
+							$title = ucfirst(L_TAG) . ' ' . $cible;
+							$bypage = $this->plxMotor->aConf['bypage_tags'];
+							break;
+						case 'archives':
+							$query .= '/' . substr($cible, 0, 4);
+							if(strlen($cible) > 4) { $query .= '/' . substr($cible, 4); }
+							$title = ucfirst('L_ARCHIVES') . ' ' . $cible;
+							$bypage = $this->aConf['bypage_archives'];
+							break;
+						default: # home
+							$query = '';
+					}
+
+					if(strpos($format, '<link') === false) {
+						if($bypage <= 0) { $bypage = $this->plxMotor->bypage; }
+						$page = intval(ceil($_SESSION['previous']['position'] / $bypage));
+						if($page > 1) {
+							$query .= (($mode != 'home') ? '/page' : '?page') . $page;
+						}
+					}
+				}
+				list($icon, $emoji, $caption) = self::ART_DIRECTIONS[$direction];
+				echo strtr($format, array(
+					'#url'		=> $this->plxMotor->urlRewrite('index.php' . $query),
+					'#dir'		=> $direction,
+					'#title'	=> $title,
+					'#caption'	=> $caption,
+					'#icon'		=> $icon,
+					'#emoji'	=> $emoji,
+				)) . PHP_EOL;
+			}
+		}
+	}
+
+	/**
+	 * Display article navigation position
+	 *
+	 * @author Jean-Pierre Pourrez "Bazooka07"
+	 */
+	public function artNavigationRange() {
+?>
+<span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
+<?php
+	}
+
+	/**
+	 * Display the canonical link
+	 *
+	 * @author Jean-Pierre Pourrez "Bazooka07"
+	 */
+	public function canonical() {
+		$id = $this->plxMotor->cible;
+		switch($this->plxMotor->mode) {
+			case 'categorie'	: $query = '?categorie' . intval($id) . '/' . $this->plxMotor->aCats[$id]['url']; break;
+			case 'tags'			: $query = '?tags/' . $id; break;
+			case 'archives'		: $query = '?archives/' . $id; break;
+			case 'static'		: $query = '?static' . intval($id) . '/' . $this->plxMotor->aStats[$id]['url']; break;
+			case 'article'		: $query = '?article' . intval($id) . '/' . $this->plxMotor->plxRecord_arts->f('url'); break;
+			default				: $query = '';
+		}
+?>
+	<link rel="canonical" href="<?= $this->plxMotor->aConf['racine'] . 'index.php' . $query ?>" />
+<?php
+	}
+
+	/**
 	 * Méthode qui affiche la question du capcha
 	 *
 	 * @scope	global
@@ -2175,5 +2283,14 @@ class plxShow {
 				$query = 'rss'; # in fact, as mode == 'home'
 		}
 		return $this->urlRewrite('feed.php?' . $query);
+	}
+
+	/**
+	 * Display a link to the PluXml backoffice using the PLX_ADMIN_PATH const defined in config.php
+	 *
+	 * @author J.P. Pourrez "bazooka07"
+	 */
+	public function admin() {
+		echo $this->plxMotor->urlRewrite(substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)));
 	}
 }

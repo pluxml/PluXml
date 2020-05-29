@@ -13,35 +13,37 @@ const PLX_UPDATE = PLX_ROOT . 'update/';
 
 class plxUpdater {
 
-	const VERSIONS = array (
-		'4.2',
-		'4.3',
-		'4.3.1',
-		'4.3.2',
-		'5.0',
-		'5.0.1',
-		'5.0.2',
-		'5.1',
-		'5.1.1',
-		'5.1.2',
-		'5.1.3',
-		'5.1.4',
-		'5.1.5',
-		'5.1.6',
-		'5.1.7',
-		'5.2',
-		'5.3',
-		'5.3.1',
-		'5.4',
-		'5.5',
-		'5.6',
-		'5.7',
-		'5.8',
-		'5.8.1',
-		'5.8.2',
-		'5.8.3'
-	);
-
+	public static function VERSIONS() {
+		return array (
+			'4.2',
+			'4.3',
+			'4.3.1',
+			'4.3.2',
+			'5.0',
+			'5.0.1',
+			'5.0.2',
+			'5.1',
+			'5.1.1',
+			'5.1.2',
+			'5.1.3',
+			'5.1.4',
+			'5.1.5',
+			'5.1.6',
+			'5.1.7',
+			'5.2',
+			'5.3',
+			'5.3.1',
+			'5.4',
+			'5.5',
+			'5.6',
+			'5.7',
+			'5.8',
+			'5.8.1',
+			'5.8.2',
+			'5.8.3',
+			'5.9.0'
+		);
+	}
 	public $newVersion = false;
 	public $oldVersion = false;
 	public $allVersions = null;
@@ -73,8 +75,8 @@ class plxUpdater {
 	public function startUpdate($version='') {
 
 		# suppression des versions qui ont déjà été mises à jour
-		$offset = array_search($version, self::VERSIONS);
-		$this->allVersions = ($offset !== false) ? array_slice(self::VERSIONS, $offset+1, null, true) : self::VERSIONS;
+		$offset = array_search($version, self::VERSIONS());
+		$this->allVersions = ($offset !== false) ? array_slice(self::VERSIONS(), $offset+1, null, true) : self::VERSIONS;
 
 		# démarrage des mises à jour
 		if($this->doUpdate()) {
@@ -96,7 +98,7 @@ class plxUpdater {
 		# Récupère l'ancien n° de version de Pluxml
 		if(array_key_exists('version', $this->plxAdmin->aConf)) {
 			$version = $this->plxAdmin->aConf['version'];
-			if(in_array($version, self::VERSIONS)) {
+			if(in_array($version, self::VERSIONS())) {
 				$this->oldVersion = $version;
 			}
 		}

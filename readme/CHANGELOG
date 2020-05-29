@@ -2,9 +2,11 @@
 <<<<<<< HEAD
 
 
-## PLUXML 5.9.legacy (yyyy/mm/dd) ##
+## PLUXML 5.9 PHP 5.5 legacy (yyyy/mm/dd) ##
 default theme aria-label=menu (@Thatoo) https://github.com/pluxml/PluXml/pull/452
-
+Fix : admin medias.php : onclicks document.forms[0] ID to 1 to solve undefined folder input a submit links (@sudwebdesign)
+Fix : lib multifile.js : with long media filename, this nam is showed, add 1000000px on left + display:none (@sudwebdesign)
+Fix : admin foot.php : mediasManager media.php To core/admin/medias.php
 
 on install (php5.5)
 Parse error: syntax error, unexpected '[' in core/lib/class.plx.utils.php on line 535
@@ -71,7 +73,10 @@ FIX #286 Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS (sudwebdesign)
 [+] Add Fontello config.json and new icons #417 (bazooka07)
 =======
 ## PLUXML 6.0 (yyyy/mm/dd) ##
+[+] Articles navigation buttons inside a category, a tag or an archive #447 (bazooka07)
 [+] Categories and articles use a configurable default thumbnail #446 (bazooka07)
+[+] Medias : table sorting #441 (bazooka07)
+[+] Medias : redirect to folder after creation #441 (bazooka07)
 [+] Add Fontello config.json #417 (bazooka07)
 [+] Add a CSS class to admin body depending on profil level #448 (bazooka07)
 [+] Default theme : add font-display swap #427 (guiguid)
@@ -87,6 +92,8 @@ FIX #286 Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS (sudwebdesign)
 [+] $plxShow->urlPostsRssFeed() optimisations #435 (bazooka07)
 [+] $plxMotor->getTags() optimisations #437 (bazooka07)
 [+] Add plxUtils::getConfigParam() which return the value of a specific PluXml configuration key (P3ter)
+[+] $plxShow->admin() display a link to the PluXml backoffice #443 (bazooka07)
+[+] New const PLX_ADMIN_PATH in config.php used to define the PluXml backoffice path #443 (bazooka07)
 FIX Do not unset CSRF token if $_POST is empty #286 (sudwebdesign)
 FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign)
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)

@@ -1,8 +1,7 @@
 <?php
 const PLX_UPDATER = true;
 const PLX_ROOT = '../';
-define('PLX_CORE', PLX_ROOT . 'core/');
-include PLX_CORE . 'lib/config.php';
+include PLX_ROOT . 'core/lib/config.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
@@ -41,14 +40,14 @@ plxToken::validateFormToken($_POST);
 	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<link rel="icon" href="<?= PLX_CORE ?>admin/theme/images/pluxml.gif" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/plucss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/theme.css" media="screen" />
+	<link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/pluxml.gif" />
 </head>
 <body>
 	<main class="main grid">
 		<aside class="aside col med-3 lrg-2 text-center">
-			<p><img src="<?= PLX_CORE ?>admin/theme/images/pluxml.png" alt="Logo" /></p>
+			<p><img src="<?= PLX_ADMIN_PATH ?>theme/images/pluxml.png" alt="Logo" /></p>
 			<p><a href="<?= PLX_URL_REPO ?>" target="_blank"><?= PLX_URL_REPO ?></a></p>
 		</aside>
 		<section class="section col med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top: 0">

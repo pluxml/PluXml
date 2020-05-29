@@ -147,3 +147,10 @@ const L_FEED_NO_PRIVATE_URL			= 'Private URLs have not been initialized in your 
 const L_FEED_ONLINE_COMMENTS		= 'Online comments';
 const L_FEED_OFFLINE_COMMENTS		= 'Offline comments';
 const L_WRITTEN_BY					= 'Written by';
+
+# plxShow::artNavigation
+const L_ART_FIRST					= 'First';
+const L_ART_PREV					= 'Previous';
+const L_ART_NEXT					= 'Next';
+const L_ART_LAST					= 'Last';
+const L_ART_UP						= 'Up';

@@ -1,7 +1,6 @@
 <?php
 const PLX_ROOT = './';
-define('PLX_CORE', PLX_ROOT . 'core/');
-include PLX_CORE . 'lib/config.php';
+include PLX_ROOT . 'core/lib/config.php';
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();

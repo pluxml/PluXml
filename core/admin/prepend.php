@@ -1,8 +1,8 @@
 <?php
 const PLX_ROOT = '../../';
-define('PLX_CORE', PLX_ROOT.'core/');
+include PLX_ROOT . 'core/lib/config.php'; # Autochargement des classes
+
 const SESSION_LIFETIME = 7200;
-include PLX_CORE.'lib/config.php';
 
 # On démarre la session
 session_start();

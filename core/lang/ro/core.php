@@ -147,3 +147,10 @@ const L_FEED_NO_PRIVATE_URL			= 'URL-uri private nu au fost initializate in para
 const L_FEED_ONLINE_COMMENTS		= 'Comentarii online';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentarii offline';
 const L_WRITTEN_BY					= 'Scris de';
+
+# plxShow::artNavigation
+const L_ART_FIRST					= 'Primul';
+const L_ART_PREV					= 'Precedent';
+const L_ART_NEXT					= 'Următor';
+const L_ART_LAST					= 'Ultimul';
+const L_ART_UP						= 'Urca';

@@ -21,7 +21,8 @@ var MultiSelector = {
 	handleChange: function() {
 		this.selector = document.getElementById("selector_" + this.count++);
 		this.selector.style.position = 'absolute';
-		this.selector.style.left = '-1000px';
+		this.selector.style.left = '-1000000px';
+		this.selector.style.display = 'none';
 		var new_element = document.createElement('input');
 		new_element.type = "file";
 		new_element.multiple = "multiple";
@@ -48,7 +49,8 @@ var MultiSelector = {
 		new_hidden.checked = "checked";
 		new_hidden.value = i;
 		new_hidden.style.position = 'absolute';
-		new_hidden.style.left = '-1000px';
+		new_hidden.style.left = '-1000000px';
+		new_hidden.style.display = 'none';
 		// Delete link
 		var new_lnkDelete = document.createElement('a');
 		new_lnkDelete.setAttribute('href', 'javascript:void(0)');

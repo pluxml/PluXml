@@ -105,7 +105,7 @@ class plxMedias {
 		$src = $this->path.$dir;
 		if(!is_dir($src)) return array();
 
-		$defaultSample = PLX_CORE.'admin/theme/images/file.png';
+		$defaultSample = 'theme/images/file.png';
 		$offset = strlen($this->path);
 		$files = array();
 		foreach(array_filter(
@@ -256,17 +256,17 @@ class plxMedias {
 	 **/
 	public function newDir($newdir) {
 		if (!empty(trim($newdir))) {
-			$mydir = $this->path.$this->dir;
-			$mydir .= plxUtils::urlify(trim($newdir));
-			// Si le dossier n'existe pas on le créer
-			if (!is_dir($mydir)) {
-				if (!mkdir($mydir, 0755))
-					return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
-				else
-					return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
-			} else {
+			$mydir = $this->path . $this->dir . plxUtils::urlify(trim($newdir));
+			if(is_dir($mydir)) {
+				// Le dossier existe déjà
 				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
 			}
+
+			// On crée le dossier
+			if (!mkdir($mydir, 0755))
+				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
+			else
+				return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
 		}
 	}
 

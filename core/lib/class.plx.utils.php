@@ -16,6 +16,8 @@ require PLX_CORE.'vendor/autoload.php';
 
 class plxUtils {
 
+	const THUMB_WIDTH = 48;
+	const THUMB_HEIGHT = 48;
 	/**
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre

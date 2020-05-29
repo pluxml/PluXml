@@ -4,8 +4,7 @@
 # sudo rm data/*/*.xml data/statiques/*
 # --------------------------------------
 const PLX_ROOT = './';
-define('PLX_CORE', PLX_ROOT . 'core/');
-include PLX_CORE . 'lib/config.php';
+include PLX_ROOT . 'core/lib/config.php';
 
 const PLX_INSTALLER = true;
 
@@ -245,14 +244,14 @@ plxUtils::cleanHeaders();
 	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_PLUXML_INSTALLATION . ' ' . L_VERSION . ' ' . PLX_VERSION ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/plucss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/theme.css" media="screen" />
 	<script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </head>
 <body>
 	<main class="main grid">
 		<aside class="aside col med-3 lrg-2 text-center">
-			<p><img src="<?= PLX_CORE ?>admin/theme/images/pluxml.png" alt="PluXml" /></p>
+			<p><img src="<?= PLX_ADMIN_PATH ?>theme/images/pluxml.png" alt="PluXml" /></p>
 			<p><a href="<?= PLX_URL_REPO ?>" target="_blank"><?= PLX_URL_REPO ?></a></p>
 		</aside>
 		<section

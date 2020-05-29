@@ -3,15 +3,19 @@ if(!defined('PLX_ROOT')) { exit('Missing PLX_ROOT'); }
 
 const PHP_VERSION_MIN = '5.3.0';
 const PLX_DEBUG = false;
-const PLX_VERSION = '5.8.4';
+const PLX_VERSION = '5.9.0';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';
 define('PLX_URL_VERSION', PLX_URL_REPO . '/download/latest-version.txt');#legacy PHP<5.6
-define('PLX_TEMPLATES', PLX_CORE . 'templates/');#fix plxMotor class const with php5.5 : Parse error: syntax error, unexpected '.', expecting ',' or ';'
-define('PLX_TEMPLATES_DATA', PLX_ROOT . 'data/templates/');#if in const have concatenated values
 
 # Chargement de PLX_CONFIG_PATH
 include PLX_ROOT . 'config.php';
+
+define('PLX_CORE', PLX_ROOT . 'core/');#legacy PHP<5.6
+define('PLX_ADMIN_PATH', PLX_CORE . 'admin/');#legacy PHP<5.6
+
+define('PLX_TEMPLATES', PLX_CORE . 'templates/');#fix plxMotor class const with php5.5 : Parse error: syntax error, unexpected '.', expecting ',' or ';'
+define('PLX_TEMPLATES_DATA', PLX_ROOT . 'data/templates/');#if in const have concatenated values
 
 # Gestion des erreurs PHP
 if(PLX_DEBUG){
@@ -104,8 +108,10 @@ function path($s, $newvalue='') {
 		return $CONSTS[$s];
 }
 
-# Auto-chargement des librairies de classes
+# Auto-chargement des librairies de classes de PluXml.
+# Le nom de la class doit commencer par plx, suivi d'une lettre majuscule.
+# Exception avec PlxTemplate
 spl_autoload_register(function($aClass) {
 	# plxMotor => PLX_CORE . 'lib/class.plx.motor.php'
-	include_once PLX_CORE . 'lib/class.plx.' . strtolower(substr($aClass, 3)) . '.php';
+	return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once PLX_CORE . 'lib/class.plx.' . strtolower($matches[1]) . '.php';
 });

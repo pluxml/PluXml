@@ -612,6 +612,30 @@ th.checkbox {
 	width: 15px;
 }
 
+/* sorted table */
+th.sort {
+	cursor: pointer;
+	padding: 0.3rem;
+	white-space: nowrap;
+}
+th.sort:hover {
+	background-color: #ccc;
+}
+th.sort::after {
+	content: '🔼🔽'; /* 🠋🠉▲▼ */
+	margin-left: 0.5rem;
+	letter-spacing: 0.3rem;
+}
+th.sort:nth-of-type(3)::after {
+	margin-left: 2rem;
+}
+th.sort.active.reverse::after {
+	content: '🔼 '; /* no-breaking space ! */
+}
+th.sort.active::after {
+	content: ' 🔽';
+}
+
 /* pour l'indentation des commentaires */
 
 .level-0 {
@@ -852,7 +876,6 @@ a.overlay {
 	/* Sit on top */
 	z-index: 9999;
 	/* Location of the box */
-	padding-top: 100px;
 	left: 0;
 	top: 0;
 	/* Full width */
@@ -870,9 +893,10 @@ a.overlay {
 /* Dialog Content */
 
 .dialog-content {
+	position: relative;
 	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
+	margin: 13rem auto 0;
+	padding: 2rem;
 	border: 1px solid #888;
 	width: 100%;
 	min-width: 250px;
@@ -882,9 +906,11 @@ a.overlay {
 /* The Close Button */
 
 .dialog-close {
+	position: absolute;
+	right: 2rem;
+	top: 1.2rem;
 	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
+	font-size: 200%;
 	font-weight: bold;
 }
 

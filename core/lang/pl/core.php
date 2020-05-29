@@ -147,3 +147,10 @@ const L_FEED_NO_PRIVATE_URL			= 'Prywatne adresy URL nie zostały zainicjowane w
 const L_FEED_ONLINE_COMMENTS		= 'Aktywne komentarze';
 const L_FEED_OFFLINE_COMMENTS		= 'Nieaktywne komentarze';
 const L_WRITTEN_BY					= 'Napisane przez';
+
+# plxShow::artNavigation
+const L_ART_FIRST					= 'Pierwszy';
+const L_ART_PREV					= 'Poprzedni';
+const L_ART_NEXT					= 'Kolejny';
+const L_ART_LAST					= 'Ostatni';
+const L_ART_UP						= 'Wzrastać';
