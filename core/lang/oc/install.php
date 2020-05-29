@@ -21,7 +21,6 @@ const L_ERR_PASSWORD_CONFIRMATION		= 'Confirmacion del senhal incorrècta !';
 const L_PLUXML_INSTALLATION				= 'Installacion de PluXml';
 const L_VERSION							= 'version';
 const L_USERNAME						= 'Nom de l\'administrator';
-const L_PASSWORD						= 'Senhal';
 const L_EMAIL						    = 'Adreça electronica';
 const L_INPUT_INSTALL					= 'Installar';
 const L_PWD_VERY_WEAK					= 'Senhal fòrça feble';

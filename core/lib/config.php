@@ -58,7 +58,7 @@ const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET . '" ?>' . PHP
 # Langue par défaut
 const DEFAULT_LANG = 'en';
 
-# profils utilisateurs de pluxml. Look at core/admin/top.php for more information
+# profils utilisateurs de pluxml. Look at ../top.php for more information
 const PROFIL_ADMIN		= 0; // all grants
 const PROFIL_MANAGER	= 1; // grants for statiques, comments, categories, articles,
 const PROFIL_MODERATOR	= 2; // grants for comments, categories

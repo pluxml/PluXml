@@ -21,7 +21,6 @@ const L_ERR_PASSWORD_CONFIRMATION		= 'Bevestiging van wachtwoord mislukt !';
 const L_PLUXML_INSTALLATION				= 'Installatie van PluXml';
 const L_VERSION							= 'versie';
 const L_USERNAME						= 'Naam van de beheerder';
-const L_PASSWORD						= 'Wachtwoord';
 const L_EMAIL						    = 'E-mailadres';
 const L_INPUT_INSTALL					= 'Installeer';
 const L_PWD_VERY_WEAK					= 'Zeer zwak wachtwoord';
