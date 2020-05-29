@@ -21,7 +21,6 @@ const L_ERR_PASSWORD_CONFIRMATION		= 'Invalid password confirmation !';
 const L_PLUXML_INSTALLATION				= 'PluXml installation';
 const L_VERSION							= 'version';
 const L_USERNAME						= 'Admin username';
-const L_PASSWORD						= 'Password';
 const L_EMAIL						    = 'E-mail adress';
 const L_INPUT_INSTALL					= 'Install';
 const L_PWD_VERY_WEAK					= 'Very weak password';

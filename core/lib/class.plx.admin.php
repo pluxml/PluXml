@@ -389,8 +389,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
-						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
-						"##URL_EXPIRY##"	=> $tokenExpiry
+						"##URL_PASSWORD##"	=> $this->aConf['racine'] . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)) . 'auth.php?action=changepassword&token='. $lostPasswordToken,
+						"##URL_EXPIRY##"	=> $tokenExpiry,
 					);
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
@@ -434,14 +434,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 */
 	public function verifyLostPasswordToken($token) {
 
-		$valid = false;
-
 		foreach($this->aUsers as $user_id => $user) {
-			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date('YmdHi')) {
-				$valid = true;
+			if ($user['password_token'] == $token) {
+				return ($user['password_token_expiry'] >= date('YmdHi'));
+				break;
 			}
 		}
-		return $valid;
+		return false;
 	}
 
 	/**
