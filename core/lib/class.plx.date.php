@@ -83,12 +83,12 @@ class plxDate
      * @param string $date date/heure au format YYYYMMDDHHMM
      * @param string $format format d'affichage
      * @return string date/heure formatée
-     * @author Stephane F., J.P. Pourrez
+     * @author Stephane F., J.P. Pourrezn, T. Ingles
      **/
     public static function formatDate($date, $format = self::FORMAT_DATE)
     {
         $parts = self::date2Array($date);
-        $day_of_week = date('w', mktime(0, 0, 0, intval($parts['month']), intval($parts['day']), intval($parts['year4'])));
+        $day_of_week = date('w', mktime(0, 0, 0, intval($parts['month']), intval($parts['day']), intval($parts['year'])));
 
         # On retourne notre date au format humain
         return strtr($format, [

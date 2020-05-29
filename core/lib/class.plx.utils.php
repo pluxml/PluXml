@@ -532,7 +532,7 @@ class plxUtils {
 		$clean_url = self::translitterate(trim(html_entity_decode($url)));
 
 		if(self::getConfigParam('cleanurl') && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, $remove_words)) {
-			$clean_url = preg_replace('@\b(' . self::REMOVE_WORDS[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
+			$clean_url = preg_replace('@\b(' . $remove_words[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
 		}
 
 		// remove accents
@@ -1537,9 +1537,9 @@ EOT;
 	 *
 	 * @param String $param
 	 * @return mixed
-	 * @author Pedro "P3ter" CADETE
+	 * @author Pedro "P3ter" CADETE, thomas Ingles @sudwebdesign
 	 */
-	public static function getConfigParam(String $param) {
+	public static function getConfigParam($param) {
 
 		$plxMotor = plxMotor::getInstance();
 		return $plxMotor->aConf[$param];

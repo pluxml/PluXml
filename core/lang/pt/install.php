@@ -1,8 +1,6 @@
 <?php
 # install.php
 const L_INSTALL_TITLE					= 'Instalação';
-const L_SELECT_LANG						= 'Seléccione o seu idioma';
-const L_INPUT_CHANGE					= 'Alterar';
 const L_INSTALL_DATA					= 'Instalar dados de amostra';
 const L_YES								= 'Sim';
 const L_NO								= 'Não';
@@ -23,7 +21,6 @@ const L_PLUXML_INSTALLATION				= 'Instalação de PluXml';
 const L_VERSION							= 'versão';
 const L_USERNAME						= 'Nome do administrador';
 const L_LOGIN							= 'Login de conexão à administração';
-const L_CONFIRM_PASSWORD				= 'Confirmação da senha';
 const L_EMAIL						    = 'Endereço de e-mail';
 const L_INPUT_INSTALL					= 'Instalar';
 const L_PWD_VERY_WEAK					= 'Senha muito fraca';

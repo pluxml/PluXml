@@ -1355,6 +1355,7 @@ class plxShow {
 							$url = '?article'.intval($com['article']).'/'.$artInfo['artUrl'].'#c'.$com['article'].'-'.$com['index'];
 							$date = $com['date'];
 							$content = strip_tags($com['content']);
+							$row = $format;#Fix Notice: Undefined variable: row in core/lib/class.plx.show.php on line 1358
 							while(preg_match('/#com_content\(([0-9]+)\)/',$row,$capture)) {
 								if($com['author'] == 'admin')
 									$row = str_replace('#com_content('.$capture[1].')',plxUtils::strCut($content,$capture[1]),$row);
@@ -1362,7 +1363,7 @@ class plxShow {
 									$row = str_replace('#com_content('.$capture[1].')',plxUtils::strCheck(plxUtils::strCut(plxUtils::strRevCheck($content),$capture[1])),$row);
 							}
 							# On modifie nos motifs
-							$row = strtr($format, array(
+							$row = strtr($row, array(
 								'L_SAID'		=> L_SAID,
 								'#com_id'		=> $com['index'],
 								'#com_url'		=> $this->plxMotor->urlRewrite($url),

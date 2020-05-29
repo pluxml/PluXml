@@ -15,7 +15,7 @@ session_start();
 
 # Chargement des langues
 $lang = (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
-if (! empty($_POST) && $_POST['default_lang']) {
+if (! empty($_POST) && isset($_POST['default_lang'])) {#Fix Notice: Undefined index: default_lang
 	$lang = $_POST['default_lang'];
 }
 if (! array_key_exists($lang, plxUtils::getLangs())) {
@@ -96,18 +96,6 @@ if (! array_key_exists($timezone, plxTimezones::timezones())) {
 	$timezone = date_default_timezone_get();
 }
 
-# Vérification de l'existence des dossiers médias, configuration/plugins et templates
-$folders = array(
-	PLX_ROOT . $config['medias'],
-	PLX_ROOT . PLX_CONFIG_PATH . 'plugins',
-	PLX_ROOT . dirname(PLX_CONFIG_PATH) . '/templates'
-);
-foreach ($folders as $f) {
-	if (! is_dir($f)) {
-		@mkdir($f, 0755, true);
-	}
-}
-
 function install($content, $config) {
 
 	# Configuration de base
@@ -141,6 +129,7 @@ function install($content, $config) {
 
 	// Création du fichier des utilisateurs
 	$userId = '001';
+	$_SESSION['user'] = '000';
 	$plxAdmin->editUsers(array(
 		'update'				=> 1,
 		'userNum'				=> array($userId),
@@ -151,7 +140,7 @@ function install($content, $config) {
 		$userId . '_password'	=> trim($content['pwd']),
 		$userId . '_email'		=> trim($content['email']),
 	), true);
-
+	unset($_SESSION['user']);
 	// Création du fichier des plugins
 	$xml = XML_HEADER . '<document>' . PHP_EOL . '</document>';
 	plxUtils::write($xml, path('XMLFILE_PLUGINS'));
@@ -294,6 +283,7 @@ plxUtils::cleanHeaders();
 			<form method="post">
 				<fieldset>
 					<div class="grid">
+						<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
 						<div class="col med-5 label-centered">
 							<label for="id_default_lang"><?php echo L_INSTALL_DATA ?>&nbsp;:</label>
 						</div>
@@ -376,12 +366,12 @@ plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', $extras);
 						<?php plxUtils::testWrite(PLX_ROOT) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
+						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
+						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
+						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
+						<?php #plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
+						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
+						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testLibXml() ?>

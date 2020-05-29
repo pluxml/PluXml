@@ -4,8 +4,6 @@ define('PLX_CORE', PLX_ROOT.'core/');
 const SESSION_LIFETIME = 7200;
 include PLX_CORE.'lib/config.php';
 
-const SESSION_LIFETIME = 7200;
-
 # On démarre la session
 session_start();
 setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
@@ -55,7 +53,8 @@ loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
 # Tableau des profils
-const PROFIL_NAMES = array(
+//~ define('PROFIL_NAMES', array(#Arrays are not allowed as constants
+$PROFIL_NAMES = array(#legacy
 	PROFIL_ADMIN		=> L_PROFIL_ADMIN,
 	PROFIL_MANAGER		=> L_PROFIL_MANAGER,
 	PROFIL_MODERATOR	=> L_PROFIL_MODERATOR,

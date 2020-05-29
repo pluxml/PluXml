@@ -1,6 +1,36 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
-## PLUXML 5.8.4.legacy (yyyy/mm/dd) ##
+
+
+## PLUXML 5.9.legacy (yyyy/mm/dd) ##
+default theme aria-label=menu (@Thatoo) https://github.com/pluxml/PluXml/pull/452
+
+
+on install (php5.5)
+Parse error: syntax error, unexpected '[' in core/lib/class.plx.utils.php on line 535
+
+Notice: Undefined index: default_lang in install.php on line 19
+
+Fix Twiced const langs on install
+Notice: Constant L_SELECT_LANG already defined in core/lang/fr/core.php on line 20
+Notice: Constant L_CONFIRM_PASSWORD already defined in core/lang/fr/core.php on line 21
+Notice: Constant L_INPUT_CHANGE already defined in core/lang/fr/core.php on line 23
+
+Fix Notices: Undefined variable: config in /install.php on line 102
+
+Fatal error: Arrays are not allowed in class constants in /core/lib/class.plx.admin.php on line 19
+
+Catchable fatal error: Argument 1 passed to plxUtils::getConfigParam() must be an instance of String, string given, called in core/lib/class.plx.utils.php on line 534 and defined in core/lib/class.plx.utils.php on line 1542
+
+Notices: Undefined index: year4 in core/lib/class.plx.date.php on line 91
+
+Derniers commentaires
+Notice: Undefined variable: row in core/lib/class.plx.show.php on line 1358
+
+Warning: Constants may only evaluate to scalar values in core/admin/prepend.php on line 56
+PROFIL_NAMES[$_SESSION['profil']] 2 $PROFIL_NAMES[$_SESSION['profil']]
+
+
 Fix admin L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP miss in de lang
 Fix : themes defaut theme.css : overflow submenu theme : long sub Menus are invisible (sudwebdesign)
 Fix : media : rename & copy icons on top of action bar : add z-index:0 for media icon (sudwebdesign)

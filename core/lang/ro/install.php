@@ -1,8 +1,6 @@
 <?php
 # install.php
 const L_INSTALL_TITLE					= 'Instalaţie';
-const L_SELECT_LANG						= 'Alegeţi limba dorită';
-const L_INPUT_CHANGE					= 'Schimbă';
 const L_INSTALL_DATA					= 'Instalarea datelor eșantion';
 const L_YES								= 'Da';
 const L_NO								= 'Nu';
@@ -23,7 +21,6 @@ const L_PLUXML_INSTALLATION				= 'Instalaţia PluXml';
 const L_VERSION							= 'versiunea';
 const L_USERNAME						= 'Numele Administratorului';
 const L_LOGIN							= 'Username-ul Administratorului';
-const L_CONFIRM_PASSWORD				= 'Confirmarea Parolei';
 const L_EMAIL						    = 'Adresa de email';
 const L_INPUT_INSTALL					= 'Instalează';
 const L_PWD_VERY_WEAK					= 'Parola foarte slabă';

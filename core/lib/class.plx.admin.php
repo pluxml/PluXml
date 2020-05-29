@@ -13,12 +13,12 @@ class plxAdmin extends plxMotor {
 
 	const PATTERN_CONFIG_CDATA = '@^(:?clef|custom_admincss_file|default_lang|email_method|hometemplate|medias|racine_(:?article|commentaire|plugin|statique|theme)s|style|timezone|tri(:?_coms)?|smtp_security|version)$@';
 	const PATTERN_RACINES = '@^(:?medias|racine_(:?article|commentaire|plugin|statique|theme)s)$@';
-	const EMPTY_FIELDS_CATEGORIE = array(
+	private static $EMPTY_FIELDS_CATEGORIE = array(
 		'description', 'thumbnail', 'thumbnail_title', 'thumbnail_alt',
 		'title_htmltag', 'meta_description', 'meta_keywords'
 	);
-	const EMPTY_FIELDS_USER = array('infos', 'password_token', 'password_token_expiry');
-	const EMPTY_FIELD_STATIQUES = array('title_htmltag', 'meta_description', 'meta_keywords');
+	private static $EMPTY_FIELDS_USER = array('infos', 'password_token', 'password_token_expiry');
+	private static $EMPTY_FIELD_STATIQUES = array('title_htmltag', 'meta_description', 'meta_keywords');
 
 	private static $instance = null;
 	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
@@ -97,12 +97,13 @@ class plxAdmin extends plxMotor {
 	 * @author	Florent MONTHEL
 	 **/
 	public function editConfiguration($content=false) {
-
+#var_dump($content);
 		if(!empty($this->plxPlugins)) {
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 		}
-
+#var_dump($content);
+#EXIT;
 		if(!empty($content)) {
 			foreach($content as $k=>$v) {
 				if(!in_array($k,array('token', 'config_path'))) # parametres à ne pas mettre dans le fichier
@@ -518,7 +519,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						'delete'				=> plxUtils::getValue($this->aUsers[$user_id]['delete'], 0),
 						'lang'					=> plxUtils::getValue($this->aUsers[$user_id]['lang'], $this->aConf['default_lang']),
 					);
-					foreach(self::EMPTY_FIELDS_USER as $k) {
+					foreach(self::$EMPTY_FIELDS_USER as $k) {
 						if(!array_key_exists($k, $this->aUsers[$user_id])) {
 							$this->aUsers[$user_id][$k] = '';
 						}
@@ -704,7 +705,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					'homepage'	=> 1,
 					'template'	=> 'categorie.php',
 				);
-				foreach(self::EMPTY_FIELDS_CATEGORIE as $k) {
+				foreach(self::$EMPTY_FIELDS_CATEGORIE as $k) {
 					$this->aCats[$cat_id][$k] = '';
 				}
 
@@ -735,7 +736,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						'template'	=> plxUtils::getValue($this->aCats[$cat_id]['template'], 'categorie.php'),
 					);
 
-					foreach(self::EMPTY_FIELDS_CATEGORIE as $k) {
+					foreach(self::$EMPTY_FIELDS_CATEGORIE as $k) {
 						if(!array_key_exists($k, $this->aCats[$cat_id])) {
 							$this->aCats[$cat_id][$k] = '';
 						}
@@ -892,7 +893,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						'template'		=> plxUtils::getValue($content[$static_id . '_template'], 'static.php'),
 					);
 
-					foreach(self::EMPTY_FIELD_STATIQUES as $k) {
+					foreach(self::$EMPTY_FIELD_STATIQUES as $k) {
 						if(!array_key_exists($k, $this->aStats[$static_id])) {
 							$this->aStats[$static_id][$k] = '';
 						}
