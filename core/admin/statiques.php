@@ -133,7 +133,7 @@ function checkBox(cb) {
 						echo '</td><td>';
 						plxUtils::printInput($new_staticid.'_ordre', $ordre, 'text', '2-3');
 						echo '</td><td>';
-						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
+						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), 'oui');
 					?>
 					</td>
 					<td>&nbsp;</td>

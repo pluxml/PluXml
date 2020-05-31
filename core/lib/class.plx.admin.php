@@ -21,7 +21,7 @@ class plxAdmin extends plxMotor {
 	private static $EMPTY_FIELD_STATIQUES = array('title_htmltag', 'meta_description', 'meta_keywords');
 
 	private static $instance = null;
-	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
+	public $update_link = PLX_URL_REPO; // overwritten by self::checKMaj()
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
@@ -887,7 +887,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						'group'			=> trim($content[$static_id . '_group']),
 						'name'			=> $stat_name,
 						'url'			=> $stat_url,
-						'active'		=> plxUtils::getValue($content[$static_id . '_active'], 1),
+						'active'		=> plxUtils::getValue($content[$static_id . '_active'], 0),
 						'menu'			=> plxUtils::getValue($content[$static_id . '_menu'], 'oui'),
 						'ordre'			=> array_key_exists($kOrder, $content) ? intval($content[$kOrder]) : count($this->aStats),
 						'template'		=> plxUtils::getValue($content[$static_id . '_template'], 'static.php'),
@@ -923,7 +923,6 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# sauvegarde
 		$statics_name = array();
 		$statics_url = array();
-
 		# On génére le fichier XML
 		ob_start();
 ?>
