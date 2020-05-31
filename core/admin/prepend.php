@@ -19,16 +19,12 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 }
 
 # On inclut les librairies nécessaires
-foreach(array('date', 'msg', 'encrypt', 'medias', 'token', 'admin') as $k) {
+foreach(explode(' ', 'date msg encrypt medias token admin') as $k) {
 	include_once PLX_CORE . 'lib/class.plx.'. $k . '.php';
 }
 
-# Echappement des caractères
-if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
-
 # On impose le charset
 header('Content-Type: text/html; charset='.PLX_CHARSET);
-
 # Creation de l'objet principal et premier traitement
 $plxAdmin = plxAdmin::getInstance();
 
