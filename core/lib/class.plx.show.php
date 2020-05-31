@@ -11,7 +11,7 @@ const PLX_SHOW = true;
 
 class plxShow {
 
-	private const ART_DIRECTIONS = array(
+	private static $ART_DIRECTIONS = array(
 		'first'	=> array('◂◂',	'⏪',	L_ART_FIRST),	// :rewind:
 		'prev'	=> array('◀',	'◀️',	L_ART_PREV),	// :arrow_backward:
 		'next'	=> array('️️▶',	'▶️',	L_ART_NEXT),	// :arrow_forward:
@@ -781,7 +781,7 @@ class plxShow {
 				echo strtr($format, array(
 					'#tag_url'		=> $this->plxMotor->urlRewrite('?tag/' . plxUtils::urlify($tag)),
 					'#tag_name'		=> plxUtils::strCheck($tag),
-					'#tag_status'	=> ($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$t) ? 'active' : 'noactive'
+					'#tag_status'	=> ($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$tag) ? 'active' : 'noactive'
 				));
 				if ($idx!=sizeof($tags)-1) echo $separator . ' ';
 			}
@@ -1711,13 +1711,17 @@ class plxShow {
 	 *
 	 * @param string $format the template to display
 	 * @param string $buttons buttons list to display
-	 * @author Jean-Pierre Pourrez "bazooka07"
+	 * @author Jean-Pierre Pourrez "bazooka07", sudwevdesign
 	 */
 	public function artNavigation($format='<li><a href="#url" rel="#dir" title="#title">#icon</a></li>', $buttons='first prev next last up') {
+
+		# Hook Plugins
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtNavigationBegin'))) return;
+
 		if(
 			empty($_SESSION['previous']) or
 			!array_key_exists('artIds', $_SESSION['previous']) or
-			preg_match_all('@\b(?:' . implode('|', array_keys(self::ART_DIRECTIONS)). ')\b@', $buttons, $matches) == 0
+			preg_match_all('@\b(?:' . implode('|', array_keys(self::$ART_DIRECTIONS)). ')\b@', $buttons, $matches) == 0
 		) { return; }
 
 		foreach($matches[0] as $direction) {
@@ -1747,22 +1751,31 @@ class plxShow {
 						case 'archives':
 							$query .= '/' . substr($cible, 0, 4);
 							if(strlen($cible) > 4) { $query .= '/' . substr($cible, 4); }
-							$title = ucfirst('L_ARCHIVES') . ' ' . $cible;
-							$bypage = $this->aConf['bypage_archives'];
+							$title = ucfirst(L_ARCHIVES) . ' ' . $cible;
+							$bypage = $this->plxMotor->aConf['bypage_archives'];
 							break;
 						default: # home
 							$query = '';
+							$bypage = $this->plxMotor->bypage;#maybe here fix this***
 					}
 
 					if(strpos($format, '<link') === false) {
-						if($bypage <= 0) { $bypage = $this->plxMotor->bypage; }
+						if($bypage <= 0) { $bypage = $this->plxMotor->bypage; }# *** Notice: Undefined variable: bypage : index.php?article1/premier-article
 						$page = intval(ceil($_SESSION['previous']['position'] / $bypage));
 						if($page > 1) {
 							$query .= (($mode != 'home') ? '/page' : '?page') . $page;
 						}
 					}
+
+					# Hook Plugins
+					if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtNavigation'))) return;
+
 				}
-				list($icon, $emoji, $caption) = self::ART_DIRECTIONS[$direction];
+				list($icon, $emoji, $caption) = self::$ART_DIRECTIONS[$direction];
+
+				# Hook Plugins
+				if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtNavigationEnd'))) return;
+
 				echo strtr($format, array(
 					'#url'		=> $this->plxMotor->urlRewrite('index.php' . $query),
 					'#dir'		=> $direction,
@@ -1781,6 +1794,7 @@ class plxShow {
 	 * @author Jean-Pierre Pourrez "Bazooka07"
 	 */
 	public function artNavigationRange() {
+		if(empty($_SESSION['previous'])) return;# Thomas I. @sudwebdesign : (maybe bad) fix Notice: Undefined index: previous : preview mode :or direct access like : index.php?article222
 ?>
 <span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
 <?php
