@@ -550,7 +550,7 @@ a.hint:focus span {
 
 .notification {
 	position: absolute;
-	top: -18rem;
+	top: -1000rem;
 	right: 25rem;
 	left: 25rem;
 	margin: 0;
@@ -582,8 +582,8 @@ a.hint:focus span {
 
 .success {
 	color: #000000;
-	background: rgb(64,230,76);
-	background: radial-gradient(circle, rgba(64,230,76,1) 35%, rgba(124,193,56,1) 98%);
+	background: rgb(210,255,82);/* new 5.9 color ;) */
+	background: radial-gradient(circle, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 98%);
 	border: none;
 }
 
@@ -593,7 +593,8 @@ a.hint:focus span {
 	border: 1px solid #df8f8f;
 	font-size: 13px;
 	width: 100%;
-	background-color: #ffcfcf;
+	background: rgba(248,80,50);/* new 5.9 color ;) */
+	background: radial-gradient(circle, rgba(248,80,50,1) 0%, rgba(241,111,92,1) 98%);
 }
 
 tr input {
