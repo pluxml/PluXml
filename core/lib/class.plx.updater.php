@@ -9,7 +9,9 @@
 
 if(!defined('PLX_ROOT')) { exit; }
 
-const PLX_UPDATE = PLX_ROOT . 'update/';
+$plx_update = PLX_ROOT . 'update';#legacy
+const PLX_UPDATE = plx_update;#but why is down with : define('PLX_UPDATE', PLX_ROOT . 'update');
+unset($plx_update);
 
 class plxUpdater {
 
