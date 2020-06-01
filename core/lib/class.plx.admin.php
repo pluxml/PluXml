@@ -238,7 +238,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @param	profil		profil(s) autorisé(s). Doit être numérique ou tableau de numérique
 	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
 	 * @return	boolean or void
-	 * @author	Stephane F, J.P. Pourrez
+	 * @author	Stephane F, J.P. Pourrez, Thomas I.
 	 *
 	 * Pour recensement dans code : grep -n checkProfil *.php update/*.php core/{admin,lib}/*.php
 	 **/
@@ -256,14 +256,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(is_array($profil)) {
 			$items = array_filter($profil, function($item) { return is_numeric($item); });
 			if(empty($items) or !in_array($_SESSION['profil'], $items) or $_SESSION['profil'] >= PROFIL_WRITER) {
-				# Accès refusé
-				plxMsg::Error(L_NO_ENTRY);
 				if($redirect) {
+					# Accès refusé
+					plxMsg::Error(L_NO_ENTRY);
 					header($location);
 					exit;
-				} else {
-					return false;
 				}
+				return false;
 			}
 
 			return true;
@@ -280,7 +279,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				return ($_SESSION['profil'] <= $profil);
 			}
 		} else {
-			if(empty(preg_match_all('#(\d+)#', $profil, $matches))) {
+			if($redirect AND empty(preg_match_all('#(\d+)#', $profil, $matches))) {
 				plxMsg::Error(L_NO_ENTRY);
 				header($location);
 				exit;
@@ -432,14 +431,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	token	the token to verify
 	 * @return	boolean	true if the token exist and is not expire
-	 * @author	Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
+	 * @author	Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07, Thomas I. @sudwebdesign
 	 */
 	public function verifyLostPasswordToken($token) {
 
 		foreach($this->aUsers as $user_id => $user) {
 			if ($user['password_token'] == $token) {
 				return ($user['password_token_expiry'] >= date('YmdHi'));
-				break;
+			}
 		}
 		return false;
 	}
