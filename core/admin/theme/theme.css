@@ -577,13 +577,16 @@ a.hint:focus span {
 
 .error {
 	background-color: #ffcfcf;
+	background: rgba(248,80,50,.3);/* new 5.9 color ;) */
+	background: radial-gradient(circle, rgba(248,80,50,.92) 0%, rgba(241,111,92,.92) 100%);
 	border-color: #eacfcf;
 }
 
 .success {
 	color: #000000;
-	background: rgb(210,255,82);/* new 5.9 color ;) */
-	background: radial-gradient(circle, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 98%);
+	background-color: #fff1a8;
+	background: rgba(210,255,82,.3);/* new 5.9 color ;) */
+	background: radial-gradient(circle, rgba(210,255,82,.92) 0%, rgba(145,232,66,.92) 100%);
 	border: none;
 }
 
@@ -593,8 +596,9 @@ a.hint:focus span {
 	border: 1px solid #df8f8f;
 	font-size: 13px;
 	width: 100%;
-	background: rgba(248,80,50);/* new 5.9 color ;) */
-	background: radial-gradient(circle, rgba(248,80,50,1) 0%, rgba(241,111,92,1) 98%);
+	background-color: #ffcfcf;
+	background: rgba(248,80,50,.3);/* new 5.9 color ;) */
+	background: radial-gradient(circle, rgba(248,80,50,.92) 0%, rgba(241,111,92,.92) 100%);
 }
 
 tr input {
