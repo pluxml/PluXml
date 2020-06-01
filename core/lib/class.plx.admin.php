@@ -375,14 +375,6 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
 	 **/
 	public function sendLostPasswordEmail($loginOrMail) {
-		/*
-		$mail = array();
-		$tokenExpiry = 24;
-		$lostPasswordToken = plxToken::getTokenPostMethod('', false);
-		$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
-		$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
-		$error = false;
-		* */
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
 
@@ -393,13 +385,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					// token and e-mail creation
 					$mail = array();
 					$tokenExpiry = 24;
-					$lostPasswordToken = plxToken::generateToken();
+					$lostPasswordToken = plxToken::getTokenPostMethod(32, false);
 					$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 					$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
-						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
+						"##URL_PASSWORD##"	=> $this->aConf['racine'] . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)) . 'auth.php?action=changepassword&token='. $lostPasswordToken,
 						"##URL_EXPIRY##"	=> $tokenExpiry
 					);
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
@@ -440,18 +432,16 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	token	the token to verify
 	 * @return	boolean	true if the token exist and is not expire
-	 * @author	Pedro "P3ter" CADETE
+	 * @author	Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
 	 */
 	public function verifyLostPasswordToken($token) {
 
-		$valid = false;
-
 		foreach($this->aUsers as $user_id => $user) {
-			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date('YmdHi')) {
-				$valid = true;
-			}
+			if ($user['password_token'] == $token) {
+				return ($user['password_token_expiry'] >= date('YmdHi'));
+				break;
 		}
-		return $valid;
+		return false;
 	}
 
 	/**

@@ -126,7 +126,7 @@ const L_SUBMIT_BUTTON = 'Valider';
 const L_ERR_WRONG_PASSWORD = 'Login et/ou mot de passe incorrect';
 const L_POWERED_BY = 'Généré par <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de tentative atteint<br />Réessayez dans %s minutes';
-const L_LOST_PASSWORD = 'Mot de passe oublié ?';
+const L_LOST_PASSWORD = 'Mot de passe oublié&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Se connecter';
 const L_LOST_PASSWORD_SUCCESS = 'Un e-mail a été envoyé à l\'utilisateur';
 const L_LOST_PASSWORD_ERROR = 'Le lien est expiré';
@@ -451,8 +451,8 @@ const L_PROFIL = 'Profil';
 const L_PROFIL_USER = 'Nom d\'utilisateur';
 const L_INFOS = 'Informations';
 const L_PROFIL_UPDATE = 'Modifier votre profil';
-const L_PROFIL_CHANGE_PASSWORD = 'Changement du mot de passe';
-const L_PROFIL_UPDATE_PASSWORD = 'Changer votre mot de passe';
+const L_PROFIL_CHANGE_PASSWORD = 'Changement du&nbsp;mot&nbsp;de&nbsp;passe';
+const L_PROFIL_UPDATE_PASSWORD = 'Changer votre&nbsp;mot&nbsp;de&nbsp;passe';
 
 // statique.php
 

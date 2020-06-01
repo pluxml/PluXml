@@ -132,7 +132,7 @@ const L_SUBMIT_BUTTON = 'Validar';
 const L_ERR_WRONG_PASSWORD = 'Identificant e/o senhal incorrèct';
 const L_POWERED_BY = 'Generat per <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de pròvas atent<br />Tornatz ensajar d’aquí %s minutas';
-const L_LOST_PASSWORD = 'Senhal oblidat ?';
+const L_LOST_PASSWORD = 'Senhal oblidat&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Se connectar';
 const L_LOST_PASSWORD_SUCCESS = 'Corrièl enviat a l’utilizaire';
 const L_LOST_PASSWORD_ERROR = 'Lo ligam a expirat';

@@ -6,6 +6,7 @@
  * @package PLX
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
+
 if(!defined('PLX_CONFIG_PATH') or !defined('PLX_VERSION')) { exit; }
 
 class plxMotor {
