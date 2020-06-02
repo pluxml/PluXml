@@ -20,7 +20,6 @@ class plxAdmin extends plxMotor {
 	const EMPTY_FIELDS_USER = array('infos', 'password_token', 'password_token_expiry');
 	const EMPTY_FIELD_STATIQUES = array('title_htmltag', 'meta_description', 'meta_keywords');
 
-	private static $instance = null;
 	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
 
 	/**
@@ -30,9 +29,9 @@ class plxAdmin extends plxMotor {
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
-		if (!isset(self::$instance))
-			self::$instance = new plxAdmin(path('XMLFILE_PARAMETERS'));
-		return self::$instance;
+		if (empty(parent::$instance))
+			parent::$instance = new plxAdmin(path('XMLFILE_PARAMETERS'));
+		return parent::$instance;
 	}
 
 	/**
@@ -499,8 +498,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aUsers[$user_id] = array(
 						'login'					=> trim($content[$user_id . '_login']),
 						'name'					=> trim($content[$user_id . '_name']),
-						'active'				=> ($_SESSION['user']==$user_id ? $this->aUsers[$user_id]['active'] : $content[$user_id . '_active']),
-						'profil'				=> ($_SESSION['user']==$user_id ? $this->aUsers[$user_id]['profil'] : $content[$user_id . '_profil']),
+						'active'				=> (!empty($_SESSION['user']) and $_SESSION['user']==$user_id ? $this->aUsers[$user_id]['active'] : $content[$user_id . '_active']),
+						'profil'				=> (!empty($_SESSION['user']) AND $_SESSION['user'] == $user_id ? $this->aUsers[$user_id]['profil'] : $content[$user_id . '_profil']),
 						'password'				=> $password,
 						'salt'					=> $salt,
 						'email'					=> $email,
@@ -1184,7 +1183,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				'active'	=> intval(!in_array('draft', $content['catId']))
 			);
 			$this->editTags();
-			$msg = ($content['artId'] == '0000' OR empty($content['artId'])) ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+			$msg = (empty($content['artId']) OR $content['artId'] == '0000') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
 
 			if(!empty($this->plxPlugins)) {
 				# Hook plugins
