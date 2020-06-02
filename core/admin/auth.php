@@ -80,7 +80,7 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and $css == '') {
     foreach ($plxAdmin->aUsers as $userid => $user) {
         if ($_POST['login'] == $user['login'] and sha1($user['salt'] . md5($_POST['password'])) === $user['password'] and $user['active'] and !$user['delete']) {
             $_SESSION['user'] = $userid;
-            $_SESSION['profil'] = $user['profil'];
+            // $_SESSION['profil'] = $user['profil'];
             $_SESSION['hash'] = plxUtils::charAleatoire(10);
             $_SESSION['domain'] = $session_domain;
             $_SESSION['admin_lang'] = $user['lang'];
