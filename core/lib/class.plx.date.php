@@ -88,7 +88,7 @@ class plxDate
     public static function formatDate($date, $format = self::FORMAT_DATE)
     {
         $parts = self::date2Array($date);
-        $day_of_week = date('w', mktime(0, 0, 0, intval($parts['month']), intval($parts['day']), intval($parts['year4'])));
+        $day_of_week = date('w', mktime(0, 0, 0, intval($parts['month']), intval($parts['day']), intval($parts['year'])));
 
         # On retourne notre date au format humain
         return strtr($format, [
