@@ -1,8 +1,169 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+Tweak plugin : admin.css for fix long notifs not hidden at end of moved (hide) process + notifications bg colors
+```
+.notification {
+	top: -1000rem;/* tweak for long notifs not hidden at end of moved (hide) process */
+}
+```
+
+## PLUXML 5.9 legacy PHP 5.5 (2020/06/01) ##
+
+[+] Admin themes New notifications (error&success) bg colors
+
+Fix Bad redirect on login + Bad msg with EDITOR profile
+	::: $plxAdmin->checkProfil + $redirect AND
+	::: Fix if plugin->adminProfil = '' & maybe more
+	#never set by plug construct === bad redirect On logon :
+	Always go to auth (never login whithout error msg)
+	scope : admin/top.php (create plugins menus loop)
+	 $plugInstance->getAdminProfil(..., false)
+	```
+							if($plxAdmin->checkProfil($plugInstance->getAdminProfil(),false)) {
+	```
+	Fix ; always show notification "Accès interdit" with PLX_EDITOR
+		Set error message only if redirect is set to true on checkProfil
+		Use case : use Tagz Plugin, connect in admin with EDITOR profile
+	#1st Note
+		Fix : admin are unaccessible if admin plugin page ($plxPlugin->adminAccess='') by default (found with Tagz & PLX_EDITOR user access) @sudwebdesign
+		::: : plxAdmin->checkAdmin() + always bad message (accès interdit) if 1 plug $this->adminProfil='' (Plugin never call $this-setAdminProfil() in self contructor)
+		:+: : error msg only if redirect is set to true ;)
 
 
-## PLUXML 5.9 PHP 5.5 legacy (yyyy/mm/dd) ##
+[+] Apply last patch of master branch
+	#96aa964 without New auth page (with knacss)
+	-					$lostPasswordToken = plxToken::generateToken();
+	+					$lostPasswordToken = plxToken::getTokenPostMethod(32, false);
+
+	#f577662  Auth page fixes (#453) Co-authored-by: bazooka07
+	Diverses corrections pour l'authentification #453
+	Dans plxAdmin::sendLostPasswordEmail(),
+		remplacer 'core/admin/' par constantes
+	-						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
+	+						"##URL_PASSWORD##"	=> $this->aConf['racine'] . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)) . 'auth.php?action=changepassword&token='. $lostPasswordToken,
+
+	Refacto plxAmdin::verifyLostPasswordToken()
+	Langues :
+	Utilisation espaces insécables pour page authetification.
+
+
+Fix : admin statics : save ; all statics are always active : maybe due of function plxUtils::getValue() new src? (contrib @sudwebdesin)
+::: : Note : new static is off by default now in editStatiques() to fix : always activated if this 0/1 param is set to 1 by default. Maybe due of (new script) of function plxUtils::getValue : side effect solved with 0 by default when getValue
+::: : scope : statiques.php : click modifiy list
+```
+-						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
++						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), 'oui');
+```
+ ::: plxAdmin->editStatiques()
+!!! Replaced :
+```
+						'active'		=> plxUtils::getValue($content[$static_id . '_active'], 1),
+`
+```
+!!! By :
+```
+						'active'		=> plxUtils::getValue($content[$static_id . '_active'], 0),
+```
+
+[+] admin/prepend.php
+-foreach(array('date', 'msg', 'encrypt', 'medias', 'token', 'admin') as $k) {
++foreach(explode(' ', 'date msg encrypt medias token admin') as $k) {
+Fix admin all antislashe on all data post are removed when edit css & statics
+::: admin/prepend.php : removed unSlash($_POST) ; For test in reality
+::: it's work well without & article have not php runable :)
+```
+# Echappement des caractères #test without to Fix Il semble qu'il efface les "antislash" (\) lorsque l'on édite le css du theme par défaut : https://forum.pluxml.org/discussion/comment/60579/#Comment_60579
+ if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
+#if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);#sauf en édition d'un css, php, Et pour les statique?
+#if($_SERVER['REQUEST_METHOD'] == 'POST' and basename($_SERVER['PHP_SELF']) !== 'parametres_edittpl.php') $_POST = plxUtils::unSlash($_POST);#https://forum.pluxml.org/discussion/comment/60583/#Comment_60583 thx bazooka07
+```
+Fix in preview mode unset $_SESSION['previous'] : plxShow artNavigationRange() : Notice: Undefined index: previous
+```
+Notice: Undefined index: previous in de4a5e7/core/lib/class.plx.show.php on line 1798
+/
+Notice: Undefined index: previous in de4a5e7/core/lib/class.plx.show.php on line 1798
+```
+Fix admin prepend : comment unSlash($_POST) : Il semble qu'il efface les "antislash" (\) lorsque l'on édite le css du theme par défaut ET EST (peut-être inutile) : https://forum.pluxml.org/discussion/comment/60583/#Comment_60583 #thanks @bazooka07
+
+
+Fix onUpdate Legacy PHP.5.5 work with this little tweak
+Parse error: syntax error, unexpected '.', expecting ',' or ';' in de4a5e7/core/lib/class.plx.updater.php on line 12
+Fix: const PLX_UPDATE = PLX_ROOT . 'update/';
+with: define('PLX_UPDATE', PLX_ROOT . 'update');#no, but why?
+#yes
+$plx_update = PLX_ROOT . 'update';#legacy
+const PLX_UPDATE = plx_update;#but why is down with : define('PLX_UPDATE', PLX_ROOT . 'update');
+unset($plx_update);
+
+[+] 3 unofficial plxShowArtNavigation's hooks
+		# Hook Plugins
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtNavigationBegin'))) return;
+		# Hook Plugins
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtNavigation'))) return;
+		# Hook Plugins
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtNavigationEnd'))) return;
+
+
+index.php?tag/pluxml
+Notice: Undefined variable: t in de4a5e7/core/lib/class.plx.show.php on line 784
+mode article
+Notice: Undefined property: plxShow::$aConf in de4a5e7/core/lib/class.plx.show.php on line 1751
+-					'#tag_status'	=> ($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$t) ? 'active' : 'noactive'
++					'#tag_status'	=> ($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$tag) ? 'active' : 'noactive'
+
+de4a5e7/index.php?article1/premier-article : new plxshow artNavigation()
+Notice: Undefined variable: bypage in de4a5e7/core/lib/class.plx.show.php on line 1758
+add : (before)
+						default: # home
+							$query = '';
+							$bypage = $this->plxMotor->bypage;#maybe here fix this***
+···
+						if($bypage <= 0) { $bypage = $this->plxMotor->bypage; }# *** Notice: Undefined variable: bypage : index.php?article1/premier-article
+
+#thanks new debug mode : it's show notice : more powerfull to find error ;)
+
+Fix const in str : plxshow artNavigation() : (after surf in archive mode) #up = L_ARCHIVES ####.##
+							$title = ucfirst('L_ARCHIVES')
+To
+							$title = ucfirst(L_ARCHIVES)
+
+Fix missing artNavigation() in article full width
+					<div class="art-navigation-overlay">
+						<ul class="art-navigation">
+<?php
+							$plxShow->artNavigation();
+?>
+						</ul>
+						<?php $plxShow->artNavigationRange(); ?>
+					</div>
+
+# thank @Bazooka07 to find a solution to this idea
+
+
+
+#Fix home index php : private const ART_DIRECTIONS = array in plx.show
+	error: syntax error, unexpected 'const' (T_CONST), expecting variable (T_VARIABLE) in de4a5e7/core/lib/class.plx.show.php on line 14
+	private const ART_DIRECTIONS = array(
+		'first'	=> array('◂◂',	'⏪',	L_ART_FIRST),	// :rewind:
+		'prev'	=> array('◀',	'◀️',	L_ART_PREV),	// :arrow_backward:
+		'next'	=> array('️️▶',	'▶️',	L_ART_NEXT),	// :arrow_forward:
+		'last'	=> array('▸▸',	'⏩',	L_ART_LAST),	// :fast_forward:
+		'up'	=> array('▲',	'⏫',	L_ART_UP),		// :arrow_double_up:
+	);
+	#Solved by static & $ : private static $ART_DIRECTIONS = array(
+	./core/lib/class.plx.show.php:14:	private static $ART_DIRECTIONS = array(
+	./core/lib/class.plx.show.php:1720:			preg_match_all('@\b(?:' . implode('|', array_keys(self::$ART_DIRECTIONS)). ')\b@', $buttons, $matches) == 0
+	./core/lib/class.plx.show.php:1765:				list($icon, $emoji, $caption) = self::$ART_DIRECTIONS[$direction];
+
+Fix : on install : Parse error: syntax error, unexpected '.', expecting ')' de4a5e7/core/lib/class.plx.motor.php on line 37
+#unsupport CONSTANT Array  class public var declaration with php 5.5 ???
+	public $aConf = array(  # Tableau de configuration. Valeurs par défaut.
+		···
+		'meta_keywords'					=> 'cms,xml,pluxml,' . DEFAULT_LANG, #Origin
+
+		'meta_keywords'					=> 'cms,xml,pluxml',#,' . DEFAULT_LANG, #WORK PHP5.5
+
+# de4a5e7
 default theme aria-label=menu (@Thatoo) https://github.com/pluxml/PluXml/pull/452
 Fix : admin medias.php : onclicks document.forms[0] ID to 1 to solve undefined folder input a submit links (@sudwebdesign)
 Fix : lib multifile.js : with long media filename, this nam is showed, add 1000000px on left + display:none (@sudwebdesign)
