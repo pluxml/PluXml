@@ -12,18 +12,16 @@ const PLX_FEED = true;
 class plxFeed extends plxMotor {
 	const FORMAT_DATE = 'YmdHi';
 
-	private static $instance = null;
-
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
 	 *
 	 * @return	plxFeed		retourne une instance de la classe plxFeed
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez "Bazooka07"
 	 **/
 	public static function getInstance(){
-		if (!isset(self::$instance))
-			self::$instance = new plxFeed(path('XMLFILE_PARAMETERS'));
-		return self::$instance;
+		if (empty(parent::$instance))
+			parent::$instance = new plxFeed(path('XMLFILE_PARAMETERS'));
+		return parent::$instance;
 	}
 
 	/**

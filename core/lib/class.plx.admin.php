@@ -26,7 +26,7 @@ class plxAdmin extends plxMotor {
 	 * Méthode qui se charger de créer le Singleton plxAdmin
 	 *
 	 * @return	self	return une instance de la classe plxAdmin
-	 * @author	Stephane F
+	 * @author	Stephane F, Jean-Pierre Pourerz "Bazooka07"
 	 **/
 	public static function getInstance(){
 		if (empty(parent::$instance))
