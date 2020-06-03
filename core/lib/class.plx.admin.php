@@ -264,10 +264,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(!empty($profils)) {
 			if(count($profils) > 1) {
 				if(in_array($_SESSION['profil'], $profils)) {
-					return;
+					return true;
 				}
 			} elseif($profils[0] <= PROFIL_WRITER and $_SESSION['profil'] <= $profils[0]) {
-				return;
+				return true;
 			}
 		}
 
