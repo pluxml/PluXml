@@ -498,8 +498,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aUsers[$user_id] = array(
 						'login'					=> trim($content[$user_id . '_login']),
 						'name'					=> trim($content[$user_id . '_name']),
-						'active'				=> (!empty($_SESSION['user']) and $_SESSION['user']==$user_id ? $this->aUsers[$user_id]['active'] : $content[$user_id . '_active']),
-						'profil'				=> (!empty($_SESSION['user']) AND $_SESSION['user'] == $user_id ? $this->aUsers[$user_id]['profil'] : $content[$user_id . '_profil']),
+						'active'				=> (!empty($_SESSION['user']) and $_SESSION['user']==$user_id) ? $this->aUsers[$user_id]['active'] : $content[$user_id . '_active'],
+						'profil'				=> (!empty($_SESSION['user']) AND $_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['profil'] : $content[$user_id . '_profil'],
 						'password'				=> $password,
 						'salt'					=> $salt,
 						'email'					=> $email,
