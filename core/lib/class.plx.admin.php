@@ -235,7 +235,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
 	 * @param	profil		profil(s) autorisé(s). Doit être numérique ou tableau de numérique
-	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
+	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s). Si is_numeric, 2ème profil permis.
 	 * @return	boolean or void
 	 * @author	Stephane F, J.P. Pourrez
 	 *
@@ -243,59 +243,54 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function checkProfil($profil, $redirect=true) {
 
-		$url = (array_key_exists('HTTP_REFERER', $_SERVER)) ? basename($_SERVER['HTTP_REFERER']) : 'index.php';
-		$location = 'Location: ' . $url;
+		if(!isset($_SESSION['profil']) or !is_numeric($_SESSION['profil'])) {
+			# No authentification. Run away !
+			session_abort();
+			header('Location: ' . PLX_ROOT);
+			exit;
+		}
 
 		if(!is_bool($redirect)) {
+			if(is_numeric($redirect) and is_numeric($profil)) {
+				$profils = array($profil, $redirect);
+				$redirect = true;
+			}
+		} elseif(is_array($profil)) {
+			$profils = array_filter($profil, function($item) { return is_numeric($item); });
+		} elseif(is_numeric($profil)) {
+			$profils = array($profil);
+		}
+
+		if(!empty($profils)) {
+			if(count($profils) > 1) {
+				if(in_array($_SESSION['profil'], $profils)) {
+					return true;
+				}
+			} elseif($profils[0] <= PROFIL_WRITER and $_SESSION['profil'] <= $profils[0]) {
+				return true;
+			}
+		}
+
+		# accès refusé
+		if($redirect) {
 			plxMsg::Error(L_NO_ENTRY);
+			if(!empty($_SERVER['HTTP_REFERER'])) {
+				$url = basename(parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH));
+				if($url == 'index.php') {
+					# Avoid for infinite loops
+					header('Content-Type: text/plain');
+					echo 'CheckProfil() fails. Abort!';
+					exit;
+				}
+			} else {
+				$url = 'index.php';
+			}
+			$location = 'Location: ' . $url;
 			header($location);
 			exit;
 		}
 
-		if(is_array($profil)) {
-			$items = array_filter($profil, function($item) { return is_numeric($item); });
-			if(empty($items) or !in_array($_SESSION['profil'], $items) or $_SESSION['profil'] >= PROFIL_WRITER) {
-				# Accès refusé
-				plxMsg::Error(L_NO_ENTRY);
-				if($redirect) {
-					header($location);
-					exit;
-				} else {
-					return false;
-				}
-			}
-
-			return true;
-		} elseif(is_numeric($profil)) {
-			// limite haute profil
-			if($redirect) {
-				if($_SESSION['profil'] > $profil) {
-					plxMsg::Error(L_NO_ENTRY);
-					header($location);
-					exit;
-				}
-				return;
-			} else {
-				return ($_SESSION['profil'] <= $profil);
-			}
-		} else {
-			if(empty(preg_match_all('#(\d+)#', $profil, $matches))) {
-				plxMsg::Error(L_NO_ENTRY);
-				header($location);
-				exit;
-			}
-		}
-
-		if($redirect) {
-			if(empty($matches) or !in_array($_SESSION['profil'], $matches[1]) or $_SESSION['profil'] >= PROFIL_WRITER) {
-				plxMsg::Error(L_NO_ENTRY);
-				header($location);
-				exit;
-			}
-			return;
-		} else {
-			return (!empty($matches) and in_array($_SESSION['profil'], $matches[1]) and $_SESSION['profil'] < PROFIL_WRITER);
-		}
+		return false;
 	}
 
 	/**
