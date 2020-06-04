@@ -23,9 +23,21 @@
 /* ==== AUTHENTIFICATION ==== */
 
 .auth .logo {
+    /*
     background-image: url(../images/pluxml.png);
     height: 80px;
     width: 123px;
+    */
+}
+
+.auth .logo a {
+    display: block;
+    text-decoration: none;
+}
+
+.auth .logo img {
+	max-height: 33vh;
+	width: auto;
 }
 
 .auth {
