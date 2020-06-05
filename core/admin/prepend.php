@@ -12,11 +12,11 @@ if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 const SESSION_LIFETIME = 7200;
 
 # use session_set_cookie_params() before session_start() - See https://www.php.net
-$path1 = preg_replace('@/(core|plugins)/(.*)$@', '', dirname($_SERVER['SCRIPT_NAME']));
+$path1 = preg_replace('@/(core|plugins)/(.*)$@', '/', dirname($_SERVER['SCRIPT_NAME']));
 if(version_compare(phpversion(), '7.3.1', '>=')) {
 	session_set_cookie_params(array(
 		'lifetime'	=> SESSION_LIFETIME,
-		'path'		=> '/',
+		'path'		=> $path1,
 		'domain'	=> $_SERVER['SERVER_NAME'],
 		'secure'	=> isset($_SERVER["HTTPS"]),
 		'httponly'	=> true,
@@ -24,7 +24,7 @@ if(version_compare(phpversion(), '7.3.1', '>=')) {
 	));
 } else {
 	# No support for samesite option
-	session_set_cookie_params(SESSION_LIFETIME, '/', $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
+	session_set_cookie_params(SESSION_LIFETIME, $path1, $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 }
 # On démarre la session
 session_start();

@@ -4,7 +4,23 @@ const PLX_ROOT = './';
 include PLX_ROOT . 'core/lib/config.php'; # Autochargement des classes
 
 # On démarre la session
-session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
+const SESSION_LIFETIME = 7200;
+
+# use session_set_cookie_params() before session_start() - See https://www.php.net
+$path1 = preg_replace('@/(core|plugins)/(.*)$@', '/', dirname($_SERVER['SCRIPT_NAME']));
+if(version_compare(phpversion(), '7.3.1', '>=')) {
+	session_set_cookie_params(array(
+		'lifetime'	=> SESSION_LIFETIME,
+		'path'		=> $path1,
+		'domain'	=> $_SERVER['SERVER_NAME'],
+		'secure'	=> isset($_SERVER["HTTPS"]),
+		'httponly'	=> true,
+		'samesite'	=> 'Strict',
+	));
+} else {
+	# No support for samesite option
+	session_set_cookie_params(SESSION_LIFETIME, $path1, $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
+}
 session_start();
 
 # Creation de l'objet principal et lancement du traitement
