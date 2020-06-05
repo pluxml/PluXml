@@ -11,8 +11,6 @@ const PLX_FEED = true;
 
 class plxFeed extends plxMotor {
 
-	private static $instance = null;
-
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
 	 *
@@ -20,9 +18,9 @@ class plxFeed extends plxMotor {
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
-		if (!isset(self::$instance))
-			self::$instance = new plxFeed(path('XMLFILE_PARAMETERS'));
-		return self::$instance;
+		if (empty(parent::$instance))
+			parent::$instance = new plxFeed(path('XMLFILE_PARAMETERS'));
+		return parent::$instance;
 	}
 
 	/**
