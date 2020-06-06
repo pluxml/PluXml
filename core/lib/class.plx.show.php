@@ -2005,7 +2005,7 @@ class plxShow {
 				switch($mode) {
 					case 'article':	$status = (in_array($tag, $artTags)) ? 'active' : 'noactive'; break;
 					case 'tags':	$status = ($this->plxMotor->cible == $url) ? 'active' : 'noactive'; break;
-					default :		$status = '';
+					default :		$status = 'noactive';
 				}
 				echo strtr($format, array(
 					'#tag_id'		=> 'tag-'.$id++,
