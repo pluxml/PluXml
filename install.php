@@ -1,12 +1,29 @@
 <?php
+
 # --------------------------------------
 # Pour ré-initialiser le dossier data :
 # sudo rm data/*/*.xml data/statiques/*
 # --------------------------------------
+
 const PLX_ROOT = './';
 include PLX_ROOT . 'core/lib/config.php';
 
 const PLX_INSTALLER = true;
+
+#Heredoc syntax is php 5.5 friendly
+const HTACCESS = <<< EOT
+Options -Indexes
+
+EOT;
+const HTACCESS_DENY = <<< EOT
+Options -Indexes
+
+<Files "*">
+	Order Allow,Deny
+	Deny from All
+</Files>
+
+EOT;
 
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
@@ -14,7 +31,7 @@ session_start();
 
 # Chargement des langues
 $lang = (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
-if (! empty($_POST) && isset($_POST['default_lang'])) {#Fix Notice: Undefined index: default_lang
+if(filter_has_var(INPUT_POST, 'default_lang')) {
 	$lang = $_POST['default_lang'];
 }
 if (! array_key_exists($lang, plxUtils::getLangs())) {
@@ -40,50 +57,9 @@ if (file_exists(path('XMLFILE_PARAMETERS'))) {
 # Controle du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Dossier des données par défaut : data/
-$data = 'data' . DIRECTORY_SEPARATOR;
-# Les .htaccess
-$htaccess = array(
-'<Files *>
-    Order allow,deny
-    Deny from all
-</Files>',
-'options -indexes
-<Files "*">
-	SetHandler default-handler
-</Files>',
-'Options -Indexes'
-);
-
-# Vérification de l'existence des dossiers et fichiers principaux et si besoin on les crées
-foreach(explode(' ', 'medias articles commentaires configuration statiques templates') AS $folder) {#var_dump(PLX_ROOT . $data . $folder, !is_dir(PLX_ROOT . $data . $folder) );
-	if(!is_dir(PLX_ROOT . $data . $folder)) {
-		@mkdir(PLX_ROOT . $data . $folder,0755,true);
-		if(strpos($folder, 'medias') === FALSE){
-			@file_put_contents(PLX_ROOT . $data . $folder . DIRECTORY_SEPARATOR . '.htaccess', $htaccess[0]);
-			touch(PLX_ROOT . $data . $folder . DIRECTORY_SEPARATOR . 'index.html');
-		}
-	}
-}
-@file_put_contents(PLX_ROOT . $data . '.htaccess', $htaccess[1]);
-touch(PLX_ROOT . $data . 'index.html');
-
-# Vérification de l'existence du dossier data/configuration/plugins
-if(!is_dir(PLX_ROOT . PLX_CONFIG_PATH . 'plugins')) {
-	@mkdir(PLX_ROOT . PLX_CONFIG_PATH . 'plugins',0755,true);
-	@file_put_contents(PLX_ROOT . PLX_CONFIG_PATH . 'plugins' . DIRECTORY_SEPARATOR . '.htaccess', $htaccess[2]);
-	touch(PLX_ROOT . PLX_CONFIG_PATH . 'plugins' . DIRECTORY_SEPARATOR . 'index.html');
-}
 // Echappement des caractères
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
-}
-
-# Vérification de l'existence du dossier plugins
-if(!is_dir(PLX_ROOT . 'plugins')) {
-	@mkdir(PLX_ROOT . 'plugins',0755,true);
-	@file_put_contents(PLX_ROOT . 'plugins' . DIRECTORY_SEPARATOR . '.htaccess', $htaccess[2]);
-	touch(PLX_ROOT . 'plugins' . DIRECTORY_SEPARATOR . 'index.html');
 }
 
 # Initialisation du timezone
@@ -97,9 +73,6 @@ if (! array_key_exists($timezone, plxTimezones::timezones())) {
 
 function install($content, $config) {
 
-	# Configuration de base
-	$root = dirname(PLX_CONFIG_PATH) . '/';
-
 	# Initialisation du timezone
 	if (isset($_POST['timezone'])) {
 		$timezone = $_POST['timezone'];
@@ -110,25 +83,41 @@ function install($content, $config) {
 	// gestion du timezone
 	date_default_timezone_set($config['timezone']);
 
+	# Vérification de l'existence des dossiers médias, configuration/plugins et templates
+	$folders = array(
+		'root'					=> dirname(PLX_CONFIG_PATH),
+		'medias'				=> true, # sa value est précisée dans $config['medias']
+		'racine_articles'		=> true, # d°
+		'racine_commentaires'	=> true, # d°
+		'racine_statiques'		=> true, # d°
+		'configuration'			=> rtrim(PLX_CONFIG_PATH, '/'),
+		'plugins'				=> PLX_CONFIG_PATH . 'plugins',
+		'templates'				=> dirname(PLX_CONFIG_PATH) . '/templates',
+		'racine_plugins'		=> true,
+	);
+	foreach ($folders as $k=>$v) {
+		$dir1 = PLX_ROOT . (($v === true) ? rtrim($config[$k], '/') : $v);
+		if (is_dir($dir1) or @mkdir($dir1, 0755, true)) {
+			if(!file_exists($dir1 . '/index.html')) {
+				file_put_contents($dir1 . '/index.html', '');
+			}
+			if(!file_exists($dir1 . '/.htaccess')) {
+				file_put_contents($dir1 . '/.htaccess', (in_array($k, array('root', 'medias', 'plugins', 'racine_plugins')) ? HTACCESS : HTACCESS_DENY));
+			}
+		}
+	}
+
 	# Creation de l'objet principal et premier traitement
 	$plxAdmin = plxAdmin::getInstance();
 
 	// Personnalisation du fichier de configuration
-	$racineStatiques = $root . 'statiques/';
-	$plxAdmin->editConfiguration(array(
-		'description'			=> plxUtils::strRevCheck(L_SITE_DESCRIPTION),
-		'timezone'				=> $timezone,
-		'clef'					=> plxUtils::charAleatoire(15),
-		'medias'				=> $root . 'medias/',
-		'racine_articles'		=> $root . 'articles/',
-		'racine_commentaires'	=> $root . 'commentaires/',
-		'racine_statiques'		=> $racineStatiques,
-		'default_lang'			=> $config['default_lang'],
-	));
+	$config['description'] = plxUtils::strRevCheck(L_SITE_DESCRIPTION);
+	$config['clef'] = plxUtils::charAleatoire(15);
+
+	$plxAdmin->editConfiguration($config);
 
 	// Création du fichier des utilisateurs
 	$userId = '001';
-	$_SESSION['user'] = '000';
 	$plxAdmin->editUsers(array(
 		'update'				=> 1,
 		'userNum'				=> array($userId),
@@ -139,7 +128,7 @@ function install($content, $config) {
 		$userId . '_password'	=> trim($content['pwd']),
 		$userId . '_email'		=> trim($content['email']),
 	), true);
-	unset($_SESSION['user']);
+
 	// Création du fichier des plugins
 	$xml = XML_HEADER . '<document>' . PHP_EOL . '</document>';
 	plxUtils::write($xml, path('XMLFILE_PLUGINS'));
@@ -180,7 +169,7 @@ function install($content, $config) {
 	$plxAdmin->editArticle(array(
 		'title'		=> plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE),
 		'author'	=> $userId,
-		'catId'		=> array_keys($plxAdmin->aCats), // Juste une catégorie créée
+		'catId'		=> array_keys($plxAdmin->aCats), # Juste une catégorie créée
 		'allow_com'	=> 1,
 		'template'	=> 'article.php',
 		'chapo'		=> $chapo,
@@ -201,6 +190,20 @@ function install($content, $config) {
 	));
 }
 
+# Configuration de base
+$root = dirname(PLX_CONFIG_PATH) . '/';
+$config = array(
+	'description'			=> '',
+	'timezone'				=> $timezone,
+	'medias'				=> $root . 'medias/',
+	'racine_articles'		=> $root . 'articles/',
+	'racine_commentaires'	=> $root . 'commentaires/',
+	'racine_statiques'		=> $root . 'statiques/',
+	'default_lang'			=> $lang,
+	'racine_plugins'		=> 'plugins/',
+	'racine_themes'			=> 'themes',
+);
+
 $msg = '';
 if (! empty($_POST['install'])) {
 
@@ -220,10 +223,7 @@ if (! empty($_POST['install'])) {
 
 		$msg = L_ERR_MISSING_EMAIL;
 	} else {
-		install($_POST, array(
-			'timezone'		=> $timezone,
-			'default_lang'	=> $lang,
-		));
+		install($_POST, $config);
 		header('Location: ' . plxUtils::getRacine());
 		exit();
 	}
@@ -282,13 +282,12 @@ plxUtils::cleanHeaders();
 			<form method="post">
 				<fieldset>
 					<div class="grid">
-						<?php plxUtils::printInput('default_lang', $lang, 'hidden') ?>
 						<div class="col med-5 label-centered">
 							<label for="id_default_lang"><?php echo L_INSTALL_DATA ?>&nbsp;:</label>
 						</div>
 						<div class="col med-7">
-							<?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>
-						</div>
+						   <?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>
+					   </div>
 					</div>
 					<div class="grid">
 						<div class="col med-5 label-centered">
@@ -363,14 +362,17 @@ plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', $extras);
 						<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
 <?php } ?>
 						<?php plxUtils::testWrite(PLX_ROOT) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
-						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-						<?php #plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
-						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
-						<?php #plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
+						<ul class="alert green" title="Auto generate this necessary folders + files">
+							<li><i>#AutomatiXml</i><li>
+							<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
+							<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
+							<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
+							<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
+							<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
+							<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
+							<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
+							<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
+						</ul>
 						<?php plxUtils::testModReWrite() ?>
 						<?php plxUtils::testLibGD() ?>
 						<?php plxUtils::testLibXml() ?>
