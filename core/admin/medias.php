@@ -151,7 +151,7 @@ $curFolders = explode('/', $curFolder);
 		<div class="inline-form action-bar">
 			<h2><?= L_MEDIAS_TITLE ?></h2>
 			<p>
-				<?= L_MEDIAS_DIRECTORY ?> : <a href="javascript:void(0)" onclick="document.forms[0].folder.value='.'; document.forms[0].submit(); return true;" title="<?= L_PLXMEDIAS_ROOT ?>">(<?= L_PLXMEDIAS_ROOT ?>)</a> /
+				<?= L_MEDIAS_DIRECTORY ?> : <a href="javascript:void(0)" onclick="document.forms[1].folder.value='.'; document.forms[1].submit(); return true;" title="<?= L_PLXMEDIAS_ROOT ?>">(<?= L_PLXMEDIAS_ROOT ?>)</a> /
 <?php
 if($curFolders) {
 	$path='';
@@ -159,7 +159,7 @@ if($curFolders) {
 		if(!empty($folder) AND $id>1) {
 			$path .= $folder . '/';
 ?>
-<a href="javascript:void(0)" onclick="document.forms[0].folder.value='<?= $path ?>'; document.forms[0].submit(); return true;" title="<?= $folder ?>"><?= $folder ?></a> /
+<a href="javascript:void(0)" onclick="document.forms[1].folder.value='<?= $path ?>'; document.forms[1].submit(); return true;" title="<?= $folder ?>"><?= $folder ?></a> /
 <?php
 		}
 	}
