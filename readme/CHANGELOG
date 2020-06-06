@@ -7,8 +7,12 @@ Tweak plugin : admin.css for fix long notifs not hidden at end of moved (hide) p
 }
 ```
 
-## PLUXML 5.9 legacy PHP 5.5 (2020/06/01) ##
+## PLUXML 5.9 legacy PHP 5.5 (2020.06.06) ##
+Apply patch from branches
+#master: FIX Error "Constant PLX_SITE_LANG already defined" #455 (bazooka07)
 
+
+## 2020.06.01
 [+] Admin themes New notifications (error&success) bg colors
 
 Fix Bad redirect on login + Bad msg with EDITOR profile
@@ -264,6 +268,7 @@ FIX $plxShow->artNbCom() with no comments #432 (bazooka07)
 FIX $plxShow->lastArtList() chapo and content length #433 (P3ter)
 FIX Templates sorting in static page admin #440 (bazooka07)
 FIX Diverses .htaccess fixes #444 (bazooka07)
+FIX Error "Constant PLX_SITE_LANG already defined" #455 (bazooka07)
 
 ## PLUXML 5.8.3 (2020/05/19) ##
 [+] New Fontello icons on authentification page and in the admin panel (bazooka07)

@@ -104,17 +104,16 @@ class plxMotor {
 	public $plxErreur = null; # Objet plxErreur
 	public $plxPlugins = null; # Objet plxPlugins
 
-	private static $instance;
+	protected static $instance = null; # protected is required by plxAdmin
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxMotor
 	 *
 	 * @return	self			return une instance de la classe plxMotor
-	 * @author	Stephane F
+	 * @author	Stephane , J.P. Pourrez "Bazooka07"
 	 **/
 	public static function getInstance(){
-		if (!isset(self::$instance)) {
-			self::$instance = false;
+		if (empty(self::$instance)) {
 			self::$instance = new plxMotor(path('XMLFILE_PARAMETERS'));
 		}
 		return self::$instance;
