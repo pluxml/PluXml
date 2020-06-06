@@ -368,7 +368,7 @@ class plxMotor {
 	 * Méthode qui effectue le traitement selon le mode du moteur
 	 *
 	 * @return	null
-	 * @author	Florent MONTHEL, Stephane F
+	 * @author	Florent MONTHEL, Stephane F, J.P. Pourrez, T. Ingles
 	 **/
 	public function demarrage() {
 
@@ -424,19 +424,21 @@ class plxMotor {
 				# On récupère un tableau indexé des articles
 				$aFiles = $this->plxGlob_arts->query($_SESSION['previous']['motif'], 'art', $_SESSION['previous']['tri'], 0, false, 'before');
 				$artIds = array();
-				foreach($aFiles as $key=>$value) {
-					if(substr($value, 0, 4) == $this->cible) {
-						if($key > 0) {
-							if($key > 1) { $artIds['first'] = $aFiles[0]; }
-							$artIds['prev'] = $aFiles[$key - 1];
+				if($aFiles) {
+					foreach($aFiles as $key=>$value) {
+						if(substr($value, 0, 4) == $this->cible) {
+							if($key > 0) {
+								if($key > 1) { $artIds['first'] = $aFiles[0]; }
+								$artIds['prev'] = $aFiles[$key - 1];
+							}
+							if($key < count($aFiles) - 1) {
+								if($key < count($aFiles) - 2) { $artIds['last'] = $aFiles[count($aFiles) - 1]; }
+								$artIds['next'] = $aFiles[$key + 1];
+							}
+							$_SESSION['previous']['position'] = $key + 1;
+							$_SESSION['previous']['count'] = count($aFiles);
+							break;
 						}
-						if($key < count($aFiles) - 1) {
-							if($key < count($aFiles) - 2) { $artIds['last'] = $aFiles[count($aFiles) - 1]; }
-							$artIds['next'] = $aFiles[$key + 1];
-						}
-						$_SESSION['previous']['position'] = $key + 1;
-						$_SESSION['previous']['count'] = count($aFiles);
-						break;
 					}
 				}
 				$_SESSION['previous']['artIds'] = $artIds;
