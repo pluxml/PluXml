@@ -9,8 +9,9 @@
 
 if(!defined('PLX_ROOT')) { exit; }
 
-$plx_update = PLX_ROOT . 'update';#legacy
-const PLX_UPDATE = plx_update;#but why is down with : define('PLX_UPDATE', PLX_ROOT . 'update');
+#$plx_update = PLX_ROOT . 'update';
+#const PLX_UPDATE = $plx_update;#but why is down with 7.3.17 : Fatal error: Constant expression contains invalid operations in core/lib/class.plx.updater.php on line 13
+define('PLX_UPDATE',PLX_ROOT . 'update';);#legacy
 unset($plx_update);
 
 class plxUpdater {
