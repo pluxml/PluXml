@@ -159,3 +159,18 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 		}
 	}
 })();
+
+(function(containerId, selectId) {
+	const el = document.getElementById(containerId);
+	const select = document.getElementById(selectId);
+	if(el != null) {
+		el.onclick = function(event) {
+			if(event.target.hasAttribute('data-folder')) {
+				event.preventDefault();
+				select.value = event.target.dataset.folder;
+				select.form.submit();
+			}
+		}
+	}
+
+})('medias-breadcrumb', 'folder');

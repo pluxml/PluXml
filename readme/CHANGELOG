@@ -8,7 +8,8 @@ Tweak plugin : admin.css for fix long notifs not hidden at end of moved (hide) p
 ```
 
 ## PLUXML 5.9.1 legacy PHP 5.5 (####.##.##) ##
-[+] Improve Auth Brand Thumbnail (optional logo) : auth.php + admin theme.css : With Parameters > Settings display > Thumbnail (optional) field
+[+] Medias.php + medias.js : New sys of breadcrumb with this [Fix breadcrumb of medias #472](https://github.com/pluxml/PluXml/pull/472/commits/7a1efee8a9984dc8556e87bdeffefebaa137cd36) (bazooka07)
+[+] Improve Auth Brand Thumbnail (optional logo) : auth.php + admin theme.css : With Parameters > Settings display > Thumbnail (optional) field (sudwebdesign)
 
 
 ## PLUXML 5.9.0 legacy PHP 5.5 (2020.06.06) ##
