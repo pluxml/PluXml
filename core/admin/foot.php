@@ -15,7 +15,7 @@
 	mediasManager.construct({
 		windowName : '<?php echo L_MEDIAS_TITLE ?>',
 		racine:	'<?php echo plxUtils::getRacine() ?>',
-		urlManager: '<?= PLX_ADMIN_PATH?>medias.php'
+		urlManager: '<?= substr(PLX_ADMIN_PATH, strlen(PLX_ROOT))?>medias.php'
 	});
 
 	(function(query) {
