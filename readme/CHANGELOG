@@ -7,10 +7,11 @@ Tweak plugin : admin.css for fix long notifs not hidden at end of moved (hide) p
 }
 ```
 
-## PLUXML 5.9 legacy PHP 5.5 (2020.06.06) ##
-Apply patch from branches
+## PLUXML 5.9.0 legacy PHP 5.5 (2020.06.06) ##
+[+] Apply patch
 #master: FIX Error "Constant PLX_SITE_LANG already defined" #455 (bazooka07)
 
+[+] admin : parametres_users.php : No autofill & save pass browser box #471 (sudwebdesign)
 
 ## 2020.06.01
 [+] Admin themes New notifications (error&success) bg colors
