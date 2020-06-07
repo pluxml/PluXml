@@ -98,7 +98,7 @@ function install($content, $config) {
 	foreach ($folders as $k=>$v) {
 		$dir1 = PLX_ROOT . (($v === true) ? rtrim($config[$k], '/') : $v);
 		if (is_dir($dir1) or @mkdir($dir1, 0755, true)) {
-			if(!file_exists($dir1 . '/index.html')) {
+			if(!file_exists($dir1 . '/index.html') && $k != 'medias') {
 				file_put_contents($dir1 . '/index.html', '');
 			}
 			if(!file_exists($dir1 . '/.htaccess')) {
