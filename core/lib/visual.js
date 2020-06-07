@@ -67,20 +67,6 @@ function dialogBox(dlg) {
 	this.open();
 }
 
-(function() {
-	const el = document.getElementById('msg');
-	if(el != null) {
-		var timer1 = null;
-		el.addEventListener('transitionend', function(event) {
-			timer1 = setTimeout(function() {
-				el.classList.remove('active');
-				clearTimeout(timer1);
-			}, 3000);
-		});
-		el.classList.add('active');
-	}
-})()
-
 var DragDrop = {
 	isbefore: function(a, b) {
 		if (a.parentNode == b.parentNode) {
@@ -119,3 +105,17 @@ var DragDrop = {
 		}
 	}
 }
+
+setTimeout(function() {
+	const el = document.getElementById('msg');
+	if(el != null) {
+		var timer1 = null;
+		el.addEventListener('transitionend', function(event) {
+			timer1 = setTimeout(function() {
+				el.classList.remove('active');
+				clearTimeout(timer1);
+			}, 3000);
+		});
+		el.classList.add('active');
+	}
+}, 321);
