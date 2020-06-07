@@ -649,7 +649,7 @@ class plxUtils {
 	 * @return	boolean			vrai si image créée
 	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
-	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
+	public static function makeThumb($src_image, $dest_image, $thumb_width = self::THUMB_WIDTH, $thumb_height = self::THUMB_HEIGHT, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 
@@ -1113,7 +1113,7 @@ class plxUtils {
 	* @author	Stephane F., Thomas Ingles, Jean-pierre Bourrez
 	**/
 	public static function formatMenu($caption, $href, $title=false, $aClass=false, $onclick=false, $extra='', $highlight=true) {
-		$url_parts = parse_url($href);#var_dump($url_parts);
+		$url_parts = parse_url($href);
 		$page = basename($url_parts['path'], '.php');
 		$id = pathinfo($page,  PATHINFO_FILENAME);
 		$page = rtrim($page, 's');
@@ -1123,7 +1123,7 @@ class plxUtils {
 			switch($page) {
 				case 'plugin' :
 					$id = str_replace('p=','',$url_parts['query']);
-					if(filter_has_var(INPUT_GET, 'p') AND $url_parts['query'] == 'p=' . $_GET['p']) {
+					if(filter_has_var(INPUT_GET, 'p') AND $url_parts['path'] . $url_parts['query'] == basename($_SERVER['SCRIPT_NAME']) . 'p=' . $_GET['p']) {
 						$classList[] = 'active';
 					}
 					break;
@@ -1133,7 +1133,6 @@ class plxUtils {
 					}
 					break;
 			}
-			#$classList[] = $script.' '.$page;#debug
 		}
 		if(!empty($aClass)) { $classList[] = $aClass; }
 		$className = implode(' ', $classList);

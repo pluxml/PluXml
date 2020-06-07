@@ -8,6 +8,9 @@ Tweak plugin : admin.css for fix long notifs not hidden at end of moved (hide) p
 ```
 
 ## PLUXML 5.9.0 legacy PHP 5.5 (2020.06.06) ##
+
+[+] plxUtils makeThumb use self::THUMB_WIDTH & self::THUMB_HEIGHT (official)
+Fix plxUtils formatMenu add active on "admin" menu of plug when parameter page is opened (not only on "Plugins" menu)
 Fix admin foot mediasManager.construct bad urlManager : Medias Manager popup (article edit) open to 404
 Fix install.php : no create index.html in media folder
 
