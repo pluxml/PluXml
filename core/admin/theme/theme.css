@@ -12,23 +12,59 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
-/* ---------- Authentication ---------- */
+:root {
+	--backaside: rgba(255,255,255,.72);
+	--backaside2: #283440;
+	--backasideborder : #42494f;
+	--backsection: #f5f6f6;
+	--backheader: #fff;
+	--backheaderborder: #ddd;
+	--primary: #0275d8;
+}
+
+/* ==== AUTHENTIFICATION ==== */
 
 .logo {
-    background-image: url(images/pluxml.png);
-    margin: 10% auto 20px auto;
+    margin: 10vh auto 20px auto;
     height: 80px;
-    width: 123px;
+    width: auto;
+
+}
+#auth .logo a:hover {
+    border-radius: .6rem;
+    background-color: var(--backaside);
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0px 0px 1px var(--backaside2);
+}
+
+#auth .logo img {
+/*
+	max-height: 33vh;
+	width: auto;
+*/
 }
 
 .auth {
+    background-color: var(--backaside);
+    background-image: url(images/pluxml.png);
+    background-repeat: no-repeat;
+    background-position: 50% 60%;
+    background-size: contain;
     border:  1px solid #bbb;
     border-radius: .6rem;
+    margin: 0 auto 100px auto;
+    box-shadow: 0px 0px 222px lightgray;
     overflow: hidden;
 }
 
 .auth .alert {
     text-align: center;
+}
+
+.auth .form {
+    background-color: var(--backsection);
+    box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* ---------- Main ---------- */

@@ -165,7 +165,7 @@ plxUtils::cleanHeaders();
 <body id="auth">
 	<main class="container">
 		<section class="grid">
-			<div class="logo"><a class="txtcenter" href="<?= PLX_ROOT ?>"><img src="<?= $logo ?>" alt="Logo" <?= $logoSize[3] ?> /></a></div>
+			<div class="logo text-center"><a title="<?= L_BACK_HOMEPAGE_TITLE; ?>" href="<?= PLX_ROOT ?>"><img src="<?= $logo ?>" alt="Logo" <?= $logoSize[3] ?> /></a></div>
 			<div class="auth col sml-12 sml-centered med-5 lrg-3">
 <?php
 				# Hook plugins
