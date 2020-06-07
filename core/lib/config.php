@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('PLX_ROOT')) { exit('Missing PLX_ROOT'); }
 
 const PHP_VERSION_MIN = '5.3.0';
@@ -14,6 +15,7 @@ include PLX_ROOT . 'config.php';
 define('PLX_CORE', PLX_ROOT . 'core/');#legacy PHP<5.6
 define('PLX_ADMIN_PATH', PLX_CORE . 'admin/');#legacy PHP<5.6
 
+# legacy
 define('PLX_TEMPLATES', PLX_CORE . 'templates/');#fix plxMotor class const with php5.5 : Parse error: syntax error, unexpected '.', expecting ',' or ';'
 define('PLX_TEMPLATES_DATA', PLX_ROOT . 'data/templates/');#if in const have concatenated values
 
