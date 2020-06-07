@@ -9,14 +9,11 @@
 
 if(!defined('PLX_ROOT')) { exit; }
 
-#$plx_update = PLX_ROOT . 'update';
-#const PLX_UPDATE = $plx_update;#but why is down with 7.3.17 : Fatal error: Constant expression contains invalid operations in core/lib/class.plx.updater.php on line 13
-define('PLX_UPDATE',PLX_ROOT . 'update';);#legacy
-unset($plx_update);
+define('PLX_UPDATE',PLX_ROOT . 'update/';);#legacy
 
 class plxUpdater {
 
-	public static function VERSIONS() {
+	public static function VERSIONS() {#legacy
 		return array (
 			'4.2',
 			'4.3',
@@ -79,7 +76,7 @@ class plxUpdater {
 
 		# suppression des versions qui ont déjà été mises à jour
 		$offset = array_search($version, self::VERSIONS());
-		$this->allVersions = ($offset !== false) ? array_slice(self::VERSIONS(), $offset+1, null, true) : self::VERSIONS;
+		$this->allVersions = ($offset !== false) ? array_slice(self::VERSIONS(), $offset+1, null, true) : self::VERSIONS();
 
 		# démarrage des mises à jour
 		if($this->doUpdate()) {
