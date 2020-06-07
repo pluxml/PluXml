@@ -604,6 +604,7 @@ class plxUtils {
 	 * @return	boolean				retourne vrai si l'écriture s'est bien déroulée
 	 **/
 	public static function write($xml, $filename) {
+
 		if(file_exists($filename)) {
 			$f = fopen($filename.'.tmp', 'w'); # On ouvre le fichier temporaire
 			fwrite($f, trim($xml)); # On écrit
