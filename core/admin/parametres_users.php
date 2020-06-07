@@ -68,7 +68,7 @@ include __DIR__ .'/top.php';
 				echo '</td><td>';
 				plxUtils::printInput($_userid.'_login', plxUtils::strCheck($_user['login']), 'text', '');
 				echo '</td><td>';
-				plxUtils::printInput($_userid.'_password', '', 'password', '', false, '', '', 'onkeyup="pwdStrength(this.id)"');
+				plxUtils::printInput($_userid.'_password', '', 'password', '', false, '', '', 'autocomplete="new-password" onkeyup="pwdStrength(this.id)"');
 				echo '</td><td>';
 				plxUtils::printInput($_userid.'_email', plxUtils::strCheck($_user['email']), 'email', '');
 				echo '</td><td>';
