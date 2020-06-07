@@ -1340,19 +1340,19 @@ class plxShow {
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastComList'))) return;
 
 		# Génération de notre motif
-		if(empty($art_id))
-			$motif = '/^[0-9]{4}.[0-9]{10}-[0-9]+.xml$/';
-		else
-			$motif = '/^'.str_pad($art_id,4,'0',STR_PAD_LEFT).'.[0-9]{10}-[0-9]+.xml$/';
+		$art_id = empty($art_id) ? '\d{4}' : str_pad($art_id, 4, '0', STR_PAD_LEFT);
+		$motif = '@^' . $art_id . '\.\d{10}-\d+\.xml$@';
 
 		$count=1;
 		$datetime=date('YmdHi');
+
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_coms = clone $this->plxMotor->plxGlob_coms;
 		if($aFiles = $plxGlob_coms->query($motif,'com','rsort',0,false,'before')) {
-			$aComArtTitles = array(); # tableau contenant les titres des articles
-			$isComArtTitle = (strpos($format, '#com_art_title')!=FALSE) ? true : false;
+			# tableau contenant les titres des articles si besoin
+			$aComArtTitles = (strpos($format, '#com_art_title') !== false) ? array() : false;
 			# On parcourt les fichiers des commentaires
+
 			foreach($aFiles as $v) {
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
 				if(isset($this->plxMotor->activeArts[substr($v,0,4)])) {
@@ -1363,43 +1363,40 @@ class plxShow {
 							$url = '?article'.intval($com['article']).'/'.$artInfo['artUrl'].'#c'.$com['article'].'-'.$com['index'];
 							$date = $com['date'];
 							$content = strip_tags($com['content']);
-							$row = $format;#Fix Notice: Undefined variable: row in core/lib/class.plx.show.php on line 1358
-							while(preg_match('/#com_content\(([0-9]+)\)/',$row,$capture)) {
-								if($com['author'] == 'admin')
-									$row = str_replace('#com_content('.$capture[1].')',plxUtils::strCut($content,$capture[1]),$row);
-								else
-									$row = str_replace('#com_content('.$capture[1].')',plxUtils::strCheck(plxUtils::strCut(plxUtils::strRevCheck($content),$capture[1])),$row);
+							if($com['author'] == 'admin') {
+								$content = plxUtils::strRevCheck($content);
 							}
+							if(is_array($aComArtTitles) and !array_key_exists($com['article'], $aComArtTitles)) {
+								# On a besoin du titre de l'article
+								$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$file[0]);
+								$aComArtTitles[$com['article']] = $art['title'];
+							}
+
 							# On modifie nos motifs
-							$row = strtr($row, array(
+							while(preg_match('/#com_content\((\d+)\)/', $format, $capture)) {
+								$format = str_replace($capture[0], plxUtils::strCut($content, $capture[1]), $format);
+							}
+
+							$row = strtr($format, array(
 								'L_SAID'		=> L_SAID,
 								'#com_id'		=> $com['index'],
 								'#com_url'		=> $this->plxMotor->urlRewrite($url),
+								'#com_art_title'	=> !empty($aComArtTitles[$com['article']]) ? $aComArtTitles[$com['article']] : '',
 								'#com_author'	=> $com['author'],
 								'#com_content'	=> $content,
 								'#com_date'		=> plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),
 								'#com_hour'		=> plxDate::formatDate($date,'#time')
 							));
+
 							$row = plxDate::formatDate($date,$row);
-							# récupération du titre de l'article
-							if($isComArtTitle) {
-								if(isset($aComArtTitles[$com['article']])) {
-									$row = str_replace('#com_art_title',$aComArtTitles[$com['article']],$row);
-								}
-								else {
-									if($file = $this->plxMotor->plxGlob_arts->query('/^'.$com['article'].'.(.*).xml$/')) {
-										$art = $this->plxMotor->parseArticle(PLX_ROOT.$this->plxMotor->aConf['racine_articles'].$file[0]);
-										$aComArtTitles[$com['article']] = $art_title = $art['title'];
-										$row = str_replace('#com_art_title',$art_title,$row);
-									}
-								}
-							}
+
 							# On génère notre ligne
 							echo $row;
 							$count++;
 						}
 					}
 				}
+
 				if($count>$max) break;
 			}
 		}

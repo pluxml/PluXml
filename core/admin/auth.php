@@ -85,14 +85,8 @@ if(!empty($_POST['login']) AND !empty($_POST['password']) AND $css=='') {
 	foreach($plxAdmin->aUsers as $userid => $user) {
 		if ($_POST['login']==$user['login'] AND sha1($user['salt'].md5($_POST['password']))===$user['password'] AND $user['active'] AND !$user['delete']) {
 			$_SESSION['user'] = $userid;
-			$_SESSION['profil'] = $user['profil'];
 			$_SESSION['hash'] = plxUtils::charAleatoire(10);
 			$_SESSION['domain'] = $session_domain;
-			# on définit $_SESSION['admin_lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
-			# ordre des traitements:
-			# page administration : chargement fichier prepend.php
-			# => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
-			# => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
 			$_SESSION['admin_lang'] = $user['lang'];
 			$connected = true;
 			break;
@@ -163,12 +157,15 @@ plxUtils::cleanHeaders();
 
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead'));
+
+    $logo = (!empty($plxAdmin->aConf['thumbnail']) and file_exists(PLX_ROOT . $plxAdmin->aConf['thumbnail'])) ? PLX_ROOT . $plxAdmin->aConf['thumbnail'] : 'theme/images/pluxml.png';
+    $logoSize = getimagesize($logo);
 ?>
 </head>
 <body id="auth">
 	<main class="container">
 		<section class="grid">
-			<div class="logo"></div>
+			<div class="logo"><a class="txtcenter" href="<?= PLX_ROOT ?>"><img src="<?= $logo ?>" alt="Logo" <?= $logoSize[3] ?> /></a></div>
 			<div class="auth col sml-12 sml-centered med-5 lrg-3">
 <?php
 				# Hook plugins
@@ -186,7 +183,7 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-user"></i>
-								<?php plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?plxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '10-255',false,'full-width',L_AUTH_LOST_FIELD,'autofocus');?>
+								<?php plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id']))?plxUtils::strCheck($_POST['lostpassword_id']):'', 'text', '-64',false,'full-width',L_AUTH_LOST_FIELD,'autofocus required');?>
 							</div>
 						</div>
 						<div class="grid">
@@ -224,13 +221,13 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password1', '', 'password', '10-255',false,'full-width', L_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+								<?php plxUtils::printInput('password1', '', 'password', '-64',false,'full-width', L_PASSWORD, 'onkeyup="pwdStrength(this.id)" required') ?>
 							</div>
 						</div>
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password2', '', 'password', '10-255',false,'full-width', L_CONFIRM_PASSWORD) ?>
+								<?php plxUtils::printInput('password2', '', 'password', '-64',false,'full-width', L_CONFIRM_PASSWORD, 'required') ?>
 							</div>
 						</div>
 						<div class="grid">
@@ -281,13 +278,13 @@ plxUtils::cleanHeaders();
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-user"></i>
-								<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '10-255',false,'full-width',L_AUTH_LOGIN_FIELD,'autofocus');?>
+								<?php plxUtils::printInput('login', (!empty($_POST['login']))?plxUtils::strCheck($_POST['login']):'', 'text', '-64', false, 'full-width', L_AUTH_LOGIN_FIELD,'autofocus requred');?>
 							</div>
 						</div>
 						<div class="grid">
 							<div class="col sml-12">
 								<i class="ico icon-lock"></i>
-								<?php plxUtils::printInput('password', '', 'password','10-255',false,'full-width', L_PASSWORD);?>
+								<?php plxUtils::printInput('password', '', 'password','-64',false,'full-width', L_PASSWORD, 'required');?>
 							</div>
 						</div>
 <?php

@@ -120,7 +120,8 @@ $curFolders = explode('/', $curFolder);
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
 
-<form method="post"><!-- Rename File Dialog -->
+<form method="post">
+	<!-- Rename File Dialog -->
 	<div id="dlgRenameFile" class="dialog">
 		<div class="dialog-content">
 			<span class="dialog-close">&times;</span>
@@ -134,7 +135,9 @@ $curFolders = explode('/', $curFolder);
 </form>
 
 <form method="post" id="form_medias">
-	<div id="dlgNewFolder" class="dialog"><!-- New Folder Dialog -->
+
+	<!-- New Folder Dialog -->
+	<div id="dlgNewFolder" class="dialog">
 		<div class="dialog-content">
 			<span class="dialog-close">&times;</span>
 			<?= L_MEDIAS_NEW_FOLDER ?>&nbsp;:<br />

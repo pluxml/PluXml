@@ -10,13 +10,19 @@ Tweak plugin : admin.css for fix long notifs not hidden at end of moved (hide) p
 ## PLUXML 5.9.0 legacy PHP 5.5 (2020.06.06) ##
 [+] Apply patch
 #master: FIX Error "Constant PLX_SITE_LANG already defined" #455 (bazooka07)
+Apply #458 change in Refacto core/admin/prepend.php from [branch kazimentou:admin-prepend](https://github.com/pluxml/PluXml/pull/458) (bazooka07)
+From [branch kazimentou:admin-prepend](https://github.com/pluxml/PluXml/pull/458) (bazooka07)
+Refacto plxShow::lastComList() (#456) + #com_art_title in format
+Refacto plxAdmin::checkProfil() (#459)
+Auth add logo from conf thumbnail image + retail inputs required
+Remove debug commented dumps
 
 [+] admin : parametres_users.php : No autofill & save pass browser box #471 (sudwebdesign)
 
 ## 2020.06.01
 [+] Admin themes New notifications (error&success) bg colors
 
-Fix Bad redirect on login + Bad msg with EDITOR profile
+Fix Bad redirect on login + Bad msg with EDITOR  #OLD, #NOW Refacto plxAdmin::checkProfil() (#459)
 	::: $plxAdmin->checkProfil + $redirect AND
 	::: Fix if plugin->adminProfil = '' & maybe more
 	#never set by plug construct === bad redirect On logon :

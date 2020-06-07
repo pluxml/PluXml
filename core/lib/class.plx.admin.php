@@ -20,13 +20,13 @@ class plxAdmin extends plxMotor {
 	private static $EMPTY_FIELDS_USER = array('infos', 'password_token', 'password_token_expiry');
 	private static $EMPTY_FIELD_STATIQUES = array('title_htmltag', 'meta_description', 'meta_keywords');
 
-	public $update_link = PLX_URL_REPO; // overwritten by self::checKMaj()
+	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
 	 *
 	 * @return	self	return une instance de la classe plxAdmin
-	 * @author	Stephane F, J.P. Pourrez "Bazooka07"
+	 * @author	Stephane F, Jean-Pierre Pourrez "Bazooka07"
 	 **/
 	public static function getInstance(){
 		if (empty(parent::$instance))
@@ -96,13 +96,12 @@ class plxAdmin extends plxMotor {
 	 * @author	Florent MONTHEL
 	 **/
 	public function editConfiguration($content=false) {
-#var_dump($content);
+
 		if(!empty($this->plxPlugins)) {
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 		}
-#var_dump($content);
-#EXIT;
+
 		if(!empty($content)) {
 			foreach($content as $k=>$v) {
 				if(!in_array($k,array('token', 'config_path'))) # parametres à ne pas mettre dans le fichier
@@ -235,66 +234,62 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
 	 * @param	profil		profil(s) autorisé(s). Doit être numérique ou tableau de numérique
-	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
+	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s). Si is_numeric, 2ème profil permis.
 	 * @return	boolean or void
-	 * @author	Stephane F, J.P. Pourrez, Thomas I.
+	 * @author	Stephane F, J.P. Pourrez
 	 *
 	 * Pour recensement dans code : grep -n checkProfil *.php update/*.php core/{admin,lib}/*.php
 	 **/
 	public function checkProfil($profil, $redirect=true) {
 
-		$url = (array_key_exists('HTTP_REFERER', $_SERVER)) ? basename($_SERVER['HTTP_REFERER']) : 'index.php';
-		$location = 'Location: ' . $url;
+		if(!isset($_SESSION['profil']) or !is_numeric($_SESSION['profil'])) {
+			# No authentification. Run away !
+			session_abort();
+			header('Location: ' . PLX_ROOT);
+			exit;
+		}
 
 		if(!is_bool($redirect)) {
+			if(is_numeric($redirect) and is_numeric($profil)) {
+				$profils = array($profil, $redirect);
+				$redirect = true;
+			}
+		} elseif(is_array($profil)) {
+			$profils = array_filter($profil, function($item) { return is_numeric($item); });
+		} elseif(is_numeric($profil)) {
+			$profils = array($profil);
+		}
+
+		if(!empty($profils)) {
+			if(count($profils) > 1) {
+				if(in_array($_SESSION['profil'], $profils)) {
+					return true;
+				}
+			} elseif($profils[0] <= PROFIL_WRITER and $_SESSION['profil'] <= $profils[0]) {
+				return true;
+			}
+		}
+
+		# accès refusé
+		if($redirect) {
 			plxMsg::Error(L_NO_ENTRY);
+			if(!empty($_SERVER['HTTP_REFERER'])) {
+				$url = basename(parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH));
+				if($url == 'index.php') {
+					# Avoid for infinite loops
+					header('Content-Type: text/plain');
+					echo 'CheckProfil() fails. Abort!';
+					exit;
+				}
+			} else {
+				$url = 'index.php';
+			}
+			$location = 'Location: ' . $url;
 			header($location);
 			exit;
 		}
 
-		if(is_array($profil)) {
-			$items = array_filter($profil, function($item) { return is_numeric($item); });
-			if(empty($items) or !in_array($_SESSION['profil'], $items) or $_SESSION['profil'] >= PROFIL_WRITER) {
-				if($redirect) {
-					# Accès refusé
-					plxMsg::Error(L_NO_ENTRY);
-					header($location);
-					exit;
-				}
-				return false;
-			}
-
-			return true;
-		} elseif(is_numeric($profil)) {
-			// limite haute profil
-			if($redirect) {
-				if($_SESSION['profil'] > $profil) {
-					plxMsg::Error(L_NO_ENTRY);
-					header($location);
-					exit;
-				}
-				return;
-			} else {
-				return ($_SESSION['profil'] <= $profil);
-			}
-		} else {
-			if($redirect AND empty(preg_match_all('#(\d+)#', $profil, $matches))) {
-				plxMsg::Error(L_NO_ENTRY);
-				header($location);
-				exit;
-			}
-		}
-
-		if($redirect) {
-			if(empty($matches) or !in_array($_SESSION['profil'], $matches[1]) or $_SESSION['profil'] >= PROFIL_WRITER) {
-				plxMsg::Error(L_NO_ENTRY);
-				header($location);
-				exit;
-			}
-			return;
-		} else {
-			return (!empty($matches) and in_array($_SESSION['profil'], $matches[1]) and $_SESSION['profil'] < PROFIL_WRITER);
-		}
+		return false;
 	}
 
 	/**
@@ -375,7 +370,6 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function sendLostPasswordEmail($loginOrMail) {
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
-
 				if(!$user['active'] or $user['delete'] or empty($user['email'])) { continue; }
 
 				if($user['login'] == $loginOrMail OR $user['email'] == $loginOrMail) {
@@ -390,7 +384,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
 						"##URL_PASSWORD##"	=> $this->aConf['racine'] . substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)) . 'auth.php?action=changepassword&token='. $lostPasswordToken,
-						"##URL_EXPIRY##"	=> $tokenExpiry
+						"##URL_EXPIRY##"	=> $tokenExpiry,
 					);
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
@@ -430,7 +424,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	token	the token to verify
 	 * @return	boolean	true if the token exist and is not expire
-	 * @author	Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07, Thomas I. @sudwebdesign
+	 * @author	Pedro "P3ter" CADETE
 	 */
 	public function verifyLostPasswordToken($token) {
 
@@ -498,8 +492,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$this->aUsers[$user_id] = array(
 						'login'					=> trim($content[$user_id . '_login']),
 						'name'					=> trim($content[$user_id . '_name']),
-						'active'				=> (!empty($_SESSION['user']) AND $_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['active'] : $content[$user_id . '_active'],
-						'profil'				=> (!empty($_SESSION['user']) AND $_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['profil'] : $content[$user_id . '_profil'],
+						'active'				=> (!empty($_SESSION['user']) && $_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['active'] : $content[$user_id . '_active'],
+						'profil'				=> (!empty($_SESSION['user']) && $_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['profil'] : $content[$user_id . '_profil'],
 						'password'				=> $password,
 						'salt'					=> $salt,
 						'email'					=> $email,
@@ -911,6 +905,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# sauvegarde
 		$statics_name = array();
 		$statics_url = array();
+
 		# On génére le fichier XML
 		ob_start();
 ?>
@@ -1182,7 +1177,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				'active'	=> intval(!in_array('draft', $content['catId']))
 			);
 			$this->editTags();
-			$msg = (empty($content['artId']) OR $content['artId'] == '0000') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+			$msg = (empty($content['artId']) || $content['artId'] == '0000') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
 
 			if(!empty($this->plxPlugins)) {
 				# Hook plugins

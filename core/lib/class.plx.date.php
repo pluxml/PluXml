@@ -83,7 +83,7 @@ class plxDate
      * @param string $date date/heure au format YYYYMMDDHHMM
      * @param string $format format d'affichage
      * @return string date/heure formatée
-     * @author Stephane F., J.P. Pourrezn, T. Ingles
+     * @author Stephane F., J.P. Pourrez, T. Ingles
      **/
     public static function formatDate($date, $format = self::FORMAT_DATE)
     {
