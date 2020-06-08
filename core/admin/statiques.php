@@ -89,11 +89,11 @@ function checkBox(cb) {
 					echo '</td><td>';
 					plxUtils::printInput($k.'_url', $v['url'], 'text', '-255');
 					echo '</td><td>';
-					plxUtils::printSelect($k.'_active', array('1'=>L_YES,'0'=>L_NO), $v['active']);
+					plxUtils::printSelect($k.'_active', array(1=>L_YES, 0=>L_NO), $v['active']);
 					echo '</td><td>';
 					plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3');
 					echo '</td><td>';
-					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
+					plxUtils::printSelect($k.'_menu', array(1=>L_DISPLAY, 0=>L_HIDE), $v['menu']);
 					echo '</td><td>';
 					$url = $v['url'];
 					if(!plxUtils::checkSite($url)) {
@@ -133,7 +133,7 @@ function checkBox(cb) {
 						echo '</td><td>';
 						plxUtils::printInput($new_staticid.'_ordre', $ordre, 'text', '2-3');
 						echo '</td><td>';
-						plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
+						plxUtils::printSelect($new_staticid.'_menu', array(1=>L_DISPLAY, 0=>L_HIDE), 1);
 					?>
 					</td>
 					<td>&nbsp;</td>

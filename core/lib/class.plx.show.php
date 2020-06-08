@@ -364,7 +364,7 @@ class plxShow {
 				$in = (empty($include) or preg_match ('/(\b'.$include.'\b)/', $k));
 				$ex = (!empty($exclude) and preg_match ('/(\b'.$exclude.'\b)/', $k));
 				if($in && !$ex) {
-					if(($v['articles']>0 || $this->plxMotor->aConf['display_empty_cat']) && ($v['menu']=='oui') && $v['active']) { # On a des articles
+					if(($v['articles']>0 || $this->plxMotor->aConf['display_empty_cat']) && !empty($v['menu']) && $v['active']) { # On a des articles
 						# On modifie nos motifs
 						echo strtr($format, array(
 							'#cat_id'			=> 'cat-' . intval($k),
@@ -1431,7 +1431,7 @@ class plxShow {
 		$group_active = "";
 		if($this->plxMotor->aStats) {
 			foreach($this->plxMotor->aStats as $k=>$v) {
-				if($v['active'] == 1 AND $v['menu'] == 'oui') { # La page  est bien active et dispo ds le menu
+				if($v['active'] == 1 AND $v['menu'] == 1) { # La page  est bien active et dispo ds le menu
 					if($v['url'][0]=='?') # url interne commençant par ?
 						$url = $this->plxMotor->urlRewrite($v['url']);
 					elseif(plxUtils::checkSite($v['url'],false)) # url externe en http ou autre
