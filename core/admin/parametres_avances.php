@@ -213,7 +213,7 @@ include __DIR__ .'/top.php';
 				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_PASSWORD ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password'], 'password'); ?>
+				<?php plxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password'], 'password', '', false, '', '', 'autocomplete="new-password"'); ?>
 				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP ?></span></a>
 			</div>
 		</div>
