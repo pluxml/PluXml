@@ -133,7 +133,7 @@ class plxTimezones {
 	 * @author	Stephane F.
 	 **/
 	public static function timezones() {
-		return plxTimezones::TIMEZONES;
+		return self::TIMEZONES;
 	}
 
 }
