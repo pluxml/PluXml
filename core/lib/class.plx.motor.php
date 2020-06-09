@@ -13,6 +13,12 @@ class plxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
 
+	// non regression for PluXml < 6.0.0
+	const OUI_NON = array(
+		'oui'	=> 1,
+		'non'	=> 0,
+	);
+
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
 	public $path_url = false; # chemin de l'url du site
@@ -544,10 +550,16 @@ class plxMotor {
 				$active = isset($attributes['active']) ? $attributes['active'] : 1;
 				if($active == '1') { $activeCats[] = $number; }
 
-				# non-régression pour PluXml < 5.3.1
+				# non regression for PluXml < 5.3.1
 				$thumbnail = plxUtils::getValue($iTags['thumbnail'][$i]);
 				$thumbnail_title = plxUtils::getValue($iTags['thumbnail_title'][$i]);
 				$thumbnail_alt = plxUtils::getValue($iTags['thumbnail_alt'][$i]);
+
+				# non regression for PluXml < 6.0.0
+				$menu = isset($attributes['menu']) ? $attributes['menu'] : 1;
+				if(array_key_exists($menu, self::OUI_NON)) {
+					$menu = self::OUI_NON[$menu];
+				}
 
 				$this->aCats[$number] = array(
 					'name'				=> plxUtils::getValue($values[$iTags['name'][$i]]['value'], 'cat-' . $number), # nom de la catégorie
@@ -559,7 +571,7 @@ class plxMotor {
 					'tri'				=> isset($attributes['tri']) ? $attributes['tri'] : $this->aConf['tri'], # tri de la categorie si besoin est
 					'bypage'			=> isset($attributes['bypage']) ? $attributes['bypage'] : $this->bypage, # nb d'articles par page de la categorie si besoin est
 					'template'			=> isset($attributes['template']) ? $attributes['template'] : 'categorie.php', # fichier template
-					'menu'				=> isset($attributes['menu']) ? $attributes['menu'] : 'oui', # état affichage de la catégorie dans le menu
+					'menu'				=> $menu, # état affichage de la catégorie dans le menu
 					'active'			=> $active, # activation de la catégorie dans le menu
 					'homepage'			=> $homepage, # affichage en page d'accueil
 					'articles'			=> 0,
@@ -605,6 +617,7 @@ class plxMotor {
 		if(isset($iTags['statique']) AND isset($iTags['name'])) {
 			$nb = sizeof($iTags['name']);
 			$size=ceil(sizeof($iTags['statique'])/$nb);
+
 			for($i=0;$i<$nb;$i++) {
 				$attributes = $values[$iTags['statique'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
@@ -626,7 +639,12 @@ class plxMotor {
 				# Récupération de l'etat de la page
 				$this->aStats[$number]['active']=intval($attributes['active']);
 				# On affiche la page statique dans le menu ?
-				$this->aStats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
+				# replace "oui" or "non" values from previous versions of PluXml. Drop it in the next versions.
+				$menu = isset($attributes['menu'])?$attributes['menu'] : 1;
+				if(array_key_exists($menu, self::OUI_NON)) {
+					$menu = self::OUI_NON[$menu];
+				}
+				$this->aStats[$number]['menu']=$menu;
 				# Récupération du fichier template
 				$this->aStats[$number]['template']=isset($attributes['template'])?$attributes['template']:'static.php';
 				# Récupération de la date de création

@@ -90,7 +90,7 @@ include __DIR__ .'/top.php';
 					echo '</td><td>';
 					plxUtils::printInput($k.'_ordre', $ordre, 'text', '-3');
 					echo '</td><td>';
-					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
+					plxUtils::printSelect($k.'_menu', array(1=>L_DISPLAY, 0=>L_HIDE), $v['menu']);
 					echo '</td>';
 					echo '<td><a href="categorie.php?p='.$k.'">'.L_OPTIONS.'</a></td>';
 					echo '</tr>';
@@ -122,7 +122,7 @@ include __DIR__ .'/top.php';
 						echo '</td><td>';
 						plxUtils::printInput($new_catid.'_ordre', $ordre, 'text', '-3');
 						echo '</td><td>';
-						plxUtils::printSelect($new_catid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
+						plxUtils::printSelect($new_catid.'_menu', array(1=>L_DISPLAY, 0=>L_HIDE), 1);
 						echo '</td><td>&nbsp;';
 					?>
 					</td>

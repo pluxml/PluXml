@@ -21,6 +21,7 @@
 [+] $plxShow->admin() display a link to the PluXml backoffice #443 (bazooka07)
 [+] New const PLX_ADMIN_PATH in config.php used to define the PluXml backoffice path #443 (bazooka07)
 [+] No autofill saved password from browser in user configuration #471 (sudwebdesign)
+[+] Replace "oui" and "non" in categories.xml and statiques.xml #474 (bazooka07, sudwebdesign)
 FIX Do not unset CSRF token if $_POST is empty #286 (sudwebdesign)
 FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign) 
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)
