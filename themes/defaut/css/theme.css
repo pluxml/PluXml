@@ -632,12 +632,8 @@ article:after {
 	.menu>li ul li:hover a {
 /*		text-decoration: underline; */
 	}
-	 ul.menu li.active a,
-	 ul.menu li.active:hover,
-	 ul.menu li,
-	 ul.menu li:hover {
+	ul.menu {
 		background-color: #fff;
-/*		color: #000;*/
 	}
 	.comment {
 		background-image: none;
@@ -679,6 +675,7 @@ article:after {
 		padding-top: 0rem;
 	}
 	ul.menu {
+		position: fixed;
 		margin: 0 2px .5px 2px;
 		border-radius: 15px;
 	}
