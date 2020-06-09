@@ -12,6 +12,8 @@ if(!defined('PLX_CONFIG_PATH') or !defined('PLX_VERSION')) { exit; }
 class plxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
+
+	// non regression for PluXml < 6.0.0
 	const OUI_NON = array(
 		'oui'	=> 1,
 		'non'	=> 0,
@@ -548,12 +550,12 @@ class plxMotor {
 				$active = isset($attributes['active']) ? $attributes['active'] : 1;
 				if($active == '1') { $activeCats[] = $number; }
 
-				# non-régression pour PluXml < 5.3.1
+				# non regression for PluXml < 5.3.1
 				$thumbnail = plxUtils::getValue($iTags['thumbnail'][$i]);
 				$thumbnail_title = plxUtils::getValue($iTags['thumbnail_title'][$i]);
 				$thumbnail_alt = plxUtils::getValue($iTags['thumbnail_alt'][$i]);
 
-				# replace "oui" or "non" values from previous versions of PluXml. Drop it in the next versions.
+				# non regression for PluXml < 6.0.0
 				$menu = isset($attributes['menu']) ? $attributes['menu'] : 1;
 				if(array_key_exists($menu, self::OUI_NON)) {
 					$menu = self::OUI_NON[$menu];
