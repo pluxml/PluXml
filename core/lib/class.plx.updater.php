@@ -9,7 +9,7 @@
 
 if(!defined('PLX_ROOT')) { exit; }
 
-define('PLX_UPDATE',PLX_ROOT . 'update/';);#legacy
+define('PLX_UPDATE',PLX_ROOT . 'update/');#legacy
 
 class plxUpdater {
 
