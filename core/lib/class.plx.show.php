@@ -1744,8 +1744,8 @@ class plxShow {
 						case 'archives':
 							$query .= '/' . substr($cible, 0, 4);
 							if(strlen($cible) > 4) { $query .= '/' . substr($cible, 4); }
-							$title = ucfirst('L_ARCHIVES') . ' ' . $cible;
-							$bypage = $this->aConf['bypage_archives'];
+							$title = ucfirst(L_ARCHIVES) . ' ' . $cible;
+							$bypage = $this->plxMotor->aConf['bypage_archives'];
 							break;
 						default: # home
 							$query = '';
@@ -1779,6 +1779,9 @@ class plxShow {
 	 * @author Jean-Pierre Pourrez "Bazooka07"
 	 */
 	public function artNavigationRange() {
+		if(empty($_SESSION['previous']) or $_SESSION['previous']['count'] == 0) {
+			return;
+		}
 ?>
 <span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
 <?php
