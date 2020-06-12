@@ -407,11 +407,23 @@ class plxShow {
 	 * @scope	categorie
 	 * @author	Stephane F.
 	 **/
-	public function catDescription($format='<div class="infos">#cat_description</div>') {
+	public function catDescription($format='<div class="infos">#cat_description</div>', $echo=true) {
 
-		$desc = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['description']);
-		if($this->plxMotor->mode AND $desc)
-			echo str_replace('#cat_description',$desc, $format);
+		if($this->plxMotor->mode == 'categorie') {
+			$id = $this->plxMotor->cible;
+			$desc = plxUtils::getValue($this->plxMotor->aCats[$id]['description']);
+			if($echo) {
+				if(!empty($desc)) {
+					echo str_replace('#cat_description', $desc, $format);
+				}
+			} else {
+				return $desc;
+			}
+		}
+
+		if(!$echo) {
+			return '';
+		}
 	}
 
 	/**
@@ -483,7 +495,7 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F, Philippe-M, J.P. Pourrez (bazooka07)
 	 **/
-	public function catThumbnail($format='<a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true) {
+	public function catThumbnail($format='<p><a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a></p>', $echo=true) {
 		$catId = $this->plxMotor->cible;
 		$filename = plxUtils::getValue($this->plxMotor->aCats[$catId]['thumbnail']);
 		if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
