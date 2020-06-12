@@ -1387,7 +1387,7 @@ class plxShow {
 								'#com_date'		=> plxDate::formatDate($date,'#num_day/#num_month/#num_year(4)'),
 								'#com_hour'		=> plxDate::formatDate($date,'#time')
 							));
-							
+
 							$row = plxDate::formatDate($date,$row);
 
 							# On génère notre ligne
@@ -1744,15 +1744,16 @@ class plxShow {
 						case 'archives':
 							$query .= '/' . substr($cible, 0, 4);
 							if(strlen($cible) > 4) { $query .= '/' . substr($cible, 4); }
-							$title = ucfirst('L_ARCHIVES') . ' ' . $cible;
-							$bypage = $this->aConf['bypage_archives'];
+							$title = ucfirst(L_ARCHIVES) . ' ' . $cible;
+							$bypage = $this->plxMotor->aConf['bypage_archives'];
 							break;
 						default: # home
 							$query = '';
+							$title = L_HOMEPAGE;
+							$bypage = $this->plxMotor->bypage;
 					}
 
 					if(strpos($format, '<link') === false) {
-						if($bypage <= 0) { $bypage = $this->plxMotor->bypage; }
 						$page = intval(ceil($_SESSION['previous']['position'] / $bypage));
 						if($page > 1) {
 							$query .= (($mode != 'home') ? '/page' : '?page') . $page;
@@ -1761,7 +1762,7 @@ class plxShow {
 				}
 				list($icon, $emoji, $caption) = self::ART_DIRECTIONS[$direction];
 				echo strtr($format, array(
-					'#url'		=> $this->plxMotor->urlRewrite('index.php' . $query),
+					'#url'		=> $this->plxMotor->urlRewrite($query),
 					'#dir'		=> $direction,
 					'#title'	=> $title,
 					'#caption'	=> $caption,
@@ -1778,6 +1779,9 @@ class plxShow {
 	 * @author Jean-Pierre Pourrez "Bazooka07"
 	 */
 	public function artNavigationRange() {
+		if(empty($_SESSION['previous']) or $_SESSION['previous']['count'] == 0) {
+			return;
+		}
 ?>
 <span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
 <?php
