@@ -407,11 +407,23 @@ class plxShow {
 	 * @scope	categorie
 	 * @author	Stephane F.
 	 **/
-	public function catDescription($format='<div class="infos">#cat_description</div>') {
+	public function catDescription($format='<div class="infos">#cat_description</div>', $echo=true) {
 
-		$desc = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['description']);
-		if($this->plxMotor->mode AND $desc)
-			echo str_replace('#cat_description',$desc, $format);
+		if($this->plxMotor->mode == 'categorie') {
+			$id = $this->plxMotor->cible;
+			$desc = plxUtils::getValue($this->plxMotor->aCats[$id]['description']);
+			if($echo) {
+				if(!empty($desc)) {
+					echo str_replace('#cat_description', $desc, $format);
+				}
+			} else {
+				return $desc;
+			}
+		}
+
+		if(!$echo) {
+			return '';
+		}
 	}
 
 	/**
@@ -483,7 +495,7 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F, Philippe-M, J.P. Pourrez (bazooka07)
 	 **/
-	public function catThumbnail($format='<a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo=true) {
+	public function catThumbnail($format='<p><a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a></p>', $echo=true) {
 		$catId = $this->plxMotor->cible;
 		$filename = plxUtils::getValue($this->plxMotor->aCats[$catId]['thumbnail']);
 		if(!empty($filename) and file_exists(PLX_ROOT . $filename)) {
@@ -1753,11 +1765,11 @@ class plxShow {
 							break;
 						default: # home
 							$query = '';
-							$bypage = $this->plxMotor->bypage;#maybe here fix this***
+							$title = L_HOMEPAGE;
+							$bypage = $this->plxMotor->bypage;
 					}
 
 					if(strpos($format, '<link') === false) {
-						if($bypage <= 0) { $bypage = $this->plxMotor->bypage; }# *** Notice: Undefined variable: bypage : index.php?article1/premier-article
 						$page = intval(ceil($_SESSION['previous']['position'] / $bypage));
 						if($page > 1) {
 							$query .= (($mode != 'home') ? '/page' : '?page') . $page;
@@ -1774,7 +1786,7 @@ class plxShow {
 				if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtNavigationEnd'))) return;
 
 				echo strtr($format, array(
-					'#url'		=> $this->plxMotor->urlRewrite('index.php' . $query),
+					'#url'		=> $this->plxMotor->urlRewrite($query),
 					'#dir'		=> $direction,
 					'#title'	=> $title,
 					'#caption'	=> $caption,
@@ -1791,7 +1803,9 @@ class plxShow {
 	 * @author Jean-Pierre Pourrez "Bazooka07"
 	 */
 	public function artNavigationRange() {
-		if(empty($_SESSION['previous'])) return;# Thomas I. @sudwebdesign : (maybe bad) fix Notice: Undefined index: previous : preview mode :or direct access like : index.php?article222
+		if(empty($_SESSION['previous']) or $_SESSION['previous']['count'] == 0) {
+			return;
+		}
 ?>
 <span><?= $_SESSION['previous']['position'] ?> / <?= $_SESSION['previous']['count'] ?></span>
 <?php
