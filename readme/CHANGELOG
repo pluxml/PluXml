@@ -34,6 +34,7 @@ FIX $plxShow->lastArtList() chapo and content length #433 (P3ter)
 FIX Templates sorting in static page admin #440 (bazooka07)
 FIX Diverses .htaccess fixes #444 (bazooka07)
 FIX Error "Constant PLX_SITE_LANG already defined" #455 (bazooka07)
+FIX Media breadcrumb links #470 #472 (sudwebdesign, bazooka07)
 
 ## PLUXML 5.8.3 (2020/05/19) ##
 [+] New Fontello icons on authentification page and in the admin panel (bazooka07)
