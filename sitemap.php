@@ -2,100 +2,104 @@
 const PLX_ROOT = './';
 include PLX_ROOT . 'core/lib/config.php';
 
-# Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
-# Détermination de la langue à utiliser (modifiable par le hook : Index)
+// Language to use (customisable with the hook : Index)
 $lang = $plxMotor->aConf['default_lang'];
 
-# Hook Plugins
-if(eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
+// Plugin Hook
+if (eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
 
-# chargement du fichier de langue
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+// Language file loading
+loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 $plxMotor->prechauffage();
 $plxMotor->demarrage();
 
-# On démarre la bufferisation
+// Buffer beginning
 ob_start();
-// ob_implicit_flush(0);
 
 ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	<url>
-		<loc><?= $plxMotor->urlRewrite() ?></loc>
-		<changefreq>weekly</changefreq>
-		<priority>1.0</priority>
-	</url>
-<?php
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc><?= $plxMotor->urlRewrite() ?></loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <?php
 
-# Les pages statiques
-foreach($plxMotor->aStats as $stat_num => $stat_info) {
-	if($stat_info['active']==1 AND $stat_num!=$plxMotor->aConf['homestatic']) {
-?>
-	<url>
-		<loc><?= $plxMotor->urlRewrite("?static" . intval($stat_num) . '/' . $stat_info['url']) ?></loc>
-		<lastmod><?= plxDate::formatDate($plxMotor->aStats[$stat_num]['date_update'], '#num_year(4)-#num_month-#num_day') ?></lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.8</priority>
-	</url>
-<?php
-	}
-}
-eval($plxMotor->plxPlugins->callHook('SitemapStatics')); # Hook Plugins
+    // Pages
+    foreach ($plxMotor->aStats as $stat_num => $stat_info) {
+    if ($stat_info['active'] == 1 and $stat_num != $plxMotor->aConf['homestatic']) {
+        ?>
+        <url>
+            <loc><?= $plxMotor->urlRewrite("?static" . intval($stat_num) . '/' . $stat_info['url']) ?></loc>
+            <lastmod><?= plxDate::formatDate($plxMotor->aStats[$stat_num]['date_update'], '#num_year(4)-#num_month-#num_day') ?></lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        <?php
+    }
+    }
+    eval($plxMotor->plxPlugins->callHook('SitemapStatics')); # Hook Plugins
 
-# Les catégories
-foreach($plxMotor->aCats as $cat_num => $cat_info) {
-	if($cat_info['active']==1 AND $cat_info['menu']=='oui' AND ($cat_info['articles']!=0 OR $plxMotor->aConf['display_empty_cat'])) {
-?>
-	<url>
-		<loc><?= $plxMotor->urlRewrite("?categorie".intval($cat_num)."/".$cat_info['url']) ?></loc>
-		<changefreq>weekly</changefreq>
-		<priority>0.8</priority>
-	</url>
-<?php
-	}
-}
-eval($plxMotor->plxPlugins->callHook('SitemapCategories')); # Hook Plugins
+    // Categories
+    foreach ($plxMotor->aCats as $cat_num => $cat_info) {
+    if ($cat_info['active'] == 1 and $cat_info['menu'] == 'oui' and ($cat_info['articles'] != 0 or $plxMotor->aConf['display_empty_cat'])) {
+        ?>
+        <url>
+            <loc><?= $plxMotor->urlRewrite("?categorie" . intval($cat_num) . "/" . $cat_info['url']) ?></loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        <?php
+    }
+    }
 
-# Les articles
-if($aFiles = $plxMotor->plxGlob_arts->query('/^\d{4}.(?:\d|home|,)*(?:'.$plxMotor->activeCats.'|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/','art','rsort', 0, false, 'before')) {
-	$plxRecord_arts = false;
-	$array=array();
-	foreach($aFiles as $k=>$v) { # On parcourt tous les fichiers
-		$array[ $k ] = $plxMotor->parseArticle(PLX_ROOT.$plxMotor->aConf['racine_articles'].$v);
-	}
-	# On stocke les enregistrements dans un objet plxRecord
-	$plxRecord_arts = new plxRecord($array);
-	if($plxRecord_arts) {
-		# On boucle sur nos articles
-		while($plxRecord_arts->loop()) {
-			$num = intval($plxRecord_arts->f('numero'));
-?>
-	<url>
-		<loc><?= $plxMotor->urlRewrite("?article".$num."/".plxUtils::strCheck($plxRecord_arts->f('url'))) ?></loc>
-		<lastmod><?= plxDate::formatDate($plxRecord_arts->f('date'),'#num_year(4)-#num_month-#num_day') ?></lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.5</priority>
-	</url>
-<?php
-		}
-	}
-}
-eval($plxMotor->plxPlugins->callHook('SitemapArticles')); # Hook Plugins
-?>
+    // Plugin hook
+    eval($plxMotor->plxPlugins->callHook('SitemapCategories'));
+
+    // Articles
+    if ($aFiles = $plxMotor->plxGlob_arts->query('/^\d{4}.(?:\d|home|,)*(?:' . $plxMotor->activeCats . '|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/', 'art', 'rsort', 0, false, 'before')) {
+    $plxRecord_arts = false;
+    $array = array();
+    foreach ($aFiles as $k => $v) { # On parcourt tous les fichiers
+        $array[$k] = $plxMotor->parseArticle(PLX_ROOT . $plxMotor->aConf['racine_articles'] . $v);
+    }
+    // Records are saved in a PlxRecord object
+    $plxRecord_arts = new plxRecord($array);
+    if ($plxRecord_arts) {
+        // Articles loop
+        while ($plxRecord_arts->loop()) {
+            $num = intval($plxRecord_arts->f('numero'));
+            ?>
+            <url>
+                <loc><?= $plxMotor->urlRewrite("?article" . $num . "/" . plxUtils::strCheck($plxRecord_arts->f('url'))) ?></loc>
+                <lastmod><?= plxDate::formatDate($plxRecord_arts->f('date'), '#num_year(4)-#num_month-#num_day') ?></lastmod>
+                <changefreq>monthly</changefreq>
+                <priority>0.5</priority>
+            </url>
+            <?php
+        }
+    }
+    }
+    // Plugin hook
+    eval($plxMotor->plxPlugins->callHook('SitemapArticles'));
+    ?>
 </urlset>
 <?php
 
-# Récuperation de la bufférisation
+// Buffer ending
 $output = XML_HEADER . ob_get_clean();
 
-eval($plxMotor->plxPlugins->callHook('SitemapEnd')); # Hook Plugins
+// Plugin hook
+eval($plxMotor->plxPlugins->callHook('SitemapEnd'));
 
-# On impose le charset
-header('Content-Type: text/xml; charset='.PLX_CHARSET);
+// Charset is forced
+header('Content-Type: text/xml; charset=' . PLX_CHARSET);
 
-# Restitution écran
+// Display
 echo $output;
 ?>
