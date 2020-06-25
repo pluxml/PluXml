@@ -70,14 +70,10 @@ function dialogBox(dlg) {
 (function() {
 	const el = document.getElementById('msg');
 	if(el != null) {
-		var timer1 = null;
-		el.addEventListener('transitionend', function(event) {
-			timer1 = setTimeout(function() {
-				el.classList.remove('active');
-				clearTimeout(timer1);
-			}, 3000);
-		});
-		el.classList.add('active');
+		setTimeout(function () {
+			el.classList.remove('active');
+			el.offsetWidth = el.offsetWidth;
+		}, 3000)
 	}
 })()
 

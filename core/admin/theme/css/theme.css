@@ -617,20 +617,28 @@ a.hint:focus span {
 }
 
 .notification {
-    position: absolute;
-    top: -18rem;
-    right: 25rem;
-    left: 25rem;
+    position: fixed;
+    bottom: -8rem;
+    left: 2rem;
     margin: 0;
     padding: 0.5rem 0;
     line-height: 1.6;
-    text-align: center;
-    color: #000;
-    border: .25rem solid;
     z-index: 999999;
-    transition: top 1s ease;
+    transition: left 1s ease;
+    line-height: 2rem;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 0px 6px 4px rgba(200, 200, 200, 0.2);
 }
 
+.notification.active {
+    bottom: 3rem;
+}
+
+.notification i {
+    font-size: 2.5rem;
+    margin: 0rem 1rem;
+}
 @media (max-width: 767px) {
     .notification {
         top: -20rem;
@@ -639,20 +647,12 @@ a.hint:focus span {
     }
 }
 
-.notification.active {
-    top: -13rem;
+.notification.error {
+    border-left: solid 4px indianred;
 }
 
-.error {
-    background-color: #ffcfcf;
-    border-color: #eacfcf;
-}
-
-.success {
-    color: #000000;
-    background: rgb(64, 230, 76);
-    background: radial-gradient(circle, rgba(64, 230, 76, 1) 35%, rgba(124, 193, 56, 1) 98%);
-    border: none;
+.notification.success {
+    border-left: solid 4px limegreen;
 }
 
 .warning {

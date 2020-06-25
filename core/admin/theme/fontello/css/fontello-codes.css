@@ -21,6 +21,9 @@
 .icon-wrench:before { content: '\e813'; } /* '' */
 .icon-search:before { content: '\e814'; } /* '' */
 .icon-left-big:before { content: '\e815'; } /* '' */
+.icon-ok-circled:before { content: '\e816'; } /* '' */
+.icon-cancel-circled:before { content: '\e817'; } /* '' */
+.icon-info-circled:before { content: '\e818'; } /* '' */
 .icon-spin3:before { content: '\e832'; } /* '' */
 .icon-link-ext:before { content: '\f08e'; } /* '' */
 .icon-doc-text:before { content: '\f0f6'; } /* '' */

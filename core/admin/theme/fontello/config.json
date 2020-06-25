@@ -185,6 +185,24 @@
       "css": "left-big",
       "code": 59413,
       "src": "fontawesome"
+    },
+    {
+      "uid": "67a9d2e5512b8aa812eff7da6d36bffc",
+      "css": "ok-circled",
+      "code": 59414,
+      "src": "elusive"
+    },
+    {
+      "uid": "fd32deda7b2f5b8cad46d13897c19ae8",
+      "css": "cancel-circled",
+      "code": 59415,
+      "src": "elusive"
+    },
+    {
+      "uid": "2355991b4045d64b08fb82988109c0ee",
+      "css": "info-circled",
+      "code": 59416,
+      "src": "elusive"
     }
   ]
 }
