@@ -248,7 +248,6 @@ a.btnDelete {
 .ico {
 	position: absolute;
 	font-size: 14pt;
-	z-index: 5;
 }
 
 .ico + input {
@@ -557,7 +556,7 @@ a.hint:focus span {
 	padding: .25rem 1rem;
 	border: .25rem solid;
 	color: #000;
-	width: 100%
+	width: 60%
 }
 
 .error {
