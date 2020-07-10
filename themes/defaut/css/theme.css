@@ -96,7 +96,7 @@ ul.menu {}
 .menu > li:last-of-type ul {
 	right: 0;
 }
-.menu>li:not(:hover) ul {/* show sub menu */
+.menu>li:not(:hover) ul {/* hide sub menu */
 	display: none;
 }
 .menu ul li {
