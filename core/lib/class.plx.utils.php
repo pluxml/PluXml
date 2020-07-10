@@ -514,14 +514,14 @@ class plxUtils {
 
 	/**
 	 * Method to transform a string in a valid URL using translitteration
-	 * @param	string	$strchaine de caractères à contrôler
+	 * @param	string	$url de caractères à contrôler
 	 * @param	boolean	$remove		retire les mots sans valeur sémantique
 	 * @param	string	$replace
 	 * @param	boolean	$lower
 	 * @return	string	valid URL
 	 * @author	J.P. Pourrez (bazooka07)
 	 * */
-	public static function urlify($url, $remove=true, $replace='-', $lower=true) {
+	public static function urlify($url, $remove=false, $replace='-', $lower=true) {
 
 		$scheme = parse_url($url, PHP_URL_SCHEME);
 		if(!empty($scheme)) {
