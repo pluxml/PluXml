@@ -23,6 +23,9 @@
 	font-style: normal;
 }
 body {
+	--header-height: 7rem;
+	--header-padding-top: 1.3rem;
+	--bg-height: 250px;
 	font-family: 'open_sansregular', sans-serif;
 	font-size: 1.7em;
 	line-height: 1.6em;
@@ -37,8 +40,8 @@ body {
 .header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
-	padding-top: 1.3rem;
-	height: 7rem;
+	padding-top: var(--header-padding-top);
+	height: var(--header-height);
 	z-index: 2;
 }
 .header a {
@@ -49,7 +52,7 @@ body {
 }
 .logo {
 	background: url("../img/pluxml-logo-black.png") top left no-repeat;
-	height: 5rem;
+	height: calc(var(--header-height) + var(--bg-height) - var(--header-padding-top));
 	background-size: 6rem;
 	background-position: 5rem 0;
 	padding-left: 12rem;
@@ -61,7 +64,7 @@ body {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	height: 250px;
+	height: var(--bg-height);
 }
 .nav {
 	text-align: right;
@@ -75,26 +78,26 @@ ul.menu {}
 	margin-left: .5rem;
 }
 
-.menu>li {
+.menu a {
 	border-bottom: 3px solid transparent;
 }
-.menu>li:hover {
+.menu a:hover {
 	border-bottom: 3px solid #222;
 }
 .menu>li>span {
 	cursor: default;
 }
 .menu>li ul {/* sub menu */
-	display: none;
 	position: absolute;
 	padding: 0;
 	line-height: 2.8rem;
 	z-index: 10;
-	border-bottom: 3px solid #222;
 }
-
-.menu>li:hover ul {/* show sub menu */
-	display: block;
+.menu > li:last-of-type ul {
+	right: 0;
+}
+.menu>li:not(:hover) ul {/* show sub menu */
+	display: none;
 }
 .menu ul li {
 	display: block;
@@ -103,9 +106,19 @@ ul.menu {}
 	background-color: #fff;
 	text-align: left;
 }
+.menu .sub-menu {
+	overflow-y: auto;
+}
+.menu .sub-menu li {
+	padding: 0 0.35rem;
+}
+.menu .sub-menu li:last-of-type {
+	padding-bottom: 0.35rem;
+}
 
 .menu>li span::before {/* \/ menu */
 	content: '\25bc';
+	padding-right: 0.5rem;
 }
 ul.menu .noactive:hover,
 ul.menu .active span,
@@ -121,8 +134,6 @@ ul.menu li a:hover {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
 ul.menu li span,
 ul.menu li a {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
 	display: inline-block;
-	height: 1.23rem;
-	line-height: 1.23rem;
 	padding-left: .35rem;
 	padding-right: .35rem;
 	width: 100%;
@@ -130,6 +141,7 @@ ul.menu li a {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
 	background-color: rgba(255,255,255,.55);
 	border-radius: 1px;
 	color: #258fd6;
+	white-space: nowrap;
 }
 ul.menu li span a,
 ul.menu li a span {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
