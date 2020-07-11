@@ -94,23 +94,10 @@
 
 	</form>
 
-<script>
-function replyCom(idCom) {
-	document.getElementById('id_answer').innerHTML='<?php $plxShow->lang('REPLY_TO'); ?> :';
-	document.getElementById('id_answer').innerHTML+=document.getElementById('com-'+idCom).innerHTML;
-	document.getElementById('id_answer').innerHTML+='<a rel="nofollow" href="<?php $plxShow->artUrl(); ?>#form" onclick="cancelCom()"><?php $plxShow->lang('CANCEL'); ?></a>';
-	document.getElementById('id_answer').style.display='inline-block';
-	document.getElementById('id_parent').value=idCom;
-	document.getElementById('id_content').focus();
-}
-function cancelCom() {
-	document.getElementById('id_answer').style.display='none';
-	document.getElementById('id_parent').value='';
-	document.getElementById('com_message').innerHTML='';
-}
-var parent = document.getElementById('id_parent').value;
-if(parent!='') { replyCom(parent) }
-</script>
+<input type=hidden id=REPLY_TO value="<?php $plxShow->lang('REPLY_TO'); ?>"/>
+	<input type=hidden id=ART_URL value="<?php $plxShow->artUrl(); ?>"/>
+	<input type=hidden id=CANCEL value="<?php $plxShow->lang('CANCEL'); ?>"/>
+	<script src="themes/elegante-vitrine/scriptcommentaires.min.js" type="application/javascript"></script>
 
 	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle">#feedName</a></p>'); ?>
 
