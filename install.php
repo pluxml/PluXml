@@ -199,7 +199,6 @@ if (!empty($_POST['install'])) {
 
 plxUtils::cleanHeaders();
 ?>
-
 <!DOCTYPE html>
 <head>
     <meta charset="<?= strtolower(PLX_CHARSET) ?>"/>
@@ -207,7 +206,7 @@ plxUtils::cleanHeaders();
     <title><?= L_PLUXML_INSTALLATION . ' ' . PLX_VERSION ?></title>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/knacss.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/theme.css" media="screen"/>
-    <script src="<?= PLX_CORE ?>lib/visual.js"></script>
+    <link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/favicon.png" />
 </head>
 <body>
 <main class="mal flex-container">
@@ -315,5 +314,6 @@ EOT;
 
     </section>
 </main>
+<script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </body>
 </html>
