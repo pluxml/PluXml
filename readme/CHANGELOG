@@ -1,5 +1,5 @@
 ## PLUXML 5.8.4 (YYYY/MM/DD) ##
-[+] Disable removing short words on urlify
+[+] Disable removing short words on urlify (P3ter)
 FIX Icon's CSS in medias manager (P3ter)
 FIX Reduce notification bar width (P3ter)
 FIX Error "Constant PLX_SITE_LANG already defined" (bazooka07)
