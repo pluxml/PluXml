@@ -44,11 +44,12 @@ plxToken::validateFormToken($_POST);
     <title><?= L_UPDATE_TITLE . ' ' . plxUtils::strCheck($plxUpdater->newVersion) ?></title>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/knacss.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/theme.css" media="screen"/>
+    <link rel="stylesheet" href="<?= PLX_ADMIN_PATH ?>theme/fontello/css/fontello.css" media="screen"/>
     <link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/favicon.png"/>
 </head>
 <body>
 <main class="mal flex-container">
-    <section class="pal item-center">
+    <section class="item-center">
 
         <div class="txtcenter">
             <p><img src="<?= PLX_ADMIN_PATH ?>theme/images/pluxml.png" alt="PluXml"/></p>
@@ -87,7 +88,7 @@ plxToken::validateFormToken($_POST);
                             <div class="inbl">
                                 <?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
                                 <input class="btn--inverse" type="submit" name="select_lang"
-                                       value="<?php echo L_INPUT_CHANGE ?>"/>
+                                       role="button" value="<?php echo L_INPUT_CHANGE ?>"/>
                                 <?php echo plxToken::getTokenPostMethod() ?>
                             </div>
                         </fieldset>
@@ -106,8 +107,8 @@ plxToken::validateFormToken($_POST);
                             <?php
                         }
                         ?>
-                        <p><?= L_UPDATE_WARNING3 ?></p>
-                        <p><input type="submit" name="submit" value="<?= L_UPDATE_START ?>" <?php if (!$writable) {
+                        <p class="alert--warning"><i class="icon-info-circled"></i>&nbsp;<?= L_UPDATE_WARNING3 ?></p>
+                        <p class="mtm"><input type="submit" name="submit" role="button" value="<?= L_UPDATE_START ?>" <?php if (!$writable) {
                                 echo 'disabled';
                             } ?> /></p>
                         <?php echo plxToken::getTokenPostMethod() ?>
@@ -120,7 +121,7 @@ plxToken::validateFormToken($_POST);
             $plxUpdater->startUpdate($version);
             ?>
             <form action="<?= PLX_ROOT ?>">
-                <input type="submit" value="<?= L_UPDATE_BACK ?>"/>
+                <input type="submit" role="button" value="<?= L_UPDATE_BACK ?>"/>
             </form>
             <?php
         }
