@@ -346,7 +346,7 @@ $cat_id = '000';
                         <div>
                             <?php PlxUtils::printInput('artId', $artId, 'hidden'); ?>
                             <label for="id_title"><?= L_TITLE ?>&nbsp;:</label>
-                            <?php PlxUtils::printInput('title', PlxUtils::strCheck($title), 'text', '42-255', false, 'full-width'); ?>
+                            <?php PlxUtils::printInput('title', PlxUtils::strCheck($title), 'text', '42-255', false, 'w100'); ?>
                         </div>
                         <div>
                             <input class="toggler" type="checkbox"
@@ -565,11 +565,11 @@ $cat_id = '000';
                                onclick="mediasManager.openPopup('id_thumbnail', true)"
                                style="outline:none; text-decoration: none">+</a>
                         </label><br>
-                        <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '255', false, 'full-width', '', 'onkeyup="refreshImg(this.value)"'); ?>
+                        <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '255', false, 'w100', '', 'onkeyup="refreshImg(this.value)"'); ?>
                         <label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label><br>
-                        <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '255-255', false, 'full-width'); ?>
+                        <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '255-255', false, 'w100'); ?>
                         <label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label><br>
-                        <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '255-255', false, 'full-width'); ?>
+                        <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '255-255', false, 'w100'); ?>
                         <?php
                         $src = false;
                         if (preg_match('@^(?:https?|data):@', $thumbnail)) {

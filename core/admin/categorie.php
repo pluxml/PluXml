@@ -86,15 +86,15 @@ include __DIR__ .'/top.php';
 					<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
 					<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 				</label>
-				<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail']),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
+				<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail']),'text','255',false,'w100','','onkeyup="refreshImg(this.value)"'); ?>
 				<div class="grid" style="padding-top:10px">
 					<div class="col sml-12 lrg-6">
 						<label for="id_thumbnail_title"><?php echo L_THUMBNAIL_TITLE ?>&nbsp;:</label>
-						<?php plxUtils::printInput('thumbnail_title',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail_title']),'text','255-255',false,'full-width'); ?>
+						<?php plxUtils::printInput('thumbnail_title',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail_title']),'text','255-255',false,'w100'); ?>
 					</div>
 					<div class="col sml-12 lrg-6">
 						<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_ALT ?>&nbsp;:</label>
-						<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail_alt']),'text','255-255',false,'full-width'); ?>
+						<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail_alt']),'text','255-255',false,'w100'); ?>
 					</div>
 				</div>
 				<div id="id_thumbnail_img">

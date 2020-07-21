@@ -40,7 +40,7 @@ include __DIR__ .'/top.php';
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
-	<table id="users-table" class="full-width">
+	<table id="users-table" class="w100">
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>

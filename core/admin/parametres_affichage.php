@@ -179,7 +179,7 @@ include __DIR__ .'/top.php';
 				</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($plxAdmin->aConf['thumbnail']),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
+				<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($plxAdmin->aConf['thumbnail']),'text','255',false,'w100','','onkeyup="refreshImg(this.value)"'); ?>
 			</div>
 			<div id="id_thumbnail_img" class="col sml-12">
 <?php
@@ -220,7 +220,7 @@ include __DIR__ .'/top.php';
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?php echo L_CONFIG_VIEW_FEEDS_FOOTER ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aConf['feed_footer']),140,5,false,'full-width'); ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aConf['feed_footer']),140,5,false,'w100'); ?>
 			</div>
 		</div>
 

@@ -188,7 +188,7 @@ if($curFolders) {
 		</div>
 
 		<div style="clear:both" class="scrollable-table">
-			<table id="medias-table" class="full-width sort">
+			<table id="medias-table" class="w100 sort">
 				<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>

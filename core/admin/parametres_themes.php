@@ -110,7 +110,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
-		<table id="themes-table" class="full-width">
+		<table id="themes-table" class="w100">
 			<thead>
 				<tr>
 					<th colspan="2"><?php echo L_THEMES ?></th>
