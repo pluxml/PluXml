@@ -152,13 +152,13 @@ $curFolders = explode('/', $curFolder);
 			<h2><?php echo L_MEDIAS_TITLE ?></h2>
 			<p>
 				<?php
-				echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[0].folder.value=\'.\';document.forms[0].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
+				echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[1].folder.value=\'.\';document.forms[1].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
 				if($curFolders) {
 					$path='';
 					foreach($curFolders as $id => $folder) {
 						if(!empty($folder) AND $id>1) {
 							$path .= $folder.'/';
-							echo '<a href="javascript:void(0)" onclick="document.forms[0].folder.value=\''.$path.'\';document.forms[0].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
+							echo '<a href="javascript:void(0)" onclick="document.forms[1].folder.value=\''.$path.'\';document.forms[1].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
 						}
 					}
 				}
@@ -191,11 +191,11 @@ $curFolders = explode('/', $curFolder);
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_title ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_title ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
 					<th><?php echo L_MEDIAS_EXTENSION ?></th>
 					<th><?php echo L_MEDIAS_FILESIZE ?></th>
 					<th><?php echo L_MEDIAS_DIMENSIONS ?></th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[0].sort.value='<?php echo $sort_date ?>';document.forms[0].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_date ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
 				</tr>
 				</thead>
 				<tbody id="medias-table-tbody">

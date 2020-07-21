@@ -4,6 +4,8 @@ FIX Icon's CSS in medias manager (P3ter)
 FIX Reduce notification bar width (P3ter)
 FIX Error "Constant PLX_SITE_LANG already defined" (bazooka07)
 FIX Do not use urlify for links (P3ter)
+FIX Medias sorting in the backoffice (P3ter, sudwebdesign)
+FIX Medias breadcrumb in the backoffice (P3ter, sudwebdesign)
 
 ## PLUXML 5.8.3 (2020/05/19) ##
 [+] New Fontello icons on authentification page and in the admin panel (bazooka07)
