@@ -44,20 +44,17 @@ class plxMsg {
 	    if(isset($_SESSION['error']) AND !empty($_SESSION['error'])) {
             $class = "error";
 	        $icon = "icon-cancel-circled";
-	        $title = "Error";
             $message = $_SESSION['error'];
         }
 		elseif(isset($_SESSION['info']) AND !empty($_SESSION['info'])) {
             $class = "success";
 	        $icon = "icon-info-circled";
-	        $title = "Info";
             $message = $_SESSION['info'];
         }
 	    if (!empty($message))
             echo '
                 <section id="msg" class="notification '.$class.' active flex-container">
-                    <div class="item-center"><i class="'.$icon.'"></i></div>
-                    <div class="item-fluid prs"><strong>'.$title.'</strong><br>'.$message.'</div>
+                    <div class="ptm prm pbm"><i class="'.$icon.'"></i><strong>'.$message.'</strong></div>
                 </section>';
 		unset($_SESSION['error']);
 		unset($_SESSION['info']);

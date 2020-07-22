@@ -29,6 +29,7 @@ body {
     background-image: url(../images/pluxml.png);
     height: 80px;
     width: 123px;
+    margin: auto;
 }
 .auth {
     background-color: var(--backaside);
@@ -317,8 +318,8 @@ button [class^="icon-"] {
 
 .notification {
     position: fixed;
-    bottom: -8rem;
-    left: 2rem;
+    bottom: -10rem;
+    left: 4rem;
     margin: 0;
     padding: 0.5rem 0;
     line-height: 1.6;
@@ -331,19 +332,12 @@ button [class^="icon-"] {
 }
 
 .notification.active {
-    bottom: 3rem;
+    bottom: 5rem;
 }
 
 .notification i {
     font-size: 2.5rem;
     margin: 0rem 1rem;
-}
-@media (max-width: 767px) {
-    .notification {
-        top: -20rem;
-        right: 0;
-        left: 0;
-    }
 }
 
 .notification.error {

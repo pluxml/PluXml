@@ -34,7 +34,7 @@ if (isset($_SESSION['maxtry'])) {
         @error_log('PluXml: Max login failed. IP : ' . plxUtils::getIp());
         // alert to display
         $msg = sprintf(L_ERR_MAXLOGIN, ($maxlogin['timer'] / 60));
-        $css = 'alert red';
+        $css = 'alert--danger';
     }
     if (time() > ($_SESSION['maxtry']['timer'] + $maxlogin['timer'])) {
         // reset brut force control if wait time is passed
@@ -93,7 +93,7 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and $css == '') {
         exit;
     } else {
         $msg = L_ERR_WRONG_PASSWORD;
-        $css = 'alert red';
+        $css = 'alert--danger';
     }
 }
 
@@ -101,11 +101,11 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and $css == '') {
 if (!empty($_POST['lostpassword_id'])) {
     if (!empty($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']))) {
         $msg = L_LOST_PASSWORD_SUCCESS;
-        $css = 'alert green';
+        $css = 'alert--success';
     } else {
         @error_log("Lost password error. ID : " . $_POST['lostpassword_id'] . " IP : " . plxUtils::getIp());
         $msg = L_UNKNOWN_ERROR;
-        $css = 'alert red';
+        $css = 'alert--danger';
     }
 }
 
@@ -115,10 +115,10 @@ if (!empty($_POST['editpassword'])) {
     unset($_SESSION['info']);
     $plxAdmin->editPassword($_POST);
     if (!empty($msg = isset($_SESSION['error']) ? $_SESSION['error'] : '')) {
-        $css = 'alert red';
+        $css = 'alert--danger';
     } else {
         if (!empty($msg = isset($_SESSION['info']) ? $_SESSION['info'] : '')) {
-            $css = 'alert green';
+            $css = 'alert--success';
         }
     }
     unset($_SESSION['error']);
@@ -195,7 +195,7 @@ plxUtils::cleanHeaders();
                     <div class="flex-container--column">
                         <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError')); ?>
                         <h1 class="h3-like txtcenter mam"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
-                        <div class="alert red"><?= L_LOST_PASSWORD_ERROR ?></div>
+                        <div class="alert--danger"><?= L_LOST_PASSWORD_ERROR ?></div>
                         <span class="btn--primary"><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></span>
                         <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) ?>
                     </div>
