@@ -35,8 +35,8 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 ?>
 
     <form action="profil.php" method="post" id="form_profil">
-        <div class="adminheader grid-6">
-            <div class="col-2 mbm">
+        <div class="adminheader">
+            <div class="mbm">
                 <h2 class="h3-like"><?= L_PROFIL_EDIT_TITLE ?></h2>
                 <input class="inbl btn--primary" type="submit" name="profil" role="button"
                        value="<?= L_PROFIL_UPDATE ?>"/>

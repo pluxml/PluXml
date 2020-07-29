@@ -27,11 +27,12 @@ if($emailBuild) {
 }
 
 ?>
-
-<div class="inline-form action-bar">
-	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
-	<p><?php echo L_PLUXML_CHECK_VERSION ?></p>
-	<?php $maj = $plxAdmin->checkMaj(); echo $maj; ?>
+<div class="adminheader">
+    <div class="mbm">
+        <h2 class="h3-like"><?= L_CONFIG_INFOS_TITLE ?></h2>
+        <p><?php echo L_PLUXML_CHECK_VERSION ?></p>
+        <?php $maj = $plxAdmin->checkMaj(); echo $maj; ?>
+    </div>
 </div>
 
 <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
