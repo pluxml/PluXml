@@ -732,7 +732,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				}
 			}
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aCats)>1) uasort($this->aCats, function($a, $b) { return $a["ordre"]>$b["ordre"]; });
+			if(sizeof($this->aCats)>1) uasort($this->aCats, function($a, $b) { return $a['ordre']>$b['ordre']; });
 		}
 
 		if(empty($save)) { return; }
@@ -851,7 +851,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			foreach($content['staticNum'] as $static_id) {
 				$stat_name = $content[$static_id . '_name'];
 				if(!empty($stat_name)) {
-					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id . '_url']) : '';
+					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id . '_url'], '-', true, true) : '';
 					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
 					if(empty($stat_url)) {
 						$stat_url = L_DEFAULT_NEW_STATIC_URL . '-' . $static_id;

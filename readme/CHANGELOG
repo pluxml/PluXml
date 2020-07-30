@@ -26,6 +26,7 @@ BY
 and it's work ;)
 
 ## PLUXML 5.9.0 legacy PHP 5.5 (2020.07.30) ##
+[+] plxUtils::urlify : New param validate & little touchs to solve complete url for static page #legacy
 Fix L_ERR_MAXLOGIN admin in 9 langs : % s >>> %s
 [+]wip&fixs: plxMotor + index + prepend + add categorie 000
    Fix preChauffageBegin bad url params go to homepage: #thx bazooka07 : https://forum.pluxml.org/discussion/comment/59555/#Comment_59555

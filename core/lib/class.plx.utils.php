@@ -514,10 +514,11 @@ class plxUtils {
 	 * @param	boolean	$remove		retire les mots sans valeur sémantique
 	 * @param	string	$replace
 	 * @param	boolean	$lower
+	 * @param	boolean	$validate (restitue tel quel si l'url est valide) : scope : Modifier les pages statiques
 	 * @return	string	valid URL
-	 * @author	J.P. Pourrez (bazooka07)
+	 * @author	J.P. Pourrez (bazooka07), T. Ingles (sudwebdesign)
 	 * */
-	public static function urlify($url, $replace='-', $lower=true) {
+	public static function urlify($url, $replace='-', $lower=true, $validate=false) {
 
 		$remove_words = array(
 			'en' => 'a|an|as|at|before|but|by|for|from|is|into|in|like|off?|on|onto|per|since|than|the|this|that|to|up|via|with',
@@ -527,8 +528,12 @@ class plxUtils {
 
 		$scheme = parse_url($url, PHP_URL_SCHEME);
 		if(!empty($scheme)) {
-			if($scheme == 'data') { return $url; }
-			$url = substr($url, strlen($scheme) + 3); // http://
+			if($scheme == 'data' or ($validate && filter_var($url, FILTER_VALIDATE_URL))) { return $url; }
+			$url = substr($url, strlen($scheme) + 3); # (sf|ht)tp?s:// & more
+			if(!$validate) {
+				$url = "$scheme $url";# Legacy Same as 5.7 scheme://host > scheme host == scheme-host at end :)
+				$scheme = '';
+			}
 		}
 
 		$clean_url = self::translitterate(trim(html_entity_decode($url)));
@@ -544,7 +549,7 @@ class plxUtils {
 		$clean_url = preg_replace('@[\s' . $replace . ']+@', $replace, $clean_url);
 
 		// remove non-alphanumeric character
-		$clean_url = trim(preg_replace('@[^\w\.-]+@', '', $clean_url), '-');
+		$clean_url = trim(preg_replace('@[^\w-]+@', '-', $clean_url), '-');#Legacy url + Fix : abcDe 0.9.0 test regex title ===  error 0001 // (no date in article list in admin) : filename have point (.) & go an error : 0001.000.001.202019060123.abcDe-0.9.0-test-regex-title.xml
 
 		if($lower) { $clean_url = strtolower($clean_url); }
 
