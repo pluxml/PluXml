@@ -26,13 +26,13 @@ BY
 and it's work ;)
 
 ## PLUXML 5.9.0 legacy PHP 5.5 (2020.07.30) ##
-
-wip&fixs: plxMotor + index + prepend + add categorie 000
-Fix preChauffageBegin bad url params go to homepage: #thx bazooka07 : https://forum.pluxml.org/discussion/comment/59555/#Comment_59555
-Fix categories.xml absent : les archives ne fonctionnent
-[+] plxMotor __construct : define('PLX_SITE_LANG', $this->aConf['default_lang']);#Moved in index.php & core/admin/prepend.php
-:+: Moved plxMotorConstruct hook after getTemplate (@ end of function)
-Fix Prepend on login (just after auth) : Notice: Undefined index: profil : isset() && == return to homepage! Why? : here is 1st time to add profile
+Fix L_ERR_MAXLOGIN admin in 9 langs : % s >>> %s
+[+]wip&fixs: plxMotor + index + prepend + add categorie 000
+   Fix preChauffageBegin bad url params go to homepage: #thx bazooka07 : https://forum.pluxml.org/discussion/comment/59555/#Comment_59555
+   Fix categories.xml absent : les archives ne fonctionnent
+   [+] plxMotor __construct : define('PLX_SITE_LANG', $this->aConf['default_lang']);#Moved in index.php & core/admin/prepend.php
+   :+: Moved plxMotorConstruct hook after getTemplate (@ end of function)
+   Fix Prepend on login (just after auth) : Notice: Undefined index: profil : isset() && == return to homepage! Why? : here is 1st time to add profile
 
 [+] Admin article & cats retail + add cat 000 text + fix regex
 [+] Medias.php + medias.js : New sys of breadcrumb with this [Fix breadcrumb of medias #472](https://github.com/pluxml/PluXml/pull/472/commits/7a1efee8a9984dc8556e87bdeffefebaa137cd36) (bazooka07)

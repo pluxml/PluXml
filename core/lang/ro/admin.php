@@ -117,7 +117,7 @@ const L_AUTH_LOST_FIELD = 'Username sau adresa de e-mail';
 const L_SUBMIT_BUTTON = 'OK';
 const L_ERR_WRONG_PASSWORD = 'Username sau parola incorecta';
 const L_POWERED_BY = 'Realizat de <a href="https://www.pluxml.org">PluXml</a>';
-const L_ERR_MAXLOGIN = 'Prea multe nu a reușit autentificare<br />Reîncercare în% s minute';
+const L_ERR_MAXLOGIN = 'Prea multe nu a reușit autentificare<br />Reîncercare în %s minute';
 const L_LOST_PASSWORD = 'Parola uitată?';
 const L_LOST_PASSWORD_LOGIN = 'Conectare';
 const L_LOST_PASSWORD_SUCCESS = 'Un e-mail a fost trimis utilizatorului';

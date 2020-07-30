@@ -117,7 +117,7 @@ const L_AUTH_LOST_FIELD = 'Login ou endereço de e-mail';
 const L_SUBMIT_BUTTON = 'Validar';
 const L_ERR_WRONG_PASSWORD = 'Login ou senha incorrecta';
 const L_POWERED_BY = 'Propulsado por: <a href="https://www.pluxml.org">PluXml</a>';
-const L_ERR_MAXLOGIN = 'Demasiados login falhou<br />Repetir em% s minutos';
+const L_ERR_MAXLOGIN = 'Demasiados login falhou<br />Repetir em %s minutos';
 const L_LOST_PASSWORD = 'Senha esquecida?';
 const L_LOST_PASSWORD_LOGIN = 'Conexão';
 const L_LOST_PASSWORD_SUCCESS = 'Um email foi enviado para o usuário';

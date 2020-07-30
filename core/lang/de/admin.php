@@ -128,7 +128,7 @@ const L_AUTH_LOST_FIELD = 'Benutzer oder E-Mail-Adresse';
 const L_SUBMIT_BUTTON = 'Anmelden';
 const L_ERR_WRONG_PASSWORD = 'Benutzername und/oder Passwort sind falsch';
 const L_POWERED_BY = 'Generiert von <a href="https://www.pluxml.org">PluXml</a>';
-const L_ERR_MAXLOGIN = 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in% s Minuten';
+const L_ERR_MAXLOGIN = 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in %s Minuten';
 const L_LOST_PASSWORD = 'Passwort vergessen?';
 const L_LOST_PASSWORD_LOGIN = 'Anmeldung';
 const L_LOST_PASSWORD_SUCCESS = 'Eine E-Mail wurde an den Benutzer gesendet';

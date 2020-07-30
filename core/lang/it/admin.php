@@ -117,7 +117,7 @@ const L_AUTH_LOST_FIELD = 'Indirizzo di accesso o e-mail';
 const L_SUBMIT_BUTTON = 'Collegati';
 const L_ERR_WRONG_PASSWORD = 'Nome utente e/o password non corretti';
 const L_POWERED_BY = 'Powered by <a href="https://www.pluxml.org">PluXml</a>';
-const L_ERR_MAXLOGIN = 'Troppi fallito login<br />Riprova tra% s minuti';
+const L_ERR_MAXLOGIN = 'Troppi fallito login<br />Riprova tra %s minuti';
 const L_LOST_PASSWORD = 'Password dimenticata&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Accesso';
 const L_LOST_PASSWORD_SUCCESS = 'E\' stata inviata una e-mail all\'utente';

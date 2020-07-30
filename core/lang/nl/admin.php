@@ -126,7 +126,7 @@ const L_AUTH_LOST_FIELD = 'Uw Login of e-mailadres';
 const L_SUBMIT_BUTTON = 'Verzenden';
 const L_ERR_WRONG_PASSWORD = 'Login en/of wachtwoord ongeldig';
 const L_POWERED_BY = 'Gegenereerd door <a href="https://www.pluxml.org">PluXml</a>';
-const L_ERR_MAXLOGIN = 'Te veel mislukte login<br />Probeer het over% s minuten';
+const L_ERR_MAXLOGIN = 'Te veel mislukte login<br />Probeer het over %s minuten';
 const L_LOST_PASSWORD = 'Wachtwoord vergeten?';
 const L_LOST_PASSWORD_LOGIN = 'Aanmelden';
 const L_LOST_PASSWORD_SUCCESS = 'Er is een e-mail verzonden naar de gebruiker';
