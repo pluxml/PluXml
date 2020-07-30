@@ -25,9 +25,9 @@ class plxMotor {
 	public $mode = false; # Mode de traitement
 	public $template = false; # Template d'affichage
 	public $cible = false; # Article, categorie ou page statique cible
-
-	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
-	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
+	#Fix categories.xml absent : les archives ne fonctionnent pas
+	public $activeCats = false;# Liste des categories actives sous la forme 001|002|003 etc
+	public $homepageCats = false;# Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
 	public $activeArts = array(); # Tableaux des articles appartenant aux catégories actives
 
 	public $aConf = array(  # Tableau de configuration. Valeurs par défaut.
@@ -131,7 +131,6 @@ class plxMotor {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
-		define('PLX_SITE_LANG', $this->aConf['default_lang']);
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
@@ -188,14 +187,14 @@ class plxMotor {
 		$this->getTags(path('XMLFILE_TAGS'));
 		$this->getUsers(path('XMLFILE_USERS'));
 
+		# Get templates from core/templates and data/templates
+		$this->getTemplates(self::PLX_TEMPLATES);
+		$this->getTemplates(self::PLX_TEMPLATES_DATA);
+
 		if(!empty($this->plxPlugins)) {
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxMotorConstruct'));
 		}
-
-		# Get templates from core/templates and data/templates
-		$this->getTemplates(self::PLX_TEMPLATES);
-		$this->getTemplates(self::PLX_TEMPLATES_DATA);
 	}
 
 	/**
@@ -210,6 +209,8 @@ class plxMotor {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) return;
+		#thx bazooka07 : https://forum.pluxml.org/discussion/comment/59555/#Comment_59555
+		if(!empty($this->get) and !preg_match('#^(?:blog|article\d|static\d|categorie\d|archives\d{4}|tag\w|preview|telechargementdownload)#', $this->get)) { $this->get = ''; }
 
 		if(!$this->get AND $this->aConf['homestatic']!='' AND isset($this->aStats[$this->aConf['homestatic']]) AND $this->aStats[$this->aConf['homestatic']]['active']) {
 			$this->mode = 'static'; # Mode static
@@ -376,10 +377,10 @@ class plxMotor {
 
 		if(in_array($this->mode, array('home', 'categorie', 'archives', 'tags'))) {
 			$_SESSION['previous'] = array(
-				'mode'	=> $this->mode,
-				'cible'	=> $this->cible,
-				'motif'	=> $this->motif,
-				'tri'	=> $this->tri,
+				'mode'  => $this->mode,
+				'cible' => $this->cible,
+				'motif' => $this->motif,
+				'tri'   => $this->tri,
 			);
 			$this->getPage(); # Recuperation du numéro de la page courante
 			if(!$this->getArticles()) { # Si aucun article
@@ -506,17 +507,41 @@ class plxMotor {
 	 *
 	 * @param	filename	emplacement du fichier XML des catégories
 	 * @return	null
-	 * @author	Stéphane F
+	 * @author	Stéphane F, Thomas "sudwebdesign" Ingles
 	 **/
 	public function getCategories($filename) {
 
 		if(defined('PLX_INSTALLER')) {
-			$this->aCats['001'] = array(
-			);
+			$this->aCats['001'] = array();
 			return;
 		}
 
-		if(!is_file($filename)) return;
+		# Catégorie Non classé (Params par défaut minimum) !Langues non chargées ici!
+		$uCat = array(
+			'name'							=> '', # L_UNCLASSIFIED, # nom de la catégorie
+			'description'				=> '', # nom de la description
+			'title_htmltag'			=> '', # balise title
+			'meta_description'	=> '', # L_UNCLASSIFIED, # meta description
+			'meta_keywords'			=> '', # L_UNCLASSIFIED, # meta keywords
+			'url'								=> 'unclassified', # plxUtils::urlify(L_UNCLASSIFIED), # url de la categorie
+			'tri'								=> $this->aConf['tri'], # tri de la categorie si besoin est
+			'bypage'						=> $this->bypage, # nb d'articles par page de la categorie si besoin est
+			'template'					=> 'categorie.php', # fichier template
+			'menu'							=> 'non', # état affichage de la catégorie dans le menu
+			'active'						=> '1', # activation de la catégorie dans le menu
+			'homepage'					=> '1', # affichage en page d'accueil
+			'articles'					=> 0,
+			# Non-régression pour PluXml < 5.8.1 - informations de l'image représentant la catégorie.
+			'thumbnail'					=> '',
+			'thumbnail_title'		=> '',
+			'thumbnail_alt'			=> '',
+		);
+
+		#safe
+		$this->homepageCats = 'home|000';
+		$this->activeCats = '000';
+
+		if(!is_file($filename)) {$this->aCats['000'] = $uCat; return;}
 
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
@@ -526,8 +551,8 @@ class plxMotor {
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
 
-		$activeCats = array('000'); # on rajoute la catégorie 'Non classée'
-		$homepageCats = array('000'); # on rajoute la catégorie 'Non classée'
+		$activeCats = array('home'); # on rajoute la catégorie 'home' (plxShow::artCats() homepage FIx (swd)) # Old: '000'
+		$homepageCats = array(); # on rajoute la catégorie 'Non classée' Old: '000'
 
 		if(isset($iTags['categorie']) AND isset($iTags['name'])) {
 			$nb = sizeof($iTags['name']);
@@ -579,6 +604,15 @@ class plxMotor {
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxMotorGetCategories'));
 			}
+		}
+
+		if(!isset($this->aCats['000'])) {#At end, preserve order when save list
+			$this->aCats['000'] = $uCat;
+			$activeCats[] = '000';
+		}
+		else if($this->aCats['000']['active'] != '1') {# 000 always active
+			$this->aCats['000']['active'] = '1';
+			$activeCats[] = '000';
 		}
 
 		$this->homepageCats = implode('|', $homepageCats);

@@ -44,9 +44,10 @@ header('Content-Type: text/html; charset='.PLX_CHARSET);
 
 # Creation de l'objet principal et premier traitement
 $plxAdmin = plxAdmin::getInstance();
+define('PLX_SITE_LANG', $plxAdmin->aConf['default_lang']);
 
 if(defined('PLX_AUTHPAGE')) {
-	$lang = $plxAdmin->aConf['default_lang'];
+	$lang = PLX_SITE_LANG;
 } else {
 	# Si désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
 	if(empty($_SESSION['user']) OR !$plxAdmin->aUsers[$_SESSION['user']]['active'] OR $plxAdmin->aUsers[$_SESSION['user']]['delete']) {
@@ -57,8 +58,8 @@ if(defined('PLX_AUTHPAGE')) {
 	# Détermination de la langue à utiliser (modifiable par le hook AdminPrepend)
 	$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
 
-	# Change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
-	if($plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
+	# Donne ou change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
+	if(!isset($_SESSION['profil']) OR $_SESSION['profil'] != $plxAdmin->aUsers[$_SESSION['user']]['profil'])
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
 }
 

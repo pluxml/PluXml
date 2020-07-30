@@ -3,7 +3,7 @@ const PLX_ROOT = './';
 include PLX_ROOT . 'core/lib/config.php'; # Autochargement des classes
 
 # On démarre la session
-session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
+session_set_cookie_params(0, '/', $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
 
 # Creation de l'objet principal et lancement du traitement
@@ -11,6 +11,7 @@ $plxMotor = plxMotor::getInstance();
 
 # Détermination de la langue à utiliser (modifiable par le hook : Index)
 $lang = $plxMotor->aConf['default_lang'];
+define('PLX_SITE_LANG', $lang);
 
 # Hook Plugins
 eval($plxMotor->plxPlugins->callHook('Index'));

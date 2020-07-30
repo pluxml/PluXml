@@ -7,7 +7,34 @@ Tweak plugin : admin.css for fix long notifs not hidden at end of moved (hide) p
 }
 ```
 
-## PLUXML 5.9.0 legacy PHP 5.5 (2020.06.07) ##
+Art titile débug
+
+&é"'(-è_çà)=azertyuiopqsdfghjklmù*<wxcvbn,;:!  AZERTYUIOPQSDFGHJKLM%µ>WXCVBN?./§
+
+http://localhost/pluxml-5.6.dev/article4/e-e-ca-azertyuiopqsdfghjklmu-wxcvbn-azertyuiopqsdfghjklm-wxcvbn
+http://localhost/pluxml-5.7.dev/article9/e-e-ca-azertyuiopqsdfghjklmu-wxcvbn-azertyuiopqsdfghjklm-wxcvbn
+http://localhost/pluxml-5.9.dev/article8/e-e_caazertyuiopqsdfghjklmuwxcvbn-azertyuiopqsdfghjklmwxcvbn
+
+5.8.3 error when save : +++ Warning: preg_match(): Unknown modifier '/' in /var/www/pluxml-5.8.3.dev/core/admin/article.php on line 105
+REPLACE in plxUtils::urlify()
+		// remove non-alphanumeric character
+		$clean_url = trim(preg_replace('@[^\w\.-]+@', '', $clean_url), '-');
+BY
+		// remove non-alphanumeric character
+		$clean_url = trim(preg_replace('@[^\w-]+@', '', $clean_url), '-');
+
+and it's work ;)
+
+## PLUXML 5.9.0 legacy PHP 5.5 (2020.07.30) ##
+
+wip&fixs: plxMotor + index + prepend + add categorie 000
+Fix preChauffageBegin bad url params go to homepage: #thx bazooka07 : https://forum.pluxml.org/discussion/comment/59555/#Comment_59555
+Fix categories.xml absent : les archives ne fonctionnent
+[+] plxMotor __construct : define('PLX_SITE_LANG', $this->aConf['default_lang']);#Moved in index.php & core/admin/prepend.php
+:+: Moved plxMotorConstruct hook after getTemplate (@ end of function)
+Fix Prepend on login (just after auth) : Notice: Undefined index: profil : isset() && == return to homepage! Why? : here is 1st time to add profile
+
+[+] Admin article & cats retail + add cat 000 text + fix regex
 [+] Medias.php + medias.js : New sys of breadcrumb with this [Fix breadcrumb of medias #472](https://github.com/pluxml/PluXml/pull/472/commits/7a1efee8a9984dc8556e87bdeffefebaa137cd36) (bazooka07)
 [+] Improve Auth Brand Thumbnail (optional logo) : auth.php + admin theme.css : With Parameters > Settings display > Thumbnail (optional) field (sudwebdesign)
 
