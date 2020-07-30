@@ -92,7 +92,7 @@ function loadLang($filename) {
 	if(file_exists($filename)) {
 		include_once $filename;
 
-		# Compatibilité avec anciennes versions de PluXml. Deprecated !
+		# Compatibilité avec anciennes versions de PluXml. Deprecated ! (swd) Why? it's util for plugins !
 		if(!empty($LANG)) {
 			foreach($LANG as $key => $value) {
 				if(!defined($key)) define($key,$value);
