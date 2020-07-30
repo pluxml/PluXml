@@ -335,7 +335,7 @@ class plxShow {
 	 * @param	string	$include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
 	 * @param	string	$exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
 	 * @scope	global
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, J.P. Pourrez, Thomas I.
 	 **/
 	public function catList($extra='', $format='<li id="#cat_id" class="#cat_status"><a href="#cat_url" title="#cat_name">#cat_name</a></li>', $include='', $exclude='') {
 		# Hook Plugins
@@ -343,13 +343,33 @@ class plxShow {
 
 		# Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
 		if($extra != '') {
+
+			# on récupere le nombre d'article en page d'accueil
+			$arts = 0;
+			if($this->plxMotor->mode!='home'){
+				# Recuperation du nombre d'article de la categorie 'home'
+				$motif = '#^\d{4}\.(home[\d,]*)\..*\.xml$#';#have art(s) in 'home' cat
+				$arts = $this->plxMotor->plxGlob_arts->query($motif,'art','',0,false,'before');
+				# Si aucun article, on élargie le champ de recherche
+				if(empty($arts)){
+					$motif = '#^\d{4}\.([\d,'.$this->plxMotor->homepageCats.']*)\..*\.xml$#';
+				}
+			}
+			else{#mode home
+				$motif = $this->plxMotor->motif;
+			}
+			$arts = $arts? $arts: $this->plxMotor->plxGlob_arts->query($motif,'art','',0,false,'before');
+			$arts = !empty($arts)? sizeof($arts): 0;
+
 			echo strtr($format, array(
 				'#cat_id'		=> 'cat-home',
 				'#cat_url'		=> $this->plxMotor->urlRewrite(),
 				'#cat_name'		=> plxUtils::strCheck($extra),
-				'#cat_status'	=> ($this->catId() == 'home') ? 'active' : 'noactive',
-				'#art_nb'		=> ''
+				'#cat_status'	=> ($this->catId() !== 'home'? 'no': '') . 'active',
+				'#art_nb'		=> $arts
 			));
+
+			unset($arts);
 		}
 
 		# On verifie qu'il y a des categories
@@ -370,7 +390,7 @@ class plxShow {
 							'#cat_id'			=> 'cat-' . intval($k),
 							'#cat_url'			=> $this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),
 							'#cat_name'			=> plxUtils::strCheck($v['name']),
-							'#cat_status'		=> ($this->catId() == intval($k)) ? 'active' : 'noactive',
+							'#cat_status'		=> ($this->catId() !== intval($k) ? 'no': '') . 'active',
 							'#cat_description'	=> plxUtils::strCheck($v['description']),
 							'#art_nb'			=> $v['articles']
 						));
@@ -384,8 +404,8 @@ class plxShow {
 	 * Méthode qui retourne l'id de la catégorie en question (sans les 0 supplémentaires)
 	 *
 	 * @return	int ou string
-	 * @scope	home,categorie,article,tags,archives
-	 * @author	Florent MONTHEL
+	 * @scope	home,categorie,article(,tags,archives)
+	 * @author	Florent MONTHEL, Thomas INGLES
 	 **/
 	public function catId() {
 
@@ -396,8 +416,11 @@ class plxShow {
 		if($this->plxMotor->mode == 'article' AND isset($this->plxMotor->aCats[ $this->plxMotor->plxRecord_arts->f('categorie') ]))
 			return intval($this->plxMotor->plxRecord_arts->f('categorie'));
 		# On va vérifier si c'est la catégorie home
-		if($this->plxMotor->mode == 'categorie' OR $this->plxMotor->mode == 'home' OR $this->plxMotor->mode == 'article')
-			return 'home';
+		switch($this->plxMotor->mode){
+			case'home':case'categorie':case'article':#case'archive':case'tags':
+				return 'home';break;
+			default:return 1000; break;#to high : max is 999 : preserve '000' of intval($k) in this catList()
+		}
 	}
 
 	/**
@@ -454,6 +477,9 @@ class plxShow {
 		if($this->plxMotor->mode == 'categorie' AND isset($this->plxMotor->aCats[$this->plxMotor->cible])) {
 			# On recupere les infos de la categorie
 			$id = $this->plxMotor->cible;
+			if($id == '000' AND empty($this->plxMotor->aCats[$id]['name'])) {
+				$this->plxMotor->aCats[$id]['name'] = L_UNCLASSIFIED;
+			}
 			$name = plxUtils::strCheck($this->plxMotor->aCats[$id]['name']);
 			$url = $this->catUrl($id);
 			# On effectue l'affichage
@@ -749,6 +775,9 @@ class plxShow {
 		$cats = array();
 		# Initialisation de notre variable interne
 		$catIds = $this->artActiveCatIds();
+		if(empty($this->plxMotor->aCats[ '000' ]['name'])) {
+			$this->plxMotor->aCats[ '000' ]['name'] = L_UNCLASSIFIED;
+		}
 		foreach ($catIds as $idx => $catId) {
 			# On verifie que la categorie n'est pas "home"
 			if($catId != 'home') {
@@ -758,9 +787,9 @@ class plxShow {
 					$name = plxUtils::strCheck($this->plxMotor->aCats[ $catId ]['name']);
 					$url = $this->plxMotor->aCats[ $catId ]['url'];
 					if(isset($this->plxMotor->aCats[ $this->plxMotor->cible ]['url']))
-						$active = $this->plxMotor->aCats[ $this->plxMotor->cible ]['url']==$url?"active":"noactive";
+						$active = ($this->plxMotor->aCats[ $this->plxMotor->cible ]['url']==$url?'':'no') . 'active';
 					else
-						$active = "noactive";
+						$active = 'noactive';
 					# On effectue l'affichage
 					$cats[] = '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$url).'" title="'.$name.'">'.$name.'</a>';
 				} else { # La categorie n'existe pas
@@ -791,9 +820,9 @@ class plxShow {
 			$tags = array_map('trim', explode(',', $taglist));
 			foreach($tags as $idx => $tag) {
 				echo strtr($format, array(
-					'#tag_url'		=> $this->plxMotor->urlRewrite('?tag/' . plxUtils::urlify($tag)),
-					'#tag_name'		=> plxUtils::strCheck($tag),
-					'#tag_status'	=> ($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$tag) ? 'active' : 'noactive'
+					'#tag_url'    => $this->plxMotor->urlRewrite('?tag/' . plxUtils::urlify($tag)),
+					'#tag_name'   => plxUtils::strCheck($tag),
+					'#tag_status' => ($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$tag) ? 'active' : 'noactive'
 				));
 				if ($idx!=sizeof($tags)-1) echo $separator . ' ';
 			}
@@ -995,7 +1024,7 @@ class plxShow {
 	 **/
 	public function nbAllArt($f1='L_NO_ARTICLE',$f2='#nb L_ARTICLE',$f3='#nb L_ARTICLES') {
 
-		$nb = $this->plxMotor->nbArticles('published', '[0-9]{3}', '', 'before');
+		$nb = $this->plxMotor->nbArticles('published', '[\d]{3}', '', 'before');
 
 		if($nb==0)
 			$txt = str_replace('L_NO_ARTICLE', L_NO_ARTICLE, $f1);
@@ -1033,7 +1062,7 @@ class plxShow {
 			if(is_numeric($catId)) {
 				$catList = str_pad($catId, 3, '0', STR_PAD_LEFT);
 			} elseif(preg_match_all('@\d{3}@', $catId, $matches)) { # Pas capture, on utilisera $matches[0]
-				$catList = '(?:' . implode('|', $matches[0]) . ')';
+				$catList = implode('|', $matches[0]);
 			} else {
 				# $cat_id est l'Url de la catégorie
 				if(preg_match('@([^/#]+)(?:#.*)$@', $catId, $matches)) {
@@ -1050,7 +1079,7 @@ class plxShow {
 			}
 		}
 
-		$motif = '@\d{4}\.(?:home,|\d{3},)*'. $catList . '(?:,\d{3})*\..*\.xml$@';
+		$motif = '@^\d{4}\.[?:\d{3}|home]+[?:,' . $catList . ']*\.\d{3}\..*\.xml$@';#ok with '000'
 
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
@@ -1671,47 +1700,61 @@ class plxShow {
 	 * Méthode qui affiche la pagination
 	 *
 	 * @scope	global
-	 * @author	Florent MONTHEL, Stephane F
+	 * @author	Florent MONTHEL, Stephane F, Thomas Ingles
 	 **/
-	public function pagination() {
+	public function pagination($meta=false) {
+		if (!$this->plxMotor->motif) return;# fix 4 canonical (on error pg) : Warning: preg_match(): Empty regular expression in core/lib/class.plx.glob.php on line 118
 
-		$capture = '';
-		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
-		$aFiles = $plxGlob_arts->query($this->plxMotor->motif,'art','',0,false,'before');
+		if(!isset($_SERVER['pages'])) {
+			$_SERVER['pages'] = array();# first, prev, next, last pages
+			$capture = '';
+			$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
+			$aFiles = $plxGlob_arts->query($this->plxMotor->motif,'art','',0,false,'before');
 
-		if($aFiles AND $this->plxMotor->bypage AND sizeof($aFiles)>$this->plxMotor->bypage) {
+			if($aFiles AND $this->plxMotor->bypage AND sizeof($aFiles)>$this->plxMotor->bypage) {
 
-			# on supprime le n° de page courante dans l'url
-			$arg_url = $this->plxMotor->get;
-			if(preg_match('/(\/?page[0-9]+)$/',$arg_url,$capture)) {
-				$arg_url = str_replace($capture[1], '', $arg_url);
+				# on supprime le n° de page courante dans l'url
+				$arg_url = $this->plxMotor->get;
+				if(preg_match('~(\/?page[\d]+)$~',$arg_url,$capture)) {
+					$arg_url = str_replace($capture[1], '', $arg_url);
+				}
+				# Calcul des pages
+				$prev_page = $_SERVER['prev_page'] = $this->plxMotor->page - 1;
+				$next_page = $_SERVER['next_page'] = $this->plxMotor->page + 1;
+				$last_page = $_SERVER['last_page'] = ceil(sizeof($aFiles)/$this->plxMotor->bypage);
+				# Generation des URLs
+				$_SERVER['pages']['f'] = $this->plxMotor->urlRewrite('?'.$arg_url); # Premiere page
+				$arg_url = (!empty($arg_url) AND $prev_page>1) ? $arg_url.'/' : $arg_url;
+				$_SERVER['pages']['p'] = $this->plxMotor->urlRewrite('?'.$arg_url.($prev_page<=1?'':'page'.$prev_page)); # Page precedente
+				$arg_url = !empty($arg_url) ? $arg_url.'/' : $arg_url;
+				$_SERVER['pages']['n'] = $this->plxMotor->urlRewrite('?'.$arg_url.'page'.$next_page); # Page suivante
+				$_SERVER['pages']['l'] = $this->plxMotor->urlRewrite('?'.$arg_url.'page'.$last_page); # Derniere
 			}
-			# Calcul des pages
-			$prev_page = $this->plxMotor->page - 1;
-			$next_page = $this->plxMotor->page + 1;
-			$last_page = ceil(sizeof($aFiles)/$this->plxMotor->bypage);
-			# Generation des URLs
-			$f_url = $this->plxMotor->urlRewrite('?'.$arg_url); # Premiere page
-			$arg = (!empty($arg_url) AND $prev_page>1) ? $arg_url.'/' : $arg_url;
-			$p_url = $this->plxMotor->urlRewrite('?'.$arg.($prev_page<=1?'':'page'.$prev_page)); # Page precedente
-			$arg = !empty($arg_url) ? $arg_url.'/' : $arg_url;
-			$n_url = $this->plxMotor->urlRewrite('?'.$arg.'page'.$next_page); # Page suivante
-			$l_url = $this->plxMotor->urlRewrite('?'.$arg.'page'.$last_page); # Derniere page
+		}
+		if(!empty($_SERVER['pages'])) {
+			# Recreate vars #Legacy
+			$prev_page = $_SERVER['prev_page'];
+			$next_page = $_SERVER['next_page'];
+			$last_page = $_SERVER['last_page'];
+			foreach($_SERVER['pages'] as $a => $url) {
+				$a .= '_url';
+				$$a = $url;
+			}unset($a);
 
 			# Hook Plugins
 			if(eval($this->plxMotor->plxPlugins->callHook('plxShowPagination'))) return;
 
 			# On effectue l'affichage
 			if($this->plxMotor->page > 2) # Si la page active > 2 on affiche un lien 1ere page
-				echo '<span class="p_first"><a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">'.L_PAGINATION_FIRST.'</a></span>&nbsp;';
+				echo $meta? '	<link rel="first" href="'.$f_url.'">' . PHP_EOL :'<span class="p_first"><a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">'.L_PAGINATION_FIRST.'</a></span>&nbsp;';
 			if($this->plxMotor->page > 1) # Si la page active > 1 on affiche un lien page precedente
-				echo '<span class="p_prev"><a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">'.L_PAGINATION_PREVIOUS.'</a></span>&nbsp;';
+				echo $meta? '	<link rel="prev" href="'.$p_url.'">' . PHP_EOL :'<span class="p_prev"><a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">'.L_PAGINATION_PREVIOUS.'</a></span>&nbsp;';
 			# Affichage de la page courante
-			printf('<span class="p_page p_current">'.L_PAGINATION.'</span>',$this->plxMotor->page,$last_page);
+			if(!$meta) printf('<span class="p_page p_current">'.L_PAGINATION.'</span>',$this->plxMotor->page,$last_page);
 			if($this->plxMotor->page < $last_page) # Si la page active < derniere page on affiche un lien page suivante
-				echo '&nbsp;<span class="p_next"><a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">'.L_PAGINATION_NEXT.'</a></span>';
+				echo $meta? '	<link rel="next" href="'.$n_url.'">' . PHP_EOL :'&nbsp;<span class="p_next"><a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">'.L_PAGINATION_NEXT.'</a></span>';
 			if(($this->plxMotor->page + 1) < $last_page) # Si la page active++ < derniere page on affiche un lien derniere page
-				echo '&nbsp;<span class="p_last"><a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">'.L_PAGINATION_LAST.'</a></span>';
+				echo $meta? '	<link rel="last" href="'.$l_url.'">' . PHP_EOL :'&nbsp;<span class="p_last"><a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">'.L_PAGINATION_LAST.'</a></span>';
 		}
 	}
 
@@ -1720,7 +1763,7 @@ class plxShow {
 	 *
 	 * @param string $format the template to display
 	 * @param string $buttons buttons list to display
-	 * @author Jean-Pierre Pourrez "bazooka07", sudwevdesign
+	 * @author Jean-Pierre Pourrez "bazooka07", Thomas Ingles "SudWebDesign"
 	 */
 	public function artNavigation($format='<li><a href="#url" rel="#dir" title="#title">#icon</a></li>', $buttons='first prev next last up') {
 
@@ -1738,6 +1781,18 @@ class plxShow {
 				if($direction != 'up') {
 					# Get the article for the given direction
 					$filename = PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $_SESSION['previous']['artIds'][$direction];
+					# If renamed, delete or in draft
+					if(!file_exists($filename)){
+						$art = $this->plxMotor->artInfoFromFilename($filename);# Get info artId, catId, usrId, artDate, artUrl : note artUrl maybe changed, only for id
+						$motif = '#^'.$art['artId'].'.(?:\d|home|,)*(?:'.$art['catId'].'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#';# Motif de recherche
+						if($aFile = $this->plxMotor->plxGlob_arts->query($motif,'art',$this->plxMotor->tri,0,1,'before')) {# From plxMotor getArticles()
+							$_SESSION['previous']['artIds'][$direction] = $aFile[0];#change
+							$filename = PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $aFile[0];
+						}else{
+							unset($_SESSION['previous']['artIds'][$direction]);# Art unexist or draft now?
+							return;
+						}
+					}
 					$art = $this->plxMotor->parseArticle($filename);
 					$query = '?article' . intval($art['numero']) . '/' . $art['url'];
 					$title = $art['title'];
@@ -1769,8 +1824,8 @@ class plxShow {
 							$bypage = $this->plxMotor->bypage;
 					}
 
-					if(strpos($format, '<link') === false) {
-						$page = intval(ceil($_SESSION['previous']['position'] / $bypage));
+					if(strpos($format, '<link') === false and isset($_SESSION['previous']['position'])) {
+						$page = intval(ceil($_SESSION['previous']['position'] / $bypage));#from art go to one tag & GOBACK : Notice: Undefined index: position
 						if($page > 1) {
 							$query .= (($mode != 'home') ? '/page' : '?page') . $page;
 						}
@@ -1788,7 +1843,7 @@ class plxShow {
 				echo strtr($format, array(
 					'#url'		=> $this->plxMotor->urlRewrite($query),
 					'#dir'		=> $direction,
-					'#title'	=> $title,
+					'#title'	=> plxUtils::strCheck($title),#Fix : &é"'(-è_çà)=azertyuiopqsdfghjklmù*<wxcvbn,;:! AZERTYUIOPQSDFGHJKLM%µ>WXCVBN?./§
 					'#caption'	=> $caption,
 					'#icon'		=> $icon,
 					'#emoji'	=> $emoji,
@@ -1803,7 +1858,7 @@ class plxShow {
 	 * @author Jean-Pierre Pourrez "Bazooka07"
 	 */
 	public function artNavigationRange() {
-		if(empty($_SESSION['previous']) or $_SESSION['previous']['count'] == 0) {
+		if(empty($_SESSION['previous'])	or !isset($_SESSION['previous']['count'])	or $_SESSION['previous']['count'] == 0) {#from art go to one tag & GOBACK : Notice: Undefined index: count
 			return;
 		}
 ?>
@@ -1814,7 +1869,7 @@ class plxShow {
 	/**
 	 * Display the canonical link
 	 *
-	 * @author Jean-Pierre Pourrez "Bazooka07"
+	 * @author Jean-Pierre Pourrez "Bazooka07", Thomas Ingles "SudWebDesign"
 	 */
 	public function canonical() {
 		$id = $this->plxMotor->cible;
@@ -1824,11 +1879,14 @@ class plxShow {
 			case 'archives'		: $query = '?archives/' . $id; break;
 			case 'static'		: $query = '?static' . intval($id) . '/' . $this->plxMotor->aStats[$id]['url']; break;
 			case 'article'		: $query = '?article' . intval($id) . '/' . $this->plxMotor->plxRecord_arts->f('url'); break;
-			default				: $query = '';
+			default				: $query = $this->plxMotor->get;
 		}
+		# Hook Plugins
+		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCanonical'))) return;#unofficial (sudwebdesign)
 ?>
-	<link rel="canonical" href="<?= $this->plxMotor->aConf['racine'] . 'index.php' . $query ?>" />
+	<link rel="canonical" href="<?= $this->plxMotor->urlRewrite($query) ?>" />
 <?php
+		$this->pagination(true);#links rel first, prev, next, last
 	}
 
 	/**
@@ -2289,7 +2347,7 @@ class plxShow {
 	 *
 	 * @param	  mode		the view mode from plxMotor->mode (categorie, tags, home)
 	 * @return	 string	  the contextualised rss feed URL
-	 * @author	 Pedro "P3ter" CADETE, J.P. Pourrez "bazooka07"
+	 * @author	 Pedro "P3ter" CADETE, J.P. Pourrez "bazooka07", Thomas Ingles
 	 */
 	public function urlPostsRssFeed($mode = false) {
 		if(empty($mode)) {
@@ -2298,11 +2356,10 @@ class plxShow {
 
 		switch ($mode) {
 			case 'categorie':
-				$query = $query = 'rss/categorie' . $categorie . '/' . $this->plxMotor->aCats[$this->plxMotor->cible]['url'];
+				$query = $query = 'rss/categorie' . intval($this->plxMotor->cible) . '/' . $this->plxMotor->aCats[$this->plxMotor->cible]['url'];#Fix Notice: Undefined variable: categorie
 				break;
 			case 'tags':
-				$tag = plxUtils::strCheck($this->plxMotor->cible);
-				$query = 'rss/tag/' . plxUtils::strCheck($tag);
+				$query = 'rss/tag/' . plxUtils::strCheck($this->plxMotor->cible);;
 				break;
 			default :
 				$query = 'rss'; # in fact, as mode == 'home'

@@ -26,6 +26,19 @@ BY
 and it's work ;)
 
 ## PLUXML 5.9.0 legacy PHP 5.5 (2020.07.30) ##
+[+] plxShow fixes & improve
+   catlist() good home arts number
+   catId() to switch retail
+   Finish cat 000
+
+   Fix pagination( + $meta=false)
+   Fix artNavigation
+
+   Fix canonical() + Hook Plugins #unofficial (sudwebdesign)
+   +if(eval($this->plxMotor->plxPlugins->callHook('plxShowCanonical'))) return;
+
+   Fix urlPostsRssFeed()
+
 [+] plxPlugins details
 [+] plxUtils::urlify : New param validate & little touchs to solve complete url for static page #legacy
 Fix L_ERR_MAXLOGIN admin in 9 langs : % s >>> %s
