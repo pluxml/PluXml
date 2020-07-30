@@ -102,7 +102,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		# Vérification de l'unicité de l'url
 		$url = plxUtils::urlify(!empty($_POST['url']) ? $_POST['url'] : $_POST['title']);
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
-			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.$url.xml$/", $filename)) {
+			if(preg_match('~^[\d]{4}\.[\d,|home|draft]*\.[\d]{3}\.[\d]{12}\.'.$url.'\.xml$~', $filename)) {#swd
 				if($numart!=str_replace('_', '',$_POST['artId'])) {
 					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($url)) AND $valid;
 				}
@@ -209,7 +209,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleParseData'));
 
 } else { # On a rien validé, c'est pour la création d'un article
-	$title = plxUtils::strRevCheck(L_NEW_ARTICLE);
+	$title = '';#plxUtils::strRevCheck(L_NEW_ARTICLE);
 	$chapo = $url = '';
 	$content = '';
 	$tags = '';
@@ -325,8 +325,8 @@ function refreshImg(dta) {
 				<div class="grid">
 					<div class="col sml-12">
 						<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
-						<label for="id_title"><?php echo L_TITLE ?>&nbsp;:</label>
-						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
+						<label for="id_title"><?php echo L_TITLE ?>&nbsp;*&nbsp;:</label>
+						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width',plxUtils::strCheck((empty($title)? L_NEW_ARTICLE: $title) . ' (' . L_TITLE . ' >>> ' . L_URL . ')'),'required'); ?>
 					</div>
 				</div>
 				<div class="grid">
@@ -469,12 +469,15 @@ function refreshImg(dta) {
 					<div class="col sml-12">
 						<label><?php echo L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 						<?php
-							$selected = (is_array($catId) AND in_array('000', $catId)) ? ' checked="checked"' : '';
-							echo '<label for="cat_unclassified"><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"'.$selected.' value="000" />&nbsp;'. L_UNCLASSIFIED .'</label>';
 							$selected = (is_array($catId) AND in_array('home', $catId)) ? ' checked="checked"' : '';
 							echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"'.$selected.' value="home" />&nbsp;'. L_HOMEPAGE .'</label>';
 							foreach($plxAdmin->aCats as $cat_id => $cat_name) {
 								$selected = (is_array($catId) AND in_array($cat_id, $catId)) ? ' checked="checked"' : '';
+								if($cat_id === '000') {
+									$selected .= ' disabled="disabled"';
+									if(empty($cat_name['name']))
+										$cat_name['name'] = L_UNCLASSIFIED;
+								}
 								if($plxAdmin->aCats[$cat_id]['active'])
 									echo '<label for="cat_'.$cat_id.'">'.'<input type="checkbox" class="no-margin" id="cat_'.$cat_id.'" name="catId[]"'.$selected.' value="'.$cat_id.'" />&nbsp;'.plxUtils::strCheck($cat_name['name']).'</label>';
 								else

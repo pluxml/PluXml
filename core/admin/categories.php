@@ -75,6 +75,13 @@ include __DIR__ .'/top.php';
 			# Si on a des catégories
 			if($plxAdmin->aCats) {
 				foreach($plxAdmin->aCats as $k=>$v) { # Pour chaque catégorie
+
+					# Non Classé(s) For 1st install or update
+					if($k == '000' and empty($v['name'])){# defaults is set in plxMotor::getCategories()
+						$v['name'] = L_UNCLASSIFIED;#defaut : is ''
+						$v['url'] = plxUtils::urlify($v['name']);#defaut : unclassified
+					}
+
 					echo '<tr>';
 					echo '<td><input type="checkbox" name="idCategory[]" value="'.$k.'" /><input type="hidden" name="catNum[]" value="'.$k.'" /></td>';
 					echo '<td>'.$k.'</td><td>';
