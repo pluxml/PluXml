@@ -147,7 +147,7 @@ class plxPlugins {
 	 * @author	Stephane F
 	 **/
 	public function getInfos() {
-		foreach($this->aPlugins as $plugName => $plugInstance) {
+		foreach($this->aPlugins as $plugInstance) {
 			$plugInstance->getInfos();
 		}
 	}
@@ -303,7 +303,7 @@ class plxPlugins {
 	 *
 	 * @param	type		type du fichier (admin|site)
 	 * @return	boolean		vrai si cache généré
-	 * @author	Stephane F
+	 * @author	Stephane F, Thomas Ingles
 	 **/
 	public function cssCache($type) {
 
@@ -315,8 +315,8 @@ class plxPlugins {
 				PLX_PLUGINS."$plugName/css/$type"
 			);
 			foreach($filesList as $filename) {
-				if(is_file($filename)) {
-					$cache .= trim(file_get_contents($filename));
+				if(is_file($filename) AND !empty($tmp = trim(file_get_contents($filename)))) {
+					$cache .= $tmp;
 					break;
 				}
 			}
