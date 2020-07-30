@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
 	<title>
-		<![CDATA[defaut]]>
+		<![CDATA[defaut 5.9.0]]>
 	</title>
 	<author>
-		<![CDATA[PluXml]]>
+		<![CDATA[PluXml, SudWebDesign]]>
 	</author>
-	<version>5.8</version>
-	<date>03/01/2020</date>
-	<site>https://www.pluxml.org</site>
+	<version>5.9.0</version>
+	<date>30/07/2020</date>
+	<site>https://sudwebdesign.free.fr</site>
 	<description>
-		<![CDATA[Thème par défaut de PluXml 5.8]]>
+		<![CDATA[Thème par défaut de PluXml 5.9.0]]>
 	</description>
 </document>

@@ -13,8 +13,8 @@
 						<li><?php $plxShow->catName(); ?></li>
 					</ul>
 
-					<p><?php $plxShow->catDescription('#cat_description'); ?></p>
-					<p><?php $plxShow->catThumbnail(); ?></p>
+					<?php $plxShow->catDescription(); ?>
+					<?php $plxShow->catThumbnail(); ?>
 
 					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 

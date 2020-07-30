@@ -27,7 +27,7 @@ body {
 	--header-height: 7rem;
 	--header-padding-top: 1.3rem;
 	--bg-height: 250px;
-	font-family: 'open_sansregular', sans-serif;
+	font-family: 'open_sans', sans-serif;
 	font-size: 1.7em;
 	line-height: 1.6em;
 	color: #3A4145;
@@ -86,20 +86,20 @@ ul.menu {}
 	border-bottom: 3px solid transparent;
 }
 .menu a:hover {
-	border-bottom: 3px solid #222;
+	border-color: #222;
 }
 .menu>li>span {
 	cursor: default;
 }
 .menu>li ul {/* sub menu */
-/*	display: block; open/close effect if .menu .sub-menu in @media display: block is commented */
 	position: absolute;
 	padding: 0 0.35rem;
 	line-height: 2.8rem;
+	overflow-y: auto;
 	z-index: 10;
 }
 
-.menu > li:last-of-type ul {
+.menu>li:last-of-type ul {/* sub menu */
 	right: 0;
 }
 .menu>li:not(:hover) ul {/* show sub menu */
@@ -111,6 +111,9 @@ ul.menu {}
 	padding: 0 1rem;
 	background-color: #fff;
 	text-align: left;
+}
+.menu ul li:last-of-type {
+	padding-bottom: 0.35rem;
 }
 .menu .sub-menu {
 	overflow-y: auto;
@@ -162,6 +165,9 @@ ul.menu a.noactive{
 	color: #258fd6;
 
 }
+.menu.breadcrumb li a{
+	display:inline
+}
 /* ---------- Main ---------- */
 
 .main {
@@ -172,7 +178,6 @@ ul.menu a.noactive{
 .repertory {
 	margin-top: 4rem;
 }
-
 
 /* ------- Pagination ------- */
 
@@ -385,6 +390,9 @@ article:after {
 	margin: 0;
 }
 
+.aside a.active {
+    color: #444;
+}
 
 /* --------- tags ---------- */
 
@@ -641,12 +649,8 @@ article:after {
 	.menu>li ul li:hover a {
 /*		text-decoration: underline; */
 	}
-	 ul.menu li.active a,
-	 ul.menu li.active:hover,
-	 ul.menu li,
-	 ul.menu li:hover {
+	 ul.menu {
 		background-color: #fff;
-/*		color: #000;*/
 	}
 	.comment {
 		background-image: none;
@@ -688,6 +692,7 @@ article:after {
 		padding-top: 0rem;
 	}
 	ul.menu {
+		position: fixed;
 		margin: 0 2px .5px 2px;
 		border-radius: 15px;
 	}
