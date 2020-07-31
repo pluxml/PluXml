@@ -2,7 +2,7 @@ PluXml legacy
 =============
 Créez un site web performant en toute simplicité et sans base de données.
 
-[**Télécharger PluXml 5.9.0 Legacy**](http://sudwebdesign.free.fr/depot.php?script=PluXml&download) (zip)
+[**Télécharger PluXml 5.9.0 Legacy**](http://sudwebdesign.free.fr/depot.php?script=PluXml-legacy&download) (zip)
 
 * See source of this version (5.9.0) : [master](https://github.com/sudwebdesign/PluXml/tree/master)
 
