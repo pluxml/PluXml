@@ -209,8 +209,8 @@ class plxMotor {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) return;
-		#thx bazooka07 : https://forum.pluxml.org/discussion/comment/59555/#Comment_59555
-		if(!empty($this->get) and !preg_match('#^(?:blog|article\d|static\d|categorie\d|archives\d{4}|tag\w|preview|telechargementdownload)#', $this->get)) { $this->get = ''; }
+		#thx bazooka07 : https://forum.pluxml.org/discussion/comment/59555/#Comment_59555 but no for the moment (404 never called)
+		#if(!empty($this->get) and !preg_match('#^(?:blog|article\d|static\d|categorie\d|archives\d{4}|tag\w|preview|telechargementdownload)#', $this->get)) { $this->get = ''; }
 
 		if(!$this->get AND $this->aConf['homestatic']!='' AND isset($this->aStats[$this->aConf['homestatic']]) AND $this->aStats[$this->aConf['homestatic']]['active']) {
 			$this->mode = 'static'; # Mode static

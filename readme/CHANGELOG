@@ -25,7 +25,9 @@ BY
 
 and it's work ;)
 
-## PLUXML 5.9.0 legacy PHP 5.5 (2020.07.30) ##
+## PLUXML 5.9.0 legacy PHP 5.5 (2020.08.01) ##
+
+Fix 404 never called, bazooka fix Commented in prechauffage : maybe duplicate content
 [+] add 5.8.4 on updater class
 Fix missing image (icons) in admin (css)
 [+] Imporove defaut theme (5.9.0)
