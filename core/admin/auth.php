@@ -16,7 +16,7 @@ include 'prepend.php';
 plxToken::validateFormToken($_POST);
 
 # Protection anti brute force
-$maxlogin['counter'] = 99; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
+$maxlogin['counter'] = 3; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
 $maxlogin['timer'] = 3 * 60; # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
 
 # Initialiser les messages d'alerte
@@ -37,7 +37,7 @@ if(isset($_SESSION['maxtry'])) {
 		$css = 'alert red';
 	}
 	if( time() > ($_SESSION['maxtry']['timer'] + $maxlogin['timer']) ) {
-		# on réinitialise le control brute force quand le temps d'attente limite est atteint
+		# on réinitialise le controle brute force quand le temps d'attente limite est atteint
 		$_SESSION['maxtry']['counter'] = 0;
 		$_SESSION['maxtry']['timer'] = time();
 	}
