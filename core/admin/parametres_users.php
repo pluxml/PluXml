@@ -26,10 +26,10 @@ include __DIR__ . '/top.php';
 ?>
 
 <div class="adminheader">
-    <h2><?= L_CONFIG_USERS_TITLE; ?></h2>
+    <h2 class="h3-like"><?= L_CONFIG_USERS_TITLE; ?></h2>
 </div>
 
-<div class="admin mtm">
+<div class="admin">
     <form method="post" id="form_users">
         <?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
         <div class="mtm pas tableheader">
