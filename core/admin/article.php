@@ -282,7 +282,6 @@ $cat_id = '000';
             <h2 class="h3-like"><?= (empty($_GET['a'])) ? L_NEW_ARTICLE : L_ARTICLE_EDITING; ?></h2>
             <p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
         </div>
-
         <div class="col-4 mtm txtright">
             <p class="pas inbl"><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
                 <strong>
@@ -335,7 +334,7 @@ $cat_id = '000';
     </div>
 
 
-    <div class="">
+    <div>
 
         <?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
 
