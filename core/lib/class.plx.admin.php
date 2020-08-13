@@ -455,9 +455,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		}
 
 		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser']) AND empty($content['update'])) {
+		if(!empty($content['delete']) AND isset($content['idUser']) AND empty($content['update'])) {
 			foreach($content['idUser'] as $user_id) {
-				if($content['selection']=='delete' AND $user_id!='001') {
+				if($user_id!='001') {
 					$this->aUsers[$user_id]['delete']=1;
 					$save = true;
 				}
@@ -833,7 +833,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		if(empty($content['update'])) {
 			# suppression
-			if(!empty($content['selection']) AND $content['selection']=='delete' AND !empty($content['idStatic'])) {
+			if(!empty($content['delete']) AND !empty($content['idStatic'])) {
 				foreach($content['idStatic'] as $static_id) {
 					$filename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$this->aStats[$static_id]['url'].'.php';
 					if(is_file($filename)) unlink($filename);
