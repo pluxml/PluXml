@@ -50,7 +50,7 @@ $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
     <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
 
     <div class="admin">
-        <div class="grid-6">
+        <div class="grid-6cd">
             <? if ($plxThemes->themesList): ?>
                 <?php foreach ($plxThemes->themesList as $theme): ?>
                     <div>
