@@ -148,6 +148,8 @@ include __DIR__ . '/top.php';
             <div class="mtm pas tableheader">
                 <?= PlxToken::getTokenPostMethod() ?>
                 <input class="btn--primary" type="submit" name="update" value="<?= L_PLUGINS_APPLY_BUTTON ?>"/>
+                <input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..."
+                       title="<?= L_SEARCH ?>"/>
             </div>
         <?php endif; ?>
 
@@ -156,9 +158,7 @@ include __DIR__ . '/top.php';
                 <thead>
                 <tr>
                     <th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')"/></th>
-                    <th>&nbsp;</th>
-                    <th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..."
-                               title="<?= L_SEARCH ?>"/></th>
+                    <th class="w100">&nbsp;</th>
                     <?php if ($_SESSION['selPlugins'] == '1') : ?>
                         <th><?= L_PLUGINS_LOADING_SORT ?></th>
                     <?php endif; ?>
