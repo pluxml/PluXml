@@ -119,9 +119,9 @@ if ($portee != '') {
 }
 
 $breadcrumbs = array();
-$breadcrumbs[] = '<li><a ' . ($_SESSION['selCom'] == 'all' ? 'class="selected" ' : '') . 'href="comments.php?sel=all&amp;page=1">' . L_ALL . '</a>&nbsp;(' . $plxAdmin->nbComments('all') . ')</li>';
-$breadcrumbs[] = '<li><a ' . ($_SESSION['selCom'] == 'online' ? 'class="selected" ' : '') . 'href="comments.php?sel=online&amp;page=1">' . L_COMMENT_ONLINE . '</a>&nbsp;(' . $plxAdmin->nbComments('online') . ')</li>';
-$breadcrumbs[] = '<li><a ' . ($_SESSION['selCom'] == 'offline' ? 'class="selected" ' : '') . 'href="comments.php?sel=offline&amp;page=1">' . L_COMMENT_OFFLINE . '</a>&nbsp;(' . $plxAdmin->nbComments('offline') . ')</li>';
+$breadcrumbs[] = '<li ' . ($_SESSION['selCom'] == 'all' ? 'class="selected" ' : '') . '><a href="comments.php?sel=all&amp;page=1">' . L_ALL . '</a>&nbsp;(' . $plxAdmin->nbComments('all') . ')</li>';
+$breadcrumbs[] = '<li ' . ($_SESSION['selCom'] == 'online' ? 'class="selected" ' : '') . '><a href="comments.php?sel=online&amp;page=1">' . L_COMMENT_ONLINE . '</a>&nbsp;(' . $plxAdmin->nbComments('online') . ')</li>';
+$breadcrumbs[] = '<li ' . ($_SESSION['selCom'] == 'offline' ? 'class="selected" ' : '') . '><a href="comments.php?sel=offline&amp;page=1">' . L_COMMENT_OFFLINE . '</a>&nbsp;(' . $plxAdmin->nbComments('offline') . ')</li>';
 if (!empty($_GET['a'])) {
     $breadcrumbs[] = '<a href="comment_new.php?a=' . $_GET['a'] . '" title="' . L_COMMENT_NEW_COMMENT_TITLE . '">' . L_COMMENT_NEW_COMMENT . '</a>';
 }
