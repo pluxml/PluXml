@@ -30,30 +30,31 @@ $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
 
 ?>
 <form action="parametres_themes.php" method="post" id="form_settings">
-    <div class="adminheader grid-6">
-        <div class="col-2 mbm">
+    <div class="adminheader autogrid">
+        <div>
             <h2 class="h3-like"><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
-            <input class="inbl btn--primary" type="submit" value="<?php echo L_CONFIG_THEME_UPDATE ?>"/>
-            <input class="inbl btn--primary" onclick="window.location.assign('parametres_edittpl.php');return false"
-                   type="submit"
-                   value="<?php echo L_TEMPLATES_EDIT ?>"/>
-        </div>
-        <div class="col-4 item-center">
             <p><?php
                 $tag = '<a href="' . PLX_URL_RESSOURCES . '" target="_blank">' . PLX_URL_RESSOURCES . '</a>';
                 printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, $tag);
                 ?>
             </p>
         </div>
+        <div class="mtm txtright">
+            <input class="inbl btn--primary" type="submit" value="<?php echo L_CONFIG_THEME_UPDATE ?>"/>
+            <input class="inbl btn--primary" onclick="window.location.assign('parametres_edittpl.php');return false"
+                   type="submit"
+                   value="<?php echo L_TEMPLATES_EDIT ?>"/>
+        </div>
     </div>
 
     <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
 
-    <div class="admin">
-        <div class="grid-6cd">
+    <div class="admin mtm">
+        <div class="grid-4 has-gutter-l">
             <? if ($plxThemes->themesList): ?>
                 <?php foreach ($plxThemes->themesList as $theme): ?>
-                    <div>
+                    <button <?= $checked ?> type="radio" name="style" value="' . $theme . '">
+                        <?= $plxThemes->getImgPreview($theme) ?>
                         <? if ($aInfos = $plxThemes->getInfos($theme)): ?>
                             <strong><?= $aInfos['title'] ?></strong><br/>
                             Version : <strong><?= $aInfos['version'] ?></strong> - (<?= $aInfos['date'] ?>)<br/>
@@ -63,16 +64,12 @@ $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
                         <? else: ?>
                             <strong><?= $theme ?></strong>
                         <? endif; ?>
-
-                        <?= $plxThemes->getImgPreview($theme) ?>
-
                         <? if (is_file(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $theme . '/lang/' . $plxAdmin->aConf['default_lang'] . '-help.php')): ?>
                             <a title="<?= L_HELP_TITLE ?>"
                                href="parametres_help.php?help=theme&amp;page=<?= urlencode($theme) ?>"><?= L_HELP ?></a>
                         <? endif; ?>
                         <?php $checked = $theme == $plxAdmin->aConf['style'] ? ' checked="checked"' : ''; ?>
-                        <input <?= $checked ?> type="radio" name="style" value="' . $theme . '"/>
-                    </div>
+                    </button>
                 <? endforeach; ?>
             <? else: ?>
                 <? L_NONE1 ?>
