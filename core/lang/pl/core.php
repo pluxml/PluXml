@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'Wystąpił błąd podczas publikacji tego komentarz
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Proszę wypełnić wszystkie wymagane pola';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'Błędna weryfikacja antyspamowa';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'nie można zmienić nazwy folderu dla wtyczki %s';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Kompresja %s aktywna';

@@ -104,8 +104,10 @@ const L_NEWCOMMENT_ERR				= 'Une erreur s\'est produite lors de la publication d
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Merci de remplir tous les champs obligatoires';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'La vérification anti-spam a échoué';
 
-# class.plx.show.php
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'Impossible de renommer le dossier du plugin %s';
 
+# class.plx.show.php
 const L_HTTPENCODING				= 'Compression %s activée';
 const L_ARCHIVES					= 'Archives';
 const L_TAG							= 'Mot-clé';
@@ -155,4 +157,5 @@ const L_ART_PREV					= 'Précèdent';
 const L_ART_NEXT					= 'Suivant';
 const L_ART_LAST					= 'Dernier';
 const L_ART_UP						= 'Remonter';
+
 ?>

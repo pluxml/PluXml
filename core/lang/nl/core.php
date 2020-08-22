@@ -103,6 +103,9 @@ const L_NEWCOMMENT_ERR				= 'Er is een fout opgetreden bij het wegschrijven van 
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Gelieve alle verplichte velden in te vullen a.u.b.';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'La vérification anti-spam a échoué';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'kan de map voor de %s plug-in niet hernoemen';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= '%s compressie is geactiveerd';
