@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'O eroare este intalnit in timp ce publicarea acestu
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Va multumim completati toate campurile obligatorii';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'SPAM de verificare a esuat';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'incapabil să redenumească folderul pentru pluginul %s';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Compresie %s activata';

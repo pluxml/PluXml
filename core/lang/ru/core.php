@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'Произошла ошибка при публик
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Пожалуйста, заполните все необходимые поля';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'Ошибка проверки Антиспам';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'Не удается переименовать папку плагина %s';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Сжатие %s активированно';

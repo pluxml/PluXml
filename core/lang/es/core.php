@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'Se ha producido un error al publicar este comentari
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Ingrese todos los campos obligatorios';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'Falló La comprobación anti-spam';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'no se puede cambiar el nombre de la carpeta para el complemento %s';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Compresión %s activada';

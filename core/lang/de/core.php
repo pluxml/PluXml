@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR			= 'Es gab einen Fehler beim Anlegen dieses Kommentars.'
 const L_NEWCOMMENT_FIELDS_REQUIRED = 'Sie müssen alle Pflichtfelder ausfüllen';
 const L_NEWCOMMENT_ERR_ANTISPAM	= 'Anti-SPAM Überprüfung fehlgeschlagen';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'Der %s Plugin-Ordner kann nicht umbenannt werden';
+
 # class.plx.show.php
 
 const L_HTTPENCODING			= 'Datenkompression %s aktiviert';

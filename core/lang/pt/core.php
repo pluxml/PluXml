@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'Ocorreu um erro durante a publicação do comentár
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Queira por favor preenchêr todos os campos obrigatórios';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'A verificação anti-spam está incorrecta, tente novamente;';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'incapaz de renomear a pasta para o plugin %s';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Compressão %s activada';

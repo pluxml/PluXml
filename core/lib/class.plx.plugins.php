@@ -7,6 +7,8 @@
  **/
 class plxPlugins {
 
+	const VERSION_PATTERN = '@-\d+\.\d+(?:\.\d+)?@';
+
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins
 	public $default_lang; # langue par defaut utilisée par PluXml
@@ -162,9 +164,17 @@ class plxPlugins {
 
 		$aPlugins = array();
 		$dirs = plxGlob::getInstance(PLX_PLUGINS, true);
-		if(sizeof($dirs->aFiles)>0) {
-			foreach($dirs->aFiles as $plugName) {
-				if(!isset($this->aPlugins[$plugName]) AND $plugInstance=$this->getInstance($plugName)) {
+		if(sizeof($dirs->aFiles) > 0) {
+			foreach($dirs->aFiles as $dirName) {
+				$plugName = preg_replace(self::VERSION_PATTERN, '', $dirName);
+				if($plugName != $dirName) {
+					if(is_dir(PLX_PLUGINS . $plugName) || !rename(PLX_PLUGINS . $dirName, PLX_PLUGINS . $plugName)) {
+						plxMsg::Error(sprintf(L_BAD_PLUGIN_FOLDER, $dirName));
+						continue;
+					}
+				}
+
+				if(!isset($this->aPlugins[$plugName]) AND $plugInstance = $this->getInstance($dirName)) {
 					$plugInstance->getInfos();
 					$aPlugins[$plugName] = $plugInstance;
 				}

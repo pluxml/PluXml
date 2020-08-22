@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'Una error s\'es produsida al temps de la publicacio
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Mercés d\'emplir totes los camps obligatòris requesits';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'La verificacion anti-spam s\'es abocada';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'Unable to rename the folder for the %s plugin';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Compression %s activada';
