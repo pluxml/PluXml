@@ -218,8 +218,8 @@ plxUtils::cleanHeaders();
 	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_PLUXML_INSTALLATION . ' ' . L_VERSION . ' ' . PLX_VERSION ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/theme.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/plucss.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/theme.css" media="screen" />
 	<script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </head>
 <body>
