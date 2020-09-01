@@ -786,16 +786,18 @@ th.sort.active::after {
 }
 
 .modal__box {
-    position: relative;
-    text-align: center;
+	position: relative;
+	text-align: center;
+	border: 1px solid #666;
+	background-color: #fff;
 }
 
 .modal input {
     position: absolute;
     right: 100px;
     top: 30px;
-    z-index: -10;
     display: none;
+    z-index: -10;
 }
 
 .modal label {
@@ -830,8 +832,8 @@ th.sort.active::after {
 }
 
 .modal__box img {
-    max-height: 100vh;
-    max-width: 100vw;
+    max-height: calc(100vh - 1.25rem);
+    max-width: calc(100vw - 1.25rem);
 }
 
 .modal__overlay {

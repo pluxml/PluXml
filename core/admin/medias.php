@@ -311,7 +311,7 @@ if($curFolders) {
 		</p>
 
 		<div>
-			<input id="selector_0" type="file" multiple="multiple" name="selector_0[]" />
+			<input id="selector_0" type="file" multiple="multiple" name="selector_0[]" accept="image/*,audio/*,video/*,.pdf,.zip" />
 			<div class="files_list" id="files_list" style="margin: 1rem 0 1rem 0;"></div>
 		</div>
 
