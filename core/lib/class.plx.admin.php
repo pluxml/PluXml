@@ -28,7 +28,7 @@ class plxAdmin extends plxMotor {
 	 * @return	self	return une instance de la classe plxAdmin
 	 * @author	Stephane F, Jean-Pierre Pourerz "Bazooka07"
 	 **/
-	public static function getInstance(){
+	public static function getInstance() {
 		if (empty(parent::$instance))
 			parent::$instance = new plxAdmin(path('XMLFILE_PARAMETERS'));
 		return parent::$instance;

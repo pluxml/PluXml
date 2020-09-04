@@ -199,11 +199,11 @@ $curFolders = explode('/', $curFolder);
                 <tr>
                     <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')"/></th>
                     <th>&nbsp;</th>
-                    <th class="sort w100"><?= L_MEDIAS_FILENAME ?></th>
-                    <th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
-                    <th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
-                    <th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
-                    <th class="sort integer active"><?= L_DATE ?></th>
+                    <th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?= $sort_title ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_FILENAME ?></a></th>
+                    <th><?= L_MEDIAS_EXTENSION ?></th>
+                    <th><?= L_MEDIAS_FILESIZE ?></th>
+                    <th><?= L_MEDIAS_DIMENSIONS ?></th>
+                    <th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?= $sort_date ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_DATE ?></a></th>
                 </tr>
                 </thead>
                 <tbody id="medias-table-tbody">
@@ -381,7 +381,6 @@ $curFolders = explode('/', $curFolder);
         </div>
         <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
     </div>
-
 </form>
 
 <div class="modal">

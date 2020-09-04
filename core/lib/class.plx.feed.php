@@ -10,6 +10,7 @@
 const PLX_FEED = true;
 
 class plxFeed extends plxMotor {
+
 	const FORMAT_DATE = 'YmdHi';
 
 	/**

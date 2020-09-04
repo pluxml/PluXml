@@ -136,13 +136,17 @@ class plxMedias {
 					$imgSize = false;
 				}
 				$stats = stat($filename);
+				$extension = '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+				if($extension == '.svg') {
+					$defaultSample = $filename;
+				}
 				$files[basename($filename)] = array(
 					'.thumb'	=> (!empty($sampleOk)) ? $sample : $defaultSample,
 					'name' 		=> basename($filename),
 					'path' 		=> $filename,
 					'date' 		=> $stats['mtime'],
 					'filesize' 	=> $stats['size'],
-					'extension'	=> '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION)),
+					'extension'	=> $extension,
 					'infos' 	=> $imgSize,
 					'thumb' 	=> $thumbInfos
 				);

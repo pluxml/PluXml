@@ -39,7 +39,8 @@ class plxUpdater {
 		'5.8',
 		'5.8.1',
 		'5.8.2',
-		'5.8.3'
+		'5.8.3',
+		'5.8.4'
 	);
 
 	public $newVersion = false;

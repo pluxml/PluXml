@@ -207,6 +207,7 @@ plxUtils::cleanHeaders();
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/knacss.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/theme.css" media="screen"/>
     <link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/favicon.png" />
+	<script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </head>
 <body>
 <main class="mal flex-container">
