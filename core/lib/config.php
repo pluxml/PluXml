@@ -2,10 +2,10 @@
 
 if(!defined('PLX_ROOT')) { exit('Missing PLX_ROOT'); }
 
-const PHP_VERSION_MIN = '5.6.0';
+const PHP_VERSION_MIN = '7.2.0';
 
 const PLX_DEBUG = false;
-const PLX_VERSION = '5.8.4';
+const PLX_VERSION = '6.0.0-dev';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
