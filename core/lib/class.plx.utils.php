@@ -515,20 +515,19 @@ class plxUtils {
 	}
 
 	/**
-	 * Method to transform a string in a valid URL using translitteration
-	 * @param	string	$strchaine de caractères à contrôler
-	 * @param	boolean	$remove		retire les mots sans valeur sémantique
-	 * @param	string	$replace
-	 * @param	boolean	$lower
+	 * Transform a string in a valid URL using transliteration
+	 *
+	 * @param	string	$url		characters string to clean
+	 * @param	boolean	$remove		set true to remove non-semantic word
+	 * @param	string	$replace	the character used to clean the URL
+	 * @param	boolean	$lower		set true to lower characters
 	 * @return	string	valid URL
-	 * @author	J.P. Pourrez (bazooka07)
+	 * @author	J.P. Pourrez (bazooka07), Pedro (P3ter) CADETE
 	 * */
 	public static function urlify($url, $replace='-', $lower=true) {
 
-		$scheme = parse_url($url, PHP_URL_SCHEME);
-		if(!empty($scheme)) {
-			if($scheme == 'data') { return $url; }
-			$url = substr($url, strlen($scheme) + 3); // http://
+		if(!empty(parse_url($url, PHP_URL_SCHEME))) {
+			return $url;
 		}
 
 		$clean_url = self::translitterate(trim(html_entity_decode($url)));
@@ -546,9 +545,11 @@ class plxUtils {
 		// remove non-alphanumeric character
 		$clean_url = trim(preg_replace('@[^\w\.-]+@', '', $clean_url), '-');
 
-		if($lower) { $clean_url = strtolower($clean_url); }
+		if($lower) {
+			$clean_url = strtolower($clean_url);
+		}
 
-		return (empty($scheme)) ? $clean_url : $scheme . '://' . $clean_url;
+		return $clean_url;
 	}
 
 	/**

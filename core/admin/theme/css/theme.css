@@ -621,6 +621,7 @@ a.hint:focus span {
     top: -18rem;
     right: 25rem;
     left: 25rem;
+    width: 60%;
     margin: 0;
     padding: 0.5rem 0;
     line-height: 1.6;

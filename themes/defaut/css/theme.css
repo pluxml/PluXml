@@ -95,11 +95,10 @@ ul.menu {}
 	overflow-y: auto;
 	z-index: 10;
 }
-.menu>li:last-of-type ul {/* sub menu */
+.menu > li:last-of-type ul {
 	right: 0;
 }
-
-.menu>li:not(:hover) ul {/* show sub menu */
+.menu>li:not(:hover) ul {/* hide sub menu */
 	display: none;
 }
 .menu ul li {
@@ -109,7 +108,13 @@ ul.menu {}
 	background-color: #fff;
 	text-align: left;
 }
-.menu ul li:last-of-type {
+.menu .sub-menu {
+	overflow-y: auto;
+}
+.menu .sub-menu li {
+	padding: 0 0.35rem;
+}
+.menu .sub-menu li:last-of-type {
 	padding-bottom: 0.35rem;
 }
 
@@ -138,6 +143,7 @@ ul.menu li a {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */
 	background-color: rgba(255,255,255,.55);
 	border-radius: 1px;
 	color: #258fd6;
+	white-space: nowrap;
 }
 ul.menu li span a,
 ul.menu li a span {/* pluCss1.3.1 fix : plxMyshop 0.13.x, maybe more */

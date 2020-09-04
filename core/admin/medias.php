@@ -151,20 +151,18 @@ $curFolders = explode('/', $curFolder);
 		<div class="inline-form action-bar">
 			<h2><?= L_MEDIAS_TITLE ?></h2>
 			<p id="medias-breadcrumb">
-				<?= L_MEDIAS_DIRECTORY ?> : <a href="javascript:void(0)" data-folder=".">(<?= L_PLXMEDIAS_ROOT ?>)</a> /
-<?php
-if($curFolders) {
-	$path='';
-	foreach($curFolders as $id => $folder) {
-		if(!empty($folder) AND $id>1) {
-			$path .= $folder . '/';
-?>
-<a href="javascript:void(0)" data-folder="<?= $path ?>"><?= $folder ?></a> /
-<?php
-		}
-	}
-}
-?>
+				<?php
+				echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[1].folder.value=\'.\';document.forms[1].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
+				if($curFolders) {
+					$path='';
+					foreach($curFolders as $id => $folder) {
+						if(!empty($folder) AND $id>1) {
+							$path .= $folder.'/';
+							echo '<a href="javascript:void(0)" onclick="document.forms[1].folder.value=\''.$path.'\';document.forms[1].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
+						}
+					}
+				}
+				?>
 			</p>
 			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 			<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?= L_CONFIRM_DELETE ?>')" />
@@ -193,11 +191,11 @@ if($curFolders) {
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
-					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-					<th class="sort"><?=  L_MEDIAS_EXTENSION ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_FILESIZE ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_DIMENSIONS ?></th>
-					<th class="sort integer active"><?= L_DATE ?></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?= $sort_title ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_FILENAME ?></a></th>
+					<th><?= L_MEDIAS_EXTENSION ?></th>
+					<th><?= L_MEDIAS_FILESIZE ?></th>
+					<th><?= L_MEDIAS_DIMENSIONS ?></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?= $sort_date ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_DATE ?></a></th>
 				</tr>
 				</thead>
 				<tbody id="medias-table-tbody">
