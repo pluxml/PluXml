@@ -195,7 +195,7 @@ $curFolders = explode('/', $curFolder);
 					<th><?= L_MEDIAS_EXTENSION ?></th>
 					<th><?= L_MEDIAS_FILESIZE ?></th>
 					<th><?= L_MEDIAS_DIMENSIONS ?></th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?= $sort_date ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_DATE ?></a></th>
+					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?= $sort_date ?>';document.forms[1].submit();return true;"><?= L_DATE ?></a></th>
 				</tr>
 				</thead>
 				<tbody id="medias-table-tbody">
