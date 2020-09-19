@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'Errore durante la pubblicazione del commento';
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Compilare tutti i campi obbligatori';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'Verifica anti-spam fallita';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'impossibile rinominare la cartella per il plugin %s';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Compressione %s attivata';

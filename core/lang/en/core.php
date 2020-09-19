@@ -104,6 +104,9 @@ const L_NEWCOMMENT_ERR				= 'An error occurred during comment\'s publication';
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Please fill all the required fields';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'Antispam verification failed';
 
+# class.plx.plugins.php
+const L_BAD_PLUGIN_FOLDER			= 'Unable to rename the folder for the %s plugin';
+
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Compression %s activated';
