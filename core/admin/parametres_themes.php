@@ -40,7 +40,6 @@ $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
             </p>
         </div>
         <div class="mtm txtright">
-            <input class="inbl btn--primary" type="submit" value="<?php echo L_CONFIG_THEME_UPDATE ?>"/>
             <input class="inbl btn--primary" onclick="window.location.assign('parametres_edittpl.php');return false"
                    type="submit"
                    value="<?php echo L_TEMPLATES_EDIT ?>"/>
@@ -50,25 +49,33 @@ $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
     <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
 
     <div class="admin mtm">
-        <div class="grid-4 has-gutter-l">
+        <div class="grid-4 has-gutter-l themes">
             <? if ($plxThemes->themesList): ?>
                 <?php foreach ($plxThemes->themesList as $theme): ?>
-                    <button <?= $checked ?> type="radio" name="style" value="' . $theme . '">
-                        <?= $plxThemes->getImgPreview($theme) ?>
-                        <? if ($aInfos = $plxThemes->getInfos($theme)): ?>
-                            <strong><?= $aInfos['title'] ?></strong><br/>
-                            Version : <strong><?= $aInfos['version'] ?></strong> - (<?= $aInfos['date'] ?>)<br/>
-                            <?= L_AUTHOR ?>&nbsp;:&nbsp;<?= $aInfos['author'] ?> - <a href="?<= $aInfos['site'] ?>"
-                                                                                      title=""><?= $aInfos['site'] ?></a>
-                            <br/><?= $aInfos['description'] ?><br/>
+                    <?php $currentTheme = $theme == $plxAdmin->aConf['style'] ? 'activeTheme' : ''; ?>
+                    <button type="radio" name="style" value="<?= $theme ?>">
+                        <div class="theme">
+                            <p><?= $plxThemes->getImgPreview($theme) ?></p>
+                            <? if ($aInfos = $plxThemes->getInfos($theme)): ?>
+                            <div class="themeOverlay">
+                                <div class="themeDetails">
+                                    Version : <strong><?= $aInfos['version'] ?></strong> (<?= $aInfos['date'] ?>)<br/>
+                                    <?= L_AUTHOR ?>&nbsp;:&nbsp;<?= $aInfos['author'] ?><br>
+                                    <a href="<?= $aInfos['site'] ?>" title="" target="_blank"><?= $aInfos['site'] ?></a><br>
+                                    <?= $aInfos['description'] ?>
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            <strong><?= $aInfos['title'] ?></strong>
+                            <? if (is_file(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $theme . '/lang/' . $plxAdmin->aConf['default_lang'] . '-help.php')): ?>
+                            <a title="<?= L_HELP_TITLE ?>"
+                                  href="parametres_help.php?help=theme&amp;page=<?= urlencode($theme) ?>"> - <?= L_HELP ?></a>
+                        </p>
+                        <? endif; ?>
                         <? else: ?>
                             <strong><?= $theme ?></strong>
                         <? endif; ?>
-                        <? if (is_file(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $theme . '/lang/' . $plxAdmin->aConf['default_lang'] . '-help.php')): ?>
-                            <a title="<?= L_HELP_TITLE ?>"
-                               href="parametres_help.php?help=theme&amp;page=<?= urlencode($theme) ?>"><?= L_HELP ?></a>
-                        <? endif; ?>
-                        <?php $checked = $theme == $plxAdmin->aConf['style'] ? ' checked="checked"' : ''; ?>
                     </button>
                 <? endforeach; ?>
             <? else: ?>
