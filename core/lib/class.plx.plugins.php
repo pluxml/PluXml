@@ -174,7 +174,7 @@ class plxPlugins {
 					}
 				}
 
-				if(!isset($this->aPlugins[$plugName]) AND $plugInstance = $this->getInstance($dirName)) {
+				if(!isset($this->aPlugins[$plugName]) AND $plugInstance = $this->getInstance($plugName)) {
 					$plugInstance->getInfos();
 					$aPlugins[$plugName] = $plugInstance;
 				}

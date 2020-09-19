@@ -25,6 +25,7 @@
 [+] core/admin/prepend.php refacto and optimisations #458 (bazooka07)
 [+] New plugins hooks for plxShow->artNavigation() (sudwebdesign)
 [+] Add sitemap.xml validation (P3ter)
+[+] Rename plugin folder if necessary #477 (bazooka07)
 FIX Do not unset CSRF token if $_POST is empty #286 (sudwebdesign)
 FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign) 
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)
