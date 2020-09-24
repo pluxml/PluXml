@@ -293,7 +293,7 @@ $curFolders = explode('/', $curFolder);
                     </tbody>
                 </table>
             <?php else: ?>
-                <div class="grid-4 has-gutter-l themes">
+                <div class="grid-4 has-gutter-l mtm themes">
                     <?php if ($plxMedias->aFiles): ?>
                         <?php foreach ($plxMedias->aFiles as $v):
                             $isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);

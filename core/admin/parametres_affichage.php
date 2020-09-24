@@ -75,10 +75,9 @@ include __DIR__ . '/top.php';
     <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayTop')) # Hook Plugins ?>
 
     <fieldset>
-
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_hometemplate"><?php echo L_CONFIG_HOMETEMPLATE ?>&nbsp;:</label>
+                <label for="id_hometemplate"><?= L_CONFIG_HOMETEMPLATE ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printSelect('hometemplate', $aTemplates, $plxAdmin->aConf['hometemplate']) ?>
@@ -86,7 +85,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_tri"><?php echo L_ARTICLES_SORT ?>&nbsp;:</label>
+                <label for="id_tri"><?= L_ARTICLES_SORT ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printSelect('tri', $aTriArts, $plxAdmin->aConf['tri']); ?>
@@ -94,7 +93,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_bypage"><?php echo L_CONFIG_VIEW_BYPAGE ?>&nbsp;:</label>
+                <label for="id_bypage"><?= L_CONFIG_VIEW_BYPAGE ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('bypage', $plxAdmin->aConf['bypage'], 'text', '2-4', false, 'fieldnum'); ?>
@@ -102,7 +101,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_TAGS ?>&nbsp;:</label>
+                <label for="id_bypage_archives"><?= L_CONFIG_VIEW_BYPAGE_TAGS ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('bypage_tags', $plxAdmin->aConf['bypage_tags'], 'text', '2-4', false, 'fieldnum'); ?>
@@ -110,7 +109,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_bypage_archives"><?php echo L_CONFIG_VIEW_BYPAGE_ARCHIVES ?>&nbsp;:</label>
+                <label for="id_bypage_archives"><?= L_CONFIG_VIEW_BYPAGE_ARCHIVES ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('bypage_archives', $plxAdmin->aConf['bypage_archives'], 'text', '2-4', false, 'fieldnum'); ?>
@@ -118,7 +117,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_bypage_admin"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN ?>&nbsp;:</label>
+                <label for="id_bypage_admin"><?= L_CONFIG_VIEW_BYPAGE_ADMIN ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('bypage_admin', $plxAdmin->aConf['bypage_admin'], 'text', '2-4', false, 'fieldnum'); ?>
@@ -126,7 +125,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_tri_coms"><?php echo L_CONFIG_VIEW_SORT_COMS ?>&nbsp;:</label>
+                <label for="id_tri_coms"><?= L_CONFIG_VIEW_SORT_COMS ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printSelect('tri_coms', $aTriComs, $plxAdmin->aConf['tri_coms']); ?>
@@ -134,7 +133,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_bypage_admin_coms"><?php echo L_CONFIG_VIEW_BYPAGE_ADMIN_COMS ?>&nbsp;:</label>
+                <label for="id_bypage_admin_coms"><?= L_CONFIG_VIEW_BYPAGE_ADMIN_COMS ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('bypage_admin_coms', $plxAdmin->aConf['bypage_admin_coms'], 'text', '2-4', false, 'fieldnum'); ?>
@@ -142,7 +141,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_display_empty_cat"><?php echo L_CONFIG_VIEW_DISPLAY_EMPTY_CAT ?>&nbsp;:</label>
+                <label for="id_display_empty_cat"><?= L_CONFIG_VIEW_DISPLAY_EMPTY_CAT ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printSelect('display_empty_cat', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['display_empty_cat']); ?>
@@ -150,7 +149,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label><?php echo L_CONFIG_VIEW_IMAGES ?>&nbsp;:</label>
+                <label><?= L_CONFIG_VIEW_IMAGES ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('images_l', $plxAdmin->aConf['images_l'], 'text', '4-4', false, 'no-margin'); ?>
@@ -160,7 +159,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label><?php echo L_CONFIG_VIEW_THUMBS ?>&nbsp;:</label>
+                <label><?= L_CONFIG_VIEW_THUMBS ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('miniatures_l', $plxAdmin->aConf['miniatures_l'], 'text', '4-4', false, 'no-margin'); ?>
@@ -170,7 +169,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_thumbs"><?php echo L_MEDIAS_THUMBS ?>&nbsp;:</label>
+                <label for="id_thumbs"><?= L_MEDIAS_THUMBS ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printSelect('thumbs', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['thumbs']); ?>
@@ -179,8 +178,8 @@ include __DIR__ . '/top.php';
         <div class="grid gridthumb">
             <div class="col sml-12 med-5 label-centered">
                 <label for="id_thumbnail">
-                    <?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
-                    <a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)"
+                    <?= L_THUMBNAIL ?>&nbsp;:&nbsp;
+                    <a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)"
                        onclick="mediasManager.openPopup('id_thumbnail', true)"
                        style="outline:none; text-decoration: none">+</a>
                 </label>
@@ -209,7 +208,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_bypage_feed"><?php echo L_CONFIG_VIEW_BYPAGE_FEEDS ?>&nbsp;:</label>
+                <label for="id_bypage_feed"><?= L_CONFIG_VIEW_BYPAGE_FEEDS ?></label>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printInput('bypage_feed', $plxAdmin->aConf['bypage_feed'], 'text', '2-2', false, 'fieldnum'); ?>
@@ -217,24 +216,25 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid">
             <div class="col sml-12 med-5 label-centered">
-                <label for="id_feed_chapo"><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE ?>&nbsp;:</label>
+                <label for="id_feed_chapo"><?= L_CONFIG_VIEW_FEEDS_HEADLINE ?></label>
+                <div class="tooltip icon-help-circled">
+                    <span class="tooltiptext"><?= L_CONFIG_VIEW_FEEDS_HEADLINE_HELP ?></span>
+                </div>
             </div>
             <div class="col sml-12 med-7">
                 <?php plxUtils::printSelect('feed_chapo', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['feed_chapo']); ?>
-                <a class="hint"><span><?php echo L_CONFIG_VIEW_FEEDS_HEADLINE_HELP ?></span></a>
             </div>
         </div>
         <div class="grid">
             <div class="col sml-12">
-                <label for="id_content"><?php echo L_CONFIG_VIEW_FEEDS_FOOTER ?>&nbsp;:</label>
+                <label for="id_content"><?= L_CONFIG_VIEW_FEEDS_FOOTER ?></label>
                 <?php plxUtils::printArea('content', plxUtils::strCheck($plxAdmin->aConf['feed_footer']), 140, 5, false, 'w100'); ?>
             </div>
         </div>
-
     </fieldset>
 
     <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplay')) # Hook Plugins ?>
-    <?php echo plxToken::getTokenPostMethod() ?>
+    <?= plxToken::getTokenPostMethod() ?>
 
 </form>
 
