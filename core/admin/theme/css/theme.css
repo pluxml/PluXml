@@ -318,9 +318,27 @@ body {
     background-color: var(--backheader);
 }
 
-.section .sidebar .expender {
-    padding: 2rem;
-    border: 1px solid var(--backheaderborder);
+.section .sidebar .collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+.section .sidebar .active, .section .sidebar .collapsible:hover {
+    background-color: #ccc;
+}
+
+.section .sidebar .expander {
+    padding: 10px 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
 }
 
 /* ==== COMPONENTS ==== */

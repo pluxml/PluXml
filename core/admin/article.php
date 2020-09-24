@@ -344,7 +344,7 @@ $cat_id = '000';
                         <div>
                             <?php PlxUtils::printInput('artId', $artId, 'hidden'); ?>
                             <label for="id_title"><?= L_TITLE ?>&nbsp;:</label>
-                            <?php PlxUtils::printInput('title', PlxUtils::strCheck($title), 'text', '42-255', false, 'w100'); ?>
+                            <?php PlxUtils::printInput('title', PlxUtils::strCheck($title), 'text', '255', false); ?>
                         </div>
                         <div>
                             <input class="toggler" type="checkbox"
@@ -427,8 +427,9 @@ $cat_id = '000';
                             <label for="id_template"><?= L_TEMPLATE ?>&nbsp;:</label>
                             <?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
                         </div>
-                        <div class="expender">
-                            <span>URL</span>
+
+                        <div class="collapsible">URL</div>
+                        <div class="expander">
                             <div>
                                 <label for="id_url">
                                     <?= L_URL ?>
@@ -436,7 +437,7 @@ $cat_id = '000';
                                         <span class="tooltiptext"><?= L_ARTICLE_URL_FIELD_TITLE ?></span>
                                     </div>
                                 </label>
-                                <?php PlxUtils::printInput('url', $url, 'text', '27-255'); ?>
+                                <?php PlxUtils::printInput('url', $url, 'text', '255'); ?>
                                 <?php if ($artId != '' and $artId != '0000') : ?>
                                     <?php $link = $plxAdmin->urlRewrite('?article' . intval($artId) . '/' . $url) ?>
                                     <p>
@@ -447,37 +448,49 @@ $cat_id = '000';
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="expender">
-                            <span>Category</span>
+                        <div class="collapsible">Category</div>
+                        <div class="expander">
                             <div>
                                 <label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label><br>
                                 <?php $selected = (is_array($catId) and in_array('000', $catId)) ? ' checked="checked"' : ''; ?>
-                                <label for="cat_unclassified"><input disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]" <?= $selected ?> value="000" />&nbsp;<?= L_UNCLASSIFIED ?></label><br>
+                                <label for="cat_unclassified"><input disabled="disabled" type="checkbox"
+                                                                     id="cat_unclassified"
+                                                                     name="catId[]" <?= $selected ?>
+                                                                     value="000"/>&nbsp;<?= L_UNCLASSIFIED ?>
+                                </label><br>
                                 <?php $selected = (is_array($catId) and in_array('home', $catId)) ? ' checked="checked"' : ''; ?>
-                                <label for="cat_home"><input type="checkbox" id="cat_home" name="catId[]" <?= $selected ?> value="home" />&nbsp;<?= L_HOMEPAGE ?></label><br>
+                                <label for="cat_home"><input type="checkbox" id="cat_home"
+                                                             name="catId[]" <?= $selected ?>
+                                                             value="home"/>&nbsp;<?= L_HOMEPAGE ?></label><br>
                                 <?php foreach ($plxAdmin->aCats as $cat_id => $cat_name): ?>
                                     <?php $selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : ''; ?>
                                     <? if ($plxAdmin->aCats[$cat_id]['active']): ?>
-                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_?<?= $cat_id ?>" name="catId[]" <?= $selected ?> value="<?= $cat_id ?>" />&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?></label><br>
+                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_?<?= $cat_id ?>"
+                                                                               name="catId[]" <?= $selected ?>
+                                                                               value="<?= $cat_id ?>"/>&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?>
+                                        </label><br>
                                     <?php else: ?>
-                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_<?= $cat_id ?>" name="catId[]"<?= $selected ?> value="<?= $cat_id ?>" />&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?></label><br>
+                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_<?= $cat_id ?>"
+                                                                               name="catId[]"<?= $selected ?>
+                                                                               value="<?= $cat_id ?>"/>&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?>
+                                        </label><br>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                                 <?php if ($_SESSION['profil'] < PROFIL_WRITER) : ?>
                                     <label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
-                                    <?php PlxUtils::printInput('new_catname', '', 'text', '17-50') ?>
+                                    <?php PlxUtils::printInput('new_catname', '', 'text', '50') ?>
                                     <input class="btn" type="submit" name="new_category" value="<?= L_ADD ?>"/>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="expender">
-                            <span>Tags</span>
+                        <div class="collapsible">Tags</div>
+                        <div class="expander">
                             <div>
                                 <label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?></label>
                                 <div class="tooltip icon-help-circled">
                                     <span class="tooltiptext"><?= L_ARTICLE_TAGS_FIELD_TITLE ?></span>
                                 </div>
-                                <?php PlxUtils::printInput('tags', $tags, 'text', '25-255', false, false); ?>
+                                <?php PlxUtils::printInput('tags', $tags, 'text', '255', false, false); ?>
                                 <input class="toggler" type="checkbox"
                                        id="toggler_tags"<?= (empty($_GET['a']) || !empty(trim($tags))) ? ' unchecked' : ''; ?> />
                                 <label for="toggler_tags"><span>-</span><span>+</span></label>
@@ -508,8 +521,8 @@ $cat_id = '000';
                                 </div>
                             </div>
                         </div>
-                        <div class="expender">
-                            <span>Comments</span>
+                        <div class="collapsible">Comments</div>
+                        <div class="expander">
                             <div>
                                 <?php if ($plxAdmin->aConf['allow_com'] == '1') : ?>
                                     <label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
@@ -543,31 +556,32 @@ $cat_id = '000';
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="expender">
-                            <span>SEO</span>
+                        <div class="collapsible">SEO</div>
+                        <div class="expander">
                             <div>
                                 <label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?>&nbsp;:</label><br>
-                                <?php PlxUtils::printInput('title_htmltag', PlxUtils::strCheck($title_htmltag), 'text', '27-255'); ?>
+                                <?php PlxUtils::printInput('title_htmltag', PlxUtils::strCheck($title_htmltag), 'text', '255'); ?>
                                 <label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label><br>
-                                <?php PlxUtils::printInput('meta_description', PlxUtils::strCheck($meta_description), 'text', '27-255'); ?>
+                                <?php PlxUtils::printInput('meta_description', PlxUtils::strCheck($meta_description), 'text', '255'); ?>
                                 <label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label><br>
                                 <?php //TODO is this still used by Google ? (P3ter)
-                                PlxUtils::printInput('meta_keywords', PlxUtils::strCheck($meta_keywords), 'text', '27-255');
+                                PlxUtils::printInput('meta_keywords', PlxUtils::strCheck($meta_keywords), 'text', '255');
                                 ?>
                             </div>
                         </div>
-                        <div class="expender">
+                        <div class="collapsible">Image d'accroche</div>
+                        <div class="expander">
                             <label for="id_thumbnail">
                                 <?= L_THUMBNAIL ?>&nbsp;:&nbsp;
                                 <a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)"
                                    onclick="mediasManager.openPopup('id_thumbnail', true)"
                                    style="outline:none; text-decoration: none">+</a>
                             </label><br>
-                            <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '255', false, 'w100', '', 'onkeyup="refreshImg(this.value)"'); ?>
+                            <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '255', false, '', '', 'onkeyup="refreshImg(this.value)"'); ?>
                             <label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label><br>
-                            <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '255-255', false, 'w100'); ?>
+                            <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '255', false); ?>
                             <label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label><br>
-                            <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '255-255', false, 'w100'); ?>
+                            <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '255', false); ?>
                             <?php
                             $src = false;
                             if (preg_match('@^(?:https?|data):@', $thumbnail)) {
@@ -586,6 +600,22 @@ $cat_id = '000';
         </div>
     </div>
 </form>
+
+<script>
+    var acc = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
 
 <?php
 # Hook Plugins
