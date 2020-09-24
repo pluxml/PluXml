@@ -435,7 +435,7 @@ $cat_id = '000';
                         <div class="expander">
                             <div>
                                 <label for="id_url"><?= L_URL ?></label> :
-                                <?php PlxUtils::printInput('url', $url, 'text', '255'); ?>
+                                <?php PlxUtils::printInput('url', $url, 'text', '-255'); ?>
                                 <p><small><?= L_ARTICLE_URL_FIELD_TITLE ?></small></p>
                             </div>
                         </div>
@@ -469,7 +469,7 @@ $cat_id = '000';
                                 <?php endforeach; ?>
                                 <?php if ($_SESSION['profil'] < PROFIL_WRITER) : ?>
                                     <label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
-                                    <?php PlxUtils::printInput('new_catname', '', 'text', '50') ?>
+                                    <?php PlxUtils::printInput('new_catname', '', 'text', '-50') ?>
                                     <input class="btn" type="submit" name="new_category" value="<?= L_ADD ?>"/>
                                 <?php endif; ?>
                             </div>
@@ -479,7 +479,7 @@ $cat_id = '000';
                             <div>
                                 <label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?></label>
                                 <p><small><?= L_ARTICLE_TAGS_FIELD_TITLE?></small></p>
-                                <?php PlxUtils::printInput('tags', $tags, 'text', '255', false, false); ?>
+                                <?php PlxUtils::printInput('tags', $tags, 'text', '-255', false, false); ?>
                                 <input class="toggler" type="checkbox"
                                        id="toggler_tags"<?= (empty($_GET['a']) || !empty(trim($tags))) ? ' unchecked' : ''; ?> />
                                 <label for="toggler_tags"><span>-</span><span>+</span></label>
@@ -549,12 +549,12 @@ $cat_id = '000';
                         <div class="expander">
                             <div>
                                 <label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?>&nbsp;:</label><br>
-                                <?php PlxUtils::printInput('title_htmltag', PlxUtils::strCheck($title_htmltag), 'text', '255'); ?>
+                                <?php PlxUtils::printInput('title_htmltag', PlxUtils::strCheck($title_htmltag), 'text', '-255'); ?>
                                 <label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label><br>
-                                <?php PlxUtils::printInput('meta_description', PlxUtils::strCheck($meta_description), 'text', '255'); ?>
+                                <?php PlxUtils::printInput('meta_description', PlxUtils::strCheck($meta_description), 'text', '-255'); ?>
                                 <label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label><br>
                                 <?php //TODO is this still used by Google ? (P3ter)
-                                PlxUtils::printInput('meta_keywords', PlxUtils::strCheck($meta_keywords), 'text', '255');
+                                PlxUtils::printInput('meta_keywords', PlxUtils::strCheck($meta_keywords), 'text', '-255');
                                 ?>
                             </div>
                         </div>
@@ -566,11 +566,11 @@ $cat_id = '000';
                                    onclick="mediasManager.openPopup('id_thumbnail', true)"
                                    style="outline:none; text-decoration: none">+</a>
                             </label><br>
-                            <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '255', false, '', '', 'onkeyup="refreshImg(this.value)"'); ?>
+                            <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '-255', false, '', '', 'onkeyup="refreshImg(this.value)"'); ?>
                             <label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label><br>
-                            <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '255', false); ?>
+                            <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '-255', false); ?>
                             <label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label><br>
-                            <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '255', false); ?>
+                            <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '-255', false); ?>
                             <?php
                             $src = false;
                             if (preg_match('@^(?:https?|data):@', $thumbnail)) {

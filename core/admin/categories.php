@@ -69,41 +69,37 @@ include __DIR__ . '/top.php';
             </tr>
             </thead>
             <tbody>
-            <?php
-            # Initialisation de l'ordre
-            $ordre = 1;
-            # Si on a des catégories
-            if ($plxAdmin->aCats) {
-                foreach ($plxAdmin->aCats as $k => $v) { # Pour chaque catégorie
-                    echo '<tr>';
-                    echo '<td><input type="checkbox" name="idCategory[]" value="' . $k . '" /><input type="hidden" name="catNum[]" value="' . $k . '" /></td>';
-                    echo '<td>' . $k . '</td><td>';
-                    PlxUtils::printInput($k . '_name', PlxUtils::strCheck($v['name']), 'text', '-50', '', 'w100');
-                    echo '</td><td>';
-                    PlxUtils::printInput($k . '_url', $v['url'], 'text', '-50');
-                    echo '</td><td>';
-                    PlxUtils::printSelect($k . '_active', array('1' => L_YES, '0' => L_NO), $v['active']);
-                    echo '</td><td>';
-                    PlxUtils::printSelect($k . '_tri', $aTri, $v['tri']);
-                    echo '</td><td>';
-                    PlxUtils::printInput($k . '_bypage', $v['bypage'], 'text', '-3');
-                    echo '</td><td>';
-                    PlxUtils::printInput($k . '_ordre', $ordre, 'text', '-3');
-                    echo '</td><td>';
-                    PlxUtils::printSelect($k . '_menu', array('oui' => L_DISPLAY, 'non' => L_HIDE), $v['menu']);
-                    echo '</td>';
-                    echo '<td><a href="categorie.php?p=' . $k . '">' . L_OPTIONS . '</a></td>';
-                    echo '</tr>';
-                    $ordre++;
-                }
-                # On récupère le dernier identifiant
+            <?php $ordre = 1; ?>
+            <?php if ($plxAdmin->aCats): ?>
+                <?php foreach ($plxAdmin->aCats as $k => $v): ?>
+                    <tr>
+                    <td><input type="checkbox" name="idCategory[]" value="<?= $k ?>" /><input type="hidden" name="catNum[]" value="<?= $k ?>" /></td>
+                    <td><?= $k ?></td><td>
+                    <?php PlxUtils::printInput($k . '_name', PlxUtils::strCheck($v['name']), 'text', '-50'); ?>
+                    </td><td>
+                    <?php PlxUtils::printInput($k . '_url', $v['url'], 'text', '-50'); ?>
+                    </td><td>
+                    <?php PlxUtils::printSelect($k . '_active', array('1' => L_YES, '0' => L_NO), $v['active']); ?>
+                    </td><td>
+                    <?php PlxUtils::printSelect($k . '_tri', $aTri, $v['tri']); ?>
+                    </td><td>
+                    <?php PlxUtils::printInput($k . '_bypage', $v['bypage'], 'text', '-3'); ?>
+                    </td><td>
+                    <?php PlxUtils::printInput($k . '_ordre', $ordre, 'text', '-3'); ?>
+                    </td><td>
+                    <?php PlxUtils::printSelect($k . '_menu', array('oui' => L_DISPLAY, 'non' => L_HIDE), $v['menu']); ?>
+                    </td>
+                    <td><a href="categorie.php?p=<?= $k ?>"><?= L_OPTIONS ?></a></td>
+                    </tr>
+                    <?php $ordre++; ?>
+                <?php endforeach; ?>
+                <?php # On récupère le dernier identifiant
                 $a = array_keys($plxAdmin->aCats);
-                rsort($a);
-            } else {
+                rsort($a); ?>
+            <?php else: ?>
                 $a['0'] = 0;
-            }
-            $new_catid = str_pad($a['0'] + 1, 3, "0", STR_PAD_LEFT);
-            ?>
+            <?php endif; ?>
+            <?php $new_catid = str_pad($a['0'] + 1, 3, "0", STR_PAD_LEFT); ?>
             <tr>
                 <td colspan="2"><?= L_NEW_CATEGORY ?></td>
                 <td>
@@ -132,7 +128,7 @@ include __DIR__ . '/top.php';
             <tr>
                 <td colspan="10">
                     <?php PlxUtils::printSelect('selection', array('' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-                    <input type="submit" name="submit" value="<?= L_OK ?>"
+                    <input class="btn" type="submit" name="submit" value="<?= L_OK ?>"
                            onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCategory[]', '<?= L_CONFIRM_DELETE ?>')"/>
                 </td>
             </tr>
