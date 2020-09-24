@@ -345,6 +345,14 @@ $cat_id = '000';
                             <?php PlxUtils::printInput('artId', $artId, 'hidden'); ?>
                             <label for="id_title"><?= L_TITLE ?>&nbsp;:</label>
                             <?php PlxUtils::printInput('title', PlxUtils::strCheck($title), 'text', '255', false); ?>
+                            <?php if ($artId != '' and $artId != '0000') : ?>
+                                <?php $link = $plxAdmin->urlRewrite('?article' . intval($artId) . '/' . $url) ?>
+                                <p>
+                                    <strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
+                                    <a onclick="this.target=\'_blank\';return true;" href="<?= $link ?>"
+                                       title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
+                                </p>
+                            <?php endif; ?>
                         </div>
                         <div>
                             <input class="toggler" type="checkbox"
@@ -367,13 +375,9 @@ $cat_id = '000';
 
             <!-- SIDEBAR -->
             <div class="col-2-small-1 sidebar">
-                <div>
-                    <span class="btn">tab1</span>
-                    <span class="btn">tab2</span>
-                </div>
                 <fieldset class="pan">
                     <div class="flex-container--column">
-                        <div>
+                        <div class="pas">
                             <label for="id_author"><?= L_AUTHOR ?>&nbsp;:&nbsp;</label>
                             <?php
                             if ($_SESSION['profil'] < PROFIL_WRITER)
@@ -384,7 +388,7 @@ $cat_id = '000';
                             }
                             ?>
                         </div>
-                        <div class="flex-container--column">
+                        <div class="flex-container--column pas">
                             <div>
                                 <label><?= L_ARTICLE_DATE ?>&nbsp;:</label><br>
                                 <?php PlxUtils::printInput('date_publication_day', $date['day'], 'text', '2-2', false, 'day'); ?>
@@ -423,29 +427,16 @@ $cat_id = '000';
                                 </a>
                             </div>
                         </div>
-                        <div>
+                        <div class="pas">
                             <label for="id_template"><?= L_TEMPLATE ?>&nbsp;:</label>
                             <?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
                         </div>
-
                         <div class="collapsible">URL</div>
                         <div class="expander">
                             <div>
-                                <label for="id_url">
-                                    <?= L_URL ?>
-                                    <div class="tooltip icon-help-circled">
-                                        <span class="tooltiptext"><?= L_ARTICLE_URL_FIELD_TITLE ?></span>
-                                    </div>
-                                </label>
+                                <label for="id_url"><?= L_URL ?></label> :
                                 <?php PlxUtils::printInput('url', $url, 'text', '255'); ?>
-                                <?php if ($artId != '' and $artId != '0000') : ?>
-                                    <?php $link = $plxAdmin->urlRewrite('?article' . intval($artId) . '/' . $url) ?>
-                                    <p>
-                                        <strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
-                                        <a onclick="this.target=\'_blank\';return true;" href="<?= $link ?>"
-                                           title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
-                                    </p>
-                                <?php endif; ?>
+                                <p><small><?= L_ARTICLE_URL_FIELD_TITLE ?></small></p>
                             </div>
                         </div>
                         <div class="collapsible">Category</div>
@@ -487,9 +478,7 @@ $cat_id = '000';
                         <div class="expander">
                             <div>
                                 <label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?></label>
-                                <div class="tooltip icon-help-circled">
-                                    <span class="tooltiptext"><?= L_ARTICLE_TAGS_FIELD_TITLE ?></span>
-                                </div>
+                                <p><small><?= L_ARTICLE_TAGS_FIELD_TITLE?></small></p>
                                 <?php PlxUtils::printInput('tags', $tags, 'text', '255', false, false); ?>
                                 <input class="toggler" type="checkbox"
                                        id="toggler_tags"<?= (empty($_GET['a']) || !empty(trim($tags))) ? ' unchecked' : ''; ?> />
