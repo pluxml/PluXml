@@ -58,7 +58,7 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
         <nav class="responsive-menu">
             <label for="nav"><?= L_MENU ?></label>
             <input type="checkbox" id="nav"/>
-            <ul id="responsive-menu" class="menu vertical expanded">
+            <div id="responsive-menu" class="menu vertical expanded">
                 <?php
                 $menus = array();
                 $userId = ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user'];
@@ -121,7 +121,7 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
                 eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
                 echo implode(PHP_EOL, $menus) . PHP_EOL;
                 ?>
-            </ul>
+            </div>
         </nav>
         <div class="plxversion"><a title="PluXml"
                                    href="<?= PLX_URL_REPO ?>"><small>PluXml <?= $plxAdmin->aConf['version'] ?></small></a>

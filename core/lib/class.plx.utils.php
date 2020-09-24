@@ -1142,13 +1142,13 @@ class plxUtils {
 		if(!empty($aClass)) { $classList[] = $aClass; }
 		$className = implode(' ', $classList);
 
-		$onclick = $onclick ? ' onclick="' . $onclick . '"':'';
-		$title = $title ? ' title="' . $title . '"' : '';
+		$onclick = $onclick ? 'onclick="' . $onclick . '"':'';
+		$title = $title ? 'title="' . $title . '"' : '';
 		$extra = ((!empty($extra))) ? ' ' . trim($extra) : '';
 
 		$caption = ucfirst($caption);
 		return <<< EOT
-<li id="mnu_$id" class="$className"><a href="$href"$title$onclick>$caption$extra</a></li>
+<a href="$href" id="mnu_$id" class="$className" $title $onclick>$caption$extra</a>
 EOT;
 	}
 

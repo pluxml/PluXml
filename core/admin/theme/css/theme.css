@@ -88,6 +88,8 @@ body {
 
 .aside a {
     color: #fff;
+    font-size: 1.4rem;
+    text-decoration: none;
 }
 
 .aside .asideheader ul {
@@ -96,22 +98,7 @@ body {
     border-bottom: 1px solid var(--backasideborder);
 }
 
-.aside ul {
-    padding-left: 3px;
-}
-
-.aside li a {
-    font-size: 1.4rem;
-    text-decoration: none;
-}
-
-.aside li.active {
-    margin-left: -3px;
-    font-weight: bold;
-    border-left: 3px solid var(--primary);
-}
-
-.aside li span {
+.aside a span {
     margin-left: 10px;
 }
 
@@ -122,21 +109,22 @@ body {
 .aside .responsive-menu {
     border-bottom: 1px solid var(--backasideborder);
 }
-
-.aside .responsive-menu li, .aside .plxversion {
+.aside .responsive-menu a, .aside .plxversion {
+    display: block;
     padding: 5px 10px 10px 30px;
 }
-
+.aside .responsive-menu .active, .aside .menu a:hover, .aside .submenu {
+    background-color: var(--backaside2);
+}
+.aside .responsive-menu .active {
+    font-weight: bold;
+    box-shadow: inset 3px 0 0 0 var(--primary);
+}
 .aside .plxversion {
     margin-top: 10px;
 }
-
 .aside .plxversion a {
     text-decoration: none;
-}
-
-.aside .active, .aside .submenu {
-    background-color: var(--backaside2);
 }
 
 #nav, /* fix old android browser (always open) */
