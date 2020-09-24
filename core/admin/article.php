@@ -285,7 +285,7 @@ $cat_id = '000';
         <div class="col-4 mtm txtright">
             <p class="pas inbl"><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
                 <strong>
-                    <?php //TODO create a PlxAdmin fonction to get article status (P3ter)
+                    <?php //TODO create a PlxAdmin function to get article status (P3ter)
                     if (isset($_GET['a']) and preg_match('/^_[0-9]{4}$/', $_GET['a']))
                         echo L_AWAITING;
                     elseif (in_array('draft', $catId)) {
@@ -332,7 +332,6 @@ $cat_id = '000';
             ?>
         </div>
     </div>
-
 
     <div>
 
@@ -432,8 +431,10 @@ $cat_id = '000';
                             <span>URL</span>
                             <div>
                                 <label for="id_url">
-                                    <?= L_URL ?>&nbsp;:&nbsp;<a
-                                            class="hint"><span><?= L_ARTICLE_URL_FIELD_TITLE ?></span></a>
+                                    <?= L_URL ?>
+                                    <div class="tooltip icon-help-circled">
+                                        <span class="tooltiptext"><?= L_ARTICLE_URL_FIELD_TITLE ?></span>
+                                    </div>
                                 </label>
                                 <?php PlxUtils::printInput('url', $url, 'text', '27-255'); ?>
                                 <?php if ($artId != '' and $artId != '0000') : ?>
@@ -449,32 +450,33 @@ $cat_id = '000';
                         <div class="expender">
                             <span>Category</span>
                             <div>
-                                <label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
-                                <?php
-                                $selected = (is_array($catId) and in_array('000', $catId)) ? ' checked="checked"' : '';
-                                echo '<label for="cat_unclassified"><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]"' . $selected . ' value="000" />&nbsp;' . L_UNCLASSIFIED . '</label>';
-                                $selected = (is_array($catId) and in_array('home', $catId)) ? ' checked="checked"' : '';
-                                echo '<label for="cat_home"><input type="checkbox" class="no-margin" id="cat_home" name="catId[]"' . $selected . ' value="home" />&nbsp;' . L_HOMEPAGE . '</label>';
-                                foreach ($plxAdmin->aCats as $cat_id => $cat_name) {
-                                    $selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : '';
-                                    if ($plxAdmin->aCats[$cat_id]['active'])
-                                        echo '<label for="cat_' . $cat_id . '">' . '<input type="checkbox" class="no-margin" id="cat_' . $cat_id . '" name="catId[]"' . $selected . ' value="' . $cat_id . '" />&nbsp;' . PlxUtils::strCheck($cat_name['name']) . '</label>';
-                                    else
-                                        echo '<label for="cat_' . $cat_id . '">' . '<input type="checkbox" class="no-margin" id="cat_' . $cat_id . '" name="catId[]"' . $selected . ' value="' . $cat_id . '" />&nbsp;' . PlxUtils::strCheck($cat_name['name']) . '</label>';
-                                }
-                                ?>
+                                <label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label><br>
+                                <?php $selected = (is_array($catId) and in_array('000', $catId)) ? ' checked="checked"' : ''; ?>
+                                <label for="cat_unclassified"><input disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]" <?= $selected ?> value="000" />&nbsp;<?= L_UNCLASSIFIED ?></label><br>
+                                <?php $selected = (is_array($catId) and in_array('home', $catId)) ? ' checked="checked"' : ''; ?>
+                                <label for="cat_home"><input type="checkbox" id="cat_home" name="catId[]" <?= $selected ?> value="home" />&nbsp;<?= L_HOMEPAGE ?></label><br>
+                                <?php foreach ($plxAdmin->aCats as $cat_id => $cat_name): ?>
+                                    <?php $selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : ''; ?>
+                                    <? if ($plxAdmin->aCats[$cat_id]['active']): ?>
+                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_?<?= $cat_id ?>" name="catId[]" <?= $selected ?> value="<?= $cat_id ?>" />&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?></label><br>
+                                    <?php else: ?>
+                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_<?= $cat_id ?>" name="catId[]"<?= $selected ?> value="<?= $cat_id ?>" />&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?></label><br>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                                 <?php if ($_SESSION['profil'] < PROFIL_WRITER) : ?>
                                     <label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
                                     <?php PlxUtils::printInput('new_catname', '', 'text', '17-50') ?>
-                                    <input type="submit" name="new_category" value="<?= L_ADD ?>"/>
+                                    <input class="btn" type="submit" name="new_category" value="<?= L_ADD ?>"/>
                                 <?php endif; ?>
                             </div>
                         </div>
                         <div class="expender">
                             <span>Tags</span>
                             <div>
-                                <label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a
-                                            class="hint"><span><?= L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
+                                <label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?></label>
+                                <div class="tooltip icon-help-circled">
+                                    <span class="tooltiptext"><?= L_ARTICLE_TAGS_FIELD_TITLE ?></span>
+                                </div>
                                 <?php PlxUtils::printInput('tags', $tags, 'text', '25-255', false, false); ?>
                                 <input class="toggler" type="checkbox"
                                        id="toggler_tags"<?= (empty($_GET['a']) || !empty(trim($tags))) ? ' unchecked' : ''; ?> />
