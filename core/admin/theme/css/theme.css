@@ -425,6 +425,7 @@ button [class^="icon-"] {
 
 .table button [class^="icon-"] {
     margin-right: 0px;
+    color: #000;
 }
 
 .notification {

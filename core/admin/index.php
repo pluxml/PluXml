@@ -232,9 +232,9 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
                         echo '<td><a title="' . L_NEW_COMMENTS_TITLE . '" href="comments.php?sel=offline&amp;a=' . $plxAdmin->plxRecord_arts->f('numero') . '&amp;page=1">' . $nbComsToValidate . '</a> / <a title="' . L_VALIDATED_COMMENTS_TITLE . '" href="comments.php?sel=online&amp;a=' . $plxAdmin->plxRecord_arts->f('numero') . '&amp;page=1">' . $nbComsValidated . '</a>&nbsp;</td>';
                         echo '<td>' . PlxUtils::strCheck($author) . '&nbsp;</td>';
                         echo '<td>';
-                        echo '<a href="article.php?a=' . $idArt . '" title="' . L_ARTICLE_EDIT_TITLE . '"><button><i class="icon-pencil"></i></button></a>';
+                        echo '<button><a href="article.php?a=' . $idArt . '" title="' . L_ARTICLE_EDIT_TITLE . '"><i class="icon-pencil"></i></a></button>';
                         if ($publi and $draft == '') # Si l'article est publié
-                            echo ' <a href="' . $plxAdmin->urlRewrite('?article' . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) . '" title="' . L_ARTICLE_VIEW_TITLE . '"><button><i class="icon-eye"></i></button></a>';
+                            echo ' <button><a href="' . $plxAdmin->urlRewrite('?article' . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) . '" title="' . L_ARTICLE_VIEW_TITLE . '"><i class="icon-eye"></i></button>';
                         echo "&nbsp;</td>";
                         echo "</tr>";
                     }

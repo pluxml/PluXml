@@ -94,14 +94,14 @@ include __DIR__ . '/top.php';
                         echo '</td><td>';
                         $url = $v['url'];
                         if (!PlxUtils::checkSite($url)) {
-                            echo '<a href="statique.php?p=' . $k . '" title="' . L_STATICS_SRC_TITLE . '"><button><i class="icon-pencil"></i></button></a>';
+                            echo '<button><a href="statique.php?p=' . $k . '" title="' . L_STATICS_SRC_TITLE . '"><i class="icon-pencil"></i></a></button>';
                             if ($v['active']) {
-                                echo '&nbsp;&nbsp;<a href="' . $plxAdmin->urlRewrite('?static' . intval($k) . '/' . $v['url']) . '" title="' . L_STATIC_VIEW_PAGE . ' ' . PlxUtils::strCheck($v['name']) . ' ' . L_STATIC_ON_SITE . '"><button><i class="icon-eye"></i></button></a>';
+                                echo '&nbsp;&nbsp;<button><a href="' . $plxAdmin->urlRewrite('?static' . intval($k) . '/' . $v['url']) . '" title="' . L_STATIC_VIEW_PAGE . ' ' . PlxUtils::strCheck($v['name']) . ' ' . L_STATIC_ON_SITE . '"><i class="icon-eye"></i></a></button>';
                             }
                         } elseif ($v['url'][0] == '?')
-                            echo '<a href="' . $plxAdmin->urlRewrite($v['url']) . '" title="' . PlxUtils::strCheck($v['name']) . '"><button><i class="icon-eye"></i></button></a>';
+                            echo '<button><a href="' . $plxAdmin->urlRewrite($v['url']) . '" title="' . PlxUtils::strCheck($v['name']) . '"><i class="icon-eye"></i></a></button>';
                         else
-                            echo '<a href="' . $v['url'] . '" title="' . PlxUtils::strCheck($v['name']) . '"><button><i class="icon-eye"></i></button></a>';
+                            echo '<button><a href="' . $v['url'] . '" title="' . PlxUtils::strCheck($v['name']) . '"><i class="icon-eye"></i></a></button>';
                         echo '</td></tr>';
                         $ordre++;
                     }
