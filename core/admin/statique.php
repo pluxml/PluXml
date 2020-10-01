@@ -80,7 +80,7 @@ include __DIR__ . '/top.php';
             <p><a class="back" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
         </div>
         <div class="col-2 mtm txtright">
-            <button type="input" class="btn--primary"><?= L_STATIC_UPDATE ?></button>
+            <button type="submit" class="btn--primary"><?= L_STATIC_UPDATE ?></button>
             <p><a href="<?= $url ?>"><?= L_STATIC_VIEW_PAGE ?>&nbsp;<?= plxUtils::strCheck($title); ?>
                     &nbsp;<?= L_STATIC_ON_SITE ?></a></p>
             <?php plxUtils::printInput('id', $id, 'hidden'); ?>

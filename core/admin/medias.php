@@ -204,9 +204,9 @@ $curFolders = explode('/', $curFolder);
                     <thead>
                     <tr>
                         <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')"/></th>
-                        <th>&nbsp;</th>
-                        <th><a href="javascript:void(0)" class="hcolumn"
-                               onclick="document.forms[1].sort.value='<?= $sort_title ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_FILENAME ?></a>
+                        <th class="w10"></th>
+                        <th class="w100"><a href="javascript:void(0)" class="hcolumn"
+                                            onclick="document.forms[1].sort.value='<?= $sort_title ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_FILENAME ?></a>
                         </th>
                         <th><?= L_MEDIAS_EXTENSION ?></th>
                         <th><?= L_MEDIAS_FILESIZE ?></th>
@@ -300,16 +300,15 @@ $curFolders = explode('/', $curFolder);
                             $title = pathinfo($v['name'], PATHINFO_FILENAME);
                             ?>
                             <div class="theme">
-                                <?php if (is_file($v['path']) and $isImage): $attrs = 'width="' . plxUtils::THUMB_WIDTH . '" height="' . plxUtils::THUMB_HEIGHT . '"'; ?>
-                                    <a class="overlay" title="<?= $title ?>" href="<?= $v['path'] ?>"><img
-                                                src="<?= $v['.thumb'] ?>" <?= $attrs ?> alt="<?= $title ?>"
-                                                class="thumb"/></a>
-                                <?php else: $attrs = getimagesize($v['.thumb'])[3]; ?>
-                                    <img src="<?= $v['.thumb'] ?>" <?= $attrs ?>
-                                         alt="<?= substr($v['extension'], 1) ?> " class="thumb"/>
-                                <?php endif; ?>
+                                <img class="overlay" src="<?= $v['path'] ?>" <?= $attrs ?> alt="<?= $title ?>"/>
                                 <div class="themeOverlay">
                                     <div class="themeDetails">
+                                        <a title="<?= $title ?>" href="<?= $v['path'] ?>">
+                                            <p><?= $title ?><?= $v['extension'] ?></p>
+                                        </a>
+                                        <p><?= $v['infos'][0] . ' x ' . $v['infos'][1] ?></p>
+                                        <p><?= plxDate::formatDate(plxDate::timestamp2Date($v['date'])) ?></p>
+                                        <p><?= plxUtils::formatFilesize($v['filesize']); ?></p>
                                     </div>
                                 </div>
                             </div>
