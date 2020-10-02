@@ -360,7 +360,7 @@ $curFolders = explode('/', $curFolder);
         </div>
 
         <div class="grid">
-            <div class="col sma-12 med-4">
+            <div class="col sml-12 med-4">
                 <ul class="unstyled-list">
                     <li><?= L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
                     <li><input type="radio" checked="checked" name="resize" value=""/>&nbsp;<?= L_MEDIAS_RESIZE_NO ?>

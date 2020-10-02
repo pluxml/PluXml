@@ -355,13 +355,9 @@ $cat_id = '000';
                             <?php endif; ?>
                         </div>
                         <div>
-                            <input class="toggler" type="checkbox"
-                                   id="toggler_chapo"<?= (empty($_GET['a']) || !empty(trim($chapo))) ? ' checked' : ''; ?> />
-                            <label for="toggler_chapo"><?= L_HEADLINE_FIELD; ?> :
-                                <span><?= L_ARTICLE_CHAPO_HIDE; ?></span><span><?= L_ARTICLE_CHAPO_DISPLAY; ?></span></label>
-                            <div>
-                                <?php PlxUtils::printArea('chapo', PlxUtils::strCheck($chapo), 0, 8); ?>
-                            </div>
+                            <input class="toggle" id="toggle_chapo" type="checkbox" <?= (empty($_GET['a']) || !empty(trim($chapo))) ? ' checked' : ''; ?>>
+                            <label class="drop" for="toggle_chapo"><?= L_HEADLINE_FIELD; ?></label>
+                            <div><?php PlxUtils::printArea('chapo', PlxUtils::strCheck($chapo), 0, 8); ?></div>
                         </div>
                         <div>
                             <label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
@@ -431,7 +427,8 @@ $cat_id = '000';
                             <label for="id_template"><?= L_TEMPLATE ?>&nbsp;:</label>
                             <?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
                         </div>
-                        <div class="collapsible">URL</div>
+                        <input class="toggle" id="toggle_url" type="checkbox">
+                        <label class="drop collapsible" for="toggle_url">URL</label>
                         <div class="expander">
                             <div>
                                 <label for="id_url"><?= L_URL ?></label> :
@@ -439,7 +436,8 @@ $cat_id = '000';
                                 <p><small><?= L_ARTICLE_URL_FIELD_TITLE ?></small></p>
                             </div>
                         </div>
-                        <div class="collapsible">Category</div>
+                        <input class="toggle" id="toggle_categories" type="checkbox">
+                        <label class="drop collapsible" for="toggle_categories">Categories</label>
                         <div class="expander">
                             <div>
                                 <label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label><br>
@@ -474,15 +472,15 @@ $cat_id = '000';
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="collapsible">Tags</div>
+                        <input class="toggle" id="toggle_tags" type="checkbox">
+                        <label class="drop collapsible" for="toggle_tags">Tags</label>
                         <div class="expander">
                             <div>
                                 <label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?></label>
-                                <p><small><?= L_ARTICLE_TAGS_FIELD_TITLE?></small></p>
+                                <p><small><?= L_ARTICLE_TAGS_FIELD_TITLE ?></small></p>
                                 <?php PlxUtils::printInput('tags', $tags, 'text', '-255', false, false); ?>
-                                <input class="toggler" type="checkbox"
-                                       id="toggler_tags"<?= (empty($_GET['a']) || !empty(trim($tags))) ? ' unchecked' : ''; ?> />
-                                <label for="toggler_tags"><span>-</span><span>+</span></label>
+                                <input class="toggle" id="toggle_tagslist" type="checkbox" <?= empty(trim($tags)) ? ' checked' : ''; ?>>
+                                <label class="drop-inline" for="toggle_tagslist"></label>
                                 <div style="margin-top: 1rem">
                                     <?php
                                     if ($plxAdmin->aTags) {
@@ -510,7 +508,8 @@ $cat_id = '000';
                                 </div>
                             </div>
                         </div>
-                        <div class="collapsible">Comments</div>
+                        <input class="toggle" id="toggle_comments" type="checkbox">
+                        <label class="drop collapsible" for="toggle_comments">Comments</label>
                         <div class="expander">
                             <div>
                                 <?php if ($plxAdmin->aConf['allow_com'] == '1') : ?>
@@ -545,7 +544,8 @@ $cat_id = '000';
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="collapsible">SEO</div>
+                        <input class="toggle" id="toggle_seo" type="checkbox">
+                        <label class="drop collapsible" for="toggle_seo">SEO</label>
                         <div class="expander">
                             <div>
                                 <label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?>&nbsp;:</label><br>
@@ -558,7 +558,8 @@ $cat_id = '000';
                                 ?>
                             </div>
                         </div>
-                        <div class="collapsible">Image d'accroche</div>
+                        <input class="toggle" id="toggle_thumb" type="checkbox">
+                        <label class="drop collapsible" for="toggle_thumb"><?= L_THUMBNAIL ?></label>
                         <div class="expander">
                             <label for="id_thumbnail">
                                 <?= L_THUMBNAIL ?>&nbsp;:&nbsp;
@@ -589,7 +590,7 @@ $cat_id = '000';
         </div>
     </div>
 </form>
-
+<!--
 <script>
     var acc = document.getElementsByClassName("collapsible");
     var i;
@@ -605,7 +606,7 @@ $cat_id = '000';
         });
     }
 </script>
-
+-->
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));

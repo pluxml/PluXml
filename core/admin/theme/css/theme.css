@@ -109,20 +109,25 @@ body {
 .aside .responsive-menu {
     border-bottom: 1px solid var(--backasideborder);
 }
+
 .aside .responsive-menu a, .aside .plxversion {
     display: block;
     padding: 5px 10px 10px 30px;
 }
+
 .aside .responsive-menu .active, .aside .menu a:hover, .aside .submenu {
     background-color: var(--backaside2);
 }
+
 .aside .responsive-menu .active {
     font-weight: bold;
     box-shadow: inset 3px 0 0 0 var(--primary);
 }
+
 .aside .plxversion {
     margin-top: 10px;
 }
+
 .aside .plxversion a {
     text-decoration: none;
 }
@@ -305,7 +310,9 @@ body {
     font-size: 1.4rem;
     background-color: var(--backheader);
 }
+
 .section .sidebar .collapsible {
+    margin: 0px;
     background-color: #eee;
     color: #444;
     cursor: pointer;
@@ -316,14 +323,14 @@ body {
     outline: none;
     transition: 0.4s;
 }
+
 .section .sidebar .active, .section .sidebar .collapsible:hover {
     background-color: #ccc;
 }
+
 .section .sidebar .expander {
     padding: 10px 18px;
     background-color: white;
-    display: none;
-    overflow: hidden;
 }
 
 /* ==== COMPONENTS ==== */
@@ -467,6 +474,40 @@ button [class^="icon-"] {
     font-size: 13px;
     width: 100%;
     background-color: #ffcfcf;
+}
+
+/* toggle */
+.drop {
+    cursor: pointer;
+    display: block;
+}
+
+.drop-inline {
+    cursor: pointer;
+}
+
+input[type="checkbox"].toggle {
+    display: none;
+}
+
+input + .drop + div, input + .drop-inline + div {
+    display: none;
+}
+
+.drop:after, .drop-inline:after {
+    margin-left: 10px;
+    content: '▼';
+}
+.drop:after {
+    float: right;
+}
+
+:checked + .drop:after, :checked + .drop-inline:after {
+    content: '▲';
+}
+
+input:checked + .drop + div, input:checked + .drop-inline + div {
+    display: block;
 }
 
 /* Tooltips
