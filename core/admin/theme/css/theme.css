@@ -23,7 +23,8 @@ body {
     background-color: var(--backsection);
 }
 
-input {
+
+input[type]{
     margin-bottom: 1rem;
 }
 
