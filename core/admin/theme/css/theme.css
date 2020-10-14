@@ -23,6 +23,10 @@ body {
     background-color: var(--backsection);
 }
 
+input {
+    margin-bottom: 1rem;
+}
+
 /* ==== AUTHENTIFICATION ==== */
 
 .auth .logo {
@@ -329,7 +333,6 @@ body {
 }
 
 .section .sidebar .expander {
-    padding: 10px 18px;
     background-color: white;
 }
 
@@ -370,7 +373,12 @@ body {
 }
 
 .table button {
-    padding: 5px 8px;
+    padding: 0px;
+}
+
+.table button a {
+    display: block;
+    padding: 0.5rem;
 }
 
 .table[data-rows-num] th:first-of-type, .table[data-rows-num] td:first-of-type {
@@ -491,7 +499,11 @@ input[type="checkbox"].toggle {
 }
 
 input + .drop + div, input + .drop-inline + div {
-    display: none;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition-property: opacity, left, top, height;
+    transition-duration: .5s, 1s;
 }
 
 .drop:after, .drop-inline:after {
@@ -507,7 +519,9 @@ input + .drop + div, input + .drop-inline + div {
 }
 
 input:checked + .drop + div, input:checked + .drop-inline + div {
-    display: block;
+    opacity: 1;
+    padding: 10px 18px;
+    height: auto;
 }
 
 /* Tooltips
