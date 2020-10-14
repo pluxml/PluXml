@@ -34,6 +34,8 @@
 .icon-angle-left:before { content: '\f104'; } /* '' */
 .icon-angle-right:before { content: '\f105'; } /* '' */
 .icon-folder-empty:before { content: '\f114'; } /* '' */
+.icon-doc-inv:before { content: '\f15b'; } /* '' */
+.icon-doc-text-inv:before { content: '\f15c'; } /* '' */
 .icon-file-code:before { content: '\f1c9'; } /* '' */
 .icon-hashtag:before { content: '\f292'; } /* '' */
 .icon-envira:before { content: '\f299'; } /* '' */

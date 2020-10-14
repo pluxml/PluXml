@@ -239,6 +239,18 @@
       "css": "help-circled",
       "code": 59418,
       "src": "entypo"
+    },
+    {
+      "uid": "178053298e3e5b03551d754d4b9acd8b",
+      "css": "doc-inv",
+      "code": 61787,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c08a1cde48d96cba21d8c05fa7d7feb1",
+      "css": "doc-text-inv",
+      "code": 61788,
+      "src": "fontawesome"
     }
   ]
 }

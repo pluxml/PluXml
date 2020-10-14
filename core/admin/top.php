@@ -64,31 +64,31 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
                 $userId = ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user'];
                 $nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
                 $arts_mod = $nbartsmod > 0 ? '<span class="badge" onclick="window.location=\'' . 'index.php?sel=mod&amp;page=1\';return false;">' . $nbartsmod . '</span>' : '';
-                $menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod);
+                $menus[] = plxUtils::formatMenu('<i class="icon-doc-inv"></i>'.L_MENU_ARTICLES, 'index.php?page=1', L_MENU_ARTICLES_TITLE, false, false, $arts_mod);
 
                 if (isset($_GET['a'])) # edition article
-                    $menus[] = plxUtils::formatMenu(L_NEW_ARTICLE, 'article.php', L_NEW_ARTICLE, false, false, '', false);
+                    $menus[] = plxUtils::formatMenu('<i class="icon-plus"></i>'.L_NEW_ARTICLE, 'article.php', L_NEW_ARTICLE, false, false, '', false);
                 else # nouvel article
-                    $menus[] = plxUtils::formatMenu(L_NEW_ARTICLE, 'article.php', L_NEW_ARTICLE);
+                    $menus[] = plxUtils::formatMenu('<i class="icon-plus"></i>'.L_NEW_ARTICLE, 'article.php', L_NEW_ARTICLE);
 
-                $menus[] = plxUtils::formatMenu(L_MENU_MEDIAS, 'medias.php', L_MENU_MEDIAS_TITLE);
+                $menus[] = plxUtils::formatMenu('<i class="icon-picture"></i>'.L_MENU_MEDIAS, 'medias.php', L_MENU_MEDIAS_TITLE);
 
                 if ($_SESSION['profil'] <= PROFIL_MANAGER)
-                    $menus[] = plxUtils::formatMenu(L_MENU_STATICS, 'statiques.php', L_MENU_STATICS_TITLE);
+                    $menus[] = plxUtils::formatMenu('<i class="icon-doc-text-inv"></i>'.L_MENU_STATICS, 'statiques.php', L_MENU_STATICS_TITLE);
 
                 if (!empty($plxAdmin->aConf['allow_com']) and $_SESSION['profil'] <= PROFIL_MODERATOR) {
                     $nbcoms = $plxAdmin->nbComments('offline');
                     $coms_offline = $nbcoms > 0 ? '<span class="badge" onclick="window.location=\'' . 'comments.php?sel=offline&amp;page=1\';return false;">' . $plxAdmin->nbComments('offline') . '</span>' : '';
-                    $menus[] = plxUtils::formatMenu(L_COMMENTS, 'comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
+                    $menus[] = plxUtils::formatMenu('<i class="icon-comment-inv-alt2"></i>'.L_COMMENTS, 'comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
                 }
 
                 if ($_SESSION['profil'] <= PROFIL_EDITOR)
-                    $menus[] = plxUtils::formatMenu(L_CATEGORIES, 'categories.php', L_MENU_CATEGORIES_TITLE);
+                    $menus[] = plxUtils::formatMenu('<i class="icon-list"></i>'.L_CATEGORIES, 'categories.php', L_MENU_CATEGORIES_TITLE);
 
-                $menus[] = plxUtils::formatMenu(L_PROFIL, 'profil.php', L_MENU_PROFIL_TITLE);
+                $menus[] = plxUtils::formatMenu('<i class="icon-user"></i>'.L_PROFIL, 'profil.php', L_MENU_PROFIL_TITLE);
 
                 if ($_SESSION['profil'] == PROFIL_ADMIN) {
-                    $menus[] = plxUtils::formatMenu(L_MENU_CONFIG, 'parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', false);
+                    $menus[] = plxUtils::formatMenu('<i class="icon-cog-1"></i>'.L_MENU_CONFIG, 'parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', false);
                     if (preg_match('/parametres/', basename($_SERVER['SCRIPT_NAME']))) {
                         $menus[] = plxUtils::formatMenu(L_CONFIG_BASE, 'parametres_base.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
                         $menus[] = plxUtils::formatMenu(L_MENU_CONFIG_VIEW, 'parametres_affichage.php', L_MENU_CONFIG_VIEW_TITLE, 'menu-config');

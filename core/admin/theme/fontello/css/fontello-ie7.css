@@ -45,6 +45,8 @@
 .icon-angle-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf104;&nbsp;'); }
 .icon-angle-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf105;&nbsp;'); }
 .icon-folder-empty { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf114;&nbsp;'); }
+.icon-doc-inv { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf15b;&nbsp;'); }
+.icon-doc-text-inv { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf15c;&nbsp;'); }
 .icon-file-code { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c9;&nbsp;'); }
 .icon-hashtag { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf292;&nbsp;'); }
 .icon-envira { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf299;&nbsp;'); }
