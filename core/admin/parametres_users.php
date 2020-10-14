@@ -82,7 +82,7 @@ include __DIR__ . '/top.php';
                                 plxUtils::printSelect($_userid . '_active', array('1' => L_YES, '0' => L_NO), $_user['active']);
                             }
                             echo '</td>';
-                            echo '<td><a href="user.php?p=' . $_userid . '">' . L_OPTIONS . '</a></td>';
+                            echo '<td><button><a href="user.php?p=' . $_userid . '"><i class="icon-cog-1"></i></a></button></td>';
                             echo '</tr>';
                         }
                     }

@@ -24,7 +24,7 @@ body {
 }
 
 
-input[type]{
+input[type], select {
     margin-bottom: 1rem;
 }
 
@@ -511,6 +511,7 @@ input + .drop + div, input + .drop-inline + div {
     margin-left: 10px;
     content: '▼';
 }
+
 .drop:after {
     float: right;
 }
@@ -682,6 +683,7 @@ body.mediasManager .section .action-bar {
     margin-right: 0;
     margin-left: 0;
 }
+
 /* Remove offsets & enlarge (screens>767px) */
 body.mediasManager .col.med-offset-3,
 body.mediasManager .col.lrg-offset-2 {
@@ -772,7 +774,7 @@ body.mediasManager .col.lrg-offset-2 {
     justify-content: center;
 }
 
-input:checked~.modal__overlay {
+input:checked ~ .modal__overlay {
     opacity: 1;
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
