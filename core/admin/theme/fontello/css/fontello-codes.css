@@ -26,8 +26,11 @@
 .icon-info-circled:before { content: '\e818'; } /* '' */
 .icon-eye:before { content: '\e819'; } /* '' */
 .icon-help-circled:before { content: '\e81a'; } /* '' */
+.icon-trash:before { content: '\e81b'; } /* '' */
+.icon-floppy:before { content: '\e81c'; } /* '' */
 .icon-spin3:before { content: '\e832'; } /* '' */
 .icon-link-ext:before { content: '\f08e'; } /* '' */
+.icon-filter:before { content: '\f0b0'; } /* '' */
 .icon-doc-text:before { content: '\f0f6'; } /* '' */
 .icon-angle-double-left:before { content: '\f100'; } /* '' */
 .icon-angle-double-right:before { content: '\f101'; } /* '' */

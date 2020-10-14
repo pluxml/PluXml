@@ -157,11 +157,11 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
         <div class="mtm pas grid-2-small-1 tableheader">
             <div>
                 <a href="<?= PLX_CORE ?>admin/article.php"><span class="btn btn--primary"><i
-                                class="icon-pencil"></i><?= L_NEW_ARTICLE ?></span></a>
+                                class="icon-plus"></i><?= L_NEW_ARTICLE ?></span></a>
                 <?= PlxToken::getTokenPostMethod(); ?>
                 <?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
                 <button class="<?= $_SESSION['sel_cat'] != 'all' ? ' select' : '' ?> btn--primary" type="submit"><i
-                            class="icon-tags"></i><?= L_ARTICLES_FILTER_BUTTON ?></button>
+                            class="icon-filter"></i><?= L_ARTICLES_FILTER_BUTTON ?></button>
             </div>
             <div class="txtright">
                 <input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle"
@@ -249,7 +249,7 @@ $nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
                         <?php if ($_SESSION['profil'] <= PROFIL_MODERATOR) : ?>
                             <!-- <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE ?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" />-->
                             <button class="submit btn--warning" name="delete" type="submit"><i
-                                        class="icon-trash-empty"></i><?= L_DELETE ?></button>
+                                        class="icon-trash"></i><?= L_DELETE ?></button>
                             <?php PlxUtils::printInput('page', 1, 'hidden'); ?>
                         <?php endif; ?>
                     </td>
