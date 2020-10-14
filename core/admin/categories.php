@@ -89,7 +89,7 @@ include __DIR__ . '/top.php';
                     </td><td>
                     <?php PlxUtils::printSelect($k . '_menu', array('oui' => L_DISPLAY, 'non' => L_HIDE), $v['menu']); ?>
                     </td>
-                    <td><a href="categorie.php?p=<?= $k ?>"><?= L_OPTIONS ?></a></td>
+                    <td><button><a href="categorie.php?p=<?= $k ?>"><i class="icon-cog-1"></i></a></button></td>
                     </tr>
                     <?php $ordre++; ?>
                 <?php endforeach; ?>

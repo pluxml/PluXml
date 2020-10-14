@@ -275,6 +275,12 @@
       "css": "docs",
       "code": 61637,
       "src": "fontawesome"
+    },
+    {
+      "uid": "b6fc2f656ef87275889422e19550680a",
+      "css": "reply-1",
+      "code": 59421,
+      "src": "entypo"
     }
   ]
 }
