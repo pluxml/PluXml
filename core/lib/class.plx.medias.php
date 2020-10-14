@@ -165,7 +165,7 @@ class plxMedias {
 	 * @author	Stephane F, Danielsan, J.P. "bazooka07" Pourrez
 	 **/
 	public function contentFolder() {
-		plxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin', true, 'folder');
+		plxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin', true, 'folder', true);
 	}
 
 	/**

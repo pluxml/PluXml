@@ -36,9 +36,6 @@ $plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf
 
 #----
 
-# Display mode
-$mode = filter_input(INPUT_GET, 'mode');
-
 if (!empty($_POST['btn_newfolder']) and !empty($_POST['newfolder'])) {
     $newdir = plxUtils::title2filename(trim($_POST['newfolder']));
     if ($plxMedias->newDir($newdir)) {
@@ -174,32 +171,33 @@ $curFolders = explode('/', $curFolder);
             </div>
         </div>
 
-        <div id="files_manager">
-            <button onclick="dialogBox('dlgNewFolder');return false;"
-                    id="btnNewFolder"><?= L_MEDIAS_NEW_FOLDER ?></button>
-            <?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
-            <input type="submit" name="btn_changefolder" value="<?= L_OK ?>"/>
-
-            <div class="mtm pas tableheader">
-                <a href="?mode=grid" class="btn">grid</a>
-                <a href="?mode=list" class="btn">list</a>
-                <button class="btn--primary" type="submit"
-                        onclick="toggle_divs();return false"><?= L_MEDIAS_ADD_FILE ?></button>
-                <?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
-                <input type="submit" name="btn_ok" value="<?= L_OK ?>"
-                       onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?= L_CONFIRM_DELETE ?>')"/>
-                <?php if (!empty($_SESSION['folder'])) { ?>
-                    <input type="submit" name="btn_delete"
-                           class="red"
-                           value="<?= L_DELETE_FOLDER ?>"
-                           onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')"/>
-                <?php } ?>
-                <input type="hidden" name="sort" value=""/>
-                <input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..."
-                       title="<?= L_SEARCH ?>"/>
+        <div id="files_manager" class="grid-6-small-1 mtm">
+            <div class="col-1">
+                <button onclick="dialogBox('dlgNewFolder');return false;"
+                        id="btnNewFolder"><?= L_MEDIAS_NEW_FOLDER ?></button>
+                <?php $plxMedias->contentFolder() ?>
+                <!--<input type="submit" name="btn_changefolder" value="<?= L_OK ?>"/>-->
             </div>
 
-            <?php if ($mode == 'list'): ?>
+            <div class="col-5">
+                <div class="pas tableheader">
+                    <button class="btn--primary" type="submit"
+                            onclick="toggle_divs();return false"><i class="icon-plus"></i><?= L_MEDIAS_ADD_FILE ?>
+                    </button>
+                    <?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
+                    <input type="submit" name="btn_ok" value="<?= L_OK ?>"
+                           onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?= L_CONFIRM_DELETE ?>')"/>
+                    <?php if (!empty($_SESSION['folder'])) { ?>
+                        <input type="submit" name="btn_delete"
+                               class="red"
+                               value="<?= L_DELETE_FOLDER ?>"
+                               onclick="return confirm('<?php printf(L_MEDIAS_DELETE_FOLDER_CONFIRM, $curFolder) ?>')"/>
+                    <?php } ?>
+                    <input type="hidden" name="sort" value=""/>
+                    <input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..."
+                           title="<?= L_SEARCH ?>"/>
+                </div>
+
                 <table id="medias-table" class="table">
                     <thead>
                     <tr>
@@ -292,30 +290,7 @@ $curFolders = explode('/', $curFolder);
                     ?>
                     </tbody>
                 </table>
-            <?php else: ?>
-                <div class="grid-4 has-gutter-l mtm themes">
-                    <?php if ($plxMedias->aFiles): ?>
-                        <?php foreach ($plxMedias->aFiles as $v):
-                            $isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
-                            $title = pathinfo($v['name'], PATHINFO_FILENAME);
-                            ?>
-                            <div class="theme">
-                                <img class="overlay" src="<?= $v['path'] ?>" <?= $attrs ?> alt="<?= $title ?>"/>
-                                <div class="themeOverlay">
-                                    <div class="themeDetails">
-                                        <a title="<?= $title ?>" href="<?= $v['path'] ?>">
-                                            <p><?= $title ?><?= $v['extension'] ?></p>
-                                        </a>
-                                        <p><?= $v['infos'][0] . ' x ' . $v['infos'][1] ?></p>
-                                        <p><?= plxDate::formatDate(plxDate::timestamp2Date($v['date'])) ?></p>
-                                        <p><?= plxUtils::formatFilesize($v['filesize']); ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
+            </div>
         </div>
     </form>
 </div>

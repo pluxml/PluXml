@@ -573,3 +573,211 @@ input:checked + .drop + div, input:checked + .drop-inline + div {
     visibility: visible;
     opacity: 1;
 }
+
+/* Medias Manager
+ * from PluXml 5.8.4
+ */
+
+div.ico {
+    font-size: 16px;
+    color: #ccc;
+    display: inline-block;
+    margin-left: 5px;
+    position: relative;
+}
+
+div.ico:hover {
+    cursor: pointer;
+    color: #555;
+}
+
+div.ico div {
+    font-size: 11px;
+    display: none;
+    background-color: #666;
+    color: #eee;
+    display: none;
+    padding: 1px 3px 1px 3px;
+    margin-left: 5px;
+    border-radius: 2px;
+    border: 1px solid #888;
+}
+
+#medias-table div.ico {
+    color: #000;
+    font-size: 16pt;
+    margin: 0 0.3rem;
+}
+
+a.overlay {
+    display: block;
+}
+
+/* The Dialog (background) */
+
+.dialog {
+    /* Hidden by default */
+    display: none;
+    /* Stay in place */
+    position: fixed;
+    /* Sit on top */
+    z-index: 9999;
+    /* Location of the box */
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    /* Full width */
+    width: 100%;
+    /* Full height */
+    height: 100%;
+    /* Enable scroll if needed */
+    overflow: auto;
+    /* Fallback color */
+    background-color: rgb(0, 0, 0);
+    /* Black w/ opacity */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Dialog Content */
+
+.dialog-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    min-width: 250px;
+}
+
+/* The Close Button */
+
+.dialog-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.dialog-close:hover,
+.dialog-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ------- Popup Medias Manager ------ */
+
+body.mediasManager .aside {
+    display: none;
+}
+
+body.mediasManager main.grid {
+    margin-left: 0;
+}
+
+body.mediasManager .section .action-bar {
+    left: 0;
+    right: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+/* Remove offsets & enlarge (screens>767px) */
+body.mediasManager .col.med-offset-3,
+body.mediasManager .col.lrg-offset-2 {
+    width: 100%;
+    margin-left: 0;
+}
+
+/* Media preview */
+
+.modal {
+    display: block;
+    width: 100%;
+    position: absolute;
+}
+
+.modal__overlay {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 999;
+    text-align: right;
+}
+
+.modal__box {
+    position: relative;
+    text-align: center;
+    border: 1px solid #666;
+    background-color: #fff;
+}
+
+.modal input {
+    position: absolute;
+    right: 100px;
+    top: 30px;
+    display: none;
+    z-index: -10;
+}
+
+.modal label {
+    position: absolute;
+    right: 0;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    -webkit-transition: all 0.55s;
+    transition: all 0.55s;
+    padding: 10px;
+    font-size: 2rem;
+    vertical-align: top;
+}
+
+@media (max-width: 767px) {
+    .modal label {
+        background-color: #000;
+        position: fixed;
+        right: 0;
+        top: 2rem;
+    }
+}
+
+.modal label:hover {
+    color: #fff;
+    -webkit-transform: scale(0.97);
+    -ms-transform: scale(0.97);
+    transform: scale(0.97);
+}
+
+.modal__box img {
+    max-height: calc(100vh - 1.25rem);
+    max-width: calc(100vw - 1.25rem);
+}
+
+.modal__overlay {
+    opacity: 0;
+    overflow: hidden;
+    -webkit-transform: scale(0.5);
+    -ms-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    visibility: hidden;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+input:checked~.modal__overlay {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 800;
+    visibility: visible;
+}
