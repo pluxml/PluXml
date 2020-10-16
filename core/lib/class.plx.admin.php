@@ -145,7 +145,7 @@ class plxAdmin extends plxMotor {
 		$_SESSION['lang'] = $this->aConf['default_lang'];
 
 		# Actions sur le fichier htaccess
-		if(!empty($content['urlrewriting']))
+		if(array_key_exists('urlrewriting', $content))
 			if(!$this->htaccess($content['urlrewriting'], $this->aConf['racine']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
