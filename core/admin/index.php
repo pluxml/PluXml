@@ -126,12 +126,12 @@ include __DIR__ .'/top.php';
 <form action="index.php" method="post" id="form_articles">
 
 <div class="inline-form action-bar">
-	<h2><?php echo L_ARTICLES_LIST ?></h2>
+	<h2><?= L_ARTICLES_LIST ?></h2>
 	<ul class="menu">
-		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_AWAITING ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?= L_ALL ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?= L_ALL_PUBLISHED ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?= L_ALL_DRAFTS ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?= L_AWAITING ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
 	</ul>
 	<?php
 	echo plxToken::getTokenPostMethod();
@@ -146,11 +146,11 @@ include __DIR__ .'/top.php';
 <div class="grid">
 	<div class="col sml-6">
 		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
-		<input class="<?php echo $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?php echo L_ARTICLES_FILTER_BUTTON ?>" />
+		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
 	<div class="col sml-6 text-right">
-		<input id="index-search" placeholder="<?php echo L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?php echo plxUtils::strCheck($_GET['artTitle']) ?>" />
-		<input class="<?php echo (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?php echo L_SEARCH ?>" />
+		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= plxUtils::strCheck($_GET['artTitle']) ?>" />
+		<input class="<?= (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
 	</div>
 </div>
 
@@ -160,11 +160,11 @@ include __DIR__ .'/top.php';
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
 				<th>#</th>
-				<th><?php echo L_DATE ?></th>
-				<th><?php echo L_TITLE ?></th>
-				<th><?php echo L_ARTICLE_LIST_CATEGORIES ?></th>
-				<th><?php echo L_ARTICLE_LIST_NBCOMS ?></th>
-				<th><?php echo L_AUTHOR ?></th>
+				<th><?= L_DATE ?></th>
+				<th><?= L_TITLE ?></th>
+				<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
+				<th><?= L_ARTICLE_LIST_NBCOMS ?></th>
+				<th><?= L_AUTHOR ?></th>
 				<th class="action"><?= L_ACTION ?></th>
 			</tr>
 		</thead>
