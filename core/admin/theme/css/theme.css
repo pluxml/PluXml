@@ -384,8 +384,8 @@ input[maxlength="3"] {
 #comments-table td:nth-child(3),
 #medias-table td:nth-child(3),
 #plugins-table td:nth-child(3) {
-    width: 100%;
-    min-width: 200px;
+    /* width: 100%; */
+    /* min-width: 200px; */
     /* Mozilla, since 1999 */
     white-space: -moz-pre-wrap !important;
     /*Chrome & Safari */
@@ -553,7 +553,7 @@ a.hint:focus span {
 }
 
 .ddcat {
-    width: 150px;
+    /* width: 150px; */
     border-color: transparent;
     background-color: transparent;
     margin-left: 0;
