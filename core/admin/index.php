@@ -43,24 +43,20 @@ else
 
 # Recherche du motif de sélection des articles en fonction des paramètres
 $catIdSel = '';
-$mod='';
+$mod='_?';
 switch ($_SESSION['sel_get']) {
-case 'published':
-	$catIdSel = '[home|0-9,]*FILTER[home|0-9,]*';
-	$mod='';
-	break;
-case 'draft':
-	$catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
-	$mod='_?';
-	break;
-case 'all':
-	$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
-	$mod='_?';
-	break;
-case 'mod':
-	$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
-	$mod='_';
-	break;
+	case 'published':
+		$catIdSel = '[home|0-9,]*FILTER[home|0-9,]*';
+		break;
+	case 'draft':
+		$catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
+		break;
+	case 'mod':
+		$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
+		$mod='_';
+		break;
+	default: // all
+		$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
 }
 
 switch ($_SESSION['sel_cat']) {
@@ -75,7 +71,7 @@ case preg_match('/^[0-9]{3}$/', $_SESSION['sel_cat'])==1:
 }
 
 # Nombre d'article sélectionnés
-$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId);
+$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId, $mod);
 
 # Récupération du texte à rechercher
 $artTitle = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
