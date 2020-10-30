@@ -157,6 +157,11 @@ a.lnkdelete:hover {
     text-decoration: none;
 }
 
+/* some place for scrolling */
+.scrollable-table > table {
+	margin-bottom: 1rem;
+}
+
 /* ---------- Section ---------- */
 
 .section {
@@ -269,18 +274,21 @@ a.lnkdelete:hover {
     color: #444;
 }
 
-.p_page,
-.p_prev,
-.p_first,
-.p_last,
-.p_next,
-.p_current {
-    padding: 0 0.7rem;
-    /* display: inline-block;*/
+#pagination > div {
+	margin: 0.2rem 0;
+	padding: 0;
+	text-align: center;
 }
-
+#pagination span:not(.p_page),
+#pagination a {
+	display: inline-block;
+	min-width: 3rem;
+    padding: 0.3rem 0.7rem;
+}
 .p_current {
     color: #258fd6;
+    background-color: #eee;
+    text-align: center;
     font-weight: bold;
 }
 
@@ -556,6 +564,7 @@ a.hint:focus span {
 
 .ddcat {
     /* width: 150px; */
+    width: 100%;
     border-color: transparent;
     background-color: transparent;
     margin-left: 0;

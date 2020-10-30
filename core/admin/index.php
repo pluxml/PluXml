@@ -47,28 +47,29 @@ $mod='_?';
 switch ($_SESSION['sel_get']) {
 	case 'published':
 		$catIdSel = '[home|0-9,]*FILTER[home|0-9,]*';
-		break;
-	case 'draft':
-		$catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
+		$mod = '';
 		break;
 	case 'mod':
 		$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
 		$mod='_';
 		break;
+	case 'draft':
+		$catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
+		break;
 	default: // all
 		$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
 }
 
-switch ($_SESSION['sel_cat']) {
-case 'all' :
-	$catIdSel = str_replace('FILTER', '', $catIdSel); break;
-case '000' :
-	$catIdSel = str_replace('FILTER', '000', $catIdSel); break;
-case 'home':
-	$catIdSel = str_replace('FILTER', 'home', $catIdSel); break;
-case preg_match('/^[0-9]{3}$/', $_SESSION['sel_cat'])==1:
-	$catIdSel = str_replace('FILTER', $_SESSION['sel_cat'], $catIdSel);
+if(preg_match('/^(\d{3})$/', $_SESSION['sel_cat'], $matches)) {
+	$cats = $matches[1];
+} else {
+	switch ($_SESSION['sel_cat']) {
+		case '000' : $cats = '000'; break;
+		case 'home': $cats = 'home'; break;
+		default: $cats = ''; // all
+	}
 }
+$catIdSel = str_replace('FILTER', $cats, $catIdSel);
 
 # Nombre d'article sélectionnés
 $nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId, $mod);
@@ -145,11 +146,11 @@ include __DIR__ .'/top.php';
 </div>
 
 <div class="grid">
-	<div class="col sml-6">
+	<div class="col med-6">
 		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
-	<div class="col sml-6 text-right">
+	<div class="col med-6 med-text-right">
 		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= plxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?= (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
 	</div>
@@ -170,7 +171,7 @@ include __DIR__ .'/top.php';
 				<th><?= L_DATE ?></th>
 				<th><?= L_TITLE ?></th>
 				<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
-				<th><?= L_ARTICLE_LIST_NBCOMS ?></th>
+				<th title="<?= L_COMMENT_ARTICLE_FIELD ?>"><?= L_ARTICLE_LIST_NBCOMS ?></th>
 				<th><?= L_AUTHOR ?></th>
 				<th class="action"><?= L_ACTION ?></th>
 			</tr>
@@ -215,7 +216,7 @@ include __DIR__ .'/top.php';
 <?php
 				}
 ?>
-				<td><?= $idArt ?></td>
+				<td><?= substr($idArt, -4) ?></td>
 				<td><?= plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?></td>
 				<td><a href="article.php?a=<?= $idArt?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $draft . $awaiting ?></td>
 				<td>
@@ -264,37 +265,67 @@ include __DIR__ .'/top.php';
 
 </form>
 
-<p id="pagination">
+<div id="pagination">
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
 	# Affichage de la pagination
+	const DELTA_PAGINATION = 3;
 	if($arts && $nbArtPagination > $plxAdmin->bypage) { # S'il y a plusieurs pages d'articles
 		# Calcul des pages
 		$last_page = ceil($nbArtPagination / $plxAdmin->bypage);
 
 		$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . $_GET['artTitle'] : '';
 		# Affichage des liens de pagination
-		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'index.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page);
 ?>
-		<span class="p_first"><?php if($plxAdmin->page > 2) { ?><a href="index.php?page=<?= '1' . $artTitle ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>">⏪</a><?php } else { ?>⏪<?php } ?></span>
-		<span class="p_prev"><?php if($plxAdmin->page > 1) { ?><a href="index.php?page=<?= ($plxAdmin->page-1) . $artTitle ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>">◀️</a><?php } else { ?>◀️<?php } ?></span>
+	<div class="col med-4 lrg-2">
+<?php printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'index.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page); ?>
+	</div>
+	<div class="col med-8 lrg-10">
 <?php
-		$iMax = $plxAdmin->page + 2; if($iMax > $last_page) { $iMax=$last_page; }
-		$iMin = $iMax - 4; if($iMin < 1) { $iMin=1; }
-		for($i=$iMin; $i<=$iMax; $i++) { // On boucle sur les pages
-			$className = ($i != $plxAdmin->page) ? '' : 'class="p_current"';
-?>
-		<span <?= $className ?>><?php if($i == $plxAdmin->page) { echo $i; } else { ?><a href="index.php?page=<?= $i.$artTitle ?>"><?= $i ?></a><?php } ?></span>
-<?php
+
+		if($plxAdmin->page > 2) {
+?><a href="index.php?page=<?= '1' . $artTitle ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>">⏪</a><?php
+		} else {
+?><span>⏪</span><?php
 		}
-?>
-		<span class="p_next"><?php if($plxAdmin->page < $last_page) { ?><a href="index.php?page=<?= ($plxAdmin->page+1) . $artTitle ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>">▶️</a><?php } else { ?>▶️<?php } ?></span>
-		<span class="p_last"><?php if($plxAdmin->page < $last_page - 1) { ?><a href="index.php?page=<?= $last_page . $artTitle ?>" title="<?= L_PAGINATION_LAST_TITLE ?>">⏩</a><?php } else { ?>⏩<?php } ?></span>
-<?php
+		if($plxAdmin->page > 1) {
+?><a href="index.php?page=<?= ($plxAdmin->page-1) . $artTitle ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>">◀️</a><?php
+		} else {
+?><span>◀️</span><?php
+		}
+
+		if($last_page <= 2 * DELTA_PAGINATION  + 1) {
+			$iMin = 1; $iMax = $last_page;
+		} else {
+			if($plxAdmin->page > DELTA_PAGINATION + 1) {
+				$iMin = ($last_page - $plxAdmin->page > DELTA_PAGINATION) ? $plxAdmin->page - DELTA_PAGINATION : $last_page - 2 * DELTA_PAGINATION;
+			} else {
+				$iMin = 1;
+			}
+			$iMax =  $iMin + 2 * DELTA_PAGINATION;
+		}
+		for($i=$iMin; $i<=$iMax; $i++) { // On boucle sur les pages
+			if($i != $plxAdmin->page) {
+?><a href="index.php?page=<?= $i.$artTitle ?>"><?= $i ?></a><?php
+			} else {
+?><span class="p_current"><?= $i ?></span><?php
+			}
+		}
+		if($plxAdmin->page < $last_page) {
+?><a href="index.php?page=<?= ($plxAdmin->page+1) . $artTitle ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>">▶️</a><?php
+		} else {
+?><span>▶️</span><?php
+		}
+		if($plxAdmin->page < $last_page - 1) {
+?><a href="index.php?page=<?= $last_page . $artTitle ?>" title="<?= L_PAGINATION_LAST_TITLE ?>">⏩</a><?php
+		} else {
+?><span class="p_last">⏩</span><?php
+		}
 	} // fin de pagination
 ?>
-</p>
+	</div>
+</div>
 <?php
 
 # Hook Plugins
