@@ -143,11 +143,11 @@ include __DIR__ .'/top.php';
 </div>
 
 <div class="grid">
-	<div class="col med-6 lrg-3">
+	<div class="col med-6">
 		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
-	<div class="col med-6 lrg-9 med-text-right">
+	<div class="col med-6 med-text-right">
 		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= plxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?= (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
 	</div>

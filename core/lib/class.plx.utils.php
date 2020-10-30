@@ -1139,6 +1139,9 @@ class plxUtils {
 					}
 			}
 		}
+		if(!empty($extra)) {
+			$classList[] = 'has-extra';
+		}
 		if(!empty($aClass)) { $classList[] = $aClass; }
 		$className = implode(' ', $classList);
 
