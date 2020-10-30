@@ -163,7 +163,13 @@ include __DIR__ .'/top.php';
 	<table id="articles-table" class="full-width">
 		<thead>
 			<tr>
+<?php
+	if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+?>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
+<?php
+	}
+?>
 				<th>#</th>
 				<th><?= L_DATE ?></th>
 				<th><?= L_TITLE ?></th>
@@ -207,10 +213,16 @@ include __DIR__ .'/top.php';
 				# On affiche la ligne
 ?>
 			<tr>
+<?php
+				if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+?>
 				<td><input type="checkbox" name="idArt[]" value="<?= $idArt ?>" /></td>
+<?php
+				}
+?>
 				<td><?= $idArt ?></td>
-				<td><?= plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?>&nbsp;</td>
-				<td class="wrap"><a href="article.php?a=<?= $idArt?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $draft . $awaiting ?>&nbsp;</td>
+				<td><?= plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?></td>
+				<td><a href="article.php?a=<?= $idArt?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $draft . $awaiting ?></td>
 				<td>
 <?php
 				if(sizeof($aCats) > 1) {
@@ -225,8 +237,8 @@ include __DIR__ .'/top.php';
 <?php
 				}
 ?>
-				&nbsp;</td>
-				<td><a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsToValidate ?></a> / <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&a=<?=$plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsValidated ?></a>&nbsp;</td>
+				</td>
+				<td><a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsToValidate ?></a> / <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&a=<?=$plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsValidated ?></a></td>
 				<td><?= plxUtils::strCheck($author) ?></td>
 				<td>
 					<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= L_EDIT ?></a>
