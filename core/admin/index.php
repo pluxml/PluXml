@@ -184,7 +184,6 @@ include __DIR__ .'/top.php';
 		# On va lister les articles
 		if($arts) { # On a des articles
 			# Initialisation de l'ordre
-			$num=0;
 			$datetime = date('YmdHi');
 			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
 				$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
@@ -277,32 +276,25 @@ include __DIR__ .'/top.php';
 	if($arts && $nbArtPagination > $plxAdmin->bypage) { # S'il y a plusieurs pages d'articles
 		# Calcul des pages
 		$last_page = ceil($nbArtPagination / $plxAdmin->bypage);
-		$stop = $plxAdmin->page + 2;
-		if($stop<5) $stop=5;
-		if($stop>$last_page) $stop=$last_page;
-		$start = $stop - 4;
-		if($start<1) $start=1;
-		# Génération des URLs
-		$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . urlencode($_GET['artTitle']) : '';
-		$f_url = 'index.php?page=1' . $artTitle;
-		$p_url = 'index.php?page=' . ($plxAdmin->page-1) . $artTitle;
-		$n_url = 'index.php?page=' . ($plxAdmin->page+1) . $artTitle;
-		$l_url = 'index.php?page=' . $last_page . $artTitle;
+
+		$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . $_GET['artTitle'] : '';
 		# Affichage des liens de pagination
 		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'index.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page);
 ?>
-		<span class="p_first"><?php if($plxAdmin->page > 2) { ?><a href="<?= $f_url ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>">«</a><?php } else { ?>«<?php } ?></span>
-		<span class="p_prev"><?php if($plxAdmin->page > 1) { ?><a href="<?= $p_url ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>">‹</a><?php } else { ?>‹<?php } ?></span>
+		<span class="p_first"><?php if($plxAdmin->page > 2) { ?><a href="index.php?page=<?= '1' . $artTitle ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>">⏪</a><?php } else { ?>⏪<?php } ?></span>
+		<span class="p_prev"><?php if($plxAdmin->page > 1) { ?><a href="index.php?page=<?= ($plxAdmin->page-1) . $artTitle ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>">◀️</a><?php } else { ?>◀️<?php } ?></span>
 <?php
-		for($i=$start;$i<=$stop;$i++) {
-			// On boucle sur les pages
+		$iMax = $plxAdmin->page + 2; if($iMax > $last_page) { $iMax=$last_page; }
+		$iMin = $iMax - 4; if($iMin < 1) { $iMin=1; }
+		for($i=$iMin; $i<=$iMax; $i++) { // On boucle sur les pages
+			$className = ($i != $plxAdmin->page) ? '' : 'class="p_current"';
 ?>
-		<span class="p_current"><?php if($i == $plxAdmin->page) { echo $i; } else { ?><a href="index.php?page=<?= $i.$artTitle ?>"><?= $i ?></a><?php } ?></span>
+		<span <?= $className ?>><?php if($i == $plxAdmin->page) { echo $i; } else { ?><a href="index.php?page=<?= $i.$artTitle ?>"><?= $i ?></a><?php } ?></span>
 <?php
 		}
 ?>
-		<span class="p_next"><?php if($plxAdmin->page < $last_page) { ?><a href="<?= $n_url ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>">›</a><?php } else { ?>›<?php } ?></span>
-		<span class="p_last"><?php if($plxAdmin->page < $last_page - 1) { ?><a href="<?= $l_url ?>" title="<?= L_PAGINATION_LAST_TITLE ?>">»</a><?php } else { ?>»<?php } ?></span>
+		<span class="p_next"><?php if($plxAdmin->page < $last_page) { ?><a href="index.php?page=<?= ($plxAdmin->page+1) . $artTitle ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>">▶️</a><?php } else { ?>▶️<?php } ?></span>
+		<span class="p_last"><?php if($plxAdmin->page < $last_page - 1) { ?><a href="index.php?page=<?= $last_page . $artTitle ?>" title="<?= L_PAGINATION_LAST_TITLE ?>">⏩</a><?php } else { ?>⏩<?php } ?></span>
 <?php
 	} // fin de pagination
 ?>

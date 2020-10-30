@@ -275,12 +275,13 @@ a.lnkdelete:hover {
 .p_last,
 .p_next,
 .p_current {
-    padding: 4px 5px;
-    display: inline-block;
+    padding: 0 0.7rem;
+    /* display: inline-block;*/
 }
 
 .p_current {
     color: #258fd6;
+    font-weight: bold;
 }
 
 .p_page:first-letter {
@@ -399,7 +400,8 @@ input[maxlength="3"] {
     /* Internet Explorer 5.5+ */
     word-wrap: break-word;
     word-break: break-all;
-    white-space: normal;
+    /* white-space: normal; */
+    white-space: nowrap;
 }
 
 #plugins-table img,
