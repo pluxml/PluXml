@@ -123,10 +123,15 @@
 }
 
 .aside .menu.expanded .badge,
-.aside .menu.expanded .active a .badge {
-    background-color: #e43d29;
-    color: #fff;
-    font-size: 1rem;
+.aside .menu.expanded .active .badge {
+	height: auto;
+	margin-right: 0.5rem;
+	padding: 0.2rem 0.4rem;
+	background-color: #e43d29;
+	color: #fff;
+	line-height: initial;
+	font-size: 75%;
+	border-radius: 0.4rem;
 }
 
 .aside .menu.expanded li:hover {
@@ -283,7 +288,7 @@ a.lnkdelete:hover {
 #pagination a {
 	display: inline-block;
 	min-width: 3rem;
-    padding: 0.3rem 0.7rem;
+    padding: 0.3rem 0;
 }
 .p_current {
     color: #258fd6;
