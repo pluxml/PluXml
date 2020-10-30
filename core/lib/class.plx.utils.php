@@ -1148,7 +1148,7 @@ class plxUtils {
 
 		$caption = ucfirst($caption);
 		return <<< EOT
-<li id="mnu_$id" class="$className"><a href="$href"$title$onclick>$caption$extra</a></li>
+<li id="mnu_$id" class="$className"><a href="$href"$title$onclick>$caption</a>$extra</li>
 EOT;
 	}
 

@@ -67,10 +67,9 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 			<input type="checkbox" id="nav" />
 			<ul id="responsive-menu" class="menu vertical expanded">
 <?php
-					$menus = array();
-					$userId = ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user'];
-					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
-					$arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.'index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
+					$menus = array();;
+					$nbartsmod = $plxAdmin->nbArticles('all', $artsUserId, '_');
+					$arts_mod = ($nbartsmod > 0) ? '<a class="badge" href="index.php?sel=mod">' . $nbartsmod . '</a>' : '';
 					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
 
 					if(isset($_GET['a'])) # edition article
@@ -85,7 +84,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 
 					if(!empty($plxAdmin->aConf['allow_com']) and $_SESSION['profil'] <= PROFIL_MODERATOR) {
 						$nbcoms = $plxAdmin->nbComments('offline');
-						$coms_offline = $nbcoms>0 ? '<span class="badge" onclick="window.location=\''.'comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
+						$coms_offline = ($nbcoms > 0) ? '<a class="badge" href="comments.php?sel=offline">' . $plxAdmin->nbComments('offline') . '</a>' : '';
 						$menus[] = plxUtils::formatMenu(L_COMMENTS, 'comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
 					}
 

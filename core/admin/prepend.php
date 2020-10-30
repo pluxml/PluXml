@@ -61,7 +61,7 @@ if(defined('PLX_AUTHPAGE')) {
 	$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
 
 	# Change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
-	if($plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
+	if(!array_key_exists('profil', $_SESSION) || $plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
 }
 
@@ -88,5 +88,8 @@ eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
+
+# utilisé par top.php et index.php. Limite l'accès aux articles si besoin
+$artsUserId = ($_SESSION['profil'] < PROFIL_EDITOR) ? '\d{3}' : $_SESSION['user'];
 
 ?>

@@ -22,9 +22,6 @@ if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']
 	exit;
 }
 
-# Récuperation de l'id de l'utilisateur
-$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
-
 # Récuperation des paramètres
 if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published', 'draft','mod'))) {
 	$_SESSION['sel_get']=plxUtils::nullbyteRemove($_GET['sel']);
@@ -72,7 +69,7 @@ if(preg_match('/^(\d{3})$/', $_SESSION['sel_cat'], $matches)) {
 $catIdSel = str_replace('FILTER', $cats, $catIdSel);
 
 # Nombre d'article sélectionnés
-$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId, $mod);
+$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $artsUserId, $mod);
 
 # Récupération du texte à rechercher
 $artTitle = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
@@ -84,9 +81,9 @@ $_GET['artTitle'] = $artTitle;
 # On génère notre motif de recherche
 if(is_numeric($_GET['artTitle'])) {
 	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
-	$motif = '/^'.$mod.$artId.'.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*).xml$/';
+	$motif = '/^' . $mod . $artId . '\.' . $catIdSel . '\.' . $artsUserId . '\.\d{12}\.(.*)\.xml$/';
 } else {
-	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::urlify($_GET['artTitle']).'(.*).xml$/';
+	$motif = '/^' . $mod . '\d{4}\.' . $catIdSel . '\.' . $artsUserId . '\.\d{12}\.(.*)' . plxUtils::urlify($_GET['artTitle']) . '(.*)\.xml$/';
 }
 # Calcul du nombre de page si on fait une recherche
 if($_GET['artTitle']!='') {
@@ -125,10 +122,10 @@ include __DIR__ .'/top.php';
 <div class="inline-form action-bar">
 	<h2><?= L_ARTICLES_LIST ?></h2>
 	<ul class="menu">
-		<li><a <?= ($_SESSION['sel_get']=='all') ? 'class="selected" ' : '' ?>href="index.php?sel=all&page=1"><?= L_ALL ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
-		<li><a <?= ($_SESSION['sel_get']=='published') ? 'class="selected" ' : '' ?>href="index.php?sel=published&page=1"><?= L_ALL_PUBLISHED ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
-		<li><a <?= ($_SESSION['sel_get']=='draft') ? 'class="selected" ' : '' ?>href="index.php?sel=draft&page=1"><?= L_ALL_DRAFTS ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-		<li><a <?= ($_SESSION['sel_get']=='mod') ? 'class="selected" ' : '' ?>href="index.php?sel=mod&page=1"><?= L_AWAITING ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='all') ? 'class="selected" ' : '' ?>href="index.php?sel=all&page=1"><?= L_ALL ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('all', $artsUserId).')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='published') ? 'class="selected" ' : '' ?>href="index.php?sel=published&page=1"><?= L_ALL_PUBLISHED ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('published', $artsUserId, '').')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='draft') ? 'class="selected" ' : '' ?>href="index.php?sel=draft&page=1"><?= L_ALL_DRAFTS ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('draft', $artsUserId).')' ?></li>
+		<li><a <?= ($_SESSION['sel_get']=='mod') ? 'class="selected" ' : '' ?>href="index.php?sel=mod&page=1"><?= L_AWAITING ?></a><?= '&nbsp;('.$plxAdmin->nbArticles('all', $artsUserId, '_').')' ?></li>
 	</ul>
 	<?= plxToken::getTokenPostMethod(); ?>
 <?php
@@ -146,11 +143,11 @@ include __DIR__ .'/top.php';
 </div>
 
 <div class="grid">
-	<div class="col med-6">
+	<div class="col med-6 lrg-3">
 		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
 		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" />
 	</div>
-	<div class="col med-6 med-text-right">
+	<div class="col med-6 lrg-9 med-text-right">
 		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= plxUtils::strCheck($_GET['artTitle']) ?>" />
 		<input class="<?= (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
 	</div>
