@@ -169,7 +169,13 @@ include __DIR__ .'/top.php';
 				<th><?= L_TITLE ?></th>
 				<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
 				<th title="<?= L_COMMENT_ARTICLE_FIELD ?>"><?= L_ARTICLE_LIST_NBCOMS ?></th>
+<?php
+		if($isModerator) {
+?>
 				<th><?= L_AUTHOR ?></th>
+<?php
+		}
+?>
 				<th class="action"><?= L_ACTION ?></th>
 			</tr>
 		</thead>
@@ -232,7 +238,13 @@ include __DIR__ .'/top.php';
 ?>
 				</td>
 				<td><a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsToValidate ?></a> / <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&a=<?=$plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsValidated ?></a></td>
+<?php
+				if($isModerator) {
+?>
 				<td><?= plxUtils::strCheck($author) ?></td>
+<?php
+				}
+?>
 				<td>
 					<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= L_EDIT ?></a>
 <?php
