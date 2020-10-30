@@ -122,13 +122,12 @@
     color: #aaa;
 }
 
-.aside .menu.expanded .badge,
-.aside .menu.expanded .active .badge {
+.aside .menu.expanded .badge {
 	height: auto;
-	margin-right: 0.5rem;
+	margin: 0.6rem 0.25rem 0.6rem 0;
 	padding: 0.2rem 0.4rem;
-	background-color: #e43d29;
-	color: #fff;
+	background-color: #e43d29 !important;
+	color: #fff !important;
 	line-height: initial;
 	font-size: 75%;
 	border-radius: 0.4rem;
@@ -147,10 +146,22 @@
     border-radius: 0;
 }
 
-.aside .menu.expanded li.active a,
-.aside .menu.expanded li.active:hover {
-    background-color: #fff;
-    color: #444;
+.aside .menu.expanded li.active {
+	color: #444;
+	background-color: #fff;
+}
+
+.aside .menu.expanded li.active a {
+	color: inherit;
+	background-color: inherit;
+}
+
+li.menu.has-extra {
+	display: flex;
+}
+
+li.menu.has-extra > a:first-of-type {
+	flex-grow: 1;
 }
 
 a.lnkdelete {
@@ -234,6 +245,7 @@ a.lnkdelete:hover {
 
     .aside .responsive-menu,
     .aside .responsive-menu label {
+		padding-right: 1rem;
         background-color: #222;
         text-align: right;
     }
@@ -273,6 +285,11 @@ a.lnkdelete:hover {
         margin-top: 1.5rem;
         padding: 0 1rem 0 2.5rem;
     }
+
+    #form_articles .grid > div {
+		display: flex;
+		justify-content: space-between;
+	}
 }
 
 .selected {
@@ -624,12 +641,14 @@ a.hint:focus span {
         margin-top: 1rem;
     }
 
+	/*
     button,
     input[type="button"],
     input[type="reset"],
     input[type="submit"] {
         margin-top: 3px;
     }
+	 * */
 }
 
 .notification {
@@ -1103,7 +1122,7 @@ select {
     -moz-appearance: none; /*for firefox*/
     overflow: hidden;
     padding: 0 20px 0 3px;
-    max-width: 45.6vw;
+    /* max-width: 45.6vw; */
 }
 
 select::-ms-expand { /*for IE10*/
