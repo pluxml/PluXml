@@ -80,7 +80,7 @@ class plxUpdater {
 		# démarrage des mises à jour
 		if($this->doUpdate()) {
 			# On désactive l'URL-Rewriting par précaution
-			$this->pxAdmin->aConf['urlrewriting'] = 0;
+			$this->plxAdmin->aConf['urlrewriting'] = 0;
 
 			$this->updateVersion();
 		}
