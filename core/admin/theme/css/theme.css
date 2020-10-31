@@ -430,7 +430,10 @@ input[maxlength="3"] {
     /* Internet Explorer 5.5+ */
     word-wrap: break-word;
     word-break: break-all;
-    /* white-space: normal; */
+    white-space: normal;
+}
+
+#articles-table td:nth-child(4) {
     white-space: nowrap;
 }
 
