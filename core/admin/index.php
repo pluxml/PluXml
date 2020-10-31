@@ -141,7 +141,9 @@ include __DIR__ .'/top.php';
 	<?php plxUtils::printInput('page', 1, 'hidden'); ?>
 
 </div>
-
+<?php
+if($arts) {
+?>
 <div class="grid">
 	<div class="col med-6">
 		<?php plxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
@@ -152,6 +154,9 @@ include __DIR__ .'/top.php';
 		<input class="<?= (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
 	</div>
 </div>
+<?php
+}
+?>
 
 <div class="scrollable-table">
 	<table id="articles-table" class="full-width">

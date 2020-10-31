@@ -56,7 +56,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					<h1 class="h5 no-margin site-name"><strong><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1>
 				</li>
 				<li>
-					<strong><?= plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
+					<strong><?= plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>
 					<em><?= PROFIL_NAMES[$_SESSION['profil']]; ?></em>
 				</li>
 				<li><small><a class="version" title="PluXml" href="<?= PLX_URL_REPO ?>">PluXml <?= $plxAdmin->aConf['version'] ?></a></small></li>
