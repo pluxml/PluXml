@@ -61,7 +61,7 @@ if(defined('PLX_AUTHPAGE')) {
 	$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
 
 	# Change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
-	if($plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
+	if(!isset($_SESSION['profil']) || $plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
 }
 
