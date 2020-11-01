@@ -90,7 +90,10 @@ eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 $_SESSION['admin_lang'] = $lang;
 
 # utilisé par top.php et index.php. Limite l'accès aux articles si besoin
-$artsUserId = ($_SESSION['profil'] < PROFIL_EDITOR) ? '\d{3}' : $_SESSION['user'];
-$isModerator = ($_SESSION['profil'] < PROFIL_EDITOR);
+if(!defined('PLX_AUTHPAGE') && isset($_SESSION['profil'])) {
+	# la page auth.php n'utilise pas top.php !
+	$artsUserId = ($_SESSION['profil'] < PROFIL_EDITOR) ? '\d{3}' : $_SESSION['user'];
+	$isModerator = ($_SESSION['profil'] < PROFIL_EDITOR);
+}
 
 ?>
