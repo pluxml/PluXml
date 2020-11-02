@@ -230,8 +230,8 @@ $selector=selector($comSel, 'id_selection');
 ?></td>
 					<td class="action">
 						<a href="comment_new.php?<?= $query ?>" title="<?= L_COMMENT_ANSWER ?>"><?= L_COMMENT_ANSWER ?></a>
-						<a href="comment.php?<?= $query ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><?= L_COMMENT_EDIT ?></a>
-						<a href="article.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= L_COMMENT_ARTICLE_LINKED ?></a>
+						<a href="comment.php?<?= $query ?>" title="<?= L_EDIT ?>"><?= L_EDIT ?></a>
+						<a href="article.php?a=<?= $artId ?>" title="<?= L_ARTICLE ?>"><?= L_ARTICLE ?></a>
 					</td>
 				</tr>
 <?php
@@ -255,7 +255,7 @@ $selector=selector($comSel, 'id_selection');
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
 	# Affichage de la pagination
-	if($coms) { # Si on a des articles (hors page)
+	if($coms && $nbComPagination > $plxAdmin->aConf['bypage_admin_coms']) { # Si on a des articles (hors page)
 		# Calcul des pages
 		$last_page = ceil($nbComPagination/$plxAdmin->aConf['bypage_admin_coms']);
 		$stop = $plxAdmin->page + 2;
