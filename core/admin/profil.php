@@ -53,7 +53,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label>
+				<label for="id_email"><?php echo L_MAIL_ADDRESS ?>&nbsp;:</label>
 				<?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'text', '30-255') ?>
 			</div>
 		</div>

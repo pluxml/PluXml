@@ -21,7 +21,6 @@ const L_ERR_PASSWORD_CONFIRMATION		= 'Confirmarea parolă incorectă !';
 const L_PLUXML_INSTALLATION				= 'Instalaţia PluXml';
 const L_VERSION							= 'versiunea';
 const L_USERNAME						= 'Numele Administratorului';
-const L_EMAIL						    = 'Adresa de email';
 const L_INPUT_INSTALL					= 'Instalează';
 const L_PWD_VERY_WEAK					= 'Parola foarte slabă';
 const L_PWD_WEAK						= 'Parolă slabă';

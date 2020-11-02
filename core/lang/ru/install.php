@@ -21,7 +21,6 @@ const L_ERR_PASSWORD_CONFIRMATION		= 'Неверный пароль!';
 const L_PLUXML_INSTALLATION				= 'Установка PluXml, ';
 const L_VERSION							= 'версия';
 const L_USERNAME						= 'Имя Администратора';
-const L_EMAIL						    = 'Адрес электронной почты';
 const L_INPUT_INSTALL					= 'Установка';
 const L_PWD_VERY_WEAK					= 'очень слабый пароль';
 const L_PWD_WEAK						= 'слабый пароль';

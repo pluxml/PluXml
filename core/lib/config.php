@@ -8,6 +8,7 @@ const PLX_DEBUG = false;
 const PLX_VERSION = '6.0.0-dev';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';
+const PLX_RESSOURCES_LINK = '<a href="' . PLX_URL_RESSOURCES . '" target="_blank">' . PLX_URL_RESSOURCES . '</a>';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 
 # Chargement de PLX_CONFIG_PATH

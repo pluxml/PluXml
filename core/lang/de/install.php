@@ -21,7 +21,6 @@ const L_ERR_PASSWORD_CONFIRMATION		= 'Die Passwörter sind nicht identisch!';
 const L_PLUXML_INSTALLATION				= 'Installation von PluXml';
 const L_VERSION							= 'Version';
 const L_USERNAME						= 'Name des Administrators';
-const L_EMAIL						    = 'E-Mail-Adresse';
 const L_INPUT_INSTALL					= 'Installieren';
 const L_PWD_VERY_WEAK					= 'Sehr schwaches Passwort';
 const L_PWD_WEAK						= 'Schwaches Passwort';
