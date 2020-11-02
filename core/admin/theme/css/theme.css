@@ -381,7 +381,7 @@ input[maxlength="3"] {
 }
 
 #articles-table td:nth-child(4),
-#comments-table td:nth-child(3),
+#comments-table td.wrap,
 #medias-table td:nth-child(3),
 #plugins-table td:nth-child(3) {
     width: 100%;
@@ -398,7 +398,7 @@ input[maxlength="3"] {
     white-space: pre-wrap;
     /* Internet Explorer 5.5+ */
     word-wrap: break-word;
-    word-break: break-all;
+    /* word-break: break-all; */
     white-space: normal;
 }
 
