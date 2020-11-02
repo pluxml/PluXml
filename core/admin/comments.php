@@ -168,42 +168,80 @@ $selector=selector($comSel, 'id_selection');
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
 					<th class="datetime"><?php echo L_DATE ?></th>
+<?php
+			$all = ($_SESSION['selCom'] == 'all');
+			if($all) {
+?>
+					<th class="status"><?= L_COMMENT_STATUS_FIELD ?></th>
+<?php
+			}
+?>
 					<th class="message"><?php echo L_COMMENTS_LIST_MESSAGE ?></th>
-					<th class="author"><?php echo L_AUTHOR ?></th>
+					<th class="author"><?= L_AUTHOR ?> <?= L_EMAIL ?></th>
+					<th class="site"><?= L_COMMENT_SITE_FIELD ?></th>
 					<th class="action"><?= L_ACTION ?></th>
 				</tr>
 			</thead>
 			<tbody>
 
-			<?php
+<?php
 			# On va récupérer les commentaires
 			$plxAdmin->getPage();
 			$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
 			$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
 			if($coms) {
-				$num=0;
 				while($plxAdmin->plxRecord_coms->loop()) { # On boucle
 					$artId = $plxAdmin->plxRecord_coms->f('article');
 					$status = $plxAdmin->plxRecord_coms->f('status');
 					$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
-					$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
-					if($_SESSION['selCom']=='all') {
-						$content = '<strong>'.($status==''?L_COMMENT_ONLINE:L_COMMENT_OFFLINE).'</strong>&nbsp;-&nbsp;'.$content;
+					$query = 'c=' . $id;
+					if(isset($_GET['a'])) {
+						$query .= '&a=' . $_GET['a'];
 					}
 					# On génère notre ligne
-					echo '<tr class="top type-'.$plxAdmin->plxRecord_coms->f('type').'">';
-					echo '<td><input type="checkbox" name="idCom[]" value="'.$id.'" /></td>';
-					echo '<td class="datetime">'.plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')).'&nbsp;</td>';
-					echo '<td class="wrap">'.$content.'&nbsp;</td>';
-					echo '<td class="author">'.$plxAdmin->plxRecord_coms->f('author').'&nbsp;</td>';
-					echo '<td class="action">';
-					echo '<a href="comment_new.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_ANSWER.'">'.L_COMMENT_ANSWER.'</a>&nbsp;&nbsp;';
-					echo '<a href="comment.php?c='.$id.(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'').'" title="'.L_COMMENT_EDIT_TITLE.'">'.L_EDIT.'</a>&nbsp;&nbsp;';
-					echo '<a href="article.php?a=' . $artId . '" title="' . L_COMMENT_ARTICLE_LINKED_TITLE . '">' . ucfirst(L_ARTICLE) . '</a>';
-					echo '</td></tr>';
+?>
+				<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
+					<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
+					<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
+<?php
+				if($all) {
+?>
+					<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
+<?php
+				}
+?>
+					<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
+					<td class="author"><?php
+					$author = $plxAdmin->plxRecord_coms->f('author');
+					$mail = $plxAdmin->plxRecord_coms->f('mail');
+					if(!empty($mail)) {
+?><a href="mailto:<?= $mail ?>"><?= $author ?></a><?php
+					} else {
+						echo $author;
+					}
+?></td>
+					<td class="site"><?php
+					$site = $plxAdmin->plxRecord_coms->f('site');
+					if(!empty($site)) {
+?><a href="<?= $site ?>" target="_blank"><?= $site ?></a><?php
+					} else {
+						echo '&nbsp;';
+					}
+?></td>
+					<td class="action">
+						<a href="comment_new.php?<?= $query ?>" title="<?= L_COMMENT_ANSWER ?>"><?= L_COMMENT_ANSWER ?></a>
+						<a href="comment.php?<?= $query ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><?= L_COMMENT_EDIT ?></a>
+						<a href="article.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= L_COMMENT_ARTICLE_LINKED ?></a>
+					</td>
+				</tr>
+<?php
 				}
 			} else { # Pas de commentaires
-				echo '<tr><td colspan="5" class="center">'.L_NO_COMMENT.'</td></tr>';
+?>
+				<tr>
+					<td colspan="5" class="center"><?= L_NO_COMMENT ?></td>
+				</tr>
+<?php
 			}
 			?>
 			</tbody>
