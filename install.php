@@ -310,7 +310,7 @@ plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', $extras);
 					</div>
 					<div class="grid">
 						<div class="col med-5 label-centered">
-							<label for="id_email"><?php echo L_EMAIL ?>&nbsp;:</label>
+							<label for="id_email"><?php echo L_USER_EMAIL ?>&nbsp;:</label>
 						</div>
 						<div class="col med-7">
 							<?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', 'required') ?>

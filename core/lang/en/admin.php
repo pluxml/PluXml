@@ -33,7 +33,7 @@ const L_NO_ENTRY = 'No entry';
 const L_ERR_USER_EMPTY = 'Please enter a username';
 const L_ERR_PASSWORD_EMPTY = 'Please enter a password';
 const L_ERR_PASSWORD_EMPTY_CONFIRMATION = 'Wrong or missing password';
-const L_ERR_INVALID_EMAIL = 'Invalid email adress';
+const L_ERR_INVALID_EMAIL = 'Invalid email address';
 const L_ERR_INVALID_SITE = 'Wrong site url';
 const L_ERR_INVALID_ARTICLE_IDENT = 'Wrong article id !';
 const L_DEFAULT_NEW_CATEGORY_URL = 'new-category';
@@ -149,8 +149,8 @@ const L_CAT_TITLE = 'Category Manager';
 const L_ACTIVE = 'Active';
 const L_CAT_LIST_NAME = 'Category name';
 const L_URL = 'Url';
-const L_ARTICLES_SORT = 'Article sorting';
-const L_CAT_LIST_BYPAGE = 'Articles/page';
+const L_ARTICLES_SORT = 'Sorting for articles';
+const L_CAT_LIST_BYPAGE = 'Articles by page';
 const L_ORDER = 'Rank';
 const L_DISPLAY = 'Display';
 const L_HIDE = 'Hide';
@@ -159,7 +159,7 @@ const L_NEW_CATEGORY = 'New category';
 const L_FOR_SELECTION = 'Selected items...';
 const L_CAT_APPLY_BUTTON = 'Change categories list';
 const L_CAT_UNKNOWN = 'Unknown category';
-const L_ERR_CATEGORY_ALREADY_EXISTS = 'Category name already used';
+const L_ERR_CATEGORY_ALREADY_EXISTS = 'Category name already in use';
 
 // categorie.php
 
@@ -176,8 +176,8 @@ const L_EDITCAT_META_KEYWORDS = '"Keywords" Meta tag content	(optional)';
 
 const L_COMMENT_ORPHAN_STATUS = 'not displayed (we advise you to delete this comment)';
 const L_COMMENT_ARTICLE_LINKED_TITLE = 'Article linked to this comment';
-const L_COMMENT_OFFLINE = 'offline';
-const L_COMMENT_ONLINE = 'online';
+const L_COMMENT_OFFLINE = 'Offline';
+const L_COMMENT_ONLINE = 'Online';
 const L_COMMENT_ONLINE_TITLE = 'Published comments';
 const L_BACK_TO_ARTICLE_COMMENTS = 'Back to this article\'s comments';
 const L_BACK_TO_COMMENTS = 'Back to comments';
@@ -187,7 +187,7 @@ const L_COMMENT_TYPE_FIELD = 'Comment type';
 const L_COMMENT_DATE_FIELD = 'Date and time of publication';
 const L_COMMENT_IP_FIELD = 'Ip';
 const L_COMMENT_SITE_FIELD = 'Site';
-const L_COMMENT_EMAIL_FIELD = 'E-mail';
+const L_EMAIL = 'E-mail';
 const L_COMMENT_STATUS_FIELD = 'Status';
 const L_COMMENT_LINKED_ARTICLE_FIELD = 'Linked article';
 const L_COMMENT_ARTICLE_FIELD = 'Comments';
@@ -246,9 +246,9 @@ const L_ALL_DRAFTS = 'Drafts';
 const L_ARTICLES_FILTER_BUTTON = 'Filter';
 const L_SPECIFIC_CATEGORIES_TABLE = 'Spectific categories';
 const L_ALL_ARTICLES_CATEGORIES_TABLE = 'All articles';
-const L_ARTICLES_LIST = 'Article list';
+const L_ARTICLES_LIST = 'Articles list';
 const L_ARTICLE_LIST_CATEGORIES = 'Category';
-const L_ARTICLE_LIST_NBCOMS = 'N° coms';
+const L_ARTICLE_LIST_NBCOMS = '# coms';
 const L_ARTICLE_VIEW_TITLE = 'View this article online';
 const L_EDIT = 'Edit';
 const L_ARTICLE_EDIT_TITLE = 'Edit this article';
@@ -257,7 +257,7 @@ const L_VALIDATED_COMMENTS_TITLE = 'Published comments';
 
 // medias.php
 
-const L_MEDIAS_FILENAME = 'File name';
+const L_MEDIAS_FILENAME = 'Filename';
 const L_MEDIAS_TITLE = 'Media manager';
 const L_MEDIAS_DIRECTORY = 'Location';
 const L_MEDIAS_BACK = 'Back';
@@ -269,7 +269,7 @@ const L_MEDIAS_IMAGES = 'Pictures';
 const L_MEDIAS_DOCUMENTS = 'Documents';
 const L_MEDIAS_ADD_FILE = 'Add file';
 const L_MEDIAS_DELETE_FOLDER_CONFIRM = 'Delete folder %s and its content ?';
-const L_MEDIAS_FOLDER = 'File';
+const L_MEDIAS_FOLDER = 'Folder';
 const L_MEDIAS_NEW_FOLDER = 'New Folder';
 const L_MEDIAS_CREATE_FOLDER = 'Create folder';
 const L_MEDIAS_FILESIZE = 'Size';
@@ -297,26 +297,26 @@ const L_MEDIAS_RENAME = 'Rename';
 // parametres_affichage.php
 
 const L_CONFIG_VIEW = 'Display preferences';
-const L_CONFIG_VIEW_SKIN_SELECT = 'Skin';
-const L_TEMPLATES_EDIT = 'Edit theme files';
+const L_CONFIG_VIEW_SKIN_SELECT = 'Skins list';
+const L_TEMPLATES_EDIT = 'Edit files for this theme';
 const L_CONFIG_VIEW_BYPAGE = 'Articles per page';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Articles per page in archives';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Articles per page in tags';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Articles per page in administration';
-const L_CONFIG_VIEW_SORT_COMS = 'Sorting comments';
-const L_CONFIG_VIEW_BYPAGE_ADMIN_COMS = 'Comments per page in administraton';
+const L_CONFIG_VIEW_SORT_COMS = 'Sorting for comments';
+const L_CONFIG_VIEW_BYPAGE_ADMIN_COMS = 'Comments per page in administration';
 const L_CONFIG_VIEW_IMAGES = 'Image Size (width x height)';
 const L_CONFIG_VIEW_THUMBS = 'Thumbnails size (width x height)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Use a static page as Homepage';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Warning: this page is inactive';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Download themes at : %s';
-const L_CONFIG_VIEW_BYPAGE_FEEDS = 'N° of Articles or comments in the Rss feed';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Download themes from : %s';
+const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Count of Articles or comments in the Rss feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Only display headlines in the Rss article feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Headline field is empty, content is displayed instead';
 const L_CONFIG_VIEW_FEEDS_FOOTER = 'Signature used in the end of every Rss feed\'s article';
 const L_CONFIG_VIEW_UPDATE = 'Save display settings';
 const L_CONFIG_VIEW_DISPLAY_EMPTY_CAT = 'Display categories without article';
-const L_CONFIG_HOMETEMPLATE = 'Template of the homepage';
+const L_CONFIG_HOMETEMPLATE = 'Template for the homepage';
 
 // parametres_avances.php
 
@@ -351,7 +351,6 @@ const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'SMTP password';
 const L_CONFIG_ADVANCED_SMTP_PORT = 'SMTP port';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'SMTP encryption';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Sending emails with SMTP and OAUTH2';
-const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Email address';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Client ID';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Client secret key';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
@@ -363,7 +362,6 @@ const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'User name on the SMTP host (exampl
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'User password on the SMTP host';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'SMTP host port number (default: 465)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml allows to generate tokens only for the service <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Need help to generate the username and secret key: <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
-const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Address used on the OAUTH2 service (example: pluxml@gmail.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Customer ID on the OAUTH2 service (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'The client key on the OAUTH2 service (example: PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Save the customer ID and customer secret code so that you can generate the token.';
@@ -373,7 +371,6 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Save the customer ID and custome
 const L_CONFIG_BASE_SITE_TITLE = 'Site title';
 const L_CONFIG_BASE_SITE_SLOGAN = 'Subtitle / Site description';
 const L_CONFIG_BASE_DEFAULT_LANG = 'Default site language';
-const L_CONFIG_BASE_TIMEZONE = 'Time Zone';
 const L_CONFIG_BASE_MODERATE_COMMENTS = 'Moderate comments when created';
 const L_CONFIG_BASE_MODERATE_ARTICLES = 'Moderate articles for Editor and Publisher profiles';
 const L_CONFIG_BASE_UPDATE = 'Save basic configuration';
@@ -385,18 +382,18 @@ const L_CONFIG_BASE_ENABLE_RSS = 'Display RSS feeds';
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'There is no such theme!';
 const L_CONFIG_EDITTPL_TITLE = 'Theme edit';
-const L_CONFIG_EDITTPL_SELECT_FILE = 'Choose file to edit:';
+const L_CONFIG_EDITTPL_SELECT_FILE = 'Choose a file to edit:';
 const L_CONFIG_EDITTPL_LOAD = 'Load';
 
 // parametres_infos.php
 
 const L_CONFIG_INFOS_TITLE = 'Information about PluXml';
 const L_CONFIG_INFOS_DESCRIPTION = 'Information about your PluXml installation, can be useful to repair it if needed.';
-const L_CONFIG_INFOS_NB_CATS = 'N° of categories :';
-const L_CONFIG_INFOS_NB_STATICS = 'N° of static pages :';
-const L_CONFIG_INFOS_WRITER = 'N° of users in session :';
+const L_CONFIG_INFOS_NB_CATS = 'Count of categories :';
+const L_CONFIG_INFOS_NB_STATICS = 'Count of static pages :';
+const L_CONFIG_INFOS_WRITER = 'User\'s name for this session :';
 const L_PLUXML_CHECK_VERSION = 'Checking version number on the official PluXml.org site';
-const L_PLUXML_UPDATE_UNAVAILABLE = 'Can\'t check for updates as long as \'allow_url_fopen\' is disabled on this system';
+const L_PLUXML_UPDATE_UNAVAILABLE = 'Unable for checking updates as long as \'allow_url_fopen\' is disabled on this system';
 const L_PLUXML_UPDATE_ERR = 'Update check failed for an unknown reason';
 const L_PLUXML_UPTODATE = 'You are using PluXml\'s lastest version';
 const L_PLUXML_UPDATE_AVAILABLE = 'A new PluXml version is available ! You can download it from';
@@ -411,10 +408,10 @@ const L_CONFIG_USERS_TITLE = 'Manage users';
 const L_CONFIG_USER = 'User';
 const L_CONFIG_USERS_ACTIVE = 'Active';
 const L_CONFIG_USERS_NEW = 'New user';
-const L_CONFIG_USERS_UPDATE = 'Modify the users\' list';
+const L_CONFIG_USERS_UPDATE = 'Update the users\' list';
 const L_ERR_LOGIN_ALREADY_EXISTS = 'Login ID already used';
 const L_ERR_USERNAME_ALREADY_EXISTS = 'Username already in use';
-const L_ERR_EMAIL_ALREADY_EXISTS = 'Email adress already in use';
+const L_ERR_EMAIL_ALREADY_EXISTS = 'Email address already in use';
 
 // parametre_plugins.php
 
@@ -441,7 +438,7 @@ const L_PLUGINS_REQUIREMENTS_HELP = 'Available and active plugins to activate th
 const L_PLUGINS_ALPHA_SORT = 'Sort alphabetically plugins';
 const L_PLUGINS_LOADING_SORT = 'Loading order';
 const L_ACTION = 'Action';
-const L_PLUGINS_APPLY_BUTTON = 'Modify the plugins list';
+const L_PLUGINS_APPLY_BUTTON = 'Update the plugins list';
 const L_PLUGINS_ACTIVE_LIST = 'Active plugins';
 const L_PLUGINS_INACTIVE_LIST = 'Inactive plugins';
 
@@ -477,7 +474,7 @@ const L_PAGE = 'Page';
 const L_VIEW = 'See';
 const L_STATICS_SRC_TITLE = 'Edit source code for this page';
 const L_STATICS_NEW_PAGE = 'New page';
-const L_STATICS_UPDATE = 'Modify static page list';
+const L_STATICS_UPDATE = 'Update the static pages list';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Title already used';
 
 // top.php
@@ -504,13 +501,13 @@ const L_MENU_CATEGORIES_TITLE = 'Create, manage, edit categories';
 const L_MENU_CONFIG_TITLE = 'Configure PluXml';
 const L_MENU_CONFIG = 'Parameters';
 const L_MENU_PROFIL_TITLE = 'Manage your user profiles';
-const L_WARNING_INSTALLATION_FILE = 'install.php file can still be found at your PluXml root.<br />For security reasons, it is strongly recommended to <a class="lnkdelete" href="?del=install">delete</a> it.';
+const L_WARNING_INSTALLATION_FILE = 'install.php file can still be found at the root of your website.<br />Please <a class="lnkdelete" href="?del=install">drop it</a> for security reason.';
 
 // user.php
 
 const L_USER_UNKNOWN = 'Unknown user';
-const L_USER_LANG = 'Language used in administration';
-const L_USER_MAIL = 'E-mail adress';
+const L_USER_LANG = 'User\'s language in back-office';
+const L_MAIL_ADDRESS = 'E-mail address';
 const L_USER_UPDATE = 'Update this user';
 const L_USER_PAGE_TITLE = 'Edit user options';
 const L_USER_BACK_TO_PAGE = 'Back to users\' list';
@@ -522,9 +519,9 @@ const L_CONFIG_BASE = 'Basic configuration';
 const L_MENU_CONFIG_VIEW_TITLE = 'Change your PluXml\'s display settings';
 const L_MENU_CONFIG_VIEW = 'Display settings';
 const L_MENU_CONFIG_USERS_TITLE = 'Manage user accounts on your PluXml';
-const L_MENU_CONFIG_USERS = 'User accounts';
+const L_MENU_CONFIG_USERS = 'Accounts for users';
 const L_MENU_CONFIG_ADVANCED_TITLE = 'Edit advanced configuration on your PluXml';
-const L_MENU_CONFIG_INFOS_TITLE = 'Information about your PluXml';
+const L_MENU_CONFIG_INFOS_TITLE = 'About your PluXml';
 const L_MENU_CONFIG_PLUGINS_TITLE = 'Manage plugins';
 const L_MENU_CONFIG_PLUGINS = 'Plugins';
 const L_THEMES = 'Themes';
@@ -532,5 +529,5 @@ const L_THEMES_TITLE = 'Manage themes';
 const L_HELP = 'Help';
 const L_HELP_TITLE = 'See help';
 const L_BACK_TO_THEMES = 'Back to themes';
-const L_CONFIG_THEME_UPDATE = 'Change Theme'
+const L_CONFIG_THEME_UPDATE = 'Select this theme'
 ?>

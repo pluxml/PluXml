@@ -21,7 +21,6 @@ const L_ERR_PASSWORD_CONFIRMATION	= 'La contraseña es incorrecta!';
 const L_PLUXML_INSTALLATION			= 'Instalación de PluXml';
 const L_VERSION						= 'versión';
 const L_USERNAME					= 'Nombre del administrador';
-const L_EMAIL						= 'Dirección de correo electrónico';
 const L_INPUT_INSTALL				= 'Instalar';
 const L_PWD_VERY_WEAK				= 'Contraseña muy débil';
 const L_PWD_WEAK					= 'Contraseña débil';
