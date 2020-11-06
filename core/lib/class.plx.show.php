@@ -324,46 +324,49 @@ class plxShow {
 	 *
 	 * @param	string	$extra	nom du lien vers la page d'accueil
 	 * @param	string	$format	format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #cat_description, #art_nb)
-	 * @param	string	$include	liste des catégories à afficher séparées par le caractère | (exemple: 001|003)
-	 * @param	string	$exclude	liste des catégories à ne pas afficher séparées par le caractère | (exemple: 002|003)
+	 * @param	string	$include	liste des n° de catégories à afficher, séparés par un ou plusieurs caractères (exemple: '001 |003 5, 45|50')
+	 * @param	string	$exclude	liste des catégories à ne pas afficher
 	 * @scope	global
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Jean-Pierre Pourrez "bazooka07"
 	 **/
 	public function catList($extra='', $format='<li id="#cat_id" class="#cat_status"><a href="#cat_url" title="#cat_name">#cat_name</a></li>', $include='', $exclude='') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastCatList'))) return;
 
 		# Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
-		if($extra != '') {
-			$name = str_replace('#cat_id','cat-home',$format);
-			$name = str_replace('#cat_url',$this->plxMotor->urlRewrite(),$name);
-			$name = str_replace('#cat_name',plxUtils::strCheck($extra),$name);
-			$name = str_replace('#cat_status',($this->catId()=='home'?'active':'noactive'), $name);
-			$name = str_replace('#art_nb','',$name);
-			echo $name;
+		if(!empty($extra)) {
+			echo strtr($format, array(
+			'#cat_id'		=> 'cat-home',
+			'#cat_url'		=> $this->plxMotor->urlRewrite(),
+			'#cat_name'		=> plxUtils::strCheck($extra),
+			'#cat_status'	=> ($this->catId() == 'home') ? 'active' : 'noactive',
+			'#art_nb'		=> '',
+			));
 		}
 
 		# On verifie qu'il y a des categories
 		if($this->plxMotor->aCats) {
-			if (!empty($include)) {
-				$include = str_pad($include, 3, '0', STR_PAD_LEFT);
-			}
-			if (!empty($exclude)) {
-				$exclude = str_pad($exclude, 3, '0', STR_PAD_LEFT);
-			}
-			foreach($this->plxMotor->aCats as $k=>$v) {
-				$in = (empty($include) or preg_match ('/(\b'.$include.'\b)/', $k));
-				$ex = (!empty($exclude) and preg_match ('/(\b'.$exclude.'\b)/', $k));
-				if($in && !$ex) {
-					if(($v['articles']>0 || $this->plxMotor->aConf['display_empty_cat']) && ($v['menu']=='oui') && $v['active']) { # On a des articles
-						# On modifie nos motifs
-						$name = str_replace('#cat_id','cat-'.intval($k),$format);
-						$name = str_replace('#cat_url',$this->plxMotor->urlRewrite('?categorie'.intval($k).'/'.$v['url']),$name);
-						$name = str_replace('#cat_name',plxUtils::strCheck($v['name']),$name);
-						$name = str_replace('#cat_status',($this->catId()==intval($k)?'active':'noactive'), $name);
-						$name = str_replace('#cat_description',plxUtils::strCheck($v['description']),$name);
-						$name = str_replace('#art_nb',$v['articles'],$name);
-						echo $name;
+			$currentCats = $this->catId(true);
+			foreach($this->plxMotor->aCats as $idCatStr=>$v) {
+				# On vérifie qu'on peut afficher cette catégorie et qu'elle est active
+				if(in_array($v['menu'], array('oui', 1)) && $v['active']) {
+					$idCatNum = intval($idCatStr);
+					$pattern = '@\b0*' . $idCatNum . '\b@';
+					if(empty($include) or preg_match($pattern, $include)) {
+						if(empty($exclude) || !preg_match($pattern, $exclude)) {
+							if($v['articles'] > 0 || $this->plxMotor->aConf['display_empty_cat']) {
+								# on a des articles pour cette catégorie ou on affiche les catégories sans article
+								# On modifie nos motifs
+								echo strtr($format, array(
+									'#cat_id'			=> 'cat-' . $idCatNum,
+									'#cat_url'			=> $this->plxMotor->urlRewrite('?categorie' . $idCatNum . '/' . $v['url']),
+									'#cat_name'			=> plxUtils::strCheck($v['name']),
+									'#cat_status'		=> !empty($currentCats) && in_array($idCatStr, $currentCats) ? 'active' : 'noactive',
+									'#cat_description'	=> plxUtils::strCheck($v['description']),
+									'#art_nb'			=> $v['articles'],
+								));
+							}
+						}
 					}
 				}
 			} # Fin du while
@@ -371,23 +374,43 @@ class plxShow {
 	}
 
 	/**
-	 * Méthode qui retourne l'id de la catégorie en question (sans les 0 supplémentaires)
+	 * Méthode qui retourne les id de catégorie pour la categorie ou l'article en cours
 	 *
-	 * @return	int ou string
+	 * @param	asArray retourne le resultat sous forme d'un tableau de chaines au lieu d'une ".CSV" chaine
+	 * @return	string or array
 	 * @scope	home,categorie,article,tags,archives
-	 * @author	Florent MONTHEL
+	 * @author	Florent MONTHEL, Jean-Pierre Pourrez "bazooka07"
 	 **/
-	public function catId() {
+	public function catId($asArray=false) {
 
-		# On va verifier que la categorie existe en mode categorie
-		if($this->plxMotor->mode == 'categorie' AND isset($this->plxMotor->aCats[ $this->plxMotor->cible ]))
-			return intval($this->plxMotor->cible);
-		# On va verifier que la categorie existe en mode article
-		if($this->plxMotor->mode == 'article' AND isset($this->plxMotor->aCats[ $this->plxMotor->plxRecord_arts->f('categorie') ]))
-			return intval($this->plxMotor->plxRecord_arts->f('categorie'));
-		# On va vérifier si c'est la catégorie home
-		if($this->plxMotor->mode == 'categorie' OR $this->plxMotor->mode == 'home' OR $this->plxMotor->mode == 'article')
-			return 'home';
+		switch($this->plxMotor->mode) {
+			case 'categorie':
+				# On vérifie que la categorie
+				if($asArray) {
+					return isset($this->plxMotor->aCats[$this->plxMotor->cible]) ? array($this->plxMotor->cible) : array('home');
+				} else {
+					return isset($this->plxMotor->aCats[$this->plxMotor->cible]) ? $this->plxMotor->cible : 'home';
+				}
+				break;
+			case 'article':
+				$artCatsStr = $this->plxMotor->plxRecord_arts->f('categorie');
+				if(empty($artCatsStr)) { return $asArray ? array('home') : 'home'; }
+				$aCats = $this->plxMotor->aCats;
+				# On vérifie que les categories de l'article existe et sont actives
+				$activeCats = array_filter(explode(',', $artCatsStr), function($idCat) use($aCats) {
+					return array_key_exists($idCat, $aCats) && in_array($aCats[$idCat]['active'], array('oui', 1));
+				});
+				# categorie 'home' par défaut si échec
+				if(empty($activeCats)) { $aCats = array('home'); }
+				return $asArray  ? $activeCats : implode(',', $activeCats);
+				break;
+			case 'home':
+				return $asArray ? array('home') : 'home';
+				break;
+			default:
+				# Pas categorie pour ce mode
+				return false;
+		}
 	}
 
 	/**
@@ -1669,7 +1692,7 @@ class plxShow {
 
 	/**
 	 * DEPRECATED
-	 * 
+	 *
 	 * Méthode qui affiche la réponse du capcha cryptée en sha1
 	 *
 	 * @scope	global
@@ -2122,9 +2145,9 @@ class plxShow {
 		$url = '';
 		switch ($mode) {
 			case 'categorie':
-				$categorie = $this->catId();
-				$id = str_pad($categorie, 3, '0', STR_PAD_LEFT);
-				$url = $this->urlRewrite('feed.php?rss/categorie'.$categorie.'/'.$this->plxMotor->aCats[$id]['url']);
+				$id = $this->catId();
+				$idNum = intval($id);
+				$url = $this->urlRewrite('feed.php?rss/categorie'.$idNum.'/'.$this->plxMotor->aCats[$id]['url']);
 				break;
 			case 'tags':
 				$tag = plxUtils::strCheck($this->plxMotor->cible);
