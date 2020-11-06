@@ -206,8 +206,8 @@ plxUtils::cleanHeaders();
     <title><?= L_PLUXML_INSTALLATION . ' ' . PLX_VERSION ?></title>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/knacss.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/theme.css" media="screen"/>
-    <link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/favicon.png" />
-	<script src="<?= PLX_CORE ?>lib/visual.js"></script>
+    <link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/favicon.png"/>
+    <script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </head>
 <body>
 <main class="mal flex-container">
@@ -277,7 +277,7 @@ EOT;
                     <?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', 'required') ?>
                 </div>
                 <div class="grid-2 pbs">
-                    <label for="id_email"><?php echo L_EMAIL ?>&nbsp;:</label>
+                    <label for="id_email"><?php echo L_USER_EMAIL ?>&nbsp;:</label>
                     <?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', 'required') ?>
                 </div>
                 <div class="grid-2 pbs">

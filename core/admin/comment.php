@@ -201,7 +201,7 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
             <div class="grid">
                 <div class="col sml-12">
-                    <label for="id_mail"><?= L_COMMENT_EMAIL_FIELD ?> :
+                    <label for="id_mail"><?= L_EMAIL ?> :
                         <?php if ($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
                             <?= '<a href="mailto:' . $plxAdmin->plxRecord_coms->f('mail') . '">' . $plxAdmin->plxRecord_coms->f('mail') . '</a>' ?>
                         <?php endif; ?>

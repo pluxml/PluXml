@@ -33,11 +33,7 @@ $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
     <div class="adminheader autogrid">
         <div>
             <h2 class="h3-like"><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
-            <p><?php
-                $tag = '<a href="' . PLX_URL_RESSOURCES . '" target="_blank">' . PLX_URL_RESSOURCES . '</a>';
-                printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, $tag);
-                ?>
-            </p>
+            <p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
         </div>
         <div class="mtm txtright">
             <input class="inbl btn--primary" onclick="window.location.assign('parametres_edittpl.php');return false"

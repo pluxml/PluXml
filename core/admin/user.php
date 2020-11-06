@@ -61,7 +61,7 @@ include __DIR__ . '/top.php';
                     <?php plxUtils::printSelect('lang', plxUtils::getLangs(), $plxAdmin->aUsers[$id]['lang']) ?>
                 </div>
                 <div>
-                    <label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label>
+                    <label for="id_email"><?php echo L_MAIL_ADDRESS ?>&nbsp;:</label>
                 </div>
                 <div>
                     <?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'email', '30-255') ?>

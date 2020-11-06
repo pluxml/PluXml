@@ -232,7 +232,7 @@ include __DIR__ . '/top.php';
         </div>
         <div class="grid-2">
             <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL ?></label>
+                <label for="id_custom_admincss_file"><?= L_MAIL_ADDRESS ?></label>
                 <div class="tooltip icon-help-circled">
                     <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span>
                 </div>
@@ -265,9 +265,11 @@ include __DIR__ . '/top.php';
             <div>
                 <?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '', true); ?>
                 <?php
-                if (empty($plxAdmin->aConf['smtpOauth2_clientSecret']) and empty($plxAdmin->aConf['smtpOauth2_clientId']) and empty($plxAdmin->aConf['smtpOauth2_emailAdress'])) {
-                    $disabled = "disabled";
-                }
+                $disabled = (
+                    empty($plxAdmin->aConf['smtpOauth2_clientSecret']) &&
+                    empty($plxAdmin->aConf['smtpOauth2_clientId']) &&
+                    empty($plxAdmin->aConf['smtpOauth2_emailAdress'])
+                ) ? 'disabled' : '';
                 ?>
                 <a href="get_oauth_token.php?provider=Google">
                     <button type="button" <?= $disabled ?>><?= L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button>

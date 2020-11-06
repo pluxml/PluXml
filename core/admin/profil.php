@@ -51,7 +51,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
             <div class="grid-2">
                 <label for="id_name"><?php echo L_PROFIL_USER ?>&nbsp;:</label>
                 <?php plxUtils::printInput('name', plxUtils::strCheck($_profil['name']), 'text', '20-255') ?>
-                <label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label>
+                <label for="id_email"><?php echo L_MAIL_ADDRESS ?>&nbsp;:</label>
                 <?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'text', '30-255') ?>
                 <label for="id_lang"><?php echo L_USER_LANG ?>&nbsp;:</label>
                 <?php plxUtils::printSelect('lang', plxUtils::getLangs(), $_profil['lang']) ?>
