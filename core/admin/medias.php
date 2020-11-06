@@ -175,8 +175,7 @@ $curFolders = explode('/', $curFolder);
             <div class="col-1">
                 <button onclick="dialogBox('dlgNewFolder');return false;"
                         id="btnNewFolder"><?= L_MEDIAS_NEW_FOLDER ?></button>
-                <?php $plxMedias->contentFolder() ?>
-                <!--<input type="submit" name="btn_changefolder" value="<?= L_OK ?>"/>-->
+                <?= $plxMedias->displayTreeView(); ?>
             </div>
 
             <div class="col-5">
