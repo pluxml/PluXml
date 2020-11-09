@@ -1,6 +1,5 @@
 <?php
 
-
 # install.php
 const L_INSTALL_TITLE					= 'Installacion';
 const L_INSTALL_DATA					= 'Installar las donadas d\'exemple';
@@ -17,6 +16,7 @@ const L_ERR_PLUXML_ALREADY_INSTALLED	= 'PluXml es ja configurat !';
 const L_ERR_MISSING_USER				= 'Volgatz entre-senhar lo nom del redactor !';
 const L_ERR_MISSING_LOGIN				= 'Volgatz entre-senhar lo login de connexion !';
 const L_ERR_MISSING_PASSWORD			= 'Volgatz entre-senhar un senhal !';
+const L_ERR_MISSING_EMAIL				= 'Veuillez préciser une adresse de courriel';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Confirmacion del senhal incorrècta !';
 const L_PLUXML_INSTALLATION				= 'Installacion de PluXml';
 const L_VERSION							= 'version';
@@ -27,4 +27,4 @@ const L_PWD_VERY_WEAK					= 'Senhal fòrça feble';
 const L_PWD_WEAK						= 'Senhal feble';
 const L_PWD_GOOD						= 'Senhal bon';
 const L_PWD_STRONG						= 'Senhal fòrt';
-?>
+

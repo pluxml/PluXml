@@ -343,7 +343,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Lokalizacja i nazwa osobistego pliku css 
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Wysyłanie wiadomości e-mail';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Metoda wysyłania wiadomości e-mail';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Wysyłanie wiadomości e-mail za pomocą SMTP';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Włącz wysyłanie wiadomości e-mail przez serwer SMTP';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'Nazwa hosta SMTP';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'Nazwa użytkownika SMTP';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'Hasło SMTP';
@@ -529,5 +528,5 @@ const L_THEMES_TITLE = 'Zarządzanie tematy';
 const L_HELP = 'Pomoc';
 const L_HELP_TITLE = 'Zobacz pomoc';
 const L_BACK_TO_THEMES = 'Powrót do tematów strony';
-const L_CONFIG_THEME_UPDATE = 'Zmień styl'
-?>
+const L_CONFIG_THEME_UPDATE = 'Zmień styl';
+

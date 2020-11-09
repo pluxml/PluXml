@@ -52,4 +52,3 @@ const L_UPDATE_COMMENTS_MIGRATION		= 'Commenti migrazione';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Errore durante la migrazione commenti';
 const L_UPDATE_NEW_FOLDER				= 'nuova cartella : %s';
 const L_UPDATE_DEPRECATED_PARAMETER		= 'Parametro obsoleto : %s';
-?>

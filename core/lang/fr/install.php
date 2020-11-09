@@ -28,4 +28,3 @@ const L_PWD_WEAK						= 'Mot de passe faible';
 const L_PWD_GOOD						= 'Mot de passe bon';
 const L_PWD_STRONG						= 'Mot de passe fort';
 
-?>

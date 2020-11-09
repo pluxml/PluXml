@@ -158,4 +158,3 @@ const L_ART_PREV					= 'Früher';
 const L_ART_NEXT					= 'Nächste';
 const L_ART_LAST					= 'Letzte';
 const L_ART_UP						= 'Oben';
-?>

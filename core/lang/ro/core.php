@@ -21,7 +21,7 @@ const L_SELECT_LANG					= 'Alegeţi limba dorită';
 const L_CONFIRM_PASSWORD			= 'Confirmaţi parola';
 const L_PROFIL_LOGIN				= 'Login';
 const L_INPUT_CHANGE				= 'Schimbă';
-const COMMENTS_CLOSED				= 'Comentariile sunt &#238;nchise';
+const L_COMMENTS_CLOSED				= 'Comentariile sunt închise';
 const L_SITE_DESCRIPTION			= 'Site pe baza la Xml !';
 const L_SAVE_SUCCESSFUL				= 'Înregistrarea a fost efectuata cu succes';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Articol creat cu succes';
@@ -158,4 +158,3 @@ const L_ART_PREV					= 'Precedent';
 const L_ART_NEXT					= 'Următor';
 const L_ART_LAST					= 'Ultimul';
 const L_ART_UP						= 'Urca';
-?>

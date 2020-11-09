@@ -1,6 +1,5 @@
 <?php
 
-
 # install.php
 const L_INSTALL_TITLE					= 'Installazione';
 const L_INSTALL_DATA					= 'Installare dati di esempioInstall sample data';
@@ -17,6 +16,7 @@ const L_ERR_PLUXML_ALREADY_INSTALLED	= 'PluXml è già configurato !';
 const L_ERR_MISSING_USER				= 'Inserisci il nome del redattore !';
 const L_ERR_MISSING_LOGIN				= 'Inserisci il nome utente !';
 const L_ERR_MISSING_PASSWORD			= 'Inserisci una password !';
+const L_ERR_MISSING_EMAIL				= 'Si prega di compilare il campo dell\'email';
 const L_ERR_PASSWORD_CONFIRMATION		= 'Conferma della password non corretta !';
 const L_PLUXML_INSTALLATION				= 'Installazione di PluXml';
 const L_VERSION							= 'versione';
@@ -27,4 +27,4 @@ const L_PWD_VERY_WEAK					= 'Password molto debole';
 const L_PWD_WEAK						= 'Password debole';
 const L_PWD_GOOD						= 'Buona password';
 const L_PWD_STRONG						= 'Password complessa';
-?>
+

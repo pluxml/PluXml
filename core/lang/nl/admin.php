@@ -329,7 +329,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Locatie en de naam van aangepaste css-bes
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'E-mail verzenden';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'E-mail verzendmethode';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'E-mails verzenden met SMTP';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Schakel e-mails verzenden door een SMTP-server in';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'SMTP-hostnaam';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'SMTP-gebruikersnaam';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'SMTP-wachtwoord';
@@ -482,5 +481,5 @@ const L_THEMES_TITLE = 'Het beheren van thema\'s';
 const L_HELP = 'Hulp';
 const L_HELP_TITLE = 'Zie hulp';
 const L_BACK_TO_THEMES = 'Terug naar de onderwerpen van de pagina';
-const L_CONFIG_THEME_UPDATE = 'Change Theme'
-?>
+const L_CONFIG_THEME_UPDATE = 'Change Theme';
+

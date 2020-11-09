@@ -52,4 +52,3 @@ const L_UPDATE_COMMENTS_MIGRATION		= 'Comments migration';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Error while migrating comments';
 const L_UPDATE_NEW_FOLDER				= 'new folder : %s';
 const L_UPDATE_DEPRECATED_PARAMETER		= 'Deprecated parameter : %s';
-?>

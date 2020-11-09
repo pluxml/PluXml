@@ -52,4 +52,3 @@ const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Erreur pendant la migration des comment
 const L_UPDATE_NEW_FOLDER				= 'Nouveau dossier : %s';
 const L_UPDATE_DEPRECATED_PARAMETER		= 'Paramètre obsolète : %s';
 
-?>

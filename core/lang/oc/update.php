@@ -52,4 +52,3 @@ const L_UPDATE_COMMENTS_MIGRATION		= 'Migracion dels comentaris';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Error pendent la migracion dels comentaris';
 const L_UPDATE_NEW_FOLDER				= 'New folder : %s';
 const L_UPDATE_DEPRECATED_PARAMETER		= 'Deprecated parameter : %s';
-?>

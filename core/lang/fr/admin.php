@@ -202,6 +202,10 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validation effectuée avec succès';
 const L_COMMENT_VALIDATE_ERR = 'Une erreur est survenue pendant la validation';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Modération effectuée avec succès';
 const L_COMMENT_MODERATE_ERR = 'Une erreur est survenue lors de la modération';
+const L_COMMENTS_LIST_DATE = '';
+const L_COMMENTS_LIST_AUTHOR = '';
+const L_COMMENT_EMAIL_FIELD = '';
+const L_COMMENTS_LIST_ACTION = '';
 
 // sous_navigation/commentaires.php
 
@@ -233,6 +237,10 @@ const L_COMMENTS_ONLINE_LIST = 'Liste des commentaires publiés';
 const L_COMMENTS_OFFLINE_LIST = 'Liste des commentaires en attente de validation';
 const L_COMMENTS_ALL_LIST = 'Liste des commentaires';
 const L_COMMENT_SET_ONLINE = 'Mettre en ligne';
+const L_COMMENTS_LIST_DATE = 'Date';
+const L_COMMENTS_LIST_AUTHOR = 'Auteur';
+const L_COMMENTS_LIST_MESSAGE = 'Message';
+const L_COMMENTS_LIST_ACTION = 'Action';
 
 // index.php
 
@@ -531,5 +539,5 @@ const L_THEMES_TITLE = 'Gérer les thèmes';
 const L_HELP = 'Aide';
 const L_HELP_TITLE = 'Voir l\'aide';
 const L_BACK_TO_THEMES = 'Retour à la page des thèmes';
-const L_CONFIG_THEME_UPDATE = 'Modifier le thème'
-?>
+const L_CONFIG_THEME_UPDATE = 'Modifier le thème';
+

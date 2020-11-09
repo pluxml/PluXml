@@ -209,7 +209,6 @@ const L_MEDIAS_NO_FILE = 'Nessun file';
 const L_MEDIAS_FILENAME = 'Nome del file';
 const L_MEDIAS_ADD_FILE = 'Aggiungi file';
 const L_MEDIAS_BACK = 'Indietro';
-const L_MEDIAS_MAX_FILE_UPLOAD = 'Numero massimo di file consentito da caricare';
 const L_MEDIAS_TITLE = 'Gestione dei media';
 const L_MEDIAS_IMAGES = 'Immagini';
 const L_MEDIAS_DOCUMENTS = 'Documenti';
@@ -450,5 +449,5 @@ const L_HELP_TITLE = 'Vedere l\'aiuto';
 const L_BACK_TO_THEMES = 'Torna alla pagina dei temi';
 const L_ERR_INVALID_DATE_CREATION = 'Data di creazione non valida';
 const L_ERR_INVALID_DATE_UPDATE = 'Data non valida aggiornato';
-const L_CONFIG_THEME_UPDATE = 'Cambia Aspetto'
-?>
+const L_CONFIG_THEME_UPDATE = 'Cambia Aspetto';
+

@@ -52,4 +52,3 @@ const L_UPDATE_COMMENTS_MIGRATION		= 'Миграция комментарии';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Ошибка при переходе комментарии';
 const L_UPDATE_NEW_FOLDER				= 'Новая папка : %s';
 const L_UPDATE_DEPRECATED_PARAMETER		= 'Устаревший параметр : %s';
-?>

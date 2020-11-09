@@ -158,4 +158,3 @@ const L_ART_PREV					= 'предыдущий';
 const L_ART_NEXT					= 'следующий';
 const L_ART_LAST					= 'прошлой';
 const L_ART_UP						= 'подниматься';
-?>

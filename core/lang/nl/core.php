@@ -157,4 +157,3 @@ const L_ART_PREV					= 'Vorige';
 const L_ART_NEXT					= 'De volgende';
 const L_ART_LAST					= 'Laatste';
 const L_ART_UP						= 'Omhoog gaan';
-?>

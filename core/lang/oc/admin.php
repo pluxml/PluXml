@@ -344,7 +344,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Lòc e nom del fichièr css personal per 
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Mandadís dels corrièls';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Mòde de mandadís dels corrièls';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Mandadís dels corrièls amb SMTP';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Activar los corrièls amb SMTP';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'Òste SMTP';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'Nom d\'utilizaire de SMTP';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'Senhal SMTP';
@@ -530,5 +529,5 @@ const L_THEMES_TITLE = 'Gerir los themes';
 const L_HELP = 'Ajuda';
 const L_HELP_TITLE = 'Veire l\'ajuda';
 const L_BACK_TO_THEMES = 'Tornar a la lista dels tèmas';
-const L_CONFIG_THEME_UPDATE = 'Modificar del tèma'
-?>
+const L_CONFIG_THEME_UPDATE = 'Modificar del tèma';
+

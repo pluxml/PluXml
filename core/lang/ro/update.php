@@ -6,7 +6,7 @@ const L_UPDATE_TITLE					= 'Actualizare PluXml';
 
 const L_UPDATE_UPTODATE					= 'PluXml dvs. este deja actualizat.';
 const L_UPDATE_NOT_AVAILABLE			= 'Nici o actualizare nu este disponibila.';
-const L_UPDATE_BACK						= 'Go Back';
+const L_UPDATE_BACK						= 'Înapoi la pagina de start';
 const L_UPDATE_WARNING1					= 'Acum se va actualiza versiunea dvs. veche de PluXml';
 const L_UPDATE_SELECT_VERSION			= 'Va rugam sa selectati din lista de mai jos versiunea veche pentru actualizarea PluXml.';
 const L_UPDATE_WARNING2					= 'In caz ca versiunea dvs. nu o gasiti printre cele enumerate in lista, atunci dvs. folositi o versiune fara pachet de actualizare.<br />Va sugeram sa descarcati cea mai recenta versiune a <a href="https://www.pluxml.org"> PluXml </a> si de a face o instalare noua.';
@@ -52,4 +52,3 @@ const L_UPDATE_COMMENTS_MIGRATION		= 'Comentariile de migrare';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Eroare la migrarea comentarii';
 const L_UPDATE_NEW_FOLDER				= 'Dosar nou : %s';
 const L_UPDATE_DEPRECATED_PARAMETER		= 'Parametru depreciat : %s';
-?>

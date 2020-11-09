@@ -212,7 +212,6 @@ const L_MEDIAS_NO_FILE = 'Nenhum ficheiro';
 const L_MEDIAS_FILENAME = 'Nome de ficheiro';
 const L_MEDIAS_ADD_FILE = 'Adicionar o ficheiro';
 const L_MEDIAS_BACK = 'Voltar';
-const L_MEDIAS_MAX_FILE_UPLOAD = 'Número máximo de ficheiros permitidos carregando';
 const L_MEDIAS_TITLE = 'Gestão dos médias';
 const L_MEDIAS_IMAGES = 'Imagens';
 const L_MEDIAS_DOCUMENTS = 'Documentos';
@@ -298,7 +297,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Localização e nome do arquivo css perso
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Envio de e-mail';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Email sending method';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Método de envio de e-mail';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Habilitar o envio de emails por um servidor SMTP';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'Nome do host SMTP';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'Nome de usuário SMTP';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'Senha SMTP';
@@ -454,5 +452,5 @@ const L_HELP_TITLE = 'Vêr a ajuda';
 const L_BACK_TO_THEMES = 'Voltar para os temas da página';
 const L_CONFIG_THEME_UPDATE = 'Change Theme';
 const L_ERR_INVALID_DATE_CREATION = 'Data de criação inválido';
-const L_ERR_INVALID_DATE_UPDATE = 'Data inválida atualizado'
-?>
+const L_ERR_INVALID_DATE_UPDATE = 'Data inválida atualizado';
+
