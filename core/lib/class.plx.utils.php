@@ -1449,8 +1449,7 @@ EOT;
      * @return    void                    on envoie directemenr le code HTML en sortie
      * @author    J.P. Pourrez alias bazooka07
      * */
-    private static function _printSelectDir($root, $level, $prefixParent, $choice1 = '', $modeDir1 = true, $textOnly = true, $treeview=false)
-    {
+    private static function _printSelectDir($root, $level, $prefixParent, $choice1='', $modeDir1=true, $textOnly= true) {
 
         static $firstRootLength = 0;
         static $modeDir = true;
@@ -1458,10 +1457,10 @@ EOT;
         static $currentValue = '';
 
         # initialisation des variables statiques
-        if ($level == 0) {
+        if($level == 0) {
             $firstRootLength = strlen($root);
             $modeDir = $modeDir1;
-            if (!$modeDir1 and $textOnly) {
+            if(!$modeDir1 and $textOnly) {
                 $extsText = 'php css html htm xml js json txt me md';
                 # self::debugJS($extsText, 'extsText');
             }
@@ -1469,65 +1468,60 @@ EOT;
         }
 
         $children = array_filter(scandir($root),
-            function ($item) use (&$modeDir, &$root, &$extsText) {# détermine s'il s'agit de fichier ou dossier php 5.3+
-                $ext = pathinfo($item, PATHINFO_EXTENSION);
-                return ($item[0] != '.' and
-                    ((is_dir($root . $item)) or
-                        (!$modeDir and (!empty($ext) and (strpos($extsText, $ext) !== false) or empty($extsText)))
+            function ($item) use(&$modeDir, &$root, &$extsText) {# détermine s'il s'agit de fichier ou dossier php 5.3+
+                $ext = pathinfo($item,PATHINFO_EXTENSION);
+                return  ($item[0] != '.' and
+                    ( (is_dir($root.$item) ) or
+                        (!$modeDir and (!empty($ext) and (strpos($extsText,$ext) !== false) or empty($extsText)))
                     )
                 );
             }
         );
         natsort($children);
 
-        if (!empty($children)) {
+        if(!empty($children)) {
             $level++;
             $cnt = count($children);
-            foreach ($children as $child) {
+            foreach($children as $child) {
                 $cnt--;
                 $prefix = $prefixParent;
                 # http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
-                if ($cnt <= 0) {
-                    $prefix .= '└ '; # espace insécable !
-                    $next = ' '; # espace insécable !
+                if($cnt<=0) {
+                    $prefix .= '└ '; # espace insécable !
+                    $next = ' '; # espace insécable !
                 } else {
-                    $prefix .= '├ '; # espace insécable !
+                    $prefix .= '├ '; # espace insécable !
                     $next = '│'; # espace insécable !
                 }
-                $dirOk = (is_dir($root . $child));
-                $next .= str_repeat(' ', 3); # espace insécable ! 3 = strlen($prefix.$next)
-                $dataLevel = 'level-' . str_repeat('X', $level);
-                $value = substr($root . $child, $firstRootLength);
+                $dirOk = (is_dir($root.$child));
+                $next .= str_repeat(' ', 3); # espace insécable ! 3 = strlen($prefix.$next)
+                $dataLevel = 'level-'.str_repeat('X', $level);
+                $value = substr($root.$child, $firstRootLength);
                 $selected = ($value == rtrim($currentValue, '/')) ? ' selected' : '';
                 $caption = basename($value);
                 $classList = array();
                 #if(strpos($currentValue, dirname($value)) === 0)
-                if (strpos($value, dirname($value)) === 0)
+                if(strpos($value, dirname($value)) === 0)
                     $classList[] = 'visible';
-                if (!$modeDir and $dirOk)
+                if(!$modeDir and $dirOk)
                     $classList[] = 'folder';
 
-                $classAttr = (!empty($classList)) ? ' class="' . implode(' ', $classList) . '"' : '';
+                $classAttr = (!empty($classList)) ? ' class="'.implode(' ', $classList).'"' : '';
 
-                $tagChild = $treeview ? 'span' : 'option';
-
-                if ($dirOk) { # pour un dossier
-                    if ($modeDir) {
+                if($dirOk) { # pour un dossier
+                    if($modeDir) {
                         echo <<<EOT
-							<$tagChild value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</$tagChild>
-
+                            <option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
 EOT;
                     } else {
                         echo <<<EOT
-							<$tagChild disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</$tagChild>
-
+                            <option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
 EOT;
                     }
-                    self::_printSelectDir($root . $child . '/', $level, $prefixParent . $next);
+                    self::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
                 } else { # pour un fichier
                     echo <<<EOT
-						<$tagChild value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</$tagChild>
-
+                        <option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
 EOT;
                 }
             }
@@ -1543,13 +1537,12 @@ EOT;
      * @param string $class Classe css a appliquer au sélecteur #sudwebdesign
      * @param boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
      * @param bool $id
-     * @param bool $treeview display folders and files in a treeview if true
      * @return    void
      * @author    J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
      * $modeDir=true    pour ne choisir que les dossiers : voir plxMedias contentFolder()
      * $modeDir=false    pour ne choisir que les fichiers du thème
      */
-    public static function printSelectDir($name, $currentValue, $root, $class = '', $modeDir = true, $id = true, $treeview = false)
+    public static function printSelectDir($name, $currentValue, $root, $class = '', $modeDir = true, $id = true)
     {
         if (is_bool($id))
             $id = ($id ? ' id="id_' . $name . '"' : '');
@@ -1564,21 +1557,13 @@ EOT;
         $data_files = (!$modeDir) ? ' data-files' : '';
         $disabled = (!$modeDir) ? ' disabled' : '';
         $class = ($class ? $class . ' ' : '') . 'scan-folders fold' . $data_files;
-        if ($treeview) {
-            $tag = 'div';
-            $tagchild = 'span';
-        }
-        else {
-            $tag = 'select';
-            $tagChild = 'option';
-        }
         echo <<< EOT
-		<$tag $id name="$name" class="$class">
-			<$tagchild $disabled value="$value"$selected>$caption/</$tagchild>
+        <select $id name="$name" class="$class">
+            <option$disabled value="$value"$selected>$caption/</option>
 EOT;
-        plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir, true);
+        self::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
         echo <<< EOT
-		</$tag>
+		</select>
 EOT;
     }
 
