@@ -2,7 +2,7 @@
 
 const L_MENU = 'Menü';
 const L_UNKNOWN_ERROR = 'Unbekannter Fehler';
-const L_CONFIRM_DELETE = 'Löschen bestätigen?';
+const L_CONFIRM_DELETE = 'Bestätigen Sie das Löschen von ## Elementen ?';
 const L_SAVE_FILE = 'Speichern Sie die Datei';
 const L_SAVE_FILE_SUCCESSFULLY = 'Datei erfolgreich gespeichert';
 const L_SAVE_FILE_ERROR = 'Fehler beim Speichern der Datei für';

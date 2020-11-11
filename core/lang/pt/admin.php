@@ -2,7 +2,7 @@
 
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Erro desconhecido';
-const L_CONFIRM_DELETE = 'Confirme a eliminação ?';
+const L_CONFIRM_DELETE = 'Confirma a exclusão de ## itens ?';
 const L_SAVE_FILE = 'Salve o arquivo';
 const L_SAVE_FILE_SUCCESSFULLY = 'Arquivo salvo com sucesso';
 const L_SAVE_FILE_ERROR = 'Salvar o arquivo para o erro';

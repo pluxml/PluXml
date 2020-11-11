@@ -370,6 +370,12 @@ textarea {
 #users-table input:not([type="checkbox"]) {
     width: 100%;
 }
+#statics-table td:nth-of-type(3) {
+	text-align: center;
+}
+#statics-table input[type="radio"] {
+	width: initial;
+}
 
 input[maxlength="3"] {
     width: 4rem !important;

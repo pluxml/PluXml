@@ -2,7 +2,7 @@
 
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Onbekende fout';
-const L_CONFIRM_DELETE = 'Bevestig de verwijdering ?';
+const L_CONFIRM_DELETE = 'Verwijderen van ## items bevestigen ?';
 const L_SAVE_FILE = 'Sla het bestand op';
 const L_SAVE_FILE_SUCCESSFULLY = 'Bestand succesvol opgeslagen';
 const L_SAVE_FILE_ERROR = 'Fout bij het ​​opslaan van het bestand voor';

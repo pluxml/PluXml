@@ -52,22 +52,24 @@ function addText(where, open, close) {
 	}
 	return;
 }
-function checkAll(inputs, field) {
-	for(var i = 0; i < inputs.elements.length; i++) {
-		if(inputs[i].type == "checkbox" && inputs[i].name==field) {
-			inputs[i].checked = !inputs[i].checked ;
+function checkAll(form, field) {
+	const chks = form.elements[field];
+	for(var i = 0, iMax=chks.length; i < iMax; i++) {
+		if(chks[i].type == 'checkbox') {
+			chks[i].checked = !chks[i].checked;
 		}
 	}
 }
-function confirmAction(inputs, selfield, selvalue, field, msg) {
-	if(document.getElementById(selfield).value==selvalue) {
-		var action = false;
-		for(var i = 0; i < inputs.elements.length; i++) {
-			if(inputs[i].type == "checkbox" && inputs[i].name==field) {
-				if(inputs[i].checked) { action=true }
+function confirmAction(form, selfield, selvalue, field, msg) {
+	if(document.getElementById(selfield).value == selvalue) {
+		const chks = form.elements[field];
+		var cnt = 0;
+		for(var i = 0, iMax=chks.length; i < iMax; i++) {
+			if(chks[i].type == 'checkbox' && chks[i].checked) {
+				cnt++;
 			}
 		}
-		return (action ? confirm(msg) : false);
+		return (cnt > 0) ? confirm(msg.replace(/##/, cnt)) : false;
 	}
 }
 function insTag(where, tag) {

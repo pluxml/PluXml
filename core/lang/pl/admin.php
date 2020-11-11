@@ -2,7 +2,7 @@
 
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Nieznany błąd';
-const L_CONFIRM_DELETE = 'Na pewno chcesz usunąć ?';
+const L_CONFIRM_DELETE = 'Potwierdzić usunięcie ## pozycji ?';
 const L_SAVE_FILE = 'Zapisz plik';
 const L_SAVE_FILE_SUCCESSFULLY = 'Plik został pomyślnie zapisany';
 const L_SAVE_FILE_ERROR = 'Wystąpił błąd podczas zapisywania pliku';
