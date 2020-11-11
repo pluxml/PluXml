@@ -424,7 +424,9 @@ class plxMotor {
 			# Récupération des commentaires
 			$this->getCommentaires('#^'.$this->cible.'.\d{10}-\d+.xml$#',$this->tri_coms);
 			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+
+			# Deprecated ! voir plxShow::capcha()
+			# if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
 
 			# Gestion des articles précédent, suivant, dans le mode précèdent (home, categorie, archives, tags)
 			if(!empty($_SESSION['previous'])) {

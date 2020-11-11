@@ -1842,6 +1842,9 @@ class plxShow {
 	 **/
 	public function capchaQ() {
 		# Hook Plugins
+		if(empty($this->plxMotor->plxCapcha)) {
+			$this->plxMotor->plxCapcha = new plxCapcha(); # Création objet captcha
+		}
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaQ'))) return;
 		echo $this->plxMotor->plxCapcha->q();
 ?>
