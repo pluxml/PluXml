@@ -349,7 +349,7 @@ class plxShow {
 				'#cat_name'		=> plxUtils::strCheck($extra),
 				'#cat_status'	=> ($this->catId() == 'home') ? 'active' : 'noactive',
 				'#art_nb'		=> ''
-			));
+			)) . PHP_EOL;
 		}
 
 		# On verifie qu'il y a des categories
@@ -1105,7 +1105,7 @@ class plxShow {
 				eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
 
 				# On génère notre ligne
-				echo $row;
+				echo $row . PHP_EOL;
 			}
 		}
 	}
@@ -1429,7 +1429,7 @@ class plxShow {
 
 							# On affiche notre ligne
 							$max--;
-							echo strtr($format, $replaces);
+							echo strtr($format, $replaces) . PHP_EOL;
 							if($max <= 0) {
 								break;
 							}
@@ -2056,7 +2056,7 @@ class plxShow {
 					'#tag_url'		=> $this->plxMotor->urlRewrite('?tag/'.$url),
 					'#tag_name'		=> plxUtils::strCheck($tag),
 					'#tag_status'	=> $status
-				));
+				)) . PHP_EOL;
 			}
 		}
 	}
@@ -2139,7 +2139,7 @@ class plxShow {
 					'#archives_nbart'	=> $nbarts,
 					'#archives_status'	=> (($active) ? 'active' : 'noactive'),
 					'#archives_selected'=> (($active) ? 'selected' : '')
-				));
+				)) . PHP_EOL;
 			}
 
 			# Affichage annuel
@@ -2156,7 +2156,7 @@ class plxShow {
 					'#archives_nbart'	=> $nbarts,
 					'#archives_status'	=> ($active) ? 'active' : 'noactive',
 					'#archives_selected'=> ($active) ? 'selected' : ''
-				));
+				)) . PHP_EOL;
 			}
 
 			# Total des articles
@@ -2174,7 +2174,7 @@ class plxShow {
 					'#archives_nbart'	=> $total,
 					'#archives_status'	=> ($active) ? 'active' : 'noactive',
 					'#archives_selected'=> ($active) ? 'selected' : ''
-				));
+				)) . PHP_EOL;
 			}
 		}
 	}
