@@ -845,6 +845,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				if(!array_key_exists($this->aConf['homestatic'], $this->aStats)) {
 					$this->aConf['homestatic'] = '';
 				}
+				$action = true;
 			} else {
 				return;
 			}
@@ -922,13 +923,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aStats) > 1)
+			if(sizeof($this->aStats) > 1) {
 				uasort($this->aStats, function($a, $b) {
 					return $a['ordre'] - $b['ordre'];
 				});
-		} else {
-			return;
+			}
+			$action = true;
 		}
+
+		if($action !== true) { return; }
 
 		# sauvegarde
 		$statics_name = array();
