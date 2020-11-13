@@ -192,7 +192,7 @@ class plxMedias
         $data = array();
         foreach ($dir as $node) {
             if ($node->isDir() && !$node->isDot() && $node->getFilename() != '.thumbs') {
-                $data[$node->getFilename()] = $this->getTree(new DirectoryIterator($node->getPathname()));
+                $data[$node->getPathname()] = $this->getTree(new DirectoryIterator($node->getPathname()));
             }
         }
         ksort($data);
@@ -208,10 +208,15 @@ class plxMedias
     private function getTreeView(Array $array) {
         $out = "<ul>";
         foreach($array as $key => $elem){
-            if(!is_array($elem)){
-                $out .= "<li>$key:[$elem]</li>";
+            $dir = new SplFileInfo($key);
+            $name = $dir->getFilename();
+            $path = str_replace($this->path, '', $key);
+            if (!empty(array_values($elem))) {
+                $out .= "<li><a href=\"?path=$path/\">$name</a>".$this->getTreeView($elem)."</li>";
             }
-            else $out .= "<li>$key".$this->getTreeView($elem)."</li>";
+            else {
+                $out .= "<li><a href=\"?path=$path/\">$name</a></li>";
+            }
         }
         $out .= "</ul>";
         return $out;

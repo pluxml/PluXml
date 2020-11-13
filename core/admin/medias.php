@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gestion des médias
+ * Backoffice - Medias manager
  *
  * @package PLX
  * @author  Stephane F, Pedro "P3ter" CADETE
@@ -12,10 +12,8 @@ include __DIR__ . '/prepend.php';
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Sécurisation du chemin du dossier
-if (isset($_POST['folder']) and $_POST['folder'] != '.' and !plxUtils::checkSource($_POST['folder'])) {
-    $_POST['folder'] = '.';
-}
+$path = filter_input(INPUT_GET, 'path');
+//TODO vérifier que $path est bien un répertoire de $plxAdmin->aConf['medias'] sinon retour à la racine, pour éviter de naviguer sur le serveur
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasPrepend'));
@@ -24,9 +22,9 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasPrepend'));
 if (empty($_SESSION['medias'])) {
     $_SESSION['medias'] = $plxAdmin->aConf['medias'];
     $_SESSION['folder'] = '';
-} elseif (!empty($_POST['folder'])) {
+} elseif (!empty($path)) {
     $_SESSION['currentfolder'] = (isset($_SESSION['folder']) ? $_SESSION['folder'] : '');
-    $_SESSION['folder'] = ($_POST['folder'] == '.' ? '' : $_POST['folder']);
+    $_SESSION['folder'] = ($path);
 }
 # Nouvel objet de type plxMedias
 $plxMediasRoot = PLX_ROOT . $_SESSION['medias'];
@@ -48,8 +46,8 @@ if (!empty($_POST['btn_renamefile']) and !empty($_POST['newname'])) {
     $plxMedias->renameFile($_POST['oldname'], $_POST['newname']);
     header('Location: medias.php');
     exit;
-} elseif (!empty($_POST['folder']) and $_POST['folder'] != '.' and !empty($_POST['btn_delete'])) {
-    if ($plxMedias->deleteDir($_POST['folder'])) {
+} elseif (!empty($path) and !empty($_POST['btn_delete'])) {
+    if ($plxMedias->deleteDir($path)) {
         $_SESSION['folder'] = '';
     }
     header('Location: medias.php');
@@ -63,7 +61,7 @@ if (!empty($_POST['btn_renamefile']) and !empty($_POST['newname'])) {
     header('Location: medias.php');
     exit;
 } elseif (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'move')) and isset($_POST['idFile'])) {
-    $plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $_POST['folder']);
+    $plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $path);
     header('Location: medias.php');
     exit;
 } elseif (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'thumbs')) and isset($_POST['idFile'])) {
@@ -123,21 +121,19 @@ $curFolders = explode('/', $curFolder);
 <div class="adminheader">
     <h2 class="h3-like"><?= L_MEDIAS_TITLE ?></h2>
     <p id="medias-breadcrumb">
-        <?= L_MEDIAS_DIRECTORY ?> : <a href="javascript:void(0)" data-folder=".">(<?= L_PLXMEDIAS_ROOT ?>)</a>&nbsp;/
         <?php
-        //TODO create a method inside a new class for this
-        if ($curFolders) {
-            $path = '';
-            foreach ($curFolders as $id => $folder) {
-                if (!empty($folder) and $id > 1) {
-                    $path .= $folder . '/';
-                    ?>
-                    <a href="javascript:void(0)" data-folder="<?= $path ?>"><?= $folder ?></a>&nbsp;/
-                    <?php
+        echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[1].folder.value=\'.\';document.forms[1].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
+        if($curFolders) {
+            $path='';
+            foreach($curFolders as $id => $folder) {
+                if(!empty($folder) AND $id>1) {
+                    $path .= $folder.'/';
+                    echo '<a href="javascript:void(0)" onclick="document.forms[1].folder.value=\''.$path.'\';document.forms[1].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
                 }
             }
         }
         ?>
+    </p>
 </div>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
@@ -175,6 +171,7 @@ $curFolders = explode('/', $curFolder);
             <div class="col-1">
                 <button onclick="dialogBox('dlgNewFolder');return false;"
                         id="btnNewFolder"><?= L_MEDIAS_NEW_FOLDER ?></button>
+                <p><a href="?path=/"><?= L_PLXMEDIAS_ROOT ?></a></p>
                 <?= $plxMedias->displayTreeView(); ?>
             </div>
 
@@ -315,13 +312,16 @@ $curFolders = explode('/', $curFolder);
                     }
                     ?>
                 </p>
-                <p><a class="back" href="javascript:void(0)" onclick="toggle_divs();return false"><?= L_MEDIAS_BACK ?></a></p>
-                <input type="submit" class="button--primary" name="btn_upload" id="btn_upload" value="<?= L_MEDIAS_SUBMIT_FILE ?>"/>
+                <p><a class="back" href="javascript:void(0)"
+                      onclick="toggle_divs();return false"><?= L_MEDIAS_BACK ?></a></p>
+                <input type="submit" class="button--primary" name="btn_upload" id="btn_upload"
+                       value="<?= L_MEDIAS_SUBMIT_FILE ?>"/>
                 <?= plxToken::getTokenPostMethod() ?>
             </div>
 
             <p><?= L_MEDIAS_MAX_UPLOAD_NBFILE ?> : <?= ini_get('max_file_uploads') ?></p>
-            <p><?= L_MEDIAS_MAX_UPLOAD_FILE ?> : <?= $plxMedias->maxUpload['display'] ?><?php if ($plxMedias->maxPost['value'] > 0) echo " / " . L_MEDIAS_MAX_POST_SIZE . " : " . $plxMedias->maxPost['display']; ?></p>
+            <p><?= L_MEDIAS_MAX_UPLOAD_FILE ?>
+                : <?= $plxMedias->maxUpload['display'] ?><?php if ($plxMedias->maxPost['value'] > 0) echo " / " . L_MEDIAS_MAX_POST_SIZE . " : " . $plxMedias->maxPost['display']; ?></p>
 
             <div>
                 <input id="selector_0" type="file" multiple="multiple" name="selector_0[]"/>
