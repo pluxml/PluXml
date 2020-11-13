@@ -631,7 +631,7 @@ class plxMotor {
 	 *
 	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
 	 * @return	boolean	vrai si articles trouvés, sinon faux
-	 * @author	Stéphane F
+	 * @author	Stéphane F, J.P. Pourrez (bazooka07)
 	 **/
 	public function getArticles($publi='before') {
 
@@ -685,7 +685,7 @@ class plxMotor {
 	 *
 	 * @param	filename	fichier de l'article à parser
 	 * @return	array
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, J.P. Pourrez (bazooka07)
 	 **/
 	public function parseArticle($filename) {
 
