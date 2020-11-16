@@ -669,11 +669,11 @@ a.overlay {
 
 /* ------- Popup Medias Manager ------ */
 
-body.mediasManager .aside {
+body.mediasManager .aside, body.mediasManager .header {
     display: none;
 }
 
-body.mediasManager main.grid {
+body.mediasManager .section {
     margin-left: 0;
 }
 

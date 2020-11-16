@@ -1,23 +1,3 @@
-/*
-var popupCss = '\
-.aside {\
-	display: none;\
-}\
-.section .action-bar {\
-	left: 0;\
-	right: 0;\
-	margin-right: 0;\
-	margin-left: 0;\
-}\
-@media (min-width: 768px) {\
-	.col.lrg-offset-2 {\
-		margin-left: 10px;\
-		margin-right: 20px;\
-		width: 100%;\
-	}\
-}';
-*/
-
 var mediasManager = {
 
 	addText: function(cibleId, txt, replace) {
@@ -101,7 +81,7 @@ var mediasManager = {
 
 	openPopup: function(cibleId, replace, fallback) {
 		var replace = replace == undefined ? false : true;
-		var width = this.opts.width ? this.opts.width : 950;
+		var width = this.opts.width ? this.opts.width : 1320;
 		var height = this.opts.height ? this.opts.height : 580;
 		var left = parseInt((screen.width - width) / 2);
 		var top = parseInt((screen.height - height) / 2);
