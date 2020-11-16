@@ -80,9 +80,10 @@ input[type], select {
 
 .aside {
     position: fixed;
-    top: 0;
+    top: 40px;
     bottom: 0;
     overflow: auto;
+    width: 15%;
     color: #fff;
     background-color: var(--backaside);
 }
@@ -147,25 +148,6 @@ input[type], select {
     display: block;
 }
 
-@media (max-width: 575px) {
-    .responsive-menu { /* fix old android browser : good position*/
-        left: 0;
-        right: 0;
-    }
-
-    .responsive-menu label {
-        display: block;
-    }
-
-    .responsive-menu ul {
-        display: none;
-    }
-
-    .plxversion {
-        display: none;
-    }
-}
-
 /* ==== SECTION ==== */
 .section {
     margin-top: 40px;
@@ -188,15 +170,11 @@ input[type], select {
     position: fixed;
     top: 0;
     right: 0;
-    left: 15%;
+    width: 100%;
     overflow: hidden;
     height: 40px;
     background-color: var(--backheader);
     border-bottom: 1px solid var(--backheaderborder);
-}
-
-.section .header .responsive-menu-button {
-    display: none;
 }
 
 .section .header li {
@@ -512,18 +490,21 @@ input + .drop + div, input + .drop-inline + div {
     content: '▼';
 }
 
-.drop:after {
-    float: right;
-}
-
 :checked + .drop:after, :checked + .drop-inline:after {
     content: '▲';
 }
 
+.drop:after {
+    float: right;
+}
+
 input:checked + .drop + div, input:checked + .drop-inline + div {
     opacity: 1;
-    padding: 10px 18px;
     height: auto;
+}
+
+input:checked + .drop + div {
+    padding: 10px 18px;
 }
 
 /* Tooltips
@@ -783,4 +764,22 @@ input:checked ~ .modal__overlay {
     transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: 800;
     visibility: visible;
+}
+
+@media (max-width: 575px) {
+    .aside {
+        width: 0%;
+    }
+
+    .aside.is-opened {
+        width: 100%;
+    }
+
+    .section {
+        margin-left: 0px;
+    }
+
+    .plxversion {
+        display: none;
+    }
 }

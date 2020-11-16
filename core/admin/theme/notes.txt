@@ -1,9 +1,0 @@
-# Font Fontello
-
-Url pour archive zip font Fontello :
-http://fontello.com/download/91cf8a7dc25a84ef40308dc27b3060e0
-
-Pour compléter les icônes, aller sur http://fontello.com et glisser-déposer le fichier fontello/config.json
-
-Pour afficher les icônes disponibles, afficher sur le site la page "core/admin/theme/fontello/demo.html"
-
