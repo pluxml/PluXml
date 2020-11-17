@@ -37,14 +37,25 @@ class plxMsg {
 	 *
 	 * @param	null
 	 * @return	void
-	 * @author	Stephane F
+	 * @author	Stephane F, Pedro "P3ter" CADETE
 	 **/
 	public static function Display() {
 
-		if(isset($_SESSION['error']) AND !empty($_SESSION['error']))
-			echo '<p id="msg" class="notification error">'.$_SESSION['error'].'</p>';
-		elseif(isset($_SESSION['info']) AND !empty($_SESSION['info']))
-			echo '<p id="msg" class="notification success">'.$_SESSION['info'].'</p>';
+	    if(isset($_SESSION['error']) AND !empty($_SESSION['error'])) {
+            $class = "error";
+	        $icon = "icon-cancel-circled";
+            $message = $_SESSION['error'];
+        }
+		elseif(isset($_SESSION['info']) AND !empty($_SESSION['info'])) {
+            $class = "success";
+	        $icon = "icon-info-circled";
+            $message = $_SESSION['info'];
+        }
+	    if (!empty($message))
+            echo '
+                <section id="msg" class="notification '.$class.' active flex-container">
+                    <div class="ptm prm pbm"><i class="'.$icon.'"></i><strong>'.$message.'</strong></div>
+                </section>';
 		unset($_SESSION['error']);
 		unset($_SESSION['info']);
 	}

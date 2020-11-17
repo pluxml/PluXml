@@ -25,7 +25,7 @@ function fadeOut(objId,opacity) {
 }
 function pwdStrength(id, s) {
 	// Colors: white = empty, red = very weak, orange = weak, yellow = good, green = strong
-	var color = ['#fff', '#ff0000', '#ff9900', '#ffcc00', '#33cc33'];
+	var color = ['#ffffff', '#d9534f', '#ff9900', '#ffcc00', '#33cc33'];
 	var val = document.getElementById(id).value;
 	var no=0;
 	// If the password length is less than or equal to 6
@@ -70,14 +70,10 @@ function dialogBox(dlg) {
 (function() {
 	const el = document.getElementById('msg');
 	if(el != null) {
-		var timer1 = null;
-		el.addEventListener('transitionend', function(event) {
-			timer1 = setTimeout(function() {
-				el.classList.remove('active');
-				clearTimeout(timer1);
-			}, 3000);
-		});
-		el.classList.add('active');
+		setTimeout(function () {
+			el.classList.remove('active');
+			el.offsetWidth = el.offsetWidth;
+		}, 3000)
 	}
 })()
 
