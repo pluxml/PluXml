@@ -1050,7 +1050,7 @@ class plxShow {
 			}
 		}
 
-		$motif = '@\d{4}\.(?:home,|\d{3},)*'. $catList . '(?:,\d{3})*\..*\.xml$@';
+		$motif = '@^\d{4}\.(?:home,|\d{3},)*'. $catList . '(?:,\d{3})*\..*\.xml$@';
 
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
