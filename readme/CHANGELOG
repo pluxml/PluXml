@@ -1,4 +1,5 @@
 ## PLUXML 5.8.x (YYYY/MM/DD) ##
+[+] refine url rewriting rule #497 (bazooka07)
 FIX allow punctuation in articles and pages titles #505 (bazooka07)
 FIX plxShow::catList() and plxShow::catId multiples article with same category #495 (bazooka07)
 

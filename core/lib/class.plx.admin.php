@@ -117,7 +117,7 @@ class plxAdmin extends plxMotor {
 		$_SESSION['lang'] = $global['default_lang'];
 
 		# Actions sur le fichier htaccess
-		if(isset($content['urlrewriting']))
+        if(array_key_exists('urlrewriting', $content))
 			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
@@ -152,6 +152,10 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function htaccess($action, $url) {
 
+		if(!function_exists('apache_get_modules') or !in_array('mod_rewrite', apache_get_modules())) {
+			return false;
+		}
+
 		$capture = '';
 		$base = parse_url($url);
 
@@ -165,7 +169,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 # Réécriture des urls
-RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
+RewriteRule ^(article\d*|categorie\d*|tag|archives|static\d*|page\d*|telechargement|download)\b(.*)$ index.php?$1$2 [L]
 RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 </IfModule>
 # END -- Pluxml
