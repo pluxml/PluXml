@@ -1,3 +1,6 @@
+## PLUXML 5.8.x (YYYY/MM/DD) ##
+FIX plxShow::catList() and plxShow::catId multiples article with same category #495 (bazooka07)
+
 ## PLUXML 5.8.4 (2020/09/07) ##
 [+] Disable removing short words on urlify (P3ter)
 FIX Icon's CSS in medias manager (P3ter)
