@@ -185,8 +185,17 @@ $selector = selector($comSel, 'id_selection');
                 <tr>
                     <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')"/></th>
                     <th><?= L_DATE ?></th>
+                    <?php
+			$all = ($_SESSION['selCom'] == 'all');
+			if($all) {
+?>
+					<th><?= L_COMMENT_STATUS_FIELD ?></th>
+<?php
+			}
+?>
                     <th class="w100"><?= L_COMMENTS_LIST_MESSAGE ?></th>
                     <th><?= L_AUTHOR ?></th>
+                    <th><?= L_COMMENT_SITE_FIELD ?></th>
                     <th><?= L_ACTION ?></th>
                 </tr>
                 </thead>
@@ -203,17 +212,43 @@ $selector = selector($comSel, 'id_selection');
                             $content = $content . ($status != '' ? '<span class="tag--warning">' . L_COMMENT_OFFLINE : '');
                         }
                         # On génère notre ligne
-                        echo '<tr class="top type-' . $plxAdmin->plxRecord_coms->f('type') . '">';
-                        echo '<td><input type="checkbox" name="idCom[]" value="' . $id . '" /></td>';
-                        echo '<td>' . PlxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) . '&nbsp;</td>';
-                        echo '<td>' . $content . '&nbsp;</td>';
-                        echo '<td>' . $plxAdmin->plxRecord_coms->f('author') . '&nbsp;</td>';
-                        echo '<td>';
-                        echo '<button><a href="comment_new.php?c=' . $id . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '') . '" title="' . L_COMMENT_ANSWER . '"><i class="icon-reply-1"></i></a></button>&nbsp;';
-                        echo '<button><a href="comment.php?c=' . $id . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '') . '" title="' . L_COMMENT_EDIT_TITLE . '"><i class="icon-pencil"></i></a></button>&nbsp;';
-                        echo '<button><a href="article.php?a=' . $artId . '" title="' . L_COMMENT_ARTICLE_LINKED_TITLE . '"><i class="icon-doc-inv"></i></a></button>';
-                        echo '</td></tr>';
-                    }
+?>
+				<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
+					<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
+					<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
+<?php
+				if($all) {
+?>
+					<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
+<?php
+				}
+?>
+					<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
+					<td class="author"><?php
+					$author = $plxAdmin->plxRecord_coms->f('author');
+					$mail = $plxAdmin->plxRecord_coms->f('mail');
+					if(!empty($mail)) {
+?><a href="mailto:<?= $mail ?>"><?= $author ?></a><?php
+					} else {
+						echo $author;
+					}
+?></td>
+					<td class="site"><?php
+					$site = $plxAdmin->plxRecord_coms->f('site');
+					if(!empty($site)) {
+?><a href="<?= $site ?>" target="_blank"><?= $site ?></a><?php
+					} else {
+						echo '&nbsp;';
+					}
+?></td>
+					<td>
+						<button><a href="comment_new.php?c=' . $id . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '') . '" title="' . L_COMMENT_ANSWER . '"><i class="icon-reply-1"></i></a></button>&nbsp;
+						<button><a href="comment.php?c=' . $id . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '') . '" title="' . L_COMMENT_EDIT_TITLE . '"><i class="icon-pencil"></i></a></button>&nbsp;
+						<button><a href="article.php?a=' . $artId . '" title="' . L_COMMENT_ARTICLE_LINKED_TITLE . '"><i class="icon-doc-inv"></i></a></button>
+					</td>
+				</tr>
+<?php
+				}
                 } else { # Pas de commentaires
                     echo '<tr><td colspan="5" class="center">' . L_NO_COMMENT . '</td></tr>';
                 }
@@ -226,7 +261,7 @@ $selector = selector($comSel, 'id_selection');
                             <button class="submit btn--warning" name="delete" type="submit"><i
                                         class="icon-trash-empty"></i><?= L_DELETE ?></button>
                         </td>
-                        <td colspan="3" class="pagination right">
+                        <td colspan="5" class="pagination right">
                             <?php
                             # Hook Plugins
                             eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));

@@ -561,7 +561,7 @@ class plxUtils
         $clean_url = preg_replace('@[\s' . $replace . ']+@', $replace, $clean_url);
 
         // remove non-alphanumeric character
-        $clean_url = trim(preg_replace('@[^\w\.-]+@', '', $clean_url), '-');
+        $clean_url = trim(preg_replace('@[^\w-]+@', '', $clean_url), '-');
 
         if ($lower) {
             $clean_url = strtolower($clean_url);
@@ -1433,9 +1433,9 @@ EOT;
         if (!empty($msg)) $msg .= ' = ';
         $msg .= (is_array($obj) or is_object($obj)) ? print_r($obj, true) : ((is_string($obj)) ? "\"$obj\"" : $obj);
         echo <<< EOT
-			<script type="text/javascript">
-				console.log(`$msg`);
-			</script>
+            <script type="text/javascript">
+                console.log(`$msg`);
+            </script>
 EOT;
     }
 
@@ -1449,7 +1449,8 @@ EOT;
      * @return    void                    on envoie directemenr le code HTML en sortie
      * @author    J.P. Pourrez alias bazooka07
      * */
-    private static function _printSelectDir($root, $level, $prefixParent, $choice1='', $modeDir1=true, $textOnly= true) {
+    private static function _printSelectDir($root, $level, $prefixParent, $choice1 = '', $modeDir1 = true, $textOnly = true)
+    {
 
         static $firstRootLength = 0;
         static $modeDir = true;
@@ -1457,10 +1458,10 @@ EOT;
         static $currentValue = '';
 
         # initialisation des variables statiques
-        if($level == 0) {
+        if ($level == 0) {
             $firstRootLength = strlen($root);
             $modeDir = $modeDir1;
-            if(!$modeDir1 and $textOnly) {
+            if (!$modeDir1 and $textOnly) {
                 $extsText = 'php css html htm xml js json txt me md';
                 # self::debugJS($extsText, 'extsText');
             }
@@ -1468,48 +1469,48 @@ EOT;
         }
 
         $children = array_filter(scandir($root),
-            function ($item) use(&$modeDir, &$root, &$extsText) {# détermine s'il s'agit de fichier ou dossier php 5.3+
-                $ext = pathinfo($item,PATHINFO_EXTENSION);
-                return  ($item[0] != '.' and
-                    ( (is_dir($root.$item) ) or
-                        (!$modeDir and (!empty($ext) and (strpos($extsText,$ext) !== false) or empty($extsText)))
+            function ($item) use (&$modeDir, &$root, &$extsText) {# détermine s'il s'agit de fichier ou dossier php 5.3+
+                $ext = pathinfo($item, PATHINFO_EXTENSION);
+                return ($item[0] != '.' and
+                    ((is_dir($root . $item)) or
+                        (!$modeDir and (!empty($ext) and (strpos($extsText, $ext) !== false) or empty($extsText)))
                     )
                 );
             }
         );
         natsort($children);
 
-        if(!empty($children)) {
+        if (!empty($children)) {
             $level++;
             $cnt = count($children);
-            foreach($children as $child) {
+            foreach ($children as $child) {
                 $cnt--;
                 $prefix = $prefixParent;
                 # http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
-                if($cnt<=0) {
+                if ($cnt <= 0) {
                     $prefix .= '└ '; # espace insécable !
                     $next = ' '; # espace insécable !
                 } else {
                     $prefix .= '├ '; # espace insécable !
                     $next = '│'; # espace insécable !
                 }
-                $dirOk = (is_dir($root.$child));
+                $dirOk = (is_dir($root . $child));
                 $next .= str_repeat(' ', 3); # espace insécable ! 3 = strlen($prefix.$next)
-                $dataLevel = 'level-'.str_repeat('X', $level);
-                $value = substr($root.$child, $firstRootLength);
+                $dataLevel = 'level-' . str_repeat('X', $level);
+                $value = substr($root . $child, $firstRootLength);
                 $selected = ($value == rtrim($currentValue, '/')) ? ' selected' : '';
                 $caption = basename($value);
                 $classList = array();
                 #if(strpos($currentValue, dirname($value)) === 0)
-                if(strpos($value, dirname($value)) === 0)
+                if (strpos($value, dirname($value)) === 0)
                     $classList[] = 'visible';
-                if(!$modeDir and $dirOk)
+                if (!$modeDir and $dirOk)
                     $classList[] = 'folder';
 
-                $classAttr = (!empty($classList)) ? ' class="'.implode(' ', $classList).'"' : '';
+                $classAttr = (!empty($classList)) ? ' class="' . implode(' ', $classList) . '"' : '';
 
-                if($dirOk) { # pour un dossier
-                    if($modeDir) {
+                if ($dirOk) { # pour un dossier
+                    if ($modeDir) {
                         echo <<<EOT
                             <option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
 EOT;
@@ -1518,7 +1519,7 @@ EOT;
                             <option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
 EOT;
                     }
-                    self::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
+                    self::_printSelectDir($root . $child . '/', $level, $prefixParent . $next);
                 } else { # pour un fichier
                     echo <<<EOT
                         <option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
@@ -1563,7 +1564,7 @@ EOT;
 EOT;
         self::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
         echo <<< EOT
-		</select>
+        </select>
 EOT;
     }
 
@@ -1578,7 +1579,7 @@ EOT;
     {
 
         if (empty($file)) {
-            $return;
+            return;
         }
 
         $plxMotor = ($admin) ? false : plxMotor::getinstance();

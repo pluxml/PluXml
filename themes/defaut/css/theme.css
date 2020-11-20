@@ -159,6 +159,17 @@ ul.menu a.noactive{
 	color: #258fd6;
 
 }
+
+.cat-list .active,
+.classified-in .active {
+	background-color: #6aa6ce;
+	color: #fff;
+}
+.aside a,
+.classified-in a {
+	padding: 0 0.5rem;
+}
+
 /* ---------- Main ---------- */
 
 .main {
