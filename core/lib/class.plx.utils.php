@@ -541,7 +541,7 @@ class plxUtils {
 		$clean_url = preg_replace('@[\s' . $replace . ']+@', $replace, $clean_url);
 
 		// remove non-alphanumeric character
-		$clean_url = trim(preg_replace('@[^\w\.-]+@', '', $clean_url), '-');
+		$clean_url = trim(preg_replace('@[^\w-]+@', '', $clean_url), '-');
 
 		if($lower) {
 			$clean_url = strtolower($clean_url);

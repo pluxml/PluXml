@@ -4,8 +4,9 @@ Créez un site web performant en toute simplicité et sans base de données.
 
 [**Télécharger PluXml 5.8.4**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
 
-* Version stable : [5.8](https://github.com/pluxml/PluXml/tree/5.8)
-* Version en développement : [master](https://github.com/pluxml/PluXml/tree/master)
+* Version stable (5.8.4) : [5.8](https://github.com/pluxml/PluXml/tree/5.8)
+* Version bugfix (5.8.5) en développement : [master](https://github.com/pluxml/PluXml/tree/master)
+* Verison instable (6.0) en développement : [6.0](https://github.com/pluxml/PluXml/tree/6.0)
 
 Principales caractéristiques
 ----------------------------
