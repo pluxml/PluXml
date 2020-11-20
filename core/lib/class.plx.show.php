@@ -763,14 +763,18 @@ class plxShow {
 						$active = "noactive";
 					# On effectue l'affichage
 					$cats[] = '<a class="'.$active.'" href="'.$this->plxMotor->urlRewrite('?categorie'.intval($catId).'/'.$url).'" title="'.$name.'">'.$name.'</a>';
-				} else { # La categorie n'existe pas
-					$cats[] = L_UNCLASSIFIED;
 				}
 			} else { # Categorie "home"
 				$cats[] = '<a class="active" href="'.$this->plxMotor->urlRewrite().'" title="'.L_HOMEPAGE.'">'.L_HOMEPAGE.'</a>';
 			}
 		}
-		echo implode($separator, $cats);
+
+		if(!empty($cats)) {
+			echo implode($separator, $cats);
+		} else {
+			# aucune categorie connue
+			echo L_UNCLASSIFIED;
+		}
 	}
 
 	/**
@@ -781,24 +785,31 @@ class plxShow {
 	 * @scope	home,categorie,article,tags,archives
 	 * @author	Stephane F
 	 **/
-	public function artTags($format='<a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name</a>', $separator=',') {
+	public function artTags($format='<a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name</a>', $separator=', ') {
 		# Hook Plugins
 		if(eval($this->plxMotor->plxPlugins->callHook('plxShowArtTags'))) return;
 
 		# Initialisation de notre variable interne
 		$taglist = $this->plxMotor->plxRecord_arts->f('tags');
 		if(!empty($taglist)) {
-			$tags = array_map('trim', explode(',', $taglist));
-			foreach($tags as $idx => $tag) {
-				echo strtr($format, array(
-					'#tag_url'		=> $this->plxMotor->urlRewrite('?tag/' . plxUtils::urlify($tag)),
-					'#tag_name'		=> plxUtils::strCheck($tag),
-					'#tag_status'	=> ($this->plxMotor->mode=='tags' AND $this->plxMotor->cible==$t) ? 'active' : 'noactive'
-				));
-				if ($idx!=sizeof($tags)-1) echo $separator . ' ';
-			}
+			$tags = array_map(
+				function($value) use($format) {
+					$tag = trim($value);
+					# $this->plxMotor->cible est une fraction d'url.
+					# Il faut donc formater $tag avec plxUtils::urlify() avant les tests.
+					$tagUrl = plxUtils::urlify($tag);
+					echo strtr($format, array(
+						'#tag_url'		=> $this->plxMotor->urlRewrite('?tag/' . $tagUrl),
+						'#tag_name'		=> plxUtils::strCheck($tag),
+						'#tag_status'	=> ($this->plxMotor->mode == 'tags' && $this->plxMotor->cible == $tagUrl) ? 'active' : 'noactive'
+					));
+				},
+				explode(',', $taglist)
+			);
+			echo implode($separator, $tags);
+		} else {
+			echo L_NONE1;
 		}
-		else echo L_NONE1;
 	}
 
 	/**
