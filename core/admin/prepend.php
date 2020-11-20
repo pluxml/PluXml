@@ -58,7 +58,7 @@ if(isset($_SESSION['user'])) {
 		exit;
 	}
 	# Change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
-	if($plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
+	if(!isset($_SESSION['profil']) || $plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
 }
 # Hook Plugins

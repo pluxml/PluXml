@@ -1,9 +1,10 @@
 ## PLUXML 5.8.x (YYYY/MM/DD) ##
-[+] refine url rewriting rule #497 (bazooka07)
-FIX allow punctuation in articles and pages titles #505 (bazooka07)
+[+] Refine url rewriting rule #497 (bazooka07)
+FIX Allow punctuation in articles and pages titles #505 (bazooka07)
 FIX plxShow::catList() and plxShow::catId multiples article with same category #495 (bazooka07)
-FIX check if resetting password is not allowed before password change #500 (lolo3129, P3ter)
-FIX error with password reset token generation (P3ter)
+FIX Check if resetting password is not allowed before password change #500 (lolo3129, P3ter)
+FIX Error with password reset token generation (P3ter)
+FIX Check if a user profil is defined in the current session before changing it when necessary #511 (bazooka07)
 
 ## PLUXML 5.8.4 (2020/09/07) ##
 [+] Disable removing short words on urlify (P3ter)
