@@ -7,6 +7,7 @@ FIX Error with password reset token generation (P3ter)
 FIX Check if a user profil is defined in the current session before changing it when necessary #511 (bazooka07)
 
 ## PLUXML 5.8.4 (2020/09/07) ##
+[+] Add mailto link on comment author's e-mail #512 (bazooka07)
 [+] Disable removing short words on urlify (P3ter)
 FIX Icon's CSS in medias manager (P3ter)
 FIX Reduce notification bar width (P3ter)
