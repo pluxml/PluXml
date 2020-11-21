@@ -180,7 +180,9 @@ class plxPlugins {
 				}
 			}
 		}
-		ksort($aPlugins);
+		uasort($aPlugins, function($a, $b) {
+			return strcasecmp($a->getInfo('title'), $b->getInfo('title'));
+		});
 		return $aPlugins;
 	}
 
