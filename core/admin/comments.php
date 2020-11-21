@@ -180,7 +180,7 @@ $selector = selector($comSel, 'id_selection');
         <?php if (isset($h3)) echo $h3 ?>
 
         <div>
-            <table id="comments-table" class="table">
+            <table id="comments-table" class="table scrollable">
                 <thead>
                 <tr>
                     <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')"/></th>
@@ -254,68 +254,64 @@ $selector = selector($comSel, 'id_selection');
                 }
                 ?>
                 </tbody>
-                <?php if ($coms): ?>
-                    <tfoot>
-                    <tr>
-                        <td colspan="2">
-                            <button class="submit btn--warning" name="delete" type="submit"><i
-                                        class="icon-trash-empty"></i><?= L_DELETE ?></button>
-                        </td>
-                        <td colspan="5" class="pagination right">
-                            <?php
-                            # Hook Plugins
-                            eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
-                            # Affichage de la pagination
-                            if ($coms) { # Si on a des commentaires
-                                # Calcul des pages
-                                $last_page = ceil($nbComPagination / $plxAdmin->aConf['bypage_admin_coms']);
-                                $stop = $plxAdmin->page + 2;
-                                if ($stop < 5) $stop = 5;
-                                if ($stop > $last_page) $stop = $last_page;
-                                $start = $stop - 4;
-                                if ($start < 1) $start = 1;
-                                // URL generation
-                                $sel = '&amp;sel=' . $_SESSION['selCom'] . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '');
-                                $p_url = 'comments.php?page=' . ($plxAdmin->page - 1) . $sel;
-                                $n_url = 'comments.php?page=' . ($plxAdmin->page + 1) . $sel;
-                                $l_url = 'comments.php?page=' . $last_page . $sel;
-                                $f_url = 'comments.php?page=1' . $sel;
-                                // Display pagination links
-                                $s = $plxAdmin->page > 2 ? '<a href="' . $f_url . '" title="' . L_PAGINATION_FIRST_TITLE . '"><span class="btn"><i class="icon-angle-double-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-left"></i></span>';
-                                echo $s;
-                                $s = $plxAdmin->page > 1 ? '<a href="' . $p_url . '" title="' . L_PAGINATION_PREVIOUS_TITLE . '"><span class="btn"><i class="icon-angle-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-left"></i></span>';
-                                echo $s;
-                                for ($i = $start; $i <= $stop; $i++) {
-                                    $s = $i == $plxAdmin->page ? '<span class="current btn">' . $i . '</span>' : '<a href="' . ('comments.php?page=' . $i . $artTitle) . '" title="' . $i . '"><span class="btn">' . $i . '</span></a>';
-                                    echo $s;
-                                }
-                                $s = $plxAdmin->page < $last_page ? '<a href="' . $n_url . '" title="' . L_PAGINATION_NEXT_TITLE . '"><span class="btn"><i class="icon-angle-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-right"></i></span>';
-                                echo $s;
-                                $s = $plxAdmin->page < ($last_page - 1) ? '<a href="' . $l_url . '" title="' . L_PAGINATION_LAST_TITLE . '"><span class="btn"><i class="icon-angle-double-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-right"></i></span>';
-                                echo $s;
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                    </tfoot>
-                <?php endif ?>
             </table>
-        </div>
-
+		</div>
+<?php if ($coms): ?>
+        <div class="mtm pas tablefooter">
+			<div>
+				<button class="submit btn--warning" name="delete" type="submit"><i
+							class="icon-trash-empty"></i><?= L_DELETE ?></button>
+			</div>
+			<div class="pagination right">
+<?php
+				# Hook Plugins
+				eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
+				# Affichage de la pagination
+				if ($coms) { # Si on a des commentaires
+					# Calcul des pages
+					$last_page = ceil($nbComPagination / $plxAdmin->aConf['bypage_admin_coms']);
+					$stop = $plxAdmin->page + 2;
+					if ($stop < 5) $stop = 5;
+					if ($stop > $last_page) $stop = $last_page;
+					$start = $stop - 4;
+					if ($start < 1) $start = 1;
+					// URL generation
+					$sel = '&amp;sel=' . $_SESSION['selCom'] . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '');
+					$p_url = 'comments.php?page=' . ($plxAdmin->page - 1) . $sel;
+					$n_url = 'comments.php?page=' . ($plxAdmin->page + 1) . $sel;
+					$l_url = 'comments.php?page=' . $last_page . $sel;
+					$f_url = 'comments.php?page=1' . $sel;
+					// Display pagination links
+					$s = $plxAdmin->page > 2 ? '<a href="' . $f_url . '" title="' . L_PAGINATION_FIRST_TITLE . '"><span class="btn"><i class="icon-angle-double-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-left"></i></span>';
+					echo $s;
+					$s = $plxAdmin->page > 1 ? '<a href="' . $p_url . '" title="' . L_PAGINATION_PREVIOUS_TITLE . '"><span class="btn"><i class="icon-angle-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-left"></i></span>';
+					echo $s;
+					for ($i = $start; $i <= $stop; $i++) {
+						$s = $i == $plxAdmin->page ? '<span class="current btn">' . $i . '</span>' : '<a href="' . ('comments.php?page=' . $i . $artTitle) . '" title="' . $i . '"><span class="btn">' . $i . '</span></a>';
+						echo $s;
+					}
+					$s = $plxAdmin->page < $last_page ? '<a href="' . $n_url . '" title="' . L_PAGINATION_NEXT_TITLE . '"><span class="btn"><i class="icon-angle-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-right"></i></span>';
+					echo $s;
+					$s = $plxAdmin->page < ($last_page - 1) ? '<a href="' . $l_url . '" title="' . L_PAGINATION_LAST_TITLE . '"><span class="btn"><i class="icon-angle-double-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-right"></i></span>';
+					echo $s;
+				}
+?>
+			</div>
+		</div>
+<?php endif ?>
     </form>
 
-    <?php if (!empty($plxAdmin->aConf['clef'])) : ?>
-        <?= L_COMMENTS_PRIVATE_FEEDS ?> :
-        <ul class="unstyled-list">
-            <?php $urlp_hl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/hors-ligne'; ?>
-            <li><a href="<?= $urlp_hl ?>"
-                   title="<?= L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?= L_COMMENT_OFFLINE_FEEDS ?></a></li>
-            <?php $urlp_el = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/en-ligne'; ?>
-            <li><a href="<?= $urlp_el ?>" title="<?= L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?= L_COMMENT_ONLINE_FEEDS ?></a>
-            </li>
-        </ul>
-    <?php endif; ?>
-
+<?php if (!empty($plxAdmin->aConf['clef'])) : ?>
+	<?= L_COMMENTS_PRIVATE_FEEDS ?> :
+	<ul class="unstyled-list">
+		<?php $urlp_hl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/hors-ligne'; ?>
+		<li><a href="<?= $urlp_hl ?>"
+			   title="<?= L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?= L_COMMENT_OFFLINE_FEEDS ?></a></li>
+		<?php $urlp_el = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/en-ligne'; ?>
+		<li><a href="<?= $urlp_el ?>" title="<?= L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?= L_COMMENT_ONLINE_FEEDS ?></a>
+		</li>
+	</ul>
+<?php endif; ?>
 </div>
 
 <?php

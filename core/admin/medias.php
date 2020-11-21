@@ -194,7 +194,7 @@ $curFolders = explode('/', $curFolder);
                            title="<?= L_SEARCH ?>"/>
                 </div>
 
-                <table id="medias-table" class="table">
+                <table id="medias-table" class="table scrollable">
                     <thead>
                     <tr>
                         <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')"/></th>

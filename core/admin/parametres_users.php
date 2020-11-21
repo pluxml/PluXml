@@ -38,7 +38,7 @@ include __DIR__ . '/top.php';
         </div>
 
         <div>
-            <table id="users-table" class="table">
+            <table id="users-table" class="table scrollable">
                 <thead>
                 <tr>
                     <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')"/></th>
@@ -46,7 +46,7 @@ include __DIR__ . '/top.php';
                     <th><?= L_PROFIL_USER ?></th>
                     <th><?= L_PROFIL_LOGIN ?></th>
                     <th><?= L_PASSWORD ?></th>
-                    <th><?= L_MAIL_ADDRESS ?></th>
+                    <th class="w100"><?= L_MAIL_ADDRESS ?></th>
                     <th><?= L_PROFIL ?></th>
                     <th><?= L_CONFIG_USERS_ACTIVE ?></th>
                     <th><?= L_ACTION ?></th>
@@ -137,4 +137,3 @@ include __DIR__ . '/top.php';
 eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
 # On inclut le footer
 include __DIR__ . '/foot.php';
-?>

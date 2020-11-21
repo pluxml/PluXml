@@ -37,7 +37,7 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
 
 <main id="app" class="main">
 
-    <? plxMsg::Display(); ?>
+    <?php plxMsg::Display(); ?>
 
     <aside id="aside" class="aside">
         <header class="asideheader">

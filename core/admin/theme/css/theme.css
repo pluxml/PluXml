@@ -28,6 +28,17 @@ input[type], select {
     margin-bottom: 1rem;
 }
 
+
+table img.thumb {
+	max-width: none;
+}
+
+input[type="number"] {
+	max-width: 6rem;
+	padding-right: 0.25rem;
+	text-align: end;
+}
+
 /* ==== AUTHENTIFICATION ==== */
 
 .auth .logo {
@@ -274,11 +285,12 @@ input[type], select {
 .section .theme .themeDetails {
     position: absolute;
     top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    padding: 1.5rem 1rem 0;
+    -webkit-transform: translateY(-50%, -50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     text-align: center;
+    white-space: normal;
 }
 
 .section .themes .title {
@@ -317,7 +329,6 @@ input[type], select {
 
 /* ==== COMPONENTS ==== */
 .table {
-    overflow: auto;
     border-collapse: collapse;
     border-spacing: 0;
     border-collapse: collapse;
@@ -326,8 +337,19 @@ input[type], select {
     width: auto;
 }
 
+.table.scrollable {
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+}
+.table.scrollable td:not(.wrap) {
+	white-space: nowrap;
+}
+.table.mb0 {
+	margin-bottom: 0;
+}
 .table th, .table td {
-    white-space: nowrap;
+    /* white-space: nowrap; */
     padding: 6px 5px;
     border: 0px;
     border-bottom: 1px solid var(--backheaderborder);
@@ -408,7 +430,12 @@ input[type], select {
     padding: 1rem 1.5rem;
 }
 
-[type="text"], select {
+[type="text"],
+[type="number"],
+[type="password"],
+[type="email"],
+[type="url"],
+select {
     background-color: #fff;
     box-shadow: inset 0 0 0 1px var(--backheaderborder);
 }
@@ -648,6 +675,16 @@ a.overlay {
     cursor: pointer;
 }
 
+/* ------------ medias.php ----------- */
+
+#medias-table td:nth-of-type(5) {
+	text-align: end;
+}
+
+#medias-table td:nth-of-type(6) {
+	text-align: center;
+}
+
 /* ------- Popup Medias Manager ------ */
 
 body.mediasManager .aside, body.mediasManager .header {
@@ -765,6 +802,8 @@ input:checked ~ .modal__overlay {
     z-index: 800;
     visibility: visible;
 }
+
+/* ======== responsive design ========== */
 
 @media (max-width: 575px) {
     .aside {
