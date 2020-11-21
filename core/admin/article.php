@@ -451,25 +451,26 @@ $cat_id = '000';
                                 <label for="cat_home"><input type="checkbox" id="cat_home"
                                                              name="catId[]" <?= $selected ?>
                                                              value="home"/>&nbsp;<?= L_HOMEPAGE ?></label><br>
-                                <?php foreach ($plxAdmin->aCats as $cat_id => $cat_name): ?>
-                                    <?php $selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : ''; ?>
-                                    <? if ($plxAdmin->aCats[$cat_id]['active']): ?>
-                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_?<?= $cat_id ?>"
+<?php
+# on boucle sur les catégories
+foreach ($plxAdmin->aCats as $cat_id => $cat_name) {
+	$selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : '';
+	$className = !empty($plxAdmin->aCats[$cat_id]['active']) ? ' class="active"' : '';
+?>
+                                        <label for="cat_<?= $cat_id ?>"<?= $className ?>><input type="checkbox" id="cat_?<?= $cat_id ?>"
                                                                                name="catId[]" <?= $selected ?>
                                                                                value="<?= $cat_id ?>"/>&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?>
-                                        </label><br>
-                                    <?php else: ?>
-                                        <label for="cat_<?= $cat_id ?>"><input type="checkbox" id="cat_<?= $cat_id ?>"
-                                                                               name="catId[]"<?= $selected ?>
-                                                                               value="<?= $cat_id ?>"/>&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?>
-                                        </label><br>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                                <?php if ($_SESSION['profil'] < PROFIL_WRITER) : ?>
+                                        </label><br />
+<?php
+}
+
+if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                                     <label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
                                     <?php PlxUtils::printInput('new_catname', '', 'text', '-50') ?>
                                     <input class="btn" type="submit" name="new_category" value="<?= L_ADD ?>"/>
-                                <?php endif; ?>
+<?php
+}
+?>
                             </div>
                         </div>
                         <input class="toggle" id="toggle_tags" type="checkbox">
