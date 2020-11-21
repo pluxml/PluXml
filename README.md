@@ -4,9 +4,9 @@
 </p>
 
 <p align="center">
-    <img src="https://badgen.net/github/release/pluxml/pluxml" />
-    <img src="https://badgen.net/badge/license/GPL/green" />
-    <img src="https://badgen.net/twitter/follow/pluxml" />
+    <a href="https://www.pluxml.org/download/pluxml-latest.zip"><img src="https://badgen.net/github/release/pluxml/pluxml" /></a>
+    <a href="https://github.com/pluxml/PluXml/blob/master/readme/LICENSE"><img src="https://badgen.net/badge/license/GPL/green" /></a>
+    <a href="https://twitter.com/pluxml"><img src="https://badgen.net/twitter/follow/pluxml" /></a>
 </p>
 
 <p align="center">Créez un site web performant en toute simplicité et sans base de données.</p>
