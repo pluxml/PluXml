@@ -271,12 +271,12 @@ if ($arts) { # On a des articles
 ?>
 			</tbody>
 		</table>
-<?php if ($_SESSION['profil'] <= PROFIL_MODERATOR) : ?>
         <div class="pas grid-2-small-1 tablefooter">
-				<div>
-					<!-- <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE ?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" /> -->
-					<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash"></i><?= L_DELETE ?></button>
-					<?php PlxUtils::printInput('page', 1, 'hidden'); ?>
+<?php if ($_SESSION['profil'] <= PROFIL_MODERATOR) : ?>
+			<div>
+				<!-- <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE ?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" /> -->
+				<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash"></i><?= L_DELETE ?></button>
+				<?php PlxUtils::printInput('page', 1, 'hidden'); ?>
 			</div>
 <?php endif; ?>
 			<div class="pagination right">
@@ -284,34 +284,43 @@ if ($arts) { # On a des articles
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
 
-//TODO PlxAdmin pagination function
-if ($arts) { # if there is articles
+const DELTA_PAGINATION = 3;
+if ($arts and $nbArtPagination > $plxAdmin->bypage) { # if there is articles
 	//Pagination preparation
 	$last_page = ceil($nbArtPagination / $plxAdmin->bypage);
-	$stop = $plxAdmin->page + 2;
-	if ($stop < 5) $stop = 5;
-	if ($stop > $last_page) $stop = $last_page;
-	$start = $stop - 4;
-	if ($start < 1) $start = 1;
 	// URL generation
-	$artTitle = (!empty($_GET['artTitle']) ? '&amp;artTitle=' . urlencode($_GET['artTitle']) : '');
-	$p_url = 'index.php?page=' . ($plxAdmin->page - 1) . $artTitle;
-	$n_url = 'index.php?page=' . ($plxAdmin->page + 1) . $artTitle;
-	$l_url = 'index.php?page=' . $last_page . $artTitle;
-	$f_url = 'index.php?page=1' . $artTitle;
+	$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . urlencode($_GET['artTitle']) : '';
 	// Display pagination links
-	$s = $plxAdmin->page > 2 ? '<a href="' . $f_url . '" title="' . L_PAGINATION_FIRST_TITLE . '"><span class="btn"><i class="icon-angle-double-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-left"></i></span>';
-	echo $s;
-	$s = $plxAdmin->page > 1 ? '<a href="' . $p_url . '" title="' . L_PAGINATION_PREVIOUS_TITLE . '"><span class="btn"><i class="icon-angle-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-left"></i></span>';
-	echo $s;
-	for ($i = $start; $i <= $stop; $i++) {
-		$s = $i == $plxAdmin->page ? '<span class="current btn">' . $i . '</span>' : '<a href="' . ('index.php?page=' . $i . $artTitle) . '" title="' . $i . '"><span class="btn">' . $i . '</span></a>';
-		echo $s;
+?>
+				<a href="index.php?page=1<?= $artTitle ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= ($plxAdmin->page > 2) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-double-left"></i></span></a>
+				<a href="index.php?page=<?= ($plxAdmin->page - 1) . $artTitle ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= ($plxAdmin->page > 1) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-left"></i></span></a>
+<?php
+	# On boucle sur les pages
+	if($last_page <= 2 * DELTA_PAGINATION  + 1) {
+		$iMin = 1; $iMax = $last_page;
+	} else {
+		if($plxAdmin->page > DELTA_PAGINATION + 1) {
+			$iMin = ($last_page - $plxAdmin->page > DELTA_PAGINATION) ? $plxAdmin->page - DELTA_PAGINATION : $last_page - 2 * DELTA_PAGINATION;
+		} else {
+			$iMin = 1;
+		}
+		$iMax =  $iMin + 2 * DELTA_PAGINATION;
 	}
-	$s = $plxAdmin->page < $last_page ? '<a href="' . $n_url . '" title="' . L_PAGINATION_NEXT_TITLE . '"><span class="btn"><i class="icon-angle-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-right"></i></span>';
-	echo $s;
-	$s = $plxAdmin->page < ($last_page - 1) ? '<a href="' . $l_url . '" title="' . L_PAGINATION_LAST_TITLE . '"><span class="btn"><i class="icon-angle-double-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-right"></i></span>';
-	echo $s;
+	for ($i = $iMin; $i <= $iMax; $i++) {
+		if($i != $plxAdmin->page) {
+?>
+				<a href="index.php?page=<?= $i . $artTitle ?>"><span class="btn"><?= $i ?></span></a>
+<?php
+		} else {
+?>
+				<span class="current btn"><?= $i ?></span>
+<?php
+		}
+	}
+?>
+				<a href="index.php?page=<?= ($plxAdmin->page + 1) . $artTitle ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= ($plxAdmin->page < $last_page) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-right"></i></span></a>
+				<a href="index.php?page=<?= $last_page . $artTitle ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><span class="btn"<?= ($plxAdmin->page < $last_page - 1) ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></span></a>
+<?php
 }
 ?>
 			</div>
