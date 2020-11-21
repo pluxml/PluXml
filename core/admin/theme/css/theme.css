@@ -33,6 +33,10 @@ table img.thumb {
 	max-width: none;
 }
 
+td.txtcenter {
+	text-align: center;
+}
+
 input[type="number"] {
 	max-width: 6rem;
 	padding-right: 0.25rem;
@@ -673,6 +677,12 @@ a.overlay {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* ----------- index.php ------------- */
+
+#index td:nth-of-type(2) {
+	text-align: end;
 }
 
 /* ------------ medias.php ----------- */

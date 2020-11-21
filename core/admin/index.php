@@ -125,32 +125,35 @@ include __DIR__ . '/top.php';
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
-<?php
-$nbArticlesDraft = $plxAdmin->nbArticles('draft', $userId);
-$nbArticlesWaiting = $plxAdmin->nbArticles('all', $userId, '_');
-?>
-
 <div class="adminheader">
     <h2 class="h3-like"><?= L_ARTICLES_LIST ?></h2>
     <ul>
-        <li <?= ($_SESSION['sel_get'] == 'all') ? 'class="selected" ' : '' ?>>
-			<a href="index.php?sel=all&amp;page=1"><?= L_ALL ?></a>
-			<span class="tag"><?= $plxAdmin->nbArticles('all', $userId) ?></span>
+<?php
+foreach(array(
+	'all'			=> array(L_ALL, '_?'),
+	'published'		=> array(L_ALL_PUBLISHED, ''),
+	'draft'			=> array(L_ALL_DRAFTS, '_?'),
+	'mod'			=> array(L_AWAITING, '_'),
+) as $mode=>$infos) {
+	list($caption, $moderation) = $infos;
+	$nbArticles = $plxAdmin->nbArticles(($mode != 'mod') ? $mode : 'all', $userId, $moderation);
+	$className = '';
+	if($mode == $_SESSION['sel_get']) {
+		$className = 'class="selected"';
+		if(empty($artTitle)) {
+			# Pas de recherche particulière
+			$nbArtPagination = $nbArticles;
+		}
+	}
+	$tag = ($mode != 'mod') ? 'tag' : 'tag--warning';
+	$countArts = ($nbArticles > 0) ? '<span class="' . $tag . '">' . $nbArticles . '</span>' : '';
+?>
+        <li <?= $className ?>>
+			<a href="index.php?sel=<?= $mode ?>&page=1"><?= $caption ?></a><?= $countArts ?>
 		</li>
-        <li <?= ($_SESSION['sel_get'] == 'published') ? 'class="selected" ' : '' ?>>
-			<a href="index.php?sel=published&amp;page=1"><?= L_ALL_PUBLISHED ?></a>
-			<span class="tag"><?= $plxAdmin->nbArticles('published', $userId, '') ?></span>
-		</li>
-        <li <?= ($_SESSION['sel_get'] == 'draft') ? 'class="selected" ' : '' ?>>
-			<a href="index.php?sel=draft&amp;page=1"><?= L_ALL_DRAFTS ?></a><?php if ($nbArticlesDraft > 0) : ?>
-			<span class="tag"><?= $nbArticlesDraft ?></span><?php endif; ?>
-		</li>
-        <li <?= ($_SESSION['sel_get'] == 'mod') ? 'class="selected" ' : '' ?>>
-			<a href="index.php?sel=mod&amp;page=1"><?= L_AWAITING ?></a>
-<?php if ($nbArticlesWaiting > 0) : ?>
-			<span class="tag--warning"><?= $nbArticlesWaiting ?></span>
-<?php endif; ?>
-		</li>
+<?php
+}
+?>
     </ul>
 </div>
 
@@ -264,7 +267,7 @@ if ($arts) { # On a des articles
 	# Pas d'article
 ?>
 				<tr>
-					<td colspan="8" class="center"><?= L_NO_ARTICLE ?></td>
+					<td colspan="8" class="txtcenter"><?= L_NO_ARTICLE ?></td>
 				</tr>
 <?php
 }
@@ -285,6 +288,7 @@ if ($arts) { # On a des articles
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
 
 const DELTA_PAGINATION = 3;
+//$nbArtPagination = $plxAdmin->plxRecord_arts->size;
 if ($arts and $nbArtPagination > $plxAdmin->bypage) { # if there is articles
 	//Pagination preparation
 	$last_page = ceil($nbArtPagination / $plxAdmin->bypage);
