@@ -697,7 +697,7 @@ a.overlay {
 /* ---------- hack against knacss --------- */
 .pagination .btn {
 	padding: 1rem 0.25rem;
-	min-width: 3.65rem; /* valid for Ipad / portrait
+	min-width: 3.65rem; /* valid for Ipad / portrait */
 }
 
 /* ----------- index.php ------------- */
