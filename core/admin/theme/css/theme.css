@@ -24,10 +24,10 @@ body {
 }
 
 
-input[type], select {
-    margin-bottom: 1rem;
+input[type],
+select {
+    /* margin-bottom: 1rem; */
 }
-
 
 table img.thumb {
 	max-width: none;
@@ -41,6 +41,18 @@ input[type="number"] {
 	max-width: 6rem;
 	padding-right: 0.25rem;
 	text-align: end;
+}
+
+/* ---------- hack against knacss ---------- */
+.tag,
+.tag--danger,
+.tag--ghost,
+.tag--info,
+.tag--inverse,
+.tag--primary,
+.tag--success,
+.tag--warning {
+	margin: 0 0.5rem;
 }
 
 /* ==== AUTHENTIFICATION ==== */
@@ -215,8 +227,11 @@ input[type="number"] {
 
 .section .adminheader li {
     display: inline-block;
-    margin-right: 40px;
     padding: 4px 10px;
+}
+
+.section .adminheader li:not(:last-of-type) {
+    margin-right: 1.75rem; /* valid for Ipad /portrait */
 }
 
 .section .adminheader li.selected {
@@ -677,6 +692,12 @@ a.overlay {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* ---------- hack against knacss --------- */
+.pagination .btn {
+	padding: 1rem 0.25rem;
+	min-width: 3.65rem; /* valid for Ipad / portrait
 }
 
 /* ----------- index.php ------------- */
