@@ -17,7 +17,7 @@ if (!empty($_POST) && $_POST['default_lang']) {
 if (!array_key_exists($lang, plxUtils::getLangs())) {
     $lang = DEFAULT_LANG;
 }
-loadLang(PLX_CORE . 'lang/' . $lang . '/install.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/' . basename(__FILENAME__));
 loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 // PHP version check

@@ -5,10 +5,10 @@ if (!defined('PLX_ROOT')) {
 }
 
 if (isset($_GET["del"]) and $_GET["del"] == "install") {
-    if (@unlink(PLX_ROOT . 'install.php'))
+    if (@unlink(PLX_ROOT . SCRIPT_INSTALL))
         plxMsg::Info(L_DELETE_SUCCESSFUL);
     else
-        plxMsg::Error(L_DELETE_FILE_ERR . ' install.php');
+        plxMsg::Error(L_DELETE_FILE_ERR . ' ' . SCRIPT_INSTALL);
     header("Location: index.php");
     exit;
 }
@@ -153,7 +153,7 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
             </div>
         </header>
 
-        <?php if (is_file(PLX_ROOT . 'install.php')): ?>
+        <?php if (is_file(PLX_ROOT . SCRIPT_INSTALL)): ?>
             <div class="mlm mrm mbm">
                 <p class="alert--danger"><?= L_WARNING_INSTALLATION_FILE ?></p>
             </div>
