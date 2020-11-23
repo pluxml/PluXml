@@ -29,16 +29,6 @@ if (!empty($_POST)) {
 # On inclut le header
 include __DIR__ . '/top.php';
 ?>
-<script>
-    function checkBox(cb) {
-        cbs = document.getElementsByName('homeStatic[]');
-        for (var i = 0; i < cbs.length; i++) {
-            if (cbs[i].checked == true) {
-                cbs[i].checked = ((i + 1) == cb) ? true : false;
-            }
-        }
-    }
-</script>
 
 <div class="adminheader">
     <h2 class="h3-like"><?= L_STATICS_PAGE_TITLE ?></h2>
@@ -83,10 +73,10 @@ if ($plxAdmin->aStats) {
 						</td>
                         <td><?= $k ?></td>
                         <td>
-							<input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $k ?>"<?= $selected ?> onclick="checkBox(' <?= $ordre ?>')" />
+							<input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $k ?>"<?= $selected ?> />
                         </td>
                         <td><?php PlxUtils::printInput($k . '_group', PlxUtils::strCheck($v['group']), 'text', '-100'); ?></td>
-                        <td><?php PlxUtils::printInput($k . '_name', PlxUtils::strCheck($v['name']), 'text', '-255', '', 'w100'); ?></td>
+                        <td><?php PlxUtils::printInput($k . '_name', PlxUtils::strCheck($v['name']), 'text', '-255'); ?></td>
                         <td><?php PlxUtils::printInput($k . '_url', $v['url'], 'text', '-255'); ?></td>
                         <td><?php PlxUtils::printSelect($k . '_active', array('1' => L_YES, '0' => L_NO), $v['active']); ?></td>
                         <td><?php PlxUtils::printInput($k . '_ordre', $ordre, 'number', '2-3'); ?></td>
@@ -160,6 +150,6 @@ endif;
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsFoot'));
+
 # On inclut le footer
 include __DIR__ . '/foot.php';
-?>

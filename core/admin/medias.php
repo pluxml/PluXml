@@ -410,7 +410,7 @@ if ($plxMedias->aFiles) {
 
 <input id="clipboard" type="text" value="" style="display: none;"/>
 
-<script type="text/javascript" src="<?= PLX_CORE ?>lib/medias.js"></script>
+<script type="text/javascript" src="scripts/medias.js"></script>
 
 <?php
 
@@ -419,4 +419,3 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasFoot'));
 
 # On inclut le footer
 include __DIR__ . '/foot.php';
-?>

@@ -1460,22 +1460,22 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		if($latest_version == 'UPDATE_UNAVAILABLE') {
 			$msg = L_PLUXML_UPDATE_UNAVAILABLE;
-			$className = 'red';
+			$className = 'alert--warning';
 		}
 		elseif($latest_version == 'L_PLUXML_UPDATE_ERR') {
 			$msg = L_PLUXML_UPDATE_ERR;
-			$className = 'red';
+			$className = 'alert--warning';
 		}
 		elseif(version_compare(PLX_VERSION, $latest_version, ">=")) {
 			$msg = L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
-			$className = 'green';
+			$className = 'alert--success';
 		}
 		else {
 			$msg = $this->update_link;
-			$className = 'orange';
+			$className = 'alert--info';
 		}
 
-		return sprintf('<p id="latest-version" class="alert %s">%s</p>', $className, $msg);
+		return sprintf('<p id="latest-version" class="%s">%s</p>', $className, $msg);
 
 	}
 

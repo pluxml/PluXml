@@ -154,7 +154,32 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 			}
 		}
 	}
-})()
+})();
+
+(function() {
+	// garantie l'unicité d'une page statique comme page d'accueil
+	const staticForm = document.getElementById('form_statics');
+	if(staticForm != null) {
+		const chks = staticForm.elements['homeStatic[]']
+		if(typeof chks.length == 'number') {
+			const table = staticForm.querySelector('table');
+			if(table != null) {
+				table.addEventListener('change', function(event) {
+					if(event.target.tagName == 'INPUT' && event.target.name == 'homeStatic[]') {
+						for(var i=0, iMax=chks.length; i<iMax; i++) {
+							if(chks[i].checked && chks[i] != event.target) {
+								chks[i].checked = false;
+							}
+						}
+					}
+				});
+			}
+		} else {
+			console.error('Something is wrong for homeStatic[]');
+		}
+	}
+
+})();
 
 function insTag(where, tag) {
 	var formfield = document.getElementsByName(where)['0'];

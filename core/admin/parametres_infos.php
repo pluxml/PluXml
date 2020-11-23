@@ -30,22 +30,21 @@ if ($emailBuild) {
 <div class="adminheader">
     <div class="mbm">
         <h2 class="h3-like"><?= L_CONFIG_INFOS_TITLE ?></h2>
-        <p><?php echo L_PLUXML_CHECK_VERSION ?></p>
-        <?php $maj = $plxAdmin->checkMaj();
-        echo $maj; ?>
+        <p><?php printf(L_PLUXML_CHECK_VERSION, ' : <a href="' . PLX_URL_REPO . '" target="_blank">' . PLX_URL_REPO . '</a>' ); ?></p>
+		<?php $maj = $plxAdmin->checkMaj(); echo $maj; ?>
     </div>
 </div>
 
 <div class="admin mtm">
-    <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
+    <p><?= L_CONFIG_INFOS_DESCRIPTION ?></p>
 
-    <p><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION; ?>
-            (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></p>
+    <p><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION; ?>
+            (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></p>
     <ul class="unstyled-list">
-        <li><?php echo L_INFO_PHP_VERSION; ?> : <?php echo phpversion(); ?></li>
-        <?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-            <li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
-        <?php } ?>
+        <li><?= L_INFO_PHP_VERSION; ?> : <?= phpversion(); ?></li>
+<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+            <li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
+<?php } ?>
     </ul>
     <ul class="unstyled-list">
         <?php plxUtils::testWrite(PLX_ROOT) ?>
@@ -60,20 +59,20 @@ if ($emailBuild) {
         <?php plxUtils::testModReWrite() ?>
         <?php plxUtils::testLibGD() ?>
         <?php plxUtils::testLibXml() ?>
-        <?php
-        if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
-            ?>
+<?php
+if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
+?>
             <form method="post">
-                <?php echo plxToken::getTokenPostMethod() ?>
+                <?= plxToken::getTokenPostMethod() ?>
                 <input type="submit" name="sendmail-test" value="<?= L_MAIL_TEST ?>"/>
             </form>
-            <?php
-        }
-        ?>
+<?php
+}
+?>
     </ul>
-    <p><?php echo L_CONFIG_INFOS_NB_CATS ?><?php echo sizeof($plxAdmin->aCats); ?></p>
-    <p><?php echo L_CONFIG_INFOS_NB_STATICS ?><?php echo sizeof($plxAdmin->aStats); ?></p>
-    <p><?php echo L_CONFIG_INFOS_WRITER ?><?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
+    <p><?= L_CONFIG_INFOS_NB_CATS ?><?= sizeof($plxAdmin->aCats); ?></p>
+    <p><?= L_CONFIG_INFOS_NB_STATICS ?><?= sizeof($plxAdmin->aStats); ?></p>
+    <p><?= L_CONFIG_INFOS_WRITER ?><?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
 
     <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 </div>
@@ -119,7 +118,7 @@ HEAD;
     header('Location: ' . basename(__FILE__));
     exit;
 }
-if (preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
+if (preg_match('%class="[^"]*\balert--warning\b[^"]*"%', $maj)) {
     # checkMaj() has failed with curl or allow_url_fopen is off
     ?>
     <script type="text/javascript">
@@ -173,8 +172,8 @@ if (preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
             xhr.send();
         })();
     </script>
-    <?php
+<?php
 }
+
 # On inclut le footer
 include __DIR__ . '/foot.php';
-?>
