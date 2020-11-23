@@ -178,7 +178,7 @@ include __DIR__ . '/top.php';
             </div>
 <?php endif; ?>
 
-        <div class="table-scrollable">
+        <div class="scrollable-table">
             <table id="plugins-table" class="table mb0" <?= !empty($data_rows_num) ? $data_rows_num : '' ?>>
                 <thead>
                 <tr>

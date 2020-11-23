@@ -51,7 +51,7 @@ include __DIR__ . '/top.php';
             <?= PlxToken::getTokenPostMethod() ?>
             <input class="btn--primary" type="submit" name="update" value="<?= L_STATICS_UPDATE ?>"/>
         </div>
-        <div class="table-scrollable">
+        <div class="scrollable-table">
             <table class="table mb0" data-rows-num='name$="_ordre"'>
                 <thead>
 	                <tr>

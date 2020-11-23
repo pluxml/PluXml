@@ -36,7 +36,7 @@ include __DIR__ . '/top.php';
             <?= PlxToken::getTokenPostMethod() ?>
             <input class="btn--primary" type="submit" name="update" value="<?= L_CONFIG_USERS_UPDATE ?>"/>
         </div>
-        <div class="table-scrollable">
+        <div class="scrollable-table">
             <table id="users-table" class="table mb0">
                 <thead>
                 <tr>

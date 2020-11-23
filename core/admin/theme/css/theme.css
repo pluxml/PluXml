@@ -356,20 +356,20 @@ input[type="number"] {
     width: auto;
 }
 
-.table-scrollable {
+.scrollable-table {
 	overflow-x: auto;
 }
-.table-scrollable table {
+.scrollable-table table {
 	width: 100%;
 	table-layout: auto;
 }
-.table-scrollable td:not(.wrap) {
+.scrollable-table td:not(.wrap) {
 	white-space: nowrap;
 }
-.table-scrollable table input[type="text"],
-.table-scrollable table input[type="email"],
-.table-scrollable table input[type="password"],
-.table-scrollable table input[type="url"] {
+.scrollable-table table input[type="text"],
+.scrollable-table table input[type="email"],
+.scrollable-table table input[type="password"],
+.scrollable-table table input[type="url"] {
 	width: 100%;
 }
 .table.mb0 {

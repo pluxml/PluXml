@@ -175,7 +175,7 @@ foreach(array(
                 <button class="<?= (!empty($_GET['artTitle']) ? ' select' : '') ?> btn--primary" type="submit"><i class="icon-search"></i><?= L_SEARCH ?></button>
             </div>
         </div>
-        <div class="table-scrollable">
+        <div class="scrollable-table">
 			<table class="table mb0">
 				<thead>
 					<tr>

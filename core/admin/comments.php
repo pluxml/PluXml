@@ -179,7 +179,7 @@ $selector = selector($comSel, 'id_selection');
 
         <?php if (isset($h3)) echo $h3 ?>
 
-        <div class="table-scrollable">
+        <div class="scrollable-table">
             <table id="comments-table" class="table mb0">
                 <thead>
 	                <tr>

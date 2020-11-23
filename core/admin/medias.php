@@ -194,7 +194,7 @@ $curFolders = explode('/', $curFolder);
                            title="<?= L_SEARCH ?>"/>
                 </div>
 
-                <div class="table-scrollable">
+                <div class="scrollable-table">
 	                <table id="medias-table" class="table">
 	                    <thead>
 		                    <tr>
