@@ -15,7 +15,7 @@ plxToken::validateFormToken($_POST);
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
-if (isset($_POST['update']) or (isset($_POST['selection']) and in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
+if (isset($_POST['update']) or (isset($_POST['chkAction']) and (isset($_POST['delete']) or isset($_POST['activate']) or isset($_POST['deactivate'])))) {
     $plxAdmin->plxPlugins->saveConfig($_POST);
     header('Location: parametres_plugins.php');
     exit;
@@ -72,7 +72,7 @@ function pluginsList($plugins, $defaultLang, $type)
 <?php
 			}
 ?>
-			            <br /><?= plxUtils::strCheck($plugInstance->getInfo('description')) ?>
+			            <br /><?= nl2br(plxUtils::strCheck($plugInstance->getInfo('description'))) ?>
 			            <br /><?= L_AUTHOR ?> : <?= plxUtils::strCheck($plugInstance->getInfo('author')) ?>
 <?php
             if ($plugInstance->getInfo('site') != '') {
@@ -87,7 +87,7 @@ function pluginsList($plugins, $defaultLang, $type)
             if ($type) {
 ?>
 					<td>
-						<input size="2" maxlength="3" type="number" name="plugOrdre['<?= $plugName ?>]" value="<?= $ordre ?>" />
+						<input size="2" maxlength="3" type="number" name="plugOrdre[<?= $plugName ?>]" value="<?= $ordre ?>" />
 					</td>
 <?php
             }
@@ -120,7 +120,7 @@ function pluginsList($plugins, $defaultLang, $type)
     } else {
 ?>
 				<tr>
-					<td colspan="<?= ($_SESSION['selPlugins'] == '1') ? 5 : 4 ?>" class="center"><?= L_NO_PLUGIN ?></td>
+					<td colspan="<?= ($_SESSION['selPlugins'] == '1') ? 5 : 4 ?>" class="txtcenter"><?= L_NO_PLUGIN ?></td>
 				</tr>
 <?php
     }
@@ -145,10 +145,6 @@ if ($sel == '1') {
     $aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_DELETE);
     $plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);
 }
-# fil d'ariane
-$breadcrumbs = array();
-$breadcrumbs[] = '<li ' . ($_SESSION['selPlugins'] == '1' ? 'class="selected" ' : '') . ' ><a href="parametres_plugins.php?sel=1">' . L_PLUGINS_ACTIVE_LIST . '</a>&nbsp;<span class="tag">' . $nbActivePlugins . '</span></li>';
-$breadcrumbs[] = '<li ' . ($_SESSION['selPlugins'] == '0' ? 'class="selected" ' : '') . ' ><a href="parametres_plugins.php?sel=0">' . L_PLUGINS_INACTIVE_LIST . '</a>&nbsp;<span class="tag">' . $nbInactivePlugins . '</span></li>';
 
 $data_rows_num = ($sel == '1') ? 'data-rows-num=\'name^="plugOrdre"\'' : false;
 
@@ -161,8 +157,10 @@ include __DIR__ . '/top.php';
     <h2 class="h3-like"><?= L_PLUGINS_TITLE ?></h2>
     <span data-scope="admin">Admin</span>
     <span data-scope="site">Site</span>
+<?php /* fil d'ariane  */ ?>
     <ul>
-        <?= implode($breadcrumbs); ?>
+		<li <?= ($_SESSION['selPlugins'] == '1') ? 'class="selected" ' : ''?>><a href="parametres_plugins.php?sel=1"><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;<span class="tag"><?= $nbActivePlugins ?></span></li>
+		<li <?= ($_SESSION['selPlugins'] == '0') ? 'class="selected" ' : '' ?>><a href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;<span class="tag"><?= $nbInactivePlugins ?></span></li>
     </ul>
 </div>
 
@@ -201,6 +199,9 @@ include __DIR__ . '/top.php';
                     <td colspan="10">
                         <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE ?>"
                                onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')"/>
+                        <input class="btn--primary" name="<?= ($_SESSION['selPlugins'] == '1') ? 'deactivate' : 'activate' ?>" type="submit" value="<?= ($_SESSION['selPlugins'] == '1')  ? L_PLUGINS_DEACTIVATE : L_PLUGINS_ACTIVATE ?>"
+                               onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')"/>
+
                     </td>
                 </tr>
                 </tfoot>
@@ -241,5 +242,6 @@ include __DIR__ . '/top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
+
 # On inclut le footer
 include __DIR__ . '/foot.php';
