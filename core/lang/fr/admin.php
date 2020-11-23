@@ -1,7 +1,9 @@
 <?php
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Erreur inconnue';
-const L_CONFIRM_DELETE = 'Confirmer la suppression ?';
+const L_CONFIRM_DELETE = 'Confirmer la suppression de 999 éléments ?';
+const L_CONFIRM_ACTIVATE = 'Confirmer l\'activation de 999 éléments ?';
+const L_CONFIRM_DEACTIVATE = 'Confirmer la désactivation de 999 éléments ?';
 const L_SAVE_FILE = 'Sauvegarder le fichier';
 const L_SAVE_FILE_SUCCESSFULLY = 'Fichier enregistré avec succès';
 const L_SAVE_FILE_ERROR = 'Erreur pendant l\'enregistrement du fichier';

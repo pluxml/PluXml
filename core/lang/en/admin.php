@@ -2,7 +2,9 @@
 
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Unknown error';
-const L_CONFIRM_DELETE = 'Confirm the deletion?';
+const L_CONFIRM_DELETE = 'Confirm the deletion of 999 items ?';
+const L_CONFIRM_ACTIVATE = 'Confirm for enabling 999 items ?'
+const L_CONFIRM_DEACTIVATE = 'Confirm for disabling 999 items ?'
 const L_SAVE_FILE = 'Save the file';
 const L_SAVE_FILE_SUCCESSFULLY = 'File saved successfully';
 const L_SAVE_FILE_ERROR = 'Error while saving file';

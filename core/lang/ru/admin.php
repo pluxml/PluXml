@@ -2,7 +2,9 @@
 
 const L_MENU = 'меню';
 const L_UNKNOWN_ERROR = 'Неизвестная ошибка';
-const L_CONFIRM_DELETE = 'Подтвердите удаление ?';
+const L_CONFIRM_DELETE = 'Подтвердите удаление 999 пунктов ?';
+const L_CONFIRM_ACTIVATE = 'подтвердить включение 999 пунктов ?';
+const L_CONFIRM_DEACTIVATE = 'Подтвердить отключение 999 пунктов ?';
 const L_SAVE_FILE = 'Сохраните файл';
 const L_SAVE_FILE_SUCCESSFULLY = 'Файл успешно сохранены';
 const L_SAVE_FILE_ERROR = 'Ошибка при сохранении файла';

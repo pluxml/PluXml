@@ -165,7 +165,7 @@ include __DIR__ . '/top.php';
 </div>
 
 <div class="admin mtm">
-    <form action="parametres_plugins.php" method="post" id="form_plugins">
+    <form action="parametres_plugins.php" method="post" id="form_plugins" data-chk="chkAction[]">
 
         <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 
@@ -178,11 +178,11 @@ include __DIR__ . '/top.php';
             </div>
 <?php endif; ?>
 
-        <div>
-            <table id="plugins-table" class="table scrollable" <?= !empty($data_rows_num) ? $data_rows_num : '' ?>>
+        <div class="table-scrollable">
+            <table id="plugins-table" class="table mb0" <?= !empty($data_rows_num) ? $data_rows_num : '' ?>>
                 <thead>
                 <tr>
-                    <th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')"/></th>
+                    <th><input type="checkbox" /></th>
                     <th>&nbsp;</th>
                     <th>&nbsp;</th>
 <?php if ($_SESSION['selPlugins'] == '1') : ?>
@@ -194,20 +194,12 @@ include __DIR__ . '/top.php';
                 <tbody>
                 <?= $plugins ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="10">
-                        <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE ?>"
-                               onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')"/>
-                        <input class="btn--primary" name="<?= ($_SESSION['selPlugins'] == '1') ? 'deactivate' : 'activate' ?>" type="submit" value="<?= ($_SESSION['selPlugins'] == '1')  ? L_PLUGINS_DEACTIVATE : L_PLUGINS_ACTIVATE ?>"
-                               onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')"/>
-
-                    </td>
-                </tr>
-                </tfoot>
             </table>
         </div>
-
+		<div class="mtm pas tableheader">
+			<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
+			<button class="submit btn--primary" name="<?= ($_SESSION['selPlugins'] == '1') ? 'deactivate' : 'activate' ?>" disabled data-lang="<?= ($_SESSION['selPlugins'] == '1') ? L_CONFIRM_DEACTIVATE : L_CONFIRM_ACTIVATE ?>"><i class="<?= ($_SESSION['selPlugins'] == '1') ? 'icon-lock' : 'icon-unlock' ?>"></i><?= ($_SESSION['selPlugins'] == '1')  ? L_PLUGINS_DEACTIVATE : L_PLUGINS_ACTIVATE ?></button>
+		</div>
     </form>
 </div>
 

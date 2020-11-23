@@ -45,21 +45,21 @@ include __DIR__ . '/top.php';
 </div>
 
 <div class="admin mtm">
-    <form action="statiques.php" method="post" id="form_statics">
+    <form method="post" id="form_statics"  data-chk="idStatic[]">
         <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
         <div class="mtm pas tableheader">
             <?= PlxToken::getTokenPostMethod() ?>
             <input class="btn--primary" type="submit" name="update" value="<?= L_STATICS_UPDATE ?>"/>
         </div>
-        <div>
-            <table class="table scrollable" data-rows-num='name$="_ordre"'>
+        <div class="table-scrollable">
+            <table class="table mb0" data-rows-num='name$="_ordre"'>
                 <thead>
 	                <tr>
-	                    <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idStatic[]')"/></th>
+	                    <th class="checkbox"><input type="checkbox" /></th>
 	                    <th>#</th>
 	                    <th><?= L_HOMEPAGE ?></th>
 	                    <th><?= L_STATICS_GROUP ?></th>
-	                    <th class="w100"><?= L_TITLE ?></th>
+	                    <th><?= L_TITLE ?></th>
 	                    <th><?= L_STATICS_URL ?></th>
 	                    <th><?= L_ACTIVE ?></th>
 	                    <th><?= L_ORDER ?></th>
@@ -143,22 +143,17 @@ $new_staticid = str_pad($a['0'] + 1, 3, "0", STR_PAD_LEFT);
 	                    <td>&nbsp;</td>
 	                </tr>
 				</tbody>
+            </table>
+        </div>
 <?php
 if ($_SESSION['profil'] <= PROFIL_MODERATOR) :
 ?>
-				<tfoot>
-	                <tr>
-	                    <td colspan="10">
-	                            <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE ?>"
-	                                   onclick="return confirmAction(this.form, 'delete', 'idStatic[]', '<?= L_CONFIRM_DELETE ?>')"/>
-	                    </td>
-	                </tr>
-                </tfoot>
+        <div class="mbm pas tablefooter">
+			<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
+        </div>
 <?php
 endif;
 ?>
-            </table>
-        </div>
     </form>
 </div>
 

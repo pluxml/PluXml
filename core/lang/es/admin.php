@@ -2,7 +2,9 @@
 
 const L_MENU = 'Menú';
 const L_UNKNOWN_ERROR = 'Error desconocido';
-const L_CONFIRM_DELETE = 'Desea confirmar la eliminación?';
+const L_CONFIRM_DELETE = 'confirmar la eliminación de 999 elementos ?';
+const L_CONFIRM_ACTIVATE = 'Confirmar para habilitar 999 elementos ?'
+const L_CONFIRM_DEACTIVATE = 'Confirmar para deshabilitar 999 elementos ?'
 const L_SAVE_FILE = 'Guardar el archivo';
 const L_SAVE_FILE_SUCCESSFULLY = 'Archivo guardado correctamente';
 const L_SAVE_FILE_ERROR = 'Error al guardar el archivo';

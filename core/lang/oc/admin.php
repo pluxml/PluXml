@@ -2,7 +2,9 @@
 
 const L_MENU = 'Menú';
 const L_UNKNOWN_ERROR = 'Error desconeguda';
-const L_CONFIRM_DELETE = 'Confirmar la supression ?';
+const L_CONFIRM_DELETE = 'Confirmar la supression de 999 elements ?';
+const L_CONFIRM_ACTIVATE = 'Confirmer l\'activation de 999 éléments ?'
+const L_CONFIRM_DEACTIVATE = 'Confirmer la désactivation de 999 éléments ?'
 const L_SAVE_FILE = 'Salvagardar lo fichièr';
 const L_SAVE_FILE_SUCCESSFULLY = 'Fichièr enregistrat amb succès';
 const L_SAVE_FILE_ERROR = 'Error pendent l\'enregistrament del fichièr';

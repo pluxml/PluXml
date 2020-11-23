@@ -356,13 +356,21 @@ input[type="number"] {
     width: auto;
 }
 
-.table.scrollable {
-	display: block;
-	width: 100%;
+.table-scrollable {
 	overflow-x: auto;
 }
-.table.scrollable td:not(.wrap) {
+.table-scrollable table {
+	width: 100%;
+	table-layout: auto;
+}
+.table-scrollable td:not(.wrap) {
 	white-space: nowrap;
+}
+.table-scrollable table input[type="text"],
+.table-scrollable table input[type="email"],
+.table-scrollable table input[type="password"],
+.table-scrollable table input[type="url"] {
+	width: 100%;
 }
 .table.mb0 {
 	margin-bottom: 0;
@@ -715,6 +723,23 @@ a.overlay {
 #medias-table td:nth-of-type(6) {
 	text-align: center;
 }
+
+/* --------- statiques.php ------------- */
+
+#statiques th:nth-of-type(4) { min-width: 12rem; } /* groupe */
+#statiques th:nth-of-type(5) { min-width: 25rem; } /* title */
+#statiques th:nth-of-type(6) { min-width: 20rem; } /* url */
+
+/* ------------ parametres_users.php ----- */
+
+#parametres_users th:nth-of-type(3) { min-width: 20rem; } /* name */
+#parametres_users th:nth-of-type(4), /* login */
+#parametres_users th:nth-of-type(5) { min-width: 14rem; } /* password */
+#parametres_users th:nth-of-type(6) { min-width: 25rem; } /* email */
+
+/* ------------ parametres_plugins.php ----- */
+
+#parametres_plugins th:nth-of-type(3) { min-width: 30rem; } /* description */
 
 /* ------- Popup Medias Manager ------ */
 

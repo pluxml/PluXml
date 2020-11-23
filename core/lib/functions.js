@@ -1,3 +1,5 @@
+'use strict';
+
 function dateNow(field,delta) {
 	var d = new Date();
 	// convert to msec, add local time zone offset
@@ -52,6 +54,8 @@ function addText(where, open, close) {
 	}
 	return;
 }
+
+// Deprecated
 function checkAll(inputs, field) {
 	for(var i = 0; i < inputs.elements.length; i++) {
 		if(inputs[i].type == "checkbox" && inputs[i].name==field) {
@@ -59,6 +63,8 @@ function checkAll(inputs, field) {
 		}
 	}
 }
+
+// deprecated
 function confirmAction(inputs, selfield, selvalue, field, msg) {
 	if(document.getElementById(selfield).value==selvalue) {
 		var action = false;
@@ -70,6 +76,86 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 		return (action ? confirm(msg) : false);
 	}
 }
+
+(function() {
+	// gestion des cases à cocher dans un tableau pour envoi avec un formulaire
+	const myForm = document.querySelector('form[data-chk]');
+
+	if(myForm != null) {
+		const selectionBtns = myForm.querySelectorAll('button[data-lang]');
+		if(selectionBtns.length > 0) {
+			const chks = myForm.elements[myForm.dataset.chk];
+			myForm.addEventListener('change', function(event) {
+				if(event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == myForm.dataset.chk) {
+					var disabled = true;
+					if(typeof chks.length != 'undefined') {
+						if(typeof chks.length == 'number') {
+							for(var i=0, iMax = chks.length; i < iMax; i++) {
+								if(chks[i].checked) {
+									disabled = false;
+									break;
+								}
+							}
+						}
+					} else {
+						// only one checkbox
+						disabled = !chks.checked;
+					}
+
+					for(var i=0, iMax=selectionBtns.length; i<iMax; i++) {
+						selectionBtns[i].disabled = disabled;
+					}
+				}
+			});
+
+			for(var i=0, iMax=selectionBtns.length; i<iMax; i++) {
+				selectionBtns[i].onclick = function(event,i, j) {
+					var cnt = 0;
+					if(typeof chks.length != 'undefined') {
+						if(typeof chks.length == 'number') {
+							for(var i=0, iMax = chks.length; i < iMax; i++) {
+								if(chks[i].checked) {
+									cnt++;
+								}
+							}
+						}
+					} else {
+						// only one checkbox
+						cnt = chks.checked ? 1 : 0;
+					}
+					return confirm(event.target.dataset.lang.replace(/\b999\b/, cnt));
+				}
+			}
+
+			const chkAll = myForm.querySelector('th:first-of-type input[type="checkbox"]');
+			if(chkAll != null) {
+				chkAll.onclick = function(event) {
+					var cnt = 0;
+					if(typeof chks.length != 'undefined') {
+						if(typeof chks.length == 'number') {
+							for(var i=0, iMax = chks.length; i < iMax; i++) {
+								chks[i].checked = !chks[i].checked;
+								if(chks[i].checked) {
+									cnt++;
+								}
+							}
+						}
+					} else {
+						// only one checkbox
+						chks.checked = !chks.checked;
+						cnt = chks.checked ? 1 : 0;
+					}
+
+					const disabled = (cnt == 0);
+					for(var i=0, iMax=selectionBtns.length; i<iMax; i++) {
+						selectionBtns[i].disabled = disabled;
+					}
+				}
+			}
+		}
+	}
+})()
+
 function insTag(where, tag) {
 	var formfield = document.getElementsByName(where)['0'];
 	var tags = formfield.value.split(', ');

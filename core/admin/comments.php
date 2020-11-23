@@ -158,7 +158,7 @@ $selector = selector($comSel, 'id_selection');
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
-    <form action="comments.php<?= !empty($_GET['a']) ? '?a=' . $_GET['a'] : '' ?>" method="post" id="form_comments">
+    <form action="comments.php<?= !empty($_GET['a']) ? '?a=' . $_GET['a'] : '' ?>" method="post" id="form_comments" data-chk="idCom[]">
 
         <div class="mtm pas  tableheader">
             <?= plxToken::getTokenPostMethod() ?>
@@ -179,11 +179,11 @@ $selector = selector($comSel, 'id_selection');
 
         <?php if (isset($h3)) echo $h3 ?>
 
-        <div>
-            <table id="comments-table" class="table scrollable mb0">
+        <div class="table-scrollable">
+            <table id="comments-table" class="table mb0">
                 <thead>
 	                <tr>
-	                    <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')"/></th>
+	                    <th class="checkbox"><input type="checkbox" /></th>
 	                    <th><?= L_DATE ?></th>
 <?php
 $all = ($_SESSION['selCom'] == 'all');
@@ -257,8 +257,7 @@ if ($coms) {
 <?php if ($coms): ?>
         <div class="pas grid-2-small-1 tablefooter">
 			<div>
-				<button class="submit btn--warning" name="delete" type="submit"><i
-							class="icon-trash-empty"></i><?= L_DELETE ?></button>
+				<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
 			</div>
 			<div class="pagination right">
 <?php

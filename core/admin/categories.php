@@ -44,7 +44,7 @@ include __DIR__ . '/top.php';
 </div>
 
 <div class="admin">
-    <form action="categories.php" method="post" id="form_categories">
+    <form action="categories.php" method="post" id="form_categories" data-chk="idCategory[]">
         <div class="mtm pas tableheader">
             <?= PlxToken::getTokenPostMethod() ?>
             <!--<input type="submit" name="update" value="<?= L_CAT_APPLY_BUTTON ?>" />-->
@@ -56,7 +56,7 @@ include __DIR__ . '/top.php';
         <table id="categories-table" class="table scrollable" data-rows-num='name$="_ordre"'>
             <thead>
             <tr>
-                <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')"/></th>
+                <th class="checkbox"><input type="checkbox" /></th>
                 <th>#</th>
                 <th class="w100"><?= L_CAT_LIST_NAME ?></th>
                 <th><?= L_URL ?></th>
@@ -117,10 +117,8 @@ endif;
 	            </tr>
             </tbody>
         </table>
-        <div class="mtm pas tablefooter">
-			<?php PlxUtils::printSelect('selection', array('' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-			<input class="btn" type="submit" name="submit" value="<?= L_OK ?>"
-				   onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCategory[]', '<?= L_CONFIRM_DELETE ?>')"/>
+        <div class="mbm pas tablefooter">
+			<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
         </div>
     </form>
 </div>

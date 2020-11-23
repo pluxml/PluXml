@@ -2,7 +2,9 @@
 
 const L_MENU = 'Meniu';
 const L_UNKNOWN_ERROR = 'Eroare necunoscută';
-const L_CONFIRM_DELETE = 'Confirmați ștergerea ?';
+const L_CONFIRM_DELETE = 'Confirmați ștergerea a 999 articole ?';
+const L_CONFIRM_ACTIVATE = 'Confirmați activarea a 999 de elemente ?';
+const L_CONFIRM_DEACTIVATE = 'Confirmați dezactivarea a 999 de articole ?';
 const L_SAVE_FILE = 'Salvați fișierul';
 const L_SAVE_FILE_SUCCESSFULLY = 'Fișier salvat cu succes';
 const L_SAVE_FILE_ERROR = 'Salvarea fișierului de eroare';

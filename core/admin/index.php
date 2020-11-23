@@ -161,7 +161,7 @@ foreach(array(
 
     <?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')); # Hook Plugins ?>
 
-    <form action="index.php" method="post" id="form_articles">
+    <form action="index.php" method="post" id="form_articles" data-chk="idArt[]">
 
         <div class="mtm pas grid-2-small-1 tableheader">
             <div>
@@ -175,20 +175,21 @@ foreach(array(
                 <button class="<?= (!empty($_GET['artTitle']) ? ' select' : '') ?> btn--primary" type="submit"><i class="icon-search"></i><?= L_SEARCH ?></button>
             </div>
         </div>
-		<table class="table scrollable mb0">
-			<thead>
-				<tr>
-					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
-					<th>#</th>
-					<th><?= L_DATE ?></th>
-					<th class="w100"><?= L_TITLE ?></th>
-					<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
-					<th><?= L_ARTICLE_LIST_NBCOMS ?></th>
-					<th><?= L_AUTHOR ?></th>
-					<th><?= L_ACTION ?></th>
-				</tr>
-			</thead>
-			<tbody>
+        <div class="table-scrollable">
+			<table class="table mb0">
+				<thead>
+					<tr>
+						<th class="checkbox"><input type="checkbox" /></th>
+						<th>#</th>
+						<th><?= L_DATE ?></th>
+						<th class="w100"><?= L_TITLE ?></th>
+						<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
+						<th><?= L_ARTICLE_LIST_NBCOMS ?></th>
+						<th><?= L_AUTHOR ?></th>
+						<th><?= L_ACTION ?></th>
+					</tr>
+				</thead>
+				<tbody>
 <?php
 # On va lister les articles
 if ($arts) { # On a des articles
@@ -222,23 +223,23 @@ if ($arts) { # On a des articles
 		$nbComsValidated = $plxAdmin->getNbCommentaires('/^' . $idArt . '.(.*).xml$/', 'all');
 		# On affiche la ligne
 ?>
-				<tr>
-					<td><input type="checkbox" name="idArt[]" value="<?= $idArt ?>" /></td>
-					<td><?= $idArt ?></td>
-					<td><?= PlxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?></td>
-					<td>
-						<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>">
-							<?= PlxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?>
-						</a>
-						<?= $draft . $awaiting ?>
-					</td>
-					<td>
+					<tr>
+						<td><input type="checkbox" name="idArt[]" value="<?= $idArt ?>" /></td>
+						<td><?= $idArt ?></td>
+						<td><?= PlxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?></td>
+						<td>
+							<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>">
+								<?= PlxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?>
+							</a>
+							<?= $draft . $awaiting ?>
+						</td>
+						<td>
 <?php
 		if (sizeof($aCats) > 1) {
 ?>
-						<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value=this.value;this.form.submit()">
-						<?= implode(PHP_EOL, $aCats) ?>
-						</select>
+							<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value=this.value;this.form.submit()">
+<?= implode(PHP_EOL, $aCats) ?>
+							</select>
 <?php
 		} else {
 ?>
@@ -246,39 +247,39 @@ if ($arts) { # On a des articles
 <?php
 		}
 ?>
-					</td>
-					<td><a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsToValidate ?></a> / <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsValidated ?></a></td>
-					<td><?= PlxUtils::strCheck($author) ?></td>
-					<td>
-						<button><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><i class="icon-pencil"></i></a></button>
+						</td>
+						<td><a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsToValidate ?></a> / <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&page=1"><?= $nbComsValidated ?></a></td>
+						<td><?= PlxUtils::strCheck($author) ?></td>
+						<td>
+							<button><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><i class="icon-pencil"></i></a></button>
 <?php
 		if ($publi and $draft == '') {
 			# Si l'article est publié
 ?>
-						<button><a href="<?= $plxAdmin->urlRewrite('?article' . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>"><i class="icon-eye"></i></a></button>
+							<button><a href="<?= $plxAdmin->urlRewrite('?article' . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>"><i class="icon-eye"></i></a></button>
 <?php
 		}
 ?>
-					</td>
-				</tr>
+						</td>
+					</tr>
 <?php
 	} # end of while
 } else {
 	# Pas d'article
 ?>
-				<tr>
-					<td colspan="8" class="txtcenter"><?= L_NO_ARTICLE ?></td>
-				</tr>
+					<tr>
+						<td colspan="8" class="txtcenter"><?= L_NO_ARTICLE ?></td>
+					</tr>
 <?php
 }
 ?>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
         <div class="pas grid-4-small-1 tablefooter">
 <?php if ($_SESSION['profil'] <= PROFIL_MODERATOR) : ?>
 			<div>
-				<!-- <input class="btn--warning" name="delete" type="submit" value="<?= L_DELETE ?>" onclick="return confirmAction(this.form, 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" /> -->
-				<button class="submit btn--warning" name="delete" type="submit"><i class="icon-trash"></i><?= L_DELETE ?></button>
+				<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
 				<?php PlxUtils::printInput('page', 1, 'hidden'); ?>
 			</div>
 <?php endif; ?>
