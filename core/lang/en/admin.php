@@ -2,7 +2,9 @@
 
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Unknown error';
-const L_CONFIRM_DELETE = 'Confirm the deletion?';
+const L_CONFIRM_DELETE = 'Confirm the deletion of 999 items ?';
+const L_CONFIRM_ACTIVATE = 'Confirm for enabling 999 items ?'
+const L_CONFIRM_DEACTIVATE = 'Confirm for disabling 999 items ?'
 const L_SAVE_FILE = 'Save the file';
 const L_SAVE_FILE_SUCCESSFULLY = 'File saved successfully';
 const L_SAVE_FILE_ERROR = 'Error while saving file';
@@ -125,7 +127,7 @@ const L_AUTH_LOGIN_FIELD = 'Login';
 const L_AUTH_LOST_FIELD = 'Login or email address';
 const L_SUBMIT_BUTTON = 'Submit';
 const L_ERR_WRONG_PASSWORD = 'Incorrect login or password';
-const L_POWERED_BY = 'Powered by <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Powered by <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Too many failed login<br />Retry in % s minutes';
 const L_LOST_PASSWORD = 'Lost your password&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Log in';
@@ -355,13 +357,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Client ID';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Client secret key';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generate a token';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Need help: <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Need help: <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'No configuration is required for sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'SMTP server name (example: ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'User name on the SMTP host (example: pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'User password on the SMTP host';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'SMTP host port number (default: 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml allows to generate tokens only for the service <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Need help to generate the username and secret key: <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml allows to generate tokens only for the service <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Need help to generate the username and secret key: <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Customer ID on the OAUTH2 service (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'The client key on the OAUTH2 service (example: PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Save the customer ID and customer secret code so that you can generate the token.';
@@ -392,7 +394,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Information about your PluXml installation, 
 const L_CONFIG_INFOS_NB_CATS = 'Count of categories :';
 const L_CONFIG_INFOS_NB_STATICS = 'Count of static pages :';
 const L_CONFIG_INFOS_WRITER = 'User\'s name for this session :';
-const L_PLUXML_CHECK_VERSION = 'Checking version number on the official PluXml.org site';
+const L_PLUXML_CHECK_VERSION = 'Checking version number on the official %s site';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Unable for checking updates as long as \'allow_url_fopen\' is disabled on this system';
 const L_PLUXML_UPDATE_ERR = 'Update check failed for an unknown reason';
 const L_PLUXML_UPTODATE = 'You are using PluXml\'s lastest version';

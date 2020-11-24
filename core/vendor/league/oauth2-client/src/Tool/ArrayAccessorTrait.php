@@ -22,9 +22,9 @@ trait ArrayAccessorTrait
     /**
      * Returns a value by key using dot notation.
      *
-     * @param  array      $data
-     * @param  string     $key
-     * @param  mixed|null $default
+     * @param array $data
+     * @param string $key
+     * @param mixed|null $default
      * @return mixed
      */
     private function getValueByKey(array $data, $key, $default = null)

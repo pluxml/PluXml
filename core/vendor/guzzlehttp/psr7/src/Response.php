@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\ResponseInterface;
@@ -80,11 +81,11 @@ class Response implements ResponseInterface
     private $statusCode = 200;
 
     /**
-     * @param int                                  $status  Status code
-     * @param array                                $headers Response headers
-     * @param string|null|resource|StreamInterface $body    Response body
-     * @param string                               $version Protocol version
-     * @param string|null                          $reason  Reason phrase (when empty a default will be used based on the status code)
+     * @param int $status Status code
+     * @param array $headers Response headers
+     * @param string|null|resource|StreamInterface $body Response body
+     * @param string $version Protocol version
+     * @param string|null $reason Reason phrase (when empty a default will be used based on the status code)
      */
     public function __construct(
         $status = 200,
@@ -92,9 +93,10 @@ class Response implements ResponseInterface
         $body = null,
         $version = '1.1',
         $reason = null
-    ) {
+    )
+    {
         $this->assertStatusCodeIsInteger($status);
-        $status = (int) $status;
+        $status = (int)$status;
         $this->assertStatusCodeRange($status);
 
         $this->statusCode = $status;
@@ -107,7 +109,7 @@ class Response implements ResponseInterface
         if ($reason == '' && isset(self::$phrases[$this->statusCode])) {
             $this->reasonPhrase = self::$phrases[$this->statusCode];
         } else {
-            $this->reasonPhrase = (string) $reason;
+            $this->reasonPhrase = (string)$reason;
         }
 
         $this->protocol = $version;
@@ -126,7 +128,7 @@ class Response implements ResponseInterface
     public function withStatus($code, $reasonPhrase = '')
     {
         $this->assertStatusCodeIsInteger($code);
-        $code = (int) $code;
+        $code = (int)$code;
         $this->assertStatusCodeRange($code);
 
         $new = clone $this;

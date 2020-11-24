@@ -2,7 +2,9 @@
 
 const L_MENU = 'Menü';
 const L_UNKNOWN_ERROR = 'Unbekannter Fehler';
-const L_CONFIRM_DELETE = 'Löschen bestätigen?';
+const L_CONFIRM_DELETE = 'Bestätigen Sie das Löschen von 999 Elementen ?';
+const L_CONFIRM_ACTIVATE = 'Bestätigen Sie, dass 999 Elemente aktiviert sind ?';
+const L_CONFIRM_DEACTIVATE = 'Bestätigen Sie, dass 999 Elemente deaktiviert sind ?';
 const L_SAVE_FILE = 'Speichern Sie die Datei';
 const L_SAVE_FILE_SUCCESSFULLY = 'Datei erfolgreich gespeichert';
 const L_SAVE_FILE_ERROR = 'Fehler beim Speichern der Datei für';
@@ -128,7 +130,7 @@ const L_AUTH_LOGIN_FIELD = 'Benutzer';
 const L_AUTH_LOST_FIELD = 'Benutzer oder E-Mail-Adresse';
 const L_SUBMIT_BUTTON = 'Anmelden';
 const L_ERR_WRONG_PASSWORD = 'Benutzername und/oder Passwort sind falsch';
-const L_POWERED_BY = 'Generiert von <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Generiert von <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Zu viele fehlgeschlagene Anmeldung <br /> Wiederholen Sie in% s Minuten';
 const L_LOST_PASSWORD = 'Passwort vergessen?';
 const L_LOST_PASSWORD_LOGIN = 'Anmeldung';
@@ -363,7 +365,7 @@ const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom du serveur SMTP (exemple : ssl0.
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nom de l\'utilisateur sur l\'hôte SMTP (exemple : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Mot de passe de l\'utilisateur sur l\'hôte SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numéro du port de l\'hôte SMTP (par défaut : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de générer des tokens uniquement pour le service <a href="https://cloud.google.com">GMAIL de Google</a>.<br>Besoin d\'aide pour générer l\'identifiant et la clés secrete : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">Documentation de PluXml</a>&nbsp;(fr)';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de générer des tokens uniquement pour le service <a href="https://cloud.google.com">GMAIL de Google</a>.<br>Besoin d\'aide pour générer l\'identifiant et la clés secrete : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">Documentation de PluXml</a>&nbsp;(fr)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identifiant client sur le service OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clé du client sur le service OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrer l\'ID client et le code secret du client afin de pouvoir générer le token.';
@@ -394,7 +396,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Systemstatus und nützliche Informationen zu
 const L_CONFIG_INFOS_NB_CATS = 'Anzahl der Kategorien:';
 const L_CONFIG_INFOS_NB_STATICS = 'Anzahl der statischen Seiten:';
 const L_CONFIG_INFOS_WRITER = 'Benutzername der aktuellen SESSION:';
-const L_PLUXML_CHECK_VERSION = 'Aktualitätsprüfung von PluXml (über PluXml.org)';
+const L_PLUXML_CHECK_VERSION = 'Aktualitätsprüfung von PluXml (über %s)';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Update hat nicht funktioniert. Sie sollten \'allow_url_fopen\' aktivieren.';
 const L_PLUXML_UPDATE_ERR = 'Updatefunktion mit unbekanntem Fehler abgebrochen.';
 const L_PLUXML_UPTODATE = 'Sie benutzen die aktuellste Version von PluXml';

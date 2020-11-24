@@ -1,33 +1,33 @@
-<?php include __DIR__.'/header.php'; ?>
+<?php include __DIR__ . '/header.php'; ?>
 
-	<main class="main">
+<main class="main">
 
-		<div class="container">
+    <div class="container">
 
-			<div class="grid">
+        <div class="grid">
 
-				<div class="content col sml-12 med-9">
+            <div class="content col sml-12 med-9">
 
-					<article class="article static" id="static-page-<?php echo $plxShow->staticId(); ?>">
+                <article class="article static" id="static-page-<?php echo $plxShow->staticId(); ?>">
 
-						<header>
-							<h2>
-								<?php $plxShow->staticTitle(); ?>
-							</h2>
-						</header>
+                    <header>
+                        <h2>
+                            <?php $plxShow->staticTitle(); ?>
+                        </h2>
+                    </header>
 
-						<?php $plxShow->staticContent(); ?>
+                    <?php $plxShow->staticContent(); ?>
 
-					</article>
+                </article>
 
-				</div>
+            </div>
 
-				<?php include __DIR__.'/sidebar.php'; ?>
+            <?php include __DIR__ . '/sidebar.php'; ?>
 
-			</div>
+        </div>
 
-		</div>
+    </div>
 
-	</main>
+</main>
 
-<?php include __DIR__.'/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

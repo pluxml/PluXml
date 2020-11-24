@@ -29,8 +29,8 @@ class GrantFactory
     /**
      * Defines a grant singleton in the registry.
      *
-     * @param  string $name
-     * @param  AbstractGrant $grant
+     * @param string $name
+     * @param AbstractGrant $grant
      * @return self
      */
     public function setGrant($name, AbstractGrant $grant)
@@ -45,7 +45,7 @@ class GrantFactory
      *
      * If the grant has not be registered, a default grant will be loaded.
      *
-     * @param  string $name
+     * @param string $name
      * @return AbstractGrant
      */
     public function getGrant($name)
@@ -60,7 +60,7 @@ class GrantFactory
     /**
      * Registers a default grant singleton by name.
      *
-     * @param  string $name
+     * @param string $name
      * @return self
      */
     protected function registerDefaultGrant($name)
@@ -77,7 +77,7 @@ class GrantFactory
     /**
      * Determines if a variable is a valid grant.
      *
-     * @param  mixed $class
+     * @param mixed $class
      * @return boolean
      */
     public function isGrant($class)
@@ -88,9 +88,9 @@ class GrantFactory
     /**
      * Checks if a variable is a valid grant.
      *
-     * @throws InvalidGrantException
-     * @param  mixed $class
+     * @param mixed $class
      * @return void
+     * @throws InvalidGrantException
      */
     public function checkGrant($class)
     {

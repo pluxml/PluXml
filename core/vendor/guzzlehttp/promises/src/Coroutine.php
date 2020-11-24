@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Promise;
 
 use Exception;
@@ -71,7 +72,8 @@ final class Coroutine implements PromiseInterface
     public function then(
         callable $onFulfilled = null,
         callable $onRejected = null
-    ) {
+    )
+    {
         return $this->result->then($onFulfilled, $onRejected);
     }
 

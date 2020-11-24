@@ -160,17 +160,14 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	}
 })();
 
-(function(containerId, selectId) {
+(function(containerId) {
 	const el = document.getElementById(containerId);
-	const select = document.getElementById(selectId);
 	if(el != null) {
 		el.onclick = function(event) {
-			if(event.target.hasAttribute('data-folder')) {
+			if(event.target.hasAttribute('data-path')) {
 				event.preventDefault();
-				select.value = event.target.dataset.folder;
-				select.form.submit();
+				window.location.href = window.location.pathname + '?path=' + event.target.dataset.path;
 			}
 		}
 	}
-
-})('medias-breadcrumb', 'folder');
+})('medias-breadcrumb');

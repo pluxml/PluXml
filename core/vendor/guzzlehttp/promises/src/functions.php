@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Promise;
 
 /**
@@ -244,7 +245,7 @@ function all($promises)
  * This prommise is rejected with a {@see GuzzleHttp\Promise\AggregateException}
  * if the number of fulfilled promises is less than the desired $count.
  *
- * @param int   $count    Total number of promises.
+ * @param int $count Total number of promises.
  * @param mixed $promises Promises or values.
  *
  * @return PromiseInterface
@@ -292,7 +293,9 @@ function some($count, $promises)
  */
 function any($promises)
 {
-    return some(1, $promises)->then(function ($values) { return $values[0]; });
+    return some(1, $promises)->then(function ($values) {
+        return $values[0];
+    });
 }
 
 /**
@@ -337,7 +340,7 @@ function settle($promises)
  * index, and the aggregate promise. The callback can invoke any necessary side
  * effects and choose to resolve or reject the aggregate promise if needed.
  *
- * @param mixed    $iterable    Iterator or array to iterate over.
+ * @param mixed $iterable Iterator or array to iterate over.
  * @param callable $onFulfilled
  * @param callable $onRejected
  *
@@ -347,10 +350,11 @@ function each(
     $iterable,
     callable $onFulfilled = null,
     callable $onRejected = null
-) {
+)
+{
     return (new EachPromise($iterable, [
         'fulfilled' => $onFulfilled,
-        'rejected'  => $onRejected
+        'rejected' => $onRejected
     ]))->promise();
 }
 
@@ -362,10 +366,10 @@ function each(
  * pending promises and returns a numeric concurrency limit value to allow for
  * dynamic a concurrency size.
  *
- * @param mixed        $iterable
+ * @param mixed $iterable
  * @param int|callable $concurrency
- * @param callable     $onFulfilled
- * @param callable     $onRejected
+ * @param callable $onFulfilled
+ * @param callable $onRejected
  *
  * @return PromiseInterface
  */
@@ -374,10 +378,11 @@ function each_limit(
     $concurrency,
     callable $onFulfilled = null,
     callable $onRejected = null
-) {
+)
+{
     return (new EachPromise($iterable, [
-        'fulfilled'   => $onFulfilled,
-        'rejected'    => $onRejected,
+        'fulfilled' => $onFulfilled,
+        'rejected' => $onRejected,
         'concurrency' => $concurrency
     ]))->promise();
 }
@@ -387,9 +392,9 @@ function each_limit(
  * is rejected. If any promise is rejected, then the aggregate promise is
  * rejected with the encountered rejection.
  *
- * @param mixed        $iterable
+ * @param mixed $iterable
  * @param int|callable $concurrency
- * @param callable     $onFulfilled
+ * @param callable $onFulfilled
  *
  * @return PromiseInterface
  */
@@ -397,7 +402,8 @@ function each_limit_all(
     $iterable,
     $concurrency,
     callable $onFulfilled = null
-) {
+)
+{
     return each_limit(
         $iterable,
         $concurrency,
@@ -445,11 +451,11 @@ function is_settled(PromiseInterface $promise)
 }
 
 /**
- * @see Coroutine
- *
  * @param callable $generatorFn
  *
  * @return PromiseInterface
+ * @see Coroutine
+ *
  */
 function coroutine(callable $generatorFn)
 {

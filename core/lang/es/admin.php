@@ -2,7 +2,9 @@
 
 const L_MENU = 'Menú';
 const L_UNKNOWN_ERROR = 'Error desconocido';
-const L_CONFIRM_DELETE = 'Desea confirmar la eliminación?';
+const L_CONFIRM_DELETE = 'confirmar la eliminación de 999 elementos ?';
+const L_CONFIRM_ACTIVATE = 'Confirmar para habilitar 999 elementos ?'
+const L_CONFIRM_DEACTIVATE = 'Confirmar para deshabilitar 999 elementos ?'
 const L_SAVE_FILE = 'Guardar el archivo';
 const L_SAVE_FILE_SUCCESSFULLY = 'Archivo guardado correctamente';
 const L_SAVE_FILE_ERROR = 'Error al guardar el archivo';
@@ -130,7 +132,7 @@ const L_AUTH_LOGIN_FIELD = 'Nombre de usuario';
 const L_AUTH_LOST_FIELD = 'Nombre de usuario o correo electrónico';
 const L_SUBMIT_BUTTON = 'Enviar';
 const L_ERR_WRONG_PASSWORD = 'Nombre de usuario o contraseña incorrectos';
-const L_POWERED_BY = 'Generado con <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Generado con <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Demasiado error en el inicio de sesión<br />Reintentar en% s minutos';
 const L_LOST_PASSWORD = 'Contraseña olvidada&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Iniciar sesión';
@@ -353,13 +355,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID cliente';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Clave secreta del cliente';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generar un token';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Necesitas ayuda : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Necesitas ayuda : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'No se requiere configuración para sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nombre del servidor SMTP (ejemplo: ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nombre de usuario en el host SMTP (ejemplo : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Contraseña de usuario en el host SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Número de puerto del host SMTP (predeterminado : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permite generar tokens solo para el servicio <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Necesita ayuda para generar el nombre de usuario y la clave secreta : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permite generar tokens solo para el servicio <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Necesita ayuda para generar el nombre de usuario y la clave secreta : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'ID de cliente en el servicio OAUTH2 (ejemplo : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clave del cliente en el servicio OAUTH2 (ejemplo : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Guarde la identificación del cliente y el código secreto del cliente para que pueda generar el token.';
@@ -390,7 +392,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Información sobre su instalación de PluXml
 const L_CONFIG_INFOS_NB_CATS = 'Cantidad de categorías:';
 const L_CONFIG_INFOS_NB_STATICS = 'Cantidad de páginas estáticas:';
 const L_CONFIG_INFOS_WRITER = 'Cantidad de usuarios en sesión:';
-const L_PLUXML_CHECK_VERSION = 'Comprobación de la versión de PluXml en el sitio oficial PluXml.org';
+const L_PLUXML_CHECK_VERSION = 'Comprobación de la versión de PluXml en el sitio oficial %s';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Es imposible comprobar las actualizaciones disponibles si la función «allow_url_fopen» está desactivada en este sistema';
 const L_PLUXML_UPDATE_ERR = 'Falló la comprobación de actualizaciones por una razón desconocida';
 const L_PLUXML_UPTODATE = 'Está utilizando la última versión de PluXml';

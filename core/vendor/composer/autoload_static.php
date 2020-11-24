@@ -6,7 +6,7 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitb32ce6c4dcd2333a51eddb771e183da3
 {
-    public static $files = array (
+    public static $files = array(
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
@@ -16,68 +16,68 @@ class ComposerStaticInitb32ce6c4dcd2333a51eddb771e183da3
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
     );
 
-    public static $prefixLengthsPsr4 = array (
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Php72\\' => 23,
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
-        ),
-        'P' => 
-        array (
-            'Psr\\Http\\Message\\' => 17,
-            'PHPMailer\\PHPMailer\\' => 20,
-        ),
-        'L' => 
-        array (
-            'League\\OAuth2\\Client\\' => 21,
-        ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
-        ),
+    public static $prefixLengthsPsr4 = array(
+        'S' =>
+            array(
+                'Symfony\\Polyfill\\Php72\\' => 23,
+                'Symfony\\Polyfill\\Mbstring\\' => 26,
+                'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
+            ),
+        'P' =>
+            array(
+                'Psr\\Http\\Message\\' => 17,
+                'PHPMailer\\PHPMailer\\' => 20,
+            ),
+        'L' =>
+            array(
+                'League\\OAuth2\\Client\\' => 21,
+            ),
+        'G' =>
+            array(
+                'GuzzleHttp\\Psr7\\' => 16,
+                'GuzzleHttp\\Promise\\' => 19,
+                'GuzzleHttp\\' => 11,
+            ),
     );
 
-    public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Php72\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
-        ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
-        ),
-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
-        ),
-        'Psr\\Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
-        'PHPMailer\\PHPMailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
-        ),
-        'League\\OAuth2\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/oauth2-client/src',
-            1 => __DIR__ . '/..' . '/league/oauth2-google/src',
-        ),
-        'GuzzleHttp\\Psr7\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
-        ),
-        'GuzzleHttp\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
-        ),
-        'GuzzleHttp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
+    public static $prefixDirsPsr4 = array(
+        'Symfony\\Polyfill\\Php72\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+            ),
+        'Symfony\\Polyfill\\Mbstring\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+            ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+            ),
+        'Psr\\Http\\Message\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/psr/http-message/src',
+            ),
+        'PHPMailer\\PHPMailer\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+            ),
+        'League\\OAuth2\\Client\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/league/oauth2-client/src',
+                1 => __DIR__ . '/..' . '/league/oauth2-google/src',
+            ),
+        'GuzzleHttp\\Psr7\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+            ),
+        'GuzzleHttp\\Promise\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+            ),
+        'GuzzleHttp\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+            ),
     );
 
     public static function getInitializer(ClassLoader $loader)

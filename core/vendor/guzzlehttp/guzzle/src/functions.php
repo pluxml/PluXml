@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp;
 
 use GuzzleHttp\Handler\CurlHandler;
@@ -9,8 +10,8 @@ use GuzzleHttp\Handler\StreamHandler;
 /**
  * Expands a URI template
  *
- * @param string $template  URI template
- * @param array  $variables Template variables
+ * @param string $template URI template
+ * @param array $variables Template variables
  *
  * @return string
  */
@@ -246,8 +247,8 @@ function normalize_header_keys(array $headers)
  * 3. The area starts with "." and the area is the last part of the host. e.g.
  *    '.mit.edu' will match any host that ends with '.mit.edu'.
  *
- * @param string $host         Host to check against the patterns.
- * @param array  $noProxyArray An array of host patterns.
+ * @param string $host Host to check against the patterns.
+ * @param array $noProxyArray An array of host patterns.
  *
  * @return bool
  */
@@ -288,11 +289,11 @@ function is_host_in_noproxy($host, array $noProxyArray)
 /**
  * Wrapper for json_decode that throws when an error occurs.
  *
- * @param string $json    JSON data to parse
- * @param bool $assoc     When true, returned objects will be converted
+ * @param string $json JSON data to parse
+ * @param bool $assoc When true, returned objects will be converted
  *                        into associative arrays.
- * @param int    $depth   User specified recursion depth.
- * @param int    $options Bitmask of JSON decode options.
+ * @param int $depth User specified recursion depth.
+ * @param int $options Bitmask of JSON decode options.
  *
  * @return mixed
  * @throws Exception\InvalidArgumentException if the JSON cannot be decoded.
@@ -313,9 +314,9 @@ function json_decode($json, $assoc = false, $depth = 512, $options = 0)
 /**
  * Wrapper for JSON encoding that throws when an error occurs.
  *
- * @param mixed $value   The value being encoded
- * @param int    $options JSON encode option bitmask
- * @param int    $depth   Set the maximum depth. Must be greater than zero.
+ * @param mixed $value The value being encoded
+ * @param int $options JSON encode option bitmask
+ * @param int $depth Set the maximum depth. Must be greater than zero.
  *
  * @return string
  * @throws Exception\InvalidArgumentException if the JSON cannot be encoded.

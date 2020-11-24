@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp;
 
 use GuzzleHttp\Cookie\CookieJarInterface;
@@ -88,19 +89,19 @@ final class Middleware
                 return $handler($request, $options)->then(
                     function ($value) use ($request, &$container, $options) {
                         $container[] = [
-                            'request'  => $request,
+                            'request' => $request,
                             'response' => $value,
-                            'error'    => null,
-                            'options'  => $options
+                            'error' => null,
+                            'options' => $options
                         ];
                         return $value;
                     },
                     function ($reason) use ($request, &$container, $options) {
                         $container[] = [
-                            'request'  => $request,
+                            'request' => $request,
                             'response' => null,
-                            'error'    => $reason,
-                            'options'  => $options
+                            'error' => $reason,
+                            'options' => $options
                         ];
                         return \GuzzleHttp\Promise\rejection_for($reason);
                     }
@@ -118,7 +119,7 @@ final class Middleware
      * listener accepts a request, options array, and response promise.
      *
      * @param callable $before Function to invoke before forwarding the request.
-     * @param callable $after  Function invoked after forwarding.
+     * @param callable $after Function invoked after forwarding.
      *
      * @return callable Returns a function that accepts the next handler.
      */
@@ -160,7 +161,7 @@ final class Middleware
      * @param callable $decider Function that accepts the number of retries,
      *                          a request, [response], and [exception] and
      *                          returns true if the request is to be retried.
-     * @param callable $delay   Function that accepts the number of retries and
+     * @param callable $delay Function that accepts the number of retries and
      *                          returns the number of milliseconds to delay.
      *
      * @return callable Returns a function that accepts the next handler.
@@ -176,9 +177,9 @@ final class Middleware
      * Middleware that logs requests, responses, and errors using a message
      * formatter.
      *
-     * @param LoggerInterface  $logger Logs messages.
+     * @param LoggerInterface $logger Logs messages.
      * @param MessageFormatter $formatter Formatter used to create message strings.
-     * @param string           $logLevel Level at which to log requests.
+     * @param string $logLevel Level at which to log requests.
      *
      * @return callable Returns a function that accepts the next handler.
      */

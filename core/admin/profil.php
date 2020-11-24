@@ -73,7 +73,8 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
                 <?php plxUtils::printInput('password2', '', 'password', '20-255') ?>
                 <?php echo plxToken::getTokenPostMethod() ?>
             </div>
-            <input class="btn--primary" type="submit" name="password" role="button" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>"/>
+            <input class="btn--primary" type="submit" name="password" role="button"
+                   value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>"/>
         </fieldset>
     </form>
 

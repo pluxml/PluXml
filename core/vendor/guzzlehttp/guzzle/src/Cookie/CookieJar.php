@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Cookie;
 
 use Psr\Http\Message\RequestInterface;
@@ -16,7 +17,7 @@ class CookieJar implements CookieJarInterface
     private $strictMode;
 
     /**
-     * @param bool $strictMode   Set to true to throw exceptions when invalid
+     * @param bool $strictMode Set to true to throw exceptions when invalid
      *                           cookies are added to the cookie jar.
      * @param array $cookieArray Array of SetCookie objects or a hash of
      *                           arrays that can be used with the SetCookie
@@ -37,8 +38,8 @@ class CookieJar implements CookieJarInterface
     /**
      * Create a new Cookie jar from an associative array and domain.
      *
-     * @param array  $cookies Cookies to create the jar from
-     * @param string $domain  Domain to set the cookies to
+     * @param array $cookies Cookies to create the jar from
+     * @param string $domain Domain to set the cookies to
      *
      * @return self
      */
@@ -47,9 +48,9 @@ class CookieJar implements CookieJarInterface
         $cookieJar = new self();
         foreach ($cookies as $name => $value) {
             $cookieJar->setCookie(new SetCookie([
-                'Domain'  => $domain,
-                'Name'    => $name,
-                'Value'   => $value,
+                'Domain' => $domain,
+                'Name' => $name,
+                'Value' => $value,
                 'Discard' => true
             ]));
         }
@@ -76,7 +77,8 @@ class CookieJar implements CookieJarInterface
     public static function shouldPersist(
         SetCookie $cookie,
         $allowSessionCookies = false
-    ) {
+    )
+    {
         if ($cookie->getExpires() || $allowSessionCookies) {
             if (!$cookie->getDiscard()) {
                 return true;
@@ -230,7 +232,8 @@ class CookieJar implements CookieJarInterface
     public function extractCookies(
         RequestInterface $request,
         ResponseInterface $response
-    ) {
+    )
+    {
         if ($cookieHeader = $response->getHeader('Set-Cookie')) {
             foreach ($cookieHeader as $cookie) {
                 $sc = SetCookie::fromString($cookie);
@@ -256,7 +259,7 @@ class CookieJar implements CookieJarInterface
     private function getCookiePathFromRequest(RequestInterface $request)
     {
         $uriPath = $request->getUri()->getPath();
-        if (''  === $uriPath) {
+        if ('' === $uriPath) {
             return '/';
         }
         if (0 !== strpos($uriPath, '/')) {

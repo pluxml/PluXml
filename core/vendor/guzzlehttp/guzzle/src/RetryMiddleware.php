@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp;
 
 use GuzzleHttp\Promise\PromiseInterface;
@@ -13,7 +14,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class RetryMiddleware
 {
-    /** @var callable  */
+    /** @var callable */
     private $nextHandler;
 
     /** @var callable */
@@ -23,12 +24,12 @@ class RetryMiddleware
     private $delay;
 
     /**
-     * @param callable $decider     Function that accepts the number of retries,
+     * @param callable $decider Function that accepts the number of retries,
      *                              a request, [response], and [exception] and
      *                              returns true if the request is to be
      *                              retried.
      * @param callable $nextHandler Next handler to invoke.
-     * @param callable $delay       Function that accepts the number of retries
+     * @param callable $delay Function that accepts the number of retries
      *                              and [response] and returns the number of
      *                              milliseconds to delay.
      */
@@ -36,7 +37,8 @@ class RetryMiddleware
         callable $decider,
         callable $nextHandler,
         callable $delay = null
-    ) {
+    )
+    {
         $this->decider = $decider;
         $this->nextHandler = $nextHandler;
         $this->delay = $delay ?: __CLASS__ . '::exponentialDelay';
@@ -51,12 +53,12 @@ class RetryMiddleware
      */
     public static function exponentialDelay($retries)
     {
-        return (int) pow(2, $retries - 1) * 1000;
+        return (int)pow(2, $retries - 1) * 1000;
     }
 
     /**
      * @param RequestInterface $request
-     * @param array            $options
+     * @param array $options
      *
      * @return PromiseInterface
      */

@@ -62,8 +62,8 @@ abstract class AbstractGrant
      * Prepares an access token request's parameters by checking that all
      * required parameters are set, then merging with any given defaults.
      *
-     * @param  array $defaults
-     * @param  array $options
+     * @param array $defaults
+     * @param array $options
      * @return array
      */
     public function prepareRequestParameters(array $defaults, array $options)
