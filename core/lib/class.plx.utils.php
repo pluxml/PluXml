@@ -24,6 +24,7 @@ class plxUtils
         'de' => 'das|der|die|fur|am',
         'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
     );
+    const DELTA_PAGINATION = 3;
 
     /**
      * Méthode qui vérifie si une variable est définie.
@@ -321,6 +322,58 @@ class plxUtils
         }
         echo '<textarea ' . implode(' ', $attrs) . '>' . $value . '</textarea>';
     }
+
+    /**
+     * Méthode qui affiche des boutons pour la pagination.
+     * S'il n'y a pas assez d'éléments à afficher pour 2 pages, la pagination n'est pas affichée.
+     *
+     * @param integer $itemsCount Nombre total d'éléments à afficher dans toutes les pages
+     * @param integer $itemsPerPage Nombre d'éléments à afficher par page
+     * @param integer $currentPage numéro de la page courante affichée
+     * @param string $urlTemplate modèle pour calculer la valeur de href dans les balises <a>. Doit avoir une position numérique
+     *
+     * @return    void
+     * @author    Jean-Pierre Pourrez (bazooka07)
+     **/
+	public static function printPagination($itemsCount, $itemsPerPage, $currentPage, $urlTemplate) {
+		if ($itemsCount > $itemsPerPage) { # if there is articles
+			//Pagination preparation
+			$last_page = ceil($itemsCount / $itemsPerPage);
+			// URL generation
+			$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . urlencode($_GET['artTitle']) : '';
+			// Display pagination links
+?>
+				<a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= ($currentPage > 2) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-double-left"></i></span></a>
+				<a href="<?php printf($urlTemplate, $currentPage - 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= ($currentPage > 1) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-left"></i></span></a>
+<?php
+			# On boucle sur les pages
+			if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
+				$iMin = 1; $iMax = $last_page;
+			} else {
+				if($currentPage > self::DELTA_PAGINATION + 1) {
+					$iMin = ($last_page - $currentPage > self::DELTA_PAGINATION) ? $currentPage - self::DELTA_PAGINATION : $last_page - 2 * self::DELTA_PAGINATION;
+				} else {
+					$iMin = 1;
+				}
+				$iMax =  $iMin + 2 * self::DELTA_PAGINATION;
+			}
+			for ($i = $iMin; $i <= $iMax; $i++) {
+				if($i != $currentPage) {
+?>
+				<a href="<?php printf($urlTemplate, $i); ?>"><span class="btn"><?= $i ?></span></a>
+<?php
+				} else {
+?>
+				<span class="current btn"><?= $i ?></span>
+<?php
+				}
+			}
+?>
+				<a href="<?php printf($urlTemplate, $currentPage + 1); ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= ($currentPage < $last_page) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-right"></i></span></a>
+				<a href="<?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><span class="btn"<?= ($currentPage < $last_page - 1) ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></span></a>
+<?php
+		}
+	}
 
     /**
      * Méthode qui teste si un fichier est accessible en écriture

@@ -114,26 +114,28 @@ $selectionList = array('' => L_FOR_SELECTION, 'move' => L_PLXMEDIAS_MOVE_FOLDER,
 include __DIR__ . '/top.php';
 
 $curFolder = '/' . plxUtils::strCheck(basename($_SESSION['medias']) . '/' . $_SESSION['folder']);
-$curFolders = explode('/', $curFolder);
+$curFolders = explode('/', trim($curFolder, '/'));
 
 ?>
 
 <div class="adminheader">
     <h2 class="h3-like"><?= L_MEDIAS_TITLE ?></h2>
-    <p id="medias-breadcrumb">
-        <?php
-        echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[1].folder.value=\'.\';document.forms[1].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
-        if($curFolders) {
-            $path='';
-            foreach($curFolders as $id => $folder) {
-                if(!empty($folder) AND $id>1) {
-                    $path .= $folder.'/';
-                    echo '<a href="javascript:void(0)" onclick="document.forms[1].folder.value=\''.$path.'\';document.forms[1].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
-                }
-            }
-        }
-        ?>
-    </p>
+    <span><?= L_MEDIAS_DIRECTORY ?> : </span>
+    <ul id="medias-breadcrumb">
+<?php
+if($curFolders) {
+	$path='';
+	foreach($curFolders as $id => $folder) {
+		if($id > 0) {
+			$path .= $folder . '/';
+		}
+?>
+		<li data-path="<?= ($id > 0) ? $path : '/' ?>"><?= ($id > 0) ? $folder : L_PLXMEDIAS_ROOT ?></li>
+<?php
+	}
+}
+?>
+    </ul>
 </div>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
@@ -153,7 +155,7 @@ $curFolders = explode('/', $curFolder);
 </form>
 
 <div class="admin">
-    <form method="post" id="form_medias">
+    <form method="post" id="form_medias" data-chk="idFile[]">
 
         <?= plxToken::getTokenPostMethod() ?>
 
@@ -167,7 +169,7 @@ $curFolders = explode('/', $curFolder);
             </div>
         </div>
 
-        <div id="files_manager" class="grid-6-small-1 mtm">
+        <div id="files_manager" class="grid-4-small-1 mtm">
             <div class="col-1">
                 <button onclick="dialogBox('dlgNewFolder');return false;"
                         id="btnNewFolder"><?= L_MEDIAS_NEW_FOLDER ?></button>
@@ -175,7 +177,7 @@ $curFolders = explode('/', $curFolder);
                 <?= $plxMedias->displayTreeView(); ?>
             </div>
 
-            <div class="col-5">
+            <div class="col-3">
                 <div class="pas tableheader">
                     <button class="btn--primary" type="submit"
                             onclick="toggle_divs();return false"><i class="icon-plus"></i><?= L_MEDIAS_ADD_FILE ?>
@@ -194,105 +196,113 @@ $curFolders = explode('/', $curFolder);
                            title="<?= L_SEARCH ?>"/>
                 </div>
 
-                <table id="medias-table" class="table">
-                    <thead>
-                    <tr>
-                        <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')"/></th>
-                        <th class="w10"></th>
-                        <th class="w100"><a href="javascript:void(0)" class="hcolumn"
-                                            onclick="document.forms[1].sort.value='<?= $sort_title ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_FILENAME ?></a>
-                        </th>
-                        <th><?= L_MEDIAS_EXTENSION ?></th>
-                        <th><?= L_MEDIAS_FILESIZE ?></th>
-                        <th><?= L_MEDIAS_DIMENSIONS ?></th>
-                        <th><a href="javascript:void(0)" class="hcolumn"
-                               onclick="document.forms[1].sort.value='<?= $sort_date ?>';document.forms[1].submit();return true;"><?= L_DATE ?></a>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody id="medias-table-tbody">
-                    <?php
-                    # Si on a des fichiers
-                    if ($plxMedias->aFiles) {
-                        foreach ($plxMedias->aFiles as $v) { # Pour chaque fichier
-                            $isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
-                            $title = pathinfo($v['name'], PATHINFO_FILENAME);
-                            ?>
+                <div class="scrollable-table">
+	                <table id="medias-table" class="table">
+	                    <thead>
+		                    <tr>
+		                        <th class="checkbox"><input type="checkbox" /></th>
+		                        <th></th>
+		                        <th><a href="javascript:void(0)" class="hcolumn"
+		                                            onclick="document.forms[1].sort.value='<?= $sort_title ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_FILENAME ?></a>
+		                        </th>
+		                        <th><?= L_MEDIAS_EXTENSION ?></th>
+		                        <th><?= L_MEDIAS_FILESIZE ?></th>
+		                        <th><?= L_MEDIAS_DIMENSIONS ?></th>
+		                        <th><a href="javascript:void(0)" class="hcolumn"
+		                               onclick="document.forms[1].sort.value='<?= $sort_date ?>';document.forms[1].submit();return true;"><?= L_DATE ?></a>
+		                        </th>
+		                    </tr>
+	                    </thead>
+	                    <tbody id="medias-table-tbody">
+<?php
+# Si on a des fichiers
+if ($plxMedias->aFiles) {
+	foreach ($plxMedias->aFiles as $v) { # Pour chaque fichier
+		$isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
+		$title = pathinfo($v['name'], PATHINFO_FILENAME);
+?>
                             <tr>
                                 <td><input type="checkbox" name="idFile[]" value="<?= $v['name'] ?>"/></td>
                                 <td class="icon">
-                                    <?php if (is_file($v['path']) and $isImage): $attrs = 'width="' . plxUtils::THUMB_WIDTH . '" height="' . plxUtils::THUMB_HEIGHT . '"'; ?>
+<?php
+		if (is_file($v['path']) and $isImage):
+			$attrs = 'width="' . plxUtils::THUMB_WIDTH . '" height="' . plxUtils::THUMB_HEIGHT . '"';
+?>
                                         <a class="overlay" title="<?= $title ?>" href="<?= $v['path'] ?>"><img
                                                     src="<?= $v['.thumb'] ?>" <?= $attrs ?> alt="<?= $title ?>"
                                                     class="thumb"/></a>
-                                    <?php else: $attrs = getimagesize($v['.thumb'])[3]; ?>
+<?php
+		else: $attrs = getimagesize($v['.thumb'])[3];
+?>
                                         <img src="<?= $v['.thumb'] ?>" <?= $attrs ?>
                                              alt="<?= substr($v['extension'], 1) ?> " class="thumb"/>
-                                    <?php endif; ?>
+<?php
+		endif;
+?>
                                 </td>
                                 <td data-sort="<?= $title . $v['extension'] ?>">
                                     <a class="imglink" target="_blank" title="<?= $title ?>"
                                        href="<?= $v['path'] ?>"><?= $title . $v['extension'] ?></a>
-                                    <div data-copy="<?= str_replace(PLX_ROOT, '', $v['path']) ?>"
-                                         title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">&#128203;<div><?= L_MEDIAS_LINK_COPYCLP_DONE ?></div>
-                                    </div>
+                                    <div data-copy="<?= str_replace(PLX_ROOT, '', $v['path']) ?>" title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">
+										&#128203;<div><?= L_MEDIAS_LINK_COPYCLP_DONE ?></div>
+									</div>
                                     <div data-rename="<?= $v['path'] ?>" title="<?= L_RENAME_FILE ?>" class="ico">
-                                        &#9998;
-                                    </div>
+										&#9998;
+									</div>
                                     <br/>
-                                    <?php
-                                    $href = plxUtils::thumbName($v['path']);
-                                    if ($isImage and is_file($href)) {
-                                        ?>
-                                        <?= L_MEDIAS_THUMB ?> : <a target="_blank" title="<?= $title ?>"
-                                                                   href="<?= $href ?>"><?= plxUtils::strCheck(basename($href)) ?></a>
-                                        <div data-copy="<?= str_replace(PLX_ROOT, '', $href) ?>"
-                                             title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">&#128203;<div><?= L_MEDIAS_LINK_COPYCLP_DONE ?></div>
+<?php
+		$href = plxUtils::thumbName($v['path']);
+		if ($isImage and is_file($href)) {
+?>
+                                        <?= L_MEDIAS_THUMB ?> : <a target="_blank" title="<?= $title ?>" href="<?= $href ?>"><?= plxUtils::strCheck(basename($href)) ?></a>
+                                        <div data-copy="<?= str_replace(PLX_ROOT, '', $href) ?>" title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">
+											&#128203;<div><?= L_MEDIAS_LINK_COPYCLP_DONE ?></div>
                                         </div>
-                                        <?php
-                                    }
-                                    ?>
+<?php
+		}
+?>
                                 </td>
-                                <td data-sort="<?= strtoupper($v['extension']) ?>"><?= strtoupper($v['extension']) ?></td>
+                                <td data-sort="<?= strtolower($v['extension']) ?>"><?= strtolower($v['extension']) ?></td>
                                 <td data-sort="<?= $v['filesize'] ?>">
                                     <?= plxUtils::formatFilesize($v['filesize']); ?><br/>
-                                    <?php
-                                    if ($isImage and is_file($href)) {
-                                        echo plxUtils::formatFilesize($v['thumb']['filesize']);
-                                    }
-                                    ?>
+<?php
+		if ($isImage and is_file($href)) {
+			echo plxUtils::formatFilesize($v['thumb']['filesize']);
+		}
+?>
                                 </td>
-                                <?php
-                                $dimensions = '&nbsp;';
-                                if ($isImage and (isset($v['infos']) and isset($v['infos'][0]) and isset($v['infos'][1]))) {
-                                    $dimensions = $v['infos'][0] . ' x ' . $v['infos'][1];
-                                }
-                                if ($isImage and is_file($href)) {
-                                    $dimensions .= '<br />' . $v['thumb']['infos'][0] . ' x ' . $v['thumb']['infos'][1];
-                                }
-                                ?>
+<?php
+		$dimensions = '&nbsp;';
+		if ($isImage and (isset($v['infos']) and isset($v['infos'][0]) and isset($v['infos'][1]))) {
+			$dimensions = $v['infos'][0] . ' x ' . $v['infos'][1];
+		}
+		if ($isImage and is_file($href)) {
+			$dimensions .= '<br />' . $v['thumb']['infos'][0] . ' x ' . $v['thumb']['infos'][1];
+		}
+?>
                                 <td data-sort="<?= $v['infos'][0] * $v['infos'][1] ?>"><?= $dimensions ?></td>
                                 <td data-sort="<?= $v['date'] ?>"><?= plxDate::formatDate(plxDate::timestamp2Date($v['date'])) ?></td>
                             </tr>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <tr>
-                            <td colspan="7" class="center"><?= L_MEDIAS_NO_FILE ?></td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </tbody>
-                </table>
+<?php
+	}
+} else {
+?>
+	                        <tr>
+	                            <td colspan="7" class="txtcenter"><?= L_MEDIAS_NO_FILE ?></td>
+	                        </tr>
+<?php
+}
+?>
+	                    </tbody>
+	                </table>
+                </div>
             </div>
         </div>
     </form>
 </div>
 
 <div class="admin">
-    <form action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
+    <form method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
 
         <div id="files_uploader" style="display:none">
 
@@ -300,7 +310,7 @@ $curFolders = explode('/', $curFolder);
                 <h2 class="h4"><?= L_MEDIAS_TITLE ?></h2>
                 <p>
                     <?= L_MEDIAS_DIRECTORY ?> : (<?= L_PLXMEDIAS_ROOT ?>) /
-                    <?php
+<?php
                     if ($curFolders) {
                         $path = '';
                         foreach ($curFolders as $id => $folder) {
@@ -310,7 +320,7 @@ $curFolders = explode('/', $curFolder);
                             }
                         }
                     }
-                    ?>
+?>
                 </p>
                 <p><a class="back" href="javascript:void(0)"
                       onclick="toggle_divs();return false"><?= L_MEDIAS_BACK ?></a></p>
@@ -385,7 +395,7 @@ $curFolders = explode('/', $curFolder);
                     </ul>
                 </div>
             </div>
-            <?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasUpload')) # Hook Plugins ?>
         </div>
     </form>
 </div>
@@ -401,9 +411,6 @@ $curFolders = explode('/', $curFolder);
 </div>
 
 <input id="clipboard" type="text" value="" style="display: none;"/>
-
-<script type="text/javascript" src="<?= PLX_CORE ?>lib/medias.js"></script>
-
 <?php
 
 # Hook Plugins
@@ -411,4 +418,3 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasFoot'));
 
 # On inclut le footer
 include __DIR__ . '/foot.php';
-?>

@@ -37,7 +37,7 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
 
 <main id="app" class="main">
 
-    <? plxMsg::Display(); ?>
+    <?php plxMsg::Display(); ?>
 
     <aside id="aside" class="aside">
         <header class="asideheader">
@@ -153,13 +153,17 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
             </div>
         </header>
 
-        <?php if (is_file(PLX_ROOT . 'install.php')): ?>
+<?php
+if (basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' and is_file(PLX_ROOT . 'install.php')):
+?>
             <div class="mlm mrm mbm">
                 <p class="alert--danger"><?= L_WARNING_INSTALLATION_FILE ?></p>
             </div>
-        <?php endif; ?>
+<?php
+endif;
 
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')); // Plugin hook ?>
+eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+?>
 
         <script>
             (function () {

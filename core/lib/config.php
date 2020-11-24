@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('PLX_ROOT')) { exit('Missing PLX_ROOT'); }
+if(!defined('PLX_ROOT')) { exit('Are you crazy ?'); }
 
 const PHP_VERSION_MIN = '7.2.0';
 

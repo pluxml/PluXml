@@ -1426,24 +1426,18 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function checkMaj() {
 
-		$latest_version = 'L_PLUXML_UPDATE_ERR';
-		$className = '';
-		$this->update_link = sprintf('%s : <a href="%s">%s</a>', L_PLUXML_UPDATE_AVAILABLE, PLX_URL_REPO, PLX_URL_REPO);
+		$latest_version = false;
+		$updateLink = sprintf('%s : <a href="%s" download>%s</a>', L_PLUXML_UPDATE_AVAILABLE, PLX_URL_REPO, PLX_URL_REPO);
 
-		$http_response_header = '';
 		# test avec allow_url_open ou file_get_contents ?
-		if(ini_get('allow_url_fopen')) {
+		if(false and ini_get('allow_url_fopen')) {
 			$latest_version = @file_get_contents(PLX_URL_VERSION, false, null, 0, 16);
-			if(
-				empty($http_response_header) OR
-				!preg_match('@^HTTP/[\d\.]+ 200@', $http_response_header[0]) OR
-				empty($latest_version)
-				) {
-					$latest_version = 'UPDATE_UNAVAILABLE';
-				}
+			if($latest_version === false) {
+				$latest_version = 'UNAVAILABLE';
+			}
 		}
 		# test avec curl
-		elseif(function_exists('curl_init')) {
+		elseif(false and function_exists('curl_init')) {
 			$ch = curl_init();
 			curl_setopt_array($ch, array(
 				CURLOPT_HEADER			=> false,
@@ -1453,30 +1447,40 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$latest_version = curl_exec($ch);
 			$info = curl_getinfo($ch);
 			if ($latest_version === false || $info['http_code'] != 200) {
-				$latest_version = 'L_PLUXML_UPDATE_ERR';
+				$latest_version = 'ERROR';
 			}
 			curl_close($ch);
 		}
 
-		if($latest_version == 'UPDATE_UNAVAILABLE') {
-			$msg = L_PLUXML_UPDATE_UNAVAILABLE;
-			$className = 'red';
+		if(preg_match('@^\d+\.\d+(?:\.\d+)?@', $latest_version)) {
+			if(version_compare(PLX_VERSION, $latest_version, ">=")) {
+				$msg = L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
+				$alert = 'success';
+			}
+			else {
+				$msg = $updateLink;
+				$alert = 'warning';
+			}
+			$attrs = '';
+		} else {
+			$msg = ($latest_version == 'ERROR') ? L_PLUXML_UPDATE_ERR : L_PLUXML_UPDATE_UNAVAILABLE;
+			$alert = 'danger';
+			$attrs = 'data-version="' . PLX_VERSION . '" data-url_version="' . PLX_URL_VERSION . '"';
 		}
-		elseif($latest_version == 'L_PLUXML_UPDATE_ERR') {
-			$msg = L_PLUXML_UPDATE_ERR;
-			$className = 'red';
+?>
+		<div id="latest-version" <?= $attrs ?>>
+			<p class="alert--<?= $alert ?>"><?= $msg ?></p>
+<?php
+		if($alert == 'danger') {
+			# texte à afficher par script JS si on obtient la dernière version avec un objet XMLHttpRequest.
+?>
+			<p class="alert--success extra"><?= L_PLUXML_UPTODATE ?> (<?= PLX_VERSION ?>)</p>
+			<p class="alert--warning extra"><?= $updateLink ?></p>
+<?php
 		}
-		elseif(version_compare(PLX_VERSION, $latest_version, ">=")) {
-			$msg = L_PLUXML_UPTODATE.' ('.PLX_VERSION.')';
-			$className = 'green';
-		}
-		else {
-			$msg = $this->update_link;
-			$className = 'orange';
-		}
-
-		return sprintf('<p id="latest-version" class="alert %s">%s</p>', $className, $msg);
-
+?>
+		</div>
+<?php
 	}
 
 }

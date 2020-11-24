@@ -2,7 +2,9 @@
 
 const L_MENU = 'Menú';
 const L_UNKNOWN_ERROR = 'Error desconeguda';
-const L_CONFIRM_DELETE = 'Confirmar la supression ?';
+const L_CONFIRM_DELETE = 'Confirmar la supression de 999 elements ?';
+const L_CONFIRM_ACTIVATE = 'Confirmer l\'activation de 999 éléments ?'
+const L_CONFIRM_DEACTIVATE = 'Confirmer la désactivation de 999 éléments ?'
 const L_SAVE_FILE = 'Salvagardar lo fichièr';
 const L_SAVE_FILE_SUCCESSFULLY = 'Fichièr enregistrat amb succès';
 const L_SAVE_FILE_ERROR = 'Error pendent l\'enregistrament del fichièr';
@@ -131,7 +133,7 @@ const L_AUTH_LOST_FIELD = 'Identificant o adreça electronica';
 
 const L_SUBMIT_BUTTON = 'Validar';
 const L_ERR_WRONG_PASSWORD = 'Identificant e/o senhal incorrèct';
-const L_POWERED_BY = 'Generat per <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Generat per <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de pròvas atent<br />Tornatz ensajar d’aquí %s minutas';
 const L_LOST_PASSWORD = 'Senhal oblidat&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Se connectar';
@@ -355,13 +357,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID del client';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Clau secreta del client';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Geton';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generar un geton';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Vos fa besonh d’ajuda : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails"> documentacion PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Vos fa besonh d’ajuda : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails"> documentacion PluXml</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Pas cap de configuracion es requerida per sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom del servidor SMTP (exemple : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nom d’utilizaire de l\'òste SMTP (exemple : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Senhal de l’utilizaire sus l’òste ';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numèro de pòrt de l’òste SMTP (predeterminat : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de generar de fichièrs solament pel servici <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">documentation PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de generar de fichièrs solament pel servici <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">documentation PluXml</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identificant de client al servici OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clau de client del servici OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrar l’ID client e lo còdi secrèt per poder generar lo geton.';
@@ -392,7 +394,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Aquelas informacions vos entresenhan sul fon
 const L_CONFIG_INFOS_NB_CATS = 'Nombre de categorias :';
 const L_CONFIG_INFOS_NB_STATICS = 'Nombre de paginas estaticas :';
 const L_CONFIG_INFOS_WRITER = 'Nom del redactor en session :';
-const L_PLUXML_CHECK_VERSION = 'Verificacion del numèro de version de PluXml sul site oficial PluXml.org';
+const L_PLUXML_CHECK_VERSION = 'Verificacion del numèro de version de PluXml sul site oficial %s';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Impossible de verificar las mesas a jorn mentre que \'allow_url_fopen\' es desactivat sul sistèma';
 const L_PLUXML_UPDATE_ERR = 'La verificacion de mesa a jorn s\'es abocada per una rason desconeguda';
 const L_PLUXML_UPTODATE = 'Utilizatz la darrièra version de PluXml';

@@ -156,9 +156,9 @@ $selector = selector($comSel, 'id_selection');
 
 <div class="admin">
 
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
-    <form action="comments.php<?= !empty($_GET['a']) ? '?a=' . $_GET['a'] : '' ?>" method="post" id="form_comments">
+    <form action="comments.php<?= !empty($_GET['a']) ? '?a=' . $_GET['a'] : '' ?>" method="post" id="form_comments" data-chk="idCom[]">
 
         <div class="mtm pas  tableheader">
             <?= plxToken::getTokenPostMethod() ?>
@@ -179,148 +179,118 @@ $selector = selector($comSel, 'id_selection');
 
         <?php if (isset($h3)) echo $h3 ?>
 
-        <div>
-            <table id="comments-table" class="table">
+        <div class="scrollable-table">
+            <table id="comments-table" class="table mb0">
                 <thead>
-                <tr>
-                    <th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')"/></th>
-                    <th><?= L_DATE ?></th>
-                    <?php
-			$all = ($_SESSION['selCom'] == 'all');
-			if($all) {
-?>
-					<th><?= L_COMMENT_STATUS_FIELD ?></th>
+	                <tr>
+	                    <th class="checkbox"><input type="checkbox" /></th>
+	                    <th><?= L_DATE ?></th>
 <?php
-			}
+$all = ($_SESSION['selCom'] == 'all');
+if($all) {
 ?>
-                    <th class="w100"><?= L_COMMENTS_LIST_MESSAGE ?></th>
-                    <th><?= L_AUTHOR ?></th>
-                    <th><?= L_COMMENT_SITE_FIELD ?></th>
-                    <th><?= L_ACTION ?></th>
-                </tr>
+						<th><?= L_COMMENT_STATUS_FIELD ?></th>
+<?php
+}
+?>
+	                    <th class="w100"><?= L_COMMENTS_LIST_MESSAGE ?></th>
+	                    <th><?= L_AUTHOR ?></th>
+	                    <th><?= L_COMMENT_SITE_FIELD ?></th>
+	                    <th><?= L_ACTION ?></th>
+	                </tr>
                 </thead>
                 <tbody>
-                <?php
-                if ($coms) {
-                    $num = 0;
-                    while ($plxAdmin->plxRecord_coms->loop()) { # On boucle
-                        $artId = $plxAdmin->plxRecord_coms->f('article');
-                        $status = $plxAdmin->plxRecord_coms->f('status');
-                        $id = $status . $artId . '.' . $plxAdmin->plxRecord_coms->f('numero');
-                        $content = nl2br($plxAdmin->plxRecord_coms->f('content'));
-                        if ($_SESSION['selCom'] == 'all') {
-                            $content = $content . ($status != '' ? '<span class="tag--warning">' . L_COMMENT_OFFLINE : '');
-                        }
-                        # On génère notre ligne
-?>
-				<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
-					<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
-					<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
 <?php
-				if($all) {
+if ($coms) {
+	$num = 0;
+	while ($plxAdmin->plxRecord_coms->loop()) { # On boucle
+		$artId = $plxAdmin->plxRecord_coms->f('article');
+		$status = $plxAdmin->plxRecord_coms->f('status');
+		$id = $status . $artId . '.' . $plxAdmin->plxRecord_coms->f('numero');
+		$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
+		if ($_SESSION['selCom'] == 'all') {
+			$content = $content . ($status != '' ? '<span class="tag--warning">' . L_COMMENT_OFFLINE : '');
+		}
+
+		# On génère notre ligne
 ?>
-					<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
+					<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
+						<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
+						<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
 <?php
-				}
+		if($all) {
 ?>
-					<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
-					<td class="author"><?php
-					$author = $plxAdmin->plxRecord_coms->f('author');
-					$mail = $plxAdmin->plxRecord_coms->f('mail');
-					if(!empty($mail)) {
-?><a href="mailto:<?= $mail ?>"><?= $author ?></a><?php
-					} else {
-						echo $author;
-					}
-?></td>
-					<td class="site"><?php
-					$site = $plxAdmin->plxRecord_coms->f('site');
-					if(!empty($site)) {
-?><a href="<?= $site ?>" target="_blank"><?= $site ?></a><?php
-					} else {
-						echo '&nbsp;';
-					}
-?></td>
-					<td>
-						<button><a href="comment_new.php?c=' . $id . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '') . '" title="' . L_COMMENT_ANSWER . '"><i class="icon-reply-1"></i></a></button>&nbsp;
-						<button><a href="comment.php?c=' . $id . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '') . '" title="' . L_COMMENT_EDIT_TITLE . '"><i class="icon-pencil"></i></a></button>&nbsp;
-						<button><a href="article.php?a=' . $artId . '" title="' . L_COMMENT_ARTICLE_LINKED_TITLE . '"><i class="icon-doc-inv"></i></a></button>
-					</td>
-				</tr>
+						<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
+<?php
+		}
+
+		$fAuthor = $plxAdmin->plxRecord_coms->f('author');
+		$fMail = $plxAdmin->plxRecord_coms->f('mail');
+		$author = !empty($fMail) ? '<a href="mailto:' . $fMail . '">' . $fAuthor . '</a>' : $fAuthor;
+
+		$fSite = $plxAdmin->plxRecord_coms->f('site');
+		$site =  !empty($site) ? '<a href="' . $fSite . '" target="_blank">' . $fSite . '</a>' : '&nbsp;';
+?>
+						<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
+						<td class="author"><?= $author ?></td>
+						<td class="site"><?=  $site ?></td>
+						<td>
+							<button><a href="comment_new.php?c=<?= $id . (!empty($_GET['a']) ? '&a=' . $_GET['a'] : '') ?>" title="<?= L_COMMENT_ANSWER ?>"><i class="icon-reply-1"></i></a></button>
+							<button><a href="comment.php?c=<?= $id . (!empty($_GET['a']) ? '&a=' . $_GET['a'] : '') ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><i class="icon-pencil"></i></a></button>
+							<button><a href="article.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><i class="icon-doc-inv"></i></a></button>
+						</td>
+					</tr>
 <?php
 				}
-                } else { # Pas de commentaires
-                    echo '<tr><td colspan="5" class="center">' . L_NO_COMMENT . '</td></tr>';
-                }
-                ?>
-                </tbody>
-                <?php if ($coms): ?>
-                    <tfoot>
+                } else {
+					# Pas de commentaires
+?>
                     <tr>
-                        <td colspan="2">
-                            <button class="submit btn--warning" name="delete" type="submit"><i
-                                        class="icon-trash-empty"></i><?= L_DELETE ?></button>
-                        </td>
-                        <td colspan="5" class="pagination right">
-                            <?php
-                            # Hook Plugins
-                            eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
-                            # Affichage de la pagination
-                            if ($coms) { # Si on a des commentaires
-                                # Calcul des pages
-                                $last_page = ceil($nbComPagination / $plxAdmin->aConf['bypage_admin_coms']);
-                                $stop = $plxAdmin->page + 2;
-                                if ($stop < 5) $stop = 5;
-                                if ($stop > $last_page) $stop = $last_page;
-                                $start = $stop - 4;
-                                if ($start < 1) $start = 1;
-                                // URL generation
-                                $sel = '&amp;sel=' . $_SESSION['selCom'] . (!empty($_GET['a']) ? '&amp;a=' . $_GET['a'] : '');
-                                $p_url = 'comments.php?page=' . ($plxAdmin->page - 1) . $sel;
-                                $n_url = 'comments.php?page=' . ($plxAdmin->page + 1) . $sel;
-                                $l_url = 'comments.php?page=' . $last_page . $sel;
-                                $f_url = 'comments.php?page=1' . $sel;
-                                // Display pagination links
-                                $s = $plxAdmin->page > 2 ? '<a href="' . $f_url . '" title="' . L_PAGINATION_FIRST_TITLE . '"><span class="btn"><i class="icon-angle-double-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-left"></i></span>';
-                                echo $s;
-                                $s = $plxAdmin->page > 1 ? '<a href="' . $p_url . '" title="' . L_PAGINATION_PREVIOUS_TITLE . '"><span class="btn"><i class="icon-angle-left"></i></span></a>' : '<span class="btn"><i class="icon-angle-left"></i></span>';
-                                echo $s;
-                                for ($i = $start; $i <= $stop; $i++) {
-                                    $s = $i == $plxAdmin->page ? '<span class="current btn">' . $i . '</span>' : '<a href="' . ('comments.php?page=' . $i . $artTitle) . '" title="' . $i . '"><span class="btn">' . $i . '</span></a>';
-                                    echo $s;
-                                }
-                                $s = $plxAdmin->page < $last_page ? '<a href="' . $n_url . '" title="' . L_PAGINATION_NEXT_TITLE . '"><span class="btn"><i class="icon-angle-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-right"></i></span>';
-                                echo $s;
-                                $s = $plxAdmin->page < ($last_page - 1) ? '<a href="' . $l_url . '" title="' . L_PAGINATION_LAST_TITLE . '"><span class="btn"><i class="icon-angle-double-right"></i></span></a>' : '<span class="btn"><i class="icon-angle-double-right"></i></span>';
-                                echo $s;
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                    </tfoot>
-                <?php endif ?>
+						<td colspan="5" class="txtcenter"><?= L_NO_COMMENT ?></td>
+					</tr>
+<?php
+                }
+?>
+                </tbody>
             </table>
-        </div>
-
-    </form>
-
-    <?php if (!empty($plxAdmin->aConf['clef'])) : ?>
-        <?= L_COMMENTS_PRIVATE_FEEDS ?> :
-        <ul class="unstyled-list">
-            <?php $urlp_hl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/hors-ligne'; ?>
-            <li><a href="<?= $urlp_hl ?>"
-                   title="<?= L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?= L_COMMENT_OFFLINE_FEEDS ?></a></li>
-            <?php $urlp_el = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/en-ligne'; ?>
-            <li><a href="<?= $urlp_el ?>" title="<?= L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?= L_COMMENT_ONLINE_FEEDS ?></a>
-            </li>
-        </ul>
-    <?php endif; ?>
-
-</div>
-
+		</div>
+<?php if ($coms): ?>
+        <div class="pas grid-2-small-1 tablefooter">
+			<div>
+				<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
+			</div>
+			<div class="pagination right">
 <?php
 # Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
+
+if($coms) {
+	$sel = '&sel=' . $_SESSION['selCom'] . (!empty($_GET['a']) ? '&a=' . $_GET['a'] : '');
+	plxUtils::printPagination($nbComPagination, $plxAdmin->aConf['bypage_admin_coms'], $plxAdmin->page, 'comments.php?page=%d' . $sel);
+}
+?>
+			</div>
+		</div>
+<?php endif ?>
+    </form>
+
+<?php
+if (!empty($plxAdmin->aConf['clef'])) {
+	$href = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires';
+?>
+	<p><?= L_COMMENTS_PRIVATE_FEEDS ?> :</p>
+	<ul class="unstyled-list">
+		<li><a href="<?= $href ?>/hors-ligne" title="<?= L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?= L_COMMENT_OFFLINE_FEEDS ?></a></li>
+		<li><a href="<?= $href ?>/en-ligne" title="<?= L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?= L_COMMENT_ONLINE_FEEDS ?></a></li>
+	</ul>
+<?php
+}
+?>
+</div>
+<?php
+
+# Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
+
 # On inclut le footer
 include __DIR__ . '/foot.php';
-?>
