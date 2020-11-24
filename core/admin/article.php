@@ -7,7 +7,7 @@
  * @author    Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 if (!isset($_POST['preview']))
@@ -235,7 +235,7 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 }
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 
 # On construit la liste des utilisateurs
 foreach ($plxAdmin->aUsers as $_userid => $_user) {
@@ -335,24 +335,23 @@ $cat_id = '000';
 
     <div>
 
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
 
         <div class="grid-8-small-1">
             <div class="col-6-small-1">
-                <div class="txtcenter">
+                <div>
                     <fieldset>
                         <div>
                             <?php PlxUtils::printInput('artId', $artId, 'hidden'); ?>
                             <label for="id_title"><?= L_TITLE ?>&nbsp;:</label>
                             <?php PlxUtils::printInput('title', PlxUtils::strCheck($title), 'text', '255', false); ?>
-                            <?php if ($artId != '' and $artId != '0000') : ?>
+<?php if ($artId != '' and $artId != '0000') : ?>
                                 <?php $link = $plxAdmin->urlRewrite('?article' . intval($artId) . '/' . $url) ?>
                                 <p>
                                     <strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
-                                    <a onclick="this.target=\'_blank\';return true;" href="<?= $link ?>"
-                                       title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
+                                    <a target="_blank" href="<?= $link ?>" title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
                                 </p>
-                            <?php endif; ?>
+<?php endif; ?>
                         </div>
                         <div>
                             <input class="toggle" id="toggle_chapo" type="checkbox" <?= (empty($_GET['a']) || !empty(trim($chapo))) ? ' checked' : ''; ?>>
@@ -609,8 +608,9 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
 </script>
 -->
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));
+
 # On inclut le footer
-include __DIR__ . '/foot.php';
-?>
+include 'foot.php';

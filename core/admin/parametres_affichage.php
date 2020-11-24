@@ -7,7 +7,7 @@
  * @author    Florent MONTHEL, Stephane F
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -56,7 +56,7 @@ if (!is_numeric($plxAdmin->aConf['miniatures_l'])) $plxAdmin->aConf['miniatures_
 if (!is_numeric($plxAdmin->aConf['miniatures_h'])) $plxAdmin->aConf['miniatures_h'] = 100;
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 ?>
 
 <form action="parametres_affichage.php" method="post" id="form_settings">
@@ -210,5 +210,5 @@ include __DIR__ . '/top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayFoot'));
 # On inclut le footer
-include __DIR__ . '/foot.php';
+include 'foot.php';
 ?>

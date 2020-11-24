@@ -7,7 +7,7 @@
  * @author    Stephane F
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -149,7 +149,7 @@ if ($sel == '1') {
 $data_rows_num = ($sel == '1') ? 'data-rows-num=\'name^="plugOrdre"\'' : false;
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 
 ?>
 
@@ -202,4 +202,4 @@ include __DIR__ . '/top.php';
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
 
 # On inclut le footer
-include __DIR__ . '/foot.php';
+include 'foot.php';

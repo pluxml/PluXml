@@ -6,7 +6,7 @@
  * @author    Stephane F.
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -22,7 +22,7 @@ if (!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 ?>
 
 <div class="adminheader">
@@ -115,4 +115,4 @@ $new_userid = str_pad($a['0'] + 1, 3, "0", STR_PAD_LEFT);
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUsersFoot'));
 # On inclut le footer
-include __DIR__ . '/foot.php';
+include 'foot.php';

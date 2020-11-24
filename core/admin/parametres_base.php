@@ -7,7 +7,7 @@
  * @author    Florent MONTHEL, Stephane F, Philippe-M, Pedro "P3ter" CADETE"
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 include PLX_CORE . 'lib/class.plx.timezones.php';
 
 # Control du token du formulaire
@@ -24,7 +24,7 @@ if (!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 ?>
 
 <form action="parametres_base.php" method="post" id="form_settings">
@@ -111,5 +111,5 @@ include __DIR__ . '/top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
 # On inclut le footer
-include __DIR__ . '/foot.php';
+include 'foot.php';
 ?>

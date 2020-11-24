@@ -7,7 +7,7 @@
  * @author  Stephane F
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 include PLX_CORE . 'lib/PlxThemes.php';
 
 # Control du token du formulaire
@@ -24,7 +24,7 @@ if (!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 
 $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
 
@@ -102,4 +102,4 @@ endif;
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
 # On inclut le footer
-include __DIR__ . '/foot.php';
+include 'foot.php';
