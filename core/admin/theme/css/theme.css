@@ -24,8 +24,35 @@ body {
 }
 
 
-input[type], select {
-    margin-bottom: 1rem;
+input[type],
+select {
+    /* margin-bottom: 1rem; */
+}
+
+table img.thumb {
+	max-width: none;
+}
+
+td.txtcenter {
+	text-align: center;
+}
+
+input[type="number"] {
+	max-width: 6rem;
+	padding-right: 0.25rem;
+	text-align: end;
+}
+
+/* ---------- hack against knacss ---------- */
+.tag,
+.tag--danger,
+.tag--ghost,
+.tag--info,
+.tag--inverse,
+.tag--primary,
+.tag--success,
+.tag--warning {
+	margin: 0 0.5rem;
 }
 
 /* ==== AUTHENTIFICATION ==== */
@@ -200,8 +227,11 @@ input[type], select {
 
 .section .adminheader li {
     display: inline-block;
-    margin-right: 40px;
     padding: 4px 10px;
+}
+
+.section .adminheader li:not(:last-of-type) {
+    margin-right: 1.75rem; /* valid for Ipad /portrait */
 }
 
 .section .adminheader li.selected {
@@ -274,11 +304,12 @@ input[type], select {
 .section .theme .themeDetails {
     position: absolute;
     top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    padding: 1.5rem 1rem 0;
+    -webkit-transform: translateY(-50%, -50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     text-align: center;
+    white-space: normal;
 }
 
 .section .themes .title {
@@ -317,7 +348,6 @@ input[type], select {
 
 /* ==== COMPONENTS ==== */
 .table {
-    overflow: auto;
     border-collapse: collapse;
     border-spacing: 0;
     border-collapse: collapse;
@@ -326,8 +356,28 @@ input[type], select {
     width: auto;
 }
 
+.scrollable-table {
+	overflow-x: auto;
+}
+.scrollable-table table {
+	width: 100%;
+	table-layout: auto;
+	margin-bottom: 0.9rem !important;
+}
+.scrollable-table td:not(.wrap) {
+	white-space: nowrap;
+}
+.scrollable-table table input[type="text"],
+.scrollable-table table input[type="email"],
+.scrollable-table table input[type="password"],
+.scrollable-table table input[type="url"] {
+	width: 100%;
+}
+.table.mb0 {
+	margin-bottom: 0;
+}
 .table th, .table td {
-    white-space: nowrap;
+    /* white-space: nowrap; */
     padding: 6px 5px;
     border: 0px;
     border-bottom: 1px solid var(--backheaderborder);
@@ -349,6 +399,10 @@ input[type], select {
 
 .table td, .table input {
     vertical-align: middle;
+}
+
+.table input[type="text"] {
+	min-width: 12rem;
 }
 
 .table button {
@@ -408,7 +462,12 @@ input[type], select {
     padding: 1rem 1.5rem;
 }
 
-[type="text"], select {
+[type="text"],
+[type="number"],
+[type="password"],
+[type="email"],
+[type="url"],
+select {
     background-color: #fff;
     box-shadow: inset 0 0 0 1px var(--backheaderborder);
 }
@@ -648,6 +707,69 @@ a.overlay {
     cursor: pointer;
 }
 
+/* ---------- hack against knacss --------- */
+.pagination .btn {
+	padding: 1rem 0.25rem;
+	min-width: 3.65rem; /* valid for Ipad / portrait */
+}
+
+/* ----------- index.php ------------- */
+
+#index td:nth-of-type(2) {
+	text-align: end;
+}
+
+/* ------------ medias.php ----------- */
+
+#medias-breadcrumb {
+	display: inline-block;
+}
+
+#medias-breadcrumb li {
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+#medias-breadcrumb li:not(:first-of-type)::before {
+	content: '>';
+	padding: 0 0.75rem;
+}
+
+#medias-table td:nth-of-type(5) {
+	text-align: end;
+}
+
+#medias-table td:nth-of-type(6) {
+	text-align: center;
+}
+
+/* --------- statiques.php ------------- */
+
+/* #statiques th:nth-of-type(4) { min-width: 12rem; } */ /* groupe */
+#statiques th:nth-of-type(5) { min-width: 25rem; } /* title */
+#statiques th:nth-of-type(6) { min-width: 20rem; } /* url */
+
+/* ------------ parametres_users.php ----- */
+
+#parametres_users th:nth-of-type(3) { min-width: 20rem; } /* name */
+#parametres_users th:nth-of-type(4), /* login */
+#parametres_users th:nth-of-type(5) { min-width: 14rem; } /* password */
+#parametres_users th:nth-of-type(6) { min-width: 25rem; } /* email */
+
+/* ------------ parametres_plugins.php ----- */
+
+#parametres_plugins th:nth-of-type(3) { min-width: 30rem; } /* description */
+
+/* ------------ parametres_infos.php -------- */
+
+#latest-version:not(.success) > p.extra,
+#latest-version.success > p:not(.extra),
+#latest-version.success.available > p.alert--success,
+#latest-version.success:not(.available) > p.alert--warning {
+	display: none;
+}
+
 /* ------- Popup Medias Manager ------ */
 
 body.mediasManager .aside, body.mediasManager .header {
@@ -765,6 +887,8 @@ input:checked ~ .modal__overlay {
     z-index: 800;
     visibility: visible;
 }
+
+/* ======== responsive design ========== */
 
 @media (max-width: 575px) {
     .aside {

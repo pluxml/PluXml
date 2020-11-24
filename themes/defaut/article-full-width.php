@@ -1,62 +1,63 @@
-<?php include __DIR__.'/header.php'; ?>
+<?php include __DIR__ . '/header.php'; ?>
 
-	<main class="main">
+<main class="main">
 
-		<div class="container">
+    <div class="container">
 
-			<div class="grid">
+        <div class="grid">
 
-				<div class="content col sml-12">
+            <div class="content col sml-12">
 
 
-					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
+                <article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 
-						<header>
+                    <header>
 							<span class="art-date">
 								<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>">
 									<?php $plxShow->artDate('#num_day #month #num_year(4)'); ?>
 								</time>
 							</span>
-							<h2>
-								<?php $plxShow->artTitle(); ?>
-							</h2>
-							<div>
-								<small>
+                        <h2>
+                            <?php $plxShow->artTitle(); ?>
+                        </h2>
+                        <div>
+                            <small>
 									<span class="written-by">
-										<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?>
+										<?php $plxShow->lang('WRITTEN_BY'); ?><?php $plxShow->artAuthor() ?>
 									</span>
-									<span class="art-nb-com">
-										<a href="#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
+                                <span class="art-nb-com">
+										<a href="#comments"
+                                           title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
 									</span>
-								</small>
-							</div>
-							<div>
-								<small>
+                            </small>
+                        </div>
+                        <div>
+                            <small>
 									<span class="classified-in">
 										<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?>
 									</span>
-									<span class="tags">
+                                <span class="tags">
 										<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
 									</span>
-								</small>
-							</div>
-						</header>
+                            </small>
+                        </div>
+                    </header>
 
-						<?php $plxShow->artThumbnail(); ?>
-						<?php $plxShow->artContent(); ?>
+                    <?php $plxShow->artThumbnail(); ?>
+                    <?php $plxShow->artContent(); ?>
 
-					</article>
+                </article>
 
-					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
+                <?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
 
-					<?php include __DIR__.'/commentaires.php'; ?>
+                <?php include __DIR__ . '/commentaires.php'; ?>
 
-				</div>
+            </div>
 
-			</div>
+        </div>
 
-		</div>
+    </div>
 
-	</main>
+</main>
 
-<?php include __DIR__.'/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

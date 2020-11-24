@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Handler;
 
 use GuzzleHttp\Promise as P;
@@ -81,7 +82,7 @@ class CurlMultiHandler
     public function __invoke(RequestInterface $request, array $options)
     {
         $easy = $this->factory->create($request, $options);
-        $id = (int) $easy->handle;
+        $id = (int)$easy->handle;
 
         $promise = new Promise(
             [$this, 'execute'],
@@ -125,7 +126,7 @@ class CurlMultiHandler
             usleep(250);
         }
 
-        while (curl_multi_exec($this->_mh, $this->active) === CURLM_CALL_MULTI_PERFORM);
+        while (curl_multi_exec($this->_mh, $this->active) === CURLM_CALL_MULTI_PERFORM) ;
 
         $this->processMessages();
     }
@@ -149,7 +150,7 @@ class CurlMultiHandler
     private function addRequest(array $entry)
     {
         $easy = $entry['easy'];
-        $id = (int) $easy->handle;
+        $id = (int)$easy->handle;
         $this->handles[$id] = $entry;
         if (empty($easy->options['delay'])) {
             curl_multi_add_handle($this->_mh, $easy->handle);
@@ -183,7 +184,7 @@ class CurlMultiHandler
     private function processMessages()
     {
         while ($done = curl_multi_info_read($this->_mh)) {
-            $id = (int) $done['handle'];
+            $id = (int)$done['handle'];
             curl_multi_remove_handle($this->_mh, $done['handle']);
 
             if (!isset($this->handles[$id])) {

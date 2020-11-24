@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp;
 
 use GuzzleHttp\Cookie\CookieJar;
@@ -77,7 +78,7 @@ class Client implements ClientInterface
 
     /**
      * @param string $method
-     * @param array  $args
+     * @param array $args
      *
      * @return Promise\PromiseInterface
      */
@@ -137,9 +138,9 @@ class Client implements ClientInterface
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
-     * @param string              $method  HTTP method
-     * @param string|UriInterface $uri     URI object or string.
-     * @param array               $options Request options to apply. See \GuzzleHttp\RequestOptions.
+     * @param string $method HTTP method
+     * @param string|UriInterface $uri URI object or string.
+     * @param array $options Request options to apply. See \GuzzleHttp\RequestOptions.
      *
      * @return Promise\PromiseInterface
      */
@@ -169,9 +170,9 @@ class Client implements ClientInterface
      * relative path to append to the base path of the client. The URL can
      * contain the query string as well.
      *
-     * @param string              $method  HTTP method.
-     * @param string|UriInterface $uri     URI object or string.
-     * @param array               $options Request options to apply. See \GuzzleHttp\RequestOptions.
+     * @param string $method HTTP method.
+     * @param string|UriInterface $uri URI object or string.
+     * @param array $options Request options to apply. See \GuzzleHttp\RequestOptions.
      *
      * @return ResponseInterface
      * @throws GuzzleException
@@ -201,7 +202,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * @param  string|null $uri
+     * @param string|null $uri
      *
      * @return UriInterface
      */
@@ -232,11 +233,11 @@ class Client implements ClientInterface
     {
         $defaults = [
             'allow_redirects' => RedirectMiddleware::$defaultSettings,
-            'http_errors'     => true,
-            'decode_content'  => true,
-            'verify'          => true,
-            'cookies'         => false,
-            'idn_conversion'  => true,
+            'http_errors' => true,
+            'decode_content' => true,
+            'verify' => true,
+            'cookies' => false,
+            'idn_conversion' => true,
         ];
 
         // Use the standard Linux HTTP_PROXY and HTTPS_PROXY if set.
@@ -358,7 +359,7 @@ class Client implements ClientInterface
      * Applies the array of request options to a request.
      *
      * @param RequestInterface $request
-     * @param array            $options
+     * @param array $options
      *
      * @return RequestInterface
      */

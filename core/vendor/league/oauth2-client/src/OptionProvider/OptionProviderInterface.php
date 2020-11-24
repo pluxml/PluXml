@@ -23,7 +23,7 @@ interface OptionProviderInterface
      * Builds request options used for requesting an access token.
      *
      * @param string $method
-     * @param  array $params
+     * @param array $params
      * @return array
      */
     public function getAccessTokenOptions($method, array $params);

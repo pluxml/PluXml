@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -14,8 +15,8 @@ class DroppingStream implements StreamInterface
     private $maxLength;
 
     /**
-     * @param StreamInterface $stream    Underlying stream to decorate.
-     * @param int             $maxLength Maximum size before dropping data.
+     * @param StreamInterface $stream Underlying stream to decorate.
+     * @param int $maxLength Maximum size before dropping data.
      */
     public function __construct(StreamInterface $stream, $maxLength)
     {

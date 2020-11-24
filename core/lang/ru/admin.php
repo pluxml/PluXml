@@ -2,7 +2,9 @@
 
 const L_MENU = 'меню';
 const L_UNKNOWN_ERROR = 'Неизвестная ошибка';
-const L_CONFIRM_DELETE = 'Подтвердите удаление ?';
+const L_CONFIRM_DELETE = 'Подтвердите удаление 999 пунктов ?';
+const L_CONFIRM_ACTIVATE = 'подтвердить включение 999 пунктов ?';
+const L_CONFIRM_DEACTIVATE = 'Подтвердить отключение 999 пунктов ?';
 const L_SAVE_FILE = 'Сохраните файл';
 const L_SAVE_FILE_SUCCESSFULLY = 'Файл успешно сохранены';
 const L_SAVE_FILE_ERROR = 'Ошибка при сохранении файла';
@@ -130,7 +132,7 @@ const L_AUTH_LOGIN_FIELD = 'Логин';
 const L_AUTH_LOST_FIELD = 'Логин или адрес электронной почты';
 const L_SUBMIT_BUTTON = 'Войти';
 const L_ERR_WRONG_PASSWORD = 'Неправильный логин или пароль';
-const L_POWERED_BY = 'Powered by <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Powered by <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Слишком много неудачных Войти<br />Повторите попытку через% S минут';
 const L_LOST_PASSWORD = 'Забыли пароль?';
 const L_LOST_PASSWORD_LOGIN = 'Aвторизоваться';
@@ -357,13 +359,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Идентификатор кли�
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Секретный ключ клиента';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'токен';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Создать токен';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Нужна помощь : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Нужна помощь : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Для sendmail не требуется настройка.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Имя SMTP-сервера (пример : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Имя пользователя на узле SMTP (пример : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Пароль пользователя на хосте SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Номер порта хоста SMTP (по умолчанию : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml позволяет генерировать токены только для сервиса <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Нужна помощь в создании имени пользователя и секретного ключа : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml позволяет генерировать токены только для сервиса <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Нужна помощь в создании имени пользователя и секретного ключа : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Идентификатор клиента в сервисе OAUTH2 (пример: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'Ключ клиента на сервисе OAUTH2 (пример: PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Сохраните идентификатор клиента и секретный код клиента, чтобы вы могли сгенерировать токен.';
@@ -394,7 +396,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Информацио о установлен
 const L_CONFIG_INFOS_NB_CATS = 'N° категорий :';
 const L_CONFIG_INFOS_NB_STATICS = 'N° статических страниц :';
 const L_CONFIG_INFOS_WRITER = 'N° пользователей за сессию :';
-const L_PLUXML_CHECK_VERSION = 'Проверка номера версии PluXml на официальном сайте PluXml.org :';
+const L_PLUXML_CHECK_VERSION = 'Проверка номера версии PluXml на официальном сайте %s :';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Невозможно проверить обновление, так как адрес \'allow_url_fopen\' заблокирован на этом компьютере';
 const L_PLUXML_UPDATE_ERR = 'Проверка обновления окончилась неудачно по неизвестной причине';
 const L_PLUXML_UPTODATE = 'Вы используете последнюю версию PluXml';

@@ -1,5 +1,6 @@
 ## PLUXML 6.0 (yyyy/mm/dd) ##
 [+] New authentication page (P3ter)
+[+] New backoffice theme based on Knacss (P3ter, bazooka07)
 [+] Articles navigation buttons inside a category, a tag or an archive #447 (bazooka07)
 [+] Categories and articles use a configurable default thumbnail #446 (bazooka07)
 [+] Medias : table sorting #441 (bazooka07)
@@ -28,6 +29,8 @@
 [+] Rename plugin folder if necessary #477 (bazooka07)
 [+] Externalise comments js script to increase security #476 (Thatoo)
 [+] Refacto plxShow::lastComList #510 (bazooka07)
+[+] Move backoffice javascript to /core/admin/scripts #514 (bazooka07)
+[+] Refacto check PluXml update #514 (bazooka07)
 FIX Do not unset CSRF token if $_POST is empty #286 (sudwebdesign)
 FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign) 
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)

@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -38,8 +39,8 @@ class Stream implements StreamInterface
      * - metadata: (array) Any additional metadata to return when the metadata
      *   of the stream is accessed.
      *
-     * @param resource $stream  Stream resource to wrap.
-     * @param array    $options Associative array of options.
+     * @param resource $stream Stream resource to wrap.
+     * @param array $options Associative array of options.
      *
      * @throws \InvalidArgumentException if the stream is not a stream resource
      */
@@ -77,7 +78,7 @@ class Stream implements StreamInterface
     {
         try {
             $this->seek(0);
-            return (string) stream_get_contents($this->stream);
+            return (string)stream_get_contents($this->stream);
         } catch (\Exception $e) {
             return '';
         }
@@ -192,8 +193,8 @@ class Stream implements StreamInterface
 
     public function seek($offset, $whence = SEEK_SET)
     {
-        $whence = (int) $whence;
-        
+        $whence = (int)$whence;
+
         if (!isset($this->stream)) {
             throw new \RuntimeException('Stream is detached');
         }

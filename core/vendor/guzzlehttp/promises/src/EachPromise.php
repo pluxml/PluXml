@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Promise;
 
 /**
@@ -45,8 +46,8 @@ class EachPromise implements PromisorInterface
      *   allowed number of outstanding concurrently executing promises,
      *   creating a capped pool of promises. There is no limit by default.
      *
-     * @param mixed    $iterable Promises or values to iterate.
-     * @param array    $config   Configuration options
+     * @param mixed $iterable Promises or values to iterate.
+     * @param array $config Configuration options
      */
     public function __construct($iterable, array $config = [])
     {
@@ -118,7 +119,7 @@ class EachPromise implements PromisorInterface
     {
         if (!$this->concurrency) {
             // Add all pending promises.
-            while ($this->addPending() && $this->advanceIterator());
+            while ($this->addPending() && $this->advanceIterator()) ;
             return;
         }
 
@@ -139,7 +140,7 @@ class EachPromise implements PromisorInterface
         // next value to yield until promise callbacks are called.
         while (--$concurrency
             && $this->advanceIterator()
-            && $this->addPending());
+            && $this->addPending()) ;
     }
 
     private function addPending()

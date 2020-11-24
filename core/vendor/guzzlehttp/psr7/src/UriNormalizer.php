@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\UriInterface;
@@ -110,8 +111,8 @@ final class UriNormalizer
      * treated equivalent which is not necessarily true according to RFC 3986. But that difference
      * is highly uncommon in reality. So this potential normalization is implied in PSR-7 as well.
      *
-     * @param UriInterface $uri   The URI to normalize
-     * @param int          $flags A bitmask of normalizations to apply, see constants
+     * @param UriInterface $uri The URI to normalize
+     * @param int $flags A bitmask of normalizations to apply, see constants
      *
      * @return UriInterface The normalized URI
      * @link https://tools.ietf.org/html/rfc3986#section-6.2
@@ -165,16 +166,16 @@ final class UriNormalizer
      * resolved against the same base URI. If this is not the case, determination of equivalence or difference of
      * relative references does not mean anything.
      *
-     * @param UriInterface $uri1           An URI to compare
-     * @param UriInterface $uri2           An URI to compare
-     * @param int          $normalizations A bitmask of normalizations to apply, see constants
+     * @param UriInterface $uri1 An URI to compare
+     * @param UriInterface $uri2 An URI to compare
+     * @param int $normalizations A bitmask of normalizations to apply, see constants
      *
      * @return bool
      * @link https://tools.ietf.org/html/rfc3986#section-6.1
      */
     public static function isEquivalent(UriInterface $uri1, UriInterface $uri2, $normalizations = self::PRESERVING_NORMALIZATIONS)
     {
-        return (string) self::normalize($uri1, $normalizations) === (string) self::normalize($uri2, $normalizations);
+        return (string)self::normalize($uri1, $normalizations) === (string)self::normalize($uri2, $normalizations);
     }
 
     private static function capitalizePercentEncoding(UriInterface $uri)

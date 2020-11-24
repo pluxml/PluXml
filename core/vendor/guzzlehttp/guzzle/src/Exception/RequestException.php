@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Exception;
 
 use GuzzleHttp\Promise\PromiseInterface;
@@ -26,7 +27,8 @@ class RequestException extends TransferException
         ResponseInterface $response = null,
         \Exception $previous = null,
         array $handlerContext = []
-    ) {
+    )
+    {
         // Set the code of the exception if the response is set and not future.
         $code = $response && !($response instanceof PromiseInterface)
             ? $response->getStatusCode()
@@ -41,7 +43,7 @@ class RequestException extends TransferException
      * Wrap non-RequestExceptions with a RequestException
      *
      * @param RequestInterface $request
-     * @param \Exception       $e
+     * @param \Exception $e
      *
      * @return RequestException
      */
@@ -55,10 +57,10 @@ class RequestException extends TransferException
     /**
      * Factory method to create a new exception with a normalized error message
      *
-     * @param RequestInterface  $request  Request
+     * @param RequestInterface $request Request
      * @param ResponseInterface $response Response received
-     * @param \Exception        $previous Previous exception
-     * @param array             $ctx      Optional handler context.
+     * @param \Exception $previous Previous exception
+     * @param array $ctx Optional handler context.
      *
      * @return self
      */
@@ -67,7 +69,8 @@ class RequestException extends TransferException
         ResponseInterface $response = null,
         \Exception $previous = null,
         array $ctx = []
-    ) {
+    )
+    {
         if (!$response) {
             return new self(
                 'Error completing request',
@@ -78,7 +81,7 @@ class RequestException extends TransferException
             );
         }
 
-        $level = (int) floor($response->getStatusCode() / 100);
+        $level = (int)floor($response->getStatusCode() / 100);
         if ($level === 4) {
             $label = 'Client error';
             $className = ClientException::class;

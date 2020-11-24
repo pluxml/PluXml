@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -14,7 +15,7 @@ class MultipartStream implements StreamInterface
     private $boundary;
 
     /**
-     * @param array  $elements Array of associative arrays, each containing a
+     * @param array $elements Array of associative arrays, each containing a
      *                         required "name" key mapping to the form field,
      *                         name, a required "contents" key mapping to a
      *                         StreamInterface/resource/string, an optional
@@ -124,7 +125,7 @@ class MultipartStream implements StreamInterface
         $length = $this->getHeader($headers, 'content-length');
         if (!$length) {
             if ($length = $stream->getSize()) {
-                $headers['Content-Length'] = (string) $length;
+                $headers['Content-Length'] = (string)$length;
             }
         }
 
