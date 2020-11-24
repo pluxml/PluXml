@@ -11,6 +11,8 @@
 <script src="scripts/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
 <script src="scripts/multifiles.js?v=<?= PLX_VERSION ?>"></script>
 <script src="scripts/drag-and-drop.js"></script>
+<script src="scripts/medias.js"></script>
+
 <script>
 	mediasManager.construct({
 		windowName : '<?= L_MEDIAS_TITLE ?>',

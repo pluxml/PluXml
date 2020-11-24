@@ -721,6 +721,21 @@ a.overlay {
 
 /* ------------ medias.php ----------- */
 
+#medias-breadcrumb {
+	display: inline-block;
+}
+
+#medias-breadcrumb li {
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+#medias-breadcrumb li:not(:first-of-type)::before {
+	content: '>';
+	padding: 0 0.75rem;
+}
+
 #medias-table td:nth-of-type(5) {
 	text-align: end;
 }
