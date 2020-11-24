@@ -166,30 +166,24 @@ include __DIR__ . '/top.php';
 
 <div class="admin mtm">
     <form action="parametres_plugins.php" method="post" id="form_plugins" data-chk="chkAction[]">
-
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
-
-<?php if ($sel == 1): ?>
-            <div class="mtm pas tableheader">
-                <?= PlxToken::getTokenPostMethod() ?>
-                <input class="btn--primary" type="submit" name="update" value="<?= L_PLUGINS_APPLY_BUTTON ?>"/>
-                <input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..."
-                       title="<?= L_SEARCH ?>"/>
-            </div>
-<?php endif; ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
+		<div class="mtm pas tableheader">
+			<?= PlxToken::getTokenPostMethod() ?>
+			<input class="btn--primary" type="submit" name="update" value="<?= L_PLUGINS_APPLY_BUTTON ?>"/>
+			<input type="text" id="plugins-search" placeholder="<?= L_SEARCH ?>..." />
+		</div>
         <div class="scrollable-table">
             <table id="plugins-table" class="table mb0" <?= !empty($data_rows_num) ? $data_rows_num : '' ?>>
                 <thead>
-                <tr>
-                    <th><input type="checkbox" /></th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
+	                <tr>
+	                    <th><input type="checkbox" /></th>
+	                    <th>&nbsp;</th>
+	                    <th>&nbsp;</th>
 <?php if ($_SESSION['selPlugins'] == '1') : ?>
-					<th><?= L_PLUGINS_LOADING_SORT ?></th>
+						<th><?= L_PLUGINS_LOADING_SORT ?></th>
 <?php endif; ?>
-                    <th><?= L_ACTION ?></th>
-                </tr>
+	                    <th><?= L_ACTION ?></th>
+	                </tr>
                 </thead>
                 <tbody>
                 <?= $plugins ?>
@@ -202,36 +196,8 @@ include __DIR__ . '/top.php';
 		</div>
     </form>
 </div>
-
-<script>
-    function plugFilter() {
-        var input, filter, table, tr, td, i;
-        filter = document.getElementById("plugins-search").value;
-        table = document.getElementById("plugins-table");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td != undefined) {
-                if (td.innerHTML.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-        if (typeof (Storage) !== "undefined" && filter !== "undefined") {
-            localStorage.setItem("plugins_search", filter);
-        }
-    }
-
-    if (typeof (Storage) !== "undefined" && localStorage.getItem("plugins_search") !== "undefined") {
-        input = document.getElementById("plugins-search");
-        input.value = localStorage.getItem("plugins_search");
-        plugFilter();
-    }
-</script>
-
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
 

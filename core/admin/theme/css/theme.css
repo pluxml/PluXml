@@ -760,6 +760,7 @@ a.overlay {
 /* ------------ parametres_plugins.php ----- */
 
 #parametres_plugins th:nth-of-type(3) { min-width: 30rem; } /* description */
+#plugins-table tbody tr.hide { display: none; }
 
 /* ------------ parametres_infos.php -------- */
 

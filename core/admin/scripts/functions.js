@@ -230,6 +230,58 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 	}
 })();
 
+(function() {
+	// Search a plugin in the table
+
+	const input = document.getElementById('plugins-search');
+	if(input == null) { return; }
+
+	const tbody = input.form.querySelector('tbody');
+	if(tbody == null) { return; }
+
+	const rows = tbody.rows;
+
+	function search(query) {
+		const MASK = 'hide';
+		var count = 0;
+		for(var i=0, iMax=rows.length; i<iMax; i++) {
+			if(query.trim().length > 0) {
+				const chk = rows[i].cells[0].querySelector('input[name="plugName[]"]');
+				const description = rows[i].cells[2].textContent;
+				if((chk != null && chk.value.toLowerCase().indexOf(query) >= 0) || description.toLowerCase().indexOf(query) >= 0) {
+					rows[i].classList.remove(MASK);
+					count++;
+				} else {
+					rows[i].classList.add(MASK);
+				}
+			} else {
+				rows[i].classList.remove(MASK);
+				if(i == 0) { count = iMax; }
+			}
+		}
+		return (i > 0);
+	}
+
+	const KEY = 'plugins_search';
+
+	input.onkeyup = function(event) {
+		const value = event.target.value.toLowerCase();
+		if(search(value)) {
+			if(typeof localStorage === 'object') {
+				localStorage.setItem(KEY, value);
+			}
+		}
+	}
+
+	if(typeof localStorage === 'object') {
+		const value = localStorage.getItem(KEY);
+		if(value != null) {
+			search(value);
+			input.value = value;
+		}
+	}
+})();
+
 function insTag(where, tag) {
 	var formfield = document.getElementsByName(where)['0'];
 	var tags = formfield.value.split(', ');
