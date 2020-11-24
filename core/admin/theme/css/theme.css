@@ -362,6 +362,7 @@ input[type="number"] {
 .scrollable-table table {
 	width: 100%;
 	table-layout: auto;
+	margin-bottom: 0.9rem !important;
 }
 .scrollable-table td:not(.wrap) {
 	white-space: nowrap;
@@ -398,6 +399,10 @@ input[type="number"] {
 
 .table td, .table input {
     vertical-align: middle;
+}
+
+.table input[type="text"] {
+	min-width: 12rem;
 }
 
 .table button {
@@ -726,7 +731,7 @@ a.overlay {
 
 /* --------- statiques.php ------------- */
 
-#statiques th:nth-of-type(4) { min-width: 12rem; } /* groupe */
+/* #statiques th:nth-of-type(4) { min-width: 12rem; } */ /* groupe */
 #statiques th:nth-of-type(5) { min-width: 25rem; } /* title */
 #statiques th:nth-of-type(6) { min-width: 20rem; } /* url */
 
