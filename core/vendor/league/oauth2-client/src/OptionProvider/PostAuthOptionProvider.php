@@ -41,7 +41,7 @@ class PostAuthOptionProvider implements OptionProviderInterface
     /**
      * Returns the request body for requesting an access token.
      *
-     * @param  array $params
+     * @param array $params
      * @return string
      */
     protected function getAccessTokenBody(array $params)

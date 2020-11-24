@@ -60,7 +60,7 @@ trait GuardedPropertyTrait
     /**
      * Determines if the given property is guarded.
      *
-     * @param  string  $property
+     * @param string $property
      * @return bool
      */
     public function isGuarded($property)

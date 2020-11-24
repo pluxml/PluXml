@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp;
 
 use GuzzleHttp\Exception\InvalidArgumentException;
@@ -65,8 +66,8 @@ final class Utils
 
     /**
      * @param string $domain
-     * @param int    $options
-     * @param array  $info
+     * @param int $options
+     * @param array $info
      *
      * @return string|false
      */

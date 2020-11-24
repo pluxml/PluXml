@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\UriInterface;
@@ -54,14 +55,14 @@ final class UriResolver
      * Converts the relative URI into a new URI that is resolved against the base URI.
      *
      * @param UriInterface $base Base URI
-     * @param UriInterface $rel  Relative URI
+     * @param UriInterface $rel Relative URI
      *
      * @return UriInterface
      * @link http://tools.ietf.org/html/rfc3986#section-5.2
      */
     public static function resolve(UriInterface $base, UriInterface $rel)
     {
-        if ((string) $rel === '') {
+        if ((string)$rel === '') {
             // we can simply return the same base URI instance for this same-document reference
             return $base;
         }
@@ -129,7 +130,7 @@ final class UriResolver
      *
      *    echo UriResolver::relativize($base, new Uri('/a/b/c'));  // prints 'c' as well
      *
-     * @param UriInterface $base   Base URI
+     * @param UriInterface $base Base URI
      * @param UriInterface $target Target URI
      *
      * @return UriInterface The relative URI reference

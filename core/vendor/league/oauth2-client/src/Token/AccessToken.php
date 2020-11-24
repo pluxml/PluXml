@@ -178,7 +178,7 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
      */
     public function __toString()
     {
-        return (string) $this->getToken();
+        return (string)$this->getToken();
     }
 
     /**

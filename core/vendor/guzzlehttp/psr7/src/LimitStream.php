@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -19,16 +20,17 @@ class LimitStream implements StreamInterface
 
     /**
      * @param StreamInterface $stream Stream to wrap
-     * @param int             $limit  Total number of bytes to allow to be read
+     * @param int $limit Total number of bytes to allow to be read
      *                                from the stream. Pass -1 for no limit.
-     * @param int             $offset Position to seek to before reading (only
+     * @param int $offset Position to seek to before reading (only
      *                                works on seekable streams).
      */
     public function __construct(
         StreamInterface $stream,
         $limit = -1,
         $offset = 0
-    ) {
+    )
+    {
         $this->stream = $stream;
         $this->setLimit($limit);
         $this->setOffset($offset);

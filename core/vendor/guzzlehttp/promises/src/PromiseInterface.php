@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Promise;
 
 /**
@@ -21,7 +22,7 @@ interface PromiseInterface
      * a new promise resolving to the return value of the called handler.
      *
      * @param callable $onFulfilled Invoked when the promise fulfills.
-     * @param callable $onRejected  Invoked when the promise is rejected.
+     * @param callable $onRejected Invoked when the promise is rejected.
      *
      * @return PromiseInterface
      */

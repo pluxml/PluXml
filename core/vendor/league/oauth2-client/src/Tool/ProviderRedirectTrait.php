@@ -21,7 +21,7 @@ trait ProviderRedirectTrait
      * Retrieves a response for a given request and retrieves subsequent
      * responses, with authorization headers, if a redirect is detected.
      *
-     * @param  RequestInterface $request
+     * @param RequestInterface $request
      * @return ResponseInterface
      * @throws BadResponseException
      */
@@ -67,7 +67,7 @@ trait ProviderRedirectTrait
     /**
      * Determines if a given response is a redirect.
      *
-     * @param  ResponseInterface  $response
+     * @param ResponseInterface $response
      *
      * @return boolean
      */
@@ -84,7 +84,7 @@ trait ProviderRedirectTrait
      * WARNING: This method does not attempt to catch exceptions caused by HTTP
      * errors! It is recommended to wrap this method in a try/catch block.
      *
-     * @param  RequestInterface $request
+     * @param RequestInterface $request
      * @return ResponseInterface
      */
     public function getResponse(RequestInterface $request)

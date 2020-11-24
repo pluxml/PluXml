@@ -1,36 +1,36 @@
-<?php include __DIR__.'/header.php'; ?>
+<?php include __DIR__ . '/header.php'; ?>
 
-	<main class="main">
+<main class="main">
 
-		<div class="container">
+    <div class="container">
 
-			<div class="grid">
+        <div class="grid">
 
-				<div class="content col sml-12 med-8">
+            <div class="content col sml-12 med-8">
 
-					<article class="article">
+                <article class="article">
 
-						<header>
-							<h2>
-								<?php $plxShow->lang('ERROR'); ?>
-							</h2>
-						</header>
+                    <header>
+                        <h2>
+                            <?php $plxShow->lang('ERROR'); ?>
+                        </h2>
+                    </header>
 
-						<p>
-							<?php $plxShow->erreurMessage(); ?>
-						</p>
+                    <p>
+                        <?php $plxShow->erreurMessage(); ?>
+                    </p>
 
-					</article>
+                </article>
 
-				</div>
+            </div>
 
-				<?php include __DIR__.'/sidebar.php'; ?>
+            <?php include __DIR__ . '/sidebar.php'; ?>
 
-			</div>
+        </div>
 
-		</div>
+    </div>
 
-	</main>
+</main>
 
-<?php include __DIR__.'/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>
 

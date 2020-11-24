@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -132,7 +133,7 @@ class AppendStream implements StreamInterface
     {
         return !$this->streams ||
             ($this->current >= count($this->streams) - 1 &&
-             $this->streams[$this->current]->eof());
+                $this->streams[$this->current]->eof());
     }
 
     public function rewind()

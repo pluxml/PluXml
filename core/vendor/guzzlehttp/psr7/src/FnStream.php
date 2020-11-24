@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -65,8 +66,8 @@ class FnStream implements StreamInterface
      * Adds custom functionality to an underlying stream by intercepting
      * specific method calls.
      *
-     * @param StreamInterface $stream  Stream to decorate
-     * @param array           $methods Hash of method name to a closure
+     * @param StreamInterface $stream Stream to decorate
+     * @param array $methods Hash of method name to a closure
      *
      * @return FnStream
      */

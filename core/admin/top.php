@@ -131,7 +131,8 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
     <section class="section grid-1">
         <header class="header autogrid">
             <div>
-                <button class="burger-button large-hidden" type="button" role="button" aria-label="open/close navigation"><i></i>Menu
+                <button class="burger-button large-hidden" type="button" role="button"
+                        aria-label="open/close navigation"><i></i>Menu
                 </button>
             </div>
             <div class="txtright">
@@ -153,17 +154,17 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
             </div>
         </header>
 
-<?php
-if (basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' and is_file(PLX_ROOT . 'install.php')):
-?>
+        <?php
+        if (basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' and is_file(PLX_ROOT . 'install.php')):
+            ?>
             <div class="mlm mrm mbm">
                 <p class="alert--danger"><?= L_WARNING_INSTALLATION_FILE ?></p>
             </div>
-<?php
-endif;
+        <?php
+        endif;
 
-eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
-?>
+        eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+        ?>
 
         <script>
             (function () {

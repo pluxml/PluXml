@@ -355,7 +355,8 @@ $cat_id = '000';
                             <?php endif; ?>
                         </div>
                         <div>
-                            <input class="toggle" id="toggle_chapo" type="checkbox" <?= (empty($_GET['a']) || !empty(trim($chapo))) ? ' checked' : ''; ?>>
+                            <input class="toggle" id="toggle_chapo"
+                                   type="checkbox" <?= (empty($_GET['a']) || !empty(trim($chapo))) ? ' checked' : ''; ?>>
                             <label class="drop" for="toggle_chapo"><?= L_HEADLINE_FIELD; ?></label>
                             <div><?php PlxUtils::printArea('chapo', PlxUtils::strCheck($chapo), 0, 8); ?></div>
                         </div>
@@ -451,26 +452,27 @@ $cat_id = '000';
                                 <label for="cat_home"><input type="checkbox" id="cat_home"
                                                              name="catId[]" <?= $selected ?>
                                                              value="home"/>&nbsp;<?= L_HOMEPAGE ?></label><br>
-<?php
-# on boucle sur les catégories
-foreach ($plxAdmin->aCats as $cat_id => $cat_name) {
-	$selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : '';
-	$className = !empty($plxAdmin->aCats[$cat_id]['active']) ? ' class="active"' : '';
-?>
-                                        <label for="cat_<?= $cat_id ?>"<?= $className ?>><input type="checkbox" id="cat_?<?= $cat_id ?>"
-                                                                               name="catId[]" <?= $selected ?>
-                                                                               value="<?= $cat_id ?>"/>&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?>
-                                        </label><br />
-<?php
-}
+                                <?php
+                                # on boucle sur les catégories
+                                foreach ($plxAdmin->aCats as $cat_id => $cat_name) {
+                                    $selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : '';
+                                    $className = !empty($plxAdmin->aCats[$cat_id]['active']) ? ' class="active"' : '';
+                                    ?>
+                                    <label for="cat_<?= $cat_id ?>"<?= $className ?>><input type="checkbox"
+                                                                                            id="cat_?<?= $cat_id ?>"
+                                                                                            name="catId[]" <?= $selected ?>
+                                                                                            value="<?= $cat_id ?>"/>&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?>
+                                    </label><br/>
+                                    <?php
+                                }
 
-if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
+                                if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                                     <label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
                                     <?php PlxUtils::printInput('new_catname', '', 'text', '-50') ?>
                                     <input class="btn" type="submit" name="new_category" value="<?= L_ADD ?>"/>
-<?php
-}
-?>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                         <input class="toggle" id="toggle_tags" type="checkbox">
@@ -480,7 +482,8 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                                 <label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?></label>
                                 <p><small><?= L_ARTICLE_TAGS_FIELD_TITLE ?></small></p>
                                 <?php PlxUtils::printInput('tags', $tags, 'text', '-255', false, false); ?>
-                                <input class="toggle" id="toggle_tagslist" type="checkbox" <?= empty(trim($tags)) ? ' checked' : ''; ?>>
+                                <input class="toggle" id="toggle_tagslist"
+                                       type="checkbox" <?= empty(trim($tags)) ? ' checked' : ''; ?>>
                                 <label class="drop-inline" for="toggle_tagslist"></label>
                                 <div style="margin-top: 1rem">
                                     <?php

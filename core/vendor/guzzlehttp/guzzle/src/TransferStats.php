@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp;
 
 use Psr\Http\Message\RequestInterface;
@@ -18,11 +19,11 @@ final class TransferStats
     private $handlerErrorData;
 
     /**
-     * @param RequestInterface       $request          Request that was sent.
-     * @param ResponseInterface|null $response         Response received (if any)
-     * @param float|null             $transferTime     Total handler transfer time.
-     * @param mixed                  $handlerErrorData Handler error data.
-     * @param array                  $handlerStats     Handler specific stats.
+     * @param RequestInterface $request Request that was sent.
+     * @param ResponseInterface|null $response Response received (if any)
+     * @param float|null $transferTime Total handler transfer time.
+     * @param mixed $handlerErrorData Handler error data.
+     * @param array $handlerStats Handler specific stats.
      */
     public function __construct(
         RequestInterface $request,
@@ -30,7 +31,8 @@ final class TransferStats
         $transferTime = null,
         $handlerErrorData = null,
         $handlerStats = []
-    ) {
+    )
+    {
         $this->request = $request;
         $this->response = $response;
         $this->transferTime = $transferTime;

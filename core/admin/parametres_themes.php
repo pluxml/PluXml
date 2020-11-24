@@ -29,74 +29,77 @@ include __DIR__ . '/top.php';
 $plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
 
 ?>
-<form action="parametres_themes.php" method="post" id="form_settings">
-    <div class="adminheader autogrid">
-        <div>
-            <h2 class="h3-like"><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
-            <p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
+    <form action="parametres_themes.php" method="post" id="form_settings">
+        <div class="adminheader autogrid">
+            <div>
+                <h2 class="h3-like"><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
+                <p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
+            </div>
+            <div class="mtm txtright">
+                <input class="inbl btn--primary" onclick="window.location.assign('parametres_edittpl.php');return false"
+                       type="submit"
+                       value="<?= L_TEMPLATES_EDIT ?>"/>
+            </div>
         </div>
-        <div class="mtm txtright">
-            <input class="inbl btn--primary" onclick="window.location.assign('parametres_edittpl.php');return false"
-                   type="submit"
-                   value="<?= L_TEMPLATES_EDIT ?>" />
-        </div>
-    </div>
 
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
+        <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
 
-    <div class="admin mtm">
-        <div class="grid-4 has-gutter-l themes">
-<?php
-if ($plxThemes->themesList):
-	foreach ($plxThemes->themesList as $theme):
-        $currentTheme = ($theme == $plxAdmin->aConf['style']) ? 'activeTheme' : '';
-?>
-                    <button type="radio" name="style" value="<?= $theme ?>">
-                        <div class="theme">
-                            <p><?= $plxThemes->getImgPreview($theme) ?></p>
-<?php
-		if ($aInfos = $plxThemes->getInfos($theme)):?>
-                            <div class="themeOverlay">
-                                <div class="themeDetails">
-                                    Version : <strong><?= $aInfos['version'] ?></strong> (<?= $aInfos['date'] ?>)<br/>
-                                    <?= L_AUTHOR ?>&nbsp;:&nbsp;<?= $aInfos['author'] ?><br>
-                                    <a href="<?= $aInfos['site'] ?>" title="" target="_blank"><?= $aInfos['site'] ?></a><br>
-                                    <?= $aInfos['description'] ?>
+        <div class="admin mtm">
+            <div class="grid-4 has-gutter-l themes">
+                <?php
+                if ($plxThemes->themesList):
+                    foreach ($plxThemes->themesList as $theme):
+                        $currentTheme = ($theme == $plxAdmin->aConf['style']) ? 'activeTheme' : '';
+                        ?>
+                        <button type="radio" name="style" value="<?= $theme ?>">
+                            <div class="theme">
+                                <p><?= $plxThemes->getImgPreview($theme) ?></p>
+                                <?php
+                                if ($aInfos = $plxThemes->getInfos($theme)): ?>
+                                <div class="themeOverlay">
+                                    <div class="themeDetails">
+                                        Version : <strong><?= $aInfos['version'] ?></strong> (<?= $aInfos['date'] ?>
+                                        )<br/>
+                                        <?= L_AUTHOR ?>&nbsp;:&nbsp;<?= $aInfos['author'] ?><br>
+                                        <a href="<?= $aInfos['site'] ?>" title=""
+                                           target="_blank"><?= $aInfos['site'] ?></a><br>
+                                        <?= $aInfos['description'] ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <p>
-                            <strong><?= $aInfos['title'] ?></strong>
-<?php
-			if (is_file(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $theme . '/lang/' . $plxAdmin->aConf['default_lang'] . '-help.php')):
-?>
-                            <a title="<?= L_HELP_TITLE ?>"
-                                  href="parametres_help.php?help=theme&amp;page=<?= urlencode($theme) ?>"> - <?= L_HELP ?></a>
-                        </p>
-<?php
-			endif;
-		else:
-?>
-                            <strong><?= $theme ?></strong>
-<?php
-		endif;
-?>
-                    </button>
-<?php
-	endforeach;
-else:
-?>
-                <?= L_NONE1 ?>
-<?php
-endif;
-?>
+                            <p>
+                                <strong><?= $aInfos['title'] ?></strong>
+                                <?php
+                                if (is_file(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $theme . '/lang/' . $plxAdmin->aConf['default_lang'] . '-help.php')):
+                                ?>
+                                <a title="<?= L_HELP_TITLE ?>"
+                                   href="parametres_help.php?help=theme&amp;page=<?= urlencode($theme) ?>">
+                                    - <?= L_HELP ?></a>
+                            </p>
+                            <?php
+                            endif;
+                            else:
+                                ?>
+                                <strong><?= $theme ?></strong>
+                            <?php
+                            endif;
+                            ?>
+                        </button>
+                    <?php
+                    endforeach;
+                else:
+                    ?>
+                    <?= L_NONE1 ?>
+                <?php
+                endif;
+                ?>
+            </div>
         </div>
-    </div>
 
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
-    <?php echo plxToken::getTokenPostMethod() ?>
+        <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
+        <?php echo plxToken::getTokenPostMethod() ?>
 
-</form>
+    </form>
 
 <?php
 # Hook Plugins

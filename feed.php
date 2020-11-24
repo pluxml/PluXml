@@ -13,16 +13,16 @@ $plxFeed = plxFeed::getInstance();
 # Détermination de la langue à utiliser (modifiable par le hook : FeedBegin)
 $lang = $plxFeed->aConf['default_lang'];
 
-if(!empty($plxFeed->plxPlugins)) {
-	eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
+if (!empty($plxFeed->plxPlugins)) {
+    eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
 }
 
 # Chargement du fichier de langue du core de PluXml
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
-if(!$plxFeed->aConf['enable_rss']) {
-	header('Location: index.php');
-	exit;
+if (!$plxFeed->aConf['enable_rss']) {
+    header('Location: index.php');
+    exit;
 }
 
 # On démarre la bufferisation
@@ -35,34 +35,39 @@ $plxFeed->fdemarrage();
 # Récuperation de la bufférisation
 $output = ob_get_clean();
 
-switch($plxFeed->mode) {
-	case 'article'		:
-		if(!empty($plxFeed->cible)) {
-			# catégorie
-			$filename = L_CATEGORIES . '-' . $plxFeed->cible;
-		} else {
-			$filename = L_ARTICLES;
-		}
-		break;
-	case 'comment'		:
-	case 'commentaire'	:
-		$filename = L_COMMENTS;
-		# commentaires pour un article particulier
-		if(!empty($plxFeed->cible)) {
-			$filename .= '-' . L_ARTICLE . '-' . $plxFeed->cible;
-		}
-		break;
-	case 'categorie'	: $filename = L_CATEGORIE . '-' . $plxFeed->cible; break;
-	case 'tag'			: $filename = str_replace('-', '_', L_TAG) . '-' . $plxFeed->cible; break;
-	case 'admin'		:
-		$filename = L_COMMENTS . '-admin';
-		$filename .= ($plxFeed->cible == '_') ? '-offline' : '-online';
-		break;
-	default				: $filename = L_ALL;
+switch ($plxFeed->mode) {
+    case 'article'        :
+        if (!empty($plxFeed->cible)) {
+            # catégorie
+            $filename = L_CATEGORIES . '-' . $plxFeed->cible;
+        } else {
+            $filename = L_ARTICLES;
+        }
+        break;
+    case 'comment'        :
+    case 'commentaire'    :
+        $filename = L_COMMENTS;
+        # commentaires pour un article particulier
+        if (!empty($plxFeed->cible)) {
+            $filename .= '-' . L_ARTICLE . '-' . $plxFeed->cible;
+        }
+        break;
+    case 'categorie'    :
+        $filename = L_CATEGORIE . '-' . $plxFeed->cible;
+        break;
+    case 'tag'            :
+        $filename = str_replace('-', '_', L_TAG) . '-' . $plxFeed->cible;
+        break;
+    case 'admin'        :
+        $filename = L_COMMENTS . '-admin';
+        $filename .= ($plxFeed->cible == '_') ? '-offline' : '-online';
+        break;
+    default                :
+        $filename = L_ALL;
 }
 
-if(!empty($plxFeed->plxPlugins)) {
-	eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
+if (!empty($plxFeed->plxPlugins)) {
+    eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 }
 
 # Restitution écran

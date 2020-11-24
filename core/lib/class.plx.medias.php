@@ -205,16 +205,16 @@ class plxMedias
      * @param array $array
      * @return string
      */
-    private function getTreeView(Array $array) {
+    private function getTreeView(array $array)
+    {
         $out = "<ul>";
-        foreach($array as $key => $elem){
+        foreach ($array as $key => $elem) {
             $dir = new SplFileInfo($key);
             $name = $dir->getFilename();
             $path = str_replace($this->path, '', $key);
             if (!empty(array_values($elem))) {
-                $out .= "<li><a href=\"?path=$path/\">$name</a>".$this->getTreeView($elem)."</li>";
-            }
-            else {
+                $out .= "<li><a href=\"?path=$path/\">$name</a>" . $this->getTreeView($elem) . "</li>";
+            } else {
                 $out .= "<li><a href=\"?path=$path/\">$name</a></li>";
             }
         }

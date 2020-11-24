@@ -27,54 +27,54 @@ if ($emailBuild) {
 }
 
 ?>
-<div class="adminheader">
-    <div class="mbm">
-        <h2 class="h3-like"><?= L_CONFIG_INFOS_TITLE ?></h2>
-        <?php $plxAdmin->checkMaj(); ?>
+    <div class="adminheader">
+        <div class="mbm">
+            <h2 class="h3-like"><?= L_CONFIG_INFOS_TITLE ?></h2>
+            <?php $plxAdmin->checkMaj(); ?>
+        </div>
     </div>
-</div>
 
-<div class="admin mtm">
-    <p><?= L_CONFIG_INFOS_DESCRIPTION ?></p>
+    <div class="admin mtm">
+        <p><?= L_CONFIG_INFOS_DESCRIPTION ?></p>
 
-    <p><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION; ?>
-            (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></p>
-    <ul class="unstyled-list">
-        <li><?= L_INFO_PHP_VERSION; ?> : <?= phpversion(); ?></li>
-<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-            <li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
-<?php } ?>
-    </ul>
-    <ul class="unstyled-list">
-        <?php plxUtils::testWrite(PLX_ROOT) ?>
-        <?php plxUtils::testWrite(PLX_ROOT . PLX_CONFIG_PATH); ?>
-        <?php plxUtils::testWrite(PLX_ROOT . PLX_CONFIG_PATH . 'plugins/'); ?>
-        <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_articles']); ?>
-        <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_commentaires']); ?>
-        <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_statiques']); ?>
-        <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['medias']); ?>
-        <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_plugins']); ?>
-        <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_themes']); ?>
-        <?php plxUtils::testModReWrite() ?>
-        <?php plxUtils::testLibGD() ?>
-        <?php plxUtils::testLibXml() ?>
-<?php
-if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
-?>
-            <form method="post">
-                <?= plxToken::getTokenPostMethod() ?>
-                <input type="submit" name="sendmail-test" value="<?= L_MAIL_TEST ?>"/>
-            </form>
-<?php
-}
-?>
-    </ul>
-    <p><?= L_CONFIG_INFOS_NB_CATS ?><?= sizeof($plxAdmin->aCats); ?></p>
-    <p><?= L_CONFIG_INFOS_NB_STATICS ?><?= sizeof($plxAdmin->aStats); ?></p>
-    <p><?= L_CONFIG_INFOS_WRITER ?><?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
+        <p><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION; ?>
+                (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></p>
+        <ul class="unstyled-list">
+            <li><?= L_INFO_PHP_VERSION; ?> : <?= phpversion(); ?></li>
+            <?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+                <li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
+            <?php } ?>
+        </ul>
+        <ul class="unstyled-list">
+            <?php plxUtils::testWrite(PLX_ROOT) ?>
+            <?php plxUtils::testWrite(PLX_ROOT . PLX_CONFIG_PATH); ?>
+            <?php plxUtils::testWrite(PLX_ROOT . PLX_CONFIG_PATH . 'plugins/'); ?>
+            <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_articles']); ?>
+            <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_commentaires']); ?>
+            <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_statiques']); ?>
+            <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['medias']); ?>
+            <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_plugins']); ?>
+            <?php plxUtils::testWrite(PLX_ROOT . $plxAdmin->aConf['racine_themes']); ?>
+            <?php plxUtils::testModReWrite() ?>
+            <?php plxUtils::testLibGD() ?>
+            <?php plxUtils::testLibXml() ?>
+            <?php
+            if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
+                ?>
+                <form method="post">
+                    <?= plxToken::getTokenPostMethod() ?>
+                    <input type="submit" name="sendmail-test" value="<?= L_MAIL_TEST ?>"/>
+                </form>
+                <?php
+            }
+            ?>
+        </ul>
+        <p><?= L_CONFIG_INFOS_NB_CATS ?><?= sizeof($plxAdmin->aCats); ?></p>
+        <p><?= L_CONFIG_INFOS_NB_STATICS ?><?= sizeof($plxAdmin->aStats); ?></p>
+        <p><?= L_CONFIG_INFOS_WRITER ?><?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
 
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
-</div>
+        <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
+    </div>
 
 <?php
 if ($emailBuild) {
