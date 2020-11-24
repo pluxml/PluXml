@@ -70,7 +70,7 @@ if ($plxAdmin->aStats) {
                         <td>
 							<input type="checkbox" name="idStatic[]" value="<?= $k ?>" />
 							<input type="hidden" name="staticNum[]" value="<?= $k ?>" />
-						</td>
+							<input type="hidden" name="<?= $k ?>_template" value="<?= plxUtils::strCheck($v['template']) ?>" />
                         <td><?= $k ?></td>
                         <td>
 							<input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $k ?>"<?= $selected ?> />

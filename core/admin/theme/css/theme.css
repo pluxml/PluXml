@@ -741,6 +741,15 @@ a.overlay {
 
 #parametres_plugins th:nth-of-type(3) { min-width: 30rem; } /* description */
 
+/* ------------ parametres_infos.php -------- */
+
+#latest-version:not(.success) > p.extra,
+#latest-version.success > p:not(.extra),
+#latest-version.success.available > p.alert--success,
+#latest-version.success:not(.available) > p.alert--warning {
+	display: none;
+}
+
 /* ------- Popup Medias Manager ------ */
 
 body.mediasManager .aside, body.mediasManager .header {

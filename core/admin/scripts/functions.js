@@ -181,6 +181,55 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 
 })();
 
+(function() {
+	// Contrôle la sernière version de PluXml sur le dépôt
+	const latestVersion = document.getElementById('latest-version');
+	if(latestVersion != null && 'url_version' in latestVersion.dataset) {
+		if('version' in latestVersion.dataset) {
+			const currentVersion = latestVersion.dataset.version;
+
+           function compareVersion(v1, v2) {
+                if (typeof v1 != 'string' || typeof v2 != 'string') {
+                    return;
+                }
+
+                const t1 = v1.split('.');
+                const t2 = v2.split('.');
+                for (let i = 0, iMax = (t1.length < t2.length) ? t1.length : t2.length; i < iMax; i++) {
+                    const n1 = parseInt(t1[i]);
+                    const n2 = parseInt(t2[i]);
+                    if (n1 == n2) {
+                        continue;
+                    }
+                    return (n1 < n2) ? -1 : 1;
+                }
+                return (t1.length == t2.length) ? 0 : (t1.length < t2.length) ? -1 : 1;
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE) {
+                    if (this.status === 200) {
+                        console.log('Available version :', this.responseText);
+                        // tester si responseText est au bon format
+						latestVersion.classList.add('success');
+                        if (compareVersion(currentVersion, this.responseText) < 0) {
+							// new version available
+							latestVersion.classList.add('available');
+                        }
+                        return;
+                    }
+                    console.error('[check update]', this.status, this.statusText);
+                }
+            };
+            xhr.open('GET', latestVersion.dataset.url_version);
+            xhr.send();
+		} else {
+			console.error('Unknown version for this firmwre');
+		}
+	}
+})();
+
 function insTag(where, tag) {
 	var formfield = document.getElementsByName(where)['0'];
 	var tags = formfield.value.split(', ');
