@@ -30,7 +30,7 @@ select {
 }
 
 table img.thumb {
-	max-width: none;
+	max-width: 48px; /* required for .svg pictures */
 }
 
 td.txtcenter {
