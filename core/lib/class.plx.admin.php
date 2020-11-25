@@ -447,7 +447,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @param	content	tableau les informations sur les utilisateurs
 	 * @param	$save	enregistre les catégories dans un fichier .xml
 	 * @return	string
-	 * @author	Stéphane F, Pedro "P3ter" CADETE
+	 * @author	Stéphane F, Pedro "P3ter" CADETE, Jean-Pierre Pourrez "bazooka07"
 	 **/
 	public function editUsers($content, $save=false) {
 
@@ -458,47 +458,63 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) return;
 		}
 
-		# suppression
-		if(!empty($content['delete']) AND isset($content['idUser']) AND empty($content['update'])) {
+		if(!empty($content['delete']) AND !empty($content['idUser'])) {
+			# suppression
 			foreach($content['idUser'] as $user_id) {
-				if($user_id!='001') {
-					$this->aUsers[$user_id]['delete']=1;
-					$save = true;
+				if($user_id != '001') {
+					$this->aUsers[$user_id]['delete'] = 1;
 				}
 			}
-		}
-
-		# mise à jour de la liste des utilisateurs
-		elseif(!empty($content['update'])) {
-			foreach($content['userNum'] as $user_id) {
-				$username = trim($content[$user_id.'_name']);
-				if($username!='' AND trim($content[$user_id.'_login'])!='') {
-
-					# controle du mot de passe
-					$salt = plxUtils::charAleatoire(10);
-					if(trim($content[$user_id.'_password'])!='')
-						$password=sha1($salt.md5($content[$user_id.'_password']));
-					elseif(isset($content[$user_id.'_newuser'])) {
-						$this->aUsers = $archive;
-						return plxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
-					}
-					else {
-						$salt = $this->aUsers[$user_id]['salt'];
-						$password = $this->aUsers[$user_id]['password'];
+			$save = true;
+		} elseif(!empty($content['update'])) {
+			# mise à jour de la liste des utilisateurs
+			foreach($content['login'] as $user_id => $login) {
+				$username = trim($content['name'][$user_id]);
+				$password = trim($content['password'][$user_id]);
+				if($username != '' AND trim($login) != '') {
+					if(empty($password)) {
+						if(!array_key_exists($user_id, $this->aUsers)) {
+							# Mot de passe manquant pour un nouvel user
+							$this->aUsers = $archive;
+							return plxMsg::Error(L_ERR_PASSWORD_EMPTY . ' ('. L_CONFIG_USER . ' <em>' . $username . '</em>)');
+						} else {
+							$salt = $this->aUsers[$user_id]['salt'];
+							$password = $this->aUsers[$user_id]['password'];
+						}
+					} else {
+						# On crypte le nouveau mot de passe
+						$salt = plxUtils::charAleatoire(10);
+						$password = sha1($salt . md5($password));
 					}
 
 					# controle de l'adresse email
-					$email = trim($content[$user_id.'_email']);
-					if(isset($content[$user_id.'_newuser']) AND empty($email))
-						return plxMsg::Error(L_ERR_INVALID_EMAIL);
-					if(!empty($email) AND !plxUtils::checkMail($email))
-						return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					$email = filter_var(trim($content['email'][$user_id]), FILTER_VALIDATE_EMAIL);
+					if(empty($email)) {
+						if(!array_key_exists($user_id, $this->aUsers)) {
+							return plxMsg::Error(L_ERR_INVALID_EMAIL);
+						} else {
+							$email = $this->aUsers[$user_id]['email'];
+						}
+					}
 
+					if($user_id == '001') {
+						# Protect webmaster
+						$active = 1;
+						$profil = PROFIL_ADMIN;
+					} elseif(!empty($_SESSION['user']) && $_SESSION['user'] == $user_id) {
+						# Protect current user
+						$active = 1;
+						# no auto-promotion
+						$profil = $this->aUsers[$user_id]['profil'];
+					} else {
+						$active = plxUtils::getValue($content['active'][$user_id], 0);
+						$profil = plxUtils::getValue($content['profil'][$user_id], PROFIL_WRITER);
+					}
 					$this->aUsers[$user_id] = array(
-						'login'					=> trim($content[$user_id . '_login']),
-						'name'					=> trim($content[$user_id . '_name']),
-						'active'				=> (!empty($_SESSION['user']) && $_SESSION['user']==$user_id) ? $this->aUsers[$user_id]['active'] : $content[$user_id . '_active'],
-						'profil'				=> (!empty($_SESSION['user']) && $_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['profil'] : $content[$user_id . '_profil'],
+						'login'					=> trim($login),
+						'name'					=> $username,
+						'active'				=> $active,
+						'profil'				=> $profil,
 						'password'				=> $password,
 						'salt'					=> $salt,
 						'email'					=> $email,
