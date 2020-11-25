@@ -746,9 +746,32 @@ a.overlay {
 
 /* --------- statiques.php ------------- */
 
-/* #statiques th:nth-of-type(4) { min-width: 12rem; } */ /* groupe */
-#statiques th:nth-of-type(5) { min-width: 25rem; } /* title */
-#statiques th:nth-of-type(6) { min-width: 20rem; } /* url */
+#form_statics .tableheader {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+}
+
+/* #form_statics th:nth-of-type(4) { min-width: 12rem; } */ /* groupe */
+#form_statics th:nth-of-type(5) { min-width: 25rem; } /* title */
+#form_statics th:nth-of-type(6) { min-width: 20rem; } /* url */
+
+#form_statics tr:not(.new) td:nth-of-type(7),
+#form_statics tr:not(.new) td:nth-of-type(9),
+#form_statics tr.new td:nth-of-type(5),
+#form_statics tr.new td:nth-of-type(7) {
+	text-align: center;
+}
+
+#form_statics th:nth-of-type(2) {
+	padding-left: 1rem;
+}
+
+/* --------- categories.php -------------- */
+
+#form_categories .tableheader {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+}
 
 /* ------------ parametres_users.php ----- */
 

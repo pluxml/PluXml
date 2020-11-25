@@ -853,14 +853,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		}
 		else {
 			# mise à jour de la liste des pages statiques
-			foreach($content['staticNum'] as $static_id) {
-				$stat_name = $content[$static_id . '_name'];
+			foreach($content['name'] as $static_id=>$stat_name) {
 				if(!empty($stat_name)) {
-					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id . '_url']) : '';
+					$value = $content['url'][$static_id];
+					$url = !empty($value) ? plxUtils::urlify($value) : '';
 					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
 					if(empty($stat_url)) {
 						$stat_url = L_DEFAULT_NEW_STATIC_URL . '-' . $static_id;
 					}
+
 					# On vérifie si on a besoin de renommer le fichier de la page statique
 					if(!empty($this->aStats[$static_id]) AND $this->aStats[$static_id]['url'] != $stat_url) {
 						$oldfilename = PLX_ROOT . $this->aConf['racine_statiques'] . $static_id . '.' . $this->aStats[$static_id]['url'] . '.php';
@@ -869,15 +870,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 							rename($oldfilename, $newfilename);
 						}
 					}
-					$kOrder = $static_id . '_ordre';
+
 					$this->aStats[$static_id] = array(
-						'group'			=> trim($content[$static_id . '_group']),
+						'group'			=> trim($content['group'][$static_id]),
 						'name'			=> $stat_name,
 						'url'			=> $stat_url,
-						'active'		=> plxUtils::getValue($content[$static_id . '_active'], 0),
-						'menu'			=> plxUtils::getValue($content[$static_id . '_menu'], 0),
-						'ordre'			=> array_key_exists($kOrder, $content) ? intval($content[$kOrder]) : count($this->aStats),
-						'template'		=> plxUtils::getValue($content[$static_id . '_template'], 'static.php'),
+						'active'		=> plxUtils::getValue($content['active'][$static_id], 0),
+						'menu'			=> plxUtils::getValue($content['menu'][$static_id], 0),
+						'ordre'			=> plxUtils::getValue($content['order'][$static_id], count($this->aStats)),
+						'template'		=> plxUtils::getValue($content['template'][$static_id], 'static.php'),
 					);
 
 					foreach(self::EMPTY_FIELD_STATIQUES as $k) {
@@ -902,7 +903,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 			# On va trier les clés selon l'ordre choisi
 			if(sizeof($this->aStats) > 1)
-				uasort($this->aStats, function($a, $b){return $a["ordre"]>$b["ordre"];});
+				uasort($this->aStats, function($a, $b) { return $a['order']>$b['order']; });
 		}
 
 		if(empty($action)) { return; }
@@ -959,6 +960,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			return plxMsg::Info(L_SAVE_SUCCESSFUL);
 		}
 
+		# Echec ! On récupère les anciennes valeurs.
 		$this->aStats = $save;
 		return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_STATICS'));
 	}

@@ -4,7 +4,7 @@
  * Edition des pages statiques
  *
  * @package PLX
- * @author    Stephane F et Florent MONTHEL
+ * @author    Stephane F, Florent MONTHEL, Jean-Pierre Pourrez 'bazooka07'
  **/
 
 include 'prepend.php';
@@ -40,14 +40,22 @@ include 'top.php';
         <div class="mtm pas tableheader">
             <?= PlxToken::getTokenPostMethod() ?>
             <input class="btn--primary" type="submit" name="update" value="<?= L_STATICS_UPDATE ?>"/>
+<?php
+if ($_SESSION['profil'] <= PROFIL_MODERATOR) {
+?>
+			<span class="spacer">&nbsp;</span>
+			<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
+<?php
+}
+?>
         </div>
         <div class="scrollable-table">
-            <table class="table mb0" data-rows-num='name$="_ordre"'>
+            <table class="table mb0" data-rows-num='name^="order"'>
                 <thead>
 	                <tr>
 	                    <th class="checkbox"><input type="checkbox" /></th>
 	                    <th>#</th>
-	                    <th><?= L_HOMEPAGE ?></th>
+	                    <th><i class="icon-home-1" title="<?= L_HOMEPAGE ?>"></i></th>
 	                    <th><?= L_STATICS_GROUP ?></th>
 	                    <th><?= L_TITLE ?></th>
 	                    <th><?= L_STATICS_URL ?></th>
@@ -59,38 +67,42 @@ include 'top.php';
                 </thead>
                 <tbody>
 <?php
-# Initialisation de l'ordre
-$ordre = 1;
 # Si on a des pages statiques
 if ($plxAdmin->aStats) {
-	foreach ($plxAdmin->aStats as $k => $v) { # Pour chaque page statique
-		$selected = $plxAdmin->aConf['homestatic'] == $k ? ' checked="checked"' : '';
+	# Initialisation de l'ordre
+	$order = 1;
+
+	# On boucle sur les pages statiques
+	foreach ($plxAdmin->aStats as $staticId => $v) {
+		# on teste si page d'accueil
+		$selected = $plxAdmin->aConf['homestatic'] == $staticId ? ' checked="checked"' : '';
+
+		$id = 'id_' . $staticId;
 ?>
                     <tr>
                         <td>
-							<input type="checkbox" name="idStatic[]" value="<?= $k ?>" />
-							<input type="hidden" name="staticNum[]" value="<?= $k ?>" />
-							<input type="hidden" name="<?= $k ?>_template" value="<?= plxUtils::strCheck($v['template']) ?>" />
-                        <td><?= $k ?></td>
-                        <td>
-							<input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $k ?>"<?= $selected ?> />
-                        </td>
-                        <td><?php PlxUtils::printInput($k . '_group', PlxUtils::strCheck($v['group']), 'text', '-100'); ?></td>
-                        <td><?php PlxUtils::printInput($k . '_name', PlxUtils::strCheck($v['name']), 'text', '-255'); ?></td>
-                        <td><?php PlxUtils::printInput($k . '_url', $v['url'], 'text', '-255'); ?></td>
-                        <td><?php PlxUtils::printSelect($k . '_active', array('1' => L_YES, '0' => L_NO), $v['active']); ?></td>
-                        <td><?php PlxUtils::printInput($k . '_ordre', $ordre, 'number', '2-3'); ?></td>
-                        <td><?php PlxUtils::printSelect($k . '_menu', array('oui' => L_DISPLAY, 'non' => L_HIDE), $v['menu']); ?></td>
+							<input type="checkbox" name="idStatic[]" value="<?= $staticId ?>" id="<?= $id ?>" />
+							<input type="hidden" name="template[<?= $staticId ?>]" value="<?= plxUtils::strCheck($v['template']) ?>" />
+						</td>
+                        <td><label for="<?= $id ?>"><?= $staticId ?></label></td>
+                        <td><input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $staticId ?>"<?= $selected ?> /></td>
+                        <td><input type="text" name="group[<?= $staticId ?>]" value="<?= PlxUtils::strCheck($v['group']) ?>" maxlength="64" /></td>
+                        <td><input type="text" name="name[<?= $staticId ?>]" value="<?= PlxUtils::strCheck($v['name']) ?>" maxlength="128" required /></td>
+                        <td><input type="text" name="url[<?= $staticId ?>]" value="<?= PlxUtils::strCheck($v['url']) ?>" maxlength="128" /></td>
+                        <td><input type="checkbox" name="active[<?= $staticId ?>]" class="switch" value="1" <?= !empty($v['active']) ? 'checked' : '' ?> /></td>
+                        <td><input type="number" name="order[<?= $staticId ?>]" value="<?= $order ?>" maxlength="3" /></td>
+                        <td><input type="checkbox" name="menu[<?= $staticId ?>]" class="switch" value="1" <?= !empty($v['menu']) ? 'checked' : '' ?> /></td>
                         <td>
 <?php
+		# boutons pour éditer et visualiser la page statique
 		$url = $v['url'];
 		if (!PlxUtils::checkSite($url)) {
 ?>
-							<button><a href="statique.php?p=<?= $k ?>" title="<?= L_STATICS_SRC_TITLE ?>"><i class="icon-pencil"></i></a></button>
+							<button><a href="statique.php?p=<?= $staticId ?>" title="<?= L_STATICS_SRC_TITLE ?>"><i class="icon-pencil"></i></a></button>
 <?php
 			if ($v['active']) {
 ?>
-							<button><a href="<?= $plxAdmin->urlRewrite('?static' . intval($k) . '/' . $v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> <?= PlxUtils::strCheck($v['name']) ?> <?= L_STATIC_ON_SITE ?>"><i class="icon-eye"></i></a></button>
+							<button><a href="<?= $plxAdmin->urlRewrite('?static' . intval($staticId) . '/' . $v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> <?= PlxUtils::strCheck($v['name']) ?> <?= L_STATIC_ON_SITE ?>"><i class="icon-eye"></i></a></button>
 <?php
 			}
 		} elseif ($v['url'][0] == '?') {
@@ -106,44 +118,30 @@ if ($plxAdmin->aStats) {
 						</td>
 					</tr>
 <?php
-                        $ordre++;
+		$order++;
 	}
-	# On récupère le dernier identifiant
+
+	# On récupère le dernier identifiant et on fait un tri inversé
 	$a = array_keys($plxAdmin->aStats);
 	rsort($a);
 } else {
 	$a['0'] = 0;
 }
-$new_staticid = str_pad($a['0'] + 1, 3, "0", STR_PAD_LEFT);
+$newStaticId = str_pad($a['0'] + 1, 3, '0', STR_PAD_LEFT);
 ?>
 	                <tr class="new">
 	                    <td colspan="3"><?= L_STATICS_NEW_PAGE ?></td>
-	                    <td>
-	                        <input type="hidden" name="staticNum[]" value="<?= $new_staticid ?>" />
-	                        <?php PlxUtils::printInput($new_staticid . '_group', '', 'text', '-100'); ?>
-	                    </td>
-	                    <td>
-	                        <?php PlxUtils::printInput($new_staticid . '_name', '', 'text', '-255', '', 'w100'); ?>
-	                        <?php PlxUtils::printInput($new_staticid . '_template', 'static.php', 'hidden'); ?>
-	                    </td>
-	                    <td><?php PlxUtils::printInput($new_staticid . '_url', '', 'text', '-255'); ?></td>
-	                    <td><?php PlxUtils::printSelect($new_staticid . '_active', array('1' => L_YES, '0' => L_NO), '0'); ?></td>
-	                    <td><?php PlxUtils::printInput($new_staticid . '_ordre', $ordre, 'number', '2-3'); ?></td>
-	                    <td><?php PlxUtils::printSelect($new_staticid . '_menu', array('oui' => L_DISPLAY, 'non' => L_HIDE), '1'); ?></td>
+                        <td><input type="text" name="group[<?= $newStaticId ?>]" value="" maxlength="64" /></td>
+                        <td><input type="text" name="name[<?= $newStaticId ?>]" value="" maxlength="128" /></td><?php /* not required for a new item */ ?>
+                        <td><input type="text" name="url[<?= $newStaticId ?>]" value="" maxlength="128" /></td>
+                        <td><input type="checkbox" name="active[<?= $newStaticId ?>]" class="switch" $value="1" /></td>
+                        <td><input type="number" name="order[<?= $newStaticId ?>]" value="<?= $order ?>" maxlength="3" /></td>
+                        <td><input type="checkbox" name="menu[<?= $newStaticId ?>]" class="switch" $value="1" /></td>
 	                    <td>&nbsp;</td>
 	                </tr>
 				</tbody>
             </table>
         </div>
-<?php
-if ($_SESSION['profil'] <= PROFIL_MODERATOR) :
-?>
-        <div class="mbm pas tablefooter">
-			<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
-        </div>
-<?php
-endif;
-?>
     </form>
 </div>
 

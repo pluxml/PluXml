@@ -72,6 +72,7 @@ if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
     <p><?= L_CONFIG_INFOS_NB_CATS ?><?= sizeof($plxAdmin->aCats); ?></p>
     <p><?= L_CONFIG_INFOS_NB_STATICS ?><?= sizeof($plxAdmin->aStats); ?></p>
     <p><?= L_CONFIG_INFOS_WRITER ?><?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
+    <p><a href="theme/fontello/demo.html" target="_blank" class="button">Fontello</a></p>
 
     <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 </div>

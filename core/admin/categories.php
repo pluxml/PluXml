@@ -44,11 +44,13 @@ include 'top.php';
 </div>
 
 <div class="admin">
-    <form action="categories.php" method="post" id="form_categories" data-chk="idCategory[]">
+    <form id="form_categories" method="post" id="form_categories" data-chk="idCategory[]">
         <div class="mtm pas tableheader">
             <?= PlxToken::getTokenPostMethod() ?>
             <!--<input type="submit" name="update" value="<?= L_CAT_APPLY_BUTTON ?>" />-->
             <button class="btn--primary" type="submit"><?= L_CAT_APPLY_BUTTON ?></button>
+            <span class="spacer">&nbsp;</span>
+			<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
         </div>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCategoriesTop')) # Hook Plugins ?>
@@ -58,7 +60,7 @@ include 'top.php';
 		            <tr>
 		                <th class="checkbox"><input type="checkbox" /></th>
 		                <th>#</th>
-		                <th class="w100"><?= L_CAT_LIST_NAME ?></th>
+		                <th><?= L_CAT_LIST_NAME ?></th>
 		                <th><?= L_URL ?></th>
 		                <th><?= L_ACTIVE ?></th>
 		                <th><?= L_ARTICLES_SORT ?></th>
@@ -84,7 +86,7 @@ if ($plxAdmin->aCats):
 	                    <td><?php PlxUtils::printSelect($k . '_tri', $aTri, $v['tri']); ?></td>
 	                    <td><?php PlxUtils::printInput($k . '_bypage', $v['bypage'], 'number', '-3'); ?></td>
 	                    <td><?php PlxUtils::printInput($k . '_ordre', $ordre, 'number', '-3'); ?></td>
-	                    <td><?php PlxUtils::printSelect($k . '_menu', array('oui' => L_DISPLAY, 'non' => L_HIDE), $v['menu']); ?></td>
+	                    <td><?php PlxUtils::printSelect($k . '_menu', array('oui' => L_YES, 'non' => L_NO), $v['menu']); ?></td>
 	                    <td><button><a href="categorie.php?p=<?= $k ?>"><i class="icon-cog-1"></i></a></button></td>
 					</tr>
 <?php
@@ -113,15 +115,12 @@ $new_catid = str_pad($a['0'] + 1, 3, "0", STR_PAD_LEFT);
 	                    <td><?php PlxUtils::printSelect($new_catid . '_tri', $aTri, $plxAdmin->aConf['tri']); ?></td>
 	                    <td><?php PlxUtils::printInput($new_catid . '_bypage', $plxAdmin->aConf['bypage'], 'number', '-3'); ?></td>
 	                    <td><?php PlxUtils::printInput($new_catid . '_ordre', $ordre, 'number', '-3'); ?></td>
-	                    <td><?php PlxUtils::printSelect($new_catid . '_menu', array('oui' => L_DISPLAY, 'non' => L_HIDE), '1'); ?></td>
+	                    <td><?php PlxUtils::printSelect($new_catid . '_menu', array('oui' => L_YES, 'non' => L_NO), '1'); ?></td>
 	                    <td>&nbsp;</td>
 		            </tr>
 	            </tbody>
 	        </table>
 		</div>
-        <div class="mbm pas tablefooter">
-			<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
-        </div>
     </form>
 </div>
 
