@@ -347,6 +347,17 @@ input[type="number"] {
 }
 
 /* ==== COMPONENTS ==== */
+
+form .tableheader.has-spacer {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+}
+
+form .tableheader.has-spacer-2 {
+	display: grid;
+	grid-template-columns: auto 1fr auto 1fr auto;
+}
+
 .table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -746,12 +757,6 @@ a.overlay {
 
 /* --------- statiques.php ------------- */
 
-#form_statics .tableheader {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-}
-
-/* #form_statics th:nth-of-type(4) { min-width: 12rem; } */ /* groupe */
 #form_statics th:nth-of-type(5) { min-width: 25rem; } /* title */
 #form_statics th:nth-of-type(6) { min-width: 20rem; } /* url */
 
@@ -767,11 +772,6 @@ a.overlay {
 }
 
 /* --------- categories.php -------------- */
-
-#form_categories .tableheader {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-}
 
 #form_categories tr:not(.new) td:nth-of-type(5),
 #form_categories tr:not(.new) td:nth-of-type(9),

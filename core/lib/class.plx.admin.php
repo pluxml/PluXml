@@ -893,7 +893,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						'active'		=> plxUtils::getValue($content['active'][$static_id], 0),
 						'menu'			=> plxUtils::getValue($content['menu'][$static_id], 0),
 						'ordre'			=> plxUtils::getValue($content['order'][$static_id], count($this->aStats)),
-						'template'		=> plxUtils::getValue($content['template'][$static_id], 'static.php'),
+						'template'		=> plxUtils::getValue($save[$static_id]['template'], 'static.php'),
 					);
 
 					foreach(self::EMPTY_FIELD_STATIQUES as $k) {
@@ -918,7 +918,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 			# On va trier les clés selon l'ordre choisi
 			if(sizeof($this->aStats) > 1)
-				uasort($this->aStats, function($a, $b) { return $a['order']>$b['order']; });
+				uasort($this->aStats, function($a, $b) { return $a['ordre']>$b['ordre']; });
 		}
 
 		if(empty($action)) { return; }

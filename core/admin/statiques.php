@@ -37,7 +37,7 @@ include 'top.php';
 <div class="admin mtm">
     <form method="post" id="form_statics"  data-chk="idStatic[]">
         <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
-        <div class="mtm pas tableheader">
+        <div class="mtm pas tableheader has-spacer">
             <?= PlxToken::getTokenPostMethod() ?>
             <input class="btn--primary" type="submit" name="update" value="<?= L_STATICS_UPDATE ?>"/>
 <?php
@@ -80,10 +80,7 @@ if ($plxAdmin->aStats) {
 		$id = 'id_' . $staticId;
 ?>
                     <tr>
-                        <td>
-							<input type="checkbox" name="idStatic[]" value="<?= $staticId ?>" id="<?= $id ?>" />
-							<input type="hidden" name="template[<?= $staticId ?>]" value="<?= plxUtils::strCheck($v['template']) ?>" />
-						</td>
+                        <td><input type="checkbox" name="idStatic[]" value="<?= $staticId ?>" id="<?= $id ?>" /></td>
                         <td><label for="<?= $id ?>"><?= $staticId ?></label></td>
                         <td><input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $staticId ?>"<?= $selected ?> /></td>
                         <td><input type="text" name="group[<?= $staticId ?>]" value="<?= PlxUtils::strCheck($v['group']) ?>" maxlength="64" /></td>
