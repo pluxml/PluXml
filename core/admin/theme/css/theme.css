@@ -773,6 +773,17 @@ a.overlay {
 	grid-template-columns: auto 1fr auto;
 }
 
+#form_categories tr:not(.new) td:nth-of-type(5),
+#form_categories tr:not(.new) td:nth-of-type(9),
+#form_categories tr.new td:nth-of-type(4),
+#form_categories tr.new td:nth-of-type(8) {
+	text-align: center;
+}
+
+#form_categories th:nth-of-type(2) {
+	padding-left: 1rem;
+}
+
 /* ------------ parametres_users.php ----- */
 
 #parametres_users th:nth-of-type(3) { min-width: 20rem; } /* name */

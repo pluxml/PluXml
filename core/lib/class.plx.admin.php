@@ -651,74 +651,81 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		$archive = $this->aCats;
 
-		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idCategory']) AND empty($content['update'])) {
+		if(isset($content['delete']) and !empty($content['idCategory'])) {
+			# suppression
 			foreach($content['idCategory'] as $cat_id) {
-				// change article category to the default category id
-				foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
-					$filenameArray = explode(".", $filename);
-					$filenameArrayCat = explode(",", $filenameArray[1]);
-					if (in_array($cat_id, $filenameArrayCat)) {
-						$key = array_search($cat_id, $filenameArrayCat);
-						if(count(preg_grep('[0-9]{3}', $filenameArrayCat)) > 1) {
-							// this article has more than one category
-							unset($filenameArrayCat[$key]);
+				if(array_key_exists($cat_id, $this->aCats)) {
+					// change article category to the default category id
+					foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
+						$filenameArray = explode('.', $filename);
+						$filenameArrayCats = explode(',', $filenameArray[1]);
+						if (in_array($cat_id, $filenameArrayCats)) {
+							if(count($filenameArrayCats) > 1) {
+								// this article has more than one category
+								$key = array_search($cat_id, $filenameArrayCats);
+								unset($filenameArrayCat[$key]);
+							}
+							else {
+								$filenameArrayCat[0] = '000';
+							}
+							$filenameArray[1] = implode(',', $filenameArrayCat);
+							$filenameNew = implode('.', $filenameArray);
+							rename(PLX_ROOT . $this->aConf['racine_articles'] . $filename, PLX_ROOT . $this->aConf['racine_articles'] . $filenameNew);
 						}
-						else {
-							$filenameArrayCat[$key] = '000';
-						}
-						$filenameArray[1] = implode(",", $filenameArrayCat);
-						$filenameNew = implode(".", $filenameArray);
-						rename(PLX_ROOT.$this->aConf['racine_articles'].$filename, PLX_ROOT.$this->aConf['racine_articles'].$filenameNew);
 					}
-				}
-				unset($this->aCats[$cat_id]);
-				$save = true;
-			}
-		}
-		# Ajout d'une nouvelle catégorie à partir de la page article
-		elseif(!empty($content['new_category'])) {
-			$cat_name = $content['new_catname'];
-			if(!empty($cat_name)) {
-				$cat_id = $this->nextIdCategory();
-				$this->aCats[$cat_id] = array(
-					'name'		=> $cat_name,
-					'url'		=> plxUtils::urlify($cat_name),
-					'tri'		=> $this->aConf['tri'],
-					'bypage'	=> $this->aConf['bypage'],
-					'menu'		=> 1,
-					'active'	=> 1,
-					'ordre'		=> 'asc',
-					'homepage'	=> 1,
-					'template'	=> 'categorie.php',
-				);
-				foreach(self::EMPTY_FIELDS_CATEGORIE as $k) {
-					$this->aCats[$cat_id][$k] = '';
-				}
 
-				if(!empty($this->plxPlugins)) {
-					# Hook plugins
-					eval($this->plxPlugins->callHook('plxAdminEditCategoriesNew'));
-					$save = true;
+					unset($this->aCats[$cat_id]);
 				}
 			}
-		}
-		# mise à jour de la liste des catégories
-		elseif(!empty($content['update'])) {
-			foreach($content['catNum'] as $cat_id) {
-				$cat_name = $content[$cat_id.'_name'];
-				if($cat_name!='') {
-					$tmpstr = (!empty($content[$cat_id.'_url'])) ? $content[$cat_id.'_url'] : $cat_name;
-					$cat_url = plxUtils::urlify($tmpstr);
-					if(empty($cat_url)) $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+
+			$save = true;
+		} elseif(isset($content['new_category'])) {
+			# Ajout d'une nouvelle catégorie à partir de la page article
+			$cat_name = trim($content['new_catname']);
+			if(empty($cat_name)) { return; }
+
+			$cat_id = $this->nextIdCategory();
+			$this->aCats[$cat_id] = array(
+				'name'		=> $cat_name,
+				'url'		=> plxUtils::urlify($cat_name),
+				'tri'		=> $this->aConf['tri'],
+				'bypage'	=> $this->aConf['bypage'],
+				'menu'		=> 1,
+				'active'	=> 1,
+				'ordre'		=> 'asc',
+				'homepage'	=> 1,
+				'template'	=> 'categorie.php',
+			);
+			foreach(self::EMPTY_FIELDS_CATEGORIE as $k) {
+				$this->aCats[$cat_id][$k] = '';
+			}
+
+			if(!empty($this->plxPlugins)) {
+				# Hook plugins
+				eval($this->plxPlugins->callHook('plxAdminEditCategoriesNew'));
+			}
+
+			$save = true;
+		} elseif(isset($content['update'])) {
+			# mise à jour de la liste des catégories
+			foreach($content['name'] as $cat_id=>$cat_name) {
+				if(trim($cat_name) != '') {
+					$cat_url = plxUtils::urlify(plxUtils::getValue($content['url'][$cat_id], $cat_name));
+					if(empty($cat_url)) {
+						$cat_url = L_DEFAULT_NEW_CATEGORY_URL . '-' . intval($cat_id);
+					}
+					$byPage = intval($content['bypage'][$cat_id]);
+					if(!empty($byPage) || $byPage < 0) {
+						$byPage = intval($this->aConf['bypage']);
+					}
 					$this->aCats[$cat_id] = array(
 						'name'		=> $cat_name,
 						'url'		=> $cat_url,
-						'tri'		=> $content[$cat_id.'_tri'],
-						'bypage'	=> intval($content[$cat_id.'_bypage']),
-						'menu'		=> $content[$cat_id.'_menu'],
-						'active'	=> $content[$cat_id.'_active'],
-						'ordre'		=> intval($content[$cat_id.'_ordre']),
+						'tri'		=> $content['tri'][$cat_id],
+						'bypage'	=> $byPage,
+						'menu'		=> plxUtils::getValue($content['menu'][$cat_id], 0),
+						'active'	=> plxUtils::getValue($content['active'][$cat_id], 0),
+						'ordre'		=> intval($content['order'][$cat_id]),
 						'homepage'	=> plxUtils::getValue($this->aCats[$cat_id]['homepage'], 1),
 						'template'	=> plxUtils::getValue($this->aCats[$cat_id]['template'], 'categorie.php'),
 					);
@@ -732,15 +739,23 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					if(!empty($this->plxPlugins)) {
 						# Hook plugins
 						eval($this->plxPlugins->callHook('plxAdminEditCategoriesUpdate'));
-						$save = true;
 					}
 				}
+
 			}
-			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aCats)>1) uasort($this->aCats, function($a, $b) { return $a["ordre"]>$b["ordre"]; });
+
+			if(sizeof($this->aCats) > 1) {
+				# Il faut trier les clés selon l'ordre choisi.
+				uasort($this->aCats, function($a, $b) { return $a['ordre'] > $b['ordre']; });
+			}
+
+			$save = true;
 		}
 
-		if(empty($save)) { return; }
+		if(!$save) {
+			# Nothing to do !
+			return;
+		}
 
 		# sauvegarde
 		$cats_name = array();
