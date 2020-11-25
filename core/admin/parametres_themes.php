@@ -8,7 +8,6 @@
  **/
 
 include 'prepend.php';
-include PLX_CORE . 'lib/PlxThemes.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -26,19 +25,17 @@ if (!empty($_POST)) {
 # On inclut le header
 include 'top.php';
 
-$plxThemes = new PlxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
+$plxThemes = new plxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
 
 ?>
-<form action="parametres_themes.php" method="post" id="form_settings">
+<form method="post" id="form_themes">
     <div class="adminheader autogrid">
         <div>
             <h2 class="h3-like"><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
             <p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
         </div>
         <div class="mtm txtright">
-            <input class="inbl btn--primary" onclick="window.location.assign('parametres_edittpl.php');return false"
-                   type="submit"
-                   value="<?= L_TEMPLATES_EDIT ?>" />
+            <a class="inbl button btn--primary" href="parametres_edittpl.php"><?= L_TEMPLATES_EDIT ?></a>
         </div>
     </div>
 
@@ -51,7 +48,7 @@ if ($plxThemes->themesList):
 	foreach ($plxThemes->themesList as $theme):
         $currentTheme = ($theme == $plxAdmin->aConf['style']) ? 'activeTheme' : '';
 ?>
-                    <button type="radio" name="style" value="<?= $theme ?>">
+                    <button type="radio" name="style" value="<?= $theme ?>" class="<?= ($theme == $plxThemes->activeTheme) ? 'active' : ''; ?>">
                         <div class="theme">
                             <p><?= $plxThemes->getImgPreview($theme) ?></p>
 <?php
@@ -93,13 +90,15 @@ endif;
         </div>
     </div>
 
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
-    <?php echo plxToken::getTokenPostMethod() ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
 
+					<?= plxToken::getTokenPostMethod() ?>
 </form>
 
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
+
 # On inclut le footer
 include 'foot.php';

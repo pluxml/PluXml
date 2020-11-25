@@ -182,7 +182,7 @@ input[type="number"] {
     background-color: var(--backsection);
 }
 
-.section a {
+.section a:not(.button) {
     color: var(--primary);
     text-decoration: none;
 }
@@ -268,52 +268,6 @@ input[type="number"] {
 
 .section .admin ul.configMenu li a:hover {
     text-decoration: none;
-}
-
-.section .themes button {
-    padding: 0px;
-}
-
-.section .theme {
-    position: relative;
-}
-
-.section .theme img {
-    display: block;
-    width: 100%;
-    height: 250px;
-}
-
-.section .theme .themeOverlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: #fff;
-}
-
-.section .theme:hover .themeOverlay {
-    opacity: 0.9;
-}
-
-.section .theme .themeDetails {
-    position: absolute;
-    top: 50%;
-    padding: 1.5rem 1rem 0;
-    -webkit-transform: translateY(-50%, -50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    text-align: center;
-    white-space: normal;
-}
-
-.section .themes .title {
-    padding: 0px 10px;
 }
 
 .section .tableheader {
@@ -793,7 +747,7 @@ a.overlay {
 
 /* ------------ parametres_plugins.php ----- */
 
-#parametres_plugins th:nth-of-type(3) { min-width: 30rem; } /* description */
+#parametres_plugins th:nth-of-type(3) { min-width: 36rem; } /* description */
 #plugins-table tbody tr.hide { display: none; }
 
 /* ------------ parametres_infos.php -------- */
@@ -805,6 +759,86 @@ a.overlay {
 	display: none;
 }
 
+/* ------------- parametres_themes.php ----- */
+
+#form_themes .themes .title {
+    padding: 0;
+}
+
+#form_themes .themes > button {
+	display: flex;
+	flex-direction: column;
+    padding: 0.3rem 0.75rem;
+    border: 2px solid transparent;
+}
+
+#form_themes .themes > button > p {
+	margin: 0.75rem 0 0.25rem;
+}
+
+#form_themes .themes > button.active {
+	border-color: #000;
+}
+
+#form_themes .themes > button > div:first-of-type {
+	width: 100%;
+	margin: auto 0;
+	align-self: center;
+}
+
+#form_themes .theme {
+    position: relative;
+}
+
+#form_themes img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+    height: auto;
+	border: 2px inset #e9ebee;
+}
+
+#form_themes .theme p {
+	margin: 0;
+}
+
+#form_themes .theme .themeOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    opacity: 0;
+    transition: .5s ease opacity;
+    background-color: #fff;
+}
+
+#form_themes .theme:hover .themeOverlay {
+    opacity: 0.9;
+}
+
+#form_themes .theme .themeDetails {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    padding: 1.5rem 1rem 0;
+    -webkit-transform: translateY(-50%, -50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+    white-space: normal;
+}
+
+#form_themes .btn--primary {
+	color: #fff !important;
+	text-decoration: none;
+}
+#form_themes .btn--primary:hover {
+	color: #fff;
+}
 /* ------- Popup Medias Manager ------ */
 
 body.mediasManager .aside, body.mediasManager .header {
