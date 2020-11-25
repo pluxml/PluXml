@@ -168,6 +168,7 @@ class plxUtils
      * @param class        class css à utiliser pour formater l'affichage
      * @param id            si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
      * @return    self
+     * @author    unknow, Jean-Pierre Pourrez "bazooka07"
      **/
     public static function printSelect($name, $array, $selected = '', $readonly = false, $class = '', $id = true)
     {
@@ -175,32 +176,43 @@ class plxUtils
         if (!is_array($array)) $array = array();
 
         if (is_bool($id))
-            $id = ($id ? ' id="id_' . $name . '"' : '');
+            $id = $id ? ' id="id_' . $name . '"' : '';
         else
-            $id = ($id != '' ? ' id="' . $id . '"' : '');
+            $id = ($id != '') ? ' id="' . $id . '"' : '';
 
-        if ($readonly)
-            echo '<select' . $id . ' name="' . $name . '" disabled="disabled" class="readonly' . ($class != '' ? ' ' . $class : '') . '">' . "\n";
-        else
-            echo '<select' . $id . ' name="' . $name . '"' . ($class != '' ? ' class="' . $class . '"' : '') . '>' . "\n";
-        foreach ($array as $a => $b) {
+        if ($readonly) {
+			$disabled = 'disabled="disabled"';
+			$className = empty(trim($class)) ? 'readonly' : $class . ' readonly';
+		} else {
+			$disabled = '';
+			$className = trim($class);
+		}
+		$className = !empty($className) ? 'class="' . $className. '"' : '';
+?>
+<select id="id_<?= $name ?>" name="<?= $name ?>" <?= $disabled . ' ' . $className ?>>
+<?php
+       foreach ($array as $a => $b) {
             if (is_array($b)) {
-                echo '<optgroup label="' . $a . '">' . "\n";
-                foreach ($b as $c => $d) {
-                    if ($c == $selected)
-                        echo "\t" . '<option value="' . $c . '" selected="selected">' . $d . '</option>' . "\n";
-                    else
-                        echo "\t" . '<option value="' . $c . '">' . $d . '</option>' . "\n";
-                }
-                echo '</optgroup>' . "\n";
+?>
+	<optgroup label="<?= $a ?>">
+<?php
+			foreach ($b as $c => $d) {
+?>
+		<option value="<?= $c ?>" <?= ($c == $selected) ? 'selected' : '' ?>><?= $d ?></option>
+<?php
+			}
+?>
+	</optgroup>
+<?php
             } else {
-                if (strval($a) == $selected)
-                    echo "\t" . '<option value="' . $a . '" selected="selected">' . $b . '</option>' . "\n";
-                else
-                    echo "\t" . '<option value="' . $a . '">' . $b . '</option>' . "\n";
+?>
+	<option value="<?= $a ?>" <?= ($a == $selected) ? 'selected' : '' ?>><?= $b ?></option>
+<?php
             }
         }
-        echo '</select>' . "\n";
+?>
+</select>
+<?php
     }
 
     /**

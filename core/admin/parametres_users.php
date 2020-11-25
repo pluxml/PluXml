@@ -60,7 +60,6 @@ if ($plxAdmin->aUsers) {
 		$id = 'id_' . $userId;
 		if (!$infos['delete']) {
 			$readonly = ($userId == '001');
-			$className = ($userId == '001') ? 'readonly' : '';
 ?>
 					<tr>
 						<td><input type="checkbox" name="idUser[]" value="<?= $userId ?>" id="<?= $id ?>" /></td>
@@ -69,7 +68,9 @@ if ($plxAdmin->aUsers) {
 						<td><input type="text" name="login[<?= $userId ?>]" value="<?= plxUtils::strCheck($infos['login']) ?>" maxlength="32" required /></td>
 						<td><?php plxUtils::printInput('password[' . $userId . ']', '', 'password', '', false, '', '', 'autocomplete="new-password" onkeyup="pwdStrength(this.id)"'); ?></td>
 						<td><input type="email" name="email[<?= $userId ?>]" value="<?= plxUtils::strCheck($infos['email']) ?>" maxlength="64" /></td>
-						<td><?php plxUtils::printSelect('profil[' . $userId . ']', PROFIL_NAMES, $infos['profil'], $readonly, $className); ?></td>
+						<td>
+<?php plxUtils::printSelect('profil[' . $userId . ']', PROFIL_NAMES, $infos['profil'], $readonly); ?>
+						</td>
 						<td><input type="checkbox" name="active[<?= $userId ?>]" value="1" <?= !empty($infos['active']) ? 'checked' : '' ?> class="switch" <?= $readonly ? 'disabled' : '' ?> /></td>
 						<td><button><a href="user.php?p=<?= $userId ?>"><i class="icon-cog-1"></i></a></button></td>
 					</tr>
@@ -92,7 +93,9 @@ $newUserId = str_pad($a[0] + 1, 3, '0', STR_PAD_LEFT);
 						<td><input type="text" name="login[<?= $newUserId ?>]" value="" maxlength="32" /></td>
 						<td><?php plxUtils::printInput('password[' . $newUserId . ']', '', 'password', '', false, '', '', 'autocomplete="new-password" onkeyup="pwdStrength(this.id)"'); ?></td>
 						<td><input type="email" name="email[<?= $newUserId ?>]" value="" maxlength="64" /></td>
-						<td><?php plxUtils::printSelect('profil[' . $newUserId . ']', PROFIL_NAMES, $infos['profil']); ?></td>
+						<td>
+<?php plxUtils::printSelect('profil[' . $newUserId . ']', PROFIL_NAMES, $infos['profil']); ?>
+						</td>
 						<td><input type="checkbox" name="active[<?= $newUserId ?>]" value="1" class="switch" /></td>
 	                    <td>&nbsp;</td>
 	                </tr>
