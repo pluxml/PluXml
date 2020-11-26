@@ -501,7 +501,7 @@ const L_MENU_CATEGORIES_TITLE = 'Lista i edytor kategorii';
 const L_MENU_CONFIG_TITLE = 'Skonfiguruj PluXml';
 const L_MENU_CONFIG = 'Ustawienia';
 const L_MENU_PROFIL_TITLE = 'Zarządzaj profilami użytkowników';
-const L_WARNING_INSTALLATION_FILE = 'Plik install.php znajduje się w katalogu głównym PluXml. <br />Ze względów bezpieczeństwa zaleca się, aby go <a class="lnkdelete" href="?del=install">usunąć</a>.';
+const L_WARNING_INSTALLATION_FILE = 'Plik install.php znajduje się w katalogu głównym PluXml. ' . PHP_EOL .'Ze względów bezpieczeństwa zaleca się, aby go <a class="lnkdelete" href="?del=install">usunąć</a>.';
 
 // user.php
 const L_USER_UNKNOWN = 'Nieznany użytkownik';

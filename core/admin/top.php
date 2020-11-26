@@ -152,8 +152,8 @@ echo implode(PHP_EOL, $menus) . PHP_EOL;
 <?php
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' and is_file(PLX_ROOT . 'install.php')):
 ?>
-		<div id="install-warning">
-			<p class="alert--danger mlm mrl"><?= L_WARNING_INSTALLATION_FILE ?></p>
+		<div id="install-warning" class="alert--danger">
+			<?= plxUtils::nl2p(L_WARNING_INSTALLATION_FILE) ?>
 		</div>
 <?php
 endif;

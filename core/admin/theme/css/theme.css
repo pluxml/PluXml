@@ -11,7 +11,7 @@
 */
 :root {
     --backaside: #202c36;
-    --backaside2: #283440;
+    --backaside2: #5b5f64 /* #283440 */;
     --backasideborder: #42494f;
     --backsection: #f5f6f6;
     --backheader: #fff;
@@ -58,6 +58,10 @@ input[type="number"] {
 
 fieldset {
 	padding: 1rem 0.5rem;
+}
+
+.table label {
+	margin: 0;
 }
 
 /* ==== AUTHENTIFICATION ==== */
@@ -200,7 +204,14 @@ fieldset {
 
 #install-warning {
 	position: fixed;
-	right: 0;
+	right: 1rem;
+	margin: 0.5rem 0 0;
+}
+
+#install-warning > * {
+	margin: 0;
+	text-align: justify;
+	text-indent: 1.5rem;
 }
 
 .section a:not(.button) {

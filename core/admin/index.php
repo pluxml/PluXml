@@ -223,8 +223,8 @@ if ($arts) { # On a des articles
 		# On affiche la ligne
 ?>
 					<tr>
-						<td><input type="checkbox" name="idArt[]" value="<?= $idArt ?>" /></td>
-						<td><?= $idArt ?></td>
+						<td><input type="checkbox" name="idArt[]" value="<?= $idArt ?>" id="id_<?= $idArt ?>" /></td>
+						<td><label for="id_<?= $idArt ?>"><?= $idArt ?></label></td>
 						<td><?= PlxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?></td>
 						<td>
 							<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>">

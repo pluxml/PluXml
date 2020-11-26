@@ -503,7 +503,7 @@ const L_MENU_CATEGORIES_TITLE = 'Create, manage, edit categories';
 const L_MENU_CONFIG_TITLE = 'Configure PluXml';
 const L_MENU_CONFIG = 'Parameters';
 const L_MENU_PROFIL_TITLE = 'Manage your user profiles';
-const L_WARNING_INSTALLATION_FILE = 'install.php file can still be found at the root of your website.<br />Please <a class="lnkdelete" href="?del=install">drop it</a> for security reason.';
+const L_WARNING_INSTALLATION_FILE = 'install.php file can still be found at the root of your website.' . PHP_EOL .'Please <a class="lnkdelete" href="?del=install">drop it</a> for security reason.';
 
 // user.php
 

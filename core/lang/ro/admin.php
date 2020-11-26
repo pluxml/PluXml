@@ -425,7 +425,7 @@ const L_MENU_CATEGORIES_TITLE = 'Crează,gestionează,editează categoriile';
 const L_MENU_CONFIG_TITLE = 'Configurarează PluXml';
 const L_MENU_CONFIG = 'Setări';
 const L_MENU_PROFIL_TITLE = 'Gestionează profilul';
-const L_WARNING_INSTALLATION_FILE = 'Fişierul install.php încă se află în rădăcina sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l <a class="lnkdelete" href="?del=install">ştergeţi</a>.';
+const L_WARNING_INSTALLATION_FILE = 'Fişierul install.php încă se află în rădăcina sit-ului ' . PHP_EOL .' PluXml. Din motive de securitate, se recomandă să-l <a class="lnkdelete" href="?del=install">ştergeţi</a>.';
 const L_USER_UNKNOWN = 'Utilizator necunoscut';
 const L_USER_LANG = 'Limba utilizată ';
 const L_MAIL_ADDRESS = 'Adresa de email';

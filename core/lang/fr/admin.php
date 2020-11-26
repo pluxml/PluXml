@@ -502,7 +502,7 @@ const L_MENU_CATEGORIES_TITLE = 'Créer, gérer, éditer les catégories';
 const L_MENU_CONFIG_TITLE = 'Configurer PluXml';
 const L_MENU_CONFIG = 'Paramètres';
 const L_MENU_PROFIL_TITLE = 'Gérer votre profil utilisateur';
-const L_WARNING_INSTALLATION_FILE = 'Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le <a class="lnkdelete" href="?del=install">supprimer</a>.';
+const L_WARNING_INSTALLATION_FILE = 'Le fichier install.php est présent à la racine de votre PluXml.' . PHP_EOL . 'Pour des raisons de sécurité, il est fortement conseillé de le <a class="lnkdelete" href="?del=install">supprimer</a>.';
 
 // user.php
 

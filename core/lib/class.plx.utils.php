@@ -1671,4 +1671,20 @@ EOT;
         $plxMotor = plxMotor::getInstance();
         return $plxMotor->aConf[$param];
     }
+
+    /*
+     * Same function as nl2br but with <p>.
+     * A missing function in PHP.
+     * For updating existing files :
+     * sed -Ei "/<br/s/<br\s*\/?>/' . PHP_EOL .'/" core/lang/??/*.php
+     *
+     * @param String $content the text to break into paragraphs
+     *
+     * @author Jean-Pierre Pourrez "bazooka07"
+     * */
+    public static function nl2p($content) {
+		$lines = explode(PHP_EOL, $content);
+		return '<p>' . implode('</p>' . PHP_EOL . '<p>', $lines) . '</p>';
+	}
+
 }

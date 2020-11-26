@@ -428,7 +428,7 @@ const L_MENU_CATEGORIES_TITLE = 'Criar, gerir ou editar as categorias';
 const L_MENU_CONFIG_TITLE = 'Configurar PluXml';
 const L_MENU_CONFIG = 'Parâmetros';
 const L_MENU_PROFIL_TITLE = 'Gerir o perfil do utilizador';
-const L_WARNING_INSTALLATION_FILE = 'O ficheiro install.php está presente na raíz de PluXml.<br />Por razões de segurança apague (<a class="lnkdelete" href="?del=install">delete</a>) este ficheiro.';
+const L_WARNING_INSTALLATION_FILE = 'O ficheiro install.php está presente na raíz de PluXml.' . PHP_EOL .'Por razões de segurança apague (<a class="lnkdelete" href="?del=install">delete</a>) este ficheiro.';
 const L_USER_UNKNOWN = 'Utilizador desconhecido';
 const L_USER_LANG = 'Idioma utilizado na administração';
 const L_MAIL_ADDRESS = 'Enderêco de e-mail';

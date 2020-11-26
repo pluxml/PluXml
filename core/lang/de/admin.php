@@ -505,7 +505,7 @@ const L_MENU_CATEGORIES_TITLE = 'Kategorieverwaltung';
 const L_MENU_CONFIG_TITLE = 'PluXml Konfiguration';
 const L_MENU_CONFIG = 'Konfiguration';
 const L_MENU_PROFIL_TITLE = 'Mein Benutzerprofil verwalten';
-const L_WARNING_INSTALLATION_FILE = 'Die Datei install.php existiert noch im Grundverzeichnis von PluXml.<br />Sie sollten diese aus Sicherheitsgründen <a class="lnkdelete" href="?del=install">löschen</a>.';
+const L_WARNING_INSTALLATION_FILE = 'Die Datei install.php existiert noch im Grundverzeichnis von PluXml.' . PHP_EOL .'Sie sollten diese aus Sicherheitsgründen <a class="lnkdelete" href="?del=install">löschen</a>.';
 
 // user.php
 

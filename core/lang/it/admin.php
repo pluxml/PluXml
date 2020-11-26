@@ -424,7 +424,7 @@ const L_MENU_CATEGORIES_TITLE = 'Gestisci le categorie';
 const L_MENU_CONFIG_TITLE = 'Configura PluXml';
 const L_MENU_CONFIG = 'Parametri';
 const L_MENU_PROFIL_TITLE = 'Gestisci il profilo';
-const L_WARNING_INSTALLATION_FILE = 'Il file install.php è presente nella radice di PluXml.<br />Per motivi di sicurezza, è fortemente consigliata la <a class="lnkdelete" href="?del=install">cancellazione</a>.';
+const L_WARNING_INSTALLATION_FILE = 'Il file install.php è presente nella radice di PluXml.' . PHP_EOL .'Per motivi di sicurezza, è fortemente consigliata la <a class="lnkdelete" href="?del=install">cancellazione</a>.';
 const L_USER_UNKNOWN = 'Utente sconosciuto';
 const L_USER_LANG = 'Lingua usata nel pannello di amministrazione';
 const L_MAIL_ADDRESS = 'Indirizzo email';
