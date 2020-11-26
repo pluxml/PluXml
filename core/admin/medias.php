@@ -178,7 +178,7 @@ if($curFolders) {
             </div>
 
             <div class="col-3">
-                <div class="pas tableheader">
+                <div class="tableheader">
                     <button class="btn--primary" type="submit"
                             onclick="toggle_divs();return false"><i class="icon-plus"></i><?= L_MEDIAS_ADD_FILE ?>
                     </button>

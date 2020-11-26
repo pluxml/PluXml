@@ -160,7 +160,7 @@ $selector = selector($comSel, 'id_selection');
 
     <form action="comments.php<?= !empty($_GET['a']) ? '?a=' . $_GET['a'] : '' ?>" method="post" id="form_comments" data-chk="idCom[]">
 
-        <div class="mtm pas  tableheader">
+        <div class="tableheader">
             <?= plxToken::getTokenPostMethod() ?>
             <?php if ($comSel == 'online'): ?>
                 <button class="submit btn--primary" name="offline" type="submit"><i
@@ -215,8 +215,8 @@ if ($coms) {
 		# On génère notre ligne
 ?>
 					<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
-						<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
-						<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
+						<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" id="id_<?= $id ?>" /></td>
+						<td class="datetime"><label for="id_<?= $id ?>"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></label></td>
 <?php
 		if($all) {
 ?>
@@ -255,7 +255,7 @@ if ($coms) {
             </table>
 		</div>
 <?php if ($coms): ?>
-        <div class="pas grid-2-small-1 tablefooter">
+        <div class="mts tablefooter has-pagination">
 			<div>
 				<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
 			</div>

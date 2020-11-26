@@ -291,3 +291,18 @@ function insTag(where, tag) {
 	else
 		formfield.value = formfield.value+', '+tag;
 }
+
+(function() {
+	const toggleMenu = document.getElementById('toggle-menu');
+	if(toggleMenu != null) {
+		toggleMenu.onchange = function(event) {
+			const el = event.target;
+			const label = toggleMenu.labels[0];
+			if(toggleMenu.checked) {
+				label.classList.add('is-active');
+			} else {
+				label.classList.remove('is-active');
+			}
+		}
+	}
+})();

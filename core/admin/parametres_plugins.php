@@ -167,7 +167,7 @@ include 'top.php';
 <div class="admin mtm">
     <form action="parametres_plugins.php" method="post" id="form_plugins" data-chk="chkAction[]">
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
-		<div class="mtm pas tableheader">
+		<div class="tableheader">
 			<?= PlxToken::getTokenPostMethod() ?>
 			<input class="btn--primary" type="submit" name="update" value="<?= L_PLUGINS_APPLY_BUTTON ?>"/>
 			<input type="text" id="plugins-search" placeholder="<?= L_SEARCH ?>..." />
@@ -190,7 +190,7 @@ include 'top.php';
                 </tbody>
             </table>
         </div>
-		<div class="mtm pas tableheader">
+		<div class="tableheader">
 			<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
 			<button class="submit btn--primary" name="<?= ($_SESSION['selPlugins'] == '1') ? 'deactivate' : 'activate' ?>" disabled data-lang="<?= ($_SESSION['selPlugins'] == '1') ? L_CONFIRM_DEACTIVATE : L_CONFIRM_ACTIVATE ?>"><i class="<?= ($_SESSION['selPlugins'] == '1') ? 'icon-lock' : 'icon-unlock' ?>"></i><?= ($_SESSION['selPlugins'] == '1')  ? L_PLUGINS_DEACTIVATE : L_PLUGINS_ACTIVATE ?></button>
 		</div>

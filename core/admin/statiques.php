@@ -34,12 +34,12 @@ include 'top.php';
     <h2 class="h3-like"><?= L_STATICS_PAGE_TITLE ?></h2>
 </div>
 
-<div class="admin mtm">
+<div class="admin">
     <form method="post" id="form_statics"  data-chk="idStatic[]">
         <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
-        <div class="mtm pas tableheader has-spacer">
+        <div class="tableheader has-spacer">
             <?= PlxToken::getTokenPostMethod() ?>
-            <input class="btn--primary" type="submit" name="update" value="<?= L_STATICS_UPDATE ?>"/>
+            <input class="btn--primary" type="submit" name="update" value="<?= L_SAVE ?>"/>
 <?php
 if ($_SESSION['profil'] <= PROFIL_MODERATOR) {
 ?>

@@ -32,7 +32,7 @@ include 'top.php';
 <div class="admin">
     <form method="post" id="form_users" data-chk="idUser[]">
         <?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
-        <div class="mtm pas tableheader has-spacer">
+        <div class="tableheader has-spacer">
             <?= PlxToken::getTokenPostMethod() ?>
             <input class="btn--primary" type="submit" name="update" value="<?= L_CONFIG_USERS_UPDATE ?>"/>
             <span class="spacer">&nbsp;</span>

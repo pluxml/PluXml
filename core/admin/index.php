@@ -162,15 +162,14 @@ foreach(array(
     <?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')); # Hook Plugins ?>
 
     <form action="index.php" method="post" id="form_articles" data-chk="idArt[]">
-
-        <div class="mtm pas grid-2-small-1 tableheader">
-            <div>
-                <a href="<?= PLX_CORE ?>admin/article.php"><span class="btn btn--primary"><i class="icon-plus"></i><?= L_NEW_ARTICLE ?></span></a>
-                <?= PlxToken::getTokenPostMethod(); ?>
-                <?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
+        <?= PlxToken::getTokenPostMethod(); ?>
+        <div class="tableheader">
+			<a href="<?= PLX_CORE ?>admin/article.php"><span class="btn btn--primary"><i class="icon-plus"></i><?= L_NEW_ARTICLE ?></span></a>
+			<div>
+<?php PlxUtils::printSelect('sel_cat', $aFilterCat, $_SESSION['sel_cat']) ?>
                 <button class="<?= $_SESSION['sel_cat'] != 'all' ? ' select' : '' ?> btn--primary" type="submit"><i class="icon-filter"></i><?= L_ARTICLES_FILTER_BUTTON ?></button>
-            </div>
-            <div class="txtright">
+			</div>
+            <div>
                 <input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= PlxUtils::strCheck($_GET['artTitle']) ?>"/>
                 <button class="<?= (!empty($_GET['artTitle']) ? ' select' : '') ?> btn--primary" type="submit"><i class="icon-search"></i><?= L_SEARCH ?></button>
             </div>
@@ -276,14 +275,14 @@ if ($arts) { # On a des articles
 				</tbody>
 			</table>
 		</div>
-        <div class="pas grid-4-small-1 tablefooter">
+        <div class="mts tablefooter has-pagination">
 <?php if ($_SESSION['profil'] <= PROFIL_MODERATOR) : ?>
 			<div>
 				<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
 				<?php PlxUtils::printInput('page', 1, 'hidden'); ?>
 			</div>
 <?php endif; ?>
-			<div class="pagination right col-3">
+			<div class="pagination">
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
