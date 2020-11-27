@@ -23,7 +23,7 @@ if (isset($_POST['selection']) and !empty($_POST['sel']) and ($_POST['selection'
 }
 
 # Récuperation de l'id de l'utilisateur
-$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
+$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '\d{3}' : $_SESSION['user']);
 
 # Récuperation des paramètres
 if (!empty($_GET['sel']) and in_array($_GET['sel'], array('all', 'published', 'draft', 'mod'))) {
@@ -41,43 +41,28 @@ else
     $_SESSION['sel_cat'] = (isset($_SESSION['sel_cat']) and !empty($_SESSION['sel_cat'])) ? $_SESSION['sel_cat'] : 'all';
 
 # Recherche du motif de sélection des articles en fonction des paramètres
-$catIdSel = '';
-$mod = '';
+$catIdSel = 'FILTER';
+# status de l'article . Tous par défaut.
+$mod = '_?';
 switch ($_SESSION['sel_get']) {
-    case 'published':
-        $catIdSel = '[home|0-9,]*FILTER[home|0-9,]*';
-        $mod = '';
-        break;
-    case 'draft':
-        $catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
-        $mod = '_?';
-        break;
-    case 'all':
-        $catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
-        $mod = '_?';
-        break;
-    case 'mod':
-        $catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
-        $mod = '_';
-        break;
+    case 'published': $mod = ''; break;
+    case 'draft': $catIdSel = 'draft,FILTER'; break;
+    case 'mod': $mod = '_'; break;
+	default: $catIdSel = '(draft,)?FILTER'; # 'all'
 }
 
 switch ($_SESSION['sel_cat']) {
-    case 'all' :
-        $catIdSel = str_replace('FILTER', '', $catIdSel);
-        break;
-    case '000' :
-        $catIdSel = str_replace('FILTER', '000', $catIdSel);
-        break;
-    case 'home':
-        $catIdSel = str_replace('FILTER', 'home', $catIdSel);
-        break;
-    case preg_match('/^[0-9]{3}$/', $_SESSION['sel_cat']) == 1:
-        $catIdSel = str_replace('FILTER', $_SESSION['sel_cat'], $catIdSel);
+    case '000' : $pattern = '000'; break; # articles non classés
+    case 'home': $pattern = '(?:\d{3},)*home(?:,\d{3})*'; break;
+    case (preg_match('/^\d{3}$/', $_SESSION['sel_cat']) == 1):
+        $pattern = $_SESSION['sel_cat'];
+         break;
+    default: $pattern = '(?:\d{3},)*(?:home|\d{3})(?:,\d{3})*';
 }
+$catIdSel = str_replace('FILTER', $pattern, $catIdSel);
 
 # Nombre d'article sélectionnés
-$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId);
+$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId, $mod);
 
 # Récupération du texte à rechercher
 $artTitle = (!empty($_GET['artTitle'])) ? plxUtils::unSlash(trim(urldecode($_GET['artTitle']))) : '';
@@ -89,9 +74,11 @@ $_GET['artTitle'] = $artTitle;
 # On génère notre motif de recherche
 if (is_numeric($_GET['artTitle'])) {
     $artId = str_pad($_GET['artTitle'], 4, '0', STR_PAD_LEFT);
-    $motif = '/^' . $mod . $artId . '.' . $catIdSel . '.' . $userId . '.[0-9]{12}.(.*).xml$/';
+    $motif = '/^' . $mod . $artId . '\.' . $catIdSel . '\.' . $userId . '\.\d{12}\.(.*)\.xml$/';
+} elseif($_GET['artTitle']) {
+    $motif = '/^' . $mod . '\d{4}\.' . $catIdSel . '\.' . $userId . '\.\d{12}\.(.*)' . plxUtils::urlify($_GET['artTitle']) . '(.*)\.xml$/';
 } else {
-    $motif = '/^' . $mod . '[0-9]{4}.' . $catIdSel . '.' . $userId . '.[0-9]{12}.(.*)' . plxUtils::urlify($_GET['artTitle']) . '(.*).xml$/';
+    $motif = '/^' . $mod . '\d{4}\.' . $catIdSel . '\.' . $userId . '\.\d{12}\.(.*)\.xml$/';
 }
 # Calcul du nombre de page si on fait une recherche
 if ($_GET['artTitle'] != '') {
