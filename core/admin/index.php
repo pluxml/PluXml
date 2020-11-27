@@ -116,6 +116,7 @@ include 'top.php';
     <h2 class="h3-like"><?= L_ARTICLES_LIST ?></h2>
     <ul>
 <?php
+# On compte les articles pour chaque status
 foreach(array(
 	'all'			=> array(L_ALL, '_?'),
 	'published'		=> array(L_ALL_PUBLISHED, ''),
@@ -132,11 +133,16 @@ foreach(array(
 			$nbArtPagination = $nbArticles;
 		}
 	}
-	$tag = ($mode != 'mod') ? 'tag' : 'tag--warning';
+	switch($mode) {
+		case 'mod': $tag = 'tag--warning'; break;
+		case 'draft': $tag = 'tag--info'; break;
+		default: $tag = 'tag';
+	}
 	$countArts = ($nbArticles > 0) ? '<span class="' . $tag . '">' . $nbArticles . '</span>' : '';
+	$disabled = ($_SESSION['sel_get'] == $mode) ? 'disabled' : '';
 ?>
         <li <?= $className ?>>
-			<a href="index.php?sel=<?= $mode ?>&page=1"><?= $caption ?></a><?= $countArts ?>
+			<a href="index.php?sel=<?= $mode ?>" <?= $disabled ?>><?= $caption ?></a><?= $countArts ?>
 		</li>
 <?php
 }
@@ -263,12 +269,21 @@ if ($arts) { # On a des articles
 			</table>
 		</div>
         <div class="mts tablefooter has-pagination">
-<?php if ($_SESSION['profil'] <= PROFIL_MODERATOR) : ?>
+<?php
+if ($_SESSION['profil'] <= PROFIL_MODERATOR) {
+?>
 			<div>
 				<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
 				<?php PlxUtils::printInput('page', 1, 'hidden'); ?>
 			</div>
-<?php endif; ?>
+<?php
+} else {
+	# bourrage pour aligner la pagination à droite
+?>
+			<span>&nbsp;</span>
+<?php
+}
+?>
 			<div class="pagination">
 <?php
 # Hook Plugins

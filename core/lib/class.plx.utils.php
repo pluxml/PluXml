@@ -356,7 +356,7 @@ class plxUtils
 			// Display pagination links
 ?>
 				<a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= ($currentPage > 2) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-double-left"></i></span></a>
-				<a href="<?php printf($urlTemplate, $currentPage - 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= ($currentPage > 1) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-left"></i></span></a>
+				<a href="<?php printf($urlTemplate, ($currentPage > 1) ? $currentPage - 1 : 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= ($currentPage > 1) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-left"></i></span></a>
 <?php
 			# On boucle sur les pages
 			if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
@@ -376,7 +376,7 @@ class plxUtils
 <?php
 				} else {
 ?>
-				<span class="current btn"><?= $i ?></span>
+				<span class="current btn--info"><?= $i ?></span>
 <?php
 				}
 			}

@@ -20,8 +20,8 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?= L_ADMIN ?></title>
     <link rel="stylesheet" href="theme/css/knacss.css?v=<?= PLX_VERSION ?>" media="screen"/>
-    <link rel="stylesheet" href="theme/css/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
     <link rel="stylesheet" href="theme/fontello/css/fontello.css" media="screen"/>
+    <link rel="stylesheet" href="theme/css/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
 <?php
 plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'] . 'admin.css', true);
@@ -150,7 +150,7 @@ echo implode(PHP_EOL, $menus) . PHP_EOL;
         </header>
 
 <?php
-if (basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' and is_file(PLX_ROOT . 'install.php')):
+if ($_SESSION['profil'] <= PROFIL_MODERATOR and basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' and is_file(PLX_ROOT . 'install.php')):
 ?>
 		<div id="install-warning" class="alert--danger">
 			<?= plxUtils::nl2p(L_WARNING_INSTALLATION_FILE) ?>
