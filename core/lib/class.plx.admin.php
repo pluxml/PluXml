@@ -1133,13 +1133,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$content['tags'] = implode(', ', $tags_unique);
 
 		# Formate des dates de creation et de mise à jour
+
 		if(!defined('PLX_INSTALLER')) {
-			$date_creation = $content['date_creation_year'] . $content['date_creation_month'] . $content['date_creation_day'] . substr(str_replace(':', '', $content['date_creation_time']), 0, 4);
-			$date_update = $content['date_update_year'] . $content['date_update_month'] . $content['date_update_day'] . substr(str_replace(':', '', $content['date_update_time']), 0, 4);
-			$date_update = ($date_update == $content['date_update_old']) ? date('YmdHi') : $date_update;
-			$date_publication = $content['date_publication_year'] . $content['date_publication_month'] . $content['date_publication_day'] . substr(str_replace(':', '', $content['date_publication_time']), 0, 4);
-			if(!preg_match('/^\d{12}$/', $date_publication))  {
-				$date_publication = date('YmdHi'); # Check de la date au cas ou...
+			if(isset($content['date_creation'])) { # or date_publication or date_update
+				# On vire tous les caractères qui ne sont pas des chiffres ( no digit : \D en regex )
+				$date_creation = preg_replace('@\D@', '', $content['date_creation'][0] . $content['date_creation'][1]); # date and time concatened
+				$date_update = preg_replace('@\D@', '', $content['date_update'][0] . $content['date_update'][1]);
+				$date_publication = preg_replace('@\D@', '', $content['date_publication'][0] . $content['date_publication'][1]);
+				if($date_update == $content['date_update_old']) {
+					$date_update = date('YmdHi');
+				}
+				if(strlen($date_publication) < 12) {
+					# Force à la date actuelle si format incorrect
+					$date_publication = date('YmdHi');
+				}
+			} else {
+				# For old versions of PluXml
+				$date_creation = $content['date_creation_year'] . $content['date_creation_month'] . $content['date_creation_day'] . substr(str_replace(':', '', $content['date_creation_time']), 0, 4);
+				$date_update = $content['date_update_year'] . $content['date_update_month'] . $content['date_update_day'] . substr(str_replace(':', '', $content['date_update_time']), 0, 4);
+				$date_update = ($date_update == $content['date_update_old']) ? date('YmdHi') : $date_update;
+				$date_publication = $content['date_publication_year'] . $content['date_publication_month'] . $content['date_publication_day'] . substr(str_replace(':', '', $content['date_publication_time']), 0, 4);
+				if(!preg_match('/^\d{12}$/', $date_publication))  {
+					$date_publication = date('YmdHi'); # Check de la date au cas ou...
+				}
 			}
 		} else {
 			# Création 1er article à l'installation

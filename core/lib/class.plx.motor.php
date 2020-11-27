@@ -850,10 +850,11 @@ class plxMotor {
                 'author'			=> $tmp['usrId'],
                 'categorie'			=> $tmp['catId'],
                 'url'				=> $tmp['artUrl'],
-                'date'				=> $tmp['artDate'],
+                'date'				=> $tmp['artDate'], # For retro-compatibility. Must de deprecated.
                 'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}.\d+.xml$#'),
                 'date_creation'		=> plxUtils::getValue($values[$iTags['date_creation'][0]]['value'], $tmp['artDate']),
                 'date_update'		=> plxUtils::getValue($values[$iTags['date_update'][0]]['value'], $tmp['artDate']),
+                'date_publication'	=> $tmp['artDate'],
             );
 
             # Hook plugins

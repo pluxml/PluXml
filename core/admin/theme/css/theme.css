@@ -43,6 +43,11 @@ input[type="number"] {
 	text-align: end;
 }
 
+.has-label {
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
 /* ---------- hack against knacss ---------- */
 
 .tag,
@@ -117,6 +122,12 @@ fieldset {
     text-decoration: underline;
 }
 
+i.icon-calendar {
+	font-size: 145%;
+	vertical-align: bottom;
+	color: chocolate; /* good choice */
+	cursor: pointer;
+}
 /* ==== ASIDE ==== */
 
 #toggle-menu {

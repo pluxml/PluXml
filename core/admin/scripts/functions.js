@@ -1,5 +1,8 @@
 'use strict';
 
+/*
+// Deprecated
+
 function dateNow(field,delta) {
 	var d = new Date();
 	// convert to msec, add local time zone offset
@@ -22,6 +25,8 @@ function dateNow(field,delta) {
 	document.getElementsByName(field+'_month')['0'].value = m;
 	document.getElementsByName(field+'_year')['0'].value = y;
 }
+* */
+
 function answerCom(where,id,author) {
 	document.getElementById('id_parent').value=id;
 	//addText(where, '<a href="#c'+id+'">@'+author+'</a> :\n');
@@ -55,6 +60,7 @@ function addText(where, open, close) {
 	return;
 }
 
+/*
 // Deprecated
 function checkAll(inputs, field) {
 	for(var i = 0; i < inputs.elements.length; i++) {
@@ -76,6 +82,7 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 		return (action ? confirm(msg) : false);
 	}
 }
+*/
 
 (function() {
 	// gestion des cases à cocher dans un tableau pour envoi avec un formulaire
@@ -293,6 +300,7 @@ function insTag(where, tag) {
 }
 
 (function() {
+	// animation du burger par Knacss. Récupérer le CSS et supprimer
 	const toggleMenu = document.getElementById('toggle-menu');
 	if(toggleMenu != null) {
 		toggleMenu.onchange = function(event) {
@@ -304,5 +312,31 @@ function insTag(where, tag) {
 				label.classList.remove('is-active');
 			}
 		}
+	}
+})();
+
+// -------- core/admin/article.php -------------
+
+(function() {
+	// Met la date du jour dans les <input type="date"> et <input type="time">
+	const wrapper = document.getElementById('calendar');
+	if(wrapper != null) {
+		wrapper.addEventListener('click', function(event) {
+			if('datetime5' in event.target.dataset) {
+				event.preventDefault();
+				const dt = new Date();
+				[0, 1].forEach(function(value) {
+					const query = 'input[name="' + event.target.dataset.datetime5 + '[' + value + ']"]';
+					// console.log(query);
+					const el = wrapper.querySelector(query);
+					if(el != null) {
+						switch(el.type) {
+							case 'date': el.value = dt.toJSON().substr(0, 10) ; break;
+							case 'time': el.value = dt.toTimeString().substr(0, 5); break;
+						}
+					}
+				});
+			}
+		});
 	}
 })();
