@@ -487,6 +487,8 @@ form .tableheader.has-spacer-2 {
     padding: 1rem;
 }
 
+/* ----------- forms ---------- */
+
 [type="submit"], button.submit {
     box-shadow: none;
     padding: 1rem 1.5rem;
@@ -500,6 +502,16 @@ form .tableheader.has-spacer-2 {
 select {
     background-color: #fff;
     box-shadow: inset 0 0 0 1px var(--backheaderborder);
+}
+
+form .fullwidth > :not(label) {
+	width: 100%;
+}
+
+label::after,
+.label-like::after {
+	content: ':';
+	padding: 0 0.5rem;
 }
 
 button [class^="icon-"] {
@@ -795,6 +807,19 @@ a.overlay {
 
 #form_statics th:nth-of-type(2) {
 	padding-left: 1rem;
+}
+
+/* --------- statique.php ------------- */
+
+#form_static #calendar {
+	display: grid;
+	grid-template: ;
+	grid-template-columns: repeat(2, 1fr);
+	text-align: center;
+}
+
+#form_static #calendar > div > * {
+	margin: 0.3rem;
 }
 
 /* --------- categories.php -------------- */

@@ -148,6 +148,8 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	            $plxAdmin->editArticle($_POST, $_POST['artId']);
 	            header('Location: article.php?a=' . $_POST['artId']);
 	            exit;
+			} else {
+				plxMsg::Error(L_BAD_DATE_FORMAT);
 			}
 		}
 
@@ -307,7 +309,7 @@ $cat_id = '000';
             <p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
         </div>
         <div class="col-4 txtright">
-            <p class="pas inbl"><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
+            <p class="pas inbl"><span class="label-like"><?= L_ARTICLE_STATUS ?></span>
                 <strong><?php
 //TODO create a PlxAdmin function to get article status (P3ter)
 if (isset($_GET['a']) and preg_match('/^_\d{4}$/', $_GET['a']))
@@ -393,7 +395,7 @@ if ($_SESSION['profil'] > PROFIL_MODERATOR and $plxAdmin->aConf['mod_art']) {
                     <fieldset>
                         <div>
 							<p class="has-label">
-	                            <label for="id_title"><?= L_TITLE ?>&nbsp;:</label>
+	                            <label for="id_title"><?= L_TITLE ?></label>
 	                            <?php PlxUtils::printInput('title', PlxUtils::strCheck($title), 'text', '255', false); ?>
 							</p>
 <?php
@@ -401,7 +403,7 @@ if ($artId != '' and $artId != '0000') {
 	$link = $plxAdmin->urlRewrite('?article' . intval($artId) . '/' . $url);
 ?>
 							<p>
-								<strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
+								<strong class="label-like"><?= L_LINK_FIELD ?></strong>
 								<a target="_blank" href="<?= $link ?>" title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
 							</p>
 <?php
@@ -414,7 +416,7 @@ if ($artId != '' and $artId != '0000') {
                             <div><?php PlxUtils::printArea('chapo', PlxUtils::strCheck($chapo), 0, 8); ?></div>
                         </div>
                         <div>
-                            <label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
+                            <label for="id_content"><?= L_CONTENT_FIELD ?></label>
                             <?php PlxUtils::printArea('content', PlxUtils::strCheck($content), 0, 20); ?>
                         </div>
                     </fieldset>
@@ -423,34 +425,31 @@ if ($artId != '' and $artId != '0000') {
                 </div>
             </div>
 
-            <!-- SIDEBAR -->
+            <!-- SIDEBAR FOR ARTICLE -->
             <div class="col-2-small-1 sidebar">
                 <fieldset class="pan">
                     <div class="flex-container--column">
                         <div class="pas">
-                            <label for="id_author"><?= L_AUTHOR ?>&nbsp;:&nbsp;</label>
-                            <?php
-                            if ($_SESSION['profil'] < PROFIL_WRITER)
-                                PlxUtils::printSelect('author', $_users, $author);
-                            else {
-                                echo '<input type="hidden" id="id_author" name="author" value="' . $author . '" />';
-                                echo '<strong>' . PlxUtils::strCheck($plxAdmin->aUsers[$author]['name']) . '</strong>';
-                            }
-                            ?>
+                            <label for="id_author"><?= L_AUTHOR ?></label>
+<?php
+	if ($_SESSION['profil'] < PROFIL_WRITER) {
+		PlxUtils::printSelect('author', $_users, $author);
+	} else {
+?>
+                            <input type="hidden" id="id_author" name="author" value="<?= $author ?>" />
+                            <strong><?= PlxUtils::strCheck($plxAdmin->aUsers[$author]['name']) ?></strong>
+<?php
+	}
+?>
                         </div>
-                        <div class="flex-container--column pas" id="calendar">
+                        <div class="pas" id="calendar">
 <?php
 	# HTML5 : on utilise <input type="date" /> et <input type="time" />
 	# Requis ci-dessous : array_keys($dateTitles) == plxDate::ENTRIES
-	$dateTitles = array(
-		'date_creation'		=> L_ARTICLE_DATE,
-		'date_publication'	=> L_DATE_CREATION,
-		'date_update'		=> L_DATE_UPDATE,
-	);
 	foreach($dates5 as $k=>$infos) {
 ?>
                             <div>
-                                <label><?= $dateTitles[$k] ?>&nbsp;:</label><br>
+                                <label><?= DATE_TITLES[$k] ?></label><br>
                                 <input type="date" name="<?= $k ?>[0]" value="<?= $infos[0] ?>" />
                                 <input type="time" name="<?= $k ?>[1]" value="<?= $infos[1] ?>" />
                                 <i class="icon-calendar" title="<?= L_NOW ?>" data-datetime5="<?= $k ?>"></i>
@@ -460,14 +459,14 @@ if ($artId != '' and $artId != '0000') {
 ?>
                         </div>
                         <div class="pas">
-                            <label for="id_template"><?= L_TEMPLATE ?>&nbsp;:</label>
+                            <label for="id_template"><?= L_TEMPLATE ?></label>
                             <?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
                         </div>
                         <input class="toggle" id="toggle_url" type="checkbox">
                         <label class="drop collapsible" for="toggle_url">URL</label>
                         <div class="expander">
                             <div>
-                                <label for="id_url"><?= L_URL ?></label> :
+                                <label for="id_url"><?= L_URL ?></label>
                                 <?php PlxUtils::printInput('url', $url, 'text', '-255'); ?>
                                 <p><small><?= L_ARTICLE_URL_FIELD_TITLE ?></small></p>
                             </div>
@@ -476,7 +475,7 @@ if ($artId != '' and $artId != '0000') {
                         <label class="drop collapsible" for="toggle_categories">Categories</label>
                         <div class="expander">
                             <div>
-                                <label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label><br>
+                                <label><?= L_ARTICLE_CATEGORIES ?></label><br>
                                 <?php $selected = (is_array($catId) and in_array('000', $catId)) ? ' checked="checked"' : ''; ?>
                                 <label for="cat_unclassified"><input disabled="disabled" type="checkbox"
                                                                      id="cat_unclassified"
@@ -501,7 +500,7 @@ foreach ($plxAdmin->aCats as $cat_id => $cat_name) {
 }
 
 if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
-                                    <label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
+                                    <label for="id_new_catname"><?= L_NEW_CATEGORY ?></label>
                                     <?php PlxUtils::printInput('new_catname', '', 'text', '-50') ?>
                                     <input class="btn" type="submit" name="new_category" value="<?= L_ADD ?>"/>
 <?php
@@ -550,7 +549,7 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                         <div class="expander">
                             <div>
                                 <?php if ($plxAdmin->aConf['allow_com'] == '1') : ?>
-                                    <label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
+                                    <label for="id_allow_com"><?= L_ALLOW_COMMENTS ?></label>
                                     <?php PlxUtils::printSelect('allow_com', array('1' => L_YES, '0' => L_NO), $allow_com); ?>
                                 <?php else: ?>
                                     <?php PlxUtils::printInput('allow_com', '0', 'hidden'); ?>
@@ -585,11 +584,11 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                         <label class="drop collapsible" for="toggle_seo">SEO</label>
                         <div class="expander">
                             <div>
-                                <label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?>&nbsp;:</label><br>
+                                <label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?></label><br>
                                 <?php PlxUtils::printInput('title_htmltag', PlxUtils::strCheck($title_htmltag), 'text', '-255'); ?>
-                                <label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label><br>
+                                <label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?></label><br>
                                 <?php PlxUtils::printInput('meta_description', PlxUtils::strCheck($meta_description), 'text', '-255'); ?>
-                                <label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label><br>
+                                <label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?></label><br>
                                 <?php //TODO is this still used by Google ? (P3ter)
                                 PlxUtils::printInput('meta_keywords', PlxUtils::strCheck($meta_keywords), 'text', '-255');
                                 ?>
@@ -599,15 +598,15 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                         <label class="drop collapsible" for="toggle_thumb"><?= L_THUMBNAIL ?></label>
                         <div class="expander">
                             <label for="id_thumbnail">
-                                <?= L_THUMBNAIL ?>&nbsp;:&nbsp;
+                                <?= L_THUMBNAIL ?>
                                 <a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)"
                                    onclick="mediasManager.openPopup('id_thumbnail', true)"
                                    style="outline:none; text-decoration: none">+</a>
                             </label><br>
                             <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '-255', false, '', '', 'onkeyup="refreshImg(this.value)"'); ?>
-                            <label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label><br>
+                            <label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?></label><br>
                             <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '-255', false); ?>
-                            <label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label><br>
+                            <label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?></label><br>
                             <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '-255', false); ?>
                             <?php
                             $src = false;

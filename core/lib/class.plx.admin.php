@@ -20,6 +20,8 @@ class plxAdmin extends plxMotor {
 	const EMPTY_FIELDS_USER = array('infos', 'password_token', 'password_token_expiry');
 	const EMPTY_FIELD_STATIQUES = array('title_htmltag', 'meta_description', 'meta_keywords');
 
+	const STATIC_DATES = array('date_creation', 'date_update');
+
 	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
 
 	/**
@@ -1035,23 +1037,20 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		if(!defined('PLX_INSTALLER')) {
 			$dates = array();
-			foreach(array('creation', 'update') as $k) {
-				$buf = array();
-				foreach(array('year', 'month', 'day') as $part) {
-					$buf[] = trim($content['date_' . $k . '_' . $part]);
-				}
-				$buf[] = substr(str_replace(':','',trim($content['date_' . $k . '_time'])), 0, 4);
-				$dates[$k] = implode('', $buf);
+			foreach(self::STATIC_DATES as $k) {
+				# date_creation, date_update
+				$dates[$k] = substr(preg_replace('@\D@', '', $content[$k][0] . $content[$k][0]), 0, 12);
 			}
-			if($dates['update'] == $content['date_update']) {
-				$dates['update'] = date('YmdHi');
+
+			if($dates['date_update'] == $this->aStats[$statId]['date_update']) {
+				$dates['date_update'] = date('YmdHi');
 			}
 		} else {
 			# Installation de PluXml
 			$now = date('YmdHi');
 			$dates = array(
-				'creation'	=> $now,
-				'update'	=> $now
+				'date_creation'	=> $now,
+				'date_update'	=> $now
 			);
 		}
 
@@ -1065,8 +1064,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 		}
 
-		foreach(array('creation', 'update') as $k) {
-			$this->aStats[$statId]['date_' . $k] = $dates[$k];
+		foreach(self::STATIC_DATES as $k) {
+			$this->aStats[$statId][$k] = $dates[$k];
 		}
 
 		if(!empty($this->plxPlugins)) {

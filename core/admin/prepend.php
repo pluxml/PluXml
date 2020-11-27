@@ -65,7 +65,6 @@ if(defined('PLX_AUTHPAGE')) {
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
 }
 
-
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 
@@ -81,6 +80,13 @@ const PROFIL_NAMES = array(
 	PROFIL_EDITOR		=> L_PROFIL_EDITOR,
 	PROFIL_WRITER		=> L_PROFIL_WRITER
 );
+
+const DATE_TITLES = array(
+	'date_creation'		=> L_ARTICLE_DATE,
+	'date_publication'	=> L_DATE_CREATION,
+	'date_update'		=> L_DATE_UPDATE,
+);
+
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
