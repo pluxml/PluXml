@@ -161,6 +161,10 @@ i.icon-calendar {
     text-decoration: none;
 }
 
+.asideheader h1 {
+	display: none;
+}
+
 .aside .asideheader ul {
     padding: 5px 30px;
     border-top: 1px solid var(--backasideborder);
@@ -508,7 +512,7 @@ form .fullwidth > :not(label) {
 	width: 100%;
 }
 
-label::after,
+form label::after,
 .label-like::after {
 	content: ':';
 	padding: 0 0.5rem;
@@ -1054,13 +1058,12 @@ input:checked ~ .modal__overlay {
     visibility: visible;
 }
 
-/* ======== responsive design ========== */
-
-
 .pagination {
 	margin-left: auto;
 	white-space: nowrap;
 }
+
+/* ======== responsive design ========== */
 
 @media screen and (min-width: 992px) {
 	#app {
@@ -1077,7 +1080,7 @@ input:checked ~ .modal__overlay {
 	}
 }
 
-@media screen and (min-width: 992px) and (orientation: landscape) {
+@media screen and (max-width: 1260px) {
 	body {
 		margin-right: 1rem;
 	}
@@ -1138,57 +1141,3 @@ input:checked ~ .modal__overlay {
 		display: none;
 	}
 }
-
-/*
-@media (max-width: 991px) {
-	body {
-		margin-right: 1.25rem;
-	}
-
-	#toggle-menu:not(:checked) + #aside {
-		max-height: 0;
-	}
-
-	#aside {
-		position: sticky;
-		top: 0;
-		width: 100vw;
-		z-index: 100;
-		transition: 0.5s ease;
-	}
-
-	#app .section .header {
-		position: fixed;
-		top:0;
-		width: 100%;
-		display: grid;
-		grid-template-columns: auto 1fr;
-	}
-}
-
-@media screen and (min-width: 992px) {
-	#app > section {
-		position: relative;
-		display: grid;
-		grid-template-rows: auto auto 1fr;
-	}
-}
-
-@media (max-width: 575px) {
-    .aside {
-        width: 0%;
-    }
-
-    .aside.is-opened {
-        width: 100%;
-    }
-
-    .section {
-        margin-left: 0px;
-    }
-
-    .plxversion {
-        display: none;
-    }
-}
-*/

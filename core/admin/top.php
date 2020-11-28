@@ -28,11 +28,18 @@ plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'] . 'admin.css', true);
 
 // Plugin hook
 eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
+
+$currentScript = basename($_SERVER['SCRIPT_NAME'], ".php");
+$fullwide = in_array($currentScript, array('article')) ? ' fullwide' : '';
+
+if($_SESSION ['profil'] > PROFIL_WRITER) {
+	$_SESSION ['profil'] = PROFIL_WRITER;
+}
 ?>
     <link rel="icon" href="theme/images/favicon.png" />
     <meta name="robots" content="noindex, nofollow" />
 </head>
-<body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>" class="profil-<?= $_SESSION['profil'] ?>">
+<body id="<?= $currentScript ?>" class="profil-<?= $_SESSION['profil'] ?><?= $fullwide ?>">
 <main id="app" class="main">
 <?php plxMsg::Display(); ?>
 	<input type="checkbox" id="toggle-menu" />
@@ -53,8 +60,6 @@ eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
             </ul>
         </header>
         <nav class="responsive-menu">
-            <label for="nav"><?= L_MENU ?></label>
-            <input type="checkbox" id="nav"/>
             <div id="responsive-menu" class="menu vertical expanded">
 <?php
 $menus = array();
@@ -136,13 +141,7 @@ echo implode(PHP_EOL, $menus) . PHP_EOL;
                     <li class="badge"><a href="profile.php"><img src="theme/images/pluxml.png"/></a></li>
                     <li>
                         <a href="profile.php"><?= PlxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></a>&nbsp;
-                        <small><em><?php
-                                if ($_SESSION ['profil'] == PROFIL_ADMIN) echo L_PROFIL_ADMIN;
-                                elseif ($_SESSION ['profil'] == PROFIL_MANAGER) echo L_PROFIL_MANAGER;
-                                elseif ($_SESSION ['profil'] == PROFIL_MODERATOR) echo L_PROFIL_MODERATOR;
-                                elseif ($_SESSION ['profil'] == PROFIL_EDITOR) echo L_PROFIL_EDITOR;
-                                else echo L_PROFIL_WRITER;
-                                ?></em></small>
+                        <small><em><?= PROFIL_NAMES[$_SESSION ['profil']] ?></em></small>
                     </li>
                     <li><a href="<?= PLX_CORE ?>admin/auth.php?d=1" title="<?= L_ADMIN_LOGOUT_TITLE ?>"><i class="icon-logout"></i></a></li>
                 </ul>
@@ -150,7 +149,7 @@ echo implode(PHP_EOL, $menus) . PHP_EOL;
         </header>
 
 <?php
-if ($_SESSION['profil'] <= PROFIL_MODERATOR and basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' and is_file(PLX_ROOT . 'install.php')):
+if ($_SESSION['profil'] <= PROFIL_MODERATOR and $currentScript == 'index' and is_file(PLX_ROOT . 'install.php')):
 ?>
 		<div id="install-warning" class="alert--danger">
 			<?= plxUtils::nl2p(L_WARNING_INSTALLATION_FILE) ?>
