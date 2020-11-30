@@ -1,14 +1,17 @@
-var mediasManager = {
+(function() {
+	const WINDOW_NAME = 'MEDIAS-MANAGER';
+	const MEDIAS_SCRIPT_URI = 'medias.php';
 
-	addText: function(name, txt, replace) {
-		var txt = txt.replace(this.opts.racine, '');
-		var cible = window.opener.document.getElementById('id_' + name);
+	var errorMsg = 'Ouverture de la fenêtre bloquée par un anti-popup!';
+
+	function addText(name, uri, replace) {
+		const cible = window.opener.document.getElementById('id_' + name);
 		if (cible) {
+			const txt = uri.replace(new RegExp('^' + document.body.dataset.root), '');
 			cible.focus();
 			if (replace) {
 				cible.value = txt;
-			}
-			else {
+			} else {
 				if (window.opener.document.selection && window.opener.document.selection.createRange) {
 					sel = window.opener.document.selection.createRange();
 					sel.text = sel.text + txt;
@@ -28,69 +31,29 @@ var mediasManager = {
 				}
 			}
 			cible.focus();
-		}
-		else {
-			console.log('Element #' + cibleId + ' introuvable - ' + txt);
+		} else {
+			console.error('Element #' + cible + ' not found - ' + txt);
 		}
 		return false;
-	},
+	}
 
-	updImg: function(name, imgPath) {
+	function updImg(name, imgPath) {
 		var id = window.opener.document.getElementById(name + '-wrapper');
 		if (id) {
 			id.innerHTML = '<img src="' + imgPath + '" />';
 		}
-	},
+	}
 
-	construct: function(options) {
-
-		this.opts = options;
-
-		if (window.name == this.opts.windowName) {
-
-			// ajout d'une class à <body> pour masquer les parties inutiles du gestionnaire de médias
-			document.body.classList.add('mediasManager');
-
-			// ajout des évenements onclick pour récuper le lien de l'image
-			const tbody = document.querySelector('#medias-table tbody');
-			if (tbody) {
-				tbody.addEventListener('click', function(event) {
-					var target = event.target;
-					if (target.tagName == 'A') {
-						event.preventDefault();
-						var launcher = window.opener.mediasManager;
-						var replace = launcher.replace;
-						var cible = launcher.cible;
-						var fallback = launcher.fallback;
-						var fn = window[fallback];
-						if (typeof fn === "function") {
-							var fnparams = [cibleId, target.href, replace];
-							fn.apply(null, fnparams);
-						}
-						else {
-							mediasManager.addText(cible, target.href, replace);
-							mediasManager.updImg(cible, target.href);
-						}
-						window.close();
-						cibleId.focus();
-					}
-				});
-			}
-		} else {
-			console.log('Window name: ' + window.name);
-		}
-	},
-
-	openPopup: function(name, replace, fallback) {
+	function openPopup(name, replace, fallback) {
 		this.replace = (typeof replace == 'boolean') ? replace : true;
-		var width = this.opts.width ? this.opts.width : 1024,
+		var width = 1024,
 			left = 0;
 		if(width > screen.width) {
 			width = screen.width;
 		} else {
 			left = parseInt((screen.width - width) / 2)
 		}
-		var height = this.opts.height ? this.opts.height : 580,
+		var height = 580,
 			top = 0;
 		if(height > screen.height) {
 			height = screen.height;
@@ -98,24 +61,57 @@ var mediasManager = {
 			top = parseInt((screen.height - height) / 2);
 		}
 		const options = 'directories=no, toolbar=no, menubar=no, location=no, resizable=yes, scrollbars=yes, width=' + width + ' , height=' + height + ', left=' + left + ', top=' + top;
-		this.cible = name;
-		this.replace = replace;
-		this.fallback = fallback;
-		popup = window.open(unescape(this.opts.urlManager), this.opts.windowName, options);
+		popup = window.open(MEDIAS_SCRIPT_URI, WINDOW_NAME, options);
 		if (popup) {
+			window.cible = name;
+			window.replace = replace;
+			window.fallback = fallback;
 			popup.focus();
 		}
 		else {
-			alert('Ouverture de la fenêtre bloquée par un anti-popup!');
+			alert(errorMsg);
 		}
 		return false;
 	}
-}
 
-if('medias_path' in document.body.dataset) {
-	mediasManager.construct({
-		windowName : document.body.dataset.medias_title,
-		racine:	document.body.dataset.root,
-		urlManager: document.body.dataset.medias_path
-	});
-}
+	if(document.location.pathname.endsWith('medias.php')) {
+		if (window.name == WINDOW_NAME) {
+
+			if('root' in document.body.dataset) {
+				// ajout d'une class à <body> pour masquer les parties inutiles du gestionnaire de médias
+				document.body.classList.add('mediasManager');
+
+				// ajout des évenements onclick pour récuper le lien de l'image
+				const tbody = document.querySelector('#medias-table tbody');
+				if (tbody) {
+					tbody.addEventListener('click', function(event) {
+						const target = event.target;
+						if (target.tagName == 'A') {
+							event.preventDefault();
+							const replace = (typeof window.opener.replace == 'boolean') ? window.opener.replace : true;
+							const cible = window.opener.cible;
+							addText(cible, target.href, replace);
+							updImg(cible, target.href);
+							window.close();
+							cible.focus();
+						}
+					});
+				}
+
+				if('errormsg' in document.body.dataset) {
+					errorMsg = document.body.dataset.errormsg;
+				}
+			} else {
+				console.error('Root of this site is missing');
+			}
+		}
+	} else {
+		const button = document.querySelector('i[data-preview].icon-picture');
+		if(button != null) {
+			button.onclick = function(event) {
+				event.preventDefault();
+				openPopup(button.dataset.preview);
+			}
+		}
+	}
+})();

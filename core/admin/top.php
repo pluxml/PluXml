@@ -34,12 +34,11 @@ $currentScript = basename($_SERVER['SCRIPT_NAME'], ".php");
 $fullwide = in_array($currentScript, array('article', 'statique'/* , 'medias' */, 'parametres_users', 'parametres_themes', 'parametres_edittpl')) ? ' fullwide' : '';
 $detail = in_array($currentScript, array('article', 'categorie', 'comment', 'user', 'parametres_base', 'parametres_affichage', 'parametres_themes', 'statique')) ? 'detail' : '';
 
-if(in_array($currentScript, array('article', 'categorie', 'parametres_affichage', 'medias'))) {
+if($currentScript == 'medias') {
 	# on active le medias manager
 	$extras = array(
 		'data-root="' . plxUtils::getRacine() . '"',
-		'data-medias_path="' . PLX_ADMIN_PATH . 'medias.php"',
-		'data-medias_title="' . L_MEDIAS_TITLE . '"',
+		'data-errormsg="' . 'Popup interdit' . '"',
 	);
 }
 if($_SESSION ['profil'] > PROFIL_WRITER) {

@@ -432,7 +432,7 @@ class plxUtils
 				<div>
 					<div>
 						<label for="id_<?= $name ?>"><?= L_THUMBNAIL ?></label>
-						<i class="icon-picture" title="<?= L_THUMBNAIL_SELECTION ?>" data-preview="<?= $name ?>" onclick="mediasManager.openPopup('<?= $name ?>', true)"></i>
+						<i class="icon-picture" title="<?= L_THUMBNAIL_SELECTION ?>" data-preview="<?= $name ?>"></i>
 						<input type="text" name="<?= $name ?>" value="<?= self::strCheck(self::getValue($datas[$name], '')) ?>" id="id_<?= $name ?>" onkeyup="refreshImg(this.value);" />
 					</div>
 <?php
