@@ -1,9 +1,3 @@
-(function() {
-
-	const WIND9W_NAME = 'medias-manager';
-
-})();
-
 var mediasManager = {
 
 	addText: function(name, txt, replace) {
