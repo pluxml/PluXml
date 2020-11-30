@@ -26,12 +26,22 @@ if (isset($_GET["del"]) and $_GET["del"] == "install") {
 plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'] . 'admin.css', true);
 
-// Plugin hook
+# Plugin hook
 eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
 
+# pour tablettes
 $currentScript = basename($_SERVER['SCRIPT_NAME'], ".php");
-$fullwide = in_array($currentScript, array('article')) ? ' fullwide' : '';
+$fullwide = in_array($currentScript, array('article', 'statique'/* , 'medias' */, 'parametres_users', 'parametres_themes', 'parametres_edittpl')) ? ' fullwide' : '';
+$detail = in_array($currentScript, array('article', 'categorie', 'comment', 'user', 'parametres_base', 'parametres_affichage', 'parametres_themes', 'statique')) ? 'detail' : '';
 
+if(in_array($currentScript, array('article', 'categorie', 'parametres_affichage', 'medias'))) {
+	# on active le medias manager
+	$extras = array(
+		'data-root="' . plxUtils::getRacine() . '"',
+		'data-medias_path="' . PLX_ADMIN_PATH . 'medias.php"',
+		'data-medias_title="' . L_MEDIAS_TITLE . '"',
+	);
+}
 if($_SESSION ['profil'] > PROFIL_WRITER) {
 	$_SESSION ['profil'] = PROFIL_WRITER;
 }
@@ -39,7 +49,7 @@ if($_SESSION ['profil'] > PROFIL_WRITER) {
     <link rel="icon" href="theme/images/favicon.png" />
     <meta name="robots" content="noindex, nofollow" />
 </head>
-<body id="<?= $currentScript ?>" class="profil-<?= $_SESSION['profil'] ?><?= $fullwide ?>">
+<body id="<?= $currentScript ?>" class="profil-<?= $_SESSION['profil'] ?><?= $fullwide ?>" <?= !empty($extras) ? implode(' ', $extras) : '' ?>>
 <main id="app" class="main">
 <?php plxMsg::Display(); ?>
 	<input type="checkbox" id="toggle-menu" />
@@ -119,7 +129,7 @@ foreach ($plxAdmin->plxPlugins->aPlugins as $plugName => $plugInstance) {
 	}
 }
 
-// Plugin hook
+# Plugin hook
 eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
 
 echo implode(PHP_EOL, $menus) . PHP_EOL;
@@ -131,9 +141,9 @@ echo implode(PHP_EOL, $menus) . PHP_EOL;
         </div>
     </aside>
 
-    <section class="section">
+    <section class="section <?= $detail ?>">
         <header class="header">
-            <div class="large-hidden">
+            <div>
                 <label for="toggle-menu" class="nav-button" type="button" role="button" aria-label="open/close navigation" title="<?= L_MENU ?>"><i></i></label>
             </div>
             <div class="txtright">

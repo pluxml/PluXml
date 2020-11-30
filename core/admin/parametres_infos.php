@@ -34,7 +34,7 @@ if ($emailBuild) {
     </div>
 </div>
 
-<div class="admin mtm">
+<div class="admin">
     <p><?= L_CONFIG_INFOS_DESCRIPTION ?></p>
 
     <p><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION; ?>

@@ -387,6 +387,75 @@ class plxUtils
 		}
 	}
 
+
+    public static function printThumbnail($datas, $name="thumbnail") {
+		if(!empty($datas) and (!isset($datas[$name]) or !defined('PLX_ROOT'))) {
+			return;
+		}
+
+?>
+			<div class="thumbnail-container">
+				<div id="<?= $name ?>-wrapper">
+<?php
+		if(!empty($datas)) {
+			$uri = $datas[$name];
+			if(!empty($uri)) {
+				if (preg_match('@^(?:https?|data):@', $uri)) {
+					$src = $uri;
+				} else {
+					$src = PLX_ROOT . $uri;
+					if(is_file($src)) {
+						$imgSize = getimagesize($src);
+					} else {
+						$src = false;
+					}
+				}
+			}
+		} else {
+			$src = false;
+		}
+
+		if (!empty($src)) {
+?>
+					<img src="<?= $src ?>" title="<?= $name ?>" <?= !empty($imgSize) ? $imgSize[3] : '' ?> />
+<?php
+		} else {
+?>
+					<svg viewport="0 0 100 100">
+						<line x1="0" y1="0" x2="100" y2="100" stroke-width=2 />
+						<line x1="0" y1="100" x2="100" y2="0" />
+					</svg>
+<?php
+		}
+?>
+				</div>
+				<div>
+					<div>
+						<label for="id_<?= $name ?>"><?= L_THUMBNAIL ?></label>
+						<i class="icon-picture" title="<?= L_THUMBNAIL_SELECTION ?>" data-preview="<?= $name ?>" onclick="mediasManager.openPopup('<?= $name ?>', true)"></i>
+						<input type="text" name="<?= $name ?>" value="<?= self::strCheck(self::getValue($datas[$name], '')) ?>" id="id_<?= $name ?>" onkeyup="refreshImg(this.value);" />
+					</div>
+<?php
+		foreach(array(
+			'_alt'		=> L_THUMBNAIL_ALT,
+			'_title'	=> L_THUMBNAIL_TITLE,
+		) as $k=>$caption) {
+			if(empty($datas) or isset($datas[$name . $k])) {
+				$fieldname = $name . $k;
+?>
+					<div>
+						<label for="id_<?= $fieldname ?>"><?= $caption ?></label>
+						<input type="text" name="<?= $fieldname ?>" value="<?= self::strCheck(self::getValue($datas[$fieldname], '')) ?>" id=="id_<?= $fieldname ?>" />
+					</div>
+<?php
+			}
+		}
+?>
+				</div>
+			</div>
+<?php
+	}
+
     /**
      * Méthode qui teste si un fichier est accessible en écriture
      *

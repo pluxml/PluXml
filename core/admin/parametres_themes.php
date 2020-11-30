@@ -29,20 +29,26 @@ $plxThemes = new plxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
 
 ?>
 <form method="post" id="form_themes">
-    <div class="adminheader autogrid">
+	<?= plxToken::getTokenPostMethod() ?>
+    <div class="adminheader">
         <div>
             <h2 class="h3-like"><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
-            <p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
         </div>
-        <div class="mtm txtright">
-            <a class="inbl button btn--primary" href="parametres_edittpl.php"><?= L_TEMPLATES_EDIT ?></a>
+        <div>
+            <div>
+				<p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
+			</div>
+            <div>
+				<a class="inbl button btn--primary" href="parametres_edittpl.php"><?= L_TEMPLATES_EDIT ?></a>
+            </div>
         </div>
     </div>
-
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
-
-    <div class="admin mtm">
-        <div class="grid-4 has-gutter-l themes">
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop'))
+?>
+    <div class="admin">
+        <div class="themes">
 <?php
 if ($plxThemes->themesList):
 	foreach ($plxThemes->themesList as $theme):
@@ -89,12 +95,11 @@ endif;
 ?>
         </div>
     </div>
-
-<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
-
-					<?= plxToken::getTokenPostMethod() ?>
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay'))
+?>
 </form>
-
 <?php
 
 # Hook Plugins

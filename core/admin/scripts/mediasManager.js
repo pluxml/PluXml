@@ -1,8 +1,14 @@
+(function() {
+
+	const WIND9W_NAME = 'medias-manager';
+
+})();
+
 var mediasManager = {
 
-	addText: function(cibleId, txt, replace) {
+	addText: function(name, txt, replace) {
 		var txt = txt.replace(this.opts.racine, '');
-		var cible = window.opener.document.getElementById(cibleId);
+		var cible = window.opener.document.getElementById('id_' + name);
 		if (cible) {
 			cible.focus();
 			if (replace) {
@@ -35,10 +41,10 @@ var mediasManager = {
 		return false;
 	},
 
-	updImg: function(cibleId, imgPath) {
-		var id = window.opener.document.getElementById(cibleId);
+	updImg: function(name, imgPath) {
+		var id = window.opener.document.getElementById(name + '-wrapper');
 		if (id) {
-			id.innerHTML = '<img src="' + imgPath + '" alt="" />';
+			id.innerHTML = '<img src="' + imgPath + '" />';
 		}
 	},
 
@@ -52,7 +58,7 @@ var mediasManager = {
 			document.body.classList.add('mediasManager');
 
 			// ajout des évenements onclick pour récuper le lien de l'image
-			var tbody = document.querySelector('#medias-table tbody');
+			const tbody = document.querySelector('#medias-table tbody');
 			if (tbody) {
 				tbody.addEventListener('click', function(event) {
 					var target = event.target;
@@ -60,7 +66,7 @@ var mediasManager = {
 						event.preventDefault();
 						var launcher = window.opener.mediasManager;
 						var replace = launcher.replace;
-						var cibleId = launcher.cibleId;
+						var cible = launcher.cible;
 						var fallback = launcher.fallback;
 						var fn = window[fallback];
 						if (typeof fn === "function") {
@@ -68,25 +74,37 @@ var mediasManager = {
 							fn.apply(null, fnparams);
 						}
 						else {
-							mediasManager.addText(cibleId, target.href, replace);
-							mediasManager.updImg(cibleId + '_img', target.href);
+							mediasManager.addText(cible, target.href, replace);
+							mediasManager.updImg(cible, target.href);
 						}
 						window.close();
 						cibleId.focus();
 					}
 				});
 			}
+		} else {
+			console.log('Window name: ' + window.name);
 		}
 	},
 
-	openPopup: function(cibleId, replace, fallback) {
-		var replace = replace == undefined ? false : true;
-		var width = this.opts.width ? this.opts.width : 1320;
-		var height = this.opts.height ? this.opts.height : 580;
-		var left = parseInt((screen.width - width) / 2);
-		var top = parseInt((screen.height - height) / 2);
-		var options = 'directories=no, toolbar=no, menubar=no, location=no, resizable=yes, scrollbars=yes, width=' + width + ' , height=' + height + ', left=' + left + ', top=' + top;
-		this.cibleId = cibleId;
+	openPopup: function(name, replace, fallback) {
+		this.replace = (typeof replace == 'boolean') ? replace : true;
+		var width = this.opts.width ? this.opts.width : 1024,
+			left = 0;
+		if(width > screen.width) {
+			width = screen.width;
+		} else {
+			left = parseInt((screen.width - width) / 2)
+		}
+		var height = this.opts.height ? this.opts.height : 580,
+			top = 0;
+		if(height > screen.height) {
+			height = screen.height;
+		} else {
+			top = parseInt((screen.height - height) / 2);
+		}
+		const options = 'directories=no, toolbar=no, menubar=no, location=no, resizable=yes, scrollbars=yes, width=' + width + ' , height=' + height + ', left=' + left + ', top=' + top;
+		this.cible = name;
 		this.replace = replace;
 		this.fallback = fallback;
 		popup = window.open(unescape(this.opts.urlManager), this.opts.windowName, options);
@@ -98,5 +116,12 @@ var mediasManager = {
 		}
 		return false;
 	}
+}
 
+if('medias_path' in document.body.dataset) {
+	mediasManager.construct({
+		windowName : document.body.dataset.medias_title,
+		racine:	document.body.dataset.root,
+		urlManager: document.body.dataset.medias_path
+	});
 }

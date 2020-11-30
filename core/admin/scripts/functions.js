@@ -340,3 +340,10 @@ function insTag(where, tag) {
 		});
 	}
 })();
+
+// -------- mobile device ---------------
+(function() {
+	if (typeof window.orientation !== 'undefined' || /(?:iphone|ipad|android)/i.test(navigator.userAgent)) {
+		document.body.classList.add('mobile');
+	}
+})();

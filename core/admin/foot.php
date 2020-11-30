@@ -14,12 +14,6 @@
 <script src="scripts/medias.js"></script>
 
 <script>
-	mediasManager.construct({
-		windowName : '<?= L_MEDIAS_TITLE ?>',
-		racine:	'<?= plxUtils::getRacine() ?>',
-		urlManager: '<?= PLX_ADMIN_PATH?>medias.php'
-	});
-
 	(function(query) {
 
 		'use strict';

@@ -232,9 +232,9 @@ if ($plxMedias->aFiles) {
                                                     src="<?= $v['.thumb'] ?>" <?= $attrs ?> alt="<?= $title ?>"
                                                     class="thumb"/></a>
 <?php
-		else: $attrs = getimagesize($v['.thumb'])[3];
+		else: $attrs = getimagesize($v['.thumb']);
 ?>
-                                        <img src="<?= $v['.thumb'] ?>" <?= $attrs ?>
+                                        <img src="<?= $v['.thumb'] ?>" <?= !empty($attrs) ? $attrs[3] : '' ?>
                                              alt="<?= substr($v['extension'], 1) ?> " class="thumb"/>
 <?php
 		endif;
@@ -280,7 +280,7 @@ if ($plxMedias->aFiles) {
 			$dimensions .= '<br />' . $v['thumb']['infos'][0] . ' x ' . $v['thumb']['infos'][1];
 		}
 ?>
-                                <td data-sort="<?= $v['infos'][0] * $v['infos'][1] ?>"><?= $dimensions ?></td>
+                                <td data-sort="<?= !empty($v['infos']) ? $v['infos'][0] * $v['infos'][1] : '' ?>"><?= $dimensions ?></td>
                                 <td data-sort="<?= $v['date'] ?>"><?= plxDate::formatDate(plxDate::timestamp2Date($v['date'])) ?></td>
                             </tr>
 <?php

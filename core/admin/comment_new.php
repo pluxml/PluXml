@@ -139,7 +139,7 @@ include 'top.php';
         </div>
     </div>
 
-    <div class="admin mtm">
+    <div class="admin">
 
         <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
 

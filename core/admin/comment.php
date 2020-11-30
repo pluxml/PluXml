@@ -129,8 +129,8 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
     <?= plxToken::getTokenPostMethod() ?>
 
-    <div class="adminheader grid-6">
-        <div class="col-2">
+    <div class="adminheader">
+        <div>
             <h2 class="h3-like"><?= L_COMMENT_EDITING; ?></h2>
             <?php if (!empty($_GET['a'])) : ?>
                 <p><a class="back" href="comments.php?a=<?= $_GET['a'] ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
@@ -138,22 +138,23 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
                 <p><a class="back" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
             <?php endif; ?>
         </div>
-        <div class="col-4 mtm txtright">
-            <?php if ($com['comStatus'] == '') : ?>
-                <input class="btn--primary" type="submit" name="offline" value="<?= L_SET_OFFLINE ?>"/>
-                <input class="btn--primary" type="submit" name="answer" value="<?= L_COMMENT_ANSWER_BUTTON ?>"/>
-            <?php else : ?>
-                <input class="btn--primary" type="submit" name="online" value="<?= L_COMMENT_PUBLISH_BUTTON ?>"/>
-            <?php endif; ?>
-            <input class="btn--primary" type="submit" name="update" value="<?= L_COMMENT_UPDATE_BUTTON ?>"/>
-            <span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-            <input class="btn--warning" type="submit" name="delete"
-                   value="<?= L_DELETE ?>"
-                   onclick="Check=confirm('<?= L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+        <div>
+			<div>
+	            <?php if ($com['comStatus'] == '') : ?>
+	                <input class="btn--primary" type="submit" name="offline" value="<?= L_SET_OFFLINE ?>"/>
+	                <input class="btn--primary" type="submit" name="answer" value="<?= L_COMMENT_ANSWER_BUTTON ?>"/>
+	            <?php else : ?>
+	                <input class="btn--primary" type="submit" name="online" value="<?= L_COMMENT_PUBLISH_BUTTON ?>"/>
+	            <?php endif; ?>
+	            <input class="btn--primary" type="submit" name="update" value="<?= L_COMMENT_UPDATE_BUTTON ?>"/>
+	            <input class="btn--warning" type="submit" name="delete"
+	                   value="<?= L_DELETE ?>"
+	                   onclick="Check=confirm('<?= L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+			</div>
         </div>
     </div>
 
-    <div class="admin mtm">
+    <div class="admin">
 
         <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
 

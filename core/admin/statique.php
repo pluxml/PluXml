@@ -82,18 +82,19 @@ include 'top.php';
 <form action="statique.php" method="post" id="form_static">
     <?= plxToken::getTokenPostMethod() ?>
     <?php plxUtils::printInput('id', $id, 'hidden'); ?>
-    <div class="adminheader grid-6">
-        <div class="col-4">
+    <div class="adminheader">
+        <div>
             <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($title); ?>"</h2>
             <p><a class="back" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
         </div>
-        <div class="col-2 mtm txtright">
-            <button type="submit" class="btn--primary"><?= L_SAVE ?></button>
-            <p><a href="<?= $url ?>"><?= L_STATIC_VIEW_PAGE ?>&nbsp;<?= plxUtils::strCheck($title); ?>
-                    &nbsp;<?= L_STATIC_ON_SITE ?></a></p>
+        <div>
+            <p><a href="<?= $url ?>"><?= L_STATIC_VIEW_PAGE ?> <?= plxUtils::strCheck($title); ?> <?= L_STATIC_ON_SITE ?></a></p>
+            <div>
+	            <button type="submit" class="btn--primary"><?= L_SAVE ?></button>
+            </div>
         </div>
     </div>
-    <div class="admin mtm">
+    <div class="admin">
 <?php
 
 # Hook Plugins

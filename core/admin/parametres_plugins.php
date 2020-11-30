@@ -164,7 +164,7 @@ include 'top.php';
     </ul>
 </div>
 
-<div class="admin mtm">
+<div class="admin">
     <form action="parametres_plugins.php" method="post" id="form_plugins" data-chk="chkAction[]">
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 		<div class="tableheader">

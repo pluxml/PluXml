@@ -23,6 +23,9 @@ body {
     background-color: var(--backsection);
 }
 
+body.mobile {
+	margin-right: 1rem;
+}
 
 input[type],
 select {
@@ -50,6 +53,10 @@ input[type="number"] {
 
 /* ---------- hack against knacss ---------- */
 
+textarea {
+	width: 100%;
+}
+
 .tag,
 .tag--danger,
 .tag--ghost,
@@ -67,6 +74,78 @@ fieldset {
 
 .table label {
 	margin: 0;
+}
+
+/* -------- from knacss ------- */
+
+/* .checkbox, .radio, .switch */
+input[type="checkbox"], input[type="radio"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	vertical-align: text-bottom;
+	outline: 0;
+	cursor: pointer;
+}
+
+/* .checkbox, .radio, .switch */
+input[type="checkbox"], input[type="radio"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	vertical-align: text-bottom;
+	outline: 0;
+	cursor: pointer;
+}
+
+.table input[type="checkbox"] {
+	border-radius: 0px;
+	box-shadow: none;
+	border: 1px solid #666;
+}
+
+/* .checkbox */
+input[type="checkbox"] {
+	width: 2rem;
+	height: 2rem;
+	-webkit-box-shadow: inset 0 0 0 1px #333;
+	box-shadow: inset 0 0 0 1px #333;
+	background-color: #fff;
+	-webkit-transition: background-color .15s;
+	transition: background-color .15s;
+}
+
+/* .checkbox:checked  */
+input[type="checkbox"]:checked {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23FFF' d='M6.4 1l-.7.7-2.8 2.8-.8-.8-.7-.7L0 4.4l.7.7 1.5 1.5.7.7.7-.7 3.5-3.5.7-.7L6.4 1z'/%3E%3C/svg%3E");
+	background-size: 60% 60%;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-color: #446;
+}
+
+input[type="checkbox"].switch {
+	width: 4rem;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 70%;
+	-webkit-box-shadow: inset -2rem 0 0 #333,inset 0 0 0 1px #333;
+	box-shadow: inset -2rem 0 0 #333,inset 0 0 0 1px #333;
+	-webkit-transition: -webkit-box-shadow .15s;
+	transition: -webkit-box-shadow .15s;
+	transition: box-shadow .15s;
+	transition: box-shadow .15s,-webkit-box-shadow .15s;
+	background-color: #fff;
+	border-radius: 3em;
+}
+
+input[type="checkbox"].switch:checked {
+	-webkit-box-shadow: inset 2rem 0 0 #5cb85c,inset 0 0 0 1px #5cb85c;
+	box-shadow: inset 2rem 0 0 #5cb85c,inset 0 0 0 1px #5cb85c;
+}
+
+form .admin {
+	padding: 0.5rem;
 }
 
 /* ------- Hack against Fontello ---------- */
@@ -87,8 +166,8 @@ fieldset {
 
 #auth .auth section {
 	max-width: 36rem;
-	margin: 15% auto 0;
-	padding: 0.3rem 1rem;
+	margin: 10% auto 0;
+	padding: 1rem;
 	text-align: center;
 }
 
@@ -98,7 +177,7 @@ fieldset {
 }
 
 .auth .form {
-	margin: 1rem;
+	margin: 1rem 0;
     background-color: var(--backsection);
     box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.15);
 }
@@ -141,16 +220,38 @@ i.icon-calendar {
 }
 
 #aside {
-/*
-    position: fixed;
-    top: 40px;
-    bottom: 0;
-    width: 15%;
-*/
+	position: fixed;
+	top: 4.5rem;
+	max-height: calc(100vh - 4.5rem);
     overflow: auto;
     color: #fff;
     background-color: var(--backaside);
+	transition: 0.5s ease transform;
 }
+
+#toggle-menu:not(:checked) + #aside {
+	transform: translateY(-100%);
+}
+
+.nav-button {
+	vertical-align: baseline
+}
+
+#app > .section > .header {
+	position: sticky;
+	top: 0;
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
+/* ------------ main aside ---------- */
+
+#aside,
+#app > .section > .header {
+	z-index: 200;
+}
+
 .aside i {
     margin-right: 10px;
 }
@@ -179,13 +280,9 @@ i.icon-calendar {
     padding: 10px 10px;
 }
 
-.aside .responsive-menu {
-    border-bottom: 1px solid var(--backasideborder);
-}
-
 .aside .responsive-menu a, .aside .plxversion {
     display: block;
-    padding: 5px 10px 10px 30px;
+    padding: 0.75rem 1rem 0.75rem 2rem;
 }
 
 .aside .responsive-menu .active, .aside .menu a:hover, .aside .submenu {
@@ -198,7 +295,8 @@ i.icon-calendar {
 }
 
 .aside .plxversion {
-    margin-top: 10px;
+    margin-top: 1rem;
+    border-top: 1px solid var(--backasideborder);
 }
 
 .aside .plxversion a {
@@ -296,6 +394,13 @@ i.icon-calendar {
 .section .adminheader li a {
     color: #000;
     text-decoration: none;
+}
+
+/* Buttons */
+.section.detail .adminheader > div:last-of-type div {
+	padding-bottom: 1rem;
+	white-space: nowrap;
+	overflow-x: auto;
 }
 
 .section .admin {
@@ -512,7 +617,7 @@ form .fullwidth > :not(label) {
 	width: 100%;
 }
 
-form label::after,
+form fieldset label::after,
 .label-like::after {
 	content: ':';
 	padding: 0 0.5rem;
@@ -526,6 +631,23 @@ button [class^="icon-"] {
     margin-right: 0px;
     color: #000;
 }
+
+form .icon-picture {
+	cursor: pointer;
+}
+
+/* séparateur hauteur x largeur */
+
+.surface {
+	padding: 0.5rem 1rem 0;
+}
+
+fieldset > div {
+	margin: ;
+	padding: 0.5rem 0;
+}
+
+/* -------------- notification --------- */
 
 .notification {
     position: fixed;
@@ -772,7 +894,22 @@ a.overlay {
 	text-align: end;
 }
 
+/* ----------- article.php ------------- */
+
+#form_article .thumbnail-container {
+	display: block;
+}
+
 /* ------------ medias.php ----------- */
+
+body.mediasManager #aside,
+body.mediasManager #app .section .header {
+	display: none !important;
+}
+
+body.mediasManager #app {
+	display: block !important;
+}
 
 #medias-breadcrumb {
 	display: inline-block;
@@ -839,6 +976,31 @@ a.overlay {
 	padding-left: 1rem;
 }
 
+/* -------- categorie.php ---------------- */
+/* -------- parametres_base.php ---------- */
+
+fieldset .label-expanded {
+	display: flex;
+}
+
+fieldset .label-expanded:nth-of-type(even) {
+	background-color: #ececec;
+}
+
+fieldset .label-expanded > label {
+	margin: 0;
+	margin-right: auto;
+	align-self: center;
+}
+
+fieldset .label-expanded input[type="checkbox"] {
+	align-self: center;
+}
+
+fieldset div:not(.label-expanded) input[type="text"] {
+	width: 100%;
+}
+
 /* ------------ parametres_users.php ----- */
 
 #parametres_users th:nth-of-type(3) { min-width: 20rem; } /* name */
@@ -862,6 +1024,12 @@ a.overlay {
 
 /* ------------- parametres_themes.php ----- */
 
+#form_themes .themes {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}
+
 #form_themes .themes .title {
     padding: 0;
 }
@@ -875,6 +1043,7 @@ a.overlay {
 
 #form_themes .themes > button > p {
 	margin: 0.75rem 0 0.25rem;
+	white-space: normal;
 }
 
 #form_themes .themes > button.active {
@@ -940,6 +1109,41 @@ a.overlay {
 #form_themes .btn--primary:hover {
 	color: #fff;
 }
+
+/* ------ parametres_affichage.php -------- */
+
+#form_display .adminheader > div {
+	margin-top: 1rem;
+}
+
+#form_display fieldset > div:not(.large):not(.thumbnail-container) {
+	display: flex;
+}
+
+#form_display fieldset > div:not(.large) > label {
+	align-self: center;
+	margin-right: auto;
+	margin-bottom: 0;
+}
+
+#form_display fieldset > div:not(.large) > input,
+#form_display fieldset > div:not(.large) > select {
+	align-self: flex-start;
+}
+
+#form_display fieldset > div:not(.large) > select {
+	min-width: 20rem;
+}
+
+#id_thumbnail {
+	flex-grow: 1;
+}
+
+#thumbnail-wrapper {
+	padding: 0.5rem 0;
+	text-align: center;
+}
+
 /* ------- Popup Medias Manager ------ */
 
 body.mediasManager .aside, body.mediasManager .header {
@@ -1064,80 +1268,186 @@ input:checked ~ .modal__overlay {
 }
 
 /* ======== responsive design ========== */
+/*
+	// Warning: you should use your own values, regardless of the devices
+	// Best practice is Mobile First: (min-width: $breakpoint)
+	$tiny        : 480px !default; // or 'em' if you prefer, of course
+	$small       : 576px !default;
+	$medium      : 768px !default;
+	$large       : 992px !default;
+	$extra-large : 1200px !default;
+*/
+
+/* $tiny in sass/_config/_variables.scss of Knacss */
+@media screen and (max-width: 447px) {
+}
+
+@media screen and (min-width: 448px) {
+}
+
+/* small */
+@media screen and (max-width: 575px) {
+}
+
+@media screen and (min-width: 576px) {
+	.tablefooter.has-pagination {
+		display: grid;
+		grid-template-columns: auto 1fr;
+	}
+
+	.section.detail .adminheader {
+	    display: flex;
+	}
+
+	.section.detail .adminheader > div:last-of-type {
+		align-self: self-end;
+	    margin-left: auto;
+	    text-align: end;
+	}
+
+	.thumbnail-container {
+		display: grid;
+		grid-template-columns: auto auto;
+		gap: 1rem;
+		padding: 1rem 0;
+	}
+	.thumbnail-container img {
+		max-height: 18rem;
+		max-width: 32rem;
+		width: auto;
+	}
+
+	.thumbnail-container > div:first-of-type {
+		align-self: center;
+	}
+
+	.thumbnail-container i[class*="icon-"] {
+		font-size: 130%;
+		vertical-align: bottom;
+	}
+
+	#form_themes .themes {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+/* $medium */
+@media screen and (max-width: 767px) {
+}
+
+@media screen and (min-width: 768px) {
+	#form_themes .themes {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+/* $large = 992px - 1024px avec knacss-reborn */
+@media screen and (max-width: 991px) {
+}
 
 @media screen and (min-width: 992px) {
+	body:not(.fullwide) #app {
+		display: grid;
+		grid-template-columns: 20rem 1fr;
+	}
+
+	.nav-button {
+		display: none;
+	}
+	body:not(.fullwide) #aside {
+		position: static;
+		max-height: none;
+	}
+
+	body:not(.fullwide) #toggle-menu:not(:checked) + #aside {
+		display: flex;
+		flex-direction: column;
+		transform: translateY(0);
+	}
+
+	body:not(.fullwide) .aside .plxversion {
+		margin-top: auto;
+	}
+
+	body:not(.fullwide) .main {
+	    height: 100vh;
+	}
+
+	body:not(.fullwide) .asideheader h1 {
+		display: block;
+		text-align: center;
+	}
+
+	body:not(.fullwide) #app > .section > .header {
+		display: block;
+	}
+
+	#form_themes .themes {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}
+
+/* $extra-large = 1200px - 1330px avec knacss-reborn */
+@media screen and (max-width: 1199px) {
+}
+
+@media screen and (min-width: 1200px) {
 	#app {
 		display: grid;
 		grid-template-columns: 20rem 1fr;
 	}
 
-	.aside {
-	    overflow: auto;
-    }
+	#aside {
+		position: static;
+		max-height: none;
+	}
+
+	#toggle-menu:not(:checked) + #aside {
+		display: flex;
+		flex-direction: column;
+		transform: translateY(0);
+		transform: translateY(0);
+	}
+
+	.aside .plxversion {
+		margin-top: auto;
+	}
 
 	.main {
 	    height: 100vh;
 	}
-}
 
-@media screen and (max-width: 1260px) {
-	body {
-		margin-right: 1rem;
-	}
-}
-
-@media screen and (max-width: 991px) {
-	body {
-		margin-right: 1rem;
+	.asideheader h1 {
+		display: block;
+		text-align: center;
 	}
 
-	#aside {
-		position: fixed;
-		top: 4.5rem;
-		max-height: calc(100vh - 4.5rem);
-		transition: 0.5s ease transform;
-	}
-	#toggle-menu:not(:checked) + #aside {
-		transform: translateY(-100%);
-	}
-
-	.nav-button {
-		vertical-align: baseline
-	}
 	#app > .section > .header {
-		position: sticky;
-		top: 0;
-		width: 100%;
-		display: grid;
-		grid-template-columns: auto 1fr;
+		display: block;
 	}
 
-	#aside,
-	#app > .section > .header {
-		z-index: 200;
+	.thumbnail-wrapper {
+		grid-template-columns: repeat(2, auto);
+	}
+
+	#form_themes .themes {
+		grid-template-columns: repeat(6, 1fr);
 	}
 }
 
-@media screen and (max-width: 480px) and (orientation: portrait) {
-	#aside {
-		right: 1rem;
-	}
-}
-
-@media screen and (min-width: 480px) {
-	.tablefooter.has-pagination {
-		display: grid;
-		grid-template-columns: auto 1fr;
-	}
-}
+/* ------------- mode landscape --------------- */
 
 @media screen and (max-height: 400px) {
 	#auth .auth section {
 		max-width: none;
-		margin: 1rem 5% 0;
+		margin: 1rem 10% 0;
 	}
 
 	#auth .logo {
 		display: none;
+	}
+
+	.auth input.txt {
+		margin-bottom: 1rem;
 	}
 }

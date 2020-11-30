@@ -71,7 +71,7 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$_POST['title'] = L_NEW_ARTICLE;
 	}
 
-    # ---------- Previsualisation d'un article ---------------
+    # --------- Previsualisation d'un article ---------
     if (!empty($_POST['preview'])) {
         $tmpStr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
         $tmpUrl = plxUtils::urlify($tmpStr);
@@ -108,7 +108,7 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
         exit;
     }
 
-    # Suppression d'un article
+    # --------- Suppression d'un article --------------
     if (isset($_POST['delete'])) {
         $plxAdmin->delArticle($_POST['artId']);
         header('Location: index.php');
@@ -189,9 +189,6 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
     $meta_description = $_POST['meta_description'];
     $meta_keywords = $_POST['meta_keywords'];
     $title_htmltag = $_POST['title_htmltag'];
-    $thumbnail = $_POST['thumbnail'];
-    $thumbnail_title = $_POST['thumbnail_title'];
-    $thumbnail_alt = $_POST['thumbnail_alt'];
 
     # Hook Plugins
     eval($plxAdmin->plxPlugins->callHook('AdminArticlePostData'));
@@ -222,9 +219,6 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
     $meta_description = $result['meta_description'];
     $meta_keywords = $result['meta_keywords'];
     $title_htmltag = $result['title_htmltag'];
-    $thumbnail = $result['thumbnail'];
-    $thumbnail_title = $result['thumbnail_title'];
-    $thumbnail_alt = $result['thumbnail_alt'];
 
     if ($author != $_SESSION['user'] and $_SESSION['profil'] == PROFIL_WRITER) {
         plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
@@ -252,9 +246,7 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
     $allow_com = $plxAdmin->aConf['allow_com'];
     $template = 'article.php';
     $meta_description = $meta_keywords = $title_htmltag = '';
-    $thumbnail = '';
-    $thumbnail_title = '';
-    $thumbnail_alt = '';
+
     # Hook Plugins
     eval($plxAdmin->plxPlugins->callHook('AdminArticleInitData'));
 }
@@ -303,13 +295,13 @@ $cat_id = '000';
 <form method="post" id="form_article">
 	<?php PlxUtils::printInput('artId', $artId, 'hidden'); ?>
 	<?php PlxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
-    <div class="adminheader grid-6">
-        <div class="col-2">
+    <div class="adminheader">
+        <div>
             <h2 class="h3-like"><?= (empty($_GET['a'])) ? L_NEW_ARTICLE : L_ARTICLE_EDITING; ?></h2>
             <p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
         </div>
-        <div class="col-4 txtright">
-            <p class="pas inbl"><span class="label-like"><?= L_ARTICLE_STATUS ?></span>
+        <div>
+            <p class="inbl"><span class="label-like"><?= L_ARTICLE_STATUS ?></span>
                 <strong><?php
 //TODO create a PlxAdmin function to get article status (P3ter)
 if (isset($_GET['a']) and preg_match('/^_\d{4}$/', $_GET['a']))
@@ -597,27 +589,7 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                         <input class="toggle" id="toggle_thumb" type="checkbox">
                         <label class="drop collapsible" for="toggle_thumb"><?= L_THUMBNAIL ?></label>
                         <div class="expander">
-                            <label for="id_thumbnail">
-                                <?= L_THUMBNAIL ?>
-                                <a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)"
-                                   onclick="mediasManager.openPopup('id_thumbnail', true)"
-                                   style="outline:none; text-decoration: none">+</a>
-                            </label><br>
-                            <?php PlxUtils::printInput('thumbnail', PlxUtils::strCheck($thumbnail), 'text', '-255', false, '', '', 'onkeyup="refreshImg(this.value)"'); ?>
-                            <label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?></label><br>
-                            <?php PlxUtils::printInput('thumbnail_title', PlxUtils::strCheck($thumbnail_title), 'text', '-255', false); ?>
-                            <label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?></label><br>
-                            <?php PlxUtils::printInput('thumbnail_alt', PlxUtils::strCheck($thumbnail_alt), 'text', '-255', false); ?>
-                            <?php
-                            $src = false;
-                            if (preg_match('@^(?:https?|data):@', $thumbnail)) {
-                                $src = $thumbnail;
-                            } else {
-                                $src = PLX_ROOT . $thumbnail;
-                                $src = is_file($src) ? $src : false;
-                            }
-                            if ($src) echo "<img src=\"$src\" title=\"$thumbnail\" />\n";
-                            ?>
+							<?php plxUtils::printThumbnail(!empty($_POST) ? $_POST : !empty($result) ? $result : false); ?>
                         </div>
 <?php
 # Hook Plugins

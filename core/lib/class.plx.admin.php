@@ -22,6 +22,10 @@ class plxAdmin extends plxMotor {
 
 	const STATIC_DATES = array('date_creation', 'date_update');
 
+	# <input type="checkbox"> in the form but not in the post
+	const CHK_CONFIG_DISPLAY = array('display_empty_cat', 'thumbs', 'feed_chapo');
+	const CHK_CONFIG_BASE = array('allow_com', 'mod_com', 'mod_art', 'enable_rss');
+
 	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
 
 	/**
@@ -109,8 +113,27 @@ class plxAdmin extends plxMotor {
 
 		if(!empty($content)) {
 			foreach($content as $k=>$v) {
-				if(!in_array($k,array('token', 'config_path'))) # parametres à ne pas mettre dans le fichier
+				if(!in_array($k,array('token', 'config_path'))) {
+					# parametres à ne pas mettre dans le fichier
 					$this->aConf[$k] = $v;
+				}
+			}
+
+			# checkboxes are in the form but not in the query if unchecked
+			if(array_key_exists('hometemplate', $content)) {
+				# parametres_affichage.php
+				foreach(self::CHK_CONFIG_DISPLAY as $k) {
+					if(!isset($content[$k])) {
+						$this->aConf[$k] = 0;
+					}
+				}
+			} elseif(array_key_exists('title', $content)) {
+				# parametres_base.php
+				foreach(self::CHK_CONFIG_BASE as $k) {
+					if(!isset($content[$k])) {
+						$this->aConf[$k] = 0;
+					}
+				}
 			}
 		}
 
@@ -844,7 +867,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editCategorie($content) {
 		# Mise à jour du fichier categories.xml
-		$this->aCats[$content['id']]['homepage'] = intval($content['homepage']);
+		$this->aCats[$content['id']]['homepage'] = isset($content['homepage']) ? intval($content['homepage']) : 0;
 		$this->aCats[$content['id']]['description'] = trim($content['content']);
 		$this->aCats[$content['id']]['template'] = $content['template'];
 		$this->aCats[$content['id']]['thumbnail'] = $content['thumbnail'];
