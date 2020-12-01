@@ -175,7 +175,7 @@ const L_EDITCAT_UPDATE = 'Mettre à jour cette catégorie';
 const L_EDITCAT_META_DESCRIPTION = 'Contenu de la balise meta "description" pour cette catégorie (option)';
 const L_EDITCAT_META_KEYWORDS = 'Contenu de la balise meta "keywords" pour cette catégorie (option)';
 
-// commentaire.php
+// comment.php
 
 const L_COMMENT_ORPHAN_STATUS = 'non visible (nous vous conseillons de supprimer ce commentaire)';
 const L_COMMENT_ARTICLE_LINKED_TITLE = 'Article attaché à ce commentaire';
@@ -206,13 +206,15 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validation effectuée avec succès';
 const L_COMMENT_VALIDATE_ERR = 'Une erreur est survenue pendant la validation';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Modération effectuée avec succès';
 const L_COMMENT_MODERATE_ERR = 'Une erreur est survenue lors de la modération';
+const L_WATCH = 'Regarder';
+const L_SEND_MAIL = 'Envoyer un courriel';
 
 // sous_navigation/commentaires.php
 
 const L_COMMENT_NEW_COMMENT_TITLE = 'Rédiger un nouveau commentaire pour cet article';
 const L_COMMENT_NEW_COMMENT = 'Rédiger un nouveau commentaire';
 
-// commentaire_new.php
+// comment_new.php
 
 const L_ERR_ANSWER_UNKNOWN_COMMENT = 'Le commentaire auquel vous tentez de répondre n\'existe pas ou n\'existe plus !';
 const L_ERR_ANSWER_OFFLINE_COMMENT = 'Le commentaire est hors ligne, impossible d\'y répondre !';

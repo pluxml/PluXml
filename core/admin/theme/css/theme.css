@@ -17,6 +17,7 @@
     --backheader: #fff;
     --backheaderborder: #ddd;
     --primary: #0275d8;
+    --bg-offline-comments: #ddd;
 }
 
 body {
@@ -963,6 +964,12 @@ body.mediasManager #app {
 	margin: 0.3rem;
 }
 
+/* -------- comments.php ----------------- */
+
+#comments-table .offline {
+	background-color: var(--bg-offline-comments);
+}
+
 /* --------- categories.php -------------- */
 
 #form_categories tr:not(.new) td:nth-of-type(5),
@@ -997,7 +1004,8 @@ fieldset .label-expanded input[type="checkbox"] {
 	align-self: center;
 }
 
-fieldset div:not(.label-expanded) input[type="text"] {
+fieldset div:not(.label-expanded) input[type="text"],
+fieldset div:not(.label-expanded) input[type="email"] {
 	width: 100%;
 }
 
@@ -1329,6 +1337,13 @@ input:checked ~ .modal__overlay {
 	#form_themes .themes {
 		grid-template-columns: repeat(3, 1fr);
 	}
+
+	#form_comment fieldset > div:first-of-type {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
 }
 
 /* $medium */
@@ -1338,6 +1353,12 @@ input:checked ~ .modal__overlay {
 @media screen and (min-width: 768px) {
 	#form_themes .themes {
 		grid-template-columns: repeat(4, 1fr);
+	}
+
+	#form_comment fieldset > div:first-of-type {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
 	}
 }
 
@@ -1432,6 +1453,14 @@ input:checked ~ .modal__overlay {
 
 	#form_themes .themes {
 		grid-template-columns: repeat(6, 1fr);
+	}
+
+	#form_comment fieldset > div:first-of-type {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	#form_comment fieldset #calendar {
+		white-space: nowrap;
 	}
 }
 

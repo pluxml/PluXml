@@ -47,6 +47,9 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Pubblicazione del commento avvenuta con s
 const L_COMMENT_VALIDATE_ERR = 'Errore durante la pubblicazione del commento';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Il commento è stato moderato con successo';
 const L_COMMENT_MODERATE_ERR = 'Errore durante la moderazione del commento';
+const L_WATCH = 'Regarder';
+const L_SEND_MAIL = 'Envoyer un courriel';
+
 const L_COMMENT_WRITTEN_BY = 'Pubblicato da';
 const L_PLXMEDIAS_MEDIAS_FOLDER_ERR = 'Impossibile creare la cartella media per l\'utente in uso';
 const L_PLXMEDIAS_ROOT = 'radice';

@@ -122,22 +122,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminStaticTop'))
 				<label for="id_meta_keywords"><?= L_STATIC_META_KEYWORDS ?></label>
 				<?php plxUtils::printInput('meta_keywords', plxUtils::strCheck($meta_keywords), 'text', '50-255'); ?>
 			</div>
-            <div id="calendar">
-<?php
-	# HTML5 : on utilise <input type="date" /> et <input type="time" />
-	# Requis ci-dessous : array_keys($dateTitles) == plxDate::ENTRIES
-	foreach($dates5 as $k=>$infos) {
-?>
-				<div>
-					<label><?= DATE_TITLES[$k] ?></label><br>
-					<input type="date" name="<?= $k ?>[0]" value="<?= $infos[0] ?>" />
-					<input type="time" name="<?= $k ?>[1]" value="<?= $infos[1] ?>" />
-					<i class="icon-calendar" title="<?= L_NOW ?>" data-datetime5="<?= $k ?>"></i>
-				</div>
-<?php
-	}
-?>
-            </div>
+<?php plxUtils::printDates($dates5); ?>
         </fieldset>
 <?php
 

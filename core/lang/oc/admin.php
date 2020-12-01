@@ -52,6 +52,9 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validacion efectuada amb succès';
 const L_COMMENT_VALIDATE_ERR = 'Una error es subrevenguda pendent la validacion';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Moderacion efectuada amb succès';
 const L_COMMENT_MODERATE_ERR = 'Una error es subrevenguda al temps de la moderacion';
+const L_WATCH = 'Regarder';
+const L_SEND_MAIL = 'Envoyer un courriel';
+
 const L_ERR_URL_ALREADY_EXISTS = 'Url ja utilizada. Volgatz modificar la valor del camp \'Url\'';
 
 // class.plx.media.php

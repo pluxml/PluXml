@@ -82,8 +82,8 @@ const PROFIL_NAMES = array(
 );
 
 const DATE_TITLES = array(
-	'date_creation'		=> L_ARTICLE_DATE,
-	'date_publication'	=> L_DATE_CREATION,
+	'date_creation'		=> L_DATE_CREATION,
+	'date_publication'	=> L_ARTICLE_DATE,
 	'date_update'		=> L_DATE_UPDATE,
 );
 

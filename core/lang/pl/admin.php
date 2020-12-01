@@ -52,6 +52,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Walidacja zakończyła się powodzeniem';
 const L_COMMENT_VALIDATE_ERR = 'Wystąpił błąd podczas walidacji';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Komentarz został pomyślnie edytowany';
 const L_COMMENT_MODERATE_ERR = 'Wystąpił błąd podczas edycji komentarza';
+const L_WATCH = 'Zegarek';
+const L_SEND_MAIL = 'Wysłać emaila';
 const L_ERR_URL_ALREADY_EXISTS = 'Adres URL jest używany. Proszę zmienić wartość pola URL';
 
 // class.plx.media.php

@@ -207,6 +207,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Comment was sucessfully validated';
 const L_COMMENT_VALIDATE_ERR = 'An error occured in the validation';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Sucessfull moderation';
 const L_COMMENT_MODERATE_ERR = 'An error occured in the moderation';
+const L_WATCH = 'Watch';
+const L_SEND_MAIL = 'To send an email';
 
 // sous_navigation/commentaires.php
 

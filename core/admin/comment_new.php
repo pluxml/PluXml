@@ -27,7 +27,7 @@ if (!$plxAdmin->aConf['allow_com']) {
 
 # validation de l'id de l'article si passé en paramètre avec $_GET['a']
 if (isset($_GET['a'])) {
-    if (!preg_match('/^_?([0-9]{4})$/', $_GET['a'], $capture)) {
+    if (!preg_match('/^_?(\d{4})$/', $_GET['a'], $capture)) {
         plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
         header('Location: index.php');
         exit;
@@ -37,7 +37,7 @@ if (isset($_GET['a'])) {
 }
 # validation de l'id de l'article si passé en paramètre avec $_GET['c']
 if (isset($_GET['c'])) {
-    if (!preg_match('/^_?([0-9]{4}).(.*)$/', $_GET['c'], $capture)) {
+    if (!preg_match('/^_?(\d{4})\.(.*)$/', $_GET['c'], $capture)) {
         plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
         header('Location: index.php');
         exit;
@@ -125,26 +125,25 @@ if (!empty($_POST) and !empty($_POST['content'])) {
 include 'top.php';
 ?>
 
-<form action="comment_new.php?<?= plxUtils::strCheck($get) ?>" method="post" id="form_comment">
-
+<form action="comment_new.php?<?= plxUtils::strCheck($get) ?>" method="post" id="form_comment_new">
+	<?php plxUtils::printInput('parent', $parent, 'hidden'); ?>
     <div class="adminheader">
         <div class="mbm">
             <h2 class="h3-like"><?= L_CREATE_NEW_COMMENT; ?></h2>
-            <?php if (!empty($_GET['a'])) : ?>
+<?php if (!empty($_GET['a'])) : ?>
                 <p><a class="back" href="comments.php?a=<?= $_GET['a']; ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
-            <?php else : ?>
+<?php else : ?>
                 <p><a class="back" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
-            <?php endif; ?>
+<?php endif; ?>
             <input class="btn--primary" type="submit" name="create" value="<?= L_SAVE ?>"/>
         </div>
     </div>
-
     <div class="admin">
-
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
-
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop'));
+?>
         <h3 class="no-margin"><?= ucfirst(L_ARTICLE) ?> &laquo;<?= plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
-
         <ul>
             <li><?= L_AUTHOR ?> :
                 <strong><?= plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong>
@@ -153,31 +152,40 @@ include 'top.php';
         </ul>
 
         <fieldset>
-            <div class="grid">
-                <div class="col sml-12">
+            <div>
+                <div>
                     <div id="id_answer"></div>
-                    <?php plxUtils::printInput('parent', $parent, 'hidden'); ?>
                     <?= plxToken::getTokenPostMethod() ?>
-                    <label for="id_content"><?= L_COMMENT_ARTICLE_FIELD ?>&nbsp;:</label>
-                    <?php plxUtils::printArea('content', plxUtils::strCheck($content), 60, 7, false, 'w100'); ?>
-                    <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
+                    <label for="id_content"><?= L_COMMENT_ARTICLE_FIELD ?></label>
+                    <textarea name="content" rows="7" id="id_content"><?= plxUtils::strCheck($content) ?></textarea>
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminCommentNew'))
+?>
                 </div>
             </div>
         </fieldset>
     </div>
 </form>
-
 <div class="admin">
-    <?php if (isset($plxAdmin->plxRecord_coms)) : # On a des commentaires ?>
+<?php
+if (isset($plxAdmin->plxRecord_coms)) {
+	# On a des commentaires
+?>
         <h3><?= L_ARTICLE_COMMENTS_LIST ?></h3>
-        <?php while ($plxAdmin->plxRecord_coms->loop()) : # On boucle ?>
-            <?php $comId = $plxAdmin->plxRecord_coms->f('article') . '.' . $plxAdmin->plxRecord_coms->f('numero'); ?>
+<?php
+	# On boucle
+	while ($plxAdmin->plxRecord_coms->loop()) {
+		$comId = $plxAdmin->plxRecord_coms->f('article') . '.' . $plxAdmin->plxRecord_coms->f('numero');
+?>
             <div id="c<?= $comId ?>"
                  class="comment<?= ((isset($_GET['c']) and $_GET['c'] == $comId) ? ' current' : '') ?> level-<?= $plxAdmin->plxRecord_coms->f('level'); ?>">
                 <div id="com-<?= $plxAdmin->plxRecord_coms->f('index'); ?>">
                     <small>
                         <span class="nbcom">#<?= $plxAdmin->plxRecord_coms->i + 1 ?></span>&nbsp;
-                        <time datetime="<?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?></time>
+                        <time datetime="<?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>">
+							<?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?>
+						</time>
                         -
                         <?= L_WRITTEN_BY ?>&nbsp;<strong><?= $plxAdmin->plxRecord_coms->f('author'); ?></strong>
                         -
@@ -186,13 +194,17 @@ include 'top.php';
                         - <a href="#form_comment"
                              onclick="replyCom('<?= $plxAdmin->plxRecord_coms->f('index') ?>')"><?= L_COMMENT_ANSWER ?></a>
                     </small>
-                    <blockquote
-                            class="type-<?= $plxAdmin->plxRecord_coms->f('type'); ?>"><?= nl2br($plxAdmin->plxRecord_coms->f('content')); ?></blockquote>
+                    <blockquote class="type-<?= $plxAdmin->plxRecord_coms->f('type'); ?>"><?= nl2br($plxAdmin->plxRecord_coms->f('content')); ?></blockquote>
                 </div>
-                <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewList')) # Hook Plugins ?>
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminCommentNewList'))
+?>
             </div>
-        <?php endwhile; ?>
-    <?php endif; ?>
+<?php
+	}
+}
+?>
 </div>
 <script>
     function replyCom(idCom) {
@@ -217,6 +229,6 @@ include 'top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentNewFoot'));
+
 # On inclut le footer
 include 'foot.php';
-?>

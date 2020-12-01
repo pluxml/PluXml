@@ -1349,50 +1349,89 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	données du commentaire à mettre à jour
 	 * @param	id		identifiant du commentaire
+	 * @param	status  'online', 'offline' ou ''
 	 * @return	string
-	 * @author	Stephane F. et Florent MONTHEL
+	 * @author	Stephane F. et Florent MONTHEL, Jean-Pierre Pourrez "bazooka07"
 	 **/
 	public function editCommentaire($content, &$id) {
 
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time']))
-			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
+		if(isset($content['date_publication'])) {
+			if(!plxDate::checkDate5($content['date_publication'][0], $content['date_publication'][1])) {
+				return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
+			}
+		} else {
+			# Deprecated !
+			if(!plxDate::checkDate(
+				$content['date_publication_day'],
+				$content['date_publication_month'],
+				$content['date_publication_year'],
+				$content['date_publication_time'])
+			) {
+				return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
+			}
+		}
 
-		$comment=array();
 		# Génération du nom du fichier
-		$comment['filename'] = $id.'.xml';
-		if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename'])) # Commentaire inexistant
+		$filename = PLX_ROOT . $this->aConf['racine_commentaires'] . $id . '.xml';
+
+		if(!file_exists($filename)) {
+			# Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
+		}
+
 		# Contrôle des saisies
-		if(trim($content['mail'])!='' AND !plxUtils::checkMail(trim($content['mail'])))
+		if(!empty(trim($content['mail'])) AND !filter_var(trim($content['mail']), FILTER_VALIDATE_EMAIL)) {
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
-		if(trim($content['site'])!='' AND !plxUtils::checkSite($content['site']))
+		}
+		if(!empty(trim($content['site'])) AND !filter_var(trim($content['site']), FILTER_VALIDATE_URL)) {
 			return plxMsg::Error(L_ERR_INVALID_SITE);
+		}
+
 		# On récupère les infos du commentaire
-		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
+		$com = $this->parseCommentaire($filename);
+
 		# Formatage des données
 		if($com['type'] != 'admin') {
-			$comment['author'] = plxUtils::strCheck(trim($content['author']));
-			$comment['site'] = plxUtils::strCheck(trim($content['site']));
-			$comment['content'] = plxUtils::strCheck(trim($content['content']));
+			$srcComment = array(
+				'author'	=> plxUtils::strCheck(trim($content['author'])),
+				'site'		=> plxUtils::strCheck(trim($content['site'])),
+				'content'	=> plxUtils::strCheck(trim($content['content'])),
+			);
 		} else {
-			$comment['author'] = trim($content['author']);
-			$comment['site'] = trim($content['site']);
-			$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
+			$srcComment = array(
+				'author'	=> trim($content['author']),
+				'site'		=> trim($content['site']),
+				'content'	=> strip_tags(trim($content['content']), '<a>,<strong>'),
+			);
 		}
-		$comment['ip'] = $com['ip'];
-		$comment['type'] = $com['type'];
-		$comment['mail'] = $content['mail'];
-		$comment['site'] = $content['site'];
-		$comment['parent'] = $com['parent'];
-		# Génération du nouveau nom du fichier
-		$time = explode(':', $content['date_publication_time']);
-		$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
-		$com = $this->comInfoFromFilename($id.'.xml');
-		$newid = $com['comStatus'].$com['artId'].'.'.$newtimestamp.'-'.$com['comIdx'];
-		$comment['filename'] = $newid.'.xml';
+
+		# Pour génération du nouveau nom du fichier
+		if(isset($content['date_publication'])) {
+			# saisie des dates avec types de champs date et time (HTML5)
+			$dt = new DateTime($content['date_publication'][0] . ' ' . $content['date_publication'][1]);
+			$newtimestamp = $dt->getTimestamp();
+		} else {
+			# ancienne méthode de saisie des dates. Deprecated !
+			$time = explode(':', $content['date_publication_time']);
+			$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
+		}
+
+		$comInfos = $this->comInfoFromFilename($id . '.xml');
+		$newid = $comInfos['comStatus'] . $comInfos['artId'] . '.' . $newtimestamp . '-' . $comInfos['comIdx'];
+
+		$comment = array_merge($srcComment, array(
+			'filename'	=> $newid . '.xml',
+			'ip'		=> $com['ip'],
+			'type'		=> $com['type'],
+			'mail'		=> $content['mail'],
+			'site'		=> $content['site'],
+			'parent'	=> $com['parent'],
+		));
+
 		# Suppression de l'ancien commentaire
 		$this->delCommentaire($id);
+
 		# Création du nouveau commentaire
 		$id = $newid;
 		if($this->addCommentaire($comment))
@@ -1433,33 +1472,39 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function modCommentaire(&$id, $mod) {
 
-		$capture = '';
-
 		# Génération du nom du fichier
-		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
-		if(!file_exists($oldfilename)) # Commentaire inexistant
+		$oldfilename = PLX_ROOT.$this->aConf['racine_commentaires'] . $id . '.xml';
+		if(!file_exists($oldfilename)) {
+			# Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
-		# Modérer ou valider ?
-		if(preg_match('/([[:punct:]]?)[0-9]{4}.[0-9]{10}-[0-9]+$/',$id,$capture)) {
-			$id=str_replace($capture[1],'',$id);
 		}
-		if($mod=='offline')
-			$id = '_'.$id;
-		# Génération du nouveau nom de fichier
-		$newfilename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
-		# On renomme le fichier
-		@rename($oldfilename,$newfilename);
-		# Contrôle
-		if(is_readable($newfilename)) {
-			if($mod == 'online')
-				return plxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
-			else
-				return plxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
-		} else {
-			if($mod == 'online')
-				return plxMsg::Error(L_COMMENT_VALIDATE_ERR);
-			else
-				return plxMsg::Error(L_COMMENT_MODERATE_ERR);
+
+		# Modérer ou valider ?
+		if(preg_match('@_?\d{4}\.\d{10}-\d+$@', $id)) {
+			$id = ltrim($id, '_');
+
+			if($mod=='offline') {
+				$id = '_' . $id;
+			}
+
+			# Génération du nouveau nom de fichier
+			$newfilename = PLX_ROOT.$this->aConf['racine_commentaires'] . $id . '.xml';
+
+			# On renomme le fichier
+			@rename($oldfilename, $newfilename);
+
+			# Contrôle
+			if(is_readable($newfilename)) {
+				if($mod == 'online')
+					return plxMsg::Info(L_COMMENT_VALIDATE_SUCCESSFUL);
+				else
+					return plxMsg::Info(L_COMMENT_MODERATE_SUCCESSFUL);
+			} else {
+				if($mod == 'online')
+					return plxMsg::Error(L_COMMENT_VALIDATE_ERR);
+				else
+					return plxMsg::Error(L_COMMENT_MODERATE_ERR);
+			}
 		}
 	}
 

@@ -387,7 +387,15 @@ class plxUtils
 		}
 	}
 
-
+	/*
+	 * Affiche les champs de saisie pour une vignette (image d'accroche).
+	 *
+	 * Utilise le gestionnaire de medias pour afficher les images disponibles
+	 * @param	$datas tableau associatif contenant au moins les champs nécessaires à la vignette
+	 * @param	$name racine des noms des champs de saisie
+	 * @return	void
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 * */
     public static function printThumbnail($datas, $name="thumbnail") {
 		if(!empty($datas) and (!isset($datas[$name]) or !defined('PLX_ROOT'))) {
 			return;
@@ -456,6 +464,35 @@ class plxUtils
 <?php
 	}
 
+	/*
+	 * Affiche les champs de saisies d'une série de dates dans un formulaire.
+	 *
+	 * @param	$aDates tableau associatif des dates
+	 * @return	void
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 * */
+	public static function printDates($aDates) {
+		# HTML5 : on utilise <input type="date" /> et <input type="time" />
+		# Requis ci-dessous : array_keys($dateTitles) == plxDate::ENTRIES
+		# id="calendar" nécessaire pour gérer l'évènement "click" sur <i class="icon-calendar" />
+?>
+            <div id="calendar">
+<?php
+		foreach($aDates as $k=>$infos) {
+?>
+			<div>
+				<label><?= DATE_TITLES[$k] ?></label><br>
+				<input type="date" name="<?= $k ?>[0]" value="<?= $infos[0] ?>" />
+				<input type="time" name="<?= $k ?>[1]" value="<?= $infos[1] ?>" />
+				<i class="icon-calendar" title="<?= L_NOW ?>" data-datetime5="<?= $k ?>"></i>
+			</div>
+<?php
+		}
+?>
+            </div>
+<?php
+	}
+
     /**
      * Méthode qui teste si un fichier est accessible en écriture
      *
@@ -481,10 +518,10 @@ class plxUtils
     /**
      * Méthode qui teste si le module apache mod_rewrite est disponible
      *
-     * @param io            affiche à l'écran le résultat du test si à VRAI
-     * @param format        format d'affichage
-     * @return    boolean        retourne vrai si le module apache mod_rewrite est disponible
-     * @author    Stephane F
+     * @param	io            affiche à l'écran le résultat du test si à VRAI
+     * @param	format        format d'affichage
+     * @return  boolean        retourne vrai si le module apache mod_rewrite est disponible
+     * @author  Stephane F
      **/
     public static function testModRewrite($io = true, $format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
     {

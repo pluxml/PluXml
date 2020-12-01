@@ -434,22 +434,7 @@ if ($artId != '' and $artId != '0000') {
 	}
 ?>
                         </div>
-                        <div class="pas" id="calendar">
-<?php
-	# HTML5 : on utilise <input type="date" /> et <input type="time" />
-	# Requis ci-dessous : array_keys($dateTitles) == plxDate::ENTRIES
-	foreach($dates5 as $k=>$infos) {
-?>
-                            <div>
-                                <label><?= DATE_TITLES[$k] ?></label><br>
-                                <input type="date" name="<?= $k ?>[0]" value="<?= $infos[0] ?>" />
-                                <input type="time" name="<?= $k ?>[1]" value="<?= $infos[1] ?>" />
-                                <i class="icon-calendar" title="<?= L_NOW ?>" data-datetime5="<?= $k ?>"></i>
-                            </div>
-<?php
-	}
-?>
-                        </div>
+<?php plxUtils::printDates($dates5); ?>
                         <div class="pas">
                             <label for="id_template"><?= L_TEMPLATE ?></label>
                             <?php PlxUtils::printSelect('template', $aTemplates, $template); ?>

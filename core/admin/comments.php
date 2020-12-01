@@ -229,19 +229,23 @@ if($all) {
                 <tbody>
 <?php
 if ($coms) {
-	$num = 0;
+	# On boucle sur les commentaires
 	while ($plxAdmin->plxRecord_coms->loop()) { # On boucle
 		$artId = $plxAdmin->plxRecord_coms->f('article');
 		$status = $plxAdmin->plxRecord_coms->f('status');
 		$id = $status . $artId . '.' . $plxAdmin->plxRecord_coms->f('numero');
 		$content = nl2br($plxAdmin->plxRecord_coms->f('content'));
-		if ($_SESSION['selCom'] == 'all') {
-			$content = $content . ($status != '' ? '<span class="tag--warning">' . L_COMMENT_OFFLINE : '');
-		}
+
+		$fAuthor = $plxAdmin->plxRecord_coms->f('author');
+		$fMail = $plxAdmin->plxRecord_coms->f('mail');
+		$author = !empty($fMail) ? '<a href="mailto:' . $fMail . '">' . $fAuthor . '</a>' : $fAuthor;
+
+		$fSite = $plxAdmin->plxRecord_coms->f('site');
+		$site =  !empty($site) ? '<a href="' . $fSite . '" target="_blank">' . $fSite . '</a>' : '&nbsp;';
 
 		# On génère notre ligne
 ?>
-					<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
+					<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?> <?= ($all and $status == '_') ? 'offline' : '' ?>">
 						<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" id="id_<?= $id ?>" /></td>
 						<td class="datetime"><label for="id_<?= $id ?>"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></label></td>
 <?php
@@ -250,13 +254,6 @@ if ($coms) {
 						<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
 <?php
 		}
-
-		$fAuthor = $plxAdmin->plxRecord_coms->f('author');
-		$fMail = $plxAdmin->plxRecord_coms->f('mail');
-		$author = !empty($fMail) ? '<a href="mailto:' . $fMail . '">' . $fAuthor . '</a>' : $fAuthor;
-
-		$fSite = $plxAdmin->plxRecord_coms->f('site');
-		$site =  !empty($site) ? '<a href="' . $fSite . '" target="_blank">' . $fSite . '</a>' : '&nbsp;';
 ?>
 						<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
 						<td class="author"><?= $author ?></td>

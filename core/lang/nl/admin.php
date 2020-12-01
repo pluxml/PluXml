@@ -195,6 +195,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validatie van de commentaar succesvol doo
 const L_COMMENT_VALIDATE_ERR = 'Er is een fout opgetreden bij het valideren van de commentaar';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Moderatie succesvol uitgevoerd';
 const L_COMMENT_MODERATE_ERR = 'Er is een fout opgetreden tijdens de moderatie';
+const L_WATCH = 'Kijken';
+const L_SEND_MAIL = 'Een email sturen';
 
 // sous_navigation/commentaires.php
 

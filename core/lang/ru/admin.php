@@ -52,6 +52,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Комментарий был успеш�
 const L_COMMENT_VALIDATE_ERR = 'Ошибка при проверке';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Успешная модерация';
 const L_COMMENT_MODERATE_ERR = 'Ошибка при модерации';
+const L_WATCH = 'смотреть';
+const L_SEND_MAIL = 'Отправить электронное письмо';
 const L_ERR_URL_ALREADY_EXISTS = 'Адрес уже используется. Пожалуйста, измените значение поля \'Адрес\'';
 
 // class.plx.media.php

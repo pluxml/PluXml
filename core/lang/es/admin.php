@@ -52,6 +52,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Comentario aprobado correctamente';
 const L_COMMENT_VALIDATE_ERR = 'Error al aprobar el comentario';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Comentario moderado correctamente';
 const L_COMMENT_MODERATE_ERR = 'Error al moderar el comentario';
+const L_WATCH = 'Mirar';
+const L_SEND_MAIL = 'Enviar un correo electrónico';
 const L_ERR_URL_ALREADY_EXISTS = 'URL ya utilizada. Cambie el valor del campo «URL»';
 
 // class.plx.media.php

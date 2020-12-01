@@ -209,6 +209,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validierung erfolgreich';
 const L_COMMENT_VALIDATE_ERR = 'Fehler bei der Validierung.';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Durch den Moderator akzeptiert';
 const L_COMMENT_MODERATE_ERR = 'Fehler oder durch Moderator abgelehnt';
+const L_WATCH = 'Uhr';
+const L_SEND_MAIL = 'Eine E-Mail senden';
 
 // sous_navigation/commentaires.php
 
