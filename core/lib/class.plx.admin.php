@@ -106,6 +106,35 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function editConfiguration($content=false) {
 
+		# Si nouvel emplacement du dossier de configuration
+		if(!empty($content['config_path'])) {
+			$newpath = trim($content['config_path']);
+			if(substr($newpath, -1) != '/') { $newpath .= '/'; }
+			if($newpath != PLX_CONFIG_PATH) {
+				if(!is_writable(PLX_ROOT . $newpath . path('XMLFILE_PARAMETERS'))) {
+					# Le fichier de paramétrage n'est accessible en écriture,
+					# on essaie de renommer le dossier de données ou de paramètrage.
+					if(!rename(PLX_ROOT . PLX_CONFIG_PATH, PLX_ROOT . $newpath)) {
+						return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
+					}
+				}
+
+				# mise à jour du fichier de configuration config.php
+				$output = <<< OUTPUT
+<?php
+const PLX_CONFIG_PATH = '$newpath';
+
+OUTPUT;
+				if(!plxUtils::write($output, PLX_ROOT . 'config.php')) {
+					return plxMsg::Error(L_SAVE_ERR . ' config.php');
+				} else {
+					# On force une nouvelle authentification
+					header('Location: ' . PLX_ADMIN_PATH . 'auth.php?d=1');
+					exit;
+				}
+			}
+		}
+
 		if(!empty($this->plxPlugins)) {
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
@@ -176,24 +205,6 @@ class plxAdmin extends plxMotor {
         if(array_key_exists('urlrewriting', $content))
 			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
-
-		# Si nouvel emplacement du dossier de configuration
-		if(!empty($content['config_path'])) {
-			$newpath = trim($content['config_path']);
-			if(substr($newpath, -1) != '/') { $newpath .= '/'; }
-			if($newpath != PLX_CONFIG_PATH) {
-				# relocalisation du dossier de configuration de PluXml
-				if(!rename(PLX_ROOT.PLX_CONFIG_PATH, PLX_ROOT . $newpath))
-					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
-				# mise à jour du fichier de configuration config.php
-				$output = <<< OUTPUT
-<?php const PLX_CONFIG_PATH = '$newpath') ?>
-
-OUTPUT;
-				if(!plxUtils::write($output, PLX_ROOT . 'config.php'))
-					return plxMsg::Error(L_SAVE_ERR . ' config.php');
-			}
-		}
 
 		return plxMsg::Info(L_SAVE_SUCCESSFUL);
 

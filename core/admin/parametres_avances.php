@@ -234,7 +234,7 @@ include 'top.php';
             <div>
                 <label for="id_custom_admincss_file"><?= L_MAIL_ADDRESS ?></label>
                 <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span>
+                    <span class="tooltiptext"><?php /* echo L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP; */ ?></span>
                 </div>
             </div>
             <div>
