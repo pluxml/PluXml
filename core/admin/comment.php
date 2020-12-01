@@ -153,11 +153,8 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 			</div>
         </div>
     </div>
-
     <div class="admin">
-
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
         <ul>
             <li><?= L_COMMENT_IP_FIELD ?> : <?= $plxAdmin->plxRecord_coms->f('ip'); ?></li>
             <li><?= L_COMMENT_STATUS_FIELD ?> : <?= $statut; ?></li>
@@ -203,9 +200,9 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
             <div class="grid">
                 <div class="col sml-12">
                     <label for="id_mail"><?= L_EMAIL ?> :
-                        <?php if ($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
+<?php if ($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
                             <?= '<a href="mailto:' . $plxAdmin->plxRecord_coms->f('mail') . '">' . $plxAdmin->plxRecord_coms->f('mail') . '</a>' ?>
-                        <?php endif; ?>
+<?php endif; ?>
                     </label>
                     <?php plxUtils::printInput('mail', plxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')), 'text', '40-255') ?>
                 </div>
@@ -215,17 +212,17 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
                 <div class="col sml-12">
                     <label for="id_content"><?= L_COMMENT_ARTICLE_FIELD ?> :</label>
                     <?php plxUtils::printArea('content', $content, 0, 7); ?>
-                    <?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
                 </div>
             </div>
 
         </fieldset>
     </div>
 </form>
-
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentFoot'));
+
 # On inclut le footer
 include 'foot.php';
-?>

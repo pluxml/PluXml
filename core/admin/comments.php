@@ -25,13 +25,6 @@ if (empty($plxAdmin->aConf['allow_com'])) {
     exit;
 }
 
-# Les commentaires ne sont pas autorisés
-if (empty($plxAdmin->aConf['allow_com'])) {
-    plxMsg::Error(L_COMMENTS_CLOSED);
-    header('Location: index.php');
-    exit;
-}
-
 # validation de l'id de l'article si passé en paramètre
 if (isset($_GET['a']) and !preg_match('/^_?\d{4}$/', $_GET['a'])) {
     plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
@@ -41,17 +34,23 @@ if (isset($_GET['a']) and !preg_match('/^_?\d{4}$/', $_GET['a'])) {
 
 # Suppression des commentaires sélectionnés
 if (isset($_POST['selection']) and !empty($_POST['btn_ok']) and ($_POST['selection'] == 'delete') and isset($_POST['idCom'])) {
-    foreach ($_POST['idCom'] as $k => $v) $plxAdmin->delCommentaire($v);
+    foreach ($_POST['idCom'] as $k => $v) {
+		$plxAdmin->delCommentaire($v);
+	}
     header('Location: comments.php' . (!empty($_GET['a']) ? '?a=' . $_GET['a'] : ''));
     exit;
 } # Validation des commentaires sélectionnés
 elseif (isset($_POST['selection']) and !empty($_POST['btn_ok']) and ($_POST['selection'] == 'online') and isset($_POST['idCom'])) {
-    foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'online');
+    foreach ($_POST['idCom'] as $k => $v) {
+		$plxAdmin->modCommentaire($v, 'online');
+	}
     header('Location: comments.php' . (!empty($_GET['a']) ? '?a=' . $_GET['a'] : ''));
     exit;
 } # Mise hors-ligne des commentaires sélectionnés
 elseif (isset($_POST['selection']) and !empty($_POST['btn_ok']) and ($_POST['selection'] == 'offline') and isset($_POST['idCom'])) {
-    foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'offline');
+    foreach ($_POST['idCom'] as $k => $v) {
+		$plxAdmin->modCommentaire($v, 'offline');
+	}
     header('Location: comments.php' . (!empty($_GET['a']) ? '?a=' . $_GET['a'] : ''));
     exit;
 }
@@ -59,16 +58,14 @@ elseif (isset($_POST['selection']) and !empty($_POST['btn_ok']) and ($_POST['sel
 # Récupération des infos sur l'article attaché au commentaire si passé en paramètre
 if (!empty($_GET['a'])) {
     # Infos sur notre article
-    if (!$globArt = $plxAdmin->plxGlob_arts->query('/^' . $_GET['a'] . '.(.*).xml$/', '', 'sort', 0, 1)) {
+    if (!preg_match('@^_?\d{4}$@', $_GET['a']) or !$globArt = $plxAdmin->plxGlob_arts->query('/^' . $_GET['a'] . '\..*\.xml$/', '', 'sort', 0, 1)) {
         plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
         header('Location: index.php');
         exit;
     }
+
     # Infos sur l'article
     $aArt = $plxAdmin->parseArticle(PLX_ROOT . $plxAdmin->aConf['racine_articles'] . $globArt['0']);
-    $portee = ucfirst(L_ARTICLE) . ' &laquo;' . $aArt['title'] . '&raquo;';
-} else { # Commentaires globaux
-    $portee = '';
 }
 
 # On inclut le header
@@ -82,7 +79,6 @@ else
     $comSel = ((isset($_SESSION['selCom']) and !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
 
 if (!empty($_GET['a'])) {
-
     switch ($comSel) {
         case 'online':
             $mod = '';
@@ -93,37 +89,30 @@ if (!empty($_GET['a'])) {
         default:
             $mod = '[[:punct:]]?';
     }
-    $comSelMotif = '/^' . $mod . str_replace('_', '', $_GET['a']) . '.(.*).xml$/';
-    $_SESSION['selCom'] = 'all';
+    $comSelMotif = '/^' . $mod . str_replace('_', '', $_GET['a']) . '\..*\.xml$/';
+    $_SESSION['selCom'] = $comSel;
     $nbComPagination = $plxAdmin->nbComments($comSelMotif);
     $h2 = '<h2>' . L_COMMENTS_ALL_LIST . '</h2>';
-} elseif ($comSel == 'online') {
-    $comSelMotif = '/^\d{4}.(.*).xml$/';
-    $_SESSION['selCom'] = 'online';
-    $nbComPagination = $plxAdmin->nbComments('online');
-    $h2 = '<h2>' . L_COMMENTS_ONLINE_LIST . '</h2>';
-} elseif ($comSel == 'offline') {
-    $comSelMotif = '/^_\d{4}.(.*).xml$/';
-    $_SESSION['selCom'] = 'offline';
-    $nbComPagination = $plxAdmin->nbComments('offline');
-    $h2 = '<h2>' . L_COMMENTS_OFFLINE_LIST . '</h2>';
-} elseif ($comSel == 'all') { // all
-    $comSelMotif = '/^[[:punct:]]?\d{4}.(.*).xml$/';
-    $_SESSION['selCom'] = 'all';
-    $nbComPagination = $plxAdmin->nbComments('all');
-    $h2 = '<h2>' . L_COMMENTS_ALL_LIST . '</h2>';
-}
-
-if ($portee != '') {
-    $h3 = '<h3>' . $portee . '</h3>';
-}
-
-$breadcrumbs = array();
-$breadcrumbs[] = '<li ' . ($_SESSION['selCom'] == 'all' ? 'class="selected" ' : '') . '><a href="comments.php?sel=all&amp;page=1">' . L_ALL . '</a>&nbsp;(' . $plxAdmin->nbComments('all') . ')</li>';
-$breadcrumbs[] = '<li ' . ($_SESSION['selCom'] == 'online' ? 'class="selected" ' : '') . '><a href="comments.php?sel=online&amp;page=1">' . L_COMMENT_ONLINE . '</a>&nbsp;(' . $plxAdmin->nbComments('online') . ')</li>';
-$breadcrumbs[] = '<li ' . ($_SESSION['selCom'] == 'offline' ? 'class="selected" ' : '') . '><a href="comments.php?sel=offline&amp;page=1">' . L_COMMENT_OFFLINE . '</a>&nbsp;(' . $plxAdmin->nbComments('offline') . ')</li>';
-if (!empty($_GET['a'])) {
-    $breadcrumbs[] = '<a href="comment_new.php?a=' . $_GET['a'] . '" title="' . L_COMMENT_NEW_COMMENT_TITLE . '">' . L_COMMENT_NEW_COMMENT . '</a>';
+} else {
+	switch($comSel) {
+		case 'online':
+		    $comSelMotif = '/^\d{4}\..*\.xml$/';
+		    $_SESSION['selCom'] = $comSel;
+		    $nbComPagination = $plxAdmin->nbComments($comSel);
+		    $h2 = '<h2>' . L_COMMENTS_ONLINE_LIST . '</h2>';
+			break;
+		case 'offline':
+		    $comSelMotif = '/^_\d{4}\..*\.xml$/';
+		    $_SESSION['selCom'] = $comSel;
+		    $nbComPagination = $plxAdmin->nbComments($comSel);
+		    $h2 = '<h2>' . L_COMMENTS_OFFLINE_LIST . '</h2>';
+			break;
+		default: # all
+		    $comSelMotif = '/^[[:punct:]]?\d{4}\..*\.xml$/';
+		    $_SESSION['selCom'] = 'all';
+		    $nbComPagination = $plxAdmin->nbComments('all');
+		    $h2 = '<h2>' . L_COMMENTS_ALL_LIST . '</h2>';
+	}
 }
 
 # On va récupérer les commentaires
@@ -149,9 +138,47 @@ $selector = selector($comSel, 'id_selection');
 
 <div class="adminheader">
     <h2 class="h3-like"><?= L_COMMENTS_ALL_LIST ?></h2>
-    <ul>
-        <?= implode($breadcrumbs); ?>
-    </ul>
+<?php
+if (!empty($aArt)) {
+?>
+	<h3><?= ucfirst(L_ARTICLE) ?> &laquo;<?= $aArt['title'] ?>&raquo;</h3>
+<?php
+}
+?>
+    <div>
+	    <ul>
+<?php
+# breadcrumb
+$commentCnts = array();
+foreach(array(
+	'all'		=> L_ALL,
+	'online'	=> L_COMMENT_ONLINE,
+	'offline'	=> L_COMMENT_OFFLINE,
+) as $k=>$caption) {
+	$selected = ($k == $_SESSION['selCom']) ? 'class="selected"' : '';
+	$query = 'sel=' . $k . '&page=1';
+	if(!empty($_GET['a'])) {
+		$query .= '&a=' . $_GET['a'];
+	}
+	$commentCnts[$k] = $plxAdmin->nbComments($k, 'all', !empty($_GET['a']) ? $_GET['a'] : false);
+	$disabled = ($commentCnts[$k] == 0) ? 'disabled' : '';
+?>
+			<li <?= $selected ?>>
+				<a href="comments.php?<?= $query ?>" <?= $disabled ?>><?= $caption ?></a>
+				<span>(<?= $commentCnts[$k] ?>)</span>
+			</li>
+<?php
+}
+?>
+	    </ul>
+<?php
+if (!empty($_GET['a'])) {
+?>
+	    <a href="comment_new.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_NEW_COMMENT_TITLE ?>"><?= L_COMMENT_NEW_COMMENT ?></a>
+<?php
+}
+?>
+    </div>
 </div>
 
 <div class="admin">
@@ -159,26 +186,26 @@ $selector = selector($comSel, 'id_selection');
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
     <form action="comments.php<?= !empty($_GET['a']) ? '?a=' . $_GET['a'] : '' ?>" method="post" id="form_comments" data-chk="idCom[]">
-
+		<?= plxToken::getTokenPostMethod() ?>
         <div class="tableheader">
-            <?= plxToken::getTokenPostMethod() ?>
-            <?php if ($comSel == 'online'): ?>
-                <button class="submit btn--primary" name="offline" type="submit"><i
-                            class="icon-comment"></i><?= L_SET_OFFLINE ?></button>
-            <?php elseif ($comSel == 'offline'): ?>
-                <button class="submit btn--primary" name="online" type="submit"><i
-                            class="icon-comment"></i><?= L_COMMENT_SET_ONLINE ?></button>
-            <?php else: ?>
-                <button class="submit btn--primary" name="online" type="submit"><i
-                            class="icon-comment"></i><?= L_COMMENT_SET_ONLINE ?></button>
-                <button class="submit btn--primary" name="offline" type="submit"><i
-                            class="icon-comment"></i><?= L_SET_OFFLINE ?></button>
-            <?php endif ?>
-            <!--<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />-->
+<?php
+	if($comSel != 'online' and $commentCnts['offline'] > 0) {
+?>
+			<button class="submit btn--primary" name="online" type="submit" data-lang="<?= L_CONFIRM_ONLINE ?>" disabled>
+				<i class="icon-comment"></i><?= L_COMMENT_SET_ONLINE ?>
+			</button>
+<?php
+	}
+
+	if($comSel != 'offline' and $commentCnts['online'] > 0) {
+?>
+			<button class="submit btn--primary" name="offline" type="submit" data-lang="<?= L_CONFIRM_OFFLINE ?>" disabled>
+				<i class="icon-comment"></i><?= L_SET_OFFLINE ?>
+			</button>
+<?php
+	}
+?>
         </div>
-
-        <?php if (isset($h3)) echo $h3 ?>
-
         <div class="scrollable-table">
             <table id="comments-table" class="table mb0">
                 <thead>
@@ -280,8 +307,8 @@ if (!empty($plxAdmin->aConf['clef'])) {
 ?>
 	<p><?= L_COMMENTS_PRIVATE_FEEDS ?> :</p>
 	<ul class="unstyled-list">
-		<li><a href="<?= $href ?>/hors-ligne" title="<?= L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?= L_COMMENT_OFFLINE_FEEDS ?></a></li>
-		<li><a href="<?= $href ?>/en-ligne" title="<?= L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?= L_COMMENT_ONLINE_FEEDS ?></a></li>
+		<li class="rss"><a href="<?= $href ?>/hors-ligne" title="<?= L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?= L_COMMENT_OFFLINE_FEEDS ?></a></li>
+		<li class="rss"><a href="<?= $href ?>/en-ligne" title="<?= L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?= L_COMMENT_ONLINE_FEEDS ?></a></li>
 	</ul>
 <?php
 }

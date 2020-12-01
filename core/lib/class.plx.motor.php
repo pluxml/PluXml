@@ -1289,26 +1289,27 @@ class plxMotor {
 	 *
 	 * @param	select	critere de recherche des commentaires: all, online, offline
 	 * @param	publi	type de sélection des commentaires: all, before, after
+	 * @param	$artId  identifiant de l'article
 	 * @return	integer	nombre de commentaires
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function nbComments($select='online', $publi='all') {
+	public function nbComments($select='online', $publi='all', $artId=false) {
+		if(empty($artId) or !preg_match('@^_?\d{1,4}$@', $artId)) {
+			$artId = '\d{4}';
+		} else {
+			$artId = str_pad(ltrim($artId, '_'), 4, '0', STR_PAD_LEFT);
+		}
+		$suffixe = '\.\d+-\d+\.xml$#';
+		switch($select) {
+			case 'offline':	$motif = '#^_' . $artId . $suffixe; break;
+			case 'online':	$motif = '#^' . $artId . $suffixe; break;
+			case 'all':		$motif = '#^_?' . $artId . $suffixe; break;
+			default:		$motif = $select;
+		}
 
-		$nb = 0;
-		if($select == 'all')
-			$motif = '#[^[:punct:]?]\d{4}.(.*).xml$#';
-		elseif($select=='offline')
-			$motif = '#^_\d{4}.(.*).xml$#';
-		elseif($select=='online')
-			$motif = '#^\d{4}.(.*).xml$#';
-		else
-			$motif = $select;
-
-		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
-			$nb = sizeof($coms);
-
-		return $nb;
+		$coms = $this->plxGlob_coms->query($motif, 'com', '', 0, false, $publi);
+		return !empty($coms) ? sizeof($coms) : 0;
 	}
 
 	/**

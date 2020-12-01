@@ -86,6 +86,7 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 
 (function() {
 	// gestion des cases à cocher dans un tableau pour envoi avec un formulaire
+	// les boutons avec attribut "data-lang" seront désactivés si aucune case cochée.
 	const myForm = document.querySelector('form[data-chk]');
 
 	if(myForm != null) {
