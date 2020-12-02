@@ -1134,6 +1134,7 @@ fieldset div:not(.label-expanded) input[type="email"] {
 }
 
 #form_themes .themes > button {
+	position: relative;
 	display: flex;
 	flex-direction: column;
     padding: 0.3rem 0.75rem;
@@ -1153,10 +1154,6 @@ fieldset div:not(.label-expanded) input[type="email"] {
 	width: 100%;
 	margin: auto 0;
 	align-self: center;
-}
-
-#form_themes .theme {
-    position: relative;
 }
 
 #form_themes img {
@@ -1568,9 +1565,11 @@ input:checked ~ .modal__overlay {
 		grid-template-columns: repeat(2, auto);
 	}
 
+	/*
 	#form_themes .themes {
 		grid-template-columns: repeat(6, 1fr);
 	}
+	 * */
 
 	#form_comment fieldset > div:first-of-type {
 		grid-template-columns: repeat(4, 1fr);
