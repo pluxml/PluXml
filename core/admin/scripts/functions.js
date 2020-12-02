@@ -160,6 +160,8 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 					}
 				}
 			}
+		} else {
+			console.error('<button[data-lang] /> not found');
 		}
 	}
 })();

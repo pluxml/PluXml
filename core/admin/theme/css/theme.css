@@ -77,10 +77,13 @@ fieldset {
 	margin: 0;
 }
 
+label.button {
+	margin: 0;
+}
 /* -------- from knacss ------- */
 
 /* .checkbox, .radio, .switch */
-input[type="checkbox"], input[type="radio"] {
+input[type="checkbox"] /*, input[type="radio"] */ {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
@@ -90,7 +93,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 /* .checkbox, .radio, .switch */
-input[type="checkbox"], input[type="radio"] {
+input[type="checkbox"] /*, input[type="radio"] */ {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
@@ -405,7 +408,7 @@ i.icon-calendar {
 }
 
 .section .admin {
-    /* padding: 0px 20px 20px; */
+    /* padding: 1rem; */
     overflow-y: auto;
 }
 
@@ -433,6 +436,10 @@ i.icon-calendar {
 }
 
 .section .tableheader {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
 	padding: 0.5rem 1rem;
     background-color: var(--backheaderborder);
 }
@@ -827,8 +834,6 @@ a.overlay {
 /* The Dialog (background) */
 
 .dialog {
-    /* Hidden by default */
-    display: none;
     /* Stay in place */
     position: fixed;
     /* Sit on top */
@@ -849,6 +854,10 @@ a.overlay {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.toggle:not(:checked) + .dialog {
+	display: none;
+}
+
 /* Dialog Content */
 
 .dialog-content {
@@ -856,8 +865,7 @@ a.overlay {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%;
-    min-width: 250px;
+    width: 80%;
 }
 
 /* The Close Button */
@@ -933,6 +941,47 @@ body.mediasManager #app {
 
 #medias-table td:nth-of-type(6) {
 	text-align: center;
+}
+
+#toggle-medias:checked + div #form_medias,
+#toggle-medias:not(:checked) + div #form_uploader {
+	display: none;
+}
+
+.treeview ul {
+	padding-left: 3rem;
+	list-style: none;
+}
+
+.treeview a {
+	padding: 0 0.5rem;
+}
+
+.treeview .is-path {
+	font-weight: bold;
+}
+
+.treeview .active {
+	background-color: var(--backheaderborder);
+}
+
+#form_uploader div:first-of-type {
+	display: flex;
+	justify-content: space-between;
+}
+
+.limits-upload {
+	margin: 1rem 0;
+}
+
+.limits-upload p {
+	margin: 0;
+}
+
+.img-sizes {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2rem;
 }
 
 /* --------- statiques.php ------------- */
@@ -1344,6 +1393,22 @@ input:checked ~ .modal__overlay {
 		gap: 1rem;
 	}
 
+	.dialog-content {
+		display: flex;
+		max-width: 64rem;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.dialog-content input[type="text"] {
+		flex-grow: 1;
+	}
+
+	#form_medias {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 1rem;
+	}
 }
 
 /* $medium */
@@ -1391,7 +1456,8 @@ input:checked ~ .modal__overlay {
 	}
 
 	body:not(.fullwide) .main {
-	    height: 100vh;
+	    /* height: 100vh; */
+	    min-height: 100vh;
 	}
 
 	body:not(.fullwide) .asideheader h1 {
@@ -1401,6 +1467,14 @@ input:checked ~ .modal__overlay {
 
 	body:not(.fullwide) #app > .section > .header {
 		display: block;
+	}
+
+	.section .admin {
+		padding: 0.5rem;
+	}
+
+	body.mobile .section .admin {
+		padding-right: 0;
 	}
 
 	#form_themes .themes {
@@ -1435,7 +1509,8 @@ input:checked ~ .modal__overlay {
 	}
 
 	.main {
-	    height: 100vh;
+	    /* height: 100vh; */
+	    min-height: 100vh;
 	}
 
 	.asideheader h1 {

@@ -28,12 +28,14 @@ class plxMedias
      * @return    null
      * @author    Stephane F
      **/
-    public function __construct($path, $dir)
+    public function __construct($path, $dir, $current=false)
     {
 
         # Initialisation
         $this->path = $path;
+        $this->pathLength = strlen($path);
         $this->dir = $dir;
+        $this->currentFolder = $current;
 
         # Création du dossier réservé à l'utilisateur connecté s'il n'existe pas
         if (!is_dir($this->path)) {
@@ -206,20 +208,30 @@ class plxMedias
      * @return string
      */
     private function getTreeView(Array $array) {
-        $out = "<ul>";
-        foreach($array as $key => $elem){
-            $dir = new SplFileInfo($key);
-            $name = $dir->getFilename();
-            $path = str_replace($this->path, '', $key);
+		$items = array();
+        foreach($array as $key => $elem) {
+            $path = substr($key, $this->pathLength) . '/';
+			$className = '';
+            if(!empty($_SESSION['folder'])) {
+				if($_SESSION['folder'] == $path) {
+					$className = ' class="is-path active"';
+				} elseif(strpos($_SESSION['folder'], $path) === 0) {
+					$className = ' class="is-path"';
+				}
+			}
+            $active = (!empty($_SESSION['folder'] and $_SESSION['folder'] == $path)) ? ' class="active"' : '';
+            $item = '<a href="?path=' . $path . '"' . $className . '>' . basename($key) . '</a>';
             if (!empty(array_values($elem))) {
-                $out .= "<li><a href=\"?path=$path/\">$name</a>".$this->getTreeView($elem)."</li>";
+				$item .= PHP_EOL . $this->getTreeView($elem);
             }
-            else {
-                $out .= "<li><a href=\"?path=$path/\">$name</a></li>";
-            }
+            $items[] = $item;
         }
-        $out .= "</ul>";
-        return $out;
+
+        return implode(PHP_EOL, array(
+			'<ul><li>',
+			implode('</li>' . PHP_EOL . '<li>', $items),
+			'</li></ul>'
+        )) . PHP_EOL;
     }
 
     /**

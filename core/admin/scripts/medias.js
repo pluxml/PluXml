@@ -46,10 +46,15 @@
 		if(event.target.hasAttribute('data-rename')) {
 			event.preventDefault();
 			document.getElementById('id_oldname').value = event.target.dataset.rename;
-			dialogBox("dlgRenameFile");
+			document.getElementById('toggle-renamefile').checked = true;
+			const input = document.getElementById('id_newname');
+			input.value = event.target.dataset.rename.replace(/^.*\//, '');
+			input.select();
+			input.focus();
 			return;
 		}
 	});
+
 	window.addEventListener("keydown", function (event) {
 		// validate if the press key is the escape key
 		if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
@@ -63,18 +68,6 @@
 	   	mb.checked = false;
 	});
 })();
-
-function toggle_divs(){
-	var uploader = document.getElementById('files_uploader');
-	var manager = document.getElementById('files_manager');
-	if(uploader.style.display == 'none') {
-		uploader.style.display = 'block';
-		manager.style.display = 'none';
-	} else {
-		uploader.style.display = 'none';
-		manager.style.display = 'block';
-	}
-}
 
 /* Tri tableau des medias - @author Jean-Pierre Pourrez "bazooka07" - 2020-05-12 */
 (function() {
