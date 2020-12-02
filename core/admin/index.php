@@ -92,9 +92,11 @@ $plxAdmin->getPage();
 $arts = $plxAdmin->getArticles('all'); # Recuperation des articles
 
 # Génération de notre tableau des catégories
-$aFilterCat['all'] = L_ARTICLES_ALL_CATEGORIES;
-$aFilterCat['home'] = L_HOMEPAGE;
-$aFilterCat['000'] = L_UNCLASSIFIED;
+$aFilterCat = array(
+	'all'	=> L_ARTICLES_ALL_CATEGORIES,
+	'home'	=> L_HOMEPAGE,
+	'000'	=> L_UNCLASSIFIED,
+);
 if ($plxAdmin->aCats) {
     foreach ($plxAdmin->aCats as $k => $v) {
         $aCat[$k] = plxUtils::strCheck($v['name']);
@@ -248,7 +250,7 @@ if ($arts) { # On a des articles
 		if ($publi and $draft == '') {
 			# Si l'article est publié
 ?>
-							<button><a href="<?= $plxAdmin->urlRewrite('?article' . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>"><i class="icon-eye"></i></a></button>
+							<button><a href="<?= $plxAdmin->urlRewrite('?article' . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>" target="_blank"><i class="icon-eye"></i></a></button>
 <?php
 		}
 ?>

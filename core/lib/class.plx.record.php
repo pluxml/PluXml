@@ -53,6 +53,11 @@ class plxRecord {
 	 **/
 	public function f($field) {
 
+		# Pour rétro-compatibilité
+		if($field == 'date') {
+			$field = 'date_publication';
+		}
+
 		if($this->i === -1) # Compteur négatif
 			$this->i++;
 		# On controle que le champ demande existe bien

@@ -99,12 +99,15 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			$art[$k] = substr(preg_replace('@\D@', '', $_POST[$k][0] . $_POST[$k][1]), 0, 12);
 		}
 
+		# compatibilité avec les anciennes versions de PluXml
+		# $art['date'] = $art['date_publication'];
+
         # Hook Plugins
         eval($plxAdmin->plxPlugins->callHook('AdminArticlePreview'));
 
         $article[0] = $art;
         $_SESSION['preview'] = $article;
-        header('Location: index.php?preview');
+        header('Location: ' . PLX_ROOT . 'index.php?preview');
         exit;
     }
 
