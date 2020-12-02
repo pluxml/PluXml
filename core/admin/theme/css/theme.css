@@ -594,6 +594,25 @@ form .tableheader.has-spacer-2 {
     text-align: right;
 }
 
+th.sort::before {
+	display: inline-block;
+	width: 2.75rem;
+	content: '▼▲';
+	padding-right: 0.5rem;
+	color: var(--primary);
+	text-align: center;
+}
+
+th.sort.active::before {
+	content: '▼';
+	text-align: start;
+}
+
+th.sort.active.reverse::before {
+	content: ' ▲';
+	text-align: end;
+}
+
 .panel {
     background-color: var(--backheader);
     box-shadow: inset 0 0 0 1px var(--backheaderborder);

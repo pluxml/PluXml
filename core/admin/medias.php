@@ -225,16 +225,16 @@ if (!empty($_SESSION['folder'])) {
 					   title="<?= L_SEARCH ?>"/>
 			</div>
 			<div class="scrollable-table">
-                <table id="medias-table" class="table">
+                <table id="medias-table" class="table sort">
                     <thead>
 	                    <tr>
 	                        <th class="checkbox"><input type="checkbox" /></th>
 	                        <th></th>
-	                        <th><?= L_MEDIAS_FILENAME ?></th>
-	                        <th><?= L_MEDIAS_EXTENSION ?></th>
-	                        <th><?= L_MEDIAS_FILESIZE ?></th>
-	                        <th><?= L_MEDIAS_DIMENSIONS ?></th>
-	                        <th><?= L_DATE ?></th>
+	                        <th class="sort"><?= L_MEDIAS_FILENAME ?></th>
+	                        <th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
+	                        <th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
+	                        <th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
+	                        <th class="sort"><?= L_DATE ?></th>
 	                    </tr>
                     </thead>
                     <tbody id="medias-table-tbody">

@@ -1,32 +1,5 @@
 'use strict';
 
-/*
-// Deprecated
-
-function dateNow(field,delta) {
-	var d = new Date();
-	// convert to msec, add local time zone offset
-	// get UTC time in msec
-	var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-	// create new Date object for different city using supplied offset
-	var now = new Date(utc + (1000*delta));
-	var y = now.getFullYear();
-	var m = now.getMonth();
-	var d = now.getDate();
-	var h = now.getHours();
-	var i = now.getMinutes();
-	if(i <= 9){i = '0'+i;}
-	if(h <= 9){h = '0'+h;}
-	if(d <= 9){d = '0'+d;}
-	m = m+1;
-	if(m <= 9){m = '0'+m;}
-	document.getElementsByName(field+'_day')['0'].value = d;
-	document.getElementsByName(field+'_time')['0'].value = h+":"+i;
-	document.getElementsByName(field+'_month')['0'].value = m;
-	document.getElementsByName(field+'_year')['0'].value = y;
-}
-* */
-
 function answerCom(where,id,author) {
 	document.getElementById('id_parent').value=id;
 	//addText(where, '<a href="#c'+id+'">@'+author+'</a> :\n');
@@ -60,33 +33,9 @@ function addText(where, open, close) {
 	return;
 }
 
-/*
-// Deprecated
-function checkAll(inputs, field) {
-	for(var i = 0; i < inputs.elements.length; i++) {
-		if(inputs[i].type == "checkbox" && inputs[i].name==field) {
-			inputs[i].checked = !inputs[i].checked ;
-		}
-	}
-}
-
-// deprecated
-function confirmAction(inputs, selfield, selvalue, field, msg) {
-	if(document.getElementById(selfield).value==selvalue) {
-		var action = false;
-		for(var i = 0; i < inputs.elements.length; i++) {
-			if(inputs[i].type == "checkbox" && inputs[i].name==field) {
-				if(inputs[i].checked) { action=true }
-			}
-		}
-		return (action ? confirm(msg) : false);
-	}
-}
-*/
-
 (function() {
 	// gestion des cases à cocher dans un tableau pour envoi avec un formulaire
-	// les boutons avec attribut "data-lang" seront désactivés si aucune case cochée.
+	// les boutons avec attribut "data-lang" ou "data-select" seront désactivés si aucune case cochée.
 	const myForm = document.querySelector('form[data-chk]');
 
 	if(myForm != null) {
