@@ -90,7 +90,7 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 	const myForm = document.querySelector('form[data-chk]');
 
 	if(myForm != null) {
-		const selectionBtns = myForm.querySelectorAll('button[data-lang]');
+		const selectionBtns = myForm.querySelectorAll('button[data-lang], button[data-select]');
 		if(selectionBtns.length > 0) {
 			const chks = myForm.elements[myForm.dataset.chk];
 			myForm.addEventListener('change', function(event) {
@@ -131,7 +131,24 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 						// only one checkbox
 						cnt = chks.checked ? 1 : 0;
 					}
-					return confirm(event.target.dataset.lang.replace(/\b999\b/, cnt));
+					var msg = '';
+					if('lang' in event.target.dataset) {
+						msg = event.target.dataset.lang;
+					} else if('select' in event.target.dataset) {
+						const select = document.getElementById(event.target.dataset.select);
+						if(select != null) {
+							const option = select.selectedOptions[0];
+							console.log(option.value);
+							if(!option.value.match(/^\w/)) {
+								alert(('alert' in event.target.dataset) ? event.target.dataset.alert : 'What ?');
+								return false;
+							}
+							if('lang' in option.dataset) {
+								msg = option.dataset.lang;
+							}
+						}
+					}
+					return (msg.length == 0) || confirm(msg.replace(/\b999\b/, cnt));
 				}
 			}
 
@@ -161,7 +178,7 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 				}
 			}
 		} else {
-			console.error('<button[data-lang] /> not found');
+			console.error('<button[data-lang] /> or <button[data-select] /> not found');
 		}
 	}
 })();

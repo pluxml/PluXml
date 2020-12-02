@@ -43,33 +43,46 @@ if (!empty($_POST['btn_newfolder']) and !empty($_POST['newfolder'])) {
     header('Location: medias.php');
     exit;
 }
+
 if (!empty($_POST['btn_renamefile']) and !empty($_POST['newname'])) {
     $plxMedias->renameFile($_POST['oldname'], $_POST['newname']);
     header('Location: medias.php');
     exit;
-} elseif (!empty($path) and !empty($_POST['btn_delete'])) {
+}
+
+if (!empty($path) and !empty($_POST['btn_delete'])) {
     if ($plxMedias->deleteDir($path)) {
         $_SESSION['folder'] = '';
     }
     header('Location: medias.php');
     exit;
-} elseif (!empty($_POST['btn_upload'])) {
+}
+
+if (!empty($_POST['btn_upload'])) {
     $plxMedias->uploadFiles($_FILES, $_POST);
     header('Location: medias.php');
     exit;
-} elseif (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'delete')) and isset($_POST['idFile'])) {
+}
+
+if (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'delete')) and isset($_POST['idFile'])) {
     $plxMedias->deleteFiles($_POST['idFile']);
     header('Location: medias.php');
     exit;
-} elseif (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'move')) and isset($_POST['idFile'])) {
+}
+
+if (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'move')) and isset($_POST['idFile'])) {
     $plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $path);
     header('Location: medias.php');
     exit;
-} elseif (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'thumbs')) and isset($_POST['idFile'])) {
+}
+
+if (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'thumbs')) and isset($_POST['idFile'])) {
     $plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']);
     header('Location: medias.php');
     exit;
 }
+
+# -------- On affiche les médias ----------
 
 # Tri de l'affichage des fichiers
 if (isset($_POST['sort']) and !empty($_POST['sort'])) {
@@ -107,9 +120,6 @@ switch ($sort) {
         break;
 }
 $_SESSION['sort_medias'] = $sort;
-
-# Contenu des 2 listes déroulantes
-$selectionList = array('' => L_FOR_SELECTION, 'move' => L_PLXMEDIAS_MOVE_FOLDER, 'thumbs' => L_MEDIAS_RECREATE_THUMB, '-' => '-----', 'delete' => L_DELETE_FILE);
 
 # On inclut le header
 include 'top.php';
@@ -182,8 +192,24 @@ if($curFolders) {
 			<div class="tableheader">
 				<label for="toggle-medias" class="button btn--primary"><i class="icon-plus"></i><?= L_MEDIAS_ADD_FILE ?></label>
 				<div>
-<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
-					<button name="btn_ok" data-lang="<?= L_CONFIRM_DELETE ?>"><?= L_OK ?></button>
+					<select name="selection" id="id_selection">
+<?php
+foreach(array(
+	''			=> array(L_FOR_SELECTION),
+	'move'		=> array(L_PLXMEDIAS_MOVE_FOLDER, L_CONFIRM_MOVE_MEDIAS),
+	'thumbs'	=> array(L_MEDIAS_RECREATE_THUMB, L_CONFIRM_THUMBNAIL),
+	'-'			=> array('-----'),
+	'delete'	=> array(L_DELETE_FILE, L_CONFIRM_DELETE),
+) as $value=>$infos) {
+	$disabled = ($value == '-') ? 'disabled' : '';
+	$dataLang = !empty($infos[1]) ? 'data-lang="' . $infos[1] . '"' : '';
+?>
+						<option value="<?= $value ?>" <?= $disabled ?> <?= $dataLang ?>><?= $infos[0] ?></option>
+<?php
+}
+?>
+					</select>
+					<button name="btn_ok" data-select="id_selection" data-alert="<?= L_REQUIRED_OPTION ?>" disabled><?= L_OK ?></button>
 				</div>
 <?php
 if (!empty($_SESSION['folder'])) {

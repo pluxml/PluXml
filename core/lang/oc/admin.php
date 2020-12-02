@@ -299,6 +299,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Fracàs de la còpia del ligam al quichapapi�
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Ligam copiat';
 const L_MEDIAS_NEW_NAME = 'Novèl nom';
 const L_MEDIAS_RENAME = 'Renommar';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option'
 
 // parametres_affichage.php
 

@@ -299,6 +299,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Unable to copy link to clipboard';
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Copied link';
 const L_MEDIAS_NEW_NAME = 'New name';
 const L_MEDIAS_RENAME = 'Rename';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option'
 
 // parametres_affichage.php
 

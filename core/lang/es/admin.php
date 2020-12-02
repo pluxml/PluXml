@@ -297,6 +297,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'No se puede copiar el enlace en el portapapel
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Enlace copiado';
 const L_MEDIAS_NEW_NAME = 'Nuevo nombre';
 const L_MEDIAS_RENAME = 'Rebautizar';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option'
 
 // parametres_affichage.php
 

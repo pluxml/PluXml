@@ -298,6 +298,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Impossible de copier le lien dans le presse-p
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Lien copié';
 const L_MEDIAS_NEW_NAME = 'Nouveau nom';
 const L_MEDIAS_RENAME = 'Renommer';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option'
 
 // parametres_affichage.php
 

@@ -1,2 +1,2 @@
 <?php
-const PLX_CONFIG_PATH = 'data.new/configuration/';
+const PLX_CONFIG_PATH = 'data/configuration/';

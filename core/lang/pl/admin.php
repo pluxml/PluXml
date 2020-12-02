@@ -297,6 +297,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Nie można skopiować link do schowka';
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Link został skopiowany';
 const L_MEDIAS_NEW_NAME = 'Nowe imie';
 const L_MEDIAS_RENAME = 'Przemianować';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option'
 
 // parametres_affichage.php
 
