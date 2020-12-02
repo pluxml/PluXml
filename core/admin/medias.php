@@ -31,7 +31,7 @@ if (empty($_SESSION['medias'])) {
 $plxMediasRoot = PLX_ROOT . $_SESSION['medias'];
 if ($plxAdmin->aConf['userfolders'] and $_SESSION['profil'] == PROFIL_WRITER)
     $plxMediasRoot .= $_SESSION['user'] . '/';
-$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']);
+$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
 
 #----
 
@@ -169,14 +169,18 @@ if($curFolders) {
                 <label for="toggle-newfolder" class="dialog-close">&times;</label>
             </div>
         </div>
-		<div class="treeview">
+        <div class="treeview">
 			<p><label for="toggle-newfolder" class="btn--primary"><?= L_MEDIAS_NEW_FOLDER ?></label></p>
-			<p><a href="?path=/"><?= L_PLXMEDIAS_ROOT ?></a></p>
+			<ul>
+				<li class="<?= $_SESSION['folder'] == '/' ? 'active' : 'is-path' ?> has-children">
+					<a href="?path=/"><?= L_PLXMEDIAS_ROOT ?></a>
 <?= $plxMedias->displayTreeView(); ?>
-		</div>
+				</li>
+			</ul>
+        </div>
 		<div>
 			<div class="tableheader">
-				<label for="toggle-medias" class="btn--primary"><i class="icon-plus"></i><?= L_MEDIAS_ADD_FILE ?></label>
+				<label for="toggle-medias" class="button btn--primary"><i class="icon-plus"></i><?= L_MEDIAS_ADD_FILE ?></label>
 				<div>
 <?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 					<button name="btn_ok" data-lang="<?= L_CONFIRM_DELETE ?>"><?= L_OK ?></button>

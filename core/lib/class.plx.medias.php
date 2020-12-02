@@ -208,29 +208,33 @@ class plxMedias
      * @return string
      */
     private function getTreeView(Array $array) {
-		$items = array();
-        foreach($array as $key => $elem) {
+		$entries = array();
+        foreach($array as $key => $items) {
             $path = substr($key, $this->pathLength) . '/';
-			$className = '';
+            $hasChildren = !empty($items);
+			$classList = array();
+			if($hasChildren) {
+				$classList[] = 'has-children';
+			}
             if(!empty($_SESSION['folder'])) {
 				if($_SESSION['folder'] == $path) {
-					$className = ' class="is-path active"';
+					$classList[] = 'active';
 				} elseif(strpos($_SESSION['folder'], $path) === 0) {
-					$className = ' class="is-path"';
+					$classList[] = 'is-path';
 				}
 			}
-            $active = (!empty($_SESSION['folder'] and $_SESSION['folder'] == $path)) ? ' class="active"' : '';
-            $item = '<a href="?path=' . $path . '"' . $className . '>' . basename($key) . '</a>';
-            if (!empty(array_values($elem))) {
-				$item .= PHP_EOL . $this->getTreeView($elem);
+			$className = !empty($classList) ? ' class="' . implode(' ', $classList) . '"' : '';
+            $entry = '<a href="?path=' . $path . '">' . basename($key) . '</a>';
+            if ($hasChildren) {
+				$entry .= PHP_EOL . $this->getTreeView($items);
             }
-            $items[] = $item;
+            $entries[] = '<li' . $className . '>' . $entry . '</li>';
         }
 
         return implode(PHP_EOL, array(
-			'<ul><li>',
-			implode('</li>' . PHP_EOL . '<li>', $items),
-			'</li></ul>'
+			'<ul>',
+			implode(PHP_EOL, $entries),
+			'</ul>'
         )) . PHP_EOL;
     }
 

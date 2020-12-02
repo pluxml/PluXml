@@ -440,8 +440,13 @@ i.icon-calendar {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
+	gap: 1rem;
 	padding: 0.5rem 1rem;
     background-color: var(--backheaderborder);
+}
+
+.section .tableheader input[type="text"] {
+	flex-grow: 1;
 }
 
 .section .sidebar {
@@ -953,16 +958,34 @@ body.mediasManager #app {
 	list-style: none;
 }
 
-.treeview a {
+.treeview > ul {
+	padding-left: 0;
+}
+
+.treeview ul a {
 	padding: 0 0.5rem;
 }
 
-.treeview .is-path {
+.treeview .is-path > a,
+.treeview .active > a {
 	font-weight: bold;
 }
 
-.treeview .active {
+.treeview .active > a {
 	background-color: var(--backheaderborder);
+}
+
+.treeview .has-children > a::after {
+	content: '▶';
+	padding-left: 1rem;
+}
+
+.treeview .has-children.is-path > a::after {
+	content: '▲';
+}
+
+.treeview > ul > li:not(.active) li.has-children:not(.is-path):not(:hover) > ul {
+	display: none;
 }
 
 #form_uploader div:first-of-type {
