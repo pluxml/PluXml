@@ -1560,14 +1560,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$updateLink = sprintf('%s : <a href="%s" download>%s</a>', L_PLUXML_UPDATE_AVAILABLE, PLX_URL_REPO, PLX_URL_REPO);
 
 		# test avec allow_url_open ou file_get_contents ?
-		if(false and ini_get('allow_url_fopen')) {
+		if(ini_get('allow_url_fopen')) {
 			$latest_version = @file_get_contents(PLX_URL_VERSION, false, null, 0, 16);
 			if($latest_version === false) {
 				$latest_version = 'UNAVAILABLE';
 			}
 		}
 		# test avec curl
-		elseif(false and function_exists('curl_init')) {
+		elseif(function_exists('curl_init')) {
 			$ch = curl_init();
 			curl_setopt_array($ch, array(
 				CURLOPT_HEADER			=> false,

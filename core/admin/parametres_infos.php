@@ -58,6 +58,7 @@ if ($emailBuild) {
         <?php plxUtils::testModReWrite() ?>
         <?php plxUtils::testLibGD() ?>
         <?php plxUtils::testLibXml() ?>
+        <li><span style="color:green">&#10004; PLX_CONFIG_PATH = '<?= PLX_CONFIG_PATH ?>'</span></li>
 <?php
 if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
 ?>
@@ -72,7 +73,7 @@ if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
     <p><?= L_CONFIG_INFOS_NB_CATS ?><?= sizeof($plxAdmin->aCats); ?></p>
     <p><?= L_CONFIG_INFOS_NB_STATICS ?><?= sizeof($plxAdmin->aStats); ?></p>
     <p><?= L_CONFIG_INFOS_WRITER ?><?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
-    <p><a href="theme/fontello/demo.html" target="_blank" class="button">Fontello</a></p>
+    <p><a href="theme/fontello/demo.html" target="_blank" class="button">Fontello icons</a></p>
 
     <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 </div>
