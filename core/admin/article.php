@@ -238,10 +238,10 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
     $content = '';
     $tags = '';
     $author = $_SESSION['user'];
-    $aDatetime = explode('T', date('Y-m-dTH:i'));
+    $aDatetime = explode(' ', date('Y-m-d H:i'));
     $dates5 = array(); # version PluXml >= 6.0.0
     foreach(plxDate::ENTRIES as $k) {
-		$date5[$k] = $aDatetime; # tableau 2 élements pour <input type="date"> et <input type="time">
+		$dates5[$k] = $aDatetime; # tableau 2 élements pour <input type="date"> et <input type="time">
 	}
     $date_update_old = '';
     $catId = array('draft');
@@ -577,7 +577,7 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                         <input class="toggle" id="toggle_thumb" type="checkbox">
                         <label class="drop collapsible" for="toggle_thumb"><?= L_THUMBNAIL ?></label>
                         <div class="expander">
-							<?php plxUtils::printThumbnail(!empty($_POST) ? $_POST : !empty($result) ? $result : false); ?>
+							<?php plxUtils::printThumbnail(!empty($_POST) ? $_POST : (!empty($result) ? $result : false)); ?>
                         </div>
 <?php
 # Hook Plugins
