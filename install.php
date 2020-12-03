@@ -6,6 +6,26 @@ include PLX_ROOT . 'core/lib/config.php';
 const PLX_INSTALLER = true;
 const USER_ID = '001';
 const STAT_ID = '001';
+const HTACCESS1 = <<< 'EOT'
+<Files *>
+    Order allow,deny
+    Deny from all
+</Files>
+EOT;
+const HTACCESS2 = <<< 'EOT'
+Options -Indexes
+EOT;
+const INDEX = <<< 'EOT'
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PluXml</title>
+</head><body>
+<div style="text-align: center;margin-top:10%;font-size:96pt;">Hello</div>
+</body></html>
+EOT;
 
 // PHP session init
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
@@ -53,36 +73,67 @@ if (!array_key_exists($timezone, plxTimezones::timezones())) {
     $timezone = date_default_timezone_get();
 }
 
-// Check directories
+// Check plugins directory
 $datasDir = dirname(PLX_CONFIG_PATH);
 $folders = array(
-    $datasDir . '/templates',
     rtrim(PLX_CONFIG_PATH, '/'),
     PLX_CONFIG_PATH . 'plugins',
+    PLX_ROOT . 'plugins',
 );
-
-if(is_writable(PLX_ROOT . $datasDir)) {
-	foreach ($folders as $f) {
-	    if (!is_dir(PLX_ROOT . $f)) {
-	        @mkdir(PLX_ROOT . $f, 0755, true);
-	    }
-	}
+$pluginsDir = PLX_ROOT . 'plugins/';
+if (!is_dir($pluginsDir)) {
+	@mkdir($pluginsDir, 0755, true);
+}
+$filename = $pluginsDir . '.htaccess';
+if(!file_exists($filename)) {
+	file_put_contents($filename, HTACCESS2);
 }
 
 function install($content, $config)
 {
 
-    // Default folder to store datas
-    $root = dirname(PLX_CONFIG_PATH) . '/';
+    // Checks folders to store datas
+    $datasDir = dirname(PLX_CONFIG_PATH) . '/';
+    if(!is_dir($dataDir) and !mkdir($datasDir)) {
+		return;
+	}
 
+	$htaccess = $datasDir . '.htaccess';
+	if(!file_exists($htaccess)) {
+		file_put_contents($htaccess, HTACCESS2 . PHP_EOL);
+	}
+
+    // Don't change! Use by plxAdmin::editconfiguration()
 	$folders = array(
-        'racine_articles'		=> $root . 'articles/',
-        'racine_commentaires'	=> $root . 'commentaires/',
-        'racine_statiques'		=> $root . 'statiques/',
-        'medias'				=> $root . 'medias/',
+        'racine_articles'		=> $datasDir . 'articles/',
+        'racine_commentaires'	=> $datasDir . 'commentaires/',
+        'racine_statiques'		=> $datasDir . 'statiques/',
+        'medias'				=> $datasDir . 'medias/',
+        'themes'				=> 'themes/',
+		'plugins'				=> 'plugins/',
 	);
-	foreach($folders as $f) {
-		// créer dossier, index.html et .htaccess si besoin
+
+	foreach(array_merge(
+		array(
+			PLX_CONFIG_PATH,
+			PLX_CONFIG_PATH . 'plugins/',
+		),
+		$folders
+	) as $k=>$v) {
+		// create folder, index.html et .htaccess as needed
+		if(!is_dir($v)) {
+			mkdir($v);
+		}
+
+		$homepage = $v . 'index.html';
+		if(!file_exists($homepage)) {
+			file_put_contents($homepage, INDEX);
+		}
+
+		$htaccess = $v . '.htaccess';
+		if(!file_exists($htaccess)) {
+			file_put_contents($htaccess, !in_array($k, array('medias', 'themes', 'plugins')) ? HTACCESS1 . PHP_EOL: HTACCESS2 . PHP_EOL);
+		}
 	}
 
     // Timezone init
@@ -122,7 +173,7 @@ function install($content, $config)
     file_put_contents(path('XMLFILE_PLUGINS'), $xml);
 
     if (empty($content['data'])) {
-        # Pas de données
+        # No files
         return;
     }
 
@@ -152,26 +203,26 @@ function install($content, $config)
     list ($chapo, $article) = explode('-----', file_get_contents(PLX_CORE . '/templates/install-article.txt'));
     $idArt = '0001';
     $plxAdmin->editArticle(array(
-        'title' => plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE),
-        'author' => USER_ID,
-        'catId' => array_keys($plxAdmin->aCats), // Juste une catégorie créée
-        'allow_com' => 1,
-        'template' => 'article.php',
-        'chapo' => $chapo,
-        'content' => $article,
-        'tags' => 'PluXml',
+        'title'		=> plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE),
+        'author'	=> USER_ID,
+        'catId'		=> array_keys($plxAdmin->aCats), // Juste une catégorie créée
+        'allow_com'	=> 1,
+        'template'	=> 'article.php',
+        'chapo'		=> $chapo,
+        'content'	=> $article,
+        'tags'		=> 'PluXml',
     ), $idArt);
 
     // First comment creation
     $plxAdmin->addCommentaire(array(
-        'author' => 'PluXml',
-        'type' => 'normal',
-        'ip' => plxUtils::getIp(),
-        'mail' => 'demo@pluxml.org',
-        'site' => PLX_URL_REPO,
-        'content' => plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT),
-        'parent' => '',
-        'filename' => '0001.' . date('U') . '-1.xml',
+        'author'	=> 'PluXml',
+        'type'		=> 'normal',
+        'ip'		=> plxUtils::getIp(),
+        'mail'		=> 'demo@pluxml.org',
+        'site'		=> PLX_URL_REPO,
+        'content'	=> plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT),
+        'parent'	=> '',
+        'filename'	=> '0001.' . date('U') . '-1.xml',
     ));
 }
 
@@ -313,7 +364,6 @@ EOT;
                 <li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
             <?php } ?>
             <?php plxUtils::testWrite(PLX_ROOT) ?>
-            <?php /* plxUtils::testWrite(PLX_ROOT . 'datas') */ ?>
             <?php plxUtils::testWrite(PLX_ROOT . 'plugins') ?>
             <?php plxUtils::testWrite(PLX_ROOT . 'themes') ?>
             <?php plxUtils::testModReWrite() ?>
