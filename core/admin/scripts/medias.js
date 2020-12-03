@@ -73,6 +73,7 @@
 (function() {
 	const table = document.querySelector('table.sort');
 	if(table != null) {
+		const input = document.getElementById('sort');
 		table.addEventListener('click', function(event) {
 			if(event.target.tagName == 'TH' && event.target.classList.contains('sort')) {
 				event.preventDefault();
@@ -83,6 +84,11 @@
 
 				if(sessionStorage) { // Save the status
 					sessionStorage.setItem('media-sort', isReverse ? -index : index);
+				}
+
+				// pour traitement $_POST par PHP
+				if(input != null && 'sortname' in el.dataset) {
+					input.value = el.dataset.sortname + (isReverse ? '_desc' : '_asc');
 				}
 
 				// On enlève le marquage précédent

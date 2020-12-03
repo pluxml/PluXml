@@ -94,7 +94,7 @@ $newUserId = str_pad($a[0] + 1, 3, '0', STR_PAD_LEFT);
 						<td><?php plxUtils::printInput('password[' . $newUserId . ']', '', 'password', '', false, '', '', 'autocomplete="new-password" onkeyup="pwdStrength(this.id)"'); ?></td>
 						<td><input type="email" name="email[<?= $newUserId ?>]" value="" maxlength="64" /></td>
 						<td>
-<?php plxUtils::printSelect('profil[' . $newUserId . ']', PROFIL_NAMES, $infos['profil']); ?>
+<?php plxUtils::printSelect('profil[' . $newUserId . ']', PROFIL_NAMES, PROFIL_WRITER); ?>
 						</td>
 						<td><input type="checkbox" name="active[<?= $newUserId ?>]" value="1" class="switch" /></td>
 	                    <td>&nbsp;</td>

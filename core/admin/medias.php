@@ -170,7 +170,7 @@ if($curFolders) {
 <div class="admin">
     <form method="post" id="form_medias" data-chk="idFile[]">
         <?= plxToken::getTokenPostMethod() ?>
-		<input type="hidden" name="sort" value=""/>
+		<input type="hidden" name="sort" value="<?= $sort ?>" />
         <!-- New Folder Dialog -->
         <input type="checkbox" id="toggle-newfolder" class="toggle" />
         <div id="dlgNewFolder" class="dialog">
@@ -230,13 +230,13 @@ if (!empty($_SESSION['folder'])) {
                 <table id="medias-table" class="table sort">
                     <thead>
 	                    <tr>
-	                        <th class="checkbox"><input type="checkbox" /></th>
+	                        <th class="checkbox"><?php if($plxMedias->aFiles) { ?><input type="checkbox" /><?php } else { ?>&nbsp;<?php } ?></th>
 	                        <th></th>
-	                        <th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-	                        <th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
-	                        <th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
-	                        <th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
-	                        <th class="sort"><?= L_DATE ?></th>
+	                        <th class="sort" data-sortname="title"><?= L_MEDIAS_FILENAME ?></th>
+	                        <th class="sort"data-sortname="ext"><?= L_MEDIAS_EXTENSION ?></th>
+	                        <th class="sort integer" data-sortname="bytes"><?= L_MEDIAS_FILESIZE ?></th>
+	                        <th class="sort integer" data-sortname="size"><?= L_MEDIAS_DIMENSIONS ?></th>
+	                        <th class="sort" data-sortname="date"><?= L_DATE ?></th>
 	                    </tr>
                     </thead>
                     <tbody id="medias-table-tbody">

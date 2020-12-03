@@ -153,9 +153,10 @@ foreach(array(
 </div>
 
 <div class="admin">
-
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminTopBottom')); # Hook Plugins ?>
-
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+?>
     <form action="index.php" method="post" id="form_articles" data-chk="idArt[]">
         <?= PlxToken::getTokenPostMethod(); ?>
         <div class="tableheader">
@@ -173,10 +174,10 @@ foreach(array(
 			<table class="table mb0">
 				<thead>
 					<tr>
-						<th class="checkbox"><input type="checkbox" /></th>
+						<th class="checkbox"><?php if($arts) { ?><input type="checkbox" /><?php } else { ?>&nbsp;<?php } ?></th>
 						<th>#</th>
 						<th><?= L_DATE ?></th>
-						<th class="w100"><?= L_TITLE ?></th>
+						<th><?= L_TITLE ?></th>
 						<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
 						<th><?= L_ARTICLE_LIST_NBCOMS ?></th>
 						<th><?= L_AUTHOR ?></th>
@@ -187,13 +188,11 @@ foreach(array(
 <?php
 # On va lister les articles
 if ($arts) { # On a des articles
-	# Initialisation de l'ordre
-	$num = 0;
 	$datetime = date('YmdHi');
 	while ($plxAdmin->plxRecord_arts->loop()) {
 		# Pour chaque article
 		$author = PlxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
-		$publi = (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
+		$publi = (strcmp($plxAdmin->plxRecord_arts->f('date'), $datetime) <= 0);
 		# Catégories : liste des libellés de toutes les categories
 		$draft = '';
 		$libCats = '';
@@ -213,8 +212,8 @@ if ($arts) { # On a des articles
 		$idArt = $plxAdmin->plxRecord_arts->f('numero');
 		$awaiting = $idArt[0] == '_' ? '&nbsp;<span class="tag--warning">' . L_AWAITING . '</span>' : '';
 		# Commentaires
-		$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_' . $idArt . '.(.*).xml$/', 'all');
-		$nbComsValidated = $plxAdmin->getNbCommentaires('/^' . $idArt . '.(.*).xml$/', 'all');
+		$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_' . $idArt . '\..*\.xml$/', 'all');
+		$nbComsValidated = $plxAdmin->getNbCommentaires('/^' . $idArt . '\..*\.xml$/', 'all');
 		# On affiche la ligne
 ?>
 					<tr>
@@ -247,10 +246,10 @@ if ($arts) { # On a des articles
 						<td>
 							<button><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><i class="icon-pencil"></i></a></button>
 <?php
-		if ($publi and $draft == '') {
+		if (!preg_match('@^_@', $idArt) and $publi and $draft == '') {
 			# Si l'article est publié
 ?>
-							<button><a href="<?= $plxAdmin->urlRewrite('?article' . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>" target="_blank"><i class="icon-eye"></i></a></button>
+							<button><a href="<?= $plxAdmin->urlRewrite('?article' . intval(ltrim($idArt, '_')) . '/' . $plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>" target="_blank"><i class="icon-eye"></i></a></button>
 <?php
 		}
 ?>

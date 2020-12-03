@@ -317,7 +317,7 @@ elseif (in_array('draft', $catId)) {
 ?></strong>
             </p>
             <div>
-	            <input class="btn--primary" type="submit" name="preview" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>" />
+	            <input class="btn--primary" type="submit" name="preview" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>" onclick="this.form.target = '_blank';" />
 <?php
 if ($_SESSION['profil'] > PROFIL_MODERATOR and $plxAdmin->aConf['mod_art']) {
 	# L'utilisateur a des droits réduits (pas de modération).
