@@ -72,7 +72,7 @@ if (!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	}
 
     # --------- Previsualisation d'un article ---------
-    if (!empty($_POST['preview'])) {
+    if (isset($_POST['preview'])) {
         $tmpStr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
         $tmpUrl = plxUtils::urlify($tmpStr);
         $art = array(

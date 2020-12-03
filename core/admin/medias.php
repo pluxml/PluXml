@@ -35,7 +35,7 @@ $plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
 
 #----
 
-if (!empty($_POST['btn_newfolder']) and !empty($_POST['newfolder'])) {
+if (isset($_POST['btn_newfolder']) and !empty($_POST['newfolder'])) {
     $newdir = plxUtils::title2filename(trim($_POST['newfolder']));
     if ($plxMedias->newDir($newdir)) {
         $_SESSION['folder'] = $_SESSION['folder'] . $newdir . '/';
@@ -44,13 +44,13 @@ if (!empty($_POST['btn_newfolder']) and !empty($_POST['newfolder'])) {
     exit;
 }
 
-if (!empty($_POST['btn_renamefile']) and !empty($_POST['newname'])) {
+if (isset($_POST['btn_renamefile']) and !empty($_POST['newname'])) {
     $plxMedias->renameFile($_POST['oldname'], $_POST['newname']);
     header('Location: medias.php');
     exit;
 }
 
-if (!empty($path) and !empty($_POST['btn_delete'])) {
+if (isset($_POST['btn_delete']) and !empty($path)) {
     if ($plxMedias->deleteDir($path)) {
         $_SESSION['folder'] = '';
     }
@@ -58,28 +58,30 @@ if (!empty($path) and !empty($_POST['btn_delete'])) {
     exit;
 }
 
-if (!empty($_POST['btn_upload'])) {
+if (isset($_POST['btn_upload'])) {
     $plxMedias->uploadFiles($_FILES, $_POST);
     header('Location: medias.php');
     exit;
 }
 
-if (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'delete')) and isset($_POST['idFile'])) {
-    $plxMedias->deleteFiles($_POST['idFile']);
-    header('Location: medias.php');
-    exit;
-}
+if (isset($_POST['btn_ok']) and isset($_POST['selection']) and !empty($_POST['idFile'])) {
+	if ($_POST['selection'] == 'delete') {
+	    $plxMedias->deleteFiles($_POST['idFile']);
+	    header('Location: medias.php');
+	    exit;
+	}
 
-if (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'move')) and isset($_POST['idFile'])) {
-    $plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $path);
-    header('Location: medias.php');
-    exit;
-}
+	if ($_POST['selection'] == 'move') {
+	    $plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $path);
+	    header('Location: medias.php');
+	    exit;
+	}
 
-if (isset($_POST['selection']) and ((!empty($_POST['btn_ok']) and $_POST['selection'] == 'thumbs')) and isset($_POST['idFile'])) {
-    $plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']);
-    header('Location: medias.php');
-    exit;
+	if ($_POST['selection'] == 'thumbs') {
+	    $plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']);
+	    header('Location: medias.php');
+	    exit;
+	}
 }
 
 # -------- On affiche les médias ----------
