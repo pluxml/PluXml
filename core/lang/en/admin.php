@@ -516,7 +516,6 @@ const L_WARNING_INSTALLATION_FILE = 'install.php file can still be found at the 
 
 const L_USER_UNKNOWN = 'Unknown user';
 const L_USER_LANG = 'User\'s language in back-office';
-const L_MAIL_ADDRESS = 'E-mail address';
 const L_USER_UPDATE = 'Update this user';
 const L_USER_PAGE_TITLE = 'Edit user options';
 const L_USER_BACK_TO_PAGE = 'Back to users\' list';

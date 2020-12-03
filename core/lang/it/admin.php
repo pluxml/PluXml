@@ -435,7 +435,6 @@ const L_MENU_PROFIL_TITLE = 'Gestisci il profilo';
 const L_WARNING_INSTALLATION_FILE = 'Il file install.php è presente nella radice di PluXml.' . PHP_EOL .'Per motivi di sicurezza, è fortemente consigliata la <a class="lnkdelete" href="?del=install">cancellazione</a>.';
 const L_USER_UNKNOWN = 'Utente sconosciuto';
 const L_USER_LANG = 'Lingua usata nel pannello di amministrazione';
-const L_MAIL_ADDRESS = 'Indirizzo email';
 const L_USER_UPDATE = 'Aggiorna utente';
 const L_USER_PAGE_TITLE = 'Modifica le opzioni dell\'utente';
 const L_USER_BACK_TO_PAGE = 'Ritorna alla lista degli utenti';

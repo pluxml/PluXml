@@ -515,7 +515,6 @@ const L_WARNING_INSTALLATION_FILE = 'Lo fichièr install.php es present a la rai
 // user.php
 const L_USER_UNKNOWN = 'Utilizaire desconegut';
 const L_USER_LANG = 'Lenga utilizada dins l\'administracion';
-const L_MAIL_ADDRESS = 'Adreça de corrièl';
 const L_USER_UPDATE = 'Metre a jorn aquel utilizaire';
 const L_USER_PAGE_TITLE = 'Edicion de las opcions de l\'utilizaire';
 const L_USER_BACK_TO_PAGE = 'Tornar a la lista dels utilizaires';

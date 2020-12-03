@@ -513,7 +513,6 @@ const L_WARNING_INSTALLATION_FILE = 'Plik install.php znajduje się w katalogu g
 // user.php
 const L_USER_UNKNOWN = 'Nieznany użytkownik';
 const L_USER_LANG = 'Język używany w administracji';
-const L_MAIL_ADDRESS = 'Adres e-mail';
 const L_USER_UPDATE = 'Zapisz zmiany';
 const L_USER_PAGE_TITLE = 'Edycja użytkownika';
 const L_USER_BACK_TO_PAGE = 'Przejdź do listy użytkowników';

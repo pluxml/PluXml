@@ -438,7 +438,6 @@ const L_MENU_PROFIL_TITLE = 'Gerir o perfil do utilizador';
 const L_WARNING_INSTALLATION_FILE = 'O ficheiro install.php está presente na raíz de PluXml.' . PHP_EOL .'Por razões de segurança apague (<a class="lnkdelete" href="?del=install">delete</a>) este ficheiro.';
 const L_USER_UNKNOWN = 'Utilizador desconhecido';
 const L_USER_LANG = 'Idioma utilizado na administração';
-const L_MAIL_ADDRESS = 'Enderêco de e-mail';
 const L_USER_UPDATE = 'Actualizar este utilizador';
 const L_USER_PAGE_TITLE = 'Edição das opções	do utilizador';
 const L_USER_BACK_TO_PAGE = 'Voltar á lista dos utilizadores';

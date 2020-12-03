@@ -516,7 +516,6 @@ const L_WARNING_INSTALLATION_FILE = 'Внимание! Файл install.php вс
 // user.php
 const L_USER_UNKNOWN = 'Неизвестный пользователь';
 const L_USER_LANG = 'Язык, используемый в Администрировании';
-const L_MAIL_ADDRESS = 'Email адрес';
 const L_USER_UPDATE = 'Обновление этого пользователя';
 const L_USER_PAGE_TITLE = 'Редактирование параметров пользователя';
 const L_USER_BACK_TO_PAGE = 'Вернуться к списку пользователей';

@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED			= 'Die Kommentare sind geschlossen';
 const L_SITE_DESCRIPTION		= 'Blog oder CMS basierend auf Xml!';
 const L_SAVE_SUCCESSFUL			= 'Daten erfolgreich gespeichert';
 const L_ARTICLE_SAVE_SUCCESSFUL = 'Artikel erfolgreich angelegt';
+const L_MAIL_ADDRESS			= 'E-Mail-Adresse';
 
 # index.php
 const L_ERR_THEME_NOTFOUND		= 'Der Haupttheme von PluXml konnte nicht gefunden werden.';
@@ -153,9 +154,9 @@ const L_FEED_OFFLINE_COMMENTS	= 'Offline Kommentaire';
 const L_WRITTEN_BY				= 'Geschrieben von';
 
 # plxShow::artNavigation
-const L_ART_FIRST					= 'Erste';
-const L_ART_PREV					= 'Früher';
-const L_ART_NEXT					= 'Nächste';
-const L_ART_LAST					= 'Letzte';
-const L_ART_UP						= 'Oben';
-?>
+const L_ART_FIRST				= 'Erste';
+const L_ART_PREV				= 'Früher';
+const L_ART_NEXT				= 'Nächste';
+const L_ART_LAST				= 'Letzte';
+const L_ART_UP					= 'Oben';
+

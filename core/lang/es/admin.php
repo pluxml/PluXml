@@ -512,7 +512,6 @@ const L_WARNING_INSTALLATION_FILE = 'Todavía existe el archivo «install.php» 
 // user.php
 const L_USER_UNKNOWN = 'Usuario desconocido';
 const L_USER_LANG = 'Idioma utilizado en la administración';
-const L_MAIL_ADDRESS = 'Dirección de correo';
 const L_USER_UPDATE = 'Actualizar este usuario';
 const L_USER_PAGE_TITLE = 'Editar opciones de usuario';
 const L_USER_BACK_TO_PAGE = 'Volver a la lista de usuarios';

@@ -518,7 +518,6 @@ const L_WARNING_INSTALLATION_FILE = 'Die Datei install.php existiert noch im Gru
 
 const L_USER_UNKNOWN = 'Unbekannter Benutzer';
 const L_USER_LANG = 'Spracher des Admins';
-const L_MAIL_ADDRESS = 'E-Mail-Adresse';
 const L_USER_UPDATE = 'Benutzer aktualisieren';
 const L_USER_PAGE_TITLE = 'Benutzeroptionen bearbeiten';
 const L_USER_BACK_TO_PAGE = 'Zurück zur Benutzerliste';

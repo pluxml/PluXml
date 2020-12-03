@@ -4,6 +4,8 @@ const PLX_ROOT = './';
 include PLX_ROOT . 'core/lib/config.php';
 
 const PLX_INSTALLER = true;
+const USER_ID = '001';
+const STAT_ID = '001';
 
 // PHP session init
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
@@ -52,22 +54,36 @@ if (!array_key_exists($timezone, plxTimezones::timezones())) {
 }
 
 // Check directories
+$datasDir = dirname(PLX_CONFIG_PATH);
 $folders = array(
-    PLX_ROOT . $config['medias'],
-    PLX_ROOT . PLX_CONFIG_PATH . 'plugins',
-    PLX_ROOT . dirname(PLX_CONFIG_PATH) . '/templates'
+    $datasDir . '/templates',
+    rtrim(PLX_CONFIG_PATH, '/'),
+    PLX_CONFIG_PATH . 'plugins',
 );
-foreach ($folders as $f) {
-    if (!is_dir($f)) {
-        @mkdir($f, 0755, true);
-    }
+
+if(is_writable(PLX_ROOT . $datasDir)) {
+	foreach ($folders as $f) {
+	    if (!is_dir(PLX_ROOT . $f)) {
+	        @mkdir(PLX_ROOT . $f, 0755, true);
+	    }
+	}
 }
 
 function install($content, $config)
 {
 
-    // Default configuration
+    // Default folder to store datas
     $root = dirname(PLX_CONFIG_PATH) . '/';
+
+	$folders = array(
+        'racine_articles'		=> $root . 'articles/',
+        'racine_commentaires'	=> $root . 'commentaires/',
+        'racine_statiques'		=> $root . 'statiques/',
+        'medias'				=> $root . 'medias/',
+	);
+	foreach($folders as $f) {
+		// créer dossier, index.html et .htaccess si besoin
+	}
 
     // Timezone init
     if (isset($_POST['timezone'])) {
@@ -82,34 +98,28 @@ function install($content, $config)
     $plxAdmin = plxAdmin::getInstance();
 
     // Configuration edit
-    $racineStatiques = $root . 'statiques/';
-    $plxAdmin->editConfiguration(array(
-        'description' => plxUtils::strRevCheck(L_SITE_DESCRIPTION),
-        'timezone' => $timezone,
-        'clef' => plxUtils::charAleatoire(15),
-        'medias' => $root . 'medias/',
-        'racine_articles' => $root . 'articles/',
-        'racine_commentaires' => $root . 'commentaires/',
-        'racine_statiques' => $racineStatiques,
-        'default_lang' => $config['default_lang'],
+    $plxAdmin->editConfiguration(array_merge(
+		array(
+	        'description'			=> plxUtils::strRevCheck(L_SITE_DESCRIPTION),
+	        'timezone'				=> $timezone,
+	        'clef'					=> plxUtils::charAleatoire(15),
+	        'default_lang'			=> $config['default_lang'],
+	    ),
+	    $folders
     ));
 
     // Users creation
-    $userId = '001';
     $plxAdmin->editUsers(array(
-        'update' => 1,
-        'userNum' => array($userId),
-        $userId . '_profil' => PROFIL_ADMIN,
-        $userId . '_active' => 1,
-        $userId . '_login' => trim($content['login']),
-        $userId . '_name' => trim($content['name']),
-        $userId . '_password' => trim($content['pwd']),
-        $userId . '_email' => trim($content['email']),
+        'update'	=> 1, // Any value as true
+        'login'		=> array(USER_ID => trim($content['login'])),
+        'name'		=> array(USER_ID => trim($content['name'])),
+        'password'	=> array(USER_ID => trim($content['pwd'])),
+        'email'		=> array(USER_ID => trim($content['email'])),
     ), true);
 
     // Plugins file creation
     $xml = XML_HEADER . '<document>' . PHP_EOL . '</document>';
-    plxUtils::write($xml, path('XMLFILE_PLUGINS'));
+    file_put_contents(path('XMLFILE_PLUGINS'), $xml);
 
     if (empty($content['data'])) {
         # Pas de données
@@ -125,13 +135,13 @@ function install($content, $config)
     // Pages creation
     $idStat = '001';
     $plxAdmin->editStatiques(array(
-        'update' => 1,
-        'staticNum' => array($idStat),
-        $idStat . '_group' => '',
-        $idStat . '_name' => plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE),
-        $idStat . '_active' => 1,
-        $idStat . '_menu' => 'oui',
-        $idStat . '_ordre' => 1,
+        'update'	=> 1,
+        'group'		=> array(STAT_ID => ''),
+        'name'		=> array(STAT_ID =>plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE)),
+        'url'		=> array(STAT_ID => ''),
+        'active'	=> array(STAT_ID =>1),
+        'menu'		=> array(STAT_ID => 1),
+        'ordre'		=> array(STAT_ID => 1),
     ));
     $plxAdmin->editStatique(array(
         'id' => $idStat,
@@ -143,7 +153,7 @@ function install($content, $config)
     $idArt = '0001';
     $plxAdmin->editArticle(array(
         'title' => plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE),
-        'author' => $userId,
+        'author' => USER_ID,
         'catId' => array_keys($plxAdmin->aCats), // Juste une catégorie créée
         'allow_com' => 1,
         'template' => 'article.php',
@@ -198,6 +208,9 @@ if (!empty($_POST['install'])) {
 }
 
 plxUtils::cleanHeaders();
+const PLX_LOGO = PLX_ADMIN_PATH . 'theme/images/pluxml.png';
+$logoSize = getimagesize(PLX_LOGO);
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -214,7 +227,7 @@ plxUtils::cleanHeaders();
     <section class="pal item-center">
 
         <div class="txtcenter">
-            <p><img src="<?= PLX_ADMIN_PATH ?>theme/images/pluxml.png" alt="PluXml"/></p>
+            <p><img src="<?= PLX_LOGO ?>" <?= $logoSize[3] ?> alt="PluXml" /></p>
             <p><a href="<?= PLX_URL_REPO ?>" target="_blank"><?= PLX_URL_REPO ?></a></p>
         </div>
 
@@ -226,13 +239,13 @@ plxUtils::cleanHeaders();
             <form method="post">
                 <fieldset class=pln">
                     <div class="inbl">
-                        <label for="id_default_lang"><?php echo L_SELECT_LANG ?>&nbsp;:</label>
+                        <label for="id_default_lang"><?= L_SELECT_LANG ?></label>
                     </div>
                     <div class="inbl">
                         <?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
                         <input class="btn--inverse" type="submit" name="select_lang"
-                               value="<?php echo L_INPUT_CHANGE ?>"/>
-                        <?php echo plxToken::getTokenPostMethod() ?>
+                               value="<?= L_INPUT_CHANGE ?>"/>
+                        <?= plxToken::getTokenPostMethod() ?>
                     </div>
                 </fieldset>
             </form>
@@ -241,21 +254,22 @@ plxUtils::cleanHeaders();
         <?php if ($msg != '') echo '<div class="alert--danger>"' . $msg . '</div>'; ?>
 
         <form method="post">
+			<input type="hidden" name="default_lang" value="<?= $lang ?>" />
             <fieldset class="">
                 <div class="grid-2 pbs">
-                    <label for="id_default_lang"><?php echo L_INSTALL_DATA ?>&nbsp;:</label>
+                    <label for="id_default_lang"><?= L_INSTALL_DATA ?></label>
                     <?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>
                 </div>
                 <div class="grid-2 pbs">
-                    <label for="id_name"><?php echo L_USERNAME ?>&nbsp;:</label>
+                    <label for="id_name"><?= L_USERNAME ?></label>
                     <?php plxUtils::printInput('name', $name, 'text', '20-255', false, '', '', 'autofocus required') ?>
                 </div>
                 <div class="grid-2 pbs">
-                    <label for="id_login"><?php echo L_PROFIL_LOGIN ?>&nbsp;:</label>
+                    <label for="id_login"><?= L_PROFIL_LOGIN ?></label>
                     <?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', 'required') ?>
                 </div>
                 <div class="grid-2 pbs">
-                    <label for="id_pwd"><?php echo L_PASSWORD ?>&nbsp;:</label>
+                    <label for="id_pwd"><?= L_PASSWORD ?></label>
                     <?php
                     list ($very, $weak, $good, $strong) = array(
                         L_PWD_VERY_WEAK,
@@ -273,19 +287,19 @@ EOT;
                     </div>
                 </div>
                 <div class="grid-2 pbs">
-                    <label for="id_pwd2"><?php echo L_CONFIRM_PASSWORD ?>&nbsp;:</label>
+                    <label for="id_pwd2"><?= L_CONFIRM_PASSWORD ?></label>
                     <?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', 'required') ?>
                 </div>
                 <div class="grid-2 pbs">
-                    <label for="id_email"><?php echo L_USER_EMAIL ?>&nbsp;:</label>
+                    <label for="id_email"><?= L_MAIL_ADDRESS ?></label>
                     <?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', 'required') ?>
                 </div>
                 <div class="grid-2 pbs">
-                    <label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
+                    <label for="id_timezone"><?= L_TIMEZONE ?></label>
                     <?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
                 </div>
                 <div class="txtcenter">
-                    <input class="btn--primary" type="submit" name="install" value="<?php echo L_INPUT_INSTALL ?>"/>
+                    <input class="btn--primary" type="submit" name="install" value="<?= L_INPUT_INSTALL ?>"/>
                 </div>
                 <?= plxToken::getTokenPostMethod() ?>
             </fieldset>
@@ -299,14 +313,9 @@ EOT;
                 <li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
             <?php } ?>
             <?php plxUtils::testWrite(PLX_ROOT) ?>
-            <?php plxUtils::testWrite(PLX_ROOT . PLX_CONFIG_PATH) ?>
-            <?php plxUtils::testWrite(PLX_ROOT . PLX_CONFIG_PATH . 'plugins/') ?>
-            <?php plxUtils::testWrite(PLX_ROOT . $config['racine_articles']) ?>
-            <?php plxUtils::testWrite(PLX_ROOT . $config['racine_commentaires']) ?>
-            <?php plxUtils::testWrite(PLX_ROOT . $config['racine_statiques']) ?>
-            <?php plxUtils::testWrite(PLX_ROOT . $config['medias']) ?>
-            <?php plxUtils::testWrite(PLX_ROOT . $config['racine_plugins']) ?>
-            <?php plxUtils::testWrite(PLX_ROOT . $config['racine_themes']) ?>
+            <?php /* plxUtils::testWrite(PLX_ROOT . 'datas') */ ?>
+            <?php plxUtils::testWrite(PLX_ROOT . 'plugins') ?>
+            <?php plxUtils::testWrite(PLX_ROOT . 'themes') ?>
             <?php plxUtils::testModReWrite() ?>
             <?php plxUtils::testLibGD() ?>
             <?php plxUtils::testLibXml() ?>

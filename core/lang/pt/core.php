@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED				= 'Os coment&aacute;rios est&atilde;o fechados';
 const L_SITE_DESCRIPTION			= 'Blog ou Cms á Xml !';
 const L_SAVE_SUCCESSFUL				= 'Grabação dos dados efectuada com sucesso';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Artigo criado com sucesso';
+const L_MAIL_ADDRESS				= 'Enderêco de e-mail';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principal PluXml não foi encontrado';
@@ -158,4 +159,4 @@ const L_ART_PREV					= 'Anterior';
 const L_ART_NEXT					= 'Próximo';
 const L_ART_LAST					= 'Último';
 const L_ART_UP						= 'Suba';
-?>
+

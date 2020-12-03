@@ -435,7 +435,6 @@ const L_MENU_PROFIL_TITLE = 'Gestionează profilul';
 const L_WARNING_INSTALLATION_FILE = 'Fişierul install.php încă se află în rădăcina sit-ului ' . PHP_EOL .' PluXml. Din motive de securitate, se recomandă să-l <a class="lnkdelete" href="?del=install">ştergeţi</a>.';
 const L_USER_UNKNOWN = 'Utilizator necunoscut';
 const L_USER_LANG = 'Limba utilizată ';
-const L_MAIL_ADDRESS = 'Adresa de email';
 const L_USER_UPDATE = 'Actualizează acest utilizator';
 const L_USER_PAGE_TITLE = 'Opţiuni';
 const L_USER_BACK_TO_PAGE = 'Înapoi la lista de utilizatori';

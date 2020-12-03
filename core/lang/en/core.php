@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED				= 'Comments are closed';
 const L_SITE_DESCRIPTION			= 'Blog or CMS, XML powered !';
 const L_SAVE_SUCCESSFUL				= 'Data was succesfully saved';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Post was succesfully created';
+const L_MAIL_ADDRESS				= 'E-mail address';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Main PluXml theme not found';
@@ -158,4 +159,4 @@ const L_ART_PREV					= 'Previous';
 const L_ART_NEXT					= 'Next';
 const L_ART_LAST					= 'Last';
 const L_ART_UP						= 'Up';
-?>
+

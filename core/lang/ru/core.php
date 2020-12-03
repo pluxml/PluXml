@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED				= 'Комментарии запрещенны';
 const L_SITE_DESCRIPTION			= 'Блог или CMS на XML!';
 const L_SAVE_SUCCESSFUL				= 'Данные успешно сохранены';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Статья успешно создана';
+const L_MAIL_ADDRESS				= 'Email адрес';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Тема не найдена';
@@ -158,4 +159,4 @@ const L_ART_PREV					= 'предыдущий';
 const L_ART_NEXT					= 'следующий';
 const L_ART_LAST					= 'прошлой';
 const L_ART_UP						= 'подниматься';
-?>
+

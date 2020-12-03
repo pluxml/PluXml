@@ -515,7 +515,6 @@ const L_WARNING_INSTALLATION_FILE = 'Le fichier install.php est présent à la r
 
 const L_USER_UNKNOWN = 'Utilisateur inconnu';
 const L_USER_LANG = 'Langue utilisée dans l\'administration';
-const L_MAIL_ADDRESS = 'Adresse courriel';
 const L_USER_UPDATE = 'Mettre à jour cet utilisateur';
 const L_USER_PAGE_TITLE = 'Édition des options de l\'utilisateur';
 const L_USER_BACK_TO_PAGE = 'Retour à la liste des utilisateurs';

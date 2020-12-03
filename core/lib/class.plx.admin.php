@@ -558,7 +558,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						'salt'					=> $salt,
 						'email'					=> $email,
 
-						'delete'				=> plxUtils::getValue($this->aUsers[$user_id]['delete'], 0),
+						'delete'				=> ($user_id == '001') ? 0 : plxUtils::getValue($this->aUsers[$user_id]['delete'], 0),
 						'lang'					=> plxUtils::getValue($this->aUsers[$user_id]['lang'], $this->aConf['default_lang']),
 					);
 					foreach(self::EMPTY_FIELDS_USER as $k) {

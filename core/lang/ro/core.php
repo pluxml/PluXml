@@ -25,6 +25,7 @@ const COMMENTS_CLOSED				= 'Comentariile sunt &#238;nchise';
 const L_SITE_DESCRIPTION			= 'Site pe baza la Xml !';
 const L_SAVE_SUCCESSFUL				= 'Înregistrarea a fost efectuata cu succes';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Articol creat cu succes';
+const L_MAIL_ADDRESS				= 'Adresa de email';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principala este gasita';
@@ -158,4 +159,4 @@ const L_ART_PREV					= 'Precedent';
 const L_ART_NEXT					= 'Următor';
 const L_ART_LAST					= 'Ultimul';
 const L_ART_UP						= 'Urca';
-?>
+
