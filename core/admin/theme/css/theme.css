@@ -447,6 +447,7 @@ i.icon-calendar {
 
 .section .tableheader input[type="text"] {
 	flex-grow: 1;
+	max-width: 25rem;
 }
 
 .section .sidebar {
@@ -476,16 +477,6 @@ i.icon-calendar {
 }
 
 /* ==== COMPONENTS ==== */
-
-form .tableheader.has-spacer {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-}
-
-form .tableheader.has-spacer-2 {
-	display: grid;
-	grid-template-columns: auto 1fr auto 1fr auto;
-}
 
 .table {
     border-collapse: collapse;

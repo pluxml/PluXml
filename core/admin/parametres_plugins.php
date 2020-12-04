@@ -136,14 +136,16 @@ $nbInactivePlugins = sizeof($aInactivePlugins);
 # récuperation du type de plugins à afficher
 $_GET['sel'] = isset($_GET['sel']) ? intval(plxUtils::nullbyteRemove($_GET['sel'])) : '';
 $session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : '1';
-$sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
+$sel = in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session;
 $_SESSION['selPlugins'] = $sel;
 if ($sel == '1') {
     $aSelList = array('' => L_FOR_SELECTION, 'deactivate' => L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_DELETE);
     $plugins = pluginsList($plxAdmin->plxPlugins->aPlugins, $plxAdmin->aConf['default_lang'], true);
+    $nbPlugins = count($plxAdmin->plxPlugins->aPlugins);
 } else {
     $aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_DELETE);
     $plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);
+    $nbPlugins = count($aInactivePlugins);
 }
 
 $data_rows_num = ($sel == '1') ? 'data-rows-num=\'name^="plugOrdre"\'' : false;
@@ -155,8 +157,6 @@ include 'top.php';
 
 <div class="adminheader">
     <h2 class="h3-like"><?= L_PLUGINS_TITLE ?></h2>
-    <span data-scope="admin">Admin</span>
-    <span data-scope="site">Site</span>
 <?php /* fil d'ariane  */ ?>
     <ul>
 		<li <?= ($_SESSION['selPlugins'] == '1') ? 'class="selected" ' : ''?>><a href="parametres_plugins.php?sel=1"><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;<span class="tag"><?= $nbActivePlugins ?></span></li>
@@ -169,16 +169,16 @@ include 'top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 		<div class="tableheader">
 			<?= PlxToken::getTokenPostMethod() ?>
-			<input class="btn--primary" type="submit" name="update" value="<?= L_PLUGINS_APPLY_BUTTON ?>"/>
+			<input class="btn--primary" type="submit" name="update" value="<?= L_SAVE ?>"/>
 			<input type="text" id="plugins-search" placeholder="<?= L_SEARCH ?>..." />
 		</div>
         <div class="scrollable-table">
             <table id="plugins-table" class="table mb0" <?= !empty($data_rows_num) ? $data_rows_num : '' ?>>
                 <thead>
 	                <tr>
-	                    <th><input type="checkbox" /></th>
+	                    <th><?php if($nbPlugins > 0) { ?><input type="checkbox" /><?php } else { ?>&nbsp;<?php } ?></th>
 	                    <th>&nbsp;</th>
-	                    <th>&nbsp;</th>
+	                    <th><?= !empty($sel) ? L_PLUGINS_ACTIVE_LIST : L_PLUGINS_INACTIVE_LIST ?></th>
 <?php if ($_SESSION['selPlugins'] == '1') : ?>
 						<th><?= L_PLUGINS_LOADING_SORT ?></th>
 <?php endif; ?>
@@ -186,7 +186,7 @@ include 'top.php';
 	                </tr>
                 </thead>
                 <tbody>
-                <?= $plugins ?>
+<?= $plugins ?>
                 </tbody>
             </table>
         </div>

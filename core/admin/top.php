@@ -167,3 +167,6 @@ if ($_SESSION['profil'] <= PROFIL_MODERATOR and $currentScript == 'index' and is
 endif;
 
 eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+
+?>
+<!------ End of top.php ----->

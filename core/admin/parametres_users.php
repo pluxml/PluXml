@@ -32,10 +32,9 @@ include 'top.php';
 <div class="admin">
     <form method="post" id="form_users" data-chk="idUser[]">
         <?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
-        <div class="tableheader has-spacer">
+        <div class="tableheader">
             <?= PlxToken::getTokenPostMethod() ?>
-            <input class="btn--primary" type="submit" name="update" value="<?= L_CONFIG_USERS_UPDATE ?>"/>
-            <span class="spacer">&nbsp;</span>
+            <input class="btn--primary" type="submit" name="update" value="<?= L_SAVE ?>"/>
  			<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
        </div>
         <div class="scrollable-table">

@@ -37,13 +37,12 @@ include 'top.php';
 <div class="admin">
     <form method="post" id="form_statics"  data-chk="idStatic[]">
         <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
-        <div class="tableheader has-spacer">
+        <div class="tableheader">
             <?= PlxToken::getTokenPostMethod() ?>
             <input class="btn--primary" type="submit" name="update" value="<?= L_SAVE ?>"/>
 <?php
 if ($_SESSION['profil'] <= PROFIL_MODERATOR) {
 ?>
-			<span class="spacer">&nbsp;</span>
 			<button class="submit btn--warning" name="delete" disabled data-lang="<?= L_CONFIRM_DELETE ?>"><i class="icon-trash"></i><?= L_DELETE ?></button>
 <?php
 }

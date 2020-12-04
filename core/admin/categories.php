@@ -45,10 +45,9 @@ include 'top.php';
 
 <div class="admin">
     <form id="form_categories" method="post" id="form_categories" data-chk="idCategory[]">
-        <div class="tableheader has-spacer">
+        <div class="tableheader">
             <?= PlxToken::getTokenPostMethod() ?>
             <button class="btn--primary" name="update"><?= L_SAVE ?></button>
-            <span class="spacer">&nbsp;</span>
 			<button class="submit btn--warning" name="delete" data-lang="<?= L_CONFIRM_DELETE ?>" disabled><i class="icon-trash"></i><?= L_DELETE ?></button>
         </div>
 

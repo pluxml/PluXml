@@ -1,3 +1,4 @@
+<!------ Start of foot.php ----->
 <?php if(!defined('PLX_ROOT')) exit; ?>
 
 		</section>
