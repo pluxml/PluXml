@@ -25,6 +25,7 @@ class plxUtils
         'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
     );
     const DELTA_PAGINATION = 3;
+    const TEMPLATE_MSG = '<li><span style="color:#color">#symbol #message</span></li>' . PHP_EOL;
 
     /**
      * Méthode qui vérifie si une variable est définie.
@@ -499,7 +500,7 @@ class plxUtils
      * @param file        emplacement et nom du fichier à tester
      * @param format        format d'affichage
      **/
-    public static function testWrite($file, $format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testWrite($file, $format = self::TEMPLATE_MSG)
     {
 
         if (is_writable($file)) {
@@ -523,7 +524,7 @@ class plxUtils
      * @return  boolean        retourne vrai si le module apache mod_rewrite est disponible
      * @author  Stephane F
      **/
-    public static function testModRewrite($io = true, $format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testModRewrite($io = true, $format = self::TEMPLATE_MSG)
     {
 
         if (function_exists('apache_get_modules')) {
@@ -553,7 +554,7 @@ class plxUtils
      * @return    boolean        retourne vrai si la fonction php mail est disponible
      * @author    Stephane F
      **/
-    public static function testMail($io = true, $format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testMail($io = true, $format = self::TEMPLATE_MSG)
     {
 
         if ($return = function_exists('mail')) {
@@ -584,22 +585,31 @@ class plxUtils
     /**
      * Méthode qui teste si la bibliothèque GD est installé
      *
-     * @param format        format d'affichage
-     * @author    Stephane F
+     * @param	format        format d'affichage
+     * @author	Stephane F
      **/
-    public static function testLibGD($format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testLibGD($format = self::TEMPLATE_MSG)
     {
-
         if (function_exists('imagecreatetruecolor')) {
-            $output = str_replace('#color', 'green', $format);
-            $output = str_replace('#symbol', '&#10004;', $output);
-            $output = str_replace('#message', L_LIBGD_INSTALLED, $output);
-            echo $output;
+			if(is_string($format)) {
+				echo strtr($format, array(
+					'#color'	=> 'green',
+					'#symbol'	=> '&#10004;',
+					'#message'	=> L_LIBGD_INSTALLED,
+				));
+			} else {
+				return true;
+			}
         } else {
-            $output = str_replace('#color', 'red', $format);
-            $output = str_replace('#symbol', '&#10007;', $output);
-            $output = str_replace('#message', L_LIBGD_NOT_INSTALLED, $output);
-            echo $output;
+			if(is_string($format)) {
+				echo strtr($format, array(
+		            '#color'	=> 'red',
+		            '#symbol'	=> '&#10007;',
+		            '#message'	=> L_LIBGD_NOT_INSTALLED,
+				));
+			} else {
+				return false;
+			}
         }
     }
 
@@ -609,19 +619,28 @@ class plxUtils
      * @param format        format d'affichage
      *
      **/
-    public static function testLibXml($format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testLibXml($format = self::TEMPLATE_MSG)
     {
-
-        if (function_exists('xml_parser_create')) {
-            $output = str_replace('#color', 'green', $format);
-            $output = str_replace('#symbol', '&#10004;', $output);
-            $output = str_replace('#message', L_LIBXML_INSTALLED, $output);
-            echo $output;
+        if (function_exists('imagecreatetruecolor')) {
+			if(is_string($format)) {
+				echo strtr($format, array(
+					'#color'	=> 'green',
+					'#symbol'	=> '&#10004;',
+					'#message'	=> L_LIBXML_INSTALLED,
+				));
+			} else {
+				return true;
+			}
         } else {
-            $output = str_replace('#color', 'red', $format);
-            $output = str_replace('#symbol', '&#10007;', $output);
-            $output = str_replace('#message', L_LIBXML_NOT_INSTALLED, $output);
-            echo $output;
+			if(is_string($format)) {
+				echo strtr($format, array(
+		            '#color'	=> 'red',
+		            '#symbol'	=> '&#10007;',
+		            '#message'	=> L_LIBXML_NOT_INSTALLED,
+				));
+			} else {
+				return false;
+			}
         }
     }
 

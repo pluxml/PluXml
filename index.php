@@ -35,7 +35,7 @@ eval($plxMotor->plxPlugins->callHook('Index'));
 # chargement du fichier de langue
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
-# On vérifie que PHP 5 ou superieur soit installé
+# On vérifie que PHP installé est une version récente
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
 	printf(L_WRONG_PHP_VERSION, PHP_VERSION_MIN);

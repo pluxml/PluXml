@@ -5,10 +5,10 @@ if (!defined('PLX_ROOT')) {
 }
 
 if (isset($_GET["del"]) and $_GET["del"] == "install") {
-    if (@unlink(PLX_ROOT . 'install.php'))
+    if (@unlink(PLX_SCRIPT_INSTALL))
         plxMsg::Info(L_DELETE_SUCCESSFUL);
     else
-        plxMsg::Error(L_DELETE_FILE_ERR . ' install.php');
+        plxMsg::Error(L_DELETE_FILE_ERR . ' ' . basename(PLX_SCRIPT_INSTALL));
     header("Location: index.php");
     exit;
 }
@@ -158,7 +158,7 @@ echo implode(PHP_EOL, $menus) . PHP_EOL;
         </header>
 
 <?php
-if ($_SESSION['profil'] <= PROFIL_MODERATOR and $currentScript == 'index' and is_file(PLX_ROOT . 'install.php')):
+if ($_SESSION['profil'] <= PROFIL_MODERATOR and $currentScript == 'index' and is_file(PLX_SCRIPT_INSTALL)):
 ?>
 		<div id="install-warning" class="alert--danger">
 			<?= plxUtils::nl2p(L_WARNING_INSTALLATION_FILE) ?>

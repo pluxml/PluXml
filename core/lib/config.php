@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('PLX_ROOT')) { exit('Are you crazy ?'); }
+if(!defined('PLX_ROOT')) { exit('Are you silly ?'); }
 
 const PHP_VERSION_MIN = '7.2.0';
 
@@ -10,9 +10,14 @@ const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';
 const PLX_RESSOURCES_LINK = '<a href="' . PLX_URL_RESSOURCES . '" target="_blank">' . PLX_URL_RESSOURCES . '</a>';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
+const PLX_CONFIG_FILE = PLX_ROOT . 'config.php';
+const PLX_SCRIPT_INSTALL = PLX_ROOT . 'install.php';
 
 # Chargement de PLX_CONFIG_PATH
-include PLX_ROOT . 'config.php';
+if(!file_exists(PLX_CONFIG_FILE)) {
+	die('Internal error');
+}
+include PLX_CONFIG_FILE;
 
 const PLX_CORE = PLX_ROOT . 'core/';
 const PLX_ADMIN_PATH = PLX_CORE . 'admin/';
@@ -25,15 +30,6 @@ else {
 	error_reporting(E_ERROR | E_WARNING | E_PARSE);
 }
 
-# Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
-function getMicrotime() {
-	$t = explode(' ',microtime());
-	return $t[0]+$t[1];
-}
-
-# Initialisation du timer d'execution
-define('PLX_MICROTIME', getMicrotime());
-
 $CONSTS = array(
 	'XMLFILE_PARAMETERS'	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
 	'XMLFILE_CATEGORIES'	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
@@ -44,9 +40,8 @@ $CONSTS = array(
 );
 
 # On verifie que PluXml est installé
-const SCRIPT_INSTALL = 'install.php';
-if(strtolower(basename($_SERVER['SCRIPT_NAME'], '')) != SCRIPT_INSTALL and !file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ' . PLX_ROOT . SCRIPT_INSTALL);
+if(basename($_SERVER['SCRIPT_NAME']) != basename(PLX_SCRIPT_INSTALL) and !file_exists(path('XMLFILE_PARAMETERS'))) {
+	header('Location: ' . PLX_SCRIPT_INSTALL);
 	exit;
 }
 
@@ -70,6 +65,15 @@ const PROFIL_WRITER		= 4; // grants only for editing his own articles and managi
 # taille redimensionnement des images et miniatures
 const IMG_REDIM = array('320x200', '500x380', '640x480');
 const IMG_THUMB = array('50x50', '75x75', '100x100');
+
+# Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
+function getMicrotime() {
+	$t = explode(' ',microtime());
+	return $t[0]+$t[1];
+}
+
+# Initialisation du timer d'execution
+define('PLX_MICROTIME', getMicrotime());
 
 # On sécurise notre environnement si dans php.ini: register_globals = On
 if (ini_get('register_globals')) {

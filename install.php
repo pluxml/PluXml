@@ -39,7 +39,7 @@ if (!empty($_POST) && $_POST['default_lang']) {
 if (!array_key_exists($lang, plxUtils::getLangs())) {
     $lang = DEFAULT_LANG;
 }
-loadLang(PLX_CORE . 'lang/' . $lang . '/install.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/' . basename(PLX_SCRIPT_INSTALL));
 loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 // PHP version check
@@ -74,12 +74,6 @@ if (!array_key_exists($timezone, plxTimezones::timezones())) {
 }
 
 // Check plugins directory
-$datasDir = dirname(PLX_CONFIG_PATH);
-$folders = array(
-    rtrim(PLX_CONFIG_PATH, '/'),
-    PLX_CONFIG_PATH . 'plugins',
-    PLX_ROOT . 'plugins',
-);
 $pluginsDir = PLX_ROOT . 'plugins/';
 if (!is_dir($pluginsDir)) {
 	@mkdir($pluginsDir, 0755, true);
@@ -271,55 +265,79 @@ $logoSize = getimagesize(PLX_LOGO);
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/knacss.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/theme.css" media="screen"/>
     <link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/favicon.png"/>
-    <script src="<?= PLX_CORE ?>lib/visual.js"></script>
+    <style>
+		body {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100vh;
+			align-items: center;
+		}
+		main {
+			width: 64rem;
+			max-width: 100vw;
+			padding: 1rem;
+		}
+		fieldset, fieldset p { margin: 0; }
+		fieldset { padding: 0; }
+		fieldset > div:not(.center) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.center { text-align: center; }
+    </style>
 </head>
 <body>
-<main class="mal flex-container">
-    <section class="pal item-center">
+<main>
+    <section>
 
-        <div class="txtcenter">
+        <div class="center">
             <p><img src="<?= PLX_LOGO ?>" <?= $logoSize[3] ?> alt="PluXml" /></p>
             <p><a href="<?= PLX_URL_REPO ?>" target="_blank"><?= PLX_URL_REPO ?></a></p>
         </div>
 
-        <header class="txtcenter">
+        <header class="center">
             <h1><?= L_PLUXML_INSTALLATION . ' ' . PLX_VERSION ?></h1>
         </header>
 
-        <div class="txtcenter">
-            <form method="post">
-                <fieldset class=pln">
-                    <div class="inbl">
-                        <label for="id_default_lang"><?= L_SELECT_LANG ?></label>
-                    </div>
-                    <div class="inbl">
-                        <?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
-                        <input class="btn--inverse" type="submit" name="select_lang"
-                               value="<?= L_INPUT_CHANGE ?>"/>
-                        <?= plxToken::getTokenPostMethod() ?>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
+		<form method="post">
+			<?= plxToken::getTokenPostMethod() ?>
+			<fieldset>
+				<div>
+					<label for="id_default_lang"><?= L_SELECT_LANG ?></label>
+					<div>
+						<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
+						<input class="btn--inverse" type="submit" name="select_lang" value="<?= L_INPUT_CHANGE ?>" />
+					</div>
+				</div>
+			</fieldset>
+		</form>
+<?php
+if(!empty($msg)) {
+?>
+		<div class="alert--danger>"<?= $msg ?></div>
+<?php
+}
 
-        <?php if ($msg != '') echo '<div class="alert--danger>"' . $msg . '</div>'; ?>
-
+if(is_writable(PLX_ROOT) and plxUtils::testLibGD(false) and plxUtils::testLibXml(false)) {
+?>
         <form method="post">
 			<input type="hidden" name="default_lang" value="<?= $lang ?>" />
-            <fieldset class="">
-                <div class="grid-2 pbs">
+            <?= plxToken::getTokenPostMethod() ?>
+            <fieldset>
+                <div>
                     <label for="id_default_lang"><?= L_INSTALL_DATA ?></label>
                     <?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>
                 </div>
-                <div class="grid-2 pbs">
+                <div>
                     <label for="id_name"><?= L_USERNAME ?></label>
                     <?php plxUtils::printInput('name', $name, 'text', '20-255', false, '', '', 'autofocus required') ?>
                 </div>
-                <div class="grid-2 pbs">
+                <div>
                     <label for="id_login"><?= L_PROFIL_LOGIN ?></label>
                     <?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', 'required') ?>
                 </div>
-                <div class="grid-2 pbs">
+                <div>
                     <label for="id_pwd"><?= L_PASSWORD ?></label>
                     <?php
                     list ($very, $weak, $good, $strong) = array(
@@ -337,24 +355,26 @@ EOT;
                         <p id="id_pwd_strenght"></p>
                     </div>
                 </div>
-                <div class="grid-2 pbs">
+                <div>
                     <label for="id_pwd2"><?= L_CONFIRM_PASSWORD ?></label>
                     <?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', 'required') ?>
                 </div>
-                <div class="grid-2 pbs">
+                <div>
                     <label for="id_email"><?= L_MAIL_ADDRESS ?></label>
                     <?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', 'required') ?>
                 </div>
-                <div class="grid-2 pbs">
+                <div>
                     <label for="id_timezone"><?= L_TIMEZONE ?></label>
                     <?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
                 </div>
-                <div class="txtcenter">
+                <div class="center">
                     <input class="btn--primary" type="submit" name="install" value="<?= L_INPUT_INSTALL ?>"/>
                 </div>
-                <?= plxToken::getTokenPostMethod() ?>
             </fieldset>
         </form>
+<?php
+}
+?>
 
         <ul class="unstyled">
             <li><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>
@@ -374,6 +394,6 @@ EOT;
 
     </section>
 </main>
-<script src="<?= PLX_CORE ?>lib/visual.js"></script>
+<script src="<?= PLX_ADMIN_PATH ?>scripts/visual.js"></script>
 </body>
 </html>
