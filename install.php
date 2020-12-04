@@ -94,7 +94,7 @@ function install($content, $config)
 
     // Checks folders to store datas
     $datasDir = dirname(PLX_CONFIG_PATH) . '/';
-    if(!is_dir($dataDir) and !mkdir($datasDir)) {
+    if(!is_dir($datasDir) and !mkdir($datasDir)) {
 		return;
 	}
 
