@@ -21,8 +21,10 @@ class plxThemes
 
     public function getImgPreview($theme)
     {
-        $img = '';
-        $previews = glob($this->racineTheme . $theme . '/preview.{jpg,jpeg,png,gif}',  GLOB_BRACE);
+		# https://github.com/docker-library/php/issues/719 (docker alpinelinux)
+		# https://www.php.net/manual/en/function.glob.php
+		# $previews = glob($this->racineTheme . $theme . '/preview.{jpg,jpeg,png,gif}',  GLOB_BRACE);
+		$previews = array_filter(glob($this->racineTheme . $theme . '/preview.*'), function($value) { return preg_match('@.*\.(?:jpe?g|png|gif)$@i', $value); });
         $src = !empty($previews) ? $previews[0] : 'theme/images/theme.png';
         $imgSizes = getimagesize($src);
         return '<img class="img-preview" src="' . $src . '" alt="preview" ' . $imgSizes[3] . ' />';
