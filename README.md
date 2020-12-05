@@ -1,11 +1,20 @@
-PluXml
-======
-Créez un site web performant en toute simplicité et sans base de données.
+<p align="center">
+    <img src="https://www.pluxml.org/themes/pluxml-org-1.0/img/plx-logo-bleu.png" />
+    <h1 align="center">PluXml</h1>
+</p>
 
-[**Télécharger PluXml 5.8.2**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
+<p align="center">
+    <a href="https://www.pluxml.org/download/pluxml-latest.zip"><img src="https://badgen.net/github/release/pluxml/pluxml" /></a>
+    <a href="https://github.com/pluxml/PluXml/blob/master/readme/LICENSE"><img src="https://badgen.net/badge/license/GPL/green" /></a>
+    <a href="https://twitter.com/pluxml"><img src="https://badgen.net/twitter/follow/pluxml" /></a>
+</p>
 
-* Version stable (5.8.2) : [master](https://github.com/pluxml/PluXml/tree/master)
-* Version en développement (5.8.3) : [develop](https://github.com/pluxml/PluXml/tree/develop)
+<p align="center">Créez un site web performant en toute simplicité et sans base de données.</p>
+
+[**Télécharger PluXml 5.8.4**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
+
+* Version bugfix (5.8.x) en développement : [5.8](https://github.com/pluxml/PluXml/tree/5.8)
+* Verison instable (6.0) en développement : [6.0](https://github.com/pluxml/PluXml/tree/6.0)
 
 Principales caractéristiques
 ----------------------------
