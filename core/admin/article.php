@@ -4,7 +4,7 @@
  * Edition d'un article
  *
  * @package PLX
- * @author    Stephane F et Florent MONTHEL
+ * @author    Stephane F, Florent MONTHEL, Jean-Pierre Pourrez
  **/
 
 include 'prepend.php';
@@ -274,27 +274,10 @@ foreach ($plxAdmin->aUsers as $_userid => $_user) {
 }
 
 # On récupère les templates des articles
-$aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style']);
-if ($array = $files->query('/^article(-[a-z0-9-_]+)?.php$/')) {
-    foreach ($array as $k => $v)
-        $aTemplates[$v] = $v;
-}
-if (empty($aTemplates)) $aTemplates[''] = L_NONE1;
+$aTemplates = $plxAdmin->getTemplatesCurrentTheme('article', L_NONE1);
+
 $cat_id = '000';
 ?>
-
-<script>
-    function refreshImg(dta) {
-        if (dta.trim() === '') {
-            document.getElementById('id_thumbnail_img').innerHTML = '';
-        } else {
-            var link = dta.match(/^(?:https?|data):/gi) ? dta : '<?php echo $plxAdmin->racine ?>' + dta;
-            document.getElementById('id_thumbnail_img').innerHTML = '<img src="' + link + '" alt="" />';
-        }
-    }
-</script>
-
 <form method="post" id="form_article">
 	<?php PlxUtils::printInput('artId', $artId, 'hidden'); ?>
 	<?php PlxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>

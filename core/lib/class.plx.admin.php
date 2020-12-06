@@ -1629,4 +1629,35 @@ EOT;
 <?php
 	}
 
+	/*
+	 * Méthode qui rassemble dans un tableau les templates du thème en cours pour un type donné.
+	 *
+	 * Le dictionnaire pour la langue de l'utilisateur n'est pas encore chargé.
+	 *
+	 * @param	$templatesStartsWith Début du nom du fichier de template (statitc, article, categorie, ...)
+	 * @param	$missingMsg Titre à afficher si résultat null pour la recherche des templates
+	 * @return 	tableau associatif des templates, sans chemin d'accès.	 *
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 * */
+	public function getTemplatesCurrentTheme($templatesStartsWith, $missingMsg='-----') {
+		$arBuff = array_map(
+			function($value) { return basename($value); },
+			array_filter(
+				glob(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . $templatesStartsWith . '*.php'),
+				function($filename) { return preg_match('@/\w+(-[\w-]+)?\.php$@', $filename); }
+			)
+		);
+
+		if(empty($arBuff)) {
+			return array('' => $missingMsg);
+		}
+
+		$result = array();
+		foreach($arBuff as $k) {
+			$result[$k] = basename($k, '.php');
+		}
+
+		return $result;
+	}
+
 }

@@ -39,13 +39,7 @@ if (!empty($_POST) and array_key_exists($_POST['id'], $plxAdmin->aCats)) {
 }
 
 # On récupère les templates des catégories
-$aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style']);
-if ($array = $files->query('/^categorie(-[a-z0-9-_]+)?.php$/')) {
-    foreach ($array as $k => $v)
-        $aTemplates[$v] = $v;
-}
-if (empty($aTemplates)) $aTemplates[''] = L_NONE1;
+$aTemplates = $plxAdmin->getTemplatesCurrentTheme('categorie', L_NONE1);
 
 # On inclut le header
 include 'top.php';
@@ -53,7 +47,7 @@ include 'top.php';
 
 <form method="post" id="form_category" class="first-level">
 	<?= plxToken::getTokenPostMethod() ?>
-	<?php plxUtils::printInput('id', $id, 'hidden'); ?>
+	<input type="hidden" name="id" value="<?= $id ?>" />
     <div class="adminheader">
         <div>
             <h2 class="h3-like"><?= L_EDITCAT_PAGE_TITLE; ?> "<?= plxUtils::strCheck(trim($plxAdmin->aCats[$id]['name'])); ?>"</h2>
@@ -77,14 +71,14 @@ eval($plxAdmin->plxPlugins->callHook('AdminCategoryTop'))
 		</div>
 		<div class="label-expanded">
 			<label for="id_template"><?= L_TEMPLATE ?></label>
-			<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aCats[$id]['template']) ?>
+<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aCats[$id]['template']) ?>
 		</div>
 		<div>
 			<label for="id_content"><?= L_EDITCAT_DESCRIPTION ?></label>
 			<textarea name="content" rows="5" id="id_content"><?= plxUtils::strCheck($plxAdmin->aCats[$id]['description']) ?></textarea>
 		</div>
 		<div>
-			<?php plxUtils::printThumbnail($plxAdmin->aCats[$id]); ?>
+<?php plxUtils::printThumbnail($plxAdmin->aCats[$id]); ?>
 		</div>
 		<div>
 			<label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?></label>
@@ -99,7 +93,10 @@ eval($plxAdmin->plxPlugins->callHook('AdminCategoryTop'))
 			<?php plxUtils::printInput('meta_keywords', plxUtils::strCheck($plxAdmin->aCats[$id]['meta_keywords']), 'text', '50-255') ?>
 		</div>
     </fieldset>
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminCategory')) # Hook Plugins ?>
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminCategory'))
+?>
 </form>
 <?php
 

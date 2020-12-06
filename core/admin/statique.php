@@ -54,17 +54,7 @@ if (!empty($_POST) and preg_match('@^\d{1,3}$@', $_POST['id']) and isset($plxAdm
 }
 
 # On récupère les templates des pages statiques
-$aTemplates = array_map(
-	function($value) { return basename($value); },
-	array_filter(
-		glob(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'] . '/*.php'),
-		function($filename) { return preg_match('@/static(-[\w-]+)?\.php$@', $filename); }
-	)
-);
-
-if(empty($aTemplates)) {
-	$aTemplates = array(L_NONE1);
-}
+$aTemplates = $plxAdmin->getTemplatesCurrentTheme('static', L_NONE1);
 
 # On inclut le header
 include 'top.php';
@@ -80,7 +70,7 @@ $url = $plxAdmin->urlRewrite("?static" . intval($id) . "/" . $plxAdmin->aStats[$
     <input type="hidden" name="id" value="<?= $id ?>" />
     <div class="adminheader">
         <div>
-            <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($title); ?>"</h2>
+            <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aStats[$id]['name']); ?>"</h2>
             <p><a class="back icon-left-big" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
         </div>
         <div>

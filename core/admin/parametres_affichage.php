@@ -30,21 +30,15 @@ if (isset($_POST['display'])) {
 }
 
 # On récupère les templates de la page d'accueil
-$aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style']);
-if ($array = $files->query('/^home(-[a-z0-9-_]+)?.php$/')) {
-    foreach ($array as $k => $v)
-        $aTemplates[$v] = $v;
-}
-if (empty($aTemplates)) $aTemplates[''] = L_NONE1;
+$aTemplates = $plxAdmin->getTemplatesCurrentTheme('home', L_NONE1);
 
 # Tableau du tri
 $aTriArts = array(
-    'desc' => L_SORT_DESCENDING_DATE,
-    'asc' => L_SORT_ASCENDING_DATE,
-    'alpha' => L_SORT_ALPHABETICAL,
-    'ralpha' => L_SORT_REVERSE_ALPHABETICAL,
-    'random' => L_SORT_RANDOM
+    'desc'		=> L_SORT_DESCENDING_DATE,
+    'asc'		=> L_SORT_ASCENDING_DATE,
+    'alpha'		=> L_SORT_ALPHABETICAL,
+    'ralpha'	=> L_SORT_REVERSE_ALPHABETICAL,
+    'random'	=> L_SORT_RANDOM,
 );
 
 $aTriComs = array('desc' => L_SORT_DESCENDING_DATE, 'asc' => L_SORT_ASCENDING_DATE);
