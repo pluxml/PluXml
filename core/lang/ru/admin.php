@@ -122,8 +122,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'Утвердить';
 const L_SET_OFFLINE = 'Выключить (перевести в оффлайн)';
 const L_SAVE = 'Сохранить';
 const L_ADD = 'Добавить';
-const L_ARTICLE_META_DESCRIPTION = 'Мета-тег описания "Description" (необязательно)';
-const L_ARTICLE_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
+const L_META_DESCRIPTION = 'Мета-тег описания "Description" (необязательно)';
+const L_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
 const L_ARTICLE_CHAPO_HIDE = 'скрыть';
 const L_ARTICLE_CHAPO_DISPLAY = 'показать';
 
@@ -179,8 +179,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Показать в этой категор�
 const L_TEMPLATE = 'Тема';
 const L_EDITCAT_BACK_TO_PAGE = 'Вернуться к категориям';
 const L_EDITCAT_UPDATE = 'Обновление этой категории';
-const L_EDITCAT_META_DESCRIPTION = 'Мета-тег описания "Description" (необязательно)';
-const L_EDITCAT_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
 
 // commentaire.php
 
@@ -472,8 +470,6 @@ const L_STATIC_VIEW_PAGE = 'Просмотр страницы';
 const L_STATIC_ON_SITE = 'на сайте';
 const L_STATIC_UPDATE = 'Сохранить эту страницу';
 const L_TITLE_HTMLTAG = 'Заголовок для тега "Title" (необязательно)';
-const L_STATIC_META_DESCRIPTION = 'Мета-тег описания "Description" этой статической страницы (необязательно)';
-const L_STATIC_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" этой статической страницы (необязательно)';
 
 // statiques.php
 

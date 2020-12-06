@@ -453,7 +453,7 @@ class plxUtils
 ?>
 					<div>
 						<label for="id_<?= $fieldname ?>"><?= $caption ?></label>
-						<input type="text" name="<?= $fieldname ?>" value="<?= self::strCheck(self::getValue($datas[$fieldname], '')) ?>" id=="id_<?= $fieldname ?>" />
+						<input type="text" name="<?= $fieldname ?>" value="<?= self::strCheck(self::getValue($datas[$fieldname], '')) ?>" id="id_<?= $fieldname ?>" />
 					</div>
 <?php
 			}

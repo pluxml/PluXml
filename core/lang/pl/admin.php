@@ -122,8 +122,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'Do walidacji';
 const L_SET_OFFLINE = 'Deaktywuj';
 const L_SAVE = 'Zapisz';
 const L_ADD = "Dodaj";
-const L_ARTICLE_META_DESCRIPTION = 'Zawartość tagu "opisu" (opcjonalnie)';
-const L_ARTICLE_META_KEYWORDS = 'Zawartość tagu "słowa kluczowego" (opcjonalnie)';
+const L_META_DESCRIPTION = 'Zawartość tagu "opisu" (opcjonalnie)';
+const L_META_KEYWORDS = 'Zawartość tagu "słowa kluczowego" (opcjonalnie)';
 const L_ARTICLE_CHAPO_HIDE = 'ukryj';
 const L_ARTICLE_CHAPO_DISPLAY = 'pokaż';
 
@@ -179,8 +179,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Pokaż artykuły z tej kategorii na stronie 
 const L_TEMPLATE = 'Szablon';
 const L_EDITCAT_BACK_TO_PAGE = 'Przejdż do listy kategorii';
 const L_EDITCAT_UPDATE = 'Zapisz zmiany';
-const L_EDITCAT_META_DESCRIPTION = 'Zawartość tagu "opisu" (opcjonalnie)';
-const L_EDITCAT_META_KEYWORDS = 'Zawartość tagu "słowa kluczowego" (opcjonalnie)';
 
 // commentaire.php
 
@@ -469,8 +467,6 @@ const L_STATIC_VIEW_PAGE = 'Przeglądnij';
 const L_STATIC_ON_SITE = 'strona';
 const L_STATIC_UPDATE = 'Zapisz zmiany';
 const L_TITLE_HTMLTAG = 'Zawartość tagu "tytułu" (opcjonalnie)';
-const L_STATIC_META_DESCRIPTION = 'Zawartość tagu "opisu" (opcjonalnie)';
-const L_STATIC_META_KEYWORDS = 'Zawartość tagu "słowa kluczowe" (opcjonalnie)';
 
 // statiques.php
 

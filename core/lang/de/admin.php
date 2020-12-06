@@ -118,8 +118,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'zur Validierung';
 const L_SET_OFFLINE = 'Offline stellen';
 const L_SAVE = 'Speichern';
 const L_ADD = 'Hinzufügen';
-const L_ARTICLE_META_DESCRIPTION = 'META Tag "description" (optional)';
-const L_ARTICLE_META_KEYWORDS = 'META Tag "keywords" (optional)';
+const L_META_DESCRIPTION = 'META Tag "description" (optional)';
+const L_META_KEYWORDS = 'META Tag "keywords" (optional)';
 const L_ARTICLE_CHAPO_HIDE = 'verbergen';
 const L_ARTICLE_CHAPO_DISPLAY = 'anzeigen';
 
@@ -175,8 +175,6 @@ const L_EDITCAT_DESCRIPTION = 'Beschreibung';
 const L_TEMPLATE = 'Vorlage';
 const L_EDITCAT_BACK_TO_PAGE = 'Zurück zur Liste der Kategorien';
 const L_EDITCAT_UPDATE = 'Kategorie aktualisieren';
-const L_EDITCAT_META_DESCRIPTION = 'META Tag "description" - Inhalt für diese Kategorie (optional)';
-const L_EDITCAT_META_KEYWORDS = 'META Tag "keywords" - Inhalt für diese Kategorie (optional)';
 
 // commentaire.php
 
@@ -472,8 +470,6 @@ const L_STATIC_VIEW_PAGE = 'Voransicht von';
 const L_STATIC_ON_SITE = 'im Frontend';
 const L_STATIC_UPDATE = 'Änderungen speichern';
 const L_TITLE_HTMLTAG = 'Title-Tag Inhalte (optional)';
-const L_STATIC_META_DESCRIPTION = 'META Tag "description" - Inhalt für diese statische Seite (optional)';
-const L_STATIC_META_KEYWORDS = 'META Tag "keywords" - Inhalt für diese statische Seite (optional)';
 
 // statiques.php
 

@@ -122,8 +122,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'Para validar';
 const L_SET_OFFLINE = 'Poner invisible';
 const L_SAVE = 'Guardar';
 const L_ADD = 'Agregar';
-const L_ARTICLE_META_DESCRIPTION = 'Contenido de la metaetiqueta de descripción («description», opcional)';
-const L_ARTICLE_META_KEYWORDS = 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)';
+const L_META_DESCRIPTION = 'Contenido de la metaetiqueta de descripción («description», opcional)';
+const L_META_KEYWORDS = 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)';
 const L_ARTICLE_CHAPO_HIDE = 'ocultar';
 const L_ARTICLE_CHAPO_DISPLAY = 'mostrar';
 
@@ -179,8 +179,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Mostrar artículos en la página principal';
 const L_TEMPLATE = 'Plantilla';
 const L_EDITCAT_BACK_TO_PAGE = 'Volver a la lista de categorías';
 const L_EDITCAT_UPDATE = 'Actualizar esta categoría';
-const L_EDITCAT_META_DESCRIPTION = 'Contenido de la metaetiqueta de descripción («description», opcional) ';
-const L_EDITCAT_META_KEYWORDS = 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)';
 
 // commentaire.php
 
@@ -468,8 +466,6 @@ const L_STATIC_VIEW_PAGE = 'Visualizar página';
 const L_STATIC_ON_SITE = 'en el sitio';
 const L_STATIC_UPDATE = 'Guardar esta página';
 const L_TITLE_HTMLTAG = 'Contenido de la etiqueta de título («title», opcional)';
-const L_STATIC_META_DESCRIPTION = 'Contenido de la metaetiqueta de descripción («description», opcional)';
-const L_STATIC_META_KEYWORDS = 'Contenido de la metaetiqueta de palabras claves («keywords», opcional)';
 
 // statiques.php
 

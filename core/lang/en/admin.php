@@ -115,8 +115,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'To validating';
 const L_SET_OFFLINE = 'Switch offline';
 const L_SAVE = 'Save';
 const L_ADD = 'Add';
-const L_ARTICLE_META_DESCRIPTION = '"Description" Meta tag content (optional)';
-const L_ARTICLE_META_KEYWORDS = '"Keywords" Meta tag content (optional)';
+const L_META_DESCRIPTION = '"Description" Meta tag content (optional)';
+const L_META_KEYWORDS = '"Keywords" Meta tag content (optional)';
 const L_ARTICLE_CHAPO_HIDE = 'hide';
 const L_ARTICLE_CHAPO_DISPLAY = 'display';
 
@@ -173,8 +173,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Show articles on the homepage';
 const L_TEMPLATE = 'Template';
 const L_EDITCAT_BACK_TO_PAGE = 'Back to categories';
 const L_EDITCAT_UPDATE = 'Update this category';
-const L_EDITCAT_META_DESCRIPTION = '"Description" Meta tag content	(optional)';
-const L_EDITCAT_META_KEYWORDS = '"Keywords" Meta tag content	(optional)';
 
 // commentaire.php
 
@@ -470,8 +468,6 @@ const L_STATIC_VIEW_PAGE = 'View page';
 const L_STATIC_ON_SITE = 'on site';
 const L_STATIC_UPDATE = 'Save this page';
 const L_TITLE_HTMLTAG = 'Title tag contents (optional)';
-const L_STATIC_META_DESCRIPTION = 'Meta tag "description" content for this static page (optional)';
-const L_STATIC_META_KEYWORDS = 'Meta tag "keywords" content for this static page (optional)';
 
 // statiques.php
 

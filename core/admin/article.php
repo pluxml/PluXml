@@ -384,8 +384,8 @@ if ($_SESSION['profil'] > PROFIL_MODERATOR and $plxAdmin->aConf['mod_art']) {
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
 
-        <div class="grid-8-small-1">
-            <div class="col-6-small-1">
+        <div id="admin-art">
+            <div>
                 <div>
                     <fieldset>
                         <div>
@@ -421,10 +421,10 @@ if ($artId != '' and $artId != '0000') {
             </div>
 
             <!-- SIDEBAR FOR ARTICLE -->
-            <div class="col-2-small-1 sidebar">
+            <div id="aside-art" class="sidebar">
                 <fieldset class="pan">
                     <div class="flex-container--column">
-                        <div class="pas">
+                        <div>
                             <label for="id_author"><?= L_AUTHOR ?></label>
 <?php
 	if ($_SESSION['profil'] < PROFIL_WRITER) {
@@ -438,7 +438,7 @@ if ($artId != '' and $artId != '0000') {
 ?>
                         </div>
 <?php plxUtils::printDates($dates5); ?>
-                        <div class="pas">
+                        <div>
                             <label for="id_template"><?= L_TEMPLATE ?></label>
                             <?php PlxUtils::printSelect('template', $aTemplates, $template); ?>
                         </div>
@@ -454,28 +454,28 @@ if ($artId != '' and $artId != '0000') {
                         <input class="toggle" id="toggle_categories" type="checkbox">
                         <label class="drop collapsible" for="toggle_categories">Categories</label>
                         <div class="expander">
-                            <div>
-                                <label><?= L_ARTICLE_CATEGORIES ?></label><br>
-                                <?php $selected = (is_array($catId) and in_array('000', $catId)) ? ' checked="checked"' : ''; ?>
-                                <label for="cat_unclassified"><input disabled="disabled" type="checkbox"
-                                                                     id="cat_unclassified"
-                                                                     name="catId[]" <?= $selected ?>
-                                                                     value="000"/>&nbsp;<?= L_UNCLASSIFIED ?>
-                                </label><br>
-                                <?php $selected = (is_array($catId) and in_array('home', $catId)) ? ' checked="checked"' : ''; ?>
-                                <label for="cat_home"><input type="checkbox" id="cat_home"
-                                                             name="catId[]" <?= $selected ?>
-                                                             value="home"/>&nbsp;<?= L_HOMEPAGE ?></label><br>
+                            <ul class="unstyled">
 <?php
 # on boucle sur les catégories
-foreach ($plxAdmin->aCats as $cat_id => $cat_name) {
-	$selected = (is_array($catId) and in_array($cat_id, $catId)) ? ' checked="checked"' : '';
-	$className = !empty($plxAdmin->aCats[$cat_id]['active']) ? ' class="active"' : '';
+foreach (array_merge(
+	array(
+		'000'	=> array('name' => L_UNCLASSIFIED),
+		'home'	=> array('name' => L_HOMEPAGE),
+	),
+	$plxAdmin->aCats
+) as $cat_id => $cat_name) {
+	$selected = (
+		(empty($catId) and $cat_id == '000') or
+		(!empty($catId) and in_array($cat_id, $catId))
+	) ? ' checked="checked"' : '';
+	$className = !isset($plxAdmin->aCats[$cat_id]['active']) ? ' class="noactive"' : '';
 ?>
-                                        <label for="cat_<?= $cat_id ?>"<?= $className ?>><input type="checkbox" id="cat_?<?= $cat_id ?>"
-                                                                               name="catId[]" <?= $selected ?>
-                                                                               value="<?= $cat_id ?>"/>&nbsp;<?= PlxUtils::strCheck($cat_name['name']) ?>
-                                        </label><br />
+								<li>
+									<label for="cat_<?= $cat_id ?>"<?= $className ?>>
+										<input type="checkbox" id="cat_?<?= $cat_id ?>" name="catId[]" <?= $selected ?> value="<?= $cat_id ?>"/>
+										<?= PlxUtils::strCheck($cat_name['name']) ?>
+									</label>
+								</li>
 <?php
 }
 
@@ -486,7 +486,7 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
 <?php
 }
 ?>
-                            </div>
+                            </ul>
                         </div>
                         <input class="toggle" id="toggle_tags" type="checkbox">
                         <label class="drop collapsible" for="toggle_tags">Tags</label>
@@ -566,9 +566,9 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                             <div>
                                 <label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?></label><br>
                                 <?php PlxUtils::printInput('title_htmltag', PlxUtils::strCheck($title_htmltag), 'text', '-255'); ?>
-                                <label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?></label><br>
+                                <label for="id_meta_description"><?= L_META_DESCRIPTION ?></label><br>
                                 <?php PlxUtils::printInput('meta_description', PlxUtils::strCheck($meta_description), 'text', '-255'); ?>
-                                <label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?></label><br>
+                                <label for="id_meta_keywords"><?= L_META_KEYWORDS ?></label><br>
                                 <?php //TODO is this still used by Google ? (P3ter)
                                 PlxUtils::printInput('meta_keywords', PlxUtils::strCheck($meta_keywords), 'text', '-255');
                                 ?>
@@ -577,7 +577,7 @@ if ($_SESSION['profil'] < PROFIL_WRITER) { ?>
                         <input class="toggle" id="toggle_thumb" type="checkbox">
                         <label class="drop collapsible" for="toggle_thumb"><?= L_THUMBNAIL ?></label>
                         <div class="expander">
-							<?php plxUtils::printThumbnail(!empty($_POST) ? $_POST : (!empty($result) ? $result : false)); ?>
+<?php plxUtils::printThumbnail(!empty($_POST) ? $_POST : (!empty($result) ? $result : false)); ?>
                         </div>
 <?php
 # Hook Plugins

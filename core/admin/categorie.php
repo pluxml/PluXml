@@ -91,11 +91,11 @@ eval($plxAdmin->plxPlugins->callHook('AdminCategoryTop'))
 			<?php plxUtils::printInput('title_htmltag', plxUtils::strCheck($plxAdmin->aCats[$id]['title_htmltag']), 'text', '50-255'); ?>
 		</div>
 		<div>
-			<label for="id_meta_description"><?= L_EDITCAT_META_DESCRIPTION ?></label>
+			<label for="id_meta_description"><?= L_META_DESCRIPTION ?></label>
 			<?php plxUtils::printInput('meta_description', plxUtils::strCheck($plxAdmin->aCats[$id]['meta_description']), 'text', '50-255') ?>
 		</div>
 		<div>
-			<label for="id_meta_keywords"><?= L_EDITCAT_META_KEYWORDS ?></label>
+			<label for="id_meta_keywords"><?= L_META_KEYWORDS ?></label>
 			<?php plxUtils::printInput('meta_keywords', plxUtils::strCheck($plxAdmin->aCats[$id]['meta_keywords']), 'text', '50-255') ?>
 		</div>
     </fieldset>

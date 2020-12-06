@@ -114,8 +114,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'A valider';
 const L_SET_OFFLINE = 'Mettre hors ligne';
 const L_SAVE = 'Enregistrer';
 const L_ADD = "Ajouter";
-const L_ARTICLE_META_DESCRIPTION = 'Contenu balise meta "description" (option)';
-const L_ARTICLE_META_KEYWORDS = 'Contenu balise meta "keywords" (option)';
+const L_META_DESCRIPTION = 'Contenu balise meta "description" (option)';
+const L_META_KEYWORDS = 'Contenu balise meta "keywords" (option)';
 const L_ARTICLE_CHAPO_HIDE = 'masquer';
 const L_ARTICLE_CHAPO_DISPLAY = 'afficher';
 
@@ -172,8 +172,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Afficher les articles de cette catégorie su
 const L_TEMPLATE = 'Modèle';
 const L_EDITCAT_BACK_TO_PAGE = 'Retour à la liste des catégories';
 const L_EDITCAT_UPDATE = 'Mettre à jour cette catégorie';
-const L_EDITCAT_META_DESCRIPTION = 'Contenu de la balise meta "description" pour cette catégorie (option)';
-const L_EDITCAT_META_KEYWORDS = 'Contenu de la balise meta "keywords" pour cette catégorie (option)';
 
 // comment.php
 
@@ -470,8 +468,6 @@ const L_STATIC_VIEW_PAGE = 'Visualiser la page';
 const L_STATIC_ON_SITE = 'sur le site';
 const L_STATIC_UPDATE = 'Enregistrer cette page statique';
 const L_TITLE_HTMLTAG = 'Contenu balise title (option)';
-const L_STATIC_META_DESCRIPTION = 'Contenu de la balise meta "description" pour cette page statique (option)';
-const L_STATIC_META_KEYWORDS = 'Contenu de la balise meta "keywords" pour cette page statique (option)';
 
 // statiques.php
 

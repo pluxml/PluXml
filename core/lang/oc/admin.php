@@ -123,8 +123,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'Per validacion';
 const L_SET_OFFLINE = 'Metre fòra linha';
 const L_SAVE = 'Enregistrar';
 const L_ADD = 'Ajustar';
-const L_ARTICLE_META_DESCRIPTION = 'Contengut balisa meta « descripcion » (opcion)';
-const L_ARTICLE_META_KEYWORDS = 'Contengut balisa meta « keywords » (opcion)';
+const L_META_DESCRIPTION = 'Contengut balisa meta « descripcion » (opcion)';
+const L_META_KEYWORDS = 'Contengut balisa meta « keywords » (opcion)';
 const L_ARTICLE_CHAPO_HIDE = 'mascar';
 const L_ARTICLE_CHAPO_DISPLAY = 'afichar';
 
@@ -181,8 +181,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Afichar los articles d\'aquesta categoria su
 const L_TEMPLATE = 'Modèl';
 const L_EDITCAT_BACK_TO_PAGE = 'Tornar a la lista de las categorias';
 const L_EDITCAT_UPDATE = 'Metre a jorn aquesta categoria';
-const L_EDITCAT_META_DESCRIPTION = 'Contengut de la balisa meta "descripcion" per aquesta categoria (opcion)';
-const L_EDITCAT_META_KEYWORDS = 'Contengut de la balisa meta "keywords" per aquesta categoria (opcion)';
 
 // commentaire.php
 
@@ -471,8 +469,6 @@ const L_STATIC_VIEW_PAGE = 'Visualizar la pagina';
 const L_STATIC_ON_SITE = 'sul site';
 const L_STATIC_UPDATE = 'Enregistrar aquela pagina estatica';
 const L_TITLE_HTMLTAG = 'Contengut balisa títol (opcion)';
-const L_STATIC_META_DESCRIPTION = 'Contengut de la balisa meta « descripcion » per aquela pagina estatica (opcion)';
-const L_STATIC_META_KEYWORDS = 'Contengut de la balisa meta « keywords » per aquela pagina estatica (opcion)';
 
 // statiques.php
 

@@ -116,8 +116,8 @@ const L_ARTICLE_MODERATE_BUTTON = 'Te valideren';
 const L_SET_OFFLINE = 'Artikel offline plaatsen';
 const L_SAVE = 'Opslaan';
 const L_ADD = 'Toevoegen';
-const L_ARTICLE_META_DESCRIPTION = 'Inhoud meta-tag "description" (optioneel)';
-const L_ARTICLE_META_KEYWORDS = 'Inhoud meta-tag "keywords" (optioneel)';
+const L_META_DESCRIPTION = 'Inhoud meta-tag "description" (optioneel)';
+const L_META_KEYWORDS = 'Inhoud meta-tag "keywords" (optioneel)';
 const L_ARTICLE_CHAPO_HIDE = 'verstoppen';
 const L_ARTICLE_CHAPO_DISPLAY = 'tonen';
 
@@ -161,8 +161,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Toon items in deze categorie op de home page
 const L_TEMPLATE = 'Template';
 const L_EDITCAT_BACK_TO_PAGE = 'Terug naar categorielijst';
 const L_EDITCAT_UPDATE = 'De wijzigingen voor deze categorie doorveoeren';
-const L_EDITCAT_META_DESCRIPTION = 'META-informatie voor deze categorie (optie)';
-const L_EDITCAT_META_KEYWORDS = 'META-informatie voor de "keywords" voor deze categorie (optie)';
 
 // commentaire.php
 
@@ -433,8 +431,6 @@ const L_STATIC_VIEW_PAGE = 'Bekijk de pagina';
 const L_STATIC_ON_SITE = 'op de site';
 const L_STATIC_UPDATE = 'Statische pagina opslaan';
 const L_TITLE_HTMLTAG = 'Title tag inhoud (optioneel)';
-const L_STATIC_META_DESCRIPTION = 'META-tag "description" voor deze statische pagina (optioneel)';
-const L_STATIC_META_KEYWORDS = 'META-tag "keywords" voor deze statische pagina (optioneel)';
 const L_STATICS_PAGE_TITLE = 'Aanmaken en aanpassen van statische paginas';
 const L_STATICS_GROUP = 'Groep';
 const L_STATICS_URL = 'Url';
