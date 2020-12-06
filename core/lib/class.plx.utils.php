@@ -278,7 +278,6 @@ class plxUtils
     {
 
         $params = array(
-            'id="id_' . $name . '"',
             'name="' . $name . '"',
         );
         if (!empty($extra)) {
@@ -288,11 +287,11 @@ class plxUtils
             $params[] = 'class="' . $className . '"';
         }
         foreach ($array as $a => $b) {
-            if ($a == $checked) {
-                echo '<input type="radio" value="' . $a . '" ' . implode(' ', $params) . ' checked>&nbsp;' . $b . '<br>';
-            } else {
-                echo '<input type="radio" value="' . $a . '" ' . implode(' ', $params) . '>&nbsp;' . $b . '<br>';
-            }
+			$checkedAttr = ($a == $checked) ? ' checked' : '';
+			$id = $name . '-' . $b;
+?>
+        <div><input type="radio" value="<?= $a ?>" id="<?= $id ?>" <?= implode(' ', $params) ?><?= $checkedAttr ?>>&nbsp;<label for="<?= $id ?>"><?= $b ?></label></div>
+<?php
         }
     }
 

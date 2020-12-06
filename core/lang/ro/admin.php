@@ -321,7 +321,7 @@ const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nume server SMTP (exemplu : ssl0.ovh
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Numele de utilizator pe gazda SMTP (exemplu : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Parolă de utilizator pe gazda SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numărul portului gazdă SMTP (implicit: 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permite generarea de jetoane numai pentru serviciu <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Aveți nevoie de ajutor pentru a genera numele de utilizator și cheia secretă : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permite generarea de jetoane numai pentru serviciu GOOGLE.' . PHP_EOL . 'Aveți nevoie de ajutor pentru a genera numele de utilizator și cheia secretă : WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'ID client la serviciul OAUTH2 (exemplu : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'Cheia de client a serviciului OAUTH2 (exemplu : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Salvați codul de identificare și codul secret al clientului, astfel încât să puteți genera jetonul.';

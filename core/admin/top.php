@@ -32,7 +32,10 @@ eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
 # pour tablettes
 $currentScript = basename($_SERVER['SCRIPT_NAME'], ".php");
 $fullwide = in_array($currentScript, array('article', 'statique'/* , 'medias' */, 'parametres_users', 'parametres_themes', 'parametres_edittpl')) ? ' fullwide' : '';
-$detail = in_array($currentScript, array('article', 'categorie', 'comment', 'user', 'parametres_base', 'parametres_affichage', 'parametres_themes', 'statique')) ? 'detail' : '';
+$detail = in_array($currentScript, array(
+	'article', 'categorie', 'comment', 'profil', 'user', 'parametres_base',
+	'parametres_affichage', 'parametres_themes', 'parametres_avances', 'statique')
+) ? 'detail' : '';
 
 if($currentScript == 'medias') {
 	# on active le medias manager

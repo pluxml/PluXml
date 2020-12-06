@@ -301,7 +301,7 @@ $cat_id = '000';
     <div class="adminheader">
         <div>
             <h2 class="h3-like"><?= (empty($_GET['a'])) ? L_NEW_ARTICLE : L_ARTICLE_EDITING; ?></h2>
-            <p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
+            <p><a class="back icon-left-big" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
         </div>
         <div>
             <p class="inbl"><span class="label-like"><?= L_ARTICLE_STATUS ?></span>

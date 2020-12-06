@@ -51,13 +51,13 @@ if (empty($aTemplates)) $aTemplates[''] = L_NONE1;
 include 'top.php';
 ?>
 
-<form method="post" id="form_category">
+<form method="post" id="form_category" class="first-level">
 	<?= plxToken::getTokenPostMethod() ?>
 	<?php plxUtils::printInput('id', $id, 'hidden'); ?>
     <div class="adminheader">
         <div>
             <h2 class="h3-like"><?= L_EDITCAT_PAGE_TITLE; ?> "<?= plxUtils::strCheck(trim($plxAdmin->aCats[$id]['name'])); ?>"</h2>
-            <p><a href="categorie.php"><?= L_EDITCAT_BACK_TO_PAGE ?></a></p>
+            <p><a class="icon-left-big" href="categorie.php"><?= L_EDITCAT_BACK_TO_PAGE ?></a></p>
         </div>
         <div>
 			<div>

@@ -33,11 +33,9 @@ $plxThemes = new plxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'], $plxAdm
     <div class="adminheader">
         <div>
             <h2 class="h3-like"><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
+			<p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
         </div>
         <div>
-            <div>
-				<p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_LINK); ?></p>
-			</div>
             <div>
 				<a class="inbl button btn--primary" href="parametres_edittpl.php"><?= L_TEMPLATES_EDIT ?></a>
             </div>

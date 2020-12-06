@@ -40,13 +40,13 @@ include 'top.php';
 ?>
 
 <div class="admin">
-    <form method="post" id="form_user">
+    <form method="post" id="form_user" class="first-level">
 	    <?= plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printInput('id', $id, 'hidden'); ?>
         <div class="adminheader">
 			<div>
 	            <h2><?= L_USER_PAGE_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aUsers[$id]['name']); ?>"</h2>
-	            <p><a class="back" href="parametres_users.php"><?= L_USER_BACK_TO_PAGE ?></a></p>
+	            <p><a class="back icon-left-big" href="parametres_users.php"><?= L_USER_BACK_TO_PAGE ?></a></p>
 			</div>
 			<div>
 	            <input type="submit" class="button--primary" value="<?= L_SAVE ?>"/>

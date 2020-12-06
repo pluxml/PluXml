@@ -59,7 +59,7 @@ if (!is_numeric($plxAdmin->aConf['miniatures_h'])) $plxAdmin->aConf['miniatures_
 include 'top.php';
 ?>
 
-<form method="post" id="form_display">
+<form method="post" id="form_display" class="first-level">
     <?= plxToken::getTokenPostMethod() ?>
 
     <div class="adminheader">
@@ -68,7 +68,7 @@ include 'top.php';
         </div>
         <div>
 			<div>
-	            <input class="inbl btn--primary" type="submit" name="display" role="button" value="<?= L_SAVE ?>"/>
+	            <input class="inbl btn--primary" type="submit" name="config-display" role="button" value="<?= L_SAVE ?>"/>
 			</div>
         </div>
     </div>

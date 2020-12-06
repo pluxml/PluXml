@@ -366,16 +366,16 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Senden von E-Mails mit SMTP und OAUTH
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Kunden-ID';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Geheimer Client-Schlüssel';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Ihr login für diesen Dienst';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Erzeugen Sie ein Token';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Aucune configuration n\'est requise pour sendmail.<br>';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom du serveur SMTP (exemple : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nom de l\'utilisateur sur l\'hôte SMTP (exemple : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Mot de passe de l\'utilisateur sur l\'hôte SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numéro du port de l\'hôte SMTP (par défaut : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de générer des tokens uniquement pour le service <a href="https://cloud.google.com">GMAIL de Google</a>.<br>Besoin d\'aide pour générer l\'identifiant et la clés secrete : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">Documentation de PluXml</a>&nbsp;(fr)';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'Mit PluXml können Token nur für den Dienst GOOGLE generiert werden.' . PHP_EOL . 'Benötigen Sie Hilfe, um den Benutzernamen und den geheimen Schlüssel zu generieren : WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identifiant client sur le service OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clé du client sur le service OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrer l\'ID client et le code secret du client afin de pouvoir générer le token.';
 
 // parametres_base.php
 

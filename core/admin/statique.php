@@ -85,7 +85,7 @@ include 'top.php';
     <div class="adminheader">
         <div>
             <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($title); ?>"</h2>
-            <p><a class="back" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
+            <p><a class="back icon-left-big" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
         </div>
         <div>
             <p><a href="<?= $url ?>"><?= L_STATIC_VIEW_PAGE ?> <?= plxUtils::strCheck($title); ?> <?= L_STATIC_ON_SITE ?></a></p>

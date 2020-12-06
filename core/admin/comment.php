@@ -139,9 +139,9 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
         <div>
             <h2 class="h3-like"><?= L_COMMENT_EDITING; ?></h2>
             <?php if (!empty($_GET['a'])) : ?>
-                <p><a class="back" href="comments.php?a=<?= $_GET['a'] ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+                <p><a class="back icon-left-big" href="comments.php?a=<?= $_GET['a'] ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
             <?php else : ?>
-                <p><a class="back" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
+                <p><a class="back icon-left-big" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
             <?php endif; ?>
         </div>
         <div>

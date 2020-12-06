@@ -26,7 +26,7 @@ if (!empty($_POST)) {
 include 'top.php';
 ?>
 
-<form method="post" id="form_base_settings">
+<form method="post" id="form_base_settings" class="first-level">
     <?= plxToken::getTokenPostMethod() ?>
     <div class="adminheader">
         <div>
@@ -34,7 +34,7 @@ include 'top.php';
         </div>
         <div>
 			<div>
-				<input class="btn--primary" type="submit" name="profil" role="button" value="<?= L_SAVE ?>" />
+				<input class="btn--primary" type="submit" name="config-base" role="button" value="<?= L_SAVE ?>" />
 			</div>
         </div>
     </div>

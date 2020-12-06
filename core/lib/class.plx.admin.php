@@ -23,8 +23,28 @@ class plxAdmin extends plxMotor {
 	const STATIC_DATES = array('date_creation', 'date_update');
 
 	# <input type="checkbox"> in the form but not in the post
-	const CHK_CONFIG_DISPLAY = array('display_empty_cat', 'thumbs', 'feed_chapo');
-	const CHK_CONFIG_BASE = array('allow_com', 'mod_com', 'mod_art', 'enable_rss');
+	const CHK_CONFIG_DISPLAY = array('display_empty_cat', 'thumbs', 'feed_chapo', );
+	const CHK_CONFIG_BASE = array('allow_com', 'mod_com', 'mod_art', 'enable_rss', );
+	const CHK_CONFIG_AVANCE = array('urlrewriting', 'cleanurl', 'gzip', 'lostpassword', 'capcha', 'userfolders', );
+
+	# for .htaccess
+	const URLREWRITING_PATTERN = '/(\s*^#\s*BEGIN -- Pluxml$.*^#\s*END -- Pluxml$\s*)/msU';
+	const URLREWRITING_TEMPLATE = <<< 'EOT'
+# BEGIN -- Pluxml
+Options -Multiviews
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteBase ##BASE##
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+	# Réécriture des urls
+	RewriteRule ^(article\d*|categorie\d*|tag|archives|static\d*|page\d*|telechargement|download)\b(.*)$ index.php?$1$2 [L]
+	RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
+</IfModule>
+# END -- Pluxml
+EOT;
 
 	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
 
@@ -106,31 +126,32 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function editConfiguration($content=false) {
 
-		# Si nouvel emplacement du dossier de configuration
-		if(!empty($content['config_path'])) {
+		if(isset($content['config_path'])) {
+			# On gère les paramètres avancés
 			$newpath = trim($content['config_path']);
 			if(substr($newpath, -1) != '/') { $newpath .= '/'; }
 			if($newpath != PLX_CONFIG_PATH) {
-				if(!is_writable(PLX_ROOT . $newpath . path('XMLFILE_PARAMETERS'))) {
-					# Le fichier de paramétrage n'est accessible en écriture,
-					# on essaie de renommer le dossier de données ou de paramètrage.
-					if(!rename(PLX_ROOT . PLX_CONFIG_PATH, PLX_ROOT . $newpath)) {
-						return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
+				# On veut renommer le dossier de paramétrages
+				if(
+					dirname($newpath) == dirname(PLX_CONFIG_PATH) and
+					preg_match('@^\w[\w .-]*$@', basename($newpath)) and
+					# on essaie de renommer le dossier de paramètrages existant.
+					rename(PLX_ROOT . PLX_CONFIG_PATH, PLX_ROOT . $newpath)
+				) {
+					# mise à jour du fichier de configuration config.php
+					$output = '<?php' . PHP_EOL . 'const PLX_CONFIG_PATH = \'' . $newpath . '\';' . PHP_EOL;
+					if(!plxUtils::write($output, PLX_ROOT . 'config.php')) {
+						# Impossible de mettre à jour config.php
+						return plxMsg::Error(L_SAVE_ERR . ' config.php');
+					} else {
+						# Succès. On déconnecte l'utilisateur pour prendre en compte le bouveau config.php
+						# On doit invalider les caches de codes PHP
+						header('Location: ' . PLX_ADMIN_PATH . 'auth.php?d=1');
+						exit;
 					}
-				}
-
-				# mise à jour du fichier de configuration config.php
-				$output = <<< OUTPUT
-<?php
-const PLX_CONFIG_PATH = '$newpath';
-
-OUTPUT;
-				if(!plxUtils::write($output, PLX_ROOT . 'config.php')) {
-					return plxMsg::Error(L_SAVE_ERR . ' config.php');
 				} else {
-					# On force une nouvelle authentification
-					header('Location: ' . PLX_ADMIN_PATH . 'auth.php?d=1');
-					exit;
+					# Impossible de renommer le dossier
+					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
 				}
 			}
 		}
@@ -141,6 +162,8 @@ OUTPUT;
 		}
 
 		if(!empty($content)) {
+			$oldValue = $this->aConf['urlrewriting'];
+
 			foreach($content as $k=>$v) {
 				if(!in_array($k,array('token', 'config_path'))) {
 					# parametres à ne pas mettre dans le fichier
@@ -149,25 +172,36 @@ OUTPUT;
 			}
 
 			# checkboxes are in the form but not in the query if unchecked
-			if(array_key_exists('hometemplate', $content)) {
+			if(isset($content['config-display'])) {
 				# parametres_affichage.php
 				foreach(self::CHK_CONFIG_DISPLAY as $k) {
 					if(!isset($content[$k])) {
 						$this->aConf[$k] = 0;
 					}
 				}
-			} elseif(array_key_exists('title', $content)) {
+			} elseif(isset($content['config-base'])) {
 				# parametres_base.php
 				foreach(self::CHK_CONFIG_BASE as $k) {
 					if(!isset($content[$k])) {
 						$this->aConf[$k] = 0;
 					}
 				}
+			} elseif(isset($content['config-more'])) {
+				# parametres_avances.php
+				$oldUrlRewrite = $this->aConf['urlrewriting'];
+				foreach(self::CHK_CONFIG_AVANCE as $k) {
+					if(!isset($content[$k])) {
+						$this->aConf[$k] = 0;
+					}
+				}
+				$updateHtaccess = ($oldValue != $this->aConf['urlrewriting']);
 			}
 		}
 
 		# On teste la clef
-		if(empty($this->aConf['clef'])) $this->aConf['clef'] = plxUtils::charAleatoire(15);
+		if(empty(trim($this->aConf['clef']))) {
+			$this->aConf['clef'] = plxUtils::charAleatoire(15);
+		}
 
 		# Début du fichier XML
 		ob_start();
@@ -202,9 +236,10 @@ OUTPUT;
 		$_SESSION['lang'] = $this->aConf['default_lang'];
 
 		# Actions sur le fichier htaccess
-        if(array_key_exists('urlrewriting', $content))
-			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
+        if(!empty($updateHtaccess)) {
+			if(!$this->htaccess($this->aConf['urlrewriting']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
+		}
 
 		return plxMsg::Info(L_SAVE_SUCCESSFUL);
 
@@ -218,44 +253,25 @@ OUTPUT;
 	 * @return	null
 	 * @author	Stephane F, Amaury Graillat
 	 **/
-	public function htaccess($action, $url) {
+	public function htaccess($action, $url=false) {
 
 		if(!function_exists('apache_get_modules') or !in_array('mod_rewrite', apache_get_modules())) {
 			return false;
 		}
 
-		$capture = '';
-		$base = parse_url($url);
-
-		$plxhtaccess = '
-# BEGIN -- Pluxml
-Options -Multiviews
-<IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteBase '.$base['path'].'
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-# Réécriture des urls
-RewriteRule ^(article\d*|categorie\d*|tag|archives|static\d*|page\d*|telechargement|download)\b(.*)$ index.php?$1$2 [L]
-RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
-</IfModule>
-# END -- Pluxml
-';
-
-		$htaccess = '';
-		if(is_file(PLX_ROOT.'.htaccess'))
-			$htaccess = file_get_contents(PLX_ROOT.'.htaccess');
-
+		$htaccess = (is_file(PLX_ROOT.'.htaccess')) ? file_get_contents(PLX_ROOT.'.htaccess') : '';
 		switch($action) {
 			case '0': # désactivation
-				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
-					$htaccess = str_replace($capture[2], '', $htaccess);
+				if(!empty($htaccess)) {
+					$htaccess = preg_replace(self::URLREWRITING_PATTERN, PHP_EOL, $htaccess);
+				}
 				break;
 			case '1': # activation
-				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
-					$htaccess = trim($capture[1]).$plxhtaccess.trim($capture[3]);
-				else
+				$base = parse_url(!empty($url) ? $url : $this->racine);
+				$plxhtaccess = PHP_EOL . str_replace('##BASE##', $base['path'], self::URLREWRITING_TEMPLATE) . PHP_EOL;
+				if(!empty($htaccess) and preg_match(self::URLREWRITING_PATTERN, $htaccess) === 1) {
+					$htaccess = preg_replace(self::URLREWRITING_PATTERN, $plxhtaccess, $htaccess);
+				} else
 					$htaccess .= $plxhtaccess;
 				break;
 		}

@@ -36,12 +36,15 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 	<div class="adminheader">
 		<div>
 			<h2 class="h3-like"><?= L_PROFIL_EDIT_TITLE ?></h2>
-			<input class="inbl btn--primary" type="submit" name="profil" role="button"
-				   value="<?= L_PROFIL_UPDATE ?>"/>
+		</div>
+		<div>
+			<div>
+				<input class="btn--primary" type="submit" name="profil" role="button" value="<?= L_SAVE ?>"/>
+			</div>
 		</div>
 	</div>
 	<div class="admin>">
-	    <form method="post" id="form_profil">
+	    <form method="post" id="form_profil" class="first-level">
 	        <?= plxToken::getTokenPostMethod() ?>
 <?php
 # Hook Plugins
@@ -49,8 +52,10 @@ eval($plxAdmin->plxPlugins->callHook('AdminProfilTop'))
 ?>
 
 	        <fieldset>
-	            <p class="inbl"><label><?= L_PROFIL_LOGIN ?>
-	                    &nbsp;<strong><?= plxUtils::strCheck($_profil['login']) ?></strong></label></p>
+	            <div class="inbl">
+					<label><?= L_PROFIL_LOGIN ?></label>
+	                <strong><?= plxUtils::strCheck($_profil['login']) ?></strong>
+				</div>
 	            <div class="grid-2">
 	                <label for="id_name"><?= L_PROFIL_USER ?></label>
 	                <?php plxUtils::printInput('name', plxUtils::strCheck($_profil['name']), 'text', '20-255') ?>
@@ -67,7 +72,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminProfilTop'))
 eval($plxAdmin->plxPlugins->callHook('AdminProfil'))
 ?>
 	    </form>
-	    <form method="post" id="form_password">
+	    <form method="post" id="form_password" class="first-level">
 			<?= plxToken::getTokenPostMethod(); ?>
 	        <fieldset>
 	            <h3><?= L_PROFIL_CHANGE_PASSWORD ?></h3>

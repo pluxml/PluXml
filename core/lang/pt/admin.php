@@ -324,7 +324,7 @@ const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nome do servidor SMTP (exemplo : ssl
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nome de usuário no host SMTP (exemplo : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Senha do usuário no host SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Número da porta do host SMTP (padrão: 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'O PluXml permite gerar tokens apenas para o serviço <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Precisa de ajuda para gerar o nome de usuário e a chave secreta: <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'O PluXml permite gerar tokens apenas para o serviço GOOGLE.' . PHP_EOL . 'Precisa de ajuda para gerar o nome de usuário e a chave secreta: WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'ID do cliente no serviço OAUTH2 (exemplo: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'A chave do cliente no serviço OAUTH2 (exemplo : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Salve o ID do cliente e o código secreto do cliente para poder gerar o token.';

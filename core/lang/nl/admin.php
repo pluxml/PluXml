@@ -355,7 +355,7 @@ const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'SMTP-servernaam (voorbeeld : ssl0.ov
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Gebruikersnaam op de SMTP-host (voorbeeld : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Gebruikerswachtwoord op de SMTP-host';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'SMTP-hostpoortnummer (standaard : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'Met PluXml kunnen alleen tokens voor de service worden gegenereerd <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Hulp nodig bij het genereren van de gebruikersnaam en de geheime sleutel : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'Met PluXml kunnen alleen tokens voor de service worden gegenereerd GOOGLE.' . PHP_EOL . 'Hulp nodig bij het genereren van de gebruikersnaam en de geheime sleutel : WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Klant-ID voor de OAUTH2-service (voorbeeld : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'De clientsleutel op de OAUTH2-service (voorbeeld : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Sla de klant-ID en klantgeheime code op zodat u het token kunt genereren.';

@@ -148,6 +148,10 @@ input[type="checkbox"].switch:checked {
 	box-shadow: inset 2rem 0 0 #5cb85c,inset 0 0 0 1px #5cb85c;
 }
 
+input[type="radio"] + label {
+	margin: 0;
+}
+
 form .admin {
 	padding: 0.5rem;
 }
@@ -402,7 +406,8 @@ i.icon-calendar {
 
 /* Buttons */
 .section.detail .adminheader > div:last-of-type div {
-	padding-bottom: 1rem;
+	/* padding-bottom: 1rem; */
+	padding: 1rem 0;
 	white-space: nowrap;
 	overflow-x: auto;
 }
@@ -767,25 +772,37 @@ input:checked + .drop + div {
 }
 
 /* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 220px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
+.tooltiptext {
+	--tip-half-width: 11rem;
+	--tip-left: calc(50% - var(--tip-half-width));
+	--tip-arrow-left: 50%;
 
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
     bottom: 125%;
-    left: 50%;
-    margin-left: -110px;
+    left: var(--tip-left);
+    width: calc(var(--tip-half-width) * 2);
+
+    padding: 0.5rem;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    word-break: break-word;
+    border-radius: 0.6rem;
 
     /* Fade in tooltip */
-    opacity: 0;
     transition: opacity 0.3s;
+}
+
+.tooltiptext.left {
+	--tip-left: calc(50% - (var(--tip-half-width) * 1.8));
+	--tip-arrow-left: calc(50% + (var(--tip-half-width) * 0.8));
+}
+
+.tooltiptext.right {
+	--tip-left: calc(50% - (var(--tip-half-width) * 0.33));
+	--tip-arrow-left: calc(50% - (var(--tip-half-width) * 0.66));
 }
 
 /* Tooltip arrow */
@@ -793,17 +810,18 @@ input:checked + .drop + div {
     content: "";
     position: absolute;
     top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
+    left: var(--tip-arrow-left);
+    margin-left: -0.5rem;
+    border-width: 0.5rem;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
 
+
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+.tooltip:not(:hover) .tooltiptext {
+    visibility: hidden;
+    opacity: 0;
 }
 
 /* Medias Manager
@@ -1086,8 +1104,79 @@ fieldset .label-expanded input[type="checkbox"] {
 }
 
 fieldset div:not(.label-expanded) input[type="text"],
+fieldset div:not(.label-expanded) input[type="password"],
+fieldset div:not(.label-expanded) input[type="url"],
 fieldset div:not(.label-expanded) input[type="email"] {
 	width: 100%;
+}
+
+/* ----------- parametres_avances.php ----- */
+
+#form_advanced_settings div.bool {
+	display: flex;
+}
+
+#form_advanced_settings div.bool > div:first-of-type {
+	margin-right: auto;
+}
+
+#email-config {
+	position: relative;
+}
+
+#email-config p {
+	margin-bottom: 0;
+}
+
+#email-config .tabs > div {
+	padding: 0.5rem 0;
+}
+
+#email-config p:not(.txtcenter) {
+	text-indent: 2rem;
+}
+
+#email-config > div:not(:first-of-type) > div {
+	display: inline-block;
+}
+
+#email-config .tabs {
+	position: absolute;
+	top: 3rem;
+	left: 0;
+	width: 100%;
+	margin-top: 1rem;
+	text-align: initial;
+}
+
+#email-by-sendmail:checked	{ margin-bottom : 4rem; }
+#email-by-smtp:checked		{ margin-bottom : 22rem; }
+#email-by-smtpOauth:checked	{ margin-bottom : 24rem; }
+
+#email-config input[type="radio"]:not(:checked) + label + div {
+	display: none;
+}
+
+#email-config-tabs div:not(:last-of-type) > label {
+	margin-right: 2rem;
+}
+
+#email-config input[type="radio"] + label::after {
+	content: none;
+	padding: 0;
+}
+
+#smtp-security > div {
+	display: inline;
+}
+
+#oauth-token {
+	display: flex;
+	gap: 1rem;
+}
+#oauth-token input {
+	width: auto;
+	flex-grow: 1;
 }
 
 /* ------------ parametres_users.php ----- */
@@ -1399,7 +1488,8 @@ input:checked ~ .modal__overlay {
 	}
 	.thumbnail-container img {
 		max-height: 18rem;
-		max-width: 32rem;
+		/* max-width: 32rem; */
+		max-width: 100%;
 		width: auto;
 	}
 
@@ -1433,10 +1523,30 @@ input:checked ~ .modal__overlay {
 		flex-grow: 1;
 	}
 
+	.tooltiptext {
+		--tip-half-width: 15rem;
+	}
+
 	#form_medias {
 		display: grid;
 		grid-template-columns: auto 1fr;
 		gap: 1rem;
+	}
+
+	#form_advanced_settings fieldset > div,
+	#form_advanced_settings .tabs > div {
+		display: flex;
+	}
+
+	#form_advanced_settings fieldset > div > div:first-of-type,
+	#form_advanced_settings .tabs > div > div:first-of-type {
+		margin-right: auto;
+	}
+
+	#form_advanced_settings input[type="text"],
+	#form_advanced_settings input[type="password"],
+	#form_advanced_settings input[type="email"] {
+		max-width: 25rem;
 	}
 }
 
@@ -1466,9 +1576,10 @@ input:checked ~ .modal__overlay {
 		grid-template-columns: 20rem 1fr;
 	}
 
-	.nav-button {
+	body:not(.fullwide) .nav-button {
 		display: none;
 	}
+
 	body:not(.fullwide) #aside {
 		position: static;
 		max-height: none;
@@ -1508,6 +1619,13 @@ input:checked ~ .modal__overlay {
 
 	#form_themes .themes {
 		grid-template-columns: repeat(5, 1fr);
+	}
+
+	form.first-level fieldset {
+		max-width: 64rem;
+		margin: 1rem auto;
+		border: 1px solid #aaa;
+		border-radius: 0.75rem;
 	}
 }
 
