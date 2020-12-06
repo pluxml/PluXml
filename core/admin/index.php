@@ -236,7 +236,7 @@ if ($arts) { # On a des articles
 <?php
 		} else {
 ?>
-						<?= strip_tags(implode(PHP_EOL, $aCats)) ?>
+						<span class="select-like"><?= strip_tags(implode(PHP_EOL, $aCats)) ?></span>
 <?php
 		}
 ?>

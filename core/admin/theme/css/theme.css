@@ -664,6 +664,14 @@ form .icon-picture {
 	cursor: pointer;
 }
 
+tbody select {
+	width: 100%;
+}
+
+tbody .select-like {
+	padding: 0.5rem 1.2rem;
+}
+
 /* séparateur hauteur x largeur */
 
 .surface {
@@ -673,6 +681,8 @@ form .icon-picture {
 fieldset > div {
 	padding: 0.5rem 0;
 }
+
+
 
 /* -------------- notification --------- */
 
