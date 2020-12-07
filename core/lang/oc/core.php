@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED				= 'Los comentaris son barrats';
 const L_SITE_DESCRIPTION			= 'Blòg o Cms a l\'Xml !';
 const L_SAVE_SUCCESSFUL				= 'Enregistrament de las donadas efectuat amb succès';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Article creat amb succès';
+const L_MAIL_ADDRESS				= 'Adreça de corrièl';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Lo tèma principal de PluXml es introbable';
@@ -158,4 +159,4 @@ const L_ART_PREV					= 'Précèdent';
 const L_ART_NEXT					= 'Suivant';
 const L_ART_LAST					= 'Dernier';
 const L_ART_UP						= 'Remonter';
-?>
+

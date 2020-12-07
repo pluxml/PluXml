@@ -839,21 +839,22 @@ class plxMotor {
                 'template'			=> plxUtils::getValue($values[$iTags['template'][0]]['value'], 'article.php'),
                 'chapo'				=> plxUtils::getValue($values[$iTags['chapo'][0]]['value']),
                 'content'			=> plxUtils::getValue($values[$iTags['content'][0]]['value']),
-                'tags'				=> plxUtils::getValue($values[ $iTags['tags'][0] ]['value']),
+                'tags'				=> plxUtils::getValue($values[$iTags['tags'][0] ]['value']),
                 'meta_description'	=> plxUtils::getValue($values[$meta_description]['value']),
                 'meta_keywords'		=> plxUtils::getValue($values[$meta_keywords]['value']),
                 'title_htmltag'		=> plxUtils::getValue($values[$iTags['title_htmltag'][0]]['value']),
-                'thumbnail'			=> plxUtils::getValue($values[$iTags['thumbnail'][0]]['value']),
-                'thumbnail_title'	=> plxUtils::getValue($values[$iTags['thumbnail_title'][0]]['value']),
-                'thumbnail_alt'		=> plxUtils::getValue($values[$iTags['thumbnail_alt'][0]]['value']),
+                'thumbnail'			=> isset($iTags['thumbnail']) ? plxUtils::getValue($values[$iTags['thumbnail'][0]]['value']) : '',
+                'thumbnail_title'	=> isset($iTags['thumbnail_title']) ? plxUtils::getValue($values[$iTags['thumbnail_title'][0]]['value']) : '',
+                'thumbnail_alt'		=> isset($iTags['thumbnail_alt']) ? plxUtils::getValue($values[$iTags['thumbnail_alt'][0]]['value']) : '',
                 'numero'			=> $tmp['artId'],
                 'author'			=> $tmp['usrId'],
                 'categorie'			=> $tmp['catId'],
                 'url'				=> $tmp['artUrl'],
-                'date'				=> $tmp['artDate'],
+                'date'				=> $tmp['artDate'], # For retro-compatibility. Must de deprecated.
                 'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}.\d+.xml$#'),
                 'date_creation'		=> plxUtils::getValue($values[$iTags['date_creation'][0]]['value'], $tmp['artDate']),
                 'date_update'		=> plxUtils::getValue($values[$iTags['date_update'][0]]['value'], $tmp['artDate']),
+                'date_publication'	=> $tmp['artDate'],
             );
 
             # Hook plugins
@@ -1288,26 +1289,27 @@ class plxMotor {
 	 *
 	 * @param	select	critere de recherche des commentaires: all, online, offline
 	 * @param	publi	type de sélection des commentaires: all, before, after
+	 * @param	$artId  identifiant de l'article
 	 * @return	integer	nombre de commentaires
 	 * @scope	global
 	 * @author	Stephane F
 	 **/
-	public function nbComments($select='online', $publi='all') {
+	public function nbComments($select='online', $publi='all', $artId=false) {
+		if(empty($artId) or !preg_match('@^_?\d{1,4}$@', $artId)) {
+			$artId = '\d{4}';
+		} else {
+			$artId = str_pad(ltrim($artId, '_'), 4, '0', STR_PAD_LEFT);
+		}
+		$suffixe = '\.\d+-\d+\.xml$#';
+		switch($select) {
+			case 'offline':	$motif = '#^_' . $artId . $suffixe; break;
+			case 'online':	$motif = '#^' . $artId . $suffixe; break;
+			case 'all':		$motif = '#^_?' . $artId . $suffixe; break;
+			default:		$motif = $select;
+		}
 
-		$nb = 0;
-		if($select == 'all')
-			$motif = '#[^[:punct:]?]\d{4}.(.*).xml$#';
-		elseif($select=='offline')
-			$motif = '#^_\d{4}.(.*).xml$#';
-		elseif($select=='online')
-			$motif = '#^\d{4}.(.*).xml$#';
-		else
-			$motif = $select;
-
-		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
-			$nb = sizeof($coms);
-
-		return $nb;
+		$coms = $this->plxGlob_coms->query($motif, 'com', '', 0, false, $publi);
+		return !empty($coms) ? sizeof($coms) : 0;
 	}
 
 	/**

@@ -14,6 +14,12 @@ class plxDate
     const PATTERN = '@^(\d{4})(\d{2})(\d{2})(\d{2}):?(\d{2})@';
     const FORMAT_DATE = '#num_day/#num_month/#num_year(4)';
     const FORMAT_TIME = '#day #num_day #month #num_year(4), #hour:#minute';
+    const ENTRIES = array('date_publication', 'date_creation', 'date_update');
+    const ERROR_MSG_ENTRIES = array(
+		'date_publication'	=> L_ERR_INVALID_PUBLISHING_DATE,
+		'date_creation'		=> L_ERR_INVALID_DATE_CREATION,
+		'date_update'		=> L_ERR_INVALID_DATE_UPDATE,
+	);
 
     /**
      * Méthode qui retourne le libellé du mois ou du jour passé en paramètre
@@ -158,6 +164,26 @@ class plxDate
 
     }
 
+
+    /**
+     * Méthode qui vérifie la validité de la date et de l'heure.
+     * Formats conformes en HTML5 pour <input type="date"> et <input type="time">
+     *
+     * @date1 string format yyyy-mm-dd
+     * @time1 string format HH:ii
+     * @return boolean true if success
+     * @author Jean-Pierre Pourrez "bazooka07"
+     * */
+    public static function checkDate5($date1, $time1) {
+		if(!preg_match('@^\d{2}:\d{2}$@', $time1)) {
+			return;
+		}
+		if(!preg_match('@^(\d{4})-(\d{2})-(\d{2})$@', $date1, $parts)) { # year, month, day
+			return false;
+		}
+		return checkdate($parts[2], $parts[3], $parts[1]);
+	}
+
     /**
      * Fonction de conversion de date ISO en format RFC822
      *
@@ -170,5 +196,27 @@ class plxDate
         $tmpDate = plxDate::date2Array($date);
         return date(DATE_RSS, mktime(substr($tmpDate['time'], 0, 2), substr($tmpDate['time'], 3, 2), 0, $tmpDate['month'], $tmpDate['day'], $tmpDate['year']));
     }
+
+    /**
+     * Fonction qui retourne des dates reconnues sous forme de tableau depuis un tableau de données quelconques.
+     *
+     * @param $datas tableau de données associatif
+     * @return tableau avec clés comprises dans self::ENTRIES. les values sont au format de date de PluXml yyyymmddhhii
+     * @author Jean-Pierre Pourrez "bazooka07"
+     * */
+    public static function date2html5($datas) {
+		if(!is_array($datas)) { return false; }
+
+		$result = array();
+		foreach(self::ENTRIES as $k) {
+			if(array_key_exists($k, $datas) and preg_match('@^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d).*@', $datas[$k], $parts)) {
+				$result[$k] = array(
+					$parts[1] . '-' . $parts[2] . '-' . $parts[3], # YYYY-MM-DD
+					$parts[4] . ':' . $parts[5], #HH:II
+				);
+			}
+		}
+		return $result;
+	}
 
 }

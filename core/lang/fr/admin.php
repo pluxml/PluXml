@@ -1,7 +1,11 @@
 <?php
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Erreur inconnue';
-const L_CONFIRM_DELETE = 'Confirmer la suppression ?';
+const L_CONFIRM_DELETE = 'Confirmer la suppression de 999 éléments ?';
+const L_CONFIRM_ACTIVATE = 'Confirmer l\'activation de 999 éléments ?';
+const L_CONFIRM_DEACTIVATE = 'Confirmer la désactivation de 999 éléments ?';
+const L_CONFIRM_OFFLINE = 'Confirmer la mise hors-ligne de 999 commentaires ?';
+const L_CONFIRM_ONLINE = 'Confirmer la mise en ligne de 999 commentaires ?';
 const L_SAVE_FILE = 'Sauvegarder le fichier';
 const L_SAVE_FILE_SUCCESSFULLY = 'Fichier enregistré avec succès';
 const L_SAVE_FILE_ERROR = 'Erreur pendant l\'enregistrement du fichier';
@@ -106,12 +110,12 @@ const L_ARTICLE_DELETE_CONFIRM = 'Supprimer cet article ?';
 const L_ARTICLE_PREVIEW_BUTTON = 'Aperçu';
 const L_ARTICLE_DRAFT_BUTTON = 'Enregistrer brouillon';
 const L_ARTICLE_PUBLISHING_BUTTON = 'Publier';
-const L_ARTICLE_MODERATE_BUTTON = 'Soumettre pour validation';
+const L_ARTICLE_MODERATE_BUTTON = 'A valider';
 const L_SET_OFFLINE = 'Mettre hors ligne';
 const L_SAVE = 'Enregistrer';
 const L_ADD = "Ajouter";
-const L_ARTICLE_META_DESCRIPTION = 'Contenu balise meta "description" (option)';
-const L_ARTICLE_META_KEYWORDS = 'Contenu balise meta "keywords" (option)';
+const L_META_DESCRIPTION = 'Contenu balise meta "description" (option)';
+const L_META_KEYWORDS = 'Contenu balise meta "keywords" (option)';
 const L_ARTICLE_CHAPO_HIDE = 'masquer';
 const L_ARTICLE_CHAPO_DISPLAY = 'afficher';
 
@@ -124,7 +128,7 @@ const L_AUTH_LOGIN_FIELD = 'Login de connexion';
 const L_AUTH_LOST_FIELD = 'Login ou adresse courriel';
 const L_SUBMIT_BUTTON = 'Valider';
 const L_ERR_WRONG_PASSWORD = 'Login et/ou mot de passe incorrect';
-const L_POWERED_BY = 'Généré par <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Généré par <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de tentative atteint<br />Réessayez dans %s minutes';
 const L_LOST_PASSWORD = 'Mot de passe oublié&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Se connecter';
@@ -168,10 +172,8 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Afficher les articles de cette catégorie su
 const L_TEMPLATE = 'Modèle';
 const L_EDITCAT_BACK_TO_PAGE = 'Retour à la liste des catégories';
 const L_EDITCAT_UPDATE = 'Mettre à jour cette catégorie';
-const L_EDITCAT_META_DESCRIPTION = 'Contenu de la balise meta "description" pour cette catégorie (option)';
-const L_EDITCAT_META_KEYWORDS = 'Contenu de la balise meta "keywords" pour cette catégorie (option)';
 
-// commentaire.php
+// comment.php
 
 const L_COMMENT_ORPHAN_STATUS = 'non visible (nous vous conseillons de supprimer ce commentaire)';
 const L_COMMENT_ARTICLE_LINKED_TITLE = 'Article attaché à ce commentaire';
@@ -192,7 +194,7 @@ const L_COMMENT_LINKED_ARTICLE_FIELD = 'Article attaché';
 const L_COMMENT_ARTICLE_FIELD = 'Commentaire';
 const L_COMMENT_DELETE_CONFIRM = 'Supprimer ce commentaire ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Valider la publication';
-const L_COMMENT_ANSWER_BUTTON = 'Répondre à ce commentaire';
+const L_COMMENT_ANSWER_BUTTON = 'Répondre';
 const L_COMMENT_UPDATE_BUTTON = 'Mettre à jour';
 const L_COMMENT_WRITTEN_BY = 'Rédigé par';
 const L_COMMENT_SAVE_SUCCESSFUL = 'Commentaire modifié avec succès';
@@ -202,13 +204,15 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validation effectuée avec succès';
 const L_COMMENT_VALIDATE_ERR = 'Une erreur est survenue pendant la validation';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Modération effectuée avec succès';
 const L_COMMENT_MODERATE_ERR = 'Une erreur est survenue lors de la modération';
+const L_WATCH = 'Regarder';
+const L_SEND_MAIL = 'Envoyer un courriel';
 
 // sous_navigation/commentaires.php
 
 const L_COMMENT_NEW_COMMENT_TITLE = 'Rédiger un nouveau commentaire pour cet article';
 const L_COMMENT_NEW_COMMENT = 'Rédiger un nouveau commentaire';
 
-// commentaire_new.php
+// comment_new.php
 
 const L_ERR_ANSWER_UNKNOWN_COMMENT = 'Le commentaire auquel vous tentez de répondre n\'existe pas ou n\'existe plus !';
 const L_ERR_ANSWER_OFFLINE_COMMENT = 'Le commentaire est hors ligne, impossible d\'y répondre !';
@@ -247,7 +251,7 @@ const L_SPECIFIC_CATEGORIES_TABLE = 'Emplacements spécifiques';
 const L_ALL_ARTICLES_CATEGORIES_TABLE = 'Tous les articles';
 const L_ARTICLES_LIST = 'Liste des articles';
 const L_ARTICLE_LIST_CATEGORIES = 'Catégorie';
-const L_ARTICLE_LIST_NBCOMS = 'Nb coms';
+const L_ARTICLE_LIST_NBCOMS = 'Coms';
 const L_ARTICLE_VIEW_TITLE = 'Visualiser cet article sur le site';
 const L_EDIT = 'Éditer';
 const L_ARTICLE_EDIT_TITLE = 'Éditer cet article';
@@ -281,7 +285,7 @@ const L_MEDIAS_THUMBS = 'Créer miniatures';
 const L_MEDIAS_THUMBS_NONE = 'Pas de miniature';
 const L_MEDIAS_MODIFY = 'Modifier';
 const L_MEDIAS_THUMB = 'Miniature';
-const L_MEDIAS_EXTENSION = 'Extension';
+const L_MEDIAS_EXTENSION = 'Ext.';
 const L_MEDIAS_ALIGNMENT = 'Alignement';
 const L_MEDIAS_ALIGN_LEFT = 'Gauche';
 const L_MEDIAS_ALIGN_CENTER = 'Centre';
@@ -292,6 +296,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Impossible de copier le lien dans le presse-p
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Lien copié';
 const L_MEDIAS_NEW_NAME = 'Nouveau nom';
 const L_MEDIAS_RENAME = 'Renommer';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option';
 
 // parametres_affichage.php
 
@@ -332,15 +339,16 @@ const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clef d\'administration (URL privés)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Vider ce champs pour régénérer la clef';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Utiliser un dossier medias différent pour chaque rédacteur';
 const L_SLASH_END_REQUIRED = 'Ne pas oublier le slash à la fin';
-const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Emplacement des médias (dossier)';
-const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Emplacement des articles (dossier)';
-const L_CONFIG_ADVANCED_COMS_FOLDER = 'Emplacement des commentaires (dossier)';
-const L_CONFIG_ADVANCED_STATS_FOLDER = 'Emplacement des pages statiques (dossier)';
-const L_CONFIG_ADVANCED_THEMES_FOLDER = 'Emplacement des thèmes (dossier)';
-const L_CONFIG_ADVANCED_PLUGINS_FOLDER = 'Emplacement des plugins (dossier)';
-const L_CONFIG_ADVANCED_CONFIG_FOLDER = 'Emplacement des fichiers de configuration (dossier)';
+const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Dossier des médias';
+const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Dossier des articles';
+const L_CONFIG_ADVANCED_COMS_FOLDER = 'Dossier des commentaires';
+const L_CONFIG_ADVANCED_STATS_FOLDER = 'Dossier des pages statiques';
+const L_CONFIG_ADVANCED_THEMES_FOLDER = 'Dossier des thèmes';
+const L_CONFIG_ADVANCED_PLUGINS_FOLDER = 'Dossier des plugins';
+const L_CONFIG_ADVANCED_CONFIG_FOLDER = 'Dossier des fichiers de configuration';
 const L_CONFIG_ADVANCED_UPDATE = 'Modifier la configuration avancée';
-const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Emplacement et nom du fichier css personnel pour la personnalisation de l\'interface d\'administration (option)';
+const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Fichier CSS personnalisé pour l\'administration';
+const L_CONFIG_CUSTOM_CSSADMIN_PATH_HELP = 'Précisez le chemin complet depuis la racine du site';
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Envoi d\'e-mail';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Méthode d\'envoi d\'e-mail';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Envoi d\'e-mails par SMTP';
@@ -354,13 +362,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID Client';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Code secret du client';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Générer un token';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Besoin d\'aide : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">documentation de PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Besoin d\'aide : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">documentation de PluXml</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Aucune configuration n\'est requise pour sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom du serveur SMTP (exemple : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nom de l\'utilisateur sur l\'hôte SMTP (exemple : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Mot de passe de l\'utilisateur sur l\'hôte SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numéro du port de l\'hôte SMTP (par défaut : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de générer des tokens uniquement pour le service <a href="https://cloud.google.com">GMAIL de Google</a>.<br>Besoin d\'aide pour générer l\'identifiant et la clés secrete : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">Documentation de PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de générer des tokens uniquement pour le service  GOOGLE.' . PHP_EOL . 'Pour de l\'aide sur la clé secrète : WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identifiant client sur le service OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clé du client sur le service OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrer l\'ID client et le code secret du client afin de pouvoir générer le token.';
@@ -391,7 +399,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Ces informations vous renseignent sur le fon
 const L_CONFIG_INFOS_NB_CATS = 'Nombre de catégories :';
 const L_CONFIG_INFOS_NB_STATICS = 'Nombre de pages statiques :';
 const L_CONFIG_INFOS_WRITER = 'Nom du rédacteur en session :';
-const L_PLUXML_CHECK_VERSION = 'Vérification du numéro de version de PluXml sur le site officiel PluXml.org';
+const L_PLUXML_CHECK_VERSION = 'Vérification du numéro de version de PluXml sur le site officiel %s';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Impossible de vérifier les mises à jour tant que \'allow_url_fopen\' est désactivé sur ce système';
 const L_PLUXML_UPDATE_ERR = 'La vérification de mise à jour a échoué pour une raison inconnue';
 const L_PLUXML_UPTODATE = 'Vous utilisez la dernière version de PluXml';
@@ -460,8 +468,6 @@ const L_STATIC_VIEW_PAGE = 'Visualiser la page';
 const L_STATIC_ON_SITE = 'sur le site';
 const L_STATIC_UPDATE = 'Enregistrer cette page statique';
 const L_TITLE_HTMLTAG = 'Contenu balise title (option)';
-const L_STATIC_META_DESCRIPTION = 'Contenu de la balise meta "description" pour cette page statique (option)';
-const L_STATIC_META_KEYWORDS = 'Contenu de la balise meta "keywords" pour cette page statique (option)';
 
 // statiques.php
 
@@ -500,13 +506,12 @@ const L_MENU_CATEGORIES_TITLE = 'Créer, gérer, éditer les catégories';
 const L_MENU_CONFIG_TITLE = 'Configurer PluXml';
 const L_MENU_CONFIG = 'Paramètres';
 const L_MENU_PROFIL_TITLE = 'Gérer votre profil utilisateur';
-const L_WARNING_INSTALLATION_FILE = 'Le fichier install.php est présent à la racine de votre PluXml.<br />Pour des raisons de sécurité, il est fortement conseillé de le <a class="lnkdelete" href="?del=install">supprimer</a>.';
+const L_WARNING_INSTALLATION_FILE = 'Le fichier install.php est présent à la racine de votre PluXml.' . PHP_EOL . 'Pour des raisons de sécurité, il est fortement conseillé de le <a class="lnkdelete" href="?del=install">supprimer</a>.';
 
 // user.php
 
 const L_USER_UNKNOWN = 'Utilisateur inconnu';
 const L_USER_LANG = 'Langue utilisée dans l\'administration';
-const L_MAIL_ADDRESS = 'Adresse courriel';
 const L_USER_UPDATE = 'Mettre à jour cet utilisateur';
 const L_USER_PAGE_TITLE = 'Édition des options de l\'utilisateur';
 const L_USER_BACK_TO_PAGE = 'Retour à la liste des utilisateurs';

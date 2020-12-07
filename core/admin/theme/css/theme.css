@@ -11,38 +11,181 @@
 */
 :root {
     --backaside: #202c36;
-    --backaside2: #283440;
+    --backaside2: #5b5f64 /* #283440 */;
     --backasideborder: #42494f;
     --backsection: #f5f6f6;
     --backheader: #fff;
     --backheaderborder: #ddd;
     --primary: #0275d8;
+    --bg-offline-comments: #ddd;
 }
 
 body {
     background-color: var(--backsection);
 }
 
+body.mobile {
+	margin-right: 1rem;
+}
 
-input[type], select {
-    margin-bottom: 1rem;
+input[type],
+select {
+    /* margin-bottom: 1rem; */
+}
+
+table img.thumb {
+	max-width: 48px; /* required for .svg pictures */
+}
+
+td.txtcenter {
+	text-align: center;
+}
+
+input[type="number"] {
+	max-width: 6rem;
+	padding-right: 0.25rem;
+	text-align: end;
+}
+
+.has-label {
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
+/* ---------- hack against knacss ---------- */
+
+textarea {
+	width: 100%;
+}
+
+.tag,
+.tag--danger,
+.tag--ghost,
+.tag--info,
+.tag--inverse,
+.tag--primary,
+.tag--success,
+.tag--warning {
+	margin: 0 0.5rem;
+}
+
+fieldset {
+	padding: 1rem 0.5rem;
+}
+
+.table label {
+	margin: 0;
+}
+
+label.button {
+	margin: 0;
+}
+/* -------- from knacss ------- */
+
+/* .checkbox, .radio, .switch */
+input[type="checkbox"] /*, input[type="radio"] */ {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	vertical-align: text-bottom;
+	outline: 0;
+	cursor: pointer;
+}
+
+/* .checkbox, .radio, .switch */
+input[type="checkbox"] /*, input[type="radio"] */ {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	vertical-align: text-bottom;
+	outline: 0;
+	cursor: pointer;
+}
+
+.table input[type="checkbox"] {
+	border-radius: 0px;
+	box-shadow: none;
+	border: 1px solid #666;
+}
+
+/* .checkbox */
+input[type="checkbox"] {
+	width: 2rem;
+	height: 2rem;
+	-webkit-box-shadow: inset 0 0 0 1px #333;
+	box-shadow: inset 0 0 0 1px #333;
+	background-color: #fff;
+	-webkit-transition: background-color .15s;
+	transition: background-color .15s;
+}
+
+/* .checkbox:checked  */
+input[type="checkbox"]:checked {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23FFF' d='M6.4 1l-.7.7-2.8 2.8-.8-.8-.7-.7L0 4.4l.7.7 1.5 1.5.7.7.7-.7 3.5-3.5.7-.7L6.4 1z'/%3E%3C/svg%3E");
+	background-size: 60% 60%;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-color: #446;
+}
+
+input[type="checkbox"].switch {
+	width: 4rem;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 70%;
+	-webkit-box-shadow: inset -2rem 0 0 #333,inset 0 0 0 1px #333;
+	box-shadow: inset -2rem 0 0 #333,inset 0 0 0 1px #333;
+	-webkit-transition: -webkit-box-shadow .15s;
+	transition: -webkit-box-shadow .15s;
+	transition: box-shadow .15s;
+	transition: box-shadow .15s,-webkit-box-shadow .15s;
+	background-color: #fff;
+	border-radius: 3em;
+}
+
+input[type="checkbox"].switch:checked {
+	-webkit-box-shadow: inset 2rem 0 0 #5cb85c,inset 0 0 0 1px #5cb85c;
+	box-shadow: inset 2rem 0 0 #5cb85c,inset 0 0 0 1px #5cb85c;
+}
+
+input[type="radio"] + label {
+	margin: 0;
+}
+
+form .admin {
+	padding: 0.5rem;
+}
+
+/* ------- Hack against Fontello ---------- */
+[class^="icon-"]::before,
+[class*=" icon-"]::before {
+	line-height: inherit;
 }
 
 /* ==== AUTHENTIFICATION ==== */
 
+#auth {
+    background-color: var(--backaside);
+}
+
+#auth #app {
+	display: initial;
+}
+
+#auth .auth section {
+	max-width: 36rem;
+	margin: 10% auto 0;
+	padding: 1rem;
+	text-align: center;
+}
+
 .auth .logo {
-    background-image: url(../images/pluxml.png);
-    height: 80px;
-    width: 123px;
+	display: inline-block;
     margin: auto;
 }
 
-.auth {
-    background-color: var(--backaside);
-    height: 100vh;
-}
-
 .auth .form {
+	margin: 1rem 0;
     background-color: var(--backsection);
     box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.15);
 }
@@ -65,7 +208,6 @@ input[type], select {
 }
 
 .auth a.back {
-    color: white;
     text-decoration: none;
 }
 
@@ -73,19 +215,49 @@ input[type], select {
     text-decoration: underline;
 }
 
+i.icon-calendar {
+	font-size: 145%;
+	vertical-align: bottom;
+	color: chocolate; /* good choice */
+	cursor: pointer;
+}
 /* ==== ASIDE ==== */
-.main {
-    height: 100%;
+
+#toggle-menu {
+	display: none !important;
 }
 
-.aside {
-    position: fixed;
-    top: 40px;
-    bottom: 0;
+#aside {
+	position: fixed;
+	top: 4.5rem;
+	max-height: calc(100vh - 4.5rem);
     overflow: auto;
-    width: 15%;
     color: #fff;
     background-color: var(--backaside);
+	transition: 0.5s ease transform;
+}
+
+#toggle-menu:not(:checked) + #aside {
+	transform: translateY(-100%);
+}
+
+.nav-button {
+	vertical-align: baseline
+}
+
+#app > .section > .header {
+	position: sticky;
+	top: 0;
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
+/* ------------ main aside ---------- */
+
+#aside,
+#app > .section > .header {
+	z-index: 200;
 }
 
 .aside i {
@@ -96,6 +268,10 @@ input[type], select {
     color: #fff;
     font-size: 1.4rem;
     text-decoration: none;
+}
+
+.asideheader h1 {
+	display: none;
 }
 
 .aside .asideheader ul {
@@ -112,13 +288,9 @@ input[type], select {
     padding: 10px 10px;
 }
 
-.aside .responsive-menu {
-    border-bottom: 1px solid var(--backasideborder);
-}
-
 .aside .responsive-menu a, .aside .plxversion {
     display: block;
-    padding: 5px 10px 10px 30px;
+    padding: 0.75rem 1rem 0.75rem 2rem;
 }
 
 .aside .responsive-menu .active, .aside .menu a:hover, .aside .submenu {
@@ -131,7 +303,8 @@ input[type], select {
 }
 
 .aside .plxversion {
-    margin-top: 10px;
+    margin-top: 1rem;
+    border-top: 1px solid var(--backasideborder);
 }
 
 .aside .plxversion a {
@@ -149,13 +322,26 @@ input[type], select {
 }
 
 /* ==== SECTION ==== */
-.section {
-    margin-top: 40px;
-    margin-left: 15%;
+
+#app > section {
+    /* margin-top: 40px; */
+    /* margin-left: 15%; */
     background-color: var(--backsection);
 }
 
-.section a {
+#install-warning {
+	position: fixed;
+	right: 1rem;
+	margin: 0.5rem 0 0;
+}
+
+#install-warning > * {
+	margin: 0;
+	text-align: justify;
+	text-indent: 1.5rem;
+}
+
+.section a:not(.button) {
     color: var(--primary);
     text-decoration: none;
 }
@@ -167,12 +353,14 @@ input[type], select {
 
 .section .header {
     padding: 5px 10px 0px;
+    /*
     position: fixed;
     top: 0;
     right: 0;
     width: 100%;
-    overflow: hidden;
     height: 40px;
+    */
+    overflow: hidden;
     background-color: var(--backheader);
     border-bottom: 1px solid var(--backheaderborder);
 }
@@ -188,7 +376,7 @@ input[type], select {
 }
 
 .section .adminheader {
-    padding: 10px 20px 0px;
+    padding: 0 1rem;
     background-color: var(--backheader);
     border-bottom: 1px solid var(--backheaderborder);
 }
@@ -200,8 +388,11 @@ input[type], select {
 
 .section .adminheader li {
     display: inline-block;
-    margin-right: 40px;
     padding: 4px 10px;
+}
+
+.section .adminheader li:not(:last-of-type) {
+    margin-right: 1.75rem; /* valid for Ipad /portrait */
 }
 
 .section .adminheader li.selected {
@@ -213,8 +404,17 @@ input[type], select {
     text-decoration: none;
 }
 
+/* Buttons */
+.section.detail .adminheader > div:last-of-type div {
+	/* padding-bottom: 1rem; */
+	padding: 1rem 0;
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
 .section .admin {
-    padding: 0px 20px 20px;
+    /* padding: 1rem; */
+    overflow-y: auto;
 }
 
 .section .admin ul.configMenu li {
@@ -240,53 +440,19 @@ input[type], select {
     text-decoration: none;
 }
 
-.section .themes button {
-    padding: 0px;
-}
-
-.section .theme {
-    position: relative;
-}
-
-.section .theme img {
-    display: block;
-    width: 100%;
-    height: 250px;
-}
-
-.section .theme .themeOverlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: #fff;
-}
-
-.section .theme:hover .themeOverlay {
-    opacity: 0.9;
-}
-
-.section .theme .themeDetails {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.section .themes .title {
-    padding: 0px 10px;
-}
-
 .section .tableheader {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.5rem 1rem;
     background-color: var(--backheaderborder);
+}
+
+.section .tableheader input[type="text"] {
+	flex-grow: 1;
+	max-width: 25rem;
 }
 
 .section .sidebar {
@@ -316,8 +482,8 @@ input[type], select {
 }
 
 /* ==== COMPONENTS ==== */
+
 .table {
-    overflow: auto;
     border-collapse: collapse;
     border-spacing: 0;
     border-collapse: collapse;
@@ -326,8 +492,28 @@ input[type], select {
     width: auto;
 }
 
+.scrollable-table {
+	overflow-x: auto;
+}
+.scrollable-table table {
+	width: 100%;
+	table-layout: auto;
+	margin-bottom: 0.9rem !important;
+}
+.scrollable-table td:not(.wrap) {
+	white-space: nowrap;
+}
+.scrollable-table table input[type="text"],
+.scrollable-table table input[type="email"],
+.scrollable-table table input[type="password"],
+.scrollable-table table input[type="url"] {
+	width: 100%;
+}
+.table.mb0 {
+	margin-bottom: 0;
+}
 .table th, .table td {
-    white-space: nowrap;
+    /* white-space: nowrap; */
     padding: 6px 5px;
     border: 0px;
     border-bottom: 1px solid var(--backheaderborder);
@@ -351,8 +537,12 @@ input[type], select {
     vertical-align: middle;
 }
 
+.table input[type="text"] {
+	min-width: 12rem;
+}
+
 .table button {
-    padding: 0px;
+    padding: 0;
 }
 
 .table button a {
@@ -368,6 +558,18 @@ input[type], select {
     background: url(' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGUlEQVR42mNggIKCgoL/IIyLj1sB+TqhAAB5gyTxdLI4kwAAAABJRU5ErkJggg==') left repeat-y;
 }
 
+.has-pagination {
+	padding: 0 0.75rem;
+	text-align: center;
+}
+
+.has-pagination > * {
+	padding-bottom: 1rem;
+}
+
+.pagination {
+	overflow-x: auto;
+}
 .table .pagination .btn {
     margin-left: 5px;
 }
@@ -388,6 +590,25 @@ input[type], select {
     text-align: right;
 }
 
+th.sort::before {
+	display: inline-block;
+	width: 2.75rem;
+	content: '▼▲';
+	padding-right: 0.5rem;
+	color: var(--primary);
+	text-align: center;
+}
+
+th.sort.active::before {
+	content: '▼';
+	text-align: start;
+}
+
+th.sort.active.reverse::before {
+	content: ' ▲';
+	text-align: end;
+}
+
 .panel {
     background-color: var(--backheader);
     box-shadow: inset 0 0 0 1px var(--backheaderborder);
@@ -403,14 +624,56 @@ input[type], select {
     padding: 1rem;
 }
 
+/* ----------- forms ---------- */
+
 [type="submit"], button.submit {
     box-shadow: none;
     padding: 1rem 1.5rem;
 }
 
-[type="text"], select {
+[type="text"],
+[type="number"],
+[type="password"],
+[type="email"],
+[type="url"],
+select {
     background-color: #fff;
     box-shadow: inset 0 0 0 1px var(--backheaderborder);
+}
+
+fieldset .fullwidth.caption-inside {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+fieldset .fullwidth.caption-inside input[type="text"] {
+	width: 100%;
+}
+
+fieldset .fullwidth.caption-inside select {
+	margin-left: auto
+}
+
+.label-like::after {
+	padding: 0 0.5rem;
+}
+
+fieldset label:not(.caption-inside)::after,
+fieldset .caption-inside label > span::after,
+fieldset label.caption-inside > span::after {
+	content: ':';
+	padding: 0 0.5rem;
+}
+
+fieldset input[type="checkbox"] + label::after,
+fieldset input[type="radio"] + label::after,
+#aside-art li label::after {
+	content: none;
+	padding: 0;
+}
+label > input[type="checkbox"] {
+	margin-right: 1rem;
 }
 
 button [class^="icon-"] {
@@ -421,6 +684,32 @@ button [class^="icon-"] {
     margin-right: 0px;
     color: #000;
 }
+
+form .icon-picture {
+	cursor: pointer;
+}
+
+tbody select {
+	width: 100%;
+}
+
+tbody .select-like {
+	padding: 0.5rem 1.2rem;
+}
+
+/* séparateur hauteur x largeur */
+
+.surface {
+	padding: 0.5rem 1rem 0;
+}
+
+fieldset > div {
+	padding: 0.5rem 0;
+}
+
+
+
+/* -------------- notification --------- */
 
 .notification {
     position: fixed;
@@ -477,34 +766,28 @@ input[type="checkbox"].toggle {
     display: none;
 }
 
-input + .drop + div, input + .drop-inline + div {
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition-property: opacity, left, top, height;
-    transition-duration: .5s, 1s;
-}
-
-.drop:after, .drop-inline:after {
-    margin-left: 10px;
+input[type="checkbox"] + .drop::after,
+input[type="checkbox"] + .drop-inline::after {
     content: '▼';
+    margin-left: 1rem;
 }
 
-:checked + .drop:after, :checked + .drop-inline:after {
+input[type="checkbox"]:checked + .drop::after,
+input[type="checkbox"]:checked + .drop-inline::after {
     content: '▲';
 }
 
-.drop:after {
-    float: right;
+input + .drop + div,
+input + .drop-inline + div {
+    overflow: hidden;
+    transition-property: opacity, left, top, max-height;
+    transition-duration: 1.5s, 2s;
 }
 
-input:checked + .drop + div, input:checked + .drop-inline + div {
-    opacity: 1;
-    height: auto;
-}
-
-input:checked + .drop + div {
-    padding: 10px 18px;
+input:not(:checked) + .drop + div,
+input:not(:checked) + .drop-inline + div {
+    opacity: 0;
+    max-height: 0;
 }
 
 /* Tooltips
@@ -518,25 +801,37 @@ input:checked + .drop + div {
 }
 
 /* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 220px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
+.tooltiptext {
+	--tip-half-width: 11rem;
+	--tip-left: calc(50% - var(--tip-half-width));
+	--tip-arrow-left: 50%;
 
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
     bottom: 125%;
-    left: 50%;
-    margin-left: -110px;
+    left: var(--tip-left);
+    width: calc(var(--tip-half-width) * 2);
+
+    padding: 0.5rem;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    word-break: break-word;
+    border-radius: 0.6rem;
 
     /* Fade in tooltip */
-    opacity: 0;
     transition: opacity 0.3s;
+}
+
+.tooltiptext.left {
+	--tip-left: calc(50% - (var(--tip-half-width) * 1.8));
+	--tip-arrow-left: calc(50% + (var(--tip-half-width) * 0.8));
+}
+
+.tooltiptext.right {
+	--tip-left: calc(50% - (var(--tip-half-width) * 0.33));
+	--tip-arrow-left: calc(50% - (var(--tip-half-width) * 0.66));
 }
 
 /* Tooltip arrow */
@@ -544,17 +839,18 @@ input:checked + .drop + div {
     content: "";
     position: absolute;
     top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
+    left: var(--tip-arrow-left);
+    margin-left: -0.5rem;
+    border-width: 0.5rem;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
 
+
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+.tooltip:not(:hover) .tooltiptext {
+    visibility: hidden;
+    opacity: 0;
 }
 
 /* Medias Manager
@@ -599,8 +895,6 @@ a.overlay {
 /* The Dialog (background) */
 
 .dialog {
-    /* Hidden by default */
-    display: none;
     /* Stay in place */
     position: fixed;
     /* Sit on top */
@@ -621,6 +915,10 @@ a.overlay {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.toggle:not(:checked) + .dialog {
+	display: none;
+}
+
 /* Dialog Content */
 
 .dialog-content {
@@ -628,8 +926,7 @@ a.overlay {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%;
-    min-width: 250px;
+    width: 80%;
 }
 
 /* The Close Button */
@@ -646,6 +943,419 @@ a.overlay {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* ---------- hack against knacss --------- */
+.pagination .btn {
+	padding: 1rem 0.25rem;
+	min-width: 3.65rem; /* valid for Ipad / portrait */
+}
+
+/* ----------- index.php ------------- */
+
+#form_articles .tableheader {
+	display: flex;
+	white-space: nowrap;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+#index td:nth-of-type(2) {
+	text-align: end;
+}
+
+/* ----------- article.php ------------- */
+
+#form_article .thumbnail-container {
+	display: block;
+}
+
+#aside-art {
+	padding: 0.5rem;
+}
+
+#aside-art select {
+	width: 100%;
+}
+
+#aside-art label {
+	display: inline;
+}
+
+#aside-art fieldset > div > div:not(.expander) {
+	margin-bottom: 1rem;
+}
+
+/* ------------ medias.php ----------- */
+
+body.mediasManager #aside,
+body.mediasManager #app .section .header {
+	display: none !important;
+}
+
+body.mediasManager #app {
+	display: block !important;
+}
+
+#medias-breadcrumb {
+	display: inline-block;
+}
+
+#medias-breadcrumb li {
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+#medias-breadcrumb li:not(:first-of-type)::before {
+	content: '>';
+	padding: 0 0.75rem;
+}
+
+#medias-table td:nth-of-type(5) {
+	text-align: end;
+}
+
+#medias-table td:nth-of-type(6) {
+	text-align: center;
+}
+
+#toggle-medias:checked + div #form_medias,
+#toggle-medias:not(:checked) + div #form_uploader {
+	display: none;
+}
+
+.treeview ul {
+	padding-left: 3rem;
+	list-style: none;
+}
+
+.treeview > ul {
+	padding-left: 0;
+}
+
+.treeview ul a {
+	padding: 0 0.5rem;
+}
+
+.treeview .is-path > a,
+.treeview .active > a {
+	font-weight: bold;
+}
+
+.treeview .active > a {
+	background-color: var(--backheaderborder);
+}
+
+.treeview .has-children > a::after {
+	content: '▶';
+	padding-left: 1rem;
+}
+
+.treeview .has-children.is-path > a::after {
+	content: '▲';
+}
+
+.treeview > ul > li:not(.active) li.has-children:not(.is-path):not(:hover) > ul {
+	display: none;
+}
+
+#form_uploader div:first-of-type {
+	display: flex;
+	justify-content: space-between;
+}
+
+.limits-upload {
+	margin: 1rem 0;
+}
+
+.limits-upload p {
+	margin: 0;
+}
+
+.img-sizes {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2rem;
+}
+
+/* --------- statiques.php ------------- */
+
+#form_statics th:nth-of-type(5) { min-width: 25rem; } /* title */
+#form_statics th:nth-of-type(6) { min-width: 20rem; } /* url */
+
+#form_statics tr:not(.new) td:nth-of-type(7),
+#form_statics tr:not(.new) td:nth-of-type(9),
+#form_statics tr.new td:nth-of-type(5),
+#form_statics tr.new td:nth-of-type(7) {
+	text-align: center;
+}
+
+#form_statics th:nth-of-type(2) {
+	padding-left: 1rem;
+}
+
+/* --------- statique.php ------------- */
+
+#form_static #calendar {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	text-align: center;
+}
+
+#form_static #calendar > div > * {
+	margin: 0.3rem;
+}
+
+/* -------- comments.php ----------------- */
+
+#comments-table .offline {
+	background-color: var(--bg-offline-comments);
+}
+
+/* --------- categories.php -------------- */
+
+#form_categories tr:not(.new) td:nth-of-type(5),
+#form_categories tr:not(.new) td:nth-of-type(9),
+#form_categories tr.new td:nth-of-type(4),
+#form_categories tr.new td:nth-of-type(8) {
+	text-align: center;
+}
+
+#form_categories th:nth-of-type(2) {
+	padding-left: 1rem;
+}
+
+/* -------- categorie.php ---------------- */
+/* -------- parametres_base.php ---------- */
+
+fieldset .label-expanded {
+	display: flex;
+}
+
+fieldset .label-expanded:nth-of-type(even) {
+	background-color: #ececec;
+}
+
+fieldset .label-expanded > label {
+	margin: 0;
+	margin-right: auto;
+	align-self: center;
+}
+
+fieldset .label-expanded input[type="checkbox"] {
+	align-self: center;
+}
+
+fieldset div:not(.label-expanded) input[type="text"],
+fieldset div:not(.label-expanded) input[type="password"],
+fieldset div:not(.label-expanded) input[type="url"],
+fieldset div:not(.label-expanded) input[type="email"] {
+	width: 100%;
+}
+
+/* ----------- parametres_avances.php ----- */
+
+#form_advanced_settings div.bool {
+	display: flex;
+}
+
+#form_advanced_settings div.bool > div:first-of-type {
+	margin-right: auto;
+}
+
+#email-config {
+	position: relative;
+}
+
+#email-config p {
+	margin-bottom: 0;
+}
+
+#email-config .tabs > div {
+	padding: 0.5rem 0;
+}
+
+#email-config p:not(.txtcenter) {
+	text-indent: 2rem;
+}
+
+#email-config > div:not(:first-of-type) > div {
+	display: inline-block;
+}
+
+#email-config .tabs {
+	position: absolute;
+	top: 4.5rem;
+	left: 0;
+	width: 100%;
+	margin-top: 1rem;
+	text-align: initial;
+}
+
+#email-by-sendmail:checked	{ margin-bottom : 4rem; }
+#email-by-smtp:checked		{ margin-bottom : 22rem; }
+#email-by-smtpOauth:checked	{ margin-bottom : 24rem; }
+
+#email-config input[type="radio"]:not(:checked) + label + div {
+	display: none;
+}
+
+#email-config-tabs div:not(:last-of-type) > label {
+	margin-right: 2rem;
+}
+
+#smtp-security > div {
+	display: inline;
+}
+
+#oauth-token {
+	display: flex;
+	gap: 1rem;
+}
+#oauth-token input {
+	width: auto;
+	flex-grow: 1;
+}
+
+/* ------------ parametres_users.php ----- */
+
+#parametres_users th:nth-of-type(3) { min-width: 20rem; } /* name */
+#parametres_users th:nth-of-type(4), /* login */
+#parametres_users th:nth-of-type(5) { min-width: 14rem; } /* password */
+#parametres_users th:nth-of-type(6) { min-width: 25rem; } /* email */
+
+/* ------------ parametres_plugins.php ----- */
+
+#parametres_plugins th:nth-of-type(3) { min-width: 36rem; } /* description */
+#plugins-table tbody tr.hide { display: none; }
+
+/* ------------ parametres_infos.php -------- */
+
+#latest-version:not(.success) > p.extra,
+#latest-version.success > p:not(.extra),
+#latest-version.success.available > p.alert--success,
+#latest-version.success:not(.available) > p.alert--warning {
+	display: none;
+}
+
+/* ------------- parametres_themes.php ----- */
+
+#form_themes .themes {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}
+
+#form_themes .themes .title {
+    padding: 0;
+}
+
+#form_themes .themes > button {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+    padding: 0.3rem 0.75rem;
+    border: 2px solid transparent;
+}
+
+#form_themes .themes > button > p {
+	margin: 0.75rem 0 0.25rem;
+	white-space: normal;
+}
+
+#form_themes .themes > button.active {
+	border-color: #000;
+}
+
+#form_themes .themes > button > div:first-of-type {
+	width: 100%;
+	margin: auto 0;
+	align-self: center;
+}
+
+#form_themes img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+    height: auto;
+	border: 2px inset #e9ebee;
+}
+
+#form_themes .theme p {
+	margin: 0;
+}
+
+#form_themes .theme .themeOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    opacity: 0;
+    transition: .5s ease opacity;
+    background-color: #fff;
+}
+
+#form_themes .theme:hover .themeOverlay {
+    opacity: 0.9;
+}
+
+#form_themes .theme .themeDetails {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    padding: 1.5rem 1rem 0;
+    -webkit-transform: translateY(-50%, -50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+    white-space: normal;
+}
+
+#form_themes .btn--primary {
+	color: #fff !important;
+	text-decoration: none;
+}
+#form_themes .btn--primary:hover {
+	color: #fff;
+}
+
+/* ------ parametres_affichage.php -------- */
+
+#form_display .adminheader > div {
+	margin-top: 1rem;
+}
+
+#form_display fieldset > div:not(.large):not(.thumbnail-container) {
+	display: flex;
+}
+
+#form_display fieldset > div:not(.large) > label {
+	align-self: center;
+	margin-right: auto;
+	margin-bottom: 0;
+}
+
+#form_display fieldset > div:not(.large) > input,
+#form_display fieldset > div:not(.large) > select {
+	align-self: flex-start;
+}
+
+#form_display fieldset > div:not(.large) > select {
+	min-width: 20rem;
+}
+
+#id_thumbnail {
+	flex-grow: 1;
+}
+
+#thumbnail-wrapper {
+	padding: 0.5rem 0;
+	text-align: center;
 }
 
 /* ------- Popup Medias Manager ------ */
@@ -766,20 +1476,284 @@ input:checked ~ .modal__overlay {
     visibility: visible;
 }
 
-@media (max-width: 575px) {
-    .aside {
-        width: 0%;
-    }
+.pagination {
+	margin-left: auto;
+	white-space: nowrap;
+}
 
-    .aside.is-opened {
-        width: 100%;
-    }
+/* ======== responsive design ========== */
+/*
+	// Warning: you should use your own values, regardless of the devices
+	// Best practice is Mobile First: (min-width: $breakpoint)
+	$tiny        : 480px !default; // or 'em' if you prefer, of course
+	$small       : 576px !default;
+	$medium      : 768px !default;
+	$large       : 992px !default;
+	$extra-large : 1200px !default;
+*/
 
-    .section {
-        margin-left: 0px;
-    }
+/* $tiny in sass/_config/_variables.scss of Knacss */
+@media screen and (max-width: 447px) {
+}
 
-    .plxversion {
-        display: none;
-    }
+@media screen and (min-width: 448px) {
+}
+
+/* small */
+@media screen and (max-width: 575px) {
+}
+
+@media screen and (min-width: 576px) {
+	.tablefooter.has-pagination {
+		display: grid;
+		grid-template-columns: auto 1fr;
+	}
+
+	.section.detail .adminheader {
+	    display: flex;
+	}
+
+	.section.detail .adminheader > div:last-of-type {
+		align-self: self-end;
+	    margin-left: auto;
+	    text-align: end;
+	}
+
+	.thumbnail-container {
+		display: grid;
+		grid-template-columns: auto auto;
+		gap: 1rem;
+		padding: 1rem 0;
+	}
+	.thumbnail-container img {
+		max-height: 18rem;
+		/* max-width: 32rem; */
+		max-width: 100%;
+		width: auto;
+	}
+
+	.thumbnail-container > div:first-of-type {
+		align-self: center;
+	}
+
+	.thumbnail-container i[class*="icon-"] {
+		font-size: 130%;
+		vertical-align: bottom;
+	}
+
+	#form_themes .themes {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	#form_comment fieldset > div:first-of-type {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.dialog-content {
+		display: flex;
+		max-width: 64rem;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.dialog-content input[type="text"] {
+		flex-grow: 1;
+	}
+
+	.tooltiptext {
+		--tip-half-width: 15rem;
+	}
+
+	#form_medias {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 1rem;
+	}
+
+	#form_advanced_settings fieldset > div,
+	#form_advanced_settings .tabs > div {
+		display: flex;
+	}
+
+	#form_advanced_settings fieldset > div > div:first-of-type,
+	#form_advanced_settings .tabs > div > div:first-of-type {
+		margin-right: auto;
+	}
+
+	#form_advanced_settings input[type="text"],
+	#form_advanced_settings input[type="password"],
+	#form_advanced_settings input[type="email"] {
+		max-width: 25rem;
+	}
+}
+
+/* $medium */
+@media screen and (max-width: 767px) {
+}
+
+@media screen and (min-width: 768px) {
+	#form_themes .themes {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	#form_comment fieldset > div:first-of-type {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+}
+
+/* $large = 992px - 1024px avec knacss-reborn */
+@media screen and (max-width: 991px) {
+}
+
+@media screen and (min-width: 992px) {
+	body:not(.fullwide) #app {
+		display: grid;
+		grid-template-columns: 20rem 1fr;
+	}
+
+	body:not(.fullwide) .nav-button {
+		display: none;
+	}
+
+	body:not(.fullwide) #aside {
+		position: static;
+		max-height: none;
+	}
+
+	body:not(.fullwide) #toggle-menu:not(:checked) + #aside {
+		display: flex;
+		flex-direction: column;
+		transform: translateY(0);
+	}
+
+	body:not(.fullwide) .aside .plxversion {
+		margin-top: auto;
+	}
+
+	body:not(.fullwide) .main {
+	    /* height: 100vh; */
+	    min-height: 100vh;
+	}
+
+	body:not(.fullwide) .asideheader h1 {
+		display: block;
+		text-align: center;
+	}
+
+	body:not(.fullwide) #app > .section > .header {
+		display: block;
+	}
+
+	.section .admin {
+		padding: 0.5rem;
+	}
+
+	body.mobile .section .admin {
+		padding-right: 0;
+	}
+
+	fieldset .fullwidth.caption-inside input[type="text"] {
+		max-width: 64rem;
+		margin-left: auto;
+	}
+
+	#form_themes .themes {
+		grid-template-columns: repeat(5, 1fr);
+	}
+
+	form.first-level fieldset {
+		max-width: 64rem;
+		margin: 1rem auto;
+		border: 1px solid #aaa;
+		border-radius: 0.75rem;
+	}
+
+	#admin-art {
+		display: grid;
+		grid-template-columns: 1fr 26rem;
+	}
+}
+
+/* $extra-large = 1200px - 1330px avec knacss-reborn */
+@media screen and (max-width: 1199px) {
+}
+
+@media screen and (min-width: 1200px) {
+	#app {
+		display: grid;
+		grid-template-columns: 20rem 1fr;
+	}
+
+	#aside {
+		position: static;
+		max-height: none;
+	}
+
+	.nav-button {
+		display: none;
+	}
+
+	#toggle-menu:not(:checked) + #aside {
+		display: flex;
+		flex-direction: column;
+		transform: translateY(0);
+		transform: translateY(0);
+	}
+
+	.aside .plxversion {
+		margin-top: auto;
+	}
+
+	.main {
+	    /* height: 100vh; */
+	    min-height: 100vh;
+	}
+
+	.asideheader h1 {
+		display: block;
+		text-align: center;
+	}
+
+	#app > .section > .header {
+		display: block;
+	}
+
+	.thumbnail-wrapper {
+		grid-template-columns: repeat(2, auto);
+	}
+
+	/*
+	#form_themes .themes {
+		grid-template-columns: repeat(6, 1fr);
+	}
+	 * */
+
+	#form_comment fieldset > div:first-of-type {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	#form_comment fieldset #calendar {
+		white-space: nowrap;
+	}
+}
+
+/* ------------- mode landscape --------------- */
+
+@media screen and (max-height: 400px) {
+	#auth .auth section {
+		max-width: none;
+		margin: 1rem 10% 0;
+	}
+
+	#auth .logo {
+		display: none;
+	}
+
+	.auth input.txt {
+		margin-bottom: 1rem;
+	}
 }

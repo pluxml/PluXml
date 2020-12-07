@@ -2460,7 +2460,8 @@ class plxShow
 
         switch ($mode) {
             case 'categorie':
-                $query = $query = 'rss/categorie' . $categorie . '/' . $this->plxMotor->aCats[$this->plxMotor->cible]['url'];
+				$catNum = intval($this->plxMotor->cible);
+                $query = $query = 'rss/categorie' . $catNum . '/' . $this->plxMotor->aCats[$this->plxMotor->cible]['url'];
                 break;
             case 'tags':
                 $tag = plxUtils::strCheck($this->plxMotor->cible);

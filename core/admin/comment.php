@@ -7,7 +7,7 @@
  * @author    Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -26,7 +26,7 @@ if (!$plxAdmin->aConf['allow_com']) {
 }
 
 # validation de l'id de l'article si passé en paramètre
-if (isset($_GET['a']) and !preg_match('/^_?[0-9]{4}$/', $_GET['a'])) {
+if (isset($_GET['a']) and !preg_match('/^_?\d{4}$/', $_GET['a'])) {
     plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
     header('Location: index.php');
     exit;
@@ -36,7 +36,7 @@ if (isset($_GET['a']) and !preg_match('/^_?[0-9]{4}$/', $_GET['a'])) {
 if (!empty($_POST) and !empty($_POST['comId'])) {
 
     # validation du numéro de commentaire
-    if (!preg_match('/[[:punct:]]?[0-9]{4}.[0-9]{10}-[0-9]+$/', $_POST['comId'])) {
+    if (!preg_match('@_?\d{4}\.\d{10}-\d+$@', $_POST['comId'])) {
         plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
         header('Location: comments.php');
         exit;
@@ -48,33 +48,39 @@ if (!empty($_POST) and !empty($_POST['comId'])) {
         header('Location: comments.php');
         exit;
     }
+
+    $query = 'c=' . $_POST['comId'];
+    if(!empty($_GET['a'])) {
+		$query .= '&a=' . $_GET['a'];
+	}
+
     # Commentaire en ligne
     if (isset($_POST['online'])) {
         $plxAdmin->editCommentaire($_POST, $_POST['comId']);
         $plxAdmin->modCommentaire($_POST['comId'], 'online');
-        header('Location: comment.php?c=' . $_POST['comId'] . (!empty($_GET['a']) ? '&a=' . $_GET['a'] : ''));
+        header('Location: comment.php?' . $query);
         exit;
     }
     # Commentaire hors-ligne
     if (isset($_POST['offline'])) {
         $plxAdmin->editCommentaire($_POST, $_POST['comId']);
         $plxAdmin->modCommentaire($_POST['comId'], 'offline');
-        header('Location: comment.php?c=' . $_POST['comId'] . (!empty($_GET['a']) ? '&a=' . $_GET['a'] : ''));
+        header('Location: comment.php?' . $query);
         exit;
     }
     # Répondre au commentaire
     if (isset($_POST['answer'])) {
-        header('Location: comment_new.php?c=' . $_POST['comId']) . (!empty($_GET['a']) ? '&a=' . $_GET['a'] : '');
+        header('Location: comment_new.php?' . $query);
         exit;
     }
     # Edition
     $plxAdmin->editCommentaire($_POST, $_POST['comId']);
-    header('Location: comment.php?c=' . $_POST['comId'] . (!empty($_GET['a']) ? '&a=' . $_GET['a'] : ''));
+    header('Location: comment.php?' . $query);
     exit;
 }
 
 # On va récupérer les infos sur le commentaire
-if (!$plxAdmin->getCommentaires('/^' . plxUtils::nullbyteRemove($_GET['c']) . '.xml$/', '', 0, 1, 'all')) {
+if (empty($_GET['c']) or !$plxAdmin->getCommentaires('/^' . plxUtils::nullbyteRemove($_GET['c']) . '.xml$/', '', 0, 1, 'all')) {
     # Commentaire inexistant, on redirige
     plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
     header('Location: comments.php');
@@ -107,10 +113,12 @@ else
     $statut = '';
 
 # Date du commentaire
-$date = plxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
+$dates5 = plxDate::date2html5(array('date_publication' => $plxAdmin->plxRecord_coms->f('date'))); # récupère les dates - version PluXml >= 6.0.0
+
+// $date = plxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 
 if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
     $author = $plxAdmin->plxRecord_coms->f('author');
@@ -124,107 +132,92 @@ if ($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 ?>
 
-<form action="comment.php<?= (!empty($_GET['a']) ? '?a=' . plxUtils::strCheck($_GET['a']) : '') ?>" method="post"
-      id="form_comment">
-
+<form action="comment.php<?= (!empty($_GET['a']) ? '?a=' . plxUtils::strCheck($_GET['a']) : '') ?>" method="post" id="form_comment">
     <?= plxToken::getTokenPostMethod() ?>
-
-    <div class="adminheader grid-6">
-        <div class="col-2">
+	<?php plxUtils::printInput('comId', $_GET['c'], 'hidden'); ?>
+    <div class="adminheader">
+        <div>
             <h2 class="h3-like"><?= L_COMMENT_EDITING; ?></h2>
             <?php if (!empty($_GET['a'])) : ?>
-                <p><a class="back" href="comments.php?a=<?= $_GET['a'] ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+                <p><a class="back icon-left-big" href="comments.php?a=<?= $_GET['a'] ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
             <?php else : ?>
-                <p><a class="back" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
+                <p><a class="back icon-left-big" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
             <?php endif; ?>
         </div>
-        <div class="col-4 mtm txtright">
-            <?php if ($com['comStatus'] == '') : ?>
-                <input class="btn--primary" type="submit" name="offline" value="<?= L_SET_OFFLINE ?>"/>
-                <input class="btn--primary" type="submit" name="answer" value="<?= L_COMMENT_ANSWER_BUTTON ?>"/>
-            <?php else : ?>
-                <input class="btn--primary" type="submit" name="online" value="<?= L_COMMENT_PUBLISH_BUTTON ?>"/>
-            <?php endif; ?>
-            <input class="btn--primary" type="submit" name="update" value="<?= L_COMMENT_UPDATE_BUTTON ?>"/>
-            <span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-            <input class="btn--warning" type="submit" name="delete"
-                   value="<?= L_DELETE ?>"
-                   onclick="Check=confirm('<?= L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+        <div>
+			<div>
+<?php if ($com['comStatus'] == '') : ?>
+	                <input class="btn--primary" type="submit" name="offline" value="<?= L_SET_OFFLINE ?>"/>
+	                <input class="btn--primary" type="submit" name="answer" value="<?= L_COMMENT_ANSWER_BUTTON ?>"/>
+<?php else : ?>
+	                <input class="btn--primary" type="submit" name="online" value="<?= L_COMMENT_PUBLISH_BUTTON ?>"/>
+<?php endif; ?>
+	            <input class="btn--primary" type="submit" name="update" value="<?= L_COMMENT_UPDATE_BUTTON ?>"/>
+	            <input class="btn--warning" type="submit" name="delete"
+	                   value="<?= L_DELETE ?>"
+	                   onclick="Check=confirm('<?= L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+			</div>
         </div>
     </div>
-
-    <div class="admin mtm">
-
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
-
-        <ul>
+    <div class="admin">
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminCommentTop'))
+?>
+        <ul class="unstyled">
             <li><?= L_COMMENT_IP_FIELD ?> : <?= $plxAdmin->plxRecord_coms->f('ip'); ?></li>
             <li><?= L_COMMENT_STATUS_FIELD ?> : <?= $statut; ?></li>
             <li><?= L_COMMENT_TYPE_FIELD ?> : <strong><?= $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
             <li><?= L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?= $article; ?></li>
         </ul>
-
         <fieldset>
-            <?php plxUtils::printInput('comId', $_GET['c'], 'hidden'); ?>
-
-            <div class="grid inline-form publication">
-                <div class="col sml-12">
-                    <label><?= L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
-                    <?php plxUtils::printInput('date_publication_day', $date['day'], 'text', '2-2', false, 'day'); ?>
-                    <?php plxUtils::printInput('date_publication_month', $date['month'], 'text', '2-2', false, 'month'); ?>
-                    <?php plxUtils::printInput('date_publication_year', $date['year'], 'text', '2-4', false, 'year'); ?>
-                    <?php plxUtils::printInput('date_publication_time', $date['time'], 'text', '2-5', false, 'time'); ?>
-                    <a href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;"
-                       title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt=""/></a>
+            <div>
+<?php plxUtils::printDates($dates5); ?>
+                <div>
+                    <label for="id_author"><?= L_AUTHOR ?></label>
+                    <input type="text" name="author" value="<?= $author ?>" maxlength="64" required />
                 </div>
-            </div>
-
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_author"><?= L_AUTHOR ?> :</label>
-                    <?php plxUtils::printInput('author', $author, 'text', '40-255') ?>
-                </div>
-            </div>
-
-            <div class="grid">
-                <div class="col sml-12">
+	            <div>
                     <label for="id_site">
-                        <?= L_COMMENT_SITE_FIELD . '&nbsp;:&nbsp;';
-                        if ($site != '') echo '<a href="' . $site . '">' . $site . '</a>';
-                        ?>
+                        <span><?= L_COMMENT_SITE_FIELD ?></span>
+<?php
+if($site != '') {
+?>
+						<a href="<?= $site ?>" target="_blank"><?= L_WATCH ?></a>
+<?php
+}
+?>
                     </label>
-                    <?php
-                    plxUtils::printInput('site', $site, 'text', '40-255');
-                    ?>
-                </div>
-            </div>
-
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_mail"><?= L_EMAIL ?> :
-                        <?php if ($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
-                            <?= '<a href="mailto:' . $plxAdmin->plxRecord_coms->f('mail') . '">' . $plxAdmin->plxRecord_coms->f('mail') . '</a>' ?>
-                        <?php endif; ?>
+                    <?php plxUtils::printInput('site', $site, 'text', '40-255'); ?>
+	            </div>
+                <div>
+                    <label for="id_mail"><?= L_EMAIL ?>
+<?php
+if ($plxAdmin->plxRecord_coms->f('mail') != '') :
+?>
+                    <a href="mailto:<?= $plxAdmin->plxRecord_coms->f('mail') ?>"><?= L_SEND_MAIL ?></a>
+<?php
+endif;
+?>
                     </label>
-                    <?php plxUtils::printInput('mail', plxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')), 'text', '40-255') ?>
+                    <input type="email" name="mail" value="<?= plxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')) ?>" maxlength="64" />
                 </div>
             </div>
-
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_content"><?= L_COMMENT_ARTICLE_FIELD ?> :</label>
-                    <?php plxUtils::printArea('content', $content, 0, 7); ?>
-                    <?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
-                </div>
-            </div>
-
+			<div>
+				<label for="id_content"><?= L_COMMENT_ARTICLE_FIELD ?></label>
+				<textarea name="content" rows="7" id><?= $content ?></textarea>
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminComment'))
+?>
+			</div>
         </fieldset>
     </div>
 </form>
-
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentFoot'));
+
 # On inclut le footer
-include __DIR__ . '/foot.php';
-?>
+include 'foot.php';

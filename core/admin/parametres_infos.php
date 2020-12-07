@@ -7,7 +7,7 @@
  * @author    Florent MONTHEL
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -23,29 +23,27 @@ if ($emailBuild) {
 } else {
     # direct output
     # administration header
-    include __DIR__ . '/top.php';
+    include 'top.php';
 }
 
 ?>
 <div class="adminheader">
     <div class="mbm">
         <h2 class="h3-like"><?= L_CONFIG_INFOS_TITLE ?></h2>
-        <p><?php echo L_PLUXML_CHECK_VERSION ?></p>
-        <?php $maj = $plxAdmin->checkMaj();
-        echo $maj; ?>
+        <?php $plxAdmin->checkMaj(); ?>
     </div>
 </div>
 
-<div class="admin mtm">
-    <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
+<div class="admin">
+    <p><?= L_CONFIG_INFOS_DESCRIPTION ?></p>
 
-    <p><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION; ?>
-            (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></p>
+    <p><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION; ?>
+            (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></p>
     <ul class="unstyled-list">
-        <li><?php echo L_INFO_PHP_VERSION; ?> : <?php echo phpversion(); ?></li>
-        <?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-            <li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
-        <?php } ?>
+        <li><?= L_INFO_PHP_VERSION; ?> : <?= phpversion(); ?></li>
+<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+            <li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
+<?php } ?>
     </ul>
     <ul class="unstyled-list">
         <?php plxUtils::testWrite(PLX_ROOT) ?>
@@ -60,20 +58,22 @@ if ($emailBuild) {
         <?php plxUtils::testModReWrite() ?>
         <?php plxUtils::testLibGD() ?>
         <?php plxUtils::testLibXml() ?>
-        <?php
-        if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
-            ?>
+        <li><span style="color:green">&#10004; PLX_CONFIG_PATH = '<?= PLX_CONFIG_PATH ?>'</span></li>
+<?php
+if (plxUtils::testMail() and is_string($email) and !$emailBuild) {
+?>
             <form method="post">
-                <?php echo plxToken::getTokenPostMethod() ?>
+                <?= plxToken::getTokenPostMethod() ?>
                 <input type="submit" name="sendmail-test" value="<?= L_MAIL_TEST ?>"/>
             </form>
-            <?php
-        }
-        ?>
+<?php
+}
+?>
     </ul>
-    <p><?php echo L_CONFIG_INFOS_NB_CATS ?><?php echo sizeof($plxAdmin->aCats); ?></p>
-    <p><?php echo L_CONFIG_INFOS_NB_STATICS ?><?php echo sizeof($plxAdmin->aStats); ?></p>
-    <p><?php echo L_CONFIG_INFOS_WRITER ?><?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
+    <p><?= L_CONFIG_INFOS_NB_CATS ?><?= sizeof($plxAdmin->aCats); ?></p>
+    <p><?= L_CONFIG_INFOS_NB_STATICS ?><?= sizeof($plxAdmin->aStats); ?></p>
+    <p><?= L_CONFIG_INFOS_WRITER ?><?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
+    <p><a href="theme/fontello/demo.html" target="_blank" class="button">Fontello icons</a></p>
 
     <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 </div>
@@ -119,62 +119,6 @@ HEAD;
     header('Location: ' . basename(__FILE__));
     exit;
 }
-if (preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
-    # checkMaj() has failed with curl or allow_url_fopen is off
-    ?>
-    <script type="text/javascript">
-        (function () {
-            'use strict';
-            const currentVersion = '<?= PLX_VERSION ?>';
-            const id = 'latest-version';
-            const el = document.getElementById(id);
-            if (el == null) {
-                console.error('Element with id="' + id + '" not found');
-                return;
-            }
 
-            function compareVersion(v1, v2) {
-                if (typeof v1 != 'string' || typeof v2 != 'string') {
-                    return;
-                }
-
-                const t1 = v1.split('.');
-                const t2 = v2.split('.');
-                for (let i = 0, iMax = (t1.length < t2.length) ? t1.length : t2.length; i < iMax; i++) {
-                    const n1 = parseInt(t1[i]);
-                    const n2 = parseInt(t2[i]);
-                    if (n1 == n2) {
-                        continue;
-                    }
-                    return (n1 < n2) ? -1 : 1;
-                }
-                return (t1.length == t2.length) ? 0 : (t1.length < t2.length) ? -1 : 1;
-            }
-
-            const xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (this.readyState === XMLHttpRequest.DONE) {
-                    if (this.status === 200) {
-                        console.log('Available version :', this.responseText);
-                        el.classList.remove('red');
-                        if (compareVersion(currentVersion, this.responseText) < 0) {
-                            el.innerHTML = '<?= $plxAdmin->update_link ?>';
-                            el.classList.add('orange');
-                        } else {
-                            el.innerHTML = "<?= L_PLUXML_UPTODATE . ' (' . PLX_VERSION . ')' ?>";
-                            el.classList.add('green');
-                        }
-                        return;
-                    }
-                    console.error('[check update]', this.status, this.statusText);
-                }
-            };
-            xhr.open('GET', '<?= PLX_URL_VERSION ?>');
-            xhr.send();
-        })();
-    </script>
-    <?php
-}
 # On inclut le footer
-include __DIR__ . '/foot.php';
-?>
+include 'foot.php';

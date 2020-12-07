@@ -281,6 +281,12 @@
       "css": "reply-1",
       "code": 59421,
       "src": "entypo"
+    },
+    {
+      "uid": "531bc468eecbb8867d822f1c11f1e039",
+      "css": "calendar",
+      "code": 59422,
+      "src": "fontawesome"
     }
   ]
 }

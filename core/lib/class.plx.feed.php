@@ -419,6 +419,7 @@ class plxFeed extends plxMotor {
 <?php
 		# On va boucler sur les commentaires (s'il y en a)
 		if(!empty($this->plxRecord_coms)) {
+			$last_updated = '';
 			while($this->plxRecord_coms->loop()) {
 				$artId = $this->plxRecord_coms->f('article') + 0;
 				$comId = $this->cible.$this->plxRecord_coms->f('article').'.'.$this->plxRecord_coms->f('numero');
@@ -426,7 +427,7 @@ class plxFeed extends plxMotor {
 				$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'), plxDate::FORMAT_TIME);
 				$link_com = $url_base . 'comment.php?c=' . $comId;
 				# On vérifie la date de publication
-				if($this->plxRecord_coms->f('date') > $last_updated)
+				if($this->plxRecord_coms->f('date') > $last_updated) # ???? variable inutilisée
 					$last_updated = $this->plxRecord_coms->f('date');
 				# On affiche le flux dans un buffer
 ?>

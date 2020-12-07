@@ -4,10 +4,11 @@
  * Edition du code source d'une page statique
  *
  * @package PLX
- * @author    Stephane F. et Florent MONTHEL
+ * @author    Stephane F., Florent MONTHEL, Jean-Pierre Pourrez "bazooka07"
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticPrepend'));
 
@@ -17,153 +18,120 @@ plxToken::validateFormToken($_POST);
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_MANAGER);
 
-# On édite la page statique
-if (!empty($_POST) and isset($plxAdmin->aStats[$_POST['id']])) {
+const BACK_URL = 'Location: statiques.php';
 
+# On édite la page statique
+if (!empty($_POST) and preg_match('@^\d{1,3}$@', $_POST['id']) and isset($plxAdmin->aStats[$_POST['id']])) {
     $valid = true;
-    # Vérification de la validité de la date de création
-    if (!plxDate::checkDate($_POST['date_creation_day'], $_POST['date_creation_month'], $_POST['date_creation_year'], $_POST['date_creation_time'])) {
-        $valid = plxMsg::Error(L_ERR_INVALID_DATE_CREATION) and $valid;
-    }
-    # Vérification de la validité de la date de mise à jour
-    if (!plxDate::checkDate($_POST['date_update_day'], $_POST['date_update_month'], $_POST['date_update_year'], $_POST['date_update_time'])) {
-        $valid = plxMsg::Error(L_ERR_INVALID_DATE_UPDATE) and $valid;
-    }
-    if ($valid) $plxAdmin->editStatique($_POST);
-    header('Location: statique.php?p=' . $_POST['id']);
-    exit;
-} elseif (!empty($_GET['p'])) { # On affiche le contenu de la page
+	# Contrôle de la validité des dates
+	foreach(plxAdmin::STATIC_DATES as $k) {
+		if(!plxDate::checkDate5($_POST[$k][0], $_POST[$k][1])) {
+			$valid = false;
+			break;
+		}
+	}
+
+	if ($valid) {
+		$plxAdmin->editStatique($_POST);
+	    header('Location: statique.php?p=' . $_POST['id']);
+	    exit;
+	} else {
+		# Erreur
+		plxMsg::Error(L_BAD_DATE_FORMAT);
+	}
+} elseif (!empty($_GET['p'])) {
+	# On affiche le contenu de la page
     $id = plxUtils::strCheck(plxUtils::nullbyteRemove($_GET['p']));
     if (!isset($plxAdmin->aStats[$id])) {
         plxMsg::Error(L_STATIC_UNKNOWN_PAGE);
-        header('Location: statiques.php');
+        header(BACK_URL);
         exit;
     }
-    # On récupère le contenu
-    $content = trim($plxAdmin->getFileStatique($id));
-    $title = $plxAdmin->aStats[$id]['name'];
-    $url = $plxAdmin->urlRewrite("?static" . intval($id) . "/" . $plxAdmin->aStats[$id]['url']);
-    $active = $plxAdmin->aStats[$id]['active'];
-    $title_htmltag = $plxAdmin->aStats[$id]['title_htmltag'];
-    $meta_description = $plxAdmin->aStats[$id]['meta_description'];
-    $meta_keywords = $plxAdmin->aStats[$id]['meta_keywords'];
-    $template = $plxAdmin->aStats[$id]['template'];
-    $date_creation = plxDate::date2Array($plxAdmin->aStats[$id]['date_creation']);
-    $date_update = plxDate::date2Array($plxAdmin->aStats[$id]['date_update']);
-} else { # Sinon, on redirige
-    header('Location: statiques.php');
+} else {
+	# Sinon, on redirige
+    header(BACK_TO_STATIC_LIST);
     exit;
 }
 
 # On récupère les templates des pages statiques
-$aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style']);
-if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
-    foreach ($array as $k => $v)
-        $aTemplates[$v] = $v;
-}
-if (empty($aTemplates)) {
-    $aTemplates[''] = L_NONE1;
-} else {
-    asort($aTemplates);
-}
+$aTemplates = $plxAdmin->getTemplatesCurrentTheme('static', L_NONE1);
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
+
+# On récupère le contenu
+$content = trim($plxAdmin->getFileStatique($id));
+# $title = $plxAdmin->aStats[$id]['name'];
+$url = $plxAdmin->urlRewrite("?static" . intval($id) . "/" . $plxAdmin->aStats[$id]['url']);
 ?>
 
 <form action="statique.php" method="post" id="form_static">
-
-    <div class="adminheader grid-6">
-        <div class="col-4">
-            <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($title); ?>"</h2>
-            <p><a class="back" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
+    <?= plxToken::getTokenPostMethod() ?>
+    <input type="hidden" name="id" value="<?= $id ?>" />
+    <div class="adminheader">
+        <div>
+            <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aStats[$id]['name']); ?>"</h2>
+            <p><a class="back icon-left-big" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
         </div>
-        <div class="col-2 mtm txtright">
-            <button type="submit" class="btn--primary"><?= L_STATIC_UPDATE ?></button>
-            <p><a href="<?= $url ?>"><?= L_STATIC_VIEW_PAGE ?>&nbsp;<?= plxUtils::strCheck($title); ?>
-                    &nbsp;<?= L_STATIC_ON_SITE ?></a></p>
-            <?php plxUtils::printInput('id', $id, 'hidden'); ?>
+        <div>
+            <p><a href="<?= $url ?>"><?= L_STATIC_VIEW_PAGE . ' ' . L_STATIC_ON_SITE ?></a></p>
+            <div>
+	            <button type="submit" class="btn--primary"><?= L_SAVE ?></button>
+            </div>
         </div>
     </div>
+    <div class="admin">
+<?php
 
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminStaticTop'))
 
-    <div class="admin mtm">
-
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
-
+?>
         <fieldset>
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
-                    <?php plxUtils::printArea('content', plxUtils::strCheck($content), 0, 30) ?>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_template"><?= L_TEMPLATE ?>&nbsp;:</label>
-                    <?php plxUtils::printSelect('template', $aTemplates, $template) ?>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_title_htmltag"><?= L_TITLE_HTMLTAG ?>&nbsp;:</label>
-                    <?php plxUtils::printInput('title_htmltag', plxUtils::strCheck($title_htmltag), 'text', '50-255'); ?>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_meta_description"><?= L_STATIC_META_DESCRIPTION ?>&nbsp;:</label>
-                    <?php plxUtils::printInput('meta_description', plxUtils::strCheck($meta_description), 'text', '50-255'); ?>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col sml-12">
-                    <label for="id_meta_keywords"><?= L_STATIC_META_KEYWORDS ?>&nbsp;:</label>
-                    <?php plxUtils::printInput('meta_keywords', plxUtils::strCheck($meta_keywords), 'text', '50-255'); ?>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col sml-12">
-                    <label><?= L_DATE_CREATION ?>&nbsp;:</label>
-                    <div class="inline-form creation">
-                        <?php plxUtils::printInput('date_creation_day', $date_creation['day'], 'text', '2-2', false, 'day'); ?>
-                        <?php plxUtils::printInput('date_creation_month', $date_creation['month'], 'text', '2-2', false, 'month'); ?>
-                        <?php plxUtils::printInput('date_creation_year', $date_creation['year'], 'text', '2-4', false, 'year'); ?>
-                        <?php plxUtils::printInput('date_creation_time', $date_creation['time'], 'text', '2-5', false, 'time'); ?>
-                        <a class="ico_cal" href="javascript:void(0)"
-                           onclick="dateNow('date_creation', <?= date('Z') ?>); return false;"
-                           title="<?php L_NOW; ?>">
-                            <img src="theme/images/date.png" alt="calendar"/>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col sml-12">
-                    <?php plxUtils::printInput('date_update', $plxAdmin->aStats[$id]['date_update'], 'hidden'); ?>
-                    <label><?= L_DATE_UPDATE ?>&nbsp;:</label>
-                    <div class="inline-form update">
-                        <?php plxUtils::printInput('date_update_day', $date_update['day'], 'text', '2-2', false, 'day'); ?>
-                        <?php plxUtils::printInput('date_update_month', $date_update['month'], 'text', '2-2', false, 'month'); ?>
-                        <?php plxUtils::printInput('date_update_year', $date_update['year'], 'text', '2-4', false, 'year'); ?>
-                        <?php plxUtils::printInput('date_update_time', $date_update['time'], 'text', '2-5', false, 'time'); ?>
-                        <a class="ico_cal" href="javascript:void(0)"
-                           onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
-                            <img src="theme/images/date.png" alt="calendar"/>
-                        </a>
-                    </div>
-                </div>
-            </div>
+			<div class="has-textarea">
+				<label for="id_content"><?= L_CONTENT_FIELD ?></label>
+				<textarea name="content" rows="19" id="id_content"><?= plxUtils::strCheck($content) ?></textarea>
+			</div>
+			<div>
+				<label class="fullwidth caption-inside">
+					<span><?= L_TEMPLATE . PHP_EOL ?></span>
+<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aStats[$id]['template']) ?>
+				</label>
+<?php
+foreach(array(
+
+    'title_htmltag'		=> L_TITLE_HTMLTAG,
+    'meta_description'	=> L_META_DESCRIPTION,
+    'meta_keywords'		=> L_META_KEYWORDS,
+) as $field=>$caption) {
+?>
+				<label class="fullwidth caption-inside">
+					<span><?= $caption ?></span>
+					<input type="text" name="<?= $field ?>" value="<?= plxUtils::strCheck($plxAdmin->aStats[$id][$field]) ?>" />
+				</label>
+<?php
+}
+?>
+			</div>
+<?php
+
+$dates5 = plxDate::date2html5($plxAdmin->aStats[$id]); # récupère les dates - version PluXml >= 6.0.0
+plxUtils::printDates($dates5);
+
+?>
         </fieldset>
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
-        <?= plxToken::getTokenPostMethod() ?>
+<?php
+
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminStatic'));
+
+?>
     </div>
 </form>
-
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticFoot'));
+
 # On inclut le footer
-include __DIR__ . '/foot.php';
-?>
+include 'foot.php';

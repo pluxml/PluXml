@@ -137,15 +137,15 @@ plxUtils::cleanHeaders();
 <!DOCTYPE html>
 <html lang="<?= $plxAdmin->aConf['default_lang'] ?>">
 <head>
-    <meta name="robots" content="noindex, nofollow"/>
+	<meta charset="<?= strtolower(PLX_CHARSET) ?>">
+	<meta name="robots" content="noindex, nofollow"/>
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>PluXml - <?= L_AUTH_PAGE_TITLE ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?= strtolower(PLX_CHARSET); ?>"/>
     <link rel="stylesheet" type="text/css" href="theme/css/knacss.css?v=<?= PLX_VERSION ?>" media="screen"/>
     <link rel="stylesheet" type="text/css" href="theme/css/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
     <link rel="stylesheet" type="text/css" href="theme/fontello/css/fontello.css?v=<?= PLX_VERSION ?>" media="screen"/>
     <link rel="icon" href="theme/images/favicon.png"/>
-    <?php
+<?php
     PlxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
     PlxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'] . 'admin.css', true);
 
@@ -153,93 +153,116 @@ plxUtils::cleanHeaders();
 
     $logo = (!empty($plxAdmin->aConf['thumbnail']) and file_exists(PLX_ROOT . $plxAdmin->aConf['thumbnail'])) ? PLX_ROOT . $plxAdmin->aConf['thumbnail'] : 'theme/images/pluxml.png';
     $logoSize = getimagesize($logo);
-    ?>
-    <script src="<?= PLX_CORE ?>lib/visual.js?v=<?= PLX_VERSION ?>"></script>
+?>
 </head>
 <body id="auth">
-<main id="app" class="auth flex-container--column">
-    <section class="w350p item-center">
-        <div class="logo mam"><a class="txtcenter" href="<?= PLX_ROOT ?>"><img src="<?= $logo ?>"
-                                                                               alt="Logo" <?= $logoSize[3] ?> /></a>
-        </div>
-        <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin')) ?>
-        <?php if (isset($_GET['action']) && $_GET['action'] == 'lostpassword'): ?>
-            <div class="form mam pas">
-                <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword')); ?>
-                <form action="auth.php<?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
-                      method="post" id="form_auth">
-                    <fieldset class="man pan">
-                        <div class="flex-container--column">
-                            <?= PlxToken::getTokenPostMethod() ?>
-                            <h1 class="h3-like txtcenter mam"><?= L_LOST_PASSWORD ?></h1>
-                            <?php PlxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id'])) ? PlxUtils::strCheck($_POST['lostpassword_id']) : '', 'text', '-64', false, 'txt', L_AUTH_LOST_FIELD, 'autofocus required'); ?>
-                            <input class="btn--primary" role="button" type="submit" value="<?= L_SUBMIT_BUTTON ?>"/>
-                            <?php eval ($plxAdmin->plxPlugins->callHook('AdminAuthLostPassword')); ?>
-                            <a href="?p=/core/admin"><span
-                                        class="w100 mts btn--info"><?= L_LOST_PASSWORD_LOGIN ?></span></a>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        <?php elseif (isset($_GET['action']) && $_GET['action'] == 'changepassword'): ?>
-            <div class="form mam pas">
-                <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword')); ?>
-                <?php if ($plxAdmin->verifyLostPasswordToken(isset($_GET['token']))): ?>
-                    <div>
-                        <form action="auth.php<?= !empty($redirect) ? '?p=' . PlxUtils::strCheck(urlencode($redirect)) : '' ?>"
-                              method="post" id="form_auth">
-                            <fieldset class="man pan">
-                                <div class="flex-container--column">
-                                    <?= PlxToken::getTokenPostMethod() ?>
-                                    <input name="lostPasswordToken" value="<?= $_GET['token']; ?>" type="hidden"/>
-                                    <h1 class="h3-like txtcenter ma"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
-                                    <?php PlxUtils::printInput('password1', '', 'password', '-64', false, 'txt', L_PASSWORD, 'onkeyup="pwdStrength(this.id)" required') ?>
-                                    <?php PlxUtils::printInput('password2', '', 'password', '-64', false, 'txt', L_CONFIRM_PASSWORD, 'required') ?>
-                                    <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePassword')); ?>
-                                    <input class="btn--primary" role="button" type="submit" name="editpassword"
-                                           value="<?= L_PROFIL_UPDATE_PASSWORD ?>"/>
-                                    <a href="?p=/core/admin"><span
-                                                class="w100 mts btn--info"><?= L_LOST_PASSWORD_LOGIN ?></span></a>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                <?php else: ?>
-                    <div class="flex-container--column">
-                        <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError')); ?>
-                        <h1 class="h3-like txtcenter mam"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
-                        <div class="alert--danger"><?= L_LOST_PASSWORD_ERROR ?></div>
-                        <span class="btn--primary"><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></span>
-                        <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) ?>
-                    </div>
-                <?php endif ?>
-            </div>
-        <?php else: ?>
-            <div class="form mam pas">
-                <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
-                <form action="auth.php<?= !empty($redirect) ? '?p=' . PlxUtils::strCheck(urlencode($redirect)) : '' ?>"
-                      method="post" id="form_auth">
-                    <fieldset class="man pan">
-                        <div class="flex-container--column">
-                            <?= PlxToken::getTokenPostMethod() ?>
-                            <h1 class="h3-like txtcenter mam"><?= L_LOGIN_PAGE ?></h1>
-                            <?php (!empty($msg)) ? PlxUtils::showMsg($msg, $css) : ''; ?>
-                            <?php PlxUtils::printInput('login', (!empty($_POST['login'])) ? PlxUtils::strCheck($_POST['login']) : '', 'text', '-64', false, 'txt', L_AUTH_LOGIN_FIELD, 'autofocus required'); ?>
-                            <?php PlxUtils::printInput('password', '', 'password', '-64', false, 'txt', L_PASSWORD, 'required'); ?>
-                            <?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')); ?>
-                            <input class="btn--primary" role="button" type="submit" value="<?= L_SUBMIT_BUTTON ?>"/>
-                            <?php if ($plxAdmin->aConf['lostpassword']): ?>
-                                <a href="?action=lostpassword"><span
-                                            class="w100 mts btn--warning"><?= L_LOST_PASSWORD ?></span></a>
-                            <?php endif ?>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        <?php endif ?>
-        <p class="mam"><small><a class="back" href="<?= PLX_ROOT; ?>">&nbsp;<?= L_HOMEPAGE ?></a></small></p>
+<main id="app" class="auth">
+    <section>
+		<a class="logo" href="<?= PLX_ROOT ?>"><img src="<?= $logo ?>" alt="Logo" <?= $logoSize[3] ?> /></a>
+<?php
+
+eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin'));
+
+if (isset($_GET['action']) && $_GET['action'] == 'lostpassword') {
+?>
+		<div class="form">
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword')); ?>
+			<form action="auth.php<?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
+				  method="post" id="form_auth">
+				<fieldset class="man pan">
+					<div class="flex-container--column">
+						<?= PlxToken::getTokenPostMethod() ?>
+						<h1 class="h3-like txtcenter mam"><?= L_LOST_PASSWORD ?></h1>
+						<?php PlxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id'])) ? PlxUtils::strCheck($_POST['lostpassword_id']) : '', 'text', '-64', false, 'txt', L_AUTH_LOST_FIELD, 'autofocus required'); ?>
+						<input class="btn--primary" role="button" type="submit" value="<?= L_SUBMIT_BUTTON ?>" />
+						<?php eval ($plxAdmin->plxPlugins->callHook('AdminAuthLostPassword')); ?>
+						<a href="?p=/core/admin"><span class="w100 mts btn--info"><?= L_LOST_PASSWORD_LOGIN ?></span></a>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+<?php
+} elseif (isset($_GET['action']) && $_GET['action'] == 'changepassword') {
+?>
+		<div class="form">
+<?php
+	eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword'));
+
+	if ($plxAdmin->verifyLostPasswordToken(isset($_GET['token']))) {
+?>
+			<div>
+				<form action="auth.php<?= !empty($redirect) ? '?p=' . PlxUtils::strCheck(urlencode($redirect)) : '' ?>"
+					  method="post" id="form_auth">
+					<fieldset class="man pan">
+						<div class="flex-container--column">
+							<?= PlxToken::getTokenPostMethod() ?>
+							<input name="lostPasswordToken" value="<?= $_GET['token']; ?>" type="hidden"/>
+							<h1 class="h3-like txtcenter ma"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
+							<?php PlxUtils::printInput('password1', '', 'password', '-64', false, 'txt', L_PASSWORD, 'onkeyup="pwdStrength(this.id)" required') ?>
+							<?php PlxUtils::printInput('password2', '', 'password', '-64', false, 'txt', L_CONFIRM_PASSWORD, 'required') ?>
+							<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePassword')); ?>
+							<input class="btn--primary" role="button" type="submit" name="editpassword"
+								   value="<?= L_PROFIL_UPDATE_PASSWORD ?>"/>
+							<a href="?p=/core/admin"><span
+										class="w100 mts btn--info"><?= L_LOST_PASSWORD_LOGIN ?></span></a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+<?php
+	} else {
+?>
+			<div class="flex-container--column">
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError')); ?>
+				<h1 class="h3-like txtcenter mam"><?= L_PROFIL_CHANGE_PASSWORD ?></h1>
+				<div class="alert--danger"><?= L_LOST_PASSWORD_ERROR ?></div>
+				<span class="btn--primary"><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></span>
+				<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) ?>
+			</div>
+<?php
+	}
+?>
+		</div>
+<?php
+} else {
+?>
+		<div class="form">
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) ?>
+			<form action="auth.php<?= !empty($redirect) ? '?p=' . PlxUtils::strCheck(urlencode($redirect)) : '' ?>"
+				  method="post" id="form_auth">
+				<fieldset class="man pan">
+					<div class="flex-container--column">
+						<?= PlxToken::getTokenPostMethod() ?>
+						<h1 class="h3-like txtcenter mam"><?= L_LOGIN_PAGE ?></h1>
+						<?php (!empty($msg)) ? PlxUtils::showMsg($msg, $css) : ''; ?>
+						<?php PlxUtils::printInput('login', (!empty($_POST['login'])) ? PlxUtils::strCheck($_POST['login']) : '', 'text', '-64', false, 'txt', L_AUTH_LOGIN_FIELD, 'autofocus required'); ?>
+						<?php PlxUtils::printInput('password', '', 'password', '-64', false, 'txt', L_PASSWORD, 'required'); ?>
+						<?php eval($plxAdmin->plxPlugins->callHook('AdminAuth')); ?>
+						<input class="btn--primary" role="button" type="submit" value="<?= L_SUBMIT_BUTTON ?>"/>
+<?php
+	if ($plxAdmin->aConf['lostpassword']) {
+?>
+                                <a href="?action=lostpassword">
+									<span class="w100 mts btn--warning"><?= L_LOST_PASSWORD ?></span>
+								</a>
+<?php
+	}
+?>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+<?php
+}
+?>
+        <p><small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_HOMEPAGE ?></a></small></p>
     </section>
 </main>
-<?php eval($plxAdmin->plxPlugins->callHook('AdminAuthEndBody')) ?>
+<?php
+
+eval($plxAdmin->plxPlugins->callHook('AdminAuthEndBody'))
+
+?>
+<script src="scripts/visual.js?v=<?= PLX_VERSION ?>"></script>
 </body>
 </html>

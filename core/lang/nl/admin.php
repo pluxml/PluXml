@@ -2,7 +2,11 @@
 
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Onbekende fout';
-const L_CONFIRM_DELETE = 'Bevestig de verwijdering ?';
+const L_CONFIRM_DELETE = 'Bevestig de verwijdering van 999 items ?';
+const L_CONFIRM_ACTIVATE = 'Bevestig voor het uitschakelen van 999 items ?'
+const L_CONFIRM_DEACTIVATE = 'Bevestig voor het inschakelen van 999 items ?'
+const L_CONFIRM_OFFLINE = 'Bevestig dat 999 reacties offline zijn geweest ?';
+const L_CONFIRM_ONLINE = 'Bevestig het uploaden van 999 opmerkingen ?';
 const L_SAVE_FILE = 'Sla het bestand op';
 const L_SAVE_FILE_SUCCESSFULLY = 'Bestand succesvol opgeslagen';
 const L_SAVE_FILE_ERROR = 'Fout bij het ​​opslaan van het bestand voor';
@@ -108,12 +112,12 @@ const L_ARTICLE_DELETE_CONFIRM = 'Dit artikel daadwerkelijk verwijderen ?';
 const L_ARTICLE_PREVIEW_BUTTON = 'Overzicht';
 const L_ARTICLE_DRAFT_BUTTON = 'Kladversie opslaan';
 const L_ARTICLE_PUBLISHING_BUTTON = 'Posten';
-const L_ARTICLE_MODERATE_BUTTON = 'Ter goedkeuring voorleggen';
+const L_ARTICLE_MODERATE_BUTTON = 'Te valideren';
 const L_SET_OFFLINE = 'Artikel offline plaatsen';
 const L_SAVE = 'Opslaan';
 const L_ADD = 'Toevoegen';
-const L_ARTICLE_META_DESCRIPTION = 'Inhoud meta-tag "description" (optioneel)';
-const L_ARTICLE_META_KEYWORDS = 'Inhoud meta-tag "keywords" (optioneel)';
+const L_META_DESCRIPTION = 'Inhoud meta-tag "description" (optioneel)';
+const L_META_KEYWORDS = 'Inhoud meta-tag "keywords" (optioneel)';
 const L_ARTICLE_CHAPO_HIDE = 'verstoppen';
 const L_ARTICLE_CHAPO_DISPLAY = 'tonen';
 
@@ -126,7 +130,7 @@ const L_AUTH_LOGIN_FIELD = 'Uw Login';
 const L_AUTH_LOST_FIELD = 'Uw Login of e-mailadres';
 const L_SUBMIT_BUTTON = 'Verzenden';
 const L_ERR_WRONG_PASSWORD = 'Login en/of wachtwoord ongeldig';
-const L_POWERED_BY = 'Gegenereerd door <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Gegenereerd door <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Te veel mislukte login<br />Probeer het over% s minuten';
 const L_LOST_PASSWORD = 'Wachtwoord vergeten?';
 const L_LOST_PASSWORD_LOGIN = 'Aanmelden';
@@ -157,8 +161,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Toon items in deze categorie op de home page
 const L_TEMPLATE = 'Template';
 const L_EDITCAT_BACK_TO_PAGE = 'Terug naar categorielijst';
 const L_EDITCAT_UPDATE = 'De wijzigingen voor deze categorie doorveoeren';
-const L_EDITCAT_META_DESCRIPTION = 'META-informatie voor deze categorie (optie)';
-const L_EDITCAT_META_KEYWORDS = 'META-informatie voor de "keywords" voor deze categorie (optie)';
 
 // commentaire.php
 
@@ -181,7 +183,7 @@ const L_COMMENT_LINKED_ARTICLE_FIELD = 'Artikel vastgepind';
 const L_COMMENT_ARTICLE_FIELD = 'Commentaar;';
 const L_COMMENT_DELETE_CONFIRM = 'Commentaar verwijderen ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Publicatie bevestigen';
-const L_COMMENT_ANSWER_BUTTON = 'Antwoorden op commentaar';
+const L_COMMENT_ANSWER_BUTTON = 'Antwoorden';
 const L_COMMENT_UPDATE_BUTTON = 'Aanpassingen doorvoeren';
 const L_COMMENT_WRITTEN_BY = 'Geschreven door';
 const L_COMMENT_SAVE_SUCCESSFUL = 'Commentaar succesvol opgeslagen';
@@ -191,6 +193,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validatie van de commentaar succesvol doo
 const L_COMMENT_VALIDATE_ERR = 'Er is een fout opgetreden bij het valideren van de commentaar';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Moderatie succesvol uitgevoerd';
 const L_COMMENT_MODERATE_ERR = 'Er is een fout opgetreden tijdens de moderatie';
+const L_WATCH = 'Kijken';
+const L_SEND_MAIL = 'Een email sturen';
 
 // sous_navigation/commentaires.php
 
@@ -227,7 +231,7 @@ const L_SPECIFIC_CATEGORIES_TABLE = 'Specifieke locatie';
 const L_ALL_ARTICLES_CATEGORIES_TABLE = 'Alle artikels';
 const L_ARTICLES_LIST = 'Lijst met artikels';
 const L_ARTICLE_LIST_CATEGORIES = 'Categorie';
-const L_ARTICLE_LIST_NBCOMS = 'Aantal comm.';
+const L_ARTICLE_LIST_NBCOMS = 'Com.';
 const L_ARTICLE_VIEW_TITLE = 'Bekijk het artikel op de site';
 const L_EDIT = 'Aanpassen';
 const L_ARTICLE_EDIT_TITLE = 'Artikel aanpassen';
@@ -275,6 +279,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Niet in staat om de link te kopiëren naar he
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Koppeling gekopieerd';
 const L_MEDIAS_NEW_NAME = 'Nieuwe naam';
 const L_MEDIAS_RENAME = 'Andere naam geven';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option';
 const L_SORT_ASCENDING_DATE = 'datum oplopend';
 const L_SORT_DESCENDING_DATE = 'datum aflopend';
 const L_SORT_ALPHABETICAL = 'alfabetisch';
@@ -340,13 +347,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Klant ID';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Client geheime sleutel';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Genereer een token';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Hulp nodig : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Hulp nodig : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Er is geen configuratie vereist voor sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'SMTP-servernaam (voorbeeld : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Gebruikersnaam op de SMTP-host (voorbeeld : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Gebruikerswachtwoord op de SMTP-host';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'SMTP-hostpoortnummer (standaard : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'Met PluXml kunnen alleen tokens voor de service worden gegenereerd <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Hulp nodig bij het genereren van de gebruikersnaam en de geheime sleutel : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'Met PluXml kunnen alleen tokens voor de service worden gegenereerd GOOGLE.' . PHP_EOL . 'Hulp nodig bij het genereren van de gebruikersnaam en de geheime sleutel : WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Klant-ID voor de OAUTH2-service (voorbeeld : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'De clientsleutel op de OAUTH2-service (voorbeeld : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Sla de klant-ID en klantgeheime code op zodat u het token kunt genereren.';
@@ -368,7 +375,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Deze informatie kan handig zijn om eventuele
 const L_CONFIG_INFOS_NB_CATS = 'aantal categorie?n :';
 const L_CONFIG_INFOS_NB_STATICS = 'aantal statische paginas :';
 const L_CONFIG_INFOS_WRITER = 'Naam redacteur :';
-const L_PLUXML_CHECK_VERSION = 'Uw huidige versie van PluXml wordt vergeleken met de nieuwste op de website van PluXML';
+const L_PLUXML_CHECK_VERSION = 'Uw huidige versie van PluXml wordt vergeleken met de nieuwste op de website van %s';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Onmogelijk om updates te vinden zolang de optie \'allow_url_fopen\' gedesactiveerd is op dit systeem';
 const L_PLUXML_UPDATE_ERR = 'De verificatie van updates kon om een onbekende reden niet doorgevoerd worden';
 const L_PLUXML_UPTODATE = 'U beschikt over de laatste versie van PluXml';
@@ -424,8 +431,6 @@ const L_STATIC_VIEW_PAGE = 'Bekijk de pagina';
 const L_STATIC_ON_SITE = 'op de site';
 const L_STATIC_UPDATE = 'Statische pagina opslaan';
 const L_TITLE_HTMLTAG = 'Title tag inhoud (optioneel)';
-const L_STATIC_META_DESCRIPTION = 'META-tag "description" voor deze statische pagina (optioneel)';
-const L_STATIC_META_KEYWORDS = 'META-tag "keywords" voor deze statische pagina (optioneel)';
 const L_STATICS_PAGE_TITLE = 'Aanmaken en aanpassen van statische paginas';
 const L_STATICS_GROUP = 'Groep';
 const L_STATICS_URL = 'Url';
@@ -457,10 +462,9 @@ const L_MENU_CATEGORIES_TITLE = 'Categorie?n aanmaken, beheren, verwijderen';
 const L_MENU_CONFIG_TITLE = 'PluXml configureren';
 const L_MENU_CONFIG = 'Parameters';
 const L_MENU_PROFIL_TITLE = 'Uw gebruikersprofiel beheren';
-const L_WARNING_INSTALLATION_FILE = 'het bestand install.php is nog aanwezig in de basismap van uw PluXml.<br />Om veiligheidsredenen raden wij u aan dit bestand te <a class="lnkdelete" href="?del=install">verwijderen</a> of te hernoemen.';
+const L_WARNING_INSTALLATION_FILE = 'het bestand install.php is nog aanwezig in de basismap van uw PluXml.' . PHP_EOL .'Om veiligheidsredenen raden wij u aan dit bestand te <a class="lnkdelete" href="?del=install">verwijderen</a> of te hernoemen.';
 const L_USER_UNKNOWN = 'Onbekende gebruiker';
 const L_USER_LANG = 'Gebruikte taal in adminstratief gedeelte';
-const L_MAIL_ADDRESS = 'Emailadres';
 const L_USER_UPDATE = 'Deze gebruiker aanpassen';
 const L_USER_PAGE_TITLE = 'Gebruikersopties aanpassen';
 const L_USER_BACK_TO_PAGE = 'Terug naar gebruikerslijst';

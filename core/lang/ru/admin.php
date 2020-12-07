@@ -2,7 +2,11 @@
 
 const L_MENU = 'меню';
 const L_UNKNOWN_ERROR = 'Неизвестная ошибка';
-const L_CONFIRM_DELETE = 'Подтвердите удаление ?';
+const L_CONFIRM_DELETE = 'Подтвердите удаление 999 пунктов ?';
+const L_CONFIRM_ACTIVATE = 'подтвердить включение 999 пунктов ?';
+const L_CONFIRM_DEACTIVATE = 'Подтвердить отключение 999 пунктов ?';
+const L_CONFIRM_OFFLINE = 'Убедитесь, что 999 комментариев были офлайн ?';
+const L_CONFIRM_ONLINE = 'Подтвердите загрузку 999 комментариев ?';
 const L_SAVE_FILE = 'Сохраните файл';
 const L_SAVE_FILE_SUCCESSFULLY = 'Файл успешно сохранены';
 const L_SAVE_FILE_ERROR = 'Ошибка при сохранении файла';
@@ -48,6 +52,8 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Комментарий был успеш�
 const L_COMMENT_VALIDATE_ERR = 'Ошибка при проверке';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Успешная модерация';
 const L_COMMENT_MODERATE_ERR = 'Ошибка при модерации';
+const L_WATCH = 'смотреть';
+const L_SEND_MAIL = 'Отправить электронное письмо';
 const L_ERR_URL_ALREADY_EXISTS = 'Адрес уже используется. Пожалуйста, измените значение поля \'Адрес\'';
 
 // class.plx.media.php
@@ -112,12 +118,12 @@ const L_ARTICLE_DELETE_CONFIRM = 'Удалить эту статью?';
 const L_ARTICLE_PREVIEW_BUTTON = 'Предварительный просмотр';
 const L_ARTICLE_DRAFT_BUTTON = 'Превью';
 const L_ARTICLE_PUBLISHING_BUTTON = 'Опубликовать';
-const L_ARTICLE_MODERATE_BUTTON = 'Предоставить автору блога на модерацию';
+const L_ARTICLE_MODERATE_BUTTON = 'Утвердить';
 const L_SET_OFFLINE = 'Выключить (перевести в оффлайн)';
 const L_SAVE = 'Сохранить';
 const L_ADD = 'Добавить';
-const L_ARTICLE_META_DESCRIPTION = 'Мета-тег описания "Description" (необязательно)';
-const L_ARTICLE_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
+const L_META_DESCRIPTION = 'Мета-тег описания "Description" (необязательно)';
+const L_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
 const L_ARTICLE_CHAPO_HIDE = 'скрыть';
 const L_ARTICLE_CHAPO_DISPLAY = 'показать';
 
@@ -130,7 +136,7 @@ const L_AUTH_LOGIN_FIELD = 'Логин';
 const L_AUTH_LOST_FIELD = 'Логин или адрес электронной почты';
 const L_SUBMIT_BUTTON = 'Войти';
 const L_ERR_WRONG_PASSWORD = 'Неправильный логин или пароль';
-const L_POWERED_BY = 'Powered by <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Powered by <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Слишком много неудачных Войти<br />Повторите попытку через% S минут';
 const L_LOST_PASSWORD = 'Забыли пароль?';
 const L_LOST_PASSWORD_LOGIN = 'Aвторизоваться';
@@ -173,8 +179,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Показать в этой категор�
 const L_TEMPLATE = 'Тема';
 const L_EDITCAT_BACK_TO_PAGE = 'Вернуться к категориям';
 const L_EDITCAT_UPDATE = 'Обновление этой категории';
-const L_EDITCAT_META_DESCRIPTION = 'Мета-тег описания "Description" (необязательно)';
-const L_EDITCAT_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
 
 // commentaire.php
 
@@ -197,7 +201,7 @@ const L_COMMENT_LINKED_ARTICLE_FIELD = 'Связанные статьи';
 const L_COMMENT_ARTICLE_FIELD = 'Комментарии';
 const L_COMMENT_DELETE_CONFIRM = 'Удалить этот комментарий?';
 const L_COMMENT_PUBLISH_BUTTON = 'Подтверждение публикации';
-const L_COMMENT_ANSWER_BUTTON = 'Ответить на этот комментарий';
+const L_COMMENT_ANSWER_BUTTON = 'Ответить';
 const L_COMMENT_UPDATE_BUTTON = 'Обновить';
 const L_COMMENT_WRITTEN_BY = 'Автор';
 const L_ERR_CATEGORY_ALREADY_EXISTS = 'Название категории уже используется';
@@ -249,7 +253,7 @@ const L_SPECIFIC_CATEGORIES_TABLE = 'Особые категории';
 const L_ALL_ARTICLES_CATEGORIES_TABLE = 'Все статьи';
 const L_ARTICLES_LIST = 'Список статей';
 const L_ARTICLE_LIST_CATEGORIES = 'Категории';
-const L_ARTICLE_LIST_NBCOMS = 'Коммент.';
+const L_ARTICLE_LIST_NBCOMS = 'Ком.';
 const L_ARTICLE_VIEW_TITLE = 'Открыть эту статью';
 const L_EDIT = 'Изменить';
 const L_ARTICLE_EDIT_TITLE = 'Изменить эту статью';
@@ -283,7 +287,7 @@ const L_MEDIAS_THUMBS = 'Создание миниатюр';
 const L_MEDIAS_THUMBS_NONE = 'Без эскиза';
 const L_MEDIAS_MODIFY = 'Изменить';
 const L_MEDIAS_THUMB = 'Эскиз';
-const L_MEDIAS_EXTENSION = 'Расширение';
+const L_MEDIAS_EXTENSION = 'Рас.';
 const L_MEDIAS_ALIGNMENT = 'Выравнивание';
 const L_MEDIAS_ALIGN_LEFT = 'Слева';
 const L_MEDIAS_ALIGN_CENTER = 'Центр';
@@ -294,6 +298,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Невозможно скопировать �
 const L_MEDIAS_LINK_COPYCLP_DONE = 'ссылка скопирована';
 const L_MEDIAS_NEW_NAME = 'Новое имя';
 const L_MEDIAS_RENAME = 'Переименование';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option';
 
 // parametres_affichage.php
 
@@ -357,13 +364,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Идентификатор кли�
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Секретный ключ клиента';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'токен';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Создать токен';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Нужна помощь : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Нужна помощь : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Для sendmail не требуется настройка.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Имя SMTP-сервера (пример : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Имя пользователя на узле SMTP (пример : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Пароль пользователя на хосте SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Номер порта хоста SMTP (по умолчанию : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml позволяет генерировать токены только для сервиса <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Нужна помощь в создании имени пользователя и секретного ключа : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">PluXml documentation</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml позволяет генерировать токены только для сервиса GOOGLE.' . PHP_EOL . 'Нужна помощь в создании имени пользователя и секретного ключа : WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Идентификатор клиента в сервисе OAUTH2 (пример: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'Ключ клиента на сервисе OAUTH2 (пример: PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Сохраните идентификатор клиента и секретный код клиента, чтобы вы могли сгенерировать токен.';
@@ -394,7 +401,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Информацио о установлен
 const L_CONFIG_INFOS_NB_CATS = 'N° категорий :';
 const L_CONFIG_INFOS_NB_STATICS = 'N° статических страниц :';
 const L_CONFIG_INFOS_WRITER = 'N° пользователей за сессию :';
-const L_PLUXML_CHECK_VERSION = 'Проверка номера версии PluXml на официальном сайте PluXml.org :';
+const L_PLUXML_CHECK_VERSION = 'Проверка номера версии PluXml на официальном сайте %s :';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Невозможно проверить обновление, так как адрес \'allow_url_fopen\' заблокирован на этом компьютере';
 const L_PLUXML_UPDATE_ERR = 'Проверка обновления окончилась неудачно по неизвестной причине';
 const L_PLUXML_UPTODATE = 'Вы используете последнюю версию PluXml';
@@ -463,8 +470,6 @@ const L_STATIC_VIEW_PAGE = 'Просмотр страницы';
 const L_STATIC_ON_SITE = 'на сайте';
 const L_STATIC_UPDATE = 'Сохранить эту страницу';
 const L_TITLE_HTMLTAG = 'Заголовок для тега "Title" (необязательно)';
-const L_STATIC_META_DESCRIPTION = 'Мета-тег описания "Description" этой статической страницы (необязательно)';
-const L_STATIC_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" этой статической страницы (необязательно)';
 
 // statiques.php
 
@@ -502,12 +507,11 @@ const L_MENU_CATEGORIES_TITLE = 'Создание, управление и ре�
 const L_MENU_CONFIG_TITLE = 'Конфигурация PluXml';
 const L_MENU_CONFIG = 'Настройки';
 const L_MENU_PROFIL_TITLE = 'Управление профилем пользователя';
-const L_WARNING_INSTALLATION_FILE = 'Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем <a class="lnkdelete" href="?del=install">удалить</a> его.';
+const L_WARNING_INSTALLATION_FILE = 'Внимание! Файл install.php все еще находится в корневой папке PluXml.' . PHP_EOL .'Из соображений безопасности настоятельно рекомендуем <a class="lnkdelete" href="?del=install">удалить</a> его.';
 
 // user.php
 const L_USER_UNKNOWN = 'Неизвестный пользователь';
 const L_USER_LANG = 'Язык, используемый в Администрировании';
-const L_MAIL_ADDRESS = 'Email адрес';
 const L_USER_UPDATE = 'Обновление этого пользователя';
 const L_USER_PAGE_TITLE = 'Редактирование параметров пользователя';
 const L_USER_BACK_TO_PAGE = 'Вернуться к списку пользователей';

@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED				= 'Commentaren zijn afgesloten';
 const L_SITE_DESCRIPTION			= 'Blog of Cms in XML !';
 const L_SAVE_SUCCESSFUL				= 'Gegevens succesvol opgeslagen';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Artikel succesvol aangemaakt';
+const L_MAIL_ADDRESS				= 'Emailadres';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'De standaardlayout van PluXml werd niet gevonden';
@@ -157,4 +158,4 @@ const L_ART_PREV					= 'Vorige';
 const L_ART_NEXT					= 'De volgende';
 const L_ART_LAST					= 'Laatste';
 const L_ART_UP						= 'Omhoog gaan';
-?>
+

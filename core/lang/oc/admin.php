@@ -2,7 +2,11 @@
 
 const L_MENU = 'Menú';
 const L_UNKNOWN_ERROR = 'Error desconeguda';
-const L_CONFIRM_DELETE = 'Confirmar la supression ?';
+const L_CONFIRM_DELETE = 'Confirmar la supression de 999 elements ?';
+const L_CONFIRM_ACTIVATE = 'Confirmer l\'activation de 999 éléments ?'
+const L_CONFIRM_DEACTIVATE = 'Confirmer la désactivation de 999 éléments ?'
+const L_CONFIRM_OFFLINE = 'Confirmer la mise hors-ligne de 999 commentaires ?';
+const L_CONFIRM_ONLINE = 'Confirmer la mise en ligne de 999 commentaires ?';
 const L_SAVE_FILE = 'Salvagardar lo fichièr';
 const L_SAVE_FILE_SUCCESSFULLY = 'Fichièr enregistrat amb succès';
 const L_SAVE_FILE_ERROR = 'Error pendent l\'enregistrament del fichièr';
@@ -48,6 +52,9 @@ const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validacion efectuada amb succès';
 const L_COMMENT_VALIDATE_ERR = 'Una error es subrevenguda pendent la validacion';
 const L_COMMENT_MODERATE_SUCCESSFUL = 'Moderacion efectuada amb succès';
 const L_COMMENT_MODERATE_ERR = 'Una error es subrevenguda al temps de la moderacion';
+const L_WATCH = 'Regarder';
+const L_SEND_MAIL = 'Envoyer un courriel';
+
 const L_ERR_URL_ALREADY_EXISTS = 'Url ja utilizada. Volgatz modificar la valor del camp \'Url\'';
 
 // class.plx.media.php
@@ -112,12 +119,12 @@ const L_ARTICLE_DELETE_CONFIRM = 'Suprimir aqueste article ?';
 const L_ARTICLE_PREVIEW_BUTTON = 'Apercebut';
 const L_ARTICLE_DRAFT_BUTTON = 'Enregistrar borrolhon';
 const L_ARTICLE_PUBLISHING_BUTTON = 'Publicar';
-const L_ARTICLE_MODERATE_BUTTON = 'Sosmetre per validacion';
+const L_ARTICLE_MODERATE_BUTTON = 'Per validacion';
 const L_SET_OFFLINE = 'Metre fòra linha';
 const L_SAVE = 'Enregistrar';
 const L_ADD = 'Ajustar';
-const L_ARTICLE_META_DESCRIPTION = 'Contengut balisa meta « descripcion » (opcion)';
-const L_ARTICLE_META_KEYWORDS = 'Contengut balisa meta « keywords » (opcion)';
+const L_META_DESCRIPTION = 'Contengut balisa meta « descripcion » (opcion)';
+const L_META_KEYWORDS = 'Contengut balisa meta « keywords » (opcion)';
 const L_ARTICLE_CHAPO_HIDE = 'mascar';
 const L_ARTICLE_CHAPO_DISPLAY = 'afichar';
 
@@ -131,7 +138,7 @@ const L_AUTH_LOST_FIELD = 'Identificant o adreça electronica';
 
 const L_SUBMIT_BUTTON = 'Validar';
 const L_ERR_WRONG_PASSWORD = 'Identificant e/o senhal incorrèct';
-const L_POWERED_BY = 'Generat per <a href="https://www.pluxml.org">PluXml</a>';
+const L_POWERED_BY = 'Generat per <a href="https://www.%s">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de pròvas atent<br />Tornatz ensajar d’aquí %s minutas';
 const L_LOST_PASSWORD = 'Senhal oblidat&nbsp;?';
 const L_LOST_PASSWORD_LOGIN = 'Se connectar';
@@ -174,8 +181,6 @@ const L_EDITCAT_DISPLAY_HOMEPAGE = 'Afichar los articles d\'aquesta categoria su
 const L_TEMPLATE = 'Modèl';
 const L_EDITCAT_BACK_TO_PAGE = 'Tornar a la lista de las categorias';
 const L_EDITCAT_UPDATE = 'Metre a jorn aquesta categoria';
-const L_EDITCAT_META_DESCRIPTION = 'Contengut de la balisa meta "descripcion" per aquesta categoria (opcion)';
-const L_EDITCAT_META_KEYWORDS = 'Contengut de la balisa meta "keywords" per aquesta categoria (opcion)';
 
 // commentaire.php
 
@@ -198,7 +203,7 @@ const L_COMMENT_LINKED_ARTICLE_FIELD = 'Article estacat';
 const L_COMMENT_ARTICLE_FIELD = 'Comentari';
 const L_COMMENT_DELETE_CONFIRM = 'Suprimir aqueste comentari ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Validar la publicacion';
-const L_COMMENT_ANSWER_BUTTON = 'Respondre a-n aquel comentari';
+const L_COMMENT_ANSWER_BUTTON = 'Respondre';
 const L_COMMENT_UPDATE_BUTTON = 'Metre a jorn';
 const L_COMMENT_WRITTEN_BY = 'Redigit per';
 const L_ERR_CATEGORY_ALREADY_EXISTS = 'Nom de categoria ja utilizat';
@@ -247,7 +252,7 @@ const L_SPECIFIC_CATEGORIES_TABLE = 'Emplaçaments especifics';
 const L_ALL_ARTICLES_CATEGORIES_TABLE = 'Totes los articles';
 const L_ARTICLES_LIST = 'Lista dels articles';
 const L_ARTICLE_LIST_CATEGORIES = 'Categoria';
-const L_ARTICLE_LIST_NBCOMS = 'Nb coms';
+const L_ARTICLE_LIST_NBCOMS = 'Coms';
 const L_ARTICLE_VIEW_TITLE = 'Visualizar aquel article sul site';
 const L_EDIT = 'Editar';
 const L_ARTICLE_EDIT_TITLE = 'Editar aquel article';
@@ -281,7 +286,7 @@ const L_MEDIAS_THUMBS = 'Crear miniaturas';
 const L_MEDIAS_THUMBS_NONE = 'Cap de miniatura';
 const L_MEDIAS_MODIFY = 'Modificar';
 const L_MEDIAS_THUMB = 'Miniatura';
-const L_MEDIAS_EXTENSION = 'Extension';
+const L_MEDIAS_EXTENSION = 'Ext.';
 const L_MEDIAS_ALIGNMENT = 'Alinhament';
 const L_MEDIAS_ALIGN_LEFT = 'Esquèrra';
 const L_MEDIAS_ALIGN_CENTER = 'Centre';
@@ -292,6 +297,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Fracàs de la còpia del ligam al quichapapi�
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Ligam copiat';
 const L_MEDIAS_NEW_NAME = 'Novèl nom';
 const L_MEDIAS_RENAME = 'Renommar';
+const L_CONFIRM_THUMBNAIL = 'Confirmer la création de 999 vignettes';
+const L_CONFIRM_MOVE_MEDIAS = 'Confirmer le déplacement de 999 documents';
+const L_REQUIRED_OPTION = 'Vous devez sélectionner une option';
 
 // parametres_affichage.php
 
@@ -355,13 +363,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID del client';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Clau secreta del client';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Geton';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generar un geton';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Vos fa besonh d’ajuda : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails"> documentacion PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Vos fa besonh d’ajuda : <a href="https://wiki.%s/personnaliser/personnalisation/#envoi-de-mails"> documentacion PluXml</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Pas cap de configuracion es requerida per sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom del servidor SMTP (exemple : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nom d’utilizaire de l\'òste SMTP (exemple : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Senhal de l’utilizaire sus l’òste ';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numèro de pòrt de l’òste SMTP (predeterminat : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de generar de fichièrs solament pel servici <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : <a href="https://wiki.pluxml.org/personnaliser/personnalisation/#envoi-de-mails">documentation PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de generar de fichièrs solament pel servici GOOGLE.' . PHP_EOL . 'Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : WIKI.';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identificant de client al servici OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clau de client del servici OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrar l’ID client e lo còdi secrèt per poder generar lo geton.';
@@ -392,7 +400,7 @@ const L_CONFIG_INFOS_DESCRIPTION = 'Aquelas informacions vos entresenhan sul fon
 const L_CONFIG_INFOS_NB_CATS = 'Nombre de categorias :';
 const L_CONFIG_INFOS_NB_STATICS = 'Nombre de paginas estaticas :';
 const L_CONFIG_INFOS_WRITER = 'Nom del redactor en session :';
-const L_PLUXML_CHECK_VERSION = 'Verificacion del numèro de version de PluXml sul site oficial PluXml.org';
+const L_PLUXML_CHECK_VERSION = 'Verificacion del numèro de version de PluXml sul site oficial %s';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Impossible de verificar las mesas a jorn mentre que \'allow_url_fopen\' es desactivat sul sistèma';
 const L_PLUXML_UPDATE_ERR = 'La verificacion de mesa a jorn s\'es abocada per una rason desconeguda';
 const L_PLUXML_UPTODATE = 'Utilizatz la darrièra version de PluXml';
@@ -461,8 +469,6 @@ const L_STATIC_VIEW_PAGE = 'Visualizar la pagina';
 const L_STATIC_ON_SITE = 'sul site';
 const L_STATIC_UPDATE = 'Enregistrar aquela pagina estatica';
 const L_TITLE_HTMLTAG = 'Contengut balisa títol (opcion)';
-const L_STATIC_META_DESCRIPTION = 'Contengut de la balisa meta « descripcion » per aquela pagina estatica (opcion)';
-const L_STATIC_META_KEYWORDS = 'Contengut de la balisa meta « keywords » per aquela pagina estatica (opcion)';
 
 // statiques.php
 
@@ -500,12 +506,11 @@ const L_MENU_CATEGORIES_TITLE = 'Crear, gerir, editar las categorias';
 const L_MENU_CONFIG_TITLE = 'Configurar PluXml';
 const L_MENU_CONFIG = 'Paramètres';
 const L_MENU_PROFIL_TITLE = 'Gerir vòstre perfil utilizaire';
-const L_WARNING_INSTALLATION_FILE = 'Lo fichièr install.php es present a la raiç de vòstre PluXml.<br />Per de rasons de seguretat, es fòrtament conselhat d\'o <a class="lnkdelete" href="?del=install">suprimir</a>.';
+const L_WARNING_INSTALLATION_FILE = 'Lo fichièr install.php es present a la raiç de vòstre PluXml.' . PHP_EOL .'Per de rasons de seguretat, es fòrtament conselhat d\'o <a class="lnkdelete" href="?del=install">suprimir</a>.';
 
 // user.php
 const L_USER_UNKNOWN = 'Utilizaire desconegut';
 const L_USER_LANG = 'Lenga utilizada dins l\'administracion';
-const L_MAIL_ADDRESS = 'Adreça de corrièl';
 const L_USER_UPDATE = 'Metre a jorn aquel utilizaire';
 const L_USER_PAGE_TITLE = 'Edicion de las opcions de l\'utilizaire';
 const L_USER_BACK_TO_PAGE = 'Tornar a la lista dels utilizaires';

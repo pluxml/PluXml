@@ -49,17 +49,30 @@ class plxRecord {
 	 *
 	 * @param	field	clef du tableau à retourner
 	 * @return	string ou false
-	 * @author	Anthony GUÉRIN et Florent MONTHEL
+	 * @author	Anthony GUÉRIN et Florent MONTHEL, Jean-Pierre Pourrez
 	 **/
 	public function f($field) {
 
-		if($this->i === -1) # Compteur négatif
+		if($this->i === -1) {
+			# Compteur négatif
 			$this->i++;
-		# On controle que le champ demande existe bien
-		if(isset($this->result[ $this->i ][ $field ]))
-			return $this->result[ $this->i ][ $field ];
-		else # Sinon on sort par une valeur negative
-			return false;
+		}
+
+		if($this->i < count($this->result)) {
+			$item = $this->result[ $this->i ];
+			# On controle que le champ demande existe bien
+			if(isset($item[$field]))
+				return $item[$field];
+			else {
+				# Pour rétro-compatibilité
+				if($field == 'date' and isset($item['date_publication'])) {
+					return $item['date_publication'];
+				}
+			}
+		}
+
+		# Echec. Sinon on sort par une valeur negative
+		return false;
 	}
 
 	/**

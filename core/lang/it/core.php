@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED				= 'Commenti bloccati';
 const L_SITE_DESCRIPTION			= 'Blog o Cms XML powered !';
 const L_SAVE_SUCCESSFUL				= 'Dati salvati con successo';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Articolo creato con successo';
+const L_MAIL_ADDRESS				= 'Indirizzo email';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Tema principale non trovato';
@@ -158,4 +159,4 @@ const L_ART_PREV					= 'Precedente';
 const L_ART_NEXT					= 'Il prossimo';
 const L_ART_LAST					= 'Scorso';
 const L_ART_UP						= 'Vai su';
-?>
+

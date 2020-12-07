@@ -25,6 +25,7 @@ const L_COMMENTS_CLOSED				= 'Komentarze zostały wyłączone';
 const L_SITE_DESCRIPTION			= 'Blog i CMS oparty na XML !';
 const L_SAVE_SUCCESSFUL				= 'Zapisywanie zakończone powodzeniem';
 const L_ARTICLE_SAVE_SUCCESSFUL		= 'Post został pomyślnie utworzony';
+const L_MAIL_ADDRESS				= 'Adres e-mail';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Nie odnaleziono głównego szablonu PluXml';
@@ -158,4 +159,4 @@ const L_ART_PREV					= 'Poprzedni';
 const L_ART_NEXT					= 'Kolejny';
 const L_ART_LAST					= 'Ostatni';
 const L_ART_UP						= 'Wzrastać';
-?>
+

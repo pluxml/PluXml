@@ -121,7 +121,8 @@ class plxGlob {
 						# On decoupe le nom du fichier
 						$index = explode('.',$file);
 						# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-						$key = ($tri === 'alpha' OR $tri === 'ralpha') ? $index[4].'~'.$index[0] : $index[3].$index[0];
+						# on ne tient pas compte d'un article modéré ou non
+						$key = ($tri === 'alpha' OR $tri === 'ralpha') ? $index[4].'~'. substr($index[0], -4) : $index[3] . substr($index[0], -4);
 						if($publi === 'before' AND $index[3] <= date('YmdHi'))
 							$array[$key] = $file;
 						elseif($publi === 'after' AND $index[3] >= date('YmdHi'))

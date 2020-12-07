@@ -1,3 +1,4 @@
+<!------ Start of foot.php ----->
 <?php if(!defined('PLX_ROOT')) exit; ?>
 
 		</section>
@@ -6,18 +7,14 @@
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) # Hook Plugins ?>
 
-<script src="../lib/functions.js?v=<?= PLX_VERSION ?>"></script>
-<script src="../lib/visual.js?v=<?= PLX_VERSION ?>"></script>
-<script src="../lib/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
-<script src="../lib/multifiles.js?v=<?= PLX_VERSION ?>"></script>
-<script src="../lib/drag-and-drop.js"></script>
-<script>
-	mediasManager.construct({
-		windowName : '<?php echo L_MEDIAS_TITLE ?>',
-		racine:	'<?php echo plxUtils::getRacine() ?>',
-		urlManager: '<?= PLX_ADMIN_PATH?>medias.php'
-	});
+<script src="scripts/functions.js?v=<?= PLX_VERSION ?>"></script>
+<script src="scripts/visual.js?v=<?= PLX_VERSION ?>"></script>
+<script src="scripts/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
+<script src="scripts/multifiles.js?v=<?= PLX_VERSION ?>"></script>
+<script src="scripts/drag-and-drop.js"></script>
+<script src="scripts/medias.js"></script>
 
+<script>
 	(function(query) {
 
 		'use strict';
@@ -44,7 +41,7 @@
 				// interdire la sélection des dossiers
 				var option = this.filesSelect.options[this.filesSelect.selectedIndex];
 				if(option.value.length == 0 || option.hasAttribute('data-folder')) {
-					alert("<?php echo L_FILE_REQUIRED;?>");
+					alert('<?= L_FILE_REQUIRED;?>');
 					event.preventDefault();
 				}
 			}

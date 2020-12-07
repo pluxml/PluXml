@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Edition des paramètres avancés
  *
@@ -6,7 +7,7 @@
  * @author    Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -24,265 +25,249 @@ if (!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 ?>
 
-<form action="parametres_avances.php" method="post" id="form_settings">
+<form method="post" id="form_advanced_settings" class="first-level">
     <div class="adminheader">
-        <div class="mbm">
+        <div>
             <h2 class="h3-like"><?= L_CONFIG_ADVANCED ?></h2>
-            <input class="inbl btn--primary" type="submit" name="profil" role="button"
-                   value="<?= L_CONFIG_ADVANCED_UPDATE ?>"/>
+        </div>
+        <div>
+			<div>
+				<button class="btn--primary" name="config-more" role="button"><?= L_SAVE ?></button>
+			</div>
         </div>
     </div>
-
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
-
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop'));
+?>
     <fieldset>
-        <div class="grid-2">
+<?php
+
+# one batch of checkboxes
+foreach(array(
+	'urlrewriting'			=> array(true,	L_CONFIG_ADVANCED_URL_REWRITE),
+	'cleanurl'				=> array(true,	L_CONFIG_CLEAN_URLS, L_CONFIG_CLEAN_URLS_HELP),
+	'gzip'					=> array(true,	L_CONFIG_ADVANCED_GZIP, L_CONFIG_ADVANCED_GZIP_HELP),
+	'lostpassword'			=> array(true,	L_CONFIG_ADVANCED_LOSTPASSWORD),
+	'capcha'				=> array(true,	L_CONFIG_ADVANCED_CAPCHA),
+	'userfolders'			=> array(true,	L_CONFIG_ADVANCED_USERFOLDERS),
+
+	'clef'					=> array(false,	L_CONFIG_ADVANCED_ADMIN_KEY),
+	'config_path'			=> array(false,	L_CONFIG_ADVANCED_CONFIG_FOLDER, L_SLASH_END_REQUIRED),
+	'racine_articles'		=> array(false,	L_CONFIG_ADVANCED_ARTS_FOLDER, L_SLASH_END_REQUIRED),
+	'racine_commentaires'	=> array(false,	L_CONFIG_ADVANCED_COMS_FOLDER, L_SLASH_END_REQUIRED),
+	'racine_statiques'		=> array(false,	L_CONFIG_ADVANCED_STATS_FOLDER, L_SLASH_END_REQUIRED),
+	'medias'				=> array(false,	L_CONFIG_ADVANCED_MEDIAS_FOLDER, L_SLASH_END_REQUIRED),
+	'racine_themes'			=> array(false,	L_CONFIG_ADVANCED_THEMES_FOLDER, L_SLASH_END_REQUIRED),
+	'racine_plugins'		=> array(false,	L_CONFIG_ADVANCED_ARTS_FOLDER, L_SLASH_END_REQUIRED),
+	'custom_admincss_file'	=> array(false,	L_CONFIG_CUSTOM_CSSADMIN_PATH, L_CONFIG_CUSTOM_CSSADMIN_PATH_HELP),
+) as $k=>$infos) {
+	$id = 'id_' . $k;
+	if($k != 'urlrewriting' or plxUtils::testModRewrite(false)) {
+?>
+		<div <?= $infos[0] ? 'class="bool"' : '' ?>>
             <div>
-                <label for="id_urlrewriting"><?= L_CONFIG_ADVANCED_URL_REWRITE ?></label>
-                <?php if (is_file(PLX_ROOT . '.htaccess') and $plxAdmin->aConf['urlrewriting'] == 0): ?>
-                    <p><small><?= L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?></small></p>
-                <?php endif; ?>
-            </div>
-            <div>
-                <?php if (plxUtils::testModRewrite(false)): ?>
-                    <?php plxUtils::printSelect('urlrewriting', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['urlrewriting']); ?>
-                <?php else: ?>
-                    <?= L_MODREWRITE_NOT_AVAILABLE ?>
-                <?php endif; ?>
-            </div>
-            <div>
-                <label for="id_gzip"><?= L_CONFIG_CLEAN_URLS ?></label>
+                <label for="<?= $id ?>"><?= $infos[1] ?></label>
+<?php
+		if(isset($infos[2])) {
+			# tooltip
+			switch($k) {
+				case 'cleanurl' :
+				case 'config_path':
+				case 'custom_admincss_file': $extra = ' left'; break;
+				# case 'custom_admincss_file': $extra = ' right'; break;
+				default: $extra = '';
+			}
+?>
                 <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_CLEAN_URLS_HELP ?></span>
+                    <span class="tooltiptext<?= $extra ?>"><?= $infos[2] ?></span>
                 </div>
+<?php
+		}
+?>
             </div>
+<?php
+		if($infos[0]) {
+			# boolean value
+			$checked= (!empty($plxAdmin->aConf[$k])) ? ' checked' : '';
+?>
+			<input type="checkbox" name="<?= $k ?>" value="1" id="<?= $id ?>"<?= $checked ?> />
+<?php
+		} else {
+			# textual value
+			$value = ($k != 'config_path') ? $plxAdmin->aConf[$k] : PLX_CONFIG_PATH;
+?>
+			<input type="text" name="<?= $k ?>" value="<?= $value ?>" id="<?= $id ?>" />
+<?php
+		}
+?>
+		</div>
+<?php
+		if($k == 'urlrewriting' and is_file(PLX_ROOT . '.htaccess')) {
+?>
+		<p class="<?= $checked ? 'active' : '' ?>">
+			<?= L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?>
+		</p>
+<?php
+		}
+	}
+?>
+<?php
+}
+
+# ------- config for mail ------
+
+const GOOGLE = '<a href="https://cloud.google.com" target="_blank">GMAIL (Google)</a>';
+const WIKI = '<a href="'. PLX_URL_WIKI .'/personnaliser/personnalisation/#envoi-de-mails" target="_blank">' . L_HELP_TITLE . '</a>';
+?>
+        <div id="email-config">
             <div>
-                <?php plxUtils::printSelect('cleanurl', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['cleanurl']); ?>
+				<label>
+	                <span><?= L_CONFIG_ADVANCED_EMAIL_METHOD ?></span>
+					<?= WIKI ?>
+				</label>
             </div>
-            <div>
-                <label for="id_gzip"><?= L_CONFIG_ADVANCED_GZIP ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_GZIP_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('gzip', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['gzip']); ?>
-            </div>
-            <div>
-                <label for="id_lostpassword"><?= L_CONFIG_ADVANCED_LOSTPASSWORD ?></label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('lostpassword', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['lostpassword']); ?>
-            </div>
-            <div>
-                <label for="id_capcha"><?= L_CONFIG_ADVANCED_CAPCHA ?></label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('capcha', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['capcha']); ?>
-            </div>
-            <div>
-                <label for="id_userfolders"><?= L_CONFIG_ADVANCED_USERFOLDERS ?></label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('userfolders', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['userfolders']); ?>
-            </div>
-            <div>
-                <label for="id_clef"><?= L_CONFIG_ADVANCED_ADMIN_KEY ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_KEY_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('clef', $plxAdmin->aConf['clef'], 'text', '30-30'); ?>
-            </div>
-            <div>
-                <label for="id_config_path"><?= L_CONFIG_ADVANCED_CONFIG_FOLDER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_SLASH_END_REQUIRED ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('config_path', PLX_CONFIG_PATH) ?>
-            </div>
-            <div>
-                <label for="id_racine_articles"><?= L_CONFIG_ADVANCED_ARTS_FOLDER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_SLASH_END_REQUIRED ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('racine_articles', $plxAdmin->aConf['racine_articles']); ?>
-            </div>
-            <div>
-                <label for="id_racine_commentaires"><?= L_CONFIG_ADVANCED_COMS_FOLDER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_SLASH_END_REQUIRED ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('racine_commentaires', $plxAdmin->aConf['racine_commentaires']); ?>
-            </div>
-            <div>
-                <label for="id_racine_statiques"><?= L_CONFIG_ADVANCED_STATS_FOLDER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_SLASH_END_REQUIRED ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('racine_statiques', $plxAdmin->aConf['racine_statiques']); ?>
-            </div>
-            <div>
-                <label for="id_medias"><?= L_CONFIG_ADVANCED_MEDIAS_FOLDER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_SLASH_END_REQUIRED ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('medias', $plxAdmin->aConf['medias']); ?>
-            </div>
-            <div>
-                <label for="id_racine_themes"><?= L_CONFIG_ADVANCED_THEMES_FOLDER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_SLASH_END_REQUIRED ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('racine_themes', $plxAdmin->aConf['racine_themes']); ?>
-            </div>
-            <div>
-                <label for="id_racine_plugins"><?= L_CONFIG_ADVANCED_PLUGINS_FOLDER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_SLASH_END_REQUIRED ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('racine_plugins', $plxAdmin->aConf['racine_plugins']); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_CUSTOM_CSSADMIN_PATH ?></label>
-            </div>
-            <div>
-                <?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
-            </div>
-        </div>
-        <div>
-            <h2><?= L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE ?>&nbsp;:</h2>
-            <p><small><?= L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP ?></small></p>
-        </div>
-        <div class="grid-2">
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_EMAIL_METHOD ?></label>
-                <small><?= L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
-            </div>
-            <div
-            <?php plxUtils::printInputRadio('email_method', array('sendmail' => 'sendmail', 'smtp' => 'SMTP', 'smtpoauth' => 'OAUTH2'), $plxAdmin->aConf['email_method']); ?>
-        </div>
-        </div>
-        <div><h3><?= L_CONFIG_ADVANCED_SMTP_TITLE ?></h3></div>
-        <div class="grid-2">
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_SERVER ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTP_SERVER_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtp_server', $plxAdmin->aConf['smtp_server']); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_USERNAME ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTP_USERNAME_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtp_username', $plxAdmin->aConf['smtp_username']); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_PASSWORD ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtp_password', $plxAdmin->aConf['smtp_password'], 'password', '', false, '', '', 'autocomplete="new-password"'); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_PORT ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTP_PORT_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtp_port', $plxAdmin->aConf['smtp_port']); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_SECURITY ?></label>
-            </div>
-            <div>
-                <?php plxUtils::printInputRadio('smtp_security', array('0' => L_NONE1, 'ssl' => 'SSL', 'tls' => 'TLS'), $plxAdmin->aConf['smtp_security']); ?>
-            </div>
-        </div>
-        <div>
-            <h3><?= L_CONFIG_ADVANCED_SMTPOAUTH_TITLE ?></h3>
-            <p><small><?= L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP ?></small></p>
-        </div>
-        <div class="grid-2">
-            <div>
-                <label for="id_custom_admincss_file"><?= L_MAIL_ADDRESS ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtpOauth2_emailAdress', $plxAdmin->aConf['smtpOauth2_emailAdress']); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtpOauth2_clientId', $plxAdmin->aConf['smtpOauth2_clientId']); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY ?></label>
-                <div class="tooltip icon-help-circled">
-                    <span class="tooltiptext"><?= L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP ?></span>
-                </div>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtpOauth2_clientSecret', $plxAdmin->aConf['smtpOauth2_clientSecret']); ?>
-            </div>
-            <div>
-                <label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN ?></label>
-                <small><?= L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP ?></small>
-            </div>
-            <div>
-                <?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '', true); ?>
-                <?php
-                $disabled = (
-                    empty($plxAdmin->aConf['smtpOauth2_clientSecret']) &&
-                    empty($plxAdmin->aConf['smtpOauth2_clientId']) &&
-                    empty($plxAdmin->aConf['smtpOauth2_emailAdress'])
-                ) ? 'disabled' : '';
-                ?>
-                <a href="get_oauth_token.php?provider=Google">
-                    <button type="button" <?= $disabled ?>><?= L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button>
-                </a>
-            </div>
-        </div>
-    </fieldset>
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) # Hook Plugins ?>
+            <div id="email-config-tabs">
+<?php
+foreach(array(
+	'sendmail' => L_CONFIG_ADVANCED_EMAIL_METHOD_HELP,
+	'smtp'		=> array(
+		'_server'	=> array(L_CONFIG_ADVANCED_SMTP_SERVER, L_CONFIG_ADVANCED_SMTP_SERVER_HELP),
+		'_username'	=> array(L_CONFIG_ADVANCED_SMTP_USERNAME, L_CONFIG_ADVANCED_SMTP_USERNAME_HELP),
+		'_password'	=> array(L_CONFIG_ADVANCED_SMTP_PASSWORD, L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP),
+		'_port'		=> array(L_CONFIG_ADVANCED_SMTP_PORT, L_CONFIG_ADVANCED_SMTP_PORT_HELP),
+		'_security'	=> array(L_CONFIG_ADVANCED_SMTP_SECURITY, false, array(
+			'0' => L_NONE1, 'ssl' => 'SSL', 'tls' => 'TLS',
+		)),
+	),
+	'smtpOauth'	=> array(
+		'2_emailAdress'		=> array(L_MAIL_ADDRESS),
+		'2_clientId'		=> array(L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID, L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP),
+		'2_clientSecret'	=> array(L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY, L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP),
+		'2_refreshToken'	=> array(L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN, L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP),
+	),
+) as $v=>$infosPlus) {
+	$checked = ($v == $plxAdmin->aConf['email_method']) ? ' checked' : '';
+	$id0 = 'email-by-' . $v;
+?>
+				<div> <!-- ====== <?= $v ?> ====== -->
+					<input type="radio" name="email_method" value="<?= $v ?>" id="<?= $id0 ?>"<?= $checked ?> />&nbsp;<label for="<?= $id0 ?>"><?= ucfirst($v) ?></label>
+					<div id="email-config-tab-<?= $v ?>" class="tabs">
+<?php
+	if(is_string($infosPlus)) {
+?>
+						<p class="txtcenter"><?= $infosPlus ?></p>
+<?php
+	} else {
+		if($v == 'smtpOauth') {
+			# message pour information
+?>
+			<p><?= strtr(L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP, array(
+				'GOOGLE'	=> GOOGLE,
+				'WIKI'		=> WIKI,
+			)) ?></p>
+<?php
+		}
+
+		foreach($infosPlus as $k=>$infos) {
+			$id1 = 'id_' . $v . $k;
+			$value = $plxAdmin->aConf[$v . $k];
+			$className = ($v. $k == 'smtp_port') ? 'class="bool"' : '';
+?>
+						<div <?= $className ?>> <!-- <?= $v . $k ?> input -->
+							<div>
+								<label for="<?= $id1 ?>"><?= $infos[0] ?></label>
+<?php
+// --------
+			if(!empty($infos[1])) {
+				# tooltip
+				switch($v . $k) {
+					# case 'cleanurl' : $extra = ' left'; break;
+					case 'smtp_server':
+					case 'smtp_port':
+					case 'smtpOauth2_clientId':
+					case 'smtpOauth2_refreshToken': $extra = ' right'; break;
+					default: $extra = '';
+				}
+?>
+								<div class="tooltip icon-help-circled">
+				                    <span class="tooltiptext<?= $extra ?>"><?= $infos[1] ?></span>
+				                </div>
+<?php
+			}
+?>
+							</div>
+<?php
+		if($v . $k == 'smtp_security') {
+?>
+							<div class="txtcenter"> <!-- input[type="radio"] -->
+<?php
+			foreach($infos[2] as $r) {
+				$idR = $v . $r;
+				$checked = ($r == $value) ? ' checked' : '';
+?>
+								<div class="inbl">
+									<input type="radio" name="<?= $v . $k ?>" value="<?= $r ?>" id="<?= $idR ?>" <?= $checked ?> />
+									<label for="<?= $idR ?>"><?= $r ?></label>
+								</div>
+<?php
+			}
+?>
+							</div>
+<?php
+		} elseif($v . $k == 'smtpOauth2_refreshToken') {
+?>
+				            <div id="oauth-token"> <!-- input with link (Google) -->
+								<input type="text" name="<?= $v . $k ?>" value="<?= $value ?>" id="<? $id1 ?>" />
+<?php
+			$disabled = (
+				empty($plxAdmin->aConf['smtpOauth2_clientSecret']) &&
+				empty($plxAdmin->aConf['smtpOauth2_clientId']) &&
+				empty($plxAdmin->aConf['smtpOauth2_emailAdress'])
+			) ? 'disabled' : '';
+?>
+				                <a href="get_oauth_token.php?provider=Google">
+				                    <button type="button" <?= $disabled ?>><?= L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button>
+				                </a>
+				            </div>
+<?php
+		} else {
+			switch($v . $k) { # select one type for input
+				case 'smtp_port' : $type = 'number'; break;
+				case 'smtp_password' : $type ='password'; break;
+				case 'smtpOauth2_emailAdress': $type = 'email'; break;
+				default : $type = 'text';
+			}
+?>
+							<input type="<?= $type ?>" name="<?= $v . $k ?>" value="<?= $value ?>" id="<?= $id1 ?>" />
+<?php
+		}
+?>
+						</div>
+<?php
+		}
+	}
+?>
+					</div>
+				</div>
+<?php
+}
+?>
+			</div>
+		</div>
+   </fieldset>
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced'));
+?>
 </form>
 
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
+
 # On inclut le footer
-include __DIR__ . '/foot.php';
-?>
+include 'foot.php';

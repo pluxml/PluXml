@@ -6,7 +6,7 @@
  * @author  Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-class PlxThemes
+class plxThemes
 {
     public $racineTheme;
     public $activeTheme;
@@ -21,18 +21,13 @@ class PlxThemes
 
     public function getImgPreview($theme)
     {
-        $img = '';
-        if (is_file($this->racineTheme . $theme . '/preview.png')) {
-            $img = $this->racineTheme . $theme . '/preview.png';
-        } elseif (is_file($this->racineTheme . $theme . '/preview.jpg')) {
-            $img = $this->racineTheme . $theme . '/preview.jpg';
-        } elseif (is_file($this->racineTheme . $theme . '/preview.gif')) {
-            $img = $this->racineTheme . $theme . '/preview.gif';
-        }
-
-        $current = $theme == $this->activeTheme ? ' current' : '';
-        $src = (!empty($img)) ? $img : 'theme/images/theme.png';
-        return '<img class="img-preview' . $current . '" src="' . $src . '" alt="preview" />';
+		# https://github.com/docker-library/php/issues/719 (docker alpinelinux)
+		# https://www.php.net/manual/en/function.glob.php
+		# $previews = glob($this->racineTheme . $theme . '/preview.{jpg,jpeg,png,gif}',  GLOB_BRACE);
+		$previews = array_filter(glob($this->racineTheme . $theme . '/preview.*'), function($value) { return preg_match('@.*\.(?:jpe?g|png|gif)$@i', $value); });
+        $src = !empty($previews) ? $previews[0] : 'theme/images/theme.png';
+        $imgSizes = getimagesize($src);
+        return '<img class="img-preview" src="' . $src . '" alt="preview" ' . $imgSizes[3] . ' />';
     }
 
     public function getInfos($theme)

@@ -7,8 +7,7 @@
  * @author    Florent MONTHEL, Stephane F, Philippe-M, Pedro "P3ter" CADETE"
  **/
 
-include __DIR__ . '/prepend.php';
-include PLX_CORE . 'lib/class.plx.timezones.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -24,92 +23,76 @@ if (!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ . '/top.php';
+include 'top.php';
 ?>
 
-<form action="parametres_base.php" method="post" id="form_settings">
+<form method="post" id="form_base_settings" class="first-level">
+    <?= plxToken::getTokenPostMethod() ?>
     <div class="adminheader">
-        <div class="mbm">
+        <div>
             <h2 class="h3-like"><?= L_CONFIG_BASE ?></h2>
-            <input class="inbl btn--primary" type="submit" name="profil" role="button"
-                   value="<?= L_CONFIG_BASE_UPDATE ?>"/>
+        </div>
+        <div>
+			<div>
+				<input class="btn--primary" type="submit" name="config-base" role="button" value="<?= L_SAVE ?>" />
+			</div>
         </div>
     </div>
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop'));
+?>
+    <fieldset>
+<?php
+foreach(array(
+	'title'				=> L_CONFIG_BASE_SITE_TITLE,
+	'description'		=> L_CONFIG_BASE_SITE_SLOGAN,
+	'meta_description'	=> L_CONFIG_META_DESCRIPTION,
+	'meta_keywords'		=> L_CONFIG_META_KEYWORDS,
+	'default_lang'		=> array(L_CONFIG_BASE_DEFAULT_LANG, plxUtils::getLangs()),
+	'timezone'			=> array(L_TIMEZONE, plxTimezones::timezones()),
+	'allow_com'			=> array(L_ALLOW_COMMENTS),
+	'mod_com'			=> array(L_CONFIG_BASE_MODERATE_COMMENTS),
+	'mod_art'			=> array(L_CONFIG_BASE_MODERATE_ARTICLES),
+	'enable_rss'		=> array(L_CONFIG_BASE_ENABLE_RSS),
+) as $k=>$infos) {
+?>
+		<div <?= is_string($infos) ? '' : 'class="label-expanded"' ?>>
+<?php
+	if(is_string($infos)) {
+?>
+			<label for="id_<?= $k ?>"><?= $infos ?></label>
+			<input type="text" name="<?= $k ?>" value="<?= plxUtils::strCheck($plxAdmin->aConf[$k]) ?>" id="id_<?= $k ?>" />
+<?php
+	} else {
+?>
+			<label for="id_<?= $k ?>"><?= $infos[0] ?></label>
+<?php
+		if(isset($infos[1])) {
+			plxUtils::printSelect($k, $infos[1], $plxAdmin->aConf[$k]);
+		} else {
+?>
+			<input type="checkbox" name="<?= $k ?>" value="1" id="id_<?= $k ?>" class="switch" <?= !empty($plxAdmin->aConf[$k]) ? 'checked' : '' ?> />
+<?php
+		}
+	}
+?>
+		</div>
+<?php
+}
+?>
 
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop')) # Hook Plugins ?>
-
-    <fieldset class="config">
-        <div class="grid-2">
-            <div>
-                <label for="id_title"><?php echo L_CONFIG_BASE_SITE_TITLE ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printInput('title', plxUtils::strCheck($plxAdmin->aConf['title'])); ?>
-            </div>
-            <div>
-                <label for="id_description"><?php echo L_CONFIG_BASE_SITE_SLOGAN ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printInput('description', plxUtils::strCheck($plxAdmin->aConf['description'])); ?>
-            </div>
-            <div>
-                <label for="id_meta_description"><?php echo L_CONFIG_META_DESCRIPTION ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printInput('meta_description', plxUtils::strCheck($plxAdmin->aConf['meta_description'])); ?>
-            </div>
-            <div>
-                <label for="id_meta_keywords"><?php echo L_CONFIG_META_KEYWORDS ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printInput('meta_keywords', plxUtils::strCheck($plxAdmin->aConf['meta_keywords'])); ?>
-            </div>
-            <div>
-                <label for="id_default_lang"><?php echo L_CONFIG_BASE_DEFAULT_LANG ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $plxAdmin->aConf['default_lang']) ?>
-            </div>
-            <div>
-                <label for="id_timezone"><?php echo L_TIMEZONE ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $plxAdmin->aConf['timezone']); ?>
-            </div>
-            <div>
-                <label for="id_allow_com"><?php echo L_ALLOW_COMMENTS ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('allow_com', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['allow_com']); ?>
-            </div>
-            <div>
-                <label for="id_mod_com"><?php echo L_CONFIG_BASE_MODERATE_COMMENTS ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('mod_com', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['mod_com']); ?>
-            </div>
-            <div>
-                <label for="id_mod_art"><?php echo L_CONFIG_BASE_MODERATE_ARTICLES ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('mod_art', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['mod_art']); ?>
-            </div>
-            <div>
-                <label for="id_enable_rss"><?php echo L_CONFIG_BASE_ENABLE_RSS ?>&nbsp;:</label>
-            </div>
-            <div>
-                <?php plxUtils::printSelect('enable_rss', array('1' => L_YES, '0' => L_NO), $plxAdmin->aConf['enable_rss']); ?>
-            </div>
-        </div>
     </fieldset>
-    <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
-    <?php echo plxToken::getTokenPostMethod() ?>
-
+<?php
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase'))
+?>
 </form>
 
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
+
 # On inclut le footer
-include __DIR__ . '/foot.php';
-?>
+include 'foot.php';

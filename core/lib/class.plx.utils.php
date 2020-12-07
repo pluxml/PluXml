@@ -24,6 +24,8 @@ class plxUtils
         'de' => 'das|der|die|fur|am',
         'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
     );
+    const DELTA_PAGINATION = 3;
+    const TEMPLATE_MSG = '<li><span style="color:#color">#symbol #message</span></li>' . PHP_EOL;
 
     /**
      * Méthode qui vérifie si une variable est définie.
@@ -167,6 +169,7 @@ class plxUtils
      * @param class        class css à utiliser pour formater l'affichage
      * @param id            si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
      * @return    self
+     * @author    unknow, Jean-Pierre Pourrez "bazooka07"
      **/
     public static function printSelect($name, $array, $selected = '', $readonly = false, $class = '', $id = true)
     {
@@ -174,32 +177,43 @@ class plxUtils
         if (!is_array($array)) $array = array();
 
         if (is_bool($id))
-            $id = ($id ? ' id="id_' . $name . '"' : '');
+            $id = $id ? ' id="id_' . $name . '"' : '';
         else
-            $id = ($id != '' ? ' id="' . $id . '"' : '');
+            $id = ($id != '') ? ' id="' . $id . '"' : '';
 
-        if ($readonly)
-            echo '<select' . $id . ' name="' . $name . '" disabled="disabled" class="readonly' . ($class != '' ? ' ' . $class : '') . '">' . "\n";
-        else
-            echo '<select' . $id . ' name="' . $name . '"' . ($class != '' ? ' class="' . $class . '"' : '') . '>' . "\n";
-        foreach ($array as $a => $b) {
+        if ($readonly) {
+			$disabled = 'disabled="disabled"';
+			$className = empty(trim($class)) ? 'readonly' : $class . ' readonly';
+		} else {
+			$disabled = '';
+			$className = trim($class);
+		}
+		$className = !empty($className) ? 'class="' . $className. '"' : '';
+?>
+<select id="id_<?= $name ?>" name="<?= $name ?>" <?= $disabled . ' ' . $className ?>>
+<?php
+       foreach ($array as $a => $b) {
             if (is_array($b)) {
-                echo '<optgroup label="' . $a . '">' . "\n";
-                foreach ($b as $c => $d) {
-                    if ($c == $selected)
-                        echo "\t" . '<option value="' . $c . '" selected="selected">' . $d . '</option>' . "\n";
-                    else
-                        echo "\t" . '<option value="' . $c . '">' . $d . '</option>' . "\n";
-                }
-                echo '</optgroup>' . "\n";
+?>
+	<optgroup label="<?= $a ?>">
+<?php
+			foreach ($b as $c => $d) {
+?>
+		<option value="<?= $c ?>" <?= ($c == $selected) ? 'selected' : '' ?>><?= $d ?></option>
+<?php
+			}
+?>
+	</optgroup>
+<?php
             } else {
-                if (strval($a) == $selected)
-                    echo "\t" . '<option value="' . $a . '" selected="selected">' . $b . '</option>' . "\n";
-                else
-                    echo "\t" . '<option value="' . $a . '">' . $b . '</option>' . "\n";
+?>
+	<option value="<?= $a ?>" <?= ($a == $selected) ? 'selected' : '' ?>><?= $b ?></option>
+<?php
             }
         }
-        echo '</select>' . "\n";
+?>
+</select>
+<?php
     }
 
     /**
@@ -264,7 +278,6 @@ class plxUtils
     {
 
         $params = array(
-            'id="id_' . $name . '"',
             'name="' . $name . '"',
         );
         if (!empty($extra)) {
@@ -274,11 +287,11 @@ class plxUtils
             $params[] = 'class="' . $className . '"';
         }
         foreach ($array as $a => $b) {
-            if ($a == $checked) {
-                echo '<input type="radio" value="' . $a . '" ' . implode(' ', $params) . ' checked>&nbsp;' . $b . '<br>';
-            } else {
-                echo '<input type="radio" value="' . $a . '" ' . implode(' ', $params) . '>&nbsp;' . $b . '<br>';
-            }
+			$checkedAttr = ($a == $checked) ? ' checked' : '';
+			$id = $name . '-' . $b;
+?>
+        <div><input type="radio" value="<?= $a ?>" id="<?= $id ?>" <?= implode(' ', $params) ?><?= $checkedAttr ?>>&nbsp;<label for="<?= $id ?>"><?= $b ?></label></div>
+<?php
         }
     }
 
@@ -323,12 +336,170 @@ class plxUtils
     }
 
     /**
+     * Méthode qui affiche des boutons pour la pagination.
+     * S'il n'y a pas assez d'éléments à afficher pour 2 pages, la pagination n'est pas affichée.
+     *
+     * @param integer $itemsCount Nombre total d'éléments à afficher dans toutes les pages
+     * @param integer $itemsPerPage Nombre d'éléments à afficher par page
+     * @param integer $currentPage numéro de la page courante affichée
+     * @param string $urlTemplate modèle pour calculer la valeur de href dans les balises <a>. Doit avoir une position numérique
+     *
+     * @return    void
+     * @author    Jean-Pierre Pourrez (bazooka07)
+     **/
+	public static function printPagination($itemsCount, $itemsPerPage, $currentPage, $urlTemplate) {
+		if ($itemsCount > $itemsPerPage) { # if there is articles
+			//Pagination preparation
+			$last_page = ceil($itemsCount / $itemsPerPage);
+			// URL generation
+			$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . urlencode($_GET['artTitle']) : '';
+			// Display pagination links
+?>
+				<a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= ($currentPage > 2) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-double-left"></i></span></a>
+				<a href="<?php printf($urlTemplate, ($currentPage > 1) ? $currentPage - 1 : 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= ($currentPage > 1) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-left"></i></span></a>
+<?php
+			# On boucle sur les pages
+			if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
+				$iMin = 1; $iMax = $last_page;
+			} else {
+				if($currentPage > self::DELTA_PAGINATION + 1) {
+					$iMin = ($last_page - $currentPage > self::DELTA_PAGINATION) ? $currentPage - self::DELTA_PAGINATION : $last_page - 2 * self::DELTA_PAGINATION;
+				} else {
+					$iMin = 1;
+				}
+				$iMax =  $iMin + 2 * self::DELTA_PAGINATION;
+			}
+			for ($i = $iMin; $i <= $iMax; $i++) {
+				if($i != $currentPage) {
+?>
+				<a href="<?php printf($urlTemplate, $i); ?>"><span class="btn"><?= $i ?></span></a>
+<?php
+				} else {
+?>
+				<span class="current btn--info"><?= $i ?></span>
+<?php
+				}
+			}
+?>
+				<a href="<?php printf($urlTemplate, $currentPage + 1); ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= ($currentPage < $last_page) ? '' : ' disabled' ?>><span class="btn"><i class="icon-angle-right"></i></span></a>
+				<a href="<?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><span class="btn"<?= ($currentPage < $last_page - 1) ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></span></a>
+<?php
+		}
+	}
+
+	/*
+	 * Affiche les champs de saisie pour une vignette (image d'accroche).
+	 *
+	 * Utilise le gestionnaire de medias pour afficher les images disponibles
+	 * @param	$datas tableau associatif contenant au moins les champs nécessaires à la vignette
+	 * @param	$name racine des noms des champs de saisie
+	 * @return	void
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 * */
+    public static function printThumbnail($datas, $name="thumbnail") {
+		if(!empty($datas) and (!isset($datas[$name]) or !defined('PLX_ROOT'))) {
+			return;
+		}
+
+?>
+			<div class="thumbnail-container">
+				<div id="<?= $name ?>-wrapper">
+<?php
+		if(!empty($datas)) {
+			$uri = $datas[$name];
+			if(!empty($uri)) {
+				if (preg_match('@^(?:https?|data):@', $uri)) {
+					$src = $uri;
+				} else {
+					$src = PLX_ROOT . $uri;
+					if(is_file($src)) {
+						$imgSize = getimagesize($src);
+					} else {
+						$src = false;
+					}
+				}
+			}
+		} else {
+			$src = false;
+		}
+
+		if (!empty($src)) {
+?>
+					<img src="<?= $src ?>" title="<?= $name ?>" <?= !empty($imgSize) ? $imgSize[3] : '' ?> />
+<?php
+		} else {
+?>
+					<svg viewport="0 0 100 100">
+						<line x1="0" y1="0" x2="100" y2="100" stroke-width=2 />
+						<line x1="0" y1="100" x2="100" y2="0" />
+					</svg>
+<?php
+		}
+?>
+				</div>
+				<div>
+					<div>
+						<label for="id_<?= $name ?>"><?= L_THUMBNAIL ?></label>
+						<i class="icon-picture" title="<?= L_THUMBNAIL_SELECTION ?>" data-preview="<?= $name ?>"></i>
+						<input type="text" name="<?= $name ?>" value="<?= self::strCheck(self::getValue($datas[$name], '')) ?>" id="id_<?= $name ?>" onkeyup="refreshImg(this.value);" />
+					</div>
+<?php
+		foreach(array(
+			'_alt'		=> L_THUMBNAIL_ALT,
+			'_title'	=> L_THUMBNAIL_TITLE,
+		) as $k=>$caption) {
+			if(empty($datas) or isset($datas[$name . $k])) {
+				$fieldname = $name . $k;
+?>
+					<div>
+						<label for="id_<?= $fieldname ?>"><?= $caption ?></label>
+						<input type="text" name="<?= $fieldname ?>" value="<?= self::strCheck(self::getValue($datas[$fieldname], '')) ?>" id="id_<?= $fieldname ?>" />
+					</div>
+<?php
+			}
+		}
+?>
+				</div>
+			</div>
+<?php
+	}
+
+	/*
+	 * Affiche les champs de saisies d'une série de dates dans un formulaire.
+	 *
+	 * @param	$aDates tableau associatif des dates
+	 * @return	void
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 * */
+	public static function printDates($aDates) {
+		# HTML5 : on utilise <input type="date" /> et <input type="time" />
+		# Requis ci-dessous : array_keys($dateTitles) == plxDate::ENTRIES
+		# id="calendar" nécessaire pour gérer l'évènement "click" sur <i class="icon-calendar" />
+?>
+            <div id="calendar">
+<?php
+		foreach($aDates as $k=>$infos) {
+?>
+			<div>
+				<label><?= DATE_TITLES[$k] ?></label><br>
+				<input type="date" name="<?= $k ?>[0]" value="<?= $infos[0] ?>" />
+				<input type="time" name="<?= $k ?>[1]" value="<?= $infos[1] ?>" />
+				<i class="icon-calendar" title="<?= L_NOW ?>" data-datetime5="<?= $k ?>"></i>
+			</div>
+<?php
+		}
+?>
+            </div>
+<?php
+	}
+
+    /**
      * Méthode qui teste si un fichier est accessible en écriture
      *
      * @param file        emplacement et nom du fichier à tester
      * @param format        format d'affichage
      **/
-    public static function testWrite($file, $format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testWrite($file, $format = self::TEMPLATE_MSG)
     {
 
         if (is_writable($file)) {
@@ -347,12 +518,12 @@ class plxUtils
     /**
      * Méthode qui teste si le module apache mod_rewrite est disponible
      *
-     * @param io            affiche à l'écran le résultat du test si à VRAI
-     * @param format        format d'affichage
-     * @return    boolean        retourne vrai si le module apache mod_rewrite est disponible
-     * @author    Stephane F
+     * @param	io            affiche à l'écran le résultat du test si à VRAI
+     * @param	format        format d'affichage
+     * @return  boolean        retourne vrai si le module apache mod_rewrite est disponible
+     * @author  Stephane F
      **/
-    public static function testModRewrite($io = true, $format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testModRewrite($io = true, $format = self::TEMPLATE_MSG)
     {
 
         if (function_exists('apache_get_modules')) {
@@ -382,7 +553,7 @@ class plxUtils
      * @return    boolean        retourne vrai si la fonction php mail est disponible
      * @author    Stephane F
      **/
-    public static function testMail($io = true, $format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testMail($io = true, $format = self::TEMPLATE_MSG)
     {
 
         if ($return = function_exists('mail')) {
@@ -413,22 +584,31 @@ class plxUtils
     /**
      * Méthode qui teste si la bibliothèque GD est installé
      *
-     * @param format        format d'affichage
-     * @author    Stephane F
+     * @param	format        format d'affichage
+     * @author	Stephane F
      **/
-    public static function testLibGD($format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testLibGD($format = self::TEMPLATE_MSG)
     {
-
         if (function_exists('imagecreatetruecolor')) {
-            $output = str_replace('#color', 'green', $format);
-            $output = str_replace('#symbol', '&#10004;', $output);
-            $output = str_replace('#message', L_LIBGD_INSTALLED, $output);
-            echo $output;
+			if(is_string($format)) {
+				echo strtr($format, array(
+					'#color'	=> 'green',
+					'#symbol'	=> '&#10004;',
+					'#message'	=> L_LIBGD_INSTALLED,
+				));
+			} else {
+				return true;
+			}
         } else {
-            $output = str_replace('#color', 'red', $format);
-            $output = str_replace('#symbol', '&#10007;', $output);
-            $output = str_replace('#message', L_LIBGD_NOT_INSTALLED, $output);
-            echo $output;
+			if(is_string($format)) {
+				echo strtr($format, array(
+		            '#color'	=> 'red',
+		            '#symbol'	=> '&#10007;',
+		            '#message'	=> L_LIBGD_NOT_INSTALLED,
+				));
+			} else {
+				return false;
+			}
         }
     }
 
@@ -438,19 +618,28 @@ class plxUtils
      * @param format        format d'affichage
      *
      **/
-    public static function testLibXml($format = "<li><span style=\"color:#color\">#symbol #message</span></li>\n")
+    public static function testLibXml($format = self::TEMPLATE_MSG)
     {
-
-        if (function_exists('xml_parser_create')) {
-            $output = str_replace('#color', 'green', $format);
-            $output = str_replace('#symbol', '&#10004;', $output);
-            $output = str_replace('#message', L_LIBXML_INSTALLED, $output);
-            echo $output;
+        if (function_exists('imagecreatetruecolor')) {
+			if(is_string($format)) {
+				echo strtr($format, array(
+					'#color'	=> 'green',
+					'#symbol'	=> '&#10004;',
+					'#message'	=> L_LIBXML_INSTALLED,
+				));
+			} else {
+				return true;
+			}
         } else {
-            $output = str_replace('#color', 'red', $format);
-            $output = str_replace('#symbol', '&#10007;', $output);
-            $output = str_replace('#message', L_LIBXML_NOT_INSTALLED, $output);
-            echo $output;
+			if(is_string($format)) {
+				echo strtr($format, array(
+		            '#color'	=> 'red',
+		            '#symbol'	=> '&#10007;',
+		            '#message'	=> L_LIBXML_NOT_INSTALLED,
+				));
+			} else {
+				return false;
+			}
         }
     }
 
@@ -1586,9 +1775,9 @@ EOT;
         if (is_file(PLX_ROOT . $file)) {
             $href = ($admin) ? PLX_ROOT . $file : $plxMotor->urlRewrite($file);
             $href .= '?d=' . base_convert(filemtime(PLX_ROOT . $file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
-            ?>
-            <link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen"/>
-            <?php
+?>
+	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
+<?php
         }
     }
 
@@ -1606,4 +1795,20 @@ EOT;
         $plxMotor = plxMotor::getInstance();
         return $plxMotor->aConf[$param];
     }
+
+    /*
+     * Same function as nl2br but with <p>.
+     * A missing function in PHP.
+     * For updating existing files :
+     * sed -Ei "/<br/s/<br\s*\/?>/' . PHP_EOL .'/" core/lang/??/*.php
+     *
+     * @param String $content the text to break into paragraphs
+     *
+     * @author Jean-Pierre Pourrez "bazooka07"
+     * */
+    public static function nl2p($content) {
+		$lines = explode(PHP_EOL, $content);
+		return '<p>' . implode('</p>' . PHP_EOL . '<p>', $lines) . '</p>';
+	}
+
 }
