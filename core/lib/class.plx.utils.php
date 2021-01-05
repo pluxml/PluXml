@@ -31,7 +31,7 @@ class plxUtils {
 	 * @return	string		valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
-		return (isset($var) ? (!empty($var) ? $var : $default) : $default) ;
+		return isset($var) ? $var : $default;
 	}
 
 	/**
