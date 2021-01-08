@@ -5,6 +5,7 @@ FIX plxShow::catList() and plxShow::catId multiples article with same category #
 FIX Check if resetting password is not allowed before password change #500 (lolo3129, P3ter)
 FIX Error with password reset token generation (P3ter)
 FIX Check if a user profil is defined in the current session before changing it when necessary #511 (bazooka07)
+FIX Allow comments default value #516 (bazooka07)
 
 ## PLUXML 5.8.4 (2020/09/07) ##
 [+] Add mailto link on comment author's e-mail #512 (bazooka07)
