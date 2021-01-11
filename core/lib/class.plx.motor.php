@@ -130,7 +130,7 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) return;
 
-		if(!empty($this->get) and !preg_match('#^(?:blog|article\d|static\d|categorie\d|archives\d{4}|tag\w|preview|telechargement|download)#', $this->get)) { $this->get = ''; }
+		if(!empty($this->get) and !preg_match('#^(?:blog|article\d{1,4}/|static\d{1,3}/|categorie\d{1,3}/|archives/\d{4}(?:/\d{2})?|tag/\w|page\d|preview|telechargement|download)#', $this->get)) { $this->get = ''; }
 
 		if(!$this->get AND $this->aConf['homestatic']!='' AND isset($this->aStats[$this->aConf['homestatic']]) AND $this->aStats[$this->aConf['homestatic']]['active']) {
 			$this->mode = 'static'; # Mode static
@@ -626,28 +626,35 @@ class plxMotor {
 			$this->page = 1;
 	}
 
-	/**
-	 * Méthode qui récupere la liste des  articles
-	 *
-	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
-	 * @return	boolean	vrai si articles trouvés, sinon faux
-	 * @author	Stéphane F
-	 **/
-	public function getArticles($publi='before') {
+    /**
+     * Méthode qui récupere la liste des  articles
+     *
+     * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
+     * @return	boolean	vrai si articles trouvés, sinon faux
+     * @author	Stéphane F, J.P. Pourrez (bazooka07)
+     **/
+    public function getArticles($publi='before') {
 
-		# On calcule la valeur start
-		$start = $this->bypage*($this->page-1);
-		# On recupere nos fichiers (tries) selon le motif, la pagination, la date de publication
-		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
-			# on mémorise le nombre total d'articles trouvés
-			foreach($aFiles as $k=>$v) # On parcourt tous les fichiers
-				$array[$k] = $this->parseArticle(PLX_ROOT.$this->aConf['racine_articles'].$v);
-			# On stocke les enregistrements dans un objet plxRecord
-			$this->plxRecord_arts = new plxRecord($array);
-			return true;
-		}
-		else return false;
-	}
+        # On calcule la valeur start
+        $start = $this->bypage*($this->page-1);
+        # On recupere nos fichiers (tries) selon le motif, la pagination, la date de publication
+        if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
+            # On analyse tous les fichiers
+            $artsList = array();
+            foreach($aFiles as $v) {
+                $art = $this->parseArticle(PLX_ROOT . $this->aConf['racine_articles'] . $v);
+                if(!empty($art)) {
+                    $artsList[] = $art;
+                }
+            }
+            # On stocke les enregistrements dans un objet plxRecord
+            $this->plxRecord_arts = new plxRecord($artsList);
+            return true;
+        }
+
+        $this->plxRecord_arts = false;
+        return false;
+    }
 
 	/**
 	 * Méthode qui retourne les informations $output en analysant
@@ -671,53 +678,63 @@ class plxMotor {
 		}
 	}
 
-	/**
-	 * Méthode qui parse l'article du fichier $filename
-	 *
-	 * @param	filename	fichier de l'article à parser
-	 * @return	array
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
-	 **/
-	public function parseArticle($filename) {
+    /**
+     * Méthode qui parse l'article du fichier $filename
+     *
+     * @param	filename	fichier de l'article à parser
+     * @return	array
+     * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, J.P. Pourrez (bazooka07)
+     **/
+    public function parseArticle($filename) {
 
-		# Mise en place du parseur XML
-		$data = implode('',file($filename));
-		$parser = xml_parser_create(PLX_CHARSET);
-		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
-		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
-		xml_parse_into_struct($parser,$data,$values,$iTags);
-		xml_parser_free($parser);
-		# Recuperation des valeurs de nos champs XML
-		$art['title'] = plxUtils::getValue($values[$iTags['title'][0]]['value']);
-		$art['allow_com'] = plxUtils::getValue($values[$iTags['allow_com'][0]]['value']);
-		$art['template'] = plxUtils::getValue($values[$iTags['template'][0]]['value'],'article.php');
-		$art['chapo'] = plxUtils::getValue($values[$iTags['chapo'][0]]['value']);
-		$art['content'] = plxUtils::getValue($values[$iTags['content'][0]]['value']);
-		$art['tags'] = plxUtils::getValue($values[ $iTags['tags'][0] ]['value']);
-		$meta_description = plxUtils::getValue($iTags['meta_description'][0]);
-		$art['meta_description'] = plxUtils::getValue($values[$meta_description]['value']);
-		$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][0]);
-		$art['meta_keywords'] = plxUtils::getValue($values[$meta_keywords]['value']);
-		$art['title_htmltag'] = isset($iTags['title_htmltag']) ? plxUtils::getValue($values[$iTags['title_htmltag'][0]]['value']) : '';
-		$art['thumbnail'] = isset($iTags['thumbnail']) ? plxUtils::getValue($values[$iTags['thumbnail'][0]]['value']) : '';
-		$art['thumbnail_title'] = isset($iTags['thumbnail_title']) ? plxUtils::getValue($values[$iTags['thumbnail_title'][0]]['value']) : '';
-		$art['thumbnail_alt'] = isset($iTags['thumbnail_alt']) ? plxUtils::getValue($values[$iTags['thumbnail_alt'][0]]['value']) : '';
-		# Informations obtenues en analysant le nom du fichier
-		$art['filename'] = $filename;
-		$tmp = $this->artInfoFromFilename($filename);
-		$art['numero'] = $tmp['artId'];
-		$art['author'] = $tmp['usrId'];
-		$art['categorie'] = $tmp['catId'];
-		$art['url'] = $tmp['artUrl'];
-		$art['date'] = $tmp['artDate'];
-		$art['nb_com'] = $this->getNbCommentaires('#^'.$art['numero'].'.\d{10}.\d+.xml$#');
-		$art['date_creation'] = isset($iTags['date_creation']) ? plxUtils::getValue($values[$iTags['date_creation'][0]]['value']) : $art['date'];
-		$art['date_update'] = isset($iTags['date_update']) ? plxUtils::getValue($values[$iTags['date_update'][0]]['value']) : $art['date'];
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxMotorParseArticle'));
-		# On retourne le tableau
-		return $art;
-	}
+        # Informations obtenues en analysant le nom du fichier
+        $tmp = $this->artInfoFromFilename($filename);
+        if(!empty($tmp)) {
+            # Mise en place du parseur XML
+            $data = implode('',file($filename));
+            $parser = xml_parser_create(PLX_CHARSET);
+            xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
+            xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
+            xml_parse_into_struct($parser,$data,$values,$iTags);
+            xml_parser_free($parser);
+
+            $meta_description = plxUtils::getValue($iTags['meta_description'][0]);
+            $meta_keywords = plxUtils::getValue($iTags['meta_keywords'][0]);
+            $art = array(
+                'filename'		=> $filename,
+                # Recuperation des valeurs de nos champs XML
+                'title'				=> plxUtils::getValue($values[$iTags['title'][0]]['value']),
+                'allow_com'			=> plxUtils::getValue($values[$iTags['allow_com'][0]]['value'], 0),
+                'template'			=> plxUtils::getValue($values[$iTags['template'][0]]['value'], 'article.php'),
+                'chapo'				=> plxUtils::getValue($values[$iTags['chapo'][0]]['value']),
+                'content'			=> plxUtils::getValue($values[$iTags['content'][0]]['value']),
+                'tags'				=> plxUtils::getValue($values[ $iTags['tags'][0] ]['value']),
+                'meta_description'	=> plxUtils::getValue($values[$meta_description]['value']),
+                'meta_keywords'		=> plxUtils::getValue($values[$meta_keywords]['value']),
+                'title_htmltag'		=> plxUtils::getValue($values[$iTags['title_htmltag'][0]]['value']),
+                'thumbnail'			=> plxUtils::getValue($values[$iTags['thumbnail'][0]]['value']),
+                'thumbnail_title'	=> plxUtils::getValue($values[$iTags['thumbnail_title'][0]]['value']),
+                'thumbnail_alt'		=> plxUtils::getValue($values[$iTags['thumbnail_alt'][0]]['value']),
+                'numero'			=> $tmp['artId'],
+                'author'			=> $tmp['usrId'],
+                'categorie'			=> $tmp['catId'],
+                'url'				=> $tmp['artUrl'],
+                'date'				=> $tmp['artDate'],
+                'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}.\d+.xml$#'),
+                'date_creation'		=> plxUtils::getValue($values[$iTags['date_creation'][0]]['value'], $tmp['artDate']),
+                'date_update'		=> plxUtils::getValue($values[$iTags['date_update'][0]]['value'], $tmp['artDate']),
+            );
+
+            # Hook plugins
+            eval($this->plxPlugins->callHook('plxMotorParseArticle'));
+
+            # On retourne le tableau
+            return $art;
+        } else {
+            # le nom du fichier article est incorrect !!
+            return false;
+        }
+    }
 
 	/**
 	 * Méthode qui retourne le nombre de commentaires respectants le motif $motif et le paramètre $publi
