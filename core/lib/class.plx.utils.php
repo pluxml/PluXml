@@ -37,7 +37,7 @@ class plxUtils
      */
     public static function getValue(&$var, $default = '')
     {
-        return (isset($var) and !empty($var)) ? $var : $default;
+        return isset($var) ? $var : $default;
     }
 
     /**
@@ -732,7 +732,6 @@ class plxUtils
      * */
     public static function urlify($url, $replace = '-', $lower = true)
     {
-
         if (!empty(parse_url($url, PHP_URL_SCHEME))) {
             return $url;
         }

@@ -3,7 +3,6 @@
 if(!defined('PLX_ROOT')) { exit('Are you silly ?'); }
 
 const PHP_VERSION_MIN = '7.2.0';
-
 const PLX_DEBUG = false;
 const PLX_VERSION = '6.0.0-dev';
 const PLX_URL_REPO = 'https://www.pluxml.org';

@@ -835,7 +835,7 @@ class plxMotor {
                 'filename'		=> $filename,
                 # Recuperation des valeurs de nos champs XML
                 'title'				=> plxUtils::getValue($values[$iTags['title'][0]]['value']),
-                'allow_com'			=> plxUtils::getValue($values[$iTags['allow_com'][0]]['value']),
+                'allow_com'			=> plxUtils::getValue($values[$iTags['allow_com'][0]]['value'], 0),
                 'template'			=> plxUtils::getValue($values[$iTags['template'][0]]['value'], 'article.php'),
                 'chapo'				=> plxUtils::getValue($values[$iTags['chapo'][0]]['value']),
                 'content'			=> plxUtils::getValue($values[$iTags['content'][0]]['value']),
