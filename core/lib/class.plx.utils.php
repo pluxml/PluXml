@@ -1014,17 +1014,18 @@ class plxUtils {
 	}
 
 	/**
-	 * Send an e-mail with PhpMailer class
-	 * @param	string	$name			Sender's name
-	 * @param	string	$from			Sender's e-mail address
-	 * @param	string	$to				Destination e-mail address
-	 * @param	string	$subject		E-mail subject
-	 * @param	string	$body			E-mail body content
-	 * @param	boolean	$isHtml			True if body content use HTML
-	 * @param	array	$conf			PHPMailer configuration (username, password, ...)
-	 * @return	boolean
-	 * @author Pedro "P3ter" CADETE
-	 */
+	* Send an e-mail with PhpMailer class
+	* @param string $name Sender's name
+	* @param string $from Sender's e-mail address
+	* @param string $to Destination e-mail address
+	* @param string $subject E-mail subject
+	* @param string $body E-mail body content
+	* @param boolean $isHtml True if body content use HTML
+	* @param array $conf PHPMailer configuration (username, password, ...)
+	* @return boolean
+	* @author Pedro "P3ter" CADETE
+	* @throws \PHPMailer\PHPMailer\Exception
+	**/
 	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $conf, $debug=false) {
 		$mail = new PHPMailer();
 		if ($debug) {
@@ -1078,8 +1079,7 @@ class plxUtils {
 					);
 				break;
 		}
-		$result = $mail->send();
-		return $result ;
+		return $mail->send();
 	}
 
 	/**
