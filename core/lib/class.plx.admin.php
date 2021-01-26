@@ -117,7 +117,7 @@ class plxAdmin extends plxMotor {
 		$_SESSION['lang'] = $global['default_lang'];
 
 		# Actions sur le fichier htaccess
-        if(array_key_exists('urlrewriting', $content))
+		if(array_key_exists('urlrewriting', $content))
 			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 
@@ -151,10 +151,6 @@ class plxAdmin extends plxMotor {
 	 * @author	Stephane F, Amaury Graillat
 	 **/
 	public function htaccess($action, $url) {
-
-		if(!function_exists('apache_get_modules') or !in_array('mod_rewrite', apache_get_modules())) {
-			return false;
-		}
 
 		$capture = '';
 		$base = parse_url($url);

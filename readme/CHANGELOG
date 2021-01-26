@@ -1,6 +1,7 @@
 ## PLUXML 5.8.6 (yyyy/mm/dd) ##
 [+] Update PHPMailer 6.2.0 : security fixes and PHP 8.0 compatibility (P3ter)
 FIX Missing thumbnail in first article #518 (bazooka07)
+FIX Error when editing .htaccess when Apache is not installed (P3ter)
 
 ## PLUXML 5.8.5 (2021/01/11) ##
 [+] Refine url rewriting rule #497 (bazooka07)
