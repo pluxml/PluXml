@@ -430,6 +430,7 @@ $LANG = array (
 		'L_CONFIG_META_DESCRIPTION' => 'Contenu de la balise meta "description" du site (optionnel)',
 		'L_CONFIG_META_KEYWORDS' => 'Contenu de la balise meta "keywords" du site (optionnel)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'Afficher les flux RSS',
+		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'Afficher les flux RSS des commentaires',
 
 		// parametres_edittpl.php
 

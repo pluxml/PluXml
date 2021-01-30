@@ -1,3 +1,7 @@
+## PLUXML 5.8.6 (2021/01/??) ##
+[+] Distinct rss feed article and comment feed configuration #??? (thx3r)
+
+
 ## PLUXML 5.8.5 (2021/01/11) ##
 [+] Refine url rewriting rule #497 (bazooka07)
 FIX Allow punctuation in articles and pages titles #505 (bazooka07)
