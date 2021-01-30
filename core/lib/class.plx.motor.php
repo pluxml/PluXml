@@ -1089,7 +1089,9 @@ class plxMotor {
 			return $url;
 		}
 
-		if($url=='' OR $url=='?') return $this->racine;
+		if($url=='' OR $url=='?') {
+			return $this->racine;
+		}
 
 		$args = parse_url($url);
 

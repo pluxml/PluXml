@@ -1,6 +1,7 @@
 ## PLUXML 5.8.6 (yyyy/mm/dd) ##
 [+] Update PHPMailer 6.2.0 : security fixes and PHP 8.0 compatibility (P3ter)
 [+] Distinct article and comment rss feeds configuration #521 (thx3r)
+[+] Refine plxMotor::urlRewrite() to use parse_url() #520 (bazooka07)
 FIX Missing thumbnail in first article #518 (bazooka07)
 FIX Error when editing .htaccess when Apache is not installed (P3ter)
 FIX 404 Error when accessing /blog with url rewriting (bazooka07)
