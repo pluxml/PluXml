@@ -412,6 +412,7 @@ $LANG = array (
 		'L_CONFIG_META_DESCRIPTION' => 'META-tag "descriptie" van de site (optioneel)',
 		'L_CONFIG_META_KEYWORDS' => 'META-tag "keywords" van de site (optioneel)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'RSS-feeds weergeven',
+		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'RSS-feeds voor commentaar',
 		'L_CONFIG_EDITTPL_ERROR_NOTHEME' => 'Layout bestaat niet !',
 		'L_CONFIG_EDITTPL_TITLE' => 'Layout aanpassen',
 		'L_CONFIG_EDITTPL_SELECT_FILE' => 'Keuze aan te passen bestand :',

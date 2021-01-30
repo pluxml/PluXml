@@ -429,6 +429,7 @@ $LANG = array (
 		'L_CONFIG_META_DESCRIPTION' => 'Zawartość tagu "opisu" strony (opcjonalnie)',
 		'L_CONFIG_META_KEYWORDS' => 'Zawartość tagu "słowa kluczowego" strony (opcjonalnie)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'Wyświetl kanały RSS',
+		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'Wyświetl kanały RSS komentarzy',
 
 		// parametres_edittpl.php
 

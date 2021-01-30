@@ -11,7 +11,7 @@ const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {
 
-	public $update_link = PLX_URL_REPO; // overwritten by self::checmMaj()
+	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin

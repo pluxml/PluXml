@@ -117,8 +117,16 @@ include __DIR__ .'/top.php';
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printSelect('enable_rss',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['enable_rss']); ?>
 			</div>
-		</div>		
-	</fieldset>
+		</div>
+        <div class="grid">
+            <div class="col sml-12 med-5 label-centered">
+                <label for="id_enable_rss_comment"><?php echo L_CONFIG_BASE_ENABLE_RSS_COMMENT ?>&nbsp;:</label>
+            </div>
+            <div class="col sml-12 med-7">
+                <?php plxUtils::printSelect('enable_rss_comment',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['enable_rss_comment']); ?>
+            </div>
+        </div>
+    </fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
 	<?php echo plxToken::getTokenPostMethod() ?>
 
