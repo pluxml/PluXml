@@ -661,12 +661,13 @@ class plxMotor {
 	 *
 	 * @param	filename	fichier de l'article à traiter
 	 * @return	array		information à récupérer
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez "bazooka07"
 	 **/
 	public function artInfoFromFilename($filename) {
 
 		# On effectue notre capture d'informations
-		if(preg_match('#(_?\d{4})\.([\d,|home|draft]*)\.(\d{3})\.(\d{12})\.([\w-]+)\.xml$#',$filename,$capture)) {
+		if(preg_match('#^(_?\d{4})\.((?:\d{3},|draft,)*(?:home|\d{3})(?:,\d{3})*)\.(\d{3})\.(\d{12})\.(.*)\.xml$#', basename($filename), $capture)) {
+
 			return array(
 				'artId'		=> $capture[1],
 				'catId'		=> $capture[2],
@@ -731,6 +732,9 @@ class plxMotor {
             return $art;
         } else {
             # le nom du fichier article est incorrect !!
+            if(defined('PLX_ADMIN') and class_exists('plxMsg')) {
+				plxMsg::Error('Invalid filename "' . $filename . '" from plxMotor::parseArticle()');
+			}
             return false;
         }
     }
