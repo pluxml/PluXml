@@ -5,6 +5,7 @@
 FIX Missing thumbnail in first article #518 (bazooka07)
 FIX Error when editing .htaccess when Apache is not installed (P3ter)
 FIX 404 Error when accessing /blog with url rewriting (bazooka07)
+FIX Error on article publication caused by regex in plxMotor::artInfoFromFilename() #522 (bazooka07)
 
 ## PLUXML 5.8.5 (2021/01/11) ##
 [+] Refine url rewriting rule #497 (bazooka07)
