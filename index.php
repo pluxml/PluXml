@@ -96,4 +96,3 @@ if($plxMotor->aConf['gzip']) {
 # Restitution écran
 echo $output;
 exit;
-?>
