@@ -76,7 +76,7 @@ $LANG = array(
 'L_EIGTH'						=> 'eighth',
 'L_NINTH'						=> 'ninth',
 'L_TENTH'						=> 'tenth',
-'L_NTH'							=> 'nth',
+'L_NTH'							=> 'th',
 'L_CAPCHA_QUESTION'				=> 'What is the <span class="capcha-letter">%s</span> character of the word <span class="capcha-word">%s</span>?',
 
 # class.plx.utils.php
