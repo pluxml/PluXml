@@ -65,8 +65,8 @@ $LANG = array(
 'L_SUNDAY'						=> 'dimanche',
 
 # class.plx.capcha.php
-'L_LAST'						=> 'dernière',
-'L_FIRST'						=> 'première',
+'L_LAST'						=> 'dernier',
+'L_FIRST'						=> 'premier',
 'L_SECOND'						=> 'deuxième',
 'L_THIRD'						=> 'troisième',
 'L_FOURTH'						=> 'quatrième',

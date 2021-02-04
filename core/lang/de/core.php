@@ -65,9 +65,9 @@ $LANG = array(
 'L_SUNDAY'					=> 'sonntag',
 
 # class.plx.capcha.php
-'L_LAST'					=> 'letzte',
-'L_FIRST'					=> 'erste',
-'L_SECOND'					=> 'zweiste',
+'L_LAST'					=> 'neueste',
+'L_FIRST'					=> 'zuerst',
+'L_SECOND'					=> 'zweite',
 'L_THIRD'					=> 'dritte',
 'L_FOURTH'					=> 'vierte',
 'L_FIFTH'					=> 'fünfte',
@@ -75,8 +75,8 @@ $LANG = array(
 'L_SEVENTH'					=> 'siebte',
 'L_EIGTH'					=> 'achte',
 'L_NINTH'					=> 'neunte',
-'L_TENTH'					=> 'zehnte',
-'L_NTH'						=> 'te',
+'L_TENTH'					=> 'zehntel',
+'L_NTH'						=> 'th',
 'L_CAPCHA_QUESTION'			=> 'Was ist das <span class="capcha-letter">%s</span> Charakter des Wortes <span class="capcha-word">%s</span>&nbsp;?',
 
 # class.plx.utils.php
