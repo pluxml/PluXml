@@ -77,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'negende',
 'L_TENTH'						=> 'tiende',
 'L_NTH'							=> 'de',
-'L_CAPCHA_QUESTION'				=> 'Welke is de <span class="capcha-letter">%s</span> letter van het woord <span class="capcha-word">%s</span>&nbsp;?',
+'L_CAPCHA_QUESTION'				=> 'Welke is de <span class="capcha-letter">%s</span> aard van het woord <span class="capcha-word">%s</span>&nbsp;?',
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s is toegankelijk met schrijfrechten',
 'L_WRITE_NOT_ACCESS'			=> '%s is niet toegankelijk met schrijfrechten of bestaat niet',
