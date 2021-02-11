@@ -196,6 +196,8 @@ function install($content, $config) {
 	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
 	<date_update><![CDATA['.date('YmdHi').']]></date_update>
 	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
+	<thumbnail_alt><![CDATA[PluXml logo]]></thumbnail_alt>
+	<thumbnail_title><![CDATA[PluXml]]></thumbnail_title>
 </document>';
 		plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
 	}
