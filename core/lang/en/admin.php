@@ -430,6 +430,7 @@ $LANG = array (
 		'L_CONFIG_META_DESCRIPTION' => 'Content of "description" meta tag (optional)',
 		'L_CONFIG_META_KEYWORDS' => 'Content of "keywords" meta tag (optional)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'Display RSS feeds',
+		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'Display RSS feeds for comments',
 
 		// parametres_edittpl.php
 

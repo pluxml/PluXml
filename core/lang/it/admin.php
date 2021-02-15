@@ -377,6 +377,7 @@ $LANG = array (
 		'L_CONFIG_META_DESCRIPTION' => 'Contenuto della meta tag "description" del sito (facoltativo)',
 		'L_CONFIG_META_KEYWORDS' => 'Contenuto della meta tag "keywords" del sito (facoltativo)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'Visualizza feed RSS',
+		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'Visualizza feed RSS per commenti',
 		'L_CONFIG_EDITTPL_ERROR_NOTHEME' => 'Questo tema non esiste !',
 		'L_CONFIG_EDITTPL_TITLE' => 'Modifica il tema',
 		'L_CONFIG_EDITTPL_SELECT_FILE' => 'Scelta del file da modificare',

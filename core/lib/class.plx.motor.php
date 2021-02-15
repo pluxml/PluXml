@@ -395,7 +395,6 @@ class plxMotor {
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
-
 	}
 
 	/**
@@ -662,12 +661,13 @@ class plxMotor {
 	 *
 	 * @param	filename	fichier de l'article à traiter
 	 * @return	array		information à récupérer
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez "bazooka07"
 	 **/
 	public function artInfoFromFilename($filename) {
 
 		# On effectue notre capture d'informations
-		if(preg_match('#(_?\d{4})\.([\d,|home|draft]*)\.(\d{3})\.(\d{12})\.([\w-]+)\.xml$#',$filename,$capture)) {
+		if(preg_match('#^(_?\d{4})\.((?:\d{3},|draft,)*(?:home|\d{3})(?:,\d{3})*)\.(\d{3})\.(\d{12})\.(.*)\.xml$#', basename($filename), $capture)) {
+
 			return array(
 				'artId'		=> $capture[1],
 				'catId'		=> $capture[2],
@@ -732,6 +732,9 @@ class plxMotor {
             return $art;
         } else {
             # le nom du fichier article est incorrect !!
+            if(defined('PLX_ADMIN') and class_exists('plxMsg')) {
+				plxMsg::Error('Invalid filename "' . $filename . '" from plxMotor::parseArticle()');
+			}
             return false;
         }
     }
@@ -1090,24 +1093,40 @@ class plxMotor {
 			return $url;
 		}
 
-		if($url=='' OR $url=='?') return $this->racine;
+		if($url=='' OR $url=='?') {
+			return $this->racine;
+		}
 
-		preg_match('#^([0-9a-z\_\-\.\/]+)?[\?]?([0-9a-z\_\-\.\/,&=%]+)?[\#]?(.*)$#i', $url, $args);
+		$args = parse_url($url);
 
 		if($this->aConf['urlrewriting']) {
-			$new_url  = str_replace('index.php', '', $args[1]);
-			$new_url  = str_replace('feed.php', 'feed/', $new_url);
-			$new_url .= !empty($args[2])?$args[2]:'';
-			if(empty($new_url))	$new_url = $this->path_url;
-			$new_url .= !empty($args[3])?'#'.$args[3]:'';
-			return str_replace('&', '&amp;', $this->racine.$new_url);
+			$new_url = !empty($args['path']) ? strtr($args['path'], array(
+				'index.php' => '',
+				'feed.php' => 'feed/',
+			)) : '';
+			if(!empty($args['query'])) {
+				$new_url .= $args['query'];
+			}
+			if(empty($new_url))	{
+				$new_url = $this->path_url;
+			}
+			if(!empty($args['fragment'])) {
+				$new_url .= '#'. $args['fragment'];
+			}
 		} else {
-			if(empty($args[1]) AND !empty($args[2])) $args[1] = 'index.php';
-			$new_url  = !empty($args[1])?$args[1]:$this->path_url;
-			$new_url .= !empty($args[2])?'?'.$args[2]:'';
-			$new_url .= !empty($args[3])?'#'.$args[3]:'';
-			return $this->racine.$new_url;
+			if(empty($args['path']) AND !empty($args['query'])) {
+				$args['path'] = 'index.php';
+			}
+			$new_url  = !empty($args['path']) ? $args['path'] : $this->path_url;
+			if(!empty($args['query'])) {
+				$new_url .= '?' . $args['query'];
+			}
+			if(!empty($args['fragment'])) {
+				$new_url .= '#' . $args['fragment'];
+			}
 		}
+
+		return $this->racine . $new_url;
 	}
 
 	/**

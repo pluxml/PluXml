@@ -1,3 +1,13 @@
+## PLUXML 5.8.6 (2021/02/15) ##
+[+] Update PHPMailer 6.2.0 : security fixes and PHP 8.0 compatibility (P3ter)
+[+] Distinct article and comment rss feeds configuration #521 (thx3r)
+[+] Refine plxMotor::urlRewrite() to use parse_url() #520 (bazooka07)
+FIX Missing thumbnail in first article #518 #525 (bazooka07, sudwebdesign)
+FIX Error when editing .htaccess when Apache is not installed (P3ter)
+FIX 404 Error when accessing /blog with url rewriting (bazooka07)
+FIX Error on article publication caused by regex in plxMotor::artInfoFromFilename() #522 (bazooka07)
+FIX Wording change on the capcha question #523 (Thx3r)
+
 ## PLUXML 5.8.5 (2021/01/11) ##
 [+] Refine url rewriting rule #497 (bazooka07)
 FIX Allow punctuation in articles and pages titles #505 (bazooka07)

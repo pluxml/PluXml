@@ -81,6 +81,7 @@ $config = array('title'=>'PluXml',
 				'mod_com'=>0,
 				'mod_art'=>0,
 				'enable_rss'=>1,
+				'enable_rss_comment'=>1,
 				'capcha'=>1,
 				'lostpassword'=>1,
 				'style'=>'defaut',
@@ -196,6 +197,8 @@ function install($content, $config) {
 	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
 	<date_update><![CDATA['.date('YmdHi').']]></date_update>
 	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
+	<thumbnail_alt><![CDATA[PluXml logo]]></thumbnail_alt>
+	<thumbnail_title><![CDATA[PluXml]]></thumbnail_title>
 </document>';
 		plxUtils::write($xml,PLX_ROOT.$config['racine_articles'].'0001.001.001.'.date('YmdHi').'.'.L_DEFAULT_ARTICLE_URL.'.xml');
 	}
