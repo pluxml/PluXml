@@ -2124,7 +2124,7 @@ class plxShow
     {
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowPluginsCss'))) return;
-        plxUtils::printLinkCss($this->plxMotor->aConf['racine_plugins'] . 'site.css');
+        plxUtils::printLinkCss(PLX_PLUGINS . 'site.css');
     }
 
     /**
