@@ -55,5 +55,8 @@ $LANG = array(
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Fisierul de actualizare plugins.xml',
 'L_UPDATE_COMMENTS_MIGRATION'		=> 'Comentariile de migrare',
 'L_UPDATE_ERR_COMMENTS_MIGRATION'	=> 'Eroare la migrarea comentarii',
+
+# PluXml 5.8.7
+'L_BUILD_CSS_PLUGINS_CACHE'			=> 'Crearea fișierelor cache admin.css și site.css pentru pluginuri',
 );
-?>
+

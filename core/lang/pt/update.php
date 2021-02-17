@@ -15,7 +15,7 @@ $LANG = array(
 'L_UPDATE_WARNING1'					=> 'Está prestes a actualizar a sua versão de Pluxml',
 'L_UPDATE_SELECT_VERSION'			=> 'Seléccione na lista seguinte a sua antiga versão de Pluxml a actualizar.',
 'L_UPDATE_WARNING2'					=> 'Se a sua antiga versão não se encontra na lista seguinte, e porque não existe processo de actualização automático, porque a sua versão é muito antiga.<br />Sugerimos que descarregue a nova versão  de <a href="https://www.pluxml.org">PluXml</a> e que faça uma nova instalção.',
-'L_UPDATE_WARNING3'					=> 'Atenção, antes de comoçar a actualização não se esquêça de fazer uma cópia dos seus dados, que se encontram na pasta "data"',
+'L_UPDATE_WARNING3'					=> 'Atenção, antes de comoçar a actualização não se esquêça de fazer uma cópia dos seus dados, que se encontram na pasta "%s"',
 'L_UPDATE_START'					=> 'Come¸ar a actualização',
 
 'L_UPDATE_ENDED'					=> 'Actualização terminada.',
@@ -55,5 +55,8 @@ $LANG = array(
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Actualização do ficheiro... plugins.xml',
 'L_UPDATE_COMMENTS_MIGRATION'		=> 'Comentários de migração',
 'L_UPDATE_ERR_COMMENTS_MIGRATION'	=> 'Erro durante a migração comentários',
+
+# PluXml 5.8.7
+'L_BUILD_CSS_PLUGINS_CACHE'			=> 'Criação de arquivos de cache admin.css e site.css para plug-ins',
 );
-?>
+

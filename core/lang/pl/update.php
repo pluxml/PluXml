@@ -15,7 +15,7 @@ $LANG = array(
 'L_UPDATE_WARNING1'					=> 'Twoja wersja PluXml wymaga aktualizacji',
 'L_UPDATE_SELECT_VERSION'			=> 'Proszę wybrać wersję PluXml, którą chcesz zaktualizować.',
 'L_UPDATE_WARNING2'					=> 'Jeżeli nie ma twojej wersji na liście, może to oznaczać że jest zbyt stara i nie posiada automatycznej aktualizacji. <br />Sugerujemy, aby pobrać najnowszą wersję <a href="https://www.pluxml.org">PluXml</a> i wykonać nową instalację.',
-'L_UPDATE_WARNING3'					=> 'OSTRZEŻENIE przed rozpoczęciem aktualizacji należy wykonać kopię zapasową danych folderu "data"',
+'L_UPDATE_WARNING3'					=> 'OSTRZEŻENIE przed rozpoczęciem aktualizacji należy wykonać kopię zapasową danych folderu "%s"',
 'L_UPDATE_START'					=> 'Rozpocznij aktualizację',
 
 'L_UPDATE_ENDED'					=> 'Aktualizacja do wersji %s zakończona.',
@@ -55,5 +55,8 @@ $LANG = array(
 'L_UPDATE_UPDATE_PLUGINS_FILE'		=> 'Aktualizacja pliku plugins.xml',
 'L_UPDATE_COMMENTS_MIGRATION'		=> 'Uwagi dotyczące migracji',
 'L_UPDATE_ERR_COMMENTS_MIGRATION'	=> 'Błąd podczas migracji komentarzy',
+
+# PluXml 5.8.7
+'L_BUILD_CSS_PLUGINS_CACHE'			=> 'Tworzenie plików pamięci podręcznej admin.css i site.css dla wtyczek',
 );
-?>
+
