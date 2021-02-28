@@ -519,7 +519,7 @@ input[type="submit"].yellow:hover {
 	text-align: center;
 }
 #nav,/* fix old android browser (always open) */
-.responsive-menu label,.responsive-menu input[type=checkbox] { 
+.responsive-menu label,.responsive-menu input[type=checkbox] {
 	display: none;
 }
 .responsive-menu label {
@@ -529,7 +529,7 @@ input[type="submit"].yellow:hover {
 	padding-right: .7rem;
 }
 #nav:checked+ul#responsive-menu,/* fix old android browser */
-.responsive-menu input[type=checkbox]:checked+ul { 
+.responsive-menu input[type=checkbox]:checked+ul {
 	display: block;
 }
 
@@ -874,7 +874,7 @@ a.tooltip.tooltip-bottom span:after {
 	margin-left: -8px;
 	border-bottom: 8px solid #555;
 	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;	
+	border-left: 8px solid transparent;
 }
 a:hover.tooltip-bottom span {
 	top: 30px;
@@ -1695,19 +1695,25 @@ a:hover.tooltip-left span {
 		padding: 0;
 		margin: 0;
 	}
-	header .sticky,
-	nav .nav,
+	.no-print,
+	/* header, .sticky, */
+	nav, .nav,
 	aside,
-	#form {
+	form,
+	#form,
+	body > .footer {
 		display:none;
 	}
 	main .content {
 		width: 100% !important;
 	}
-	aside {
+	.page > .header .grid > div:first-of-type {
+		width: 100%;
+	}
+	.page > .header .grid > div:not(:first-of-type) {
 		display: none;
 	}
-	form {
-		display: none;
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: bold;
 	}
 }
