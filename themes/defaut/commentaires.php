@@ -37,7 +37,7 @@
 
 	<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
 
-	<h3>
+	<h3 class="no-print">
 		<?php $plxShow->lang('WRITE_A_COMMENT') ?>
 	</h3>
 
@@ -112,7 +112,7 @@ var parent = document.getElementById('id_parent').value;
 if(parent!='') { replyCom(parent) }
 </script>
 
-	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle">#feedName</a></p>'); ?>
+	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p class="no-print"><a href="#feedUrl" title="#feedTitle">#feedName</a></p>'); ?>
 
 	<?php else: ?>
 
