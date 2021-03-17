@@ -318,7 +318,7 @@ class plxPlugins {
 				}
 			}
 		}
-		$minify_filename = PLX_PLUGINS.$type;
+		$minify_filename = PLX_ROOT . PLX_PLUGINS_CSS_PATH.$type;
 		if(!empty($cache)) {
 			return plxUtils::write(plxUtils::minify($cache), $minify_filename);
 		} elseif((is_file($minify_filename))) {
