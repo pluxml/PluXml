@@ -165,7 +165,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 # Réécriture des urls
-RewriteRule ^(article\d*|categorie\d*|tag|archives|static\d*|blog|page\d*|telechargement|download)\b(.*)$ index.php?$1$2 [L]
+RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
 RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 </IfModule>
 # END -- Pluxml
