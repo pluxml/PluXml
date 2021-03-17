@@ -22,7 +22,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
 <?php
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
-	plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'].'admin.css', true);
+	plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'admin.css', true);
 ?>
 	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
