@@ -1,3 +1,6 @@
+## PLUXML 5.8.7 (yyy/mm/dd) ##
+FIX Comments no more displayed with PHP8 #529 (bazooka07)
+
 ## PLUXML 5.8.6 (2021/02/15) ##
 [+] Update PHPMailer 6.2.0 : security fixes and PHP 8.0 compatibility (P3ter)
 [+] Distinct article and comment rss feeds configuration #521 (thx3r)

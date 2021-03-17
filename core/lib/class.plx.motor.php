@@ -826,7 +826,7 @@ class plxMotor {
 	 **/
 	public function parentChildSort_r($idField, $parentField, $els, $parentID = 0, &$result = array(), &$level = 0){
 		foreach ($els as $key => $value) {
-			if ($value[$parentField] == $parentID) {
+			if (intval($value[$parentField]) == $parentID) {
 				$value['level'] = $level;
 				array_push($result, $value);
 				unset($els[$key]);
@@ -863,7 +863,7 @@ class plxMotor {
 			}
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
-			if (!preg_match('#comments\.php|comment\.php#',basename($_SERVER['SCRIPT_NAME']))) {
+			if (!preg_match('#comments?\.php$#',basename($_SERVER['SCRIPT_NAME']))) {
 				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
 
