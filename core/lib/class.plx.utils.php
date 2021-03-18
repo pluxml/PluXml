@@ -443,7 +443,7 @@ class plxUtils
                     ?>
                     <svg viewport="0 0 100 100">
                         <line x1="0" y1="0" x2="100" y2="100" stroke-width=2/>
-                        <line x1="0" y1="100" x2="100" y2="0"/>
+                            <line x1="0" y1="100" x2="100" y2="0"/>
                     </svg>
                     <?php
                 }
@@ -1287,12 +1287,14 @@ class plxUtils
      * @param string $to Destination e-mail address
      * @param string $subject E-mail subject
      * @param string $body E-mail body content
-     * @param boolean $isHtml True if body content use HTML
      * @param array $conf PHPMailer configuration (username, password, ...)
+     * @param boolean $isHtml True if body content use HTML
+     * @param bool $debug
      * @return    boolean
+     * @throws \PHPMailer\PHPMailer\Exception
      * @author Pedro "P3ter" CADETE
      */
-    public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml = false, $conf, $debug = false)
+    public static function sendMailPhpMailer(string $name, string $from, string $to, string $subject, string $body, array $conf, bool $isHtml = false, bool $debug = false): bool
     {
         $mail = new PHPMailer();
         if ($debug) {
@@ -1787,8 +1789,8 @@ EOT;
             return;
         }
 
-        if(!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
-            if($admin) {
+        if (!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
+            if ($admin) {
                 $href = PLX_ROOT . $file;
             } else {
                 $plxMotor = plxMotor::getinstance();
@@ -1796,7 +1798,7 @@ EOT;
             }
             $href .= '?d=' . base_convert(filemtime(PLX_ROOT . $file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
             ?>
-            <link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
+            <link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen"/>
             <?php
         }
     }
