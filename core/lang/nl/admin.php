@@ -1,10 +1,9 @@
 <?php
-
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Onbekende fout';
 const L_CONFIRM_DELETE = 'Bevestig de verwijdering van 999 items ?';
-const L_CONFIRM_ACTIVATE = 'Bevestig voor het uitschakelen van 999 items ?'
-const L_CONFIRM_DEACTIVATE = 'Bevestig voor het inschakelen van 999 items ?'
+const L_CONFIRM_ACTIVATE = 'Bevestig voor het uitschakelen van 999 items ?';
+const L_CONFIRM_DEACTIVATE = 'Bevestig voor het inschakelen van 999 items ?';
 const L_CONFIRM_OFFLINE = 'Bevestig dat 999 reacties offline zijn geweest ?';
 const L_CONFIRM_ONLINE = 'Bevestig het uploaden van 999 opmerkingen ?';
 const L_SAVE_FILE = 'Sla het bestand op';
@@ -336,7 +335,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Locatie en de naam van aangepaste css-bes
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'E-mail verzenden';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'E-mail verzendmethode';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'E-mails verzenden met SMTP';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Schakel e-mails verzenden door een SMTP-server in';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'SMTP-hostnaam';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'SMTP-gebruikersnaam';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'SMTP-wachtwoord';
@@ -366,6 +364,7 @@ const L_CONFIG_BASE_UPDATE = 'Basisconfiguratie aanpassen';
 const L_CONFIG_META_DESCRIPTION = 'META-tag "descriptie" van de site (optioneel)';
 const L_CONFIG_META_KEYWORDS = 'META-tag "keywords" van de site (optioneel)';
 const L_CONFIG_BASE_ENABLE_RSS = 'RSS-feeds weergeven';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'RSS-feeds voor commentaar';
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Layout bestaat niet !';
 const L_CONFIG_EDITTPL_TITLE = 'Layout aanpassen';
 const L_CONFIG_EDITTPL_SELECT_FILE = 'Keuze aan te passen bestand :';
@@ -483,5 +482,4 @@ const L_THEMES_TITLE = 'Het beheren van thema\'s';
 const L_HELP = 'Hulp';
 const L_HELP_TITLE = 'Zie hulp';
 const L_BACK_TO_THEMES = 'Terug naar de onderwerpen van de pagina';
-const L_CONFIG_THEME_UPDATE = 'Change Theme'
-?>
+const L_CONFIG_THEME_UPDATE = 'Change Theme';

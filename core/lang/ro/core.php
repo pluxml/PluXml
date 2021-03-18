@@ -66,19 +66,19 @@ const L_SATURDAY					= 'sambata';
 const L_SUNDAY						= 'duminica';
 
 # class.plx.capcha.php
-const L_LAST						= 'ultima';
-const L_FIRST						= 'prima';
-const L_SECOND						= 'a doua';
-const L_THIRD						= 'a treia';
-const L_FOURTH						= 'a patra';
-const L_FIFTH						= 'a cincia';
-const L_SIXTH						= 'a şasea';
-const L_SEVENTH						= 'a şaptea';
-const L_EIGTH						= 'a opta';
-const L_NINTH						= 'a noua';
-const L_TENTH						= 'a zecea';
-const L_NTH							= 'lea';
-const L_CAPCHA_QUESTION				= 'Care este <span class="capcha-letter">%s</span> litera a cuvantului <span class="capcha-word">%s</span>&nbsp;?';
+const L_LAST						= 'ultimul';
+const L_FIRST						= 'primul';
+const L_SECOND						= 'al doilea';
+const L_THIRD						= 'al treilea';
+const L_FOURTH						= 'al patrulea';
+const L_FIFTH						= 'al cincea';
+const L_SIXTH						= 'al şaselea';
+const L_SEVENTH						= 'al şaptelea';
+const L_EIGTH						= 'al optulea';
+const L_NINTH						= 'al nouălea';
+const L_TENTH						= 'al zecelea';
+const L_NTH							= 'a';
+const L_CAPCHA_QUESTION				= 'Care este <span class="capcha-letter">%s</span> caracterul a cuvantului <span class="capcha-word">%s</span>&nbsp;?';
 
 # class.plx.utils.php
 const L_WRITE_ACCESS				= '%s are acces de scriere';

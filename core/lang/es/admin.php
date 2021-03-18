@@ -1,10 +1,9 @@
 <?php
-
 const L_MENU = 'Menú';
 const L_UNKNOWN_ERROR = 'Error desconocido';
 const L_CONFIRM_DELETE = 'confirmar la eliminación de 999 elementos ?';
-const L_CONFIRM_ACTIVATE = 'Confirmar para habilitar 999 elementos ?'
-const L_CONFIRM_DEACTIVATE = 'Confirmar para deshabilitar 999 elementos ?'
+const L_CONFIRM_ACTIVATE = 'Confirmar para habilitar 999 elementos ?';
+const L_CONFIRM_DEACTIVATE = 'Confirmar para deshabilitar 999 elementos ?';
 const L_CONFIRM_OFFLINE = 'Confirme que 999 comentarios han estado fuera de línea ?';
 const L_CONFIRM_ONLINE = 'Confirmar la carga de 999 comentarios ?';
 const L_SAVE_FILE = 'Guardar el archivo';
@@ -382,6 +381,7 @@ const L_CONFIG_BASE_UPDATE = 'Guardar la configuración básica';
 const L_CONFIG_META_DESCRIPTION = 'Contenido de la metaetiqueta de description («description», opcional)';
 const L_CONFIG_META_KEYWORDS = 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Mostrar canales RSS';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Mostrar canales RSS para comentarios';
 
 // parametres_edittpl.php
 
@@ -529,5 +529,4 @@ const L_THEMES_TITLE = 'La gestión de temas';
 const L_HELP = 'Ayuda';
 const L_HELP_TITLE = 'Consulte la ayuda';
 const L_BACK_TO_THEMES = 'Volver a la lista de temas';
-const L_CONFIG_THEME_UPDATE = 'Cambiar tema'
-?>
+const L_CONFIG_THEME_UPDATE = 'Cambiar tema';

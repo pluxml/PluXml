@@ -66,19 +66,19 @@ const L_SATURDAY					= 'субота';
 const L_SUNDAY						= 'воскресенье';
 
 # class.plx.capcha.php
-const L_LAST						= 'последняя';
-const L_FIRST						= 'первая';
-const L_SECOND						= 'вторая';
-const L_THIRD						= 'третья';
-const L_FOURTH						= 'четвертая';
-const L_FIFTH						= 'пятая';
-const L_SIXTH						= 'шестая';
-const L_SEVENTH						= 'седьмая';
-const L_EIGTH						= 'восьмая';
-const L_NINTH						= 'девятая';
-const L_TENTH						= 'десятая';
+const L_LAST						= 'последний';
+const L_FIRST						= 'первый';
+const L_SECOND						= 'второй';
+const L_THIRD						= 'третьих';
+const L_FOURTH						= 'четвертый';
+const L_FIFTH						= 'пятый';
+const L_SIXTH						= 'шестой';
+const L_SEVENTH						= 'седьмой';
+const L_EIGTH						= 'восьмой';
+const L_NINTH						= 'девятый';
+const L_TENTH						= 'десятый';
 const L_NTH							= 'и';
-const L_CAPCHA_QUESTION				= 'Напечатйте, какая <span class="capcha-letter">%s</span> буква в этом тексте <span class="capcha-word">%s</span>?';
+const L_CAPCHA_QUESTION				= 'Каков, характер <span class="capcha-letter">%s</span> этого символ <span class="capcha-word">%s</span>?';
 
 # class.plx.utils.php
 const L_WRITE_ACCESS				= '%s имеет доступ на запись';

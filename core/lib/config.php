@@ -1,9 +1,8 @@
 <?php
-
-if(!defined('PLX_ROOT')) { exit('Are you silly ?'); }
+if(!defined('PLX_ROOT')) { exit(); }
 
 const PHP_VERSION_MIN = '7.2.0';
-const PLX_DEBUG = false;
+const PLX_DEBUG = true;
 const PLX_VERSION = '6.0.0-dev';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_RESSOURCES = 'https://ressources.pluxml.org';

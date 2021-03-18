@@ -1,10 +1,9 @@
 <?php
-
 const L_MENU = 'Menú';
 const L_UNKNOWN_ERROR = 'Error desconeguda';
 const L_CONFIRM_DELETE = 'Confirmar la supression de 999 elements ?';
-const L_CONFIRM_ACTIVATE = 'Confirmer l\'activation de 999 éléments ?'
-const L_CONFIRM_DEACTIVATE = 'Confirmer la désactivation de 999 éléments ?'
+const L_CONFIRM_ACTIVATE = 'Confirmer l\'activation de 999 éléments ?';
+const L_CONFIRM_DEACTIVATE = 'Confirmer la désactivation de 999 éléments ?';
 const L_CONFIRM_OFFLINE = 'Confirmer la mise hors-ligne de 999 commentaires ?';
 const L_CONFIRM_ONLINE = 'Confirmer la mise en ligne de 999 commentaires ?';
 const L_SAVE_FILE = 'Salvagardar lo fichièr';
@@ -352,7 +351,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Lòc e nom del fichièr css personal per 
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Mandadís dels corrièls';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Mòde de mandadís dels corrièls';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Mandadís dels corrièls amb SMTP';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Activar los corrièls amb SMTP';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'Òste SMTP';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'Nom d\'utilizaire de SMTP';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'Senhal SMTP';
@@ -385,6 +383,7 @@ const L_CONFIG_BASE_UPDATE = 'Modificar la configuracion de basa';
 const L_CONFIG_META_DESCRIPTION = 'Contengut de la balisa meta « descripcion » del site (opcion)';
 const L_CONFIG_META_KEYWORDS = 'Contengut de las balisas meta « keywords » del site (opcion)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Mostrar los flux RSS';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Mostrar los flux RSS dels comentaris';
 
 // parametres_edittpl.php
 
@@ -532,5 +531,4 @@ const L_THEMES_TITLE = 'Gerir los themes';
 const L_HELP = 'Ajuda';
 const L_HELP_TITLE = 'Veire l\'ajuda';
 const L_BACK_TO_THEMES = 'Tornar a la lista dels tèmas';
-const L_CONFIG_THEME_UPDATE = 'Modificar del tèma'
-?>
+const L_CONFIG_THEME_UPDATE = 'Modificar del tèma';

@@ -78,7 +78,7 @@ const L_EIGTH						= 'eighth';
 const L_NINTH						= 'ninth';
 const L_TENTH						= 'tenth';
 const L_NTH							= 'nth';
-const L_CAPCHA_QUESTION				= 'What is the <span class="capcha-letter">%s</span> letter of the word <span class="capcha-word">%s</span>?';
+const L_CAPCHA_QUESTION				= 'What is the <span class="capcha-letter">%s</span> character of the word <span class="capcha-word">%s</span>?';
 
 # class.plx.utils.php
 const L_WRITE_ACCESS				= '%s has write access';

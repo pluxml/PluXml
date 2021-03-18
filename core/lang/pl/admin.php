@@ -1,10 +1,9 @@
 <?php
-
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Nieznany błąd';
 const L_CONFIRM_DELETE = 'Potwierdzić usunięcie 999 pozycji ?';
-const L_CONFIRM_ACTIVATE = 'Potwierdź włączenie 999 elementów ?'
-const L_CONFIRM_DEACTIVATE = 'Potwierdź wyłączenie 999 elementów ?'
+const L_CONFIRM_ACTIVATE = 'Potwierdź włączenie 999 elementów ?';
+const L_CONFIRM_DEACTIVATE = 'Potwierdź wyłączenie 999 elementów ?';
 const L_CONFIRM_OFFLINE = 'Potwierdź, że 999 komentarzy było w trybie offline ?';
 const L_CONFIRM_ONLINE = 'Potwierdź przesłanie 999 komentarzy ?';
 const L_SAVE_FILE = 'Zapisz plik';
@@ -350,7 +349,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Lokalizacja i nazwa osobistego pliku css 
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Wysyłanie wiadomości e-mail';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Metoda wysyłania wiadomości e-mail';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Wysyłanie wiadomości e-mail za pomocą SMTP';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Włącz wysyłanie wiadomości e-mail przez serwer SMTP';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'Nazwa hosta SMTP';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'Nazwa użytkownika SMTP';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'Hasło SMTP';
@@ -383,6 +381,7 @@ const L_CONFIG_BASE_UPDATE = 'Zapisz zmiany';
 const L_CONFIG_META_DESCRIPTION = 'Zawartość tagu "opisu" strony (opcjonalnie)';
 const L_CONFIG_META_KEYWORDS = 'Zawartość tagu "słowa kluczowego" strony (opcjonalnie)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Wyświetl kanały RSS';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Wyświetl kanały RSS komentarzy';
 
 // parametres_edittpl.php
 
@@ -530,5 +529,4 @@ const L_THEMES_TITLE = 'Zarządzanie tematy';
 const L_HELP = 'Pomoc';
 const L_HELP_TITLE = 'Zobacz pomoc';
 const L_BACK_TO_THEMES = 'Powrót do tematów strony';
-const L_CONFIG_THEME_UPDATE = 'Zmień styl'
-?>
+const L_CONFIG_THEME_UPDATE = 'Zmień styl';

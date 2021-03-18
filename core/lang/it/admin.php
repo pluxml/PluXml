@@ -1,10 +1,9 @@
 <?php
-
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Errore sconosciuto';
 const L_CONFIRM_DELETE = 'Conferma l\'eliminazione di 999 elementi ?';
-const L_CONFIRM_ACTIVATE = 'Conferma per abilitare 999 elementi ?'
-const L_CONFIRM_DEACTIVATE = 'Conferma per disabilitare 999 elementi ?'
+const L_CONFIRM_ACTIVATE = 'Conferma per abilitare 999 elementi ?';
+const L_CONFIRM_DEACTIVATE = 'Conferma per disabilitare 999 elementi ?';
 const L_CONFIRM_OFFLINE = 'Conferma che 999 commenti sono stati offline ?';
 const L_CONFIRM_ONLINE = 'Conferma il caricamento di 999 commenti ?';
 const L_SAVE_FILE = 'Salvare il file';
@@ -214,7 +213,6 @@ const L_MEDIAS_NO_FILE = 'Nessun file';
 const L_MEDIAS_FILENAME = 'Nome del file';
 const L_MEDIAS_ADD_FILE = 'Aggiungi file';
 const L_MEDIAS_BACK = 'Indietro';
-const L_MEDIAS_MAX_FILE_UPLOAD = 'Numero massimo di file consentito da caricare';
 const L_MEDIAS_TITLE = 'Gestione dei media';
 const L_MEDIAS_IMAGES = 'Immagini';
 const L_MEDIAS_DOCUMENTS = 'Documenti';
@@ -332,6 +330,7 @@ const L_CONFIG_BASE_UPDATE = 'Modifica la configurazione base';
 const L_CONFIG_META_DESCRIPTION = 'Contenuto della meta tag "description" del sito (facoltativo)';
 const L_CONFIG_META_KEYWORDS = 'Contenuto della meta tag "keywords" del sito (facoltativo)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Visualizza feed RSS';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Visualizza feed RSS per commenti';
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Questo tema non esiste !';
 const L_CONFIG_EDITTPL_TITLE = 'Modifica il tema';
 const L_CONFIG_EDITTPL_SELECT_FILE = 'Scelta del file da modificare';
@@ -452,5 +451,4 @@ const L_HELP_TITLE = 'Vedere l\'aiuto';
 const L_BACK_TO_THEMES = 'Torna alla pagina dei temi';
 const L_ERR_INVALID_DATE_CREATION = 'Data di creazione non valida';
 const L_ERR_INVALID_DATE_UPDATE = 'Data non valida aggiornato';
-const L_CONFIG_THEME_UPDATE = 'Cambia Aspetto'
-?>
+const L_CONFIG_THEME_UPDATE = 'Cambia Aspetto';

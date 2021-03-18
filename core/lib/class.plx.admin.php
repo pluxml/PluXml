@@ -32,7 +32,6 @@ class plxAdmin extends plxMotor {
 	const URLREWRITING_TEMPLATE = <<< 'EOT'
 # BEGIN -- Pluxml
 Options -Multiviews
-
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 	RewriteBase ##BASE##
@@ -40,7 +39,7 @@ Options -Multiviews
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-l
 	# Réécriture des urls
-	RewriteRule ^(article\d*|categorie\d*|tag|archives|static\d*|page\d*|telechargement|download)\b(.*)$ index.php?$1$2 [L]
+	RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
 	RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 </IfModule>
 # END -- Pluxml
@@ -260,6 +259,7 @@ EOT;
 		}
 
 		$htaccess = (is_file(PLX_ROOT.'.htaccess')) ? file_get_contents(PLX_ROOT.'.htaccess') : '';
+
 		switch($action) {
 			case '0': # désactivation
 				if(!empty($htaccess)) {
@@ -420,19 +420,19 @@ EOT;
 	}
 
 	/**
-	 * Create a token and send a link by e-mail with "email-lostpassword.xml" template
-	 *
-	 * @param	loginOrMail	user login or e-mail address
-	 * @return	string		token to password reset
-	 * @author	Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
-	 **/
+	* Create a token and send a link by e-mail using "email-lostpassword.xml" template
+	*
+	* @param loginOrMail user login or e-mail address
+	* @return string token to password reset
+	* @throws \PHPMailer\PHPMailer\Exception
+	* @author Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
+	**/
 	public function sendLostPasswordEmail($loginOrMail) {
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
 				if(!$user['active'] or $user['delete'] or empty($user['email'])) { continue; }
 
 				if($user['login'] == $loginOrMail OR $user['email'] == $loginOrMail) {
-					// Attention à l'unicité des logins !!!
 					// token and e-mail creation
 					$mail = array();
 					$tokenExpiry = 24;
@@ -448,8 +448,8 @@ EOT;
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
 
-						if(empty($this->aConf['email_method']) or $this->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils, 'sendMailPhpMailer')) {
-							# fonction mail() intrinséque à PHP
+						if(empty($this->aConf['email_method']) or $this->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils::class, 'sendMailPhpMailer')) {
+							# fonction mail() intrinsèque à PHP
 							$success = plxUtils::sendMail('', '', $user['email'], $mail['subject'], $mail['body']);
 						} else {
 							# On utilise PHPMailer

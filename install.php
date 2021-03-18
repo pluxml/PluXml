@@ -76,59 +76,115 @@ if (!array_key_exists($timezone, plxTimezones::timezones())) {
 // Check plugins directory
 $pluginsDir = PLX_ROOT . 'plugins/';
 if (!is_dir($pluginsDir)) {
-	@mkdir($pluginsDir, 0755, true);
+    @mkdir($pluginsDir, 0755, true);
 }
 $filename = $pluginsDir . '.htaccess';
-if(!file_exists($filename)) {
-	file_put_contents($filename, HTACCESS2);
+if (!file_exists($filename)) {
+    file_put_contents($filename, HTACCESS2);
 }
+
+# Configuration de base
+$config = array('title' => 'PluXml',
+    'description' => plxUtils::strRevCheck(L_SITE_DESCRIPTION),
+    'meta_description' => '',
+    'meta_keywords' => '',
+    'timezone' => $timezone,
+    'allow_com' => 1,
+    'mod_com' => 0,
+    'mod_art' => 0,
+    'enable_rss' => 1,
+    'enable_rss_comment' => 1,
+    'capcha' => 1,
+    'lostpassword' => 1,
+    'style' => 'defaut',
+    'clef' => plxUtils::charAleatoire(15),
+    'bypage' => 5,
+    'bypage_archives' => 5,
+    'bypage_tags' => 5,
+    'bypage_admin' => 10,
+    'bypage_admin_coms' => 10,
+    'bypage_feed' => 8,
+    'tri' => 'desc',
+    'tri_coms' => 'asc',
+    'images_l' => 800,
+    'images_h' => 600,
+    'miniatures_l' => 200,
+    'miniatures_h' => 100,
+    'thumbs' => 0,
+    'medias' => 'data/medias/',
+    'racine_articles' => 'data/articles/',
+    'racine_commentaires' => 'data/commentaires/',
+    'racine_statiques' => 'data/statiques/',
+    'racine_themes' => 'themes/',
+    'racine_plugins' => 'plugins/',
+    'homestatic' => '',
+    'hometemplate' => 'home.php',
+    'urlrewriting' => 0,
+    'gzip' => 0,
+    'feed_chapo' => 0,
+    'feed_footer' => '',
+    'version' => PLX_VERSION,
+    'default_lang' => $lang,
+    'userfolders' => 0,
+    'display_empty_cat' => 0,
+    'custom_admincss_file' => '',
+    'email_method' => 'sendmail',
+    'smtp_server' => '',
+    'smtp_username' => '',
+    'smtp_password' => '',
+    'smtp_port' => '465',
+    'smtp_security' => 'ssl',
+    'smtpOauth2_emailAdress' => '',
+    'smtpOauth2_clientId' => '',
+    'smtpOauth2_clientSecret' => '',
+    'smtpOauth2_refreshToken' => ''
+);
 
 function install($content, $config)
 {
-
     // Checks folders to store datas
     $datasDir = dirname(PLX_CONFIG_PATH) . '/';
-    if(!is_dir($datasDir) and !mkdir($datasDir)) {
-		return;
-	}
+    if (!is_dir($datasDir) and !mkdir($datasDir)) {
+        return;
+    }
 
-	$htaccess = $datasDir . '.htaccess';
-	if(!file_exists($htaccess)) {
-		file_put_contents($htaccess, HTACCESS2 . PHP_EOL);
-	}
+    $htaccess = $datasDir . '.htaccess';
+    if (!file_exists($htaccess)) {
+        file_put_contents($htaccess, HTACCESS2 . PHP_EOL);
+    }
 
-    // Don't change! Use by plxAdmin::editconfiguration()
-	$folders = array(
-        'racine_articles'		=> $datasDir . 'articles/',
-        'racine_commentaires'	=> $datasDir . 'commentaires/',
-        'racine_statiques'		=> $datasDir . 'statiques/',
-        'medias'				=> $datasDir . 'medias/',
-        'themes'				=> 'themes/',
-		'plugins'				=> 'plugins/',
-	);
+    // Use by plxAdmin::editconfiguration()
+    $folders = array(
+        'racine_articles' => $datasDir . 'articles/',
+        'racine_commentaires' => $datasDir . 'commentaires/',
+        'racine_statiques' => $datasDir . 'statiques/',
+        'medias' => $datasDir . 'medias/',
+        'themes' => 'themes/',
+        'plugins' => 'plugins/',
+    );
 
-	foreach(array_merge(
-		array(
-			PLX_CONFIG_PATH,
-			PLX_CONFIG_PATH . 'plugins/',
-		),
-		$folders
-	) as $k=>$v) {
-		// create folder, index.html et .htaccess as needed
-		if(!is_dir($v)) {
-			mkdir($v);
-		}
+    foreach (array_merge(
+                 array(
+                     PLX_CONFIG_PATH,
+                     PLX_CONFIG_PATH . 'plugins/',
+                 ),
+                 $folders
+             ) as $k => $v) {
+        // create folder, index.html et .htaccess as needed
+        if (!is_dir($v)) {
+            mkdir($v);
+        }
 
-		$homepage = $v . 'index.html';
-		if(!file_exists($homepage)) {
-			file_put_contents($homepage, INDEX);
-		}
+        $homepage = $v . 'index.html';
+        if (!file_exists($homepage)) {
+            file_put_contents($homepage, INDEX);
+        }
 
-		$htaccess = $v . '.htaccess';
-		if(!file_exists($htaccess)) {
-			file_put_contents($htaccess, !in_array($k, array('medias', 'themes', 'plugins')) ? HTACCESS1 . PHP_EOL: HTACCESS2 . PHP_EOL);
-		}
-	}
+        $htaccess = $v . '.htaccess';
+        if (!file_exists($htaccess)) {
+            file_put_contents($htaccess, !in_array($k, array('medias', 'themes', 'plugins')) ? HTACCESS1 . PHP_EOL : HTACCESS2 . PHP_EOL);
+        }
+    }
 
     // Timezone init
     if (isset($_POST['timezone'])) {
@@ -144,22 +200,22 @@ function install($content, $config)
 
     // Configuration edit
     $plxAdmin->editConfiguration(array_merge(
-		array(
-	        'description'			=> plxUtils::strRevCheck(L_SITE_DESCRIPTION),
-	        'timezone'				=> $timezone,
-	        'clef'					=> plxUtils::charAleatoire(15),
-	        'default_lang'			=> $config['default_lang'],
-	    ),
-	    $folders
+        array(
+            'description' => plxUtils::strRevCheck(L_SITE_DESCRIPTION),
+            'timezone' => $timezone,
+            'clef' => plxUtils::charAleatoire(15),
+            'default_lang' => $config['default_lang'],
+        ),
+        $folders
     ));
 
     // Users creation
     $plxAdmin->editUsers(array(
-        'update'	=> 1, // Any value as true
-        'login'		=> array(USER_ID => trim($content['login'])),
-        'name'		=> array(USER_ID => trim($content['name'])),
-        'password'	=> array(USER_ID => trim($content['pwd'])),
-        'email'		=> array(USER_ID => trim($content['email'])),
+        'update' => 1, // Any value as true
+        'login' => array(USER_ID => trim($content['login'])),
+        'name' => array(USER_ID => trim($content['name'])),
+        'password' => array(USER_ID => trim($content['pwd'])),
+        'email' => array(USER_ID => trim($content['email'])),
     ), true);
 
     // Plugins file creation
@@ -180,13 +236,13 @@ function install($content, $config)
     // Pages creation
     $idStat = '001';
     $plxAdmin->editStatiques(array(
-        'update'	=> 1,
-        'group'		=> array(STAT_ID => ''),
-        'name'		=> array(STAT_ID =>plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE)),
-        'url'		=> array(STAT_ID => ''),
-        'active'	=> array(STAT_ID =>1),
-        'menu'		=> array(STAT_ID => 1),
-        'ordre'		=> array(STAT_ID => 1),
+        'update' => 1,
+        'group' => array(STAT_ID => ''),
+        'name' => array(STAT_ID => plxUtils::strRevCheck(L_DEFAULT_STATIC_TITLE)),
+        'url' => array(STAT_ID => ''),
+        'active' => array(STAT_ID => 1),
+        'menu' => array(STAT_ID => 1),
+        'ordre' => array(STAT_ID => 1),
     ));
     $plxAdmin->editStatique(array(
         'id' => $idStat,
@@ -197,26 +253,26 @@ function install($content, $config)
     list ($chapo, $article) = explode('-----', file_get_contents(PLX_CORE . '/templates/install-article.txt'));
     $idArt = '0001';
     $plxAdmin->editArticle(array(
-        'title'		=> plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE),
-        'author'	=> USER_ID,
-        'catId'		=> array_keys($plxAdmin->aCats), // Juste une catégorie créée
-        'allow_com'	=> 1,
-        'template'	=> 'article.php',
-        'chapo'		=> $chapo,
-        'content'	=> $article,
-        'tags'		=> 'PluXml',
+        'title' => plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE),
+        'author' => USER_ID,
+        'catId' => array_keys($plxAdmin->aCats), // Juste une catégorie créée
+        'allow_com' => 1,
+        'template' => 'article.php',
+        'chapo' => $chapo,
+        'content' => $article,
+        'tags' => 'PluXml',
     ), $idArt);
 
     // First comment creation
     $plxAdmin->addCommentaire(array(
-        'author'	=> 'PluXml',
-        'type'		=> 'normal',
-        'ip'		=> plxUtils::getIp(),
-        'mail'		=> 'demo@pluxml.org',
-        'site'		=> PLX_URL_REPO,
-        'content'	=> plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT),
-        'parent'	=> '',
-        'filename'	=> '0001.' . date('U') . '-1.xml',
+        'author' => 'PluXml',
+        'type' => 'normal',
+        'ip' => plxUtils::getIp(),
+        'mail' => 'demo@pluxml.org',
+        'site' => PLX_URL_REPO,
+        'content' => plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT),
+        'parent' => '',
+        'filename' => '0001.' . date('U') . '-1.xml',
     ));
 }
 
@@ -266,25 +322,36 @@ $logoSize = getimagesize(PLX_LOGO);
     <link rel="stylesheet" type="text/css" href="<?= PLX_ADMIN_PATH ?>theme/css/theme.css" media="screen"/>
     <link rel="icon" href="<?= PLX_ADMIN_PATH ?>theme/images/favicon.png"/>
     <style>
-		body {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			height: 100vh;
-			align-items: center;
-		}
-		main {
-			width: 64rem;
-			max-width: 100vw;
-			padding: 1rem;
-		}
-		fieldset, fieldset p { margin: 0; }
-		fieldset { padding: 0; }
-		fieldset > div:not(.center) {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-		}
-		.center { text-align: center; }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            align-items: center;
+        }
+
+        main {
+            width: 64rem;
+            max-width: 100vw;
+            padding: 1rem;
+        }
+
+        fieldset, fieldset p {
+            margin: 0;
+        }
+
+        fieldset {
+            padding: 0;
+        }
+
+        fieldset > div:not(.center) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -292,7 +359,7 @@ $logoSize = getimagesize(PLX_LOGO);
     <section>
 
         <div class="center">
-            <p><img src="<?= PLX_LOGO ?>" <?= $logoSize[3] ?> alt="PluXml" /></p>
+            <p><img src="<?= PLX_LOGO ?>" <?= $logoSize[3] ?> alt="PluXml"/></p>
             <p><a href="<?= PLX_URL_REPO ?>" target="_blank"><?= PLX_URL_REPO ?></a></p>
         </div>
 
@@ -300,81 +367,81 @@ $logoSize = getimagesize(PLX_LOGO);
             <h1><?= L_PLUXML_INSTALLATION . ' ' . PLX_VERSION ?></h1>
         </header>
 
-		<form method="post">
-			<?= plxToken::getTokenPostMethod() ?>
-			<fieldset>
-				<div>
-					<label for="id_default_lang"><?= L_SELECT_LANG ?></label>
-					<div>
-						<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
-						<input class="btn--inverse" type="submit" name="select_lang" value="<?= L_INPUT_CHANGE ?>" />
-					</div>
-				</div>
-			</fieldset>
-		</form>
-<?php
-if(!empty($msg)) {
-?>
-		<div class="alert--danger>"<?= $msg ?></div>
-<?php
-}
-
-if(is_writable(PLX_ROOT) and plxUtils::testLibGD(false) and plxUtils::testLibXml(false)) {
-?>
         <form method="post">
-			<input type="hidden" name="default_lang" value="<?= $lang ?>" />
             <?= plxToken::getTokenPostMethod() ?>
             <fieldset>
                 <div>
-                    <label for="id_default_lang"><?= L_INSTALL_DATA ?></label>
-                    <?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>
-                </div>
-                <div>
-                    <label for="id_name"><?= L_USERNAME ?></label>
-                    <?php plxUtils::printInput('name', $name, 'text', '20-255', false, '', '', 'autofocus required') ?>
-                </div>
-                <div>
-                    <label for="id_login"><?= L_PROFIL_LOGIN ?></label>
-                    <?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', 'required') ?>
-                </div>
-                <div>
-                    <label for="id_pwd"><?= L_PASSWORD ?></label>
-                    <?php
-                    list ($very, $weak, $good, $strong) = array(
-                        L_PWD_VERY_WEAK,
-                        L_PWD_WEAK,
-                        L_PWD_GOOD,
-                        L_PWD_STRONG
-                    );
-                    $extras = <<< EOT
-onkeyup="pwdStrength(this.id, ['$very', '$weak', '$good', '$strong']);" required
-EOT;
-                    ?>
+                    <label for="id_default_lang"><?= L_SELECT_LANG ?></label>
                     <div>
-                        <?php plxUtils::printInput('pwd', '', 'password', '20-255', false, 'w100', '', $extras); ?>
-                        <p id="id_pwd_strenght"></p>
+                        <?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
+                        <input class="btn--inverse" type="submit" name="select_lang" value="<?= L_INPUT_CHANGE ?>"/>
                     </div>
-                </div>
-                <div>
-                    <label for="id_pwd2"><?= L_CONFIRM_PASSWORD ?></label>
-                    <?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', 'required') ?>
-                </div>
-                <div>
-                    <label for="id_email"><?= L_MAIL_ADDRESS ?></label>
-                    <?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', 'required') ?>
-                </div>
-                <div>
-                    <label for="id_timezone"><?= L_TIMEZONE ?></label>
-                    <?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
-                </div>
-                <div class="center">
-                    <input class="btn--primary" type="submit" name="install" value="<?= L_INPUT_INSTALL ?>"/>
                 </div>
             </fieldset>
         </form>
-<?php
-}
-?>
+        <?php
+        if (!empty($msg)) {
+            ?>
+            <div class="alert--danger>"<?= $msg ?></div>
+            <?php
+        }
+
+        if (is_writable(PLX_ROOT) and plxUtils::testLibGD(false) and plxUtils::testLibXml(false)) {
+            ?>
+            <form method="post">
+                <input type="hidden" name="default_lang" value="<?= $lang ?>"/>
+                <?= plxToken::getTokenPostMethod() ?>
+                <fieldset>
+                    <div>
+                        <label for="id_default_lang"><?= L_INSTALL_DATA ?></label>
+                        <?php plxUtils::printSelect('data', array('1' => L_YES, '0' => L_NO), $data) ?>
+                    </div>
+                    <div>
+                        <label for="id_name"><?= L_USERNAME ?></label>
+                        <?php plxUtils::printInput('name', $name, 'text', '20-255', false, '', '', 'autofocus required') ?>
+                    </div>
+                    <div>
+                        <label for="id_login"><?= L_PROFIL_LOGIN ?></label>
+                        <?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', 'required') ?>
+                    </div>
+                    <div>
+                        <label for="id_pwd"><?= L_PASSWORD ?></label>
+                        <?php
+                        list ($very, $weak, $good, $strong) = array(
+                            L_PWD_VERY_WEAK,
+                            L_PWD_WEAK,
+                            L_PWD_GOOD,
+                            L_PWD_STRONG
+                        );
+                        $extras = <<< EOT
+onkeyup="pwdStrength(this.id, ['$very', '$weak', '$good', '$strong']);" required
+EOT;
+                        ?>
+                        <div>
+                            <?php plxUtils::printInput('pwd', '', 'password', '20-255', false, 'w100', '', $extras); ?>
+                            <p id="id_pwd_strenght"></p>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="id_pwd2"><?= L_CONFIRM_PASSWORD ?></label>
+                        <?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', 'required') ?>
+                    </div>
+                    <div>
+                        <label for="id_email"><?= L_MAIL_ADDRESS ?></label>
+                        <?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', 'required') ?>
+                    </div>
+                    <div>
+                        <label for="id_timezone"><?= L_TIMEZONE ?></label>
+                        <?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
+                    </div>
+                    <div class="center">
+                        <input class="btn--primary" type="submit" name="install" value="<?= L_INPUT_INSTALL ?>"/>
+                    </div>
+                </fieldset>
+            </form>
+            <?php
+        }
+        ?>
 
         <ul class="unstyled">
             <li><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>

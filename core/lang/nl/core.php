@@ -78,7 +78,8 @@ const L_EIGTH						= 'achste';
 const L_NINTH						= 'negende';
 const L_TENTH						= 'tiende';
 const L_NTH							= 'de';
-const L_CAPCHA_QUESTION				= 'Welke is de <span class="capcha-letter">%s</span> letter van het woord <span class="capcha-word">%s</span>&nbsp;?';
+const L_CAPCHA_QUESTION				= 'Welke is de <span class="capcha-letter">%s</span> aard van het woord <span class="capcha-word">%s</span>&nbsp;?';
+
 # class.plx.utils.php
 const L_WRITE_ACCESS				= '%s is toegankelijk met schrijfrechten';
 const L_WRITE_NOT_ACCESS			= '%s is niet toegankelijk met schrijfrechten of bestaat niet';

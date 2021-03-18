@@ -1,10 +1,9 @@
 <?php
-
 const L_MENU = 'Menu';
 const L_UNKNOWN_ERROR = 'Unknown error';
 const L_CONFIRM_DELETE = 'Confirm the deletion of 999 items ?';
-const L_CONFIRM_ACTIVATE = 'Confirm for enabling 999 items ?'
-const L_CONFIRM_DEACTIVATE = 'Confirm for disabling 999 items ?'
+const L_CONFIRM_ACTIVATE = 'Confirm for enabling 999 items ?';
+const L_CONFIRM_DEACTIVATE = 'Confirm for disabling 999 items ?';
 const L_CONFIRM_OFFLINE = 'Confirm that 999 comments have been offline ?';
 const L_CONFIRM_ONLINE = 'Confirm the upload of 999 comments ?';
 const L_SAVE_FILE = 'Save the file';
@@ -384,6 +383,7 @@ const L_CONFIG_BASE_UPDATE = 'Save basic configuration';
 const L_CONFIG_META_DESCRIPTION = 'Content of "description" meta tag (optional)';
 const L_CONFIG_META_KEYWORDS = 'Content of "keywords" meta tag (optional)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Display RSS feeds';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Display RSS feeds for comments';
 
 // parametres_edittpl.php
 
@@ -534,4 +534,3 @@ const L_HELP = 'Help';
 const L_HELP_TITLE = 'See help';
 const L_BACK_TO_THEMES = 'Back to themes';
 const L_CONFIG_THEME_UPDATE = 'Select this theme';
-?>

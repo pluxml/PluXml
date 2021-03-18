@@ -66,19 +66,19 @@ const L_SATURDAY					= 'sobota';
 const L_SUNDAY						= 'niedziela';
 
 # class.plx.capcha.php
-const L_LAST						= 'ostatnia';
-const L_FIRST						= 'pierwsza';
+const L_LAST						= 'najnowszy';
+const L_FIRST						= 'pierwszy';
 const L_SECOND						= 'druga';
-const L_THIRD						= 'trzecia';
-const L_FOURTH						= 'czwarta';
-const L_FIFTH						= 'piąta';
-const L_SIXTH						= 'szósta';
-const L_SEVENTH						= 'siódma';
+const L_THIRD						= 'trzeci';
+const L_FOURTH						= 'czwarty';
+const L_FIFTH						= 'piąty';
+const L_SIXTH						= 'szósty';
+const L_SEVENTH						= 'siódmy';
 const L_EIGTH						= 'ósma';
-const L_NINTH						= 'dziewiąta';
-const L_TENTH						= 'dziesiąta';
+const L_NINTH						= 'dziewiąty';
+const L_TENTH						= 'dziesiąty';
 const L_NTH							= 'n-ta';
-const L_CAPCHA_QUESTION				= 'Jaka jest <span class="capcha-letter">%s</span> litera w słowie <span class="capcha-word">%s</span>&nbsp;?';
+const L_CAPCHA_QUESTION				= 'Jaki jest <span class="capcha-letter">%s</span> charakter w słowie <span class="capcha-word">%s</span>&nbsp;?';
 
 # class.plx.utils.php
 const L_WRITE_ACCESS				= '%s jest zapisywalny';

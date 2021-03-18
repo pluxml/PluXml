@@ -353,7 +353,6 @@ const L_CONFIG_CUSTOM_CSSADMIN_PATH = 'Место и имя пользовате
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE = 'Отправка электронной почты';
 const L_CONFIG_ADVANCED_EMAIL_METHOD = 'Способ отправки электронной почты';
 const L_CONFIG_ADVANCED_SMTP_TITLE = 'Отправка писем по SMTP';
-const L_CONFIG_ADVANCED_SMTP_ACTIVATION = 'Разрешить отправку писем по SMTP-серверу';
 const L_CONFIG_ADVANCED_SMTP_SERVER = 'Имя хоста SMTP';
 const L_CONFIG_ADVANCED_SMTP_USERNAME = 'Имя пользователя SMTP';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD = 'Пароль SMTP';
@@ -386,6 +385,7 @@ const L_CONFIG_BASE_UPDATE = 'Сохранить основные настрой
 const L_CONFIG_META_DESCRIPTION = 'Мета-тег описания "Description" (необязательно)';
 const L_CONFIG_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Отображать RSS-каналы';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Отображать RSS-каналы комментариев';
 
 // parametres_edittpl.php
 
@@ -533,5 +533,4 @@ const L_THEMES_TITLE = 'Управление темы';
 const L_HELP = 'помощь';
 const L_HELP_TITLE = 'См помощь';
 const L_BACK_TO_THEMES = 'Вернуться к темам страницы';
-const L_CONFIG_THEME_UPDATE = 'Изменить стиль'
-?>
+const L_CONFIG_THEME_UPDATE = 'Изменить стиль';

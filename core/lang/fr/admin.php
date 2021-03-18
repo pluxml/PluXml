@@ -384,6 +384,7 @@ const L_CONFIG_BASE_UPDATE = 'Modifier la configuration de base';
 const L_CONFIG_META_DESCRIPTION = 'Contenu de la balise meta "description" du site (optionnel)';
 const L_CONFIG_META_KEYWORDS = 'Contenu de la balise meta "keywords" du site (optionnel)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Afficher les flux RSS';
+const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Afficher les flux RSS des commentaires';
 
 // parametres_edittpl.php
 
@@ -533,5 +534,4 @@ const L_THEMES_TITLE = 'Gérer les thèmes';
 const L_HELP = 'Aide';
 const L_HELP_TITLE = 'Voir l\'aide';
 const L_BACK_TO_THEMES = 'Retour à la page des thèmes';
-const L_CONFIG_THEME_UPDATE = 'Modifier le thème'
-?>
+const L_CONFIG_THEME_UPDATE = 'Modifier le thème';

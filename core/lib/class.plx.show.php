@@ -1402,7 +1402,7 @@ class plxShow
         if (eval ($this->plxMotor->plxPlugins->callHook('plxShowComFeed')))
             return;
 
-        if ($this->plxMotor->aConf ['enable_rss']) {
+        if ($this->plxMotor->aConf ['enable_rss_comment']) {
             if ($article != '' and is_numeric($article)) { # Fil Rss des commentaires d'un article
                 echo strtr($format, array(
                     '#feedUrl' => $this->plxMotor->urlRewrite('feed.php?rss/commentaires/article' . $article),
