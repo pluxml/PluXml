@@ -10,9 +10,8 @@ const L_UPDATE_BACK						= 'Powrót do strony głównej';
 const L_UPDATE_WARNING1					= 'Twoja wersja PluXml wymaga aktualizacji';
 const L_UPDATE_SELECT_VERSION			= 'Proszę wybrać wersję PluXml, którą chcesz zaktualizować.';
 const L_UPDATE_WARNING2					= 'Jeżeli nie ma twojej wersji na liście, może to oznaczać że jest zbyt stara i nie posiada automatycznej aktualizacji. <br />Sugerujemy, aby pobrać najnowszą wersję <a href="https://www.pluxml.org">PluXml</a> i wykonać nową instalację.';
-const L_UPDATE_WARNING3					= 'OSTRZEŻENIE przed rozpoczęciem aktualizacji należy wykonać kopię zapasową danych folderu "data"';
+const L_UPDATE_WARNING3					= 'OSTRZEŻENIE przed rozpoczęciem aktualizacji należy wykonać kopię zapasową danych folderu "%s"';
 const L_UPDATE_START					= 'Rozpocznij aktualizację';
-
 const L_UPDATE_ENDED					= 'Aktualizacja do wersji %s zakończona.';
 const L_UPDATE_INPROGRESS				= 'Wersja aplikacji aktualizacji';
 const L_UPDATE_ERROR					= 'Wystąpił błąd podczas aktualizacji w kroku %s.';
@@ -52,4 +51,4 @@ const L_UPDATE_COMMENTS_MIGRATION		= 'Uwagi dotyczące migracji';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Błąd podczas migracji komentarzy';
 const L_UPDATE_NEW_FOLDER				= 'nowy folder : %s';
 const L_UPDATE_DEPRECATED_PARAMETER		= 'Nieaktualny parametr : %s';
-?>
+const L_BUILD_CSS_PLUGINS_CACHE = 'Tworzenie plików pamięci podręcznej admin.css i site.css dla wtyczek';

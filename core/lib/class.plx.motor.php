@@ -507,6 +507,7 @@ class plxMotor
         # détermination automatique de la racine du site
         $this->aConf['racine'] = plxUtils::getRacine();
         if (!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
+        if (!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
     }
 
     /**
@@ -979,7 +980,7 @@ class plxMotor
     public function parentChildSort_r($idField, $parentField, $els, $parentID = 0, &$result = array(), &$level = 0)
     {
         foreach ($els as $key => $value) {
-            if ($value[$parentField] == $parentID) {
+            if (intval($value[$parentField]) == $parentID) {
                 $value['level'] = $level;
                 array_push($result, $value);
                 unset($els[$key]);
@@ -1017,7 +1018,7 @@ class plxMotor
             }
 
             # hiérarchisation et indentation des commentaires seulement sur les écrans requis
-            if (!preg_match('#comments?\.php#', basename($_SERVER['SCRIPT_NAME']))) {
+            if (!preg_match('#comments?\.php$#',basename($_SERVER['SCRIPT_NAME']))) {
                 $array = $this->parentChildSort_r('index', 'parent', $array);
             }
 
@@ -1389,5 +1390,4 @@ class plxMotor
             }
         }
     }
-
 }

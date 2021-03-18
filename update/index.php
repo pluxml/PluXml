@@ -107,7 +107,7 @@ plxToken::validateFormToken($_POST);
                             <?php
                         }
                         ?>
-                        <p class="alert--warning"><i class="icon-info-circled"></i>&nbsp;<?= L_UPDATE_WARNING3 ?></p>
+                        <p><?php printf(L_UPDATE_WARNING3, preg_replace('@^([^/]+).*@', '$1', $plxUpdater->plxAdmin->aConf['racine_articles'])); ?></p>
                         <p class="mtm"><input type="submit" name="submit" role="button" value="<?= L_UPDATE_START ?>" <?php if (!$writable) {
                                 echo 'disabled';
                             } ?> /></p>
