@@ -120,6 +120,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'sem tags',
 'L_ARTCHAPO'					=> 'Lêr mais #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Fluxo Rss dos artigos desta categoria',
+'L_ARTFEED_RSS_USER'			=> 'Fluxo Rss dos artigos desta autor',
 'L_ARTFEED_RSS_TAG'				=> 'Fluxo Rss dos artigos deste tag',
 'L_ARTFEED_RSS'					=> 'Fluxo Rss dos artigos',
 'L_NO_COMMENT'					=> 'não comentários',

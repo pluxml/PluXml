@@ -242,6 +242,7 @@ $LANG = array (
 		'L_SEARCH' => 'Căutare',
 		'L_SEARCH_PLACEHOLDER' => 'Identificator sau titlu',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Toate categoriile ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Toți autorii...',	
 		'L_ALL' => 'Toate',
 		'L_ALL_PUBLISHED' => 'Publicat',
 		'L_ALL_DRAFTS' => 'Schiţe',

@@ -120,6 +120,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'nessuno',
 'L_ARTCHAPO'					=> 'Continua...',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Feed degli articoli di questa categoria',
+'L_ARTFEED_RSS_USER'			=> 'Feed degli articoli di questo editor',
 'L_ARTFEED_RSS_TAG'				=> 'Feed degli articoli di questo tag',
 'L_ARTFEED_RSS'					=> 'Feed degli articoli',
 'L_NO_COMMENT'					=> 'Nessun commento',

@@ -120,6 +120,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'			=> 'kein',
 'L_ARTCHAPO'				=> 'Den Artikel #art_title lesen',
 'L_ARTFEED_RSS_CATEGORY'	=> 'Artikel-Feed (RSS) dieser Kategorie',
+'L_ARTFEED_RSS_USER'		=> 'Artikel-Feed (RSS) dieser Autor',
 'L_ARTFEED_RSS_TAG'			=> 'Artikel-Feed (RSS) dieser Tag',
 'L_ARTFEED_RSS'				=> 'Artikel-Feed (RSS)',
 'L_NO_COMMENT'				=> 'keine Kommentare',

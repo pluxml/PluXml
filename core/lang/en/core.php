@@ -120,6 +120,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'none',
 'L_ARTCHAPO'					=> 'Read more #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Rss feed of the category',
+'L_ARTFEED_RSS_USER'			=> 'Rss feed of this author',
 'L_ARTFEED_RSS_TAG'				=> 'Rss feed of the tag',
 'L_ARTFEED_RSS'					=> 'Rss feed of the articles',
 'L_NO_COMMENT'					=> 'no comments',
