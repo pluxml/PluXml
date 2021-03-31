@@ -19,6 +19,14 @@
 		</ul>
 
 		<h3>
+			<?php $plxShow->lang('AUTHORS'); ?>
+		</h3>
+
+		<ul class="author-list unstyled-list">
+			<?php $plxShow->authorList(); ?>
+		</ul>
+
+		<h3>
 			<?php $plxShow->lang('TAGS'); ?>
 		</h3>
 
