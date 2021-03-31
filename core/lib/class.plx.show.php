@@ -646,20 +646,30 @@ class plxShow
      * Méthode qui affiche ou renvoie l'auteur de l'article
      *
      * @param echo si à VRAI affichage à l'écran
+     * @param link affiche un lien vers tous les articles de l'auteur si vrai
      * @scope    home,categorie,article,tags,archives
-     * @author    Anthony GUÉRIN, Florent MONTHEL et Stephane F
+     * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F, Jean-Pierre Pourrez "bazooka07"
      **/
-    public function artAuthor($echo = true)
+    public function artAuthor($echo = true, $link=true)
     {
+        $authorId = $this->plxMotor->plxRecord_arts->f('author');
+        if (isset($this->plxMotor->aUsers[$authorId]['name'])) {
+			$author = $this->plxMotor->aUsers[$this->plxMotor->plxRecord_arts->f('author')];
+            $authorName = plxUtils::strCheck($author['name']);
+		} else {
+            $authorName = L_ARTAUTHOR_UNKNOWN;
+		}
 
-        if (isset($this->plxMotor->aUsers[$this->plxMotor->plxRecord_arts->f('author')]['name']))
-            $author = plxUtils::strCheck($this->plxMotor->aUsers[$this->plxMotor->plxRecord_arts->f('author')]['name']);
-        else
-            $author = L_ARTAUTHOR_UNKNOWN;
-        if ($echo)
-            echo $author;
-        else
-            return $author;
+        if (!$echo) {
+            return $authorName;
+		}
+
+		if($link and !empty($author)) {
+			$href = 'index.php?user' . $authorId . '/' . urlencode($author['login']);
+			echo '<a href="' . $this->plxMotor->urlRewrite($href) . '">' . $authorName . '</a>';
+		} else {
+            echo $authorName;
+		}
     }
 
     /**
@@ -688,9 +698,10 @@ class plxShow
 
         $infos = plxUtils::getValue($this->plxMotor->aUsers[$this->plxMotor->plxRecord_arts->f('author')]['infos']);
         if (trim($infos) != '') {
-            $txt = str_replace('#art_authorinfos', $infos, $format);
-            $txt = str_replace('#art_author', $this->artAuthor(false), $txt);
-            echo $txt;
+            echo strtr($format, array(
+				'#art_authorinfos'	=> $infos,
+				'#art_author'		=> $this->artAuthor(false),
+            ));
         }
     }
 
@@ -909,33 +920,55 @@ class plxShow
      * d'une catégorie précise (si $categorie renseigné) ou du site tout entier
      *
      * @param type        type de flux (obsolete)
-     * @param categorie    identifiant (sans les 0) d'une catégorie
+     * @param idStr		  identifiant (sans les 0) d'une catégorie
      * @param format        format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
      * @scope    home,categorie,article,tags,archives
      * @author    Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
      **/
-    public function artFeed($type = 'rss', $categorie = '', $format = '<a href="#feedUrl" title="#feedTitle">#feedName</a>')
+    public function artFeed($type = 'rss', $idStr = '', $format = '<a href="#feedUrl" title="#feedTitle">#feedName</a>')
     {
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))
             return;
 
         if ($this->plxMotor->aConf ['enable_rss']) {
-            if ($categorie != '' and is_numeric($categorie)) {
+            if (trim($idStr) != '' and is_numeric($idStr)) {
                 # Fil Rss des articles d'une catégorie
-                $id = str_pad($categorie, 3, '0', STR_PAD_LEFT);
-                if (isset ($this->plxMotor->aCats [$id])) {
-                    $result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss/categorie' . $categorie . '/' . $this->plxMotor->aCats[$id]['url']), $format);
-                    $result = str_replace('#feedTitle', L_ARTFEED_RSS_CATEGORY, $result);
-                    $result = str_replace('#feedName', L_ARTFEED_RSS_CATEGORY, $result);
-                }
+                $id = str_pad($idStr, 3, '0', STR_PAD_LEFT);
+                switch($this->plxMotor->mode) {
+					case 'categorie':
+		                if (isset ($this->plxMotor->aCats[$id])) {
+							$replaces = array(
+								'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/categorie' . $idStr . '/' . $this->plxMotor->aCats[$id]['url']),
+								'#feedTitle'	=> L_ARTFEED_RSS_CATEGORY,
+								'#feedName'		=> L_ARTFEED_RSS_CATEGORY,
+							);
+		                }
+						break;
+					case 'user':
+		                if (isset ($this->plxMotor->aUsers[$id])) {
+							$replaces = array(
+								'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/user' . $idStr . '/' . $this->plxMotor->aUsers[$id]['login']),
+								'#feedTitle'	=> L_ARTFEED_RSS_USER,
+								'#feedName'		=> L_ARTFEED_RSS_USER,
+							);
+		                }
+						break;
+					default:
+						return;
+				}
             } else {
                 # Fil Rss des articles
-                $result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss'), $format);
-                $result = str_replace('#feedTitle', L_ARTFEED_RSS, $result);
-                $result = str_replace('#feedName', L_ARTFEED_RSS, $result);
+                $replaces = array(
+					'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss'),
+					'#feedTitle'	=> L_ARTFEED_RSS,
+					'#feedName'		=> L_ARTFEED_RSS,
+                );
             }
-            echo $result;
+
+            if(!empty($replaces)) {
+				echo strtr($format, $replaces);
+			}
         }
     }
 
@@ -1945,6 +1978,82 @@ class plxShow
     }
 
     /**
+     * Méthode qui affiche le nom de l'auteur (linké ou non)
+     *
+     * @param type	type d'affichage : link => sous forme de lien
+     * @scope		users
+     * @author		Jean-Pierre Pourrez "bazooka07"
+     **/
+    public function authorName($type = '')
+    {
+
+        if ($this->plxMotor->mode == 'user' and isset($this->plxMotor->aUsers[$this->plxMotor->cible])) {
+            $id = plxUtils::strCheck($this->plxMotor->cible);
+            $userName = plxUtils::strCheck($this->plxMotor->aUsers[$id]['name']);
+            # On effectue l'affichage
+            if ($type == 'link') {
+				$href = 'index.php?user' . $id . '/' . urlencode($this->plxMotor->aUsers[$id]['login']);
+                echo '<a href="' . $this->plxMotor->urlRewrite($href) . '" title="' . $userName . '">' . $userName . '</a>';
+			} else {
+                echo $userName;
+			}
+        }
+    }
+
+    /**
+     * @param string $format format du texte pour chaque catégorie (variable : #cat_id, #cat_status, #cat_url, #cat_name, #cat_description, #art_nb)
+     * @param string $include liste des id des utilisateurs à afficher, séparés par un ou plusieurs caractères (exemple: '001 |003 5, 45|50')
+     * @param string $exclude liste des id des utilisateurs à ne pas afficher
+     * @scope    global
+     * @author   Jean-Pierre Pourrez "bazooka07"
+     **/
+    public function authorList($format = '<li id="#user_id"><a href="#user_url" class="#user_status" title="#user_name">#user_name</a> (#art_nb)</li>', $include = '', $exclude = '')
+    {
+        # Hook Plugins
+        if (eval($this->plxMotor->plxPlugins->callHook('plxShowLastUserList'))) return;
+
+		$motif = '#^\d{4}\.(?:home,|\d{3},)*(?:home|\d{3})(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+		$arts = $this->plxMotor->plxGlob_arts->query($motif,'art','',0,false,'before');
+		$nbArts = array();
+		array_walk($arts, function($item) use(&$nbArts) {
+			if(preg_match('#.*\.(\d{3})\.\d{12}\.[\w-]+\.xml$#', $item, $matches)) {
+				$userId = $matches[1];
+				if(!isset($nbArts[$userId])) {
+					$nbArts[$userId] = 1;
+				} else {
+					$nbArts[$userId]++;
+				}
+			}
+		});
+		// $currentCats = $this->catId(true);
+		foreach ($nbArts as $userId => $v) {
+			# On vérifie que cet auteur existe
+			if (array_key_exists($userId, $this->plxMotor->aUsers)) {
+				$userIdNum = intval($userId);
+				$pattern = '@\b0*' . $userIdNum . '\b@';
+				if (empty($include) or preg_match($pattern, $include)) {
+					if (empty($exclude) || !preg_match($pattern, $exclude)) {
+						# on a des articles pour cet auteur ou on affiche les catégories sans article
+						# On modifie nos motifs
+						$author = $this->plxMotor->aUsers[$userId];
+						$actif = (
+							($this->plxMotor->mode == 'user' and $this->plxMotor->cible == $userId) or
+							($this->plxMotor->mode == 'article' and $this->plxMotor->plxRecord_arts->f('author') == $userId)
+						);
+						echo strtr($format, array(
+							'#user_id'		=> 'user-' . $userIdNum,
+							'#user_url'		=> $this->plxMotor->urlRewrite('?user' . $userIdNum . '/' . urlencode($author['login'])),
+							'#user_name'	=> plxUtils::strCheck($author['name']),
+							'#user_status'	=> $actif ? 'active' : 'noactive',
+							'#art_nb'		=> $v,
+						));
+					}
+				}
+			}
+		}
+    }
+
+    /**
      * Méthode qui affiche la liste des archives
      *
      * @param format    format du texte pour l'affichage (variable : #archives_id, #archives_status, #archives_selected, #archives_nbart, #archives_url, #archives_name, #archives_month, #archives_year)
@@ -2212,20 +2321,23 @@ class plxShow
      */
     public function urlPostsRssFeed($mode = 'home')
     {
-        $url = '';
         switch ($mode) {
             case 'categorie':
                 $id = $this->catId();
                 $idNum = intval($id);
-                $url = $this->urlRewrite('feed.php?rss/categorie' . $idNum . '/' . $this->plxMotor->aCats[$id]['url']);
+                return $this->urlRewrite('feed.php?rss/categorie' . $idNum . '/' . $this->plxMotor->aCats[$id]['url']);
                 break;
+            case 'user':
+				$id = $this->plxMotor->cible;
+				$idNum = intval($id);
+				return $this->urlRewrite('feed.php?rss/user' . $idNum . '/' . $this->plxMotor->aUsers[$id]['login']);
+				break;
             case 'tags':
                 $tag = plxUtils::strCheck($this->plxMotor->cible);
-                $url = $this->urlRewrite('feed.php?rss/tag/' . plxUtils::strCheck($tag));
+                return $this->urlRewrite('feed.php?rss/tag/' . plxUtils::strCheck($tag));
                 break;
             default :
-                $url = $this->urlRewrite('feed.php?rss');
+                return $this->urlRewrite('feed.php?rss');
         }
-        return $url;
     }
 }

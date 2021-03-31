@@ -76,11 +76,18 @@ class plxFeed extends plxMotor {
 		if(eval($this->plxPlugins->callHook('plxFeedPreChauffageBegin'))) return;
 
 		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie(\d+)/?#',$this->get,$capture)) {
-			$this->mode = 'article'; # Mode du flux
+			$this->mode = 'categorie'; # Mode du flux
 			# On récupère la catégorie cible
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
 			# On modifie le motif de recherche
 			$this->motif = '#^\d{4}.((?:\d|home|,)*(?:'.$this->cible.')(?:\d|home|,)*).\d{3}.\d{12}.[\w-]+.xml$#';
+		}
+		elseif($this->get AND preg_match('#^(?:atom/|rss/)?user(\d+)/?#',$this->get,$capture)) {
+			$this->mode = 'user'; # Mode du flux
+			# On récupère l'id de l'utilisateur
+			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
+			# On modifie le motif de recherche
+			$this->motif = '#^\d{4}\.(?:\d{3},|home,)*(?:home|\d{3})(?:,\d{3}|,home)*\.' . $this->cible . '\.\d{12}\.[\w-]+\.xml$#';
 		}
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/?$#',$this->get)) {
 			$this->mode = 'commentaire'; # Mode du flux
@@ -185,11 +192,26 @@ class plxFeed extends plxMotor {
 		else {
 			# Flux des articles d'une catégorie précise
 			if($this->cible) {
-				# On va tester la catégorie
-				if(empty($this->aCats[$this->cible]) OR !$this->aCats[$this->cible]['active']) { # Pas de catégorie, on redirige
-					$this->cible = $this->cible + 0;
-					header('Location: '.$this->urlRewrite('?categorie'.$this->cible.'/'));
-					exit;
+				switch($this->mode) {
+					case 'categorie':
+						# On vérifie que la catégorie existe et est active
+						if(!isset($this->aCats[$this->cible]) OR !$this->aCats[$this->cible]['active']) {
+							# Echec, on redirige
+							header('Location: '.$this->urlRewrite('?categorie'.intval($this->cible).'/'));
+							exit;
+						}
+						break;
+					case 'user':
+						# On vérifie que la catégorie existe et est active
+						if(!isset($this->aUsers[$this->cible]) OR !$this->aUsers[$this->cible]['active']) {
+							# Echec, on redirige
+							header('Location: '.$this->urlRewrite('?user'.intval($this->cible).'/'));
+							exit;
+						}
+						break;
+					default:
+						header('Location: index.php');
+						exit;
 				}
 			}
 			$this->getArticles(); # Récupération des articles (on les parse)
@@ -198,6 +220,8 @@ class plxFeed extends plxMotor {
 		# Selon le mode, on appelle la méthode adéquate
 		switch($this->mode) {
 			case 'tag':
+			case 'categorie':
+			case 'user':
 			case 'article' : $this->getRssArticles(); break;
 			case 'commentaire' : $this->getRssComments(); break;
 			case 'admin' : $this->getAdminComments(); break;
@@ -217,21 +241,28 @@ class plxFeed extends plxMotor {
 	public function getRssArticles() {
 
 		# Initialisation
+		# valeurs par defaut : Articles globaux
+		$title = $this->aConf['title'];
+		$link = $this->urlRewrite();
+		switch($this->mode) {
+			case 'tag':
+				$title = $this->aConf['title'].' - '.L_PAGETITLE_TAG.' '.$this->cible;
+				$link = $this->urlRewrite('?tag/'.$this->cible);
+				break;
+			case 'categorie':
+				$title = $this->aConf['title'].' - '.$this->aCats[ $this->cible ]['name'];
+				$link = $this->urlRewrite('?categorie'.intval($this->cible).'/'.$this->aCats[ $this->cible ]['url']);
+				break;
+			case 'user':
+				$title = $this->aConf['title'].' - '.$this->aUsers[ $this->cible ]['name'];
+				$link = $this->urlRewrite('?user'.intval($this->cible).'/'.$this->aUsers[ $this->cible ]['login']);
+				break;
+			default:
+		}
+
 		$last_updated = '197001010100';
-		$entry_link = '';
+		# $entry_link = '';
 		$entry = '';
-		if($this->mode == 'tag') {
-			$title = $this->aConf['title'].' - '.L_PAGETITLE_TAG.' '.$this->cible;
-			$link = $this->urlRewrite('?tag/'.$this->cible);
-		}
-		elseif($this->cible) { # Articles d'une catégorie
-			$catId = $this->cible + 0;
-			$title = $this->aConf['title'].' - '.$this->aCats[ $this->cible ]['name'];
-			$link = $this->urlRewrite('?categorie'.$catId.'/'.$this->aCats[ $this->cible ]['url']);
-		} else { # Articles globaux
-			$title = $this->aConf['title'];
-			$link = $this->urlRewrite();
-		}
 		# On va boucler sur les articles (s'il y en a)
 		if($this->plxRecord_arts) {
 			while($this->plxRecord_arts->loop()) {

@@ -119,6 +119,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'aucun',
 'L_ARTCHAPO'					=> 'Lire la suite de #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Fil RSS des articles de cette catégorie',
+'L_ARTFEED_RSS_USER'			=> 'Fil RSS des articles de cet auteur',
 'L_ARTFEED_RSS_TAG'				=> 'Fil RSS des articles de ce mot clé',
 'L_ARTFEED_RSS'					=> 'Fil RSS des articles',
 'L_NO_COMMENT'					=> 'Aucun commentaire',
