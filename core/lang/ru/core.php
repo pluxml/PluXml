@@ -119,6 +119,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'нет',
 'L_ARTCHAPO'					=> 'Читать далее',
 'L_ARTFEED_RSS_CATEGORY'		=> 'RSS-поток категорий',
+'L_ARTFEED_RSS_USER'			=> 'RSS-поток iавтора',
 'L_ARTFEED_RSS_TAG'				=> 'RSS-поток статей в этом теге',
 'L_ARTFEED_RSS'					=> 'RSS-поток статей',
 'L_NO_COMMENT'					=> 'нет комментариев',

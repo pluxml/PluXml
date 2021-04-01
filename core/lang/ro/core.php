@@ -119,6 +119,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'nimic',
 'L_ARTCHAPO'					=> 'Continuati lectura #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'RSS Feed Elementele din această categorie',
+'L_ARTFEED_RSS_USER'			=> 'RSS Feed Elementele din această editor',
 'L_ARTFEED_RSS_TAG'				=> 'RSS Feed Elementele din această etichetă',
 'L_ARTFEED_RSS'					=> 'Articole RSS Feed',
 'L_NO_COMMENT'					=> 'nici un comentariu',

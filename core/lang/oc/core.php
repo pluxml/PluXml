@@ -119,6 +119,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'cap',
 'L_ARTCHAPO'					=> 'Legir la seguida de #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Fil Rss dels articles d\'aquesta categoria',
+'L_ARTFEED_RSS_USER'			=> 'Fil Rss dels articles d\'aquesta auteur',
 'L_ARTFEED_RSS_TAG'				=> 'Fil Rss dels articles d\'aqueste mot clau',
 'L_ARTFEED_RSS'					=> 'Fil Rss dels articles',
 'L_NO_COMMENT'					=> 'pas cap de comentari',
