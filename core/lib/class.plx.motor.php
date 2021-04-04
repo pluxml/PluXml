@@ -201,7 +201,7 @@ class plxMotor {
 		}
 		elseif($this->get AND preg_match('#^user(\d+)\/?([\w-]+)?#',$this->get,$capture)) {
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
-			if(!empty($this->aUsers[$this->cible]) AND $this->aUsers[$this->cible]['active'] AND $this->aUsers[$this->cible]['login']==$capture[2]) {
+			if(!empty($this->aUsers[$this->cible]) AND $this->aUsers[$this->cible]['active'] AND md5($this->aUsers[$this->cible]['name']) == $capture[2]) {
 				$this->mode = 'user'; # Mode user
 				$this->motif = '#^\d{4}.(?:\d{3},|home,)*(?:home|\d{3})(?:,\d{3}|,home)*.' . $this->cible . '.\d{12}.[\w-]+.xml$#'; # Motif de recherche
 				$this->template = 'user.php';
