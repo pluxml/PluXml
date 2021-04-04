@@ -23,7 +23,12 @@
 		</h3>
 
 		<ul class="author-list unstyled-list">
-			<?php $plxShow->authorList(); ?>
+<?php
+# Par défaut, tri selon la date de l'article le plus récent de chaque auteur
+$plxShow->authorList();
+# Sinon tri par name, lastname ou hits
+# $plxShow->authorList(plxShow::AUTHOR_PATTERN, false, false, 'hits');
+?>
 		</ul>
 
 		<h3>
