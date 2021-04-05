@@ -274,6 +274,7 @@ $LANG = array (
 		'L_SEARCH' => 'Recercar',
 		'L_SEARCH_PLACEHOLDER' => 'identificant o títol',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Totas las categorias...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Tous les auteurs...',
 		'L_ALL' => 'Totes',
 		'L_ALL_PUBLISHED' => 'Publicats',
 		'L_ALL_DRAFTS' => 'Borrolhons',

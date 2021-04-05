@@ -203,53 +203,60 @@ class plxShow
 	public function pageTitle($format = '', $sep = ";")
 	{
 
-		$capture = '';
-
 		# Hook Plugins
 		if (eval($this->plxMotor->plxPlugins->callHook('plxShowPageTitle'))) return;
 
-		if ($this->plxMotor->mode == 'home') {
-			$title = $this->plxMotor->aConf['title'];
-			$subtitle = $this->plxMotor->aConf['description'];
-		} elseif ($this->plxMotor->mode == 'categorie') {
-			$title_htmltag = $this->plxMotor->aCats[$this->plxMotor->cible]['title_htmltag'];
-			$title = $title_htmltag != '' ? $title_htmltag : $this->plxMotor->aCats[$this->plxMotor->cible]['name'];
-			$subtitle = $this->plxMotor->aConf['title'];
-		} elseif ($this->plxMotor->mode == 'article') {
-			$title_htmltag = $this->plxMotor->plxRecord_arts->f('title_htmltag');
-			$title = $title_htmltag != '' ? $title_htmltag : $this->plxMotor->plxRecord_arts->f('title');
-			$subtitle = $this->plxMotor->aConf['title'];
-		} elseif ($this->plxMotor->mode == 'static') {
-			$title_htmltag = $this->plxMotor->aStats[$this->plxMotor->cible]['title_htmltag'];
-			$title = $title_htmltag != '' ? $title_htmltag : $this->plxMotor->aStats[$this->plxMotor->cible]['name'];
-			$subtitle = $this->plxMotor->aConf['title'];
-		} elseif ($this->plxMotor->mode == 'archives') {
-			preg_match('/^(\d{4})(\d{2})?(\d{2})?/', $this->plxMotor->cible, $capture);
-			$year = !empty($capture[1]) ? ' ' . $capture[1] : '';
-			$month = !empty($capture[2]) ? ' ' . plxDate::getCalendar('month', $capture[2]) : '';
-			$day = !empty($capture[3]) ? ' ' . plxDate::getCalendar('day', $capture[3]) : '';
-			$title = L_PAGETITLE_ARCHIVES . $day . $month . $year;
-			$subtitle = $this->plxMotor->aConf['title'];
-		} elseif ($this->plxMotor->mode == 'tags') {
-			$title = L_PAGETITLE_TAG . ' ' . $this->plxMotor->cibleName;
-			$subtitle = $this->plxMotor->aConf['title'];
-		} elseif ($this->plxMotor->mode == 'erreur') {
-			$title = $this->plxMotor->plxErreur->getMessage();
-			$subtitle = $this->plxMotor->aConf['title'];
-		} else { # mode par défaut
-			$title = $this->plxMotor->aConf['title'];
-			$subtitle = $this->plxMotor->aConf['description'];
+		# valeur par défaut
+		$subtitle = $this->plxMotor->aConf['title'];
+
+		switch($this->plxMotor->mode) {
+			case 'article':
+				$title_htmltag = trim($this->plxMotor->plxRecord_arts->f('title_htmltag'));
+				$title = !empty($title_htmltag) ? $title_htmltag : $this->plxMotor->plxRecord_arts->f('title');
+				break;
+			case 'categorie':
+				$title_htmltag = trim($this->plxMotor->aCats[$this->plxMotor->cible]['title_htmltag']);
+				$title = !empty($title_htmltag) ? $title_htmltag : $this->plxMotor->aCats[$this->plxMotor->cible]['name'];
+				break;
+			case 'tags':
+				$title = L_PAGETITLE_TAG . ' ' . $this->plxMotor->cibleName;
+				break;
+			case 'user':
+				$title = $this->plxMotor->aUsers[$this->plxMotor->cible]['name'];
+				break;
+			case 'home':
+				$title = $this->plxMotor->aConf['title'];
+				$subtitle = $this->plxMotor->aConf['description'];
+				break;
+			case 'static':
+				$title_htmltag = trim($this->plxMotor->aStats[$this->plxMotor->cible]['title_htmltag']);
+				$title = !empty($title_htmltag) ? $title_htmltag : $this->plxMotor->aStats[$this->plxMotor->cible]['name'];
+				break;
+			case 'archives':
+				preg_match('/^(\d{4})(\d{2})?(\d{2})?/', $this->plxMotor->cible, $captures);
+				$year = !empty($captures[1]) ? ' ' . $captures[1] : '';
+				$month = !empty($captures[2]) ? ' ' . plxDate::getCalendar('month', $captures[2]) : '';
+				$day = !empty($captures[3]) ? ' ' . plxDate::getCalendar('day', $captures[3]) : '';
+				$title = L_PAGETITLE_ARCHIVES . $day . $month . $year;
+				break;
+			case 'erreur':
+				$title = $this->plxMotor->plxErreur->getMessage();
+				break;
+			default:
+				$title = $this->plxMotor->aConf['title'];
+				$subtitle = $this->plxMotor->aConf['description'];
 		}
 
-		$fmt = '';
-		if (preg_match('/' . $this->plxMotor->mode . '\s*=\s*(.*?)\s*(' . $sep . '|$)/i', $format, $capture)) {
-			$fmt = trim($capture[1]);
+		if (preg_match('/' . $this->plxMotor->mode . '\s*=\s*(.*?)\s*(' . $sep . '|$)/i', $format, $captures)) {
+			$format = trim($captures[1]);
+		} else {
+			$format = '#title - #subtitle';
 		}
-		$format = $fmt == '' ? '#title - #subtitle' : $fmt;
-		$txt = str_replace('#title', trim($title), $format);
-		$txt = str_replace('#subtitle', trim($subtitle), $txt);
+		$txt = strtr($format, array(
+			'#title'	=> trim($title),
+			'#subtitle'	=> trim($subtitle),
+		));
 		echo plxUtils::strCheck(trim($txt, ' - '));
-
 	}
 
 	/**

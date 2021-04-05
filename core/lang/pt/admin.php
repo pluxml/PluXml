@@ -245,6 +245,7 @@ $LANG = array (
 		'L_SEARCH' => 'Pesquisa',
 		'L_SEARCH_PLACEHOLDER' => 'Identificante ou título',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Todas as categorias ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Todos os autores...',
 		'L_ALL' => 'Todos',
 		'L_ALL_PUBLISHED' => 'Publicação',
 		'L_ALL_DRAFTS' => 'Rascunhos',
