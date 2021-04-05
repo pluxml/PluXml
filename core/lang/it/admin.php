@@ -242,6 +242,7 @@ $LANG = array (
 		'L_SEARCH' => 'Cerca',
 		'L_SEARCH_PLACEHOLDER' => 'id o titolo',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Tutte le categorie ...',
+		'L_ARTICLES_ALL_AUTHORS'	> 'Tutti gli autori...',
 		'L_ALL' => 'Tutte le',
 		'L_ALL_PUBLISHED' => 'Edizione',
 		'L_ALL_DRAFTS' => 'Bozze',

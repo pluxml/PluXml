@@ -275,6 +275,7 @@ $LANG = array (
 		'L_SEARCH' => 'Search',
 		'L_SEARCH_PLACEHOLDER' => 'article id or title',
 		'L_ARTICLES_ALL_CATEGORIES' => 'All Categories ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'All authors ...',
 		'L_ALL' => 'All',
 		'L_ALL_PUBLISHED' => 'Published',
 		'L_ALL_DRAFTS' => 'Drafts',
