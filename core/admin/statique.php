@@ -74,7 +74,7 @@ include __DIR__ .'/top.php';
 		<h2><?php echo L_STATIC_TITLE ?> "<?php echo plxUtils::strCheck($title); ?>"</h2>
 		<p><a class="back" href="statiques.php"><?php echo L_STATIC_BACK_TO_PAGE ?></a></p>
 		<input type="submit" value="<?php echo L_STATIC_UPDATE ?>"/>&nbsp;
-		<a href="<?php echo $url ?>"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
+		<a href="<?php echo $url ?>" target="_blank"><?php echo L_STATIC_VIEW_PAGE ?> <?php echo plxUtils::strCheck($title); ?> <?php echo L_STATIC_ON_SITE ?></a>
 		<?php plxUtils::printInput('id', $id, 'hidden');?>
 	</div>
 
