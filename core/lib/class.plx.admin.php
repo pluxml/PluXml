@@ -887,13 +887,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *  Méthode qui retourne le prochain id d'un article
 	 *
 	 * @return	string	id d'un nouvel article sous la forme 0001
-	 * @author	Stephane F.
+	 * @author	Stephane F., J.P. Pourrez "bazooka07"
 	 **/
 	public function nextIdArticle() {
 
-		if($aKeys = array_keys($this->plxGlob_arts->aFiles)) {
+		$aKeys = array_keys($this->plxGlob_arts->aFiles);
+		if(is_array($aKeys) and count($aKeys) > 0) {
 			rsort($aKeys);
-			return str_pad(intval($aKeys['0']) + 1,4, '0', STR_PAD_LEFT);
+			return str_pad(intval($aKeys['0']) + 1, 4, '0', STR_PAD_LEFT);
 		} else {
 			return '0001';
 		}
