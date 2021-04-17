@@ -336,6 +336,12 @@ class plxMotor
             $this->error404(L_ERR_PAGE_NOT_FOUND);
         }
 
+        # Check if the template exist
+        $filename = $this->style . '/' . $this->template;
+        if (!file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $filename)) {
+            $this->error404(L_ERR_FILE_NOTFOUND . ' ( <i>' . $filename . '</i> )');
+        }
+
         # Hook plugins
         eval($this->plxPlugins->callHook('plxMotorPreChauffageEnd'));
     }
@@ -1018,7 +1024,7 @@ class plxMotor
             }
 
             # hiérarchisation et indentation des commentaires seulement sur les écrans requis
-            if (!preg_match('#comments?\.php$#',basename($_SERVER['SCRIPT_NAME']))) {
+            if (!preg_match('#comments?\.php$#', basename($_SERVER['SCRIPT_NAME']))) {
                 $array = $this->parentChildSort_r('index', 'parent', $array);
             }
 

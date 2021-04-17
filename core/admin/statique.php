@@ -23,24 +23,24 @@ const BACK_URL = 'Location: statiques.php';
 # On édite la page statique
 if (!empty($_POST) and preg_match('@^\d{1,3}$@', $_POST['id']) and isset($plxAdmin->aStats[$_POST['id']])) {
     $valid = true;
-	# Contrôle de la validité des dates
-	foreach(plxAdmin::STATIC_DATES as $k) {
-		if(!plxDate::checkDate5($_POST[$k][0], $_POST[$k][1])) {
-			$valid = false;
-			break;
-		}
-	}
+    # Contrôle de la validité des dates
+    foreach (plxAdmin::STATIC_DATES as $k) {
+        if (!plxDate::checkDate5($_POST[$k][0], $_POST[$k][1])) {
+            $valid = false;
+            break;
+        }
+    }
 
-	if ($valid) {
-		$plxAdmin->editStatique($_POST);
-	    header('Location: statique.php?p=' . $_POST['id']);
-	    exit;
-	} else {
-		# Erreur
-		plxMsg::Error(L_BAD_DATE_FORMAT);
-	}
+    if ($valid) {
+        $plxAdmin->editStatique($_POST);
+        header('Location: statique.php?p=' . $_POST['id']);
+        exit;
+    } else {
+        # Erreur
+        plxMsg::Error(L_BAD_DATE_FORMAT);
+    }
 } elseif (!empty($_GET['p'])) {
-	# On affiche le contenu de la page
+    # On affiche le contenu de la page
     $id = plxUtils::strCheck(plxUtils::nullbyteRemove($_GET['p']));
     if (!isset($plxAdmin->aStats[$id])) {
         plxMsg::Error(L_STATIC_UNKNOWN_PAGE);
@@ -48,7 +48,7 @@ if (!empty($_POST) and preg_match('@^\d{1,3}$@', $_POST['id']) and isset($plxAdm
         exit;
     }
 } else {
-	# Sinon, on redirige
+    # Sinon, on redirige
     header(BACK_TO_STATIC_LIST);
     exit;
 }
@@ -65,73 +65,80 @@ $content = trim($plxAdmin->getFileStatique($id));
 $url = $plxAdmin->urlRewrite("?static" . intval($id) . "/" . $plxAdmin->aStats[$id]['url']);
 ?>
 
-<form action="statique.php" method="post" id="form_static">
-    <?= plxToken::getTokenPostMethod() ?>
-    <input type="hidden" name="id" value="<?= $id ?>" />
-    <div class="adminheader">
-        <div>
-            <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aStats[$id]['name']); ?>"</h2>
-            <p><a class="back icon-left-big" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
-        </div>
-        <div>
-            <p><a href="<?= $url ?>"><?= L_STATIC_VIEW_PAGE . ' ' . L_STATIC_ON_SITE ?></a></p>
+    <form action="statique.php" method="post" id="form_static">
+        <?= plxToken::getTokenPostMethod() ?>
+        <input type="hidden" name="id" value="<?= $id ?>"/>
+        <div class="adminheader">
             <div>
-	            <button type="submit" class="btn--primary"><?= L_SAVE ?></button>
+                <h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aStats[$id]['name']); ?>"</h2>
+                <p><a class="back icon-left-big" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
+            </div>
+            <div>
+                <p><a href="<?= $url ?>" target="_blank"><?= L_STATIC_VIEW_PAGE . ' ' . L_STATIC_ON_SITE ?></a></p>
+                <div>
+                    <button type="submit" class="btn--primary"><?= L_SAVE ?></button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="admin">
-<?php
+        <div class="admin">
+            <?php
 
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminStaticTop'))
+            # Hook Plugins
+            eval($plxAdmin->plxPlugins->callHook('AdminStaticTop'))
 
-?>
-        <fieldset>
-			<div class="has-textarea">
-				<label for="id_content"><?= L_CONTENT_FIELD ?></label>
-				<textarea name="content" rows="19" id="id_content"><?= plxUtils::strCheck($content) ?></textarea>
-			</div>
-			<div>
-				<label class="fullwidth caption-inside">
-					<span><?= L_TEMPLATE . PHP_EOL ?></span>
-<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aStats[$id]['template']) ?>
-				</label>
-<?php
-foreach(array(
+            ?>
+            <fieldset>
+                <div class="has-textarea">
+                    <label for="id_content"><?= L_CONTENT_FIELD ?></label>
+                    <textarea name="content" rows="19" id="id_content"><?= plxUtils::strCheck($content) ?></textarea>
+                </div>
+                <div>
+                    <label class="fullwidth caption-inside">
+                        <span><?= L_TEMPLATE . PHP_EOL ?></span>
+                        <?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aStats[$id]['template']) ?>
+                    </label>
+                    <?php
+                    foreach (array(
 
-    'title_htmltag'		=> L_TITLE_HTMLTAG,
-    'meta_description'	=> L_META_DESCRIPTION,
-    'meta_keywords'		=> L_META_KEYWORDS,
-) as $field=>$caption) {
-?>
-				<label class="fullwidth caption-inside">
-					<span><?= $caption ?></span>
-					<input type="text" name="<?= $field ?>" value="<?= plxUtils::strCheck($plxAdmin->aStats[$id][$field]) ?>" />
-				</label>
-<?php
-}
-?>
-			</div>
-<?php
+                                 'title_htmltag' => L_TITLE_HTMLTAG,
+                                 'meta_description' => L_META_DESCRIPTION,
+                                 'meta_keywords' => L_META_KEYWORDS,
+                             ) as $field => $caption) {
+                        ?>
+                        <label class="fullwidth caption-inside">
+                            <span><?= $caption ?></span>
+                            <input type="text" name="<?= $field ?>"
+                                   value="<?= plxUtils::strCheck($plxAdmin->aStats[$id][$field]) ?>"/>
+                        </label>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <?php
 
-$dates5 = plxDate::date2html5($plxAdmin->aStats[$id]); # récupère les dates - version PluXml >= 6.0.0
-plxUtils::printDates($dates5);
+                $dates5 = plxDate::date2html5($plxAdmin->aStats[$id]); # récupère les dates - version PluXml >= 6.0.0
+                plxUtils::printDates($dates5);
 
-?>
-        </fieldset>
-<?php
+                ?>
+            </fieldset>
+            <?php
 
-# Hook Plugins
-eval($plxAdmin->plxPlugins->callHook('AdminStatic'));
+            # Hook Plugins
+            eval($plxAdmin->plxPlugins->callHook('AdminStatic'));
 
-?>
-    </div>
-</form>
+            ?>
+        </div>
+    </form>
 <?php
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticFoot'));
 
 # On inclut le footer
+<<<<
+<<< HEAD
 include 'foot.php';
+=======
+include __DIR__ .'/foot.php';
+?>
+>>>>>>> 5.8
