@@ -5,6 +5,7 @@ FIX Update PHPMailer for PHP8 compatibility (P3ter)
 FIX Comments no more displayed with PHP8 #529 (bazooka07)
 FIX Revert .htaccess generation for plugins compatibility with url rewrite (P3ter)
 FIX Fix use of uasort() in pages and categories edition #530 (bazooka07)
+FIX Display 404 error page when switching to a theme with a missing template #533 (bazooka07)
 
 ## PLUXML 5.8.6 (2021/02/15) ##
 [+] Update PHPMailer 6.2.0 : security fixes and PHP 8.0 compatibility (P3ter)

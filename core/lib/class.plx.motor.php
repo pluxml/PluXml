@@ -251,6 +251,12 @@ class plxMotor {
 			$this->error404(L_ERR_PAGE_NOT_FOUND);
 		}
 
+		# On vérifie l'existence du template
+		$filename = $this->style . '/' . $this->template;
+		if(!file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $filename)) {
+			$this->error404(L_ERR_FILE_NOTFOUND . ' ( <i>' . $filename . '</i> )');
+		}
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorPreChauffageEnd'));
 	}
