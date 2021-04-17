@@ -135,10 +135,6 @@ $url = $plxAdmin->urlRewrite("?static" . intval($id) . "/" . $plxAdmin->aStats[$
 eval($plxAdmin->plxPlugins->callHook('AdminStaticFoot'));
 
 # On inclut le footer
-<<<<
-<<< HEAD
+
 include 'foot.php';
-=======
-include __DIR__ .'/foot.php';
 ?>
->>>>>>> 5.8
