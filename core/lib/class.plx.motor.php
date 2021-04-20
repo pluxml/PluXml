@@ -674,15 +674,26 @@ class plxMotor {
 
 		# On effectue notre capture d'informations
 		if(preg_match('#^(_?\d{4})\.((?:\d{3},|draft,)*(?:home|\d{3})(?:,\d{3})*)\.(\d{3})\.(\d{12})\.(.*)\.xml$#', basename($filename), $capture)) {
-
+			$ids = array_merge(array_keys($this->aCats), array('home', 'draft'));
+			$artCats = array_filter(
+				explode(',', $capture[2]),
+				# on vérifie que les catégories de l'article existent
+				function($item) use($ids) {
+					return in_array($item, $ids);
+				}
+			);
+			if(count($artCats) == 1 and $artCats[0] == 'draft') {
+				$artCats[] = '000';
+			}
 			return array(
 				'artId'		=> $capture[1],
-				'catId'		=> $capture[2],
+				'catId'		=> !empty($artCats) ? implode(',', $artCats) : '000',
 				'usrId'		=> $capture[3],
 				'artDate'	=> $capture[4],
 				'artUrl'	=> $capture[5]
 			);
 		}
+		return false;
 	}
 
     /**

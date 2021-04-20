@@ -542,12 +542,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *  Méthode qui retourne le prochain id d'une catégorie
 	 *
 	 * @return	string	id d'un nouvel article sous la forme 001
-	 * @author	Stephane F.
+	 * @author	Stephane F., J.P. Pourrez "bazooka07"
 	 **/
 	public function nextIdCategory() {
-		if(is_array($this->aCats)) {
-			$idx = key(array_slice($this->aCats, -1, 1, true));
-			return str_pad($idx+1,3, '0', STR_PAD_LEFT);
+		if(is_array($this->aCats) and count($this->aCats) > 0) {
+			$catIds = array_keys($this->aCats);
+			rsort($catIds);
+			return str_pad(intval($catIds[0]) + 1, 3, '0', STR_PAD_LEFT);
 		} else {
 			return '001';
 		}
@@ -886,13 +887,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *  Méthode qui retourne le prochain id d'un article
 	 *
 	 * @return	string	id d'un nouvel article sous la forme 0001
-	 * @author	Stephane F.
+	 * @author	Stephane F., J.P. Pourrez "bazooka07"
 	 **/
 	public function nextIdArticle() {
 
-		if($aKeys = array_keys($this->plxGlob_arts->aFiles)) {
+		$aKeys = array_keys($this->plxGlob_arts->aFiles);
+		if(is_array($aKeys) and count($aKeys) > 0) {
 			rsort($aKeys);
-			return str_pad($aKeys['0']+1,4, '0', STR_PAD_LEFT);
+			return str_pad(intval($aKeys['0']) + 1, 4, '0', STR_PAD_LEFT);
 		} else {
 			return '0001';
 		}
