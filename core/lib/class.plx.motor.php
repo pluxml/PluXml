@@ -677,7 +677,7 @@ class plxMotor {
 				}
 			);
 			if(count($artCats) == 1 and $artCats[0] == 'draft') {
-				$art8cats[] = '000';
+				$artCats[] = '000';
 			}
 			return array(
 				'artId'		=> $capture[1],
