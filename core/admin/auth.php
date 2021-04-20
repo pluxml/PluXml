@@ -26,7 +26,6 @@ $css = '';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
 
-
 # Identifier une erreur de connexion
 if (isset($_SESSION['maxtry'])) {
     if (intval($_SESSION['maxtry']['counter']) >= $maxlogin['counter'] and (time() < $_SESSION['maxtry']['timer'] + $maxlogin['timer'])) {
@@ -315,7 +314,7 @@ plxUtils::cleanHeaders();
                         </fieldset>
                     </form>
                     <p class="text-center">
-                        <small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a>
+                        <small><a class="back" href="<?php echo PLX_ROOT; ?>"><span><?php echo L_BACK_TO_SITE ?></span></a>
                             - <?php echo L_POWERED_BY ?></small>
                     </p>
                 <?php

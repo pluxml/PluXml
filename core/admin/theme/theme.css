@@ -261,6 +261,20 @@ a.btnDelete {
 	font-size: 14pt;
 }
 
+#auth a.back {
+	text-decoration: none;
+}
+
+#auth a span:hover {
+	text-decoration: underline;
+}
+
+.aside .back-site::before {
+	font-family: fontello;
+	content: '\e80d';
+	margin-right: 1rem;
+}
+
 #auth .back::before {
 	font-family: fontello;
 	content: '\e80d';
@@ -268,10 +282,8 @@ a.btnDelete {
 	font-size: 12pt;
 }
 
-.aside .back-site::before {
-	font-family: fontello;
-	content: '\e80d';
-	margin-right: 1rem;
+#auth .back:hover::before {
+	text-decoration: none;
 }
 
 .logout::before {
