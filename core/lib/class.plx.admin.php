@@ -575,7 +575,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$filenameArrayCat = explode(",", $filenameArray[1]);
 					if (in_array($cat_id, $filenameArrayCat)) {
 						$key = array_search($cat_id, $filenameArrayCat);
-						if(count(preg_grep('[0-9]{3}', $filenameArrayCat)) > 1) {
+						if(count(preg_grep('@[0-9]{3}@', $filenameArrayCat)) > 1) {
 							// this article has more than one category
 							unset($filenameArrayCat[$key]);
 						}
