@@ -165,10 +165,6 @@ ul.menu a.noactive{
 	background-color: #6aa6ce;
 	color: #fff;
 }
-.aside a,
-.classified-in a {
-	padding: 0 0.5rem;
-}
 
 /* ---------- Main ---------- */
 
@@ -261,7 +257,12 @@ article:after {
 
 .article .art-date {
 	font-size: 1.5rem;
+	font-weight: bold;
 	color: #9EABB3;
+}
+
+.article .written-by {
+	font-weight: bold;
 }
 
 .article .written-by:after {

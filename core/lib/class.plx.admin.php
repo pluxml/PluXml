@@ -720,13 +720,14 @@ EOT;
      *  Méthode qui retourne le prochain id d'une catégorie
      *
      * @return    string    id d'un nouvel article sous la forme 001
-     * @author    Stephane F.
+     * @author    Stephane F., J.P. Pourrez "bazooka07"
      **/
     public function nextIdCategory()
     {
-        if (!empty($this->aCats) and is_array($this->aCats)) {
-            $idx = key(array_slice($this->aCats, -1, 1, true));
-            return str_pad($idx + 1, 3, '0', STR_PAD_LEFT);
+        if(is_array($this->aCats) and count($this->aCats) > 0) {
+            $catIds = array_keys($this->aCats);
+            rsort($catIds);
+            return str_pad(intval($catIds[0]) + 1, 3, '0', STR_PAD_LEFT);
         } else {
             return '001';
         }
@@ -754,14 +755,15 @@ EOT;
                         $filenameArray = explode('.', $filename);
                         $filenameArrayCats = explode(',', $filenameArray[1]);
                         if (in_array($cat_id, $filenameArrayCats)) {
-                            if (count($filenameArrayCats) > 1) {
+                            $key = array_search($cat_id, $filenameArrayCats);
+                            if(count(preg_grep('@[0-9]{3}@', $filenameArrayCats)) > 1) {
                                 // this article has more than one category
-                                $key = array_search($cat_id, $filenameArrayCats);
-                                unset($filenameArrayCat[$key]);
-                            } else {
-                                $filenameArrayCat[0] = '000';
+                                unset($filenameArrayCats[$key]);
                             }
-                            $filenameArray[1] = implode(',', $filenameArrayCat);
+                            else {
+                                $filenameArrayCats[$key] = '000';
+                            }
+                            $filenameArray[1] = implode(',', $filenameArrayCats);
                             $filenameNew = implode('.', $filenameArray);
                             rename(PLX_ROOT . $this->aConf['racine_articles'] . $filename, PLX_ROOT . $this->aConf['racine_articles'] . $filenameNew);
                         }
@@ -1179,9 +1181,10 @@ EOT;
     public function nextIdArticle()
     {
 
-        if ($aKeys = array_keys($this->plxGlob_arts->aFiles)) {
+        $aKeys = array_keys($this->plxGlob_arts->aFiles);
+        if(is_array($aKeys) and count($aKeys) > 0) {
             rsort($aKeys);
-            return str_pad($aKeys['0'] + 1, 4, '0', STR_PAD_LEFT);
+            return str_pad(intval($aKeys['0']) + 1, 4, '0', STR_PAD_LEFT);
         } else {
             return '0001';
         }
