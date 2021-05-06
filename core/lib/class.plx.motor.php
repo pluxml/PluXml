@@ -739,31 +739,29 @@ class plxMotor {
 			xml_parse_into_struct($parser,$data,$values,$iTags);
 			xml_parser_free($parser);
 
-			$meta_description = plxUtils::getValue($iTags['meta_description'][0]);
-			$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][0]);
 			$art = array(
 				'filename'		=> $filename,
 				# Recuperation des valeurs de nos champs XML
-				'title'				=> plxUtils::getValue($values[$iTags['title'][0]]['value']),
-				'allow_com'			=> plxUtils::getValue($values[$iTags['allow_com'][0]]['value'], 0),
-				'template'			=> plxUtils::getValue($values[$iTags['template'][0]]['value'], 'article.php'),
-				'chapo'				=> plxUtils::getValue($values[$iTags['chapo'][0]]['value']),
-				'content'			=> plxUtils::getValue($values[$iTags['content'][0]]['value']),
-				'tags'				=> plxUtils::getValue($values[ $iTags['tags'][0] ]['value']),
-				'meta_description'	=> plxUtils::getValue($values[$meta_description]['value']),
-				'meta_keywords'		=> plxUtils::getValue($values[$meta_keywords]['value']),
-				'title_htmltag'		=> plxUtils::getValue($values[$iTags['title_htmltag'][0]]['value']),
-				'thumbnail'			=> plxUtils::getValue($values[$iTags['thumbnail'][0]]['value']),
-				'thumbnail_title'	=> plxUtils::getValue($values[$iTags['thumbnail_title'][0]]['value']),
-				'thumbnail_alt'		=> plxUtils::getValue($values[$iTags['thumbnail_alt'][0]]['value']),
+                'title'				=> plxUtils::getTagValue($iTags['title'], $values),
+                'allow_com'			=> plxUtils::getTagValue($iTags['allow_com'], $values, 0),
+                'template'			=> plxUtils::getTagValue($iTags['template'], $values, 'article.php'),
+                'chapo'				=> plxUtils::getTagValue($iTags['chapo'], $values),
+                'content'			=> plxUtils::getTagValue($iTags['content'], $values),
+                'tags'				=> plxUtils::getTagValue($iTags['tags'], $values),
+                'meta_description'	=> plxUtils::getTagValue($iTags['meta_description'], $values),
+                'meta_keywords'		=> plxUtils::getTagValue($iTags['meta_keywords'], $values),
+                'title_htmltag'		=> plxUtils::getTagValue($iTags['title_htmltag'], $values),
+                'thumbnail'			=> plxUtils::getTagValue($iTags['thumbnail'], $values),
+                'thumbnail_title'	=> plxUtils::getTagValue($iTags['thumbnail_title'], $values),
+                'thumbnail_alt'		=> plxUtils::getTagValue($iTags['thumbnail_alt'], $values),
 				'numero'			=> $tmp['artId'],
 				'author'			=> $tmp['usrId'],
 				'categorie'			=> $tmp['catId'],
 				'url'				=> $tmp['artUrl'],
 				'date'				=> $tmp['artDate'],
 				'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}.\d+.xml$#'),
-				'date_creation'		=> plxUtils::getValue($values[$iTags['date_creation'][0]]['value'], $tmp['artDate']),
-				'date_update'		=> plxUtils::getValue($values[$iTags['date_update'][0]]['value'], $tmp['artDate']),
+                'date_creation'		=> plxUtils::getTagValue($iTags['date_creation'], $values, $tmp['artDate']),
+                'date_update'		=> plxUtils::getTagValue($iTags['date_update'], $values, $tmp['artDate']),
 			);
 
 			# Hook plugins
