@@ -526,18 +526,15 @@ class plxMotor {
 				$attributes = $values[$iTags['statique'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
 				# Récupération du nom de la page statique
-				$this->aStats[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
+				$this->aStats[$number]['name']=plxUtils::getTagIndexValue($iTags['name'], $values, $i);
 				# Récupération de la balise title
-				$title_htmltag = plxUtils::getValue($iTags['title_htmltag'][$i]);
-				$this->aStats[$number]['title_htmltag']=plxUtils::getValue($values[$title_htmltag]['value']);
+				$this->aStats[$number]['title_htmltag']=plxUtils::getTagIndexValue($iTags['title_htmltag'], $values, $i);
 				# Récupération du meta description
-				$meta_description = plxUtils::getValue($iTags['meta_description'][$i]);
-				$this->aStats[$number]['meta_description']=plxUtils::getValue($values[$meta_description]['value']);
+				$this->aStats[$number]['meta_description']=plxUtils::getTagIndexValue($iTags['meta_description'], $values, $i);
 				# Récupération du meta keywords
-				$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][$i]);
-				$this->aStats[$number]['meta_keywords']=plxUtils::getValue($values[$meta_keywords]['value']);
+				$this->aStats[$number]['meta_keywords']=plxUtils::getTagIndexValue($iTags['meta_keywords'], $values, $i);
 				# Récupération du groupe de la page statique
-				$this->aStats[$number]['group']=plxUtils::getValue($values[$iTags['group'][$i]]['value']);
+				$this->aStats[$number]['group']=plxUtils::getTagIndexValue($iTags['group'], $values, $i);
 				# Récupération de l'url de la page statique
 				$this->aStats[$number]['url']=strtolower($attributes['url']);
 				# Récupération de l'etat de la page
@@ -547,11 +544,9 @@ class plxMotor {
 				# Récupération du fichier template
 				$this->aStats[$number]['template']=isset($attributes['template'])?$attributes['template']:'static.php';
 				# Récupération de la date de création
-				$date_creation = plxUtils::getValue($iTags['date_creation'][$i]);
-				$this->aStats[$number]['date_creation']=plxUtils::getValue($values[$date_creation]['value']);
+				$this->aStats[$number]['date_creation']=plxUtils::getTagIndexValue($iTags['date_creation'], $values, $i);
 				# Récupération de la date de mise à jour
-				$date_update = plxUtils::getValue($iTags['date_update'][$i]);
-				$this->aStats[$number]['date_update']=plxUtils::getValue($values[$date_update]['value']);
+				$this->aStats[$number]['date_update']=plxUtils::getTagIndexValue($iTags['date_update'], $values, $i);
 				# On verifie que la page statique existe bien
 				$file = PLX_ROOT.$this->aConf['racine_statiques'].$number.'.'.$attributes['url'].'.php';
 				# On test si le fichier est lisible
@@ -590,20 +585,16 @@ class plxMotor {
 				$this->aUsers[$number]['active']=$attributes['active'];
 				$this->aUsers[$number]['delete']=$attributes['delete'];
 				$this->aUsers[$number]['profil']=$attributes['profil'];
-				$this->aUsers[$number]['login']=plxUtils::getValue($values[$iTags['login'][$i]]['value']);
-				$this->aUsers[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
-				$this->aUsers[$number]['password']=plxUtils::getValue($values[$iTags['password'][$i]]['value']);
-				$salt = plxUtils::getValue($iTags['salt'][$i]);
-				$this->aUsers[$number]['salt']=plxUtils::getValue($values[$salt]['value']);
-				$this->aUsers[$number]['infos']=plxUtils::getValue($values[$iTags['infos'][$i]]['value']);
-				$email = plxUtils::getValue($iTags['email'][$i]);
-				$this->aUsers[$number]['email']=plxUtils::getValue($values[$email]['value']);
-				$lang = isset($iTags['lang'][$i]) ? $values[$iTags['lang'][$i]]['value']:'';
-				$this->aUsers[$number]['lang'] = $lang!='' ? $lang : $this->aConf['default_lang'];
-				$password_token = plxUtils::getValue($iTags['password_token'][$i]);
-				$this->aUsers[$number]['password_token']=plxUtils::getValue($values[$password_token]['value']);
-				$password_token_expiry = plxUtils::getValue($iTags['password_token_expiry'][$i]);
-				$this->aUsers[$number]['password_token_expiry']=plxUtils::getValue($values[$password_token_expiry]['value']);
+				$this->aUsers[$number]['login']=plxUtils::getTagIndexValue($iTags['login'], $values, $i);
+				$this->aUsers[$number]['name']=plxUtils::getTagIndexValue($iTags['name'], $values, $i);
+				$this->aUsers[$number]['password']=plxUtils::getTagIndexValue($iTags['password'], $values, $i);
+				$this->aUsers[$number]['salt']=plxUtils::getTagIndexValue($iTags['salt'], $values, $i);
+				$this->aUsers[$number]['infos']=plxUtils::getTagIndexValue($iTags['infos'], $values, $i);
+				$this->aUsers[$number]['email']=plxUtils::getTagIndexValue($iTags['email'], $values, $i);
+				$lang = plxUtils::getTagIndexValue($iTags['lang'], $values, $i);
+				$this->aUsers[$number]['lang'] = empty($lang) ? $lang : $this->aConf['default_lang'];
+				$this->aUsers[$number]['password_token']=plxUtils::getTagIndexValue($iTags['password_token'], $values, $i);
+				$this->aUsers[$number]['password_token_expiry']=plxUtils::getTagIndexValue($iTags['password_token_expiry'], $values, $i);
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxMotorGetUsers'));
 			}
@@ -828,16 +819,16 @@ class plxMotor {
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
 		# Recuperation des valeurs de nos champs XML
-		$com['author'] = plxUtils::getValue($values[ $iTags['author'][0]]['value']);
+		$com['author'] = plxUtils::getTagValue($iTags['author'], $values);
 		if(isset($iTags['type']))
-			$com['type'] = plxUtils::getValue($values[ $iTags['type'][0]]['value'],'normal');
+			$com['type'] = plxUtils::getTagValue($iTags['type'], $values,'normal');
 		else
 			$com['type'] = 'normal';
 		$com['ip'] = plxUtils::getTagValue($iTags['ip'], $values);
 		$com['mail'] = plxUtils::getTagValue($iTags['mail'], $values);
 		$com['site'] = plxUtils::getTagValue($iTags['site'], $values);
 		$com['content'] = trim($values[ $iTags['content'][0] ]['value']);
-		$com['parent'] = isset($iTags['parent'])?plxUtils::getTagValue($iTags['parent'], $values):'';
+		$com['parent'] = plxUtils::getTagValue($iTags['parent'], $values);
 		# Informations obtenues en analysant le nom du fichier
 		$tmp = $this->comInfoFromFilename(basename($filename));
 		$com['status'] = $tmp['comStatus'];
