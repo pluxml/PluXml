@@ -66,19 +66,19 @@ const L_SATURDAY					= 'dissabte';
 const L_SUNDAY						= 'dimenge';
 
 # class.plx.capcha.php
-const L_LAST						= 'darrièro';
-const L_FIRST						= 'primièro';
-const L_SECOND						= 'segon';
-const L_THIRD						= 'trecer';
-const L_FOURTH						= 'cinqué';
-const L_FIFTH						= 'cinqué';
-const L_SIXTH						= 'sisè';
-const L_SEVENTH						= 'setena';
-const L_EIGTH						= 'vuitena';
-const L_NINTH						= 'novè';
-const L_TENTH						= 'desè';
-const L_NTH							= 'eno';
-const L_CAPCHA_QUESTION				= 'uin és el <span class="capcha-letter">%s</span> caràcter del paraula <span class="capcha-word">%s</span>&nbsp;?';
+const L_LAST						= 'darrièr';
+const L_FIRST						= 'darrièr';
+const L_SECOND						= 'segond';
+const L_THIRD						= 'tresen';
+const L_FOURTH						= 'quatren';
+const L_FIFTH						= 'cinquen';
+const L_SIXTH						= 'seisen';
+const L_SEVENTH						= 'seten';
+const L_EIGTH						= 'ochen';
+const L_NINTH						= 'noven';
+const L_TENTH						= 'desen';
+const L_NTH							= 'en';
+const L_CAPCHA_QUESTION				= 'Quin es lo <span class="capcha-letter">%s</span> caractèr de la paraula <span class="capcha-word">%s</span>&nbsp;?';
 
 # class.plx.utils.php
 const L_WRITE_ACCESS				= '%s es accessible en escritura';
