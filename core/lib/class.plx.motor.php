@@ -456,18 +456,15 @@ class plxMotor {
 				$attributes = $values[$iTags['categorie'][$i*$size]]['attributes'];
 				$number = $attributes['number'];
 				# Recuperation du nom de la catégorie
-				$this->aCats[$number]['name']=plxUtils::getValue($values[$iTags['name'][$i]]['value']);
+				$this->aCats[$number]['name']=plxUtils::getTagIndexValue($iTags['name'], $values, $i);
 				# Recuperation du nom de la description
-				$this->aCats[$number]['description']=plxUtils::getValue($values[$iTags['description'][$i]]['value']);
+				$this->aCats[$number]['description']=plxUtils::getTagIndexValue($iTags['description'], $values, $i);
 				# Recuperation de la balise title
-				$title_htmltag = plxUtils::getValue($iTags['title_htmltag'][$i]);
-				$this->aCats[$number]['title_htmltag']=plxUtils::getValue($values[$title_htmltag]['value']);
+				$this->aCats[$number]['title_htmltag']=plxUtils::getTagIndexValue($iTags['title_htmltag'], $values, $i);
 				# Recuperation du meta description
-				$meta_description = plxUtils::getValue($iTags['meta_description'][$i]);
-				$this->aCats[$number]['meta_description']=plxUtils::getValue($values[$meta_description]['value']);
+				$this->aCats[$number]['meta_description']=plxUtils::getValue($values[$iTags['meta_description'][$i]]['value']);
 				# Recuperation du meta keywords
-				$meta_keywords = plxUtils::getValue($iTags['meta_keywords'][$i]);
-				$this->aCats[$number]['meta_keywords']=plxUtils::getValue($values[$meta_keywords]['value']);
+				$this->aCats[$number]['meta_keywords']=plxUtils::getTagIndexValue($iTags['meta_keywords'], $values, $i);
 				# Recuperation de l'url de la categorie
 				$this->aCats[$number]['url']=strtolower($attributes['url']);
 				# Recuperation du tri de la categorie si besoin est
@@ -475,14 +472,11 @@ class plxMotor {
 				# Recuperation du nb d'articles par page de la categorie si besoin est
 				$this->aCats[$number]['bypage']=isset($attributes['bypage'])?intval($attributes['bypage']):$this->bypage;
 				# Recuperation du fichier template
-				$this->aCats[$number]['template']=isset($attributes['template'])?$attributes['template']:'categorie.php';
+				$this->aCats[$number]['template']=isset($attributes['template']) ? $attributes['template']:'categorie.php';
 				# Récupération des informations de l'image représentant la catégorie
-				$thumbnail = plxUtils::getValue($iTags['thumbnail'][$i]);
-				$this->aCats[$number]['thumbnail']=plxUtils::getValue($values[$thumbnail]['value']);
-				$thumbnail_title = plxUtils::getValue($iTags['thumbnail_title'][$i]);
-				$this->aCats[$number]['thumbnail_title']=plxUtils::getValue($values[$thumbnail_title]['value']);
-				$thumbnail_alt = plxUtils::getValue($iTags['thumbnail_alt'][$i]);
-				$this->aCats[$number]['thumbnail_alt']=plxUtils::getValue($values[$thumbnail_alt]['value']);
+				$this->aCats[$number]['thumbnail']=plxUtils::getTagIndexValue($iTags['thumbnail'], $values, $i);
+				$this->aCats[$number]['thumbnail_title']=plxUtils::getTagIndexValue($iTags['thumbnail_title'], $values, $i);
+				$this->aCats[$number]['thumbnail_alt']=plxUtils::getTagIndexValue($iTags['thumbnail_alt'], $values, $i);
 				# Récuperation état affichage de la catégorie dans le menu
 				$this->aCats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
 				# Récuperation état activation de la catégorie dans le menu
@@ -839,11 +833,11 @@ class plxMotor {
 			$com['type'] = plxUtils::getValue($values[ $iTags['type'][0]]['value'],'normal');
 		else
 			$com['type'] = 'normal';
-		$com['ip'] = plxUtils::getValue($values[$iTags['ip'][0]]['value']);
-		$com['mail'] = plxUtils::getValue($values[$iTags['mail'][0]]['value']);
-		$com['site'] = plxUtils::getValue($values[$iTags['site'][0]]['value']);
+		$com['ip'] = plxUtils::getTagValue($iTags['ip'], $values);
+		$com['mail'] = plxUtils::getTagValue($iTags['mail'], $values);
+		$com['site'] = plxUtils::getTagValue($iTags['site'], $values);
 		$com['content'] = trim($values[ $iTags['content'][0] ]['value']);
-		$com['parent'] = isset($iTags['parent'])?plxUtils::getValue($values[$iTags['parent'][0]]['value']):'';
+		$com['parent'] = isset($iTags['parent'])?plxUtils::getTagValue($iTags['parent'], $values):'';
 		# Informations obtenues en analysant le nom du fichier
 		$tmp = $this->comInfoFromFilename(basename($filename));
 		$com['status'] = $tmp['comStatus'];
