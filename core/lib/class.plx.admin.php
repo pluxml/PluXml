@@ -258,7 +258,7 @@ class plxAdmin extends plxMotor {
 			# On réactualise la langue
 			$_SESSION['lang'] = $global['default_lang'];
 
-	  # Actions sur le fichier .htaccess si le mode de ré-écriture a changé
+      # Actions sur le fichier .htaccess si le mode de ré-écriture a changé
 			if(
 				array_key_exists('urlrewriting', $content) and
 				preg_match('#^(0|1)$#',$content['urlrewriting'], $matches) and
@@ -622,7 +622,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 			foreach($this->aUsers as $user_id => $user) {
 				# controle de l'unicité du nom de l'utilisateur
-				if(in_array($user['name'], $users_name)) {
+			    if(in_array($user['name'], $users_name)) {
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
 				}
@@ -1070,8 +1070,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editArticle($content, &$id) {
 
 		# Détermine le numero de fichier si besoin est
-		if($id == '0000' OR $id == '')
+		$newArticle = false;
+		if($id == '0000' OR $id == '') {
 			$id = $this->nextIdArticle();
+			$newArticle = true;
+		}
 
 		# Vérifie l'intégrité de l'identifiant
 		if(!preg_match('/^_?[0-9]{4}$/',$id)) {
@@ -1095,9 +1098,25 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$content['tags'] = implode(', ', $tags_unique);
 
 		# Formate des dates de creation et de mise à jour
-		$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
-		$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
-		$date_update = $date_update==$content['date_update_old'] ? date('YmdHi') : $date_update;
+		$dates = array();
+		foreach(array('creation', 'update', 'publication') as $context) {
+			$dates[$context] = '';
+			foreach(array('year', 'month', 'day') as $part) {
+				$fieldName = 'date_' . $context . '_' . $part;
+				if(!isset($content[$fieldName])) {
+					break;
+				}
+				$dates[$context] .= $content[$fieldName];
+			}
+			if(strlen($dates[$context]) != 8) {
+				$dates[$context] = date('YmdHi');
+			} else {
+				$dates[$context] .= substr(str_replace(':', '', $content['date_' . $context . '_time']), 0, 4);
+			}
+		}
+		if(isset($content['date_update_old']) and $dates['update'] == $content['date_update_old']) {
+			$dates[$context] = date('YmdHi');
+		}
 		# Génération du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
@@ -1119,8 +1138,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>'."\n";
 		$thumbnail_title = plxUtils::getValue($content['thumbnail_title']);
 		$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>'."\n";
-		$xml .= "\t".'<date_creation><![CDATA['.plxUtils::cdataCheck($date_creation).']]></date_creation>'."\n";
-		$xml .= "\t".'<date_update><![CDATA['.plxUtils::cdataCheck($date_update).']]></date_update>'."\n";
+		$xml .= "\t".'<date_creation>' . $dates['creation'] . '</date_creation>'."\n";
+		$xml .= "\t".'<date_update>' . $dates['update'] . '</date_update>'."\n";
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
 		$xml .= "</document>\n";
@@ -1135,10 +1154,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$id = str_replace('_','',$id);
 
 		# On genère le nom de notre fichier
-		$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
-		if(!preg_match('/^[0-9]{12}$/',$time)) $time = date('YmdHi'); # Check de la date au cas ou...
-		if(empty($content['catId'])) $content['catId']=array('000'); # Catégorie non classée
-		$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$time.'.'.$content['url'].'.xml';
+		if(!preg_match('/^\d{12}$/', $dates['publication'])) {
+			$dates['publication'] = date('YmdHi'); # Check de la date au cas ou...
+		}
+		if(empty($content['catId'])) {
+			$content['catId']=array('000'); # Catégorie non classée
+		}
+		$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$dates['publication'].'.'.$content['url'].'.xml';
+
 		# On va mettre à jour notre fichier
 		if(plxUtils::write($xml,$filename)) {
 			# suppression ancien fichier si nécessaire
@@ -1148,9 +1171,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					unlink($oldfilename);
 			}
 			# mise à jour de la liste des tags
-			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
+			$this->aTags[$id] = array(
+				'tags'		=> trim($content['tags']),
+				'date'		=> $dates['publication'],
+				'active'	=> intval(!in_array('draft', $content['catId'])),
+			);
 			$this->editTags();
-			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+			$msg = $newArticle ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
 			return plxMsg::Info($msg);
