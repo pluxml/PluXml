@@ -3,7 +3,6 @@
 [+] Open static page from administration in a new tab #532 (bazooka07)
 [+] i18n Occitan correction #535 (Mejans)
 [+] PHPMailer update to 6.4.1 (P3ter)
-FIX Update PHPMailer for PHP8 compatibility (P3ter)
 FIX Comments no more displayed with PHP8 #529 (bazooka07)
 FIX Revert .htaccess generation for plugins compatibility with url rewrite (P3ter)
 FIX Wrong use of uasort() in pages and categories edition #530 (bazooka07)
