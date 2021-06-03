@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'e7e253b21de0b10b5fed4b7f6e2bcf43e6633bbf',
+    'reference' => 'd368b537dfca6747e3154f2b5ad3c868ae74db82',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'e7e253b21de0b10b5fed4b7f6e2bcf43e6633bbf',
+      'reference' => 'd368b537dfca6747e3154f2b5ad3c868ae74db82',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -31,12 +31,12 @@
     ),
     'guzzlehttp/promises' => 
     array (
-      'pretty_version' => '1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => '1.4.1',
+      'version' => '1.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '60d379c243457e073cff02bc323a2a86cb355631',
+      'reference' => '8e7d04f1f6450fef59366c399cfad4b9383aa30d',
     ),
     'guzzlehttp/psr7' => 
     array (
@@ -58,12 +58,12 @@
     ),
     'league/oauth2-google' => 
     array (
-      'pretty_version' => '3.0.3',
-      'version' => '3.0.3.0',
+      'pretty_version' => '3.0.4',
+      'version' => '3.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '18d1889897a8b18d85ecadacf74c9274d678d943',
+      'reference' => '6b79441f244040760bed5fdcd092a2bda7cf34c6',
     ),
     'paragonie/random_compat' => 
     array (
@@ -76,12 +76,12 @@
     ),
     'phpmailer/phpmailer' => 
     array (
-      'pretty_version' => 'v6.2.0',
-      'version' => '6.2.0.0',
+      'pretty_version' => 'v6.3.0',
+      'version' => '6.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e38888a75c070304ca5514197d4847a59a5c853f',
+      'reference' => '4a08cf4cdd2c38d12ee2b9fa69e5d235f37a6dcb',
     ),
     'psr/http-client' => 
     array (

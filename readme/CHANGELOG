@@ -1,3 +1,16 @@
+## PLUXML 5.8.7 (2021/06/03) ##
+[+] Move plugins cached css files to data folder #526 (bazooka07)
+[+] Open static page from administration in a new tab #532 (bazooka07)
+[+] i18n Occitan correction #535 (Mejans)
+[+] PHPMailer update to 6.4.1 (P3ter)
+FIX Update PHPMailer for PHP8 compatibility (P3ter)
+FIX Comments no more displayed with PHP8 #529 (bazooka07)
+FIX Revert .htaccess generation for plugins compatibility with url rewrite (P3ter)
+FIX Wrong use of uasort() in pages and categories edition #530 (bazooka07)
+FIX Display 404 error page when switching to a theme with a missing template #533 (bazooka07)
+FIX Category creation can replace an existing category #534 (bazooka07)
+FIX Minors CSS fixes (P3ter)
+
 ## PLUXML 5.8.6 (2021/02/15) ##
 [+] Update PHPMailer 6.2.0 : security fixes and PHP 8.0 compatibility (P3ter)
 [+] Distinct article and comment rss feeds configuration #521 (thx3r)

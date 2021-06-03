@@ -251,6 +251,12 @@ class plxMotor {
 			$this->error404(L_ERR_PAGE_NOT_FOUND);
 		}
 
+		# On vérifie l'existence du template
+		$filename = $this->style . '/' . $this->template;
+		if(!file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $filename)) {
+			$this->error404(L_ERR_FILE_NOTFOUND . ' ( <i>' . $filename . '</i> )');
+		}
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorPreChauffageEnd'));
 	}
@@ -394,7 +400,8 @@ class plxMotor {
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
-		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT.$this->aConf['racine_plugins']);
+		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
+		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
 	}
 
 	/**
@@ -667,15 +674,26 @@ class plxMotor {
 
 		# On effectue notre capture d'informations
 		if(preg_match('#^(_?\d{4})\.((?:\d{3},|draft,)*(?:home|\d{3})(?:,\d{3})*)\.(\d{3})\.(\d{12})\.(.*)\.xml$#', basename($filename), $capture)) {
-
+			$ids = array_merge(array_keys($this->aCats), array('home', 'draft'));
+			$artCats = array_filter(
+				explode(',', $capture[2]),
+				# on vérifie que les catégories de l'article existent
+				function($item) use($ids) {
+					return in_array($item, $ids);
+				}
+			);
+			if(count($artCats) == 1 and $artCats[0] == 'draft') {
+				$artCats[] = '000';
+			}
 			return array(
 				'artId'		=> $capture[1],
-				'catId'		=> $capture[2],
+				'catId'		=> !empty($artCats) ? implode(',', $artCats) : '000',
 				'usrId'		=> $capture[3],
 				'artDate'	=> $capture[4],
 				'artUrl'	=> $capture[5]
 			);
 		}
+		return false;
 	}
 
     /**
@@ -826,7 +844,7 @@ class plxMotor {
 	 **/
 	public function parentChildSort_r($idField, $parentField, $els, $parentID = 0, &$result = array(), &$level = 0){
 		foreach ($els as $key => $value) {
-			if ($value[$parentField] == $parentID) {
+			if (intval($value[$parentField]) == $parentID) {
 				$value['level'] = $level;
 				array_push($result, $value);
 				unset($els[$key]);
@@ -863,7 +881,7 @@ class plxMotor {
 			}
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
-			if (!preg_match('#comments\.php|comment\.php#',basename($_SERVER['SCRIPT_NAME']))) {
+			if (!preg_match('#comments?\.php$#',basename($_SERVER['SCRIPT_NAME']))) {
 				$array = $this->parentChildSort_r('index', 'parent', $array);
 			}
 

@@ -114,7 +114,7 @@ plxToken::validateFormToken($_POST);
 						<p><?php plxUtils::printSelect('version',array_keys($versions),''); ?></p>
 						<p><?php echo L_UPDATE_WARNING2 ?></p>
 						<?php endif; ?>
-						<p><?php echo L_UPDATE_WARNING3 ?></p>
+						<p><?php printf(L_UPDATE_WARNING3, preg_replace('@^([^/]+).*@', '$1', $plxUpdater->plxAdmin->aConf['racine_articles'])); ?></p>
 						<p><input type="submit" name="submit" value="<?php echo L_UPDATE_START ?>" /></p>
 					</fieldset>
 				</form>

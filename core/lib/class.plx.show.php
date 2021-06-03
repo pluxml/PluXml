@@ -743,36 +743,41 @@ class plxShow
      *
      * @param separator    caractère de séparation entre les catégories affichées
      * @scope    home,categorie,article,tags,archives
-     * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F
+     * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F, J.P. Pourrez "bazooka07"
      **/
     public function artCat($separator = ', ')
     {
 
         $cats = array();
-        # Initialisation de notre variable interne
-        $catIds = $this->artActiveCatIds();
-        foreach ($catIds as $idx => $catId) {
-            # On verifie que la categorie n'est pas "home"
-            if ($catId != 'home') {
-                # On va verifier que la categorie existe
-                if (isset($this->plxMotor->aCats[$catId])) {
-                    # On recupere les infos de la categorie
-                    $name = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
-                    $url = $this->plxMotor->aCats[$catId]['url'];
-                    if (isset($this->plxMotor->aCats[$this->plxMotor->cible]['url']))
-                        $active = $this->plxMotor->aCats[$this->plxMotor->cible]['url'] == $url ? "active" : "noactive";
-                    else
-                        $active = "noactive";
-                    # On effectue l'affichage
-                    $cats[] = '<a class="' . $active . '" href="' . $this->plxMotor->urlRewrite('?categorie' . intval($catId) . '/' . $url) . '" title="' . $name . '">' . $name . '</a>';
-                } else { # La categorie n'existe pas
-                    $cats[] = L_UNCLASSIFIED;
-                }
-            } else { # Categorie "home"
+        foreach ($this->artActiveCatIds() as $idx => $catId) {
+            # On valide si la categorie est "home"
+            if ($catId == 'home') {
+				$href = '';
+				$name = L_HOMEPAGE;
+				$className = 'active';
                 $cats[] = '<a class="active" href="' . $this->plxMotor->urlRewrite() . '" title="' . L_HOMEPAGE . '">' . L_HOMEPAGE . '</a>';
-            }
+			} elseif(isset($this->plxMotor->aCats[$catId])) {
+				# La catégorie existe. On en récupère les infos
+				$name = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
+				$url = $this->plxMotor->aCats[$catId]['url'];
+				$href = '?categorie' . intval($catId) . '/' . $url;
+				$active = (
+					$this->plxMotor->mode == 'categorie' and
+					isset($this->plxMotor->aCats[$this->plxMotor->cible]['url']) and
+					$url == $this->plxMotor->aCats[$this->plxMotor->cible]['url']
+				);
+				$className = $active ? 'active' : 'noactive';
+			} else {
+				# Rien à faire
+				continue;
+			}
+
+			# On mémorise pour afficher
+			$cats[] = '<a class="' . $className . '" href="' . $this->plxMotor->urlRewrite($href) . '" title="' . $name . '">' . $name . '</a>';
         }
-        echo implode($separator, $cats);
+
+        # si $cats est vide, on n'a trouvé aucune catégorie valide
+        echo !empty($cats) ? implode($separator, $cats) : L_UNCLASSIFIED;
     }
 
     /**
@@ -2124,7 +2129,7 @@ class plxShow
     {
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowPluginsCss'))) return;
-        plxUtils::printLinkCss($this->plxMotor->aConf['racine_plugins'] . 'site.css');
+        plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'site.css');
     }
 
     /**

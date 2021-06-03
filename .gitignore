@@ -3,3 +3,5 @@
 !/themes/defaut/
 /themes/
 .idea
+/.buildpath
+/.project

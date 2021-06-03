@@ -1480,13 +1480,17 @@ EOT;
 	 */
 	public static function printLinkCss($file, $admin=false) {
 
-		$plxMotor = ($admin) ? false : plxMotor::getinstance();
-		if(is_file(PLX_ROOT.$file)) {
-			$href = ($admin) ? PLX_ROOT.$file : $plxMotor->urlRewrite($file);
+		if(!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
+			if($admin) {
+				$href = PLX_ROOT . $file;
+			} else {
+				$plxMotor = plxMotor::getinstance();
+				$href = $plxMotor->urlRewrite($file);
+			}
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
-			echo <<< LINK
-	<link rel="stylesheet" type="text/css" href="$href" media="screen" />\n
-LINK;
+?>
+	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
+<?php
 		}
 	}
 
