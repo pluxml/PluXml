@@ -21,11 +21,21 @@
 }
 
 body {
+    font-size: 1.4rem;
     background-color: var(--backsection);
 }
 
 body.mobile {
 	margin-right: 1rem;
+}
+
+button,
+button.submit,
+.button,
+.btn,
+[class^="btn--"],
+[type="submit"] {
+    border-radius: 4px;
 }
 
 input[type],
@@ -162,7 +172,7 @@ form .admin {
 	line-height: inherit;
 }
 
-/* ==== AUTHENTIFICATION ==== */
+/* ==== AUTHENTICATION ==== */
 
 #auth {
     background-color: var(--backaside);
