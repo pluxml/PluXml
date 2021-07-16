@@ -242,9 +242,7 @@ plxUtils::cleanHeaders();
                             <?php
                             if ($plxAdmin->aConf['lostpassword']) {
                                 ?>
-                                <a href="?action=lostpassword">
-                                    <span class="w100 mts btn--warning"><?= L_LOST_PASSWORD ?></span>
-                                </a>
+                                <small><a href="?action=lostpassword"><?= L_LOST_PASSWORD ?></a></small>
                                 <?php
                             }
                             ?>
