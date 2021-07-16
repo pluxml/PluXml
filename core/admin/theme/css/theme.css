@@ -1383,33 +1383,6 @@ fieldset div:not(.label-expanded) input[type="email"] {
 
 /* ------ parametres_affichage.php -------- */
 
-#form_display .adminheader > div {
-    margin-top: 1rem;
-}
-
-#form_display fieldset > div:not(.large):not(.thumbnail-container) {
-    display: flex;
-}
-
-#form_display fieldset > div:not(.large) > label {
-    align-self: center;
-    margin-right: auto;
-    margin-bottom: 0;
-}
-
-#form_display fieldset > div:not(.large) > input,
-#form_display fieldset > div:not(.large) > select {
-    align-self: flex-start;
-}
-
-#form_display fieldset > div:not(.large) > select {
-    min-width: 20rem;
-}
-
-#id_thumbnail {
-    flex-grow: 1;
-}
-
 #thumbnail-wrapper {
     padding: 0.5rem 0;
     text-align: center;

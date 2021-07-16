@@ -171,15 +171,10 @@ class plxUtils
      * @return    self
      * @author    unknow, Jean-Pierre Pourrez "bazooka07"
      **/
-    public static function printSelect($name, $array, $selected = '', $readonly = false, $class = '', $id = true)
+    public static function printSelect($name, $array, $selected = '', $readonly = false, $class = '')
     {
 
         if (!is_array($array)) $array = array();
-
-        if (is_bool($id))
-            $id = $id ? ' id="id_' . $name . '"' : '';
-        else
-            $id = ($id != '') ? ' id="' . $id . '"' : '';
 
         if ($readonly) {
             $disabled = 'disabled="disabled"';
@@ -415,40 +410,6 @@ class plxUtils
 
         ?>
         <div class="thumbnail-container">
-            <div id="<?= $name ?>-wrapper">
-                <?php
-                if (!empty($datas)) {
-                    $uri = $datas[$name];
-                    if (!empty($uri)) {
-                        if (preg_match('@^(?:https?|data):@', $uri)) {
-                            $src = $uri;
-                        } else {
-                            $src = PLX_ROOT . $uri;
-                            if (is_file($src)) {
-                                $imgSize = getimagesize($src);
-                            } else {
-                                $src = false;
-                            }
-                        }
-                    }
-                } else {
-                    $src = false;
-                }
-
-                if (!empty($src)) {
-                    ?>
-                    <img src="<?= $src ?>" title="<?= $name ?>" <?= !empty($imgSize) ? $imgSize[3] : '' ?> />
-                    <?php
-                } else {
-                    ?>
-                    <svg viewport="0 0 100 100">
-                        <line x1="0" y1="0" x2="100" y2="100" stroke-width=2/>
-                            <line x1="0" y1="100" x2="100" y2="0"/>
-                    </svg>
-                    <?php
-                }
-                ?>
-            </div>
             <div>
                 <div>
                     <label for="id_<?= $name ?>"><?= L_THUMBNAIL ?></label>
@@ -473,6 +434,33 @@ class plxUtils
                         </div>
                         <?php
                     }
+                }
+                ?>
+            </div>
+            <div id="<?= $name ?>-wrapper">
+                <?php
+                if (!empty($datas)) {
+                    $uri = $datas[$name];
+                    if (!empty($uri)) {
+                        if (preg_match('@^(?:https?|data):@', $uri)) {
+                            $src = $uri;
+                        } else {
+                            $src = PLX_ROOT . $uri;
+                            if (is_file($src)) {
+                                $imgSize = getimagesize($src);
+                            } else {
+                                $src = false;
+                            }
+                        }
+                    }
+                } else {
+                    $src = false;
+                }
+
+                if (!empty($src)) {
+                    ?>
+                    <img src="<?= $src ?>" title="<?= $name ?>" <?= !empty($imgSize) ? $imgSize[3] : '' ?> />
+                    <?php
                 }
                 ?>
             </div>
