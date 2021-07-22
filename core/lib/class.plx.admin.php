@@ -86,7 +86,7 @@ EOT;
      * @return    null
      * @author    Stéphane F
      **/
-    public function prechauffage($motif = '')
+    public function router($motif = '')
     {
         $this->mode = 'admin';
         $this->motif = $motif;

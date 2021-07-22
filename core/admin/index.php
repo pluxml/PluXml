@@ -87,7 +87,7 @@ if ($_GET['artTitle'] != '') {
 }
 
 # Traitement
-$plxAdmin->prechauffage($motif);
+$plxAdmin->router($motif);
 $plxAdmin->getPage();
 $arts = $plxAdmin->getArticles('all'); # Recuperation des articles
 

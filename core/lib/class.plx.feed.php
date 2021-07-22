@@ -85,7 +85,7 @@ class plxFeed extends plxMotor {
 	 * @return	null
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
-	public function fprechauffage() {
+	public function feedRouter() {
 
 		if(!empty($this->plxPlugins)) {
 			# Hook plugins
@@ -161,7 +161,7 @@ class plxFeed extends plxMotor {
 	 * @return	null ou redirection si une erreur est détectée
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
-	public function fdemarrage() {
+	public function feedRun() {
 
 		if(!empty($this->plxPlugins)) {
 			# Hook plugins

@@ -217,7 +217,7 @@ class plxMotor
      * @return    null
      * @author    Anthony GUÉRIN, Florent MONTHEL, Stéphane F
      **/
-    public function prechauffage()
+    public function router()
     {
 
         # Hook plugins
@@ -383,7 +383,7 @@ class plxMotor
      * @return    null
      * @author    Florent MONTHEL, Stephane F
      **/
-    public function demarrage()
+    public function run()
     {
 
         # Hook plugins

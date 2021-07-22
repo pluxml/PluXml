@@ -13,8 +13,8 @@ if (eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
 // Language file loading
 loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
-$plxMotor->prechauffage();
-$plxMotor->demarrage();
+$plxMotor->router();
+$plxMotor->run();
 
 // Buffer beginning
 ob_start();

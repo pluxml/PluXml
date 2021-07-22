@@ -42,8 +42,8 @@ if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	exit;
 }
 
-$plxMotor->prechauffage();
-$plxMotor->demarrage();
+$plxMotor->router();
+$plxMotor->run();
 
 # Creation de l'objet d'affichage
 $plxShow = plxShow::getInstance();

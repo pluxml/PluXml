@@ -29,8 +29,8 @@ if(!$plxFeed->aConf['enable_rss']) {
 ob_start();
 ob_implicit_flush(0);
 
-$plxFeed->fprechauffage();
-$plxFeed->fdemarrage();
+$plxFeed->feedRouter();
+$plxFeed->feedRun();
 
 # Récuperation de la bufférisation
 $output = ob_get_clean();
