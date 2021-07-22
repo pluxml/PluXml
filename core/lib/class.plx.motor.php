@@ -113,6 +113,8 @@ class plxMotor
     public $plxErreur = null; # Objet plxErreur
     public $plxPlugins = null; # Objet plxPlugins
 
+    public $plxSearch = null; #objet PlxSearch
+
     protected static $instance = null;
 
     /**
@@ -207,6 +209,8 @@ class plxMotor
         # Get templates from core/templates and data/templates
         $this->getTemplates(self::PLX_TEMPLATES);
         $this->getTemplates(self::PLX_TEMPLATES_DATA);
+
+        $this->plxSearch = new PlxSearch();
     }
 
     /**
@@ -223,7 +227,7 @@ class plxMotor
         # Hook plugins
         if (eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) return;
 
-        if (!empty($this->get) and !preg_match('#^(?:blog|article\d{1,4}/|static\d{1,3}/|categorie\d{1,3}/|archives/\d{4}(?:/\d{2})?|tag/\w|page\d|preview|telechargement|download)#', $this->get)) {
+        if (!empty($this->get) and !preg_match('#^(?:blog|article\d{1,4}/|static\d{1,3}/|categorie\d{1,3}/|archives/\d{4}(?:/\d{2})?|tag/\w|page\d|preview|telechargement|download|search)#', $this->get)) {
             $this->get = '';
         }
 
@@ -332,6 +336,9 @@ class plxMotor
             } else {
                 $this->error404(L_DOCUMENT_NOT_FOUND);
             }
+        } elseif ($this->get and preg_match('#^search#', $this->get)) {
+            $this->mode = "search";
+            $this->template = "search.php";
         } else {
             $this->error404(L_ERR_PAGE_NOT_FOUND);
         }
@@ -463,6 +470,10 @@ class plxMotor
             $this->plxRecord_arts = new plxRecord($_SESSION['preview']);
             $this->template = $this->plxRecord_arts->f('template');
             if ($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+        } elseif ($this->mode == 'search') {
+            if (!empty($_POST["search"])) {
+                $this->plxSearch = new PlxSearch($_POST["search"]);
+            }
         }
 
         # Hook plugins
@@ -824,11 +835,11 @@ class plxMotor
             $artCats = array_filter(
                 explode(',', $capture[2]),
                 # on vérifie que les catégories de l'article existent
-                function($item) use($ids) {
+                function ($item) use ($ids) {
                     return in_array($item, $ids);
                 }
             );
-            if(count($artCats) == 1 and $artCats[0] == 'draft') {
+            if (count($artCats) == 1 and $artCats[0] == 'draft') {
                 $artCats[] = '000';
             }
 

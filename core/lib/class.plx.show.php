@@ -2477,6 +2477,20 @@ class plxShow
     }
 
     /**
+     * Display the search input form
+     *
+     * @param String $value
+     */
+    public function searchForm(String $value = "")
+    {
+        ?>
+        <form action="<?= $this->plxMotor->urlRewrite('?search') ?>" method="post">
+            <input type="text" name="search" value="<?= $value ?>"/>
+        </form>
+        <?php
+    }
+
+    /**
      * Display a link to the PluXml backoffice using the PLX_ADMIN_PATH const defined in config.php
      *
      * @author J.P. Pourrez "bazooka07"
