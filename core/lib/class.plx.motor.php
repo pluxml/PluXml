@@ -219,7 +219,7 @@ class plxMotor
      * de classe adéquates
      *
      * @return    null
-     * @author    Anthony GUÉRIN, Florent MONTHEL, Stéphane F
+     * @author    Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
      **/
     public function router()
     {
