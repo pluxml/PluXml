@@ -14,7 +14,9 @@
 
     <!--<h3><?php $plxShow->lang('TAGS'); ?></h3>-->
     <h3>Rechercher</h3>
-    <?php $plxShow->searchForm(); ?>
+    <form action="<?= $plxShow->urlRewrite('?search') ?>" method="post">
+        <input type="text" name="search"/>
+    </form>
 
     <h3><?php $plxShow->lang('TAGS'); ?></h3>
     <ul class="tag-list">

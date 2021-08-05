@@ -2,60 +2,47 @@
 
 class PlxSearch
 {
-    private $_query = "";
-    private $_results = [];
+    private $_articlesResults = [];
+    private $_pagesResults = [];
+
     private $_format_date = '#num_day/#num_month/#num_year(4)';
 
     public function __construct(string $query = "")
     {
-
         if (!empty($query)) {
             $plxMotor = plxMotor::getinstance();
 
-            $this->setQuery($query);
-
-            $word = plxUtils::strCheck(plxUtils::unSlash($_POST['search']));
-            $searchword = strtolower(htmlspecialchars(trim($_POST['search'])));
-            $searchword = plxUtils::unSlash($searchword);
-
+            $articles = [];
+            $pages = [];
+            $searchword = plxUtils::unSlash(strtolower(htmlspecialchars(trim($_POST['search']))));
 
             $plxGlob_arts = clone $plxMotor->plxGlob_arts;
             $motif = '/^[0-9]{4}.[' . $plxMotor->activeCats . ',]*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
             if ($aFiles = $plxGlob_arts->query($motif, 'art', 'rsort', 0, false, 'before')) {
                 foreach ($aFiles as $v) { # On parcourt tous les fichiers
                     $art = $plxMotor->parseArticle(PLX_ROOT . $plxMotor->aConf['racine_articles'] . $v);
-                    $searchstring = strtolower(plxUtils::strRevCheck($art['title'] . $art['chapo'] . $art['content']));
-                    $searchstring = plxUtils::unSlash($searchstring);
+                    $searchstring = plxUtils::unSlash(strtolower(plxUtils::strRevCheck($art['title'] . $art['chapo'] . $art['content'])));
                     if ($searchword != '' and strpos($searchstring, $searchword) !== false) {
-                        $searchresults = true;
-                        $art_num = intval($art['numero']);
-                        $art_url = $art['url'];
-                        $art_title = plxUtils::strCheck($art['title']);
-                        $art_date = plxDate::formatDate($art['date'], $this->getFormatDate());
-                        $result[] = $art_title;
-
-                        //set $_searchResults
-                        $this->setResults($result);
+                        $article["url"] = $plxMotor->urlRewrite("?".$art['url']);
+                        $article["title"] = plxUtils::strCheck($art['title']);;
+                        $article["date"] = plxDate::formatDate($art['date'], $this->getFormatDate());
+                        $articles[] = $article;
+                        $this->setArticlesResults($articles);
                     }
                 }
             }
 
             if ($plxMotor->aStats) {
                 foreach ($plxMotor->aStats as $k => $v) {
-                    if ($v['active'] == 1 and $v['url'] != $plxMotor->mode) { # si la page est bien active
+                    if ($v['active'] == 1 and $v['url'] != $plxMotor->mode) {
                         $filename = PLX_ROOT . $plxMotor->aConf['racine_statiques'] . $k . '.' . $v['url'] . '.php';
                         if (file_exists($filename)) {
-                            $searchstring = strtolower(plxUtils::strRevCheck(file_get_contents($filename)));
-                            $searchstring = plxUtils::unSlash($searchstring);
+                            $searchstring = plxUtils::unSlash(strtolower(plxUtils::strRevCheck(file_get_contents($filename))));
                             if (strpos($searchstring, $searchword) !== false) {
-                                $searchresults = true;
-                                $stat_num = intval($k);
-                                $stat_url = $v['url'];
-                                $stat_title = plxUtils::strCheck($v['name']);
-                                $result[] = $stat_title;
-
-                                //set $_searchResults
-                                $this->setResults($result);
+                                $page["url"] = $plxMotor->urlRewrite("?".$v['url']);
+                                $page["title"] = plxUtils::strCheck($v['name']);
+                                $pages[] = $page;
+                                $this->setPagesResults($pages);
                             }
                         }
                     }
@@ -64,27 +51,27 @@ class PlxSearch
         }
     }
 
-    public function getQuery(): string
+    public function getArticlesResults(): array
     {
-        return $this->_query;
+        return $this->_articlesResults;
     }
 
-    public function setQuery(string $query): void
+    private function setArticlesResults($results): void
     {
-        $this->_query = $query;
+        $this->_articlesResults = array_merge($this->getArticlesResults(), $results);
     }
 
-    public function getResults(): array
+    public function getPagesResults(): array
     {
-        return $this->_results;
+        return $this->_pagesResults;
     }
 
-    public function setResults($results): void
+    private function setPagesResults(array $pagesResults): void
     {
-        $this->_results = array_merge($this->getResults(), $results);
+        $this->_pagesResults = $pagesResults;
     }
 
-    public function getFormatDate(): string
+    private function getFormatDate(): string
     {
         return $this->_format_date;
     }

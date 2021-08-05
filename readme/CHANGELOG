@@ -29,6 +29,7 @@
 [+] Externalise comments js script to increase security #476 (Thatoo)
 [+] Refacto plxShow::lastComList #510 (bazooka07)
 [+] PHPMailer update to 6.5.0 (P3ter)
+[+] PlxShow->admin() use "return" instead of "echo" (P3ter)
 FIX Do not unset CSRF token if $_POST is empty #286 (sudwebdesign)
 FIX Wording and translation of L_MEDIAS_MAX_UPLOAD_NBFILE #286 (sudwebdesign) 
 FIX Wording and translation of L_CONFIG_ADVANCED_USERFOLDERS #286 (sudwebdesign)

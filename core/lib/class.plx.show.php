@@ -63,7 +63,7 @@ class plxShow
     }
 
     /**
-     * Méthode qui affiche les urls réécrites
+     * URL resolver using url rewrite if enabled
      *
      * @param url            url à réécrire
      * @author    Stéphane F
@@ -2477,26 +2477,34 @@ class plxShow
     }
 
     /**
-     * Display the search input form
-     *
-     * @param String $value
-     */
-    public function searchForm(String $value = "")
-    {
-        ?>
-        <form action="<?= $this->plxMotor->urlRewrite('?search') ?>" method="post">
-            <input type="text" name="search" value="<?= $value ?>"/>
-        </form>
-        <?php
-    }
-
-    /**
      * Display a link to the PluXml backoffice using the PLX_ADMIN_PATH const defined in config.php
      *
      * @author J.P. Pourrez "bazooka07"
      */
     public function admin()
     {
-        echo $this->plxMotor->urlRewrite(substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)));
+        return $this->plxMotor->urlRewrite(substr(PLX_ADMIN_PATH, strlen(PLX_ROOT)));
+    }
+
+    /**
+     * Get search results for articles
+     *
+     * @return array
+     * @author Pedro "P3ter" CADETE
+     */
+    public function searchArticlesResults(): array
+    {
+        return $this->plxMotor->plxSearch->getArticlesResults();
+    }
+
+    /**
+     * Get search results for pages
+     *
+     * @return array
+     * @author Pedro "P3ter" CADETE
+     */
+    public function searchPagesResults(): array
+    {
+        return $this->plxMotor->plxSearch->getPagesResults();
     }
 }
