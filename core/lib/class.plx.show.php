@@ -2489,10 +2489,10 @@ class plxShow
     /**
      * Get search results for articles
      *
-     * @return array
+     * @return plxRecord
      * @author Pedro "P3ter" CADETE
      */
-    public function searchArticlesResults(): array
+    public function searchArticlesResults(): plxRecord
     {
         return $this->plxMotor->plxSearch->getArticlesResults();
     }
