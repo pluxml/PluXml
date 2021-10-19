@@ -37,13 +37,14 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de la catégorie
 }
 
 # On récupère les templates des catégories
-$aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
-if ($array = $files->query('/^categorie(-[a-z0-9-_]+)?.php$/')) {
-	foreach($array as $k=>$v)
-		$aTemplates[$v] = $v;
+$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#^categorie(?:-[\w-]+)?\.php$#');
+if (!empty($glob->aFiles)) {
+	$aTemplates = array();
+	foreach($glob->aFiles as $v)
+		$aTemplates[$v] = basename($v, '.php');
+} else {
+	$aTemplates = array('' => L_NONE1);
 }
-if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 
 # On inclut le header
 include __DIR__ .'/top.php';

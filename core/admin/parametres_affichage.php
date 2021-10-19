@@ -29,13 +29,14 @@ if(!empty($_POST)) {
 }
 
 # On récupère les templates de la page d'accueil
-$aTemplates = array();
-$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
-if ($array = $files->query('/^home(-[a-z0-9-_]+)?.php$/')) {
-	foreach($array as $k=>$v)
-		$aTemplates[$v] = $v;
+$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#home(?:-[\w-]+)?\.php$#');
+if (!empty($glob->aFiles)) {
+	$aTemplates = array();
+	foreach($glob->aFiles as $v)
+		$aTemplates[$v] = basename($v, '.php');
+} else {
+	$aTemplates = array('' => L_NONE1);
 }
-if(empty($aTemplates)) $aTemplates[''] = L_NONE1;
 
 # Tableau du tri
 $aTriArts = array(
