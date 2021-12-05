@@ -51,6 +51,8 @@ $plxFeed->fdemarrage();
 # Récuperation de la bufférisation
 $output = ob_get_clean();
 
+header("Content-type: text/xml");
+
 eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 
 # Restitution écran
