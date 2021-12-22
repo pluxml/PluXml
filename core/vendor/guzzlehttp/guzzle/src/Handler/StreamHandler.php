@@ -237,11 +237,8 @@ class StreamHandler
             return true;
         });
 
-        try {
-            $resource = $callback();
-        } finally {
-            \restore_error_handler();
-        }
+        $resource = $callback();
+        \restore_error_handler();
 
         if (!$resource) {
             $message = 'Error creating resource: ';
@@ -517,9 +514,7 @@ class StreamHandler
             $params,
             static function ($code, $a, $b, $c, $transferred, $total) use ($value) {
                 if ($code == \STREAM_NOTIFY_PROGRESS) {
-                    // The upload progress cannot be determined. Use 0 for cURL compatibility:
-                    // https://curl.se/libcurl/c/CURLOPT_PROGRESSFUNCTION.html
-                    $value($total, $transferred, 0, 0);
+                    $value($total, $transferred, null, null);
                 }
             }
         );

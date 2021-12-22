@@ -15,7 +15,6 @@
 namespace League\OAuth2\Client\Token;
 
 use JsonSerializable;
-use ReturnTypeWillChange;
 use RuntimeException;
 
 interface AccessTokenInterface extends JsonSerializable
@@ -69,6 +68,5 @@ interface AccessTokenInterface extends JsonSerializable
      *
      * @return array
      */
-    #[ReturnTypeWillChange]
     public function jsonSerialize();
 }
