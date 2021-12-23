@@ -1,3 +1,6 @@
+## PLUXML 5.8.8 (YYYY/MM/DD) ##
+FIX Filter articles, comments and pages names in plxGlob #383 #545 (bazooka07)
+
 ## PLUXML 5.8.7 (2021/06/03) ##
 [+] Move plugins cached css files to data folder #526 (bazooka07)
 [+] Open static page from administration in a new tab #532 (bazooka07)
