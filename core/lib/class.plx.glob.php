@@ -8,6 +8,11 @@
  **/
 class plxGlob {
 
+	const PATTERNS = array(
+		'arts'			=> '#^\D?(\d{4,})\.(?:\w+|\d{3})(?:,\w+|,\d{3})*\.\d{3}\.\d{12}\..*\.xml$#',
+		'statiques'		=> '#^(\d{3,})\..*\.php$#',
+		'commentaires'	=> '#^\d{4,}\.(?:\d{10,})(?:-\d+)?\.xml$#'
+	);
 	public $count = 0; # Le nombre de resultats
 	public $aFiles = array(); # Tableau des fichiers
 
@@ -65,25 +70,39 @@ class plxGlob {
 		if(is_dir($this->dir)) {
 			# On ouvre le repertoire
 			if($dh = opendir($this->dir)) {
-				# Récupération du dirname
-				if($this->onlyfilename) # On recupere uniquement le nom du fichier
-					$dirname = '';
-				else # On concatene egalement le nom du repertoire
-					$dirname = $this->dir;
+                # On recupere le nom du repertoire éventuellement
+                $dirname = $this->onlyfilename ? '' : $this->dir;
 				# Pour chaque entree du repertoire
 				while(false !== ($file = readdir($dh))) {
 					if($file[0]!='.') {
 						$dir = is_dir($this->dir.'/'.$file);
 						if($this->rep AND $dir) {
+							# On collecte uniquement les dossiers (plugins, themes, ...)
 							$this->aFiles[] = $dirname.$file;
 						}
 						elseif(!$this->rep AND !$dir) {
-							if($type=='arts') {
-								$index = str_replace('_','',substr($file, 0,strpos($file,'.')));
-								if(is_numeric($index)) {
-									$this->aFiles[$index] = $file;
+							# On collecte uniquement les fichiers ( arts, statiques, commentaires, ...)
+							if (array_key_exists($type, self::PATTERNS)) {
+								if(preg_match(self::PATTERNS[$type], $file, $matches)) {
+									if (!empty($matches[1])) {
+										# On indexe
+										$this->aFiles[$matches[1]] = $file;
+									} else {
+										# commentaires, ...
+										$this->aFiles[] = $file;
+									}
 								}
-							} else {
+							} elseif (!empty($type)) {
+								# $type est un motif de recherche
+								if(preg_match($type, $file, $matches)) {
+									if (!empty($matches[1])) {
+										# On indexe
+										$this->aFiles[$matches[1]] = $file;
+									} else {
+										$this->aFiles[] = $file;
+									}
+								}
+							}else {
 								$this->aFiles[] = $file;
 							}
 						}
@@ -181,7 +200,7 @@ class plxGlob {
 		if($rs = $this->search($motif,$type,$tri,$publi)) {
 
 			# Ordre de tri du tableau
-			if ($type != '') {
+			if (!empty($tri)) {
 				switch ($tri) {
 					case 'random':
 						shuffle($rs);
@@ -189,40 +208,37 @@ class plxGlob {
 					case 'alpha':
 					case 'asc':
 					case 'sort':
-						ksort($rs);
+						if (!empty($type)) {
+							ksort($rs);
+						} else {
+							sort($rs);
+						}
 						break;
 					case 'ralpha':
 					case 'desc':
 					case 'rsort':
-						krsort($rs);
-						break;
-					default:
-				}
-			} else {
-				switch ($tri) {
-					case 'random':
-						shuffle($rs);
-						break;
-					case 'alpha':
-					case 'sort':
-						sort($rs);
-						break;
-					case 'ralpha':
-					case 'rsort':
-						rsort($rs);
+						if (!empty($type)) {
+							krsort($rs);
+						} else {
+							rsort($rs);
+						}
 						break;
 					default:
 				}
 			}
 
 			# On enlève les clés du tableau
-			$rs = array_values($rs);
+			if (!empty($type)) {
+				$rs = array_values($rs);
+			}
 			# On a une limite, on coupe le tableau
-			if($limite)
-				$rs = array_slice($rs,$depart,$limite);
-			# On retourne le tableau
-			return $rs;
+			if (is_integer($limite) and is_integer($depart)) {
+				return array_slice($rs, $depart, $limite);
+			} else {
+				return $rs;
+			}
 		}
+
 		# On retourne une valeur négative
 		return false;
 	}
