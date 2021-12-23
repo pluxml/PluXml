@@ -5,8 +5,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 		plxMsg::Info(L_DELETE_SUCCESSFUL);
 	else
 		plxMsg::Error(L_DELETE_FILE_ERR.' install.php');
-	header("Location: index.php");
-	exit;
 }
 ?>
 <!DOCTYPE html>
@@ -143,11 +141,12 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 
 	<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
+<?php if(is_file(PLX_ROOT.'install.php')): ?>
+	<p class="alert red"><?= L_WARNING_INSTALLATION_FILE ?></p>
+	<script>setDeleteInstallURL()</script>
+<?php endif; ?>
 <?php
-		if(is_file(PLX_ROOT.'install.php'))
-			echo '<p class="alert red">'.L_WARNING_INSTALLATION_FILE.'</p>'."\n";
-		plxMsg::Display();
-
-		# Hook Plugins
-		eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+	plxMsg::Display();
+	# Hook Plugins
+	eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
 ?>

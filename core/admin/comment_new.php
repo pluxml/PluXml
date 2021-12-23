@@ -104,7 +104,7 @@ if(!empty($_GET['c'])) { # Mode "answer"
 	# Ok, on récupère les commentaires de l'article
 	$plxAdmin->getCommentaires('/^'.str_replace('_','',$artId).'.(.*).xml$/','sort');
 } else { # Mode inconnu
-	header('Location: .index.php');
+	header('Location: index.php');
 	exit;
 }
 
@@ -137,13 +137,11 @@ include __DIR__ .'/top.php';
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
 
-	<h3 class="no-margin"><?php echo L_COMMENTS_ARTICLE_SCOPE ?> &laquo;<?php echo plxUtils::strCheck($aArt['title']); ?>&raquo;</h3>
+	<h3 class="no-margin"><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?>&nbsp;:&nbsp;<?php echo $article ?></h3>
 
 	<ul class="unstyled-list">
 		<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
 		<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
-		<li><?php echo L_COMMENT_SITE_FIELD ?> : <?php echo '<a href="'.$plxAdmin->racine.'">'.$plxAdmin->racine.'</a>'; ?></li>
-		<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
 	</ul>
 
 	<fieldset>

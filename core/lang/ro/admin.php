@@ -505,7 +505,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Setări',
 		'L_MENU_PROFIL_TITLE' => 'Gestionează profilul',
 		'L_MENU_PROFIL' => 'Profil',
-		'L_WARNING_INSTALLATION_FILE' => 'Fişierul install.php încă se află în rădăcina sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l <a class="lnkdelete" href="?del=install">ştergeţi</a>.',
+		'L_WARNING_INSTALLATION_FILE' => 'Fişierul install.php încă se află în rădăcina sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l <a id="lnkdelete">ştergeţi</a>.',
 		'L_USER_UNKNOWN' => 'Utilizator necunoscut',
 		'L_USER_LANG' => 'Limba utilizată ',
 		'L_USER_MAIL' => 'Adresa de email',

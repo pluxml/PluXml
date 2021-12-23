@@ -504,7 +504,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Parametri',
 		'L_MENU_PROFIL_TITLE' => 'Gestisci il profilo',
 		'L_MENU_PROFIL' => 'Profilo',
-		'L_WARNING_INSTALLATION_FILE' => 'Il file install.php è presente nella radice di PluXml.<br />Per motivi di sicurezza, è fortemente consigliata la <a class="lnkdelete" href="?del=install">cancellazione</a>.',
+		'L_WARNING_INSTALLATION_FILE' => 'Il file install.php è presente nella radice di PluXml.<br />Per motivi di sicurezza, è fortemente consigliata la <a id="lnkdelete">cancellazione</a>.',
 		'L_USER_UNKNOWN' => 'Utente sconosciuto',
 		'L_USER_LANG' => 'Lingua usata nel pannello di amministrazione',
 		'L_USER_MAIL' => 'Indirizzo email',
