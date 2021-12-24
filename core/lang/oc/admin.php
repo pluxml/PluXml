@@ -582,7 +582,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Paramètres',
 		'L_MENU_PROFIL_TITLE' => 'Gerir vòstre perfil utilizaire',
 		'L_MENU_PROFIL' => 'Perfil',
-		'L_WARNING_INSTALLATION_FILE' => 'Lo fichièr install.php es present a la raiç de vòstre PluXml.<br />Per de rasons de seguretat, es fòrtament conselhat d\'o <a id="lnkdelete">suprimir</a>.',
+		'L_WARNING_INSTALLATION_FILE' => 'Lo fichièr install.php es present a la raiç de vòstre PluXml.<br />Per de rasons de seguretat, es fòrtament conselhat d\'o <a class="lnkdelete" href="%s">suprimir</a>.',
 
 		// user.php
 		'L_USER_UNKNOWN' => 'Utilizaire desconegut',

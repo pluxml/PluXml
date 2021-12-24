@@ -79,8 +79,3 @@ function insTag(where, tag) {
 	else
 		formfield.value = formfield.value+', '+tag;
 }
-function setDeleteInstallURL() {
-	let url = new URL(window.location.href);
-	url.searchParams.append("del", "install");
-	document.getElementById("lnkdelete").href = url.search;
-}

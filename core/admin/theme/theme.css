@@ -103,12 +103,12 @@
 	color: #444;
 }
 
-#lnkdelete {
+a.lnkdelete {
 	font-weight: bold;
 	text-decoration: underline;
 }
 
-#lnkdelete:hover {
+a.lnkdelete:hover {
 	text-decoration: none;
 }
 
