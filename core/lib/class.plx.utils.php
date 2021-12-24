@@ -1026,7 +1026,7 @@ class plxUtils {
 	* @author Pedro "P3ter" CADETE
 	* @throws \PHPMailer\PHPMailer\Exception
 	**/
-	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml=false, $conf, $debug=false) {
+	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml, $conf, $debug=false) {
 		$mail = new PHPMailer();
 		if ($debug) {
 			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
