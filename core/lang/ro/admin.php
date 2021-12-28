@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Activați recuperarea parolei';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Cheie de administrare (URL-uri private)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Clar acest domeniu pentru a regenera cheie';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Folosind medias dosar pentru fiecare editor diferite';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Utilizați foldere media separate din acest profil';
 const L_HELP_SLASH_END = 'Nu uita slash de final';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Locul de amplasare Media (director)';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Locul de amplasare de elemente (dosar)';

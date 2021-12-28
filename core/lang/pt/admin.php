@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Ativar recuperação de senha';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Chave de administração (URLS privadas)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Esvaziar o campo afim de regenerar a chave novamente';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Utilizar uma pasta medias diferente para cada Editor';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Use pastas de mídia separadas deste perfil';
 const L_HELP_SLASH_END = 'Não esquecêr o flash "/" no fim';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Mídia local (pasta)';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Local dos artigos (pasta)';

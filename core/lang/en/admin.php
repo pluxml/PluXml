@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Enable password recovery';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Administration key (private URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Leave this field empty to rebuild key';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Use separate medias folders for every writer';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Use separate medias folders from this profile';
 const L_HELP_SLASH_END = 'Don\'t forget the slash at the end';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Medias (folder) location';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Articles (folder) location';

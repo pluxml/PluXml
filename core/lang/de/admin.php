@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Aktivieren Sie die Kennwortwiederherstel
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Adminschlüssel (private URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Feld leeren um neuen Schlüssel zu generieren';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Verwenden Sie unterschiedliche Medien Ordner für jeden Autor';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Verwenden Sie separate Medienordner von diesem Profil';
 const L_HELP_SLASH_END = 'Schrägstrich (Slash) am Ende nicht vergessen!';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Medien-Speicherort (Ordner)';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Artikelordner';
