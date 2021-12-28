@@ -329,6 +329,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Chiave di amministrazione (URL privati)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Svuota questo campo per rigenerare la chiave',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Usare delle cartelle medias diverse per ogni redattore',
+		'L_CONFIG_ADVANCED_USERSFOLDERS' => 'Usa cartelle multimediali separate da questo profilo',
 		'L_HELP_SLASH_END' => 'Non dimenticare la slash alla fine',
 		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Posizione media (cartella)',
 		'L_CONFIG_ADVANCED_ARTS_FOLDER' => 'Posizionamento degli articoli(cartella)',

@@ -378,6 +378,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Clau d\'administracion (URLs privadas)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Vojar aquel camp per tornar generar la clau',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Utilizar un dorsièr mèdias diferent per cada redactor',
+		'L_CONFIG_ADVANCED_USERSFOLDERS' => 'Utilizar un dorsièr mèdias diferent per cada redactor',
 		'L_HELP_SLASH_END' => 'Oblidar pas lo slash a la fin',
 		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Emplaçament dels mèdia (dorsièr)',
 		'L_CONFIG_ADVANCED_ARTS_FOLDER' => 'Emplaçament dels articles (dorsièr)',

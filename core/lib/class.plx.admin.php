@@ -97,6 +97,9 @@ class plxAdmin extends plxMotor {
 		# On teste la clef
 		if(empty($global['clef'])) $global['clef'] = plxUtils::charAleatoire(15);
 
+		# Rétro-compatibilité
+		$global['userfolders'] = ($global['usersfolders'] != '') ? '1' : '0';
+
 		# Début du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
