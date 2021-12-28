@@ -80,10 +80,27 @@ include __DIR__ .'/top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_userfolders"><?php echo L_CONFIG_ADVANCED_USERFOLDERS ?>&nbsp;:</label>
+				<label for="id_userfolders"><?php echo L_CONFIG_ADVANCED_USERSFOLDERS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printSelect('userfolders',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['userfolders']);?>
+<?php
+$usersOptions = array(
+	''					=> ucFirst(L_NONE1),
+	PROFIL_ADMIN 		=> L_PROFIL_ADMIN,
+	PROFIL_MANAGER		=> L_PROFIL_MANAGER,
+	PROFIL_MODERATOR	=> L_PROFIL_MODERATOR,
+	PROFIL_EDITOR		=> L_PROFIL_EDITOR,
+	PROFIL_WRITER		=> L_PROFIL_WRITER,
+);
+if (isset($plxAdmin->aConf['usersfolders'])) {
+	$value = $plxAdmin->aConf['usersfolders'];
+} else {
+	# rétro-compatibilité
+	$value = ($plxAdmin->aConf['userfolders'] == 1) ? PROFIL_WRITER : '';
+
+}
+plxUtils::printSelect('usersfolders', $usersOptions, $value);
+?>
 			</div>
 		</div>
 		<div class="grid">

@@ -363,6 +363,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Code voor versleuteling gegevens (Prive URLs)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Maak dit veld leeg om een nieuwe sleutel te genereren',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Gebruik verschillende media map voor elke redacteur',
+		'L_CONFIG_ADVANCED_USERSFOLDERS' => 'Gebruik aparte mediamappen van dit profiel',
 		'L_HELP_SLASH_END' => 'vergeet de slash niet op het einde',
 		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Locatie media (map)',
 		'L_CONFIG_ADVANCED_ARTS_FOLDER' => 'Locatie artikels (map)',

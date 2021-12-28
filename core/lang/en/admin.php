@@ -379,6 +379,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Administration key (private URLs)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Leave this field empty to rebuild key',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Use separate medias folders for every writer',
+		'L_CONFIG_ADVANCED_USERSFOLDERS' => 'Use separate medias folders from this profile',
 		'L_HELP_SLASH_END' => 'Don\'t forget the slash at the end',
 		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Medias (folder) location',
 		'L_CONFIG_ADVANCED_ARTS_FOLDER' => 'Articles (folder) location',
