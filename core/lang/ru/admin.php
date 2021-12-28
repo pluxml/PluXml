@@ -380,6 +380,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Административный ключ (для приватных URL)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Оставьте это поле пустым, чтобы восстановить ключ',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Используйте другую папку средств массовой информации для каждого Редактор',
+		'L_CONFIG_ADVANCED_USERSFOLDERS' => 'Использовать отдельные папки мультимедиа из этого профиля',
 		'L_HELP_SLASH_END' => 'Не забудьте слеш / в конце',
 		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Медиа место (папка)',
 		'L_CONFIG_ADVANCED_ARTS_FOLDER' => 'Папка для статей',

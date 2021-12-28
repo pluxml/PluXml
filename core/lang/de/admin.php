@@ -381,6 +381,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_ADMIN_KEY' => 'Adminschlüssel (private URLs)',
 		'L_CONFIG_ADVANCED_KEY_HELP' => 'Feld leeren um neuen Schlüssel zu generieren',
 		'L_CONFIG_ADVANCED_USERFOLDERS' => 'Verwenden Sie unterschiedliche Medien Ordner für jeden Autor',
+		'L_CONFIG_ADVANCED_USERSFOLDERS' => 'Verwenden Sie separate Medienordner von diesem Profil',
 		'L_HELP_SLASH_END' => 'Schrägstrich (Slash) am Ende nicht vergessen!',
 		'L_CONFIG_ADVANCED_MEDIAS_FOLDER' => 'Medien-Speicherort (Ordner)',
 		'L_CONFIG_ADVANCED_ARTS_FOLDER' => 'Artikelordner',
