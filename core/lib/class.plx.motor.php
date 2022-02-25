@@ -682,7 +682,7 @@ class plxMotor {
 					return in_array($item, $ids);
 				}
 			);
-			if(count($artCats) == 1 and $artCats[0] == 'draft') {
+			if(count($artCats) == 1 and key($artCats) == 'draft') {
 				$artCats[] = '000';
 			}
 			return array(
