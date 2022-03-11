@@ -142,8 +142,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
 <?php if(is_file(PLX_ROOT.'install.php')): ?>
-		<?php $url = "?" . http_build_query(array_merge($_GET, array('del'=>'install'))); ?>
-		<p class="alert red"><?= sprintf(L_WARNING_INSTALLATION_FILE, $url) ?></p>
+		<?php $urlDeleteInstall = "?" . http_build_query(array_merge($_GET, array('del'=>'install'))); ?>
+		<p class="alert red"><?= sprintf(L_WARNING_INSTALLATION_FILE, $urlDeleteInstall) ?></p>
 <?php endif; ?>
 <?php
 	plxMsg::Display();
