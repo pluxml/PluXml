@@ -373,10 +373,12 @@ class plxMotor {
 			$nb = sizeof($iTags['parametre']);
 			# On boucle sur $nb
 			for($i = 0; $i < $nb; $i++) {
-				if(isset($values[ $iTags['parametre'][$i] ]['value'])) # On a une valeur pour ce parametre
-					$this->aConf[ $values[ $iTags['parametre'][$i] ]['attributes']['name'] ] = $values[ $iTags['parametre'][$i] ]['value'];
-				else # On n'a pas de valeur
-					$this->aConf[ $values[ $iTags['parametre'][$i] ]['attributes']['name'] ] = '';
+				$param = $values[$iTags['parametre'][$i]];
+				$name = $param['attributes']['name'];
+				$this->aConf[$name] = isset($param['value']) ? $param['value'] : '';
+				if(preg_match('#^(?:bypage|image|miniature)#', $name)) {
+					$this->aConf[$name] = intval($this->aConf[$name]);
+				}
 			}
 		}
 		# détermination automatique de la racine du site
@@ -450,7 +452,7 @@ class plxMotor {
 				# Recuperation du tri de la categorie si besoin est
 				$this->aCats[$number]['tri']=isset($attributes['tri'])?$attributes['tri']:$this->aConf['tri'];
 				# Recuperation du nb d'articles par page de la categorie si besoin est
-				$this->aCats[$number]['bypage']=isset($attributes['bypage'])?$attributes['bypage']:$this->bypage;
+				$this->aCats[$number]['bypage']=isset($attributes['bypage'])?intval($attributes['bypage']):$this->bypage;
 				# Recuperation du fichier template
 				$this->aCats[$number]['template']=isset($attributes['template'])?$attributes['template']:'categorie.php';
 				# Récupération des informations de l'image représentant la catégorie
