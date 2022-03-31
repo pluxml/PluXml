@@ -62,9 +62,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		$art['filename'] = '';
 		$art['numero'] = $_POST['artId'];
 		$art['author'] = $_POST['author'];
-		$art['thumbnail'] = $_POST['thumbnail'];
-		$art['thumbnail_title'] = $_POST['thumbnail_title'];
-		$art['thumbnail_alt'] = $_POST['thumbnail_alt'];
+		$art['thumbnail'] = plxUtils::strCheck(trim($_POST['thumbnail']));
+		$art['thumbnail_title'] = plxUtils::strCheck(trim($_POST['thumbnail_title']));
+		$art['thumbnail_alt'] = plxUtils::strCheck(trim($_POST['thumbnail_alt']));
 		$art['categorie'] = '000';
 		if(!empty($_POST['catId'])) {
 			$array=array();
@@ -165,9 +165,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_description = $_POST['meta_description'];
 	$meta_keywords = $_POST['meta_keywords'];
 	$title_htmltag = $_POST['title_htmltag'];
-	$thumbnail = $_POST['thumbnail'];
-	$thumbnail_title = $_POST['thumbnail_title'];
-	$thumbnail_alt = $_POST['thumbnail_alt'];
+	$thumbnail = plxUtils::strCheck(trim($_POST[’thumbnail’]));
+	$thumbnail_title = plxUtils::strCheck(trim($_POST['thumbnail_title']));
+	$thumbnail_alt = plxUtils::strCheck(trim($_POST['thumbnail_alt']));
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticlePostData'));
 } elseif(!empty($_GET['a'])) { # On n'a rien validé, c'est pour l'édition d'un article
@@ -267,7 +267,12 @@ function refreshImg(dta) {
 	if(dta.trim()==='') {
 		document.getElementById('id_thumbnail_img').innerHTML = '';
 	} else {
-		var link = dta.match(/^(?:https?|data):/gi) ? dta : '<?php echo $plxAdmin->racine ?>'+dta;
+        let lt = /</g,
+            gt = />/g,
+            ap = /’/g,
+            ic = /"/g;
+        dta = dta.replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&\#39;").replace(ic, "&\#34;");}
+		let link = dta.match(/^(?:https?|data):/gi) ? dta : '<?php echo $plxAdmin->racine ?>'+dta;
 		document.getElementById('id_thumbnail_img').innerHTML = '<img src="'+link+'" alt="" />';
 	}
 }

@@ -5,6 +5,7 @@ FIX Filter articles, comments and pages names in plxGlob #383 #545 (bazooka07)
 FIX PHP8 __Deprecated: Required parameter $conf follows optional parameter $isHtml #537 (MAPC2012, Francis)
 FIX Force some values of $plxMotor->aConf[] to be integer #552 (bazooka07)
 FIX Minor fix in PlxMotor function artInfoFromFilename #554 (gcyrillus, bazooka07)
+FIX Article thumbnail XSS vulnerability #556 (P3ter, Moritz Huppert)
 
 ## PLUXML 5.8.7 (2021/06/03) ##
 [+] Move plugins cached css files to data folder #526 (bazooka07)
