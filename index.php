@@ -46,16 +46,27 @@ $plxMotor->demarrage();
 # Creation de l'objet d'affichage
 $plxShow = plxShow::getInstance();
 
-eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
-
 # On démarre la bufferisation
 ob_start();
+
+eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
+
 ob_implicit_flush(0);
 
 # Traitements du thème
 if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
-	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
+	# tentative de chargement du theme par defaut si thème inexistant
+	if(is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].'/defaut')){
+		#On impose le charset
+		header('Content-Type: text/html; charset='.PLX_CHARSET);
+		# Insertion du template
+		include(PLX_ROOT.$plxMotor->aConf['racine_themes'].'/defaut/'.$plxMotor->template);
+	}
+	# theme par défaut absent - message d'erreur
+	else {
+		header('Content-Type: text/plain; charset='.PLX_CHARSET);
+		echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
+	}
 } elseif(file_exists(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
 	# On impose le charset
 	header('Content-Type: text/html; charset='.PLX_CHARSET);
