@@ -533,6 +533,9 @@ class plxUtils {
 		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, self::REMOVE_WORDS)) {
 			$clean_url = preg_replace('@\b(' . self::REMOVE_WORDS[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
 		}
+		
+		// replace underscore
+		$clean_url = preg_replace('@[\s_]+@', $replace, $clean_url);
 
 		// remove accents
 		$clean_url = plxUtils::removeAccents($clean_url, PLX_CHARSET);
