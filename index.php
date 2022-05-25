@@ -34,6 +34,12 @@ $plxMotor = plxMotor::getInstance();
 # Détermination de la langue à utiliser (modifiable par le hook : Index)
 $lang = $plxMotor->aConf['default_lang'];
 
+# !duplicate content : Si urlwriting activé renvoi les url index.php?xxx vers l'url réécrite
+if( $plxMotor->aConf['urlrewriting']==1 && strpos(strtolower($_SERVER['REQUEST_URI']), 'index.php?' )==true)  {
+	$newloc= str_replace('index.php?','',$_SERVER['REQUEST_URI']);
+	$plxMotor->redir301($newloc);
+}
+
 # Hook Plugins
 eval($plxMotor->plxPlugins->callHook('Index'));
 
