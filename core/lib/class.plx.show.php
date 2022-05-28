@@ -1109,6 +1109,7 @@ class plxShow
                 $row = str_replace('#img_url', $this->plxMotor->urlRewrite($art['thumbnail']), $row);
                 $row = str_replace('#img_title', $art['thumbnail_title'], $row);
                 $row = str_replace('#img_alt', $art['thumbnail_alt'], $row);
+                $row = str_replace('#art_tag', $art['tags'], $row);
 
                 # Hook plugin
                 eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtListContent'));
