@@ -1464,6 +1464,7 @@ class plxShow
                 if ($v['active'] == 1 and $v['menu'] == 'oui') { # La page  est bien active et dispo ds le menu
                     $stat = str_replace('#static_id', 'static-' . intval($k), $format);
                     $stat = str_replace('#static_class', 'static menu', $stat);
+		    $stat = str_replace('#static_description', $this->plxMotor->aStats[$k]['meta_description'] , $stat);
                     if ($v['url'][0] == '?') # url interne commençant par ?
                         $stat = str_replace('#static_url', $this->plxMotor->urlRewrite($v['url']), $stat);
                     elseif (plxUtils::checkSite($v['url'], false)) # url externe en http ou autre
