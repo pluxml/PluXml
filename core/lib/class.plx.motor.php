@@ -189,7 +189,7 @@ class plxMotor {
 				$this->motif = '#^\d{4}.((?:\d|home|,)*(?:'.$this->cible.')(?:\d|home|,)*).\d{3}.\d{12}.[\w-]+.xml$#'; # Motif de recherche
 				$this->template = $this->aCats[$this->cible]['template'];
 				$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
-				$this->bypage = $this->aCats[$this->cible]['bypage'] > 0 ? $this->aCats[$this->cible]['bypage'] : $this->bypage;
+				$this->bypage = !empty($this->aCats[$this->cible]['bypage']) ? $this->aConf['bypage'] : $this->bypage;
 			}
 			elseif(isset($this->aCats[$this->cible])) { # Redirection 301
 				if($this->aCats[$this->cible]['url']!=$capture[2]) {
