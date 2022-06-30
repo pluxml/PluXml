@@ -142,7 +142,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$artId = $_POST['artId'];
 	$title = trim($_POST['title']);
 	$author = $_POST['author'];
-	$catId = isset($_POST['catId'])?$_POST['catId']:array();
+	$catId = $_POST['catId'] ?? array();
 	$date['day'] = $_POST['date_publication_day'];
 	$date['month'] = $_POST['date_publication_month'];
 	$date['year'] = $_POST['date_publication_year'];
@@ -165,7 +165,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$meta_description = $_POST['meta_description'];
 	$meta_keywords = $_POST['meta_keywords'];
 	$title_htmltag = $_POST['title_htmltag'];
-	$thumbnail = plxUtils::strCheck(trim($_POST[’thumbnail’]));
+	$thumbnail = plxUtils::strCheck(trim($_POST['thumbnail']));
 	$thumbnail_title = plxUtils::strCheck(trim($_POST['thumbnail_title']));
 	$thumbnail_alt = plxUtils::strCheck(trim($_POST['thumbnail_alt']));
 	# Hook Plugins
