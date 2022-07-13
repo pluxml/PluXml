@@ -172,7 +172,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	eval($plxAdmin->plxPlugins->callHook('AdminArticlePostData'));
 } elseif(!empty($_GET['a'])) { # On n'a rien validé, c'est pour l'édition d'un article
 	# On va rechercher notre article
-	if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'.(.+).xml$/')) == false) { # Article inexistant
+	if(!($aFile = $plxAdmin->plxGlob_arts->query('/^' . $_GET['a'] . '.(.+).xml$/'))) { # Article inexistant
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;
