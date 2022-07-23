@@ -41,7 +41,7 @@ Prérequis
 
 Que ce soit en local sur votre ordinateur ou sur internet, votre hébergement doit posséder les éléments suivants pour pouvoir utiliser PluXml :
 
-* PHP 5.6 ou supérieur
+* PHP 8.1 ou supérieur
 * Librairie GD pour la gestion des images
 * Fonction PHP d'envoi d'emails autorisée (non obligatoire)
 * Le module Apache mod_rewrite activé pour utiliser la réécriture d'url (non obligatoire)
