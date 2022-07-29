@@ -1,4 +1,4 @@
-## PLUXML 5.8.8 (YYYY/MM/DD) ##
+## PLUXML 5.8.8 (2022/07/29) ##
 FIX Delete install.php link and redirect fixed for all administration pages #540 (P3ter)
 FIX Sitemap lastmod attribute is now set with the modification date #541 (gcyrillus, P3ter)
 FIX Filter articles, comments and pages names in plxGlob #383 #545 (bazooka07)
