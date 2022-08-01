@@ -864,7 +864,8 @@ class plxUtils {
 	 **/
 	public static function cdataCheck($str) {
 		$str = str_ireplace('!CDATA', '&#33;CDATA', $str);
-		return str_replace(']]>', ']]&gt;', $str);
+        $str = str_replace(']]>', ']]&gt;', $str);
+		return self::sanitizePhp($str);
 	}
 
 	/**
@@ -1494,4 +1495,25 @@ EOT;
 		}
 	}
 
+    /**
+     * Remove Php opening and closing tags
+     *
+     * Deprecated !
+     * @param String $content
+     * @return array|string|string[]
+     * @author Pedro "P3ter" CADETE, Moritz Huppert
+     */
+    public static function sanitizePhpTags(String $content) {
+        return str_ireplace(array("<?php","<?", "?>"), "", $content);;
+    }
+
+    /**
+     * Remove critical functions from PHP
+     * @param String $content
+     * @return String
+     * @author Jean-Pierre Pourrez aka bazooka07
+     **/
+    public static function sanitizePhp(String $content) {
+		return preg_replace('#\b(fsockopen|proc_open|system|exec|chroot|shell_exec|socket\w*)\b\([^)]*?\)\s*;#', '/* $1() not allowed here */;' . PHP_EOL, $content);
+	}
 }

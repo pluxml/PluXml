@@ -876,7 +876,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			# Génération du nom du fichier de la page statique
 			$filename = PLX_ROOT.$this->aConf['racine_statiques'].$content['id'].'.'.$this->aStats[ $content['id'] ]['url'].'.php';
 			# On écrit le fichier
-			if(plxUtils::write($content['content'],$filename))
+			if(plxUtils::write(plxUtils::sanitizePhp($content['content']),$filename))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else
 				return plxMsg::Error(L_SAVE_ERR.' '.$filename);
