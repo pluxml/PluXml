@@ -876,7 +876,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			# Génération du nom du fichier de la page statique
 			$filename = PLX_ROOT.$this->aConf['racine_statiques'].$content['id'].'.'.$this->aStats[ $content['id'] ]['url'].'.php';
 			# On écrit le fichier
-			if(plxUtils::write(plxUtils::sanitizePhpTags($content['content']),$filename))
+			if(plxUtils::write($content['content'],$filename))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else
 				return plxMsg::Error(L_SAVE_ERR.' '.$filename);
@@ -939,8 +939,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
 		$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
 		$date_update = $date_update==$content['date_update_old'] ? date('YmdHi') : $date_update;
-
-        # Génération du fichier XML
+		# Génération du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
 		$xml .= "<document>\n";
 		$xml .= "\t".'<title><![CDATA['.plxUtils::cdataCheck(trim($content['title'])).']]></title>'."\n";

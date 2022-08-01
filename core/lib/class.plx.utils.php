@@ -864,8 +864,7 @@ class plxUtils {
 	 **/
 	public static function cdataCheck($str) {
 		$str = str_ireplace('!CDATA', '&#33;CDATA', $str);
-        $str = str_replace(']]>', ']]&gt;', $str);
-		return self::sanitizePhpTags($str);
+		return str_replace(']]>', ']]&gt;', $str);
 	}
 
 	/**
@@ -1495,13 +1494,4 @@ EOT;
 		}
 	}
 
-    /**
-     * Remove Php opening and closing tags
-     * @param String $content
-     * @return array|string|string[]
-     * @author Pedro "P3ter" CADETE, Moritz Huppert
-     */
-    public static function sanitizePhpTags(String $content) {
-        return str_ireplace(array("<?php","<?", "?>"), "", $content);;
-    }
 }
