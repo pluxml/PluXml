@@ -47,7 +47,10 @@ $aTriArts = array(
 	'random'	=> L_SORT_RANDOM
 );
 
-$aTriComs = array('desc'=>L_SORT_DESCENDING_DATE, 'asc'=>L_SORT_ASCENDING_DATE);
+$aTriComs = array(
+	'desc'=>L_SORT_DESCENDING_DATE,
+	'asc'=>L_SORT_ASCENDING_DATE
+);
 
 # On va tester les variables pour les images et miniatures
 if(!is_numeric($plxAdmin->aConf['images_l'])) $plxAdmin->aConf['images_l'] = 800;

@@ -90,40 +90,182 @@ class plxAdmin extends plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 
-		foreach($content as $k=>$v) {
-			if(!in_array($k,array('token','config_path'))) # parametres à ne pas mettre dans le fichier
-				$global[$k] = $v;
-		}
-		# On teste la clef
-		if(empty($global['clef'])) $global['clef'] = plxUtils::charAleatoire(15);
+		# Ne pas sauvegarder ces champs dans parametres.xml
+		$excludes = array('racine', 'token','config_path',);
 
-		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-		foreach($global as $k=>$v) {
-			if($k!='racine') {
-				if(is_numeric($v))
-					$xml .= "\t<parametre name=\"$k\">".$v."</parametre>\n";
-				else
-					$xml .= "\t<parametre name=\"$k\"><![CDATA[".plxUtils::cdataCheck($v)."]]></parametre>\n";
+		$parametreChanged = false;
+		foreach($content as $k=>$v) {
+			if(!in_array($k, $excludes)) {
+				if($global[$k] === $v) {
+					# Aucun changement pour ce champ
+					continue;
+				}
+
+				# contrôle de la validité des dossiers racines et medias
+				if(
+					preg_match('#^(?:medias|racine_(?:article|comment\w*|statique|theme|plugin)s)$#', $k) and
+					!preg_match('#^\w[\w\s/\\-]*/$#', $v)
+				) {
+					# Mauvais chemin pour un dossier
+					continue;
+				}
+
+				/*
+				 * Uniquement une valeur numérique pour ces champs :
+				 * bypage,
+				 * bypage_admin,
+				 * bypage_admin_coms,
+				 * bypage_archives,
+				 * bypage_feed,
+				 * bypage_tags,
+				 * images_l,
+				 * images_h,
+				 * miniatures_l,
+				 * miniatures_h,
+				 * */
+				if(preg_match('#^(?:bypage|images|miniatures)#', $k)) {
+					if(is_numeric($v)) {
+						$n = intval($v);
+						if($global[$k] != $n) {
+							$global[$k] = $n;
+							$parametreChanged = true;
+						}
+					}
+					continue;
+				}
+
+				/*
+				 * Uniquement une valeur booléenne 0 ou 1 pour ces champs :
+				 * allow_com
+				 * capcha
+				 * display_empty_cat
+				 * enable_rss
+				 * enable_rss_comment
+				 * feed_chapo
+				 * gzip
+				 * lostpassword
+				 * mod_art
+				 * mod_com
+				 * thumbs
+				 * urlrewriting
+				 * userfolders
+				 * */
+				if(preg_match('#^(?:allow|capcha|display|enable|gzip|lostpassword|mod_|thumbs|urlrewriting|userfolder)#', $k)) {
+					if(preg_match('#^\s*(0|1)\s*$#', $v, $matches)) {
+						$n = intval($matches[1]);
+						if($global[$k] != $n) {
+							$global[$k] = $n;
+							$parametreChanged = true;
+						}
+					}
+					continue;
+				 }
+
+				 # Champs pour les tris
+				if(preg_match('#^tri#', $k)) {
+					if(preg_match('#^\s*(r?alpha|asc|desc|random)\s*$#', $v, $matches)) {
+						if($global[$k] != $matches[1]) {
+							$global[$k] = $matches[1];
+							$parametreChanged = true;
+						}
+					}
+					continue;
+				}
+
+				# contrôle le dossier du thème
+				if(
+					$k == 'style' and (
+						!preg_match('#^\w[\w\s-]*$#', $v) or
+						!is_dir(PLX_ROOT . $this->aConf['racine_themes'] . $v)
+					)
+				) {
+					continue;
+				}
+
+				if($k == 'homestatic') {
+					if(strlen($v) > 0 and !preg_match('#^\d{3,4}$#', $v)) {
+						# n'est pas un identifiant de page statique
+						continue;
+					}
+				}
+
+				if(
+					$k == 'hometemplate' and
+					$global[$k] != $v and (
+						!preg_match('#^home[\w\s-]*\.php$#', $v) or
+						!file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . $v)
+					)
+				) {
+					# Pas de changement ou fichier avec nom invalide ou inexistant
+					continue;
+
+					 # A faire: vérifier dans plxThemes::getThemes() la présence d'un fichier home*.php dans chaque thème
+				}
+
+				/*
+				 * Autres champs vide ou de type chaine :
+				 * title
+				 * description
+				 * meta_description
+				 * meta_keywords
+				 * timezone
+				 * homestatic
+				 * hometemplate
+				 * feed_footer
+				 * default_lang
+				 * custom_admincss_file
+				 * email_method
+				 * */
+				$s = (trim($v) !== '') ? filter_var(trim($v), FILTER_SANITIZE_STRING) : '';
+				if($global[$k] != $s) {
+					$global[$k] = $s;
+					$parametreChanged = true;
+				}
 			}
 		}
-		$xml .= "</document>";
 
-		# On réinitialise la pagination au cas où modif de bypage_admin
-		unset($_SESSION['page']);
+		# On teste la clef
+		if(empty($global['clef']) or !preg_match('#^\w{15}$#', $global['clef'])) {
+			$global['clef'] = plxUtils::charAleatoire(15);
+			$parametreChanged = true;
+		}
 
-		# On réactulise la langue
-		$_SESSION['lang'] = $global['default_lang'];
+		if($parametreChanged) {
+			# On force la valeur par sécurité
+			$global['version'] = PLX_VERSION;
 
-		# Actions sur le fichier htaccess
-		if(array_key_exists('urlrewriting', $content))
-			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
-				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
+			# Début du fichier XML
+			$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>" . PHP_EOL;
+			$xml .= '<document>' . PHP_EOL;
+			foreach($global as $k=>$v) {
+				if(!in_array($k, $excludes)) {
+					$value = (!empty($v) and !is_numeric($v) and !preg_match('#^(?:tri.*|clef|version|default_lang|hometemplate)$#', $k)) ? '<![CDATA[' . $v . ']]>' : $v;
+					$xml .= "\t<parametre name=\"$k\">$value</parametre>" . PHP_EOL;
+				}
+			}
+			$xml .= '</document>';
 
-		# Mise à jour du fichier parametres.xml
-		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
-			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
+			# On réinitialise la pagination au cas où modif de bypage_admin
+			unset($_SESSION['page']);
+
+			# On réactualise la langue
+			$_SESSION['lang'] = $global['default_lang'];
+
+			# Actions sur le fichier htaccess
+			if(
+				array_key_exists('urlrewriting', $content) and
+				preg_match('#^(0|1)$#',$content['urlrewriting'], $matches) and
+				$global['urlrewriting'] != $matches[1]
+			) {
+				if(!$this->htaccess($matches[1], $global['racine'])) {
+					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
+				}
+			}
+
+			# Mise à jour du fichier parametres.xml
+			if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
+		}
 
 		# Si nouvel emplacement du dossier de configuration
 		if(isset($content['config_path'])) {
@@ -139,7 +281,6 @@ class plxAdmin extends plxMotor {
 		}
 
 		return plxMsg::Info(L_SAVE_SUCCESSFUL);
-
 	}
 
 	/**
