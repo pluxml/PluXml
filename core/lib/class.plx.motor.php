@@ -1189,20 +1189,14 @@ class plxMotor {
 	 **/
 	public function nbComments($select='online', $publi='all') {
 
-		$nb = 0;
-		if($select == 'all')
-			$motif = '#[^[:punct:]?]\d{4}.(.*).xml$#';
-		elseif($select=='offline')
-			$motif = '#^_\d{4}.(.*).xml$#';
-		elseif($select=='online')
-			$motif = '#^\d{4}.(.*).xml$#';
-		else
-			$motif = $select;
+		switch($select) {
+			case 'all' : $motif = '#^_?\d{4}\.(.*)\.xml$#'; break;
+			case 'offline' : $motif = '#^_\d{4}\.(.*)\.xml$#'; break;
+			case 'online' : $motif = '#^\d{4}\.(.*)\.xml$#'; break;
+			default : $motif = $select;
+		}
 
-		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
-			$nb = sizeof($coms);
-
-		return $nb;
+		return ($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi)) ? sizeof($coms) : 0;
 	}
 
 	/**
