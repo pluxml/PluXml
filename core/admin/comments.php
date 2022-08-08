@@ -149,16 +149,16 @@ $selector = selector($comSel, 'id_selection');
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
-<form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
+<form action="comments.php<?= !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
 	<div class="inline-form action-bar">
-		<?php echo $h2 ?>
+		<?= $h2 ?>
 		<ul class="menu">
-			<?php echo implode($breadcrumbs); ?>
+			<?= implode($breadcrumbs); ?>
 		</ul>
-		<?php echo $selector ?>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		<?= $selector ?>
+		<?= plxToken::getTokenPostMethod() ?>
+		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
 	</div>
 
 	<?php if(isset($h3)) echo $h3 ?>
@@ -288,21 +288,30 @@ $selector = selector($comSel, 'id_selection');
 ?>
 </p>
 
-<?php if(!empty($plxAdmin->aConf['clef'])) : ?>
-
-<ul class="unstyled-list">
-	<li><?php echo L_COMMENTS_PRIVATE_FEEDS ?> :</li>
-	<?php $urlp_hl = $plxAdmin->racine.'feed.php?admin'.$plxAdmin->aConf['clef'].'/commentaires/hors-ligne'; ?>
-	<li><a href="<?php echo $urlp_hl ?>" title="<?php echo L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?php echo L_COMMENT_OFFLINE_FEEDS ?></a></li>
-	<?php $urlp_el = $plxAdmin->racine.'feed.php?admin'.$plxAdmin->aConf['clef'].'/commentaires/en-ligne'; ?>
-	<li><a href="<?php echo $urlp_el ?>" title="<?php echo L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?php echo L_COMMENT_ONLINE_FEEDS ?></a></li>
-</ul>
-
-<?php endif; ?>
-
 <?php
+if(!empty($plxAdmin->aConf['clef'])) {
+?>
+<ul class="unstyled-list">
+	<li><?= L_COMMENTS_PRIVATE_FEEDS ?> :</li>
+<?php
+	$options = array(
+		'hors-ligne'	=> L_COMMENT_OFFLINE_FEEDS,
+		'en-ligne'		=> L_COMMENT_ONLINE_FEEDS,
+	);
+
+	$baseUrl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/';
+	foreach($options as $k=>$caption) {
+?>
+	<li><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a></li>
+<?php
+}
+?>
+</ul>
+<?php
+}
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
+
 # On inclut le footer
 include __DIR__ .'/foot.php';
-?>
