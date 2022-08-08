@@ -109,10 +109,17 @@ if($portee!='') {
 	$h3 = '<h3>'.$portee.'</h3>';
 }
 
+$options = array(
+	'all'		=> L_ALL,
+	'online'	=> L_COMMENT_ONLINE,
+	'offline'	=> L_COMMENT_OFFLINE,
+);
 $breadcrumbs = array();
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='all'?'class="selected" ':'').'href="comments.php?sel=all&amp;page=1">'.L_ALL.'</a>&nbsp;('.$plxAdmin->nbComments('all').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='online'?'class="selected" ':'').'href="comments.php?sel=online&amp;page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&amp;page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>';
+foreach($options as $status => $caption) {
+	$className = ($_SESSION['selCom'] == $status) ? ' class="selected"' : '';
+	$breadcrumbs[] = '<li><a ' . $className . 'href="comments.php?sel=' . $status . '&page=1">' . $caption . '</a>&nbsp;(' . $plxAdmin->nbComments($status) . ')</li>';
+}
+
 if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
