@@ -166,6 +166,9 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
 			</div>
 		</div>
+<?php
+if(class_exists('PHPMailer')) {
+?>
 		<div>
 			<h2><?php echo L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE ?>&nbsp;:</h2>
 			<p><small><?php echo L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP ?></small></p>
@@ -268,6 +271,9 @@ include __DIR__ .'/top.php';
 				<a href="get_oauth_token.php?provider=Google"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
 			</div>
 		</div>
+<?php
+	} # if(class_exists('PHPMailer'))
+?>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) # Hook Plugins ?>
 </form>
@@ -275,6 +281,6 @@ include __DIR__ .'/top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
+
 # On inclut le footer
 include __DIR__ .'/foot.php';
-?>

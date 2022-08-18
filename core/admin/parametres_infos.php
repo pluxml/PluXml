@@ -90,7 +90,7 @@ HEAD;
 	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
 	$from = $plxAdmin->aUsers['001']['email'];
 
-	if(empty($plxAdmin->aConf['email_method']) or $plxAdmin->aConf['email_method'] == 'sendmail' or !method_exists('plxUtils', 'sendMailPhpMailer')) {
+	if($plxAdmin->isPHPMailerDisabled()) {
 		# fonction mail() intrinséque à PHP
 		$method = '<p style="font-size: 80%;"><em>mail() function from PHP</em></p>';
 		$body = $head . $content . $method . $foot;
@@ -168,4 +168,3 @@ if(preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
 }
 # On inclut le footer
 include __DIR__ .'/foot.php';
-?>

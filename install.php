@@ -2,8 +2,8 @@
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
 
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
@@ -27,8 +27,8 @@ if(!array_key_exists($lang, plxUtils::getLangs())) {
 loadLang(PLX_CORE.'lang/'.$lang.'/install.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
-# On vérifie que PHP 5 ou superieur soit installé
-if(version_compare(PHP_VERSION, '5.0.0', '<')){
+# On vérifie la version minimale de PHP
+if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
 	echo utf8_decode(L_WRONG_PHP_VERSION);
 	exit;

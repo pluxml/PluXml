@@ -1225,4 +1225,18 @@ class plxMotor {
 		}
 	}
 
+	/**
+	 * Méthode qui vérifie si PHPMailer est désactivé
+	 *
+	 * @return	boolean
+	 * author	Jean-Pierre Pourrez "bazooka07"
+	 **/
+	public function isPHPMailerDisabled() {
+		return
+			empty($this->aConf['email_method']) or
+			$this->aConf['email_method'] == 'sendmail' or
+			!class_exists('PHPMailer') or
+			!method_exists('plxUtils', 'sendMailPhpMailer');
+	}
+
 }

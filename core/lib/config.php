@@ -1,4 +1,6 @@
 <?php
+
+const PHP_VERSION_MIN = '5.6.34';
 const PLX_DEBUG = true;
 const PLX_VERSION = '5.8.9';
 const PLX_URL_REPO = 'https://www.pluxml.org';
