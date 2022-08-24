@@ -162,6 +162,10 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function htaccess($action, $url) {
 
+		if(!defined('HTACCESS_FILE')) {
+			return;
+		}
+
 		$capture = '';
 		$base = parse_url($url);
 
@@ -181,9 +185,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 # END -- Pluxml
 ';
 
-		$htaccess = '';
-		if(is_file(PLX_ROOT.'.htaccess'))
-			$htaccess = file_get_contents(PLX_ROOT.'.htaccess');
+		$htaccess = is_file(HTACCESS_FILE) ? file_get_contents(HTACCESS_FILE) : '';
 
 		switch($action) {
 			case '0': # désactivation
@@ -200,13 +202,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminHtaccess'));
+
 		# On écrit le fichier .htaccess à la racine de PluXml
 		$htaccess = trim($htaccess);
-		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess')) {
-			unlink(PLX_ROOT.'.htaccess');
-			return true;
+		if($htaccess=='' AND is_file(HTACCESS_FILE)) {
+			return unlink(HTACCESS_FILE);
 		} else {
-			return plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
+			return plxUtils::write($htaccess, HTACCESS_FILE);
 		}
 
 	}
