@@ -9,6 +9,7 @@ $LANG = array(
 
 # common
 'L_PLUXML_VERSION'				=> 'PluXml versie',
+'L_PLUXML_VERSION_DATA'			=> 'Versie datums',
 'L_HOMEPAGE'					=> 'Onthaal',
 'L_UNCLASSIFIED'				=> 'Niet geclassificeerd',
 'L_INFO_PHP_VERSION'			=> 'PHP-versie',
