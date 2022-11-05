@@ -112,6 +112,14 @@ class plxPlugins {
 				$this->cssCache('admin');
 				$this->cssCache('site');
 			}
+		} else {
+			# Vérifie que les fichiers cache CSS pour les plugins existent ( fichiers déplacés à partir de PluXml v5.8.7 )
+			foreach(array('admin', 'site') as $context) {
+				$filename = PLX_ROOT . PLX_PLUGINS_CSS_PATH . $context;
+				if(!file_exists($filename)) {
+					$this->cssCache($context);
+				}
+			}
 		}
 	}
 

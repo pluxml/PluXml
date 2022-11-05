@@ -36,7 +36,16 @@ if($emailBuild) {
 
 <p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
 
-<p><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></p>
+<p>
+    <strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION; ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong>
+<?php
+    if ($plxAdmin->aConf['version'] != PLX_VERSION) {
+?>
+    - <?= L_PLUXML_VERSION_DATA ?> : <?= $plxAdmin->aConf['version'] ?>
+<?php
+    }
+?>
+</p>
 <ul class="unstyled-list">
 	<li><?php echo L_INFO_PHP_VERSION; ?> : <?php echo phpversion(); ?></li>
 	<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>

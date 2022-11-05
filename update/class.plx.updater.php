@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-define('PLX_UPDATE', PLX_ROOT.'update/');
+const PLX_UPDATE = PLX_ROOT . 'update/';
 
 class plxUpdater {
 
@@ -65,11 +65,15 @@ class plxUpdater {
 			$this->oldVersion='';
 
 		# Récupère le nouveau n° de version de PluXml
-		if(defined('PLX_VERSION')) { # PluXml à partir de la version 5.5
+		if(defined('PLX_VERSION_DATA')) {
+			$this->newVersion = PLX_VERSION_DATA;
+		} elseif(defined('PLX_VERSION')) { # PluXml à partir de la version 5.5
 			$this->newVersion = PLX_VERSION;
 		} elseif(is_readable(PLX_ROOT.'version')) {
 			$f = file(PLX_ROOT.'version');
 			$this->newVersion = $f['0'];
+		} else {
+			die('Unkwon version of PluXml');
 		}
 	}
 
@@ -201,4 +205,3 @@ class plxUpdate {
 		return unlink($deldir);
 	}
 }
-?>
