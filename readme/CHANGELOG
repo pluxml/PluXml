@@ -1,3 +1,6 @@
+## PLUXML 5.8.10 (2022/xx/xx) ##
+ADD new constant PLX_VERSION_DATA - async versions between datas and PluXml #576 (bazooka07)
+
 ## PLUXML 5.8.9 (2022/08/01) ##
 REVERT v5.8.8 FIX Static pages PHP injection vulnerability #558 (P3ter, Moritz Huppert)
 
