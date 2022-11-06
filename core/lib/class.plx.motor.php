@@ -419,6 +419,8 @@ class plxMotor {
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
+		$this->aConf['lostpassword'] = isset($this->aConf['lostpassword']) ? $this->aConf['lostpassword'] : 1;
+		$this->aConf['enable_rss'] = isset($this->aConf['enable_rss']) ? $this->aConf['enable_rss'] : 1;
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
 		# On vérifie que le module Rewrite d'Apache est reconnu. Sinon on bloque la réécriture d'URL
@@ -727,26 +729,26 @@ class plxMotor {
 			$art = array(
 				'filename'		=> $filename,
 				# Recuperation des valeurs de nos champs XML
-                'title'				=> plxUtils::getTagValue($iTags['title'], $values),
-                'allow_com'			=> plxUtils::getTagValue($iTags['allow_com'], $values, 0),
-                'template'			=> plxUtils::getTagValue($iTags['template'], $values, 'article.php'),
-                'chapo'				=> plxUtils::getTagValue($iTags['chapo'], $values),
-                'content'			=> plxUtils::getTagValue($iTags['content'], $values),
-                'tags'				=> plxUtils::getTagValue($iTags['tags'], $values),
-                'meta_description'	=> plxUtils::getTagValue($iTags['meta_description'], $values),
-                'meta_keywords'		=> plxUtils::getTagValue($iTags['meta_keywords'], $values),
-                'title_htmltag'		=> plxUtils::getTagValue($iTags['title_htmltag'], $values),
-                'thumbnail'			=> plxUtils::getTagValue($iTags['thumbnail'], $values),
-                'thumbnail_title'	=> plxUtils::getTagValue($iTags['thumbnail_title'], $values),
-                'thumbnail_alt'		=> plxUtils::getTagValue($iTags['thumbnail_alt'], $values),
+				'title'				=> plxUtils::getTagValue($iTags['title'], $values),
+				'allow_com'			=> plxUtils::getTagValue($iTags['allow_com'], $values, 0),
+				'template'			=> plxUtils::getTagValue($iTags['template'], $values, 'article.php'),
+				'chapo'				=> plxUtils::getTagValue($iTags['chapo'], $values),
+				'content'			=> plxUtils::getTagValue($iTags['content'], $values),
+				'tags'				=> plxUtils::getTagValue($iTags['tags'], $values),
+				'meta_description'	=> plxUtils::getTagValue($iTags['meta_description'], $values),
+				'meta_keywords'		=> plxUtils::getTagValue($iTags['meta_keywords'], $values),
+				'title_htmltag'		=> plxUtils::getTagValue($iTags['title_htmltag'], $values),
+				'thumbnail'			=> plxUtils::getTagValue($iTags['thumbnail'], $values),
+				'thumbnail_title'	=> plxUtils::getTagValue($iTags['thumbnail_title'], $values),
+				'thumbnail_alt'		=> plxUtils::getTagValue($iTags['thumbnail_alt'], $values),
 				'numero'			=> $tmp['artId'],
 				'author'			=> $tmp['usrId'],
 				'categorie'			=> $tmp['catId'],
 				'url'				=> $tmp['artUrl'],
 				'date'				=> $tmp['artDate'],
 				'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}.\d+.xml$#'),
-                'date_creation'		=> plxUtils::getTagValue($iTags['date_creation'], $values, $tmp['artDate']),
-                'date_update'		=> plxUtils::getTagValue($iTags['date_update'], $values, $tmp['artDate']),
+				'date_creation'		=> plxUtils::getTagValue($iTags['date_creation'], $values, $tmp['artDate']),
+				'date_update'		=> plxUtils::getTagValue($iTags['date_update'], $values, $tmp['artDate']),
 			);
 
 			# Hook plugins
