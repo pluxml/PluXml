@@ -47,11 +47,11 @@ class plxGlob {
 	 * @param	dir				répertoire à lire
 	 * @param	rep				boolean pour ne prendre que les répertoires sans les fichiers
 	 * @param	onlyfilename	boolean pour ne récupérer que le nom des fichiers sans le chemin
-	 * @param	type			type de fichier lus (arts ou '')
+	 * @param	type			type de fichier lus (arts,  statiques, commentaires ou motif de recherche)
 	 * @return	objet			return une instance de la classe plxGlob
 	 * @author	Stephane F
 	 **/
-	public static function getInstance($dir,$rep=false,$onlyfilename=true,$type=''){
+	public static function getInstance($dir, $rep=false, $onlyfilename=true, $type='arts'){
 		$basename = str_replace(PLX_ROOT, '', $dir);
 		if (!isset(self::$instance[$basename]))
 			self::$instance[$basename] = new plxGlob($dir,$rep,$onlyfilename,$type);
@@ -61,7 +61,7 @@ class plxGlob {
 	/**
 	 * Méthode qui se charge de mémoriser le contenu d'un dossier
 	 *
-	 * @param	type			type de fichier lus (arts ou '')
+	 * @param	type  type de fichier lus (arts,  statiques, commentaires ou motif de recherche)
 	 * @return	null
 	 * @author	Amaury Graillat et Stephane F
 	 **/
@@ -73,36 +73,34 @@ class plxGlob {
                 # On recupere le nom du repertoire éventuellement
                 $dirname = $this->onlyfilename ? '' : $this->dir;
 				# Pour chaque entree du repertoire
-				while(false !== ($file = readdir($dh))) {
-					if($file[0]!='.') {
-						$dir = is_dir($this->dir.'/'.$file);
-						if($this->rep AND $dir) {
-							# On collecte uniquement les dossiers (plugins, themes, ...)
+				while(($file = readdir($dh)) !== false) {
+					if($file[0] == '.') {
+						continue;
+					}
+
+					$dir = is_dir($this->dir.'/'.$file);
+					if($this->rep) {
+						# On collecte uniquement les dossiers (plugins, themes, ...)
+						if ($rep) {
 							$this->aFiles[] = $dirname.$file;
 						}
-						elseif(!$this->rep AND !$dir) {
-							# On collecte uniquement les fichiers ( arts, statiques, commentaires, ...)
-							if (array_key_exists($type, self::PATTERNS)) {
-								if(preg_match(self::PATTERNS[$type], $file, $matches)) {
-									if (!empty($matches[1])) {
-										# On indexe
-										$this->aFiles[$matches[1]] = $file;
-									} else {
-										# commentaires, ...
-										$this->aFiles[] = $file;
-									}
-								}
-							} elseif (!empty($type)) {
-								# $type est un motif de recherche
-								if(preg_match($type, $file, $matches)) {
-									if (!empty($matches[1])) {
-										# On indexe
-										$this->aFiles[$matches[1]] = $file;
-									} else {
-										$this->aFiles[] = $file;
-									}
-								}
-							}else {
+					} elseif(!$dir) {
+						# On collecte uniquement les fichiers ( arts, statiques, commentaires, ...)
+						if(empty($type)) {
+							$this->aFiles[] = $file;
+							continue;
+						}
+
+						if (array_key_exists($type, self::PATTERNS)) {
+							$type = self::PATTERNS[$type];
+							# sinon $type est un motif de recherche
+						}
+
+						if(preg_match($type, $file, $matches)) {
+							if (!empty($matches[1])) {
+								# On indexe
+								$this->aFiles[$matches[1]] = $file;
+							} else {
 								$this->aFiles[] = $file;
 							}
 						}
