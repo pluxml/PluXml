@@ -535,7 +535,8 @@ class plxUtils {
 	 * */
 	public static function urlify($url, $remove=false, $replace='-', $lower=true) {
 
-		if(!empty(parse_url($url, PHP_URL_SCHEME))) {
+		if (preg_match('#^(?:https?|s?ftp)://#', $url)) {
+			# adresse url absolue
 			return $url;
 		}
 
