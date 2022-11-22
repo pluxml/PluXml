@@ -1,4 +1,5 @@
 ## PLUXML 5.8.10 (2022/xx/xx) ##
+Fix plxUtils::testModRewrite #573 (bazooka07)
 Fix occitan translation #567 (ensag-dev)
 Fix plxShow::staticInclude #575 (bazooka07)
 FIX regex for moderated comms in back-office, misc. optimization for comms #572 (bazooka07)
