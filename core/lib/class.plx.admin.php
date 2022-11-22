@@ -138,13 +138,22 @@ class plxAdmin extends plxMotor {
 		# Si nouvel emplacement du dossier de configuration
 		if(isset($content['config_path'])) {
 			$newpath=trim($content['config_path']);
+			if(!substr($newpath, -1) !== '/') {
+				$newpath .= '/';
+			}
 			if($newpath!=PLX_CONFIG_PATH) {
 				# relocalisation du dossier de configuration de PluXml
-				if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
+				if(!preg_match('#^\w[\w\s/\\-]*/$#', $newpath) or !rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath)) {
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
+				}
+
 				# mise à jour du fichier de configuration config.php
-				if(!plxUtils::write("<?php define('PLX_CONFIG_PATH', '".$newpath."') ?>", PLX_ROOT.'config.php'))
+				$buffer = <<< EOT
+const PLX_CONFIG_PATH = '$newpath';
+EOT;
+				if(!plxUtils::write('<?php' . PHP_EOL . $buffer . PHP_EOL . PHP_EOL, PLX_ROOT . 'config.php')) {
 					return plxMsg::Error(L_SAVE_ERR.' config.php');
+				}
 			}
 		}
 
