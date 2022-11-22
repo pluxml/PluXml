@@ -1,4 +1,5 @@
 ## PLUXML 5.8.10 (2022/xx/xx) ##
+FIX regex for moderated comms in back-office, misc. optimization for comms #572 (bazooka07)
 ADD new constant PLX_VERSION_DATA - async versions between datas and PluXml #576 (bazooka07)
 
 ## PLUXML 5.8.9 (2022/08/01) ##
