@@ -1,4 +1,5 @@
 ## PLUXML 5.8.10 (2022/xx/xx) ##
+FIX plxUtils::urlify() (url_encode boggué) #577 (bazooka07)
 Fix plxUtils::testModRewrite #573 (bazooka07)
 Fix occitan translation #567 (ensag-dev)
 Fix plxShow::staticInclude #575 (bazooka07)
