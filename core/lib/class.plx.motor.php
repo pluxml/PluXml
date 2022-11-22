@@ -404,6 +404,10 @@ class plxMotor {
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
+		# On vérifie que le module Rewrite d'Apache est reconnu. Sinon on bloque la réécriture d'URL
+		if (plxUtils::testModRewrite(false) === false or $this->aConf['urlrewriting'] != 1) {
+			$this->aConf['urlrewriting'] = '0';
+		}
 	}
 
 	/**

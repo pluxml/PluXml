@@ -81,11 +81,18 @@ class plxAdmin extends plxMotor {
 	 * Méthode qui édite le fichier XML de configuration selon le tableau $global et $content
 	 *
 	 * @param	global	tableau contenant toute la configuration PluXml
-	 * @param	content	tableau contenant la configuration à modifier
+	 * @param	content	tableau contenant les champs de la configuration à modifier
 	 * @return	string
 	 * @author	Florent MONTHEL
 	 **/
 	public function editConfiguration($global,$content) {
+
+		if(!plxUtils::testModRewrite(false) or !isset($content['urlrewriting'])) {
+			$content['urlrewriting'] = '0';
+		}
+
+		# Sauvegarde de la valeur initiale
+		$urlrewriting = $global['urlrewriting'];
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
@@ -116,10 +123,13 @@ class plxAdmin extends plxMotor {
 		# On réactulise la langue
 		$_SESSION['lang'] = $global['default_lang'];
 
-		# Actions sur le fichier htaccess
-		if(array_key_exists('urlrewriting', $content))
-			if(!$this->htaccess($content['urlrewriting'], $global['racine']))
-				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
+		# Actions sur le fichier .htaccess si le mode de ré-écriture a changé
+		if(
+			$global['urlrewriting'] != $urlrewriting and
+			!$this->htaccess($global['urlrewriting'], $global['racine'])
+		) {
+			return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
+		}
 
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write($xml,path('XMLFILE_PARAMETERS')))
@@ -152,6 +162,10 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function htaccess($action, $url) {
 
+		if(!defined('HTACCESS_FILE')) {
+			return;
+		}
+
 		$capture = '';
 		$base = parse_url($url);
 
@@ -171,9 +185,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 # END -- Pluxml
 ';
 
-		$htaccess = '';
-		if(is_file(PLX_ROOT.'.htaccess'))
-			$htaccess = file_get_contents(PLX_ROOT.'.htaccess');
+		$htaccess = is_file(HTACCESS_FILE) ? file_get_contents(HTACCESS_FILE) : '';
 
 		switch($action) {
 			case '0': # désactivation
@@ -190,13 +202,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminHtaccess'));
+
 		# On écrit le fichier .htaccess à la racine de PluXml
 		$htaccess = trim($htaccess);
-		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess')) {
-			unlink(PLX_ROOT.'.htaccess');
-			return true;
+		if($htaccess=='' AND is_file(HTACCESS_FILE)) {
+			return unlink(HTACCESS_FILE);
 		} else {
-			return plxUtils::write($htaccess, PLX_ROOT.'.htaccess');
+			return plxUtils::write($htaccess, HTACCESS_FILE);
 		}
 
 	}
