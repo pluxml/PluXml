@@ -267,11 +267,11 @@ function refreshImg(dta) {
 	if(dta.trim()==='') {
 		document.getElementById('id_thumbnail_img').innerHTML = '';
 	} else {
-        let lt = /</g,
-            gt = />/g,
-            ap = /’/g,
-            ic = /"/g;
-        dta = dta.replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&\#39;").replace(ic, "&\#34;");}
+		let lt = /</g,
+			gt = />/g,
+			ap = /’/g,
+			ic = /"/g;
+		dta = dta.replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&\#39;").replace(ic, "&\#34;");
 		let link = dta.match(/^(?:https?|data):/gi) ? dta : '<?php echo $plxAdmin->racine ?>'+dta;
 		document.getElementById('id_thumbnail_img').innerHTML = '<img src="'+link+'" alt="" />';
 	}
@@ -614,6 +614,7 @@ function refreshImg(dta) {
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));
+
 # On inclut le footer
 include __DIR__ .'/foot.php';
-?>
+
