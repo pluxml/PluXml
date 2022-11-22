@@ -109,41 +109,56 @@ if($portee!='') {
 	$h3 = '<h3>'.$portee.'</h3>';
 }
 
+$options = array(
+	'all'		=> L_ALL,
+	'online'	=> L_COMMENT_ONLINE,
+	'offline'	=> L_COMMENT_OFFLINE,
+);
 $breadcrumbs = array();
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='all'?'class="selected" ':'').'href="comments.php?sel=all&amp;page=1">'.L_ALL.'</a>&nbsp;('.$plxAdmin->nbComments('all').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='online'?'class="selected" ':'').'href="comments.php?sel=online&amp;page=1">'.L_COMMENT_ONLINE.'</a>&nbsp;('.$plxAdmin->nbComments('online').')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selCom']=='offline'?'class="selected" ':'').'href="comments.php?sel=offline&amp;page=1">'.L_COMMENT_OFFLINE.'</a>&nbsp;('.$plxAdmin->nbComments('offline').')</li>';
+foreach($options as $status => $caption) {
+	$className = ($_SESSION['selCom'] == $status) ? ' class="selected"' : '';
+	$breadcrumbs[] = '<li><a ' . $className . 'href="comments.php?sel=' . $status . '&page=1">' . $caption . '</a>&nbsp;(' . $plxAdmin->nbComments($status) . ')</li>';
+}
+
 if(!empty($_GET['a'])) {
 	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
 }
 
 function selector($comSel, $id) {
+	$options = array(
+		'' => L_FOR_SELECTION,
+	);
+	switch($comSel) {
+		case 'online': $options['offline'] = L_COMMENT_SET_OFFLINE; break;
+		case 'offline' : $options['online'] = L_COMMENT_SET_ONLINE; break;
+		default :
+			$options['online'] = L_COMMENT_SET_ONLINE;
+			$options['offline'] = L_COMMENT_SET_OFFLINE;
+	}
+	$options['-'] = '-----';
+	$options['delete'] = L_COMMENT_DELETE;
+
 	ob_start();
-	if($comSel=='online')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'offline' => L_COMMENT_SET_OFFLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
-	elseif($comSel=='offline')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, '-'=>'-----', 'delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
-	elseif($comSel=='all')
-		plxUtils::printSelect('selection', array(''=> L_FOR_SELECTION, 'online' => L_COMMENT_SET_ONLINE, 'offline' => L_COMMENT_SET_OFFLINE,  '-'=>'-----','delete' => L_COMMENT_DELETE), '', false,'no-margin',$id);
+	plxUtils::printSelect('selection', $options, '', false, 'no-margin', $id);
 	return ob_get_clean();
 }
 
-$selector=selector($comSel, 'id_selection');
+$selector = selector($comSel, 'id_selection');
 
 ?>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
 
-<form action="comments.php<?php echo !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
+<form action="comments.php<?= !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
 	<div class="inline-form action-bar">
-		<?php echo $h2 ?>
+		<?= $h2 ?>
 		<ul class="menu">
-			<?php echo implode($breadcrumbs); ?>
+			<?= implode($breadcrumbs); ?>
 		</ul>
-		<?php echo $selector ?>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		<?= $selector ?>
+		<?= plxToken::getTokenPostMethod() ?>
+		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
 	</div>
 
 	<?php if(isset($h3)) echo $h3 ?>
@@ -273,21 +288,30 @@ $selector=selector($comSel, 'id_selection');
 ?>
 </p>
 
-<?php if(!empty($plxAdmin->aConf['clef'])) : ?>
-
-<ul class="unstyled-list">
-	<li><?php echo L_COMMENTS_PRIVATE_FEEDS ?> :</li>
-	<?php $urlp_hl = $plxAdmin->racine.'feed.php?admin'.$plxAdmin->aConf['clef'].'/commentaires/hors-ligne'; ?>
-	<li><a href="<?php echo $urlp_hl ?>" title="<?php echo L_COMMENT_OFFLINE_FEEDS_TITLE ?>"><?php echo L_COMMENT_OFFLINE_FEEDS ?></a></li>
-	<?php $urlp_el = $plxAdmin->racine.'feed.php?admin'.$plxAdmin->aConf['clef'].'/commentaires/en-ligne'; ?>
-	<li><a href="<?php echo $urlp_el ?>" title="<?php echo L_COMMENT_ONLINE_FEEDS_TITLE ?>"><?php echo L_COMMENT_ONLINE_FEEDS ?></a></li>
-</ul>
-
-<?php endif; ?>
-
 <?php
+if(!empty($plxAdmin->aConf['clef'])) {
+?>
+<ul class="unstyled-list">
+	<li><?= L_COMMENTS_PRIVATE_FEEDS ?> :</li>
+<?php
+	$options = array(
+		'hors-ligne'	=> L_COMMENT_OFFLINE_FEEDS,
+		'en-ligne'		=> L_COMMENT_ONLINE_FEEDS,
+	);
+
+	$baseUrl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/';
+	foreach($options as $k=>$caption) {
+?>
+	<li><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a></li>
+<?php
+}
+?>
+</ul>
+<?php
+}
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
+
 # On inclut le footer
 include __DIR__ .'/foot.php';
-?>
