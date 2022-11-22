@@ -16,7 +16,11 @@ class plxMsg {
 	 * @author	Stephane F
 	 **/
 	public static function Info($msg='') {
-		$_SESSION['info'] = $msg;
+		if (empty($msg))
+			return true;
+		if (!isset($_SESSION['info']))
+			$_SESSION['info'] = array();
+		$_SESSION['info'][] = $msg;
 		return true;
 	}
 
@@ -28,7 +32,11 @@ class plxMsg {
 	 * @author	Stephane F
 	 **/
 	public static function Error($msg='') {
-		$_SESSION['error'] = $msg;
+		if (empty($msg))
+			return false;
+		if (!isset($_SESSION['error']))
+			$_SESSION['error'] = array();
+		$_SESSION['error'][] = $msg;
 		return false;
 	}
 
@@ -41,10 +49,10 @@ class plxMsg {
 	 **/
 	public static function Display() {
 
-		if(isset($_SESSION['error']) AND !empty($_SESSION['error']))
-			echo '<p id="msg" class="notification error">'.$_SESSION['error'].'</p>';
-		elseif(isset($_SESSION['info']) AND !empty($_SESSION['info']))
-			echo '<p id="msg" class="notification success">'.$_SESSION['info'].'</p>';
+		if (isset($_SESSION['error']) AND !empty($_SESSION['error']))
+			echo '<p id="msg_error" class="notification error">'. implode('<br />', $_SESSION['error']) .'</p>';
+		elseif (isset($_SESSION['info']) AND !empty($_SESSION['info']))
+			echo '<p id="msg_info" class="notification success">'. implode('<br />', $_SESSION['info']) .'</p>';
 		unset($_SESSION['error']);
 		unset($_SESSION['info']);
 	}
