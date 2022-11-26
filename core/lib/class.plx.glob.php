@@ -81,7 +81,7 @@ class plxGlob {
 					$dir = is_dir($this->dir.'/'.$file);
 					if($this->rep) {
 						# On collecte uniquement les dossiers (plugins, themes, ...)
-						if ($rep) {
+						if ($this->rep) {
 							$this->aFiles[] = $dirname.$file;
 						}
 					} elseif(!$dir) {
