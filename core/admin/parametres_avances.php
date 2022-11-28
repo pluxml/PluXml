@@ -50,7 +50,8 @@ include __DIR__ .'/top.php';
 					<?php } ?>
 				<?php else: ?>
 					<?php echo L_MODREWRITE_NOT_AVAILABLE ?>
-				<?php endif; ?>
+					<input type="hidden" name="urlrewriting" value="0" />
+ 				<?php endif; ?>
 			</div>
 		</div>
 		<div class="grid">

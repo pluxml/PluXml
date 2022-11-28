@@ -336,28 +336,39 @@ class plxUtils {
 	 * @param	io			affiche à l'écran le résultat du test si à VRAI
 	 * @param	format		format d'affichage
 	 * @return	boolean		retourne vrai si le module apache mod_rewrite est disponible
-	 * @author	Stephane F
+	 * @author	Stephane F, Jean-Pierre Pourrez "bazooka07"
 	 **/
-	public static function testModRewrite($io=true, $format="<li><span style=\"color:#color\">#symbol #message</span></li>\n") {
+	public static function testModRewrite($io=true, $format='<li><span style="color:#color">#symbol #message</span></li>' . PHP_EOL) {
 
-		if(function_exists('apache_get_modules')) {
-			$test = in_array("mod_rewrite", apache_get_modules());
-			if($io==true) {
-				if($test) {
-					$output = str_replace('#color', 'green', $format);
-					$output = str_replace('#symbol', '&#10004;', $output);
-					$output = str_replace('#message', L_MODREWRITE_AVAILABLE, $output);
-					echo $output;
-				} else {
-					$output = str_replace('#color', 'red', $format);
-					$output = str_replace('#symbol', '&#10007;', $output);
-					$output = str_replace('#message', L_MODREWRITE_NOT_AVAILABLE, $output);
-					echo $output;
-				}
-			}
-			return $test;
+		if ($io == true) {
+			# Rien n'est acquis. Soyons pessimistes
+			$replaces = array(
+				'#color'	=> 'red',
+				'#symbol'	=> '&#10007;',
+				'#message'	=> L_MODREWRITE_NOT_AVAILABLE,
+			);
 		}
-		else return true;
+
+		if (function_exists('apache_get_modules')) {
+			$test = in_array('mod_rewrite', apache_get_modules());
+			if ($io != true) {
+				return $test;
+			}
+			if ($test) {
+				# Success !
+				$replaces = array(
+					'#color'	=> 'green',
+					'#symbol'	=> '&#10004;',
+					'#message'	=> L_MODREWRITE_AVAILABLE,
+				);
+			}
+		} else {
+			if ($io != true) {
+				return false;
+			}
+		}
+
+		echo strtr($format, $replaces);
 	}
 
 	/**
@@ -524,7 +535,8 @@ class plxUtils {
 	 * */
 	public static function urlify($url, $remove=false, $replace='-', $lower=true) {
 
-		if(!empty(parse_url($url, PHP_URL_SCHEME))) {
+		if (preg_match('#^(?:https?|s?ftp)://#', $url)) {
+			# adresse url absolue
 			return $url;
 		}
 

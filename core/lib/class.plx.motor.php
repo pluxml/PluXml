@@ -78,7 +78,7 @@ class plxMotor {
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
 		# On vérifie s'il faut faire une mise à jour
-		if((!isset($this->aConf['version']) OR PLX_VERSION!=$this->aConf['version']) AND !defined('PLX_UPDATER')) {
+		if((!isset($this->aConf['version']) OR version_compare($this->aConf['version'], PLX_VERSION_DATA, '<')) AND !defined('PLX_UPDATER')) {
 			header('Location: '.PLX_ROOT.'update/index.php');
 			exit;
 		}
@@ -101,7 +101,7 @@ class plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
 		# Traitement sur les répertoires des articles et des commentaires
-		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles'], false, true, 'arts');
+		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles']);
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires'], false, true, 'commentaires');
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
@@ -404,6 +404,10 @@ class plxMotor {
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
+		# On vérifie que le module Rewrite d'Apache est reconnu. Sinon on bloque la réécriture d'URL
+		if (plxUtils::testModRewrite(false) === false or $this->aConf['urlrewriting'] != 1) {
+			$this->aConf['urlrewriting'] = '0';
+		}
 	}
 
 	/**
@@ -1189,20 +1193,14 @@ class plxMotor {
 	 **/
 	public function nbComments($select='online', $publi='all') {
 
-		$nb = 0;
-		if($select == 'all')
-			$motif = '#[^[:punct:]?]\d{4}.(.*).xml$#';
-		elseif($select=='offline')
-			$motif = '#^_\d{4}.(.*).xml$#';
-		elseif($select=='online')
-			$motif = '#^\d{4}.(.*).xml$#';
-		else
-			$motif = $select;
+		switch($select) {
+			case 'all' : $motif = '#^_?\d{4}\.(.*)\.xml$#'; break;
+			case 'offline' : $motif = '#^_\d{4}\.(.*)\.xml$#'; break;
+			case 'online' : $motif = '#^\d{4}\.(.*)\.xml$#'; break;
+			default : $motif = $select;
+		}
 
-		if($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi))
-			$nb = sizeof($coms);
-
-		return $nb;
+		return ($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi)) ? sizeof($coms) : 0;
 	}
 
 	/**

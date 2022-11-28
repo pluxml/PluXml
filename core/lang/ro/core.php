@@ -8,7 +8,8 @@ $LANG = array(
 'L_DATE_UPDATE'					=> 'Data de actualizare',
 
 # common
-'L_PLUXML_VERSION'				=> 'Pluxml version',
+'L_PLUXML_VERSION'				=> 'Versiunii Pluxml',
+'L_PLUXML_VERSION_DATA'			=> 'Datele versiunii',
 'L_HOMEPAGE'					=> 'Home',
 'L_UNCLASSIFIED'				=> 'Neclasificat',
 'L_INFO_PHP_VERSION'			=> 'Versiune php',

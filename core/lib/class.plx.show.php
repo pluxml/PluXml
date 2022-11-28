@@ -1665,26 +1665,32 @@ class plxShow
      *
      * @param id        id numérique ou url/titre de la page statique
      * @scope    global
-     * @author    Stéphane F
+     * @author    Stéphane F, Jean-Pierre Pourrez "bazooka07"
      **/
     public function staticInclude($id)
     {
 
         # Hook Plugins
-        if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) return;
+        if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticInclude'))) {
+           return;
+        }
         # On génère un nouvel objet plxGlob
-        $plxGlob_stats = plxGlob::getInstance(PLX_ROOT . $this->plxMotor->aConf['racine_statiques'], true, 'statiques');
-        if (is_numeric($id)) # inclusion à partir de l'id de la page
-            $regx = '/^' . str_pad($id, 3, '0', STR_PAD_LEFT) . '.[a-z0-9-]+.php$/';
-        else { # inclusion à partir du titre de la page
+        $plxGlob_stats = plxGlob::getInstance(PLX_ROOT . $this->plxMotor->aConf['racine_statiques'], false, true, 'statiques');
+        if (is_numeric($id)) {
+            # inclusion à partir de l'id de la page
+            $regx = '#^' . str_pad($id, 3, '0', STR_PAD_LEFT) . '\.[\w-]+\.php$#';
+        } else {
+            # inclusion à partir du titre de la page
             $url = plxUtils::urlify($id);
-            $regx = '/^[0-9]{3}.' . $url . '.php$/';
+            $regx = '#^\d{3}\.' . $url . '\.php$#';
         }
         if ($files = $plxGlob_stats->query($regx)) {
             # on récupère l'id de la page pour tester si elle est active
-            if (preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
-                if ($this->plxMotor->aStats[$c[1]]['active'])
-                    include PLX_ROOT . $this->plxMotor->aConf['racine_statiques'] . $files[0];
+            if (
+                preg_match('#^(\d{3})\.[\w-]+\.php$#', $files[0], $matches) and
+                $this->plxMotor->aStats[$matches[1]]['active']
+            ) {
+                include PLX_ROOT . $this->plxMotor->aConf['racine_statiques'] . $files[0];
             }
         }
     }

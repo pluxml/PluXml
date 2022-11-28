@@ -409,7 +409,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTP_USERNAME_HELP' => 'Nom d’utilizaire de l\'òste SMTP (exemple : pluxml@monserveursmtp.com)',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP' => 'Senhal de l’utilizaire sus l’òste ',
 		'L_CONFIG_ADVANCED_SMTP_PORT_HELP' => 'Numèro de pòrt de l’òste SMTP (predeterminat : 465)',
-		'L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP' => 'PluXml permet de generar de fichièrs solament pel servici <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentation PluXml</a>&nbsp;(fr).',
+		'L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP' => 'PluXml permet de generar de fichièrs solament pel servici <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentacion PluXml</a>&nbsp;(fr).',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP' => 'Adreça utilizada sul servici OAUTH2 (exemple : pluxml@gmail.com)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP' => 'Identificant de client al servici OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP' => 'La clau de client del servici OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)',

@@ -66,7 +66,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						else echo L_PROFIL_WRITER; ?>
 					</em>
 				</li>
-				<li><small><a class="version" title="PluXml" href="<?php echo PLX_URL_REPO ?>">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small></li>
+				<li><small><a class="version" title="PluXml" href="<?php echo PLX_URL_REPO ?>">PluXml <?= PLX_VERSION ?></a></small></li>
 			</ul>
 		</header>
 		<nav class="responsive-menu">
