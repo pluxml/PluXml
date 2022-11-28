@@ -998,7 +998,7 @@ class plxUtils {
 			'Content-Type'				=> (($contentType === 'html') ? 'text/html' : 'text/plain') . ';charset=' . PLX_CHARSET,
 			'Content-Transfer-Encoding'	=> '8bit',
 			'Date'						=> date('D, j M Y G:i:s O'), # Sat, 7 Jun 2001 12:35:58 -0700
-			'X-Mailer'					=> 'PHP/' . phpversion()
+			'X-Mailer'					=> 'PluXml',
 		);
 
 		if(!empty($from)) {
