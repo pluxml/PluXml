@@ -160,7 +160,7 @@ plxUtils::cleanHeaders();
     # Hook Plugins
     eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead'));
     ?>
-    <script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
+    <script src="js/visual.js?v=<?= PLX_VERSION ?>"></script>
 </head>
 <body id="auth">
 <main class="container">

@@ -22,10 +22,10 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 	plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'admin.css', true);
 ?>
-	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="js/functions.js?v=<?= PLX_VERSION ?>"></script>
+	<script src="js/visual.js?v=<?= PLX_VERSION ?>"></script>
+	<script src="js/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
+	<script defer src="js/multifiles.js?v=<?= PLX_VERSION ?>"></script>
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
