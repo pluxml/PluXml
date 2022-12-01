@@ -817,12 +817,14 @@ class plxShow
         $taglist = $this->plxMotor->plxRecord_arts->f('tags');
         if (!empty($taglist)) {
             $tags = array_map('trim', explode(',', $taglist));
-            foreach ($tags as $idx => $tag) {
+            foreach ($tags as $idx=>$tag) {
                 $t = plxUtils::urlify($tag);
-                $name = str_replace('#tag_url', $this->plxMotor->urlRewrite('?tag/' . $t), $format);
-                $name = str_replace('#tag_name', plxUtils::strCheck($tag), $name);
-                $name = str_replace('#tag_status', (($this->plxMotor->mode == 'tags' and $this->plxMotor->cible == $t) ? 'active' : 'noactive'), $name);
-                echo $name;
+                $replaces = array(
+                    '#tag_url'    => $this->plxMotor->urlRewrite('?tag/' . $t),
+                    '#tag_name'   => plxUtils::strCheck($tag),
+                    '#tag_status' => (($this->plxMotor->mode == 'tags' and $this->plxMotor->cible == $t) ? 'active' : 'noactive'),
+                );
+                echo strtr($format, $replaces);
                 if ($idx != sizeof($tags) - 1) echo $separator . ' ';
             }
         } else echo L_ARTTAGS_NONE;
