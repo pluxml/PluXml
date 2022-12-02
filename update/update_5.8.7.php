@@ -9,12 +9,12 @@
 class update_5_8_7 extends plxUpdate
 {
 
-    # Reconstruction des fichiers admin.css et site.css pour les plugins actifs
-    # dans le dossier data en remplacement du dossiers plguins
-    public function step1()
-    {
+	# Reconstruction des fichiers admin.css et site.css pour les plugins actifs
+	# dans le dossier data en remplacement du dossiers plguins
+	public function step1()
+	{
 ?>
-    <p><?= L_BUILD_CSS_PLUGINS_CACHE ?></p>
+	<p><?= L_BUILD_CSS_PLUGINS_CACHE ?></p>
 <?php
 		foreach(array('admin', 'site') as $context) {
 			$this->plxAdmin->plxPlugins->cssCache($context);
@@ -23,6 +23,6 @@ class update_5_8_7 extends plxUpdate
 				unlink($oldFilename);
 			}
 		}
-        return true;
-    }
+		return true;
+	}
 }

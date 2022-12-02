@@ -61,13 +61,13 @@ require PLX_CORE.'vendor/autoload.php';
 $providerName = '';
 
 if (array_key_exists('provider', $_GET)) {
-    $providerName = $_GET['provider'];
-    $_SESSION['provider'] = $providerName;
+	$providerName = $_GET['provider'];
+	$_SESSION['provider'] = $providerName;
 } elseif (array_key_exists('provider', $_SESSION)) {
-    $providerName = $_SESSION['provider'];
+	$providerName = $_SESSION['provider'];
 }
 if (!in_array($providerName, ['Google'])) {
-    exit('Only Google OAuth2 providers are currently supported in this script.');
+	exit('Only Google OAuth2 providers are currently supported in this script.');
 }
 
 //These details are obtained by setting up an app in the Google developer console,
@@ -80,10 +80,10 @@ $redirectUri = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['H
 //$redirectUri = 'http://localhost/PHPMailer/redirect';
 
 $params = [
-    'clientId' => $clientId,
-    'clientSecret' => $clientSecret,
-    'redirectUri' => $redirectUri,
-    'accessType' => 'offline'
+	'clientId' => $clientId,
+	'clientSecret' => $clientSecret,
+	'redirectUri' => $redirectUri,
+	'accessType' => 'offline'
 ];
 
 $options = [];
@@ -93,36 +93,36 @@ $provider = new Google($params);
 $options = ['scope' => ['https://mail.google.com/']];
 
 if (null === $provider) {
-    exit('Provider missing');
+	exit('Provider missing');
 }
 
 if (!isset($_GET['code'])) {
-    // If we don't have an authorization code then get one
-    $authUrl = $provider->getAuthorizationUrl($options);
-    $_SESSION['oauth2state'] = $provider->getState();
-    header('Location: ' . $authUrl);
-    exit;
+	// If we don't have an authorization code then get one
+	$authUrl = $provider->getAuthorizationUrl($options);
+	$_SESSION['oauth2state'] = $provider->getState();
+	header('Location: ' . $authUrl);
+	exit;
 // Check given state against previously stored one to mitigate CSRF attack
 } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
-    unset($_SESSION['oauth2state']);
-    unset($_SESSION['provider']);
-    exit('Invalid state');
+	unset($_SESSION['oauth2state']);
+	unset($_SESSION['provider']);
+	exit('Invalid state');
 } else {
-    unset($_SESSION['provider']);
-    // Try to get an access token (using the authorization code grant)
-    $token = $provider->getAccessToken(
-        'authorization_code',
-        [
-            'code' => $_GET['code']
-        ]
-    );
-    // Use this to interact with an API on the users behalf
-    // Use this to get a new access token if the old one expires
-    $tokenToStore = array();
-    $tokenToStore['smtpOauth2_refreshToken'] = $token->getRefreshToken();
-    // Store the token in the PluXMl configuration and redirect to the administration page
-    if (!empty($tokenToStore)) {
-    	$plxAdmin->editConfiguration($plxAdmin->aConf, $tokenToStore);
-    }
-    header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
+	unset($_SESSION['provider']);
+	// Try to get an access token (using the authorization code grant)
+	$token = $provider->getAccessToken(
+		'authorization_code',
+		[
+			'code' => $_GET['code']
+		]
+	);
+	// Use this to interact with an API on the users behalf
+	// Use this to get a new access token if the old one expires
+	$tokenToStore = array();
+	$tokenToStore['smtpOauth2_refreshToken'] = $token->getRefreshToken();
+	// Store the token in the PluXMl configuration and redirect to the administration page
+	if (!empty($tokenToStore)) {
+		$plxAdmin->editConfiguration($plxAdmin->aConf, $tokenToStore);
+	}
+	header('Location: '.htmlentities($plxAdmin->aConf['racine'].'core/admin/parametres_avances.php'));
 }

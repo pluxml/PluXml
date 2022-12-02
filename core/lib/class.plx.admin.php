@@ -258,7 +258,7 @@ class plxAdmin extends plxMotor {
 			# On réactualise la langue
 			$_SESSION['lang'] = $global['default_lang'];
 
-      # Actions sur le fichier .htaccess si le mode de ré-écriture a changé
+	  # Actions sur le fichier .htaccess si le mode de ré-écriture a changé
 			if(
 				array_key_exists('urlrewriting', $content) and
 				preg_match('#^(0|1)$#',$content['urlrewriting'], $matches) and
@@ -622,7 +622,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 			foreach($this->aUsers as $user_id => $user) {
 				# controle de l'unicité du nom de l'utilisateur
-			    if(in_array($user['name'], $users_name)) {
+				if(in_array($user['name'], $users_name)) {
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
 				}
