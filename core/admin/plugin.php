@@ -39,4 +39,3 @@ include __DIR__ .'/top.php';
 echo $output;
 # On inclut le footer
 include __DIR__ .'/foot.php';
-?>

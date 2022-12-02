@@ -9,15 +9,15 @@
 class update_5_8_6 extends plxUpdate
 {
 
-    # mise à jour fichier parametres.xml (récupération du mot de passe)
-    public function step1()
-    {
-        echo L_UPDATE_UPDATE_PARAMETERS_FILE . "<br />";
+	# mise à jour fichier parametres.xml (récupération du mot de passe)
+	public function step1()
+	{
+		echo L_UPDATE_UPDATE_PARAMETERS_FILE . "<br />";
 
-        $new_parameters = array();
-        $new_parameters['enable_rss_comment'] = '1';
-        $this->updateParameters($new_parameters);
+		$new_parameters = array();
+		$new_parameters['enable_rss_comment'] = '1';
+		$this->updateParameters($new_parameters);
 
-        return true;
-    }
+		return true;
+	}
 }

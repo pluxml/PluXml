@@ -70,8 +70,8 @@ class plxGlob {
 		if(is_dir($this->dir)) {
 			# On ouvre le repertoire
 			if($dh = opendir($this->dir)) {
-                # On recupere le nom du repertoire éventuellement
-                $dirname = $this->onlyfilename ? '' : $this->dir;
+				# On recupere le nom du repertoire éventuellement
+				$dirname = $this->onlyfilename ? '' : $this->dir;
 				# Pour chaque entree du repertoire
 				while(($file = readdir($dh)) !== false) {
 					if($file[0] == '.') {

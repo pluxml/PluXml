@@ -18,13 +18,13 @@ class plxMsg {
 	public static function Info($msg='') {
 		if (empty(trim($msg))) {
 			return true;
-        }
+		}
 
 		if (!isset($_SESSION['info'])) {
 			$_SESSION['info'] = array($msg);
-        } else {
-            $_SESSION['info'][] = $msg;
-        }
+		} else {
+			$_SESSION['info'][] = $msg;
+		}
 		return true;
 	}
 
@@ -38,13 +38,13 @@ class plxMsg {
 	public static function Error($msg='') {
 		if (empty(trim($msg))) {
 			return false;
-        }
+		}
 
 		if (!isset($_SESSION['error'])) {
 			$_SESSION['error'] = array($msg);
-        } else {
-            $_SESSION['error'][] = $msg;
-        }
+		} else {
+			$_SESSION['error'][] = $msg;
+		}
 		return false;
 	}
 
@@ -57,19 +57,19 @@ class plxMsg {
 	 **/
 	public static function Display() {
 
-        foreach(array('error'=>'error', 'info'=>'success') as $f=>$g) {
-            if (!empty($_SESSION[$f])) {
-                $content = is_array($_SESSION[$f]) ? implode('</p>' . PHP_EOL . '<p>', $_SESSION[$f]) : $_SESSION[$f];
+		foreach(array('error'=>'error', 'info'=>'success') as $f=>$g) {
+			if (!empty($_SESSION[$f])) {
+				$content = is_array($_SESSION[$f]) ? implode('</p>' . PHP_EOL . '<p>', $_SESSION[$f]) : $_SESSION[$f];
 ?>
 <div id="msg" class="notification <?= $g ?>">
-    <p><?= $content ?></p>
+	<p><?= $content ?></p>
 </div>
 <?php
-                break;
-            }
-        }
+				break;
+			}
+		}
 
-        unset($_SESSION['error']);
+		unset($_SESSION['error']);
 		unset($_SESSION['info']);
 	}
 }
