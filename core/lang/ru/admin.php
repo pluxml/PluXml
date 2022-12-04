@@ -276,6 +276,7 @@ $LANG = array (
 		'L_SEARCH' => 'Поиск',
 		'L_SEARCH_PLACEHOLDER' => 'ID или название',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Все категории ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Все авторы...',
 		'L_ALL' => 'Всего',
 		'L_ALL_PUBLISHED' => 'Опубликованные',
 		'L_ALL_DRAFTS' => 'Черновики',

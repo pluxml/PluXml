@@ -277,6 +277,7 @@ $LANG = array (
 		'L_SEARCH' => 'Zoek',
 		'L_SEARCH_PLACEHOLDER' => 'artikel-ID of titel',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Alle categorie?n ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Alle auteurs ...',
 		'L_ALL' => 'Alle',
 		'L_ALL_PUBLISHED' => 'Gepubliceerd',
 		'L_ALL_DRAFTS' => 'Concepten',

@@ -14,6 +14,7 @@ $LANG = array(
 
 # sidebar.php
 'CATEGORIES' 			=> 'Artykuły',
+'AUTHORS'				=> 'Pisarzy',
 'LATEST_ARTICLES'		=> 'Ostatnie artykuły',
 'LATEST_COMMENTS'		=> 'Ostatnie komentarze',
 'ARCHIVES'				=> 'Archiwa',

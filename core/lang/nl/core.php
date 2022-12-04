@@ -119,6 +119,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'geen',
 'L_ARTCHAPO'					=> 'Lees het vervolg #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Rss-feed van artikels uit deze categorie',
+'L_ARTFEED_RSS_USER'			=> 'Rss-feed van artikels uit deze editor',
 'L_ARTFEED_RSS_TAG'				=> 'Rss-feed van artikels uit deze tag',
 'L_ARTFEED_RSS'					=> 'Rss-feed van de artikels',
 'L_NO_COMMENT'					=> 'geen commentaar',
