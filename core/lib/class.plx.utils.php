@@ -35,6 +35,34 @@ class plxUtils {
 	}
 
 	/**
+	 * Méthode qui vérifie si une variable est définie sous forme de tableau à 2 dimensions.
+	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre.
+	 *
+	 * Utilisé pour l'analyse des fichiers xml avec xml_parder.
+	 * @param	values		array	tableau à tester
+	 * @param	tag		    array   index dans le tableau ci-dessus
+	 * @param   index       integer index dans le tableau tag
+	 * @param   string	    default valeur par défaut si le tableau ou la cellule n'existent pas
+	 * @return	string		valeur de la cellule par défaut
+	 * @author  Jean-Pierre Pourrez "bazooka07"
+	*/
+	public static function getTagIndexValue(&$tag, &$values, $index, $default='') {
+		if(!isset($tag) or !is_array($tag) or empty($tag) or !isset($values) or !isset($values[$tag[$index]]['value'])) {
+			return $default;
+		}
+
+		return $values[$tag[$index]]['value'];
+	}
+
+	/**
+	 * Wrapper de la methode getTagIndexValue() avec $index = 0.
+	 *
+	 * */
+	public static function getTagValue(&$tag, &$values, $default='') {
+		return self::getTagIndexValue($tag, $values, 0, $default);
+	}
+
+	/**
 	 * Méthode qui retourne un tableau contenu les paramètres passés dans l'url de la page courante
 	 *
 	 * @return	array	tableau avec les paramètres passés dans l'url de la page courante
