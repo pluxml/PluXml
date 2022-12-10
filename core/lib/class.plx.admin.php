@@ -970,8 +970,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($static['meta_description'])."]]></meta_description>";
 				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($static['meta_keywords'])."]]></meta_keywords>";
 				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($static['title_htmltag'])."]]></title_htmltag>";
-				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
-				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
+				$xml .= "<date_creation>".$static['date_creation']."</date_creation>";
+				$xml .= "<date_update>".$static['date_update']."</date_update>";
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
 				$xml .=	"</statique>\n";
@@ -1019,23 +1019,34 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editStatique($content) {
 
 		# Mise à jour du fichier statiques.xml
-		$this->aStats[$content['id']]['template'] = $content['template'];
-		$this->aStats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
-		$this->aStats[$content['id']]['meta_description'] = trim($content['meta_description']);
-		$this->aStats[$content['id']]['meta_keywords'] = trim($content['meta_keywords']);
-		$this->aStats[$content['id']]['date_creation'] = trim($content['date_creation_year']).trim($content['date_creation_month']).trim($content['date_creation_day']).substr(str_replace(':','',trim($content['date_creation_time'])),0,4);
+		$id = $content['id'];
+		if (!preg_match('#^\d{3}$#', $id) or !file_exists(PLX_ROOT.$this->aConf['racine_themes'] . $this->aConf['style'] . '/' . basename($content['template']))) {
+			return plxMsg::Error(L_UNKNOWN_ERROR);
+		}
+
+		$this->aStats[$id]['template'] = basename($content['template']);
+		$this->aStats[$id]['title_htmltag'] = trim($content['title_htmltag']);
+		$this->aStats[$id]['meta_description'] = trim($content['meta_description']);
+		$this->aStats[$id]['meta_keywords'] = trim($content['meta_keywords']);
+		$this->aStats[$id]['date_creation'] = trim($content['date_creation_year']).trim($content['date_creation_month']).trim($content['date_creation_day']).substr(str_replace(':','',trim($content['date_creation_time'])),0,4);
 		$date_update = $content['date_update'];
 		$date_update_user = trim($content['date_update_year']).trim($content['date_update_month']).trim($content['date_update_day']).substr(str_replace(':','',trim($content['date_update_time'])),0,4);
-		$date_update = ($date_update==$date_update_user) ? date('YmdHi') : $date_update_user;
-		$this->aStats[$content['id']]['date_update'] = $date_update;
+		$date_pattern = '#^\d{12}$#';
+		$date_update = (
+			preg_match($date_pattern, $date_update) and
+			preg_match($date_pattern, $date_update_user) and
+			$date_update != $date_update_user
+		) ? $date_update_user : date('YmdHi');
+		$this->aStats[$id]['date_update'] = $date_update;
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditStatique'));
+
 		if($this->editStatiques(null,true)) {
 			# Génération du nom du fichier de la page statique
-			$filename = PLX_ROOT.$this->aConf['racine_statiques'].$content['id'].'.'.$this->aStats[ $content['id'] ]['url'].'.php';
+			$filename = PLX_ROOT . $this->aConf['racine_statiques'] . $id . '.' . $this->aStats[ $id ]['url'] . '.php';
 			# On écrit le fichier
-			if(plxUtils::write($content['content'],$filename))
+			if(plxUtils::write(plxUtils::sanitizePhp($content['content']), $filename))
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
 			else
 				return plxMsg::Error(L_SAVE_ERR.' '.$filename);
