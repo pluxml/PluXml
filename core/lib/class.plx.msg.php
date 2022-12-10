@@ -59,7 +59,7 @@ class plxMsg {
 
 		foreach(array('error'=>'error', 'info'=>'success') as $f=>$g) {
 			if (!empty($_SESSION[$f])) {
-				$content = is_array($_SESSION[$f]) ? implode('</p>' . PHP_EOL . '<p>', $_SESSION[$f]) : $_SESSION[$f];
+				$content = is_array($_SESSION[$f]) ? implode('</p>' . PHP_EOL . '<p>', array_unique($_SESSION[$f])) : $_SESSION[$f];
 ?>
 <div id="msg" class="notification <?= $g ?>">
 	<p><?= $content ?></p>
