@@ -344,17 +344,17 @@ class plxPlugins {
  **/
 class plxPlugin {
 
-	protected $aInfos=array();  # tableau des infos sur le plugins venant du fichier infos.xml
-	protected $aParams=array(); # tableau des paramètres sur le plugins venant du fichier parameters.xml
-	protected $aHooks=array(); # tableau des hooks du plugin
-	protected $aLang=array(); # tableau contenant les clés de traduction de la langue courante de PluXml
+	protected $aInfos = array();  # tableau des infos sur le plugins venant du fichier infos.xml
+	protected $aParams = array(); # tableau des paramètres sur le plugins venant du fichier parameters.xml
+	protected $aHooks = array(); # tableau des hooks du plugin
+	protected $aLang = array(); # tableau contenant les clés de traduction de la langue courante de PluXml
 
-	protected $plug=array(); # tableau contenant des infos diverses pour le fonctionnement du plugin
-	protected $adminProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page admin.php du plugin
-	protected $configProfil=''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
+	protected $plug = array(); # tableau contenant des infos diverses pour le fonctionnement du plugin
+	protected $adminProfil = ''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page admin.php du plugin
+	protected $configProfil = ''; # profil(s) utilisateur(s) autorisé(s) à acceder à la page config.php du plugin
 
-	public $default_lang=DEFAULT_LANG; # langue par defaut de PluXml
-	public $adminMenu=false; # infos de customisation du menu pour accèder à la page admin.php du plugin
+	public $default_lang = DEFAULT_LANG; # langue par defaut de PluXml
+	public $adminMenu = false; # infos de customisation du menu pour accèder à la page admin.php du plugin
 
 	/**
 	 * Constructeur de la classe plxPlugin
@@ -389,34 +389,31 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 
-	public function getPluginLang($plugName, $lang) {
+	public function getPluginLang($plugName, $default_lang) {
 
-		$dirname = PLX_PLUGINS.$plugName.'/lang/';
+		$dirname = PLX_PLUGINS . $plugName . '/lang/';
 
-		if(is_dir($dirname)) {
-
-			$filename = $dirname.$lang.'.php';
-
-			if(!is_file($filename)) {
-				if(is_file($dirname.'fr.php'))
-					$lang = 'fr';
-				else {
-					if($dh = opendir($dirname)) {
-						while(false !== ($file = readdir($dh))) {
-							if(preg_match('/^([a-zA-Z]{2})\.php$/', $file, $capture)) {
-								$lang = $capture[1];
-								break;
-							}
-						}
-					}
-					closedir($dh);
-				}
-			}
+		if(!is_dir($dirname)) {
+			# No need for any language
+			return;
 		}
 
-		$this->default_lang = $lang;
-		$this->aLang = $this->loadLang(PLX_PLUGINS.$plugName.'/lang/'.$this->default_lang.'.php');
-
+		$all_languages = array_unique(array_merge(
+			array(
+				$default_lang,
+				PLX_SITE_LANG,
+				DEFAULT_LANG,
+			),
+			array_values(plxUtils::getLangs()),
+		));
+		foreach($all_languages as $lang) {
+			$filename = $dirname . $lang . '.php';
+			if(file_exists($filename)) {
+				$this->default_lang = $lang;
+				$this->aLang = $this->loadLang($filename);
+				break;
+			}
+		}
 	}
 
 	/**
