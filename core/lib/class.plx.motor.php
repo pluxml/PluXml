@@ -86,7 +86,7 @@ class plxMotor {
 		$this->style = $this->aConf['style'];
 		$this->racine = $this->aConf['racine'];
 		$this->bypage = $this->aConf['bypage'];
-		$this->tri = $this->aConf['tri'];
+		$this->tri = defined('PLX_ADMIN') ? 'desc' : $this->aConf['tri'];
 		$this->tri_coms = $this->aConf['tri_coms'];
 		# On récupère le chemin de l'url
 		$var = parse_url($this->racine);
@@ -229,6 +229,7 @@ class plxMotor {
 		}
 		elseif($this->get AND preg_match('#^tag\/([\w-]+)#',$this->get,$capture)) {
 			$this->cible = $capture[1];
+			$this->tri = 'desc';
 			$ids = array();
 			$datetime = date('YmdHi');
 			foreach($this->aTags as $idart => $tag) {
