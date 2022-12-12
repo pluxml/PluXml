@@ -491,43 +491,56 @@ class plxShow
 	/**
 	 * Méthode qui affiche le nom de la catégorie active (linké ou non)
 	 *
-	 * @param type    type d'affichage : link => sous forme de lien
+	 * @param type    type d'affichage : link => sous forme de lien, '' affichage direct, autre valeur retourne le nom
 	 * @scope    home,categorie,article,tags,archives
 	 * @author    Florent MONTHEL, Stephane F
 	 **/
 	public function catName($type = '')
 	{
 
-		# On va verifier que la categorie existe en mode categorie
-		if ($this->plxMotor->mode == 'categorie' and isset($this->plxMotor->aCats[$this->plxMotor->cible])) {
-			# On recupere les infos de la categorie
-			$id = $this->plxMotor->cible;
-			$name = plxUtils::strCheck($this->plxMotor->aCats[$id]['name']);
-			$url = $this->catUrl($id);
-			# On effectue l'affichage
-			if ($type == 'link')
-				echo '<a href="' . $url . '" title="' . $name . '">' . $name . '</a>';
-			else
-				echo $name;
-		} # On va verifier que la categorie existe en mode article
-		elseif ($this->plxMotor->mode == 'article' and isset($this->plxMotor->aCats[$this->plxMotor->plxRecord_arts->f('categorie')])) {
-			# On recupere les infos de la categorie
-			$id = $this->plxMotor->plxRecord_arts->f('categorie');
-			$name = plxUtils::strCheck($this->plxMotor->aCats[$id]['name']);
-			$url = $this->catUrl($id);
-			# On effectue l'affichage
-			if ($type == 'link')
-				echo '<a href="' . $url . '" title="' . $name . '">' . $name . '</a>';
-			else
-				echo $name;
-		} # Mode home
-		elseif ($this->plxMotor->mode == 'home') {
-			if ($type == 'link')
-				echo '<a href="' . $this->plxMotor->urlRewrite() . '" title="' . plxUtils::strCheck($this->plxMotor->aConf['title']) . '">' . L_HOMEPAGE . '</a>';
-			else
-				echo L_HOMEPAGE;
+		switch($this->plxMotor->mode) {
+			case 'categorie':
+				if (isset($this->plxMotor->aCats[$this->plxMotor->cible])) {
+					# On recupere les infos de la categorie
+					$id = $this->plxMotor->cible;
+					$name = plxUtils::strCheck($this->plxMotor->aCats[$id]['name']);
+					$href = $this->catUrl($id);
+				}
+				break;
+			case 'article':
+				if (isset($this->plxMotor->aCats[$this->plxMotor->plxRecord_arts->f('categorie')])) {
+					# On recupere les infos de la categorie
+					$id = $this->plxMotor->plxRecord_arts->f('categorie');
+					$name = plxUtils::strCheck($this->plxMotor->aCats[$id]['name']);
+					$href = $this->catUrl($id);
+				}
+				break;
+			case 'home':
+				$name = plxUtils::strCheck($this->plxMotor->aConf['title']);
+				$href = $this->plxMotor->urlRewrite();
+				$caption = L_HOMEPAGE;
+				break;
+			default:
+		}
+
+		if (empty($href)) {
+			$caption = L_UNCLASSIFIED;
+		} elseif (empty($caption)) {
+			$caption = $name;
+		}
+
+		if (empty(trim($type))) {
+			echo $caption;
+		} elseif(strtolower($type) == 'link') {
+			if (!empty($href)) {
+?>
+<a href="<?= $href ?>" title="<?= $title ?></a>"><?= $caption ?></a>
+<?php
+			} else {
+				echo $caption;
+			}
 		} else {
-			echo L_UNCLASSIFIED;
+			return !empty($href) ? $caption : '';
 		}
 	}
 
