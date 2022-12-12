@@ -20,7 +20,8 @@ $page = plxUtils::nullbyteRemove($page);
 
 switch($help) {
 	case 'plugin':
-		$filename = realpath(PLX_PLUGINS.$page.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php');
+		$lang = isset($_GET['lang']) ? $_GET['lang'] : $plxAdmin->aConf['default_lang'];
+		$filename = realpath(PLX_PLUGINS . $page . '/lang/' . $lang . '-help.php');
 		$back_to_title = L_BACK_TO_PLUGINS;
 		$back_to = 'parametres_plugins.php';
 		break;

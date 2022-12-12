@@ -87,8 +87,17 @@ function pluginsList($plugins, $defaultLang, $type) {
 					# lien pour code css
 					$output .= '<a title="'.L_PLUGINS_CSS_TITLE.'" href="parametres_plugincss.php?p='.urlencode($plugName).'">'.L_PLUGINS_CSS.'</a><br />';
 					# lien aide
-					if(is_file(PLX_PLUGINS.$plugName.'/lang/'.$defaultLang.'-help.php'))
-						$output .= '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=plugin&amp;page='.urlencode($plugName).'">'.L_HELP.'</a>';
+					$all_langs = array_unique(array(
+						$plugInstance->default_lang,
+						PLX_SITE_LANG,
+						DEFAULT_LANG
+					));
+					foreach($all_langs as $lang) {
+						if(is_file(PLX_PLUGINS . $plugName . '/lang/' . $lang . '-help.php')) {
+							$output .= '<a title="' . L_HELP_TITLE . '" href="parametres_help.php?help=plugin&page=' . urlencode($plugName) . '&lang=' . $lang . '">' . L_HELP . '</a>';
+							break;
+						}
+					}
 				$output .= "</td>\n";
 			$output .= "</tr>\n";
 		}
