@@ -12,7 +12,10 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\OAuth;
 use League\OAuth2\Client\Provider\Google;
 
-require PLX_CORE.'vendor/autoload.php';
+const AUTOLOADER = PLX_CORE . 'vendor/autoload.php';
+if (PHP_VERSION_ID >= 70205 and file_exists(AUTOLOADER)) { # required by Composer
+	require AUTOLOADER;
+}
 
 class plxUtils {
 
@@ -1068,6 +1071,10 @@ class plxUtils {
 	* @throws \PHPMailer\PHPMailer\Exception
 	**/
 	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml, $conf, $debug=false) {
+		if(!class_exists('PHPMailer')) {
+			return false;
+		}
+
 		$mail = new PHPMailer();
 		if ($debug) {
 			$mail->SMTPDebug = SMTP::DEBUG_SERVER;

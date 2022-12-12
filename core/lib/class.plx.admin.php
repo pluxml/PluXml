@@ -491,7 +491,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
 
-						if(empty($this->aConf['email_method']) or $this->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils::class, 'sendMailPhpMailer')) {
+						if($this->isPHPMailerDisabled()) {
 							# fonction mail() intrinsèque à PHP
 							$success = plxUtils::sendMail('', '', $user['email'], $mail['subject'], $mail['body']);
 						} else {
