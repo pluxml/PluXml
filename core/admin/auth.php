@@ -10,7 +10,7 @@
 # Constante pour retrouver la page d'authentification
 const PLX_AUTHPAGE = true;
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);

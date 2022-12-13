@@ -1,5 +1,10 @@
 <?php
 
+if(!defined('PLX_ROOT')) {
+	header('Content-Type: text/plain; charset=utf-8');
+	die('Unknown PLX_ROOT constant');
+}
+
 const PHP_VERSION_MIN = '5.6.34';
 const PLX_DEBUG = true;
 const PLX_VERSION = '5.8.9';
@@ -78,3 +83,19 @@ function path($s, $newvalue='') {
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
 }
+
+/*
+ * Auto-chargement des librairies de classes de PluXml.
+ * Le nom de la class doit commencer par plx, suivi d'une lettre majuscule.
+ * Exception avec PlxTemplate
+ * */
+spl_autoload_register(
+	function($aClass) {
+       # plxMotor => PLX_CORE . 'lib/class.plx.motor.php'
+       return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
+	},
+	true,
+	true # PluXml first !
+);
+
+include PLX_ROOT . 'config.php';

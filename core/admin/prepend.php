@@ -1,16 +1,15 @@
 <?php
 const PLX_ROOT = '../../';
-const PLX_CORE = PLX_ROOT .'core/';
+const PLX_CORE = PLX_ROOT . 'core/';
 const HTACCESS_FILE = PLX_ROOT . '.htaccess';
 
 const SESSION_LIFETIME = 7200;
 
-include PLX_ROOT.'config.php';
-include PLX_CORE.'lib/config.php';
+include PLX_CORE . 'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
+	header('Location: ' . PLX_ROOT . 'install.php');
 	exit;
 }
 
@@ -27,19 +26,6 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 		exit;
 	}
 }
-
-# On inclut les librairies nécessaires
-include_once PLX_CORE.'lib/class.plx.date.php';
-include_once PLX_CORE.'lib/class.plx.glob.php';
-include_once PLX_CORE.'lib/class.plx.utils.php';
-include_once PLX_CORE.'lib/class.plx.msg.php';
-include_once PLX_CORE.'lib/class.plx.record.php';
-include_once PLX_CORE.'lib/class.plx.motor.php';
-include_once PLX_CORE.'lib/class.plx.admin.php';
-include_once PLX_CORE.'lib/class.plx.encrypt.php';
-include_once PLX_CORE.'lib/class.plx.medias.php';
-include_once PLX_CORE.'lib/class.plx.plugins.php';
-include_once PLX_CORE.'lib/class.plx.token.php';
 
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
@@ -73,5 +59,3 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
-
-?>

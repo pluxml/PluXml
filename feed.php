@@ -1,13 +1,12 @@
 <?php
 const PLX_ROOT = './';
-const PLX_CORE = PLX_ROOT .'core/';
+const PLX_CORE = PLX_ROOT . 'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_CORE . 'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
+	header('Location: ' . PLX_ROOT . 'install.php');
 	exit;
 }
 
@@ -15,15 +14,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 # https://enable-cors.org/server_php.html
 # https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 header('Access-Control-Allow-Origin: *');
-
-# On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.feed.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
 
 # Creation de l'objet principal et lancement du traitement
 $plxFeed = plxFeed::getInstance();
@@ -34,7 +24,7 @@ $lang = $plxFeed->aConf['default_lang'];
 eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
 
 # Chargement du fichier de langue du core de PluXml
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 if(!$plxFeed->aConf['enable_rss']) {
 	header('Location: index.php');
@@ -55,5 +45,3 @@ eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 
 # Restitution écran
 echo $output;
-exit;
-?>

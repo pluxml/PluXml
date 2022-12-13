@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -46,12 +46,11 @@ $file_frontend_init = PLX_PLUGINS.basename($plugin).'/css/site.css';
 $frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_contents($file_frontend_init)) : $frontend;
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
 
 ?>
 
 <form action="parametres_plugincss.php?p=<?php echo urlencode($plugin) ?>" method="post" id="form_file">
-
 	<div class="inline-form action-bar">
 		<h2><?php echo plxUtils::strCheck($plugin) ?></h2>
 		<?php echo '<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
@@ -76,6 +75,6 @@ include __DIR__ .'/top.php';
 	</fieldset>
 </form>
 <?php
+
 # On inclut le footer
-include __DIR__ .'/foot.php';
-?>
+include 'foot.php';
