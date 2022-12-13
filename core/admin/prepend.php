@@ -1,6 +1,6 @@
 <?php
 const PLX_ROOT = '../../';
-const PLX_CORE = PLX_ROOT .'core/';
+const PLX_CORE = PLX_ROOT . 'core/';
 const HTACCESS_FILE = PLX_ROOT . '.htaccess';
 
 const SESSION_LIFETIME = 7200;
@@ -10,7 +10,7 @@ include PLX_CORE.'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
+	header('Location: ' . PLX_ROOT . 'install.php');
 	exit;
 }
 
@@ -73,5 +73,3 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
-
-?>

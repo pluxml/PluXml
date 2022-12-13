@@ -7,7 +7,7 @@
  * @author	Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Contrôle du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -121,7 +121,7 @@ if(!empty($_POST) AND !empty($_POST['content'])) {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
 ?>
 <form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 
@@ -196,6 +196,6 @@ if(parent!='') { replyCom(parent) }
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentNewFoot'));
+
 # On inclut le footer
-include __DIR__ .'/foot.php';
-?>
+include 'foot.php';

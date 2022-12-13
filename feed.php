@@ -1,13 +1,13 @@
 <?php
 const PLX_ROOT = './';
-const PLX_CORE = PLX_ROOT .'core/';
+const PLX_CORE = PLX_ROOT . 'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT . 'config.php';
+include PLX_CORE . 'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
+	header('Location: ' . PLX_ROOT . 'install.php');
 	exit;
 }
 
@@ -34,7 +34,7 @@ $lang = $plxFeed->aConf['default_lang'];
 eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
 
 # Chargement du fichier de langue du core de PluXml
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 if(!$plxFeed->aConf['enable_rss']) {
 	header('Location: index.php');
@@ -55,5 +55,3 @@ eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 
 # Restitution écran
 echo $output;
-exit;
-?>

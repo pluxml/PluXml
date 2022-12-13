@@ -7,7 +7,7 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -109,7 +109,7 @@ else
 $date = plxDate::date2Array($plxAdmin->plxRecord_coms->f('date'));
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
 
 if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 	$author = $plxAdmin->plxRecord_coms->f('author');
@@ -211,6 +211,6 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentFoot'));
+
 # On inclut le footer
-include __DIR__ .'/foot.php';
-?>
+include 'foot.php';

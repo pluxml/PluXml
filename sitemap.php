@@ -1,9 +1,9 @@
 <?php
 const PLX_ROOT = './';
-const PLX_CORE = PLX_ROOT .'core/';
+const PLX_CORE = PLX_ROOT . 'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT . 'config.php';
+include PLX_CORE . 'lib/config.php';
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
@@ -34,7 +34,7 @@ $lang = $plxMotor->aConf['default_lang'];
 if(eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
 
 # chargement du fichier de langue
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 # On démarre la bufferisation
 ob_start();

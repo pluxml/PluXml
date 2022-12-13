@@ -6,7 +6,7 @@
  * @package PLX
  * @author	Stephane F
  **/
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 $plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
 $plugin = plxUtils::nullbyteRemove($plugin);
@@ -34,8 +34,10 @@ else {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
+
 # Affichage des données
 echo $output;
+
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include 'foot.php';

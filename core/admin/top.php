@@ -146,6 +146,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 <?php endif; ?>
 <?php
 	plxMsg::Display();
+
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
-?>

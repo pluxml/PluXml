@@ -7,7 +7,7 @@
  * @author  Stephane F, Pedro "P3ter" CADETE
  **/
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -110,7 +110,7 @@ $_SESSION['sort_medias']=$sort;
 $selectionList = array(''=>L_FOR_SELECTION,'move'=>L_PLXMEDIAS_MOVE_FOLDER,'thumbs'=>L_MEDIAS_RECREATE_THUMB,'-'=>'-----','delete' =>L_DELETE_FILE);
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
 
 $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
 $curFolders = explode('/', $curFolder);
@@ -360,6 +360,6 @@ $curFolders = explode('/', $curFolder);
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasFoot'));
+
 # On inclut le footer
-include __DIR__ .'/foot.php';
-?>
+include 'foot.php';
