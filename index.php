@@ -48,24 +48,30 @@ $plxShow = plxShow::getInstance();
 
 eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
 
+# Traitements du thème
+$style = PLX_ROOT . $plxShow->plxMotor->aConf['racine_themes'] . $plxShow->plxMotor->style;
+if (empty(trim($plxShow->plxMotor->style)) or !is_dir($style)) {
+	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
+	echo L_ERR_THEME_NOTFOUND.' (' . $style . ') !';
+	exit;
+}
+
+$template = $style . '/' . $plxShow->plxMotor->template;
+if (!file_exists($template)) {
+	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
+	echo L_ERR_FILE_NOTFOUND.' (' . $template . ') !';
+	exit;
+}
+
+# On impose le charset
+header('Content-Type: text/html; charset=' . PLX_CHARSET);
+
 # On démarre la bufferisation
 ob_start();
 ob_implicit_flush(0);
 
-# Traitements du thème
-if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
-	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
-} elseif(file_exists(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
-	# On impose le charset
-	header('Content-Type: text/html; charset='.PLX_CHARSET);
-	# Insertion du template
-	include(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
-} else {
-	header('Content-Type: text/plain; charset='.PLX_CHARSET);
-	echo L_ERR_FILE_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
-}
-
+# Insertion du template
+include $template;
 # Récuperation de la bufférisation
 $output = ob_get_clean();
 
@@ -73,6 +79,7 @@ $output = ob_get_clean();
 ob_start();
 eval($plxMotor->plxPlugins->callHook('ThemeEndHead')); # Hook Plugins
 $output = str_replace('</head>', ob_get_clean().'</head>', $output);
+
 ob_start();
 eval($plxMotor->plxPlugins->callHook('ThemeEndBody')); # Hook Plugins
 $output = str_replace('</body>', ob_get_clean().'</body>', $output);
@@ -95,4 +102,3 @@ if($plxMotor->aConf['gzip']) {
 
 # Restitution écran
 echo $output;
-exit;
