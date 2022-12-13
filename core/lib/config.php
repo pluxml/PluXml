@@ -24,6 +24,8 @@ function getMicrotime() {
 # Initialisation du timer d'execution
 define('PLX_MICROTIME', getMicrotime());
 
+include PLX_ROOT . 'config.php';
+
 $CONSTS = array(
 	'XMLFILE_PARAMETERS'	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
 	'XMLFILE_CATEGORIES'	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
@@ -98,4 +100,3 @@ spl_autoload_register(
 	true # PluXml first !
 );
 
-include PLX_ROOT . 'config.php';
