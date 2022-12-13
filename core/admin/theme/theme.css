@@ -21,7 +21,13 @@
 	width: 123px;
 }
 
+#auth {
+	background-color: #222;
+}
+
 .auth {
+	background-color: #eee;
+	color: #222;
 	border: 1px solid #bbb;
 	border-radius: .6rem;
 	overflow: hidden;
@@ -29,6 +35,12 @@
 
 .auth .alert {
 	text-align: center;
+}
+
+.auth .alert.red {
+	background-color: #fce4e2;
+	color: firebrick;
+	border: 1px solid firebrick;
 }
 
 /* ---------- Main ---------- */
