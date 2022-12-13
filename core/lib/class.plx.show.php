@@ -44,11 +44,27 @@ class plxShow
 		$this->plxMotor = plxMotor::getInstance();
 
 		# Chargement du fichier de lang du theme
-		$langfile = PLX_ROOT . $this->plxMotor->aConf['racine_themes'] . $this->plxMotor->style . '/lang/' . $this->plxMotor->aConf['default_lang'] . '.php';
-		if (is_file($langfile)) {
-			include $langfile;
-			$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
+		$racine_themes = PLX_ROOT . $this->plxMotor->aConf['racine_themes'];
+		$langfile = $racine_themes . $this->plxMotor->style . '/lang/' . PLX_SITE_LANG . '.php';
+		if (!is_file($langfile)) {
+			$themes = array_map(
+				function ($value) {
+					return preg_replace('#.*/([^/]+)/lang/[a-z]{2}\.php$#i', '$1', $value);
+				},
+				glob($racine_themes . '*/lang/' . PLX_SITE_LANG . '.php')
+			);
+			if(!empty($themes)) {
+				$this->plxMotor->style = in_array('defaut', $themes) ? 'defaut' : array_values($themes)[0];
+				$langfile = $racine_themes . $this->plxMotor->style . '/lang/' . PLX_SITE_LANG . '.php';
+			} else {
+				header('Content-Type: text/plain; charset=' . PLX_CHARSET);
+				echo L_ERR_THEME_NOTFOUND.' (' . PLX_ROOT . $this->plxMotor->aConf['racine_themes'] . $this->plxMotor->style . ') !';
+				exit;
+			}
 		}
+
+		include $langfile;
+		$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
 
 		# Hook Plugins
 		eval($this->plxMotor->plxPlugins->callHook('plxShowConstruct'));
@@ -119,11 +135,7 @@ class plxShow
 	 **/
 	public function charset($casse = 'min')
 	{
-
-		if ($casse != 'min') # En majuscule
-			echo strtoupper(PLX_CHARSET);
-		else # En minuscule
-			echo strtolower(PLX_CHARSET);
+		echo (strtolower($casse) === 'min') ? strtolower(PLX_CHARSET) : strtoupper(PLX_CHARSET);
 	}
 
 	/**
@@ -148,9 +160,9 @@ class plxShow
 	public function defaultLang($echo = true)
 	{
 		if ($echo)
-			echo $this->plxMotor->aConf['default_lang'];
+			echo PLX_SITE_LANG;
 		else
-			return $this->plxMotor->aConf['default_lang'];
+			return PLX_SITE_LANG;
 	}
 
 
@@ -240,11 +252,11 @@ class plxShow
 				$title = L_PAGETITLE_ARCHIVES . $day . $month . $year;
 				break;
 			case 'erreur':
-			$title = $this->plxMotor->plxErreur->getMessage();
+				$title = $this->plxMotor->plxErreur->getMessage();
 				break;
 			default:
-			$title = $this->plxMotor->aConf['title'];
-			$subtitle = $this->plxMotor->aConf['description'];
+				$title = $this->plxMotor->aConf['title'];
+				$subtitle = $this->plxMotor->aConf['description'];
 		}
 
 		if (preg_match('/' . $this->plxMotor->mode . '\s*=\s*(.*?)\s*(' . $sep . '|$)/i', $format, $captures)) {
@@ -253,8 +265,8 @@ class plxShow
 			$format = '#title - #subtitle';
 		}
 		$txt = strtr($format, array(
-			'#title'    => trim($title),
-			'#subtitle'    => trim($subtitle),
+			'#title'    => strip_tags(trim($title)),
+			'#subtitle' => strip_tags(trim($subtitle)),
 		));
 		echo plxUtils::strCheck(trim($txt, ' - '));
 	}

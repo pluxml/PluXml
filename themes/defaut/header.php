@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php $plxShow->defaultLang() ?>">
 <head>
-	<meta charset="<?php $plxShow->charset('min'); ?>">
+	<meta charset="<?php $plxShow->charset(); ?>">
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php $plxShow->pageTitle(); ?></title>
 <?php
