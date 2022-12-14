@@ -10,8 +10,9 @@ class update_5_5 extends plxUpdate{
 	# mise à jour fichier parametres.xml
 	public function step1() {
 		# migration avec réindexation des commentaires
-		echo L_UPDATE_COMMENTS_MIGRATION."<br />";
-
+?>
+			<li><?= L_UPDATE_COMMENTS_MIGRATION ?></li>
+<?php
 		$dir_coms = PLX_ROOT.$this->plxAdmin->aConf['racine_commentaires'];
 		$dir_bkp  = $dir_coms.'backup-5.4/';
 
@@ -52,7 +53,7 @@ class update_5_5 extends plxUpdate{
 		return true;
 	}
 
-	# suppression des fichiers obsolètes
+	# suppression des fichiers obsolètes. On suppose droit en écriture sur ces fichiers
 	public function step2() {
 		# fichier version
 		if(is_readable(PLX_ROOT.'version')) {

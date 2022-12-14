@@ -18,8 +18,7 @@ class update_5_1_6 extends plxUpdate{
 		# on supprime les parametres obsoletes
 		unset($this->plxAdmin->aConf['delta']);
 		# mise à jour du fichier des parametres
-		$this->updateParameters($new_parameters);
-		return true; # pas d'erreurs
+		return $this->updateParameters($new_parameters);
 	}
 
 	# mise à jour fichier .htaccess
@@ -38,8 +37,8 @@ class update_5_1_6 extends plxUpdate{
 			}
 		}
 		return true; # pas d'erreurs
-
 	}
+
 	# Mise à jour des pages statiques: ajout nouveau champ title_htmltag
 	public function step3() {
 		echo L_UPDATE_FILE." (".$this->plxAdmin->aConf['statiques'].")<br />";
@@ -59,6 +58,7 @@ class update_5_1_6 extends plxUpdate{
 		}
 		return true;
 	}
+
 	# Mise à jour des categories: ajout nouveau champ title_htmltag
 	public function step4() {
 		echo L_UPDATE_FILE." (".$this->plxAdmin->aConf['categories'].")<br />";
@@ -79,4 +79,4 @@ class update_5_1_6 extends plxUpdate{
 		return true;
 	}
 }
-?>
+

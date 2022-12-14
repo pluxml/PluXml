@@ -9,8 +9,10 @@ class update_5_0 extends plxUpdate{
 
 	/* Création des nouveaux paramètres dans le fichier parametres.xml */
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
-		$new_parameters = array(
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
+		if($this->updateParameters(array(
 			'urlrewriting' 	=> 0,
 			'gzip'		 	=> 0,
 			'feed_chapo' 	=> 0,
@@ -19,15 +21,19 @@ class update_5_0 extends plxUpdate{
 			'tags' 			=> 'data/configuration/tags.xml',
 			'editor'		=> 'plxtoolbar',
 			'homestatic'	=> ''
-		);
-		$this->updateParameters($new_parameters);
-		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS')); # on recharge le fichier de configuration
-		return true; # pas d'erreurs
+		))) {
+			# on recharge le fichier de configuration
+			$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
+			return true;
+		}
+		return false;
 	}
 
 	/* Création du fichier data/configuration/tags.xml */
 	public function step2() {
-		echo L_UPDATE_CREATE_TAGS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_CREATE_TAGS_FILE ?></li>
+<?php
 		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>';
 		$xml .= '<document>'."\n";
 		$xml .= '</document>';
@@ -269,4 +275,4 @@ class update_5_0 extends plxUpdate{
 		return $aStats;
 	}
 }
-?>
+

@@ -23,8 +23,7 @@ class update_5_1 extends plxUpdate{
 		unset($this->plxAdmin->aConf['editor']);
 		unset($this->plxAdmin->aConf['style_mobile']);
 		# mise à jour du fichier des parametres
-		$this->updateParameters($new_parameters);
-		return true; # pas d'erreurs
+		return $this->updateParameters($new_parameters);
 	}
 
 	# création d'un fichier	.htacces dans le dossier data pour eviter de lister les dossiers
@@ -277,4 +276,4 @@ class update_5_1 extends plxUpdate{
 	}
 
 }
-?>
+

@@ -9,23 +9,24 @@ class update_5_4 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+			<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		# vérification de l'existence des dossiers médias
-		if(!is_dir(PLX_ROOT.'data/medias')) {
-			@mkdir(PLX_ROOT.'data/medias',0755,true);
+		$folder = PLX_ROOT . 'data/medias';
+		if(!is_dir($folder)) {
+			@mkdir($folder, 0755, true);
 		}
-		# nouveaux paramètres
-		$new_parameters = array();
-		$new_parameters['custom_admincss_file'] = '';
-		if(!isset($this->plxAdmin->aConf['images']) OR empty($this->plxAdmin->aConf['images']))
-			$new_parameters['medias'] = 'data/medias/';
-		else
-			$new_parameters['medias'] = $this->plxAdmin->aConf['images']; 
 		# on supprime les paramètres obsolètes
 		unset($this->plxAdmin->aConf['images']);
 		unset($this->plxAdmin->aConf['documents']);
-		$this->updateParameters($new_parameters);
-		return true; # pas d'erreurs
+
+		# nouveaux paramètres
+		return $this->updateParameters(array(
+			'custom_admincss_file' => '',
+			'medias' => !empty($this->plxAdmin->aConf['images']) ? $this->plxAdmin->aConf['images'] : 'data/medias/',
+		));
 	}
 
 }
+

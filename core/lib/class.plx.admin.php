@@ -105,7 +105,7 @@ class plxAdmin extends plxMotor {
 		$parametreChanged = false;
 		foreach($content as $k=>$v) {
 			if(!in_array($k, $excludes)) {
-				if($plxConfig[$k] === $v) {
+				if(isset($global[$k]) and $global[$k] === $v) {
 					# Aucun changement pour ce champ
 					continue;
 				}
@@ -139,7 +139,7 @@ class plxAdmin extends plxMotor {
 				if(preg_match('#^(?:bypage|images|miniatures)#', $k)) {
 					if(is_numeric($v)) {
 						$n = intval($v);
-						if($plxConfig[$k] != $n) {
+						if(!isset($plxConfig[$k]) or $plxConfig[$k] != $n) {
 							$plxConfig[$k] = $n;
 							$parametreChanged = true;
 						}
@@ -166,8 +166,8 @@ class plxAdmin extends plxMotor {
 				if(preg_match('#^(?:allow|capcha|display|enable|gzip|lostpassword|mod_|thumbs|urlrewriting|userfolder)#', $k)) {
 					if(preg_match('#^\s*(0|1)\s*$#', $v, $matches)) {
 						$n = intval($matches[1]);
-						if($plxConfig[$k] != $n) {
-							$plxConfig[$k] = $n;
+						if(!isset($global[$k]) or $global[$k] != $n) {
+							$global[$k] = $n;
 							$parametreChanged = true;
 						}
 					}
@@ -177,7 +177,7 @@ class plxAdmin extends plxMotor {
 				 # Champs pour les tris
 				if(preg_match('#^tri#', $k)) {
 					if(preg_match('#^\s*(r?alpha|asc|desc|random)\s*$#', $v, $matches)) {
-						if($plxConfig[$k] != $matches[1]) {
+						if(!isset($plxConfig[$k]) or $plxConfig[$k] != $matches[1]) {
 							$plxConfig[$k] = $matches[1];
 							$parametreChanged = true;
 						}
@@ -202,17 +202,19 @@ class plxAdmin extends plxMotor {
 					}
 				}
 
-				if(
-					$k == 'hometemplate' and
-					$plxConfig[$k] != $v and (
-						!preg_match('#^home[\w\s-]*\.php$#', $v) or
-						!file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . $v)
-					)
-				) {
-					# Pas de changement ou fichier avec nom invalide ou inexistant
+				if($k == 'hometemplate') {
+					# Un thème doit avoir au moins un fichier home*.php. Voir plxThemes::getThemes()
+					if(
+						preg_match('#^home[\w\s-]*\.php$#', $v) and
+						file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . $v)
+					) {
+						if (!isset($plxConfig[$k]) or $plxConfig[$k] != $v)
+						{
+							$plxConfig = $v;
+							$parametreChanged = true;
+						}
+					}
 					continue;
-
-					 # A faire: vérifier dans plxThemes::getThemes() la présence d'un fichier home*.php dans chaque thème
 				}
 
 				/*
@@ -233,7 +235,7 @@ class plxAdmin extends plxMotor {
 					$tags = in_array($k, array('title', 'description', 'meta_description')) ? '<i><em><a><sup>' : null ;
 					$s = plxUtils::strCheck($v, true, $tags);
 				}
-				if($plxConfig[$k] != $s) {
+				if(!isset($plxConfig[$k]) or $plxConfig[$k] != $s) {
 					$plxConfig[$k] = $s;
 					$parametreChanged = true;
 				}
@@ -246,9 +248,11 @@ class plxAdmin extends plxMotor {
 			$parametreChanged = true;
 		}
 
+		# On enregistre les modifications
 		if($parametreChanged) {
 			# On force la valeur par sécurité
-			$plxConfig['version'] = PLX_VERSION;
+			# $plxConfig['version'] = PLX_VERSION;
+			$plxConfig['version'] = PLX_VERSION_DATA;
 
 			# On réinitialise la pagination au cas où modif de bypage_admin
 			unset($_SESSION['page']);

@@ -6,7 +6,7 @@
  * @author	Stephane F
  **/
 
-define('PLX_CONF', PLX_ROOT.'data/configuration/parametres.xml');
+const PLX_CONF = PLX_ROOT.'data/configuration/parametres.xml';
 
 class update_5_1_7 extends plxUpdate{
 
@@ -57,10 +57,9 @@ class update_5_1_7 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step2() {
-
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
-		$new_parameters['config_path'] = PLX_CONFIG_PATH;
-		$new_parameters['thumbs'] = 1;
+?>
+			<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		# on supprime les parametres obsoletes
 		unset($this->plxAdmin->aConf['statiques']);
 		unset($this->plxAdmin->aConf['categories']);
@@ -68,38 +67,50 @@ class update_5_1_7 extends plxUpdate{
 		unset($this->plxAdmin->aConf['tags']);
 		unset($this->plxAdmin->aConf['plugins']);
 		# mise à jour du fichier des parametres
-		$this->updateParameters($new_parameters);
-
-		return true; # pas d'erreurs
+		return $this->updateParameters(array(
+			'config_path'	=> PLX_CONFIG_PATH,
+			'thumbs'		=> 1,
+		));
 	}
 
 	# déplacement et renommage des fichiers parametres des plugins
 	public function step3() {
-
 		# Récupère le nouveau n° de version de PluXml
 		if(is_readable(PLX_ROOT.'version')) {
 			$f = file(PLX_ROOT.'version');
 			$newVersion = $f['0'];
 		}
-
-		echo L_UPDATE_PLUG_MOVEPARAMFILE."<br />";
+?>
+			<li>
+				<h2><?= L_UPDATE_PLUG_MOVEPARAMFILE ?></h2>
+				<ul>
+<?php
+		$success = true;
+		$new = (version_compare($newVersion, '5.1.7') > 0);
+		$plugins_root = PLX_ROOT . PLX_CONFIG_PATH . '/plugins/';
 		foreach($this->plxAdmin->plxPlugins->aPlugins as $plugName=>$plugAttrs) {
-			$plugParamFile = PLX_PLUGINS.$plugName.'/parameters.xml';
+			$plugParamFile = PLX_PLUGINS . $plugName . '/parameters.xml';
 			if(is_file($plugParamFile)) {
-				if (version_compare($newVersion, '5.1.7') > 0)
-					$title = $plugAttrs->getInfo('title');
-				else
-					$title = $plugAttrs['title'];
-				if(plxUtils::write(file_get_contents($plugParamFile), PLX_ROOT.PLX_CONFIG_PATH.'/plugins/'.$plugName.'.xml')) {
-					echo '<span style="color:green">&#10004; '.$title.'</span><br />';
+				$title = $new ? $plugAttrs->getInfo('title') : $plugAttrs['title'];
+				if(plxUtils::write(file_get_contents($plugParamFile), $plugins_root . $plugName . '.xml')) {
+?>
+					<li><span style="color:green">&#10004; <?= $title ?></span></li>
+<?php
 					unlink($plugParamFile);
+				} else {
+?>
+					<li><span style="color: red">&#10007; <?= $title ?></span></li>
+<?php
+					$success = false;
+					break;
 				}
-				else
-					echo '<span style="color:red">&#10007; '.$title.'</span><br />';
 			}
 		}
-		return true; # pas d'erreurs
+?>
+				</ul>
+			</li>
+<?php
+		return $success;
 	}
 
 }
-?>
