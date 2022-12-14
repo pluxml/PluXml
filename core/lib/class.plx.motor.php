@@ -1,5 +1,11 @@
 <?php
 
+if(!defined('PLX_ROOT')) {
+	header('Content-Type:text/plain; charset=utf-8');
+	echo 'Undefined constant: PLX_ROOT';
+	die();
+}
+
 /**
  * Classe plxMotor responsable du traitement global du script
  *
@@ -1236,6 +1242,12 @@ class plxMotor {
 			$this->aConf['email_method'] == 'sendmail' or
 			!class_exists('PHPMailer') or
 			!method_exists('plxUtils', 'sendMailPhpMailer');
+	}
+
+	public function getPlxThemes() {
+		$homestatic = $this->aConf['homestatic'];
+		$homepage = empty($homestatic) ? $this->aConf['hometemplate'] : $this->aStats[$homestatic]['template'];
+		return new plxThemes(PLX_ROOT . $this->aConf['racine_themes'], $this->aConf['style'], $homepage);
 	}
 
 }

@@ -22,79 +22,12 @@ if(!empty($_POST)) {
 	exit;
 }
 
-class plxThemes {
-
-	public	$racineTheme;
-	public	$activeTheme;
-	public	$aThemes = array(); # liste des themes
-
-	public function __construct($racineTheme, $activeTheme) {
-		$this->racineTheme = $racineTheme;
-		$this->activeTheme = $activeTheme;
-		$this->getThemes();
-	}
-
-	public function getThemes() {
-		# on mets le theme actif en début de liste
-		if(is_dir($this->racineTheme.$this->activeTheme))
-			$this->aThemes[$this->activeTheme] = $this->activeTheme;
-		# liste des autres themes dispos
-		$files = plxGlob::getInstance($this->racineTheme, true);
-
-		if($styles = $files->query('#^(?!mobile\.)[\w\.\(\)-]+#i', '', 'sort')) {
-			foreach($styles as $k=>$v) {
-				if(is_file($this->racineTheme.$v.'/infos.xml')) {
-					if($v != $this->activeTheme) {
-						$this->aThemes[$v] = $v;
-					}
-				}
-			}
-		}
-	}
-
-	public function getImgPreview($theme) {
-		$img='';
-		if(is_file($this->racineTheme.$theme.'/preview.png'))
-			$img=$this->racineTheme.$theme.'/preview.png';
-		elseif(is_file($this->racineTheme.$theme.'/preview.jpg'))
-			$img=$this->racineTheme.$theme.'/preview.jpg';
-		elseif(is_file($this->racineTheme.$theme.'/preview.gif'))
-			$img=$this->racineTheme.$theme.'/preview.gif';
-
-		$current = $theme == $this->activeTheme ? ' current' : '';
-		if($img=='')
-			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" alt="" />';
-		else
-			return '<img class="img-preview'.$current.'" src="'.$img.'" alt="" />';
-	}
-
-	public function getInfos($theme) {
-		$aInfos = array();
-		$filename = $this->racineTheme.$theme.'/infos.xml';
-		if(is_file($filename)){
-			$data = implode('',file($filename));
-			$parser = xml_parser_create(PLX_CHARSET);
-			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
-			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
-			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
-			$aInfos = array(
-				'title'			=> (isset($iTags['title']) AND isset($values[$iTags['title'][0]]['value']))?$values[$iTags['title'][0]]['value']:'',
-				'author'		=> (isset($iTags['author']) AND isset($values[$iTags['author'][0]]['value']))?$values[$iTags['author'][0]]['value']:'',
-				'version'		=> (isset($iTags['version']) AND isset($values[$iTags['version'][0]]['value']))?$values[$iTags['version'][0]]['value']:'',
-				'date'			=> (isset($iTags['date']) AND isset($values[$iTags['date'][0]]['value']))?$values[$iTags['date'][0]]['value']:'',
-				'site'			=> (isset($iTags['site']) AND isset($values[$iTags['site'][0]]['value']))?$values[$iTags['site'][0]]['value']:'',
-				'description'	=> (isset($iTags['description']) AND isset($values[$iTags['description'][0]]['value']))?$values[$iTags['description'][0]]['value']:'',
-			);
-		}
-		return $aInfos;
-	}
-}
-
 # On inclut le header
 include 'top.php';
 
-$plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
+$homestatic = $plxAdmin->aConf['homestatic'];
+$homepage = empty($homestatic) ? $plxAdmin->aConf['hometemplate'] : $plxAdmin->aStats[$homestatic]['template'];
+$plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style'], $homepage);
 
 ?>
 <form action="parametres_themes.php" method="post" id="form_settings">

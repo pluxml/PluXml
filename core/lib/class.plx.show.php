@@ -42,27 +42,21 @@ class plxShow
 	{
 
 		$this->plxMotor = plxMotor::getInstance();
+		$plxThemes = $this->plxMotor->getPlxThemes();
+		$themes = array_values($plxThemes->aThemes);
+		if(empty($themes)) {
+			header('Content-Type: text/plain; charset=' . PLX_CHARSET);
+			echo L_ERR_THEME_NOTFOUND.' (' . PLX_ROOT . $this->plxMotor->aConf['racine_themes'] . $this->plxMotor->style . ') !';
+			exit;
+		}
+
+		if(!in_array($this->plxMotor->style, $themes)) {
+			$this->plxMotor->style = in_array('defaut', $themes) ? 'defaut' : array_values($themes)[0];
+		}
 
 		# Chargement du fichier de lang du theme
 		$racine_themes = PLX_ROOT . $this->plxMotor->aConf['racine_themes'];
 		$langfile = $racine_themes . $this->plxMotor->style . '/lang/' . PLX_SITE_LANG . '.php';
-		if (!is_file($langfile)) {
-			$themes = array_map(
-				function ($value) {
-					return preg_replace('#.*/([^/]+)/lang/[a-z]{2}\.php$#i', '$1', $value);
-				},
-				glob($racine_themes . '*/lang/' . PLX_SITE_LANG . '.php')
-			);
-			if(!empty($themes)) {
-				$this->plxMotor->style = in_array('defaut', $themes) ? 'defaut' : array_values($themes)[0];
-				$langfile = $racine_themes . $this->plxMotor->style . '/lang/' . PLX_SITE_LANG . '.php';
-			} else {
-				header('Content-Type: text/plain; charset=' . PLX_CHARSET);
-				echo L_ERR_THEME_NOTFOUND.' (' . PLX_ROOT . $this->plxMotor->aConf['racine_themes'] . $this->plxMotor->style . ') !';
-				exit;
-			}
-		}
-
 		include $langfile;
 		$this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
 
