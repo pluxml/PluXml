@@ -48,6 +48,7 @@ if (isset($_SESSION['maxtry'])) {
 
 # Incrémente le nombre de tentative
 $redirect = $plxAdmin->aConf['racine'] . 'core/admin/';
+
 if (!empty($_GET['p']) and $css == '') {
 
 	# on incremente la variable de session qui compte les tentatives de connexion
@@ -99,6 +100,9 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and $css == '') {
 	}
 	if ($connected) {
 		unset($_SESSION['maxtry']);
+		if($plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user']) == 0) {
+			$redirect .= 'article.php';
+		}
 		header('Location: ' . htmlentities($redirect));
 		exit;
 	} else {

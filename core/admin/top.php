@@ -75,9 +75,12 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 			<ul id="responsive-menu" class="menu vertical expanded">
 <?php
 					$menus = array();
-					$nbartsmod = $plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user'], '_');
-					$arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
-					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
+					$arts_exists = ($plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user']) > 0);
+					if ($arts_exists) {
+						$nbartsmod = $plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user'], '_');
+						$arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
+						$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, PLX_CORE.'admin/index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
+					}
 
 					if(isset($_GET['a'])) # edition article
 						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, PLX_CORE.'admin/article.php', L_MENU_NEW_ARTICLES, false, false, '', false);
@@ -89,10 +92,12 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					if($_SESSION['profil'] <= PROFIL_MANAGER)
 						$menus[] = plxUtils::formatMenu(L_MENU_STATICS, PLX_CORE.'admin/statiques.php', L_MENU_STATICS_TITLE);
 
-					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
-						$nbcoms = $plxAdmin->nbComments('offline');
-						$coms_offline = $nbcoms>0 ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
-						$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
+					if ($arts_exists) {
+						if($_SESSION['profil'] <= PROFIL_MODERATOR and $plxAdmin->nbComments('all') > 0) {
+							$nbComsOff = $plxAdmin->nbComments('offline');
+							$coms_offline = ($nbComsOff > 0) ? '<span class="badge" onclick="window.location=\''.PLX_CORE.'admin/comments.php?sel=offline&amp;page=1\';return false;">' . $nbComsOff . '</span>':'';
+							$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, PLX_CORE.'admin/comments.php?page=1', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
+						}
 					}
 
 					if($_SESSION['profil'] <= PROFIL_EDITOR)
