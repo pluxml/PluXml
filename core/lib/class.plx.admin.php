@@ -216,14 +216,17 @@ class plxAdmin extends plxMotor {
 				 * meta_description
 				 * meta_keywords
 				 * timezone
-				 * homestatic
-				 * hometemplate
 				 * feed_footer
 				 * default_lang
 				 * custom_admincss_file
 				 * email_method
 				 * */
-				$s = (trim($v) !== '') ? filter_var(trim($v), FILTER_SANITIZE_STRING) : '';
+				$s = trim($v);
+				if($s !== '') {
+					# On autorise quelques balises HTML pour certains champs
+					$tags = in_array($k, array('title', 'description', 'meta_description')) ? '<i><em><a><sup>' : null ;
+					$s = strip_tags($v, $tags);
+				}
 				if($global[$k] != $s) {
 					$global[$k] = $s;
 					$parametreChanged = true;
