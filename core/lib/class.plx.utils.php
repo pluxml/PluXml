@@ -895,7 +895,8 @@ class plxUtils {
 	 **/
 	public static function strCheck($str) {
 
-		return htmlspecialchars($str,ENT_QUOTES,PLX_CHARSET);
+		return htmlspecialchars($str, ENT_HTML5, PLX_CHARSET);
+		# return strip_tags($str);
 	}
 
 	/**
