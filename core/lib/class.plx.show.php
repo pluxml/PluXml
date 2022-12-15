@@ -2076,6 +2076,10 @@ class plxShow
 		$motif = '#^\d{4}\.(?:home,|\d{3},)*(?:home|\d{3})(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 		# On trie les articles par date de publication
 		$arts = $this->plxMotor->plxGlob_arts->query($motif,'art','desc',0,false,'before');
+		if(empty($arts)) {
+			return;
+		}
+
 		$nbArts = array();
 		array_walk($arts, function($item) use(&$nbArts) {
 			if(preg_match('#.*\.(\d{3})\.(\d{12})\.[\w-]+\.xml$#', $item, $matches)) {
