@@ -21,6 +21,7 @@ $LANG = array(
 'L_ERR_MISSING_USER'				=> 'Vă rugăm să introduceti corect numele !',
 'L_ERR_MISSING_LOGIN'				=> 'Vă rugăm să introduceti corect username-ul !',
 'L_ERR_MISSING_PASSWORD'			=> 'Vă rugăm să introduceti corect parola!',
+'L_ERR_MISSING_EMAIL'               => 'Vă rugăm să introduceți o adresă de e-mail (recuperare parole).',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmarea parolă incorectă !',
 'L_PLUXML_INSTALLATION'				=> 'Instalaţia PluXml',
 'L_SITE_DESCRIPTION'				=> 'Site pe baza la Xml !',
@@ -37,4 +38,4 @@ $LANG = array(
 'L_PWD_GOOD'						=> 'Parolă bună',
 'L_PWD_STRONG'						=> 'Parolă puternică',
 );
-?>
+

@@ -7,12 +7,6 @@ const SESSION_LIFETIME = 7200;
 
 include PLX_CORE . 'lib/config.php';
 
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ' . PLX_ROOT . 'install.php');
-	exit;
-}
-
 # On démarre la session
 session_start();
 setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);

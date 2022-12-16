@@ -21,6 +21,7 @@ $LANG = array(
 'L_ERR_MISSING_USER'				=> 'Geben Sie einen Namen für den Administrator ein!',
 'L_ERR_MISSING_LOGIN'				=> 'Geben Sie einen Benutzername ein!',
 'L_ERR_MISSING_PASSWORD'			=> 'Geben Sie ein Passwort ein!',
+'L_ERR_MISSING_EMAIL'               => 'Bitte geben Sie eine E-Mail-Adresse ein (Passwortwiederherstellung).',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Die Passwörter sind nicht identisch!',
 'L_PLUXML_INSTALLATION'				=> 'Installation von PluXml',
 'L_SITE_DESCRIPTION'				=> 'Blog oder CMS basierend auf Xml!',
@@ -37,4 +38,4 @@ $LANG = array(
 'L_PWD_GOOD'						=> 'Gutes Passwort',
 'L_PWD_STRONG'						=> 'Starkes Passwort',
 );
-?>
+

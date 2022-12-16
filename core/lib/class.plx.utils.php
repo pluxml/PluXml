@@ -114,9 +114,11 @@ class plxUtils {
 	 **/
 	public static function checkMail($mail) {
 
-		if (strlen($mail) > 80)
+		if (strlen($mail) > 80) {
 			return false;
-		return preg_match('/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|("[^"]+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\d\-]+\.)+[a-zA-Z]{2,}))$/', $mail);
+		}
+
+		return filter_var($mail, FILTER_VALIDATE_EMAIL);
 	}
 
 	/**
@@ -891,12 +893,25 @@ class plxUtils {
 	 * Méthode qui retourne une chaine de caractères formatée en fonction du charset
 	 *
 	 * @param	str		chaine de caractères
+	 * @param	cdata	encapsule str dans <![CDATA[ ]]> si true et str non nulle
+	 * @param	tags	balises HTML autorisées dans <![CDATA[]]>
 	 * @return	string	chaine de caractères tenant compte du charset
 	 **/
-	public static function strCheck($str) {
+	public static function strCheck($str, $cdata=false, $tags='<i><em><a><sup><span>') {
 
-		return htmlspecialchars($str, ENT_HTML5, PLX_CHARSET);
-		# return strip_tags($str);
+		$str = trim($str);
+		if ($str === '') {
+			return '';
+		}
+
+		if ($cdata) {
+			# caractère " interdit. Remplacer par &quot; si besoin à la saisie
+			return '<![CDATA[' . strip_tags(str_replace('"', '', $str), $tags) . ']]>';
+		}
+
+		# ENT_COMPAT : Convertit les guillemets doubles, et ignore les guillemets simples.
+		# les caractères suivants seont convertis en entités HTML : & > < "
+		return htmlspecialchars($str, ENT_COMPAT | ENT_HTML5, PLX_CHARSET);
 	}
 
 	/**

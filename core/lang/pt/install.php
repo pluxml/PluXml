@@ -21,6 +21,7 @@ $LANG = array(
 'L_ERR_MISSING_USER'				=> 'Por favor, indique o nome do redactor !',
 'L_ERR_MISSING_LOGIN'				=> 'Por favor, indique o login de conexão !',
 'L_ERR_MISSING_PASSWORD'			=> 'Por favor, indique a sua senha !',
+'L_ERR_MISSING_EMAIL'               => 'Por favor, insira um endereço de e-mail (recuperação de senha).',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmação da senha incorrecta !',
 'L_PLUXML_INSTALLATION'				=> 'Instalação de PluXml',
 'L_SITE_DESCRIPTION'				=> 'Blog ou Cms á Xml !',
@@ -37,4 +38,4 @@ $LANG = array(
 'L_PWD_GOOD'						=> 'Boa senha',
 'L_PWD_STRONG'						=> 'Senha forte',
 );
-?>
+

@@ -20,7 +20,6 @@ $LANG = array (
 		'L_RENAME_FILE_SUCCESSFUL' => 'Bestand met succes omgedoopt',
 		'L_RENAME_FILE_ERR' => 'Fout bij het verwerken van het bestand',
 		'L_RENAME_FILE' => 'Hernoem bestand',
-
 		'L_THUMBNAIL' => 'Thumbnail (facultatief)',
 		'L_THUMBNAIL_SELECTION' => 'Selecteer Afbeelding',
 		'L_THUMBNAIL_TITLE' => 'Beeld (facultatief)',
@@ -28,6 +27,7 @@ $LANG = array (
 
 		'L_ERR_INVALID_DATE_CREATION' => 'Ongeldige aanmaakdatum',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Ongeldige datum bijgewerkt',
+		'L_INVALID_VALUE' => 'ongeldige waarde',
 
 		// class.plx.admin.php
 
@@ -103,7 +103,6 @@ $LANG = array (
 		'L_NOW' => 'onmiddellijk',
 		'L_ARTICLE_CATEGORIES' => 'Categorie',
 		'L_CATEGORY_HOME_PAGE' => 'Startpagina',
-		'L_NEW_CATEGORY' => 'Nieuwe categorie',
 		'L_ARTICLE_TAGS_FIELD' => 'Sleutelwoorden',
 		'L_ARTICLE_TAGS_FIELD_TITLE' => 'Scheidt de sleutelwoorden door middel van een komma',
 		'L_ARTICLE_TOGGLER_TITLE' => 'Lijst van sleutelwoorden',
@@ -151,6 +150,19 @@ $LANG = array (
 
 		//
 
+		'L_SORT_ASCENDING_DATE' => 'datum oplopend',
+		'L_SORT_DESCENDING_DATE' => 'datum aflopend',
+		'L_SORT_ALPHABETICAL' => 'alfabetisch',
+		'L_SORT_REVERSE_ALPHABETICAL' => 'alfabetisch omgekeerd',
+		'L_SORT_RANDOM' => 'onzeker',
+		'L_YES' => 'Ja',
+		'L_NO' => 'Neen',
+		'L_OK' => 'Ok',
+		'L_NONE1' => 'geen',
+		'L_NONE2' => 'geen',
+
+		// categories.php
+
 		'L_CAT_TITLE' => 'Aanmaken en aanpassen van categorie?n',
 		'L_CAT_LIST_ID' => 'ID',
 		'L_CAT_LIST_ACTIVE' => 'Actief',
@@ -164,9 +176,11 @@ $LANG = array (
 		'L_DISPLAY' => 'Tonen',
 		'L_HIDE' => 'Onzichtbaar maken',
 		'L_OPTIONS' => 'Opties',
+		'L_NEW_CATEGORY' => 'Nieuwe categorie',
 		'L_FOR_SELECTION' => 'Met geselecteerde...',
 		'L_CAT_APPLY_BUTTON' => 'Categorielijst aanpassen',
 		'L_CAT_UNKNOWN' => 'onbekende categorie',
+		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Categorie naam al in gebruik',
 
 		// categorie.php
 
@@ -238,7 +252,6 @@ $LANG = array (
 
 		'L_COMMENTS_ARTICLE_SCOPE' => 'Artikel',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'volledige site',
-		'L_COMMENTS_OFFLINE_LIST' => 'Commentaar dat wacht op goedkeuring ',
 		'L_COMMENTS_LIST_DATE' => 'Datum',
 		'L_COMMENTS_LIST_AUTHOR' => 'Auteur',
 		'L_COMMENTS_LIST_MESSAGE' => 'Bericht',
@@ -252,9 +265,21 @@ $LANG = array (
 		'L_COMMENT_ONLINE_FEEDS' => 'Online commentaren',
 		'L_COMMENTS_PRIVATE_FEEDS' => 'Feed prive syndicaties',
 		'L_COMMENTS_ONLINE_LIST' => 'Lijst van gepubliceerde beoordelingen',
+		'L_COMMENTS_OFFLINE_LIST' => 'Commentaar dat wacht op goedkeuring ',
 		'L_COMMENTS_ALL_LIST' => 'Reacties Lijst',
 		'L_COMMENT_SET_ONLINE' => 'Neem Online',
 		'L_COMMENT_SET_OFFLINE' => 'Neem Offline',
+
+		// index.php
+
+		'L_SEARCH' => 'Zoek',
+		'L_SEARCH_PLACEHOLDER' => 'artikel-ID of titel',
+		'L_ARTICLES_ALL_CATEGORIES' => 'Alle categorie?n ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Alle auteurs ...',
+		'L_ALL' => 'Alle',
+		'L_ALL_PUBLISHED' => 'Gepubliceerd',
+		'L_ALL_DRAFTS' => 'Concepten',
+		'L_ALL_AWAITING_MODERATION' => 'In afwachting van de validatie',
 		'L_ARTICLES_FILTER_BUTTON' => 'Filteren',
 		'L_CATEGORIES_TABLE' => 'Categorie?n',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Specifieke locatie',
@@ -274,29 +299,24 @@ $LANG = array (
 		'L_NEW_COMMENTS_TITLE' => 'Commentaar die op goedkeuring wacht',
 		'L_VALIDATED_COMMENTS_TITLE' => 'Geplubliceerde commentaar',
 		'L_NO_ARTICLE' => 'Geen artikel',
-		'L_SEARCH' => 'Zoek',
-		'L_SEARCH_PLACEHOLDER' => 'artikel-ID of titel',
-		'L_ARTICLES_ALL_CATEGORIES' => 'Alle categorie?n ...',
-		'L_ARTICLES_ALL_AUTHORS'	=> 'Alle auteurs ...',
-		'L_ALL' => 'Alle',
-		'L_ALL_PUBLISHED' => 'Gepubliceerd',
-		'L_ALL_DRAFTS' => 'Concepten',
-		'L_ALL_AWAITING_MODERATION' => 'In afwachting van de validatie',
+
+		// medias.php
+
+		'L_MEDIAS_FILENAME' => 'Naam bastand',
+		'L_MEDIAS_TITLE' => 'Media beheren',
+		'L_MEDIAS_DIRECTORY' => 'Locatie',
+		'L_MEDIAS_BACK' => 'Terug',
+		'L_MEDIAS_MAX_UPLOAD_FILE' => 'Maximale grootte bestand',
+		'L_MEDIAS_MAX_UPLOAD_NBFILE' => 'Max aantal bestanden per upload',
+		'L_MEDIAS_MAX_POST_SIZE' => 'Maximale gegevensgrootte',
 		'L_MEDIAS_DELETE_FOLDER' => 'Map verwijderen',
 		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Map en inhoud van de map verwijderen %s ?',
 		'L_MEDIAS_NO_FILE' => 'Geen bestand',
-		'L_MEDIAS_FILENAME' => 'Naam bastand',
 		'L_MEDIAS_ADD_FILE' => 'Bestand toevoegne',
-		'L_MEDIAS_BACK' => 'Terug',
-		'L_MEDIAS_TITLE' => 'Media beheren',
 		'L_MEDIAS_IMAGES' => 'Afbeeldingen',
 		'L_MEDIAS_DOCUMENTS' => 'Documenten',
 		'L_MEDIAS_CREATE_FOLDER' => 'Map aanmaken',
 		'L_MEDIAS_SUBMIT_FILE' => 'Versturen',
-		'L_MEDIAS_MAX_UPLOAD_FILE' => 'Maximale grootte bestand',
-		'L_MEDIAS_MAX_UPLOAD_NBFILE' => 'Max aantal bestanden per upload',
-		'L_MEDIAS_MAX_POST_SIZE' => 'Maximale gegevensgrootte',
-		'L_MEDIAS_DIRECTORY' => 'Locatie',
 		'L_MEDIAS_FOLDER' => 'Bestand',
 		'L_MEDIAS_NEW_FOLDER' => 'Nieuwe map',
 		'L_MEDIAS_FILESIZE' => 'Maat',
@@ -321,16 +341,9 @@ $LANG = array (
 		'L_MEDIAS_LINK_COPYCLP_DONE' => 'Koppeling gekopieerd',
 		'L_MEDIAS_NEW_NAME' => 'Nieuwe naam',
 		'L_MEDIAS_RENAME' => 'Andere naam geven',
-		'L_SORT_ASCENDING_DATE' => 'datum oplopend',
-		'L_SORT_DESCENDING_DATE' => 'datum aflopend',
-		'L_SORT_ALPHABETICAL' => 'alfabetisch',
-		'L_SORT_REVERSE_ALPHABETICAL' => 'alfabetisch omgekeerd',
-		'L_SORT_RANDOM' => 'onzeker',
-		'L_OK' => 'Ok',
-		'L_YES' => 'Ja',
-		'L_NO' => 'Neen',
-		'L_NONE1' => 'geen',
-		'L_NONE2' => 'geen',
+
+		// parametres_affichage.php
+
 		'L_CONFIG_VIEW_FIELD' => 'Options d\'affichage',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Keuze van layout',
 		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Layout-bestanden aanpassen',
@@ -354,6 +367,9 @@ $LANG = array (
 		'L_CONFIG_VIEW_UPDATE' => 'Pas de veranderingen toe',
 		'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT' => 'Toon categorieën zonder artikel',
 		'L_CONFIG_HOMETEMPLATE' => 'Template van de homepage',
+
+		// parametres_avances.php
+
 		'L_CONFIG_ADVANCED_DESC' => 'Geavanceerde configuratie',
 		'L_CONFIG_ADVANCED_URL_REWRITE' => 'herschrijven van URLs aanzetten',
 		'L_CONFIG_ADVANCED_URL_REWRITE_ALERT' => 'Opgepast. Er bestaat al een .htaccess bestand in de root van uw installatie. Door het inschakelen van URL herschrijven dit bestand zal worden gewijzigd',
@@ -377,7 +393,6 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'E-mail verzenden',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'E-mail verzendmethode',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'E-mails verzenden met SMTP',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Schakel e-mails verzenden door een SMTP-server in',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'SMTP-hostnaam',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'SMTP-gebruikersnaam',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'SMTP-wachtwoord',
@@ -400,6 +415,9 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP' => 'Klant-ID voor de OAUTH2-service (voorbeeld : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP' => 'De clientsleutel op de OAUTH2-service (voorbeeld : PrsvKp6aprKpoP8snnCoC8-x)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP' => 'Sla de klant-ID en klantgeheime code op zodat u het token kunt genereren.',
+
+		// parametres_base.php
+
 		'L_CONFIG_BASE_CONFIG_TITLE' => 'Basisconfiguratie',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Titel van de site',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Ondertitel van de site',
@@ -414,10 +432,16 @@ $LANG = array (
 		'L_CONFIG_META_KEYWORDS' => 'META-tag "keywords" van de site (optioneel)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'RSS-feeds weergeven',
 		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'RSS-feeds voor commentaar',
+
+		// parametres_edittpl.php
+
 		'L_CONFIG_EDITTPL_ERROR_NOTHEME' => 'Layout bestaat niet !',
 		'L_CONFIG_EDITTPL_TITLE' => 'Layout aanpassen',
 		'L_CONFIG_EDITTPL_SELECT_FILE' => 'Keuze aan te passen bestand :',
 		'L_CONFIG_EDITTPL_LOAD' => 'Laden',
+
+		// parametres_infos.php
+
 		'L_CONFIG_INFOS_TITLE' => 'Informatie over uw PluXml-installatie',
 		'L_CONFIG_INFOS_DESCRIPTION' => 'Deze informatie kan handig zijn om eventuele problemen van uw installatie te vinden',
 		'L_CONFIG_INFOS_NB_CATS' => 'aantal categorie?n :',
@@ -432,6 +456,9 @@ $LANG = array (
 		'L_MAIL_TEST_SUBJECT' => 'Test-e-mail verzonden van %s',
 		'L_MAIL_TEST_SENT_TO' => 'Test-e-mail verzonden naar %s. Controleer je postvak',
 		'L_MAIL_TEST_FAILURE' => 'Probleem voor het verzenden van de test-e-mail',
+
+		// parametres_users.php
+
 		'L_CONFIG_USERS_TITLE' => 'Gebruikers beheren',
 		'L_CONFIG_USER' => 'Gebruiker',
 		'L_CONFIG_USERS_ID' => 'Gebruikersnummer',
@@ -442,8 +469,9 @@ $LANG = array (
 		'L_ERR_LOGIN_ALREADY_EXISTS' => 'Login ID al in gebruik',
 		'L_ERR_USERNAME_ALREADY_EXISTS' => 'Gebruikersnaam al in gebruik',
 		'L_ERR_EMAIL_ALREADY_EXISTS' => 'E-mailadres al in gebruik',
-		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Categorie naam al in gebruik',
-		'L_ERR_STATIC_ALREADY_EXISTS' => 'Zoals reeds gebruikt',
+
+		// parametre_plugins.php
+
 		'L_BACK_TO_PLUGINS' => 'Terug naar Plugin-pagina',
 		'L_NO_PLUGIN' => 'Geen plugin',
 		'L_PLUGIN_NO_CONFIG' => 'Plugin niet geconfigureerd',
@@ -451,6 +479,9 @@ $LANG = array (
 		'L_PLUGINS_CSS_TITLE' => 'Bewerk de CSS-code van de plugin',
 		'L_CONTENT_FIELD_FRONTEND' => 'Css-bestand inhoud website',
 		'L_CONTENT_FIELD_BACKEND' => 'Css-bestand inhoud administrator',
+
+		// parametres_plugins.php
+
 		'L_PLUGINS_TITLE' => 'Plugins beheren',
 		'L_PLUGINS_VERSION' => 'Versie',
 		'L_PLUGINS_AUTHOR' => 'Auteur',
@@ -472,6 +503,9 @@ $LANG = array (
 		'L_PLUGINS_APPLY_BUTTON' => 'De lijst met plugins',
 		'L_PLUGINS_ACTIVE_LIST' => 'Actieve plugins',
 		'L_PLUGINS_INACTIVE_LIST' => 'Inactief plugins',
+
+		// profil.php
+
 		'L_PROFIL_EDIT_TITLE' => 'Uw profiel aanpassen',
 		'L_PROFIL' => 'Profiel',
 		'L_PROFIL_LOGIN' => 'Kies uw loginnaam',
@@ -484,6 +518,9 @@ $LANG = array (
 		'L_PROFIL_PASSWORD' => 'Wachtwoord',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Wachtwoord bevestigen',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Wachtwoord veranderen',
+
+		// statique.php
+
 		'L_STATIC_BACK_TO_PAGE' => 'Terug naar lijst van statische paginas',
 		'L_STATIC_UNKNOWN_PAGE' => 'Deze statische pagina bestaat niet of niet meer !',
 		'L_STATIC_TITLE' => 'Bron van statische pagina aanpassen',
@@ -493,6 +530,9 @@ $LANG = array (
 		'L_STATIC_TITLE_HTMLTAG' => 'Title tag inhoud (optioneel)',
 		'L_STATIC_META_DESCRIPTION' => 'META-tag "description" voor deze statische pagina (optioneel)',
 		'L_STATIC_META_KEYWORDS' => 'META-tag "keywords" voor deze statische pagina (optioneel)',
+
+		// statiques.php
+
 		'L_STATICS_PAGE_TITLE' => 'Aanmaken en aanpassen van statische paginas',
 		'L_STATICS_ID' => 'Naam pagina',
 		'L_STATICS_GROUP' => 'Groep',
@@ -511,6 +551,10 @@ $LANG = array (
 		'L_STATICS_SRC' => 'Aanpassen',
 		'L_STATICS_NEW_PAGE' => 'Nieuwe pagina',
 		'L_STATICS_UPDATE' => 'Lijst van statische paginas bewerken',
+		'L_ERR_STATIC_ALREADY_EXISTS' => 'Zoals reeds gebruikt',
+
+		// top.php
+
 		'L_PROFIL_ADMIN' => 'Administrateur',
 		'L_PROFIL_MANAGER' => 'Beheerder',
 		'L_PROFIL_MODERATOR' => 'Moderator',
@@ -541,6 +585,9 @@ $LANG = array (
 		'L_MENU_PROFIL_TITLE' => 'Uw gebruikersprofiel beheren',
 		'L_MENU_PROFIL' => 'Profiel',
 		'L_WARNING_INSTALLATION_FILE' => 'het bestand install.php is nog aanwezig in de basismap van uw PluXml.<br />Om veiligheidsredenen raden wij u aan dit bestand te of te <a class="lnkdelete" href="%s">hernoemen.</a>',
+
+		// user.php
+
 		'L_USER_UNKNOWN' => 'Onbekende gebruiker',
 		'L_USER_LANG' => 'Gebruikte taal in adminstratief gedeelte',
 		'L_USER_MAIL' => 'Emailadres',
@@ -548,6 +595,9 @@ $LANG = array (
 		'L_USER_UPDATE' => 'Deze gebruiker aanpassen',
 		'L_USER_PAGE_TITLE' => 'Gebruikersopties aanpassen',
 		'L_USER_BACK_TO_PAGE' => 'Terug naar gebruikerslijst',
+
+		//
+
 		'L_MENU_CONFIG_BASE_TITLE' => 'Uw PluXml basisconfiguratie bewerken',
 		'L_MENU_CONFIG_BASE' => 'Basisconfiguratie',
 		'L_MENU_CONFIG_VIEW_TITLE' => 'PluXml Scherminstellingen',
@@ -567,4 +617,4 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Terug naar de onderwerpen van de pagina',
 		'L_CONFIG_THEME_UPDATE' => 'Change Theme'
 );
-?>
+

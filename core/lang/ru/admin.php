@@ -24,8 +24,10 @@ $LANG = array (
 		'L_THUMBNAIL_SELECTION' => 'Выбрать Изображение',
 		'L_THUMBNAIL_TITLE' => 'Изображение Название (необязательно)',
 		'L_THUMBNAIL_ALT' => 'Альтернативный текст изображения (необязательно)',
+
 		'L_ERR_INVALID_DATE_CREATION' => 'Неверный дата создания',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Неверный дате обновления',
+		'L_INVALID_VALUE' => 'Неверное значение',
 
 		// class.plx.admin.php
 
@@ -47,14 +49,6 @@ $LANG = array (
 		'L_ARTICLE_SAVE_ERR' => 'Статьи не могут быть сохранены',
 		'L_ARTICLE_DELETE_ERR' => 'Ошибка: статья не может быть удалена',
 		'L_ERR_UNKNOWN_COMMENT' => 'Выбранный комментарий не существует',
-		'L_COMMENT_SAVE_SUCCESSFUL' => 'Комментарий был успешно сохранен',
-		'L_COMMENT_UPDATE_ERR' => 'Ошибка во время обновления комментария',
-		'L_COMMENT_DELETE_SUCCESSFUL' => 'Комментарий был успешно удален',
-		'L_COMMENT_DELETE_ERR' => 'Ошибка в удалении комментария',
-		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Комментарий был успешно проверен',
-		'L_COMMENT_VALIDATE_ERR' => 'Ошибка при проверке',
-		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Успешная модерация',
-		'L_COMMENT_MODERATE_ERR' => 'Ошибка при модерации',
 		'L_ERR_URL_ALREADY_EXISTS' => 'Адрес уже используется. Пожалуйста, измените значение поля \'Адрес\'',
 
 		// class.plx.media.php
@@ -186,6 +180,7 @@ $LANG = array (
 		'L_FOR_SELECTION' => 'Выбрать...',
 		'L_CAT_APPLY_BUTTON' => 'Изменить список категорий',
 		'L_CAT_UNKNOWN' => 'Неизвестная категория',
+		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Название категории уже используется',
 
 		// categorie.php
 
@@ -226,7 +221,14 @@ $LANG = array (
 		'L_COMMENT_ANSWER_BUTTON' => 'Ответить на этот комментарий',
 		'L_COMMENT_UPDATE_BUTTON' => 'Обновить',
 		'L_COMMENT_WRITTEN_BY' => 'Автор',
-		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Название категории уже используется',
+		'L_COMMENT_SAVE_SUCCESSFUL' => 'Комментарий был успешно сохранен',
+		'L_COMMENT_UPDATE_ERR' => 'Ошибка во время обновления комментария',
+		'L_COMMENT_DELETE_SUCCESSFUL' => 'Комментарий был успешно удален',
+		'L_COMMENT_DELETE_ERR' => 'Ошибка в удалении комментария',
+		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Комментарий был успешно проверен',
+		'L_COMMENT_VALIDATE_ERR' => 'Ошибка при проверке',
+		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Успешная модерация',
+		'L_COMMENT_MODERATE_ERR' => 'Ошибка при модерации',
 
 		// sous_navigation/commentaires.php
 
@@ -250,7 +252,6 @@ $LANG = array (
 
 		'L_COMMENTS_ARTICLE_SCOPE' => 'Статья',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'весь сайт',
-
 		'L_COMMENTS_LIST_DATE' => 'Дата',
 		'L_COMMENTS_LIST_AUTHOR' => 'Автор',
 		'L_COMMENTS_LIST_MESSAGE' => 'Сообщение',
@@ -263,11 +264,9 @@ $LANG = array (
 		'L_COMMENT_ONLINE_FEEDS_TITLE' => 'RSS-поток для включенных комментариев',
 		'L_COMMENT_ONLINE_FEEDS' => 'Включенные комментарии',
 		'L_COMMENTS_PRIVATE_FEEDS' => 'Приватный поток',
-
 		'L_COMMENTS_ONLINE_LIST' => 'Список опубликованных комментариев',
 		'L_COMMENTS_OFFLINE_LIST' => 'Комментарии, ожидающие модерации',
 		'L_COMMENTS_ALL_LIST' => 'Список комментариев',
-
 		'L_COMMENT_SET_ONLINE' => 'Включить',
 		'L_COMMENT_SET_OFFLINE' => 'Выключить',
 
@@ -394,7 +393,6 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'Отправка электронной почты',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'Способ отправки электронной почты',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'Отправка писем по SMTP',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Разрешить отправку писем по SMTP-серверу',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'Имя хоста SMTP',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'Имя пользователя SMTP',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'Пароль SMTP',
@@ -556,6 +554,7 @@ $LANG = array (
 		'L_ERR_STATIC_ALREADY_EXISTS' => 'Такой заголовок страницы уже используется',
 
 		// top.php
+
 		'L_PROFIL_ADMIN' => 'Администратор',
 		'L_PROFIL_MANAGER' => 'Менеджер',
 		'L_PROFIL_MODERATOR' => 'Модератор',
@@ -588,6 +587,7 @@ $LANG = array (
 		'L_WARNING_INSTALLATION_FILE' => 'Внимание! Файл install.php все еще находится в корневой папке PluXml.<br />Из соображений безопасности настоятельно рекомендуем <a class="lnkdelete" href="%s">удалить</a> его.',
 
 		// user.php
+
 		'L_USER_UNKNOWN' => 'Неизвестный пользователь',
 		'L_USER_LANG' => 'Язык, используемый в Администрировании',
 		'L_USER_MAIL' => 'Email адрес',
@@ -617,4 +617,4 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Вернуться к темам страницы',
 		'L_CONFIG_THEME_UPDATE' => 'Изменить стиль'
 );
-?>
+

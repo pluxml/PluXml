@@ -38,4 +38,4 @@ $LANG = array(
 'L_PWD_GOOD'						=> 'Mot de passe bon',
 'L_PWD_STRONG'						=> 'Mot de passe fort',
 );
-?>
+

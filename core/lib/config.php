@@ -27,12 +27,12 @@ define('PLX_MICROTIME', getMicrotime());
 include PLX_ROOT . 'config.php';
 
 $CONSTS = array(
-	'XMLFILE_PARAMETERS'	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
-	'XMLFILE_CATEGORIES'	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
-	'XMLFILE_STATICS'		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
-	'XMLFILE_USERS'			=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
-	'XMLFILE_PLUGINS'		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
-	'XMLFILE_TAGS'			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
+	'XMLFILE_PARAMETERS'	=> PLX_ROOT . PLX_CONFIG_PATH . 'parametres.xml',
+	'XMLFILE_CATEGORIES'	=> PLX_ROOT . PLX_CONFIG_PATH . 'categories.xml',
+	'XMLFILE_STATICS'		=> PLX_ROOT . PLX_CONFIG_PATH . 'statiques.xml',
+	'XMLFILE_USERS'			=> PLX_ROOT . PLX_CONFIG_PATH . 'users.xml',
+	'XMLFILE_PLUGINS'		=> PLX_ROOT . PLX_CONFIG_PATH . 'plugins.xml',
+	'XMLFILE_TAGS'			=> PLX_ROOT . PLX_CONFIG_PATH . 'tags.xml',
 );
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
@@ -84,6 +84,12 @@ function path($s, $newvalue='') {
 		$CONSTS[$s]=$newvalue;
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
+}
+
+# On verifie que PluXml est installé
+if(!file_exists(path('XMLFILE_PARAMETERS'))) {
+	header('Location: ' . PLX_ROOT . 'install.php');
+	exit;
 }
 
 /*

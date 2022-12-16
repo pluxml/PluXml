@@ -24,8 +24,10 @@ $LANG = array (
 		'L_THUMBNAIL_SELECTION' => 'Seleccionar Imagen',
 		'L_THUMBNAIL_TITLE' => 'Título de imagen (opcional)',
 		'L_THUMBNAIL_ALT' => 'El texto alternativo de la imagen (opcional)',
+
 		'L_ERR_INVALID_DATE_CREATION' => 'Fecha de creación no válida',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Fecha no válida actualiza',
+		'L_INVALID_VALUE' => 'valor no válido',
 
 		// class.plx.admin.php
 
@@ -47,14 +49,6 @@ $LANG = array (
 		'L_ARTICLE_SAVE_ERR' => 'Error al guardar el artículo',
 		'L_ARTICLE_DELETE_ERR' => 'Error al eliminar el artículo',
 		'L_ERR_UNKNOWN_COMMENT' => 'El comentario buscado no existe',
-		'L_COMMENT_SAVE_SUCCESSFUL' => 'Comentario guardado correctamente',
-		'L_COMMENT_UPDATE_ERR' => 'Error al actualizar el comentario',
-		'L_COMMENT_DELETE_SUCCESSFUL' => 'Comentario eliminado correctamente',
-		'L_COMMENT_DELETE_ERR' => 'Error al eliminar el comentario',
-		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Comentario aprobado correctamente',
-		'L_COMMENT_VALIDATE_ERR' => 'Error al aprobar el comentario',
-		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Comentario moderado correctamente',
-		'L_COMMENT_MODERATE_ERR' => 'Error al moderar el comentario',
 		'L_ERR_URL_ALREADY_EXISTS' => 'URL ya utilizada. Cambie el valor del campo «URL»',
 
 		// class.plx.media.php
@@ -186,6 +180,7 @@ $LANG = array (
 		'L_FOR_SELECTION' => 'Elementos seleccionados...',
 		'L_CAT_APPLY_BUTTON' => 'Modificar la lista de categorías',
 		'L_CAT_UNKNOWN' => 'Categoría desconocida',
+		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'El nombre de la categoría ya está en uso',
 
 		// categorie.php
 
@@ -226,7 +221,14 @@ $LANG = array (
 		'L_COMMENT_ANSWER_BUTTON' => 'Responder a este comentario',
 		'L_COMMENT_UPDATE_BUTTON' => 'Actualizar',
 		'L_COMMENT_WRITTEN_BY' => 'Escrito por',
-		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Ya existe una categoría con ese nombre',
+		'L_COMMENT_SAVE_SUCCESSFUL' => 'Comentario guardado correctamente',
+		'L_COMMENT_UPDATE_ERR' => 'Error al actualizar el comentario',
+		'L_COMMENT_DELETE_SUCCESSFUL' => 'Comentario eliminado correctamente',
+		'L_COMMENT_DELETE_ERR' => 'Error al eliminar el comentario',
+		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Comentario aprobado correctamente',
+		'L_COMMENT_VALIDATE_ERR' => 'Error al aprobar el comentario',
+		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Comentario moderado correctamente',
+		'L_COMMENT_MODERATE_ERR' => 'Error al moderar el comentario',
 
 		// sous_navigation/commentaires.php
 
@@ -552,6 +554,7 @@ $LANG = array (
 		'L_ERR_STATIC_ALREADY_EXISTS' => 'Ya existe una página con ese título',
 
 		// top.php
+
 		'L_PROFIL_ADMIN' => 'Administrador',
 		'L_PROFIL_MANAGER' => 'Gestor',
 		'L_PROFIL_MODERATOR' => 'Moderador',
@@ -584,6 +587,7 @@ $LANG = array (
 		'L_WARNING_INSTALLATION_FILE' => 'Todavía existe el archivo «install.php» en la raíz de PluXml.<br />Por razones de seguridad, le sugerimos que lo <a class="lnkdelete" href="%s">elimine</a>.',
 
 		// user.php
+
 		'L_USER_UNKNOWN' => 'Usuario desconocido',
 		'L_USER_LANG' => 'Idioma utilizado en la administración',
 		'L_USER_MAIL' => 'Dirección de correo',
@@ -613,4 +617,4 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Volver a la lista de temas',
 		'L_CONFIG_THEME_UPDATE' => 'Cambiar tema'
 );
-?>
+

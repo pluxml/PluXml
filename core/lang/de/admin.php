@@ -22,7 +22,6 @@ $LANG = array (
 		'L_RENAME_FILE_SUCCESSFUL' => 'Datei umbenannt erfolgreich',
 		'L_RENAME_FILE_ERR' => 'Fehler beim Verarbeiten der Datei',
 		'L_RENAME_FILE' => 'Datei umbenennen',
-
 		'L_THUMBNAIL' => 'Vorschaubild (optional)',
 		'L_THUMBNAIL_SELECTION' => 'Bild auswählen',
 		'L_THUMBNAIL_TITLE' => 'Bildtitel (optional)',
@@ -30,6 +29,7 @@ $LANG = array (
 
 		'L_ERR_INVALID_DATE_CREATION' => 'Ungültige Erstellungsdatum',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Datum ungültig aktualisiert',
+		'L_INVALID_VALUE' => 'Ungültiger Wert',
 
 		// class.plx.admin.php
 
@@ -105,7 +105,6 @@ $LANG = array (
 		'L_NOW' => 'jetzt',
 		'L_ARTICLE_CATEGORIES' => 'Kategorien',
 		'L_CATEGORY_HOME_PAGE' => 'Homepage',
-		'L_NEW_CATEGORY' => 'Neue Kategorie',
 		'L_ARTICLE_TAGS_FIELD' => 'Schlagworte',
 		'L_ARTICLE_TAGS_FIELD_TITLE' => 'Trennen Sie Schlagorte mit Komma',
 		'L_ARTICLE_TOGGLER_TITLE' => 'Schlagwortliste',
@@ -158,9 +157,9 @@ $LANG = array (
 		'L_SORT_ALPHABETICAL' => 'alphabetisch',
 		'L_SORT_REVERSE_ALPHABETICAL' => 'rückwärts alphabetisch',
 		'L_SORT_RANDOM' => 'aleatorischen',
-		'L_OK' => 'Ok',
 		'L_YES' => 'Ja',
 		'L_NO' => 'Nein',
+		'L_OK' => 'Ok',
 		'L_NONE1' => 'kein',
 		'L_NONE2' => 'kein',
 
@@ -179,6 +178,7 @@ $LANG = array (
 		'L_DISPLAY' => 'Anzeigen',
 		'L_HIDE' => 'Verstecken',
 		'L_OPTIONS' => 'Optionen',
+		'L_NEW_CATEGORY' => 'Neue Kategorie',
 		'L_FOR_SELECTION' => 'Aktion auswählen...',
 		'L_CAT_APPLY_BUTTON' => 'Änderungen speichern',
 		'L_CAT_UNKNOWN' => 'Unbekannte Kategorie',
@@ -395,8 +395,6 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'E-Mail senden',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'E-Mail-Versandmethode',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'Senden von E-Mails mit SMTP',
-		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP' => 'Brauchen Sie Hilfe : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Dokumentation von PluXml</a>&nbsp;(fr)',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Aktivieren Sie E-Mails, die einen SMTP-Server senden',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'SMTP-Hostname',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'SMTP username',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'SMTP-Benutzername',
@@ -408,6 +406,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY' => 'Geheimer Client-Schlüssel',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN' => 'Token',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Erzeugen Sie ein Token',
+		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP' => 'Brauchen Sie Hilfe : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Dokumentation von PluXml</a>&nbsp;(fr)',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD_HELP' => 'Aucune configuration n\'est requise pour sendmail.<br>',
 		'L_CONFIG_ADVANCED_SMTP_SERVER_HELP' => 'Nom du serveur SMTP (exemple : ssl0.ovh.net)',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME_HELP' => 'Nom de l\'utilisateur sur l\'hôte SMTP (exemple : pluxml@monserveursmtp.com)',
@@ -620,4 +619,4 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Zurück Hilfe',
 		'L_CONFIG_THEME_UPDATE' => 'Theme ändern'
 );
-?>
+
