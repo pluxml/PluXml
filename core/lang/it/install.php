@@ -21,6 +21,7 @@ $LANG = array(
 'L_ERR_MISSING_USER'				=> 'Inserisci il nome del redattore !',
 'L_ERR_MISSING_LOGIN'				=> 'Inserisci il nome utente !',
 'L_ERR_MISSING_PASSWORD'			=> 'Inserisci una password !',
+'L_ERR_MISSING_EMAIL'               => 'Inserisci un indirizzo email (recupero password).',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Conferma della password non corretta !',
 'L_PLUXML_INSTALLATION'				=> 'Installazione di PluXml',
 'L_SITE_DESCRIPTION'				=> 'Blog o Cms XML powered !',
@@ -37,4 +38,4 @@ $LANG = array(
 'L_PWD_GOOD'						=> 'Buona password',
 'L_PWD_STRONG'						=> 'Password complessa',
 );
-?>
+

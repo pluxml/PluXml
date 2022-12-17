@@ -21,6 +21,7 @@ $LANG = array(
 'L_ERR_MISSING_USER'				=> 'Vul de naam van de redacteur in !',
 'L_ERR_MISSING_LOGIN'				=> 'Vul een loginnaam in !',
 'L_ERR_MISSING_PASSWORD'			=> 'Vul een wachtwoord in !',
+'L_ERR_MISSING_EMAIL'               => 'Voer een e-mailadres in (wachtwoordherstel).',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Bevestiging van wachtwoord mislukt !',
 'L_PLUXML_INSTALLATION'				=> 'Installatie van PluXml',
 'L_SITE_DESCRIPTION'				=> 'Blog of Cms in XML !',
@@ -37,4 +38,4 @@ $LANG = array(
 'L_PWD_GOOD'						=> 'Goed wachtwoord',
 'L_PWD_STRONG'						=> 'Sterk wachtwoord',
 );
-?>
+

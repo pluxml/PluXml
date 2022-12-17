@@ -242,7 +242,7 @@ $LANG = array (
 		'L_SEARCH' => 'Cerca',
 		'L_SEARCH_PLACEHOLDER' => 'id o titolo',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Tutte le categorie ...',
-		'L_ARTICLES_ALL_AUTHORS'	> 'Tutti gli autori...',
+		'L_ARTICLES_ALL_AUTHORS' => 'Tutti gli autori...',
 		'L_ALL' => 'Tutte le',
 		'L_ALL_PUBLISHED' => 'Edizione',
 		'L_ALL_DRAFTS' => 'Bozze',
@@ -253,7 +253,6 @@ $LANG = array (
 		'L_MEDIAS_FILENAME' => 'Nome del file',
 		'L_MEDIAS_ADD_FILE' => 'Aggiungi file',
 		'L_MEDIAS_BACK' => 'Indietro',
-		'L_MEDIAS_MAX_FILE_UPLOAD' => 'Numero massimo di file consentito da caricare',
 		'L_MEDIAS_TITLE' => 'Gestione dei media',
 		'L_MEDIAS_IMAGES' => 'Immagini',
 		'L_MEDIAS_DOCUMENTS' => 'Documenti',
@@ -533,6 +532,7 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Torna alla pagina dei temi',
 		'L_ERR_INVALID_DATE_CREATION' => 'Data di creazione non valida',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Data non valida aggiornato',
+		'L_INVALID_VALUE' => 'valore non valido',
 		'L_CONFIG_THEME_UPDATE' => 'Cambia Aspetto'
 );
-?>
+

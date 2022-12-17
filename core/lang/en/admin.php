@@ -20,7 +20,6 @@ $LANG = array (
 		'L_RENAME_FILE_SUCCESSFUL' => 'Successfully renamed file',
 		'L_RENAME_FILE_ERR' => 'Error while processing file',
 		'L_RENAME_FILE' => 'Rename file',
-
 		'L_THUMBNAIL' => 'Thumbnail (optional)',
 		'L_THUMBNAIL_SELECTION' => 'Select image',
 		'L_THUMBNAIL_TITLE' => 'Image Title (optional)',
@@ -28,6 +27,7 @@ $LANG = array (
 
 		'L_ERR_INVALID_DATE_CREATION' => 'Invalid creation date',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Invalid date updated',
+		'L_INVALID_VALUE' => 'Invalid value',
 
 		// class.plx.admin.php
 
@@ -209,7 +209,7 @@ $LANG = array (
 		'L_COMMENT_AUTHOR_FIELD' => 'Author',
 		'L_COMMENT_TYPE_FIELD' => 'Comment type',
 		'L_COMMENT_DATE_FIELD' => 'Date and time of publication',
-		'L_COMMENT_IP_FIELD' => 'Ip',
+		'L_COMMENT_IP_FIELD' => 'IP',
 		'L_COMMENT_SITE_FIELD' => 'Site',
 		'L_COMMENT_EMAIL_FIELD' => 'E-mail',
 		'L_COMMENT_STATUS_FIELD' => 'Status',
@@ -617,4 +617,4 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Back to themes',
 		'L_CONFIG_THEME_UPDATE' => 'Change Theme'
 );
-?>
+

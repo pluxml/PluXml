@@ -20,7 +20,6 @@ $LANG = array (
 		'L_RENAME_FILE_SUCCESSFUL' => 'Fichier renommé avec succès',
 		'L_RENAME_FILE_ERR' => 'Erreur pendant le traitement du fichier',
 		'L_RENAME_FILE' => 'Renommer fichier',
-
 		'L_THUMBNAIL' => 'Image d\'accroche (facultatif)',
 		'L_THUMBNAIL_SELECTION' => 'Sélectionner une image',
 		'L_THUMBNAIL_TITLE' => 'Titre de l\'image (facultatif)',
@@ -28,6 +27,7 @@ $LANG = array (
 
 		'L_ERR_INVALID_DATE_CREATION' => 'Date de création invalide',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Date de mise à jour invalide',
+		'L_INVALID_VALUE' => 'Valeur invalide',
 
 		// class.plx.admin.php
 
@@ -617,4 +617,4 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Retour à la page des thèmes',
 		'L_CONFIG_THEME_UPDATE' => 'Modifier le thème'
 );
-?>
+

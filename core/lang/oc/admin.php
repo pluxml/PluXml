@@ -24,8 +24,10 @@ $LANG = array (
 		'L_THUMBNAIL_SELECTION' => 'Seleccionar un imatge',
 		'L_THUMBNAIL_TITLE' => 'Títol de l\'imatge (facultatiu)',
 		'L_THUMBNAIL_ALT' => 'Tèxte alternatiu de l\'imatge (facultatiu)',
+
 		'L_ERR_INVALID_DATE_CREATION' => 'Data de creacion invalida',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Data de mesa a jorn invalida',
+		'L_INVALID_VALUE' => 'Valeur invalide',
 
 		// class.plx.admin.php
 
@@ -392,7 +394,6 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'Mandadís dels corrièls',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'Mòde de mandadís dels corrièls',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'Mandadís dels corrièls amb SMTP',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Activar los corrièls amb SMTP',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'Òste SMTP',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'Nom d\'utilizaire de SMTP',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'Senhal SMTP',

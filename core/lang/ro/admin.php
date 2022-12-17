@@ -24,6 +24,13 @@ $LANG = array (
 		'L_THUMBNAIL_SELECTION' => 'Selectați Image',
 		'L_THUMBNAIL_TITLE' => 'Titlu imagine (opţional)',
 		'L_THUMBNAIL_ALT' => 'Textul alternativ al imaginii (opţional)',
+
+		'L_ERR_INVALID_DATE_CREATION' => 'Data creării invalid',
+		'L_ERR_INVALID_DATE_UPDATE' => 'Data invalid actualizat',
+		'L_INVALID_VALUE' => 'valoare invalida',
+
+		// class.plx.admin.php
+
 		'L_SAVE_SUCCESSFUL' => 'Înregistrarea a fost efectuata cu succes',
 		'L_SAVE_ERR' => 'Eroare la înregistrare ',
 		'L_NO_ENTRY' => 'Acces refuzat',
@@ -42,15 +49,10 @@ $LANG = array (
 		'L_ARTICLE_SAVE_ERR' => 'Eroare la salvarea articolului',
 		'L_ARTICLE_DELETE_ERR' => 'A apărut o eroare în timpul eliminarii articolului',
 		'L_ERR_UNKNOWN_COMMENT' => 'Comentariul cerut nu exista, sau nu e accesibil',
-		'L_COMMENT_SAVE_SUCCESSFUL' => 'Comentariu modificat cu succes',
-		'L_COMMENT_UPDATE_ERR' => 'Eroare la actualizarea comentariului',
-		'L_COMMENT_DELETE_SUCCESSFUL' => 'Eliminarea a decurs cu succes',
-		'L_COMMENT_DELETE_ERR' => 'A apărut o eroare la ştergere',
-		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Validarea a decurs cu succes',
-		'L_COMMENT_VALIDATE_ERR' => 'A apărut o eroare în timpul validării',
-		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Moderarea a decurs cu succes',
-		'L_COMMENT_MODERATE_ERR' => 'A apărut o eroare la moderare',
-		'L_COMMENT_WRITTEN_BY' => 'Scris de',
+		'L_ERR_URL_ALREADY_EXISTS' => 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'',
+
+		// class.plx.media.php
+
 		'L_PLXMEDIAS_MEDIAS_FOLDER_ERR' => 'Imposibil de a crea un fişier media',
 		'L_PLXMEDIAS_ROOT' => 'radacina',
 		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Nu poate fi creat directoriul',
@@ -77,6 +79,9 @@ $LANG = array (
 		'L_PLXMEDIAS_RECREATE_THUMBS_ERR' => 'Eroare la crearea miniatură',
 		'L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL' => 'Miniatură creat cu succes',
 		'L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL' => 'Thumbnails creat cu succes',
+
+		// article.php
+
 		'L_DEFAULT_NEW_ARTICLE_TITLE' => 'Articol Nou',
 		'L_ERR_INVALID_PUBLISHING_DATE' => 'Data publicării gresita.',
 		'L_ERR_UNKNOWN_ARTICLE' => 'Articolul solicitat nu exista sau a fost sters !',
@@ -98,7 +103,6 @@ $LANG = array (
 		'L_NOW' => 'acum',
 		'L_ARTICLE_CATEGORIES' => 'Categoriile articolului',
 		'L_CATEGORY_HOME_PAGE' => 'Home',
-		'L_NEW_CATEGORY' => 'Categorie nouă',
 		'L_ARTICLE_TAGS_FIELD' => 'Cuvinte cheie',
 		'L_ARTICLE_TAGS_FIELD_TITLE' => 'Separaţi cuvintele cheie prin virgulă',
 		'L_ARTICLE_TOGGLER_TITLE' => 'Listă de cuvinte cheie',
@@ -126,6 +130,9 @@ $LANG = array (
 		'L_ARTICLE_CHAPO_DISPLAY' => 'afişa',
 		'L_ARTICLE' => 'articol',
 		'L_ARTICLE_ID' => 'ID',
+
+		// auth.php
+
 		'L_AUTH_PAGE_TITLE' => 'Pagina de autentificare',
 		'L_LOGOUT_SUCCESSFUL' => 'Vati deconectat cu succes',
 		'L_LOGIN_PAGE' => 'Conectare in zona de administrare ',
@@ -140,6 +147,22 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Conectare',
 		'L_LOST_PASSWORD_SUCCESS' => 'Un e-mail a fost trimis utilizatorului',
 		'L_LOST_PASSWORD_ERROR' => 'Legătura a expirat',
+
+		//
+
+		'L_SORT_ASCENDING_DATE' => 'data crescator',
+		'L_SORT_DESCENDING_DATE' => 'descendentă Data',
+		'L_SORT_ALPHABETICAL' => 'alfabetic',
+		'L_SORT_REVERSE_ALPHABETICAL' => 'inversă alfabetică',
+		'L_SORT_RANDOM' => 'aleatoriu',
+		'L_YES' => 'Da',
+		'L_NO' => 'Nu',
+		'L_OK' => 'Ok',
+		'L_NONE1' => 'nu',
+		'L_NONE2' => 'nimic',
+
+		// categories.php
+
 		'L_CAT_TITLE' => 'Crearea şi editarea categoriei',
 		'L_CAT_LIST_ID' => 'Id',
 		'L_CAT_LIST_ACTIVE' => 'Activ',
@@ -153,9 +176,14 @@ $LANG = array (
 		'L_DISPLAY' => 'Afişează',
 		'L_HIDE' => 'Ascunde',
 		'L_OPTIONS' => 'Opţiuni',
+		'L_NEW_CATEGORY' => 'Categorie nouă',
 		'L_FOR_SELECTION' => 'Alegeţi obţiunea...',
 		'L_CAT_APPLY_BUTTON' => 'Modifică lista de categorii',
 		'L_CAT_UNKNOWN' => 'Categorie necunoscuta',
+		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Categorie nume deja utilizate',
+
+		// categorie.php
+
 		'L_EDITCAT_PAGE_TITLE' => 'Editarea categoriei',
 		'L_EDITCAT_DESCRIPTION' => 'Descrierea',
 		'L_EDITCAT_DISPLAY_HOMEPAGE' => 'Afișare articole în această categorie pe pagina de start',
@@ -165,6 +193,9 @@ $LANG = array (
 		'L_EDITCAT_TITLE_HTMLTAG' => 'Conţinutul tag-ul titlu (opţional)',
 		'L_EDITCAT_META_DESCRIPTION' => 'Conţinutul tag-ului meta "descriere" pentru această categorie (opţional)',
 		'L_EDITCAT_META_KEYWORDS' => 'Conţinutul tag-ului meta "cuvinte-cheie" pentru această categorie (opţional)',
+
+		// commentaire.php
+
 		'L_COMMENT_ORPHAN' => 'nici un articol',
 		'L_COMMENT_ORPHAN_STATUS' => 'nu sunt vizibile (vă recomandăm să ştergeţi acest comentariu)',
 		'L_COMMENT_ARTICLE_LINKED' => 'Articole',
@@ -189,6 +220,23 @@ $LANG = array (
 		'L_COMMENT_OFFLINE_BUTTON' => 'Ia Offline',
 		'L_COMMENT_ANSWER_BUTTON' => 'Răspundeţi la acest comentariu',
 		'L_COMMENT_UPDATE_BUTTON' => 'Update',
+		'L_COMMENT_WRITTEN_BY' => 'Scris de',
+		'L_COMMENT_SAVE_SUCCESSFUL' => 'Comentariu modificat cu succes',
+		'L_COMMENT_UPDATE_ERR' => 'Eroare la actualizarea comentariului',
+		'L_COMMENT_DELETE_SUCCESSFUL' => 'Eliminarea a decurs cu succes',
+		'L_COMMENT_DELETE_ERR' => 'A apărut o eroare la ştergere',
+		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Validarea a decurs cu succes',
+		'L_COMMENT_VALIDATE_ERR' => 'A apărut o eroare în timpul validării',
+		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Moderarea a decurs cu succes',
+		'L_COMMENT_MODERATE_ERR' => 'A apărut o eroare la moderare',
+
+		// sous_navigation/commentaires.php
+
+		'L_COMMENT_NEW_COMMENT_TITLE' => 'Scrie un comentariu nou pentru acest articol',
+		'L_COMMENT_NEW_COMMENT' => 'Scrie un comentariu nou',
+
+		// commentaire_new.php
+
 		'L_ERR_ANSWER_UNKNOWN_COMMENT' => 'Comentariul va încerca să răspundă la nu există sau nu-i sunt mai !',
 		'L_ERR_ANSWER_OFFLINE_COMMENT' => 'comentariul este offline, nu răspunsul !',
 		'L_ERR_COMMENT_UNKNOWN_ARTICLE' => 'Articolul solicitat nu exista, sau nu puteti scrie comentarii la acest articol !',
@@ -199,11 +247,11 @@ $LANG = array (
 		'L_ARTICLE_COMMENTS_LIST' => 'Comentarii la acest articol (mai nou de la vechi la cele mai)',
 		'L_COMMENT_ANSWER_TITLE' => 'Răspundeţi la acest comentariu',
 		'L_COMMENT_ANSWER' => 'Raspunde',
-		'L_COMMENT_NEW_COMMENT_TITLE' => 'Scrie un comentariu nou pentru acest articol',
-		'L_COMMENT_NEW_COMMENT' => 'Scrie un comentariu nou',
+
+		// comments.php
+
 		'L_COMMENTS_ARTICLE_SCOPE' => 'Articolul',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'Întregul site-ului',
-		'L_COMMENTS_OFFLINE_LIST' => 'Lista de comentarii ce aşteaptă a fi aprobate ',
 		'L_COMMENTS_LIST_DATE' => 'Date',
 		'L_COMMENTS_LIST_AUTHOR' => 'Autor',
 		'L_COMMENTS_LIST_MESSAGE' => 'Mesaj',
@@ -217,9 +265,21 @@ $LANG = array (
 		'L_COMMENT_ONLINE_FEEDS' => 'Comentarii Online',
 		'L_COMMENTS_PRIVATE_FEEDS' => 'Feed privat de comentarii',
 		'L_COMMENTS_ONLINE_LIST' => 'Lista de comentarii publicate',
+		'L_COMMENTS_OFFLINE_LIST' => 'Lista de comentarii ce aşteaptă a fi aprobate ',
 		'L_COMMENTS_ALL_LIST' => 'Lista comentarii',
 		'L_COMMENT_SET_ONLINE' => 'Ia Online',
 		'L_COMMENT_SET_OFFLINE' => 'Ia Offline',
+
+		// index.php
+
+		'L_SEARCH' => 'Căutare',
+		'L_SEARCH_PLACEHOLDER' => 'Identificator sau titlu',
+		'L_ARTICLES_ALL_CATEGORIES' => 'Toate categoriile ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Toți autorii...',	
+		'L_ALL' => 'Toate',
+		'L_ALL_PUBLISHED' => 'Publicat',
+		'L_ALL_DRAFTS' => 'Schiţe',
+		'L_ALL_AWAITING_MODERATION' => 'Până la validare',
 		'L_ARTICLES_FILTER_BUTTON' => 'Caută',
 		'L_CATEGORIES_TABLE' => 'Categorii',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Locaţii specifice',
@@ -239,35 +299,29 @@ $LANG = array (
 		'L_NEW_COMMENTS_TITLE' => 'Comentarii ce aşteaptă validarea',
 		'L_VALIDATED_COMMENTS_TITLE' => 'Comentarii postate',
 		'L_NO_ARTICLE' => 'Nu sunt articole',
-		'L_SEARCH' => 'Căutare',
-		'L_SEARCH_PLACEHOLDER' => 'Identificator sau titlu',
-		'L_ARTICLES_ALL_CATEGORIES' => 'Toate categoriile ...',
-		'L_ARTICLES_ALL_AUTHORS'	=> 'Toți autorii...',	
-		'L_ALL' => 'Toate',
-		'L_ALL_PUBLISHED' => 'Publicat',
-		'L_ALL_DRAFTS' => 'Schiţe',
-		'L_ALL_AWAITING_MODERATION' => 'Până la validare',
-		'L_MEDIAS_DELETE_FOLDER' => 'Ştergeţi Directoriu',
-		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Sunteti sigur ca doriti sa stergeţi directoriul şi conţinutul lui %s ?',
-		'L_MEDIAS_NO_FILE' => 'Nici un fişier',
+
+		// medias.php
+
 		'L_MEDIAS_FILENAME' => 'Filename',
-		'L_MEDIAS_ADD_FILE' => 'Adăugaţi fişiere',
-		'L_MEDIAS_BACK' => 'Back',
-		'L_MEDIAS_MAX_FILE_UPLOAD' => 'Numărul maxim de fișiere permise prin încărcarea',
 		'L_MEDIAS_TITLE' => 'Management Media',
-		'L_MEDIAS_IMAGES' => 'Images',
-		'L_MEDIAS_DOCUMENTS' => 'Documente',
-		'L_MEDIAS_CREATE_FOLDER' => 'Crearea unui directoriu',
-		'L_MEDIAS_SUBMIT_FILE' => 'Trimite',
+		'L_MEDIAS_DIRECTORY' => 'Locaţie',
+		'L_MEDIAS_BACK' => 'Back',
 		'L_MEDIAS_MAX_UPLOAD_FILE' => 'Dimensiunea maximă de fişier',
 		'L_MEDIAS_MAX_UPLOAD_NBFILE' => 'Numărul maxim de fișiere per încărcare',
 		'L_MEDIAS_MAX_POST_SIZE' => 'Dimensiunea maximă a datelor',
-		'L_MEDIAS_DIRECTORY' => 'Locaţie',
+		'L_MEDIAS_SUBMIT_FILE' => 'Trimite',
+		'L_MEDIAS_IMAGES' => 'Images',
+		'L_MEDIAS_DOCUMENTS' => 'Documente',
+		'L_MEDIAS_ADD_FILE' => 'Adăugaţi fişiere',
+		'L_MEDIAS_DELETE_FOLDER' => 'Ştergeţi Directoriu',
+		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Sunteti sigur ca doriti sa stergeţi directoriul şi conţinutul lui %s ?',
 		'L_MEDIAS_FOLDER' => 'Fişier',
 		'L_MEDIAS_NEW_FOLDER' => 'New Folder',
+		'L_MEDIAS_CREATE_FOLDER' => 'Crearea unui directoriu',
 		'L_MEDIAS_FILESIZE' => 'Dimensiunea',
 		'L_MEDIAS_DATE' => 'Data',
 		'L_MEDIAS_DIMENSIONS' => 'Dimensiuni',
+		'L_MEDIAS_NO_FILE' => 'Nici un fişier',
 		'L_MEDIAS_RESIZE' => 'Redimensionarea Imagini',
 		'L_MEDIAS_RESIZE_NO' => 'Dimensiune original',
 		'L_MEDIAS_THUMBS' => 'A crea thumbnails',
@@ -287,16 +341,9 @@ $LANG = array (
 		'L_MEDIAS_LINK_COPYCLP_DONE' => 'link-ul copiat',
 		'L_MEDIAS_NEW_NAME' => 'Nume nou',
 		'L_MEDIAS_RENAME' => 'Redenumire',
-		'L_SORT_ASCENDING_DATE' => 'data crescator',
-		'L_SORT_DESCENDING_DATE' => 'descendentă Data',
-		'L_SORT_ALPHABETICAL' => 'alfabetic',
-		'L_SORT_REVERSE_ALPHABETICAL' => 'inversă alfabetică',
-		'L_SORT_RANDOM' => 'aleatoriu',
-		'L_OK' => 'Ok',
-		'L_YES' => 'Da',
-		'L_NO' => 'Nu',
-		'L_NONE1' => 'nu',
-		'L_NONE2' => 'nimic',
+
+		// parametres_affichage.php
+
 		'L_CONFIG_VIEW_FIELD' => 'Optiuni de afisare',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Alege tema',
 		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Editaţi fişierele tema',
@@ -320,6 +367,9 @@ $LANG = array (
 		'L_CONFIG_VIEW_UPDATE' => 'Editare Opţiuni afişare',
 		'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT' => 'Afişarea categorii fără articolul',
 		'L_CONFIG_HOMETEMPLATE' => 'Format din pagina de start',
+
+		// parametres_avances.php
+
 		'L_CONFIG_ADVANCED_DESC' => 'Avansate de configurare',
 		'L_CONFIG_ADVANCED_URL_REWRITE' => 'Permite rescrierea url-uri',
 		'L_CONFIG_ADVANCED_URL_REWRITE_ALERT' => 'Atenţie într-un fişier. Htaccess este deja prezent la rădăcina PluXml dumneavoastră. Prin activarea rescrierea dosarul \ url va fi modificat',
@@ -343,7 +393,6 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'Trimitere prin e-mail',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'Metoda de trimitere prin e-mail',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'Trimiterea de e-mailuri cu SMTP',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Activați e-mailurile trimise de un server SMTP',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'Nume gazdă SMTP',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'Numele de utilizator SMTP',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'Parola SMTP',
@@ -366,6 +415,9 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP' => 'ID client la serviciul OAUTH2 (exemplu : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP' => 'Cheia de client a serviciului OAUTH2 (exemplu : PrsvKp6aprKpoP8snnCoC8-x)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP' => 'Salvați codul de identificare și codul secret al clientului, astfel încât să puteți genera jetonul.',
+
+		// parametres_base.php
+
 		'L_CONFIG_BASE_CONFIG_TITLE' => 'Configurarea bazei',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Denumirea sitului',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Descriere sitului',
@@ -380,10 +432,16 @@ $LANG = array (
 		'L_CONFIG_META_KEYWORDS' => 'Conţinut de meta tags "cuvinte cheie" Site-ul (opţional)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'Afișați fluxuri RSS',
 		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'Afișați fluxuri RSS comentariile',
+
+		// parametres_edittpl.php
+
 		'L_CONFIG_EDITTPL_ERROR_NOTHEME' => 'Aceasta temă nu există!',
 		'L_CONFIG_EDITTPL_TITLE' => 'Editare Tematica',
 		'L_CONFIG_EDITTPL_SELECT_FILE' => 'Selectaţi fişierul pentru a edita :',
 		'L_CONFIG_EDITTPL_LOAD' => 'Sarcină',
+
+		// parametres_infos.php
+
 		'L_CONFIG_INFOS_TITLE' => 'Informaţii privind PluXml',
 		'L_CONFIG_INFOS_DESCRIPTION' => 'Informaţiile pe care le furniza informaţii cu privire la modul PluXml dumneavoastră şi poate dovedi util pentru depanare.',
 		'L_CONFIG_INFOS_NB_CATS' => 'Numărul de categorii :',
@@ -398,6 +456,9 @@ $LANG = array (
 		'L_MAIL_TEST_SUBJECT' => 'E-mail de testare trimis de la %s',
 		'L_MAIL_TEST_SENT_TO' => 'E-mail de testare trimis la %s. Verifica-ti casuta de e-mail',
 		'L_MAIL_TEST_FAILURE' => 'Problemă pentru trimiterea e-mailului de testare',
+
+		// parametres_users.php
+
 		'L_CONFIG_USERS_TITLE' => 'Gestionarea utilizatorilor',
 		'L_CONFIG_USER' => 'Utilizator',
 		'L_CONFIG_USERS_ID' => 'Users Id',
@@ -408,8 +469,9 @@ $LANG = array (
 		'L_ERR_LOGIN_ALREADY_EXISTS' => 'Login ID deja utilizate',
 		'L_ERR_USERNAME_ALREADY_EXISTS' => 'Nume de utilizator deja în uz',
 		'L_ERR_EMAIL_ALREADY_EXISTS' => 'Adresa de email este deja in folosinta',
-		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Categorie nume deja utilizate',
-		'L_ERR_STATIC_ALREADY_EXISTS' => 'Aşa cum deja utilizate',
+
+		// parametre_plugins.php
+
 		'L_BACK_TO_PLUGINS' => 'Back to Plugins',
 		'L_NO_PLUGIN' => 'Nr plugin',
 		'L_PLUGIN_NO_CONFIG' => 'Nu Plugin configurat',
@@ -417,6 +479,9 @@ $LANG = array (
 		'L_PLUGINS_CSS_TITLE' => 'Edita codul CSS al plugin',
 		'L_CONTENT_FIELD_FRONTEND' => 'Site-ul de conținut fișier css',
 		'L_CONTENT_FIELD_BACKEND' => 'CSS administrator conținutul fișierului',
+
+		// parametres_plugins.php
+
 		'L_PLUGINS_TITLE' => 'Gestiunea plugin-urilor',
 		'L_PLUGINS_VERSION' => 'Versiune',
 		'L_PLUGINS_AUTHOR' => 'Autor',
@@ -438,6 +503,9 @@ $LANG = array (
 		'L_PLUGINS_APPLY_BUTTON' => 'Modificarea lista de plugin-uri',
 		'L_PLUGINS_ACTIVE_LIST' => 'Plugin-uri active',
 		'L_PLUGINS_INACTIVE_LIST' => 'Plugin-uri inactive',
+
+		// profil.php
+
 		'L_PROFIL_EDIT_TITLE' => 'Editează Profilul',
 		'L_PROFIL' => 'Profil',
 		'L_PROFIL_LOGIN' => 'Login',
@@ -450,6 +518,9 @@ $LANG = array (
 		'L_PROFIL_PASSWORD' => 'Parola',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Confirmaţi parola',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Schimbaţi parola',
+
+		// statique.php
+
 		'L_STATIC_BACK_TO_PAGE' => 'Înapoi la lista de pagini statice',
 		'L_STATIC_UNKNOWN_PAGE' => 'Această pagină statică nu există sau nu este accesibila !',
 		'L_STATIC_TITLE' => 'Editează codul sursă a paginei statice',
@@ -459,6 +530,9 @@ $LANG = array (
 		'L_STATIC_TITLE_HTMLTAG' => 'Conţinutul tag-ul titlu (opţional)',
 		'L_STATIC_META_DESCRIPTION' => 'Conţinutul tag-ul meta "descriere" pentru această pagină statică (opţional)',
 		'L_STATIC_META_KEYWORDS' => 'Conţinutul meta tag "keywords " la această pagină statică (opţional)',
+
+		// statiques.php
+
 		'L_STATICS_PAGE_TITLE' => 'Crearea şi publicarea paginei statice',
 		'L_STATICS_ID' => 'Identificator',
 		'L_STATICS_GROUP' => 'Grupa',
@@ -477,6 +551,10 @@ $LANG = array (
 		'L_STATICS_SRC' => 'Editare',
 		'L_STATICS_NEW_PAGE' => 'Pagină nouă',
 		'L_STATICS_UPDATE' => 'Modifică lista paginilor statice',
+		'L_ERR_STATIC_ALREADY_EXISTS' => 'Aşa cum deja utilizate',
+
+		// top.php
+
 		'L_PROFIL_ADMIN' => 'Administrator',
 		'L_PROFIL_MANAGER' => 'Manager',
 		'L_PROFIL_MODERATOR' => 'Moderator',
@@ -507,6 +585,9 @@ $LANG = array (
 		'L_MENU_PROFIL_TITLE' => 'Gestionează profilul',
 		'L_MENU_PROFIL' => 'Profil',
 		'L_WARNING_INSTALLATION_FILE' => 'Fişierul install.php încă se află în rădăcina sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l <a class="lnkdelete" href="%s">ştergeţi</a>.',
+
+		// user.php
+
 		'L_USER_UNKNOWN' => 'Utilizator necunoscut',
 		'L_USER_LANG' => 'Limba utilizată ',
 		'L_USER_MAIL' => 'Adresa de email',
@@ -514,6 +595,9 @@ $LANG = array (
 		'L_USER_UPDATE' => 'Actualizează acest utilizator',
 		'L_USER_PAGE_TITLE' => 'Opţiuni',
 		'L_USER_BACK_TO_PAGE' => 'Înapoi la lista de utilizatori',
+
+		//
+
 		'L_MENU_CONFIG_BASE_TITLE' => 'Schimbă configuraţia de bază',
 		'L_MENU_CONFIG_BASE' => 'Configuraţia de bază',
 		'L_MENU_CONFIG_VIEW_TITLE' => 'Editarea opţiunilor de afişare',
@@ -526,14 +610,11 @@ $LANG = array (
 		'L_MENU_CONFIG_INFOS' => 'Informaţii',
 		'L_MENU_CONFIG_PLUGINS_TITLE' => 'Administrează Plugin-uri',
 		'L_MENU_CONFIG_PLUGINS' => 'Plugin-uri',
-		'L_ERR_URL_ALREADY_EXISTS' => 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'',
 		'L_THEMES' => 'Teme',
 		'L_THEMES_TITLE' => 'Gestionarea teme',
 		'L_HELP' => 'Ajutor',
 		'L_HELP_TITLE' => 'Vezi de ajutor',
 		'L_BACK_TO_THEMES' => 'Înapoi la subiectele paginii',
 		'L_CONFIG_THEME_UPDATE' => 'Înregistrarea temă',
-		'L_ERR_INVALID_DATE_CREATION' => 'Data creării invalid',
-		'L_ERR_INVALID_DATE_UPDATE' => 'Data invalid actualizat'
 );
-?>
+

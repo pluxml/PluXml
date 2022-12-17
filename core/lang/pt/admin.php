@@ -24,6 +24,13 @@ $LANG = array (
 		'L_THUMBNAIL_SELECTION' => 'Selecionar Imagem',
 		'L_THUMBNAIL_TITLE' => 'Título de Imagem (facultativo)',
 		'L_THUMBNAIL_ALT' => 'Texto alternativo da imagem (facultativo)',
+
+		'L_ERR_INVALID_DATE_CREATION' => 'Data de criação inválido',
+		'L_ERR_INVALID_DATE_UPDATE' => 'Data inválida atualizado',
+		'L_INVALID_VALUE' => 'Valor inválido',
+
+		// class.plx.admin.php
+
 		'L_SAVE_SUCCESSFUL' => 'Grabação dos dados efectuada com sucesso',
 		'L_SAVE_ERR' => 'Ocorreu um erro durante o processo de grabação dos dados',
 		'L_NO_ENTRY' => 'Acesso refusado',
@@ -42,32 +49,27 @@ $LANG = array (
 		'L_ARTICLE_SAVE_ERR' => 'Erro a salvaguarda do artigo',
 		'L_ARTICLE_DELETE_ERR' => 'Ocorreu um erro durante o processo de supressão do artigo',
 		'L_ERR_UNKNOWN_COMMENT' => 'O comentário ao qual faz refrência nunca existiu ou foi suprimido',
-		'L_COMMENT_SAVE_SUCCESSFUL' => 'Comentário alterado com sucesso',
-		'L_COMMENT_UPDATE_ERR' => 'Ocorreu um erro durante o processo de alteração do comentário',
-		'L_COMMENT_DELETE_SUCCESSFUL' => 'Supressão efectuada com sucesso',
-		'L_COMMENT_DELETE_ERR' => 'Ocorreu um erro durante o processo de supressão',
-		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Validatção efectuada com sucesso',
-		'L_COMMENT_VALIDATE_ERR' => 'Ocorreu um erro durante o processo de validação',
-		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Moderação efectuada com sucesso',
-		'L_COMMENT_MODERATE_ERR' => 'Ocorreu um erro durante o processo de moderação',
-		'L_COMMENT_WRITTEN_BY' => 'Escrito por',
+		'L_ERR_URL_ALREADY_EXISTS' => 'Url já em uso. Por favor, altere o valor do campo \'Url\'',
+
+		// class.plx.media.php
+
 		'L_PLXMEDIAS_MEDIAS_FOLDER_ERR' => 'Impossivél de criar a pasta para os médias do utilizador conectado',
 		'L_PLXMEDIAS_ROOT' => 'raíz',
-		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Impossivél de criar a pasta',
-		'L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL' => 'pasta criada com sucesso',
-		'L_PLXMEDIAS_NEW_FOLDER_EXISTS' => 'A pasta já existe',
-		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Ocorreu um erro durante o processo de supressão da pasta',
-		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'pasta suprimida com sucesso',
-		'L_PLXMEDIAS_WRONG_FILEFORMAT' => 'O tipo de arquivo não é permitido',
-		'L_PLXMEDIAS_WRONG_FILESIZE' => 'O tamanho do ficheiro é superior ao;',
-		'L_PLXMEDIAS_UPLOAD_ERR' => 'Erro ao enviar um arquivo',
-		'L_PLXMEDIAS_UPLOAD_SUCCESSFUL' => 'Arquivo enviada com sucesso!',
-		'L_PLXMEDIAS_UPLOADS_ERR' => 'Erro ao carregar arquivos',
-		'L_PLXMEDIAS_UPLOADS_SUCCESSFUL' => 'Arquivos enviada com sucesso!',
 		'L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL' => 'Removido com sucesso arquivos',
 		'L_PLXMEDIAS_DELETE_FILES_ERR' => 'Erro ao excluir um arquivo',
 		'L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL' => 'Arquivo excluído com sucesso',
 		'L_PLXMEDIAS_DELETE_FILE_ERR' => 'Erro ao apagar o arquivo',
+		'L_PLXMEDIAS_DEL_FOLDER_ERR' => 'Ocorreu um erro durante o processo de supressão da pasta',
+		'L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL' => 'pasta suprimida com sucesso',
+		'L_PLXMEDIAS_NEW_FOLDER_ERR' => 'Impossivél de criar a pasta',
+		'L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL' => 'pasta criada com sucesso',
+		'L_PLXMEDIAS_NEW_FOLDER_EXISTS' => 'A pasta já existe',
+		'L_PLXMEDIAS_WRONG_FILESIZE' => 'O tamanho do ficheiro é superior ao;',
+		'L_PLXMEDIAS_WRONG_FILEFORMAT' => 'O tipo de arquivo não é permitido',
+		'L_PLXMEDIAS_UPLOAD_ERR' => 'Erro ao enviar um arquivo',
+		'L_PLXMEDIAS_UPLOAD_SUCCESSFUL' => 'Arquivo enviada com sucesso!',
+		'L_PLXMEDIAS_UPLOADS_ERR' => 'Erro ao carregar arquivos',
+		'L_PLXMEDIAS_UPLOADS_SUCCESSFUL' => 'Arquivos enviada com sucesso!',
 		'L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL' => 'Ficheiros movidos com sucesso',
 		'L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL' => 'Ficheiro movido com sucesso',
 		'L_PLXMEDIAS_MOVE_FILES_ERR' => 'Ocorreu um erro durante o processo moção dos ficheiros',
@@ -77,6 +79,9 @@ $LANG = array (
 		'L_PLXMEDIAS_RECREATE_THUMBS_ERR' => 'Erro na criação de miniaturas',
 		'L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL' => 'Miniatura criado com sucesso',
 		'L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL' => 'Miniaturas criado com sucesso',
+
+		// article.php
+
 		'L_DEFAULT_NEW_ARTICLE_TITLE' => 'Novo artigo',
 		'L_ERR_INVALID_PUBLISHING_DATE' => 'Data de publicação inválida.',
 		'L_ERR_UNKNOWN_ARTICLE' => 'O artigo ao qual faz refrência nunca existiu ou foi suprimido!',
@@ -98,7 +103,6 @@ $LANG = array (
 		'L_NOW' => 'agora',
 		'L_ARTICLE_CATEGORIES' => 'Local',
 		'L_CATEGORY_HOME_PAGE' => 'Página de inicio',
-		'L_NEW_CATEGORY' => 'Nova categoria',
 		'L_ARTICLE_TAGS_FIELD' => 'Tags',
 		'L_ARTICLE_TAGS_FIELD_TITLE' => 'Separe os tags com uma virgúla',
 		'L_ARTICLE_TOGGLER_TITLE' => 'Lista de tags',
@@ -126,6 +130,9 @@ $LANG = array (
 		'L_ARTICLE_CHAPO_DISPLAY' => 'mostrar',
 		'L_ARTICLE' => 'artigo',
 		'L_ARTICLE_ID' => 'Nome interno',
+
+		// auth.php
+
 		'L_AUTH_PAGE_TITLE' => 'Página de identificação',
 		'L_LOGOUT_SUCCESSFUL' => 'Foi correctamente deconectado',
 		'L_LOGIN_PAGE' => 'Conexão á zona de administração ',
@@ -143,6 +150,19 @@ $LANG = array (
 
 		//
 
+		'L_SORT_ASCENDING_DATE' => 'data ascendente',
+		'L_SORT_DESCENDING_DATE' => 'data decrescente',
+		'L_SORT_ALPHABETICAL' => 'alfabético',
+		'L_SORT_REVERSE_ALPHABETICAL' => 'alfabético inverso',
+		'L_SORT_RANDOM' => 'aleatório',
+		'L_YES' => 'Sim',
+		'L_NO' => 'Não',
+		'L_OK' => 'Ok',
+		'L_NONE1' => 'nenhum',
+		'L_NONE2' => 'nenhuma',
+
+		// categories.php
+
 		'L_CAT_TITLE' => 'Criação e edição das cetegorias',
 		'L_CAT_LIST_ID' => 'Nome interno',
 		'L_CAT_LIST_ACTIVE' => 'Activa',
@@ -156,9 +176,14 @@ $LANG = array (
 		'L_DISPLAY' => 'Mostrar',
 		'L_HIDE' => 'Esconder',
 		'L_OPTIONS' => 'Opções',
+		'L_NEW_CATEGORY' => 'Nova categoria',
 		'L_FOR_SELECTION' => 'Para a selecção...',
 		'L_CAT_APPLY_BUTTON' => 'Alterar a lista das categorias',
 		'L_CAT_UNKNOWN' => 'categoria desconhecida',
+		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Categoria nome já utilizado',
+
+		// categorie.php
+
 		'L_EDITCAT_PAGE_TITLE' => 'Edição das opções da categoria',
 		'L_EDITCAT_DESCRIPTION' => 'Descrição',
 		'L_EDITCAT_DISPLAY_HOMEPAGE' => 'Mostrar itens nesta categoria na página inicial',
@@ -168,6 +193,9 @@ $LANG = array (
 		'L_EDITCAT_TITLE_HTMLTAG' => 'Conteúdo da tag título (opcional)',
 		'L_EDITCAT_META_DESCRIPTION' => 'Conteúdo da baliza meta"description" para esta categoria (opção)',
 		'L_EDITCAT_META_KEYWORDS' => 'Conteúdo da baliza meta "keywords" para esta categoriae (opção)',
+
+		// commentaire.php
+
 		'L_COMMENT_ORPHAN' => 'nenhum artigo',
 		'L_COMMENT_ORPHAN_STATUS' => 'não visivél (aconselhamos a supressão deste comentário)',
 		'L_COMMENT_ARTICLE_LINKED' => 'Artigo',
@@ -192,6 +220,23 @@ $LANG = array (
 		'L_COMMENT_OFFLINE_BUTTON' => 'Por offline',
 		'L_COMMENT_ANSWER_BUTTON' => 'Responder a este comentário',
 		'L_COMMENT_UPDATE_BUTTON' => 'Actualizar',
+		'L_COMMENT_WRITTEN_BY' => 'Escrito por',
+		'L_COMMENT_SAVE_SUCCESSFUL' => 'Comentário alterado com sucesso',
+		'L_COMMENT_UPDATE_ERR' => 'Ocorreu um erro durante o processo de alteração do comentário',
+		'L_COMMENT_DELETE_SUCCESSFUL' => 'Supressão efectuada com sucesso',
+		'L_COMMENT_DELETE_ERR' => 'Ocorreu um erro durante o processo de supressão',
+		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Validatção efectuada com sucesso',
+		'L_COMMENT_VALIDATE_ERR' => 'Ocorreu um erro durante o processo de validação',
+		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Moderação efectuada com sucesso',
+		'L_COMMENT_MODERATE_ERR' => 'Ocorreu um erro durante o processo de moderação',
+
+		// sous_navigation/commentaires.php
+
+		'L_COMMENT_NEW_COMMENT_TITLE' => 'Dígitar um novo comentário para este artigo',
+		'L_COMMENT_NEW_COMMENT' => 'Dígitar um novo comentário',
+
+		// commentaire_new.php
+
 		'L_ERR_ANSWER_UNKNOWN_COMMENT' => 'O comentário ao qual tenta responder nunca existiu ou foi suprimido !',
 		'L_ERR_ANSWER_OFFLINE_COMMENT' => 'O comentário está offline, impossivél de responder !',
 		'L_ERR_COMMENT_UNKNOWN_ARTICLE' => 'O artigo ao quel faz referência não foi suprimido, impossivél de escrever um comentário !',
@@ -202,11 +247,11 @@ $LANG = array (
 		'L_ARTICLE_COMMENTS_LIST' => 'Comentários deste artigo (do mais recente ao mais antigo)',
 		'L_COMMENT_ANSWER_TITLE' => 'Responder a este comentário',
 		'L_COMMENT_ANSWER' => 'Responder',
-		'L_COMMENT_NEW_COMMENT_TITLE' => 'Dígitar um novo comentário para este artigo',
-		'L_COMMENT_NEW_COMMENT' => 'Dígitar um novo comentário',
+
+		// comments.php
+
 		'L_COMMENTS_ARTICLE_SCOPE' => 'Artigo',
 		'L_COMMENTS_GLOBAL_SCOPE' => 'web-site inteiro',
-		'L_COMMENTS_OFFLINE_LIST' => 'Lista dos comentários á espera de validação ',
 		'L_COMMENTS_LIST_DATE' => 'Data',
 		'L_COMMENTS_LIST_AUTHOR' => 'Autor',
 		'L_COMMENTS_LIST_MESSAGE' => 'Mensagem',
@@ -220,9 +265,21 @@ $LANG = array (
 		'L_COMMENT_ONLINE_FEEDS' => 'Comentários online',
 		'L_COMMENTS_PRIVATE_FEEDS' => 'Fluxo de sindicação privado',
 		'L_COMMENTS_ONLINE_LIST' => 'Lista de opiniões publicadas',
+		'L_COMMENTS_OFFLINE_LIST' => 'Lista dos comentários á espera de validação ',
 		'L_COMMENTS_ALL_LIST' => 'Lista de comentários',
 		'L_COMMENT_SET_ONLINE' => 'Take Online',
 		'L_COMMENT_SET_OFFLINE' => 'Take Offline',
+
+		// index.php
+
+		'L_SEARCH' => 'Pesquisa',
+		'L_SEARCH_PLACEHOLDER' => 'Identificante ou título',
+		'L_ARTICLES_ALL_CATEGORIES' => 'Todas as categorias ...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Todos os autores...',
+		'L_ALL' => 'Todos',
+		'L_ALL_PUBLISHED' => 'Publicação',
+		'L_ALL_DRAFTS' => 'Rascunhos',
+		'L_ALL_AWAITING_MODERATION' => 'Validação pendente',
 		'L_ARTICLES_FILTER_BUTTON' => 'Filtrar',
 		'L_CATEGORIES_TABLE' => 'Categorias',
 		'L_SPECIFIC_CATEGORIES_TABLE' => 'Locais específicos',
@@ -242,35 +299,29 @@ $LANG = array (
 		'L_NEW_COMMENTS_TITLE' => 'Comentários á espera de validação',
 		'L_VALIDATED_COMMENTS_TITLE' => 'Comentários publicados',
 		'L_NO_ARTICLE' => 'Nenhum artigo',
-		'L_SEARCH' => 'Pesquisa',
-		'L_SEARCH_PLACEHOLDER' => 'Identificante ou título',
-		'L_ARTICLES_ALL_CATEGORIES' => 'Todas as categorias ...',
-		'L_ARTICLES_ALL_AUTHORS'	=> 'Todos os autores...',
-		'L_ALL' => 'Todos',
-		'L_ALL_PUBLISHED' => 'Publicação',
-		'L_ALL_DRAFTS' => 'Rascunhos',
-		'L_ALL_AWAITING_MODERATION' => 'Validação pendente',
-		'L_MEDIAS_DELETE_FOLDER' => 'Suprimir a	pasta',
-		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Suprimir a pasta %s e o seu conteúdo ?',
-		'L_MEDIAS_NO_FILE' => 'Nenhum ficheiro',
+
+		// medias.php
+
 		'L_MEDIAS_FILENAME' => 'Nome de ficheiro',
-		'L_MEDIAS_ADD_FILE' => 'Adicionar o ficheiro',
-		'L_MEDIAS_BACK' => 'Voltar',
-		'L_MEDIAS_MAX_FILE_UPLOAD' => 'Número máximo de ficheiros permitidos carregando',
 		'L_MEDIAS_TITLE' => 'Gestão dos médias',
-		'L_MEDIAS_IMAGES' => 'Imagens',
-		'L_MEDIAS_DOCUMENTS' => 'Documentos',
-		'L_MEDIAS_CREATE_FOLDER' => 'Criar uma pasta',
-		'L_MEDIAS_SUBMIT_FILE' => 'Enviar',
+		'L_MEDIAS_DIRECTORY' => 'Localização',
+		'L_MEDIAS_BACK' => 'Voltar',
 		'L_MEDIAS_MAX_UPLOAD_FILE' => 'Tamanho máximo dos ficheiros',
 		'L_MEDIAS_MAX_UPLOAD_NBFILE' => 'Número máximo de arquivos por upload',
 		'L_MEDIAS_MAX_POST_SIZE' => 'Tamanho máximo de dados',
-		'L_MEDIAS_DIRECTORY' => 'Localização',
+		'L_MEDIAS_SUBMIT_FILE' => 'Enviar',
+		'L_MEDIAS_IMAGES' => 'Imagens',
+		'L_MEDIAS_DOCUMENTS' => 'Documentos',
+		'L_MEDIAS_ADD_FILE' => 'Adicionar o ficheiro',
+		'L_MEDIAS_DELETE_FOLDER' => 'Suprimir a	pasta',
+		'L_MEDIAS_DELETE_FOLDER_CONFIRM' => 'Suprimir a pasta %s e o seu conteúdo ?',
 		'L_MEDIAS_FOLDER' => 'Arquivo',
 		'L_MEDIAS_NEW_FOLDER' => 'Nova Pasta',
+		'L_MEDIAS_CREATE_FOLDER' => 'Criar uma pasta',
 		'L_MEDIAS_FILESIZE' => 'Tamanho',
 		'L_MEDIAS_DATE' => 'Data',
 		'L_MEDIAS_DIMENSIONS' => 'Dimensões',
+		'L_MEDIAS_NO_FILE' => 'Nenhum ficheiro',
 		'L_MEDIAS_RESIZE' => 'Redimensionar Imagens',
 		'L_MEDIAS_RESIZE_NO' => 'Tamanho Original',
 		'L_MEDIAS_THUMBS' => 'Criar miniaturas',
@@ -290,16 +341,9 @@ $LANG = array (
 		'L_MEDIAS_LINK_COPYCLP_DONE' => 'Link copiado',
 		'L_MEDIAS_NEW_NAME' => 'Novo nome',
 		'L_MEDIAS_RENAME' => 'Renomear',
-		'L_SORT_ASCENDING_DATE' => 'data ascendente',
-		'L_SORT_DESCENDING_DATE' => 'data decrescente',
-		'L_SORT_ALPHABETICAL' => 'alfabético',
-		'L_SORT_REVERSE_ALPHABETICAL' => 'alfabético inverso',
-		'L_SORT_RANDOM' => 'aleatório',
-		'L_OK' => 'Ok',
-		'L_YES' => 'Sim',
-		'L_NO' => 'Não',
-		'L_NONE1' => 'nenhum',
-		'L_NONE2' => 'nenhuma',
+
+		// parametres_affichage.php
+
 		'L_CONFIG_VIEW_FIELD' => 'Opções de exibição',
 		'L_CONFIG_VIEW_SKIN_SELECT' => 'Escolha do tema',
 		'L_CONFIG_VIEW_FILES_EDIT_TITLE' => 'Editar os ficheiros do tema',
@@ -323,6 +367,9 @@ $LANG = array (
 		'L_CONFIG_VIEW_UPDATE' => 'Alterar as opções de exibição',
 		'L_CONFIG_VIEW_DISPLAY_EMPTY_CAT' => 'Listar categorias sem artigo',
 		'L_CONFIG_HOMETEMPLATE' => 'Template da página inicial',
+
+		// parametres_avances.php
+
 		'L_CONFIG_ADVANCED_DESC' => 'Configuração avançada',
 		'L_CONFIG_ADVANCED_URL_REWRITE' => 'Activar a re-escritura dos URLS',
 		'L_CONFIG_ADVANCED_URL_REWRITE_ALERT' => 'Atenção um .htaccess já está presente na raiz do seu PluXml. Ao permitir a reescrita de URL este arquivo será modificado',
@@ -346,7 +393,6 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'Envio de e-mail',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'Email sending method',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'Método de envio de e-mail',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Habilitar o envio de emails por um servidor SMTP',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'Nome do host SMTP',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'Nome de usuário SMTP',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'Senha SMTP',
@@ -369,6 +415,9 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP' => 'ID do cliente no serviço OAUTH2 (exemplo: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP' => 'A chave do cliente no serviço OAUTH2 (exemplo : PrsvKp6aprKpoP8snnCoC8-x)',
 		'L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP' => 'Salve o ID do cliente e o código secreto do cliente para poder gerar o token.',
+
+		// parametres_base.php
+
 		'L_CONFIG_BASE_CONFIG_TITLE' => 'Configuração de base',
 		'L_CONFIG_BASE_SITE_TITLE' => 'Titúlo do web-site',
 		'L_CONFIG_BASE_SITE_SLOGAN' => 'Sob-titúlo/descrição do web-site',
@@ -383,10 +432,16 @@ $LANG = array (
 		'L_CONFIG_META_KEYWORDS' => 'Conteúdo da baliza meta "keywords" do web-site (opção)',
 		'L_CONFIG_BASE_ENABLE_RSS' => 'Exibir feeds RSS',
 		'L_CONFIG_BASE_ENABLE_RSS_COMMENT' => 'Exibir feeds RSS comentários',
+
+		// parametres_edittpl.php
+
 		'L_CONFIG_EDITTPL_ERROR_NOTHEME' => 'O tema não existe !',
 		'L_CONFIG_EDITTPL_TITLE' => 'Edição do tema',
 		'L_CONFIG_EDITTPL_SELECT_FILE' => 'Ecolha do ficheiro a editar :',
 		'L_CONFIG_EDITTPL_LOAD' => 'Carregar',
+
+		// parametres_infos.php
+
 		'L_CONFIG_INFOS_TITLE' => 'Informações relativas ao PluXml',
 		'L_CONFIG_INFOS_DESCRIPTION' => 'Esta informações o informão sobre o funcionamento de PluXml e poder ser uteis em caso de disfuncionamento do sistema.',
 		'L_CONFIG_INFOS_NB_CATS' => 'Numero de categorias :',
@@ -401,6 +456,9 @@ $LANG = array (
 		'L_MAIL_TEST_SUBJECT' => 'Email de teste enviado de %s',
 		'L_MAIL_TEST_SENT_TO' => 'Email de teste enviado para %s. Verifique sua caixa de correio',
 		'L_MAIL_TEST_FAILURE' => 'Problema para enviar o email de teste',
+
+		// parametres_users.php
+
 		'L_CONFIG_USERS_TITLE' => 'Gestão dos utilizadores',
 		'L_CONFIG_USER' => 'Utilizador',
 		'L_CONFIG_USERS_ID' => 'Numero do utilizador',
@@ -411,8 +469,9 @@ $LANG = array (
 		'L_ERR_LOGIN_ALREADY_EXISTS' => 'ID de login já utilizados',
 		'L_ERR_USERNAME_ALREADY_EXISTS' => 'Nome de Usuário já está em uso',
 		'L_ERR_EMAIL_ALREADY_EXISTS' => 'Endereço de email já está em uso',
-		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Categoria nome já utilizado',
-		'L_ERR_STATIC_ALREADY_EXISTS' => 'Como já foi utilizado',
+
+		// parametre_plugins.php
+
 		'L_BACK_TO_PLUGINS' => 'Voltar á página dos plugins',
 		'L_NO_PLUGIN' => 'Nenhum plugin',
 		'L_PLUGIN_NO_CONFIG' => 'Plugin não configurado',
@@ -420,6 +479,9 @@ $LANG = array (
 		'L_PLUGINS_CSS_TITLE' => 'Edite o código css do plugin',
 		'L_CONTENT_FIELD_FRONTEND' => 'Site de conteúdo do arquivo Css',
 		'L_CONTENT_FIELD_BACKEND' => 'Css administrador de conteúdo de arquivo',
+
+		// parametres_plugins.php
+
 		'L_PLUGINS_TITLE' => 'Gestão dos plugins',
 		'L_PLUGINS_VERSION' => 'Versão',
 		'L_PLUGINS_AUTHOR' => 'Autor',
@@ -441,6 +503,9 @@ $LANG = array (
 		'L_PLUGINS_APPLY_BUTTON' => 'Alterar a lista de plugins',
 		'L_PLUGINS_ACTIVE_LIST' => 'Plugins ativos',
 		'L_PLUGINS_INACTIVE_LIST' => 'Plugins inativos',
+
+		// profil.php
+
 		'L_PROFIL_EDIT_TITLE' => 'Edição do seu perfil',
 		'L_PROFIL' => 'Perfil',
 		'L_PROFIL_LOGIN' => 'Login de conexão',
@@ -453,6 +518,9 @@ $LANG = array (
 		'L_PROFIL_PASSWORD' => 'Senha',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Confirmação da senha',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Alterar a sua senha',
+
+		// statique.php
+
 		'L_STATIC_BACK_TO_PAGE' => 'Voltar á lista das páginas státicas',
 		'L_STATIC_UNKNOWN_PAGE' => 'Esta página stática nunca existui ou foi suprimida !',
 		'L_STATIC_TITLE' => 'Edição página stática ',
@@ -462,6 +530,9 @@ $LANG = array (
 		'L_STATIC_TITLE_HTMLTAG' => 'Conteúdo da tag título (opcional)',
 		'L_STATIC_META_DESCRIPTION' => 'Conteúdo da baliza meta "description" para esta página stática (opção)',
 		'L_STATIC_META_KEYWORDS' => 'Conteúdo da baliza meta "keywords" para esta página stática (opção)',
+
+		// statiques.php
+
 		'L_STATICS_PAGE_TITLE' => 'Criação e edição das páginas státicas',
 		'L_STATICS_ID' => 'Identificante',
 		'L_STATICS_GROUP' => 'Groupo',
@@ -480,6 +551,10 @@ $LANG = array (
 		'L_STATICS_SRC' => 'Editar',
 		'L_STATICS_NEW_PAGE' => 'Página nova',
 		'L_STATICS_UPDATE' => 'Alterar a lista das páginas státicas',
+		'L_ERR_STATIC_ALREADY_EXISTS' => 'Como já foi utilizado',
+
+		// top.php
+
 		'L_PROFIL_ADMIN' => 'Administrador',
 		'L_PROFIL_MANAGER' => 'Gestionário',
 		'L_PROFIL_MODERATOR' => 'Moderador',
@@ -510,6 +585,9 @@ $LANG = array (
 		'L_MENU_PROFIL_TITLE' => 'Gerir o perfil do utilizador',
 		'L_MENU_PROFIL' => 'Perfil',
 		'L_WARNING_INSTALLATION_FILE' => 'O ficheiro install.php está presente na raíz de PluXml.<br />Por razões de segurança <a class="lnkdelete" href="%s">apague</a> este ficheiro.',
+
+		// user.php
+
 		'L_USER_UNKNOWN' => 'Utilizador desconhecido',
 		'L_USER_LANG' => 'Idioma utilizado na administração',
 		'L_USER_MAIL' => 'Enderêco de e-mail',
@@ -517,6 +595,9 @@ $LANG = array (
 		'L_USER_UPDATE' => 'Actualizar este utilizador',
 		'L_USER_PAGE_TITLE' => 'Edição das opções	do utilizador',
 		'L_USER_BACK_TO_PAGE' => 'Voltar á lista dos utilizadores',
+
+		//
+
 		'L_MENU_CONFIG_BASE_TITLE' => 'Alterar a configuração de base de PluXml',
 		'L_MENU_CONFIG_BASE' => 'Configuração de base',
 		'L_MENU_CONFIG_VIEW_TITLE' => 'Alterar as opções de exibição de Pluxml',
@@ -529,14 +610,11 @@ $LANG = array (
 		'L_MENU_CONFIG_INFOS' => 'Informações',
 		'L_MENU_CONFIG_PLUGINS_TITLE' => 'Gerir os plugins',
 		'L_MENU_CONFIG_PLUGINS' => 'Plugins',
-		'L_ERR_URL_ALREADY_EXISTS' => 'Url já em uso. Por favor, altere o valor do campo \'Url\'',
 		'L_THEMES' => 'Temas',
 		'L_THEMES_TITLE' => 'Gerenciando temas',
 		'L_HELP' => 'Ajuda',
 		'L_HELP_TITLE' => 'Vêr a ajuda',
 		'L_BACK_TO_THEMES' => 'Voltar para os temas da página',
 		'L_CONFIG_THEME_UPDATE' => 'Change Theme',
-		'L_ERR_INVALID_DATE_CREATION' => 'Data de criação inválido',
-		'L_ERR_INVALID_DATE_UPDATE' => 'Data inválida atualizado'
 );
-?>
+

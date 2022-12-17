@@ -24,8 +24,10 @@ $LANG = array (
 		'L_THUMBNAIL_SELECTION' => 'Wybierz zdjęcie',
 		'L_THUMBNAIL_TITLE' => 'Tytuł zdjęcia (opcjonalnie)',
 		'L_THUMBNAIL_ALT' => 'Alternatywny tekst z obrazka (opcjonalnie)',
+
 		'L_ERR_INVALID_DATE_CREATION' => 'Nieprawidłowa data utworzenia',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Nieprawidłowa data zaktualizowane',
+		'L_INVALID_VALUE' => 'niewłaściwa wartość',
 
 		// class.plx.admin.php
 
@@ -47,14 +49,6 @@ $LANG = array (
 		'L_ARTICLE_SAVE_ERR' => 'Wystąpił błąd podczas zapisywania posta',
 		'L_ARTICLE_DELETE_ERR' => 'Wystąpił błąd podczas usuwania posta',
 		'L_ERR_UNKNOWN_COMMENT' => 'Wybrany komentarz już nie istnieje',
-		'L_COMMENT_SAVE_SUCCESSFUL' => 'Komentarz został pomyślnie zapisany',
-		'L_COMMENT_UPDATE_ERR' => 'Wystąpił błąd podczas aktualizacji komentarza',
-		'L_COMMENT_DELETE_SUCCESSFUL' => 'Komentarz został pomyślnie usunięty',
-		'L_COMMENT_DELETE_ERR' => 'Wystąpił błąd podczas usuwania komentarza',
-		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Walidacja zakończyła się powodzeniem',
-		'L_COMMENT_VALIDATE_ERR' => 'Wystąpił błąd podczas walidacji',
-		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Komentarz został pomyślnie edytowany',
-		'L_COMMENT_MODERATE_ERR' => 'Wystąpił błąd podczas edycji komentarza',
 		'L_ERR_URL_ALREADY_EXISTS' => 'Adres URL jest używany. Proszę zmienić wartość pola URL',
 
 		// class.plx.media.php
@@ -186,6 +180,7 @@ $LANG = array (
 		'L_FOR_SELECTION' => 'Wybrane pozycje...',
 		'L_CAT_APPLY_BUTTON' => 'Zapisz zmiany',
 		'L_CAT_UNKNOWN' => 'Nieznana kategoria',
+		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Nazwa kategorii jest zajęta',
 
 		// categorie.php
 
@@ -226,7 +221,14 @@ $LANG = array (
 		'L_COMMENT_ANSWER_BUTTON' => 'Odpowiedź na komentarz',
 		'L_COMMENT_UPDATE_BUTTON' => 'Zaktualizuj',
 		'L_COMMENT_WRITTEN_BY' => 'Napisane przez',
-		'L_ERR_CATEGORY_ALREADY_EXISTS' => 'Nazwa kategorii jest zajęta',
+		'L_COMMENT_SAVE_SUCCESSFUL' => 'Komentarz został pomyślnie zapisany',
+		'L_COMMENT_UPDATE_ERR' => 'Wystąpił błąd podczas aktualizacji komentarza',
+		'L_COMMENT_DELETE_SUCCESSFUL' => 'Komentarz został pomyślnie usunięty',
+		'L_COMMENT_DELETE_ERR' => 'Wystąpił błąd podczas usuwania komentarza',
+		'L_COMMENT_VALIDATE_SUCCESSFUL' => 'Walidacja zakończyła się powodzeniem',
+		'L_COMMENT_VALIDATE_ERR' => 'Wystąpił błąd podczas walidacji',
+		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Komentarz został pomyślnie edytowany',
+		'L_COMMENT_MODERATE_ERR' => 'Wystąpił błąd podczas edycji komentarza',
 
 		// sous_navigation/commentaires.php
 
@@ -391,7 +393,6 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE' => 'Wysyłanie wiadomości e-mail',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD' => 'Metoda wysyłania wiadomości e-mail',
 		'L_CONFIG_ADVANCED_SMTP_TITLE' => 'Wysyłanie wiadomości e-mail za pomocą SMTP',
-		'L_CONFIG_ADVANCED_SMTP_ACTIVATION' => 'Włącz wysyłanie wiadomości e-mail przez serwer SMTP',
 		'L_CONFIG_ADVANCED_SMTP_SERVER' => 'Nazwa hosta SMTP',
 		'L_CONFIG_ADVANCED_SMTP_USERNAME' => 'Nazwa użytkownika SMTP',
 		'L_CONFIG_ADVANCED_SMTP_PASSWORD' => 'Hasło SMTP',
@@ -553,6 +554,7 @@ $LANG = array (
 		'L_ERR_STATIC_ALREADY_EXISTS' => 'Strona o tym tytule już istnieje',
 
 		// top.php
+
 		'L_PROFIL_ADMIN' => 'Administrator',
 		'L_PROFIL_MANAGER' => 'Menedżer',
 		'L_PROFIL_MODERATOR' => 'Moderator',
@@ -585,6 +587,7 @@ $LANG = array (
 		'L_WARNING_INSTALLATION_FILE' => 'Plik install.php znajduje się w katalogu głównym PluXml. <br />Ze względów bezpieczeństwa zaleca się, aby go <a class="lnkdelete" href="%s">usunąć</a>.',
 
 		// user.php
+
 		'L_USER_UNKNOWN' => 'Nieznany użytkownik',
 		'L_USER_LANG' => 'Język używany w administracji',
 		'L_USER_MAIL' => 'Adres e-mail',
@@ -614,4 +617,4 @@ $LANG = array (
 		'L_BACK_TO_THEMES' => 'Powrót do tematów strony',
 		'L_CONFIG_THEME_UPDATE' => 'Zmień styl'
 );
-?>
+
