@@ -208,36 +208,38 @@ class plxPlugins {
 						break;
 					case 'deactivate':	# désactivation des plugins
 						foreach($content['chkAction'] as $idx => $plugName) {
-							$plugInstance = $this->aPlugins[$plugName];
-							if(empty($plugInstance)) {
-								$plugInstance = $this->getInstance($plugName);
-							}
-							if($plugInstance) {
-								if(method_exists($plugName, 'OnDeActivate'))
+							if(isset($this->aPlugins[$plugName])) {
+								if(class_exists($plugName) and method_exists($plugName, 'OnDeActivate')) {
+									$plugInstance = $this->aPlugins[$plugName];
 									$plugInstance->OnDeActivate();
+								}
 								unset($this->aPlugins[$plugName]);
 							}
 						}
 						break;
 					case 'delete':		# suppression des plugins
+						$root_plugins = PLX_ROOT . PLX_CONFIG_PATH . 'plugins/';
 						foreach($content['chkAction'] as $idx => $plugName) {
-							if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
-								# suppression fichier de config du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
-								# suppression fichier site.css du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
-								# suppression fichier admin.css du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
-								unset($this->aPlugins[$plugName]);
+							if(isset($this->aPlugins[$plugName])) {
+								plxMsg::Error(sprintf(L_PLUGINS_ENABLED_ERROR, $plugName));
+								continue;
+							}
+
+							foreach(array('.site.css', '.admin.css', '.xml',) as $ext) {
+								$filename = $root_plugins . $plugName . $ext;
+								if(file_exists($filename) and !unlink($filename)) {
+									plxMsg::Error(sprintf(L_DELETE_FILE_ERR, $plugName . $ext));
+								}
+							}
+
+							if(!$this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
+								plxMsg::Error(sprintf(L_PLUGINS_DELETE_ERROR, $plugName));
 							} else {
-								plxMsg::Error(L_PLUGINS_DELETE_ERROR." (".$plugName.")");
-								break;
+								plxMsg::Info(L_SAVE_SUCCESSFUL);
 							}
 						}
-						break;
+						# config for plugins doesn't change !
+						return true;
 				}
 			}
 		} else {
@@ -254,29 +256,29 @@ class plxPlugins {
 		$this->cssCache('site');
 		$this->cssCache('admin');
 
-		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-
+		# On écrit le fichier de configuration des plugins
+		ob_start();
+?>
+<document>
+<?php
 		foreach($this->aPlugins as $name=>$plugin) {
-			if(!empty($plugin)) {
-				$scope = $plugin->getInfo('scope');
-			} elseif($plugInstance=$this->getInstance($name)) {
+			if(!empty($plugin) or $plugInstance = $this->getInstance($name)) {
 				$scope = $plugInstance->getInfo('scope');
 			} else {
 				$scope = '';
 			}
-			$xml .= "\t<plugin name=\"$name\" scope=\"$scope\"></plugin>\n";
+?>
+	<plugin name="<?= $name ?>" scope="<?= $scope ?>"></plugin>
+<?php
 		}
-
-		$xml .= "</document>";
-
-		# On écrit le fichier
-		if(plxUtils::write($xml,path('XMLFILE_PLUGINS')))
+?>
+</document>
+<?php
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PLUGINS'))) {
 			return plxMsg::Info(L_SAVE_SUCCESSFUL);
-		else
+		} else {
 			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PLUGINS'));
-
+		}
 	}
 
 	/**

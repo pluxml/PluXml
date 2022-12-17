@@ -22,10 +22,12 @@ if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['s
 }
 
 function pluginsList($plugins, $defaultLang, $type) {
-# plugins		array()		contient la liste des plugins à afficher
-# defaultLang	string		langue utilisée dans l'admin
-# type			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
-	$output='';
+	/*
+	 * plugins		array()		contient la liste des plugins à afficher
+	 * defaultLang	string		langue utilisée dans l'admin
+	 * type			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
+	 * */
+	ob_start();
 	$plxAdmin = plxAdmin::getInstance();#OR global $plxAdmin;
 	if(sizeof($plugins)>0) {
 		$num=0;
@@ -45,47 +47,75 @@ function pluginsList($plugins, $defaultLang, $type) {
 			if(empty($plugInstance) and $plugInstance=$plxAdmin->plxPlugins->getInstance($plugName)) {
 				$plugInstance->getInfos();
 			}
-			$output .= '<tr class="top" data-scope="'.$plugInstance->getInfo('scope').'">'."\n";
-
-				# checkbox
-				$output .= '<td>';
-				$output .= '<input type="hidden" name="plugName[]" value="'.$plugName.'" />';
-				$output .= '<input type="checkbox" name="chkAction[]" value="'.$plugName.'" />';
-				$output .= "</td>\n";
-				# icon
-				$output .= '<td><img src="'.$icon.'" alt="" /></td>';
-
-				# plugin infos
-				$output .= '<td class="wrap">';
+?>
+			<tr class="top" data-scope="<?= $plugInstance->getInfo('scope') ?>">
+				<td>
+					<input type="hidden" name="plugName[]" value="'.$plugName.'" />
+					<input type="checkbox" name="chkAction[]" value="'.$plugName.'" />
+				</td>
+<?php /* icon */ ?>
+				<td><img src="<?= $icon ?>" alt="" /></td>
+<?php /* plugin infos */ ?>
+				<td class="wrap">
+					<p>
+<?php
 					# message d'alerte si plugin non configuré
-					if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) $output .= '<span style="margin-top:5px" class="alert red float-right">'.L_PLUGIN_NO_CONFIG.'</span>';
+					if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) {
+?>
+					<span style="margin-top: 5px;" class="alert red float-right"><?= L_PLUGIN_NO_CONFIG ?></span>
+<?php
+					}
 					# title + version
-					$output .= '<strong>'.plxUtils::strCheck($plugInstance->getInfo('title')).'</strong> - '.L_PLUGINS_VERSION.' <strong>'.plxUtils::strCheck($plugInstance->getInfo('version')).'</strong>';
+?>
+					<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong> - <?= L_PLUGINS_VERSION ?><strong> <?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
+<?php
 					# date
-					if($plugInstance->getInfo('date')!='') $output .= ' ('.plxUtils::strCheck($plugInstance->getInfo('date')).')';
+					if($plugInstance->getInfo('date') != '') {
+?>
+					(<?= plxUtils::strCheck($plugInstance->getInfo('date')) ?>)
+<?php
+					}
 					# description
-					$output .= '<br />'.plxUtils::strCheck($plugInstance->getInfo('description')).'<br />';
-					# author
-					$output .= L_PLUGINS_AUTHOR.' : '.plxUtils::strCheck($plugInstance->getInfo('author'));
+?>
+					</p>
+					<p class="description"><?= plxUtils::strCheck($plugInstance->getInfo('description')) ?></p>
+<?php /* author */ ?>
+					<p>
+					<?= L_PLUGINS_AUTHOR ?> : <?= plxUtils::strCheck($plugInstance->getInfo('author')) ?>
+<?php
 					# site
-					if($plugInstance->getInfo('site')!='') $output .= ' - <a href="'.plxUtils::strCheck($plugInstance->getInfo('site')).'">'.plxUtils::strCheck($plugInstance->getInfo('site')).'</a>';
-				$output .= "</td>\n";
-
+					if($plugInstance->getInfo('site')!='') {
+?>
+ - <a href="<?= plxUtils::strCheck($plugInstance->getInfo('site')) ?>"><?= plxUtils::strCheck($plugInstance->getInfo('site')) ?></a>
+<?php
+					}
+?>
+					</p>
+				</td>
+<?php
 				# colonne pour trier les plugins
 				if($type) {
-					$output .= '<td>';
-						$output .= '<input size="2" maxlength="3" type="text" name="plugOrdre['.$plugName.']" value="'.$ordre.'" />';
-					$output .= "</td>\n";
+?>
+				<td>
+					<input size="2" maxlength="3" type="text" name="plugOrdre[<?= $plugName ?>]" value="<?= $ordre ?>" />
+				</td>
+<?php
 				}
 
 				# affichage des liens du plugin
-				$output .= '<td class="right">';
+?>
+				<td class="right">
+<?php
 					# lien configuration
 					if(is_file(PLX_PLUGINS.$plugName.'/config.php')) {
-						$output .= '<a title="'.L_PLUGINS_CONFIG_TITLE.'" href="parametres_plugin.php?p='.urlencode($plugName).'">'.L_PLUGINS_CONFIG.'</a><br />';
+?>
+					<a title="<?= L_PLUGINS_CONFIG_TITLE ?>" href="parametres_plugin.php?p=<?= urlencode($plugName) ?>"><?= L_PLUGINS_CONFIG ?></a><br />
+<?php
 					}
 					# lien pour code css
-					$output .= '<a title="'.L_PLUGINS_CSS_TITLE.'" href="parametres_plugincss.php?p='.urlencode($plugName).'">'.L_PLUGINS_CSS.'</a><br />';
+?>
+					<a title="<?= L_PLUGINS_CSS_TITLE ?>" href="parametres_plugincss.php?p=<?= urlencode($plugName) ?>"><?= L_PLUGINS_CSS ?></a><br />
+<?php
 					# lien aide
 					$all_langs = array_unique(array(
 						$plugInstance->default_lang,
@@ -94,19 +124,28 @@ function pluginsList($plugins, $defaultLang, $type) {
 					));
 					foreach($all_langs as $lang) {
 						if(is_file(PLX_PLUGINS . $plugName . '/lang/' . $lang . '-help.php')) {
-							$output .= '<a title="' . L_HELP_TITLE . '" href="parametres_help.php?help=plugin&page=' . urlencode($plugName) . '&lang=' . $lang . '">' . L_HELP . '</a>';
+?>
+					<a title="<?= L_HELP_TITLE ?>" href="parametres_help.php?help=plugin&page=<?= urlencode($plugName) ?>&lang=<?= $lang ?>"><?= L_HELP ?></a>
+<?php
 							break;
 						}
 					}
-				$output .= "</td>\n";
-			$output .= "</tr>\n";
+?>
+			</td>
+		</tr>
+<?php
 		}
 	}
 	else {
 		$colspan = $_SESSION['selPlugins']=='1' ? 5 : 4;
-		$output .= '<tr><td colspan="'.$colspan.'" class="center">'.L_NO_PLUGIN.'</td></tr>';
+?>
+
+		<tr>
+			<td colspan="<?= $colspan ?>" class="center"><?= L_NO_PLUGIN ?></td>
+		</tr>
+<?php
 	}
-	return $output;
+	return ob_get_clean();
 }
 
 # récuperation de la liste des plugins inactifs
@@ -121,10 +160,20 @@ $session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : '1';
 $sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
 $_SESSION['selPlugins'] = $sel;
 if($sel=='1') {
-	$aSelList = array('' => L_FOR_SELECTION, 'deactivate'=> L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
+	# plugins actifs
+	$aSelList = array(
+		'' => L_FOR_SELECTION,
+		'deactivate'=> L_PLUGINS_DEACTIVATE,
+	);
 	$plugins = pluginsList($plxAdmin->plxPlugins->aPlugins, $plxAdmin->aConf['default_lang'], true);
 } else {
-	$aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
+	# plugins désactivés
+	$aSelList = array(
+		'' => L_FOR_SELECTION,
+		'activate' => L_PLUGINS_ACTIVATE,
+		'-' => '-----',
+		'delete' => L_PLUGINS_DELETE,
+	);
 	$plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);
 }
 # fil d'ariane
@@ -160,7 +209,7 @@ include 'top.php';
 		<?php } ?>
 	</div>
 
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
 		<table id="plugins-table" class="full-width" <?php if(!empty($data_rows_num)) echo $data_rows_num; ?>>
@@ -176,7 +225,7 @@ include 'top.php';
 				</tr>
 			</thead>
 			<tbody>
-				<?php echo $plugins ?>
+<?php echo $plugins ?>
 			</tbody>
 		</table>
 	</div>

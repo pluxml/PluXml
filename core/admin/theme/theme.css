@@ -367,6 +367,17 @@ input[maxlength="3"] {
 	white-space: normal;
 }
 
+#plugins-table p {
+	margin: 0;
+	text-indent: 0;
+}
+
+#plugins-table .description {
+	white-space: normal;
+	word-break: normal;
+	text-align: justify;
+}
+
 #plugins-table img,
 #medias-table img {
 	max-width: 48px;
@@ -1012,11 +1023,12 @@ select::-ms-expand {/*for IE10*/
 
 #form_plugins span[data-scope] {
 	padding: 2px 5px 0 5px;
-	font-size: 1.2rem;
+	font-size: medium;
 }
 
 #plugins-table tbody tr[data-scope] td.wrap strong:first-of-type {
 	padding: 0.2rem 0.5rem;
+	background-color: #ddd;
 }
 
 #form_plugins span[data-scope="admin"],
