@@ -168,7 +168,7 @@ include 'top.php';
 			</div>
 		</div>
 <?php
-if(class_exists('PHPMailer')) {
+if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 ?>
 		<div>
 			<h2><?php echo L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE ?>&nbsp;:</h2>
