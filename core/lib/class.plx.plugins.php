@@ -406,7 +406,7 @@ class plxPlugin {
 				PLX_SITE_LANG,
 				DEFAULT_LANG,
 			),
-			array_values(plxUtils::getLangs()),
+			array_values(plxUtils::getLangs())
 		));
 		foreach($all_languages as $lang) {
 			$filename = $dirname . $lang . '.php';
