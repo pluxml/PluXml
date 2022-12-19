@@ -2,7 +2,7 @@
 
 if(!defined('PLX_ROOT')) {
 	header('Content-Type: text/plain; charset=utf-8');
-	die('Unknown PLX_ROOT constant');
+	exit('Unknown PLX_ROOT constant');
 }
 
 const PHP_VERSION_MIN = '5.6.34';
