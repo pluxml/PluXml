@@ -1,4 +1,3 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
 <?php
 if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	if(@unlink(PLX_ROOT.'install.php'))
@@ -154,3 +153,4 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopBottom'));
+

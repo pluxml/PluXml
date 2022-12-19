@@ -1,7 +1,6 @@
 <?php
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT . 'core/';
-const HTACCESS_FILE = PLX_ROOT . '.htaccess';
 
 const SESSION_LIFETIME = 7200;
 

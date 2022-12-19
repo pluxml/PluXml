@@ -1,5 +1,3 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
-
 		</section>
 
 </main>

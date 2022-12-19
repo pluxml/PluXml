@@ -2,8 +2,7 @@
 
 if(!defined('PLX_ROOT')) {
 	header('Content-Type:text/plain; charset=utf-8');
-	echo 'Undefined constant: PLX_ROOT';
-	die();
+	exit('Undefined constant: PLX_ROOT');
 }
 
 /**
