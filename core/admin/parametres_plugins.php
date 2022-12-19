@@ -50,8 +50,8 @@ function pluginsList($plugins, $defaultLang, $type) {
 ?>
 			<tr class="top" data-scope="<?= $plugInstance->getInfo('scope') ?>">
 				<td>
-					<input type="hidden" name="plugName[]" value="'.$plugName.'" />
-					<input type="checkbox" name="chkAction[]" value="'.$plugName.'" />
+					<input type="hidden" name="plugName[]" value="<?= $plugName ?>" />
+					<input type="checkbox" name="chkAction[]" value="<?= $plugName ?>" />
 				</td>
 <?php /* icon */ ?>
 				<td><img src="<?= $icon ?>" alt="" /></td>
