@@ -65,7 +65,7 @@ class plxGlob {
 	 * @return	null
 	 * @author	Amaury Graillat et Stephane F
 	 **/
-	private function initCache($type='') {
+	private function initCache($type) {
 
 		if(is_dir($this->dir)) {
 			# On ouvre le repertoire

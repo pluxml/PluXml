@@ -38,6 +38,7 @@ class plxAdmin extends plxMotor {
 	protected function __construct($filename) {
 
 		parent::__construct($filename);
+		$this->tri = 'desc';
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminConstruct'));

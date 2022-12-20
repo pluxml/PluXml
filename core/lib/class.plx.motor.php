@@ -76,45 +76,70 @@ class plxMotor {
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
 		define('PLX_SITE_LANG', $this->aConf['default_lang']);
+
+		# On vérifie s'il faut faire une mise à jour
+		if(
+			(
+				!isset($this->aConf['version']) OR
+				version_compare($this->aConf['version'], PLX_VERSION_DATA, '<')
+			) AND
+			!defined('PLX_UPDATER')
+		) {
+			if(defined('PLX_FEED')) {
+				header('Content-Type: Text/Plain; charset=utf-8');
+				exit('Available update');
+			} else {
+				header('Location: '.PLX_ROOT.'update/index.php');
+				exit;
+			}
+		}
+
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
+
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
-		# On vérifie s'il faut faire une mise à jour
-		if((!isset($this->aConf['version']) OR version_compare($this->aConf['version'], PLX_VERSION_DATA, '<')) AND !defined('PLX_UPDATER')) {
-			header('Location: '.PLX_ROOT.'update/index.php');
-			exit;
-		}
+
 		# Chargement des variables
 		$this->style = $this->aConf['style'];
 		$this->racine = $this->aConf['racine'];
 		$this->bypage = $this->aConf['bypage'];
-		$this->tri = defined('PLX_ADMIN') ? 'desc' : $this->aConf['tri'];
+		$this->tri = $this->aConf['tri'];
 		$this->tri_coms = $this->aConf['tri_coms'];
+
 		# On récupère le chemin de l'url
 		$var = parse_url($this->racine);
 		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
+
 		# Traitement des plugins
 		# Détermination du fichier de langue (nb: la langue peut être modifiée par plugins via $_SESSION['lang'])
-		$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-		$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->aConf['default_lang'];
-		#--
+		if(defined('PLX_FEED')) {
+			$lang = $this->aConf['default_lang'];
+		} else {
+			$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
+			$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->aConf['default_lang'];
+		}
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstructLoadPlugins'));
+
 		# Traitement sur les répertoires des articles et des commentaires
 		$this->plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles']);
 		$this->plxGlob_coms = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_commentaires'], false, true, 'commentaires');
+
 		# Récupération des données dans les autres fichiers xml
 		$this->getCategories(path('XMLFILE_CATEGORIES'));
 		$this->getStatiques(path('XMLFILE_STATICS'));
 		$this->getTags(path('XMLFILE_TAGS'));
 		$this->getUsers(path('XMLFILE_USERS'));
+
 		# Récuperation des articles appartenant aux catégories actives
 		$this->getActiveArts();
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
+
 		# Get templates from core/templates and data/templates
 		$this->getTemplates(self::PLX_TEMPLATES);
 		$this->getTemplates(self::PLX_TEMPLATES_DATA);
