@@ -103,146 +103,144 @@ class plxAdmin extends plxMotor {
 		# Ne pas sauvegarder ces champs dans parametres.xml
 		$excludes = array('racine', 'token','config_path',);
 
+		# On recense les champs avec des valeurs libres saisies par l'utilisateur. A encadrer par <![CDATA[..]]>
+		$cdata = array(
+			'title',
+			'description',
+			'meta_description',
+			'meta_keywords',
+			'feed_footer',
+			'custom_admincss_file',
+			'smtp_username',
+			'smtp_password',
+			'smtpOauth2_clientId',
+			'smtpOauth2_clientSecret',
+		);
+
 		$parametreChanged = false;
 		foreach($content as $k=>$v) {
-			if(!in_array($k, $excludes)) {
-				if(isset($plxConfig[$k]) and $plxConfig[$k] === $v) {
-					# Aucun changement pour ce champ
+			if(
+				in_array($k, $excludes) or
+				(isset($plxConfig[$k]) and $plxConfig[$k] === $v)
+			) {
+				# Pas de sauvegarde pour ce paramètre
+				# ou Aucun changement pour ce champ
+				continue;
+			}
+
+			# contrôle de la validité des dossiers racines et medias
+			if(
+				preg_match('#^(?:medias|racine_(?:article|comment\w*|statique|theme|plugin)s|)$#', $k) or
+				($k == 'custom_admincss_file' and !empty($v))
+			) {
+				if(!preg_match('#^\w[\w\s/\\-]*/?$#', $v) or !is_dir(PLX_ROOT . $v)) { # Pas de . dans le nom des dossiers !
 					continue;
+				} else {
+					# Chemin validé pour un dossier
+					if (substr($v, -1) !== '/') {
+						$v .= '/';
+					}
 				}
 
-				# contrôle de la validité des dossiers racines et medias
-				if(preg_match('#^(?:medias|racine_(?:article|comment\w*|statique|theme|plugin)s)$#', $k)) {
-					if(preg_match('#^\w[\w\s/\\-]*/?$#', $v) and is_dir(PLX_ROOT . $v)) {
-						# Chemin validé pour un dossier
-						if (substr($v, -1) !== '/') {
-							$v .= '/';
-						}
-						$plxConfig[$k] = $v;
-						$parametreChanged = true;
-					}
+			/*
+			 * Uniquement une valeur numérique pour ces champs :
+			 * bypage,
+			 * bypage_admin,
+			 * bypage_admin_coms,
+			 * bypage_archives,
+			 * bypage_feed,
+			 * bypage_tags,
+			 * images_l,
+			 * images_h,
+			 * miniatures_l,
+			 * miniatures_h,
+			 * */
+			} elseif(preg_match('#^(?:bypage|images|miniatures)#', $k)) {
+				if(!is_numeric($v)) {
 					continue;
+				} else {
+					$v = intval($v);
 				}
 
-				/*
-				 * Uniquement une valeur numérique pour ces champs :
-				 * bypage,
-				 * bypage_admin,
-				 * bypage_admin_coms,
-				 * bypage_archives,
-				 * bypage_feed,
-				 * bypage_tags,
-				 * images_l,
-				 * images_h,
-				 * miniatures_l,
-				 * miniatures_h,
-				 * */
-				if(preg_match('#^(?:bypage|images|miniatures)#', $k)) {
-					if(is_numeric($v)) {
-						$n = intval($v);
-						if(!isset($plxConfig[$k]) or $plxConfig[$k] != $n) {
-							$plxConfig[$k] = $n;
-							$parametreChanged = true;
-						}
-					}
+			/*
+			 * Uniquement une valeur booléenne 0 ou 1 pour ces champs :
+			 * allow_com
+			 * capcha
+			 * display_empty_cat
+			 * enable_rss
+			 * enable_rss_comment
+			 * feed_chapo
+			 * gzip
+			 * lostpassword
+			 * mod_art
+			 * mod_com
+			 * thumbs
+			 * urlrewriting
+			 * userfolders
+			 * */
+			} elseif(preg_match('#^(?:allow|capcha|display|enable|feed_chapo|gzip|lostpassword|mod_|thumbs|urlrewriting|userfolder)#', $k)) {
+				if(!preg_match('#^\s*(0|1)\s*$#', $v, $matches)) {
 					continue;
+				} else {
+					$v = intval($matches[1]);
 				}
 
-				/*
-				 * Uniquement une valeur booléenne 0 ou 1 pour ces champs :
-				 * allow_com
-				 * capcha
-				 * display_empty_cat
-				 * enable_rss
-				 * enable_rss_comment
-				 * feed_chapo
-				 * gzip
-				 * lostpassword
-				 * mod_art
-				 * mod_com
-				 * thumbs
-				 * urlrewriting
-				 * userfolders
-				 * */
-				if(preg_match('#^(?:allow|capcha|display|enable|gzip|lostpassword|mod_|thumbs|urlrewriting|userfolder)#', $k)) {
-					if(preg_match('#^\s*(0|1)\s*$#', $v, $matches)) {
-						$n = intval($matches[1]);
-						if(!isset($plxConfig[$k]) or $plxConfig[$k] != $n) {
-							$plxConfig[$k] = $n;
-							$parametreChanged = true;
-						}
-					}
+			 # Champs pour les tris
+			} elseif(preg_match('#^tri#', $k)) {
+				if(!preg_match('#^\s*(r?alpha|asc|desc|random)\s*$#', $v, $matches)) {
 					continue;
-				 }
-
-				 # Champs pour les tris
-				if(preg_match('#^tri#', $k)) {
-					if(preg_match('#^\s*(r?alpha|asc|desc|random)\s*$#', $v, $matches)) {
-						if(!isset($plxConfig[$k]) or $plxConfig[$k] != $matches[1]) {
-							$plxConfig[$k] = $matches[1];
-							$parametreChanged = true;
-						}
-					}
-					continue;
+				} else {
+					$v = $matches[1];
 				}
 
-				# contrôle le dossier du thème
+			# contrôle le dossier du thème
+			} elseif($k == 'style') {
 				if(
-					$k == 'style' and (
-						!preg_match('#^\w[\w\s-]*$#', $v) or
-						!is_dir(PLX_ROOT . $this->aConf['racine_themes'] . $v)
-					)
+					!preg_match('#^\w[\w\s-]*$#', $v) or
+					!is_dir(PLX_ROOT . $this->aConf['racine_themes'] . $v)
 				) {
 					continue;
 				}
 
-				if($k == 'homestatic') {
-					if(strlen($v) > 0 and !preg_match('#^\d{3,4}$#', $v)) {
-						# n'est pas un identifiant de page statique
-						continue;
-					}
-				}
-
-				if($k == 'hometemplate') {
-					# Un thème doit avoir au moins un fichier home*.php. Voir plxThemes::getThemes()
-					if(
-						preg_match('#^home[\w\s-]*\.php$#', $v) and
-						file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . $v)
-					) {
-						if (!isset($plxConfig[$k]) or $plxConfig[$k] != $v)
-						{
-							$plxConfig = $v;
-							$parametreChanged = true;
-						}
-					}
-					# Pas de changement ou fichier avec nom invalide ou inexistant
+			} elseif($k == 'homestatic') {
+				if(
+					empty(trim($v)) or
+					!preg_match('#^\d{3,4}$#', $v)
+				) {
 					continue;
 				}
 
-				/*
-				 * Autres champs vide ou de type chaine :
-				 * title
-				 * description
-				 * meta_description
-				 * meta_keywords
-				 * timezone
-				 * feed_footer
-				 * default_lang
-				 * custom_admincss_file
-				 * email_method
-				 * */
-				$s = trim($v);
-				if($s !== '') {
-					# On autorise quelques balises HTML pour certains champs
-					$tags = in_array($k, array('title', 'description', 'meta_description')) ? '<i><em><a><sup>' : null ;
-					$s = plxUtils::strCheck($v, true, $tags);
+			} elseif($k == 'hometemplate') {
+				# Un thème doit avoir au moins un fichier home*.php. Voir plxThemes::getThemes()
+				if(
+					!preg_match('#^home[\w\s-]*\.php$#', $v) or
+					!file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . $v)
+				) {
+					continue;
 				}
-				if(!isset($plxConfig[$k]) or $plxConfig[$k] != $s) {
-					$plxConfig[$k] = $s;
-					$parametreChanged = true;
+
+			} elseif($k == 'default_lang') {
+				if(!array_key_exists($v, plxUtils::getLangs())) {
+					continue;
+				}
+
+			} elseif($k == 'email_method') {
+				if(!array_key_exists($v, EMAIL_METHODS)) {
+					continue;
+				}
+
+			} elseif($k == 'timezone') {
+				if(!array_key_exists($v, plxTimezones::timezones())) {
+					continue;
 				}
 			}
-		}
+
+			if(!isset($plxConfig[$k]) or $plxConfig[$k] != $s) {
+				# Veleur à  sauvegarder
+				$plxConfig[$k] = $v;
+				$parametreChanged = true;
+			}
+		} # End for "foreach($content as $k=>$v)"
 
 		# On teste la clef
 		if(empty($plxConfig['clef']) or !preg_match('#^\w{15}$#', $plxConfig['clef'])) {
@@ -279,12 +277,23 @@ class plxAdmin extends plxMotor {
 <document>
 <?php
 			foreach($plxConfig as $k=>$v) {
-				if(!in_array($k, $excludes)) {
-					# $value = (!empty($v) and !is_numeric($v) and !preg_match('#^(?:tri.*|clef|version|default_lang|hometemplate)$#', $k)) ? '<![CDATA[' . $v . ']]>' : $v;
-?>
-	<parametre name="<?= $k ?>"><?= plxUtils::strCheck($v) ?></parametre>
-<?php
+				if(in_array($k, $excludes)) {
+					continue;
 				}
+
+				if (empty($v) or !in_array($k, $cdata)) {
+					# <!CDATA[..]]> est inutile :  valeur numerique, champs uniquement avec caractères alphanumérique
+					$content = plxUtils::strCheck($v);
+				} elseif(in_array($k, array('description', 'feed_footer'))) {
+					# On tolère quelques balises par défaut : <i>, <em>, <a>, <sup>, <span>,
+					$content = plxUtils::strCheck($v, true);
+				} else {
+					# Aucune balise HTML tolérée
+					$content = plxUtils::strCheck($v, true, null);
+				}
+?>
+	<parametre name="<?= $k ?>"><?= $content ?></parametre>
+<?php
 			}
 ?>
 </document>
@@ -300,7 +309,7 @@ class plxAdmin extends plxMotor {
 			if(substr($newpath, -1) !== '/') {
 				$newpath .= '/';
 			}
-			if($newpath!=PLX_CONFIG_PATH) {
+			if($newpath != PLX_CONFIG_PATH) {
 				# relocalisation du dossier de configuration de PluXml
 				if(!preg_match('#^\w[\w\s/\\-]*/$#', $newpath) or !rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath)) {
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
