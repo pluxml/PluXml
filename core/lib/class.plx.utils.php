@@ -895,7 +895,7 @@ class plxUtils {
 	 *
 	 * @param	str		chaine de caractères
 	 * @param	cdata	encapsule str dans <![CDATA[ ]]> si true et str non nulle
-	 * @param	tags	balises HTML autorisées dans <![CDATA[]]>
+	 * @param	tags	balises HTML autorisées dans <![CDATA[]]> ou null
 	 * @return	string	chaine de caractères tenant compte du charset
 	 **/
 	public static function strCheck($str, $cdata=false, $tags='<i><em><a><sup><span>') {

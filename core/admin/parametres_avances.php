@@ -180,7 +180,7 @@ if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 				<small><?php echo L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInputRadio('email_method', array('sendmail'=>'sendmail', 'smtp'=>'SMTP', 'smtpoauth'=>'OAUTH2'), $plxAdmin->aConf['email_method']); ?>
+				<?php plxUtils::printInputRadio('email_method', EMAIL_METHODS, $plxAdmin->aConf['email_method']); ?>
 			</div>
 		</div>
 		<div><h3><?php echo L_CONFIG_ADVANCED_SMTP_TITLE ?></h3></div>
