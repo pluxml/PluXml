@@ -236,7 +236,7 @@ class plxAdmin extends plxMotor {
 				}
 			}
 
-			if(!isset($plxConfig[$k]) or $plxConfig[$k] != $s) {
+			if(!isset($plxConfig[$k]) or $plxConfig[$k] != $v) {
 				# Veleur à  sauvegarder
 				$plxConfig[$k] = $v;
 				$parametreChanged = true;
@@ -264,10 +264,9 @@ class plxAdmin extends plxMotor {
 			# Actions sur le fichier .htaccess si le mode de ré-écriture a changé
 			if(
 				array_key_exists('urlrewriting', $content) and
-				preg_match('#^(0|1)$#',$content['urlrewriting'], $matches) and
-				$plxConfig['urlrewriting'] != $matches[1]
+				$plxConfig['urlrewriting'] != $urlrewriting
 			) {
-				if(!$this->htaccess($matches[1], $plxConfig['racine'])) {
+				if(!$this->htaccess($plxConfig['urlrewriting'], $plxConfig['racine'])) {
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 				}
 			}
@@ -350,14 +349,15 @@ EOT;
 # BEGIN -- Pluxml
 Options -Multiviews
 <IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteBase '.$base['path'].'
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-# Réécriture des urls
-RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
-RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
+	RewriteEngine on
+	RewriteBase '.$base['path'].'
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+
+	# Réécriture des urls
+	RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
+	RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 </IfModule>
 # END -- Pluxml
 ';
