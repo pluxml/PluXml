@@ -43,6 +43,7 @@ $CONSTS = array(
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
 const PLX_CHARSET = 'UTF-8';
+const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET .'"?>' . PHP_EOL;
 
 # Langue par défaut
 const DEFAULT_LANG = 'en';

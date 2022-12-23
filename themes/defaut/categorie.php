@@ -62,7 +62,7 @@
 						<?php $plxShow->pagination(); ?>
 					</nav>
 
-					<?php $plxShow->artFeed('rss',$plxShow->catId(), '<span><a href="#feedUrl" title="#feedTitle">#feedName</a></span>'); ?>
+					<?php $plxShow->artFeed('rss',$plxShow->catId(), '<span><a href="#feedUrl" title="#feedTitle" download>#feedName</a></span>'); ?>
 
 				</div>
 

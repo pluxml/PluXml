@@ -112,7 +112,7 @@ var parent = document.getElementById('id_parent').value;
 if(parent!='') { replyCom(parent) }
 </script>
 
-	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle">#feedName</a></p>'); ?>
+	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle" download>#feedName</a></p>'); ?>
 
 	<?php else: ?>
 
