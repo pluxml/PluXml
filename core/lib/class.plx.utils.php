@@ -1330,11 +1330,16 @@ class plxUtils {
 	*/
 	public static function thumbName($filename) {
 
-		$matches = '';
-		if(preg_match('/^(.*\.)(jpe?g|png|gif|bmp|webp)$/iD', $filename, $matches)) {
-			return $matches[1].'tb.'.$matches[2];
-		} else {
+		$extensions = '(jpe?g|png|gif|bmp|webp)';
+		if (
+			preg_match('#^https?://#', $filename) or
+			preg_match('#.*\.tb\.' . $extensions . '$#iD', $filename) or
+			!preg_match('#(.*\.)' . $extensions . '$#iD', $filename, $matches)
+		) {
+			# url absolue ou déjà une url pour thummbnail ou extension non reconnue
 			return $filename;
+		} else {
+			return $matches[1].'tb.'.$matches[2];
 		}
 	}
 
