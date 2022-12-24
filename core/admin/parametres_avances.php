@@ -43,15 +43,10 @@ include 'top.php';
 				<label for="id_urlrewriting"><?php echo L_CONFIG_ADVANCED_URL_REWRITE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php if(plxUtils::testModRewrite(false)) : ?>
-					<?php plxUtils::printSelect('urlrewriting',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['urlrewriting']);?>
-					<?php if(is_file(PLX_ROOT.'.htaccess') AND $plxAdmin->aConf['urlrewriting']==0) { ?>
-						<br /><span class="text-red"><?php echo L_CONFIG_ADVANCED_URL_REWRITE_ALERT ?></span>
-					<?php } ?>
-				<?php else: ?>
-					<?php echo L_MODREWRITE_NOT_AVAILABLE ?>
-					<input type="hidden" name="urlrewriting" value="0" />
- 				<?php endif; ?>
+				<?php plxUtils::printSelect('urlrewriting',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['urlrewriting']);?>
+				<?php if(is_file(PLX_ROOT.'.htaccess') AND $plxAdmin->aConf['urlrewriting']==0) { ?>
+					<br /><span class="text-red"><?php echo str_replace('. ', '.<br />', L_CONFIG_ADVANCED_URL_REWRITE_ALERT) ?></span>
+				<?php } ?>
 			</div>
 		</div>
 		<div class="grid">
