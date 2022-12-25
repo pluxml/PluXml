@@ -91,10 +91,6 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function editConfiguration($plxConfig, $content) {
 
-		if(!plxUtils::testModRewrite(false) or !isset($content['urlrewriting'])) {
-			$content['urlrewriting'] = '0';
-		}
-
 		# Sauvegarde de la valeur initiale
 		$urlrewriting = $plxConfig['urlrewriting'];
 
