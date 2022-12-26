@@ -165,6 +165,16 @@ ul.menu a.noactive{
 	color: #fff;
 }
 
+.rss {
+	padding-left: 2.75rem;
+	background: left center no-repeat url('../../../core/admin/theme/images/rss.svg');
+	background-size: 2rem;
+}
+
+.menu li .rss {
+	padding-left: 2.5rem;
+}
+
 /* ---------- Main ---------- */
 
 .main {

@@ -33,15 +33,18 @@ if(!$plxFeed->aConf['enable_rss']) {
 
 # On démarre la bufferisation
 ob_start();
-ob_implicit_flush(0);
+# ob_implicit_flush(0);
 
 $plxFeed->fprechauffage();
 $plxFeed->fdemarrage();
 
 # Récuperation de la bufférisation
-$output = ob_get_clean();
+$output = XML_HEADER . ob_get_clean() . PHP_EOL;
 
 eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 
 # Restitution écran
+header('Content-Type: application/rss+xml');
+header('Content-Disposition: attachment; filename="' . $plxFeed->rssAttachment . '"');
+header('Content-Length: ' . strlen($output));
 echo $output;

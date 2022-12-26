@@ -12,17 +12,15 @@
 				<a rel="nofollow" href="<?php $plxShow->urlRewrite('core/admin/'); ?>" title="<?php $plxShow->lang('ADMINISTRATION') ?>"><?php $plxShow->lang('ADMINISTRATION') ?></a>
 			</p>
 			<ul class="menu">
-				<?php  if($plxShow->plxMotor->aConf['enable_rss']) { ?>
-				<li><a href="<?php $plxShow->urlRewrite('feed.php?rss') ?>" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS'); ?>"><?php $plxShow->lang('ARTICLES'); ?></a></li>
-				<?php } ?>
-                <?php if($plxShow->plxMotor->aConf['enable_rss_comment']) { ?>
-                    <li><a href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires'); ?>" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>"><?php $plxShow->lang('COMMENTS'); ?></a></li>
-                <?php  } ?>
+<?php  if($plxShow->plxMotor->aConf['enable_rss']) { ?>
+				<li><?php $plxShow->artFeed(); ?></li>
+<?php } ?>
+<?php if($plxShow->plxMotor->aConf['enable_rss_comment']) { ?>
+					<li><?php $plxShow->comFeed() ?></li>
+<?php  } ?>
 				<li><a href="<?php $plxShow->urlRewrite('#top') ?>" title="<?php $plxShow->lang('GOTO_TOP') ?>"><?php $plxShow->lang('TOP') ?></a></li>
 			</ul>
 		</div>
 	</footer>
-	
 </body>
-
 </html>

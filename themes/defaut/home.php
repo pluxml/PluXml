@@ -8,7 +8,7 @@
 
 				<div class="content col sml-12 med-9">
 
-					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
+<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
 					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 
@@ -48,14 +48,11 @@
 
 					</article>
 
-					<?php endwhile; ?>
+<?php endwhile; ?>
 
 					<nav class="pagination text-center">
 						<?php $plxShow->pagination(); ?>
 					</nav>
-
-					<?php $plxShow->artFeed('rss',$plxShow->catId(), '<span><a href="#feedUrl" title="#feedTitle">#feedName</a></span>'); ?>
-
 				</div>
 
 				<?php include __DIR__.'/sidebar.php'; ?>

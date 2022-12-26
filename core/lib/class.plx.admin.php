@@ -10,7 +10,6 @@
 const PLX_ADMIN = true;
 const HTACCESS_FILE = PLX_ROOT . '.htaccess';
 const PATTERN_NAME = '#^\w[\w\s.-]*\w$#u'; # for preg_match()
-const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET .'"?>' . PHP_EOL;
 
 class plxAdmin extends plxMotor {
 
