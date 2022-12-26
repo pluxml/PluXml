@@ -1,22 +1,14 @@
 <?php include __DIR__.'/header.php'; ?>
-
 	<main class="main">
-
 		<div class="container">
-
 			<div class="grid">
-
 				<div class="content col sml-12 med-9">
-
 					<ul class="repertory menu breadcrumb">
 						<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
 						<li><?php $plxShow->authorName(); ?></li>
 					</ul>
-
-					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
-
+<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
-
 						<header>
 							<span class="art-date">
 								<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>">
@@ -44,28 +36,17 @@
 								</small>
 							</div>
 						</header>
-
 						<?php $plxShow->artThumbnail(); ?>
 						<?php $plxShow->artChapo(); ?>
-
 					</article>
-
-					<?php endwhile; ?>
-
+<?php endwhile; ?>
 					<nav class="pagination text-center">
 						<?php $plxShow->pagination(); ?>
 					</nav>
-
-					<?php $plxShow->artFeed('rss', $plxShow->plxMotor->cible, '<span><a href="#feedUrl" title="#feedTitle">#feedName</a></span>'); ?>
-
+					<?php $plxShow->artFeed('rss', $plxShow->authorId()); ?>
 				</div>
-
-				<?php include __DIR__.'/sidebar.php'; ?>
-
+<?php include __DIR__.'/sidebar.php'; ?>
 			</div>
-
 		</div>
-
 	</main>
-
 <?php include __DIR__.'/footer.php'; ?>

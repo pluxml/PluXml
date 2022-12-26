@@ -258,12 +258,12 @@ class plxFeed extends plxMotor {
 				break;
 			case 'categorie':
 				$this->rssTitle = $this->aConf['title'].' - '.$this->aCats[ $this->cible ]['name'];
-				$this->rssLink = $this->urlRewrite('?categorie'.intval($this->cible).'/'.$this->aCats[ $this->cible ]['url']);
+				$this->rssLink = $this->urlRewrite('?categorie'.intval($this->cible));
 				$this->rssAttachment = 'categorie-' . ltrim($this->cible, '0') . '-' . $this->aCats[ $this->cible ]['name'] . '.rss';
 				break;
 			case 'user':
 				$this->rssTitle = $this->aConf['title'].' - '.$this->aUsers[ $this->cible ]['name'];
-				$this->rssLink = $this->urlRewrite('?user'.intval($this->cible).'/'.$this->aUsers[ $this->cible ]['login']);
+				$this->rssLink = $this->urlRewrite('?user'.intval($this->cible));
 				$this->rssAttachment = 'user-' . $this->aUsers[ $this->cible ]['name'] . '.rss';
 				break;
 			default:

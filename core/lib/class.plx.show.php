@@ -13,6 +13,7 @@ class plxShow
 {
 
 	const AUTHOR_PATTERN = '<li id="#user_id"><a href="#user_url" class="#user_status" title="#user_name">#user_name</a> (#art_nb)</li>';
+	const RSS_FORMAT = '<a class="rss" href="#feedUrl" title="#feedTitle" download>#feedName</a>';
 	public $plxMotor = false; # Objet plxMotor
 	private $lang; # fichier de traduction du theme
 
@@ -701,7 +702,7 @@ class plxShow
 	{
 		$authorId = $this->plxMotor->plxRecord_arts->f('author');
 		if (isset($this->plxMotor->aUsers[$authorId]['name'])) {
-			$author = $this->plxMotor->aUsers[$this->plxMotor->plxRecord_arts->f('author')];
+			$author = $this->plxMotor->aUsers[$authorId];
 			$authorName = plxUtils::strCheck($author['name']);
 		} else {
 			$authorName = L_ARTAUTHOR_UNKNOWN;
@@ -979,34 +980,47 @@ class plxShow
 	 * @scope    home,categorie,article,tags,archives
 	 * @author    Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function artFeed($type = 'rss', $idstr = '', $format = '<a href="#feedUrl" title="#feedTitle" download>#feedName</a>')
+	public function artFeed($type = 'rss', $idstr = '', $format = self::RSS_FORMAT)
 	{
 		# Hook Plugins
 		if (eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))
 			return;
 
 		if ($this->plxMotor->aConf ['enable_rss']) {
-			if (trim($idstr) != '' and is_numeric($idstr)) {
+			if (trim($idstr) != '') {
 				# Fil Rss des articles d'une catégorie
-				$id = str_pad($idstr, 3, '0', STR_PAD_LEFT);
+				if(is_numeric($idstr)) {
+					$id = str_pad($idstr, 3, '0', STR_PAD_LEFT);
+				}
 				switch($this->plxMotor->mode) {
 					case 'categorie':
-						if (isset ($this->plxMotor->aCats[$id])) {
+						if (!empty($id) and isset ($this->plxMotor->aCats[$id])) {
 							$replaces = array(
-								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/categorie' . $idstr . '/' . $this->plxMotor->aCats[$id]['url']),
+								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/categorie' . intval($idstr)),
 								'#feedTitle'    => L_ARTFEED_RSS_CATEGORY,
 								'#feedName'     => L_ARTFEED_RSS_CATEGORY,
 							);
+						} else {
+							return;
 						}
 						break;
 					case 'user':
-						if (isset ($this->plxMotor->aUsers[$id])) {
+						if (!empty($id) and isset ($this->plxMotor->aUsers[$id])) {
 							$replaces = array(
-								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/user' . $idstr . '/' . $this->plxMotor->aUsers[$id]['login']),
+								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/user' . intval($idstr)),
 								'#feedTitle'    => L_ARTFEED_RSS_USER,
 								'#feedName'     => L_ARTFEED_RSS_USER,
 							);
+						} else {
+							return;
 						}
+						break;
+					case 'tags':
+						$replaces = array(
+							'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/tag/' . plxUtils::strCheck($idstr)),
+							'#feedTitle'	=> L_ARTFEED_RSS_TAG,
+							'#feedName'		=> L_ARTFEED_RSS_TAG,
+						);
 						break;
 					default:
 						return;
@@ -1412,7 +1426,7 @@ class plxShow
 	 * @scope    global
 	 * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function comFeed($type = 'rss', $article = '', $format = '<a href="#feedUrl" title="#feedTitle">#feedName</a>')
+	public function comFeed($type = 'rss', $article = '', $format = self::RSS_FORMAT)
 	{
 		# Hook Plugins
 		if (eval ($this->plxMotor->plxPlugins->callHook('plxShowComFeed')))
@@ -1420,15 +1434,19 @@ class plxShow
 
 		if ($this->plxMotor->aConf ['enable_rss_comment']) {
 			if ($article != '' and is_numeric($article)) { # Fil Rss des commentaires d'un article
-				$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss/commentaires/article' . $article), $format);
-				$result = str_replace('#feedTitle', L_COMFEED_RSS_ARTICLE, $result);
-				$result = str_replace('#feedName', L_COMFEED_RSS_ARTICLE, $result);
+				$replaces =array(
+					'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/commentaires/article' . $article),
+					'#feedTitle'	=> L_COMFEED_RSS_ARTICLE,
+					'#feedName'		=> L_COMFEED_RSS_ARTICLE,
+				);
 			} else { # Fil Rss des commentaires global
-				$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss/commentaires'), $format);
-				$result = str_replace('#feedTitle', L_COMFEED_RSS, $result);
-				$result = str_replace('#feedName', L_COMFEED_RSS, $result);
+				$replaces = array(
+					'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/commentaires'),
+					'#feedTitle'	=> L_COMFEED_RSS,
+					'#feedName'		=> L_COMFEED_RSS,
+				);
 			}
-			echo $result;
+			echo strtr($format, $replaces);
 		}
 	}
 
@@ -1901,7 +1919,7 @@ class plxShow
 	 * @author                Stephane F, Pedro "P3ter" CADETE
 	 **/
 
-	public function tagFeed($type = 'rss', $tag = '', $format = '<a href="#feedUrl" title="#feedTitle">#feedName</a>')
+	public function tagFeed($type = 'rss', $tag = '', $format = self::RSS_FORMAT)
 	{
 
 		# Hook Plugins
@@ -1912,10 +1930,11 @@ class plxShow
 			if ($tag == '' and $this->plxMotor->mode == 'tags') {
 				$tag = $this->plxMotor->cible;
 			}
-			$result = str_replace('#feedUrl', $this->plxMotor->urlRewrite('feed.php?rss/tag/' . plxUtils::strCheck($tag)), $format);
-			$result = str_replace('#feedTitle', L_ARTFEED_RSS_TAG, $result);
-			$result = str_replace('#feedName', L_ARTFEED_RSS_TAG, $result);
-			echo $result;
+			echo strtr($format, array(
+				'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/tag/' . plxUtils::strCheck($tag)),
+				'#feedTitle'	=> L_ARTFEED_RSS_TAG,
+				'#feedName'		=> L_ARTFEED_RSS_TAG,
+			));
 		}
 	}
 
@@ -2058,6 +2077,27 @@ class plxShow
 				echo $userName;
 			}
 		}
+	}
+
+	public function authorId() {
+		switch ($this->plxMotor->mode) {
+			case 'user' :
+				if (isset($this->plxMotor->aCats[$this->plxMotor->cible])) {
+					return $this->plxMotor->cible;
+				}
+				break;
+			case 'tags':
+			case 'home':
+			case 'article':
+				$authorId = $this->plxMotor->plxRecord_arts->f('author');
+				if(isset($this->plxMotor->aUsers[$authorId])) {
+					return $authorId;
+				}
+				break;
+			default:
+		}
+
+		return '';
 	}
 
 	/**
