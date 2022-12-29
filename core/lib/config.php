@@ -55,6 +55,63 @@ const PROFIL_MODERATOR	= 2;
 const PROFIL_EDITOR	= 3;
 const PROFIL_WRITER	= 4;
 
+const DEFAULT_CONFIG = array(
+	'title'					=> 'PluXml',
+	'description'			=> '', # plxUtils::strRevCheck(L_SITE_DESCRIPTION)
+	'meta_description'		=> '',
+	'meta_keywords'			=> '',
+	'timezone'				=> '',
+	'allow_com'				=> 1,
+	'mod_com'				=> 0,
+	'mod_art'				=> 0,
+	'enable_rss'			=> 1,
+	'enable_rss_comment'	=> 1,
+	'capcha'				=> 1,
+	'lostpassword'			=> 1,
+	'style'					=> 'defaut',
+	'clef'					=> '', # plxUtils::charAleatoire(15)
+	'bypage'				=> 5,
+	'bypage_archives'		=> 5,
+	'bypage_tags'			=> 5,
+	'bypage_admin'			=> 10,
+	'bypage_admin_coms'		=> 10,
+	'bypage_feed'			=> 8,
+	'tri'					=> 'desc',
+	'tri_coms'				=> 'asc',
+	'images_l'				=> 800,
+	'images_h'				=> 600,
+	'miniatures_l'			=> 200,
+	'miniatures_h'			=> 100,
+	'thumbs'				=> 0,
+	'medias'				=> 'data/medias/',
+	'racine_articles'		=> 'data/articles/',
+	'racine_commentaires'	=> 'data/commentaires/',
+	'racine_statiques'		=> 'data/statiques/',
+	'racine_themes'			=> 'themes/',
+	'racine_plugins'		=> 'plugins/',
+	'homestatic'			=> '',
+	'hometemplate'			=> 'home.php',
+	'urlrewriting'			=> 0,
+	'gzip'					=> 0,
+	'feed_chapo'			=> 0,
+	'feed_footer'			=> '',
+	'version'				=> PLX_VERSION,
+	'default_lang'			=> DEFAULT_LANG,
+	'userfolders'			=> 0,
+	'display_empty_cat'		=> 0,
+	'custom_admincss_file'	=> '',
+	'email_method'			=> 'sendmail',
+	'smtp_server'			=> '',
+	'smtp_username'			=> '',
+	'smtp_password'			=> '',
+	'smtp_port'				=> '465',
+	'smtp_security'			=> 'ssl',
+	'smtpOauth2_emailAdress'	=> '',
+	'smtpOauth2_clientId'		=> '',
+	'smtpOauth2_clientSecret'	=> '',
+	'smtpOauth2_refreshToken'	=> '',
+);
+
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');
 $img_thumb = array('50x50', '75x75', '100x100');
@@ -94,7 +151,7 @@ function path($s, $newvalue='') {
 }
 
 # On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
+if(!file_exists(path('XMLFILE_PARAMETERS')) and basename($_SERVER['SCRIPT_NAME']) != 'install.php') {
 	header('Location: ' . PLX_ROOT . 'install.php');
 	exit;
 }

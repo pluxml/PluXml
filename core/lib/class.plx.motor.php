@@ -32,8 +32,58 @@ class plxMotor {
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
 	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
 	public $activeArts = array(); # Tableaux des articles appartenant aux catégories actives
+	public $aConf = DEFAULT_CONFIG;
 
-	public $aConf = array(); # Tableau de configuration
+	# Tableau de configuration. On gère la non régression depuis PluXml-5.1.7 en cas d'ajout de paramètres sur une version de pluxml déjà installée
+	/*
+	public $aConf = array(
+		'enable_rss'=>1,
+		'enable_rss_comment'=>1,
+		'lostpassword'=>1,
+		'bypage_tags'=>5,
+		'thumbs'=>0,
+		'medias'=>'data/medias/',
+		'hometemplate'=>'home.php',
+		'version'=>PLX_VERSION,
+		'display_empty_cat'=>0,
+		'custom_admincss_file'=>'',
+		'email_method' => 'sendmail',
+		'smtp_server' => '',
+		'smtp_username' => '',
+		'smtp_password' => '',
+		'smtp_port' => '465',
+		'smtp_security' => 'ssl',
+		'smtpOauth2_emailAdress' => '',
+		'smtpOauth2_clientId'=> '',
+		'smtpOauth2_clientSecret' => '',
+		'smtpOauth2_refreshToken' => '',
+	);
+	* */
+
+		/*
+		'bypage_admin'			=> 10,
+		'tri'					=> 'desc'
+		'bypage_admin_coms'		=> 10,
+		'bypage_archives'		=> 5,
+		'bypage_tags'			=> 5,
+		'userfolders'			=> 0,
+		'meta_description'		=> '',
+		'meta_keywords'			=> '',
+		'default_lang'			=> DEFAULT_LANG,
+		'racine_plugins'		=> 'plugins/',
+		'racine_themes'			=> 'themes/',
+		'medias'				=> 'data/images/',
+		'mod_art'				=> 0,
+		'display_empty_cat'		=> 0,
+		'timezone'				=> @date_default_timezone_get(),
+		'thumbs'				=> 1,
+		'hometemplate'			=> 'home.php',
+		'custom_admincss_file'	=> '',
+		'lostpassword'			=> : 1,
+		'enable_rss'			=> 1,
+		'enable_rss_comment'	=> 1,
+		* */
+
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
@@ -429,33 +479,22 @@ class plxMotor {
 				}
 			}
 		}
+
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
-		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
-		$this->aConf['bypage_admin'] = plxUtils::getValue($this->aConf['bypage_admin'],10);
-		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
-		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
-		$this->aConf['bypage_archives'] = plxUtils::getValue($this->aConf['bypage_archives'],5);
-		$this->aConf['bypage_tags'] = plxUtils::getValue($this->aConf['bypage_tags'],5);
-		$this->aConf['userfolders'] = plxUtils::getValue($this->aConf['userfolders'],0);
-		$this->aConf['meta_description'] = plxUtils::getValue($this->aConf['meta_description']);
-		$this->aConf['meta_keywords'] = plxUtils::getValue($this->aConf['meta_keywords']);
-		$this->aConf['default_lang'] = plxUtils::getValue($this->aConf['default_lang'],DEFAULT_LANG);
-		$this->aConf['racine_plugins'] = plxUtils::getValue($this->aConf['racine_plugins'], 'plugins/');
-		$this->aConf['racine_themes'] = plxUtils::getValue($this->aConf['racine_themes'], 'themes/');
-		$this->aConf['mod_art'] = plxUtils::getValue($this->aConf['mod_art'],0);
-		$this->aConf['display_empty_cat'] = plxUtils::getValue($this->aConf['display_empty_cat'],0);
-		$this->aConf['timezone'] = plxUtils::getValue($this->aConf['timezone'],@date_default_timezone_get());
-		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
-		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
-		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
-		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
-		$this->aConf['lostpassword'] = isset($this->aConf['lostpassword']) ? $this->aConf['lostpassword'] : 1;
-		$this->aConf['enable_rss'] = isset($this->aConf['enable_rss']) ? $this->aConf['enable_rss'] : 1;
+
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
-		# On vérifie que le module Rewrite d'Apache est reconnu. Sinon on bloque la réécriture d'URL
-		if (plxUtils::testModRewrite(false) === false or $this->aConf['urlrewriting'] != 1) {
+
+		# valeurs non nulles requises pour ces champs :
+		if(empty($this->aConf['timezone'])) {
+			$this->aConf['timezone'] = @date_default_timezone_get();
+		}
+		if(empty($this->aConf['clef'])) {
+			$this->aConf['clef'] = plxUtils::charAleatoire(15);
+		}
+
+		if (!isset($this->aConf['urlrewriting']) or $this->aConf['urlrewriting'] != 1) {
 			$this->aConf['urlrewriting'] = '0';
 		}
 	}
