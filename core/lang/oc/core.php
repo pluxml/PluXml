@@ -8,8 +8,8 @@ $LANG = array(
 'L_DATE_UPDATE'					=> 'Data de misa a jorn',
 
 # common
-'L_PLUXML_VERSION'				=> 'Pluxml version',
-'L_PLUXML_VERSION_DATA'			=> 'Version données',
+'L_PLUXML_VERSION'				=> 'version de Pluxml',
+'L_PLUXML_VERSION_DATA'			=> 'Version donadas',
 'L_HOMEPAGE'					=> 'Acuèlh',
 'L_UNCLASSIFIED'				=> 'Non classat',
 'L_INFO_PHP_VERSION'			=> 'Version de php',
@@ -92,7 +92,7 @@ $LANG = array(
 'L_NEWCOMMENT_ERR'				=> 'Una error s\'es produsida al temps de la publicacion d\'aquel comentari',
 'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Mercés d\'emplir totes los camps obligatòris requesits',
 'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'La verificacion anti-spam s\'es abocada',
-'L_UNKNOWN_AUTHOR'				=> 'Auteur inconnu',
+'L_UNKNOWN_AUTHOR'				=> 'Autor desconegut',
 
 # class.plx.show.php
 
@@ -109,7 +109,7 @@ $LANG = array(
 'L_ARTTAGS_NONE'				=> 'cap',
 'L_ARTCHAPO'					=> 'Legir la seguida de #art_title',
 'L_ARTFEED_RSS_CATEGORY'		=> 'Fil Rss dels articles d\'aquesta categoria',
-'L_ARTFEED_RSS_USER'			=> 'Fil Rss dels articles d\'aquesta auteur',
+'L_ARTFEED_RSS_USER'			=> 'Fil Rss dels articles d\'aquesta autor',
 'L_ARTFEED_RSS_TAG'				=> 'Fil Rss dels articles d\'aqueste mot clau',
 'L_ARTFEED_RSS'					=> 'Fil Rss dels articles',
 'L_NO_COMMENT'					=> 'pas cap de comentari',
