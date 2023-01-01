@@ -92,6 +92,7 @@ $LANG = array(
 'L_NEWCOMMENT_ERR'			=> 'Es gab einen Fehler beim Anlegen dieses Kommentars.',
 'L_NEWCOMMENT_FIELDS_REQUIRED' => 'Sie müssen alle Pflichtfelder ausfüllen',
 'L_NEWCOMMENT_ERR_ANTISPAM'	=> 'Anti-SPAM Überprüfung fehlgeschlagen',
+'L_UNKNOWN_AUTHOR'			=> 'Unbekannter Autor',
 
 # class.plx.show.php
 
@@ -142,4 +143,4 @@ $LANG = array(
 'L_FEED_WRITTEN_BY'			=> 'Geschrieben von',
 
 );
-?>
+

@@ -2178,7 +2178,7 @@ class plxShow
 						);
 						echo strtr($format, array(
 							'#user_id'        => 'user-' . $userIdNum,
-							'#user_url'        => $this->plxMotor->urlRewrite('?user' . $userIdNum . '/' . urlencode($author['name'])),
+							'#user_url'        => $this->plxMotor->urlRewrite('?user' . $userIdNum . '/' . plxUtils::urlify($author['name'])),
 							'#user_name'    => plxUtils::strCheck($author['name']),
 							'#user_status'    => $actif ? 'active' : 'noactive',
 							'#art_nb'        => $v,

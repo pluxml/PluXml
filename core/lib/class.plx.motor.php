@@ -229,7 +229,7 @@ class plxMotor {
 		}
 		elseif($this->get AND preg_match('#^user(\d+)\/?(\w[\w+-]+)?#',$this->get,$capture)) {
 			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
-			if(!empty($this->aUsers[$this->cible]) AND $this->aUsers[$this->cible]['active'] AND urlencode($this->aUsers[$this->cible]['name']) == $capture[2]) {
+			if(!empty($this->aUsers[$this->cible]) AND $this->aUsers[$this->cible]['active'] AND plxUtils::urlify($this->aUsers[$this->cible]['name']) == $capture[2]) {
 				$this->mode = 'user'; # Mode user
 				$this->motif = '#^\d{4}.(?:\d{3},|home,)*(?:home|\d{3})(?:,\d{3}|,home)*.' . $this->cible . '.\d{12}.[\w-]+.xml$#'; # Motif de recherche
 				$this->template = 'user.php';
@@ -237,11 +237,11 @@ class plxMotor {
 				// $this->bypage = $this->aCats[$this->cible]['bypage'] > 0 ? $this->aCats[$this->cible]['bypage'] : $this->bypage;
 			}
 			elseif(isset($this->aUser[$this->cible])) { # Redirection 301
-				if($this->aCats[$this->cible]['url']!=$capture[2]) {
-					$this->redir301($this->urlRewrite('?user'.intval($this->cible).'/'.$this->aCats[$this->cible]['login']));
+				if($this->aUsers[$this->cible]['url'] != $capture[2]) {
+					$this->redir301($this->urlRewrite('?user' . intval($this->cible) . '/' . plxUtils::urlify($this->aUsers[$this->cible]['name'])));
 				}
 			} else {
-				$this->error404(L_UNKNOWN_USER);
+				$this->error404(L_UNKNOWN_AUTHOR);
 			}
 		}
 		elseif($this->get AND preg_match('#^archives\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#',$this->get,$capture)) {

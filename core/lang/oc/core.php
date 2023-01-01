@@ -92,6 +92,7 @@ $LANG = array(
 'L_NEWCOMMENT_ERR'				=> 'Una error s\'es produsida al temps de la publicacion d\'aquel comentari',
 'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Mercés d\'emplir totes los camps obligatòris requesits',
 'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'La verificacion anti-spam s\'es abocada',
+'L_UNKNOWN_AUTHOR'				=> 'Auteur inconnu',
 
 # class.plx.show.php
 
@@ -141,4 +142,4 @@ $LANG = array(
 'L_FEED_OFFLINE_COMMENTS'		=> 'Comentaris fòra linha',
 'L_FEED_WRITTEN_BY'				=> 'Redigit per',
 );
-?>
+

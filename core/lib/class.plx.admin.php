@@ -593,12 +593,17 @@ Options -Multiviews
 
 			foreach($content['userNum'] as $user_id) {
 				$username = trim($content[$user_id.'_name']);
+				$login = trim($content[$user_id.'_login']);
+
+				if(empty($username) or empty($login)) {
+					continue;
+				}
 
 				# contrôle validité name et login
 				foreach(array('_name', '_login') as $f) {
 					$value = $content[$user_id . $f];
 					if(!preg_match(PATTERN_NAME, $value)) {
-						return plxMsg::Error(L_INVALID_VALUE . ' : ' . $value);
+						return plxMsg::Error(L_INVALID_VALUE . ' : <em>' . $value .  '</em>');
 					}
 				}
 
@@ -608,7 +613,7 @@ Options -Multiviews
 					$password = sha1($salt . md5($content[$user_id.'_password']));
 				} elseif(isset($content[$user_id . '_newuser'])) {
 					$this->aUsers = $save;
-					return plxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
+					return plxMsg::Error(L_ERR_PASSWORD_EMPTY . ' (' . L_CONFIG_USER . ' <em>' . $username . '</em>)');
 				}
 				else {
 					$salt = $this->aUsers[$user_id]['salt'];
