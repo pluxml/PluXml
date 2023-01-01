@@ -92,6 +92,7 @@ $LANG = array(
 'L_NEWCOMMENT_ERR'				=> 'O eroare este intalnit in timp ce publicarea acestui comentariu',
 'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Va multumim completati toate campurile obligatorii',
 'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'SPAM de verificare a esuat',
+'L_UNKNOWN_AUTHOR'				=> 'Autor necunoscut',
 
 # class.plx.show.php
 
@@ -142,4 +143,4 @@ $LANG = array(
 'L_FEED_WRITTEN_BY'				=> 'Scris de',
 
 );
-?>
+

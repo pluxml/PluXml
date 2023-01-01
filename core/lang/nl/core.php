@@ -67,6 +67,7 @@ $LANG = array(
 'L_TENTH'						=> 'tiende',
 'L_NTH'							=> 'de',
 'L_CAPCHA_QUESTION'				=> 'Welke is de <span class="capcha-letter">%s</span> aard van het woord <span class="capcha-word">%s</span>&nbsp;?',
+
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s is toegankelijk met schrijfrechten',
 'L_WRITE_NOT_ACCESS'			=> '%s is niet toegankelijk met schrijfrechten of bestaat niet',
@@ -91,6 +92,7 @@ $LANG = array(
 'L_NEWCOMMENT_ERR'				=> 'Er is een fout opgetreden bij het wegschrijven van de commentaar',
 'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Gelieve alle verplichte velden in te vullen a.u.b.',
 'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'La vérification anti-spam a échoué',
+'L_UNKNOWN_AUTHOR'				=> 'Onbekende auteur',
 
 # class.plx.show.php
 
@@ -141,4 +143,4 @@ $LANG = array(
 'L_FEED_WRITTEN_BY'				=> 'Geschreven door',
 
 );
-?>
+
