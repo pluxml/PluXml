@@ -27,7 +27,7 @@ $LANG = array (
 
 		'L_ERR_INVALID_DATE_CREATION' => 'Data de creacion invalida',
 		'L_ERR_INVALID_DATE_UPDATE' => 'Data de mesa a jorn invalida',
-		'L_INVALID_VALUE' => 'Valeur invalide',
+		'L_INVALID_VALUE' => 'Valor invalida',
 
 		// class.plx.admin.php
 
@@ -42,7 +42,7 @@ $LANG = array (
 		'L_ERR_INVALID_ARTICLE_IDENT' => 'Identificant d\'article invalid !',
 		'L_DEFAULT_NEW_CATEGORY_URL' => 'novèla-categoria',
 		'L_DEFAULT_NEW_STATIC_URL' => 'novèla-pagina',
-		'L_DEFAULT_NEW_ARTICLE_URL' => 'nouvel-article',
+		'L_DEFAULT_NEW_ARTICLE_URL' => 'novèl-article',
 		'L_ARTICLE_SAVE_SUCCESSFUL' => 'Article creat amb succès',
 		'L_ARTICLE_MODIFY_SUCCESSFUL' => 'Article mes a jorn amb succès',
 		'L_ARTICLE_DELETE_SUCCESSFUL' => 'Supression efectuada amb succès',
@@ -57,7 +57,7 @@ $LANG = array (
 		'L_COMMENT_VALIDATE_ERR' => 'Una error es subrevenguda pendent la validacion',
 		'L_COMMENT_MODERATE_SUCCESSFUL' => 'Moderacion efectuada amb succès',
 		'L_COMMENT_MODERATE_ERR' => 'Una error es subrevenguda al temps de la moderacion',
-		'L_ERR_URL_ALREADY_EXISTS' => 'Url ja utilizada. Volgatz modificar la valor del camp \'Url\'',
+		'L_ERR_URL_ALREADY_EXISTS' => 'Url ja utilizada. Volgatz modificar la valor del camp « Url »',
 
 		// class.plx.media.php
 
@@ -276,7 +276,7 @@ $LANG = array (
 		'L_SEARCH' => 'Recercar',
 		'L_SEARCH_PLACEHOLDER' => 'identificant o títol',
 		'L_ARTICLES_ALL_CATEGORIES' => 'Totas las categorias...',
-		'L_ARTICLES_ALL_AUTHORS'	=> 'Tous les auteurs...',
+		'L_ARTICLES_ALL_AUTHORS'	=> 'Totes los autors...',
 		'L_ALL' => 'Totes',
 		'L_ALL_PUBLISHED' => 'Publicats',
 		'L_ALL_DRAFTS' => 'Borrolhons',
