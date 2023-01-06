@@ -550,13 +550,20 @@ class plxMotor {
 				# Récuperation état affichage de la catégorie dans le menu
 				$this->aCats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
 				# Récuperation état activation de la catégorie dans le menu
-				$this->aCats[$number]['active']=isset($attributes['active'])?$attributes['active']:'1';
+				$this->aCats[$number]['active'] = !empty(isset($attributes['active']) ? $attributes['active'] : '1');
+				# Recuperation affichage en page d'accueil
+				$homepage = isset($attributes['homepage']) ? $attributes['homepage'] : 1;
+				if(!in_array($homepage, ['0', '1',])) {
+					$homepage = 1;
+				}
+				$this->aCats[$number]['homepage'] = !empty($homepage);
+
 				if($this->aCats[$number]['active']) {
 					$activeCats[]=$number;
+					if(!empty($homepage)) {
+						$homepageCats[] = $number;
+					}
 				}
-				# Recuperation affichage en page d'accueil
-				$value = isset($attributes['homepage']) ? $attributes['homepage'] : 1;
-				$this->aCats[$number]['homepage'] = in_array($value, array('0','1')) ? $value : 1;
 				# Recuperation du nombre d'article de la categorie
 				$motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*' . $number . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 				$arts = $this->plxGlob_arts->query($motif,'art','',0,false,'before');
