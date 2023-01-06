@@ -7,8 +7,9 @@
 						<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
 						<li><?php $plxShow->authorName(); ?></li>
 					</ul>
+					<?php $plxShow->authorInfos() ?>
 <?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
-					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
+					<article class="article <?= $plxShow->artPinClass() ?>" id="post-<?php echo $plxShow->artId(); ?>">
 						<header>
 							<span class="art-date">
 								<time datetime="<?php $plxShow->artDate('#num_year(4)-#num_month-#num_day'); ?>">

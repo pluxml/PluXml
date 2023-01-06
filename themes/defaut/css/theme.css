@@ -160,9 +160,15 @@ ul.menu a.noactive{
 
 .cat-list .active,
 .classified-in .active,
+.tags .active,
 .author-list .active {
 	background-color: #6aa6ce;
 	color: #fff;
+}
+
+.classified-in .active,
+.tags .active {
+	padding: 0 0.25rem;
 }
 
 .rss {
@@ -245,6 +251,10 @@ article:after {
 	letter-spacing: -1px;
 	font-weight: bold;
 	margin: 0;
+}
+
+.article.pin header h2 a {
+	color: #dd2863;
 }
 
 .article header h2 a:hover {
