@@ -1042,3 +1042,9 @@ select::-ms-expand {/*for IE10*/
 	background-color: green;
 	color: #fff;
 }
+
+/* --------- articles épinglés ------ */
+
+#articles-table .pin {
+	background-color: #d8d8d8;
+}

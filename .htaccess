@@ -9,3 +9,17 @@ Options -Indexes
 	Order Allow,Deny
 	Deny from all
 </Files>
+# BEGIN -- Pluxml
+Options -Multiviews
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteBase /PluXml-master/
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+
+	# Réécriture des urls
+	RewriteRule ^(?!feed)(.*)$ index.php?$1 [QSA,L]
+	RewriteRule ^feed\/(.*)$ feed.php?$1 [QSA,L]
+</IfModule>
+# END -- Pluxml

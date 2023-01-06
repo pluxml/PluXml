@@ -130,6 +130,7 @@ $LANG = array (
 		'L_ARTICLE_CHAPO_DISPLAY' => 'afficher',
 		'L_ARTICLE' => 'article',
 		'L_ARTICLE_ID' => 'Identifiant',
+		'L_PINNED_ARTICLE' => 'article épinglé',
 
 		// auth.php
 

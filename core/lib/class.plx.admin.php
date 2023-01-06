@@ -1244,7 +1244,7 @@ Options -Multiviews
 		$oldArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/','','sort',0,1,'all');
 
 		# Si demande de modération de l'article ou publication/brouillon
-		$id = preg_replace('#^_*#', isset($content['moderate']) ? '_' : '' , $id);
+		$id = preg_replace('#^_?#', isset($content['moderate']) ? '_' : '' , $id);
 
 		# On genère le nom de notre fichier
 		if(!preg_match('/^\d{12}$/', $dates['publication'])) {
@@ -1252,6 +1252,16 @@ Options -Multiviews
 		}
 		if(empty($content['catId'])) {
 			$content['catId']=array('000'); # Catégorie non classée
+		} else {
+			# on trie les catégories
+			uasort($content['catId'], function($a, $b) {
+				foreach(array('draft', 'pin', 'home') as $v) {
+					if($a == $v) { return -1; }
+					if($b == $v) { return 1; }
+				}
+
+				return strcmp($a, $b);
+			});
 		}
 		$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$dates['publication'].'.'.$content['url'].'.xml';
 
