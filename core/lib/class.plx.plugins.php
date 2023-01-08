@@ -262,7 +262,9 @@ class plxPlugins {
 <document>
 <?php
 		foreach($this->aPlugins as $name=>$plugin) {
-			if(!empty($plugin) or $plugInstance = $this->getInstance($name)) {
+			if(!empty($plugin)) {
+				$scope = $plugin->getInfo('scope');
+			} elseif($plugInstance = $this->getInstance($name)) {
 				$scope = $plugInstance->getInfo('scope');
 			} else {
 				$scope = '';
