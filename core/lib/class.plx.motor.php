@@ -759,7 +759,7 @@ class plxMotor {
 
 		# On effectue notre capture d'informations
 		if(preg_match('#^(_?\d{4})\.((?:draft,|pin,|\d{3},)*(?:home|\d{3})+(?:,\d{3})*)\.(\d{3})\.(\d{12})\.(.*)\.xml$#', basename($filename), $capture)) {
-			$ids = array_merge(array_keys($this->aCats), array('home', 'draft'));
+			$ids = array_merge(array_keys($this->aCats), array('draft', 'pin', 'home',));
 			$artCats = array_filter(
 				explode(',', $capture[2]),
 				# on vérifie que les catégories de l'article existent

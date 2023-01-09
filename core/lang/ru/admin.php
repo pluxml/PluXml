@@ -130,6 +130,7 @@ $LANG = array (
 		'L_ARTICLE_CHAPO_DISPLAY' => 'показать',
 		'L_ARTICLE' => 'статья',
 		'L_ARTICLE_ID' => 'ID',
+		'L_PINNED_ARTICLE' => 'закрепленная статья',
 
 		// auth.php
 

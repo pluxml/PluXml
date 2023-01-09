@@ -126,6 +126,7 @@ $LANG = array (
 		'L_ARTICLE_CHAPO_DISPLAY' => 'mostrare',
 		'L_ARTICLE' => 'articolo',
 		'L_ARTICLE_ID' => 'ID',
+		'L_PINNED_ARTICLE' => 'articolo appuntato',
 		'L_AUTH_PAGE_TITLE' => 'Pagina di autenticazione',
 		'L_LOGOUT_SUCCESSFUL' => 'Disconnessione avvenuta con successo',
 		'L_LOGIN_PAGE' => 'Pannello di amministrazione',

@@ -15,7 +15,7 @@
 
 					<?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 
-					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
+					<article class="article <?= $plxShow->artPinClass() ?>" id="post-<?php echo $plxShow->artId(); ?>">
 
 						<header>
 							<span class="art-date">

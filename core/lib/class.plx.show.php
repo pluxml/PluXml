@@ -471,12 +471,14 @@ class plxShow
 	 * @scope    categorie
 	 * @author    Stephane F.
 	 **/
-	public function catDescription($format = '<div class="infos">#cat_description</div>')
+	public function catDescription($format = '<div class="description">#cat_description</div>')
 	{
-
-		$desc = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['description']);
-		if ($this->plxMotor->mode and $desc)
-			echo str_replace('#cat_description', $desc, $format);
+		if($this->plxMotor->mode == 'categorie') {
+			$desc = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['description']);
+			if ($this->plxMotor->mode and $desc) {
+				echo str_replace('#cat_description', $desc, $format);
+			}
+		}
 	}
 
 	/**
@@ -560,7 +562,7 @@ class plxShow
 	 * @scope    home,categorie,article,tags,archives
 	 * @author    Stephane F, Philippe-M
 	 **/
-	public function catThumbnail($format = '<a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a>', $echo = true)
+	public function catThumbnail($format = '<p><a href="#img_url"><img class="cat_thumbnail" src="#img_thumb_url" alt="#img_alt" title="#img_title" /></a></p>', $echo = true)
 	{
 		$filename = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail']);
 		if (!empty($filename)) {
@@ -837,6 +839,17 @@ class plxShow
 
 		# si $cats est vide, on n'a trouvé aucune catégorie valide
 		echo !empty($cats) ? implode($separator, $cats) : L_UNCLASSIFIED;
+	}
+
+	/**
+	 * Méthode qui vérifie si  un article est épinglé
+	 *
+	 * @param	  string name of the class to add if pinned article
+	 * @return    string 'pin' or ''
+	 * @author    J.P. Pourrez "bazooka07"
+	 **/
+	public function artPinClass($value='pin') {
+		return preg_match('#^pin,#', $this->artCatIds()) ? $value : '';
 	}
 
 	/**
@@ -2098,6 +2111,22 @@ class plxShow
 		}
 
 		return '';
+	}
+
+	/**
+	 * Méthode qui affiche les informations d'un utilisateur
+	 *
+	 * @param format    format du texte à afficher (variable: #user_infos)
+	 * @scope    user
+	 * @author   Jean-Pierre Pourrez "bazooka07"
+	 **/
+	public function authorInfos($format = '<div class="infos">#user_infos</div>') {
+		if($this->plxMotor->mode == 'user') {
+			$desc = plxUtils::getValue($this->plxMotor->aUsers[$this->plxMotor->cible]['infos']);
+			if ($this->plxMotor->mode and $desc) {
+				echo str_replace('#user_infos', $desc, $format);
+			}
+		}
 	}
 
 	/**

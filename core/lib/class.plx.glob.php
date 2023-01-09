@@ -124,53 +124,79 @@ class plxGlob {
 	 **/
 	private function search($motif,$type,$tri,$publi) {
 
-		$array=array();
-		$this->count = 0;
-
+		$array = [];
 		if($this->aFiles) {
+			$now = time();
+			$today = date('YmdHi');
 
 			# Pour chaque entree du repertoire
 			foreach ($this->aFiles as $file) {
 
 				if(preg_match($motif,$file)) {
+					# On decoupe le nom du fichier
+					$index = explode('.',$file);
 
-					if($type === 'art') { # Tri selon les dates de publication (article)
-						# On decoupe le nom du fichier
-						$index = explode('.',$file);
-						# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-						$key = ($tri === 'alpha' OR $tri === 'ralpha') ? $index[4].'~'.$index[0] : $index[3].$index[0];
-						if($publi === 'before' AND $index[3] <= date('YmdHi'))
-							$array[$key] = $file;
-						elseif($publi === 'after' AND $index[3] >= date('YmdHi'))
-							$array[$key] = $file;
-						elseif($publi === 'all')
-							$array[$key] = $file;
-						# On verifie que l'index existe
-						if(isset($array[$key]))
-							$this->count++; # On incremente le compteur
-					}
-					elseif($type === 'com') { # Tri selon les dates de publications (commentaire)
-						# On decoupe le nom du fichier
-						$index = explode('.',$file);
-						# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-						if($publi === 'before' AND $index[1] <= time())
-							$array[ $index[1].$index[0] ] = $file;
-						elseif($publi === 'after' AND $index[1] >= time())
-							$array[ $index[1].$index[0] ] = $file;
-						elseif($publi === 'all')
-							$array[ $index[1].$index[0] ] = $file;
-						# On verifie que l'index existe
-						if(isset($array[ $index[1].$index[0] ]))
-							$this->count++; # On incremente le compteur
-					}
-					else { # Aucun tri
-						$array[] = $file;
-						# On incremente le compteur
-						$this->count++;
+					switch($type) {
+						case 'art':
+							# Tri selon les dates de publication (article)
+							# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
+							$key = ($tri === 'alpha' OR $tri === 'ralpha') ? $index[4].'~'.$index[0] : $index[3].$index[0];
+							switch($publi) {
+								case 'before':
+									if($index[3] <= $today) {
+										# Priorité aux articles épinglés
+										if($tri == 'desc') {
+											$key = (preg_match('#^pin,#', $index[1]) ? '1' : '0') . $key;
+										} elseif($tri == 'asc') {
+											$key = (preg_match('#^pin,#', $index[1]) ? '0' : '1') . $key;
+										}
+										$array[$key] = $file;
+									}
+									break;
+								case 'after':
+									if($index[3] >= $today) {
+										# Priorité aux articles épinglés
+										if($tri == 'desc') {
+											$key = (preg_match('#^pin,#', $index[1]) ? '1' : '0') . $key;
+										} elseif($tri == 'asc') {
+											$key = (preg_match('#^pin,#', $index[1]) ? '0' : '1') . $key;
+										}
+										$array[$key] = $file;
+									}
+									break;
+								case 'all':
+									$array[$key] = $file;
+									break;
+							}
+							break;
+						case 'com':
+							# Tri selon les dates de publications (commentaire)
+							$key = $index[1] . $index[0];
+							# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
+							switch($publi) {
+								case'before':
+									if($index[1] <= $now) {
+										$array[$key] = $file;
+									}
+									break;
+								case 'after':
+									if($index[1] >= $now) {
+										$array[$key] = $file;
+									}
+									break;
+								case 'all':
+									$array[$key] = $file;
+									break;
+							}
+							break;
+						default:
+							# Aucun tri
+							$array[] = $file;
 					}
 				}
 			}
 		}
+		$this->count = count($array);
 
 		# On retourne le tableau si celui-ci existe
 		if($this->count > 0)
