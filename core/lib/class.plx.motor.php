@@ -379,11 +379,26 @@ class plxMotor {
 	 * @author	Stephane F
 	 **/
 	public function error404($msg) {
-		header("Status: 404 Not Found");
-		header("HTTP/1.0 404 Not Found");
+		header('Status: 404 Not Found');
+		header('HTTP/1.0 404 Not Found');
 		$this->plxErreur = new plxErreur($msg);
 		$this->mode = 'erreur';
 		$this->template = 'erreur.php';
+	}
+
+	/**
+	 * Méthode qui vérifie que les commentaires sont autorisés pour l'article courant
+	 *
+	 * @return	bool
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 **/
+	public function articleAllowComs() {
+		return (
+			$this->mode == 'article' and
+			$this->aConf['allow_com'] and
+			!empty($this->plxRecord_arts) and
+			$this->plxRecord_arts->f('allow_com')
+		);
 	}
 
 	/**
@@ -406,7 +421,7 @@ class plxMotor {
 		elseif($this->mode == 'article') {
 
 			# On a validé le formulaire commentaire
-			if(!empty($_POST) AND $this->plxRecord_arts->f('allow_com') AND $this->aConf['allow_com']) {
+			if(!empty($_POST) AND $this->articleAllowComs()) {
 				# On récupère le retour de la création
 				$retour = $this->newCommentaire($this->cible,plxUtils::unSlash($_POST));
 				# Url de l'article
@@ -420,18 +435,21 @@ class plxMotor {
 					header('Location: '.$url.'#form');
 				} else {
 					$_SESSION['msgcom'] = $retour;
-					$_SESSION['msg']['name'] = plxUtils::unSlash($_POST['name']);
-					$_SESSION['msg']['site'] = plxUtils::unSlash($_POST['site']);
-					$_SESSION['msg']['mail'] = plxUtils::unSlash($_POST['mail']);
-					$_SESSION['msg']['content'] = plxUtils::unSlash($_POST['content']);
-					$_SESSION['msg']['parent'] = plxUtils::unSlash($_POST['parent']);
+					$_SESSION['msg'] = [
+						'name'		=> plxUtils::unSlash($_POST['name']),
+						'site'		=> plxUtils::unSlash($_POST['site']),
+						'mail'		=> plxUtils::unSlash($_POST['mail']),
+						'content'	=> plxUtils::unSlash($_POST['content']),
+						'parent'	=> plxUtils::unSlash($_POST['parent']),
+					];
 					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
 					header('Location: '.$url.'#form');
 				}
 				exit;
 			}
+
 			# Récupération des commentaires
-			$this->getCommentaires('#^'.$this->cible.'.\d{10}-\d+.xml$#',$this->tri_coms);
+			$this->getCommentaires('#^'.$this->cible.'\.\d{10}-\d+\.xml$#',$this->tri_coms);
 			$this->template=$this->plxRecord_arts->f('template');
 			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
 		}

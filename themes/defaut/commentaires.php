@@ -35,11 +35,9 @@
 
 	<?php endif; ?>
 
-	<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
+	<?php if($plxShow->articleAllowComs()): ?>
 
-	<h3>
-		<?php $plxShow->lang('WRITE_A_COMMENT') ?>
-	</h3>
+	<h3><?php $plxShow->lang('WRITE_A_COMMENT') ?></h3>
 
 	<form id="form" action="<?php $plxShow->artUrl(); ?>#form" method="post">
 
