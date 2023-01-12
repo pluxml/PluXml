@@ -3,18 +3,32 @@ const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT . 'core/';
 
 const SESSION_LIFETIME = 7200;
+const SESSION_DOMAIN = __DIR__ ;
 
 include PLX_CORE . 'lib/config.php';
 
 # On démarre la session
 session_start();
-setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
-
-$session_domain = __DIR__ ;
+if(PHP_VERSION_ID >= 70300) {
+	setcookie(
+		session_name(),
+		session_id(),
+		[
+			'expires' => time() + SESSION_LIFETIME,
+			'path' => plxUtils::getRacine(true),
+			'domain' => '.' . $_SERVER['SERVER_NAME'], // leading dot for compatibility or use subdomain
+			'secure' => isset($_SERVER['HTTPS']),
+			'httponly' => true,
+			'samesite' => 'Strict', // None || Lax  || Strict
+		]);
+} else {
+	# setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, plxUtils::getRacine(true), $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
+	header('Set-Cookie: ' . session_name() . '=' . session_id() . '; path=' . plxUtils::getRacine(true) . '; domain=' . $_SERVER['SERVER_NAME']. '; HttpOnly; SameSite=Strict');
+}
 
 if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la page de login
 	# Test sur le domaine et sur l'identification
-	if((isset($_SESSION['domain']) AND $_SESSION['domain']!=$session_domain) OR (!isset($_SESSION['user']) OR $_SESSION['user']=='')){
+	if(empty($_SESSION['domain'] or $_SESSION['domain'] != SESSION_DOMAIN) or (!isset($_SESSION['user']) or $_SESSION['user']=='')){
 		header('Location: auth.php?p='.htmlentities($_SERVER['REQUEST_URI']));
 		exit;
 	}
