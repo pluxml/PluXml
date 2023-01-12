@@ -1,145 +1,143 @@
 <?php
 
-$LANG = array(
 
-'L_LANGUE'						=> 'Occitan',
+const L_LANGUE						= 'Occitan';
 
-'L_DATE_CREATION'				=> 'Data de creacion',
-'L_DATE_UPDATE'					=> 'Data de misa a jorn',
+const L_DATE_CREATION				= 'Data de creacion';
+const L_DATE_UPDATE					= 'Data de misa a jorn';
 
 # common
-'L_PLUXML_VERSION'				=> 'version de Pluxml',
-'L_PLUXML_VERSION_DATA'			=> 'Version donadas',
-'L_HOMEPAGE'					=> 'Acuèlh',
-'L_UNCLASSIFIED'				=> 'Non classat',
-'L_INFO_PHP_VERSION'			=> 'Version de php',
-'L_INFO_CHARSET'				=> 'encodatge',
+const L_PLUXML_VERSION				= 'version de Pluxml';
+const L_PLUXML_VERSION_DATA			= 'Version donadas';
+const L_HOMEPAGE					= 'Acuèlh';
+const L_UNCLASSIFIED				= 'Non classat';
+const L_INFO_PHP_VERSION			= 'Version de php';
+const L_INFO_CHARSET				= 'encodatge';
 
 # index.php
-'L_ERR_THEME_NOTFOUND'			=> 'Lo tèma principal de PluXml es introbable',
-'L_ERR_FILE_NOTFOUND'			=> 'Lo fichièr cibla de PluXml es introbable',
-'L_ERR_PAGE_NOT_FOUND'			=> 'Pagina non trobada',
+const L_ERR_THEME_NOTFOUND			= 'Lo tèma principal de PluXml es introbable';
+const L_ERR_FILE_NOTFOUND			= 'Lo fichièr cibla de PluXml es introbable';
+const L_ERR_PAGE_NOT_FOUND			= 'Pagina non trobada';
 
 # class.plx.date.php
-'L_SHORT_JANUARY'				=> 'gen',
-'L_SHORT_FEBRUARY'				=> 'feb',
-'L_SHORT_MARCH'					=> 'març',
-'L_SHORT_APRIL'					=> 'abril',
-'L_SHORT_MAY'					=> 'mai',
-'L_SHORT_JUNE'					=> 'junh',
-'L_SHORT_JULY'					=> 'julh',
-'L_SHORT_AUGUST'				=> 'agost',
-'L_SHORT_SEPTEMBER'				=> 'set',
-'L_SHORT_OCTOBER'				=> 'oct',
-'L_SHORT_NOVEMBER'				=> 'nov',
-'L_SHORT_DECEMBER'				=> 'dec',
-'L_JANUARY'						=> 'genièr',
-'L_FEBRUARY'					=> 'febrièr',
-'L_MARCH'						=> 'març',
-'L_APRIL'						=> 'abril',
-'L_MAY'							=> 'mai',
-'L_JUNE'						=> 'junh',
-'L_JULY'						=> 'julhet',
-'L_AUGUST'						=> 'agost',
-'L_SEPTEMBER'					=> 'setembre',
-'L_OCTOBER'						=> 'octòbre',
-'L_NOVEMBER'					=> 'novembre',
-'L_DECEMBER'					=> 'decembre',
-'L_MONDAY'						=> 'diluns',
-'L_TUESDAY'						=> 'dimars',
-'L_WEDNESDAY'					=> 'dimècres',
-'L_THURSDAY'					=> 'dijòus',
-'L_FRIDAY'						=> 'divendres',
-'L_SATURDAY'					=> 'dissabte',
-'L_SUNDAY'						=> 'dimenge',
+const L_SHORT_JANUARY				= 'gen';
+const L_SHORT_FEBRUARY				= 'feb';
+const L_SHORT_MARCH					= 'març';
+const L_SHORT_APRIL					= 'abril';
+const L_SHORT_MAY					= 'mai';
+const L_SHORT_JUNE					= 'junh';
+const L_SHORT_JULY					= 'julh';
+const L_SHORT_AUGUST				= 'agost';
+const L_SHORT_SEPTEMBER				= 'set';
+const L_SHORT_OCTOBER				= 'oct';
+const L_SHORT_NOVEMBER				= 'nov';
+const L_SHORT_DECEMBER				= 'dec';
+const L_JANUARY						= 'genièr';
+const L_FEBRUARY					= 'febrièr';
+const L_MARCH						= 'març';
+const L_APRIL						= 'abril';
+const L_MAY							= 'mai';
+const L_JUNE						= 'junh';
+const L_JULY						= 'julhet';
+const L_AUGUST						= 'agost';
+const L_SEPTEMBER					= 'setembre';
+const L_OCTOBER						= 'octòbre';
+const L_NOVEMBER					= 'novembre';
+const L_DECEMBER					= 'decembre';
+const L_MONDAY						= 'diluns';
+const L_TUESDAY						= 'dimars';
+const L_WEDNESDAY					= 'dimècres';
+const L_THURSDAY					= 'dijòus';
+const L_FRIDAY						= 'divendres';
+const L_SATURDAY					= 'dissabte';
+const L_SUNDAY						= 'dimenge';
 
 # class.plx.capcha.php
-'L_LAST'						=> 'darrièr',
-'L_FIRST'						=> 'primièr',
-'L_SECOND'						=> 'segond',
-'L_THIRD'						=> 'tresen',
-'L_FOURTH'						=> 'quatren',
-'L_FIFTH'						=> 'cinquen',
-'L_SIXTH'						=> 'seisen',
-'L_SEVENTH'						=> 'seten',
-'L_EIGTH'						=> 'ochen',
-'L_NINTH'						=> 'noven',
-'L_TENTH'						=> 'desen',
-'L_NTH'							=> 'en',
-'L_CAPCHA_QUESTION'				=> 'Quin es lo <span class="capcha-letter">%s</span> caractèr de la paraula <span class="capcha-word">%s</span>&nbsp;?',
+const L_LAST						= 'darrièr';
+const L_FIRST						= 'primièr';
+const L_SECOND						= 'segond';
+const L_THIRD						= 'tresen';
+const L_FOURTH						= 'quatren';
+const L_FIFTH						= 'cinquen';
+const L_SIXTH						= 'seisen';
+const L_SEVENTH						= 'seten';
+const L_EIGTH						= 'ochen';
+const L_NINTH						= 'noven';
+const L_TENTH						= 'desen';
+const L_NTH							= 'en';
+const L_CAPCHA_QUESTION				= 'Quin es lo <span class="capcha-letter">%s</span> caractèr de la paraula <span class="capcha-word">%s</span>&nbsp;?';
 
 # class.plx.utils.php
-'L_WRITE_ACCESS'				=> '%s es accessible en escritura',
-'L_WRITE_NOT_ACCESS'			=> '%s es pas accessible en escritura o existís pas',
-'L_MODREWRITE_AVAILABLE'		=> 'Modul apache de reescritura d\'url mod_rewrite disponible',
-'L_MODREWRITE_NOT_AVAILABLE'	=> 'Modul apache de reescritura d\'url mod_rewrite non disponible',
-'L_LIBGD_INSTALLED'				=> 'Bibliotèca GD installada',
-'L_LIBGD_NOT_INSTALLED'			=> 'Bibliotèca GD non installada',
-'L_LIBXML_INSTALLED'			=> 'Bibliotèca XML installada',
-'L_LIBXML_NOT_INSTALLED'		=> 'Bibliotèca XML non installada',
-'L_MAIL_AVAILABLE'				=> 'Foncion d\'enviada de mail disponible',
-'L_MAIL_NOT_AVAILABLE'			=> 'Foncion d\'enviada de mail non disponible',
+const L_WRITE_ACCESS				= '%s es accessible en escritura';
+const L_WRITE_NOT_ACCESS			= '%s es pas accessible en escritura o existís pas';
+const L_MODREWRITE_AVAILABLE		= 'Modul apache de reescritura d\'url mod_rewrite disponible';
+const L_MODREWRITE_NOT_AVAILABLE	= 'Modul apache de reescritura d\'url mod_rewrite non disponible';
+const L_LIBGD_INSTALLED				= 'Bibliotèca GD installada';
+const L_LIBGD_NOT_INSTALLED			= 'Bibliotèca GD non installada';
+const L_LIBXML_INSTALLED			= 'Bibliotèca XML installada';
+const L_LIBXML_NOT_INSTALLED		= 'Bibliotèca XML non installada';
+const L_MAIL_AVAILABLE				= 'Foncion d\'enviada de mail disponible';
+const L_MAIL_NOT_AVAILABLE			= 'Foncion d\'enviada de mail non disponible';
 
 # class.plx.motor.php
-'L_ARTICLE_NO_TAG'				=> 'Pas cap d\'article per aqueste mot clau !',
-'L_UNKNOWN_CATEGORY'			=> 'Aquesta categoria es inexistenta !',
-'L_NO_ARTICLE_PAGE'				=> 'Pas cap d\'article per aquesta pagina !',
-'L_UNKNOWN_ARTICLE'				=> 'Aqueste article existís pas o existís pas mai !',
-'L_COM_PUBLISHED'				=> 'Lo comentari es publicat',
-'L_COM_IN_MODERATION'			=> 'Lo comentari es per se far moderar per l\'administrator d\'aquel siti',
-'L_UNKNOWN_STATIC'				=> 'Aquesta pagina existís pas o existís pas mai !',
-'L_DOCUMENT_NOT_FOUND'			=> 'Lo document especificat es introbable',
-'L_NEWCOMMENT_ERR'				=> 'Una error s\'es produsida al temps de la publicacion d\'aquel comentari',
-'L_NEWCOMMENT_FIELDS_REQUIRED'	=> 'Mercés d\'emplir totes los camps obligatòris requesits',
-'L_NEWCOMMENT_ERR_ANTISPAM'		=> 'La verificacion anti-spam s\'es abocada',
-'L_UNKNOWN_AUTHOR'				=> 'Autor desconegut',
+const L_ARTICLE_NO_TAG				= 'Pas cap d\'article per aqueste mot clau !';
+const L_UNKNOWN_CATEGORY			= 'Aquesta categoria es inexistenta !';
+const L_NO_ARTICLE_PAGE				= 'Pas cap d\'article per aquesta pagina !';
+const L_UNKNOWN_ARTICLE				= 'Aqueste article existís pas o existís pas mai !';
+const L_COM_PUBLISHED				= 'Lo comentari es publicat';
+const L_COM_IN_MODERATION			= 'Lo comentari es per se far moderar per l\'administrator d\'aquel siti';
+const L_UNKNOWN_STATIC				= 'Aquesta pagina existís pas o existís pas mai !';
+const L_DOCUMENT_NOT_FOUND			= 'Lo document especificat es introbable';
+const L_NEWCOMMENT_ERR				= 'Una error s\'es produsida al temps de la publicacion d\'aquel comentari';
+const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Mercés d\'emplir totes los camps obligatòris requesits';
+const L_NEWCOMMENT_ERR_ANTISPAM		= 'La verificacion anti-spam s\'es abocada';
+const L_UNKNOWN_AUTHOR				= 'Autor desconegut';
 
 # class.plx.show.php
 
-'L_HTTPENCODING'				=> 'Compression %s activada',
-'L_PAGETITLE_ARCHIVES'			=> 'Archius',
-'L_PAGETITLE_TAG'				=> 'Tag',
-'L_NO_CATEGORY'					=> 'pas cap de categoria',
-'L_CATEGORY'					=> 'categoria',
-'L_CATEGORIES'					=> 'categorias',
-'L_NO_ARTICLE'					=> 'pas cap d\'article',
-'L_ARTICLE'						=> 'article',
-'L_ARTICLES'					=> 'articles',
-'L_ARTAUTHOR_UNKNOWN'			=> 'desconegut',
-'L_ARTTAGS_NONE'				=> 'cap',
-'L_ARTCHAPO'					=> 'Legir la seguida de #art_title',
-'L_ARTFEED_RSS_CATEGORY'		=> 'Fil Rss dels articles d\'aquesta categoria',
-'L_ARTFEED_RSS_USER'			=> 'Fil Rss dels articles d\'aquesta autor',
-'L_ARTFEED_RSS_TAG'				=> 'Fil Rss dels articles d\'aqueste mot clau',
-'L_ARTFEED_RSS'					=> 'Fil Rss dels articles',
-'L_NO_COMMENT'					=> 'pas cap de comentari',
-'L_COMMENT'						=> 'comentari',
-'L_COMMENTS'					=> 'comentaris',
-'L_COMFEED_RSS_ARTICLE'			=> 'Fil Rss dels comentaris d\'aquel article',
-'L_COMFEED_RSS'					=> 'Fil Rss dels comentaris',
-'L_STATICCONTENT_INPROCESS'		=> 'Aquesta pagina es actualament per èsser redigida',
-'L_SAID'						=> 'a dich',
+const L_HTTPENCODING				= 'Compression %s activada';
+const L_PAGETITLE_ARCHIVES			= 'Archius';
+const L_PAGETITLE_TAG				= 'Tag';
+const L_NO_CATEGORY					= 'pas cap de categoria';
+const L_CATEGORY					= 'categoria';
+const L_CATEGORIES					= 'categorias';
+const L_NO_ARTICLE					= 'pas cap d\'article';
+const L_ARTICLE						= 'article';
+const L_ARTICLES					= 'articles';
+const L_ARTAUTHOR_UNKNOWN			= 'desconegut';
+const L_ARTTAGS_NONE				= 'cap';
+const L_ARTCHAPO					= 'Legir la seguida de #art_title';
+const L_ARTFEED_RSS_CATEGORY		= 'Fil Rss dels articles d\'aquesta categoria';
+const L_ARTFEED_RSS_USER			= 'Fil Rss dels articles d\'aquesta autor';
+const L_ARTFEED_RSS_TAG				= 'Fil Rss dels articles d\'aqueste mot clau';
+const L_ARTFEED_RSS					= 'Fil Rss dels articles';
+const L_NO_COMMENT					= 'pas cap de comentari';
+const L_COMMENT						= 'comentari';
+const L_COMMENTS					= 'comentaris';
+const L_COMFEED_RSS_ARTICLE			= 'Fil Rss dels comentaris d\'aquel article';
+const L_COMFEED_RSS					= 'Fil Rss dels comentaris';
+const L_STATICCONTENT_INPROCESS		= 'Aquesta pagina es actualament per èsser redigida';
+const L_SAID						= 'a dich';
 
-'L_PAGINATION_FIRST_TITLE'		=> 'Anar a la primièra pagina',
-'L_PAGINATION_FIRST'			=> '«',
-'L_PAGINATION_PREVIOUS_TITLE'	=> 'Pagina precedenta',
-'L_PAGINATION_PREVIOUS'			=> 'precedenta',
-'L_PAGINATION_NEXT_TITLE'		=> 'pagina seguenta',
-'L_PAGINATION_NEXT'				=> 'seguenta',
-'L_PAGINATION_LAST_TITLE'		=> 'Anar a la darrièra pagina',
-'L_PAGINATION_LAST'				=> '»',
-'L_PAGINATION'					=> 'pagina %s sus %s',
+const L_PAGINATION_FIRST_TITLE		= 'Anar a la primièra pagina';
+const L_PAGINATION_FIRST			= '«';
+const L_PAGINATION_PREVIOUS_TITLE	= 'Pagina precedenta';
+const L_PAGINATION_PREVIOUS			= 'precedenta';
+const L_PAGINATION_NEXT_TITLE		= 'pagina seguenta';
+const L_PAGINATION_NEXT				= 'seguenta';
+const L_PAGINATION_LAST_TITLE		= 'Anar a la darrièra pagina';
+const L_PAGINATION_LAST				= '»';
+const L_PAGINATION					= 'pagina %s sus %s';
 
-'L_PAGEBLOG_TITLE'				=> 'Blòg',
+const L_PAGEBLOG_TITLE				= 'Blòg';
 
-'L_YEAR'				    	=> 'annada',
-'L_TOTAL'				    	=> 'total',
+const L_YEAR				    	= 'annada';
+const L_TOTAL				    	= 'total';
 
 # class.plx.feed.php
-'L_FEED_NO_PRIVATE_URL'			=> 'Las URLs privadas son pas estadas inicializadas dins vòstres paramètres d\'administracion !',
-'L_FEED_COMMENTS'				=> 'Comentaris',
-'L_FEED_ONLINE_COMMENTS'		=> 'Comentaris en linha',
-'L_FEED_OFFLINE_COMMENTS'		=> 'Comentaris fòra linha',
-'L_FEED_WRITTEN_BY'				=> 'Redigit per',
-);
+const L_FEED_NO_PRIVATE_URL			= 'Las URLs privadas son pas estadas inicializadas dins vòstres paramètres d\'administracion !';
+const L_FEED_COMMENTS				= 'Comentaris';
+const L_FEED_ONLINE_COMMENTS		= 'Comentaris en linha';
+const L_FEED_OFFLINE_COMMENTS		= 'Comentaris fòra linha';
+const L_FEED_WRITTEN_BY				= 'Redigit per';
 
