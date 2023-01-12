@@ -135,14 +135,11 @@ const L_PINNED_ARTICLE = 'pinned article';
 const L_AUTH_PAGE_TITLE = 'Authentication page';
 const L_LOGOUT_SUCCESSFUL = 'Logout successful';
 const L_LOGIN_PAGE = 'Login to administration';
-const L_AUTH_LOGIN_FIELD = 'Login';
-const L_AUTH_PASSWORD_FIELD = 'Password';
 const L_AUTH_LOST_FIELD = 'Login or email address';
 const L_SUBMIT_BUTTON = 'Submit';
 const L_ERR_WRONG_PASSWORD = 'Incorrect login or password';
 const L_POWERED_BY = 'Powered by <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Too many failed login<br />Retry in % s minutes';
-const L_LOST_PASSWORD = 'Lost your password ?';
 const L_LOST_PASSWORD_LOGIN = 'Log in';
 const L_LOST_PASSWORD_SUCCESS = 'An email has been sent to the user';
 const L_LOST_PASSWORD_ERROR = 'The link has expired';
@@ -429,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'Content of "description" meta tag (optional)'
 const L_CONFIG_META_KEYWORDS = 'Content of "keywords" meta tag (optional)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Display RSS feeds';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Display RSS feeds for comments';
+const L_EVERY_BODY = 'Everybody';
+const L_SUBSCRIBERS_ONLY = 'Subscribers only';
 
 // parametres_edittpl.php
 
@@ -486,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Enable';
 const L_PLUGINS_DEACTIVATE = 'Disable';
 const L_PLUGINS_DELETE = 'Delete';
 const L_PLUGINS_DELETE_ERROR = 'An error occured while deleting';
+const L_PLUGINS_ENABLED_ERROR = '%s plugin enabled. Deletion forbidden';
+const L_DELETE_FILE_ERROR = 'Failure for deleting %s file';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Successfull deletion';
 const L_PLUGINS_CONFIG = 'Configuration';
 const L_PLUGINS_CONFIG_TITLE = 'Plugin\'s configuration';
@@ -612,5 +613,5 @@ const L_THEMES_TITLE = 'Manage themes';
 const L_HELP = 'Help';
 const L_HELP_TITLE = 'See help';
 const L_BACK_TO_THEMES = 'Back to themes';
-const L_CONFIG_THEME_UPDATE = 'Change Theme'
+const L_CONFIG_THEME_UPDATE = 'Change Theme';
 

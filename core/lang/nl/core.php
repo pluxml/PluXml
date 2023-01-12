@@ -141,4 +141,9 @@ const L_FEED_ONLINE_COMMENTS		= 'Online commentaren';
 const L_FEED_OFFLINE_COMMENTS		= 'Offline commentaren';
 const L_FEED_WRITTEN_BY				= 'Geschreven door';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Uw Login';
+const L_AUTH_PASSWORD_FIELD = 'Uw Paswoord';
+const L_LOST_PASSWORD = 'Wachtwoord vergeten?';
 

@@ -141,3 +141,9 @@ const L_FEED_ONLINE_COMMENTS		= 'Comentaris en linha';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentaris fòra linha';
 const L_FEED_WRITTEN_BY				= 'Redigit per';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Identificant de connexion';
+const L_AUTH_PASSWORD_FIELD = 'Senhal';
+const L_LOST_PASSWORD = 'Senhal oblidat ?';
+

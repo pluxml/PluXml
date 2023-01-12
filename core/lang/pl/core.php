@@ -141,4 +141,9 @@ const L_FEED_ONLINE_COMMENTS		= 'Aktywne komentarze';
 const L_FEED_OFFLINE_COMMENTS		= 'Nieaktywne komentarze';
 const L_FEED_WRITTEN_BY				= 'Napisane przez';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Login';
+const L_AUTH_PASSWORD_FIELD = 'Hasło';
+const L_LOST_PASSWORD = 'Zapomniałeś hasła?';
 

@@ -212,7 +212,7 @@ if($_SESSION['profil'] < PROFIL_WRITER) {
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
 				<th><?= L_ID ?></th>
-				<th><?= L_ARTICLE_LIST_DATE ?></th>
+				<th class="datetime"><?= L_ARTICLE_LIST_DATE ?></th>
 				<th><?= L_ARTICLE_LIST_TITLE ?></th>
 				<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
 				<th><?= L_ARTICLE_LIST_NBCOMS ?></th>

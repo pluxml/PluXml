@@ -141,4 +141,9 @@ const L_FEED_ONLINE_COMMENTS		= 'Comentarios de usuarios';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentarios sin conexión';
 const L_FEED_WRITTEN_BY				= 'Escrito por';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Nombre de usuario';
+const L_AUTH_PASSWORD_FIELD = 'Contraseña';
+const L_LOST_PASSWORD = 'Contraseña olvidada ?';
 

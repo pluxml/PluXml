@@ -143,15 +143,12 @@ const L_PINNED_ARTICLE = 'Article épinglé';
 const L_AUTH_PAGE_TITLE = 'Pagina d\'autentificacion';
 const L_LOGOUT_SUCCESSFUL = 'Sètz estat corrèctament desconnectat';
 const L_LOGIN_PAGE = 'Connexion a la zòna d\'administracion';
-const L_AUTH_LOGIN_FIELD = 'Identificant de connexion';
-const L_AUTH_PASSWORD_FIELD = 'Senhal';
 const L_AUTH_LOST_FIELD = 'Identificant o adreça electronica';
 
 const L_SUBMIT_BUTTON = 'Validar';
 const L_ERR_WRONG_PASSWORD = 'Identificant e/o senhal incorrèct';
 const L_POWERED_BY = 'Generat per <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de pròvas atent<br />Tornatz ensajar d’aquí %s minutas';
-const L_LOST_PASSWORD = 'Senhal oblidat ?';
 const L_LOST_PASSWORD_LOGIN = 'Se connectar';
 const L_LOST_PASSWORD_SUCCESS = 'Corrièl enviat a l’utilizaire';
 const L_LOST_PASSWORD_ERROR = 'Lo ligam a expirat';
@@ -611,5 +608,5 @@ const L_THEMES_TITLE = 'Gerir los themes';
 const L_HELP = 'Ajuda';
 const L_HELP_TITLE = 'Veire l\'ajuda';
 const L_BACK_TO_THEMES = 'Tornar a la lista dels tèmas';
-const L_CONFIG_THEME_UPDATE = 'Modificar del tèma'
+const L_CONFIG_THEME_UPDATE = 'Modificar del tèma';
 

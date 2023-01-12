@@ -141,4 +141,9 @@ const L_FEED_ONLINE_COMMENTS		= 'Comentarii online';
 const L_FEED_OFFLINE_COMMENTS		= 'Comentarii offline';
 const L_FEED_WRITTEN_BY				= 'Scris de';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Username';
+const L_AUTH_PASSWORD_FIELD = 'Parola';
+const L_LOST_PASSWORD = 'Parola uitată?';
 

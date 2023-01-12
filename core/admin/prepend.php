@@ -49,3 +49,14 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
+
+const ALLOW_COM_OPTIONS = [
+	0 => L_NO,
+	1 => L_EVERY_BODY,
+	2 => L_SUBSCRIBERS_ONLY,
+];
+
+const ALLOW_COM_SUBSCRIBERS = [
+	0 => L_NO,
+	2 => L_SUBSCRIBERS_ONLY,
+];

@@ -135,14 +135,11 @@ const L_PINNED_ARTICLE = 'article épinglé';
 const L_AUTH_PAGE_TITLE = 'Page d\'authentification';
 const L_LOGOUT_SUCCESSFUL = 'Vous avez correctement été déconnecté';
 const L_LOGIN_PAGE = 'Connexion à la zone d\'administration';
-const L_AUTH_LOGIN_FIELD = 'Login de connexion';
-const L_AUTH_PASSWORD_FIELD = 'Mot de passe';
 const L_AUTH_LOST_FIELD = 'Login ou adresse e-mail';
 const L_SUBMIT_BUTTON = 'Valider';
 const L_ERR_WRONG_PASSWORD = 'Login et/ou mot de passe incorrect';
 const L_POWERED_BY = 'Généré par <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de tentative atteint<br />Réessayez dans %s minutes';
-const L_LOST_PASSWORD = 'Mot de passe oublié ?';
 const L_LOST_PASSWORD_LOGIN = 'Se connecter';
 const L_LOST_PASSWORD_SUCCESS = 'Un e-mail a été envoyé à l\'utilisateur';
 const L_LOST_PASSWORD_ERROR = 'Le lien est expiré';
@@ -429,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'Contenu de la balise meta "description" du si
 const L_CONFIG_META_KEYWORDS = 'Contenu de la balise meta "keywords" du site (optionnel)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Afficher les flux RSS';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Afficher les flux RSS des commentaires';
+const L_EVERY_BODY = 'Tout le monde';
+const L_SUBSCRIBERS_ONLY = 'Abonnés seulement';
 
 // parametres_edittpl.php
 

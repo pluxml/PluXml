@@ -345,12 +345,21 @@ input[maxlength="3"] {
 	height: 6rem;
 }
 
+#articles-table th.datetime,
+#comments-table th.datetime {
+	width : 11rem;
+}
+
+#comments-table th.action {
+  width: 12rem;
+}
+
 #articles-table td:nth-child(4),
 #comments-table td:nth-child(4),
 #medias-table td:nth-child(3),
 #plugins-table td:nth-child(3) {
-	width: 100%;
-	min-width: 200px;
+	/* width: 100%; */
+	/* min-width: 200px; */
 	/* Mozilla, since 1999 */
 	white-space: -moz-pre-wrap !important;
 	/*Chrome & Safari */

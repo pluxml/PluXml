@@ -175,7 +175,7 @@ class plxAdmin extends plxMotor {
 			 * userfolders
 			 * */
 			} elseif(preg_match('#^(?:allow|capcha|display|enable|feed_chapo|gzip|lostpassword|mod_|thumbs|urlrewriting|userfolder)#', $k)) {
-				if(!preg_match('#^\s*(0|1)\s*$#', $v, $matches)) {
+				if(!preg_match('#^\s*(\d)\s*$#', $v, $matches)) {
 					continue;
 				} else {
 					$v = intval($matches[1]);
@@ -1221,7 +1221,7 @@ Options -Multiviews
 ?>
 <document>
 	<title><?= plxUtils::strCheck(trim($content['title']), true) ?></title>
-	<allow_com><?= !empty($content['allow_com']) ? 1 : 0 ?></allow_com>
+	<allow_com><?= !empty($content['allow_com']) ? intval($content['allow_com']) : 0 ?></allow_com>
 	<template><?= basename($content['template']) ?></template>
 	<chapo><?= plxUtils::strCheck(trim($content['chapo']), true) ?></chapo>
 	<content><?= plxUtils::strCheck(trim($content['content']), true) ?></content>

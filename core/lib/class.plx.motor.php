@@ -395,9 +395,32 @@ class plxMotor {
 	public function articleAllowComs() {
 		return (
 			$this->mode == 'article' and
-			$this->aConf['allow_com'] and
-			!empty($this->plxRecord_arts) and
-			$this->plxRecord_arts->f('allow_com')
+			(
+				intval($this->aConf['allow_com']) > 0 or
+				(
+					!empty($this->plxRecord_arts) and
+					intval($this->plxRecord_arts->f('allow_com')) > 0
+				)
+			)
+		);
+	}
+
+	/**
+	 * Méthode qui vérifie si la publication d'un commentaire pour article est réservé aux abonnés
+	 *
+	 * @return	bool
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 **/
+	public function articleComLoginRequired() {
+		return (
+			$this->mode == 'article' and
+			(
+				intval($this->aConf['allow_com']) == 2 or
+				(
+					!empty($this->plxRecord_arts) and
+					intval($this->plxRecord_arts->f('allow_com')) == 2
+				)
+			)
 		);
 	}
 
@@ -421,13 +444,15 @@ class plxMotor {
 		elseif($this->mode == 'article') {
 
 			# On a validé le formulaire commentaire
-			if(!empty($_POST) AND $this->articleAllowComs()) {
+			if($this->articleAllowComs() and !empty($_POST)) {
 				# On récupère le retour de la création
-				$retour = $this->newCommentaire($this->cible,plxUtils::unSlash($_POST));
+				$content = plxUtils::unSlash($_POST);
+				$retour = $this->newCommentaire($this->cible, $content);
+				unset($_SESSION['msg']);
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
-				if($retour[0] == 'c') { # Le commentaire a été publié
+				if(preg_match('~^c\d{4}-\d+~', $retour)) { # Le commentaire a été publié
 					$_SESSION['msgcom'] = L_COM_PUBLISHED;
 					header('Location: '.$url.'#'.$retour);
 				} elseif($retour == 'mod') { # Le commentaire est en modération
@@ -435,13 +460,7 @@ class plxMotor {
 					header('Location: '.$url.'#form');
 				} else {
 					$_SESSION['msgcom'] = $retour;
-					$_SESSION['msg'] = [
-						'name'		=> plxUtils::unSlash($_POST['name']),
-						'site'		=> plxUtils::unSlash($_POST['site']),
-						'mail'		=> plxUtils::unSlash($_POST['mail']),
-						'content'	=> plxUtils::unSlash($_POST['content']),
-						'parent'	=> plxUtils::unSlash($_POST['parent']),
-					];
+					$_SESSION['msg'] = $content;
 					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
 					header('Location: '.$url.'#form');
 				}
@@ -1030,49 +1049,66 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
 
+		if(intval($this->aConf['allow_com']) == 2 or intval($this->plxRecord_arts->f('allow_com')) == 2) {
+			$success = false;
+			if(
+				(!empty($content['name']) or !empty($content['login'])) and
+				!empty($content['password'])
+			) {
+				foreach($this->aUsers as $user) {
+					if($user['active'] and !$user['delete'] and $user['login'] == (isset($content['login']) ? $content['login'] : $content['name'])) {
+						$success = (sha1($user['salt'] . md5($content['password'])) === $user['password']);
+						# $_POST['login'] == $user['login'] and sha1($user['salt'] . md5($_POST['password'])) === $user['password']
+						break;
+					}
+				}
+			}
+
+			if(!$success) {
+				return L_NEWCOMMENT_ERR_LOGIN;
+			}
+		}
+
 		if(
 			!empty($this->aConf['capcha']) AND (
 				empty($_SESSION['capcha_token']) OR
-				empty($_POST['capcha_token']) or
-				($_SESSION['capcha_token'] != $_POST['capcha_token'])
+				empty($content['capcha_token']) or
+				($_SESSION['capcha_token'] != $content['capcha_token'])
 			)
 		) {
 			return L_NEWCOMMENT_ERR_ANTISPAM;
 		}
 
 		# On vérifie que le capcha est correct
-		if($this->aConf['capcha'] == 0 OR $_SESSION['capcha'] == sha1($content['rep'])) {
-			if(!empty($content['name']) AND !empty($content['content'])) { # Les champs obligatoires sont remplis
-				$comment=array();
-				$comment['type'] = 'normal';
-				$comment['author'] = plxUtils::strCheck(trim($content['name']));
-				$comment['content'] = plxUtils::strCheck(trim($content['content']));
-				# On vérifie le mail
-				$comment['mail'] = (plxUtils::checkMail(trim($content['mail'])))?trim($content['mail']):'';
-				# On vérifie le site
-				$comment['site'] = (plxUtils::checkSite($content['site'])?$content['site']:'');
-				# On récupère l'adresse IP du posteur
-				$comment['ip'] = plxUtils::getIp();
+		if(empty($this->aConf['capcha']) OR $_SESSION['capcha'] == sha1($content['rep'])) {
+			if((!empty($content['login']) or !empty($content['name'])) AND !empty($content['content'])) {
+				# Les champs obligatoires sont remplis
+				$artId = str_pad($artId, 4, '0', STR_PAD_LEFT);
 				# index du commentaire
 				$idx = $this->nextIdArtComment($artId);
-				# Commentaire parent en cas de réponse
-				if(isset($content['parent']) AND !empty($content['parent'])) {
-					$comment['parent'] = intval($content['parent']);
-				} else {
-					$comment['parent'] = '';
-				}
+				# On modère le commentaire => underscore si besoin
+				$mod = $this->aConf['mod_com'] ? '_' : '';
 				# On génère le nom du fichier
-				$time = time();
-				if($this->aConf['mod_com']) # On modère le commentaire => underscore
-					$comment['filename'] = '_'.$artId.'.'.$time.'-'.$idx.'.xml';
-				else # On publie le commentaire directement
-					$comment['filename'] = $artId.'.'.$time.'-'.$idx.'.xml';
+				$filename = $mod . $artId . '.' . time() . '-' . $idx . '.xml';
+
+				$comment = [
+					'type' => 'normal',
+					'author' => plxUtils::strCheck(trim(!empty($content['name']) ? $content['name'] : $content['login'])),
+					'content' => plxUtils::strCheck(trim($content['content'])),
+					# On vérifie le mail
+					'mail' => (!empty($content['mail']) and plxUtils::checkMail(trim($content['mail']))) ? trim($content['mail']) : '',
+					# On vérifie le site
+					'site' => (!empty($content['site']) and plxUtils::checkSite(trim($content['site']))) ? trim($content['site']) : '',
+					# On récupère l'adresse IP du posteur
+					'ip' => plxUtils::getIp(),
+					# Commentaire parent en cas de réponse
+					'parent' => !empty($content['parent']) ? intval($content['parent']) : '',
+					'filename' => $filename,
+				];
+
 				# On peut créer le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
-					if($this->aConf['mod_com']) # En cours de modération
-						return 'mod';
-					else # Commentaire publie directement, on retourne son identifiant
-						return 'c'.$artId.'-'.$idx;
+					return $this->aConf['mod_com'] ? 'mod' : 'c' . $artId . '-' . $idx;
 				} else { # Erreur lors de la création du commentaire
 					return L_NEWCOMMENT_ERR;
 				}

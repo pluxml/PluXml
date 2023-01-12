@@ -141,3 +141,9 @@ const L_FEED_ONLINE_COMMENTS	= 'Online Kommentare';
 const L_FEED_OFFLINE_COMMENTS	= 'Offline Kommentaire';
 const L_FEED_WRITTEN_BY			= 'Geschrieben von';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Benutzer';
+const L_AUTH_PASSWORD_FIELD = 'Passwort';
+const L_LOST_PASSWORD = 'Passwort vergessen?';
+

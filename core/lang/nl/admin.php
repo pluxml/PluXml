@@ -135,14 +135,11 @@ const L_PINNED_ARTICLE= 'vastgezet artikel';
 const L_AUTH_PAGE_TITLE = 'Aanmeldpagina';
 const L_LOGOUT_SUCCESSFUL = 'U bent succesvol aangemeld';
 const L_LOGIN_PAGE = 'Aanmelden in administratie';
-const L_AUTH_LOGIN_FIELD = 'Uw Login';
-const L_AUTH_PASSWORD_FIELD = 'Uw Paswoord';
 const L_AUTH_LOST_FIELD = 'Uw Login of e-mailadres';
 const L_SUBMIT_BUTTON = 'Verzenden';
 const L_ERR_WRONG_PASSWORD = 'Login en/of wachtwoord ongeldig';
 const L_POWERED_BY = 'Gegenereerd door <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Te veel mislukte login<br />Probeer het over% s minuten';
-const L_LOST_PASSWORD = 'Wachtwoord vergeten?';
 const L_LOST_PASSWORD_LOGIN = 'Aanmelden';
 const L_LOST_PASSWORD_SUCCESS = 'Er is een e-mail verzonden naar de gebruiker';
 const L_LOST_PASSWORD_ERROR = 'De link is verlopen';
@@ -612,5 +609,5 @@ const L_THEMES_TITLE = 'Het beheren van thema\'s';
 const L_HELP = 'Hulp';
 const L_HELP_TITLE = 'Zie hulp';
 const L_BACK_TO_THEMES = 'Terug naar de onderwerpen van de pagina';
-const L_CONFIG_THEME_UPDATE = 'Change Theme'
+const L_CONFIG_THEME_UPDATE = 'Change Theme';
 

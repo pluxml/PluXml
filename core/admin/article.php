@@ -418,7 +418,11 @@ if($src) {
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) # Hook Plugins ?>
 			<?= plxToken::getTokenPostMethod() ?>
 		</div>
+<?php
 
+/* ============= sidebar ============== */
+
+?>
 		<div class="sidebar col sml-12 med-5 lrg-4">
 
 			<p><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
@@ -569,9 +573,9 @@ if($plxAdmin->aTags) {
 
 				<div class="grid">
 					<div class="col sml-12">
-						<?php if($plxAdmin->aConf['allow_com']=='1') : ?>
+						<?php if($plxAdmin->aConf['allow_com'] > 0) : ?>
 						<label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
-						<?php plxUtils::printSelect('allow_com',array('1'=>L_YES,'0'=>L_NO),$allow_com); ?>
+						<?php plxUtils::printSelect('allow_com', ($plxAdmin->aConf['allow_com'] == 2) ? ALLOW_COM_SUBSCRIBERS : ALLOW_COM_OPTIONS, $allow_com); ?>
 						<?php else: ?>
 						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
 						<?php endif; ?>

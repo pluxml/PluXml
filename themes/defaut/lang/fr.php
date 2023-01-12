@@ -39,6 +39,7 @@ $LANG = array(
 # commentaires.php
 'SAID'					=> 'a dit',
 'WRITE_A_COMMENT'		=> 'Écrire un commentaire',
+'COMMENT_FOR_SUBSCRIBERS'	=> 'Les commentaires sont réservés aux abonnés',
 'NAME'					=> 'Votre nom ou pseudo',
 'WEBSITE'				=> 'Votre site Internet (facultatif)',
 'EMAIL'					=> 'Votre adresse e-mail (facultatif)',

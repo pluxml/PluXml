@@ -135,14 +135,11 @@ const L_PINNED_ARTICLE = 'закрепленная статья';
 const L_AUTH_PAGE_TITLE = 'Страница авторизации';
 const L_LOGOUT_SUCCESSFUL = 'Успешный выход';
 const L_LOGIN_PAGE = 'Вход в Админпанель';
-const L_AUTH_LOGIN_FIELD = 'Логин';
-const L_AUTH_PASSWORD_FIELD = 'Пароль';
 const L_AUTH_LOST_FIELD = 'Логин или адрес электронной почты';
 const L_SUBMIT_BUTTON = 'Войти';
 const L_ERR_WRONG_PASSWORD = 'Неправильный логин или пароль';
 const L_POWERED_BY = 'Powered by <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Слишком много неудачных Войти<br />Повторите попытку через% S минут';
-const L_LOST_PASSWORD = 'Забыли пароль?';
 const L_LOST_PASSWORD_LOGIN = 'Aвторизоваться';
 const L_LOST_PASSWORD_SUCCESS = 'Письмо было отправлено пользователю';
 const L_LOST_PASSWORD_ERROR = 'Срок действия ссылки истек';
@@ -612,5 +609,5 @@ const L_THEMES_TITLE = 'Управление темы';
 const L_HELP = 'помощь';
 const L_HELP_TITLE = 'См помощь';
 const L_BACK_TO_THEMES = 'Вернуться к темам страницы';
-const L_CONFIG_THEME_UPDATE = 'Изменить стиль'
+const L_CONFIG_THEME_UPDATE = 'Изменить стиль';
 
