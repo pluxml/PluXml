@@ -1,5 +1,4 @@
 <?php
-
 const L_ID = '#';
 const L_MENU = 'Meniu';
 const L_UNKNOWN_ERROR = 'Eroare necunoscută';
@@ -23,7 +22,6 @@ const L_THUMBNAIL = 'Miniatură (opţional)';
 const L_THUMBNAIL_SELECTION = 'Selectați Image';
 const L_THUMBNAIL_TITLE = 'Titlu imagine (opţional)';
 const L_THUMBNAIL_ALT = 'Textul alternativ al imaginii (opţional)';
-
 const L_ERR_INVALID_DATE_CREATION = 'Data creării invalid';
 const L_ERR_INVALID_DATE_UPDATE = 'Data invalid actualizat';
 const L_INVALID_VALUE = 'valoare invalida';
@@ -31,7 +29,7 @@ const L_INVALID_VALUE = 'valoare invalida';
 // class.plx.admin.php
 
 const L_SAVE_SUCCESSFUL = 'Înregistrarea a fost efectuata cu succes';
-const L_SAVE_ERR = 'Eroare la înregistrare ';
+const L_SAVE_ERR = 'Eroare la înregistrare';
 const L_NO_ENTRY = 'Acces refuzat';
 const L_ERR_USER_EMPTY = 'Vă rugăm să introduceţi un nume de utilizator';
 const L_ERR_PASSWORD_EMPTY = 'Vă rugăm să introduceţi o parolă';
@@ -54,21 +52,21 @@ const L_ERR_URL_ALREADY_EXISTS = 'Url deja în uz. Vă rugăm să schimbați val
 
 const L_PLXMEDIAS_MEDIAS_FOLDER_ERR = 'Imposibil de a crea un fişier media';
 const L_PLXMEDIAS_ROOT = 'radacina';
-const L_PLXMEDIAS_NEW_FOLDER_ERR = 'Nu poate fi creat directoriul';
-const L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL = 'Fişier creat cu succes';
-const L_PLXMEDIAS_NEW_FOLDER_EXISTS = 'Acest fişier există deja';
-const L_PLXMEDIAS_DEL_FOLDER_ERR = 'Eroare la ştergerea fişierului';
-const L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL = 'Fişier şters cu succes';
-const L_PLXMEDIAS_WRONG_FILEFORMAT = 'tipul de fişier nu este permis';
-const L_PLXMEDIAS_WRONG_FILESIZE = 'Dimensiunea fisierului espre prea mare ';
-const L_PLXMEDIAS_UPLOAD_ERR = 'Eroare în timp ce trimiterea unui fişier';
-const L_PLXMEDIAS_UPLOAD_SUCCESSFUL = 'Fişier trimis cu succes';
-const L_PLXMEDIAS_UPLOADS_ERR = 'Eroare în timp ce încărcarea fişierelor';
-const L_PLXMEDIAS_UPLOADS_SUCCESSFUL = 'FFişierele trimise cu succes';
 const L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL = 'eliminat cu succes fişiere';
 const L_PLXMEDIAS_DELETE_FILES_ERR = 'Eroare la ştergerea unui fişier';
 const L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL = 'Fişier şters cu succes';
 const L_PLXMEDIAS_DELETE_FILE_ERR = 'Eroare la ştergerea fişierului';
+const L_PLXMEDIAS_DEL_FOLDER_ERR = 'Eroare la ştergerea fişierului';
+const L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL = 'Fişier şters cu succes';
+const L_PLXMEDIAS_NEW_FOLDER_ERR = 'Nu poate fi creat directoriul';
+const L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL = 'Fişier creat cu succes';
+const L_PLXMEDIAS_NEW_FOLDER_EXISTS = 'Acest fişier există deja';
+const L_PLXMEDIAS_WRONG_FILESIZE = 'Dimensiunea fisierului espre prea mare';
+const L_PLXMEDIAS_WRONG_FILEFORMAT = 'tipul de fişier nu este permis';
+const L_PLXMEDIAS_UPLOAD_ERR = 'Eroare în timp ce trimiterea unui fişier';
+const L_PLXMEDIAS_UPLOAD_SUCCESSFUL = 'Fişier trimis cu succes';
+const L_PLXMEDIAS_UPLOADS_ERR = 'Eroare în timp ce încărcarea fişierelor';
+const L_PLXMEDIAS_UPLOADS_SUCCESSFUL = 'FFişierele trimise cu succes';
 const L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL = 'Fişiere mutate cu succes';
 const L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL = 'Fişier mutat cu succes';
 const L_PLXMEDIAS_MOVE_FILES_ERR = 'Eroare în timpul mutarii fişierelor';
@@ -134,7 +132,7 @@ const L_PINNED_ARTICLE = 'articol fixat';
 
 const L_AUTH_PAGE_TITLE = 'Pagina de autentificare';
 const L_LOGOUT_SUCCESSFUL = 'Vati deconectat cu succes';
-const L_LOGIN_PAGE = 'Conectare in zona de administrare ';
+const L_LOGIN_PAGE = 'Conectare in zona de administrare';
 const L_AUTH_LOGIN_FIELD = 'Username';
 const L_AUTH_PASSWORD_FIELD = 'Parola';
 const L_AUTH_LOST_FIELD = 'Username sau adresa de e-mail';
@@ -263,7 +261,7 @@ const L_COMMENT_ONLINE_FEEDS_TITLE = 'Comentarii RSS online';
 const L_COMMENT_ONLINE_FEEDS = 'Comentarii Online';
 const L_COMMENTS_PRIVATE_FEEDS = 'Feed privat de comentarii';
 const L_COMMENTS_ONLINE_LIST = 'Lista de comentarii publicate';
-const L_COMMENTS_OFFLINE_LIST = 'Lista de comentarii ce aşteaptă a fi aprobate ';
+const L_COMMENTS_OFFLINE_LIST = 'Lista de comentarii ce aşteaptă a fi aprobate';
 const L_COMMENTS_ALL_LIST = 'Lista comentarii';
 const L_COMMENT_SET_ONLINE = 'Ia Online';
 const L_COMMENT_SET_OFFLINE = 'Ia Offline';
@@ -273,7 +271,7 @@ const L_COMMENT_SET_OFFLINE = 'Ia Offline';
 const L_SEARCH = 'Căutare';
 const L_SEARCH_PLACEHOLDER = 'Identificator sau titlu';
 const L_ARTICLES_ALL_CATEGORIES = 'Toate categoriile ...';
-const L_ARTICLES_ALL_AUTHORS	= 'Toți autorii...',	
+const L_ARTICLES_ALL_AUTHORS = 'Toți autorii...';
 const L_ALL = 'Toate';
 const L_ALL_PUBLISHED = 'Publicat';
 const L_ALL_DRAFTS = 'Schiţe';
@@ -369,7 +367,7 @@ const L_CONFIG_HOMETEMPLATE = 'Format din pagina de start';
 
 const L_CONFIG_ADVANCED_DESC = 'Avansate de configurare';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Permite rescrierea url-uri';
-const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atenţie într-un fişier. Htaccess este deja prezent la rădăcina PluXml dumneavoastră. Prin activarea rescrierea dosarul \ url va fi modificat';
+const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atenţie într-un fişier. Htaccess este deja prezent la rădăcina PluXml dumneavoastră. Prin activarea rescrierea dosarul  url va fi modificat';
 const L_CONFIG_ADVANCED_GZIP = 'Activeaza compresia GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Comprimă paginile pentru a salva de lăţime de bandă, însă acest lucru poate creşte sarcina procesorului';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activeaza capcha anti-spam';
@@ -401,13 +399,13 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID client';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Cheia secretă a clientului';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
 const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generați un jeton';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Nevoie de ajutor : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentația PluXml</a>&nbsp;(fr)';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Nevoie de ajutor : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentația PluXml</a> (fr)';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Nicio configurație nu este necesară pentru sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nume server SMTP (exemplu : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Numele de utilizator pe gazda SMTP (exemplu : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Parolă de utilizator pe gazda SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numărul portului gazdă SMTP (implicit: 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permite generarea de jetoane numai pentru serviciu <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Aveți nevoie de ajutor pentru a genera numele de utilizator și cheia secretă : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentația PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permite generarea de jetoane numai pentru serviciu <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Aveți nevoie de ajutor pentru a genera numele de utilizator și cheia secretă : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentația PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Adresa folosită pe serviciul OAUTH2 (exemplu : pluxml@gmail.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'ID client la serviciul OAUTH2 (exemplu : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'Cheia de client a serviciului OAUTH2 (exemplu : PrsvKp6aprKpoP8snnCoC8-x)';
@@ -504,113 +502,19 @@ const L_PLUGINS_INACTIVE_LIST = 'Plugin-uri inactive';
 // profil.php
 
 const L_PROFIL_EDIT_TITLE = 'Editează Profilul';
-const L_PROFIL = 'Profil';
-const L_PROFIL_LOGIN = 'Login';
-const L_PROFIL_USER = 'Username';
-const L_PROFIL_MAIL = 'Adresa de email';
-const L_PROFIL_ADMIN_LANG = 'Limba utilizată';
-const L_PROFIL_INFOS = 'Informaţii';
-const L_PROFIL_UPDATE = 'Editează-ţi profilul';
-const L_PROFIL_CHANGE_PASSWORD = 'Schimbarea parolei';
-const L_PROFIL_PASSWORD = 'Parola';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirmaţi parola';
-const L_PROFIL_UPDATE_PASSWORD = 'Schimbaţi parola';
 
 // statique.php
 
-const L_STATIC_BACK_TO_PAGE = 'Înapoi la lista de pagini statice';
-const L_STATIC_UNKNOWN_PAGE = 'Această pagină statică nu există sau nu este accesibila !';
-const L_STATIC_TITLE = 'Editează codul sursă a paginei statice';
-const L_STATIC_VIEW_PAGE = 'Vizualizează pagina';
-const L_STATIC_ON_SITE = 'pe site';
-const L_STATIC_UPDATE = 'Salvaţi această pagină statică';
-const L_STATIC_TITLE_HTMLTAG = 'Conţinutul tag-ul titlu (opţional)';
-const L_STATIC_META_DESCRIPTION = 'Conţinutul tag-ul meta "descriere" pentru această pagină statică (opţional)';
-const L_STATIC_META_KEYWORDS = 'Conţinutul meta tag "keywords " la această pagină statică (opţional)';
 
 // statiques.php
 
-const L_STATICS_PAGE_TITLE = 'Crearea şi publicarea paginei statice';
-const L_STATICS_ID = 'Identificator';
-const L_STATICS_GROUP = 'Grupa';
-const L_STATICS_TITLE = 'Titlu';
-const L_STATICS_URL = 'Url';
-const L_STATICS_ACTIVE = 'Activ';
-const L_STATICS_ORDER = 'Ordinea';
-const L_STATICS_MENU = 'Meniu';
-const L_STATICS_ACTION = 'Acţiune';
-const L_STATICS_TEMPLATE_FIELD = 'Tema';
-const L_STATICS_PAGE_HOME = 'Setaţi ca pagina de start';
-const L_STATICS_HOME_PAGE = 'Home';
-const L_PAGE = 'Pagină';
-const L_VIEW = 'Vizualizează';
-const L_STATICS_SRC_TITLE = 'Editează codul sursă a acestei pagini';
-const L_STATICS_SRC = 'Editare';
-const L_STATICS_NEW_PAGE = 'Pagină nouă';
-const L_STATICS_UPDATE = 'Modifică lista paginilor statice';
-const L_ERR_STATIC_ALREADY_EXISTS = 'Aşa cum deja utilizate';
 
 // top.php
 
-const L_PROFIL_ADMIN = 'Administrator';
-const L_PROFIL_MANAGER = 'Manager';
-const L_PROFIL_MODERATOR = 'Moderator';
-const L_PROFIL_EDITOR = 'Editor';
-const L_PROFIL_WRITER = 'Autor';
-const L_ADMIN = 'Administrare';
-const L_LOGIN = 'Logat ca';
-const L_ADMIN_LOGOUT = 'Deconectare';
-const L_ADMIN_LOGOUT_TITLE = 'Log Out Admin';
-const L_BACK_TO_SITE = 'Back to';
-const L_BACK_TO_SITE_TITLE = 'Go Back';
-const L_BACK_TO_BLOG = 'Blog';
-const L_BACK_TO_BLOG_TITLE = 'Inapoi la blog';
-const L_MENU_ARTICLES = 'Articole';
-const L_MENU_ARTICLES_TITLE = 'Listează şi schimbă articolele';
-const L_MENU_NEW_ARTICLES = 'Articol Nou';
-const L_MENU_NEW_ARTICLES_TITLE = 'Articol Nou';
-const L_MENU_STATICS_TITLE = 'Listează şi editează paginile statice';
-const L_MENU_STATICS = 'Pagini statice';
-const L_MENU_COMMENTS_TITLE = 'Listează şi editează comentariile';
-const L_MENU_COMMENTS = 'Comentarii';
-const L_MENU_MEDIAS_TITLE = 'Încărcaţi şi modificaţi imaginile';
-const L_MENU_MEDIAS = 'Imagini';
-const L_MENU_CATEGORIES_TITLE = 'Crează,gestionează,editează categoriile';
-const L_MENU_CATEGORIES = 'Categorii';
-const L_MENU_CONFIG_TITLE = 'Configurarează PluXml';
-const L_MENU_CONFIG = 'Setări';
-const L_MENU_PROFIL_TITLE = 'Gestionează profilul';
-const L_MENU_PROFIL = 'Profil';
-const L_WARNING_INSTALLATION_FILE = 'Fişierul install.php încă se află în rădăcina sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l <a class="lnkdelete" href="%s">ştergeţi</a>.';
 
 // user.php
 
-const L_USER_UNKNOWN = 'Utilizator necunoscut';
-const L_USER_LANG = 'Limba utilizată ';
-const L_USER_MAIL = 'Adresa de email';
-const L_USER_INFOS = 'Informaţii';
-const L_USER_UPDATE = 'Actualizează acest utilizator';
-const L_USER_PAGE_TITLE = 'Opţiuni';
-const L_USER_BACK_TO_PAGE = 'Înapoi la lista de utilizatori';
 
 //
 
-const L_MENU_CONFIG_BASE_TITLE = 'Schimbă configuraţia de bază';
-const L_MENU_CONFIG_BASE = 'Configuraţia de bază';
-const L_MENU_CONFIG_VIEW_TITLE = 'Editarea opţiunilor de afişare';
-const L_MENU_CONFIG_VIEW = 'Opţiuni \ Afişare';
-const L_MENU_CONFIG_USERS_TITLE = 'Gestionează conturile utilizatorilor';
-const L_MENU_CONFIG_USERS = 'Conturile utilizatorilor';
-const L_MENU_CONFIG_ADVANCED_TITLE = 'Editarea configuraţiei avansate';
-const L_MENU_CONFIG_ADVANCED = 'Configurarea Avansată';
-const L_MENU_CONFIG_INFOS_TITLE = 'Obţinerea de informaţii despre PluXml';
-const L_MENU_CONFIG_INFOS = 'Informaţii';
-const L_MENU_CONFIG_PLUGINS_TITLE = 'Administrează Plugin-uri';
-const L_MENU_CONFIG_PLUGINS = 'Plugin-uri';
-const L_THEMES = 'Teme';
-const L_THEMES_TITLE = 'Gestionarea teme';
-const L_HELP = 'Ajutor';
-const L_HELP_TITLE = 'Vezi de ajutor';
-const L_BACK_TO_THEMES = 'Înapoi la subiectele paginii';
-const L_CONFIG_THEME_UPDATE = 'Înregistrarea temă';
 
