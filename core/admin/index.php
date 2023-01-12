@@ -22,9 +22,17 @@ if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']
 	exit;
 }
 
+# Récuperation des paramètres
+if(!empty($_GET['sel']) AND in_array($_GET['sel'], ['all', 'published', 'draft','mod',])) {
+	$_SESSION['sel_get'] = plxUtils::nullbyteRemove($_GET['sel']);
+	$_SESSION['sel_cat'] = '';
+} else {
+	$_SESSION['sel_get']=(isset($_SESSION['sel_get']) AND !empty($_SESSION['sel_get']))?$_SESSION['sel_get']:'all';
+}
+
 # Récuperation de l'id de l'utilisateur
-if($_SESSION['profil'] < PROFIL_WRITER) {
-	if(isset($_POST['sel_user']) and preg_match('#^\d{3}$#', $_POST['sel_user']) and array_key_exists($_POST['sel_user'], $plxAdmin->aUsers)) {
+if($_SESSION['profil'] < PROFIL_WRITER and isset($_POST['sel_user'])) {
+	if(preg_match('#^\d{3}$#', $_POST['sel_user']) and array_key_exists($_POST['sel_user'], $plxAdmin->aUsers)) {
 		$userId = $_POST['sel_user'];
 		$_SESSION['sel_user'] = $userId;
 	} else {
@@ -34,14 +42,6 @@ if($_SESSION['profil'] < PROFIL_WRITER) {
 } else {
 	$userId = $_SESSION['user'];
 }
-
-# Récuperation des paramètres
-if(!empty($_GET['sel']) AND in_array($_GET['sel'], ['all', 'published', 'draft','mod',])) {
-	$_SESSION['sel_get']=plxUtils::nullbyteRemove($_GET['sel']);
-	$_SESSION['sel_cat']='';
-}
-else
-	$_SESSION['sel_get']=(isset($_SESSION['sel_get']) AND !empty($_SESSION['sel_get']))?$_SESSION['sel_get']:'all';
 
 if(!empty($_POST['sel_cat']))
 	if(isset($_SESSION['sel_cat']) AND $_SESSION['sel_cat']==$_POST['sel_cat']) # annulation du filtre
