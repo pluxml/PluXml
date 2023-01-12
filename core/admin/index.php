@@ -31,16 +31,24 @@ if(!empty($_GET['sel']) AND in_array($_GET['sel'], ['all', 'published', 'draft',
 }
 
 # Récuperation de l'id de l'utilisateur
-if($_SESSION['profil'] < PROFIL_WRITER and isset($_POST['sel_user'])) {
-	if(preg_match('#^\d{3}$#', $_POST['sel_user']) and array_key_exists($_POST['sel_user'], $plxAdmin->aUsers)) {
-		$userId = $_POST['sel_user'];
-		$_SESSION['sel_user'] = $userId;
+if($_SESSION['profil'] < PROFIL_WRITER) {
+	if(isset($_POST['sel_user'])) {
+		if(preg_match('#^\d{3}$#', $_POST['sel_user']) and array_key_exists($_POST['sel_user'], $plxAdmin->aUsers)) {
+			$userId = $_POST['sel_user'];
+			$_SESSION['sel_user'] = $userId;
+		} else {
+			$userId = '\d{3}';
+			$_SESSION['sel_user'] = '';
+		}
+	} elseif(isset($_SESSION['sel_user']) and array_key_exists($_SESSION['sel_user'], $plxAdmin->aUsers)) {
+		$userId = $_SESSION['sel_user'];
 	} else {
-		$_SESSION['sel_user'] = '';
 		$userId = '\d{3}';
+		$_SESSION['sel_user'] = '';
 	}
 } else {
 	$userId = $_SESSION['user'];
+	$_SESSION['sel_user'] = $userId;
 }
 
 if(!empty($_POST['sel_cat']))
