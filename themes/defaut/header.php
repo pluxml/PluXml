@@ -1,4 +1,16 @@
-<?php if (!defined('PLX_ROOT')) exit; ?>
+<?php
+if (!defined('PLX_ROOT')) { exit; }
+
+if(method_exists($plxShow, 'authorList')) {
+	$users = array_filter(
+		$plxShow->plxMotor->aUsers,
+		function($user) { return !empty($user['active']) and empty($user['delete']); }
+	);
+	if(count($users) > 1) {
+		define('MULTI_USERS', true);
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="<?php $plxShow->defaultLang() ?>">
 <head>
