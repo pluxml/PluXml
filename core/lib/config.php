@@ -55,6 +55,8 @@ const PROFIL_MODERATOR	= 2;
 const PROFIL_EDITOR	= 3;
 const PROFIL_WRITER	= 4;
 
+const SESSION_LIFETIME = 7200;
+
 const DEFAULT_CONFIG = array(
 	'title'					=> 'PluXml',
 	'description'			=> '', # plxUtils::strRevCheck(L_SITE_DESCRIPTION)
@@ -166,3 +168,25 @@ spl_autoload_register(
 	true # PluXml first !
 );
 
+function plx_session_start() {
+	session_start();
+	$gc_maxlifetime = ini_get('session.gc_maxlifetime'); # Garbage collector
+	$expires = time() + (defined('PLX_ADMIN') ? SESSION_LIFETIME : $gc_maxlifetime);
+	if(PHP_VERSION_ID >= 70300) {
+		setcookie(
+			session_name(),
+			session_id(),
+			[
+				'expires' => $expires,
+				'path' => plxUtils::getRacine(true),
+				'domain' => '.' . $_SERVER['SERVER_NAME'], // leading dot for compatibility or use subdomain
+				'secure' => isset($_SERVER['HTTPS']),
+				'httponly' => true,
+				'samesite' => 'Strict', // None || Lax  || Strict
+			]);
+	} else {
+		# setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, plxUtils::getRacine(true), $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
+		# PHPSESSID=74ca1sac1015k01h480our7nka; expires=Sat, 14-Jan-2023 13:39:45 GMT; Max-Age=1440; path=http://test.lan/PluXml-master/; domain=.test.lan; HttpOnly; SameSite=Strict
+		header('Set-Cookie: ' . session_name() . '=' . session_id() . '; expires=' .  gmdate('D, d-M-Y H:i:s', $expires) . ' GMT; Max-Age=' . $gc_maxlifetime . '; path=' . plxUtils::getRacine(true) . '; domain=' . $_SERVER['SERVER_NAME']. '; HttpOnly; SameSite=Strict');
+	}
+}

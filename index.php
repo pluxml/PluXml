@@ -11,8 +11,7 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 }
 
 # On démarre la session
-session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
-session_start();
+plx_session_start();
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
