@@ -27,8 +27,7 @@ EOT;
 include PLX_CORE.'lib/config.php';
 
 # On démarre la session
-session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
-session_start();
+plx_session_start();
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
