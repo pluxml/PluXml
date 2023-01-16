@@ -39,6 +39,7 @@ $LANG = array(
 # commentaires.php
 'SAID'					=> 'zei',
 'WRITE_A_COMMENT'		=> 'commentaar achterlaten',
+'COMMENT_FOR_SUBSCRIBERS'	=> 'Reacties zijn alleen voor abonnees',
 'NAME'					=> 'Naam',
 'WEBSITE'				=> 'Site (facultatief)',
 'EMAIL'					=> 'E-mail (facultatief)',

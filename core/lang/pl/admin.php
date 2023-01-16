@@ -135,14 +135,11 @@ const L_PINNED_ARTICLE = 'przypięty artykuł';
 const L_AUTH_PAGE_TITLE = 'administracja';
 const L_LOGOUT_SUCCESSFUL = 'Poprawne wylogowanie';
 const L_LOGIN_PAGE = 'Logowanie do panelu administracyjnego';
-const L_AUTH_LOGIN_FIELD = 'Login';
-const L_AUTH_PASSWORD_FIELD = 'Hasło';
 const L_AUTH_LOST_FIELD = 'Login lub adres e-mail';
 const L_SUBMIT_BUTTON = 'Zaloguj';
 const L_ERR_WRONG_PASSWORD = 'Login i / lub hasło niepoprawne';
 const L_POWERED_BY = 'Silnik <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Zbyt wielu nieudanych<br />ponownych prób logowania w% s minut';
-const L_LOST_PASSWORD = 'Zapomniałeś hasła?';
 const L_LOST_PASSWORD_LOGIN = 'Zaloguj Się';
 const L_LOST_PASSWORD_SUCCESS = 'E-mail został wysłany do użytkownika';
 const L_LOST_PASSWORD_ERROR = 'Link wygasł';
@@ -612,5 +609,5 @@ const L_THEMES_TITLE = 'Zarządzanie tematy';
 const L_HELP = 'Pomoc';
 const L_HELP_TITLE = 'Zobacz pomoc';
 const L_BACK_TO_THEMES = 'Powrót do tematów strony';
-const L_CONFIG_THEME_UPDATE = 'Zmień styl'
+const L_CONFIG_THEME_UPDATE = 'Zmień styl';
 

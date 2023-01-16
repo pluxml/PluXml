@@ -1057,6 +1057,16 @@ class plxShow
 	}
 
 	/**
+	 * Méthode qui vérifie si la publication d'un commentaire pour article est réservé aux abonnés
+	 *
+	 * @return	bool
+	 * @author	Jean-Pierre Pourrez "bazooka07"
+	 **/
+	public function articleComLoginRequired() {
+		return $this->plxMotor->articleComLoginRequired();
+	}
+
+	/**
 	 * Méthode qui affiche le nombre de commentaires (sous forme de lien ou non selon le mode) d'un article
 	 *
 	 * @param f1        format d'affichage si nombre de commentaire = 0 (#nb pour afficher le nombre de commentaire)
@@ -1391,7 +1401,7 @@ class plxShow
 	 * Méthode qui affiche si besoin le message généré par le système
 	 * suite à la création d'un commentaire
 	 * @param format  format du texte à afficher (variable: #com_message, #com_class)
-	 * @return        true si un message est affiché
+	 * @return        true si un commentaire est validé ou en attente de modération (Pas nécessaire d'afficher le formulaire)
 	 * @scope        article
 	 * @author        Stephane F, J.P Pourrez.
 	 * @version        2017-12-28
@@ -1415,7 +1425,8 @@ class plxShow
 				'#com_class'	=> 'alert ' . $color,
 			]);
 			unset($_SESSION['msgcom']);
-			return true;
+
+			return empty($_SESSION['msg']);
 		}
 		return false;
 	}

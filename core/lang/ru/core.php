@@ -141,4 +141,9 @@ const L_FEED_ONLINE_COMMENTS		= 'Комментарии онлайн';
 const L_FEED_OFFLINE_COMMENTS		= 'Комментарии оффлайн';
 const L_FEED_WRITTEN_BY				= 'Автор';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Логин';
+const L_AUTH_PASSWORD_FIELD = 'Пароль';
+const L_LOST_PASSWORD = 'Забыли пароль?';
 

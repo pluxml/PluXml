@@ -39,6 +39,7 @@ $LANG = array(
 # commentaires.php
 'SAID'					=> 'a spus',
 'WRITE_A_COMMENT'		=> 'Adaug&#259; un comentariu',
+'COMMENT_FOR_SUBSCRIBERS'	=> 'Comentariile sunt doar pentru abonați',
 'NAME'					=> 'Nume',
 'WEBSITE'				=> 'Site (nu e obligatoriu)',
 'EMAIL'					=> 'E-mail (nu e obligatoriu)',

@@ -135,14 +135,11 @@ const L_PINNED_ARTICLE = 'artículo anclado';
 const L_AUTH_PAGE_TITLE = 'Página de autenticación';
 const L_LOGOUT_SUCCESSFUL = 'Sesión finalizada correctamente correctamente';
 const L_LOGIN_PAGE = 'Iniciar sesión en la zona de administración';
-const L_AUTH_LOGIN_FIELD = 'Nombre de usuario';
-const L_AUTH_PASSWORD_FIELD = 'Contraseña';
 const L_AUTH_LOST_FIELD = 'Nombre de usuario o correo electrónico';
 const L_SUBMIT_BUTTON = 'Enviar';
 const L_ERR_WRONG_PASSWORD = 'Nombre de usuario o contraseña incorrectos';
 const L_POWERED_BY = 'Generado con <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Demasiado error en el inicio de sesión<br />Reintentar en% s minutos';
-const L_LOST_PASSWORD = 'Contraseña olvidada ?';
 const L_LOST_PASSWORD_LOGIN = 'Iniciar sesión';
 const L_LOST_PASSWORD_SUCCESS = 'Se ha enviado un correo electrónico al usuario';
 const L_LOST_PASSWORD_ERROR = 'El enlace ha caducado';
@@ -612,5 +609,5 @@ const L_THEMES_TITLE = 'La gestión de temas';
 const L_HELP = 'Ayuda';
 const L_HELP_TITLE = 'Consulte la ayuda';
 const L_BACK_TO_THEMES = 'Volver a la lista de temas';
-const L_CONFIG_THEME_UPDATE = 'Cambiar tema'
+const L_CONFIG_THEME_UPDATE = 'Cambiar tema';
 

@@ -39,6 +39,7 @@ $LANG = array(
 # commentaires.php
 'SAID'					=> 'сказал',
 'WRITE_A_COMMENT'		=> 'Создать комментарий',
+'COMMENT_FOR_SUBSCRIBERS'	=> 'Комментарии только для подписчиков',
 'NAME'					=> 'Имя',
 'WEBSITE'				=> 'сайта (необязательно)',
 'EMAIL'					=> 'E-mail (необязательно)',

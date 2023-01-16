@@ -92,6 +92,7 @@ const L_NEWCOMMENT_ERR				= 'Une erreur s\'est produite lors de la publication d
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Merci de remplir tous les champs obligatoires';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'La vérification anti-spam a échoué';
 const L_UNKNOWN_AUTHOR				= 'Auteur inconnu';
+const L_NEWCOMMENT_ERR_LOGIN		= 'Mauvais login ou mot de passe';
 
 # class.plx.show.php
 
@@ -141,4 +142,9 @@ const L_FEED_ONLINE_COMMENTS		= 'Commentaires en ligne';
 const L_FEED_OFFLINE_COMMENTS		= 'Commentaires hors ligne';
 const L_FEED_WRITTEN_BY				= 'Rédigé par';
 
+# auth.php
+
+const L_AUTH_LOGIN_FIELD = 'Login de connexion';
+const L_AUTH_PASSWORD_FIELD = 'Mot de passe';
+const L_LOST_PASSWORD = 'Mot de passe oublié ?';
 

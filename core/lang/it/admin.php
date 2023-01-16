@@ -128,14 +128,11 @@ const L_PINNED_ARTICLE = 'articolo appuntato';
 const L_AUTH_PAGE_TITLE = 'Pagina di autenticazione';
 const L_LOGOUT_SUCCESSFUL = 'Disconnessione avvenuta con successo';
 const L_LOGIN_PAGE = 'Pannello di amministrazione';
-const L_AUTH_LOGIN_FIELD = 'Nome utente';
-const L_AUTH_PASSWORD_FIELD = 'Password';
 const L_AUTH_LOST_FIELD = 'Indirizzo di accesso o e-mail';
 const L_SUBMIT_BUTTON = 'Collegati';
 const L_ERR_WRONG_PASSWORD = 'Nome utente e/o password non corretti';
 const L_POWERED_BY = 'Powered by <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Troppi fallito login<br />Riprova tra% s minuti';
-const L_LOST_PASSWORD = 'Password dimenticata ?';
 const L_LOST_PASSWORD_LOGIN = 'Accesso';
 const L_LOST_PASSWORD_SUCCESS = 'E\' stata inviata una e-mail all\'utente';
 const L_LOST_PASSWORD_ERROR = 'Il collegamento è scaduto';
@@ -530,5 +527,5 @@ const L_BACK_TO_THEMES = 'Torna alla pagina dei temi';
 const L_ERR_INVALID_DATE_CREATION = 'Data di creazione non valida';
 const L_ERR_INVALID_DATE_UPDATE = 'Data non valida aggiornato';
 const L_INVALID_VALUE = 'valore non valido';
-const L_CONFIG_THEME_UPDATE = 'Cambia Aspetto'
+const L_CONFIG_THEME_UPDATE = 'Cambia Aspetto';
 
