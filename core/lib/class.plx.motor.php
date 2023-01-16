@@ -1297,14 +1297,17 @@ class plxMotor {
 	 **/
 	public function nbArticles($select='all', $userId='\d{3}', $mod='_?', $publi='all') {
 
-		if($select == 'all')
-			$motif = '(?:draft,|pin,|\d{3},)*(home|\d{3})(?:,\d{3})*';
-		elseif($select=='published')
-			$motif = '(?:pin,|\d{3},)*(home|\d{3})(?:,\d{3})*';
-		elseif($select=='draft')
-			$motif = 'draft,(?:pin,|\d{3},)*(home|\d{3})(?:,\d{3})*';
-		else
-			$motif = $select;
+		switch($select) {
+			case 'all':
+			case 'mod':
+				$motif = '(?:draft,|pin,|\d{3},)*(home|\d{3})(?:,\d{3})*'; break;
+			case 'published':
+				$motif = '(?:pin,|\d{3},)*(home|\d{3})(?:,\d{3})*'; break;
+			case 'draft':
+				$motif = 'draft,(?:pin,|\d{3},)*(home|\d{3})(?:,\d{3})*'; break;
+			default:
+				$motif = $select;
+		}
 
 		if($arts = $this->plxGlob_arts->query('#^' . $mod . '\d{4}\.' . $motif . '\.'.$userId.'\.\d{12}.[\w-]+\.xml$#', 'art', '', 0, false, $publi)) {
 			return sizeof($arts);

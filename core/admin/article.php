@@ -278,14 +278,12 @@ function refreshImg(dta) {
 }
 </script>
 
-<form action="article.php" method="post" id="form_article">
+<form method="post" id="form_article">
 
 	<div class="inline-form action-bar">
 
-		<h2><?= (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
-
+		<h2><?= (empty($_GET['a'])) ? L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING; ?></h2>
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
-
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
 <?php
 if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
@@ -328,6 +326,7 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 <?php
 		}
 	}
+
 	if($artId!='0000') {
 ?>
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="if(confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>')) { this.form.target = _self; return true; } else { return false; }" />
@@ -350,12 +349,12 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 				<div class="grid">
 					<div class="col sml-12 small">
 <?php
-if($artId!='' AND $artId!='0000') {
+if(!empty($artId) AND $artId!='0000') {
 	$link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url)
 ?>
 					 			<small>
 					 				<strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
-					 				<a onclick="this.target=_blank; return true;" href="<?= $link ?>" title="<?= L_LINK_ACCESS ?> : <?= $link ?>"><?= $link ?></a>
+					 				<a href="<?= $link ?>" title="<?= L_LINK_ACCESS ?> : <?= $link ?>" target="_blank"><?= $link ?></a>
 					 			</small>
 <?php
 }

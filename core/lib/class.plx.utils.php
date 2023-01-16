@@ -1570,10 +1570,14 @@ EOT;
 	 * Deprecated !
 	 * @param String $content
 	 * @return array|string|string[]
-	 * @author Pedro "P3ter" CADETE, Moritz Huppert
+	 * @author Pedro "P3ter" CADETE, Moritz Huppert, Jean-Pierre Pourrez "bazooka07"
 	 */
 	public static function sanitizePhpTags(String $content) {
-		return str_ireplace(array("<?php","<?", "?>"), "", $content);;
+		return preg_replace(
+			['#<\?(php|=)\b#i', '#\?>#'],
+			['<!-- ', ' -->'],
+			$content
+		);
 	}
 
 	/**

@@ -1223,8 +1223,8 @@ Options -Multiviews
 	<title><?= plxUtils::strCheck(trim($content['title']), true) ?></title>
 	<allow_com><?= !empty($content['allow_com']) ? intval($content['allow_com']) : 0 ?></allow_com>
 	<template><?= basename($content['template']) ?></template>
-	<chapo><?= plxUtils::strCheck(trim($content['chapo']), true) ?></chapo>
-	<content><?= plxUtils::strCheck(trim($content['content']), true) ?></content>
+	<chapo><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['chapo'])) ?>]]></chapo>
+	<content><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['content'])) ?>]]></content>
 	<tags><?= plxUtils::strCheck(trim($content['tags']), true) ?></tags>
 	<meta_description><?= plxUtils::strCheck(trim($meta_description)) ?></meta_description>
 	<meta_keywords><?= plxUtils::strCheck(trim($meta_keywords)) ?></meta_keywords>
