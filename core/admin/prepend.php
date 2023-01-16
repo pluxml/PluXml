@@ -50,6 +50,16 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 $_SESSION['admin_lang'] = $lang;
 
+# Tableau des profils
+const PROFIL_NAMES = array(
+	PROFIL_ADMIN => L_PROFIL_ADMIN,
+	PROFIL_MANAGER => L_PROFIL_MANAGER,
+	PROFIL_MODERATOR => L_PROFIL_MODERATOR,
+	PROFIL_EDITOR => L_PROFIL_EDITOR,
+	PROFIL_WRITER => L_PROFIL_WRITER,
+	PROFIL_SUBSCRIBER => L_PROFIL_SUBSCRIBER,
+);
+
 const ALLOW_COM_OPTIONS = [
 	0 => L_NO,
 	1 => L_EVERY_BODY,

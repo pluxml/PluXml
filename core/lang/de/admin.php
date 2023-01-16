@@ -556,6 +556,7 @@ const L_PROFIL_MANAGER = 'Manager';
 const L_PROFIL_MODERATOR = 'Moderator';
 const L_PROFIL_EDITOR = 'Redakteur';
 const L_PROFIL_WRITER = 'Autor';
+const L_PROFIL_SUBSCRIBER = 'Teilnehmerin';
 const L_ADMIN = 'Admin';
 const L_LOGIN = 'Angemeldet als ';
 const L_ADMIN_LOGOUT = 'Abmelden';

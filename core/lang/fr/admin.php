@@ -558,6 +558,7 @@ const L_PROFIL_MANAGER = 'Gestionnaire';
 const L_PROFIL_MODERATOR = 'Modérateur';
 const L_PROFIL_EDITOR = 'Éditeur';
 const L_PROFIL_WRITER = 'Rédacteur';
+const L_PROFIL_SUBSCRIBER = 'Abonné';
 const L_ADMIN = 'Administration';
 const L_LOGIN = 'Connecté en tant que';
 const L_ADMIN_LOGOUT = 'Déconnexion';

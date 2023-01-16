@@ -554,6 +554,7 @@ const L_PROFIL_MANAGER = 'Beheerder';
 const L_PROFIL_MODERATOR = 'Moderator';
 const L_PROFIL_EDITOR = 'Editeur';
 const L_PROFIL_WRITER = 'Redacteur';
+const L_PROFIL_SUBSCRIBER = 'Abonnee';
 const L_ADMIN = 'Administratie';
 const L_LOGIN = 'Aangemeld als';
 const L_ADMIN_LOGOUT = 'Afmelden';

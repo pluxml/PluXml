@@ -554,6 +554,7 @@ const L_PROFIL_MANAGER = 'Gestionário';
 const L_PROFIL_MODERATOR = 'Moderador';
 const L_PROFIL_EDITOR = 'Editor';
 const L_PROFIL_WRITER = 'Redactor';
+const L_PROFIL_SUBSCRIBER = 'Assinante';
 const L_ADMIN = 'Administração';
 const L_LOGIN = 'Conectado como:';
 const L_ADMIN_LOGOUT = 'Deconectar';
