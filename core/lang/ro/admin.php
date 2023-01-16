@@ -25,6 +25,8 @@ const L_THUMBNAIL_ALT = 'Textul alternativ al imaginii (opţional)';
 const L_ERR_INVALID_DATE_CREATION = 'Data creării invalid';
 const L_ERR_INVALID_DATE_UPDATE = 'Data invalid actualizat';
 const L_INVALID_VALUE = 'valoare invalida';
+const L_ERR_INVALID_DATE_UPDATE = 'Data actualizării nevalidă';
+const L_INVALID_VALUE = 'valoare invalida';
 
 // class.plx.admin.php
 
@@ -424,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'Conţinutul tag-ul meta "descriere" a site-ul
 const L_CONFIG_META_KEYWORDS = 'Conţinut de meta tags "cuvinte cheie" Site-ul (opţional)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Afișați fluxuri RSS';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Afișați fluxuri RSS comentariile';
+const L_EVERY_BODY = 'Toata lumea';
+const L_SUBSCRIBERS_ONLY = 'Numai pentru abonați';
 
 // parametres_edittpl.php
 
@@ -481,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Activează';
 const L_PLUGINS_DEACTIVATE = 'Dezactivaţi';
 const L_PLUGINS_DELETE = 'Şterge';
 const L_PLUGINS_DELETE_ERROR = 'O eroare a generat în timpul deplasării';
+const L_PLUGINS_ENABLED_ERROR = 'Pluginul %s este încă activ. Nu se poate șterge.';
+const L_DELETE_FILE_ERROR = 'Nu se poate șterge fișierul %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Ştergerea a decurs cu succes';
 const L_PLUGINS_CONFIG = 'Configurare';
 const L_PLUGINS_CONFIG_TITLE = 'Configurarea plugin-ului';
@@ -499,19 +505,114 @@ const L_PLUGINS_INACTIVE_LIST = 'Plugin-uri inactive';
 // profil.php
 
 const L_PROFIL_EDIT_TITLE = 'Editează Profilul';
+const L_PROFIL = 'Profil';
+const L_PROFIL_LOGIN = 'Login';
+const L_PROFIL_USER = 'Username';
+const L_PROFIL_MAIL = 'Adresa de email';
+const L_PROFIL_ADMIN_LANG = 'Limba utilizată';
+const L_PROFIL_INFOS = 'Informaţii';
+const L_PROFIL_UPDATE = 'Editează-ţi profilul';
+const L_PROFIL_CHANGE_PASSWORD = 'Schimbarea parolei';
+const L_PROFIL_PASSWORD = 'Parola';
+const L_PROFIL_CONFIRM_PASSWORD = 'Confirmaţi parola';
+const L_PROFIL_UPDATE_PASSWORD = 'Schimbaţi parola';
 
 // statique.php
 
+const L_STATIC_BACK_TO_PAGE = 'Înapoi la lista de pagini statice';
+const L_STATIC_UNKNOWN_PAGE = 'Această pagină statică nu există sau nu este accesibila !';
+const L_STATIC_TITLE = 'Editează codul sursă a paginei statice';
+const L_STATIC_VIEW_PAGE = 'Vizualizează pagina';
+const L_STATIC_ON_SITE = 'pe site';
+const L_STATIC_UPDATE = 'Salvaţi această pagină statică';
+const L_STATIC_TITLE_HTMLTAG = 'Conţinutul tag-ul titlu (opţional)';
+const L_STATIC_META_DESCRIPTION = 'Conţinutul tag-ul meta "descriere" pentru această pagină statică (opţional)';
+const L_STATIC_META_KEYWORDS = 'Conţinutul meta tag "keywords " la această pagină statică (opţional)';
 
 // statiques.php
 
+const L_STATICS_PAGE_TITLE = 'Crearea şi publicarea paginei statice';
+const L_STATICS_ID = 'Identificator';
+const L_STATICS_GROUP = 'Grupa';
+const L_STATICS_TITLE = 'Titlu';
+const L_STATICS_URL = 'Url';
+const L_STATICS_ACTIVE = 'Activ';
+const L_STATICS_ORDER = 'Ordinea';
+const L_STATICS_MENU = 'Meniu';
+const L_STATICS_ACTION = 'Acţiune';
+const L_STATICS_TEMPLATE_FIELD = 'Tema';
+const L_STATICS_PAGE_HOME = 'Setaţi ca pagina de start';
+const L_STATICS_HOME_PAGE = 'Home';
+const L_PAGE = 'Pagină';
+const L_VIEW = 'Vizualizează';
+const L_STATICS_SRC_TITLE = 'Editează codul sursă a acestei pagini';
+const L_STATICS_SRC = 'Editare';
+const L_STATICS_NEW_PAGE = 'Pagină nouă';
+const L_STATICS_UPDATE = 'Modifică lista paginilor statice';
+const L_PROFIL_ADMIN = 'Administrator';
 
 // top.php
 
+const L_PROFIL_MANAGER = 'Manager';
+const L_PROFIL_MODERATOR = 'Moderator';
+const L_PROFIL_EDITOR = 'Editor';
+const L_PROFIL_WRITER = 'Autor';
+const L_ADMIN = 'Administrare';
+const L_LOGIN = 'Logat ca';
+const L_ADMIN_LOGOUT = 'Deconectare';
+const L_ADMIN_LOGOUT_TITLE = 'Log Out Admin';
+const L_BACK_TO_SITE = 'Back to';
+const L_BACK_TO_SITE_TITLE = 'Go Back';
+const L_BACK_TO_SITE = 'Înapoi la site';
+const L_BACK_TO_SITE_TITLE = 'Retur la pagina de primire a site-ului';
+const L_BACK_TO_BLOG = 'Blog';
+const L_BACK_TO_BLOG_TITLE = 'Inapoi la blog';
+const L_MENU_ARTICLES = 'Articole';
+const L_MENU_ARTICLES_TITLE = 'Listează şi schimbă articolele';
+const L_MENU_NEW_ARTICLES = 'Articol Nou';
+const L_MENU_NEW_ARTICLES_TITLE = 'Articol Nou';
+const L_MENU_STATICS_TITLE = 'Listează şi editează paginile statice';
+const L_MENU_STATICS = 'Pagini statice';
+const L_MENU_COMMENTS_TITLE = 'Listează şi editează comentariile';
+const L_MENU_COMMENTS = 'Comentarii';
+const L_MENU_MEDIAS_TITLE = 'Încărcaţi şi modificaţi imaginile';
+const L_MENU_MEDIAS = 'Imagini';
+const L_MENU_CATEGORIES_TITLE = 'Crează,gestionează,editează categoriile';
+const L_MENU_CATEGORIES = 'Categorii';
+const L_MENU_CONFIG_TITLE = 'Configurarează PluXml';
+const L_MENU_CONFIG = 'Setări';
+const L_MENU_PROFIL_TITLE = 'Gestionează profilul';
+const L_MENU_PROFIL = 'Profil';
+const L_WARNING_INSTALLATION_FILE = 'Fişierul install.php încă se află în rădăcina sit-ului <br /> PluXml. Din motive de securitate, se recomandă să-l <a class="lnkdelete" href="%s">ştergeţi</a>.';
 
 // user.php
 
+const L_USER_MAIL = 'Adresa de email';
+const L_USER_INFOS = 'Informaţii';
+const L_USER_UPDATE = 'Actualizează acest utilizator';
+const L_USER_PAGE_TITLE = 'Opţiuni';
+const L_USER_BACK_TO_PAGE = 'Înapoi la lista de utilizatori';
+const L_MENU_CONFIG_BASE_TITLE = 'Schimbă configuraţia de bază';
+const L_MENU_CONFIG_BASE = 'Configuraţia de bază';
 
 //
 
+const L_MENU_CONFIG_VIEW_TITLE = 'Editarea opţiunilor de afişare';
+const L_MENU_CONFIG_VIEW = 'Opţiuni \ Afişare';
+const L_MENU_CONFIG_USERS_TITLE = 'Gestionează conturile utilizatorilor';
+const L_MENU_CONFIG_USERS = 'Conturile utilizatorilor';
+const L_MENU_CONFIG_ADVANCED_TITLE = 'Editarea configuraţiei avansate';
+const L_MENU_CONFIG_ADVANCED = 'Configurarea Avansată';
+const L_MENU_CONFIG_INFOS_TITLE = 'Obţinerea de informaţii despre PluXml';
+const L_MENU_CONFIG_INFOS = 'Informaţii';
+const L_MENU_CONFIG_PLUGINS_TITLE = 'Administrează Plugin-uri';
+const L_MENU_CONFIG_PLUGINS = 'Plugin-uri';
+const L_ERR_URL_ALREADY_EXISTS = 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'';
+const L_THEMES = 'Teme';
+const L_THEMES_TITLE = 'Gestionarea teme';
+const L_HELP = 'Ajutor';
+const L_HELP_TITLE = 'Vezi de ajutor';
+const L_BACK_TO_THEMES = 'Înapoi la subiectele paginii';
+const L_CONFIG_THEME_UPDATE = 'Înregistrarea temă';
+const L_ERR_INVALID_DATE_CREATION = 'Data creării invalid';
 

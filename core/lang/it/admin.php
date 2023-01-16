@@ -474,6 +474,7 @@ const L_PROFIL_MANAGER = 'Manager';
 const L_PROFIL_MODERATOR = 'Moderatore';
 const L_PROFIL_EDITOR = 'Editore';
 const L_PROFIL_WRITER = 'Redattore';
+const L_PROFIL_SUBSCRIBER = 'Abbonato';
 const L_ADMIN = 'Amministrazione';
 const L_LOGIN = 'Connesso come';
 const L_ADMIN_LOGOUT = 'Disconnettiti';

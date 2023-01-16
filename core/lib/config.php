@@ -49,11 +49,12 @@ const XML_HEADER = '<?xml version="1.0" encoding="' . PLX_CHARSET .'"?>' . PHP_E
 const DEFAULT_LANG = 'en';
 
 # profils utilisateurs de pluxml
-const PROFIL_ADMIN = 0;
-const PROFIL_MANAGER = 1;
+const PROFIL_ADMIN		= 0;
+const PROFIL_MANAGER	= 1;
 const PROFIL_MODERATOR	= 2;
-const PROFIL_EDITOR	= 3;
-const PROFIL_WRITER	= 4;
+const PROFIL_EDITOR		= 3;
+const PROFIL_WRITER		= 4;
+const PROFIL_SUBSCRIBER	= 5;
 
 const SESSION_LIFETIME = 7200;
 
