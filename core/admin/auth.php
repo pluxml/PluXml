@@ -162,13 +162,10 @@ plxUtils::cleanHeaders();
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title>PluXml - <?= L_AUTH_PAGE_TITLE ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?= strtolower(PLX_CHARSET); ?>"/>
-	<link rel="stylesheet" type="text/css"
-		  href="<?= PLX_CORE ?>admin/theme/plucss.css?v=<?= PLX_VERSION ?>" media="screen"/>
-	<link rel="stylesheet" type="text/css"
-		  href="<?= PLX_CORE ?>admin/theme/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
-	<link rel="stylesheet" type="text/css"
-		  href="<?= PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?= PLX_VERSION ?>" media="screen"/>
-	<link rel="icon" href="<?= PLX_CORE ?>admin/theme/images/favicon.png"/>
+	<link rel="stylesheet" type="text/css" href="theme/plucss.css?v=<?= PLX_VERSION ?>" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="theme/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="theme/fonts/fontello.css?v=<?= PLX_VERSION ?>" media="screen"/>
+	<link rel="icon" href="theme/images/favicon.png"/>
 <?php
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 	plxUtils::printLinkCss($plxAdmin->aConf['racine_plugins'] . 'admin.css', true);
