@@ -1,12 +1,11 @@
 <?php
 
-
 const L_LANGUE						= 'Occitan';
-
 const L_DATE_CREATION				= 'Data de creacion';
 const L_DATE_UPDATE					= 'Data de misa a jorn';
 
 # common
+
 const L_PLUXML_VERSION				= 'version de Pluxml';
 const L_PLUXML_VERSION_DATA			= 'Version donadas';
 const L_HOMEPAGE					= 'Acuèlh';
@@ -15,11 +14,13 @@ const L_INFO_PHP_VERSION			= 'Version de php';
 const L_INFO_CHARSET				= 'encodatge';
 
 # index.php
+
 const L_ERR_THEME_NOTFOUND			= 'Lo tèma principal de PluXml es introbable';
 const L_ERR_FILE_NOTFOUND			= 'Lo fichièr cibla de PluXml es introbable';
 const L_ERR_PAGE_NOT_FOUND			= 'Pagina non trobada';
 
 # class.plx.date.php
+
 const L_SHORT_JANUARY				= 'gen';
 const L_SHORT_FEBRUARY				= 'feb';
 const L_SHORT_MARCH					= 'març';
@@ -53,6 +54,7 @@ const L_SATURDAY					= 'dissabte';
 const L_SUNDAY						= 'dimenge';
 
 # class.plx.capcha.php
+
 const L_LAST						= 'darrièr';
 const L_FIRST						= 'primièr';
 const L_SECOND						= 'segond';
@@ -78,8 +80,10 @@ const L_LIBXML_INSTALLED			= 'Bibliotèca XML installada';
 const L_LIBXML_NOT_INSTALLED		= 'Bibliotèca XML non installada';
 const L_MAIL_AVAILABLE				= 'Foncion d\'enviada de mail disponible';
 const L_MAIL_NOT_AVAILABLE			= 'Foncion d\'enviada de mail non disponible';
+const L_MAIL_NOT_AVAILABLE			= 'Fonction d\'envoi de mail non disponible';
 
 # class.plx.motor.php
+
 const L_ARTICLE_NO_TAG				= 'Pas cap d\'article per aqueste mot clau !';
 const L_UNKNOWN_CATEGORY			= 'Aquesta categoria es inexistenta !';
 const L_NO_ARTICLE_PAGE				= 'Pas cap d\'article per aquesta pagina !';
@@ -92,6 +96,7 @@ const L_NEWCOMMENT_ERR				= 'Una error s\'es produsida al temps de la publicacio
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Mercés d\'emplir totes los camps obligatòris requesits';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'La verificacion anti-spam s\'es abocada';
 const L_UNKNOWN_AUTHOR				= 'Autor desconegut';
+const L_NEWCOMMENT_ERR_LOGIN		= 'Mauvais login ou mot de passe';
 
 # class.plx.show.php
 
@@ -118,7 +123,6 @@ const L_COMFEED_RSS_ARTICLE			= 'Fil Rss dels comentaris d\'aquel article';
 const L_COMFEED_RSS					= 'Fil Rss dels comentaris';
 const L_STATICCONTENT_INPROCESS		= 'Aquesta pagina es actualament per èsser redigida';
 const L_SAID						= 'a dich';
-
 const L_PAGINATION_FIRST_TITLE		= 'Anar a la primièra pagina';
 const L_PAGINATION_FIRST			= '«';
 const L_PAGINATION_PREVIOUS_TITLE	= 'Pagina precedenta';
@@ -128,13 +132,12 @@ const L_PAGINATION_NEXT				= 'seguenta';
 const L_PAGINATION_LAST_TITLE		= 'Anar a la darrièra pagina';
 const L_PAGINATION_LAST				= '»';
 const L_PAGINATION					= 'pagina %s sus %s';
-
-const L_PAGEBLOG_TITLE				= 'Blòg';
-
-const L_YEAR				    	= 'annada';
-const L_TOTAL				    	= 'total';
+const L_PAGEBLOG_TITLE				= 'Blog';
+const L_YEAR						= 'année';
+const L_TOTAL						= 'total';
 
 # class.plx.feed.php
+
 const L_FEED_NO_PRIVATE_URL			= 'Las URLs privadas son pas estadas inicializadas dins vòstres paramètres d\'administracion !';
 const L_FEED_COMMENTS				= 'Comentaris';
 const L_FEED_ONLINE_COMMENTS		= 'Comentaris en linha';

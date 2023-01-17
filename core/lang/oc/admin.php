@@ -48,15 +48,7 @@ const L_ARTICLE_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
 const L_ARTICLE_SAVE_ERR = 'Error al temps de la salvagarda de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Una error es subrevenguda pendent la supression de l\'article';
 const L_ERR_UNKNOWN_COMMENT = 'Lo comentari demandat existís pas o existís pas mai';
-const L_COMMENT_SAVE_SUCCESSFUL = 'Comentari modificat amb succès';
-const L_COMMENT_UPDATE_ERR = 'Error al temps de la mesa a jorn del comentari';
-const L_COMMENT_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
-const L_COMMENT_DELETE_ERR = 'Una error es subrevenguda pendent la supression';
-const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validacion efectuada amb succès';
-const L_COMMENT_VALIDATE_ERR = 'Una error es subrevenguda pendent la validacion';
-const L_COMMENT_MODERATE_SUCCESSFUL = 'Moderacion efectuada amb succès';
-const L_COMMENT_MODERATE_ERR = 'Una error es subrevenguda al temps de la moderacion';
-const L_ERR_URL_ALREADY_EXISTS = 'Url ja utilizada. Volgatz modificar la valor del camp « Url »';
+const L_ERR_URL_ALREADY_EXISTS = 'URL déjà utilisée. Veuillez modifier la valeur du champ \'URL\'';
 
 // class.plx.media.php
 
@@ -144,14 +136,13 @@ const L_AUTH_PAGE_TITLE = 'Pagina d\'autentificacion';
 const L_LOGOUT_SUCCESSFUL = 'Sètz estat corrèctament desconnectat';
 const L_LOGIN_PAGE = 'Connexion a la zòna d\'administracion';
 const L_AUTH_LOST_FIELD = 'Identificant o adreça electronica';
-
 const L_SUBMIT_BUTTON = 'Validar';
 const L_ERR_WRONG_PASSWORD = 'Identificant e/o senhal incorrèct';
 const L_POWERED_BY = 'Generat per <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de pròvas atent<br />Tornatz ensajar d’aquí %s minutas';
 const L_LOST_PASSWORD_LOGIN = 'Se connectar';
 const L_LOST_PASSWORD_SUCCESS = 'Corrièl enviat a l’utilizaire';
-const L_LOST_PASSWORD_ERROR = 'Lo ligam a expirat';
+const L_LOST_PASSWORD_ERROR = 'Le lien est expiré';
 
 //
 
@@ -184,6 +175,7 @@ const L_NEW_CATEGORY = 'Novèla categoria';
 const L_FOR_SELECTION = 'Per la seleccion...';
 const L_CAT_APPLY_BUTTON = 'Modificar la lista de las categorias';
 const L_CAT_UNKNOWN = 'categoria desconeguda';
+const L_ERR_CATEGORY_ALREADY_EXISTS = 'Nom de catégorie déjà utilisé';
 
 // categorie.php
 
@@ -225,6 +217,13 @@ const L_COMMENT_ANSWER_BUTTON = 'Respondre a-n aquel comentari';
 const L_COMMENT_UPDATE_BUTTON = 'Metre a jorn';
 const L_COMMENT_WRITTEN_BY = 'Redigit per';
 const L_ERR_CATEGORY_ALREADY_EXISTS = 'Nom de categoria ja utilizat';
+const L_COMMENT_UPDATE_ERR = 'Error al temps de la mesa a jorn del comentari';
+const L_COMMENT_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
+const L_COMMENT_DELETE_ERR = 'Una error es subrevenguda pendent la supression';
+const L_COMMENT_VALIDATE_SUCCESSFUL = 'Validacion efectuada amb succès';
+const L_COMMENT_VALIDATE_ERR = 'Una error es subrevenguda pendent la validacion';
+const L_COMMENT_MODERATE_SUCCESSFUL = 'Moderacion efectuada amb succès';
+const L_COMMENT_MODERATE_ERR = 'Una error es subrevenguda al temps de la moderacion';
 
 // sous_navigation/commentaires.php
 
@@ -427,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'Contengut de la balisa meta « descripcion�
 const L_CONFIG_META_KEYWORDS = 'Contengut de las balisas meta « keywords » del site (opcion)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Mostrar los flux RSS';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Mostrar los flux RSS dels comentaris';
+const L_EVERY_BODY = 'Tout le monde';
+const L_SUBSCRIBERS_ONLY = 'Abonnés seulement';
 
 // parametres_edittpl.php
 
@@ -484,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Activar';
 const L_PLUGINS_DEACTIVATE = 'Desactivar';
 const L_PLUGINS_DELETE = 'Suprimir';
 const L_PLUGINS_DELETE_ERROR = 'Una error s\'es produsida al temps de la supression';
+const L_PLUGINS_ENABLED_ERROR = 'Le plugin %s est toujours actif. Suppression impossible.';
+const L_DELETE_FILE_ERROR = 'Impossible de supprimer le fichier %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
 const L_PLUGINS_CONFIG = 'Configuracion';
 const L_PLUGINS_CONFIG_TITLE = 'Configuracion del plugin';
@@ -549,6 +552,7 @@ const L_STATICS_UPDATE = 'Modificar la lista de las paginas estaticas';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Títol de pagina estatica ja utilizat';
 
 // top.php
+
 const L_PROFIL_ADMIN = 'Administrator';
 const L_PROFIL_MANAGER = 'Gestionari';
 const L_PROFIL_MODERATOR = 'Moderator';
@@ -582,6 +586,7 @@ const L_MENU_PROFIL = 'Perfil';
 const L_WARNING_INSTALLATION_FILE = 'Lo fichièr install.php es present a la raiç de vòstre PluXml.<br />Per de rasons de seguretat, es fòrtament conselhat d\'o <a class="lnkdelete" href="%s">suprimir</a>.';
 
 // user.php
+
 const L_USER_UNKNOWN = 'Utilizaire desconegut';
 const L_USER_LANG = 'Lenga utilizada dins l\'administracion';
 const L_USER_MAIL = 'Adreça de corrièl';
@@ -611,3 +616,4 @@ const L_HELP_TITLE = 'Veire l\'ajuda';
 const L_BACK_TO_THEMES = 'Tornar a la lista dels tèmas';
 const L_CONFIG_THEME_UPDATE = 'Modificar del tèma';
 
+const L_COMMENT_SAVE_SUCCESSFUL = 'Comentari modificat amb succès';

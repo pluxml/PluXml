@@ -426,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'Мета-тег описания "Description
 const L_CONFIG_META_KEYWORDS = 'Мета-тег ключевых слов "Keywords" (необязательно)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Отображать RSS-каналы';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Отображать RSS-каналы комментариев';
+const L_EVERY_BODY = 'Каждый';
+const L_SUBSCRIBERS_ONLY = 'Только подписчики';
 
 // parametres_edittpl.php
 
@@ -483,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Включить';
 const L_PLUGINS_DEACTIVATE = 'Выключить';
 const L_PLUGINS_DELETE = 'Удалить';
 const L_PLUGINS_DELETE_ERROR = 'Произошла ошибка во время удаления';
+const L_PLUGINS_ENABLED_ERROR = 'Плагин %s все еще активен. ';
+const L_DELETE_FILE_ERROR = 'Невозможно удалить файл %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Удалено успешно';
 const L_PLUGINS_CONFIG = 'Конфигурация';
 const L_PLUGINS_CONFIG_TITLE = 'Конфигурация плагина';

@@ -426,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'Conteúdo da baliza meta "description" do web
 const L_CONFIG_META_KEYWORDS = 'Conteúdo da baliza meta "keywords" do web-site (opção)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Exibir feeds RSS';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Exibir feeds RSS comentários';
+const L_EVERY_BODY = 'iTodos';
+const L_SUBSCRIBERS_ONLY = 'Somente assinantes';
 
 // parametres_edittpl.php
 
@@ -483,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Activar';
 const L_PLUGINS_DEACTIVATE = 'Desactivar';
 const L_PLUGINS_DELETE = 'Suprimir';
 const L_PLUGINS_DELETE_ERROR = 'Ocoreu um erro durante a supressão';
+const L_PLUGINS_ENABLED_ERROR = 'O plug-in %s ainda está ativo. ';
+const L_DELETE_FILE_ERROR = 'Não foi possível excluir o arquivo %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Supressão efectuada com sucesso';
 const L_PLUGINS_CONFIG = 'Configuração';
 const L_PLUGINS_CONFIG_TITLE = 'Configuração do plugin';
