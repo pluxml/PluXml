@@ -1,12 +1,11 @@
 <?php
 
-
 const L_LANGUE						= 'Français';
-
 const L_DATE_CREATION				= 'Date de création';
 const L_DATE_UPDATE					= 'Date de mise à jour';
 
 # common
+
 const L_PLUXML_VERSION				= 'PluXml version';
 const L_PLUXML_VERSION_DATA			= 'Version données';
 const L_HOMEPAGE					= 'Accueil';
@@ -15,11 +14,13 @@ const L_INFO_PHP_VERSION			= 'Version de PHP';
 const L_INFO_CHARSET				= 'encodage';
 
 # index.php
+
 const L_ERR_THEME_NOTFOUND			= 'Le thème principal de PluXml est introuvable';
 const L_ERR_FILE_NOTFOUND			= 'Le fichier cible de PluXml est introuvable';
 const L_ERR_PAGE_NOT_FOUND			= 'Page non trouvée';
 
 # class.plx.date.php
+
 const L_SHORT_JANUARY				= 'janv';
 const L_SHORT_FEBRUARY				= 'févr';
 const L_SHORT_MARCH					= 'mars';
@@ -53,6 +54,7 @@ const L_SATURDAY					= 'samedi';
 const L_SUNDAY						= 'dimanche';
 
 # class.plx.capcha.php
+
 const L_LAST						= 'dernier';
 const L_FIRST						= 'premier';
 const L_SECOND						= 'deuxième';
@@ -68,6 +70,7 @@ const L_NTH							= 'ème';
 const L_CAPCHA_QUESTION				= 'Quelle est le <span class="capcha-letter">%s</span> caractère du mot <span class="capcha-word">%s</span>&nbsp;?';
 
 # class.plx.utils.php
+
 const L_WRITE_ACCESS				= '%s est accessible en écriture';
 const L_WRITE_NOT_ACCESS			= '%s n\'est pas accessible en écriture ou n\'existe pas';
 const L_MODREWRITE_AVAILABLE		= 'Module apache de réécriture d\'url mod_rewrite disponible';
@@ -80,6 +83,7 @@ const L_MAIL_AVAILABLE				= 'Fonction d\'envoi de mail disponible';
 const L_MAIL_NOT_AVAILABLE			= 'Fonction d\'envoi de mail non disponible';
 
 # class.plx.motor.php
+
 const L_ARTICLE_NO_TAG				= 'Aucun article pour ce mot clé !';
 const L_UNKNOWN_CATEGORY			= 'Cette catégorie est inexistante !';
 const L_NO_ARTICLE_PAGE				= 'Aucun article pour cette page !';
@@ -119,7 +123,6 @@ const L_COMFEED_RSS_ARTICLE			= 'Fil RSS des commentaires de cet article';
 const L_COMFEED_RSS					= 'Fil RSS des commentaires';
 const L_STATICCONTENT_INPROCESS		= 'Cette page est actuellement en cours de rédaction';
 const L_SAID						= 'a dit';
-
 const L_PAGINATION_FIRST_TITLE		= 'Aller à la première page';
 const L_PAGINATION_FIRST			= '«';
 const L_PAGINATION_PREVIOUS_TITLE	= 'Page précédente';
@@ -129,13 +132,12 @@ const L_PAGINATION_NEXT				= 'suivante';
 const L_PAGINATION_LAST_TITLE		= 'Aller à la dernière page';
 const L_PAGINATION_LAST				= '»';
 const L_PAGINATION					= 'page %s sur %s';
-
 const L_PAGEBLOG_TITLE				= 'Blog';
-
 const L_YEAR						= 'année';
 const L_TOTAL						= 'total';
 
 # class.plx.feed.php
+
 const L_FEED_NO_PRIVATE_URL			= 'Les URLs privées n\'ont pas été initialisées dans vos paramètres d\'administration !';
 const L_FEED_COMMENTS				= 'Commentaires';
 const L_FEED_ONLINE_COMMENTS		= 'Commentaires en ligne';

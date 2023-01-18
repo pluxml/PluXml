@@ -8,11 +8,9 @@ const L_SAVE_FILE = 'Speichern Sie die Datei';
 const L_SAVE_FILE_SUCCESSFULLY = 'Datei erfolgreich gespeichert';
 const L_SAVE_FILE_ERROR = 'Fehler beim Speichern der Datei für';
 const L_FILE_REQUIRED = 'Bitte auswählen einer Datei';
-
 const L_REPLY = 'Antworten';
 const L_REPLY_TO = 'Antworten';
 const L_CANCEL = 'Abbrechen';
-
 const L_DELETE = 'Löschen';
 const L_DELETE_FILE = 'Datei löschen';
 const L_DELETE_FOLDER = 'Verzeichnis löschen';
@@ -428,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'META Tag "description" - Inhalt (optional)';
 const L_CONFIG_META_KEYWORDS = 'META Tag "keywords" - Inhalt (optional)';
 const L_CONFIG_BASE_ENABLE_RSS = 'RSS-Feeds anzeigen';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'RSS-Feeds für kKommentare anzeigen';
+const L_EVERY_BODY = 'Alle';
+const L_SUBSCRIBERS_ONLY = 'Nur für Abonnenten';
 
 // parametres_edittpl.php
 
@@ -485,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Aktivieren';
 const L_PLUGINS_DEACTIVATE = 'Deaktivieren';
 const L_PLUGINS_DELETE = 'Löschen';
 const L_PLUGINS_DELETE_ERROR = 'Löschen fehlgeschlagen';
+const L_PLUGINS_ENABLED_ERROR = 'Das %s-Plugin ist noch aktiv. ';
+const L_DELETE_FILE_ERROR = 'Datei %s kann nicht gelöscht w';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Löschen war erfolgreich';
 const L_PLUGINS_CONFIG = 'Konfiguration';
 const L_PLUGINS_CONFIG_TITLE = 'Pluginkonfiguration';
@@ -499,6 +501,8 @@ const L_PLUGINS_ACTION = 'Aktion';
 const L_PLUGINS_APPLY_BUTTON = 'Ändern Sie die Liste der Plugins';
 const L_PLUGINS_ACTIVE_LIST = 'Aktive plugins';
 const L_PLUGINS_INACTIVE_LIST = 'Inaktive plugins';
+const L_PLUGINS_ACTIVE_LIST = 'Aktive Plugins';
+const L_PLUGINS_INACTIVE_LIST = 'Inaktive Plugins';
 
 // profil.php
 
@@ -563,7 +567,7 @@ const L_ADMIN_LOGOUT = 'Abmelden';
 const L_ADMIN_LOGOUT_TITLE = 'Administration beenden';
 const L_BACK_TO_SITE = 'Startseite';
 const L_BACK_TO_SITE_TITLE = 'Zurück zum startseite';
-const L_BACK_TO_BLOG = 'Blog';
+const L_BACK_TO_BLOG = 'Bloggen';
 const L_BACK_TO_BLOG_TITLE = 'Zurück zum Blog';
 const L_MENU_ARTICLES = 'Artikel';
 const L_MENU_ARTICLES_TITLE = 'Artikelverwaltung';
@@ -611,6 +615,6 @@ const L_THEMES = 'Themes';
 const L_THEMES_TITLE = 'Verwalten von Themen';
 const L_HELP = 'Hilfe';
 const L_HELP_TITLE = 'Siehe Hilfe';
-const L_BACK_TO_THEMES = 'Zurück Hilfe';
+const L_BACK_TO_THEMES = 'Zurück zu Themen';
 const L_CONFIG_THEME_UPDATE = 'Theme ändern';
 

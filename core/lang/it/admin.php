@@ -23,6 +23,13 @@ const L_THUMBNAIL = 'Miniatura (facoltativo)';
 const L_THUMBNAIL_SELECTION = 'Seleziona immagine';
 const L_THUMBNAIL_TITLE = 'Immagine Titolo (facoltativo)';
 const L_THUMBNAIL_ALT = 'Testo alternativo dell\'immagine (facoltativo)';
+
+const L_ERR_INVALID_DATE_CREATION = 'Data di creazione non valida';
+const L_ERR_INVALID_DATE_UPDATE = 'Data non valida aggiornato';
+const L_INVALID_VALUE = 'valore non valido';
+
+// class.plx.admin.php
+
 const L_SAVE_SUCCESSFUL = 'Dati salvati con successo';
 const L_SAVE_ERR = 'Errore durante il salvataggio dei dati';
 const L_NO_ENTRY = 'Accesso non consentito';
@@ -41,41 +48,39 @@ const L_ARTICLE_DELETE_SUCCESSFUL = 'Articolo cancellato con successo';
 const L_ARTICLE_SAVE_ERR = 'Errore durante il salvataggio dell\'articolo';
 const L_ARTICLE_DELETE_ERR = 'Errore durante la cancellazione dell\'articolo';
 const L_ERR_UNKNOWN_COMMENT = 'Il commento richiesto non esiste oppure è stato cancellato';
-const L_COMMENT_SAVE_SUCCESSFUL = 'Commento modificato con successo';
-const L_COMMENT_UPDATE_ERR = 'Errore durante l\'aggiornamento del commento';
-const L_COMMENT_DELETE_SUCCESSFUL = 'Commento cancellato con successo';
-const L_COMMENT_DELETE_ERR = 'Errore durante la cancellazione del commento';
-const L_COMMENT_VALIDATE_SUCCESSFUL = 'Pubblicazione del commento avvenuta con successo';
-const L_COMMENT_VALIDATE_ERR = 'Errore durante la pubblicazione del commento';
-const L_COMMENT_MODERATE_SUCCESSFUL = 'Il commento è stato moderato con successo';
-const L_COMMENT_MODERATE_ERR = 'Errore durante la moderazione del commento';
-const L_COMMENT_WRITTEN_BY = 'Pubblicato da';
+const L_ERR_URL_ALREADY_EXISTS = 'Url già in uso. Si prega di modificare il valore del campo \'Url\'';
+
+// class.plx.media.php
+
 const L_PLXMEDIAS_MEDIAS_FOLDER_ERR = 'Impossibile creare la cartella media per l\'utente in uso';
 const L_PLXMEDIAS_ROOT = 'radice';
-const L_PLXMEDIAS_NEW_FOLDER_ERR = 'Impossibile creare la cartella';
-const L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL = 'Cartella creata con successo';
-const L_PLXMEDIAS_NEW_FOLDER_EXISTS = 'Questa cartella esiste già';
-const L_PLXMEDIAS_DEL_FOLDER_ERR = 'Errore durante la cancellazione della cartella';
-const L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL = 'Cartella cancellata con successo';
-const L_PLXMEDIAS_WRONG_FILEFORMAT = 'Il tipo di file non è permesso';
-const L_PLXMEDIAS_WRONG_FILESIZE = 'La dimensione di un file è maggiore di';
-const L_PLXMEDIAS_UPLOAD_ERR = 'Errore durante l\'invio un file';
-const L_PLXMEDIAS_UPLOAD_SUCCESSFUL = 'File inviato con successo';
-const L_PLXMEDIAS_UPLOADS_ERR = 'Errore durante il caricamento di file';
-const L_PLXMEDIAS_UPLOADS_SUCCESSFUL = 'I file inviati con successo';
 const L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL = 'Rimosso con successo i file';
 const L_PLXMEDIAS_DELETE_FILES_ERR = 'Errore durante l\'eliminazione di un file';
 const L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL = 'File eliminato con successo';
 const L_PLXMEDIAS_DELETE_FILE_ERR = 'Errore durante l\'eliminazione del file';
-const L_PLXMEDIAS_MOVE_FILES_ERR = 'Errore durante lo spostamento dei file';
-const L_PLXMEDIAS_MOVE_FILE_ERR = 'Errore durante lo spostamento del file';
+const L_PLXMEDIAS_DEL_FOLDER_ERR = 'Errore durante la cancellazione della cartella';
+const L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL = 'Cartella cancellata con successo';
+const L_PLXMEDIAS_NEW_FOLDER_ERR = 'Impossibile creare la cartella';
+const L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL = 'Cartella creata con successo';
+const L_PLXMEDIAS_NEW_FOLDER_EXISTS = 'Questa cartella esiste già';
+const L_PLXMEDIAS_WRONG_FILESIZE = 'La dimensione di un file è maggiore di';
+const L_PLXMEDIAS_WRONG_FILEFORMAT = 'Il tipo di file non è permesso';
+const L_PLXMEDIAS_UPLOAD_ERR = 'Errore durante l\'invio un file';
+const L_PLXMEDIAS_UPLOAD_SUCCESSFUL = 'File inviato con successo';
+const L_PLXMEDIAS_UPLOADS_ERR = 'Errore durante il caricamento di file';
+const L_PLXMEDIAS_UPLOADS_SUCCESSFUL = 'I file inviati con successo';
 const L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL = 'I file sono stati spostati con successo';
 const L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL = 'Il file è stato spostato con successo';
+const L_PLXMEDIAS_MOVE_FILES_ERR = 'Errore durante lo spostamento dei file';
+const L_PLXMEDIAS_MOVE_FILE_ERR = 'Errore durante lo spostamento del file';
 const L_PLXMEDIAS_MOVE_FOLDER = 'Sposta';
 const L_PLXMEDIAS_RECREATE_THUMB_ERR = 'Errore durante la creazione della miniatura';
 const L_PLXMEDIAS_RECREATE_THUMBS_ERR = 'Errore nella creazione delle miniature';
 const L_PLXMEDIAS_RECREATE_THUMB_SUCCESSFUL = 'Miniature creato con successo';
 const L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL = 'Miniature creato con successo';
+
+// article.php
+
 const L_DEFAULT_NEW_ARTICLE_TITLE = 'Nuovo articolo';
 const L_ERR_INVALID_PUBLISHING_DATE = 'Data di pubblicazione non valida';
 const L_ERR_UNKNOWN_ARTICLE = 'L\'articolo richiesto non esiste o è stato cancellato !';
@@ -97,7 +102,6 @@ const L_ARTICLE_DATE = 'Data di pubblicazione';
 const L_NOW = 'adesso';
 const L_ARTICLE_CATEGORIES = 'Categoria';
 const L_CATEGORY_HOME_PAGE = 'Homepage';
-const L_NEW_CATEGORY = 'Nuova categoria';
 const L_ARTICLE_TAGS_FIELD = 'Tag';
 const L_ARTICLE_TAGS_FIELD_TITLE = 'Separa i tag con una virgola';
 const L_ARTICLE_TOGGLER_TITLE = 'Lista dei tag';
@@ -125,6 +129,9 @@ const L_ARTICLE_CHAPO_HIDE = 'nascondere';
 const L_ARTICLE_CHAPO_DISPLAY = 'mostrare';
 const L_ARTICLE_ID = 'ID';
 const L_PINNED_ARTICLE = 'articolo appuntato';
+
+// auth.php
+
 const L_AUTH_PAGE_TITLE = 'Pagina di autenticazione';
 const L_LOGOUT_SUCCESSFUL = 'Disconnessione avvenuta con successo';
 const L_LOGIN_PAGE = 'Pannello di amministrazione';
@@ -136,6 +143,22 @@ const L_ERR_MAXLOGIN = 'Troppi fallito login<br />Riprova tra% s minuti';
 const L_LOST_PASSWORD_LOGIN = 'Accesso';
 const L_LOST_PASSWORD_SUCCESS = 'E\' stata inviata una e-mail all\'utente';
 const L_LOST_PASSWORD_ERROR = 'Il collegamento è scaduto';
+
+//
+
+const L_SORT_ASCENDING_DATE = 'data ascendente';
+const L_SORT_DESCENDING_DATE = 'data discendente';
+const L_SORT_ALPHABETICAL = 'alfabetico';
+const L_SORT_REVERSE_ALPHABETICAL = 'rovescio alfabetico';
+const L_SORT_RANDOM = 'aleatorio';
+const L_YES = 'Si';
+const L_NO = 'No';
+const L_OK = 'Ok';
+const L_NONE1 = 'nessuno';
+const L_NONE2 = 'nessuna';
+
+// categories.php
+
 const L_CAT_TITLE = 'Gestione categorie';
 const L_CAT_LIST_ID = 'ID';
 const L_CAT_LIST_ACTIVE = 'Attiva';
@@ -148,9 +171,14 @@ const L_CAT_LIST_MENU = 'Menu';
 const L_DISPLAY = 'Visualizza';
 const L_HIDE = 'Nascondi';
 const L_OPTIONS = 'Opzioni';
+const L_NEW_CATEGORY = 'Nuova categoria';
 const L_FOR_SELECTION = 'Se selezionati...';
 const L_CAT_APPLY_BUTTON = 'Modifica la lista delle categorie';
 const L_CAT_UNKNOWN = 'categoria sconosciuta';
+const L_ERR_CATEGORY_ALREADY_EXISTS = 'Categoria nome già usato';
+
+// categorie.php
+
 const L_EDITCAT_PAGE_TITLE = 'Gestisci le opzioni delle categorie';
 const L_EDITCAT_DESCRIPTION = 'Descrizione';
 const L_EDITCAT_DISPLAY_HOMEPAGE = 'Mostra articoli in questa categoria nella home page';
@@ -160,6 +188,9 @@ const L_EDITCAT_UPDATE = 'Aggiorna questa categoria';
 const L_EDITCAT_TITLE_HTMLTAG = 'Titolo contenuto tag (opzionale)';
 const L_EDITCAT_META_DESCRIPTION = 'Contenuto del meta tag "description" per questa categoria (facoltativo)';
 const L_EDITCAT_META_KEYWORDS = 'Contenuto del meta tag "keywords" per questa categoria (facoltativo)';
+
+// commentaire.php
+
 const L_COMMENT_ORPHAN = 'nessun articolo';
 const L_COMMENT_ORPHAN_STATUS = 'non visibile (consiglio: cancella questo commento)';
 const L_COMMENT_ARTICLE_LINKED = 'Articolo';
@@ -184,6 +215,23 @@ const L_COMMENT_PUBLISH_BUTTON = 'Pubblica';
 const L_COMMENT_OFFLINE_BUTTON = 'Disabilita';
 const L_COMMENT_ANSWER_BUTTON = 'Rispondi a questo commento';
 const L_COMMENT_UPDATE_BUTTON = 'Aggiorna';
+const L_COMMENT_WRITTEN_BY = 'Pubblicato da';
+const L_COMMENT_SAVE_SUCCESSFUL = 'Commento modificato con successo';
+const L_COMMENT_UPDATE_ERR = 'Errore durante l\'aggiornamento del commento';
+const L_COMMENT_DELETE_SUCCESSFUL = 'Commento cancellato con successo';
+const L_COMMENT_DELETE_ERR = 'Errore durante la cancellazione del commento';
+const L_COMMENT_VALIDATE_SUCCESSFUL = 'Pubblicazione del commento avvenuta con successo';
+const L_COMMENT_VALIDATE_ERR = 'Errore durante la pubblicazione del commento';
+const L_COMMENT_MODERATE_SUCCESSFUL = 'Il commento è stato moderato con successo';
+const L_COMMENT_MODERATE_ERR = 'Errore durante la moderazione del commento';
+
+// sous_navigation/commentaires.php
+
+const L_COMMENT_NEW_COMMENT_TITLE = 'Scrivi un nuovo commento per questo articolo';
+const L_COMMENT_NEW_COMMENT = 'Scrivi un nuovo commento';
+
+// commentaire_new.php
+
 const L_ERR_ANSWER_UNKNOWN_COMMENT = 'Il commento non esiste o non è più disponibile !';
 const L_ERR_ANSWER_OFFLINE_COMMENT = 'Il commento è stato disabilitato, non è possibile rispondere !';
 const L_ERR_COMMENT_UNKNOWN_ARTICLE = 'L\'articolo richiesto non esiste o non è più possibile scrivere un commento !';
@@ -194,11 +242,11 @@ const L_COMMENT_SAVE_BUTTON = 'Salva';
 const L_ARTICLE_COMMENTS_LIST = 'Commenti dell\'articolo (dal più recente al più vecchio)';
 const L_COMMENT_ANSWER_TITLE = 'Rispondi a questo commento';
 const L_COMMENT_ANSWER = 'Rispondi';
-const L_COMMENT_NEW_COMMENT_TITLE = 'Scrivi un nuovo commento per questo articolo';
-const L_COMMENT_NEW_COMMENT = 'Scrivi un nuovo commento';
+
+// comments.php
+
 const L_COMMENTS_ARTICLE_SCOPE = 'Articolo';
 const L_COMMENTS_GLOBAL_SCOPE = 'sito intero';
-const L_COMMENTS_OFFLINE_LIST = 'Lista dei commenti in attesa di pubblicazione ';
 const L_COMMENTS_LIST_DATE = 'Data';
 const L_COMMENTS_LIST_AUTHOR = 'Autore';
 const L_COMMENTS_LIST_MESSAGE = 'Messaggio';
@@ -206,15 +254,27 @@ const L_COMMENTS_LIST_ACTION = 'Azione';
 const L_COMMENT_EDIT = 'Modifica';
 const L_COMMENT_EDIT_TITLE = 'Modifica questo commento';
 const L_COMMENT_DELETE = 'Cancella';
-const L_COMMENT_OFFLINE_FEEDS_TITLE = 'Rss dei commenti disabilitati';
 const L_COMMENT_OFFLINE_FEEDS = 'Commenti disabilitati';
+const L_COMMENT_OFFLINE_FEEDS_TITLE = 'Rss dei commenti disabilitati';
 const L_COMMENT_ONLINE_FEEDS_TITLE = 'Rss dei commenti abilitati';
 const L_COMMENT_ONLINE_FEEDS = 'Commenti abilititati';
 const L_COMMENTS_PRIVATE_FEEDS = 'Feed privati';
 const L_COMMENTS_ONLINE_LIST = 'Lista delle recensioni pubblicate';
+const L_COMMENTS_OFFLINE_LIST = 'Lista dei commenti in attesa di pubblicazione ';
 const L_COMMENTS_ALL_LIST = 'Elenca commenti';
 const L_COMMENT_SET_ONLINE = 'Carica';
 const L_COMMENT_SET_OFFLINE = 'Non in linea';
+
+// index.php
+
+const L_SEARCH = 'Cerca';
+const L_SEARCH_PLACEHOLDER = 'id o titolo';
+const L_ARTICLES_ALL_CATEGORIES = 'Tutte le categorie ...';
+const L_ARTICLES_ALL_AUTHORS = 'Tutti gli autori...';
+const L_ALL = 'Tutte le';
+const L_ALL_PUBLISHED = 'Edizione';
+const L_ALL_DRAFTS = 'Bozze';
+const L_ALL_AWAITING_MODERATION = 'In attesa di convalida';
 const L_ARTICLES_FILTER_BUTTON = 'Filtra';
 const L_CATEGORIES_TABLE = 'Categorie';
 const L_SPECIFIC_CATEGORIES_TABLE = 'Categorie specifiche';
@@ -233,34 +293,29 @@ const L_ARTICLE_EDIT = 'Modifica';
 const L_ARTICLE_EDIT_TITLE = 'Modifica questo articolo';
 const L_NEW_COMMENTS_TITLE = 'Commenti in attesa di pubblicazione';
 const L_VALIDATED_COMMENTS_TITLE = 'Commenti pubblicati';
-const L_SEARCH = 'Cerca';
-const L_SEARCH_PLACEHOLDER = 'id o titolo';
-const L_ARTICLES_ALL_CATEGORIES = 'Tutte le categorie ...';
-const L_ARTICLES_ALL_AUTHORS = 'Tutti gli autori...';
-const L_ALL = 'Tutte le';
-const L_ALL_PUBLISHED = 'Edizione';
-const L_ALL_DRAFTS = 'Bozze';
-const L_ALL_AWAITING_MODERATION = 'In attesa di convalida';
-const L_MEDIAS_DELETE_FOLDER = 'Cancella questa cartella';
-const L_MEDIAS_DELETE_FOLDER_CONFIRM = 'Vuoi cancellare la cartella %s e il suo contenuto ?';
-const L_MEDIAS_NO_FILE = 'Nessun file';
+
+// medias.php
+
 const L_MEDIAS_FILENAME = 'Nome del file';
-const L_MEDIAS_ADD_FILE = 'Aggiungi file';
-const L_MEDIAS_BACK = 'Indietro';
 const L_MEDIAS_TITLE = 'Gestione dei media';
-const L_MEDIAS_IMAGES = 'Immagini';
-const L_MEDIAS_DOCUMENTS = 'Documenti';
-const L_MEDIAS_CREATE_FOLDER = 'Crea una cartella';
-const L_MEDIAS_SUBMIT_FILE = 'Invia';
+const L_MEDIAS_DIRECTORY = 'Posizione';
+const L_MEDIAS_BACK = 'Indietro';
 const L_MEDIAS_MAX_UPLOAD_FILE = 'Dimensione massima dei file';
 const L_MEDIAS_MAX_UPLOAD_NBFILE = 'Numero massimo di file per upload';
 const L_MEDIAS_MAX_POST_SIZE = 'Dimensione massima dei dati';
-const L_MEDIAS_DIRECTORY = 'Posizione';
+const L_MEDIAS_SUBMIT_FILE = 'Invia';
+const L_MEDIAS_IMAGES = 'Immagini';
+const L_MEDIAS_DOCUMENTS = 'Documenti';
+const L_MEDIAS_ADD_FILE = 'Aggiungi file';
+const L_MEDIAS_DELETE_FOLDER = 'Cancella questa cartella';
+const L_MEDIAS_DELETE_FOLDER_CONFIRM = 'Vuoi cancellare la cartella %s e il suo contenuto ?';
 const L_MEDIAS_FOLDER = 'File';
 const L_MEDIAS_NEW_FOLDER = 'Nuova Cartella';
+const L_MEDIAS_CREATE_FOLDER = 'Crea una cartella';
 const L_MEDIAS_FILESIZE = 'Dimensioni';
 const L_MEDIAS_DATE = 'Data';
 const L_MEDIAS_DIMENSIONS = 'Dimensioni';
+const L_MEDIAS_NO_FILE = 'Nessun file';
 const L_MEDIAS_RESIZE = 'Ridimensionare Immagini';
 const L_MEDIAS_RESIZE_NO = 'Dimensioni originali';
 const L_MEDIAS_THUMBS = 'Crea anteprima';
@@ -280,16 +335,9 @@ const L_MEDIAS_LINK_COPYCLP_ERR = 'Impossibile copiare il link negli appunti';
 const L_MEDIAS_LINK_COPYCLP_DONE = 'Link copiato';
 const L_MEDIAS_NEW_NAME = 'Nuovo nome';
 const L_MEDIAS_RENAME = 'Rinominare';
-const L_SORT_ASCENDING_DATE = 'data ascendente';
-const L_SORT_DESCENDING_DATE = 'data discendente';
-const L_SORT_ALPHABETICAL = 'alfabetico';
-const L_SORT_REVERSE_ALPHABETICAL = 'rovescio alfabetico';
-const L_SORT_RANDOM = 'aleatorio';
-const L_OK = 'Ok';
-const L_YES = 'Si';
-const L_NO = 'No';
-const L_NONE1 = 'nessuno';
-const L_NONE2 = 'nessuna';
+
+// parametres_affichage.php
+
 const L_CONFIG_VIEW_FIELD = 'Opzioni di visualizzazione';
 const L_CONFIG_VIEW_SKIN_SELECT = 'Scelta del tema';
 const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Modifica i file del tema';
@@ -313,6 +361,9 @@ const L_CONFIG_VIEW_FEEDS_FOOTER = 'Testo da aggiungere come firma in basso ad o
 const L_CONFIG_VIEW_UPDATE = 'Modifica le opzioni di visualizzazione';
 const L_CONFIG_VIEW_DISPLAY_EMPTY_CAT = 'Visualizzare le categorie senza l\'articolo';
 const L_CONFIG_HOMETEMPLATE = 'Modello della homepage';
+
+// parametres_avances.php
+
 const L_CONFIG_ADVANCED_DESC = 'Configurazione avanzata';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Abilita la riscrittura degli url';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Attenzione un file .htaccess è già presente alla radice di PluXml. Abilitando la riscrittura degli url questo file sarà modificato';
@@ -358,6 +409,9 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Indirizzo utilizzato sul servizi
 const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'ID cliente sul servizio OAUTH2 (esempio : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La chiave client sul servizio OAUTH2 (esempio : PrsvKp6aprKpoP8snnCoC8-x)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Salvare l\'ID cliente e il codice segreto cliente in modo da poter generare il token.';
+
+// parametres_base.php
+
 const L_CONFIG_BASE_CONFIG_TITLE = 'Configurazione base';
 const L_CONFIG_BASE_SITE_TITLE = 'Titolo del sito';
 const L_CONFIG_BASE_SITE_SLOGAN = 'Sottotitolo/descrizione del sito';
@@ -372,10 +426,18 @@ const L_CONFIG_META_DESCRIPTION = 'Contenuto della meta tag "description" del si
 const L_CONFIG_META_KEYWORDS = 'Contenuto della meta tag "keywords" del sito (facoltativo)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Visualizza feed RSS';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Visualizza feed RSS per commenti';
+const L_EVERY_BODY = 'Tutti';
+const L_SUBSCRIBERS_ONLY = 'Solo abbonati';
+
+// parametres_edittpl.php
+
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Questo tema non esiste !';
 const L_CONFIG_EDITTPL_TITLE = 'Modifica il tema';
 const L_CONFIG_EDITTPL_SELECT_FILE = 'Scelta del file da modificare';
 const L_CONFIG_EDITTPL_LOAD = 'Carica';
+
+// parametres_infos.php
+
 const L_CONFIG_INFOS_TITLE = 'Informazioni relative a PluXml';
 const L_CONFIG_INFOS_DESCRIPTION = 'Informazioni di dettaglio sul funzionamento di PluXml, possono essere utili per richiedere assistenza.';
 const L_CONFIG_INFOS_NB_CATS = 'Numero di categorie';
@@ -390,6 +452,9 @@ const L_MAIL_TEST = 'Invia un\'e-mail di prova';
 const L_MAIL_TEST_SUBJECT = 'Prova l\'e-mail inviata da %s';
 const L_MAIL_TEST_SENT_TO = 'Prova l\'e-mail inviata a %s. Controlla la tua casella di posta';
 const L_MAIL_TEST_FAILURE = 'Problema per l\'invio dell\'e-mail di prova';
+
+// parametres_users.php
+
 const L_CONFIG_USERS_TITLE = 'Gestione utenti';
 const L_CONFIG_USER = 'Utente';
 const L_CONFIG_USERS_ID = 'ID utente';
@@ -400,8 +465,9 @@ const L_CONFIG_USERS_UPDATE = 'Modifica la lista degli utenti';
 const L_ERR_LOGIN_ALREADY_EXISTS = 'Login ID già usato';
 const L_ERR_USERNAME_ALREADY_EXISTS = 'Username già in uso';
 const L_ERR_EMAIL_ALREADY_EXISTS = 'Indirizzo email già in uso';
-const L_ERR_CATEGORY_ALREADY_EXISTS = 'Categoria nome già usato';
-const L_ERR_STATIC_ALREADY_EXISTS = 'Come già usato';
+
+// parametre_plugins.php
+
 const L_BACK_TO_PLUGINS = 'Ritornare alla pagina dei plugin';
 const L_NO_PLUGIN = 'Nessun plugin';
 const L_PLUGIN_NO_CONFIG = 'Plugin non configurato';
@@ -409,6 +475,9 @@ const L_PLUGINS_CSS = 'Css';
 const L_PLUGINS_CSS_TITLE = 'Modificare il codice css del plugin';
 const L_CONTENT_FIELD_FRONTEND = 'Sito web contenuto del file Css';
 const L_CONTENT_FIELD_BACKEND = 'Amministratore contenuti css';
+
+// parametres_plugins.php
+
 const L_PLUGINS_TITLE = 'Gestione plugin';
 const L_PLUGINS_VERSION = 'Versione';
 const L_PLUGINS_AUTHOR = 'Autore';
@@ -416,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Abilita';
 const L_PLUGINS_DEACTIVATE = 'Disabilita';
 const L_PLUGINS_DELETE = 'Cancella';
 const L_PLUGINS_DELETE_ERROR = 'Errore durante la cancellazione';
+const L_PLUGINS_ENABLED_ERROR = 'Il plugin %s è ancora attivo. .';
+const L_DELETE_FILE_ERROR = 'Impossibile eliminare il file %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Cancellazione avvenuta con successo';
 const L_PLUGINS_CONFIG = 'Configurazione';
 const L_PLUGINS_CONFIG_TITLE = 'Configurazione del plugin';
@@ -430,6 +501,9 @@ const L_PLUGINS_ACTION = 'Azione';
 const L_PLUGINS_APPLY_BUTTON = 'Modificare l\'elenco dei plugin';
 const L_PLUGINS_ACTIVE_LIST = 'Plugins attivi';
 const L_PLUGINS_INACTIVE_LIST = 'Plugins inattivi';
+
+// profil.php
+
 const L_PROFIL_EDIT_TITLE = 'Gestione profilo';
 const L_PROFIL = 'Profilo';
 const L_PROFIL_LOGIN = 'Nome utente';
@@ -442,6 +516,9 @@ const L_PROFIL_CHANGE_PASSWORD = 'Cambia la password';
 const L_PROFIL_PASSWORD = 'Password';
 const L_PROFIL_CONFIRM_PASSWORD = 'Conferma la password';
 const L_PROFIL_UPDATE_PASSWORD = 'Cambia la password';
+
+// statique.php
+
 const L_STATIC_BACK_TO_PAGE = 'Ritorna alla lista delle pagine statiche';
 const L_STATIC_UNKNOWN_PAGE = 'Questa pagina statica non esiste oppure è stato cancellata !';
 const L_STATIC_TITLE = 'Modifica il codice della pagina statica';
@@ -451,6 +528,9 @@ const L_STATIC_UPDATE = 'Salva questa pagina statica';
 const L_STATIC_TITLE_HTMLTAG = 'Titolo contenuto tag (opzionale)';
 const L_STATIC_META_DESCRIPTION = 'Contenuto della meta tag "description" per questa pagina statica (facoltativo)';
 const L_STATIC_META_KEYWORDS = 'Contenuto della meta tag "keywords" per questa pagina statica (facoltativo)';
+
+// statiques.php
+
 const L_STATICS_PAGE_TITLE = 'Gestione pagine statiche';
 const L_STATICS_ID = 'ID';
 const L_STATICS_GROUP = 'Gruppo';
@@ -469,6 +549,10 @@ const L_STATICS_SRC_TITLE = 'Modifica il codice di questa pagina';
 const L_STATICS_SRC = 'Modifica';
 const L_STATICS_NEW_PAGE = 'Nuova pagina';
 const L_STATICS_UPDATE = 'Modifica la lista delle pagine statiche';
+const L_ERR_STATIC_ALREADY_EXISTS = 'Come già usato';
+
+// top.php
+
 const L_PROFIL_ADMIN = 'Amministratore';
 const L_PROFIL_MANAGER = 'Manager';
 const L_PROFIL_MODERATOR = 'Moderatore';
@@ -500,6 +584,9 @@ const L_MENU_CONFIG = 'Parametri';
 const L_MENU_PROFIL_TITLE = 'Gestisci il profilo';
 const L_MENU_PROFIL = 'Profilo';
 const L_WARNING_INSTALLATION_FILE = 'Il file install.php è presente nella radice di PluXml.<br />Per motivi di sicurezza, è fortemente consigliata la <a class="lnkdelete" href="%s">cancellazione</a>.';
+
+// user.php
+
 const L_USER_UNKNOWN = 'Utente sconosciuto';
 const L_USER_LANG = 'Lingua usata nel pannello di amministrazione';
 const L_USER_MAIL = 'Indirizzo email';
@@ -507,6 +594,9 @@ const L_USER_INFOS = 'Informazioni';
 const L_USER_UPDATE = 'Aggiorna utente';
 const L_USER_PAGE_TITLE = 'Modifica le opzioni dell\'utente';
 const L_USER_BACK_TO_PAGE = 'Ritorna alla lista degli utenti';
+
+//
+
 const L_MENU_CONFIG_BASE_TITLE = 'Configurazione di base';
 const L_MENU_CONFIG_BASE = 'Configurazione base';
 const L_MENU_CONFIG_VIEW_TITLE = 'Gestione opzioni di visualizzazione';
@@ -519,14 +609,10 @@ const L_MENU_CONFIG_INFOS_TITLE = 'Ottieni informazioni sulla versione di PluXml
 const L_MENU_CONFIG_INFOS = 'Informazioni';
 const L_MENU_CONFIG_PLUGINS_TITLE = 'Gestisci i plugin';
 const L_MENU_CONFIG_PLUGINS = 'Plugin';
-const L_ERR_URL_ALREADY_EXISTS = 'Url già in uso. Si prega di modificare il valore del campo \'Url\'';
 const L_THEMES = 'Temi';
 const L_THEMES_TITLE = 'Gestire i temi';
 const L_HELP = 'Aiuto';
 const L_HELP_TITLE = 'Vedere l\'aiuto';
 const L_BACK_TO_THEMES = 'Torna alla pagina dei temi';
-const L_ERR_INVALID_DATE_CREATION = 'Data di creazione non valida';
-const L_ERR_INVALID_DATE_UPDATE = 'Data non valida aggiornato';
-const L_INVALID_VALUE = 'valore non valido';
 const L_CONFIG_THEME_UPDATE = 'Cambia Aspetto';
 

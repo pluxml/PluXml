@@ -1,4 +1,5 @@
 <?php
+
 const L_ID = '#';
 const L_MENU = 'Meniu';
 const L_UNKNOWN_ERROR = 'Eroare necunoscută';
@@ -22,10 +23,9 @@ const L_THUMBNAIL = 'Miniatură (opţional)';
 const L_THUMBNAIL_SELECTION = 'Selectați Image';
 const L_THUMBNAIL_TITLE = 'Titlu imagine (opţional)';
 const L_THUMBNAIL_ALT = 'Textul alternativ al imaginii (opţional)';
+
 const L_ERR_INVALID_DATE_CREATION = 'Data creării invalid';
 const L_ERR_INVALID_DATE_UPDATE = 'Data invalid actualizat';
-const L_INVALID_VALUE = 'valoare invalida';
-const L_ERR_INVALID_DATE_UPDATE = 'Data actualizării nevalidă';
 const L_INVALID_VALUE = 'valoare invalida';
 
 // class.plx.admin.php
@@ -549,22 +549,22 @@ const L_STATICS_SRC_TITLE = 'Editează codul sursă a acestei pagini';
 const L_STATICS_SRC = 'Editare';
 const L_STATICS_NEW_PAGE = 'Pagină nouă';
 const L_STATICS_UPDATE = 'Modifică lista paginilor statice';
-const L_PROFIL_ADMIN = 'Administrator';
+const L_ERR_STATIC_ALREADY_EXISTS = 'Titlul paginii static este deja folosit';
 
 // top.php
 
+const L_PROFIL_ADMIN = 'Administrator';
 const L_PROFIL_MANAGER = 'Manager';
 const L_PROFIL_MODERATOR = 'Moderator';
 const L_PROFIL_EDITOR = 'Editor';
 const L_PROFIL_WRITER = 'Autor';
+const L_PROFIL_SUBSCRIBER = 'Abonat';
 const L_ADMIN = 'Administrare';
 const L_LOGIN = 'Logat ca';
 const L_ADMIN_LOGOUT = 'Deconectare';
 const L_ADMIN_LOGOUT_TITLE = 'Log Out Admin';
 const L_BACK_TO_SITE = 'Back to';
 const L_BACK_TO_SITE_TITLE = 'Go Back';
-const L_BACK_TO_SITE = 'Înapoi la site';
-const L_BACK_TO_SITE_TITLE = 'Retur la pagina de primire a site-ului';
 const L_BACK_TO_BLOG = 'Blog';
 const L_BACK_TO_BLOG_TITLE = 'Inapoi la blog';
 const L_MENU_ARTICLES = 'Articole';
@@ -587,16 +587,18 @@ const L_WARNING_INSTALLATION_FILE = 'Fişierul install.php încă se află în r
 
 // user.php
 
+const L_USER_UNKNOWN = 'utilizator necunoscut';
+const L_USER_LANG = 'Limbajul folosit în administrare';
 const L_USER_MAIL = 'Adresa de email';
 const L_USER_INFOS = 'Informaţii';
 const L_USER_UPDATE = 'Actualizează acest utilizator';
 const L_USER_PAGE_TITLE = 'Opţiuni';
 const L_USER_BACK_TO_PAGE = 'Înapoi la lista de utilizatori';
-const L_MENU_CONFIG_BASE_TITLE = 'Schimbă configuraţia de bază';
-const L_MENU_CONFIG_BASE = 'Configuraţia de bază';
 
 //
 
+const L_MENU_CONFIG_BASE_TITLE = 'Schimbă configuraţia de bază';
+const L_MENU_CONFIG_BASE = 'Configuraţia de bază';
 const L_MENU_CONFIG_VIEW_TITLE = 'Editarea opţiunilor de afişare';
 const L_MENU_CONFIG_VIEW = 'Opţiuni \ Afişare';
 const L_MENU_CONFIG_USERS_TITLE = 'Gestionează conturile utilizatorilor';
@@ -607,12 +609,10 @@ const L_MENU_CONFIG_INFOS_TITLE = 'Obţinerea de informaţii despre PluXml';
 const L_MENU_CONFIG_INFOS = 'Informaţii';
 const L_MENU_CONFIG_PLUGINS_TITLE = 'Administrează Plugin-uri';
 const L_MENU_CONFIG_PLUGINS = 'Plugin-uri';
-const L_ERR_URL_ALREADY_EXISTS = 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'';
 const L_THEMES = 'Teme';
 const L_THEMES_TITLE = 'Gestionarea teme';
 const L_HELP = 'Ajutor';
 const L_HELP_TITLE = 'Vezi de ajutor';
 const L_BACK_TO_THEMES = 'Înapoi la subiectele paginii';
 const L_CONFIG_THEME_UPDATE = 'Înregistrarea temă';
-const L_ERR_INVALID_DATE_CREATION = 'Data creării invalid';
 

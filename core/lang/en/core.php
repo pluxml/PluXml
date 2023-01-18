@@ -92,6 +92,7 @@ const L_NEWCOMMENT_ERR				= 'An error occurred during comment\'s publication';
 const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Please fill all the required fields';
 const L_NEWCOMMENT_ERR_ANTISPAM		= 'Antispam verification failed';
 const L_UNKNOWN_AUTHOR				= 'Unknown author';
+const L_NEWCOMMENT_ERR_LOGIN		= 'Bad login or password';
 
 # class.plx.show.php
 

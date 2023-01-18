@@ -426,6 +426,8 @@ const L_CONFIG_META_DESCRIPTION = 'Contenido de la metaetiqueta de description (
 const L_CONFIG_META_KEYWORDS = 'Contenido de la metaetiqueta de palabras clave («keywords», opcional)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Mostrar canales  RSS';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Mostrar canales RSS para comentarios';
+const L_EVERY_BODY = 'iTodos';
+const L_SUBSCRIBERS_ONLY = 'Solo suscriptores';
 
 // parametres_edittpl.php
 
@@ -483,6 +485,8 @@ const L_PLUGINS_ACTIVATE = 'Activar';
 const L_PLUGINS_DEACTIVATE = 'Desactivar';
 const L_PLUGINS_DELETE = 'Eliminar';
 const L_PLUGINS_DELETE_ERROR = 'Error al eliminar el complemento';
+const L_PLUGINS_ENABLED_ERROR = 'El complemento %s todavía está activo. ';
+const L_DELETE_FILE_ERROR = 'No se puede eliminar el archivo %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Complemento eliminado correctamente';
 const L_PLUGINS_CONFIG = 'Configuración';
 const L_PLUGINS_CONFIG_TITLE = 'Configuración del complemento';
@@ -497,6 +501,8 @@ const L_PLUGINS_ACTION = 'Acción';
 const L_PLUGINS_APPLY_BUTTON = 'Modificar la lista de complementos';
 const L_PLUGINS_ACTIVE_LIST = 'Complementos activos';
 const L_PLUGINS_INACTIVE_LIST = 'Complementos desactivados';
+const L_PLUGINS_ACTIVE_LIST = 'Complementos activos';
+const L_PLUGINS_INACTIVE_LIST = 'Complementos inactivos';
 
 // profil.php
 
