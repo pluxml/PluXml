@@ -150,8 +150,9 @@ class plxAdmin extends plxMotor {
 			 * images_h,
 			 * miniatures_l,
 			 * miniatures_h,
+			 * usersFolders
 			 * */
-			} elseif(preg_match('#^(?:bypage|images|miniatures)#', $k)) {
+			} elseif(preg_match('#^(?:bypage|images|miniatures|usersFolders)#', $k)) {
 				if(!is_numeric($v)) {
 					continue;
 				} else {

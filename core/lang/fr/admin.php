@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Activer la récupération de mot de pass
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clef d\'administration (URL privés)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Vider ce champs pour régénérer la clef';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Utiliser un dossier medias différent pour chaque rédacteur';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Utiliser un dossier medias différent à partir des utilisateurs';
 const L_HELP_SLASH_END = 'Ne pas oublier le slash à la fin';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Emplacement des médias (dossier)';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Emplacement des articles (dossier)';

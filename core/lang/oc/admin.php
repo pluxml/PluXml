@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Activar la recuperacion del senhal';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clau d\'administracion (URLs privadas)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Vojar aquel camp per tornar generar la clau';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Utilizar un dorsièr mèdias diferent per cada redactor';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Utilizar un dorsièr mèdias diferent per cada redactor';
 const L_HELP_SLASH_END = 'Oblidar pas lo slash a la fin';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Emplaçament dels mèdia (dorsièr)';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Emplaçament dels articles (dorsièr)';

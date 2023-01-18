@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Schakel wachtwoordherstel in';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Code voor versleuteling gegevens (Prive URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Maak dit veld leeg om een nieuwe sleutel te genereren';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Gebruik verschillende media map voor elke redacteur';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Gebruik aparte mediamappen van dit profiel';
 const L_HELP_SLASH_END = 'vergeet de slash niet op het einde';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Locatie media (map)';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Locatie artikels (map)';

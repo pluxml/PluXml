@@ -374,6 +374,7 @@ const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Habilitar recuperación de contraseña';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clave de administración (URLs privadas)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Deje este campo vacío para regenerar la clave';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Utilizar carpetas diferentes para medias en cada redactor';
+const L_CONFIG_ADVANCED_USERSFOLDERS = 'Utilice carpetas de medios independientes de este perfil';
 const L_HELP_SLASH_END = 'No olvide la barra al final';
 const L_CONFIG_ADVANCED_MEDIAS_FOLDER = 'Ubicación de la carpeta de medios';
 const L_CONFIG_ADVANCED_ARTS_FOLDER = 'Ubicación de la carpeta de artículos';
