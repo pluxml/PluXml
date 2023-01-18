@@ -164,13 +164,13 @@ foreach([
 }
 ?>
 	</ul>
-	<?php
+<?php
 	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
 		plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
 		echo '<input name="sel" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>';
 	}
-	?>
+?>
 	<?php plxUtils::printInput('page',1,'hidden'); ?>
 </div>
 
@@ -180,7 +180,11 @@ foreach([
 <?php
 if($_SESSION['profil'] < PROFIL_WRITER) {
 	$users = array_filter($plxAdmin->aUsers, function($item) {
-		return (!empty($item['active']) and empty($item['delete']));
+		return (
+			!empty($item['active']) and
+			empty($item['delete']) and
+			$item['profil'] <= PROFIL_WRITER
+		);
 	});
 	if(count($plxAdmin->aUsers) > 1) {
 		$values = array_map(

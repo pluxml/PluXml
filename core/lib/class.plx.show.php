@@ -2196,7 +2196,7 @@ class plxShow
 		# Hook Plugins
 		if (eval($this->plxMotor->plxPlugins->callHook('plxShowLastUserList'))) return;
 
-		$motif = '#^\d{4}\.(?:home,|\d{3},)*(?:home|\d{3})(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+		$motif = '#^\d{4}\.(?:pin,)?(?:home|\d{3})(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 		# On trie les articles par date de publication
 		$arts = $this->plxMotor->plxGlob_arts->query($motif,'art','desc',0,false,'before');
 		if(empty($arts)) {
@@ -2205,7 +2205,7 @@ class plxShow
 
 		$nbArts = array();
 		array_walk($arts, function($item) use(&$nbArts) {
-			if(preg_match('#.*\.(\d{3})\.(\d{12})\.[\w-]+\.xml$#', $item, $matches)) {
+			if(preg_match('#.*\.(\d{3})\.\d{12}\.[\w-]+\.xml$#', $item, $matches)) {
 				$userId = $matches[1];
 				if(!isset($nbArts[$userId])) {
 					$nbArts[$userId] = 1;
@@ -2291,7 +2291,7 @@ class plxShow
 
 		# on compte le nombre d'articles pour chaque mois de la période et pour chaque année passée
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
-		if ($files = $plxGlob_arts->query('/^\d{4}\.(?:\d{3},|home,)*(' . $this->plxMotor->activeCats . ')(?:,\d{3}|,home)*\.\d{3}\.\d{12}\.[\w-]+\.xml$/', 'art', 'rsort', 0, false, 'before')) {
+		if ($files = $plxGlob_arts->query('@^\d{4}\.(?:pin,|home,|\d{3},)*(?:' . $this->plxMotor->activeCats . ')(?:,\d{3}|,home)*\.\d{3}\.\d{12}\.[\w-]+\.xml$@', 'art', 'rsort', 0, false, 'before')) {
 			# compte les années en mois !
 			$periode = 12; # on détaille pour les 12 derniers mois
 			$annee_mois_cc = intval(date('Y')) * 12;
@@ -2302,7 +2302,7 @@ class plxShow
 			$total = 0;
 
 			# récupère l'année et le mois de chaque article
-			$motif = '@^\d{4}\.(?:\d{3}|home)+(?:,\d{3}|,home)*\.\d{3}\.(\d{4})(\d{2})\d{6}\.[\w-]+\.xml$@';
+			$motif = '@\.\d{3}\.(\d{4})(\d{2})\d{6}\.[\w-]+\.xml$@';
 			foreach ($files as $id => $filename) {
 				if (preg_match($motif, $filename, $capture)) {
 					$total++;
