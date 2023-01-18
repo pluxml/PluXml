@@ -57,7 +57,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 				</li>
 				<li>
 					<strong><?= plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
-					<em><?= in_array($_SESSION['profil'], PROFIL_NAMES)? PROFIL_NAMES[$_SESSION['profil']] : L_PROFIL_SUBSCRIBER; ?></em>
+					<em><?= array_key_exists($_SESSION['profil'], PROFIL_NAMES) ? PROFIL_NAMES[$_SESSION['profil']] : L_PROFIL_SUBSCRIBER; ?></em>
 				</li>
 				<li><small><a class="version" title="PluXml" href="<?= PLX_URL_REPO ?>">PluXml <?= PLX_VERSION ?></a></small></li>
 			</ul>
