@@ -545,7 +545,6 @@ const L_STATICS_ACTION = 'Acţiune';
 const L_STATICS_TEMPLATE_FIELD = 'Tema';
 const L_STATICS_PAGE_HOME = 'Setaţi ca pagina de start';
 const L_STATICS_HOME_PAGE = 'Home';
-const L_PAGE = 'Pagină';
 const L_VIEW = 'Vizualizează';
 const L_STATICS_SRC_TITLE = 'Editează codul sursă a acestei pagini';
 const L_STATICS_SRC = 'Editare';

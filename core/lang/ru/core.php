@@ -12,6 +12,7 @@ const L_HOMEPAGE = 'Главная';
 const L_UNCLASSIFIED = 'Без категории';
 const L_INFO_PHP_VERSION = 'PHP версия';
 const L_INFO_CHARSET = 'кодировка';
+const L_PAGE = 'Страница';
 
 # index.php
 

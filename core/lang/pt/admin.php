@@ -545,7 +545,6 @@ const L_STATICS_ACTION = 'Ação';
 const L_STATICS_TEMPLATE_FIELD = 'Template';
 const L_STATICS_PAGE_HOME = 'Definir como página inicial';
 const L_STATICS_HOME_PAGE = 'Página<br />de inicio';
-const L_PAGE = 'Página';
 const L_VIEW = 'Vêr';
 const L_STATICS_SRC_TITLE = 'Editar o código fonte desta página';
 const L_STATICS_SRC = 'Editar';

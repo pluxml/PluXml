@@ -12,6 +12,7 @@ const L_HOMEPAGE = 'Homepage';
 const L_UNCLASSIFIED = 'Non classificato';
 const L_INFO_PHP_VERSION = 'Versione di php';
 const L_INFO_CHARSET = 'encoding';
+const L_PAGE = 'Pagina';
 
 # index.php
 

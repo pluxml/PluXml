@@ -545,7 +545,6 @@ const L_STATICS_ACTION = 'Actie';
 const L_STATICS_TEMPLATE_FIELD = 'Layout';
 const L_STATICS_PAGE_HOME = 'Instellen als homepage';
 const L_STATICS_HOME_PAGE = 'Startpagina';
-const L_PAGE = 'Pagina';
 const L_VIEW = 'Bekijken';
 const L_STATICS_SRC_TITLE = 'Bron van deze pagina aanpassen';
 const L_STATICS_SRC = 'Aanpassen';
