@@ -400,7 +400,7 @@ if(preg_match('@^(?:https?|data):@', $thumbnail)) {
 	$src = $thumbnail;
 } else {
 	$src = PLX_ROOT.$thumbnail;
-	if(file_exists($src)) {
+	if(!file_exists($src)) {
 		$src = false;
 	}
 }
