@@ -365,6 +365,7 @@ const L_CONFIG_HOMETEMPLATE = 'Template van de homepage';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Geavanceerde configuratie';
+const L_BUILD = 'Scheppen';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'herschrijven van URLs aanzetten';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Opgepast. Er bestaat al een .htaccess bestand in de root van uw installatie. Door het inschakelen van URL herschrijven dit bestand zal worden gewijzigd';
 const L_CONFIG_ADVANCED_GZIP = 'GZIP compressie activeren';

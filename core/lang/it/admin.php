@@ -365,6 +365,7 @@ const L_CONFIG_HOMETEMPLATE = 'Modello della homepage';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Configurazione avanzata';
+const L_BUILD = 'Creare';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Abilita la riscrittura degli url';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Attenzione un file .htaccess è già presente alla radice di PluXml. Abilitando la riscrittura degli url questo file sarà modificato';
 const L_CONFIG_ADVANCED_GZIP = 'Abilita la compressione GZIP';

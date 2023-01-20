@@ -365,6 +365,7 @@ const L_CONFIG_HOMETEMPLATE = 'Format din pagina de start';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Avansate de configurare';
+const L_BUILD = 'iCrea';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Permite rescrierea url-uri';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atenţie într-un fişier. Htaccess este deja prezent la rădăcina PluXml dumneavoastră. Prin activarea rescrierea dosarul  url va fi modificat';
 const L_CONFIG_ADVANCED_GZIP = 'Activeaza compresia GZIP';

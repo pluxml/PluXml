@@ -365,6 +365,7 @@ const L_CONFIG_HOMETEMPLATE = 'Vorlage der Homepage';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Erweiterte Einstellungen';
+const L_BUILD = 'Erstellen';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Adressweiterleitung aktivieren (URL rewrite)';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Achtung! Es ist bereits eine .htaccess Datei im Grundverzeichnis von PluXml vorhanden. Diese Datei wird beim Aktivieren modifiziert.';
 const L_CONFIG_ADVANCED_GZIP = 'GZIP Kompression aktivieren';

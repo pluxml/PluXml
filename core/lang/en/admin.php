@@ -365,6 +365,7 @@ const L_CONFIG_HOMETEMPLATE = 'Template of the homepage';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Advanced configuration';
+const L_BUILD = 'Build';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Enable url rewriting';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Warning: a .htaccess file already exists at your PluXml\'s installation root. Activating url rewriting will overwrite this file';
 const L_CONFIG_ADVANCED_GZIP = 'Enable GZIP compression';
