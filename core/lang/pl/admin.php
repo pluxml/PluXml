@@ -365,6 +365,7 @@ const L_CONFIG_HOMETEMPLATE = 'Szablon strony głównej';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Zaawansowana konfiguracja';
+const L_BUILD = 'Tworzy';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Włącz przepisywanie adresów URL';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Pamiętaj, że plik .htaccess jest już obecny w katalogu głównym twojego PluXml. ';
 const L_CONFIG_ADVANCED_GZIP = 'Włącz kompresję GZIP';

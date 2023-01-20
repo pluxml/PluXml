@@ -365,6 +365,7 @@ const L_CONFIG_HOMETEMPLATE = 'Шаблон главной страницы';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Расширенные настройки (опытный пользователь)';
+const L_BUILD = 'Создавать';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Включить URL rewrite';
 const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Внимание .htaccess файл уже присутствует в корневом каталоге вашего PluXml. При включении URL переписывания этот файл будет изменен';
 const L_CONFIG_ADVANCED_GZIP = 'Включить GZIP сжатие';

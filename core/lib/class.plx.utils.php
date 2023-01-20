@@ -648,17 +648,17 @@ class plxUtils {
 	 * @param	filename			emplacement et nom du fichier
 	 * @return	boolean				retourne vrai si l'écriture s'est bien déroulée
 	 **/
-	public static function write($xml, $filename) {
+	public static function write($content, $filename) {
 
 		if(file_exists($filename)) {
 			$f = fopen($filename.'.tmp', 'w'); # On ouvre le fichier temporaire
-			fwrite($f, trim($xml)); # On écrit
+			fwrite($f, trim($content)); # On écrit
 			fclose($f); # On ferme
 			unlink($filename);
 			rename($filename.'.tmp', $filename); # On renomme le fichier temporaire avec le nom de l'ancien
 		} else {
 			$f = fopen($filename, 'w'); # On ouvre le fichier
-			fwrite($f, trim($xml)); # On écrit
+			fwrite($f, trim($content)); # On écrit
 			fclose($f); # On ferme
 		}
 		# On place les bons droits

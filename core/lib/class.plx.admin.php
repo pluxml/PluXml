@@ -387,6 +387,64 @@ Options -Multiviews
 	}
 
 	/**
+	 * Méthode qui crée le fichier robots.txt à la racine du site
+	 *
+	 * @return	void
+	 * @author	Jean-Pierre Pourrez "bzooka07"
+	 **/
+	public function EditRobots() {
+		# https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt
+		$block_begin = '# BEGIN -- Pluxml';
+		$block_end = '# END -- Pluxml';
+		$path = preg_replace('@\bcore/(?:admin|lib)$@', '', dirname($_SERVER['SCRIPT_NAME']));
+		$today = date('Y-m-d H:i');
+		$plxContents = <<< EOT
+$block_begin
+# $today
+
+User-agent: *
+Disallow: {$path}config.php$
+Disallow: {$path}install.php$
+Disallow: {$path}sitemap.php$
+Disallow: {$path}update$
+Disallow: {$path}core$
+Disallow: {$path}readme$
+Disallow: {$path}{$this->aConf['racine_plugins']}$
+Disallow: {$path}{$this->aConf['racine_articles']}$
+Disallow: {$path}{$this->aConf['racine_commentaires']}$
+Disallow: {$path}{$this->aConf['racine_statiques']}$
+Disallow: {$path}{$this->aConf['racine_themes']}*.php
+Disallow: {$path}{$this->aConf['medias']}download$
+Allow: {$path}{$this->aConf['medias']}
+
+Sitemap: {$this->racine}sitemap.php
+
+$block_end
+
+EOT;
+
+		$filename = $_SERVER['DOCUMENT_ROOT'] . '/robots.txt';
+		if(file_exists($filename)) {
+			$contents = file_get_contents($filename);
+			$pattern = '@^(.*?)(?:^' . $block_begin . '.*' . $block_end . ')(.*)$@ims';
+			if(preg_match($pattern, $contents, $matches)) {
+				$contents = $matches[1] . $plxContents . PHP_EOL . trim($matches[2]);
+			} else {
+				$contents .= PHP_EOL . $plxContents;
+			}
+			$success = plxUtils::write($contents, $filename);
+		} else {
+			$success = plxUtils::write($plxContents, $filename);
+		}
+
+		if($success) {
+			plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
+		} else {
+			plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $filename));
+		}
+	}
+
+	/**
 	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
 	 * @param	profil		profil(s) autorisé(s)
