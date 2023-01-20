@@ -44,7 +44,7 @@ include 'top.php';
 			<div class="col med-4 med-offset-4">
 				<span>/robots.txt</span> :
 				<input type="submit" name="robots" value="<?= L_BUILD ?>" />
-				<a href="/robots.txt" target="_blank" class="button"><?= L_DISPLAY ?></a>
+				<a href="/robots.txt?rand=<?= dechex(time() & 0xffff) ?>" target="_blank" class="button"><?= L_DISPLAY ?></a>
 			</div>
 		</div>
 	</div>
