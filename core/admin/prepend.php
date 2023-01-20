@@ -11,8 +11,8 @@ plx_session_start();
 
 if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la page de login
 	# Test sur le domaine et sur l'identification
-	if(empty($_SESSION['domain'] or $_SESSION['domain'] != SESSION_DOMAIN) or (!isset($_SESSION['user']) or $_SESSION['user']=='')){
-		header('Location: auth.php?p='.htmlentities($_SERVER['REQUEST_URI']));
+	if(empty($_SESSION['domain']) or $_SESSION['domain'] != SESSION_DOMAIN or empty($_SESSION['user'])) {
+		header('Location: auth.php?p=' . htmlentities($_SERVER['REQUEST_URI']));
 		exit;
 	}
 }
@@ -20,25 +20,25 @@ if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la pa
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
 
-# On impose le charset
-header('Content-Type: text/html; charset='.PLX_CHARSET);
-
 # Creation de l'objet principal et premier traitement
 $plxAdmin = plxAdmin::getInstance();
-
-# Détermination de la langue à utiliser (modifiable par le hook AdminPrepend)
 $lang = $plxAdmin->aConf['default_lang'];
+
 if(isset($_SESSION['user'])) {
-	$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
-	# Si désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
-	if(!$plxAdmin->aUsers[$_SESSION['user']]['active'] OR $plxAdmin->aUsers[$_SESSION['user']]['delete']){
+	# Si utilisateur désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
+	if(
+		!array_key_exists($_SESSION['user'], $plxAdmin->aUsers) or
+		empty($plxAdmin->aUsers[$_SESSION['user']]['active']) or
+		!empty($plxAdmin->aUsers[$_SESSION['user']]['delete'])
+	) {
 		header('Location: auth.php?d=1');# Déconnecte l'utilisateur a la prochaine demande,
 		exit;
-	}
-	# Change le Profil d'utilisateur dès sa prochaine action, hors page de login. (!PLX_AUTHPAGE)
-	if(!isset($_SESSION['profil']) || $plxAdmin->aUsers[$_SESSION['user']]['profil'] != $_SESSION['profil'])
+	} else {
+		$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];
+	}
 }
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 
@@ -70,3 +70,6 @@ const ALLOW_COM_SUBSCRIBERS = [
 	0 => L_NO,
 	2 => L_SUBSCRIBERS_ONLY,
 ];
+
+# On impose le charset
+header('Content-Type: text/html; charset='.PLX_CHARSET);
