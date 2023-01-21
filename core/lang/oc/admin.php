@@ -545,7 +545,6 @@ const L_STATICS_ACTION = 'Accion';
 const L_STATICS_TEMPLATE_FIELD = 'Modèl';
 const L_STATICS_PAGE_HOME = 'Definir en tant que pagina d\'acuèlh';
 const L_STATICS_HOME_PAGE = 'Pagina<br />d\'acuèlh';
-const L_PAGE = 'Pagina';
 const L_VIEW = 'Veire';
 const L_STATICS_SRC_TITLE = 'Editar lo còdi sorga d\'aquela pagina';
 const L_STATICS_SRC = 'Editar';

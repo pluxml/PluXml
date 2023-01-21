@@ -547,7 +547,6 @@ const L_STATICS_ACTION = 'Acción';
 const L_STATICS_TEMPLATE_FIELD = 'Plantilla';
 const L_STATICS_PAGE_HOME = 'Establecer como página de inicio';
 const L_STATICS_HOME_PAGE = 'Página de inicio';
-const L_PAGE = 'Página';
 const L_VIEW = 'Visualizar';
 const L_STATICS_SRC_TITLE = 'Editar código fuente de esta página';
 const L_STATICS_SRC = 'Editar';

@@ -160,6 +160,10 @@ a.lnkdelete:hover {
 	margin-bottom: 0;
 }
 
+#pagination > ul {
+	display: inline-block;
+}
+
 @media (max-width: 1199px) {
 	.section .action-bar {
 		left: 25%;

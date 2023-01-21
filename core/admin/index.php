@@ -316,42 +316,17 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 
 </form>
 
-<p id="pagination">
-	<?php
+<div id="pagination">
+<?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
+
 	# Affichage de la pagination
-	if($arts) { # Si on a des articles (hors page)
-		# Calcul des pages
-		$last_page = ceil($nbArtPagination/$plxAdmin->bypage);
-		$stop = $plxAdmin->page + 2;
-		if($stop<5) $stop=5;
-		if($stop>$last_page) $stop=$last_page;
-		$start = $stop - 4;
-		if($start<1) $start=1;
-		# Génération des URLs
-		$artTitle = (!empty($_GET['artTitle'])?'&amp;artTitle='.urlencode($_GET['artTitle']):'');
-		$p_url = 'index.php?page='.($plxAdmin->page-1).$artTitle;
-		$n_url = 'index.php?page='.($plxAdmin->page+1).$artTitle;
-		$l_url = 'index.php?page='.$last_page.$artTitle;
-		$f_url = 'index.php?page=1'.$artTitle;
-		# Affichage des liens de pagination
-		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'index.php?page=\'+this.value+\''.$artTitle.'\'" value="'.$plxAdmin->page.'" />', $last_page);
-		$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
-		echo '<span class="p_first">'.$s.'</span>';
-		$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
-		echo '<span class="p_prev">'.$s.'</span>';
-		for($i=$start;$i<=$stop;$i++) {
-			$s = $i==$plxAdmin->page ? $i : '<a href="'.('index.php?page='.$i.$artTitle).'" title="'.$i.'">'.$i.'</a>';
-			echo '<span class="p_current">'.$s.'</span>';
-		}
-		$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">&rsaquo;</a>' : '&rsaquo;';
-		echo '<span class="p_next">'.$s.'</span>';
-		$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">&raquo;</a>' : '&raquo;';
-		echo '<span class="p_last">'.$s.'</span>';
+	if($arts) {
+		plxUtils::printPagination($nbArtPagination, $plxAdmin->bypage, $plxAdmin->page, 'index.php?page=%d' . $artTitle);
 	}
-	?>
-</p>
+?>
+</div>
 
 <?php
 # Hook Plugins

@@ -12,6 +12,7 @@ const L_HOMEPAGE = 'Onthaal';
 const L_UNCLASSIFIED = 'Niet geclassificeerd';
 const L_INFO_PHP_VERSION = 'PHP-versie';
 const L_INFO_CHARSET = 'codering';
+const L_PAGE = 'Pagina';
 
 # index.php
 

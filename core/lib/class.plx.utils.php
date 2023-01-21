@@ -25,6 +25,7 @@ class plxUtils {
 		'de' => 'das|der|die|fur|am',
 		'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
 	);
+    const DELTA_PAGINATION = 3;
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.
@@ -1560,6 +1561,61 @@ EOT;
 			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 ?>
 	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
+<?php
+		}
+	}
+
+    /**
+     * Méthode qui affiche des boutons pour la pagination.
+     * S'il n'y a pas assez d'éléments à afficher pour 2 pages, la pagination n'est pas affichée.
+     *
+     * @param integer $itemsCount Nombre total d'éléments à afficher dans toutes les pages
+     * @param integer $itemsPerPage Nombre d'éléments à afficher par page
+     * @param integer $currentPage numéro de la page courante affichée
+     * @param string $urlTemplate modèle pour calculer la valeur de href dans les balises <a>. Doit avoir une position numérique
+     *
+     * @return    void
+     * @author    Jean-Pierre Pourrez (bazooka07)
+     **/
+	public static function printPagination($itemsCount, $itemsPerPage, $currentPage, $urlTemplate) {
+		if ($itemsCount > $itemsPerPage) { # if there is articles
+			//Pagination preparation
+			$last_page = ceil($itemsCount / $itemsPerPage);
+			// URL generation
+			$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . urlencode($_GET['artTitle']) : '';
+			// Display pagination links
+?>
+				<span><?= ucfirst(L_PAGE) ?></span>
+				<ul class="inline-list">
+					<li><a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= ($currentPage > 2) ? '' : ' disabled' ?> class="button"><i class="icon-angle-double-left"></i></a></li>
+					<li><a href="<?php printf($urlTemplate, ($currentPage > 1) ? $currentPage - 1 : 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= ($currentPage > 1) ? '' : ' disabled' ?> class="button"><i class="icon-angle-left"></i></a></li>
+<?php
+			# On boucle sur les pages
+			if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
+				$iMin = 1; $iMax = $last_page;
+			} else {
+				if($currentPage > self::DELTA_PAGINATION + 1) {
+					$iMin = ($last_page - $currentPage > self::DELTA_PAGINATION) ? $currentPage - self::DELTA_PAGINATION : $last_page - 2 * self::DELTA_PAGINATION;
+				} else {
+					$iMin = 1;
+				}
+				$iMax =  $iMin + 2 * self::DELTA_PAGINATION;
+			}
+			for ($i = $iMin; $i <= $iMax; $i++) {
+				if($i != $currentPage) {
+?>
+					<li><a href="<?php printf($urlTemplate, $i); ?>" class="button"><?= $i ?></a></li>
+<?php
+				} else {
+?>
+					<li><span class="current btn--info"><?= $i ?></span></li>
+<?php
+				}
+			}
+?>
+					<li><a href="<?php printf($urlTemplate, $currentPage + 1); ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= ($currentPage < $last_page) ? '' : ' disabled' ?>><span class="button"><i class="icon-angle-right"></i></span></a></li>
+					<li><a href="<?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><span class="button"<?= ($currentPage < $last_page - 1) ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></span></a></li>
+				</ul>
 <?php
 		}
 	}

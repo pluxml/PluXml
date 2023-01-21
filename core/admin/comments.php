@@ -251,42 +251,18 @@ $selector = selector($comSel, 'id_selection');
 
 </form>
 
-<p id="pagination">
+<div id="pagination">
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
+
 	# Affichage de la pagination
-	if($coms) { # Si on a des articles (hors page)
-		# Calcul des pages
-		$last_page = ceil($nbComPagination/$plxAdmin->aConf['bypage_admin_coms']);
-		$stop = $plxAdmin->page + 2;
-		if($stop<5) $stop=5;
-		if($stop>$last_page) $stop=$last_page;
-		$start = $stop - 4;
-		if($start<1) $start=1;
-		# Génération des URLs
+	if($coms) {
 		$sel = '&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'');
-		$p_url = 'comments.php?page='.($plxAdmin->page-1).$sel;
-		$n_url = 'comments.php?page='.($plxAdmin->page+1).$sel;
-		$l_url = 'comments.php?page='.$last_page.$sel;
-		$f_url = 'comments.php?page=1'.$sel;
-		# Affichage des liens de pagination
-		printf('<span class="p_page">'.L_PAGINATION.'</span>', '<input style="text-align:right;width:35px" onchange="window.location.href=\'comments.php?page=\'+this.value+\''.$sel.'\'" value="'.$plxAdmin->page.'" />', $last_page);
-		$s = $plxAdmin->page>2 ? '<a href="'.$f_url.'" title="'.L_PAGINATION_FIRST_TITLE.'">&laquo;</a>' : '&laquo;';
-		echo '<span class="p_first">'.$s.'</span>';
-		$s = $plxAdmin->page>1 ? '<a href="'.$p_url.'" title="'.L_PAGINATION_PREVIOUS_TITLE.'">&lsaquo;</a>' : '&lsaquo;';
-		echo '<span class="p_prev">'.$s.'</span>';
-		for($i=$start;$i<=$stop;$i++) {
-			$s = $i==$plxAdmin->page ? $i : '<a href="'.('comments.php?page='.$i.$sel).'" title="'.$i.'">'.$i.'</a>';
-			echo '<span class="p_current">'.$s.'</span>';
-		}
-		$s = $plxAdmin->page<$last_page ? '<a href="'.$n_url.'" title="'.L_PAGINATION_NEXT_TITLE.'">&rsaquo;</a>' : '&rsaquo;';
-		echo '<span class="p_next">'.$s.'</span>';
-		$s = $plxAdmin->page<($last_page-1) ? '<a href="'.$l_url.'" title="'.L_PAGINATION_LAST_TITLE.'">&raquo;</a>' : '&raquo;';
-		echo '<span class="p_last">'.$s.'</span>';
+		plxUtils::printPagination($nbComPagination, $plxAdmin->aConf['bypage_admin_coms'], $plxAdmin->page, 'comments.php?page=%d' . $sel);
 	}
 ?>
-</p>
+</div>
 
 <?php
 if(!empty($plxAdmin->aConf['clef'])) {

@@ -13,6 +13,7 @@ const L_HOMEPAGE				= 'Homepage';
 const L_UNCLASSIFIED			= 'Nicht kategorisiert';
 const L_INFO_PHP_VERSION		= 'PHP Version';
 const L_INFO_CHARSET			= 'Kodierung';
+const L_PAGE = 'Seite';
 
 # index.php
 const L_ERR_THEME_NOTFOUND		= 'Der Haupttheme von PluXml konnte nicht gefunden werden.';

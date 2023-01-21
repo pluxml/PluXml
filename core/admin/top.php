@@ -15,7 +15,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<meta http-equiv="Content-Type" content="text/html; charset=<?= strtolower(PLX_CHARSET) ?>" />
 	<link rel="stylesheet" type="text/css" href="theme/plucss.css?v=<?= PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="theme/theme.css?v=<?= PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="theme/fonts/fontello.css?v=<?= PLX_VERSION ?>" media="screen" />
+	<link rel="stylesheet" type="text/css" href="theme/fonts/fontello/css/fontello.css?v=<?= PLX_VERSION ?>" media="screen" />
 	<link rel="icon" href="theme/images/favicon.png" />
 <?php
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
