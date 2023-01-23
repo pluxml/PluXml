@@ -1270,6 +1270,12 @@ EOT;
 			$dates[$context] = date('YmdHi');
 		}
 		# Génération du fichier XML
+		if(empty($content['template']) or !file_exists(PLX_CORE . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . basename($content['template']))) {
+			$content['template']= 'article.php';
+		}
+		if(empty($content['allow_com']) or $content['allow_com'] != '1') {
+			$content['allow_com'] = '0';
+		}
 		$meta_description = plxUtils::getValue($content['meta_description']);
 		$meta_keywords = plxUtils::getValue($content['meta_keywords']);
 		$title_htmltag = plxUtils::getValue($content['title_htmltag']);
@@ -1280,7 +1286,7 @@ EOT;
 ?>
 <document>
 	<title><?= plxUtils::strCheck(trim($content['title']), true) ?></title>
-	<allow_com><?= !empty($content['allow_com']) ? intval($content['allow_com']) : 0 ?></allow_com>
+	<allow_com><?= intval($content['allow_com']) ?></allow_com>
 	<template><?= basename($content['template']) ?></template>
 	<chapo><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['chapo'])) ?>]]></chapo>
 	<content><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['content'])) ?>]]></content>
@@ -1312,6 +1318,9 @@ EOT;
 		if(empty($content['catId'])) {
 			$content['catId']=array('000'); # Catégorie non classée
 		} else {
+			if(empty(array_diff($content['catId'], ['draft', 'pin']))) {
+				$content['catId'][] = '000'; # Catégorie non classée mais draft ou pin
+			}
 			# on trie les catégories
 			uasort($content['catId'], function($a, $b) {
 				foreach(array('draft', 'pin', 'home') as $v) {

@@ -179,26 +179,31 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	}
 	# On parse et alimente nos variables
 	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
-	$title = trim($result['title']);
-	$chapo = trim($result['chapo']);
-	$content = trim($result['content']);
-	$tags = trim($result['tags']);
-	$author = $result['author'];
-	$url = $result['url'];
-	$date = plxDate::date2Array($result['date']);
-	$date_creation = plxDate::date2Array($result['date_creation']);
-	$date_update = plxDate::date2Array($result['date_update']);
-	$date_update_old = $result['date_update'];
-	$catId = explode(',', $result['categorie']);
-	$artId = $result['numero'];
-	$allow_com = $result['allow_com'];
-	$template = $result['template'];
-	$meta_description = $result['meta_description'];
-	$meta_keywords = $result['meta_keywords'];
-	$title_htmltag = $result['title_htmltag'];
-	$thumbnail = $result['thumbnail'];
-	$thumbnail_title = $result['thumbnail_title'];
-	$thumbnail_alt = $result['thumbnail_alt'];
+	if(is_array($result)) {
+		$title = trim($result['title']);
+		$chapo = trim($result['chapo']);
+		$content = trim($result['content']);
+		$tags = trim($result['tags']);
+		$author = $result['author'];
+		$url = $result['url'];
+		$date = plxDate::date2Array($result['date']);
+		$date_creation = plxDate::date2Array($result['date_creation']);
+		$date_update = plxDate::date2Array($result['date_update']);
+		$date_update_old = $result['date_update'];
+		$catId = explode(',', $result['categorie']);
+		$artId = $result['numero'];
+		$allow_com = $result['allow_com'];
+		$template = $result['template'];
+		$meta_description = $result['meta_description'];
+		$meta_keywords = $result['meta_keywords'];
+		$title_htmltag = $result['title_htmltag'];
+		$thumbnail = $result['thumbnail'];
+		$thumbnail_title = $result['thumbnail_title'];
+		$thumbnail_alt = $result['thumbnail_alt'];
+	} else {
+		header('Location: index.php');
+		exit;
+	}
 
 	if($author!=$_SESSION['user'] AND $_SESSION['profil']==PROFIL_WRITER) {
 		plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
@@ -502,7 +507,17 @@ else
 				<div class="col sml-12">
 					<label><?= L_ARTICLE_CATEGORIES ?>&nbsp;:</label>
 					<label><input class="no-margin" disabled="disabled" type="checkbox" id="cat_unclassified" name="catId[]" <?= in_array('000', $catId) ? 'checked' : '' ?> value="000" /> <?= L_UNCLASSIFIED  ?></label>
+<?php
+if($_SESSION['profil'] < PROFIL_EDITOR) {
+?>
 					<label><input type="checkbox" class="no-margin" id="cat_pin" name="catId[]" <?= in_array('pin', $catId) ? 'checked' : '' ?> value="pin" /> <?= L_PINNED_ARTICLE ?></label>
+<?php
+} elseif(in_array('pin', $catId)) {
+?>
+					<input type="hidden" name="catId[]" value="pin" />
+<?php
+}
+?>
 					<label><input type="checkbox" class="no-margin" id="cat_home" name="catId[]" <?= in_array('home', $catId) ? 'checked' : '' ?> value="home" /> <?= L_CATEGORY_HOME_PAGE ?></label>
 <?php
 foreach($plxAdmin->aCats as $cat_id => $cat_name) {

@@ -129,15 +129,25 @@ class plxDate {
 	 **/
 	public static function date2Array($date) {
 
-		$capture = '';
-		preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9:]{2})([0-9:]{2})/',$date,$capture);
+		if(preg_match('@^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})$@',$date,$capture)) {
+			return array (
+				'year' 	=> $capture[1],
+				'month' => $capture[2],
+				'day' 	=> $capture[3],
+				'hour'	=> $capture[4],
+				'minute'=> $capture[5],
+				'time' 	=> $capture[4].':'.$capture[5],
+			);
+		}
+
+		# default date
 		return array (
-			'year' 	=> $capture[1],
-			'month' => $capture[2],
-			'day' 	=> $capture[3],
-			'hour'	=> $capture[4],
-			'minute'=> $capture[5],
-			'time' 	=> $capture[4].':'.$capture[5]
+			'year' 	=> '1970',
+			'month' => '01',
+			'day' 	=> '01',
+			'hour'	=> '00',
+			'minute'=> '00',
+			'time' 	=> '00:00',
 		);
 	}
 
@@ -153,9 +163,11 @@ class plxDate {
 	 **/
 	public static function checkDate($day, $month, $year, $time) {
 
-		return (preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])(0[1-9]|1[0-2])[1-2][0-9]{3}([0-1][0-9]|2[0-3])\:[0-5][0-9]$/",$day.$month.$year.$time)
-			AND checkdate($month, $day, $year));
-
+		return (
+			preg_match('@^[123]\d{3}$@', $year)
+			and preg_match('(?:[01]\d|2[0-3])\:[0-5]\d$@', $time)
+			and checkdate($month, $day, $year)
+		);
 	}
 
 	/**
