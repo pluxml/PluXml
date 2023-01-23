@@ -871,7 +871,7 @@ class plxMotor {
 		} else {
 			# le nom du fichier article est incorrect !!
 			if(defined('PLX_ADMIN') and class_exists('plxMsg')) {
-				plxMsg::Error('Invalid filename "' . $filename . '" from plxMotor::parseArticle()');
+				plxMsg::Error('Invalid filename for article :<br />' . basename($filename));
 			}
 			return false;
 		}

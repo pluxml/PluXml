@@ -1198,6 +1198,10 @@ class plxShow
 
 			foreach ($aFiles as $v) { # On parcourt tous les fichiers
 				$art = $this->plxMotor->parseArticle(PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $v);
+				if(!is_array($art)) {
+					continue;
+				}
+
 				$num = intval($art['numero']);
 				$date = $art['date'];
 				$status = ($this->plxMotor->mode == 'article' and $art['numero'] == $this->plxMotor->cible) ? 'active' : 'noactive';

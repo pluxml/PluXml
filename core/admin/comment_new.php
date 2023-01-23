@@ -36,7 +36,7 @@ if(isset($_GET['a'])) {
 }
 # validation de l'id de l'article si passé en paramètre avec $_GET['c']
 if(isset($_GET['c'])) {
-	if(!preg_match('/^_?([0-9]{4}).(.*)$/',$_GET['c'], $capture)) {
+	if(!preg_match('@^_?(\d{4})\.\d{10}-\d+$@',$_GET['c'], $capture)) {
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;
@@ -48,7 +48,7 @@ if(isset($_GET['c'])) {
 # On va checker le mode (répondre ou écrire)
 if(!empty($_GET['c'])) { # Mode "answer"
 	# On check que le commentaire existe et est "online"
-	if(!$plxAdmin->getCommentaires('/^'.plxUtils::nullbyteRemove($_GET['c']).'.xml$/','',0,1,'all')) {
+	if(!$plxAdmin->getCommentaires('@^'.plxUtils::nullbyteRemove($_GET['c']).'\.xml$@','',0,1,'all')) {
 		# On redirige
 		plxMsg::Error(L_ERR_ANSWER_UNKNOWN_COMMENT);
 		header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
@@ -62,7 +62,7 @@ if(!empty($_GET['c'])) { # Mode "answer"
 		exit;
 	}
 	# On va rechercher notre article
-	if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'.(.+).xml$/','','sort',0,1)) == false) { # Article inexistant
+	if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$artId.'\..+\.xml$/','','sort',0,1)) == false) { # Article inexistant
 		plxMsg::Error(L_ERR_COMMENT_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;
@@ -71,6 +71,10 @@ if(!empty($_GET['c'])) { # Mode "answer"
 	if(!empty($_GET['a'])) $get = 'c='.$_GET['c'].'&amp;a='.$_GET['a'];
 	else $get = 'c='.$_GET['c'];
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
+	if(!is_array($aArt)) {
+		header('Location: index.php');
+		exit;
+	}
 	# Variable du formulaire
 	$content = '';
 	$article = '<a href="article.php?a='.$aArt['numero'].'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';
@@ -95,6 +99,11 @@ if(!empty($_GET['c'])) { # Mode "answer"
 	$artId = $_GET['a'];
 	$get = 'a='.$_GET['a'];
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
+	if(!is_array($aArt)) {
+		header('Location: index.php');
+		exit;
+	}
+
 	# Variable du formulaire
 	$content = '';
 	$article = '<a href="article.php?a='.$aArt['numero'].'" title="'.L_COMMENT_ARTICLE_LINKED_TITLE.'">';

@@ -54,7 +54,7 @@ if(!empty($_GET['a'])) {
 	}
 	# Infos sur l'article
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$globArt['0']);
-	$portee = L_COMMENTS_ARTICLE_SCOPE.' &laquo;'.$aArt['title'].'&raquo;';
+	$portee = !empty($aArt['title']) ? L_COMMENTS_ARTICLE_SCOPE . ' &laquo;' . $aArt['title'] . '&raquo;' : '';
 } else { # Commentaires globaux
 	$portee = '';
 }
