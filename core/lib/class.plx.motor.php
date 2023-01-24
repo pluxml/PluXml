@@ -335,7 +335,7 @@ class plxMotor {
 				$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}\.' . $searchDate . '\d{4}\.[\w-]+\.xml$#';
 			} elseif(preg_match('#^preview\/?#',$this->get) AND isset($_SESSION['preview'])) {
 				$this->mode = 'preview';
-			} elseif(preg_match('#^(?:telechargement|download)/([^/]+)$#',$this->get,$capture)) {
+			} elseif(preg_match('#^(?:telechargement|download)/(.+)$#', $this->get, $capture)) {
 				if($this->sendTelechargement($capture[1])) {
 					$this->mode = 'telechargement'; # Mode telechargement
 					$this->cible = $capture[1];
@@ -1213,19 +1213,21 @@ class plxMotor {
 	public function sendTelechargement($cible) {
 
 		# On décrypte le nom du fichier
-		$file = PLX_ROOT.$this->aConf['medias'].plxEncrypt::decryptId($cible);
+		$file = PLX_ROOT . $this->aConf['medias'] . str_replace('\\', '/', ltrim(plxEncrypt::decryptId($cible), '/\\')); # for Unix and Windows
+
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
+
 		# On lance le téléchargement et on check le répertoire medias
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '#', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
+		if(file_exists($file)) {
 			header('Content-Description: File Transfer');
-			header('Content-Type: application/download');
-			header('Content-Disposition: attachment; filename='.basename($file));
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename=' . basename($file));
 			header('Content-Transfer-Encoding: binary');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header('Pragma: no-cache');
-			header('Content-Length: '.filesize($file));
+			header('Content-Length: ' . filesize($file));
 			readfile($file);
 			exit;
 		} else { # On retourne false
