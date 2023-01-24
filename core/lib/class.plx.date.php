@@ -165,7 +165,7 @@ class plxDate {
 
 		return (
 			preg_match('@^[123]\d{3}$@', $year)
-			and preg_match('(?:[01]\d|2[0-3])\:[0-5]\d$@', $time)
+			and preg_match('@^(?:[01]\d|2[0-3])\:[0-5]\d$@', $time)
 			and checkdate($month, $day, $year)
 		);
 	}
