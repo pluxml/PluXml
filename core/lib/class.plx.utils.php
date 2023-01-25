@@ -26,6 +26,7 @@ class plxUtils {
 		'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
 	);
     const DELTA_PAGINATION = 3;
+    const RANDOM_STRING = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.
@@ -845,14 +846,15 @@ class plxUtils {
 	 * @return	string	url de base du site
 	 **/
 	public static function getRacine() {
-
 		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https://': 'http://';
 		$servername = $_SERVER['HTTP_HOST'];
-		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
-		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
-		$racine = rtrim($protocol.$servername.$serverport.$dirname, '/\\').'/';
-		if(!plxUtils::checkSite($racine, false))
+		$serverport = (preg_match('@:\d+@', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
+		$dirname = preg_replace('@/(?:core|plugins)/.*@', '', dirname($_SERVER['SCRIPT_NAME']));
+		$racine = rtrim($protocol . $servername . $serverport . $dirname, '/\\') . '/';
+		if(!plxUtils::checkSite($racine, false)) {
 			die('Error: wrong or invalid url');
+		}
+
 		return $racine;
 	}
 
@@ -862,13 +864,14 @@ class plxUtils {
 	 * @param	taille	nombre de caractère de la chaine à retourner (par défaut sur 10 caractères)
 	 * @return	string	chaine de caractères au hasard
 	 **/
-	public static function charAleatoire($taille='10') {
-
+	public static function charAleatoire($taille=10) {
+		mt_srand((float) microtime() * 1000000);
+		$mod = strlen(self::RANDOM_STRING);
 		$string = '';
-		$chaine = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		mt_srand((float)microtime()*1000000);
-		for($i=0; $i<$taille; $i++)
-			$string .= $chaine[ mt_rand()%strlen($chaine) ];
+		for($i=$taille; $i > 0; $i--) {
+			$string .= self::RANDOM_STRING[ mt_rand() % $mod ];
+		}
+
 		return $string;
 	}
 
