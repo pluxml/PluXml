@@ -22,5 +22,8 @@
 			</ul>
 		</div>
 	</footer>
+	<!-- script>
+		console.log('<?= $plxShow->pageUrl() ?>')
+	</script -->
 </body>
 </html>

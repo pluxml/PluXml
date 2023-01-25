@@ -22,6 +22,7 @@ if(method_exists($plxShow, 'authorList')) {
 	$plxShow->meta('keywords');
 	$plxShow->meta('author');
 ?>
+	<link rel="canonical" href="<?= $plxShow->pageUrl() ?>" />
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css?v=1.3.1" media="screen,print"/>
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?php echo PLX_VERSION ?>" media="screen"/>
