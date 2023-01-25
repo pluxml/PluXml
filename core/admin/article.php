@@ -266,27 +266,9 @@ if (!empty($glob->aFiles)) {
 
 $cat_id='000';
 ?>
-
-<script>
-function refreshImg(dta) {
-	if(dta.trim()==='') {
-		document.getElementById('id_thumbnail_img').innerHTML = '';
-	} else {
-		let lt = /</g,
-			gt = />/g,
-			ap = /’/g,
-			ic = /"/g;
-		dta = dta.replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&\#39;").replace(ic, "&\#34;");
-		let link = dta.match(/^(?:https?|data):/gi) ? dta : '<?= $plxAdmin->racine ?>'+dta;
-		document.getElementById('id_thumbnail_img').innerHTML = '<img src="'+link+'" alt="" />';
-	}
-}
-</script>
-
 <form method="post" id="form_article">
 
 	<div class="inline-form action-bar">
-
 		<h2><?= (empty($_GET['a'])) ? L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING; ?></h2>
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
@@ -297,14 +279,14 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 ?>
 		<input onclick="this.form.target='_self';return true;" type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
 		<input onclick="this.form.target='_self';return true;" type="submit" name="moderate" value="<?= L_ARTICLE_MODERATE_BUTTON ?>"/>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\'; return true;}" />
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="if(confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>')) { this.form.target='_self'; return true; } else { return false; }" />
 <?php
 	} else {
 					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a'])) { # en attente
 ?>
 		<input onclick="this.form.target='_self';return true;" type="submit" name="update" value="<?= L_ARTICLE_UPDATE_BUTTON ?>"/>
 		<input onclick="this.form.target='_self';return true;" type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target='_self'; return true;}" />
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="if(confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>')) { this.form.target = '_self'; return true; } else { return false; }" />
 <?php
 		} else {
 ?>
@@ -388,7 +370,7 @@ if(!empty($artId) AND $artId!='0000') {
 						<?= L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 					</label>
-					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
+					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255',false,'full-width'); ?>
 					<div class="grid" style="padding-top:10px">
 						<div class="col sml-12 lrg-6">
 							<label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label>
@@ -401,19 +383,21 @@ if(!empty($artId) AND $artId!='0000') {
 					</div>
 					<div id="id_thumbnail_img">
 <?php
-if(preg_match('@^(?:https?|data):@', $thumbnail)) {
-	$src = $thumbnail;
-} else {
-	$src = PLX_ROOT.$thumbnail;
-	if(!file_exists($src)) {
-		$src = false;
+if(!empty(trim($thumbnail))) {
+	if(preg_match('@^(?:https?|data):@', $thumbnail)) {
+		$src = $thumbnail;
+	} else {
+		$src = PLX_ROOT . $thumbnail;
+		if(!file_exists($src)) {
+			$src = false;
+		}
 	}
-}
 
-if($src) {
+	if($src) {
 ?>
 						<img src="<?= $src ?>" title="<?= $thumbnail ?>" />
 <?php
+	}
 }
 ?>
 					</div>
@@ -662,6 +646,31 @@ endif;
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));
+?>
+<script>
+	(function(id) {
+		'use strict';
+		const el = document.getElementById(id);
+		if(!el) {
+			return;
+		}
 
+		el.onkeyup = function(event) {
+			const target = document.getElementById('id_thumbnail_img');
+			if(target) {
+				const dta = el.value;
+				if(dta.trim().length == 0) {
+					target.innerHTML = '';
+				} else {
+					dta = dta.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/’/g, '&\#39;').replace(/"/g, '&quot;');
+					let link = dta.match(/^(?:https?|data):/gi) ? dta : '<?= $plxAdmin->racine ?>'+dta;
+					target.innerHTML = '<img src="'+link+'" />';
+				}
+			}
+		}
+
+	})('id_thumbnail');
+</script>
+<?php
 # On inclut le footer
 include 'foot.php';
