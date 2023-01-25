@@ -267,6 +267,18 @@ class plxShow
 	}
 
 	/**
+	 * Méthode qui retourne l'url cannonique de la page selon le mode
+	 *
+	 * https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls?hl=fr
+	 * @scope	global
+	 * @return	string
+	 * @author	Jean-Pierre Pourrez
+	 **/
+	public function pageUrl() {
+		return !empty($this->plxMotor->get) ? $this->plxMotor->racine . 'index.php?' . $this->plxMotor->get : $this->plxMotor->racine;
+	}
+
+	/**
 	 * Méthode qui affiche le meta passé en paramètre
 	 *
 	 * @param meta    nom du meta à afficher (description, keywords,author)
