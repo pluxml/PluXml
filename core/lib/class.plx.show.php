@@ -344,6 +344,12 @@ class plxShow
 		}
 	}
 
+	function meta_all() {
+		foreach(['description', 'keywords', 'author'] as $meta) {
+			$this->meta($meta);
+		}
+	}
+
 	/**
 	 * Méthode qui affiche le titre du blog linké (variable $type='link') ou non
 	 *
