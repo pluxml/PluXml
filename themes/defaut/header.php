@@ -18,14 +18,12 @@ if(method_exists($plxShow, 'authorList')) {
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php $plxShow->pageTitle(); ?></title>
 <?php
-	$plxShow->meta('description');
-	$plxShow->meta('keywords');
-	$plxShow->meta('author');
+	$plxShow->meta_all();
 ?>
 	<link rel="canonical" href="<?= $plxShow->pageUrl() ?>" />
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
 	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css?v=1.3.1" media="screen,print"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?php echo PLX_VERSION ?>" media="screen"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
 <?php
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
