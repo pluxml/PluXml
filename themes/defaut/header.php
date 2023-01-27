@@ -27,9 +27,9 @@ if(method_exists($plxShow, 'authorList')) {
 <?php
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
+
+	$plxShow->urlPostsRssFeed('', 'link');
 ?>
-	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('ARTICLES_RSS_FEEDS') ?>" href="<?php $plxShow->urlPostsRssFeed($plxShow->plxMotor->mode) ?>" />
-	<link rel="alternate" type="application/rss+xml" title="<?php $plxShow->lang('COMMENTS_RSS_FEEDS') ?>" href="<?php $plxShow->urlRewrite('feed.php?rss/commentaires') ?>" />
 </head>
 
 <body id="top" class="page mode-<?php $plxShow->mode(true) ?>">
