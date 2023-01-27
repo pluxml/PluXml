@@ -509,7 +509,7 @@ article:after {
 .footer {
 	background: #fff;
 	color: #666;
-	padding: 6rem 0;
+	padding: 6rem 0 2rem;
 	text-align: center;
 	font-size: 1.2rem;
 }
@@ -538,6 +538,16 @@ article:after {
 	.heading-small {
 		font-size: 3rem;
 	}
+}
+
+.gotop {
+	position: fixed;
+	bottom: 1rem;
+	right: 7%;
+}
+
+.gotop img {
+	height: 3rem;
 }
 
 @media (min-width: 64rem) {

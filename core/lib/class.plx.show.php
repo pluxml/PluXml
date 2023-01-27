@@ -1018,10 +1018,11 @@ class plxShow
 				switch($this->plxMotor->mode) {
 					case 'categorie':
 						if (!empty($id) and isset ($this->plxMotor->aCats[$id])) {
+							$caption = sprintf(L_ARTFEED_RSS_CATEGORY, $this->plxMotor->aCats[$id]['name']);
 							$replaces = array(
 								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/categorie' . intval($idstr)),
-								'#feedTitle'    => L_ARTFEED_RSS_CATEGORY,
-								'#feedName'     => L_ARTFEED_RSS_CATEGORY,
+								'#feedTitle'    => $caption,
+								'#feedName'     => $caption,
 							);
 						} else {
 							return;
@@ -1029,20 +1030,22 @@ class plxShow
 						break;
 					case 'user':
 						if (!empty($id) and isset ($this->plxMotor->aUsers[$id])) {
+							$caption = sprintf(L_ARTFEED_RSS_USER, $this->plxMotor->aUsers[$id]['name']);
 							$replaces = array(
 								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/user' . intval($idstr)),
-								'#feedTitle'    => L_ARTFEED_RSS_USER,
-								'#feedName'     => L_ARTFEED_RSS_USER,
+								'#feedTitle'    => $caption,
+								'#feedName'     => $caption,
 							);
 						} else {
 							return;
 						}
 						break;
 					case 'tags':
+						$caption = sprintf(L_ARTFEED_RSS_TAG, $this->plxMotor->cible);
 						$replaces = array(
 							'#feedUrl'		=> $this->plxMotor->urlRewrite('feed.php?rss/tag/' . plxUtils::strCheck($idstr)),
-							'#feedTitle'	=> L_ARTFEED_RSS_TAG,
-							'#feedName'		=> L_ARTFEED_RSS_TAG,
+							'#feedTitle'	=> $caption,
+							'#feedName'		=> $caption,
 						);
 						break;
 					default:
@@ -2554,31 +2557,187 @@ class plxShow
 	}
 
 	/**
-	 * Method in charge of giving an RSS feed URL for current page posts
+	 * Print tags in the html page or return urls for RSS feeds regarding modes (categorie, article, ...).
 	 *
-	 * @param mode        the view mode from plxMotor->mode (categorie, tags)
+	 * @param mode        the view mode from plxMotor->mode (categorie, tags, user or '')
+	 * @param html_tag		'', 'a', 'link', 'li' allowed
 	 * @return     string      the contextualised rss feed URL
-	 * @author     Pedro "P3ter" CADETE
+	 * @author     Pedro "P3ter" CADETE, Jean-Pierre Pourrez "bazooka07"
 	 */
-	public function urlPostsRssFeed($mode = 'home')
+	public function urlPostsRssFeed($mode = '', $html_tag='')
 	{
+		$href = $this->plxMotor->racine . 'feed.php?rss';
+		$default = $href;
+
+		if(empty($mode)) {
+			$mode = $this->plxMotor->mode;
+		}
+
 		switch ($mode) {
 			case 'categorie':
 				$id = $this->catId();
 				$idNum = intval($id);
-				return $this->urlRewrite('feed.php?rss/categorie' . $idNum . '/' . $this->plxMotor->aCats[$id]['url']);
+				$href .= '/categorie' . $idNum; // . '/' . $this->plxMotor->aCats[$id]['url']
+				$title = sprintf(L_ARTFEED_RSS_CATEGORY, $this->plxMotor->aCats[$id]['name']);
 				break;
 			case 'user':
 				$id = $this->plxMotor->cible;
 				$idNum = intval($id);
-				return $this->urlRewrite('feed.php?rss/user' . $idNum . '/' . $this->plxMotor->aUsers[$id]['login']);
+				$href .= '/user' . $idNum; //  . '/' . $this->plxMotor->aUsers[$id]['login']);
+				$title = sprintf(L_ARTFEED_RSS_USER, $this->plxMotor->aUsers[$id]['name']);
 				break;
 			case 'tags':
 				$tag = plxUtils::strCheck($this->plxMotor->cible);
-				return $this->urlRewrite('feed.php?rss/tag/' . plxUtils::strCheck($tag));
+				$href .= '/tag/' . urlencode($tag);
+				$title = sprintf(L_ARTFEED_RSS_TAG, $tag);
 				break;
 			default :
-				return $this->urlRewrite('feed.php?rss');
+				$default = '';
+				$title = L_ARTFEED_RSS;
+		}
+
+		if(empty($html_tag)) { # ---------- no tag <...> -------------
+			# url the feed url address for the articles in the current mode
+			return $this->urlRewrite($href);
+		} elseif(strtolower($html_tag) == 'a') { # ---------- <a> -------------
+?>
+<a class="rss" href="<?= $this->urlRewrite($href); ?>" download><?= $title  ?></a>
+<?php
+		} elseif(strtolower($html_tag) == 'link') { # ---------- <link> -------------
+			# Prints lhe link tags for articles and comments. Especially  for the heade of the html page
+?>
+	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $href ?>" />
+<?php
+			if(!empty($default)) {
+?>
+	<link rel="alternate" type="application/rss+xml" title="<?= L_ARTFEED_RSS ?>" href="<?= $default ?>" />
+<?php
+			}
+
+			# comments
+			if(empty($this->plxMotor->aConf['enable_rss_comment'])) {
+				return;
+			}
+
+			$href = $this->plxMotor->racine . 'feed.php?rss/commentaires';
+?>
+	<link rel="alternate" type="application/rss+xml" title="<?= L_COMFEED_RSS ?>" href="<?= $href ?>" />
+<?php
+			if($this->plxMotor->mode == 'article') {
+				if(empty($this->plxMotor->plxRecord_coms) or $this->plxMotor->plxRecord_coms->size == 0) {
+					# No available coms. Allowed ?
+					$records = $this->plxMotor->plxRecord_arts;
+					if(empty($records) or intval($records->f('allow_com')) == 0) {
+						# Comments are closed for this article
+						return;
+					}
+				}
+
+				$href .= '/article' . intval($this->plxMotor->cible);
+				$title = sprintf(L_COMFEED_RSS_ARTICLE, $this->plxMotor->plxRecord_arts->f('title'));
+?>
+	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $href ?>" />
+<?php
+			}
+		} elseif(strtolower($html_tag) == 'li') { # ---------- <li> -------------
+?>
+	<li><a class="rss" href="<?= $this->urlRewrite($href); ?>" download><?= $title  ?></a></li>
+<?php
+			if(!empty($default)) {
+?>
+	<li><a class="rss" href="<?= $this->urlRewrite($default); ?>" download><?= L_ARTFEED_RSS  ?></a></li>
+<?php
+			}
+
+			# comments
+			if(empty($this->plxMotor->aConf['enable_rss_comment'])) {
+				return;
+			}
+
+			$href = $this->plxMotor->racine . 'feed.php?rss/commentaires';
+?>
+	<li><a class="rss" href="<?= $href ?>" download><?= L_COMFEED_RSS ?></a></li>
+<?php
+			if($this->plxMotor->mode == 'article') {
+				if(empty($this->plxMotor->plxRecord_coms) or $this->plxMotor->plxRecord_coms->size == 0) {
+					# No available coms. Allowed ?
+					$records = $this->plxMotor->plxRecord_arts;
+					if(empty($records) or intval($records->f('allow_com')) == 0) {
+						# Comments are closed for this article
+						return;
+					}
+				}
+
+				$href .= '/article' . intval($this->plxMotor->cible);
+				$title = sprintf(L_COMFEED_RSS_ARTICLE, $this->plxMotor->plxRecord_arts->f('title'));
+?>
+	<li><a class="rss" href="<?= $href ?>" download><?= $title ?></a></li>
+<?php
+			}
 		}
 	}
+
+	/**
+	 * Print link tags for the html page for RSS feeds regarding modes (categorie, article, ...)
+	 *
+	 * @param $rewrite canonical url by default
+	 * @author Jean-Pierre Pourrez "bazooka07"
+	 * */
+	public function rssLinks($rewrite=false) {
+		if(empty($this->plxMotor->aConf['enable_rss'])) {
+			return;
+		}
+
+		switch($this->plxMotor->mode) {
+			case 'categorie':
+				$id = $this->catId();
+				$idNum = intval($id);
+				$query = '/categorie' . $idNum;
+				$title = sprintf(L_ARTFEED_RSS_CATEGORY, $this->plxMotor->aCats[$id]['name']);
+				break;
+			case 'user':
+				$id = $this->plxMotor->cible;
+				$idNum = intval($id);
+				$query = '/user' . $idNum;
+				$title = sprintf(L_ARTFEED_RSS_USER, $this->plxMotor->aUsers[$id]['name']);
+				break;
+			case 'tags':
+				$tag = plxUtils::strCheck($this->plxMotor->cible);
+				$query = '/tag/' . plxUtils::strCheck($tag);
+				$title = sprintf(L_ARTFEED_RSS_TAG, $this->plxMotor->cible);
+				break;
+			default:
+				$query = '';
+				$title = L_ARTFEED_RSS;
+		}
+		$href = $this->plxMotor->racine . 'feed.php?rss' . $query;
+		if($rewrite) {
+			$href = $this->urlRewrite($href);
+		}
+?>
+	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $href ?>" />
+<?php
+
+		if(empty($this->plxMotor->aConf['enable_rss_comment'])) {
+			return;
+		}
+
+		if($this->plxMotor->mode == 'article') {
+			if(empty($this->plxRecord_arts) or intval($this->plxRecord_arts->f('allow_com')) == 0) {
+				# Comments areclosed for this article
+				return;
+			}
+
+			$query = '/article' . intval($this->plxMotor->cible);
+			$title = sprintf(L_COMFEED_RSS_ARTICLE, $this->plxMotor->plxRecord_arts->f('title'));
+		} else {
+			$query = '';
+			$title = L_COMFEED_RSS;
+		}
+		$href = $this->plxMotor->racine . 'feed.php?rss/commentaires' . $query;
+?>
+	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $href ?>" />
+<?php
+	}
+
 }
