@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Edycja plików z szablonu';
 const L_CONFIG_VIEW_FILES_EDIT = 'Edytuj szablon';
 const L_CONFIG_VIEW_SORT = 'Sortowanie artykułów';
 const L_CONFIG_VIEW_BYPAGE = 'Artykuły na stronę';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Liczba artykułów na stronie głównej';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Artykuły na stronie w archiwach';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Artykuły na stronie w tagach';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Artykuły na stronie w administracji';

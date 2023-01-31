@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Editar los fichièrs del tèma';
 const L_CONFIG_VIEW_FILES_EDIT = 'Editar los fichièrs del tèma';
 const L_CONFIG_VIEW_SORT = 'Tria dels articles';
 const L_CONFIG_VIEW_BYPAGE = 'Nombre d\'articles afichats per pagina';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Nombre d\'articles affichés sur la page d\'accueil';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Nombre d\'articles afichats per pagina dins los archius';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Nombre d\'articles afichats per pagina dins los mots claus';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Nombre d\'articles afichats per pagina dins l\'administracion';

@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Edit theme files';
 const L_CONFIG_VIEW_FILES_EDIT = 'Edit theme files';
 const L_CONFIG_VIEW_SORT = 'Sorting articles';
 const L_CONFIG_VIEW_BYPAGE = 'Articles per page';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Count of articles on the homepage';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Articles per page in archives';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Articles per page in tags';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Articles per page in administration';

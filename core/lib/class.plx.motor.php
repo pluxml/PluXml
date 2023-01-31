@@ -509,7 +509,7 @@ class plxMotor {
 				$param = $values[$iTags['parametre'][$i]];
 				$name = $param['attributes']['name'];
 				$this->aConf[$name] = isset($param['value']) ? $param['value'] : '';
-				if(preg_match('#^(?:bypage|image|miniature)#', $name)) {
+				if(preg_match('#^(?:bypage|byhomepage|image|miniature)#', $name)) {
 					$this->aConf[$name] = intval($this->aConf[$name]);
 				}
 			}
@@ -764,9 +764,23 @@ class plxMotor {
 	public function getArticles($publi='before') {
 
 		# On calcule la valeur start
-		$start = $this->bypage*($this->page-1);
+		$start = $this->bypage * ($this->page - 1);
+		$bypage = $this->aConf['bypage'];
+		if(
+			$this->mode == 'home' and
+			!empty($this->aConf['byhomepage']) and
+			$this->aConf['byhomepage'] != $this->aConf['bypage']
+		) {
+			if($this->page > 1) {
+				$start = $this->aConf['byhomepage'] + $this->bypage * ($this->page - 2);
+			} else {
+				$start = 0;
+				$bypage = $this->aConf['byhomepage'];
+			}
+		}
+
 		# On recupere nos fichiers (tries) selon le motif, la pagination, la date de publication
-		if($aFiles = $this->plxGlob_arts->query($this->motif,'art',$this->tri,$start,$this->bypage,$publi)) {
+		if($aFiles = $this->plxGlob_arts->query($this->motif, 'art', $this->tri, $start, $bypage, $publi)) {
 			# On analyse tous les fichiers
 			$artsList = array();
 			foreach($aFiles as $v) {

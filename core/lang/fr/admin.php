@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Éditer les fichiers du thème';
 const L_CONFIG_VIEW_FILES_EDIT = 'Éditer les fichiers du thème';
 const L_CONFIG_VIEW_SORT = 'Tri des articles';
 const L_CONFIG_VIEW_BYPAGE = 'Nombre d\'articles affichés par page';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Nombre d\'articles affichés sur la page d\'accueil';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Nombre d\'articles affichés par page dans les archives';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Nombre d\'articles affichés par page dans les mots clés';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Nombre d\'articles affichés par page dans l\'administration';

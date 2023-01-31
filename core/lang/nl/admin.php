@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Layout-bestanden aanpassen';
 const L_CONFIG_VIEW_FILES_EDIT = 'Layout-bestanden editeren';
 const L_CONFIG_VIEW_SORT = 'Artikels sorteren';
 const L_CONFIG_VIEW_BYPAGE = 'Aantal artikels per pagina';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Aantal artikelen op de homepage';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Aantal artikels par pagina in archief';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Aantal artikels per pagina in tags';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Aantal artikels per pagina in administratie-gedeelte';

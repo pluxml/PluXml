@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Themendateien editieren';
 const L_CONFIG_VIEW_FILES_EDIT = 'Themendateien editieren';
 const L_CONFIG_VIEW_SORT = 'Artikelsortierung';
 const L_CONFIG_VIEW_BYPAGE = 'Angezeigte Artikel pro Seite';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Anzahl der auf der Startseite angezeigten Artikel';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Angezeigte Artikel pro Seite (Archiv)';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Angezeigte Artikel pro Seite in Tags';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Angezeigte Artikel pro Seite (Admin)';
