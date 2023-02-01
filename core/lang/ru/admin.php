@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Редактирование файло�
 const L_CONFIG_VIEW_FILES_EDIT = 'Редактирование файлов темы';
 const L_CONFIG_VIEW_SORT = 'Сортировка статей';
 const L_CONFIG_VIEW_BYPAGE = 'Статей на странице';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Количество статей на главной странице';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Статей на странице в архиве';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Статьи на странице в тегах';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Статей на странице в Админке';

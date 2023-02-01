@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Editaţi fişierele tema';
 const L_CONFIG_VIEW_FILES_EDIT = 'Editaţi fişierele tema';
 const L_CONFIG_VIEW_SORT = 'Sortare articole';
 const L_CONFIG_VIEW_BYPAGE = 'Numărul de articole afisate pe pagina';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Numărul articolelor de pe pagina principală';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Numărul de elemente afişate pe pagină în arhivă';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Numărul de articole pe pagină în etichetele';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Numărul de elemente afişate pe pagină în administraţie';

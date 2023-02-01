@@ -74,6 +74,7 @@ const DEFAULT_CONFIG = array(
 	'style'					=> 'defaut',
 	'clef'					=> '', # plxUtils::charAleatoire(15)
 	'bypage'				=> 5,
+	'byhomepage'			=> 0, # count of articles for the homepage. Maybe different from 'bypage'
 	'bypage_archives'		=> 5,
 	'bypage_tags'			=> 5,
 	'bypage_admin'			=> 10,

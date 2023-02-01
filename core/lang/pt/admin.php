@@ -344,6 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Editar os ficheiros do tema';
 const L_CONFIG_VIEW_FILES_EDIT = 'Editar os ficheiros do tema';
 const L_CONFIG_VIEW_SORT = 'Classificação dos artigos ';
 const L_CONFIG_VIEW_BYPAGE = 'Numero de artigos mostrados / página';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Contagem de artigos na página inicial';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Numero de artigos mostrados / página nos arquivos';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Numero de artigos por página nas tags';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Numero de artigos mostrados / página na administração';

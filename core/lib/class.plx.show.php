@@ -1882,57 +1882,63 @@ class plxShow
 
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
 		$aFiles = $plxGlob_arts->query($this->plxMotor->motif, 'art', '', 0, false, 'before');
+		$byhomepage = ($this->plxMotor->mode == 'home' and !empty($this->plxMotor->aConf['byhomepage']) and $this->plxMotor->aConf['byhomepage'] != $this->plxMotor->page) ? $this->plxMotor->aConf['byhomepage'] : $this->plxMotor->bypage;
 		if(
 			empty($aFiles) or
 			empty($this->plxMotor->bypage) or
-			sizeof($aFiles) <= $this->plxMotor->bypage
+			sizeof($aFiles) <= $byhomepage
 		) {
 			return;
 		}
 
 		# on supprime le n° de page courante dans l'url
-		$arg_url = preg_replace('~(/?page\d+)$~', '', $this->plxMotor->get);
+		$arg_url = preg_replace('~(\bpage\d+)$~', '', $this->plxMotor->get);
 
 		# Calcul des pages
 		$prev_page = $this->plxMotor->page - 1;
 		$next_page = $this->plxMotor->page + 1;
-		$last_page = ceil(sizeof($aFiles) / $this->plxMotor->bypage);
-		# Generation des URLs
-		$f_url = $this->plxMotor->urlRewrite('?' . $arg_url); # Premiere page
-		$arg = (!empty($arg_url) and $prev_page > 1) ? $arg_url . '/' : $arg_url;
-		$p_url = $this->plxMotor->urlRewrite('?' . $arg . ($prev_page <= 1 ? '' : 'page' . $prev_page)); # Page precedente
-		$arg = !empty($arg_url) ? $arg_url . '/' : $arg_url;
-		$n_url = $this->plxMotor->urlRewrite('?' . $arg . 'page' . $next_page); # Page suivante
-		$l_url = $this->plxMotor->urlRewrite('?' . $arg . 'page' . $last_page); # Derniere page
+		$last_page = ceil((sizeof($aFiles) -  $byhomepage) / $this->plxMotor->bypage);
 
 		# Hook Plugins
-		if (eval($this->plxMotor->plxPlugins->callHook('plxShowPagination'))) return;
+		if (eval($this->plxMotor->plxPlugins->callHook('plxShowPagination'))) {
+			return;
+		}
 
 		# On effectue l'affichage
 		if ($this->plxMotor->page > 2) {
 			# Si la page active > 2 on affiche un lien 1ère page
+			$url = $this->plxMotor->urlRewrite('?' . $arg_url); # Premiere page
 ?>
-	<a class="p_first button" href="<?= $f_url ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"><?= L_PAGINATION_FIRST ?></a>
+	<a class="p_first button" href="<?= $url ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"><?= L_PAGINATION_FIRST ?></a>
 <?php
 		}
+
+		$arg_url .= !empty($arg_url) ? '/page' : 'page';
+
 		if ($this->plxMotor->page > 1) {
 			# Si la page active > 1 on affiche un lien page precedente
+			$url = $this->plxMotor->urlRewrite($arg_url . $prev_page);
 ?>
-	<a class="p_prev button" href="<?= $p_url ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"><?= L_PAGINATION_PREVIOUS ?></a>
+	<a class="p_prev button" href="<?= $url ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"><?= L_PAGINATION_PREVIOUS ?></a>
 <?php
 		}
+
 		# Affichage de la page courante
 		printf('<span class="p_page p_current">' . L_PAGINATION . '</span>', $this->plxMotor->page, $last_page);
+
 		if ($this->plxMotor->page < $last_page) {
 			# Si la page active < derniere page on affiche un lien page suivante
+			$url = $this->plxMotor->urlRewrite($arg_url . $next_page);
 ?>
-	<a class="p_next button" href="<?= $n_url ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"><?= L_PAGINATION_NEXT ?></a>
+	<a class="p_next button" href="<?= $url ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"><?= L_PAGINATION_NEXT ?></a>
 <?php
 		}
-		if (($this->plxMotor->page + 1) < $last_page) {
+
+		if ($this->plxMotor->page < $last_page - 1) {
 			# Si la page active++ < derniere page on affiche un lien derniere page
+			$url = $this->plxMotor->urlRewrite($arg_url . $last_page);
 ?>
-	<a class="p_last button" href="<?= $l_url ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><?= L_PAGINATION_LAST ?></a>
+	<a class="p_last button" href="<?= $url ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><?= L_PAGINATION_LAST ?></a>
 <?php
 		}
 	}
