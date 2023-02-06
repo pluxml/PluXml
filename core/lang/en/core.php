@@ -122,13 +122,13 @@ const L_STATICCONTENT_INPROCESS		= 'This page is currently being edited';
 const L_SAID						= 'said';
 
 const L_PAGINATION_FIRST_TITLE		= 'Go to first page';
-const L_PAGINATION_FIRST			= '«';
+const L_PAGINATION_FIRST			= '⏪';
 const L_PAGINATION_PREVIOUS_TITLE	= 'Previous page';
-const L_PAGINATION_PREVIOUS			= 'previous';
+const L_PAGINATION_PREVIOUS			= '◀️';
 const L_PAGINATION_NEXT_TITLE		= 'Next page';
-const L_PAGINATION_NEXT				= 'next';
+const L_PAGINATION_NEXT				= '▶️';
 const L_PAGINATION_LAST_TITLE		= 'Go to last page';
-const L_PAGINATION_LAST				= '»';
+const L_PAGINATION_LAST				= '⏩';
 const L_PAGINATION					= 'page %s of %s';
 
 const L_PAGEBLOG_TITLE				= 'Blog';
