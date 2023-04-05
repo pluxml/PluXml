@@ -732,6 +732,8 @@ class plxUtils {
 				$thumb_width = $image[0];
 				$thumb_height = $image[1];
 			}
+			$thumb_width = intval($thumb_width);
+			$thumb_height = intval($thumb_height);
 		}
 
 		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
@@ -773,13 +775,13 @@ class plxUtils {
 		if($thumb_width==$thumb_height) {
 			if($image[0] > $image[1]) {
 				# For landscape images
-				$x_offset = ($image[0] - $image[1]) / 2;
+				$x_offset = intval(($image[0] - $image[1]) / 2);
 				$y_offset = 0;
 				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
 			} else {
 				# For portrait and square images
 				$x_offset = 0;
-				$y_offset = ($image[1] - $image[0]) / 2;
+				$y_offset = intval(($image[1] - $image[0]) / 2);
 				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
 			}
 		}
