@@ -49,8 +49,8 @@ $LANG = array(
 'COMMENTS_CLOSED'		  => 'Los comentaris son barrats',
 'ANTISPAM_WARNING'		=> 'Verificacion anti-spam',
 
-'REPLY'					      => 'Responder',
-'REPLY_TO'				    => 'Responder',
+'REPLY'					      => 'Respondre',
+'REPLY_TO'				    => 'Respondre',
 'CANCEL'				      => 'Anullar',
 
 );
