@@ -1,8 +1,8 @@
 <?php
 
-const L_LANGUE						= 'Occitan';
+const L_LANGUE						  = 'Occitan';
 const L_DATE_CREATION				= 'Data de creacion';
-const L_DATE_UPDATE					= 'Data de misa a jorn';
+const L_DATE_UPDATE					= 'Data de mesa a jorn';
 
 # common
 
@@ -90,20 +90,20 @@ const L_UNKNOWN_CATEGORY			= 'Aquesta categoria es inexistenta !';
 const L_NO_ARTICLE_PAGE				= 'Pas cap d\'article per aquesta pagina !';
 const L_UNKNOWN_ARTICLE				= 'Aqueste article existís pas o existís pas mai !';
 const L_COM_PUBLISHED				= 'Lo comentari es publicat';
-const L_COM_IN_MODERATION			= 'Lo comentari es per se far moderar per l\'administrator d\'aquel siti';
+const L_COM_IN_MODERATION			= 'Lo comentari es per se far moderar per l\'administrator d\'aquel site';
 const L_UNKNOWN_STATIC				= 'Aquesta pagina existís pas o existís pas mai !';
 const L_DOCUMENT_NOT_FOUND			= 'Lo document especificat es introbable';
 const L_NEWCOMMENT_ERR				= 'Una error s\'es produsida al temps de la publicacion d\'aquel comentari';
-const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Mercés d\'emplir totes los camps obligatòris requesits';
-const L_NEWCOMMENT_ERR_ANTISPAM		= 'La verificacion anti-spam s\'es abocada';
+const L_NEWCOMMENT_FIELDS_REQUIRED	= 'Mercés d\'emplenar totes los camps obligatòris requesits';
+const L_NEWCOMMENT_ERR_ANTISPAM		= 'La verificacion anti-spam a pas capitat';
 const L_UNKNOWN_AUTHOR				= 'Autor desconegut';
-const L_NEWCOMMENT_ERR_LOGIN		= 'Mauvais login ou mot de passe';
+const L_NEWCOMMENT_ERR_LOGIN		= 'Marrit login o senhal';
 
 # class.plx.show.php
 
 const L_HTTPENCODING				= 'Compression %s activada';
 const L_PAGETITLE_ARCHIVES			= 'Archius';
-const L_PAGETITLE_TAG				= 'Tag';
+const L_PAGETITLE_TAG				= 'Etiqueta';
 const L_NO_CATEGORY					= 'pas cap de categoria';
 const L_CATEGORY					= 'categoria';
 const L_CATEGORIES					= 'categorias';
@@ -134,7 +134,7 @@ const L_PAGINATION_LAST_TITLE		= 'Anar a la darrièra pagina';
 const L_PAGINATION_LAST				= '»';
 const L_PAGINATION					= 'pagina %s sus %s';
 const L_PAGEBLOG_TITLE				= 'Blog';
-const L_YEAR						= 'année';
+const L_YEAR						= 'annada';
 const L_TOTAL						= 'total';
 
 # class.plx.feed.php
