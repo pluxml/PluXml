@@ -199,7 +199,7 @@ class plxAdmin extends plxMotor {
 					continue;
 				}
 
-			} elseif($k == 'homestatic') {
+			} elseif($k == 'homeStatic') {
 				if(
 					empty(trim($v)) or
 					!preg_match('#^\d{3,4}$#', $v)
