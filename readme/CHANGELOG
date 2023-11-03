@@ -1,12 +1,13 @@
 ## PLUXML 5.8.10 (2022/xx/xx) ##
-ADD Multi-lines for plxMsg #542 (lolo3129)
-FIX plxAdmin::editConfiguration() for PLX_CONFIG_PATH #566 (bazooka07)
-FIX plxUtils::urlify() (url_encode boggué) #577 (bazooka07)
-Fix plxUtils::testModRewrite #573 (bazooka07)
-Fix occitan translation #567 (ensag-dev)
-Fix plxShow::staticInclude #575 (bazooka07)
-FIX regex for moderated comms in back-office, misc. optimization for comms #572 (bazooka07)
+ADD Multilines for plxMsg() #542 (lolo3129)
 ADD new constant PLX_VERSION_DATA - async versions between datas and PluXml #576 (bazooka07)
+FIX plxAdmin::editConfiguration() for PLX_CONFIG_PATH #566 (bazooka07)
+FIX plxUtils::urlify() (url_encode bugfix) #577 (bazooka07)
+FIX plxUtils::testModRewrite #573 (bazooka07)
+FIX i18n: Occitan translations #567 (ensag-dev)
+FIX i18n: Occitan translations #664 (Mejans)
+FIX plxShow::staticInclude #575 (bazooka07)
+FIX regex for moderated comms in backoffice, misc. optimizations on comments #572 (bazooka07)
 
 ## PLUXML 5.8.9 (2022/08/01) ##
 REVERT v5.8.8 FIX Static pages PHP injection vulnerability #558 (P3ter, Moritz Huppert)
