@@ -10,11 +10,11 @@ const L_INPUT_CHANGE					= 'Cambiar';
 
 const L_UPDATE_UPTODATE					= 'Vòstre PluXml es ja a jorn.';
 const L_UPDATE_NOT_AVAILABLE			= 'Cap de mesa a jorn es pas disponibla.';
-const L_UPDATE_BACK						= 'Tornar al siti';
+const L_UPDATE_BACK						= 'Tornar al site';
 const L_UPDATE_WARNING1					= 'Anatz metre a jorn vòstra anciana version de PluXml';
 const L_UPDATE_SELECT_VERSION			= 'Volgatz seleccionar dins la lista çai jos vòstra anciana version de PluXml a metre a jorn.';
 const L_UPDATE_WARNING2					= 'Se vòstra anciana version es pas listada aicí, es qu\'existís pas cap de procedura automatizada de mesa a jorn car vòstra version es tròp vièlha.<br />Vos prepausam de telecargar la darrièra version de <a href="https://www.pluxml.org">PluXml</a> e de realizar una nòva installacion.';
-const L_UPDATE_WARNING3					= 'Atencion, abans d\'amodar la mesa a jorn, oblidetz pas de far una salvagarda de vòstras donadas en fasent une còpia del dorsièr "%s"';
+const L_UPDATE_WARNING3					= 'Atencion, abans d\'amodar la mesa a jorn, oblidetz pas de far una salvagarda de vòstras donadas en fasent una còpia del dorsièr "%s"';
 const L_UPDATE_START					= 'Amodar la mesa a jorn';
 
 const L_UPDATE_ENDED					= 'Mesa a jorn de la version %s terminada.';
@@ -56,5 +56,5 @@ const L_UPDATE_COMMENTS_MIGRATION		= 'Migracion dels comentaris';
 const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Error pendent la migracion dels comentaris';
 
 # PluXml 5.8.7
-const L_BUILD_CSS_PLUGINS_CACHE			= 'Création fichiers cache admin.css et site.css pour plugins';
+const L_BUILD_CSS_PLUGINS_CACHE			= 'Creacion dels fichièrs cache admin.css e site.css pels plugins';
 
