@@ -48,7 +48,7 @@ const L_ARTICLE_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
 const L_ARTICLE_SAVE_ERR = 'Error al temps de la salvagarda de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Una error es subrevenguda pendent la supression de l\'article';
 const L_ERR_UNKNOWN_COMMENT = 'Lo comentari demandat existís pas o existís pas mai';
-const L_ERR_URL_ALREADY_EXISTS = 'URL déjà utilisée. Veuillez modifier la valeur du champ \'URL\'';
+const L_ERR_URL_ALREADY_EXISTS = 'URL ja utilizada. Volgatz modificar la valor del camp \'URL\'';
 
 // class.plx.media.php
 
@@ -84,7 +84,7 @@ const L_PLXMEDIAS_RECREATE_THUMBS_SUCCESSFUL = 'Vinhetas creadas amb succès';
 const L_DEFAULT_NEW_ARTICLE_TITLE = 'Novèl article';
 const L_ERR_INVALID_PUBLISHING_DATE = 'Data de publicacion invalida';
 const L_ERR_UNKNOWN_ARTICLE = 'L\'article demandat existís pas o existís pas mai !';
-const L_ERR_FORBIDDEN_ARTICLE = 'Avètz pas los dreches per accedir a-n aquel article !';
+const L_ERR_FORBIDDEN_ARTICLE = 'Avètz pas los dreches per accedir a aquel article !';
 const L_BACK_TO_ARTICLES = 'Tornar a la lista dels articles';
 const L_ARTICLE_EDITING = 'Modificacion d\'un article';
 const L_ARTICLE_TITLE = 'Títol';
@@ -92,7 +92,7 @@ const L_ARTICLE_LIST_AUTHORS = 'Autor';
 const L_HEADLINE_FIELD = 'Chapô (facultatiu)';
 const L_CONTENT_FIELD = 'Contengut';
 const L_LINK_FIELD = 'Ligam de l\'article';
-const L_LINK_ACCESS = 'Accedir à l\'article';
+const L_LINK_ACCESS = 'Accedir a l\'article';
 const L_LINK_VIEW = 'veire';
 const L_ARTICLE_STATUS = 'Estat';
 const L_DRAFT = 'Borrolhon';
@@ -105,7 +105,7 @@ const L_CATEGORY_HOME_PAGE = 'Pagina d\'acuèlh';
 const L_ARTICLE_TAGS_FIELD = 'Mots claus';
 const L_ARTICLE_TAGS_FIELD_TITLE = 'Separar los mots claus per una virgula';
 const L_ARTICLE_TOGGLER_TITLE = 'Lista dels mots claus';
-const L_NO_TAG = 'Pas cap de tag';
+const L_NO_TAG = 'Pas cap d’etiqueta';
 const L_ALLOW_COMMENTS = 'Autorizar los comentaris';
 const L_ARTICLE_URL_FIELD = 'Url';
 const L_ARTICLE_URL_FIELD_TITLE = 'l\'URL s\'emplís automaticament a la creacion';
@@ -118,17 +118,17 @@ const L_ARTICLE_DELETE_CONFIRM = 'Suprimir aqueste article ?';
 const L_ARTICLE_PREVIEW_BUTTON = 'Apercebut';
 const L_ARTICLE_DRAFT_BUTTON = 'Enregistrar borrolhon';
 const L_ARTICLE_PUBLISHING_BUTTON = 'Publicar';
-const L_ARTICLE_MODERATE_BUTTON = 'Sosmetre per validacion';
+const L_ARTICLE_MODERATE_BUTTON = 'Sometre per validacion';
 const L_ARTICLE_OFFLINE_BUTTON = 'Metre fòra linha';
 const L_ARTICLE_UPDATE_BUTTON = 'Enregistrar';
 const L_CATEGORY_ADD_BUTTON = 'Ajustar';
 const L_ARTICLE_META_DESCRIPTION = 'Contengut balisa meta « descripcion » (opcion)';
 const L_ARTICLE_META_KEYWORDS = 'Contengut balisa meta « keywords » (opcion)';
-const L_ARTICLE_TITLE_HTMLTAG = 'Contengut balisa title (opcion)';
+const L_ARTICLE_TITLE_HTMLTAG = 'Contengut balisa « title » (opcion)';
 const L_ARTICLE_CHAPO_HIDE = 'mascar';
 const L_ARTICLE_CHAPO_DISPLAY = 'afichar';
 const L_ARTICLE_ID = 'Identificant';
-const L_PINNED_ARTICLE = 'Article épinglé';
+const L_PINNED_ARTICLE = 'Article penjat';
 
 // auth.php
 
@@ -137,17 +137,17 @@ const L_LOGOUT_SUCCESSFUL = 'Sètz estat corrèctament desconnectat';
 const L_LOGIN_PAGE = 'Connexion a la zòna d\'administracion';
 const L_AUTH_LOST_FIELD = 'Identificant o adreça electronica';
 const L_SUBMIT_BUTTON = 'Validar';
-const L_ERR_WRONG_PASSWORD = 'Identificant e/o senhal incorrèct';
+const L_ERR_WRONG_PASSWORD = 'Identificant e/o senhal incorrècte';
 const L_POWERED_BY = 'Generat per <a href="https://www.pluxml.org">PluXml</a>';
 const L_ERR_MAXLOGIN = 'Nombre de pròvas atent<br />Tornatz ensajar d’aquí %s minutas';
 const L_LOST_PASSWORD_LOGIN = 'Se connectar';
 const L_LOST_PASSWORD_SUCCESS = 'Corrièl enviat a l’utilizaire';
-const L_LOST_PASSWORD_ERROR = 'Le lien est expiré';
+const L_LOST_PASSWORD_ERROR = 'Lo ligam es expirat';
 
 //
 
 const L_SORT_ASCENDING_DATE = 'data creissenta';
-const L_SORT_DESCENDING_DATE = 'data decreissenta';
+const L_SORT_DESCENDING_DATE = 'data descreissenta';
 const L_SORT_ALPHABETICAL = 'alfabetic';
 const L_SORT_REVERSE_ALPHABETICAL = 'alfabetic invèrs,';
 const L_SORT_RANDOM = 'aleatòri';
@@ -175,7 +175,7 @@ const L_NEW_CATEGORY = 'Novèla categoria';
 const L_FOR_SELECTION = 'Per la seleccion...';
 const L_CAT_APPLY_BUTTON = 'Modificar la lista de las categorias';
 const L_CAT_UNKNOWN = 'categoria desconeguda';
-const L_ERR_CATEGORY_ALREADY_EXISTS = 'Nom de catégorie déjà utilisé';
+const L_ERR_CATEGORY_ALREADY_EXISTS = 'Nom de categoria ja utilizat';
 
 // categorie.php
 
@@ -194,7 +194,7 @@ const L_EDITCAT_META_KEYWORDS = 'Contengut de la balisa meta "keywords" per aque
 const L_COMMENT_ORPHAN = 'pas cap d\'article';
 const L_COMMENT_ORPHAN_STATUS = 'non visible (vos conselham de suprimir aqueste comentari)';
 const L_COMMENT_ARTICLE_LINKED = 'Article';
-const L_COMMENT_ARTICLE_LINKED_TITLE = 'Article estacat a-n aquel comentari';
+const L_COMMENT_ARTICLE_LINKED_TITLE = 'Article estacat a aquel comentari';
 const L_COMMENT_OFFLINE = 'Fòra linha';
 const L_COMMENT_ONLINE = 'En linha';
 const L_COMMENT_ONLINE_TITLE = 'Visualizar aqueste comentari en linha';
@@ -213,7 +213,7 @@ const L_COMMENT_ARTICLE_FIELD = 'Comentari';
 const L_COMMENT_DELETE_CONFIRM = 'Suprimir aqueste comentari ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Validar la publicacion';
 const L_COMMENT_OFFLINE_BUTTON = 'Metre fòra linha';
-const L_COMMENT_ANSWER_BUTTON = 'Respondre a-n aquel comentari';
+const L_COMMENT_ANSWER_BUTTON = 'Respondre a aquel comentari';
 const L_COMMENT_UPDATE_BUTTON = 'Metre a jorn';
 const L_COMMENT_WRITTEN_BY = 'Redigit per';
 const L_ERR_CATEGORY_ALREADY_EXISTS = 'Nom de categoria ja utilizat';
@@ -240,7 +240,7 @@ const L_CREATING_COMMENT_SUCCESSFUL = 'Lo comentari es estat creat amb succès';
 const L_CREATE_NEW_COMMENT = 'Redigir un comentari';
 const L_COMMENT_SAVE_BUTTON = 'Enregistrar';
 const L_ARTICLE_COMMENTS_LIST = 'Comentaris d\'aquel article';
-const L_COMMENT_ANSWER_TITLE = 'Respondre a-n aquel comentari';
+const L_COMMENT_ANSWER_TITLE = 'Respondre a aquel comentari';
 const L_COMMENT_ANSWER = 'Respondre';
 
 // comments.php
@@ -254,11 +254,11 @@ const L_COMMENTS_LIST_ACTION = 'Accion';
 const L_COMMENT_EDIT = 'Editar';
 const L_COMMENT_EDIT_TITLE = 'Editar aquel comentari';
 const L_COMMENT_DELETE = 'Suprimir';
-const L_COMMENT_OFFLINE_FEEDS_TITLE = 'Flus rss dels comentaris fòra-linha';
+const L_COMMENT_OFFLINE_FEEDS_TITLE = 'Flux rss dels comentaris fòra-linha';
 const L_COMMENT_OFFLINE_FEEDS = 'Comentaris fòra-linha';
-const L_COMMENT_ONLINE_FEEDS_TITLE = 'Flus rss dels comentaris en-linha';
+const L_COMMENT_ONLINE_FEEDS_TITLE = 'Flux rss dels comentaris en-linha';
 const L_COMMENT_ONLINE_FEEDS = 'Comentaris en-linha';
-const L_COMMENTS_PRIVATE_FEEDS = 'Flus de sindicacion privats';
+const L_COMMENTS_PRIVATE_FEEDS = 'Flux de sindicacion privats';
 const L_COMMENTS_ONLINE_LIST = 'Lista dels comentaris publicats';
 const L_COMMENTS_OFFLINE_LIST = 'Lista dels comentaris en espèra de validacion';
 const L_COMMENTS_ALL_LIST = 'Lista dels comentaris';
@@ -344,7 +344,7 @@ const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Editar los fichièrs del tèma';
 const L_CONFIG_VIEW_FILES_EDIT = 'Editar los fichièrs del tèma';
 const L_CONFIG_VIEW_SORT = 'Tria dels articles';
 const L_CONFIG_VIEW_BYPAGE = 'Nombre d\'articles afichats per pagina';
-const L_CONFIG_VIEW_BY_HOMEPAGE = 'Nombre d\'articles affichés sur la page d\'accueil';
+const L_CONFIG_VIEW_BY_HOMEPAGE = 'Nombre d\'articles afichats per la pagina d\'acuèlh';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Nombre d\'articles afichats per pagina dins los archius';
 const L_CONFIG_VIEW_BYPAGE_TAGS = 'Nombre d\'articles afichats per pagina dins los mots claus';
 const L_CONFIG_VIEW_BYPAGE_ADMIN = 'Nombre d\'articles afichats per pagina dins l\'administracion';
@@ -366,11 +366,11 @@ const L_CONFIG_HOMETEMPLATE = 'Modèl de la pagina d\'acuèlh';
 // parametres_avances.php
 
 const L_CONFIG_ADVANCED_DESC = 'Configuracion avançada';
-const L_BUILD = 'Créer';
+const L_BUILD = 'Crear';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Activar la reescritura d\'urls';
-const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atencion un fichièr .htaccess es ja present a la raiç de vòstre PluXml. En activent la reescritura d\'url aquel fichièr serà modificat';
+const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atencion un fichièr .htaccess es ja present a la raiç de vòstre PluXml. En activant la reescritura d\'url aquel fichièr serà modificat';
 const L_CONFIG_ADVANCED_GZIP = 'Activar la compression GZIP';
-const L_CONFIG_ADVANCED_GZIP_HELP = 'Permet de compressar las paginas per estalviar de banda passanta, ça que la pòt augmentar la carga processor';
+const L_CONFIG_ADVANCED_GZIP_HELP = 'Permet de compressar las paginas per estalviar de banda passanta, ça que la pòt aumentar la carga processor';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activar lo capcha anti-spam';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Activar la recuperacion del senhal';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clau d\'administracion (URLs privadas)';
@@ -429,8 +429,8 @@ const L_CONFIG_META_DESCRIPTION = 'Contengut de la balisa meta « descripcion�
 const L_CONFIG_META_KEYWORDS = 'Contengut de las balisas meta « keywords » del site (opcion)';
 const L_CONFIG_BASE_ENABLE_RSS = 'Mostrar los flux RSS';
 const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Mostrar los flux RSS dels comentaris';
-const L_EVERY_BODY = 'Tout le monde';
-const L_SUBSCRIBERS_ONLY = 'Abonnés seulement';
+const L_EVERY_BODY = 'Tot lo monde';
+const L_SUBSCRIBERS_ONLY = 'Abonats sonque';
 
 // parametres_edittpl.php
 
@@ -442,7 +442,7 @@ const L_CONFIG_EDITTPL_LOAD = 'Cargar';
 // parametres_infos.php
 
 const L_CONFIG_INFOS_TITLE = 'Informacions relativas a PluXml';
-const L_CONFIG_INFOS_DESCRIPTION = 'Aquelas informacions vos entresenhan sul foncionament de vòstre PluXml e se pòdon averar utilas per son depanatge.';
+const L_CONFIG_INFOS_DESCRIPTION = 'Aquelas informacions vos entresenhan sul foncionament de vòstre PluXml e se pòdon averar utilas per sa reparacion.';
 const L_CONFIG_INFOS_NB_CATS = 'Nombre de categorias :';
 const L_CONFIG_INFOS_NB_STATICS = 'Nombre de paginas estaticas :';
 const L_CONFIG_INFOS_WRITER = 'Nom del redactor en session :';
@@ -454,7 +454,7 @@ const L_PLUXML_UPDATE_AVAILABLE = 'Una novèla version de PluXml es sortida ! La
 const L_MAIL_TEST = 'Enviar un e-mail de pròva';
 const L_MAIL_TEST_SUBJECT = 'E-mail de pròva enviat de %s estant';
 const L_MAIL_TEST_SENT_TO = 'E-mail de pròva enviat a %s. Verificatz vòstra bóstia de recepcion';
-const L_MAIL_TEST_FAILURE = 'Fracàs del mandandadís de l\'e-mail de pròva';
+const L_MAIL_TEST_FAILURE = 'Fracàs del mandadís de l\'e-mail de pròva';
 
 // parametres_users.php
 
@@ -488,8 +488,8 @@ const L_PLUGINS_ACTIVATE = 'Activar';
 const L_PLUGINS_DEACTIVATE = 'Desactivar';
 const L_PLUGINS_DELETE = 'Suprimir';
 const L_PLUGINS_DELETE_ERROR = 'Una error s\'es produsida al temps de la supression';
-const L_PLUGINS_ENABLED_ERROR = 'Le plugin %s est toujours actif. Suppression impossible.';
-const L_DELETE_FILE_ERROR = 'Impossible de supprimer le fichier %s';
+const L_PLUGINS_ENABLED_ERROR = 'Lo plugin %s es totjorn actiu. Supression impossibla.';
+const L_DELETE_FILE_ERROR = 'Impossible de suprimir lo fichièr %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
 const L_PLUGINS_CONFIG = 'Configuracion';
 const L_PLUGINS_CONFIG_TITLE = 'Configuracion del plugin';
@@ -560,7 +560,7 @@ const L_PROFIL_MANAGER = 'Gestionari';
 const L_PROFIL_MODERATOR = 'Moderator';
 const L_PROFIL_EDITOR = 'Editor';
 const L_PROFIL_WRITER = 'Redactor';
-const L_PROFIL_SUBSCRIBER = 'Abonné';
+const L_PROFIL_SUBSCRIBER = 'Abonat';
 const L_ADMIN = 'Administracion';
 const L_LOGIN = 'Connectat en tant que';
 const L_ADMIN_LOGOUT = 'Desconnexion';
@@ -612,7 +612,7 @@ const L_MENU_CONFIG_INFOS = 'Informacions';
 const L_MENU_CONFIG_PLUGINS_TITLE = 'Gerir los plugins';
 const L_MENU_CONFIG_PLUGINS = 'Plugins';
 const L_THEMES = 'Tèmas';
-const L_THEMES_TITLE = 'Gerir los themes';
+const L_THEMES_TITLE = 'Gerir los tèmas';
 const L_HELP = 'Ajuda';
 const L_HELP_TITLE = 'Veire l\'ajuda';
 const L_BACK_TO_THEMES = 'Tornar a la lista dels tèmas';
