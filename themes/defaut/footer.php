@@ -13,7 +13,7 @@
 			</p>
 		</div>
 		<div class="gotop">
-			<a href="#top" title="<?php $plxShow->lang('GOTO_TOP') ?>"><img src="<?php $plxShow->template(); ?>/img/up.svg" alt="▲"</a>
+			<a href="#top" title="<?php $plxShow->lang('GOTO_TOP') ?>"><img src="<?php $plxShow->template(); ?>/img/up.svg" alt="▲"></a>
 		</div>
 	</footer>
 </body>
