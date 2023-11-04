@@ -103,11 +103,11 @@ if(empty($artTitle)) {
 $_GET['artTitle'] = $artTitle;
 
 # On génère notre motif de recherche
+$artId = '\d{4}';
+$url = '.*';
 if(is_numeric($_GET['artTitle'])) {
 	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
-	$url = '.*';
-} else {
-	$artId = '\d{4}';
+} elseif(!empty($_GET['artTitle'])) {
 	$url = '.*' .plxUtils::urlify($_GET['artTitle']) . '.*';
 }
 $motif = '#^' . $mod . implode('\.', [$artId, $catIdSel, $userId, '\d{12}', $url,]) . '\.xml$#';
@@ -120,6 +120,11 @@ if($_GET['artTitle']!='') {
 # Traitement
 $plxAdmin->prechauffage($motif);
 $plxAdmin->getPage();
+
+if(($plxAdmin->page - 1) * $plxAdmin->bypage > $nbArtPagination) {
+	$plxAdmin->page = 1;
+}
+
 $arts = $plxAdmin->getArticles('all'); # Recuperation des articles
 
 # Génération de notre tableau des catégories
@@ -158,9 +163,12 @@ foreach([
 	'draft' => [L_ALL_DRAFTS, '_?'],
 	'mod' => [L_ALL_AWAITING_MODERATION, '_'],
 ] as $sel=>$infos) {
+	$nb = $plxAdmin->nbArticles($sel, $userId, $infos[1]);
+	if($nb > 0) {
 ?>
-		<li><a <?= ($_SESSION['sel_get']== $sel) ? 'class="selected" ' : '' ?>href="index.php?sel=<?= $sel ?>"><?= $infos[0] ?></a> <em>(<?= $plxAdmin->nbArticles($sel, $userId, $infos[1]) ?>)</em></li>
+		<li><a <?= ($_SESSION['sel_get']== $sel) ? 'class="selected" ' : '' ?>href="index.php?sel=<?= $sel ?>&page=1"><?= $infos[0] ?></a> <em>(<?= $nb ?>)</em></li>
 <?php
+	}
 }
 ?>
 	</ul>

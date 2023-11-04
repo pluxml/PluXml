@@ -65,19 +65,22 @@ class plxAdmin extends plxMotor {
 	public function getPage() {
 
 		# Initialisation
-		$pageName = basename($_SERVER['PHP_SELF']);
-		$savePage = preg_match('/admin\/(index|comments).php/', $_SERVER['PHP_SELF']);
+		$pageName = basename($_SERVER['PHP_SELF'], '.php');
+		$savePage = preg_match('#admin/(?:index|comments)\.php$#', $_SERVER['PHP_SELF']);
 		# On check pour avoir le numero de page
 		if(!empty($_GET['page']) AND is_numeric($_GET['page']) AND $_GET['page'] > 0)
 			$this->page = $_GET['page'];
 			elseif($savePage) {
-				if(!empty($_POST['sel_cat']))
+				if(!empty($_POST['sel_cat'])) {
 					$this->page = 1;
-					else
-						$this->page = !empty($_SESSION['page'][$pageName])?intval($_SESSION['page'][$pageName]):1;
+				} else {
+					$this->page = !empty($_SESSION['page'][$pageName]) ? intval($_SESSION['page'][$pageName]) : 1;
+				}
 			}
 			# On sauvegarde
-			if($savePage) $_SESSION['page'][$pageName] = $this->page;
+			if($savePage) {
+				$_SESSION['page'][$pageName] = $this->page;
+			}
 	}
 
 	/**

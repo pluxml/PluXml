@@ -381,7 +381,8 @@ input[maxlength="3"] {
 	/* Internet Explorer 5.5+ */
 	word-wrap: break-word;
 	word-break: break-all;
-	white-space: normal;
+	/* white-space: normal; */
+	white-space: nowrap;
 }
 
 #plugins-table p {
@@ -1064,4 +1065,26 @@ select::-ms-expand {/*for IE10*/
 
 #articles-table .pin {
 	background-color: #d8d8d8;
+}
+
+/* ----------- index.php -------------- */
+
+.scrollable-table {
+	position: relative;
+	max-height: calc(100vh - 15rem); /* see margins for .section */
+}
+.scrollable-table th {
+	position: sticky;
+	top: 0;
+	background-color: inherit;
+}
+.scrollable-table thead tr {
+	background-color: #e8e8e8;
+}
+
+#pagination {
+	position: fixed;
+	bottom: 0;
+	width: 95%;
+	background-color: #fff;
 }

@@ -227,7 +227,7 @@ class plxMotor {
 		) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
-			$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
+			# $this->bypage = $this->aConf['bypage']; # Nombre d'article par page
 			# On regarde si on a des articles en mode "home"
 			$this->motif = '#^\d{4}\.(?:\d{3},|pin,)*home(,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			if(!$this->plxGlob_arts->query($this->motif)) {
@@ -271,7 +271,9 @@ class plxMotor {
 						$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*' . $this->cible . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 						$this->template = $this->aCats[$this->cible]['template'];
 						$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
-						$this->bypage =  ($this->aCats[$this->cible]['bypage'] > 0) ? $this->aCats[$this->cible]['bypage'] : $this->aConf['bypage'];
+						if($this->aCats[$this->cible]['bypage'] > 0) {
+							$this->bypage = $this->aCats[$this->cible]['bypage'];
+						}
 					} else {
 						# Redirection 301
 						$this->redir301($this->urlRewrite('?categorie'.intval($this->cible).'/'.$this->aCats[$this->cible]['url']));
@@ -282,7 +284,7 @@ class plxMotor {
 			} elseif(preg_match('#^user(\d+)/?(\w[\w+-]+)?#',$this->get,$capture)) {
 				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
 				if(isset($this->aUsers[$this->cible]) and $this->aUsers[$this->cible]['active']) {
-					$this->bypage = $this->aConf['bypage'];
+					# $this->bypage = $this->aConf['bypage'];
 					$urlName = plxUtils::urlify($this->aUsers[$this->cible]['name']);
 					if(isset($capture[2]) AND $urlName == $capture[2]) {
 						$this->mode = 'user'; # Mode user
@@ -577,7 +579,7 @@ class plxMotor {
 				# Recuperation du tri de la categorie si besoin est
 				$this->aCats[$number]['tri']=isset($attributes['tri'])?$attributes['tri']:$this->aConf['tri'];
 				# Recuperation du nb d'articles par page de la categorie si besoin est
-				$this->aCats[$number]['bypage']=isset($attributes['bypage'])?intval($attributes['bypage']):$this->bypage;
+				$this->aCats[$number]['bypage']=isset($attributes['bypage']) ? intval($attributes['bypage']) : $this->bypage;
 				# Recuperation du fichier template
 				$this->aCats[$number]['template']=isset($attributes['template']) ? $attributes['template']:'categorie.php';
 				# Récupération des informations de l'image représentant la catégorie
@@ -764,8 +766,8 @@ class plxMotor {
 	public function getArticles($publi='before') {
 
 		# On calcule la valeur start
-		$start = $this->bypage * ($this->page - 1);
-		$bypage = $this->aConf['bypage'];
+		$bypage = $this->bypage;
+		$start = $bypage * ($this->page - 1);
 		if(
 			$this->mode == 'home' and
 			!empty($this->aConf['byhomepage']) and
