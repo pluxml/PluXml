@@ -1491,7 +1491,7 @@ EOT;
 EOT;
 					} else {
 						echo <<<EOT
-							<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+							<option disabled value=""$classAttr data-level="$dataLevel">$prefix$caption/</option>
 
 EOT;
 					}
