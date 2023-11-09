@@ -705,15 +705,46 @@ class plxUtils {
 		$image = getimagesize($src_image);
 
 		# Check for valid dimensions
-		if($image[0] <= 0 || $image[1] <= 0) return false;
+		if(!$image || $image[0] <= 0 || $image[1] <= 0) return false;
 
 		# Determine format from MIME-Type
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
 
-		# calcul du ration si nécessaire
+		$alpha = true; # Allow Transparency
+		$image_data = false;
+
+		# Import image
+		switch( $image['format'] ) {
+			case 'jpg':
+			case 'jpeg':
+				$image_data = imagecreatefromjpeg($src_image);
+				$alpha = false;# No Transparency
+				break;
+			case 'png':
+				$image_data = imagecreatefrompng($src_image);
+				break;
+			case 'gif':
+				$image_data = imagecreatefromgif($src_image);
+				break;
+			case 'webp':# Unsupported Animated WebP (VP8X) warn hidden
+				$image_data = @imagecreatefromwebp($src_image);# PHP 5.4 min
+				break;
+			case 'x-ms-bmp':
+				if(function_exists('imagecreatefrombmp')) {# PHP 7.2 min
+					$image_data = @imagecreatefrombmp($src_image);
+				}
+				break;
+			default:
+				return false; # Unsupported format
+		}
+
+		# Verif import
+		if(!$image_data) return false;
+
+		$x_offset = $y_offset = 0;
+		# calcul du ratio si nécessaire
 		if($thumb_width!=$thumb_height) {
 			# Calcul du ratio
-			$x_offset = $y_offset = 0;
 			$square_size_w = $image[0];
 			$square_size_h = $image[1];
 			$ratio_w = $thumb_width / $image[0];
@@ -732,56 +763,30 @@ class plxUtils {
 				$thumb_width = $image[0];
 				$thumb_height = $image[1];
 			}
+			$thumb_width = intval($thumb_width);
+			$thumb_height = intval($thumb_height);
 		}
-
-		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
-
-		# Import image
-		switch( $image['format'] ) {
-			case 'jpg':
-			case 'jpeg':
-				$image_data = imagecreatefromjpeg($src_image);
-				break;
-			case 'png':
-				$image_data = imagecreatefrompng($src_image);
-				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
-				imagefill($canvas, 0, 0, $color);
-				imagesavealpha($canvas, true);
-				break;
-			case 'gif':
-				$image_data = imagecreatefromgif($src_image);
-				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
-				imagefill($canvas, 0, 0, $color);
-				imagesavealpha($canvas, true);
-				break;
-			case 'webp':
-				$image_data = imagecreatefromwebp($src_image);
-				break;
-			case 'x-ms-bmp':
-				#$image_data = imagecreatefrombmp($src_image); # Only PHP 7+
-				$image_data = false;
-				break;
-			default:
-				return false; # Unsupported format
-			break;
-		}
-
-		# Verify import
-		if($image_data == false) return false;
 
 		# Calculate measurements (square crop)
 		if($thumb_width==$thumb_height) {
 			if($image[0] > $image[1]) {
 				# For landscape images
-				$x_offset = ($image[0] - $image[1]) / 2;
-				$y_offset = 0;
+				$x_offset = intval(($image[0] - $image[1]) / 2);
 				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
 			} else {
 				# For portrait and square images
-				$x_offset = 0;
-				$y_offset = ($image[1] - $image[0]) / 2;
+				$y_offset = intval(($image[1] - $image[0]) / 2);
 				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
 			}
+		}
+
+		# Create canvas
+		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
+		if($alpha) {# Transparency
+			$alpha = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
+			imagefill($canvas, 0, 0, $alpha);
+			imagealphablending($canvas, false);
+			imagesavealpha($canvas, true);
 		}
 
 		# Resize and crop
