@@ -1,4 +1,4 @@
-## PLUXML 5.8.10 (2022/xx/xx) ##
+## PLUXML 5.8.10 (2023/xx/xx) ##
 ADD Multilines for plxMsg() #542 (lolo3129)
 ADD new constant PLX_VERSION_DATA - async versions between datas and PluXml #576 (bazooka07)
 FIX plxAdmin::editConfiguration() for PLX_CONFIG_PATH #566 (bazooka07)
@@ -8,7 +8,8 @@ FIX i18n: Occitan translations #567 (ensag-dev)
 FIX i18n: Occitan translations #664 (Mejans)
 FIX plxShow::staticInclude #575 (bazooka07)
 FIX regex for moderated comms in backoffice, misc. optimizations on comments #572 (bazooka07)
-FIX php 8.2 Warning: Cannot modify header information in plxUtils _printSelectDir #671 (FrancoisThareau)
+FIX php 8.2 compatibility in plxUtils _printSelectDir: Warning: Cannot modify header information #671 (FrancoisThareau)
+FIX php 8.1 compatibility and improvements to plxUtils::makeThumb #661 (sudwebdesign)
 
 ## PLUXML 5.8.9 (2022/08/01) ##
 REVERT v5.8.8 FIX Static pages PHP injection vulnerability #558 (P3ter, Moritz Huppert)
