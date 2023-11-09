@@ -27,62 +27,13 @@ class plxMotor {
 	public $motif = false; # Motif de recherche
 	public $mode = false; # Mode de traitement
 	public $template = false; # Template d'affichage
-	public $cible = false; # Article, categorie ou page statique cible
+    public $cible = false; # Article, categorie ou page statique cible
+    public $cibleName = null; # Tag label
 
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
 	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
 	public $activeArts = array(); # Tableaux des articles appartenant aux catégories actives
 	public $aConf = DEFAULT_CONFIG;
-
-	# Tableau de configuration. On gère la non régression depuis PluXml-5.1.7 en cas d'ajout de paramètres sur une version de pluxml déjà installée
-	/*
-	public $aConf = array(
-		'enable_rss'=>1,
-		'enable_rss_comment'=>1,
-		'lostpassword'=>1,
-		'bypage_tags'=>5,
-		'thumbs'=>0,
-		'medias'=>'data/medias/',
-		'hometemplate'=>'home.php',
-		'version'=>PLX_VERSION,
-		'display_empty_cat'=>0,
-		'custom_admincss_file'=>'',
-		'email_method' => 'sendmail',
-		'smtp_server' => '',
-		'smtp_username' => '',
-		'smtp_password' => '',
-		'smtp_port' => '465',
-		'smtp_security' => 'ssl',
-		'smtpOauth2_emailAdress' => '',
-		'smtpOauth2_clientId'=> '',
-		'smtpOauth2_clientSecret' => '',
-		'smtpOauth2_refreshToken' => '',
-	);
-	* */
-
-		/*
-		'bypage_admin'			=> 10,
-		'tri'					=> 'desc'
-		'bypage_admin_coms'		=> 10,
-		'bypage_archives'		=> 5,
-		'bypage_tags'			=> 5,
-		'userfolders'			=> 0,
-		'meta_description'		=> '',
-		'meta_keywords'			=> '',
-		'default_lang'			=> DEFAULT_LANG,
-		'racine_plugins'		=> 'plugins/',
-		'racine_themes'			=> 'themes/',
-		'medias'				=> 'data/images/',
-		'mod_art'				=> 0,
-		'display_empty_cat'		=> 0,
-		'timezone'				=> @date_default_timezone_get(),
-		'thumbs'				=> 1,
-		'hometemplate'			=> 'home.php',
-		'custom_admincss_file'	=> '',
-		'lostpassword'			=> : 1,
-		'enable_rss'			=> 1,
-		'enable_rss_comment'	=> 1,
-		* */
 
 	public $aCats = array(); # Tableau de toutes les catégories
 	public $aStats = array(); # Tableau de toutes les pages statiques
@@ -284,14 +235,12 @@ class plxMotor {
 			} elseif(preg_match('#^user(\d+)/?(\w[\w+-]+)?#',$this->get,$capture)) {
 				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
 				if(isset($this->aUsers[$this->cible]) and $this->aUsers[$this->cible]['active']) {
-					# $this->bypage = $this->aConf['bypage'];
 					$urlName = plxUtils::urlify($this->aUsers[$this->cible]['name']);
 					if(isset($capture[2]) AND $urlName == $capture[2]) {
 						$this->mode = 'user'; # Mode user
 						$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.' . $this->cible . '.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 						$this->template = 'user.php';
 					} else {
-						# Redirection 301
 						$this->redir301($this->urlRewrite('?user' . intval($this->cible) . '/' . $urlName));
 					}
 				} else {
