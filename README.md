@@ -10,8 +10,6 @@
 
 <p align="center">Build lightweight websites with ease and without a database.</p>
 
-[**Download PluXml latest release**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
-
 # Description
 
 * User friendly backoffice
