@@ -53,4 +53,5 @@
 * [Forum](https://forum.pluxml.org/)
 * [Themes and plugins](https://ressources.pluxml.org/)
 * [Documentation](https://wiki.pluxml.org/)
-* [Support me and get your PluXml website](https://pluxml.org/static3/support-me)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M3R2Z7O)
