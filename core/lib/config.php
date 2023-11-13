@@ -164,7 +164,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS')) and basename($_SERVER['SCRIPT_NAME']
  * */
 spl_autoload_register(
 	function($aClass) {
-       # plxMotor => PLX_CORE . 'lib/class.plx.motor.php'
        return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
 	},
 	true,
@@ -188,8 +187,6 @@ function plx_session_start() {
 				'samesite' => 'Strict', // None || Lax  || Strict
 			]);
 	} else {
-		# setcookie(session_name(),session_id(),time()+SESSION_LIFETIME, plxUtils::getRacine(true), $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
-		# PHPSESSID=74ca1sac1015k01h480our7nka; expires=Sat, 14-Jan-2023 13:39:45 GMT; Max-Age=1440; path=http://test.lan/PluXml-master/; domain=.test.lan; HttpOnly; SameSite=Strict
 		header('Set-Cookie: ' . session_name() . '=' . session_id() . '; expires=' .  gmdate('D, d-M-Y H:i:s', $expires) . ' GMT; Max-Age=' . $gc_maxlifetime . '; path=' . plxUtils::getRacine(true) . '; domain=' . $_SERVER['SERVER_NAME']. '; HttpOnly; SameSite=Strict');
 	}
 }
