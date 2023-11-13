@@ -8,61 +8,51 @@
     <a href="https://github.com/pluxml/PluXml/blob/master/readme/LICENSE"><img src="https://badgen.net/badge/license/GPL/green?icon=php" /></a>
 </p>
 
-<p align="center">Créez un site web performant en toute simplicité et sans base de données.</p>
+<p align="center">Build lightweight websites with ease and without a database.</p>
 
-[**Télécharger PluXml 5.8.9**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
+[**Download PluXml latest release**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
 
-* Version bugfix (5.8.10) en développement : [master](https://github.com/pluxml/PluXml/tree/master)
-* Verison instable (6.0) en développement : [6.0](https://github.com/pluxml/PluXml/tree/6.0)
+# Description
 
-Principales caractéristiques
-----------------------------
-
-* Aucune base de données requise
-* Portable sur clé USB
-* Multiutilisateurs avec des niveaux d'autorisations différents
-* Pages statiques, catégories, gestion des tags
-* Gestion des commentaires
-* Gestionnaire de médias
-* Traduit en 11 langues (français, allemand, anglais, espagnol, italien, néerlandais, occitan, polonais, portugais, roumain, russe)
-* Thèmes personnalisables
+* User friendly backoffice
+* Multi-user with permission levels
+* Articles, pages, categories, tags
+* Comments management
+* Medias manager
+* Translated into 11 languages (French, German, English, Spanish, Italian, Dutch, Occitan, Polish, Portuguese, Romanian, Russian)
+* Customizable themes
 * Plugins
-* Réécriture d'url (nécessite le module apache mod_rewrite)
+* No database needed
+* URL rewriting (requires Apache mod_rewrite module)
 
-Démonstration
--------------
+# Demonstration
 
 * [Blog](https://demo.pluxml.org/)
-* [Administration](https://demo.pluxml.org/core/admin/auth.php?p=/core/admin/)
+* [Backoffice](https://demo.pluxml.org/core/admin/auth.php?p=/core/admin/)
 
-Prérequis
----------
+# Prerequisites
 
-Que ce soit en local sur votre ordinateur ou sur internet, votre hébergement doit posséder les éléments suivants pour pouvoir utiliser PluXml :
+* PHP 5.6.34 (PHP 7.2.5 for PHPMailer) or higher
+* PHP GD library dor medias management
+* PHP XML library
+* PHP email sending enabled (not required)
+* Apache mod_rewrite module enabled to use URL rewriting (not required)
 
-* PHP 5.6.34 (PHP 7.2.5 avec PHPMailer ) ou supérieur
-* Librairie GD pour la gestion des images
-* Librairie XML
-* Fonction PHP d'envoi d'emails autorisée (non obligatoire)
-* Le module Apache mod_rewrite activé pour utiliser la réécriture d'url (non obligatoire)
+# Installation
 
-Procédure d'installation
-------------------------
+* Get the downloadable release archive on Github or on pluxml.org and unzip it at the root of your site
+* Access your site and follow the installation steps displayed
 
-* Récuperez l'archive téléchargeable [sur cette page](https://www.pluxml.org/) et dézippez la à la racine de votre site
-* Connectez-vous à votre site et suivez la procédure d'installation affichée à l'écran
+# Update
 
-Mise à jour d'une version existante de PluXml
----------------------------------------------
+* **IMPORTANT** : Backup your PluXml `data` folder
+* Get the PluXml downloadable archive and unzip it at the root of your site
+* Access your site and sollow the update steps displayed
 
-* **IMPORTANT** : Sauvegardez le dossier data de votre PluXml
-* Récuperez l'archive téléchargeable sur cette page et dézippez la à la racine de votre site de manière à écraser les fichiers existants
-* Connectez-vous à votre site et suivez la procédure de mise à jour affichée à l'écran
+# Links
 
-
-Liens
------
-* [Site officiel](https://www.pluxml.org/)
+* [Official website](https://www.pluxml.org/)
 * [Forum](https://forum.pluxml.org/)
-* [Thèmes et plugins](https://ressources.pluxml.org/)
+* [Themes and plugins](https://ressources.pluxml.org/)
 * [Documentation](https://wiki.pluxml.org/)
+* [Support me and get your PluXml website](https://pluxml.org/static3/support-me)
