@@ -204,8 +204,8 @@ class plxAdmin extends plxMotor {
 
 			} elseif($k == 'homestatic') {
 				if(
-					empty(trim($v)) or
-					!preg_match('#^\d{3,4}$#', $v)
+					!empty($v) and
+					!array_key_exists($v, $this->aStats)
 				) {
 					continue;
 				}

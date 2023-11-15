@@ -166,7 +166,7 @@ class plxMotor {
 		if(
 			empty($this->get) AND
 			!empty($this->aConf['homestatic']) AND
-			isset($this->aStats[$this->aConf['homestatic']]) AND
+			array_key_exists($this->aConf['homestatic'], $this->aStats) AND
 			$this->aStats[$this->aConf['homestatic']]['active']
 		) {
 			$this->mode = 'static'; # Mode static
