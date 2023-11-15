@@ -1,4 +1,5 @@
 ## PLUXML 5.8.10 (2023/xx/xx) ##
+FIX homestatic for plxAdmin::editConfiguration() #673 (bazooka07)
 ADD Multilines for plxMsg() #542 (lolo3129)
 
 ## PLUXML 5.8.10 (2022/xx/xx) ##
