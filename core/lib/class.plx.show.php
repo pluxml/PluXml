@@ -2603,7 +2603,7 @@ class plxShow
 			return $this->urlRewrite($href);
 		} elseif(strtolower($html_tag) == 'a') { # ---------- <a> -------------
 ?>
-<a class="rss" href="<?= $this->urlRewrite($href); ?>" download><?= $title  ?></a>
+<a class="rss" href="<?= $this->urlRewrite($href); ?>"><?= $title  ?></a>
 <?php
 		} elseif(strtolower($html_tag) == 'link') { # ---------- <link> -------------
 			# Prints lhe link tags for articles and comments. Especially  for the heade of the html page
@@ -2643,11 +2643,11 @@ class plxShow
 			}
 		} elseif(strtolower($html_tag) == 'li') { # ---------- <li> -------------
 ?>
-	<li><a class="rss" href="<?= $this->urlRewrite($href); ?>" download><?= $title  ?></a></li>
+	<li><a class="rss" href="<?= $this->urlRewrite($href); ?>"><?= $title  ?></a></li>
 <?php
 			if(!empty($default)) {
 ?>
-	<li><a class="rss" href="<?= $this->urlRewrite($default); ?>" download><?= L_ARTFEED_RSS  ?></a></li>
+	<li><a class="rss" href="<?= $this->urlRewrite($default); ?>"><?= L_ARTFEED_RSS  ?></a></li>
 <?php
 			}
 
@@ -2673,7 +2673,7 @@ class plxShow
 				$href .= '/article' . intval($this->plxMotor->cible);
 				$title = sprintf(L_COMFEED_RSS_ARTICLE, $this->plxMotor->plxRecord_arts->f('title'));
 ?>
-	<li><a class="rss" href="<?= $href ?>" download><?= $title ?></a></li>
+	<li><a class="rss" href="<?= $href ?>"><?= $title ?></a></li>
 <?php
 			}
 		}

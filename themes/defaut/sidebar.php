@@ -36,7 +36,7 @@ $plxShow->authorList();
 			<?php $plxShow->lastComList('<li><a href="#com_url">#com_author '.$plxShow->getLang('SAID').' : #com_content(34)</a></li>'); ?>
 		</ul>
 
-		<h3>Flux RSS</h3>
+		<h3>RSS</h3>
 		<ul class="unstyled-list">
 <?php
 $plxShow->urlPostsRssFeed('', 'li');

@@ -4,7 +4,10 @@
 
 if($plxShow->plxMotor->plxRecord_coms) {
 ?>
-		<h3 id="comments"><?= $plxShow->artNbCom(); ?></h3>
+        <h2 id="comments">
+            <?= $plxShow->artNbCom(); ?>&nbsp;
+            <?php $plxShow->comFeed('rss',$plxShow->artId(), '<a class="rss" href="#feedUrl" title="#feedTitle"></a>'); ?>
+        </h2>
 <?php
 	# On boucle sur les commentaires
 	while($plxShow->plxMotor->plxRecord_coms->loop()) {
@@ -39,7 +42,7 @@ if($plxShow->articleAllowComs()) {
 	if(!$plxShow->comMessage('<p id="com_message" class="#com_class"><strong>#com_message</strong></p>')) {
 		# on affiche le formulaire pour un nouveau commentaire ou en cas d'erreur
 ?>
-	<h3><?php $plxShow->lang('WRITE_A_COMMENT') ?></h3>
+	<h2><?php $plxShow->lang('WRITE_A_COMMENT') ?></h2>
 	<form id="form" action="<?php $plxShow->artUrl(); ?>#form" method="post">
 		<fieldset>
 <?php
@@ -140,8 +143,6 @@ function cancelCom() {
 var parent = document.getElementById('id_parent').value;
 if(parent!='') { replyCom(parent) }
 </script>
-
-	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle" download>#feedName</a></p>'); ?>
 
 <?php
 } else {

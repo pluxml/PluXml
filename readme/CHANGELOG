@@ -1,4 +1,6 @@
 ## 5.9.0 - 2023/xx/xx
+ADD Default theme : new user and RSS icons
+ADD Default theme : use h2 instead of h3 in the comment section, and add RSS icon
 ADD Multilines for plxMsg() #542 (lolo3129)
 ADD Count of articles for the homepage #659 (bazooka07)
 ADD New plxShow::meta_all() function #657 (bazooka07)

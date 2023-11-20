@@ -173,8 +173,8 @@ ul.menu a.noactive{
 
 .rss {
 	padding-left: 2.75rem;
-	background: left center no-repeat url('../../../core/admin/theme/images/rss.svg');
-	background-size: 2rem;
+	background: left center no-repeat url('../img/rss.svg');
+	background-size: 1.5rem;
 }
 
 .menu li .rss {
@@ -312,10 +312,11 @@ article:after {
 }
 
 .comment {
-	background-image: url('../img/user.png');
+	background-image: url('../img/user.svg');
 	background-repeat: no-repeat;
+    background-size: 3rem;
 	margin-bottom: 2.5rem;
-	padding-left: 6rem;
+	padding-left: 4rem;
 	border-top: 100px solid transparent;
 	margin-top: -100px;
 }
