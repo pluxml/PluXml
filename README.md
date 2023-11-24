@@ -3,7 +3,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/pluxml/pluxml/total?icon=github)
 ![GitHub License](https://img.shields.io/github/license/pluxml/pluxml?icon=php)
 
-Build lightweight websites with ease and without a database.
+Build lightweight websites with ease and without database.
 
 ## Description
 
