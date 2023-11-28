@@ -14,6 +14,8 @@ class plxShow
 
 	const AUTHOR_PATTERN = '<li id="#user_id"><a href="#user_url" class="#user_status" title="#user_name">#user_name</a> (#art_nb)</li>';
 	const RSS_FORMAT = '<a class="rss" href="#feedUrl" title="#feedTitle" download>#feedName</a>';
+	const STATIC_LIST_FORMAT = '<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>';
+	const STATIC_LIST_FORMAT_GROUP = '<span class="#group_class #group_status">#group_name</span>';
 	public $plxMotor = false; # Objet plxMotor
 	private $lang; # fichier de traduction du theme
 
@@ -1597,29 +1599,53 @@ class plxShow
 	/**
 	 * Méthode qui affiche la liste des pages statiques.
 	 *
-	 * @param extra            si renseigné: nom du lien vers la page d'accueil affiché en première position
-	 * @param format            format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
+	 * @param extra           si renseigné: nom du lien vers la page d'accueil affiché en première position
+	 * @param format          format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
 	 * @param format_group    format du texte pour chaque groupe (variable : #group_class, #group_name, #group_status)
-	 * @param menublog        position du menu Blog (si non renseigné le menu n'est pas affiché)
+	 * @param menublog        position du menu Blog (si non renseigné le menu n'est pas affiché). Si égal à 0 affiché en fin de menu.
+	 * @param link_homepage   affiche toujours un lien vers la page d'accueil dans le menu avec la valeur true. False par défaut
 	 * @scope    global
 	 * @author    Stephane F
 	 **/
-	public function staticList($extra = '', $format = '<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>', $format_group = '<span class="#group_class #group_status">#group_name</span>', $menublog = false)
+	public function staticList($extra = '', $format = NULL, $format_group = NULL, $menublog = NULL, $link_homepage = false)
 	{
 
 		$menus = array();
+		if (is_null($format)) {
+			$format = SELF::STATIC_LIST_FORMAT;
+		}
+		if (is_null($format_group)) {
+			$format_group = SELF::STATIC_LIST_FORMAT_GROUP;
+		}
+
+		$homestaticId = $this->plxMotor->aConf['homestatic'];
+		if(array_key_exists($homestaticId, $this->plxMotor->aStats) and !$this->plxMotor->aStats[$homestaticId]['active']) {
+			# la page static pour la page d'accueil est inactive
+			$homestaticId = NULL;
+		}
+
 		# Hook Plugins
 		if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticListBegin'))) return;
-		$home = ((empty($this->plxMotor->get) or preg_match('/^page[0-9]*/', $this->plxMotor->get)) and basename($_SERVER['SCRIPT_NAME']) == "index.php");
+
+		$home = ((empty($this->plxMotor->get) or preg_match('/^page\d*/', $this->plxMotor->get)) and basename($_SERVER['SCRIPT_NAME']) == 'index.php');
+
 		# Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
-		if ($extra != '') {
-			$menus[][] = strtr($format, [
-				'#static_id'	=> 'static-home',
-				'#static_class'	=> 'static menu',
-				'#static_url'	=> $this->plxMotor->urlRewrite(),
-				'#static_name'	=> plxUtils::strCheck($extra),
-				'#static_status'	=> $home ? 'active' : 'noactive',
-			]);
+		if (is_string($extra) and trim($extra) != '') {
+			# tester si $home === true et si $link_homepage === true
+			if(
+				$link_homepage or
+				($this->plxMotor->mode == 'home' and (intval($this->plxMotor->page) > 1 or array_key_exists($homestaticId, $this->plxMotor->aStats))) or
+				(in_array($this->plxMotor->mode, array('article', 'categorie', 'tags', 'user', 'archives'))) or
+				($this->plxMotor->mode == 'static' and $this->plxMotor->cible != $homestaticId)
+			) {
+				$menus[][] = strtr($format, [
+					'#static_id'	=> 'static-home',
+					'#static_class'	=> 'static menu',
+					'#static_url'	=> $this->plxMotor->urlRewrite(),
+					'#static_name'	=> plxUtils::strCheck($extra),
+					'#static_status'	=> $home ? 'active' : 'noactive',
+				]);
+			}
 		}
 
 		$group_active = '';
@@ -1651,9 +1677,9 @@ class plxShow
 			}
 		}
 
-		if ($menublog) {
-			if ($this->plxMotor->aConf['homestatic'] != '' and isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
-				if ($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
+		if (is_integer($menublog)) {
+			if (array_key_exists($homestaticId, $this->plxMotor->aStats)) {
+				if ($this->plxMotor->aStats[$homestaticId]['active']) {
 					$menu = strtr($format, [
 					'#static_id'	=> 'static-blog',
 					'#static_status'=> (
