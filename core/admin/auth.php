@@ -140,10 +140,10 @@ if ($plxAdmin->aConf['lostpassword']) {
 		unset($_SESSION['error']);
 		unset($_SESSION['info']);
 		$plxAdmin->editPassword($_POST);
-		if (!empty($msg = isset($_SESSION['error']) ? $_SESSION['error'] : '')) {
+		if (!empty($msg = isset($_SESSION['error'][0]) ? $_SESSION['error'][0] : '')) {
 			$css = 'alert red';
 		} else {
-			if (!empty($msg = isset($_SESSION['info']) ? $_SESSION['info'] : '')) {
+			if (!empty($msg = isset($_SESSION['info'][0]) ? $_SESSION['info'][0] : '')) {
 				$css = 'alert green';
 			}
 		}

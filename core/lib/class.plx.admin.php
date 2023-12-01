@@ -578,11 +578,11 @@ EOT;
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
 
-						if($this->isPHPMailerDisabled()) {
-							# fonction mail() intrinsèque à PHP
+                        if($this->isPHPMailerDisabled()) {
+							# PHP native mail() function
 							$success = plxUtils::sendMail('', '', $user['email'], $mail['subject'], $mail['body']);
-						} else {
-							# On utilise PHPMailer
+                        } else {
+							# PHPMailer library
 							if (!empty($this->aConf['title'])) {
 								$mail ['name'] = $this->aConf['title'];
 							} else {

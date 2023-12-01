@@ -12,6 +12,8 @@ if(!defined('PLX_ROOT')) {
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
  **/
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class plxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
@@ -1330,12 +1332,12 @@ class plxMotor {
 	 * @return	boolean
 	 * author	Jean-Pierre Pourrez "bazooka07"
 	 **/
-	public function isPHPMailerDisabled() {
+    public function isPHPMailerDisabled() {
 		return
 			empty($this->aConf['email_method']) or
 			$this->aConf['email_method'] == 'sendmail' or
-			!class_exists('PHPMailer') or
-			!method_exists('plxUtils', 'sendMailPhpMailer');
+			!class_exists(PHPMailer::class) or
+            !method_exists('plxUtils', 'sendMailPhpMailer');
 	}
 
 	public function getPlxThemes() {

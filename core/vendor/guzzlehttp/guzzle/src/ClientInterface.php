@@ -16,7 +16,7 @@ interface ClientInterface
     /**
      * The Guzzle major version.
      */
-    const MAJOR_VERSION = 7;
+    public const MAJOR_VERSION = 7;
 
     /**
      * Send an HTTP request.
@@ -80,5 +80,5 @@ interface ClientInterface
      *
      * @deprecated ClientInterface::getConfig will be removed in guzzlehttp/guzzle:8.0.
      */
-    public function getConfig(?string $option = null);
+    public function getConfig(string $option = null);
 }
