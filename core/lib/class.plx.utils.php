@@ -14,7 +14,7 @@ use League\OAuth2\Client\Provider\Google;
 
 const AUTOLOADER = PLX_CORE . 'vendor/autoload.php';
 # See vendor/composer/platform_check.php
-if (PHP_VERSION_ID >= 70205 and file_exists(AUTOLOADER)) { # required by Composer
+if (PHP_VERSION_ID >= 80100 and file_exists(AUTOLOADER)) { # required by Composer
 	require AUTOLOADER;
 }
 
