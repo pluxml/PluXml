@@ -93,10 +93,9 @@ const L_NEWCOMMENT_ERR			= 'Es gab einen Fehler beim Anlegen dieses Kommentars.'
 const L_NEWCOMMENT_FIELDS_REQUIRED = 'Sie müssen alle Pflichtfelder ausfüllen';
 const L_NEWCOMMENT_ERR_ANTISPAM	= 'Anti-SPAM Überprüfung fehlgeschlagen';
 const L_UNKNOWN_AUTHOR			= 'Unbekannter Autor';
-const L_NEWCOMMENT_ERR_LOGIN	= 'Falsches Login oder Passwort'';
+const L_NEWCOMMENT_ERR_LOGIN	= 'Falsches Login oder Passwort';
 
 # class.plx.show.php
-
 const L_HTTPENCODING			= 'Datenkompression %s aktiviert';
 const L_PAGETITLE_ARCHIVES		= 'Archive';
 const L_PAGETITLE_TAG			= 'Tag';

@@ -216,7 +216,6 @@ const L_COMMENT_OFFLINE_BUTTON = 'Metre fòra linha';
 const L_COMMENT_ANSWER_BUTTON = 'Respondre a aquel comentari';
 const L_COMMENT_UPDATE_BUTTON = 'Metre a jorn';
 const L_COMMENT_WRITTEN_BY = 'Redigit per';
-const L_ERR_CATEGORY_ALREADY_EXISTS = 'Nom de categoria ja utilizat';
 const L_COMMENT_UPDATE_ERR = 'Error al temps de la mesa a jorn del comentari';
 const L_COMMENT_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
 const L_COMMENT_DELETE_ERR = 'Una error es subrevenguda pendent la supression';

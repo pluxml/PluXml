@@ -504,8 +504,6 @@ const L_PLUGINS_ACTION = 'Aktion';
 const L_PLUGINS_APPLY_BUTTON = 'Ändern Sie die Liste der Plugins';
 const L_PLUGINS_ACTIVE_LIST = 'Aktive plugins';
 const L_PLUGINS_INACTIVE_LIST = 'Inaktive plugins';
-const L_PLUGINS_ACTIVE_LIST = 'Aktive Plugins';
-const L_PLUGINS_INACTIVE_LIST = 'Inaktive Plugins';
 
 // profil.php
 
