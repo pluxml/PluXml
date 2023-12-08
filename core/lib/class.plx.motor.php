@@ -659,7 +659,7 @@ class plxMotor {
 				$this->aUsers[$number]['infos']=plxUtils::getTagIndexValue($iTags['infos'], $values, $i);
 				$this->aUsers[$number]['email']=plxUtils::getTagIndexValue($iTags['email'], $values, $i);
 				$lang = plxUtils::getTagIndexValue($iTags['lang'], $values, $i);
-				$this->aUsers[$number]['lang'] = empty($lang) ? $lang : $this->aConf['default_lang'];
+				$this->aUsers[$number]['lang'] = !empty($lang) ? $lang : $this->aConf['default_lang'];
 				$this->aUsers[$number]['password_token']=plxUtils::getTagIndexValue($iTags['password_token'], $values, $i);
 				$this->aUsers[$number]['password_token_expiry']=plxUtils::getTagIndexValue($iTags['password_token_expiry'], $values, $i);
 				# Hook plugins

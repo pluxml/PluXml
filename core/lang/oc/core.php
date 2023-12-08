@@ -81,7 +81,6 @@ const L_LIBXML_INSTALLED			= 'Bibliotèca XML installada';
 const L_LIBXML_NOT_INSTALLED		= 'Bibliotèca XML non installada';
 const L_MAIL_AVAILABLE				= 'Foncion d\'enviada de mail disponible';
 const L_MAIL_NOT_AVAILABLE			= 'Foncion d\'enviada de mail non disponible';
-const L_MAIL_NOT_AVAILABLE			= 'Fonction d\'envoi de mail non disponible';
 
 # class.plx.motor.php
 
