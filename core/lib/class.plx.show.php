@@ -1938,7 +1938,7 @@ class plxShow
 
 		if ($this->plxMotor->page > 2) {
 			# Si la page active > 2 on affiche un lien page precedente
-			$url = $this->plxMotor->urlRewrite($arg_url . ($this->plxMotor->page - 1));
+			$url = $this->plxMotor->urlRewrite('?' . $arg_url . ($this->plxMotor->page - 1));
 ?>
 	<a class="p_prev" href="<?= $url ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"><?= L_PAGINATION_PREVIOUS ?></a>
 <?php
@@ -1950,7 +1950,7 @@ class plxShow
 
 		if ($this->plxMotor->page < $last_page - 1) {
 			# Si la page active < derniere page on affiche un lien page suivante
-			$url = $this->plxMotor->urlRewrite($arg_url . ($this->plxMotor->page + 1));
+			$url = $this->plxMotor->urlRewrite('?' . $arg_url . ($this->plxMotor->page + 1));
 ?>
 	<a class="p_next" href="<?= $url ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"><?= L_PAGINATION_NEXT ?></a>
 <?php
@@ -1958,7 +1958,7 @@ class plxShow
 
 		if ($this->plxMotor->page < $last_page) {
 			# Si la page active < derniere page, alors on affiche un lien derniere page
-			$url = $this->plxMotor->urlRewrite($arg_url . $last_page);
+			$url = $this->plxMotor->urlRewrite('?' . $arg_url . $last_page);
 ?>
 	<a class="p_last" href="<?= $url ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><?= L_PAGINATION_LAST ?></a>
 <?php
