@@ -2,6 +2,5 @@
 /plugins/
 /themes/*
 !/themes/defaut/
-.idea
-/.buildpath
-/.project
+.htaccess
+.robots.txt

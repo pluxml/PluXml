@@ -192,41 +192,6 @@ ul.menu a.noactive{
 	margin-top: 4rem;
 }
 
-
-/* ------- Pagination ------- */
-
-.pagination {
-	margin: 3rem 0 3rem 0;
-}
-
-.pagination a {
-	background-color: #258fd6;
-	border-radius: .3rem;
-	color: #fff;
-	padding: .9rem .7rem;
-	transition-duration: .2s;
-}
-
-.pagination a:hover {
-	background-color: #3a6c96;
-	color: #fff;
-	text-decoration: none;
-}
-
-.pagination span:first-letter,
-.pagination a:first-letter {
-	text-transform: uppercase;
-}
-
-.p_first,
-.p_prev,
-.p_current,
-.p_next,
-.p_last {
-	display: inline-block;
-}
-
-
 /* ------- Article ------- */
 
 article:after {
