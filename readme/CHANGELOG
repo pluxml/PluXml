@@ -1,26 +1,38 @@
 ## 5.9.0 - 2023/xx/xx
-ADD Default theme : new user and RSS icons (Haruka)
-ADD Default theme : use h2 instead of h3 in the comment section, and add RSS icon (Haruka)
-ADD Number of articles on the homepage #659 (bazooka07)
-ADD Backoffice action to generate a robots.txt #647 (bazooka07)
-ADD Sitemap loc attribute use the canonical url #665 (Haruka)
-ADD Multilines for plxMsg() #542 (lolo3129)
-ADD plxShow::meta_all() new function to add meta description, meta keywords and meta author #657 (bazooka07)
-ADD plxShow::pageUrl() new function for canonical url #654 (bazooka07)
-ADD plxShow::staticList() can show or hide (by default) the home link on the homepage #675 (bazooka07)
-ADD plxShow::pagination() display icons instead of textual links #660 (bazooka07)
-ADD Choix profil à partir duquel les médias sont indépendants #643 (bazooka07)
-ADD Management of subscribers #637 (bazooka07)
-ADD Gestion abonnés pour commentaire #636 (bazooka07)
-ADD Pinned articles #628 (bazooka07)
-ADD Check if there are articles #602 (bazooka07)
-ADD new plxThemes class #601 (bazooka07)
-ADD somme CSS rules for auth.php #600 (bazooka07)
-ADD Enhance edition of a static page #558 #589 (bazooka07)
-ADD Enhance management of users in back/front-office #585 (bazooka07)
-ADD plxMsg + anime #578 (bazooka07)
-ADD Multi-lines for plxMsg #542 #591 (lolo3129,bazooka07)
-ADD new constant PLX_VERSION_DATA - async versions between datas and PluXml #576 (bazooka07)
+
+### Features
+- List all articles of a same author #585 (bazooka07)
+- Pinned articles #628 (bazooka07)
+- Management of subscribers and handle comments only for them #637 (bazooka07)
+- Number of articles to display on the homepage #659 (bazooka07)
+- Choose from which user profil medias files are independent #643 (bazooka07)
+- Backoffice action to generate a robots.txt #647 (bazooka07)
+- Minors CSS changes to the backoffice theme on login page and on table headers #600 (bazooka07)
+
+### Default theme
+- New user (comments) and RSS icons (Haruka)
+- Add RSS icons to the sidebar (Haruka)
+- Use h2 instead of h3 in the comment section (Haruka)
+- Handle comments availability for subscribers only #636 (Bazooka)
+
+### plxShow
+NEW plxShow::artPinClass() #628 (bazooka07)
+NEW plxShow::meta_all() new function to add meta description, meta keywords and meta author #657 (bazooka07)
+NEW plxShow::pageUrl() new function for canonical url #654 (bazooka07)
+NEW plxShow::staticList() can show or hide (by default) the home link on the homepage #675 (bazooka07)
+NEW plxShow::pagination() display icons instead of textual links #660 (bazooka07)
+
+### Other
+- Enhance static page edition security #558 #589 (bazooka07)
+- Sitemap loc attribute use the canonical url #665 (Haruka)
+- plxMsg() can handle multiple messages #542 #591 (lolo3129, bazooka07)
+- Depedencies security and PHP8 update (Haruka)
+NEW plxMsg + anime #578 (bazooka07)
+NEW new constant PLX_VERSION_DATA - async versions between datas and PluXml #576 (bazooka07)
+NEW new plxThemes class #601 (bazooka07)
+
+### Bugfix
+NEW Check if there are articles #602 (bazooka07)
 FIX Error while displaying changed password success message on lostpassword page (Haruka)
 FIX session in front-end (SameSite attribute) #635 (bazooka07)
 FIX homestatic for plxAdmin::editConfiguration() #673 (bazooka07)
@@ -81,6 +93,8 @@ FIX regex for moderated comms in backoffice, misc. optimizations on comments #57
 FIX php 8.1 compatibility and improvements to plxUtils::makeThumb #661 (sudwebdesign)
 FIX php 8.2 compatibility in plxUtils _printSelectDir: Warning: Cannot modify header information #671 (FrancoisThareau)
 FIX php 8.2 compatibility in plxMotor: Creation of dynamic property plxMotor::$cibleName is deprecated #666 (Haruka, Txori)
+
+### Refacto
 REFACTO Check the result of plxMotor::parseArticle() in several places #650 (bazooka07)
 REFACTO pagination in backoffice for index.php & comments.php #649 (bazooka07)
 REFACTO Replace $LANG array with constants #633 (bazooka07)
@@ -99,7 +113,6 @@ REFACTO plxShow::artTags() #583 (bazooka07)
 REFACTO plxShow::meta($meta, $echo=true)  #582 (bazooka07)
 REFACTO for session #630 (bazooka07)
 REFACTO plxShow class #629 (bazooka07)
-OTHER Depedencies update (Haruka)
 
 ## PLUXML 5.8.9 (2022/08/01) ##
 REVERT v5.8.8 FIX Static pages PHP injection vulnerability #558 (P3ter, Moritz Huppert)
