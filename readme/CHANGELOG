@@ -1,4 +1,6 @@
-## 5.9.0 - 2023/xx/xx
+# Changelog
+
+## 5.9.0 - 2024/xx/xx
 
 ### Features
 - List all articles of a same author #585 (bazooka07)
@@ -16,40 +18,28 @@
 - Handle comments availability for subscribers only #636 (Bazooka)
 
 ### plxShow
-NEW plxShow::artPinClass() #628 (bazooka07)
-NEW plxShow::meta_all() new function to add meta description, meta keywords and meta author #657 (bazooka07)
-NEW plxShow::pageUrl() new function for canonical url #654 (bazooka07)
-NEW plxShow::staticList() can show or hide (by default) the home link on the homepage #675 (bazooka07)
-NEW plxShow::pagination() display icons instead of textual links #660 (bazooka07)
+- plxShow::artPinClass() new function to add a CSS class on pinned articles #628 (bazooka07)
+- plxShow::meta_all() new function to add meta description, meta keywords and meta author #657 (bazooka07)
+- plxShow::pageUrl() new function to get the article or page canonical url #654 (bazooka07)
+- plxShow::staticList() can show or hide (by default) the home link on the homepage #675 (bazooka07)
+- plxShow::pagination() display icons instead of textual links #660 (bazooka07)
 
 ### Other
 - Enhance static page edition security #558 #589 (bazooka07)
 - Sitemap loc attribute use the canonical url #665 (Haruka)
 - plxMsg() can handle multiple messages #542 #591 (lolo3129, bazooka07)
 - Depedencies security and PHP8 update (Haruka)
-NEW plxMsg + anime #578 (bazooka07)
-NEW new constant PLX_VERSION_DATA - async versions between datas and PluXml #576 (bazooka07)
-NEW new plxThemes class #601 (bazooka07)
+- Administration messages CSS and animation changes #578 (bazooka07)
+- New constant PLX_VERSION_DATA - async versions between datas and PluXml core #576 (bazooka07)
 
 ### Bugfix
-NEW Check if there are articles #602 (bazooka07)
-FIX Error while displaying changed password success message on lostpassword page (Haruka)
-FIX session in front-end (SameSite attribute) #635 (bazooka07)
-FIX homestatic for plxAdmin::editConfiguration() #673 (bazooka07)
-FIX article.php #656 (bazooka07)
-FIX for downloading files #652 (bazooka07)
-FIX typo in plxDate::checkDate() #651 (bazooka07)
-FIX link for robots.txt #648 (bazooka07)
-FIX prepend.php for authentication #646 (bazooka07)
-FIX erreur typo #645 (bazooka07)
-FIX drop subscriber profil in admin/index.php #644 (bazooka07)
-FIX profil name in top.php #642 (bazooka07)
-FIX translations #641 (bazooka07)
-FIX Enhance menu admin #639 (bazooka07)
-FIX parametres_users.php #638 (bazooka07)
-FIX for one active user only #634 (bazooka07)
-FIX admin/index.php for multi-users #632 (bazooka07)
-FIX admin/index.php for multi-users #631 (bazooka07)
+- Translations #641 (bazooka07)
+- Switch to the default theme if the selected one does not exist or do not have the selected language #601 (bazooka07)
+- Administration : check if there are articles before displaying artices list #602 (bazooka07)
+- Error while displaying changed password success message on lostpassword page (Haruka)
+- Static page on home #673 (bazooka07)
+- Files download #652 (bazooka07)
+- Typo in plxDate::checkDate() #651 (bazooka07)
 FIX plxPlugins:saeConfig() #627 (bazooka07)
 FIX plxMotor::getCategories() for homepage #626 (bazooka07)
 FIX update for occitan language #623 (mejeans)
@@ -95,6 +85,12 @@ FIX php 8.2 compatibility in plxUtils _printSelectDir: Warning: Cannot modify he
 FIX php 8.2 compatibility in plxMotor: Creation of dynamic property plxMotor::$cibleName is deprecated #666 (Haruka, Txori)
 
 ### Refacto
+- Frontend and backoffice sessions start #635 (bazooka07)
+- Article edition #656 (bazooka07)
+- Authentication #646 (bazooka07)
+- Profil name in backoffice #642 (bazooka07)
+- Backoffice menu #639 (bazooka07)
+- Backoffice users page #638 (bazooka07)
 REFACTO Check the result of plxMotor::parseArticle() in several places #650 (bazooka07)
 REFACTO pagination in backoffice for index.php & comments.php #649 (bazooka07)
 REFACTO Replace $LANG array with constants #633 (bazooka07)
