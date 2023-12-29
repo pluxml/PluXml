@@ -2,6 +2,7 @@
 ![Static Badge](https://img.shields.io/badge/https-pluxml.org-blue)
 ![GitHub all releases](https://img.shields.io/github/downloads/pluxml/pluxml/total?icon=github)
 ![GitHub License](https://img.shields.io/github/license/pluxml/pluxml?icon=php)
+[![Mastodon](https://img.shields.io/badge/%40pluxml-6768f3?logo=mastodon&logoColor=%23ffffff)](https://hachyderm.io/@pluxml)
 
 Build lightweight websites with ease and without database.
 
