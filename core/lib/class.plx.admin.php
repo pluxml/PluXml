@@ -1270,7 +1270,7 @@ EOT;
 			}
 		}
 		if(isset($content['date_update_old']) and $dates['update'] == $content['date_update_old']) {
-			$dates[$context] = date('YmdHi');
+			$dates['update'] = date('YmdHi');
 		}
 		# Génération du fichier XML
 		if(empty($content['template']) or !file_exists(PLX_CORE . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . basename($content['template']))) {
