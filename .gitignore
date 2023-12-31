@@ -1,5 +1,8 @@
-/data/
-/plugins/
+/data/*
+!/data/index.html
+/plugins/*
+!/plugins/index.html
+!/plugins/.htaccess
 /themes/*
 !/themes/defaut/
 .htaccess

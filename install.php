@@ -347,7 +347,7 @@ plxUtils::cleanHeaders();
 			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
 
 <?php
-	if(is_writable(PLX_ROOT . PLX_CONFIG_PATH)) {
+	if(is_writable(PLX_ROOT . PLX_CONFIG_PATH) and function_exists('xml_parser_create')) {
 ?>
 			<form method="post">
 
@@ -424,6 +424,27 @@ plxUtils::cleanHeaders();
 					<input class="blue" type="submit" name="install" value="<?= L_INPUT_INSTALL ?>" />
 					<?= plxToken::getTokenPostMethod() ?>
 
+					<ul class="unstyled-list">
+						<li><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></li>
+						<li><?= L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
+<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+						<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
+<?php } ?>
+						<?php plxUtils::testWrite(PLX_ROOT.'config.php') ?>
+						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
+						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
+						<?php plxUtils::testModReWrite() ?>
+						<?php plxUtils::testLibGD() ?>
+						<?php plxUtils::testLibXml() ?>
+						<?php plxUtils::testMail() ?>
+					</ul>
+
 				</fieldset>
 
 			</form>
@@ -437,7 +458,7 @@ plxUtils::cleanHeaders();
 				<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 				<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
 				<?php } ?>
-				<?php plxUtils::testWrite(PLX_ROOT) ?>
+				<?php plxUtils::testWrite(PLX_ROOT.'config.php') ?>
 				<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 				<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
 				<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
