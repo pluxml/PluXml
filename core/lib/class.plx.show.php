@@ -1170,7 +1170,8 @@ class plxShow
 
 		# Génération de notre motif
 		$all = isset($all) ? $all : empty($cat_id); # pour le hook : si $all = TRUE, n'y passe pas
-		$cats = $this->plxMotor->activeCats . '|home'; # toutes les categories active
+		# Notice : 000 an home are always in activeCats
+		$cats = $this->plxMotor->activeCats; # toutes les categories active
 		if (!$all) {
 			if (is_numeric($cat_id)) # inclusion à partir de l'id de la categorie
 				$cats = str_pad($cat_id, 3, '0', STR_PAD_LEFT);
@@ -1194,9 +1195,9 @@ class plxShow
 		}
 		if (empty($motif)) {# pour le hook. motif par defaut s'il n'a point créé cette variable
 			if ($all)
-				$motif = '#^\d{4}\.(?:home,|\d{3},)*(?:' . $cats . ')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+				$motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:' . $cats . ')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			else
-				$motif = '#^\d{4}\.((?:home,|\d{3})*(?:' . $cats . ')(?:,\d{3},)*)\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+				$motif = '#^\d{4}\.((?:pin,|home,|\d{3})*(?:' . $cats . ')(?:,\d{3},)*)\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 		}
 
 		# Nouvel objet plxGlob et récupération des fichiers

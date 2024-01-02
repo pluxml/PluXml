@@ -73,7 +73,8 @@ foreach($plxMotor->aCats as $cat_num => $cat_info) {
 eval($plxMotor->plxPlugins->callHook('SitemapCategories')); # Hook Plugins
 
 # Les articles
-if($aFiles = $plxMotor->plxGlob_arts->query('/^[0-9]{4}.(?:[0-9]|home|,)*(?:' . $plxMotor->activeCats . '|home)(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/','art','rsort', 0, false, 'before')) {
+# Notice 000 and home are always in activeCats
+if($aFiles = $plxMotor->plxGlob_arts->query('#^\d{4}\.(?:pin,|\d{3},)*(?:' . $plxMotor->activeCats . ')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#','art','rsort', 0, false, 'before')) {
 	$plxRecord_arts = false;
 	$array=array();
 	foreach($aFiles as $k=>$v) { # On parcourt tous les fichiers
