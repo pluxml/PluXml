@@ -1,5 +1,7 @@
 <?php
-if (!defined('PLX_ROOT')) { exit; }
+if (!defined('PLX_ROOT')) {
+	exit;
+}
 
 if(method_exists($plxShow, 'authorList')) {
 	$users = array_filter(
@@ -9,6 +11,11 @@ if(method_exists($plxShow, 'authorList')) {
 	if(count($users) > 1) {
 		define('MULTI_USERS', true);
 	}
+}
+
+$contentClass = 'content col';
+if(!defined('FULL_WIDTH')) {
+	$contentClass .= ' med-9';
 }
 ?>
 <!DOCTYPE html>
@@ -27,32 +34,21 @@ if(method_exists($plxShow, 'authorList')) {
 <?php
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
-
 	$plxShow->urlPostsRssFeed('', 'link');
 ?>
 </head>
-
 <body id="top" class="page mode-<?php $plxShow->mode(true) ?>">
-
 	<header class="header">
-
 		<div class="container">
-
 			<div class="grid">
-
 				<div class="col sml-6 med-5 lrg-4">
-
 					<div class="logo">
 						<h1 class="no-margin heading-small"><?php $plxShow->mainTitle('link'); ?></h1>
 						<h2 class="h5 no-margin"><?php $plxShow->subTitle(); ?></h2>
 					</div>
-
 				</div>
-
 				<div class="col sml-6 med-7 lrg-8">
-
 					<nav class="nav">
-
 						<div class="responsive-menu">
 							<label for="menu"></label>
 							<input type="checkbox" id="menu">
@@ -61,15 +57,9 @@ if(method_exists($plxShow, 'authorList')) {
 								<?php $plxShow->pageBlog('<li class="#page_class #page_status" id="#page_id"><a href="#page_url" title="#page_name">#page_name</a></li>'); ?>
 							</ul>
 						</div>
-
 					</nav>
-
 				</div>
-
 			</div>
-
 		</div>
-
 	</header>
-
 	<div class="bg"></div>

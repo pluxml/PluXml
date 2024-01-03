@@ -1,13 +1,12 @@
 <?php if(!defined('PLX_ROOT')) {
 	exit;
 }
-
 if($plxShow->plxMotor->plxRecord_coms) {
 ?>
-        <h2 id="comments">
-            <?= $plxShow->artNbCom(); ?>&nbsp;
-            <?php $plxShow->comFeed('rss',$plxShow->artId(), '<a class="rss" href="#feedUrl" title="#feedTitle"></a>'); ?>
-        </h2>
+		<h2 id="comments">
+			<?= $plxShow->artNbCom(); ?>&nbsp;
+			<?php $plxShow->comFeed('rss',$plxShow->artId(), '<a class="rss" href="#feedUrl" title="#feedTitle"></a>'); ?>
+		</h2>
 <?php
 	# On boucle sur les commentaires
 	while($plxShow->plxMotor->plxRecord_coms->loop()) {
@@ -34,7 +33,6 @@ if($plxShow->plxMotor->plxRecord_coms) {
 		</div>
 <?php
 	} # Fin de la boucle sur les commentaires
-
 }
 
 if($plxShow->articleAllowComs()) {
@@ -125,7 +123,6 @@ if($plxShow->articleAllowComs()) {
 <?php
 	} # fin affichage formulaire
 ?>
-
 <script>
 function replyCom(idCom) {
 	document.getElementById('id_answer').innerHTML='<?php $plxShow->lang('REPLY_TO'); ?> :';
@@ -143,7 +140,6 @@ function cancelCom() {
 var parent = document.getElementById('id_parent').value;
 if(parent!='') { replyCom(parent) }
 </script>
-
 <?php
 } else {
 ?>

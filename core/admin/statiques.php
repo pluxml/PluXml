@@ -29,6 +29,8 @@ if(!empty($_POST)) {
 	exit;
 }
 
+$aTemplates = $plxAdmin->getStaticTemplates();
+
 # On inclut le header
 include 'top.php';
 ?>
@@ -67,6 +69,7 @@ function checkBox(cb) {
 					<th><?= L_STATICS_GROUP ?></th>
 					<th><?= L_STATICS_TITLE ?></th>
 					<th><?= L_STATICS_URL ?></th>
+					<th><?= L_STATICS_TEMPLATE_FIELD ?></th>
 					<th><?= L_STATICS_ACTIVE ?></th>
 					<th><?= L_STATICS_ORDER ?></th>
 					<th><?= L_STATICS_MENU ?></th>
@@ -96,6 +99,8 @@ function checkBox(cb) {
 						<?php plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255'); ?>
 					</td><td>
 						<?php plxUtils::printInput($k.'_url', $v['url'], 'text', '-255'); ?>
+					</td><td>
+						<?php plxUtils::printSelect($k.'_template', $aTemplates, $v['template']); ?>
 					</td><td>
 						<?php plxUtils::printSelect($k.'_active', array('1'=>L_YES,'0'=>L_NO), $v['active']); ?>
 					</td><td>
@@ -129,10 +134,13 @@ function checkBox(cb) {
 				# On récupère le dernier identifiant
 				$a = array_keys($plxAdmin->aStats);
 				rsort($a);
+				$newId = $a[0] + 1;
 			} else {
-				$a['0'] = 0;
+				$newId = 1;
 			}
-			$new_staticid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
+
+			# Pour une nouvelle page statique
+			$new_staticid = str_pad($newId, 3, '0', STR_PAD_LEFT);
 ?>
 				<tr class="new">
 					<td colspan="3"><?= L_STATICS_NEW_PAGE ?></td>
@@ -144,6 +152,8 @@ function checkBox(cb) {
 						<?php plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden'); ?>
 					</td><td>
 						<?php plxUtils::printInput($new_staticid.'_url', '', 'text', '-255'); ?>
+					</td><td>
+						<?php plxUtils::printSelect($new_staticid.'template', $aTemplates); ?>
 					</td><td>
 						<?php plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0'); ?>
 					</td><td>
