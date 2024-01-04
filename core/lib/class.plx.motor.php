@@ -25,7 +25,7 @@ class plxMotor {
 	public $tri; # Tri d'affichage des articles
 	public $tri_coms; # Tri d'affichage des commentaires
 	public $bypage = false; # Pagination des articles
-	public $page = 1; # Numéro de la page
+	public $page = -1; # Numéro de la page
 	public $motif = false; # Motif de recherche
 	public $mode = false; # Mode de traitement
 	public $template = false; # Template d'affichage
@@ -180,11 +180,11 @@ class plxMotor {
 		) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
-			# $this->bypage = $this->aConf['bypage']; # Nombre d'article par page
+			$this->getPage();
 			# On regarde si on a des articles en mode "home"
 			$this->motif = '#^\d{4}\.(?:\d{3},|pin,)*home(,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
-			if(!$this->plxGlob_arts->query($this->motif)) {
-				# Sinon on recupère tous les articles
+			if(!$this->getArticles()) {
+				# Aucun article classé en page d'accueil. On récupère tous les articles
 				$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:'.$this->homepageCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			}
 		} else {
@@ -700,8 +700,12 @@ class plxMotor {
 	 **/
 	protected function getPage() {
 
+		if($this->page > 0) {
+			return;
+		}
+
 		# On check pour avoir le numero de page
-		if(preg_match('#page(\d*)#',$this->get,$capture))
+		if(preg_match('#page(\d+)#',$this->get,$capture))
 			$this->page = $capture[1];
 		else
 			$this->page = 1;
@@ -715,6 +719,11 @@ class plxMotor {
 	 * @author	Stéphane F, J.P. Pourrez (bazooka07)
 	 **/
 	public function getArticles($publi='before') {
+
+		if(!empty($this->plxRecord_arts)) {
+			# fonction déjà appelée par plxMotor::prechauffage()
+			return true;
+		}
 
 		# On calcule la valeur start
 		$bypage = $this->bypage;
