@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
 $plxAdmin = plxAdmin::getInstance();
 $lang = $plxAdmin->aConf['default_lang'];
 
-if(isset($_SESSION['user'])) {
+if(isset($_SESSION['user']) AND !defined('PLX_AUTHPAGE')) {
 	# Si utilisateur désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
 	if(
 		!array_key_exists($_SESSION['user'], $plxAdmin->aUsers) or
