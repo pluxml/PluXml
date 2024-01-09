@@ -56,8 +56,6 @@ const PROFIL_EDITOR		= 3;
 const PROFIL_WRITER		= 4;
 const PROFIL_SUBSCRIBER	= 5;
 
-const SESSION_LIFETIME = 7200;
-
 const DEFAULT_CONFIG = array(
 	'title'					=> 'PluXml',
 	'description'			=> '', # plxUtils::strRevCheck(L_SITE_DESCRIPTION)
@@ -164,29 +162,26 @@ if(!file_exists(path('XMLFILE_PARAMETERS')) and basename($_SERVER['SCRIPT_NAME']
  * */
 spl_autoload_register(
 	function($aClass) {
-       return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
+	   return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
 	},
 	true,
 	true
 );
 
 function plx_session_start() {
-	session_start();
-	$gc_maxlifetime = ini_get('session.gc_maxlifetime'); # Garbage collector
-	$expires = time() + (defined('PLX_ADMIN') ? SESSION_LIFETIME : $gc_maxlifetime);
-	if(PHP_VERSION_ID >= 70300) {
-		setcookie(
-			session_name(),
-			session_id(),
-			[
-				'expires' => $expires,
-				'path' => plxUtils::getRacine(true),
-				'domain' => '.' . $_SERVER['SERVER_NAME'], // leading dot for compatibility or use subdomain
-				'secure' => isset($_SERVER['HTTPS']),
-				'httponly' => true,
-				'samesite' => 'Strict', // None || Lax  || Strict
-			]);
-	} else {
-		header('Set-Cookie: ' . session_name() . '=' . session_id() . '; expires=' .  gmdate('D, d-M-Y H:i:s', $expires) . ' GMT; Max-Age=' . $gc_maxlifetime . '; path=' . plxUtils::getRacine(true) . '; domain=' . $_SERVER['SERVER_NAME']. '; HttpOnly; SameSite=Strict');
+	$params = [
+		'cookie_path'		=> preg_replace('#(/core/(?:admin|lib))?/\w[\w-]+\.php$#', '/', $_SERVER['PHP_SELF']),
+		'cookie_secure'		=> isset($_SERVER['HTTPS']),
+		'cookie_httponly'	=> true,
+		'cookie_samesite'	=> 'strict',
+	];
+
+	if (!defined('PLX_AUTH') and defined('SESSION_LIFETIME')) {
+		$params['gc_maxlifetime'] = SESSION_LIFETIME;
 	}
+	if (!session_start($params)) {
+		header('Content-Type: Text/Plain; charset=utf-8');
+		echo 'Internal error! Goodbye';
+		exit;
+	};
 }

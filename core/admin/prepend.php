@@ -3,6 +3,9 @@ const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT . 'core/';
 
 const SESSION_DOMAIN = __DIR__ ;
+const SESSION_LIFETIME = 7200; // 2 hours
+
+const DEL_USER_QUERY = 'auth.php\?d=1';
 
 include '../lib/config.php';
 
@@ -11,7 +14,14 @@ plx_session_start();
 
 if(!defined('PLX_AUTHPAGE') OR PLX_AUTHPAGE !== true){ # si on est pas sur la page de login
 	# Test sur le domaine et sur l'identification
-	if(empty($_SESSION['domain']) or $_SESSION['domain'] != SESSION_DOMAIN or empty($_SESSION['user'])) {
+	if(
+		empty($_SESSION['domain']) or
+		$_SESSION['domain'] != SESSION_DOMAIN or
+		empty($_SESSION['ip']) or
+		$_SESSION['ip'] != $_SERVER['REMOTE_ADDR'] or
+		empty($_SESSION['user']) or
+		!preg_match('#^\d{3}#', $_SESSION['user'])
+	) {
 		header('Location: auth.php?p=' . htmlentities($_SERVER['REQUEST_URI']));
 		exit;
 	}
@@ -24,14 +34,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
 $plxAdmin = plxAdmin::getInstance();
 $lang = $plxAdmin->aConf['default_lang'];
 
-if(isset($_SESSION['user']) AND !defined('PLX_AUTHPAGE')) {
+if(
+	isset($_SESSION['user']) and
+	!preg_match('#\b' . DEL_USER_QUERY . '$#', $_SERVER['REQUEST_URI']) // for avoiding infinite loops
+) {
 	# Si utilisateur désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
 	if(
 		!array_key_exists($_SESSION['user'], $plxAdmin->aUsers) or
 		empty($plxAdmin->aUsers[$_SESSION['user']]['active']) or
 		!empty($plxAdmin->aUsers[$_SESSION['user']]['delete'])
 	) {
-		header('Location: auth.php?d=1');# Déconnecte l'utilisateur a la prochaine demande,
+		header('Location: ' . DEL_USER_QUERY);# Déconnecte l'utilisateur a la prochaine demande,
 		exit;
 	} else {
 		$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
