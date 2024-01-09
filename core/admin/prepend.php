@@ -5,9 +5,29 @@ const PLX_CORE = PLX_ROOT . 'core/';
 const SESSION_DOMAIN = __DIR__ ;
 const SESSION_LIFETIME = 7200; // 2 hours
 
-const DEL_USER_QUERY = 'auth.php?d=1';
-
 include '../lib/config.php';
+
+/*
+ * Close the session
+ * */
+function log_out() {
+	$_SESSION = array();
+	# See https://www.php.net/manual/fr/function.session-destroy.php
+	if (ini_get('session.use_cookies')) {
+		# Delete cookie on client ( expired time )
+		$params = session_get_cookie_params();
+		setcookie(session_name(), '', time() - 42000,
+			$params['path'], $params['domain'],
+			$params['secure'], $params['httponly']
+		);
+	}
+	# Delete cookie on server
+	session_destroy();
+
+	# Redirection on authentification page
+	header('Location: auth.php');
+	exit;
+}
 
 # On démarre la session
 plx_session_start();
@@ -34,18 +54,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') $_POST = plxUtils::unSlash($_POST);
 $plxAdmin = plxAdmin::getInstance();
 $lang = $plxAdmin->aConf['default_lang'];
 
-if(
-	isset($_SESSION['user']) and
-	!preg_match('#\b' . DEL_USER_QUERY . '$#', $_SERVER['REQUEST_URI']) // for avoiding infinite loops
-) {
+if(isset($_SESSION['user'])) {
 	# Si utilisateur désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
 	if(
 		!array_key_exists($_SESSION['user'], $plxAdmin->aUsers) or
 		empty($plxAdmin->aUsers[$_SESSION['user']]['active']) or
 		!empty($plxAdmin->aUsers[$_SESSION['user']]['delete'])
 	) {
-		header('Location: ' . DEL_USER_QUERY);# Déconnecte l'utilisateur a la prochaine demande,
-		exit;
+		log_out();
 	} else {
 		$lang = $plxAdmin->aUsers[$_SESSION['user']]['lang'];
 		$_SESSION['profil'] = $plxAdmin->aUsers[$_SESSION['user']]['profil'];

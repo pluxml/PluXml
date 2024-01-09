@@ -14,21 +14,8 @@ include 'prepend.php';
 
 # Déconnexion (paramètre url : ?d=1)
 if (!empty($_GET['d']) and $_GET['d'] == 1) {
-
-	$_SESSION = array();
-	# See https://www.php.net/manual/fr/function.session-destroy.php
-	if (ini_get('session.use_cookies')) {
-		# Delete cookie on client ( expired time )
-		$params = session_get_cookie_params();
-		setcookie(session_name(), '', time() - 42000,
-			$params['path'], $params['domain'],
-			$params['secure'], $params['httponly']
-		);
-	}
-	# Delete cookie on server
-	session_destroy();
-	header('Location: ' . $_SERVER['PHP_SELF']);
-	exit;
+	# PHP Script is stopped by :
+	log_out();
 }
 
 # Control du token du formulaire
