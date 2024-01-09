@@ -5,7 +5,8 @@ const PLX_CORE = PLX_ROOT . 'core/';
 const SESSION_DOMAIN = __DIR__ ;
 const SESSION_LIFETIME = 7200; // 2 hours
 
-const DEL_USER_QUERY = 'auth.php\?d=1';
+const DEL_USER_QUERY = 'auth.php?d=1';
+const DEL_USER_REGEX = 'auth.php\?d=1';
 
 include '../lib/config.php';
 
@@ -36,7 +37,7 @@ $lang = $plxAdmin->aConf['default_lang'];
 
 if(
 	isset($_SESSION['user']) and
-	!preg_match('#\b' . DEL_USER_QUERY . '$#', $_SERVER['REQUEST_URI']) // for avoiding infinite loops
+	!preg_match('#\b' . DEL_USER_REGEX . '$#', $_SERVER['REQUEST_URI']) // for avoiding infinite loops
 ) {
 	# Si utilisateur désactivé ou supprimé par un admin, hors page de login. (!PLX_AUTHPAGE)
 	if(
