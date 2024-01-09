@@ -79,8 +79,8 @@ const L_LIBGD_INSTALLED				= 'Bibliotèca GD installada';
 const L_LIBGD_NOT_INSTALLED			= 'Bibliotèca GD non installada';
 const L_LIBXML_INSTALLED			= 'Bibliotèca XML installada';
 const L_LIBXML_NOT_INSTALLED		= 'Bibliotèca XML non installada';
-const L_MAIL_AVAILABLE				= 'Foncion d\'enviada de mail disponible';
-const L_MAIL_NOT_AVAILABLE			= 'Foncion d\'enviada de mail non disponible';
+const L_MAIL_AVAILABLE				= 'Foncion d\'enviada de mail disponibla';
+const L_MAIL_NOT_AVAILABLE			= 'Foncion d\'enviada de mail non disponibla';
 
 # class.plx.motor.php
 
