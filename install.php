@@ -43,14 +43,14 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # On vérifie la version minimale de PHP
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	echo L_WRONG_PHP_VERSION;
 	exit;
 }
 
 # On vérifie que PluXml n'est pas déjà installé
 if(file_exists(path('XMLFILE_PARAMETERS'))) {
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
+	echo L_ERR_PLUXML_ALREADY_INSTALLED;
 	exit;
 }
 
