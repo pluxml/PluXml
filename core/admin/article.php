@@ -16,6 +16,9 @@ if(!isset($_POST['preview']))
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticlePrepend'));
 
+# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
+$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER);
+
 # validation de l'id de l'article si passé en parametre
 if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
