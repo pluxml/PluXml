@@ -15,6 +15,9 @@ plxToken::validateFormToken($_POST);
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
 
+# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
+$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER);
+
 # Suppression des articles selectionnes
 if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']=='delete') AND isset($_POST['idArt'])) {
 	foreach ($_POST['idArt'] as $k => $v) $plxAdmin->delArticle($v);
