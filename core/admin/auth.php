@@ -109,7 +109,7 @@ if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($
 		unset($_SESSION['maxtry']);
 		if($plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user']) == 0) {
 			# nouvel article
-			$redirect .= $_SESSION['profil'] > PROFIL_WRITER  ? 'profil.php' : 'article.php';
+			$redirect = $_SESSION['profil'] > PROFIL_WRITER  ? 'profil.php' : 'article.php';
 		}
 		header('Location: ' . htmlentities($redirect));
 		exit;
