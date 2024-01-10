@@ -316,7 +316,19 @@ else {
 	$email='';
 	$data='1';
 }
+
 plxUtils::cleanHeaders();
+
+function passwordDict() {
+	$words = array(
+		L_PWD_VERY_WEAK,
+		L_PWD_WEAK,
+		L_PWD_GOOD,
+		L_PWD_STRONG,
+	);
+	return implode('|', $words);
+}
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -342,10 +354,17 @@ plxUtils::cleanHeaders();
 <?php } ?>
 
 <?php
-	if(is_writable(PLX_ROOT . PLX_CONFIG_PATH) and function_exists('xml_parser_create')) {
+	if(
+		is_writable(PLX_ROOT . PLX_CONFIG_PATH) and
+		is_writable(PLX_ROOT . PLX_ROOT.dirname($config['racine_articles'])) and
+		is_writable(PLX_ROOT . PLX_ROOT.$config['racine_plugins']) and
+		is_writable(PLX_ROOT . PLX_ROOT.$config['racine_themes']) and
+		function_exists('xml_parser_create')
+	) {
 ?>
 			<form method="post">
 				<fieldset>
+					<?= plxToken::getTokenPostMethod() ?>
 					<div class="grid">
 						<div class="col sml-12 med-5 label-centered">
 							<label for="id_default_lang"><?= L_SELECT_LANG ?>&nbsp;:</label>
@@ -353,7 +372,6 @@ plxUtils::cleanHeaders();
 						<div class="col sml-12 med-7">
 							<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
 							<input type="submit" name="select_lang" value="<?= L_INPUT_CHANGE ?>" />
-							<?= plxToken::getTokenPostMethod() ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -369,7 +387,7 @@ plxUtils::cleanHeaders();
 							<label for="id_name"><?= L_USERNAME ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('name', $name, 'text', '20-48',false,'','','autofocus', true) ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -377,7 +395,7 @@ plxUtils::cleanHeaders();
 							<label for="id_login"><?= L_LOGIN ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('login', $login, 'text', '20-48', '', '', '', '', true) ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -385,8 +403,8 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd"><?= L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"', 'required') ?>
-							<span id="id_pwd_strenght"></span>
+							<?php plxUtils::printInput('pwd', '', 'password', '20-48', false, '', '', '', true) ?>
+							<span data-lang="<?= passwordDict() ?>"></span>
 						</div>
 					</div>
 					<div class="grid">
@@ -394,7 +412,8 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd2"><?= L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('pwd2', '', 'password', '20-48', false, '', '', '', true) ?>
+							<span data-lang="❌|✅"></span>
 						</div>
 					</div>
 					<div class="grid">
@@ -402,7 +421,7 @@ plxUtils::cleanHeaders();
 							<label for="id_email"><?= L_EMAIL ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('email', $email, 'email', '20-48', '', '', '', '', true) ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -414,7 +433,6 @@ plxUtils::cleanHeaders();
 						</div>
 					</div>
 					<input class="blue" type="submit" name="install" value="<?= L_INPUT_INSTALL ?>" />
-					<?= plxToken::getTokenPostMethod() ?>
 				</fieldset>
 			</form>
 <?php
