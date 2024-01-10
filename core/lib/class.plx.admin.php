@@ -459,16 +459,17 @@ EOT;
 		$args = func_get_args();
 		if($redirect===true or $redirect===false) $args=$args[0];
 		if($redirect) {
+			$redirect = 'Location: '.($_SESSION['profil']>PROFIL_WRITER?'profil':'index').'.php';
 			if(is_array($args)) {
 				if(!in_array($_SESSION['profil'], $args)) {
 					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
+					header($redirect);
 					exit;
 				}
 			} else {
 				if($_SESSION['profil']!=$profil) {
 					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
+					header($redirect);
 					exit;
 				}
 			}
