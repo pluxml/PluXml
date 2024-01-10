@@ -20,6 +20,9 @@ if(isset($_POST['folder']) AND $_POST['folder']!='.' AND !plxUtils::checkSource(
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasPrepend'));
 
+# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
+$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER);
+
 # Recherche du type de medias à afficher via la session
 if(empty($_SESSION['medias'])) {
 	$_SESSION['medias'] = $plxAdmin->aConf['medias'];
