@@ -33,7 +33,6 @@ if(!array_key_exists($lang, plxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
 }
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
-loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
 
 # On vérifie la version minimale de PHP
