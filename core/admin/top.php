@@ -130,10 +130,10 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 								}
 							}
 						}
-					}
 
 					# Hook Plugins
 					eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
+					}
 
 					echo implode('', $menus);
 ?>
