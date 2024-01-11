@@ -39,7 +39,7 @@ loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
 # On vérifie la version minimale de PHP
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	echo L_WRONG_PHP_VERSION;
 	exit;
 }
 
@@ -51,8 +51,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 # Création de l'objet principal et lancement du traitement
 $plxUpdater = new plxUpdater($versions);
 
-?>
-<?php
 plxUtils::cleanHeaders();
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
