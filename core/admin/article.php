@@ -249,7 +249,7 @@ foreach($plxAdmin->aUsers as $_userid => $_user) {
 			$_users[L_PROFIL_MODERATOR][$_userid] = plxUtils::strCheck($_user['name']);
 		elseif($_user['profil']==PROFIL_EDITOR)
 			$_users[L_PROFIL_EDITOR][$_userid] = plxUtils::strCheck($_user['name']);
-		else
+		elseif($_user['profil']==PROFIL_WRITER)
 			$_users[L_PROFIL_WRITER][$_userid] = plxUtils::strCheck($_user['name']);
 	}
 }
