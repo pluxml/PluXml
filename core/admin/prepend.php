@@ -71,6 +71,16 @@ if(isset($_SESSION['user'])) {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 
+# Restricted grants for PROFIL_SUBSCRIBER and others
+if(
+	!defined('PLX_AUTHPAGE') and
+	$_SESSION['profil'] > PROFIL_WRITER and
+	!preg_match('#/core/admin/profil\.php$#', $_SERVER['PHP_SELF'])
+) {
+	header('Location: profil.php');
+	exit;
+}
+
 # Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
 loadLang('../lang/'.$lang.'/admin.php');
 loadLang('../lang/'.$lang.'/core.php');
