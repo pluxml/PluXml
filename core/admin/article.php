@@ -240,17 +240,13 @@ include 'top.php';
 
 # On construit la liste des utilisateurs
 foreach($plxAdmin->aUsers as $_userid => $_user) {
-	if($_user['active'] AND !$_user['delete'] ) {
-		if($_user['profil']==PROFIL_ADMIN)
-			$_users[L_PROFIL_ADMIN][$_userid] = plxUtils::strCheck($_user['name']);
-		elseif($_user['profil']==PROFIL_MANAGER)
-			$_users[L_PROFIL_MANAGER][$_userid] = plxUtils::strCheck($_user['name']);
-		elseif($_user['profil']==PROFIL_MODERATOR)
-			$_users[L_PROFIL_MODERATOR][$_userid] = plxUtils::strCheck($_user['name']);
-		elseif($_user['profil']==PROFIL_EDITOR)
-			$_users[L_PROFIL_EDITOR][$_userid] = plxUtils::strCheck($_user['name']);
-		else
-			$_users[L_PROFIL_WRITER][$_userid] = plxUtils::strCheck($_user['name']);
+	if(
+		$_user['profil'] <= PROFIL_WRITER AND
+		$_user['active'] AND
+		!$_user['delete']
+	) {
+		$profilName = PROFIL_NAMES[$_user['profil']];
+		$_users[$profilName][$_userid] = plxUtils::strCheck($_user['name']);
 	}
 }
 
