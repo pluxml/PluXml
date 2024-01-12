@@ -13,6 +13,7 @@ const L_UNCLASSIFIED				= 'Non classat';
 const L_INFO_PHP_VERSION			= 'Version de php';
 const L_INFO_CHARSET				= 'encodatge';
 const L_PAGE = 'Pagina';
+const L_SAVE_SUCCESSFUL = 'Enregistrament de las donadas efectuat amb succès';
 
 # index.php
 

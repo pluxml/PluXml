@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'valoare invalida';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Înregistrarea a fost efectuata cu succes';
 const L_SAVE_ERR = 'Eroare la înregistrare';
 const L_NO_ENTRY = 'Acces refuzat';
 const L_ERR_USER_EMPTY = 'Vă rugăm să introduceţi un nume de utilizator';

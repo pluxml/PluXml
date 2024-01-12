@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'Invalid value';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Data was succesfully saved';
 const L_SAVE_ERR = 'Error while saving data';
 const L_NO_ENTRY = 'No entry';
 const L_ERR_USER_EMPTY = 'Please enter a username';

@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'Valor invalida';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Enregistrament de las donadas efectuat amb succès';
 const L_SAVE_ERR = 'Error pendent l\'enregistrament de las donadas';
 const L_NO_ENTRY = 'Accès defendut';
 const L_ERR_USER_EMPTY = 'Volgatz picar un nom d\'utilizaire';

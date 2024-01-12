@@ -14,6 +14,7 @@ const L_UNCLASSIFIED				= 'Uncategorized';
 const L_INFO_PHP_VERSION			= 'PHP version';
 const L_INFO_CHARSET				= 'charset';
 const L_PAGE = 'Page';
+const L_SAVE_SUCCESSFUL = 'Data was succesfully saved';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Main PluXml theme not found';

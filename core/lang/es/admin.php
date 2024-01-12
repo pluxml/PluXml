@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'valor no válido';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Se guradaron los datos correctamente';
 const L_SAVE_ERR = 'Error al guardar los datos';
 const L_NO_ENTRY = 'Acceso denegado';
 const L_ERR_USER_EMPTY = 'Introduzca un nombre de usuario';

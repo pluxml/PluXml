@@ -13,6 +13,7 @@ const L_UNCLASSIFIED = 'Bez kategorii';
 const L_INFO_PHP_VERSION = 'Wersja PHP';
 const L_INFO_CHARSET = 'kodowanie';
 const L_PAGE = 'strona';
+const L_SAVE_SUCCESSFUL = 'Zapisywanie zakończone powodzeniem';
 
 # index.php
 

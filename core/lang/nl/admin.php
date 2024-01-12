@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'ongeldige waarde';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Gegevens succesvol opgeslagen';
 const L_SAVE_ERR = 'Fout bij het opslaan van de gegevens';
 const L_NO_ENTRY = 'Geen toegang';
 const L_ERR_USER_EMPTY = 'Gelieve een gebruikersnaam in te geven';

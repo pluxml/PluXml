@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'Valeur invalide';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Enregistrement des données effectué avec succès';
 const L_SAVE_ERR = 'Erreur pendant l\'enregistrement des données';
 const L_NO_ENTRY = 'Accès interdit';
 const L_ERR_USER_EMPTY = 'Veuillez saisir un nom d\'utilisateur';

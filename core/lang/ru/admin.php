@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'Неверное значение';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Данные успешно сохранены';
 const L_SAVE_ERR = 'Ошибка при сохранении данных';
 const L_NO_ENTRY = 'Войти невозможно';
 const L_ERR_USER_EMPTY = 'Имя пользователя';

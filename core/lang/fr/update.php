@@ -1,7 +1,6 @@
 <?php
 
 
-const L_SAVE_SUCCESSFUL					= 'Enregistrement des données effectué avec succès';
 const L_UPDATE_TITLE					= 'Mise à jour PluXml';
 const L_WRONG_PHP_VERSION				= 'PluXml requiert PHP 5 ou supérieur pour fonctionner.';
 
