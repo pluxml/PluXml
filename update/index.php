@@ -1,7 +1,7 @@
 <?php
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
-include(PLX_ROOT.'config.php');
+
 include(PLX_CORE.'lib/config.php');
 
 const PLX_UPDATER = true;
@@ -12,19 +12,9 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	exit;
 }
 
-# On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.msg.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.admin.php');
-include(PLX_CORE.'lib/class.plx.encrypt.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
-include(PLX_CORE.'lib/class.plx.token.php');
-include(PLX_ROOT.'update/versions.php');
-include(PLX_ROOT.'update/class.plx.updater.php');
+# On inclut les librairies nécessaires pour la MAJ
+include PLX_ROOT.'update/versions.php';
+include PLX_ROOT.'update/class.plx.updater.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
@@ -39,7 +29,7 @@ loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
 # On vérifie la version minimale de PHP
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	echo L_WRONG_PHP_VERSION;
 	exit;
 }
 
@@ -51,8 +41,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 # Création de l'objet principal et lancement du traitement
 $plxUpdater = new plxUpdater($versions);
 
-?>
-<?php
 plxUtils::cleanHeaders();
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
 session_start();
