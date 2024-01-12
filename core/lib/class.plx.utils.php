@@ -249,7 +249,7 @@ class plxUtils {
 			'name="'.$name.'"',
 			'type="'.$type.'"'
 		 );
-		 if(!empty($value))
+		 if($value != '') # take care with 0 value
 			 $params[] = 'value="'.$value.'"';
 		 if(!empty($extra))
 			 $params[] = $extra;
