@@ -32,10 +32,8 @@ elseif(!empty($_POST['folder'])) {
 # Nouvel objet de type plxMedias
 $plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
 $uf = $plxAdmin->aConf['userfolders'];
-if(
-	!empty($uf) # Gestion du dossier des medias pour certains utilisateurs
+if(!empty($uf)) { # Gestion du dossier des medias pour certains utilisateurs
 	$_SESSION['profil'] >= ($uf == 1) ? PROFIL_WRITER : $uf - 1; // Rétro-compatibilité pour PluXml version < 5.9.0
-) {
 	$plxMediasRoot .= $_SESSION['user'].'/';
 }
 $plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']);
