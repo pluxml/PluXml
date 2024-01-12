@@ -13,6 +13,7 @@ const L_UNCLASSIFIED = 'Neclasificat';
 const L_INFO_PHP_VERSION = 'Versiune php';
 const L_INFO_CHARSET = 'encoding';
 const L_PAGE = 'Pagină';
+const L_SAVE_SUCCESSFUL = 'Înregistrarea a fost efectuata cu succes';
 
 # index.php
 

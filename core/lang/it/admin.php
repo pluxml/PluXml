@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'valore non valido';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Dati salvati con successo';
 const L_SAVE_ERR = 'Errore durante il salvataggio dei dati';
 const L_NO_ENTRY = 'Accesso non consentito';
 const L_ERR_USER_EMPTY = 'Inserisci un nome utente';

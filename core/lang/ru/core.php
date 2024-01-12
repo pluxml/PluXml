@@ -13,6 +13,7 @@ const L_UNCLASSIFIED = 'Без категории';
 const L_INFO_PHP_VERSION = 'PHP версия';
 const L_INFO_CHARSET = 'кодировка';
 const L_PAGE = 'Страница';
+const L_SAVE_SUCCESSFUL = 'Данные успешно сохранены';
 
 # index.php
 

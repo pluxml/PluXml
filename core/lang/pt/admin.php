@@ -30,7 +30,6 @@ const L_INVALID_VALUE = 'Valor inválido';
 
 // class.plx.admin.php
 
-const L_SAVE_SUCCESSFUL = 'Grabação dos dados efectuada com sucesso';
 const L_SAVE_ERR = 'Ocorreu um erro durante o processo de grabação dos dados';
 const L_NO_ENTRY = 'Acesso refusado';
 const L_ERR_USER_EMPTY = 'Queira dígitar um nome de utilizador';
