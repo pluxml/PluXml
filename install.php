@@ -43,14 +43,14 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # On vérifie la version minimale de PHP
 if(version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')){
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	echo L_WRONG_PHP_VERSION;
 	exit;
 }
 
 # On vérifie que PluXml n'est pas déjà installé
 if(file_exists(path('XMLFILE_PARAMETERS'))) {
 	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_ERR_PLUXML_ALREADY_INSTALLED);
+	echo L_ERR_PLUXML_ALREADY_INSTALLED;
 	exit;
 }
 
@@ -316,7 +316,19 @@ else {
 	$email='';
 	$data='1';
 }
+
 plxUtils::cleanHeaders();
+
+function passwordDict() {
+	$words = array(
+		L_PWD_VERY_WEAK,
+		L_PWD_WEAK,
+		L_PWD_GOOD,
+		L_PWD_STRONG,
+	);
+	return implode('|', $words);
+}
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -325,34 +337,34 @@ plxUtils::cleanHeaders();
 	<title><?= L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<script src="<?= PLX_CORE ?>lib/visual.js"></script>
 </head>
 
 <body>
-
 	<main class="main grid">
-
 		<aside class="aside col sml-12 med-3 lrg-2">
-
 		</aside>
-
 		<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top: 0">
-
 			<header>
-
 				<h1><?= L_PLUXML_VERSION.' '.PLX_VERSION ?> - <?= L_INSTALL_TITLE ?></h1>
-
 			</header>
-
-			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
+<?php if(!empty(trim($msg))) { ?>
+			<div class="alert red">
+				<?= $msg ?>
+			</div>
+<?php } ?>
 
 <?php
-	if(is_writable(PLX_ROOT . PLX_CONFIG_PATH) and function_exists('xml_parser_create')) {
+	if(
+		is_writable(PLX_ROOT . PLX_CONFIG_PATH) and
+		is_writable(PLX_ROOT . PLX_ROOT.dirname($config['racine_articles'])) and
+		is_writable(PLX_ROOT . PLX_ROOT.$config['racine_plugins']) and
+		is_writable(PLX_ROOT . PLX_ROOT.$config['racine_themes']) and
+		function_exists('xml_parser_create')
+	) {
 ?>
 			<form method="post">
-
 				<fieldset>
-
+					<?= plxToken::getTokenPostMethod() ?>
 					<div class="grid">
 						<div class="col sml-12 med-5 label-centered">
 							<label for="id_default_lang"><?= L_SELECT_LANG ?>&nbsp;:</label>
@@ -360,7 +372,6 @@ plxUtils::cleanHeaders();
 						<div class="col sml-12 med-7">
 							<?php plxUtils::printSelect('default_lang', plxUtils::getLangs(), $lang) ?>&nbsp;
 							<input type="submit" name="select_lang" value="<?= L_INPUT_CHANGE ?>" />
-							<?= plxToken::getTokenPostMethod() ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -376,7 +387,7 @@ plxUtils::cleanHeaders();
 							<label for="id_name"><?= L_USERNAME ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('name', $name, 'text', '20-48',false,'','','autofocus', true) ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -384,7 +395,7 @@ plxUtils::cleanHeaders();
 							<label for="id_login"><?= L_LOGIN ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('login', $login, 'text', '20-48', '', '', '', '', true) ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -392,8 +403,8 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd"><?= L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"', 'required') ?>
-							<span id="id_pwd_strenght"></span>
+							<?php plxUtils::printInput('pwd', '', 'password', '20-48', false, '', '', '', true) ?>
+							<span data-lang="<?= passwordDict() ?>"></span>
 						</div>
 					</div>
 					<div class="grid">
@@ -401,7 +412,8 @@ plxUtils::cleanHeaders();
 							<label for="id_pwd2"><?= L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd2', '', 'password', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('pwd2', '', 'password', '20-48', false, '', '', '', true) ?>
+							<span data-lang="❌|✅"></span>
 						</div>
 					</div>
 					<div class="grid">
@@ -409,7 +421,7 @@ plxUtils::cleanHeaders();
 							<label for="id_email"><?= L_EMAIL ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('email', $email, 'email', '20-48', '', '', '', '', true) ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -420,33 +432,8 @@ plxUtils::cleanHeaders();
 							<?php plxUtils::printSelect('timezone', plxTimezones::timezones(), $timezone); ?>
 						</div>
 					</div>
-
 					<input class="blue" type="submit" name="install" value="<?= L_INPUT_INSTALL ?>" />
-					<?= plxToken::getTokenPostMethod() ?>
-
-					<ul class="unstyled-list">
-						<li><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></li>
-						<li><?= L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
-<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-						<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
-<?php } ?>
-						<?php plxUtils::testWrite(PLX_ROOT.'config.php') ?>
-						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_articles']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_commentaires']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_statiques']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['medias']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_plugins']) ?>
-						<?php plxUtils::testWrite(PLX_ROOT.$config['racine_themes']) ?>
-						<?php plxUtils::testModReWrite() ?>
-						<?php plxUtils::testLibGD() ?>
-						<?php plxUtils::testLibXml() ?>
-						<?php plxUtils::testMail() ?>
-					</ul>
-
 				</fieldset>
-
 			</form>
 <?php
 	}
@@ -455,9 +442,9 @@ plxUtils::cleanHeaders();
 			<ul class="unstyled-list">
 				<li><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></li>
 				<li><?= L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
-				<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 				<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
-				<?php } ?>
+<?php } ?>
 				<?php plxUtils::testWrite(PLX_ROOT.'config.php') ?>
 				<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>
 				<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH.'plugins/') ?>
@@ -472,11 +459,8 @@ plxUtils::cleanHeaders();
 				<?php plxUtils::testLibXml() ?>
 				<?php plxUtils::testMail() ?>
 			</ul>
-
 		</section>
-
 	</main>
-
+	<script src="<?= PLX_CORE ?>admin/js/visual.js"></script>
 </body>
-
 </html>

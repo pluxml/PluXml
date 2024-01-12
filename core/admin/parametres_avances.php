@@ -101,20 +101,14 @@ if (file_exists('robots.txt')) {
 			<div class="col sml-12 med-7">
 <?php
 $usersOptions = array(
-	''					=> ucFirst(L_NONE1),
-	PROFIL_MANAGER		=> L_PROFIL_MANAGER,
-	PROFIL_MODERATOR	=> L_PROFIL_MODERATOR,
-	PROFIL_EDITOR		=> L_PROFIL_EDITOR,
-	PROFIL_WRITER		=> L_PROFIL_WRITER,
+	0 => ucFirst(L_NONE1),
+	2 => L_PROFIL_MANAGER,
+	3 => L_PROFIL_MODERATOR,
+	4 => L_PROFIL_EDITOR,
+	1 => L_PROFIL_WRITER, // Rétro-compatibilité pour PluXml version < 5.9.0
 );
-if (isset($plxAdmin->aConf['usersfolders'])) {
-	$value = $plxAdmin->aConf['usersfolders'];
-} else {
-	# rétro-compatibilité
-	$value = ($plxAdmin->aConf['userfolders'] == 1) ? PROFIL_WRITER : '';
 
-}
-plxUtils::printSelect('usersfolders', $usersOptions, $value);
+plxUtils::printSelect('userfolders', $usersOptions, $plxAdmin->aConf['userfolders']);
 ?>
 			</div>
 		</div>

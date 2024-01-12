@@ -39,25 +39,6 @@ function setMsg() {
 	}
 }
 
-function pwdStrength(id, s) {
-	// Colors: white = empty, red = very weak, orange = weak, yellow = good, green = strong
-	var color = ['#fff', '#ff0000', '#ff9900', '#ffcc00', '#33cc33'];
-	var val = document.getElementById(id).value;
-	var no=0;
-	// If the password length is less than or equal to 6
-	if(val.length>0 && val.length<=6) no=1;
-	// If the password length is greater than 6 and contain any lowercase alphabet or any number or any special character
-	if(val.length>6 && (val.match(/[a-z]/) || val.match(/\d+/) || val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))) no=2;
-	// If the password length is greater than 6 and contain alphabet,number,special character respectively
-	if(val.length>6 && ((val.match(/[a-z]/) && val.match(/\d+/)) || (val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) || (val.match(/[a-z]/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)))) no=3;
-	// If the password length is greater than 6 and must contain alphabets,numbers and special characters
-	if(val.length>6 && val.match(/[a-z]/) && val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) no=4;
-	// Change password background color
-	document.getElementById(id).style.backgroundColor=color[no];
-	// Change label strenght password
-	var pwdstr=document.getElementById(id+'_strenght');
-	pwdstr.innerHTML='';if(no>0){pwdstr.innerHTML=s[no-1]};
-}
 function dialogBox(dlg) {
 	this.dlg = document.getElementById(dlg);
 	this.span = document.querySelector('#'+dlg+' .dialog-close');
@@ -114,4 +95,88 @@ var DragDrop = {
 				rows[i].cells[numcol].getElementsByTagName('input')[0].value = i+1;
 		}
 	}
-}
+};
+
+(function() {
+	// Checks password
+
+	// Enable only for install.php and profil.php
+	if(!/\/(?:install|profil)\.php$/.test(document.URL)) {
+		return
+	}
+
+	const pwds = document.querySelectorAll('input[type="password"]');
+	if (pwds.length == 0) {
+		return;
+	}
+
+	// Testing strength of password
+	const label = pwds[0].parentElement.querySelector('[data-lang]');
+	const words = (label) ? label.dataset.lang.split('|') : null;
+	pwds[0].addEventListener('keyup', function(ev) {
+		const val = ev.target.value;
+		if(val == '') {
+			if (label) {
+				label.textContent = '';
+			}
+			ev.target.style.backgroundColor = '';
+			return;
+		}
+
+		var no = 0;
+		no++;
+		if(val.length >= 6) {
+			if(val.match(/[a-z]+/i)) {
+				no++;
+				if(val.match(/\d+/)) {
+					no++;
+					if(val.match(/[!@#$%&*?_~()-]+/)) {
+						no++;
+					}
+				}
+			}
+		}
+
+		// Change password background color
+		// Colors: white = empty, red = very weak, orange = weak, yellow = good, green = strong
+		const colors = ['#fff', '#f00', '#f90', '#fc0', '#3c3'];
+		ev.target.style.backgroundColor = colors[no];
+		// Change label strenght password
+		if(words) {
+			label.textContent = (no > 0 && no <= words.length) ? words[no-1] : '';
+		}
+	});
+
+	if(pwds.length == 1) {
+		return;
+	}
+
+	// Checks if confirmation password is right
+	const label1 = pwds[1].parentElement.querySelector('[data-lang]');
+	const words1 = (label1) ? label1.dataset.lang.split('|') : null;
+	if(words1 && words1.length >= 2) {
+		// disabled last input["submit"]
+		pwds[1].addEventListener('change', function(ev){
+			if(pwds[0].value.length == 0 || pwds[1].value.length == 0) {
+				label1.textContent = '';
+			} else {
+				label1.textContent = words1[(pwds[0].value == pwds[1].value) ? 1: 0];
+			}
+		});
+	}
+
+	const form1 = pwds[0].form;
+	form1.addEventListener('submit', function(ev) {
+		const val = pwds[0].value;
+		if(val.length == 0) {
+			return;
+		}
+		if(val != pwds[1].value) {
+			event.preventDefault();
+			if(words1 && words1.length > 0) {
+				label1.textContent = words1[0];
+			}
+			pwds[1].focus();
+		}
+	});
+})();
