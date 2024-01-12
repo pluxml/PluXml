@@ -10,9 +10,6 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 	exit;
 }
 
-# On impose le charset
-header('Content-Type: text/xml; charset='.PLX_CHARSET);
-
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
@@ -109,7 +106,7 @@ $output = ob_get_clean();
 eval($plxMotor->plxPlugins->callHook('SitemapEnd')); # Hook Plugins
 
 # Restitution écran
-header('Content-Type: application/rss+xml');
+header('Content-Type: application/rss+xml; charset=UTF-8');
 header('Content-Disposition: attachment; filename="sitemap.xml"');
 header('Content-Length: ' . strlen($output));
 echo $output;
