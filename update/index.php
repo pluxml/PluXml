@@ -13,8 +13,8 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 }
 
 # On inclut les librairies nécessaires pour la MAJ
-include(PLX_ROOT.'update/versions.php');
-include(PLX_ROOT.'update/class.plx.updater.php');
+include PLX_ROOT.'update/versions.php';
+include PLX_ROOT.'update/class.plx.updater.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
@@ -23,6 +23,7 @@ if(!array_key_exists($lang, plxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
 }
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+loadLang(PLX_CORE.'lang/'.$lang.'/admin.php');
 loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
 
 # On vérifie la version minimale de PHP
