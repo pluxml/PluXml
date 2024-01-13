@@ -652,24 +652,23 @@ class plxUtils {
 	 **/
 	public static function write($content, $filename) {
 
-		if(file_exists($filename)) {
-			$f = fopen($filename.'.tmp', 'w'); # On ouvre le fichier temporaire
-			fwrite($f, trim($content)); # On écrit
-			fclose($f); # On ferme
-			unlink($filename);
-			rename($filename.'.tmp', $filename); # On renomme le fichier temporaire avec le nom de l'ancien
-		} else {
-			$f = fopen($filename, 'w'); # On ouvre le fichier
-			fwrite($f, trim($content)); # On écrit
-			fclose($f); # On ferme
-		}
-		# On place les bons droits
-		chmod($filename,0644);
-		# On vérifie le résultat
-		if(file_exists($filename) AND !file_exists($filename.'.tmp'))
-			return true;
-		else
+		try {
+			if(file_exists($filename)) {
+				# On crée le fichier temporaire
+				$newFilename = $filename . '.tmp';
+				file_put_contents($newFilename, trim($content));
+				unlink($filename);
+				rename($newFilename, $filename); # On renomme le fichier temporaire avec le nom de l'ancien
+			} else {
+				file_put_contents($filename, trim($content));
+			}
+			# On place les bons droits
+			chmod($filename,0644);
+			# On retourne le résultat
+			return (file_exists($filename) AND !file_exists($filename.'.tmp'));
+		} catch(Exception $e) {
 			return false;
+		}
 	}
 
 	/**
