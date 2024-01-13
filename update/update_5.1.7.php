@@ -57,8 +57,9 @@ class update_5_1_7 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step2() {
-
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		$new_parameters['config_path'] = PLX_CONFIG_PATH;
 		$new_parameters['thumbs'] = 1;
 		# on supprime les parametres obsoletes
@@ -102,4 +103,3 @@ class update_5_1_7 extends plxUpdate{
 	}
 
 }
-?>

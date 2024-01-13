@@ -12,7 +12,9 @@ class update_5_8_1 extends plxUpdate{
 	 * @return boolean
 	 */
 	public function step1() {
-		echo L_UPDATE_FILE." (".path('XMLFILE_CATEGORIES').")<br />";
+?>
+		<li><?= L_UPDATE_FILE ?> (<?= path('XMLFILE_CATEGORIES') ?>)</li>
+<?php
 		$data = file_get_contents(path('XMLFILE_CATEGORIES'));
 		$tag = 'categorie';
 		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
@@ -23,19 +25,23 @@ class update_5_8_1 extends plxUpdate{
 				}
 			}
 			if(!plxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
-				echo '<p class="error">'.L_UPDATE_ERR_FILE.'</p>';
+?>
+				<p class="error"><?= L_UPDATE_ERR_FILE ?></p>
+<?php
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Update users file with new fields password_token, password_token_expiry
 	 * @return boolean
 	 */
 	public function step2() {
-		echo L_UPDATE_FILE." (".path('XMLFILE_USERS').")<br />";
+?>
+			<li><?= L_UPDATE_FILE ?> (<?= path('XMLFILE_USERS') ?>)"</li>
+<?php
 		$data = file_get_contents(path('XMLFILE_USERS'));
 		$tag = 'user';
 		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
@@ -46,13 +52,15 @@ class update_5_8_1 extends plxUpdate{
 				}
 			}
 			if(!plxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
-				echo '<p class="error">'.L_UPDATE_ERR_FILE.'</p>';
+?>
+			<p class="error"><?= L_UPDATE_ERR_FILE ?></p>
+<?php
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Create data/templates folder if is missing
 	 * @return boolean

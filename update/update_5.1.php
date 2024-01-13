@@ -9,7 +9,9 @@ class update_5_1 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		# nouveaux parametres
 		$new_parameters = array(
 			'bypage_archives' => 5,
@@ -29,7 +31,9 @@ class update_5_1 extends plxUpdate{
 
 	# création d'un fichier	.htacces dans le dossier data pour eviter de lister les dossiers
 	public function step2() {
-		echo L_UPDATE_CREATE_HTACCESS_FILE.' '.PLX_ROOT.'data/.htaccess<br />';
+?>
+		<li><?= L_UPDATE_CREATE_HTACCESS_FILE ?> <?= PLX_ROOT ?>data/.htaccess<</li>
+<?php
 		if(!plxUtils::write('options -indexes', PLX_ROOT.'data/.htaccess')) {
 			echo '<p class="error">'.L_UPDATE_CREATE_HTACCESS_FILE.' '.PLX_ROOT.'data/.htaccess</p>';
 			return false;
@@ -39,7 +43,9 @@ class update_5_1 extends plxUpdate{
 
 	# Migration du fichier des categories
 	public function step3() {
-		echo L_UPDATE_CATEGORIES_MIGRATION."<br />";
+?>
+		<li><?= L_UPDATE_CATEGORIES_MIGRATION ?></li>
+<?php
 		if($categories = $this->_getCategories(PLX_ROOT.$this->plxAdmin->aConf['categories'])) {
 			# On génère le fichier XML
 			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
@@ -64,7 +70,9 @@ class update_5_1 extends plxUpdate{
 
 	# Migration du fichier des page statiques
 	public function step4() {
-		echo L_UPDATE_STATICS_MIGRATION."<br />";
+?>
+		<li><?= L_UPDATE_STATICS_MIGRATION ?></li>
+<?php
 		if($statics = $this->_getStatiques(PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
 			# On génère le fichier XML
 			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
@@ -88,7 +96,9 @@ class update_5_1 extends plxUpdate{
 
 	# Migration du fichier des utilisateurs
 	public function step5() {
-		echo L_UPDATE_USERS_MIGRATION."<br />";
+?>
+		<li><?= L_UPDATE_USERS_MIGRATION ?></li>
+<?php
 		if($users = $this->_getUsers(PLX_ROOT.$this->plxAdmin->aConf['users'])) {
 			# On génère le fichier XML
 			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
@@ -114,7 +124,9 @@ class update_5_1 extends plxUpdate{
 
 	# Création du fichier data/configuration/plugins.xml
 	public function step6() {
-		echo L_UPDATE_CREATE_PLUGINS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_CREATE_PLUGINS_FILE ?></li>
+<?php
 		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 		$xml .= '<document>'."\n";
 		$xml .= '</document>';
@@ -128,7 +140,9 @@ class update_5_1 extends plxUpdate{
 	# suppression du fichier core/admin/fullscreen.php
 	public function step7() {
 		if(file_exists(PLX_ROOT.'core/admin/fullscreen.php')) {
-			echo L_UPDATE_DELETE_FULLSCREEN_FILE."<br />";
+?>
+		<li><?= L_UPDATE_DELETE_FULLSCREEN_FILE ?></li>
+<?php
 			if(!unlink(PLX_ROOT.'core/admin/fullscreen.php')) {
 				echo '<p class="error">'.L_UPDATE_ERR_DELETE_FULLSCREEN_FILE.'</p>';
 			}
@@ -139,7 +153,9 @@ class update_5_1 extends plxUpdate{
 	# suppression du dossier de la plxtoolar
 	public function step8() {
 		if(is_dir(PLX_ROOT.'core/plxtoolbar')) {
-			echo L_UPDATE_DELETE_PLXTOOLBAR_FOLDER."<br />";
+?>
+		<li><?= L_UPDATE_DELETE_PLXTOOLBAR_FOLDER ?></li>
+<?php
 			if(!$this->deleteDir(PLX_ROOT.'core/plxtoolbar/')) {
 				echo '<p class="error">'.L_UPDATE_ERR_DELETE_PLXTOOLBAR_FOLDER.'</p>';
 			}
@@ -277,4 +293,3 @@ class update_5_1 extends plxUpdate{
 	}
 
 }
-?>

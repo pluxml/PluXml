@@ -9,7 +9,9 @@ class update_5_1_4 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		# nouveaux parametres
 		$new_parameters = array(
 			'mod_art' => 0,
@@ -23,7 +25,9 @@ class update_5_1_4 extends plxUpdate{
 
 	# Migration des articles: ajout nouveau champ title_htmltag
 	public function step2() {
-		echo L_UPDATE_ARTICLES_CONVERSION."<br />";
+?>
+		<li><?= L_UPDATE_ARTICLES_CONVERSION ?></li>
+<?php
 		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
         if($files = $plxGlob_arts->query('/(.*).xml$/','art')) {
 			foreach($files as $filename){
@@ -52,4 +56,3 @@ class update_5_1_4 extends plxUpdate{
 	}
 
 }
-?>
