@@ -9,9 +9,9 @@ class update_5_1_1 extends plxUpdate{
 
 	# Migration du fichier des utilisateurs: renforcement des mots de passe
 	public function step1() {
-
-		echo L_UPDATE_USERS_MIGRATION."<br />";
-
+?>
+		<li><?= L_UPDATE_USERS_MIGRATION ?></li>
+<?php
 		# On génère le fichier XML
 		$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
 		$xml .= "<document>\n";
@@ -39,4 +39,3 @@ class update_5_1_1 extends plxUpdate{
 	}
 
 }
-?>

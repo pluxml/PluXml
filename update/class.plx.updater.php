@@ -46,8 +46,10 @@ class plxUpdater {
 		}
 
 		# démarrage des mises à jour
-		if($this->doUpdate())
+		if($this->doUpdate()) {
 			$this->updateVersion();
+		}
+
 	}
 
 	/**
@@ -65,9 +67,7 @@ class plxUpdater {
 			$this->oldVersion='';
 
 		# Récupère le nouveau n° de version de PluXml
-		if(defined('PLX_VERSION_DATA')) {
-			$this->newVersion = PLX_VERSION_DATA;
-		} elseif(defined('PLX_VERSION')) { # PluXml à partir de la version 5.5
+		if(defined('PLX_VERSION')) { # PluXml à partir de la version 5.5
 			$this->newVersion = PLX_VERSION;
 		} elseif(is_readable(PLX_ROOT.'version')) {
 			$f = file(PLX_ROOT.'version');
@@ -90,7 +90,9 @@ class plxUpdater {
 		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
 		$new_params['version'] = $this->newVersion;
 		$this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $new_params);
-		printf(L_UPDATE_ENDED.'<br />', $this->newVersion);
+?>
+		<p><?php printf(L_UPDATE_ENDED, $this->newVersion); ?></p>
+<?php
 	}
 
 	/**
@@ -102,11 +104,17 @@ class plxUpdater {
 	public function doUpdate() {
 
 		$errors = false;
+?>
+			<ul>
+<?php
 		foreach($this->allVersions as $num_version => $upd_filename) {
 
 			if($upd_filename!='') {
-
-				echo '<p><strong>'.L_UPDATE_INPROGRESS.' '.$num_version.'</strong></p>';
+?>
+				<li>
+					<p><strong><?= L_UPDATE_INPROGRESS .' '. $num_version ?></strong></p>
+					<ul>
+<?php
 				# inclusion du fichier de mise à jour
 				include(PLX_UPDATE.$upd_filename);
 
@@ -128,17 +136,25 @@ class plxUpdater {
 					}
 					else $next = false;
 				}
-				echo '<br />';
+?>
+					</ul>
+				</li>
+<?php
 			}
 
 		}
-		echo '<br />';
-
-		if($errors)
-			echo '<p class="error">'.L_UPDATE_ERROR.'</p>';
-		else
-			echo '<p class="msg">'.L_UPDATE_SUCCESSFUL.'</p>';
-
+?>
+			</ul>
+<?php
+		if($errors) {
+?>
+				<p class="alert error"><?= L_UPDATE_ERROR ?></p>
+<?php
+		} else {
+?>
+				<p class="alert success"><?= L_UPDATE_SUCCESSFUL ?></p>
+<?php
+		}
 		return !$errors;
 	}
 

@@ -9,7 +9,9 @@ class update_5_2 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		# nouveaux parametres
 		$new_parameters = array();
 		$new_parameters['hometemplate'] = 'home.php';
@@ -22,19 +24,29 @@ class update_5_2 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step2() {
-		echo L_UPDATE_UPDATE_PLUGINS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PLUGINS_FILE ?></li>
+<?php
 		# récupération de la liste des plugins
 		$aPlugins = $this->loadConfig();
 		# Migration du format du fichier plugins.xml
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
+		ob_start();
+?>
+<document>
+<?php
 		foreach($aPlugins as $k=>$v) {
 			if(isset($v['activate']) AND $v['activate']!='0')
-				$xml .= "\t<plugin name=\"$k\"></plugin>\n";
+?>
+	<plugin name="<?= $k ?>"></plugin>
+<?php
 		}
-		$xml .= "</document>";
-		if(!plxUtils::write($xml,path('XMLFILE_PLUGINS'))) {
-			echo '<p class="error">'.L_UPDATE_ERR_FILE_PROCESSING.'</p>';
+?>
+</document>
+<?php
+		if(!plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PLUGINS'))) {
+?>
+			<p class="error"><?= L_UPDATE_ERR_FILE_PROCESSING ?></p>
+<?php
 			return false;
 		}
 		return true;
@@ -78,6 +90,5 @@ class update_5_2 extends plxUpdate{
 		}
 		return $aPlugins;
 	}
-
 
 }

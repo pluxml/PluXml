@@ -8,8 +8,9 @@
 class update_4_2 extends plxUpdate{
 
 	function step1() {
-
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 
 		$new_parameters = array(
 			'clef' => null,
@@ -23,4 +24,3 @@ class update_4_2 extends plxUpdate{
 	}
 
 }
-?>

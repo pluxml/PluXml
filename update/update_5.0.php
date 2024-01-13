@@ -9,7 +9,9 @@ class update_5_0 extends plxUpdate{
 
 	/* Création des nouveaux paramètres dans le fichier parametres.xml */
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		$new_parameters = array(
 			'urlrewriting' 	=> 0,
 			'gzip'		 	=> 0,
@@ -27,7 +29,9 @@ class update_5_0 extends plxUpdate{
 
 	/* Création du fichier data/configuration/tags.xml */
 	public function step2() {
-		echo L_UPDATE_CREATE_TAGS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_CREATE_TAGS_FILE ?></li>
+<?php
 		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>';
 		$xml .= '<document>'."\n";
 		$xml .= '</document>';
@@ -43,7 +47,9 @@ class update_5_0 extends plxUpdate{
 		$srcfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/home.php';
 		$dstfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/tags.php';
 		if(!is_file($dstfile)) {
-			echo L_UPDATE_CREATE_THEME_FILE.": themes/".$this->plxAdmin->aConf['style']."/tags.php<br />";
+?>
+		<li><?= L_UPDATE_CREATE_THEME_FILE ?>: themes/ <?= $this->plxAdmin->aConf['style'] ?>/tags.php</li>
+<?php
 			if(!copy($srcfile, $dstfile)) {
 				echo '<p class="error">'.L_UPDATE_ERR_CREATE_THEME_FILE.' themes/style/tags.php</p>';
 				return false;
@@ -57,7 +63,9 @@ class update_5_0 extends plxUpdate{
 		$srcfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/home.php';
 		$dstfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/archives.php';
 		if(!is_file($dstfile)) {
-			echo L_UPDATE_CREATE_THEME_FILE.": themes/".$this->plxAdmin->aConf['style']."/archives.php<br />";
+?>
+		<li><?= L_UPDATE_CREATE_THEME_FILE ?> themes/<?= $this->plxAdmin->aConf['style'] ?>/archives.php</li>
+<?php
 			if(!copy($srcfile, $dstfile)) {
 				echo '<p class="error">'.L_UPDATE_ERR_CREATE_THEME_FILE.' themes/style/archives.php</p>';
 				return false;
@@ -68,7 +76,9 @@ class update_5_0 extends plxUpdate{
 
 	/* Migration des articles: formatage xml + renommage des fichiers */
 	public function step5() {
-		echo L_UPDATE_ARTICLES_CONVERSION."<br />";
+?>
+		<li><?= L_UPDATE_ARTICLES_CONVERSION ?></li>
+<?php
 		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
         if($files = $plxGlob_arts->query('/^[0-9]{4}.([0-9]{3}|home|draft).[0-9]{12}.[a-z0-9-]+.xml$/','art')) {
 			foreach($files as $id => $filename){
@@ -84,7 +94,9 @@ class update_5_0 extends plxUpdate{
 
 	/* Migration du fichier des pages statiques */
 	public function step6() {
-		echo L_UPDATE_STATICS_MIGRATION."<br />";
+?>
+		<li><?= L_UPDATE_STATICS_MIGRATION ?></li>
+<?php
 		if($statics = $this->getStatiques(PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
 			# On génère le fichier XML
 			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
@@ -103,7 +115,9 @@ class update_5_0 extends plxUpdate{
 
 	/* Création du fichier des utilisateurs */
 	public function step7() {
-		echo L_UPDATE_CREATE_USERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_CREATE_USERS_FILE ?></li>
+<?php
 		if($users = $this->getUsers(PLX_ROOT.$this->plxAdmin->aConf['passwords'])) {
 			$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 			$xml .= '<document>'."\n";
@@ -144,7 +158,9 @@ class update_5_0 extends plxUpdate{
 	# Création du fichier .htaccess
 	public function step9() {
 		if(!is_file(PLX_ROOT.'.htaccess')) {
-			echo L_UPDATE_CREATE_HTACCESS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_CREATE_HTACCESS_FILE ?></li>
+<?php
 			$txt = '<Files "version">
     Order allow,deny
     Deny from all
@@ -269,4 +285,3 @@ class update_5_0 extends plxUpdate{
 		return $aStats;
 	}
 }
-?>

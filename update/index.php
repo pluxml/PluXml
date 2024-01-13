@@ -58,6 +58,9 @@ plxToken::validateFormToken($_POST);
 	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
 	<link rel="icon" href="<?= PLX_CORE ?>admin/theme/images/pluxml.gif" />
+	<style>
+		p.alert { width: fit-content; }
+	</style>
 </head>
 <body>
 	<main class="main grid">
@@ -65,11 +68,11 @@ plxToken::validateFormToken($_POST);
 		</aside>
 		<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2" style="margin-top: 0">
 			<header>
-				<h1><?= L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?></h1>
+				<h1><?= L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?> <i>( data: <?= PLX_VERSION_DATA ?> )</i></h1>
 			</header>
 <?php
 if(empty($_POST['submit'])) {
-	if($plxUpdater->oldVersion == $plxUpdater->newVersion) {
+	if(version_compare($plxUpdater->oldVersion, $plxUpdater->newVersion, '>=')) {
 ?>
 				<p><strong><?= L_UPDATE_UPTODATE ?></strong></p>
 				<p><?= L_UPDATE_NOT_AVAILABLE ?></p>
@@ -94,11 +97,15 @@ if(empty($_POST['submit'])) {
 					</fieldset>
 					<fieldset>
 						<p><strong><?= L_UPDATE_WARNING1.' '.$plxUpdater->oldVersion ?></strong></p>
-						<?php if(empty($plxUpdater->oldVersion)) : ?>
+<?php
+		if(empty($plxUpdater->oldVersion)) {
+?>
 						<p><?= L_UPDATE_SELECT_VERSION ?></p>
 						<p><?php plxUtils::printSelect('version',array_keys($versions),''); ?></p>
 						<p><?= L_UPDATE_WARNING2 ?></p>
-						<?php endif; ?>
+<?php
+		}
+?>
 						<p><?php printf(L_UPDATE_WARNING3, preg_replace('@^([^/]+).*@', '$1', $plxUpdater->plxAdmin->aConf['racine_articles'])); ?></p>
 						<p><input type="submit" name="submit" value="<?= L_UPDATE_START ?>" /></p>
 					</fieldset>

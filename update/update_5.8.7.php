@@ -14,7 +14,7 @@ class update_5_8_7 extends plxUpdate
 	public function step1()
 	{
 ?>
-	<p><?= L_BUILD_CSS_PLUGINS_CACHE ?></p>
+	<li><?= L_BUILD_CSS_PLUGINS_CACHE ?></li>
 <?php
 		foreach(array('admin', 'site') as $context) {
 			$this->plxAdmin->plxPlugins->cssCache($context);

@@ -9,7 +9,9 @@ class update_5_1_6 extends plxUpdate{
 
 	# mise à jour fichier parametres.xml
 	public function step1() {
-		echo L_UPDATE_UPDATE_PARAMETERS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+<?php
 		# nouveaux parametres
 		$new_parameters = array(
 			'display_empty_cat' => 0,
@@ -26,7 +28,9 @@ class update_5_1_6 extends plxUpdate{
 	public function step2() {
 
 		if(file_exists(PLX_ROOT.'.htaccess')) {
-			echo L_UPDATE_UPDATE_HTACCESS_FILE."<br />";
+?>
+		<li><?= L_UPDATE_UPDATE_HTACCESS_FILE ?></li>
+<?php
 			# lecture du fichier .htaccess
 			$htaccess = file_get_contents(PLX_ROOT.'.htaccess');
 			$old = 'RewriteRule ^([^feed\/].*)$ index.php?$1 [L]';
@@ -42,7 +46,9 @@ class update_5_1_6 extends plxUpdate{
 	}
 	# Mise à jour des pages statiques: ajout nouveau champ title_htmltag
 	public function step3() {
-		echo L_UPDATE_FILE." (".$this->plxAdmin->aConf['statiques'].")<br />";
+?>
+		<li><?= L_UPDATE_FILE ?> (<?= $this->plxAdmin->aConf['statiques'] ?>)</li>
+<?php
 		$data = file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['statiques']);
 		$tag = 'statique';
 		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
@@ -61,7 +67,9 @@ class update_5_1_6 extends plxUpdate{
 	}
 	# Mise à jour des categories: ajout nouveau champ title_htmltag
 	public function step4() {
-		echo L_UPDATE_FILE." (".$this->plxAdmin->aConf['categories'].")<br />";
+?>
+		<li><?= L_UPDATE_FILE ?> (<?= $this->plxAdmin->aConf['categories'] ?>)</li>
+<?php
 		$data = file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['categories']);
 		$tag = 'categorie';
 		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
@@ -79,4 +87,3 @@ class update_5_1_6 extends plxUpdate{
 		return true;
 	}
 }
-?>

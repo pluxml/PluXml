@@ -10,7 +10,9 @@ class update_5_5 extends plxUpdate{
 	# mise à jour fichier parametres.xml
 	public function step1() {
 		# migration avec réindexation des commentaires
-		echo L_UPDATE_COMMENTS_MIGRATION."<br />";
+?>
+			<li><?= L_UPDATE_COMMENTS_MIGRATION ?></li>
+<?php
 
 		$dir_coms = PLX_ROOT.$this->plxAdmin->aConf['racine_commentaires'];
 		$dir_bkp  = $dir_coms.'backup-5.4/';
@@ -41,7 +43,9 @@ class update_5_5 extends plxUpdate{
 					foreach($com as $idx => $filename) {
 						$new_filename =  preg_replace('/(.*)-[0-9]+.xml$/', '$1-'.($idx+1).'.xml', $filename);
 						if(!copy($dir_bkp.$filename, $dir_coms.$new_filename)) { # copie migration
-							echo '<p class="error">'.L_UPDATE_ERR_COMMENTS_MIGRATION.'</p>';
+?>
+					<p class="error"><?= L_UPDATE_ERR_COMMENTS_MIGRATION ?></p>
+<?php
 							return false;
 						}
 					}
