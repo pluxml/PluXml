@@ -653,9 +653,9 @@ class plxUtils {
 	public static function write($content, $filename) {
 
 		try {
+			$newFilename = $filename . '.tmp';
 			if(file_exists($filename)) {
 				# On crée le fichier temporaire
-				$newFilename = $filename . '.tmp';
 				file_put_contents($newFilename, trim($content));
 				unlink($filename);
 				rename($newFilename, $filename); # On renomme le fichier temporaire avec le nom de l'ancien
@@ -665,7 +665,7 @@ class plxUtils {
 			# On place les bons droits
 			chmod($filename,0644);
 			# On retourne le résultat
-			return (file_exists($filename) AND !file_exists($filename.'.tmp'));
+			return (file_exists($filename) AND !file_exists($newFilename));
 		} catch(Exception $e) {
 			return false;
 		}
