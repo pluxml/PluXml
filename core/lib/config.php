@@ -161,10 +161,15 @@ if(!file_exists(path('XMLFILE_PARAMETERS')) and basename($_SERVER['SCRIPT_NAME']
  * */
 spl_autoload_register(
 	function($aClass) {
-	   return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
+		if(preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches)) {
+			$filename = __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
+			return (file_exists($filename) and include_once $filename);
+		}
+
+		return false;
 	},
-	true,
-	true
+	true, # ignoré à partir de PHP 8.0.0 - Laissé à true
+	true  # La fonction anonyme est chargé en début de pile de l'auto-loader
 );
 
 function plx_session_start() {
