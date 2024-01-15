@@ -1582,7 +1582,7 @@ EOT;
 <?php
 
 		# On écrit le fichier
-		plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_TAGS'));
+		return plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_TAGS'));
 
 	}
 

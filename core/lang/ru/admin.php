@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'Изменить';
 const L_ARTICLE_EDIT_TITLE = 'Изменить эту статью';
 const L_NEW_COMMENTS_TITLE = 'Комментарии, ожидающие модерации';
 const L_VALIDATED_COMMENTS_TITLE = 'Опубликованные комментарии';
+const L_TAGS_SAVE_SUCCESS = '%d статьи с тегами';
+const L_TAGS_SAVE_ERROR = 'Не удалось сохранить теги в файле tags.xml.';
 
 // medias.php
 

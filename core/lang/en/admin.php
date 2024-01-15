@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'Edit';
 const L_ARTICLE_EDIT_TITLE = 'Edit this article';
 const L_NEW_COMMENTS_TITLE = 'Comments awaiting moderation';
 const L_VALIDATED_COMMENTS_TITLE = 'Published comments';
+const L_TAGS_SAVE_SUCCESS = '%d tagged articles';
+const L_TAGS_SAVE_ERROR = 'Saving tags in file tags.xml fails';
 
 // medias.php
 

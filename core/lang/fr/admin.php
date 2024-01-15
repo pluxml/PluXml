@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'Éditer';
 const L_ARTICLE_EDIT_TITLE = 'Éditer cet article';
 const L_NEW_COMMENTS_TITLE = 'Commentaires en attente de validation';
 const L_VALIDATED_COMMENTS_TITLE = 'Commentaires publiés';
+const L_TAGS_SAVE_SUCCESS = '%d articles avec mot-clés';
+const L_TAGS_SAVE_ERROR = 'Echec pour la sauvegarde du fichier des mots-clés (tags.xml)';
 
 // medias.php
 
