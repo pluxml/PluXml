@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'Edytuj';
 const L_ARTICLE_EDIT_TITLE = 'Edytuj ten post';
 const L_NEW_COMMENTS_TITLE = 'Komentarze oczekujące na zatwierdzenie';
 const L_VALIDATED_COMMENTS_TITLE = 'Komentarze zatwierdzone';
+const L_TAGS_SAVE_SUCCESS = '%d oznaczone artykuły';
+const L_TAGS_SAVE_ERROR = 'Zapisywanie tagów w pliku tags.xml nie powiodło się';
 
 // medias.php
 

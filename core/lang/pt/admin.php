@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'Editar';
 const L_ARTICLE_EDIT_TITLE = 'Editar este artigo';
 const L_NEW_COMMENTS_TITLE = 'Comentários á espera de validação';
 const L_VALIDATED_COMMENTS_TITLE = 'Comentários publicados';
+const L_TAGS_SAVE_SUCCESS = '%d artigos marcados';
+const L_TAGS_SAVE_ERROR = 'Falha ao salvar tags no arquivo tags.xml';
 
 // medias.php
 

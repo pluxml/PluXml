@@ -22,6 +22,39 @@ if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']
 	exit;
 }
 
+# Régénère le fichier tags.xml
+if($_SESSION['profil'] <= PROFIL_MODERATOR and isset($_POST['tags'])) {
+	/*
+	 * Les articles sans tag ou à modérer sont ignorés.
+	 * Avant la sauvegarde, les articles seront triés selon leurs identifiants.
+	 * */
+	$plxAdmin->aTags = array();
+	foreach($plxAdmin->plxGlob_arts->aFiles as $artId=>$filename) {
+		if($filename[0] != '_') {
+			$art = $plxAdmin->parseArticle(PLX_ROOT . $plxAdmin->aConf['racine_articles'] . $filename);
+			if(!empty($art['tags'])) {
+				$plxAdmin->aTags[$artId] = array(
+					'tags'      => $art['tags'],
+					'date'      => $art['date'],
+					'active'    => preg_match('#\bdraft\b#', $art['categorie']) ? 0 : 1,
+				);
+			}
+			unset($art);
+		}
+	}
+
+	if(!empty($plxAdmin->aTags)) {
+	    ksort($plxAdmin->aTags);
+	    if($plxAdmin->editTags()) {
+			plxMsg::Info(sprintf(L_TAGS_SAVE_SUCCESS, count($plxAdmin->aTags)));
+		} else {
+			plxMsg::Error(L_TAGS_SAVE_ERROR);
+		}
+	}
+	header('Location: index.php');
+	exit;
+}
+
 # Récuperation des paramètres
 if(!empty($_GET['sel']) AND in_array($_GET['sel'], ['all', 'published', 'draft','mod',])) {
 	$_SESSION['sel_get'] = plxUtils::nullbyteRemove($_GET['sel']);
@@ -152,8 +185,9 @@ include 'top.php';
 <?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
 
 <form action="index.php?sel=<?= $_SESSION['sel_get'] ?>" method="post" id="form_articles">
-
 <div class="inline-form action-bar">
+	<?= plxToken::getTokenPostMethod(); ?>
+	<?php plxUtils::printInput('page',1,'hidden'); ?>
 	<h2><?= L_ARTICLES_LIST ?></h2>
 	<ul class="menu">
 <?php
@@ -173,13 +207,20 @@ foreach([
 ?>
 	</ul>
 <?php
-	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
-		plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
-		echo '<input name="sel" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>';
+?>
+	<div  class="grid">
+		<div class="col med-6">
+			<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection'); ?>
+			<input name="sel" type="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		<div class="col med-2 med-offset-4 text-right">
+			<input name="tags" type="submit" title="Refresh tags list" value="Tags" />
+		</div>
+	</div>
+<?php
 	}
 ?>
-	<?php plxUtils::printInput('page',1,'hidden'); ?>
 </div>
 
 <div class="grid">
@@ -223,11 +264,11 @@ if($_SESSION['profil'] < PROFIL_WRITER) {
 		<thead>
 			<tr>
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
-				<th><?= L_ID ?></th>
+				<th class="art-id"><?= L_ID ?></th>
 				<th class="datetime"><?= L_ARTICLE_LIST_DATE ?></th>
 				<th><?= L_ARTICLE_LIST_TITLE ?></th>
-				<th><?= L_ARTICLE_LIST_CATEGORIES ?></th>
-				<th><?= L_ARTICLE_LIST_NBCOMS ?></th>
+				<th class="cat"><?= L_ARTICLE_LIST_CATEGORIES ?></th>
+				<th class="comms"><?= L_ARTICLE_LIST_NBCOMS ?></th>
 <?php
 if(!preg_match('#^\d{3}$#', $userId)) {
 ?>
@@ -249,18 +290,19 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 				$publi = (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
 				# Catégories : liste des libellés de toutes les categories
 				$draft='';
-				$libCats='';
 				$aCats = array();
 				$catIds = explode(',', $plxAdmin->plxRecord_arts->f('categorie'));
-				if(sizeof($catIds)>0) {
+				if(sizeof($catIds) > 0) {
 					foreach($catIds as $catId) {
-						$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
-						if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
-						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
-						elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
-						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
+						if($catId == 'draft') {
+							$draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
+						} elseif(array_key_exists($catId, $aFilterCat)) {
+							$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
+							$aCats[$catId] = <<< EOT
+<option value="$catId" $selected> ${aFilterCat[$catId]} </option>
+EOT;
+						}
 					}
-
 				}
 				# en attente de validation ?
 				$idArt = $plxAdmin->plxRecord_arts->f('numero');
@@ -277,27 +319,63 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 				<td class="wrap"><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $draft . $awaiting ?></td>
 				<td>
 <?php
-				if(sizeof($aCats)>1) {
+				if(sizeof($aCats) > 1) {
 ?>
-					<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value=this.value;this.form.submit()">
+					<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value = this.value; this.form.submit()">
 						<?= implode('', $aCats) ?>
 					</select>
 <?php
-				} else  {
+				} elseif(count($aCats) == 1)  {
+					$catId = array_keys($aCats)[0];
 ?>
-					<?= strip_tags(implode('', $aCats)) ?>
+					<span class="as-link" data-cat="<?= $catId ?>"><?= $aFilterCat[$catId] ?></span>
 <?php
+				} else {
+					echo '&nbsp;';
 				}
 ?>
 				</td>
-				<td><a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&amp;page=1"><?= $nbComsToValidate ?></a> / <a title="'.L_VALIDATED_COMMENTS_TITLE ?></a>'" href="comments.php?sel=online&amp;a=<?= $plxAdmin->plxRecord_arts->f('numero') ?>&amp;page=1"><?= $nbComsValidated ?></a></td>
+				<td>
 <?php
-				if(!preg_match('#^\d{3}$#', $userId)) {
-					$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
+				$artId = $plxAdmin->plxRecord_arts->f('numero');
+				if($nbComsToValidate > 0) {
 ?>
-				<td><?= plxUtils::strCheck($author) ?></td>
+					<a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsToValidate ?></a>
+<?php
+				} else {
+?>
+					<span title="<?= L_NEW_COMMENTS_TITLE ?>">0</span>
 <?php
 				}
+				echo ' / ';
+				if($nbComsValidated > 0) {
+?>
+					<a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>"><?= $nbComsValidated ?></a></td>
+<?php
+				} else {
+?>
+					<span title="<?= L_VALIDATED_COMMENTS_TITLE ?>">0</span>
+<?php
+				}
+?>
+<?php
+					if(!preg_match('#^\d{3}$#', $userId)) {
+?>
+				<td>
+<?php
+				$userArtId = $plxAdmin->plxRecord_arts->f('author');
+				if(array_key_exists($userArtId, $plxAdmin->aUsers)) {
+					$author = plxUtils::getValue($plxAdmin->aUsers[$userArtId]['name']);
+?>
+					<span class="as-link" data-user="<?= $userArtId ?>"><?= plxUtils::strCheck($author) ?></span>
+<?php
+				} else {
+					echo '&nbsp;';
+				}
+?>
+				</td>
+<?php
+					}
 ?>
 				<td>
 					<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= L_ARTICLE_EDIT ?></a>
@@ -335,10 +413,31 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 	}
 ?>
 </div>
+<script>
+	(function (id) {
+		const el = document.getElementById(id);
+		if(el) {
+			el.addEventListener('click', function(ev) {
+				if(ev.target.hasAttribute('data-cat')) {
+					el.sel_cat.value = ev.target.dataset.cat;
+				} else if(ev.target.hasAttribute('data-user')) {
+					el.sel_user.value = ev.target.dataset.user;
+				} else {
+					return
+				}
 
+				ev.preventDefault();
+				el.submit();
+			});
+		} else {
+			console.error(`${id} element not found`);
+		}
+	})('form_articles');
+</script>
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexFoot'));
+
 
 # On inclut le footer
 include 'foot.php';

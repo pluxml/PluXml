@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'Editează';
 const L_ARTICLE_EDIT_TITLE = 'Editează articolul dat';
 const L_NEW_COMMENTS_TITLE = 'Comentarii ce aşteaptă validarea';
 const L_VALIDATED_COMMENTS_TITLE = 'Comentarii postate';
+const L_TAGS_SAVE_SUCCESS = '%d articole etichetate';
+const L_TAGS_SAVE_ERROR = 'Salvarea etichetelor în fișierul tags.xml nu reușește';
 
 // medias.php
 
