@@ -1572,8 +1572,9 @@ EOT;
 <document>
 <?php
 		foreach($this->aTags as $id => $tag) {
+			# On force la valeur en minuscules pour éviter des problèmes de tri dans plxShow::tagList()
 ?>
-	<article number="<?= $id ?>" date="<?= $tag['date'] ?>" active="<?= $tag['active'] ?>"><?= plxUtils::strCheck($tag['tags']) ?></article>
+	<article number="<?= $id ?>" date="<?= $tag['date'] ?>" active="<?= $tag['active'] ?>"><?= plxUtils::strCheck(strtolower($tag['tags'])) ?></article>
 <?php
 		}
 ?>
