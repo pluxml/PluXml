@@ -7,7 +7,7 @@ if(!defined('PLX_ROOT')) {
 
 const PHP_VERSION_MIN = '5.6.34';
 const PLX_DEBUG = true;
-const PLX_VERSION = '5.9.0-rc2';
+const PLX_VERSION = '5.9.0-rc3';
 const PLX_VERSION_DATA = '5.8.1';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
