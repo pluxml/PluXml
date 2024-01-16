@@ -1558,6 +1558,8 @@ class plxShow
 		$id = empty($art_id) ? '\d{4}' : str_pad($art_id, 4, '0', STR_PAD_LEFT);
 		$motif = '~^' . $id . '\.\d{10}-\d+\.xml$~';
 
+		$excludeArtId = (empty($art_id) and $this->plxMotor->mode == 'article') ? $this->plxMotor->cible : '';
+
 		$count = 1;
 		$datetime = date('YmdHi');
 		# Nouvel objet plxGlob et récupération des fichiers
@@ -1572,8 +1574,13 @@ class plxShow
 			}
 			# On parcourt les fichiers des commentaires
 			foreach ($aFiles as $v) {
+				$artId = substr($v, 0, 4);
+				if($artId == $excludeArtId) {
+					continue;
+				}
+
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
-				if (isset($this->plxMotor->activeArts[substr($v, 0, 4)])) {
+				if (isset($this->plxMotor->activeArts[$artId])) {
 					$com = $this->plxMotor->parseCommentaire(PLX_ROOT . $this->plxMotor->aConf['racine_commentaires'] . $v);
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if ($artInfo['artDate'] <= $datetime) { # on ne prends que les commentaires pour les articles publiés
