@@ -1201,7 +1201,8 @@ class plxShow
 
 		# Nouvel objet plxGlob et récupération des fichiers
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
-		if ($aFiles = $plxGlob_arts->query($motif, 'art', $sort, 0, $max, 'before')) {
+		$extra = (!empty($this->plxMotor->plxRecord_arts)) ? count($this->plxMotor->plxRecord_arts->result) : 0;
+		if ($aFiles = $plxGlob_arts->query($motif, 'art', $sort, 0, $max + $extra, 'before')) {
 
 			$pattern = '~#art_chapo\((\d+)\)~';
 			if(preg_match($pattern, $format, $matches)) {
@@ -1219,26 +1220,49 @@ class plxShow
 				$lengthContent = '100';
 			}
 
+			if ($extra > 0) {
+				# On affiche des articles
+				$excludedArtIds = array_map(
+					function($art) {
+						return $art['numero'];
+					},
+					$this->plxMotor->plxRecord_arts->result
+				);
+				sort($excludedArtIds);
+			}
+			$cnt = $max;
+			$displayCats = preg_match('~\b#cat_list\b~', $format);
 			foreach ($aFiles as $v) { # On parcourt tous les fichiers
+				if($cnt == 0) {
+					break;
+				}
+
 				$art = $this->plxMotor->parseArticle(PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $v);
 				if(!is_array($art)) {
 					continue;
 				}
 
 				$num = intval($art['numero']);
+				if($extra > 0 and in_array($num, $excludedArtIds)) {
+					# on exclue de la liste les articles affichés sur la page courante
+					continue;
+				}
 				$date = $art['date'];
 				$status = ($this->plxMotor->mode == 'article' and $art['numero'] == $this->plxMotor->cible) ? 'active' : 'noactive';
 
 				# Mise en forme de la liste des catégories
 				$catList = array();
-				$catIds = explode(',', $art['categorie']);
-				foreach ($catIds as $idx => $catId) {
-					if (isset($this->plxMotor->aCats[$catId])) { # La catégorie existe
-						$catName = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
-						$catUrl = $this->plxMotor->aCats[$catId]['url'];
-						$catList[] = '<a title="' . $catName . '" href="' . $this->plxMotor->urlRewrite('?categorie' . intval($catId) . '/' . $catUrl) . '">' . $catName . '</a>';
-					} else {
-						$catList[] = L_UNCLASSIFIED;
+				if($displayCats) {
+					# on affiche les catégories
+					$catIds = array_unique(explode(',', $art['categorie']));
+					foreach ($catIds as $catId) {
+						if (isset($this->plxMotor->aCats[$catId])) { # La catégorie existe
+							$catName = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
+							$catUrl = $this->plxMotor->aCats[$catId]['url'];
+							$catList[] = '<a title="' . $catName . '" href="' . $this->plxMotor->urlRewrite('?categorie' . intval($catId) . '/' . $catUrl) . '">' . $catName . '</a>';
+						} else {
+							$catList[] = L_UNCLASSIFIED;
+						}
 					}
 				}
 
@@ -1269,6 +1293,7 @@ class plxShow
 
 				# On genère notre ligne
 				echo $row;
+				$cnt--;
 			}
 		}
 	}
@@ -1533,6 +1558,8 @@ class plxShow
 		$id = empty($art_id) ? '\d{4}' : str_pad($art_id, 4, '0', STR_PAD_LEFT);
 		$motif = '~^' . $id . '\.\d{10}-\d+\.xml$~';
 
+		$excludeArtId = (empty($art_id) and $this->plxMotor->mode == 'article') ? $this->plxMotor->cible : '';
+
 		$count = 1;
 		$datetime = date('YmdHi');
 		# Nouvel objet plxGlob et récupération des fichiers
@@ -1547,8 +1574,13 @@ class plxShow
 			}
 			# On parcourt les fichiers des commentaires
 			foreach ($aFiles as $v) {
+				$artId = substr($v, 0, 4);
+				if($artId == $excludeArtId) {
+					continue;
+				}
+
 				# On filtre si le commentaire appartient à un article d'une catégorie inactive
-				if (isset($this->plxMotor->activeArts[substr($v, 0, 4)])) {
+				if (isset($this->plxMotor->activeArts[$artId])) {
 					$com = $this->plxMotor->parseCommentaire(PLX_ROOT . $this->plxMotor->aConf['racine_commentaires'] . $v);
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if ($artInfo['artDate'] <= $datetime) { # on ne prends que les commentaires pour les articles publiés
