@@ -137,7 +137,7 @@ foreach($options as $status => $caption) {
 
 if(!empty($_GET['a'])) {
 ?>
-			<li><a href="comment_new.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_NEW_COMMENT_TITLE ?>"><?= L_COMMENT_NEW_COMMENT ?></a></li>
+			<li><a class="button" href="comment_new.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_NEW_COMMENT_TITLE ?>"><?= L_COMMENT_NEW_COMMENT ?></a></li>
 <?php
 }
 ?>
@@ -174,7 +174,7 @@ if(!empty($portee)) {
 <?php
 			if(empty($portee)) {
 ?>
-					<th class="action"><?= L_COMMENT_ARTICLE_LINKED ?></th>
+					<th class="article"><?= L_COMMENT_ARTICLE_LINKED ?></th>
 <?php
 }
 ?>
