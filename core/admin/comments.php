@@ -19,7 +19,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # validation de l'id de l'article si passé en paramètre
-if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
+if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
@@ -47,7 +47,7 @@ elseif (isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['sel
 # Récupération des infos sur l'article attaché au commentaire si passé en paramètre
 if(!empty($_GET['a'])) {
 	# Infos sur notre article
-	if(!$globArt = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'.(.*).xml$/','','sort',0,1)) {
+	if(!$globArt = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'\..*\.xml$/','','sort',0,1)) {
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 		header('Location: index.php');
 		exit;
@@ -62,67 +62,34 @@ if(!empty($_GET['a'])) {
 # On inclut le header
 include 'top.php';
 
+$mods = array(
+	'all'		=> '_?',
+	'online'	=> '',
+	'offline'	=> '_',
+);
+
 # Récupération du type de commentaire à afficher
 $_GET['sel'] = !empty($_GET['sel']) ? $_GET['sel'] : '';
-if(in_array($_GET['sel'], array('online', 'offline', 'all')))
-	$comSel = plxUtils::nullbyteRemove($_GET['sel']);
-else
+if(array_key_exists($_GET['sel'], $mods)) {
+	$comSel = $_GET['sel'];
+} else {
 	$comSel = ((isset($_SESSION['selCom']) AND !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
-
-if(!empty($_GET['a'])) {
-
-	switch ($comSel) {
-		case 'online':
-			$mod = '';
-			break;
-		case 'offline':
-			$mod = '_';
-			break;
-		default:
-			$mod = '[[:punct:]]?';
-	}
-	$comSelMotif = '/^'.$mod.str_replace('_','',$_GET['a']).'.(.*).xml$/';
-	$_SESSION['selCom'] = 'all';
-	$nbComPagination=$plxAdmin->nbComments($comSelMotif);
-	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
-}
-elseif($comSel=='online') {
-	$comSelMotif = '/^\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'online';
-	$nbComPagination=$plxAdmin->nbComments('online');
-	$h2 = '<h2>'.L_COMMENTS_ONLINE_LIST.'</h2>';
-}
-elseif($comSel=='offline') {
-	$comSelMotif = '/^_\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'offline';
-	$nbComPagination=$plxAdmin->nbComments('offline');
-	$h2 = '<h2>'.L_COMMENTS_OFFLINE_LIST.'</h2>';
-}
-elseif($comSel=='all') { // all
-	$comSelMotif = '/^[[:punct:]]?\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'all';
-	$nbComPagination=$plxAdmin->nbComments('all');
-	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
 
-if($portee!='') {
-	$h3 = '<h3>'.$portee.'</h3>';
-}
+$_SESSION['selCom'] = $comSel;
+$artMotif = (!empty($_GET['a']) and preg_match('#^_?(\d{4})$#', $_GET['a'], $matches)) ? $matches[1] : '\d{4}';
 
 $options = array(
 	'all'		=> L_ALL,
 	'online'	=> L_COMMENT_ONLINE,
 	'offline'	=> L_COMMENT_OFFLINE,
 );
-$breadcrumbs = array();
-foreach($options as $status => $caption) {
-	$className = ($_SESSION['selCom'] == $status) ? ' class="selected"' : '';
-	$breadcrumbs[] = '<li><a ' . $className . 'href="comments.php?sel=' . $status . '&page=1">' . $caption . '</a>&nbsp;(' . $plxAdmin->nbComments($status) . ')</li>';
-}
+$h2 = <<< EOT
+<h2>${options[$comSel]}</h2>
+EOT;
 
-if(!empty($_GET['a'])) {
-	$breadcrumbs[] = '<a href="comment_new.php?a='.$_GET['a'].'" title="'.L_COMMENT_NEW_COMMENT_TITLE.'">'.L_COMMENT_NEW_COMMENT.'</a>';
-}
+$comSelMotif = '/^' . $mods[$comSel] . $artMotif . '\..*\.xml$/';
+$nbComPagination=$plxAdmin->nbComments($comSelMotif);
 
 function selector($comSel, $id) {
 	$options = array(
@@ -154,15 +121,38 @@ $selector = selector($comSel, 'id_selection');
 	<div class="inline-form action-bar">
 		<?= $h2 ?>
 		<ul class="menu">
-			<?= implode($breadcrumbs); ?>
+<?php
+$options = array(
+	'all'		=> L_ALL,
+	'online'	=> L_COMMENT_ONLINE,
+	'offline'	=> L_COMMENT_OFFLINE,
+);
+$req = ($artMotif == '\d{4}') ? '' : '&a='. $_GET['a'];
+foreach($options as $status => $caption) {
+	$commentsCount = $plxAdmin->nbComments('/^' . $mods[$status] . $artMotif . '\..*\.xml$/');
+?>
+			<li><a <?= ($_SESSION['selCom'] == $status) ? ' class="selected"' : '' ?> href="comments.php?sel=<?= $status . $req ?>&page=1"><?= $caption ?></a>&nbsp;(<?= $commentsCount ?>)</li>
+<?php
+}
+
+if(!empty($_GET['a'])) {
+?>
+			<li><a href="comment_new.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_NEW_COMMENT_TITLE ?>"><?= L_COMMENT_NEW_COMMENT ?></a></li>
+<?php
+}
+?>
 		</ul>
 		<?= $selector ?>
 		<?= plxToken::getTokenPostMethod() ?>
 		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
 	</div>
-
-	<?php if(isset($h3)) echo $h3 ?>
-
+<?php
+if(!empty($portee)) {
+?>
+	<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
+<?php
+}
+?>
 	<div class="scrollable-table">
 		<table id="comments-table" class="full-width">
 			<thead>
@@ -181,6 +171,13 @@ $selector = selector($comSel, 'id_selection');
 					<th class="author"><?= L_COMMENTS_LIST_AUTHOR ?> <?= L_COMMENT_EMAIL_FIELD ?></th>
 					<th class="site"><?= L_COMMENT_SITE_FIELD ?></th>
 					<th class="action"><?= L_COMMENTS_LIST_ACTION ?></th>
+<?php
+			if(empty($portee)) {
+?>
+					<th class="action"><?= L_COMMENT_ARTICLE_LINKED ?></th>
+<?php
+}
+?>
 				</tr>
 			</thead>
 			<tbody>
@@ -232,15 +229,25 @@ $selector = selector($comSel, 'id_selection');
 					<td class="action">
 						<a href="comment_new.php?<?= $query ?>" title="<?= L_COMMENT_ANSWER ?>"><?= L_COMMENT_ANSWER ?></a>
 						<a href="comment.php?<?= $query ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><?= L_COMMENT_EDIT ?></a>
-						<a href="article.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= L_COMMENT_ARTICLE_LINKED ?></a>
 					</td>
+<?php
+			if(empty($portee)) {
+?>
+					<td class="action text-right"><a href="article.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= ltrim($artId, '0') ?></a></td>
+<?php
+}
+?>
 				</tr>
 <?php
 				}
 			} else { # Pas de commentaires
+				$colspan = $all ? 7 : 6;
+				if(empty($portee)) {
+					$colspan++;
+				}
 ?>
 				<tr>
-					<td colspan="5" class="center"><?= L_NO_COMMENT ?></td>
+					<td colspan="<?= $colspan ?>" class="text-center"><?= L_NO_COMMENT ?></td>
 				</tr>
 <?php
 			}
