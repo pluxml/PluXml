@@ -87,10 +87,11 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					if($_SESSION['profil'] <= PROFIL_MANAGER)
 						$menus[] = plxUtils::formatMenu(L_MENU_STATICS, 'statiques.php', L_MENU_STATICS_TITLE);
 
+					# commentaires
 					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 						if($arts_exists and $plxAdmin->nbComments('all') > 0) {
 							$nbComsOff = $plxAdmin->nbComments('offline');
-							$coms_offline = ($nbComsOff > 0) ? '<span class="badge" onclick="window.location = \'comments.php?sel=offline\'; return false;">' . $nbComsOff . '</span>' : '';
+							$coms_offline = ($nbComsOff > 0) ? '<span class="badge" title="' . L_COMMENT_OFFLINE . '" onclick="window.location = \'comments.php?sel=offline\'; return false;">' . $nbComsOff . '</span>' : '';
 							$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, 'comments.php?sel=all', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
 						}
 					}
