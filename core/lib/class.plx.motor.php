@@ -1107,20 +1107,25 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
 		# On genere le contenu de notre fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<comment>\n";
-		$xml .= "\t<author><![CDATA[".plxUtils::cdataCheck($content['author'])."]]></author>\n";
-		$xml .= "\t<type>".$content['type']."</type>\n";
-		$xml .= "\t<ip>".$content['ip']."</ip>\n";
-		$xml .= "\t<mail><![CDATA[".plxUtils::cdataCheck($content['mail'])."]]></mail>\n";
-		$xml .= "\t<site><![CDATA[".plxUtils::cdataCheck($content['site'])."]]></site>\n";
-		$xml .= "\t<content><![CDATA[".plxUtils::cdataCheck($content['content'])."]]></content>\n";
-		$xml .= "\t<parent><![CDATA[".plxUtils::cdataCheck($content['parent'])."]]></parent>\n";
+		ob_start();
+?>
+<comment>
+	<author><![CDATA[<?= plxUtils::cdataCheck($content['author']) ?>]]></author>
+	<type><?= $content['type'] ?></type>
+	<ip><?= $content['ip'] ?></ip>
+	<mail><?= plxUtils::strCheck($content['mail']) ?></mail>
+	<site><?= plxUtils::strCheck($content['site']) ?></site>
+	<content><?= plxUtils::strCheck($content['content'], true) ?></content>
+	<parent><?= !empty($content['parent']) ? intval($content['parent']) : '' ?></parent>
+<?php
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
-		$xml .= "</comment>\n";
+?>
+</comment>
+<?php
 		# On ecrit ce contenu dans notre fichier XML
-		return plxUtils::write($xml, PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
+		return plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
 	}
 
 	/**
@@ -1306,9 +1311,9 @@ class plxMotor {
 	public function nbComments($select='online', $publi='all') {
 
 		switch($select) {
-			case 'all' : $motif = '#^_?\d{4}\.(.*)\.xml$#'; break;
-			case 'offline' : $motif = '#^_\d{4}\.(.*)\.xml$#'; break;
-			case 'online' : $motif = '#^\d{4}\.(.*)\.xml$#'; break;
+			case 'all' : $motif = '#^_?\d{4}\..*\.xml$#'; break;
+			case 'offline' : $motif = '#^_\d{4}\..*\.xml$#'; break;
+			case 'online' : $motif = '#^\d{4}\..*\.xml$#'; break;
 			default : $motif = $select;
 		}
 

@@ -26,7 +26,7 @@ if(!$plxAdmin->aConf['allow_com']) {
 
 # validation de l'id de l'article si passé en paramètre avec $_GET['a']
 if(isset($_GET['a'])) {
-	if(!preg_match('/^_?([0-9]{4})$/',$_GET['a'], $capture)) {
+	if(!preg_match('/^_?(\d{4})$/',$_GET['a'], $capture)) {
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 		header('Location: index.php');
 		exit;

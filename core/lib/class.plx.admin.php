@@ -1418,20 +1418,20 @@ EOT;
 	 **/
 	public function newCommentaire($artId,$content) {
 
-		# On génère le contenu du commentaire
-		$comment=array();
-		$comment['author'] = plxUtils::strCheck($this->aUsers[$_SESSION['user']]['name']);
-		$comment['content'] = plxUtils::strCheck($content['content'], true);
-		$comment['site'] = $this->racine;
-		$comment['ip'] = plxUtils::getIp();
-		$comment['type'] = 'admin';
-		$comment['mail'] = $this->aUsers[$_SESSION['user']]['email'];
-		$comment['parent'] = $content['parent'];
 		$idx = $this->nextIdArtComment($artId);
 		$time = time();
-		$comment['filename'] = $artId.'.'.$time.'-'.$idx.'.xml';
+
 		# On peut créer le commentaire
-		if($this->addCommentaire($comment)) # Commentaire OK
+		if($this->addCommentaire(array(
+			'author' => $this->aUsers[$_SESSION['user']]['name'],
+			'content' => $content['content'],
+			'site' => $this->racine,
+			'ip' => plxUtils::getIp(),
+			'type' => 'admin',
+			'mail' => $this->aUsers[$_SESSION['user']]['email'],
+			'parent' => $content['parent'],
+			'filename' => $artId.'.'.$time.'-'.$idx.'.xml',
+		))) # Commentaire OK
 			return true;
 		else
 			return false;
@@ -1451,47 +1451,52 @@ EOT;
 		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time']))
 			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
 
-		$comment=array();
 		# Génération du nom du fichier
-		$comment['filename'] = $id.'.xml';
-		if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename'])) # Commentaire inexistant
+		$filename = $id . '.xml';
+		if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$filename))
+			# Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
+
 		# Contrôle des saisies
 		if(trim($content['mail'])!='' AND !plxUtils::checkMail(trim($content['mail'])))
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+
 		if(trim($content['site'])!='' AND !plxUtils::checkSite($content['site']))
 			return plxMsg::Error(L_ERR_INVALID_SITE);
+
 		# On récupère les infos du commentaire
-		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
-		# Formatage des données
-		if($com['type'] != 'admin') {
-			$comment['author'] = plxUtils::strCheck($content['author']);
-			$comment['site'] = plxUtils::strCheck($content['site']);
-			$comment['content'] = plxUtils::strCheck($content['content']);
-		} else {
-			$comment['author'] = plxUtils::strCheck($content['author']);
-			$comment['site'] = plxUtils::strCheck($content['site']);
-			$comment['content'] = plxUtils::strCheck($content['content'], true);
-		}
-		$comment['ip'] = $com['ip'];
-		$comment['type'] = $com['type'];
-		$comment['mail'] = $content['mail'];
-		$comment['site'] = $content['site'];
-		$comment['parent'] = $com['parent'];
+		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'] . $filename);
+
+		$comment = array(
+			'filename'	=> $filename,
+			'author'	=> $content['author'],
+			'site'		=> $content['site'],
+			'content'	=> $content['content'],
+			'mail'		=> $content['mail'],
+			'site'		=> $content['site'],
+			'ip'		=> $com['ip'],
+			'type'		=> $com['type'],
+			'parent'	=> $com['parent'],
+		);
+
 		# Génération du nouveau nom du fichier
 		$time = explode(':', $content['date_publication_time']);
 		$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
 		$com = $this->comInfoFromFilename($id.'.xml');
 		$newid = $com['comStatus'].$com['artId'].'.'.$newtimestamp.'-'.$com['comIdx'];
 		$comment['filename'] = $newid.'.xml';
+
 		# Suppression de l'ancien commentaire
-		$this->delCommentaire($id);
-		# Création du nouveau commentaire
-		$id = $newid;
-		if($this->addCommentaire($comment))
-			return plxMsg::Info(L_COMMENT_SAVE_SUCCESSFUL);
-		else
-			return plxMsg::Error(L_COMMENT_UPDATE_ERR);
+		if($this->delCommentaire($id)) {
+			unset($_SESSION['info']); # on supprime message d'information du commentaire original supprimé
+
+			# Création du nouveau commentaire
+			$id = $newid;
+			if($this->addCommentaire($comment))
+				return plxMsg::Info(L_COMMENT_SAVE_SUCCESSFUL);
+			else
+				return plxMsg::Error(L_COMMENT_UPDATE_ERR);
+		}
 	}
 
 	/**
@@ -1506,14 +1511,11 @@ EOT;
 		# Génération du nom du fichier
 		$filename = PLX_ROOT.$this->aConf['racine_commentaires'].$id.'.xml';
 		# Suppression du commentaire
-		if(file_exists($filename)) {
-			unlink($filename);
-		}
-		# On refait un test file_exists pour savoir si unlink à fonctionner
-		if(!file_exists($filename))
+		if(file_exists($filename) and unlink($filename)) {
 			return plxMsg::Info(L_COMMENT_DELETE_SUCCESSFUL);
-		else
-			return plxMsg::Error(L_COMMENT_DELETE_ERR);
+		}
+
+		return plxMsg::Error(L_COMMENT_DELETE_ERR);
 	}
 
 	/**
