@@ -405,18 +405,22 @@ class plxMotor {
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
-				if(preg_match('~^c\d{4}-\d+~', $retour)) { # Le commentaire a été publié
+				if($retour[0] == 'c') { # Le commentaire a été publié
 					$_SESSION['msgcom'] = L_COM_PUBLISHED;
-					header('Location: '.$url.'#'.$retour);
 				} elseif($retour == 'mod') { # Le commentaire est en modération
 					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
-					header('Location: '.$url.'#form');
+					$retour = 'form';
 				} else {
 					$_SESSION['msgcom'] = $retour;
-					$_SESSION['msg'] = $content;
+					$_SESSION['msg']['name'] = plxUtils::unSlash($_POST['name']);
+					$_SESSION['msg']['site'] = plxUtils::unSlash($_POST['site']);
+					$_SESSION['msg']['mail'] = plxUtils::unSlash($_POST['mail']);
+					$_SESSION['msg']['content'] = plxUtils::unSlash($_POST['content']);
+					$_SESSION['msg']['parent'] = plxUtils::unSlash($_POST['parent']);
+					$retour = 'form';
 					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
-					header('Location: '.$url.'#form');
 				}
+				header('Location: '.$url.'#'.$retour);
 				exit;
 			}
 
