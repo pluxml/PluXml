@@ -37,10 +37,10 @@ if($plxShow->plxMotor->plxRecord_coms) {
 
 }
 
-if($plxShow->articleAllowComs()) {
-	# les commentaires sont autorisés
-	if(!$plxShow->comMessage('<p id="com_message" class="#com_class"><strong>#com_message</strong></p>')) {
-		# on affiche le formulaire pour un nouveau commentaire ou en cas d'erreur
+if($plxShow->articleAllowComs()) {# Les commentaires sont autorisés
+
+	$plxShow->comMessage('<p id="com_message" class="#com_class"><strong>#com_message</strong></p>');
+	# On affiche le formulaire vide pour un nouveau commentaire ou avec les données en cas d'erreur
 ?>
 	<h2><?php $plxShow->lang('WRITE_A_COMMENT') ?></h2>
 	<form id="form" action="<?php $plxShow->artUrl(); ?>#form" method="post">
@@ -122,9 +122,6 @@ if($plxShow->articleAllowComs()) {
 			</div>
 		</fieldset>
 	</form>
-<?php
-	} # fin affichage formulaire
-?>
 
 <script>
 function replyCom(idCom) {
