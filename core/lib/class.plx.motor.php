@@ -1070,15 +1070,17 @@ class plxMotor {
 				$mod = $this->aConf['mod_com'] ? '_' : '';
 				# On génère le nom du fichier
 				$filename = $mod . $artId . '.' . time() . '-' . $idx . '.xml';
+				# On enlève les espaces superflus des données
+				$content = array_map('trim', $content);
 
 				$comment = [
 					'type' => 'normal',
-					'author' => plxUtils::strCheck(trim(!empty($content['name']) ? $content['name'] : $content['login'])),
-					'content' => plxUtils::strCheck(trim($content['content'])),
+					'author' => plxUtils::strCheck(!empty($content['name'] ? $content['name'] : $content['login'])),
+					'content' => plxUtils::strCheck($content['content']),
 					# On vérifie le mail
-					'mail' => (!empty($content['mail']) and plxUtils::checkMail(trim($content['mail']))) ? trim($content['mail']) : '',
+					'mail' => (!empty($content['mail']) and plxUtils::checkMail($content['mail'])) ? $content['mail'] : '',
 					# On vérifie le site
-					'site' => (!empty($content['site']) and plxUtils::checkSite(trim($content['site']))) ? trim($content['site']) : '',
+					'site' => (!empty($content['site']) and plxUtils::checkSite($content['site'])) ? $content['site'] : '',
 					# On récupère l'adresse IP du posteur
 					'ip' => plxUtils::getIp(),
 					# Commentaire parent en cas de réponse
