@@ -1059,7 +1059,7 @@ class plxMotor {
 		if(empty($this->aConf['capcha']) OR $_SESSION['capcha'] == sha1($content['rep'])) {
 			# On enlève les espaces superflus des données
 			$content = array_map('trim', $content);
-			if(($content['login'] OR $content['name']) AND $content['content']) {
+			if((!empty($content['name']) OR !empty($content['login'])) AND !empty($content['content'])) {
 				# Les champs obligatoires sont remplis
 				$artId = str_pad($artId, 4, '0', STR_PAD_LEFT);
 				# index du commentaire
