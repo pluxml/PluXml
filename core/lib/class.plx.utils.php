@@ -138,7 +138,7 @@ class plxUtils {
 		# On vérifie le site via une expression régulière
 		# Méthode imme_emosol - http://mathiasbynens.be/demo/url-regex
 		# modifiée par Amaury Graillat pour prendre en compte les tirets dans les urls
-		if(preg_match('@(https?|s?ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
+		if(preg_match('@^(https?|s?ftp)://(-\.)?([^\s/?\.#]+\.?)+([/?][^\s]*)?$@iS', $site))
 				return true;
 		else {
 			if($reset) $site='';
