@@ -1048,7 +1048,7 @@ class plxMotor {
 		if(
 			!empty($this->aConf['capcha']) AND (
 				empty($_SESSION['capcha_token']) OR
-				empty($content['capcha_token']) or
+				empty($content['capcha_token']) OR
 				($_SESSION['capcha_token'] != $content['capcha_token'])
 			)
 		) {
@@ -1057,7 +1057,9 @@ class plxMotor {
 
 		# On vérifie que le capcha est correct
 		if(empty($this->aConf['capcha']) OR $_SESSION['capcha'] == sha1($content['rep'])) {
-			if((!empty($content['login']) or !empty($content['name'])) AND !empty($content['content'])) {
+			# On enlève les espaces superflus des données
+			$content = array_map('trim', $content);
+			if(($content['login'] OR $content['name']) AND $content['content']) {
 				# Les champs obligatoires sont remplis
 				$artId = str_pad($artId, 4, '0', STR_PAD_LEFT);
 				# index du commentaire
@@ -1066,21 +1068,19 @@ class plxMotor {
 				$mod = $this->aConf['mod_com'] ? '_' : '';
 				# On génère le nom du fichier
 				$filename = $mod . $artId . '.' . time() . '-' . $idx . '.xml';
-				# On enlève les espaces superflus des données
-				$content = array_map('trim', $content);
-
+				# On vérifie le site par reference et RAZ si mauvais format!
+				plxUtils::checkSite($content['site']);
 				$comment = [
 					'type' => 'normal',
-					'author' => plxUtils::strCheck(!empty($content['name'] ? $content['name'] : $content['login'])),
+					'author' => plxUtils::strCheck($content['name'] ? $content['name'] : $content['login']),
 					'content' => plxUtils::strCheck($content['content']),
 					# On vérifie le mail
-					'mail' => (!empty($content['mail']) and plxUtils::checkMail($content['mail'])) ? $content['mail'] : '',
-					# On vérifie le site
-					'site' => (!empty($content['site']) and plxUtils::checkSite($content['site'])) ? $content['site'] : '',
+					'mail' => strval(plxUtils::checkMail($content['mail'])),
+					'site' =>  $content['site'],
 					# On récupère l'adresse IP du posteur
 					'ip' => plxUtils::getIp(),
 					# Commentaire parent en cas de réponse
-					'parent' => !empty($content['parent']) ? intval($content['parent']) : '',
+					'parent' => $content['parent'] ? intval($content['parent']) : '',
 					'filename' => $filename,
 				];
 
