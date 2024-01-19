@@ -538,7 +538,7 @@ input[type="submit"].yellow:hover {
 		left: 0;
 		right: 0;
 	}
-	.responsive-menu ul {
+	.responsive-menu > ul {
 		display: none;
 	}
 	.responsive-menu label,

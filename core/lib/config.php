@@ -7,7 +7,7 @@ if(!defined('PLX_ROOT')) {
 
 const PHP_VERSION_MIN = '5.6.34';
 const PLX_DEBUG = true;
-const PLX_VERSION = '5.9.0-rc2';
+const PLX_VERSION = '5.9.0-rc3';
 const PLX_VERSION_DATA = '5.8.1';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
@@ -161,10 +161,15 @@ if(!file_exists(path('XMLFILE_PARAMETERS')) and basename($_SERVER['SCRIPT_NAME']
  * */
 spl_autoload_register(
 	function($aClass) {
-	   return preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches) and include_once __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
+		if(preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches)) {
+			$filename = __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
+			return (file_exists($filename) and include_once $filename);
+		}
+
+		return false;
 	},
-	true,
-	true
+	true, # ignoré à partir de PHP 8.0.0 - Laissé à true
+	true  # La fonction anonyme est chargé en début de pile de l'auto-loader
 );
 
 function plx_session_start() {

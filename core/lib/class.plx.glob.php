@@ -120,7 +120,7 @@ class plxGlob {
 	 * @param	tri				type de tri (sort, rsort, alpha, ralpha)
 	 * @param	publi			recherche des fichiers avant ou après la date du jour
 	 * @return	array ou false
-	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Thomas I et JPP @Bazooka07
 	 **/
 	private function search($motif,$type,$tri,$publi) {
 
@@ -172,15 +172,16 @@ class plxGlob {
 						case 'com':
 							# Tri selon les dates de publications (commentaire)
 							$key = $index[1] . $index[0];
+							$time = explode('-',$index[1]);# On extrait le timestamp
 							# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
 							switch($publi) {
 								case'before':
-									if($index[1] <= $now) {
+									if($time[0] <= $now) {
 										$array[$key] = $file;
 									}
 									break;
 								case 'after':
-									if($index[1] >= $now) {
+									if($time[0] >= $now) {
 										$array[$key] = $file;
 									}
 									break;

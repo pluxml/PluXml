@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'editieren';
 const L_ARTICLE_EDIT_TITLE = 'Diesen Artikel bearbeiten';
 const L_NEW_COMMENTS_TITLE = 'Wartende Kommentare';
 const L_VALIDATED_COMMENTS_TITLE = 'Publizierte Kommentare';
+const L_TAGS_SAVE_SUCCESS = '%d Artikel mit Stichwort';
+const L_TAGS_SAVE_ERROR = 'Die Schlüsselwortdatei konnte nicht gespeichert werden (tags.xml)';
 
 // medias.php
 

@@ -615,17 +615,30 @@ if($artId != '0000') : ?>
 				<ul class="unstyled-list">
 					<li>
 						<a href="comments.php?a=<?= $artId ?>&amp;page=1" title="<?= L_ARTICLE_MANAGE_COMMENTS_TITLE ?>"><?= L_ARTICLE_MANAGE_COMMENTS ?></a>
-<?php
-# récupération du nombre de commentaires
-$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_' . $artId . '\..*\.xml$/', 'all');
-$nbComsValidated = $plxAdmin->getNbCommentaires('/^' . $artId . '\..*\.xml$/', 'all');
-?>
 						<ul>
-							<li><?= L_COMMENT_OFFLINE ?> : <a title="<?= L_NEW_COMMENTS_TITLE ?>" href="comments.php?sel=offline&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsToValidate ?></a></li>
-							<li><?= L_COMMENT_ONLINE ?> : <a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>&amp;page=1"><?= $nbComsValidated ?></a></li>
+<?php
+	$status = array(
+		'off'	=> array('_', L_COMMENT_OFFLINE, L_NEW_COMMENTS_TITLE ),
+		'on'	=> array('', L_COMMENT_ONLINE, L_VALIDATED_COMMENTS_TITLE),
+	);
+	foreach($status as $k=>$v) {
+		list($mod, $caption, $title) = $v;
+		# récupération du nombre de commentaires
+		$nbComs = $plxAdmin->getNbCommentaires('/^' . $mod . $artId . '\..*\.xml$/', 'all');
+		if($nbComs != 0) {
+?>
+							<li class="grid"><span class="col sml-7 sml-offset-1"><?= $caption ?> :</span><a class="col sml-2 sml-push-2 text-right" title="<?= $title ?>" href="comments.php?sel=<?= $k ?>line&a=<?= $artId ?>&page=1"><?= $nbComs ?></a></li>
+<?php
+		} else {
+?>
+							<li class="grid"><span class="col sml-7 sml-offset-1"><?= $caption ?> :</span><span class="col sml-2 sml-push-2 text-right" title="<?= $title ?>">0</span></li>
+<?php
+		}
+	}
+?>
 						</ul>
 					</li>
-					<li><a href="comment_new.php?a=<?= $artId ?>" title="<?= L_ARTICLE_NEW_COMMENT_TITLE ?>"><?= L_ARTICLE_NEW_COMMENT ?></a></li>
+					<li class="text-center"><a class="button" href="comment_new.php?a=<?= $artId ?>" title="<?= L_COMMENT_NEW_COMMENT_TITLE ?>"><?= L_COMMENT_NEW_COMMENT ?></a></li>
 				</ul>
 <?php
 endif;

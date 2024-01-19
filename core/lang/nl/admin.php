@@ -292,6 +292,8 @@ const L_ARTICLE_EDIT = 'Aanpassen';
 const L_ARTICLE_EDIT_TITLE = 'Artikel aanpassen';
 const L_NEW_COMMENTS_TITLE = 'Commentaar die op goedkeuring wacht';
 const L_VALIDATED_COMMENTS_TITLE = 'Geplubliceerde commentaar';
+const L_TAGS_SAVE_SUCCESS = '%d getagde artikelen';
+const L_TAGS_SAVE_ERROR = 'Het opslaan van tags in het bestand tags.xml mislukt';
 
 // medias.php
 

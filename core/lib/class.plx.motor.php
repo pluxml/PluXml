@@ -397,7 +397,7 @@ class plxMotor {
 		elseif($this->mode == 'article') {
 
 			# On a validé le formulaire commentaire
-			if($this->articleAllowComs() and !empty($_POST)) {
+			if(!empty($_POST) and $this->articleAllowComs()) {
 				# On récupère le retour de la création
 				$content = plxUtils::unSlash($_POST);
 				$retour = $this->newCommentaire($this->cible, $content);
@@ -405,18 +405,18 @@ class plxMotor {
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
-				if(preg_match('~^c\d{4}-\d+~', $retour)) { # Le commentaire a été publié
+				if($retour[0] == 'c') { # Le commentaire a été publié
 					$_SESSION['msgcom'] = L_COM_PUBLISHED;
-					header('Location: '.$url.'#'.$retour);
 				} elseif($retour == 'mod') { # Le commentaire est en modération
 					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
-					header('Location: '.$url.'#form');
+					$retour = 'form';
 				} else {
 					$_SESSION['msgcom'] = $retour;
 					$_SESSION['msg'] = $content;
+					$retour = 'form';
 					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
-					header('Location: '.$url.'#form');
 				}
+				header('Location: '.$url.'#'.$retour);
 				exit;
 			}
 
@@ -1048,7 +1048,7 @@ class plxMotor {
 		if(
 			!empty($this->aConf['capcha']) AND (
 				empty($_SESSION['capcha_token']) OR
-				empty($content['capcha_token']) or
+				empty($content['capcha_token']) OR
 				($_SESSION['capcha_token'] != $content['capcha_token'])
 			)
 		) {
@@ -1057,7 +1057,9 @@ class plxMotor {
 
 		# On vérifie que le capcha est correct
 		if(empty($this->aConf['capcha']) OR $_SESSION['capcha'] == sha1($content['rep'])) {
-			if((!empty($content['login']) or !empty($content['name'])) AND !empty($content['content'])) {
+			# On enlève les espaces superflus des données
+			$content = array_map('trim', $content);
+			if(($content['login'] OR $content['name']) AND $content['content']) {
 				# Les champs obligatoires sont remplis
 				$artId = str_pad($artId, 4, '0', STR_PAD_LEFT);
 				# index du commentaire
@@ -1066,19 +1068,19 @@ class plxMotor {
 				$mod = $this->aConf['mod_com'] ? '_' : '';
 				# On génère le nom du fichier
 				$filename = $mod . $artId . '.' . time() . '-' . $idx . '.xml';
-
+				# On vérifie le site par reference et RAZ si mauvais format!
+				plxUtils::checkSite($content['site']);
 				$comment = [
 					'type' => 'normal',
-					'author' => plxUtils::strCheck(trim(!empty($content['name']) ? $content['name'] : $content['login'])),
-					'content' => plxUtils::strCheck(trim($content['content'])),
+					'author' => plxUtils::strCheck($content['name'] ? $content['name'] : $content['login']),
+					'content' => plxUtils::strCheck($content['content']),
 					# On vérifie le mail
-					'mail' => (!empty($content['mail']) and plxUtils::checkMail(trim($content['mail']))) ? trim($content['mail']) : '',
-					# On vérifie le site
-					'site' => (!empty($content['site']) and plxUtils::checkSite(trim($content['site']))) ? trim($content['site']) : '',
+					'mail' => strval(plxUtils::checkMail($content['mail'])),
+					'site' =>  $content['site'],
 					# On récupère l'adresse IP du posteur
 					'ip' => plxUtils::getIp(),
 					# Commentaire parent en cas de réponse
-					'parent' => !empty($content['parent']) ? intval($content['parent']) : '',
+					'parent' => $content['parent'] ? intval($content['parent']) : '',
 					'filename' => $filename,
 				];
 
@@ -1107,20 +1109,25 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
 		# On genere le contenu de notre fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<comment>\n";
-		$xml .= "\t<author><![CDATA[".plxUtils::cdataCheck($content['author'])."]]></author>\n";
-		$xml .= "\t<type>".$content['type']."</type>\n";
-		$xml .= "\t<ip>".$content['ip']."</ip>\n";
-		$xml .= "\t<mail><![CDATA[".plxUtils::cdataCheck($content['mail'])."]]></mail>\n";
-		$xml .= "\t<site><![CDATA[".plxUtils::cdataCheck($content['site'])."]]></site>\n";
-		$xml .= "\t<content><![CDATA[".plxUtils::cdataCheck($content['content'])."]]></content>\n";
-		$xml .= "\t<parent><![CDATA[".plxUtils::cdataCheck($content['parent'])."]]></parent>\n";
+		ob_start();
+?>
+<comment>
+	<author><![CDATA[<?= plxUtils::cdataCheck($content['author']) ?>]]></author>
+	<type><?= $content['type'] ?></type>
+	<ip><?= $content['ip'] ?></ip>
+	<mail><?= plxUtils::strCheck($content['mail']) ?></mail>
+	<site><?= plxUtils::strCheck($content['site']) ?></site>
+	<content><?= plxUtils::strCheck($content['content'], true) ?></content>
+	<parent><?= !empty($content['parent']) ? intval($content['parent']) : '' ?></parent>
+<?php
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxMotorAddCommentaireXml'));
-		$xml .= "</comment>\n";
+?>
+</comment>
+<?php
 		# On ecrit ce contenu dans notre fichier XML
-		return plxUtils::write($xml, PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
+		return plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT.$this->aConf['racine_commentaires'].$content['filename']);
 	}
 
 	/**
@@ -1306,9 +1313,9 @@ class plxMotor {
 	public function nbComments($select='online', $publi='all') {
 
 		switch($select) {
-			case 'all' : $motif = '#^_?\d{4}\.(.*)\.xml$#'; break;
-			case 'offline' : $motif = '#^_\d{4}\.(.*)\.xml$#'; break;
-			case 'online' : $motif = '#^\d{4}\.(.*)\.xml$#'; break;
+			case 'all' : $motif = '#^_?\d{4}\..*\.xml$#'; break;
+			case 'offline' : $motif = '#^_\d{4}\..*\.xml$#'; break;
+			case 'online' : $motif = '#^\d{4}\..*\.xml$#'; break;
 			default : $motif = $select;
 		}
 
