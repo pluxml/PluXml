@@ -397,7 +397,7 @@ class plxMotor {
 		elseif($this->mode == 'article') {
 
 			# On a validé le formulaire commentaire
-			if($this->articleAllowComs() and !empty($_POST)) {
+			if(!empty($_POST) and $this->articleAllowComs()) {
 				# On récupère le retour de la création
 				$content = plxUtils::unSlash($_POST);
 				$retour = $this->newCommentaire($this->cible, $content);
@@ -412,11 +412,7 @@ class plxMotor {
 					$retour = 'form';
 				} else {
 					$_SESSION['msgcom'] = $retour;
-					$_SESSION['msg']['name'] = plxUtils::unSlash($_POST['name']);
-					$_SESSION['msg']['site'] = plxUtils::unSlash($_POST['site']);
-					$_SESSION['msg']['mail'] = plxUtils::unSlash($_POST['mail']);
-					$_SESSION['msg']['content'] = plxUtils::unSlash($_POST['content']);
-					$_SESSION['msg']['parent'] = plxUtils::unSlash($_POST['parent']);
+					$_SESSION['msg'] = $content;
 					$retour = 'form';
 					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
 				}
