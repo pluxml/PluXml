@@ -47,17 +47,11 @@ if(!empty($_POST) AND !empty($_POST['comId'])) {
 		header('Location: comments.php');
 		exit;
 	}
-	# Commentaire en ligne
-	if(isset($_POST['online'])) {
+	# Modération Commentaire [en | hors] ligne
+	if(isset($_POST['online']) or isset($_POST['offline'])) {
 		$plxAdmin->editCommentaire($_POST,$_POST['comId']);
-		$plxAdmin->modCommentaire($_POST['comId'],'online');
-		header('Location: comment.php?c='.$_POST['comId'].(!empty($_GET['a'])?'&a='.$_GET['a']:''));
-		exit;
-	}
-	# Commentaire hors-ligne
-	if(isset($_POST['offline'])) {
-		$plxAdmin->editCommentaire($_POST,$_POST['comId']);
-		$plxAdmin->modCommentaire($_POST['comId'],'offline');
+		unset($_SESSION['info']); # on supprime message d'information du commentaire original modifié
+		$plxAdmin->modCommentaire($_POST['comId'],isset($_POST['online'])?'online':'offline');
 		header('Location: comment.php?c='.$_POST['comId'].(!empty($_GET['a'])?'&a='.$_GET['a']:''));
 		exit;
 	}
