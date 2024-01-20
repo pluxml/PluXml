@@ -349,7 +349,7 @@ class plxMotor {
 		return (
 			$this->mode == 'article' and
 			(
-				intval($this->aConf['allow_com']) > 0 or
+				intval($this->aConf['allow_com']) > 0 and
 				(
 					!empty($this->plxRecord_arts) and
 					intval($this->plxRecord_arts->f('allow_com')) > 0
