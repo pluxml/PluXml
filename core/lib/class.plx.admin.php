@@ -1422,16 +1422,16 @@ EOT;
 		$time = time();
 
 		# On peut créer le commentaire
-		if($this->addCommentaire(array(
+		if($this->addCommentaire([
 			'author' => $this->aUsers[$_SESSION['user']]['name'],
-			'content' => $content['content'],
+			'content' => plxUtils::strCheck($content['content']),
 			'site' => $this->racine,
 			'ip' => plxUtils::getIp(),
 			'type' => 'admin',
 			'mail' => $this->aUsers[$_SESSION['user']]['email'],
 			'parent' => $content['parent'],
 			'filename' => $artId.'.'.$time.'-'.$idx.'.xml',
-		))) # Commentaire OK
+		])) # Commentaire OK
 			return true;
 		else
 			return false;
@@ -1467,17 +1467,18 @@ EOT;
 		# On récupère les infos du commentaire
 		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'] . $filename);
 
-		$comment = array(
+		# On vérifie le site par reference et RAZ si mauvais format!
+		plxUtils::checkSite($content['site']);
+		$comment = [
 			'filename'	=> $filename,
-			'author'	=> $content['author'],
-			'site'		=> $content['site'],
-			'content'	=> $content['content'],
-			'mail'		=> $content['mail'],
+			'author'	=> plxUtils::strCheck($content['author']),
+			'content'	=> plxUtils::strCheck($content['content']),
+			'mail'		=> strval(plxUtils::checkMail($content['mail'])),
 			'site'		=> $content['site'],
 			'ip'		=> $com['ip'],
 			'type'		=> $com['type'],
 			'parent'	=> $com['parent'],
-		);
+		];
 
 		# Génération du nouveau nom du fichier
 		$time = explode(':', $content['date_publication_time']);
