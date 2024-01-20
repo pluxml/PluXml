@@ -1422,7 +1422,7 @@ EOT;
 		$time = time();
 
 		# On peut créer le commentaire
-		if($this->addCommentaire([
+		return $this->addCommentaire([
 			'author' => $this->aUsers[$_SESSION['user']]['name'],
 			'content' => plxUtils::strCheck($content['content']),
 			'site' => $this->racine,
@@ -1431,10 +1431,7 @@ EOT;
 			'mail' => $this->aUsers[$_SESSION['user']]['email'],
 			'parent' => $content['parent'],
 			'filename' => $artId.'.'.$time.'-'.$idx.'.xml',
-		])) # Commentaire OK
-			return true;
-		else
-			return false;
+		]);
 	}
 
 	/**
