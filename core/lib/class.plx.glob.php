@@ -120,7 +120,7 @@ class plxGlob {
 	 * @param	tri				type de tri (sort, rsort, alpha, ralpha)
 	 * @param	publi			recherche des fichiers avant ou après la date du jour
 	 * @return	array ou false
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Thomas I et JPP @Bazooka07
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Thomas I et Jean-Pierre Pourrez "bazooka07"
 	 **/
 	private function search($motif,$type,$tri,$publi) {
 
