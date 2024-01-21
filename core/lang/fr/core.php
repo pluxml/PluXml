@@ -69,7 +69,7 @@ const L_EIGTH						= 'huitième';
 const L_NINTH						= 'neuvième';
 const L_TENTH						= 'dixième';
 const L_NTH							= 'ème';
-const L_CAPCHA_QUESTION				= 'Quelle est le <span class="capcha-letter">%s</span> caractère du mot <span class="capcha-word">%s</span>&nbsp;?';
+const L_CAPCHA_QUESTION				= 'Quel est le <span class="capcha-letter">%s</span> caractère du mot <span class="capcha-word">%s</span>&nbsp;?';
 
 # class.plx.utils.php
 
