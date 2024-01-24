@@ -1087,7 +1087,14 @@ select::-ms-expand {/*for IE10*/
 	position: fixed;
 	bottom: 0;
 	width: 95%;
+	height: 5.5rem;
 	background-color: #fff;
+}
+
+/* Fix dernier élément si pagination */
+#articles-table,
+#comments-table {
+	margin-bottom: 4rem;
 }
 
 #articles-table .as-link {
