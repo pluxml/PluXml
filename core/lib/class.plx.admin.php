@@ -1424,7 +1424,7 @@ EOT;
 		# On peut créer le commentaire
 		return $this->addCommentaire([
 			'author' => $this->aUsers[$_SESSION['user']]['name'],
-			'content' => plxUtils::strCheck($content['content']),
+			'content' => $content['content'],
 			'site' => $this->racine,
 			'ip' => plxUtils::getIp(),
 			'type' => 'admin',
@@ -1464,13 +1464,11 @@ EOT;
 		# On récupère les infos du commentaire
 		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'] . $filename);
 
-		# On vérifie le site par reference et RAZ si mauvais format!
-		plxUtils::checkSite($content['site']);
 		$comment = [
 			'filename'	=> $filename,
-			'author'	=> plxUtils::strCheck($content['author']),
-			'content'	=> plxUtils::strCheck($content['content']),
-			'mail'		=> strval(plxUtils::checkMail($content['mail'])),
+			'author'	=> $content['author'],
+			'content'	=> $content['content'],
+			'mail'		=> $content['mail'],
 			'site'		=> $content['site'],
 			'ip'		=> $com['ip'],
 			'type'		=> $com['type'],

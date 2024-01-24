@@ -1068,14 +1068,13 @@ class plxMotor {
 				$mod = $this->aConf['mod_com'] ? '_' : '';
 				# On génère le nom du fichier
 				$filename = $mod . $artId . '.' . time() . '-' . $idx . '.xml';
-				# On vérifie le site par reference et RAZ si mauvais format!
-				plxUtils::checkSite($content['site']);
+
 				$comment = [
 					'type' => 'normal',
-					'author' => plxUtils::strCheck($content['name'] ? $content['name'] : $content['login']),
-					'content' => plxUtils::strCheck($content['content']),
+					'author' => isset($content['name']) ? $content['name'] : $content['login'],
+					'content' => $content['content'],
 					# On vérifie le mail
-					'mail' => strval(plxUtils::checkMail($content['mail'])),
+					'mail' => $content['mail'],
 					'site' =>  $content['site'],
 					# On récupère l'adresse IP du posteur
 					'ip' => plxUtils::getIp(),
@@ -1108,16 +1107,18 @@ class plxMotor {
 	public function addCommentaire($content) {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) return;
+		# On vérifie le site par reference et RAZ si mauvais format!
+		plxUtils::checkSite($content['site']);
 		# On genere le contenu de notre fichier XML
 		ob_start();
 ?>
 <comment>
-	<author><![CDATA[<?= plxUtils::cdataCheck($content['author']) ?>]]></author>
+	<author><?= plxUtils::strCheck(preg_replace('~(\W)~u',' ',$content['author']), true, '') ?></author>
 	<type><?= $content['type'] ?></type>
 	<ip><?= $content['ip'] ?></ip>
-	<mail><?= plxUtils::strCheck($content['mail']) ?></mail>
-	<site><?= plxUtils::strCheck($content['site']) ?></site>
-	<content><?= plxUtils::strCheck($content['content'], true) ?></content>
+	<mail><?= plxUtils::checkMail($content['mail']) ?></mail>
+	<site><?= $content['site'] ?></site>
+	<content><?= plxUtils::strCheck($content['content'], true, '<a><b><i><u><em><sub><sup><pre><code><span><quote>') ?></content>
 	<parent><?= !empty($content['parent']) ? intval($content['parent']) : '' ?></parent>
 <?php
 

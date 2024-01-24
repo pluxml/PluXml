@@ -77,7 +77,7 @@ if($plxShow->articleAllowComs()) {# Les commentaires sont autorisés
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_name"><?php $plxShow->lang('NAME') ?>* :</label>
-					<input id="id_name" name="name" type="text" size="20" value="<?php $plxShow->comGet('name',''); ?>" maxlength="30" required="required" />
+					<input id="id_name" name="name" type="text" size="20" value="<?php $plxShow->comGet('name',''); ?>" maxlength="50" required="required" />
 				</div>
 			</div>
 			<div class="grid">
