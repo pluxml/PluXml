@@ -81,14 +81,13 @@ function pluginsList($plugins, $defaultLang, $type) {
 					<p class="description"><?= plxUtils::strCheck($plugInstance->getInfo('description')) ?></p>
 <?php /* author */ ?>
 					<p>
-					<?= L_PLUGINS_AUTHOR ?> : <?= plxUtils::strCheck($plugInstance->getInfo('author')) ?>
-<?php
-					# site
-					if($plugInstance->getInfo('site')!='') {
+					<?= L_PLUGINS_AUTHOR ?> : <?php
+					$site = plxUtils::strCheck($plugInstance->getInfo('site'));# site
+					if($site) {
 ?>
- - <a href="<?= plxUtils::strCheck($plugInstance->getInfo('site')) ?>"><?= plxUtils::strCheck($plugInstance->getInfo('site')) ?></a>
+<a href="<?= $site ?>" title="<?= $site ?>"><?= plxUtils::strCheck($plugInstance->getInfo('author')) ?></a>
 <?php
-					}
+					} else echo plxUtils::strCheck($plugInstance->getInfo('author'));
 ?>
 					</p>
 				</td>
@@ -219,7 +218,7 @@ include 'top.php';
 					<th>&nbsp;</th>
 					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
 					<?php if($_SESSION['selPlugins']=='1') : ?>
-					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
+					<th title="<?php echo L_PLUGINS_LOADING_SORT ?>" class="text-center"><i class="icon-cog-alt"></i></th>
 					<?php endif; ?>
 					<th><?php echo L_PLUGINS_ACTION ?></th>
 				</tr>
