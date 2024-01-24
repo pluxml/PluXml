@@ -177,17 +177,17 @@ $curFolders = explode('/', $curFolder);
 			<input type="hidden" name="sort" value="" />
 			<?php echo plxToken::getTokenPostMethod() ?>
 		</div>
+		<div class="grid">
+			<div class="col sml-6">
+				<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
+				<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
+			</div>
 
-		<div style="float:left">
-			<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
+			<div class="col sml-6 text-right">
+				<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" />
+			</div>
 		</div>
-
-		<div style="float:right">
-			<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" />
-		</div>
-
-		<div style="clear:both" class="scrollable-table">
+		<div class="scrollable-table">
 			<table id="medias-table" class="full-width">
 				<thead>
 				<tr>

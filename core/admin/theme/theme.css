@@ -403,10 +403,6 @@ input[maxlength="3"] {
 	padding-top: 7px;
 }
 
-#medias-table {
-	margin-top: 10px;
-}
-
 #medias-table td:nth-of-type(5) {
 	text-align: right;
 }
@@ -868,7 +864,7 @@ div.ico {
 	color: #ccc;
 	display: inline-block;
 	margin-left: 5px;
-	position: relative;
+	position: initial;
 }
 
 div.ico:hover {
