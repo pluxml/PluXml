@@ -430,7 +430,8 @@ input[maxlength="3"] {
 	color: #444;
 }
 .toggler + label span:first-of-type, /* masquer */
-.toggler + label + div {
+.toggler + label + div,
+.toggler + label + span {
 	display: none;
 }
 .toggler + label span:last-of-type {
@@ -439,8 +440,9 @@ input[maxlength="3"] {
 .toggler:checked + label span:first-of-type { /* afficher */
 	display: inline-block;
 }
-.toggler:checked + label + div {
-	display: block;
+.toggler:checked + label + div,
+.toggler:checked + label + span {
+	display: initial;
 }
 .toggler:checked + label span:last-of-type {
 	display: none;
