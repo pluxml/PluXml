@@ -130,8 +130,9 @@ $nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId);
 
 # Récupération du texte à rechercher
 $artTitle = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
-if(empty($artTitle)) {
-	 $artTitle = (!empty($_POST['artTitle']))?plxUtils::unSlash(trim(urldecode($_POST['artTitle']))):'';
+if(empty($artTitle) and !empty($_POST['artTitle'])) {
+	header('Location: index.php?artTitle=' . plxUtils::unSlash(trim(urldecode($_POST['artTitle']))));
+	exit;
 }
 $_GET['artTitle'] = $artTitle;
 
@@ -395,21 +396,21 @@ EOT;
 			$colspan = preg_match('#^\d{3}$#', $userId) ? 7 : 8;
 			echo '<tr><td colspan="' . $colspan . '" class="center">'.L_NO_ARTICLE.'</td></tr>';
 		}
-		?>
+?>
 		</tbody>
 	</table>
 </div>
 
 </form>
 
-<div id="pagination">
+<div id="pagination"<?= ($nbArtPagination < 2) ? ' class="hide"': ''?>>
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
 
 	# Affichage de la pagination
 	if($arts) {
-		plxUtils::printPagination($nbArtPagination, $plxAdmin->bypage, $plxAdmin->page, 'index.php?page=%d' . $artTitle);
+		plxUtils::printPagination($nbArtPagination, $plxAdmin->bypage, $plxAdmin->page, 'index.php?page=%d');
 	}
 ?>
 </div>

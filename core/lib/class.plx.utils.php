@@ -1584,14 +1584,16 @@ EOT;
 		if ($itemsCount > $itemsPerPage) { # if there is articles
 			//Pagination preparation
 			$last_page = ceil($itemsCount / $itemsPerPage);
+			$show_first = ($currentPage > 1); # First & Prev
+			$show_last = ($currentPage < $last_page); # Next & Last
 			// URL generation
 			$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . urlencode($_GET['artTitle']) : '';
 			// Display pagination links
 ?>
 				<span><?= ucfirst(L_PAGE) ?></span>
 				<ul class="inline-list">
-					<li><a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= ($currentPage > 2) ? '' : ' disabled' ?> class="button"><i class="icon-angle-double-left"></i></a></li>
-					<li><a href="<?php printf($urlTemplate, ($currentPage > 1) ? $currentPage - 1 : 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= ($currentPage > 1) ? '' : ' disabled' ?> class="button"><i class="icon-angle-left"></i></a></li>
+					<li><<?= $show_first ? 'a href="'.sprintf($urlTemplate, 1) . $artTitle.'"' : 'b disabled' ?> class="button" title="<?= L_PAGINATION_FIRST_TITLE ?>"><i class="icon-angle-double-left"></i></<?= $show_first ? 'a' : 'b' ?>></li>
+					<li><<?= $show_first ? 'a href="'.sprintf($urlTemplate, $show_first ? $currentPage - 1 : 1) . $artTitle.'"' : 'b disabled' ?> class="button" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"><i class="icon-angle-left"></i></<?= $show_first ? 'a' : 'b' ?>></li>
 <?php
 			# On boucle sur les pages
 			if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
@@ -1607,7 +1609,7 @@ EOT;
 			for ($i = $iMin; $i <= $iMax; $i++) {
 				if($i != $currentPage) {
 ?>
-					<li><a href="<?php printf($urlTemplate, $i); ?>" class="button"><?= $i ?></a></li>
+					<li><a href="<?= sprintf($urlTemplate, $i) . $artTitle; ?>" class="button"><?= $i ?></a></li>
 <?php
 				} else {
 ?>
@@ -1616,8 +1618,8 @@ EOT;
 				}
 			}
 ?>
-					<li><a href="<?php printf($urlTemplate, $currentPage + 1); ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= ($currentPage < $last_page) ? '' : ' disabled' ?>><span class="button"><i class="icon-angle-right"></i></span></a></li>
-					<li><a href="<?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><span class="button"<?= ($currentPage < $last_page - 1) ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></span></a></li>
+					<li><<?= $show_last ? 'a href="'.sprintf($urlTemplate, $currentPage + 1) . $artTitle.'"' : 'b disabled' ?> class="button" title="<?= L_PAGINATION_NEXT_TITLE ?>"><i class="icon-angle-right"></i></<?= $show_last ? 'a' : 'b' ?>></li>
+					<li><<?= $show_last ? 'a href="'.sprintf($urlTemplate, $last_page) . $artTitle.'"' : 'b disabled' ?> class="button" title="<?= L_PAGINATION_LAST_TITLE ?>"><i class="icon-angle-double-right"></i></<?= $show_last ? 'a' : 'b' ?>></li>
 				</ul>
 <?php
 		}
