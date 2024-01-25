@@ -114,7 +114,7 @@ class plxMedias {
 			) as $filename) {
 				if(is_dir($filename)) { continue; }
 
-				$thumbInfos = false;
+				$imgSize = $sampleOk = $sample = $thumbInfos = false;
 				if(preg_match($this->img_exts, $filename, $matches)) {
 					$thumbName = plxUtils::thumbName($filename);
 					if(file_exists($thumbName)) {
@@ -132,13 +132,14 @@ class plxMedias {
 							)
 						);
 					$imgSize = getimagesize($filename);
-				} else {
-					$imgSize = false;
 				}
 				$stats = stat($filename);
 				$extension = '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 				if($extension == '.svg') {
-					$defaultSample = $filename;
+					$sampleOk = $sample = $filename;
+				}
+				elseif(empty($sampleOk) and $extension == '.webp') { # Fix animated webp
+					$sampleOk = $sample = $filename;
 				}
 				$files[basename($filename)] = array(
 					'.thumb'	=> (!empty($sampleOk)) ? $sample : $defaultSample,
@@ -150,8 +151,6 @@ class plxMedias {
 					'infos' 	=> $imgSize,
 					'thumb' 	=> $thumbInfos
 				);
-				$sample = '';
-				$sampleOk = "";
 			}
 
 			ksort($files);
@@ -309,7 +308,7 @@ class plxMedias {
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
 			if(preg_match($this->img_exts, $file['name'])) {
-				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48);
+				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile));
 				if($resize)
 					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
 				if($thumb)
@@ -333,6 +332,7 @@ class plxMedias {
 		if(isset($post['myfiles'])) {
 			foreach($post['myfiles'] as $key => $val) {
 				list($selnum, $selval) = explode('_', $val);
+				if(ini_get('max_file_uploads')-1 < $selval) break;
 				$files[] = array(
 					'name'		=> $usrfiles['selector_'.$selnum]['name'][$selval],
 					'size'		=> $usrfiles['selector_'.$selnum]['size'][$selval],
