@@ -151,20 +151,22 @@ $curFolders = explode('/', $curFolder);
 	<div class="inline-form" id="files_manager">
 
 		<div class="inline-form action-bar">
-			<h2><?php echo L_MEDIAS_TITLE ?></h2>
-			<p>
-				<?php
-				echo L_MEDIAS_DIRECTORY.' : <a href="javascript:void(0)" onclick="document.forms[1].folder.value=\'.\';document.forms[1].submit();return true;" title="'.L_PLXMEDIAS_ROOT.'">('.L_PLXMEDIAS_ROOT.')</a> / ';
-				if($curFolders) {
-					$path='';
-					foreach($curFolders as $id => $folder) {
-						if(!empty($folder) AND $id>1) {
-							$path .= $folder.'/';
-							echo '<a href="javascript:void(0)" onclick="document.forms[1].folder.value=\''.$path.'\';document.forms[1].submit();return true;" title="'.$folder.'">'.$folder.'</a> / ';
-						}
-					}
-				}
-				?>
+			<h2><?= L_MEDIAS_TITLE ?></h2>
+			<p id="medias-breadcrumb">
+				<?= L_MEDIAS_DIRECTORY ?> : <a href="javascript:void(0)" data-folder=".">(<?= L_PLXMEDIAS_ROOT ?>)</a> /
+<?php
+if($curFolders) {
+	$path='';
+	foreach($curFolders as $id => $folder) {
+		if(!empty($folder) AND $id>1) {
+			$path .= $folder . '/';
+?>
+<a href="javascript:void(0)" data-folder="<?= $path ?>"><?= $folder ?></a> /
+<?php
+		}
+	}
+}
+?>
 			</p>
 			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
 			<input type="submit" name="btn_ok" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?php echo L_CONFIRM_DELETE ?>')" />
@@ -188,16 +190,16 @@ $curFolders = explode('/', $curFolder);
 		</div>
 
 		<div style="clear:both" class="scrollable-table">
-			<table id="medias-table" class="full-width">
+			<table id="medias-table" class="full-width sort">
 				<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_title ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_FILENAME ?></a></th>
-					<th><?php echo L_MEDIAS_EXTENSION ?></th>
-					<th><?php echo L_MEDIAS_FILESIZE ?></th>
-					<th><?php echo L_MEDIAS_DIMENSIONS ?></th>
-					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?php echo $sort_date ?>';document.forms[1].submit();return true;"><?php echo L_MEDIAS_DATE ?></a></th>
+					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
+					<th class="sort"><?=  L_MEDIAS_EXTENSION ?></th>
+					<th class="sort integer"><?=  L_MEDIAS_FILESIZE ?></th>
+					<th class="sort integer"><?=  L_MEDIAS_DIMENSIONS ?></th>
+					<th class="sort integer active"><?= L_MEDIAS_DATE ?></th>
 				</tr>
 				</thead>
 				<tbody id="medias-table-tbody">
@@ -218,7 +220,7 @@ $curFolders = explode('/', $curFolder);
 							else
 								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
 						echo '</td>';
-						echo '<td>';
+						echo '<td data-sort="'.$title . $v['extension'].'">';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
 							echo '<div data-copy="'.str_replace(PLX_ROOT, '', $v['path']).'" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#128203;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							echo '<div data-rename="'.$v['path'].'" title="'.L_RENAME_FILE.'" class="ico">&#9998;</div>';
@@ -229,8 +231,8 @@ $curFolders = explode('/', $curFolder);
 								echo '<div data-copy="'.str_replace(PLX_ROOT, '', $href).'" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#128203;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';
-						echo '<td>'.strtoupper($v['extension']).'</td>';
-						echo '<td>';
+						echo '<td data-sort="'.strtoupper($v['extension']).'">'.strtoupper($v['extension']).'</td>';
+						echo '<td data-sort="'.$v['filesize'].'">';
 							echo plxUtils::formatFilesize($v['filesize']);
 							if($isImage AND is_file($href)) {
 								echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
@@ -243,8 +245,8 @@ $curFolders = explode('/', $curFolder);
 						if($isImage AND is_file($href)) {
 							$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
 						}
-						echo '<td>'.$dimensions.'</td>';
-						echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
+						echo '<td data-sort="'.($v['infos']?$v['infos'][0] * $v['infos'][1]:'0').'">'.$dimensions.'</td>';
+						echo '<td data-sort="'.$v['date'].'">'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
 						echo '</tr>';
 					}
 				}
