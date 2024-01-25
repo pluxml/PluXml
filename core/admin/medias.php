@@ -220,7 +220,7 @@ if($curFolders) {
 							else
 								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
 						echo '</td>';
-						echo '<td>';
+						echo '<td data-sort="'.$title . $v['extension'].'">';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
 							echo '<div data-copy="'.str_replace(PLX_ROOT, '', $v['path']).'" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#128203;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							echo '<div data-rename="'.$v['path'].'" title="'.L_RENAME_FILE.'" class="ico">&#9998;</div>';
@@ -231,8 +231,8 @@ if($curFolders) {
 								echo '<div data-copy="'.str_replace(PLX_ROOT, '', $href).'" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#128203;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
 						echo '</td>';
-						echo '<td>'.strtoupper($v['extension']).'</td>';
-						echo '<td>';
+						echo '<td data-sort="'.strtoupper($v['extension']).'">'.strtoupper($v['extension']).'</td>';
+						echo '<td data-sort="'.$v['filesize'].'">';
 							echo plxUtils::formatFilesize($v['filesize']);
 							if($isImage AND is_file($href)) {
 								echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
@@ -245,8 +245,8 @@ if($curFolders) {
 						if($isImage AND is_file($href)) {
 							$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
 						}
-						echo '<td>'.$dimensions.'</td>';
-						echo '<td>'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
+						echo '<td data-sort="'.($v['infos']?$v['infos'][0] * $v['infos'][1]:'0').'">'.$dimensions.'</td>';
+						echo '<td data-sort="'.$v['date'].'">'.plxDate::formatDate(plxDate::timestamp2Date($v['date'])).'</td>';
 						echo '</tr>';
 					}
 				}
