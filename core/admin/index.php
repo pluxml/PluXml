@@ -421,14 +421,13 @@ if($hasPagination) {
 ?>
 <div id="pagination" class="text-center">
 <?php
+
+	$urlTemplate = 'index.php?page=%d'; # Aucun % supplémentaire dedans
+
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
 
 	# Affichage de la pagination
-	$urlTemplate = 'index.php?page=%d';
-	if(!empty($artTitle)) {
-		$urlTemplate .= '&artTitle=' . urlencode($artTitle);
-	}
 	plxUtils::printPagination($nbArtPagination, $plxAdmin->bypage, $plxAdmin->page, $urlTemplate);
 ?>
 </div>
