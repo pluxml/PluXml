@@ -1596,8 +1596,8 @@ EOT;
 ?>
 				<span class="sml-hide"><?= ucfirst(L_PAGE) ?></span>
 				<ul class="inline-list">
-					<li><a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= $showFirst ? '' : ' disabled' ?> class="button"><i class="icon-angle-double-left"></i></a></li>
-					<li><a href="<?php printf($urlTemplate, $showFirst ? $currentPage - 1 : 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= $showFirst ? '' : ' disabled' ?> class="button"><i class="icon-angle-left"></i></a></li>
+					<li><a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>" class="<?= $showFirst ? 'button' : 'hide' ?>"><i class="icon-angle-double-left"></i></a></li>
+					<li><a href="<?php printf($urlTemplate, $showFirst ? $currentPage - 1 : 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>" class="<?= $showFirst ? 'button' : 'hide' ?>"><i class="icon-angle-left"></i></a></li>
 <?php
 		# On boucle sur les pages
 		if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
@@ -1613,7 +1613,7 @@ EOT;
 		for ($i = $iMin; $i <= $iMax; $i++) {
 			if($i != $currentPage) {
 ?>
-					<li><a href="<?= sprintf($urlTemplate, $i) . $artTitle; ?>" class="button"><?= $i ?></a></li>
+					<li><a href="<?= sprintf($urlTemplate, $i); ?>" class="button"><?= $i ?></a></li>
 <?php
 			} else {
 ?>
@@ -1622,8 +1622,8 @@ EOT;
 			}
 		}
 ?>
-					<li><a href="<?php printf($urlTemplate, $showLast ? $currentPage + 1 : $last_page ); ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= $showLast ? '' : ' disabled' ?> class="button"><i class="icon-angle-right"></i></a></li>
-					<li><a href="<?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="button"<?= $showLast ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></a></li>
+					<li><a href="<?php printf($urlTemplate, $showLast ? $currentPage + 1 : $last_page ); ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>" class="<?= $showLast ? 'button' : 'hide' ?>"><i class="icon-angle-right"></i></a></li>
+					<li><a href="<?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="<?= $showLast ? 'button' : 'hide' ?>"><i class="icon-angle-double-right"></i></a></li>
 				</ul>
 <?php
 	}
