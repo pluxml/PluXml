@@ -125,41 +125,46 @@ switch ($_SESSION['sel_get']) {
 		break;
 }
 
-# Nombre d'article sélectionnés
-$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId);
-
 # Récupération du texte à rechercher
-$artTitle = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
-if(empty($artTitle) and !empty($_POST['artTitle'])) {
+$artTitle = '';
+if(filter_has_var(INPUT_GET, 'artTitle')) {
+	$artTitle = trim(htmlspecialchars($_GET['artTitle'])); # requested by PHP-8.1.0
+}
+
+if(empty($artTitle) and filter_has_var(INPUT_POST, 'artTitle')) {
 	header('Location: index.php?artTitle=' . plxUtils::unSlash(trim(urldecode($_POST['artTitle']))));
 	exit;
 }
-$_GET['artTitle'] = $artTitle;
-
 # On génère notre motif de recherche
 $artId = '\d{4}';
 $url = '.*';
-if(is_numeric($_GET['artTitle'])) {
-	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
-} elseif(!empty($_GET['artTitle'])) {
-	$url = '.*' .plxUtils::urlify($_GET['artTitle']) . '.*';
+if(!empty($artTitle)) {
+	if(is_numeric($artTitle)) {
+		$artId = str_pad($artTitle, 4, '0', STR_PAD_LEFT);
+	} else {
+		$url = '.*' . plxUtils::urlify($artTitle) . '.*';
+	}
 }
-$motif = '#^' . $mod . implode('\.', [$artId, $catIdSel, $userId, '\d{12}', $url,]) . '\.xml$#';
-# Calcul du nombre de page si on fait une recherche
-if($_GET['artTitle']!='') {
-	if($arts = $plxAdmin->plxGlob_arts->query($motif))
-		$nbArtPagination = sizeof($arts);
+$motif = '#^' . $mod . implode('\.', [$artId, $catIdSel, $userId, '\d{12}', $url, 'xml', ]) . '$#';
+
+# Nombre d'article sélectionnés ( pour pagination )
+$hasPagination = false;
+$globArts = $plxAdmin->plxGlob_arts->query($motif);
+if(!empty($globArts)) {
+	$nbArtPagination = sizeof($globArts);
+	$hasPagination = ($nbArtPagination > $plxAdmin->bypage);
 }
 
 # Traitement
 $plxAdmin->prechauffage($motif);
 $plxAdmin->getPage();
 
-if(($plxAdmin->page - 1) * $plxAdmin->bypage > $nbArtPagination) {
+if(!$hasPagination or ($plxAdmin->page - 1) * $plxAdmin->bypage > $nbArtPagination) {
 	$plxAdmin->page = 1;
 }
 
-$arts = $plxAdmin->getArticles('all'); # Recuperation des articles
+# Recuperation des articles
+$arts = $plxAdmin->getArticles('all'); # return true or false
 
 # Génération de notre tableau des catégories
 $aFilterCat = [
@@ -181,9 +186,16 @@ $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
 # On inclut le header
 include 'top.php';
-?>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
+if($_SESSION['profil'] == PROFIL_ADMIN and is_file(PLX_ROOT.'install.php') and $plxAdmin->page == 1) {
+	$urlDeleteInstall = 'index.php?' . http_build_query(array_merge($_GET, array('del'=>'install')));
+?>
+		<p class="alert red text-center"><?php printf(L_WARNING_INSTALLATION_FILE, $urlDeleteInstall) ?></p>
+<?php
+}
+
+eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
+?>
 
 <form action="index.php?sel=<?= $_SESSION['sel_get'] ?>" method="post" id="form_articles">
 <div class="inline-form action-bar">
@@ -211,11 +223,11 @@ foreach([
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
 ?>
 	<div  class="grid">
-		<div class="col med-6">
+		<div class="col sml-9 med-6">
 			<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection'); ?>
 			<input name="sel" type="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		</div>
-		<div class="col med-2 med-offset-4 text-right">
+		<div class="col sml-3 med-2 med-offset-4 med-text-right">
 			<input name="tags" type="submit" title="Refresh tags list" value="Tags" />
 		</div>
 	</div>
@@ -252,15 +264,15 @@ if($_SESSION['profil'] < PROFIL_WRITER) {
 	}
 }
 ?>
-		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" />
+		<!-- input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" / -->
 	</div>
 	<div class="col sml-6 text-right">
-		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= plxUtils::strCheck($_GET['artTitle']) ?>" />
-		<input class="<?= (!empty($_GET['artTitle'])?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
+		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= plxUtils::strCheck($artTitle) ?>" />
+		<input class="<?= (!empty($artTitle)?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
 	</div>
 </div>
 
-<div class="scrollable-table">
+<div class="scrollable-table<?= $hasPagination ? ' has-pagination' : '' ?>">
 	<table id="articles-table" class="full-width">
 		<thead>
 			<tr>
@@ -281,11 +293,9 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 			</tr>
 		</thead>
 		<tbody>
-		<?php
+<?php
 		# On va lister les articles
 		if($arts) { # On a des articles
-			# Initialisation de l'ordre
-			$num=0;
 			$datetime = date('YmdHi');
 			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
 				$publi = (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
@@ -357,7 +367,7 @@ EOT;
 ?>
 					<span title="<?= L_VALIDATED_COMMENTS_TITLE ?>">0</span>
 <?php
-				}
+		}
 ?>
 <?php
 					if(!preg_match('#^\d{3}$#', $userId)) {
@@ -376,7 +386,7 @@ EOT;
 ?>
 				</td>
 <?php
-					}
+			}
 ?>
 				<td>
 					<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= L_ARTICLE_EDIT ?></a>
@@ -394,7 +404,11 @@ EOT;
 			}
 		} else { # Pas d'article
 			$colspan = preg_match('#^\d{3}$#', $userId) ? 7 : 8;
-			echo '<tr><td colspan="' . $colspan . '" class="center">'.L_NO_ARTICLE.'</td></tr>';
+?>
+			<tr>
+				<td colspan="<?= $colspan ?>" class="text-center"><?= ucfirst(L_NO_ARTICLE) ?></td>
+			</tr>
+<?php
 		}
 ?>
 		</tbody>
@@ -402,18 +416,25 @@ EOT;
 </div>
 
 </form>
-
-<div id="pagination"<?= ($nbArtPagination < 2) ? ' class="hide"': ''?>>
+<?php
+if($hasPagination) {
+?>
+<div id="pagination" class="text-center">
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
 
 	# Affichage de la pagination
-	if($arts) {
-		plxUtils::printPagination($nbArtPagination, $plxAdmin->bypage, $plxAdmin->page, 'index.php?page=%d');
+	$urlTemplate = 'index.php?page=%d';
+	if(!empty($artTitle)) {
+		$urlTemplate .= '&artTitle=' . urlencode($artTitle);
 	}
+	plxUtils::printPagination($nbArtPagination, $plxAdmin->bypage, $plxAdmin->page, $urlTemplate);
 ?>
 </div>
+<?php
+}
+?>
 <script>
 	(function (id) {
 		const el = document.getElementById(id);
@@ -438,7 +459,6 @@ EOT;
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminIndexFoot'));
-
 
 # On inclut le footer
 include 'foot.php';

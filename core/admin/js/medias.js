@@ -94,3 +94,83 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !==
 	input.value = localStorage.getItem("medias_search");
 	plugFilter();
 }
+
+/* Tri tableau des medias - @author Jean-Pierre Pourrez "bazooka07" - 2020-05-12 */
+(function() {
+	const table = document.querySelector('table.sort');
+	if(table != null) {
+		table.addEventListener('click', function(event) {
+			if(event.target.tagName == 'TH' && event.target.classList.contains('sort')) {
+				event.preventDefault();
+				const el = event.target;
+				const isInteger = el.classList.contains('integer');
+				const isReverse = el.classList.contains('reverse');
+				const index = el.cellIndex;
+
+				if(sessionStorage) { // Save the status
+					sessionStorage.setItem('media-sort', isReverse ? -index : index);
+				}
+
+				// On enlève le marquage précédent
+				const previous = el.parentElement.querySelector('th.sort.active');
+				if(previous != null) {
+					previous.classList.remove('active');
+				}
+
+				// On marque la colonne de tri
+				el.classList.add('active');
+
+				// flip-flop
+				if(isReverse) {
+					event.target.classList.remove('reverse');
+				} else {
+					event.target.classList.add('reverse');
+				}
+
+				const tBody = event.currentTarget.tBodies[0];
+				const rows = Array.from(tBody.rows);
+				rows.sort(function(row1, row2) {
+					if(!('sort' in row1.cells[index].dataset)) { return 1; }
+					if(!('sort' in row2.cells[index].dataset)) { return -1; }
+					if(isInteger) {
+						return (isReverse) ? (parseInt(row2.cells[index].dataset.sort) - parseInt(row1.cells[index].dataset.sort)) : (parseInt(row1.cells[index].dataset.sort) - parseInt(row2.cells[index].dataset.sort));
+					}
+					return (isReverse) ? row2.cells[index].dataset.sort.localeCompare(row1.cells[index].dataset.sort) : row1.cells[index].dataset.sort.localeCompare(row2.cells[index].dataset.sort);
+				});
+
+				tBody.contentText = '';
+				rows.forEach(function(row) { tBody.appendChild(row); });
+			}
+
+		});
+
+		if(sessionStorage) {
+			const lastSort = sessionStorage.getItem('media-sort');
+			if(lastSort != null) {
+				const value = parseInt(lastSort);
+				const cell = table.querySelector('th:nth-of-type(' + (Math.abs(value) + 1) + ')');
+				if(value < 0) {
+					cell.classList.add('reverse');
+				} else {
+					cell.classList.remove('reverse');
+				}
+				cell.click();
+			}
+		}
+	}
+})();
+
+(function(containerId, selectId) {
+	const el = document.getElementById(containerId);
+	const select = document.getElementById(selectId);
+	if(el != null) {
+		el.onclick = function(event) {
+			if(event.target.hasAttribute('data-folder')) {
+				event.preventDefault();
+				select.value = event.target.dataset.folder;
+				select.form.submit();
+			}
+		}
+	}
+
+})('medias-breadcrumb', 'folder');
