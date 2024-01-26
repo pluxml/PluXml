@@ -201,9 +201,9 @@ if($curFolders) {
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
 					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-					<th class="sort"><?=  L_MEDIAS_EXTENSION ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_FILESIZE ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_DIMENSIONS ?></th>
+					<th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
+					<th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
+					<th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
 					<th class="sort integer active"><?= L_MEDIAS_DATE ?></th>
 				</tr>
 				</thead>
@@ -263,7 +263,7 @@ if($plxMedias->aFiles) {
 						</td>
 <?php
 		$dimensions = '&nbsp;';
-		if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
+		if($isImage AND isset($v['infos'][0], $v['infos'][1])) {
 			$dimensions = $v['infos'][0].' x '.$v['infos'][1];
 		}
 		if($isImage AND $v['thumb'] AND is_file($href)) {
