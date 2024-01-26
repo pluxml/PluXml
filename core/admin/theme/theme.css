@@ -386,7 +386,7 @@ input[maxlength="3"] {
 	/* white-space: nowrap; */
 }
 
-#plugins-table strong {
+#plugins-table p * {
 	white-space: nowrap;
 }
 
@@ -1083,6 +1083,7 @@ select::-ms-expand {/*for IE10*/
 #plugins-table tbody tr[data-scope] td.wrap strong:first-of-type {
 	padding: 0.2rem 0.5rem;
 	background-color: #ddd;
+	color: #444;
 }
 
 #form_plugins span[data-scope="admin"],
