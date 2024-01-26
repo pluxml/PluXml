@@ -1106,7 +1106,7 @@ select::-ms-expand {/*for IE10*/
 }
 
 .scrollable-table.has-pagination {
-	max-height: calc(100vh - 23.5rem);
+	padding-bottom: 3.5rem;
 }
 
 .scrollable-table th {

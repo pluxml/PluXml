@@ -375,11 +375,13 @@ input[type="submit"]:hover {
 	background-color: #555;
 	transition-duration: .2s;
 }
+.button[disabled],
 button[disabled],
 .button[disabled],
 input[disabled],
 select[disabled],
 textarea[disabled],
+.button[disabled]:hover,
 button[disabled]:hover,
 .button[disabled]:hover,
 input[disabled]:hover,
