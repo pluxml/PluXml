@@ -368,7 +368,7 @@ input[maxlength="3"] {
 #medias-table td:nth-child(3),
 #plugins-table td:nth-child(3) {
 	/* width: 100%; */
-	/* min-width: 200px; */
+	min-width: 200px;
 	/* Mozilla, since 1999 */
 	white-space: -moz-pre-wrap !important;
 	/*Chrome & Safari */
@@ -382,7 +382,11 @@ input[maxlength="3"] {
 	/* Internet Explorer 5.5+ */
 	word-wrap: break-word;
 	word-break: break-all;
-	/* white-space: normal; */
+	white-space: normal;
+	/* white-space: nowrap; */
+}
+
+#plugins-table strong {
 	white-space: nowrap;
 }
 
@@ -401,10 +405,6 @@ input[maxlength="3"] {
 #medias-table img {
 	max-width: 48px;
 	padding-top: 7px;
-}
-
-#medias-table {
-	margin-top: 10px;
 }
 
 #medias-table td:nth-of-type(5) {
@@ -430,7 +430,8 @@ input[maxlength="3"] {
 	color: #444;
 }
 .toggler + label span:first-of-type, /* masquer */
-.toggler + label + div {
+.toggler + label + div,
+.toggler + label + span {
 	display: none;
 }
 .toggler + label span:last-of-type {
@@ -439,8 +440,9 @@ input[maxlength="3"] {
 .toggler:checked + label span:first-of-type { /* afficher */
 	display: inline-block;
 }
-.toggler:checked + label + div {
-	display: block;
+.toggler:checked + label + div,
+.toggler:checked + label + span {
+	display: initial;
 }
 .toggler:checked + label span:last-of-type {
 	display: none;
@@ -888,6 +890,8 @@ tr.checked {
 #plugins-search {
 	background: url('images/search.png') 5px 7px no-repeat;
 	padding-left: 30px;
+	max-width: 20rem;
+	width: 100%;
 }
 
 /* gestionnaire de médias */
@@ -897,7 +901,7 @@ div.ico {
 	color: #ccc;
 	display: inline-block;
 	margin-left: 5px;
-	position: relative;
+	position: initial;
 }
 
 div.ico:hover {
@@ -1066,7 +1070,9 @@ select {
 select::-ms-expand {/*for IE10*/
 	display: none;
 }
-
+#files_manager select{
+	max-width: 55%;
+}
 /* ---- parametres_plugins ---- */
 
 #form_plugins span[data-scope] {

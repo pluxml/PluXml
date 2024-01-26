@@ -157,13 +157,41 @@ if(!empty($_GET['a'])) {
 		<?= plxToken::getTokenPostMethod() ?>
 		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
 	</div>
+	<div class="grid">
+		<div class="col sml-12">
 <?php
 if(!empty($portee)) {
 ?>
-	<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
+			<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
+<?php
+}
+
+if(!empty($plxAdmin->aConf['clef'])) {
+?>
+			<input class="toggler" type="checkbox" id="toggler_rss" />
+			<label class="float-left" for="toggler_rss"><?= L_COMMENTS_PRIVATE_FEEDS ?> : <span class="icon-angle-left"></span><span class="icon-angle-right"></span></label>
+			<span class="float-left">
+				<ul class="menu">
+<?php
+				$options = array(
+					'hors-ligne'	=> L_COMMENT_OFFLINE_FEEDS,
+					'en-ligne'		=> L_COMMENT_ONLINE_FEEDS,
+				);
+
+				$baseUrl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/';
+				foreach($options as $k=>$caption) {
+?>
+					<li><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a><i class="icon-rss"></i></li>
+<?php
+				}
+?>
+				</ul>
+			</span>
 <?php
 }
 ?>
+		</div>
+	</div>
 	<div class="scrollable-table<?= $hasPagination ? ' has-pagination' : '' ?>">
 		<table id="comments-table" class="full-width">
 			<thead>
@@ -258,12 +286,13 @@ if(!empty($portee)) {
 				</tr>
 <?php
 			}
-			?>
+?>
 			</tbody>
 		</table>
 	</div>
 
 </form>
+
 <?php
 if($hasPagination) {
 ?>
@@ -279,28 +308,6 @@ if($hasPagination) {
 </div>
 <?php
 }
-
-if(!empty($plxAdmin->aConf['clef'])) {
-?>
-<ul class="unstyled-list">
-	<li><?= L_COMMENTS_PRIVATE_FEEDS ?> :</li>
-<?php
-	$options = array(
-		'hors-ligne'	=> L_COMMENT_OFFLINE_FEEDS,
-		'en-ligne'		=> L_COMMENT_ONLINE_FEEDS,
-	);
-
-	$baseUrl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/';
-	foreach($options as $k=>$caption) {
-?>
-	<li><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a></li>
-<?php
-}
-?>
-</ul>
-<?php
-}
-
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
 
