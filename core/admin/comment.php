@@ -47,17 +47,11 @@ if(!empty($_POST) AND !empty($_POST['comId'])) {
 		header('Location: comments.php');
 		exit;
 	}
-	# Commentaire en ligne
-	if(isset($_POST['online'])) {
+	# Modération Commentaire [en | hors] ligne
+	if(isset($_POST['online']) or isset($_POST['offline'])) {
 		$plxAdmin->editCommentaire($_POST,$_POST['comId']);
-		$plxAdmin->modCommentaire($_POST['comId'],'online');
-		header('Location: comment.php?c='.$_POST['comId'].(!empty($_GET['a'])?'&a='.$_GET['a']:''));
-		exit;
-	}
-	# Commentaire hors-ligne
-	if(isset($_POST['offline'])) {
-		$plxAdmin->editCommentaire($_POST,$_POST['comId']);
-		$plxAdmin->modCommentaire($_POST['comId'],'offline');
+		unset($_SESSION['info']); # on supprime message d'information du commentaire original modifié
+		$plxAdmin->modCommentaire($_POST['comId'],isset($_POST['online'])?'online':'offline');
 		header('Location: comment.php?c='.$_POST['comId'].(!empty($_GET['a'])?'&a='.$_GET['a']:''));
 		exit;
 	}
@@ -123,33 +117,33 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 ?>
 
-<form action="comment.php<?php echo (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
+<form action="comment.php<?= (!empty($_GET['a'])?'?a='.plxUtils::strCheck($_GET['a']):'') ?>" method="post" id="form_comment">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_COMMENT_EDITING ?></h2>
+		<h2><?= L_COMMENT_EDITING ?></h2>
 		<?php if(!empty($_GET['a'])) : ?>
-		<p><a class="back" href="comments.php?a=<?php echo $_GET['a'] ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+		<p><a class="back" href="comments.php?a=<?= $_GET['a'] ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 		<?php else : ?>
-		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
+		<p><a class="back" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
 		<?php endif; ?>
 		<?php if($com['comStatus']=='') : ?>
-		<input type="submit" name="offline" value="<?php echo L_COMMENT_OFFLINE_BUTTON ?>" />
-		<input type="submit" name="answer" value="<?php echo L_COMMENT_ANSWER_BUTTON ?>" />
+		<input type="submit" name="offline" value="<?= L_COMMENT_OFFLINE_BUTTON ?>" />
+		<input type="submit" name="answer" value="<?= L_COMMENT_ANSWER_BUTTON ?>" />
 		<?php else : ?>
-		<input type="submit" name="online" value="<?php echo L_COMMENT_PUBLISH_BUTTON ?>" />
+		<input type="submit" name="online" value="<?= L_COMMENT_PUBLISH_BUTTON ?>" />
 		<?php endif; ?>
-		<input type="submit" name="update" value="<?php echo L_COMMENT_UPDATE_BUTTON ?>" />
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?php echo L_DELETE ?>" onclick="Check=confirm('<?php echo L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<input type="submit" name="update" value="<?= L_COMMENT_UPDATE_BUTTON ?>" />
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="Check=confirm('<?= L_COMMENT_DELETE_CONFIRM ?>');if(Check==false) return false;"/>
+		<?= plxToken::getTokenPostMethod() ?>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')) # Hook Plugins ?>
 
 	<ul class="unstyled-list">
-		<li><?php echo L_COMMENT_IP_FIELD ?> : <?php echo $plxAdmin->plxRecord_coms->f('ip'); ?></li>
-		<li><?php echo L_COMMENT_STATUS_FIELD ?> : <?php echo $statut; ?></li>
-		<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong><?php echo $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
-		<li><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?php echo $article; ?></li>
+		<li><?= L_COMMENT_IP_FIELD ?> : <?= $plxAdmin->plxRecord_coms->f('ip'); ?></li>
+		<li><?= L_COMMENT_STATUS_FIELD ?> : <?= $statut; ?></li>
+		<li><?= L_COMMENT_TYPE_FIELD ?> : <strong><?= $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
+		<li><?= L_COMMENT_LINKED_ARTICLE_FIELD ?> : <?= $article; ?></li>
 	</ul>
 
 	<fieldset>
@@ -157,18 +151,18 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 		<div class="grid inline-form publication">
 			<div class="col sml-12">
-				<label><?php echo L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
+				<label><?= L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
 				<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
 				<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
 				<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
 				<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
-				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?php echo date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
+				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
 			</div>
 		</div>
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_author"><?php echo L_COMMENT_AUTHOR_FIELD ?> :</label>
+				<label for="id_author"><?= L_COMMENT_AUTHOR_FIELD ?> :</label>
 				<?php plxUtils::printInput('author',$author,'text','40-255') ?>
 			</div>
 		</div>
@@ -176,7 +170,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_site">
-				<?php echo L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;';
+				<?= L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;';
 				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>';
 				?>
 				</label>
@@ -188,9 +182,9 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_mail"><?php echo L_COMMENT_EMAIL_FIELD ?> :
+				<label for="id_mail"><?= L_COMMENT_EMAIL_FIELD ?> :
 				<?php if($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
-				<?php echo '<a href="mailto:'.$plxAdmin->plxRecord_coms->f('mail').'">'.$plxAdmin->plxRecord_coms->f('mail').'</a>' ?>
+				<?= '<a href="mailto:'.$plxAdmin->plxRecord_coms->f('mail').'">'.$plxAdmin->plxRecord_coms->f('mail').'</a>' ?>
 				<?php endif; ?>
 				</label>
 				<?php plxUtils::printInput('mail',plxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')),'text','40-255') ?>
@@ -199,7 +193,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?> :</label>
+				<label for="id_content"><?= L_COMMENT_ARTICLE_FIELD ?> :</label>
 				<?php plxUtils::printArea('content',$content, 0, 7); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')) # Hook Plugins ?>
 			</div>

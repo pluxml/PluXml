@@ -8,8 +8,8 @@
  **/
 class plxCapcha {
 
-	const TEMPLATE = 'abcdefghijklmnpqrstuvwxyz0123456789';
-	const TEMPLATE_LENGTH = 36;
+	const TEMPLATE = 'abcdefghjkmnpqrstuvwxyz23456789';
+	const TEMPLATE_LENGTH = 31;
 	private $word = false; # Mot du capcha
 	private $num = false; # Numero de la lettre selectionne
 	private $numletter = false; # Traduction du numero de la lettre
@@ -109,7 +109,7 @@ class plxCapcha {
 
 	/**
 	 * DEPRECATED
-	 * 
+	 *
 	 * Méthode qui retourne la réponse du capcha (sha1)
 	 *
 	 **/
