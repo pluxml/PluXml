@@ -17,6 +17,9 @@ if(isset($_POST['folder']) AND $_POST['folder']!='.' AND !plxUtils::checkSource(
 	$_POST['folder']='.';
 }
 
+$redirect = 'medias.php';
+$posted = !empty($_POST);
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasPrepend'));
 
@@ -48,40 +51,26 @@ if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
 	if($plxMedias->newDir($_POST['newfolder'])) {
 		$_SESSION['folder'] = $_SESSION['folder'].$_POST['newfolder'].'/';
 	}
-	header('Location: medias.php');
-	exit;
 }
 if(!empty($_POST['btn_renamefile']) AND !empty($_POST['newname'])) {
 	$plxMedias->renameFile($_POST['oldname'], $_POST['newname']);
-	header('Location: medias.php');
-	exit;
 }
 elseif(!empty($_POST['folder']) AND $_POST['folder']!='.' AND !empty($_POST['btn_delete'])) {
 	if($plxMedias->deleteDir($_POST['folder'])) {
 		$_SESSION['folder'] = '';
 	}
-	header('Location: medias.php');
-	exit;
 }
 elseif(!empty($_POST['btn_upload'])) {
 	$plxMedias->uploadFiles($_FILES, $_POST);
-	header('Location: medias.php');
-	exit;
 }
 elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete')) AND isset($_POST['idFile'])) {
 	$plxMedias->deleteFiles($_POST['idFile']);
-	header('Location: medias.php');
-	exit;
 }
 elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='move')) AND isset($_POST['idFile'])) {
 	$plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $_POST['folder']);
-	header('Location: medias.php');
-	exit;
 }
 elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='thumbs')) AND isset($_POST['idFile'])) {
 	$plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']);
-	header('Location: medias.php');
-	exit;
 }
 
 # Tri de l'affichage des fichiers
@@ -89,6 +78,11 @@ if(isset($_POST['sort']) AND !empty($_POST['sort'])) {
 	$sort = $_POST['sort'];
 } else {
 	$sort = isset($_SESSION['sort_medias']) ? $_SESSION['sort_medias'] : 'title_asc';
+}
+
+if($posted) {
+	header('Location: ' . $redirect);
+	exit;
 }
 
 $sort_title = 'title_desc';
