@@ -209,11 +209,11 @@ if($curFolders) {
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
-							if(is_file($v['path']) AND $isImage) {
+							if($isImage AND is_file($v['path'])) {
 								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" /></a>';
 							}
 							else
-								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
+								echo '<img alt="" src="'.$v['.thumb'].'" class="file" />';
 						echo '</td>';
 						echo '<td data-sort="'.$title . $v['extension'].'">';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
@@ -221,7 +221,7 @@ if($curFolders) {
 							echo '<div data-rename="'.$v['path'].'" title="'.L_RENAME_FILE.'" class="ico">&#9998;</div>';
 							echo '<br />';
 							$href = plxUtils::thumbName($v['path']);
-							if($isImage AND is_file($href)) {
+							if($isImage AND $v['thumb'] AND is_file($href)) {
 								echo L_MEDIAS_THUMB.' : '.'<a onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$href.'">'.plxUtils::strCheck(basename($href)).'</a>';
 								echo '<div data-copy="'.str_replace(PLX_ROOT, '', $href).'" title="'.L_MEDIAS_LINK_COPYCLP.'" class="ico">&#128203;<div>'.L_MEDIAS_LINK_COPYCLP_DONE.'</div></div>';
 							}
@@ -229,7 +229,7 @@ if($curFolders) {
 						echo '<td data-sort="'.strtoupper($v['extension']).'">'.strtoupper($v['extension']).'</td>';
 						echo '<td data-sort="'.$v['filesize'].'">';
 							echo plxUtils::formatFilesize($v['filesize']);
-							if($isImage AND is_file($href)) {
+							if($isImage AND $v['thumb'] AND is_file($href)) {
 								echo '<br />'.plxUtils::formatFilesize($v['thumb']['filesize']);
 							}
 						echo '</td>';
@@ -237,7 +237,7 @@ if($curFolders) {
 						if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
 							$dimensions = $v['infos'][0].' x '.$v['infos'][1];
 						}
-						if($isImage AND is_file($href)) {
+						if($isImage AND $v['thumb'] AND is_file($href)) {
 							$dimensions .= '<br />'.$v['thumb']['infos'][0].' x '.$v['thumb']['infos'][1];
 						}
 						echo '<td data-sort="'.($v['infos']?$v['infos'][0] * $v['infos'][1]:'0').'">'.$dimensions.'</td>';
