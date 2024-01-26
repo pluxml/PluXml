@@ -89,7 +89,18 @@ $h2 = <<< EOT
 EOT;
 
 $comSelMotif = '/^' . $mods[$comSel] . $artMotif . '\..*\.xml$/';
-$nbComPagination=$plxAdmin->nbComments($comSelMotif);
+
+$hasPagination = false;
+$nbComPagination = $plxAdmin->nbComments($comSelMotif);
+
+# On va récupérer les commentaires
+$plxAdmin->getPage();
+$start = $plxAdmin->aConf['bypage_admin_coms'] * ($plxAdmin->page-1);
+$coms = $plxAdmin->getCommentaires($comSelMotif, 'rsort', $start, $plxAdmin->aConf['bypage_admin_coms'], 'all');
+
+if(!empty($coms) and $nbComPagination > $plxAdmin->aConf['bypage_admin_coms']) {
+	$hasPagination = true;
+}
 
 function selector($comSel, $id) {
 	$options = array(
@@ -154,8 +165,7 @@ if(!empty($portee)) {
 			<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
 <?php
 }
-?>
-<?php
+
 if(!empty($plxAdmin->aConf['clef'])) {
 ?>
 			<input class="toggler" type="checkbox" id="toggler_rss" />
@@ -182,7 +192,7 @@ if(!empty($plxAdmin->aConf['clef'])) {
 ?>
 		</div>
 	</div>
-	<div class="scrollable-table">
+	<div class="scrollable-table<?= $hasPagination ? ' has-pagination' : '' ?>">
 		<table id="comments-table" class="full-width">
 			<thead>
 				<tr>
@@ -212,10 +222,6 @@ if(!empty($plxAdmin->aConf['clef'])) {
 			<tbody>
 
 <?php
-			# On va récupérer les commentaires
-			$plxAdmin->getPage();
-			$start = $plxAdmin->aConf['bypage_admin_coms']*($plxAdmin->page-1);
-			$coms = $plxAdmin->getCommentaires($comSelMotif,'rsort',$start,$plxAdmin->aConf['bypage_admin_coms'],'all');
 			if($coms) {
 				while($plxAdmin->plxRecord_coms->loop()) { # On boucle
 					$artId = $plxAdmin->plxRecord_coms->f('article');
@@ -287,19 +293,21 @@ if(!empty($plxAdmin->aConf['clef'])) {
 
 </form>
 
-<div id="pagination"<?= ($nbComPagination < 2) ? ' class="hide"': ''?>>
+<?php
+if($hasPagination) {
+?>
+<div id="pagination" class="text-center">
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminCommentsPagination'));
 
 	# Affichage de la pagination
-	if($coms) {
-		$sel = '&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'');
-		plxUtils::printPagination($nbComPagination, $plxAdmin->aConf['bypage_admin_coms'], $plxAdmin->page, 'comments.php?page=%d' . $sel);
-	}
+	$sel = '&amp;sel='.$_SESSION['selCom'].(!empty($_GET['a'])?'&amp;a='.$_GET['a']:'');
+	plxUtils::printPagination($nbComPagination, $plxAdmin->aConf['bypage_admin_coms'], $plxAdmin->page, 'comments.php?page=%d' . $sel);
 ?>
 </div>
 <?php
+}
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
 
