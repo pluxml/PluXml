@@ -27,7 +27,8 @@ class plxUtils {
 	);
 	const DELTA_PAGINATION = 3;
 	const RANDOM_STRING = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
+	const THUMB_WIDTH = 48;
+	const THUMB_HEIGHT = 48;
 	/**
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre
@@ -97,7 +98,7 @@ class plxUtils {
 				if(is_array($v)) {
 					$new_content[$k] = array();
 					foreach($v as $key=>$val)
-						$new_content[$k][$key] = stripslashes($val);
+						$new_content[$k][$key] = self::unSlash($val);
 				} else {
 					$new_content[$k] = stripslashes($v);
 				}
@@ -180,7 +181,7 @@ class plxUtils {
 		else
 			$localIP = getHostByName(getHostName());
 
-		return plxUtils::isValidIp($ip) ? $ip : $localIP;
+		return self::isValidIp($ip) ? $ip : $localIP;
 	}
 
 	/**
@@ -576,14 +577,14 @@ class plxUtils {
 			return $url;
 		}
 
-		$clean_url = plxUtils::translitterate(trim(html_entity_decode($url)));
+		$clean_url = self::translitterate(trim(html_entity_decode($url)));
 
 		if($remove && defined('PLX_SITE_LANG') && array_key_exists(PLX_SITE_LANG, self::REMOVE_WORDS)) {
 			$clean_url = preg_replace('@\b(' . self::REMOVE_WORDS[PLX_SITE_LANG] . ')\b@u', $replace, $clean_url);
 		}
 
 		// remove accents
-		$clean_url = plxUtils::removeAccents($clean_url, PLX_CHARSET);
+		$clean_url = self::removeAccents($clean_url, PLX_CHARSET);
 
 		// remove whitespace
 		$clean_url = preg_replace('@[\s' . $replace . ']+@', $replace, $clean_url);
@@ -606,7 +607,7 @@ class plxUtils {
 	 **/
 	public static function title2url($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower(self::removeAccents($str,PLX_CHARSET));
 		$str = preg_replace('/[^[:alnum:]]+/',' ',$str);
 		return strtr(trim($str), ' ', '-');
 	}
@@ -619,7 +620,7 @@ class plxUtils {
 	 **/
 	public static function title2filename($str) {
 
-		$str = strtolower(plxUtils::removeAccents($str,PLX_CHARSET));
+		$str = strtolower(self::removeAccents($str,PLX_CHARSET));
 		$str = str_replace('|','',$str);
 		$str = preg_replace('/\.{2,}/', '.', $str);
 		$str = preg_replace('/[^[:alnum:]|.|_]+/',' ',$str);
@@ -696,7 +697,7 @@ class plxUtils {
 	 * @return	boolean			vrai si image créée
 	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
-	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
+	public static function makeThumb($src_image, $dest_image, $thumb_width = self::THUMB_WIDTH, $thumb_height = self::THUMB_HEIGHT, $jpg_quality = 90) {
 
 		if(!function_exists('imagecreatetruecolor')) return false;
 
@@ -855,7 +856,7 @@ class plxUtils {
 		$serverport = (preg_match('@:\d+@', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		$dirname = preg_replace('@/(?:core|plugins)/.*@', '', dirname($_SERVER['SCRIPT_NAME']));
 		$racine = rtrim($protocol . $servername . $serverport . $dirname, '/\\') . '/';
-		if(!plxUtils::checkSite($racine, false)) {
+		if(!self::checkSite($racine, false)) {
 			die('Error: wrong or invalid url');
 		}
 
@@ -1437,7 +1438,7 @@ EOT;
 			$modeDir = $modeDir1;
 			if(!$modeDir1 and $textOnly) {
 				$extsText = 'php css html htm xml js json txt me md';
-				# plxUtils::debugJS($extsText, 'extsText');
+				# self::debugJS($extsText, 'extsText');
 			}
 			$currentValue = $choice1;
 		}
@@ -1495,7 +1496,7 @@ EOT;
 
 EOT;
 					}
-					plxUtils::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
+					self::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
 					echo <<<EOT
 						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
@@ -1539,7 +1540,7 @@ EOT;
 		<select $id name="$name" class="$class">
 			<option$disabled value="$value"$selected>$caption/</option>
 EOT;
-		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
+		self::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
 		echo <<< EOT
 		</select>
 EOT;
