@@ -194,9 +194,9 @@ if($curFolders) {
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
 					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-					<th class="sort"><?=  L_MEDIAS_EXTENSION ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_FILESIZE ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_DIMENSIONS ?></th>
+					<th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
+					<th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
+					<th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
 					<th class="sort integer active"><?= L_MEDIAS_DATE ?></th>
 				</tr>
 				</thead>
@@ -212,13 +212,13 @@ if($plxMedias->aFiles) {
 						<td><input type="checkbox" name="idFile[]" value="<? $v['name'] ?>" /></td>
 						<td class="icon">
 <?php
-		if(is_file($v['path']) AND $isImage) {
+		if($isImage AND is_file($v['path'])) {
 ?>
 							<a class="overlay" title="<?= $title ?>" href="<?= $v['path'] ?>"><img alt="<?= $title ?>" src="<?= $v['.thumb'] ?>" class="thumb" /></a>
 <?php
 		} else {
 ?>
-							<img alt="" src="<?= $v['.thumb'] ?>" class="thumb" />
+							<img alt="" src="<?= $v['.thumb'] ?>" class="file" />
 <?php
 		}
 ?>
@@ -232,7 +232,7 @@ if($plxMedias->aFiles) {
 							<br />
 <?php
 		$href = plxUtils::thumbName($v['path']);
-		if($isImage AND is_file($href)) {
+		if($isImage AND $v['thumb'] AND is_file($href)) {
 ?>
 							<?= L_MEDIAS_THUMB ?> : <a target="_blank" title="<?= $title ?>" href="<?= $href ?>"><?= plxUtils::strCheck(basename($href)) ?></a>
 							<div data-copy="<?= str_replace(PLX_ROOT, '', $href) ?>" title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">&#128203;
@@ -246,7 +246,7 @@ if($plxMedias->aFiles) {
 						<td data-sort="<?= $v['filesize'] ?>">
 							<?= plxUtils::formatFilesize($v['filesize']) ?>
 <?php
-		if($isImage AND is_file($href)) {
+		if($isImage AND $v['thumb'] AND is_file($href)) {
 ?>
 							<br />
 							<?= plxUtils::formatFilesize($v['thumb']['filesize']) ?>
@@ -256,10 +256,10 @@ if($plxMedias->aFiles) {
 						</td>
 <?php
 		$dimensions = '&nbsp;';
-		if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
+		if($isImage AND isset($v['infos'][0], $v['infos'][1])) {
 			$dimensions = $v['infos'][0].' x '.$v['infos'][1];
 		}
-		if($isImage AND is_file($href)) {
+		if($isImage AND $v['thumb'] AND is_file($href)) {
 			$dimensions .= '<br />' . $v['thumb']['infos'][0] . ' x ' . $v['thumb']['infos'][1];
 		}
 ?>
