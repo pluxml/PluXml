@@ -4,6 +4,7 @@ var mo = document.getElementById("modal__overlay");
 // var mbox = document.getElementById("modal__box");
 var mb = document.getElementById("modal");
 var zoomboxImg = document.getElementById('zoombox-img');
+zoomboxImg.src = 'theme/images/wait.gif';
 tbody.addEventListener('click', function(event) {
 	if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
 		event.preventDefault();
@@ -12,6 +13,10 @@ tbody.addEventListener('click', function(event) {
 		zoomboxImg.src = src;
 		zoomboxImg.alt = title;
 		zoomboxImg.title = title;
+		if(/\.svg$/i.test(src)) {
+			zoomboxImg.style.height = '80vh';
+			zoomboxImg.style.width = '80vw';
+		}
 		mb.checked = true;
 		return;
 	}
@@ -50,13 +55,21 @@ tbody.addEventListener('click', function(event) {
 window.addEventListener("keydown", function (event) {
 	// validate if the press key is the escape key
 	if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
-    	event.preventDefault();
-    	mb.checked = false;
-    }
+		event.preventDefault();
+		mb.checked = false;
+		setTimeout(function() {
+			zoomboxImg.style = '';
+			zoomboxImg.src = 'theme/images/wait.gif';
+		}, 333);
+	}
 });
 mo.addEventListener("click", function (event) {
 	event.preventDefault();
-   	mb.checked = false;
+	mb.checked = false;
+	setTimeout(function() {
+		zoomboxImg.style = '';
+		zoomboxImg.src = 'theme/images/wait.gif';
+	}, 333);
 });
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
