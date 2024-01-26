@@ -186,11 +186,11 @@ if($curFolders) {
 		</div>
 		<div class="grid">
 			<div class="col sml-6">
-				<?php echo L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
-				<input type="submit" name="btn_changefolder" value="<?php echo L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
+				<?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
+				<input type="submit" name="btn_changefolder" value="<?= L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 			</div>
 			<div class="col sml-6 text-right">
-				<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" />
+				<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
 			</div>
 		</div>
 		<div class="scrollable-table">
@@ -200,9 +200,9 @@ if($curFolders) {
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
 					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-					<th class="sort"><?=  L_MEDIAS_EXTENSION ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_FILESIZE ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_DIMENSIONS ?></th>
+					<th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
+					<th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
+					<th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
 					<th class="sort integer active"><?= L_MEDIAS_DATE ?></th>
 				</tr>
 				</thead>
@@ -262,7 +262,7 @@ if($plxMedias->aFiles) {
 						</td>
 <?php
 		$dimensions = '&nbsp;';
-		if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
+		if($isImage AND isset($v['infos'][0], $v['infos'][1])) {
 			$dimensions = $v['infos'][0].' x '.$v['infos'][1];
 		}
 		if($isImage AND is_file($href)) {
