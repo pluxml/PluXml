@@ -15,7 +15,7 @@ class plxMedias {
 	public $maxUpload = array(); # valeur upload_max_filesize
 	public $maxPost = array(); # valeur post_max_size
 
-	public $img_supported = array('.png', '.gif', '.jpg', '.jpeg', '.bmp', '.webp'); # images formats supported
+	public $img_supported = array('.png', '.gif', '.jpg', '.jpeg', '.bmp', '.webp', '.svg'); # images formats supported
 	public $img_exts = '/\.(jpe?g|png|gif|bmp|webp)$/i';
 	public $doc_exts = '/\.(7z|aiff|asf|avi|csv|docx?|epub|fla|flv|gpx|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpe?g|ods|odt|odp|ogg|pdf|pptx?|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|svg|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xcf|xlsx?|zip)$/i';
 
@@ -135,11 +135,9 @@ class plxMedias {
 				}
 				$stats = stat($filename);
 				$extension = '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-				if($extension == '.svg') {
-					$sampleOk = $sample = $filename;
-				}
-				elseif(empty($sampleOk) and $extension == '.webp') { # Fix animated webp
-					$sampleOk = $sample = $filename;
+				switch($extension) {
+					case '.webp': if($sampleOk)break;# non animée
+					case '.svg' : $sampleOk = $sample = $filename;break;
 				}
 				$files[basename($filename)] = array(
 					'.thumb'	=> (!empty($sampleOk)) ? $sample : $defaultSample,
