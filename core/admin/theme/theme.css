@@ -1194,7 +1194,7 @@ select::-ms-expand {/*for IE10*/
 	animation-delay: -0.16s;
 }
 
-.loader:not(.show) {
+#loader:not(.show) .loader {
 	display: none;
 }
 
