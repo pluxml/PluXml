@@ -32,6 +32,7 @@ if(!empty($_POST)) {
 include 'top.php';
 
 $_profil = $plxAdmin->aUsers[$_SESSION['user']];
+$requireMail = boolval($plxAdmin->aConf['lostpassword']);
 ?>
 
 <form action="profil.php" method="post" id="form_profil">
@@ -47,14 +48,14 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 	<fieldset>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_name"><?php echo L_PROFIL_USER ?>&nbsp;:</label>
-				<?php plxUtils::printInput('name', plxUtils::strCheck($_profil['name']), 'text', '20-255') ?>
+				<label for="id_name"><?php echo L_PROFIL_USER ?>*&nbsp;:</label>
+				<?php plxUtils::printInput('name', plxUtils::strCheck($_profil['name']), 'text', '20-255', false, '', '', '', true) ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_email"><?php echo L_PROFIL_MAIL ?>&nbsp;:</label>
-				<?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'text', '30-255') ?>
+				<label for="id_email"><?php echo L_PROFIL_MAIL ?><?= $requireMail ? '*' : '' ?>&nbsp;:</label>
+				<?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'email', '', false, '', '', '', $requireMail) ?>
 			</div>
 		</div>
 		<div class="grid">

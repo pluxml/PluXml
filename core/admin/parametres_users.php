@@ -23,6 +23,8 @@ if (!empty($_POST)) {
 
 # On inclut le header
 include 'top.php';
+
+$requireMail = boolval($plxAdmin->aConf['lostpassword']);
 ?>
 
 <form action="parametres_users.php" method="post" id="form_users">
@@ -45,10 +47,10 @@ include 'top.php';
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
 			<th><?php echo L_ID ?></th>
-			<th><?php echo L_PROFIL_USER ?></th>
-			<th><?php echo L_PROFIL_LOGIN ?></th>
+			<th><?php echo L_PROFIL_USER ?>*</th>
+			<th><?php echo L_PROFIL_LOGIN ?>*</th>
 			<th><?php echo L_PROFIL_PASSWORD ?></th>
-			<th><?php echo L_PROFIL_MAIL ?></th>
+			<th><?php echo L_PROFIL_MAIL ?><?= $requireMail ? '*' : '' ?></th>
 			<th><?php echo L_PROFIL ?></th>
 			<th><?php echo L_CONFIG_USERS_ACTIVE ?></th>
 			<th><?php echo L_CONFIG_USERS_ACTION ?></th>
@@ -59,7 +61,7 @@ include 'top.php';
 	# Initialisation de l'ordre
 	$num = 0;
 	if($plxAdmin->aUsers) {
-		foreach($plxAdmin->aUsers as $_userid => $_user)	{
+		foreach($plxAdmin->aUsers as $_userid => $_user) {
 			if (!$_user['delete']) {
 ?>
 		<tr>
@@ -68,10 +70,10 @@ include 'top.php';
 				<input type="hidden" name="userNum[]" value="<?= $_userid ?>" />
 			</td>
 			<td><?= $_userid ?></td>
-			<td><?php plxUtils::printInput($_userid.'_name', plxUtils::strCheck($_user['name']), 'text', ''); ?></td>
-			<td><?php plxUtils::printInput($_userid.'_login', plxUtils::strCheck($_user['login']), 'text', ''); ?></td>
+			<td><?php plxUtils::printInput($_userid.'_name', plxUtils::strCheck($_user['name']), 'text', '', false, '', '', '', true); ?></td>
+			<td><?php plxUtils::printInput($_userid.'_login', plxUtils::strCheck($_user['login']), 'text', '', false, '', '', '', true); ?></td>
 			<td><?php plxUtils::printInput($_userid.'_password', '', 'password', '', false, '', '', 'onkeyup="pwdStrength(this.id)"'); ?></td>
-			<td><?php plxUtils::printInput($_userid.'_email', plxUtils::strCheck($_user['email']), 'email', ''); ?></td>
+			<td><?php plxUtils::printInput($_userid.'_email', plxUtils::strCheck($_user['email']), 'email', '', false, '', '', '', $requireMail); ?></td>
 			<td>
 <?php
 				if($_userid=='001') {

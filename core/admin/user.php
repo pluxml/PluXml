@@ -38,6 +38,8 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de l'utilisateur
 
 # On inclut le header
 include 'top.php';
+
+$requireMail = boolval($plxAdmin->aConf['lostpassword']);
 ?>
 
 <form action="user.php" method="post" id="form_user">
@@ -63,10 +65,10 @@ include 'top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_email"><?php echo L_USER_MAIL ?>&nbsp;:</label>
+				<label for="id_email"><?php echo L_USER_MAIL ?><?= $requireMail ? '*' : '' ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'email', '30-255') ?>
+				<?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'email', '', false, '', '', '', $requireMail) ?>
 			</div>
 		</div>
 		<div class="grid">
