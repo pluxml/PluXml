@@ -193,7 +193,11 @@ if($curFolders) {
 		<div style="float:right">
 			<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
 		</div>
+<?php
 
+/* ============== listing of medias ============== */
+
+?>
 		<div style="clear:both" class="scrollable-table">
 			<table id="medias-table" class="full-width sort">
 				<thead>
@@ -201,9 +205,9 @@ if($curFolders) {
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
 					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-					<th class="sort"><?=  L_MEDIAS_EXTENSION ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_FILESIZE ?></th>
-					<th class="sort integer"><?=  L_MEDIAS_DIMENSIONS ?></th>
+					<th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
+					<th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
+					<th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
 					<th class="sort integer active"><?= L_MEDIAS_DATE ?></th>
 				</tr>
 				</thead>
@@ -212,22 +216,39 @@ if($curFolders) {
 # Si on a des fichiers
 if($plxMedias->aFiles) {
 	foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-		$isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
+		$isImage = in_array(strtolower($v['extension']), plxMedias::IMG_SUPPORTED);
 		$title = pathinfo($v['name'], PATHINFO_FILENAME);
 ?>
 					<tr>
 						<td><input type="checkbox" name="idFile[]" value="<? $v['name'] ?>" /></td>
 						<td class="icon">
 <?php
-		if(is_file($v['path']) AND $isImage) {
+
+		if($v['extension'] == '.svg') {
+			# Mimics getimagesize()
+			$dimThumb = array(
+				plxUtils::THUMB_WIDTH,
+				plxUtils::THUMB_HEIGHT,
+				false,
+				'height="' . plxUtils::THUMB_HEIGHT . '" width="' . plxUtils::THUMB_WIDTH . '"',
+				'image/svg+xml',
+			);
+		} else {
+			$dimThumb = getimagesize($v['.thumb']);
+		}
+		ob_start();
 ?>
-							<a class="overlay" title="<?= $title ?>" href="<?= $v['path'] ?>"><img alt="<?= $title ?>" src="<?= $v['.thumb'] ?>" class="thumb" /></a>
+							<img alt="<?= $title ?>" src="<?= $v['.thumb'] ?>" class="thumb" <?= $dimThumb[3] ?> />
+<?php
+		$thumbImg = ob_get_clean();
+		if($isImage AND is_file($v['path'])) {
+?>
+							<a class="overlay" title="<?= $title ?>" href="<?= $v['path'] ?>"><?= $thumbImg ?></a>
 <?php
 		} else {
-?>
-							<img alt="" src="<?= $v['.thumb'] ?>" class="thumb" />
-<?php
+			echo $thumbImg;
 		}
+		unset($thumbImg);
 ?>
 						</td>
 						<td data-sort="<?= $title . $v['extension'] ?>">
@@ -239,7 +260,8 @@ if($plxMedias->aFiles) {
 							<br />
 <?php
 		$href = plxUtils::thumbName($v['path']);
-		if($isImage AND is_file($href)) {
+		$hasThumb = ($isImage and $href != $v['path'] and file_exists($href));
+		if($hasThumb) {
 ?>
 							<?= L_MEDIAS_THUMB ?> : <a target="_blank" title="<?= $title ?>" href="<?= $href ?>"><?= plxUtils::strCheck(basename($href)) ?></a>
 							<div data-copy="<?= str_replace(PLX_ROOT, '', $href) ?>" title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">&#128203;
@@ -253,7 +275,7 @@ if($plxMedias->aFiles) {
 						<td data-sort="<?= $v['filesize'] ?>">
 							<?= plxUtils::formatFilesize($v['filesize']) ?>
 <?php
-		if($isImage AND is_file($href)) {
+		if($hasThumb and isset($v['thumb']['filesize'])) {
 ?>
 							<br />
 							<?= plxUtils::formatFilesize($v['thumb']['filesize']) ?>
@@ -262,15 +284,20 @@ if($plxMedias->aFiles) {
 ?>
 						</td>
 <?php
-		$dimensions = '&nbsp;';
-		if($isImage AND (isset($v['infos']) AND isset($v['infos'][0]) AND isset($v['infos'][1]))) {
+		if($isImage AND !empty($v['infos'])) {
 			$dimensions = $v['infos'][0].' x '.$v['infos'][1];
-		}
-		if($isImage AND is_file($href)) {
-			$dimensions .= '<br />' . $v['thumb']['infos'][0] . ' x ' . $v['thumb']['infos'][1];
-		}
+			if(!empty($v['thumb']['infos'])) {
+				$dimensions .= '<br />' . $v['thumb']['infos'][0] . ' x ' . $v['thumb']['infos'][1];
+			}
 ?>
 						<td data-sort="<?= $v['infos'] ? $v['infos'][0] * $v['infos'][1] : 0 ?>"><?= $dimensions ?></td>
+<?php
+		} else {
+?>
+						<td data-sort="">&nbsp;</td>
+<?php
+		}
+?>
 						<td data-sort="<?= $v['date'] ?>"><?= plxDate::formatDate(plxDate::timestamp2Date($v['date'])) ?></td>
 					</tr>
 <?php
@@ -288,7 +315,11 @@ if($plxMedias->aFiles) {
 		</div>
 	</div>
 </form>
+<?php
 
+/* =============== uploading ================> */
+
+?>
 <form action="medias.php" method="post" id="form_uploader" class="form_uploader" enctype="multipart/form-data">
 
 	<div id="files_uploader" style="display:none">
@@ -312,12 +343,8 @@ if($curFolders) {
 			<input type="submit" name="btn_upload" id="btn_upload" value="<?= L_MEDIAS_SUBMIT_FILE ?>" />
 			<?= plxToken::getTokenPostMethod() ?>
 		</div>
-
 		<p><a class="back" href="javascript:void(0)" onclick="toggle_divs();return false"><?= L_MEDIAS_BACK ?></a></p>
-
-		<p>
-			<?= L_MEDIAS_MAX_UPLOAD_NBFILE ?> : <?= ini_get('max_file_uploads') ?>
- 		</p>
+		<p><?= L_MEDIAS_MAX_UPLOAD_NBFILE ?> : <?= ini_get('max_file_uploads') ?></p>
 		<p>
 			<?= L_MEDIAS_MAX_UPLOAD_FILE ?> : <?= $plxMedias->maxUpload['display'] ?>
 			<?php if($plxMedias->maxPost['value'] > 0) echo " / ".L_MEDIAS_MAX_POST_SIZE." : ".$plxMedias->maxPost['display']; ?>
@@ -333,11 +360,13 @@ if($curFolders) {
 				<ul class="unstyled-list">
 					<li><?= L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
 					<li><input type="radio" checked="checked" name="resize" value="" />&nbsp;<?= L_MEDIAS_RESIZE_NO ?></li>
-					<?php
+<?php
 						foreach($img_redim as $redim) {
-							echo '<li><input type="radio" name="resize" value="'.$redim.'" />&nbsp;'.$redim.'</li>';
+?>
+					<li><input type="radio" name="resize" value="<?= $redim ?>" />&nbsp;<?= $redim ?></li>
+<?php
 						}
-					?>
+?>
 					<li>
 						<input type="radio" name="resize" value="<?= intval($plxAdmin->aConf['images_l' ]).'x'.intval($plxAdmin->aConf['images_h' ]) ?>" />&nbsp;<?= intval($plxAdmin->aConf['images_l' ]).'x'.intval($plxAdmin->aConf['images_h' ]) ?>
 						&nbsp;&nbsp;(<a href="parametres_affichage.php"><?= L_MEDIAS_MODIFY ?>)</a>
@@ -349,7 +378,7 @@ if($curFolders) {
 					</li>
 				</ul>
 			</div>
-			<div class="col sma-12 med-8">
+			<div class="col sml-12 med-8">
 				<ul class="unstyled-list">
 					<li><?= L_MEDIAS_THUMBS ?>&nbsp;:&nbsp;</li>
 					<li>
@@ -378,13 +407,20 @@ if($curFolders) {
 	</div>
 
 </form>
+<?php
 
+/* ============= zoombox ============= */
+
+?>
 <div class="modal">
 	<input id="modal" type="checkbox" name="modal" tabindex="1">
 	<div id="modal__overlay" class="modal__overlay">
 		<div id="modal__box" class="modal__box">
-			<img id="zoombox-img" />
+			<div id="loader">
+				<span class="loader"></span>
+			</div>
 			<label for="modal">&#10006;</label>
+			<img id="zoombox-img" />
 		</div>
 	</div>
 </div>
