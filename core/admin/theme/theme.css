@@ -768,7 +768,7 @@ th.sort.active::after {
 	bottom: 0;
 	left: 0;
 	position: fixed;
-	background-color: #666;
+	background-color: rgba(6,6,6,0.95);
 	z-index: 999;
 	text-align: right;
 }
@@ -844,7 +844,7 @@ th.sort.active::after {
 }
 
 input:checked~.modal__overlay {
-	opacity: 0.95;
+	opacity: 1;
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
 	transform: scale(1);
@@ -1183,6 +1183,12 @@ select::-ms-expand {/*for IE10*/
 	height: 2.5em;
 	animation-fill-mode: both;
 	animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+
+#loader.err:after {
+	color: #d70707;
+	content:'⚠';
+	font-size: 16rem;
 }
 
 .loader {

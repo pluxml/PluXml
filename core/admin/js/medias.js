@@ -26,19 +26,23 @@
 			event.preventDefault();
 			const src = event.target.src.replace(/\/.thumbs?\b/, '');
 			const title = src.replace(/.*\/([^\/]*)$/, '$1');
+			loader.classList.remove('err');
 			loader.classList.add('show');
 			zoomboxImg.alt = title;
 			zoomboxImg.title = title;
 			mb.checked = true;
 			const img = new Image;
 			img.onload = function(ev) {
-				console.log('image loaded : ' + ev.target.src);
+				// console.log('image loaded : ' + ev.target.src);
 				zoomboxImg.src = src;
 				loader.classList.remove('show');
 			}
 			img.onerror = function(ev) {
-				alert('Image not loaded from ' + src);
+				loader.classList.remove('show');
+				loader.classList.add('err');
+				console.log('⚠ Image not loaded from ' + src);
 			}
+
 			img.src = src;
 			return;
 		}
