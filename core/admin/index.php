@@ -132,8 +132,7 @@ if(filter_has_var(INPUT_GET, 'artTitle')) {
 }
 
 if(empty($artTitle) and filter_has_var(INPUT_POST, 'artTitle')) {
-	header('Location: index.php?artTitle=' . plxUtils::unSlash(trim(urldecode($_POST['artTitle']))));
-	exit;
+	$artTitle = htmlspecialchars(trim(urldecode($_POST['artTitle']))); # requested by PHP-8.1.0
 }
 # On génère notre motif de recherche
 $artId = '\d{4}';
@@ -422,12 +421,14 @@ if($hasPagination) {
 <div id="pagination" class="text-center">
 <?php
 
-	$urlTemplate = 'index.php?page=%d'; # Aucun % supplémentaire dedans
-
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminIndexPagination'));
 
 	# Affichage de la pagination
+	$urlTemplate = 'index.php?page=%d';
+	if(!empty($artTitle)) {
+		$urlTemplate .= '&artTitle=' . urlencode($artTitle);
+	}
 	plxUtils::printPagination($nbArtPagination, $plxAdmin->bypage, $plxAdmin->page, $urlTemplate);
 ?>
 </div>
