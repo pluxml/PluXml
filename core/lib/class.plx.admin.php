@@ -498,9 +498,9 @@ EOT;
 			if(!in_array($content['lang'], plxUtils::getLangs()))
 				return plxMsg::Error(L_UNKNOWN_ERROR);
 
-			$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
-			$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
-			$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
+			$this->aUsers[$_SESSION['user']]['name'] = $content['name'];
+			$this->aUsers[$_SESSION['user']]['infos'] = $content['content'];
+			$this->aUsers[$_SESSION['user']]['email'] = $content['email'];
 			$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
 			$_SESSION['admin_lang'] = $content['lang'];
@@ -699,7 +699,7 @@ EOT;
 
 				$this->aUsers[$user_id]['delete'] = isset($this->aUsers[$user_id]['delete']) ? $this->aUsers[$user_id]['delete'] : 0;
 				$this->aUsers[$user_id]['lang'] = isset($this->aUsers[$user_id]['lang']) ? $this->aUsers[$user_id]['lang'] : $this->aConf['default_lang'];
-				$this->aUsers[$user_id]['infos'] = isset($this->aUsers[$user_id]['infos']) ? $this->aUsers[$user_id]['infos'] : '';
+				$this->aUsers[$user_id]['infos'] = isset($this->aUsers[$user_id]['infos']) ? trim($this->aUsers[$user_id]['infos']) : '';
 
 				$this->aUsers[$user_id]['password_token'] = isset($this->aUsers[$user_id]['_password_token']) ? $this->aUsers[$user_id]['_password_token']  : '';
 				$this->aUsers[$user_id]['password_token_expiry'] = isset($this->aUsers[$user_id]['_password_token_expiry']) ? $this->aUsers[$user_id]['_password_token_expiry'] : '';
@@ -746,9 +746,9 @@ EOT;
 				}
 ?>
 	<user number="<?= $user_id ?>" active="<?= $user['active'] ?>" profil="<?= $user['profil'] ?>" delete="<?= $user['delete'] ?>">
-		<login><?= plxUtils::strCheck($user['login']) ?></login>
-		<name><?= plxUtils::strCheck($user['name']) ?></name>
-		<infos><?= plxUtils::strCheck($user['infos'], true) ?></infos>
+		<login><?= $user['login'] ?></login>
+		<name><?= $user['name'] ?></name>
+		<infos><![CDATA[<?= plxUtils::cdataCheck($user['infos']) ?>]]></infos>
 		<password><?= $user['password'] ?></password>
 		<salt><?= $user['salt'] ?></salt>
 		<email><?= $user['email'] ?></email>
@@ -798,7 +798,7 @@ EOT;
 			return plxMsg::Error(L_UNKNOWN_ERROR);
 
 			$this->aUsers[$content['id']]['email'] = $content['email'];
-			$this->aUsers[$content['id']]['infos'] = trim($content['content']);
+			$this->aUsers[$content['id']]['infos'] = $content['content'];
 			$this->aUsers[$content['id']]['lang'] = $content['lang'];
 
 			# Hook plugins
@@ -863,7 +863,7 @@ EOT;
 		# Ajout d'une nouvelle catégorie à partir de la page article
 		elseif(!empty($content['new_category'])) {
 			# Test pour autoriser uniquement les caractères alphanumériques
-			$cat_name = $content['new_catname'];
+			$cat_name = trim($content['new_catname']);
 			if(!preg_match(PATTERN_NAME, $cat_name)) {
 				return plxMsg::Error(L_INVALID_VALUE . ' : ' . $cat_name);
 			}
@@ -900,7 +900,7 @@ EOT;
 
 			foreach($content['catNum'] as $cat_id) {
 				# Test pour autoriser uniquement les caractères alphanumériques
-				$cat_name = $content[$cat_id.'_name'];
+				$cat_name = trim($content[$cat_id.'_name']);
 				if(!preg_match(PATTERN_NAME, $cat_name)) {
 					return plxMsg::Error(L_INVALID_VALUE . ' : ' . $cat_name);
 				}
@@ -917,14 +917,14 @@ EOT;
 				$this->aCats[$cat_id]['active'] = $content[$cat_id.'_active'];
 				$this->aCats[$cat_id]['ordre'] = intval($content[$cat_id.'_ordre']);
 				$this->aCats[$cat_id]['homepage'] = isset($this->aCats[$cat_id]['homepage']) ? $this->aCats[$cat_id]['homepage'] : 1;
-				$this->aCats[$cat_id]['description'] = isset($this->aCats[$cat_id]['description']) ? $this->aCats[$cat_id]['description'] : '';
 				$this->aCats[$cat_id]['template'] = isset($this->aCats[$cat_id]['template']) ? $this->aCats[$cat_id]['template'] : 'categorie.php';
-				$this->aCats[$cat_id]['thumbnail'] = isset($this->aCats[$cat_id]['thumbnail']) ? $this->aCats[$cat_id]['thumbnail'] : '';
-				$this->aCats[$cat_id]['thumbnail_title'] = isset($this->aCats[$cat_id]['thumbnail_title']) ? $this->aCats[$cat_id]['thumbnail_title'] : '';
-				$this->aCats[$cat_id]['thumbnail_alt'] = isset($this->aCats[$cat_id]['thumbnail_alt']) ? $this->aCats[$cat_id]['thumbnail_alt'] : '';
-				$this->aCats[$cat_id]['title_htmltag'] = isset($this->aCats[$cat_id]['title_htmltag']) ? $this->aCats[$cat_id]['title_htmltag'] : '';
-				$this->aCats[$cat_id]['meta_description'] = isset($this->aCats[$cat_id]['meta_description']) ? $this->aCats[$cat_id]['meta_description'] : '';
-				$this->aCats[$cat_id]['meta_keywords'] = isset($this->aCats[$cat_id]['meta_keywords']) ? $this->aCats[$cat_id]['meta_keywords'] : '';
+				$this->aCats[$cat_id]['description'] = isset($this->aCats[$cat_id]['description']) ? trim($this->aCats[$cat_id]['description']) : '';
+				$this->aCats[$cat_id]['thumbnail'] = isset($this->aCats[$cat_id]['thumbnail']) ? trim($this->aCats[$cat_id]['thumbnail']) : '';
+				$this->aCats[$cat_id]['thumbnail_title'] = isset($this->aCats[$cat_id]['thumbnail_title']) ? trim($this->aCats[$cat_id]['thumbnail_title']) : '';
+				$this->aCats[$cat_id]['thumbnail_alt'] = isset($this->aCats[$cat_id]['thumbnail_alt']) ? trim($this->aCats[$cat_id]['thumbnail_alt']) : '';
+				$this->aCats[$cat_id]['title_htmltag'] = isset($this->aCats[$cat_id]['title_htmltag']) ? trim($this->aCats[$cat_id]['title_htmltag']) : '';
+				$this->aCats[$cat_id]['meta_description'] = isset($this->aCats[$cat_id]['meta_description']) ? trim($this->aCats[$cat_id]['meta_description']) : '';
+				$this->aCats[$cat_id]['meta_keywords'] = isset($this->aCats[$cat_id]['meta_keywords']) ? trim($this->aCats[$cat_id]['meta_keywords']) : '';
 
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditCategoriesUpdate'));
@@ -970,13 +970,13 @@ EOT;
 ?>
 	<categorie number="<?= $cat_id ?>" active="<?= $cat['active'] ?>" homepage="<?= $cat['homepage'] ?>" tri="<?= $cat['tri'] ?>" bypage="<?= $cat['bypage'] ?>" menu="<?= $cat['menu'] ?>" url="<?= $cat['url'] ?>" template="<?= basename($cat['template']) ?>">
 		<name><?= $cat['name'] ?></name>
-		<description><?= plxUtils::strCheck($cat['description'], true) ?></description>
+		<description><![CDATA[<?= plxUtils::cdataCheck($cat['description']) ?>]]></description>
 		<meta_description><?= plxUtils::strCheck($cat['meta_description'], true, null) ?></meta_description>
 		<meta_keywords><?= plxUtils::strCheck($cat['meta_keywords'], true, null) ?></meta_keywords>
 		<title_htmltag><?= plxUtils::strCheck($cat['title_htmltag'], true, null) ?></title_htmltag>
 		<thumbnail><?= plxUtils::strCheck($cat['thumbnail'], true, null) ?></thumbnail>
-		<thumbnail_alt><?= plxUtils::strCheck($cat['thumbnail_alt'], true) ?></thumbnail_alt>
-		<thumbnail_title><?= plxUtils::strCheck($cat['thumbnail_title'], true) ?></thumbnail_title>
+		<thumbnail_alt><?= plxUtils::strCheck($cat['thumbnail_alt'], true, null) ?></thumbnail_alt>
+		<thumbnail_title><?= plxUtils::strCheck($cat['thumbnail_title'], true, null) ?></thumbnail_title>
 <?php
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));
@@ -1007,14 +1007,14 @@ EOT;
 	public function editCategorie($content) {
 		# Mise à jour du fichier categories.xml
 		$this->aCats[$content['id']]['homepage'] = intval($content['homepage']);
-		$this->aCats[$content['id']]['description'] = trim($content['content']);
+		$this->aCats[$content['id']]['description'] = $content['content'];
 		$this->aCats[$content['id']]['template'] = $content['template'];
 		$this->aCats[$content['id']]['thumbnail'] = $content['thumbnail'];
 		$this->aCats[$content['id']]['thumbnail_title'] = $content['thumbnail_title'];
 		$this->aCats[$content['id']]['thumbnail_alt'] = $content['thumbnail_alt'];
-		$this->aCats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
-		$this->aCats[$content['id']]['meta_description'] = trim($content['meta_description']);
-		$this->aCats[$content['id']]['meta_keywords'] = trim($content['meta_keywords']);
+		$this->aCats[$content['id']]['title_htmltag'] = $content['title_htmltag'];
+		$this->aCats[$content['id']]['meta_description'] = $content['meta_description'];
+		$this->aCats[$content['id']]['meta_keywords'] = $content['meta_keywords'];
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditCategorie'));
 		return $this->editCategories(null, true);
@@ -1049,7 +1049,7 @@ EOT;
 		# mise à jour de la liste des pages statiques
 		elseif(!empty($content['update'])) {
 			foreach($content['staticNum'] as $static_id) {
-				$stat_name = $content[$static_id.'_name'];
+				$stat_name = trim($content[$static_id.'_name']);
 				if($stat_name!='') {
 					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url']) : '';
 					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
@@ -1066,10 +1066,10 @@ EOT;
 					$this->aStats[$static_id]['active'] = $content[$static_id.'_active'];
 					$this->aStats[$static_id]['menu'] = $content[$static_id.'_menu'];
 					$this->aStats[$static_id]['ordre'] = intval($content[$static_id.'_ordre']);
-					$this->aStats[$static_id]['template'] = (isset($this->aStats[$static_id]['template'])?$this->aStats[$static_id]['template']:'static.php');
-					$this->aStats[$static_id]['title_htmltag'] = (isset($this->aStats[$static_id]['title_htmltag'])?$this->aStats[$static_id]['title_htmltag']:'');
-					$this->aStats[$static_id]['meta_description'] = (isset($this->aStats[$static_id]['meta_description'])?$this->aStats[$static_id]['meta_description']:'');
-					$this->aStats[$static_id]['meta_keywords'] = (isset($this->aStats[$static_id]['meta_keywords'])?$this->aStats[$static_id]['meta_keywords']:'');
+					$this->aStats[$static_id]['template'] = isset($this->aStats[$static_id]['template']) ? $this->aStats[$static_id]['template'] : 'static.php';
+					$this->aStats[$static_id]['title_htmltag'] = isset($this->aStats[$static_id]['title_htmltag']) ? trim($this->aStats[$static_id]['title_htmltag']) : '';
+					$this->aStats[$static_id]['meta_description'] = isset($this->aStats[$static_id]['meta_description']) ? trim($this->aStats[$static_id]['meta_description']) : '';
+					$this->aStats[$static_id]['meta_keywords'] = isset($this->aStats[$static_id]['meta_keywords']) ? trim($this->aStats[$static_id]['meta_keywords']) : '';
 					if(plxUtils::getValue($this->aStats[$static_id]['date_creation'])=='') {
 						$this->aStats[$static_id]['date_creation'] = date('YmdHi');
 						$this->aStats[$static_id]['date_update'] = date('YmdHi');
@@ -1112,9 +1112,9 @@ EOT;
 	<statique number="<?= $static_id ?>" active="<?= $static['active'] ?>" menu="<?= $static['menu'] ?>" url="<?= $static['url'] ?>" template="<?= basename($static['template']) ?>">
 		<group><?= plxUtils::strCheck($static['group']) ?></group>
 		<name><?= plxUtils::strCheck($static['name']) ?></name>
-		<meta_description><?= plxUtils::strCheck($static['meta_description'], true) ?></meta_description>
-		<meta_keywords><?= plxUtils::strCheck($static['meta_keywords']) ?></meta_keywords>
-		<title_htmltag><?= plxUtils::strCheck($static['title_htmltag']) ?></title_htmltag>
+		<meta_description><?= plxUtils::strCheck($static['meta_description'], true, null) ?></meta_description>
+		<meta_keywords><?= plxUtils::strCheck($static['meta_keywords'], true, null) ?></meta_keywords>
+		<title_htmltag><?= plxUtils::strCheck($static['title_htmltag'], true, null) ?></title_htmltag>
 		<date_creation><?= $static['date_creation'] ?></date_creation>
 		<date_update><?= $static['date_update'] ?></date_update>
 <?php
@@ -1288,18 +1288,18 @@ EOT;
 		ob_start();
 ?>
 <document>
-	<title><?= plxUtils::strCheck(trim($content['title']), true) ?></title>
+	<title><?= plxUtils::strCheck(trim($content['title']), true, null) ?></title>
 	<allow_com><?= intval($content['allow_com']) ?></allow_com>
 	<template><?= basename($content['template']) ?></template>
-	<chapo><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['chapo'])) ?>]]></chapo>
-	<content><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['content'])) ?>]]></content>
+	<chapo><![CDATA[<?= plxUtils::cdataCheck(trim($content['chapo'])) ?>]]></chapo>
+	<content><![CDATA[<?= plxUtils::cdataCheck(trim($content['content'])) ?>]]></content>
 	<tags><?= plxUtils::strCheck(trim($content['tags']), true) ?></tags>
-	<meta_description><?= plxUtils::strCheck(trim($meta_description)) ?></meta_description>
-	<meta_keywords><?= plxUtils::strCheck(trim($meta_keywords)) ?></meta_keywords>
-	<title_htmltag><?= plxUtils::strCheck(trim($title_htmltag)) ?></title_htmltag>
-	<thumbnail><?= plxUtils::strCheck(trim($thumbnail)) ?></thumbnail>
-	<thumbnail_alt><?= plxUtils::strCheck(trim($thumbnail_alt), true) ?></thumbnail_alt>
-	<thumbnail_title><?= plxUtils::strCheck(trim($thumbnail_title), true) ?></thumbnail_title>
+	<meta_description><?= plxUtils::strCheck(trim($meta_description), true, null) ?></meta_description>
+	<meta_keywords><?= plxUtils::strCheck(trim($meta_keywords), true, null) ?></meta_keywords>
+	<title_htmltag><?= plxUtils::strCheck(trim($title_htmltag), true, null) ?></title_htmltag>
+	<thumbnail><?= plxUtils::strCheck(trim($thumbnail), true, null) ?></thumbnail>
+	<thumbnail_alt><?= plxUtils::strCheck(trim($thumbnail_alt), true, null) ?></thumbnail_alt>
+	<thumbnail_title><?= plxUtils::strCheck(trim($thumbnail_title), true, null) ?></thumbnail_title>
 	<date_creation><?= $dates['creation'] ?></date_creation>
 	<date_update><?= $dates['update'] ?></date_update>
 <?php
