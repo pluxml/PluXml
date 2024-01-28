@@ -29,6 +29,7 @@ class plxUtils {
 	const RANDOM_STRING = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	const THUMB_WIDTH = 48;
 	const THUMB_HEIGHT = 48;
+
 	/**
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre
