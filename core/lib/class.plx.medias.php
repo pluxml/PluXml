@@ -137,6 +137,11 @@ class plxMedias {
 						$sample = $iconName;
 					}
 					$imgSize = getimagesize($filename);
+
+					# Fix webp animée non supporté par php
+					if($extension == '.webp' and !file_exists($iconName)) {
+						$sample = $filename;
+					}
 				} else {
 					$imgSize = false;
 
