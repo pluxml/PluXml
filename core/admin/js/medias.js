@@ -1,63 +1,96 @@
-// zoombox
-var tbody = document.getElementById('medias-table-tbody');
-var mo = document.getElementById("modal__overlay");
-// var mbox = document.getElementById("modal__box");
-var mb = document.getElementById("modal");
-var zoomboxImg = document.getElementById('zoombox-img');
-tbody.addEventListener('click', function(event) {
-	if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
-		event.preventDefault();
-		const src = event.target.src.replace(/\/.thumbs?\b/, '');
-		const title = src.replace(/.*\/([^\/]*)$/, '$1');
-		zoomboxImg.src = src;
-		zoomboxImg.alt = title;
-		zoomboxImg.title = title;
-		mb.checked = true;
+// for medias.php
+
+'use strict';
+
+(function(id) {
+	const tbody = document.getElementById(id);
+	const mo = document.getElementById("modal__overlay");
+	// var mbox = document.getElementById("modal__box");
+	const mb = document.getElementById("modal");
+	const zoomboxImg = document.getElementById('zoombox-img');
+	const loader = document.getElementById('loader');
+
+	if(!tbody) {
+		console.error(id + ' element not found');
 		return;
 	}
 
-	if(event.target.hasAttribute('data-copy')) {
-		event.preventDefault();
-		const aux = document.getElementById('clipboard');
-		if(aux == null) {
-			console.error('#clipboard element not found');
+	function done() {
+		mb.checked = false;
+		zoomboxImg.src = '';
+	}
+
+	tbody.addEventListener('click', function(event) {
+		// Zoom the image in the modal box
+		if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
+			event.preventDefault();
+			const src = event.target.src.replace(/\/.thumbs?\b/, '');
+			const title = src.replace(/.*\/([^\/]*)$/, '$1');
+			loader.classList.add('show');
+			zoomboxImg.alt = title;
+			zoomboxImg.title = title;
+			mb.checked = true;
+			const img = new Image;
+			img.onload = function(ev) {
+				console.log('image loaded : ' + ev.target.src);
+				zoomboxImg.src = src;
+				loader.classList.remove('show');
+			}
+			img.onerror = function(ev) {
+				alert('Image not loaded from ' + src);
+			}
+			img.src = src;
 			return;
 		}
 
-		aux.style.display = 'initial';
-		aux.value = event.target.dataset.copy;
-		aux.select();
-		document.execCommand('copy');
-		const notice = event.target.firstElementChild;
-		notice.style.display = 'inline-block';
-		var t = setTimeout(function() {
-			aux.value = '';
-			notice.style.display = 'none';
-			clearTimeout(t);
-		}, 1000);
-		aux.value = '';
-		aux.style.display = 'none';
-		return;
-	}
+		// Copy the link into the clipboard
+		if(event.target.hasAttribute('data-copy')) {
+			event.preventDefault();
+			const aux = document.getElementById('clipboard');
+			if(aux == null) {
+				console.error('#clipboard element not found');
+				return;
+			}
 
-	if(event.target.hasAttribute('data-rename')) {
+			aux.style.display = 'initial';
+			aux.value = event.target.dataset.copy;
+			aux.select();
+			document.execCommand('copy');
+			const notice = event.target.firstElementChild;
+			notice.style.display = 'inline-block';
+			var t = setTimeout(function() {
+				aux.value = '';
+				notice.style.display = 'none';
+				clearTimeout(t);
+			}, 1000);
+			aux.value = '';
+			aux.style.display = 'none';
+			return;
+		}
+
+		// rename the filename of image
+		if(event.target.hasAttribute('data-rename')) {
+			event.preventDefault();
+			document.getElementById('id_oldname').value = event.target.dataset.rename;
+			dialogBox("dlgRenameFile");
+			return;
+		}
+	});
+
+	window.addEventListener("keydown", function (event) {
+		// validate if the press key is the escape key
+		if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
+			event.preventDefault();
+			done();
+		}
+	});
+
+	mo.addEventListener("click", function (event) {
 		event.preventDefault();
-		document.getElementById('id_oldname').value = event.target.dataset.rename;
-		dialogBox("dlgRenameFile");
-		return;
-	}
-});
-window.addEventListener("keydown", function (event) {
-	// validate if the press key is the escape key
-	if (event.code=="Escape" || event.key=="Escape" || event.keyCode==27) {
-    	event.preventDefault();
-    	mb.checked = false;
-    }
-});
-mo.addEventListener("click", function (event) {
-	event.preventDefault();
-   	mb.checked = false;
-});
+	   	done();
+	});
+})('medias-table-tbody');
+
 function toggle_divs(){
 	var uploader = document.getElementById('files_uploader');
 	var manager = document.getElementById('files_manager');
@@ -69,6 +102,7 @@ function toggle_divs(){
 		manager.style.display = 'block';
 	}
 }
+
 function plugFilter() {
 	var input, filter, table, tr, td, i;
 	filter = document.getElementById("medias-search").value;
@@ -89,8 +123,9 @@ function plugFilter() {
 		localStorage.setItem("medias_search", filter);
 	}
 }
+
 if (typeof(Storage) !== "undefined" && localStorage.getItem("medias_search") !== "undefined") {
-	input = document.getElementById("medias-search");
+	const input = document.getElementById("medias-search");
 	input.value = localStorage.getItem("medias_search");
 	plugFilter();
 }
