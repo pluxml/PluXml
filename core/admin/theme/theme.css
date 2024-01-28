@@ -667,6 +667,35 @@ th.checkbox {
 	width: 15px;
 }
 
+/* sorted table */
+th.sort {
+	cursor: pointer;
+	padding: 0.3rem;
+	white-space: nowrap;
+}
+
+th.sort:hover {
+	background-color: #ccc;
+}
+
+th.sort::after {
+	content: '🔼🔽'; /* 🠋🠉▲▼ */
+	margin-left: 0.5rem;
+	letter-spacing: 0.3rem;
+}
+
+th.sort:nth-of-type(3)::after {
+	margin-left: 2rem;
+}
+
+th.sort.active.reverse::after {
+	content: '🔼 '; /* no-breaking space ! */
+}
+
+th.sort.active::after {
+	content: ' 🔽';
+}
+
 /* pour l'indentation des commentaires */
 
 .level-0 {
@@ -739,6 +768,7 @@ th.checkbox {
 	bottom: 0;
 	left: 0;
 	position: fixed;
+	background-color: #666;
 	z-index: 999;
 	text-align: right;
 }
@@ -746,8 +776,12 @@ th.checkbox {
 .modal__box {
 	position: relative;
 	text-align: center;
-	border: 1px solid #666;
-	background-color: #fff;
+	border: none;
+}
+
+.modal__box img[src$=".svg"] {
+	min-width: 50vw;
+	min-height: 50vh;
 }
 
 .modal input {
@@ -761,6 +795,7 @@ th.checkbox {
 .modal label {
 	position: absolute;
 	right: 0;
+	top: 0;
 	background-color: #444;
 	color: #fff;
 	cursor: pointer;
@@ -770,7 +805,7 @@ th.checkbox {
 	transition: all 0.55s;
 	padding: 10px;
 	font-size: 2rem;
-	vertical-align: top;
+	/* vertical-align: top; */
 }
 
 @media (max-width: 767px) {
@@ -809,7 +844,7 @@ th.checkbox {
 }
 
 input:checked~.modal__overlay {
-	opacity: 1;
+	opacity: 0.95;
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
 	transform: scale(1);
@@ -1073,7 +1108,13 @@ select::-ms-expand {/*for IE10*/
 .scrollable-table {
 	position: relative;
 	max-height: calc(100vh - 15rem); /* see margins for .section */
+	padding-bottom: 0.5rem;
 }
+
+.scrollable-table.has-pagination {
+	max-height: calc(100vh - 23.5rem);
+}
+
 .scrollable-table th {
 	position: sticky;
 	top: 0;
@@ -1086,8 +1127,21 @@ select::-ms-expand {/*for IE10*/
 #pagination {
 	position: fixed;
 	bottom: 0;
-	width: 95%;
+	width: 100%;
+	padding-right: 2rem;
 	background-color: #fff;
+}
+
+@media (min-width: 768px) {
+	#pagination {
+		width: 75%;
+	}
+}
+
+@media (min-width: 1200px) {
+	#pagination {
+		width: 83.333%;
+	}
 }
 
 #articles-table .as-link {
@@ -1101,13 +1155,66 @@ select::-ms-expand {/*for IE10*/
 }
 
 .art-id {
-  width: 4rem;
+	width: 4rem;
 }
 
 .cat {
-  width: 16rem;
+	width: 16rem;
 }
 
 .comms {
-  width: 10rem;
+	width: 10rem;
+}
+
+/* ------ loader -- https://cssloaders.github.io/ ------- */
+
+#loader {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loader, .loader:before, .loader:after {
+	border-radius: 50%;
+	width: 2.5em;
+	height: 2.5em;
+	animation-fill-mode: both;
+	animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+
+.loader {
+	color: #258fd6;
+	font-size: 7px;
+	position: relative;
+	text-indent: -9999em;
+	transform: translateZ(0);
+	animation-delay: -0.16s;
+}
+
+.loader:not(.show) {
+	display: none;
+}
+
+.loader:before,
+.loader:after {
+	content: '';
+	position: absolute;
+	top: 0;
+}
+
+.loader:before {
+	left: -3.5em;
+	animation-delay: -0.32s;
+}
+
+.loader:after {
+	left: 3.5em;
+}
+
+@keyframes bblFadInOut {
+	0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
+	40% { box-shadow: 0 2.5em 0 0 }
 }
