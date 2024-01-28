@@ -1591,14 +1591,19 @@ EOT;
 		$last_page = ceil($itemsCount / $itemsPerPage);
 		$showFirst = ($currentPage > 1);
 		$showLast = ($currentPage < $last_page);
- 		// URL generation
-		$artTitle = !empty($_GET['artTitle']) ? '&artTitle=' . urlencode($_GET['artTitle']) : '';
+		$query = ''; # artTitle ou autre
+ 		// URL generation + Fix % in query
+ 		if(strpos($urlTemplate, '&') !== false) {
+			$query = explode('&', $urlTemplate);
+			$urlTemplate = array_shift($query);
+			$query = '&amp;'.implode('&amp;', $query);
+		}
 		// Display pagination links
 ?>
 				<span class="sml-hide"><?= ucfirst(L_PAGE) ?></span>
 				<ul class="inline-list">
-					<li><a href="<?= sprintf($urlTemplate, 1) . $artTitle ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>" class="<?= $showFirst ? 'button' : 'hide' ?>"><i class="icon-angle-double-left"></i></a></li>
-					<li><a href="<?= sprintf($urlTemplate, $showFirst ? $currentPage - 1 : 1) . $artTitle ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>" class="<?= $showFirst ? 'button' : 'hide' ?>"><i class="icon-angle-left"></i></a></li>
+					<li><a href="<?= sprintf($urlTemplate, 1) . $query ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>" class="<?= $showFirst ? 'button' : 'hide' ?>"><i class="icon-angle-double-left"></i></a></li>
+					<li><a href="<?= sprintf($urlTemplate, $showFirst ? $currentPage - 1 : 1) . $query ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>" class="<?= $showFirst ? 'button' : 'hide' ?>"><i class="icon-angle-left"></i></a></li>
 <?php
 		# On boucle sur les pages
 		if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
@@ -1614,7 +1619,7 @@ EOT;
 		for ($i = $iMin; $i <= $iMax; $i++) {
 			if($i != $currentPage) {
 ?>
-					<li><a href="<?= sprintf($urlTemplate, $i) . $artTitle; ?>" class="button"><?= $i ?></a></li>
+					<li><a href="<?= sprintf($urlTemplate, $i) . $query ?>" class="button"><?= $i ?></a></li>
 <?php
 			} else {
 ?>
@@ -1623,8 +1628,8 @@ EOT;
 			}
 		}
 ?>
-					<li><a href="<?= sprintf($urlTemplate, $showLast ? $currentPage + 1 : $last_page ) . $artTitle; ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>" class="<?= $showLast ? 'button' : 'hide' ?>"><i class="icon-angle-right"></i></a></li>
-					<li><a href="<?= sprintf($urlTemplate, $last_page) . $artTitle; ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="<?= $showLast ? 'button' : 'hide' ?>"><i class="icon-angle-double-right"></i></a></li>
+					<li><a href="<?= sprintf($urlTemplate, $showLast ? $currentPage + 1 : $last_page ) . $query ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>" class="<?= $showLast ? 'button' : 'hide' ?>"><i class="icon-angle-right"></i></a></li>
+					<li><a href="<?= sprintf($urlTemplate, $last_page) . $query ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="<?= $showLast ? 'button' : 'hide' ?>"><i class="icon-angle-double-right"></i></a></li>
 				</ul>
 <?php
 	}
