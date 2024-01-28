@@ -30,13 +30,13 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 <form action="parametres_users.php" method="post" id="form_users">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_USERS_TITLE; ?></h2>
+		<h2><?= L_CONFIG_USERS_TITLE; ?></h2>
 		<p>&nbsp;</p>
 		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?= L_CONFIRM_DELETE ?>')" />
+		<?= plxToken::getTokenPostMethod() ?>
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input type="submit" name="update" value="<?php echo L_CONFIG_USERS_UPDATE ?>" />
+		<input type="submit" name="update" value="<?= L_CONFIG_USERS_UPDATE ?>" />
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminUsersTop')) # Hook Plugins ?>
@@ -46,14 +46,14 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
-			<th><?php echo L_ID ?></th>
-			<th><?php echo L_PROFIL_USER ?>*</th>
-			<th><?php echo L_PROFIL_LOGIN ?>*</th>
-			<th><?php echo L_PROFIL_PASSWORD ?></th>
-			<th><?php echo L_PROFIL_MAIL ?><?= $requireMail ? '*' : '' ?></th>
-			<th><?php echo L_PROFIL ?></th>
-			<th><?php echo L_CONFIG_USERS_ACTIVE ?></th>
-			<th><?php echo L_CONFIG_USERS_ACTION ?></th>
+			<th><?= L_ID ?></th>
+			<th><?= L_PROFIL_USER ?>*</th>
+			<th><?= L_PROFIL_LOGIN ?>*</th>
+			<th><?= L_PROFIL_PASSWORD ?></th>
+			<th><?= L_PROFIL_MAIL . ($requireMail ? '*' : '') ?></th>
+			<th><?= L_PROFIL ?></th>
+			<th><?= L_CONFIG_USERS_ACTIVE ?></th>
+			<th><?= L_CONFIG_USERS_ACTION ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -109,7 +109,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 	$new_userid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 ?>
 		<tr class="new">
-			<td colspan="2"><?php echo L_CONFIG_USERS_NEW; ?></td>
+			<td colspan="2"><?= L_CONFIG_USERS_NEW ?></td>
 			<td>
 				<input type="hidden" name="userNum[]" value="<?= $new_userid ?>" />
 				<?php plxUtils::printInput($new_userid.'_newuser', 'true', 'hidden'); ?>

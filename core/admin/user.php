@@ -45,10 +45,10 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 <form action="user.php" method="post" id="form_user">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_USER_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aUsers[$id]['name']); ?>"</h2>
-		<p><a class="back" href="parametres_users.php"><?php echo L_USER_BACK_TO_PAGE ?></a></p>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<input type="submit" value="<?php echo L_USER_UPDATE ?>"/>
+		<h2><?= L_USER_PAGE_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aUsers[$id]['name']); ?>"</h2>
+		<p><a class="back" href="parametres_users.php"><?= L_USER_BACK_TO_PAGE ?></a></p>
+		<?= plxToken::getTokenPostMethod() ?>
+		<input type="submit" value="<?= L_USER_UPDATE ?>"/>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminUserTop')) # Hook Plugins ?>
@@ -57,7 +57,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
 				<?php plxUtils::printInput('id', $id, 'hidden');?>
-				<label for="id_lang"><?php echo L_USER_LANG ?>&nbsp;:</label>
+				<label for="id_lang"><?= L_USER_LANG ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printSelect('lang', plxUtils::getLangs(), $plxAdmin->aUsers[$id]['lang']) ?>
@@ -65,7 +65,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_email"><?php echo L_USER_MAIL ?><?= $requireMail ? '*' : '' ?>&nbsp;:</label>
+				<label for="id_email"><?= L_USER_MAIL . ($requireMail ? '*' : '') ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
 				<?php plxUtils::printInput('email', plxUtils::strCheck($plxAdmin->aUsers[$id]['email']), 'email', '', false, '', '', '', $requireMail) ?>
@@ -73,7 +73,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_content"><?php echo L_USER_INFOS ?>&nbsp;:</label>
+				<label for="id_content"><?= L_USER_INFOS ?>&nbsp;:</label>
 				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aUsers[$id]['infos']), 0, 8) ?>
 			</div>
 		</div>
