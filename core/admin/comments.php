@@ -243,7 +243,7 @@ if(!empty($plxAdmin->aConf['clef'])) {
 <?php
 				}
 ?>
-					<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
+					<td class="wrap"><div><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></div></td>
 					<td class="author"><?php
 					$author = $plxAdmin->plxRecord_coms->f('author');
 					$mail = $plxAdmin->plxRecord_coms->f('mail');

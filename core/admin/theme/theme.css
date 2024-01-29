@@ -369,9 +369,8 @@ input[maxlength="3"] {
 }
 
 #plugins-table .description {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	text-align: justify;
+	overflow: scroll;
+	text-overflow: ellipsis ellipsis;
 }
 
 #plugins-table img,
@@ -635,10 +634,19 @@ td {
 	overflow: hidden;
 }
 
+/* ---- index, comments, plugins tables ---- */
 td.wrap {
 	white-space: nowrap;
-	text-overflow: ellipsis;
 	max-width: 45.6vw;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+td.wrap a,
+td.wrap p,
+td.wrap > * {
+	display: block;
+	overflow: scroll;
+	text-overflow: ellipsis ellipsis;
 }
 
 th.checkbox {

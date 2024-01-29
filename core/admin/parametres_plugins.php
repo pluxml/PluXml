@@ -64,7 +64,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 <?php
 					# title + version
 ?>
-					<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong> - <span><?= L_PLUGINS_VERSION ?></span><strong> <?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
+					<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong><strong> - <?= L_PLUGINS_VERSION ?> <?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
 <?php
 					# date
 					if($plugInstance->getInfo('date') != '') {
@@ -84,13 +84,14 @@ function pluginsList($plugins, $defaultLang, $type) {
 					<p class="description"><?= plxUtils::strCheck($plugInstance->getInfo('description')) ?></p>
 <?php /* author */ ?>
 					<p>
-					<?= L_PLUGINS_AUTHOR ?> : <?php
+					<span><?= L_PLUGINS_AUTHOR ?> : <?= plxUtils::strCheck($plugInstance->getInfo('author')) ?></span>
+<?php
 					$site = plxUtils::strCheck($plugInstance->getInfo('site'));# site
 					if($site) {
 ?>
-<a href="<?= $site ?>" title="<?= $site ?>"><?= plxUtils::strCheck($plugInstance->getInfo('author')) ?></a>
+<a href="<?= $site ?>" title="<?= $site ?>"><?= $site ?></a>
 <?php
-					} else echo plxUtils::strCheck($plugInstance->getInfo('author'));
+					}
 ?>
 					</p>
 				</td>
