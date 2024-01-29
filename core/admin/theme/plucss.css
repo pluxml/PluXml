@@ -899,59 +899,6 @@ a:hover.tooltip-left span {
 	margin-right: 15px;
 }
 
-/* ---------- HELPER ---------- */
-
-.text-left {
-	text-align: left;
-}
-.text-center {
-	text-align: center;
-}
-.text-right {
-	text-align: right;
-}
-.text-justify {
-	text-align: justify;
-}
-.float-left {
-	float: left;
-}
-.float-center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-.float-right {
-	float: right;
-}
-.float-none {
-	float: none;
-}
-.show {
-	display: initial;
-}
-.hide {
-	display: none;
-}
-.full-width {
-	width: 100%;
-}
-.width-auto {
-	width: auto;
-}
-.no-margin {
-	margin: 0;
-}
-.no-padding {
-	padding: 0;
-}
-.sticky {
-	position: fixed;
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-}
-
 /* ---------- GRID, GALLERY, AND HELPER ---------- */
 
 .container {
@@ -1691,6 +1638,59 @@ a:hover.tooltip-left span {
 	.lrg-no-padding {
 		padding: 0;
 	}
+}
+
+/* ---------- HELPER ---------- */
+
+.text-left {
+	text-align: left;
+}
+.text-center {
+	text-align: center;
+}
+.text-right {
+	text-align: right;
+}
+.text-justify {
+	text-align: justify;
+}
+.float-left {
+	float: left;
+}
+.float-center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.float-right {
+	float: right;
+}
+.float-none {
+	float: none;
+}
+.show {
+	display: initial;
+}
+.hide {
+	display: none;
+}
+.full-width {
+	width: 100%;
+}
+.width-auto {
+	width: auto;
+}
+.no-margin {
+	margin: 0 !important;
+}
+.no-padding {
+	padding: 0 !important;
+}
+.sticky {
+	position: fixed;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
 }
 
 @media print {
