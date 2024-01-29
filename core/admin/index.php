@@ -134,6 +134,7 @@ if(filter_has_var(INPUT_GET, 'artTitle')) {
 if(empty($artTitle) and filter_has_var(INPUT_POST, 'artTitle')) {
 	$artTitle = htmlspecialchars(trim(urldecode($_POST['artTitle']))); # requested by PHP-8.1.0
 }
+
 # On génère notre motif de recherche
 $artId = '\d{4}';
 $url = '.*';
@@ -415,6 +416,7 @@ EOT;
 </div>
 
 </form>
+
 <?php
 if($hasPagination) {
 ?>

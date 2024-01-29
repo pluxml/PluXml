@@ -375,13 +375,62 @@ input[type="submit"]:hover {
 	background-color: #555;
 	transition-duration: .2s;
 }
-.button[disabled],
+.button {
+	background-color: #777;
+	border-radius: .3rem;
+	color: #fff;
+	padding: .9rem .7rem;
+	transition-duration: .2s;
+}
+.button:hover {
+	background-color: #555;
+	color: #fff; /* for <a href=""></a> */
+	text-decoration: none;
+	transition-duration: .2s;
+}
+.button.blue {
+	background-color: #258fd6;
+	color: #eee;
+}
+.button.blue:hover {
+	background-color: #1f77b1;
+}
+.button.green {
+	background-color: #239c56;
+	color: #eee;
+}
+.button.green:hover {
+	background-color: #1c7943;
+}
+.button.orange {
+	background-color: #da7418;
+	color: #eee;
+}
+.button.orange:hover {
+	background-color: #b46014;
+}
+.button.red {
+	background-color: #e43d29;
+	color: #eee;
+}
+.button.red:hover {
+	background-color: #bc2818;
+}
+.button.yellow {
+	background-color: #e0a800;
+	color: #eee;
+}
+.button.yellow:hover {
+	background-color: #d39e00;
+}
+
+.disabled,
 button[disabled],
 .button[disabled],
 input[disabled],
 select[disabled],
 textarea[disabled],
-.button[disabled]:hover,
+.disabled:hover,
 button[disabled]:hover,
 .button[disabled]:hover,
 input[disabled]:hover,
@@ -693,54 +742,6 @@ input[type="submit"].yellow:hover {
 .alert.red {
 	background-color: #fce4e2;
 	color: #e43d29;
-}
-.button {
-	background-color: #777;
-	border-radius: .3rem;
-	color: #fff;
-	padding: .9rem .7rem;
-	transition-duration: .2s;
-}
-.button:hover {
-	background-color: #555;
-	color: #fff; /* for <a href=""></a> */
-	text-decoration: none;
-	transition-duration: .2s;
-}
-.button.blue {
-	background-color: #258fd6;
-	color: #eee;
-}
-.button.blue:hover {
-	background-color: #1f77b1;
-}
-.button.green {
-	background-color: #239c56;
-	color: #eee;
-}
-.button.green:hover {
-	background-color: #1c7943;
-}
-.button.orange {
-	background-color: #da7418;
-	color: #eee;
-}
-.button.orange:hover {
-	background-color: #b46014;
-}
-.button.red {
-	background-color: #e43d29;
-	color: #eee;
-}
-.button.red:hover {
-	background-color: #bc2818;
-}
-.button.yellow {
-	background-color: #e0a800;
-	color: #eee;
-}
-.button.yellow:hover {
-	background-color: #d39e00;
 }
 .progress {
 	background-color: #fff;
