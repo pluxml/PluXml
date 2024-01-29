@@ -363,41 +363,14 @@ input[maxlength="3"] {
   width: 12rem;
 }
 
-#articles-table td:nth-child(4),
-#comments-table td:nth-child(4),
-#medias-table td:nth-child(3),
-#plugins-table td:nth-child(3) {
-	/* width: 100%; */
-	min-width: 200px;
-	/* Mozilla, since 1999 */
-	white-space: -moz-pre-wrap !important;
-	/*Chrome & Safari */
-	white-space: -webkit-pre-wrap;
-	/* Opera 4-6 */
-	white-space: -pre-wrap;
-	/* Opera 7 */
-	white-space: -o-pre-wrap;
-	/* css-3 */
-	white-space: pre-wrap;
-	/* Internet Explorer 5.5+ */
-	word-wrap: break-word;
-	word-break: break-all;
-	white-space: normal;
-	/* white-space: nowrap; */
-}
-
-#plugins-table p * {
-	white-space: nowrap;
-}
-
 #plugins-table p {
 	margin: 0;
 	text-indent: 0;
 }
 
 #plugins-table .description {
-	white-space: normal;
-	word-break: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	text-align: justify;
 }
 
@@ -659,10 +632,13 @@ tr input {
 
 td {
 	white-space: nowrap;
+	overflow: hidden;
 }
 
 td.wrap {
-	white-space: normal;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 45.6vw;
 }
 
 th.checkbox {
@@ -810,6 +786,9 @@ th.sort.active::after {
 		position: fixed;
 		right: 0;
 		top: 2rem;
+	}
+	td.wrap {
+		max-width: 30vw;
 	}
 }
 
@@ -1113,7 +1092,7 @@ select::-ms-expand {/*for IE10*/
 }
 
 .scrollable-table.has-pagination {
-	padding-bottom: 3.5rem;
+	margin-bottom: 3.5rem;
 }
 
 .scrollable-table th {
