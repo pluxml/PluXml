@@ -1177,6 +1177,10 @@ select::-ms-expand {/*for IE10*/
 	align-items: center;
 }
 
+#loader:not(.show) {
+	display: none;
+}
+
 .loader, .loader:before, .loader:after {
 	border-radius: 50%;
 	width: 2.5em;
@@ -1192,10 +1196,6 @@ select::-ms-expand {/*for IE10*/
 	text-indent: -9999em;
 	transform: translateZ(0);
 	animation-delay: -0.16s;
-}
-
-.loader:not(.show) {
-	display: none;
 }
 
 .loader:before,
