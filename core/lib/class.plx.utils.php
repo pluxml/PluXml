@@ -29,6 +29,7 @@ class plxUtils {
 	const RANDOM_STRING = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	const THUMB_WIDTH = 48;
 	const THUMB_HEIGHT = 48;
+	const PATTERN_PAGINATION = '#\bpage=%d\b#'; # for hacking against printf()
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.
@@ -1584,8 +1585,8 @@ EOT;
 	 **/
 	public static function printPagination($itemsCount, $itemsPerPage, $currentPage, $urlTemplate) {
 
-		if ($itemsCount <= $itemsPerPage) {
-			# just one page => no pagination
+		if ($itemsCount <= $itemsPerPage or $itemsPerPage <= 0) {
+			# just one page => no pagination and prevent division by zero ($itemsPerPage)
 			return;
 		}
 
@@ -1595,11 +1596,12 @@ EOT;
 		$showLast = ($currentPage < $last_page);
 
 		// Display pagination links
+		// Notice : $urlTemplate may contains % char. So don't use printf !
 ?>
 				<span class="sml-hide"><?= ucfirst(L_PAGE) ?></span>
 				<ul class="inline-list">
-					<li><a href="<?php printf($urlTemplate, 1) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= $showFirst ? '' : ' disabled' ?> class="button"><i class="icon-angle-double-left"></i></a></li>
-					<li><a href="<?php printf($urlTemplate, $showFirst ? $currentPage - 1 : 1) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= $showFirst ? '' : ' disabled' ?> class="button"><i class="icon-angle-left"></i></a></li>
+					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=1', $urlTemplate) ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"<?= $showFirst ? '' : ' disabled' ?> class="button"><i class="icon-angle-double-left"></i></a></li>
+					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=' . ($showFirst ? $currentPage - 1 : 1), $urlTemplate) ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"<?= $showFirst ? '' : ' disabled' ?> class="button"><i class="icon-angle-left"></i></a></li>
 <?php
 		# On boucle sur les pages
 		if($last_page <= 2 * self::DELTA_PAGINATION  + 1) {
@@ -1615,7 +1617,7 @@ EOT;
 		for ($i = $iMin; $i <= $iMax; $i++) {
 			if($i != $currentPage) {
 ?>
-					<li><a href="<?php printf($urlTemplate, $i); ?>" class="button"><?= $i ?></a></li>
+					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=' . $i, $urlTemplate); ?>" class="button"><?= $i ?></a></li>
 <?php
 			} else {
 ?>
@@ -1624,8 +1626,8 @@ EOT;
 			}
 		}
 ?>
-					<li><a href="<?php printf($urlTemplate, $showLast ? $currentPage + 1 : $last_page ); ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= $showLast ? '' : ' disabled' ?> class="button"><i class="icon-angle-right"></i></a></li>
-					<li><a href="<?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="button"<?= $showLast ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></a></li>
+					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=' . ($showLast ? $currentPage + 1 : $last_page), $urlTemplate) ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= $showLast ? '' : ' disabled' ?> class="button"><i class="icon-angle-right"></i></a></li>
+					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=' . $last_page, $urlTemplate) ?><?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="button"<?= $showLast ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></a></li>
 				</ul>
 <?php
 	}
