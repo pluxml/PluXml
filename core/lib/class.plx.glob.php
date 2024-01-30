@@ -255,8 +255,8 @@ class plxGlob {
 			if (!empty($type)) {
 				$rs = array_values($rs);
 			}
-			# On a une limite, on coupe le tableau
-			if (is_integer($limite) and is_integer($depart)) {
+			# On a une limite, on coupe le tableau ($limite 0 == tout)
+			if ($limite > 0 and is_integer($limite) and is_integer($depart)) {
 				if($depart > count($rs)) {
 					# Auto-reset on first page
 					$depart = 0;

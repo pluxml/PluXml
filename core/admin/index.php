@@ -147,12 +147,14 @@ if(!empty($artTitle)) {
 }
 $motif = '#^' . $mod . implode('\.', [$artId, $catIdSel, $userId, '\d{12}', $url, 'xml', ]) . '$#';
 
+# Pour getArticles et $hasPagination
+$plxAdmin->bypage = $plxAdmin->aConf['bypage_admin'];
 # Nombre d'article sélectionnés ( pour pagination )
 $hasPagination = false;
 $globArts = $plxAdmin->plxGlob_arts->query($motif);
 if(!empty($globArts)) {
 	$nbArtPagination = sizeof($globArts);
-	$hasPagination = ($nbArtPagination > $plxAdmin->bypage);
+	$hasPagination = ($plxAdmin->bypage > 0 and $nbArtPagination > $plxAdmin->bypage);
 }
 
 # Traitement

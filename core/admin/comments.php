@@ -98,7 +98,7 @@ $plxAdmin->getPage();
 $start = $plxAdmin->aConf['bypage_admin_coms'] * ($plxAdmin->page-1);
 $coms = $plxAdmin->getCommentaires($comSelMotif, 'rsort', $start, $plxAdmin->aConf['bypage_admin_coms'], 'all');
 
-if(!empty($coms) and $nbComPagination > $plxAdmin->aConf['bypage_admin_coms']) {
+if(!empty($coms) and $plxAdmin->aConf['bypage_admin_coms'] > 0 and $nbComPagination > $plxAdmin->aConf['bypage_admin_coms']) {
 	$hasPagination = true;
 }
 

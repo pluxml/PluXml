@@ -1582,7 +1582,7 @@ EOT;
 	 **/
 	public static function printPagination($itemsCount, $itemsPerPage, $currentPage, $urlTemplate) {
 
-		if ($itemsCount <= $itemsPerPage) {
+		if ($itemsPerPage <= $itemsCount) {
 			# just one page => no pagination
 			return;
 		}
@@ -1592,11 +1592,10 @@ EOT;
 		$showFirst = ($currentPage > 1);
 		$showLast = ($currentPage < $last_page);
 		$query = ''; # artTitle ou autre
- 		// URL generation + Fix % in query
- 		if(strpos($urlTemplate, '&') !== false) {
-			$query = explode('&', $urlTemplate);
-			$urlTemplate = array_shift($query);
-			$query = '&amp;'.implode('&amp;', $query);
+ 		// URL generation (un seul % autorisé ds urlTemplate)
+		if(preg_match('~^(.*\bpage=%d)(.*)~', $urlTemplate, $matches)) {
+			$urlTemplate = $matches[1];
+			$query = $matches[2];
 		}
 		// Display pagination links
 ?>
