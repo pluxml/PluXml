@@ -482,7 +482,19 @@ class plxMotor {
 			$this->aConf['clef'] = plxUtils::charAleatoire(15);
 		}
 
-		if (!isset($this->aConf['urlrewriting']) or $this->aConf['urlrewriting'] != 1) {
+		foreach(array(
+			'bypage',
+			'bypage_archives',
+			'bypage_tags',
+			'bypage_admin',
+			'bypage_admin_coms',
+		) as $k) {
+			if(empty($this->aConf[$k])) {
+				$this->aConf[$k] = DEFAULT_CONFIG[$k];
+			}
+		}
+
+		if(!isset($this->aConf['urlrewriting']) or $this->aConf['urlrewriting'] != 1) {
 			$this->aConf['urlrewriting'] = '0';
 		}
 	}
