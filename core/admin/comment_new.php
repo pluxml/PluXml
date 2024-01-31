@@ -132,25 +132,25 @@ if(!empty($_POST) AND !empty($_POST['content'])) {
 # On inclut le header
 include 'top.php';
 ?>
-<form action="comment_new.php?<?php echo plxUtils::strCheck($get) ?>" method="post" id="form_comment">
+<form action="comment_new.php?<?= plxUtils::strCheck($get) ?>" method="post" id="form_comment">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CREATE_NEW_COMMENT ?></h2>
+		<h2><?= L_CREATE_NEW_COMMENT ?></h2>
 		<?php if(!empty($_GET['a'])) : ?>
-		<p><a class="back" href="comments.php?a=<?php echo $_GET['a']; ?>"><?php echo L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
+		<p><a class="back" href="comments.php?a=<?= $_GET['a']; ?>"><?= L_BACK_TO_ARTICLE_COMMENTS ?></a></p>
 		<?php else : ?>
-		<p><a class="back" href="comments.php"><?php echo L_BACK_TO_COMMENTS ?></a></p>
+		<p><a class="back" href="comments.php"><?= L_BACK_TO_COMMENTS ?></a></p>
 		<?php endif; ?>
-		<input type="submit" name="create" value="<?php echo L_COMMENT_SAVE_BUTTON ?>"/>
+		<input type="submit" name="create" value="<?= L_COMMENT_SAVE_BUTTON ?>"/>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewTop')) # Hook Plugins ?>
 
-	<h3 class="no-margin"><?php echo L_COMMENT_LINKED_ARTICLE_FIELD ?>&nbsp;:&nbsp;<?php echo $article ?></h3>
+	<h3 class="no-margin"><?= L_COMMENT_LINKED_ARTICLE_FIELD ?>&nbsp;:&nbsp;<?= $article ?></h3>
 
 	<ul class="unstyled-list">
-		<li><?php echo L_COMMENT_AUTHOR_FIELD ?> : <strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
-		<li><?php echo L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
+		<li><?= L_COMMENT_AUTHOR_FIELD ?> : <strong><?= plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']); ?></strong></li>
+		<li><?= L_COMMENT_TYPE_FIELD ?> : <strong>admin</strong></li>
 	</ul>
 
 	<fieldset>
@@ -158,9 +158,9 @@ include 'top.php';
 			<div class="col sml-12">
 				<div id="id_answer"></div>
 				<?php plxUtils::printInput('parent',$parent,'hidden'); ?>
-				<?php echo plxToken::getTokenPostMethod() ?>
-				<label for="id_content"><?php echo L_COMMENT_ARTICLE_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($content), 60, 7, false,'full-width'); ?>
+				<?= plxToken::getTokenPostMethod() ?>
+				<label for="id_content"><?= L_COMMENT_ARTICLE_FIELD ?>&nbsp;:</label>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($content),60,7,false,'full-width','placeholder=" "'); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNew')) # Hook Plugins ?>
 			</div>
 		</div>
@@ -168,19 +168,19 @@ include 'top.php';
 </form>
 
 <?php if(isset($plxAdmin->plxRecord_coms)) : # On a des commentaires ?>
-	<h3><?php echo L_ARTICLE_COMMENTS_LIST ?></h3>
+	<h3><?= L_ARTICLE_COMMENTS_LIST ?></h3>
 	<?php while($plxAdmin->plxRecord_coms->loop()) : # On boucle ?>
 		<?php $comId = $plxAdmin->plxRecord_coms->f('article').'.'.$plxAdmin->plxRecord_coms->f('numero'); ?>
-		<div id="c<?php echo $comId ?>" class="comment<?php echo ((isset($_GET['c']) AND $_GET['c']==$comId)?' current':'') ?> level-<?php echo $plxAdmin->plxRecord_coms->f('level'); ?>">
-			<div id="com-<?php echo $plxAdmin->plxRecord_coms->f('index'); ?>">
+		<div id="c<?= $comId ?>" class="comment<?= ((isset($_GET['c']) AND $_GET['c']==$comId)?' current':'') ?> level-<?= $plxAdmin->plxRecord_coms->f('level'); ?>">
+			<div id="com-<?= $plxAdmin->plxRecord_coms->f('index'); ?>">
 				<small>
-					<span class="nbcom">#<?php echo $plxAdmin->plxRecord_coms->i+1 ?></span>&nbsp;
-					<time datetime="<?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php echo plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?></time> -
-					<?php echo L_COMMENT_WRITTEN_BY ?>&nbsp;<strong><?php echo $plxAdmin->plxRecord_coms->f('author'); ?></strong>
-					- <a href="comment.php<?php echo (!empty($_GET['a']))?'?c='.$comId.'&amp;a='.$_GET['a']:'?c='.$comId; ?>" title="<?php echo L_COMMENT_EDIT_TITLE ?>"><?php echo L_COMMENT_EDIT ?></a>
-					- <a href="#form_comment" onclick="replyCom('<?php echo $plxAdmin->plxRecord_coms->f('index') ?>')"><?php echo L_COMMENT_ANSWER ?></a>
+					<span class="nbcom">#<?= $plxAdmin->plxRecord_coms->i+1 ?></span>&nbsp;
+					<time datetime="<?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date'), '#day #num_day #month #num_year(4) &agrave; #hour:#minute'); ?></time> -
+					<?= L_COMMENT_WRITTEN_BY ?>&nbsp;<strong><?= $plxAdmin->plxRecord_coms->f('author'); ?></strong>
+					- <a href="comment.php<?= (!empty($_GET['a']))?'?c='.$comId.'&amp;a='.$_GET['a']:'?c='.$comId; ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><?= L_COMMENT_EDIT ?></a>
+					- <a href="#form_comment" onclick="replyCom('<?= $plxAdmin->plxRecord_coms->f('index') ?>')"><?= L_COMMENT_ANSWER ?></a>
 				</small>
-				<blockquote class="type-<?php echo $plxAdmin->plxRecord_coms->f('type'); ?>"><?php echo nl2br($plxAdmin->plxRecord_coms->f('content')); ?></blockquote>
+				<blockquote class="type-<?= $plxAdmin->plxRecord_coms->f('type'); ?>"><?= nl2br($plxAdmin->plxRecord_coms->f('content')); ?></blockquote>
 			</div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentNewList')) # Hook Plugins ?>
 		</div>
@@ -188,9 +188,9 @@ include 'top.php';
 <?php endif; ?>
 <script>
 function replyCom(idCom) {
-	document.getElementById('id_answer').innerHTML='<?php echo L_REPLY_TO ?> : ';
+	document.getElementById('id_answer').innerHTML='<?= L_REPLY_TO ?> : ';
 	document.getElementById('id_answer').innerHTML+=document.getElementById('com-'+idCom).innerHTML;
-	document.getElementById('id_answer').innerHTML+='<a href="javascript:void(0)" onclick="cancelCom()"><?php echo L_CANCEL ?></a>';
+	document.getElementById('id_answer').innerHTML+='<a href="javascript:void(0)" onclick="cancelCom()"><?= L_CANCEL ?></a>';
 	document.getElementById('id_answer').style.display='inline-block';
 	document.getElementById('id_parent').value=idCom;
 	document.getElementById('id_content').focus();

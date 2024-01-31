@@ -50,26 +50,26 @@ include 'top.php';
 
 ?>
 
-<form action="parametres_plugincss.php?p=<?php echo urlencode($plugin) ?>" method="post" id="form_file">
+<form action="parametres_plugincss.php?p=<?= urlencode($plugin) ?>" method="post" id="form_file">
 	<div class="inline-form action-bar">
-		<h2><?php echo plxUtils::strCheck($plugin) ?></h2>
-		<?php echo '<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
-		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+		<h2><?= plxUtils::strCheck($plugin) ?></h2>
+		<p><a class="back" href="parametres_plugins.php"><?= L_BACK_TO_PLUGINS ?></a></p>
+		<input name="submit" type="submit" value="<?= L_SAVE_FILE ?>" />
 	</div>
 
 	<fieldset>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_frontend"><?php echo L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend), 0, 20); ?>
+				<label for="id_frontend"><?= L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
+				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend),0,20,false,'full-width','placeholder=" "'); ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_backend"><?php echo L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend), 0, 20); ?>
+				<label for="id_backend"><?= L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
+				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend),0,20,false,'full-width','placeholder=" "'); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
-				<?php echo plxToken::getTokenPostMethod() ?>
+				<?= plxToken::getTokenPostMethod() ?>
 			</div>
 		</div>
 	</fieldset>

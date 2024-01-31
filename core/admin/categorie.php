@@ -53,10 +53,10 @@ include 'top.php';
 <form action="categorie.php" method="post" id="form_category">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_EDITCAT_PAGE_TITLE ?> "<?php echo plxUtils::strCheck($plxAdmin->aCats[$id]['name']); ?>"</h2>
-		<p><a class="back" href="categorie.php"><?php echo L_EDITCAT_BACK_TO_PAGE ?></a></p>
-		<?php echo plxToken::getTokenPostMethod() ?>
-		<input type="submit" value="<?php echo L_EDITCAT_UPDATE ?>"/>
+		<h2><?= L_EDITCAT_PAGE_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aCats[$id]['name']); ?>"</h2>
+		<p><a class="back" href="categorie.php"><?= L_EDITCAT_BACK_TO_PAGE ?></a></p>
+		<?= plxToken::getTokenPostMethod() ?>
+		<input type="submit" value="<?= L_EDITCAT_UPDATE ?>"/>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCategoryTop')) # Hook Plugins ?>
@@ -65,36 +65,36 @@ include 'top.php';
 		<div class="grid">
 			<div class="col sml-12">
 				<?php plxUtils::printInput('id', $id, 'hidden');?>
-				<label for="id_homepage"><?php echo L_EDITCAT_DISPLAY_HOMEPAGE ?>&nbsp;:</label>
+				<label for="id_homepage"><?= L_EDITCAT_DISPLAY_HOMEPAGE ?>&nbsp;:</label>
 				<?php plxUtils::printSelect('homepage',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aCats[$id]['homepage']);?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_content"><?php echo L_EDITCAT_DESCRIPTION ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aCats[$id]['description']),0,8) ?>
+				<label for="id_content"><?= L_EDITCAT_DESCRIPTION ?>&nbsp;:</label>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aCats[$id]['description']),0,8,false,'full-width','placeholder=" "') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_template"><?php echo L_EDITCAT_TEMPLATE ?>&nbsp;:</label>
+				<label for="id_template"><?= L_EDITCAT_TEMPLATE ?>&nbsp;:</label>
 				<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aCats[$id]['template']) ?>
 			</div>
 		</div>
 		<div class="grid gridthumb">
 			<div class="col sml-12">
 				<label for="id_thumbnail">
-					<?php echo L_THUMBNAIL ?>&nbsp;:&nbsp;
-					<a title="<?php echo L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
+					<?= L_THUMBNAIL ?>&nbsp;:&nbsp;
+					<a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 				</label>
 				<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail']),'text','255',false,'full-width','','onkeyup="refreshImg(this.value)"'); ?>
 				<div class="grid" style="padding-top:10px">
 					<div class="col sml-12 lrg-6">
-						<label for="id_thumbnail_title"><?php echo L_THUMBNAIL_TITLE ?>&nbsp;:</label>
+						<label for="id_thumbnail_title"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label>
 						<?php plxUtils::printInput('thumbnail_title',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail_title']),'text','255-255',false,'full-width'); ?>
 					</div>
 					<div class="col sml-12 lrg-6">
-						<label for="id_thumbnail_alt"><?php echo L_THUMBNAIL_ALT ?>&nbsp;:</label>
+						<label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label>
 						<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($plxAdmin->aCats[$id]['thumbnail_alt']),'text','255-255',false,'full-width'); ?>
 					</div>
 				</div>
@@ -114,21 +114,21 @@ include 'top.php';
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12">
-				<label for="id_title_htmltag"><?php echo L_EDITCAT_TITLE_HTMLTAG ?>&nbsp;:</label>
-				<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($plxAdmin->aCats[$id]['title_htmltag']),'text','50-255'); ?>
+			<div class="col sml-12 med-10 lrg-8">
+				<label for="id_title_htmltag"><?= L_EDITCAT_TITLE_HTMLTAG ?>&nbsp;:</label>
+				<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($plxAdmin->aCats[$id]['title_htmltag']),'text','50-255',false,'full-width'); ?>
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12">
-				<label for="id_meta_description"><?php echo L_EDITCAT_META_DESCRIPTION ?>&nbsp;:</label>
-				<?php plxUtils::printInput('meta_description',plxUtils::strCheck($plxAdmin->aCats[$id]['meta_description']),'text','50-255') ?>
+			<div class="col sml-12 med-10 lrg-8">
+				<label for="id_meta_description"><?= L_EDITCAT_META_DESCRIPTION ?>&nbsp;:</label>
+				<?php plxUtils::printInput('meta_description',plxUtils::strCheck($plxAdmin->aCats[$id]['meta_description']),'text','50-255',false,'full-width') ?>
 			</div>
 		</div>
 		<div class="grid">
-			<div class="col sml-12">
-				<label for="id_meta_keywords"><?php echo L_EDITCAT_META_KEYWORDS ?>&nbsp;:</label>
-				<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($plxAdmin->aCats[$id]['meta_keywords']),'text','50-255') ?>
+			<div class="col sml-12 med-10 lrg-8">
+				<label for="id_meta_keywords"><?= L_EDITCAT_META_KEYWORDS ?>&nbsp;:</label>
+				<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($plxAdmin->aCats[$id]['meta_keywords']),'text','50-255',false,'full-width') ?>
 			</div>
 		</div>
 	</fieldset>

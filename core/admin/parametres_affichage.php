@@ -202,7 +202,7 @@ include 'top.php';
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_content"><?= L_CONFIG_VIEW_FEEDS_FOOTER ?>&nbsp;:</label>
-				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aConf['feed_footer']),140,5,false,'full-width'); ?>
+				<?php plxUtils::printArea('content',plxUtils::strCheck($plxAdmin->aConf['feed_footer']),140,5,false,'full-width','placeholder=" "'); ?>
 			</div>
 		</div>
 

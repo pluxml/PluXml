@@ -75,22 +75,22 @@ include 'top.php';
 <form action="parametres_edittpl.php" method="post" id="form_edittpl">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<h2><?= L_CONFIG_EDITTPL_TITLE ?> &laquo;<?= plxUtils::strCheck($style) ?>&raquo;</h2>
+		<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+		<?= plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
-		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
+		<input name="load" type="submit" value="<?= L_CONFIG_EDITTPL_LOAD ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+		<input name="submit" type="submit" value="<?= L_SAVE_FILE ?>" />
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')) # Hook Plugins ?>
 
 	<div class="grid">
 		<div class="col sml-12">
-			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
+			<label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
 			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 20); ?>
+			<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20,false,'full-width','placeholder=" "'); ?>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>

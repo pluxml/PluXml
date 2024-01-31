@@ -325,8 +325,8 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 				<div class="grid">
 					<div class="col sml-12">
 						<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
-						<label for="id_title"><?= L_ARTICLE_TITLE ?>&nbsp;:</label>
-						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
+						<label for="id_title" class="required"><?= L_ARTICLE_TITLE ?>&nbsp;:</label>
+						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width',L_ARTICLE_TITLE,'',true); ?>
 					</div>
 				</div>
 				<div class="grid">
@@ -349,14 +349,14 @@ if(!empty($artId) AND $artId!='0000') {
 						<input class="toggler" type="checkbox" id="toggler_chapo"<?= (empty($_GET['a']) || ! empty(trim($chapo))) ? ' checked' : ''; ?> />
 						<label for="toggler_chapo"><?= L_HEADLINE_FIELD;?> : <span><?= L_ARTICLE_CHAPO_HIDE;?></span><span><?= L_ARTICLE_CHAPO_DISPLAY;?></span></label>
 						<div>
-							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8); ?>
+							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8,false,'full-width','placeholder=" "'); ?>
 						</div>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20); ?>
+						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20,false,'full-width','placeholder=" "'); ?>
 					</div>
 				</div>
 			</fieldset>
@@ -441,12 +441,12 @@ else
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<label><?= L_ARTICLE_DATE ?>&nbsp;:</label>
+						<label class="required"><?= L_ARTICLE_DATE ?>&nbsp;:</label>
 						<div class="inline-form publication">
-							<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
-							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
-							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
-							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
+							<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day',date('d'),'pattern="\d{2}"',true); ?>
+							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month',date('m'),'pattern="\d{2}"',true); ?>
+							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year',date('Y'),'pattern="\d{4}"',true); ?>
+							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time',date('H:m'),'pattern="\d{2}:\d{2}"',true); ?>
 							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
 								<img src="theme/images/date.png" alt="calendar" />
 							</a>
@@ -455,12 +455,12 @@ else
 				</div>
 			<div class="grid">
 				<div class="col sml-12">
-					<label><?= L_DATE_CREATION ?>&nbsp;:</label>
+					<label class="required"><?= L_DATE_CREATION ?>&nbsp;:</label>
 					<div class="inline-form creation">
-						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day',date('d'),'pattern="\d{2}"',true); ?>
+						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month',date('m'),'pattern="\d{2}"',true); ?>
+						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year',date('Y'),'pattern="\d{4}"',true); ?>
+						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time',date('H:m'),'pattern="\d{2}:\d{2}"',true); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
@@ -470,12 +470,12 @@ else
 			<div class="grid">
 				<div class="col sml-12">
 					<?php plxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
-					<label><?= L_DATE_UPDATE ?>&nbsp;:</label>
+					<label class="required"><?= L_DATE_UPDATE ?>&nbsp;:</label>
 					<div class="inline-form update">
-						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day',date('d'),'pattern="\d{2}"',true); ?>
+						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month',date('m'),'pattern="\d{2}"',true); ?>
+						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year',date('Y'),'pattern="\d{4}"',true); ?>
+						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time',date('H:m'),'pattern="\d{2}:\d{2}"',true); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>

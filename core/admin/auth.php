@@ -215,8 +215,8 @@ plxUtils::cleanHeaders();
 <?php
 					break; # End of : case 'lostpassword'
 				case 'changepassword': # Affichage du formulaire de changement de mot passe
-					$lostPasswordToken = $_GET['token'];
-					if ($plxAdmin->verifyLostPasswordToken($lostPasswordToken)) {
+					$lostPasswordToken = filter_has_var(INPUT_GET, 'token')? $_GET['token']: false;# Fix Warning: Undefined array key "token"
+					if ($lostPasswordToken and $plxAdmin->verifyLostPasswordToken($lostPasswordToken)) {
 						# Hook plugins
 						eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword'));
 ?>
@@ -228,14 +228,17 @@ plxUtils::cleanHeaders();
 								<h1 class="h5 text-center"><strong><?= L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
 								<div class="grid">
 									<div class="col sml-12">
+										<label for="id_password1"><?= L_PROFIL_PASSWORD ?>&nbsp;:</label>
 										<i class="ico icon-lock"></i>
-										<?php plxUtils::printInput('password1', '', 'password', '10-255', false, 'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+										<?php plxUtils::printInput('password1', '', 'password', '10-255', false, 'full-width', L_PROFIL_PASSWORD, '', true) ?>
 									</div>
 								</div>
 								<div class="grid">
 									<div class="col sml-12">
+										<label for="id_password2"><?= L_PROFIL_CONFIRM_PASSWORD ?><span data-lang="&nbsp;❌|&nbsp;✅"></span>&nbsp;:</label>
 										<i class="ico icon-lock"></i>
-										<?php plxUtils::printInput('password2', '', 'password', '10-255', false, 'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
+										<?php plxUtils::printInput('password2', '', 'password', '10-255', false, 'full-width', L_PROFIL_CONFIRM_PASSWORD, '', true) ?>
+
 									</div>
 								</div>
 								<div class="grid">
