@@ -448,7 +448,7 @@ input[maxlength="3"] {
 
 .publication input {
 	font-weight: bold;
-	color: #777;
+	color: #555;
 }
 
 .day,
@@ -472,12 +472,46 @@ input[maxlength="3"] {
 	color: #aaa;
 }
 
+.required::after {
+	content: '*';
+	color: red;
+	margin-left: 0.5rem;
+}
+
 input.readonly:focus {
 	border-color: #aaa;
 }
 
 input.readonly:hover {
 	cursor: not-allowed;
+}
+
+/* ---- validité dynamique ---- */
+
+input:invalid,
+textarea:invalid {
+	border: 1px solid #900000;
+}
+input:invalid:focus,
+textarea:invalid:focus {
+	border: 1px solid #c00000;
+}
+/* Bords vert si remplit et valide */
+input:not(:placeholder-shown):not([type="button"]):not([type="submit"]):not([type="reset"]):valid:focus,
+textarea:not(:placeholder-shown):valid:focus {
+	border: 1px solid #00c000;
+}
+/* Point rouge si invalide */
+input:not([type="radio"]):not([type="checkbox"]):optional:invalid:focus,
+input:not([type="radio"]):not([type="checkbox"]):required:invalid {
+	background-image: radial-gradient(
+			red 25%,
+			transparent 26%
+		),
+		radial-gradient(red 25%, transparent 26%);
+	background-size: 1.2em 1.2em;
+	background-position: right center;
+	background-repeat: no-repeat;
 }
 
 #id_link {

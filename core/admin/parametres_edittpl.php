@@ -46,19 +46,19 @@ function listFolderFiles($dir, $include, $root=''){
 	$ffs = scandir($dir);
 	foreach($ffs as $ff){
 		if($ff!='.' && $ff!='..') {
-			$ext = strtolower(strrchr($ff,'.'));
-			if(!is_dir($dir.'/'.$ff) AND is_array($include) AND in_array($ext,$include)) {
-				$f = str_replace($root, '', PLX_ROOT.ltrim($dir.'/'.$ff,'./'));
+			$ext = strtolower(strrchr($ff, '.'));
+			if(!is_dir($dir.'/'.$ff) AND is_array($include) AND in_array($ext, $include)) {
+				$f = str_replace($root, '', PLX_ROOT.ltrim($dir.'/'.$ff, './'));
 				$content[$f] = $f;
 			}
 			if(is_dir($dir.'/'.$ff))
-				$content = array_merge($content, listFolderFiles($dir.'/'.$ff,$include,$root));
+				$content = array_merge($content, listFolderFiles($dir.'/'.$ff, $include, $root));
 		}
 	}
 	return $content;
 }
 $root = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style;
-$aTemplates=listFolderFiles($root, array('.php','.css','.htm','.html','.txt','.js','.xml'), $root);
+$aTemplates=listFolderFiles($root, array('.php', '.css', '.htm', '.html', '.txt', '.js', '.xml'), $root);
 
 # On récupère le contenu du fichier template
 $content = '';
@@ -75,23 +75,23 @@ include 'top.php';
 <form action="parametres_edittpl.php" method="post" id="form_edittpl">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<h2><?= L_CONFIG_EDITTPL_TITLE ?> &laquo;<?= plxUtils::strCheck($style) ?>&raquo;</h2>
+		<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+		<?= plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
-		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
+		<input name="load" type="submit" value="<?= L_CONFIG_EDITTPL_LOAD ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+		<input name="submit" type="submit" value="<?= L_SAVE_FILE ?>" />
 	</div>
 
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')) # Hook Plugins ?>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')); # Hook Plugins ?>
 
 	<div class="grid">
 		<div class="col sml-12">
-			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 20); ?>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
+			<label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
+			<?php plxUtils::printInput('tpl', plxUtils::strCheck($tpl), 'hidden'); ?>
+			<?php plxUtils::printArea('content', plxUtils::strCheck($content), 0, 20, false, 'full-width', 'placeholder=" "'); ?>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')); # Hook Plugins ?>
 		</div>
 	</div>
 
