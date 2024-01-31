@@ -100,8 +100,8 @@ var DragDrop = {
 (function() {
 	// Checks password
 
-	// Enable only for install.php and profil.php
-	if(!/\/(?:install|profil)\.php$/.test(document.URL)) {
+	// Disable for auth.php + ?p= but active on auth.php?.* (plugins & action=changepassword)
+	if(/((?:\/auth\.php)(?:\?p=)?)(?!\?.*=)/.test(document.URL)) {
 		return
 	}
 
