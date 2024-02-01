@@ -81,7 +81,7 @@ include 'top.php';
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_template"><?= L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('template', $plxAdmin->getStaticTemplates(), $template); ?>
+					<?php plxUtils::printSelect('template', $plxAdmin->getTemplatesTheme(), $template); ?>
 				</div>
 			</div>
 			<div class="grid">

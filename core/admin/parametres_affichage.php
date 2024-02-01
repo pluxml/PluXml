@@ -28,16 +28,6 @@ if(!empty($_POST)) {
 	exit;
 }
 
-# On récupère les templates de la page d'accueil
-$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#home(?:-[\w-]+)?\.php$#');
-if (!empty($glob->aFiles)) {
-	$aTemplates = array();
-	foreach($glob->aFiles as $v)
-		$aTemplates[$v] = basename($v, '.php');
-} else {
-	$aTemplates = array('' => L_NONE1);
-}
-
 # Tableau du tri
 $aTriArts = array(
 	'desc'		=> L_SORT_DESCENDING_DATE,
@@ -79,7 +69,7 @@ include 'top.php';
 				<label for="id_hometemplate"><?= L_CONFIG_HOMETEMPLATE ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printSelect('hometemplate', $aTemplates, $plxAdmin->aConf['hometemplate']) ?>
+				<?php plxUtils::printSelect('hometemplate', $plxAdmin->getTemplatesTheme('home'), $plxAdmin->aConf['hometemplate']) ?>
 			</div>
 		</div>
 		<div class="grid">

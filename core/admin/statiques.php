@@ -29,7 +29,7 @@ if(!empty($_POST)) {
 	exit;
 }
 
-$aTemplates = $plxAdmin->getStaticTemplates();
+$aTemplates = $plxAdmin->getTemplatesTheme();
 
 # On inclut le header
 include 'top.php';

@@ -36,16 +36,6 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de la catégorie
 	exit;
 }
 
-# On récupère les templates des catégories
-$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#^categorie(?:-[\w-]+)?\.php$#');
-if (!empty($glob->aFiles)) {
-	$aTemplates = array();
-	foreach($glob->aFiles as $v)
-		$aTemplates[$v] = basename($v, '.php');
-} else {
-	$aTemplates = array('' => L_NONE1);
-}
-
 # On inclut le header
 include 'top.php';
 ?>
@@ -78,7 +68,7 @@ include 'top.php';
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_template"><?= L_EDITCAT_TEMPLATE ?>&nbsp;:</label>
-				<?php plxUtils::printSelect('template', $aTemplates, $plxAdmin->aCats[$id]['template']) ?>
+				<?php plxUtils::printSelect('template', $plxAdmin->getTemplatesTheme('categorie'), $plxAdmin->aCats[$id]['template']) ?>
 			</div>
 		</div>
 		<div class="grid gridthumb">

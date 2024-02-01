@@ -1160,11 +1160,12 @@ EOT;
 	/**
 	 * Méthode qui retourne la liste des templates pour les pages statiques
 	 *
+	 * @param	string $prefix préfixe du nom des templates : article, static, categorie, home, tag, archive, ...
 	 * @return	array	liste des templates
 	 * @author	Jean-Pierre Pourrez @bazooka07
 	 **/
-	public function getStaticTemplates() {
-		$glob = plxGlob::getInstance(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'], false, true, '#^^static(?:-[\w-]+)?\.php$#');
+	public function getTemplatesTheme($prefix='static') {
+		$glob = plxGlob::getInstance(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'], false, true, '#^^' . $prefix . '(?:-[\w-]+)?\.php$#');
 		if (empty($glob->aFiles)) {
 			return array('' => L_NONE1);
 		}
