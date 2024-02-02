@@ -86,7 +86,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 					# site
 					if($plugInstance->getInfo('site')!='') {
 ?>
- - <a href="<?= plxUtils::strCheck($plugInstance->getInfo('site')) ?>"><?= plxUtils::strCheck($plugInstance->getInfo('site')) ?></a>
+ - <a href="<?= plxUtils::strCheck($plugInstance->getInfo('site')) ?>" target="_blank"><?= plxUtils::strCheck($plugInstance->getInfo('site')) ?></a>
 <?php
 					}
 ?>
@@ -192,21 +192,25 @@ include 'top.php';
 
 	<div class="inline-form action-bar">
 		<h2>
-			<?php echo L_PLUGINS_TITLE ?>
+			<?= L_PLUGINS_TITLE ?>
 			<span data-scope="admin">Admin</span>
 			<span data-scope="site">Site</span>
 		</h2>
 
 		<ul class="menu">
-			<?php echo implode($breadcrumbs); ?>
+			<?= implode($breadcrumbs) ?>
 		</ul>
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<?= plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<?php if($sel==1) { ?>
-		<input type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
-		<?php } ?>
+<?php
+if($sel==1) {
+?>
+		<input type="submit" name="update" value="<?= L_PLUGINS_APPLY_BUTTON ?>" />
+<?php
+}
+?>
 	</div>
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
@@ -217,15 +221,15 @@ include 'top.php';
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
 					<th>&nbsp;</th>
-					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
+					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" /></th>
 					<?php if($_SESSION['selPlugins']=='1') : ?>
-					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
+					<th><?= L_PLUGINS_LOADING_SORT ?></th>
 					<?php endif; ?>
-					<th><?php echo L_PLUGINS_ACTION ?></th>
+					<th><?= L_PLUGINS_ACTION ?></th>
 				</tr>
 			</thead>
 			<tbody>
-<?php echo $plugins ?>
+<?= $plugins ?>
 			</tbody>
 		</table>
 	</div>

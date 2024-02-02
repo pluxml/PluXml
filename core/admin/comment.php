@@ -175,24 +175,28 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_site">
-				<?= L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;';
-				if($site != '')	echo '<a href="'.$site.'">'.$site.'</a>';
-				?>
-				</label>
-				<?php
-				plxUtils::printInput('site', $site, 'text', '40-255');
-				?>
+				<label for="id_site"><?= L_COMMENT_SITE_FIELD.'&nbsp;:&nbsp;'; ?></label>
+<?php
+				if(!empty($site)) {
+?>
+						<a href="<?= $site ?>" target="_blank"><?= $site ?></a>
+<?php
+					}
+?>
+				<?php plxUtils::printInput('site', $site, 'text', '40-255'); ?>
 			</div>
 		</div>
 
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_mail"><?= L_COMMENT_EMAIL_FIELD ?> :
-				<?php if($plxAdmin->plxRecord_coms->f('mail') != '') : ?>
-				<a href="mailto:<?= $plxAdmin->plxRecord_coms->f('mail') ?>"><?= $plxAdmin->plxRecord_coms->f('mail') ?></a>
-				<?php endif; ?>
-				</label>
+				<label for="id_mail"><?= L_COMMENT_EMAIL_FIELD ?> : </label>
+<?php
+				if(!empty($plxAdmin->plxRecord_coms->f('mail'))) {
+?>
+					<a href="mailto:<?= $plxAdmin->plxRecord_coms->f('mail') ?>"><?= $plxAdmin->plxRecord_coms->f('mail') ?></a>
+<?php
+				}
+?>
 				<?php plxUtils::printInput('mail', plxUtils::strCheck($plxAdmin->plxRecord_coms->f('mail')), 'text', '40-255'); ?>
 			</div>
 		</div>

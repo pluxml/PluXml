@@ -36,19 +36,8 @@ switch($help) {
 		exit;
 }
 
-$output='';
 # chargement du fichier d'aide du thème
-if(is_file($filename)) {
-	ob_start();
-	echo '
-	<div class="inline-form action-bar">
-		<h2>'.plxUtils::strCheck($page).'</h2>
-		<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
-	</div>';
-	include  $filename;
-	$output=ob_get_clean();
-}
-else {
+if(!file_exists($filename)) {
 	plxMsg::Error(L_NO_ENTRY);
 	header('Location: '.$back_to);
 	exit;
@@ -56,8 +45,13 @@ else {
 
 # On inclut le header
 include 'top.php';
-# Affichage des données
-echo $output;
+?>
+	<div class="inline-form action-bar">
+		<h2><?= plxUtils::strCheck($page) ?></h2>
+		<p><a class="back" href="<?= $back_to ?>"><?= $back_to_title ?></a></p>
+	</div>
+<?php
+include  $filename;
 
 # On inclut le footer
 include 'foot.php';

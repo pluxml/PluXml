@@ -43,10 +43,10 @@ use League\OAuth2\Client\Provider\Google;
 include 'prepend.php';
 
 if (!isset($_GET['code']) && !isset($_GET['provider'])) {
-	include __DIR__ .'/top.php';
+	include 'top.php';
 ?>
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_ADVANCED_DESC ?></h2>
+		<h2><?= L_CONFIG_ADVANCED_DESC ?></h2>
 	</div>
 	<div>
 		<p>Select Provider:</p>

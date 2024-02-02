@@ -46,10 +46,10 @@ function checkBox(cb) {
 <form action="statiques.php" method="post" id="form_statics">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
-		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+		<h2><?= L_STATICS_PAGE_TITLE ?></h2>
+		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection'); ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?= L_CONFIRM_DELETE ?>')" />
 		<?= plxToken::getTokenPostMethod() ?>
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
@@ -110,7 +110,7 @@ function checkBox(cb) {
 <?php
 						if($v['active']) {
 ?>
-							&nbsp;&nbsp;<a href="<?= $plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> '<?= plxUtils::strCheck($v['name']); ?>' <?= L_STATIC_ON_SITE ?>"><?= L_VIEW ?></a>
+							&nbsp;&nbsp;<a href="<?= $plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> '<?= plxUtils::strCheck($v['name']); ?>' <?= L_STATIC_ON_SITE ?>" target="_blank"><?= L_VIEW ?></a>
 <?php
 						}
 					} else {

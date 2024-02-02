@@ -355,7 +355,7 @@ const L_CONFIG_VIEW_IMAGES = 'Image Size (width x height)';
 const L_CONFIG_VIEW_THUMBS = 'Thumbnails size (width x height)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Use a static page as Homepage';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Warning: this page is inactive';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Download themes at <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Download themes at %s.';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'N° of Articles or comments in the Rss feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Only display headlines in the Rss article feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Headline field is empty, content is displayed instead';

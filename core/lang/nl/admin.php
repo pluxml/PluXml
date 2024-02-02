@@ -355,7 +355,7 @@ const L_CONFIG_VIEW_IMAGES = 'Beeldformaat (breedte x hoogte)';
 const L_CONFIG_VIEW_THUMBS = 'Grootte thumbnails (breedte x hoogte)';
 const L_CONFIG_VIEW_HOMESTATIC = 'een statische pagina als verwelkomingspagina gebruiken';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Opgelet. Deze pagina is niet actief';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Nieuwe layouts downloaden op <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Nieuwe layouts downloaden op %s.';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Aantal artikels/commentaar in RSS feed';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Korte samenvatting in RSS feed opnemen';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Indien samenvatting leeg is zal artikelinhoud getoond worden';

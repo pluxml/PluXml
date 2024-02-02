@@ -355,7 +355,7 @@ const L_CONFIG_VIEW_IMAGES = 'Размер изображения (Ширина 
 const L_CONFIG_VIEW_THUMBS = 'Размер эскизов (Ширина х Высота)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Использовать статическую страницу как Главную страницу';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Внимание: Эта страница неактивна';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Загрузка тем <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Загрузка тем %s.';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'N° статьи или комментария в RSS-потоке';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Отображать только заголовки статей в RSS-потоке';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Поле Заголовка пустое, вместо него отображается содержимое статьи';
