@@ -257,14 +257,15 @@ class plxUtils {
 		 if(!empty($extra))
 			 $params[] = $extra;
 		 if($type != 'hidden') {
-			if($required === true)
-				$params[] = 'required="required"';
+			$className = explode(' ', trim($className));
 			if($readonly === true)
-				$params[] = 'readonly="readonly" class="readonly"';
-			if(!empty($className))
-				$params[] = 'class="'.$className.'"';
-			if(!empty($placeholder))
-				$params[] = 'placeholder="'.$placeholder.'"';
+				$params[] = $className[] = 'readonly';
+			elseif($required === true)
+				$params[] = $className[] = 'required';# Note : [L'attribut required n'est pas autorisé sur les entrées pour lesquelles l'attribut readonly est spécifié.](https://developer.mozilla.org/fr/docs/Web/HTML/Attributes/readonly#sect2)
+			if(!empty($className)) # fix double attribut 'class' class="readonly"
+				$params[] = 'class="'.$className = implode(' ', $className).'"';
+			if(in_array($type, explode(' ','text search url tel email password number')))
+				$params[] = 'placeholder="'.($placeholder?$placeholder:' ').'"';# Petit hack pour trouver les champs vide en css input:not(:placeholder-shown)
 			if(!empty($sizes) AND (strpos($sizes, '-') !== false)) {
 				list($size, $maxlength) = explode('-', $sizes);
 				if(!empty($size))
@@ -327,17 +328,14 @@ class plxUtils {
 				'name="' . $name . '"'
 		);
 		if (!empty($cols) and is_integer($cols)) {
-			$attrs [] = 'cols="' . $cols . '"';
+			$attrs[] = 'cols="' . $cols . '"';
 		}
 		if (!empty($rows) and is_integer($rows)) {
 			$attrs[] = 'rows="' . $rows . '"';
 		}
-		$classList = array();
+		$classList = explode(' ', trim($className));
 		if ($readonly === true) {
-			$classList[] = 'readonly';
-		}
-		if (!empty($className) and is_string($className) and strlen(trim($className)) > 0) {
-			$classList[] = trim($className);
+			$attrs[] = $classList[] = 'readonly';
 		}
 		if (!empty($classList)) {
 			$attrs[] = 'class="' . implode(' ', $classList) . '"';

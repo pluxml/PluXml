@@ -22,11 +22,11 @@ if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
 
 	$valid=true;
 	# Vérification de la validité de la date de création
-	if(!plxDate::checkDate($_POST['date_creation_day'],$_POST['date_creation_month'],$_POST['date_creation_year'],$_POST['date_creation_time'])) {
+	if(!plxDate::checkDate($_POST['date_creation_day'], $_POST['date_creation_month'], $_POST['date_creation_year'], $_POST['date_creation_time'])) {
 		$valid = plxMsg::Error(L_ERR_INVALID_DATE_CREATION) AND $valid;
 	}
 	# Vérification de la validité de la date de mise à jour
-	if(!plxDate::checkDate($_POST['date_update_day'],$_POST['date_update_month'],$_POST['date_update_year'],$_POST['date_update_time'])) {
+	if(!plxDate::checkDate($_POST['date_update_day'], $_POST['date_update_month'], $_POST['date_update_year'], $_POST['date_update_time'])) {
 		$valid = plxMsg::Error(L_ERR_INVALID_DATE_UPDATE) AND $valid;
 	}
 	if($valid) $plxAdmin->editStatique($_POST);
@@ -79,13 +79,13 @@ include 'top.php';
 		<?php plxUtils::printInput('id', $id, 'hidden');?>
 	</div>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')); # Hook Plugins ?>
 
 		<fieldset>
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printArea('content', plxUtils::strCheck($content), 0, 30); ?>
+					<?php plxUtils::printArea('content', plxUtils::strCheck($content), 0, 30, false, 'full-width') ?>
 				</div>
 			</div>
 			<div class="grid">
@@ -97,29 +97,29 @@ include 'top.php';
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_title_htmltag"><?= L_STATIC_TITLE_HTMLTAG ?>&nbsp;:</label>
-					<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','50-255'); ?>
+					<?php plxUtils::printInput('title_htmltag', plxUtils::strCheck($title_htmltag), 'text', '50-255'); ?>
 				</div>
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_meta_description"><?= L_STATIC_META_DESCRIPTION ?>&nbsp;:</label>
-					<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','50-255'); ?>
+					<?php plxUtils::printInput('meta_description', plxUtils::strCheck($meta_description), 'text', '50-255'); ?>
 				</div>
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_meta_keywords"><?= L_STATIC_META_KEYWORDS ?>&nbsp;:</label>
-					<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','50-255'); ?>
+					<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords), 'text', '50-255'); ?>
 				</div>
 			</div>
 			<div class="grid">
 				<div class="col sml-12">
 					<label><?= L_DATE_CREATION ?>&nbsp;:</label>
 					<div class="inline-form creation">
-						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+						<?php plxUtils::printInput('date_creation_day', $date_creation['day'], 'text', '2-2', false, 'day', date('d'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_creation_month', $date_creation['month'], 'text', '2-2', false, 'month', date('m'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_creation_year', $date_creation['year'], 'text', '2-4', false, 'year', date('Y'), 'pattern="\d{4}"', true); ?>
+						<?php plxUtils::printInput('date_creation_time', $date_creation['time'], 'text', '2-5', false, 'time', date('H:i'), 'pattern="\d{2}:\d{2}"', true); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?= L_NOW; ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
@@ -131,10 +131,10 @@ include 'top.php';
 					<?php plxUtils::printInput('date_update', $plxAdmin->aStats[$id]['date_update'], 'hidden');?>
 					<label><?= L_DATE_UPDATE ?>&nbsp;:</label>
 					<div class="inline-form update">
-						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+						<?php plxUtils::printInput('date_update_day', $date_update['day'], 'text', '2-2', false, 'day', date('d'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_update_month', $date_update['month'], 'text', '2-2', false, 'month', date('m'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_update_year', $date_update['year'], 'text', '2-4', false, 'year', date('Y'), 'pattern="\d{4}"', true); ?>
+						<?php plxUtils::printInput('date_update_time', $date_update['time'], 'text', '2-5', false, 'time', date('H:i'), 'pattern="\d{2}:\d{2}"', true); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?= L_NOW; ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
@@ -142,7 +142,7 @@ include 'top.php';
 				</div>
 			</div>
 		</fieldset>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
+	<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')); # Hook Plugins ?>
 	<?= plxToken::getTokenPostMethod() ?>
 
 </form>

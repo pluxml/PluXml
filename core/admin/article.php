@@ -17,7 +17,7 @@ if(!isset($_POST['preview']))
 eval($plxAdmin->plxPlugins->callHook('AdminArticlePrepend'));
 
 # validation de l'id de l'article si passé en parametre
-if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
+if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/', $_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
@@ -30,7 +30,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	# Titre par défaut si titre vide
 	if(trim($_POST['title'])=='') $_POST['title'] = L_DEFAULT_NEW_ARTICLE_TITLE;
 	# Si demande d'enregistrement en brouillon on ajoute la categorie draft à la liste et on retire la demande de validation
-	if(isset($_POST['draft']) AND !in_array('draft',$_POST['catId'])) array_unshift($_POST['catId'], 'draft');
+	if(isset($_POST['draft']) AND !in_array('draft', $_POST['catId'])) array_unshift($_POST['catId'], 'draft');
 	# si aucune catégorie sélectionnée on place l'article dans la catégorie "non classé"
 	if(sizeof($_POST['catId'])==1 AND $_POST['catId'][0]=='draft') $_POST['catId'][]='000';
 	else $_POST['catId'] = array_filter($_POST['catId'], function($a){return $a!="000";});
@@ -71,11 +71,11 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			foreach($_POST['catId'] as $k => $v) {
 				if($v!='draft') $array[]=$v;
 			}
-			$art['categorie']=implode(',',$array);
+			$art['categorie']=implode(',', $array);
 		}
-		$art['date'] = $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':','',$_POST['date_publication_time']),0,4);
-		$art['date_creation'] = $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4);
-		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
+		$art['date'] = $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':', '', $_POST['date_publication_time']), 0, 4);
+		$art['date_creation'] = $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':', '', $_POST['date_creation_time']), 0, 4);
+		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':', '', $_POST['date_update_time']), 0, 4);
 		$art['nb_com'] = 0;
 		$tmpstr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
 		$art['url'] = plxUtils::urlify($tmpstr);
@@ -102,26 +102,26 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		# Vérification de l'unicité de l'url
 		$url = plxUtils::urlify(!empty($_POST['url']) ? $_POST['url'] : $_POST['title']);
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
-			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.$url.xml$/", $filename)) {
-				if($numart!=str_replace('_', '',$_POST['artId'])) {
+			if(preg_match("/^_?\d{4}.([0-9,|home|draft]*).\d{3}.\d{12}.$url.xml$/", $filename)) {
+				if($numart!=str_replace('_', '', $_POST['artId'])) {
 					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($url)) AND $valid;
 				}
 			}
 		}
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($_POST['date_publication_day'],$_POST['date_publication_month'],$_POST['date_publication_year'],$_POST['date_publication_time'])) {
+		if(!plxDate::checkDate($_POST['date_publication_day'], $_POST['date_publication_month'], $_POST['date_publication_year'], $_POST['date_publication_time'])) {
 			$valid = plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE) AND $valid;
 		}
 		# Vérification de la validité de la date de creation
-		if(!plxDate::checkDate($_POST['date_creation_day'],$_POST['date_creation_month'],$_POST['date_creation_year'],$_POST['date_creation_time'])) {
+		if(!plxDate::checkDate($_POST['date_creation_day'], $_POST['date_creation_month'], $_POST['date_creation_year'], $_POST['date_creation_time'])) {
 			$valid = plxMsg::Error(L_ERR_INVALID_DATE_CREATION) AND $valid;
 		}
 		# Vérification de la validité de la date de mise à jour
-		if(!plxDate::checkDate($_POST['date_update_day'],$_POST['date_update_month'],$_POST['date_update_year'],$_POST['date_update_time'])) {
+		if(!plxDate::checkDate($_POST['date_update_day'], $_POST['date_update_month'], $_POST['date_update_year'], $_POST['date_update_time'])) {
 			$valid = plxMsg::Error(L_ERR_INVALID_DATE_UPDATE) AND $valid;
 		}
 		if($valid) {
-			$plxAdmin->editArticle($_POST,$_POST['artId']);
+			$plxAdmin->editArticle($_POST, $_POST['artId']);
 			header('Location: article.php?a='.$_POST['artId']);
 			exit;
 		# Si url ou date invalide, on ne sauvegarde pas mais on repasse en mode brouillon
@@ -219,9 +219,9 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	$content = '';
 	$tags = '';
 	$author = $_SESSION['user'];
-	$date = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
-	$date_creation = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
-	$date_update = array ('year' => date('Y'),'month' => date('m'),'day' => date('d'),'time' => date('H:i'));
+	$date = array('year' => date('Y'), 'month' => date('m'), 'day' => date('d'), 'time' => date('H:i'));
+	$date_creation = array('year' => date('Y'), 'month' => date('m'), 'day' => date('d'), 'time' => date('H:i'));
+	$date_update = array('year' => date('Y'), 'month' => date('m'), 'day' => date('d'), 'time' => date('H:i'));
 	$date_update_old = '';
 	$catId = array('draft');
 	$artId = '0000';
@@ -265,7 +265,7 @@ $cat_id='000';
 <form method="post" id="form_article">
 
 	<div class="inline-form action-bar">
-		<h2><?= (empty($_GET['a'])) ? L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING; ?></h2>
+		<h2><?= empty($_GET['a']) ? L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING ?></h2>
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
 <?php
@@ -278,7 +278,7 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="if(confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>')) { this.form.target='_self'; return true; } else { return false; }" />
 <?php
 	} else {
-					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a'])) { # en attente
+					if(isset($_GET['a']) AND preg_match('/^_\d{4}$/', $_GET['a'])) { # en attente
 ?>
 		<input onclick="this.form.target='_self';return true;" type="submit" name="update" value="<?= L_ARTICLE_UPDATE_BUTTON ?>"/>
 		<input onclick="this.form.target='_self';return true;" type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
@@ -298,7 +298,7 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 		<input onclick="this.form.target=_self;return true;" type="submit" name="publish" value="<?= L_ARTICLE_PUBLISHING_BUTTON ?>"/>
 <?php
 	} else {
-		if(!isset($_GET['a']) OR preg_match('/^_[0-9]{4}$/',$_GET['a'])) {
+		if(!isset($_GET['a']) OR preg_match('/^_\d{4}$/', $_GET['a'])) {
 ?>
 		<input onclick="this.form.target=_self;return true;" type="submit" name="publish" value="<?= L_ARTICLE_PUBLISHING_BUTTON ?>"/>
 <?php
@@ -318,15 +318,15 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 }
 ?>
 	</div>
-<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')); # Hook Plugins ?>
 	<div class="grid">
 		<div class="col sml-12 med-7 lrg-8">
 			<fieldset>
 				<div class="grid">
 					<div class="col sml-12">
-						<?php plxUtils::printInput('artId',$artId,'hidden'); ?>
-						<label for="id_title"><?= L_ARTICLE_TITLE ?>&nbsp;:</label>
-						<?php plxUtils::printInput('title',plxUtils::strCheck($title),'text','42-255',false,'full-width'); ?>
+						<?php plxUtils::printInput('artId', $artId, 'hidden'); ?>
+						<label for="id_title" class="required"><?= L_ARTICLE_TITLE ?>&nbsp;:</label>
+						<?php plxUtils::printInput('title', plxUtils::strCheck($title), 'text', '42-255', false, 'full-width', L_ARTICLE_TITLE, '', true); ?>
 					</div>
 				</div>
 				<div class="grid">
@@ -349,14 +349,14 @@ if(!empty($artId) AND $artId!='0000') {
 						<input class="toggler" type="checkbox" id="toggler_chapo"<?= (empty($_GET['a']) || ! empty(trim($chapo))) ? ' checked' : ''; ?> />
 						<label for="toggler_chapo"><?= L_HEADLINE_FIELD;?> : <span><?= L_ARTICLE_CHAPO_HIDE;?></span><span><?= L_ARTICLE_CHAPO_DISPLAY;?></span></label>
 						<div>
-							<?php plxUtils::printArea('chapo',plxUtils::strCheck($chapo),0,8); ?>
+							<?php plxUtils::printArea('chapo', plxUtils::strCheck($chapo), 0, 8, false, 'full-width', 'placeholder=" "'); ?>
 						</div>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printArea('content',plxUtils::strCheck($content),0,20); ?>
+						<?php plxUtils::printArea('content', plxUtils::strCheck($content), 0, 20, false, 'full-width', 'placeholder=" "'); ?>
 					</div>
 				</div>
 			</fieldset>
@@ -366,15 +366,15 @@ if(!empty($artId) AND $artId!='0000') {
 						<?= L_THUMBNAIL ?>&nbsp;:&nbsp;
 						<a title="<?= L_THUMBNAIL_SELECTION ?>" id="toggler_thumbnail" href="javascript:void(0)" onclick="mediasManager.openPopup('id_thumbnail', true)" style="outline:none; text-decoration: none">+</a>
 					</label>
-					<?php plxUtils::printInput('thumbnail',plxUtils::strCheck($thumbnail),'text','255',false,'full-width'); ?>
+					<?php plxUtils::printInput('thumbnail', plxUtils::strCheck($thumbnail), 'text', '255', false, 'full-width'); ?>
 					<div class="grid" style="padding-top:10px">
 						<div class="col sml-12 lrg-6">
 							<label for="id_thumbnail_alt"><?= L_THUMBNAIL_TITLE ?>&nbsp;:</label>
-							<?php plxUtils::printInput('thumbnail_title',plxUtils::strCheck($thumbnail_title),'text','255-255',false,'full-width'); ?>
+							<?php plxUtils::printInput('thumbnail_title', plxUtils::strCheck($thumbnail_title), 'text', '255-255', false, 'full-width'); ?>
 						</div>
 						<div class="col sml-12 lrg-6">
 							<label for="id_thumbnail_alt"><?= L_THUMBNAIL_ALT ?>&nbsp;:</label>
-							<?php plxUtils::printInput('thumbnail_alt',plxUtils::strCheck($thumbnail_alt),'text','255-255',false,'full-width'); ?>
+							<?php plxUtils::printInput('thumbnail_alt', plxUtils::strCheck($thumbnail_alt), 'text', '255-255', false, 'full-width'); ?>
 						</div>
 					</div>
 					<div id="id_thumbnail_img">
@@ -399,7 +399,7 @@ if(!empty(trim($thumbnail))) {
 					</div>
 				</div>
 			</div>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')) # Hook Plugins ?>
+			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')); # Hook Plugins ?>
 			<?= plxToken::getTokenPostMethod() ?>
 		</div>
 <?php
@@ -441,13 +441,13 @@ else
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
-						<label><?= L_ARTICLE_DATE ?>&nbsp;:</label>
+						<label class="required"><?= L_ARTICLE_DATE ?>&nbsp;:</label>
 						<div class="inline-form publication">
-							<?php plxUtils::printInput('date_publication_day',$date['day'],'text','2-2',false,'day'); ?>
-							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
-							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
-							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
-							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<?php plxUtils::printInput('date_publication_day', $date['day'], 'text', '2-2', false, 'day', date('d'), 'pattern="\d{2}"', true); ?>
+							<?php plxUtils::printInput('date_publication_month', $date['month'], 'text', '2-2', false, 'month', date('m'), 'pattern="\d{2}"', true); ?>
+							<?php plxUtils::printInput('date_publication_year', $date['year'], 'text', '2-4', false, 'year', date('Y'), 'pattern="\d{4}"', true); ?>
+							<?php plxUtils::printInput('date_publication_time', $date['time'], 'text', '2-5', false, 'time', date('H:i'), 'pattern="\d{2}:\d{2}"', true); ?>
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 								<img src="theme/images/date.png" alt="calendar" />
 							</a>
 						</div>
@@ -455,12 +455,12 @@ else
 				</div>
 			<div class="grid">
 				<div class="col sml-12">
-					<label><?= L_DATE_CREATION ?>&nbsp;:</label>
+					<label class="required"><?= L_DATE_CREATION ?>&nbsp;:</label>
 					<div class="inline-form creation">
-						<?php plxUtils::printInput('date_creation_day',$date_creation['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
+						<?php plxUtils::printInput('date_creation_day', $date_creation['day'], 'text', '2-2', false, 'day', date('d'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_creation_month', $date_creation['month'], 'text', '2-2', false, 'month', date('m'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_creation_year', $date_creation['year'], 'text', '2-4', false, 'year', date('Y'), 'pattern="\d{4}"', true); ?>
+						<?php plxUtils::printInput('date_creation_time', $date_creation['time'], 'text', '2-5', false, 'time', date('H:i'), 'pattern="\d{2}:\d{2}"', true); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
@@ -470,12 +470,12 @@ else
 			<div class="grid">
 				<div class="col sml-12">
 					<?php plxUtils::printInput('date_update_old', $date_update_old, 'hidden'); ?>
-					<label><?= L_DATE_UPDATE ?>&nbsp;:</label>
+					<label class="required"><?= L_DATE_UPDATE ?>&nbsp;:</label>
 					<div class="inline-form update">
-						<?php plxUtils::printInput('date_update_day',$date_update['day'],'text','2-2',false,'day'); ?>
-						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
-						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
-						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
+						<?php plxUtils::printInput('date_update_day', $date_update['day'], 'text', '2-2', false, 'day', date('d'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_update_month', $date_update['month'], 'text', '2-2', false, 'month', date('m'), 'pattern="\d{2}"', true); ?>
+						<?php plxUtils::printInput('date_update_year', $date_update['year'], 'text', '2-4', false, 'year', date('Y'), 'pattern="\d{4}"', true); ?>
+						<?php plxUtils::printInput('date_update_time', $date_update['time'], 'text', '2-5', false, 'time', date('H:i'), 'pattern="\d{2}:\d{2}"', true); ?>
 						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
@@ -518,7 +518,7 @@ if($_SESSION['profil'] < PROFIL_WRITER) :
 				<div class="col sml-12">
 					<label for="id_new_catname"><?= L_NEW_CATEGORY ?>&nbsp;:</label>
 					<div class="inline-form">
-						<?php plxUtils::printInput('new_catname','','text','17-50') ?>
+						<?php plxUtils::printInput('new_catname', '', 'text', '17-50'); ?>
 						<input type="submit" name="new_category" value="<?= L_CATEGORY_ADD_BUTTON ?>" />
 					</div>
 				</div>
@@ -531,7 +531,7 @@ endif;
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
-						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+						<?php plxUtils::printInput('tags', $tags, 'text', '25-255', false, false); ?>
 						<input class="toggler" type="checkbox" id="toggler_tags"<?= (empty($_GET['a']) || ! empty(trim($tags))) ? ' checked' : ''; ?> />
 						<label for="toggler_tags"><span>-</span><span>+</span></label>
 						<div id="tags" style="margin-top: 1rem">
@@ -544,7 +544,7 @@ if($plxAdmin->aTags) {
 				if($tag!='') {
 					$t = plxUtils::urlify($tag);
 					if(!isset($array[$tag]))
-						$array[$tag]=array('url'=>$t,'count'=>1);
+						$array[$tag]=array('url'=>$t, 'count'=>1);
 					else
 						$array[$tag]['count']++;
 				}
@@ -571,7 +571,7 @@ if($plxAdmin->aTags) {
 						<label for="id_allow_com"><?= L_ALLOW_COMMENTS ?>&nbsp;:</label>
 						<?php plxUtils::printSelect('allow_com', ($plxAdmin->aConf['allow_com'] == 2) ? ALLOW_COM_SUBSCRIBERS : ALLOW_COM_OPTIONS, $allow_com); ?>
 						<?php else: ?>
-						<?php plxUtils::printInput('allow_com','0','hidden'); ?>
+						<?php plxUtils::printInput('allow_com', '0', 'hidden'); ?>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -580,7 +580,7 @@ if($plxAdmin->aTags) {
 						<label for="id_url">
 							<?= L_ARTICLE_URL_FIELD ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_URL_FIELD_TITLE ?></span></a>
 						</label>
-						<?php plxUtils::printInput('url',$url,'text','27-255'); ?>
+						<?php plxUtils::printInput('url', $url, 'text', '27-255'); ?>
 					</div>
 				</div>
 				<div class="grid">
@@ -592,19 +592,19 @@ if($plxAdmin->aTags) {
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_title_htmltag"><?= L_ARTICLE_TITLE_HTMLTAG ?>&nbsp;:</label>
-						<?php plxUtils::printInput('title_htmltag',plxUtils::strCheck($title_htmltag),'text','27-255'); ?>
+						<?php plxUtils::printInput('title_htmltag', plxUtils::strCheck($title_htmltag), 'text', '27-255'); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_meta_description"><?= L_ARTICLE_META_DESCRIPTION ?>&nbsp;:</label>
-						<?php plxUtils::printInput('meta_description',plxUtils::strCheck($meta_description),'text','27-255'); ?>
+						<?php plxUtils::printInput('meta_description', plxUtils::strCheck($meta_description), 'text', '27-255'); ?>
 					</div>
 				</div>
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_meta_keywords"><?= L_ARTICLE_META_KEYWORDS ?>&nbsp;:</label>
-						<?php plxUtils::printInput('meta_keywords',plxUtils::strCheck($meta_keywords),'text','27-255'); ?>
+						<?php plxUtils::printInput('meta_keywords', plxUtils::strCheck($meta_keywords), 'text', '27-255'); ?>
 					</div>
 				</div>
 <?php

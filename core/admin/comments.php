@@ -125,7 +125,7 @@ $selector = selector($comSel, 'id_selection');
 
 ?>
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop')); # Hook Plugins ?>
 
 <form action="comments.php<?= !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
