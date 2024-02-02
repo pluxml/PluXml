@@ -355,7 +355,7 @@ const L_CONFIG_VIEW_IMAGES = 'Taille des images (largeur x hauteur)';
 const L_CONFIG_VIEW_THUMBS = 'Taille des miniatures (largeur x hauteur)';
 const L_CONFIG_VIEW_HOMESTATIC = 'Utiliser une page statique comme page d\'accueil';
 const L_CONFIG_VIEW_HOMESTATIC_ACTIVE = 'Attention cette page est inactive';
-const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Télécharger d\'autres thèmes sur <a href="http://ressources.pluxml.org">ressources.pluxml.org</a>.';
+const L_CONFIG_VIEW_PLUXML_RESSOURCES = 'Télécharger d\'autres thèmes sur %s.';
 const L_CONFIG_VIEW_BYPAGE_FEEDS = 'Nombre d\'articles/commentaires affichés sur les fils RSS';
 const L_CONFIG_VIEW_FEEDS_HEADLINE = 'Afficher uniquement le chapô dans les flux RSS des articles';
 const L_CONFIG_VIEW_FEEDS_HEADLINE_HELP = 'Si le chapô est vide, le contenu est affiché';

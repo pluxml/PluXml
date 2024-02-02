@@ -429,14 +429,16 @@ else
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_author"><?= L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
-						<?php
+<?php
 						if($_SESSION['profil'] < PROFIL_WRITER)
 							plxUtils::printSelect('author', $_users, $author);
 						else {
-							echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
-							echo '<strong>'.plxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
+?>
+							<input type="hidden" id="id_author" name="author" value="<?= $author ?>" />
+							<strong><?php plxUtils::strCheck($plxAdmin->aUsers[$author]['name']); ?></strong>
+<?php
 						}
-						?>
+?>
 					</div>
 				</div>
 				<div class="grid">

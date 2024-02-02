@@ -392,11 +392,13 @@ if($curFolders) {
 						<?php $sel = (!$plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
 						<input<?= $sel ?> type="radio" name="thumb" value="" />&nbsp;<?= L_MEDIAS_THUMBS_NONE ?>
 					</li>
-					<?php
+<?php
 						foreach($img_thumb as $thumb) {
-							echo '<li><input type="radio" name="thumb" value="'.$thumb.'" />&nbsp;'.$thumb.'</li>';
-						}
-					?>
+?>
+					<li><input type="radio" name="thumb" value="<?= $thumb ?>" />&nbsp;<?= $thumb ?></li>
+<?php
+}
+?>
 					<li>
 						<?php $sel = ($plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
 						<input<?= $sel ?> type="radio" name="thumb" value="<?= intval($plxAdmin->aConf['miniatures_l' ]).'x'.intval($plxAdmin->aConf['miniatures_h' ]) ?>" />&nbsp;<?= intval($plxAdmin->aConf['miniatures_l' ]).'x'.intval($plxAdmin->aConf['miniatures_h' ]) ?>

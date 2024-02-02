@@ -99,17 +99,22 @@ include 'top.php';
 					</div>
 				</div>
 				<div id="id_thumbnail_img">
-				<?php
+<?php
 				$thumbnail = $plxAdmin->aCats[$id]['thumbnail'];
 				$src = false;
 				if(preg_match('@^(?:https?|data):@', $thumbnail)) {
 					$src = $thumbnail;
 				} else {
-					$src = PLX_ROOT.$thumbnail;
+					$src = PLX_ROOT . $thumbnail;
 					$src = is_file($src) ? $src : false;
 				}
-				if($src) echo "<img src=\"$src\" title=\"$thumbnail\" />\n";
-				?>
+
+				if($src) {
+?>
+					<img src="<?= $src ?>" title="<?= $thumbnail ?>" />
+<?php
+				}
+?>
 				</div>
 			</div>
 		</div>
