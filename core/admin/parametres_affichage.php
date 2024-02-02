@@ -56,8 +56,7 @@ include 'top.php';
 
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_VIEW_FIELD ?></h2>
-		<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
-		<input type="submit" value="<?= L_CONFIG_VIEW_UPDATE ?>" />
+		<p><input type="submit" value="<?= L_CONFIG_VIEW_UPDATE ?>" /></p>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayTop')) # Hook Plugins ?>
