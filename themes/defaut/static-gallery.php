@@ -10,8 +10,8 @@ include 'header.php';
 		<div class="container">
 			<div class="grid">
 				<div class="<?= $contentClass ?>">
-					<article class="static col sml-12 <?php if(!defined('FULL_WIDTH')) { echo 'med-9'; } ?>" id="static-page-<?php echo $plxShow->staticId(); ?>">
-						<header class="static-header">
+					<article class="article static" id="static-page-<?= $plxShow->staticId() ?>">
+						<header>
 								<h2><?php $plxShow->staticTitle(); ?></h2>
 				  		</header>
 <!-- begin of static-gallery.php -->
@@ -50,7 +50,7 @@ if (preg_match($pattern, $content, $matches)) {
 	}
 } else {
 ?>
-				<p class="alert"><?php $plxShow->lang('GALLERY_INFO'); ?></p>
+				<p class="alert"><?php $plxShow->lang('STATIC_TAG_INFO'); ?></p>
 				<pre><code>&lt;div data-gallery="<?php $plxShow->lang('GALLERY_FOLDER'); ?>"&gt;&lt;/div&gt;</code></pre>
 <?php
 	echo $content;

@@ -2,7 +2,7 @@
 	<main class="main">
 		<div class="container">
 			<div class="grid">
-			<div class="<?= $contentClass ?>">
+				<div class="<?= $contentClass ?>">
 					<article class="article" id="post-<?= $plxShow->artId(); ?>">
 						<header>
 							<span class="art-date">

@@ -3,8 +3,17 @@ if (!defined('PLX_ROOT')) {
 	exit;
 }
 
-function byteConvert($bytes)
-{
+/*
+ * In the folder of files to download, you can add an .htaccess file with line for each file as follows :
+ * AddDescription "Short description for the myfile.txt" myfile.txt
+ *
+ * The content of a static page has to contain as least one html tag as follows :
+ * <div data-download="some-folrder-with-files-for-downloading></div>
+ * */
+
+const PATTERN_STATIC_DOWNLOAD = '#<div[^>]*\s+data-download="([^"]+)".*?>#';
+
+function byteConvert($bytes) {
 	if ($bytes == 0) {
 		return "0.00&nbsp;";
 	}
@@ -12,6 +21,7 @@ function byteConvert($bytes)
 	$e = floor(log($bytes, 1024));
 	return round($bytes / pow(1024, $e), 2) . $s[$e];
 }
+
 include 'header.php';
 ?>
 <!-- begin of static-download.php -->
@@ -20,9 +30,7 @@ include 'header.php';
 			<div class="grid">
 				<div class="<?= $contentClass ?>">
 					<article class="static article" id="static-page-<?= $plxShow->staticId(); ?>">
-						<header class="static-header">
-							<h2><?php $plxShow->staticTitle(); ?></h2>
-						</header>
+						<header class="static"><h2><?php $plxShow->staticTitle(); ?></h2></header>
 <?php
 // On capture le contenu de la page statique
 ob_start();
@@ -30,8 +38,8 @@ $plxShow->staticContent();
 $output = ob_get_clean();
 
 // On vérifie que ce contenu matches avec le motif ci-dessous
-$pattern = '#<div[^>]*\s+data-download="([^"]+)".*?>#';
-if (preg_match($pattern, $output, $matches)) {
+
+if (preg_match(PATTERN_STATIC_DOWNLOAD, $output, $matches)) {
 	$root = PLX_ROOT . $plxMotor->aConf['medias'];
 	$dir1 = $root . rtrim($matches[1], '/');
 	if (is_dir($dir1)) {
@@ -83,14 +91,18 @@ if (preg_match($pattern, $output, $matches)) {
 					</table>
 				</div>
 <?php
-			echo preg_replace($pattern, '$0' . ob_get_clean(), $output);
+			echo preg_replace(PATTERN_STATIC_DOWNLOAD, '$0' . ob_get_clean(), $output);
 		} else {
-			echo preg_replace($pattern, '$0' . $plxShow->getLang('NOTHING_FOR_DOWNLOADING'), $output);
+			echo preg_replace(PATTERN_STATIC_DOWNLOAD, '$0' . $plxShow->getLang('NOTHING_FOR_DOWNLOADING'), $output);
 		}
 	} else {
-		echo preg_replace($pattern, '$0' . $plxShow->getLang('NO_DIR') . preg_replace('#^' . PLX_ROOT . '#', ' :<br />', $dir1), $output);
+		echo preg_replace(PATTERN_STATIC_DOWNLOAD, '$0' . $plxShow->getLang('NO_DIR') . preg_replace('#^' . PLX_ROOT . '#', ' :<br />', $dir1), $output);
 	}
 } else {
+?>
+				<p class="alert red"><?php $plxShow->lang('STATIC_TAG_INFO'); ?></p>
+				<pre><code>&lt;div data-download="<?php $plxShow->lang('DOWNLOAD_FOLDER'); ?>"&gt;&lt;/div&gt;</code></pre>
+<?php
 	echo $output;
 }
 ?>

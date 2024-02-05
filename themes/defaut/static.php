@@ -1,9 +1,15 @@
-<?php include 'header.php'; ?>
+<?php
+if (!defined('PLX_ROOT')) {
+	exit;
+}
+
+include 'header.php';
+?>
 	<main class="main">
 		<div class="container">
 			<div class="grid">
 				<div class="<?= $contentClass ?>">
-					<article class="article static" id="static-page-<?= $plxShow->staticId(); ?>">
+					<article class="article static" id="static-page-<?= $plxShow->staticId() ?>">
 						<header>
 							<h2><?php $plxShow->staticTitle(); ?></h2>
 						</header>

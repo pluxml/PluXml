@@ -109,11 +109,12 @@ function checkBox(cb) {
 						<?php plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']); ?>
 					</td><td>
 <?php
-					if(!plxUtils::checkSite($v['url'])) {
+					if(!plxUtils::checkSite($v['url'], false)) {
+						$filename = PLX_ROOT . $plxAdmin->aConf['racine_statiques'] . $k . '.' . $v['url'] . '.php';
 ?>
 						<a href="statique.php?p=<?= $k ?>" title="<?= L_STATICS_SRC_TITLE ?>"><?= L_STATICS_SRC ?></a>
 <?php
-						if($v['active']) {
+						if($v['active'] and file_exists($filename)) {
 ?>
 							&nbsp;&nbsp;<a href="<?= $plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> '<?= plxUtils::strCheck($v['name']); ?>' <?= L_STATIC_ON_SITE ?>" target="_blank"><?= L_VIEW ?></a>
 <?php
@@ -149,11 +150,10 @@ function checkBox(cb) {
 						<?php plxUtils::printInput($new_staticid.'_group', '', 'text', '-100'); ?>
 					</td><td>
 						<?php plxUtils::printInput($new_staticid.'_name', '', 'text', '-255'); ?>
-						<?php plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden'); ?>
 					</td><td>
 						<?php plxUtils::printInput($new_staticid.'_url', '', 'text', '-255'); ?>
 					</td><td>
-						<?php plxUtils::printSelect($new_staticid.'template', $aTemplates); ?>
+						<?php plxUtils::printSelect($new_staticid.'_template', $aTemplates); ?>
 					</td><td>
 						<?php plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0'); ?>
 					</td><td>

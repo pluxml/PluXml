@@ -6,10 +6,14 @@ if (!defined('PLX_ROOT')) {
 include 'header.php';
 const DEBUG_RSS = false;
 ?>
-			<article class="static" id="static-page-<?php echo $plxShow->staticId(); ?>">
-				<header>
-					<h2><?php $plxShow->staticTitle(); ?></h2>
-				</header>
+	<main class="main">
+		<div class="container">
+			<div class="grid">
+				<div class="<?= $contentClass ?>">
+					<article class="static" id="static-page-<?php echo $plxShow->staticId(); ?>">
+						<header>
+							<h2><?php $plxShow->staticTitle(); ?></h2>
+						</header>
 <?php
 /*
  * http://test.lan/PluXml-5.8.4/feed.php?rss
@@ -92,12 +96,12 @@ if (preg_match($pattern, $content, $matches)) {
 		}
 	} else {
 ?>
-	<div>
-		<p>Error <?= $status['http_code'] ?></p>
-		<p><em><?= $status['url'] ?></em>)</p>
-		<p>Content-Type : <?= $status['content_type'] ?></p>
-		<pre><?php /*  print_r($status); */ ?></pre>
-	</div>
+			<div>
+				<p>Error <?= $status['http_code'] ?></p>
+				<p><em><?= $status['url'] ?></em>)</p>
+				<p>Content-Type : <?= $status['content_type'] ?></p>
+				<pre><?php /*  print_r($status); */ ?></pre>
+			</div>
 <?php
 	}
 ?>
@@ -105,12 +109,21 @@ if (preg_match($pattern, $content, $matches)) {
 	<?php
 } else {
 ?>
-				<p class="alert"><?php $plxShow->lang('RSS_INFO'); ?></p>
-				<pre><code>&lt;div data-rss="<?php $plxShow->lang('RSS_FOLDER'); ?>"&gt;&lt;/div&gt;</code></pre>
+						<p class="alert"><?php $plxShow->lang('RSS_INFO'); ?></p>
+						<pre><code>&lt;div data-rss="<?php $plxShow->lang('RSS_FOLDER'); ?>"&gt;&lt;/div&gt;</code></pre>
 <?php
 	echo $content;
 }
 ?>
-			</article>
+					</article>
+				</div>
+<?php
+if(!defined('FULL_WIDTH')) {
+	include 'sidebar.php';
+}
+?>
+			</div>
+		</div>
+	</main>
 <?php
 include 'footer.php';

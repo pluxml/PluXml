@@ -71,6 +71,12 @@ body {
 	padding-top: 0;
 }
 
+pre {
+	background-color: #444;
+	color: lime;
+	padding: 0.1rem 1rem
+}
+
 ul.menu {}
 
 .menu>li {

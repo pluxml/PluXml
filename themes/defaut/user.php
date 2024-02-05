@@ -11,7 +11,11 @@
 <?php include 'posts.php'; ?>
 					<?php $plxShow->artFeed('rss', $plxShow->authorId()); ?>
 				</div>
-<?php include 'sidebar.php'; ?>
+<?php
+if (!defined('FULL_WIDTH')) {
+	include 'sidebar.php';
+}
+?>
 			</div>
 		</div>
 	</main>

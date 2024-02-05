@@ -2,7 +2,7 @@
 	<main class="main">
 		<div class="container">
 			<div class="grid">
-			<div class="<?= $contentClass ?>">
+				<div class="<?= $contentClass ?>">
 					<ul class="repertory menu breadcrumb">
 						<li><a href="<?php $plxShow->racine() ?>"><?php $plxShow->lang('HOME'); ?></a></li>
 						<li><?php $plxShow->catName(); ?></li>

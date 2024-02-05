@@ -124,8 +124,12 @@ function processContact(&$plxShow)
 include 'header.php';
 ?>
 <!-- begin of static-contact.php -->
+	<main class="main">
+		<div class="container">
+			<div class="grid">
+				<div class="<?= $contentClass ?>">
 					<article class="static" id="static-page-<?= $plxShow->staticId(); ?>">
-						<header class="static-header">
+						<header class="static">
 							<h2><?php $plxShow->staticTitle(); ?></h2>
 						</header>
 						<div>
@@ -185,6 +189,15 @@ if ($result === true) {
 ?>
 						</div>
 					</article>
+				</div>
+<?php
+if(!defined('FULL_WIDTH')) {
+	include 'sidebar.php';
+}
+?>
+			</div>
+		</div>
+	</main>
 <!-- end of static-contact.php -->
 <?php
 include 'footer.php';

@@ -29,10 +29,14 @@ uasort($stats, function ($a, $b) {
 include 'header.php';
 ?>
 <!-- begin of static-sitemap.php -->
-			<article class="static article sitemap" id="static-page-<?= $plxShow->staticId(); ?>">
-				<header class="static-header">
-					<h2><?php $plxShow->staticTitle(); ?></h2>
-				</header>
+	<main class="main">
+		<div class="container">
+			<div class="grid">
+				<div class="<?= $contentClass ?>">
+					<article class="static article sitemap" id="static-page-<?= $plxShow->staticId(); ?>">
+						<header class="static">
+							<h2><?php $plxShow->staticTitle(); ?></h2>
+						</header>
 				<main>
 <?php
 $plxShow->staticContent();
@@ -125,12 +129,21 @@ foreach ($cats as $catId => $catInfos) {
 	$checked = '';
 }
 ?>
+										</ul>
+									</li>
 								</ul>
-							</li>
-						</ul>
-					</div>
-				</main>
-			</article>
+							</div>
+						</main>
+					</article>
+				</div>
+<?php
+if(!defined('FULL_WIDTH')) {
+	include 'sidebar.php';
+}
+?>
+			</div>
+		</div>
+	</main>
 <!-- end of static-sitemap.php -->
 <?php
 include 'footer.php';
