@@ -26,6 +26,7 @@
 			event.preventDefault();
 			const src = event.target.src.replace(/\/.thumbs?\b/, '');
 			const title = src.replace(/.*\/([^\/]*)$/, '$1');
+			loader.classList.remove('err');
 			loader.classList.add('show');
 			zoomboxImg.alt = title;
 			zoomboxImg.title = title;
@@ -37,7 +38,9 @@
 				loader.classList.remove('show');
 			}
 			img.onerror = function(ev) {
-				alert('Image not loaded from ' + src);
+				loader.classList.remove('show');
+				loader.classList.add('err');
+				alert('⚠ ' + src);
 			}
 			img.src = src;
 			return;
