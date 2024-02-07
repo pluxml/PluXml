@@ -153,10 +153,9 @@ class plxFeed extends plxMotor {
 				}
 			} else {
 				# Flux de commentaires global
-				$regex = '#^\d{4}.\d{10}-\d+.xml$#';
+				$regex = '#^\d{4}\.\d{10}-\d+\.xml$#';
 			}
 			$this->getCommentaires($regex, 'rsort', 0, $this->bypage);
-			$items = $this->getRssComments();
 		} elseif($this->mode == 'admin') {
 			# Flux admin
 			if(empty($this->clef)) { # Clef non initialisée
@@ -178,7 +177,6 @@ class plxFeed extends plxMotor {
 
 			# On récupère les commentaires
 			$this->getCommentaires('#^' . $this->cible . '\d{4}\.\d{10}-\d+\.xml$#', 'rsort', 0, false, 'all');
-			$items = $this->getAdminComments();
 		} else {
 			# Flux des articles d'une catégorie ou d'un utilisateur précis
 			if($this->cible) {
@@ -212,26 +210,18 @@ class plxFeed extends plxMotor {
 				}
 			}
 			$this->getArticles(); # Récupération des articles (on les parse)
-			$items = $this->getRssArticles();
 		}
 
-		if(empty($this->lastBuildDate)) {
-			$this->lastBuildDate = date('YmdHi');
+		# Selon le mode, on appelle la méthode adéquate
+		switch($this->mode) {
+			case 'tag':
+			case 'user':
+			case 'categorie':
+			case 'article' : $this->getRssArticles(); break;
+			case 'commentaire' : $this->getRssComments(); break;
+			case 'admin' : $this->getAdminComments(); break;
+			default : break;
 		}
-?>
-<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="<?= $this->urlRewrite('feed.php?' . $this->get) ?>" />
-		<title><?= plxUtils::strCheck($this->rssTitle, true, null) ?></title>
-		<link><?= $this->rssLink ?></link>
-		<lastBuildDate><?= plxDate::dateIso2rfc822($this->rssLastBuildDate) ?></lastBuildDate>
-		<language><?= $this->aConf['default_lang'] ?></language>
-		<description><?= plxUtils::strCheck($this->aConf['description'], true, null) ?></description>
-		<generator>PluXml</generator>
-<?= $items ?>
-	</channel>
-</rss>
-<?php
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxFeedDemarrageEnd'));
@@ -270,11 +260,11 @@ class plxFeed extends plxMotor {
 			default:
 		}
 
-		# On affiche le flux dans le tampon de sortie
-		ob_start();
-
 		# On va boucler sur les articles si possible
 		if($this->plxRecord_arts) {
+			$this->rssLastBuildDate = $this->plxRecord_arts->lastUpdated('date_update');
+			# On affiche l'entête xml du flux
+			$this->getRssXml();
 			while($this->plxRecord_arts->loop()) {
 				$length = '';
 				$mimetype = '';
@@ -332,9 +322,10 @@ class plxFeed extends plxMotor {
 <?php
 			}
 		}
+		else $this->getRssXml();# On affiche l'entête xml du flux
 
-		# On récupère le contenu du tampon de sortie
-		return ob_get_clean();
+		# On affiche la fin xml du flux
+		$this->getRssXml('foot');
 	}
 
 	/**
@@ -360,11 +351,11 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments.rss';
 		}
 
-		# On affiche le flux dans le tampon de sortie
-		ob_start();
-
 		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
+			$this->rssLastBuildDate = $this->plxRecord_coms->lastUpdated();
+			# On affiche l'entête xml du flux
+			$this->getRssXml();
 			while($this->plxRecord_coms->loop()) {
 				# Traitement initial
 				if(isset($this->activeArts[$this->plxRecord_coms->f('article')])) {
@@ -403,11 +394,10 @@ class plxFeed extends plxMotor {
 				}
 			}
 		}
+		else $this->getRssXml();# On affiche l'entête xml du flux
 
-		$this->rssLastBuildDate = $last_updated;
-
-		# On récupère le contenu du tampon de sortie
-		return ob_get_clean();
+		# On affiche la fin xml du flux
+		$this->getRssXml('foot');
 	}
 
 	/**
@@ -430,10 +420,11 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments-online.rss';
 		}
 
-		# On affiche le flux dans le tampon de sortie
-		ob_start();
 		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
+			$this->rssLastBuildDate = $this->plxRecord_coms->lastUpdated();
+			# On affiche l'entête xml du flux
+			$this->getRssXml();
 			while($this->plxRecord_coms->loop()) {
 				$artId = $this->plxRecord_coms->f('article') + 0;
 				$comId = $this->cible.$this->plxRecord_coms->f('article').'.'.$this->plxRecord_coms->f('numero');
@@ -456,8 +447,45 @@ class plxFeed extends plxMotor {
 <?php
 			}
 		}
+		else $this->getRssXml();# On affiche l'entête xml du flux
+		# On affiche la fin xml du flux
+		$this->getRssXml('foot');
+	}
+	/**
+	 * Méthode qui affiche le debut (entête) ou la fin du xml
+	 *
+	 * @param	$who	string	'head' ou 'foot'
+	 * @scope	getRss[Articles|AdminComments|Comments]
+	 * @return	flux sur stdout
+	 * @author	Thomas I. @sudwebdesin
+	 **/
+	public function getRssXml($who = 'head') {
+		# On affiche l'entête
+		if($who == 'head'):
 
-		# On récupère le contenu du tampon de sortie
-		return ob_get_clean();
+			if(empty($this->lastBuildDate))
+				$this->lastBuildDate = date('YmdHi');
+
+?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="<?= $this->urlRewrite('feed.php?' . $this->get) ?>" />
+		<title><?= plxUtils::strCheck($this->rssTitle) ?></title>
+		<link><?= $this->rssLink ?></link>
+		<lastBuildDate><?= plxDate::dateIso2rfc822($this->rssLastBuildDate) ?></lastBuildDate>
+		<language><?= $this->aConf['default_lang'] ?></language>
+		<description><?= plxUtils::strCheck($this->aConf['description']) ?></description>
+		<generator>PluXml</generator>
+<?php
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxFeedGetRssXmlHead'));
+		elseif($who == 'foot'):
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxFeedGetRssXmlFoot'));
+?>
+	</channel>
+</rss>
+<?php
+		endif;
 	}
 }
