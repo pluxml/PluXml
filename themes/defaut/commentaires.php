@@ -21,7 +21,7 @@ if($plxShow->plxMotor->plxRecord_coms) {
 					<?php $plxShow->lang('SAID'); ?> :
 				</small>
 				<blockquote>
-					<p class="content_com type-<?php $plxShow->comType(); ?>"><?php $plxShow->comContent(); ?></p>
+					<div class="content_com type-<?php $plxShow->comType(); ?>"><?php $plxShow->comContent(); ?></div>
 				</blockquote>
 			</div>
 <?php

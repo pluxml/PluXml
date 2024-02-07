@@ -1122,12 +1122,12 @@ class plxMotor {
 		ob_start();
 ?>
 <comment>
-	<author><![CDATA[<?= plxUtils::cdataCheck($content['author']) ?>]]></author>
+	<author><?= plxUtils::strCheck($content['author']) ?></author>
 	<type><?= $content['type'] ?></type>
 	<ip><?= $content['ip'] ?></ip>
 	<mail><?= plxUtils::strCheck($content['mail']) ?></mail>
 	<site><?= plxUtils::strCheck($content['site']) ?></site>
-	<content><?= plxUtils::strCheck($content['content'], true) ?></content>
+	<content><?= plxUtils::strCheck($content['content'], true, '<a><b><i><p><q><u><em><sub><sup><del><pre><code><span><strong>', true) ?></content>
 	<parent><?= !empty($content['parent']) ? intval($content['parent']) : '' ?></parent>
 <?php
 

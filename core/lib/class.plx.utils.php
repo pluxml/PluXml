@@ -892,7 +892,7 @@ class plxUtils {
 	public static function strCut($str='', $length=25, $type='', $add_text='...') {
 		if($type == 'word') { # On coupe la chaine en comptant le nombre de mots
 			$content = explode(' ',$str);
-			$length = sizeof($content) < $length ? sizeof($content) : $length;
+			$length = count($content) < $length ? count($content) : $length;
 			return implode(' ',array_slice($content,0,$length)).$add_text;
 		} else { # On coupe la chaine en comptant le nombre de caractères
 			return strlen($str) > $length ? substr($str, 0, $length) . $add_text : $str;
@@ -900,28 +900,37 @@ class plxUtils {
 	}
 
 	/**
-	 * Méthode qui retourne une chaine de caractères formatée en fonction du charset
+	 * Méthode qui retourne une chaine de caractères formatée en fonction du charset ou encapsulé avec CDATA
+	 * Possibilité de la nettoyer de toutes ou certaines balises HTML
 	 *
-	 * @param	str		chaine de caractères
-	 * @param	cdata	encapsule str dans <![CDATA[ ]]> si true et str non nulle
-	 * @param	tags	balises HTML autorisées dans <![CDATA[]]> ou null
-	 * @return	string	chaine de caractères tenant compte du charset
+	 * @param	str		string			Chaine de caractères à formater OU à encapsulé
+	 * @param	cdata	bool			Encapsule str avec <![CDATA[ ]]> si true
+	 * @param	tags	bool||string	true : aucune Balises HTML || '', false : Toutes autorisées ou Liste* des autorisées '<a><br><em><i>...' *(array PHP>=7.4)
+	 * @param	clear	bool			true : scripts interdit et attributs nettoyés (nettoyage du html) + Effet de bords : valide et ferme les balises non fermées
+	 * @return	string	Chaine vide ou chaine encapsulé par CDATA ou Chaine de caractères tenant compte du charset
 	 **/
-	public static function strCheck($str, $cdata=false, $tags='<i><em><a><sup><span>') {
+	public static function strCheck($str, $cdata=false, $tags='', $clear=false) {
 
 		$str = trim($str);
-		if ($str === '') {
+		if(empty($str)) {
 			return '';
 		}
-
-		if ($cdata) {
-			# caractère " interdit. Remplacer par &quot; si besoin à la saisie
-			return '<![CDATA[' . strip_tags(str_replace('"', '', $str), $tags) . ']]>';
+		# Important : Appellé avant pour bien effacer toutes les balises <script>
+		# Évite que les balises <script> et </script> soient supprimées avec strip_tags
+		# et que leurs JS deviennent des noeuds textes impossible a nettoyés car non detectés.
+		# Elles sont supprimées avant et strip_tags n'aura point à les traiter car inexistantes.
+		# Si appellé après strip_tags : <script>JS</script> => JS => <p>JS</p>
+		if($clear) { # Scripts et autres attributs interdits : previent les attaques XSS
+			$str = plxUtils::sanitizeHtml($str);
+		}
+		if($tags) { # Balises HTML interdites (true) / Autorisées (liste)
+			$str = strip_tags($str, is_bool($tags)? '': $tags);
+		}
+		if($cdata) {
+			return '<![CDATA[' . plxUtils::cdataCheck($str) . ']]>';
 		}
 
-		# ENT_COMPAT : Convertit les guillemets doubles, et ignore les guillemets simples.
-		# les caractères suivants seont convertis en entités HTML : & > < "
-		return htmlspecialchars($str, ENT_COMPAT | ENT_HTML5, PLX_CHARSET);
+		return htmlspecialchars($str, ENT_QUOTES, PLX_CHARSET);
 	}
 
 	/**
@@ -1654,5 +1663,74 @@ EOT;
 	 **/
 	public static function sanitizePhp(String $content) {
 		return preg_replace('#\b(fsockopen|proc_open|system|exec|chroot|shell_exec|socket\w*)\b\([^)]*?\)\s*;#', '/* $1() not allowed here */;' . PHP_EOL, $content);
+	}
+
+
+	/**
+	 * Nettoie du HTML ET Supprime les balises 'script' (par defaut) et ceux 'inline' pour prévenir des attaques XSS
+	 * @param String|Array	$content	Texte ou tableau a nettoyer
+	 * @param Array			$noNodes	Balises a supprimés :defaut: array('script');             :idée+: 'img',style','link','meta'
+	 * @param Array			$okAttrs	Attributs a gardés  :defaut: array('src','href','class'); :idée+: 'style'
+	 * @return String|Array				Variable nettoyée
+	 * @author Thomas I. @sudwebdesign & info du web
+	 * @note : Départ inspiré de https://mradeveloper.com/blog/remove-javascript-from-html-with-php (mais oublié '<a onclick=alert('wow')>')
+	 * @todo : No goto? : traversé le DOM par la fin : boucle for inversée + recursive
+	 * @voir : https://www.php.net/manual/fr/domdocument.loadhtml.php#125361
+	 **/
+	public static function sanitizeHtml($content, $noNodes=array('script'), $okAttrs=array('src','href','class')) {
+		if(empty($content)) return $content;
+		elseif(is_bool($content)) return $content;
+		# Initialise les variables
+		if(is_array($content)) {
+			$inputArray = $content;
+			$returnType = 'array';
+		} else {
+			$inputArray = array(trim($content));
+			$returnType = 'string';
+		}
+		$sanitizedInput = array();
+		$flags = LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOBLANKS | LIBXML_NONET;
+		# Nettoyage
+		foreach($inputArray as $input) {
+			if(!empty($input) and is_string($input)){
+				# De https://www.php.net/manual/fr/function.strip-tags.php#119909
+				$xml = new DOMDocument('1.0', PLX_CHARSET);
+				# Suppression des avertissements
+				libxml_use_internal_errors(true);
+				# Petit hack pour un bon encodage : voir : https://www.php.net/manual/fr/domdocument.loadhtml.php#95251
+				if($xml->loadHTML('<?xml encoding="'.PLX_CHARSET.'"><html>' . $input . '</html>', $flags)){
+					$xml->encoding = PLX_CHARSET; # Insert propre du charset
+					RELOAD: # Fix récursif low cost : Voir : https://www.php.net/manual/fr/class.domnamednodemap.php#94078
+					foreach($xml->getElementsByTagName('*') as $tag){ # todo : pour faire bien, utiliser une boucle inversée
+						# Supprime un noeud interdit (script &+)
+						if(in_array($tag->nodeName, $noNodes)) {
+							$tag->parentNode->removeChild($tag);
+							goto RELOAD; # Nvl ordre du DOM, on recommence
+						}
+						elseif($tag->attributes->getNamedItem('href')
+							and stripos($tag->attributes->getNamedItem('href')->value, 'javascript') !== false) {
+							$tag->removeAttribute('href'); # Suppr inline js
+						}
+
+						RELOADATTR: # Suppr attributs interdits
+						foreach($tag->attributes as $attr){
+							if(!in_array(strtolower($attr->name), $okAttrs)){
+								$tag->removeAttribute($attr->name);
+								goto RELOADATTR;# Nvl ordre du DOM, on retraverse les attributs
+							}
+						}
+					}
+				}
+				# Sauve le HTML nettoyé et bien encodé :voir: https://www.php.net/manual/fr/domdocument.savexml.php#88525
+				$input = $xml->saveHTML($xml->documentElement); # sans l'entête xml et le html encapsulant
+				unset($xml);
+			}
+			$sanitizedInput[] = $input;
+		}
+
+		if($returnType == 'string') {
+			return $sanitizedInput[0];
+		}
+		return $sanitizedInput;
 	}
 }
