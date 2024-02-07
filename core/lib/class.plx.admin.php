@@ -1273,7 +1273,7 @@ EOT;
 			$dates['update'] = date('YmdHi');
 		}
 		# Génération du fichier XML
-		if(empty($content['template']) or !file_exists(PLX_CORE . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . basename($content['template']))) {
+		if(empty($content['template']) or !file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . basename($content['template']))) {
 			$content['template']= 'article.php';
 		}
 		if(empty($content['allow_com']) or $content['allow_com'] != '1') {
