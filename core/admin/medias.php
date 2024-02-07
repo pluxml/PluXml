@@ -245,7 +245,7 @@ if($plxMedias->aFiles) {
 		}
 		ob_start();
 ?>
-							<img alt="<?= $title ?>" src="<?= $v['.thumb'] ?>" class="thumb" <?= $dimThumb[3] ?> />
+							<img alt="<?= $title ?>" src="<?= $v['.thumb'] ?>" class="<?=$isImage?'thumb':'file'?>" <?= $dimThumb[3] ?> />
 <?php
 		$thumbImg = ob_get_clean();
 		if($isImage AND is_file($v['path'])) {

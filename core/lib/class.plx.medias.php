@@ -97,7 +97,7 @@ class plxMedias {
 	 *
 	 * @param	dir		répertoire de lecture
 	 * @return	array	tableau contenant la liste de tous les fichiers d'un dossier
-	 * @author	Stephane F
+	 * @author	Stephane F, JP Pourrez "bazooka07", T Ingles "sudwebdesign"
 	 **/
 	private function _getDirFiles($dir) {
 
@@ -131,10 +131,14 @@ class plxMedias {
 						file_exists($iconName) or
 						plxUtils::makeThumb(
 							$filename,
-							$iconName,
-							)
+							$iconName
+						)
 					) {
 						$sample = $iconName;
+					}
+					# webp animée et icône non crée par php
+					if($extension == '.webp' and !file_exists($iconName)) {
+						$sample = $filename;
 					}
 					$imgSize = getimagesize($filename);
 				} else {
