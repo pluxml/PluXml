@@ -320,7 +320,7 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 	</div>
 <?php eval($plxAdmin->plxPlugins->callHook('AdminArticleTop')); # Hook Plugins ?>
 	<div class="grid">
-		<div class="col sml-12 med-7 lrg-8">
+		<div class="col sml-12 med-7 lrg-9">
 			<fieldset>
 				<div class="grid">
 					<div class="col sml-12">
@@ -407,7 +407,7 @@ if(!empty(trim($thumbnail))) {
 /* ============= sidebar ============== */
 
 ?>
-		<div class="sidebar col sml-12 med-5 lrg-4">
+		<div class="sidebar col sml-12 med-5 lrg-3">
 
 			<p><?= L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
 				<strong>
