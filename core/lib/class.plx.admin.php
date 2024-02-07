@@ -284,11 +284,11 @@ class plxAdmin extends plxMotor {
 					# <!CDATA[..]]> est inutile :  valeur numerique, champs uniquement avec caractères alphanumérique
 					$content = plxUtils::strCheck($v);
 				} elseif(in_array($k, array('description', 'feed_footer'))) {
-					# On tolère quelques balises par défaut : <i>, <em>, <a>, <sup>, <span>,
+					# <!CDATA[..]]> On tolère les balises HTML
 					$content = plxUtils::strCheck($v, true);
 				} else {
-					# Aucune balise HTML tolérée
-					$content = plxUtils::strCheck($v, true, null);
+					# <!CDATA[..]]> Aucune balise HTML tolérée
+					$content = plxUtils::strCheck($v, true, true);
 				}
 ?>
 	<parametre name="<?= $k ?>"><?= $content ?></parametre>
@@ -971,12 +971,12 @@ EOT;
 	<categorie number="<?= $cat_id ?>" active="<?= $cat['active'] ?>" homepage="<?= $cat['homepage'] ?>" tri="<?= $cat['tri'] ?>" bypage="<?= $cat['bypage'] ?>" menu="<?= $cat['menu'] ?>" url="<?= $cat['url'] ?>" template="<?= basename($cat['template']) ?>">
 		<name><?= $cat['name'] ?></name>
 		<description><?= plxUtils::strCheck($cat['description'], true) ?></description>
-		<meta_description><?= plxUtils::strCheck($cat['meta_description'], true, null) ?></meta_description>
-		<meta_keywords><?= plxUtils::strCheck($cat['meta_keywords'], true, null) ?></meta_keywords>
-		<title_htmltag><?= plxUtils::strCheck($cat['title_htmltag'], true, null) ?></title_htmltag>
-		<thumbnail><?= plxUtils::strCheck($cat['thumbnail'], true, null) ?></thumbnail>
-		<thumbnail_alt><?= plxUtils::strCheck($cat['thumbnail_alt'], true) ?></thumbnail_alt>
-		<thumbnail_title><?= plxUtils::strCheck($cat['thumbnail_title'], true) ?></thumbnail_title>
+		<meta_description><?= plxUtils::strCheck($cat['meta_description']) ?></meta_description>
+		<meta_keywords><?= plxUtils::strCheck($cat['meta_keywords']) ?></meta_keywords>
+		<title_htmltag><?= plxUtils::strCheck($cat['title_htmltag']) ?></title_htmltag>
+		<thumbnail><?= plxUtils::strCheck($cat['thumbnail'], false, true) ?></thumbnail>
+		<thumbnail_alt><?= plxUtils::strCheck($cat['thumbnail_alt']) ?></thumbnail_alt>
+		<thumbnail_title><?= plxUtils::strCheck($cat['thumbnail_title']) ?></thumbnail_title>
 <?php
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditCategoriesXml'));
@@ -1112,7 +1112,7 @@ EOT;
 	<statique number="<?= $static_id ?>" active="<?= $static['active'] ?>" menu="<?= $static['menu'] ?>" url="<?= $static['url'] ?>" template="<?= basename($static['template']) ?>">
 		<group><?= plxUtils::strCheck($static['group']) ?></group>
 		<name><?= plxUtils::strCheck($static['name']) ?></name>
-		<meta_description><?= plxUtils::strCheck($static['meta_description'], true) ?></meta_description>
+		<meta_description><?= plxUtils::strCheck($static['meta_description']) ?></meta_description>
 		<meta_keywords><?= plxUtils::strCheck($static['meta_keywords']) ?></meta_keywords>
 		<title_htmltag><?= plxUtils::strCheck($static['title_htmltag']) ?></title_htmltag>
 		<date_creation><?= $static['date_creation'] ?></date_creation>
@@ -1291,15 +1291,15 @@ EOT;
 	<title><?= plxUtils::strCheck(trim($content['title']), true) ?></title>
 	<allow_com><?= intval($content['allow_com']) ?></allow_com>
 	<template><?= basename($content['template']) ?></template>
-	<chapo><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['chapo'])) ?>]]></chapo>
-	<content><![CDATA[<?= plxUtils::sanitizePhpTags(trim($content['content'])) ?>]]></content>
-	<tags><?= plxUtils::strCheck(trim($content['tags']), true) ?></tags>
-	<meta_description><?= plxUtils::strCheck(trim($meta_description)) ?></meta_description>
-	<meta_keywords><?= plxUtils::strCheck(trim($meta_keywords)) ?></meta_keywords>
-	<title_htmltag><?= plxUtils::strCheck(trim($title_htmltag)) ?></title_htmltag>
-	<thumbnail><?= plxUtils::strCheck(trim($thumbnail)) ?></thumbnail>
-	<thumbnail_alt><?= plxUtils::strCheck(trim($thumbnail_alt), true) ?></thumbnail_alt>
-	<thumbnail_title><?= plxUtils::strCheck(trim($thumbnail_title), true) ?></thumbnail_title>
+	<chapo><?= plxUtils::strCheck(trim($content['chapo']), true) ?></chapo>
+	<content><?= plxUtils::strCheck(trim($content['content']), true) ?></content>
+	<tags><?= plxUtils::strCheck(trim($content['tags']), false, true) ?></tags>
+	<meta_description><?= plxUtils::strCheck(trim($meta_description), false, true) ?></meta_description>
+	<meta_keywords><?= plxUtils::strCheck(trim($meta_keywords), false, true) ?></meta_keywords>
+	<title_htmltag><?= plxUtils::strCheck(trim($title_htmltag), false, true) ?></title_htmltag>
+	<thumbnail><?= plxUtils::strCheck(trim($thumbnail), false, true) ?></thumbnail>
+	<thumbnail_alt><?= plxUtils::strCheck(trim($thumbnail_alt)) ?></thumbnail_alt>
+	<thumbnail_title><?= plxUtils::strCheck(trim($thumbnail_title)) ?></thumbnail_title>
 	<date_creation><?= $dates['creation'] ?></date_creation>
 	<date_update><?= $dates['update'] ?></date_update>
 <?php
