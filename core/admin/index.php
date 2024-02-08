@@ -306,7 +306,7 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 				if(sizeof($catIds) > 0) {
 					foreach($catIds as $catId) {
 						if($catId == 'draft') {
-							$draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
+							$draft = ' <strong>- '.L_CATEGORY_DRAFT.'</strong>';
 						} elseif(array_key_exists($catId, $aFilterCat)) {
 							$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
 							$aCats[$catId] = <<< EOT
@@ -317,7 +317,7 @@ EOT;
 				}
 				# en attente de validation ?
 				$idArt = $plxAdmin->plxRecord_arts->f('numero');
-				$awaiting = $idArt[0]=='_' ? ' - <strong>'.L_AWAITING.'</strong>' : '';
+				$awaiting = $idArt[0]=='_' ? ' <strong>- '.L_AWAITING.'</strong>' : '';
 				# Commentaires
 				$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$idArt.'.(.*).xml$/','all');
 				$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$idArt.'.(.*).xml$/','all');
