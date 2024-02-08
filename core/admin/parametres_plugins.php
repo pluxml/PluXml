@@ -47,50 +47,53 @@ function pluginsList($plugins, $defaultLang, $type) {
 			if(empty($plugInstance) and $plugInstance=$plxAdmin->plxPlugins->getInstance($plugName)) {
 				$plugInstance->getInfos();
 			}
+
+			# plugin non configuré
+			$unset = ($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'));
 ?>
-			<tr class="top" data-scope="<?= $plugInstance->getInfo('scope') ?>">
+			<tr class="top<?=$unset?' alert red':''?>" data-scope="<?= $plugInstance->getInfo('scope') ?>">
 				<td>
 					<input type="hidden" name="plugName[]" value="<?= $plugName ?>" />
 					<input type="checkbox" name="chkAction[]" value="<?= $plugName ?>" />
 				</td>
 <?php /* icon */ ?>
-				<td><img src="<?= $icon ?>" alt="" /></td>
+				<td><img src="<?= $icon ?>" alt="<?= $plugName ?> icon" /></td>
 <?php /* plugin infos */ ?>
 				<td class="wrap">
 					<p>
 <?php
-					# message d'alerte si plugin non configuré
-					if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) {
-?>
-					<span style="margin-top: 5px;" class="alert red float-right"><?= L_PLUGIN_NO_CONFIG ?></span>
-<?php
-					}
 					# title + version
 ?>
-					<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong> - <?= L_PLUGINS_VERSION ?><strong> <?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
+						<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong><strong> - <?= L_PLUGINS_VERSION ?> <?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
 <?php
 					# date
 					if($plugInstance->getInfo('date') != '') {
 ?>
-					(<?= plxUtils::strCheck($plugInstance->getInfo('date')) ?>)
+						<span>(<?= plxUtils::strCheck($plugInstance->getInfo('date')) ?>)</span>
+<?php
+					}
+?>
+					</p>
+<?php
+					# message d'alerte si plugin non configuré
+					if($unset) {
+?>
+					<p><a title="<?= L_PLUGINS_CONFIG_TITLE ?>" href="parametres_plugin.php?p=<?= urlencode($plugName) ?>"><b class="text-blue"><?= L_PLUGIN_NO_CONFIG ?></b></a></p>
 <?php
 					}
 					# description
 ?>
-					</p>
 					<p class="description"><?= plxUtils::strCheck($plugInstance->getInfo('description')) ?></p>
 <?php /* author */ ?>
-					<p>
-					<?= L_PLUGINS_AUTHOR ?> : <?= plxUtils::strCheck($plugInstance->getInfo('author')) ?>
+					<p><?= L_PLUGINS_AUTHOR ?> : <?= plxUtils::strCheck($plugInstance->getInfo('author')) ?></p>
 <?php
 					# site
-					if($plugInstance->getInfo('site')!='') {
+					if($site = plxUtils::strCheck($plugInstance->getInfo('site'))) {
 ?>
- - <a href="<?= plxUtils::strCheck($plugInstance->getInfo('site')) ?>" target="_blank"><?= plxUtils::strCheck($plugInstance->getInfo('site')) ?></a>
+					<p><a href="<?= $site ?>" title="<?= $site ?>" target="_blank"><?= $site ?></a></p>
 <?php
 					}
 ?>
-					</p>
 				</td>
 <?php
 				# colonne pour trier les plugins
@@ -223,7 +226,7 @@ if($sel==1) {
 					<th>&nbsp;</th>
 					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" /></th>
 					<?php if($_SESSION['selPlugins']=='1') : ?>
-					<th><?= L_PLUGINS_LOADING_SORT ?></th>
+					<th title="<?= L_PLUGINS_LOADING_SORT ?>"><i class="icon-cog-alt"></i></th>
 					<?php endif; ?>
 					<th><?= L_PLUGINS_ACTION ?></th>
 				</tr>

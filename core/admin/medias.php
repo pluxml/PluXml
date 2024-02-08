@@ -191,21 +191,21 @@ if($curFolders) {
 			<input type="hidden" name="sort" value="" />
 			<?= plxToken::getTokenPostMethod() ?>
 		</div>
-
-		<div style="float:left">
-			<?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_changefolder" value="<?= L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		</div>
-
-		<div style="float:right">
-			<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
+		<div class="grid">
+			<div class="col sml-6">
+				<?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
+				<input type="submit" name="btn_changefolder" value="<?= L_OK ?>" />
+			</div>
+			<div class="col sml-6 text-right">
+				<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
+			</div>
 		</div>
 <?php
 
 /* ============== listing of medias ============== */
 
 ?>
-		<div style="clear:both" class="scrollable-table">
+		<div class="scrollable-table">
 			<table id="medias-table" class="full-width sort">
 				<thead>
 				<tr>
