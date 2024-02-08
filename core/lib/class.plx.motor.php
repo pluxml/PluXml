@@ -739,17 +739,22 @@ class plxMotor {
 
 		# On calcule la valeur start
 		$bypage = $this->bypage;
-		$start = $bypage * ($this->page - 1);
-		if(
-			$this->mode == 'home' and
-			!empty($this->aConf['byhomepage']) and
-			$this->aConf['byhomepage'] != $this->aConf['bypage']
-		) {
-			if($this->page > 1) {
-				$start = $this->aConf['byhomepage'] + $this->bypage * ($this->page - 2);
-			} else {
-				$start = 0;
-				$bypage = $this->aConf['byhomepage'];
+		if(defined('PLX_FEED')) {
+			# Pour flux RSS
+			$start = 0;
+		} else {
+			$start = $bypage * ($this->page - 1);
+			if(
+				$this->mode == 'home' and
+				!empty($this->aConf['byhomepage']) and
+				$this->aConf['byhomepage'] != $this->aConf['bypage']
+			) {
+				if($this->page > 1) {
+					$start = $this->aConf['byhomepage'] + $this->bypage * ($this->page - 2);
+				} else {
+					$start = 0;
+					$bypage = $this->aConf['byhomepage'];
+				}
 			}
 		}
 
@@ -984,17 +989,18 @@ class plxMotor {
 		# On récupère les fichiers des commentaires
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
-			foreach($aFiles as $k=>$v) {
-				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
+			$comsList = array();
+			foreach($aFiles as $v) {
+				$comsList[] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
 			}
 
 			# hiérarchisation et indentation des commentaires seulement sur les écrans requis
 			if (!preg_match('#comments?$#',basename($_SERVER['SCRIPT_NAME'], '.php'))) {
-				$array = $this->parentChildSort_r('index', 'parent', $array);
+				$comsList = $this->parentChildSort_r('index', 'parent', $comsList);
 			}
 
 			# On stocke les enregistrements dans un objet plxRecord
-			$this->plxRecord_coms = new plxRecord($array);
+			$this->plxRecord_coms = new plxRecord($comsList);
 
 		}
 

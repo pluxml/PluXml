@@ -41,7 +41,6 @@ class plxFeed extends plxMotor {
 		parent::__construct($filename);
 		$this->bypage = $this->aConf['bypage_feed'];
 		$this->tri = 'desc'; # pour les articles
-		$this->rssLastBuildDate = '';
 		$this->clef = $this->aConf['clef'];
 
 		# Hook plugins
@@ -101,7 +100,6 @@ class plxFeed extends plxMotor {
 				$this->motif = '#('.implode('|', $ids).')\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			} else
 				$this->motif = '';
-
 		}
 		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article(\d+)/?$#',$this->get,$capture)) {
 			$this->mode = 'commentaire'; # Mode du flux
@@ -112,18 +110,19 @@ class plxFeed extends plxMotor {
 		}
 		elseif($this->get AND preg_match('#^admin([\w-]+)/commentaires/(hors|en)-ligne/?$#',$this->get,$capture)) {
 			$this->mode = 'admin'; # Mode du flux
-			$this->cible = '-';	# /!\: il ne faut pas initialiser à blanc sinon ça prend par défaut les commentaires en ligne (faille sécurité)
 			if ($capture[1] == $this->clef) {
-				if($capture[2] == 'hors')
-					$this->cible = '_';
-				elseif($capture[2] == 'en')
-					$this->cible = '';
+				$this->cible = ($capture[2] == 'hors') ? '_' : '';
+			} else {
+				header('Content-Type: text/plain; charset='.PLX_CHARSET);
+				echo L_FEED_NO_PRIVATE_URL;
+				exit;
 			}
 		} else {
 			$this->mode = 'article'; # Mode du flux
 			# On modifie le motif de recherche
 			$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 		}
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxFeedPreChauffageEnd'));
 
@@ -153,32 +152,15 @@ class plxFeed extends plxMotor {
 				}
 			} else {
 				# Flux de commentaires global
-				$regex = '#^\d{4}.\d{10}-\d+.xml$#';
+				$regex = '#^\d{4}\.\d{10}-\d+.xml$#';
 			}
 			$this->getCommentaires($regex, 'rsort', 0, $this->bypage);
-			$items = $this->getRssComments();
+			$this->getRssComments();
 		} elseif($this->mode == 'admin') {
 			# Flux admin
-			if(empty($this->clef)) { # Clef non initialisée
-				header('Content-Type: text/plain; charset='.PLX_CHARSET);
-				echo L_FEED_NO_PRIVATE_URL;
-				exit;
-			}
-
-			# On recherche le dernier commentaire soumis
-			$aFiles = $this->plxGlob_coms->query('#^_?\d{4}\.\d{10}-\d+\.xml$#','com', 'rsort', 0, 1, 'all');
-			if($aFiles) {
-				$array = array();
-				foreach($aFiles as $k=>$v) {
-					$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
-				}
-				$this->rssLastBuildDate = $array[0]['date'];
-				unset($array);
-			}
-
 			# On récupère les commentaires
 			$this->getCommentaires('#^' . $this->cible . '\d{4}\.\d{10}-\d+\.xml$#', 'rsort', 0, false, 'all');
-			$items = $this->getAdminComments();
+			$this->getAdminComments();
 		} else {
 			# Flux des articles d'une catégorie ou d'un utilisateur précis
 			if($this->cible) {
@@ -212,9 +194,20 @@ class plxFeed extends plxMotor {
 				}
 			}
 			$this->getArticles(); # Récupération des articles (on les parse)
-			$items = $this->getRssArticles();
+			$this->getRssArticles();
 		}
 
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxFeedDemarrageEnd'));
+
+	}
+
+	/**
+	 * Méthode qui imprime le début du flux RSS
+	 *
+	 * @author J.P. Pourrez @bazooka07
+	 **/
+	public function printRSSTop() {
 		if(empty($this->lastBuildDate)) {
 			$this->lastBuildDate = date('YmdHi');
 		}
@@ -224,18 +217,23 @@ class plxFeed extends plxMotor {
 		<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="<?= $this->urlRewrite('feed.php?' . $this->get) ?>" />
 		<title><?= plxUtils::strCheck($this->rssTitle, true, null) ?></title>
 		<link><?= $this->rssLink ?></link>
-		<lastBuildDate><?= plxDate::dateIso2rfc822($this->rssLastBuildDate) ?></lastBuildDate>
+		<lastBuildDate><?= plxDate::dateIso2rfc822($this->lastBuildDate) ?></lastBuildDate>
 		<language><?= $this->aConf['default_lang'] ?></language>
 		<description><?= plxUtils::strCheck($this->aConf['description'], true, null) ?></description>
 		<generator>PluXml</generator>
-<?= $items ?>
+<?php
+	}
+
+	/**
+	 * Méthode qui imprime la fin du flux RSS
+	 *
+	 * @author J.P. Pourrez @bazooka07
+	 **/
+	public function printRSSBottom() {
+?>
 	</channel>
 </rss>
 <?php
-
-		# Hook plugins
-		eval($this->plxPlugins->callHook('plxFeedDemarrageEnd'));
-
 	}
 
 	/**
@@ -270,11 +268,10 @@ class plxFeed extends plxMotor {
 			default:
 		}
 
-		# On affiche le flux dans le tampon de sortie
-		ob_start();
-
 		# On va boucler sur les articles si possible
 		if($this->plxRecord_arts) {
+			$this->lastBuildDate = $this->plxRecord_arts->lastUpdateDate();
+			$this->printRSSTop();
 			while($this->plxRecord_arts->loop()) {
 				$length = '';
 				$mimetype = '';
@@ -331,10 +328,8 @@ class plxFeed extends plxMotor {
 		</item>
 <?php
 			}
+			$this->printRSSBottom();
 		}
-
-		# On récupère le contenu du tampon de sortie
-		return ob_get_clean();
 	}
 
 	/**
@@ -346,7 +341,6 @@ class plxFeed extends plxMotor {
 	public function getRssComments() {
 
 		# Traitement initial
-		$last_updated = '197001010100';
 		$entry_link = '';
 		$entry = '';
 		if($this->cible) { # Commentaires d'un article
@@ -360,11 +354,10 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments.rss';
 		}
 
-		# On affiche le flux dans le tampon de sortie
-		ob_start();
-
 		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
+			$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
+			$this->printRSSTop();
 			while($this->plxRecord_coms->loop()) {
 				# Traitement initial
 				if(isset($this->activeArts[$this->plxRecord_coms->f('article')])) {
@@ -381,9 +374,6 @@ class plxFeed extends plxMotor {
 						$artInfo = $this->artInfoFromFilename($this->plxGlob_arts->aFiles[$this->plxRecord_coms->f('article')]);
 						$link_com = $this->urlRewrite('?article'.$artId.'/'.$artInfo['artUrl'].'#'.$comId);
 					}
-					# On vérifie la date de publication
-					if($this->plxRecord_coms->f('date') > $last_updated)
-						$last_updated = $this->plxRecord_coms->f('date');
 
 					# On affiche le flux dans un buffer
 ?>
@@ -402,12 +392,8 @@ class plxFeed extends plxMotor {
 <?php
 				}
 			}
+			$this->printRSSBottom();
 		}
-
-		$this->rssLastBuildDate = $last_updated;
-
-		# On récupère le contenu du tampon de sortie
-		return ob_get_clean();
 	}
 
 	/**
@@ -430,10 +416,10 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments-online.rss';
 		}
 
-		# On affiche le flux dans le tampon de sortie
-		ob_start();
 		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
+			$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
+			$this->printRSSTop();
 			while($this->plxRecord_coms->loop()) {
 				$artId = $this->plxRecord_coms->f('article') + 0;
 				$comId = $this->cible.$this->plxRecord_coms->f('article').'.'.$this->plxRecord_coms->f('numero');
@@ -455,9 +441,7 @@ class plxFeed extends plxMotor {
 		</item>
 <?php
 			}
+			$this->printRSSBottom();
 		}
-
-		# On récupère le contenu du tampon de sortie
-		return ob_get_clean();
 	}
 }

@@ -62,4 +62,28 @@ class plxRecord {
 			return false;
 	}
 
+	/**
+	 * Méthode qui retourne la date de l'enregistrement le plus récent
+	 *
+	 * @$update prendre en compte la date de mise à jour (articles,...)
+	 * @return  date au format 'YmdHi' ou null
+	 * @author J.P. Pourrez @bazooka07
+	 **/
+	public function lastUpdateDate($update=false) {
+		return array_reduce($this->result, function($carry, $item) use($update) {
+			if($update and array_key_exists('date_update', $item)) {
+				# pour les articles si date miseà jour prise en compte
+				$dt = $item['date_update'];
+			} elseif(array_key_exists('date', $item)) {
+				# pour les commentaires
+				$dt = $item['date'];
+			} else {
+				# aucune clé trouvée
+				return $carry;
+			}
+
+			return ($carry > $dt) ? $carry : $dt;
+		});
+	}
+
 }
