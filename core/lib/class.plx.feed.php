@@ -15,6 +15,7 @@ const PLX_FEED = true;
 class plxFeed extends plxMotor {
 
 	public $rssAttachment = 'pluxml.rss';
+	public $lastBuildDate = '';
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
@@ -152,7 +153,7 @@ class plxFeed extends plxMotor {
 				}
 			} else {
 				# Flux de commentaires global
-				$regex = '#^\d{4}\.\d{10}-\d+.xml$#';
+				$regex = '#^\d{4}\.\d{10}-\d+\.xml$#';
 			}
 			$this->getCommentaires($regex, 'rsort', 0, $this->bypage);
 			$this->getRssComments();
@@ -268,10 +269,11 @@ class plxFeed extends plxMotor {
 			default:
 		}
 
+		$this->lastBuildDate = $this->plxRecord_arts->lastUpdateDate();
+		$this->printRSSTop();
+
 		# On va boucler sur les articles si possible
 		if($this->plxRecord_arts) {
-			$this->lastBuildDate = $this->plxRecord_arts->lastUpdateDate();
-			$this->printRSSTop();
 			while($this->plxRecord_arts->loop()) {
 				$length = '';
 				$mimetype = '';
@@ -296,7 +298,9 @@ class plxFeed extends plxMotor {
 				} else {
 					$content = $this->plxRecord_arts->f('chapo').$this->plxRecord_arts->f('content');
 				}
-				$content .= $this->aConf['feed_footer'];
+				if(!empty(trim($this->aConf['feed_footer']))) {
+					$content .= $this->aConf['feed_footer'];
+				}
 				$artId = $this->plxRecord_arts->f('numero') + 0;
 				$author = $this->aUsers[$this->plxRecord_arts->f('author')]['name'];
 				# On vérifie la dernière date de publication
@@ -328,8 +332,9 @@ class plxFeed extends plxMotor {
 		</item>
 <?php
 			}
-			$this->printRSSBottom();
 		}
+
+		$this->printRSSBottom();
 	}
 
 	/**
@@ -354,10 +359,11 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments.rss';
 		}
 
+		$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
+		$this->printRSSTop();
+
 		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
-			$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
-			$this->printRSSTop();
 			while($this->plxRecord_coms->loop()) {
 				# Traitement initial
 				if(isset($this->activeArts[$this->plxRecord_coms->f('article')])) {
@@ -392,8 +398,9 @@ class plxFeed extends plxMotor {
 <?php
 				}
 			}
-			$this->printRSSBottom();
 		}
+
+		$this->printRSSBottom();
 	}
 
 	/**
@@ -416,10 +423,11 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments-online.rss';
 		}
 
+		$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
+		$this->printRSSTop();
+
 		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
-			$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
-			$this->printRSSTop();
 			while($this->plxRecord_coms->loop()) {
 				$artId = $this->plxRecord_coms->f('article') + 0;
 				$comId = $this->cible.$this->plxRecord_coms->f('article').'.'.$this->plxRecord_coms->f('numero');
@@ -441,7 +449,8 @@ class plxFeed extends plxMotor {
 		</item>
 <?php
 			}
-			$this->printRSSBottom();
 		}
+
+		$this->printRSSBottom();
 	}
 }

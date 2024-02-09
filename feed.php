@@ -31,15 +31,16 @@ if(!$plxFeed->aConf['enable_rss']) {
 	exit;
 }
 
+$plxFeed->fprechauffage();
+
 # On démarre la bufferisation
 ob_start();
 # ob_implicit_flush(0);
 
-$plxFeed->fprechauffage();
 $plxFeed->fdemarrage();
 
 # Récuperation de la bufférisation
-$output = XML_HEADER . ob_get_clean() . PHP_EOL;
+$output = XML_HEADER . ob_get_clean();
 
 eval($plxFeed->plxPlugins->callHook('FeedEnd')); # Hook Plugins
 
