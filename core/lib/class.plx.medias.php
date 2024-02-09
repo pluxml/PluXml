@@ -131,7 +131,7 @@ class plxMedias {
 						file_exists($iconName) or
 						plxUtils::makeThumb(
 							$filename,
-							$iconName
+							$iconName,
 						)
 					) {
 						$sample = $iconName;
