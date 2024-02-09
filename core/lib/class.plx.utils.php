@@ -100,7 +100,7 @@ class plxUtils {
 				if(is_array($v)) {
 					$new_content[$k] = array();
 					foreach($v as $key=>$val)
-						$new_content[$k][$key] = stripslashes($val);
+						$new_content[$k][$key] = self::unSlash($val);
 				} else {
 					$new_content[$k] = stripslashes($v);
 				}
