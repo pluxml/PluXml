@@ -16,6 +16,7 @@
 	}
 
 	function done() {
+		mo.classList.remove('success');
 		mb.checked = false;
 		zoomboxImg.src = '';
 	}
@@ -35,9 +36,12 @@
 				console.log('image loaded : ' + ev.target.src);
 				zoomboxImg.src = src;
 				loader.classList.remove('show');
+				mo.classList.add('success');
 			}
 			img.onerror = function(ev) {
-				alert('Image not loaded from ' + src);
+				loader.classList.remove('show');
+				alert('⛔ Image not loaded from :\n' + src);
+				done();
 			}
 			img.src = src;
 			return;
