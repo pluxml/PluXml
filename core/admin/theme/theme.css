@@ -930,7 +930,7 @@ div.ico {
 	color: #ccc;
 	display: inline-block;
 	margin-left: 5px;
-	position: relative;
+	position: initial;
 }
 
 div.ico:hover {
