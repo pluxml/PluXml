@@ -1087,12 +1087,10 @@ class plxMotor {
 
 				$comment = [
 					'type' => 'normal',
-					'author' => plxUtils::strCheck(trim(!empty($content['name']) ? $content['name'] : $content['login'])),
-					'content' => plxUtils::strCheck(trim($content['content'])),
-					# On vérifie le mail
-					'mail' => (!empty($content['mail']) and plxUtils::checkMail(trim($content['mail']))) ? trim($content['mail']) : '',
-					# On vérifie le site
-					'site' => (!empty($content['site']) and plxUtils::checkSite(trim($content['site']))) ? trim($content['site']) : '',
+					'author' => trim(!empty($content['name']) ? $content['name'] : $content['login']),
+					'content' => trim($content['content']),
+					'mail' => trim($content['mail']),
+					'site' => trim($content['site']),
 					# On récupère l'adresse IP du posteur
 					'ip' => plxUtils::getIp(),
 					# Commentaire parent en cas de réponse
@@ -1128,12 +1126,12 @@ class plxMotor {
 		ob_start();
 ?>
 <comment>
-	<author><![CDATA[<?= plxUtils::cdataCheck($content['author']) ?>]]></author>
+	<author><?= plxUtils::strCheck($content['author']) ?></author>
 	<type><?= $content['type'] ?></type>
 	<ip><?= $content['ip'] ?></ip>
-	<mail><?= plxUtils::strCheck($content['mail']) ?></mail>
-	<site><?= plxUtils::strCheck($content['site']) ?></site>
-	<content><?= plxUtils::strCheck($content['content'], true) ?></content>
+	<mail><?= plxUtils::checkMail($content['mail']) ?></mail>
+	<site><?= plxUtils::checkSite($content['site'])? $content['site']: '' ?></site>
+	<content><?= plxUtils::strCheck($content['content'], true, '<a><b><i><p><q><u><em><sub><sup><del><pre><code><span><strong>', true) ?></content>
 	<parent><?= !empty($content['parent']) ? intval($content['parent']) : '' ?></parent>
 <?php
 
