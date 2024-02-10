@@ -802,7 +802,7 @@ th.sort.active::after {
 	bottom: 0;
 	left: 0;
 	position: fixed;
-	background-color: #666;
+	background-color: rgba(6, 6, 6, 0.95);
 	z-index: 999;
 	text-align: right;
 }
@@ -819,11 +819,7 @@ th.sort.active::after {
 }
 
 .modal input {
-	position: absolute;
-	right: 100px;
-	top: 30px;
 	display: none;
-	z-index: -10;
 }
 
 .modal label {
@@ -851,41 +847,38 @@ th.sort.active::after {
 	}
 }
 
-.modal label:hover {
-	color: #fff;
-	-webkit-transform: scale(0.97);
-	-ms-transform: scale(0.97);
-	transform: scale(0.97);
-}
-
 .modal__box img {
 	max-height: calc(100vh - 1.25rem);
 	max-width: calc(100vw - 1.25rem);
 }
 
 .modal__overlay {
-	opacity: 0;
 	overflow: hidden;
-	-webkit-transform: scale(0.5);
-	-ms-transform: scale(0.5);
-	transform: scale(0.5);
 	-webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 	transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
-	visibility: hidden;
 	align-items: center;
 	display: flex;
 	justify-content: center;
+	z-index: 800;
 }
 
-input:checked~.modal__overlay {
-	opacity: 0.95;
-	-webkit-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-	-webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
-	transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
-	z-index: 800;
-	visibility: visible;
+.modal__overlay label:hover {
+	color: #fff;
+	-webkit-transform: scale(0.97);
+	-ms-transform: scale(0.97);
+	transform: scale(0.97);
+}
+
+.modal__overlay:not(.success) label {
+	display: none;
+}
+
+input:not(:checked) + .modal__overlay {
+	opacity: 0;
+	-webkit-transform: scale(0.33);
+	-ms-transform: scale(0.33);
+	transform: scale(0.33);
+	visibility: hidden;
 }
 
 /* gestion des themes */
