@@ -48,6 +48,11 @@ class plxFeed extends plxMotor {
 		eval($this->plxPlugins->callHook('plxFeedConstruct'));
 	}
 
+	private static function notFound() {
+		header('HTTP/1.0 404 Not Found');
+		exit;
+	}
+
 	/**
 	 * Méthode qui effectue une analyse de la situation et détermine
 	 * le mode à appliquer. Cette méthode alimente ensuite les variables
@@ -61,67 +66,81 @@ class plxFeed extends plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxFeedPreChauffageBegin'))) return;
 
-		if($this->get AND preg_match('#^(?:atom/|rss/)?categorie(\d+)/?#',$this->get,$capture)) {
-			$this->mode = 'categorie'; # Mode du flux
-			# On récupère la catégorie cible
-			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
-			# On modifie le motif de recherche
-			$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->cible.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
-		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?user(\d+)/?#',$this->get,$capture)) {
-			$this->mode = 'user'; # Mode du flux
-			# On récupère l'id de l'utilisateur
-			$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
-			# On modifie le motif de recherche
-			$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:home|\d{3})(?:,\d{3})*\.' . $this->cible . '\.\d{12}\.[\w-]+\.xml$#';
-		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/?$#',$this->get)) {
-			$this->mode = 'commentaire'; # Mode du flux
-		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?tag/([\w-]+)/?$#', $this->get, $capture)) {
-			$this->mode = 'tag';
-			$this->cible = $capture[1];
-			$ids = array();
-			$datetime = date('YmdHi');
-			foreach($this->aTags as $idart => $tag) {
-				if($tag['date']<=$datetime) {
-					$tags = array_map("trim", explode(',', $tag['tags']));
-					$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
-					if(in_array($this->cible, $tagUrls)) {
-						if(!isset($ids[$idart])) $ids[$idart] = $idart;
-						if(!isset($cibleName)) {
-							$key = array_search($this->cible, $tagUrls);
-							$cibleName=$tags[$key];
+		# Par defaut : flux RSS pour les articles
+		$this->mode = 'article'; # Mode du flux
+		$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+
+		if(!empty($this->get)) {
+			if(preg_match('#^(?:atom/|rss/)?categorie(\d+)/?#',$this->get,$capture)) {
+				$this->mode = 'categorie'; # Mode du flux
+				# On récupère la catégorie cible et on complète sur 3 caractères
+				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT);
+				# On vérifie que la catégorie existe et est active
+				if(!isset($this->aCats[$this->cible]) OR !$this->aCats[$this->cible]['active']) {
+					self::notFound();
+				}
+
+				# On modifie le motif de recherche
+				$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->cible.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+			}
+			elseif(preg_match('#^(?:atom/|rss/)?user(\d+)/?#',$this->get,$capture)) {
+				$this->mode = 'user'; # Mode du flux
+				# On récupère l'id de l'utilisateur et on complète sur 3 caractères
+				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT);
+				# On vérifie que le user existe et est active
+				if(!isset($this->aUsers[$this->cible]) OR !$this->aUsers[$this->cible]['active']) {
+					self::notFound();
+				}
+
+				# On modifie le motif de recherche
+				$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:home|\d{3})(?:,\d{3})*\.' . $this->cible . '\.\d{12}\.[\w-]+\.xml$#';
+			}
+			elseif(preg_match('#^(?:atom/|rss/)?tag/([\w-]+)/?$#', $this->get, $capture)) {
+				$this->mode = 'tag';
+				$this->cible = $capture[1];
+				$ids = array();
+				$datetime = date('YmdHi');
+				foreach($this->aTags as $idart => $tag) {
+					if($tag['active'] and $tag['date'] <= $datetime) {
+						$tags = array_map('trim', explode(',', $tag['tags']));
+						$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
+						if(in_array($this->cible, $tagUrls) and !isset($ids[$idart])) {
+							$ids[$idart] = true;
 						}
 					}
 				}
-			}
-			if(sizeof($ids)>0) {
+				# On vérifie qu'il y a des articles pour ce tag
+				if(empty($ids)) {
+					self::notFound();
+				}
+
 				# Notice 000 and home are always in activeCats
-				$this->motif = '#('.implode('|', $ids).')\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
-			} else
-				$this->motif = '';
-		}
-		elseif($this->get AND preg_match('#^(?:atom/|rss/)?commentaires/article(\d+)/?$#',$this->get,$capture)) {
-			$this->mode = 'commentaire'; # Mode du flux
-			# On récupère l'article cible
-			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complète sur 4 caractères
-			# On modifie le motif de recherche
-			$this->motif = '#^'.$this->cible.'\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
-		}
-		elseif($this->get AND preg_match('#^admin([\w-]+)/commentaires/(hors|en)-ligne/?$#',$this->get,$capture)) {
-			$this->mode = 'admin'; # Mode du flux
-			if ($capture[1] == $this->clef) {
-				$this->cible = ($capture[2] == 'hors') ? '_' : '';
-			} else {
-				header('Content-Type: text/plain; charset='.PLX_CHARSET);
-				echo L_FEED_NO_PRIVATE_URL;
-				exit;
+				$this->motif = '#('.implode('|', array_keys($ids)).')\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			}
-		} else {
-			$this->mode = 'article'; # Mode du flux
-			# On modifie le motif de recherche
-			$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+			elseif(preg_match('#^(?:atom/|rss/)?commentaires/?$#',$this->get)) {
+				$this->mode = 'commentaire'; # Mode du flux
+			}
+			elseif(preg_match('#^(?:atom/|rss/)?commentaires/article(\d+)/?$#',$this->get,$capture)) {
+				$this->mode = 'commentaire'; # Mode du flux
+				# On récupère l'article cible et on complète sur 4 caractères
+				$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT);
+				# On vérifie que l'article est publié
+
+				# On modifie le motif de recherche
+				$this->motif = '#^'.$this->cible.'\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+			}
+			elseif(preg_match('#^admin([\w-]+)/commentaires/(hors|en)-ligne/?$#',$this->get,$capture)) {
+				$this->mode = 'admin'; # Mode du flux
+				if ($capture[1] == $this->clef) {
+					$this->cible = ($capture[2] == 'hors') ? '_' : '';
+				} else {
+					header('Content-Type: text/plain; charset='.PLX_CHARSET);
+					echo L_FEED_NO_PRIVATE_URL;
+					exit;
+				}
+			} elseif(!preg_match('#^(?:atom|rss)/?$#',$this->get)) {
+				self::notFound();
+			}
 		}
 
 		# Hook plugins
@@ -163,37 +182,7 @@ class plxFeed extends plxMotor {
 			$this->getCommentaires('#^' . $this->cible . '\d{4}\.\d{10}-\d+\.xml$#', 'rsort', 0, false, 'all');
 			$this->getAdminComments();
 		} else {
-			# Flux des articles d'une catégorie ou d'un utilisateur précis
-			if($this->cible) {
-				switch($this->mode) {
-					case 'categorie':
-						# On vérifie que la catégorie existe et est active
-						if(!isset($this->aCats[$this->cible]) OR !$this->aCats[$this->cible]['active']) {
-							# Echec, on redirige
-							header('Location: '.$this->urlRewrite('?categorie'.intval($this->cible).'/'));
-							exit;
-						}
-						break;
-					case 'tag':
-						# Flux d'articles pour un tag
-						if(empty($this->motif)) {
-							header('Location: '.$this->urlRewrite('?tag/'.$this->cible.'/'));
-							exit;
-						}
-						break;
-					case 'user':
-						# On vérifie que la catégorie existe et est active
-						if(!isset($this->aUsers[$this->cible]) OR !$this->aUsers[$this->cible]['active']) {
-							# Echec, on redirige
-							header('Location: '.$this->urlRewrite('?user'.intval($this->cible).'/'));
-							exit;
-						}
-						break;
-					default:
-						header('Location: index.php');
-						exit;
-				}
-			}
+			# Flux des articles, éventuellement pour une catégorie, un utilisateur ou un tag particulier
 			$this->getArticles(); # Récupération des articles (on les parse)
 			$this->getRssArticles();
 		}
