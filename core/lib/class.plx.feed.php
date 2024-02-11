@@ -204,12 +204,15 @@ class plxFeed extends plxMotor {
 	}
 
 	/**
-	 * Méthode qui imprime le début du flux RSS
-	 *
-	 * @author J.P. Pourrez @bazooka07
+	 * Méthode qui imprime le début du flux RSS (Depuis 5.9)
+	 * @param	string	$who	plxRecord_(coms|arts|...) qui à la dernière date de MAJ
+	 * @authors J.P. Pourrez @bazooka07, T. Ingles @sudwebdesign
 	 **/
-	public function printRSSTop() {
-		if(empty($this->lastBuildDate)) {
+	public function printRSSTop($who = 'coms') {
+		if(!empty($this->{'plxRecord_' . $who})) {
+			$this->lastBuildDate = $this->{'plxRecord_' . $who}->lastUpdateDate();
+		}
+		elseif(empty($this->lastBuildDate)) {
 			$this->lastBuildDate = date('YmdHi');
 		}
 ?>
@@ -223,6 +226,8 @@ class plxFeed extends plxMotor {
 		<description><?= plxUtils::strCheck($this->aConf['description'], true, null) ?></description>
 		<generator>PluXml</generator>
 <?php
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxFeedPrintRSSTop'));
 	}
 
 	/**
@@ -269,8 +274,7 @@ class plxFeed extends plxMotor {
 			default:
 		}
 
-		$this->lastBuildDate = $this->plxRecord_arts->lastUpdateDate();
-		$this->printRSSTop();
+		$this->printRSSTop('arts');
 
 		# On va boucler sur les articles si possible
 		if($this->plxRecord_arts) {
@@ -359,7 +363,6 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments.rss';
 		}
 
-		$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
 		$this->printRSSTop();
 
 		# On va boucler sur les commentaires (s'il y en a)
@@ -423,7 +426,6 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments-online.rss';
 		}
 
-		$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
 		$this->printRSSTop();
 
 		# On va boucler sur les commentaires (s'il y en a)
