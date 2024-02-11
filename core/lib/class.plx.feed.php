@@ -69,6 +69,7 @@ class plxFeed extends plxMotor {
 		# Par defaut : flux RSS pour les articles
 		$this->mode = 'article'; # Mode du flux
 		$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+		$this->cible = '';
 
 		if(!empty($this->get)) {
 			if(preg_match('#^(?:atom/|rss/)?categorie(\d+)/?#',$this->get,$capture)) {
@@ -125,6 +126,11 @@ class plxFeed extends plxMotor {
 				# On récupère l'article cible et on complète sur 4 caractères
 				$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT);
 				# On vérifie que l'article est publié
+				$this->motif = '#^' . $this->cible . '\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+				if(!$this->getArticles()) {
+					# Article non publié
+					self::notFound();
+				}
 
 				# On modifie le motif de recherche
 				$this->motif = '#^'.$this->cible.'\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
@@ -160,21 +166,8 @@ class plxFeed extends plxMotor {
 		if(eval($this->plxPlugins->callHook('plxFeedDemarrageBegin'))) return;
 
 		if($this->mode == 'commentaire') {
-			if(!empty($this->cible)) {
-				# Flux de commentaires d'un article précis
-				if(!$this->getArticles()) { # Aucun article, on redirige
-					$this->cible = $this->cible + 0;
-					header('Location: ' . $this->urlRewrite('?article' . $this->cible . '/'));
-					exit;
-				} else {
-					# On récupère les commentaires de l'article
-					$regex = '#^' . $this->cible . '.\d{10}-\d+\.xml$#';
-				}
-			} else {
-				# Flux de commentaires global
-				$regex = '#^\d{4}\.\d{10}-\d+\.xml$#';
-			}
-			$this->getCommentaires($regex, 'rsort', 0, $this->bypage);
+			$idArts = !empty($this->cible) ? $this->cible : '\d{4}';
+			$this->getCommentaires('#^' . $idArts . '\.\d{10}-\d+\.xml$#', 'rsort', 0, $this->bypage);
 			$this->getRssComments();
 		} elseif($this->mode == 'admin') {
 			# Flux admin
