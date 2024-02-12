@@ -30,6 +30,7 @@ class plxUtils {
 	const THUMB_WIDTH = 48;
 	const THUMB_HEIGHT = 48;
 	const PATTERN_PAGINATION = '#\bpage=%d\b#'; # for hacking against printf()
+	const ALLOWED_HTML_TAGS = '<p><div><ul><li><ol><br><a><img><i><em><sup><span><strong>';
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.
@@ -907,7 +908,7 @@ class plxUtils {
 	 * @param	tags	balises HTML autorisées dans <![CDATA[]]> ou null
 	 * @return	string	chaine de caractères tenant compte du charset
 	 **/
-	public static function strCheck($str, $cdata=false, $tags='<i><em><a><sup><span>') {
+	public static function strCheck($str, $cdata=false, $tags=self::ALLOWED_HTML_TAGS) {
 
 		$str = trim($str);
 		if ($str === '') {
@@ -916,7 +917,7 @@ class plxUtils {
 
 		if ($cdata) {
 			# caractère " interdit. Remplacer par &quot; si besoin à la saisie
-			return '<![CDATA[' . strip_tags(str_replace('"', '', $str), $tags) . ']]>';
+			return '<![CDATA[' . strip_tags($str, $tags) . ']]>';
 		}
 
 		# ENT_COMPAT : Convertit les guillemets doubles, et ignore les guillemets simples.
