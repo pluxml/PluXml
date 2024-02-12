@@ -1166,7 +1166,7 @@ EOT;
 	 * @author	Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function getTemplatesTheme($prefix='static') {
-		$glob = plxGlob::getInstance(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'], false, true, '#^^' . $prefix . '(?:-[\w-]+)?\.php$#');
+		$glob = plxGlob::getInstance(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'], false, true, '#^' . $prefix . '(?:-[\w-]+)?\.php$#');
 		if (empty($glob->aFiles)) {
 			return array('' => L_NONE1);
 		}
