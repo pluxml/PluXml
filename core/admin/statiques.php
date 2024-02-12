@@ -29,6 +29,8 @@ if(!empty($_POST)) {
 	exit;
 }
 
+$aTemplates = $plxAdmin->getTemplatesTheme();
+
 # On inclut le header
 include 'top.php';
 ?>
@@ -67,6 +69,7 @@ function checkBox(cb) {
 					<th><?= L_STATICS_GROUP ?></th>
 					<th><?= L_STATICS_TITLE ?></th>
 					<th><?= L_STATICS_URL ?></th>
+					<th><?= L_STATICS_TEMPLATE_FIELD ?></th>
 					<th><?= L_STATICS_ACTIVE ?></th>
 					<th><?= L_STATICS_ORDER ?></th>
 					<th><?= L_STATICS_MENU ?></th>
@@ -97,6 +100,8 @@ function checkBox(cb) {
 					</td><td>
 						<?php plxUtils::printInput($k.'_url', $v['url'], 'text', '-255'); ?>
 					</td><td>
+						<?php plxUtils::printSelect($k.'_template', $aTemplates, $v['template']); ?>
+					</td><td>
 						<?php plxUtils::printSelect($k.'_active', array('1'=>L_YES,'0'=>L_NO), $v['active']); ?>
 					</td><td>
 						<?php plxUtils::printInput($k.'_ordre', $ordre, 'text', '2-3') ?>
@@ -104,11 +109,12 @@ function checkBox(cb) {
 						<?php plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']); ?>
 					</td><td>
 <?php
-					if(!plxUtils::checkSite($v['url'])) {
+					if(!plxUtils::checkSite($v['url'], false)) {
+						$filename = PLX_ROOT . $plxAdmin->aConf['racine_statiques'] . $k . '.' . $v['url'] . '.php';
 ?>
 						<a href="statique.php?p=<?= $k ?>" title="<?= L_STATICS_SRC_TITLE ?>"><?= L_STATICS_SRC ?></a>
 <?php
-						if($v['active']) {
+						if($v['active'] and file_exists($filename)) {
 ?>
 							&nbsp;&nbsp;<a href="<?= $plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> '<?= plxUtils::strCheck($v['name']); ?>' <?= L_STATIC_ON_SITE ?>" target="_blank"><?= L_VIEW ?></a>
 <?php
@@ -129,10 +135,13 @@ function checkBox(cb) {
 				# On récupère le dernier identifiant
 				$a = array_keys($plxAdmin->aStats);
 				rsort($a);
+				$newId = $a[0] + 1;
 			} else {
-				$a['0'] = 0;
+				$newId = 1;
 			}
-			$new_staticid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
+
+			# Pour une nouvelle page statique
+			$new_staticid = str_pad($newId, 3, '0', STR_PAD_LEFT);
 ?>
 				<tr class="new">
 					<td colspan="3"><?= L_STATICS_NEW_PAGE ?></td>
@@ -141,9 +150,10 @@ function checkBox(cb) {
 						<?php plxUtils::printInput($new_staticid.'_group', '', 'text', '-100'); ?>
 					</td><td>
 						<?php plxUtils::printInput($new_staticid.'_name', '', 'text', '-255'); ?>
-						<?php plxUtils::printInput($new_staticid.'_template', 'static.php', 'hidden'); ?>
 					</td><td>
 						<?php plxUtils::printInput($new_staticid.'_url', '', 'text', '-255'); ?>
+					</td><td>
+						<?php plxUtils::printSelect($new_staticid.'_template', $aTemplates); ?>
 					</td><td>
 						<?php plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0'); ?>
 					</td><td>

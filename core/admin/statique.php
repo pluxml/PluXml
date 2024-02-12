@@ -55,16 +55,6 @@ if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
 	exit;
 }
 
-# On récupère les templates des pages statiques
-$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#^^static(?:-[\w-]+)?\.php$#');
-if (!empty($glob->aFiles)) {
-	$aTemplates = array();
-	foreach($glob->aFiles as $v)
-		$aTemplates[$v] = basename($v, '.php');
-} else {
-	$aTemplates = array('' => L_NONE1);
-}
-
 # On inclut le header
 include 'top.php';
 ?>
@@ -91,7 +81,7 @@ include 'top.php';
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_template"><?= L_STATICS_TEMPLATE_FIELD ?>&nbsp;:</label>
-					<?php plxUtils::printSelect('template', $aTemplates, $template); ?>
+					<?php plxUtils::printSelect('template', $plxAdmin->getTemplatesTheme(), $template); ?>
 				</div>
 			</div>
 			<div class="grid">

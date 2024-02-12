@@ -872,12 +872,12 @@ EOT;
 			$this->aCats[$cat_id]['name'] = $cat_name;
 			$this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name);
 			$this->aCats[$cat_id]['tri'] = $this->aConf['tri'];
-			$this->aCats[$cat_id]['bypage'] = $this->aConf['bypage'];
+			$this->aCats[$cat_id]['bypage'] = $content['bypage'];
 			$this->aCats[$cat_id]['menu'] = 'oui';
 			$this->aCats[$cat_id]['active'] = 1;
 			$this->aCats[$cat_id]['homepage'] = 1;
 			$this->aCats[$cat_id]['description'] = '';
-			$this->aCats[$cat_id]['template'] = 'categorie.php';
+			$this->aCats[$cat_id]['template'] = $content['template'];
 			$this->aCats[$cat_id]['thumbnail'] = '';
 			$this->aCats[$cat_id]['thumbnail_title'] = '';
 			$this->aCats[$cat_id]['thumbnail_alt'] = '';
@@ -911,6 +911,7 @@ EOT;
 
 				$this->aCats[$cat_id]['name'] = $cat_name;
 				$this->aCats[$cat_id]['url'] = $cat_url;
+				$this->aCats[$cat_id]['template'] = $content[$cat_id.'_template'];
 				$this->aCats[$cat_id]['tri'] = $content[$cat_id.'_tri'];
 				$this->aCats[$cat_id]['bypage'] = intval($content[$cat_id.'_bypage']);
 				$this->aCats[$cat_id]['menu'] = $content[$cat_id.'_menu'];
@@ -1063,6 +1064,7 @@ EOT;
 					$this->aStats[$static_id]['group'] = trim($content[$static_id.'_group']);
 					$this->aStats[$static_id]['name'] = $stat_name;
 					$this->aStats[$static_id]['url'] = plxUtils::checkSite($url)?$url:$stat_url;
+					$this->aStats[$static_id]['template'] = $content[$static_id.'_template'];;
 					$this->aStats[$static_id]['active'] = $content[$static_id.'_active'];
 					$this->aStats[$static_id]['menu'] = $content[$static_id.'_menu'];
 					$this->aStats[$static_id]['ordre'] = intval($content[$static_id.'_ordre']);
@@ -1154,6 +1156,36 @@ EOT;
 		}
 
 		return null;
+	}
+
+	/**
+	 * Méthode qui retourne la liste des templates avec le même préfixe pour le thème courant
+	 *
+	 * @param	string $prefix préfixe du nom des templates : article, static, categorie, home, tag, archive, ...
+	 * @return	array	liste des templates
+	 * @author	Jean-Pierre Pourrez @bazooka07
+	 **/
+	public function getTemplatesTheme($prefix='static') {
+		$glob = plxGlob::getInstance(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'], false, true, '#^^' . $prefix . '(?:-[\w-]+)?\.php$#');
+		if (empty($glob->aFiles)) {
+			return array('' => L_NONE1);
+		}
+
+		$aTemplates = array();
+		foreach($glob->aFiles as $v) {
+			$aTemplates[$v] = basename($v, '.php');
+		}
+		uasort($aTemplates, function($a0, $b0) {
+			$mask = '#-full-width$#i';
+			$a1 = preg_replace($mask, '', $a0);
+			$b1 = preg_replace($mask, '', $b0);
+			if($a1 != $b1) {
+				return strcmp($a1, $b1);
+			}
+
+			return strlen($a0) - strlen($b0);
+		});
+		return $aTemplates;
 	}
 
 	/**

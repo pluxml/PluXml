@@ -250,16 +250,6 @@ foreach($plxAdmin->aUsers as $_userid => $_user) {
 	}
 }
 
-# On récupère les templates des articles
-$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#^article(?:-[\w-]+)?\.php$#');
-if (!empty($glob->aFiles)) {
-	$aTemplates = array();
-	foreach($glob->aFiles as $v)
-		$aTemplates[$v] = basename($v, '.php');
-} else {
-	$aTemplates = array('' => L_NONE1);
-}
-
 $cat_id='000';
 ?>
 <form method="post" id="form_article">
@@ -588,7 +578,7 @@ if($plxAdmin->aTags) {
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_template"><?= L_ARTICLE_TEMPLATE_FIELD ?>&nbsp;:</label>
-						<?php plxUtils::printSelect('template', $aTemplates, $template); ?>
+						<?php plxUtils::printSelect('template', $plxAdmin->getTemplatesTheme('article'), $template); ?>
 					</div>
 				</div>
 				<div class="grid">
