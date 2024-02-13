@@ -137,7 +137,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 		}
 	}
 	else {
-		$colspan = $_SESSION['selPlugins']=='1' ? 5 : 4;
+		$colspan = empty($_SESSION['selPlugins']) ? 4 : 5;
 ?>
 
 		<tr>
@@ -156,17 +156,10 @@ $nbActivePlugins = sizeof($plxAdmin->plxPlugins->aPlugins);
 $nbInactivePlugins = sizeof($aInactivePlugins);
 # récuperation du type de plugins à afficher
 $_GET['sel'] = isset($_GET['sel']) ? intval(plxUtils::nullbyteRemove($_GET['sel'])) : '';
-$session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : '1';
-$sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
+$session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : 1;
+$sel = in_array($_GET['sel'], array('0', '1')) ? intval($_GET['sel']) : $session;
 $_SESSION['selPlugins'] = $sel;
-if($sel=='1') {
-	# plugins actifs
-	$aSelList = array(
-		'' => L_FOR_SELECTION,
-		'deactivate'=> L_PLUGINS_DEACTIVATE,
-	);
-	$plugins = pluginsList($plxAdmin->plxPlugins->aPlugins, $plxAdmin->aConf['default_lang'], true);
-} else {
+if($sel == 0) {
 	# plugins désactivés
 	$aSelList = array(
 		'' => L_FOR_SELECTION,
@@ -175,21 +168,22 @@ if($sel=='1') {
 		'delete' => L_PLUGINS_DELETE,
 	);
 	$plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);
+} else {
+	# plugins actifs
+	$aSelList = array(
+		'' => L_FOR_SELECTION,
+		'deactivate'=> L_PLUGINS_DEACTIVATE,
+	);
+	$plugins = pluginsList($plxAdmin->plxPlugins->aPlugins, $plxAdmin->aConf['default_lang'], true);
 }
-# fil d'ariane
-$breadcrumbs = array();
-$breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='1'?'class="selected" ':'').'href="parametres_plugins.php?sel=1">'.L_PLUGINS_ACTIVE_LIST.'</a>&nbsp;('.$nbActivePlugins.')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='0'?'class="selected" ':'').'href="parametres_plugins.php?sel=0">'.L_PLUGINS_INACTIVE_LIST.'</a>&nbsp;('.$nbInactivePlugins.')</li>';
-
 $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 
 # On inclut le header
 include 'top.php';
 
 ?>
-
 <form action="parametres_plugins.php" method="post" id="form_plugins">
-
+	<?= plxToken::getTokenPostMethod() ?>
 	<div class="inline-form action-bar">
 		<h2>
 			<?= L_PLUGINS_TITLE ?>
@@ -198,9 +192,9 @@ include 'top.php';
 		</h2>
 
 		<ul class="menu">
-			<?= implode($breadcrumbs) ?>
+			<li><a class="<?= empty($_SESSION['selPlugins']) ? '' : 'selected' ?>" href="parametres_plugins.php?sel=1"><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;(<?= $nbActivePlugins ?>)</li>
+			<li><a class="<?= empty($_SESSION['selPlugins']) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;(<?= $nbInactivePlugins ?>)</li>
 		</ul>
-		<?= plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
 		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
@@ -222,10 +216,7 @@ if($sel==1) {
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
 					<th>&nbsp;</th>
 					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" /></th>
-					<?php if($_SESSION['selPlugins']=='1') : ?>
-					<th><?= L_PLUGINS_LOADING_SORT ?></th>
-					<?php endif; ?>
-					<th><?= L_PLUGINS_ACTION ?></th>
+					<th><?= empty($_SESSION['selPlugins']) ? L_PLUGINS_ACTION : L_PLUGINS_LOADING_SORT ?></th>
 				</tr>
 			</thead>
 			<tbody>
