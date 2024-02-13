@@ -919,7 +919,9 @@ tr.checked {
 #index-search,
 #medias-search,
 #plugins-search {
-	background: url('images/search.png') 5px 7px no-repeat;
+	color: #444;
+	background-color: #fff;
+	background-image: url('images/search.png') 5px 7px no-repeat;
 	padding-left: 30px;
 }
 
