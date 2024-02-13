@@ -49,5 +49,4 @@ Build lightweight websites with ease and without database.
 * [Forum](https://forum.pluxml.org/)
 * [Themes and plugins](https://ressources.pluxml.org/)
 * [Documentation](https://wiki.pluxml.org/)
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M3R2Z7O)
+* [Support Us](https://pluxml.org/static3/support-us)
