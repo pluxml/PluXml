@@ -216,7 +216,14 @@ if($sel==1) {
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
 					<th>&nbsp;</th>
 					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" /></th>
-					<th><?= empty($_SESSION['selPlugins']) ? L_PLUGINS_ACTION : L_PLUGINS_LOADING_SORT ?></th>
+<?php
+if(!empty($_SESSION['selPlugins'])) {
+?>
+					<th title="<?= L_PLUGINS_LOADING_SORT ?>"><?= L_CAT_LIST_ORDER ?></th>
+<?php
+}
+?>
+					<th><?= L_PLUGINS_ACTION ?></th>
 				</tr>
 			</thead>
 			<tbody>
