@@ -157,13 +157,36 @@ if(!empty($_GET['a'])) {
 		<?= plxToken::getTokenPostMethod() ?>
 		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
 	</div>
+	<div class="grid">
 <?php
 if(!empty($portee)) {
 ?>
-	<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
+		<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
+<?php
+}
+
+if(!empty($plxAdmin->aConf['clef'])) {
+?>
+		<span class="sml-hide lrg-show col lrg-3"><?= L_COMMENTS_PRIVATE_FEEDS ?> :</span>
+		<ul class="menu feeds  col lrg-9">
+<?php
+				$options = array(
+					'hors-ligne'	=> L_COMMENT_OFFLINE_FEEDS,
+					'en-ligne'		=> L_COMMENT_ONLINE_FEEDS,
+				);
+
+				$baseUrl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/';
+				foreach($options as $k=>$caption) {
+?>
+				<li><i class="icon-rss"></i><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a></li>
+<?php
+				}
+?>
+		</ul>
 <?php
 }
 ?>
+	</div>
 	<div class="scrollable-table<?= $hasPagination ? ' has-pagination' : '' ?>">
 		<table id="comments-table" class="full-width">
 			<thead>
@@ -209,13 +232,13 @@ if(!empty($portee)) {
 					<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
 					<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
 <?php
-				if($all) {
+					if($all) {
 ?>
 					<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
 <?php
-				}
+					}
 ?>
-					<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
+					<td class="wrap"><div><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></div></td>
 					<td class="author"><?php
 					$author = $plxAdmin->plxRecord_coms->f('author');
 					$mail = $plxAdmin->plxRecord_coms->f('mail');
@@ -228,7 +251,7 @@ if(!empty($portee)) {
 					<td class="site"><?php
 					$site = $plxAdmin->plxRecord_coms->f('site');
 					if(!empty($site)) {
-?><a href="<?= $site ?>" target="_blank"><?= $site ?></a><?php
+?><a href="<?= $site ?>" target="_blank"><span class="lrg-hide" title="<?= $site ?>">www...</span><span class="sml-hide lrg-show"><?= $site ?></span></a><?php
 					} else {
 						echo '&nbsp;';
 					}
@@ -238,11 +261,11 @@ if(!empty($portee)) {
 						<a href="comment.php?<?= $query ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><?= L_COMMENT_EDIT ?></a>
 					</td>
 <?php
-			if(empty($portee)) {
+					if(empty($portee)) {
 ?>
 					<td class="action text-right"><a href="article.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= ltrim($artId, '0') ?></a></td>
 <?php
-}
+					}
 ?>
 				</tr>
 <?php
@@ -258,11 +281,10 @@ if(!empty($portee)) {
 				</tr>
 <?php
 			}
-			?>
+?>
 			</tbody>
 		</table>
 	</div>
-
 </form>
 <?php
 if($hasPagination) {
@@ -279,28 +301,6 @@ if($hasPagination) {
 </div>
 <?php
 }
-
-if(!empty($plxAdmin->aConf['clef'])) {
-?>
-<ul class="unstyled-list">
-	<li><?= L_COMMENTS_PRIVATE_FEEDS ?> :</li>
-<?php
-	$options = array(
-		'hors-ligne'	=> L_COMMENT_OFFLINE_FEEDS,
-		'en-ligne'		=> L_COMMENT_ONLINE_FEEDS,
-	);
-
-	$baseUrl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/';
-	foreach($options as $k=>$caption) {
-?>
-	<li><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a></li>
-<?php
-}
-?>
-</ul>
-<?php
-}
-
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
 

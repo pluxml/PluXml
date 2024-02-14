@@ -191,28 +191,30 @@ if($curFolders) {
 			<input type="hidden" name="sort" value="" />
 			<?= plxToken::getTokenPostMethod() ?>
 		</div>
-
-		<div style="float:left">
-			<?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
-			<input type="submit" name="btn_changefolder" value="<?= L_OK ?>" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		</div>
-
-		<div style="float:right">
-			<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
+		<div class="grid">
+			<div class="col med-6">
+				<span><?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;</span>
+				<?php $plxMedias->contentFolder() ?>
+				<input type="submit" name="btn_changefolder" value="<?= L_OK ?>" />
+			</div>
+			<div class="col med-6 med-text-right">
+				<i class="ico icon-search"></i>
+				<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
+			</div>
 		</div>
 <?php
 
 /* ============== listing of medias ============== */
 
 ?>
-		<div style="clear:both" class="scrollable-table">
+		<div class="scrollable-table">
 			<table id="medias-table" class="full-width sort">
 				<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
-					<th>&nbsp;</th>
+					<th class="col-icon">&nbsp;</th>
 					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-					<th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
+					<th class="sort"><span class="sml-hide lrg-show"><?= L_MEDIAS_EXTENSION ?></span></th>
 					<th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
 					<th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
 					<th class="sort integer active"><?= L_MEDIAS_DATE ?></th>
