@@ -21,11 +21,11 @@ if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['s
 	exit;
 }
 
-function pluginsList($plugins, $defaultLang, $type) {
+function pluginsList($plugins, $defaultLang, $plugins_actifs) {
 	/*
 	 * plugins		array()		contient la liste des plugins à afficher
 	 * defaultLang	string		langue utilisée dans l'admin
-	 * type			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
+	 * plugins_actifs			true|false	true=liste des plugins actifs, false=liste des plugins inactifs
 	 * */
 	ob_start();
 	$plxAdmin = plxAdmin::getInstance();#OR global $plxAdmin;
@@ -49,25 +49,22 @@ function pluginsList($plugins, $defaultLang, $type) {
 			}
 
 			# plugin non configuré
-			$unset = ($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'));
+			$no_config = ($plugins_actifs AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'));
 ?>
-			<tr class="top<?=$unset?' alert red':''?>" data-scope="<?= $plugInstance->getInfo('scope') ?>">
+			<tr class="top<?=$no_config?' text-red':''?>" data-scope="<?= $plugInstance->getInfo('scope') ?>">
 				<td>
 					<input type="hidden" name="plugName[]" value="<?= $plugName ?>" />
 					<input type="checkbox" name="chkAction[]" value="<?= $plugName ?>" />
 				</td>
 <?php /* icon */ ?>
-				<td><img src="<?= $icon ?>" alt="<?= $plugName ?> icon" /></td>
+				<td><img src="<?= $icon ?>" alt="<?= $plugName ?> icon" width="48" /></td>
 <?php /* plugin infos */ ?>
 				<td class="wrap">
 					<p>
-<?php
-					# title + version
-?>
-						<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong><strong> - <?= L_PLUGINS_VERSION ?> <?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
-<?php
-					# date
-					if($plugInstance->getInfo('date') != '') {
+<?php /* title + version */ ?>
+						<strong class="title"><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong><strong> - <?= L_PLUGINS_VERSION ?> <?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
+<?php /* date */
+					if(empty($plugInstance->getInfo('date'))) {
 ?>
 						<span>(<?= plxUtils::strCheck($plugInstance->getInfo('date')) ?>)</span>
 <?php
@@ -76,18 +73,17 @@ function pluginsList($plugins, $defaultLang, $type) {
 					</p>
 <?php
 					# message d'alerte si plugin non configuré
-					if($unset) {
+					if($no_config) {
 ?>
-					<p><a title="<?= L_PLUGINS_CONFIG_TITLE ?>" href="parametres_plugin.php?p=<?= urlencode($plugName) ?>"><b class="text-blue"><?= L_PLUGIN_NO_CONFIG ?></b></a></p>
+					<p><a title="<?= L_PLUGINS_CONFIG_TITLE ?>" href="parametres_plugin.php?p=<?= urlencode($plugName) ?>"><strong class="text-blue"><?= L_PLUGIN_NO_CONFIG ?></strong></a></p>
 <?php
 					}
-					# description
+	/* description */
 ?>
 					<p class="description"><?= plxUtils::strCheck($plugInstance->getInfo('description')) ?></p>
 <?php /* author */ ?>
 					<p><?= L_PLUGINS_AUTHOR ?> : <?= plxUtils::strCheck($plugInstance->getInfo('author')) ?></p>
-<?php
-					# site
+<?php /* site */
 					if($site = plxUtils::strCheck($plugInstance->getInfo('site'))) {
 ?>
 					<p><a href="<?= $site ?>" title="<?= $site ?>" target="_blank"><?= $site ?></a></p>
@@ -95,9 +91,8 @@ function pluginsList($plugins, $defaultLang, $type) {
 					}
 ?>
 				</td>
-<?php
-				# colonne pour trier les plugins
-				if($type) {
+<?php /* colonne pour trier les plugins */
+				if($plugins_actifs) {
 ?>
 				<td>
 					<input size="2" maxlength="3" type="text" name="plugOrdre[<?= $plugName ?>]" value="<?= $ordre ?>" />
@@ -105,21 +100,21 @@ function pluginsList($plugins, $defaultLang, $type) {
 <?php
 				}
 
-				# affichage des liens du plugin
+	/* affichage des liens du plugin */
 ?>
 				<td class="right">
 <?php
-					# lien configuration
+	/* lien configuration */
 					if(is_file(PLX_PLUGINS.$plugName.'/config.php')) {
 ?>
 					<a title="<?= L_PLUGINS_CONFIG_TITLE ?>" href="parametres_plugin.php?p=<?= urlencode($plugName) ?>"><?= L_PLUGINS_CONFIG ?></a><br />
 <?php
 					}
-					# lien pour code css
+	/* lien pour code css */
 ?>
 					<a title="<?= L_PLUGINS_CSS_TITLE ?>" href="parametres_plugincss.php?p=<?= urlencode($plugName) ?>"><?= L_PLUGINS_CSS ?></a><br />
 <?php
-					# lien aide
+	/* lien aide */
 					$all_langs = array_unique(array(
 						$plugInstance->default_lang,
 						PLX_SITE_LANG,
@@ -217,8 +212,11 @@ if($sel==1) {
 			<thead>
 				<tr>
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
-					<th>&nbsp;</th>
-					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" /></th>
+					<th class="col-icon">&nbsp;</th>
+					<th class="col-description">
+						<i class="ico icon-search"></i>
+						<input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
+					</th>
 <?php
 if(!empty($_SESSION['selPlugins'])) {
 ?>

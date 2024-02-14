@@ -192,11 +192,13 @@ if($curFolders) {
 			<?= plxToken::getTokenPostMethod() ?>
 		</div>
 		<div class="grid">
-			<div class="col sml-6">
-				<?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;<?php $plxMedias->contentFolder() ?>
+			<div class="col med-6">
+				<span><?= L_MEDIAS_FOLDER ?>&nbsp;:&nbsp;</span>
+				<?php $plxMedias->contentFolder() ?>
 				<input type="submit" name="btn_changefolder" value="<?= L_OK ?>" />
 			</div>
-			<div class="col sml-6 text-right">
+			<div class="col med-6 med-text-right">
+				<i class="ico icon-search"></i>
 				<input type="text" id="medias-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
 			</div>
 		</div>
@@ -210,9 +212,9 @@ if($curFolders) {
 				<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
-					<th>&nbsp;</th>
+					<th class="col-icon">&nbsp;</th>
 					<th class="sort"><?= L_MEDIAS_FILENAME ?></th>
-					<th class="sort"><?= L_MEDIAS_EXTENSION ?></th>
+					<th class="sort"><span class="sml-hide lrg-show"><?= L_MEDIAS_EXTENSION ?></span></th>
 					<th class="sort integer"><?= L_MEDIAS_FILESIZE ?></th>
 					<th class="sort integer"><?= L_MEDIAS_DIMENSIONS ?></th>
 					<th class="sort integer active"><?= L_MEDIAS_DATE ?></th>

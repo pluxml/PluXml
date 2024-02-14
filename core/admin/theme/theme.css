@@ -226,6 +226,11 @@ a.lnkdelete:hover {
 		margin-top: 1.5rem;
 		padding: 0 1rem 0 2.5rem;
 	}
+
+	/* comments.php */
+	.menu.feeds li {
+		margin-left: 0;
+	}
 }
 
 .selected {
@@ -368,14 +373,18 @@ input[maxlength="3"] {
 	text-indent: 0;
 }
 
+#plugins-table th.col-description {
+	min-width: 50rem;
+}
+
 #plugins-table .description {
-	overflow: scroll;
-	text-overflow: ellipsis ellipsis;
+	white-space: normal;
+	word-break: normal;
+	text-align: justify;
 }
 
 #plugins-table img,
 #medias-table img {
-	max-width: 48px;
 	padding-top: 7px;
 }
 
@@ -401,22 +410,15 @@ input[maxlength="3"] {
 	text-decoration: underline;
 	color: #444;
 }
-.toggler + label span:first-of-type, /* masquer */
-.toggler + label + div,
-.toggler + label + span {
-	display: none;
-}
+
+.toggler + label span:first-of-type,
 .toggler + label span:last-of-type {
 	display: inline-block;
 }
-.toggler:checked + label span:first-of-type { /* afficher */
-	display: inline-block;
-}
-.toggler:checked + label + div,
-.toggler:checked + label + span {
-	display: initial;
-}
-.toggler:checked + label span:last-of-type {
+
+.toggler:not(:checked) + label + div,
+.toggler:not(:checked) + label span:first-of-type,
+.toggler:checked + label span:not(:first-of-type) {
 	display: none;
 }
 
@@ -665,22 +667,12 @@ tr input {
 
 td {
 	white-space: nowrap;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 /* ---- index, comments, plugins tables ---- */
 td.wrap {
-	white-space: nowrap;
-	max-width: 45.6vw;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-td.wrap a,
-td.wrap p,
-td.wrap > * {
-	display: block;
-	overflow: scroll;
-	text-overflow: ellipsis ellipsis;
+	white-space: normal;
 }
 
 th.checkbox {
@@ -769,7 +761,7 @@ th.sort.active::after {
 }
 
 .author {
-	max-width: 12rem;
+	max-width: 20rem;
 	text-overflow: ellipsis;
 	overflow-x: hidden;
 }
@@ -831,8 +823,19 @@ th.sort.active::after {
 		right: 0;
 		top: 2rem;
 	}
+
 	td.wrap {
 		max-width: 30vw;
+	}
+
+	#articles-table th.title,
+	#plugins-table th.col-description,
+	#comments-table th.message {
+		min-width: calc(100vw - 1.4rem);
+	}
+
+	#articles-table th.cat {
+		min-width: 16rem;
 	}
 }
 
@@ -909,10 +912,10 @@ tr.checked {
 #medias-search,
 #plugins-search {
 	color: #444;
+	/* background: #fff url('images/search.png') 5px 7px no-repeat; */
 	background-color: #fff;
-	background-image: url('images/search.png') 5px 7px no-repeat;
 	padding-left: 30px;
-	max-width: 20rem;
+	max-width: 40rem;
 	width: 100%;
 }
 
@@ -1104,18 +1107,22 @@ select::-ms-expand {/*for IE10*/
 
 #plugins-table tbody tr[data-scope] td.wrap strong:first-of-type {
 	padding: 0.2rem 0.5rem;
+}
+
+#form_plugins span[data-scope],
+#plugins-table tbody tr[data-scope] td.wrap strong.title {
 	background-color: #ddd;
 	color: #444;
 }
 
 #form_plugins span[data-scope="admin"],
-#plugins-table tbody tr[data-scope="admin"] td.wrap strong:first-of-type {
+#plugins-table tbody tr[data-scope="admin"] td.wrap strong.title {
 	background-color: #258fd6;
 	color: #fff;
 }
 
 #form_plugins span[data-scope="site"],
-#plugins-table tbody tr[data-scope="site"] td.wrap strong:first-of-type {
+#plugins-table tbody tr[data-scope="site"] td.wrap strong.title {
 	background-color: green;
 	color: #fff;
 }
@@ -1143,6 +1150,11 @@ select::-ms-expand {/*for IE10*/
 	top: 0;
 	background-color: inherit;
 }
+
+.scrollable-table th.col-icon {
+	min-width: calc(48px + 1.4rem);
+}
+
 .scrollable-table thead tr {
 	background-color: #e8e8e8;
 }

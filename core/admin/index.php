@@ -267,6 +267,7 @@ if($_SESSION['profil'] < PROFIL_WRITER) {
 		<!-- input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" / -->
 	</div>
 	<div class="col sml-6 text-right">
+		<i class="ico icon-search"></i>
 		<input id="index-search" placeholder="<?= L_SEARCH_PLACEHOLDER ?>" type="text" name="artTitle" value="<?= plxUtils::strCheck($artTitle) ?>" />
 		<input class="<?= (!empty($artTitle)?' select':'') ?>" type="submit" value="<?= L_SEARCH ?>" />
 	</div>
@@ -279,13 +280,13 @@ if($_SESSION['profil'] < PROFIL_WRITER) {
 				<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idArt[]')" /></th>
 				<th class="art-id"><?= L_ID ?></th>
 				<th class="datetime"><?= L_ARTICLE_LIST_DATE ?></th>
-				<th><?= L_ARTICLE_LIST_TITLE ?></th>
+				<th class="title"><?= L_ARTICLE_LIST_TITLE ?></th>
 				<th class="cat"><?= L_ARTICLE_LIST_CATEGORIES ?></th>
 				<th class="comms"><?= L_ARTICLE_LIST_NBCOMS ?></th>
 <?php
 if(!preg_match('#^\d{3}$#', $userId)) {
 ?>
-				<th><?= L_ARTICLE_LIST_AUTHOR ?></th>
+				<th class="user"><?= L_ARTICLE_LIST_AUTHOR ?></th>
 <?php
 }
 ?>
@@ -327,7 +328,7 @@ EOT;
 				<td><input type="checkbox" name="idArt[]" value="<?= $idArt ?>" /></td>
 				<td><?= $idArt ?></td>
 				<td><?= plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?></td>
-				<td class="wrap"><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $draft . $awaiting ?></td>
+				<td><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $draft . $awaiting ?></td>
 				<td>
 <?php
 				if(sizeof($aCats) > 1) {

@@ -158,20 +158,17 @@ if(!empty($_GET['a'])) {
 		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
 	</div>
 	<div class="grid">
-		<div class="col sml-12">
 <?php
 if(!empty($portee)) {
 ?>
-			<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
+		<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
 <?php
 }
 
 if(!empty($plxAdmin->aConf['clef'])) {
 ?>
-			<input class="toggler" type="checkbox" id="toggler_rss" />
-			<label class="float-left" for="toggler_rss"><?= L_COMMENTS_PRIVATE_FEEDS ?> : <span class="icon-angle-left"></span><span class="icon-angle-right"></span></label>
-			<span class="float-left">
-				<ul class="menu">
+		<span class="sml-hide lrg-show col lrg-3"><?= L_COMMENTS_PRIVATE_FEEDS ?> :</span>
+		<ul class="menu feeds  col lrg-9">
 <?php
 				$options = array(
 					'hors-ligne'	=> L_COMMENT_OFFLINE_FEEDS,
@@ -181,16 +178,14 @@ if(!empty($plxAdmin->aConf['clef'])) {
 				$baseUrl = $plxAdmin->racine . 'feed.php?admin' . $plxAdmin->aConf['clef'] . '/commentaires/';
 				foreach($options as $k=>$caption) {
 ?>
-					<li><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a><i class="icon-rss"></i></li>
+				<li><i class="icon-rss"></i><a href="<?= $baseUrl . $k ?>" title="<?= $caption ?>" download><?= $caption ?></a></li>
 <?php
 				}
 ?>
-				</ul>
-			</span>
+		</ul>
 <?php
 }
 ?>
-		</div>
 	</div>
 	<div class="scrollable-table<?= $hasPagination ? ' has-pagination' : '' ?>">
 		<table id="comments-table" class="full-width">
@@ -256,7 +251,7 @@ if(!empty($plxAdmin->aConf['clef'])) {
 					<td class="site"><?php
 					$site = $plxAdmin->plxRecord_coms->f('site');
 					if(!empty($site)) {
-?><a href="<?= $site ?>" target="_blank"><?= $site ?></a><?php
+?><a href="<?= $site ?>" target="_blank"><span class="lrg-hide" title="<?= $site ?>">www...</span><span class="sml-hide lrg-show"><?= $site ?></span></a><?php
 					} else {
 						echo '&nbsp;';
 					}

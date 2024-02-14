@@ -175,7 +175,7 @@ plxUtils::cleanHeaders();
 <main class="container">
 	<section class="grid">
 		<div class="logo"></div>
-		<div class="auth col sml-12 sml-centered med-5 lrg-3">
+		<div class="auth col sml-11 sml-centered med-5 lrg-3">
 <?php
 			# Hook plugins
 			eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin'));
