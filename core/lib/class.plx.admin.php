@@ -450,34 +450,24 @@ EOT;
 	/**
 	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
-	 * @param	profil		profil(s) autorisé(s)
+	 * @param	profil		profil(s) autorisé(s) type integer ou array
 	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
-	 * @return	null
-	 * @author	Stephane F
+	 * @return	boolean ou exit
+	 * @author	Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function checkProfil($profil, $redirect=true) {
-		$args = func_get_args();
-		if($redirect===true or $redirect===false) $args=$args[0];
-		if($redirect) {
-			if(is_array($args)) {
-				if(!in_array($_SESSION['profil'], $args)) {
-					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
-					exit;
-				}
-			} else {
-				if($_SESSION['profil']!=$profil) {
-					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
-					exit;
-				}
-			}
-		} else {
-			if(is_array($args))
-				return in_array($_SESSION['profil'], $args);
-			else
-				return $_SESSION['profil']==$profil;
+		$success = is_array($profil) ? in_array($_SESSION['profil'], $profil) : ($_SESSION['profil'] == intval($profil));
+		if(!$redirect) {
+			return $success;
 		}
+
+		if(!$success) {
+			plxMsg::Error(L_NO_ENTRY);
+			header('Location: index.php');
+			exit;
+		}
+
+		return true;
 	}
 
 	/**
