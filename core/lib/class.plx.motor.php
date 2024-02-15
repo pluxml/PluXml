@@ -1102,7 +1102,7 @@ class plxMotor {
 
 				# On peut créer le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
-					return $this->aConf['mod_com'] ? 'mod' : 'c' . $artId . '-' . $idx;
+					return $this->aConf['mod_com'] ? 'mod' : 'c' . $idx;
 				} else { # Erreur lors de la création du commentaire
 					return L_NEWCOMMENT_ERR;
 				}

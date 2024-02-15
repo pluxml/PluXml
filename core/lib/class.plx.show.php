@@ -1308,7 +1308,7 @@ class plxShow
 	 **/
 	public function comId($echo = true)
 	{
-		$id = 'c' . $this->plxMotor->plxRecord_coms->f('article') . '-' . $this->plxMotor->plxRecord_coms->f('index');
+		$id = 'c' . $this->plxMotor->plxRecord_coms->f('index');
 		if ($echo)
 			echo $id;
 		else
@@ -1585,7 +1585,7 @@ class plxShow
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if ($artInfo['artDate'] <= $datetime) { # on ne prends que les commentaires pour les articles publiés
 						if (empty($cat_ids) or preg_match('/(' . $cat_ids . ')/', $artInfo['catId'])) {
-							$url = '?article' . intval($com['article']) . '/' . $artInfo['artUrl'] . '#c' . $com['article'] . '-' . $com['index'];
+							$url = '?article' . intval($com['article']) . '/' . $artInfo['artUrl'] . '#c' . $com['index'];
 							$date = $com['date'];
 							$content = strip_tags($com['content']);
 							# On modifie nos motifs
@@ -2008,9 +2008,9 @@ class plxShow
 		# Hook Plugins
 		if (eval($this->plxMotor->plxPlugins->callHook('plxShowCapchaQ'))) return;
 		echo $this->plxMotor->plxCapcha->q();
-		?>
+?>
 		<input type="hidden" name="capcha_token" value="<?= $_SESSION['capcha_token'] ?>"/>
-		<?php
+<?php
 	}
 
 	/**

@@ -357,7 +357,7 @@ class plxFeed extends plxMotor {
 				# Traitement initial
 				if(isset($this->activeArts[$this->plxRecord_coms->f('article')])) {
 					$artId = $this->plxRecord_coms->f('article') + 0;
-					$comId = 'c'.$this->plxRecord_coms->f('article').'-'.$this->plxRecord_coms->f('index');
+					$comId = 'c'.$this->plxRecord_coms->f('index');
 					if($this->cible) { # Commentaires d'un article
 						$title_com = $this->plxRecord_arts->f('title').' - ';
 						$title_com .= L_FEED_WRITTEN_BY.' '.$this->plxRecord_coms->f('author').' @ ';
