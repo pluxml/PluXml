@@ -67,11 +67,11 @@ function checkBox(cb) {
 					<th><?= L_ID ?></th>
 					<th><?= L_STATICS_HOME_PAGE ?></th>
 					<th><?= L_STATICS_GROUP ?></th>
-					<th><?= L_STATICS_TITLE ?></th>
+					<th class="required"><?= L_STATICS_TITLE ?></th>
 					<th><?= L_STATICS_URL ?></th>
 					<th><?= L_STATICS_TEMPLATE_FIELD ?></th>
 					<th><?= L_STATICS_ACTIVE ?></th>
-					<th><?= L_STATICS_ORDER ?></th>
+					<th data-id="order"><?= L_STATICS_ORDER ?></th>
 					<th><?= L_STATICS_MENU ?></th>
 					<th><?= L_STATICS_ACTION ?></th>
 				</tr>
@@ -96,7 +96,7 @@ function checkBox(cb) {
 					</td><td>
 						<?php plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '-100'); ?>
 					</td><td>
-						<?php plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255'); ?>
+						<?php plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255', false, '', '', '', true); ?>
 					</td><td>
 						<?php plxUtils::printInput($k.'_url', $v['url'], 'text', '-255'); ?>
 					</td><td>
