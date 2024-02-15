@@ -8,10 +8,7 @@
  **/
 include 'prepend.php';
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-$plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
+$plugin = isset($_GET['p']) ? urldecode($_GET['p']) : '';
 $plugin = plxUtils::nullbyteRemove($plugin);
 
 # chargement du fichier d'administration du plugin
@@ -29,11 +26,11 @@ if(empty($plxAdmin->plxPlugins->aPlugins[$plugin])) {
 	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];
 }
 
-# Control des autorisation d'accès à l'écran config.php du plugin
+# Contrôle des autorisations d'accès à l'écran config.php du plugin
+# La page de config peut être appellée depuis la page admin du plugin
 $plxAdmin->checkProfil($plxPlugin->getConfigProfil());
 
-# On inclut le header
-include 'top.php';
+ob_start();
 ?>
 	<div class="inline-form action-bar">
 		<h2><?= plxUtils::strCheck($plugin) ?></h2>
@@ -42,7 +39,17 @@ include 'top.php';
 <?php
 
 # chargement de l'écran de paramétrage du plugin config.php
+# Attention, la page de config peut appeler header() pour faire une redirection
 include $filename;
+
+# On sauvegarde le résultat de la page de config
+$output = ob_get_clean();
+
+# On inclut le header
+include 'top.php';
+
+# On affiche la sauvegarde de la page de config
+echo $output;
 
 # On inclut le footer
 include 'foot.php';

@@ -379,8 +379,14 @@ class plxPlugin {
 			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
 		);
 		$this->loadParams();
-		if(defined('PLX_ADMIN'))
+
+		if(defined('PLX_ADMIN')) {
 			$this->getInfos();
+		}
+
+		# Par défaut :
+		$this->adminProfil = PROFIL_ADMIN;
+		$this->configProfil = PROFIL_ADMIN;
 
 	}
 

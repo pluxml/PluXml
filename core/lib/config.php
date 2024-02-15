@@ -31,7 +31,9 @@ function getMicrotime() {
 # Initialisation du timer d'execution
 define('PLX_MICROTIME', getMicrotime());
 
-include PLX_ROOT . 'config.php';
+if(!defined('PLX_CONFIG_PATH')) {
+	include PLX_ROOT . 'config.php';
+}
 
 $CONSTS = array(
 	'XMLFILE_PARAMETERS'	=> PLX_ROOT . PLX_CONFIG_PATH . 'parametres.xml',
