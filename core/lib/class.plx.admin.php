@@ -128,10 +128,7 @@ class plxAdmin extends plxMotor {
 			}
 
 			# contrôle de la validité des dossiers racines et medias
-			if(
-				preg_match('#^(?:medias|racine_(?:article|comment\w*|statique|theme|plugin)s|)$#', $k) or
-				($k == 'custom_admincss_file' and !empty($v))
-			) {
+			if(preg_match('#^(?:medias|racine_(?:article|comment\w*|statique|theme|plugin)s|)$#', $k)) {
 				if(!preg_match('#^\w[\w\s/\\-]*/?$#', $v) or !is_dir(PLX_ROOT . $v)) { # Pas de . dans le nom des dossiers !
 					continue;
 				} else {
@@ -236,7 +233,7 @@ class plxAdmin extends plxMotor {
 			}
 
 			if(!isset($plxConfig[$k]) or $plxConfig[$k] != $v) {
-				# Veleur à  sauvegarder
+				# Veleur à sauvegarder
 				$plxConfig[$k] = $v;
 				$parametreChanged = true;
 			}
