@@ -172,15 +172,17 @@ class plxGlob {
 						case 'com':
 							# Tri selon les dates de publications (commentaire)
 							$key = $index[1] . $index[0];
+							# On extrait le timestamp de l'index 1 (1234567890-2)
+							$index = explode('-',$index[1]);
 							# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
 							switch($publi) {
 								case'before':
-									if($index[1] <= $now) {
+									if($index[0] <= $now) {
 										$array[$key] = $file;
 									}
 									break;
 								case 'after':
-									if($index[1] >= $now) {
+									if($index[0] >= $now) {
 										$array[$key] = $file;
 									}
 									break;
