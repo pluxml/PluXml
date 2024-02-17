@@ -851,7 +851,7 @@ class plxMotor {
 				'categorie'			=> $tmp['catId'],
 				'url'				=> $tmp['artUrl'],
 				'date'				=> $tmp['artDate'],
-				'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}.\d+.xml$#'),
+				'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}-\d+.xml$#'),
 				'date_creation'		=> plxUtils::getTagValue($iTags['date_creation'], $values, $tmp['artDate']),
 				'date_update'		=> plxUtils::getTagValue($iTags['date_update'], $values, $tmp['artDate']),
 			);
