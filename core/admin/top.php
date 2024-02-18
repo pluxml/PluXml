@@ -102,7 +102,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					$menus[] = plxUtils::formatMenu(L_MENU_PROFIL, 'profil.php', L_MENU_PROFIL_TITLE);
 
 					if($_SESSION['profil'] == PROFIL_ADMIN) {
-						$menus[] = plxUtils::formatMenu(L_MENU_CONFIG, 'parametres_base.php', L_MENU_CONFIG_TITLE, false, false, '', false);
 						if (preg_match('/parametres/',basename($_SERVER['SCRIPT_NAME']))) {
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_BASE, 'parametres_base.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_VIEW, 'parametres_affichage.php', L_MENU_CONFIG_VIEW_TITLE, 'menu-config');
@@ -111,6 +110,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 							$menus[] = plxUtils::formatMenu(L_THEMES, 'parametres_themes.php', L_THEMES_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_PLUGINS, 'parametres_plugins.php', L_MENU_CONFIG_PLUGINS_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_INFOS, 'parametres_infos.php', L_MENU_CONFIG_INFOS_TITLE, 'menu-config');
+						} else {
+							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG . ' ▼', 'parametres_base.php', L_MENU_CONFIG_TITLE, 'menu-extra');
 						}
 					}
 
