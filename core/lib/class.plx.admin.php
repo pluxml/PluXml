@@ -127,11 +127,8 @@ class plxAdmin extends plxMotor {
 				continue;
 			}
 
-			# contrôle de la validité des dossiers racines et medias
-			if(
-				preg_match('#^(?:medias|racine_(?:article|comment\w*|statique|theme|plugin)s|)$#', $k) or
-				($k == 'custom_admincss_file' and !empty($v))
-			) {
+			if(preg_match('#^(?:medias|racine_(?:article|comment\w*|statique|theme|plugin)s|)$#', $k)) {
+				# contrôle de la validité des dossiers racines et medias
 				if(!preg_match('#^\w[\w\s/\\-]*/?$#', $v) or !is_dir(PLX_ROOT . $v)) { # Pas de . dans le nom des dossiers !
 					continue;
 				} else {
@@ -141,60 +138,67 @@ class plxAdmin extends plxMotor {
 					}
 				}
 
-			/*
-			 * Uniquement une valeur numérique pour ces champs :
-			 * bypage,
-			 * bypage_admin,
-			 * bypage_admin_coms,
-			 * bypage_archives,
-			 * bypage_feed,
-			 * bypage_tags,
-			 * images_l,
-			 * images_h,
-			 * miniatures_l,
-			 * miniatures_h,
-			 * usersFolders
-			 * */
+			} elseif($k == 'custom_admincss_file') {
+				# fichier personnel CSS pour le back-office
+				if(!preg_match('#\.css$#', $v) or !file_exists(PLX_ROOT . $v)) {
+					# valeur invalide
+					continue;
+				}
+
 			} elseif(preg_match('#^(?:bypage|images|miniatures|usersFolders)#', $k)) {
+				/*
+				 * Uniquement une valeur numérique pour ces champs :
+				 * bypage,
+				 * bypage_admin,
+				 * bypage_admin_coms,
+				 * bypage_archives,
+				 * bypage_feed,
+				 * bypage_tags,
+				 * images_l,
+				 * images_h,
+				 * miniatures_l,
+				 * miniatures_h,
+				 * usersFolders
+				 * */
 				if(!is_numeric($v)) {
 					continue;
 				} else {
 					$v = intval($v);
 				}
 
-			/*
-			 * Uniquement une valeur booléenne 0 ou 1 pour ces champs :
-			 * allow_com
-			 * capcha
-			 * display_empty_cat
-			 * enable_rss
-			 * enable_rss_comment
-			 * feed_chapo
-			 * gzip
-			 * lostpassword
-			 * mod_art
-			 * mod_com
-			 * thumbs
-			 * urlrewriting
-			 * userfolders
-			 * */
 			} elseif(preg_match('#^(?:allow|capcha|display|enable|feed_chapo|gzip|lostpassword|mod_|thumbs|urlrewriting|userfolder)#', $k)) {
+				/*
+				 * Uniquement une valeur booléenne 0 ou 1 pour ces champs :
+				 * allow_com
+				 * capcha
+				 * display_empty_cat
+				 * enable_rss
+				 * enable_rss_comment
+				 * feed_chapo
+				 * gzip
+				 * lostpassword
+				 * mod_art
+				 * mod_com
+				 * thumbs
+				 * urlrewriting
+				 * userfolders
+				 * */
 				if(!preg_match('#^\s*(\d)\s*$#', $v, $matches)) {
 					continue;
 				} else {
 					$v = intval($matches[1]);
 				}
 
-			 # Champs pour les tris
 			} elseif(preg_match('#^tri#', $k)) {
+				# Champs pour les tris
 				if(!preg_match('#^\s*(r?alpha|asc|desc|random)\s*$#', $v, $matches)) {
 					continue;
 				} else {
 					$v = $matches[1];
 				}
 
-			# contrôle le dossier du thème
 			} elseif($k == 'style') {
+				# contrôle le dossier du thème
 				if(
 					!preg_match('#^\w[\w\s-]*$#', $v) or
 					!is_dir(PLX_ROOT . $this->aConf['racine_themes'] . $v)
@@ -236,7 +240,7 @@ class plxAdmin extends plxMotor {
 			}
 
 			if(!isset($plxConfig[$k]) or $plxConfig[$k] != $v) {
-				# Veleur à  sauvegarder
+				# Valeur à sauvegarder
 				$plxConfig[$k] = $v;
 				$parametreChanged = true;
 			}
