@@ -405,7 +405,7 @@ class plxMotor {
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
-				if(preg_match('~^c\d{4}-\d+~', $retour)) { # Le commentaire a été publié
+				if(preg_match('~^c\d+~', $retour)) { # Le commentaire a été publié
 					$_SESSION['msgcom'] = L_COM_PUBLISHED;
 					header('Location: '.$url.'#'.$retour);
 				} elseif($retour == 'mod') { # Le commentaire est en modération
@@ -1102,7 +1102,7 @@ class plxMotor {
 
 				# On peut créer le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
-					return $this->aConf['mod_com'] ? 'mod' : 'c' . $artId . '-' . $idx;
+					return $this->aConf['mod_com'] ? 'mod' : 'c' . $idx;
 				} else { # Erreur lors de la création du commentaire
 					return L_NEWCOMMENT_ERR;
 				}
