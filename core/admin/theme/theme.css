@@ -93,6 +93,10 @@
 	color: #aaa;
 }
 
+.aside .menu {
+	white-space: nowrap;
+}
+
 .aside .menu.expanded .badge,
 .aside .menu.expanded .active a .badge {
 	background-color: #e43d29;
@@ -105,8 +109,15 @@
 }
 
 .aside .menu-config {
-	background-color: #333;
-	white-space: nowrap;
+	background-color: #555;
+}
+
+.aside .menu-config a {
+	color: #ffc961;
+}
+
+.aside .menu-plugin a {
+	color: #57c5d7;
 }
 
 .aside .menu.expanded li a {

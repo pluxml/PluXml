@@ -1163,19 +1163,47 @@ class plxUtils {
 	* @param	onclick	string	contenu de la balise onclick
 	* @param	extra	string	extra texte à afficher
 	* @return	string	balise <a> formatée
-	* @author	Stephane F., Thomas Ingles
+	* @author	Stephane F., Jean-Pierre Pourrez @bazooka07
 	**/
 	public static function formatMenu($name, $href, $title=false, $class=false, $onclick=false, $extra='', $highlight=true) {
-		$menu = '';
-		$basename = explode('?', basename($href));
-		$active = ($highlight AND ($basename[0] == basename($_SERVER['SCRIPT_NAME']))) ? ' active':'';
-		if($basename[0]=='plugin.php' AND isset($_GET['p']) AND $basename[1]!='p='.$_GET['p']) $active='';
-		$title = $title ? ' title="'.$title.'"':'';
-		$class = $class ? ' '.$class:'';
-		$onclick = $onclick ? ' onclick="'.$onclick.'"':'';
-		$id = ($basename[0]=='plugin.php'?strtr($basename[1],'p=',''):strtr($basename[0],'.php',''));
-		$menu = '<li id="mnu_'.$id.'" class="menu'.$active.$class.'"><a href="'.$href.'"'.$onclick.$title.'>'.$name.$extra.'</a></li>';
-		return $menu;
+		# $classList = array('menu');
+		$classList = array();
+		if(!empty($class)) {
+			$classList[] = $class;
+		}
+
+		$parts = parse_url($href);
+		$id = basename($parts['path'], '.php');
+		if(basename($parts['path']) !=  'plugin.php') {
+			if(basename($parts['path']) == basename($_SERVER['SCRIPT_NAME'])) {
+				$classList[] = 'active';
+			}
+		} else {
+			$classList[] = 'menu-plugin';
+			# plugin
+			if(array_key_exists('query', $parts)) {
+				if(!empty($_GET['p']) and $parts['query'] == 'p=' . $_GET['p']) {
+					$classList[] = 'active';
+				}
+				$id = str_replace('p=', '', $parts['query']);
+			}
+		}
+
+		$className = !empty($classList) ? ' class="' . implode(' ', $classList) . '"' : '';
+
+		$attrs = array();
+		if(!empty($title)) {
+			$attrs[] = 'title="' . $title . '"';
+		}
+		if(!empty($onclick)) {
+			$attrs[] = 'onclick="' . $onclick. '"';
+		}
+
+		ob_start();
+?>
+			<li id="mnu_<?= $id ?>"<?=  $className ?>><a href="<?= $href ?>" <?= implode(' ', $attrs) ?>><?= $name . $extra ?></a></li>
+<?php
+		return ob_get_clean();
 	}
 
 	/**
