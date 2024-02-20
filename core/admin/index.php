@@ -311,7 +311,7 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 						} elseif(array_key_exists($catId, $aFilterCat)) {
 							$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
 							$aCats[$catId] = <<< EOT
-<option value="$catId" $selected> ${aFilterCat[$catId]} </option>
+<option value="$catId" $selected> {$aFilterCat[$catId]} </option>
 EOT;
 						}
 					}

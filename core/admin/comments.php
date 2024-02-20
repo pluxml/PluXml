@@ -85,7 +85,7 @@ $options = array(
 	'offline'	=> L_COMMENT_OFFLINE,
 );
 $h2 = <<< EOT
-<h2>${options[$comSel]}</h2>
+<h2>{$options[$comSel]}</h2>
 EOT;
 
 $comSelMotif = '/^' . $mods[$comSel] . $artMotif . '\..*\.xml$/';
