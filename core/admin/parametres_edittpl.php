@@ -76,7 +76,7 @@ include 'top.php';
 
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_EDITTPL_TITLE ?> &laquo;<?= plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+		<p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_THEMES_LINK); ?></p>
 		<?= plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
 		<input name="load" type="submit" value="<?= L_CONFIG_EDITTPL_LOAD ?>" />
