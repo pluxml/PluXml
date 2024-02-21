@@ -28,14 +28,13 @@ include 'top.php';
 $homestatic = $plxAdmin->aConf['homestatic'];
 $homepage = empty($homestatic) ? $plxAdmin->aConf['hometemplate'] : $plxAdmin->aStats[$homestatic]['template'];
 $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style'], $homepage);
-$ressourcesLink = str_replace('##', PLX_RESSOURCES_URL, '<a href="##" target="_blank">##</a>');
 
 ?>
 <form action="parametres_themes.php" method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
-		<p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, $ressourcesLink); ?></p>
+		<p><?php printf(L_CONFIG_VIEW_PLUXML_RESSOURCES, PLX_RESSOURCES_THEMES_LINK); ?></p>
 		<input type="submit" value="<?= L_CONFIG_THEME_UPDATE ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?= L_CONFIG_VIEW_FILES_EDIT_TITLE ?>" />
