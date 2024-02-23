@@ -229,7 +229,7 @@ if($plxMedias->aFiles) {
 		$title = pathinfo($v['name'], PATHINFO_FILENAME);
 ?>
 					<tr>
-						<td><input type="checkbox" name="idFile[]" value="<? $v['name'] ?>" /></td>
+						<td><input type="checkbox" name="idFile[]" value="<?= $v['name'] ?>" /></td>
 						<td class="icon">
 <?php
 
