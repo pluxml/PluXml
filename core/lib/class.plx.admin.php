@@ -1230,7 +1230,7 @@ EOT;
 	/**
 	 *  Méthode qui retourne le prochain id d'un article
 	 *
-	 * @return	string	id d'un nouvel article sous la forme 0001
+	 * @return	string	id d'un nouvel article alignés sur 4 digits
 	 * @author	Stephane F., J.P. Pourrez "bazooka07"
 	 **/
 	public function nextIdArticle() {
@@ -1238,10 +1238,22 @@ EOT;
 		$aKeys = array_keys($this->plxGlob_arts->aFiles);
 		if(is_array($aKeys) and count($aKeys) > 0) {
 			rsort($aKeys);
-			return str_pad(intval($aKeys['0']) + 1, 4, '0', STR_PAD_LEFT);
-		} else {
-			return '0001';
+			$lastId = intval($aKeys['0']);
+			if($lastId == 9999) {
+				# On va rechercher des dents creuses dans la numérotation des articles
+				sort($aKeys);
+				foreach($aKeys as $key=>$value) {
+					if(str_pad($key + 1, 4, '0', STR_PAD_LEFT) != $value) {
+						$lastId = $key;
+						break;
+					}
+				}
+			}
+			$lastId++;
+			return str_pad($lastId, 4, '0', STR_PAD_LEFT);
 		}
+
+		return '0001';
 	}
 
 	/**
