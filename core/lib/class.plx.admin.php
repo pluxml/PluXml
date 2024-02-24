@@ -864,21 +864,23 @@ EOT;
 			}
 
 			$cat_id = $this->nextIdCategory();
-			$this->aCats[$cat_id]['name'] = $cat_name;
-			$this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name);
-			$this->aCats[$cat_id]['tri'] = $this->aConf['tri'];
-			$this->aCats[$cat_id]['bypage'] = $content['bypage'];
-			$this->aCats[$cat_id]['menu'] = 'oui';
-			$this->aCats[$cat_id]['active'] = 1;
-			$this->aCats[$cat_id]['homepage'] = 1;
-			$this->aCats[$cat_id]['description'] = '';
-			$this->aCats[$cat_id]['template'] = $content['template'];
-			$this->aCats[$cat_id]['thumbnail'] = '';
-			$this->aCats[$cat_id]['thumbnail_title'] = '';
-			$this->aCats[$cat_id]['thumbnail_alt'] = '';
-			$this->aCats[$cat_id]['title_htmltag'] = '';
-			$this->aCats[$cat_id]['meta_description'] = '';
-			$this->aCats[$cat_id]['meta_keywords'] = '';
+			$this->aCats[$cat_id] = array(
+				'name'				=> $cat_name,
+				'url'				=> plxUtils::urlify($cat_name),
+				'template'			=> 'categorie.php',
+				'tri'				=> $this->aConf['tri'],
+				'bypage'			=> $this->aConf['bypage'],
+				'menu'				=> 'oui',
+				'active'			=> 1,
+				'homepage'			=> 1,
+				'description'		=> '',
+				'thumbnail'			=> '',
+				'thumbnail_title'	=> '',
+				'thumbnail_alt'		=> '',
+				'title_htmltag'		=> '',
+				'meta_description'	=> '',
+				'meta_keywords'		=> '',
+			);
 
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditCategoriesNew'));
@@ -902,19 +904,23 @@ EOT;
 
 				$tmpstr = (!empty($content[$cat_id.'_url'])) ? $content[$cat_id.'_url'] : $cat_name;
 				$cat_url = plxUtils::urlify($tmpstr);
-				if(empty($cat_url)) $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+				if(empty($cat_url)) {
+					$cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+				}
 
 				$this->aCats[$cat_id]['name'] = $cat_name;
 				$this->aCats[$cat_id]['url'] = $cat_url;
 				$this->aCats[$cat_id]['template'] = $content[$cat_id.'_template'];
+				$this->aCats[$cat_id]['template'] = isset($this->aCats[$cat_id]['template']) ? $this->aCats[$cat_id]['template'] : 'categorie.php';
+
 				$this->aCats[$cat_id]['tri'] = $content[$cat_id.'_tri'];
 				$this->aCats[$cat_id]['bypage'] = intval($content[$cat_id.'_bypage']);
 				$this->aCats[$cat_id]['menu'] = $content[$cat_id.'_menu'];
 				$this->aCats[$cat_id]['active'] = $content[$cat_id.'_active'];
 				$this->aCats[$cat_id]['ordre'] = intval($content[$cat_id.'_ordre']);
+
 				$this->aCats[$cat_id]['homepage'] = isset($this->aCats[$cat_id]['homepage']) ? $this->aCats[$cat_id]['homepage'] : 1;
 				$this->aCats[$cat_id]['description'] = isset($this->aCats[$cat_id]['description']) ? $this->aCats[$cat_id]['description'] : '';
-				$this->aCats[$cat_id]['template'] = isset($this->aCats[$cat_id]['template']) ? $this->aCats[$cat_id]['template'] : 'categorie.php';
 				$this->aCats[$cat_id]['thumbnail'] = isset($this->aCats[$cat_id]['thumbnail']) ? $this->aCats[$cat_id]['thumbnail'] : '';
 				$this->aCats[$cat_id]['thumbnail_title'] = isset($this->aCats[$cat_id]['thumbnail_title']) ? $this->aCats[$cat_id]['thumbnail_title'] : '';
 				$this->aCats[$cat_id]['thumbnail_alt'] = isset($this->aCats[$cat_id]['thumbnail_alt']) ? $this->aCats[$cat_id]['thumbnail_alt'] : '';
