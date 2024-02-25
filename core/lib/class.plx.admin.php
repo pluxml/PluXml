@@ -831,7 +831,63 @@ EOT;
 		$save = $this->aCats;
 
 		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idCategory']) AND empty($content['update'])) {
+		if(!empty($content['selection']) AND $content['selection']=='delete') {
+			$idCategory = $content['idCategory'];
+			if(empty($idCategory)) {
+				# Aucune catégorie sélectionnée
+				return;
+			}
+
+			$pattern = '#^_?\d{4}\.(?:pin,|home,|\d{3},)*' . implode(',', $idCategory) . '(?:,\d{3})*\.#';
+			$aArts = $this->plxGlob_arts->query($pattern, 'art');
+			if(!empty($aArts)) {
+				$root = PLX_ROOT.$this->aConf['racine_articles'];
+				foreach($aArts as $filename) {
+					$filenameNew = preg_replace_callback(
+						'#^(_?\d{4}\.)((?:pin,|home,)*\d{3}(?:,\{3})*)(\..*)#',
+						function($matches) use($idCategory) {
+							$catIds = array_filter(
+								explode(',', $matches[2]),
+								function($value) use($idCategory) {
+									return !in_array($value, $idCategory);
+								}
+							);
+
+							if(empty($catIds) or $catIds == array('pin')) {
+								$catIds[] = '000';
+							}
+
+							return $matches[1] . implode(',', $catIds) . $matches[3];
+						},
+						$filename
+					);
+
+					/*
+					$filenameArray = explode('.', $filename);
+					$filenameArrayCat = array_filter(
+						explode(",", $filenameArray[1]),
+						function($value) use($content['idCategory']) {
+							return !in_array($value, $content['idCategory']);
+						}
+					);
+
+					if(empty($filenameArrayCat) or $filenameArrayCat == array('pin')) {
+						$filenameArrayCat[] = '000';
+					}
+
+					$filenameArray[1] = implode(',', $filenameArrayCat);
+					$filenameNew = implode('.', $filenameArray);
+					*/
+					rename($root . $filename, $root . $filenameNew);
+				}
+			}
+
+			foreach($content['idCategory'] as $cat_id) {
+				unset($this->aCats[$cat_id]);
+			}
+			$action = true;
+
+			/*
 			foreach($content['idCategory'] as $cat_id) {
 				// change article category to the default category id
 				foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
@@ -854,6 +910,7 @@ EOT;
 				unset($this->aCats[$cat_id]);
 				$action = true;
 			}
+			*/
 		}
 		# Ajout d'une nouvelle catégorie à partir de la page article
 		elseif(!empty($content['new_category'])) {
@@ -864,21 +921,15 @@ EOT;
 			}
 
 			$cat_id = $this->nextIdCategory();
-			$this->aCats[$cat_id]['name'] = $cat_name;
-			$this->aCats[$cat_id]['url'] = plxUtils::urlify($cat_name);
-			$this->aCats[$cat_id]['tri'] = $this->aConf['tri'];
-			$this->aCats[$cat_id]['bypage'] = $content['bypage'];
-			$this->aCats[$cat_id]['menu'] = 'oui';
-			$this->aCats[$cat_id]['active'] = 1;
-			$this->aCats[$cat_id]['homepage'] = 1;
-			$this->aCats[$cat_id]['description'] = '';
-			$this->aCats[$cat_id]['template'] = $content['template'];
-			$this->aCats[$cat_id]['thumbnail'] = '';
-			$this->aCats[$cat_id]['thumbnail_title'] = '';
-			$this->aCats[$cat_id]['thumbnail_alt'] = '';
-			$this->aCats[$cat_id]['title_htmltag'] = '';
-			$this->aCats[$cat_id]['meta_description'] = '';
-			$this->aCats[$cat_id]['meta_keywords'] = '';
+			$this->aCats[$cat_id] = array(
+				'name'				=> $cat_name,
+				'url'				=> plxUtils::urlify($cat_name),
+				'template'			=> 'categorie.php',
+				'tri'				=> $this->aConf['tri'],
+				'bypage'			=> $this->aConf['bypage'],
+				'menu'				=> 'oui',
+				'active'			=> 1,
+			);
 
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditCategoriesNew'));
@@ -902,25 +953,19 @@ EOT;
 
 				$tmpstr = (!empty($content[$cat_id.'_url'])) ? $content[$cat_id.'_url'] : $cat_name;
 				$cat_url = plxUtils::urlify($tmpstr);
-				if(empty($cat_url)) $cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+				if(empty($cat_url)) {
+					$cat_url = L_DEFAULT_NEW_CATEGORY_URL;
+				}
 
+				# valeurs fournies par $content[]
 				$this->aCats[$cat_id]['name'] = $cat_name;
 				$this->aCats[$cat_id]['url'] = $cat_url;
 				$this->aCats[$cat_id]['template'] = $content[$cat_id.'_template'];
+				$this->aCats[$cat_id]['active'] = $content[$cat_id.'_active'];
 				$this->aCats[$cat_id]['tri'] = $content[$cat_id.'_tri'];
 				$this->aCats[$cat_id]['bypage'] = intval($content[$cat_id.'_bypage']);
-				$this->aCats[$cat_id]['menu'] = $content[$cat_id.'_menu'];
-				$this->aCats[$cat_id]['active'] = $content[$cat_id.'_active'];
 				$this->aCats[$cat_id]['ordre'] = intval($content[$cat_id.'_ordre']);
-				$this->aCats[$cat_id]['homepage'] = isset($this->aCats[$cat_id]['homepage']) ? $this->aCats[$cat_id]['homepage'] : 1;
-				$this->aCats[$cat_id]['description'] = isset($this->aCats[$cat_id]['description']) ? $this->aCats[$cat_id]['description'] : '';
-				$this->aCats[$cat_id]['template'] = isset($this->aCats[$cat_id]['template']) ? $this->aCats[$cat_id]['template'] : 'categorie.php';
-				$this->aCats[$cat_id]['thumbnail'] = isset($this->aCats[$cat_id]['thumbnail']) ? $this->aCats[$cat_id]['thumbnail'] : '';
-				$this->aCats[$cat_id]['thumbnail_title'] = isset($this->aCats[$cat_id]['thumbnail_title']) ? $this->aCats[$cat_id]['thumbnail_title'] : '';
-				$this->aCats[$cat_id]['thumbnail_alt'] = isset($this->aCats[$cat_id]['thumbnail_alt']) ? $this->aCats[$cat_id]['thumbnail_alt'] : '';
-				$this->aCats[$cat_id]['title_htmltag'] = isset($this->aCats[$cat_id]['title_htmltag']) ? $this->aCats[$cat_id]['title_htmltag'] : '';
-				$this->aCats[$cat_id]['meta_description'] = isset($this->aCats[$cat_id]['meta_description']) ? $this->aCats[$cat_id]['meta_description'] : '';
-				$this->aCats[$cat_id]['meta_keywords'] = isset($this->aCats[$cat_id]['meta_keywords']) ? $this->aCats[$cat_id]['meta_keywords'] : '';
+				$this->aCats[$cat_id]['menu'] = $content[$cat_id.'_menu'];
 
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditCategoriesUpdate'));
@@ -929,7 +974,7 @@ EOT;
 			}
 
 			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aCats) > 1) uasort($this->aCats, function($a, $b) { return intval($a['ordre']) - intval($b['ordre']); } );
+			if(sizeof($this->aCats) > 1) uasort($this->aCats, function($a, $b) { return $a['ordre'] - $b['ordre']; } );
 		}
 
 		# sauvegarde
@@ -962,9 +1007,24 @@ EOT;
 ?>
 <document>
 <?php
+			$extraFields = array(
+				# 'homepage'],
+				'description',
+				'thumbnail',
+				'thumbnail_title',
+				'thumbnail_alt',
+				'title_htmltag',
+				'meta_description',
+				'meta_keywords',
+			);
 			foreach($this->aCats as $cat_id => $cat) {
+				foreach($extraFields as $field) {
+					if(!isset($cat[$field])) {
+						$cat[$field] = '';
+					}
+				}
 ?>
-	<categorie number="<?= $cat_id ?>" active="<?= $cat['active'] ?>" homepage="<?= $cat['homepage'] ?>" tri="<?= $cat['tri'] ?>" bypage="<?= $cat['bypage'] ?>" menu="<?= $cat['menu'] ?>" url="<?= $cat['url'] ?>" template="<?= basename($cat['template']) ?>">
+	<categorie number="<?= $cat_id ?>" active="<?= $cat['active'] ?>" homepage="<?= isset($cat['homepage']) ? $cat['homepage'] : '1' ?>" tri="<?= $cat['tri'] ?>" bypage="<?= $cat['bypage'] ?>" menu="<?= $cat['menu'] ?>" url="<?= $cat['url'] ?>" template="<?= basename($cat['template']) ?>">
 		<name><?= $cat['name'] ?></name>
 		<description><?= plxUtils::strCheck($cat['description'], true) ?></description>
 		<meta_description><?= plxUtils::strCheck($cat['meta_description'], true, null) ?></meta_description>
