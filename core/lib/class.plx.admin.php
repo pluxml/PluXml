@@ -831,7 +831,63 @@ EOT;
 		$save = $this->aCats;
 
 		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idCategory']) AND empty($content['update'])) {
+		if(!empty($content['selection']) AND $content['selection']=='delete') {
+			$idCategory = $content['idCategory'];
+			if(empty($idCategory)) {
+				# Aucune catégorie sélectionnée
+				return;
+			}
+
+			$pattern = '#^_?\d{4}\.(?:pin,|home,|\d{3},)*' . implode(',', $idCategory) . '(?:,\d{3})*\.#';
+			$aArts = $this->plxGlob_arts->query($pattern, 'art');
+			if(!empty($aArts)) {
+				$root = PLX_ROOT.$this->aConf['racine_articles'];
+				foreach($aArts as $filename) {
+					$filenameNew = preg_replace_callback(
+						'#^(_?\d{4}\.)((?:pin,|home,)*\d{3}(?:,\{3})*)(\..*)#',
+						function($matches) use($idCategory) {
+							$catIds = array_filter(
+								explode(',', $matches[2]),
+								function($value) use($idCategory) {
+									return !in_array($value, $idCategory);
+								}
+							);
+
+							if(empty($catIds) or $catIds == array('pin')) {
+								$catIds[] = '000';
+							}
+
+							return $matches[1] . implode(',', $catIds) . $matches[3];
+						},
+						$filename
+					);
+
+					/*
+					$filenameArray = explode('.', $filename);
+					$filenameArrayCat = array_filter(
+						explode(",", $filenameArray[1]),
+						function($value) use($content['idCategory']) {
+							return !in_array($value, $content['idCategory']);
+						}
+					);
+
+					if(empty($filenameArrayCat) or $filenameArrayCat == array('pin')) {
+						$filenameArrayCat[] = '000';
+					}
+
+					$filenameArray[1] = implode(',', $filenameArrayCat);
+					$filenameNew = implode('.', $filenameArray);
+					*/
+					rename($root . $filename, $root . $filenameNew);
+				}
+			}
+
+			foreach($content['idCategory'] as $cat_id) {
+				unset($this->aCats[$cat_id]);
+			}
+			$action = true;
+
+			/*
 			foreach($content['idCategory'] as $cat_id) {
 				// change article category to the default category id
 				foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
@@ -854,6 +910,7 @@ EOT;
 				unset($this->aCats[$cat_id]);
 				$action = true;
 			}
+			*/
 		}
 		# Ajout d'une nouvelle catégorie à partir de la page article
 		elseif(!empty($content['new_category'])) {
