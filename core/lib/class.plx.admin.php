@@ -929,14 +929,6 @@ EOT;
 				'bypage'			=> $this->aConf['bypage'],
 				'menu'				=> 'oui',
 				'active'			=> 1,
-				'homepage'			=> 1,
-				'description'		=> '',
-				'thumbnail'			=> '',
-				'thumbnail_title'	=> '',
-				'thumbnail_alt'		=> '',
-				'title_htmltag'		=> '',
-				'meta_description'	=> '',
-				'meta_keywords'		=> '',
 			);
 
 			# Hook plugins
@@ -1015,9 +1007,24 @@ EOT;
 ?>
 <document>
 <?php
+			$extraFields = array(
+				# 'homepage'],
+				'description',
+				'thumbnail',
+				'thumbnail_title',
+				'thumbnail_alt',
+				'title_htmltag',
+				'meta_description',
+				'meta_keywords',
+			);
 			foreach($this->aCats as $cat_id => $cat) {
+				foreach($extraFields as $field) {
+					if(!isset($cat[$field])) {
+						$cat[$field] = '';
+					}
+				}
 ?>
-	<categorie number="<?= $cat_id ?>" active="<?= $cat['active'] ?>" homepage="<?= $cat['homepage'] ?>" tri="<?= $cat['tri'] ?>" bypage="<?= $cat['bypage'] ?>" menu="<?= $cat['menu'] ?>" url="<?= $cat['url'] ?>" template="<?= basename($cat['template']) ?>">
+	<categorie number="<?= $cat_id ?>" active="<?= $cat['active'] ?>" homepage="<?= isset($cat['homepage']) ? $cat['homepage'] : '1' ?>" tri="<?= $cat['tri'] ?>" bypage="<?= $cat['bypage'] ?>" menu="<?= $cat['menu'] ?>" url="<?= $cat['url'] ?>" template="<?= basename($cat['template']) ?>">
 		<name><?= $cat['name'] ?></name>
 		<description><?= plxUtils::strCheck($cat['description'], true) ?></description>
 		<meta_description><?= plxUtils::strCheck($cat['meta_description'], true, null) ?></meta_description>
