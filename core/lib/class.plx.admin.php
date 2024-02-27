@@ -862,22 +862,6 @@ EOT;
 						$filename
 					);
 
-					/*
-					$filenameArray = explode('.', $filename);
-					$filenameArrayCat = array_filter(
-						explode(",", $filenameArray[1]),
-						function($value) use($content['idCategory']) {
-							return !in_array($value, $content['idCategory']);
-						}
-					);
-
-					if(empty($filenameArrayCat) or $filenameArrayCat == array('pin')) {
-						$filenameArrayCat[] = '000';
-					}
-
-					$filenameArray[1] = implode(',', $filenameArrayCat);
-					$filenameNew = implode('.', $filenameArray);
-					*/
 					rename($root . $filename, $root . $filenameNew);
 				}
 			}
@@ -886,31 +870,6 @@ EOT;
 				unset($this->aCats[$cat_id]);
 			}
 			$action = true;
-
-			/*
-			foreach($content['idCategory'] as $cat_id) {
-				// change article category to the default category id
-				foreach($this->plxGlob_arts->aFiles as $numart => $filename) {
-					$filenameArray = explode(".", $filename);
-					$filenameArrayCat = explode(",", $filenameArray[1]);
-					if (in_array($cat_id, $filenameArrayCat)) {
-						$key = array_search($cat_id, $filenameArrayCat);
-						if(count(preg_grep('@[0-9]{3}@', $filenameArrayCat)) > 1) {
-							// this article has more than one category
-							unset($filenameArrayCat[$key]);
-						}
-						else {
-							$filenameArrayCat[$key] = '000';
-						}
-						$filenameArray[1] = implode(",", $filenameArrayCat);
-						$filenameNew = implode(".", $filenameArray);
-						rename(PLX_ROOT.$this->aConf['racine_articles'].$filename, PLX_ROOT.$this->aConf['racine_articles'].$filenameNew);
-					}
-				}
-				unset($this->aCats[$cat_id]);
-				$action = true;
-			}
-			*/
 		}
 		# Ajout d'une nouvelle catégorie à partir de la page article
 		elseif(!empty($content['new_category'])) {
@@ -1071,6 +1030,7 @@ EOT;
 		$this->aCats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
 		$this->aCats[$content['id']]['meta_description'] = trim($content['meta_description']);
 		$this->aCats[$content['id']]['meta_keywords'] = trim($content['meta_keywords']);
+
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditCategorie'));
 		return $this->editCategories(null, true);
