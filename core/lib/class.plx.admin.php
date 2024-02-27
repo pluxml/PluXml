@@ -1049,15 +1049,24 @@ EOT;
 		$save = $this->aStats;
 
 		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idStatic']) AND empty($content['update'])) {
+		if(!empty($content['selection']) AND $content['selection']=='delete') {
+			if(empty($content['idStatic'])) {
+				# Aucune page statique à supprimer
+				return;
+			}
+
 			foreach($content['idStatic'] as $static_id) {
 				$filename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$this->aStats[$static_id]['url'].'.php';
-				if(is_file($filename)) unlink($filename);
-				# si la page statique supprimée est la page d'accueil on met à jour le parametre
-				if($static_id==$this->aConf['homestatic']) {
-					$this->aConf['homestatic']='';
+				if(is_file($filename)) {
+					unlink($filename);
+				}
+
+				# si la page statique supprimée est la page d'accueil, on met à jour le paramétrage
+				if($static_id == $this->aConf['homestatic']) {
+					$this->aConf['homestatic'] = '';
 					$this->editConfiguration($this->aConf,$this->aConf);
 				}
+
 				unset($this->aStats[$static_id]);
 				$action = true;
 			}
@@ -1066,31 +1075,28 @@ EOT;
 		elseif(!empty($content['update'])) {
 			foreach($content['staticNum'] as $static_id) {
 				$stat_name = $content[$static_id.'_name'];
-				if($stat_name!='') {
+				# La page statique doit avoir un titre
+				if($stat_name != '') {
 					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url']) : '';
 					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
 					if($stat_url=='') $stat_url = L_DEFAULT_NEW_STATIC_URL;
+
 					# On vérifie si on a besoin de renommer le fichier de la page statique
 					if(isset($this->aStats[$static_id]) AND $this->aStats[$static_id]['url']!=$stat_url) {
 						$oldfilename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$this->aStats[$static_id]['url'].'.php';
 						$newfilename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$stat_url.'.php';
 						if(is_file($oldfilename)) rename($oldfilename, $newfilename);
 					}
-					$this->aStats[$static_id]['group'] = trim($content[$static_id.'_group']);
+
+					# valeurs fournies par $content
+					$this->aStats[$static_id]['group'] = trim($content[$static_id . '_group']);
 					$this->aStats[$static_id]['name'] = $stat_name;
-					$this->aStats[$static_id]['url'] = plxUtils::checkSite($url)?$url:$stat_url;
-					$this->aStats[$static_id]['template'] = $content[$static_id.'_template'];;
-					$this->aStats[$static_id]['active'] = $content[$static_id.'_active'];
-					$this->aStats[$static_id]['menu'] = $content[$static_id.'_menu'];
-					$this->aStats[$static_id]['ordre'] = intval($content[$static_id.'_ordre']);
-					$this->aStats[$static_id]['template'] = (isset($this->aStats[$static_id]['template'])?$this->aStats[$static_id]['template']:'static.php');
-					$this->aStats[$static_id]['title_htmltag'] = (isset($this->aStats[$static_id]['title_htmltag'])?$this->aStats[$static_id]['title_htmltag']:'');
-					$this->aStats[$static_id]['meta_description'] = (isset($this->aStats[$static_id]['meta_description'])?$this->aStats[$static_id]['meta_description']:'');
-					$this->aStats[$static_id]['meta_keywords'] = (isset($this->aStats[$static_id]['meta_keywords'])?$this->aStats[$static_id]['meta_keywords']:'');
-					if(plxUtils::getValue($this->aStats[$static_id]['date_creation'])=='') {
-						$this->aStats[$static_id]['date_creation'] = date('YmdHi');
-						$this->aStats[$static_id]['date_update'] = date('YmdHi');
-					}
+					$this->aStats[$static_id]['url'] = plxUtils::checkSite($url) ? $url : $stat_url;
+					$this->aStats[$static_id]['template'] = $content[$static_id . '_template'];;
+					$this->aStats[$static_id]['active'] = $content[$static_id . '_active'];
+					$this->aStats[$static_id]['ordre'] = intval($content[$static_id . '_ordre']);
+					$this->aStats[$static_id]['menu'] = $content[$static_id . '_menu'];
+
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxAdminEditStatiquesUpdate'));
 					$action = true;
@@ -1124,16 +1130,19 @@ EOT;
 ?>
 <document>
 <?php
+			$today = date('YmdHi');
 			foreach($this->aStats as $static_id => $static) {
+				# Lors de la création d'une page statique dans le tableau statiques.php,
+				# les valeurs 'title_htmltag', 'meta_description', 'meta_keywords' de ne sont pas renseignées.
 ?>
 	<statique number="<?= $static_id ?>" active="<?= $static['active'] ?>" menu="<?= $static['menu'] ?>" url="<?= $static['url'] ?>" template="<?= basename($static['template']) ?>">
 		<group><?= plxUtils::strCheck($static['group']) ?></group>
 		<name><?= plxUtils::strCheck($static['name']) ?></name>
-		<meta_description><?= plxUtils::strCheck($static['meta_description'], true) ?></meta_description>
-		<meta_keywords><?= plxUtils::strCheck($static['meta_keywords']) ?></meta_keywords>
-		<title_htmltag><?= plxUtils::strCheck($static['title_htmltag']) ?></title_htmltag>
-		<date_creation><?= $static['date_creation'] ?></date_creation>
-		<date_update><?= $static['date_update'] ?></date_update>
+		<meta_description><?= !empty($static['meta_description']) ? plxUtils::strCheck($static['meta_description'], true) : '' ?></meta_description>
+		<meta_keywords><?= !empty($static['meta_keywords']) ? plxUtils::strCheck($static['meta_keywords']) : '' ?></meta_keywords>
+		<title_htmltag><?= !empty($static['title_htmltag']) ? plxUtils::strCheck($static['title_htmltag']) : '' ?></title_htmltag>
+		<date_creation><?= !empty($static['date_creation']) ? $static['date_creation'] : $today ?></date_creation>
+		<date_update><?= !empty($static['date_update']) ? $static['date_update'] : $today ?></date_update>
 <?php
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
