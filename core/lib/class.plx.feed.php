@@ -412,8 +412,7 @@ class plxFeed extends plxMotor {
 			$this->rssAttachment = 'comments-online.rss';
 		}
 
-		$this->lastBuildDate = $this->plxRecord_coms->lastUpdateDate();
-		$this->printRSSTop();
+		$this->printRSSTop($this->plxRecord_coms);
 
 		# On va boucler sur les commentaires (s'il y en a)
 		if($this->plxRecord_coms) {
