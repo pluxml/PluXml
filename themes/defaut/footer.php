@@ -1,5 +1,4 @@
 <?php if (!defined('PLX_ROOT')) exit; ?>
-
 	<footer class="footer">
 		<div class="container">
 			<p>
@@ -16,5 +15,6 @@
 			<a href="#top" title="<?php $plxShow->lang('GOTO_TOP') ?>"><img src="<?php $plxShow->template(); ?>/img/up.svg" alt="▲"></a>
 		</div>
 	</footer>
+	<script src="<?php $plxShow->template(); ?>/js/script.js"></script>
 </body>
 </html>
