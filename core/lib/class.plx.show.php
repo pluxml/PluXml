@@ -998,13 +998,14 @@ class plxShow
 	 * Méthode qui affiche un lien vers le fil Rss des articles
 	 * d'une catégorie précise (si $categorie renseigné) ou du site tout entier
 	 *
-	 * @param type        type de flux (obsolete)
-	 * @param    idstr       identifiant (sans les 0) d'une catégorie ou d'un user
-	 * @param format        format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
-	 * @scope    home,categorie,article,tags,archives
-	 * @author    Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
+	 * @param type   type de flux (obsolete)
+	 * @param idstr  identifiant d'une catégorie ou d'un user
+	 * @param format format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
+	 * @container    balise HTML externe pour encadrer le lien. Peut contenir une class, ...
+	 * @scope        home,categorie,article,tags,archives
+	 * @author       Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE, J.P. Pourrez "bazooka07"
 	 **/
-	public function artFeed($type = 'rss', $idstr = '', $format = self::RSS_FORMAT)
+	public function artFeed($type = false, $idstr = '', $format = self::RSS_FORMAT, $container='')
 	{
 		# Hook Plugins
 		if (eval($this->plxMotor->plxPlugins->callHook('plxShowArtFeed')))
@@ -1014,12 +1015,12 @@ class plxShow
 			if (trim($idstr) != '') {
 				# Fil Rss des articles d'une catégorie
 				if(is_numeric($idstr)) {
-					$id = str_pad($idstr, 3, '0', STR_PAD_LEFT);
+					$idStr = str_pad($idstr, 3, '0', STR_PAD_LEFT);
 				}
 				switch($this->plxMotor->mode) {
 					case 'categorie':
-						if (!empty($id) and isset ($this->plxMotor->aCats[$id])) {
-							$caption = sprintf(L_ARTFEED_RSS_CATEGORY, $this->plxMotor->aCats[$id]['name']);
+						if (!empty($idStr) and isset ($this->plxMotor->aCats[$idStr])) {
+							$caption = sprintf(L_ARTFEED_RSS_CATEGORY, $this->plxMotor->aCats[$idStr]['name']);
 							$replaces = array(
 								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/categorie' . intval($idstr)),
 								'#feedTitle'    => $caption,
@@ -1030,8 +1031,8 @@ class plxShow
 						}
 						break;
 					case 'user':
-						if (!empty($id) and isset ($this->plxMotor->aUsers[$id])) {
-							$caption = sprintf(L_ARTFEED_RSS_USER, $this->plxMotor->aUsers[$id]['name']);
+						if (!empty($idStr) and isset ($this->plxMotor->aUsers[$idStr])) {
+							$caption = sprintf(L_ARTFEED_RSS_USER, $this->plxMotor->aUsers[$idStr]['name']);
 							$replaces = array(
 								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/user' . intval($idstr)),
 								'#feedTitle'    => $caption,
@@ -1062,7 +1063,17 @@ class plxShow
 			}
 
 			if(!empty($replaces)) {
-				echo strtr($format, $replaces);
+				if(empty($container)) {
+					echo strtr($format, $replaces);
+				} else {
+					$container = trim($container, '<>');
+					$tag = preg_replace('#(\w+).*#', '$1', $container);
+?>
+<<?= $container ?>>
+	<?= strtr($format, $replaces) ?>
+</<?= $tag ?>>
+<?php
+				}
 			}
 		}
 	}
@@ -2800,4 +2811,7 @@ class plxShow
 <?php
 	}
 
+	public function allowRSS() {
+		return !empty($this->plxMotor->aConf['enable_rss']);
+	}
 }

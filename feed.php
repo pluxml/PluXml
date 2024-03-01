@@ -27,8 +27,7 @@ eval($plxFeed->plxPlugins->callHook('FeedBegin')); # Hook Plugins
 loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 if(!$plxFeed->aConf['enable_rss']) {
-	header('Location: index.php');
-	exit;
+	plxFeed::notFound(); # exit
 }
 
 $plxFeed->fprechauffage();
