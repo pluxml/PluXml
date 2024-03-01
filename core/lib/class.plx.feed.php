@@ -48,8 +48,12 @@ class plxFeed extends plxMotor {
 		eval($this->plxPlugins->callHook('plxFeedConstruct'));
 	}
 
-	private static function notFound() {
+	public static function notFound() {
+		$msg = 'Bad request for RSS feed.';
 		header('HTTP/1.0 404 Not Found');
+		header('Content-Type: text/plain;charset=UTF-8');
+		header('Content-length: ' . strlen($msg));
+		echo $msg;
 		exit;
 	}
 
