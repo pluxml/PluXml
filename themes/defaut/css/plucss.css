@@ -323,7 +323,9 @@ tr:hover {
 .scrollable-table {
 	overflow: auto;
 }
-
+.scrollable-table table {
+	min-width: 100%;
+}
 /* ---------- FORM ---------- */
 
 form .col {
@@ -519,7 +521,7 @@ input[type="submit"].yellow:hover {
 	text-align: center;
 }
 #nav,/* fix old android browser (always open) */
-.responsive-menu label,.responsive-menu input[type=checkbox] { 
+.responsive-menu label,.responsive-menu input[type=checkbox] {
 	display: none;
 }
 .responsive-menu label {
@@ -529,7 +531,7 @@ input[type="submit"].yellow:hover {
 	padding-right: .7rem;
 }
 #nav:checked+ul#responsive-menu,/* fix old android browser */
-.responsive-menu input[type=checkbox]:checked+ul { 
+.responsive-menu input[type=checkbox]:checked+ul {
 	display: block;
 }
 
@@ -874,7 +876,7 @@ a.tooltip.tooltip-bottom span:after {
 	margin-left: -8px;
 	border-bottom: 8px solid #555;
 	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;	
+	border-left: 8px solid transparent;
 }
 a:hover.tooltip-bottom span {
 	top: 30px;
