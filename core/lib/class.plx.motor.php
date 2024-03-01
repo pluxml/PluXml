@@ -161,7 +161,7 @@ class plxMotor {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) return;
 
-		if(!empty($this->get) and !preg_match('#^(?:blog|article\d{1,4}/|static\d{1,3}/|categorie\d{1,3}/|user\d{1,3}|archives/\d{4}(?:/\d{2})?|tag/\w|page\d+|preview|telechargement|download)#', $this->get)) {
+		if(!empty($this->get) and !preg_match('#^(?:blog|article\d{1,4}|static\d{1,3}|categorie\d{1,3}|user\d{1,3}|archives/\d{4}(?:/\d{2})?|tag/\w+|page\d+|preview|telechargement|download)\b#', $this->get)) {
 			$this->get = '';
 		}
 
