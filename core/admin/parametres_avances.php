@@ -96,6 +96,14 @@ if (file_exists('robots.txt')) {
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
+				<label for="id_g404"><?= L_CONFIG_ADVANCED_404 ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('g404',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['g404']);?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_userfolders"><?= L_CONFIG_ADVANCED_USERSFOLDERS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
