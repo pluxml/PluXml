@@ -13,10 +13,12 @@ if(method_exists($plxShow, 'authorList')) {
 	}
 }
 
-$contentClass = 'content col';
+$contentClass = 'content';
 if(!defined('FULL_WIDTH')) {
-	$contentClass .= ' med-9';
+	$contentClass .= ' col med-9';
 }
+
+$themeRoot = $plxShow->template(false);
 ?>
 <!DOCTYPE html>
 <html lang="<?php $plxShow->defaultLang() ?>">
@@ -28,9 +30,11 @@ if(!defined('FULL_WIDTH')) {
 	$plxShow->meta_all();
 ?>
 	<link rel="canonical" href="<?= $plxShow->pageUrl() ?>" />
-	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css?v=1.3.1" media="screen,print"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
+	<link rel="icon" href="<?= $themeRoot ?>/img/favicon-32x32.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="96x96" href="<?= $themeRoot ?>/img/pluxml-logo-bleu-96x96.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="<?= $themeRoot ?>/img/pluxml-logo-bleu-114x114.png" />
+	<link rel="stylesheet" href="<?= $themeRoot ?>/css/plucss.css?v=1.3.1" media="screen,print"/>
+	<link rel="stylesheet" href="<?= $themeRoot ?>/css/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
 <?php
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
