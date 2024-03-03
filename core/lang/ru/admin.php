@@ -373,6 +373,7 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Внимание .htaccess файл
 const L_CONFIG_ADVANCED_GZIP = 'Включить GZIP сжатие';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Это cделает возможным сжатие страниц для увеличения пропускной способности, но может увеличить использование процессора';
 const L_CONFIG_ADVANCED_CAPCHA = 'Включить анти-спам Capcha';
+const L_CONFIG_ADVANCED_404 ='Включить перенаправление 404';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Включить восстановление пароля';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Административный ключ (для приватных URL)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Оставьте это поле пустым, чтобы восстановить ключ';

@@ -373,6 +373,7 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Attention un fichier .htaccess est 
 const L_CONFIG_ADVANCED_GZIP = 'Activer la compression GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Permet de compresser les pages pour économiser de la bande passante, cependant cela peut augmenter la charge processeur';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activer le capcha anti-spam';
+const L_CONFIG_ADVANCED_404 ='Activer la redirection 404';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Activer la récupération de mot de passe';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clef d\'administration (URL privés)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Vider ce champs pour régénérer la clef';

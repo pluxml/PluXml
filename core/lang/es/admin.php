@@ -373,6 +373,7 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Advertencia: ya existe un archivo �
 const L_CONFIG_ADVANCED_GZIP = 'Activar compresión GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Permite comprimir las páginas para ahorrar ancho de banda, pero puede aumentar la carga del procesador';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activar protección nti-spam («CAPTCHA»)';
+const L_CONFIG_ADVANCED_404 ='habilitar redirección 404';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Habilitar recuperación de contraseña';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Clave de administración (URLs privadas)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Deje este campo vacío para regenerar la clave';

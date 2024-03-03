@@ -373,6 +373,7 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Opgepast. Er bestaat al een .htacce
 const L_CONFIG_ADVANCED_GZIP = 'GZIP compressie activeren';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Compressie activeren zal het verbruik van uw bandbreedte naar beneden halen, maar kan uw processor wat meer belasten';
 const L_CONFIG_ADVANCED_CAPCHA = 'Anti-spam CAPTCHA gebruiken';
+const L_CONFIG_ADVANCED_404 ='404-omleiding inschakelen';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Schakel wachtwoordherstel in';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Code voor versleuteling gegevens (Prive URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Maak dit veld leeg om een nieuwe sleutel te genereren';

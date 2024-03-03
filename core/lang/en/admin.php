@@ -373,6 +373,7 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Warning: a .htaccess file already e
 const L_CONFIG_ADVANCED_GZIP = 'Enable GZIP compression';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Makes it possible to compress pages to save bandwidth, but could increase CPU usage';
 const L_CONFIG_ADVANCED_CAPCHA = 'Enable anti spam-capcha';
+const L_CONFIG_ADVANCED_404 ='enable 404 redirect';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Enable password recovery';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Administration key (private URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Leave this field empty to rebuild key';

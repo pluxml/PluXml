@@ -373,6 +373,7 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Pamiętaj, że plik .htaccess jest 
 const L_CONFIG_ADVANCED_GZIP = 'Włącz kompresję GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Kompresuj strony, aby zaoszczędzić przepustowość, jednak może to zwiększyć obciążenie procesora';
 const L_CONFIG_ADVANCED_CAPCHA = 'Aktywuj capcha antyspamową';
+const L_CONFIG_ADVANCED_404 ='włączyć przekierowanie 404';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Włącz odzyskiwanie hasła';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Klucz administracyjny (prywatne adresy URL)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Opróżnij to pole, aby ponownie wygenerować klucz';
