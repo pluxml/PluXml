@@ -159,14 +159,16 @@ class plxMotor {
 	public function prechauffage() {
 
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) return;
-
-		if(!empty($this->get) and !preg_match('#^(?:blog|article\d{1,4}|static\d{1,3}|categorie\d{1,3}|user\d{1,3}|archives/\d{4}(?:/\d{2})?|tag/\w+|page\d+|preview|telechargement|download)\b#', $this->get)) {
-			$this->get = '';
+		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) {
+			# En cas de succès, le hook doit gérer $this->mode et $this->template.
+			return;
 		}
 
 		if(
-			empty($this->get) AND
+			(
+				empty($this->get) or
+				preg_match('#^\w+=[^&]*(?:&\w+=[^&]*)#', $this->get) # prevents trackers from tripadvisor, FB, ...
+			) AND
 			!empty($this->aConf['homestatic']) AND
 			array_key_exists($this->aConf['homestatic'], $this->aStats) AND
 			$this->aStats[$this->aConf['homestatic']]['active']
@@ -176,128 +178,136 @@ class plxMotor {
 			$this->template = $this->aStats[ $this->cible ]['template'];
 		} elseif(
 			empty($this->get) OR
-			preg_match('#^(?:blog(?:/page\d+)?|page\d+)$#', $this->get)
+			preg_match('#^(?:blog\b|page\d+)#', $this->get) or
+			preg_match('#^\w+=[^&]*(?:&\w+=[^&]*)#', $this->get) # prevents trackers from tripadvisor, FB, ...
 		) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
-			$this->getPage();
 			# On regarde si on a des articles en mode "home"
 			$this->motif = '#^\d{4}\.(?:\d{3},|pin,)*home(,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			if(!$this->getArticles()) {
 				# Aucun article classé en page d'accueil. On récupère tous les articles
 				$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:'.$this->homepageCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			}
-		} else {
 			# $this->get not empty !
-			if(preg_match('#^article(\d+)/?([\w-]+)?#',$this->get,$capture)) {
-				$this->mode = 'article'; # Mode article
-				$this->template = 'article.php';
-				$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complete sur 4 caracteres
-				$this->motif = '#^'.$this->cible.'\.(?:pin,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
-				if($this->getArticles()) {
-					# Redirection 301
-					if(!isset($capture[2]) OR $this->plxRecord_arts->f('url') != $capture[2]) {
-						$this->redir301($this->urlRewrite('?article'.intval($this->cible).'/'.$this->plxRecord_arts->f('url')));
-					}
-				} else {
-					$this->error404(L_UNKNOWN_ARTICLE);
-				}
-			} elseif(preg_match('#^static(\d+)/?([\w-]+)?#',$this->get,$capture)) {
-				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complète sur 3 caractères
-				if(isset($this->aStats[$this->cible]) and $this->aStats[$this->cible]['active']) {
-					if(!empty($this->aConf['homestatic']) AND $this->aConf['homestatic'] == $this->cible){
-						$this->redir301($this->urlRewrite());
-					} elseif(isset($capture[2]) AND $this->aStats[$this->cible]['url'] == $capture[2]) {
-						$this->mode = 'static'; # Mode static
-						$this->template = $this->aStats[$this->cible]['template'];
-					} else {
-						$this->redir301($this->urlRewrite('?static'.intval($this->cible).'/'.$this->aStats[$this->cible]['url']));
-					}
-				} else {
-					$this->error404(L_UNKNOWN_STATIC);
-				}
-			} elseif(preg_match('#^categorie(\d+)/?([\w-]+)?#',$this->get,$capture)) {
-				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
-				if(isset($this->aCats[$this->cible]) and $this->aCats[$this->cible]['active']) {
-					if(isset($capture[2]) AND $this->aCats[$this->cible]['url'] == $capture[2]) {
-						$this->mode = 'categorie'; # Mode categorie
-						$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*' . $this->cible . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
-						$this->template = $this->aCats[$this->cible]['template'];
-						$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
-						if($this->aCats[$this->cible]['bypage'] > 0) {
-							$this->bypage = $this->aCats[$this->cible]['bypage'];
-						}
-					} else {
+		} elseif(
+			preg_match('#^(categorie|user)(\d{1,3})(?:/([^&]*))?/page\d+#', $this->get, $matches) or # avec pagination
+			preg_match('#^(article|static|categorie|user)(\d{1,4})(?:/([^&]*))?#', $this->get, $matches) # sans pagination
+		) {
+			$this->mode = $matches[1];
+			$this->cible = str_pad($matches[2], ($matches[1] == 'article') ? 4 : 3, '0', STR_PAD_LEFT); # On complète sur 3 ou 4 caractères
+			switch($this->mode) {
+				case 'article':
+					$this->template = 'article.php';
+					$this->motif = '#^'.$this->cible.'\.(?:pin,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
+					if($this->getArticles()) {
 						# Redirection 301
-						$this->redir301($this->urlRewrite('?categorie'.intval($this->cible).'/'.$this->aCats[$this->cible]['url']));
-					}
-				} else {
-					$this->error404(L_UNKNOWN_CATEGORY);
-				}
-			} elseif(preg_match('#^user(\d+)/?(\w[\w+-]+)?#',$this->get,$capture)) {
-				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT); # On complete sur 3 caracteres
-				if(isset($this->aUsers[$this->cible]) and $this->aUsers[$this->cible]['active']) {
-					$urlName = plxUtils::urlify($this->aUsers[$this->cible]['name']);
-					if(isset($capture[2]) AND $urlName == $capture[2]) {
-						$this->mode = 'user'; # Mode user
-						$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.' . $this->cible . '.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
-						$this->template = 'user.php';
+						if(!isset($matches[3]) OR $this->plxRecord_arts->f('url') != $matches[3]) {
+							$this->redir301($this->urlRewrite('?article' . intval($this->cible) . '/' . $this->plxRecord_arts->f('url')));
+						}
 					} else {
-						$this->redir301($this->urlRewrite('?user' . intval($this->cible) . '/' . $urlName));
+						$this->error404(L_UNKNOWN_ARTICLE);
 					}
-				} else {
-					$this->error404(L_UNKNOWN_AUTHOR);
-				}
-			} elseif(preg_match('#^tag/([\w-]+)#',$this->get,$capture)) {
-				$this->cible = $capture[1];
-				$this->tri = 'desc';
-				$ids = array();
-				$datetime = date('YmdHi');
-				foreach($this->aTags as $idart => $tag) {
-					if($tag['date']<=$datetime) {
-						$tags = array_map("trim", explode(',', $tag['tags']));
-						$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
-						if(in_array($this->cible, $tagUrls)) {
-							if(!isset($ids[$idart])) $ids[$idart] = $idart;
-							if(!isset($this->cibleName)) {
-								$key = array_search($this->cible, $tagUrls);
-								$this->cibleName=$tags[$key];
+					break;
+				case 'static':
+					if(isset($this->aStats[$this->cible]) and $this->aStats[$this->cible]['active']) {
+						if(!empty($this->aConf['homestatic']) AND $this->aConf['homestatic'] == $this->cible){
+							# homepage
+							$this->redir301($this->urlRewrite());
+						} elseif(isset($matches[3]) AND $this->aStats[$this->cible]['url'] == $capture[3]) {
+							# static page
+							$this->template = $this->aStats[$this->cible]['template'];
+						} else {
+							# redirection avec la bonne url
+							$this->redir301($this->urlRewrite('?static' . intval($this->cible) . '/' . $this->aStats[$this->cible]['url']));
+						}
+					} else {
+						$this->error404(L_UNKNOWN_STATIC);
+					}
+					break;
+				case 'categorie':
+					if(isset($this->aCats[$this->cible]) and $this->aCats[$this->cible]['active']) {
+						if(isset($matches[3]) AND $this->aCats[$this->cible]['url'] == $matches[3]) {
+							$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*' . $this->cible . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
+							$this->template = $this->aCats[$this->cible]['template'];
+							$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
+							if($this->aCats[$this->cible]['bypage'] > 0) {
+								$this->bypage = $this->aCats[$this->cible]['bypage'];
 							}
+						} else {
+							# Redirection 301 avec la bonne url
+							$this->redir301($this->urlRewrite('?categorie' . intval($this->cible) . '/' . $this->aCats[$this->cible]['url']));
+						}
+					} else {
+						$this->error404(L_UNKNOWN_CATEGORY);
+					}
+					break;
+				case 'user':
+					if(isset($this->aUsers[$this->cible]) and $this->aUsers[$this->cible]['active']) {
+						$urlName = plxUtils::urlify($this->aUsers[$this->cible]['name']);
+						if(isset($matches[3]) AND $urlName == $matches[3]) {
+							$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.' . $this->cible . '.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
+							$this->template = 'user.php';
+						} else {
+							$this->redir301($this->urlRewrite('?user' . intval($this->cible) . '/' . $urlName));
+						}
+					} else {
+						$this->error404(L_UNKNOWN_AUTHOR);
+					}
+					break;
+				default:
+					# Jamais atteint
+					$this->error404(L_UNKNOWN_AUTHOR);
+			}
+		} elseif(preg_match('#^tag/([\w-]+)#',$this->get,$capture)) {
+			$this->cible = $capture[1];
+			$this->tri = 'desc';
+			$ids = array();
+			$datetime = date('YmdHi');
+			foreach($this->aTags as $idart => $tag) {
+				if($tag['date']<=$datetime) {
+					$tags = array_map("trim", explode(',', $tag['tags']));
+					$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
+					if(in_array($this->cible, $tagUrls)) {
+						if(!isset($ids[$idart])) $ids[$idart] = $idart;
+						if(!isset($this->cibleName)) {
+							$key = array_search($this->cible, $tagUrls);
+							$this->cibleName=$tags[$key];
 						}
 					}
 				}
-				if(sizeof($ids)>0) {
-					$this->mode = 'tags'; # Affichage en mode home
-					$this->template = 'tags.php';
-					$this->motif = '#(?:' . implode('|', $ids) . ')\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}.\d{12}\.[\w-]+\.xml$#';
-					$this->bypage = $this->aConf['bypage_tags']; # Nombre d'article par page
-				} else {
-					$this->error404(L_ARTICLE_NO_TAG);
-				}
-			} elseif(preg_match('#^archives\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#',$this->get,$capture)) {
-				$this->mode = 'archives';
-				$this->template = 'archives.php';
-				$this->bypage = $this->aConf['bypage_archives'];
-				$this->cible = $searchDate = $capture[1];
-				if(!empty($capture[2])) {
-					$this->cible = ($searchDate .= $capture[2]);
-				} else {
-					$searchDate .= '\d{2}';
-				}
-				$searchDate .= !empty($capture[3]) ? $capture[3] : '\d{2}';
-				$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}\.' . $searchDate . '\d{4}\.[\w-]+\.xml$#';
-			} elseif(preg_match('#^preview\/?#',$this->get) AND isset($_SESSION['preview'])) {
-				$this->mode = 'preview';
-			} elseif(preg_match('#^(?:telechargement|download)/(.+)$#', $this->get, $capture)) {
-				if($this->sendTelechargement($capture[1])) {
-					$this->mode = 'telechargement'; # Mode telechargement
-					$this->cible = $capture[1];
-				} else {
-					$this->error404(L_DOCUMENT_NOT_FOUND);
-				}
-			} else {
-				$this->error404(L_ERR_PAGE_NOT_FOUND);
 			}
+			if(sizeof($ids) > 0) {
+				$this->mode = 'tags'; # Affichage en mode home
+				$this->template = 'tags.php';
+				$this->motif = '#(?:' . implode('|', $ids) . ')\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}.\d{12}\.[\w-]+\.xml$#';
+				$this->bypage = $this->aConf['bypage_tags']; # Nombre d'article par page
+			} else {
+				$this->error404(L_ARTICLE_NO_TAG);
+			}
+		} elseif(preg_match('#^archives\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#',$this->get,$capture)) {
+			$this->mode = 'archives';
+			$this->template = 'archives.php';
+			$this->bypage = $this->aConf['bypage_archives'];
+			$this->cible = $searchDate = $capture[1];
+			if(!empty($capture[2])) {
+				$this->cible = ($searchDate .= $capture[2]);
+			} else {
+				$searchDate .= '\d{2}';
+			}
+			$searchDate .= !empty($capture[3]) ? $capture[3] : '\d{2}';
+			$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}\.' . $searchDate . '\d{4}\.[\w-]+\.xml$#';
+		} elseif(preg_match('#^preview\/?#',$this->get) AND isset($_SESSION['preview'])) {
+			$this->mode = 'preview';
+		} elseif(preg_match('#^(?:telechargement|download)/(.+)$#', $this->get, $capture)) {
+			if($this->sendTelechargement($capture[1])) {
+				$this->mode = 'telechargement'; # Mode telechargement
+				$this->cible = $capture[1];
+			} else {
+				$this->error404(L_DOCUMENT_NOT_FOUND);
+			}
+		} else {
+			$this->error404(L_ERR_PAGE_NOT_FOUND);
 		}
 
 		# On vérifie l'existence du template
@@ -386,7 +396,9 @@ class plxMotor {
 	public function demarrage() {
 
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxMotorDemarrageBegin'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorDemarrageBegin'))) {
+			return;
+		}
 
 		if(in_array($this->mode, array('home', 'categorie', 'tags', 'user', 'archives'))) {
 			$this->getPage(); # Recuperation du numéro de la page courante
@@ -716,9 +728,9 @@ class plxMotor {
 			return;
 		}
 
-		# On check pour avoir le numero de page
-		if(preg_match('#page(\d+)#',$this->get,$capture))
-			$this->page = $capture[1];
+		# On recherche un numéro de page
+		if(preg_match('#\bpage(\d+)#',$this->get, $capture))
+			$this->page = intval($capture[1]);
 		else
 			$this->page = 1;
 	}
