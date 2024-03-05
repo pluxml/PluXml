@@ -1654,7 +1654,7 @@ EOT;
 		}
 ?>
 					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=' . ($showLast ? $currentPage + 1 : $last_page), $urlTemplate) ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"<?= $showLast ? '' : ' disabled' ?> class="button"><i class="icon-angle-right"></i></a></li>
-					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=' . $last_page, $urlTemplate) ?><?php printf($urlTemplate, $last_page); ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="button"<?= $showLast ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></a></li>
+					<li><a href="<?= preg_replace(self::PATTERN_PAGINATION, 'page=' . $last_page, $urlTemplate) ?>" title="<?= L_PAGINATION_LAST_TITLE ?>" class="button"<?= $showLast ? '' : ' disabled' ?>><i class="icon-angle-double-right"></i></a></li>
 				</ul>
 <?php
 	}
