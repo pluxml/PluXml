@@ -109,6 +109,7 @@ class plxAdmin extends plxMotor {
 			'description',
 			'meta_description',
 			'meta_keywords',
+			'g200',
 			'feed_footer',
 			'custom_admincss_file',
 			'smtp_username',
