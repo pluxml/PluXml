@@ -373,7 +373,10 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Achtung! Es ist bereits eine .htacc
 const L_CONFIG_ADVANCED_GZIP = 'GZIP Kompression aktivieren';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Komprimierung spart Bandreite, erhöht aber die Prozessorauslastung des Servers.';
 const L_CONFIG_ADVANCED_CAPCHA = 'ANTI-SPAM Kontrolle aktivieren';
-const L_CONFIG_ADVANCED_404 ='Aktivieren Sie die 404-Umleitung';
+const L_CONFIG_ADVANCED_404 ='Unbekannte Anfragen an 404 umleiten';
+const L_CONFIG_ADVANCED_200 ='Hinzufügung bekannter Abfrage(n).';
+const L_CONFIG_ADVANCED_G200_HELP ='ohne Leerzeichen, ohne Sonderzeichen, ohne Akzente und mit | getrennt . Diese Anfragen werden nicht an 404 umgeleitet. Beispiel: pluxml|home ';
+
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Aktivieren Sie die Kennwortwiederherstellung';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Adminschlüssel (private URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Feld leeren um neuen Schlüssel zu generieren';
