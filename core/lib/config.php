@@ -12,6 +12,9 @@ const PLX_VERSION_DATA = '5.8.1';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 const PLX_RESSOURCES_URL = 'https://ressources.pluxml.org';
+const PLX_RESSOURCES_LINK = '<a href="' . PLX_RESSOURCES_URL . '/" target="_blank">' . PLX_RESSOURCES_URL . '</a>';
+const PLX_RESSOURCES_PLUGINS_LINK = '<a href="' . PLX_RESSOURCES_URL . '/plugins/" target="_blank">' . PLX_RESSOURCES_URL . '</a>';
+const PLX_RESSOURCES_THEMES_LINK = '<a href="' . PLX_RESSOURCES_URL . '/themes/" target="_blank">' . PLX_RESSOURCES_URL . '</a>';
 
 const EMAIL_METHODS = array(
 	'sendmail' => 'sendmail',
@@ -71,7 +74,8 @@ const DEFAULT_CONFIG = array(
 	'enable_rss'			=> 1,
 	'enable_rss_comment'	=> 1,
 	'capcha'				=> 1,
-	'g404'					=> 0, // new param pour requêtes inconnues
+	'g404'					=> 0,  # requete inconnue renvoi sur 0 = page d'acceuil 200 |  1 = page d'erreur 404 (page non trouvée)
+	'g200'					=> '', # filtres des requetes a garder en page d'acceuil
 	'lostpassword'			=> 1,
 	'style'					=> 'defaut',
 	'clef'					=> '', # plxUtils::charAleatoire(15)
