@@ -225,7 +225,7 @@ class plxAdmin extends plxMotor {
 				}
 
 			} elseif($k == 'default_lang') {
-				if(!array_key_exists($v, plxUtils::getLangs())) {
+				if(!array_key_exists($v, array_keys(plxUtils::getLangs()))) {
 					continue;
 				}
 
@@ -490,7 +490,7 @@ EOT;
 			if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
 				return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-			if(!in_array($content['lang'], plxUtils::getLangs()))
+			if(!in_array($content['lang'], array_keys(plxUtils::getLangs())))
 				return plxMsg::Error(L_UNKNOWN_ERROR);
 
 			$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
@@ -789,7 +789,7 @@ EOT;
 		}
 
 		# controle de la langue sélectionnée
-		if(!in_array($content['lang'], plxUtils::getLangs()))
+		if(!in_array($content['lang'], array_keys(plxUtils::getLangs())))
 			return plxMsg::Error(L_UNKNOWN_ERROR);
 
 			$this->aUsers[$content['id']]['email'] = $content['email'];

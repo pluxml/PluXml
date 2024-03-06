@@ -78,7 +78,6 @@ class plxMotor {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
-		define('PLX_SITE_LANG', $this->aConf['default_lang']);
 
 		# On vérifie s'il faut faire une mise à jour
 		if(
@@ -118,10 +117,14 @@ class plxMotor {
 		# Détermination du fichier de langue (nb: la langue peut être modifiée par plugins via $_SESSION['lang'])
 		if(defined('PLX_FEED')) {
 			$lang = $this->aConf['default_lang'];
+		} elseif(isset($_SESSION['admin_lang'])) {
+			$lang = $_SESSION['admin_lang'];
+		} elseif(isset($_SESSION['lang'])) {
+			$lang = $_SESSION['lang'];
 		} else {
-			$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-			$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->aConf['default_lang'];
+			$lang = $this->aConf['default_lang'];
 		}
+		define('PLX_SITE_LANG', $lang);
 		$this->plxPlugins = new plxPlugins($lang);
 		$this->plxPlugins->loadPlugins();
 		# Hook plugins
@@ -178,7 +181,7 @@ class plxMotor {
 			$this->template = $this->aStats[ $this->cible ]['template'];
 		} elseif(
 			empty($this->get) OR
-			preg_match('#^(?:blog\b|page\d+)#', $this->get) or
+			preg_match('#^(?:' . L_BLOG_URL .  '\b|' . L_PAGE_URL . '\d+)#', $this->get) or
 			preg_match('#^\w+=[^&]*(?:&\w+=[^&]*)#', $this->get) # prevents trackers from tripadvisor, FB, ...
 		) {
 			$this->mode = 'home';
@@ -191,12 +194,14 @@ class plxMotor {
 			}
 			# $this->get not empty !
 		} elseif(
-			preg_match('#^(categorie|user)(\d{1,3})(?:/([^&]*))?/page\d+#', $this->get, $matches) or # avec pagination
-			preg_match('#^(article|static|categorie|user)(\d{1,4})(?:/([^&]*))?#', $this->get, $matches) # sans pagination
+			preg_match('#^(' . implode('|', array(L_CATEGORY_URL, L_USER_URL)) . ')(\d{1,3})(?:/([^&]*))?/' . L_PAGE_URL . '\d+#', $this->get, $matches) or # avec pagination
+			preg_match('#^(' . implode('|', array(L_ARTICLE_URL, L_STATIC_URL, L_CATEGORY_URL, L_USER_URL)) .  ')(\d{1,4})(?:/([^&]*))?#', $this->get, $matches) # sans pagination
 		) {
-			$this->cible = str_pad($matches[2], ($matches[1] == 'article') ? 4 : 3, '0', STR_PAD_LEFT); # On complète sur 3 ou 4 caractères
+			$this->cible = str_pad($matches[2], ($matches[1] == L_ARTICLE_URL) ? 4 : 3, '0', STR_PAD_LEFT); # On complète sur 3 ou 4 caractères
 			switch($matches[1]) {
-				case 'article':
+				case L_ARTICLE_URL:
+					$this->mode = 'article';
+					$this->template = 'article.php';
 					$this->motif = '#^'.$this->cible.'\.(?:pin,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 					if($this->getArticles()) {
 						# Redirection 301
@@ -210,8 +215,9 @@ class plxMotor {
 						$this->error404(L_UNKNOWN_ARTICLE);
 					}
 					break;
-				case 'static':
+				case L_STATIC_URL:
 					if(isset($this->aStats[$this->cible]) and $this->aStats[$this->cible]['active']) {
+						$this->mode = 'static';
 						if(!empty($this->aConf['homestatic']) AND $this->aConf['homestatic'] == $this->cible){
 							# homepage
 							$this->redir301($this->urlRewrite());
@@ -227,7 +233,7 @@ class plxMotor {
 						$this->error404(L_UNKNOWN_STATIC);
 					}
 					break;
-				case 'categorie':
+				case L_CATEGORY_URL:
 					if(isset($this->aCats[$this->cible]) and $this->aCats[$this->cible]['active']) {
 						if(isset($matches[3]) AND $this->aCats[$this->cible]['url'] == $matches[3]) {
 							$this->mode = 'categorie';
@@ -245,8 +251,9 @@ class plxMotor {
 						$this->error404(L_UNKNOWN_CATEGORY);
 					}
 					break;
-				case 'user':
+				case L_USER_URL:
 					if(isset($this->aUsers[$this->cible]) and $this->aUsers[$this->cible]['active']) {
+						$this->mode = 'user';
 						$urlName = plxUtils::urlify($this->aUsers[$this->cible]['name']);
 						if(isset($matches[3]) AND $urlName == $matches[3]) {
 							$this->mode = 'user';
@@ -263,7 +270,7 @@ class plxMotor {
 					# Jamais atteint
 					$this->error404(L_UNKNOWN_AUTHOR);
 			}
-		} elseif(preg_match('#^tag/([\w-]+)#', $this->get, $matches)) {
+		} elseif(preg_match('#^' . L_TAG_URL . '/([\w-]+)#', $this->get, $matches)) {
 			$this->cible = $matches[1];
 			$this->tri = 'desc';
 			$ids = array();
@@ -289,7 +296,7 @@ class plxMotor {
 			} else {
 				$this->error404(L_ARTICLE_NO_TAG);
 			}
-		} elseif(preg_match('#^archives\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#', $this->get, $matches)) {
+		} elseif(preg_match('#^' . L_ARCHIVES_URL . '\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#',$this->get, $matches)) {
 			$this->mode = 'archives';
 			$this->template = 'archives.php';
 			$this->bypage = $this->aConf['bypage_archives'];
@@ -303,8 +310,8 @@ class plxMotor {
 			$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}\.' . $searchDate . '\d{4}\.[\w-]+\.xml$#';
 		} elseif(preg_match('#^preview\/?#', $this->get) AND isset($_SESSION['preview'])) {
 			$this->mode = 'preview';
-		} elseif(preg_match('#^(?:telechargement|download)/(.+)$#', $this->get, $matches)) {
-			if($this->sendTelechargement($matches[1])) {
+		} elseif(preg_match('#^(?:' . L_DOWNLOAD_URL . '|download)/(.+)$#', $this->get, $matches)) {
+			if($this->sendTelechargement($capture[1])) {
 				$this->mode = 'telechargement'; # Mode telechargement
 				$this->cible = $matches[1];
 			} else {
@@ -456,7 +463,7 @@ class plxMotor {
 			case 'telechargement' :
 				break;
 			default :
-				$this->error404(L_DOCUMENT_NOT_FOUND);
+				$this->error404(L_ERR_PAGE_NOT_FOUND);
 		}
 
 		# Hook plugins
@@ -744,7 +751,7 @@ class plxMotor {
 		}
 
 		# On recherche un numéro de page
-		if(preg_match('#\bpage(\d+)#',$this->get, $capture))
+		if(preg_match('#\b' . L_PAGE_URL . '(\d+)#',$this->get, $capture))
 			$this->page = intval($capture[1]);
 		else
 			$this->page = 1;

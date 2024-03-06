@@ -395,7 +395,7 @@ EOT;
 				if($publi AND $draft=='') {
 					# l'article est publié
 ?>
-					<a href="<?= $plxAdmin->urlRewrite('?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>"><?= L_VIEW ?></a>
+					<a href="<?= $plxAdmin->urlRewrite('?' . L_ARTICLE_URL . intval($idArt) . '/' . $plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>"><?= L_VIEW ?></a>
 <?php
 				}
 ?>

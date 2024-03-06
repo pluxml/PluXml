@@ -16,14 +16,11 @@ plx_session_start();
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
 
-# Détermination de la langue à utiliser (modifiable par le hook : Index)
-$lang = $plxMotor->aConf['default_lang'];
-
 # Hook Plugins
 eval($plxMotor->plxPlugins->callHook('Index'));
 
 # chargement du fichier de langue
-loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
+loadLang(PLX_CORE.'lang/' . PLX_SITE_LANG . '/core.php');
 
 $plxMotor->prechauffage();
 $plxMotor->demarrage();

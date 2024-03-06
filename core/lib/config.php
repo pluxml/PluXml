@@ -120,6 +120,22 @@ const DEFAULT_CONFIG = array(
 	'smtpOauth2_refreshToken'	=> '',
 );
 
+#  Flag Sequences :
+# 🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿
+const FLAGS = array(
+	'de' => '🇩🇪',
+	'en' => '🇬🇧', # GB
+	'es' => '🇪🇸',
+	'fr' => '🇫🇷',
+	'it' => '🇮🇹',
+	'nl' => '🇳🇱',
+	'oc' => '🇫🇷',
+	'pl' => '🇵🇱',
+	'pt' => '🇵🇹',
+	'ro' => '🇷🇴',
+	'ru' => '🇷🇺',
+);
+
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');
 $img_thumb = array('50x50', '75x75', '100x100');

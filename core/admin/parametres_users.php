@@ -46,7 +46,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 	<thead>
 		<tr>
 			<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idUser[]')" /></th>
-			<th><?= L_ID ?></th>
+			<th title="<?= L_USER_LANG ?>"><?= L_ID ?></th>
 			<th class="required"><?= L_PROFIL_USER ?></th>
 			<th class="required"><?= L_PROFIL_LOGIN ?></th>
 			<th><?= L_PROFIL_PASSWORD ?></th>
@@ -69,7 +69,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 				<input type="checkbox" name="idUser[]" value="<?= $_userid ?>" />
 				<input type="hidden" name="userNum[]" value="<?= $_userid ?>" />
 			</td>
-			<td><?= $_userid ?></td>
+			<td><?= $_userid ?> <span class="flag" title="<?= $_user['lang'] ?>"><?= FLAGS[$_user['lang']] ?></span></td>
 			<td><?php plxUtils::printInput($_userid.'_name', plxUtils::strCheck($_user['name']), 'text', '', false, '', '', '', true); ?></td>
 			<td><?php plxUtils::printInput($_userid.'_login', plxUtils::strCheck($_user['login']), 'text', '', false, '', '', '', true); ?></td>
 			<td><?php plxUtils::printInput($_userid.'_password', '', 'password', ''); ?></td>
