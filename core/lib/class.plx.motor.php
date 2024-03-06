@@ -194,16 +194,17 @@ class plxMotor {
 			preg_match('#^(categorie|user)(\d{1,3})(?:/([^&]*))?/page\d+#', $this->get, $matches) or # avec pagination
 			preg_match('#^(article|static|categorie|user)(\d{1,4})(?:/([^&]*))?#', $this->get, $matches) # sans pagination
 		) {
-			$this->mode = $matches[1];
 			$this->cible = str_pad($matches[2], ($matches[1] == 'article') ? 4 : 3, '0', STR_PAD_LEFT); # On complète sur 3 ou 4 caractères
-			switch($this->mode) {
+			switch($matches[1]) {
 				case 'article':
-					$this->template = 'article.php';
 					$this->motif = '#^'.$this->cible.'\.(?:pin,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 					if($this->getArticles()) {
 						# Redirection 301
 						if(!isset($matches[3]) OR $this->plxRecord_arts->f('url') != $matches[3]) {
 							$this->redir301($this->urlRewrite('?article' . intval($this->cible) . '/' . $this->plxRecord_arts->f('url')));
+						} else {
+							$this->mode = 'article';
+							$this->template = 'article.php';
 						}
 					} else {
 						$this->error404(L_UNKNOWN_ARTICLE);
@@ -214,8 +215,9 @@ class plxMotor {
 						if(!empty($this->aConf['homestatic']) AND $this->aConf['homestatic'] == $this->cible){
 							# homepage
 							$this->redir301($this->urlRewrite());
-						} elseif(isset($matches[3]) AND $this->aStats[$this->cible]['url'] == $capture[3]) {
+						} elseif(isset($matches[3]) AND $this->aStats[$this->cible]['url'] == $matches[3]) {
 							# static page
+							$this->mode = 'static';
 							$this->template = $this->aStats[$this->cible]['template'];
 						} else {
 							# redirection avec la bonne url
@@ -228,8 +230,9 @@ class plxMotor {
 				case 'categorie':
 					if(isset($this->aCats[$this->cible]) and $this->aCats[$this->cible]['active']) {
 						if(isset($matches[3]) AND $this->aCats[$this->cible]['url'] == $matches[3]) {
-							$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*' . $this->cible . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
+							$this->mode = 'categorie';
 							$this->template = $this->aCats[$this->cible]['template'];
+							$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*' . $this->cible . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 							$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
 							if($this->aCats[$this->cible]['bypage'] > 0) {
 								$this->bypage = $this->aCats[$this->cible]['bypage'];
@@ -246,8 +249,9 @@ class plxMotor {
 					if(isset($this->aUsers[$this->cible]) and $this->aUsers[$this->cible]['active']) {
 						$urlName = plxUtils::urlify($this->aUsers[$this->cible]['name']);
 						if(isset($matches[3]) AND $urlName == $matches[3]) {
-							$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.' . $this->cible . '.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
+							$this->mode = 'user';
 							$this->template = 'user.php';
+							$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.' . $this->cible . '.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 						} else {
 							$this->redir301($this->urlRewrite('?user' . intval($this->cible) . '/' . $urlName));
 						}
@@ -259,8 +263,8 @@ class plxMotor {
 					# Jamais atteint
 					$this->error404(L_UNKNOWN_AUTHOR);
 			}
-		} elseif(preg_match('#^tag/([\w-]+)#',$this->get,$capture)) {
-			$this->cible = $capture[1];
+		} elseif(preg_match('#^tag/([\w-]+)#', $this->get, $matches)) {
+			$this->cible = $matches[1];
 			$this->tri = 'desc';
 			$ids = array();
 			$datetime = date('YmdHi');
@@ -285,24 +289,24 @@ class plxMotor {
 			} else {
 				$this->error404(L_ARTICLE_NO_TAG);
 			}
-		} elseif(preg_match('#^archives\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#',$this->get,$capture)) {
+		} elseif(preg_match('#^archives\/(\d{4})[\/]?(\d{2})?[\/]?(\d{2})?#', $this->get, $matches)) {
 			$this->mode = 'archives';
 			$this->template = 'archives.php';
 			$this->bypage = $this->aConf['bypage_archives'];
-			$this->cible = $searchDate = $capture[1];
-			if(!empty($capture[2])) {
-				$this->cible = ($searchDate .= $capture[2]);
+			$this->cible = $searchDate = $matches[1];
+			if(!empty($matches[2])) {
+				$this->cible = ($searchDate .= $matches[2]);
 			} else {
 				$searchDate .= '\d{2}';
 			}
-			$searchDate .= !empty($capture[3]) ? $capture[3] : '\d{2}';
+			$searchDate .= !empty($matches[3]) ? $matches[3] : '\d{2}';
 			$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}\.' . $searchDate . '\d{4}\.[\w-]+\.xml$#';
-		} elseif(preg_match('#^preview\/?#',$this->get) AND isset($_SESSION['preview'])) {
+		} elseif(preg_match('#^preview\/?#', $this->get) AND isset($_SESSION['preview'])) {
 			$this->mode = 'preview';
-		} elseif(preg_match('#^(?:telechargement|download)/(.+)$#', $this->get, $capture)) {
-			if($this->sendTelechargement($capture[1])) {
+		} elseif(preg_match('#^(?:telechargement|download)/(.+)$#', $this->get, $matches)) {
+			if($this->sendTelechargement($matches[1])) {
 				$this->mode = 'telechargement'; # Mode telechargement
-				$this->cible = $capture[1];
+				$this->cible = $matches[1];
 			} else {
 				$this->error404(L_DOCUMENT_NOT_FOUND);
 			}
@@ -400,48 +404,59 @@ class plxMotor {
 			return;
 		}
 
-		if(in_array($this->mode, array('home', 'categorie', 'tags', 'user', 'archives'))) {
-			$this->getPage(); # Recuperation du numéro de la page courante
-			if(!$this->getArticles()) { # Si aucun article
-				$this->error404(L_NO_ARTICLE_PAGE);
-			}
-		}
-		elseif($this->mode == 'article') {
-
-			# On a validé le formulaire commentaire
-			if($this->articleAllowComs() and !empty($_POST)) {
-				# On récupère le retour de la création
-				$content = plxUtils::unSlash($_POST);
-				$retour = $this->newCommentaire($this->cible, $content);
-				unset($_SESSION['msg']);
-				# Url de l'article
-				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
-				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
-				if(preg_match('~^c\d+~', $retour)) { # Le commentaire a été publié
-					$_SESSION['msgcom'] = L_COM_PUBLISHED;
-					header('Location: '.$url.'#'.$retour);
-				} elseif($retour == 'mod') { # Le commentaire est en modération
-					$_SESSION['msgcom'] = L_COM_IN_MODERATION;
-					header('Location: '.$url.'#form');
-				} else {
-					$_SESSION['msgcom'] = $retour;
-					$_SESSION['msg'] = $content;
-					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
-					header('Location: '.$url.'#form');
+		switch($this->mode) {
+			case 'home' :
+			case 'categorie' :
+			case 'tags' :
+			case 'user' :
+			case 'archives' :
+				# Get a selection of articles
+				$this->getPage(); # Recuperation du numéro de la page courante
+				if(!$this->getArticles()) { # Si aucun article
+					$this->error404(L_NO_ARTICLE_PAGE);
 				}
-				exit;
-			}
+				break;
+			case 'article' :
+				# On a validé le formulaire commentaire
+				if($this->articleAllowComs() and !empty($_POST)) {
+					# On récupère le retour de la création
+					$content = plxUtils::unSlash($_POST);
+					$retour = $this->newCommentaire($this->cible, $content);
+					unset($_SESSION['msg']);
+					# Url de l'article
+					$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
+					eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
+					if(preg_match('~^c\d+~', $retour)) { # Le commentaire a été publié
+						$_SESSION['msgcom'] = L_COM_PUBLISHED;
+						header('Location: '.$url.'#'.$retour);
+					} elseif($retour == 'mod') { # Le commentaire est en modération
+						$_SESSION['msgcom'] = L_COM_IN_MODERATION;
+						header('Location: '.$url.'#form');
+					} else {
+						$_SESSION['msgcom'] = $retour;
+						$_SESSION['msg'] = $content;
+						eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
+						header('Location: '.$url.'#form');
+					}
+					exit;
+				}
 
-			# Récupération des commentaires
-			$this->getCommentaires('#^'.$this->cible.'\.\d{10}-\d+\.xml$#',$this->tri_coms);
-			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
-		}
-		elseif($this->mode == 'preview') {
-			$this->mode='article';
-			$this->plxRecord_arts = new plxRecord($_SESSION['preview']);
-			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+				# Récupération des commentaires
+				$this->getCommentaires('#^'.$this->cible.'\.\d{10}-\d+\.xml$#',$this->tri_coms);
+				$this->template=$this->plxRecord_arts->f('template');
+				if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+				break;
+			case 'preview' :
+				$this->mode='article';
+				$this->plxRecord_arts = new plxRecord($_SESSION['preview']);
+				$this->template=$this->plxRecord_arts->f('template');
+				if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+				break;
+			case 'static' :
+			case 'telechargement' :
+				break;
+			default :
+				$this->error404(L_DOCUMENT_NOT_FOUND);
 		}
 
 		# Hook plugins
