@@ -82,9 +82,9 @@ const L_MAIL_AVAILABLE			= 'E-Mail versenden ist möglich';
 const L_MAIL_NOT_AVAILABLE		= 'E-Mail versenden ist nicht möglich';
 
 # class.plx.motor.php
-const L_ARTICLE_NO_TAG			= 'Es gibt keinen Artikel für dieses Schlagwort!';
+const L_ARTICLE_NO_TAG			= 'Zu diesem Stichwort wurde kein Artikel gefunden!';
 const L_UNKNOWN_CATEGORY		= 'Diese Kategorie existiert nicht!';
-const L_NO_ARTICLE_PAGE			= 'Es gibt keinen Artikel für diese Seite!';
+const L_NO_ARTICLE_PAGE			= 'Für diese Seite wurde kein Artikel gefunden!';
 const L_UNKNOWN_ARTICLE			= 'Dieser Artikel existiert nicht oder nicht mehr!';
 const L_COM_PUBLISHED			= 'Der Kommentar ist veröffentlicht';
 const L_COM_IN_MODERATION		= 'Der Kommentar muss erst vom Administrator moderiert werden.';
@@ -155,7 +155,7 @@ const L_ARTICLE_URL = 'artikel';
 const L_STATIC_URL = 'static';
 const L_CATEGORY_URL = 'kategorie'
 const L_USER_URL = 'autor';
-const L_TAG_URL = 'mot-cle';
+const L_TAG_URL = 'schlusselwort';
 const L_ARCHIVES_URL = 'archiv';
 const L_BLOG_URL = 'blog';
 const L_COMMENTS_URL = 'kommentars';

@@ -225,7 +225,7 @@ class plxAdmin extends plxMotor {
 				}
 
 			} elseif($k == 'default_lang') {
-				if(!array_key_exists($v, array_keys(plxUtils::getLangs()))) {
+				if(!array_key_exists($v, plxUtils::getLangs())) {
 					continue;
 				}
 
