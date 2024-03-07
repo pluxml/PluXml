@@ -154,9 +154,9 @@ const L_LOST_PASSWORD = 'Contraseña olvidada ?';
 
 # for urls - must be urlify !
 
-const L_ARTICLE_URL = 'artículo';
+const L_ARTICLE_URL = 'articulo';
 const L_STATIC_URL = 'static';
-const L_CATEGORY_URL = 'categoría';
+const L_CATEGORY_URL = 'categoria';
 const L_USER_URL = 'autor';
 const L_TAG_URL = 'etiqueta';
 const L_ARCHIVES_URL = 'archivos';
