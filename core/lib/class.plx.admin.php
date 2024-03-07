@@ -490,8 +490,9 @@ EOT;
 			if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
 				return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-			if(!in_array($content['lang'], array_keys(plxUtils::getLangs())))
+			if(!array_key_exists($content['lang'], plxUtils::getLangs())) {
 				return plxMsg::Error(L_UNKNOWN_ERROR);
+			}
 
 			$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
 			$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
@@ -789,17 +790,18 @@ EOT;
 		}
 
 		# controle de la langue sélectionnée
-		if(!in_array($content['lang'], array_keys(plxUtils::getLangs())))
+		if(!array_key_exists($content['lang'], plxUtils::getLangs())) {
 			return plxMsg::Error(L_UNKNOWN_ERROR);
+		}
 
-			$this->aUsers[$content['id']]['email'] = $content['email'];
-			$this->aUsers[$content['id']]['infos'] = trim($content['content']);
-			$this->aUsers[$content['id']]['lang'] = $content['lang'];
+		$this->aUsers[$content['id']]['email'] = $content['email'];
+		$this->aUsers[$content['id']]['infos'] = trim($content['content']);
+		$this->aUsers[$content['id']]['lang'] = $content['lang'];
 
-			# Hook plugins
-			eval($this->plxPlugins->callHook('plxAdminEditUser'));
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxAdminEditUser'));
 
-			return $this->editUsers(null,true);
+		return $this->editUsers(null,true);
 	}
 
 	/**

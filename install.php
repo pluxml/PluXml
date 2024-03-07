@@ -34,7 +34,7 @@ $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEP
 if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
 	$lang = $_POST['default_lang'];
 }
-if(!array_key_exists($lang, array_keys(plxUtils::getLangs()))) {
+if(!array_key_exists($lang, plxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
 }
 loadLang(PLX_CORE.'lang/'.$lang.'/install.php');
