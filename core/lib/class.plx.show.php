@@ -1596,7 +1596,7 @@ class plxShow
 					$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$com['article']]);
 					if ($artInfo['artDate'] <= $datetime) { # on ne prends que les commentaires pour les articles publiés
 						if (empty($cat_ids) or preg_match('/(' . $cat_ids . ')/', $artInfo['catId'])) {
-							$url = '?article' . intval($com['article']) . '/' . $artInfo['artUrl'] . '#c' . $com['index'];
+							$url = '?' . L_ARTICLE_URL . intval($com['article']) . '/' . $artInfo['artUrl'] . '#c' . $com['index'];
 							$date = $com['date'];
 							$content = strip_tags($com['content']);
 							# On modifie nos motifs
