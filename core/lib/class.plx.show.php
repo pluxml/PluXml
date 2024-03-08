@@ -4,7 +4,7 @@
  * Classe plxShow responsable de l'affichage sur stdout
  *
  * @package PLX
- * @author    Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
+ * @author    Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
  **/
 
 const PLX_SHOW = true;
@@ -363,10 +363,15 @@ class plxShow
 	{
 
 		$title = plxUtils::strCheck($this->plxMotor->aConf['title']);
-		if ($type == 'link') # Type lien
-			echo '<a class="maintitle" href="' . $this->plxMotor->urlRewrite() . '" title="' . $title . '">' . $title . '</a>';
-		else # Type normal
+		if ($type == 'link') {
+			# Type lien
+?>
+<a class="maintitle" href="<?= $this->plxMotor->urlRewrite() ?>" title="<?= $title ?>"><?= $title ?></a>
+<?php
+		} else {
+			# Type normal
 			echo $title;
+		}
 	}
 
 	/**
@@ -653,7 +658,9 @@ class plxShow
 			$title = plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 			$url = $this->plxMotor->plxRecord_arts->f('url');
 			# On effectue l'affichage
-			echo '<a href="' . $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $id . '/' . $url) . '" title="' . $title . '">' . $title . '</a>';
+?>
+<a href="<?= $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $id . '/' . $url) ?>" title="<?= $title ?>"><?= $title ?></a>
+<?php
 		} else { # Type normal
 			echo plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 		}
@@ -727,7 +734,9 @@ class plxShow
 
 		if($link and !empty($author)) {
 			$href = 'index.php?' . L_USER_URL . $authorId . '/' . md5($authorName);
-			echo '<a href="' . $this->plxMotor->urlRewrite($href) . '">' . $authorName . '</a>';
+?>
+<a href="<?= $this->plxMotor->urlRewrite($href) ?>"><?= $authorName ?></a>
+<?php
 		} else {
 			echo $authorName;
 		}
@@ -940,14 +949,16 @@ class plxShow
 			$title = plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('title'));
 			$url = $this->plxMotor->plxRecord_arts->f('url');
 			# On effectue l'affichage
-			echo $this->plxMotor->plxRecord_arts->f('chapo') . "\n";
+			echo $this->plxMotor->plxRecord_arts->f('chapo') . PHP_EOL;
 			if ($format) {
 				$title = str_replace("#art_title", $title, $format);
-				echo '<p class="more"><a href="' . $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $id . '/' . $url) . ($anchor != '' ? '#' . $anchor : '') . '" title="' . $title . '">' . $title . '</a></p>' . "\n";
+?>
+<p class="more"><a href="<?= $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $id . '/' . $url) . ($anchor != '' ? '#' . $anchor : '') ?>" title="<?= $title ?>"><?= $title ?></a></p>
+<?php
 			}
 		} else { # Pas de chapo, affichage du contenu
 			if ($content === true) {
-				echo $this->plxMotor->plxRecord_arts->f('content') . "\n";
+				echo $this->plxMotor->plxRecord_arts->f('content') . PHP_EOL;
 			}
 		}
 	}
@@ -962,9 +973,10 @@ class plxShow
 	public function artContent($chapo = true)
 	{
 
-		if ($chapo === true)
-			echo $this->plxMotor->plxRecord_arts->f('chapo') . "\n"; # Chapo
-		echo $this->plxMotor->plxRecord_arts->f('content') . "\n";
+		if ($chapo === true) {
+			echo $this->plxMotor->plxRecord_arts->f('chapo') . PHP_EOL; # Chapo
+		}
+		echo $this->plxMotor->plxRecord_arts->f('content') . PHP_EOL;
 
 	}
 
@@ -1127,10 +1139,13 @@ class plxShow
 		}
 		$txt = str_replace('#nb', $nb, $txt);
 
-		if ($this->plxMotor->mode == 'article')
+		if ($this->plxMotor->mode == 'article') {
 			echo $txt;
-		else
-			echo '<a href="' . $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $num . '/' . $url) . '#comments" title="' . $title . '">' . $txt . '</a>';
+		} else {
+?>
+<a href="<?= $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $num . '/' . $url) ?>#comments" title="<?= $title ?>"><?= $txt ?></a>
+<?php
+		}
 
 	}
 
@@ -1417,10 +1432,15 @@ class plxShow
 		# Initialisation de nos variables interne
 		$author = $this->plxMotor->plxRecord_coms->f('author');
 		$site = $this->plxMotor->plxRecord_coms->f('site');
-		if ($type == 'link' and $site != '') # Type lien
-			echo '<a rel="nofollow" href="' . $site . '" title="' . $author . '">' . $author . '</a>';
-		else # Type normal
+		if ($type == 'link' and $site != '') {
+			# Type lien
+?>
+<a rel="nofollow" href="<?= $site ?>" title="<?= $author ?>"><?= $author ?></a>
+<?php
+		} else {
+			# Type normal
 			echo $author;
+		}
 	}
 
 	/**
@@ -1508,7 +1528,9 @@ class plxShow
 		if (isset($_SESSION['msg'][$key]) and !empty($_SESSION['msg'][$key])) {
 			echo plxUtils::strCheck($_SESSION['msg'][$key]);
 			$_SESSION['msg'][$key] = '';
-		} else echo $defaut;
+		} else {
+			echo $defaut;
+		}
 
 	}
 
@@ -1745,7 +1767,7 @@ class plxShow
 		if ($menus) {
 			foreach ($menus as $k => $v) {
 				if (is_numeric($k)) {
-					echo "\n" . (is_array($v) ? $v[0] : $v);
+					echo PHP_EOL . (is_array($v) ? $v[0] : $v);
 				} else {
 					$group = strtr($format_group, [
 						'#group_id'		=> 'static-group-' . plxUtils::urlify($k),
@@ -1757,7 +1779,7 @@ class plxShow
 	<li class="menu">
 		<?= $group ?>
 		<ul id="static-<?= plxUtils::urlify($k) ?>" class="sub-menu">
-		<?= implode("\t\t" . PHP_EOL, $v) ?>
+		<?= implode("\t\t\n", $v) ?>
 		</ul>
 	</li>
 <?php
@@ -1900,7 +1922,9 @@ class plxShow
 			eval($this->plxMotor->plxPlugins->callHook('plxShowStaticContent'));
 			echo $output;
 		} else {
-			echo '<p>' . L_STATICCONTENT_INPROCESS . '</p>';
+?>
+<p><?= L_STATICCONTENT_INPROCESS ?></p>
+<?php
 		}
 
 	}
@@ -2066,10 +2090,13 @@ class plxShow
 			$tag = plxUtils::strCheck($this->plxMotor->cible);
 			$tagName = plxUtils::strCheck($this->plxMotor->cibleName);
 			# On effectue l'affichage
-			if ($type == 'link')
-				echo '<a href="' . $this->plxMotor->urlRewrite('?' . L_TAG_URL .'/' . $tag) . '" title="' . $tagName . '">' . $tagName . '</a>';
-			else
+			if ($type == 'link') {
+?>
+<a href="<?= $this->plxMotor->urlRewrite('?' . L_TAG_URL .'/' . $tag) ?>" title="<?= $tagName ?>"><?= $tagName ?></a>
+<?php
+			} else {
 				echo $tagName;
+			}
 		}
 	}
 
@@ -2235,7 +2262,9 @@ class plxShow
 			# On effectue l'affichage
 			if ($type == 'link') {
 				$href = 'index.php?user' . $id . '/' . md5($userName);
-				echo '<a href="' . $this->plxMotor->urlRewrite($href) . '" title="' . $userName . '">' . $userName . '</a>';
+?>
+<a href="<?= $this->plxMotor->urlRewrite($href) ?>" title="<?= $userName ?>"><?= $userName ?></a>
+<?php
 			} else {
 				echo $userName;
 			}
@@ -2637,7 +2666,7 @@ class plxShow
 	 */
 	public function urlPostsRssFeed($mode = '', $html_tag='')
 	{
-		$href = $this->plxMotor->racine . 'feed.php?rss';
+		$href = 'feed.php?rss';
 		$default = $href;
 
 		if(empty($mode)) {
@@ -2669,19 +2698,19 @@ class plxShow
 
 		if(empty($html_tag)) { # ---------- no tag <...> -------------
 			# url the feed url address for the articles in the current mode
-			return $this->urlRewrite($href);
+			return $this->plxMotor->urlRewrite($href);
 		} elseif(strtolower($html_tag) == 'a') { # ---------- <a> -------------
 ?>
-<a class="rss" href="<?= $this->urlRewrite($href); ?>"><?= $title  ?></a>
+<a class="rss" href="<?= $this->plxMotor->urlRewrite($href); ?>" download><?= $title  ?></a>
 <?php
 		} elseif(strtolower($html_tag) == 'link') { # ---------- <link> -------------
 			# Prints lhe link tags for articles and comments. Especially  for the heade of the html page
 ?>
-	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $href ?>" />
+	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $this->plxMotor->urlRewrite($href) ?>" />
 <?php
 			if(!empty($default)) {
 ?>
-	<link rel="alternate" type="application/rss+xml" title="<?= L_ARTFEED_RSS ?>" href="<?= $default ?>" />
+	<link rel="alternate" type="application/rss+xml" title="<?= L_ARTFEED_RSS ?>" href="<?= $this->plxMotor->urlRewrite($default) ?>" />
 <?php
 			}
 
@@ -2692,7 +2721,7 @@ class plxShow
 
 			$href = $this->plxMotor->racine . 'feed.php?rss/' . L_COMMENTS_URL;
 ?>
-	<link rel="alternate" type="application/rss+xml" title="<?= L_COMFEED_RSS ?>" href="<?= $href ?>" />
+	<link rel="alternate" type="application/rss+xml" title="<?= L_COMFEED_RSS ?>" href="<?= $this->plxMotor->urlRewrite($href) ?>" />
 <?php
 			if($this->plxMotor->mode == 'article') {
 				if(empty($this->plxMotor->plxRecord_coms) or $this->plxMotor->plxRecord_coms->size == 0) {
@@ -2707,16 +2736,16 @@ class plxShow
 				$href .= '/article' . intval($this->plxMotor->cible);
 				$title = sprintf(L_COMFEED_RSS_ARTICLE, $this->plxMotor->plxRecord_arts->f('title'));
 ?>
-	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $href ?>" />
+	<link rel="alternate" type="application/rss+xml" title="<?= $title ?>" href="<?= $this->plxMotor->urlRewrite($href) ?>" />
 <?php
 			}
 		} elseif(strtolower($html_tag) == 'li') { # ---------- <li> -------------
 ?>
-	<li><a class="rss" href="<?= $this->urlRewrite($href); ?>"><?= $title  ?></a></li>
+	<li><a class="rss" href="<?= $this->plxMotor->urlRewrite($href); ?>" download><?= $title  ?></a></li>
 <?php
 			if(!empty($default)) {
 ?>
-	<li><a class="rss" href="<?= $this->urlRewrite($default); ?>"><?= L_ARTFEED_RSS  ?></a></li>
+	<li><a class="rss" href="<?= $this->plxMotor->urlRewrite($default); ?>" download><?= L_ARTFEED_RSS  ?></a></li>
 <?php
 			}
 
@@ -2725,9 +2754,9 @@ class plxShow
 				return;
 			}
 
-			$href = $this->plxMotor->racine . 'feed.php?rss/' . L_COMMENTS_URL;
+			$href = 'feed.php?rss/' . L_COMMENTS_URL;
 ?>
-	<li><a class="rss" href="<?= $href ?>" download><?= L_COMFEED_RSS ?></a></li>
+	<li><a class="rss" href="<?= $this->plxMotor->urlRewrite($href) ?>" download><?= L_COMFEED_RSS ?></a></li>
 <?php
 			if($this->plxMotor->mode == 'article') {
 				if(empty($this->plxMotor->plxRecord_coms) or $this->plxMotor->plxRecord_coms->size == 0) {
@@ -2742,7 +2771,7 @@ class plxShow
 				$href .= '/article' . intval($this->plxMotor->cible);
 				$title = sprintf(L_COMFEED_RSS_ARTICLE, $this->plxMotor->plxRecord_arts->f('title'));
 ?>
-	<li><a class="rss" href="<?= $href ?>"><?= $title ?></a></li>
+	<li><a class="rss" href="<?= $this->plxMotor->urlRewrite($href) ?>"><?= $title ?></a></li>
 <?php
 			}
 		}
