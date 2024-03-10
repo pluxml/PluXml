@@ -373,6 +373,10 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Warning: a .htaccess file already e
 const L_CONFIG_ADVANCED_GZIP = 'Enable GZIP compression';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Makes it possible to compress pages to save bandwidth, but could increase CPU usage';
 const L_CONFIG_ADVANCED_CAPCHA = 'Enable anti spam-capcha';
+const L_CONFIG_ADVANCED_404 ='Redirect unknown requests to 404';
+const L_CONFIG_ADVANCED_200 ='Add known query(s).';
+const L_CONFIG_ADVANCED_G200_HELP ='without spaces, without special characters, without accents and separated with | . These requests will not be redirected to 404. ex: pluxml|home';
+
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Enable password recovery';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Administration key (private URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Leave this field empty to rebuild key';

@@ -373,6 +373,10 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atenţie într-un fişier. Htaccess
 const L_CONFIG_ADVANCED_GZIP = 'Activeaza compresia GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Comprimă paginile pentru a salva de lăţime de bandă, însă acest lucru poate creşte sarcina procesorului';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activeaza capcha anti-spam';
+const L_CONFIG_ADVANCED_404 ='Redirecționează cererile necunoscute către 404';
+const L_CONFIG_ADVANCED_200 ='S-au adăugat cereri cunoscute.';
+const L_CONFIG_ADVANCED_G200_HELP ='fără spații, fără caractere speciale, fără accente și separate cu | . Aceste solicitări nu vor fi redirecționate către 404. ex: pluxml|home ';
+
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Activați recuperarea parolei';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Cheie de administrare (URL-uri private)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Clar acest domeniu pentru a regenera cheie';
