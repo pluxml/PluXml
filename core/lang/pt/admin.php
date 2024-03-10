@@ -373,6 +373,10 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Atenção um .htaccess já está pr
 const L_CONFIG_ADVANCED_GZIP = 'Activar a compressão GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Permite de comprimir as páginas afim de economizar os dados transferidos entre o servidor e o seu computer, em consequência aumenta a carga do servidor ! Desactive se o sue web-site fôr muito visitado';
 const L_CONFIG_ADVANCED_CAPCHA = 'Activar o capcha anti-spam';
+const L_CONFIG_ADVANCED_404 ='Redirecionar solicitações desconhecidas para 404';
+const L_CONFIG_ADVANCED_200 ='Adicionada(s) solicitação(ões) conhecida(s).';
+const L_CONFIG_ADVANCED_G200_HELP ='sem espaços, sem caracteres especiais, sem acentos e separados por | . Essas solicitações não serão redirecionadas para 404. ex: pluxml|home ';
+
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Ativar recuperação de senha';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Chave de administração (URLS privadas)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Esvaziar o campo afim de regenerar a chave novamente';

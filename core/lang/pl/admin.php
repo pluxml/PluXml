@@ -374,6 +374,10 @@ const L_CONFIG_ADVANCED_GZIP = 'Włącz kompresję GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Kompresuj strony, aby zaoszczędzić przepustowość, jednak może to zwiększyć obciążenie procesora';
 const L_CONFIG_ADVANCED_CAPCHA = 'Aktywuj capcha antyspamową';
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Włącz odzyskiwanie hasła';
+const L_CONFIG_ADVANCED_404 ='Przekieruj nieznane żądania do 404';
+const L_CONFIG_ADVANCED_200 ='Dodano znane żądania.';
+const L_CONFIG_ADVANCED_G200_HELP ='bez spacji, bez znaków specjalnych, bez akcentów i oddzielone | . Żądania te nie zostaną przekierowane na numer 404. np.: pluxml|home ';
+
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Klucz administracyjny (prywatne adresy URL)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Opróżnij to pole, aby ponownie wygenerować klucz';
 const L_CONFIG_ADVANCED_USERFOLDERS = 'Użyj innego folderu multimediów dla każdego pisarza';

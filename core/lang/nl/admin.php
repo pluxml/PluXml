@@ -373,6 +373,10 @@ const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Opgepast. Er bestaat al een .htacce
 const L_CONFIG_ADVANCED_GZIP = 'GZIP compressie activeren';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Compressie activeren zal het verbruik van uw bandbreedte naar beneden halen, maar kan uw processor wat meer belasten';
 const L_CONFIG_ADVANCED_CAPCHA = 'Anti-spam CAPTCHA gebruiken';
+const L_CONFIG_ADVANCED_404 ='Stuur onbekende verzoeken door naar 404';
+const L_CONFIG_ADVANCED_200 ='Toevoeging van bekende zoekopdracht(en).';
+const L_CONFIG_ADVANCED_G200_HELP ='zonder spaties, zonder speciale tekens, zonder accenten en gescheiden door | . Deze verzoeken worden niet doorgestuurd naar 404. bijvoorbeeld: pluxml|huis ';
+
 const L_CONFIG_ADVANCED_LOSTPASSWORD = 'Schakel wachtwoordherstel in';
 const L_CONFIG_ADVANCED_ADMIN_KEY = 'Code voor versleuteling gegevens (Prive URLs)';
 const L_CONFIG_ADVANCED_KEY_HELP = 'Maak dit veld leeg om een nieuwe sleutel te genereren';

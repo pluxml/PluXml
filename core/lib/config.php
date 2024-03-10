@@ -74,6 +74,8 @@ const DEFAULT_CONFIG = array(
 	'enable_rss'			=> 1,
 	'enable_rss_comment'	=> 1,
 	'capcha'				=> 1,
+	'g404'					=> 0,  # requete inconnue renvoi sur 0 = page d'acceuil 200 |  1 = page d'erreur 404 (page non trouvée)
+	'g200'					=> '', # filtres des requetes a garder en page d'acceuil
 	'lostpassword'			=> 1,
 	'style'					=> 'defaut',
 	'clef'					=> '', # plxUtils::charAleatoire(15)
