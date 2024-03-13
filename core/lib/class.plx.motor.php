@@ -200,8 +200,6 @@ class plxMotor {
 			$this->cible = str_pad($matches[2], ($matches[1] == L_ARTICLE_URL) ? 4 : 3, '0', STR_PAD_LEFT); # On complète sur 3 ou 4 caractères
 			switch($matches[1]) {
 				case L_ARTICLE_URL:
-					$this->mode = 'article';
-					$this->template = 'article.php';
 					$this->motif = '#^'.$this->cible.'\.(?:pin,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 					if($this->getArticles()) {
 						# Redirection 301
@@ -311,7 +309,7 @@ class plxMotor {
 		} elseif(preg_match('#^preview\/?#', $this->get) AND isset($_SESSION['preview'])) {
 			$this->mode = 'preview';
 		} elseif(preg_match('#^(?:' . L_DOWNLOAD_URL . '|download)/(.+)$#', $this->get, $matches)) {
-			if($this->sendTelechargement($capture[1])) {
+			if($this->sendTelechargement($matches[1])) {
 				$this->mode = 'telechargement'; # Mode telechargement
 				$this->cible = $matches[1];
 			} else {
