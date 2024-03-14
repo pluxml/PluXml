@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Zapisywanie zakończone powodzeniem';
 # index.php
 
 const L_ERR_THEME_NOTFOUND = 'Nie odnaleziono głównego szablonu PluXml';
-const L_ERR_FILE_NOTFOUND = 'Plik docelowy nie został znaleziony';
+const L_ERR_FILE_NOTFOUND = 'Brakuje następującego pliku';
 const L_ERR_PAGE_NOT_FOUND = 'Nie znaleziono strony';
 
 # class.plx.date.php

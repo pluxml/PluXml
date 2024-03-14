@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Grabação dos dados efectuada com sucesso';
 # index.php
 
 const L_ERR_THEME_NOTFOUND = 'Tema principal PluXml não foi encontrado';
-const L_ERR_FILE_NOTFOUND = 'O ficheiro de destino PluXml não foi encontrado';
+const L_ERR_FILE_NOTFOUND = 'O seguinte arquivo está faltando';
 const L_ERR_PAGE_NOT_FOUND = 'Página não encontrada';
 
 # class.plx.date.php

@@ -7,7 +7,7 @@
 						<header>
 							<h2><?php $plxShow->lang('ERROR'); ?></h2>
 						</header>
-						<p><?php $plxShow->erreurMessage(); ?></p>
+						<div class="alert orange text-center"><?php $plxShow->erreurMessage(); ?></div>
 					</article>
 				</div>
 <?php

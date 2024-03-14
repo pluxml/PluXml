@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Данные успешно сохранены';
 # index.php
 
 const L_ERR_THEME_NOTFOUND = 'Тема не найдена';
-const L_ERR_FILE_NOTFOUND = 'Файл не найден';
+const L_ERR_FILE_NOTFOUND = 'Следующий файл отсутствует';
 const L_ERR_PAGE_NOT_FOUND = 'Страница не найдена';
 
 # class.plx.date.php

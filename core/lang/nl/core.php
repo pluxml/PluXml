@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Gegevens succesvol opgeslagen';
 # index.php
 
 const L_ERR_THEME_NOTFOUND = 'De standaardlayout van PluXml werd niet gevonden';
-const L_ERR_FILE_NOTFOUND = 'Het gevraagde PluXml bestand kan niet gevonden worden';
+const L_ERR_FILE_NOTFOUND = 'Het volgende bestand ontbreekt';
 const L_ERR_PAGE_NOT_FOUND = 'Pagina niet gevonden';
 
 # class.plx.date.php

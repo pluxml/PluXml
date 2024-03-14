@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Daten erfolgreich gespeichert';
 
 # index.php
 const L_ERR_THEME_NOTFOUND		= 'Der Haupttheme von PluXml konnte nicht gefunden werden.';
-const L_ERR_FILE_NOTFOUND		= 'Die angeforderte Datei konnte von PluXml nicht gefunden werden.';
+const L_ERR_FILE_NOTFOUND		= 'Die folgende Datei fehlt';
 const L_ERR_PAGE_NOT_FOUND		= 'Seite nicht gefunden';
 
 # class.plx.date.php

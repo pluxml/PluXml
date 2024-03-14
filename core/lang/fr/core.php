@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Enregistrement des données effectué avec succès';
 # index.php
 
 const L_ERR_THEME_NOTFOUND			= 'Le thème principal de PluXml est introuvable';
-const L_ERR_FILE_NOTFOUND			= 'Le fichier cible de PluXml est introuvable';
+const L_ERR_FILE_NOTFOUND			= 'Le fichier suivant est introuvable';
 const L_ERR_PAGE_NOT_FOUND			= 'Page non trouvée';
 
 # class.plx.date.php

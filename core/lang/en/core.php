@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Data was succesfully saved';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Main PluXml theme not found';
-const L_ERR_FILE_NOTFOUND			= 'PluXml target file not found';
+const L_ERR_FILE_NOTFOUND			= 'The following file is missing';
 const L_ERR_PAGE_NOT_FOUND			= 'Page not found';
 
 # class.plx.date.php
