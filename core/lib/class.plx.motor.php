@@ -251,7 +251,6 @@ class plxMotor {
 					break;
 				case L_USER_URL:
 					if(isset($this->aUsers[$this->cible]) and $this->aUsers[$this->cible]['active']) {
-						$this->mode = 'user';
 						$urlName = plxUtils::urlify($this->aUsers[$this->cible]['name']);
 						if(isset($matches[3]) AND $urlName == $matches[3]) {
 							$this->mode = 'user';
@@ -320,9 +319,9 @@ class plxMotor {
 		}
 
 		# On vérifie l'existence du template
-		$filename = $this->style . '/' . $this->template;
-		if(!file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $filename)) {
-			$this->error404(L_ERR_FILE_NOTFOUND . ' ( <i>' . $filename . '</i> )');
+		$filename = $this->aConf['racine_themes'] . $this->style . '/' . $this->template;
+		if(!file_exists(PLX_ROOT . $filename)) {
+			$this->error404(L_ERR_FILE_NOTFOUND . ' :<br /><em>' . $filename . '</em>');
 		}
 
 		# Hook plugins
@@ -459,6 +458,7 @@ class plxMotor {
 				break;
 			case 'static' :
 			case 'telechargement' :
+			case 'erreur' :
 				break;
 			default :
 				# rétro-compatibilité pour plugins orphelins qui ne gérent pas le hook plxMotorDemarrageBegin !!!

@@ -187,6 +187,16 @@ ul.menu a.noactive{
 	padding-left: 2.5rem;
 }
 
+.alert {
+	margin: 1.5rem;
+	border-radius: 0.75rem;
+}
+
+.alert.orange {
+	background-color: #fbe8d9;
+	color: #713d0e;
+}
+
 /* ---------- Main ---------- */
 
 .main {

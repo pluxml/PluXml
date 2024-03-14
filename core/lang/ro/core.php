@@ -18,7 +18,7 @@ const L_SAVE_SUCCESSFUL = 'Înregistrarea a fost efectuata cu succes';
 # index.php
 
 const L_ERR_THEME_NOTFOUND = 'Tema principala este gasita';
-const L_ERR_FILE_NOTFOUND = 'Fisierul tinta nu este gasit';
+const L_ERR_FILE_NOTFOUND = 'Următorul fișier lipsește';
 const L_ERR_PAGE_NOT_FOUND = 'Pagina nu a fost gasit';
 
 # class.plx.date.php
