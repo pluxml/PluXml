@@ -40,12 +40,12 @@ echo XML_HEADER;
 	</url>
 <?php
 
-# Les pages statiques
+# ============= Les pages statiques ================
 foreach($plxMotor->aStats as $stat_num => $stat_info) {
 	if($stat_info['active'] == 1 AND $stat_num != $plxMotor->aConf['homestatic']) {
 ?>
 	<url>
-		<loc><?= $plxMotor->racine ?>index.php?static<?= intval($stat_num) . '/' . $stat_info['url'] ?></loc>
+		<loc><?= $plxMotor->urlRewrite('index.php?static' . intval($stat_num) . '/' . $stat_info['url']) ?></loc>
 		<lastmod><?= plxDate::formatDate($plxMotor->aStats[$stat_num]['date_update'],'#num_year(4)-#num_month-#num_day') ?></lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
@@ -55,12 +55,12 @@ foreach($plxMotor->aStats as $stat_num => $stat_info) {
 }
 eval($plxMotor->plxPlugins->callHook('SitemapStatics')); # Hook plugins
 
-# Les catégories
+# ================= Les catégories =============
 foreach($plxMotor->aCats as $cat_num => $cat_info) {
 	if($cat_info['active'] == 1 AND $cat_info['menu'] == 'oui' AND ($cat_info['articles'] != 0 OR $plxMotor->aConf['display_empty_cat'])) {
 ?>
 	<url>
-		<loc><?= $plxMotor->racine ?>index.php?categorie <?= intval($cat_num) . '/' . $cat_info['url'] ?></loc>
+		<loc><?= $plxMotor->urlRewrite('index.php?categorie' . intval($cat_num) . '/' . $cat_info['url']) ?></loc>
 		<changefreq>weekly</changefreq>
 		<priority>0.8</priority>
 	</url>
@@ -69,7 +69,7 @@ foreach($plxMotor->aCats as $cat_num => $cat_info) {
 }
 eval($plxMotor->plxPlugins->callHook('SitemapCategories')); # Hook Plugins
 
-# Les articles
+# ============== Les articles =================
 # Notice 000 and home are always in activeCats
 if($aFiles = $plxMotor->plxGlob_arts->query('#^\d{4}\.(?:pin,|\d{3},)*(?:' . $plxMotor->activeCats . ')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#','art','rsort', 0, false, 'before')) {
 	$plxRecord_arts = false;
@@ -85,7 +85,7 @@ if($aFiles = $plxMotor->plxGlob_arts->query('#^\d{4}\.(?:pin,|\d{3},)*(?:' . $pl
 			$num = intval($plxRecord_arts->f('numero'));
 ?>
 	<url>
-		<loc><?= $plxMotor->racine ?>index.php?article<?= $num . '/' . plxUtils::strCheck($plxRecord_arts->f('url')) ?></loc>
+		<loc><?= $plxMotor->urlRewrite('index.php?article' . $num . '/' . plxUtils::strCheck($plxRecord_arts->f('url'))) ?></loc>
 		<lastmod><?= plxDate::formatDate($plxRecord_arts->f('date_update'), '#num_year(4)-#num_month-#num_day') ?></lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
