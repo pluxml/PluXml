@@ -1137,7 +1137,7 @@ class plxMotor {
 					# On vérifie le mail
 					'mail' => (!empty($content['mail']) and plxUtils::checkMail(trim($content['mail']))) ? trim($content['mail']) : '',
 					# On vérifie le site
-					'site' => (!empty($content['site']) and plxUtils::checkSite(trim($content['site']))) ? trim($content['site']) : '',
+					'site' => (!empty($content['site']) and plxUtils::checkSite($content['site'])) ? trim($content['site']) : '',
 					# On récupère l'adresse IP du posteur
 					'ip' => plxUtils::getIp(),
 					# Commentaire parent en cas de réponse

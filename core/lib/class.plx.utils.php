@@ -80,7 +80,7 @@ class plxUtils {
 	public static function getGets() {
 
 		if(!empty($_SERVER['QUERY_STRING']))
-			return strip_tags($_SERVER['QUERY_STRING']);
+			return htmlspecialchars(strip_tags($_SERVER['QUERY_STRING']),  ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, false);
 		else
 			return false;
 	}
