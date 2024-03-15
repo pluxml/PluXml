@@ -253,7 +253,7 @@ foreach($plxAdmin->aUsers as $_userid => $_user) {
 $cat_id='000';
 ?>
 <form method="post" id="form_article">
-
+	<?= plxToken::getTokenPostMethod() ?>
 	<div class="inline-form action-bar">
 		<h2><?= empty($_GET['a']) ? L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING ?></h2>
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
@@ -375,11 +375,11 @@ if(!empty(trim($thumbnail))) {
 	} else {
 		$src = PLX_ROOT . $thumbnail;
 		if(!file_exists($src)) {
-			$src = false;
+			$src = '';
 		}
 	}
 
-	if($src) {
+	if(!empty($src)) {
 ?>
 						<img src="<?= $src ?>" title="<?= $thumbnail ?>" />
 <?php
@@ -390,7 +390,6 @@ if(!empty(trim($thumbnail))) {
 				</div>
 			</div>
 			<?php eval($plxAdmin->plxPlugins->callHook('AdminArticleContent')); # Hook Plugins ?>
-			<?= plxToken::getTokenPostMethod() ?>
 		</div>
 <?php
 
@@ -652,23 +651,21 @@ eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));
 	(function(id) {
 		'use strict';
 		const el = document.getElementById(id);
-		if(!el) {
+		const thumbnailImg = document.getElementById(id + '_img');
+		if(!el || !thumbnailImg) {
 			return;
 		}
 
-		el.onkeyup = function(event) {
-			const target = document.getElementById('id_thumbnail_img');
-			if(target) {
-				const dta = el.value;
-				if(dta.trim().length == 0) {
-					target.innerHTML = '';
-				} else {
-					dta = dta.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/’/g, '&\#39;').replace(/"/g, '&quot;');
-					let link = dta.match(/^(?:https?|data):/gi) ? dta : '<?= $plxAdmin->racine ?>'+dta;
-					target.innerHTML = '<img src="'+link+'" />';
-				}
+		el.addEventListener('change', function(event) {
+			let dta = el.value;
+			if(dta.trim().length == 0) {
+				thumbnailImg.textContent = '';
+			} else {
+				dta = dta.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/’/g, '&\#39;').replace(/"/g, '&quot;');
+				let link = dta.match(/^(?:https?|data):/gi) ? dta : '<?= $plxAdmin->racine ?>'+dta;
+				thumbnailImg.innerHTML = '<img src="'+link+'" />';
 			}
-		}
+		});
 
 	})('id_thumbnail');
 </script>

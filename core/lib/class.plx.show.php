@@ -733,7 +733,7 @@ class plxShow
 		}
 
 		if($link and !empty($author)) {
-			$href = 'index.php?' . L_USER_URL . $authorId . '/' . md5($authorName);
+			$href = 'index.php?' . L_USER_URL . $authorId . '/' . plxUtils::urlify($authorName);
 ?>
 <a href="<?= $this->plxMotor->urlRewrite($href) ?>"><?= $authorName ?></a>
 <?php
