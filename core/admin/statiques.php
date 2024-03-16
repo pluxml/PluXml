@@ -116,7 +116,7 @@ function checkBox(cb) {
 <?php
 						if($v['active'] and file_exists($filename)) {
 ?>
-							&nbsp;&nbsp;<a href="<?= $plxAdmin->urlRewrite('?static'.intval($k).'/'.$v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> '<?= plxUtils::strCheck($v['name']); ?>' <?= L_STATIC_ON_SITE ?>" target="_blank"><?= L_VIEW ?></a>
+							&nbsp;&nbsp;<a href="<?= $plxAdmin->urlRewrite('?' . L_STATIC_URL . intval($k) . '/' . $v['url']) ?>" title="<?= L_STATIC_VIEW_PAGE ?> '<?= plxUtils::strCheck($v['name']); ?>' <?= L_STATIC_ON_SITE ?>" target="_blank"><?= L_VIEW ?></a>
 <?php
 						}
 					} else {

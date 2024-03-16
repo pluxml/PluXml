@@ -323,7 +323,7 @@ if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 					<div class="col sml-12 small">
 <?php
 if(!empty($artId) AND $artId!='0000') {
-	$link = $plxAdmin->urlRewrite('?article'.intval($artId).'/'.$url)
+	$link = $plxAdmin->urlRewrite('?' . L_ARTICLE_URL . intval($artId) . '/' . $url)
 ?>
 					 			<small>
 					 				<strong><?= L_LINK_FIELD ?>&nbsp;:</strong>
