@@ -261,7 +261,20 @@ if($plxMedias->aFiles) {
 ?>
 						</td>
 						<td data-sort="<?= $title . $v['extension'] ?>">
-							<a class="imglink" target="_blank" title="<?= $title ?>" href="<?= $v['path'] ?>"><?= $title . $v['extension'] ?></a>
+<?php
+# Pas de lien direct pour un fichier-image ! risque de script javascript malicieux dans un fichier .svg, par exemple...
+		if($isImage AND is_file($v['path'])) {
+			# On affiche l'image dans le zoombox
+?>
+							<a class="imglink" title="<?= $title ?>" href="#medias-table" data-src="<?= $v['path'] ?>"><?= $title . $v['extension'] ?></a>
+<?php
+		} else {
+			# C'est un fichier à télécharger
+?>
+							<a class="filelink" title="<?= $title ?>" href="<?= $v['path'] ?>" download><?= $title . $v['extension'] ?></a>
+<?php
+		}
+?>
 							<div data-copy="<?= str_replace(PLX_ROOT, '', $v['path']) ?>" title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">&#128203;
 								<div><?= L_MEDIAS_LINK_COPYCLP_DONE ?></div>
 							</div>
@@ -272,7 +285,7 @@ if($plxMedias->aFiles) {
 		$hasThumb = ($isImage and $href != $v['path'] and file_exists($href));
 		if($hasThumb) {
 ?>
-							<?= L_MEDIAS_THUMB ?> : <a target="_blank" title="<?= $title ?>" href="<?= $href ?>"><?= plxUtils::strCheck(basename($href)) ?></a>
+							<?= L_MEDIAS_THUMB ?> : <a class="thumblink" title="<?= $title ?>" href="#medias-table" data-src="<?= $href ?>"><?= plxUtils::strCheck(basename($href)) ?></a>
 							<div data-copy="<?= str_replace(PLX_ROOT, '', $href) ?>" title="<?= L_MEDIAS_LINK_COPYCLP ?>" class="ico">&#128203;
 								<div><?= L_MEDIAS_LINK_COPYCLP_DONE ?></div>
 							</div>

@@ -827,6 +827,11 @@ th.sort.active::after {
 	/* vertical-align: top; */
 }
 
+/* for thumbnail in zoombox */
+.modal .small label {
+	position: fixed;
+}
+
 @media (max-width: 767px) {
 	.modal label {
 		background-color: #000;
