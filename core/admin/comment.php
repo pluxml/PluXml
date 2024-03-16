@@ -187,7 +187,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 				<label for="id_site"><?= L_COMMENT_SITE_FIELD ?>&nbsp;:<?php
 
 				if(!empty($site)) {
-					?>&nbsp;<a href="<?= $site ?>" target="_blank" rel="noreferrer"><?= $site ?></a><?php
+					?>&nbsp;<a href="<?= $site ?>" target="_blank" rel="noreferrer nofollow"><?= $site ?></a><?php
 				}
 ?></label>
 				<?php plxUtils::printInput('site', $site, 'text', '40-255'); ?>
