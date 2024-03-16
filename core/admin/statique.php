@@ -42,7 +42,7 @@ if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
 	# On récupère le contenu
 	$content = trim($plxAdmin->getFileStatique($id));
 	$title = $plxAdmin->aStats[$id]['name'];
-	$url = $plxAdmin->urlRewrite("?static".intval($id)."/".$plxAdmin->aStats[$id]['url']);
+	$url = $plxAdmin->urlRewrite('?' . L_STATIC_URL . intval($id) . '/' . $plxAdmin->aStats[$id]['url']);
 	$active = $plxAdmin->aStats[$id]['active'];
 	$title_htmltag = $plxAdmin->aStats[$id]['title_htmltag'];
 	$meta_description = $plxAdmin->aStats[$id]['meta_description'];

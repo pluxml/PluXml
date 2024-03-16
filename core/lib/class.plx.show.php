@@ -1354,7 +1354,7 @@ class plxShow
 		# On affiche l'URL
 		$artId = $this->plxMotor->plxRecord_coms->f('article');
 		$artInfo = $this->plxMotor->artInfoFromFilename($this->plxMotor->plxGlob_arts->aFiles[$artId]);
-		echo $this->urlRewrite('?article' . intval($artId) . '/' . $artInfo['artUrl'] . '#' . $this->ComId(false));
+		echo $this->urlRewrite('?' . L_ARTICLE_URL . intval($artId) . '/' . $artInfo['artUrl'] . '#' . $this->ComId(false));
 	}
 
 	/**
@@ -2261,7 +2261,7 @@ class plxShow
 			$userName = $this->plxMotor->aUsers[$id]['name'];
 			# On effectue l'affichage
 			if ($type == 'link') {
-				$href = 'index.php?user' . $id . '/' . md5($userName);
+				$href = '?' . L_USER_URL . $id . '/' . plxUtils::urlify($userName);
 ?>
 <a href="<?= $this->plxMotor->urlRewrite($href) ?>" title="<?= $userName ?>"><?= $userName ?></a>
 <?php

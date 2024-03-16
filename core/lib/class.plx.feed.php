@@ -244,22 +244,22 @@ class plxFeed extends plxMotor {
 		# valeurs par defaut : Articles globaux
 		$this->rssTitle = $this->aConf['title'];
 		$this->rssLink = $this->urlRewrite();
-		$this->rssAttachment = 'articles.rss';
+		$this->rssAttachment = 'posts.rss';
 		switch($this->mode) {
 			case 'tag':
-				$this->rssTitle = $this->aConf['title'].' - '.L_PAGETITLE_TAG.' '.$this->cible;
-				$this->rssLink = $this->urlRewrite('?tag/'.$this->cible);
-				$this->rssAttachment = 'tag-' . $this->cible . '.rss';
+				$this->rssTitle = $this->aConf['title'] . ' - ' . L_PAGETITLE_TAG . ' ' . $this->cible;
+				$this->rssLink = $this->urlRewrite('?' . L_TAG_URL . '/' . $this->cible);
+				$this->rssAttachment =  L_TAG_URL . '-' . $this->cible . '.rss';
 				break;
 			case 'categorie':
-				$this->rssTitle = $this->aConf['title'].' - '.$this->aCats[ $this->cible ]['name'];
-				$this->rssLink = $this->urlRewrite('?categorie'.intval($this->cible));
-				$this->rssAttachment = 'categorie-' . ltrim($this->cible, '0') . '-' . $this->aCats[ $this->cible ]['name'] . '.rss';
+				$this->rssTitle = $this->aConf['title'] . ' - ' . $this->aCats[ $this->cible ]['name'];
+				$this->rssLink = $this->urlRewrite('?' . L_CATEGORY_URL . intval($this->cible));
+				$this->rssAttachment = L_CATEGORY_URL . '-' . ltrim($this->cible, '0') . '-' . $this->aCats[ $this->cible ]['name'] . '.rss';
 				break;
 			case 'user':
-				$this->rssTitle = $this->aConf['title'].' - '.$this->aUsers[ $this->cible ]['name'];
-				$this->rssLink = $this->urlRewrite('?user'.intval($this->cible));
-				$this->rssAttachment = 'user-' . $this->aUsers[ $this->cible ]['name'] . '.rss';
+				$this->rssTitle = $this->aConf['title'] . ' - ' . $this->aUsers[ $this->cible ]['name'];
+				$this->rssLink = $this->urlRewrite('?' . L_USER_URL . intval($this->cible));
+				$this->rssAttachment = L_USER_URL . '-' . $this->aUsers[ $this->cible ]['name'] . '.rss';
 				break;
 			default:
 		}
@@ -307,8 +307,8 @@ class plxFeed extends plxMotor {
 ?>
 		<item>
 			<title><?= plxUtils::strCheck($this->plxRecord_arts->f('title')) ?></title>
-			<link><?= $this->urlRewrite('?article' . $artId . '/' . $this->plxRecord_arts->f('url')) ?></link>
-			<guid><?= $this->racine . 'index.php?article' . $artId ?></guid>
+			<link><?= $this->urlRewrite('?' . L_ARTICLE_URL . $artId . '/' . $this->plxRecord_arts->f('url')) ?></link>
+			<guid><?= $this->racine . '?' . L_ARTICLE_URL . $artId ?></guid>
 <?php
 				if(!empty($length)) {
 ?>
@@ -345,12 +345,12 @@ class plxFeed extends plxMotor {
 		if($this->cible) { # Commentaires d'un article
 			$artId = $this->plxRecord_arts->f('numero') + 0;
 			$this->rssTitle = $this->aConf['title'].' - '.$this->plxRecord_arts->f('title').' - '.L_FEED_COMMENTS;
-			$this->rssLink = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url'));
-			$this->rssAttachment = 'comments-' . $artId . '.rss';
+			$this->rssLink = $this->urlRewrite('?'.L_ARTICLE_URL.$artId.'/'.$this->plxRecord_arts->f('url'));
+			$this->rssAttachment = L_COMMENTS_URL . '-' . $artId . '.rss';
 		} else { # Commentaires globaux
 			$this->rssTitle = $this->aConf['title'].' - '.L_FEED_COMMENTS;
 			$this->rssLink = $this->urlRewrite();
-			$this->rssAttachment = 'comments.rss';
+			$this->rssAttachment = L_COMMENTS_URL . '.rss';
 		}
 
 		$this->printRSSTop($this->plxRecord_coms);
@@ -366,12 +366,12 @@ class plxFeed extends plxMotor {
 						$title_com = $this->plxRecord_arts->f('title').' - ';
 						$title_com .= L_FEED_WRITTEN_BY.' '.$this->plxRecord_coms->f('author').' @ ';
 						$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
-						$link_com = $this->urlRewrite('?article'.$artId.'/'.$this->plxRecord_arts->f('url').'#'.$comId);
+						$link_com = $this->urlRewrite('?'.L_ARTICLE_URL.$artId.'/'.$this->plxRecord_arts->f('url').'#'.$comId);
 					} else { # Commentaires globaux
 						$title_com = $this->plxRecord_coms->f('author').' @ ';
 						$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
 						$artInfo = $this->artInfoFromFilename($this->plxGlob_arts->aFiles[$this->plxRecord_coms->f('article')]);
-						$link_com = $this->urlRewrite('?article'.$artId.'/'.$artInfo['artUrl'].'#'.$comId);
+						$link_com = $this->urlRewrite('?'.L_ARTICLE_URL.$artId.'/'.$artInfo['artUrl'].'#'.$comId);
 					}
 
 					# On affiche le flux dans un buffer

@@ -204,7 +204,7 @@ class plxMotor {
 					if($this->getArticles()) {
 						# Redirection 301
 						if(!isset($matches[3]) OR $this->plxRecord_arts->f('url') != $matches[3]) {
-							$this->redir301($this->urlRewrite('?article' . intval($this->cible) . '/' . $this->plxRecord_arts->f('url')));
+							$this->redir301($this->urlRewrite('?' . L_ARTICLE_URL . intval($this->cible) . '/' . $this->plxRecord_arts->f('url')));
 						} else {
 							$this->mode = 'article';
 							$this->template = 'article.php';
@@ -225,7 +225,7 @@ class plxMotor {
 							$this->template = $this->aStats[$this->cible]['template'];
 						} else {
 							# redirection avec la bonne url
-							$this->redir301($this->urlRewrite('?static' . intval($this->cible) . '/' . $this->aStats[$this->cible]['url']));
+							$this->redir301($this->urlRewrite('?' . L_STATIC_URL . intval($this->cible) . '/' . $this->aStats[$this->cible]['url']));
 						}
 					} else {
 						$this->error404(L_UNKNOWN_STATIC);
@@ -243,7 +243,7 @@ class plxMotor {
 							}
 						} else {
 							# Redirection 301 avec la bonne url
-							$this->redir301($this->urlRewrite('?categorie' . intval($this->cible) . '/' . $this->aCats[$this->cible]['url']));
+							$this->redir301($this->urlRewrite('?' . L_CATEGORY_URL . intval($this->cible) . '/' . $this->aCats[$this->cible]['url']));
 						}
 					} else {
 						$this->error404(L_UNKNOWN_CATEGORY);
@@ -257,7 +257,7 @@ class plxMotor {
 							$this->template = 'user.php';
 							$this->motif = '#^\d{4}\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.' . $this->cible . '.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 						} else {
-							$this->redir301($this->urlRewrite('?user' . intval($this->cible) . '/' . $urlName));
+							$this->redir301($this->urlRewrite('?' . L_USER_URL . intval($this->cible) . '/' . $urlName));
 						}
 					} else {
 						$this->error404(L_UNKNOWN_AUTHOR);
@@ -428,7 +428,7 @@ class plxMotor {
 					$retour = $this->newCommentaire($this->cible, $content);
 					unset($_SESSION['msg']);
 					# Url de l'article
-					$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
+					$url = $this->urlRewrite('?'.L_ARTICLE_URL.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 					eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
 					if(preg_match('~^c\d+~', $retour)) { # Le commentaire a été publié
 						$_SESSION['msgcom'] = L_COM_PUBLISHED;
