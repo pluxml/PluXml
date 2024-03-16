@@ -11,8 +11,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 <head>
 	<meta name="robots" content="noindex, nofollow" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
-	<title><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?= L_ADMIN ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?= strtolower(PLX_CHARSET) ?>" />
+	<meta name="referrer" content="no-referrer" />
 	<link rel="stylesheet" type="text/css" href="theme/plucss.css?v=<?= PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="theme/theme.css?v=<?= PLX_VERSION ?>" media="screen" />
 	<link rel="stylesheet" type="text/css" href="theme/fonts/fontello/css/fontello.css?v=<?= PLX_VERSION ?>" media="screen" />
@@ -21,6 +21,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
 	plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'admin.css', true);
 ?>
+	<title><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?= L_ADMIN ?></title>
 	<script src="js/functions.js?v=<?= PLX_VERSION ?>"></script>
 	<script src="js/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
 	<script defer src="js/multifiles.js?v=<?= PLX_VERSION ?>"></script>
