@@ -36,7 +36,12 @@
 			toggle.checked = true;
 			const img = new Image;
 			img.onload = function(ev) {
-				console.log('image loaded : ' + ev.target.src);
+				// console.log('image loaded : ' + ev.target.src);
+				if(ev.target.width < 250) {
+					mo.classList.add('small');
+				} else {
+					mo.classList.remove('small');
+				}
 				zoomboxImg.src = src;
 				loader.classList.remove('show');
 				mo.classList.add('success');
@@ -45,11 +50,6 @@
 				loader.classList.remove('show');
 				alert('⛔ Image not loaded from :\n' + src);
 				done();
-			}
-			if(event.target.classList.contains('thumblink')) {
-				mo.classList.add('small');
-			} else {
-				mo.classList.remove('small');
 			}
 			img.src = src;
 			return;
