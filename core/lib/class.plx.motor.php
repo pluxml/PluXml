@@ -29,8 +29,8 @@ class plxMotor {
 	public $motif = false; # Motif de recherche
 	public $mode = false; # Mode de traitement
 	public $template = false; # Template d'affichage
-    public $cible = false; # Article, categorie ou page statique cible
-    public $cibleName = null; # Tag label
+	public $cible = false; # Article, categorie ou page statique cible
+	public $cibleName = null; # Tag label
 
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
 	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
@@ -163,7 +163,7 @@ class plxMotor {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorPreChauffageBegin'))) {
-			# En cas de succès, le hook doit gérer $this->mode et $this->template.
+			# En cas de succès, doit gérer $this->mode et $this->template. Appeler $this->error404() en cas d'erreur.
 			return;
 		}
 
@@ -459,22 +459,8 @@ class plxMotor {
 			case 'static' :
 			case 'telechargement' :
 			case 'erreur' :
-				break;
 			default :
-				# rétro-compatibilité pour plugins orphelins qui ne gérent pas le hook plxMotorDemarrageBegin !!!
-				# Supprimer ce test dès que possible et appeler directement $this->erro404(...)
-				if(
-					!preg_match('#^(?:\.\./)*' . $this->aConf['racine_plugins'] . '([^/]+)#', $this->cible, $matches) or
-					!array_key_exists($matches[1], $this->plxPlugins->aPlugins) or
-					empty(array_filter(
-						$this->plxPlugins->aHooks['plxMotorPreChauffageBegin'],
-						function($value) use($matches) {
-							return ($value['class'] == $matches[1]);
-						}
-					))
-				) {
-					$this->error404(L_ERR_PAGE_NOT_FOUND);
-				}
+				break;
 		}
 
 		# Hook plugins
