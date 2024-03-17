@@ -251,7 +251,7 @@ if(!empty($plxAdmin->aConf['clef'])) {
 					<td class="site"><?php
 					$site = $plxAdmin->plxRecord_coms->f('site');
 					if(!empty($site)) {
-?><a href="<?= $site ?>" target="_blank"><span class="lrg-hide" title="<?= $site ?>">www...</span><span class="sml-hide lrg-show"><?= $site ?></span></a><?php
+?><a href="<?= $site ?>" rel="noreferrer nofollow" target="_blank"><span class="lrg-hide" title="<?= $site ?>">www...</span><span class="sml-hide lrg-show"><?= $site ?></span></a><?php
 					} else {
 						echo '&nbsp;';
 					}

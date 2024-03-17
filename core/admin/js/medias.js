@@ -6,7 +6,7 @@
 	const tbody = document.getElementById(id);
 	const mo = document.getElementById("modal__overlay");
 	// var mbox = document.getElementById("modal__box");
-	const mb = document.getElementById("modal");
+	const toggle = document.getElementById("modal");
 	const zoomboxImg = document.getElementById('zoombox-img');
 	const loader = document.getElementById('loader');
 
@@ -17,23 +17,31 @@
 
 	function done() {
 		mo.classList.remove('success');
-		mb.checked = false;
+		toggle.checked = false;
 		zoomboxImg.src = '';
 	}
 
 	tbody.addEventListener('click', function(event) {
 		// Zoom the image in the modal box
-		if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
+		if(
+			(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') ||
+			(event.target.hasAttribute('data-src') && event.target.tagName == 'A')
+		) {
 			event.preventDefault();
-			const src = event.target.src.replace(/\/.thumbs?\b/, '');
+			const src = event.target.hasAttribute('data-src') ? event.target.dataset.src : event.target.src.replace(/\/.thumbs?\b/, '');
 			const title = src.replace(/.*\/([^\/]*)$/, '$1');
 			loader.classList.add('show');
 			zoomboxImg.alt = title;
 			zoomboxImg.title = title;
-			mb.checked = true;
+			toggle.checked = true;
 			const img = new Image;
 			img.onload = function(ev) {
-				console.log('image loaded : ' + ev.target.src);
+				// console.log('image loaded : ' + ev.target.src);
+				if(ev.target.width < 250) {
+					mo.classList.add('small');
+				} else {
+					mo.classList.remove('small');
+				}
 				zoomboxImg.src = src;
 				loader.classList.remove('show');
 				mo.classList.add('success');

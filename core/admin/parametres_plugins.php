@@ -86,7 +86,7 @@ function pluginsList($plugins, $defaultLang, $plugins_actifs) {
 <?php /* site */
 					if($site = plxUtils::strCheck($plugInstance->getInfo('site'))) {
 ?>
-					<p><a href="<?= $site ?>" title="<?= $site ?>" target="_blank"><?= $site ?></a></p>
+					<p><a href="<?= $site ?>" title="<?= $site ?>" rel="noreferrer nofollow" target="_blank"><?= $site ?></a></p>
 <?php
 					}
 ?>
