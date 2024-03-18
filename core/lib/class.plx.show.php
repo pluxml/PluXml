@@ -191,16 +191,13 @@ class plxShow
 	 * Méthode qui affiche le dossier de stockage du style actif
 	 *
 	 * @scope    global
-	 * @author    Stephane F, Jean-Pierre Pourrez @bazooka07
+	 * @author    Stephane F
 	 **/
-	public function template($echo=true)
+	public function template()
 	{
-		$result = $this->plxMotor->urlRewrite($this->plxMotor->aConf['racine_themes'] . $this->plxMotor->style);
-		if(!$echo) {
-			return $result;
-		}
 
-		echo $result;
+		echo $this->plxMotor->urlRewrite($this->plxMotor->aConf['racine_themes'] . $this->plxMotor->style);
+
 	}
 
 	/**

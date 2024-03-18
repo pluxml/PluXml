@@ -1019,46 +1019,6 @@ class plxUtils {
 		return $result;
 	}
 
-	public static function getI18nUrls($key='L_(CATEGORY|USER|TAG|COMMENTS|ARTICLE)_URL') {
-		$result = array();
-		$pattern = '#^\s*const\s*' . $key . '\s*=\s*\'([^\']+)\'#';
-		foreach(array_keys(self::getLangs()) as $lang) {
-			$lines = file(PLX_ROOT . 'core/lang/' . $lang . '/core.php', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-			if(empty($lines)) {
-				continue;
-			}
-			$article = '';
-			$comment = '';
-			foreach($lines as $ll) {
-				if(preg_match($pattern, $ll, $matches)) {
-					$key = 'L_' . $matches[1] . '_URL';
-					if(!array_key_exists($key, $result)) {
-						# First translation that matches
-						$result[$key] = array($matches[2]);
-					} else {
-						$result[$key][] = $matches[2];
-					}
-					if($key == 'L_ARTICLE_URL') {
-						$article = $matches[2];
-					} elseif($key == 'L_COMMENTS_URL') {
-						$comment = $matches[2];
-					}
-				}
-			}
-			# for feed
-			if(!empty($article) and !empty($comment)) {
-				$result['L_COMMENTS_ARTICLE_URL'][] = $comment . '/' . $article;
-			}
-		}
-
-		# suppression des doublons entre langue pour une même traduction
-		foreach($result as $key=>$dict) {
-			$result[$key] = array_unique($result[$key]);
-		}
-
-		return $result;
-	}
-
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *

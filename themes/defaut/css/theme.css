@@ -208,11 +208,6 @@ ul.menu a.noactive{
 	margin-top: 4rem;
 }
 
-.col:last-of-type::after {
-	content: '';
-	clear: both;
-}
-
 /* ------- Article ------- */
 
 article:after {

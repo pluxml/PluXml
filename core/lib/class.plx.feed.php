@@ -74,10 +74,9 @@ class plxFeed extends plxMotor {
 		$this->mode = 'article'; # Mode du flux
 		$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 		$this->cible = '';
-		$idioms = plxUtils::getI18nUrls();
 
 		if(!empty($this->get)) {
-			if(preg_match('#^(?:atom/|rss/)?(?:' . implode('|', $idioms['L_CATEGORY_URL']) . ')(\d+)/?#', $this->get, $capture)) {
+			if(preg_match('#^(?:atom/|rss/)?' . L_CATEGORY_URL . '(\d+)/?#',$this->get,$capture)) {
 				$this->mode = 'categorie'; # Mode du flux
 				# On récupère la catégorie cible et on complète sur 3 caractères
 				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT);
@@ -89,7 +88,7 @@ class plxFeed extends plxMotor {
 				# On modifie le motif de recherche
 				$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:'.$this->cible.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			}
-			elseif(preg_match('#^(?:atom/|rss/)?(?:' . implode('|', $idioms['L_USER_URL']) . ')(\d+)/?#',$this->get,$capture)) {
+			elseif(preg_match('#^(?:atom/|rss/)?' . L_USER_URL . '(\d+)/?#',$this->get,$capture)) {
 				$this->mode = 'user'; # Mode du flux
 				# On récupère l'id de l'utilisateur et on complète sur 3 caractères
 				$this->cible = str_pad($capture[1],3,'0',STR_PAD_LEFT);
@@ -101,7 +100,7 @@ class plxFeed extends plxMotor {
 				# On modifie le motif de recherche
 				$this->motif = '#^\d{4}\.(?:pin,|home,|\d{3},)*(?:home|\d{3})(?:,\d{3})*\.' . $this->cible . '\.\d{12}\.[\w-]+\.xml$#';
 			}
-			elseif(preg_match('#^(?:atom/|rss/)?(?:' . implode('|', $idioms['L_TAG_URL']) . ')/([\w-]+)/?$#', $this->get, $capture)) {
+			elseif(preg_match('#^(?:atom/|rss/)?' . L_TAG_URL . '/([\w-]+)/?$#', $this->get, $capture)) {
 				$this->mode = 'tag';
 				$this->cible = $capture[1];
 				$ids = array();
@@ -123,10 +122,10 @@ class plxFeed extends plxMotor {
 				# Notice 000 and home are always in activeCats
 				$this->motif = '#('.implode('|', array_keys($ids)).')\.(?:pin,|home,|\d{3},)*(?:'.$this->activeCats.')(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			}
-			elseif(preg_match('#^(?:atom/|rss/)?(?:' . implode('|', $idioms['L_COMMENTS_URL']) . ')/?$#',$this->get)) {
+			elseif(preg_match('#^(?:atom/|rss/)?' . L_COMMENTS_URL . '/?$#',$this->get)) {
 				$this->mode = 'commentaire'; # Mode du flux
 			}
-			elseif(preg_match('#^(?:atom/|rss/)?(?:' . implode('|', $idioms['L_COMMENTS_ARTICLE_URL']) . ')(\d+)/?$#',$this->get,$capture)) {
+			elseif(preg_match('#^(?:atom/|rss/)?' . L_COMMENTS_URL . '/' . L_ARTICLE_URL . '(\d+)/?$#',$this->get,$capture)) {
 				$this->mode = 'commentaire'; # Mode du flux
 				# On récupère l'article cible et on complète sur 4 caractères
 				$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT);
