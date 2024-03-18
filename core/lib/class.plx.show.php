@@ -1046,7 +1046,7 @@ class plxShow
 						if (!empty($idStr) and isset ($this->plxMotor->aUsers[$idStr])) {
 							$caption = sprintf(L_ARTFEED_RSS_USER, $this->plxMotor->aUsers[$idStr]['name']);
 							$replaces = array(
-								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/' . L_USER_URL . intval($idstr)),
+								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/' . L_USER_URL . intval($idstr) . '/' . plxUtils::urlify($this->plxMotor->aUsers[$idStr]['name'])),
 								'#feedTitle'    => $caption,
 								'#feedName'     => $caption,
 							);
@@ -2677,18 +2677,18 @@ class plxShow
 			case 'categorie':
 				$id = $this->catId();
 				$idNum = intval($id);
-				$href .= '/' . L_CATEGORY_URL . $idNum; // . '/' . $this->plxMotor->aCats[$id]['url']
+				$href .= '/' . L_CATEGORY_URL . $idNum . '/' . $this->plxMotor->aCats[$id]['url'];
 				$title = sprintf(L_ARTFEED_RSS_CATEGORY, $this->plxMotor->aCats[$id]['name']);
 				break;
 			case 'user':
 				$id = $this->plxMotor->cible;
 				$idNum = intval($id);
-				$href .= '/' . L_USER_URL . $idNum; //  . '/' . $this->plxMotor->aUsers[$id]['login']);
+				$href .= '/' . L_USER_URL . $idNum . '/' . plxUtils::urlify($this->plxMotor->aUsers[$id]['name']);
 				$title = sprintf(L_ARTFEED_RSS_USER, $this->plxMotor->aUsers[$id]['name']);
 				break;
 			case 'tags':
 				$tag = plxUtils::strCheck($this->plxMotor->cible);
-				$href .= '/' . L_TAG_URL . '/' . urlencode($tag);
+				$href .= '/' . L_TAG_URL . '/' . plxUtils::urlify($tag);
 				$title = sprintf(L_ARTFEED_RSS_TAG, $tag);
 				break;
 			default :
