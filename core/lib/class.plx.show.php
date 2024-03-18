@@ -1034,7 +1034,7 @@ class plxShow
 						if (!empty($idStr) and isset ($this->plxMotor->aCats[$idStr])) {
 							$caption = sprintf(L_ARTFEED_RSS_CATEGORY, $this->plxMotor->aCats[$idStr]['name']);
 							$replaces = array(
-								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/' . L_CATEGORY_URL . intval($idstr)),
+								'#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/' . L_CATEGORY_URL . intval($idStr) . '/' . $this->plxMotor->aCats[$idStr]['url']),
 								'#feedTitle'    => $caption,
 								'#feedName'     => $caption,
 							);
