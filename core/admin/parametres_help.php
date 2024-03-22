@@ -43,6 +43,20 @@ if(!file_exists($filename)) {
 	exit;
 }
 
+ob_start();
+try {
+	echo '
+		<div class="inline-form action-bar">
+		<h2>'.plxUtils::strCheck($page).'</h2>
+		<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
+	</div>';
+	include  $filename;
+} catch(Exception $e) {
+	plxMsg::Error($e->getMessage());
+} finally {
+	$output=ob_get_clean();
+}
+
 # On inclut le header
 include 'top.php';
 ?>

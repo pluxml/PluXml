@@ -20,6 +20,29 @@ if(!file_exists($filename)) {
 }
 
 # si le plugin n'est pas actif, aucune instance n'a été créée, on va donc la créer, sinon on prend celle qui existe
+if(empty($plxAdmin->plxPlugins->aPlugins[$plugin]))
+	$plxPlugin = $plxAdmin->plxPlugins->getInstance($plugin);
+else
+	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];
+
+# Control des autorisation d'accès à l'écran config.php du plugin
+$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
+# chargement de l'écran de paramétrage du plugin config.php
+ob_start();
+try {
+	echo '
+	<div class="inline-form action-bar">
+		<h2>'.plxUtils::strCheck($plugin).'</h2>
+		<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
+	</div>';
+	include $filename;
+} catchException(Exception $e) {
+	plxMsg::Error($e->getMessage());
+} finally {
+	$output=ob_get_clean();
+}
+
+# si le plugin n'est pas actif, aucune instance n'a été créée, on va donc la créer, sinon on prend celle qui existe
 if(empty($plxAdmin->plxPlugins->aPlugins[$plugin])) {
 	$plxPlugin = $plxAdmin->plxPlugins->getInstance($plugin);
 } else {
