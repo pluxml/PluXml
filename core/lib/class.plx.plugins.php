@@ -10,6 +10,7 @@ class plxPlugins {
 	public $aHooks=array(); # tableau de tous les hooks des plugins à executer
 	public $aPlugins=array(); #tableau contenant les plugins
 	public $default_lang; # langue par defaut utilisée par PluXml
+	public $rootPlugins; # chemin absoludu dossier de plugins
 
 	/**
 	 * Constructeur de la classe plxPlugins
@@ -20,6 +21,107 @@ class plxPlugins {
 	 **/
 	public function __construct($default_lang='') {
 		$this->default_lang=$default_lang;
+		$this->rootPlugins = realpath(PLX_PLUGINS);
+		$pluginName = false;
+
+		register_shutdown_function(function() {
+			$error = error_get_last();
+			if($error != null) {
+				# For hiding sensitive informations
+				$documentRoot = $_SERVER['DOCUMENT_ROOT'];
+				$filename = $error['file'];
+				$newFolder = dirname($filename) . '-orig';
+
+				$hr = str_repeat('=', 60) . PHP_EOL;
+				header('Content-Type: text/plain; charset=UTF-8');
+
+				if(isset($this->rootPlugins) and preg_match('#^' . $this->rootPlugins . '/([^/]+)#', $error['file'], $matches)) {
+					$pluginName = $matches[1];
+?>
+An error is occured with the "<?= strtoupper($pluginName) ?>" plugin :
+<?php
+					$error['file'] = preg_replace('#^' . $this->rootPlugins . '/#', '', $filename);
+				} else {
+					$error['file'] = preg_replace('#^' . $documentRoot . '#', '', $filename);
+?>
+Fatal error :
+<?php
+				}
+
+				# print_r($error);
+				foreach($error as $k=>$v) {
+					echo $k . ' : ' . $v . PHP_EOL;
+				}
+
+?>
+
+See https://www.php.net/manual/en/errorfunc.constants.php about type of error
+<?php
+				if(isset($_SESSION['user']) and isset($_SESSION['profil']) and $_SESSION['profil'] == 0) {
+					# Un administrateur est connecté
+?>
+<?= $hr ?>
+User : <?= $_SESSION['user'] . PHP_EOL ?>
+Profil : <?= $_SESSION['profil'] . PHP_EOL ?>
+PluXml version : <?= PLX_VERSION . PHP_EOL ?>
+PHP version : <?= PHP_VERSION . PHP_EOL ?>
+<?=	$hr ?>
+About this server :
+<?php
+					# print_r($_SERVER);
+					foreach(array_filter($_SERVER, function($key) {
+						return in_array($key, array(
+							'HTTP_USER_AGENT',
+							'HTTP_ACCEPT',
+							'HTTP_ACCEPT_LANGUAGE',
+							'HTTP_ACCEPT_ENCODING',
+							'HTTP_REFERER',
+							'SERVER_SIGNATURE',
+							'SERVER_SOFTWARE',
+							'SCRIPT_FILENAME',
+							'SERVER_PROTOCOL',
+							'REQUEST_METHOD',
+							'QUERY_STRING',
+							'REQUEST_URI',
+							'SCRIPT_NAME',
+							'PHP_SELF',
+						));
+					}, ARRAY_FILTER_USE_KEY) as $k=>$v) {
+						if($k == 'SCRIPT_FILENAME') {
+							$v = preg_replace('#^' . $documentRoot . '#', '', $v);
+						}
+						echo $k . ' : ' . $v . PHP_EOL;
+					}
+
+					if(!empty($pluginName)) {
+						# C'est un plugin qui a bogué
+						$infosFilename = dirname($filename) . '/infos.xml';
+						if(file_exists($infosFilename)) {
+?>
+<?= $hr ?>
+About this plugin :
+<?php readfile($infosFilename); ?>
+<?php
+						}
+					}
+				} # fin pour l'administrateur
+
+				echo $hr;
+				if(!empty($pluginName) and rename(dirname($filename), $newFolder)) {
+					# PluXml essaie de sauver la situation
+?>
+The folder of plugin is renamed to : <?= preg_replace('#^' . $this->rootPlugins . '/#', '', $newFolder) . PHP_EOL ?>
+Reload this page to continue ...
+<?php
+				} else {
+					# Echec ! Une intervention humaine est requise pour débloquer la situation
+?>
+Drop this plugin now for running PluXml and report to its author !!
+<?php
+				}
+			}
+		});
+
 	}
 
 	/**
@@ -28,13 +130,19 @@ class plxPlugins {
 	 * @param	plugName	nom du plugin
 	 * @return	object		object de type plxPlugin / false en cas d'erreur
 	 * @return	null
-	 * @author	Stephane F
+	 * @author	Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function getInstance($plugName) {
-		$filename = PLX_PLUGINS."$plugName/$plugName.php";
+		$filename = PLX_PLUGINS . "$plugName/$plugName.php";
+		# voir https://www.php.net/manual/fr/function.register-shutdown-function
 		if(is_file($filename)) {
-			include_once $filename;
-			if (class_exists($plugName)) {
+			try {
+				include_once $filename;
+			} catch(Exception $e) {
+				return false;
+			}
+
+			if(class_exists($plugName)) {
 				# réactualisation de la langue si elle a été modifié par un plugin
 				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
 				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;

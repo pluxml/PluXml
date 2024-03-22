@@ -28,13 +28,18 @@ if(is_file($filename)) {
 	$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
 	# chargement de l'écran de paramétrage du plugin config.php
 	ob_start();
-	echo '
-	<div class="inline-form action-bar">
-		<h2>'.plxUtils::strCheck($plugin).'</h2>
-		<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
-	</div>';
-	include $filename;
-	$output=ob_get_clean();
+	try {
+		echo '
+		<div class="inline-form action-bar">
+			<h2>'.plxUtils::strCheck($plugin).'</h2>
+			<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
+		</div>';
+		include $filename;
+	} catchException(Exception $e) {
+		plxMsg::Error($e->getMessage());
+	} finally {
+		$output=ob_get_clean();
+	}
 }
 else {
 	plxMsg::Error(L_NO_ENTRY);

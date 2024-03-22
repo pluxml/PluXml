@@ -39,13 +39,18 @@ $output='';
 # chargement du fichier d'aide du thème
 if(is_file($filename)) {
 	ob_start();
-	echo '
-	<div class="inline-form action-bar">
-		<h2>'.plxUtils::strCheck($page).'</h2>
-		<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
-	</div>';
-	include  $filename;
-	$output=ob_get_clean();
+	try {
+		echo '
+		<div class="inline-form action-bar">
+			<h2>'.plxUtils::strCheck($page).'</h2>
+			<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
+		</div>';
+		include  $filename;
+	} catch(Exception $e) {
+		plxMsg::Error($e->getMessage());
+	} finally {
+		$output=ob_get_clean();
+	}
 }
 else {
 	plxMsg::Error(L_NO_ENTRY);
