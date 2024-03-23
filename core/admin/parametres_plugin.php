@@ -27,14 +27,16 @@ else
 
 # Control des autorisation d'accès à l'écran config.php du plugin
 $plxAdmin->checkProfil($plxPlugin->getConfigProfil());
+
 # chargement de l'écran de paramétrage du plugin config.php
 ob_start();
 try {
-	echo '
+?>
 	<div class="inline-form action-bar">
-		<h2>'.plxUtils::strCheck($plugin).'</h2>
-		<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
-	</div>';
+		<h2><?= plxUtils::strCheck($plugin) ?></h2>
+		<p><a class="back" href="parametres_plugins.php"><?= L_BACK_TO_PLUGINS ?></a></p>
+	</div>
+<?php
 	include $filename;
 } catchException(Exception $e) {
 	plxMsg::Error($e->getMessage());
