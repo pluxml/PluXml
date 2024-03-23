@@ -11,7 +11,7 @@ class plxGlob {
 	const PATTERNS = array(
 		'arts'			=> '#^\D?(\d{4,})\.(?:\w+|\d{3})(?:,\w+|,\d{3})*\.\d{3}\.\d{12}\..*\.xml$#',
 		'statiques'		=> '#^(\d{3,})\..*\.php$#',
-		'commentaires'	=> '#^\d{4,}\.(?:\d{10,})(?:-\d+)?\.xml$#'
+		'commentaires'		=> '#^_?\d{4,}\.(?:\d{10,})(?:-\d+)?\.xml$#'
 	);
 	public $count = 0; # Le nombre de resultats
 	public $aFiles = array(); # Tableau des fichiers
