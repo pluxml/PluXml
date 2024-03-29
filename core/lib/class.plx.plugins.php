@@ -137,17 +137,18 @@ Drop this plugin now for running PluXml and report to its author !!
 		if(is_file($filename)) {
 			try {
 				include_once $filename;
+
+				if(class_exists($plugName)) {
+					# réactualisation de la langue si elle a été modifié par un plugin
+					$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
+					$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
+					# chargement du plugin en créant une nouvelle instance
+					return new $plugName($lang);
+				}
 			} catch(Exception $e) {
 				return false;
 			}
 
-			if(class_exists($plugName)) {
-				# réactualisation de la langue si elle a été modifié par un plugin
-				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
-				# chargement du plugin en créant une nouvelle instance
-				return new $plugName($lang);
-			}
 		}
 		return false;
 	}
