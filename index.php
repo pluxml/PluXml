@@ -45,9 +45,6 @@ if (!is_file($template)) {
 	exit;
 }
 
-# On impose le charset
-header('Content-Type: text/html; charset=' . PLX_CHARSET);
-
 # On démarre la bufferisation
 ob_start();
 ob_implicit_flush(0);
@@ -73,6 +70,9 @@ eval($plxMotor->plxPlugins->callHook('IndexEnd'));
 if($plxMotor->aConf['urlrewriting']) {
 	$output = plxUtils::rel2abs($plxMotor->aConf['racine'], $output);
 }
+
+# On impose le charset
+header('Content-Type: text/html; charset=' . PLX_CHARSET);
 
 # On applique la compression gzip si nécessaire et disponible
 if($plxMotor->aConf['gzip']) {
