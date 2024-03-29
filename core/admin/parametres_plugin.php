@@ -35,7 +35,7 @@ if(is_file($filename)) {
 			<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>
 		</div>';
 		include $filename;
-	} catchException(Exception $e) {
+	} catch(Exception $e) {
 		plxMsg::Error($e->getMessage());
 	} finally {
 		$output=ob_get_clean();
