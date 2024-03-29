@@ -14,6 +14,7 @@ $plugin = plxUtils::nullbyteRemove($plugin);
 # chargement du fichier d'administration du plugin
 $filename = realpath(PLX_PLUGINS.$plugin.'/config.php');
 if(!file_exists($filename)) {
+
 	plxMsg::Error(L_NO_ENTRY);
 	header('Location: parametres_plugins.php');
 	exit;
