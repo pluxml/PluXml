@@ -666,7 +666,7 @@ class plxMotor {
 				# On affiche la page statique dans le menu ?
 				$this->aStats[$number]['menu']=isset($attributes['menu'])?$attributes['menu']:'oui';
 				# Récupération du fichier template
-				$this->aStats[$number]['template']=isset($attributes['template'])?$attributes['template']:'static.php';
+				$this->aStats[$number]['template']= !empty($attributes['template']) ? $attributes['template'] : 'static.php';
 				# Récupération de la date de création
 				$this->aStats[$number]['date_creation']=plxUtils::getTagIndexValue($iTags['date_creation'], $values, $i);
 				# Récupération de la date de mise à jour

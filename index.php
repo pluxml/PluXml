@@ -39,7 +39,7 @@ if (empty(trim($plxShow->plxMotor->style)) or !is_dir($style)) {
 }
 
 $template = $style . '/' . $plxShow->plxMotor->template;
-if (!file_exists($template)) {
+if (!is_file($template)) {
 	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
 	echo L_ERR_FILE_NOTFOUND.' (' . $template . ') !';
 	exit;

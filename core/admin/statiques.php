@@ -112,7 +112,7 @@ function checkBox(cb) {
 					if(!plxUtils::checkSite($v['url'], false)) {
 						$filename = PLX_ROOT . $plxAdmin->aConf['racine_statiques'] . $k . '.' . $v['url'] . '.php';
 ?>
-						<a href="statique.php?p=<?= $k ?>" title="<?= L_STATICS_SRC_TITLE ?>"><?= L_STATICS_SRC ?></a>
+						<a href="statique.php?p=<?= $k ?>" class="<?= empty($v['readable']) ? 'text-red' : '' ?>" title="<?= L_STATICS_SRC_TITLE ?>"><?= L_STATICS_SRC ?></a>
 <?php
 						if($v['active'] and file_exists($filename)) {
 ?>

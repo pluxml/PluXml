@@ -1908,10 +1908,15 @@ class plxShow
 	public function staticContent()
 	{
 
-		if (eval($this->plxMotor->plxPlugins->callHook("plxShowStaticContentBegin"))) return;
+		if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticContentBegin'))) {
+			return;
+		}
 
 		# On va verifier que la page a inclure est lisible
-		if ($this->plxMotor->aStats[$this->plxMotor->cible]['readable'] == 1) {
+		if (
+			array_key_exists($this->plxMotor->cible, $this->plxMotor->aStats) and
+			$this->plxMotor->aStats[$this->plxMotor->cible]['readable'] == 1
+		) {
 			# On genere le nom du fichier a inclure
 			$file = PLX_ROOT . $this->plxMotor->aConf['racine_statiques'] . $this->plxMotor->cible;
 			$file .= '.' . $this->plxMotor->aStats[$this->plxMotor->cible]['url'] . '.php';
@@ -1921,12 +1926,12 @@ class plxShow
 			$output = ob_get_clean();
 			eval($this->plxMotor->plxPlugins->callHook('plxShowStaticContent'));
 			echo $output;
-		} else {
+			return;
+		}
+
 ?>
 <p><?= L_STATICCONTENT_INPROCESS ?></p>
 <?php
-		}
-
 	}
 
 	/**
