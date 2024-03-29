@@ -27,7 +27,7 @@ class plxPlugins {
 			$error = error_get_last();
 			if($error != null) {
 				# For hiding sensitive informations
-				$documentRoot = $_SERVER['DOCUMENT_ROOT'];
+				$documentRoot = realpath($_SERVER['DOCUMENT_ROOT']); # resolve symbolic link with Linux
 				$filename = $error['file'];
 				$newFolder = dirname($filename) . '-orig';
 
