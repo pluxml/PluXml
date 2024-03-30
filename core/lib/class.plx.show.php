@@ -203,8 +203,8 @@ class plxShow
 	/**
 	 * Méthode qui affiche le titre de la page selon le mode
 	 *
-	 * @parm    format        format d'affichage (ex: home=#title - #subtitle;article=#title)
-	 *                        paramètres: home, categorie, article, static, archives, tags, erreur
+	 * @parm    format        format d'affichage (ex: home=#title - #subtitle;article=#title; categorie= catégorie : #title; default=#subtitle)
+	 *                        paramètres: home, categorie, article, static, archives, tags, erreur, default
 	 * @parm    sep            caractère de séparation dans le format d'affichage entre les paramètres
 	 * @scope    global
 	 * @author    Stéphane F
@@ -256,12 +256,23 @@ class plxShow
 				$subtitle = $this->plxMotor->aConf['description'];
 		}
 
-		if (preg_match('/' . $this->plxMotor->mode . '\s*=\s*(.*?)\s*(' . $sep . '|$)/i', $format, $captures)) {
-			$format = trim($captures[1]);
-		} else {
-			$format = '#title - #subtitle';
+		$selFormat = '#title - #subtitle';
+		if(!empty($format)) {
+			if(
+				preg_match('#\b' . $this->plxMotor->mode . '\s*=\s*(.*?)\s*(?:' . $sep . '|$)#i', $format, $captures) or
+				preg_match('#\bdefault\s*=\s*(.*?)\s*(?:' . $sep . '|$)#i', $format, $captures)
+			) {
+				$selFormat = trim($captures[1]);
+			} else {
+				$motif = '\w+\s*=[^' . $sep . ']';
+				if(!preg_match('#' . $motif . '(?:' . $sep . '\s*' . $motif . ')*#i', $format)) {
+					# $format ne spécifie aucun modes
+					$selFormat = $format;
+				}
+			}
 		}
-		$txt = strtr($format, array(
+
+		$txt = strtr(htmlspecialchars($selFormat), array(
 			'#title'    => strip_tags(trim($title)),
 			'#subtitle' => strip_tags(trim($subtitle)),
 		));
@@ -1908,10 +1919,15 @@ class plxShow
 	public function staticContent()
 	{
 
-		if (eval($this->plxMotor->plxPlugins->callHook("plxShowStaticContentBegin"))) return;
+		if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticContentBegin'))) {
+			return;
+		}
 
 		# On va verifier que la page a inclure est lisible
-		if ($this->plxMotor->aStats[$this->plxMotor->cible]['readable'] == 1) {
+		if (
+			array_key_exists($this->plxMotor->cible, $this->plxMotor->aStats) and
+			$this->plxMotor->aStats[$this->plxMotor->cible]['readable'] == 1
+		) {
 			# On genere le nom du fichier a inclure
 			$file = PLX_ROOT . $this->plxMotor->aConf['racine_statiques'] . $this->plxMotor->cible;
 			$file .= '.' . $this->plxMotor->aStats[$this->plxMotor->cible]['url'] . '.php';
@@ -1921,12 +1937,12 @@ class plxShow
 			$output = ob_get_clean();
 			eval($this->plxMotor->plxPlugins->callHook('plxShowStaticContent'));
 			echo $output;
-		} else {
+			return;
+		}
+
 ?>
 <p><?= L_STATICCONTENT_INPROCESS ?></p>
 <?php
-		}
-
 	}
 
 	/**

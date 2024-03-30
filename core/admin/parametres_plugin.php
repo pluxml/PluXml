@@ -39,7 +39,7 @@ try {
 	</div>
 <?php
 	include $filename;
-} catchException(Exception $e) {
+} catch(Exception $e) {
 	plxMsg::Error($e->getMessage());
 } finally {
 	$output=ob_get_clean();

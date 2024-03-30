@@ -39,14 +39,11 @@ if (empty(trim($plxShow->plxMotor->style)) or !is_dir($style)) {
 }
 
 $template = $style . '/' . $plxShow->plxMotor->template;
-if (!file_exists($template)) {
+if (!is_file($template)) {
 	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
 	echo L_ERR_FILE_NOTFOUND.' (' . $template . ') !';
 	exit;
 }
-
-# On impose le charset
-header('Content-Type: text/html; charset=' . PLX_CHARSET);
 
 # On démarre la bufferisation
 ob_start();
@@ -73,6 +70,9 @@ eval($plxMotor->plxPlugins->callHook('IndexEnd'));
 if($plxMotor->aConf['urlrewriting']) {
 	$output = plxUtils::rel2abs($plxMotor->aConf['racine'], $output);
 }
+
+# On impose le charset
+header('Content-Type: text/html; charset=' . PLX_CHARSET);
 
 # On applique la compression gzip si nécessaire et disponible
 if($plxMotor->aConf['gzip']) {

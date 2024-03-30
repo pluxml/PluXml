@@ -1175,10 +1175,12 @@ EOT;
 	public function getFileStatique($num) {
 
 		# Emplacement de la page
-		$filename = PLX_ROOT . $this->aConf['racine_statiques'] . $num . '.' . $this->aStats[ $num ]['url'] . '.php';
-		if(file_exists($filename) AND filesize($filename) > 0) {
-			# On retourne le contenu
-			return file_get_contents($filename);
+		if(array_key_exists($num, $this->aStats)) {
+			$filename = PLX_ROOT . $this->aConf['racine_statiques'] . $num . '.' . $this->aStats[ $num ]['url'] . '.php';
+			if(file_exists($filename) AND filesize($filename) > 0) {
+				# On retourne le contenu
+				return file_get_contents($filename);
+			}
 		}
 
 		return null;
