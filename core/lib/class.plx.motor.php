@@ -25,6 +25,7 @@ class plxMotor {
 	public $mode = false; # Mode de traitement
 	public $template = false; # Template d'affichage
 	public $cible = false; # Article, categorie ou page statique cible
+	public $cibleName = ''; # pour mode==tag dans prechauffage() - compatibilité PHP-8.0.0+
 
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
 	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
@@ -220,7 +221,7 @@ class plxMotor {
 					$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
 					if(in_array($this->cible, $tagUrls)) {
 						if(!isset($ids[$idart])) $ids[$idart] = $idart;
-						if(!isset($this->cibleName)) {
+						if(empty($this->cibleName)) {
 							$key = array_search($this->cible, $tagUrls);
 							$this->cibleName=$tags[$key];
 						}
