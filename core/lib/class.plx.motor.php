@@ -268,27 +268,35 @@ class plxMotor {
 					$this->error404(L_UNKNOWN_AUTHOR);
 			}
 		} elseif(preg_match('#^' . L_TAG_URL . '/([\w-]+)#', $this->get, $matches)) {
-			$this->cible = $matches[1];
-			$this->tri = 'desc';
-			$ids = array();
 			$datetime = date('YmdHi');
-			foreach($this->aTags as $idart => $tag) {
-				if($tag['date']<=$datetime) {
-					$tags = array_map("trim", explode(',', $tag['tags']));
-					$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
-					if(in_array($this->cible, $tagUrls)) {
-						if(!isset($ids[$idart])) $ids[$idart] = $idart;
-						if(!isset($this->cibleName)) {
-							$key = array_search($this->cible, $tagUrls);
-							$this->cibleName=$tags[$key];
-						}
+			$cibleName = null;
+			$arts = array_filter(
+				$this->aTags,
+				function($tag) use($datetime, $matches, &$cibleName) {
+					if($tag['date'] > $datetime or empty($tag['tags']) or empty($tag['active'])) {
+						return false;
 					}
+
+					$tags = array_map('trim', explode(',', $tag['tags']));
+					$tagUrls = array_map(array('plxUtils', 'urlify'), $tags);
+					$key = array_search($matches[1], $tagUrls);
+					if($key === false) {
+						return false;
+					}
+
+					if(empty($cibleName)) {
+						$cibleName = $tags[$key];
+					}
+					return true;
 				}
-			}
-			if(sizeof($ids) > 0) {
+			);
+			if(sizeof($arts) > 0) {
+				$this->cible = $matches[1];
+				$this->cibleName = $cibleName;
+				$this->tri = 'desc';
 				$this->mode = 'tags'; # Affichage en mode home
 				$this->template = 'tags.php';
-				$this->motif = '#(?:' . implode('|', $ids) . ')\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}.\d{12}\.[\w-]+\.xml$#';
+				$this->motif = '#(?:' . implode('|', array_keys($arts)) . ')\.(?:pin,|\d{3},)*(?:' . $this->activeCats . ')(?:,\d{3})*\.\d{3}.\d{12}\.[\w-]+\.xml$#';
 				$this->bypage = $this->aConf['bypage_tags']; # Nombre d'article par page
 			} else {
 				$this->error404(L_ARTICLE_NO_TAG);
