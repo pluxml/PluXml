@@ -271,7 +271,7 @@ function refreshImg(dta) {
             gt = />/g,
             ap = /’/g,
             ic = /"/g;
-        dta = dta.replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&\#39;").replace(ic, "&\#34;");}
+        dta = dta.replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&\#39;").replace(ic, "&\#34;");
 		let link = dta.match(/^(?:https?|data):/gi) ? dta : '<?php echo $plxAdmin->racine ?>'+dta;
 		document.getElementById('id_thumbnail_img').innerHTML = '<img src="'+link+'" alt="" />';
 	}
