@@ -257,7 +257,7 @@ $cat_id='000';
 	<div class="inline-form action-bar">
 		<h2><?= empty($_GET['a']) ? L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING ?></h2>
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
-		<input type="submit" name="preview" onclick="this.form.target='_blank';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
+		<input type="submit" name="preview" onclick="this.form.target='plx_preview_article';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
 <?php
 if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 	if(in_array('draft', $catId)) { # brouillon
