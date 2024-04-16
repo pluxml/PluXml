@@ -30,13 +30,28 @@ class plxPlugins {
 				# For hiding sensitive informations
 				$documentRoot = realpath($_SERVER['DOCUMENT_ROOT']); # resolve symbolic link with Linux
 				$filename = $error['file'];
-				$newFolder = dirname($filename) . '-orig';
 
 				$hr = str_repeat('=', 60) . PHP_EOL;
-				header('Content-Type: text/plain; charset=UTF-8');
-
-				if(isset($this->rootPlugins) and preg_match('#^' . $this->rootPlugins . '/([^/]+)#', $error['file'], $matches)) {
+				$hasHeaders_sent = headers_sent();
+				if(!$hasHeaders_sent and empty(ob_get_length())) {
+					header('Content-Type: text/plain; charset=UTF-8');
+				} else {
+?>
+<pre id="fatal-error" style="
+  position: fixed;
+  top: 10vh;
+  width: 80rem;
+  left: calc(50vw - 40rem);
+  max-height: 80vh;
+  padding: 0.5rem 1rem;
+  background-color: #555;
+  color: lime;
+"><code>
+<?php
+				}
+				if(isset($this->rootPlugins) and preg_match('#' . basename($this->rootPlugins) . '/([^/]+)/\1\.php$#', $error['file'], $matches)) {
 					$pluginName = $matches[1];
+					$newFolder = dirname($filename) . '-orig';
 ?>
 An error is occured with the "<?= strtoupper($pluginName) ?>" plugin :
 <?php
@@ -87,10 +102,14 @@ About this server :
 							'PHP_SELF',
 						));
 					}, ARRAY_FILTER_USE_KEY) as $k=>$v) {
-						if($k == 'SCRIPT_FILENAME') {
-							$v = preg_replace('#^' . $documentRoot . '#', '', $v);
+						switch($k) {
+							case 'SCRIPT_FILENAME' : $v = preg_replace('#^' . $documentRoot . '#', '', realpath($v)); break;
+							case 'SERVER_SIGNATURE' : $v = trim(strip_tags($v)); break;
+							default : # nothing to do
 						}
-						echo $k . ' : ' . $v . PHP_EOL;
+						if(!empty($v)) {
+							echo $k . ' : ' . $v . PHP_EOL;
+						}
 					}
 
 					if(!empty($pluginName)) {
@@ -100,28 +119,35 @@ About this server :
 ?>
 <?= $hr ?>
 About this plugin :
-<?php readfile($infosFilename); ?>
+<?= htmlspecialchars(file_get_contents($infosFilename)); ?>
 <?php
 						}
 					}
 				} # fin pour l'administrateur
 
-				echo $hr;
-				if(!empty($pluginName) and rename(dirname($filename), $newFolder)) {
-					# PluXml essaie de sauver la situation
+				if(!empty($pluginName)) {
+					echo $hr;
+					if(rename(dirname($filename), $newFolder)) {
+						# PluXml essaie de sauver la situation
 ?>
 The folder of plugin is renamed to : <?= preg_replace('#^' . $this->rootPlugins . '/#', '', $newFolder) . PHP_EOL ?>
 Reload this page to continue ...
 <?php
-				} else {
-					# Echec ! Une intervention humaine est requise pour débloquer la situation
+					} else {
+						# Echec ! Une intervention humaine est requise pour débloquer la situation
 ?>
 Drop this plugin now for running PluXml and report to its author !!
+<?php
+					}
+				}
+
+				if($hasHeaders_sent) {
+?>
+</code></pre>
 <?php
 				}
 			}
 		});
-
 	}
 
 	/**
