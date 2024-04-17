@@ -371,6 +371,8 @@ class plxUtils {
 	/**
 	 * Méthode qui teste si le module apache mod_rewrite est disponible
 	 *
+	 * Cette fonction ne marche que si PHP est un module d'Apache.
+	 * Dans le cas contraire, on retourne true par défaut ( serveur php-fpm ou mode fast-CGI )
 	 * @param	io			affiche à l'écran le résultat du test si à VRAI
 	 * @param	format		format d'affichage
 	 * @return	boolean		retourne vrai si le module apache mod_rewrite est disponible
@@ -379,11 +381,10 @@ class plxUtils {
 	public static function testModRewrite($io=true, $format='<li><span style="color:#color">#symbol #message</span></li>' . PHP_EOL) {
 
 		if ($io == true) {
-			# Rien n'est acquis. Soyons pessimistes
 			$replaces = array(
-				'#color'	=> 'red',
-				'#symbol'	=> '&#10007;',
-				'#message'	=> L_MODREWRITE_NOT_AVAILABLE,
+				'#color'	=> '#c87913',
+				'#symbol'	=> '?',
+				'#message'	=> L_MODREWRITE_AVAILABLE,
 			);
 		}
 
@@ -399,10 +400,19 @@ class plxUtils {
 					'#symbol'	=> '&#10004;',
 					'#message'	=> L_MODREWRITE_AVAILABLE,
 				);
+			} else {
+				# Echec !
+				$replaces = array(
+					'#color'	=> 'red',
+					'#symbol'	=> '&#10008;',
+					'#message'	=> L_MODREWRITE_NOT_AVAILABLE,
+				);
 			}
 		} else {
+			# Impossible d'évaluer si Apache a un module "rewrite" activé.
+			# On autorise l'urlrewriting par défaut
 			if ($io != true) {
-				return false;
+				return true;
 			}
 		}
 

@@ -49,7 +49,7 @@ if($emailBuild) {
 <ul class="unstyled-list">
 	<li><?= L_INFO_PHP_VERSION; ?> : <?= phpversion(); ?></li>
 	<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-	<li><?= $_SERVER['SERVER_SOFTWARE'] ?></li>
+	<li><?= $_SERVER['SERVER_SOFTWARE'] ?><?= !empty(PHP_SAPI) ? ' - ' . PHP_SAPI : '' ?></li>
 	<?php } ?>
 </ul>
 <ul class="unstyled-list">
@@ -62,7 +62,7 @@ if($emailBuild) {
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['medias']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_plugins']); ?>
 	<?php plxUtils::testWrite(PLX_ROOT.$plxAdmin->aConf['racine_themes']); ?>
-	<?php plxUtils::testModReWrite() ?>
+	<?php if(function_exists('apache_get_modules')) { plxUtils::testModReWrite(); } ?>
 	<?php plxUtils::testLibGD() ?>
 	<?php plxUtils::testLibXml() ?>
 	<?php
