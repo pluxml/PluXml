@@ -38,8 +38,8 @@ loadLang(PLX_CORE.'lang/'.$lang.'/update.php');
 
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, '5.0.0', '<')){
-	header('Content-Type: text/plain charset=UTF-8');
-	echo utf8_decode(L_WRONG_PHP_VERSION);
+	header('Content-Type: text/plain charset=' . PLX_CHARSET);
+	echo L_WRONG_PHP_VERSION;
 	exit;
 }
 
