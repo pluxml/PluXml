@@ -57,3 +57,6 @@ const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Błąd podczas migracji komentarzy';
 # PluXml 5.8.7
 const L_BUILD_CSS_PLUGINS_CACHE			= 'Tworzenie plików pamięci podręcznej admin.css i site.css dla wtyczek';
 
+# PluXml 5.9.0
+const DELETION_OUTDATED_FILES			= 'Usuń nieaktualne pliki';
+

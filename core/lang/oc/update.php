@@ -57,3 +57,6 @@ const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Error pendent la migracion dels comenta
 # PluXml 5.8.7
 const L_BUILD_CSS_PLUGINS_CACHE			= 'Creacion dels fichièrs cache admin.css e site.css pels plugins';
 
+# PluXml 5.9.0
+const DELETION_OUTDATED_FILES			= 'Supression de fichièrs despassats';
+

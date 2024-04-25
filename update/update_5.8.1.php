@@ -5,70 +5,74 @@
  * @package PLX
  * @author	Pedro "P3ter" CADETE
  **/
-class update_5_8_1 extends plxUpdate{
+class update_5_8_1 extends plxUpdate {
+	const NEW_FIELDS = array(
+			'XMLFILE_CATEGORIES'	=> array(
+				'tag'		=> 'categorie',
+				'search'	=> '#</thumbnail>#',
+				'new_tags'	=> <<< EOT
+		<thumbnail></thumbnail>
+		<thumbnail_title></thumbnail_title>
+		<thumbnail_alt></thumbnail_alt>
+EOT,
+			),
+			'XMLFILE_USERS'			=> array(
+				'tag'		=> 'user',
+				'search'	=> '#</password_token>#',
+				'new_tags'	=> <<< EOT
+		<password_token></password_token>
+		<password_token_expiry></password_token_expiry>
+EOT,
+			),
+			'XMLFILE_STATICS'		=> array(
+				'tag'		=> 'statique',
+				'search'	=> '#</date_creation>#',
+				'new_tags'	=> <<< EOT
+		<date_creation></date_creation>
+		<date_update></date_update>
+EOT,
+			),
+		);
 
 	/**
 	 * Update category file with new fields thumbnail, thumbnail_title, thumbnail_alt
+	 * Update users file with new fields password_token, password_token_expiry
+	 *
 	 * @return boolean
 	 */
 	public function step1() {
+		foreach(self::NEW_FIELDS as $k=>$v) {
+			$filename = path($k);
 ?>
-		<li><?= L_UPDATE_FILE ?> (<?= path('XMLFILE_CATEGORIES') ?>)</li>
+		<li><?= L_UPDATE_FILE ?> <em><?= basename($filename) ?></em></li>
 <?php
-		$data = file_get_contents(path('XMLFILE_CATEGORIES'));
-		$tag = 'categorie';
-		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
-			foreach($matches[0] as $match) {
-				if(!preg_match('/<thumbnail>/', $match)) {
-					$str = str_replace('</'.$tag.'>', '<thumbnail><![CDATA[]]></thumbnail><thumbnail_title><![CDATA[]]></thumbnail_title><thumbnail_alt><![CDATA[]]></thumbnail_alt></'.$tag.'>', $match);
-					$data = str_replace($match, $str, $data);
-				}
-			}
-			if(!plxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
+			$data = file_get_contents($filename);
+			if(!preg_match($v['search'], $data)) {
+				$output = preg_replace('#(\s*</' . $v['tag'] . '>)#', PHP_EOL . $v['new_tags'] . '$1', $data);
+				if(empty($output) or !plxUtils::write($output, $filename)) {
 ?>
 				<p class="error"><?= L_UPDATE_ERR_FILE ?></p>
 <?php
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Update users file with new fields password_token, password_token_expiry
-	 * @return boolean
-	 */
-	public function step2() {
-?>
-			<li><?= L_UPDATE_FILE ?> (<?= path('XMLFILE_USERS') ?>)"</li>
-<?php
-		$data = file_get_contents(path('XMLFILE_USERS'));
-		$tag = 'user';
-		if(preg_match_all('{<'.$tag.'[^>]*>(.*?)</'.$tag.'>}', $data, $matches, PREG_PATTERN_ORDER)) {
-			foreach($matches[0] as $match) {
-				if(!preg_match('/<password_token>/', $match)) {
-					$str = str_replace('</'.$tag.'>', '<password_token><![CDATA[]]></password_token><password_token_expiry><![CDATA[]]></password_token_expiry></'.$tag.'>', $match);
-					$data = str_replace($match, $str, $data);
+					return false;
 				}
 			}
-			if(!plxUtils::write($data, path('XMLFILE_CATEGORIES'))) {
-?>
-			<p class="error"><?= L_UPDATE_ERR_FILE ?></p>
-<?php
-				return false;
-			}
 		}
+
 		return true;
 	}
 
 	/**
 	 * Create data/templates folder if is missing
+	 *
 	 * @return boolean
 	 */
-	public function step3() {
-		if(!is_dir(PLX_ROOT.'data/templates')) {
-			@mkdir(PLX_ROOT.'data/templates',0755,true);
+	public function step2() {
+		$dest = PLX_ROOT . preg_replace('#^([\w-]+/).*#', '${1}templates', PLX_CONFIG_PATH);
+		if(!is_dir($dest)) {
+			@mkdir($dest, 0755, true);
 		}
-		return true;
+
+		# nouveaux paramètres
+		return $this->updateParameters();
 	}
 }

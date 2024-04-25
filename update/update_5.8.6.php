@@ -6,19 +6,20 @@
  * @package PLX
  * @author Pedro "P3ter" CADETE
  **/
-class update_5_8_6 extends plxUpdate
-{
+class update_5_8_6 extends plxUpdate {
+	const NEW_PARAMS = array(
+		'enable_rss_comment' => 1,
+	);
 
-	# mise à jour fichier parametres.xml (récupération du mot de passe)
+	/*
+	 * mise à jour fichier parametres.xml (récupération du mot de passe)
+	 * */
 	public function step1()
 	{
 ?>
-		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?> <em><?= implode(', ', array_keys(self::NEW_PARAMS)) ?></em></li>
 <?php
-
-		$new_parameters = array();
-		$new_parameters['enable_rss_comment'] = '1';
-		$this->updateParameters($new_parameters);
+		$this->updateParameters();
 
 		return true;
 	}
