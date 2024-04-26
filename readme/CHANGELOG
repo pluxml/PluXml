@@ -1,3 +1,13 @@
+## PLUXML 5.8.13 (2024/04/26)
+FIX Preview article is alaways displaying on the same tab or window
+[+] Better view on fatal error
+FIX No use of utf8_decode() - Deprecated with PHP-8.2.0
+
+# PLUXML 5.8.12 (2024/04/05)
+FIX Typo in parametres_plugin.php
+FIX Resolve symbolic link for Linux in plxPlugins::__construct()
+FIX Declare plxMotor::cibleName - Required for PHP-8.0.0+
+
 ## PLUXML 5.8.11 (2024/03/23)
 FIX disable plugins not ready for PHP8.0 and displays error message
 FIX regex for plxGlob::PATTERNS for comments
