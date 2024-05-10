@@ -79,3 +79,52 @@ function insTag(where, tag) {
 	else
 		formfield.value = formfield.value+', '+tag;
 }
+
+(function(id) {
+	'use strict';
+
+	const el = document.getElementById(id);
+	if(el == null || !('infos' in el.dataset)) {
+		// contrôle de la dernière version gérée par le serveur dans plxAdmin::checkMaj()
+		return;
+	}
+
+	const infos = JSON.parse(el.dataset.infos);
+
+	function compareVersion(v1, v2) {
+		if(typeof v1 != 'string' || typeof v2 != 'string') { return; }
+
+		const t1 = v1.split('.');
+		const t2 = v2.split('.');
+		for(let i=0, iMax=(t1.length < t2.length) ? t1.length : t2.length; i<iMax; i++) {
+			const n1 = parseInt(t1[i]);
+			const n2 = parseInt(t2[i]);
+			if(n1 == n2) { continue; }
+			return (n1 < n2) ? -1 : 1;
+		}
+		return (t1.length == t2.length) ? 0 : (t1.length < t2.length) ? -1 : 1;
+	}
+
+	console.log('Current version of PluXml : ' + infos.currentVersion);
+	const xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState === XMLHttpRequest.DONE) {
+			if(this.status === 200) {
+				console.log('Available version :', this.responseText);
+				el.classList.remove('red');
+				if(compareVersion(infos.currentVersion, this.responseText) < 0) {
+					el.innerHTML = infos.available + '<a href="' + infos.urlRepo + '">' + infos.urlRepo + '</a>';
+					el.classList.add('orange');
+				} else {
+					el.innerHTML = infos.uptodate;
+					el.classList.add('green');
+				}
+				return;
+			}
+			console.error('[check update]', this.status, this.statusText);
+		}
+	};
+
+	xhr.open('GET', infos.urlVersion);
+	xhr.send();
+}('latest-version'));

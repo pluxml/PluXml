@@ -22,7 +22,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'admin.css', true);
 ?>
 	<title><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?= L_ADMIN ?></title>
-	<script src="js/functions.js?v=<?= PLX_VERSION ?>"></script>
 	<script src="js/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
 	<script defer src="js/multifiles.js?v=<?= PLX_VERSION ?>"></script>
 <?php
