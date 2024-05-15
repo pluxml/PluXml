@@ -740,11 +740,12 @@ class plxMotor {
                 'author'			=> $tmp['usrId'],
                 'categorie'			=> $tmp['catId'],
                 'url'				=> $tmp['artUrl'],
-                'date'				=> $tmp['artDate'],
                 'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}.\d+.xml$#'),
-                'date_creation'		=> plxUtils::getValue($values[$iTags['date_creation'][0]]['value'], $tmp['artDate']),
-                'date_update'		=> plxUtils::getValue($values[$iTags['date_update'][0]]['value'], $tmp['artDate']),
             );
+
+            foreach(array('date', 'date_creation', 'date_update',) as $field) {
+                $art[$field] = array_key_exists($field, $iTags) ? $values[$iTags[$field][0]]['value'] : $tmp['artDate'];
+            }
 
             # Hook plugins
             eval($this->plxPlugins->callHook('plxMotorParseArticle'));
