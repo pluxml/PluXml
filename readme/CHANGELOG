@@ -1,3 +1,6 @@
+## PLUXML 5.8.14 (2024/05/15)
+[+] date_creation or date_update may be missing in a file of article
+
 ## PLUXML 5.8.13 (2024/04/26)
 FIX Preview article is alaways displaying on the same tab or window
 [+] Better view on fatal error
