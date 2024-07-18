@@ -1,3 +1,8 @@
+## PLUXML 5.8.15 (2024/07/18)
+[+] plxAdmin::getFileStatique() always returns a string
+[+] PLX_DEBUG is set to "true"
+[+] In plxPlugins::__construct(), error is ignored in some cases
+
 ## PLUXML 5.8.14 (2024/05/15)
 [+] date_creation or date_update may be missing in a file of article
 
