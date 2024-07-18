@@ -26,7 +26,7 @@ class plxPlugins {
 
 		register_shutdown_function(function() {
 			$error = error_get_last();
-			if($error != null) {
+			if($error != null and !empty($error['file']) and (PLX_DEBUG or $error['type'] < E_DEPRECATED)) { # error['type'] < 8192
 				# For hiding sensitive informations
 				$documentRoot = realpath($_SERVER['DOCUMENT_ROOT']); # resolve symbolic link with Linux
 				$filename = $error['file'];
@@ -79,6 +79,7 @@ See https://www.php.net/manual/en/errorfunc.constants.php about type of error
 User : <?= $_SESSION['user'] . PHP_EOL ?>
 Profil : <?= $_SESSION['profil'] . PHP_EOL ?>
 PluXml version : <?= PLX_VERSION . PHP_EOL ?>
+PLX_DEBUG : <?= PLX_DEBUG ? 'true' : 'false' ?>
 PHP version : <?= PHP_VERSION . PHP_EOL ?>
 <?=	$hr ?>
 About this server :

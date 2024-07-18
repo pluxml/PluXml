@@ -840,14 +840,15 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		# Emplacement de la page
 		$filename = PLX_ROOT.$this->aConf['racine_statiques'].$num.'.'.$this->aStats[ $num ]['url'].'.php';
 		if(file_exists($filename) AND filesize($filename) > 0) {
-			if($f = fopen($filename, 'r')) {
-				$content = fread($f, filesize($filename));
-				fclose($f);
+			$content = file_get_contents($filename);
+			if(is_string($content)) {
 				# On retourne le contenu
 				return $content;
+			} else {
+				return implode(PHP_EOL, array('<p>', "\t" . L_UNKNOWN_ERROR, '</p>'));
 			}
 		}
-		return null;
+		return implode(PHP_EOL, array('<p>', "\t" . L_STATICS_NEW_PAGE, '</p>'));
 	}
 
 	/**
