@@ -93,6 +93,35 @@
 - url_encode dos not work properly in plxUtils::urlify() (#577) (bazooka07)
 - Regex for moderated comments in the backoffice, misc. optimization for comments (#572) (bazooka07)
 
+## PLUXML 5.8.16 (2024/08/27)
+[+] toggle display for fatal error
+[+] PLX_DEBUG is set to "false"
+
+## PLUXML 5.8.15 (2024/07/18)
+[+] plxAdmin::getFileStatique() always returns a string
+[+] PLX_DEBUG is set to "true"
+[+] In plxPlugins::__construct(), error is ignored in some cases
+
+## PLUXML 5.8.14 (2024/05/15)
+[+] date_creation or date_update may be missing in a file of article
+
+## PLUXML 5.8.13 (2024/04/26)
+FIX Preview article is alaways displaying on the same tab or window
+[+] Better view on fatal error
+FIX No use of utf8_decode() - Deprecated with PHP-8.2.0
+
+# PLUXML 5.8.12 (2024/04/05)
+FIX Typo in parametres_plugin.php
+FIX Resolve symbolic link for Linux in plxPlugins::__construct()
+FIX Declare plxMotor::cibleName - Required for PHP-8.0.0+
+
+## PLUXML 5.8.11 (2024/03/23)
+FIX disable plugins not ready for PHP8.0 and displays error message
+FIX regex for plxGlob::PATTERNS for comments
+
+## PLUXML 5.8.10 (2024/03/18)
+FIX PHP 8+ compatibility
+
 ## PLUXML 5.8.9 (2022/08/01) ##
 REVERT v5.8.8 FIX Static pages PHP injection vulnerability #558 (P3ter, Moritz Huppert)
 
