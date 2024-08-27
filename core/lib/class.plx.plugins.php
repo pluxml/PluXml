@@ -37,7 +37,13 @@ class plxPlugins {
 					header('Content-Type: text/plain; charset=UTF-8');
 				} else {
 ?>
-<pre id="fatal-error" style="
+<style>
+	#bug-notification:not(:checked) + div {
+		display: none;
+	}
+</style>
+<input type="checkbox" id="bug-notification" checked style="display: none;"/>
+<div  id="fatal-error" style="
   position: fixed;
   top: 10vh;
   width: 80rem;
@@ -46,7 +52,9 @@ class plxPlugins {
   padding: 0.5rem 1rem;
   background-color: #555;
   color: lime;
-"><code>
+  z-index: 999;
+">
+<pre><code>
 <?php
 				}
 				if(isset($this->rootPlugins) and preg_match('#' . basename($this->rootPlugins) . '/([^/]+)/\1\.php$#', $error['file'], $matches)) {
@@ -79,7 +87,7 @@ See https://www.php.net/manual/en/errorfunc.constants.php about type of error
 User : <?= $_SESSION['user'] . PHP_EOL ?>
 Profil : <?= $_SESSION['profil'] . PHP_EOL ?>
 PluXml version : <?= PLX_VERSION . PHP_EOL ?>
-PLX_DEBUG : <?= PLX_DEBUG ? 'true' : 'false' ?>
+PLX_DEBUG : <?= ( PLX_DEBUG ? 'true' : 'false' ) . PHP_EOL ?>
 PHP version : <?= PHP_VERSION . PHP_EOL ?>
 <?=	$hr ?>
 About this server :
@@ -104,6 +112,7 @@ About this server :
 						));
 					}, ARRAY_FILTER_USE_KEY) as $k=>$v) {
 						switch($k) {
+							case 'HTTP_REFERER' : $v = preg_replace('#^https?://'. $_SERVER['SERVER_NAME']. '#', '', $_SERVER['HTTP_REFERER']); break;
 							case 'SCRIPT_FILENAME' : $v = preg_replace('#^' . $documentRoot . '#', '', realpath($v)); break;
 							case 'SERVER_SIGNATURE' : $v = trim(strip_tags($v)); break;
 							default : # nothing to do
@@ -145,6 +154,14 @@ Drop this plugin now for running PluXml and report to its author !!
 				if($hasHeaders_sent) {
 ?>
 </code></pre>
+<label for="bug-notification" style="
+	position: absolute;
+	top: 0.25rem;
+	right: 0.25rem;
+	padding: 0.2rem;
+	background-color: #eee;
+">❌</label>
+</div>
 <?php
 				}
 			}
