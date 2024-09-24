@@ -220,33 +220,45 @@ class plxUtils {
 
 		if(!is_array($array)) $array=array();
 
-		if(is_bool($id))
-			$id = ($id ? ' id="id_'.$name.'"' : '');
-		else
-			$id = ($id!='' ? ' id="'.$id.'"' : '');
+		if(is_bool($id)) {
+			$id = $id ? ' id="id_'.$name.'"' : '';
+		} else {
+			$id = ($id != '') ? ' id="'.$id.'"' : '';
+		}
 
-		if($readonly)
-			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly'.($class!=''?' '.$class:'').'">'."\n";
-		else
-			echo '<select'.$id.' name="'.$name.'"'.($class!=''?' class="'.$class.'"':'').'>'."\n";
+		if($readonly) {
+?>
+<select <?= $id ?> name="<?= $name ?>" disabled="disabled" class="readonly <?= !empty($class) ? $class : '' ?>">
+<?php
+		} else {
+?>
+<select <?= $id ?> name="<?= $name ?>" class="<?= !empty($class) ? $class : '' ?>">
+<?php
+		}
 		foreach($array as $a => $b) {
 			if(is_array($b)) {
-				echo '<optgroup label="'.$a.'">'."\n";
+?>
+	<optgroup label="<?= $a ?>">
+<?php
 				foreach($b as $c=>$d) {
-					if($c == $selected)
-						echo "\t".'<option value="'.$c.'" selected="selected">'.$d.'</option>'."\n";
-					else
-						echo "\t".'<option value="'.$c.'">'.$d.'</option>'."\n";
+					$attr = ($c == $selected) ? ' selected="selected"' : '';
+?>
+		<option value="<?= $c ?>"<?= $attr ?>><?= $d ?></option>
+<?php
 				}
-				echo '</optgroup>'."\n";
+?>
+	</optgroup>
+<?php
 			} else {
-				if(strval($a) == $selected)
-					echo "\t".'<option value="'.$a.'" selected="selected">'.$b.'</option>'."\n";
-				else
-					echo "\t".'<option value="'.$a.'">'.$b.'</option>'."\n";
+				$attr = (strval($a) == $selected) ? ' selected="selected"' : '';
+?>
+	<option value="<?= $a ?>" <?= $attr ?>><?= $b ?></option>
+<?php
 			}
 		}
-		echo '</select>'."\n";
+?>
+</select>
+<?php
 	}
 
 	/**
@@ -1273,9 +1285,16 @@ class plxUtils {
 		}
 
 		$parts = parse_url($href);
+		$filename = basename($parts['path']);
 		$id = basename($parts['path'], '.php');
-		if(basename($parts['path']) !=  'plugin.php') {
-			if(basename($parts['path']) == basename($_SERVER['SCRIPT_NAME'])) {
+		if($filename !=  'plugin.php') {
+			if(
+				$filename == basename($_SERVER['SCRIPT_NAME']) or
+				(
+					$filename == 'parametres_themes.php' and
+					basename($_SERVER['SCRIPT_NAME']) == 'parametres_edittpl.php'
+				)
+			) {
 				$classList[] = 'active';
 			}
 		} else {
@@ -1611,22 +1630,19 @@ EOT;
 
 				if($dirOk) { # pour un dossier
 					if($modeDir) {
-						echo <<<EOT
-							<option value="$value/"$classAttr data-level="$dataLevel" $selected>$prefix$caption/</option>
-
-EOT;
+?>
+							<option value="<?= $value ?>/"<?= $classAttr ?> data-level="<?= $dataLevel ?>" <?= $selected ?>><?= $prefix . $caption ?>/</option>
+<?php
 					} else {
-						echo <<<EOT
-							<option disabled value=""$classAttr data-level="$dataLevel">$prefix$caption/</option>
-
-EOT;
+?>
+							<option disabled value=""<?= $classAttr ?> data-level="<?= $dataLevel ?>"><?= $prefix . $caption ?>/</option>
+<?php
 					}
 					self::_printSelectDir($root.$child.'/', $level, $prefixParent.$next);
 				} else { # pour un fichier
-					echo <<<EOT
-						<option value="$value"$classAttr data-level="$dataLevel"$selected>$prefix$caption</option>
-
-EOT;
+?>
+						<option value="<?= $value ?>"<?= $classAttr ?> data-level="<?= $dataLevel ?>"<?= $selected ?>><?= $prefix. $caption ?></option>
+<?php
 				}
 			}
 		}
@@ -1661,14 +1677,14 @@ EOT;
 		$data_files = (!$modeDir)? ' data-files': '';
 		$disabled = (!$modeDir)? ' disabled': '';
 		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
-		echo <<< EOT
-		<select $id name="$name" class="$class">
-			<option$disabled value="$value"$selected>$caption/</option>
-EOT;
+?>
+		<select $id name="<?= $name ?>" class="<?= $class ?>">
+			<option<?= $disabled ?> value="<?= $value ?>"<?= $selected ?>><?= $caption ?>/</option>
+<?php
 		self::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
-		echo <<< EOT
+?>
 		</select>
-EOT;
+<?php
 	}
 
 	/**

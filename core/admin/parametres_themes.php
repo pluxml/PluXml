@@ -47,27 +47,37 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 			<thead>
 				<tr>
 					<th colspan="2"><?= L_THEMES ?></th>
-					<th style="width: 100%">&nbsp;</th>
+					<th>
+						<span>Tri par</span>
+						<select id="sortSelect">
+							<option value="id"><?= L_CANCEL ?></option>
+							<option value="title"><?= L_ARTICLE_TITLE ?></option>
+							<option value="filemtime"><?= L_ARTICLE_LIST_DATE ?> (infos.xml)</option>
+							<option value="site"><?= L_COMMENT_SITE_FIELD ?></option>
+						</select>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
 <?php
 				if($plxThemes->aThemes) {
-					$num=0;
+					$count = 0;
 					foreach($plxThemes->aThemes as $theme) {
 						# radio
 						$checked = ($theme == $plxAdmin->aConf['style']) ? ' checked="checked"' : '';
+						$id = str_pad($count, 3, '0', STR_PAD_LEFT);
+						$aInfos = $plxThemes->getInfos($theme);
 ?>
-				<tr>
-					<td><input<?= $checked ?> type="radio" name="style" value="<?= $theme ?>" /></td>
-					<td><?= $plxThemes->getImgPreview($theme) ?></td>
+				<tr data-id="<?= $id ?>" data-filemtime="<?= $aInfos['filemtime'] ?>" data-site="<?= trim($aInfos['site']) ?>" data-title="<?= strtolower(trim($aInfos['title'])) ?>">
+					<td><input<?= $checked ?> type="radio" id="style-<?= $id ?>" name="style" value="<?= $theme ?>" /></td>
+					<td><label for="style-<?= $id ?>"><?= $plxThemes->getImgPreview($theme) ?></label></td>
 					<td class="wrap" style="vertical-align:top">
 <?php
 						# theme infos
-						if($aInfos = $plxThemes->getInfos($theme)) {
+						if($aInfos) {
 ?>
 						<strong><?= $aInfos['title'] ?></strong><br />
-						Version : <strong><?= $aInfos['version'] ?></strong> - (<?= $aInfos['date'] ?>)<br />
+						Version : <strong><?= $aInfos['version'] ?></strong> - (<em><?= $aInfos['date'] ?></em>)<br />
 						<?= L_PLUGINS_AUTHOR ?> : <?= $aInfos['author'] ?>
 <?php
 							if(!empty($aInfos['site'])) {
@@ -94,6 +104,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 					</td>
 				</tr>
 <?php
+						$count++;
 					}
 				} else {
 ?>
@@ -115,6 +126,37 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
+?>
+<script>
+	(function() {
+		const select = document.getElementById('sortSelect');
+		if(select) {
+			select.addEventListener('change', function(ev) {
+				const choice = select.value;
+				const table = document.getElementById('themes-table');
+				const tBody = table.tBodies[0];
+				const sortedRows = Array.from(tBody.rows).sort(function(row1, row2) {
+					if(choice == 'filemtime') {
+						return row2.dataset.filemtime.localeCompare(row1.dataset.filemtime); // reverse date
+					}
+					if(row1.dataset[choice].length == 0) {
+						return 1;
+					}
+					if(row2.dataset[choice].length == 0) {
+						return -1;
+					}
+					return row1.dataset[choice].localeCompare(row2.dataset[choice]);
+				});
+				sortedRows.forEach(function(row) {
+					tBody.appendChild(row);
+				});
+
+				table.scrollIntoView();
+			});
+		}
+	})();
+</script>
+<?php
 
 # On inclut le footer
 include 'foot.php';
