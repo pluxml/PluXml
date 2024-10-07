@@ -30,9 +30,12 @@ include PLX_CORE.'lib/config.php';
 plx_session_start();
 
 # Chargement des langues
-$lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
-if(!empty($_POST) AND $_POST['default_lang'] != DEFAULT_LANG ){
+if(!empty($_POST)){
 	$lang = $_POST['default_lang'];
+} elseif(!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+	$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+} else {
+	$lang = DEFAULT_LANG;
 }
 if(!array_key_exists($lang, plxUtils::getLangs())) {
 	$lang = DEFAULT_LANG;
