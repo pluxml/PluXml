@@ -1170,8 +1170,8 @@ EOT;
 	 * Méthode qui lit le fichier d'une page statique
 	 *
 	 * @param	num		numero du fichier de la page statique
-	 * @return	string	contenu de la page
-	 * @author	Stephane F.
+	 * @return	string	contenu de la page ou chaine vide
+	 * @author	Stephane F., J.P. Pourrez @bazooka07
 	 **/
 	public function getFileStatique($num) {
 
@@ -1179,12 +1179,17 @@ EOT;
 		if(array_key_exists($num, $this->aStats)) {
 			$filename = PLX_ROOT . $this->aConf['racine_statiques'] . $num . '.' . $this->aStats[ $num ]['url'] . '.php';
 			if(file_exists($filename) AND filesize($filename) > 0) {
-				# On retourne le contenu
-				return file_get_contents($filename);
+				$content = file_get_contents($filename);
+				if(is_string($content)) {
+					# On retourne le contenu
+					return $content;
+				} else {
+					return implode(PHP_EOL, array('<p>', "\t" . L_UNKNOWN_ERROR, '</p>'));
+				}
 			}
 		}
 
-		return null;
+		return implode(PHP_EOL, array('<p>', "\t" . L_STATICS_NEW_PAGE, '</p>'));
 	}
 
 	/**
