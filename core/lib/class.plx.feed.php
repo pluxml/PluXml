@@ -11,6 +11,8 @@ const PLX_FEED = true;
 
 class plxFeed extends plxMotor {
 
+	public $clef = null; # Feed, PHP 8
+
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
 	 *
