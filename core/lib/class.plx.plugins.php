@@ -157,20 +157,26 @@ Drop this plugin now for running PluXml and report to its author !!
 	 * @return	null
 	 * @author	Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
-	public function getInstance($plugName) {
+	public function getInstance($plugName, $actif=true) {
 		$filename = PLX_PLUGINS . "$plugName/$plugName.php";
 		# voir https://www.php.net/manual/fr/function.register-shutdown-function
 		if(is_file($filename)) {
-			try {
-				include_once $filename;
-
-				if(class_exists($plugName)) {
-					# réactualisation de la langue si elle a été modifié par un plugin
+				try {
 					$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-					$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
-					# chargement du plugin en créant une nouvelle instance
-					return new $plugName($lang);
-				}
+					if($actif) {
+						include_once $filename;
+
+						if(class_exists($plugName)) {
+							# réactualisation de la langue si elle a été modifié par un plugin
+							$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
+							# chargement du plugin en créant une nouvelle instance
+							return new $plugName($lang);
+						}
+					} else {
+						$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
+						return new plxPlugin($lang, $plugName);
+					}
+
 			} catch(Exception $e) {
 				return false;
 			}
@@ -306,7 +312,7 @@ Drop this plugin now for running PluXml and report to its author !!
 		$dirs = plxGlob::getInstance(PLX_PLUGINS, true);
 		if(sizeof($dirs->aFiles)>0) {
 			foreach($dirs->aFiles as $plugName) {
-				if(!isset($this->aPlugins[$plugName]) AND $plugInstance=$this->getInstance($plugName)) {
+				if(!isset($this->aPlugins[$plugName]) AND $plugInstance=$this->getInstance($plugName, false)) {
 					$plugInstance->getInfos();
 					$aPlugins[$plugName] = $plugInstance;
 				}
@@ -501,9 +507,11 @@ class plxPlugin {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function __construct($default_lang='') {
+	public function __construct($default_lang='', $plugName='') {
 
-		$plugName= get_class($this);
+		if(empty($plugName)) {
+			$plugName= get_class($this);
+		}
 		$this->getPluginLang($plugName, $default_lang);
 		$this->plug = array(
 			'dir' 			=> PLX_PLUGINS,
