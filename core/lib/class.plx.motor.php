@@ -29,8 +29,8 @@ class plxMotor {
 	public $motif = false; # Motif de recherche
 	public $mode = false; # Mode de traitement
 	public $template = false; # Template d'affichage
-    public $cible = false; # Article, categorie ou page statique cible
-    public $cibleName = null; # Tag label
+	public $cible = false; # Article, categorie ou page statique cible
+	public $cibleName = null; # Tag label
 
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
 	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
@@ -1417,12 +1417,12 @@ class plxMotor {
 	 * @return	boolean
 	 * author	Jean-Pierre Pourrez "bazooka07"
 	 **/
-    public function isPHPMailerDisabled() {
+	public function isPHPMailerDisabled() {
 		return
 			empty($this->aConf['email_method']) or
 			$this->aConf['email_method'] == 'sendmail' or
 			!class_exists(PHPMailer::class) or
-            !method_exists('plxUtils', 'sendMailPhpMailer');
+			!method_exists('plxUtils', 'sendMailPhpMailer');
 	}
 
 	public function getPlxThemes() {

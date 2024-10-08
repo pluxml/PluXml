@@ -15,7 +15,10 @@ const PLX_FEED = true;
 class plxFeed extends plxMotor {
 
 	public $rssAttachment = 'pluxml.rss';
-	public $lastBuildDate = '';
+	public $rssTitle = null;
+	public $rssLink = null;
+	public $rssLastBuildDate = null;
+	public $clef = null; # Feed, PHP 8
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
@@ -197,13 +200,13 @@ class plxFeed extends plxMotor {
 	 * @author J.P. Pourrez @bazooka07
 	 **/
 	public function printRSSTop(&$plxRecord) {
-		if(empty($this->lastBuildDate) and !empty($plxRecord)) {
-			$this->lastBuildDate = $plxRecord->lastUpdateDate();
+		if(empty($this->rssLastBuildDate) and !empty($plxRecord)) {
+			$this->rssLastBuildDate = $plxRecord->lastUpdateDate();
 		}
 
-		if(empty($this->lastBuildDate)) {
+		if(empty($this->rssLastBuildDate)) {
 			# $plxRecord->lastUpdateDate() retourne NUll si aucun enregistrement.
-			$this->lastBuildDate = date('YmdHi');
+			$this->rssLastBuildDate = date('YmdHi');
 		}
 ?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -211,7 +214,7 @@ class plxFeed extends plxMotor {
 		<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="<?= $this->urlRewrite('feed.php?' . $this->get) ?>" />
 		<title><?= plxUtils::strCheck($this->rssTitle, true, null) ?></title>
 		<link><?= $this->rssLink ?></link>
-		<lastBuildDate><?= plxDate::dateIso2rfc822($this->lastBuildDate) ?></lastBuildDate>
+		<lastBuildDate><?= plxDate::dateIso2rfc822($this->rssLastBuildDate) ?></lastBuildDate>
 		<language><?= $this->aConf['default_lang'] ?></language>
 		<description><?= plxUtils::strCheck($this->aConf['description'], true, null) ?></description>
 		<generator>PluXml</generator>
