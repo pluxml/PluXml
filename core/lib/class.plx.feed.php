@@ -16,6 +16,7 @@ class plxFeed extends plxMotor {
 
 	public $rssAttachment = 'pluxml.rss';
 	public $lastBuildDate = '';
+	public $clef = null; # Feed, PHP 8
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed

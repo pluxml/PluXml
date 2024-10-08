@@ -31,7 +31,6 @@ class plxMotor {
 	public $template = false; # Template d'affichage
     public $cible = false; # Article, categorie ou page statique cible
     public $cibleName = null; # Tag label
-	public $cle = null; # Feed, PHP 8
 
 	public $activeCats = false; # Liste des categories actives sous la forme 001|002|003 etc
 	public $homepageCats = false; # Liste des categories à afficher sur la page d'accueil sous la forme 001|002|003 etc
