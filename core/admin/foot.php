@@ -6,12 +6,14 @@
 
 <script src="js/functions.js?v=<?= PLX_VERSION ?>"></script>
 <script src="js/drag-and-drop.js"></script>
+<script src="js/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
+<script src="js/multifiles.js?v=<?= PLX_VERSION ?>"></script>
 <script src="js/visual.js?v=<?= PLX_VERSION ?>"></script>
 <script>
 	setMsg();
 	mediasManager.construct({
 		windowName : "<?= L_MEDIAS_TITLE ?>",
-		racine:	"<?= plxUtils::getRacine() ?>",
+		racine:	"<?= PLX_ROOT ?>",
 		urlManager: "core/admin/medias.php"
 	});
 
