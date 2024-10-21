@@ -257,52 +257,53 @@ $cat_id='000';
 	<div class="inline-form action-bar">
 		<h2><?= empty($_GET['a']) ? L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING ?></h2>
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
-		<input type="submit" name="preview" onclick="this.form.target='plx_preview_article';return true;" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
+		<input type="submit" name="preview" formtarget="plx_preview_article" value="<?= L_ARTICLE_PREVIEW_BUTTON ?>"/>
 <?php
 if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
+	# modération des articles
 	if(in_array('draft', $catId)) { # brouillon
 		if($artId!='0000') # nouvel article
 ?>
-		<input onclick="this.form.target='_self';return true;" type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
-		<input onclick="this.form.target='_self';return true;" type="submit" name="moderate" value="<?= L_ARTICLE_MODERATE_BUTTON ?>"/>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="if(confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>')) { this.form.target='_self'; return true; } else { return false; }" />
+		<input type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
+		<input type="submit" name="moderate" value="<?= L_ARTICLE_MODERATE_BUTTON ?>"/>
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="return confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>');" />
 <?php
 	} else {
-					if(isset($_GET['a']) AND preg_match('/^_\d{4}$/', $_GET['a'])) { # en attente
+		if(isset($_GET['a']) AND preg_match('/^_\d{4}$/', $_GET['a'])) { # en attente de modération
 ?>
-		<input onclick="this.form.target='_self';return true;" type="submit" name="update" value="<?= L_ARTICLE_UPDATE_BUTTON ?>"/>
-		<input onclick="this.form.target='_self';return true;" type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="if(confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>')) { this.form.target = '_self'; return true; } else { return false; }" />
+		<input type="submit" name="update" value="<?= L_ARTICLE_UPDATE_BUTTON ?>"/>
+		<input type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="return confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>');" />
 <?php
 		} else {
 ?>
-		<input onclick="this.form.target=_self;return true;" type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
-		<input onclick="this.form.target=_self;return true;" type="submit" name="moderate" value="<?= L_ARTICLE_MODERATE_BUTTON ?>"/>
+		<input type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
+		<input type="submit" name="moderate" value="<?= L_ARTICLE_MODERATE_BUTTON ?>"/>
 <?php
 		}
 	}
 } else {
 	if(in_array('draft', $catId)) {
 ?>
-		<input onclick="this.form.target=_self;return true;" type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
-		<input onclick="this.form.target=_self;return true;" type="submit" name="publish" value="<?= L_ARTICLE_PUBLISHING_BUTTON ?>"/>
+		<input type="submit" name="draft" value="<?= L_ARTICLE_DRAFT_BUTTON ?>"/>
+		<input type="submit" name="publish" value="<?= L_ARTICLE_PUBLISHING_BUTTON ?>"/>
 <?php
 	} else {
 		if(!isset($_GET['a']) OR preg_match('/^_\d{4}$/', $_GET['a'])) {
 ?>
-		<input onclick="this.form.target=_self;return true;" type="submit" name="publish" value="<?= L_ARTICLE_PUBLISHING_BUTTON ?>"/>
+		<input type="submit" name="publish" value="<?= L_ARTICLE_PUBLISHING_BUTTON ?>"/>
 <?php
 		} else {
 ?>
-		<input onclick="this.form.target=_self;return true;" type="submit" name="update" value="<?= L_ARTICLE_UPDATE_BUTTON ?>"/>
-		<input onclick="this.form.target=_self;return true;" type="submit" name="draft" value="<?= L_ARTICLE_OFFLINE_BUTTON ?>"/>
+		<input type="submit" name="update" value="<?= L_ARTICLE_UPDATE_BUTTON ?>"/>
+		<input type="submit" name="draft" value="<?= L_ARTICLE_OFFLINE_BUTTON ?>"/>
 <?php
 		}
 	}
 
 	if($artId!='0000') {
 ?>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="if(confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>')) { this.form.target = _self; return true; } else { return false; }" />
+		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="<?= L_DELETE ?>" onclick="return confirm('<?= L_ARTICLE_DELETE_CONFIRM ?>');" />
 <?php
 	}
 }
