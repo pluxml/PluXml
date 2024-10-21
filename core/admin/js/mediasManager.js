@@ -83,13 +83,14 @@ var mediasManager = {
 						var cibleId = launcher.cibleId;
 						var fallback = launcher.fallback;
 						var fn = window[fallback];
+						const link = target.hasAttribute('data-src') ? target.dataset.src : target.href;
 						if (typeof fn === "function") {
-							var fnparams = [cibleId, target.href, replace];
+							var fnparams = [cibleId, link, replace];
 							fn.apply(null, fnparams);
 						}
 						else {
-							mediasManager.addText(cibleId, target.href, replace);
-							mediasManager.updImg(cibleId + '_img', target.href);
+							mediasManager.addText(cibleId, link, replace);
+							mediasManager.updImg(cibleId + '_img', link);
 						}
 						window.close();
 						cibleId.focus();
@@ -109,12 +110,12 @@ var mediasManager = {
 		this.cibleId = cibleId;
 		this.replace = replace;
 		this.fallback = fallback;
-		popup = window.open(unescape(this.opts.racine + this.opts.urlManager), this.opts.windowName, options);
+		const popup = window.open(unescape(this.opts.racine + this.opts.urlManager), this.opts.windowName, options);
 		if (popup) {
 			popup.focus();
 		}
 		else {
-			alert('Ouverture de la fenêtre bloquée par un anti-popup!');
+			alert('A popup window is forbidden by the navigator !');
 		}
 		return false;
 	}

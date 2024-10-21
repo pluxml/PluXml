@@ -271,7 +271,7 @@ if($plxMedias->aFiles) {
 		} else {
 			# C'est un fichier à télécharger
 ?>
-							<a class="filelink" title="<?= $title ?>" href="<?= $v['path'] ?>" download><?= $title . $v['extension'] ?></a>
+							<a class="filelink" title="<?= $title ?>" href="<?= $v['path'] ?>" data-src="<?= $v['path'] ?>" download><?= $title . $v['extension'] ?></a>
 <?php
 		}
 ?>
