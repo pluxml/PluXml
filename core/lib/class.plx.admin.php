@@ -1373,7 +1373,7 @@ EOT;
 		if(empty($content['template']) or !file_exists(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . basename($content['template']))) {
 			$content['template']= 'article.php';
 		}
-		if(empty($content['allow_com']) or $content['allow_com'] != '1') {
+		if(!in_array($content['allow_com'], array('0', '1', '2'))) {
 			$content['allow_com'] = '0';
 		}
 		$meta_description = plxUtils::getValue($content['meta_description']);
