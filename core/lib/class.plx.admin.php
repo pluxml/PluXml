@@ -517,13 +517,12 @@ EOT;
 	 **/
 	public function editPassword($content) {
 
-		$token = '';
-		$action = false;
-
 		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
 			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
 		}
 
+		$action = false;
+		$token = '';
 		if(!empty($token = $content['lostPasswordToken'])) {
 			foreach($this->aUsers as $user_id => $user) {
 				if ($user['password_token'] == $token) {
@@ -535,8 +534,9 @@ EOT;
 					break;
 				}
 			}
-		}
-		else {
+		} elseif(empty($_SESSION['user']) or !array_key_exists($_SESSION['user'], $this->aUsers)) {
+			return plxMsg::Error(L_UNKNOWN_ERROR);
+		} else {
 			$salt = $this->aUsers[$_SESSION['user']]['salt'];
 			$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
 			$action = true;
@@ -598,7 +598,7 @@ EOT;
 							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
 							$this->editUsers($user_id, true);
-							return $lostPasswordToken;
+							return true;
 						}
 					}
 					break;
@@ -606,7 +606,8 @@ EOT;
 			}
 		}
 
-		return '';
+		# Echec unknown user or fails for sending mail
+		return false;
 	}
 
 	/**

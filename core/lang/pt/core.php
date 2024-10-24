@@ -14,6 +14,14 @@ const L_INFO_PHP_VERSION = 'Versão de php';
 const L_INFO_CHARSET = 'codagem';
 const L_PAGE = 'Página';
 const L_SAVE_SUCCESSFUL = 'Grabação dos dados efectuada com sucesso';
+const L_PASSWORD						= 'Senha';
+const L_CONFIRM_PASSWORD			= 'Confirmação da senha';
+const L_ERR_MISSING_PASSWORD			= 'Por favor, indique a sua senha !';
+const L_ERR_CONFIRM_PASSWORD		= 'Confirmação da senha incorrecta !';
+const L_PWD_VERY_WEAK					= 'Senha muito fraca';
+const L_PWD_WEAK						= 'Senha fraca';
+const L_PWD_GOOD						= 'Boa senha';
+const L_PWD_STRONG						= 'Senha forte';
 
 # index.php
 

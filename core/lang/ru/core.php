@@ -14,6 +14,14 @@ const L_INFO_PHP_VERSION = 'PHP версия';
 const L_INFO_CHARSET = 'кодировка';
 const L_PAGE = 'Страница';
 const L_SAVE_SUCCESSFUL = 'Данные успешно сохранены';
+const L_PASSWORD						= 'Пароль';
+const L_CONFIRM_PASSWORD			= 'Подтвердить пароль';
+const L_ERR_CONFIRM_PASSWORD		= 'Неверный пароль!';
+const L_ERR_MISSING_PASSWORD			= 'Пожалуйста, заполните поле Пароль!';
+const L_PWD_VERY_WEAK					= 'очень слабый пароль';
+const L_PWD_WEAK						= 'слабый пароль';
+const L_PWD_GOOD						= 'хороший пароль';
+const L_PWD_STRONG						= 'Надежный пароль';
 
 # index.php
 

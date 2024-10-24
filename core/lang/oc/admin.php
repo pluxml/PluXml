@@ -516,8 +516,6 @@ const L_PROFIL_ADMIN_LANG = 'Lenga utilizada dins l\'administracion';
 const L_PROFIL_INFOS = 'Informacions';
 const L_PROFIL_UPDATE = 'Modificar vòstre perfil';
 const L_PROFIL_CHANGE_PASSWORD = 'Cambiament del senhal';
-const L_PROFIL_PASSWORD = 'Senhal';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirmacion del senhal';
 const L_PROFIL_UPDATE_PASSWORD = 'Cambiar vòstre senhal';
 
 // statique.php

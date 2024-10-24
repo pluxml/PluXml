@@ -14,6 +14,14 @@ const L_INFO_PHP_VERSION = 'Wersja PHP';
 const L_INFO_CHARSET = 'kodowanie';
 const L_PAGE = 'strona';
 const L_SAVE_SUCCESSFUL = 'Zapisywanie zakończone powodzeniem';
+const L_PASSWORD						= 'Hasło';
+const L_CONFIRM_PASSWORD			= 'Potwierdź hasło';
+const L_ERR_MISSING_PASSWORD			= 'Proszę wpisać hasło !';
+const L_ERR_CONFIRM_PASSWORD		= 'Niepoprawne potwierdzenie hasła';
+const L_PWD_VERY_WEAK					= 'Bardzo słabe hasło';
+const L_PWD_WEAK						= 'Słabe hasło';
+const L_PWD_GOOD						= 'Dobre hasło';
+const L_PWD_STRONG						= 'Silne hasło';
 
 # index.php
 

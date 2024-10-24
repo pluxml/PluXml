@@ -14,6 +14,14 @@ const L_INFO_PHP_VERSION = 'PHP-versie';
 const L_INFO_CHARSET = 'codering';
 const L_PAGE = 'Pagina';
 const L_SAVE_SUCCESSFUL = 'Gegevens succesvol opgeslagen';
+const L_PASSWORD						= 'Wachtwoord';
+const L_CONFIRM_PASSWORD			= 'Bevestig het wachtwoord';
+const L_ERR_CONFIRM_PASSWORD		= 'Bevestiging van wachtwoord mislukt !';
+const L_ERR_MISSING_PASSWORD			= 'Vul een wachtwoord in !';
+const L_PWD_VERY_WEAK					= 'Zeer zwak wachtwoord';
+const L_PWD_WEAK						= 'Zwak wachtwoord';
+const L_PWD_GOOD						= 'Goed wachtwoord';
+const L_PWD_STRONG						= 'Sterk wachtwoord';
 
 # index.php
 

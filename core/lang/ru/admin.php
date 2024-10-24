@@ -517,8 +517,6 @@ const L_PROFIL_ADMIN_LANG = 'Язык Административной пане�
 const L_PROFIL_INFOS = 'Информация о Вас (отображается под текстом статей)';
 const L_PROFIL_UPDATE = 'Изменить Ваш профиль';
 const L_PROFIL_CHANGE_PASSWORD = 'Изменение пароля';
-const L_PROFIL_PASSWORD = 'Пароль';
-const L_PROFIL_CONFIRM_PASSWORD = 'Повторить пароль';
 const L_PROFIL_UPDATE_PASSWORD = 'Изменить пароль';
 
 // statique.php

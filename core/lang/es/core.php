@@ -14,6 +14,14 @@ const L_INFO_PHP_VERSION = 'Versión de PHP';
 const L_INFO_CHARSET = 'codificación';
 const L_PAGE = 'Página';
 const L_SAVE_SUCCESSFUL = 'Se guradaron los datos correctamente';
+const L_PASSWORD					= 'Contraseña';
+const L_ERR_MISSING_PASSWORD		= 'Indique una contraseña!';
+const L_CONFIRM_PASSWORD		= 'Confirmar contraseña';
+const L_ERR_CONFIRM_PASSWORD	= 'La contraseña es incorrecta!';
+const L_PWD_VERY_WEAK				= 'Contraseña muy débil';
+const L_PWD_WEAK					= 'Contraseña débil';
+const L_PWD_GOOD					= 'Buena contraseña';
+const L_PWD_STRONG					= 'Contraseña segura';
 
 # index.php
 

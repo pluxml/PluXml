@@ -517,8 +517,6 @@ const L_PROFIL_ADMIN_LANG = 'Taal van administratiegedeelte';
 const L_PROFIL_INFOS = 'Informatie';
 const L_PROFIL_UPDATE = 'Uw profiel aanpassen';
 const L_PROFIL_CHANGE_PASSWORD = 'Wachtwoord veranderen';
-const L_PROFIL_PASSWORD = 'Wachtwoord';
-const L_PROFIL_CONFIRM_PASSWORD = 'Wachtwoord bevestigen';
 const L_PROFIL_UPDATE_PASSWORD = 'Wachtwoord veranderen';
 
 // statique.php

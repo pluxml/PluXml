@@ -517,8 +517,6 @@ const L_PROFIL_ADMIN_LANG = 'Limba utilizată';
 const L_PROFIL_INFOS = 'Informaţii';
 const L_PROFIL_UPDATE = 'Editează-ţi profilul';
 const L_PROFIL_CHANGE_PASSWORD = 'Schimbarea parolei';
-const L_PROFIL_PASSWORD = 'Parola';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirmaţi parola';
 const L_PROFIL_UPDATE_PASSWORD = 'Schimbaţi parola';
 
 // statique.php

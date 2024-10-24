@@ -20,7 +20,7 @@ if(!empty($_POST)) {
 
 	if(!empty($_POST['profil']))
 		$plxAdmin->editProfil($_POST);
-	elseif(!empty($_POST['password']))
+	elseif(!empty(trim($_POST['password1'])))
 		$plxAdmin->editPassword($_POST);
 
 	header('Location: profil.php');
@@ -79,25 +79,11 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 <h3><?= L_PROFIL_CHANGE_PASSWORD ?></h3>
 <form action="profil.php" method="post" id="form_password">
 	<fieldset>
-		<div class="grid">
-			<div class="col sml-12">
-				<label for="id_password1" class="required"><?= L_PROFIL_PASSWORD ?>&nbsp;:</label>
-				<i class="ico icon-lock"></i>
-				<?php plxUtils::printInput('password1', '', 'password', '20-255', false, '', '', '', true); ?>
-			</div>
-		</div>
-		<div class="grid">
-			<div class="col sml-12">
-				<label for="id_password2" class="required"><?= L_PROFIL_CONFIRM_PASSWORD ?><span data-lang="&nbsp;❌|&nbsp;✅"></span>&nbsp;:</label>
-				<i class="ico icon-lock"></i>
-				<?php plxUtils::printInput('password2', '', 'password', '20-255', false, '', '', '', true); ?>
-
-			</div>
-		</div>
+<?php plxUtils::printInputPasswords(); ?>
 		<div class="grid">
 			<div class="col sml-12">
 				<?= plxToken::getTokenPostMethod() ?>
-				<input type="submit" name="password" value="<?= L_PROFIL_UPDATE_PASSWORD ?>" />
+				<input type="submit" value="<?= L_PROFIL_UPDATE_PASSWORD ?>" />
 			</div>
 		</div>
 	</fieldset>

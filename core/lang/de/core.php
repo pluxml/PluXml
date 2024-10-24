@@ -13,8 +13,16 @@ const L_HOMEPAGE				= 'Homepage';
 const L_UNCLASSIFIED			= 'Nicht kategorisiert';
 const L_INFO_PHP_VERSION		= 'PHP Version';
 const L_INFO_CHARSET			= 'Kodierung';
-const L_PAGE = 'Seite';
-const L_SAVE_SUCCESSFUL = 'Daten erfolgreich gespeichert';
+const L_PAGE					= 'Seite';
+const L_SAVE_SUCCESSFUL			= 'Daten erfolgreich gespeichert';
+const L_PASSWORD					= 'Passwort';
+const L_CONFIRM_PASSWORD		= 'Passwort wiederholen';
+const L_ERR_MISSING_PASSWORD		= 'Geben Sie ein Passwort ein!';
+const L_ERR_CONFIRM_PASSWORD	= 'Die Passwörter sind nicht identisch!';
+const L_PWD_VERY_WEAK			= 'Sehr schwaches Passwort';
+const L_PWD_WEAK				= 'Schwaches Passwort';
+const L_PWD_GOOD				= 'Gutes Passwort';
+const L_PWD_STRONG				= 'Starkes Passwort';
 
 # index.php
 const L_ERR_THEME_NOTFOUND		= 'Der Haupttheme von PluXml konnte nicht gefunden werden.';

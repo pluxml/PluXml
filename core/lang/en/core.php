@@ -13,8 +13,16 @@ const L_HOMEPAGE					= 'Homepage';
 const L_UNCLASSIFIED				= 'Uncategorized';
 const L_INFO_PHP_VERSION			= 'PHP version';
 const L_INFO_CHARSET				= 'charset';
-const L_PAGE = 'Page';
-const L_SAVE_SUCCESSFUL = 'Data was succesfully saved';
+const L_PAGE						= 'Page';
+const L_SAVE_SUCCESSFUL				= 'Data was succesfully saved';
+const L_PASSWORD						= 'Password';
+const L_CONFIRM_PASSWORD			= 'Confirm password';
+const L_ERR_MISSING_PASSWORD			= 'Please fill the password field !';
+const L_ERR_CONFIRM_PASSWORD		= 'Invalid password confirmation !';
+const L_PWD_VERY_WEAK				= 'Very weak password';
+const L_PWD_WEAK					= 'Weak password';
+const L_PWD_GOOD					= 'Good password';
+const L_PWD_STRONG					= 'Strong password';
 
 # index.php
 const L_ERR_THEME_NOTFOUND			= 'Main PluXml theme not found';

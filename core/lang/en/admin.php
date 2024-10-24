@@ -517,8 +517,6 @@ const L_PROFIL_ADMIN_LANG = 'Language for administration';
 const L_PROFIL_INFOS = 'Information';
 const L_PROFIL_UPDATE = 'Save profile';
 const L_PROFIL_CHANGE_PASSWORD = 'Change password';
-const L_PROFIL_PASSWORD = 'Password';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirm password';
 const L_PROFIL_UPDATE_PASSWORD = 'Change password';
 
 // statique.php

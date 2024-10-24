@@ -12,8 +12,16 @@ const L_HOMEPAGE					= 'Accueil';
 const L_UNCLASSIFIED				= 'Non classé';
 const L_INFO_PHP_VERSION			= 'Version de PHP';
 const L_INFO_CHARSET				= 'encodage';
-const L_PAGE = 'page';
-const L_SAVE_SUCCESSFUL = 'Enregistrement des données effectué avec succès';
+const L_PAGE						= 'page';
+const L_SAVE_SUCCESSFUL				= 'Enregistrement des données effectué avec succès';
+const L_PASSWORD					= 'Mot de passe';
+const L_CONFIRM_PASSWORD		= 'Confirmation du mot de passe';
+const L_ERR_MISSING_PASSWORD		= 'Veuillez renseigner un mot de passe.';
+const L_ERR_CONFIRM_PASSWORD	= 'Confirmation du mot de passe incorrecte.';
+const L_PWD_VERY_WEAK				= 'Mot de passe très faible';
+const L_PWD_WEAK					= 'Mot de passe faible';
+const L_PWD_GOOD					= 'Mot de passe bon';
+const L_PWD_STRONG					= 'Mot de passe fort';
 
 # index.php
 

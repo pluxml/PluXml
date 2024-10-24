@@ -161,6 +161,16 @@ function loadLang($filename) {
 	}
 }
 
+# for strength of the password
+function passwordDict() {
+	return implode('|', array(
+		L_PWD_VERY_WEAK,
+		L_PWD_WEAK,
+		L_PWD_GOOD,
+		L_PWD_STRONG,
+	));
+}
+
 # fonction qui retourne ou change le chemin des fichiers xml de configuration
 function path($s, $newvalue='') {
 	global $CONSTS;

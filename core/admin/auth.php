@@ -175,7 +175,7 @@ if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($
 if ($plxAdmin->aConf['lostpassword']) {
 	# Send lost password e-mail
 	if (!empty($_POST['lostpassword_id'])) {
-		if (!empty($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']))) {
+		if ($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id'])) {
 			$msg = L_LOST_PASSWORD_SUCCESS;
 			$css = 'alert green';
 		} else {
@@ -278,21 +278,7 @@ plxUtils::cleanHeaders();
 								<?= plxToken::getTokenPostMethod() ?>
 								<input name="lostPasswordToken" value="<?= $lostPasswordToken ?>" type="hidden"/>
 								<h1 class="h5 text-center"><strong><?= L_PROFIL_CHANGE_PASSWORD ?></strong></h1>
-								<div class="grid">
-									<div class="col sml-12">
-										<label for="id_password1"><?= L_PROFIL_PASSWORD ?>&nbsp;:</label>
-										<i class="ico icon-lock"></i>
-										<?php plxUtils::printInput('password1', '', 'password', '10-255', false, 'full-width', L_PROFIL_PASSWORD, '', true) ?>
-									</div>
-								</div>
-								<div class="grid">
-									<div class="col sml-12">
-										<label for="id_password2"><?= L_PROFIL_CONFIRM_PASSWORD ?><span data-lang="&nbsp;❌|&nbsp;✅"></span>&nbsp;:</label>
-										<i class="ico icon-lock"></i>
-										<?php plxUtils::printInput('password2', '', 'password', '10-255', false, 'full-width', L_PROFIL_CONFIRM_PASSWORD, '', true) ?>
-
-									</div>
-								</div>
+<?php plxUtils::printInputPasswords('full-width'); ?>
 								<div class="grid">
 									<div class="col sml-12">
 										<small><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></small>

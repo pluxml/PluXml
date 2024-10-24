@@ -49,7 +49,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 			<th title="<?= L_USER_LANG ?>"><?= L_ID ?></th>
 			<th class="required"><?= L_PROFIL_USER ?></th>
 			<th class="required"><?= L_PROFIL_LOGIN ?></th>
-			<th><?= L_PROFIL_PASSWORD ?></th>
+			<th><?= L_PASSWORD ?></th>
 			<th<?= ($requireMail? ' class="required"': '') ?>><?= L_PROFIL_MAIL ?></th>
 			<th><?= L_PROFIL ?></th>
 			<th><?= L_CONFIG_USERS_ACTIVE ?></th>

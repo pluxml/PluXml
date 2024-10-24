@@ -14,6 +14,14 @@ const L_INFO_PHP_VERSION = 'Versione di php';
 const L_INFO_CHARSET = 'encoding';
 const L_PAGE = 'Pagina';
 const L_SAVE_SUCCESSFUL = 'Dati salvati con successo';
+const L_PASSWORD						= 'Password';
+const L_CONFIRM_PASSWORD			= 'Conferma password';
+const L_ERR_CONFIRM_PASSWORD		= 'Conferma della password non corretta !';
+const L_ERR_MISSING_PASSWORD			= 'Inserisci una password !';
+const L_PWD_VERY_WEAK					= 'Password molto debole';
+const L_PWD_WEAK						= 'Password debole';
+const L_PWD_GOOD						= 'Buona password';
+const L_PWD_STRONG						= 'Password complessa';
 
 # index.php
 
