@@ -658,18 +658,8 @@ EOT;
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) return;
 
-		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser']) AND empty($content['update'])) {
-			foreach($content['idUser'] as $user_id) {
-				if($content['selection']=='delete' AND $user_id!='001') {
-					$this->aUsers[$user_id]['delete']=1;
-					$action = true;
-				}
-			}
-		}
-		# mise à jour de la liste des utilisateurs
-		elseif(!empty($content['update'])) {
-
+		if(isset($content['update'])) {
+			# mise à jour de la liste des utilisateurs
 			foreach($content['userNum'] as $user_id) {
 				$username = trim($content[$user_id.'_name']);
 				$login = trim($content[$user_id.'_login']);
@@ -708,7 +698,9 @@ EOT;
 
 				$this->aUsers[$user_id]['login'] = $content[$user_id.'_login'];
 				$this->aUsers[$user_id]['name'] = $content[$user_id.'_name'];
+				# actif = 1  si $user_id = '001'
 				$this->aUsers[$user_id]['active'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['active']:$content[$user_id.'_active']);
+				# profil = 0 si $user_id = '001' !
 				$this->aUsers[$user_id]['profil'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['profil']:$content[$user_id.'_profil']);
 				$this->aUsers[$user_id]['password'] = $password;
 				$this->aUsers[$user_id]['salt'] = $salt;
@@ -720,9 +712,18 @@ EOT;
 
 				$this->aUsers[$user_id]['password_token'] = isset($this->aUsers[$user_id]['_password_token']) ? $this->aUsers[$user_id]['_password_token']  : '';
 				$this->aUsers[$user_id]['password_token_expiry'] = isset($this->aUsers[$user_id]['_password_token_expiry']) ? $this->aUsers[$user_id]['_password_token_expiry'] : '';
+
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
 				$action = true;
+			}
+		} elseif(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser'])) {
+			# suppression
+			foreach($content['idUser'] as $user_id) {
+				if($user_id!='001') {
+					$this->aUsers[$user_id]['delete'] = 1;
+					$action = true;
+				}
 			}
 		}
 		# sauvegarde
