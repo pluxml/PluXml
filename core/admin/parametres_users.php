@@ -62,41 +62,41 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 	$num = 0;
 	if($plxAdmin->aUsers) {
 		foreach($plxAdmin->aUsers as $_userid => $_user) {
-			if (!$_user['delete']) {
+			if (!empty($_user['delete'])) {
+				continue;
+			}
 ?>
 		<tr>
 			<td>
 				<input type="checkbox" name="idUser[]" value="<?= $_userid ?>" />
-				<input type="hidden" name="userNum[]" value="<?= $_userid ?>" />
 			</td>
 			<td><?= $_userid ?> <span class="flag" title="<?= $_user['lang'] ?>"><?= FLAGS[$_user['lang']] ?></span></td>
-			<td><?php plxUtils::printInput($_userid.'_name', plxUtils::strCheck($_user['name']), 'text', '', false, '', '', '', true); ?></td>
-			<td><?php plxUtils::printInput($_userid.'_login', plxUtils::strCheck($_user['login']), 'text', '', false, '', '', '', true); ?></td>
-			<td><?php plxUtils::printInput($_userid.'_password', '', 'password', ''); ?></td>
-			<td><?php plxUtils::printInput($_userid.'_email', plxUtils::strCheck($_user['email']), 'email', '', false, '', '', '', $requireMail); ?></td>
+			<td><?php plxUtils::printInput('users[' . $_userid . '][name]', plxUtils::strCheck($_user['name']), 'text', '', false, '', '', '', true); ?></td>
+			<td><?php plxUtils::printInput('users[' . $_userid . '][login]', plxUtils::strCheck($_user['login']), 'text', '', false, '', '', '', true); ?></td>
+			<td><?php plxUtils::printInput('users[' . $_userid . '][password]', '', 'password', ''); ?></td>
+			<td><?php plxUtils::printInput('users[' . $_userid . '][email]', plxUtils::strCheck($_user['email']), 'email', '', false, '', '', '', $requireMail); ?></td>
 			<td>
 <?php
-				if($_userid=='001') {
-					plxUtils::printInput($_userid.'_profil', $_user['profil'], 'hidden');
-					plxUtils::printInput($_userid.'_active', $_user['active'], 'hidden');
-					plxUtils::printSelect($_userid.'__profil', PROFIL_NAMES, $_user['profil'], true, 'readonly');
+			if($_userid=='001') {
+				// plxUtils::printInput($_userid.'_profil', $_user['profil'], 'hidden');
+				// plxUtils::printInput($_userid.'_active', $_user['active'], 'hidden');
+				plxUtils::printSelect('users[' . $_userid . '][profil]', PROFIL_NAMES, $_user['profil'], true, 'readonly');
 ?>
 			</td>
-			<td><?php plxUtils::printSelect($_userid.'__active', array('1'=>L_YES,'0'=>L_NO), $_user['active'], true, 'readonly'); ?>
+			<td><?php plxUtils::printSelect('users[' . $_userid . '][active]', array('1'=>L_YES,'0'=>L_NO), $_user['active'], true, 'readonly'); ?>
 <?php
-				} else {
-					plxUtils::printSelect($_userid.'_profil', PROFIL_NAMES, $_user['profil']);
+			} else {
+				plxUtils::printSelect('users[' . $_userid . '][profil]', PROFIL_NAMES, $_user['profil']);
 ?>
 			</td>
-			<td><?php plxUtils::printSelect($_userid.'_active', array('1'=>L_YES,'0'=>L_NO), $_user['active']); ?>
+			<td><?php plxUtils::printSelect('users[' . $_userid . '][active]', array('1'=>L_YES,'0'=>L_NO), $_user['active']); ?>
 <?php
-				}
+			}
 ?>
 			</td>
 			<td><a href="user.php?p=<?= $_userid ?>"><?= L_OPTIONS ?></a></td>
 		</tr>
 <?php
-			}
 		}
 		# On récupère le dernier identifiant
 		$a = array_keys($plxAdmin->aUsers);
@@ -106,21 +106,18 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 	}
 
 	# newuser
-	$new_userid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
+	$new_userid = str_pad($a['0']+1, 3, '0', STR_PAD_LEFT);
 ?>
-		<tr class="new">
+		<tr class="new" data-userid="<?= $new_userid ?>">
 			<td colspan="2"><?= L_CONFIG_USERS_NEW ?></td>
 			<td>
-				<input type="hidden" name="userNum[]" value="<?= $new_userid ?>" />
-				<?php plxUtils::printInput($new_userid.'_newuser', 'true', 'hidden'); ?>
-				<?php plxUtils::printInput($new_userid.'_name', '', 'text', ''); ?>
-				<?php plxUtils::printInput($new_userid.'_infos', '', 'hidden'); ?>
+				<?php plxUtils::printInput('users[' . $new_userid . '][name]', '', 'text', ''); ?>
 			</td>
-			<td><?php plxUtils::printInput($new_userid.'_login', '', 'text', ''); ?></td>
-			<td><?php plxUtils::printInput($new_userid.'_password', '', 'password', ''); ?></td>
-			<td><?php plxUtils::printInput($new_userid.'_email', '', 'email', ''); ?></td>
-			<td><?php plxUtils::printSelect($new_userid.'_profil', PROFIL_NAMES, PROFIL_WRITER); ?></td>
-			<td><?php plxUtils::printSelect($new_userid.'_active', array('1'=>L_YES,'0'=>L_NO), '1'); ?></td>
+			<td><?php plxUtils::printInput('users[' . $new_userid . '][login]', '', 'text', ''); ?></td>
+			<td><?php plxUtils::printInput('users[' . $new_userid . '][password]', '', 'password', ''); ?></td>
+			<td><?php plxUtils::printInput('users[' . $new_userid . '][email]', '', 'email', ''); ?></td>
+			<td><?php plxUtils::printSelect('users[' . $new_userid . '][profil]', PROFIL_NAMES, PROFIL_WRITER); ?></td>
+			<td><?php plxUtils::printSelect('users[' . $new_userid . '][active]', array('1'=>L_YES,'0'=>L_NO), '1'); ?></td>
 			<td>&nbsp;</td>
 		</tr>
 	</tbody>

@@ -171,10 +171,23 @@ var DragDrop = {
 
 
 	// New user
-	const users = document.getElementById('form_users');
-	if(users) {
-		users.addEventListener('submit', function(ev) {
-			alert('Controler nouvel utilisateur');
-		});
+	const newUserRow = document.querySelector('#users-table tbody tr.new[data-userid]');
+	if(newUserRow) {
+		const userId = newUserRow.dataset.userid;
+		const nameUser = newUserRow.querySelector("input[name='users[" + userId + "][name]']");
+		const loginUser = newUserRow.querySelector("input[name='users[" + userId + "][login]']");
+		if(nameUser && loginUser) {
+			const inputs = newUserRow.querySelectorAll('input');
+			newUserRow.addEventListener('change', function(ev) {
+				if(ev.target == nameUser || ev.target== loginUser) {
+					// required fields for new user
+					console.log('Controler nouvel utilisateur');
+					const required = (nameUser.value.trim().length > 0 || loginUser.value.trim().length > 0);
+					Array.from(inputs).forEach(function(el) {
+						el.required = required;
+					});
+				}
+			});
+		}
 	}
 })();

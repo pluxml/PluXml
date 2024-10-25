@@ -660,58 +660,70 @@ EOT;
 
 		if(isset($content['update'])) {
 			# mise à jour de la liste des utilisateurs
-			foreach($content['userNum'] as $user_id) {
-				$username = trim($content[$user_id.'_name']);
-				$login = trim($content[$user_id.'_login']);
+			foreach($content['users'] as $user_id=>$user_infos) {
+				$username = trim($user_infos['name']);
+				$login = trim($user_infos['login']);
 
 				if(empty($username) or empty($login)) {
 					continue;
 				}
 
 				# contrôle validité name et login
-				foreach(array('_name', '_login') as $f) {
-					$value = $content[$user_id . $f];
+				foreach(array('name', 'login') as $f) {
+					$value = $user_infos[$f];
 					if(!preg_match(PATTERN_NAME, $value)) {
 						return plxMsg::Error(L_INVALID_VALUE . ' : <em>' . $value .  '</em>');
 					}
 				}
 
+				$new_user = !array_key_exists($user_id, $this->aUsers);
 				# controle du mot de passe
-				if(trim($content[$user_id.'_password']) != '') {
+				if(trim($user_infos['password']) != '') {
+					# Nouveau mot de passe
 					$salt = plxUtils::charAleatoire(10);
 					$password = sha1($salt . md5($content[$user_id.'_password']));
-				} elseif(isset($content[$user_id . '_newuser'])) {
+				} elseif($new_user) {
+					# Obligatoire pour un nouvel utilisateur
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_PASSWORD_EMPTY . ' (' . L_CONFIG_USER . ' <em>' . $username . '</em>)');
 				}
 				else {
+					# On récupère l'ancien mot de passe
 					$salt = $this->aUsers[$user_id]['salt'];
 					$password = $this->aUsers[$user_id]['password'];
 				}
 
 				# controle de l'adresse email
-				$email = trim($content[$user_id.'_email']);
-				if(isset($content[$user_id.'_newuser']) AND empty($email))
+				$email = trim($user_infos['email']);
+				if($new_user AND empty($email))
 					return plxMsg::Error(L_ERR_INVALID_EMAIL);
 				if(!empty($email) AND !plxUtils::checkMail($email))
 					return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-				$this->aUsers[$user_id]['login'] = $content[$user_id.'_login'];
-				$this->aUsers[$user_id]['name'] = $content[$user_id.'_name'];
-				# actif = 1  si $user_id = '001'
-				$this->aUsers[$user_id]['active'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['active']:$content[$user_id.'_active']);
-				# profil = 0 si $user_id = '001' !
-				$this->aUsers[$user_id]['profil'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['profil']:$content[$user_id.'_profil']);
+				$this->aUsers[$user_id]['login'] = $login;
+				$this->aUsers[$user_id]['name'] = $username;
+				if($user_id == '001') {
+					$this->aUsers[$user_id]['active'] = 1;
+					$this->aUsers[$user_id]['profil'] = PROFIL_ADMIN;
+				} else {
+					$this->aUsers[$user_id]['active'] = ($_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['active'] : $user_infos['active'];
+					$this->aUsers[$user_id]['profil'] = ($_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['profil'] : $user_infos['profil'];
+				}
 				$this->aUsers[$user_id]['password'] = $password;
 				$this->aUsers[$user_id]['salt'] = $salt;
 				$this->aUsers[$user_id]['email'] = $email;
-
-				$this->aUsers[$user_id]['delete'] = isset($this->aUsers[$user_id]['delete']) ? $this->aUsers[$user_id]['delete'] : 0;
-				$this->aUsers[$user_id]['lang'] = isset($this->aUsers[$user_id]['lang']) ? $this->aUsers[$user_id]['lang'] : $this->aConf['default_lang'];
-				$this->aUsers[$user_id]['infos'] = isset($this->aUsers[$user_id]['infos']) ? $this->aUsers[$user_id]['infos'] : '';
-
-				$this->aUsers[$user_id]['password_token'] = isset($this->aUsers[$user_id]['_password_token']) ? $this->aUsers[$user_id]['_password_token']  : '';
-				$this->aUsers[$user_id]['password_token_expiry'] = isset($this->aUsers[$user_id]['_password_token_expiry']) ? $this->aUsers[$user_id]['_password_token_expiry'] : '';
+				$default_values = array(
+					'delete'				=> 0,
+					'lang'					=> $this->aConf['default_lang'],
+					'infos'					=> '',
+					'password_token'		=> '',
+					'password_token_expiry' => '',
+				);
+				foreach($default_values as $k=>$default) {
+					if(!isset($this->aUsers[$user_id][$k])) {
+						$this->aUsers[$user_id][$k] = $default;
+					}
+				}
 
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
@@ -720,12 +732,15 @@ EOT;
 		} elseif(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser'])) {
 			# suppression
 			foreach($content['idUser'] as $user_id) {
-				if($user_id!='001') {
-					$this->aUsers[$user_id]['delete'] = 1;
-					$action = true;
+				if($user_id == '001') {
+					continue;
 				}
+
+				$this->aUsers[$user_id]['delete'] = 1;
+				$action = true;
 			}
 		}
+
 		# sauvegarde
 		if($action) {
 			$users_name = array();
