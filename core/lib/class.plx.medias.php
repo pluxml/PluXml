@@ -4,10 +4,11 @@
  * Classe plxMedias regroupant les fonctions pour gérer la librairie des medias
  *
  * @package PLX
- * @author	Stephane F, Pedro "P3ter" CADETE
+ * @author	Stephane F, Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
  **/
 class plxMedias {
 
+	const DEFAULT_THUMBNAIL = PLX_CORE . 'admin/theme/images/file.png';
 	public $path = null; # chemin vers les médias
 	public $dir = null;
 	public $aDirs = array(); # liste des dossiers et sous dossiers
@@ -105,7 +106,6 @@ class plxMedias {
 		$src = $this->path.$dir;
 		if(!is_dir($src)) return array();
 
-		$defaultSample = PLX_CORE.'admin/theme/images/file.png';
 		$offset = strlen($this->path);
 		$files = array();
 		foreach(array_filter(
@@ -138,10 +138,11 @@ class plxMedias {
 				$stats = stat($filename);
 				$extension = '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 				if($extension == '.svg') {
-					$defaultSample = $filename;
+					$sample = $filename;
+					$sampleOk = true;
 				}
 				$files[basename($filename)] = array(
-					'.thumb'	=> (!empty($sampleOk)) ? $sample : $defaultSample,
+					'.thumb'	=> (!empty($sampleOk)) ? $sample : self::DEFAULT_THUMBNAIL,
 					'name' 		=> basename($filename),
 					'path' 		=> $filename,
 					'date' 		=> $stats['mtime'],
@@ -308,8 +309,10 @@ class plxMedias {
 		if(!move_uploaded_file($file['tmp_name'],$upFile)) { # Erreur de copie
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
-			if(preg_match($this->img_exts, $file['name'])) {
-				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48);
+			if(
+				preg_match($this->img_exts, $file['name']) and
+				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48)
+			) {
 				if($resize)
 					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
 				if($thumb)

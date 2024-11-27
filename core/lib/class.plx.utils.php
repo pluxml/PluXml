@@ -651,13 +651,17 @@ class plxUtils {
 	 **/
 	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
-		if(!function_exists('imagecreatetruecolor')) return false;
+		if(!function_exists('imagecreatetruecolor')) {
+			return false;
+		}
 
 		# Get dimensions of existing image
 		$image = getimagesize($src_image);
 
 		# Check for valid dimensions
-		if($image[0] <= 0 || $image[1] <= 0) return false;
+		if($image === false || $image[0] <= 0 || $image[1] <= 0) {
+			return false;
+		}
 
 		# Determine format from MIME-Type
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
@@ -725,13 +729,13 @@ class plxUtils {
 		if($thumb_width==$thumb_height) {
 			if($image[0] > $image[1]) {
 				# For landscape images
-				$x_offset = ($image[0] - $image[1]) / 2;
+				$x_offset = intval(($image[0] - $image[1]) / 2);
 				$y_offset = 0;
 				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
 			} else {
 				# For portrait and square images
 				$x_offset = 0;
-				$y_offset = ($image[1] - $image[0]) / 2;
+				$y_offset = intval(($image[1] - $image[0]) / 2);
 				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
 			}
 		}
