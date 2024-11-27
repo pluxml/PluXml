@@ -121,6 +121,7 @@ const L_ARTFEED_RSS = 'RSS-поток статей';
 const L_NO_COMMENT = 'нет комментариев';
 const L_COMMENT = 'комментарий';
 const L_COMMENTS = 'комментария';
+const L_FORBIDDEN_COMMENTS = 'Запрещенные комментарии';
 const L_COMFEED_RSS_ARTICLE = 'RSS-поток комментариев статей';
 const L_COMFEED_RSS = 'RSS-поток комментариев';
 const L_STATICCONTENT_INPROCESS = 'Эта страница в настоящее время редактируется';

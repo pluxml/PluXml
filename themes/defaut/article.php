@@ -17,7 +17,7 @@
 										<?php $plxShow->lang('WRITTEN_BY'); ?> <?php $plxShow->artAuthor() ?>
 									</span>
 									<span class="art-nb-com">
-										<a href="#comments" title="<?php $plxShow->artNbCom(); ?>"><?php $plxShow->artNbCom(); ?></a>
+										<?php $plxShow->artNbCom(); ?>
 									</span>
 								</small>
 							</div>
@@ -35,8 +35,8 @@
 						<?php $plxShow->artThumbnail(); ?>
 						<?php $plxShow->artContent(); ?>
 					</article>
-					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>'); ?>
-<?php include 'commentaires.php'; ?>
+					<?php $plxShow->artAuthorInfos('<div class="author-infos">#art_authorinfos</div>' . PHP_EOL); ?>
+<?php include 'comments.php'; ?>
 				</div>
 <?php
 if (!defined('FULL_WIDTH')) {

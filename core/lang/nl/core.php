@@ -121,6 +121,7 @@ const L_ARTFEED_RSS = 'Rss-feed van de artikels';
 const L_NO_COMMENT = 'geen commentaar';
 const L_COMMENT = 'commentaar';
 const L_COMMENTS = 'commentaren';
+const L_FORBIDDEN_COMMENTS = 'Verboden commentaren';
 const L_COMFEED_RSS_ARTICLE = 'Rss-feed van de commentaren van dit artikel';
 const L_COMFEED_RSS = 'Rss-feed van de commentaren';
 const L_STATICCONTENT_INPROCESS = 'Deze pagine wordt momenteel bijgewerkt';

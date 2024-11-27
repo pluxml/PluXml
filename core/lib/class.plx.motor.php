@@ -371,17 +371,17 @@ class plxMotor {
 	 * @return	bool
 	 * @author	Jean-Pierre Pourrez "bazooka07"
 	 **/
-	public function articleAllowComs() {
-		return (
-			$this->mode == 'article' and
-			(
-				intval($this->aConf['allow_com']) > 0 or
-				(
-					!empty($this->plxRecord_arts) and
-					intval($this->plxRecord_arts->f('allow_com')) > 0
-				)
-			)
-		);
+	public function articleAllowComs($requestedAuth=false) {
+		if(
+			$this->mode != 'article' or
+			empty($this->aConf['allow_com']) or
+			empty($this->plxRecord_arts)
+		) {
+			return false;
+		}
+
+		$artAllowed = intval($this->plxRecord_arts->f('allow_com'));
+		return $requestedAuth ? ($artAllowed > 0) : ($artAllowed == 1 or ($artAllowed == 2 and isset($_SESSION['user'])));
 	}
 
 	/**
@@ -1097,21 +1097,37 @@ class plxMotor {
 		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
 
 		if(intval($this->aConf['allow_com']) == 2 or intval($this->plxRecord_arts->f('allow_com')) == 2) {
-			$success = false;
-			if(
-				(!empty($content['name']) or !empty($content['login'])) and
+			# Comments are only allowed for subscribers
+			if(isset($_SESSION['user']) and array_key_exists($_SESSION['user'], $this->aUsers)) {
+				$user_id = $_SESSION['user'];
+				$content['email'] = $this->aUsers[$user_id]['email'];
+				if(!isset($content['name']) and !isset($content['login'])) {
+					$content['name'] = $this->aUsers[$user_id]['name'];
+				}
+			} elseif(
+				(!empty($content['login']) or !empty($content['name']) or !empty($content['email'])) and
 				!empty($content['password'])
 			) {
-				foreach($this->aUsers as $user) {
-					if($user['active'] and !$user['delete'] and $user['login'] == (isset($content['login']) ? $content['login'] : $content['name'])) {
-						$success = (sha1($user['salt'] . md5($content['password'])) === $user['password']);
-						# $_POST['login'] == $user['login'] and sha1($user['salt'] . md5($_POST['password'])) === $user['password']
-						break;
-					}
+				$users = array_filter($this->aUsers, function($user_infos) use($content) {
+					return (
+						!empty($user_infos['active']) and
+						empty($user_infos['delete']) and
+						(
+							(isset($content['login']) and $user_infos['login'] == $content['login']) or
+							(isset($content['name']) and strtolower($user_infos['name']) == strtolower($content['name'])) or
+							(isset($content['email']) and $user_infos['email'] == $content['email'])
+						) and
+						sha1($user_infos['salt'] . md5($content['password'])) == $user_infos['password']
+					);
+				});
+				if(empty($users)) {
+					return L_NEWCOMMENT_ERR_LOGIN;
 				}
-			}
 
-			if(!$success) {
+				if(!isset($content['name']) and !isset($content['login'])) {
+					$content['name'] = array_values($users)[0]['email'];
+				}
+			} else {
 				return L_NEWCOMMENT_ERR_LOGIN;
 			}
 		}
@@ -1128,13 +1144,19 @@ class plxMotor {
 
 		# On vérifie que le capcha est correct
 		if(empty($this->aConf['capcha']) OR $_SESSION['capcha'] == sha1($content['rep'])) {
+			if(!isset($content['login']) and isset($_SESSION['user']) and array_key_exists($_SESSION['user'], $this->aUsers)) {
+				$content['login'] = $this->aUsers[$_SESSION['user']]['login'];
+			}
 			if((!empty($content['login']) or !empty($content['name'])) AND !empty($content['content'])) {
 				# Les champs obligatoires sont remplis
 				$artId = str_pad($artId, 4, '0', STR_PAD_LEFT);
 				# index du commentaire
 				$idx = $this->nextIdArtComment($artId);
 				# On modère le commentaire => underscore si besoin
-				$mod = $this->aConf['mod_com'] ? '_' : '';
+				$mod = '';
+				if(!empty($this->aConf['mod_com']) and (!isset($_SESSION['profil']) or $_SESSION['profil'] > PROFIL_MODERATOR)) {
+					$mod = '_';
+				}
 				# On génère le nom du fichier
 				$filename = $mod . $artId . '.' . time() . '-' . $idx . '.xml';
 
@@ -1155,7 +1177,7 @@ class plxMotor {
 
 				# On peut créer le commentaire
 				if($this->addCommentaire($comment)) { # Commentaire OK
-					return $this->aConf['mod_com'] ? 'mod' : 'c' . $idx;
+					return empty($mod) ? 'c' . $idx : 'mod';
 				} else { # Erreur lors de la création du commentaire
 					return L_NEWCOMMENT_ERR;
 				}

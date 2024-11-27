@@ -121,6 +121,7 @@ const L_ARTFEED_RSS					= 'Fil RSS des articles';
 const L_NO_COMMENT					= 'Aucun commentaire';
 const L_COMMENT						= 'commentaire';
 const L_COMMENTS					= 'commentaires';
+const L_FORBIDDEN_COMMENTS			= 'Commentaires interdits';
 const L_COMFEED_RSS_ARTICLE			= 'Fil RSS des commentaires de cet article';
 const L_COMFEED_RSS					= 'Fil RSS des commentaires';
 const L_STATICCONTENT_INPROCESS		= 'Cette page est actuellement en cours de rédaction';

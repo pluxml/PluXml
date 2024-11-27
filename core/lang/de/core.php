@@ -116,6 +116,7 @@ const L_ARTFEED_RSS				= 'Artikel-Feed (RSS)';
 const L_NO_COMMENT				= 'keine Kommentare';
 const L_COMMENT					= 'Kommentar';
 const L_COMMENTS				= 'Kommentare';
+const L_FORBIDDEN_COMMENTS			= 'Verbotene Kommentare';
 const L_COMFEED_RSS_ARTICLE		= 'Kommentare-Feed (RSS) dieses Artikels';
 const L_COMFEED_RSS				= 'Kommentare-Feed (RSS)';
 const L_STATICCONTENT_INPROCESS	= 'Diese Seite wird gerade bearbeitet';

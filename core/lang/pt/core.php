@@ -121,6 +121,7 @@ const L_ARTFEED_RSS = 'Fluxo Rss dos artigos';
 const L_NO_COMMENT = 'não comentários';
 const L_COMMENT = 'comentário';
 const L_COMMENTS = 'comentários';
+const L_FORBIDDEN_COMMENTS = 'Comentários proibidos';
 const L_COMFEED_RSS_ARTICLE = 'Fluxo Rss dos comentários deste artigo';
 const L_COMFEED_RSS = 'Fluxo Rss dos comentários';
 const L_STATICCONTENT_INPROCESS = 'Esta página está actualmente em curso de redacção';

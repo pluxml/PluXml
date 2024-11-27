@@ -121,6 +121,7 @@ const L_ARTFEED_RSS = 'Articole RSS Feed';
 const L_NO_COMMENT = 'nici un comentariu';
 const L_COMMENT = 'comentariu';
 const L_COMMENTS = 'comentarii';
+const L_FORBIDDEN_COMMENTS = 'Comentarii interzise';
 const L_COMFEED_RSS_ARTICLE = 'RSS feed pentru comentarii pe acest articol';
 const L_COMFEED_RSS = 'Comentarii RSS feed';
 const L_STATICCONTENT_INPROCESS = 'Aceasta pagina este in curs de elaborare';

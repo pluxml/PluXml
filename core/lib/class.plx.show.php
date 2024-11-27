@@ -1107,9 +1107,9 @@ class plxShow
 	 * @return	bool
 	 * @author	Jean-Pierre Pourrez "bazooka07"
 	 **/
-	public function articleAllowComs()
+	public function articleAllowComs($requestedAuth=false)
 	{
-		return $this->plxMotor->articleAllowComs();
+		return $this->plxMotor->articleAllowComs($requestedAuth);
 	}
 
 	/**
@@ -1128,36 +1128,52 @@ class plxShow
 	 * @param f1        format d'affichage si nombre de commentaire = 0 (#nb pour afficher le nombre de commentaire)
 	 * @param f2        format d'affichage si nombre de commentaire = 1 (#nb pour afficher le nombre de commentaire)
 	 * @param f3        format d'affichage si nombre de commentaire > 1 (#nb pour afficher le nombre de commentaire)
+	 * @param links     affiche un lien vers les commentaires ou un simple texte
 	 * @scope    home,categorie,article,tags,archives
-	 * @author    Stephane F
+	 * @author    Stephane F, J.P.Pourrez @bazooka07
 	 **/
-	public function artNbCom($f1 = 'L_NO_COMMENT', $f2 = '#nb L_COMMENT', $f3 = '#nb L_COMMENTS')
+	public function artNbCom($f1 = 'L_NO_COMMENT', $f2 = '#nb L_COMMENT', $f3 = '#nb L_COMMENTS', $links=true)
 	{
 
 		$nb = intval($this->plxMotor->plxRecord_arts->f('nb_com'));
-		$num = intval($this->plxMotor->plxRecord_arts->f('numero'));
-		$url = $this->plxMotor->plxRecord_arts->f('url');
 
-		if ($nb == 0) {
-			$txt = str_replace('L_NO_COMMENT', L_NO_COMMENT, $f1);
-			$title = $nb . ' ' . L_NO_COMMENT;
-		} elseif ($nb == 1) {
-			$txt = str_replace('L_COMMENT', L_COMMENT, $f2);
-			$title = $nb . ' ' . L_COMMENT;
-		} else {
-			$txt = str_replace('L_COMMENTS', L_COMMENTS, $f3);
-			$title = $nb . ' ' . L_COMMENTS;
+		switch($nb) {
+			case 0:
+				$txt = str_replace('L_NO_COMMENT', L_NO_COMMENT, $f1);
+				$title = $nb . ' ' . L_NO_COMMENT;
+				break;
+			case 1:
+				$txt = str_replace('L_COMMENT', L_COMMENT, $f2);
+				$title = $nb . ' ' . L_COMMENT;
+				break;
+			default:
+				$txt = str_replace('L_COMMENTS', L_COMMENTS, $f3);
+				$title = $nb . ' ' . L_COMMENTS;
 		}
 		$txt = str_replace('#nb', $nb, $txt);
 
 		if ($this->plxMotor->mode == 'article') {
-			echo $txt;
+			$urlBase = '';
 		} else {
-?>
-<a href="<?= $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $num . '/' . $url) ?>#comments" title="<?= $title ?>"><?= $txt ?></a>
-<?php
+			$num = intval($this->plxMotor->plxRecord_arts->f('numero'));
+			$url = $this->plxMotor->plxRecord_arts->f('url');
+			$urlBase = $this->plxMotor->urlRewrite('?' . L_ARTICLE_URL . $num . '/' . $url);
 		}
 
+		if(!$links) {
+			echo $txt;
+			return;
+		}
+
+		if($nb > 0 or $this->articleAllowComs()) {
+?>
+<a href="<?= $urlBase ?>#comments" title="<?= $title ?>"><?= $txt ?></a>
+<?php
+		} else {
+?>
+<span><?= L_FORBIDDEN_COMMENTS ?></span>
+<?php
+		}
 	}
 
 	/**

@@ -120,6 +120,7 @@ const L_ARTFEED_RSS					= 'Fil Rss dels articles';
 const L_NO_COMMENT					= 'pas cap de comentari';
 const L_COMMENT						= 'comentari';
 const L_COMMENTS					= 'comentaris';
+const L_FORBIDDEN_COMMENTS			= 'Comentaris enebits';
 const L_COMFEED_RSS_ARTICLE			= 'Fil Rss dels comentaris d\'aquel article';
 const L_COMFEED_RSS					= 'Fil Rss dels comentaris';
 const L_STATICCONTENT_INPROCESS		= 'Aquesta pagina es actualament per èsser redigida';

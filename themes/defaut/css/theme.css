@@ -292,6 +292,10 @@ article:after {
 	margin: -130px 0 0;
 }
 
+#comment-form input[name="rep"] {
+	text-align: center;
+}
+
 .comment {
 	background-image: url('../img/user.svg');
 	background-repeat: no-repeat;
@@ -350,6 +354,11 @@ article:after {
 	margin-left: 25rem;
 }
 
+#comments-container.response a[href="#form"],
+#comments-container.response form h2 {
+	display: none;
+}
+
 #id_answer {
 	margin-bottom: 1.5rem;
 	padding: 1.5rem;
@@ -395,12 +404,21 @@ article:after {
 	margin: 0;
 }
 
+.aside ul.spacer > li {
+	display: flex;
+	justify-content: space-between;
+}
+
+.aside ul.spacer > li:hover {
+	background-color: #eee;
+}
 
 /* --------- tags ---------- */
 
 .aside ul.tag-list {
 	list-style-type: none;
 	padding: 0;
+	text-align: center;
 }
 
 .aside ul.tag-list li {

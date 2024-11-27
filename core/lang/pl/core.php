@@ -121,6 +121,7 @@ const L_ARTFEED_RSS = 'Kanał RSS z posta';
 const L_NO_COMMENT = 'brak komentarzy';
 const L_COMMENT = 'komentarz';
 const L_COMMENTS = 'komentarze';
+const L_FORBIDDEN_COMMENTS = 'Zabronione komentarze';
 const L_COMFEED_RSS_ARTICLE = 'Kanał RSS z komentarzy dla tego posta';
 const L_COMFEED_RSS = 'Kanał RSS z komentarzy';
 const L_STATICCONTENT_INPROCESS = 'Ta strona jest obecnie moderowana';
