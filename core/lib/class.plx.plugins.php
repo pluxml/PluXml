@@ -45,24 +45,34 @@ class plxPlugins {
 <input type="checkbox" id="bug-notification" checked style="display: none;"/>
 <div  id="fatal-error" style="
   position: fixed;
-  top: 10vh;
+  top: 5vh;
+  bottom: 5vh;
   width: 80rem;
   left: calc(50vw - 40rem);
-  max-height: 80vh;
   padding: 0.5rem 1rem;
   background-color: #555;
   color: lime;
   z-index: 999;
 ">
-<pre><code>
-<?php
+	<div style="text-align: end;">
+		<label for="bug-notification" style="display: inline; padding: 0.2rem; background-color: #eee;">❌</label>
+	</div>
+	<pre style="margin: 0; padding: 0 0 1rem; max-height: calc(100% - 2rem);"><code><?php
 				}
+
 				if(isset($this->rootPlugins) and preg_match('#' . basename($this->rootPlugins) . '/([^/]+)/\1\.php$#', $error['file'], $matches)) {
 					$pluginName = $matches[1];
 					$newFolder = dirname($filename) . '-orig';
 ?>
 An error is occured with the "<?= strtoupper($pluginName) ?>" plugin :
 <?php
+					if(!defined('PLX_ADMIN')) {
+						$this->getInfos();
+					}
+					if(!empty($this->aPlugins[$pluginName])) {
+						$plxPlugin = $this->aPlugins[$pluginName];
+						printf('version: %s - date: %s - author: %s' . PHP_EOL, $plxPlugin->getInfo('version'), $plxPlugin->getInfo('date'), $plxPlugin->getInfo('author'));
+					}
 					$error['file'] = preg_replace('#^' . $this->rootPlugins . '/#', '', $filename);
 				} else {
 					$error['file'] = preg_replace('#^' . $documentRoot . '#', '', $filename);
@@ -71,24 +81,49 @@ Fatal error :
 <?php
 				}
 
-				# print_r($error);
 				foreach($error as $k=>$v) {
-					echo $k . ' : ' . $v . PHP_EOL;
+					$msg = '';
+					if($k == 'type') {
+						$typeStr = array_search($v, get_defined_constants(true)['Core']);
+						$lang = $this->default_lang;
+						if(!array($lang, array('en', 'de', 'es', 'fr', 'it', 'ru',))) {
+							$lang = 'en';
+						}
+						$url = 'https://www.php.net/manual/' . $lang . '/errorfunc.constants.php#constant.' . strtolower(str_replace('_', '-', $typeStr));
+						$msg = $typeStr . ' - See ' . $url;
+					}
+					echo $k . ' : ' . $v . ' ' . $msg . PHP_EOL;
 				}
 
-?>
-
-See https://www.php.net/manual/en/errorfunc.constants.php about type of error
-<?php
-				if(isset($_SESSION['user']) and isset($_SESSION['profil']) and $_SESSION['profil'] == 0) {
+				if(isset($_SESSION['user']) and isset($_SESSION['profil'])/* and $_SESSION['profil'] == 0 */) {
 					# Un administrateur est connecté
 ?>
 <?= $hr ?>
-User : <?= $_SESSION['user'] . PHP_EOL ?>
-Profil : <?= $_SESSION['profil'] . PHP_EOL ?>
+User / Profil : <?= $_SESSION['user'] . ' / ' . $_SESSION['profil'] . PHP_EOL ?>
 PluXml version : <?= PLX_VERSION . PHP_EOL ?>
 PLX_DEBUG : <?= ( PLX_DEBUG ? 'true' : 'false' ) . PHP_EOL ?>
 PHP version : <?= PHP_VERSION . PHP_EOL ?>
+<?php
+					if(!empty($this->aPlugins)) {
+?>
+<?= $hr ?>
+Enabled plugins :
+<?php
+ 						foreach($this->aPlugins as $name=>$plugin) {
+							if(!empty($plugin)) {
+								printf(
+									'%-20s | %8s | %10s | %s' . PHP_EOL,
+									$name,
+									$plugin->getInfo('version'),
+									$plugin->getInfo('date'),
+									$plugin->getInfo('author')
+								);
+							} else {
+								echo $name . PHP_EOL;
+							}
+						}
+					}
+?>
 <?=	$hr ?>
 About this server :
 <?php
@@ -96,19 +131,12 @@ About this server :
 					foreach(array_filter($_SERVER, function($key) {
 						return in_array($key, array(
 							'HTTP_USER_AGENT',
-							'HTTP_ACCEPT',
 							'HTTP_ACCEPT_LANGUAGE',
-							'HTTP_ACCEPT_ENCODING',
 							'HTTP_REFERER',
-							'SERVER_SIGNATURE',
 							'SERVER_SOFTWARE',
 							'SCRIPT_FILENAME',
-							'SERVER_PROTOCOL',
 							'REQUEST_METHOD',
-							'QUERY_STRING',
 							'REQUEST_URI',
-							'SCRIPT_NAME',
-							'PHP_SELF',
 						));
 					}, ARRAY_FILTER_USE_KEY) as $k=>$v) {
 						switch($k) {
@@ -121,25 +149,17 @@ About this server :
 							echo $k . ' : ' . $v . PHP_EOL;
 						}
 					}
-
-					if(!empty($pluginName)) {
-						# C'est un plugin qui a bogué
-						$infosFilename = dirname($filename) . '/infos.xml';
-						if(file_exists($infosFilename)) {
-?>
-<?= $hr ?>
-About this plugin :
-<?= htmlspecialchars(file_get_contents($infosFilename)); ?>
-<?php
-						}
-					}
 				} # fin pour l'administrateur
 
-				if(!empty($pluginName)) {
+				if(
+					!empty($pluginName) and
+					(!isset($_SESSION['profil']) or $_SESSION['profil'] > 0)
+				) {
 					echo $hr;
 					if(rename(dirname($filename), $newFolder)) {
 						# PluXml essaie de sauver la situation
 ?>
+
 The folder of plugin is renamed to : <?= preg_replace('#^' . $this->rootPlugins . '/#', '', $newFolder) . PHP_EOL ?>
 Reload this page to continue ...
 <?php
@@ -152,15 +172,7 @@ Drop this plugin now for running PluXml and report to its author !!
 				}
 
 				if($hasHeaders_sent) {
-?>
-</code></pre>
-<label for="bug-notification" style="
-	position: absolute;
-	top: 0.25rem;
-	right: 0.25rem;
-	padding: 0.2rem;
-	background-color: #eee;
-">❌</label>
+?></code></pre>
 </div>
 <?php
 				}
@@ -528,11 +540,11 @@ class plxPlugin {
 		}
 		$this->getPluginLang($plugName, $default_lang);
 		$this->plug = array(
-			'dir' 			=> PLX_PLUGINS,
+			'dir' 			=> realpath(PLX_PLUGINS),
 			'name' 			=> $plugName,
-			'filename'		=> PLX_PLUGINS.$plugName.'/'.$plugName.'.php',
-			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
-			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
+			'filename'		=> realpath(PLX_PLUGINS.$plugName.'/'.$plugName.'.php'),
+			'infos.xml'		=> realpath(PLX_PLUGINS.$plugName.'/infos.xml'),
+			'parameters.xml'=> realpath(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'),
 		);
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
