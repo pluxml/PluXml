@@ -716,7 +716,9 @@ class plxUtils {
 		$image = getimagesize($src_image);
 
 		# Check for valid dimensions
-		if(!$image || $image[0] <= 0 || $image[1] <= 0) return false;
+		if($image === false || $image[0] <= 0 || $image[1] <= 0) {
+			return false;
+		}
 
 		# Determine format from MIME-Type
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));

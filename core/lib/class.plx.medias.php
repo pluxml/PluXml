@@ -4,7 +4,7 @@
  * Classe plxMedias regroupant les fonctions pour gérer la librairie des medias
  *
  * @package PLX
- * @author	Stephane F, Pedro "P3ter" CADETE
+ * @author	Stephane F, Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
  **/
 class plxMedias {
 
@@ -319,8 +319,10 @@ class plxMedias {
 		if(!move_uploaded_file($file['tmp_name'],$upFile)) { # Erreur de copie
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
-			if(preg_match(self::IMG_EXTS, $file['name'])) {
-				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile));
+			if(
+				preg_match(self::IMG_EXTS, $file['name']) and
+				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile))
+			) {
 				if($resize)
 					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
 				if($thumb)
