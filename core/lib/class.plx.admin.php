@@ -39,6 +39,7 @@ class plxAdmin extends plxMotor {
 
 		parent::__construct($filename);
 		$this->tri = 'desc';
+		$this->getTemplates(self::PLX_TEMPLATES); # for lost passwords
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminConstruct'));
@@ -566,6 +567,9 @@ EOT;
 					$lostPasswordToken = plxToken::getTokenPostMethod(32, false);
 					$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 					$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
+					if(!array_key_exists($templateName, $this->aTemplates)) {
+						break;
+					}
 
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
@@ -622,6 +626,21 @@ EOT;
 			}
 		}
 		return $valid;
+	}
+
+	public function resetPasswordToken($user_id) {
+		$save = false;
+		foreach(array('password_token', 'password_token_expiry',) as $k) {
+			if(!empty($this->aUsers[$user_id][$k])) {
+				$this->aUsers[$user_id][$k] = '';
+			}
+			$save = true;
+		}
+		if($save) {
+			return $this->editUsers(null, true);
+		}
+
+		return true;
 	}
 
 	/**

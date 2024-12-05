@@ -41,7 +41,7 @@ class plxMotor {
 	public $aStats = array(); # Tableau de toutes les pages statiques
 	public $aTags = array(); # Tableau des tags
 	public $aUsers = array(); # Tableau des utilisateurs
-	public $aTemplates = null; # Tableau des templates
+	public $aTemplates = array(); # Tableau des templates
 
 	public $plxGlob_arts = null; # Objet plxGlob des articles
 	public $plxGlob_coms = null; # Objet plxGlob des commentaires
@@ -147,7 +147,7 @@ class plxMotor {
 		eval($this->plxPlugins->callHook('plxMotorConstruct'));
 
 		# Get templates from core/templates and data/templates
-		$this->getTemplates(self::PLX_TEMPLATES);
+		# $this->getTemplates(self::PLX_TEMPLATES); # See plxAdmin::_construct()
 		$this->getTemplates(self::PLX_TEMPLATES_DATA);
 	}
 
@@ -1248,8 +1248,10 @@ class plxMotor {
 		if(is_dir($templateFolder)) {
 			$files = array_diff(scandir($templateFolder), array('..', '.'));
 			if (!empty($files)) {
-				foreach ($files as $file) {
-					$this->aTemplates[$file] = new PlxTemplate($templateFolder, $file);
+				foreach ($files as $filename) {
+					if(is_file($templateFolder . $filename)) {
+						$this->aTemplates[$filename] = new PlxTemplate($templateFolder, $filename);
+					}
 				}
 			}
 		}
