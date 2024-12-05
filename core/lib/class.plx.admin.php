@@ -633,8 +633,8 @@ EOT;
 		foreach(array('password_token', 'password_token_expiry',) as $k) {
 			if(!empty($this->aUsers[$user_id][$k])) {
 				$this->aUsers[$user_id][$k] = '';
+				$save = true;
 			}
-			$save = true;
 		}
 		if($save) {
 			return $this->editUsers(null, true);
