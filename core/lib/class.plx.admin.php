@@ -35,6 +35,7 @@ class plxAdmin extends plxMotor {
 	protected function __construct($filename) {
 
 		parent::__construct($filename);
+		$this->getTemplates(self::PLX_TEMPLATES); # for lost passwords
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminConstruct'));
@@ -323,6 +324,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$lostPasswordToken = plxToken::getTokenPostMethod(32, false);
 					$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 					$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
+					if(!array_key_exists($templateName, $this->aTemplates)) {
+						break;
+					}
 
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
