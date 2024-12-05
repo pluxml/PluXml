@@ -385,6 +385,21 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		return $valid;
 	}
 
+	public function resetPasswordToken($user_id) {
+		$save = false;
+		foreach(array('password_token', 'password_token_expiry',) as $k) {
+			if(!empty($this->aUsers[$user_id][$k])) {
+				$this->aUsers[$user_id][$k] = '';
+			}
+			$save = true;
+		}
+		if($save) {
+			return $this->editUsers(null, true);
+		}
+
+		return true;
+	}
+
 	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
