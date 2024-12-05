@@ -4,7 +4,7 @@
  * plxTemplates class is in charge of mails templates management
  *
  * @package PLX
- * @author	Pedro "P3ter" CADETE
+ * @author	Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
  **/
 
 class PlxTemplate {
@@ -24,24 +24,29 @@ class PlxTemplate {
 	 * @param	$templateName				string	template's file name
 	 * @param	$templatePlaceholderValues	array	placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
 	 * @return	void
-	 * @author	Pedro "P3ter" CADETE
+	 * @author	Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 */
 	public function __construct($templateFolder, $templateFileName, $templatePlaceholdersValues = array()) {
 
 		$this->setTemplateFolder($templateFolder);
-		$template = $this->parseTemplate($this->_templateFolder.$templateFileName);
+		$template = $this->parseTemplate($this->_templateFolder . $templateFileName);
 
-		$this->setTemplateName($template['name']);
-		$this->setTemplateType($template['type']);
+		if(!empty($template)) {
+			$this->setTemplateName($template['name']);
+			$this->setTemplateType($template['type']);
 
-		if ($this->getTemplateType() == 'email') {
-			$this->setTemplateEmailName($template['emailname']);
-			$this->setTemplateEmailFrom($template['emailfrom']);
-			$this->setTemplateEmailSubject($template['emailsubject']);
+			if ($this->getTemplateType() == 'email') {
+				$this->setTemplateEmailName($template['emailname']);
+				$this->setTemplateEmailFrom($template['emailfrom']);
+				$this->setTemplateEmailSubject($template['emailsubject']);
+			}
+
+			if ($this->setTemplateRawContent($template['content']) AND !empty($templatePlaceholdersValues)) {
+				$this->setTemplateGeneratedContent($templatePlaceholdersValues);
+			}
+		} else {
+			$this->setTemplateName($templateFileName);
 		}
-
-		if ($this->setTemplateRawContent($template['content']) AND !empty($templatePlaceholdersValues))
-			$this->setTemplateGeneratedContent($templatePlaceholdersValues);
 	}
 
 	/**
@@ -138,7 +143,7 @@ class PlxTemplate {
 	private function setTemplateGeneratedContent(array $placeholdersValues) {
 
 		if (!empty($this->_templateRawContent))
-			$this->_templateGeneratedContent = str_replace(array_keys($placeholdersValues), array_values($placeholdersValues), $this->_templateRawContent);
+			$this->_templateGeneratedContent = strtr($this->_templateRawContent, $placeholdersValues);
 		else
 			$this->_templateGeneratedContent = '1';
 	}
@@ -225,6 +230,10 @@ class PlxTemplate {
 	 **/
 	private function parseTemplate($fileName) {
 
+		if(!is_file($fileName) or mime_content_type($fileName) != 'text/xml') {
+			return false;
+		}
+
 		# parser initialisation
 		$data = implode('',file($fileName));
 		$parser = xml_parser_create('UTF-8');
@@ -233,14 +242,21 @@ class PlxTemplate {
 		$template = array();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
-		xml_parse_into_struct($parser,$data,$values,$index);
+		$success = (xml_parse_into_struct($parser,$data,$values,$index) === 1);
 		xml_parser_free($parser);
+		if($success === false) {
+			return false;
+		}
 
 		# getting datas from the parser
 		$name = plxUtils::getValue($index['name'][0]);
-		$template['name'] = plxUtils::getValue($values[$name]['value']);
 		$type = plxUtils::getValue($index['type'][0]);
-		$template['type'] = plxUtils::getValue($values[$type]['value']);
+		$content = plxUtils::getValue($index['content'][0]);
+		$template = array(
+			'name' => plxUtils::getValue($values[$name]['value']),
+			'type' => plxUtils::getValue($values[$type]['value']),
+			'content' => plxUtils::getValue($values[$content]['value']),
+		);
 		if ($template['type'] == 'email') {
 			$emailname = plxUtils::getValue($index['emailname'][0]);
 			$template['emailname'] = plxUtils::getValue($values[$emailname]['value']);
@@ -248,10 +264,7 @@ class PlxTemplate {
 			$template['emailfrom'] = plxUtils::getValue($values[$emailfrom]['value']);
 			$emailsubject = plxUtils::getValue($index['emailsubject'][0]);
 			$template['emailsubject'] = plxUtils::getValue($values[$emailsubject]['value']);
-
 		}
-		$content = plxUtils::getValue($index['content'][0]);
-		$template['content'] = plxUtils::getValue($values[$content]['value']);
 
 		return $template;
 	}
