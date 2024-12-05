@@ -93,6 +93,7 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and $css == '') {
             # => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
             # => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
             $_SESSION['admin_lang'] = $user['lang'];
+            $plxAdmin->resetPasswordToken($userid);
             $connected = true;
             break;
         }
