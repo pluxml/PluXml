@@ -10,7 +10,7 @@ include '../lib/config.php';
 /*
  * Close the session
  * */
-function log_out() {
+function log_out($redirect='auth.php') {
 	$_SESSION = array();
 	# See https://www.php.net/manual/fr/function.session-destroy.php
 	if (ini_get('session.use_cookies')) {
@@ -25,7 +25,7 @@ function log_out() {
 	session_destroy();
 
 	# Redirection on authentification page
-	header('Location: auth.php');
+	header('Location: ' . $redirect);
 	exit;
 }
 

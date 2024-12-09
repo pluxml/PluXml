@@ -40,6 +40,7 @@ $LANG = array(
 'SAID'					=> 'sagte',
 'WRITE_A_COMMENT'		=> 'Schreiben einen Kommentar',
 'COMMENT_FOR_SUBSCRIBERS'	=> 'Kommentare sind nur für Abonnenten',
+'SUBSCRIBER_CONNECTED'	=> 'Teilnehmer verbunden',
 'NAME'					=> 'Name',
 'WEBSITE'				=> 'Website (fakultativ)',
 'EMAIL'					=> 'E-mail (fakultativ)',
@@ -55,4 +56,3 @@ $LANG = array(
 
 );
 
-?>

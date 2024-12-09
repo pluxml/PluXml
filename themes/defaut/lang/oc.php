@@ -40,6 +40,7 @@ $LANG = array(
 'SAID'					      => 'a dich',
 'WRITE_A_COMMENT'		  => 'Escriure un comentari',
 'COMMENT_FOR_SUBSCRIBERS'	=> 'Los comentaris son reservats als abonats',
+'SUBSCRIBER_CONNECTED'	=> 'Abonat connectat coma',
 'NAME'					      => 'Vòstre nom o escais-nom',
 'WEBSITE'				      => 'Vòstre site Internet (facultatiu)',
 'EMAIL'					      => 'Vòstre corrièl (facultatiu)',
@@ -52,7 +53,5 @@ $LANG = array(
 'REPLY'					      => 'Respondre',
 'REPLY_TO'				    => 'Respondre',
 'CANCEL'				      => 'Anullar',
-
 );
 
-?>

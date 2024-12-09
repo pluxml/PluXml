@@ -12,10 +12,40 @@ const PLX_AUTHPAGE = true;
 
 include 'prepend.php';
 
+$root = preg_replace('#/core/admin/auth.php$#', '/', $_SERVER['PHP_SELF']);
+
 # Déconnexion (paramètre url : ?d=1)
 if (!empty($_GET['d']) and $_GET['d'] == 1) {
+	$redirect = $root . 'index.php';
+
+	# Maybe a comment is posted by a subscriber
+	if(!empty($_SERVER['HTTP_REFERER'])) {
+		$parts = parse_url($_SERVER['HTTP_REFERER']);
+		if(!empty($plxAdmin->aConf['urlrewriting'])) {
+			if(preg_match('#^' . $root . L_ARTICLE_URL . '\d*/([\w-]+)$#', $parts['path'], $matches)) {
+				$pattern = '#\.' . $matches[1] . '\.xml$#';
+				$globArts = $plxAdmin->plxGlob_arts->query($pattern);
+				if(!empty($globArts)) {
+					$redirect = $_SERVER['HTTP_REFERER'];
+				}
+			}
+		} else {
+			if(
+				$parts['path'] == $redirect and
+				!empty($parts['query']) and
+				preg_match('#^' . L_ARTICLE_URL . '(\d+)/([\w-]+)$#', $parts['query'], $matches)
+			) {
+				$pattern = '#^' . str_pad( $matches[1], 4, '0', STR_PAD_LEFT) . '\..*\.\d{3}\.\d{12}\.' . $matches[2] . '\.xml$#';
+				$globArts = $plxAdmin->plxGlob_arts->query($pattern);
+				if(!empty($globArts)) {
+					$redirect = $_SERVER['HTTP_REFERER'];
+				}
+			}
+		}
+	}
+
 	# PHP Script is stopped by :
-	log_out();
+	log_out($redirect);
 }
 
 # Control du token du formulaire
@@ -57,26 +87,47 @@ if (isset($_SESSION['maxtry'])) {
 	];
 }
 
-# Incrémente le nombre de tentative
-$redirect = $plxAdmin->racine . 'core/admin/';
-
+# On filtre $_GET['p'] si besoin. Nécessaire pour le paramètre action dans le formulaire
+$redirect = $root . 'core/admin/';
 if (!empty($_GET['p']) and $css == '') {
-
 	# décrémente la variable de session qui compte les tentatives de connexion
 	$_SESSION['maxtry']['counter']--;
 
 	$racine = parse_url($plxAdmin->racine);
 	$get_p = parse_url(urldecode($_GET['p']));
 	$css = (!$get_p or (isset($get_p['host']) and $racine['host'] != $get_p['host']));
-	if (!$css and !empty($get_p['path']) and file_exists(PLX_ROOT . 'core/admin/' . basename($get_p['path']))) {
-		# filtrage des parametres de l'url
-		$query = '';
-		if (isset($get_p['query'])) {
-			$query = strtok($get_p['query'], '=');
-			$query = ($query[0] != 'd' ? '?' . $get_p['query'] : '');
+	if (!$css and !empty($get_p['path'])) {
+		if(preg_match('#^' . $root . 'core/admin/[\w-]+\.php$#', $get_p['path']) and file_exists(preg_replace('#^' . $root . '#', PLX_ROOT, $get_p['path']))) {
+			# filtrage des parametres de l'url
+			$query = '';
+			if (isset($get_p['query'])) {
+				$query = strtok($get_p['query'], '=');
+				$query = ($query != 'd' ? '?' . $get_p['query'] : '');
+			}
+
+			# url de redirection
+			$redirect = $get_p['path'] . $query;
+		} elseif(!empty($plxAdmin->aConf['urlrewriting'])) {
+			# login for subscribers
+			if(preg_match('#^' . $root . L_ARTICLE_URL . '\d*/([\w-]+)$#', $get_p['path'], $matches)) {
+				$pattern = '#\.' . $matches[1] . '\.xml$#';
+				$globArts = $plxAdmin->plxGlob_arts->query($pattern);
+				if(!empty($globArts)) {
+					$redirect = $get_p['path'];
+				}
+			}
+		} elseif(
+			# No url_rewriting for subscribers
+			$get_p['path'] == $root . 'index.php' and
+			isset($get_p['query']) and
+			preg_match('#^' . L_ARTICLE_URL . '(\d+)/([\w-]+)$#', $get_p['query'], $matches)
+		) {
+			$pattern = '#^' . str_pad( $matches[1], 4, '0', STR_PAD_LEFT) . '\..*\.\d{3}\.\d{12}\.' . $matches[2] . '\.xml$#';
+			$globArts = $plxAdmin->plxGlob_arts->query($pattern);
+			if(!empty($globArts)) {
+				$redirect = $get_p['path'] . '?' . $get_p['query'];
+			}
 		}
-		# url de redirection
-		$redirect = $get_p['path'] . $query;
 	}
 }
 
@@ -109,10 +160,10 @@ if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($
 	if ($connected) {
 		unset($_SESSION['maxtry']);
 		if($plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user']) == 0) {
-			# nouvel article
+			# premier article
 			$redirect .= $_SESSION['profil'] > PROFIL_WRITER  ? 'profil.php' : 'article.php';
 		}
-		header('Location: ' . htmlentities($redirect));
+		header('Location: ' . $redirect);
 		exit;
 	} else {
 		$msg = L_ERR_WRONG_PASSWORD;

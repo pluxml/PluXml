@@ -117,6 +117,7 @@ const L_ARTFEED_RSS					= 'Rss feed of the articles';
 const L_NO_COMMENT					= 'no comments';
 const L_COMMENT						= 'comment';
 const L_COMMENTS					= 'comments';
+const L_FORBIDDEN_COMMENTS			= 'Forbidden comments';
 const L_COMFEED_RSS_ARTICLE			= 'Rss feed of the article\'s comments';
 const L_COMFEED_RSS					= 'Rss feed of comments';
 const L_STATICCONTENT_INPROCESS		= 'This page is currently being edited';
