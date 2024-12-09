@@ -40,6 +40,7 @@ $LANG = array(
 'SAID'					=> 'a spus',
 'WRITE_A_COMMENT'		=> 'Adaug&#259; un comentariu',
 'COMMENT_FOR_SUBSCRIBERS'	=> 'Comentariile sunt doar pentru abonați',
+'SUBSCRIBER_CONNECTED'	=> 'Abonat conectat ca',
 'NAME'					=> 'Nume',
 'WEBSITE'				=> 'Site (nu e obligatoriu)',
 'EMAIL'					=> 'E-mail (nu e obligatoriu)',
@@ -52,7 +53,5 @@ $LANG = array(
 'REPLY'					=> 'Răspuns',
 'REPLY_TO'				=> 'Răspuns',
 'CANCEL'				=> 'Anulare',
-
 );
 
-?>

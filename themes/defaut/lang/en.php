@@ -40,6 +40,7 @@ $LANG = array(
 'SAID'					=> 'said',
 'WRITE_A_COMMENT'		=> 'Write a comment',
 'COMMENT_FOR_SUBSCRIBERS'	=> 'Comments are only for subscribers',
+'SUBSCRIBER_CONNECTED'	=> 'User connected as',
 'NAME'					=> 'Name',
 'WEBSITE'				=> 'Site (optional)',
 'EMAIL'					=> 'E-mail (optional)',

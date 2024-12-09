@@ -40,6 +40,7 @@ $LANG = array(
 'SAID'					=> 'сказал',
 'WRITE_A_COMMENT'		=> 'Создать комментарий',
 'COMMENT_FOR_SUBSCRIBERS'	=> 'Комментарии только для подписчиков',
+'SUBSCRIBER_CONNECTED'	=> 'Абонент подключен как',
 'NAME'					=> 'Имя',
 'WEBSITE'				=> 'сайта (необязательно)',
 'EMAIL'					=> 'E-mail (необязательно)',
@@ -52,7 +53,5 @@ $LANG = array(
 'REPLY'					=> 'ответ',
 'REPLY_TO'				=> 'ответ',
 'CANCEL'				=> 'отменить',
-
 );
 
-?>

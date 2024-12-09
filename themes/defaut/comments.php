@@ -76,10 +76,9 @@ if(!$plxShow->articleAllowComs(true)) {
 ?>
 			<div class="grid subscribers-notice">
 				<div class="col sml-12 med-8">
-					<strong><?php $plxShow->lang('SUBSCRIBER_CONNECTED') ?></strong>
-					<span><?= $plxMotor->aUsers[$_SESSION['user']]['name'] ?></span>
+					<span><?php $plxShow->lang('SUBSCRIBER_CONNECTED') ?></span> : <strong><?= $plxMotor->aUsers[$_SESSION['user']]['name'] ?></strong>
 				</div>
-				<div class="col sml-12 med-4">
+				<div class="col sml-12 med-4 med-text-right">
 					<a class="button" href="core/admin/auth.php?d=1"><?php $plxShow->lang('DECONNEXION'); ?></a>
 				</div>
 			</div>
@@ -120,7 +119,11 @@ if(!$plxShow->articleAllowComs(true)) {
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_rep"><strong><?= $plxShow->lang('ANTISPAM_WARNING') ?></strong>*</label>
+				</div>
+				<div class="col sml-12 med-10">
 					<?php $plxShow->capchaQ(); ?>
+				</div>
+				<div class="col sml-12 med-2 med-text-right">
 					<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" required />
 				</div>
 			</div>

@@ -40,18 +40,18 @@ $LANG = array(
 'SAID'					=> 'a dit',
 'WRITE_A_COMMENT'		=> 'Écrire un commentaire',
 'COMMENT_FOR_SUBSCRIBERS'	=> 'Les commentaires sont réservés aux abonnés',
+'SUBSCRIBER_CONNECTED'	=> 'Connecté.e en tant que',
 'NAME'					=> 'Votre nom ou pseudo',
 'WEBSITE'				=> 'Votre site Internet (facultatif)',
 'EMAIL'					=> 'Votre adresse e-mail (facultatif)',
 'COMMENT'				=> 'Contenu de votre message',
 'CLEAR'					=> 'Effacer',
-'SEND'					=> 'Envoyer votre commentaire',
+'SEND'					=> 'Poster',
 'COMMENTS_CLOSED'		=> 'Les commentaires sont fermés',
 'ANTISPAM_WARNING'		=> 'Vérification anti-spam',
 
 'REPLY'					=> 'Répondre',
 'REPLY_TO'				=> 'Répondre à',
 'CANCEL'				=> 'Annuler',
-
 );
 
