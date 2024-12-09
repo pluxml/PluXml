@@ -309,9 +309,9 @@ if(!preg_match('#^\d{3}$#', $userId)) {
 						if($catId == 'draft') {
 							$draft = ' <strong>- '.L_CATEGORY_DRAFT.'</strong>';
 						} elseif(array_key_exists($catId, $aFilterCat)) {
-							$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
+							$selected = ($catId==$_SESSION['sel_cat'] ? ' selected' : '');
 							$aCats[$catId] = <<< EOT
-<option value="$catId" $selected> {$aFilterCat[$catId]} </option>
+<option value="$catId"$selected>{$aFilterCat[$catId]}</option>
 EOT;
 						}
 					}
@@ -334,7 +334,7 @@ EOT;
 				if(sizeof($aCats) > 1) {
 ?>
 					<select name="sel_cat2" class="ddcat" onchange="this.form.sel_cat.value = this.value; this.form.submit()">
-						<?= implode('', $aCats) ?>
+<?= implode(PHP_EOL, $aCats) . PHP_EOL ?>
 					</select>
 <?php
 				} elseif(count($aCats) == 1)  {
@@ -362,17 +362,28 @@ EOT;
 				echo ' / ';
 				if($nbComsValidated > 0) {
 ?>
-					<a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>"><?= $nbComsValidated ?></a></td>
+					<a title="<?= L_VALIDATED_COMMENTS_TITLE ?>" href="comments.php?sel=online&amp;a=<?= $artId ?>"><?= $nbComsValidated ?></a>
 <?php
 				} else {
 ?>
 					<span title="<?= L_VALIDATED_COMMENTS_TITLE ?>">0</span>
 <?php
-		}
+				}
+
+				switch($plxAdmin->plxRecord_arts->f('allow_com')) {
+					case '0': $icon_com = '🚫'; $title_com = L_FORBIDDEN_COMMENTS; break;
+					case '2': $icon_com = '👥'; $title_com = L_SUBSCRIBERS_ONLY; break;
+					default: $icon_com = ''; # everybody
+				}
+				if(!empty($icon_com)) {
 ?>
+					<span title="<?= $title_com ?>"><?= $icon_com ?></span>
 <?php
-					if(!preg_match('#^\d{3}$#', $userId)) {
+				}
+
+			if(!preg_match('#^\d{3}$#', $userId)) {
 ?>
+				</td>
 				<td>
 <?php
 				$userArtId = $plxAdmin->plxRecord_arts->f('author');
@@ -384,11 +395,9 @@ EOT;
 				} else {
 					echo '&nbsp;';
 				}
-?>
-				</td>
-<?php
 			}
 ?>
+				</td>
 				<td>
 					<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= L_ARTICLE_EDIT ?></a>
 <?php
