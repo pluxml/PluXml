@@ -14,6 +14,7 @@ const PATTERN_NAME = '#^\w[\w\s.-]*\w$#u'; # for preg_match()
 class plxAdmin extends plxMotor {
 
 	const VERSION_PATTERN = '#^\d{1,2}\.\d{1,3}(?:\.\d{1,3})?$#';
+	const PERSONAL_DATAS_USER = array('infos', 'password', 'salt', 'email', 'password_token', 'password_token_expiry',);
 	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
@@ -40,6 +41,11 @@ class plxAdmin extends plxMotor {
 		parent::__construct($filename);
 		$this->tri = 'desc';
 		$this->getTemplates(self::PLX_TEMPLATES); # for lost passwords
+
+		if(isset($_SESSION['profil']) and $_SESSION['profil'] === '0') {
+			# Clear personal datas for deleted user
+			$this->_deletedUsersControl();
+		}
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminConstruct'));
@@ -737,6 +743,11 @@ EOT;
 				}
 
 				$this->aUsers[$user_id]['delete'] = 1;
+				# On supprime les données personelles sensibles
+				$this->aUsers[$user_id]['lang'] = $this->aConf['default_lang'];
+				foreach(self::PERSONAL_DATAS_USER as $field) {
+					$this->aUsers[$user_id][$field] = '';
+				}
 				$action = true;
 			}
 		}
@@ -839,6 +850,35 @@ EOT;
 		eval($this->plxPlugins->callHook('plxAdminEditUser'));
 
 		return $this->editUsers(null,true);
+	}
+
+	/**
+	 * Checks if no personal datas for deleted users ( RGPD )
+	 *
+	 * @author Jean-Pierre Pourrez @bazooka07
+	 **/
+	 private function _deletedUsersControl() {
+		$save = false;
+		foreach($this->aUsers as $user_id=>$user_infos) {
+			if(empty($user_infos['delete'])) {
+				continue;
+			}
+
+			if($this->aUsers[$user_id]['lang'] != $this->aConf['default_lang']) {
+				$this->aUsers[$user_id]['lang'] = $this->aConf['default_lang'];
+				$save =true;
+			}
+			foreach(self::PERSONAL_DATAS_USER as $field) {
+				if(!empty($this->aUsers[$user_id][$field])) {
+					$this->aUsers[$user_id][$field] = '';
+					$save = true;
+				}
+			}
+		}
+
+		if($save) {
+			$this->editusers(null, true);
+		}
 	}
 
 	/**

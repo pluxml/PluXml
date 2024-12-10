@@ -135,7 +135,7 @@ if (!empty($_GET['p']) and $css == '') {
 if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($_POST['password'])) {
 	$connected = false;
 	foreach ($plxAdmin->aUsers as $userid => $user) {
-		if(!$user['active'] or $user['delete']) {
+		if(!$user['active'] or $user['delete'] or empty($user['password'])) {
 			continue;
 		}
 
@@ -151,7 +151,7 @@ if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($
 			# => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
 			# => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
 			$_SESSION['admin_lang'] = $user['lang'];
-            		$plxAdmin->resetPasswordToken($userid);
+			$plxAdmin->resetPasswordToken($userid);
 			$connected = true;
 			break;
 		}
