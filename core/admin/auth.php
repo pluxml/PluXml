@@ -151,7 +151,7 @@ if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($
 			# => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
 			# => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
 			$_SESSION['admin_lang'] = $user['lang'];
-			$plxAdmin->resetPasswordToken($userid);
+			$plxAdmin->log_connexion($userid);
 			$connected = true;
 			break;
 		}

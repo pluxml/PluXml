@@ -14,7 +14,6 @@ const PATTERN_NAME = '#^\w[\w\s.-]*\w$#u'; # for preg_match()
 class plxAdmin extends plxMotor {
 
 	const VERSION_PATTERN = '#^\d{1,2}\.\d{1,3}(?:\.\d{1,3})?$#';
-	const PERSONAL_DATAS_USER = array('infos', 'password', 'salt', 'email', 'password_token', 'password_token_expiry',);
 	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
@@ -635,19 +634,17 @@ EOT;
 		return $valid;
 	}
 
-	public function resetPasswordToken($user_id) {
-		$save = false;
+	public function log_connexion($user_id) {
 		foreach(array('password_token', 'password_token_expiry',) as $k) {
 			if(!empty($this->aUsers[$user_id][$k])) {
 				$this->aUsers[$user_id][$k] = '';
-				$save = true;
 			}
 		}
-		if($save) {
-			return $this->editUsers(null, true);
-		}
 
-		return true;
+		$this->aUsers[$user_id]['last_connexion'] = $this->aUsers[$user_id]['connected_on'];
+		$this->aUsers[$user_id]['connected_on'] = date('YmdHi');
+
+		return $this->editUsers(null, true);
 	}
 
 	/**
@@ -744,8 +741,10 @@ EOT;
 
 				$this->aUsers[$user_id]['delete'] = 1;
 				# On supprime les données personelles sensibles
-				$this->aUsers[$user_id]['lang'] = $this->aConf['default_lang'];
 				foreach(self::PERSONAL_DATAS_USER as $field) {
+					if(in_array($field, array('login' , 'name', 'last_connexion'))) {
+						continue;
+					}
 					$this->aUsers[$user_id][$field] = '';
 				}
 				$action = true;
@@ -790,15 +789,13 @@ EOT;
 				}
 ?>
 	<user number="<?= $user_id ?>" active="<?= $user['active'] ?>" profil="<?= $user['profil'] ?>" delete="<?= $user['delete'] ?>">
-		<login><?= plxUtils::strCheck($user['login']) ?></login>
-		<name><?= plxUtils::strCheck($user['name']) ?></name>
-		<infos><?= plxUtils::strCheck($user['infos'], true) ?></infos>
-		<password><?= $user['password'] ?></password>
-		<salt><?= $user['salt'] ?></salt>
-		<email><?= $user['email'] ?></email>
-		<lang><?= $user['lang'] ?></lang>
-		<password_token><?= $user['password_token'] ?></password_token>
-		<password_token_expiry><?= $user['password_token_expiry'] ?></password_token_expiry>
+<?php
+		foreach(self::VALUES_USER as $k) {
+?>
+		<<?= $k ?>><?= in_array($k, array('login', 'name', 'infos',)) ? plxUtils::strCheck($user[$k]) : $user[$k] ?></<?= $k ?>>
+<?php
+		}
+?>
 <?php
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
