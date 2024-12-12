@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Error al guardar el artículo';
 const L_ARTICLE_DELETE_ERR = 'Error al eliminar el artículo';
 const L_ERR_UNKNOWN_COMMENT = 'El comentario buscado no existe';
 const L_ERR_URL_ALREADY_EXISTS = 'URL ya utilizada. Cambie el valor del campo «URL»';
+const L_LAST_CONNEXION_ON = 'Última conexión el';
 
 // class.plx.media.php
 

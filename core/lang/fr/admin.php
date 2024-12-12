@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Erreur lors de la sauvegarde de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Une erreur est survenue pendant la suppression de la l\'article';
 const L_ERR_UNKNOWN_COMMENT = 'Le commentaire demandé n\'existe pas ou n\'existe plus';
 const L_ERR_URL_ALREADY_EXISTS = 'URL déjà utilisée. Veuillez modifier la valeur du champ \'URL\'';
+const L_LAST_CONNEXION_ON = 'Dernière connection le';
 
 // class.plx.media.php
 

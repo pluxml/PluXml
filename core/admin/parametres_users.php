@@ -53,6 +53,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 			<th<?= ($requireMail? ' class="required"': '') ?>><?= L_PROFIL_MAIL ?></th>
 			<th><?= L_PROFIL ?></th>
 			<th><?= L_CONFIG_USERS_ACTIVE ?></th>
+			<th><?= L_LAST_CONNEXION_ON ?></th>
 			<th><?= L_CONFIG_USERS_ACTION ?></th>
 		</tr>
 	</thead>
@@ -94,6 +95,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 			}
 ?>
 			</td>
+			<td><?= !empty($_user['last_connexion']) ? plxDate::formatDate($_user['last_connexion'], '#num_day/#num_month/#num_year(4) #time') : '' ?></td>
 			<td><a href="user.php?p=<?= $_userid ?>"><?= L_OPTIONS ?></a></td>
 		</tr>
 <?php
@@ -118,7 +120,7 @@ $requireMail = boolval($plxAdmin->aConf['lostpassword']);
 			<td><?php plxUtils::printInput('users[' . $new_userid . '][email]', '', 'email', ''); ?></td>
 			<td><?php plxUtils::printSelect('users[' . $new_userid . '][profil]', PROFIL_NAMES, PROFIL_WRITER); ?></td>
 			<td><?php plxUtils::printSelect('users[' . $new_userid . '][active]', array('1'=>L_YES,'0'=>L_NO), '1'); ?></td>
-			<td>&nbsp;</td>
+			<td colspan="2">&nbsp;</td>
 		</tr>
 	</tbody>
 	</table>

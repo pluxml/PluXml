@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Wystąpił błąd podczas zapisywania posta';
 const L_ARTICLE_DELETE_ERR = 'Wystąpił błąd podczas usuwania posta';
 const L_ERR_UNKNOWN_COMMENT = 'Wybrany komentarz już nie istnieje';
 const L_ERR_URL_ALREADY_EXISTS = 'Adres URL jest używany. Proszę zmienić wartość pola URL';
+const L_LAST_CONNEXION_ON = 'Ostatnie połączenie';
 
 // class.plx.media.php
 

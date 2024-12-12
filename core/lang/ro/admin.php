@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Eroare la salvarea articolului';
 const L_ARTICLE_DELETE_ERR = 'A apărut o eroare în timpul eliminarii articolului';
 const L_ERR_UNKNOWN_COMMENT = 'Comentariul cerut nu exista, sau nu e accesibil';
 const L_ERR_URL_ALREADY_EXISTS = 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'';
+const L_LAST_CONNEXION_ON = ''Ultima conectare pe';
 
 // class.plx.media.php
 

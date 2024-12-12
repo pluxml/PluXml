@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Fout bij het opslaan van het artikel';
 const L_ARTICLE_DELETE_ERR = 'Fout tijdens het verwijderen van het artikel';
 const L_ERR_UNKNOWN_COMMENT = 'De opgevraagde commentaar bestaat niet of niet meer';
 const L_ERR_URL_ALREADY_EXISTS = 'Url al in gebruik. Moet u de waarde van het veld \'Url\'';
+const L_LAST_CONNEXION_ON = 'Laatste aansluiting op';
 
 // class.plx.media.php
 

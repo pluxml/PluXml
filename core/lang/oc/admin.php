@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Error al temps de la salvagarda de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Una error es subrevenguda pendent la supression de l\'article';
 const L_ERR_UNKNOWN_COMMENT = 'Lo comentari demandat existís pas o existís pas mai';
 const L_ERR_URL_ALREADY_EXISTS = 'URL ja utilizada. Volgatz modificar la valor del camp \'URL\'';
+const L_LAST_CONNEXION_ON = 'Darrièra connexion lo';
 
 // class.plx.media.php
 

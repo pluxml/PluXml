@@ -636,8 +636,12 @@ EOT;
 			}
 		}
 
-		$this->aUsers[$user_id]['last_connexion'] = $this->aUsers[$user_id]['connected_on'];
+		$last_connection =  $this->aUsers[$user_id]['connected_on'];
+		$this->aUsers[$user_id]['last_connexion'] = $last_connection;
 		$this->aUsers[$user_id]['connected_on'] = date('YmdHi');
+		if(!empty($last_connection)) {
+			plxMsg::Info(L_LAST_CONNEXION_ON . plxDate::formatDate($last_connection, '#num_day/#num_month/#num_year(4) #time'));
+		}
 
 		if($this->aUsers[$user_id]['profil'] === '0') {
 			# Si administrateur conecté, on contrôle l'effacement des données personnelles des utilisateurs supprimés

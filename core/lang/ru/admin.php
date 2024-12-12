@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Статьи не могут быть сохране
 const L_ARTICLE_DELETE_ERR = 'Ошибка: статья не может быть удалена';
 const L_ERR_UNKNOWN_COMMENT = 'Выбранный комментарий не существует';
 const L_ERR_URL_ALREADY_EXISTS = 'Адрес уже используется. Пожалуйста, измените значение поля \'Адрес\'';
+const L_LAST_CONNEXION_ON = 'Последнее подключение';
 
 // class.plx.media.php
 
