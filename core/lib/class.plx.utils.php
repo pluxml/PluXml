@@ -1470,7 +1470,7 @@ class plxUtils {
 		/* Supprime les commentaires */
 		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
 		/* Supprime les tabs, espaces, saut de ligne, etc. */
-		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
+		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), ' ', $buffer);
 		return $buffer;
 	}
 
