@@ -5,10 +5,51 @@
  * concernant la manipulation des dates
  *
  * @package PLX
- * @author	Stephane F., Amauray Graillat
+ * @author	Stephane F., Amauray Graillat, Jean-Pierre Pourrez @bazooka07
  **/
 
 class plxDate {
+	const PLX_PATTERN = '#^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})$#';
+	const ISO_PATTERN = '#^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::\d{2})?$#';
+	const NAMES = array(
+		'month' => array(
+			'01' => L_JANUARY,
+			'02' => L_FEBRUARY,
+			'03' => L_MARCH,
+			'04' => L_APRIL,
+			'05' => L_MAY,
+			'06' => L_JUNE,
+			'07' => L_JULY,
+			'08' => L_AUGUST,
+			'09' => L_SEPTEMBER,
+			'10' => L_OCTOBER,
+			'11' => L_NOVEMBER,
+			'12' => L_DECEMBER
+		),
+		'short_month' => array(
+			'01' => L_SHORT_JANUARY,
+			'02' => L_SHORT_FEBRUARY,
+			'03' => L_SHORT_MARCH,
+			'04' => L_SHORT_APRIL,
+			'05' => L_SHORT_MAY,
+			'06' => L_SHORT_JUNE,
+			'07' => L_SHORT_JULY,
+			'08' => L_SHORT_AUGUST,
+			'09' => L_SHORT_SEPTEMBER,
+			'10' => L_SHORT_OCTOBER,
+			'11' => L_SHORT_NOVEMBER,
+			'12' => L_SHORT_DECEMBER
+		),
+		'day' => array(
+			'1' => L_MONDAY,
+			'2' => L_TUESDAY,
+			'3' => L_WEDNESDAY,
+			'4' => L_THURSDAY,
+			'5' => L_FRIDAY,
+			'6' => L_SATURDAY,
+			'0' => L_SUNDAY
+		)
+	);
 
 	/**
 	 * Méthode qui retourne le libellé du mois ou du jour passé en paramètre
@@ -20,53 +61,14 @@ class plxDate {
 	 **/
 	public static function getCalendar($key, $value) {
 		if(!is_numeric($value)) return false;
-		$names = array(
-			'month' => array(
-				'01' => L_JANUARY,
-				'02' => L_FEBRUARY,
-				'03' => L_MARCH,
-				'04' => L_APRIL,
-				'05' => L_MAY,
-				'06' => L_JUNE,
-				'07' => L_JULY,
-				'08' => L_AUGUST,
-				'09' => L_SEPTEMBER,
-				'10' => L_OCTOBER,
-				'11' => L_NOVEMBER,
-				'12' => L_DECEMBER
-			),
-			'short_month' => array(
-				'01' => L_SHORT_JANUARY,
-				'02' => L_SHORT_FEBRUARY,
-				'03' => L_SHORT_MARCH,
-				'04' => L_SHORT_APRIL,
-				'05' => L_SHORT_MAY,
-				'06' => L_SHORT_JUNE,
-				'07' => L_SHORT_JULY,
-				'08' => L_SHORT_AUGUST,
-				'09' => L_SHORT_SEPTEMBER,
-				'10' => L_SHORT_OCTOBER,
-				'11' => L_SHORT_NOVEMBER,
-				'12' => L_SHORT_DECEMBER
-			),
-			'day' => array(
-				'1' => L_MONDAY,
-				'2' => L_TUESDAY,
-				'3' => L_WEDNESDAY,
-				'4' => L_THURSDAY,
-				'5' => L_FRIDAY,
-				'6' => L_SATURDAY,
-				'0' => L_SUNDAY
-			)
-		);
 
 		if($key == 'long_month') {
 			# pour rétro-compatibilité
 			$key = 'month';
 			$longFormat = true;
 		}
-		if(array_key_exists($key, $names) and array_key_exists($value, $names[$key]))
-			return empty($longFormat) ? $names[$key][$value] : str_pad($names[$key][$value], 9);
+		if(array_key_exists($key, self::NAMES) and array_key_exists($value, self::NAMES[$key]))
+			return empty($longFormat) ? self::NAMES[$key][$value] : str_pad(self::NAMES[$key][$value], 9);
 		else
 			return false;
 
@@ -83,28 +85,30 @@ class plxDate {
 	public static function formatDate($date, $format='#num_day/#num_month/#num_year(4)') {
 
 		# On decoupe notre date
-		$year4 = substr($date, 0, 4);
-		$year2 = substr($date, 2, 2);
-		$month = substr($date, 4, 2);
-		$day = substr($date, 6, 2);
-		$day_num = date('w',mktime(0,0,0,intval($month),intval($day),intval($year4)));
-		$hour = substr($date,8,2);
-		$minute = substr($date,10,2);
+		if(
+			preg_match(self::PLX_PATTERN, $date, $matches) or
+			# format ISO or <input type="datetime-local">
+			preg_match(self::ISO_PATTERN, $date, $matches)
+		) {
+			$day_of_week = date('w',mktime(0,0,0,intval($matches[2]), intval($matches[3]), intval($matches[1])));
+			# On retourne notre date au format humain
+			return strtr($format, array(
+				'#num_year(4)'	=> $matches[1],
+				'#num_month'	=> $matches[2],
+				'#num_day'		=> $matches[3],
+				'#hour'			=> $matches[4],
+				'#minute'		=> $matches[5],
+				'#time'			=> $matches[4] . ':' . $matches[5],
+				'#day'			=> plxDate::getCalendar('day', $day_of_week),
+				'#short_month'	=> plxDate::getCalendar('short_month', $matches[2]),
+				'#month'		=> plxDate::getCalendar('month', $matches[2]),
+				'#num_day(1)'	=> intval($matches[3]),
+				'#num_day(2)'	=> $matches[3],
+				'#num_year(2)'	=> substr($date, 2, 2),
+			));
+		}
 
-		# On retourne notre date au format humain
-		$format = str_replace('#time', $hour.':'.$minute, $format);
-		$format = str_replace('#minute', $minute, $format);
-		$format = str_replace('#hour', $hour, $format);
-		$format = str_replace('#day', plxDate::getCalendar('day', $day_num), $format);
-		$format = str_replace('#short_month', plxDate::getCalendar('short_month', $month), $format);
-		$format = str_replace('#month', plxDate::getCalendar('month', $month), $format);
-		$format = str_replace('#num_day(1)', intval($day), $format);
-		$format = str_replace('#num_day(2)', $day, $format);
-		$format = str_replace('#num_day', $day, $format);
-		$format = str_replace('#num_month', $month, $format);
-		$format = str_replace('#num_year(2)', $year2 , $format);
-		$format = str_replace('#num_year(4)', $year4 , $format);
-		return $format;
+		return '';
 	}
 
 	/**
@@ -129,7 +133,10 @@ class plxDate {
 	 **/
 	public static function date2Array($date) {
 
-		if(preg_match('@^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})$@',$date,$capture)) {
+		if(
+			preg_match(self::PLX_PATTERN, $date, $capture) or
+			preg_match(self::ISO_PATTERN, $date, $capture)
+		) {
 			return array (
 				'year' 	=> $capture[1],
 				'month' => $capture[2],
