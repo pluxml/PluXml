@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Erreur lors de la sauvegarde de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Une erreur est survenue pendant la suppression de la l\'article';
 const L_ERR_UNKNOWN_COMMENT = 'Le commentaire demandé n\'existe pas ou n\'existe plus';
 const L_ERR_URL_ALREADY_EXISTS = 'URL déjà utilisée. Veuillez modifier la valeur du champ \'URL\'';
+const L_LAST_CONNEXION_ON = 'Dernière connection le';
 
 // class.plx.media.php
 
@@ -517,8 +518,6 @@ const L_PROFIL_ADMIN_LANG = 'Langue utilisée dans l\'administration';
 const L_PROFIL_INFOS = 'Informations';
 const L_PROFIL_UPDATE = 'Modifier votre profil';
 const L_PROFIL_CHANGE_PASSWORD = 'Changement du mot de passe';
-const L_PROFIL_PASSWORD = 'Mot de passe';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirmation du mot de passe';
 const L_PROFIL_UPDATE_PASSWORD = 'Changer votre mot de passe';
 
 // statique.php

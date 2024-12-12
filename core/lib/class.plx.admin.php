@@ -517,13 +517,12 @@ EOT;
 	 **/
 	public function editPassword($content) {
 
-		$token = '';
-		$action = false;
-
 		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
 			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
 		}
 
+		$action = false;
+		$token = '';
 		if(!empty($token = $content['lostPasswordToken'])) {
 			foreach($this->aUsers as $user_id => $user) {
 				if ($user['password_token'] == $token) {
@@ -535,8 +534,9 @@ EOT;
 					break;
 				}
 			}
-		}
-		else {
+		} elseif(empty($_SESSION['user']) or !array_key_exists($_SESSION['user'], $this->aUsers)) {
+			return plxMsg::Error(L_UNKNOWN_ERROR);
+		} else {
 			$salt = $this->aUsers[$_SESSION['user']]['salt'];
 			$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
 			$action = true;
@@ -598,7 +598,7 @@ EOT;
 							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
 							$this->editUsers($user_id, true);
-							return $lostPasswordToken;
+							return true;
 						}
 					}
 					break;
@@ -606,7 +606,8 @@ EOT;
 			}
 		}
 
-		return '';
+		# Echec unknown user or fails for sending mail
+		return false;
 	}
 
 	/**
@@ -628,19 +629,26 @@ EOT;
 		return $valid;
 	}
 
-	public function resetPasswordToken($user_id) {
-		$save = false;
+	public function log_connexion($user_id) {
 		foreach(array('password_token', 'password_token_expiry',) as $k) {
 			if(!empty($this->aUsers[$user_id][$k])) {
 				$this->aUsers[$user_id][$k] = '';
-				$save = true;
 			}
 		}
-		if($save) {
-			return $this->editUsers(null, true);
+
+		$last_connection =  $this->aUsers[$user_id]['connected_on'];
+		$this->aUsers[$user_id]['last_connexion'] = $last_connection;
+		$this->aUsers[$user_id]['connected_on'] = date('YmdHi');
+		if(!empty($last_connection)) {
+			plxMsg::Info(L_LAST_CONNEXION_ON . plxDate::formatDate($last_connection, '#num_day/#num_month/#num_year(4) #time'));
 		}
 
-		return true;
+		if($this->aUsers[$user_id]['profil'] === '0') {
+			# Si administrateur conecté, on contrôle l'effacement des données personnelles des utilisateurs supprimés
+			$this->_deletedUsersControl();
+		}
+
+		return $this->editUsers(null, true);
 	}
 
 	/**
@@ -657,73 +665,96 @@ EOT;
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) return;
 
-		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser']) AND empty($content['update'])) {
-			foreach($content['idUser'] as $user_id) {
-				if($content['selection']=='delete' AND $user_id!='001') {
-					$this->aUsers[$user_id]['delete']=1;
-					$action = true;
-				}
-			}
-		}
-		# mise à jour de la liste des utilisateurs
-		elseif(!empty($content['update'])) {
-
-			foreach($content['userNum'] as $user_id) {
-				$username = trim($content[$user_id.'_name']);
-				$login = trim($content[$user_id.'_login']);
+		if(isset($content['update'])) {
+			# mise à jour de la liste des utilisateurs
+			foreach($content['users'] as $user_id=>$user_infos) {
+				$username = trim($user_infos['name']);
+				$login = trim($user_infos['login']);
 
 				if(empty($username) or empty($login)) {
 					continue;
 				}
 
 				# contrôle validité name et login
-				foreach(array('_name', '_login') as $f) {
-					$value = $content[$user_id . $f];
+				foreach(array('name', 'login') as $f) {
+					$value = $user_infos[$f];
 					if(!preg_match(PATTERN_NAME, $value)) {
 						return plxMsg::Error(L_INVALID_VALUE . ' : <em>' . $value .  '</em>');
 					}
 				}
 
+				$new_user = !array_key_exists($user_id, $this->aUsers);
 				# controle du mot de passe
-				if(trim($content[$user_id.'_password']) != '') {
+				if(trim($user_infos['password']) != '') {
+					# Nouveau mot de passe
 					$salt = plxUtils::charAleatoire(10);
 					$password = sha1($salt . md5($content[$user_id.'_password']));
-				} elseif(isset($content[$user_id . '_newuser'])) {
+				} elseif($new_user) {
+					# Obligatoire pour un nouvel utilisateur
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_PASSWORD_EMPTY . ' (' . L_CONFIG_USER . ' <em>' . $username . '</em>)');
 				}
 				else {
+					# On récupère l'ancien mot de passe
 					$salt = $this->aUsers[$user_id]['salt'];
 					$password = $this->aUsers[$user_id]['password'];
 				}
 
 				# controle de l'adresse email
-				$email = trim($content[$user_id.'_email']);
-				if(isset($content[$user_id.'_newuser']) AND empty($email))
+				$email = trim($user_infos['email']);
+				if($new_user AND empty($email))
 					return plxMsg::Error(L_ERR_INVALID_EMAIL);
 				if(!empty($email) AND !plxUtils::checkMail($email))
 					return plxMsg::Error(L_ERR_INVALID_EMAIL);
 
-				$this->aUsers[$user_id]['login'] = $content[$user_id.'_login'];
-				$this->aUsers[$user_id]['name'] = $content[$user_id.'_name'];
-				$this->aUsers[$user_id]['active'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['active']:$content[$user_id.'_active']);
-				$this->aUsers[$user_id]['profil'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['profil']:$content[$user_id.'_profil']);
+				$this->aUsers[$user_id]['login'] = $login;
+				$this->aUsers[$user_id]['name'] = $username;
+				if($user_id == '001') {
+					$this->aUsers[$user_id]['active'] = 1;
+					$this->aUsers[$user_id]['profil'] = PROFIL_ADMIN;
+				} else {
+					$this->aUsers[$user_id]['active'] = ($_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['active'] : $user_infos['active'];
+					$this->aUsers[$user_id]['profil'] = ($_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['profil'] : $user_infos['profil'];
+				}
 				$this->aUsers[$user_id]['password'] = $password;
 				$this->aUsers[$user_id]['salt'] = $salt;
 				$this->aUsers[$user_id]['email'] = $email;
+				$default_values = array(
+					'delete'				=> 0,
+					'lang'					=> $this->aConf['default_lang'],
+					'infos'					=> '',
+					'password_token'		=> '',
+					'password_token_expiry' => '',
+				);
+				foreach($default_values as $k=>$default) {
+					if(!isset($this->aUsers[$user_id][$k])) {
+						$this->aUsers[$user_id][$k] = $default;
+					}
+				}
 
-				$this->aUsers[$user_id]['delete'] = isset($this->aUsers[$user_id]['delete']) ? $this->aUsers[$user_id]['delete'] : 0;
-				$this->aUsers[$user_id]['lang'] = isset($this->aUsers[$user_id]['lang']) ? $this->aUsers[$user_id]['lang'] : $this->aConf['default_lang'];
-				$this->aUsers[$user_id]['infos'] = isset($this->aUsers[$user_id]['infos']) ? $this->aUsers[$user_id]['infos'] : '';
-
-				$this->aUsers[$user_id]['password_token'] = isset($this->aUsers[$user_id]['_password_token']) ? $this->aUsers[$user_id]['_password_token']  : '';
-				$this->aUsers[$user_id]['password_token_expiry'] = isset($this->aUsers[$user_id]['_password_token_expiry']) ? $this->aUsers[$user_id]['_password_token_expiry'] : '';
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
 				$action = true;
 			}
+		} elseif(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser'])) {
+			# suppression
+			foreach($content['idUser'] as $user_id) {
+				if($user_id == '001') {
+					continue;
+				}
+
+				$this->aUsers[$user_id]['delete'] = 1;
+				# On supprime les données personelles sensibles
+				foreach(self::VALUES_USER as $field) {
+					if(in_array($field, array('login' , 'name', 'last_connexion'))) {
+						continue;
+					}
+					$this->aUsers[$user_id][$field] = '';
+				}
+				$action = true;
+			}
 		}
+
 		# sauvegarde
 		if($action) {
 			$users_name = array();
@@ -762,15 +793,13 @@ EOT;
 				}
 ?>
 	<user number="<?= $user_id ?>" active="<?= $user['active'] ?>" profil="<?= $user['profil'] ?>" delete="<?= $user['delete'] ?>">
-		<login><?= plxUtils::strCheck($user['login']) ?></login>
-		<name><?= plxUtils::strCheck($user['name']) ?></name>
-		<infos><?= plxUtils::strCheck($user['infos'], true) ?></infos>
-		<password><?= $user['password'] ?></password>
-		<salt><?= $user['salt'] ?></salt>
-		<email><?= $user['email'] ?></email>
-		<lang><?= $user['lang'] ?></lang>
-		<password_token><?= $user['password_token'] ?></password_token>
-		<password_token_expiry><?= $user['password_token_expiry'] ?></password_token_expiry>
+<?php
+		foreach(self::VALUES_USER as $k) {
+?>
+		<<?= $k ?>><?= in_array($k, array('login', 'name', 'infos',)) ? plxUtils::strCheck($user[$k]) : $user[$k] ?></<?= $k ?>>
+<?php
+		}
+?>
 <?php
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
@@ -822,6 +851,30 @@ EOT;
 		eval($this->plxPlugins->callHook('plxAdminEditUser'));
 
 		return $this->editUsers(null,true);
+	}
+
+	/**
+	 * Checks if no personal datas for deleted users ( RGPD )
+	 *
+	 * @author Jean-Pierre Pourrez @bazooka07
+	 **/
+	 private function _deletedUsersControl() {
+		foreach($this->aUsers as $user_id=>$user_infos) {
+			if(empty($user_infos['delete']) or $user_id == '001') {
+				continue;
+			}
+
+			# On contrôle la suppression des données personelles sensibles
+			foreach(self::VALUES_USER as $field) {
+				if(in_array($field, array('login' , 'name', 'last_connexion'))) {
+					continue;
+				}
+
+				if(!empty($this->aUsers[$user_id][$field])) {
+					$this->aUsers[$user_id][$field] = '';
+				}
+			}
+		}
 	}
 
 	/**

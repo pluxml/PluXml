@@ -1,6 +1,6 @@
 <?php
 
-const L_LANGUE						  = 'Occitan';
+const L_LANGUE					 	= 'Occitan';
 const L_DATE_CREATION				= 'Data de creacion';
 const L_DATE_UPDATE					= 'Data de mesa a jorn';
 
@@ -12,8 +12,16 @@ const L_HOMEPAGE					= 'Acuèlh';
 const L_UNCLASSIFIED				= 'Non classat';
 const L_INFO_PHP_VERSION			= 'Version de php';
 const L_INFO_CHARSET				= 'encodatge';
-const L_PAGE = 'Pagina';
-const L_SAVE_SUCCESSFUL = 'Enregistrament de las donadas efectuat amb succès';
+const L_PAGE						= 'Pagina';
+const L_SAVE_SUCCESSFUL				= 'Enregistrament de las donadas efectuat amb succès';
+const L_PASSWORD						= 'Senhal';
+const L_CONFIRM_PASSWORD			= 'Confirmacion del senhal';
+const L_ERR_MISSING_PASSWORD			= 'Volgatz entre-senhar un senhal !';
+const L_ERR_CONFIRM_PASSWORD		= 'Confirmacion del senhal incorrècta !';
+const L_PWD_VERY_WEAK				= 'Senhal fòrça feble';
+const L_PWD_WEAK					= 'Senhal feble';
+const L_PWD_GOOD					= 'Senhal bon';
+const L_PWD_STRONG					= 'Senhal fòrt';
 
 # index.php
 

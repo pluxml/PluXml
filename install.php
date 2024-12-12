@@ -169,7 +169,7 @@ function install($content, $config) {
 		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
 		<name><![CDATA[<?= $content['name'] ?>]]></name>
 		<infos><![CDATA[]]></infos>
-		<password><![CDATA[<?= sha1($salt . md5(trim($content['pwd']))) ?>]]></password>
+		<password><![CDATA[<?= sha1($salt . md5(trim($content['password1']))) ?>]]></password>
 		<salt><![CDATA[<?= $salt ?>]]></salt>
 		<email><![CDATA[<?= trim($content['email'])  ?>]]></email>
 		<lang><![CDATA[<?= $config['default_lang'] ?>]]></lang>
@@ -298,11 +298,11 @@ function install($content, $config) {
 $msg='';
 if(!empty($_POST['install'])) {
 
-	if(trim($_POST['name']=='')) $msg = L_ERR_MISSING_USER;
-	elseif(trim($_POST['login']=='')) $msg = L_ERR_MISSING_LOGIN;
-	elseif(trim($_POST['pwd']=='')) $msg = L_ERR_MISSING_PASSWORD;
-	elseif($_POST['pwd']!=$_POST['pwd2']) $msg = L_ERR_PASSWORD_CONFIRMATION;
-	elseif(trim($_POST['email']=='')) $msg = L_ERR_MISSING_EMAIL;
+	if(empty(trim($_POST['name']))) $msg = L_ERR_MISSING_USER;
+	elseif(empty(trim($_POST['login']))) $msg = L_ERR_MISSING_LOGIN;
+	elseif(empty(trim($_POST['password1']))) $msg = L_ERR_MISSING_PASSWORD;
+	elseif(trim($_POST['password1']) != $_POST['password2']) $msg = L_ERR_CONFIRM_PASSWORD;
+	elseif(empty(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL))) $msg = L_ERR_MISSING_EMAIL;
 	else {
 		install($_POST, $config);
 		header('Location: '.plxUtils::getRacine());
@@ -321,16 +321,6 @@ else {
 }
 
 plxUtils::cleanHeaders();
-
-function passwordDict() {
-	$words = array(
-		L_PWD_VERY_WEAK,
-		L_PWD_WEAK,
-		L_PWD_GOOD,
-		L_PWD_STRONG,
-	);
-	return implode('|', $words);
-}
 
 ?>
 <!DOCTYPE html>
@@ -403,20 +393,19 @@ function passwordDict() {
 					</div>
 					<div class="grid">
 						<div class="col sml-12 med-5 label-centered">
-							<label for="id_pwd"><?= L_PASSWORD ?>&nbsp;:</label>
+							<label for="id_password1"><?= L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd', '', 'password', '20-48', false, '', '', '', true) ?>
+							<?php plxUtils::printInput('password1', '', 'password', '20-48', false, '', '', '', true) ?>
 							<span data-lang="<?= passwordDict() ?>"></span>
 						</div>
 					</div>
 					<div class="grid">
 						<div class="col sml-12 med-5 label-centered">
-							<label for="id_pwd2"><?= L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
+							<label for="id_password2"><?= L_CONFIRM_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('pwd2', '', 'password', '20-48', false, '', '', '', true) ?>
-							<span data-lang="❌|✅"></span>
+							<?php plxUtils::printInput('password2', '', 'password', '20-48', false, '', '', 'autocomplete="off" data-mismatch="' . addslashes(L_ERR_CONFIRM_PASSWORD) . '"', true) ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -446,7 +435,7 @@ function passwordDict() {
 				<li><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></li>
 				<li><?= L_INFO_PHP_VERSION.' : '.phpversion() ?></li>
 <?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-				<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
+				<li><?= $_SERVER['SERVER_SOFTWARE']; ?><?= !empty(PHP_SAPI) ? ' - ' . PHP_SAPI : '' ?></li>
 <?php } ?>
 				<?php plxUtils::testWrite(PLX_ROOT.'config.php') ?>
 				<?php plxUtils::testWrite(PLX_ROOT.PLX_CONFIG_PATH) ?>

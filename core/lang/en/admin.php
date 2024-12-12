@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Post couldn\'t be saved';
 const L_ARTICLE_DELETE_ERR = 'An error occured : post couldn\'t be deleted';
 const L_ERR_UNKNOWN_COMMENT = 'Selected comment no longer exists';
 const L_ERR_URL_ALREADY_EXISTS = 'Url already in use. Please change the value of the field \'Url\'';
+const L_LAST_CONNEXION_ON = 'Last login on';
 
 // class.plx.media.php
 
@@ -517,8 +518,6 @@ const L_PROFIL_ADMIN_LANG = 'Language for administration';
 const L_PROFIL_INFOS = 'Information';
 const L_PROFIL_UPDATE = 'Save profile';
 const L_PROFIL_CHANGE_PASSWORD = 'Change password';
-const L_PROFIL_PASSWORD = 'Password';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirm password';
 const L_PROFIL_UPDATE_PASSWORD = 'Change password';
 
 // statique.php

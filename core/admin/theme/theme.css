@@ -341,6 +341,7 @@ select,
 textarea {
 	width: auto;
 }
+
 @media(min-width:768px) and (max-width:1199px) {
 	.sidebar input[type="text"] {
 		width: 100%;
@@ -1268,4 +1269,20 @@ select::-ms-expand {/*for IE10*/
 @keyframes bblFadInOut {
 	0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
 	40% { box-shadow: 0 2.5em 0 0 }
+}
+
+/* ---- password confirmation ---- */
+
+input[name="password2"]:not(.full-width)+span::after {
+	content: ' ';
+	margin: 0 0.5rem;
+	padding: 0 0.5rem;
+}
+
+input[name="password2"]:not(.full-width):invalid+span::after {
+	content: '❌';
+}
+
+input[name="password2"]:not(.full-width):valid+span::after {
+	content: '✅';
 }

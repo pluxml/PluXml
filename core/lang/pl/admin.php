@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Wystąpił błąd podczas zapisywania posta';
 const L_ARTICLE_DELETE_ERR = 'Wystąpił błąd podczas usuwania posta';
 const L_ERR_UNKNOWN_COMMENT = 'Wybrany komentarz już nie istnieje';
 const L_ERR_URL_ALREADY_EXISTS = 'Adres URL jest używany. Proszę zmienić wartość pola URL';
+const L_LAST_CONNEXION_ON = 'Ostatnie połączenie';
 
 // class.plx.media.php
 
@@ -517,8 +518,6 @@ const L_PROFIL_ADMIN_LANG = 'Język używany w administracji';
 const L_PROFIL_INFOS = 'Informacja';
 const L_PROFIL_UPDATE = 'Zapisz zmiany';
 const L_PROFIL_CHANGE_PASSWORD = 'Zmiana hasła';
-const L_PROFIL_PASSWORD = 'Hasło';
-const L_PROFIL_CONFIRM_PASSWORD = 'Powtórz hasło';
 const L_PROFIL_UPDATE_PASSWORD = 'Zmień hasło';
 
 // statique.php

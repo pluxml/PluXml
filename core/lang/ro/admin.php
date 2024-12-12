@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Eroare la salvarea articolului';
 const L_ARTICLE_DELETE_ERR = 'A apărut o eroare în timpul eliminarii articolului';
 const L_ERR_UNKNOWN_COMMENT = 'Comentariul cerut nu exista, sau nu e accesibil';
 const L_ERR_URL_ALREADY_EXISTS = 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'';
+const L_LAST_CONNEXION_ON = ''Ultima conectare pe';
 
 // class.plx.media.php
 
@@ -517,8 +518,6 @@ const L_PROFIL_ADMIN_LANG = 'Limba utilizată';
 const L_PROFIL_INFOS = 'Informaţii';
 const L_PROFIL_UPDATE = 'Editează-ţi profilul';
 const L_PROFIL_CHANGE_PASSWORD = 'Schimbarea parolei';
-const L_PROFIL_PASSWORD = 'Parola';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirmaţi parola';
 const L_PROFIL_UPDATE_PASSWORD = 'Schimbaţi parola';
 
 // statique.php

@@ -14,6 +14,14 @@ const L_INFO_PHP_VERSION = 'Versiune php';
 const L_INFO_CHARSET = 'encoding';
 const L_PAGE = 'Pagină';
 const L_SAVE_SUCCESSFUL = 'Înregistrarea a fost efectuata cu succes';
+const L_PASSWORD						= 'Parola';
+const L_CONFIRM_PASSWORD			= 'Confirmarea Parolei';
+const L_ERR_MISSING_PASSWORD			= 'Vă rugăm să introduceti corect parola!';
+const L_ERR_CONFIRM_PASSWORD		= 'Confirmarea parolă incorectă !';
+const L_PWD_VERY_WEAK					= 'Parola foarte slabă';
+const L_PWD_WEAK						= 'Parolă slabă';
+const L_PWD_GOOD						= 'Parolă bună';
+const L_PWD_STRONG						= 'Parolă puternică';
 
 # index.php
 

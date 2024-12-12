@@ -258,13 +258,13 @@ class plxUtils {
 		 if(!empty($extra))
 			 $params[] = $extra;
 		 if($type != 'hidden') {
-			$className = explode(' ', trim($className));
+			$classList = explode(' ', trim($className));
 			if($readonly === true)
-				$params[] = $className[] = 'readonly';
+				$classList[] = 'readonly';
 			elseif($required === true)
-				$params[] = $className[] = 'required';# Note : [L'attribut required n'est pas autorisé sur les entrées pour lesquelles l'attribut readonly est spécifié.](https://developer.mozilla.org/fr/docs/Web/HTML/Attributes/readonly#sect2)
-			if(!empty($className)) # fix double attribut 'class' class="readonly"
-				$params[] = 'class="'.$className = implode(' ', $className).'"';
+				$params[] = 'required';# Note : [L'attribut required n'est pas autorisé sur les entrées pour lesquelles l'attribut readonly est spécifié.](https://developer.mozilla.org/fr/docs/Web/HTML/Attributes/readonly#sect2)
+			if(!empty($classList)) # fix double attribut 'class' class="readonly"
+				$params[] = 'class="' . implode(' ', $classList) . '"';
 			if(in_array($type, explode(' ','text search url tel email password number')))
 				$params[] = 'placeholder="'.($placeholder?$placeholder:' ').'"';# Petit hack pour trouver les champs vide en css input:not(:placeholder-shown)
 			if(!empty($sizes) AND (strpos($sizes, '-') !== false)) {
@@ -345,6 +345,36 @@ class plxUtils {
 			$attrs[] = $extra;
 		}
 		echo '<textarea ' . implode(' ', $attrs) . '>' . $value . '</textarea>';
+	}
+
+	public static function printInputPasswords($className1='') {
+		if(!function_exists('passwordDict')) {
+?>
+		<div>
+			<em>passwordDict()</em> function is missing
+		</div>
+<?php
+		}
+
+		$sizes = '20-64';
+?>
+		<div class="grid">
+			<div class="col sml-12">
+				<label for="id_password1"><?= L_PASSWORD ?>&nbsp;:</label>
+				<i class="ico icon-lock"></i>
+				<?php self::printInput('password1', '', 'password', $sizes, false, $className1, '', '', true); ?>
+				<span data-lang="<?= passwordDict() ?>"></span>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12">
+				<label for="id_password2"><?= L_CONFIRM_PASSWORD ?></label>
+				<i class="ico icon-lock"></i>
+				<?php self::printInput('password2', '', 'password', $sizes, false, $className1, '', 'autocomplete="off" data-mismatch="' . addslashes(L_ERR_CONFIRM_PASSWORD) . '"', true); ?>
+				<span></span>
+			</div>
+		</div>
+<?php
 	}
 
 	/**

@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Fout bij het opslaan van het artikel';
 const L_ARTICLE_DELETE_ERR = 'Fout tijdens het verwijderen van het artikel';
 const L_ERR_UNKNOWN_COMMENT = 'De opgevraagde commentaar bestaat niet of niet meer';
 const L_ERR_URL_ALREADY_EXISTS = 'Url al in gebruik. Moet u de waarde van het veld \'Url\'';
+const L_LAST_CONNEXION_ON = 'Laatste aansluiting op';
 
 // class.plx.media.php
 
@@ -517,8 +518,6 @@ const L_PROFIL_ADMIN_LANG = 'Taal van administratiegedeelte';
 const L_PROFIL_INFOS = 'Informatie';
 const L_PROFIL_UPDATE = 'Uw profiel aanpassen';
 const L_PROFIL_CHANGE_PASSWORD = 'Wachtwoord veranderen';
-const L_PROFIL_PASSWORD = 'Wachtwoord';
-const L_PROFIL_CONFIRM_PASSWORD = 'Wachtwoord bevestigen';
 const L_PROFIL_UPDATE_PASSWORD = 'Wachtwoord veranderen';
 
 // statique.php

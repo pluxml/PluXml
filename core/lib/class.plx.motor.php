@@ -17,7 +17,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 class plxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
-
+	const ATTRIBUTES_USER = array('active', 'delete', 'profil');
+	const VALUES_USER = array('login', 'name', 'password', 'salt', 'infos', 'email', 'lang', 'password_token', 'password_token_expiry', 'last_connexion', 'connected_on');
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
 	public $path_url = false; # chemin de l'url du site
@@ -707,26 +708,30 @@ class plxMotor {
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
+
 		if(isset($iTags['user']) AND isset($iTags['login'])) {
 			$nb = sizeof($iTags['login']);
 			$size=ceil(sizeof($iTags['user'])/$nb);
 			# On boucle sur $nb
 			for($i = 0; $i < $nb; $i++) {
 				$attributes = $values[$iTags['user'][$i*$size]]['attributes'];
-				$number = $attributes['number'];
-				$this->aUsers[$number]['active']=$attributes['active'];
-				$this->aUsers[$number]['delete']=$attributes['delete'];
-				$this->aUsers[$number]['profil']=$attributes['profil'];
-				$this->aUsers[$number]['login']=plxUtils::getTagIndexValue($iTags['login'], $values, $i);
-				$this->aUsers[$number]['name']=plxUtils::getTagIndexValue($iTags['name'], $values, $i);
-				$this->aUsers[$number]['password']=plxUtils::getTagIndexValue($iTags['password'], $values, $i);
-				$this->aUsers[$number]['salt']=plxUtils::getTagIndexValue($iTags['salt'], $values, $i);
-				$this->aUsers[$number]['infos']=plxUtils::getTagIndexValue($iTags['infos'], $values, $i);
-				$this->aUsers[$number]['email']=plxUtils::getTagIndexValue($iTags['email'], $values, $i);
-				$lang = plxUtils::getTagIndexValue($iTags['lang'], $values, $i);
-				$this->aUsers[$number]['lang'] = !empty($lang) ? $lang : $this->aConf['default_lang'];
-				$this->aUsers[$number]['password_token']=plxUtils::getTagIndexValue($iTags['password_token'], $values, $i);
-				$this->aUsers[$number]['password_token_expiry']=plxUtils::getTagIndexValue($iTags['password_token_expiry'], $values, $i);
+				$user = array();
+				# from attributes
+				foreach(self::ATTRIBUTES_USER as $k) {
+					$user[$k] = $attributes[$k];
+				}
+				# from $values
+				foreach(self::VALUES_USER as $k) {
+					$user[$k] = plxUtils::getTagIndexValue($iTags[$k], $values, $i);
+				}
+
+				if(empty($user['lang'])) {
+					$user['lang'] = $this->aConf['default_lang'];
+				}
+
+				$user_id = $attributes['number'];
+				$this->aUsers[$user_id] = $user;
+
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxMotorGetUsers'));
 			}

@@ -48,6 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Error al temps de la salvagarda de l\'article';
 const L_ARTICLE_DELETE_ERR = 'Una error es subrevenguda pendent la supression de l\'article';
 const L_ERR_UNKNOWN_COMMENT = 'Lo comentari demandat existís pas o existís pas mai';
 const L_ERR_URL_ALREADY_EXISTS = 'URL ja utilizada. Volgatz modificar la valor del camp \'URL\'';
+const L_LAST_CONNEXION_ON = 'Darrièra connexion lo';
 
 // class.plx.media.php
 
@@ -516,8 +517,6 @@ const L_PROFIL_ADMIN_LANG = 'Lenga utilizada dins l\'administracion';
 const L_PROFIL_INFOS = 'Informacions';
 const L_PROFIL_UPDATE = 'Modificar vòstre perfil';
 const L_PROFIL_CHANGE_PASSWORD = 'Cambiament del senhal';
-const L_PROFIL_PASSWORD = 'Senhal';
-const L_PROFIL_CONFIRM_PASSWORD = 'Confirmacion del senhal';
 const L_PROFIL_UPDATE_PASSWORD = 'Cambiar vòstre senhal';
 
 // statique.php

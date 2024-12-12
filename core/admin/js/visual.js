@@ -58,6 +58,7 @@ function dialogBox(dlg) {
 	this.addEvent(this.span, 'click', this.close);
 	this.open();
 }
+
 var DragDrop = {
 	isbefore: function(a, b) {
 		if (a.parentNode == b.parentNode) {
@@ -105,27 +106,24 @@ var DragDrop = {
 		return
 	}
 
-	const pwds = document.querySelectorAll('input[type="password"]');
-	if (pwds.length == 0) {
-		return;
-	}
+	const pwd1 = document.querySelector('input[type="password"][name="password1"]');
+	if(pwd1) {
+		// for lost password in auth.php, profil.php, install.php
 
-	// Testing strength of password
-	const label = pwds[0].parentElement.querySelector('[data-lang]');
-	const words = (label) ? label.dataset.lang.split('|') : null;
-	pwds[0].addEventListener('keyup', function(ev) {
-		const val = ev.target.value;
-		if(val == '') {
-			if (label) {
-				label.textContent = '';
+		// Testing strength of password
+		const label = pwd1.form.querySelector('[data-lang]');
+		const words = (label) ? label.dataset.lang.split('|') : null;
+		pwd1.addEventListener('keyup', function(ev) {
+			const val = ev.target.value;
+			if(val.trim().length < 6) {
+				if (label) {
+					label.textContent = '';
+				}
+				ev.target.style.backgroundColor = '';
+				return;
 			}
-			ev.target.style.backgroundColor = '';
-			return;
-		}
 
-		var no = 0;
-		no++;
-		if(val.length >= 6) {
+			var no = 0;
 			if(val.match(/[a-z]+/i)) {
 				no++;
 				if(val.match(/\d+/)) {
@@ -135,48 +133,61 @@ var DragDrop = {
 					}
 				}
 			}
-		}
 
-		// Change password background color
-		// Colors: white = empty, red = very weak, orange = weak, yellow = good, green = strong
-		const colors = ['#fff', '#f00', '#f90', '#fc0', '#3c3'];
-		ev.target.style.backgroundColor = colors[no];
-		// Change label strenght password
-		if(words) {
-			label.textContent = (no > 0 && no <= words.length) ? words[no-1] : '';
-		}
-	});
-
-	if(pwds.length == 1) {
-		return;
-	}
-
-	// Checks if confirmation password is right
-	const label1 = pwds[1].parentElement.querySelector('[data-lang]');
-	const words1 = (label1) ? label1.dataset.lang.split('|') : null;
-	if(words1 && words1.length >= 2) {
-		// disabled last input["submit"]
-		pwds[1].addEventListener('change', function(ev){
-			if(pwds[0].value.length == 0 || pwds[1].value.length == 0) {
-				label1.textContent = '';
-			} else {
-				label1.textContent = words1[(pwds[0].value == pwds[1].value) ? 1: 0];
+			// Change password background color
+			// Colors: red = very weak, orange = weak, yellow = good, green = strong
+			const colors = ['#f00', '#f90', '#fc0', '#3c3'];
+			ev.target.style.backgroundColor = colors[no];
+			// Change label strenght password
+			if(words) {
+				if(no >= words.length) {
+					no = words.length - 1
+				}
+				label.textContent = words[no];
 			}
 		});
-	}
 
-	const form1 = pwds[0].form;
-	form1.addEventListener('submit', function(ev) {
-		const val = pwds[0].value;
-		if(val.length == 0) {
+		// https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page
+		const pwd2 = pwd1.form.querySelector('input[type="password"][name="password2"]');
+		if(!pwd2) {
 			return;
 		}
-		if(val != pwds[1].value) {
-			event.preventDefault();
-			if(words1 && words1.length > 0) {
-				label1.textContent = words1[0];
+
+		// Checks if confirmation password is right
+		function checkPassword(ev) {
+			const confirmation = (pwd1.value == pwd2.value);
+			if(confirmation) {
+				pwd2.setCustomValidity('');
+			} else {
+				const msg = pwd2.dataset.mismatch;
+				pwd2.setCustomValidity(msg ? msg : 'Passwords do not match');
 			}
-			pwds[1].focus();
+			pwd2.reportValidity();
 		}
-	});
+
+		pwd1.addEventListener('change', checkPassword);
+		pwd2.addEventListener('change', checkPassword);
+	}
+
+
+	// New user
+	const newUserRow = document.querySelector('#users-table tbody tr.new[data-userid]');
+	if(newUserRow) {
+		const userId = newUserRow.dataset.userid;
+		const nameUser = newUserRow.querySelector("input[name='users[" + userId + "][name]']");
+		const loginUser = newUserRow.querySelector("input[name='users[" + userId + "][login]']");
+		if(nameUser && loginUser) {
+			const inputs = newUserRow.querySelectorAll('input');
+			newUserRow.addEventListener('change', function(ev) {
+				if(ev.target == nameUser || ev.target== loginUser) {
+					// required fields for new user
+					console.log('Controler nouvel utilisateur');
+					const required = (nameUser.value.trim().length > 0 || loginUser.value.trim().length > 0);
+					Array.from(inputs).forEach(function(el) {
+						el.required = required;
+					});
+				}
+			});
+		}
+	}
 })();

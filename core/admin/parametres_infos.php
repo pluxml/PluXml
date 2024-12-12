@@ -49,9 +49,9 @@ $maj = $plxAdmin->checkMaj();
 </p>
 <ul class="unstyled-list">
 	<li><?= L_INFO_PHP_VERSION; ?> : <?= phpversion(); ?></li>
-	<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
+<?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 	<li><?= $_SERVER['SERVER_SOFTWARE'] ?><?= !empty(PHP_SAPI) ? ' - ' . PHP_SAPI : '' ?></li>
-	<?php } ?>
+<?php } ?>
 </ul>
 <ul class="unstyled-list">
 	<?php plxUtils::testWrite(PLX_ROOT) ?>
