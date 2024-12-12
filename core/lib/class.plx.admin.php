@@ -41,11 +41,6 @@ class plxAdmin extends plxMotor {
 		$this->tri = 'desc';
 		$this->getTemplates(self::PLX_TEMPLATES); # for lost passwords
 
-		if(isset($_SESSION['profil']) and $_SESSION['profil'] === '0') {
-			# Clear personal datas for deleted user
-			$this->_deletedUsersControl();
-		}
-
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminConstruct'));
 	}
@@ -644,6 +639,11 @@ EOT;
 		$this->aUsers[$user_id]['last_connexion'] = $this->aUsers[$user_id]['connected_on'];
 		$this->aUsers[$user_id]['connected_on'] = date('YmdHi');
 
+		if($this->aUsers[$user_id]['profil'] === '0') {
+			# Si administrateur conecté, on contrôle l'effacement des données personnelles des utilisateurs supprimés
+			$plxAdmin->_deletedUsersControl();
+		}
+
 		return $this->editUsers(null, true);
 	}
 
@@ -741,7 +741,7 @@ EOT;
 
 				$this->aUsers[$user_id]['delete'] = 1;
 				# On supprime les données personelles sensibles
-				foreach(self::PERSONAL_DATAS_USER as $field) {
+				foreach(self::VALUES_USER as $field) {
 					if(in_array($field, array('login' , 'name', 'last_connexion'))) {
 						continue;
 					}
@@ -855,26 +855,21 @@ EOT;
 	 * @author Jean-Pierre Pourrez @bazooka07
 	 **/
 	 private function _deletedUsersControl() {
-		$save = false;
 		foreach($this->aUsers as $user_id=>$user_infos) {
-			if(empty($user_infos['delete'])) {
+			if(empty($user_infos['delete']) or $user_id == '001') {
 				continue;
 			}
 
-			if($this->aUsers[$user_id]['lang'] != $this->aConf['default_lang']) {
-				$this->aUsers[$user_id]['lang'] = $this->aConf['default_lang'];
-				$save =true;
-			}
-			foreach(self::PERSONAL_DATAS_USER as $field) {
+			# On contrôle la suppression des données personelles sensibles
+			foreach(self::VALUES_USER as $field) {
+				if(in_array($field, array('login' , 'name', 'last_connexion'))) {
+					continue;
+				}
+
 				if(!empty($this->aUsers[$user_id][$field])) {
 					$this->aUsers[$user_id][$field] = '';
-					$save = true;
 				}
 			}
-		}
-
-		if($save) {
-			$this->editusers(null, true);
 		}
 	}
 
