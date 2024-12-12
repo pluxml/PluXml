@@ -641,7 +641,7 @@ EOT;
 
 		if($this->aUsers[$user_id]['profil'] === '0') {
 			# Si administrateur conecté, on contrôle l'effacement des données personnelles des utilisateurs supprimés
-			$plxAdmin->_deletedUsersControl();
+			$this->_deletedUsersControl();
 		}
 
 		return $this->editUsers(null, true);
