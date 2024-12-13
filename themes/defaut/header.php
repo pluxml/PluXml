@@ -29,8 +29,8 @@ if(!defined('FULL_WIDTH')) {
 ?>
 	<link rel="canonical" href="<?= $plxShow->pageUrl() ?>" />
 	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.css?v=1.3.1" media="screen,print"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.css?v=<?= PLX_VERSION ?>" media="screen"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.min.css?v=1.3.1" media="screen,print"/>
+	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.min.css?v=<?= PLX_VERSION ?>" media="screen"/>
 <?php
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
