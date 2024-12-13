@@ -419,6 +419,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			foreach($content['idUser'] as $user_id) {
 				if($content['selection']=='delete' AND $user_id!='001') {
 					$this->aUsers[$user_id]['delete']=1;
+					foreach(array(/* 'login', 'name', */ 'password', 'salt', 'infos', 'email', 'lang', 'password_token', 'password_token_expiry',) as $k) {
+						$this->aUsers[$user_id][$k] = '';
+					}
 					$action = true;
 				}
 			}
