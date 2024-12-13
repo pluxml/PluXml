@@ -32,10 +32,10 @@ class plxUtils {
 	const PATTERN_PAGINATION = '#\bpage=%d\b#'; # for hacking against printf()
 	const ALLOWED_HTML_TAGS = '<p><div><ul><li><ol><br><a><img><i><em><sup><span><strong>';
 	const MINIFY_PATTERNS = array(
-		/* Supprime les commentaires */
+		# Supprime les commentaires
 		'!/\*[^*]*\*+([^/][^*]*\*+)*/!' => '',
-
-		'#\s*(\{|\}|,|:|;)\s*#m' => '$1',
+		# Supprime les espaces superflus autour d'une ponctuation
+		'#\s*([\{\},:;\>])\s*#m' => '$1',
 		# supprime espaces en début de ligne (heading spaces)
 		'#^\s+#' => '',
 		# idem en fin de ligne (trailing spaces)
@@ -46,7 +46,7 @@ class plxUtils {
 		'#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i' => '$1$2$3',
 		# Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
 		'#(?<=[\s:,-])0+\.(\d+)#s' => '$1',
-
+		# Reduit une succession de 0
 		'#(?<=:)\s*0(?:\s+0){1,3}\s*;#m' => '0',
 	);
 
