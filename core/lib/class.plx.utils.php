@@ -4,7 +4,7 @@
  * Classe plxUtils rassemblant les fonctions utiles à PluXml
  *
  * @package PLX
- * @author	Florent MONTHEL et Stephane F
+ * @author	Florent MONTHEL, Stephane F, Jean-Pierre Pourrez @bazooka07
  **/
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -20,6 +20,24 @@ class plxUtils {
 		'en' => 'an?|as|at|before|but|by|for|from|is|in(?:to)?|like|off?on(?:to)?|per|since|than|the|this|that|to|up|via|with',
 		'de' => 'das|der|die|fur|am',
 		'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
+	);
+	const MINIFY_PATTERNS = array(
+		/* Supprime les commentaires */
+		'!/\*[^*]*\*+([^/][^*]*\*+)*/!' => '',
+
+		'#\s*(\{|\}|,|:|;)\s*#m' => '$1',
+		# supprime espaces en début de ligne (heading spaces)
+		'#^\s+#' => '',
+		# idem en fin de ligne (trailing spaces)
+		'#\s+$#' => '',
+		# réduit le nombre d'espaces si >= 2
+		'#\s{2,}#' => ' ',
+		# Minify HEX color code
+		'#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i' => '$1$2$3',
+		# Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
+		'#(?<=[\s:,-])0+\.(\d+)#s' => '$1',
+
+		'#(?<=:)\s*0(?:\s+0){1,3}\s*;#m' => '0',
 	);
 
 	/**
@@ -1285,14 +1303,10 @@ class plxUtils {
 	 *
 	 * @param	string	chaine de caractères à minifier
 	 * @return	string	chaine de caractères minifiée
-	 * @author	Frédéric Kaplon
+	 * @author	Frédéric Kaplon, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public static function minify($buffer) {
-		/* Supprime les commentaires */
-		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
-		/* Supprime les tabs, espaces, saut de ligne, etc. */
-		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
-		return $buffer;
+		return preg_replace(array_keys(self::MINIFY_PATTERNS), array_values(self::MINIFY_PATTERNS), $buffer);
 	}
 
 	/**
