@@ -711,7 +711,7 @@ class plxMotor {
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
-		unset $parser;
+		unset($parser);
 
 		if(isset($iTags['user']) AND isset($iTags['login'])) {
 			$nb = sizeof($iTags['login']);
