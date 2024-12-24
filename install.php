@@ -5,8 +5,8 @@ const HTACCESS_CONTENT = <<< EOT
 Options -Indexes
 
 <Files *>
-    Order allow,deny
-    Deny from all
+	Order allow,deny
+	Deny from all
 </Files>
 
 EOT;
@@ -78,6 +78,7 @@ $config['description'] = plxUtils::strRevCheck(L_SITE_DESCRIPTION);
 $config['timezone'] = $timezone;
 $config['clef'] = plxUtils::charAleatoire(15);
 $config['default_lang'] = $lang;
+$config['version'] = PLX_VERSION;
 
 # Vérification de l'existence des dossiers
 foreach(array(
@@ -173,6 +174,10 @@ function install($content, $config) {
 		<salt><![CDATA[<?= $salt ?>]]></salt>
 		<email><![CDATA[<?= trim($content['email'])  ?>]]></email>
 		<lang><![CDATA[<?= $config['default_lang'] ?>]]></lang>
+		<password_token></password_token>
+		<password_token_expiry></password_token_expiry>
+		<last_connexion></last_connexion>
+		<connected_on></connected_on>
 	</user>
 </document>
 <?php
