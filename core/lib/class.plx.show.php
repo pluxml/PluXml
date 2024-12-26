@@ -1743,6 +1743,11 @@ class plxShow
 		$group_active = '';
 		if ($this->plxMotor->aStats) {
 			foreach ($this->plxMotor->aStats as $k => $v) {
+				if($k == $homestaticId) {
+					# Don't display homepage in static list
+					continue;
+				}
+
 				if ($v['active'] == 1 and $v['menu'] == 'oui') { # La page  est bien active et dispo ds le menu
 					if ($v['url'][0] == '?') # url interne commençant par ?
 						$url = $this->plxMotor->urlRewrite($v['url']);
