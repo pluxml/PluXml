@@ -5,22 +5,20 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_4_2 extends plxUpdate{
+class update_4_2 extends plxUpdate {
+	const NEW_PARAMS = array(
+		'clef'			=> '',
+		'miniatures_l'	=> '200',
+		'miniatures_h'	=> '100',
+		'tri_coms'		=> 'asc',
+		'style_mobile'	=> 'mobile.defaut',
+	);
 
 	function step1() {
 ?>
-		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?> : <em><?= implode(', ', array_keys(self::NEW_PARAMS)) ?></em></li>
 <?php
-
-		$new_parameters = array(
-			'clef' => null,
-			'miniatures_l' => '200',
-			'miniatures_h' => '100',
-			'tri_coms' => 'asc',
-			'style_mobile' => 'mobile.defaut'
-		);
-		$this->updateParameters($new_parameters);
-		return true; # pas d'erreurs
+		return $this->updateParameters(self::NEW_PARAMS);
 	}
 
 }

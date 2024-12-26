@@ -5,38 +5,44 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_1_4 extends plxUpdate{
+class update_5_1_4 extends plxUpdate {
+	const NEW_PARAMS = array(
+		'mod_art'			=> 0,
+		'racine_themes'		=> 'themes/',
+		'racine_plugins'	=> 'plugins/',
+	);
 
-	# mise à jour fichier parametres.xml
+	/*
+	 * mise à jour fichier parametres.xml
+	 * */
 	public function step1() {
 ?>
-		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?> : <em><?= implode(', ', array_keys(self::NEW_PARAMS)) ?></em></li>
 <?php
-		# nouveaux parametres
-		$new_parameters = array(
-			'mod_art' => 0,
-			'racine_themes' => 'themes/',
-			'racine_plugins' => 'plugins/',
-		);
 		# mise à jour du fichier des parametres
-		$this->updateParameters($new_parameters);
-		return true; # pas d'erreurs
+		return $this->updateParameters(self::NEW_PARAMS);
 	}
 
-	# Migration des articles: ajout nouveau champ title_htmltag
+	/*
+	 * Migration des articles: ajout nouveau champ title_htmltag
+	 * */
 	public function step2() {
 ?>
 		<li><?= L_UPDATE_ARTICLES_CONVERSION ?></li>
 <?php
-		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
+		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->aConf['racine_articles']);
         if($files = $plxGlob_arts->query('/(.*).xml$/','art')) {
 			foreach($files as $filename){
 				if(is_readable($filename)) {
-					$data = file_get_contents(PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename);
-					if(!preg_match('/\]\]<\/title_htmltag>/', $data)) {
-						$data = preg_replace("/<\/document>$/", "\t<title_htmltag>\n\t\t<![CDATA[]]>\n\t</title_htmltag>\n</document>", $data);
+					$data = file_get_contents(PLX_ROOT.$this->aConf['racine_articles'].$filename);
+					$replace = <<< EOT
+	<title_htmltag></title_htmltag>
+</document>
+EOT;
+					if(!preg_match('#\]\]</title_htmltag>#', $data)) {
+						$data = preg_replace("#</document>$#", $replace, $data);
 					}
-					if(!plxUtils::write($data, PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename)) {
+					if(!plxUtils::write($data, PLX_ROOT.$this->aConf['racine_articles'].$filename)) {
 						echo '<p class="error">'.L_UPDATE_ERR_FILE_PROCESSING.' : '.$filename.'</p>';
 						return false;
 					}
@@ -46,12 +52,28 @@ class update_5_1_4 extends plxUpdate{
 		return true;
 	}
 
-	# Suppression des fichiers obsoletes
+	/*
+	 * Suppression des fichiers obsoletes
+	 * */
 	public function step3() {
-		@unlink(PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].'index.html');
-		@unlink(PLX_ROOT.$this->plxAdmin->aConf['racine_commentaires'].'index.html');
-		@unlink(PLX_ROOT.$this->plxAdmin->aConf['racine_statiques'].'index.html');
-		@unlink(PLX_ROOT.'blog.php');
+		foreach(array('articles', 'commentaires', 'statiques') as $k) {
+			$filename = PLX_ROOT . $this->aConf['racine_' . $k] . 'index.html';
+			if(is_writable($filename)) {
+				unlink($filename);
+			} elseif(file_exists($filename)) {
+?>
+			<p><?php printf(L_DELETE_FILE_ERROR, $this->aConf['racine_' . $k] . 'index.html') ?></p>
+<?php
+			}
+		}
+		$filename = PLX_ROOT . 'blog.php';
+		if(is_writable($filename)) {
+			unlink($filename);
+		} elseif(file_exists($filename)) {
+?>
+			<p><?php printf(L_DELETE_FILE_ERROR, 'blog.php') ?></p>
+<?php
+		}
 		return true;
 	}
 

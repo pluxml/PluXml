@@ -5,21 +5,20 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_1_3 extends plxUpdate{
+class update_5_1_3 extends plxUpdate {
+	const NEW_PARAMS = array(
+		'images_l'	=> 800,
+		'images_h'	=> 600,
+	);
 
-	# mise à jour fichier parametres.xml
+	/*
+	 * mise à jour fichier parametres.xml
+	 * */
 	public function step1() {
 ?>
-		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?> : <em><?= implode(', ', array_keys(self::NEW_PARAMS)) ?></em></li>
 <?php
-		# nouveaux parametres
-		$new_parameters = array(
-			'images_l' => 800,
-			'images_h' => 600,
-		);
 		# mise à jour du fichier des parametres
-		$this->updateParameters($new_parameters);
-		return true; # pas d'erreurs
+		return $this->updateParameters(self::NEW_PARAMS);
 	}
-
 }

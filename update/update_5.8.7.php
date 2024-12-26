@@ -6,23 +6,28 @@
  * @package PLX
  * @author Pedro "P3ter" CADETE
  **/
-class update_5_8_7 extends plxUpdate
-{
+class update_5_8_7 extends plxUpdate {
 
 	# Reconstruction des fichiers admin.css et site.css pour les plugins actifs
-	# dans le dossier data en remplacement du dossiers plguins
+	# dans le dossier data en remplacement du dossiers plugins
 	public function step1()
 	{
 ?>
 	<li><?= L_BUILD_CSS_PLUGINS_CACHE ?></li>
 <?php
+		if(empty($this->plxMotor->plxPlugins)) {
+			$this->plxMotor->plxPlugins = new plxPlugins(USER_LANG);
+		}
+		$this->plxMotor->plxPlugins->loadPlugins();
 		foreach(array('admin', 'site') as $context) {
-			$this->plxAdmin->plxPlugins->cssCache($context);
+			$this->plxMotor->plxPlugins->cssCache($context);
 			$oldFilename = PLX_PLUGINS . $context . '.css';
-			if(file_exists($oldFilename)) {
+			if(is_writable($oldFilename)) {
 				unlink($oldFilename);
 			}
 		}
-		return true;
+
+		# nouveaux paramètres
+		return $this->updateParameters();
 	}
 }

@@ -58,3 +58,6 @@ const L_UPDATE_ERR_COMMENTS_MIGRATION	= 'Ошибка при переходе к
 # PluXml 5.8.7
 const L_BUILD_CSS_PLUGINS_CACHE			= 'Создание файлов кешей admin.css и site.css для плагинов';
 
+# PluXml 5.9.0
+const DELETION_OUTDATED_FILES			= 'Удаление устаревших файлов';
+

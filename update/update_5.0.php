@@ -5,25 +5,27 @@
  * @package PLX
  * @author	Stephane F
  **/
-class update_5_0 extends plxUpdate{
+class update_5_0 extends plxUpdate {
+	const NEW_PARAMS = array(
+		'urlrewriting' 	=> 0,
+		'gzip'		 	=> 0,
+		'feed_chapo' 	=> 0,
+		'feed_footer' 	=> '',
+		'users' 		=> PLX_CONFIG_PATH . 'users.xml',
+		'tags' 			=> PLX_CONFIG_PATH . 'tags.xml',
+		'editor'		=> 'plxtoolbar',
+		'homestatic'	=> '',
+	);
+	const ART_PATTERN = '#^(\d{4})\.(\d{3}|home|draft)\.(\d{12})\.([\w-]+)\.xml$#';
+	public $aTags = array();
 
 	/* Création des nouveaux paramètres dans le fichier parametres.xml */
 	public function step1() {
 ?>
-		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?></li>
+		<li><?= L_UPDATE_UPDATE_PARAMETERS_FILE ?> : <em><?= implode(', ', array_keys(self::NEW_PARAMS)) ?></em></li>
 <?php
-		$new_parameters = array(
-			'urlrewriting' 	=> 0,
-			'gzip'		 	=> 0,
-			'feed_chapo' 	=> 0,
-			'feed_footer' 	=> '',
-			'users' 		=> 'data/configuration/users.xml',
-			'tags' 			=> 'data/configuration/tags.xml',
-			'editor'		=> 'plxtoolbar',
-			'homestatic'	=> ''
-		);
-		$this->updateParameters($new_parameters);
-		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS')); # on recharge le fichier de configuration
+		$this->updateParameters(self::NEW_PARAMS);
+		$this->getConfiguration(path('XMLFILE_PARAMETERS')); # on recharge le fichier de configuration
 		return true; # pas d'erreurs
 	}
 
@@ -32,81 +34,87 @@ class update_5_0 extends plxUpdate{
 ?>
 		<li><?= L_UPDATE_CREATE_TAGS_FILE ?></li>
 <?php
-		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>';
-		$xml .= '<document>'."\n";
-		$xml .= '</document>';
-		if(!plxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['tags'])) {
-			echo '<p class="error">'.L_UPDATE_ERR_CREATE_TAGS_FILE.'</p>';
+		if(!$this->writeAsXML('', $this->aConf['tags'])) {
+?>
+			<p class="error"><?= L_UPDATE_ERR_CREATE_TAGS_FILE ?></p>
+<?php
 			return false;
 		}
 		return true;
 	}
 
 	/* Création du fichier themes/style/tags.php */
-	public function step3() {
-		$srcfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/home.php';
-		$dstfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/tags.php';
-		if(!is_file($dstfile)) {
-?>
-		<li><?= L_UPDATE_CREATE_THEME_FILE ?>: themes/ <?= $this->plxAdmin->aConf['style'] ?>/tags.php</li>
-<?php
-			if(!copy($srcfile, $dstfile)) {
-				echo '<p class="error">'.L_UPDATE_ERR_CREATE_THEME_FILE.' themes/style/tags.php</p>';
-				return false;
-			}
-		}
-		return true;
-	}
-
 	/* Création du fichier themes/style/archives.php */
-	public function step4() {
-		$srcfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/home.php';
-		$dstfile = PLX_ROOT.'themes/'.$this->plxAdmin->aConf['style'].'/archives.php';
-		if(!is_file($dstfile)) {
+	public function step3() {
+		$style = PLX_ROOT . 'themes/' . $this->aConf['style'] . '/';
+		$srcfile = $style . 'home.php';
+		foreach(array('tags', 'archives',) as $k) {
+			$dstfile = $style . $k .'.php';
+			if(!is_file($dstfile)) {
 ?>
-		<li><?= L_UPDATE_CREATE_THEME_FILE ?> themes/<?= $this->plxAdmin->aConf['style'] ?>/archives.php</li>
+		<li><?= L_UPDATE_CREATE_THEME_FILE ?>: <?= $filename ?></li>
 <?php
-			if(!copy($srcfile, $dstfile)) {
-				echo '<p class="error">'.L_UPDATE_ERR_CREATE_THEME_FILE.' themes/style/archives.php</p>';
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/* Migration des articles: formatage xml + renommage des fichiers */
-	public function step5() {
+				if(!copy($srcfile, $dstfile)) {
 ?>
-		<li><?= L_UPDATE_ARTICLES_CONVERSION ?></li>
+			<p class="error"><?= L_UPDATE_ERR_CREATE_THEME_FILE . ' ' . substr($filename, strlen(PLX_ROOT)) ?></p>
 <?php
-		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
-        if($files = $plxGlob_arts->query('/^[0-9]{4}.([0-9]{3}|home|draft).[0-9]{12}.[a-z0-9-]+.xml$/','art')) {
-			foreach($files as $id => $filename){
-				$art = $this->parseArticle(PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename);
-				if(!$this->plxAdmin->editArticle($art, $art['numero'])) {
-					echo '<p class="error">'.L_UPDATE_ERR_FILE_PROCESSING.' : '.$filename.'</p>';
 					return false;
 				}
 			}
+		return true;
 		}
+	}
+
+	/* Migration des articles: formatage xml + renommage des fichiers */
+	public function step4() {
+?>
+		<li><?= L_UPDATE_ARTICLES_CONVERSION ?></li>
+<?php
+		$rep = PLX_ROOT.$this->aConf['racine_articles'];
+		$artFiles = glob($rep . '*.xml');
+		foreach($artFiles as $filename) {
+			if(preg_match(self::ART_PATTERN, basename($filename))) {
+				$art = $this->parseArticle($filename);
+				if(!$this->_editArticle($art, $art['artId'])) {
+?>
+			<p class="error"><?= L_UPDATE_ERR_FILE_PROCESSING ?> : <?= basename($filename) ?></p>
+<?php
+					return false;
+				}
+
+				unlink($filename);
+			}
+		}
+
 		return true;
 	}
 
 	/* Migration du fichier des pages statiques */
-	public function step6() {
+	public function step5() {
 ?>
 		<li><?= L_UPDATE_STATICS_MIGRATION ?></li>
 <?php
-		if($statics = $this->getStatiques(PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
+		if($statics = $this->getStatiques(PLX_ROOT.$this->aConf['statiques'])) {
 			# On génère le fichier XML
-			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
-			$xml .= "<document>\n";
+			ob_start();
+?>
+<document>
+<?php
 			foreach($statics as $static_id => $static) {
-				$xml .= "\t<statique number=\"".$static_id."\" active=\"".$static['active']."\" menu=\"".$static['menu']."\" url=\"".$static['url']."\" template=\"static.php\"><group><![CDATA[]]></group><name><![CDATA[".$static['name']."]]></name></statique>\n";
+?>
+	<statique number="<?= $static_id ?>" active="<?= $static['active'] ?>" menu="<?= $static['menu'] ?>" url="<?= $static['url'] ?>" template="static.php">
+		<group></group>
+		<name><![CDATA[<?= $static['name'] ?>]]></name>
+	</statique>
+<?php
 			}
-			$xml .= "</document>";
-			if(!plxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['statiques'])) {
-				echo '<p class="error">'.L_UPDATE_ERR_STATICS_MIGRATION.' (data/configuration/statiques.xml)</p>';
+?>
+</document>
+<?php
+			if(!plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $this->aConf['statiques'])) {
+?>
+		<p class="error"><?= L_UPDATE_ERR_STATICS_MIGRATION ?> (<em><?= $this->aConf['statiques'] ?></em> )</p>
+<?php
 				return false;
 			}
 		}
@@ -114,60 +122,68 @@ class update_5_0 extends plxUpdate{
 	}
 
 	/* Création du fichier des utilisateurs */
-	public function step7() {
+	public function step6() {
 ?>
 		<li><?= L_UPDATE_CREATE_USERS_FILE ?></li>
 <?php
-		if($users = $this->getUsers(PLX_ROOT.$this->plxAdmin->aConf['passwords'])) {
-			$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
-			$xml .= '<document>'."\n";
+		if($users = $this->getUsers(PLX_ROOT . $this->aConf['passwords'])) {
+			ob_start();
 			$num_user = 1;
 			foreach($users as $login => $password) {
-				$xml .= "\t".'<user number="'.str_pad($num_user++, 3, "0", STR_PAD_LEFT).'" active="1" profil="0" delete="0">'."\n";
-				$xml .= "\t\t".'<login><![CDATA['.$login.']]></login>'."\n";
-				$xml .= "\t\t".'<name><![CDATA['.$login.']]></name>'."\n";
-				$xml .= "\t\t".'<infos><![CDATA[]]></infos>'."\n";
-				$xml .= "\t\t".'<password><![CDATA['.$password.']]></password>'."\n";
-				$xml .= "\t</user>\n";
+?>
+	<user number="<?= str_pad($num_user++, 3, '0', STR_PAD_LEFT) ?>" active="1" profil="0" delete="0">
+		<login><![CDATA[<?= $login ?>]]></login>
+		<name><![CDATA[<?= $login ?>]]></name>
+		<infos></infos>
+		<password><![CDATA[<?= $password ?>]]></password>
+	</user>
+<?php
 			}
-			$xml .= '</document>';
-			if(!plxUtils::write($xml,PLX_ROOT.$this->plxAdmin->aConf['users'])) {
-				echo '<p class="error">'.L_UPDATE_ERR_CREATE_USERS_FILE.' (data/configuration/users.xml)</p>';
+
+			if(!$this->writeAsXML(ob_get_clean(), $this->aConf['users'])) {
+?>
+		<p class="error"><?= L_UPDATE_ERR_CREATE_USERS_FILE ?> (<em><?= $this->aConf['users'] ?></em> )</p>
+<?php
 				return false;
 			}
-		}
-		else {
-			echo '<p class="error">'.L_UPDATE_ERR_NO_USERS.' data/configuration/passwords.xml</p>';
+		} else {
+?>
+		<p class="error"><?= L_UPDATE_ERR_NO_USERS ?> ( <em><?= $this->aConf['passwords'] ?></em> )</p>
+<?php
 			return false;
 		}
+
 		return true;
 	}
 
 	/* Suppression des données obsolètes */
-	public function step8() {
+	public function step7() {
 		# suppression du fichier data/configuration/passwords.xml
-		unlink(PLX_ROOT.$this->plxAdmin->aConf['passwords']);
+		unlink(PLX_ROOT.$this->aConf['passwords']);
 		# suppression du fichier d'installation
-		unlink(PLX_ROOT.'install.php');
+		# unlink(PLX_ROOT.'install.php');
 		# suppression des clés obsolètes dans le fichier data/configuration/parametres.xml
-		unset($this->plxAdmin->aConf['password']);
-		$this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $this->plxAdmin->aConf);
+		unset($this->aConf['passwords']);
+		$this->updateParameters();
 		return true;
 	}
 
 	# Création du fichier .htaccess
-	public function step9() {
+	public function step8() {
 		if(!is_file(PLX_ROOT.'.htaccess')) {
 ?>
 		<li><?= L_UPDATE_CREATE_HTACCESS_FILE ?></li>
 <?php
-			$txt = '<Files "version">
+			$txt = <<< EOT
+<Files "version">
     Order allow,deny
     Deny from all
-</Files>';
+</Files>
+EOT;
 			if(!plxUtils::write($txt,PLX_ROOT.'.htaccess')) {
-				echo '<p class="error">'.L_UPDATE_ERR_CREATE_HTACCESS_FILE.'</p>';
-				return false;
+?>
+		<p class="warning"><?= L_UPDATE_ERR_CREATE_HTACCESS_FILE ?></p>
+<?php
 			}
 		}
 		return true;
@@ -178,12 +194,31 @@ class update_5_0 extends plxUpdate{
 	private	function artInfoFromFilename($filename) {
 
 		# On effectue notre capture d'informations
-		preg_match('/([0-9]{4}).([0-9]{3}|home|draft).([0-9]{12}).([a-z0-9-]+).xml$/',$filename,$capture);
-		return array('artId'=>$capture[1],'catId'=>$capture[2],'artDate'=>$capture[3],'artUrl'=>$capture[4]);
+		if(preg_match(self::ART_PATTERN, basename($filename), $capture)) {
+			return array(
+				'artId'		=> $capture[1],
+				'catId'		=> $capture[2],
+				'artDate'	=> $capture[3],
+				'artUrl'	=> $capture[4]
+			);
+		}
+
+		return false;
 	}
 
 	private function parseArticle($filename) {
-		$art = array();
+		# Informations obtenues en analysant le nom du fichier
+		$tmp = $this->artInfoFromFilename($filename);
+
+		if(preg_match('#^(\d{4})(\d{2})(\d{2})(\d{4})$#', $tmp['artDate'], $capture)) {
+			$artDate = array(
+				'year' => $capture[1],
+				'month' => $capture[2],
+				'day' => $capture[3],
+				'time' => $capture[4],
+			);
+		}
+
 		# Mise en place du parseur XML
 		$data = implode('',file($filename));
 		$parser = xml_parser_create(PLX_CHARSET);
@@ -192,29 +227,66 @@ class update_5_0 extends plxUpdate{
 		xml_parse_into_struct($parser,$data,$values,$iTags);
 		xml_parser_free($parser);
 		# Recuperation des valeurs de nos champs XML
-		$art['title'] = trim($values[ $iTags['title'][0] ]['value']);
-		$art['author'] = '001';
-		$art['allow_com'] = trim($values[ $iTags['allow_com'][0] ]['value']);
-		$art['chapo'] = (isset($values[ $iTags['chapo'][0] ]['value']))?trim($values[ $iTags['chapo'][0] ]['value']):'';
-		$art['content'] = (isset($values[ $iTags['content'][0] ]['value']))?trim($values[ $iTags['content'][0] ]['value']):'';
-		# Informations obtenues en analysant le nom du fichier
-		$art['filename'] = $filename;
-		$tmp = $this->artInfoFromFilename($filename);
-		$art['numero'] = $tmp['artId'];
-		$art['artId'] = $art['numero'];
-		$art['catId'] = array($tmp['catId']);
-		$art['url'] = $tmp['artUrl'];
-		preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{4})/',$tmp['artDate'],$capture);
-		$art['date'] = array ('year' => $capture[1],'month' => $capture[2],'day' => $capture[3],'time' => $capture[4]);
-		$art['day'] = $art['date']['day'];
-		$art['month'] =$art['date']['month'];
-		$art['year'] = $art['date']['year'];
-		$art['time'] = $art['date']['time'];
-		#nouveau champs
-		$art['template'] = 'article.php';
-		$art['tags'] = '';
-		# On retourne le tableau
-		return $art;
+		$art = array(
+			'filename'	=> basename($filename),
+			'artId'		=> $tmp['artId'],
+			'catId'		=> array($tmp['catId']),
+			'url'		=> $tmp['artUrl'],
+			#nouveaux champs
+			'author'	=> '001',
+			'template'	=> 'article.php',
+			'tags'		=> 'PluXml',
+		);
+		foreach(array('title', 'allow_com', 'chapo', 'content') as $k) {
+			$art[$k] = $this->getValue($iTags[$k][0], $values);
+		}
+		return array_merge($art, $artDate);
+	}
+
+	private function _editArticle($content, $id) {
+		# Génération de notre url d'article
+		if(trim($content['url']) == '')
+			$content['url'] = plxUtils::title2url($content['title']);
+		else
+			$content['url'] = plxUtils::title2url($content['url']);
+		# URL vide après le passage de la fonction ;)
+		if($content['url'] == '') $content['url'] = 'nouvel-article';
+		# Génération du fichier XML
+		ob_start();
+?>
+	<title><![CDATA[<?= trim($content['title']) ?>]]></title>
+	<allow_com><?= $content['allow_com'] ?></allow_com>
+	<template><![CDATA[<?= $content['template'] ?>]]></template>
+	<chapo><![CDATA[<?= trim($content['chapo']) ?>]]></chapo>
+	<content><![CDATA[<?= trim($content['content']) ?>]]></content>
+	<tags><![CDATA[<?= trim($content['tags']) ?>]]></tags>
+<?php
+
+		# On génère le nom de notre fichier
+		$time = $content['year'] . $content['month'] . $content['day'] . substr(str_replace(':', '', $content['time']) , 0, 4);
+		$filename = $this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$time.'.'.$content['url'].'.xml';
+
+		# On va mettre à jour notre fichier
+		if($this->writeAsXML(ob_get_clean(), $filename)) {
+			# mise à jour de la liste des tags
+			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
+			$this->_editTags();
+			return true;
+		}
+
+		return false;
+	}
+
+	private function _editTags() {
+		# Génération du fichier XML
+		ob_start();
+		foreach($this->aTags as $id => $tag) {
+?>
+	<article number="<?= $id ?>" date="<?= $tag['date'] ?>" active="<?= $tag['active'] ?>"><![CDATA[<?= $tag['tags'] ?>]]></article>
+<?php
+		}
+		# On écrit le fichier
+		return $this->writeAsXML(ob_get_clean(), $this->aConf['tags']);
 	}
 
 	private function getUsers($filename) {
@@ -229,11 +301,11 @@ class update_5_0 extends plxUpdate{
 			xml_parser_free($parser);
 			# On verifie qu'il existe des tags "user"
 			if(isset($iTags['user'])) {
-				# On compte le nombre de tags "user"
-				$nb = sizeof($iTags['user']);
-				# On boucle sur $nb
-				for($i = 0; $i < $nb; $i++) {
-					$users[ $values[ $iTags['user'][$i] ]['attributes']['login'] ] = $values[ $iTags['user'][$i] ]['value'];
+				# On boucle sur $iTags['user']
+				foreach($iTags['user'] as $k) {
+					$node = $values[$k];
+					$attrs = $node['attributes'];
+					$users[$attrs['login'] ] = $node['value'];
 				}
 			}
 		}
@@ -251,34 +323,26 @@ class update_5_0 extends plxUpdate{
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
 			xml_parser_free($parser);
+
 			# On verifie qu'il existe des tags "statique"
 			if(isset($iTags['statique'])) {
-				# On compte le nombre de tags "statique"
-				$nb = sizeof($iTags['statique']);
-				# On boucle sur $nb
-				for($i = 0; $i < $nb; $i++) {
-					# Recuperation du nom de la page statique
-					$aStats[ $values[ $iTags['statique'][$i] ]['attributes']['number'] ]['name']
-					= $values[ $iTags['statique'][$i] ]['value'];
-					# Recuperation de l'url de la page statique
-					$aStats[ $values[ $iTags['statique'][$i] ]['attributes']['number'] ]['url']
-					= strtolower($values[ $iTags['statique'][$i] ]['attributes']['url']);
-					# Recuperation de l'etat de la page
-					$aStats[ $values[ $iTags['statique'][$i] ]['attributes']['number'] ]['active']
-					= intval($values[ $iTags['statique'][$i] ]['attributes']['active']);
-					# On affiche la page statique dans le menu ?
-					if(isset($values[ $iTags['statique'][$i] ]['attributes']['menu']))
-						$aStats[ $values[ $iTags['statique'][$i] ]['attributes']['number'] ]['menu']
-						= $values[ $iTags['statique'][$i] ]['attributes']['menu'];
-					else
-					$aStats[ $values[ $iTags['statique'][$i] ]['attributes']['number'] ]['menu'] = 'oui';
-					# On verifie que la page statique existe bien
-					$file = PLX_ROOT.$this->plxAdmin->aConf['racine_statiques'].$values[ $iTags['statique'][$i] ]['attributes']['number'];
-					$file .= '.'.$values[ $iTags['statique'][$i] ]['attributes']['url'].'.php';
-					if(is_readable($file)) # Le fichier existe
-						$aStats[ $values[ $iTags['statique'][$i] ]['attributes']['number'] ]['readable'] = 1;
-					else # Le fichier est illisible
-						$aStats[ $values[ $iTags['statique'][$i] ]['attributes']['number'] ]['readable'] = 0;
+				# On boucle sur $iTags['statique']
+				foreach($iTags['statique'] as $i=>$k) {
+					$attrs = $values[$k]['attributes'];
+					$statId = $attrs['number'];
+					$file = PLX_ROOT . $statId . '.' . $attrs['url'] . '.php';
+					$aStats[$statId] = array(
+						# Recuperation de l'url de la page statique
+						'url' => $attrs['url'],
+						# Recuperation de l'etat de la page
+						'active' => intval($attrs['active']),
+						# Afficher la page statique dans le menu
+						'menu' => isset($attrs['menu']) ? $attrs['menu'] : 'oui',
+						# Recuperation du nom de la page statique
+						'name'=> $this->getValue($k, $values, 'statique-' . ($i + 1)),
+						# On verifie que la page statique existe bien
+						'readable' => is_readable($file) ? 1 : 0,
+					);
 				}
 			}
 		}
