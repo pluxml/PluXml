@@ -1,3 +1,14 @@
+## PLUXML 5.8.17 (2024/12/27)
+[+] Erase personal datas whn a user is deleted
+FIX Refacto plxUtils::minify()
+FIX Reset password_token* after user's authentification
+FIX Refacto plxTemplates
+[+] Displays informations about enabled plugins when a fatal error occurs
+FIX for making thumbnails from medias (#838)
+FIX Fix plxFeed for PHP 8.0
+FIX List of inactive plugins even for bad plugin in plxPlugins::getInstance()
+FIX lang for user's selection in install.php
+
 ## PLUXML 5.8.16 (2024/08/27)
 [+] toggle display for fatal error
 [+] PLX_DEBUG is set to "false"
