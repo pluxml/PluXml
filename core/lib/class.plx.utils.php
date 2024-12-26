@@ -35,7 +35,7 @@ class plxUtils {
 		# Minify HEX color code
 		'#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i' => '$1$2$3',
 		# Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
-		'#(?<=[\s:,-])0+\.(\d+)#s' => '$1',
+		'#(?<=[\s:,-])0+(\.\d+)#s' => '$1',
 		# Reduit une succession de 0
 		'#(?<=:)\s*0(?:\s+0){1,3}\s*;#m' => '0',
 	);
