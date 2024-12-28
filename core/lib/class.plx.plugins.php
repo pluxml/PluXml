@@ -544,7 +544,7 @@ class plxPlugin {
 			'name' 			=> $plugName,
 			'filename'		=> realpath(PLX_PLUGINS.$plugName.'/'.$plugName.'.php'),
 			'infos.xml'		=> realpath(PLX_PLUGINS.$plugName.'/infos.xml'),
-			'parameters.xml'=> realpath(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'),
+			'parameters.xml'=> realpath(PLX_ROOT.PLX_CONFIG_PATH.'plugins/').$plugName.'.xml',
 		);
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
