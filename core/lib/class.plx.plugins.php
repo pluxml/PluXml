@@ -529,9 +529,10 @@ class plxPlugin {
 	/**
 	 * Constructeur de la classe plxPlugin
 	 *
+	 * realpath est nécessaire quand on utilise les liens symboliques ( ln -S ... ) pour les plugins sous Linux
 	 * @param	default_lang	langue par défaut utilisée par PluXml
 	 * @return	null
-	 * @author	Stephane F
+	 * @author	Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function __construct($default_lang='', $plugName='') {
 
@@ -539,12 +540,13 @@ class plxPlugin {
 			$plugName= get_class($this);
 		}
 		$this->getPluginLang($plugName, $default_lang);
+		$src = realpath(PLX_PLUGINS.$plugName) . '/';
 		$this->plug = array(
 			'dir' 			=> realpath(PLX_PLUGINS),
 			'name' 			=> $plugName,
-			'filename'		=> realpath(PLX_PLUGINS.$plugName.'/'.$plugName.'.php'),
-			'infos.xml'		=> realpath(PLX_PLUGINS.$plugName.'/infos.xml'),
-			'parameters.xml'=> realpath(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'),
+			'filename'		=> $src . $plugName . '.php',
+			'infos.xml'		=> $src . 'infos.xml',
+			'parameters.xml'=> realpath(PLX_ROOT . PLX_CONFIG_PATH . 'plugins') . '/' . $plugName . '.xml',
 		);
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
