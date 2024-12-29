@@ -51,13 +51,12 @@ class plxPlugins {
   left: calc(50vw - 40rem);
   padding: 0.5rem 1rem;
   background-color: #555;
-  color: lime;
-  z-index: 999;
+  z-index: 9999;
 ">
 	<div style="text-align: end;">
 		<label for="bug-notification" style="display: inline; padding: 0.2rem; background-color: #eee;">❌</label>
 	</div>
-	<pre style="margin: 0; padding: 0 0 1rem; max-height: calc(100% - 2rem);"><code><?php
+	<pre style="margin: 0; padding: 0 0 1rem; max-height: calc(100% - 2rem); background-color: inherit;"><code style="color: lime;"><?php
 				}
 
 				if(isset($this->rootPlugins) and preg_match('#' . basename($this->rootPlugins) . '/([^/]+)/\1\.php$#', $error['file'], $matches)) {
@@ -545,12 +544,13 @@ class plxPlugin {
 			$plugName= get_class($this);
 		}
 		$this->getPluginLang($plugName, $default_lang);
+		$src = realpath(PLX_PLUGINS . $plugName) . '/';
 		$this->plug = array(
-			'dir' 			=> PLX_PLUGINS,
+			'dir' 			=> realpath(PLX_PLUGINS),
 			'name' 			=> $plugName,
-			'filename'		=> PLX_PLUGINS.$plugName.'/'.$plugName.'.php',
-			'parameters.xml'=> PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml',
-			'infos.xml'		=> PLX_PLUGINS.$plugName.'/infos.xml'
+			'filename'		=> $src . $plugName . '.php',
+			'infos.xml'		=> $src . 'infos.xml',
+			'parameters.xml'	=> realpath(PLX_ROOT . PLX_CONFIG_PATH . 'plugins') . '/' . $plugName . '.xml',
 		);
 		$this->loadParams();
 
