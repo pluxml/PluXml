@@ -45,32 +45,6 @@ try {
 	$output=ob_get_clean();
 }
 
-# si le plugin n'est pas actif, aucune instance n'a été créée, on va donc la créer, sinon on prend celle qui existe
-if(empty($plxAdmin->plxPlugins->aPlugins[$plugin])) {
-	$plxPlugin = $plxAdmin->plxPlugins->getInstance($plugin);
-} else {
-	$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];
-}
-
-# Contrôle des autorisations d'accès à l'écran config.php du plugin
-# La page de config peut être appellée depuis la page admin du plugin
-$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
-
-ob_start();
-?>
-	<div class="inline-form action-bar">
-		<h2><?= plxUtils::strCheck($plugin) ?></h2>
-		<p><a class="back" href="parametres_plugins.php"><?= L_BACK_TO_PLUGINS ?></a></p>
-	</div>
-<?php
-
-# chargement de l'écran de paramétrage du plugin config.php
-# Attention, la page de config peut appeler header() pour faire une redirection
-include $filename;
-
-# On sauvegarde le résultat de la page de config
-$output = ob_get_clean();
-
 # On inclut le header
 include 'top.php';
 
