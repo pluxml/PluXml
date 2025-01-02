@@ -931,7 +931,7 @@ class plxUtils {
 	 * @return	string	chaine de caractères au hasard
 	 **/
 	public static function charAleatoire($taille=10) {
-		mt_srand((float) microtime() * 1000000);
+		srand(); # https://www.php.net/manual/fr/function.srand.php
 		$mod = strlen(self::RANDOM_STRING);
 		$string = '';
 		for($i=$taille; $i > 0; $i--) {
