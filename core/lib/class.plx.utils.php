@@ -841,7 +841,8 @@ class plxUtils {
 
 		$string = '';
 		$chaine = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		mt_srand((float)microtime()*1000000);
+		# srand(intval(microtime(true) * 1000000.0));
+		srand(); # https://www.php.net/manual/fr/function.srand.php
 		for($i=0; $i<$taille; $i++)
 			$string .= $chaine[ mt_rand()%strlen($chaine) ];
 		return $string;
