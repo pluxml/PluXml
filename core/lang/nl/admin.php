@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'RSS-feeds voor commentaar';
 const L_EVERY_BODY = 'Iedereen';
 const L_SUBSCRIBERS_ONLY = 'Alleen abonnees';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Sorteren op';
+const L_DEFAULT  = 'standaard';
+const L_TITLE = 'titel';
+const L_DATE = 'datum';
+const L_SITE = 'hostnaam';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Layout bestaat niet !';

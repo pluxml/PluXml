@@ -30,7 +30,7 @@ $homepage = empty($homestatic) ? $plxAdmin->aConf['hometemplate'] : $plxAdmin->a
 $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style'], $homepage);
 
 ?>
-<form action="parametres_themes.php" method="post" id="form_settings">
+<form method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_VIEW_SKIN_SELECT ?></h2>
@@ -48,27 +48,50 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 				<tr>
 					<th colspan="2"><?= L_THEMES ?></th>
 					<th>
-						<span>Tri par</span>
-						<select id="sortSelect">
-							<option value="id"><?= L_CANCEL ?></option>
-							<option value="title"><?= L_ARTICLE_TITLE ?></option>
-							<option value="filemtime"><?= L_ARTICLE_LIST_DATE ?> (infos.xml)</option>
-							<option value="site"><?= L_COMMENT_SITE_FIELD ?></option>
-						</select>
+<?php
+if($plxThemes->aThemes and count($plxThemes->aThemes) > 1) {
+?>
+						<label style="display: initial;">
+							<span><?= L_SORT_BY ?>Tri par</span>
+							<select id="sortSelect">
+								<option value="id"><?= L_DEFAULT ?></option>
+								<option value="title"><?= L_TITLE ?></option>
+								<option value="filemtime"><?= L_ARTICLE_LIST_DATE ?> (infos.xml)</option>
+							</select>
+						</label>
+<?php
+} else {
+	echo '&nbsp;';
+}
+?>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 <?php
 				if($plxThemes->aThemes) {
-					$count = 0;
+					$sites = array();
+					$num = 0;
 					foreach($plxThemes->aThemes as $theme) {
 						# radio
 						$checked = ($theme == $plxAdmin->aConf['style']) ? ' checked="checked"' : '';
-						$id = str_pad($count, 3, '0', STR_PAD_LEFT);
+						$id = str_pad($num, 3, '0', STR_PAD_LEFT);
 						$aInfos = $plxThemes->getInfos($theme);
+						$site = '';
+						if(!empty($aInfos['site'])) {
+							$parts = parse_url($aInfos['site']);
+							if(isset($parts['host'])) {
+								$site = $parts['host'];
+								if(isset($parts['path']) and $parts['path'] != '/') {
+									$site .= rtrim($parts['path'], '/');
+								}
+								$sites[] = $site;
+							} else {
+								echo '<!-- ' . $theme . ' has invalid site  -->'.PHP_EOL;
+							}
+						}
 ?>
-				<tr data-id="<?= $id ?>" data-filemtime="<?= $aInfos['filemtime'] ?>" data-site="<?= trim($aInfos['site']) ?>" data-title="<?= strtolower(trim($aInfos['title'])) ?>">
+				<tr data-id="<?= $id ?>" data-filemtime="<?= $aInfos['filemtime'] ?>" data-site="<?= $site ?>" data-title="<?= strtolower(trim($aInfos['title'])) ?>">
 					<td><input<?= $checked ?> type="radio" id="style-<?= $id ?>" name="style" value="<?= $theme ?>" /></td>
 					<td><label for="style-<?= $id ?>"><?= $plxThemes->getImgPreview($theme) ?></label></td>
 					<td class="wrap" style="vertical-align:top">
@@ -104,7 +127,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 					</td>
 				</tr>
 <?php
-						$count++;
+						$num++;
 					}
 				} else {
 ?>
@@ -116,6 +139,26 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 ?>
 			</tbody>
 		</table>
+<?php
+	if(!empty($sites) and count($sites) > 1) {
+		sort($sites);
+?>
+		<label id="sites-container" style="display: initial; margin-left: 2rem;">
+			<span><?= L_SITE ></span>
+			<select id="sites">
+				<option value=""><?= L_ALL ?></option>
+<?php
+		foreach(array_unique($sites) as $s) {
+?>
+				<option><?= $s ?></option>
+<?php
+		}
+?>
+			</select>
+		</span>
+<?php
+	}
+?>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
@@ -130,29 +173,49 @@ eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
 <script>
 	(function() {
 		const select = document.getElementById('sortSelect');
-		if(select) {
-			select.addEventListener('change', function(ev) {
-				const choice = select.value;
-				const table = document.getElementById('themes-table');
-				const tBody = table.tBodies[0];
-				const sortedRows = Array.from(tBody.rows).sort(function(row1, row2) {
-					if(choice == 'filemtime') {
-						return row2.dataset.filemtime.localeCompare(row1.dataset.filemtime); // reverse date
-					}
-					if(row1.dataset[choice].length == 0) {
-						return 1;
-					}
-					if(row2.dataset[choice].length == 0) {
-						return -1;
-					}
-					return row1.dataset[choice].localeCompare(row2.dataset[choice]);
-				});
-				sortedRows.forEach(function(row) {
-					tBody.appendChild(row);
-				});
+		if(!select) {
+			return;
+		}
 
-				table.scrollIntoView();
+		const table = document.getElementById('themes-table');
+		const tBody = table.tBodies[0];
+		select.addEventListener('change', function(ev) {
+			const choice = select.value;
+			const sortedRows = Array.from(tBody.rows).sort(function(row1, row2) {
+				if(choice == 'filemtime') {
+					return row2.dataset.filemtime.localeCompare(row1.dataset.filemtime); // reverse date
+				}
+				if(row1.dataset[choice].length == 0) {
+					return 1;
+				}
+				if(row2.dataset[choice].length == 0) {
+					return -1;
+				}
+				return row1.dataset[choice].localeCompare(row2.dataset[choice]);
 			});
+			sortedRows.forEach(function(row) {
+				tBody.appendChild(row);
+			});
+
+			table.scrollIntoView();
+		});
+
+		const sites = document.getElementById('sites-container');
+		if(sites) {
+			sites.remove();
+			document.querySelector('#themes-table thead th:last-of-type').appendChild(sites);
+			document.getElementById('sites').addEventListener('change', function(ev) {
+				const site = ev.target.value;
+				Array.from(tBody.rows).forEach(function(row) {
+					if(site.length == 0 || row.dataset.site == site) {
+						row.classList.remove('hide');
+					} else {
+						row.classList.add('hide');
+					}
+				});
+			});
+
+			table.scrollIntoView();
 		}
 	})();
 </script>

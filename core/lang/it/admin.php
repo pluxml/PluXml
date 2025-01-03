@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Visualizza feed RSS per commenti';
 const L_EVERY_BODY = 'Tutti';
 const L_SUBSCRIBERS_ONLY = 'Solo abbonati';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Ordina per';
+const L_DEFAULT  = 'predefinito';
+const L_TITLE = 'titolo';
+const L_DATE = 'data';
+const L_SITE = 'nome host';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Questo tema non esiste !';

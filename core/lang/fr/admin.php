@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Afficher les flux RSS des commentaires
 const L_EVERY_BODY = 'Tout le monde';
 const L_SUBSCRIBERS_ONLY = 'Abonnés seulement';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Tri par';
+const L_DEFAULT  = 'défaut';
+const L_TITLE = 'titre';
+const L_DATE = 'date';
+const L_SITE = 'site';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Ce thème n\'existe pas !';

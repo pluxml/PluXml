@@ -124,7 +124,7 @@ class plxThemes {
 			'filemtime' => date('Y-m-d\TH:i', filemtime($filename)),
 		);
 		foreach(array('author', 'version', 'date', 'site', 'description') as $k) {
-			$aInfos[$k] = isset($iTags[$k]) ? plxUtils::getTagValue($iTags[$k], $values) : '';
+			$aInfos[$k] = isset($iTags[$k]) ? trim(plxUtils::getTagValue($iTags[$k], $values)) : '';
 		}
 		if(empty($aInfos['date'])) {
 			$aInfos['date'] = date('d/m/Y', filemtime($filename));
