@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Display RSS feeds for comments';
 const L_EVERY_BODY = 'Everybody';
 const L_SUBSCRIBERS_ONLY = 'Subscribers only';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Sort by';
+const L_DEFAULT  = 'default';
+const L_TITLE = 'title';
+const L_DATE = 'date';
+const L_SITE = 'hostname';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'There is no such theme!';

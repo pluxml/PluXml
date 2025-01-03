@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Afișați fluxuri RSS comentariile';
 const L_EVERY_BODY = 'Toata lumea';
 const L_SUBSCRIBERS_ONLY = 'Numai pentru abonați';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Filtrează după';
+const L_DEFAULT  = 'implicit';
+const L_TITLE = 'titlu';
+const L_DATE = 'data';
+const L_SITE = 'nume de gazdă';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Aceasta temă nu există!';

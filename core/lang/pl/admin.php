@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Wyświetl kanały RSS komentarzy';
 const L_EVERY_BODY = 'Wszyscy';
 const L_SUBSCRIBERS_ONLY = 'Tylko subskrybenci';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Sortuj według';
+const L_DEFAULT  = 'domyślnie';
+const L_TITLE = 'tytuł';
+const L_DATE = 'data';
+const L_SITE = 'nazwa hosta';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Ten szablon nie istnieje!';

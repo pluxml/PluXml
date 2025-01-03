@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'RSS-Feeds für kKommentare anzeigen';
 const L_EVERY_BODY = 'Alle';
 const L_SUBSCRIBERS_ONLY = 'Nur für Abonnenten';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Sortieren nach';
+const L_DEFAULT  = 'Standard';
+const L_TITLE = 'Titel';
+const L_DATE = 'Datum';
+const L_SITE = 'Gastgeber';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Dieses Thema existiert nicht!';

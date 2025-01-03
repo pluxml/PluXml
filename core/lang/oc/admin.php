@@ -433,6 +433,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Mostrar los flux RSS dels comentaris';
 const L_EVERY_BODY = 'Tot lo monde';
 const L_SUBSCRIBERS_ONLY = 'Abonats sonque';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Ordenar per';
+const L_DEFAULT  = 'defaut';
+const L_TITLE = 'titol';
+const L_DATE = 'data';
+const L_SITE = 'nom d\'òste';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Aqueste tèma existís pas !';

@@ -33,7 +33,7 @@ class plxThemes {
 	}
 
 	public function getThemes() {
-		$homepage = $this->homepage;
+		$homepage = preg_replace('#^(home|static|categorie)-?.*$#', '$1', $this->homepage);
 		$themes = array_map(
 			function($value) {
 				return preg_replace('#.*/([^/]+)/infos\.xml$#', '$1', $value);
@@ -48,7 +48,6 @@ class plxThemes {
 
 					foreach(
 						array(
-							$homepage,
 							'lang/' . PLX_SITE_LANG,
 							'erreur',
 						) as $f
@@ -58,11 +57,20 @@ class plxThemes {
 						}
 					}
 
+					$files = glob($theme . $homepage . '*.php');
+					if(empty($files)) {
+						return false;
+					}
+
 					return true;
 				}
 			)
 		);
 
+		# tri par ordre alphabétique naturel et "sans casse" des dossiers de thème
+		usort($themes, function($a, $b) {
+			return strnatcasecmp($a, $b);
+		});
 		if(in_array($this->activeTheme, $themes)) {
 			$themes = array_unique(array_merge(
 				array($this->activeTheme),
@@ -98,24 +106,30 @@ class plxThemes {
 			return false;
 		}
 
-		$aInfos = array();
-		$filename = $this->racineTheme.$theme.'/infos.xml';
-		if(is_file($filename)){
-			$data = implode('',file($filename));
-			$parser = xml_parser_create(PLX_CHARSET);
-			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
-			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
-			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
-			$aInfos = array(
-				'title'			=> (isset($iTags['title']) AND isset($values[$iTags['title'][0]]['value']))?$values[$iTags['title'][0]]['value']:'',
-				'author'		=> (isset($iTags['author']) AND isset($values[$iTags['author'][0]]['value']))?$values[$iTags['author'][0]]['value']:'',
-				'version'		=> (isset($iTags['version']) AND isset($values[$iTags['version'][0]]['value']))?$values[$iTags['version'][0]]['value']:'',
-				'date'			=> (isset($iTags['date']) AND isset($values[$iTags['date'][0]]['value']))?$values[$iTags['date'][0]]['value']:'',
-				'site'			=> (isset($iTags['site']) AND isset($values[$iTags['site'][0]]['value']))?$values[$iTags['site'][0]]['value']:'',
-				'description'	=> (isset($iTags['description']) AND isset($values[$iTags['description'][0]]['value']))?$values[$iTags['description'][0]]['value']:'',
-			);
+		$filename = $this->racineTheme . $theme . '/infos.xml';
+		if(!is_file($filename)) {
+			return false;
 		}
+
+		$data = implode('', file($filename));
+		$parser = xml_parser_create(PLX_CHARSET);
+		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
+		xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 0);
+		xml_parse_into_struct($parser, $data, $values, $iTags);
+		xml_parser_free($parser);
+		// unset($parser);
+
+		$aInfos = array(
+			'title' => isset($iTags['title']) ? plxUtils::getTagValue($iTags['title'], $values, $theme) : $theme,
+			'filemtime' => date('Y-m-d\TH:i', filemtime($filename)),
+		);
+		foreach(array('author', 'version', 'date', 'site', 'description') as $k) {
+			$aInfos[$k] = isset($iTags[$k]) ? trim(plxUtils::getTagValue($iTags[$k], $values)) : '';
+		}
+		if(empty($aInfos['date'])) {
+			$aInfos['date'] = date('d/m/Y', filemtime($filename));
+		}
+
 		return $aInfos;
 	}
 }

@@ -434,6 +434,14 @@ const L_CONFIG_BASE_ENABLE_RSS_COMMENT = 'Отображать RSS-каналы 
 const L_EVERY_BODY = 'Каждый';
 const L_SUBSCRIBERS_ONLY = 'Только подписчики';
 
+// parametres_themes.php
+
+const L_SORT_BY = 'Сортировать по';
+const L_DEFAULT  = 'по умолчанию';
+const L_TITLE = 'название';
+const L_DATE = 'дата';
+const L_SITE = 'имя хоста';
+
 // parametres_edittpl.php
 
 const L_CONFIG_EDITTPL_ERROR_NOTHEME = 'Нет такой темы!';
