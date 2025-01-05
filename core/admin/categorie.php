@@ -37,7 +37,7 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de la catégorie
 }
 
 # On récupère les templates des catégories
-$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#^categorie(?:-[\w-]+)?\.php$#');
+$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'] . '/', false, true, '#^categorie(?:-[\w-]+)?\.php$#');
 if (!empty($glob->aFiles)) {
 	$aTemplates = array();
 	foreach($glob->aFiles as $v)

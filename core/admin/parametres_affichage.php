@@ -29,7 +29,7 @@ if(!empty($_POST)) {
 }
 
 # On récupère les templates de la page d'accueil
-$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#home(?:-[\w-]+)?\.php$#');
+$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'] . '/', false, true, '#home(?:-[\w-]+)?\.php$#');
 if (!empty($glob->aFiles)) {
 	$aTemplates = array();
 	foreach($glob->aFiles as $v)
