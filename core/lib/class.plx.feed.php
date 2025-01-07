@@ -175,12 +175,12 @@ class plxFeed extends plxMotor {
 
 		if($this->mode == 'commentaire') {
 			$idArts = !empty($this->cible) ? $this->cible : '\d{4}';
-			$this->getCommentaires('#^' . $idArts . '\.\d{10}-\d+\.xml$#', 'rsort', 0, $this->bypage);
+			$this->getCommentaires('#^(' . $idArts . ')\.(\d{10,})-(\d+)\.xml$#', 'rsort', 0, $this->bypage);
 			$this->getRssComments();
 		} elseif($this->mode == 'admin') {
 			# Flux admin
 			# On récupère les commentaires
-			$this->getCommentaires('#^' . $this->cible . '\d{4}\.\d{10}-\d+\.xml$#', 'rsort', 0, false, 'all');
+			$this->getCommentaires('#^' . $this->cible . '(\d{4})\.(\d{10,})-(\d+)\.xml$#', 'rsort', 0, false, 'all');
 			$this->getAdminComments();
 		} else {
 			# Flux des articles, éventuellement pour une catégorie, un utilisateur ou un tag particulier

@@ -144,7 +144,7 @@ if($plxThemes->aThemes and count($plxThemes->aThemes) > 1) {
 		sort($sites);
 ?>
 		<label id="sites-container" style="display: initial; margin-left: 2rem;">
-			<span><?= L_SITE ></span>
+			<span><?= L_SITE ?></span>
 			<select id="sites">
 				<option value=""><?= L_ALL ?></option>
 <?php

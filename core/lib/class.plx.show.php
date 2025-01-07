@@ -1616,7 +1616,7 @@ class plxShow
 
 		# Génération de notre motif
 		$id = empty($art_id) ? '\d{4}' : str_pad($art_id, 4, '0', STR_PAD_LEFT);
-		$motif = '~^' . $id . '\.\d{10}-\d+\.xml$~';
+		$motif = '~^(' . $id . ')\.(\d{10,})-(\d+)\.xml$~';
 
 		$excludeArtId = (empty($art_id) and $this->plxMotor->mode == 'article') ? $this->plxMotor->cible : '';
 

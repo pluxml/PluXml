@@ -4,14 +4,14 @@
  * Classe plxGlob responsable de la récupération des fichiers à traiter
  *
  * @package PLX
- * @author	Anthony GUÉRIN, Florent MONTHEL, Amaury Graillat et Stéphane F.
+ * @author	Anthony GUÉRIN, Florent MONTHEL, Amaury Graillat, Stéphane F., Jean-Pierre Pourrez @bazooka07
  **/
 class plxGlob {
 
 	const PATTERNS = array(
-		'arts'			=> '#^\D?(\d{4,})\.(?:\w+|\d{3})(?:,\w+|,\d{3})*\.\d{3}\.\d{12}\..*\.xml$#',
-		'statiques'		=> '#^(\d{3,})\..*\.php$#',
-		'commentaires'	=> '#^_?\d{4,}\.(?:\d{10,})(?:-\d+)?\.xml$#'
+		'arts'			=> '#^\D?(\d{4,})\.(?:\w+|\d{3})(?:,\w+|,\d{3})*\.\d{3}\.\d{12}\.([^\.]+).*#',
+		'statiques'		=> '#^(\d{3,})\..*#',
+		'commentaires'	=> '#^_?(\d{4,})\.(\d{10,})(?:-(\d+))?.*#'
 	);
 	public $count = 0; # Le nombre de resultats
 	public $aFiles = array(); # Tableau des fichiers
@@ -35,6 +35,9 @@ class plxGlob {
 	private function __construct($dir,$rep=false,$onlyfilename=true,$type='') {
 
 		# On initialise les variables de classe
+		if(substr($dir, -1) != '/') {
+			$dir .= '/';
+		}
 		$this->dir = $dir;
 		$this->rep = $rep;
 		$this->onlyfilename = $onlyfilename;
@@ -63,39 +66,47 @@ class plxGlob {
 	 *
 	 * @param	type  type de fichier lus (arts,  statiques, commentaires ou motif de recherche)
 	 * @return	null
-	 * @author	Amaury Graillat et Stephane F
+	 * @author	Amaury Graillat, Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	private function initCache($type) {
 
 		if(is_dir($this->dir)) {
-			# On ouvre le repertoire
-			if($dh = opendir($this->dir)) {
-				# On recupere le nom du repertoire éventuellement
-				$dirname = $this->onlyfilename ? '' : $this->dir;
-				# Pour chaque entree du repertoire
-				while(($file = readdir($dh)) !== false) {
-					if($file[0] == '.') {
-						continue;
+			switch($type) {
+				case 'arts':
+				case 'commentaires' :
+					$suffix = '*.xml';
+					break;
+				case 'statiques' :
+					$suffix = '*.php';
+					break;
+				default :
+					# $type est une expression régulière (regex)
+					$suffix = '*';
+			}
+			foreach(glob($this->dir . $suffix, $this->rep ? GLOB_ONLYDIR : 0) as $filename) {
+				if($this->rep) {
+					# On collecte uniquement les dossiers (plugins, themes, ...)
+					if(is_dir($filename)) {
+						$this->aFiles[] = $this->onlyfilename ? basename($filename) : $filename;
 					}
-
-					$dir = is_dir($this->dir.'/'.$file);
-					if($this->rep) {
-						# On collecte uniquement les dossiers (plugins, themes, ...)
-						if ($this->rep) {
-							$this->aFiles[] = $dirname.$file;
+				} else {
+					# On collecte uniquement les fichiers ( arts, statiques, commentaires, ...)
+					$file = basename($filename);
+					if (array_key_exists($type, self::PATTERNS)) {
+						if(preg_match(self::PATTERNS[$type], $file, $matches)) {
+							switch($type) {
+								case 'arts' :
+								case 'statiques' :
+									# On indexe
+									$this->aFiles[$matches[1]] = $file;
+									break;
+								default :
+									# commentaires, ...
+									$this->aFiles[] = $file;
+								}
 						}
-					} elseif(!$dir) {
-						# On collecte uniquement les fichiers ( arts, statiques, commentaires, ...)
-						if(empty($type)) {
-							$this->aFiles[] = $file;
-							continue;
-						}
-
-						if (array_key_exists($type, self::PATTERNS)) {
-							$type = self::PATTERNS[$type];
-							# sinon $type est un motif de recherche
-						}
-
+					} elseif(!empty($type)) {
+						# $type est un motif de recherche
 						if(preg_match($type, $file, $matches)) {
 							if (!empty($matches[1])) {
 								# On indexe
@@ -104,10 +115,10 @@ class plxGlob {
 								$this->aFiles[] = $file;
 							}
 						}
+					} else {
+						$this->aFiles[] = $file;
 					}
 				}
-				# On ferme la ressource sur le repertoire
-				closedir($dh);
 			}
 		}
 	}
@@ -120,7 +131,7 @@ class plxGlob {
 	 * @param	tri				type de tri (sort, rsort, alpha, ralpha)
 	 * @param	publi			recherche des fichiers avant ou après la date du jour
 	 * @return	array ou false
-	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	private function search($motif,$type,$tri,$publi) {
 
@@ -132,7 +143,7 @@ class plxGlob {
 			# Pour chaque entree du repertoire
 			foreach ($this->aFiles as $filename) {
 
-				if(preg_match($motif, $filename)) {
+				if(preg_match($motif, $filename, $matches)) {
 					switch($type) {
 						case 'art':
 							# On decoupe le nom du fichier en artId, cats, user, date, url, extension xml
@@ -172,26 +183,24 @@ class plxGlob {
 							}
 							break;
 						case 'com':
-							# On decoupe le nom du fichier en artId, time, ordre
-							if(preg_match('#^_?(\d{4})\.(\d{10})-(\d+)\.xml$#', $filename, $matches)) {
-								# Tri selon les dates de publications (commentaire)
-								$key = $matches[2] . $matches[1] . str_pad($matches[3], 3, '0', STR_PAD_LEFT); # 999 coms maxi pour un article
-								# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-								switch($publi) {
-									case'before':
-										if($matches[2] <= $now) {
-											$array[$key] = $filename;
-										}
-										break;
-									case 'after':
-										if($matches[2] >= $now) {
-											$array[$key] = $filename;
-										}
-										break;
-									case 'all':
+							# le nom du fichier en artId, time, ordre dans $matches
+							# Tri selon les dates de publications (commentaire)
+							$key = $matches[2] . $matches[1] . str_pad($matches[3], 3, '0', STR_PAD_LEFT); # 999 coms maxi pour un article
+							# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
+							switch($publi) {
+								case'before':
+									if($matches[2] <= $now) {
 										$array[$key] = $filename;
-										break;
-								}
+									}
+									break;
+								case 'after':
+									if($matches[2] >= $now) {
+										$array[$key] = $filename;
+									}
+									break;
+								case 'all':
+									$array[$key] = $filename;
+									break;
 							}
 							break;
 						default:

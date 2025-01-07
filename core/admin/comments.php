@@ -88,7 +88,7 @@ $h2 = <<< EOT
 <h2>{$options[$comSel]}</h2>
 EOT;
 
-$comSelMotif = '/^' . $mods[$comSel] . $artMotif . '\..*\.xml$/';
+$comSelMotif = '/^' . $mods[$comSel] . '(' . $artMotif . ')\.(\d{10,})-(\d+)\.xml$/';
 
 $hasPagination = false;
 $nbComPagination = $plxAdmin->nbComments($comSelMotif);
@@ -140,7 +140,7 @@ $options = array(
 );
 $req = ($artMotif == '\d{4}') ? '' : '&a='. $_GET['a'];
 foreach($options as $status => $caption) {
-	$commentsCount = $plxAdmin->nbComments('/^' . $mods[$status] . $artMotif . '\..*\.xml$/');
+	$commentsCount = $plxAdmin->nbComments('/^' . $mods[$status] . '(' . $artMotif . ')\.(\d{10,})-(\d+)\.xml$/');
 ?>
 			<li><a <?= ($_SESSION['selCom'] == $status) ? ' class="selected"' : '' ?> href="comments.php?sel=<?= $status . $req ?>&page=1"><?= $caption ?></a>&nbsp;(<?= $commentsCount ?>)</li>
 <?php

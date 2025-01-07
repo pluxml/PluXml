@@ -616,7 +616,7 @@ if($artId != '0000') : ?>
 	foreach($status as $k=>$v) {
 		list($mod, $caption, $title) = $v;
 		# récupération du nombre de commentaires
-		$nbComs = $plxAdmin->getNbCommentaires('/^' . $mod . $artId . '\..*\.xml$/', 'all');
+		$nbComs = $plxAdmin->getNbCommentaires('/^' . $mod . '(' . $artId . ')\.(\d{10,})-(\d+)\.xml$/', 'all');
 		if($nbComs != 0) {
 ?>
 							<li class="grid"><span class="col sml-7 sml-offset-1"><?= $caption ?> :</span><a class="col sml-2 sml-push-2 text-right" title="<?= $title ?>" href="comments.php?sel=<?= $k ?>line&a=<?= $artId ?>&page=1"><?= $nbComs ?></a></li>

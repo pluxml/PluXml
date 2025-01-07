@@ -320,8 +320,8 @@ EOT;
 				$idArt = $plxAdmin->plxRecord_arts->f('numero');
 				$awaiting = $idArt[0]=='_' ? ' <strong>- '.L_AWAITING.'</strong>' : '';
 				# Commentaires
-				$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$idArt.'.(.*).xml$/','all');
-				$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$idArt.'.(.*).xml$/','all');
+				$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_('.$idArt.')\.(\d{10,})-(\d+)\.xml$/','all');
+				$nbComsValidated = $plxAdmin->getNbCommentaires('/^('.$idArt.')\.(\d{10,})-(\d+)\.xml$/','all');
 				# On affiche la ligne
 ?>
 			<tr <?= in_array('pin', $catIds) ? 'class="pin"' : '' ?>>

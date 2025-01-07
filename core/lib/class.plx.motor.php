@@ -455,7 +455,7 @@ class plxMotor {
 				}
 
 				# Récupération des commentaires
-				$this->getCommentaires('#^'.$this->cible.'\.\d{10}-\d+\.xml$#',$this->tri_coms);
+				$this->getCommentaires('#^('.$this->cible.')\.(\d{10,})-(\d+)\.xml$#',$this->tri_coms);
 				$this->template=$this->plxRecord_arts->f('template');
 				if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
 				break;
@@ -913,7 +913,7 @@ class plxMotor {
 				'categorie'			=> $tmp['catId'],
 				'url'				=> $tmp['artUrl'],
 				'date'				=> $tmp['artDate'],
-				'nb_com'			=> $this->getNbCommentaires('#^' . $tmp['artId'] . '.\d{10}-\d+.xml$#'),
+				'nb_com'			=> $this->getNbCommentaires('#^(' . $tmp['artId'] . ')\.(\d{10,})-(\d+)\.xml$#'),
 				'date_creation'		=> plxUtils::getTagValue($iTags['date_creation'], $values, $tmp['artDate']),
 				'date_update'		=> plxUtils::getTagValue($iTags['date_update'], $values, $tmp['artDate']),
 			);
@@ -1415,10 +1415,10 @@ class plxMotor {
 	public function nbComments($select='online', $publi='all') {
 
 		switch($select) {
-			case 'all' : $motif = '#^_?\d{4}\..*\.xml$#'; break;
-			case 'offline' : $motif = '#^_\d{4}\..*\.xml$#'; break;
-			case 'online' : $motif = '#^\d{4}\..*\.xml$#'; break;
-			default : $motif = $select;
+			case 'all' :		$motif = '#^_?(\d{4})\.(\d{10,})-(\d+)\.xml$#'; break;
+			case 'offline' :	$motif =  '#^_(\d{4})\.(\d{10,})-(\d+)\.xml$#'; break;
+			case 'online' :		$motif =   '#^(\d{4})\.(\d{10,})-(\d+)\.xml$#'; break;
+			default :			$motif = $select;
 		}
 
 		return ($coms = $this->plxGlob_coms->query($motif,'com','',0,false,$publi)) ? sizeof($coms) : 0;
