@@ -250,7 +250,7 @@ foreach($plxAdmin->aUsers as $_userid => $_user) {
 }
 
 # On récupère les templates des articles
-$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'], false, true, '#^article(?:-[\w-]+)?\.php$#');
+$glob = plxGlob::getInstance(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $plxAdmin->aConf['style'] . '/' , false, true, '#^article(?:-[\w-]+)?\.php$#');
 if (!empty($glob->aFiles)) {
 	$aTemplates = array();
 	foreach($glob->aFiles as $v)
