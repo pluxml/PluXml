@@ -151,14 +151,15 @@ class plxMotor {
 			}
 		}
 		elseif($this->get AND preg_match('#^article(\d+)\/?([\w-]+)?#',$this->get,$capture)) {
-			$this->mode = 'article'; # Mode article
-			$this->template = 'article.php';
 			$this->cible = str_pad($capture[1],4,'0',STR_PAD_LEFT); # On complete sur 4 caracteres
 			$this->motif = '#^'.$this->cible.'.(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#'; # Motif de recherche
 			if($this->getArticles()) {
 				# Redirection 301
 				if(!isset($capture[2]) OR $this->plxRecord_arts->f('url')!=$capture[2]) {
 					$this->redir301($this->urlRewrite('?article'.intval($this->cible).'/'.$this->plxRecord_arts->f('url')));
+				} else {
+					$this->mode = 'article'; # Mode article
+					$this->template = $this->plxRecord_arts->f('template');
 				}
 			} else {
 				$this->error404(L_UNKNOWN_ARTICLE);
