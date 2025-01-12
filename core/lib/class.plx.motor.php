@@ -208,7 +208,7 @@ class plxMotor {
 							$this->redir301($this->urlRewrite('?' . L_ARTICLE_URL . intval($this->cible) . '/' . $this->plxRecord_arts->f('url')));
 						} else {
 							$this->mode = 'article';
-							$this->template = 'article.php';
+							$this->template = $this->plxRecord_arts->f('template');
 						}
 					} else {
 						$this->error404(L_UNKNOWN_ARTICLE);
