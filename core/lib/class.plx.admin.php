@@ -1272,14 +1272,15 @@ EOT;
 	 * @author	Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function getTemplatesTheme($prefix='static') {
-		$glob = plxGlob::getInstance(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'], false, true, '#^' . $prefix . '(?:-[\w-]+)?\.php$#');
-		if (empty($glob->aFiles)) {
+		$glob = glob(PLX_ROOT . $this->aConf['racine_themes'] . $this->aConf['style'] . '/' . $prefix . '*.php');
+		if(empty($glob)) {
 			return array('' => L_NONE1);
 		}
 
 		$aTemplates = array();
-		foreach($glob->aFiles as $v) {
-			$aTemplates[$v] = basename($v, '.php');
+		foreach($glob as $v) {
+			$filename = basename($v);
+			$aTemplates[$filename] = substr($filename, 0, -4);
 		}
 		uasort($aTemplates, function($a0, $b0) {
 			$mask = '#-full-width$#i';
