@@ -71,6 +71,14 @@ class plxGlob {
 	private function initCache($type) {
 
 		if(is_dir($this->dir)) {
+			if($this->rep) {
+				# On collecte uniquement les dossiers (plugins, themes, ...)
+				foreach(glob($this->dir . '*', GLOB_ONLYDIR) as $filename) {
+					$this->aFiles[] = $this->onlyfilename ? basename($filename) : $filename;
+				}
+				return;
+			}
+
 			switch($type) {
 				case 'arts':
 				case 'commentaires' :
@@ -83,41 +91,34 @@ class plxGlob {
 					# $type est une expression régulière (regex)
 					$suffix = '*';
 			}
-			foreach(glob($this->dir . $suffix, $this->rep ? GLOB_ONLYDIR : 0) as $filename) {
-				if($this->rep) {
-					# On collecte uniquement les dossiers (plugins, themes, ...)
-					if(is_dir($filename)) {
-						$this->aFiles[] = $this->onlyfilename ? basename($filename) : $filename;
-					}
-				} else {
-					# On collecte uniquement les fichiers ( arts, statiques, commentaires, ...)
-					$file = basename($filename);
-					if (array_key_exists($type, self::PATTERNS)) {
-						if(preg_match(self::PATTERNS[$type], $file, $matches)) {
-							switch($type) {
-								case 'arts' :
-								case 'statiques' :
-									# On indexe
-									$this->aFiles[$matches[1]] = $file;
-									break;
-								default :
-									# commentaires, ...
-									$this->aFiles[] = $file;
-								}
-						}
-					} elseif(!empty($type)) {
-						# $type est un motif de recherche
-						if(preg_match($type, $file, $matches)) {
-							if (!empty($matches[1])) {
+			foreach(glob($this->dir . $suffix) as $filename) {
+				# On collecte uniquement les fichiers ( arts, statiques, commentaires, ...)
+				$file = basename($filename);
+				if (array_key_exists($type, self::PATTERNS)) {
+					if(preg_match(self::PATTERNS[$type], $file, $matches)) {
+						switch($type) {
+							case 'arts' :
+							case 'statiques' :
 								# On indexe
 								$this->aFiles[$matches[1]] = $file;
-							} else {
+								break;
+							default :
+								# commentaires, ...
 								$this->aFiles[] = $file;
 							}
-						}
-					} else {
-						$this->aFiles[] = $file;
 					}
+				} elseif(!empty($type)) {
+					# $type est un motif de recherche
+					if(preg_match($type, $file, $matches)) {
+						if (!empty($matches[1])) {
+							# On indexe
+							$this->aFiles[$matches[1]] = $file;
+						} else {
+							$this->aFiles[] = $file;
+						}
+					}
+				} else {
+					$this->aFiles[] = $file;
 				}
 			}
 		}
