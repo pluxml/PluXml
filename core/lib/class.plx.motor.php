@@ -630,10 +630,7 @@ class plxMotor {
 	protected function getPage() {
 
 		# On check pour avoir le numero de page
-		if(preg_match('#page(\d*)#',$this->get,$capture))
-			$this->page = $capture[1];
-		else
-			$this->page = 1;
+		$this->page = preg_match('#\bpage(\d+)#',$this->get,$capture) ? intval($capture[1]) : 1;
 	}
 
     /**

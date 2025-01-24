@@ -1,7 +1,16 @@
-## PLUXML 5.8.17 (2024/12/27)
+## PluXml 5.8.19 (2025/01/)
+FIX plxMotor::getPage() when name of categorie contains 'page'
+
+## PLUXML 5.8.18 (2024/12/27)
 FIX CSS in plxPlugins::__construct() on fatal error
 FIX plxPlugin::__construct() when config of plugin is missed
 FIX minify {plucss,theme}.css in core/admin/theme
+FIX use of realpath when a config file of a plugin is missing
+FIX Update versions.php for updating
+Fix use of srand() in plxUtils::charAleatoire()
+[+] Refacto plxGlob::initCache()
+FIX 1st parameter must end with / for plxGlob::getInstance() in core/admin/*.php
+FIX template for article in plxMotor::prechauffage()
 
 ## PLUXML 5.8.17 (2024/12/27)
 [+] Erase personal datas whn a user is deleted
