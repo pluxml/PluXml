@@ -11,10 +11,10 @@
 
 <p align="center">Créez un site web performant en toute simplicité et sans base de données.</p>
 
-[**Télécharger PluXml 5.8.9**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
+[**Télécharger PluXml dernière version stable**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
 
-* Version bugfix (5.8.10) en développement : [master](https://github.com/pluxml/PluXml/tree/master)
-* Verison instable (6.0) en développement : [6.0](https://github.com/pluxml/PluXml/tree/6.0)
+* Version stable - correction bugs seulement - (branche 5.8.10) : [master](https://github.com/pluxml/PluXml/tree/5.8.10)
+* Verison instable (5.9.0) en développement : [5.9](https://github.com/pluxml/PluXml/tree/master)
 
 Principales caractéristiques
 ----------------------------
@@ -43,6 +43,7 @@ Que ce soit en local sur votre ordinateur ou sur internet, votre hébergement do
 
 * PHP 7.2 ou supérieur
 * Librairie GD pour la gestion des images
+* Librairie XML pourla gestion des données
 * Fonction PHP d'envoi d'emails autorisée (non obligatoire)
 * Le module Apache mod_rewrite activé pour utiliser la réécriture d'url (non obligatoire)
 
