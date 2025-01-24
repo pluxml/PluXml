@@ -13,8 +13,8 @@
 
 [**Télécharger PluXml dernière version stable**](https://www.pluxml.org/download/pluxml-latest.zip) (zip)
 
-* Version stable - correction bugs seulement - (branche 5.8.10) : [master](https://github.com/pluxml/PluXml/tree/5.8.10)
-* Verison instable (5.9.0) en développement : [5.9](https://github.com/pluxml/PluXml/tree/master)
+* Version stable - correction bugs exclusivement : [branche 5.8.10](https://github.com/pluxml/PluXml/tree/5.8.10)
+* Verison instable (5.9.0) en développement : [Branche master](https://github.com/pluxml/PluXml/tree/master)
 
 Principales caractéristiques
 ----------------------------
