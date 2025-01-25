@@ -904,18 +904,21 @@ class plxMotor {
 	 **/
 	 public function nextIdArtComment($idArt) {
 
-		$ret = '0';
-		if($dh = opendir(PLX_ROOT.$this->aConf['racine_commentaires'])) {
-			$Idxs = array();
-			while(false !== ($file = readdir($dh))) {
-				if(preg_match("/_?".$idArt.".\d+-(\d+).xml/", $file, $capture)) {
-					if ($capture[1] > $ret)
-						$ret = $capture[1];
+		$ret = 0;
+		$files = glob(PLX_ROOT . $this->aConf['racine_commentaires'] . '*.xml');
+		if(!empty($files)) {
+			$pattern = '#^_?' . $idArt . '\.\d{10,}-(\d+)$#';
+			foreach($files as $f) {
+				if(preg_match($pattern, basename($f, '.xml'), $matches)) {
+					$n = intval($matches[1]);
+					if($ret < $n) {
+						$ret = $n;
+					}
 				}
 			}
-			closedir($dh);
 		}
-		return $ret+1;
+
+		return ($ret + 1);
 	}
 
 	/**
