@@ -17,6 +17,9 @@ if(isset($_POST['folder']) AND $_POST['folder']!='.' AND !plxUtils::checkSource(
 	$_POST['folder']='.';
 }
 
+$myHeader = 'Location: ' . $_SERVER['PHP_SELF'];
+$posted = !empty($_POST);
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasPrepend'));
 
@@ -44,51 +47,30 @@ $plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf
 
 #----
 
-$myHeader = 'Location: ' . $_SERVER['PHP_SELF'];
-
 if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
 	if($plxMedias->newDir($_POST['newfolder'])) {
 		$_SESSION['folder'] = $_SESSION['folder'].$_POST['newfolder'].'/';
-		header($myHeader);
-		exit;
 	}
 }
 elseif(!empty($_POST['btn_renamefile']) AND !empty($_POST['newname'])) {
-	if($plxMedias->renameFile($_POST['oldname'], $_POST['newname'])) {
-		header($myHeader);
-		exit;
-	}
+	$plxMedias->renameFile($_POST['oldname'], $_POST['newname']);
 }
 elseif(!empty($_POST['folder']) AND $_POST['folder']!='.' AND !empty($_POST['btn_delete'])) {
 	if($plxMedias->deleteDir($_POST['folder'])) {
 		$_SESSION['folder'] = '';
-		header($myHeader);
-		exit;
 	}
 }
 elseif(!empty($_POST['btn_upload'])) {
-	if($plxMedias->uploadFiles($_FILES, $_POST)) {
-		header($myHeader);
-		exit;
-	}
+	$plxMedias->uploadFiles($_FILES, $_POST);
 }
 elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete')) AND isset($_POST['idFile'])) {
-	if($plxMedias->deleteFiles($_POST['idFile'])) {
-		header($myHeader);
-		exit;
-	}
+	$plxMedias->deleteFiles($_POST['idFile']);
 }
 elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='move')) AND isset($_POST['idFile'])) {
-	if($plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $_POST['folder'])) {
-		header($myHeader);
-		exit;
-	}
+	$plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $_POST['folder']);
 }
 elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='thumbs')) AND isset($_POST['idFile'])) {
-	if($plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h'])) {
-		header($myHeader);
-		exit;
-	}
+	$plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']);
 }
 
 # Tri de l'affichage des fichiers
@@ -96,6 +78,11 @@ if(isset($_POST['sort']) AND !empty($_POST['sort'])) {
 	$sort = $_POST['sort'];
 } else {
 	$sort = isset($_SESSION['sort_medias']) ? $_SESSION['sort_medias'] : 'title_asc';
+}
+
+if($posted) {
+	header($myHeader);
+	exit;
 }
 
 $sort_title = 'title_desc';
