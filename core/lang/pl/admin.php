@@ -128,7 +128,7 @@ const L_ARTICLE_TITLE_HTMLTAG = 'Zawartość tagu "tytułu" (opcjonalnie)';
 const L_ARTICLE_CHAPO_HIDE = 'ukryj';
 const L_ARTICLE_CHAPO_DISPLAY = 'pokaż';
 const L_ARTICLE_ID = 'Identyfikator';
-const L_PINNED_ARTICLE = 'przypięty artykuł';
+const L_PINNED_ARTICLE = 'Przypięty artykuł';
 
 // auth.php
 
@@ -161,6 +161,7 @@ const L_NONE2 = 'brak';
 
 const L_CAT_TITLE = 'Utworz lub edytuj kategorie';
 const L_CAT_LIST_ID = 'ID';
+const L_CAT_LIST_ARTS = 'L. artykułów';
 const L_CAT_LIST_ACTIVE = 'Aktywna';
 const L_CAT_LIST_NAME = 'Nazwa kategorii';
 const L_CAT_LIST_URL = 'URL';

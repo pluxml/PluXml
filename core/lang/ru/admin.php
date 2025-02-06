@@ -161,6 +161,7 @@ const L_NONE2 = 'отсутствует';
 
 const L_CAT_TITLE = 'Управление категориями';
 const L_CAT_LIST_ID = 'ID';
+const L_CAT_LIST_ARTS = 'Статьи';
 const L_CAT_LIST_ACTIVE = 'Активно';
 const L_CAT_LIST_NAME = 'Название категории';
 const L_CAT_LIST_URL = 'Url';

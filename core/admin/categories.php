@@ -57,7 +57,7 @@ include 'top.php';
 			<thead>
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCategory[]')" /></th>
-					<th><?= L_ID ?></th>
+					<th><?= L_ID ?> / <?= L_CAT_LIST_ARTS ?></th>
 					<th class="required"><?= L_CAT_LIST_NAME ?></th>
 					<th><?= L_CAT_LIST_URL ?></th>
 					<th><?= L_EDITCAT_TEMPLATE ?></th>
@@ -79,7 +79,7 @@ include 'top.php';
 ?>
 					<tr>
 						<td><input type="checkbox" name="idCategory[]" value="<?= $k ?>" /><input type="hidden" name="catNum[]" value="<?=  $k ?>" /></td>
-						<td><?= $k ?></td>
+						<td><?= $k ?><span><?= $v['articles'] ?></span></td>
 						<td>
 							<?php plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-50', false, '', '', '', true); ?>
 						</td><td>
