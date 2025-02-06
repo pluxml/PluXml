@@ -128,7 +128,7 @@ const L_ARTICLE_TITLE_HTMLTAG = 'Contenido de la etiqueta de título («title»,
 const L_ARTICLE_CHAPO_HIDE = 'ocultar';
 const L_ARTICLE_CHAPO_DISPLAY = 'mostrar';
 const L_ARTICLE_ID = 'Identificador';
-const L_PINNED_ARTICLE = 'artículo anclado';
+const L_PINNED_ARTICLE = 'Artículo anclado';
 
 // auth.php
 
@@ -161,6 +161,7 @@ const L_NONE2 = 'ninguna';
 
 const L_CAT_TITLE = 'Gestor de categorías';
 const L_CAT_LIST_ID = 'Identificador';
+const L_CAT_LIST_ARTS = 'N. artículos';
 const L_CAT_LIST_ACTIVE = 'Activa';
 const L_CAT_LIST_NAME = 'Nombre de la categoría';
 const L_CAT_LIST_URL = 'URL';

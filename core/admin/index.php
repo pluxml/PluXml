@@ -135,6 +135,21 @@ if(empty($artTitle) and filter_has_var(INPUT_POST, 'artTitle')) {
 	$artTitle = htmlspecialchars(trim(urldecode($_POST['artTitle']))); # requested by PHP-8.1.0
 }
 
+# See plxMotor::getCategories
+$artsCount = array();
+foreach(array(
+	'home'	=> '(?:draft,|pin,|\d{3},)*home(?:,\d{3})*',
+	'000'	=> '(?:draft,|pin,|home,)*000(?:,\d{3})*',
+	'pin'	=> 'pin,(?:draft,home,)*\d{3}(?:,\d{3})*',
+) as $k=>$catIds) {
+	$motif = '#^_?\d{4}\.' . $catIds . '\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+	$arts = $plxAdmin->plxGlob_arts->query($motif);
+	$artsCount[$k] = !empty($arts) ? ' (' . count($arts). ')' : '';
+
+}
+
+# "#^\d{4}\.(?:pin,|home,)000\.\d{3}\.\d{12}\.[\w-]+\.xml$#"
+# "#^_?\d{4}\.(?:draft,|pin,|home,|\d{3},)*000(?:,\d{3})*\.\d{3}\.\d{12}\..*\.xml$#"
 # On génère notre motif de recherche
 $artId = '\d{4}';
 $url = '.*';
@@ -166,17 +181,19 @@ if(!$hasPagination or ($plxAdmin->page - 1) * $plxAdmin->bypage > $nbArtPaginati
 # Recuperation des articles
 $arts = $plxAdmin->getArticles('all'); # return true or false
 
-# Génération de notre tableau des catégories
 $aFilterCat = [
 	'all' => L_ARTICLES_ALL_CATEGORIES,
-	'home' => L_CATEGORY_HOME,
-	'000' => L_UNCLASSIFIED,
-	'pin' => L_PINNED_ARTICLE,
+	'home' => L_CATEGORY_HOME . $artsCount['home'],
+	'000' => L_UNCLASSIFIED . $artsCount['000'],
+	'pin' => L_PINNED_ARTICLE . $artsCount['pin'],
 ];
+
 if($plxAdmin->aCats) {
 	foreach($plxAdmin->aCats as $k=>$v) {
 		$aCat[$k] = plxUtils::strCheck($v['name']);
-		$aFilterCat[$k] = plxUtils::strCheck($v['name']);
+		if($v['articles'] > 0) {
+			$aFilterCat[$k] = plxUtils::strCheck($v['name']) . ' (' . $v['articles'] . ')';
+		}
 	}
 	$aAllCat[L_CATEGORIES_TABLE] = $aCat;
 }

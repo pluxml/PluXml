@@ -6,7 +6,7 @@ const L_UNKNOWN_ERROR = 'Onbekende fout';
 const L_CONFIRM_DELETE = 'Bevestig de verwijdering ?';
 const L_SAVE_FILE = 'Sla het bestand op';
 const L_SAVE_FILE_SUCCESSFULLY = 'Bestand succesvol opgeslagen';
-const L_SAVE_FILE_ERROR = 'Fout bij het ​​opslaan van het bestand voor';
+const L_SAVE_FILE_ERROR = 'Fout bij het opslaan van het bestand voor';
 const L_FILE_REQUIRED = 'Selecteer een bestand';
 const L_REPLY = 'Antwoord';
 const L_REPLY_TO = 'Antwoord';
@@ -128,7 +128,7 @@ const L_ARTICLE_TITLE_HTMLTAG = 'Title tag inhoud (optioneel)';
 const L_ARTICLE_CHAPO_HIDE = 'verstoppen';
 const L_ARTICLE_CHAPO_DISPLAY = 'tonen';
 const L_ARTICLE_ID = 'ID';
-const L_PINNED_ARTICLE = 'vastgezet artikel';
+const L_PINNED_ARTICLE = 'Vastgezet artikel';
 
 // auth.php
 
@@ -161,6 +161,7 @@ const L_NONE2 = 'geen';
 
 const L_CAT_TITLE = 'Aanmaken en aanpassen van categorie?n';
 const L_CAT_LIST_ID = 'ID';
+const L_CAT_LIST_ARTS = 'A. artikelen';
 const L_CAT_LIST_ACTIVE = 'Actief';
 const L_CAT_LIST_NAME = 'Naam categorie';
 const L_CAT_LIST_URL = 'URL';

@@ -48,7 +48,7 @@ const L_ARTICLE_SAVE_ERR = 'Eroare la salvarea articolului';
 const L_ARTICLE_DELETE_ERR = 'A apărut o eroare în timpul eliminarii articolului';
 const L_ERR_UNKNOWN_COMMENT = 'Comentariul cerut nu exista, sau nu e accesibil';
 const L_ERR_URL_ALREADY_EXISTS = 'Url deja în uz. Vă rugăm să schimbați valoarea din câmpul \'Url\'';
-const L_LAST_CONNEXION_ON = ''Ultima conectare pe';
+const L_LAST_CONNEXION_ON = 'Ultima conectare pe';
 
 // class.plx.media.php
 
@@ -128,7 +128,7 @@ const L_ARTICLE_TITLE_HTMLTAG = 'Conţinutul tag-ul titlu (opţional)';
 const L_ARTICLE_CHAPO_HIDE = 'ascunde';
 const L_ARTICLE_CHAPO_DISPLAY = 'afişa';
 const L_ARTICLE_ID = 'ID';
-const L_PINNED_ARTICLE = 'articol fixat';
+const L_PINNED_ARTICLE = 'Articol fixat';
 
 // auth.php
 
@@ -161,6 +161,7 @@ const L_NONE2 = 'nimic';
 
 const L_CAT_TITLE = 'Crearea şi editarea categoriei';
 const L_CAT_LIST_ID = 'Id';
+const L_CAT_LIST_ARTS = 'N. articole';
 const L_CAT_LIST_ACTIVE = 'Activ';
 const L_CAT_LIST_NAME = 'Nume categorie';
 const L_CAT_LIST_URL = 'Url';

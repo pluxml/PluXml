@@ -361,6 +361,21 @@ textarea {
 	width: 100%;
 }
 
+#statics-table tr:not(.new) td:nth-of-type(3) {
+	text-align: center;
+}
+
+#categories-table td:nth-of-type(2) span {
+	display: inline-block;
+	margin-left: 2rem;
+	width: 5rem;
+	padding: 0 0.5rem;
+	text-align: right;
+	background-color: #eee;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+}
+
 input[maxlength="3"] {
 	width: 4rem !important;
 	text-align: right;
@@ -1051,7 +1066,7 @@ body.mediasManager .col.lrg-offset-2 {
 /* ----------- Drag and Drop for sorting table rows ---------- */
 
 table[data-rows-num] th:first-of-type,
-table[data-rows-num] td:first-of-type {
+table[data-rows-num] tr:not(.new) td:first-of-type {
 	padding-left: 12px;
 }
 /* ---- select pour fichiers (folding) --- */

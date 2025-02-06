@@ -161,6 +161,7 @@ const L_NONE2 = 'cap';
 
 const L_CAT_TITLE = 'Creacion e edicion de las categorias';
 const L_CAT_LIST_ID = 'Identificant';
+const L_CAT_LIST_ARTS = 'Nb. articles';
 const L_CAT_LIST_ACTIVE = 'Activa';
 const L_CAT_LIST_NAME = 'Nom de la categoria';
 const L_CAT_LIST_URL = 'Url';

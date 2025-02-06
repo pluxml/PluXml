@@ -128,7 +128,7 @@ const L_ARTICLE_TITLE_HTMLTAG = 'Title tag contents (optional)';
 const L_ARTICLE_CHAPO_HIDE = 'hide';
 const L_ARTICLE_CHAPO_DISPLAY = 'display';
 const L_ARTICLE_ID = 'Ident';
-const L_PINNED_ARTICLE = 'pinned article';
+const L_PINNED_ARTICLE = 'Pinned article';
 
 // auth.php
 
@@ -161,6 +161,7 @@ const L_NONE2 = 'none';
 
 const L_CAT_TITLE = 'Category Manager';
 const L_CAT_LIST_ID = 'ID';
+const L_CAT_LIST_ARTS = '# Articles';
 const L_CAT_LIST_ACTIVE = 'Active';
 const L_CAT_LIST_NAME = 'Category name';
 const L_CAT_LIST_URL = 'Url';
