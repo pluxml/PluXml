@@ -988,9 +988,21 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				if($oldfilename!=$filename AND file_exists($oldfilename))
 					unlink($oldfilename);
 			}
+
 			# mise à jour de la liste des tags
-			$this->aTags[$id] = array('tags'=>trim($content['tags']), 'date'=>$time, 'active'=>intval(!in_array('draft', $content['catId'])));
-			$this->editTags();
+			$tags = trim($content['tags']);
+			if(!empty($tags)) {
+				$this->aTags[$id] = array(
+					'tags' => $tags,
+					'date' => $time,
+					'active' => in_array('draft', $content['catId']) ? 0 : 1,
+				);
+				$this->editTags();
+			} elseif(isset($this->aTags[$id])) {
+				unset($this->aTags[$id]);
+				$this->editTags();
+			}
+
 			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
