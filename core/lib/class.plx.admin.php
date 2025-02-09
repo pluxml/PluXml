@@ -1497,12 +1497,18 @@ EOT;
 			}
 
 			# mise à jour de la liste des tags
-			$this->aTags[$id] = array(
-				'tags'		=> trim($content['tags']),
-				'date'		=> $dates['publication'],
-				'active'	=> intval(!in_array('draft', $content['catId'])),
-			);
-			$this->editTags();
+			$tags = trim($content['tags']);
+			if(!empty($tags)) {
+				$this->aTags[$id] = array(
+					'tags' => $tags,
+					'date' => $time,
+					'active' => in_array('draft', $content['catId']) ? 0 : 1,
+				);
+				$this->editTags();
+			} elseif(isset($this->aTags[$id])) {
+				unset($this->aTags[$id]);
+				$this->editTags();
+			}
 
 			$msg = $newArticle ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
 
