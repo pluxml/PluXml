@@ -176,7 +176,16 @@ include __DIR__ .'/top.php';
 				<small><?php echo L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInputRadio('email_method', array('sendmail'=>'sendmail', 'smtp'=>'SMTP', 'smtpoauth'=>'OAUTH2'), $plxAdmin->aConf['email_method']); ?>
+<?php
+$email_methods = array(
+	'sendmail'	=> 'sendmail',
+	'smtp'		=>'SMTP',
+);
+if(plxUtils::isOauth2Enabled()) {
+	$email_methods['smtpoauth'] = 'OAUTH2';
+}
+?>
+				<?php plxUtils::printInputRadio('email_method', $email_methods, $plxAdmin->aConf['email_method']); ?>
 			</div>
 		</div>
 		<div><h3><?php echo L_CONFIG_ADVANCED_SMTP_TITLE ?></h3></div>
@@ -224,6 +233,9 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printInputRadio('smtp_security', array('0'=>L_NONE1,'ssl'=>'SSL', 'tls'=>'TLS'), $plxAdmin->aConf['smtp_security']); ?>
 			</div>
 		</div>
+<?php
+if(array_key_exists('smtpoauth', $email_methods)) {
+?>
 		<div>
 			<h3><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TITLE ?></h3>
 			<p><small><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP ?></small></p>
@@ -268,6 +280,9 @@ include __DIR__ .'/top.php';
 				<a href="get_oauth_token.php?provider=Google"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
 			</div>
 		</div>
+<?php
+}
+?>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) # Hook Plugins ?>
 </form>
