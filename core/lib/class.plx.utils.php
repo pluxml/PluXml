@@ -7,6 +7,13 @@
  * @author	Florent MONTHEL, Stephane F, Jean-Pierre Pourrez @bazooka07
  **/
 
+/*
+ * Pour voir les dépendances à propos de PHPMailer :
+ * composer show --tree
+ *
+ * Lire à ce propos le fichier core/lisezmoi.txt
+ * */
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\OAuth;
@@ -770,7 +777,9 @@ class plxUtils {
 	 **/
 	public static function makeThumb($src_image, $dest_image, $thumb_width = self::THUMB_WIDTH, $thumb_height = self::THUMB_HEIGHT, $jpg_quality = 90) {
 
-		if(!function_exists('imagecreatetruecolor')) return false;
+		if(!function_exists('imagecreatetruecolor')) {
+			return false;
+		}
 
 		# Get dimensions of existing image
 		$image = getimagesize($src_image);
@@ -1149,6 +1158,11 @@ class plxUtils {
 		header('Content-Type: '.$type.'; charset='.$charset);
 	}
 
+	public static function isOauth2Enabled($provider='Google') {
+		# Possible values for $provider : Google, Yahoo, Facebook, ...
+		return class_exists('League\\OAuth2\\Client\\Provider\\' . $provider);
+	}
+
 	/**
 	* Méthode d'envoi de mail
 	*
@@ -1237,6 +1251,10 @@ class plxUtils {
 				}
 				break;
 			case 'smtpoauth':
+				if(isOauth2Enabled()) {
+					plxMsg::Error('Method with OAuth2 denied');
+					return false;
+				}
 				$mail->isSMTP();
 				$mail->Host = 'smtp.gmail.com';
 				$mail->Port = 587;

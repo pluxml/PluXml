@@ -205,7 +205,16 @@ if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 				<small><?= L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInputRadio('email_method', EMAIL_METHODS, $plxAdmin->aConf['email_method']); ?>
+<?php
+	$email_methods = array(
+		'sendmail'	=> 'sendmail',
+		'smtp'		=>'SMTP',
+	);
+	if(plxUtils::isOauth2Enabled()) {
+		$email_methods['smtpoauth'] = 'OAUTH2';
+	}
+?>
+				<?php plxUtils::printInputRadio('email_method', $email_methods, $plxAdmin->aConf['email_method']); ?>
 			</div>
 		</div>
 		<div><h3><?= L_CONFIG_ADVANCED_SMTP_TITLE ?></h3></div>
@@ -253,6 +262,9 @@ if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 				<?php plxUtils::printInputRadio('smtp_security', array('0'=>L_NONE1,'ssl'=>'SSL', 'tls'=>'TLS'), $plxAdmin->aConf['smtp_security']); ?>
 			</div>
 		</div>
+<?php
+	if(array_key_exists('smtpoauth', $email_methods)) {
+?>
 		<div>
 			<h3><?= L_CONFIG_ADVANCED_SMTPOAUTH_TITLE ?></h3>
 			<p><small><?= L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP ?></small></p>
@@ -298,7 +310,8 @@ if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 			</div>
 		</div>
 <?php
-	} # if(class_exists('PHPMailer'))
+	}
+}
 ?>
 	</fieldset>
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvanced')) # Hook Plugins ?>

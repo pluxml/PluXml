@@ -1,0 +1,20 @@
+PluXml peut envoyer des E-mails en utilisant un serveur SMTP extérieur à votre hébergeur.
+Il s'appuie pour cela sur la librairie PHPMailer.
+Cette librairie et ses dépendances existent en différentes versions selon les versions de PHP
+
+Selon votre version de PHP copiez ou renommez le fichier composer-??.json en composer.json :
+- Pour PHP >= 8.1 : composer-81.json
+- Pour PHP >= 7.2.5 : composer-72.json
+- Pour PHP >= 5.5 : composer-56.json
+
+Composer est incompatible avec les versios plus anciennes de PHP
+
+Une fois ou le renommage fait, supprimer le fichier composer.lock et le dossier vendor. Puis exécutez la commande "composer install".
+
+Pour vérifier que la librairie et ses dépendances soient compatibles avec votre version de PHP, faites "composer why php".
+
+Notez qu'il est impossible d'utiliser le serveur SMTP de Google pour une version de PHP < 7.2.5.
+
+Si vous n'envisagez pas d'utiliser Google pour l'envois des E-mails, composer-56.json est suffisant quelque soit votre version de PHP.
+
+Cette version de PluXml est livrée par défaut avec la librairie compatible avec PHP >= 7.2.5.
