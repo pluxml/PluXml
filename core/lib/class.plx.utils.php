@@ -31,8 +31,8 @@ class plxUtils {
 	const MINIFY_PATTERNS = array(
 		# Supprime les commentaires
 		'!/\*[^*]*\*+([^/][^*]*\*+)*/!' => '',
-		# Supprime les espaces superflus autour d'une ponctuation
-		'#\s*([\{\},:;\>])\s*#m' => '$1',
+		# Supprime les espaces superflus autour d'une ponctuation, excepté ":"
+		'#\s*([\{\},;\>])\s*#m' => '$1',
 		# supprime espaces en début de ligne (heading spaces)
 		'#^\s+#' => '',
 		# idem en fin de ligne (trailing spaces)
