@@ -4,8 +4,15 @@
  * Classe plxUtils rassemblant les fonctions utiles à PluXml
  *
  * @package PLX
- * @author	Florent MONTHEL et Stephane F
+ * @author	Florent MONTHEL, Stephane F, Jean-Pierre Pourrez @bazooka07
  **/
+
+/*
+ * Pour voir les dépendances à propos de PHPMailer :
+ * composer show --tree
+ *
+ * Lire à ce propos le fichier core/lisezmoi.txt
+ * */
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -20,6 +27,24 @@ class plxUtils {
 		'en' => 'an?|as|at|before|but|by|for|from|is|in(?:to)?|like|off?on(?:to)?|per|since|than|the|this|that|to|up|via|with',
 		'de' => 'das|der|die|fur|am',
 		'fr' => 'a|de?|des|du|e?n|la|le|une?|vers'
+	);
+	const MINIFY_PATTERNS = array(
+		# Supprime les commentaires
+		'!/\*[^*]*\*+([^/][^*]*\*+)*/!' => '',
+		# Supprime les espaces superflus autour d'une ponctuation
+		'#\s*([\{\},:;\>])\s*#m' => '$1',
+		# supprime espaces en début de ligne (heading spaces)
+		'#^\s+#' => '',
+		# idem en fin de ligne (trailing spaces)
+		'#\s+$#' => '',
+		# réduit le nombre d'espaces si >= 2
+		'#\s{2,}#' => ' ',
+		# Minify HEX color code
+		'#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i' => '$1$2$3',
+		# Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
+		'#(?<=[\s:,-])0+(\.\d+)#s' => '$1',
+		# Reduit une succession de 0
+		'#(?<=:)\s*0(?:\s+0){1,3}\s*;#m' => '0',
 	);
 
 	/**
@@ -651,13 +676,17 @@ class plxUtils {
 	 **/
 	public static function makeThumb($src_image, $dest_image, $thumb_width = 48, $thumb_height = 48, $jpg_quality = 90) {
 
-		if(!function_exists('imagecreatetruecolor')) return false;
+		if(!function_exists('imagecreatetruecolor')) {
+			return false;
+		}
 
 		# Get dimensions of existing image
 		$image = getimagesize($src_image);
 
 		# Check for valid dimensions
-		if($image[0] <= 0 || $image[1] <= 0) return false;
+		if($image === false || $image[0] <= 0 || $image[1] <= 0) {
+			return false;
+		}
 
 		# Determine format from MIME-Type
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
@@ -725,13 +754,13 @@ class plxUtils {
 		if($thumb_width==$thumb_height) {
 			if($image[0] > $image[1]) {
 				# For landscape images
-				$x_offset = ($image[0] - $image[1]) / 2;
+				$x_offset = intval(($image[0] - $image[1]) / 2);
 				$y_offset = 0;
 				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
 			} else {
 				# For portrait and square images
 				$x_offset = 0;
-				$y_offset = ($image[1] - $image[0]) / 2;
+				$y_offset = intval(($image[1] - $image[0]) / 2);
 				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
 			}
 		}
@@ -819,7 +848,8 @@ class plxUtils {
 
 		$string = '';
 		$chaine = 'abcdefghijklmnpqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		mt_srand((float)microtime()*1000000);
+		# srand(intval(microtime(true) * 1000000.0));
+		srand(); # https://www.php.net/manual/fr/function.srand.php
 		for($i=0; $i<$taille; $i++)
 			$string .= $chaine[ mt_rand()%strlen($chaine) ];
 		return $string;
@@ -840,7 +870,10 @@ class plxUtils {
 			$length = sizeof($content) < $length ? sizeof($content) : $length;
 			return implode(' ',array_slice($content,0,$length)).$add_text;
 		} else { # On coupe la chaine en comptant le nombre de caractères
-			return strlen($str) > $length ? utf8_decode(substr(utf8_encode($str), 0, $length)).$add_text : $str;
+			if(strlen($str) <= $length) {
+				return $str;
+			}
+			return substr($str, 0, $length) . $add_text;
 		}
 	}
 
@@ -966,6 +999,11 @@ class plxUtils {
 		header('Content-Type: '.$type.'; charset='.$charset);
 	}
 
+	public static function isOauth2Enabled($provider='Google') {
+		# Possible values for $provider : Google, Yahoo, Facebook, ...
+		return class_exists('League\\OAuth2\\Client\\Provider\\' . $provider);
+	}
+
 	/**
 	* Méthode d'envoi de mail
 	*
@@ -1054,6 +1092,10 @@ class plxUtils {
 				}
 				break;
 			case 'smtpoauth':
+				if(isOauth2Enabled()) {
+					plxMsg::Error('Method with OAuth2 denied');
+					return false;
+				}
 				$mail->isSMTP();
 				$mail->Host = 'smtp.gmail.com';
 				$mail->Port = 587;
@@ -1278,14 +1320,10 @@ class plxUtils {
 	 *
 	 * @param	string	chaine de caractères à minifier
 	 * @return	string	chaine de caractères minifiée
-	 * @author	Frédéric Kaplon
+	 * @author	Frédéric Kaplon, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public static function minify($buffer) {
-		/* Supprime les commentaires */
-		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
-		/* Supprime les tabs, espaces, saut de ligne, etc. */
-		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
-		return $buffer;
+		return preg_replace(array_keys(self::MINIFY_PATTERNS), array_values(self::MINIFY_PATTERNS), $buffer);
 	}
 
 	/**
@@ -1417,7 +1455,7 @@ EOT;
 EOT;
 					} else {
 						echo <<<EOT
-							<option disabled value=""$classAttr data-level="$dataLevel">$prefix${caption}/</option>
+							<option disabled value=""$classAttr data-level="$dataLevel">$prefix$caption/</option>
 
 EOT;
 					}
