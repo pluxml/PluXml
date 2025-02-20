@@ -1,4 +1,9 @@
-## PluXml 5.8.19 (2025/01/)
+## PluXml 5.8.19 (2025/02/20)
+FIX plxUtils::MINIFY_PATTERNS (E.G.: ":is")
+[+] Update PHPMailer - Option for PHP < 7.2.5
+[+] Refacto plxCapcha
+FIX Fix plxAdmin::EditArticle() for article without tag
+[+] Refacto plxMotor::nextIdArtComment()
 FIX plxMotor::getPage() when name of categorie contains 'page'
 
 ## PLUXML 5.8.18 (2024/12/27)
