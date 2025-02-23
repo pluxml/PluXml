@@ -1083,25 +1083,30 @@ class plxMotor {
 	public function sendTelechargement($cible) {
 
 		# On décrypte le nom du fichier
-		$file = PLX_ROOT.$this->aConf['medias'].plxEncrypt::decryptId($cible);
+		$file = PLX_ROOT . $this->aConf['medias'] . plxEncrypt::decryptId($cible);
+
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) {
+			return;
+		}
+
 		# On lance le téléchargement et on check le répertoire medias
-		if(file_exists($file) AND preg_match('#^'.str_replace('\\', '#', realpath(PLX_ROOT.$this->aConf['medias']).'#'), str_replace('\\', '/', realpath($file)))) {
+		$query = '#^' . str_replace('\\', '/', realpath(PLX_ROOT . $this->aConf['medias'])) . '\b#';
+		if(file_exists($file) AND preg_match($query, str_replace('\\', '/', realpath($file)))) {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/download');
-			header('Content-Disposition: attachment; filename='.basename($file));
+			header('Content-Disposition: attachment; filename=' . basename($file));
 			header('Content-Transfer-Encoding: binary');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header('Pragma: no-cache');
-			header('Content-Length: '.filesize($file));
+			header('Content-Length: ' . filesize($file));
 			readfile($file);
 			exit;
-		} else { # On retourne false
-			return false;
 		}
 
+		# On retourne false
+		return false;
 	}
 
 	/**
