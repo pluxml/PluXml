@@ -166,6 +166,26 @@ include __DIR__ .'/top.php';
 				<?php plxUtils::printInput('custom_admincss_file', $plxAdmin->aConf['custom_admincss_file']); ?>
 			</div>
 		</div>
+<?php
+if(!plxUtils::isPHPMailer()) {
+?>
+		<input type="hidden" name="email_method" value="sendmail" >
+<?php
+} else {
+	$smtp_security = array(
+		'' => L_NONE1,
+		'ssl' => 'SSL/TLS', # PHPMailer::ENCRYPTION_SMTPS
+		'tls' => 'TLS', # PHPMailer::ENCRYPTION_STARTTLS
+	);
+
+	$email_methods = array(
+		'sendmail'	=> 'sendmail',
+		'smtp'		=>'SMTP',
+	);
+	if(plxUtils::isOauth2Enabled()) {
+		$email_methods['smtpoauth'] = 'OAUTH2';
+	}
+?>
 		<div>
 			<h2><?php echo L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE ?>&nbsp;:</h2>
 			<p><small><?php echo L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP ?></small></p>
@@ -176,15 +196,6 @@ include __DIR__ .'/top.php';
 				<small><?php echo L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
 			</div>
 			<div class="col sml-12 med-7">
-<?php
-$email_methods = array(
-	'sendmail'	=> 'sendmail',
-	'smtp'		=>'SMTP',
-);
-if(plxUtils::isOauth2Enabled()) {
-	$email_methods['smtpoauth'] = 'OAUTH2';
-}
-?>
 				<?php plxUtils::printInputRadio('email_method', $email_methods, $plxAdmin->aConf['email_method']); ?>
 			</div>
 		</div>
@@ -230,11 +241,11 @@ if(plxUtils::isOauth2Enabled()) {
 				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTP_SECURITY ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInputRadio('smtp_security', array('0'=>L_NONE1,'ssl'=>'SSL', 'tls'=>'TLS'), $plxAdmin->aConf['smtp_security']); ?>
+				<?php plxUtils::printInputRadio('smtp_security', $smtp_security, $plxAdmin->aConf['smtp_security']); ?>
 			</div>
 		</div>
 <?php
-if(array_key_exists('smtpoauth', $email_methods)) {
+	if(array_key_exists('smtpoauth', $email_methods)) {
 ?>
 		<div>
 			<h3><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TITLE ?></h3>
@@ -281,6 +292,7 @@ if(array_key_exists('smtpoauth', $email_methods)) {
 			</div>
 		</div>
 <?php
+	}
 }
 ?>
 	</fieldset>
