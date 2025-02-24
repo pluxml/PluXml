@@ -404,6 +404,31 @@ class plxMotor {
 		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
 		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
 		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
+
+		# Au cas où on installe ou désinstalle PHPMailer
+		foreach(array(
+			'email_method' => 'sendmail',
+			'smtp_port' => 465,
+		) as $k=>$v) {
+			if(!isset($this->aConf[$k])) {
+				$this->aConf[$k] = $v;
+			}
+		}
+		foreach(array(
+			'smtp_server',
+			'smtp_username',
+			'smtp_password',
+			'smtp_security',
+			'smtpOauth2_emailAdress',
+			'smtpOauth2_clientId',
+			'smtpOauth2_clientSecret',
+			'smtpOauth2_refreshToken',
+		) as $k) {
+			if(!isset($this->aConf[$k])) {
+				$this->aConf[$k] = '';
+			}
+		}
+
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
 	}

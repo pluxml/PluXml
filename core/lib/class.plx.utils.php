@@ -999,6 +999,25 @@ class plxUtils {
 		header('Content-Type: '.$type.'; charset='.$charset);
 	}
 
+	/*
+	 * Méthode qui vérifie que la librairie PHPMailer est installée
+	 *
+	 * @param	none
+	 * @return	boolean
+	 * @author	Jean-Pierre Pourrez @bazooka07
+	 **/
+	public static function isPHPMailer() {
+		return class_exists('PHPMailer\\PHPMailer\\PHPMailer');
+	}
+
+	/*
+	 * Vérifie que la librairie pour se connecter à un serveur STMP de Google est installée
+	 *
+	 * Authentification OAuth2 - Dépend de PHPMailer
+	 * @param	none
+	 * @return	boolean
+	 * @author	Jean-Pierre Pourrez @bazooka07
+	 **/
 	public static function isOauth2Enabled($provider='Google') {
 		# Possible values for $provider : Google, Yahoo, Facebook, ...
 		return class_exists('League\\OAuth2\\Client\\Provider\\' . $provider);
@@ -1087,12 +1106,12 @@ class plxUtils {
 				$mail->Username = $conf['smtp_username'];
 				$mail->Password = $conf['smtp_password'];
 				$mail->SMTPDebug;
-				if ($conf['smtp_security'] == 'ssl' or $conf['smtp_security'] == 'tls') {
+				if(in_array($conf['smtp_security'], array(PHPMailer::ENCRYPTION_STARTTLS, PHPMailer::ENCRYPTION_SMTPS,))) {
 					$mail->SMTPSecure = $conf['smtp_security'];
 				}
 				break;
 			case 'smtpoauth':
-				if(isOauth2Enabled()) {
+				if(!isOauth2Enabled()) {
 					plxMsg::Error('Method with OAuth2 denied');
 					return false;
 				}
