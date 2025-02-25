@@ -999,3 +999,28 @@ select::-ms-expand {/*for IE10*/
 	background-color: green;
 	color: #fff;
 }
+
+/* ---- parametres_infos ---- */
+
+.phpmailer-debug p {
+	max-height: 50vh;
+	overflow: auto;
+	padding: 0.2rem .5rem 1.25rem;
+	background-color: #333;
+	color: #fff;
+	white-space: nowrap;
+}
+
+.phpmailer-debug summary {
+	cursor: pointer;
+}
+
+.phpmailer-debug > summary::after {
+	content: '▼';
+	font-size: larger;
+	margin-left: 1rem;
+}
+
+.phpmailer-debug[open] > summary::after {
+	content: '▲';
+}
