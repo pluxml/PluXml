@@ -13,6 +13,10 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Stevenmaguire\\OAuth2\\Client\\' => 28,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -23,15 +27,24 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
         array (
             'League\\OAuth2\\Client\\' => 21,
         ),
+        'H' => 
+        array (
+            'Hayageek\\OAuth2\\Client\\' => 23,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'Greew\\OAuth2\\Client\\Provider\\' => 29,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Stevenmaguire\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stevenmaguire/oauth2-microsoft/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
@@ -50,6 +63,10 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
             0 => __DIR__ . '/..' . '/league/oauth2-client/src',
             1 => __DIR__ . '/..' . '/league/oauth2-google/src',
         ),
+        'Hayageek\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hayageek/oauth2-yahoo/src',
+        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -61,6 +78,10 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Greew\\OAuth2\\Client\\Provider\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/greew/oauth2-azure-provider/src/Provider',
         ),
     );
 

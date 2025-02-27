@@ -77,18 +77,18 @@ if($emailBuild) {
 if($emailBuild) {
 	$isPHPMailer = (!empty($plxAdmin->aConf['email_method']) and preg_match('#^smtp(oauth)?$#', $plxAdmin->aConf['email_method']));
 	$content = ob_get_clean();
+	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title']);
 	$head = <<< HEAD
 <!DOCTYPE html>
 <html lang="en"><head>
-<meta charset="utf-8" />
-<title>sans titre</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{$subject}</title>
 </head><body>
 HEAD;
 	$foot = '</body></html>';
-	$method = '<p style="font-size: 80%;"><em>' . ($isPHPmailer ? ' via PHPMailer' : 'mail() function from PHP') . '</em></p>';
+	$method = '<p style="font-size: 80%;"><em>' . ($isPHPMailer ? ' via PHPMailer' : 'mail() function from PHP') . '</em></p>';
 	$body = $head . $content . $method . $foot;
 
-	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title']);
 	// Webmaster
 	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
 	$from = $plxAdmin->aUsers['001']['email'];

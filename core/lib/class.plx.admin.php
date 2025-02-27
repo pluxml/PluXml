@@ -1274,4 +1274,17 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 	}
 
+	/**
+	 * Vérifie s'il yabesoin de demander un token pour utiliser le serveur SMTP (OAuth2)
+	 *
+	 * @author Jean-Pierre Pourrez @bazooka07
+	 **/
+	public function OAuth_token_required() {
+		return (
+			$this->aConf['email_method'] == 'smtpoauth' and
+			!empty($this->aConf['smtpOauth2_emailAdress']) and
+			empty(trim($this->aConf['smtpOauth2_refreshToken']))
+		);
+	}
+
 }

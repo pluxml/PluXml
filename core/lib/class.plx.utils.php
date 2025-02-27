@@ -18,6 +18,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\OAuth;
 use League\OAuth2\Client\Provider\Google;
+use Hayageek\OAuth2\Client\Provider\Yahoo;
+use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
+use Greew\OAuth2\Client\Provider\Azure;
 
 require PLX_CORE.'vendor/autoload.php';
 
@@ -1080,7 +1083,7 @@ class plxUtils {
 	* @param boolean $isHtml True if body content use HTML
 	* @param array $conf PHPMailer configuration (username, password, ...)
 	* @return boolean
-	* @author Pedro "P3ter" CADETE
+	* @author Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	* @throws \PHPMailer\PHPMailer\Exception
 	**/
 	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml, $conf, $debug=false) {
@@ -1093,7 +1096,7 @@ class plxUtils {
 		$mail->setFrom($from, $name);
 		$mail->addAddress($to);
 		$mail->Mailer = $conf['email_method'];
-		$mail->CharSet = "UTF-8";
+		$mail->CharSet = 'UTF-8';
 		if ($isHtml) {
 			$mail->isHTML(true);
 		}
@@ -1116,17 +1119,42 @@ class plxUtils {
 					return false;
 				}
 				$mail->isSMTP();
-				$mail->Host = 'smtp.gmail.com';
-				$mail->Port = 587;
 				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+				$mail->Port = 465;
+				/*
 				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+				$mail->Port = 587;
+				*/
 				$mail->AuthType = 'XOAUTH2';
-				$provider = new Google(
-					[
-						'clientId' => $conf['smtpOauth2_clientId'],
-						'clientSecret' => $conf['smtpOauth2_clientSecret'],
-					]
+				$params = array(
+					'clientId' => $conf['smtpOauth2_clientId'],
+					'clientSecret' => $conf['smtpOauth2_clientSecret'],
 				);
+				switch($conf['smtpOauth2_provider']) {
+					case 'Google':
+						# https://github.com/PHPMailer/PHPMailer/blob/master/examples/gmail_xoauth.phps
+						# https://mailtrap.io/blog/phpmailer-gmail/
+						$mail->Host = 'smtp.gmail.com';
+						$provider = new Google($params);
+						break;
+					case 'Yahoo':
+						$mail->Host = 'smtp.mail.yahoo.com';
+						$provider = new Yahoo($params);
+						break;
+					case 'Microsoft':
+						$mail->Host = 'smtp.office365.com';
+						$provider = new Microsoft($params);
+						break;
+					case 'Azure' :
+						# https://github.com/PHPMailer/PHPMailer/blob/master/examples/azure_xoauth2.phps
+						$mail->Host = 'smtp.office365.com';
+						$params['tenantId'] = $conf['smtpOauth2_tenantId'];
+						$provider = new Azure($params);
+						break;
+					default:
+						return false;
+				}
 				$mail->setOAuth(
 						new OAuth(
 							[

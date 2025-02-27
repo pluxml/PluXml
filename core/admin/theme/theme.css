@@ -1024,3 +1024,14 @@ select::-ms-expand {/*for IE10*/
 .phpmailer-debug[open] > summary::after {
 	content: '▲';
 }
+
+/* ---- getoauth_token.php ---- */
+
+#form_Oauth2_token {
+	max-width: 64rem;
+}
+
+#form_Oauth2_token input[type="text"],
+#form_Oauth2_token select {
+	width: 100%;
+}

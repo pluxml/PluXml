@@ -407,6 +407,7 @@ class plxMotor {
 		foreach(array(
 			'email_method' => 'sendmail',
 			'smtp_port' => 465,
+			'smtpOauth2_provider' => 'Google',
 		) as $k=>$v) {
 			if(!isset($this->aConf[$k])) {
 				$this->aConf[$k] = $v;
