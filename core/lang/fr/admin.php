@@ -406,6 +406,7 @@ $LANG = array (
 		'L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN' => 'Générer un token',
 		'L_GET_OAUTH_TOKEN_PROVIDER' => 'Fournisseur',
 		'L_GET_OAUTH_TOKEN_DETAILS' => 'Les éléments suivants sont fournis en paramétrant une application sur la console de développement de votre fournisseur',
+		'L_GET_OAUTH_TOKEN_CREDENTIALS' => 'Identifiants Google',
 		'L_GET_OAUTH_TOKEN_DENIED' => 'Demande de jeton refusée',
 		'L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP' => 'Besoin d\'aide : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentation de PluXml</a>&nbsp;(fr)',
 		'L_CONFIG_ADVANCED_EMAIL_METHOD_HELP' => 'Aucune configuration n\'est requise pour sendmail.',

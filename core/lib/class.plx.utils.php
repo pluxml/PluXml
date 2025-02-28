@@ -1114,18 +1114,18 @@ class plxUtils {
 				}
 				break;
 			case 'smtpoauth':
-				if(!isOauth2Enabled()) {
+				if(!self::isOauth2Enabled()) {
 					plxMsg::Error('Method with OAuth2 denied');
 					return false;
 				}
 				$mail->isSMTP();
 				$mail->SMTPAuth = true;
+				/*
 				$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 				$mail->Port = 465;
-				/*
+				*/
 				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 				$mail->Port = 587;
-				*/
 				$mail->AuthType = 'XOAUTH2';
 				$params = array(
 					'clientId' => $conf['smtpOauth2_clientId'],

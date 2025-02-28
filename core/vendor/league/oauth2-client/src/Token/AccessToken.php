@@ -22,7 +22,7 @@ use RuntimeException;
  *
  * @link http://tools.ietf.org/html/rfc6749#section-1.4 Access Token (RFC 6749, §1.4)
  */
-class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInterface, SettableRefreshTokenInterface
+class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInterface
 {
     /**
      * @var string
@@ -118,7 +118,7 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
         } elseif (!empty($options['expires'])) {
             // Some providers supply the seconds until expiration rather than
             // the exact timestamp. Take a best guess at which we received.
-            $expires = (int) $options['expires'];
+            $expires = $options['expires'];
 
             if (!$this->isExpirationTimestamp($expires)) {
                 $expires += $this->getTimeNow();
@@ -172,14 +172,6 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
     /**
      * @inheritdoc
      */
-    public function setRefreshToken($refreshToken)
-    {
-        $this->refreshToken = $refreshToken;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getExpires()
     {
         return $this->expires;
@@ -204,7 +196,7 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
             throw new RuntimeException('"expires" is not set on the token');
         }
 
-        return $expires < $this->getTimeNow();
+        return $expires < time();
     }
 
     /**

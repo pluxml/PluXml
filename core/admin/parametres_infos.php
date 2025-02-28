@@ -76,8 +76,22 @@ if($emailBuild) {
 <?php
 if($emailBuild) {
 	$isPHPMailer = (!empty($plxAdmin->aConf['email_method']) and preg_match('#^smtp(oauth)?$#', $plxAdmin->aConf['email_method']));
+	if($plxAdmin->aConf['email_method'] == 'smtpoauth') {
+		if(empty(trim($plxAdmin->aConf['smtpOauth2_refreshToken']))) {
+			# Error
+			ob_end_clean();
+			plxMsg::Error('Missing token');
+			header('Location: ' . basename(__FILE__));
+			exit;
+		} else {
+			$from = $plxAdmin->aConf['smtpOauth2_emailAdress'];
+		}
+	} else {
+		$from = $plxAdmin->aUsers['001']['email']; // Webmaster
+	}
+	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
+	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title'] . ' (via ' . $plxAdmin->aConf['email_method'] . ')');
 	$content = ob_get_clean();
-	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title']);
 	$head = <<< HEAD
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -86,12 +100,7 @@ if($emailBuild) {
 </head><body>
 HEAD;
 	$foot = '</body></html>';
-	$method = '<p style="font-size: 80%;"><em>' . ($isPHPMailer ? ' via PHPMailer' : 'mail() function from PHP') . '</em></p>';
-	$body = $head . $content . $method . $foot;
-
-	// Webmaster
-	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
-	$from = $plxAdmin->aUsers['001']['email'];
+	$body = $head . $content . $foot;
 
 	// On est prêt à envoyer le mail
 

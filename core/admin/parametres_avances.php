@@ -18,7 +18,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 if(!empty($_POST)) {
 	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
 	unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
-	$redirect = $plxAdmin->OAuth_token_required() ? 'get_oauth_token.php' : 'parametres_avances.php';
+	$redirect = $plxAdmin->o_auth_token_required($_POST) ? 'get_oauth_token.php' : 'parametres_avances.php';
 	header('Location: ' . $redirect);
 	exit;
 }
@@ -261,6 +261,8 @@ if(!plxUtils::isPHPMailer()) {
 				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span></a>
 			</div>
 		</div>
+<?php
+/**
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
 				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID ?>&nbsp;:</label>
@@ -279,17 +281,23 @@ if(!plxUtils::isPHPMailer()) {
 				<a class="hint"><span><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP ?></span></a>
 			</div>
 		</div>
+*/
+?>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
+<?php
+/**
 				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN ?>&nbsp;:</label>
 				<small><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP ?></small>
-			</div>
-			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '', true); ?>
+**/
+?>
 <?php
 	$disabled = (empty($plxAdmin->aConf['smtpOauth2_clientSecret']) AND empty($plxAdmin->aConf['smtpOauth2_clientId']) and empty($plxAdmin->aConf['smtpOauth2_emailAdress'])) ? 'disabled' : '';
 ?>
-				<a href="get_oauth_token.php?provider=Google"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
+				<a href="get_oauth_token.php"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '50-', true); ?>
 			</div>
 		</div>
 <?php

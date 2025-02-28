@@ -35,7 +35,7 @@
  * revoke access to your app and run the script again.
  */
 
-namespace PHPMailer\PHPMailer;
+// namespace PHPMailer\PHPMailer;
 
 /**
  * Aliases for League Provider Classes
@@ -54,12 +54,50 @@ use Greew\OAuth2\Client\Provider\Azure;
 
 include 'prepend.php';
 
+//If this automatic URL doesn't work, set it yourself manually to the URL of this script
+$redirectUri = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+//$redirectUri = 'http://localhost/PHPMailer/redirect';
+
 if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 	include 'top.php';
+
+	if(isset($_FILES['json-data']) and $_FILES['json-data']['error'] == 0) {
+		$filename = $_FILES['json-data']['tmp_name'];
+		$dataStr = file_get_contents($filename);
+		if(is_string($dataStr)) {
+			$data = json_decode($dataStr, true);
+			$app = array_values($data)[0];
+			$plxAdmin->aConf['smtpOauth2_provider'] = 'Google';
+			$plxAdmin->aConf['smtpOauth2_clientId'] = $app['client_id'];
+			$plxAdmin->aConf['smtpOauth2_clientSecret'] = $app['client_secret'];
+			$plxAdmin->editConfiguration($plxAdmin->aConf, array());
+		}
+		unlink($filename);
+	}
 ?>
 			<div class="inline-form action-bar">
 				<h2><?= L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></h2>
-				<p><a class="back" href="parametres_avances.php"><?= L_CONFIG_ADVANCED_DESC ?></a></p>
+				<div class="grid text-center">
+					<div class="col med-4 text-left">
+						<a class="back" href="parametres_avances.php"><?= L_CONFIG_ADVANCED_DESC ?></a>
+					</div>
+					<div class="col sml-3 med-2">
+						<a class="button" href="https://console.cloud.google.com/apis/credentials" target="_blank">Google</a>
+					</div>
+					<div class="col sml-3 med-2">
+						<a class="button" href="https://developer.yahoo.com/oauth2/guide/" target="_blank">Yahoo</a>
+					</div>
+					<div class="col sml-3 med-2">
+						<a class="button" href="https://learn.microsoft.com/fr-fr/entra/identity-platform/v2-oauth2-auth-code-flow" target="_blank">Microsoft</a>
+					</div>
+					<div class="col sml-3 med-2">
+						&nbsp;
+					</div>
+				</div>
+				<div class="grid text-left">
+					<div class="col med-3">Redirect Uri :</div>
+					<div class="col med-9"><?= $redirectUri ?></div>
+				</div>
 			</div>
 			<form method="post" id="form_Oauth2_token">
 				<div class="grid">
@@ -99,7 +137,7 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 		$caption = constant('L_CONFIG_ADVANCED_SMTPOAUTH_' . $v);
 		$required = ($k != 'tenantId') ? ' required' : '';
 ?>
-				<div class="grid">
+				<div class="grid" id="container_<?= $k ?>">
 					<div class="col med-5">
 						<label for="id_<?= $k ?>"><?= $caption ?></label>
 					</div>
@@ -110,13 +148,58 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 
 <?php
 	}
+
+	if(isset($app['redirect_uris']) and is_array($app['redirect_uris'])) {
+?>
+				<ul>
+<?php
+		foreach($app['redirect_uris'] as $uri) {
+?>
+					<li><em><?= $uri ?></em></li>
+<?php
+		}
+?>
+				</ul>
+<?php
+	}
 ?>
 				<p><input type="submit"></p>
+			</form>
+			<form enctype="multipart/form-data" method="post" id="form_get_oauth_credentials">
+				<input type="hidden" name="MAX_FILE_SIZE" value="2000" />
+				<span><?= L_GET_OAUTH_TOKEN_CREDENTIALS ?></span>
+				<input type="file" name="json-data" accept=".json, application/json" placeholder="Google">
+				<input type="submit">
 			</form>
 			<script>
 				(function () {
 					'use strict';
 					setMsg();
+
+					const providerSelect = document.getElementById('id_provider');
+					const credentialsForm = document.getElementById('form_get_oauth_credentials');
+					const tenantId = document.getElementById('container_tenantId');
+
+					function displayCredentials(ev) {
+						if(providerSelect.value == 'Google') {
+							credentialsForm.classList.add('active');
+						} else {
+							credentialsForm.classList.remove('active');
+						}
+
+						if(tenantId) {
+							if(providerSelect.value == 'Azure') {
+								tenantId.classList.add('active');
+							} else {
+								tenantId.classList.remove('active');
+							}
+						}
+					}
+
+					if(providerSelect && credentialsForm) {
+						providerSelect.addEventListener('change', displayCredentials);
+						displayCredentials();
+					}
 				})()
 			</script>
 		</main>
@@ -126,9 +209,11 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 	exit;
 }
 
+/* ---- traitement du formulaire ---- */
+
 require '../vendor/autoload.php';
 
-session_start();
+// session_start();
 
 $providerName = '';
 $clientId = '';
@@ -144,6 +229,12 @@ if (array_key_exists('provider', $_POST)) {
 	$_SESSION['clientId'] = $clientId;
 	$_SESSION['clientSecret'] = $clientSecret;
 	$_SESSION['tenantId'] = $tenantId;
+
+	# On sauvegarde les valeurs dans la configuration de PluXml
+	foreach(array('provider', 'clientId', 'clientSecret', 'tenantId',) as $k) {
+		$content['smtpOauth2_' . $k] = $_SESSION[$k];
+	}
+	$plxAdmin->editConfiguration($plxAdmin->aConf, $content);
 } elseif (array_key_exists('provider', $_SESSION)) {
 	$providerName = $_SESSION['provider'];
 	$clientId = $_SESSION['clientId'];
@@ -154,10 +245,6 @@ if (array_key_exists('provider', $_POST)) {
 //If you don't want to use the built-in form, set your client id and secret here
 //$clientId = 'RANDOMCHARS-----duv1n2.apps.googleusercontent.com';
 //$clientSecret = 'RANDOMCHARS-----lGyjPcRtvP';
-
-//If this automatic URL doesn't work, set it yourself manually to the URL of this script
-$redirectUri = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-//$redirectUri = 'http://localhost/PHPMailer/redirect';
 
 $params = [
 	'clientId' => $clientId,
@@ -230,19 +317,13 @@ if (!isset($_GET['code'])) {
 	// Use this to interact with an API on the users behalf
 	// Use this to get a new access token if the old one expires
 	// echo 'Refresh Token: ', htmlspecialchars($token->getRefreshToken());
-	$token = htmlspecialchars($token->getRefreshToken());
+	$resp = htmlspecialchars($token->getRefreshToken());
 
-	if(!empty($token)) {
-		$content =array(
-			'smtpOauth2_emailAdress'	=> 'jpourrez@gmail.com',
-			'smtpOauth2_refreshToken'	=> $token,
+	if(!empty($resp)) {
+		$content = array(
+			'smtpOauth2_refreshToken'	=> $resp,
 		);
-		foreach(array('provider', 'clientId', 'clientSecret', 'tenantId',) as $k) {
-			$content['smtpOauth2_' . $k] = $_SESSION[$k];
-		}
 		$plxAdmin->editConfiguration($plxAdmin->aConf, $content);
-	} else {
-		plxMsg::Error(L_GET_OAUTH_TOKEN_DENIED);
+		header('Location: parametres_avances.php');
 	}
-	header('Location: parametres_avances.php');
 }
