@@ -525,6 +525,51 @@ class plxMotor {
 		# détermination automatique de la racine du site
 		$this->aConf['racine'] = plxUtils::getRacine();
 
+		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
+		$this->aConf['bypage_admin'] = plxUtils::getValue($this->aConf['bypage_admin'],10);
+		$this->aConf['tri_coms'] = plxUtils::getValue($this->aConf['tri_coms'],$this->aConf['tri']);
+		$this->aConf['bypage_admin_coms'] = plxUtils::getValue($this->aConf['bypage_admin_coms'],10);
+		$this->aConf['bypage_archives'] = plxUtils::getValue($this->aConf['bypage_archives'],5);
+		$this->aConf['bypage_tags'] = plxUtils::getValue($this->aConf['bypage_tags'],5);
+		$this->aConf['userfolders'] = plxUtils::getValue($this->aConf['userfolders'],0);
+		$this->aConf['meta_description'] = plxUtils::getValue($this->aConf['meta_description']);
+		$this->aConf['meta_keywords'] = plxUtils::getValue($this->aConf['meta_keywords']);
+		$this->aConf['default_lang'] = plxUtils::getValue($this->aConf['default_lang'],DEFAULT_LANG);
+		$this->aConf['racine_plugins'] = plxUtils::getValue($this->aConf['racine_plugins'], 'plugins/');
+		$this->aConf['racine_themes'] = plxUtils::getValue($this->aConf['racine_themes'], 'themes/');
+		$this->aConf['mod_art'] = plxUtils::getValue($this->aConf['mod_art'],0);
+		$this->aConf['display_empty_cat'] = plxUtils::getValue($this->aConf['display_empty_cat'],0);
+		$this->aConf['timezone'] = plxUtils::getValue($this->aConf['timezone'],@date_default_timezone_get());
+		$this->aConf['thumbs'] = isset($this->aConf['thumbs']) ? $this->aConf['thumbs'] : 1;
+		$this->aConf['hometemplate'] = isset($this->aConf['hometemplate']) ? $this->aConf['hometemplate'] : 'home.php';
+		$this->aConf['custom_admincss_file'] = plxUtils::getValue($this->aConf['custom_admincss_file']);
+		$this->aConf['medias'] = isset($this->aConf['medias']) ? $this->aConf['medias'] : 'data/images/';
+
+		# Au cas où on installe ou désinstalle PHPMailer
+		foreach(array(
+			'email_method' => 'sendmail',
+			'smtp_port' => 465,
+			'smtpOauth2_provider' => 'Google',
+		) as $k=>$v) {
+			if(!isset($this->aConf[$k])) {
+				$this->aConf[$k] = $v;
+			}
+		}
+		foreach(array(
+			'smtp_server',
+			'smtp_username',
+			'smtp_password',
+			'smtp_security',
+			'smtpOauth2_emailAdress',
+			'smtpOauth2_clientId',
+			'smtpOauth2_clientSecret',
+			'smtpOauth2_refreshToken',
+		) as $k) {
+			if(!isset($this->aConf[$k])) {
+				$this->aConf[$k] = '';
+			}
+		}
+
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
 

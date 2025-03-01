@@ -417,6 +417,14 @@ const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clé du client sur le ser
 const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrer l\'ID client et le code secret du client afin de pouvoir générer le token.';
 
 // parametres_base.php
+const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Code secret du client';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TENANTID = 'TenantId (requis par Azure)';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Jeton (token)';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Demander un jeton (token)';
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Fournisseur de jeton';
+const L_GET_OAUTH_TOKEN_DETAILS = 'Les éléments suivants sont fournis en paramétrant une application sur la console de développement de votre fournisseur';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Identifiants Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Demande de jeton refusée';
 
 const L_CONFIG_BASE_CONFIG_TITLE = 'Configuration de base';
 const L_CONFIG_BASE_SITE_TITLE = 'Titre du site';

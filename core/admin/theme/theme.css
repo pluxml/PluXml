@@ -12,6 +12,10 @@
 # ------------------- END LICENSE BLOCK -------------------
 */
 
+a.button:hover {
+	color: yellow;
+}
+
 /* ---------- Authentication ---------- */
 
 .logo {
@@ -1301,3 +1305,61 @@ input[name="password2"]:not(.full-width):invalid+span::after {
 input[name="password2"]:not(.full-width):valid+span::after {
 	content: '✅';
 }
+
+/* ---- parametres_infos ---- */
+
+.phpmailer-debug p {
+	max-height: 50vh;
+	overflow: auto;
+	padding: 0.2rem .5rem 1.25rem;
+	background-color: #333;
+	color: #fff;
+	white-space: nowrap;
+}
+
+.phpmailer-debug summary {
+	cursor: pointer;
+}
+
+.phpmailer-debug > summary::after {
+	content: '▼';
+	font-size: larger;
+	margin-left: 1rem;
+}
+
+.phpmailer-debug[open] > summary::after {
+	content: '▲';
+}
+
+/* ---- getoauth_token.php ---- */
+
+#form_Oauth2_token,
+#form_get_oauth_credentials {
+	max-width: 75rem;
+}
+
+#form_Oauth2_token input[type="text"],
+#form_Oauth2_token select {
+	width: 100%;
+}
+
+#form_get_oauth_credentials:not(.active) {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	#form_get_oauth_credentials.active {
+		display: flex;
+		gap: 1rem;
+	}
+
+}
+
+#form_get_oauth_credentials input[type="file"] {
+	flex-grow: 1;
+}
+
+#container_tenantId:not(.active) {
+	display: none;
+}
+

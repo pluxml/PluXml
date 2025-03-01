@@ -18,12 +18,14 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 if(!empty($_POST)) {
 	if(isset($_POST['robots'])) {
 		$plxAdmin->editRobots();
+		$redirect = 'parametres_avances.php';
 	} else {
 		$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
 		unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
+		$redirect = $plxAdmin->o_auth_token_required($_POST) ? 'get_oauth_token.php' : 'parametres_avances.php';
 	}
 
-	header('Location: parametres_avances.php');
+	header('Location: ' . $redirect);
 	exit;
 }
 
@@ -193,7 +195,24 @@ plxUtils::printSelect('userfolders', $usersOptions, $plxAdmin->aConf['userfolder
 			</div>
 		</div>
 <?php
-if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+if(!plxUtils::isPHPMailer()) {
+?>
+		<input type="hidden" name="email_method" value="sendmail" >
+<?php
+} else {
+	$smtp_security = array(
+		'' => L_NONE1,
+		'ssl' => 'SSL/TLS', # PHPMailer::ENCRYPTION_SMTPS
+		'tls' => 'TLS', # PHPMailer::ENCRYPTION_STARTTLS
+	);
+
+	$email_methods = array(
+		'sendmail'	=> 'sendmail',
+		'smtp'		=>'SMTP',
+	);
+	if(plxUtils::isOauth2Enabled()) {
+		$email_methods['smtpoauth'] = 'OAUTH2';
+	}
 ?>
 		<div>
 			<h2><?= L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE ?>&nbsp;:</h2>
@@ -259,7 +278,7 @@ if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_SECURITY ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInputRadio('smtp_security', array('0'=>L_NONE1,'ssl'=>'SSL', 'tls'=>'TLS'), $plxAdmin->aConf['smtp_security']); ?>
+				<?php plxUtils::printInputRadio('smtp_security', $smtp_security, $plxAdmin->aConf['smtp_security']); ?>
 			</div>
 		</div>
 <?php
@@ -278,6 +297,8 @@ if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span></a>
 			</div>
 		</div>
+<?php
+/**
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
 				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID ?>&nbsp;:</label>
@@ -296,17 +317,23 @@ if(class_exists('PHPMailer\PHPMailer\PHPMailer')) {
 				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP ?></span></a>
 			</div>
 		</div>
+*/
+?>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN ?>&nbsp;:</label>
-				<small><?= L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP ?></small>
-			</div>
-			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '', true); ?>
+<?php
+/**
+				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN ?>&nbsp;:</label>
+				<small><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP ?></small>
+**/
+?>
 <?php
 	$disabled = (empty($plxAdmin->aConf['smtpOauth2_clientSecret']) AND empty($plxAdmin->aConf['smtpOauth2_clientId']) and empty($plxAdmin->aConf['smtpOauth2_emailAdress'])) ? 'disabled' : '';
 ?>
-				<a href="get_oauth_token.php?provider=Google"><button type="button" <?= $disabled ?>><?= L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
+				<a href="get_oauth_token.php"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '50-', true); ?>
 			</div>
 		</div>
 <?php

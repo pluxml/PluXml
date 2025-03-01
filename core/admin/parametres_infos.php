@@ -85,45 +85,96 @@ $maj = $plxAdmin->checkMaj();
 
 <?php
 if($emailBuild) {
+	$isPHPMailer = (!empty($plxAdmin->aConf['email_method']) and preg_match('#^smtp(oauth)?$#', $plxAdmin->aConf['email_method']));
+	if($plxAdmin->aConf['email_method'] == 'smtpoauth') {
+		if(empty(trim($plxAdmin->aConf['smtpOauth2_refreshToken']))) {
+			# Error
+			ob_end_clean();
+			plxMsg::Error('Missing token');
+			header('Location: ' . basename(__FILE__));
+			exit;
+		} else {
+			$from = $plxAdmin->aConf['smtpOauth2_emailAdress'];
+		}
+	} else {
+		$from = $plxAdmin->aUsers['001']['email']; // Webmaster
+	}
+	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
+	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title'] . ' (via ' . $plxAdmin->aConf['email_method'] . ')');
 	$content = ob_get_clean();
 	$head = <<< HEAD
 <!DOCTYPE html>
 <html lang="en"><head>
-<meta charset="utf-8" />
-<title>sans titre</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{$subject}</title>
 </head><body>
 HEAD;
 	$foot = '</body></html>';
-	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title']);
+	$body = $head . $content . $foot;
 
-	// Webmaster
-	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
-	$from = $plxAdmin->aUsers['001']['email'];
+	// On est prêt à envoyer le mail
 
 	if($plxAdmin->isPHPMailerDisabled()) {
 		# fonction mail() intrinséque à PHP
-		$method = '<p style="font-size: 80%;"><em>mail() function from PHP</em></p>';
-		$body = $head . $content . $method . $foot;
 		if(plxUtils::sendMail('', '', $email, $subject, $body, 'html')) {
 			plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
 		} else {
 			plxMsg::Error(L_MAIL_TEST_FAILURE);
 		}
-	} else {
-		# module externe PHPMailer -
-		$method = '<p style="font-size: 80%;"><em>' . $plxAdmin->aConf['email_method'] . ' via PHPMailer</em></p>';
-		$body = $head . $content . $method . $foot;
-
-		if(plxUtils::sendMailPhpMailer($name, $from, $email, $subject, $head . $body . $foot, true, $plxAdmin->aConf)) {
-			plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
-		} else {
-			plxMsg::Error(L_MAIL_TEST_FAILURE);
-		}
+		header('Location: ' . basename(__FILE__));
+		exit;
 	}
 
-	header('Location: ' . basename(__FILE__));
-	exit;
+	# module externe PHPMailer -
+
+	# On va ouvrir une fenêtre de log pour afficher la conversation avec le serveur SMTP.
+	unset($_SESSION['error']);
+	unset($_SESSION['info']);
+	include __DIR__ .'/top.php';
+?>
+<details class="phpmailer-debug">
+	<summary>Log from SMTP server</summary>
+	<p>
+<?php
+	if(plxUtils::sendMailPhpMailer($name, $from, $email, $subject, $head . $body . $foot, true, $plxAdmin->aConf, true)) {
+		plxMsg::Info(sprintf(L_MAIL_TEST_SENT_TO, $email));
+	} else {
+		plxMsg::Error(L_MAIL_TEST_FAILURE);
+		$errorPHPMailer = true;
+	}
+?>
+	</p>
+</details>
+<?php
+	echo $content;
+	plxMsg::Display();
 }
+
+if(preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
+	# checkMaj() has failed with curl or allow_url_fopen is off
+?>
+	<script type="text/javascript">
+		(function() {
+			'use strict';
+
+<?php
+	if(!empty($errorPHPMailer)) {
+?>
+			const details = document.querySelector('.phpmailer-debug');
+			if(details) {
+				details.setAttribute('open', '');
+			}
+
+<?php
+	}
+?>
+			const currentVersion = '<?= PLX_VERSION ?>';
+			const id = 'latest-version';
+			const el = document.getElementById(id);
+			if(el == null) {
+				console.error('Element with id="' + id + '" not found');
+				return;
+			}
 
 # On inclut le footer
 include 'foot.php';
