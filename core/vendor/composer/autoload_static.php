@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
+class ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -13,6 +13,10 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Stevenmaguire\\OAuth2\\Client\\' => 28,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -23,15 +27,24 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
         array (
             'League\\OAuth2\\Client\\' => 21,
         ),
+        'H' => 
+        array (
+            'Hayageek\\OAuth2\\Client\\' => 23,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'Greew\\OAuth2\\Client\\Provider\\' => 29,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Stevenmaguire\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stevenmaguire/oauth2-microsoft/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
@@ -50,6 +63,10 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
             0 => __DIR__ . '/..' . '/league/oauth2-client/src',
             1 => __DIR__ . '/..' . '/league/oauth2-google/src',
         ),
+        'Hayageek\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hayageek/oauth2-yahoo/src',
+        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -62,6 +79,10 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'Greew\\OAuth2\\Client\\Provider\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/greew/oauth2-azure-provider/src/Provider',
+        ),
     );
 
     public static $classMap = array (
@@ -71,9 +92,9 @@ class ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2da02f19dedfee3b2d9327112ef61b39::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52::$classMap;
 
         }, null, ClassLoader::class);
     }

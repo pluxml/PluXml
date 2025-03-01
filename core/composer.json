@@ -2,6 +2,10 @@
     "require": {
         "phpmailer/phpmailer": "^6.9.3",
 	"symfony/deprecation-contracts": "=2.5.4",
-        "league/oauth2-google": "^3.0.4"
+	"league/oauth2-client": "=2.7.0",
+        "league/oauth2-google": "^3.0.4",
+        "hayageek/oauth2-yahoo": "^2.0",
+        "greew/oauth2-azure-provider": "^2.0",
+        "stevenmaguire/oauth2-microsoft": "^2.2"
     }
 }
