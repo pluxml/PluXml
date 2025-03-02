@@ -23,7 +23,6 @@ const L_THUMBNAIL = 'Miniatura (facultativo)';
 const L_THUMBNAIL_SELECTION = 'Selecionar Imagem';
 const L_THUMBNAIL_TITLE = 'Título de Imagem (facultativo)';
 const L_THUMBNAIL_ALT = 'Texto alternativo da imagem (facultativo)';
-
 const L_ERR_INVALID_DATE_CREATION = 'Data de criação inválido';
 const L_ERR_INVALID_DATE_UPDATE = 'Data inválida atualizado';
 const L_INVALID_VALUE = 'Valor inválido';
@@ -134,7 +133,7 @@ const L_PINNED_ARTICLE = 'Artigo fixado';
 
 const L_AUTH_PAGE_TITLE = 'Página de identificação';
 const L_LOGOUT_SUCCESSFUL = 'Foi correctamente deconectado';
-const L_LOGIN_PAGE = 'Conexão á zona de administração ';
+const L_LOGIN_PAGE = 'Conexão á zona de administração';
 const L_AUTH_LOST_FIELD = 'Login ou endereço de e-mail';
 const L_SUBMIT_BUTTON = 'Validar';
 const L_ERR_WRONG_PASSWORD = 'Login ou senha incorrecta';
@@ -261,7 +260,7 @@ const L_COMMENT_ONLINE_FEEDS_TITLE = 'Fluxo rss dos comentários online';
 const L_COMMENT_ONLINE_FEEDS = 'Comentários online';
 const L_COMMENTS_PRIVATE_FEEDS = 'Fluxo de sindicação privado';
 const L_COMMENTS_ONLINE_LIST = 'Lista de opiniões publicadas';
-const L_COMMENTS_OFFLINE_LIST = 'Lista dos comentários á espera de validação ';
+const L_COMMENTS_OFFLINE_LIST = 'Lista dos comentários á espera de validação';
 const L_COMMENTS_ALL_LIST = 'Lista de comentários';
 const L_COMMENT_SET_ONLINE = 'Take Online';
 const L_COMMENT_SET_OFFLINE = 'Take Offline';
@@ -271,7 +270,7 @@ const L_COMMENT_SET_OFFLINE = 'Take Offline';
 const L_SEARCH = 'Pesquisa';
 const L_SEARCH_PLACEHOLDER = 'Identificante ou título';
 const L_ARTICLES_ALL_CATEGORIES = 'Todas as categorias ...';
-const L_ARTICLES_ALL_AUTHORS	= 'Todos os autores...';
+const L_ARTICLES_ALL_AUTHORS = 'Todos os autores...';
 const L_ALL = 'Todos';
 const L_ALL_PUBLISHED = 'Publicação';
 const L_ALL_DRAFTS = 'Rascunhos';
@@ -345,7 +344,7 @@ const L_CONFIG_VIEW_FIELD = 'Opções de exibição';
 const L_CONFIG_VIEW_SKIN_SELECT = 'Escolha do tema';
 const L_CONFIG_VIEW_FILES_EDIT_TITLE = 'Editar os ficheiros do tema';
 const L_CONFIG_VIEW_FILES_EDIT = 'Editar os ficheiros do tema';
-const L_CONFIG_VIEW_SORT = 'Classificação dos artigos ';
+const L_CONFIG_VIEW_SORT = 'Classificação dos artigos';
 const L_CONFIG_VIEW_BYPAGE = 'Numero de artigos mostrados / página';
 const L_CONFIG_VIEW_BY_HOMEPAGE = 'Contagem de artigos na página inicial';
 const L_CONFIG_VIEW_BYPAGE_ARCHIVES = 'Numero de artigos mostrados / página nos arquivos';
@@ -400,21 +399,28 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'Porta SMTP';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'Criptografia SMTP';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Enviando emails com SMTP e OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Endereço de e-mail';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID do cliente';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Chave secreta do cliente';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Gere um token';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Preciso de ajuda : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentação do PluXml</a>&nbsp;(fr)';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Preciso de ajuda : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentação do PluXml</a> (fr)';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Nenhuma configuração é necessária para o sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nome do servidor SMTP (exemplo : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nome de usuário no host SMTP (exemplo : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Senha do usuário no host SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Número da porta do host SMTP (padrão: 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'O PluXml permite gerar tokens apenas para o serviço <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Precisa de ajuda para gerar o nome de usuário e a chave secreta: <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentação do PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'O PluXml permite gerar tokens apenas para o serviço <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Precisa de ajuda para gerar o nome de usuário e a chave secreta: <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentação do PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Endereço usado no serviço OAUTH2 (exemplo : pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'ID do cliente no serviço OAUTH2 (exemplo: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'A chave do cliente no serviço OAUTH2 (exemplo : PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Salve o ID do cliente e o código secreto do cliente para poder gerar o token.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Gere um token';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Fornecedor de token';
+const L_GET_OAUTH_TOKEN_DETAILS = 'Os seguintes elementos são fornecidos definindo um aplicativo no console de desenvolvimento do seu fornecedor';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'ID do cliente';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'ID do cliente no serviço OAUTH2 (exemplo: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Chave secreta do cliente';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'A chave do cliente no serviço OAUTH2 (exemplo : PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'TenantId (exigido pelo Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Token';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Identificadores do Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Recusou o pedido de token';
 
 // parametres_base.php
 
@@ -499,7 +505,7 @@ const L_PLUGINS_ACTIVATE = 'Activar';
 const L_PLUGINS_DEACTIVATE = 'Desactivar';
 const L_PLUGINS_DELETE = 'Suprimir';
 const L_PLUGINS_DELETE_ERROR = 'Ocoreu um erro durante a supressão';
-const L_PLUGINS_ENABLED_ERROR = 'O plug-in %s ainda está ativo. ';
+const L_PLUGINS_ENABLED_ERROR = 'O plug-in %s ainda está ativo.';
 const L_DELETE_FILE_ERROR = 'Não foi possível excluir o arquivo %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Supressão efectuada com sucesso';
 const L_PLUGINS_CONFIG = 'Configuração';
@@ -533,7 +539,7 @@ const L_PROFIL_UPDATE_PASSWORD = 'Alterar a sua senha';
 
 const L_STATIC_BACK_TO_PAGE = 'Voltar á lista das páginas státicas';
 const L_STATIC_UNKNOWN_PAGE = 'Esta página stática nunca existui ou foi suprimida !';
-const L_STATIC_TITLE = 'Edição página stática ';
+const L_STATIC_TITLE = 'Edição página stática';
 const L_STATIC_VIEW_PAGE = 'Visualizar a página';
 const L_STATIC_ON_SITE = 'directamente no web-site';
 const L_STATIC_UPDATE = 'Grabar esta página stática';
@@ -626,4 +632,3 @@ const L_HELP = 'Ajuda';
 const L_HELP_TITLE = 'Vêr a ajuda';
 const L_BACK_TO_THEMES = 'Voltar para os temas da página';
 const L_CONFIG_THEME_UPDATE = 'Change Theme';
-

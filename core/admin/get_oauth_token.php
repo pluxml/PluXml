@@ -52,45 +52,7 @@ use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
 //@see https://github.com/greew/oauth2-azure-provider
 use Greew\OAuth2\Client\Provider\Azure;
 
-<<<<<<< HEAD
-// Include PluXml requirements
 include 'prepend.php';
-
-if (!isset($_GET['code']) && !isset($_GET['provider'])) {
-	include 'top.php';
-?>
-	<div class="inline-form action-bar">
-		<h2><?= L_CONFIG_ADVANCED_DESC ?></h2>
-	</div>
-	<div>
-		<p>Select Provider:</p>
-		<a href='?provider=Google'>Google</a><br/>
-	</div>
-<?php
-exit;
-}
-
-require PLX_CORE.'vendor/autoload.php';
-
-$providerName = '';
-
-if (array_key_exists('provider', $_GET)) {
-	$providerName = $_GET['provider'];
-	$_SESSION['provider'] = $providerName;
-} elseif (array_key_exists('provider', $_SESSION)) {
-	$providerName = $_SESSION['provider'];
-}
-if (!in_array($providerName, ['Google'])) {
-	exit('Only Google OAuth2 providers are currently supported in this script.');
-}
-
-//These details are obtained by setting up an app in the Google developer console,
-//or whichever provider you're using.
-$clientId = $plxAdmin->aConf['smtpOauth2_clientId'];
-$clientSecret = $plxAdmin->aConf['smtpOauth2_clientSecret'];
-=======
-include 'prepend.php';
->>>>>>> phpmailer-250218
 
 //If this automatic URL doesn't work, set it yourself manually to the URL of this script
 $redirectUri = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
@@ -172,7 +134,7 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 	foreach(array('clientId'=>'CLIENTID', 'clientSecret' => 'SECRETKEY', 'tenantId'=> 'TENANTID') as $k=>$v) {
 		$id = 'smtpOauth2_' . $k;
 		$value = !empty($plxAdmin->aConf[$id]) ? $plxAdmin->aConf[$id] : '';
-		$caption = constant('L_CONFIG_ADVANCED_SMTPOAUTH_' . $v);
+		$caption = constant('L_GET_OAUTH_TOKEN_' . $v);
 		$required = ($k != 'tenantId') ? ' required' : '';
 ?>
 				<div class="grid" id="container_<?= $k ?>">
@@ -209,6 +171,7 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 				<input type="file" name="json-data" accept=".json, application/json" placeholder="Google">
 				<input type="submit">
 			</form>
+			<script src="js/visual.js?v=<?= PLX_VERSION ?>"></script>
 			<script>
 				(function () {
 					'use strict';

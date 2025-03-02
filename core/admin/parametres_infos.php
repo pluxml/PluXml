@@ -133,7 +133,7 @@ HEAD;
 	include __DIR__ .'/top.php';
 ?>
 <details class="phpmailer-debug">
-	<summary>Log from SMTP server</summary>
+	<summary><strong>Log from SMTP server</strong></summary>
 	<p>
 <?php
 	if(plxUtils::sendMailPhpMailer($name, $from, $email, $subject, $head . $body . $foot, true, $plxAdmin->aConf, true)) {
@@ -175,6 +175,8 @@ if(preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
 				console.error('Element with id="' + id + '" not found');
 				return;
 			}
+<?php
+}
 
 # On inclut le footer
 include 'foot.php';

@@ -54,25 +54,25 @@ const L_LAST_CONNEXION_ON = 'Letzte Verbindung am';
 
 const L_PLXMEDIAS_MEDIAS_FOLDER_ERR = 'Der Ordner "Medias" konnte für diesen Benutzer nicht angelegt werden';
 const L_PLXMEDIAS_ROOT = 'Grundverzeichnis';
-const L_PLXMEDIAS_NEW_FOLDER_ERR = 'Der Ordner konnte nicht angelegt werden';
-const L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL = 'Ordner erfolgreich angelegt';
-const L_PLXMEDIAS_NEW_FOLDER_EXISTS = 'Dieser Ordner existiert bereits';
-const L_PLXMEDIAS_DEL_FOLDER_ERR = 'Fehler beim Löschen den Ordners';
-const L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL = 'Der Ordner wurde erfolgreich gelöscht';
-const L_PLXMEDIAS_WRONG_FILEFORMAT = 'Dieser Dateityp ist nicht erlaubt';
-const L_PLXMEDIAS_WRONG_FILESIZE = 'Die Datei ist größer als ';
-const L_PLXMEDIAS_UPLOAD_ERR = 'Fehler beim Hochladen der Datei';
-const L_PLXMEDIAS_UPLOAD_SUCCESSFUL = 'Die Datei wurde erfolgreich hochgeladen';
-const L_PLXMEDIAS_UPLOADS_ERR = 'Fehler beim Hochladen von Dateien';
-const L_PLXMEDIAS_UPLOADS_SUCCESSFUL = 'Dateien wurden erfolgreich hochgeladen';
 const L_PLXMEDIAS_DELETE_FILES_SUCCESSFUL = 'Dateien wurden erfolgreich entfernt';
 const L_PLXMEDIAS_DELETE_FILES_ERR = 'Fehler beim Löschen der Dateien';
 const L_PLXMEDIAS_DELETE_FILE_SUCCESSFUL = 'Die Datei wurde erfolgreich gelöscht';
 const L_PLXMEDIAS_DELETE_FILE_ERR = 'Fehler beim Löschen der Datei';
-const L_PLXMEDIAS_MOVE_FILES_ERR = 'Fehler beim Verschieben der Dateien';
-const L_PLXMEDIAS_MOVE_FILE_ERR = 'Fehler beim Verschieben der Datei';
+const L_PLXMEDIAS_DEL_FOLDER_ERR = 'Fehler beim Löschen den Ordners';
+const L_PLXMEDIAS_DEL_FOLDER_SUCCESSFUL = 'Der Ordner wurde erfolgreich gelöscht';
+const L_PLXMEDIAS_NEW_FOLDER_ERR = 'Der Ordner konnte nicht angelegt werden';
+const L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL = 'Ordner erfolgreich angelegt';
+const L_PLXMEDIAS_NEW_FOLDER_EXISTS = 'Dieser Ordner existiert bereits';
+const L_PLXMEDIAS_WRONG_FILESIZE = 'Die Datei ist größer als ';
+const L_PLXMEDIAS_WRONG_FILEFORMAT = 'Dieser Dateityp ist nicht erlaubt';
+const L_PLXMEDIAS_UPLOAD_ERR = 'Fehler beim Hochladen der Datei';
+const L_PLXMEDIAS_UPLOAD_SUCCESSFUL = 'Die Datei wurde erfolgreich hochgeladen';
+const L_PLXMEDIAS_UPLOADS_ERR = 'Fehler beim Hochladen von Dateien';
+const L_PLXMEDIAS_UPLOADS_SUCCESSFUL = 'Dateien wurden erfolgreich hochgeladen';
 const L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL = 'Dateien wurden erfolgreich verschoben';
 const L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL = 'Datei wurde erfolgreich verschoben';
+const L_PLXMEDIAS_MOVE_FILES_ERR = 'Fehler beim Verschieben der Dateien';
+const L_PLXMEDIAS_MOVE_FILE_ERR = 'Fehler beim Verschieben der Datei';
 const L_PLXMEDIAS_MOVE_FOLDER = 'Verschieben';
 const L_PLXMEDIAS_RECREATE_THUMB_ERR = 'Fehler beim Erstellen der Miniaturansicht';
 const L_PLXMEDIAS_RECREATE_THUMBS_ERR = 'Fehler beim Erstellen des Miniaturansichten';
@@ -181,8 +181,8 @@ const L_ERR_CATEGORY_ALREADY_EXISTS = 'Dieser Kategoriename existiert bereits';
 // categorie.php
 
 const L_EDITCAT_PAGE_TITLE = 'Kategorieoptionen ändern';
-const L_EDITCAT_DISPLAY_HOMEPAGE = 'Zeige Artikel in dieser Kategorie auf der Startseite';
 const L_EDITCAT_DESCRIPTION = 'Beschreibung';
+const L_EDITCAT_DISPLAY_HOMEPAGE = 'Zeige Artikel in dieser Kategorie auf der Startseite';
 const L_EDITCAT_TEMPLATE = 'Vorlage';
 const L_EDITCAT_BACK_TO_PAGE = 'Zurück zur Liste der Kategorien';
 const L_EDITCAT_UPDATE = 'Kategorie aktualisieren';
@@ -248,7 +248,6 @@ const L_COMMENT_ANSWER = 'Antworten';
 
 const L_COMMENTS_ARTICLE_SCOPE = 'Artikel';
 const L_COMMENTS_GLOBAL_SCOPE = 'ganze Website';
-const L_COMMENTS_OFFLINE_LIST = 'Liste der wartenden Kommentare ';
 const L_COMMENTS_LIST_DATE = 'Datum';
 const L_COMMENTS_LIST_AUTHOR = 'Autor';
 const L_COMMENTS_LIST_MESSAGE = 'Nachricht';
@@ -262,6 +261,7 @@ const L_COMMENT_ONLINE_FEEDS_TITLE = 'Feed der Online-Kommentare (Rss)';
 const L_COMMENT_ONLINE_FEEDS = 'Online-Kommentare';
 const L_COMMENTS_PRIVATE_FEEDS = 'Private Feed';
 const L_COMMENTS_ONLINE_LIST = 'Liste der veröffentlichten Kommentare';
+const L_COMMENTS_OFFLINE_LIST = 'Liste der wartenden Kommentare ';
 const L_COMMENTS_ALL_LIST = 'Liste aller Kommentare';
 const L_COMMENT_SET_ONLINE = 'Online nehmen';
 const L_COMMENT_SET_OFFLINE = 'Offline nehmen';
@@ -400,10 +400,6 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'SMTP-Port';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'SMTP-Verschlüsselung';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Senden von E-Mails mit SMTP und OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'E-Mail-Addresse';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Kunden-ID';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Geheimer Client-Schlüssel';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Erzeugen Sie ein Token';
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Brauchen Sie Hilfe : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Dokumentation von PluXml</a>&nbsp;(fr)';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Aucune configuration n\'est requise pour sendmail.<br>';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom du serveur SMTP (exemple : ssl0.ovh.net)';
@@ -412,9 +408,20 @@ const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Mot de passe de l\'utilisateur sur
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numéro du port de l\'hôte SMTP (par défaut : 465)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de générer des tokens uniquement pour le service <a href="https://cloud.google.com">GMAIL de Google</a>.<br>Besoin d\'aide pour générer l\'identifiant et la clés secrete : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentation de PluXml</a>&nbsp;(fr)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Adresse utilisée sur le service OAUTH2 (exemple : pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identifiant client sur le service OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clé du client sur le service OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrer l\'ID client et le code secret du client afin de pouvoir générer le token.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Erzeugen Sie ein Token';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Provider for tokens';
+const L_GET_OAUTH_TOKEN_DETAILS = 'The following details are provided in your app console from your provider.';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'Kunden-ID';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'Identifiant client sur le service OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Geheimer Client-Schlüssel';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'La clé du client sur le service OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'TenantId (erforderlich für Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Token';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Anmeldeinformationen von Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Token-Bestellung abgelehnt';
 
 // parametres_base.php
 

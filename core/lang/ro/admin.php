@@ -23,7 +23,6 @@ const L_THUMBNAIL = 'Miniatură (opţional)';
 const L_THUMBNAIL_SELECTION = 'Selectați Image';
 const L_THUMBNAIL_TITLE = 'Titlu imagine (opţional)';
 const L_THUMBNAIL_ALT = 'Textul alternativ al imaginii (opţional)';
-
 const L_ERR_INVALID_DATE_CREATION = 'Data creării invalid';
 const L_ERR_INVALID_DATE_UPDATE = 'Data invalid actualizat';
 const L_INVALID_VALUE = 'valoare invalida';
@@ -400,10 +399,6 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'Port SMTP';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'Criptare SMTP';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Trimiterea de e-mailuri cu SMTP și OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Adresa de email';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID client';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Cheia secretă a clientului';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generați un jeton';
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Nevoie de ajutor : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentația PluXml</a> (fr)';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Nicio configurație nu este necesară pentru sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nume server SMTP (exemplu : ssl0.ovh.net)';
@@ -412,9 +407,20 @@ const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Parolă de utilizator pe gazda SMT
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numărul portului gazdă SMTP (implicit: 465)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permite generarea de jetoane numai pentru serviciu <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Aveți nevoie de ajutor pentru a genera numele de utilizator și cheia secretă : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentația PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Adresa folosită pe serviciul OAUTH2 (exemplu : pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'ID client la serviciul OAUTH2 (exemplu : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'Cheia de client a serviciului OAUTH2 (exemplu : PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Salvați codul de identificare și codul secret al clientului, astfel încât să puteți genera jetonul.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generați un jeton';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Furnizor de jetoane';
+const L_GET_OAUTH_TOKEN_DETAILS = 'Următoarele elemente sunt furnizate prin setarea unei aplicații pe consola de dezvoltare a furnizorului dvs.';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'ID client';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'ID client la serviciul OAUTH2 (exemplu : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Cheia secretă a clientului';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'Cheia de client a serviciului OAUTH2 (exemplu : PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'Chiriaș (cerut de Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Token';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Identificatori Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Cererea de jeton refuzat';
 
 // parametres_base.php
 
@@ -438,7 +444,7 @@ const L_SUBSCRIBERS_ONLY = 'Numai pentru abonați';
 // parametres_themes.php
 
 const L_SORT_BY = 'Filtrează după';
-const L_DEFAULT  = 'implicit';
+const L_DEFAULT = 'implicit';
 const L_TITLE = 'titlu';
 const L_DATE = 'data';
 const L_SITE = 'nume de gazdă';
@@ -611,7 +617,7 @@ const L_USER_BACK_TO_PAGE = 'Înapoi la lista de utilizatori';
 const L_MENU_CONFIG_BASE_TITLE = 'Schimbă configuraţia de bază';
 const L_MENU_CONFIG_BASE = 'Configuraţia de bază';
 const L_MENU_CONFIG_VIEW_TITLE = 'Editarea opţiunilor de afişare';
-const L_MENU_CONFIG_VIEW = 'Opţiuni \ Afişare';
+const L_MENU_CONFIG_VIEW = 'Opţiuni  Afişare';
 const L_MENU_CONFIG_USERS_TITLE = 'Gestionează conturile utilizatorilor';
 const L_MENU_CONFIG_USERS = 'Conturile utilizatorilor';
 const L_MENU_CONFIG_ADVANCED_TITLE = 'Editarea configuraţiei avansate';
@@ -626,4 +632,3 @@ const L_HELP = 'Ajutor';
 const L_HELP_TITLE = 'Vezi de ajutor';
 const L_BACK_TO_THEMES = 'Înapoi la subiectele paginii';
 const L_CONFIG_THEME_UPDATE = 'Înregistrarea temă';
-

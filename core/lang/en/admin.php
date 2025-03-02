@@ -400,10 +400,6 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'SMTP port';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'SMTP encryption';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Sending emails with SMTP and OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Email address';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Client ID';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Client secret key';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generate a token';
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Need help: <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">PluXml documentation</a>&nbsp;(fr)';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'No configuration is required for sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'SMTP server name (example: ssl0.ovh.net)';
@@ -412,9 +408,20 @@ const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'User password on the SMTP host';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'SMTP host port number (default: 465)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml allows to generate tokens only for the service <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Need help to generate the username and secret key: <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">PluXml documentation</a>&nbsp;(fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Address used on the OAUTH2 service (example: pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Customer ID on the OAUTH2 service (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'The client key on the OAUTH2 service (example: PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Save the customer ID and customer secret code so that you can generate the token.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Order a token';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Provider for tokens';
+const L_GET_OAUTH_TOKEN_DETAILS = 'The following details are provided in your app console from your provider.';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'Client ID';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'Customer ID on the OAUTH2 service (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Client secret key';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'The client key on the OAUTH2 service (example: PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'TenantId (required by Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Token';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Credentials from Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Order for a token denied';
 
 // parametres_base.php
 

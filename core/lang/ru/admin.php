@@ -23,7 +23,6 @@ const L_THUMBNAIL = 'миниатюрами (необязательно)';
 const L_THUMBNAIL_SELECTION = 'Выбрать Изображение';
 const L_THUMBNAIL_TITLE = 'Изображение Название (необязательно)';
 const L_THUMBNAIL_ALT = 'Альтернативный текст изображения (необязательно)';
-
 const L_ERR_INVALID_DATE_CREATION = 'Неверный дата создания';
 const L_ERR_INVALID_DATE_UPDATE = 'Неверный дате обновления';
 const L_INVALID_VALUE = 'Неверное значение';
@@ -90,7 +89,7 @@ const L_ARTICLE_EDITING = 'Редактирование статьи';
 const L_ARTICLE_TITLE = 'Название';
 const L_ARTICLE_LIST_AUTHORS = 'Автор';
 const L_HEADLINE_FIELD = 'Заголовок (необязательно)';
-const L_CONTENT_FIELD = 'Содержание ';
+const L_CONTENT_FIELD = 'Содержание';
 const L_LINK_FIELD = 'Ссылка на статью';
 const L_LINK_ACCESS = 'Перейти к статье';
 const L_LINK_VIEW = 'посмотреть';
@@ -271,7 +270,7 @@ const L_COMMENT_SET_OFFLINE = 'Выключить';
 const L_SEARCH = 'Поиск';
 const L_SEARCH_PLACEHOLDER = 'ID или название';
 const L_ARTICLES_ALL_CATEGORIES = 'Все категории ...';
-const L_ARTICLES_ALL_AUTHORS	= 'Все авторы...';
+const L_ARTICLES_ALL_AUTHORS = 'Все авторы...';
 const L_ALL = 'Всего';
 const L_ALL_PUBLISHED = 'Опубликованные';
 const L_ALL_DRAFTS = 'Черновики';
@@ -400,21 +399,28 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'Порт SMTP';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'SMTP-шифрование';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Отправка писем с SMTP и OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Адрес электронной почты';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Идентификатор клиента';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Секретный ключ клиента';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'токен';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Создать токен';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Нужна помощь : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Документация PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Нужна помощь : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Документация PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Для sendmail не требуется настройка.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Имя SMTP-сервера (пример : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Имя пользователя на узле SMTP (пример : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Пароль пользователя на хосте SMTP';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Номер порта хоста SMTP (по умолчанию : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml позволяет генерировать токены только для сервиса <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Нужна помощь в создании имени пользователя и секретного ключа : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Документация PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml позволяет генерировать токены только для сервиса <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Нужна помощь в создании имени пользователя и секретного ключа : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Документация PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Адрес, используемый в сервисе OAUTH2 (пример: pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Идентификатор клиента в сервисе OAUTH2 (пример: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'Ключ клиента на сервисе OAUTH2 (пример: PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Сохраните идентификатор клиента и секретный код клиента, чтобы вы могли сгенерировать токен.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Создать токен';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Токен Поставщик';
+const L_GET_OAUTH_TOKEN_DETAILS = 'Следующие элементы предоставляются путем установки приложения на консоли разработки вашего поставщика';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'Идентификатор клиента';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'Идентификатор клиента в сервисе OAUTH2 (пример: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Секретный ключ клиента';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'Ключ клиента на сервисе OAUTH2 (пример: PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'TenantId (требуется Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Токен';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Учетные данные от Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Отказался от запроса токена';
 
 // parametres_base.php
 
@@ -438,7 +444,7 @@ const L_SUBSCRIBERS_ONLY = 'Только подписчики';
 // parametres_themes.php
 
 const L_SORT_BY = 'Сортировать по';
-const L_DEFAULT  = 'по умолчанию';
+const L_DEFAULT = 'по умолчанию';
 const L_TITLE = 'название';
 const L_DATE = 'дата';
 const L_SITE = 'имя хоста';
@@ -499,7 +505,7 @@ const L_PLUGINS_ACTIVATE = 'Включить';
 const L_PLUGINS_DEACTIVATE = 'Выключить';
 const L_PLUGINS_DELETE = 'Удалить';
 const L_PLUGINS_DELETE_ERROR = 'Произошла ошибка во время удаления';
-const L_PLUGINS_ENABLED_ERROR = 'Плагин %s все еще активен. ';
+const L_PLUGINS_ENABLED_ERROR = 'Плагин %s все еще активен.';
 const L_DELETE_FILE_ERROR = 'Невозможно удалить файл %s';
 const L_PLUGINS_DELETE_SUCCESSFUL = 'Удалено успешно';
 const L_PLUGINS_CONFIG = 'Конфигурация';
@@ -626,4 +632,3 @@ const L_HELP = 'помощь';
 const L_HELP_TITLE = 'См помощь';
 const L_BACK_TO_THEMES = 'Вернуться к темам страницы';
 const L_CONFIG_THEME_UPDATE = 'Изменить стиль';
-

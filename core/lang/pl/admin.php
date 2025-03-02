@@ -23,7 +23,6 @@ const L_THUMBNAIL = 'Miniaturka (opcjonalnie)';
 const L_THUMBNAIL_SELECTION = 'Wybierz zdjęcie';
 const L_THUMBNAIL_TITLE = 'Tytuł zdjęcia (opcjonalnie)';
 const L_THUMBNAIL_ALT = 'Alternatywny tekst z obrazka (opcjonalnie)';
-
 const L_ERR_INVALID_DATE_CREATION = 'Nieprawidłowa data utworzenia';
 const L_ERR_INVALID_DATE_UPDATE = 'Nieprawidłowa data zaktualizowane';
 const L_INVALID_VALUE = 'niewłaściwa wartość';
@@ -371,7 +370,7 @@ const L_CONFIG_HOMETEMPLATE = 'Szablon strony głównej';
 const L_CONFIG_ADVANCED_DESC = 'Zaawansowana konfiguracja';
 const L_BUILD = 'Tworzy';
 const L_CONFIG_ADVANCED_URL_REWRITE = 'Włącz przepisywanie adresów URL';
-const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Pamiętaj, że plik .htaccess jest już obecny w katalogu głównym twojego PluXml. ';
+const L_CONFIG_ADVANCED_URL_REWRITE_ALERT = 'Pamiętaj, że plik .htaccess jest już obecny w katalogu głównym twojego PluXml.';
 const L_CONFIG_ADVANCED_GZIP = 'Włącz kompresję GZIP';
 const L_CONFIG_ADVANCED_GZIP_HELP = 'Kompresuj strony, aby zaoszczędzić przepustowość, jednak może to zwiększyć obciążenie procesora';
 const L_CONFIG_ADVANCED_CAPCHA = 'Aktywuj capcha antyspamową';
@@ -400,10 +399,6 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'Port SMTP';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'Szyfrowanie SMTP';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Wysyłanie wiadomości e-mail za pomocą SMTP i OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Adres e-mail';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID klienta';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Tajny klucz klienta';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Wygeneruj token';
 const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Necessitar ajuda : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Dokumentacja PluXml</a> (fr)';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'No es requereix cap configuració per a sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom del servidor SMTP (exemple : ssl0.ovh.net)';
@@ -412,9 +407,20 @@ const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Contrasenya de l’usuari a l’am
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Número de port amfitrió SMTP (predeterminat : 465)';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet generar fitxes només per al servei <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Necessiteu ajuda per generar el nom d’usuari i la clau secreta : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Dokumentacja PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Adreça usada al servei OAUTH2 (example: pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identificador de client al servei OAUTH2 (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clau de client del servei OAUTH2 (example: PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Deseu l\'identificador de client i el codi secret de client per tal de generar el token.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Wygeneruj token';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Dostawca tokenów';
+const L_GET_OAUTH_TOKEN_DETAILS = 'Poniższe elementy są dostarczane przez ustawienie aplikacji na konsoli rozwojowej twojego dostawcy';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'ID klienta';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'Identificador de client al servei OAUTH2 (example: 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Tajny klucz klienta';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'La clau de client del servei OAUTH2 (example: PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'Najemcy (wymagane przez Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Token';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Identyfikatory Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Odmówił prośby tokena';
 
 // parametres_base.php
 
@@ -438,7 +444,7 @@ const L_SUBSCRIBERS_ONLY = 'Tylko subskrybenci';
 // parametres_themes.php
 
 const L_SORT_BY = 'Sortuj według';
-const L_DEFAULT  = 'domyślnie';
+const L_DEFAULT = 'domyślnie';
 const L_TITLE = 'tytuł';
 const L_DATE = 'data';
 const L_SITE = 'nazwa hosta';
@@ -626,4 +632,3 @@ const L_HELP = 'Pomoc';
 const L_HELP_TITLE = 'Zobacz pomoc';
 const L_BACK_TO_THEMES = 'Powrót do tematów strony';
 const L_CONFIG_THEME_UPDATE = 'Zmień styl';
-

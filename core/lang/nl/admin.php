@@ -23,7 +23,6 @@ const L_THUMBNAIL = 'Thumbnail (facultatief)';
 const L_THUMBNAIL_SELECTION = 'Selecteer Afbeelding';
 const L_THUMBNAIL_TITLE = 'Beeld (facultatief)';
 const L_THUMBNAIL_ALT = 'Alternatieve tekst van het beeld (facultatief)';
-
 const L_ERR_INVALID_DATE_CREATION = 'Ongeldige aanmaakdatum';
 const L_ERR_INVALID_DATE_UPDATE = 'Ongeldige datum bijgewerkt';
 const L_INVALID_VALUE = 'ongeldige waarde';
@@ -261,7 +260,7 @@ const L_COMMENT_ONLINE_FEEDS_TITLE = 'Feed van online commentaren';
 const L_COMMENT_ONLINE_FEEDS = 'Online commentaren';
 const L_COMMENTS_PRIVATE_FEEDS = 'Feed prive syndicaties';
 const L_COMMENTS_ONLINE_LIST = 'Lijst van gepubliceerde beoordelingen';
-const L_COMMENTS_OFFLINE_LIST = 'Commentaar dat wacht op goedkeuring ';
+const L_COMMENTS_OFFLINE_LIST = 'Commentaar dat wacht op goedkeuring';
 const L_COMMENTS_ALL_LIST = 'Reacties Lijst';
 const L_COMMENT_SET_ONLINE = 'Neem Online';
 const L_COMMENT_SET_OFFLINE = 'Neem Offline';
@@ -271,7 +270,7 @@ const L_COMMENT_SET_OFFLINE = 'Neem Offline';
 const L_SEARCH = 'Zoek';
 const L_SEARCH_PLACEHOLDER = 'artikel-ID of titel';
 const L_ARTICLES_ALL_CATEGORIES = 'Alle categorie?n ...';
-const L_ARTICLES_ALL_AUTHORS	= 'Alle auteurs ...';
+const L_ARTICLES_ALL_AUTHORS = 'Alle auteurs ...';
 const L_ALL = 'Alle';
 const L_ALL_PUBLISHED = 'Gepubliceerd';
 const L_ALL_DRAFTS = 'Concepten';
@@ -400,21 +399,28 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'SMTP-poort';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'SMTP-codering';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'E-mails verzenden met SMTP en OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'E-mailadres';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'Klant ID';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Client geheime sleutel';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Token';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Genereer een token';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Hulp nodig : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentatie van PluXml</a>&nbsp;(fr)';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Hulp nodig : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentatie van PluXml</a> (fr)';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Er is geen configuratie vereist voor sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'SMTP-servernaam (voorbeeld : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Gebruikersnaam op de SMTP-host (voorbeeld : pluxml@monserveursmtp.com)';
 const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Gebruikerswachtwoord op de SMTP-host';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'SMTP-hostpoortnummer (standaard : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'Met PluXml kunnen alleen tokens voor de service worden gegenereerd <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Hulp nodig bij het genereren van de gebruikersnaam en de geheime sleutel : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentatie van PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'Met PluXml kunnen alleen tokens voor de service worden gegenereerd <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Hulp nodig bij het genereren van de gebruikersnaam en de geheime sleutel : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentatie van PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Adres gebruikt op de OAUTH2-service (voorbeeld : pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Klant-ID voor de OAUTH2-service (voorbeeld : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'De clientsleutel op de OAUTH2-service (voorbeeld : PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Sla de klant-ID en klantgeheime code op zodat u het token kunt genereren.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Genereer een token';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Provider voor tokens';
+const L_GET_OAUTH_TOKEN_DETAILS = 'De volgende details worden verstrekt in uw app -console van uw provider.';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'Klant ID';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'Klant-ID voor de OAUTH2-service (voorbeeld : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Client geheime sleutel';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'De clientsleutel op de OAUTH2-service (voorbeeld : PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'TenantId (vereist door Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Token';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Referenties van Google';
+const L_GET_OAUTH_TOKEN_DENIED = 'Bestelling voor een token geweigerd';
 
 // parametres_base.php
 
@@ -438,7 +444,7 @@ const L_SUBSCRIBERS_ONLY = 'Alleen abonnees';
 // parametres_themes.php
 
 const L_SORT_BY = 'Sorteren op';
-const L_DEFAULT  = 'standaard';
+const L_DEFAULT = 'standaard';
 const L_TITLE = 'titel';
 const L_DATE = 'datum';
 const L_SITE = 'hostnaam';
@@ -461,7 +467,7 @@ const L_PLUXML_CHECK_VERSION = 'Uw huidige versie van PluXml wordt vergeleken me
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Onmogelijk om updates te vinden zolang de optie \'allow_url_fopen\' gedesactiveerd is op dit systeem';
 const L_PLUXML_UPDATE_ERR = 'De verificatie van updates kon om een onbekende reden niet doorgevoerd worden';
 const L_PLUXML_UPTODATE = 'U beschikt over de laatste versie van PluXml';
-const L_PLUXML_UPDATE_AVAILABLE = 'Er is een nieuwe versie van PluXml beschikbaar ! U kan ze downloaden op ';
+const L_PLUXML_UPDATE_AVAILABLE = 'Er is een nieuwe versie van PluXml beschikbaar ! U kan ze downloaden op';
 const L_MAIL_TEST = 'Stuur een testmail';
 const L_MAIL_TEST_SUBJECT = 'Test-e-mail verzonden van %s';
 const L_MAIL_TEST_SENT_TO = 'Test-e-mail verzonden naar %s. Controleer je postvak';
@@ -626,4 +632,3 @@ const L_HELP = 'Hulp';
 const L_HELP_TITLE = 'Zie hulp';
 const L_BACK_TO_THEMES = 'Terug naar de onderwerpen van de pagina';
 const L_CONFIG_THEME_UPDATE = 'Change Theme';
-

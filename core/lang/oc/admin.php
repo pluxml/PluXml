@@ -23,7 +23,6 @@ const L_THUMBNAIL = 'Imatge a la una (facultatiu)';
 const L_THUMBNAIL_SELECTION = 'Seleccionar un imatge';
 const L_THUMBNAIL_TITLE = 'Títol de l\'imatge (facultatiu)';
 const L_THUMBNAIL_ALT = 'Tèxte alternatiu de l\'imatge (facultatiu)';
-
 const L_ERR_INVALID_DATE_CREATION = 'Data de creacion invalida';
 const L_ERR_INVALID_DATE_UPDATE = 'Data de mesa a jorn invalida';
 const L_INVALID_VALUE = 'Valor invalida';
@@ -217,6 +216,7 @@ const L_COMMENT_OFFLINE_BUTTON = 'Metre fòra linha';
 const L_COMMENT_ANSWER_BUTTON = 'Respondre a aquel comentari';
 const L_COMMENT_UPDATE_BUTTON = 'Metre a jorn';
 const L_COMMENT_WRITTEN_BY = 'Redigit per';
+const L_COMMENT_SAVE_SUCCESSFUL = 'Comentari modificat amb succès';
 const L_COMMENT_UPDATE_ERR = 'Error al temps de la mesa a jorn del comentari';
 const L_COMMENT_DELETE_SUCCESSFUL = 'Supression efectuada amb succès';
 const L_COMMENT_DELETE_ERR = 'Una error es subrevenguda pendent la supression';
@@ -270,7 +270,7 @@ const L_COMMENT_SET_OFFLINE = 'Metre fòra linha';
 const L_SEARCH = 'Recercar';
 const L_SEARCH_PLACEHOLDER = 'identificant o títol';
 const L_ARTICLES_ALL_CATEGORIES = 'Totas las categorias...';
-const L_ARTICLES_ALL_AUTHORS	= 'Totes los autors...';
+const L_ARTICLES_ALL_AUTHORS = 'Totes los autors...';
 const L_ALL = 'Totes';
 const L_ALL_PUBLISHED = 'Publicats';
 const L_ALL_DRAFTS = 'Borrolhons';
@@ -399,21 +399,28 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'Pòrt SMTP';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'Chiframent SMTP';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Mandadís dels corrièls amb SMTP e OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Corrièl';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID = 'ID del client';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY = 'Clau secreta del client';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN = 'Geton';
-const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generar un geton';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Vos fa besonh d’ajuda : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentacion PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Vos fa besonh d’ajuda : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentacion PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Pas cap de configuracion es requerida per sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom del servidor SMTP (exemple : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nom d’utilizaire de l\'òste SMTP (exemple : pluxml@monserveursmtp.com)';
-const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Senhal de l’utilizaire sus l’òste ';
+const L_CONFIG_ADVANCED_SMTP_PASSWORD_HELP = 'Senhal de l’utilizaire sus l’òste';
 const L_CONFIG_ADVANCED_SMTP_PORT_HELP = 'Numèro de pòrt de l’òste SMTP (predeterminat : 465)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de generar de fichièrs solament pel servici <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentacion PluXml</a>&nbsp;(fr).';
+const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE_HELP = 'PluXml permet de generar de fichièrs solament pel servici <a href="https://cloud.google.com">GMAIL (Google)</a>.<br>Se vos cal d’ajuda per generar lo nom d’utilizaire e la clau secreta : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentacion PluXml</a> (fr).';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP = 'Adreça utilizada sul servici OAUTH2 (exemple : pluxml@gmail.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP = 'Identificant de client al servici OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP = 'La clau de client del servici OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
-const L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP = 'Enregistrar l’ID client e lo còdi secrèt per poder generar lo geton.';
+const L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN = 'Generar un geton';
+
+// get_oauth_token.php
+
+const L_GET_OAUTH_TOKEN_PROVIDER = 'Proveedor para las fichas';
+const L_GET_OAUTH_TOKEN_DETAILS = 'Los detalles siguientes se proporcionan en su consola de aplicacion de su proveedor.';
+const L_GET_OAUTH_TOKEN_CLIENTID = 'ID del client';
+const L_GET_OAUTH_TOKEN_CLIENTID_HELP = 'Identificant de client al servici OAUTH2 (exemple : 664335625964-uha1vop20qPluXml81ubjkkgfabbbj6d.apps.googleusercontent.com)';
+const L_GET_OAUTH_TOKEN_SECRETKEY = 'Clau secreta del client';
+const L_GET_OAUTH_TOKEN_SECRETKEY_HELP = 'La clau de client del servici OAUTH2 (exemple : PrsvKp6aprKpoP8snnCoC8-x)';
+const L_GET_OAUTH_TOKEN_TENANTID = 'Lo locatariId (requerida per Azure)';
+const L_GET_OAUTH_TOKEN_TOKEN = 'Jeton';
+const L_GET_OAUTH_TOKEN_CREDENTIALS = 'Credencials de Google .';
+const L_GET_OAUTH_TOKEN_DENIED = 'Ordre per un jeton negat .';
 
 // parametres_base.php
 
@@ -437,7 +444,7 @@ const L_SUBSCRIBERS_ONLY = 'Abonats sonque';
 // parametres_themes.php
 
 const L_SORT_BY = 'Ordenar per';
-const L_DEFAULT  = 'defaut';
+const L_DEFAULT = 'defaut';
 const L_TITLE = 'titol';
 const L_DATE = 'data';
 const L_SITE = 'nom d\'òste';
@@ -625,5 +632,3 @@ const L_HELP = 'Ajuda';
 const L_HELP_TITLE = 'Veire l\'ajuda';
 const L_BACK_TO_THEMES = 'Tornar a la lista dels tèmas';
 const L_CONFIG_THEME_UPDATE = 'Modificar lo tèma';
-
-const L_COMMENT_SAVE_SUCCESSFUL = 'Comentari modificat amb succès';
