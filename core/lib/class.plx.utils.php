@@ -286,7 +286,7 @@ class plxUtils {
 	 * @return	self
 	 * @author	unknow, Pedro "P3ter" CADETE
 	 **/
-	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
+	public static function printInput($name, $value='', $type='text', $sizes='32-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
 		 $params = array(
 			'id="id_'.$name.'"',

@@ -119,7 +119,7 @@ plxUtils::printSelect('userfolders', $usersOptions, $plxAdmin->aConf['userfolder
 				<label for="id_clef"><?= L_CONFIG_ADVANCED_ADMIN_KEY ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('clef', $plxAdmin->aConf['clef'], 'text', '30-30'); ?>
+				<?php plxUtils::printInput('clef', $plxAdmin->aConf['clef'], 'text', '32-32'); ?>
 				<a class="hint"><span><?= L_CONFIG_ADVANCED_KEY_HELP ?></span></a>
 			</div>
 		</div>
@@ -223,7 +223,7 @@ if(!plxUtils::isPHPMailer()) {
 				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_EMAIL_METHOD ?>&nbsp;:</label>
 				<small><?= L_CONFIG_ADVANCED_EMAIL_METHOD_HELP ?></small>
 			</div>
-			<div class="col sml-12 med-7">
+			<div class="col sml-12 med-7 inputradio">
 <?php
 	$email_methods = array(
 		'sendmail'	=> 'sendmail',
@@ -277,7 +277,7 @@ if(!plxUtils::isPHPMailer()) {
 			<div class="col sml-12 med-5 label-centered">
 				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTP_SECURITY ?>&nbsp;:</label>
 			</div>
-			<div class="col sml-12 med-7">
+			<div class="col sml-12 med-7 inputradio">
 				<?php plxUtils::printInputRadio('smtp_security', $smtp_security, $plxAdmin->aConf['smtp_security']); ?>
 			</div>
 		</div>
@@ -297,43 +297,15 @@ if(!plxUtils::isPHPMailer()) {
 				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL_HELP ?></span></a>
 			</div>
 		</div>
-<?php
-/**
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID ?>&nbsp;:</label>
-			</div>
-			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('smtpOauth2_clientId', $plxAdmin->aConf['smtpOauth2_clientId']); ?>
-				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_CLIENTID_HELP ?></span></a>
-			</div>
-		</div>
-		<div class="grid">
-			<div class="col sml-12 med-5 label-centered">
-				<label for="id_custom_admincss_file"><?= L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY ?>&nbsp;:</label>
-			</div>
-			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('smtpOauth2_clientSecret', $plxAdmin->aConf['smtpOauth2_clientSecret']); ?>
-				<a class="hint"><span><?= L_CONFIG_ADVANCED_SMTPOAUTH_SECRETKEY_HELP ?></span></a>
-			</div>
-		</div>
-*/
-?>
-		<div class="grid">
-			<div class="col sml-12 med-5 label-centered">
-<?php
-/**
-				<label for="id_custom_admincss_file"><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN ?>&nbsp;:</label>
-				<small><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_TOKEN_HELP ?></small>
-**/
-?>
 <?php
 	$disabled = (empty($plxAdmin->aConf['smtpOauth2_clientSecret']) AND empty($plxAdmin->aConf['smtpOauth2_clientId']) and empty($plxAdmin->aConf['smtpOauth2_emailAdress'])) ? 'disabled' : '';
 ?>
-				<a href="get_oauth_token.php"><button type="button" <?php echo $disabled ?>><?php echo L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
+				<a href="get_oauth_token.php"><button type="button" <?= $disabled ?>><?= L_CONFIG_ADVANCED_SMTPOAUTH_GETTOKEN ?></button></a>
 			</div>
 			<div class="col sml-12 med-7">
-				<?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '50-', true); ?>
+				<?php plxUtils::printInput('smtpOauth2_refreshToken', $plxAdmin->aConf['smtpOauth2_refreshToken'], 'text', '32-', true); ?>
 			</div>
 		</div>
 <?php

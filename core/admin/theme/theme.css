@@ -1363,3 +1363,9 @@ input[name="password2"]:not(.full-width):valid+span::after {
 	display: none;
 }
 
+.inputradio {
+	display: flex;
+	max-width: 48rem;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
