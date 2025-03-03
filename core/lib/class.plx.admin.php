@@ -1754,42 +1754,44 @@ EOT;
 	public function checkMaj() {
 
 		$latest_version = 'ERR';
-		# test avec curl
+		$href = PLX_URL_REPO;
+		$title = '';
+
 		if(function_exists('curl_init')) {
-			$ch = curl_init(PLX_URL_VERSION);
+			# test avec curl et le dépôt Github de PluXml.
+			# Ne marche pas avec le site https://www.pluxml.org si protocole Http utilisé
+			$title = 'curl';
+			$ch = curl_init(PLX_URL_LAST_RELEASE_GITHUB);
 			curl_setopt_array($ch, array(
 				CURLOPT_HEADER => false,
-				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_RETURNTRANSFER	=> true,
 				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_HTTPHEADER => array(
-					'Accept: text/plain',
-					'User-Agent: PluXml/' . PLX_VERSION,
-				),
-				CURLOPT_MAXREDIRS => 5,
-				CURLOPT_MAXFILESIZE_LARGE => 1024, # Taille du fichier + entêtes HHTP
+				CURLOPT_SSL_VERIFYHOST => 0,
+				CURLOPT_SSL_VERIFYPEER => false,
+				# CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows; U; Windows NT 6.1; fr; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13',
+				CURLOPT_USERAGENT => 'Curl ' . curl_version()['version'],
 			));
-			$latest_version = curl_exec($ch);
-			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			if(
-				$latest_version === false or
-				$http_code != 200 or
-				!is_string($latest_version) or
-				!preg_match(self::VERSION_PATTERN, $latest_version)
-			) {
-				$latest_version = 'ERR';
-			}
+			$response = curl_exec($ch);
+			$error = curl_errno($ch);
+			// $status = curl_getinfo($ch);
 			curl_close($ch);
-		}
-		# test avec allow_url_open et file_get_contents ?
-		elseif(get_cfg_var('allow_url_fopen')) {
+			if($error === 0 and is_string($response)) {
+				$datas = json_decode($response, true);
+				if(!empty($datas)) {
+					$latest_version = preg_replace('#\D*(\d+\.\d+(?:\.\d+)?).*#', '$1', $datas['tag_name']);
+					$href = $datas['html_url'];
+				}
+			}
+		} elseif(ini_get('allow_url_fopen')) {
+			$title = 'file_get_content';
 			$latest_version = @file_get_contents(PLX_URL_VERSION, false, null, 0, 16);
 			if(
-				empty($latest_version) or
-				!is_string($latest_version) or
-				!preg_match(self::VERSION_PATTERN, $latest_version)
-			) {
-				$latest_version = 'UNAVAILABLE';
-			}
+				empty($http_response_header) OR
+				!preg_match('@^HTTP/[\d\.]+ 200@', $http_response_header[0]) OR
+				empty($latest_version)
+				) {
+					$latest_version = 'UNAVAILABLE';
+				}
 		}
 
 		$className = 'red';
@@ -1820,12 +1822,12 @@ EOT;
 			$msg = $this->update_link;
 			$className = 'orange';
 		}
+
 		ob_start();
 ?>
-<p id="latest-version" class="alert <?= $className ?>" <?= $dataInfos ?>><?= $msg ?></p>
+<p id="latest-version" class="alert <?= $className ?>" title="<?= $title ?> <?= $dataInfos ?> target="_blank"><?= $msg ?></p>
 <?php
 		return ob_get_clean();
-
 	}
 
 	/**

@@ -468,6 +468,7 @@ const L_PLUXML_UPDATE_UNAVAILABLE = 'Onmogelijk om updates te vinden zolang de o
 const L_PLUXML_UPDATE_ERR = 'De verificatie van updates kon om een onbekende reden niet doorgevoerd worden';
 const L_PLUXML_UPTODATE = 'U beschikt over de laatste versie van PluXml';
 const L_PLUXML_UPDATE_AVAILABLE = 'Er is een nieuwe versie van PluXml beschikbaar ! U kan ze downloaden op';
+const L_PLUXML_UPDATE_AVAILABLE = 'Een nieuwe PluXml-versie is beschikbaar! Je kunt downloaden van';
 const L_MAIL_TEST = 'Stuur een testmail';
 const L_MAIL_TEST_SUBJECT = 'Test-e-mail verzonden van %s';
 const L_MAIL_TEST_SENT_TO = 'Test-e-mail verzonden naar %s. Controleer je postvak';
@@ -632,3 +633,4 @@ const L_HELP = 'Hulp';
 const L_HELP_TITLE = 'Zie hulp';
 const L_BACK_TO_THEMES = 'Terug naar de onderwerpen van de pagina';
 const L_CONFIG_THEME_UPDATE = 'Change Theme';
+

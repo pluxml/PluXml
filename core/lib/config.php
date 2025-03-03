@@ -15,7 +15,7 @@ const PLX_RESSOURCES_URL = 'https://ressources.pluxml.org';
 const PLX_RESSOURCES_LINK = '<a href="' . PLX_RESSOURCES_URL . '/" target="_blank">' . PLX_RESSOURCES_URL . '</a>';
 const PLX_RESSOURCES_PLUGINS_LINK = '<a href="' . PLX_RESSOURCES_URL . '/plugins/" target="_blank">' . PLX_RESSOURCES_URL . '</a>';
 const PLX_RESSOURCES_THEMES_LINK = '<a href="' . PLX_RESSOURCES_URL . '/themes/" target="_blank">' . PLX_RESSOURCES_URL . '</a>';
-
+const PLX_URL_LAST_RELEASE_GITHUB = 'https://api.github.com/repos/pluxml/PluXml/releases/latest';
 const EMAIL_METHODS = array(
 	'sendmail' => 'sendmail',
 	'smtp' => 'SMTP',
