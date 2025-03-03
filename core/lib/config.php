@@ -3,6 +3,7 @@ const PLX_DEBUG = true;
 const PLX_VERSION = '5.8.9';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
+const PLX_URL_LAST_RELEASE_GITHUB = 'https://api.github.com/repos/pluxml/PluXml/releases/latest';
 
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
