@@ -286,7 +286,7 @@ class plxUtils {
 	 * @return	self
 	 * @author	unknow, Pedro "P3ter" CADETE
 	 **/
-	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
+	public static function printInput($name, $value='', $type='text', $sizes='32-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
 		 $params = array(
 			'id="id_'.$name.'"',
@@ -329,10 +329,9 @@ class plxUtils {
 	 * @return	self
 	 * @author	Pedro "P3ter" CADETE
 	 **/
-	public static function printInputRadio($name, $array, $checked='', $className='', $extra='') {
+	public static function printInputRadio($name, $array, $checked=null, $className=null, $extra=null) {
 
 		$params = array(
-			'id="id_'.$name.'"',
 			'name="'.$name.'"',
 		);
 		if(!empty($extra)) {
@@ -341,13 +340,15 @@ class plxUtils {
 		if(!empty($className)) {
 			$params[] = 'class="'.$className.'"';
 		}
-		foreach($array as $a => $b) {
-			if ($a == $checked) {
-				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).' checked>&nbsp;'.$b.'<br>';
-			}
-			else {
-				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).'>&nbsp;'.$b.'<br>';
-			}
+
+		$i = 1;
+		foreach($array as $value => $caption) {
+			$chk = ($value == $checked) ? ' checked' : '';
+			$id = sprintf('id_%s_%02d', $name, $i);
+?>
+	<label><input type="radio" id="<?= $id ?>" value="<?= $value ?>" <?= implode(' ', $params) ?><?= $chk ?>> <span><?= $caption ?></span></label>
+<?php
+			$i++;
 		}
 	}
 

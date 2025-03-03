@@ -400,7 +400,7 @@ const L_CONFIG_ADVANCED_SMTP_PORT = 'Port SMTP';
 const L_CONFIG_ADVANCED_SMTP_SECURITY = 'Chiffrement SMTP';
 const L_CONFIG_ADVANCED_SMTPOAUTH_TITLE = 'Envoi d\'e-mail par SMTP avec OAUTH2';
 const L_CONFIG_ADVANCED_SMTPOAUTH_EMAIL = 'Adresse e-mail';
-const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Besoin d\'aide : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentation de PluXml</a>&nbsp;(fr)';
+const L_CONFIG_ADVANCED_EMAIL_SENDING_TITLE_HELP = 'Besoin d\'aide : <a href="https://wiki.pluxml.org/docs/customize/advancedconfig.html?highlight=smtp#envoi-d-e-mails">Documentation de PluXml</a>&nbsp;🇫🇷';
 const L_CONFIG_ADVANCED_EMAIL_METHOD_HELP = 'Aucune configuration n\'est requise pour sendmail.';
 const L_CONFIG_ADVANCED_SMTP_SERVER_HELP = 'Nom du serveur SMTP (exemple : ssl0.ovh.net)';
 const L_CONFIG_ADVANCED_SMTP_USERNAME_HELP = 'Nom de l\'utilisateur sur l\'hôte SMTP (exemple : pluxml@monserveursmtp.com)';
