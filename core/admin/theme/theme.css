@@ -1369,3 +1369,16 @@ input[name="password2"]:not(.full-width):valid+span::after {
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
+
+fieldset.with-border {
+	max-width: 96rem;
+	margin-top: 2rem;
+	padding: 0.25rem 1rem;
+	border: 1px solid #333;
+	border-radius: 1rem;
+}
+
+fieldset.with-border legend * {
+	margin: 0 1rem 0 0.5rem;
+	padding: 0;
+}
