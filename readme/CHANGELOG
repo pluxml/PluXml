@@ -1,5 +1,7 @@
-## PluXml 5.8.19 (2025/02/20)
+## PluXml 5.8.19 (2025/03/05)
+[+] Refacto plxAdmin::checkMaj() with Github repository
 FIX plxUtils::MINIFY_PATTERNS (E.G.: ":is")
+[+] console for logs of PHPMailer in parametres_infos.php (debug)
 [+] Update PHPMailer - Option for PHP < 7.2.5
 [+] Refacto plxCapcha
 FIX Fix plxAdmin::EditArticle() for article without tag
