@@ -22,7 +22,10 @@ use Hayageek\OAuth2\Client\Provider\Yahoo;
 use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
 use Greew\OAuth2\Client\Provider\Azure;
 
-require PLX_CORE.'vendor/autoload.php';
+$autoloader = PLX_CORE.'vendor/autoload.php';
+if(file_exists($autoloader)) {
+	require $autoloader;
+}
 
 class plxUtils {
 
@@ -1087,6 +1090,10 @@ class plxUtils {
 	* @throws \PHPMailer\PHPMailer\Exception
 	**/
 	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml, $conf, $debug=false) {
+		if(!self::isPHPMailer()) {
+			return false;
+		}
+
 		$mail = new PHPMailer();
 		if ($debug) {
 			$mail->SMTPDebug = SMTP::DEBUG_SERVER;

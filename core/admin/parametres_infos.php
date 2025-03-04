@@ -75,8 +75,8 @@ if($emailBuild) {
 
 <?php
 if($emailBuild) {
-	$isPHPMailer = (!empty($plxAdmin->aConf['email_method']) and preg_match('#^smtp(oauth)?$#', $plxAdmin->aConf['email_method']));
-	if($plxAdmin->aConf['email_method'] == 'smtpoauth') {
+	$isPHPMailer = (plxUtils::isPHPMailer() and !empty($plxAdmin->aConf['email_method']) and preg_match('#^smtp(oauth)?$#', $plxAdmin->aConf['email_method']));
+	if($isPHPMailer and $plxAdmin->aConf['email_method'] == 'smtpoauth') {
 		if(empty(trim($plxAdmin->aConf['smtpOauth2_refreshToken']))) {
 			# Error
 			ob_end_clean();
@@ -90,7 +90,7 @@ if($emailBuild) {
 		$from = $plxAdmin->aUsers['001']['email']; // Webmaster
 	}
 	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
-	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title'] . ' (via ' . $plxAdmin->aConf['email_method'] . ')');
+	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title'] . ' (via ' . ($isPHPMailer ? $plxAdmin->aConf['email_method'] : 'sendmail') . ')');
 	$content = ob_get_clean();
 	$head = <<< HEAD
 <!DOCTYPE html>
