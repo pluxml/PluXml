@@ -85,22 +85,18 @@ $maj = $plxAdmin->checkMaj();
 
 <?php
 if($emailBuild) {
-	$isPHPMailer = (!empty($plxAdmin->aConf['email_method']) and preg_match('#^smtp(oauth)?$#', $plxAdmin->aConf['email_method']));
-	if($plxAdmin->aConf['email_method'] == 'smtpoauth') {
-		if(empty(trim($plxAdmin->aConf['smtpOauth2_refreshToken']))) {
-			# Error
-			ob_end_clean();
-			plxMsg::Error('Missing token');
-			header('Location: ' . basename(__FILE__));
-			exit;
-		} else {
-			$from = $plxAdmin->aConf['smtpOauth2_emailAdress'];
-		}
-	} else {
-		$from = $plxAdmin->aUsers['001']['email']; // Webmaster
+	$isPHPMailer = (plxUtils::isPHPMailer() and !empty($plxAdmin->aConf['email_method']) and preg_match('#^smtp(oauth)?$#', $plxAdmin->aConf['email_method']));
+	if($isPHPMailer and $plxAdmin->aConf['email_method'] == 'smtpoauth' and empty(trim($plxAdmin->aConf['smtpOauth2_refreshToken']))) {
+		# Error
+		ob_end_clean();
+		plxMsg::Error('Missing token for OAuth2');
+		header('Location: ' . basename(__FILE__));
+		exit;
 	}
+
+	$from = $plxAdmin->aUsers['001']['email']; // Webmaster
 	$name = $plxAdmin->aUsers['001']['name']; // Peut être vide pour PHPMailer
-	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title'] . ' (via ' . $plxAdmin->aConf['email_method'] . ')');
+	$subject = sprintf(L_MAIL_TEST_SUBJECT, $plxAdmin->aConf['title'] . ' (via ' . ($isPHPMailer ? $plxAdmin->aConf['email_method'] : 'sendmail') . ')');
 	$content = ob_get_clean();
 	$head = <<< HEAD
 <!DOCTYPE html>

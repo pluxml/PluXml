@@ -24,7 +24,7 @@ use Greew\OAuth2\Client\Provider\Azure;
 
 const AUTOLOADER = PLX_CORE . 'vendor/autoload.php';
 # See vendor/composer/platform_check.php
-if (PHP_VERSION_ID >= 80100 and file_exists(AUTOLOADER)) { # required by Composer
+if (file_exists(AUTOLOADER)) { # required by Composer
 	require AUTOLOADER;
 }
 
@@ -1206,7 +1206,7 @@ class plxUtils {
 			'Content-Type'				=> (($contentType === 'html') ? 'text/html' : 'text/plain') . ';charset=' . PLX_CHARSET,
 			'Content-Transfer-Encoding'	=> '8bit',
 			'Date'						=> date('D, j M Y G:i:s O'), # Sat, 7 Jun 2001 12:35:58 -0700
-			'X-Mailer'					=> 'PluXml',
+			'X-Mailer'					=> ini_get('sendmail_path') . ' (PHP ' . PHP_VERSION . ')',
 		);
 
 		if(!empty($from)) {
@@ -1247,13 +1247,16 @@ class plxUtils {
 	* @throws \PHPMailer\PHPMailer\Exception
 	**/
 	public static function sendMailPhpMailer($name, $from, $to, $subject, $body, $isHtml, $conf, $debug=false) {
+		if(!self::isPHPMailer()) {
+			return false;
+		}
+
 		$mail = new PHPMailer();
 		if ($debug) {
 			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
 		}
 		$mail->Subject = $subject;
 		$mail->Body = $body;
-		$mail->setFrom($from, $name);
 		$mail->addAddress($to);
 		$mail->Mailer = $conf['email_method'];
 		$mail->CharSet = 'UTF-8';
@@ -1262,6 +1265,13 @@ class plxUtils {
 		}
 		switch ($conf['email_method']) {
 			case 'smtp':
+				$login = filter_var($conf['smtp_username'], FILTER_VALIDATE_EMAIL);
+				if(empty($login) or $login == $from) {
+					$mail->setFrom($from, $name);
+				} else {
+					$mail->setFrom($login);
+					$mail->addReplyTo($from, $name);
+				}
 				$mail->isSMTP();
 				$mail->Host = $conf['smtp_server'];
 				$mail->Port = $conf['smtp_port'];
@@ -1277,6 +1287,12 @@ class plxUtils {
 				if(!self::isOauth2Enabled()) {
 					plxMsg::Error('Method with OAuth2 denied');
 					return false;
+				}
+				if($from == $conf['smtpOauth2_emailAdress']) {
+					$mail->setFrom($from, $name);
+				} else {
+					$mail->setFrom($conf['smtpOauth2_emailAdress']);
+					$mail->addReplyTo($from, $name);
 				}
 				$mail->isSMTP();
 				$mail->SMTPAuth = true;

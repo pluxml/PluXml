@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52
+class ComposerStaticInit826ffc26674df139a04a5d4a2e9f46f7
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -13,6 +13,10 @@ class ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'TheNetworg\\OAuth2\\Client\\' => 25,
+        ),
         'S' => 
         array (
             'Stevenmaguire\\OAuth2\\Client\\' => 28,
@@ -36,11 +40,18 @@ class ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
-            'Greew\\OAuth2\\Client\\Provider\\' => 29,
+        ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'TheNetworg\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/thenetworg/oauth2-azure/src',
+        ),
         'Stevenmaguire\\OAuth2\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/stevenmaguire/oauth2-microsoft/src',
@@ -79,9 +90,9 @@ class ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Greew\\OAuth2\\Client\\Provider\\' => 
+        'Firebase\\JWT\\' => 
         array (
-            0 => __DIR__ . '/..' . '/greew/oauth2-azure-provider/src/Provider',
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
     );
 
@@ -92,9 +103,9 @@ class ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4c0b2e9c08c9c62205ce3d0941e66f52::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit826ffc26674df139a04a5d4a2e9f46f7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit826ffc26674df139a04a5d4a2e9f46f7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit826ffc26674df139a04a5d4a2e9f46f7::$classMap;
 
         }, null, ClassLoader::class);
     }
