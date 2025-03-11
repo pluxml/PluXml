@@ -518,7 +518,7 @@ const L_PLUGINS_REQUIREMENTS_NONE = 'Nu';
 const L_PLUGINS_ALPHA_SORT = 'Sortează în ordine alfabetică plugin-uri';
 const L_PLUGINS_LOADING_SORT = 'De încărcare pentru';
 const L_PLUGINS_ACTION = 'Acţiune';
-const L_PLUGINS_APPLY_BUTTON = 'Modificarea lista de plugin-uri';
+const L_PLUGINS_APPLY_BUTTON = 'Schimbați ordinea pluginurilor';
 const L_PLUGINS_ACTIVE_LIST = 'Plugin-uri active';
 const L_PLUGINS_INACTIVE_LIST = 'Plugin-uri inactive';
 

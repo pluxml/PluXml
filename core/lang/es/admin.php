@@ -519,7 +519,7 @@ const L_PLUGINS_REQUIREMENTS_NONE = 'Ninguno';
 const L_PLUGINS_ALPHA_SORT = 'Ordenar complementos alfabéticamente';
 const L_PLUGINS_LOADING_SORT = 'Orden de cargar';
 const L_PLUGINS_ACTION = 'Acción';
-const L_PLUGINS_APPLY_BUTTON = 'Modificar la lista de complementos';
+const L_PLUGINS_APPLY_BUTTON = 'Cambiar el orden de los complementos';
 const L_PLUGINS_ACTIVE_LIST = 'Complementos activos';
 const L_PLUGINS_INACTIVE_LIST = 'Complementos desactivados';
 

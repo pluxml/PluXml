@@ -518,7 +518,7 @@ const L_PLUGINS_REQUIREMENTS_NONE = 'Cap';
 const L_PLUGINS_ALPHA_SORT = 'Triar per òrdre alfabetic los plugins';
 const L_PLUGINS_LOADING_SORT = 'Òrdre de cargament';
 const L_PLUGINS_ACTION = 'Accion';
-const L_PLUGINS_APPLY_BUTTON = 'Modificar la lista dels plugins';
+const L_PLUGINS_APPLY_BUTTON = 'Cambiar l\'òrdre dels ensambladors';
 const L_PLUGINS_ACTIVE_LIST = 'Plugins actius';
 const L_PLUGINS_INACTIVE_LIST = 'Plugins inactius';
 

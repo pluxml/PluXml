@@ -519,7 +519,7 @@ const L_PLUGINS_REQUIREMENTS_NONE = 'Geen';
 const L_PLUGINS_ALPHA_SORT = 'Alfabetisch sorteren plugins';
 const L_PLUGINS_LOADING_SORT = 'Laden om';
 const L_PLUGINS_ACTION = 'Actie';
-const L_PLUGINS_APPLY_BUTTON = 'De lijst met plugins';
+const L_PLUGINS_APPLY_BUTTON = 'De volgorde van plug-ins wijzigen';
 const L_PLUGINS_ACTIVE_LIST = 'Actieve plugins';
 const L_PLUGINS_INACTIVE_LIST = 'Inactief plugins';
 

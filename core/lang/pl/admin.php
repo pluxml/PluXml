@@ -518,7 +518,7 @@ const L_PLUGINS_REQUIREMENTS_NONE = 'Nic';
 const L_PLUGINS_ALPHA_SORT = 'Sortuj alfabetycznie wtyczki';
 const L_PLUGINS_LOADING_SORT = 'Kolejność ładowania';
 const L_PLUGINS_ACTION = 'Akcja';
-const L_PLUGINS_APPLY_BUTTON = 'Zmodyfikuj listę wtyczek';
+const L_PLUGINS_APPLY_BUTTON = 'Zmień kolejność wtyczek';
 const L_PLUGINS_ACTIVE_LIST = 'Aktywne wtyczki';
 const L_PLUGINS_INACTIVE_LIST = 'Nieaktywne wtyczki';
 

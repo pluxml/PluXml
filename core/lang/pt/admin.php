@@ -518,7 +518,7 @@ const L_PLUGINS_REQUIREMENTS_NONE = 'Nenhum';
 const L_PLUGINS_ALPHA_SORT = 'Ordenar alfabeticamente plugins';
 const L_PLUGINS_LOADING_SORT = 'Carregando ordem';
 const L_PLUGINS_ACTION = 'Ação';
-const L_PLUGINS_APPLY_BUTTON = 'Alterar a lista de plugins';
+const L_PLUGINS_APPLY_BUTTON = 'Alterar a ordem dos plugins';
 const L_PLUGINS_ACTIVE_LIST = 'Plugins ativos';
 const L_PLUGINS_INACTIVE_LIST = 'Plugins inativos';
 

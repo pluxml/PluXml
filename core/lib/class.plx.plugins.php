@@ -365,7 +365,7 @@ Drop this plugin now for running PluXml and report to its author !!
 		# Pas de modification de la config des plugins, si on n'est pas en mode admin.
 		if(!defined('PLX_ADMIN')) { return false; }
 
-		if(empty($content['update'])) {
+		if(isset($content['activate'])) {
 			if(!empty($content['selection'])) {
 				switch($content['selection']) {
 					case 'activate':		# activation des plugins
@@ -413,14 +413,19 @@ Drop this plugin now for running PluXml and report to its author !!
 						return true;
 				}
 			}
-		} else {
+		} elseif(isset($content['update'])) {
 			# tri des plugins par ordre de chargement
 			$aPlugins = array();
-			asort($content['plugOrdre']);
-			foreach($content['plugOrdre'] as $plugName => $idx) {
-				$aPlugins[$plugName] = $this->aPlugins[$plugName];
+			if(!empty($content['plugOrdre'])) {
+				# tri des plugins par ordre de chargement
+				asort($content['plugOrdre']);
+				foreach($content['plugOrdre'] as $plugName => $idx) {
+					$aPlugins[$plugName] = $this->aPlugins[$plugName];
+				}
 			}
 			$this->aPlugins = $aPlugins;
+		} else {
+			return;
 		}
 
 		# génération du cache css des plugins

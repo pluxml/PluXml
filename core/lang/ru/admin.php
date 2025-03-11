@@ -518,7 +518,7 @@ const L_PLUGINS_REQUIREMENTS_NONE = 'Нет';
 const L_PLUGINS_ALPHA_SORT = 'Сортировка по алфавиту плагинов';
 const L_PLUGINS_LOADING_SORT = 'Погрузочный ордер';
 const L_PLUGINS_ACTION = 'действие';
-const L_PLUGINS_APPLY_BUTTON = 'Изменить список плагинов';
+const L_PLUGINS_APPLY_BUTTON = 'Изменить порядок плагинов';
 const L_PLUGINS_ACTIVE_LIST = 'Активная плагины';
 const L_PLUGINS_INACTIVE_LIST = 'Неактивные плагины';
 

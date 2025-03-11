@@ -153,9 +153,11 @@ $nbActivePlugins = sizeof($plxAdmin->plxPlugins->aPlugins);
 # nombre de plugins inactifs
 $nbInactivePlugins = sizeof($aInactivePlugins);
 # récuperation du type de plugins à afficher
-$_GET['sel'] = isset($_GET['sel']) ? intval(plxUtils::nullbyteRemove($_GET['sel'])) : '';
-$session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : 1;
-$sel = in_array($_GET['sel'], array('0', '1')) ? intval($_GET['sel']) : $session;
+if($nbActivePlugins == 0) {
+	$sel = 0;
+} else {
+	$sel = filter_input(INPUT_GET, 'sel', FILTER_VALIDATE_INT , array('min_range' => 0, 'max_range' => 1, 'default' => 1));
+}
 $_SESSION['selPlugins'] = $sel;
 if($sel == 0) {
 	# plugins désactivés
@@ -194,10 +196,11 @@ include 'top.php';
 			<li><a class="<?= empty($_SESSION['selPlugins']) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;(<?= $nbInactivePlugins ?>)</li>
 		</ul>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
-		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="activate" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 <?php
-if($sel==1) {
+if($sel == 1 and $nbActivePlugins > 1) {
+	# Pour modifier l'ordre des plugins
 ?>
 		<input type="submit" name="update" value="<?= L_PLUGINS_APPLY_BUTTON ?>" />
 <?php
