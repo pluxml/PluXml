@@ -363,7 +363,7 @@ Drop this plugin now for running PluXml and report to its author !!
 		# Pas de modification de la config des plugins, si on n'est pas en mode admin.
 		if(!defined('PLX_ADMIN')) { return false; }
 
-		if(empty($content['update'])) {
+		if(isset($content['activate'])) {
 			if(!empty($content['selection'])) {
 				switch($content['selection']) {
 					case 'activate':		# activation des plugins
@@ -389,34 +389,37 @@ Drop this plugin now for running PluXml and report to its author !!
 						}
 						break;
 					case 'delete':		# suppression des plugins
-						foreach($content['chkAction'] as $idx => $plugName) {
-							if($this->deleteDir(realpath(PLX_PLUGINS.$plugName))) {
-								# suppression fichier de config du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml');
-								# suppression fichier site.css du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.site.css');
-								# suppression fichier admin.css du plugin
-								if(is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css'))
-									unlink(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.admin.css');
+						$configPlugins = PLX_ROOT . PLX_CONFIG_PATH . 'plugins/';
+						foreach($content['chkAction'] as $plugName) {
+							if($this->deleteDir(realpath(PLX_PLUGINS . $plugName))) {
+								foreach(array('.xml', '.site.css', '.admin.css', ) as $ext) {
+									$filename = $configPlugins . $plugName . $ext;
+									if(is_file($filename)) {
+										# suppression fichier de config, site.css et admin.css du plugin
+										unlink($filename);
+									}
+								}
 								unset($this->aPlugins[$plugName]);
 							} else {
-								plxMsg::Error(L_PLUGINS_DELETE_ERROR." (".$plugName.")");
+								plxMsg::Error(L_PLUGINS_DELETE_ERROR.' ('.$plugName.')');
 								break;
 							}
 						}
 						break;
 				}
 			}
-		} else {
-			# tri des plugins par ordre de chargement
+		} elseif(isset($content['update'])) {
 			$aPlugins = array();
-			asort($content['plugOrdre']);
-			foreach($content['plugOrdre'] as $plugName => $idx) {
-				$aPlugins[$plugName] = $this->aPlugins[$plugName];
+			if(!empty($content['plugOrdre'])) {
+				# tri des plugins par ordre de chargement
+				asort($content['plugOrdre']);
+				foreach($content['plugOrdre'] as $plugName => $idx) {
+					$aPlugins[$plugName] = $this->aPlugins[$plugName];
+				}
 			}
 			$this->aPlugins = $aPlugins;
+		} else {
+			return;
 		}
 
 		# génération du cache css des plugins

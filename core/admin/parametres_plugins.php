@@ -15,7 +15,7 @@ plxToken::validateFormToken($_POST);
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
-if(isset($_POST['update']) OR (isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
+if(isset($_POST['update']) OR (isset($_POST['activate']) and isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
 	header('Location: parametres_plugins.php');
 	exit;
@@ -107,9 +107,11 @@ $nbActivePlugins = sizeof($plxAdmin->plxPlugins->aPlugins);
 # nombre de plugins inactifs
 $nbInactivePlugins = sizeof($aInactivePlugins);
 # récuperation du type de plugins à afficher
-$_GET['sel'] = isset($_GET['sel']) ? intval(plxUtils::nullbyteRemove($_GET['sel'])) : '';
-$session = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : '1';
-$sel = (in_array($_GET['sel'], array('0', '1')) ? $_GET['sel'] : $session);
+if($nbActivePlugins == 0) {
+	$sel = 0;
+} else {
+	$sel = filter_input(INPUT_GET, 'sel', FILTER_VALIDATE_INT , array('min_range' => 0, 'max_range' => 1, 'default' => 1));
+}
 $_SESSION['selPlugins'] = $sel;
 if($sel=='1') {
 	$aSelList = array('' => L_FOR_SELECTION, 'deactivate'=> L_PLUGINS_DEACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
@@ -118,10 +120,6 @@ if($sel=='1') {
 	$aSelList = array('' => L_FOR_SELECTION, 'activate' => L_PLUGINS_ACTIVATE, '-' => '-----', 'delete' => L_PLUGINS_DELETE);
 	$plugins = pluginsList($aInactivePlugins, $plxAdmin->aConf['default_lang'], false);
 }
-# fil d'ariane
-$breadcrumbs = array();
-$breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='1'?'class="selected" ':'').'href="parametres_plugins.php?sel=1">'.L_PLUGINS_ACTIVE_LIST.'</a>&nbsp;('.$nbActivePlugins.')</li>';
-$breadcrumbs[] = '<li><a '.($_SESSION['selPlugins']=='0'?'class="selected" ':'').'href="parametres_plugins.php?sel=0">'.L_PLUGINS_INACTIVE_LIST.'</a>&nbsp;('.$nbInactivePlugins.')</li>';
 
 $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 
@@ -140,15 +138,22 @@ include __DIR__ .'/top.php';
 		</h2>
 
 		<ul class="menu">
-			<?php echo implode($breadcrumbs); ?>
+<?php # fil d'ariane ?>
+			<li><a class="<?= !empty($_SESSION['selPlugins']) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=1" <?= ($nbActivePlugins == 0) ? 'disabled' : '' ?>><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;(<?= $nbActivePlugins ?>)</li>
+			<li><a class="<?= empty($_SESSION['selPlugins']) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;(<?= $nbInactivePlugins ?>)</li>
 		</ul>
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="activate" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?php echo L_CONFIRM_DELETE ?>')" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<?php if($sel==1) { ?>
+<?php
+if($sel == 1 and $nbActivePlugins > 1)  {
+	# Pour modifier l'ordre des plugins
+?>
 		<input type="submit" name="update" value="<?php echo L_PLUGINS_APPLY_BUTTON ?>" />
-		<?php } ?>
+<?php
+}
+?>
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsTop')) # Hook Plugins ?>
