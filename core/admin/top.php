@@ -12,16 +12,9 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 <head>
 	<meta name="robots" content="noindex, nofollow" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
 	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo strtolower(PLX_CHARSET) ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.min.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.min.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/fonts/fontello.css?v=<?php echo PLX_VERSION ?>" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/favicon.png" />
-<?php
-	plxUtils::printLinkCss($plxAdmin->aConf['custom_admincss_file'], true);
-	plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'admin.css', true);
-?>
+<?php plxUtils::printLinkCss(); ?>
 	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>

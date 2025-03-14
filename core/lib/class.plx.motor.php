@@ -432,6 +432,7 @@ class plxMotor {
 
 		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
 		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
+		if(defined('PLX_ADMIN') and !defined('PLX_CUSTOM_ADMINCSS_FILE') and !empty($this->aConf['custom_admincss_file'])) define('PLX_CUSTOM_ADMINCSS_FILE', PLX_ROOT . $this->aConf['custom_admincss_file']);
 	}
 
 	/**

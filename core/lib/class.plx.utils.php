@@ -1570,9 +1570,48 @@ EOT;
 	 * @return	void
 	 * @author J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
 	 */
-	public static function printLinkCss($file, $admin=false) {
+	public static function printLinkCss($file=null, $admin=false) {
 
-		if(!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
+		if(empty($file) and defined('PLX_CORE')) {
+			/*
+			 * Mode intelligent pour les fichiers :
+			 *
+			 * install.php
+			 * update/index.php
+			 * core/admin/auth.php
+			 * core/admin/top.php
+			 * */
+			$list = array(
+				PLX_CORE . 'admin/theme/plucss.css',
+				PLX_CORE . 'admin/theme/theme.css',
+				PLX_CORE . 'admin/theme/fonts/fontello.css',
+			);
+			if(defined('PLX_CUSTOM_ADMINCSS_FILE')) {
+				$list[] = PLX_CUSTOM_ADMINCSS_FILE;
+			}
+			if(defined('PLX_PLUGINS_CSS_PATH')) {
+				$list[] = PLX_PLUGINS_CSS_PATH . 'admin.css';
+			}
+
+			$version = '?v=' . PLX_VERSION;
+			foreach($list as $filename) {
+				if(!file_exists($filename)) {
+					continue;
+				}
+
+				$minify = preg_replace('#\.css$#', '.min.css', $filename);
+				$href = (file_exists($minify) and filemtime($minify) >= filemtime($filename)) ? $minify : $filename;
+				$href .= PLX_DEBUG ? '?d='.base_convert(filemtime($href) & 4194303, 10, 36) : $version;
+?>
+	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
+<?php
+			}
+
+			# extra
+?>
+	<link rel="icon" href="<?= PLX_CORE ?>admin/theme/images/favicon.png" />
+<?php
+		} elseif(!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
 			if($admin) {
 				$href = PLX_ROOT . $file;
 			} else {
