@@ -333,8 +333,7 @@ plxUtils::cleanHeaders();
 	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
+<?php plxUtils::printLinkCss(); ?>
 </head>
 
 <body>

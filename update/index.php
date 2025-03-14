@@ -67,9 +67,7 @@ foreach(array('core.php', 'admin.php', 'update.php') as $k) {
 	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_UPDATE_TITLE . ' ' . PLX_VERSION ?></title>
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?= PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<link rel="icon" href="<?= PLX_CORE ?>admin/theme/images/favicon.png" />
+<?php plxUtils::printLinkCss(); ?>
 	<style>
 		p.alert { width: fit-content; }
 	</style>

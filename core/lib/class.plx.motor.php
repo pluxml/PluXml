@@ -596,6 +596,7 @@ class plxMotor {
 		if(!isset($this->aConf['urlrewriting']) or $this->aConf['urlrewriting'] != 1) {
 			$this->aConf['urlrewriting'] = '0';
 		}
+		if(defined('PLX_ADMIN') and !defined('PLX_CUSTOM_ADMINCSS_FILE') and !empty($this->aConf['custom_admincss_file'])) define('PLX_CUSTOM_ADMINCSS_FILE', PLX_ROOT . $this->aConf['custom_admincss_file']);
 	}
 
 	/**
