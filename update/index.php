@@ -65,9 +65,7 @@ plxToken::validateFormToken($_POST);
 	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php echo L_UPDATE_TITLE.' '.plxUtils::strCheck($plxUpdater->newVersion) ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/plucss.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo PLX_CORE ?>admin/theme/theme.css" media="screen" />
-	<link rel="icon" href="<?php echo PLX_CORE ?>admin/theme/images/pluxml.gif" />
+<?php plxUtils::printLinkCss(); ?>
 </head>
 
 <body>
