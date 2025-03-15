@@ -58,8 +58,6 @@ class plxCapcha {
 	}
 
 	/**
-	 * DEPRECATED since PluXml 5.8.3 (2020)
-	 *
 	 * Méthode qui choisit un numéro de lettre dans le mot choisi
 	 *
 	 * @return	int
@@ -80,12 +78,12 @@ class plxCapcha {
 	public function num2letter() {
 
 		# Num = derniere lettre du mot
-		if($this->num == strlen($this->_word)) {
+		if($this->_num == strlen($this->_word)) {
 			return L_LAST;
 		}
 
-		$n = $this->num - 1;
-		return ($n < count(self::LETTERS)) ? self::LETTERS[$n] : ($this->num) . L_NTH;
+		$n = $this->_num - 1;
+		return ($n < count(self::LETTERS)) ? self::LETTERS[$n] : ($this->_num) . L_NTH;
 	}
 
 	/**
@@ -96,9 +94,9 @@ class plxCapcha {
 	 **/
 	public function q() {
 		# Generation de la question capcha
-		$this->num = $this->chooseNum();
+		$this->_num = $this->chooseNum();
 		$_SESSION['capcha_token'] = sha1(uniqid(rand(), true));
-		$_SESSION['capcha'] = sha1($this->_word[$this->num - 1]);
+		$_SESSION['capcha'] = sha1($this->_word[$this->_num - 1]);
 		return sprintf(L_CAPCHA_QUESTION, $this->num2letter(), $this->_word);
 	}
 
@@ -110,7 +108,7 @@ class plxCapcha {
 	 **/
 	public function r() {
 		# Generation du hash de la reponse
-		return sha1($this->_word[$this->num - 1]);
+		return sha1($this->_word[$this->_num - 1]);
 	}
 
 }
