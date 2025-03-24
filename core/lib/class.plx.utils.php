@@ -1590,7 +1590,7 @@ EOT;
 				$list[] = PLX_CUSTOM_ADMINCSS_FILE;
 			}
 			if(defined('PLX_PLUGINS_CSS_PATH')) {
-				$list[] = PLX_PLUGINS_CSS_PATH . 'admin.css';
+				$list[] = PLX_ROOT . PLX_PLUGINS_CSS_PATH . 'admin.css';
 			}
 
 			$version = '?v=' . PLX_VERSION;
