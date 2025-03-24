@@ -1581,16 +1581,18 @@ EOT;
 			 * core/admin/auth.php
 			 * core/admin/top.php
 			 * */
+			$files = glob(preg_replace('#/core/lib$#', '/*/*/theme/plucss.css', __DIR__));
+			$themeDir = !empty($files) ? PLX_ROOT . preg_replace('#.*/([^\/]+/\w[\w-]+/theme/)plucss.css$#', '$1', $files[0]) : PLX_CORE . 'admin/theme/';
 			$list = array(
-				PLX_CORE . 'admin/theme/plucss.css',
-				PLX_CORE . 'admin/theme/theme.css',
-				PLX_CORE . 'admin/theme/fonts/fontello.css',
+				$themeDir . 'plucss.css',
+				$themeDir . 'theme.css',
+				$themeDir . 'fonts/fontello.css',
 			);
 			if(defined('PLX_CUSTOM_ADMINCSS_FILE')) {
 				$list[] = PLX_CUSTOM_ADMINCSS_FILE;
 			}
 			if(defined('PLX_PLUGINS_CSS_PATH')) {
-				$list[] = PLX_PLUGINS_CSS_PATH . 'admin.css';
+				$list[] = PLX_ROOT . PLX_PLUGINS_CSS_PATH . 'admin.css';
 			}
 
 			$version = '?v=' . PLX_VERSION;
@@ -1609,7 +1611,7 @@ EOT;
 
 			# extra
 ?>
-	<link rel="icon" href="<?= PLX_CORE ?>admin/theme/images/favicon.png" />
+	<link rel="icon" href="<?= PLX_ROOT ?>favicon.png" />
 <?php
 		} elseif(!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
 			if($admin) {
