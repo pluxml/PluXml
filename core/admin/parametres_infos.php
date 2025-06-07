@@ -7,7 +7,7 @@
  * @author	Florent MONTHEL
  **/
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -23,7 +23,7 @@ if($emailBuild) {
 } else {
 	# direct output
 	# administration header
-	include __DIR__ .'/top.php';
+	include 'top.php';
 }
 
 ?>
@@ -120,7 +120,7 @@ HEAD;
 	# On va ouvrir une fenêtre de log pour afficher la conversation avec le serveur SMTP.
 	unset($_SESSION['error']);
 	unset($_SESSION['info']);
-	include __DIR__ .'/top.php';
+	include 'top.php';
 ?>
 <details class="phpmailer-debug">
 	<summary>Log from SMTP server</summary>
@@ -205,5 +205,5 @@ if(preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
 <?php
 }
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include 'foot.php';
 ?>
