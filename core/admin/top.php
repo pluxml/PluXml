@@ -42,7 +42,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 <?php endif; ?>
 				</li>
 				<li>
-					<small><a class="logout" href="<?php echo PLX_CORE ?>admin/auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>"><?php echo L_ADMIN_LOGOUT ?></a></small>
+					<small><a class="logout" href="auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>"><?php echo L_ADMIN_LOGOUT ?></a></small>
 				</li>
 			</ul>
 			<ul class="unstyled-list profil">
