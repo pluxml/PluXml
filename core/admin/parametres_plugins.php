@@ -39,7 +39,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 			elseif(is_file(PLX_PLUGINS.$plugName.'/icon.gif'))
 				$icon=PLX_PLUGINS.$plugName.'/icon.gif';
 			else
-			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
+			$icon='theme/images/icon_plugin.png';
 
 			# plugin activé uniquement côté site (<scope> == 'site')
 			if(empty($plugInstance) and $plugInstance=$plxAdmin->plxPlugins->getInstance($plugName)) {

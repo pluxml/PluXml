@@ -63,7 +63,7 @@ class plxThemes {
 
 		$current = $theme == $this->activeTheme ? ' current' : '';
 		if($img=='')
-			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" alt="" />';
+			return '<img class="img-preview'.$current.'" src="theme/images/theme.png" alt="" />';
 		else
 			return '<img class="img-preview'.$current.'" src="'.$img.'" alt="" />';
 	}
