@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -29,7 +29,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
 
 $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 ?>
@@ -103,5 +103,5 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminProfilFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include 'foot.php';
 ?>
