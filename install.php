@@ -185,6 +185,14 @@ function install($content, $config) {
 
 	if($content['data']>0){
 		# Création du premier article
+
+		$thumbnail = '';
+		$srcs = glob('*/*/theme/images/pluxml.png');
+		if(!empty($srcs)) {
+			$thumbnail = $config['medias'] . 'pluxml.png';
+			copy($srcs[0], PLX_ROOT . $thumbnail);
+		}
+
 		$html = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
 		$xml = '<?xml version="1.0" encoding="'.PLX_CHARSET.'"?>'."\n";
 		$xml .= '<document>
@@ -199,7 +207,7 @@ function install($content, $config) {
 	<title_htmltag><![CDATA[]]></title_htmltag>
 	<date_creation><![CDATA['.date('YmdHi').']]></date_creation>
 	<date_update><![CDATA['.date('YmdHi').']]></date_update>
-	<thumbnail><![CDATA[core/admin/theme/images/pluxml.png]]></thumbnail>
+	<thumbnail><![CDATA['. $thumbnail . ']]></thumbnail>
 	<thumbnail_alt><![CDATA[PluXml logo]]></thumbnail_alt>
 	<thumbnail_title><![CDATA[PluXml]]></thumbnail_title>
 </document>';
