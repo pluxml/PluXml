@@ -11,8 +11,8 @@
 	setMsg();
 	mediasManager.construct({
 		windowName : "<?php echo L_MEDIAS_TITLE ?>",
-		racine:	"<?php echo plxUtils::getRacine() ?>",
-		urlManager: "core/admin/medias.php"
+		racine:	'<?php echo plxUtils::getRacine() ?>',
+		urlManager: '<?php echo preg_replace('#(\w[\w-]+\.php)$#', 'medias.php', $_SERVER['SCRIPT_NAME']) ?>',
 	});
 
 	(function(query) {

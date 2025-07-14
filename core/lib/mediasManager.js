@@ -109,7 +109,7 @@ var mediasManager = {
 		this.cibleId = cibleId;
 		this.replace = replace;
 		this.fallback = fallback;
-		popup = window.open(unescape(this.opts.racine + this.opts.urlManager), this.opts.windowName, options);
+		popup = window.open(unescape(this.opts.urlManager), this.opts.windowName, options);
 		if (popup) {
 			popup.focus();
 		}
