@@ -307,11 +307,16 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	* Create a token and send a link by e-mail using "email-lostpassword.xml" template
 	*
 	* @param loginOrMail user login or e-mail address
-	* @return string token to password reset
+	* @return true of false
 	* @throws \PHPMailer\PHPMailer\Exception
 	* @author Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
 	**/
 	public function sendLostPasswordEmail($loginOrMail) {
+
+		if(!preg_match('#^(https?://.*/auth.php)\?action=lostpassword$#', $_SERVER['HTTP_REFERER'], $matches)) {
+			return false;
+		}
+		$path1 = $matches[1];
 
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
@@ -325,13 +330,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 					$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 					if(!array_key_exists($templateName, $this->aTemplates)) {
-						break;
+						return false;
 					}
 
 					$placeholdersValues = array(
 						"##LOGIN##"			=> $user['login'],
-						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
-						"##URL_EXPIRY##"	=> $tokenExpiry
+						"##URL_PASSWORD##"	=> $path1 . '?action=changepassword&token=' . $lostPasswordToken,
+						"##URL_EXPIRY##"	=> $tokenExpiry,
 					);
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
@@ -355,7 +360,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
 							$this->editUsers($user_id, true);
-							return $lostPasswordToken;
+							return true;
 						}
 					}
 					break;
@@ -363,7 +368,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 		}
 
-		return '';
+		return false;
 	}
 
 	/**
