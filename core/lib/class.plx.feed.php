@@ -372,18 +372,21 @@ class plxFeed extends plxMotor {
 	 * Méthode qui affiche le flux RSS des commentaires du site pour l'administration
 	 *
 	 * @return	flux sur stdout
-	 * @author	Florent MONTHEL, Amaury GRAILLAT
+	 * @author	Florent MONTHEL, Amaury GRAILLAT,Jean-Pierre Pourrez aka bazooka07
 	 **/
 	public function getAdminComments() {
+		$adminFolders = glob(PLX_ROOT . '*/*/comments.php');
+		$adminPath = !empty($adminFolders) ? preg_replace('#.*\b(\w[\w-]+/\w[\w-]+/)comments\.php$#', '$1', $adminFolders[0]) : 'core/admin/';
+		$uri1 = $this->racine . $adminPath;
 		# Traitement initial
 		$last_updated = '197001010100';
 		$entry = '';
 		if($this->cible == '_') { # Commentaires hors ligne
-			$link = $this->racine.'core/admin/comments.php?sel=offline&amp;page=1';
+			$link = $uri1 . 'comments.php?sel=offline&amp;page=1';
 			$title = $this->aConf['title'].' - '.L_FEED_OFFLINE_COMMENTS;
 			$link_feed = $this->racine.'feed.php?admin'.$this->clef.'/commentaires/hors-ligne';
 		} else { # Commentaires en ligne
-			$link = $this->racine.'core/admin/comments.php?sel=online&amp;page=1';
+			$link = $uri1 . 'comments.php?sel=online&amp;page=1';
 			$title = $this->aConf['title'].' - '.L_FEED_ONLINE_COMMENTS;
 			$link_feed = $this->racine.'feed.php?admin'.$this->clef.'/commentaires/en-ligne';
 		}
@@ -395,7 +398,7 @@ class plxFeed extends plxMotor {
 				$comId = $this->cible.$this->plxRecord_coms->f('article').'.'.$this->plxRecord_coms->f('numero');
 				$title_com = $this->plxRecord_coms->f('author').' @ ';
 				$title_com .= plxDate::formatDate($this->plxRecord_coms->f('date'),'#day #num_day #month #num_year(4), #hour:#minute');
-				$link_com = $this->racine.'core/admin/comment.php?c='.$comId;
+				$link_com = $uri1 . 'comment.php?c=' . $comId;
 				# On vérifie la date de publication
 				if($this->plxRecord_coms->f('date') > $last_updated)
 					$last_updated = $this->plxRecord_coms->f('date');
