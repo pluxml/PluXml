@@ -59,8 +59,8 @@ if(!$plxShow->articleAllowComs(true)) {
 		<div class="col sml-12 med-8">
 			<strong><?php $plxShow->lang('COMMENT_FOR_SUBSCRIBERS') ?></strong>
 		</div>
-		<div class="col sml-12 med-4">
-			<a class="button" href="<?php $plxShow->urlRewrite('core/admin/auth.php'); ?>?p=<?= urlencode($_SERVER['REQUEST_URI']) ?>"><?php $plxShow->lang('CONNEXION'); ?></a>
+		<div class="col sml-12 med-4 med-text-right">
+			<a class="button" href="<?= $admin ?>auth.php?p=<?= urlencode($_SERVER['REQUEST_URI']) ?>"><?php $plxShow->lang('CONNEXION'); ?></a>
 		</div>
 	</div>
 <?php
@@ -79,7 +79,7 @@ if(!$plxShow->articleAllowComs(true)) {
 					<span><?php $plxShow->lang('SUBSCRIBER_CONNECTED') ?></span> : <strong><?= $plxMotor->aUsers[$_SESSION['user']]['name'] ?></strong>
 				</div>
 				<div class="col sml-12 med-4 med-text-right">
-					<a class="button" href="core/admin/auth.php?d=1"><?php $plxShow->lang('DECONNEXION'); ?></a>
+					<a class="button" href="<?= $admin ?>auth.php?d=1"><?php $plxShow->lang('DECONNEXION'); ?></a>
 				</div>
 			</div>
 <?php

@@ -407,14 +407,17 @@ class plxFeed extends plxMotor {
 	 * @author	Florent MONTHEL, Amaury GRAILLAT
 	 **/
 	public function getAdminComments() {
+		$adminFolders = glob(PLX_ROOT . '*/*/comments.php');
+		$adminPath = !empty($adminFolders) ? preg_replace('#.*\b(\w[\w-]+/\w[\w-]+/)comments\.php$#', '$1', $adminFolders[0]) : 'core/admin/';
+		$uri1 = $this->racine . $adminPath;
 		# Traitement initial
 		if($this->cible == '_') { # Commentaires hors ligne
-			$this->rssLink = $this->racine . 'core/admin/comments.php?sel=offline&amp;page=1';
+			$this->rssLink = $uri1 . 'comments.php?sel=offline&amp;page=1';
 			$this->rssTitle = $this->aConf['title'] . ' - ' . L_FEED_OFFLINE_COMMENTS;
 			$link_feed = $this->racine.'feed.php?admin'.$this->clef.'/commentaires/hors-ligne';
 			$this->rssAttachment = 'comments-offline.rss';
 		} else { # Commentaires en ligne
-			$this->rssLink = $this->racine.'core/admin/comments.php?sel=online&amp;page=1';
+			$this->rssLink = $uri1 . 'comments.php?sel=online&amp;page=1';
 			$this->rssTitle = $this->aConf['title'].' - '.L_FEED_ONLINE_COMMENTS;
 			$link_feed = $this->racine.'feed.php?admin'.$this->clef.'/commentaires/en-ligne';
 			$this->rssAttachment = 'comments-online.rss';

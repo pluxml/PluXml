@@ -62,27 +62,27 @@ class plxAdmin extends plxMotor {
 	 * Méthode qui récupère le numéro de la page active
 	 *
 	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function getPage() {
 
+		# On teste pour avoir le numéro de page
+		$this->page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+			'options' => array(
+				'default' => 1,
+				'min' => 1,
+				'max' => 9999,
+			)
+		));
+
 		# Initialisation
-		$pageName = basename($_SERVER['PHP_SELF'], '.php');
-		$savePage = preg_match('#admin/(?:index|comments)\.php$#', $_SERVER['PHP_SELF']);
-		# On teste pour avoir le numero de page
-		if(!empty($_GET['page']) AND is_numeric($_GET['page']) AND $_GET['page'] > 0) {
-			$this->page = $_GET['page'];
-		}
-		elseif($savePage) {
+		if(preg_match('#/(index|comments|statiques|categories)\.php$#', $_SERVER['SCRIPT_NAME'], $matches)) {
+			$pageName = $matches[1];
 			if(!empty($_POST['sel_cat'])) {
 				$this->page = 1;
 			} else {
 				$this->page = !empty($_SESSION['page'][$pageName]) ? intval($_SESSION['page'][$pageName]) : 1;
 			}
-		}
-		# On sauvegarde
-		if($savePage) {
-			$_SESSION['page'][$pageName] = $this->page;
 		}
 	}
 
@@ -556,6 +556,11 @@ EOT;
 	**/
 	public function sendLostPasswordEmail($loginOrMail) {
 
+		if(!preg_match('#^(https?://.*/auth.php)\?action=lostpassword$#', $_SERVER['HTTP_REFERER'], $matches)) {
+			return false;
+		}
+		$path1 = $matches[1];
+
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
 				if(!$user['active'] or $user['delete'] or empty($user['email'])) { continue; }
@@ -572,9 +577,9 @@ EOT;
 					}
 
 					$placeholdersValues = array(
-						"##LOGIN##"			=> $user['login'],
-						"##URL_PASSWORD##"	=> $this->aConf['racine'].'core/admin/auth.php?action=changepassword&token='.$lostPasswordToken,
-						"##URL_EXPIRY##"	=> $tokenExpiry
+						'##LOGIN##'			=> $user['login'],
+						'##URL_PASSWORD##'	=> $path1 . '?action=changepassword&token=' . $lostPasswordToken,
+						'##URL_EXPIRY##'	=> $tokenExpiry,
 					);
 					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();

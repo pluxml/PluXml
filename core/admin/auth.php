@@ -12,33 +12,36 @@ const PLX_AUTHPAGE = true;
 
 include 'prepend.php';
 
-$root = preg_replace('#/core/admin/auth.php$#', '/', $_SERVER['PHP_SELF']);
+$admin_url = preg_replace('#/auth\.php$#', '/', $_SERVER['SCRIPT_NAME']);
+$redirect = $admin_url;
 
 # Déconnexion (paramètre url : ?d=1)
-if (!empty($_GET['d']) and $_GET['d'] == 1) {
-	$redirect = $root . 'index.php';
-
-	# Maybe a comment is posted by a subscriber
-	if(!empty($_SERVER['HTTP_REFERER'])) {
-		$parts = parse_url($_SERVER['HTTP_REFERER']);
-		if(!empty($plxAdmin->aConf['urlrewriting'])) {
-			if(preg_match('#^' . $root . L_ARTICLE_URL . '\d*/([\w-]+)$#', $parts['path'], $matches)) {
-				$pattern = '#\.' . $matches[1] . '\.xml$#';
-				$globArts = $plxAdmin->plxGlob_arts->query($pattern);
-				if(!empty($globArts)) {
-					$redirect = $_SERVER['HTTP_REFERER'];
+if(!empty($_GET['d'])) {
+	if($_GET['d'] == '1') {
+		# Maybe a comment is posted by a subscriber
+		if(!empty($_SERVER['HTTP_REFERER'])) {
+			if(!empty($plxAdmin->aConf['urlrewriting'])) {
+				$pattern = '#^' . preg_quote(plxUtils::getRacine() . L_ARTICLE_URL) . '/([\w-]+)$#';
+				if(preg_match($pattern, $_SERVER['HTTP_REFERER'], $matches)) {
+					$mask = '#\.' . $matches[1] . '\.xml$#';
+				}
+			} else {
+				$pattern = '#^' . preg_quote(plxUtils::getRacine() . 'index.php?' . L_ARTICLE_URL) . '(\d+)/([\w-]+)$#';
+				if(preg_match($pattern, $_SERVER['HTTP_REFERER'], $matches)) {
+					$mask = '#^' . str_pad( $matches[1], 4, '0', STR_PAD_LEFT) . '\..*\.\d{3}\.\d{12}\.' . $matches[2] . '\.xml$#';
 				}
 			}
-		} else {
-			if(
-				$parts['path'] == $redirect and
-				!empty($parts['query']) and
-				preg_match('#^' . L_ARTICLE_URL . '(\d+)/([\w-]+)$#', $parts['query'], $matches)
-			) {
-				$pattern = '#^' . str_pad( $matches[1], 4, '0', STR_PAD_LEFT) . '\..*\.\d{3}\.\d{12}\.' . $matches[2] . '\.xml$#';
-				$globArts = $plxAdmin->plxGlob_arts->query($pattern);
-				if(!empty($globArts)) {
-					$redirect = $_SERVER['HTTP_REFERER'];
+
+			if(!empty($mask)) {
+				# Deconnexion from site
+				$parts = parse_url(plxUtils::getRacine());
+				$redirect = $parts['path'];
+				if(PLX_SITE_LANG == $plxAdmin->aConf['default_lang']) {
+					# subscriber's language is same as language of site
+					$globArts = $plxAdmin->plxGlob_arts->query($mask);
+					if(!empty($globArts)) {
+						$redirect = $_SERVER['HTTP_REFERER'];
+					}
 				}
 			}
 		}
@@ -52,8 +55,8 @@ if (!empty($_GET['d']) and $_GET['d'] == 1) {
 plxToken::validateFormToken($_POST);
 
 # Protection anti brute force
-const MAX_LOGIN_COUNT = 5; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
-const MAX_LOGIN_TIME = 3 * 60; # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
+const MAX_LOGIN_COUNT = 3; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
+const MAX_LOGIN_TIME = 5 * 60; # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
 
 # Initialiser les messages d'alerte
 $msg = '';
@@ -62,142 +65,149 @@ $css = '';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
 
-# Identifier une erreur de connexion
-if (isset($_SESSION['maxtry'])) {
-	if (time() < $_SESSION['maxtry']['timer']) {
-		if($_SESSION['maxtry']['counter'] < 0) {
-			# écriture dans les logs du dépassement des 3 tentatives successives de connexion
-			@error_log('PluXml: Max login failed. IP : ' . plxUtils::getIp());
-			# message à affiche sur le mire de connexion
-			$msg = sprintf(L_ERR_MAXLOGIN, MAX_LOGIN_TIME / 60);
-			$css = 'alert red';
-		}
-	} else {
-		# on réinitialise le control brute force quand le temps d'attente limite est atteint
+if(!isset($_GET['action'])) {
+	# Identifier une erreur de connexion
+	if(empty($_SESSION['maxtry'])) {
+		# initialisation de la variable qui compte les tentatives de connexion
 		$_SESSION['maxtry'] = [
 			'counter' => MAX_LOGIN_COUNT,
-			'timer' => time()  + MAX_LOGIN_TIME,
+			'timer' => time() + MAX_LOGIN_TIME,
 		];
-	}
-} else {
-	# initialisation de la variable qui compte les tentatives de connexion
-	$_SESSION['maxtry'] = [
-		'counter' => MAX_LOGIN_COUNT,
-		'timer' => time() + MAX_LOGIN_TIME,
-	];
-}
-
-# On filtre $_GET['p'] si besoin. Nécessaire pour le paramètre action dans le formulaire
-$redirect = $root . 'core/admin/';
-if (!empty($_GET['p']) and $css == '') {
-	# décrémente la variable de session qui compte les tentatives de connexion
-	$_SESSION['maxtry']['counter']--;
-
-	$racine = parse_url($plxAdmin->racine);
-	$get_p = parse_url(urldecode($_GET['p']));
-	$css = (!$get_p or (isset($get_p['host']) and $racine['host'] != $get_p['host']));
-	if (!$css and !empty($get_p['path'])) {
-		if(preg_match('#^' . $root . 'core/admin/[\w-]+\.php$#', $get_p['path']) and file_exists(preg_replace('#^' . $root . '#', PLX_ROOT, $get_p['path']))) {
-			# filtrage des parametres de l'url
-			$query = '';
-			if (isset($get_p['query'])) {
-				$query = strtok($get_p['query'], '=');
-				$query = ($query != 'd' ? '?' . $get_p['query'] : '');
+	} else {
+		if($_SESSION['maxtry']['counter'] <= 1) {
+			if (time() < $_SESSION['maxtry']['timer']) {
+				# écriture dans les logs du dépassement des 3 tentatives successives de connexion
+				@error_log('PluXml: Max login failed. IP : ' . plxUtils::getIp());
+				# message à affiche sur le mire de
+				$msg = sprintf(L_ERR_MAXLOGIN, round(($_SESSION['maxtry']['timer'] - time()) / 60));
+				$css = 'alert red';
+			} else {
+				# on réinitialise le control brute force quand le temps d'attente limite est atteint
+				$_SESSION['maxtry'] = [
+					'counter' => MAX_LOGIN_COUNT,
+					'timer' => time()  + MAX_LOGIN_TIME,
+				];
 			}
+		}
+	}
 
-			# url de redirection
-			$redirect = $get_p['path'] . $query;
-		} elseif(!empty($plxAdmin->aConf['urlrewriting'])) {
-			# login for subscribers
-			if(preg_match('#^' . $root . L_ARTICLE_URL . '\d*/([\w-]+)$#', $get_p['path'], $matches)) {
-				$pattern = '#\.' . $matches[1] . '\.xml$#';
-				$globArts = $plxAdmin->plxGlob_arts->query($pattern);
-				if(!empty($globArts)) {
+	if(empty($css)) {
+		# On filtre $_GET['p'] si besoin. Nécessaire pour le paramètre action dans le formulaire
+		if (!empty($_GET['p'])) {
+			$racine = parse_url($plxAdmin->racine);
+			$get_p = parse_url(urldecode($_GET['p']));
+			$failure = (!$get_p or (isset($get_p['host']) and $racine['host'] != $get_p['host']));
+			if (!$failure and !empty($get_p['path'])) {
+				if(preg_match('#^' . $admin_url . '([\w-]+\.php)?$#', $get_p['path']) and file_exists($_SERVER['DOCUMENT_ROOT'] . $get_p['path'])) {
+					# url de redirection
 					$redirect = $get_p['path'];
+				} elseif(preg_match('#^' . $racine['path'] . 'index\.php$#', $get_p['path']) and file_exists($_SERVER['DOCUMENT_ROOT'] . $get_p['path'])) {
+					# login for subscribers - No url_rewriting
+					$redirect = $get_p['path'];
+					$fromSite = true;
+
+					# filtrage des parametres de l'url
+					if (isset($get_p['query'])) {
+						$param = strtok($get_p['query'], '=');
+						if($param != 'd') {
+							$redirect .= '?' . $get_p['query'];
+						}
+					}
+				} else {
+					# login for subscribers
+					if(!empty($plxAdmin->aConf['urlrewriting'])) {
+						$pattern = '#^' . preg_quote($racine['path'] . L_ARTICLE_URL) . '/([\w-]+)$#';
+						if(preg_match($pattern, $get_p['path'], $matches)) {
+							$mask = '#\.' . $matches[1] . '\.xml$#';
+							$globArts = $plxAdmin->plxGlob_arts->query($mask);
+							if(!empty($globArts)) {
+								$redirect = $get_p['path'];
+								$fromSite = true;
+							}
+						}
+					}
 				}
 			}
-		} elseif(
-			# No url_rewriting for subscribers
-			$get_p['path'] == $root . 'index.php' and
-			isset($get_p['query']) and
-			preg_match('#^' . L_ARTICLE_URL . '(\d+)/([\w-]+)$#', $get_p['query'], $matches)
-		) {
-			$pattern = '#^' . str_pad( $matches[1], 4, '0', STR_PAD_LEFT) . '\..*\.\d{3}\.\d{12}\.' . $matches[2] . '\.xml$#';
-			$globArts = $plxAdmin->plxGlob_arts->query($pattern);
-			if(!empty($globArts)) {
-				$redirect = $get_p['path'] . '?' . $get_p['query'];
+		}
+
+		# Authentification
+		if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($_POST['password'])) {
+			# décrémente la variable de session qui compte les tentatives de connexion
+			$_SESSION['maxtry']['counter']--;
+
+			$users = array_filter(
+				$plxAdmin->aUsers,
+				function($value) {
+					return (!$value['delete'] and !empty($value['password']) and $value['active'] and $value['login'] == $_POST['login']);
+				}
+			);
+			if(!empty($users)) {
+				foreach($users as $userid => $user) {
+					if(sha1($user['salt'] . md5($_POST['password'])) === $user['password']) {
+						# Login successfull !
+
+						$_SESSION['user'] = $userid;
+						$_SESSION['profil'] = $user['profil'];
+						$_SESSION['hash'] = plxUtils::charAleatoire(10);
+						$_SESSION['domain'] = SESSION_DOMAIN;
+						$_SESSION['ip'] = $_SERVER['REMOTE_ADDR']; // for security
+						# on définit $_SESSION['admin_lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
+						# ordre des traitements:
+						# page administration : chargement fichier prepend.php
+						# => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
+						# => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
+						if(!$fromSite) {
+							$_SESSION['admin_lang'] = $user['lang'];
+						}
+						$plxAdmin->log_connexion($userid);
+
+						unset($_SESSION['maxtry']);
+						if(
+							$redirect == $admin_url and
+							$plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user']) == 0
+						) {
+							# premier article
+							$redirect .= ($_SESSION['profil'] > PROFIL_WRITER)  ? 'profil.php' : 'article.php';
+						}
+
+						header('Location: ' . $redirect);
+						exit;
+					}
+				}
 			}
-		}
-	}
-}
 
-# Authentification
-if ($_SESSION['maxtry']['counter'] >= 0 and !empty($_POST['login']) and !empty($_POST['password'])) {
-	$connected = false;
-	foreach ($plxAdmin->aUsers as $userid => $user) {
-		if(!$user['active'] or $user['delete'] or empty($user['password'])) {
-			continue;
-		}
-
-		if ($_POST['login'] == $user['login'] and sha1($user['salt'] . md5($_POST['password'])) === $user['password']) {
-			$_SESSION['user'] = $userid;
-			$_SESSION['profil'] = $user['profil'];
-			$_SESSION['hash'] = plxUtils::charAleatoire(10);
-			$_SESSION['domain'] = SESSION_DOMAIN;
-			$_SESSION['ip'] = $_SERVER['REMOTE_ADDR']; // for security
-			# on définit $_SESSION['admin_lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
-			# ordre des traitements:
-			# page administration : chargement fichier prepend.php
-			# => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
-			# => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
-			$_SESSION['admin_lang'] = $user['lang'];
-			$plxAdmin->log_connexion($userid);
-			$connected = true;
-			break;
-		}
-	}
-
-	if ($connected) {
-		unset($_SESSION['maxtry']);
-		if($plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user']) == 0) {
-			# premier article
-			$redirect .= $_SESSION['profil'] > PROFIL_WRITER  ? 'profil.php' : 'article.php';
-		}
-		header('Location: ' . $redirect);
-		exit;
-	} else {
-		$msg = L_ERR_WRONG_PASSWORD;
-		$css = 'alert red';
-	}
-}
-
-# Password change
-if ($plxAdmin->aConf['lostpassword']) {
-	# Send lost password e-mail
-	if (!empty($_POST['lostpassword_id'])) {
-		if ($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id'])) {
-			$msg = L_LOST_PASSWORD_SUCCESS;
-			$css = 'alert green';
-		} else {
-			@error_log('Lost password error. ID : ' . $_POST['lostpassword_id'] . ' IP : ' . plxUtils::getIp());
-			$msg = L_UNKNOWN_ERROR;
+			$msg = L_ERR_WRONG_PASSWORD . ' (' . $_SESSION['maxtry']['counter']. ')';
 			$css = 'alert red';
 		}
 	}
-	# Change password
-	if (!empty($_POST['editpassword'])) {
-		unset($_SESSION['error']);
-		unset($_SESSION['info']);
-		$plxAdmin->editPassword($_POST);
-		if (!empty($msg = isset($_SESSION['error'][0]) ? $_SESSION['error'][0] : '')) {
-			$css = 'alert red';
-		} else {
-			if (!empty($msg = isset($_SESSION['info'][0]) ? $_SESSION['info'][0] : '')) {
+
+	# Password change
+	if(empty($css) and $plxAdmin->aConf['lostpassword']) {
+		if (!empty($_POST['lostpassword_id'])) {
+			# Send lost password e-mail
+			if ($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id'])) {
+				$msg = L_LOST_PASSWORD_SUCCESS;
 				$css = 'alert green';
+			} else {
+				@error_log('Lost password error. ID : ' . $_POST['lostpassword_id'] . ' IP : ' . plxUtils::getIp());
+				$msg = L_UNKNOWN_ERROR;
+				$css = 'alert red';
 			}
+		} elseif(!empty($_POST['editpassword'])) {
+			# Change password
+			unset($_SESSION['error']);
+			unset($_SESSION['info']);
+			$plxAdmin->editPassword($_POST);
+			if (!empty($msg = isset($_SESSION['error'][0]) ? $_SESSION['error'][0] : '')) {
+				$css = 'alert red';
+			} else {
+				if (!empty($msg = isset($_SESSION['info'][0]) ? $_SESSION['info'][0] : '')) {
+					$css = 'alert green';
+				}
+			}
+			unset($_SESSION['error']);
+			unset($_SESSION['info']);
 		}
-		unset($_SESSION['error']);
-		unset($_SESSION['info']);
 	}
 }
 
@@ -216,6 +226,8 @@ plxUtils::cleanHeaders();
 
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminAuthEndHead'));
+
+	$lostPasswordUrl = 'auth.php?p=' . $admin_url;
 ?>
 </head>
 <body id="auth">
@@ -245,7 +257,7 @@ plxUtils::cleanHeaders();
 							</div>
 							<div class="grid">
 								<div class="col sml-12">
-									<small><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
+									<small><a href="<?= $lostPasswordUrl ?>"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
 								</div>
 							</div>
 <?php
@@ -276,7 +288,7 @@ plxUtils::cleanHeaders();
 <?php plxUtils::printInputPasswords('full-width'); ?>
 								<div class="grid">
 									<div class="col sml-12">
-										<small><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
+										<small><a href="<?= $lostPasswordUrl ?>"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
 									</div>
 								</div>
 <?php
@@ -300,18 +312,17 @@ plxUtils::cleanHeaders();
 						<div class="alert red">
 							<?= L_LOST_PASSWORD_ERROR ?>
 						</div>
-						<small><a href="?p=/core/admin"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
+						<small><a href="<?= $lostPasswordUrl ?>"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
 <?php
 						# Hook plugins
 						eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError'));
 					}
 					break; # End of : case 'changepassword'
-				default: # Affichage du formulaire de connexion à l'administration
+				default: # Affichage du formulaire de connexion
 ?>
 <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) # Hook plugins
 ?>
-					<form action="<?= $_SERVER['PHP_SELF'] ?><?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
-						  method="post" id="form_auth">
+					<form id="form_auth" method="post" >
 						<fieldset>
 							<?= plxToken::getTokenPostMethod() ?>
 							<h1 class="h5 text-center"><strong><?= L_LOGIN_PAGE ?></strong></h1>

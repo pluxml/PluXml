@@ -56,9 +56,13 @@ var mediasManager = {
 	},
 
 	updImg: function(cibleId, imgPath) {
-		var id = window.opener.document.getElementById(cibleId);
+		const id = window.opener.document.getElementById(cibleId + '_img');
 		if (id) {
-			id.innerHTML = '<img src="' + imgPath + '" alt="" />';
+			id.innerHTML = '<img src="' + imgPath + '"/>';
+			const altText = window.opener.document.getElementById(cibleId + '_alt');
+			if(altText) {
+				altText.value = imgPath.replace(/.*\/([^\/]*)\.\w+$/, '$1');
+			}
 		}
 	},
 
@@ -90,7 +94,7 @@ var mediasManager = {
 						}
 						else {
 							mediasManager.addText(cibleId, link, replace);
-							mediasManager.updImg(cibleId + '_img', link);
+							mediasManager.updImg(cibleId, link);
 						}
 						window.close();
 						cibleId.focus();
@@ -110,7 +114,7 @@ var mediasManager = {
 		this.cibleId = cibleId;
 		this.replace = replace;
 		this.fallback = fallback;
-		const popup = window.open(unescape(this.opts.racine + this.opts.urlManager), this.opts.windowName, options);
+		const popup = window.open(unescape(this.opts.urlManager), this.opts.windowName, options);
 		if (popup) {
 			popup.focus();
 		}
