@@ -1583,7 +1583,12 @@ EOT;
 			 * core/admin/auth.php
 			 * core/admin/top.php
 			 * */
-			$files = glob(preg_replace('#/core/lib$#', '/*/*/theme/plucss.css', __DIR__));
+			if(DIRECTORY_SEPARATOR == '\\') {
+				// Hack against Windows !!!!!
+				$files = glob(preg_replace('#/core/lib$#', '/*/*/theme/plucss.css', str_replace('\\', '/', __DIR__)));
+			} else {
+				$files = glob(preg_replace('#/core/lib$#', '/*/*/theme/plucss.css', __DIR__));
+			}
 			$themeDir = !empty($files) ? PLX_ROOT . preg_replace('#.*/([^\/]+/\w[\w-]+/theme/)plucss.css$#', '$1', $files[0]) : PLX_CORE . 'admin/theme/';
 			$list = array(
 				$themeDir . 'plucss.css',
