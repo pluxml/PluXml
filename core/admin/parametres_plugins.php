@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -39,7 +39,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 			elseif(is_file(PLX_PLUGINS.$plugName.'/icon.gif'))
 				$icon=PLX_PLUGINS.$plugName.'/icon.gif';
 			else
-			$icon=PLX_CORE.'admin/theme/images/icon_plugin.png';
+			$icon='theme/images/icon_plugin.png';
 
 			# plugin activé uniquement côté site (<scope> == 'site')
 			if(empty($plugInstance) and $plugInstance=$plxAdmin->plxPlugins->getInstance($plugName)) {
@@ -124,7 +124,7 @@ if($sel=='1') {
 $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
 
 ?>
 
@@ -210,5 +210,5 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") !=
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include 'foot.php';
 ?>

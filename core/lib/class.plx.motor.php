@@ -612,8 +612,11 @@ class plxMotor {
 				$this->aUsers[$number]['infos']=plxUtils::getValue($values[$iTags['infos'][$i]]['value']);
 				$email = plxUtils::getValue($iTags['email'][$i]);
 				$this->aUsers[$number]['email']=plxUtils::getValue($values[$email]['value']);
-				$lang = isset($iTags['lang'][$i]) ? $values[$iTags['lang'][$i]]['value']:'';
-				$this->aUsers[$number]['lang'] = $lang!='' ? $lang : $this->aConf['default_lang'];
+				if(isset($iTags['lang'][$i])) {
+					$idx = $iTags['lang'][$i];
+					$lang = plxUtils::getValue($values[$idx]['value']);
+				}
+				$this->aUsers[$number]['lang'] = !empty($lang) ? $lang : $this->aConf['default_lang'];
 				$password_token = plxUtils::getValue($iTags['password_token'][$i]);
 				$this->aUsers[$number]['password_token']=plxUtils::getValue($values[$password_token]['value']);
 				$password_token_expiry = plxUtils::getValue($iTags['password_token_expiry'][$i]);

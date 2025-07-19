@@ -837,10 +837,13 @@ class plxUtils {
 		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https://': 'http://';
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
-		$dirname = preg_replace('/\/(core|plugins)\/(.*)/', '', dirname($_SERVER['SCRIPT_NAME']));
-		$racine = rtrim($protocol.$servername.$serverport.$dirname, '/\\').'/';
-		if(!plxUtils::checkSite($racine, false))
+		# Notice : on Windows dirname('/index.php') returns '\', on Linux returns '/' !!!
+		$path1 = preg_replace('#(?:/\w[\w-]+/\w[\w-]+)?/\w[\w-]+\.php$#', '', $_SERVER['SCRIPT_NAME']);
+		$racine = $protocol . $servername . $serverport . $path1 . '/';
+		if(!plxUtils::checkSite($racine, false)) {
 			die('Error: wrong or invalid url');
+		}
+
 		return $racine;
 	}
 
@@ -1581,10 +1584,16 @@ EOT;
 			 * core/admin/auth.php
 			 * core/admin/top.php
 			 * */
+
+			// Hack against Windows !!!!!
+			$dir1 = (DIRECTORY_SEPARATOR != '\\') ? __DIR__ : str_replace('\\', '/', __DIR__);
+
+			$files = glob(preg_replace('#/core/lib$#', '/*/*/theme/plucss.css', $dir1));
+			$themeDir = !empty($files) ? PLX_ROOT . preg_replace('#.*/([^\/]+/\w[\w-]+/theme/)plucss.css$#', '$1', $files[0]) : PLX_CORE . 'admin/theme/';
 			$list = array(
-				PLX_CORE . 'admin/theme/plucss.css',
-				PLX_CORE . 'admin/theme/theme.css',
-				PLX_CORE . 'admin/theme/fonts/fontello.css',
+				$themeDir . 'plucss.css',
+				$themeDir . 'theme.css',
+				$themeDir . 'fonts/fontello.css',
 			);
 			if(defined('PLX_CUSTOM_ADMINCSS_FILE')) {
 				$list[] = PLX_CUSTOM_ADMINCSS_FILE;
@@ -1609,7 +1618,7 @@ EOT;
 
 			# extra
 ?>
-	<link rel="icon" href="<?= PLX_CORE ?>admin/theme/images/favicon.png" />
+	<link rel="icon" href="<?= PLX_ROOT ?>favicon.png" />
 <?php
 		} elseif(!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
 			if($admin) {

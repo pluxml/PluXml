@@ -9,11 +9,17 @@
 <script src="<?php echo PLX_CORE ?>lib/drag-and-drop.js"></script>
 <script>
 	setMsg();
+<?php
+if(preg_match('#/(?:medias|article|categorie|statique)\.php$#', $_SERVER['SCRIPT_NAME'])) {
+?>
 	mediasManager.construct({
 		windowName : "<?php echo L_MEDIAS_TITLE ?>",
-		racine:	"<?php echo plxUtils::getRacine() ?>",
-		urlManager: "core/admin/medias.php"
+		racine:	'<?php echo $plxAdmin->racine ?>',
+		urlManager: '<?php echo preg_replace('#(\w[\w-]+\.php)$#', 'medias.php', $_SERVER['SCRIPT_NAME']) ?>',
 	});
+<?php
+}
+?>
 
 	(function(query) {
 

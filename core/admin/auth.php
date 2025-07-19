@@ -10,7 +10,7 @@
 # Constante pour retrouver la page d'authentification
 const PLX_AUTHPAGE = true;
 
-include __DIR__ . '/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -47,7 +47,7 @@ if (isset($_SESSION['maxtry'])) {
 }
 
 # Incrémente le nombre de tentative
-$redirect = $plxAdmin->aConf['racine'] . 'core/admin/';
+$redirect = preg_replace('#/auth\.php$#', '/', $_SERVER['PHP_SELF']);
 if (!empty($_GET['p']) and $css == '') {
 
     # on incremente la variable de session qui compte les tentatives de connexion
@@ -56,7 +56,7 @@ if (!empty($_GET['p']) and $css == '') {
     $racine = parse_url($plxAdmin->aConf['racine']);
     $get_p = parse_url(urldecode($_GET['p']));
     $css = (!$get_p or (isset($get_p['host']) and $racine['host'] != $get_p['host']));
-    if (!$css and !empty($get_p['path']) and file_exists(PLX_ROOT . 'core/admin/' . basename($get_p['path']))) {
+    if (!$css and !empty($get_p['path']) and file_exists(__DIR__ . '/' . basename($get_p['path']))) {
         # filtrage des parametres de l'url
         $query = '';
         if (isset($get_p['query'])) {
@@ -182,7 +182,7 @@ plxUtils::cleanHeaders();
                             </div>
                             <div class="grid">
                                 <div class="col sml-12">
-                                    <small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+                                    <small><a href="?p=index.php"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
                                 </div>
                             </div>
                             <?php
@@ -228,7 +228,7 @@ plxUtils::cleanHeaders();
                                 </div>
                                 <div class="grid">
                                     <div class="col sml-12">
-                                        <small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+                                        <small><a href="?p=index.php"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
                                     </div>
                                 </div>
                                 <?php
@@ -256,7 +256,7 @@ plxUtils::cleanHeaders();
                         <div class="alert red">
                             <?php echo L_LOST_PASSWORD_ERROR ?>
                         </div>
-                        <small><a href="?p=/core/admin"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
+                        <small><a href="?p=index.php"><?php echo L_LOST_PASSWORD_LOGIN ?></a></small>
                         <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthChangePasswordError')) # Hook plugins ?>
                         <p class="text-center">
                             <small><a class="back" href="<?php echo PLX_ROOT; ?>"><?php echo L_BACK_TO_SITE ?></a>

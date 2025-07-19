@@ -9,7 +9,13 @@
 				<?php $plxShow->lang('POWERED_BY') ?>&nbsp;<a href="<?= PLX_URL_REPO?>" title="<?php $plxShow->lang('PLUXML_DESCRIPTION') ?>">PluXml</a>
 				<?php $plxShow->lang('IN') ?>&nbsp;<?php $plxShow->chrono(); ?>&nbsp;
 				<?php $plxShow->httpEncoding() ?>&nbsp;-
-				<a rel="nofollow" href="<?php $plxShow->urlRewrite('core/admin/'); ?>" title="<?php $plxShow->lang('ADMINISTRATION') ?>"><?php $plxShow->lang('ADMINISTRATION') ?></a>
+<?php
+$admin = 'core/admin/';
+$auths = glob(PLX_ROOT . '*/*/auth.php');
+if(!empty($auths)) {
+	$admin = preg_replace('#.*/([^\/]+/\w[\w-]+/)auth\.php$#', '$1', $auths[0]);
+}
+?>				<a rel="nofollow" href="<?php $plxShow->urlRewrite($admin); ?>" title="<?php $plxShow->lang('ADMINISTRATION') ?>"><?php $plxShow->lang('ADMINISTRATION') ?></a>
 			</p>
 			<ul class="menu">
 				<?php  if($plxShow->plxMotor->aConf['enable_rss']) { ?>
@@ -22,7 +28,7 @@
 			</ul>
 		</div>
 	</footer>
-	
+
 </body>
 
 </html>

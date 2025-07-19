@@ -7,7 +7,7 @@
  * @author	Stephane F
  **/
 
-include __DIR__ .'/prepend.php';
+include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -63,7 +63,7 @@ class plxThemes {
 
 		$current = $theme == $this->activeTheme ? ' current' : '';
 		if($img=='')
-			return '<img class="img-preview'.$current.'" src="'.PLX_CORE.'admin/theme/images/theme.png" alt="" />';
+			return '<img class="img-preview'.$current.'" src="theme/images/theme.png" alt="" />';
 		else
 			return '<img class="img-preview'.$current.'" src="'.$img.'" alt="" />';
 	}
@@ -92,7 +92,7 @@ class plxThemes {
 }
 
 # On inclut le header
-include __DIR__ .'/top.php';
+include 'top.php';
 
 $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
 
@@ -162,5 +162,5 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
 # On inclut le footer
-include __DIR__ .'/foot.php';
+include 'foot.php';
 ?>
