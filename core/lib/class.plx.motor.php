@@ -18,7 +18,7 @@ class plxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
 	const ATTRIBUTES_USER = array('active', 'delete', 'profil');
-	const VALUES_USER = array('login', 'name', 'password', 'salt', 'infos', 'email', 'lang', 'password_token', 'password_token_expiry', 'last_connexion', 'connected_on');
+	const VALUES_USER = array('login', 'name', 'password', 'salt', 'infos', 'email', 'lang', 'last_connexion', 'password_token', 'password_token_expiry');
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
 	public $path_url = false; # chemin de l'url du site

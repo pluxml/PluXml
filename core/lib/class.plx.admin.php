@@ -636,11 +636,10 @@ EOT;
 			}
 		}
 
-		$last_connection =  $this->aUsers[$user_id]['connected_on'];
-		$this->aUsers[$user_id]['last_connexion'] = $last_connection;
-		$this->aUsers[$user_id]['connected_on'] = date('YmdHi');
+		$last_connection =  $this->aUsers[$user_id]['last_connexion'];
+		$this->aUsers[$user_id]['last_connexion'] = date('YmdHi');
 		if(!empty($last_connection)) {
-			plxMsg::Info(L_LAST_CONNEXION_ON . plxDate::formatDate($last_connection, '#num_day/#num_month/#num_year(4) #time'));
+			plxMsg::Info(L_LAST_CONNEXION_ON . plxDate::formatDate($last_connection, ' #num_day/#num_month/#num_year(4) #time'));
 		}
 
 		if($this->aUsers[$user_id]['profil'] === '0') {
@@ -688,7 +687,7 @@ EOT;
 				if(trim($user_infos['password']) != '') {
 					# Nouveau mot de passe
 					$salt = plxUtils::charAleatoire(10);
-					$password = sha1($salt . md5($content[$user_id.'_password']));
+					$password = sha1($salt . md5(trim($user_infos['password'])));
 				} elseif($new_user) {
 					# Obligatoire pour un nouvel utilisateur
 					$this->aUsers = $save;
