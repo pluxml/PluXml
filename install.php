@@ -169,15 +169,14 @@ function install($content, $config) {
 	<user number="001" active="1" profil="0" delete="0">
 		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
 		<name><![CDATA[<?= $content['name'] ?>]]></name>
-		<infos></infos>
+		<infos>Webmaster</infos>
 		<password><![CDATA[<?= sha1($salt . md5(trim($content['password1']))) ?>]]></password>
 		<salt><![CDATA[<?= $salt ?>]]></salt>
 		<email><![CDATA[<?= trim($content['email'])  ?>]]></email>
 		<lang><?= $config['default_lang'] ?></lang>
+		<last_connexion><?= date('YmdHi') ?></last_connexion>
 		<password_token></password_token>
 		<password_token_expiry></password_token_expiry>
-		<last_connexion></last_connexion>
-		<connected_on></connected_on>
 	</user>
 </document>
 <?php
