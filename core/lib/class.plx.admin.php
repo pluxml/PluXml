@@ -693,8 +693,7 @@ EOT;
 					# Obligatoire pour un nouvel utilisateur
 					$this->aUsers = $save;
 					return plxMsg::Error(L_ERR_PASSWORD_EMPTY . ' (' . L_CONFIG_USER . ' <em>' . $username . '</em>)');
-				}
-				else {
+				} else {
 					# On récupère l'ancien mot de passe
 					$salt = $this->aUsers[$user_id]['salt'];
 					$password = $this->aUsers[$user_id]['password'];
@@ -709,27 +708,29 @@ EOT;
 
 				$this->aUsers[$user_id]['login'] = $login;
 				$this->aUsers[$user_id]['name'] = $username;
+
+				# plxMotor::ATTRIBUTES_USER = array('active', 'delete', 'profil');
 				if($user_id == '001') {
 					$this->aUsers[$user_id]['active'] = 1;
+					$this->aUsers[$user_id]['delete'] = 0;
 					$this->aUsers[$user_id]['profil'] = PROFIL_ADMIN;
 				} else {
-					$this->aUsers[$user_id]['active'] = ($_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['active'] : $user_infos['active'];
-					$this->aUsers[$user_id]['profil'] = ($_SESSION['user'] == $user_id) ? $this->aUsers[$user_id]['profil'] : $user_infos['profil'];
+					if($_SESSION['user'] == $user_id) {
+						$this->aUsers[$user_id]['active'] = 1;
+						$this->aUsers[$user_id]['delete'] = 0;
+					} else {
+						$this->aUsers[$user_id]['active'] = $user_infos['active'];
+						$this->aUsers[$user_id]['delete'] = isset($user_infos['delete']) ? $user_infos['delete'] : 0;
+					}
+					$this->aUsers[$user_id]['profil'] = $user_infos['profil'];
 				}
+
 				$this->aUsers[$user_id]['password'] = $password;
 				$this->aUsers[$user_id]['salt'] = $salt;
 				$this->aUsers[$user_id]['email'] = $email;
-				$default_values = array(
-					'delete'				=> 0,
-					'lang'					=> $this->aConf['default_lang'],
-					'infos'					=> '',
-					'password_token'		=> '',
-					'password_token_expiry' => '',
-				);
-				foreach($default_values as $k=>$default) {
-					if(!isset($this->aUsers[$user_id][$k])) {
-						$this->aUsers[$user_id][$k] = $default;
-					}
+
+				if(!isset($this->aUsers[$user_id]['lang'])) {
+					$this->aUsers[$user_id]['lang'] = $this->aConf['default_lang'];
 				}
 
 				# Hook plugins
@@ -794,9 +795,11 @@ EOT;
 ?>
 	<user number="<?= $user_id ?>" active="<?= $user['active'] ?>" profil="<?= $user['profil'] ?>" delete="<?= $user['delete'] ?>">
 <?php
+		# plxMotor::VALUES_USER = array('login', 'name', 'password', 'salt', 'infos', 'email', 'lang', 'password_token', 'password_token_expiry', 'last_connexion', 'connected_on');
 		foreach(self::VALUES_USER as $k) {
+			$value = isset($user[$k]) ? $user[$k] : '';
 ?>
-		<<?= $k ?>><?= in_array($k, array('login', 'name', 'infos',)) ? plxUtils::strCheck($user[$k]) : $user[$k] ?></<?= $k ?>>
+		<<?= $k ?>><?= in_array($k, array('login', 'name', 'infos',)) ? plxUtils::strCheck($value) : $value ?></<?= $k ?>>
 <?php
 		}
 ?>

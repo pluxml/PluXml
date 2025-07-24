@@ -169,11 +169,11 @@ function install($content, $config) {
 	<user number="001" active="1" profil="0" delete="0">
 		<login><![CDATA[<?= trim($content['login']) ?>]]></login>
 		<name><![CDATA[<?= $content['name'] ?>]]></name>
-		<infos><![CDATA[]]></infos>
+		<infos></infos>
 		<password><![CDATA[<?= sha1($salt . md5(trim($content['password1']))) ?>]]></password>
 		<salt><![CDATA[<?= $salt ?>]]></salt>
 		<email><![CDATA[<?= trim($content['email'])  ?>]]></email>
-		<lang><![CDATA[<?= $config['default_lang'] ?>]]></lang>
+		<lang><?= $config['default_lang'] ?></lang>
 		<password_token></password_token>
 		<password_token_expiry></password_token_expiry>
 		<last_connexion></last_connexion>
