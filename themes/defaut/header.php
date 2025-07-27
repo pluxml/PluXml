@@ -13,6 +13,9 @@ if(method_exists($plxShow, 'authorList')) {
 	}
 }
 
+$auths = glob(PLX_ROOT . '*/*/auth.php');
+$admin = !empty($auths) ? preg_replace('#.*/([^\/]+/\w[\w-]+/)auth\.php$#', '$1', $auths[0]) : 'core/admin/';
+
 $contentClass = 'content col';
 if(!defined('FULL_WIDTH')) {
 	$contentClass .= ' med-9';

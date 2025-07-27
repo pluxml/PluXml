@@ -6,16 +6,24 @@
 
 <script src="js/functions.js?v=<?= PLX_VERSION ?>"></script>
 <script src="js/drag-and-drop.js"></script>
+<?php
+if(preg_match('#/(?:medias|article|categorie|statique)\.php$#', $_SERVER['SCRIPT_NAME'])) {
+?>
 <script src="js/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
+<script>
+	mediasManager.construct({
+		windowName : "<?= L_MEDIAS_TITLE ?>",
+		racine:	 '<?= PLX_ROOT ?>',
+		urlManager: '<?= preg_replace('#(\w[\w-]+\.php)$#', 'medias.php', $_SERVER['SCRIPT_NAME']) ?>',
+	});
+</script>
+<?php
+}
+?>
 <script src="js/multifiles.js?v=<?= PLX_VERSION ?>"></script>
 <script src="js/visual.js?v=<?= PLX_VERSION ?>"></script>
 <script>
 	setMsg();
-	mediasManager.construct({
-		windowName : "<?= L_MEDIAS_TITLE ?>",
-		racine:	"<?= PLX_ROOT ?>",
-		urlManager: "core/admin/medias.php"
-	});
 
 	(function(query) {
 

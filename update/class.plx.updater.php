@@ -185,8 +185,19 @@ class plxUpdater {
 		<ul>
 <?php
 		$dateRef = filemtime(PLX_CORE . 'lib/class.plx.motor.php') - 3600 * 24 * 182; # minus half an year
-		foreach(array('*', 'core/lib/*' , 'core/admin/*', 'update/*', 'themes/defaut/*.php') as $mask) {
-			foreach(glob(PLX_ROOT . $mask) as $filename) {
+		$masks = array(PLX_ROOT . '*', PLX_ROOT . 'core/lib/*' , PLX_ROOT . 'update/*', PLX_ROOT . 'themes/defaut/*.php');
+		$auths = glob(PLX_ROOT . '*/*/auth.php');
+		if(!empty($paths)) {
+			$auths = array_map(
+				function($value) {
+					return pre_replace('#/auth\.php$', '/*', $value); # on supprime le nom du fichier auth.php
+				},
+				$auths
+			);
+			$masks = array_merge($masks, $auths);
+		}
+		foreach($masks as $mask) {
+			foreach(glob($mask) as $filename) {
 				if(is_file($filename) and filemtime($filename) < $dateRef) {
 					try {
 						unlink($filename);

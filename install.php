@@ -235,6 +235,14 @@ function install($content, $config) {
 
 	if($content['data'] > 0){
 		# Création du premier article
+
+		$thumbnail = '';
+		$srcs = glob('*/*/theme/images/pluxml.png');
+		if(!empty($srcs)) {
+			$thumbnail = $config['medias'] . 'pluxml.png';
+			copy($srcs[0], PLX_ROOT . $thumbnail);
+		}
+
 		$html = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
 		ob_start();
 ?>
@@ -250,7 +258,7 @@ function install($content, $config) {
 	<title_htmltag></title_htmltag>
 	<date_creation><?= $now ?></date_creation>
 	<date_update><?= $now ?></date_update>
-	<thumbnail>core/admin/theme/images/pluxml.png</thumbnail>
+	<thumbnail><?= $thumbnail ?></thumbnail>
 	<thumbnail_alt><![CDATA[PluXml logo]]></thumbnail_alt>
 	<thumbnail_title><![CDATA[PluXml]]></thumbnail_title>
 </document>
@@ -325,6 +333,9 @@ else {
 }
 
 plxUtils::cleanHeaders();
+
+$auths = glob('*/*/auth.php');
+$admin_path = !empty($auths) ? preg_replace('#/auth.php$#', '/', $auths[0]) : 'core/admin/';
 
 ?>
 <!DOCTYPE html>
@@ -456,6 +467,6 @@ plxUtils::cleanHeaders();
 			</ul>
 		</section>
 	</main>
-	<script src="<?= PLX_CORE ?>admin/js/visual.js"></script>
+	<script src="<?= $admin_path ?>js/visual.js"></script>
 </body>
 </html>

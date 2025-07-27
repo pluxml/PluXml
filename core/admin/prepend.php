@@ -5,7 +5,7 @@ const PLX_CORE = PLX_ROOT . 'core/';
 const SESSION_DOMAIN = __DIR__ ;
 const SESSION_LIFETIME = 7200; // 2 hours
 
-include '../lib/config.php';
+include PLX_CORE . 'lib/config.php';
 
 /*
  * Close the session
@@ -75,15 +75,15 @@ eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));
 if(
 	!defined('PLX_AUTHPAGE') and
 	$_SESSION['profil'] > PROFIL_WRITER and
-	!preg_match('#/core/admin/profil\.php$#', $_SERVER['PHP_SELF'])
+	!preg_match('#/profil\.php$#', $_SERVER['PHP_SELF'])
 ) {
 	header('Location: profil.php');
 	exit;
 }
 
 # Chargement des fichiers de langue en fonction du profil de l'utilisateur connecté
-loadLang('../lang/'.$lang.'/admin.php');
-loadLang('../lang/'.$lang.'/core.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/admin.php');
+loadLang(PLX_CORE . 'lang/' . $lang . '/core.php');
 
 # on stocke la langue utilisée pour l'affichage de la zone d'administration en variable de session
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
