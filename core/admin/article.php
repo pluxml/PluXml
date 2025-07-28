@@ -41,7 +41,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	# Si profil PROFIL_WRITER on vérifie que l'article n'est pas celui d'un autre utilisateur
 	if($_SESSION['profil']==PROFIL_WRITER AND isset($_POST['artId']) AND $_POST['artId']!='0000') {
 		# On valide l'article
-		if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_POST['artId'].'.([home[draft|0-9,]*).'.$_SESSION['user'].'.(.+).xml$/')) == false) { # Article inexistant
+		if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_POST['artId'].'\.(\w+|\d{3}|,)\.'.$_SESSION['user'].'\.([\w-]+).xml$/')) == false) { # Article inexistant
 			plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 			header('Location: index.php');
 			exit;

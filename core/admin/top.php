@@ -64,7 +64,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						if ($arts_exists) {
 							$nbartsmod = $plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user'], '_');
 							$arts_mod = ($nbartsmod > 0) ? '<span class="badge" onclick="window.location=\'index.php?sel=mod\'; return false;">'.$nbartsmod.'</span>' : '';
-							$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php?sel=all', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
+							$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
 						}
 
 						if(isset($_GET['a'])) # edition article
@@ -83,7 +83,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 						if($arts_exists and $plxAdmin->nbComments('all') > 0) {
 							$nbComsOff = $plxAdmin->nbComments('offline');
 							$coms_offline = ($nbComsOff > 0) ? '<span class="badge" title="' . L_COMMENT_OFFLINE . '" onclick="window.location = \'comments.php?sel=offline\'; return false;">' . $nbComsOff . '</span>' : '';
-							$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, 'comments.php?sel=all', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
+							$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, 'comments.php', L_MENU_COMMENTS_TITLE, false, false, $coms_offline);
 						}
 					}
 

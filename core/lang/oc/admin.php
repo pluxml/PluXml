@@ -210,6 +210,7 @@ const L_COMMENT_EMAIL_FIELD = 'Corrièl';
 const L_COMMENT_STATUS_FIELD = 'Estatut';
 const L_COMMENT_LINKED_ARTICLE_FIELD = 'Article estacat';
 const L_COMMENT_ARTICLE_FIELD = 'Comentari';
+const L_COMMENT_ADMIN_ARTICLE_FIELD = 'Vòstre comentari';
 const L_COMMENT_DELETE_CONFIRM = 'Suprimir aqueste comentari ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Validar la publicacion';
 const L_COMMENT_OFFLINE_BUTTON = 'Metre fòra linha';

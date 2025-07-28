@@ -210,6 +210,7 @@ const L_COMMENT_EMAIL_FIELD = 'E-mail';
 const L_COMMENT_STATUS_FIELD = 'Статус';
 const L_COMMENT_LINKED_ARTICLE_FIELD = 'Связанные статьи';
 const L_COMMENT_ARTICLE_FIELD = 'Комментарии';
+const L_COMMENT_ADMIN_ARTICLE_FIELD = 'ваш комментарий';
 const L_COMMENT_DELETE_CONFIRM = 'Удалить этот комментарий?';
 const L_COMMENT_PUBLISH_BUTTON = 'Подтверждение публикации';
 const L_COMMENT_OFFLINE_BUTTON = 'Не отображать';

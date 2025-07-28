@@ -210,6 +210,7 @@ const L_COMMENT_EMAIL_FIELD = 'E-mail';
 const L_COMMENT_STATUS_FIELD = 'Status';
 const L_COMMENT_LINKED_ARTICLE_FIELD = 'Dołączony artykuł';
 const L_COMMENT_ARTICLE_FIELD = 'Komentarz';
+const L_COMMENT_ADMIN_ARTICLE_FIELD = 'Twój komentarz';
 const L_COMMENT_DELETE_CONFIRM = 'Usunąć ten komentarz ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Zatwierdz';
 const L_COMMENT_OFFLINE_BUTTON = 'Zdeaktywuj';
