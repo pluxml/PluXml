@@ -2005,11 +2005,15 @@ class plxShow
 	 * Méthode qui affiche la pagination
 	 *
 	 * @scope    global
-	 * @author    Florent MONTHEL, Stephane F
+	 * @author    Florent MONTHEL, Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function pagination()
 	{
-
+		/*
+		 * https://www.compart.com/en/unicode/search?q=angle+bracket
+		 * angle brackets :《〈〉》or &#12298; &#12296; &#12297; &#12299;
+		 * mathematical angle brackets : ⟪⟨⟩⟫ or &Lang; &LeftAngleBracket; &RightAngleBracket; &Rang;
+		 * */
 		$plxGlob_arts = clone $this->plxMotor->plxGlob_arts;
 		$aFiles = $plxGlob_arts->query($this->plxMotor->motif, 'art', '', 0, false, 'before');
 		$byhomepage = ($this->plxMotor->mode == 'home' and !empty($this->plxMotor->aConf['byhomepage']) and $this->plxMotor->aConf['byhomepage'] != $this->plxMotor->page) ? $this->plxMotor->aConf['byhomepage'] : $this->plxMotor->bypage;
@@ -2034,29 +2038,28 @@ class plxShow
 			# Si la page active > 1 on affiche un lien 1ère page
 			$url = $this->plxMotor->urlRewrite('?' . $arg_url); # Premiere page
 ?>
-	<a class="p_first" href="<?= $url ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>"><?= L_PAGINATION_FIRST ?></a>
+	<a class="p_first icon" href="<?= $url ?>" title="<?= L_PAGINATION_FIRST_TITLE ?>">《</a>
 <?php
 		}
-
 		$arg_url .= !empty($arg_url) ? '/' . L_PAGE_URL : L_PAGE_URL;
 
 		if ($this->plxMotor->page > 2) {
 			# Si la page active > 2 on affiche un lien page precedente
 			$url = $this->plxMotor->urlRewrite('?' . $arg_url . ($this->plxMotor->page - 1));
 ?>
-	<a class="p_prev" href="<?= $url ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>"><?= L_PAGINATION_PREVIOUS ?></a>
+	<a class="p_prev icon" href="<?= $url ?>" title="<?= L_PAGINATION_PREVIOUS_TITLE ?>">〈</a>
 <?php
 		}
 
 		# Affichage de la page courante
 		$last_page = ceil((sizeof($aFiles) -  $byhomepage) / $this->plxMotor->bypage) + 1;
-		printf('<span class="p_page p_current">' . L_PAGINATION . '</span>', $this->plxMotor->page, $last_page);
+		printf('&nbsp;<span class="p_page p_current">' . L_PAGINATION . '</span>', $this->plxMotor->page, $last_page);
 
 		if ($this->plxMotor->page < $last_page - 1) {
 			# Si la page active < derniere page on affiche un lien page suivante
 			$url = $this->plxMotor->urlRewrite('?' . $arg_url . ($this->plxMotor->page + 1));
 ?>
-	<a class="p_next" href="<?= $url ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>"><?= L_PAGINATION_NEXT ?></a>
+	&nbsp;<a class="p_next icon" href="<?= $url ?>" title="<?= L_PAGINATION_NEXT_TITLE ?>">〉</a>
 <?php
 		}
 
@@ -2064,7 +2067,7 @@ class plxShow
 			# Si la page active < derniere page, alors on affiche un lien derniere page
 			$url = $this->plxMotor->urlRewrite('?' . $arg_url . $last_page);
 ?>
-	<a class="p_last" href="<?= $url ?>" title="<?= L_PAGINATION_LAST_TITLE ?>"><?= L_PAGINATION_LAST ?></a>
+	<a class="p_last icon" href="<?= $url ?>" title="<?= L_PAGINATION_LAST_TITLE ?>">》</a>
 <?php
 		}
 	}

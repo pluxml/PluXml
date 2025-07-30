@@ -871,3 +871,17 @@ body.slideshow #slideshow.no-gallery {
 .art-main figcaption span {
 	word-wrap: nowrap;
 }
+
+.pagination {
+	width: fit-content;
+	margin: 0 auto;
+	border-color: ;
+	border: solid 1px #cdd2dd;
+	padding: 0.25rem 1rem;
+	border-radius: 1rem;
+	background-color: #e1f3f9;
+}
+
+.pagination .icon {
+	font-weight: bold;
+}
