@@ -88,7 +88,7 @@ $h2 = <<< EOT
 <h2>{$options[$comSel]}</h2>
 EOT;
 
-$comSelMotif = '/^' . $mods[$comSel] . '(' . $artMotif . ')\.(\d{10,})-(\d+)\.xml$/';
+$comSelMotif = '@^' . $mods[$comSel] . '(' . $artMotif . ')\.(\d{10,})\-(\d+)\.xml$@';
 
 $hasPagination = false;
 $nbComPagination = $plxAdmin->nbComments($comSelMotif);
@@ -157,16 +157,16 @@ if(!empty($_GET['a'])) {
 		<?= plxToken::getTokenPostMethod() ?>
 		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
 	</div>
-	<div class="grid">
 <?php
 if(!empty($portee)) {
 ?>
-		<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
+	<h3><a href="article.php?a=<?= $_GET['a'] ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $portee ?></a></h3>
 <?php
 }
 
 if(!empty($plxAdmin->aConf['clef'])) {
 ?>
+	<div class="grid">
 		<span class="sml-hide lrg-show col lrg-3"><?= L_COMMENTS_PRIVATE_FEEDS ?> :</span>
 		<ul class="menu feeds  col lrg-9">
 <?php
@@ -183,10 +183,10 @@ if(!empty($plxAdmin->aConf['clef'])) {
 				}
 ?>
 		</ul>
+	</div>
 <?php
 }
 ?>
-	</div>
 	<div class="scrollable-table<?= $hasPagination ? ' has-pagination' : '' ?>">
 		<table id="comments-table" class="full-width">
 			<thead>
@@ -223,12 +223,12 @@ if(!empty($plxAdmin->aConf['clef'])) {
 					$status = $plxAdmin->plxRecord_coms->f('status');
 					$id = $status.$artId.'.'.$plxAdmin->plxRecord_coms->f('numero');
 					$query = 'c=' . $id;
-					if(isset($_GET['a'])) {
-						$query .= '&a=' . $_GET['a'];
-					}
+					# if(isset($_GET['a'])) {
+					#	$query .= '&a=' . $_GET['a'];
+					# }
 					# On génère notre ligne
 ?>
-				<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
+				<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?><?= ($comSel != 'offline' and $status == '_') ? ' offline': '' ?>">
 					<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
 					<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
 <?php
@@ -256,14 +256,21 @@ if(!empty($plxAdmin->aConf['clef'])) {
 						echo '&nbsp;';
 					}
 ?></td>
-					<td class="action">
+					<td class="action text-center">
+<?php
+				if($status != '_' and $plxAdmin->plxRecord_coms->f('type') != 'admin') {
+					# Le commentaire est online et n'a pas été créé par le staff. On peut y répondre
+?>
 						<a href="comment_new.php?<?= $query ?>" title="<?= L_COMMENT_ANSWER ?>"><?= L_COMMENT_ANSWER ?></a>
+<?php
+				}
+?>
 						<a href="comment.php?<?= $query ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><?= L_COMMENT_EDIT ?></a>
 					</td>
 <?php
 					if(empty($portee)) {
 ?>
-					<td class="action text-right"><a href="article.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= ltrim($artId, '0') ?></a></td>
+					<td class="action text-center"><a href="comments.php?a=<?= $artId ?>" title="<?= L_COMMENT_ARTICLE_LINKED_TITLE ?>"><?= $artId ?></a></td>
 <?php
 					}
 ?>

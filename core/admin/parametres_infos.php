@@ -145,6 +145,11 @@ HEAD;
 	echo $content;
 	plxMsg::Display();
 }
+?>
+<div>
+	<a class="button" href="theme/fonts/fontello/demo.html" target="fontello-demo">Fontello demo</a>
+</div>
+<?php
 
 if(preg_match('%class="[^"]*\bred\b[^"]*"%', $maj)) {
 	# checkMaj() has failed with curl or allow_url_fopen is off

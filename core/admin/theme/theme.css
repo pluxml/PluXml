@@ -179,6 +179,13 @@ a.lnkdelete:hover {
 	display: inline-block;
 }
 
+#pagination .current {
+	background-color: transparent;
+	color: inherit;
+	border: solid #777 1px;
+	font-weight: bold;
+}
+
 @media (max-width: 1199px) {
 	.section .action-bar {
 		left: 25%;
@@ -1381,4 +1388,15 @@ fieldset.with-border {
 fieldset.with-border legend * {
 	margin: 0 1rem 0 0.5rem;
 	padding: 0;
+}
+
+/* --------- comments.php ----------- */
+#comments-table tr.offline {
+	color: #e43d29;
+}
+
+/* --------- comment_new.php ----------- */
+#comments-list .button {
+	padding: 0.3rem 0.7rem;
+	margin-left: 1.5rem;
 }

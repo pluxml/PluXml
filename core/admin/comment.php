@@ -73,7 +73,7 @@ if(!empty($_POST) AND !empty($_POST['comId'])) {
 }
 
 # On va récupérer les infos sur le commentaire
-if(!$plxAdmin->getCommentaires('/^' . plxUtils::nullbyteRemove($_GET['c']) . '\.xml$/', '', 0, 1, 'all')) {
+if(!$plxAdmin->getCommentaires('@^' . preg_quote(plxUtils::nullbyteRemove($_GET['c'])) . '\.xml$@', '', 0, 1, 'all')) {
 	# Commentaire inexistant, on redirige
 	plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 	header('Location: comments.php');
@@ -154,36 +154,40 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminCommentTop')); # Hook Plugins ?>
 
-	<ul class="unstyled-list">
-		<li><?= L_COMMENT_IP_FIELD ?>&nbsp;:&nbsp;<?= $plxAdmin->plxRecord_coms->f('ip'); ?></li>
-		<li><?= L_COMMENT_STATUS_FIELD ?>&nbsp;:&nbsp;<?= $statut; ?></li>
-		<li><?= L_COMMENT_TYPE_FIELD ?>&nbsp;:&nbsp;<strong><?= $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
-		<li><?= L_COMMENT_LINKED_ARTICLE_FIELD ?>&nbsp;:&nbsp;<?= $article; ?></li>
+	<ul class="unstyled-list grid">
+		<li class="col med-6"><?= L_COMMENT_LINKED_ARTICLE_FIELD ?>&nbsp;:&nbsp;<?= $article; ?></li>
+		<li class="col med-6"><?= L_COMMENT_IP_FIELD ?>&nbsp;:&nbsp;<?= $plxAdmin->plxRecord_coms->f('ip'); ?></li>
+		<li class="col med-6"><?= L_COMMENT_STATUS_FIELD ?>&nbsp;:&nbsp;<?= $statut; ?></li>
+		<li class="col med-6"><?= L_COMMENT_TYPE_FIELD ?>&nbsp;:&nbsp;<strong><?= $plxAdmin->plxRecord_coms->f('type'); ?></strong></li>
 	</ul>
 
 	<fieldset>
 		<?php plxUtils::printInput('comId', $_GET['c'], 'hidden'); ?>
 
-		<div class="grid inline-form publication">
-			<div class="col sml-12">
-				<label><?= L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('date_publication_day', $date['day'], 'text', '2-2', false, 'day', date('d'), 'pattern="\d{2}"', true); ?>
-				<?php plxUtils::printInput('date_publication_month', $date['month'], 'text', '2-2', false, 'month', date('m'), 'pattern="\d{2}"', true); ?>
-				<?php plxUtils::printInput('date_publication_year', $date['year'], 'text', '2-4', false, 'year', date('Y'), 'pattern="\d{4}"', true); ?>
-				<?php plxUtils::printInput('date_publication_time', $date['time'], 'text', '2-5', false, 'time', date('H:i'), 'pattern="\d{2}:\d{2}"', true); ?>
-				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
-			</div>
-		</div>
-
 		<div class="grid">
-			<div class="col sml-12">
+			<div class="col med-6">
 				<label for="id_author" class="required"><?= L_COMMENT_AUTHOR_FIELD ?>&nbsp;:</label>
 				<?php plxUtils::printInput('author', $author, 'text', '40-255', false, '', '', '', true); ?>
 			</div>
-		</div>
+			<div class="col med-6">
+				<label><?= L_COMMENT_DATE_FIELD ?>&nbsp;:</label>
+				<?php plxUtils::printInput('date_publication_day', $date['day'], 'text', '2-2', false, 'day', date('d'), 'pattern="\d{2}"', true); ?>
+				<?php plxUtils::printInput('date_publication_month', $date['month'], 'text', '2-2', false, 'month', date('m'), 'pattern="\d{2}"', true); ?>
+				<?php plxUtils::printInput('date_publication_year', $date['year'], 'text', '3-4', false, 'year', date('Y'), 'pattern="\d{4}"', true); ?>
+				<?php plxUtils::printInput('date_publication_time', $date['time'], 'text', '4-5', false, 'time', date('H:i'), 'pattern="\d{2}:\d{2}"', true); ?>
+				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
+			</div>
+			<div class="col med-6">
+				<label for="id_mail"><?= L_COMMENT_EMAIL_FIELD ?>&nbsp;:<?php
 
-		<div class="grid">
-			<div class="col sml-12">
+				$mail = $plxAdmin->plxRecord_coms->f('mail');
+				if(!empty($mail)) {
+					?>&nbsp;<a href="mailto:<?= $mail ?>"><?= $mail ?></a><?php
+				}
+?></label>
+				<?php plxUtils::printInput('mail', plxUtils::strCheck($mail), 'text', '40-255'); ?>
+			</div>
+			<div class="col med-6">
 				<label for="id_site"><?= L_COMMENT_SITE_FIELD ?>&nbsp;:<?php
 
 				if(!empty($site)) {
@@ -194,21 +198,8 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 			</div>
 		</div>
 
-		<div class="grid">
-			<div class="col sml-12">
-				<label for="id_mail"><?= L_COMMENT_EMAIL_FIELD ?>&nbsp;:<?php
-
-				$mail = $plxAdmin->plxRecord_coms->f('mail');
-				if(!empty($mail)) {
-					?>&nbsp;<a href="mailto:<?= $mail ?>"><?= $mail ?></a><?php
-				}
-?></label>
-				<?php plxUtils::printInput('mail', plxUtils::strCheck($mail), 'text', '40-255'); ?>
-			</div>
-		</div>
-
-		<div class="grid">
-			<div class="col sml-12">
+		<div>
+			<div>
 				<label for="id_content" class="required"><?= L_COMMENT_ARTICLE_FIELD ?>&nbsp;:</label>
 				<?php plxUtils::printArea('content', $content, 0, 7, false, 'full-width', 'required placeholder=" "'); ?>
 				<?php eval($plxAdmin->plxPlugins->callHook('AdminComment')); # Hook Plugins ?>

@@ -211,6 +211,7 @@ const L_COMMENT_EMAIL_FIELD = 'e-mail';
 const L_COMMENT_STATUS_FIELD = 'Statut';
 const L_COMMENT_LINKED_ARTICLE_FIELD = 'Article attaché';
 const L_COMMENT_ARTICLE_FIELD = 'Commentaire';
+const L_COMMENT_ADMIN_ARTICLE_FIELD = 'Votre commentaire';
 const L_COMMENT_DELETE_CONFIRM = 'Supprimer ce commentaire ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Valider la publication';
 const L_COMMENT_OFFLINE_BUTTON = 'Mettre hors ligne';

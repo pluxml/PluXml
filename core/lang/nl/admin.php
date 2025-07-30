@@ -210,6 +210,7 @@ const L_COMMENT_EMAIL_FIELD = 'E-mail';
 const L_COMMENT_STATUS_FIELD = 'Statuut';
 const L_COMMENT_LINKED_ARTICLE_FIELD = 'Artikel vastgepind';
 const L_COMMENT_ARTICLE_FIELD = 'Commentaar;';
+const L_COMMENT_ADMIN_ARTICLE_FIELD = 'Jouw commentaar';
 const L_COMMENT_DELETE_CONFIRM = 'Commentaar verwijderen ?';
 const L_COMMENT_PUBLISH_BUTTON = 'Publicatie bevestigen';
 const L_COMMENT_OFFLINE_BUTTON = 'Offline plaatsen';

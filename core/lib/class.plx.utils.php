@@ -1797,7 +1797,7 @@ EOT;
 			$list = array(
 				$themeDir . 'plucss.css',
 				$themeDir . 'theme.css',
-				$themeDir . 'fonts/fontello.css',
+				$themeDir . 'fonts/fontello/css/fontello.css',
 			);
 			if(defined('PLX_CUSTOM_ADMINCSS_FILE')) {
 				$list[] = PLX_CUSTOM_ADMINCSS_FILE;
@@ -1888,7 +1888,7 @@ EOT;
 <?php
 			} else {
 ?>
-					<li><span class="current btn--info"><?= $i ?></span></li>
+					<li><span class="current button"><?= $i ?></span></li>
 <?php
 			}
 		}

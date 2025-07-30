@@ -145,35 +145,58 @@ class plxGlob {
 			foreach ($this->aFiles as $filename) {
 
 				if(preg_match($motif, $filename, $matches)) {
-					switch($type) {
-						case 'art':
-							# On decoupe le nom du fichier en artId, cats, user, date, url, extension xml
-							list($artId, $cats, $user, $date, $url) = explode('.',$filename);
-							if(!empty($url)) {
-								# Tri selon les dates de publication (article)
-								# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-								$key = preg_match('#^r?alpha$#', $tri) ? $url . '~' . $artId : $date . $artId;
-								$isPinned = preg_match('#^pin,#', $cats); # article épinglé
-								switch($publi) {
-									case 'before':
-										if($date <= $today) {
-											# Priorité aux articles épinglés
-											if($tri == 'desc') {
-												$key = ($isPinned ? '1' : '0') . $key;
-											} elseif($tri == 'asc') {
-												$key = ($isPinned ? '0' : '1') . $key;
+					if(!empty($tri)) {
+						switch($type) {
+							case 'art':
+								# On decoupe le nom du fichier en artId, cats, user, date, url, extension xml
+								list($artId, $cats, $user, $date, $url) = explode('.',$filename);
+								if(!empty($url)) {
+									# Tri selon les dates de publication (article)
+									# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
+									$key = preg_match('#^r?alpha$#', $tri) ? $url . '~' . $artId : $date . $artId;
+									$isPinned = preg_match('#^pin,#', $cats); # article épinglé
+									switch($publi) {
+										case 'before':
+											if($date <= $today) {
+												# Priorité aux articles épinglés
+												if($tri == 'desc') {
+													$key = ($isPinned ? '1' : '0') . $key;
+												} elseif($tri == 'asc') {
+													$key = ($isPinned ? '0' : '1') . $key;
+												}
+												$array[$key] = $filename;
 											}
+											break;
+										case 'after':
+											if($date >= $today) {
+												# Priorité aux articles épinglés
+												if($tri == 'desc') {
+													$key = ($isPinned ? '1' : '0') . $key;
+												} elseif($tri == 'asc') {
+													$key = ($isPinned ? '0' : '1') . $key;
+												}
+												$array[$key] = $filename;
+											}
+											break;
+										case 'all':
+											$array[$key] = $filename;
+											break;
+									}
+								}
+								break;
+							case 'com':
+								# le nom du fichier en artId, time, ordre dans $matches
+								# Tri selon les dates de publications (commentaire)
+								$key = $matches[2] . $matches[1] . str_pad($matches[3], 3, '0', STR_PAD_LEFT); # 999 coms maxi pour un article
+								# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
+								switch($publi) {
+									case'before':
+										if($matches[2] <= $now) {
 											$array[$key] = $filename;
 										}
 										break;
 									case 'after':
-										if($date >= $today) {
-											# Priorité aux articles épinglés
-											if($tri == 'desc') {
-												$key = ($isPinned ? '1' : '0') . $key;
-											} elseif($tri == 'asc') {
-												$key = ($isPinned ? '0' : '1') . $key;
-											}
+										if($matches[2] >= $now) {
 											$array[$key] = $filename;
 										}
 										break;
@@ -181,32 +204,14 @@ class plxGlob {
 										$array[$key] = $filename;
 										break;
 								}
-							}
-							break;
-						case 'com':
-							# le nom du fichier en artId, time, ordre dans $matches
-							# Tri selon les dates de publications (commentaire)
-							$key = $matches[2] . $matches[1] . str_pad($matches[3], 3, '0', STR_PAD_LEFT); # 999 coms maxi pour un article
-							# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-							switch($publi) {
-								case'before':
-									if($matches[2] <= $now) {
-										$array[$key] = $filename;
-									}
-									break;
-								case 'after':
-									if($matches[2] >= $now) {
-										$array[$key] = $filename;
-									}
-									break;
-								case 'all':
-									$array[$key] = $filename;
-									break;
-							}
-							break;
-						default:
-							# Aucun tri
-							$array[] = $filename;
+								break;
+							default:
+								# Aucun tri
+								$array[] = $filename;
+						}
+					} else {
+						# Aucun tri
+						$array[] = $filename;
 					}
 				}
 			}

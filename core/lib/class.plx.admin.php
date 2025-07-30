@@ -69,20 +69,23 @@ class plxAdmin extends plxMotor {
 		# On teste pour avoir le numéro de page
 		$this->page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
 			'options' => array(
-				'default' => 1,
 				'min' => 1,
 				'max' => 9999,
 			)
 		));
 
-		# Initialisation
 		if(preg_match('#/(index|comments|statiques|categories)\.php$#', $_SERVER['SCRIPT_NAME'], $matches)) {
 			$pageName = $matches[1];
 			if(!empty($_POST['sel_cat'])) {
 				$this->page = 1;
-			} else {
+			} elseif(empty($this->page)) {
 				$this->page = !empty($_SESSION['page'][$pageName]) ? intval($_SESSION['page'][$pageName]) : 1;
 			}
+
+			# On sauvegarde
+			$_SESSION['page'][$pageName] = $this->page;
+		} elseif(empty($this->page)) {
+			$this->page = 1;
 		}
 	}
 
