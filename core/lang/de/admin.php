@@ -569,6 +569,8 @@ const L_STATICS_SRC = 'Ändern';
 const L_STATICS_NEW_PAGE = 'Neue Seite';
 const L_STATICS_UPDATE = 'Änderungen speichern';
 const L_ERR_STATIC_ALREADY_EXISTS = 'wird bereits verwendet';
+const L_ALL_STATICS = 'Alle Seiten';
+const L_UNCLASSIFIED_STATICS = 'Nicht kategorisierte Seiten';
 
 // top.php
 

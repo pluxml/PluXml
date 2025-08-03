@@ -569,6 +569,8 @@ const L_STATICS_SRC = 'Edit';
 const L_STATICS_NEW_PAGE = 'New page';
 const L_STATICS_UPDATE = 'Modify static page list';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Title already used';
+const L_ALL_STATICS = 'Every page';
+const L_UNCLASSIFIED_STATICS = 'Unclassified pages';
 
 // top.php
 

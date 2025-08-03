@@ -568,6 +568,8 @@ const L_STATICS_SRC = 'Редактировать';
 const L_STATICS_NEW_PAGE = 'Новая страница';
 const L_STATICS_UPDATE = 'Сохранить список статических страниц';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Такой заголовок страницы уже используется';
+const L_ALL_STATICS = 'Все страницы';
+const L_UNCLASSIFIED_STATICS = 'Страницы без рубрики';
 
 // top.php
 

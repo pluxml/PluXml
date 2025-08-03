@@ -568,6 +568,8 @@ const L_STATICS_SRC = 'Edycja';
 const L_STATICS_NEW_PAGE = 'Nowa strona';
 const L_STATICS_UPDATE = 'Zapisz zmiany';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Strona o tym tytule już istnieje';
+const L_ALL_STATICS = 'Wszystkie strony';
+const L_UNCLASSIFIED_STATICS = 'Strony bez kategorii';
 
 // top.php
 

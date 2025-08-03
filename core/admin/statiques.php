@@ -18,18 +18,66 @@ eval($plxAdmin->plxPlugins->callHook('AdminStaticsPrepend'));
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
 
-# On édite les pages statiques
-if(!empty($_POST)) {
-	if(isset($_POST['homeStatic']))
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>$_POST['homeStatic'][0]));
-	else
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>''));
-	$plxAdmin->editStatiques($_POST);
-	header('Location: statiques.php');
-	exit;
+# On liste les groupes pour les pages statiques
+if($plxAdmin->aStats) {
+	$groups = array_unique(array_map(
+		function($value) {
+			return $value['group'];
+		},
+		$plxAdmin->aStats
+	));
+	if(!empty($groups)) {
+		sort($groups);
+		$dataList = array_filter($groups, function($value) { return !empty($value); });
+		// array_unshift($groups, 'UNCLASSIFIED_STATICS');
+		array_unshift($groups, 'ALL_STATICS');
+		$groups = array_flip($groups);
+		array_walk(
+			$groups,
+			function(&$value, $index) {
+				switch($index) {
+					# gestion des langues
+					case '':
+						$value = L_UNCLASSIFIED_STATICS;
+						break;
+					case 'ALL_STATICS':
+						$value = L_ALL_STATICS;
+						break;
+					default:
+						$value = $index;
+				}
+			}
+		);
+	}
 }
 
 $aTemplates = $plxAdmin->getTemplatesTheme();
+
+# On édite les pages statiques
+if(!empty($_POST)) {
+	if(isset($_POST['static_group_btn'])) {
+		if(!empty($groups) and array_key_exists($_POST['static_group'], $groups)) {
+			$_SESSION['static_group'] = $_POST['static_group'];
+		}
+	} else {
+		if(isset($_POST['homeStatic'])) {
+			$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>$_POST['homeStatic'][0]));
+		} else {
+			$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>''));
+		}
+		$plxAdmin->editStatiques($_POST);
+		header('Location: statiques.php');
+		exit;
+	}
+}
+
+if(!isset($_SESSION['static_group'])) {
+	$_SESSION['static_group'] = 'ALL_STATICS';
+}
+
+if(!isset($_SESSION['static_template'])) {
+	$_SESSION['static_template'] = 'ALL_TEMPLATES';
+}
 
 # On inclut le header
 include 'top.php';
@@ -44,19 +92,47 @@ function checkBox(cb) {
 	}
 }
 </script>
-
+<?php
+if(!empty($dataList))  {
+?>
+<datalist id="static_group_list">
+<?php
+	foreach($dataList as $v) {
+?>
+	<option value="<?= $v ?>"></option>
+<?php
+	}
+?>
+</datalist>
+<?php
+}
+?>
 <form action="statiques.php" method="post" id="form_statics">
 
 	<div class="inline-form action-bar">
 		<h2><?= L_STATICS_PAGE_TITLE ?></h2>
 		<p>&nbsp;</p>
-		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection'); ?>
-		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?= L_CONFIRM_DELETE ?>')" />
-		<?= plxToken::getTokenPostMethod() ?>
-		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
+		<div class="grid">
+			<div class="col <?= !empty($groups) ? 'med-6' : '' ?>">
+				<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection'); ?>
+				<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?= L_CONFIRM_DELETE ?>')" />
+				<?= plxToken::getTokenPostMethod() ?>
+				<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
+				<input type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
+			</div>
+<?php
+if(!empty($groups)) {
+?>
+			<div class="col med-6 med-text-right">
+				<span><?= L_STATICS_GROUP ?></span>
+&nbsp;:&nbsp;<?php plxUtils::printSelect('static_group', $groups, $_SESSION['static_group']); ?>
+				<input type="submit" name="static_group_btn" value="<?= L_SEARCH ?>">
+			</div>
+<?php
+}
+?>
+		</div>
 	</div>
-
 <?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
 
 	<div class="scrollable-table">
@@ -82,8 +158,16 @@ function checkBox(cb) {
 			$ordre = 1;
 			# Si on a des pages statiques
 			if($plxAdmin->aStats) {
-				foreach($plxAdmin->aStats as $k=>$v) { # Pour chaque page statique
+				if(empty($groups) or $_SESSION['static_group'] == 'ALL_STATICS') {
+					$aStats = $plxAdmin->aStats;
+				} else {
+					$aStats= array_filter($plxAdmin->aStats, function($value) {
+						return ($value['group'] == $_SESSION['static_group']);
+					});
+				}
+				foreach($aStats as $k=>$v) { # Pour chaque page statique
 					$selected = ($plxAdmin->aConf['homestatic'] == $k) ? ' checked="checked"' : '';
+					$groupValue = plxUtils::strCheck($v['group']);
 ?>
 				<tr>
 					<td>
@@ -94,7 +178,13 @@ function checkBox(cb) {
 					<td>
 						<input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $k ?>"<?= $selected ?> onclick="checkBox('<?= $ordre ?>')" />
 					</td><td>
-						<?php plxUtils::printInput($k.'_group', plxUtils::strCheck($v['group']), 'text', '-100'); ?>
+						<?php
+					if(!empty($dataList)) {
+						plxUtils::printInput($k.'_group', $groupValue, 'text', '-100', false, '', '', 'list="static_group_list"');
+					} else {
+						plxUtils::printInput($k.'_group', $groupValue, 'text', '-100');
+					}
+						?>
 					</td><td>
 						<?php plxUtils::printInput($k.'_name', plxUtils::strCheck($v['name']), 'text', '-255', false, '', '', '', true); ?>
 					</td><td>
@@ -147,7 +237,11 @@ function checkBox(cb) {
 					<td colspan="3"><?= L_STATICS_NEW_PAGE ?></td>
 					<td>
 						<input type="hidden" name="staticNum[]" value="<?= $new_staticid ?>" />
-						<?php plxUtils::printInput($new_staticid.'_group', '', 'text', '-100'); ?>
+						<?php if(!empty($dataList)) {
+							plxUtils::printInput($new_staticid.'_group', '', 'text', '-100', false, '', '', 'list="static_group_list"');
+						} else {
+							plxUtils::printInput($new_staticid.'_group', '', 'text', '-100');
+						} ?>
 					</td><td>
 						<?php plxUtils::printInput($new_staticid.'_name', '', 'text', '-255'); ?>
 					</td><td>

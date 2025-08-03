@@ -568,6 +568,8 @@ const L_STATICS_SRC = 'Editare';
 const L_STATICS_NEW_PAGE = 'Pagină nouă';
 const L_STATICS_UPDATE = 'Modifică lista paginilor statice';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Titlul paginii static este deja folosit';
+const L_ALL_STATICS = 'Toate paginile';
+const L_UNCLASSIFIED_STATICS = 'Pagini necategorizate';
 
 // top.php
 

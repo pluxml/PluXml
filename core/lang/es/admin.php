@@ -569,6 +569,8 @@ const L_STATICS_SRC = 'Editar';
 const L_STATICS_NEW_PAGE = 'Nueva página';
 const L_STATICS_UPDATE = 'Modificar la lista de las páginas estáticas';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Ya existe una página con ese título';
+const L_ALL_STATICS = 'Todas las páginas';
+const L_UNCLASSIFIED_STATICS = 'Páginas sin categorizar';
 
 // top.php
 

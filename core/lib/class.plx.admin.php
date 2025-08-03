@@ -1158,6 +1158,25 @@ EOT;
 		}
 		# mise à jour de la liste des pages statiques
 		elseif(!empty($content['update'])) {
+			if(isset($content['static_group']) and $content['static_group'] != 'ALL_STATICS') {
+				$cnt = 1;
+				array_walk(
+					$this->aStats,
+					function (&$v, $k) use(&$cnt) {
+						$v['ordre'] = $cnt; $cnt++;
+					}
+				);
+				# On liste lesnumeros d'ordre des pages dans le grope sélectionné
+				$orderGroup = array_values(array_map(
+					function($value) { return $value['ordre']; },
+					 array_filter(
+						$this->aStats,
+						function($value) use($content) {
+							return ($value['group'] == $content['static_group']);
+						}
+					)
+				));
+			}
 			foreach($content['staticNum'] as $static_id) {
 				$stat_name = $content[$static_id.'_name'];
 				# La page statique doit avoir un titre
@@ -1179,7 +1198,7 @@ EOT;
 					$this->aStats[$static_id]['url'] = plxUtils::checkSite($url) ? $url : $stat_url;
 					$this->aStats[$static_id]['template'] = $content[$static_id . '_template'];;
 					$this->aStats[$static_id]['active'] = $content[$static_id . '_active'];
-					$this->aStats[$static_id]['ordre'] = intval($content[$static_id . '_ordre']);
+					$this->aStats[$static_id]['ordre'] = empty($orderGroup) ? intval($content[$static_id . '_ordre']) : $orderGroup[$content[$static_id . '_ordre'] - 1];
 					$this->aStats[$static_id]['menu'] = $content[$static_id . '_menu'];
 
 					# Hook plugins
