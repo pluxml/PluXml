@@ -568,6 +568,8 @@ const L_STATICS_SRC = 'Editar';
 const L_STATICS_NEW_PAGE = 'Página nova';
 const L_STATICS_UPDATE = 'Alterar a lista das páginas státicas';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Como já foi utilizado';
+const L_ALL_STATICS = 'Todas as Páginas';
+const L_UNCLASSIFIED_STATICS = 'Páginas Sem Categoria';
 
 // top.php
 

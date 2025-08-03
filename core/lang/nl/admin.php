@@ -569,6 +569,8 @@ const L_STATICS_SRC = 'Aanpassen';
 const L_STATICS_NEW_PAGE = 'Nieuwe pagina';
 const L_STATICS_UPDATE = 'Lijst van statische paginas bewerken';
 const L_ERR_STATIC_ALREADY_EXISTS = 'Zoals reeds gebruikt';
+const L_ALL_STATICS = 'Alle pagina\'s';
+const L_UNCLASSIFIED_STATICS = 'Niet-gecategoriseerde pagina\'';
 
 // top.php
 
