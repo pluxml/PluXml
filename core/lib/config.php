@@ -1,6 +1,6 @@
 <?php
 const PLX_DEBUG = false;
-const PLX_VERSION = '5.8.19';
+const PLX_VERSION = '5.8.20';
 const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 const PLX_URL_LAST_RELEASE_GITHUB = 'https://api.github.com/repos/pluxml/PluXml/releases/latest';

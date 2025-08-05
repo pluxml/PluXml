@@ -1,3 +1,10 @@
+## PluXml 5.8.20 (2025/08/05)
+FIX For _num property in plxCapcha.php
+[+] core/admin folder can be moved or rename now
+[+] Refacto plxUtils::printLinkCss()
+FIX Fix about list of active plugins
+FIX Compatiblity for free.fr
+
 ## PluXml 5.8.19 (2025/03/05)
 [+] Refacto plxAdmin::checkMaj() with Github repository
 FIX plxUtils::MINIFY_PATTERNS (E.G.: ":is")
