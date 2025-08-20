@@ -568,8 +568,9 @@ article:after {
 		padding-left: 1.5rem;
 	}
 	.nav {
-		position: sticky;
+		position: fixed;
 		top: 0;
+		right: 0;
 		z-index: 4; /* responsive slide is in 3 */
 		height: auto;
 		max-height: 80%;
@@ -584,7 +585,7 @@ article:after {
 		padding: 0;
 	}
 	ul.menu {
-		padding: 0 15px 7.5px 15px;
+		padding: 0 0.5rem 0.5rem 2rem;
 	}
 	.menu li {
 		background: #efefef;
@@ -662,8 +663,9 @@ article:after {
 		padding-top: 0rem;
 	}
 	ul.menu {
-		margin: 0 2px .5px 2px;
-		border-radius: 15px;
+		margin: 0 0.75rem .25rem 0.25rem;
+		border-radius: 1rem;
+		border: #258fd6 solid 1px;
 	}
 
 	.header h1 * {
