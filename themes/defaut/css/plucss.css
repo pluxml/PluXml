@@ -536,10 +536,6 @@ input[type="submit"].yellow:hover {
 }
 
 @media (max-width: 767px) {
-	.responsive-menu { /* fix old android browser : good position*/
-		left: 0;
-		right: 0;
-	}
 	.responsive-menu > ul {
 		display: none;
 	}
