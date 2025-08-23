@@ -135,7 +135,7 @@ function pluginsList($plugins, $defaultLang, $plugins_actifs) {
 		}
 	}
 	else {
-		$colspan = empty($_SESSION['selPlugins']) ? 4 : 5;
+		$colspan = empty($sel) ? 4 : 5;
 ?>
 
 		<tr>
@@ -157,9 +157,15 @@ if($nbActivePlugins == 0) {
 	$sel = 0;
 } else {
 	$sel = filter_input(INPUT_GET, 'sel', FILTER_VALIDATE_INT , array('min_range' => 0, 'max_range' => 1, 'default' => 1));
+	if($sel === NULL) {
+		# On a cliqué dans la sidebar menu
+		$sel = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : 1;
+	} else {
+		$_SESSION['selPlugins'] = $sel;
+	}
 }
-$_SESSION['selPlugins'] = $sel;
-if($sel == 0) {
+
+if(empty($sel)) {
 	# plugins désactivés
 	$aSelList = array(
 		'' => L_FOR_SELECTION,
@@ -192,8 +198,8 @@ include 'top.php';
 		</h2>
 
 		<ul class="menu">
-			<li><a class="<?= empty($_SESSION['selPlugins']) ? '' : 'selected' ?>" href="parametres_plugins.php?sel=1"><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;(<?= $nbActivePlugins ?>)</li>
-			<li><a class="<?= empty($_SESSION['selPlugins']) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;(<?= $nbInactivePlugins ?>)</li>
+			<li><a class="<?= !empty($sel) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=1"><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;(<?= $nbActivePlugins ?>)</li>
+			<li><a class="<?= empty($sel) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;(<?= $nbInactivePlugins ?>)</li>
 		</ul>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
 		<input type="submit" name="activate" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')" />
@@ -221,7 +227,7 @@ if($sel == 1 and $nbActivePlugins > 1) {
 						<input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?= L_SEARCH ?>..." title="<?= L_SEARCH ?>" />
 					</th>
 <?php
-if(!empty($_SESSION['selPlugins'])) {
+if(!empty($sel)) {
 ?>
 					<th title="<?= L_PLUGINS_LOADING_SORT ?>"><?= L_CAT_LIST_ORDER ?></th>
 <?php
