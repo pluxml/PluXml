@@ -838,7 +838,8 @@ class plxUtils {
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		# Notice : on Windows dirname('/index.php') returns '\', on Linux returns '/' !!!
-		$path1 = preg_replace('#(?:/\w[\w-]+/\w[\w-]+)?/\w[\w-]+\.php$#', '', $_SERVER['SCRIPT_NAME']);
+		$path_admin = defined('PLX_ADMIN') ? '(?:/\w[\w-]+/\w[\w-]+)' : '';
+		$path1 = preg_replace('#' . $path_admin . '/\w[\w-]+\.php$#', '', $_SERVER['SCRIPT_NAME']);
 		$racine = $protocol . $servername . $serverport . $path1 . '/';
 		if(!plxUtils::checkSite($racine, false)) {
 			die('Error: wrong or invalid url');
