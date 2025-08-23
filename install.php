@@ -317,7 +317,7 @@ if(!empty($_POST['install'])) {
 	elseif(empty(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL))) $msg = L_ERR_MISSING_EMAIL;
 	else {
 		install($_POST, $config);
-		header('Location: '.plxUtils::getRacine());
+		header('Location: index.php');
 		exit;
 	}
 	$name=$_POST['name'];
