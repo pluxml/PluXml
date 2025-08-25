@@ -1,3 +1,9 @@
+## PluXml 5.8.21 (2025/08/25)
+FIX Redirection to install.php in the front-office
+[+] Enhance minify.php
+FIX plxUtils::getRacine() and install.php
+FIX CSS in defaut theme for menu on smartphones
+
 ## PluXml 5.8.20 (2025/08/05)
 FIX For _num property in plxCapcha.php
 [+] core/admin folder can be moved or rename now
