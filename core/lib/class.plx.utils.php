@@ -1671,7 +1671,12 @@ EOT;
 			$currentValue = $choice1;
 		}
 
-		$children = array_filter(scandir($root),
+		$temp = scandir($root); # may return false;
+		if(empty($temp)) {
+			return;
+		}
+
+		$children = array_filter($temp,
 			function ($item) use(&$modeDir, &$root, &$extsText) {# détermine s'il s'agit de fichier ou dossier php 5.3+
 				$ext = pathinfo($item,PATHINFO_EXTENSION);
 				return  ($item[0] != '.' and

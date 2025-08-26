@@ -1407,7 +1407,12 @@ class plxMotor {
 	 **/
 	public function getTemplates($templateFolder) {
 		if(is_dir($templateFolder)) {
-			$files = array_diff(scandir($templateFolder), array('..', '.'));
+			$temp = scandir($templateFolder); # may return false
+			if(empty($temp)) {
+				return;
+			}
+
+			$files = array_diff($temp, array('..', '.'));
 			if (!empty($files)) {
 				foreach ($files as $filename) {
 					if(is_file($templateFolder . $filename)) {
