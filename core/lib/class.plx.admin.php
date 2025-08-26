@@ -466,7 +466,14 @@ EOT;
 	 * @author	Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function checkProfil($profil, $redirect=true) {
-		$success = is_array($profil) ? in_array($_SESSION['profil'], $profil) : ($_SESSION['profil'] == intval($profil));
+		if(is_bool($redirect)) {
+			$success = ($_SESSION['profil'] == intval($profil));
+		} else {
+			$aProfils = func_get_args(); # multi users
+			$redirect = true;
+			$success = in_array($_SESSION['profil'], $aProfils);
+		}
+
 		if(!$redirect) {
 			return $success;
 		}
