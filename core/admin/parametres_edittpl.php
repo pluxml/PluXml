@@ -29,7 +29,11 @@ function listFolderFiles($dir, $firstLevel = true) {
 		$offset = strlen($dir);
 	}
 
-	$ffs = scandir($dir);
+	$ffs = scandir($dir); # may return false;
+	if(empty($ffs)) {
+		return $content;
+	}
+
 	foreach($ffs as $ff){
 		# On ignore les fichiers/dossiers cachés et les "dossiers" . et ..
 		if($ff[0] == '.') {
