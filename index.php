@@ -23,7 +23,6 @@ include(PLX_CORE.'lib/class.plx.capcha.php');
 include(PLX_CORE.'lib/class.plx.erreur.php');
 include(PLX_CORE.'lib/class.plx.record.php');
 include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.feed.php');
 include(PLX_CORE.'lib/class.plx.show.php');
 include(PLX_CORE.'lib/class.plx.encrypt.php');
 include(PLX_CORE.'lib/class.plx.plugins.php');
