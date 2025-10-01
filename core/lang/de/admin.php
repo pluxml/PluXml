@@ -450,8 +450,11 @@ $LANG = array (
 
 		'L_CONFIG_INFOS_TITLE' => 'PluXml Systemnachrichten',
 		'L_CONFIG_INFOS_DESCRIPTION' => 'Systemstatus und nützliche Informationen zum Betrieb von PluXml',
+		'L_CONFIG_INFOS_NB_ARTS'	=> 'Anzahl der Artikel:',
 		'L_CONFIG_INFOS_NB_CATS' => 'Anzahl der Kategorien:',
 		'L_CONFIG_INFOS_NB_STATICS' => 'Anzahl der statischen Seiten:',
+		'L_CONFIG_INFOS_NB_USERS' => 'Anzahl der Nutzer:',
+		'L_CONFIG_INFOS_NEXT_ID_ART' => 'Nächste Artikelnummer:',
 		'L_CONFIG_INFOS_WRITER' => 'Benutzername der aktuellen SESSION:',
 		'L_PLUXML_CHECK_VERSION' => 'Aktualitätsprüfung von PluXml (über PluXml.org)',
 		'L_PLUXML_UPDATE_UNAVAILABLE' => 'Update hat nicht funktioniert. Sie sollten \'allow_url_fopen\' aktivieren.',

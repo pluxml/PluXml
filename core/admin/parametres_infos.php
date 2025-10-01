@@ -67,10 +67,14 @@ if($emailBuild) {
 	}
 ?>
 </ul>
-<p><?php echo L_CONFIG_INFOS_NB_CATS ?> <?php echo sizeof($plxAdmin->aCats); ?></p>
-<p><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></p>
-<p><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
-
+<ul class="unstyled-list">
+	<li><?php echo L_CONFIG_INFOS_NB_ARTS ?> <?php echo sizeof($plxAdmin->plxGlob_arts->aFiles); ?></li>
+	<li><?php echo L_CONFIG_INFOS_NB_CATS ?> <?php echo sizeof($plxAdmin->aCats); ?></li>
+	<li><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></li>
+	<li><?php echo L_CONFIG_INFOS_NB_USERS ?> <?php echo sizeof($plxAdmin->aUsers); ?></li>
+	<li><?php echo L_CONFIG_INFOS_NEXT_ID_ART ?> <?php echo $plxAdmin->nextIdArticle(); ?></li>
+	<li><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></li>
+</ul>
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 
 <?php

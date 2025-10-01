@@ -449,8 +449,11 @@ $LANG = array (
 
 		'L_CONFIG_INFOS_TITLE' => 'Информация о PluXml',
 		'L_CONFIG_INFOS_DESCRIPTION' => 'Информацио о установленной PluXml, может быть полезна, при необходмости, для восстановления.',
+		'L_CONFIG_INFOS_NB_ARTS'	=> 'количество статей :',
 		'L_CONFIG_INFOS_NB_CATS' => 'N° категорий :',
 		'L_CONFIG_INFOS_NB_STATICS' => 'N° статических страниц :',
+		'L_CONFIG_INFOS_NB_USERS' => 'количество пользователей :',
+		'L_CONFIG_INFOS_NEXT_ID_ART' => 'следующий идентификатор статьи :',
 		'L_CONFIG_INFOS_WRITER' => 'N° пользователей за сессию :',
 		'L_PLUXML_CHECK_VERSION' => 'Проверка номера версии PluXml на официальном сайте PluXml.org :',
 		'L_PLUXML_UPDATE_UNAVAILABLE' => 'Невозможно проверить обновление, так как адрес \'allow_url_fopen\' заблокирован на этом компьютере',

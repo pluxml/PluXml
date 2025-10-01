@@ -447,8 +447,11 @@ $LANG = array (
 
 		'L_CONFIG_INFOS_TITLE' => 'Informacions relativas a PluXml',
 		'L_CONFIG_INFOS_DESCRIPTION' => 'Aquelas informacions vos entresenhan sul foncionament de vòstre PluXml e se pòdon averar utilas per son depanatge.',
+		'L_CONFIG_INFOS_NB_ARTS'	=> 'Nombre d\'articles :',
 		'L_CONFIG_INFOS_NB_CATS' => 'Nombre de categorias :',
 		'L_CONFIG_INFOS_NB_STATICS' => 'Nombre de paginas estaticas :',
+		'L_CONFIG_INFOS_NB_USERS' => 'Nombre d\'utilizaires :',
+		'L_CONFIG_INFOS_NEXT_ID_ART' => 'Identificant seguent de l\'article :',
 		'L_CONFIG_INFOS_WRITER' => 'Nom del redactor en session :',
 		'L_PLUXML_CHECK_VERSION' => 'Verificacion del numerò de version de PluXml sul site oficial PluXml.org',
 		'L_PLUXML_UPDATE_UNAVAILABLE' => 'Impossible de verificar las mesas a jorn mentre que \'allow_url_fopen\' es desactivat sul sistèma',
