@@ -991,7 +991,7 @@ class plxShow
     public function nbAllArt($f1 = 'L_NO_ARTICLE', $f2 = '#nb L_ARTICLE', $f3 = '#nb L_ARTICLES')
     {
 
-        $nb = $this->plxMotor->nbArticles('published', '[0-9]{3}', '', 'before');
+        $nb = $this->plxMotor->nbArticles('published', '\d{3}', '', 'before');
 
         if ($nb == 0)
             $txt = str_replace('L_NO_ARTICLE', L_NO_ARTICLE, $f1);
@@ -1054,9 +1054,9 @@ class plxShow
         }
         if (empty($motif)) {# pour le hook. motif par defaut s'il n'a point créé cette variable
             if ($all)
-                $motif = '/^[0-9]{4}.(?:[0-9]|home|,)*(?:' . $cats . ')(?:[0-9]|home|,)*.[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+                $motif = '/^\d{4}.(?:\d|home|,)*(?:' . $cats . ')(?:\d|home|,)*.\d{3}.\d{12}.[a-z0-9-]+.xml$/';
             else
-                $motif = '/^[0-9]{4}.((?:[0-9]|home|,)*(?:' . $cats . ')(?:[0-9]|home|,)*).[0-9]{3}.[0-9]{12}.[a-z0-9-]+.xml$/';
+                $motif = '/^\d{4}.((?:\d|home|,)*(?:' . $cats . ')(?:\d|home|,)*).\d{3}.\d{12}.[a-z0-9-]+.xml$/';
         }
 
         # Nouvel objet plxGlob et récupération des fichiers
@@ -1092,11 +1092,11 @@ class plxShow
                 $author = plxUtils::getValue($this->plxMotor->aUsers[$art['author']]['name']);
                 $row = str_replace('#art_author', plxUtils::strCheck($author), $row);
                 $row = str_replace('#art_title', plxUtils::strCheck($art['title']), $row);
-                $strlength = preg_match('/#art_chapo\(([0-9]+)\)/', $row, $capture) ? $capture[1] : '100';
+                $strlength = preg_match('/#art_chapo\((\d+)\)/', $row, $capture) ? $capture[1] : '100';
                 $chapo = plxUtils::truncate($art['chapo'], $strlength, $ending, true, true);
                 $row = str_replace('#art_chapo(' . $strlength . ')', '#art_chapo', $row);
                 $row = str_replace('#art_chapo', $chapo, $row);
-                $strlength = preg_match('/#art_content\(([0-9]+)\)/', $row, $capture) ? $capture[1] : '100';
+                $strlength = preg_match('/#art_content\((\d+)\)/', $row, $capture) ? $capture[1] : '100';
                 $content = plxUtils::truncate($art['content'], $strlength, $ending, true, true);
                 $row = str_replace('#art_content(' . $strlength . ')', '#art_content', $row);
                 $row = str_replace('#art_content', $content, $row);
@@ -1371,9 +1371,9 @@ class plxShow
 
         # Génération de notre motif
         if (empty($art_id))
-            $motif = '/^[0-9]{4}.[0-9]{10}-[0-9]+.xml$/';
+            $motif = '/^\d{4}.\d{10}-\d+.xml$/';
         else
-            $motif = '/^' . str_pad($art_id, 4, '0', STR_PAD_LEFT) . '.[0-9]{10}-[0-9]+.xml$/';
+            $motif = '/^' . str_pad($art_id, 4, '0', STR_PAD_LEFT) . '.\d{10}-\d+.xml$/';
 
         $count = 1;
         $datetime = date('YmdHi');
@@ -1398,7 +1398,7 @@ class plxShow
                             $row = str_replace('#com_id', $com['index'], $row);
                             $row = str_replace('#com_url', $this->plxMotor->urlRewrite($url), $row);
                             $row = str_replace('#com_author', $com['author'], $row);
-                            while (preg_match('/#com_content\(([0-9]+)\)/', $row, $capture)) {
+                            while (preg_match('/#com_content\((\d+)\)/', $row, $capture)) {
                                 if ($com['author'] == 'admin')
                                     $row = str_replace('#com_content(' . $capture[1] . ')', plxUtils::strCut($content, $capture[1]), $row);
                                 else
@@ -1447,7 +1447,7 @@ class plxShow
         $menus = array();
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticListBegin'))) return;
-        $home = ((empty($this->plxMotor->get) or preg_match('/^page[0-9]*/', $this->plxMotor->get)) and basename($_SERVER['SCRIPT_NAME']) == "index.php");
+        $home = ((empty($this->plxMotor->get) or preg_match('/^page\d*/', $this->plxMotor->get)) and basename($_SERVER['SCRIPT_NAME']) == "index.php");
         # Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
         if ($extra != '') {
             $stat = str_replace('#static_id', 'static-home', $format);
@@ -1678,11 +1678,11 @@ class plxShow
             $regx = '/^' . str_pad($id, 3, '0', STR_PAD_LEFT) . '.[a-z0-9-]+.php$/';
         else { # inclusion à partir du titre de la page
             $url = plxUtils::urlify($id);
-            $regx = '/^[0-9]{3}.' . $url . '.php$/';
+            $regx = '/^\d{3}.' . $url . '.php$/';
         }
         if ($files = $plxGlob_stats->query($regx)) {
             # on récupère l'id de la page pour tester si elle est active
-            if (preg_match('/^([0-9]{3}).(.*).php$/', $files[0], $c)) {
+            if (preg_match('/^(\d{3}).(.*).php$/', $files[0], $c)) {
                 if ($this->plxMotor->aStats[$c[1]]['active'])
                     include PLX_ROOT . $this->plxMotor->aConf['racine_statiques'] . $files[0];
             }
@@ -1706,7 +1706,7 @@ class plxShow
 
             # on supprime le n° de page courante dans l'url
             $arg_url = $this->plxMotor->get;
-            if (preg_match('/(\/?page[0-9]+)$/', $arg_url, $capture)) {
+            if (preg_match('/(\/?page\d+)$/', $arg_url, $capture)) {
                 $arg_url = str_replace($capture[1], '', $arg_url);
             }
             # Calcul des pages

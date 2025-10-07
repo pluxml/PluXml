@@ -150,7 +150,7 @@ class plxUtils {
 	public static function isValidIp($ip) {
 
 		if($ip=='::1') return false;
-		$ipv4 = '/((^|\.)(2[0-5]{2}|[01][0-9]{2}|[0-9]{1,2})(?=\.|$)){4}/';
+		$ipv4 = '/((^|\.)(2[0-5]{2}|[01]\d{2}|\d{1,2})(?=\.|$)){4}/';
 		$ipv6 = '/^:?([a-fA-F0-9]{1,4}(:|.)?){0,8}(:|::)?([a-fA-F0-9]{1,4}(:|.)?){0,8}$/';
 		return (preg_match($ipv4, $ip) OR preg_match($ipv6, $ip));
 
@@ -836,7 +836,7 @@ class plxUtils {
 
 		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https://': 'http://';
 		$servername = $_SERVER['HTTP_HOST'];
-		$serverport = (preg_match('/:[0-9]+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
+		$serverport = (preg_match('/:\d+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
 		# Notice : on Windows dirname('/index.php') returns '\', on Linux returns '/' !!!
 		$path_admin = defined('PLX_ADMIN') ? '(?:/\w[\w-]+/\w[\w-]+)' : '';
 		$path1 = preg_replace('#' . $path_admin . '/\w[\w-]+\.php$#', '', $_SERVER['SCRIPT_NAME']);
@@ -1261,13 +1261,13 @@ class plxUtils {
 				}
 
 				# calculate the length of the plain text part of the line; handle entities as one character
-				$content_length = strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
+				$content_length = strlen(preg_replace('/&[0-9a-z]{2,8};|&#\d{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
 				if ($total_length+$content_length> $length) {
 					# the number of characters which are left
 					$left = $length - $total_length;
 					$entities_length = 0;
 					# search for html entities
-					if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
+					if (preg_match_all('/&[0-9a-z]{2,8};|&#\d{1,7};|&#x[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
 						# calculate the real length of all entities in the legal range
 						foreach ($entities[0] as $entity) {
 							if ($entity[1]+1-$entities_length <= $left) {

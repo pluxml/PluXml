@@ -602,7 +602,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$filenameArrayCat = explode(",", $filenameArray[1]);
 					if (in_array($cat_id, $filenameArrayCat)) {
 						$key = array_search($cat_id, $filenameArrayCat);
-						if(count(preg_grep('@[0-9]{3}@', $filenameArrayCat)) > 1) {
+						if(count(preg_grep('@\d{3}@', $filenameArrayCat)) > 1) {
 							// this article has more than one category
 							unset($filenameArrayCat[$key]);
 						}
@@ -943,7 +943,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$id = $this->nextIdArticle();
 
 		# Vérifie l'intégrité de l'identifiant
-		if(!preg_match('/^_?[0-9]{4}$/',$id)) {
+		if(!preg_match('/^_?\d{4}$/',$id)) {
 			$id='';
 			return L_ERR_INVALID_ARTICLE_IDENT;
 		}
@@ -1005,7 +1005,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# On genère le nom de notre fichier
 		$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
-		if(!preg_match('/^[0-9]{12}$/',$time)) $time = date('YmdHi'); # Check de la date au cas ou...
+		if(!preg_match('/^\d{12}$/',$time)) $time = date('YmdHi'); # Check de la date au cas ou...
 		if(empty($content['catId'])) $content['catId']=array('000'); # Catégorie non classée
 		$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$time.'.'.$content['url'].'.xml';
 		# On va mettre à jour notre fichier
@@ -1050,7 +1050,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function delArticle($id) {
 
 		# Vérification de l'intégrité de l'identifiant
-		if(!preg_match('/^_?[0-9]{4}$/',$id))
+		if(!preg_match('/^_?\d{4}$/',$id))
 			return L_ERR_INVALID_ARTICLE_IDENT;
 		# Variable d'état
 		$resDelArt = $resDelCom = true;
@@ -1209,7 +1209,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(!file_exists($oldfilename)) # Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		# Modérer ou valider ?
-		if(preg_match('/([[:punct:]]?)[0-9]{4}.[0-9]{10}-[0-9]+$/',$id,$capture)) {
+		if(preg_match('/([[:punct:]]?)\d{4}.\d{10}-\d+$/',$id,$capture)) {
 			$id=str_replace($capture[1],'',$id);
 		}
 		if($mod=='offline')

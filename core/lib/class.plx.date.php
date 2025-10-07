@@ -139,7 +139,7 @@ class plxDate {
 	public static function date2Array($date) {
 
 		$capture = '';
-		preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9:]{2})([0-9:]{2})/',$date,$capture);
+		preg_match('/(\d{4})(\d{2})(\d{2})([0-9:]{2})([0-9:]{2})/',$date,$capture);
 		return array (
 			'year' 	=> $capture[1],
 			'month' => $capture[2],
@@ -162,7 +162,7 @@ class plxDate {
 	 **/
 	public static function checkDate($day, $month, $year, $time) {
 
-		return (preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])(0[1-9]|1[0-2])[1-2][0-9]{3}([0-1][0-9]|2[0-3])\:[0-5][0-9]$/",$day.$month.$year.$time)
+		return (preg_match("/^(0[1-9]|[1-2]\d|3[0-1])(0[1-9]|1[0-2])[1-2]\d{3}([0-1]\d|2[0-3])\:[0-5]\d$/",$day.$month.$year.$time)
 			AND checkdate($month, $day, $year));
 
 	}

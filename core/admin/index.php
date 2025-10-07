@@ -23,7 +23,7 @@ if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']
 }
 
 # Récuperation de l'id de l'utilisateur
-$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
+$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '\d{3}' : $_SESSION['user']);
 
 # Récuperation des paramètres
 if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published', 'draft','mod'))) {
@@ -70,7 +70,7 @@ case '000' :
 	$catIdSel = str_replace('FILTER', '000', $catIdSel); break;
 case 'home':
 	$catIdSel = str_replace('FILTER', 'home', $catIdSel); break;
-case preg_match('/^[0-9]{3}$/', $_SESSION['sel_cat'])==1:
+case preg_match('/^\d{3}$/', $_SESSION['sel_cat'])==1:
 	$catIdSel = str_replace('FILTER', $_SESSION['sel_cat'], $catIdSel);
 }
 
@@ -87,9 +87,9 @@ $_GET['artTitle'] = $artTitle;
 # On génère notre motif de recherche
 if(is_numeric($_GET['artTitle'])) {
 	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
-	$motif = '/^'.$mod.$artId.'.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*).xml$/';
+	$motif = '/^'.$mod.$artId.'.'.$catIdSel.'.'.$userId.'.\d{12}.(.*).xml$/';
 } else {
-	$motif = '/^'.$mod.'[0-9]{4}.'.$catIdSel.'.'.$userId.'.[0-9]{12}.(.*)'.plxUtils::urlify($_GET['artTitle']).'(.*).xml$/';
+	$motif = '/^'.$mod.'\d{4}.'.$catIdSel.'.'.$userId.'.\d{12}.(.*)'.plxUtils::urlify($_GET['artTitle']).'(.*).xml$/';
 }
 # Calcul du nombre de page si on fait une recherche
 if($_GET['artTitle']!='') {

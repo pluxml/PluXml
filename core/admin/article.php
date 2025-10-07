@@ -17,7 +17,7 @@ if(!isset($_POST['preview']))
 eval($plxAdmin->plxPlugins->callHook('AdminArticlePrepend'));
 
 # validation de l'id de l'article si passé en parametre
-if(isset($_GET['a']) AND !preg_match('/^_?[0-9]{4}$/',$_GET['a'])) {
+if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
 	header('Location: index.php');
 	exit;
@@ -102,7 +102,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		# Vérification de l'unicité de l'url
 		$url = plxUtils::urlify(!empty($_POST['url']) ? $_POST['url'] : $_POST['title']);
 		foreach($plxAdmin->plxGlob_arts->aFiles as $numart => $filename) {
-			if(preg_match("/^_?[0-9]{4}.([0-9,|home|draft]*).[0-9]{3}.[0-9]{12}.$url.xml$/", $filename)) {
+			if(preg_match("/^_?\d{4}.([0-9,|home|draft]*).\d{3}.\d{12}.$url.xml$/", $filename)) {
 				if($numart!=str_replace('_', '',$_POST['artId'])) {
 					$valid = plxMsg::Error(L_ERR_URL_ALREADY_EXISTS." : ".plxUtils::strCheck($url)) AND $valid;
 				}
@@ -295,7 +295,7 @@ function refreshImg(dta) {
 					echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="moderate" value="'.L_ARTICLE_MODERATE_BUTTON.'"/> ';
 					echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
 				} else {
-					if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a'])) { # en attente
+					if(isset($_GET['a']) AND preg_match('/^_\d{4}$/',$_GET['a'])) { # en attente
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
 						echo '<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span><input class="red" type="submit" name="delete" value="'.L_DELETE.'" onclick="Check=confirm(\''.L_ARTICLE_DELETE_CONFIRM.'\');if(Check==false) {return false;} else {this.form.target=\'_self\';return true;}" /> ';
@@ -309,7 +309,7 @@ function refreshImg(dta) {
 					echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="' . L_ARTICLE_DRAFT_BUTTON . '"/> ';
 					echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
 				} else {
-					if(!isset($_GET['a']) OR preg_match('/^_[0-9]{4}$/',$_GET['a']))
+					if(!isset($_GET['a']) OR preg_match('/^_\d{4}$/',$_GET['a']))
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="publish" value="' . L_ARTICLE_PUBLISHING_BUTTON . '"/> ';
 					else
 						echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="update" value="' . L_ARTICLE_UPDATE_BUTTON . '"/> ';
@@ -403,7 +403,7 @@ function refreshImg(dta) {
 			<p><?php echo L_ARTICLE_STATUS ?>&nbsp;:&nbsp;
 				<strong>
 				<?php
-				if(isset($_GET['a']) AND preg_match('/^_[0-9]{4}$/',$_GET['a']))
+				if(isset($_GET['a']) AND preg_match('/^_\d{4}$/',$_GET['a']))
 					echo L_AWAITING;
 				elseif(in_array('draft', $catId)) {
 					echo L_DRAFT;

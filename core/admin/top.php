@@ -68,7 +68,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 			<ul id="responsive-menu" class="menu vertical expanded">
 <?php
 					$menus = array();
-					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '[0-9]{3}' : $_SESSION['user']);
+					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '\d{3}' : $_SESSION['user']);
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
 					$arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.'index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
 					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);

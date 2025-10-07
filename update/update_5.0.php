@@ -70,7 +70,7 @@ class update_5_0 extends plxUpdate{
 	public function step5() {
 		echo L_UPDATE_ARTICLES_CONVERSION."<br />";
 		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
-        if($files = $plxGlob_arts->query('/^[0-9]{4}.([0-9]{3}|home|draft).[0-9]{12}.[a-z0-9-]+.xml$/','art')) {
+        if($files = $plxGlob_arts->query('/^\d{4}.(\d{3}|home|draft).\d{12}.[\w-]+.xml$/','art')) {
 			foreach($files as $id => $filename){
 				$art = $this->parseArticle(PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename);
 				if(!$this->plxAdmin->editArticle($art, $art['numero'])) {
@@ -162,7 +162,7 @@ class update_5_0 extends plxUpdate{
 	private	function artInfoFromFilename($filename) {
 
 		# On effectue notre capture d'informations
-		preg_match('/([0-9]{4}).([0-9]{3}|home|draft).([0-9]{12}).([a-z0-9-]+).xml$/',$filename,$capture);
+		preg_match('/(\d{4}).(\d{3}|home|draft).(\d{12}).([\w-]+).xml$/',$filename,$capture);
 		return array('artId'=>$capture[1],'catId'=>$capture[2],'artDate'=>$capture[3],'artUrl'=>$capture[4]);
 	}
 
@@ -188,7 +188,7 @@ class update_5_0 extends plxUpdate{
 		$art['artId'] = $art['numero'];
 		$art['catId'] = array($tmp['catId']);
 		$art['url'] = $tmp['artUrl'];
-		preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{4})/',$tmp['artDate'],$capture);
+		preg_match('/(\w{4})(\d{2})(\w{2})(\w{4})/',$tmp['artDate'],$capture);
 		$art['date'] = array ('year' => $capture[1],'month' => $capture[2],'day' => $capture[3],'time' => $capture[4]);
 		$art['day'] = $art['date']['day'];
 		$art['month'] =$art['date']['month'];
