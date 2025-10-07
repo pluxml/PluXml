@@ -11,9 +11,12 @@
 				<?php $plxShow->httpEncoding() ?>&nbsp;-
 <?php
 $admin = 'core/admin/';
-$auths = glob(PLX_ROOT . '*/*/auth.php');
-if(!empty($auths)) {
-	$admin = preg_replace('#.*/([^\/]+/\w[\w-]+/)auth\.php$#', '$1', $auths[0]);
+if(!file_exists(PLX_ROOT . $admin)) {
+	$auths = glob(PLX_ROOT . '*/*/auth.php');
+
+	if(!empty($auths)) {
+		$admin = preg_replace('#.*/([^\/]+/\w[\w-]+/)auth\.php$#', '$1', $auths[0]);
+	}
 }
 ?>				<a rel="nofollow" href="<?php $plxShow->urlRewrite($admin); ?>" title="<?php $plxShow->lang('ADMINISTRATION') ?>"><?php $plxShow->lang('ADMINISTRATION') ?></a>
 			</p>
