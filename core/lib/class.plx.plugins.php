@@ -25,8 +25,10 @@ class plxPlugins {
 		$pluginName = false;
 
 		register_shutdown_function(function() {
+			# Pour une version en développement, PLX_DEBUG est à "true" et tous les messages d'erreur seront affichés
 			$error = error_get_last();
-			if($error != null and !empty($error['file']) and (PLX_DEBUG or $error['type'] < E_DEPRECATED)) { # error['type'] < 8192
+			$error_bits_mask = (E_ERROR|E_PARSE|E_CORE_ERROR|E_COMPILE_ERROR|E_USER_ERROR|E_RECOVERABLE_ERROR);
+			if($error != null and !empty($error['file']) and (PLX_DEBUG or !empty($error['type'] & $error_bits_mask))) {
 				# For hiding sensitive informations
 				$documentRoot = realpath($_SERVER['DOCUMENT_ROOT']); # resolve symbolic link with Linux
 				$filename = $error['file'];
