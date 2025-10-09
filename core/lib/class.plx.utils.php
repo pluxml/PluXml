@@ -92,12 +92,19 @@ class plxUtils {
 		return $values[$tag[$index]]['value'];
 	}
 
-	/**
-	 * Wrapper de la methode getTagIndexValue() avec $index = 0.
-	 *
-	 * */
-	public static function getTagValue(&$tag, &$values, $default='') {
-		return self::getTagIndexValue($tag, $values, 0, $default);
+	public static function getTagValue($iTag, &$values, $default='', $index=0, $name='value') {
+		if(empty($iTag)) {
+			# Tag is missing
+			return $default;
+		}
+
+		$tag = $values[$iTag[$index]];
+		if(array_key_exists($name, $tag)) {
+			return $tag[$name];
+		}
+
+		# Tag is set but its value is empty
+		return $default;
 	}
 
 	/**
