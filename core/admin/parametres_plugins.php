@@ -109,8 +109,10 @@ $nbInactivePlugins = sizeof($aInactivePlugins);
 # récuperation du type de plugins à afficher
 if($nbActivePlugins == 0) {
 	$sel = 0;
+} elseif(isset($_GET['sel'])) {
+	$sel = ($_GET['sel'] === '0') ? 0 : 1;
 } else {
-	$sel = filter_input(INPUT_GET, 'sel', FILTER_VALIDATE_INT , array('min_range' => 0, 'max_range' => 1, 'default' => 1));
+	$sel = isset($_SESSION['selPlugins']) ? $_SESSION['selPlugins'] : 1;
 }
 $_SESSION['selPlugins'] = $sel;
 if($sel=='1') {
@@ -139,8 +141,8 @@ include 'top.php';
 
 		<ul class="menu">
 <?php # fil d'ariane ?>
-			<li><a class="<?= !empty($_SESSION['selPlugins']) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=1" <?= ($nbActivePlugins == 0) ? 'disabled' : '' ?>><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;(<?= $nbActivePlugins ?>)</li>
-			<li><a class="<?= empty($_SESSION['selPlugins']) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;(<?= $nbInactivePlugins ?>)</li>
+			<li><a class="<?= !empty($sel) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=1" <?= ($nbActivePlugins == 0) ? 'disabled' : '' ?>><?= L_PLUGINS_ACTIVE_LIST ?></a>&nbsp;(<?= $nbActivePlugins ?>)</li>
+			<li><a class="<?= empty($sel) ? 'selected' : '' ?>" href="parametres_plugins.php?sel=0"><?= L_PLUGINS_INACTIVE_LIST ?></a>&nbsp;(<?= $nbInactivePlugins ?>)</li>
 		</ul>
 		<?php echo plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
@@ -165,7 +167,7 @@ if($sel == 1 and $nbActivePlugins > 1)  {
 					<th><input type="checkbox" onclick="checkAll(this.form, 'chkAction[]')" /></th>
 					<th>&nbsp;</th>
 					<th><input type="text" id="plugins-search" onkeyup="plugFilter()" placeholder="<?php echo L_SEARCH ?>..." title="<?php echo L_SEARCH ?>" /></th>
-					<?php if($_SESSION['selPlugins']=='1') : ?>
+					<?php if($sel == '1') : ?>
 					<th><?php echo L_PLUGINS_LOADING_SORT ?></th>
 					<?php endif; ?>
 					<th><?php echo L_PLUGINS_ACTION ?></th>
