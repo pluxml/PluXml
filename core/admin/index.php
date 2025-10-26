@@ -16,8 +16,27 @@ plxToken::validateFormToken($_POST);
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
 
 # Suppression des articles selectionnes
-if(isset($_POST['selection']) AND !empty($_POST['sel']) AND ($_POST['selection']=='delete') AND isset($_POST['idArt'])) {
-	foreach ($_POST['idArt'] as $k => $v) $plxAdmin->delArticle($v);
+if(isset($_POST['sel']) AND isset($_POST['idArt'])) {
+	if(!empty($_POST['selection'])) {
+		switch($_POST['selection']) {
+			case 'delete' :
+				# Suppression des articles selectionnes
+				foreach ($_POST['idArt'] as $v) {
+					$plxAdmin->delArticle($v);
+				}
+				break;
+			case 'draft' :
+			case 'undraft' :
+				# Basculement du mode brouillon des articles selectionnes
+				$status = ($_POST['selection'] == 'draft');
+				foreach ($_POST['idArt'] as $v) {
+					$plxAdmin->draftToggle($v, $status);
+				}
+				break;
+			default :
+		}
+	}
+
 	header('Location: index.php');
 	exit;
 }
@@ -136,7 +155,13 @@ include 'top.php';
 	<?php
 	echo plxToken::getTokenPostMethod();
 	if($_SESSION['profil']<=PROFIL_MODERATOR) {
-		plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, false, 'id_selection');
+		$options = array(
+			 ''			=> L_FOR_SELECTION,
+			 'delete'	=> L_DELETE,
+			 'draft'	=> L_ARTICLE_DRAFT_BUTTON,
+			 'undraft'	=> L_ARTICLE_PUBLISHING_BUTTON,
+		);
+		plxUtils::printSelect('selection', $options, '', false, false, 'id_selection');
 		echo '<input name="sel" type="submit" value="'.L_OK.'" onclick="return confirmAction(this.form, \'id_selection\', \'delete\', \'idArt[]\', \''.L_CONFIRM_DELETE.'\')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>';
 	}
 	?>

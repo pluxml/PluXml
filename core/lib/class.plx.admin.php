@@ -1085,6 +1085,38 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	}
 
 	/**
+	 * Méthode qui modifie l'état de brouillon d'un article
+	 *
+	 * @param	id	numero de l'article
+	 * @param	$draft true or  false pour basculer en brouillon ou pas
+	 * @return	string
+	 * @author	J.P. Pourrez "bazooka07"
+	 **/
+	public function draftToggle($id, $draft=true) {
+		# Vérification de l'intégrité de l'identifiant
+		if(!preg_match('/^_?\d{4}$/', $id)) {
+			return L_ERR_INVALID_ARTICLE_IDENT;
+		}
+
+		if($globArt = $this->plxGlob_arts->query('/^'.$id.'\..*\.xml$/')) {
+			$tmp = $this->artInfoFromFilename($globArt[0]);
+
+			if($draft xor (preg_match('#\bdraft\b#', $tmp['catId']) or $tmp['artId'][0] == '_')) {
+				$tmp['catId'] = ($draft ? 'draft,' . $tmp['catId'] : preg_replace('#^draft,?#', '', $tmp['catId']));
+				$tmp['artId'] = ltrim($tmp['artId'], '_');
+				$newName = implode('.', $tmp) . '.xml';
+				$artsFolder = PLX_ROOT . $this->aConf['racine_articles'];
+				rename($artsFolder . $globArt['0'], $artsFolder . $newName);
+				return L_ARTICLE_MODIFY_SUCCESSFUL;
+			}
+
+			return L_ARTICLE_SAVE_ERR;
+		}
+
+		return L_ERR_UNKNOWN_ARTICLE;
+	}
+
+	/**
 	 * Méthode qui crée un nouveau commentaire pour l'article $artId
 	 *
 	 * @param	artId	identifiant de l'article en question
