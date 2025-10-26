@@ -46,11 +46,15 @@ $userId = ($_SESSION['profil'] < PROFIL_WRITER ? '\d{3}' : $_SESSION['user']);
 
 # Récuperation des paramètres
 if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published', 'draft','mod'))) {
-	$_SESSION['sel_get']=plxUtils::nullbyteRemove($_GET['sel']);
-	$_SESSION['sel_cat']='';
+	$_SESSION['sel_get'] = plxUtils::nullbyteRemove($_GET['sel']);
+	$_SESSION['sel_cat'] = '';
+	unset($_SESSION['page']['index']);
+} elseif(empty($_SESSION['sel_get'])) {
+	# garde-fou
+	$_SESSION['sel_get'] = 'all';
+	$_SESSION['sel_cat'] = '';
+	unset($_SESSION['page']['index']);
 }
-else
-	$_SESSION['sel_get']=(isset($_SESSION['sel_get']) AND !empty($_SESSION['sel_get']))?$_SESSION['sel_get']:'all';
 
 if(!empty($_POST['sel_cat']))
 	if(isset($_SESSION['sel_cat']) AND $_SESSION['sel_cat']==$_POST['sel_cat']) # annulation du filtre
@@ -62,39 +66,36 @@ else
 
 # Recherche du motif de sélection des articles en fonction des paramètres
 $catIdSel = '';
-$mod='';
+$mod = '_?';
 switch ($_SESSION['sel_get']) {
-case 'published':
-	$catIdSel = '[home|0-9,]*FILTER[home|0-9,]*';
-	$mod='';
-	break;
-case 'draft':
-	$catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
-	$mod='_?';
-	break;
-case 'all':
-	$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
-	$mod='_?';
-	break;
-case 'mod':
-	$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
-	$mod='_';
-	break;
+	case 'published':
+		$catIdSel = '[home|0-9,]*FILTER[home|0-9,]*';
+		$mod = '';
+		break;
+	case 'mod':
+		$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
+		$mod = '_';
+		break;
+	case 'draft':
+		$catIdSel = '[home|0-9,]*draft,FILTER[home|0-9,]*';
+		break;
+	default: // 'all'
+		$catIdSel = '[home|draft|0-9,]*FILTER[draft|home|0-9,]*';
 }
 
 switch ($_SESSION['sel_cat']) {
-case 'all' :
-	$catIdSel = str_replace('FILTER', '', $catIdSel); break;
-case '000' :
-	$catIdSel = str_replace('FILTER', '000', $catIdSel); break;
-case 'home':
-	$catIdSel = str_replace('FILTER', 'home', $catIdSel); break;
-case preg_match('/^\d{3}$/', $_SESSION['sel_cat'])==1:
-	$catIdSel = str_replace('FILTER', $_SESSION['sel_cat'], $catIdSel);
+	case 'all' :
+		$catIdSel = str_replace('FILTER', '', $catIdSel); break;
+	case '000' :
+		$catIdSel = str_replace('FILTER', '000', $catIdSel); break;
+	case 'home':
+		$catIdSel = str_replace('FILTER', 'home', $catIdSel); break;
+	case preg_match('/^\d{3}$/', $_SESSION['sel_cat'])==1:
+		$catIdSel = str_replace('FILTER', $_SESSION['sel_cat'], $catIdSel);
 }
 
 # Nombre d'article sélectionnés
-$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId);
+$nbArtPagination = $plxAdmin->nbArticles($catIdSel, $userId, $mod);
 
 # Récupération du texte à rechercher
 $artTitle = (!empty($_GET['artTitle']))?plxUtils::unSlash(trim(urldecode($_GET['artTitle']))):'';
@@ -147,10 +148,10 @@ include 'top.php';
 <div class="inline-form action-bar">
 	<h2><?php echo L_ARTICLES_LIST ?></h2>
 	<ul class="menu">
-		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all&amp;page=1"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published&amp;page=1"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft&amp;page=1"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
-		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod&amp;page=1"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='all')?'class="selected" ':'' ?>href="index.php?sel=all"><?php echo L_ALL ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId).')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='published')?'class="selected" ':'' ?>href="index.php?sel=published"><?php echo L_ALL_PUBLISHED ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('published', $userId, '').')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='draft')?'class="selected" ':'' ?>href="index.php?sel=draft"><?php echo L_ALL_DRAFTS ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('draft', $userId).')' ?></li>
+		<li><a <?php echo ($_SESSION['sel_get']=='mod')?'class="selected" ':'' ?>href="index.php?sel=mod"><?php echo L_ALL_AWAITING_MODERATION ?></a><?php echo '&nbsp;('.$plxAdmin->nbArticles('all', $userId, '_').')' ?></li>
 	</ul>
 	<?php
 	echo plxToken::getTokenPostMethod();
