@@ -194,10 +194,8 @@ class plxUtils {
 	public static function isValidIp($ip) {
 
 		if($ip=='::1') return false;
-		$ipv4 = '/((^|\.)(2[0-5]{2}|[01][0-9]{2}|[0-9]{1,2})(?=\.|$)){4}/';
-		$ipv6 = '/^:?([a-fA-F0-9]{1,4}(:|.)?){0,8}(:|::)?([a-fA-F0-9]{1,4}(:|.)?){0,8}$/';
-		return (preg_match($ipv4, $ip) OR preg_match($ipv6, $ip));
 
+		return empty(filter_var($ip, FILTER_VALIDATE_IP)) ? false : true;
 	}
 
 	/**
