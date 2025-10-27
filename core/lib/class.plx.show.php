@@ -1188,7 +1188,7 @@ class plxShow
 	public function nbAllArt($f1 = 'L_NO_ARTICLE', $f2 = '#nb L_ARTICLE', $f3 = '#nb L_ARTICLES')
 	{
 
-		$nb = $this->plxMotor->nbArticles('published', '[0-9]{3}', '', 'before');
+		$nb = $this->plxMotor->nbArticles('published', '\d{3}', '', 'before');
 
 		if ($nb == 0)
 			$txt = str_replace('L_NO_ARTICLE', L_NO_ARTICLE, $f1);

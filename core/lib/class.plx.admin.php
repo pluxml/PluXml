@@ -1567,7 +1567,7 @@ EOT;
 	public function delArticle($id) {
 
 		# Vérification de l'intégrité de l'identifiant
-		if(!preg_match('/^_?[0-9]{4}$/',$id))
+		if(!preg_match('/^_?\d{4}$/',$id))
 			return L_ERR_INVALID_ARTICLE_IDENT;
 		# Variable d'état
 		$resDelArt = $resDelCom = true;
@@ -1728,7 +1728,7 @@ EOT;
 		if(!file_exists($oldfilename)) # Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		# Modérer ou valider ?
-		if(preg_match('/([[:punct:]]?)[0-9]{4}.[0-9]{10}-[0-9]+$/',$id,$capture)) {
+		if(preg_match('/([[:punct:]]?)\d{4}\.\d{10}-\d+$/', $id, $capture)) {
 			$id=str_replace($capture[1],'',$id);
 		}
 		if($mod=='offline')
