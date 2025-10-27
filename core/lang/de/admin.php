@@ -462,8 +462,11 @@ const L_CONFIG_EDITTPL_LOAD = 'Laden';
 
 const L_CONFIG_INFOS_TITLE = 'PluXml Systemnachrichten';
 const L_CONFIG_INFOS_DESCRIPTION = 'Systemstatus und nützliche Informationen zum Betrieb von PluXml';
+const L_CONFIG_INFOS_NB_ARTS = 'Anzahl der Artikel:';
 const L_CONFIG_INFOS_NB_CATS = 'Anzahl der Kategorien:';
 const L_CONFIG_INFOS_NB_STATICS = 'Anzahl der statischen Seiten:';
+const L_CONFIG_INFOS_NB_USERS = 'Anzahl der Nutzer:';
+const L_CONFIG_INFOS_NEXT_ID_ART = 'Nächste Artikelnummer:';
 const L_CONFIG_INFOS_WRITER = 'Benutzername der aktuellen SESSION:';
 const L_PLUXML_CHECK_VERSION = 'Aktualitätsprüfung von PluXml (über #PLUXML#)';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Update hat nicht funktioniert. Sie sollten \'allow_url_fopen\' aktivieren.';

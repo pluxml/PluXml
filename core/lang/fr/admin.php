@@ -462,8 +462,12 @@ const L_CONFIG_EDITTPL_LOAD = 'Charger';
 
 const L_CONFIG_INFOS_TITLE = 'Informations relatives à PluXml';
 const L_CONFIG_INFOS_DESCRIPTION = 'Ces informations vous renseignent sur le fonctionnement de votre PluXml et peuvent s\'avérer utiles pour son dépannage.';
+
+const L_CONFIG_INFOS_NB_ARTS = 'Nombre d\'articles :';
 const L_CONFIG_INFOS_NB_CATS = 'Nombre de catégories :';
 const L_CONFIG_INFOS_NB_STATICS = 'Nombre de pages statiques :';
+const L_CONFIG_INFOS_NB_USERS = 'Nombre d\'utilisateurs :';
+const L_CONFIG_INFOS_NEXT_ID_ART = 'Prochain numéro d\'article :';
 const L_CONFIG_INFOS_WRITER = 'Nom du rédacteur en session :';
 const L_PLUXML_CHECK_VERSION = 'Vérification du numéro de version de PluXml sur le site officiel #PLUXML#';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Impossible de vérifier les mises à jour tant que \'allow_url_fopen\' est désactivé sur ce système';

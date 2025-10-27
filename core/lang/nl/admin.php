@@ -461,8 +461,11 @@ const L_CONFIG_EDITTPL_LOAD = 'Laden';
 
 const L_CONFIG_INFOS_TITLE = 'Informatie over uw PluXml-installatie';
 const L_CONFIG_INFOS_DESCRIPTION = 'Deze informatie kan handig zijn om eventuele problemen van uw installatie te vinden';
-const L_CONFIG_INFOS_NB_CATS = 'aantal categorie?n :';
-const L_CONFIG_INFOS_NB_STATICS = 'aantal statische paginas :';
+const L_CONFIG_INFOS_NB_ARTS =  'Aantal artikelen :';
+const L_CONFIG_INFOS_NB_CATS =  'Aantal categorie?n :';
+const L_CONFIG_INFOS_NB_STATICS =  'Aantal statische paginas :';
+const L_CONFIG_INFOS_NB_USERS =  'Aantal gebruikers :';
+const L_CONFIG_INFOS_NEXT_ID_ART =  'Volgende id van artikel :';
 const L_CONFIG_INFOS_WRITER = 'Naam redacteur :';
 const L_PLUXML_CHECK_VERSION = 'Uw huidige versie van PluXml wordt vergeleken met de nieuwste op de website van PluXML';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Onmogelijk om updates te vinden zolang de optie \'allow_url_fopen\' gedesactiveerd is op dit systeem';
