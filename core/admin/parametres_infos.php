@@ -77,10 +77,14 @@ $maj = $plxAdmin->checkMaj();
 	}
 ?>
 </ul>
-<p><?= L_CONFIG_INFOS_NB_CATS ?> <?= sizeof($plxAdmin->aCats); ?></p>
-<p><?= L_CONFIG_INFOS_NB_STATICS ?> <?= sizeof($plxAdmin->aStats); ?></p>
-<p><?= L_CONFIG_INFOS_WRITER ?> <?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></p>
-
+<ul class="unstyled-list">
+	<li><?= L_CONFIG_INFOS_NB_ARTS ?> <?= sizeof($plxAdmin->plxGlob_arts->aFiles); ?></li>
+	<li><?= L_CONFIG_INFOS_NB_CATS ?> <?= sizeof($plxAdmin->aCats); ?></li>
+	<li><?= L_CONFIG_INFOS_NB_STATICS ?> <?= sizeof($plxAdmin->aStats); ?></li>
+	<li><?= L_CONFIG_INFOS_NB_USERS ?> <?= sizeof($plxAdmin->aUsers); ?></li>
+	<li><?= L_CONFIG_INFOS_NEXT_ID_ART ?> <?= $plxAdmin->nextIdArticle(); ?></li>
+	<li><?= L_CONFIG_INFOS_WRITER ?> <?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></li>
+</ul>
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 
 <?php

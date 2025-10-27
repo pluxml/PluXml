@@ -461,8 +461,11 @@ const L_CONFIG_EDITTPL_LOAD = 'Sarcină';
 
 const L_CONFIG_INFOS_TITLE = 'Informaţii privind PluXml';
 const L_CONFIG_INFOS_DESCRIPTION = 'Informaţiile pe care le furniza informaţii cu privire la modul PluXml dumneavoastră şi poate dovedi util pentru depanare.';
-const L_CONFIG_INFOS_NB_CATS = 'Numărul de categorii :';
-const L_CONFIG_INFOS_NB_STATICS = 'Numărul de pagini statice :';
+const L_CONFIG_INFOS_NB_ARTS =  'количество статей :';
+const L_CONFIG_INFOS_NB_CATS =  'N° категорий :';
+const L_CONFIG_INFOS_NB_STATICS =  'N° статических страниц :';
+const L_CONFIG_INFOS_NB_USERS =  'количество пользователей :';
+const L_CONFIG_INFOS_NEXT_ID_ART =  'следующий идентификатор статьи :';
 const L_CONFIG_INFOS_WRITER = 'Editor-in Nume sesiune :';
 const L_PLUXML_CHECK_VERSION = 'Verificarea numărului de versiune pe site-ul oficial PluXml #PLUXML#';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Imposibil de a verifica pentru updates ca allow_url_fopen este dezactivat pe acest sistem';

@@ -462,9 +462,12 @@ const L_CONFIG_EDITTPL_LOAD = 'Load';
 
 const L_CONFIG_INFOS_TITLE = 'Information about PluXml';
 const L_CONFIG_INFOS_DESCRIPTION = 'Information about your PluXml installation, can be useful to repair it if needed.';
-const L_CONFIG_INFOS_NB_CATS = 'N° of categories :';
-const L_CONFIG_INFOS_NB_STATICS = 'N° of static pages :';
-const L_CONFIG_INFOS_WRITER = 'N° of users in session :';
+const L_CONFIG_INFOS_NB_ARTS =  'Count of articles :';
+const L_CONFIG_INFOS_NB_CATS =  'Count of categories :';
+const L_CONFIG_INFOS_NB_STATICS =  'Count of static pages :';
+const L_CONFIG_INFOS_NB_USERS =  'Count of users :';
+const L_CONFIG_INFOS_NEXT_ID_ART =  'Next Id of article :';
+const L_CONFIG_INFOS_WRITER =  'Count of users in session :';
 const L_PLUXML_CHECK_VERSION = 'Checking version number on the official #PLUXML# site';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Can\'t check for updates as long as \'allow_url_fopen\' is disabled on this system';
 const L_PLUXML_UPDATE_ERR = 'Update check failed for an unknown reason';

@@ -461,8 +461,11 @@ const L_CONFIG_EDITTPL_LOAD = 'Cargar';
 
 const L_CONFIG_INFOS_TITLE = 'Informacions relativas a PluXml';
 const L_CONFIG_INFOS_DESCRIPTION = 'Aquelas informacions vos entresenhan sul foncionament de vòstre PluXml e se pòdon averar utilas per sa reparacion.';
-const L_CONFIG_INFOS_NB_CATS = 'Nombre de categorias :';
-const L_CONFIG_INFOS_NB_STATICS = 'Nombre de paginas estaticas :';
+const L_CONFIG_INFOS_NB_ARTS =  'Nombre d\'articles :';
+const L_CONFIG_INFOS_NB_CATS =  'Nombre de categorias :';
+const L_CONFIG_INFOS_NB_STATICS =  'Nombre de paginas estaticas :';
+const L_CONFIG_INFOS_NB_USERS =  'Nombre d\'utilizaires :';
+const L_CONFIG_INFOS_NEXT_ID_ART =  'Identificant seguent de l\'article :';
 const L_CONFIG_INFOS_WRITER = 'Nom del redactor en session :';
 const L_PLUXML_CHECK_VERSION = 'Verificacion del numerò de version de PluXml sul site oficial #PLUXML#';
 const L_PLUXML_UPDATE_UNAVAILABLE = 'Impossible de verificar las mesas a jorn mentre que \'allow_url_fopen\' es desactivat sul sistèma';
