@@ -236,7 +236,7 @@ class PlxTemplate {
 
 		# parser initialisation
 		$data = implode('',file($fileName));
-		$parser = xml_parser_create('UTF-8');
+		$parser = xml_parser_create(PLX_CHARSET);
 		$values = '';
 		$index = '';
 		$template = array();
