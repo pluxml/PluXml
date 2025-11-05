@@ -70,8 +70,8 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 					$menus = array();
 					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '\d{3}' : $_SESSION['user']);
 					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
-					$arts_mod = $nbartsmod>0 ? '<span class="badge" onclick="window.location=\''.'index.php?sel=mod&amp;page=1\';return false;">'.$nbartsmod.'</span>':'';
-					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php?page=1', L_MENU_ARTICLES_TITLE, false, false,$arts_mod);
+					$arts_mod = ($nbartsmod > 0) ? '<span class="badge" onclick="window.location=\''.'index.php?sel=mod\';return false;">'.$nbartsmod.'</span>' : '';
+					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php', L_MENU_ARTICLES_TITLE, false, false, $arts_mod);
 
 					if(isset($_GET['a'])) # edition article
 						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, 'article.php', L_MENU_NEW_ARTICLES, false, false, '', false);
