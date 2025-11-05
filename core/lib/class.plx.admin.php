@@ -58,24 +58,36 @@ class plxAdmin extends plxMotor {
 	 * Méthode qui récupère le numéro de la page active
 	 *
 	 * @return	null
-	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
+	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, J-Pierre Pourrez @bazooka07
 	 **/
 	public function getPage() {
 
 		# Initialisation
-		$pageName = basename($_SERVER['PHP_SELF']);
-		$savePage = preg_match('/admin\/(index|comments).php/', $_SERVER['PHP_SELF']);
+		$pageName = basename($_SERVER['PHP_SELF'], '.php');
+		$savePage = preg_match('~^(?:index|comments)$~', $pageName);
 		# On check pour avoir le numero de page
-		if(!empty($_GET['page']) AND is_numeric($_GET['page']) AND $_GET['page'] > 0)
-			$this->page = $_GET['page'];
-			elseif($savePage) {
-				if(!empty($_POST['sel_cat']))
-					$this->page = 1;
-					else
-						$this->page = !empty($_SESSION['page'][$pageName])?intval($_SESSION['page'][$pageName]):1;
+		if(!empty($_GET['page']) AND is_numeric($_GET['page']) AND $_GET['page'] > 0) {
+			$this->page = intval($_GET['page']);
+
+			if($savePage) {
+				# On sauvegarde
+				$_SESSION['page'][$pageName] = $this->page;
+			}
+		} elseif($savePage) {
+			if(!empty($_POST['sel_cat'])) {
+				$this->page = 1;
+			} elseif(!empty($_SESSION['page'][$pageName])) {
+				$this->page = $_SESSION['page'][$pageName];
+				return;
+			} else {
+				$this->page = 1;
 			}
 			# On sauvegarde
-			if($savePage) $_SESSION['page'][$pageName] = $this->page;
+			$_SESSION['page'][$pageName] = $this->page;
+		} else {
+			$this->page = 1;
+		}
+
 	}
 
 	/**
