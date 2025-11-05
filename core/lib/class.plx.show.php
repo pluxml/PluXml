@@ -747,28 +747,28 @@ class plxShow
         foreach ($this->artActiveCatIds() as $idx => $catId) {
             # On valide si la categorie est "home"
             if ($catId == 'home') {
-				$href = '';
-				$name = L_HOMEPAGE;
-				$className = 'active';
+                $href = '';
+                $name = L_HOMEPAGE;
+                $className = 'active';
                 $cats[] = '<a class="active" href="' . $this->plxMotor->urlRewrite() . '" title="' . L_HOMEPAGE . '">' . L_HOMEPAGE . '</a>';
-			} elseif(isset($this->plxMotor->aCats[$catId])) {
-				# La catégorie existe. On en récupère les infos
-				$name = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
-				$url = $this->plxMotor->aCats[$catId]['url'];
-				$href = '?categorie' . intval($catId) . '/' . $url;
-				$active = (
-					$this->plxMotor->mode == 'categorie' and
-					isset($this->plxMotor->aCats[$this->plxMotor->cible]['url']) and
-					$url == $this->plxMotor->aCats[$this->plxMotor->cible]['url']
-				);
-				$className = $active ? 'active' : 'noactive';
-			} else {
-				# Rien à faire
-				continue;
-			}
+            } elseif(isset($this->plxMotor->aCats[$catId])) {
+                # La catégorie existe. On en récupère les infos
+                $name = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
+                $url = $this->plxMotor->aCats[$catId]['url'];
+                $href = '?categorie' . intval($catId) . '/' . $url;
+                $active = (
+                    $this->plxMotor->mode == 'categorie' and
+                    isset($this->plxMotor->aCats[$this->plxMotor->cible]['url']) and
+                    $url == $this->plxMotor->aCats[$this->plxMotor->cible]['url']
+                );
+                $className = $active ? 'active' : 'noactive';
+            } else {
+                # Rien à faire
+                continue;
+            }
 
-			# On mémorise pour afficher
-			$cats[] = '<a class="' . $className . '" href="' . $this->plxMotor->urlRewrite($href) . '" title="' . $name . '">' . $name . '</a>';
+            # On mémorise pour afficher
+            $cats[] = '<a class="' . $className . '" href="' . $this->plxMotor->urlRewrite($href) . '" title="' . $name . '">' . $name . '</a>';
         }
 
         # si $cats est vide, on n'a trouvé aucune catégorie valide
