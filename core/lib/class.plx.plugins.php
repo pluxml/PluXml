@@ -28,7 +28,15 @@ class plxPlugins {
 			# Pour une version en développement, PLX_DEBUG est à "true" et tous les messages d'erreur seront affichés
 			$error = error_get_last();
 			$error_bits_mask = (E_ERROR|E_PARSE|E_CORE_ERROR|E_COMPILE_ERROR|E_USER_ERROR|E_RECOVERABLE_ERROR);
-			if($error != null and !empty($error['file']) and (PLX_DEBUG or !empty($error['type'] & $error_bits_mask))) {
+			if(
+				$error != null and
+				!empty($error['file']) and
+				(
+					PLX_DEBUG or # version de PluXml en cours de développement
+					(isset($_SESSION['user']) and $_SESSION['user'] == '001') or # le webmaster est connecté
+					!empty($error['type'] & $error_bits_mask) # On affiche seulement les messages d'erreur, pas les notification (E_WARNING...)
+				)
+			) {
 				# For hiding sensitive informations
 				$documentRoot = realpath($_SERVER['DOCUMENT_ROOT']); # resolve symbolic link with Linux
 				$filename = $error['file'];
