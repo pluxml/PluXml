@@ -1,3 +1,21 @@
+## PluXml 5.8.22 (2025/11/06)
+[+] Refacto plxShow::meta() with new param $echo
+[+] Display every error if the webmaster is connected
+FIX Replace tabs by spaces in class.plx.show.php
+[+] Refacto plxShow::pageTitle
+FIX Fix $menus in core/admin/top.php
+[+] Refacto plxAdmin::getPage()
+FIX Fix plxMotor::parseArticle() for missing thumbnail* in article xml file
+FIX Fix selection of articles in the articles table
+[+] Set or unset drafts in the articles table
+FIX Fix parametres_plugins.php for using $_SESSION['selPlugins']
+[+] Fix register_shutdown_function in plxPlugins::_construct()
+FIX Fix typo in plxTemplate::parseTemplate()
+FIX Fix link to back-office in defaut theme
+FIX Substitution [0-9] by \d in regex
+[+] More infos in parametres_info.php
+FIX Drop include for feed in index.php
+
 ## PluXml 5.8.21 (2025/08/25)
 FIX Redirection to install.php in the front-office
 [+] Enhance minify.php
