@@ -250,45 +250,58 @@ class plxShow
      * Méthode qui affiche le meta passé en paramètre
      *
      * @param meta    nom du meta à afficher (description, keywords,author)
+     * @param echo    retourner la valeur de content ou afficher la basise <meta>
      * @scope    global
-     * @author    Stéphane F, Pedro "P3ter" CADETE
+     * @author    Stéphane F, Pedro "P3ter" CADETE, J-Pierre Pourrez @bazooka07
      **/
-    public function meta($meta = '')
+    public function meta($meta = '', $echo=true)
     {
+        $meta = strtolower($meta);
+
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowMeta'))) return;
 
-        if (!in_array($meta, array('description', 'keywords', 'author')))
-            return;
-
-        $meta = strtolower($meta);
-
-        if ($this->plxMotor->mode == 'home') {
-            if (!empty($this->plxMotor->aConf['meta_' . $meta]))
-                echo "\t" . '<meta name="' . $meta . '" content="' . plxUtils::strCheck($this->plxMotor->aConf['meta_' . $meta]) . '" />' . "\n";
+        if (
+            !in_array($meta, array('description', 'keywords', 'author')) or
+            ($meta == 'author' and $this->plxMotor->mode != 'article')
+        ) {
             return;
         }
 
-        if ($this->plxMotor->mode == 'article') {
-            if ($meta == 'author')
-                echo "\t" . '<meta name="author" content="' . $this->artAuthor(false) . '" />' . "\n";
-            else {
-                $meta_content = trim($this->plxMotor->plxRecord_arts->f('meta_' . $meta));
-                if (!empty($meta_content))
-                    echo "\t" . '<meta name="' . $meta . '" content="' . plxUtils::strCheck($meta_content) . '" />' . "\n";
-            }
+        switch($this->plxMotor->mode) {
+            case 'article' :
+                if ($meta == 'author') {
+                    $content = $this->artAuthor(false);
+                } else {
+                    $content = $this->plxMotor->plxRecord_arts->f('meta_' . $meta);
+                }
+                break;
+            case 'static' :
+                $content = $this->plxMotor->aStats[$this->plxMotor->cible]['meta_' . $meta];
+                break;
+            case 'categorie':
+                $content = $this->plxMotor->aCats[$this->plxMotor->cible]['meta_' . $meta];
+                break;
+            case 'tags' :
+            case 'archives' :
+                return;
+            default : # home
+                $content = $this->plxMotor->aConf['meta_' . $meta];
+        }
+
+        if(isset($content)) {
+            $content = trim($content);
+        }
+        if(empty($content)) {
             return;
         }
 
-        if ($this->plxMotor->mode == 'static') {
-            if (!empty($this->plxMotor->aStats[$this->plxMotor->cible]['meta_' . $meta]))
-                echo "\t" . '<meta name="' . $meta . '" content="' . plxUtils::strCheck($this->plxMotor->aStats[$this->plxMotor->cible]['meta_' . $meta]) . '" />' . "\n";
-            return;
-        }
-        if ($this->plxMotor->mode == 'categorie') {
-            if (!empty($this->plxMotor->aCats[$this->plxMotor->cible]['meta_' . $meta]))
-                echo "\t" . '<meta name="' . $meta . '" content="' . plxUtils::strCheck($this->plxMotor->aCats[$this->plxMotor->cible]['meta_' . $meta]) . '" />' . "\n";
-            return;
+        if($echo) {
+?>
+    <meta name="<?= $meta ?>" content="<?= plxUtils::strCheck($content) ?>" />
+<?php
+        } else {
+            return $content;
         }
     }
 
