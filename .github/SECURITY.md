@@ -9,4 +9,4 @@
 
 ## Reporting a Vulnerability
 
-Vulnerabilities can be reported by e-mail to p3ter@pluxml.org
+Vulnerabilities can be reported by e-mail to dev@pluxml.org
