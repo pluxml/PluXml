@@ -780,12 +780,14 @@ class plxPlugin {
 		# On écrit le fichier
 		if(plxUtils::write($xml,$this->plug['parameters.xml'])) {
 			# suppression ancien fichier parameters.xml s'il existe encore (5.1.7+)
-			if(file_exists($this->plug['dir'].$this->plug['name'].'/parameters.xml'))
+			if(file_exists($this->plug['dir'].$this->plug['name'].'/parameters.xml')) {
 				unlink($this->plug['dir'].$this->plug['name'].'/parameters.xml');
-			return plxMsg::Info(L_SAVE_SUCCESSFUL);
+			}
+			return class_exists('plxMsg') ? plxMsg::Info(L_SAVE_SUCCESSFUL) : true;
 		}
-		else
-			return plxMsg::Error(L_SAVE_ERR.' '.$this->plug['parameters.xml']);
+		else {
+			return class_exists('plxMsg') ? plxMsg::Error(L_SAVE_ERR.' '.$this->plug['parameters.xml']) : false;
+		}
 	}
 
 	/**
