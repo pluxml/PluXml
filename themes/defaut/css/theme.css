@@ -682,3 +682,25 @@ article:after {
 		padding: 0;
 	}
 }
+
+/* fenêtre popup pour vignette d'article */
+
+::backdrop {
+	background: #333;
+	opacity: 0.85;
+}
+
+#img_dialog {
+	padding: 0;
+	border: 1px solid #333;
+}
+
+#img_dialog button {
+	position: absolute;
+	right: 0;
+}
+
+#img_popup {
+	margin: 0;
+	max-height: 94vh;
+}

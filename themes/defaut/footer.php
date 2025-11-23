@@ -32,6 +32,11 @@ if(!file_exists(PLX_ROOT . $admin)) {
 		</div>
 	</footer>
 
+	<dialog id="img_dialog">
+		<button>&#10006;</button>
+		<img id="img_popup">
+	</dialog>
+	<script src="<?php $plxShow->template(); ?>/js/popup.js"></script>
 </body>
 
 </html>
