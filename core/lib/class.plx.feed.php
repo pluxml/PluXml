@@ -155,14 +155,14 @@ class plxFeed extends plxMotor {
 				header('Location: '.$this->urlRewrite('?article'.$this->cible.'/'));
 				exit;
 			} else { # On récupère les commentaires
-				$regex = '/^'.$this->cible.'.\d{10}-\d+.xml$/';
-				$this->getCommentaires($regex,'rsort',0,$this->bypage);
+				$regex = '/^' . $this->cible . '\.\d{9,10}-\d+\.xml$/';
+				$this->getCommentaires($regex, 'rsort', 0, $this->bypage);
 			}
 		}
 		# Flux de commentaires global
 		elseif($this->mode == 'commentaire') {
-			$regex = '#^\d{4}.\d{10}-\d+.xml$#';
-			$this->getCommentaires($regex,'rsort',0,$this->bypage);
+			$regex = '#^\d{4}\.\d{9,10}-\d+\.xml$#';
+			$this->getCommentaires($regex, 'rsort', 0, $this->bypage);
 		}
 		# Flux admin
 		elseif($this->mode == 'admin') {
@@ -172,7 +172,7 @@ class plxFeed extends plxMotor {
 				exit;
 			}
 			# On récupère les commentaires
-			$this->getCommentaires('#^'.$this->cible.'\d{4}.\d{10}-\d+.xml$#','rsort',0,$this->bypage,'all');
+			$this->getCommentaires('#^'.$this->cible.'\d{4}\.\d{9,10}-\d+\.xml$#', 'rsort', 0, $this->bypage, 'all');
 		}
 		# Flux d'articles pour un tag
 		elseif($this->mode == 'tag') {

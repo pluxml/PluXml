@@ -37,9 +37,8 @@
 
 	<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
 
-	<h3>
-		<?php $plxShow->lang('WRITE_A_COMMENT') ?>
-	</h3>
+<?php if($plxShow->comMessage('<p id="com_message" class="#com_class"><strong>#com_message</strong></p>')): ?>
+	<h3><?php $plxShow->lang('WRITE_A_COMMENT') ?></h3>
 
 	<form id="form" action="<?php $plxShow->artUrl(); ?>#form" method="post">
 
@@ -54,11 +53,11 @@
 			<div class="grid">
 				<div class="col sml-12 lrg-6">
 					<label for="id_mail"><?php $plxShow->lang('EMAIL') ?> :</label>
-					<input id="id_mail" name="mail" type="text" size="20" value="<?php $plxShow->comGet('mail',''); ?>" />
+					<input id="id_mail" name="mail" type="email" size="20" value="<?php $plxShow->comGet('mail',''); ?>" />
 				</div>
 				<div class="col sml-12 lrg-6">
 					<label for="id_site"><?php $plxShow->lang('WEBSITE') ?> :</label>
-					<input id="id_site" name="site" type="text" size="20" value="<?php $plxShow->comGet('site',''); ?>" />
+					<input id="id_site" name="site" type="url" size="20" value="<?php $plxShow->comGet('site',''); ?>" />
 				</div>
 			</div>
 			<div class="grid">
@@ -68,8 +67,6 @@
 					<textarea id="id_content" name="content" cols="35" rows="6" required="required"><?php $plxShow->comGet('content',''); ?></textarea>
 				</div>
 			</div>
-
-			<?php $plxShow->comMessage('<p id="com_message" class="#com_class"><strong>#com_message</strong></p>'); ?>
 
 			<?php if($plxShow->plxMotor->aConf['capcha']): ?>
 
@@ -91,7 +88,6 @@
 			</div>
 
 		</fieldset>
-
 	</form>
 
 <script>
@@ -111,6 +107,7 @@ function cancelCom() {
 var parent = document.getElementById('id_parent').value;
 if(parent!='') { replyCom(parent) }
 </script>
+<?php endif; ?>
 
 	<?php $plxShow->comFeed('rss',$plxShow->artId(), '<p><a href="#feedUrl" title="#feedTitle">#feedName</a></p>'); ?>
 

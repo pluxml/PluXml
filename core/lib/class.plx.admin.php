@@ -1136,25 +1136,34 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @return	boolean
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
-	public function newCommentaire($artId,$content) {
+	public function newCommentaire($artId, $content) {
 
+		if(!preg_match('#^\d{4}$#', $artId)) {
+			return plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
+		}
 		# On génère le contenu du commentaire
-		$comment=array();
-		$comment['author'] = plxUtils::strCheck($this->aUsers[$_SESSION['user']]['name']);
-		$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
-		$comment['site'] = $this->racine;
-		$comment['ip'] = plxUtils::getIp();
-		$comment['type'] = 'admin';
-		$comment['mail'] = $this->aUsers[$_SESSION['user']]['email'];
-		$comment['parent'] = $content['parent'];
 		$idx = $this->nextIdArtComment($artId);
-		$time = time();
-		$comment['filename'] = $artId.'.'.$time.'-'.$idx.'.xml';
+		$filename = $artId . '.' . time() . '-' . $idx . '.xml';
+
+		$message = strip_tags(trim($content['content']), self::ENABLED_HTML_TAGS_COMMENTS);
+		if(empty($message)) {
+			return plxMsg::Error(L_NEWCOMMENT_FIELDS_REQUIRED);
+		}
+
+		$userId = $_SESSION['user'];
+		$comment = array(
+			'type'		=> 'admin',
+			'author'	=> $this->aUsers[$userId]['name'],
+			'content'	=> strip_tags(trim($content['content']), self::ENABLED_HTML_TAGS_COMMENTS),
+			'parent'	=> filter_var($content['parent'], FILTER_VALIDATE_INT, array('options' => array('default' => ''))),
+			'ip'		=> plxUtils::getIp(),
+			'mail'		=> $this->aUsers[$userId]['email'],
+			'site'		=> $this->racine,
+			'filename'	=> $filename,
+		);
+
 		# On peut créer le commentaire
-		if($this->addCommentaire($comment)) # Commentaire OK
-			return true;
-		else
-			return false;
+		return $this->addCommentaire($comment);
 	}
 
 	/**
@@ -1166,52 +1175,67 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function editCommentaire($content, &$id) {
-
-		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time']))
-			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
-
-		$comment=array();
 		# Génération du nom du fichier
-		$comment['filename'] = $id.'.xml';
-		if(!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename'])) # Commentaire inexistant
+		$fullpath = PLX_ROOT . $this->aConf['racine_commentaires'] . $id . '.xml';
+		if(!file_exists($fullpath)) {
+			# Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
-		# Contrôle des saisies
-		if(trim($content['mail'])!='' AND !plxUtils::checkMail(trim($content['mail'])))
-			return plxMsg::Error(L_ERR_INVALID_EMAIL);
-		if(trim($content['site'])!='' AND !plxUtils::checkSite($content['site']))
-			return plxMsg::Error(L_ERR_INVALID_SITE);
-		# On récupère les infos du commentaire
-		$com = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$comment['filename']);
-		# Formatage des données
-		if($com['type'] != 'admin') {
-			$comment['author'] = plxUtils::strCheck(trim($content['author']));
-			$comment['site'] = plxUtils::strCheck(trim($content['site']));
-			$comment['content'] = plxUtils::strCheck(trim($content['content']));
-		} else {
-			$comment['author'] = trim($content['author']);
-			$comment['site'] = trim($content['site']);
-			$comment['content'] = strip_tags(trim($content['content']),'<a>,<strong>');
 		}
-		$comment['ip'] = $com['ip'];
-		$comment['type'] = $com['type'];
-		$comment['mail'] = $content['mail'];
-		$comment['site'] = $content['site'];
-		$comment['parent'] = $com['parent'];
-		# Génération du nouveau nom du fichier
+		# Vérification de la validité de la date de publication
+		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time'])) {
+			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
+		}
 		$time = explode(':', $content['date_publication_time']);
 		$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
-		$com = $this->comInfoFromFilename($id.'.xml');
-		$newid = $com['comStatus'].$com['artId'].'.'.$newtimestamp.'-'.$com['comIdx'];
-		$comment['filename'] = $newid.'.xml';
-		# Suppression de l'ancien commentaire
-		$this->delCommentaire($id);
+		if($newtimestamp === false or $newtimestamp < 100000000 or $newtimestamp > 9999999999) {
+			# 9 ou 10 chiffres seulement ( 1973-03-03T09:46:40 et 2286-11-20T17:46:39 respectivement)
+			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
+		}
+		unset($time);
+
+		# Contrôle des saisies
+		$mail = trim($content['mail']);
+		if(!empty($mail) and !filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+		}
+		$site = trim($content['site']);
+		if(!empty($site) AND !filter_var($site, FILTER_VALIDATE_URL)) {
+			return plxMsg::Error(L_ERR_INVALID_SITE);
+		}
+		$author = trim($content['author']);
+		$message = strip_tags(trim($content['content']), self::ENABLED_HTML_TAGS_COMMENTS);
+		if(empty($author) or empty($message)) {
+			return plxMsg::Error(L_NEWCOMMENT_FIELDS_REQUIRED);
+		}
+
+		# On récupère les infos du commentaire
+		$com = $this->parseCommentaire($fullpath);
+
+		# Génération du nouveau nom du fichier
+		$comInfos = $this->comInfoFromFilename($id . '.xml');
+		$newid = $comInfos['comStatus'] . $comInfos['artId'] . '.' . $newtimestamp . '-' . $comInfos['comIdx'];
+
+		# Formatage des données
+		$comment = array(
+			'type'		=> $com['type'],
+			'author'	=> plxUtils::strCheck($author),
+			'content'	=> $message,
+			'parent'	=> $com['parent'],
+			'ip'		=> $com['ip'],
+			'mail'		=> $mail,
+			'site'		=> $site,
+			'filename'	=> $newid . '.xml',
+		);
+
 		# Création du nouveau commentaire
-		$id = $newid;
-		if($this->addCommentaire($comment))
+		if($this->addCommentaire($comment)) {
+			# Suppression de l'ancien commentaire
+			unlink($fullpath);
+			$id = $newid;
 			return plxMsg::Info(L_COMMENT_SAVE_SUCCESSFUL);
-		else
-			return plxMsg::Error(L_COMMENT_UPDATE_ERR);
+		}
+
+		return plxMsg::Error(L_COMMENT_UPDATE_ERR);
 	}
 
 	/**
@@ -1253,7 +1277,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(!file_exists($oldfilename)) # Commentaire inexistant
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		# Modérer ou valider ?
-		if(preg_match('/([[:punct:]]?)\d{4}.\d{10}-\d+$/',$id,$capture)) {
+		if(preg_match('/([[:punct:]]?)\d{4}\.\d{9,10}-\d+$/',$id,$capture)) {
 			$id=str_replace($capture[1],'',$id);
 		}
 		if($mod=='offline')

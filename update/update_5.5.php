@@ -25,7 +25,7 @@ class update_5_5 extends plxUpdate{
 		if($hd = opendir($dir_coms)) {
 			$coms = array();
 			while (false !== ($file = readdir($hd))) {
-				if(preg_match('/([[:punct:]]?)(\d{4}).(\d{10})-(\d+).xml$/',$file,$capture)) {
+				if(preg_match('/([[:punct:]]?)(\d{4})\.(\d{9,10})-(\d+)\.xml$/',$file,$capture)) {
 					$coms[$capture[2]][] = $file;
 					if(copy($dir_coms.$file, $dir_coms.'backup-5.4/'.$file)) { #sauvegarde
 						unlink($dir_coms.$file); # suppression fichier original

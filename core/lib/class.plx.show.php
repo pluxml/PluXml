@@ -1282,7 +1282,7 @@ class plxShow
      * Méthode qui affiche si besoin le message généré par le système
      * suite à la création d'un commentaire
      * @param format  format du texte à afficher (variable: #com_message, #com_class)
-     * @return        true si un message est affiché
+     * @return        true pour afficher le formulaire du commentaire
      * @scope        article
      * @author        Stephane F, J.P Pourrez.
      * @version        2017-12-28
@@ -1291,6 +1291,7 @@ class plxShow
     {
 
         if (!empty($_SESSION['msgcom'])) {
+			$error = false;
             switch ($_SESSION['msgcom']) {
                 case L_COM_IN_MODERATION:
                     $color = 'orange';
@@ -1299,15 +1300,17 @@ class plxShow
                     $color = 'green';
                     break;
                 default:
+					# Message d'erreur
+					$error = true;
                     $color = 'red';
             }
             $row = str_replace('#com_message', $_SESSION['msgcom'], $format);
             $row = str_replace('#com_class', 'alert ' . $color, $row);
             echo $row;
             unset($_SESSION['msgcom']);
-            return true;
+            return $error; # false si commentaire accepté
         }
-        return false;
+        return true;
     }
 
     /**
@@ -1378,10 +1381,8 @@ class plxShow
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowLastComList'))) return;
 
         # Génération de notre motif
-        if (empty($art_id))
-            $motif = '/^\d{4}.\d{10}-\d+.xml$/';
-        else
-            $motif = '/^' . str_pad($art_id, 4, '0', STR_PAD_LEFT) . '.\d{10}-\d+.xml$/';
+        $id = !empty($art_id) ? str_pad($art_id, 4, '0', STR_PAD_LEFT) : '\d{4}';
+        $motif = '/^' . $id . '\.\d{9,10}-\d+\.xml$/';
 
         $count = 1;
         $datetime = date('YmdHi');
@@ -1949,7 +1950,7 @@ class plxShow
                     '#nb_art' => $counter,
                     '#tag_item' => $url,
                     '#tag_url' => $this->plxMotor->urlRewrite('?tag/' . $url),
-                    '#tag_name' => plxUtils::strCheck($tag),
+                    '#tag_name' => $tag,
                     '#tag_status' => $status
                 );
                 echo str_replace(array_keys($replaces), array_values($replaces), $format);

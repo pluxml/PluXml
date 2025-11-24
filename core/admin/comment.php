@@ -35,7 +35,7 @@ if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 if(!empty($_POST) AND !empty($_POST['comId'])) {
 
 	# validation du numéro de commentaire
-	if(!preg_match('/[[:punct:]]?\d{4}.\d{10}-\d+$/', $_POST['comId'])) {
+	if(!preg_match('/[[:punct:]]?\d{4}\.\d{9,10}-\d+$/', $_POST['comId'])) {
 		plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		header('Location: comments.php');
 		exit;
