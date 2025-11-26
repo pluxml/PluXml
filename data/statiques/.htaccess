@@ -1,4 +1,3 @@
-<Files *>
-    Order allow,deny
-    Deny from all
+<Files "*">
+	Require all denied
 </Files>
