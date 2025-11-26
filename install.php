@@ -267,6 +267,15 @@ else {
 	$data='1';
 }
 plxUtils::cleanHeaders();
+
+$admin = 'core/admin/';
+if(!file_exists(PLX_ROOT . $admin)) {
+	$auths = glob(PLX_ROOT . '*/*/auth.php');
+
+	if(!empty($auths)) {
+		$admin = preg_replace('#.*/([^\/]+/\w[\w-]+/)auth\.php$#', '$1', $auths[0]);
+	}
+}
 ?>
 <!DOCTYPE html>
 <head>
@@ -274,7 +283,7 @@ plxUtils::cleanHeaders();
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?php echo L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 <?php plxUtils::printLinkCss(); ?>
-	<script src="<?php echo PLX_CORE ?>lib/visual.js"></script>
+	<script src="<?php echo $admin; ?>js/visual.js"></script>
 </head>
 
 <body>

@@ -355,7 +355,7 @@ $curFolders = explode('/', $curFolder);
 
 <input id="clipboard" type="text" value="" style="display: none;" />
 
-<script type="text/javascript" src="<?php echo PLX_CORE ?>lib/medias.js"></script>
+<script type="text/javascript" src="js/medias.js"></script>
 
 <?php
 # Hook Plugins

@@ -15,10 +15,10 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
 	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
 <?php plxUtils::printLinkCss(); ?>
-	<script src="<?php echo PLX_CORE ?>lib/functions.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/visual.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="<?php echo PLX_CORE ?>lib/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="<?php echo PLX_CORE ?>lib/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="js/functions.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="js/visual.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="js/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script defer src="js/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
