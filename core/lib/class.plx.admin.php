@@ -325,7 +325,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	**/
 	public function sendLostPasswordEmail($loginOrMail) {
 
-		if(!preg_match('#^(https?://.*/auth.php)\?action=lostpassword$#', $_SERVER['HTTP_REFERER'], $matches)) {
+		if(!preg_match('#^(https?://.*/' . PAGE_LOGIN . ')\?action=lostpassword$#', $_SERVER['HTTP_REFERER'], $matches)) {
 			return false;
 		}
 		$path1 = $matches[1];

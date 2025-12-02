@@ -4,20 +4,19 @@
  * Page d'authentification
  *
  * @package PLX
- * @author    Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE
+ * @author    Stephane F, Florent MONTHEL, Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
  **/
 
-# Constante pour retrouver la page d'authentification
-const PLX_AUTHPAGE = true;
+# Protection anti brute force
+const MAXLOGIN = array(
+    'counter'   => 99, # nombre de tentative de connexion autorisé dans la limite de temps autorisé
+    'timer'     => 3 * 60, # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
+);
 
 include 'prepend.php';
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
-
-# Protection anti brute force
-$maxlogin['counter'] = 99; # nombre de tentative de connexion autorisé dans la limite de temps autorisé
-$maxlogin['timer'] = 3 * 60; # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
 
 # Initialiser les messages d'alerte
 $msg = '';
@@ -28,27 +27,31 @@ eval($plxAdmin->plxPlugins->callHook('AdminAuthPrepend'));
 
 # Identifier une erreur de connexion
 if (isset($_SESSION['maxtry'])) {
-    if (intval($_SESSION['maxtry']['counter']) >= $maxlogin['counter'] and (time() < $_SESSION['maxtry']['timer'] + $maxlogin['timer'])) {
+    if (intval($_SESSION['maxtry']['counter']) >= MAXLOGIN['counter'] and (time() < $_SESSION['maxtry']['timer'] + MAXLOGIN['timer'])) {
         # écriture dans les logs du dépassement des 3 tentatives successives de connexion
-        @error_log("PluXml: Max login failed. IP : " . plxUtils::getIp());
+        @error_log('PluXml: Max login failed. IP : ' . plxUtils::getIp());
         # message à affiche sur le mire de connexion
-        $msg = sprintf(L_ERR_MAXLOGIN, ($maxlogin['timer'] / 60));
+        $msg = sprintf(L_ERR_MAXLOGIN, (MAXLOGIN['timer'] / 60));
         $css = 'alert red';
     }
-    if (time() > ($_SESSION['maxtry']['timer'] + $maxlogin['timer'])) {
+    if (time() > ($_SESSION['maxtry']['timer'] + MAXLOGIN['timer'])) {
         # on réinitialise le control brute force quand le temps d'attente limite est atteint
-        $_SESSION['maxtry']['counter'] = 0;
-        $_SESSION['maxtry']['timer'] = time();
+        $_SESSION['maxtry'] = array(
+            'counter'   => 0,
+            'timer'     => time(),
+        );
     }
 } else {
     # initialisation de la variable qui compte les tentatives de connexion
-    $_SESSION['maxtry']['counter'] = 0;
-    $_SESSION['maxtry']['timer'] = time();
+    $_SESSION['maxtry'] = array(
+        'counter'   => 0,
+        'timer'     => time(),
+    );
 }
 
 # Incrémente le nombre de tentative
-$redirect = preg_replace('#/auth\.php$#', '/', $_SERVER['PHP_SELF']);
-if (!empty($_GET['p']) and $css == '') {
+$redirect = preg_replace('#/' . preg_quote(PAGE_LOGIN) . '$#', '/', $_SERVER['PHP_SELF']);
+if (empty($css) and !empty($_GET['p'])) {
 
     # on incremente la variable de session qui compte les tentatives de connexion
     $_SESSION['maxtry']['counter']++;
@@ -68,38 +71,45 @@ if (!empty($_GET['p']) and $css == '') {
     }
 }
 
-# Déconnexion (paramètre url : ?d=1)
-if (!empty($_GET['d']) and $_GET['d'] == 1) {
-
-    $_SESSION = array();
-    session_destroy();
-    header('Location: auth.php');
-    exit;
-}
-
 # Authentification
-if (!empty($_POST['login']) and !empty($_POST['password']) and $css == '') {
+if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
 
     $connected = false;
     foreach ($plxAdmin->aUsers as $userid => $user) {
         if ($_POST['login'] == $user['login'] and sha1($user['salt'] . md5($_POST['password'])) === $user['password'] and $user['active'] and !$user['delete']) {
-            $_SESSION['user'] = $userid;
-            $_SESSION['profil'] = $user['profil'];
-            $_SESSION['hash'] = plxUtils::charAleatoire(10);
-            $_SESSION['domain'] = $session_domain;
+            if(session_status() == PHP_SESSION_ACTIVE) {
+                # On ferme la session en cours
+                $_SESSION = array();
+                $name = session_name();
+                session_destroy();
+                # Effacement du cookie de session
+                setcookie($name, '', 1, $plx_racine);
+            }
+
+            # On démarre une nouvelle session
+            $session_site['name'] = 'PLX_ADMIN';
+            session_regenerate_id(true);
+            session_start($session_site);
+
+            $_SESSION = array(
+                'user'       => $userid,
+                'profil'     => $user['profil'],
+                'hash'       => plxUtils::charAleatoire(10),
+                'domain'     => __DIR__,
+                'admin_lang' => $user['lang'],
+            );
             # on définit $_SESSION['admin_lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
             # ordre des traitements:
             # page administration : chargement fichier prepend.php
             # => creation instance plxAdmin : chargement des plugins, chargement des prefs utilisateurs
             # => chargement des langues en fonction du profil de l'utilisateur connecté déterminé précédemment
-            $_SESSION['admin_lang'] = $user['lang'];
             $plxAdmin->resetPasswordToken($userid);
             $connected = true;
             break;
         }
     }
     if ($connected) {
-        unset($_SESSION['maxtry']);
+        // unset($_SESSION['maxtry']);
         header('Location: ' . htmlentities($redirect));
         exit;
     } else {
@@ -169,7 +179,7 @@ plxUtils::cleanHeaders();
                     # Hook plugins
                     eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword'));
                     ?>
-                    <form action="auth.php<?php echo !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
+                    <form action="<?= PAGE_LOGIN ?><?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
                           method="post" id="form_auth">
                         <fieldset>
                             <?php echo plxToken::getTokenPostMethod() ?>
@@ -208,7 +218,7 @@ plxUtils::cleanHeaders();
                         # Hook plugins
                         eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePassword'));
                         ?>
-                        <form action="auth.php<?php echo !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
+                        <form action="<?= PAGE_LOGIN ?><?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
                               method="post" id="form_auth">
                             <fieldset>
                                 <?php echo plxToken::getTokenPostMethod() ?>
@@ -269,7 +279,7 @@ plxUtils::cleanHeaders();
                     ?>
                     <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) # Hook plugins
                     ?>
-                    <form action="auth.php<?php echo !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
+                    <form action="<?= PAGE_LOGIN ?><?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
                           method="post" id="form_auth">
                         <fieldset>
                             <?php echo plxToken::getTokenPostMethod() ?>

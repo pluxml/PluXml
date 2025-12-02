@@ -12,8 +12,8 @@ if(!file_exists(path('XMLFILE_PARAMETERS'))) {
 }
 
 # On démarre la session
-session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
-session_start();
+# session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
+session_start($session_site);
 
 # On inclut les librairies nécessaires
 include(PLX_CORE.'lib/class.plx.date.php');

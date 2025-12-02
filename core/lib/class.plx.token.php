@@ -37,14 +37,16 @@ class plxToken {
 	 **/
 	public static function validateFormToken($request='') {
 		if($_SERVER['REQUEST_METHOD']=='POST' AND isset($_SESSION['formtoken'])) {
-			$limit = time() - self::LIFETIME;
 			if(empty($_POST)) {
 				return;
 			}
+
+			$limit = time() - self::LIFETIME;
 			if(empty($_POST['token']) OR plxUtils::getValue($_SESSION['formtoken'][$_POST['token']]) < $limit) {
 				unset($_SESSION['formtoken']);
 				die('Security error : invalid or expired token');
 			}
+
 			unset($_SESSION['formtoken'][$_POST['token']]);
 
 			// cleanup old tokens

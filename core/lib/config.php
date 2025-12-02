@@ -5,6 +5,9 @@ const PLX_URL_REPO = 'https://www.pluxml.org';
 const PLX_URL_VERSION = PLX_URL_REPO.'/download/latest-version.txt';
 const PLX_URL_LAST_RELEASE_GITHUB = 'https://api.github.com/repos/pluxml/PluXml/releases/latest';
 
+const SESSION_LIFETIME = 7200;
+const PAGE_LOGIN = 'auth.php';
+
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
@@ -77,3 +80,19 @@ function path($s, $newvalue='') {
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
 }
+
+$plx_racine = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+if(file_exists('./' . PAGE_LOGIN)) {
+	$plx_racine = preg_replace('#/\w[\w-]+/\w[\w-]+/$#', '/', $plx_racine);
+}
+$session_site = array(
+	'name'				=> 'PLX_SITE',
+	'cookie_lifetime'	=> SESSION_LIFETIME,
+	'cookie_samesite'	=> 'Strict',
+	'cookie_secure'		=> isset($_SERVER['HTTPS']),
+	'cookie_httponly'	=> true,
+	'cookie_path'		=> $plx_racine,
+	'use_strict_mode'	=> true,
+	'cookie_domain'		=> $_SERVER['SERVER_NAME'],
+);
+

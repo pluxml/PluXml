@@ -12,7 +12,7 @@
 <?php
 $admin = 'core/admin/';
 if(!file_exists(PLX_ROOT . $admin)) {
-	$auths = glob(PLX_ROOT . '*/*/auth.php');
+	$auths = glob(PLX_ROOT . '*/*/' . PAGE_LOGIN);
 
 	if(!empty($auths)) {
 		$admin = preg_replace('#.*/([^\/]+/\w[\w-]+/)auth\.php$#', '$1', $auths[0]);
