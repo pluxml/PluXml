@@ -1,3 +1,41 @@
+## PluXml 5.10.0 (2026/02/25)
+FIX Update for installation
+[+] Move install.php to install/index.php for cookies
+FIX Update librairies for PHPMailer
+FIX Fix plxUtils::getRacine() for update
+FIX Refacto plxShow::staticList()
+FIX Refacto setAdminProfil(), setAdminMenu() and getLang() for plxPlugin class
+FIX Fix include in defaut theme
+FIX Fix for medias and embedded script in SVG
+FIX Refacto parametres_edittpl.php
+FIX Refacto plxAdmin::editConfiguration()
+FIX Refacto plxAdmin::editPassword()
+FIX Refacto plxToken::generateTokenExperyDate()
+FIX Refacto plxAdmin::editStatiques()
+FIX Refacto plxAdmin::editUsers()
+FIX Refacto plxAdmin::editCategories()
+FIX Refacto plxAdmin::editArticle()
+FIX Refacto plxUtils::cdataCheck() with new param $noscript
+FIX Fix translations for L_ARTCHAPO
+FIX Fix for tag value as 0
+[+] New function plxUtils::lang_exists()
+[+] Add flag in languages selection
+[+] Add greek language
+[+] Add Ukrainien translation
+Fix Russian translation
+[+] Add captcha image
+FIX refacto plxMedias::renameFile()
+[+] On new connection, new cookie for session
+FIX rules in .htaccess
+[+] Move every .js scripts into core/admin/js folder
+FIX Refacto for comments
+Fix plxUtils::strCheck()
+[+] Add new constant XML_HEADER
+[+] Update tags.xml from back-office
+[+] Add popup.j library for thumbnails in defaut theme
+FIX plxPlugin::saveParam() if plxMsg is missing
+[+] Add news sitemap for Google
+
 ## PluXml 5.8.22 (2025/11/06)
 [+] Refacto plxShow::meta() with new param $echo
 [+] Display every error if the webmaster is connected

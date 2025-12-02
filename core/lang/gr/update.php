@@ -58,5 +58,9 @@ $LANG = array(
 
 # PluXml 5.8.7
 'L_BUILD_CSS_PLUGINS_CACHE' 		=> 'Δημιουργία των αρχείων cache admin.css και site.css για τα πρόσθετα',
+
+# PluXml 5.8.22
+'L_PHP_CRITICAL_FUNCTIONS'			=> 'Έλεγχος κρίσιμης λειτουργίας της PHP σε στατικές σελίδες',
+
 );
 

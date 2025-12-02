@@ -58,5 +58,9 @@ $LANG = array(
 
 # PluXml 5.8.7
 'L_BUILD_CSS_PLUGINS_CACHE'			=> 'Створення файлів кешів admin.css і site.css для плагінів',
+
+# PluXml 5.8.22
+'L_PHP_CRITICAL_FUNCTIONS'			=> 'Перевірка критичної функції PHP на статичних сторінках',
+
 );
 

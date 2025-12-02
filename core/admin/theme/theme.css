@@ -25,7 +25,13 @@ a.button:hover {
 	width: 123px;
 }
 
+#auth {
+	background-color: #0c4061;
+}
+
 .auth {
+	background-color: #eee;
+	color: #222;
 	border: 1px solid #bbb;
 	border-radius: .6rem;
 	overflow: hidden;
