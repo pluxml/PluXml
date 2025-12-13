@@ -485,17 +485,26 @@ class plxMedias {
 	 * @author	Stephane F, J.P. "bazooka07" Pourrez, Pedro "P3ter" CADETE
 	 **/
 	public function renameFile($oldname, $newname) {
-		$result = false;
-		$new_stats = array();
+		if(!isset($_SESSION['medias'])) {
+			return false;
+		}
+
+		# Anti-hacking
+		$oldname = PLX_ROOT . $_SESSION['medias'] . basename($oldname);
+		$newname = basename($newname);
+
 		# Déplacement du fichier
+		$result = false;
 		if(is_readable($oldname) AND is_file($oldname)) {
 			$dirname = dirname($oldname)."/";
 			$old_stats = pathinfo($oldname);
 			$tmp_stats = pathinfo($newname);
-			$new_stats['dirname'] = $old_stats['dirname'].'/';
-			$new_stats['filename'] = plxUtils::urlify($tmp_stats['filename']);
-			$new_stats['counter'] = '';
-			$new_stats['extension'] = '.'.$old_stats['extension'];
+			$new_stats = array(
+				'dirname'	=> $old_stats['dirname'] . '/',
+				'filename'	=> plxUtils::urlify($tmp_stats['filename']),
+				'counter'	=> '',
+				'extension'	=> '.' . $old_stats['extension'],
+			);
 			# On teste l'existence du nouveau fichier et on formate le nom pour éviter les doublons
 			$i = 1;
 			while(file_exists(implode('', array_values($new_stats)))) {
