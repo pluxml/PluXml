@@ -77,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'девятый',
 'L_TENTH'						=> 'десятый',
 'L_NTH'							=> 'и',
-'L_CAPCHA_QUESTION'				=> 'Каков, характер <span class="capcha-letter">%s</span> этого символ <span class="capcha-word">%s</span>?',
+'L_CAPCHA_QUESTION'				=> 'Каков, характер <span class="capcha-letter">%s</span> этого символ %s?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s имеет доступ на запись',

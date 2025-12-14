@@ -77,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'nono',
 'L_TENTH'						=> 'decimo',
 'L_NTH'							=> 'esimo',
-'L_CAPCHA_QUESTION'				=> 'Qual\'è il <span class="capcha-letter">%s</span> carattere della parola <span class="capcha-word">%s</span>&nbsp;?',
+'L_CAPCHA_QUESTION'				=> 'Qual\'è il <span class="capcha-letter">%s</span> carattere della parola %s?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s è accessibile in scrittura',

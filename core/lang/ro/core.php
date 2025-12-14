@@ -77,7 +77,7 @@ $LANG = array(
 'L_NINTH'						=> 'nouălea',
 'L_TENTH'						=> 'al zecelea',
 'L_NTH'							=> 'a',
-'L_CAPCHA_QUESTION'				=> 'Care este <span class="capcha-letter">%s</span> caracterul a cuvantului <span class="capcha-word">%s</span>&nbsp;?',
+'L_CAPCHA_QUESTION'				=> 'Care este <span class="capcha-letter">%s</span> caracterul a cuvantului %s?',
 
 # class.plx.utils.php
 'L_WRITE_ACCESS'				=> '%s are acces de scriere',

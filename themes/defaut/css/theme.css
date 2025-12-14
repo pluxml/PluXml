@@ -375,6 +375,22 @@ article:after {
 	transition-duration: .2s;
 }
 
+.capcha-img {
+	vertical-align: bottom;
+	border: 1px solid #bbb;
+	margin: 0 2rem;
+}
+
+.capcha-challenge input {
+	width: 3rem;
+	text-align: center;
+	margin-left: 2rem;
+}
+
+.capcha-challenge textarea {
+	resize: vertical;
+}
+
 /* ------- Sidebar ------- */
 
 .aside {
@@ -643,7 +659,12 @@ article:after {
 	.level-max {
 		margin-left: 5rem;
 	}
+	.capcha-img {
+		margin: 0;
+		margin-right: 2rem;
+	}
 }
+
 @media (max-width: 463px) {
 	.header {
 		height: 7rem;
@@ -680,6 +701,12 @@ article:after {
 	.static.group,
 	.static.menu a {
 		padding: 0;
+	}
+	.capcha-challenge input {
+		margin: 0;
+	}
+	.capcha-img {
+		margin-right: 1rem;
 	}
 }
 
