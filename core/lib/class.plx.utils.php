@@ -986,7 +986,7 @@ class plxUtils {
 				glob(PLX_CORE . 'lang/*', GLOB_ONLYDIR)
 			) as $lang
 		) {
-			$result[$lang] = $lang;
+			$result[$lang] = (!empty(FLAGS[$lang]) ? FLAGS[$lang] : '🏴‍☠️') . ' ' . $lang;
 		}
 		return $result;
 	}
