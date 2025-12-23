@@ -803,7 +803,7 @@ class plxShow
 
         # Initialisation de notre variable interne
         $taglist = $this->plxMotor->plxRecord_arts->f('tags');
-        if (!empty($taglist)) {
+        if (strlen($taglist) > 0) {
             $tags = array_map('trim', explode(',', $taglist));
             foreach ($tags as $idx => $tag) {
                 $t = plxUtils::urlify($tag);

@@ -1041,7 +1041,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 			# mise à jour de la liste des tags
 			$tags = trim($content['tags']);
-			if(!empty($tags)) {
+			if(strlen($tags) > 0) {
 				$this->aTags[$id] = array(
 					'tags' => $tags,
 					'date' => $time,
