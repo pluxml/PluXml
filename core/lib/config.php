@@ -42,6 +42,23 @@ const PROFIL_MANAGER = 1;
 const PROFIL_MODERATOR	= 2;
 const PROFIL_EDITOR	= 3;
 const PROFIL_WRITER	= 4;
+#  Flag Sequences :
+# 🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿
+const FLAGS = array(
+	'de' => '🇩🇪',
+	'en' => '🇬🇧', # GB
+	'es' => '🇪🇸',
+	'fr' => '🇫🇷',
+	'gr' => '🇬🇷',
+	'it' => '🇮🇹',
+	'nl' => '🇳🇱',
+	'oc' => '🇫🇷',
+	'pl' => '🇵🇱',
+	'pt' => '🇵🇹',
+	'ro' => '🇷🇴',
+	'ru' => '🇷🇺',
+	'ua' => '🇺🇦',
+);
 
 # taille redimensionnement des images et miniatures
 $img_redim = array('320x200', '500x380', '640x480');

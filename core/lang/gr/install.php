@@ -1,0 +1,40 @@
+<?php
+
+$LANG = array(
+
+# install.php
+'L_INSTALL_TITLE'              		=> 'Εγκατάσταση',
+'L_WRONG_PHP_VERSION'          		=> 'Το PluXml απαιτεί PHP 5 ή νεότερη έκδοση',
+'L_SELECT_LANG'               		=> 'Επιλέξτε τη γλώσσα σας',
+'L_INPUT_CHANGE'               		=> 'Αλλαγή',
+'L_INSTALL_DATA'               		=> 'Εγκατάσταση δείγματος δεδομένων',
+'L_YES'                        		=> 'Ναι',
+'L_NO'                         		=> 'Όχι',
+'L_DEFAULT_CATEGORY_TITLE'     		=> 'Κατηγορία 1',
+'L_DEFAULT_CATEGORY_URL'       		=> 'kathgoria-1',
+'L_DEFAULT_STATIC_TITLE'       		=> 'Στατική 1',
+'L_DEFAULT_STATIC_URL'         		=> 'statiki-1',
+'L_DEFAULT_ARTICLE_TITLE'      		=> 'Πρώτο άρθρο',
+'L_DEFAULT_ARTICLE_URL'        		=> 'proto-arthro',
+'L_DEFAULT_COMMENT_CONTENT'      	=> 'Αυτό είναι το πρώτο σχόλιο!',
+'L_ERR_PLUXML_ALREADY_INSTALLED' 	=> 'Το PluXml έχει ήδη εγκατασταθεί!',
+'L_ERR_MISSING_USER'             	=> 'Παρακαλώ συμπληρώστε το πεδίο συντάκτη!',
+'L_ERR_MISSING_LOGIN'            	=> 'Παρακαλώ συμπληρώστε το πεδίο σύνδεσης!',
+'L_ERR_MISSING_PASSWORD'         	=> 'Παρακαλώ συμπληρώστε το πεδίο κωδικού πρόσβασης!',
+'L_ERR_PASSWORD_CONFIRMATION'    	=> 'Η επιβεβαίωση κωδικού πρόσβασης δεν είναι έγκυρη!',
+'L_PLUXML_INSTALLATION'          	=> 'Εγκατάσταση PluXml',
+'L_SITE_DESCRIPTION'             	=> 'Blog ή CMS, βασισμένο σε XML!',
+'L_VERSION'                      	=> 'έκδοση',
+'L_USERNAME'                     	=> 'Όνομα διαχειριστή',
+'L_LOGIN'                        	=> 'Σύνδεση διαχειριστή',
+'L_PASSWORD'                     	=> 'Κωδικός πρόσβασης',
+'L_PASSWORD_CONFIRMATION'        	=> 'Επιβεβαίωση κωδικού πρόσβασης',
+'L_EMAIL'                        	=> 'Διεύθυνση e-mail',
+'L_INPUT_INSTALL'                	=> 'Εγκατάσταση',
+'L_TIMEZONE'                     	=> 'Ζώνη ώρας',
+'L_PWD_VERY_WEAK'                	=> 'Πολύ αδύναμος κωδικός',
+'L_PWD_WEAK'                     	=> 'Αδύναμος κωδικός',
+'L_PWD_GOOD'                     	=> 'Καλός κωδικός',
+'L_PWD_STRONG'                   	=> 'Ισχυρός κωδικός',
+);
+?>

@@ -1,0 +1,159 @@
+<?php
+
+$LANG = array(
+
+'L_LANGUE'						=> 'Ελληνικά',
+
+'L_DATE_CREATION'				=> 'Ημερομηνία δημιουργίας',
+'L_DATE_UPDATE'   				=> 'Ημερομηνία ενημέρωσης',
+
+
+# common
+'L_PLUXML_VERSION' 				=> 'Έκδοση PluXml',
+'L_HOMEPAGE'      				=> 'Αρχική σελίδα',
+'L_UNCLASSIFIED'   				=> 'Χωρίς κατηγορία',
+'L_INFO_PHP_VERSION' 			=> 'Έκδοση PHP',
+'L_INFO_CHARSET'     			=> 'Κωδικοποίηση χαρακτήρων',
+
+
+# index.php
+'L_ERR_THEME_NOTFOUND'			=> 'Το κύριο θέμα του PluXml δεν βρέθηκε',
+'L_ERR_FILE_NOTFOUND'			=> 'Το ζητούμενο αρχείο του PluXml δεν βρέθηκε',
+'L_ERR_PAGE_NOT_FOUND'			=> 'Η σελίδα δεν βρέθηκε',
+
+
+# class.plx.date.php
+'L_SHORT_JANUARY'				=> 'Ιαν',
+'L_SHORT_FEBRUARY'   			=> 'Φεβ',
+'L_SHORT_MARCH'      			=> 'Μαρ',
+'L_SHORT_APRIL'      			=> 'Απρ',
+'L_SHORT_MAY'        			=> 'Μάι',
+'L_SHORT_JUNE'       			=> 'Ιουν',
+'L_SHORT_JULY'       			=> 'Ιουλ',
+'L_SHORT_AUGUST'     			=> 'Αυγ',
+'L_SHORT_SEPTEMBER'  			=> 'Σεπ',
+'L_SHORT_OCTOBER'    			=> 'Οκτ',
+'L_SHORT_NOVEMBER'   			=> 'Νοε',
+'L_SHORT_DECEMBER'   			=> 'Δεκ',
+'L_LONG_JANUARY'     			=> 'Ιανουάριος',
+'L_LONG_FEBRUARY'    			=> 'Φεβρουάριος',
+'L_LONG_MARCH'       			=> 'Μάρτιος',
+'L_LONG_APRIL'       			=> 'Απρίλιος',
+'L_LONG_MAY'         			=> 'Μάιος',
+'L_LONG_JUNE'        			=> 'Ιούνιος',
+'L_LONG_JULY'        			=> 'Ιούλιος',
+'L_LONG_AUGUST'      			=> 'Αύγουστος',
+'L_LONG_SEPTEMBER'   			=> 'Σεπτέμβριος',
+'L_LONG_OCTOBER'     			=> 'Οκτώβριος',
+'L_LONG_NOVEMBER'    			=> 'Νοέμβριος',
+'L_LONG_DECEMBER'    			=> 'Δεκέμβριος',
+'L_JANUARY'          			=> 'Ιανουάριος',
+'L_FEBRUARY'         			=> 'Φεβρουάριος',
+'L_MARCH'            			=> 'Μάρτιος',
+'L_APRIL'            			=> 'Απρίλιος',
+'L_MAY'              			=> 'Μάιος',
+'L_JUNE'             			=> 'Ιούνιος',
+'L_JULY'            			=> 'Ιούλιος',
+'L_AUGUST'           			=> 'Αύγουστος',
+'L_SEPTEMBER'        			=> 'Σεπτέμβριος',
+'L_OCTOBER'          			=> 'Οκτώβριος',
+'L_NOVEMBER'         			=> 'Νοέμβριος',
+'L_DECEMBER'         			=> 'Δεκέμβριος',
+'L_MONDAY'           			=> 'Δευτέρα',
+'L_TUESDAY'          			=> 'Τρίτη',
+'L_WEDNESDAY'        			=> 'Τετάρτη',
+'L_THURSDAY'         			=> 'Πέμπτη',
+'L_FRIDAY'           			=> 'Παρασκευή',
+'L_SATURDAY'         			=> 'Σάββατο',
+'L_SUNDAY'           			=> 'Κυριακή',
+
+# class.plx.capcha.php
+'L_LAST'        				=> 'τελευταίος',
+'L_FIRST'       				=> 'πρώτος',
+'L_SECOND'      				=> 'δεύτερος',
+'L_THIRD'       				=> 'τρίτος',
+'L_FOURTH'      				=> 'τέταρτος',
+'L_FIFTH'       				=> 'πέμπτος',
+'L_SIXTH'       				=> 'έκτος',
+'L_SEVENTH'     				=> 'έβδομος',
+'L_EIGTH'       				=> 'όγδοος',
+'L_NINTH'       				=> 'ένατος',
+'L_TENTH'       				=> 'δέκατος',
+'L_NTH'         				=> 'ος',
+'L_CAPCHA_QUESTION' 			=> 'Ποιος είναι ο <span class="capcha-letter">%s</span> χαρακτήρας της λέξης <span class="capcha-word">%s</span>;',
+
+# class.plx.utils.php
+'L_WRITE_ACCESS'              	=> 'Το %s έχει δικαιώματα εγγραφής',
+'L_WRITE_NOT_ACCESS'          	=> 'Το %s δεν έχει δικαιώματα εγγραφής ή δεν υπάρχει',
+'L_MODREWRITE_AVAILABLE'      	=> 'Το Apache module mod_rewrite είναι διαθέσιμο',
+'L_MODREWRITE_NOT_AVAILABLE'  	=> 'Το Apache module mod_rewrite δεν είναι διαθέσιμο',
+'L_LIBGD_INSTALLED'           	=> 'Η βιβλιοθήκη GD είναι εγκατεστημένη',
+'L_LIBGD_NOT_INSTALLED'       	=> 'Η βιβλιοθήκη GD δεν είναι εγκατεστημένη',
+'L_LIBXML_INSTALLED'          	=> 'Η βιβλιοθήκη XML είναι εγκατεστημένη',
+'L_LIBXML_NOT_INSTALLED'      	=> 'Η βιβλιοθήκη XML δεν είναι εγκατεστημένη',
+'L_MAIL_AVAILABLE'            	=> 'Η λειτουργία αποστολής email είναι διαθέσιμη',
+'L_MAIL_NOT_AVAILABLE'        	=> 'Η λειτουργία αποστολής email δεν είναι διαθέσιμη',
+
+# class.plx.motor.php
+'L_ARTICLE_NO_TAG'             	=> 'Δεν βρέθηκε άρθρο με αυτήν την ετικέτα!',
+'L_UNKNOWN_CATEGORY'           	=> 'Αυτή η κατηγορία δεν υπάρχει!',
+'L_NO_ARTICLE_PAGE'           	=> 'Δεν βρέθηκε άρθρο για αυτήν τη σελίδα!',
+'L_UNKNOWN_ARTICLE'            	=> 'Αυτό το άρθρο δεν υπάρχει ή δεν υπάρχει πλέον!',
+'L_COM_PUBLISHED'              	=> 'Το σχόλιο δημοσιεύτηκε',
+'L_COM_IN_MODERATION'          	=> 'Το σχόλιο βρίσκεται υπό έλεγχο από τον διαχειριστή του ιστότοπου',
+'L_UNKNOWN_STATIC'             	=> 'Αυτή η σελίδα δεν υπάρχει ή δεν υπάρχει πλέον!',
+'L_DOCUMENT_NOT_FOUND'         	=> 'Το έγγραφο δεν βρέθηκε',
+'L_NEWCOMMENT_ERR'             	=> 'Παρουσιάστηκε σφάλμα κατά τη δημοσίευση του σχολίου',
+'L_NEWCOMMENT_FIELDS_REQUIRED' 	=> 'Παρακαλώ συμπληρώστε όλα τα απαιτούμενα πεδία',
+'L_NEWCOMMENT_ERR_ANTISPAM'    	=> 'Η επαλήθευση antispam απέτυχε',
+
+# class.plx.show.php
+
+'L_HTTPENCODING'              	=> 'Η συμπίεση %s είναι ενεργή',
+'L_PAGETITLE_ARCHIVES'        	=> 'Αρχεία',
+'L_PAGETITLE_TAG'             	=> 'Ετικέτα',
+'L_NO_CATEGORY'               	=> 'καμία κατηγορία',
+'L_CATEGORY'                  	=> 'κατηγορία',
+'L_CATEGORIES'                	=> 'κατηγορίες',
+'L_NO_ARTICLE'                	=> 'κανένα άρθρο',
+'L_ARTICLE'                   	=> 'άρθρο',
+'L_ARTICLES'                  	=> 'άρθρα',
+'L_ARTAUTHOR_UNKNOWN'         	=> 'άγνωστος',
+'L_ARTTAGS_NONE'              	=> 'καμία',
+'L_ARTCHAPO'                  	=> 'Διαβάστε περισσότερα #art_title',
+'L_ARTFEED_RSS_CATEGORY'      	=> 'Ροή RSS της κατηγορίας',
+'L_ARTFEED_RSS_TAG'           	=> 'Ροή RSS της ετικέτας',
+'L_ARTFEED_RSS'               	=> 'Ροή RSS των άρθρων',
+'L_NO_COMMENT'                	=> 'κανένα σχόλιο',
+'L_COMMENT'                   	=> 'σχόλιο',
+'L_COMMENTS'                  	=> 'σχόλια',
+'L_COMFEED_RSS_ARTICLE'       	=> 'Ροή RSS των σχολίων του άρθρου',
+'L_COMFEED_RSS'               	=> 'Ροή RSS των σχολίων',
+'L_STATICCONTENT_INPROCESS'   	=> 'Αυτή η σελίδα βρίσκεται υπό επεξεργασία',
+'L_SAID'                      	=> 'είπε',
+
+
+'L_PAGINATION_FIRST_TITLE'     	=> 'Μετάβαση στην πρώτη σελίδα',
+'L_PAGINATION_FIRST'           	=> '«',
+'L_PAGINATION_PREVIOUS_TITLE'  	=> 'Προηγούμενη σελίδα',
+'L_PAGINATION_PREVIOUS'        	=> 'προηγούμενη',
+'L_PAGINATION_NEXT_TITLE'      	=> 'Επόμενη σελίδα',
+'L_PAGINATION_NEXT'            	=> 'επόμενη',
+'L_PAGINATION_LAST_TITLE'      	=> 'Μετάβαση στην τελευταία σελίδα',
+'L_PAGINATION_LAST'            	=> '»',
+'L_PAGINATION'                 	=> 'σελίδα %s από %s',
+
+'L_PAGEBLOG_TITLE'				=> 'Blog',
+
+'L_YEAR'						=> 'έτος',
+'L_TOTAL'						=> 'σύνολο',
+
+# class.plx.feed.php
+'L_FEED_NO_PRIVATE_URL'      => 'Οι ιδιωτικές διευθύνσεις URL δεν έχουν αρχικοποιηθεί στις ρυθμίσεις διαχείρισης!',
+'L_FEED_COMMENTS'            => 'Σχόλια',
+'L_FEED_ONLINE_COMMENTS'     => 'Ενεργά σχόλια',
+'L_FEED_OFFLINE_COMMENTS'    => 'Ανενεργά σχόλια',
+'L_FEED_WRITTEN_BY'          => 'Γράφτηκε από',
+
+);
+?>
