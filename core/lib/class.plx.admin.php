@@ -256,25 +256,31 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editProfil($content) {
 
-		if(isset($content['profil']) AND trim($content['name'])=='')
+		if(isset($content['profil']) AND trim($content['name'])=='') {
 			return plxMsg::Error(L_ERR_USER_EMPTY);
+		}
 
-			if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
-				return plxMsg::Error(L_ERR_INVALID_EMAIL);
+		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email']))) {
+			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+		}
 
-			if(!in_array($content['lang'], plxUtils::getLangs()))
-				return plxMsg::Error(L_UNKNOWN_ERROR);
+		if(!plxUtils::lang_exists($content['lang'])) {
+			return plxMsg::Error(L_UNKNOWN_ERROR);
+		}
 
-			$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
-			$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
-			$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
-			$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
+		$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
+		$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
+		$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
+		$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
-			$_SESSION['admin_lang'] = $content['lang'];
+		$_SESSION['admin_lang'] = $content['lang'];
 
-			# Hook plugins
-			if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) return;
-			return $this->editUsers(null, true);
+		# Hook plugins
+		if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) {
+			return;
+		}
+
+		return $this->editUsers(null, true);
 	}
 
 	/**
@@ -562,19 +568,23 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editUser($content) {
 
 		# controle de l'adresse email
-		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email'])))
+		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email']))) {
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+		}
 
-			# controle de la langue sélectionnée
-			if(!in_array($content['lang'], plxUtils::getLangs()))
-				return plxMsg::Error(L_UNKNOWN_ERROR);
+		# controle de la langue sélectionnée
+		if(!plxUtils::lang_exists($content['lang'])) {
+			return plxMsg::Error(L_UNKNOWN_ERROR);
+		}
 
-				$this->aUsers[$content['id']]['email'] = $content['email'];
-				$this->aUsers[$content['id']]['infos'] = trim($content['content']);
-				$this->aUsers[$content['id']]['lang'] = $content['lang'];
-				# Hook plugins
-				eval($this->plxPlugins->callHook('plxAdminEditUser'));
-				return $this->editUsers(null,true);
+		$this->aUsers[$content['id']]['email'] = $content['email'];
+		$this->aUsers[$content['id']]['infos'] = trim($content['content']);
+		$this->aUsers[$content['id']]['lang'] = $content['lang'];
+
+		# Hook plugins
+		eval($this->plxPlugins->callHook('plxAdminEditUser'));
+
+		return $this->editUsers(null,true);
 	}
 
 	/**

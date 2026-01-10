@@ -991,6 +991,17 @@ class plxUtils {
 		return $result;
 	}
 
+	/*
+	 * Checks if core.php file exists for a language
+	 *
+	 * @param $lang for checking
+	 * @return boolean
+	 * @author J.P. Pourrez @bazooka07
+	 **/
+	public static function lang_exists($lang) {
+		return file_exists(preg_replace('#/lib$#', '/lang/' . $lang . '/core.php', __DIR__));
+	}
+
 	/**
 	 * Méthode qui empeche de mettre en cache une page
 	 *
