@@ -902,12 +902,18 @@ class plxUtils {
 	 * Méthode qui retourne une chaine de caractères nettoyée des cdata
 	 *
 	 * @param	str		chaine de caractères à nettoyer
+	 * @param	noscript remplace la balise script par la balise div
 	 * @return	string	chaine de caractères nettoyée
-	 * @author	Stephane F
+	 * @author	Stephane F, J.P. Pourrez @bazooka07
 	 **/
-	public static function cdataCheck($str) {
-		$str = str_ireplace('!CDATA', '&#33;CDATA', $str);
-		return str_replace(']]>', ']]&gt;', $str);
+	public static function cdataCheck($str, $noscript=false) {
+		if($noscript) {
+			$str = preg_replace('#(<\?,)script#i', '$1div', $str);
+		}
+		return strtr($str, array(
+			'<![CDATA['	=> '&lt;![CDATA[',
+			']]>'		=> ']]&gt;',
+		));
 	}
 
 	/**
