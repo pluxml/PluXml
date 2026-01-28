@@ -956,67 +956,112 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @param	content	données saisies de l'article
 	 * @param	&id		retourne le numero de l'article
 	 * @return	string
-	 * @author	Stephane F., Florent MONTHEL
+	 * @author	Stephane F., Florent MONTHEL, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editArticle($content, &$id) {
 
 		# Détermine le numero de fichier si besoin est
-		if($id == '0000' OR $id == '')
+		if($id == '0000' OR $id == '') {
 			$id = $this->nextIdArticle();
-
-		# Vérifie l'intégrité de l'identifiant
-		if(!preg_match('/^_?\d{4}$/',$id)) {
-			$id='';
-			return L_ERR_INVALID_ARTICLE_IDENT;
+		} else {
+			# Vérifie l'intégrité de l'identifiant
+			if(!preg_match('/^_?\d{4}$/',$id)) {
+				$id = '';
+				return L_ERR_INVALID_ARTICLE_IDENT;
+			}
 		}
 
 		# Génération de notre url d'article
 		$tmpstr = (!empty($content['url'])) ? $content['url'] : $content['title'];
-		$content['url'] = plxUtils::urlify($tmpstr);
 
+		# Remove non-alphanumeric characters
+		$content['url'] = plxUtils::urlify($tmpstr);
 		# URL vide après le passage de la fonction ;)
-		if($content['url'] == '') $content['url'] = L_DEFAULT_NEW_ARTICLE_URL;
+		if(empty($content['url'])) {
+			$content['url'] = L_DEFAULT_NEW_ARTICLE_URL;
+		}
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
 
-		# Suppression des doublons dans les tags
-		$tags = array_map('trim', explode(',', trim($content['tags'])));
-		$tags_unique = array_unique($tags);
+		# Suppression des doublons et utilisation des entités HTML dans les tags
+		$tags_unique = array_map(
+			'\plxUtils::strCheck', # https://www.php.net/manual/fr/function.array-map.php#128742
+			array_unique(
+				array_map(
+					'trim',
+					explode(',', trim($content['tags']))
+				)
+			)
+		);
 		$content['tags'] = implode(', ', $tags_unique);
 
 		# Formate des dates de creation et de mise à jour
+		$now = date('YmdHi');
 		$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
+		if(!preg_match('#^\d{12}$#', $date_creation)) {
+			$date_creation = $now;
+		}
 		$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
-		$date_update = $date_update==$content['date_update_old'] ? date('YmdHi') : $date_update;
-		# Génération du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-		$xml .= "\t".'<title><![CDATA['.plxUtils::cdataCheck(trim($content['title'])).']]></title>'."\n";
-		$xml .= "\t".'<allow_com>'.$content['allow_com'].'</allow_com>'."\n";
-		$xml .= "\t".'<template><![CDATA['.basename($content['template']).']]></template>'."\n";
-		$xml .= "\t".'<chapo><![CDATA['.plxUtils::cdataCheck(trim($content['chapo'])).']]></chapo>'."\n";
-		$xml .= "\t".'<content><![CDATA['.plxUtils::cdataCheck(trim($content['content'])).']]></content>'."\n";
-		$xml .= "\t".'<tags><![CDATA['.plxUtils::cdataCheck(trim($content['tags'])).']]></tags>'."\n";
+		$date_update = (
+			!preg_match('#^\d{12}$#', $date_update) or
+			!preg_match('#^\d{12}$#', $content['date_update_old']) or
+			$date_update == $content['date_update_old']
+		) ? $now : $date_update;
+
 		$meta_description = plxUtils::getValue($content['meta_description']);
-		$xml .= "\t".'<meta_description><![CDATA['.plxUtils::cdataCheck(trim($meta_description)).']]></meta_description>'."\n";
 		$meta_keywords = plxUtils::getValue($content['meta_keywords']);
-		$xml .= "\t".'<meta_keywords><![CDATA['.plxUtils::cdataCheck(trim($meta_keywords)).']]></meta_keywords>'."\n";
 		$title_htmltag = plxUtils::getValue($content['title_htmltag']);
-		$xml .= "\t".'<title_htmltag><![CDATA['.plxUtils::cdataCheck(trim($title_htmltag)).']]></title_htmltag>'."\n";
-		$thumbnail = plxUtils::getValue($content['thumbnail']);
-		$xml .= "\t".'<thumbnail><![CDATA['.plxUtils::cdataCheck(trim($thumbnail)).']]></thumbnail>'."\n";
-		$thumbnail_alt = plxUtils::getValue($content['thumbnail_alt']);
-		$xml .= "\t".'<thumbnail_alt><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_alt)).']]></thumbnail_alt>'."\n";
-		$thumbnail_title = plxUtils::getValue($content['thumbnail_title']);
-		$xml .= "\t".'<thumbnail_title><![CDATA['.plxUtils::cdataCheck(trim($thumbnail_title)).']]></thumbnail_title>'."\n";
-		$xml .= "\t".'<date_creation><![CDATA['.plxUtils::cdataCheck($date_creation).']]></date_creation>'."\n";
-		$xml .= "\t".'<date_update><![CDATA['.plxUtils::cdataCheck($date_update).']]></date_update>'."\n";
+		# Vérifier si le fichier existe
+		$filename = PLX_ROOT . $content['thumbnail'];
+		if(!file_exists($filename) or exif_imagetype($filename) === false ) {
+			$content['thumbnail'] = '';
+			$content['thumbnail_alt'] = '';
+		} else {
+			$content['thumbnail_alt'] = trim($content['thumbnail_alt']);
+			if(!empty($content['thumbnail_alt'])) {
+				$content['thumbnail_alt'] = plxUtils::strCheck($content['thumbnail_alt']);
+			} else {
+				$content['thumbnail_alt'] = basename($content['thumbnail']);
+			}
+		}
+
+		# vérification du template
+		if(!preg_match('#^article[\w\.-]*\.php$#', $content['template'])) {
+			$content['template'] ='article.php';
+		}
+
+		# Vérifie si l'auteur existe
+		if(!preg_match('#^\d{3}$#', $content['author']) or !array_key_exists($content['author'], $this->aUsers)) {
+			$content['author'] = '000';
+		}
+
+		# Génération du contenu du fichier XML
+		ob_start();
+?>
+<document>
+	<title><?= plxUtils::strCheck(trim($content['title'])) ?></title>
+	<allow_com><?= ($content['allow_com'] === '1') ? '1' : '0' ?></allow_com>
+	<template><?= $content['template'] ?></template>
+	<chapo><![CDATA[<?= plxUtils::cdataCheck(trim($content['chapo']), true) ?>]]></chapo>
+	<content><![CDATA[<?= plxUtils::cdataCheck(trim($content['content']), true) ?>]]></content>
+	<tags><?= $content['tags'] ?></tags>
+	<meta_description><?= plxUtils::strCheck($meta_description) ?></meta_description>
+	<meta_keywords><?= plxUtils::strCheck($meta_keywords) ?></meta_keywords>
+	<title_htmltag><?= plxUtils::strCheck($title_htmltag) ?></title_htmltag>
+	<thumbnail><?= $content['thumbnail'] ?></thumbnail>
+	<thumbnail_alt><?= $content['thumbnail_alt'] ?></thumbnail_alt>
+	<thumbnail_title><?= plxUtils::strCheck($content['thumbnail_title']) ?></thumbnail_title>
+	<date_creation><?= $date_creation ?></date_creation>
+	<date_update><?= $date_update ?></date_update>
+<?php
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditArticleXml'));
-		$xml .= "</document>\n";
+?>
+</document>
+<?php
 		# Recherche du nom du fichier correspondant à l'id
-		$oldArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/','','sort',0,1,'all');
+		$oldArt = $this->plxGlob_arts->query('/^'.$id.'\.(.*)\.xml$/','','sort',0,1,'all');
 
 		# Si demande de modération de l'article
 		if(isset($content['moderate']))
@@ -1027,11 +1072,26 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# On genère le nom de notre fichier
 		$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
-		if(!preg_match('/^\d{12}$/',$time)) $time = date('YmdHi'); # Check de la date au cas ou...
-		if(empty($content['catId'])) $content['catId']=array('000'); # Catégorie non classée
-		$filename = PLX_ROOT.$this->aConf['racine_articles'].$id.'.'.implode(',', $content['catId']).'.'.trim($content['author']).'.'.$time.'.'.$content['url'].'.xml';
+		if(!preg_match('/^\d{12}$/',$time)) {
+			$time = $now; # Check de la date au cas ou...
+		}
+		$content['catId'] = array_filter($content['catId'], function($value) {
+			return preg_match('#^(?:\d{3}|home)$#', $value);
+		});
+		if(empty($content['catId'])) {
+			$content['catId'] = array('000'); # article non classé
+		}
+
 		# On va mettre à jour notre fichier
-		if(plxUtils::write($xml,$filename)) {
+		$filename = PLX_ROOT . $this->aConf['racine_articles'] . implode('.', array(
+			$id,
+			implode(',', $content['catId']),
+			trim($content['author']),
+			$time,
+			$content['url'],
+			'xml',
+		));
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), $filename)) {
 			# suppression ancien fichier si nécessaire
 			if($oldArt) {
 				$oldfilename = PLX_ROOT.$this->aConf['racine_articles'].$oldArt['0'];
@@ -1054,6 +1114,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			}
 
 			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+
 			# Hook plugins
 			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
 			return plxMsg::Info($msg);
