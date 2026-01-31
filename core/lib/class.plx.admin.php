@@ -252,25 +252,42 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau contenant les informations sur l'utilisateur
 	 * @return	string
-	 * @author	Stéphane F
+	 * @author	Stéphane F, J.P. Pourrez @bazooka07
 	 **/
 	public function editProfil($content) {
 
-		if(isset($content['profil']) AND trim($content['name'])=='') {
+		$username = trim($content['name']);
+		/*
+		$profil = filter_var(
+			$content['profil'],
+			FILTER_VALIDATE_INT,
+			array(
+				'options'	=> array(
+					'default'	=> PROFIL_WRITER,
+					'min'		=> 0,
+					'max'		=> PROFIL_WRITER,
+				),
+			)
+		);
+*/
+		if(empty($username) or !preg_match('#^\w[\w\s\.-]{2,}$#', $username)) {
 			return plxMsg::Error(L_ERR_USER_EMPTY);
 		}
 
-		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email']))) {
+		# controle de l'adresse email
+		$email = filter_var(trim($content['email']), FILTER_VALIDATE_EMAIL);
+		if(empty($email)) {
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
 		}
 
+		# controle de la langue sélectionnée
 		if(!plxUtils::lang_exists($content['lang'])) {
 			return plxMsg::Error(L_UNKNOWN_ERROR);
 		}
 
-		$this->aUsers[$_SESSION['user']]['name'] = trim($content['name']);
-		$this->aUsers[$_SESSION['user']]['infos'] = trim($content['content']);
-		$this->aUsers[$_SESSION['user']]['email'] = trim($content['email']);
+		$this->aUsers[$_SESSION['user']]['name'] = $username;
+		$this->aUsers[$_SESSION['user']]['infos'] = plxUtils::strCheck($content['content']);
+		$this->aUsers[$_SESSION['user']]['email'] = $email;
 		$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
 		$_SESSION['admin_lang'] = $content['lang'];
@@ -428,7 +445,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau les informations sur les utilisateurs
 	 * @return	string
-	 * @author	Stéphane F, Pedro "P3ter" CADETE
+	 * @author	Stéphane F, Pedro "P3ter" CADETE, , J.P. Pourrez @bazooka07
 	 **/
 	public function editUsers($content, $action=false) {
 
@@ -438,124 +455,174 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) return;
 
 		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idUser']) AND empty($content['update'])) {
-			foreach($content['idUser'] as $user_id) {
-				if($content['selection']=='delete' AND $user_id!='001') {
-					$this->aUsers[$user_id]['delete']=1;
+		if(!empty($content['selection'])) {
+			if($content['selection']=='delete' AND isset($content['idUser']) AND empty($content['update'])) {
+				foreach($content['idUser'] as $user_id) {
+					if(!preg_match('#^\d{3}$#', $user_id) or !array_key_exists($user_id, $this->aUsers) or $user_id == '001') {
+						# $user_id invalide ou pas de suppression pour le 1er utilisateur (webmaster)
+						continue;
+					}
+
+					$this->aUsers[$user_id]['delete'] = 1;
 					foreach(array(/* 'login', 'name', */ 'password', 'salt', 'infos', 'email', 'lang', 'password_token', 'password_token_expiry',) as $k) {
+						# Suppression des données personnelles
 						$this->aUsers[$user_id][$k] = '';
 					}
 					$action = true;
 				}
+			} else {
+				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
 			}
 		}
 		# mise à jour de la liste des utilisateurs
 		elseif(!empty($content['update'])) {
+			# On récupère le dernier identifiant
+			$a = array_keys($this->aUsers);
+			rsort($a);
+			$new_userid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 
 			foreach($content['userNum'] as $user_id) {
+				if(!array_key_exists($user_id, $this->aUsers) and $user_id != $new_userid) {
+					continue;
+				}
+
 				$username = trim($content[$user_id.'_name']);
-				if($username!='' AND trim($content[$user_id.'_login'])!='') {
+				$login = trim($content[$user_id.'_login']);
+				if(!empty($username) and !empty($login) and preg_match('#^\w[\w\s\.-]{2,}$#', $username) and preg_match('#^\w[\w\s\.-]{2,}$#', $login)) {
+					if(!array_key_exists($user_id, $this->aUsers)) {
+						# Nouvel utilisateur dans le tableau des utilisateurs
+						$this->aUsers[$user_id] = array(
+							'delete'				=> 0,
+							'lang'					=> $this->aConf['default_lang'],
+							'infos'					=> '',
+							'password_token'		=> '',
+							'password_token_expiry'	=> '',
+						);
+					}
 
 					# controle du mot de passe
-					$salt = plxUtils::charAleatoire(10);
-					if(trim($content[$user_id.'_password'])!='')
-						$password=sha1($salt.md5($content[$user_id.'_password']));
-					elseif(isset($content[$user_id.'_newuser'])) {
+					$password = trim($content[$user_id . '_password']);
+					if(!empty($password)) {
+						$salt = plxUtils::charAleatoire(10);
+						$password = sha1($salt . md5($password));
+					} elseif(isset($content[$user_id.'_newuser'])) {
+						# Mot de passe obligatoire pour un nouvel utilisateur
 						$this->aUsers = $save;
 						return plxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
-					}
-					else {
+					} else {
+						# Mot de passe inchangé
 						$salt = $this->aUsers[$user_id]['salt'];
 						$password = $this->aUsers[$user_id]['password'];
 					}
 
 					# controle de l'adresse email
-					$email = trim($content[$user_id.'_email']);
-					if(isset($content[$user_id.'_newuser']) AND empty($email))
+					$email = filter_var($content[$user_id.'_email'], FILTER_VALIDATE_EMAIL);
+					if(empty($email)) {
 						return plxMsg::Error(L_ERR_INVALID_EMAIL);
-					if(!empty($email) AND !plxUtils::checkMail($email))
-						return plxMsg::Error(L_ERR_INVALID_EMAIL);
+					}
 
-					$this->aUsers[$user_id]['login'] = trim($content[$user_id.'_login']);
-					$this->aUsers[$user_id]['name'] = trim($content[$user_id.'_name']);
-					$this->aUsers[$user_id]['active'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['active']:$content[$user_id.'_active']);
-					$this->aUsers[$user_id]['profil'] = ($_SESSION['user']==$user_id?$this->aUsers[$user_id]['profil']:$content[$user_id.'_profil']);
+					if($_SESSION['user'] == $user_id) {
+						$active = $this->aUsers[$user_id]['active'];
+						$profil = $this->aUsers[$user_id]['profil'];
+					} else {
+						$active = ($content[$user_id.'_active'] == '1' ? 1 : 0);
+						$profil = filter_var(
+							$content[$user_id.'_profil'],
+							FILTER_VALIDATE_INT,
+							array(
+								'options'	=> array(
+									'default'	=> PROFIL_WRITER,
+									'min'		=> 0,
+									'max'		=> PROFIL_WRITER,
+								),
+							)
+						);
+					}
+
+					$this->aUsers[$user_id]['login'] = $login;
+					$this->aUsers[$user_id]['name'] = $username;
+					$this->aUsers[$user_id]['active'] = $active;
+					$this->aUsers[$user_id]['profil'] = $profil;
 					$this->aUsers[$user_id]['password'] = $password;
 					$this->aUsers[$user_id]['salt'] = $salt;
 					$this->aUsers[$user_id]['email'] = $email;
 
-					$this->aUsers[$user_id]['delete'] = (isset($this->aUsers[$user_id]['delete'])?$this->aUsers[$user_id]['delete']:0);
-					$this->aUsers[$user_id]['lang'] = (isset($this->aUsers[$user_id]['lang'])?$this->aUsers[$user_id]['lang']:$this->aConf['default_lang']);
-					$this->aUsers[$user_id]['infos'] = (isset($this->aUsers[$user_id]['infos'])?$this->aUsers[$user_id]['infos']:'');
-
-					$this->aUsers[$user_id]['password_token'] = (isset($this->aUsers[$user_id]['_password_token'])?$this->aUsers[$user_id]['_password_token']:'');
-					$this->aUsers[$user_id]['password_token_expiry'] = (isset($this->aUsers[$user_id]['_password_token_expiry'])?$this->aUsers[$user_id]['_password_token_expiry']:'');
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
 					$action = true;
 				}
 			}
 		}
-		# sauvegarde
-		if($action) {
-			$users_name = array();
-			$users_login = array();
-			$users_email = array();
 
-			# On génére le fichier XML
-			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
-			$xml .= "<document>\n";
-
-			foreach($this->aUsers as $user_id => $user) {
-				# controle de l'unicité du nom de l'utilisateur
-			    if(in_array($user['name'], $users_name)) {
-					$this->aUsers = $save;
-					return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
-				}
-				else if ($user['delete'] == 0) {
-					$users_name[] = $user['name'];
-				}
-				# controle de l'unicité du login de l'utilisateur
-				if(in_array($user['login'], $users_login)) {
-					return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
-				}
-				else if ($user['delete'] == 0) {
-					$users_login[] = $user['login'];
-				}
-				# controle de l'unicité de l'adresse e-mail
-				if(in_array($user['email'], $users_email)) {
-					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
-				}
-				else if ($user['delete'] == 0) {
-					$users_email[] = $user['email'];
-				}
-				$xml .= "\t".'<user number="'.$user_id.'" active="'.$user['active'].'" profil="'.$user['profil'].'" delete="'.$user['delete'].'">'."\n";
-				$xml .= "\t\t".'<login><![CDATA['.plxUtils::cdataCheck($user['login']).']]></login>'."\n";
-				$xml .= "\t\t".'<name><![CDATA['.plxUtils::cdataCheck($user['name']).']]></name>'."\n";
-				$xml .= "\t\t".'<infos><![CDATA['.plxUtils::cdataCheck($user['infos']).']]></infos>'."\n";
-				$xml .= "\t\t".'<password><![CDATA['.plxUtils::cdataCheck($user['password']).']]></password>'."\n";
-				$xml .= "\t\t".'<salt><![CDATA['.plxUtils::cdataCheck($user['salt']).']]></salt>'."\n";
-				$xml .= "\t\t".'<email><![CDATA['.plxUtils::cdataCheck($user['email']).']]></email>'."\n";
-				$xml .= "\t\t".'<lang><![CDATA['.plxUtils::cdataCheck($user['lang']).']]></lang>'."\n";
-				$xml .= "\t\t".'<password_token><![CDATA['.plxUtils::cdataCheck($user['password_token']).']]></password_token>'."\n";
-				$xml .= "\t\t".'<password_token_expiry><![CDATA['.plxUtils::cdataCheck($user['password_token_expiry']).']]></password_token_expiry>'."\n";
-				# Hook plugins
-				eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
-				$xml .= "\t</user>\n";
-			}
-			$xml .= "</document>";
-
-			# On écrit le fichier
-			if(plxUtils::write($xml,path('XMLFILE_USERS')))
-				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-				else {
-					$this->aUsers = $save;
-					return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
-				}
-		}
-		else {
+		if($action!== true) {
 			return plxMsg::Error(L_SAVE_ERR);
 		}
+
+		# sauvegarde
+		$users_name = array();
+		$users_login = array();
+		$users_email = array();
+
+		# On génére le fichier XML
+		ob_start();
+?>
+<document>
+<?php
+		foreach($this->aUsers as $user_id => $user) {
+			# controle de l'unicité du nom de l'utilisateur
+		    if(in_array($user['name'], $users_name)) {
+				$this->aUsers = $save;
+				return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
+			}
+
+			if ($user['delete'] == 0) {
+				$users_name[] = $user['name'];
+			}
+
+			# controle de l'unicité du login de l'utilisateur
+			if(in_array($user['login'], $users_login)) {
+				return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
+			}
+			if ($user['delete'] == 0) {
+				$users_login[] = $user['login'];
+			}
+			# controle de l'unicité de l'adresse e-mail
+			if(in_array($user['email'], $users_email)) {
+				return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+			}
+
+			if ($user['delete'] == 0) {
+				$users_email[] = $user['email'];
+			}
+?>
+	<user number="<?= $user_id ?>" active="<?= $user['active'] ?>" profil="<?= $user['profil'] ?>" delete="<?= $user['delete'] ?>">
+		<login><?= $user['login'] ?></login>
+		<name><?= $user['name'] ?></name>
+		<infos><![CDATA[ <?= plxUtils::cdataCheck($user['infos'], true) ?>]]></infos>
+		<password><?= $user['password'] ?></password>
+		<salt><?= $user['salt'] ?></salt>
+		<email><?= $user['email'] ?></email>
+		<lang><?= $user['lang'] ?></lang>
+		<password_token><?= $user['password_token'] ?></password_token>
+		<password_token_expiry><?= $user['password_token_expiry'] ?></password_token_expiry>
+<?php
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxAdminEditUsersXml'));
+?>
+	</user>
+<?php
+		}
+?>
+</document>
+<?php
+		# On écrit le fichier
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_USERS'))) {
+			return plxMsg::Info(L_SAVE_SUCCESSFUL);
+		}
+
+		# Echec à l'écriture du fichier
+		$this->aUsers = $save;
+		return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
 	}
 
 	/**
@@ -563,12 +630,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	données à sauvegarder
 	 * @return	string
-	 * @author	Stephane F.
+	 * @author	Stephane F., J.P. Pourrez @bazooka07
 	 **/
 	public function editUser($content) {
 
 		# controle de l'adresse email
-		if(trim($content['email'])!='' AND !plxUtils::checkMail(trim($content['email']))) {
+		$email = filter_var(trim($content['email']), FILTER_VALIDATE_EMAIL);
+		if(empty($email)) {
 			return plxMsg::Error(L_ERR_INVALID_EMAIL);
 		}
 
@@ -577,14 +645,14 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			return plxMsg::Error(L_UNKNOWN_ERROR);
 		}
 
-		$this->aUsers[$content['id']]['email'] = $content['email'];
-		$this->aUsers[$content['id']]['infos'] = trim($content['content']);
+		$this->aUsers[$content['id']]['email'] = $email;
+		$this->aUsers[$content['id']]['infos'] = plxUtils::strCheck($content['content']);
 		$this->aUsers[$content['id']]['lang'] = $content['lang'];
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditUser'));
 
-		return $this->editUsers(null,true);
+		return $this->editUsers(null, true);
 	}
 
 	/**
