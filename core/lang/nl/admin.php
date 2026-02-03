@@ -4,6 +4,7 @@ $LANG = array (
 		'L_ID' => '#',
 		'L_MENU' => 'Menu',
 		'L_UNKNOWN_ERROR' => 'Onbekende fout',
+		'L_PHP_ERROR_LOG' => 'PHP-functie verboden (zie logboek)',
 		'L_CONFIRM_DELETE' => 'Bevestig de verwijdering ?',
 		'L_SAVE_FILE' => 'Sla het bestand op',
 		'L_SAVE_FILE_SUCCESSFULLY' => 'Bestand succesvol opgeslagen',

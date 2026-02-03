@@ -4,6 +4,7 @@ $LANG = array (
 		'L_ID' => '#',
 		'L_MENU' => 'Menu',
 		'L_UNKNOWN_ERROR' => 'Unknown error',
+		'L_PHP_ERROR_LOG' => 'PHP function prohibited (see log)',
 		'L_CONFIRM_DELETE' => 'Confirm the deletion?',
 		'L_SAVE_FILE' => 'Save the file',
 		'L_SAVE_FILE_SUCCESSFULLY' => 'File saved successfully',

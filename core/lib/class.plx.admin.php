@@ -11,6 +11,8 @@ const PLX_ADMIN = true;
 
 class plxAdmin extends plxMotor {
 
+	# Some functions of PHP are banned !
+	const CRITICAL_FUNCTIONS_PHP_PATTERN = '#\b(exec|shell_exec|system|parse_ini_file|passthru|proc_open|popen|show_source|phpinfo)\b#';
 	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
@@ -917,105 +919,155 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Stephane F.
 	 **/
 	public function editStatiques($content, $action=false) {
-
 		$save = $this->aStats;
 
-		# suppression
-		if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idStatic']) AND empty($content['update'])) {
-			foreach($content['idStatic'] as $static_id) {
-				$filename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$this->aStats[$static_id]['url'].'.php';
-				if(is_file($filename)) unlink($filename);
-				# si la page statique supprimée est la page d'accueil on met à jour le parametre
-				if($static_id==$this->aConf['homestatic']) {
-					$this->aConf['homestatic']='';
-					$this->editConfiguration($this->aConf,$this->aConf);
+		if(!empty($content)) {
+			# suppression
+			if(!isset($content['update'])) {
+				if(!empty($content['selection']) AND $content['selection']=='delete' AND isset($content['idStatic'])) {
+					foreach($content['idStatic'] as $static_id) {
+						if(!preg_match('#^\d{3}$#', $static_id)) {
+							# $static_id invalide
+							continue;
+						}
+
+						$filename = PLX_ROOT . $this->aConf['racine_statiques'] . $static_id . '.' . $this->aStats[$static_id]['url'] . '.php';
+						if(is_file($filename))  {
+							unlink($filename);
+						}
+						# si la page statique supprimée est la page d'accueil on met à jour le parametre
+						if($static_id == $this->aConf['homestatic']) {
+							$this->aConf['homestatic'] = '';
+							$this->editConfiguration($this->aConf, $this->aConf);
+						}
+
+						if(isset($this->aStats[$static_id])) {
+							unset($this->aStats[$static_id]);
+							$action = true;
+						}
+					}
 				}
-				unset($this->aStats[$static_id]);
+			}
+			# mise à jour de la liste des pages statiques
+			elseif(!empty($content['update'])) {
+				foreach($content['staticNum'] as $static_id) {
+					if(!preg_match('#^\d{3}$#', $static_id)) {
+						# $static_id invalide
+						continue;
+					}
+
+					$stat_name = plxUtils::strCheck($content[$static_id . '_name']);
+					if(empty($stat_name)) {
+						continue;
+					}
+
+					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url']) : '';
+					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
+					if(empty($stat_url)) {
+							$stat_url = L_DEFAULT_NEW_STATIC_URL . '-' . intval($static_id);
+					}
+
+					if(!array_key_exists($static_id, $this->aStats)) {
+						# a new item has added in the table of categories. Values may be change by self::editStatique(...) later
+						$this->aStats[$static_id] = array(
+							'template'			=> 'static.php',
+							'title_htmltag'		=> '',
+							'meta_description'	=> '',
+							'meta_keywords'		=> '',
+							'date_creation'		=> date('YmdHi'),
+							'date_update'		=> date('YmdHi'),
+						);
+					} elseif($this->aStats[$static_id]['url'] != $stat_url) {
+						# On vérifie si on a besoin de renommer ou supprimer le fichier de la page statique
+						$prefix = PLX_ROOT . $this->aConf['racine_statiques'] . $static_id . '.';
+						$oldfilename = $prefix . $this->aStats[$static_id]['url'] . '.php';
+						if(is_file($oldfilename)) {
+							if(plxUtils::checkSite($stat_url, false)) {
+								# lien externe => pas de fichier !
+								unlink($oldfilename);
+							} else {
+								# lien interne
+								$newfilename = $prefix . $stat_url . '.php';
+								rename($oldfilename, $newfilename);
+							}
+						}
+					}
+
+					$this->aStats[$static_id]['group'] = plxUtils::strCheck($content[$static_id.'_group']);
+					$this->aStats[$static_id]['name'] = $stat_name;
+					$this->aStats[$static_id]['url'] = $stat_url;
+					$this->aStats[$static_id]['active'] = ($content[$static_id . '_active'] == '1') ? 1 : 0;
+					$this->aStats[$static_id]['menu'] = ($content[$static_id . '_menu'] == 'oui') ? 'oui' : 'non';
+					$this->aStats[$static_id]['ordre'] = intval($content[$static_id . '_ordre']);
+
+					# Hook plugins
+					eval($this->plxPlugins->callHook('plxAdminEditStatiquesUpdate'));
+				}
+
+				# On va trier les clés selon l'ordre choisi
+				if(sizeof($this->aStats) > 1) {
+					uasort($this->aStats, function($a, $b) { return intval($a['ordre']) - intval($b['ordre']); } );
+				}
+
 				$action = true;
 			}
 		}
-		# mise à jour de la liste des pages statiques
-		elseif(!empty($content['update'])) {
-			foreach($content['staticNum'] as $static_id) {
-				$stat_name = $content[$static_id.'_name'];
-				if($stat_name!='') {
-					$url = (!empty($content[$static_id.'_url'])) ? plxUtils::urlify($content[$static_id.'_url']) : '';
-					$stat_url = (!empty($url)) ? $url : plxUtils::urlify($stat_name);
-					if($stat_url=='') $stat_url = L_DEFAULT_NEW_STATIC_URL;
-					# On vérifie si on a besoin de renommer le fichier de la page statique
-					if(isset($this->aStats[$static_id]) AND $this->aStats[$static_id]['url']!=$stat_url) {
-						$oldfilename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$this->aStats[$static_id]['url'].'.php';
-						$newfilename = PLX_ROOT.$this->aConf['racine_statiques'].$static_id.'.'.$stat_url.'.php';
-						if(is_file($oldfilename)) rename($oldfilename, $newfilename);
-					}
-					$this->aStats[$static_id]['group'] = trim($content[$static_id.'_group']);
-					$this->aStats[$static_id]['name'] = $stat_name;
-					$this->aStats[$static_id]['url'] = plxUtils::checkSite($url)?$url:$stat_url;
-					$this->aStats[$static_id]['active'] = $content[$static_id.'_active'];
-					$this->aStats[$static_id]['menu'] = $content[$static_id.'_menu'];
-					$this->aStats[$static_id]['ordre'] = intval($content[$static_id.'_ordre']);
-					$this->aStats[$static_id]['template'] = (isset($this->aStats[$static_id]['template'])?$this->aStats[$static_id]['template']:'static.php');
-					$this->aStats[$static_id]['title_htmltag'] = (isset($this->aStats[$static_id]['title_htmltag'])?$this->aStats[$static_id]['title_htmltag']:'');
-					$this->aStats[$static_id]['meta_description'] = (isset($this->aStats[$static_id]['meta_description'])?$this->aStats[$static_id]['meta_description']:'');
-					$this->aStats[$static_id]['meta_keywords'] = (isset($this->aStats[$static_id]['meta_keywords'])?$this->aStats[$static_id]['meta_keywords']:'');
-					if(plxUtils::getValue($this->aStats[$static_id]['date_creation'])=='') {
-						$this->aStats[$static_id]['date_creation'] = date('YmdHi');
-						$this->aStats[$static_id]['date_update'] = date('YmdHi');
-					}
-					# Hook plugins
-					eval($this->plxPlugins->callHook('plxAdminEditStatiquesUpdate'));
-					$action = true;
-				}
-			}
-			# On va trier les clés selon l'ordre choisi
-			if(sizeof($this->aStats) > 1) {
-				uasort($this->aStats, function($a, $b) { return intval($a['ordre']) - intval($b['ordre']); } );
-			}
+
+		if(!$action) {
+			return;
 		}
+
 		# sauvegarde
-		if($action) {
-			$statics_name = array();
-			$statics_url = array();
-			# On génére le fichier XML
-			$xml = "<?xml version=\"1.0\" encoding=\"".PLX_CHARSET."\"?>\n";
-			$xml .= "<document>\n";
-			foreach($this->aStats as $static_id => $static) {
+		$statics_name = array();
+		$statics_url = array();
 
-				# controle de l'unicité du titre de la page
-				if(in_array($static['name'], $statics_name))
-					return plxMsg::Error(L_ERR_STATIC_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['name']));
-				else
-					$statics_name[] = $static['name'];
+		# On génére le fichier XML
+		ob_start();
+?>
+<document>
+<?php
+		foreach($this->aStats as $static_id => $static) {
 
-				# controle de l'unicité de l'url de la page
-				if(in_array($static['url'], $statics_url)) {
-					$this->aStats = $save;
-					return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['url']));
-				}
-				else
-					$statics_url[] = $static['url'];
-
-				$xml .= "\t<statique number=\"".$static_id."\" active=\"".$static['active']."\" menu=\"".$static['menu']."\" url=\"".$static['url']."\" template=\"".basename($static['template'])."\">";
-				$xml .= "<group><![CDATA[".plxUtils::cdataCheck($static['group'])."]]></group>";
-				$xml .= "<name><![CDATA[".plxUtils::cdataCheck($static['name'])."]]></name>";
-				$xml .= "<meta_description><![CDATA[".plxUtils::cdataCheck($static['meta_description'])."]]></meta_description>";
-				$xml .= "<meta_keywords><![CDATA[".plxUtils::cdataCheck($static['meta_keywords'])."]]></meta_keywords>";
-				$xml .= "<title_htmltag><![CDATA[".plxUtils::cdataCheck($static['title_htmltag'])."]]></title_htmltag>";
-				$xml .= "<date_creation><![CDATA[".plxUtils::cdataCheck($static['date_creation'])."]]></date_creation>";
-				$xml .= "<date_update><![CDATA[".plxUtils::cdataCheck($static['date_update'])."]]></date_update>";
-				# Hook plugins
-				eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
-				$xml .=	"</statique>\n";
+			# controle de l'unicité du titre de la page
+			if(in_array($static['name'], $statics_name)) {
+				return plxMsg::Error(L_ERR_STATIC_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['name']));
 			}
-			$xml .= "</document>";
-			# On écrit le fichier si une action valide a été faite
-			if(plxUtils::write($xml,path('XMLFILE_STATICS')))
-				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-			else {
+
+			$statics_name[] = $static['name'];
+
+			# controle de l'unicité de l'url de la page
+			if(in_array($static['url'], $statics_url)) {
 				$this->aStats = $save;
-				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_STATICS'));
+				return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($static['url']));
 			}
+
+			$statics_url[] = $static['url'];
+?>
+	<statique number="<?= $static_id ?>" active="<?= $static['active'] ?>" menu="<?= $static['menu'] ?>" url="<?= $static['url'] ?>" template="<?= basename($static['template']) ?>">
+		<group><?= $static['group'] ?></group>
+		<name><?= $static['name'] ?></name>
+		<meta_description><?= plxUtils::strCheck($static['meta_description']) ?></meta_description>
+		<meta_keywords><?= plxUtils::strCheck($static['meta_keywords']) ?></meta_keywords>
+		<title_htmltag><?= plxUtils::strCheck($static['title_htmltag']) ?></title_htmltag>
+		<date_creation><?= $static['date_creation'] ?></date_creation>
+		<date_update><?= $static['date_update'] ?></date_update>
+<?php
+			# Hook plugins
+			eval($this->plxPlugins->callHook('plxAdminEditStatiquesXml'));
+?>
+	</statique>
+<?php
 		}
+?>
+</document>
+<?php
+		# On écrit le fichier si une action valide a été faite
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_STATICS'))) {
+			return plxMsg::Info(L_SAVE_SUCCESSFUL);
+		}
+
+		$this->aStats = $save;
+		return plxMsg::Error(L_SAVE_ERR . ' ' . path('XMLFILE_STATICS'));
 	}
 
 	/**
@@ -1050,28 +1102,55 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editStatique($content) {
 
-		# Mise à jour du fichier statiques.xml
-		$this->aStats[$content['id']]['template'] = $content['template'];
-		$this->aStats[$content['id']]['title_htmltag'] = trim($content['title_htmltag']);
-		$this->aStats[$content['id']]['meta_description'] = trim($content['meta_description']);
-		$this->aStats[$content['id']]['meta_keywords'] = trim($content['meta_keywords']);
-		$this->aStats[$content['id']]['date_creation'] = trim($content['date_creation_year']).trim($content['date_creation_month']).trim($content['date_creation_day']).substr(str_replace(':','',trim($content['date_creation_time'])),0,4);
-		$date_update = $content['date_update'];
+		$static_id = $content['id'];
+		if(!preg_match('#^\d{3}$#', $static_id)) {
+			return plxMsg::Error(L_SAVE_ERR . ' ' . path('XMLFILE_STATICS'));
+		}
+
+		# Vérifie si le code PHP de la page statique contient des fonctions critiques
+		if(preg_match(self::CRITICAL_FUNCTIONS_PHP_PATTERN, $content['content'], $matches)) {
+			error_log('use of ' . $matches[1] . ' from PHP banned in static page');
+			return plxMsg::Error(L_PHP_ERROR_LOG);
+		}
+
+		# vérification du template
+		$template = $content['template'];
+		$this->aStats[$static_id]['template'] = preg_match('#^static[\w\.-]*\.php$#', $template) ? $template : 'static.php';
+		# Valeurs échappées par plxUtils::strCheck() dans self::editStatiques()
+		$this->aStats[$static_id]['title_htmltag'] = trim($content['title_htmltag']);
+		$this->aStats[$static_id]['meta_description'] = trim($content['meta_description']);
+		$this->aStats[$static_id]['meta_keywords'] = trim($content['meta_keywords']);
+
+		# Formate des dates de creation et de mise à jour
+		$now = date('YmdHi');
+		$date_creation = trim($content['date_creation_year']).trim($content['date_creation_month']).trim($content['date_creation_day']).substr(str_replace(':','',trim($content['date_creation_time'])),0,4);
+		if(!preg_match('#^\d{12}$#', $date_creation)) {
+			$date_creation = $now;
+		}
+		$this->aStats[$static_id]['date_creation'] = $date_creation;
 		$date_update_user = trim($content['date_update_year']).trim($content['date_update_month']).trim($content['date_update_day']).substr(str_replace(':','',trim($content['date_update_time'])),0,4);
-		$date_update = ($date_update==$date_update_user) ? date('YmdHi') : $date_update_user;
-		$this->aStats[$content['id']]['date_update'] = $date_update;
+		if(!preg_match('#^\d{12}$#', $date_update_user)) {
+			$date_update_user = $now;
+		}
+		$date_update = $content['date_update'];
+		$this->aStats[$static_id]['date_update'] = ($date_update == $date_update_user) ? $now : $date_update_user;
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditStatique'));
-		if($this->editStatiques(null,true)) {
+
+		# Mise à jour du fichier statiques.xml
+		if($this->editStatiques(null, true)) {
 			# Génération du nom du fichier de la page statique
-			$filename = PLX_ROOT.$this->aConf['racine_statiques'].$content['id'].'.'.$this->aStats[ $content['id'] ]['url'].'.php';
+			$filename = PLX_ROOT . $this->aConf['racine_statiques'] . $static_id . '.' . $this->aStats[$static_id]['url'] . '.php';
 			# On écrit le fichier
-			if(plxUtils::write($content['content'],$filename))
+			if(plxUtils::write($content['content'], $filename)) {
 				return plxMsg::Info(L_SAVE_SUCCESSFUL);
-			else
-				return plxMsg::Error(L_SAVE_ERR.' '.$filename);
+			}
+
+			return plxMsg::Error(L_SAVE_ERR . ' ' . $filename);
 		}
+
+		return plxMsg::Error(L_UNKNOWN_ERROR);
 	}
 
 	/**

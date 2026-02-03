@@ -4,6 +4,7 @@ $LANG = array (
 		'L_ID' => '#',
 		'L_MENU' => 'Menú',
 		'L_UNKNOWN_ERROR' => 'Error desconeguda',
+		'L_PHP_ERROR_LOG' => 'Foncion PHP enebida (veire jornal)',
 		'L_CONFIRM_DELETE' => 'Confirmar la supression ?',
 		'L_SAVE_FILE' => 'Salvagardar lo fichièr',
 		'L_SAVE_FILE_SUCCESSFULLY' => 'Fichièr enregistrat amb succès',
