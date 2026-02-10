@@ -307,37 +307,34 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	content	tableau contenant le nouveau mot de passe de l'utilisateur
 	 * @return	string
-	 * @author	Stéphane F, PEdro "P3ter" CADETE
+	 * @author	Stéphane F, PEdro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editPassword($content) {
 
-		$token = '';
-		$action = false;
-
-		if(trim($content['password1'])=='' OR trim($content['password1'])!=trim($content['password2'])) {
+		$password = trim($content['password1']);
+		if(empty($password) OR $password != trim($content['password2'])) {
 			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
 		}
 
-		if(!empty($token = $content['lostPasswordToken'])) {
+		$token = isset($content['lostPasswordToken']) ? $content['lostPasswordToken'] : '';
+		if(!empty($token)) {
 			foreach($this->aUsers as $user_id => $user) {
 				if ($user['password_token'] == $token) {
 					$salt = $this->aUsers[$user_id]['salt'];
-					$this->aUsers[$user_id]['password'] = sha1($salt.md5($content['password1']));
+					$this->aUsers[$user_id]['password'] = sha1($salt.md5($password));
 					$this->aUsers[$user_id]['password_token'] = '';
 					$this->aUsers[$user_id]['password_token_expiry'] = '';
-					$action = true;
-					break;
+					return $this->editUsers(null, $action);
 				}
 			}
+
+			return false;
 		}
 		else {
 			$salt = $this->aUsers[$_SESSION['user']]['salt'];
-			$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($content['password1']));
-			$action = true;
+			$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($password));
+			return $this->editUsers(null, $action);
 		}
-
-		return $this->editUsers(null, $action);
-
 	}
 
 	/**
@@ -413,18 +410,17 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	token	the token to verify
 	 * @return	boolean	true if the token exist and is not expire
-	 * @author	Pedro "P3ter" CADETE
+	 * @author	Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 */
 	public function verifyLostPasswordToken($token) {
-
-		$valid = false;
-
+		$now = date('YmdHi');
 		foreach($this->aUsers as $user_id => $user) {
-			if ($user['password_token'] == $token  AND $user['password_token_expiry'] >= date('YmdHi')) {
-				$valid = true;
+			if ($user['password_token'] == $token) {
+				return ($user['password_token_expiry'] >= $now);
 			}
 		}
-		return $valid;
+
+		return false;
 	}
 
 	public function resetPasswordToken($user_id) {
