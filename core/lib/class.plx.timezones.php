@@ -133,7 +133,11 @@ class plxTimezones {
 	 * @author	Stephane F.
 	 **/
 	public static function timezones() {
-		return plxTimezones::$_timezones;
+		return self::$_timezones;
+	}
+
+	public static function isValid($zone) {
+		return array_key_exists($zone, self::$_timezones);
 	}
 
 }
