@@ -1,4 +1,4 @@
-<?php include __DIR__.'/header.php'; ?>
+<?php include 'header.php'; ?>
 
 	<main class="main">
 
@@ -63,7 +63,7 @@
 
 				</div>
 
-				<?php include __DIR__.'/sidebar.php'; ?>
+<?php include 'sidebar.php'; ?>
 
 			</div>
 
@@ -71,4 +71,4 @@
 
 	</main>
 
-<?php include __DIR__.'/footer.php'; ?>
+<?php include 'footer.php'; ?>
