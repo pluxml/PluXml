@@ -733,8 +733,14 @@ th.checkbox {
 }
 
 .modal__box img {
+	min-width: 10rem;
 	max-height: calc(100vh - 1.25rem);
 	max-width: calc(100vw - 1.25rem);
+}
+
+.modal__box img.svg {
+	min-width: 50vw;
+	background-color: #ddd;
 }
 
 .modal__overlay {

@@ -12,6 +12,9 @@ tbody.addEventListener('click', function(event) {
 		zoomboxImg.src = src;
 		zoomboxImg.alt = title;
 		zoomboxImg.title = title;
+		if(event.target.classList.contains('svg')){
+			zoomboxImg.classList.add('svg');
+		}
 		mb.checked = true;
 		return;
 	}

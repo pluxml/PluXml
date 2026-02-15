@@ -16,9 +16,9 @@ class plxMedias {
 	public $maxUpload = array(); # valeur upload_max_filesize
 	public $maxPost = array(); # valeur post_max_size
 
-	public $img_supported = array('.png', '.gif', '.jpg', '.jpeg', '.bmp', '.webp'); # images formats supported
-	public $img_exts = '/\.(jpe?g|png|gif|bmp|webp)$/i';
-	public $doc_exts = '/\.(7z|aiff|asf|avi|csv|docx?|epub|fla|flv|gpx|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpe?g|ods|odt|odp|ogg|pdf|pptx?|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|svg|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xcf|xlsx?|zip)$/i';
+	const IMG_SUPPORTED = array('.png', '.gif', '.jpg', '.jpeg', '.bmp', '.webp'); # images formats supported
+	const IMG_EXTS = '/\.(jpe?g|png|gif|bmp|webp)$/i';
+	const DOC_EXTS = '/\.(7z|aiff|asf|avi|csv|docx?|epub|fla|flv|gpx|gz|gzip|m4a|m4v|mid|mov|mp3|mp4|mpc|mpe?g|ods|odt|odp|ogg|pdf|pptx?|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|svg|swf|sxc|sxw|tar|tgz|txt|vtt|wav|webm|wma|wmv|xcf|xlsx?|zip)$/i';
 
 	/**
 	 * Constructeur qui initialise la variable de classe
@@ -115,7 +115,7 @@ class plxMedias {
 				if(is_dir($filename)) { continue; }
 
 				$thumbInfos = false;
-				if(preg_match($this->img_exts, $filename, $matches)) {
+				if(preg_match(self::IMG_EXTS, $filename, $matches)) {
 					$thumbName = plxUtils::thumbName($filename);
 					if(file_exists($thumbName)) {
 						$thumbInfos = array(
@@ -289,19 +289,27 @@ class plxMedias {
 		$i = 1;
 		$filename = array();
 
-		if($file['name'] == '')
+		if($file['name'] == '') {
 			return false;
+		}
 
-		if($file['size'] > $this->maxUpload['value'])
+		if($file['size'] > $this->maxUpload['value']) {
 			return L_PLXMEDIAS_WRONG_FILESIZE;
+		}
 
-		if(!preg_match($this->img_exts, $file['name']) AND !preg_match($this->doc_exts, $file['name']))
+		if(!preg_match(self::IMG_EXTS, $file['name']) AND !preg_match(self::DOC_EXTS, $file['name'])) {
 			return L_PLXMEDIAS_WRONG_FILEFORMAT;
+		}
+
+		if(mime_content_type($file['tmp_name']) == 'image/svg+xml' and preg_match('#</?script\b#', file_get_contents($file['tmp_name']))) {
+			# Refus pour les images SVG avec tag <script> ( code malicieux possible )
+			return L_PLXMEDIAS_WRONG_FILEFORMAT;
+		}
 
 		// On teste l'existence du fichier et on formate son nom pour éviter les doublons
 		$filename = pathinfo($file['name']);
 		$filename['filename'] = plxUtils::urlify($filename['filename']);
-		$upFile = $this->path.$this->dir.$filename['filename'].".".$filename['extension'];
+		$upFile = $this->path . $this->dir . $filename['filename'] . '.' . $filename['extension'];
 		while(file_exists($upFile)) {
 			$upFile = $this->path.$this->dir.$filename['filename'].'-'.$i++.".".$filename['extension'];
 		}
@@ -310,13 +318,16 @@ class plxMedias {
 			return L_PLXMEDIAS_UPLOAD_ERR;
 		} else { # Ok
 			if(
-				preg_match($this->img_exts, $file['name']) and
+				preg_match(self::IMG_EXTS, $file['name']) and
 				plxUtils::makeThumb($upFile, $this->path.'.thumbs/'.$this->dir.basename($upFile), 48, 48)
 			) {
-				if($resize)
+				# image bitmap
+				if($resize) {
 					plxUtils::makeThumb($upFile, $upFile, $resize['width'], $resize['height'], 80);
-				if($thumb)
+				}
+				if($thumb) {
 					plxUtils::makeThumb($upFile, plxUtils::thumbName($upFile), $thumb['width'], $thumb['height'], 80);
+				}
 			}
 		}
 		return L_PLXMEDIAS_UPLOAD_SUCCESSFUL;
@@ -454,7 +465,7 @@ class plxMedias {
 			if(is_file($this->path.$this->dir.$file)) {
 				$thumName = plxUtils::thumbName($file);
 				$ext = strtolower(strrchr($this->path.$this->dir.$file,'.'));
-				if(in_array($ext, $this->img_supported)) {
+				if(in_array($ext, self::IMG_SUPPORTED)) {
 					if(plxUtils::makeThumb($this->path.$this->dir.$file, $this->path.$this->dir.$thumName, $width, $height, 80))
 						$count++;
 				}

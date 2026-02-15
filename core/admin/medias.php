@@ -204,16 +204,17 @@ $curFolders = explode('/', $curFolder);
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-						$isImage = in_array(strtolower($v['extension']), $plxMedias->img_supported);
+						$isImage = preg_match(plxMedias::IMG_EXTS, $v['extension']);
+						$isSVG = (strtolower($v['extension']) == '.svg');
 						$title = pathinfo($v['name'], PATHINFO_FILENAME);
 						echo '<tr>';
 						echo '<td><input type="checkbox" name="idFile[]" value="'.$v['name'].'" /></td>';
 						echo '<td class="icon">';
-							if(is_file($v['path']) AND $isImage) {
-								echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'"><img alt="'.$title.'" src="'.$v['.thumb'].'" class="thumb" /></a>';
-							}
-							else
-								echo '<img alt="" src="'.$v['.thumb'].'" class="thumb" />';
+						if(is_file($v['path']) AND ($isImage or $isSVG)) {
+							echo '<img alt="' . $title . '" src="' . $v['.thumb'] . '" class="thumb' . ($isSVG ? ' svg': '') . '" />';
+						} else {
+							echo '<a class="overlay" title="'.$title.'" href="'.$v['path'].'" target="_blank"><img alt="'.$title.'" src="'.$v['.thumb'].'" /></a>';
+						}
 						echo '</td>';
 						echo '<td>';
 							echo '<a class="imglink" onclick="'."this.target='_blank'".'" title="'.$title.'" href="'.$v['path'].'">'.$title.$v['extension'].'</a>';
