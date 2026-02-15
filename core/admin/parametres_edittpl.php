@@ -14,92 +14,74 @@ plxToken::validateFormToken($_POST);
 $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # Initialisation
-$tpl = isset($_POST['tpl'])?$_POST['tpl']:'home.php';
+$tpl = isset($_POST['tpl']) ? $_POST['tpl'] : 'home.php';
 if(!empty($_POST['load'])) $tpl = $_POST['template'];
 
-$style = $plxAdmin->aConf['style'];
-$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
-if(!preg_match('#^'.str_replace('\\', '/', realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/').'#'), str_replace('\\', '/', $filename))) {
-	$tpl='home.php';
-}
-$filename = realpath(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style.'/'.$tpl);
-
 # On teste l'existence du thème
-if(empty($style) OR !is_dir(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style)) {
+$style = $plxAdmin->aConf['style'];
+$style_folder = PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $style . '/';
+if(empty($style) OR !file_exists($style_folder . 'home.php')) {
 	plxMsg::Error(L_CONFIG_EDITTPL_ERROR_NOTHEME);
 	header('Location: parametres_affichage.php');
 	exit;
 }
 
-# Traitement du formulaire: sauvegarde du template
-if(isset($_POST['submit']) AND trim($_POST['content']) != '') {
-	if(plxUtils::write($_POST['content'], $filename))
-		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
-	else
-		plxMsg::Error(L_SAVE_FILE_ERROR);
-}
-
-# On récupère les fichiers templates du thèmes
-$aTemplates=array();
-function listFolderFiles($dir, $include, $root=''){
-	$content = array();
-	$ffs = scandir($dir);
-	foreach($ffs as $ff){
-		if($ff!='.' && $ff!='..') {
-			$ext = strtolower(strrchr($ff,'.'));
-			if(!is_dir($dir.'/'.$ff) AND is_array($include) AND in_array($ext,$include)) {
-				$f = str_replace($root, '', PLX_ROOT.ltrim($dir.'/'.$ff,'./'));
-				$content[$f] = $f;
-			}
-			if(is_dir($dir.'/'.$ff))
-				$content = array_merge($content, listFolderFiles($dir.'/'.$ff,$include,$root));
+$filename = realpath($style_folder . $tpl);
+if(strpos($filename, realpath($style_folder)) !== 0) {
+	$tpl='home.php';
+	$filename = realpath($style_folder . $tpl);
+} else {
+	# Traitement du formulaire: sauvegarde du template
+	if(isset($_POST['submit']) AND trim($_POST['content']) != '') {
+		# Vérifie si le template contient des fonctions critiques de PHP
+		if(preg_match('#\.php$#', $tpl) and preg_match(plxAdmin::CRITICAL_FUNCTIONS_PHP_PATTERN, $_POST['content'], $matches)) {
+			error_log('use of ' . $matches[1] . ' from PHP banned in template');
+			plxMsg::Error(L_PHP_ERROR_LOG);
+		} elseif(plxUtils::write($_POST['content'], $filename)) {
+			plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
+		} else {
+			plxMsg::Error(L_SAVE_FILE_ERROR);
 		}
+		header('Location: parametres_edittpl.php');
+		exit;
 	}
-	return $content;
 }
-$root = PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style;
-$aTemplates=listFolderFiles($root, array('.php','.css','.htm','.html','.txt','.js','.xml'), $root);
 
 # On récupère le contenu du fichier template
-$content = '';
-if(file_exists($filename) AND filesize($filename) > 0) {
-	if($f = fopen($filename, 'r')) {
-		$content = fread($f, filesize($filename));
-		fclose($f);
-	}
+$content = file_get_contents($filename);
+if($content === false) {
+	$content = '';
 }
 
 # On inclut le header
 include 'top.php';
+
 ?>
-<form action="parametres_edittpl.php" method="post" id="form_edittpl">
-
+<form method="post" id="form_edittpl">
+	<?= plxToken::getTokenPostMethod() ?>
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_EDITTPL_TITLE ?> &laquo;<?php echo plxUtils::strCheck($style) ?>&raquo;</h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<h2><?= L_CONFIG_EDITTPL_TITLE ?> &laquo;<?= plxUtils::strCheck($style) ?>&raquo;</h2>
+		<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
 		<?php plxUtils::printSelectDir('template', $tpl, PLX_ROOT.$plxAdmin->aConf['racine_themes'].$style, 'no-margin', false) ?>
-		<input name="load" type="submit" value="<?php echo L_CONFIG_EDITTPL_LOAD ?>" />
+		<input name="load" type="submit" value="<?= L_CONFIG_EDITTPL_LOAD ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input name="submit" type="submit" value="<?php echo L_SAVE_FILE ?>" />
+		<input name="submit" type="submit" value="<?= L_SAVE_FILE ?>" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplTop')) # Hook Plugins ?>
 	<div class="grid">
 		<div class="col sml-12">
-			<label for="id_content"><?php echo L_CONTENT_FIELD ?>&nbsp;:</label>
-			<?php plxUtils::printInput('tpl',plxUtils::strCheck($tpl),'hidden'); ?>
-			<?php plxUtils::printArea('content',plxUtils::strCheck($content), 0, 20); ?>
-			<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
+			<label for="id_content"><?= L_CONTENT_FIELD ?>&nbsp;:</label>
+			<?php plxUtils::printInput('tpl', $tpl,'hidden'); ?>
+			<?php plxUtils::printArea('content', $content, 0, 20); ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittpl')) # Hook Plugins ?>
 		</div>
 	</div>
-
 </form>
 
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplFoot'));
+
 # On inclut le footer
 include 'foot.php';
-?>
