@@ -623,6 +623,10 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function setAdminProfil($profil) {
+		if(!defined('PLX_ADMIN')) {
+			return;
+		}
+
 		$this->adminProfil=func_get_args();
 	}
 
@@ -635,11 +639,15 @@ class plxPlugin {
 	 * @return	null
 	 * @author	Stephane F
 	 **/
-	public function setAdminMenu($title='', $position='', $caption='') {
+	public function setAdminMenu($title='', $position=0, $caption='') {
+		if(!defined('PLX_ADMIN')) {
+			return;
+		}
+
 		$this->adminMenu = array(
-			'title'=>$title,
-			'position'=>($position==''?false:$position),
-			'caption'=>($caption==''?$title:$caption)
+			'title'		=> $title,
+			'position'	=> empty($position) ? 0 : intval($position),
+			'caption'	=> empty($caption) ? $title : $caption,
 		);
 	}
 
@@ -661,7 +669,11 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function setConfigProfil($profil) {
-		$this->configProfil=func_get_args();
+		if(!defined('PLX_ADMIN')) {
+			return;
+		}
+
+		$this->configProfil = func_get_args();
 	}
 
 	/**
@@ -682,7 +694,10 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function loadLang($filename) {
-		if(!is_file($filename)) return;
+		if(!is_file($filename)) {
+			return;
+		}
+
 		include $filename;
 		return $LANG;
 	}
@@ -695,10 +710,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function lang($key='') {
-		if(isset($this->aLang[$key]))
-			echo $this->aLang[$key];
-		else
-			echo $key;
+		echo $this->getLang($key);
 	}
 
 	/**
@@ -709,10 +721,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function getLang($key='') {
-		if(isset($this->aLang[$key]))
-			return $this->aLang[$key];
-		else
-			return $key;
+		return isset($this->aLang[$key]) ? $this->aLang[$key] : $key;
 	}
 
 	/**

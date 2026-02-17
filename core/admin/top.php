@@ -109,24 +109,29 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 
 					# récuperation des menus admin pour les plugins
 					foreach($plxAdmin->plxPlugins->aPlugins as $plugName => $plugInstance) {
-						if($plugInstance AND is_file(PLX_PLUGINS.$plugName.'/admin.php')) {
-							if($plxAdmin->checkProfil($plugInstance->getAdminProfil(),false)) {
-								if($plugInstance->adminMenu) {
-									$menu = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->adminMenu['title']), 'plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->adminMenu['caption']));
-									if($plugInstance->adminMenu['position']!='')
-										array_splice($menus, ($plugInstance->adminMenu['position']-1), 0, $menu);
-									else
-										$menus[] = $menu;
+						if(
+							$plugInstance AND
+							is_file(PLX_PLUGINS.$plugName.'/admin.php') AND
+							$plxAdmin->checkProfil($plugInstance->getAdminProfil(),false)
+						) {
+							if(isset($plugInstance->adminMenu['title'])) {
+								$menu = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->adminMenu['title']), 'plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->adminMenu['caption']));
+								$pos = $plugInstance->adminMenu['position'] - 1;
+								if($pos >= 0) {
+									array_splice($menus, $pos, 0, $menu);
 								} else {
-									$menus[] = plxUtils::formatMenu(plxUtils::strCheck($plugInstance->getInfo('title')), 'plugin.php?p='.$plugName, plxUtils::strCheck($plugInstance->getInfo('title')));
+									$menus[] = $menu;
 								}
+							} else {
+								$title = plxUtils::strCheck($plugInstance->getInfo('title'));
+								$menus[] = plxUtils::formatMenu($title, 'plugin.php?p='.$plugName, $title);
 							}
 						}
 					}
 
 					# Hook Plugins
 					eval($plxAdmin->plxPlugins->callHook('AdminTopMenus'));
-					echo implode('', $menus);
+					echo implode(PHP_EOL, $menus) . PHP_EOL;
 ?>
 			</ul>
 		</nav>
