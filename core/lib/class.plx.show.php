@@ -1456,52 +1456,60 @@ class plxShow
         $menus = array();
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticListBegin'))) return;
-        $home = ((empty($this->plxMotor->get) or preg_match('/^page\d*/', $this->plxMotor->get)) and basename($_SERVER['SCRIPT_NAME']) == "index.php");
+
+        $home = ((empty($this->plxMotor->get) or preg_match('/^page\d*/', $this->plxMotor->get)) and basename($_SERVER['SCRIPT_NAME']) == 'index.php');
         # Si on a la variable extra, on affiche un lien vers la page d'accueil (avec $extra comme nom)
         if ($extra != '') {
-            $stat = str_replace('#static_id', 'static-home', $format);
-            $stat = str_replace('#static_class', 'static menu', $stat);
-            $stat = str_replace('#static_url', $this->plxMotor->urlRewrite(), $stat);
-            $stat = str_replace('#static_name', plxUtils::strCheck($extra), $stat);
-            $stat = str_replace('#static_status', ($home == true ? "active" : "noactive"), $stat);
-            $menus[][] = $stat;
+            $menus[][] = strtr($format, array(
+                '#static_id'		=> 'static-home',
+                '#static_class'		=> 'static menu',
+                '#static_url'		=> $this->plxMotor->urlRewrite(),
+                '#static_name'		=> plxUtils::strCheck($extra),
+                '#static_status'	=> $home ? 'active' : 'noactive',
+            ));
         }
-        $group_active = "";
+        $group_active = '';
+        $homestatic = $this->plxMotor->aConf['homestatic'];
         if ($this->plxMotor->aStats) {
             foreach ($this->plxMotor->aStats as $k => $v) {
-                if ($v['active'] == 1 and $v['menu'] == 'oui') { # La page  est bien active et dispo ds le menu
-                    $stat = str_replace('#static_id', 'static-' . intval($k), $format);
-                    $stat = str_replace('#static_class', 'static menu', $stat);
-                    if ($v['url'][0] == '?') # url interne commençant par ?
-                        $stat = str_replace('#static_url', $this->plxMotor->urlRewrite($v['url']), $stat);
-                    elseif (plxUtils::checkSite($v['url'], false)) # url externe en http ou autre
-                        $stat = str_replace('#static_url', $v['url'], $stat);
-                    else # url page statique
-                        $stat = str_replace('#static_url', $this->plxMotor->urlRewrite('?static' . intval($k) . '/' . $v['url']), $stat);
-                    $stat = str_replace('#static_name', plxUtils::strCheck($v['name']), $stat);
-                    $stat = str_replace('#static_status', ($this->staticId() == intval($k) ? 'active' : 'noactive'), $stat);
-                    if ($v['group'] == '')
-                        $menus[][] = $stat;
-                    else
-                        $menus[$v['group']][] = $stat;
-                    if ($group_active == "" and $home === false and $this->staticId() == intval($k) and $v['group'] != '')
-                        $group_active = $v['group'];
+                if($k == $homestatic or $v['active'] != 1 or $v['menu'] != 'oui') {
+                    continue;
                 }
+
+                if ($v['url'][0] == '?') # url interne commençant par ?
+                    $url = $this->plxMotor->urlRewrite($v['url']);
+                elseif (plxUtils::checkSite($v['url'], false)) # url externe en http ou autre
+                    $url = $v['url'];
+                else # url page statique
+                    $url = $this->plxMotor->urlRewrite('?static' . intval($k) . '/' . $v['url']);
+                $replaces = array(
+                    '#static_id'		=> 'static-' . intval($k),
+                    '#static_class'		=> 'static menu',
+                    '#static_url'		=> $url,
+                    '#static_name'		=> plxUtils::strCheck($v['name']),
+                    '#static_status'	=> ($this->staticId() == intval($k) ? 'active' : 'noactive'),
+                );
+                $stat = strtr($format, $replaces);
+                if ($v['group'] == '')
+                    $menus[][] = $stat;
+                else
+                    $menus[$v['group']][] = $stat;
+                if ($group_active == '' and $home === false and $this->staticId() == intval($k) and $v['group'] != '')
+                    $group_active = $v['group'];
             }
         }
         if ($menublog) {
             if ($this->plxMotor->aConf['homestatic'] != '' and isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
                 if ($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
-                    $menu = str_replace('#static_id', 'static-blog', $format);
-                    if ($this->plxMotor->get and preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'] . $this->plxMotor->mode)) {
-                        $menu = str_replace('#static_status', 'active', $menu);
-                    } else {
-                        $menu = str_replace('#static_status', 'noactive', $menu);
-                    }
-                    $menu = str_replace('#static_url', $this->plxMotor->urlRewrite('?blog'), $menu);
-                    $menu = str_replace('#static_name', L_PAGEBLOG_TITLE, $menu);
-                    $menu = str_replace('#static_class', 'static menu', $menu);
-                    array_splice($menus, (intval($menublog) - 1), 0, array($menu));
+                    $active = ($this->plxMotor->get and preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'] . $this->plxMotor->mode));
+                    $replaces = array(
+						'#static_id'		=> 'static-blog',
+						'#static_url'		=> $this->plxMotor->urlRewrite('?blog'),
+						'#static_name'		=> L_PAGEBLOG_TITLE,
+						'#static_class'		=> 'static menu',
+						'#static_status'	=> $active ? 'active' : 'noactive',
+					);
+                    array_splice($menus, (intval($menublog) - 1), 0, array(strtr($format, $replaces)));
                 }
             }
         }
@@ -1509,27 +1517,33 @@ class plxShow
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowStaticListEnd'))) return;
 
-        # Affichage des pages statiques + menu Accueil et Blog
-        if ($menus) {
-            foreach ($menus as $k => $v) {
-                if (is_numeric($k)) {
-                    echo "\n" . (is_array($v) ? $v[0] : $v);
-                } else {
-                    $group = str_replace('#group_id', 'static-group-' . plxUtils::urlify($k), $format_group);
-                    $group = str_replace('#group_class', 'static group', $group);
-                    $group = str_replace('#group_status', ($group_active == $k ? 'active' : 'noactive'), $group);
-                    $group = str_replace('#group_name', plxUtils::strCheck($k), $group);
-                    echo "\n<li class=\"menu\">\n\t" . $group . "\n\t<ul id=\"static-" . plxUtils::urlify($k) . "\" class=\"sub-menu\">\t\t";
-                    foreach ($v as $kk => $vv) {
-                        echo "\n\t\t" . $vv;
-                    }
-                    echo "\n\t</ul>\n</li>\n";
-                }
-            }
-            echo "\n";
-        }
+        if (empty($menus)) {
+			# Rien à afficher
+			return;
+		}
 
-    }
+        # Affichage des pages statiques + menu Accueil et Blog
+		foreach ($menus as $k => $v) {
+			if (is_numeric($k)) {
+				echo PHP_EOL . (is_array($v) ? $v[0] : $v);
+			} else {
+				$group = strtr($format_group, array(
+					'#group_id'		=> 'static-group-' . plxUtils::urlify($k),
+					'#group_class'	=> 'static group',
+					'#group_status'	=> ($group_active == $k ? 'active' : 'noactive'),
+					'#group_name'	=> plxUtils::strCheck($k),
+				));
+?>
+<li class="menu">
+	<?= $group ?>
+	<ul id="static-<?= plxUtils::urlify($k) ?>" class="sub-menu">
+		<?= implode(PHP_EOL . "\t\r", $v) ?>
+    </ul>
+</li>
+<?php
+			}
+	    }
+	}
 
     /**
      * Méthode qui retourne l'id de la page statique active
