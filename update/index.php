@@ -8,7 +8,7 @@ const PLX_UPDATER = true;
 
 # On verifie que PluXml est installé
 if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: '.PLX_ROOT.'install.php');
+	header('Location: ' . PLX_ROOT . PLX_INSTALL_PATH);
 	exit;
 }
 

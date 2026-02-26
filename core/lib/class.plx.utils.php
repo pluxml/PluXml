@@ -1597,7 +1597,7 @@ EOT;
 			/*
 			 * Mode intelligent pour les fichiers :
 			 *
-			 * install.php
+			 * install/index.php
 			 * update/index.php
 			 * core/admin/auth.php
 			 * core/admin/top.php

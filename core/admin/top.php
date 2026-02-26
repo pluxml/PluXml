@@ -1,10 +1,11 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
 <?php
+if(!defined('PLX_ROOT')) { exit; }
+
 if(isset($_GET["del"]) AND $_GET["del"]=="install") {
-	if(@unlink(PLX_ROOT.'install.php'))
+	if(@unlink(PLX_ROOT . PLX_INSTALL_PATH))
 		plxMsg::Info(L_DELETE_SUCCESSFUL);
 	else
-		plxMsg::Error(L_DELETE_FILE_ERR.' install.php');
+		plxMsg::Error(L_DELETE_FILE_ERR . ' ' . PLX_INSTALL_PATH);
 }
 ?>
 <!DOCTYPE html>
@@ -139,7 +140,7 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 
 	<section class="section col sml-12 med-9 med-offset-3 lrg-10 lrg-offset-2">
 
-<?php if(is_file(PLX_ROOT.'install.php')): ?>
+<?php if(is_file(PLX_ROOT . PLX_INSTALL_PATH)): ?>
 		<?php $urlDeleteInstall = "?" . http_build_query(array_merge($_GET, array('del'=>'install'))); ?>
 		<p class="alert red"><?= sprintf(L_WARNING_INSTALLATION_FILE, $urlDeleteInstall) ?></p>
 <?php endif; ?>

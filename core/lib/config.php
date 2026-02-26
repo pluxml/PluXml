@@ -8,6 +8,8 @@ const PLX_URL_LAST_RELEASE_GITHUB = 'https://api.github.com/repos/pluxml/PluXml/
 const SESSION_LIFETIME = 7200;
 const PAGE_LOGIN = 'auth.php';
 
+const PLX_INSTALL_PATH = 'install/index.php';
+
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 

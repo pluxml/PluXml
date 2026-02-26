@@ -1,5 +1,5 @@
 <?php
-const PLX_ROOT = './';
+const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT .'core/';
 
 include(PLX_ROOT.'config.php');
@@ -306,7 +306,7 @@ if(!file_exists(PLX_ROOT . $admin)) {
 
 			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
 
-			<form action="install.php" method="post">
+			<form method="post">
 
 				<fieldset>
 
