@@ -1,3 +1,6 @@
-<Files "*">
-	Require all denied
+Options -Indexes
+
+<Files *>
+    Order allow,deny
+    Deny from all
 </Files>

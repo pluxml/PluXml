@@ -1,2 +1,4 @@
 options -indexes
-
+<Files "*">
+	SetHandler default-handler
+</Files>
