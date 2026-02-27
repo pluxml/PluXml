@@ -52,6 +52,15 @@ class plxUtils {
 		# Reduit une succession de 0
 		'#(?<=:)\s*0(?:\s+0){1,3}\s*;#m' => '0',
 	);
+	# https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Regex_character_class_escape_in_class_range
+	const FILTER_PROFIL = array(
+		'id'		=> array('\d{3}', L_UNKNOWN_ERROR),
+		'fullname'	=> array('\w{3,20}[\w\s\-]{0,42}\w{2,20}', L_ERR_INVALID_USERNAME),
+		'login'		=> array('\w[\w\-]{2,32}\w', L_ERR_INVALID_LOGIN),
+		'password'	=> array('.{8,64}', L_ERR_INVALID_PASSWORD),
+		'password2'	=> array('.{8,64}', L_ERR_INVALID_PASSWORD),
+	);
+
 
 	/**
 	 * Méthode qui vérifie si une variable est définie.
@@ -178,6 +187,45 @@ class plxUtils {
 		return plxUtils::isValidIp($ip) ? $ip : $localIP;
 	}
 
+	public static function checkProfil(&$content) {
+		# name, login, password, email, lang
+		# contrôles
+		# plxAdmin::editUser() : id, email, lang
+		# plxAdmin::editProfil() : name, email, lang ( id == $_SESSION['user'] )
+		# plxAdmin::editUsers() : id, name, login, password, email, profil, active
+		# install/index.php : name, login, password, password2, email ( id == '001' )
+
+		$withMsg = class_exists('plxMsg');
+
+		# controle de l'"id", du "name", du "login", du "password" et du "password2" de l'user
+		foreach(self::FILTER_PROFIL as $field=>$infos) {
+			list($mask, $msg) = $infos;
+			if(isset($content[$field]) and !preg_match('#^' . $mask . '$#u', $content[$field])) {
+				return ($withMsg ? plxMsg::Error($msg) : $msg);
+			}
+		}
+
+		if(isset($content['password']) and isset($content['password2']) and $content['password'] != $content['password2']) {
+			# Mauvaise confirmation du mot de passe
+			return ($withMsg ? plxMsg::Error(L_ERR_PASSWORD_CONFIRMATION) : L_ERR_PASSWORD_CONFIRMATION);
+		}
+
+		# controle de l'"email"
+		if(isset($content['email'])) {
+			$email = filter_var(trim($content['email']), FILTER_VALIDATE_EMAIL);
+			if(empty($email)) {
+				return ($withMsg ? plxMsg::Error(L_ERR_INVALID_EMAIL) : L_ERR_INVALID_EMAIL);
+			}
+		}
+
+		# controle de la "lang" sélectionnée
+		if(isset($content['lang']) and !self::lang_exists($content['lang'])) {
+			return ($withMsg ? plxMsg::Error(L_UNKNOWN_ERROR) : L_UNKNOWN_ERROR);
+		}
+
+		return true;
+	}
+
 	/**
 	 * Méthode qui affiche une liste de sélection
 	 *
@@ -244,6 +292,15 @@ class plxUtils {
 			'name="'.$name.'"',
 			'type="'.$type.'"'
 		 );
+
+		 if($type != 'hidden' and array_key_exists($name, self::FILTER_PROFIL)) {
+			 $params[] = 'pattern="' . self::FILTER_PROFIL[$name][0] . '"';
+			 $params[] = 'title="' . self::FILTER_PROFIL[$name][0] . '"';
+			 if($type == 'password' and $required == false) {
+				 $params[] = 'required';
+			 }
+		 }
+
 		 if(strlen($value) > 0)
 			 $params[] = 'value="'.$value.'"';
 		 if(!empty($extra))
