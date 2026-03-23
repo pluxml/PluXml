@@ -439,7 +439,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		);
 */
 		if(empty($username) or !preg_match('#^\w[\w\s\.-]{2,}$#', $username)) {
-			return plxMsg::Error(L_ERR_USER_EMPTY);
+			return plxMsg::Error(L_ERR_INVALID_USERNAME);
 		}
 
 		# controle de l'adresse email
@@ -479,7 +479,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		$password = trim($content['password1']);
 		if(empty($password) OR $password != trim($content['password2'])) {
-			return plxMsg::Error(L_ERR_PASSWORD_EMPTY_CONFIRMATION);
+			return plxMsg::Error(L_ERR_INVALID_PASSWORD_CONFIRMATION);
 		}
 
 		$token = isset($content['lostPasswordToken']) ? $content['lostPasswordToken'] : '';
@@ -672,7 +672,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					} elseif(isset($content[$user_id.'_newuser'])) {
 						# Mot de passe obligatoire pour un nouvel utilisateur
 						$this->aUsers = $save;
-						return plxMsg::Error(L_ERR_PASSWORD_EMPTY.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
+						return plxMsg::Error(L_ERR_INVALID_PASSWORD.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
 					} else {
 						# Mot de passe inchangé
 						$salt = $this->aUsers[$user_id]['salt'];
