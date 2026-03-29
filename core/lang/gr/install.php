@@ -21,7 +21,6 @@ $LANG = array(
 'L_ERR_MISSING_USER'             	=> 'Παρακαλώ συμπληρώστε το πεδίο συντάκτη!',
 'L_ERR_MISSING_LOGIN'            	=> 'Παρακαλώ συμπληρώστε το πεδίο σύνδεσης!',
 'L_ERR_MISSING_PASSWORD'         	=> 'Παρακαλώ συμπληρώστε το πεδίο κωδικού πρόσβασης!',
-'L_ERR_PASSWORD_CONFIRMATION'    	=> 'Η επιβεβαίωση κωδικού πρόσβασης δεν είναι έγκυρη!',
 'L_PLUXML_INSTALLATION'          	=> 'Εγκατάσταση PluXml',
 'L_SITE_DESCRIPTION'             	=> 'Blog ή CMS, βασισμένο σε XML!',
 'L_VERSION'                      	=> 'έκδοση',
@@ -32,9 +31,5 @@ $LANG = array(
 'L_EMAIL'                        	=> 'Διεύθυνση e-mail',
 'L_INPUT_INSTALL'                	=> 'Εγκατάσταση',
 'L_TIMEZONE'                     	=> 'Ζώνη ώρας',
-'L_PWD_VERY_WEAK'                	=> 'Πολύ αδύναμος κωδικός',
-'L_PWD_WEAK'                     	=> 'Αδύναμος κωδικός',
-'L_PWD_GOOD'                     	=> 'Καλός κωδικός',
-'L_PWD_STRONG'                   	=> 'Ισχυρός κωδικός',
 );
 ?>

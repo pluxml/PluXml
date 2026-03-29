@@ -90,6 +90,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'		=> 'Bibliotéca XML não instalada',
 'L_MAIL_AVAILABLE'				=> 'Função de envio de e-mail disponivél',
 'L_MAIL_NOT_AVAILABLE'			=> 'Função de envio de e-mail indisponivél',
+'L_UNKNOWN_ERROR' => 'Erro desconhecido',
+'L_ERR_INVALID_USERNAME' => 'Queira dígitar um nome de utilizador',
+'L_ERR_INVALID_PASSWORD' => 'Queira dígitar uma senha',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmação da senha incorrecta !',
+'L_ERR_INVALID_EMAIL' => 'Enderêço e-mail inválido',
+'L_ERR_INVALID_SITE' => 'Enderêço do web-site inválido',
+'L_PWD_VERY_WEAK'					=> 'Senha muito fraca',
+'L_PWD_WEAK'						=> 'Senha fraca',
+'L_PWD_GOOD'						=> 'Boa senha',
+'L_PWD_STRONG'						=> 'Senha forte',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'				=> 'Nenhum artigo correspondente a este tag; !',

@@ -90,6 +90,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'		=> 'Библиотека XML не установлена',
 'L_MAIL_AVAILABLE'				=> 'Функция отправки почты доступна',
 'L_MAIL_NOT_AVAILABLE'			=> 'Недоступна функция отправки почты',
+'L_UNKNOWN_ERROR' => 'Неизвестная ошибка',
+'L_ERR_INVALID_USERNAME' => 'Имя пользователя',
+'L_ERR_INVALID_PASSWORD' => 'Пароль',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Неверный пароль!',
+'L_ERR_INVALID_EMAIL' => 'Неправильный адрес электронной почты',
+'L_ERR_INVALID_SITE' => 'Неправильный URL сайта',
+'L_PWD_VERY_WEAK'					=> 'Очень слабый пароль',
+'L_PWD_WEAK'						=> 'Слабый пароль',
+'L_PWD_GOOD'						=> 'Хороший пароль',
+'L_PWD_STRONG'						=> 'Надёжный пароль',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'				=> 'С этой меткой нет статей!',

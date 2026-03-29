@@ -90,6 +90,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'		=> 'Bibliotèca XML non installada',
 'L_MAIL_AVAILABLE'				=> 'Foncion d\'enviada de mail disponible',
 'L_MAIL_NOT_AVAILABLE'			=> 'Foncion d\'enviada de mail non disponible',
+'L_UNKNOWN_ERROR' => 'Error desconeguda',
+'L_ERR_INVALID_USERNAME' => 'Volgatz picar un nom d\'utilizaire',
+'L_ERR_INVALID_PASSWORD' => 'Volgatz picar un senhal',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmacion del senhal incorrècta !',
+'L_ERR_INVALID_EMAIL' => 'Corric invalid',
+'L_ERR_INVALID_SITE' => 'Adreça del site invalida',
+'L_PWD_VERY_WEAK'					=> 'Senhal fòrça feble',
+'L_PWD_WEAK'						=> 'Senhal feble',
+'L_PWD_GOOD'						=> 'Senhal bon',
+'L_PWD_STRONG'						=> 'Senhal fòrt',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'				=> 'Pas cap d\'article per aqueste mot clau !',

@@ -21,7 +21,6 @@ $LANG = array(
 'L_ERR_MISSING_USER'			=> 'Indique el nombre del editor!',
 'L_ERR_MISSING_LOGIN'			=> 'Indique el nombre de usuario!',
 'L_ERR_MISSING_PASSWORD'		=> 'Indique una contraseña!',
-'L_ERR_PASSWORD_CONFIRMATION'	=> 'La contraseña es incorrecta!',
 'L_PLUXML_INSTALLATION'			=> 'Instalación de PluXml',
 'L_SITE_DESCRIPTION'			=> 'Blog o CMS con XML!',
 'L_VERSION'						=> 'versión',
@@ -32,9 +31,5 @@ $LANG = array(
 'L_EMAIL'						=> 'Dirección de correo electrónico',
 'L_INPUT_INSTALL'				=> 'Instalar',
 'L_TIMEZONE'					=> 'Huso horario',
-'L_PWD_VERY_WEAK'				=> 'Contraseña muy débil',
-'L_PWD_WEAK'					=> 'Contraseña débil',
-'L_PWD_GOOD'					=> 'Buena contraseña',
-'L_PWD_STRONG'					=> 'Contraseña segura',
 );
 ?>

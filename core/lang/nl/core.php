@@ -89,6 +89,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'		=> 'XML-bibliotheek is niet geïnstalleerd of beschikbaar',
 'L_MAIL_AVAILABLE'				=> 'Email verzendfunctie is beschikbaar',
 'L_MAIL_NOT_AVAILABLE'			=> 'Email verzendfunctie is niet beschikbaar',
+'L_UNKNOWN_ERROR' => 'Onbekende fout',
+'L_ERR_INVALID_USERNAME' => 'Gelieve een gebruikersnaam in te geven',
+'L_ERR_INVALID_PASSWORD' => 'Gelieve een wachtwoord in te geven',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Bevestiging van wachtwoord mislukt !',
+'L_ERR_INVALID_EMAIL' => 'Ongeldig emailadres',
+'L_ERR_INVALID_SITE' => 'Ongeldig website-adres',
+'L_PWD_VERY_WEAK'					=> 'Zeer zwak wachtwoord',
+'L_PWD_WEAK'						=> 'Zwak wachtwoord',
+'L_PWD_GOOD'						=> 'Goed wachtwoord',
+'L_PWD_STRONG'						=> 'Sterk wachtwoord',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'				=> 'Geen artikel gevonden voor dit sleutelwoord !',

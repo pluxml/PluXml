@@ -21,7 +21,6 @@ $LANG = array(
 'L_ERR_MISSING_USER'				=> 'Please fill in the contributor\'s field !',
 'L_ERR_MISSING_LOGIN'				=> 'Please fill the login field !',
 'L_ERR_MISSING_PASSWORD'			=> 'Please fill the password field !',
-'L_ERR_PASSWORD_CONFIRMATION'		=> 'Invalid password confirmation !',
 'L_PLUXML_INSTALLATION'				=> 'PluXml installation',
 'L_SITE_DESCRIPTION'				=> 'Blog or CMS, XML powered !',
 'L_VERSION'							=> 'version',
@@ -32,9 +31,5 @@ $LANG = array(
 'L_EMAIL'						    => 'E-mail adress',
 'L_INPUT_INSTALL'					=> 'Install',
 'L_TIMEZONE'						=> 'Time Zone',
-'L_PWD_VERY_WEAK'					=> 'Very weak password',
-'L_PWD_WEAK'						=> 'Weak password',
-'L_PWD_GOOD'						=> 'Good password',
-'L_PWD_STRONG'						=> 'Strong password',
 );
 ?>

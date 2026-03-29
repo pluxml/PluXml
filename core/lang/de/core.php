@@ -90,6 +90,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'	=> 'XML Grafikbibliothek ist nicht verfügbar',
 'L_MAIL_AVAILABLE'			=> 'E-Mail versenden ist möglich',
 'L_MAIL_NOT_AVAILABLE'		=> 'E-Mail versenden ist nicht möglich',
+'L_UNKNOWN_ERROR' => 'Unbekannter Fehler',
+'L_ERR_INVALID_USERNAME' => 'Bitte Benutzernamen eingeben',
+'L_ERR_INVALID_PASSWORD' => 'Bitte ein Passwort eingeben',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Die Passwörter sind nicht identisch!',
+'L_ERR_INVALID_EMAIL' => 'Ungültige E-Mail-Adresse',
+'L_ERR_INVALID_SITE' => 'Ungültige Adresse der Website',
+'L_PWD_VERY_WEAK'					=> 'Sehr schwaches Passwort',
+'L_PWD_WEAK'						=> 'Schwaches Passwort',
+'L_PWD_GOOD'						=> 'Gutes Passwort',
+'L_PWD_STRONG'						=> 'Starkes Passwort',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'			=> 'Es gibt keinen Artikel für dieses Schlagwort!',

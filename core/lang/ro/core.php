@@ -90,6 +90,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'		=> 'Biblioteca XML nu este instalată',
 'L_MAIL_AVAILABLE'				=> 'Functia  de a trimite e-mail disponibilă',
 'L_MAIL_NOT_AVAILABLE'			=> 'Functia  de a trimite e-mail nu este disponibilă',
+'L_UNKNOWN_ERROR' => 'Eroare necunoscută',
+'L_ERR_INVALID_USERNAME' => 'Vă rugăm să introduceţi un nume de utilizator',
+'L_ERR_INVALID_PASSWORD' => 'Vă rugăm să introduceţi o parolă',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmarea parolă incorectă !',
+'L_ERR_INVALID_EMAIL' => 'Adresa de e-mail nevalidă',
+'L_ERR_INVALID_SITE' => 'Adresa site gresita',
+'L_PWD_VERY_WEAK'					=> 'Parola foarte slabă',
+'L_PWD_WEAK'						=> 'Parolă slabă',
+'L_PWD_GOOD'						=> 'Parolă bună',
+'L_PWD_STRONG'						=> 'Parolă puternică',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'				=> 'Nici un articol pentru acest cuvant cheie !',

@@ -93,6 +93,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'      	=> 'Η βιβλιοθήκη XML δεν είναι εγκατεστημένη',
 'L_MAIL_AVAILABLE'            	=> 'Η λειτουργία αποστολής email είναι διαθέσιμη',
 'L_MAIL_NOT_AVAILABLE'        	=> 'Η λειτουργία αποστολής email δεν είναι διαθέσιμη',
+'L_UNKNOWN_ERROR' => 'Άγνωστο σφάλμα',
+'L_ERR_INVALID_USERNAME' => 'Παρακαλώ εισαγάγετε όνομα χρήστη',
+'L_ERR_INVALID_PASSWORD' => 'Παρακαλώ εισαγάγετε κωδικό πρόσβασης',
+'L_ERR_PASSWORD_CONFIRMATION'    	=> 'Η επιβεβαίωση κωδικού πρόσβασης δεν είναι έγκυρη!',
+'L_ERR_INVALID_EMAIL' => 'Μη έγκυρη διεύθυνση email',
+'L_ERR_INVALID_SITE' => 'Μη έγκυρη διεύθυνση ιστοσελίδας',
+'L_PWD_VERY_WEAK'                	=> 'Πολύ αδύναμος κωδικός',
+'L_PWD_WEAK'                     	=> 'Αδύναμος κωδικός',
+'L_PWD_GOOD'                     	=> 'Καλός κωδικός',
+'L_PWD_STRONG'                   	=> 'Ισχυρός κωδικός',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'             	=> 'Δεν βρέθηκε άρθρο με αυτήν την ετικέτα!',

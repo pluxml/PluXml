@@ -90,6 +90,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'		=> 'XML library not installed',
 'L_MAIL_AVAILABLE'				=> 'Mail sending function available',
 'L_MAIL_NOT_AVAILABLE'			=> 'Mail sending function unavailable',
+'L_UNKNOWN_ERROR' => 'Unknown error',
+'L_ERR_INVALID_USERNAME' => 'Please enter a username',
+'L_ERR_INVALID_PASSWORD' => 'Please enter a password',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Invalid password confirmation !',
+'L_ERR_INVALID_EMAIL' => 'Invalid email adress',
+'L_ERR_INVALID_SITE' => 'Wrong site url',
+'L_PWD_VERY_WEAK'					=> 'Very weak password',
+'L_PWD_WEAK'						=> 'Weak password',
+'L_PWD_GOOD'						=> 'Good password',
+'L_PWD_STRONG'						=> 'Strong password',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'				=> 'No article has been found for this tag!',

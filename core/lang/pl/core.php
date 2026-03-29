@@ -90,6 +90,16 @@ $LANG = array(
 'L_LIBXML_NOT_INSTALLED'		=> 'Nie zainstalowane biblioteki XML',
 'L_MAIL_AVAILABLE'				=> 'Funkcja wysyłania poczty dostępna',
 'L_MAIL_NOT_AVAILABLE'			=> 'Funkcja wysyłania poczty nie jest dostępna',
+'L_UNKNOWN_ERROR' => 'Nieznany błąd',
+'L_ERR_INVALID_USERNAME' => 'Wpisz nazwę użytkownika',
+'L_ERR_INVALID_PASSWORD' => 'Wpisz hasło',
+'L_ERR_PASSWORD_CONFIRMATION'		=> 'Niepoprawne potwierdzenie hasła',
+'L_ERR_INVALID_EMAIL' => 'Niepoprawny adres e-mail',
+'L_ERR_INVALID_SITE' => 'Niepoprawny adres strony',
+'L_PWD_VERY_WEAK'					=> 'Bardzo słabe hasło',
+'L_PWD_WEAK'						=> 'Słabe hasło',
+'L_PWD_GOOD'						=> 'Dobre hasło',
+'L_PWD_STRONG'						=> 'Silne hasło',
 
 # class.plx.motor.php
 'L_ARTICLE_NO_TAG'				=> 'Brak postów dla danego słowa kluczowego !',

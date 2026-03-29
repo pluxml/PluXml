@@ -479,7 +479,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		$password = trim($content['password1']);
 		if(empty($password) OR $password != trim($content['password2'])) {
-			return plxMsg::Error(L_ERR_INVALID_PASSWORD_CONFIRMATION);
+			return plxMsg::Error(L_ERR_PASSWORD_CONFIRMATION);
 		}
 
 		$token = isset($content['lostPasswordToken']) ? $content['lostPasswordToken'] : '';

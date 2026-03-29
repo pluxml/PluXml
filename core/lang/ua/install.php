@@ -21,7 +21,6 @@ $LANG = array(
 'L_ERR_MISSING_USER'				=> 'Будь ласка, заповніть поля!',
 'L_ERR_MISSING_LOGIN'				=> 'Будь ласка, заповніть поле імені користувача!',
 'L_ERR_MISSING_PASSWORD'			=> 'Будь ласка, заповніть поле пароля!',
-'L_ERR_PASSWORD_CONFIRMATION'		=> 'Неправильний пароль!',
 'L_PLUXML_INSTALLATION'				=> 'Встановлення PluXml, ',
 'L_SITE_DESCRIPTION'				=> 'Блог чи CMS на XML!',
 'L_VERSION'							=> 'версія',
@@ -32,9 +31,5 @@ $LANG = array(
 'L_EMAIL'						    => 'Адреса електронної пошти',
 'L_INPUT_INSTALL'					=> 'Встановлення',
 'L_TIMEZONE'						=> 'Часовий пояс',
-'L_PWD_VERY_WEAK'					=> 'Дуже слабкий пароль',
-'L_PWD_WEAK'						=> 'Слабкий пароль',
-'L_PWD_GOOD'						=> 'Гарний пароль',
-'L_PWD_STRONG'						=> 'Надійний пароль',
 );
 ?>
