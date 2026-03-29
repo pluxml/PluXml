@@ -19,7 +19,6 @@ $LANG = array(
 'L_DEFAULT_COMMENT_CONTENT'			=> 'This is a first comment !',
 'L_ERR_PLUXML_ALREADY_INSTALLED'	=> 'PluXml is already set up !',
 'L_ERR_MISSING_USER'				=> 'Please fill in the contributor\'s field !',
-'L_ERR_MISSING_LOGIN'				=> 'Please fill the login field !',
 'L_ERR_MISSING_PASSWORD'			=> 'Please fill the password field !',
 'L_PLUXML_INSTALLATION'				=> 'PluXml installation',
 'L_SITE_DESCRIPTION'				=> 'Blog or CMS, XML powered !',

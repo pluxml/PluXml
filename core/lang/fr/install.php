@@ -19,7 +19,6 @@ $LANG = array(
 'L_DEFAULT_COMMENT_CONTENT'			=> 'Ceci est un premier commentaire.',
 'L_ERR_PLUXML_ALREADY_INSTALLED'	=> 'PluXml est déjà configuré.',
 'L_ERR_MISSING_USER'				=> 'Veuillez renseigner le nom du rédacteur.',
-'L_ERR_MISSING_LOGIN'				=> 'Veuillez renseigner le login de connexion.',
 'L_ERR_MISSING_PASSWORD'			=> 'Veuillez renseigner un mot de passe.',
 'L_ERR_MISSING_EMAIL'               => 'Veuillez renseigner une adresse e-mail (récupération de mot de passe).',
 'L_PLUXML_INSTALLATION'				=> 'Installation de PluXml',

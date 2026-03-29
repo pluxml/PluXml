@@ -92,6 +92,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Недоступна функція надсилання пошти',
 'L_UNKNOWN_ERROR' => 'Невідома помилка',
 'L_ERR_INVALID_USERNAME' => 'Ім\'я користувача',
+'L_ERR_INVALID_LOGIN'				=> 'Будь ласка, заповніть поле імені користувача!',
 'L_ERR_INVALID_PASSWORD' => 'Пароль',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Неправильний пароль!',
 'L_ERR_INVALID_EMAIL' => 'Неправильна адреса електронної пошти',

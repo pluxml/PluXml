@@ -19,7 +19,6 @@ $LANG = array(
 'L_DEFAULT_COMMENT_CONTENT'			=> 'Это первый комментарий!',
 'L_ERR_PLUXML_ALREADY_INSTALLED'	=> 'PluXml уже установлена!',
 'L_ERR_MISSING_USER'				=> 'Пожалуйста, заполните поля!',
-'L_ERR_MISSING_LOGIN'				=> 'Пожалуйста, заполните поле имени пользователя!',
 'L_ERR_MISSING_PASSWORD'			=> 'Пожалуйста, заполните поле пароля!',
 'L_PLUXML_INSTALLATION'				=> 'Установка PluXml, ',
 'L_SITE_DESCRIPTION'				=> 'Блог или CMS на XML!',

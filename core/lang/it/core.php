@@ -92,6 +92,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Funzione di invio mail non disponible',
 'L_UNKNOWN_ERROR' => 'Errore sconosciuto',
 'L_ERR_INVALID_USERNAME' => 'Inserisci un nome utente',
+'L_ERR_INVALID_LOGIN'				=> 'Inserisci il nome utente !',
 'L_ERR_INVALID_PASSWORD' => 'Inserisci una password',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Conferma della password non corretta !',
 'L_ERR_INVALID_EMAIL' => 'Indirizzo email non valido',

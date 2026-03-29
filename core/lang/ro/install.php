@@ -19,7 +19,6 @@ $LANG = array(
 'L_DEFAULT_COMMENT_CONTENT'			=> 'Acesta este primul comentariu !',
 'L_ERR_PLUXML_ALREADY_INSTALLED'	=> 'PluXml este deja instalat !',
 'L_ERR_MISSING_USER'				=> 'Vă rugăm să introduceti corect numele !',
-'L_ERR_MISSING_LOGIN'				=> 'Vă rugăm să introduceti corect username-ul !',
 'L_ERR_MISSING_PASSWORD'			=> 'Vă rugăm să introduceti corect parola!',
 'L_PLUXML_INSTALLATION'				=> 'Instalaţia PluXml',
 'L_SITE_DESCRIPTION'				=> 'Site pe baza la Xml !',

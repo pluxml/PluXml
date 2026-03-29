@@ -92,6 +92,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Functia  de a trimite e-mail nu este disponibilă',
 'L_UNKNOWN_ERROR' => 'Eroare necunoscută',
 'L_ERR_INVALID_USERNAME' => 'Vă rugăm să introduceţi un nume de utilizator',
+'L_ERR_INVALID_LOGIN'				=> 'Vă rugăm să introduceti corect username-ul !',
 'L_ERR_INVALID_PASSWORD' => 'Vă rugăm să introduceţi o parolă',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmarea parolă incorectă !',
 'L_ERR_INVALID_EMAIL' => 'Adresa de e-mail nevalidă',

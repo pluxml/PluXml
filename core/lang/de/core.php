@@ -92,6 +92,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'		=> 'E-Mail versenden ist nicht möglich',
 'L_UNKNOWN_ERROR' => 'Unbekannter Fehler',
 'L_ERR_INVALID_USERNAME' => 'Bitte Benutzernamen eingeben',
+'L_ERR_INVALID_LOGIN'				=> 'Geben Sie einen Benutzername ein!',
 'L_ERR_INVALID_PASSWORD' => 'Bitte ein Passwort eingeben',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Die Passwörter sind nicht identisch!',
 'L_ERR_INVALID_EMAIL' => 'Ungültige E-Mail-Adresse',

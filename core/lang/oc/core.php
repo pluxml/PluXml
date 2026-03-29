@@ -92,6 +92,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Foncion d\'enviada de mail non disponible',
 'L_UNKNOWN_ERROR' => 'Error desconeguda',
 'L_ERR_INVALID_USERNAME' => 'Volgatz picar un nom d\'utilizaire',
+'L_ERR_INVALID_LOGIN'				=> 'Volgatz entre-senhar lo login de connexion !',
 'L_ERR_INVALID_PASSWORD' => 'Volgatz picar un senhal',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmacion del senhal incorrècta !',
 'L_ERR_INVALID_EMAIL' => 'Corric invalid',

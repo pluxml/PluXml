@@ -95,6 +95,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'        	=> 'Η λειτουργία αποστολής email δεν είναι διαθέσιμη',
 'L_UNKNOWN_ERROR' => 'Άγνωστο σφάλμα',
 'L_ERR_INVALID_USERNAME' => 'Παρακαλώ εισαγάγετε όνομα χρήστη',
+'L_ERR_INVALID_LOGIN'            	=> 'Παρακαλώ συμπληρώστε το πεδίο σύνδεσης!',
 'L_ERR_INVALID_PASSWORD' => 'Παρακαλώ εισαγάγετε κωδικό πρόσβασης',
 'L_ERR_PASSWORD_CONFIRMATION'    	=> 'Η επιβεβαίωση κωδικού πρόσβασης δεν είναι έγκυρη!',
 'L_ERR_INVALID_EMAIL' => 'Μη έγκυρη διεύθυνση email',

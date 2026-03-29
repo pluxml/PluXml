@@ -34,14 +34,14 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, '5.0.0', '<')){
-	header('Content-Type: text/plain charset=' . PLX_CHARSET);
+	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
 	echo L_WRONG_PHP_VERSION;
 	exit;
 }
 
 # On vérifie que PluXml n'est pas déjà installé
 if(file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Content-Type: text/plain charset=' . PLX_CHARSET);
+	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
 	echo L_ERR_PLUXML_ALREADY_INSTALLED;
 	exit;
 }
@@ -170,7 +170,7 @@ function install($content, $config) {
 <document>
 	<user number="001" active="1" profil="0" delete="0">
 		<login><?= $content['login'] ?></login>
-		<name><?= $content['name'] ?></name>
+		<name><?= $content['fullname'] ?></name>
 		<infos>Webmaster</infos>
 		<password><![CDATA[<?= sha1($salt . md5(trim($content['password']))) ?>]]></password>
 		<salt><?= $salt ?></salt>
@@ -255,8 +255,8 @@ function install($content, $config) {
 	<date_creation><?= $now ?></date_creation>
 	<date_update><?= $now ?></date_update>
 	<thumbnail><?= $thumbnail ?></thumbnail>
-	<thumbnail_alt><?= PluXml logo ?></thumbnail_alt>
-	<thumbnail_title><?= PluXml ?></thumbnail_title>
+	<thumbnail_alt>PluXml logo</thumbnail_alt>
+	<thumbnail_title>PluXml</thumbnail_title>
 </document>
 <?php
 		plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $config['racine_articles'] . '0001.001.001.' . $now . '.' . L_DEFAULT_ARTICLE_URL . '.xml');
@@ -298,25 +298,23 @@ function install($content, $config) {
 	<content><?= plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT) ?></content>
 </comment>
 <?php
-		plxUtils::write(XML_HEADER . ob_get_clean() . $config['racine_commentaires'] . '0001.' . date('U') . '-1.xml');
+		plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $config['racine_commentaires'] . '0001.' . date('U') . '-1.xml');
 	}
 }
 
-$msg='';
 if(!empty($_POST['install'])) {
-
-	if(trim($_POST['name'] == '')) $msg = L_ERR_MISSING_USER;
-	elseif(trim($_POST['login'] == '')) $msg = L_ERR_MISSING_LOGIN;
-	elseif(trim($_POST['password'] == '')) $msg = L_ERR_MISSING_PASSWORD;
-	elseif($_POST['password'] != $_POST['password2']) $msg = L_ERR_PASSWORD_CONFIRMATION;
-	elseif(trim($_POST['email'] == '')) $msg = L_ERR_MISSING_EMAIL;
-	else {
-		install($_POST, $config);
-		header('Location: ' . PLX_ROOT . 'index.php');
-		exit;
+	$msg = plxUtils::checkProfil($_POST);
+	if($msg === true) {
+		if($_POST['password'] != $_POST['password2']) {
+			$msg = L_ERR_PASSWORD_CONFIRMATION;
+		} else {
+			install($_POST, $config);
+			header('Location: ' . PLX_ROOT . 'index.php');
+			exit;
+		}
 	}
 
-	$name=$_POST['name'];
+	$name=$_POST['fullname'];
 	$login=$_POST['login'];
 	$email=$_POST['email'];
 	$data=$_POST['data'];
@@ -338,12 +336,13 @@ if(!file_exists(PLX_ROOT . $admin)) {
 }
 ?>
 <!DOCTYPE html>
+<html lang="<?= $lang ?>">
 <head>
 	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 <?php plxUtils::printLinkCss(); ?>
-	<script src="<?= $admin; ?>js/visual.js"></script>
+	<script src="<?= PLX_ROOT . $admin; ?>js/visual.js"></script>
 </head>
 
 <body>
@@ -362,7 +361,13 @@ if(!file_exists(PLX_ROOT . $admin)) {
 
 			</header>
 
-			<?php if($msg!='') echo '<div class="alert red">'.$msg.'</div>'; ?>
+<?php
+if(!empty($msg)) {
+?>
+			<div class="alert red"><?= $msg ?></div>
+<?php
+}
+?>
 
 			<form method="post">
 
@@ -391,7 +396,7 @@ if(!file_exists(PLX_ROOT . $admin)) {
 							<label for="id_name"><?= L_USERNAME ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('name', $name, 'text', '20-255',false,'','','autofocus', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('fullname', $name, 'text', '20-64',false, '', '', 'autofocus', true); ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -399,7 +404,7 @@ if(!file_exists(PLX_ROOT . $admin)) {
 							<label for="id_login"><?= L_LOGIN ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('login', $login, 'text', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('login', $login, 'text', '20-64', false, '', '', '', true); ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -407,8 +412,8 @@ if(!file_exists(PLX_ROOT . $admin)) {
 							<label for="id_password"><?= L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('password', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"', 'required') ?>
-							<span id="id_pwd_strenght"></span>
+							<?php plxUtils::printInput('password', '', 'password', '20-64', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"', true); ?>
+							<span id="id_password_strenght"></span>
 						</div>
 					</div>
 					<div class="grid">
@@ -416,7 +421,7 @@ if(!file_exists(PLX_ROOT . $admin)) {
 							<label for="id_password2"><?= L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('password2', '', 'password', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('password2', '', 'password', '20-64', false, '', '', '', true); ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -424,7 +429,7 @@ if(!file_exists(PLX_ROOT . $admin)) {
 							<label for="id_email"><?= L_EMAIL ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('email', $email, 'email', '20-255', '', '', '', '', 'required') ?>
+							<?php plxUtils::printInput('email', $email, 'email', '20-64', false, '', '', '', true); ?>
 						</div>
 					</div>
 					<div class="grid">

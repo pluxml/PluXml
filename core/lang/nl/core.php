@@ -91,6 +91,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Email verzendfunctie is niet beschikbaar',
 'L_UNKNOWN_ERROR' => 'Onbekende fout',
 'L_ERR_INVALID_USERNAME' => 'Gelieve een gebruikersnaam in te geven',
+'L_ERR_INVALID_LOGIN'				=> 'Vul een loginnaam in !',
 'L_ERR_INVALID_PASSWORD' => 'Gelieve een wachtwoord in te geven',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Bevestiging van wachtwoord mislukt !',
 'L_ERR_INVALID_EMAIL' => 'Ongeldig emailadres',

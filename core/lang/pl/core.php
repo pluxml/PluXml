@@ -92,6 +92,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Funkcja wysyłania poczty nie jest dostępna',
 'L_UNKNOWN_ERROR' => 'Nieznany błąd',
 'L_ERR_INVALID_USERNAME' => 'Wpisz nazwę użytkownika',
+'L_ERR_INVALID_LOGIN'				=> 'Proszę wpisać login !',
 'L_ERR_INVALID_PASSWORD' => 'Wpisz hasło',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Niepoprawne potwierdzenie hasła',
 'L_ERR_INVALID_EMAIL' => 'Niepoprawny adres e-mail',

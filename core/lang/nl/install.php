@@ -19,7 +19,6 @@ $LANG = array(
 'L_DEFAULT_COMMENT_CONTENT'			=> 'Dit is een eerste commentaar !',
 'L_ERR_PLUXML_ALREADY_INSTALLED'	=> 'PluXml is al geconfigureerd !',
 'L_ERR_MISSING_USER'				=> 'Vul de naam van de redacteur in !',
-'L_ERR_MISSING_LOGIN'				=> 'Vul een loginnaam in !',
 'L_ERR_MISSING_PASSWORD'			=> 'Vul een wachtwoord in !',
 'L_PLUXML_INSTALLATION'				=> 'Installatie van PluXml',
 'L_SITE_DESCRIPTION'				=> 'Blog of Cms in XML !',

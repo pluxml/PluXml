@@ -19,7 +19,6 @@ $LANG = array(
 'L_DEFAULT_COMMENT_CONTENT'			=> 'Aquò es un primièr comentari !',
 'L_ERR_PLUXML_ALREADY_INSTALLED'	=> 'PluXml es ja configurat !',
 'L_ERR_MISSING_USER'				=> 'Volgatz entre-senhar lo nom del redactor !',
-'L_ERR_MISSING_LOGIN'				=> 'Volgatz entre-senhar lo login de connexion !',
 'L_ERR_MISSING_PASSWORD'			=> 'Volgatz entre-senhar un senhal !',
 'L_PLUXML_INSTALLATION'				=> 'Installacion de PluXml',
 'L_SITE_DESCRIPTION'				=> 'Blòg o Cms a l\'Xml !',

@@ -92,6 +92,7 @@ $LANG = array(
 'L_MAIL_NOT_AVAILABLE'			=> 'Função de envio de e-mail indisponivél',
 'L_UNKNOWN_ERROR' => 'Erro desconhecido',
 'L_ERR_INVALID_USERNAME' => 'Queira dígitar um nome de utilizador',
+'L_ERR_INVALID_LOGIN'				=> 'Por favor, indique o login de conexão !',
 'L_ERR_INVALID_PASSWORD' => 'Queira dígitar uma senha',
 'L_ERR_PASSWORD_CONFIRMATION'		=> 'Confirmação da senha incorrecta !',
 'L_ERR_INVALID_EMAIL' => 'Enderêço e-mail inválido',
