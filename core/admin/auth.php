@@ -187,7 +187,7 @@ plxUtils::cleanHeaders();
                             <div class="grid">
                                 <div class="col sml-12">
                                     <i class="ico icon-user"></i>
-                                    <?php plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id'])) ? plxUtils::strCheck($_POST['lostpassword_id']) : '', 'text', '10-255', false, 'full-width', L_AUTH_LOST_FIELD, 'autofocus'); ?>
+                                    <?php plxUtils::printInput('lostpassword_id', (!empty($_POST['lostpassword_id'])) ? plxUtils::strCheck($_POST['lostpassword_id']) : '', 'text', '10-64', false, 'full-width', L_AUTH_LOST_FIELD, 'autofocus'); ?>
                                 </div>
                             </div>
                             <div class="grid">
@@ -227,13 +227,14 @@ plxUtils::cleanHeaders();
                                 <div class="grid">
                                     <div class="col sml-12">
                                         <i class="ico icon-lock"></i>
-                                        <?php plxUtils::printInput('password1', '', 'password', '10-255', false, 'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+                                        <?php plxUtils::printInput('password', '', 'password', '10-64', false, 'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
+                                        <span id="id_password_strenght"></span>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="col sml-12">
                                         <i class="ico icon-lock"></i>
-                                        <?php plxUtils::printInput('password2', '', 'password', '10-255', false, 'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
+                                        <?php plxUtils::printInput('password2', '', 'password', '10-64', false, 'full-width', L_PROFIL_CONFIRM_PASSWORD) ?>
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -288,13 +289,13 @@ plxUtils::cleanHeaders();
                             <div class="grid">
                                 <div class="col sml-12">
                                     <i class="ico icon-user"></i>
-                                    <?php plxUtils::printInput('login', (!empty($_POST['login'])) ? plxUtils::strCheck($_POST['login']) : '', 'text', '10-255', false, 'full-width', L_AUTH_LOGIN_FIELD, 'autofocus'); ?>
+                                    <?php plxUtils::printInput('login', (!empty($_POST['login'])) ? plxUtils::strCheck($_POST['login']) : '', 'text', '10-64', false, 'full-width', L_AUTH_LOGIN_FIELD, 'autofocus'); ?>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col sml-12">
                                     <i class="ico icon-lock"></i>
-                                    <?php plxUtils::printInput('password', '', 'password', '10-255', false, 'full-width', L_AUTH_PASSWORD_FIELD); ?>
+                                    <?php plxUtils::printInput('password', '', 'password', '10-64', false, 'full-width', L_AUTH_PASSWORD_FIELD); ?>
                                 </div>
                             </div>
                             <?php

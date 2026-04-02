@@ -20,7 +20,7 @@ if(!empty($_POST)) {
 
 	if(!empty($_POST['profil']))
 		$plxAdmin->editProfil($_POST);
-	elseif(!empty($_POST['password']))
+	elseif(!empty($_POST['passwordBtn']))
 		$plxAdmin->editPassword($_POST);
 
 	header('Location: profil.php');
@@ -34,7 +34,7 @@ include 'top.php';
 $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 ?>
 
-<form action="profil.php" method="post" id="form_profil">
+<form method="post" id="form_profil">
 
 	<div class="inline-form action-bar">
 		<h2><?php echo L_PROFIL_EDIT_TITLE ?></h2>
@@ -48,13 +48,13 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_name"><?php echo L_PROFIL_USER ?>&nbsp;:</label>
-				<?php plxUtils::printInput('name', plxUtils::strCheck($_profil['name']), 'text', '20-255') ?>
+				<?php plxUtils::printInput('fullname', plxUtils::strCheck($_profil['name']), 'text', '20-64') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_email"><?php echo L_PROFIL_MAIL ?>&nbsp;:</label>
-				<?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'text', '30-255') ?>
+				<?php plxUtils::printInput('email', plxUtils::strCheck($_profil['email']), 'email', '30-64') ?>
 			</div>
 		</div>
 		<div class="grid">
@@ -76,24 +76,25 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 </form>
 
 <h3><?php echo L_PROFIL_CHANGE_PASSWORD ?></h3>
-<form action="profil.php" method="post" id="form_password">
+<form method="post" id="form_password">
 	<fieldset>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_password1"><?php echo L_PROFIL_PASSWORD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('password1', '', 'password', '20-255', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
+				<?php plxUtils::printInput('password', '', 'password', '20-64', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
+				<span id="id_password_strenght"></span>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_password2"><?php echo L_PROFIL_CONFIRM_PASSWORD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('password2', '', 'password', '20-255') ?>
+				<?php plxUtils::printInput('password2', '', 'password', '20-64') ?>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<?php echo plxToken::getTokenPostMethod() ?>
-				<input type="submit" name="password" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
+				<input type="submit" name="passwordBtn" value="<?php echo L_PROFIL_UPDATE_PASSWORD ?>" />
 			</div>
 		</div>
 	</fieldset>
@@ -104,4 +105,3 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 eval($plxAdmin->plxPlugins->callHook('AdminProfilFoot'));
 # On inclut le footer
 include 'foot.php';
-?>

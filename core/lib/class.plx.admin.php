@@ -424,38 +424,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editProfil($content) {
 
-		$username = trim($content['name']);
-		/*
-		$profil = filter_var(
-			$content['profil'],
-			FILTER_VALIDATE_INT,
-			array(
-				'options'	=> array(
-					'default'	=> PROFIL_WRITER,
-					'min'		=> 0,
-					'max'		=> PROFIL_WRITER,
-				),
-			)
-		);
-*/
-		if(empty($username) or !preg_match('#^\w[\w\s\.-]{2,}$#', $username)) {
-			return plxMsg::Error(L_ERR_INVALID_USERNAME);
+		if(plxUtils::checkProfil($content) !== true) {
+			return false;
 		}
 
-		# controle de l'adresse email
-		$email = filter_var(trim($content['email']), FILTER_VALIDATE_EMAIL);
-		if(empty($email)) {
-			return plxMsg::Error(L_ERR_INVALID_EMAIL);
-		}
-
-		# controle de la langue sélectionnée
-		if(!plxUtils::lang_exists($content['lang'])) {
-			return plxMsg::Error(L_UNKNOWN_ERROR);
-		}
-
-		$this->aUsers[$_SESSION['user']]['name'] = $username;
+		$this->aUsers[$_SESSION['user']]['name'] = $content['fullname'];
 		$this->aUsers[$_SESSION['user']]['infos'] = plxUtils::strCheck($content['content']);
-		$this->aUsers[$_SESSION['user']]['email'] = $email;
+		$this->aUsers[$_SESSION['user']]['email'] = $content['email'];
 		$this->aUsers[$_SESSION['user']]['lang'] = $content['lang'];
 
 		$_SESSION['admin_lang'] = $content['lang'];
@@ -477,7 +452,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editPassword($content) {
 
-		$password = trim($content['password1']);
+		$password = trim($content['password']);
 		if(empty($password) OR $password != trim($content['password2'])) {
 			return plxMsg::Error(L_ERR_PASSWORD_CONFIRMATION);
 		}
@@ -739,30 +714,28 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
 			}
 
-			if ($user['delete'] == 0) {
+			if (empty($user['delete'])) {
 				$users_name[] = $user['name'];
-			}
 
-			# controle de l'unicité du login de l'utilisateur
-			if(in_array($user['login'], $users_login)) {
-				return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
-			}
-			if ($user['delete'] == 0) {
+				# controle de l'unicité du login de l'utilisateur
+				if(in_array($user['login'], $users_login)) {
+					return plxMsg::Error(L_ERR_LOGIN_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['login']));
+				}
 				$users_login[] = $user['login'];
-			}
-			# controle de l'unicité de l'adresse e-mail
-			if(in_array($user['email'], $users_email)) {
-				return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
-			}
 
-			if ($user['delete'] == 0) {
+				# controle de l'unicité de l'adresse e-mail
+				if(in_array($user['email'], $users_email)) {
+					return plxMsg::Error(L_ERR_EMAIL_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['email']));
+				}
 				$users_email[] = $user['email'];
 			}
+
+			$infos = !empty(trim($user['infos'])) ? '<![CDATA[' . plxUtils::cdataCheck($user['infos'], true) . ']]>' : '';
 ?>
 	<user number="<?= $user_id ?>" active="<?= $user['active'] ?>" profil="<?= $user['profil'] ?>" delete="<?= $user['delete'] ?>">
 		<login><?= $user['login'] ?></login>
 		<name><?= $user['name'] ?></name>
-		<infos><![CDATA[ <?= plxUtils::cdataCheck($user['infos'], true) ?>]]></infos>
+		<infos><?= $infos ?></infos>
 		<password><?= $user['password'] ?></password>
 		<salt><?= $user['salt'] ?></salt>
 		<email><?= $user['email'] ?></email>
@@ -798,18 +771,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editUser($content) {
 
-		# controle de l'adresse email
-		$email = filter_var(trim($content['email']), FILTER_VALIDATE_EMAIL);
-		if(empty($email)) {
-			return plxMsg::Error(L_ERR_INVALID_EMAIL);
+		if(plxUtils::checkProfil($content) !== true) {
+			return false;
 		}
 
-		# controle de la langue sélectionnée
-		if(!plxUtils::lang_exists($content['lang'])) {
-			return plxMsg::Error(L_UNKNOWN_ERROR);
-		}
-
-		$this->aUsers[$content['id']]['email'] = $email;
+		$this->aUsers[$content['id']]['email'] = $content['email'];
 		$this->aUsers[$content['id']]['infos'] = plxUtils::strCheck($content['content']);
 		$this->aUsers[$content['id']]['lang'] = $content['lang'];
 
