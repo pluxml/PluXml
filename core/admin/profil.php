@@ -81,8 +81,8 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_password1"><?php echo L_PROFIL_PASSWORD ?>&nbsp;:</label>
-				<?php plxUtils::printInput('password', '', 'password', '20-64', false, '', '', 'onkeyup="pwdStrength(this.id)"') ?>
-				<span id="id_password_strenght"></span>
+				<?php plxUtils::printInput('password', '', 'password', '20-64'); ?>
+				<?php plxUtils::printPasswordStrength('password'); ?>
 			</div>
 		</div>
 		<div class="grid">

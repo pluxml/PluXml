@@ -17,7 +17,6 @@ if(isset($_GET["del"]) AND $_GET["del"]=="install") {
 	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
 <?php plxUtils::printLinkCss(); ?>
 	<script src="js/functions.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="js/visual.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script src="js/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
 	<script defer src="js/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
 <?php

@@ -227,8 +227,8 @@ plxUtils::cleanHeaders();
                                 <div class="grid">
                                     <div class="col sml-12">
                                         <i class="ico icon-lock"></i>
-                                        <?php plxUtils::printInput('password', '', 'password', '10-64', false, 'full-width', L_PROFIL_PASSWORD, 'onkeyup="pwdStrength(this.id)"') ?>
-                                        <span id="id_password_strenght"></span>
+                                        <?php plxUtils::printInput('password', '', 'password', '10-64', false, 'full-width', L_PROFIL_PASSWORD) ?>
+                                        <?php plxUtils::printPasswordStrength('password'); ?>
                                     </div>
                                 </div>
                                 <div class="grid">

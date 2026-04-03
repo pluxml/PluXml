@@ -41,25 +41,57 @@ function setMsg() {
 		fadeOut('msg');
 	}
 }
-function pwdStrength(id, s) {
+
+function pwdStrength(ev) {
 	// Colors: white = empty, red = very weak, orange = weak, yellow = good, green = strong
-	var color = ['#fff', '#ff0000', '#ff9900', '#ffcc00', '#33cc33'];
-	var val = document.getElementById(id).value;
-	var no=0;
-	// If the password length is less than or equal to 6
-	if(val.length>0 && val.length<=6) no=1;
-	// If the password length is greater than 6 and contain any lowercase alphabet or any number or any special character
-	if(val.length>6 && (val.match(/[a-z]/) || val.match(/\d+/) || val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))) no=2;
-	// If the password length is greater than 6 and contain alphabet,number,special character respectively
-	if(val.length>6 && ((val.match(/[a-z]/) && val.match(/\d+/)) || (val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) || (val.match(/[a-z]/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)))) no=3;
-	// If the password length is greater than 6 and must contain alphabets,numbers and special characters
-	if(val.length>6 && val.match(/[a-z]/) && val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) no=4;
-	// Change password background color
-	document.getElementById(id).style.backgroundColor=color[no];
-	// Change label strenght password
-	var pwdstr=document.getElementById(id+'_strenght');
-	pwdstr.innerHTML='';if(no>0){pwdstr.innerHTML=s[no-1]};
+	const colors = ['#fff', '#f00', '#f90', '#fc0', '#3c3'];
+	ev.preventDefault();
+	const el = ev.target;
+	const val = el.value;
+	var strength = -1;
+	if(val.length > 0) {
+		if(val.length <= 6) {
+			strength = 0;
+		} else {
+			// If the password length is greater than 6 and contain any lowercase alphabet or any number or any special character
+			if(val.match(/[a-z]/) || val.match(/\d+/) || val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) {
+				strength = 1;
+			}
+			// If the password length is greater than 6 and contain alphabet,number,special character respectively
+			if((val.match(/[a-z]/) && val.match(/\d+/)) || (val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) || (val.match(/[a-z]/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))) {
+				strength = 2;
+			}
+			// If the password length is greater than 6 and must contain alphabets,numbers and special characters
+			if(val.match(/[a-z]/) && val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) {
+				strength = 3;
+			}
+		}
+	}
+
+	if(el.strength != strength) {
+		el.strength = strength;
+		console.log('Strength password: ' + strength);
+		// Change password background color
+		el.style.backgroundColor = (strength < 0) ? '' : colors[strength];
+		// Change label strenght password
+		el.notif.textContent  = (strength < 0) ? '' : el.notif.dataset.lang.split('|')[strength];
+	}
 }
+
+Array.from(document.getElementsByClassName('password-strength')).forEach(function(notif, i) {
+	if(notif.tagName != 'SPAN') {
+		return;
+	}
+
+	const name = notif.id.replace(/id_(\w+)_strength/, '$1');
+	const input = notif.parentElement.querySelector('input[type="password"][name="' + name +  '"]');
+	if(input) {
+		input.notif = notif;
+		input.strength = -1;
+		input.addEventListener('keyup', pwdStrength);
+	}
+});
+
 function dialogBox(dlg) {
 	this.dlg = document.getElementById(dlg);
 	this.span = document.querySelector('#'+dlg+' .dialog-close');

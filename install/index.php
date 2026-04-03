@@ -367,7 +367,6 @@ if(!file_exists(PLX_ROOT . $admin)) {
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<title><?= L_PLUXML_INSTALLATION.' '.L_VERSION.' '.PLX_VERSION ?></title>
 <?php plxUtils::printLinkCss(); ?>
-	<script src="<?= PLX_ROOT . $admin; ?>js/visual.js"></script>
 </head>
 
 <body>
@@ -437,8 +436,8 @@ if(!empty($msg)) {
 							<label for="id_password"><?= L_PASSWORD ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('password', '', 'password', '20-64', false, '', '', 'onkeyup="pwdStrength(this.id, [\''.L_PWD_VERY_WEAK.'\', \''.L_PWD_WEAK.'\', \''.L_PWD_GOOD.'\', \''.L_PWD_STRONG.'\'])"', true); ?>
-							<span id="id_password_strenght"></span>
+							<?php plxUtils::printInput('password', '', 'password', '20-64'); ?>
+							<?php plxUtils::printPasswordStrength('password'); ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -446,7 +445,7 @@ if(!empty($msg)) {
 							<label for="id_password2"><?= L_PASSWORD_CONFIRMATION ?>&nbsp;:</label>
 						</div>
 						<div class="col sml-12 med-7">
-							<?php plxUtils::printInput('password2', '', 'password', '20-64', false, '', '', '', true); ?>
+							<?php plxUtils::printInput('password2', '', 'password', '20-64'); ?>
 						</div>
 					</div>
 					<div class="grid">
@@ -505,7 +504,8 @@ if(!empty($msg)) {
 		</section>
 
 	</main>
-
+	<script src="<?= PLX_ROOT . $admin; ?>js/visual.js"></script>
 </body>
 
 </html>
+

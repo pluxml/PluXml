@@ -397,6 +397,13 @@ class plxUtils {
 		echo '<textarea ' . implode(' ', $attrs) . '>' . $value . '</textarea>';
 	}
 
+	public static function printPasswordStrength($id) {
+		$translations = array(L_PWD_VERY_WEAK, L_PWD_WEAK, L_PWD_GOOD, L_PWD_STRONG);
+?>
+<span id="id_<?= $id ?>_strength" class="password-strength" data-lang="<?= implode('|', $translations) ?>"></span>
+<?php
+	}
+
 	/**
 	 * Méthode qui teste si un fichier est accessible en écriture
 	 *
