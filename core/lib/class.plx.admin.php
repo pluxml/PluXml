@@ -13,6 +13,7 @@ class plxAdmin extends plxMotor {
 
 	# Some functions of PHP are banned !
 	const CRITICAL_FUNCTIONS_PHP_PATTERN = '#\b(exec|shell_exec|system|parse_ini_file|passthru|proc_open|popen|show_source|phpinfo)\b#';
+	const TOKEN_LENGHT = 32;
 	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
@@ -500,7 +501,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					// token and e-mail creation
 					$mail = array();
 					$tokenExpiry = 24;
-					$lostPasswordToken = plxToken::getTokenPostMethod(32, false);
+					$lostPasswordToken = plxToken::getTokenPostMethod(self::TOKEN_LENGHT, false);
 					$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
 					$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 					if(!array_key_exists($templateName, $this->aTemplates)) {
@@ -553,10 +554,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 */
 	public function verifyLostPasswordToken($token) {
-		$now = date('YmdHi');
-		foreach($this->aUsers as $user_id => $user) {
-			if ($user['password_token'] == $token) {
-				return ($user['password_token_expiry'] >= $now);
+		if(preg_match('#^\w{' . self::TOKEN_LENGHT . '}$#', $token)) {
+			$now = date('YmdHi');
+			foreach($this->aUsers as $user_id => $user) {
+				if ($user['password_token'] == $token) {
+					return ($user['password_token_expiry'] >= $now);
+				}
 			}
 		}
 
