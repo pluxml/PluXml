@@ -452,30 +452,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 **/
 	public function editPassword($content) {
 
-		$password = trim($content['password']);
-		if(empty($password) OR $password != trim($content['password2'])) {
-			return plxMsg::Error(L_ERR_PASSWORD_CONFIRMATION);
-		}
-
-		$token = isset($content['lostPasswordToken']) ? $content['lostPasswordToken'] : '';
-		if(!empty($token)) {
-			foreach($this->aUsers as $user_id => $user) {
-				if ($user['password_token'] == $token) {
-					$salt = $this->aUsers[$user_id]['salt'];
-					$this->aUsers[$user_id]['password'] = sha1($salt.md5($password));
-					$this->aUsers[$user_id]['password_token'] = '';
-					$this->aUsers[$user_id]['password_token_expiry'] = '';
-					return $this->editUsers(null, $action);
-				}
-			}
-
+		if(plxUtils::checkProfil($content) !== true) {
 			return false;
 		}
-		else {
-			$salt = $this->aUsers[$_SESSION['user']]['salt'];
-			$this->aUsers[$_SESSION['user']]['password'] = sha1($salt.md5($password));
-			return $this->editUsers(null, $action);
+
+		if(isset($content['lostPasswordToken'])) {
+			$token = $content['lostPasswordToken'];
+			$users = array_filter($this->aUsers, function($infos) use($token) {
+				return ($infos['password_token'] == $token);
+			});
+			if(count($users) != 1) {
+				return false;
+			}
+
+			$user_id = array_keys($users)[0];
+			$this->aUsers[$user_id]['password_token'] = '';
+			$this->aUsers[$user_id]['password_token_expiry'] = '';
+		} else {
+			$user_id = $_SESSION['user'];
 		}
+
+		$salt = $this->aUsers[$user_id]['salt'];
+		$this->aUsers[$user_id]['password'] = sha1($salt . md5($content['password']));
+		return $this->editUsers(null, true);
 	}
 
 	/**
