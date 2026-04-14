@@ -937,11 +937,44 @@ class plxUtils {
 	}
 
 	/**
+	 * URL de base du site définie manuellement via la configuration.
+	 * Prioritaire sur la détection automatique de getRacine().
+	 **/
+	protected static $_manualRacine = null;
+
+	/**
+	 * Définit manuellement l'URL de base du site, utilisée ensuite par getRacine().
+	 * Utile lorsqu'une réécriture Apache (ex: RewriteRule) masque le chemin physique du script.
+	 *
+	 * @param	string	url de base à forcer (avec ou sans slash final)
+	 * @return	bool	vrai si l'URL a été acceptée, faux si elle est invalide
+	 **/
+	public static function setManualRacine($url) {
+		$url = trim((string) $url);
+		if($url === '') {
+			self::$_manualRacine = null;
+			return false;
+		}
+		if(substr($url, -1) !== '/') {
+			$url .= '/';
+		}
+		if(!self::checkSite($url, false)) {
+			self::$_manualRacine = null;
+			return false;
+		}
+		self::$_manualRacine = $url;
+		return true;
+	}
+
+	/**
 	 * Méthode qui retourne l'url de base du site
 	 *
 	 * @return	string	url de base du site
 	 **/
 	public static function getRacine() {
+		if(!empty(self::$_manualRacine)) {
+			return self::$_manualRacine;
+		}
 		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https://': 'http://';
 		$servername = $_SERVER['HTTP_HOST'];
 		$serverport = (preg_match('@:\d+@', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];

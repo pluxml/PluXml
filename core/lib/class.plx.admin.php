@@ -101,6 +101,7 @@ class plxAdmin extends plxMotor {
 
 		# Sauvegarde de la valeur initiale
 		$urlrewriting = $plxConfig['urlrewriting'];
+		$manualUrlInitial = isset($plxConfig['manual_url']) ? $plxConfig['manual_url'] : '';
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
@@ -116,6 +117,7 @@ class plxAdmin extends plxMotor {
 			'meta_keywords',
 			'feed_footer',
 			'custom_admincss_file',
+			'manual_url',
 			'smtp_username',
 			'smtp_password',
 			'smtpOauth2_clientId',
@@ -243,6 +245,18 @@ class plxAdmin extends plxMotor {
 				if(!array_key_exists($v, plxTimezones::timezones())) {
 					continue;
 				}
+
+			} elseif($k == 'manual_url') {
+				# URL racine manuelle : optionnelle, doit être une URL http(s) valide
+				$v = trim($v);
+				if($v !== '') {
+					if(substr($v, -1) !== '/') {
+						$v .= '/';
+					}
+					if(!plxUtils::checkSite($v, false)) {
+						continue;
+					}
+				}
 			}
 
 			if(!isset($plxConfig[$k]) or $plxConfig[$k] != $v) {
@@ -270,12 +284,15 @@ class plxAdmin extends plxMotor {
 			# On réactualise la langue
 			$_SESSION['lang'] = $plxConfig['default_lang'];
 
-			# Actions sur le fichier .htaccess si le mode de ré-écriture a changé
-			if(
-				array_key_exists('urlrewriting', $content) and
-				$plxConfig['urlrewriting'] != $urlrewriting
-			) {
-				if(!$this->htaccess($plxConfig['urlrewriting'], $plxConfig['racine'])) {
+			# URL à utiliser pour écrire le .htaccess : racine manuelle si renseignée, sinon racine auto-détectée
+			$manualUrlNow = isset($plxConfig['manual_url']) ? $plxConfig['manual_url'] : '';
+			$htaccessUrl = ($manualUrlNow !== '') ? $manualUrlNow : $plxConfig['racine'];
+			$manualUrlChanged = ($manualUrlInitial !== $manualUrlNow);
+
+			# Actions sur le fichier .htaccess si le mode de ré-écriture ou la racine manuelle a changé
+			$urlrewritingChanged = array_key_exists('urlrewriting', $content) && $plxConfig['urlrewriting'] != $urlrewriting;
+			if($urlrewritingChanged || ($manualUrlChanged && $plxConfig['urlrewriting'])) {
+				if(!$this->htaccess($plxConfig['urlrewriting'], $htaccessUrl)) {
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 				}
 			}

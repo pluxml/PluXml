@@ -73,6 +73,15 @@ if (file_exists('robots.txt')) {
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
+				<label for="id_manual_url"><?= L_CONFIG_ADVANCED_MANUAL_URL ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printInput('manual_url', plxUtils::strCheck(plxUtils::getValue($plxAdmin->aConf['manual_url']))); ?>
+				<a class="hint"><span><?= L_CONFIG_ADVANCED_MANUAL_URL_HELP ?></span></a>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_gzip"><?= L_CONFIG_ADVANCED_GZIP ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">

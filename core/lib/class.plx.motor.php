@@ -606,7 +606,12 @@ class plxMotor {
 			}
 		}
 
-		# détermination automatique de la racine du site
+		# racine manuelle si définie (ex: installation derrière une RewriteRule ou un reverse proxy)
+		$this->aConf['manual_url'] = plxUtils::getValue($this->aConf['manual_url']);
+		if(!empty($this->aConf['manual_url'])) {
+			plxUtils::setManualRacine($this->aConf['manual_url']);
+		}
+		# détermination automatique de la racine du site (ou utilisation de la racine manuelle si définie)
 		$this->aConf['racine'] = plxUtils::getRacine();
 
 		# On gère la non régression en cas d'ajout de paramètres sur une version de pluxml déjà installée
