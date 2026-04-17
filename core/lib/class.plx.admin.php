@@ -605,6 +605,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					}
 
 					$this->aUsers[$user_id]['delete'] = 1;
+					$this->aUsers[$user_id]['active'] = 0;
 					foreach(array(/* 'login', 'name', */ 'password', 'salt', 'infos', 'email', 'lang', 'password_token', 'password_token_expiry',) as $k) {
 						# Suppression des données personnelles
 						$this->aUsers[$user_id][$k] = '';
@@ -615,6 +616,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_USERS'));
 			}
 		}
+
 		# mise à jour de la liste des utilisateurs
 		elseif(!empty($content['update'])) {
 			# On récupère le dernier identifiant
@@ -622,77 +624,82 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			rsort($a);
 			$new_userid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
 
-			foreach($content['userNum'] as $user_id) {
-				if(!array_key_exists($user_id, $this->aUsers) and $user_id != $new_userid) {
+			foreach($content['users'] as $user_id=>$user_infos) {
+				$new_user = ($user_id == $new_userid);
+				if($new_user and empty(trim($user_infos['fullname'])) and empty(trim($user_infos['fullname']))) {
+					# Pas de nouvel utilisateur
+					continue;
+				}
+		
+				if(!array_key_exists($user_id, $this->aUsers) and !$new_user) {
 					continue;
 				}
 
-				$username = trim($content[$user_id.'_name']);
-				$login = trim($content[$user_id.'_login']);
-				if(!empty($username) and !empty($login) and preg_match('#^\w[\w\s\.-]{2,}$#', $username) and preg_match('#^\w[\w\s\.-]{2,}$#', $login)) {
-					if(!array_key_exists($user_id, $this->aUsers)) {
-						# Nouvel utilisateur dans le tableau des utilisateurs
-						$this->aUsers[$user_id] = array(
-							'delete'				=> 0,
-							'lang'					=> $this->aConf['default_lang'],
-							'infos'					=> '',
-							'password_token'		=> '',
-							'password_token_expiry'	=> '',
-						);
-					}
+				if(!$new_user and empty(trim($user_infos['password']))) {
+					unset($user_infos['password']);
+				}
 
-					# controle du mot de passe
-					$password = trim($content[$user_id . '_password']);
-					if(!empty($password)) {
-						$salt = plxUtils::charAleatoire(10);
-						$password = sha1($salt . md5($password));
-					} elseif(isset($content[$user_id.'_newuser'])) {
+				if(plxUtils::checkProfil($user_infos) !== true) {
+					return false;
+				}
+
+				if($new_user) {
+					# Nouvel utilisateur dans le tableau des utilisateurs
+					$this->aUsers[$user_id] = array(
+						'delete'				=> 0,
+						'lang'					=> $this->aConf['default_lang'],
+						'infos'					=> '',
+						'password_token'		=> '',
+						'password_token_expiry'	=> '',
+					);
+				}
+
+				if(isset($user_infos['password'])) {
+					if($new_user and empty($user_infos['password'])) {
 						# Mot de passe obligatoire pour un nouvel utilisateur
 						$this->aUsers = $save;
 						return plxMsg::Error(L_ERR_INVALID_PASSWORD.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
-					} else {
-						# Mot de passe inchangé
-						$salt = $this->aUsers[$user_id]['salt'];
-						$password = $this->aUsers[$user_id]['password'];
 					}
 
-					# controle de l'adresse email
-					$email = filter_var($content[$user_id.'_email'], FILTER_VALIDATE_EMAIL);
-					if(empty($email)) {
-						return plxMsg::Error(L_ERR_INVALID_EMAIL);
-					}
+					$salt = plxUtils::charAleatoire(10);
+					$this->aUsers[$user_id]['salt'] = $salt;
+					$this->aUsers[$user_id]['password'] = sha1($salt . md5($user_infos['password']));
+				}
 
-					if($_SESSION['user'] == $user_id) {
-						$active = $this->aUsers[$user_id]['active'];
-						$profil = $this->aUsers[$user_id]['profil'];
-					} else {
-						$active = ($content[$user_id.'_active'] == '1' ? 1 : 0);
-						$profil = filter_var(
-							$content[$user_id.'_profil'],
-							FILTER_VALIDATE_INT,
-							array(
-								'options'	=> array(
-									'default'	=> PROFIL_WRITER,
-									'min'		=> 0,
-									'max'		=> PROFIL_WRITER,
-								),
-							)
-						);
-					}
+				if($_SESSION['user'] == $user_id) {
+					$active = $this->aUsers[$user_id]['active'];
+					$profil = $this->aUsers[$user_id]['profil'];
+				} else {
+					$active = ($content[$user_id.'_active'] == '1' ? 1 : 0);
+					$profil = filter_var(
+						$content[$user_id.'_profil'],
+						FILTER_VALIDATE_INT,
+						array(
+							'options'	=> array(
+								'default'	=> PROFIL_WRITER,
+								'min'		=> 0,
+								'max'		=> PROFIL_WRITER,
+							),
+						)
+					);
 
-					$this->aUsers[$user_id]['login'] = $login;
-					$this->aUsers[$user_id]['name'] = $username;
+					$this->aUsers[$user_id]['login'] = $user_info['login'];
+					$this->aUsers[$user_id]['name'] = $user_info['fullname'];
 					$this->aUsers[$user_id]['active'] = $active;
 					$this->aUsers[$user_id]['profil'] = $profil;
-					$this->aUsers[$user_id]['password'] = $password;
-					$this->aUsers[$user_id]['salt'] = $salt;
-					$this->aUsers[$user_id]['email'] = $email;
-
-					# Hook plugins
-					eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
-					$action = true;
 				}
+
+				$this->aUsers[$user_id]['login'] = $user_infos['login'];
+				$this->aUsers[$user_id]['name'] = $user_infos['fullname'];
+				$this->aUsers[$user_id]['active'] = ($user_id == '001') ? 1 : $user_infos['active'];
+				$this->aUsers[$user_id]['profil'] = ($user_id == '001') ? PROFIL_ADMIN : $user_infos['profil'];
+				$this->aUsers[$user_id]['email'] = $user_infos['email'];
+
+				# Hook plugins
+				eval($this->plxPlugins->callHook('plxAdminEditUsersUpdate'));
 			}
+
+			$action = true;
 		}
 
 		if($action!== true) {
