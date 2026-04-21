@@ -1,15 +1,10 @@
 <?php
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT.'core/';
+const PLX_WITHOUT_HOSTNAME = true; # for plxUtils::getRacine()
 
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
-
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: install.php');
-	exit;
-}
 
 # On démarre la session
 session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);

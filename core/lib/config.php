@@ -76,3 +76,20 @@ function path($s, $newvalue='') {
 	if(isset($CONSTS[$s]))
 		return $CONSTS[$s];
 }
+
+# fonction qui retourne le hemin de la racine du site avec ou sans redirection d'url
+function get_root_url() {
+	$path1 = preg_replace('#/(?:\w[\w-]+\.php)$#', '', !empty($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : $_SERVER['PHP_SELF']) . '/';
+	$level = count(explode('../', PLX_ROOT)) - 1;
+	if($level > 0) {
+		$path1 = preg_replace('#(?:\w[\w-]+/){' . $level . '}$#', '', $path1);
+	}
+	return $path1;
+}
+
+# On verifie que PluXml est installé. Gère la redirection d'url
+if(!file_exists(path('XMLFILE_PARAMETERS')) and !preg_match('#/install(?:/index)?\.php$#', $_SERVER['SCRIPT_NAME'])) {
+	header('Location: ' . get_root_url() . 'install.php');
+	exit;
+}
+

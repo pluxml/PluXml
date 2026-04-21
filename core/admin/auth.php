@@ -47,7 +47,7 @@ if (isset($_SESSION['maxtry'])) {
 }
 
 # Incrémente le nombre de tentative
-$redirect = preg_replace('#/auth\.php$#', '/', $_SERVER['PHP_SELF']);
+$redirect = preg_replace('#/auth\.php$#', '/', !empty($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : $_SERVER['PHP_SELF']);
 if (!empty($_GET['p']) and $css == '') {
 
     # on incremente la variable de session qui compte les tentatives de connexion

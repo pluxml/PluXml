@@ -5,12 +5,6 @@ const PLX_CORE = PLX_ROOT .'core/';
 include(PLX_ROOT.'config.php');
 include(PLX_CORE.'lib/config.php');
 
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: install.php');
-	exit;
-}
-
 # Autorise le cross-origin des flus rss/atom : Cross-Origin Resource Sharing
 # https://enable-cors.org/server_php.html
 # https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
