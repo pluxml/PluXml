@@ -6,12 +6,6 @@ include(PLX_CORE.'lib/config.php');
 
 const PLX_UPDATER = true;
 
-# On verifie que PluXml est installé
-if(!file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Location: ' . PLX_ROOT . PLX_INSTALL_PATH);
-	exit;
-}
-
 # On inclut les librairies nécessaires
 include(PLX_CORE.'lib/class.plx.date.php');
 include(PLX_CORE.'lib/class.plx.glob.php');

@@ -1,4 +1,10 @@
 <?php
+if(!defined('PLX_ROOT')) {
+	header('Content-Type: text/plain');
+	echo 'PLX_ROOT constant is missing';
+	exit;
+}
+
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.10.0';
 const PLX_URL_REPO = 'https://www.pluxml.org';
@@ -108,6 +114,12 @@ function get_root_url() {
 		$path1 = preg_replace('#(?:\w[\w-]+/){' . $level . '}$#', '', $path1);
 	}
 	return $path1;
+}
+
+# On verifie que PluXml est installé. Gère la redirection d'url
+if(!file_exists(path('XMLFILE_PARAMETERS')) and !preg_match('#/' . PLX_INSTALL_PATH . '$#', $_SERVER['SCRIPT_NAME'])) {
+	header('Location: ' . get_root_url() .  PLX_INSTALL_PATH);
+	exit;
 }
 
 $session_site = array(
