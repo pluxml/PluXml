@@ -894,22 +894,54 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne l'url de base du site
 	 *
+	 * exemple de .htaccess avec redirection d'url :
+	 * <IfModule mod_rewrite.c>
+	 *     RewriteEngine on
+	 *     RewriteBase "/"
+	 *     RewriteRule ^blog/(core/admin|update)$ apps/PluXml/$1/ [L]
+	 *     RewriteRule ^blog/(.*)$  apps/PluXml/$1 [L]
+	 *     RewriteRule ^blog$  apps/PluXml/ [L]
+	 * </IfModule>
+	 *
 	 * @return	string	url de base du site
+	 * @author	Jean-Pierre Pourrez @bazooka07
 	 **/
 	public static function getRacine() {
 
-		$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https://': 'http://';
-		$servername = $_SERVER['HTTP_HOST'];
-		$serverport = (preg_match('/:\d+/', $servername) OR $_SERVER['SERVER_PORT'])=='80' ? '' : ':'.$_SERVER['SERVER_PORT'];
-		# Notice : on Windows dirname('/index.php') returns '\', on Linux returns '/' !!!
-		$path_admin = defined('PLX_ADMIN') ? '/(?:\w[\w-]+/\w[\w-]+|update\b)' : '';
-		$path1 = preg_replace('#' . $path_admin . '/\w[\w-]+\.php$#', '', $_SERVER['SCRIPT_NAME']);
-		$racine = $protocol . $servername . $serverport . $path1 . '/';
-		if(!plxUtils::checkSite($racine, false)) {
-			die('Error: wrong or invalid url');
+		if(!empty($_SERVER['REDIRECT_URL'])) {
+			$path1 = $_SERVER['REDIRECT_URL'];
+			if(!defined('PLX_ADMIN') and !empty($_SERVER['REDIRECT_QUERY_STRING'])) {
+				$path1 = preg_replace('#' . $_SERVER['REDIRECT_QUERY_STRING'] . '$#', '', $path1);
+			}
+		} else {
+			$path1 = $_SERVER['PHP_SELF'];
+			}
+		if(defined('PLX_ADMIN')) {
+			return preg_replace('#(?:/\w[\w-]+){2}(?:/\w[\w-]+\.php|/)?$#', '/', $path1);
 		}
 
-		return $racine;
+		# installation
+		if(preg_match('#(.*)\b' . PLX_INSTALL_PATH . '$#', $path1, $matches)) {
+			return $matches[1];
+		}
+
+		if(!defined('PLX_WITHOUT_HOSTNAME')) {
+			# On a besoin du nom d'hôte (hostname), ... Par exemple: sitemap.php, feed.php
+			$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https': 'http';
+			$prefix = $protocol . '://' . $_SERVER['HTTP_HOST'];
+			if(
+				!empty($_SERVER['SERVER_PORT']) and 
+				is_integer($_SERVER['SERVER_PORT']) and
+				$_SERVER['SERVER_PORT'] != 80 
+			) {
+				$prefix .= ':' . $_SERVER['SERVER_PORT'];
+			}
+		} else {
+			# Page d'accueil, liste articles, pages statiques, ..
+			$prefix = '';
+ 		}
+
+		return $prefix . preg_replace('#/(?:\w[\w-]+\.php)?$#', '', $path1) . '/';
 	}
 
 	/**

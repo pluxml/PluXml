@@ -100,6 +100,16 @@ function path($s, $newvalue='') {
 		return $CONSTS[$s];
 }
 
+# fonction qui retourne le chemin de la racine du site avec ou sans redirection d'url
+function get_root_url() {
+	$path1 = preg_replace('#/(?:\w[\w-]+\.php)$#', '', !empty($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : $_SERVER['PHP_SELF']) . '/';
+	$level = count(explode('../', PLX_ROOT)) - 1;
+	if($level > 0) {
+		$path1 = preg_replace('#(?:\w[\w-]+/){' . $level . '}$#', '', $path1);
+	}
+	return $path1;
+}
+
 $plx_racine = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
 if(file_exists('./' . PAGE_LOGIN)) {
 	$plx_racine = preg_replace('#/\w[\w-]+/\w[\w-]+/$#', '/', $plx_racine);
