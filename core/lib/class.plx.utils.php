@@ -90,7 +90,7 @@ class plxUtils {
 	/**
 	 * Méthode qui supprime les antislashs
 	 *
-	 * @param	content				variable ou tableau
+	 * @param	content				variable ou tableau ( 2 dimensions maxi )
 	 * @return	array ou string		tableau ou variable avec les antislashs supprimés
 	 * @author  J.P. Pourrez aka bazooka07
 	 **/
@@ -101,9 +101,19 @@ class plxUtils {
 			$new_content = array();
 			foreach($content as $k=>$v) { # On parcourt le tableau
 				if(is_array($v)) {
-					$new_content[$k] = array();
-					foreach($v as $key=>$val)
-						$new_content[$k][$key] = stripslashes($val);
+					$buf1 = array();
+					foreach($v as $key=>$val) {
+						if(is_array($val)) {
+							$buf2 = array();
+							foreach($val as $i=>$w) {
+								$buf2[$i] = stripslashes($w);
+							}
+							$buf1[$key]  = $buf2;
+						} else {
+							$buf1[$key] = stripslashes($val);
+						}
+					}
+					$new_content[$k] = $buf1;
 				} else {
 					$new_content[$k] = stripslashes($v);
 				}
@@ -930,9 +940,9 @@ class plxUtils {
 			$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https': 'http';
 			$prefix = $protocol . '://' . $_SERVER['HTTP_HOST'];
 			if(
-				!empty($_SERVER['SERVER_PORT']) and 
+				!empty($_SERVER['SERVER_PORT']) and
 				is_integer($_SERVER['SERVER_PORT']) and
-				$_SERVER['SERVER_PORT'] != 80 
+				$_SERVER['SERVER_PORT'] != 80
 			) {
 				$prefix .= ':' . $_SERVER['SERVER_PORT'];
 			}
