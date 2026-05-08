@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'						=> 'Выберите язык',
 'L_INPUT_CHANGE'					=> 'Изменить',
 'L_INSTALL_DATA'					=> 'Установка необязательных данных',
+'L_DATA_FOLDER'						=> 'Место хранения данных (папка)',
 'L_YES'								=> 'Да',
 'L_NO'								=> 'Нет',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Категория 1',

@@ -49,26 +49,6 @@ if(file_exists(path('XMLFILE_PARAMETERS'))) {
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 
-# Vérification de l'existence des dossiers médias
-if(!is_dir(PLX_ROOT.'data/medias')) {
-	@mkdir(PLX_ROOT.'data/medias',0755,true);
-}
-
-# Vérification de l'existence du dossier data/configuration/plugins
-if(!is_dir(PLX_ROOT.PLX_CONFIG_PATH.'plugins')) {
-	@mkdir(PLX_ROOT.PLX_CONFIG_PATH.'plugins',0755,true);
-}
-
-$filename = PLX_ROOT . PLX_CONFIG_PATH . 'index.html';
-if(!file_exists($filename)) {
-	touch($filename);
-}
-
-# Vérification de l'existence du dossier data/templates
-if(!is_dir(PLX_ROOT.'data/templates')) {
-	@mkdir(PLX_ROOT.'data/templates',0755,true);
-}
-
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
@@ -82,6 +62,7 @@ if(!array_key_exists($timezone, plxTimezones::timezones())) {
 }
 
 # Configuration de base
+$data_folder = dirname(PLX_CONFIG_PATH) . '/';
 $config = array(
 	'title'=>'PluXml',
 	'description'=>plxUtils::strRevCheck(L_SITE_DESCRIPTION),
@@ -110,10 +91,10 @@ $config = array(
 	'miniatures_l'=>200,
 	'miniatures_h'=>100,
 	'thumbs'=>0,
-	'medias'=>'data/medias/',
-	'racine_articles'=>'data/articles/',
-	'racine_commentaires'=>'data/commentaires/',
-	'racine_statiques'=>'data/statiques/',
+	'medias'=>$data_folder . 'medias/',
+	'racine_articles'=>$data_folder . 'articles/',
+	'racine_commentaires'=>$data_folder . 'commentaires/',
+	'racine_statiques'=>$data_folder . 'statiques/',
 	'racine_themes'=>'themes/',
 	'racine_plugins'=>'plugins/',
 	'homestatic'=>'',
@@ -139,7 +120,24 @@ $config = array(
 	'smtpOauth2_refreshToken' => ''
 );
 
-function install($content, $config) {
+# Vérification de l'existence des dossiers
+$aFolders = array(
+	PLX_ROOT . $config['medias'], # médias
+	PLX_ROOT . PLX_CONFIG_PATH . 'plugins', # configuration/plugins
+	PLX_ROOT . dirname(PLX_CONFIG_PATH) . '/templates', # templates
+);
+foreach($aFolders as $folder) {
+	if(!is_dir($folder)) {
+		@mkdir($folder, 0755, true);
+	}
+}
+
+$filename = PLX_ROOT . PLX_CONFIG_PATH . 'index.html';
+if(!file_exists($filename)) {
+	touch($filename);
+}
+
+function install_datas($content, $config) {
 
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
@@ -305,24 +303,51 @@ function install($content, $config) {
 if(!empty($_POST['install'])) {
 	$msg = plxUtils::checkProfil($_POST);
 	if($msg === true) {
-		if($_POST['password'] != $_POST['password2']) {
-			$msg = L_ERR_PASSWORD_CONFIRMATION;
-		} else {
-			install($_POST, $config);
-			header('Location: ' . PLX_ROOT . 'index.php');
-			exit;
+		if(preg_match('#^\w[\w-]+/?$#', $_POST['data_folder']) and rtrim($_POST['data_folder'], '/') . '/' != $data_folder) {
+			# Renommage du dossier des données (data)
+			$target = rtrim($_POST['data_folder'], '/');
+			if(rename(PLX_ROOT. rtrim($data_folder, '/'), PLX_ROOT . $target)) {
+				# Mise à jour de config.php
+				$target .= '/';
+				$plx_config_path = $target . 'configuration/';
+				$content =
+					'<?php' . PHP_EOL .
+					'const PLX_CONFIG_PATH = \'' . $plx_config_path . '\';' . PHP_EOL;
+				$filename = PLX_ROOT . 'config.php';
+				file_put_contents($filename, $content);
+				opcache_invalidate($filename);
+
+				$CONSTS = array(
+					'XMLFILE_PARAMETERS'	=> PLX_ROOT . $plx_config_path . 'parametres.xml',
+					'XMLFILE_CATEGORIES'	=> PLX_ROOT . $plx_config_path . 'categories.xml',
+					'XMLFILE_STATICS'		=> PLX_ROOT . $plx_config_path . 'statiques.xml',
+					'XMLFILE_USERS'			=> PLX_ROOT . $plx_config_path . 'users.xml',
+					'XMLFILE_PLUGINS'		=> PLX_ROOT . $plx_config_path . 'plugins.xml',
+					'XMLFILE_TAGS'			=> PLX_ROOT . $plx_config_path . 'tags.xml',
+				);
+
+				foreach(array('medias', 'racine_articles', 'racine_commentaires', 'racine_statiques') as $f) {
+					$config[$f] = preg_replace('#^' . $data_folder . '\b#', $target, $config[$f]);
+				}
+			}
 		}
+
+		install_datas($_POST, $config);
+		header('Location: ' . plxUtils::getRacine());
+		exit;
 	}
 
 	$name=$_POST['fullname'];
 	$login=$_POST['login'];
 	$email=$_POST['email'];
 	$data=$_POST['data'];
+	$data_folder=$_POST['data_folder'];
 } else {
 	$name='';
 	$login='';
 	$email='';
 	$data='1';
+	$data_folder=$data_folder;
 }
 plxUtils::cleanHeaders();
 
@@ -430,6 +455,14 @@ if(!empty($msg)) {
 						</div>
 						<div class="col sml-12 med-7">
 							<?php plxUtils::printInput('email', $email, 'email', '20-64', false, '', '', '', true); ?>
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col sml-12 med-5 label-centered">
+							<label for="id_name"><?= L_DATA_FOLDER ?>&nbsp;:</label>
+						</div>
+						<div class="col sml-12 med-7">
+							<?php plxUtils::printInput('data_folder', $data_folder, 'text', '20-64',false, '', '', '', true); ?>
 						</div>
 					</div>
 					<div class="grid">

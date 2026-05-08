@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'						=> 'Sélectionnez votre langue',
 'L_INPUT_CHANGE'					=> 'Changer',
 'L_INSTALL_DATA'					=> 'Installer les données exemples',
+'L_DATA_FOLDER'						=> 'Emplacement des données (dossier)',
 'L_YES'								=> 'Oui',
 'L_NO'								=> 'Non',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Rubrique 1',

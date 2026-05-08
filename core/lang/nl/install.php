@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'						=> 'Kies uw taal',
 'L_INPUT_CHANGE'					=> 'Verander',
 'L_INSTALL_DATA'					=> 'Voorbeeldgegevens installeren',
+'L_DATA_FOLDER'						=> 'Locatie van de gegevens',
 'L_YES'								=> 'Ja',
 'L_NO'								=> 'Niet',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Rubriek 1',

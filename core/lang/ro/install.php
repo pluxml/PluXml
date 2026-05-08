@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'						=> 'Alegeţi limba dorită',
 'L_INPUT_CHANGE'					=> 'Schimbă',
 'L_INSTALL_DATA'					=> 'Instalarea datelor eșantion',
+'L_DATA_FOLDER'						=> 'Locația datelor',
 'L_YES'								=> 'Da',
 'L_NO'								=> 'Nu',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Categoria 1',

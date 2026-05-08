@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'						=> 'Seléccione o seu idioma',
 'L_INPUT_CHANGE'					=> 'Alterar',
 'L_INSTALL_DATA'					=> 'Instalar dados de amostra',
+'L_DATA_FOLDER'						=> 'Localização dos dados (pasta)',
 'L_YES'								=> 'Sim',
 'L_NO'								=> 'Não',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Rubrica 1',

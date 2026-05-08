@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'               		=> 'Επιλέξτε τη γλώσσα σας',
 'L_INPUT_CHANGE'               		=> 'Αλλαγή',
 'L_INSTALL_DATA'               		=> 'Εγκατάσταση δείγματος δεδομένων',
+'L_DATA_FOLDER'						=> 'Tοποθεσία δεδομένων',
 'L_YES'                        		=> 'Ναι',
 'L_NO'                         		=> 'Όχι',
 'L_DEFAULT_CATEGORY_TITLE'     		=> 'Κατηγορία 1',

@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'						=> 'Selezionare la lingua',
 'L_INPUT_CHANGE'					=> 'Cambia',
 'L_INSTALL_DATA'					=> 'Installare dati di esempioInstall sample data',
+'L_DATA_FOLDER'						=> 'Posizione dei dati (cartella)',
 'L_YES'								=> 'Sì',
 'L_NO'								=> 'Non',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Voce 1',

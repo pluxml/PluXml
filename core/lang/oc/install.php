@@ -8,6 +8,7 @@ $LANG = array(
 'L_SELECT_LANG'						=> 'Seleccionatz vòstra lenga',
 'L_INPUT_CHANGE'					=> 'Cambiar',
 'L_INSTALL_DATA'					=> 'Installar las donadas d\'exemple',
+'L_DATA_FOLDER'						=> 'Emplaçament de las donadas (dorsièr)',
 'L_YES' 							=> 'Òc',
 'L_NO' 								=> 'Non',
 'L_DEFAULT_CATEGORY_TITLE'			=> 'Rubrica 1',
