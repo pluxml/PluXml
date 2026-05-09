@@ -473,7 +473,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$user_id = $_SESSION['user'];
 		}
 
-		$salt = $this->aUsers[$user_id]['salt'];
+		$salt = plxUtils::charAleatoire(10);
+		$this->aUsers[$user_id]['salt'] = $salt;
 		$this->aUsers[$user_id]['password'] = sha1($salt . md5($content['password']));
 		return $this->editUsers(null, true);
 	}
@@ -630,7 +631,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					# Pas de nouvel utilisateur
 					continue;
 				}
-		
+
 				if(!array_key_exists($user_id, $this->aUsers) and !$new_user) {
 					continue;
 				}
