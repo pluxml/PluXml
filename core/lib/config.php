@@ -110,17 +110,13 @@ function get_root_url() {
 	return $path1;
 }
 
-$plx_racine = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
-if(file_exists('./' . PAGE_LOGIN)) {
-	$plx_racine = preg_replace('#/\w[\w-]+/\w[\w-]+/$#', '/', $plx_racine);
-}
 $session_site = array(
 	'name'				=> 'PLX_SITE',
 	'cookie_lifetime'	=> SESSION_LIFETIME,
 	'cookie_samesite'	=> 'Strict',
 	'cookie_secure'		=> isset($_SERVER['HTTPS']),
 	'cookie_httponly'	=> true,
-	'cookie_path'		=> $plx_racine,
+	'cookie_path'		=> !empty($_SERVER['REDIRECT_URL']) ? preg_replace('#(?:/|/\w[\w-]+\w\.(?:php|html?))$#', '', $_SERVER['REDIRECT_URL']) : dirname($_SERVER['PHP_SELF']),
 	'use_strict_mode'	=> true,
 	'cookie_domain'		=> $_SERVER['SERVER_NAME'],
 );
