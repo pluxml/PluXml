@@ -85,7 +85,7 @@ class plxUpdater {
 		$new_params = array();
 		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
 		$new_params['version'] = $this->newVersion;
-		$this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $new_params);
+		$this->plxAdmin->editConfiguration($new_params);
 		printf(L_UPDATE_ENDED.'<br />', $this->newVersion);
 	}
 
@@ -172,7 +172,7 @@ class plxUpdate {
 	public function updateParameters($new_params) {
 
 		# enregistrement des nouveaux paramètres
-		$ret = $this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $new_params);
+		$ret = $this->plxAdmin->editConfiguration($new_params);
 		# valeur de retour
 		return $ret.'<br />';
 

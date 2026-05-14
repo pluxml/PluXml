@@ -101,7 +101,9 @@ class plxAdmin extends plxMotor {
 	 * @return	string
 	 * @author	Florent MONTHEL
 	 **/
-	public function editConfiguration($global,$content) {
+	public function editConfiguration($content) {
+
+		$global = $this->aConf;
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
@@ -1075,8 +1077,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						}
 						# si la page statique supprimée est la page d'accueil on met à jour le parametre
 						if($static_id == $this->aConf['homestatic']) {
-							$this->aConf['homestatic'] = '';
-							$this->editConfiguration($this->aConf, $this->aConf);
+							$this->editConfiguration(array('homestatic' => ''));
 						}
 
 						if(isset($this->aStats[$static_id])) {

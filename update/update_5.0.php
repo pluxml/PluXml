@@ -137,7 +137,7 @@ class update_5_0 extends plxUpdate{
 		unlink(PLX_ROOT.'install.php');
 		# suppression des clés obsolètes dans le fichier data/configuration/parametres.xml
 		unset($this->plxAdmin->aConf['password']);
-		$this->plxAdmin->editConfiguration($this->plxAdmin->aConf, $this->plxAdmin->aConf);
+		$this->plxAdmin->editConfiguration(array());
 		return true;
 	}
 

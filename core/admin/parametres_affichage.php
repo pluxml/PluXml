@@ -23,7 +23,7 @@ if(!empty($_POST)) {
 	$_POST['miniatures_l']=plxUtils::getValue($_POST['miniatures_l'],200);
 	$_POST['miniatures_h']=plxUtils::getValue($_POST['miniatures_h'],100);
 	unset($_POST['content']);
-	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
+	$plxAdmin->editConfiguration($_POST);
 	header('Location: parametres_affichage.php');
 	exit;
 }

@@ -70,7 +70,7 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 			$plxAdmin->aConf['smtpOauth2_provider'] = 'Google';
 			$plxAdmin->aConf['smtpOauth2_clientId'] = $app['client_id'];
 			$plxAdmin->aConf['smtpOauth2_clientSecret'] = $app['client_secret'];
-			$plxAdmin->editConfiguration($plxAdmin->aConf, array());
+			$plxAdmin->editConfiguration(array());
 		}
 		unlink($filename);
 	}
@@ -234,7 +234,7 @@ if (array_key_exists('provider', $_POST)) {
 	foreach(array('provider', 'clientId', 'clientSecret', 'tenantId',) as $k) {
 		$content['smtpOauth2_' . $k] = $_SESSION[$k];
 	}
-	$plxAdmin->editConfiguration($plxAdmin->aConf, $content);
+	$plxAdmin->editConfiguration($content);
 } elseif (array_key_exists('provider', $_SESSION)) {
 	$providerName = $_SESSION['provider'];
 	$clientId = $_SESSION['clientId'];
@@ -323,7 +323,7 @@ if (!isset($_GET['code'])) {
 		$content = array(
 			'smtpOauth2_refreshToken'	=> $resp,
 		);
-		$plxAdmin->editConfiguration($plxAdmin->aConf, $content);
+		$plxAdmin->editConfiguration($content);
 		header('Location: parametres_avances.php');
 	}
 }

@@ -21,9 +21,9 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
 # On édite les pages statiques
 if(!empty($_POST)) {
 	if(isset($_POST['homeStatic']))
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>$_POST['homeStatic'][0]));
+		$plxAdmin->editConfiguration(array('homestatic'=>$_POST['homeStatic'][0]));
 	else
-		$plxAdmin->editConfiguration($plxAdmin->aConf, array('homestatic'=>''));
+		$plxAdmin->editConfiguration(array('homestatic'=>''));
 	$plxAdmin->editStatiques($_POST);
 	header('Location: statiques.php');
 	exit;

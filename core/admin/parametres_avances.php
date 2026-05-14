@@ -16,7 +16,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # On édite la configuration
 if(!empty($_POST)) {
-	$plxAdmin->editConfiguration($plxAdmin->aConf,$_POST);
+	$plxAdmin->editConfiguration($_POST);
 	unset($_SESSION['medias']); # réinit de la variable de session medias (pour medias.php) au cas si changmt de chemin medias
 	$redirect = $plxAdmin->o_auth_token_required($_POST) ? 'get_oauth_token.php' : 'parametres_avances.php';
 	header('Location: ' . $redirect);
