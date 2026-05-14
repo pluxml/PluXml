@@ -9,11 +9,7 @@
 	$plxShow->meta('description');
 	$plxShow->meta('keywords');
 	$plxShow->meta('author');
-?>
-	<link rel="icon" href="<?php $plxShow->template(); ?>/img/favicon.png" />
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/plucss.min.css?v=<?php echo PLX_VERSION ?>" media="screen,print"/>
-	<link rel="stylesheet" href="<?php $plxShow->template(); ?>/css/theme.min.css?v=<?php echo PLX_VERSION ?>" media="screen"/>
-<?php
+	plxUtils::printLinkCss();
 	$plxShow->templateCss();
 	$plxShow->pluginsCss();
 ?>

@@ -1690,6 +1690,43 @@ EOT;
 EOT;
 	}
 
+	static private function _printLinkCss($aFiles, $mask, $root) {
+		foreach($aFiles as $filename) {
+			if(!file_exists($filename)) {
+				continue;
+			}
+
+			$minify = preg_replace('#\.css$#', '.min.css', $filename);
+			$href = ($minify != $filename and file_exists($minify) and filemtime($minify) >= filemtime($filename)) ? $minify : $filename;
+			if(!empty($mask)) {
+				$href = preg_replace($mask , '', $href);
+			}
+			if(!empty($root)) {
+				$href = preg_replace('#^' . PLX_ROOT . '#' , $root, $href);
+			}
+			if(PLX_DEBUG) {
+				$href .= '?d='.base_convert(filemtime($href) & 4194303, 10, 36);
+			}
+?>
+	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
+<?php
+		}
+
+		# extra
+		$href = PLX_ROOT . 'favicon.png';
+		if(file_exists($href)) {
+			if(!empty($mask)) {
+				$href = preg_replace($mask , '', $href);
+			}
+			if(!empty($root)) {
+				$href = preg_replace('#^' . PLX_ROOT . '#' , $root, $href);
+			}
+?>
+	<link rel="icon" href="<?= $href ?>" />
+<?php
+		}
+	}
+
 	/**
 	 * Méthode qui affiche la balise <link> partir d'un nom de fichier
 	 * @param	string	file	nom d'un fichier
@@ -1697,56 +1734,65 @@ EOT;
 	 * @return	void
 	 * @author J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
 	 */
-	public static function printLinkCss($file=null, $admin=false) {
+	public static function printLinkCss($file=null) {
 
-		if(empty($file) and defined('PLX_CORE')) {
-			/*
-			 * Mode intelligent pour les fichiers :
-			 *
-			 * install/index.php
-			 * update/index.php
-			 * core/admin/auth.php
-			 * core/admin/top.php
-			 * */
+		if(empty($file)) {
+			$mask = false;
+			$root = false;
+			if(!class_exists('plxShow')) {
+				/*
+				 * Mode intelligent pour les fichiers :
+				 *
+				 * install/index.php
+				 * update/index.php
+				 * core/admin/auth.php
+				 * core/admin/top.php
+				 * */
 
-			// Hack against Windows !!!!!
-			$dir1 = (DIRECTORY_SEPARATOR != '\\') ? __DIR__ : str_replace('\\', '/', __DIR__);
-
-			$files = glob(preg_replace('#/core/lib$#', '/*/*/theme/plucss.css', $dir1));
-			$themeDir = !empty($files) ? PLX_ROOT . preg_replace('#.*/([^\/]+/\w[\w-]+/theme/)plucss.css$#', '$1', $files[0]) : PLX_CORE . 'admin/theme/';
-			$list = array(
-				$themeDir . 'plucss.css',
-				$themeDir . 'theme.css',
-				$themeDir . 'fonts/fontello.css',
-			);
-			if(defined('PLX_CUSTOM_ADMINCSS_FILE')) {
-				$list[] = PLX_CUSTOM_ADMINCSS_FILE;
-			}
-			if(defined('PLX_PLUGINS_CSS_PATH')) {
-				$list[] = PLX_ROOT . PLX_PLUGINS_CSS_PATH . 'admin.css';
-			}
-
-			$version = '?v=' . PLX_VERSION;
-			foreach($list as $filename) {
-				if(!file_exists($filename)) {
-					continue;
+				if(PLX_ROOT == '../../' and defined('PLX_ADMIN')) {
+					$adminPath = PLX_ROOT . preg_replace('#.*/([^/\.]+/[^/\.]+)(?:/\w+\.php|/)?$#', '$1/', $_SERVER['SCRIPT_NAME']);
+					$mask = '#^' . $adminPath . '#';
+				} elseif(PLX_ROOT == '../') {
+					$css = 'theme/plucss.css';
+					$files = glob(PLX_ROOT . '*/*/' . $css);
+					if(empty($files)) {
+						return;
+					}
+					$adminPath = preg_replace('#' . $css . '$#', '', $files[0]);
+				} else {
+					return;
 				}
 
-				$minify = preg_replace('#\.css$#', '.min.css', $filename);
-				$href = (file_exists($minify) and filemtime($minify) >= filemtime($filename)) ? $minify : $filename;
-				$href .= PLX_DEBUG ? '?d='.base_convert(filemtime($href) & 4194303, 10, 36) : $version;
-?>
-	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
-<?php
+				$list = array(
+					$adminPath . 'theme/plucss.css',
+					$adminPath . 'theme/theme.css',
+					$adminPath . 'theme/fonts/fontello.css',
+				);
+				if(defined('PLX_CUSTOM_ADMINCSS_FILE')) {
+					$list[] = PLX_CUSTOM_ADMINCSS_FILE;
+				}
+				if(defined('PLX_PLUGINS_CSS_PATH')) {
+					$list[] = PLX_ROOT . PLX_PLUGINS_CSS_PATH . 'admin.css';
+				}
+			} else {
+				# côté site
+				$plxShow = plxShow::getinstance();
+				$list = array_filter(
+					glob(PLX_ROOT . $plxShow->plxMotor->aConf['racine_themes'] . $plxShow->plxMotor->style . '/css/*.css'),
+					function ($value) {
+						return !preg_match('#\.min\.css$#', $value);
+					}
+				);
+				if(!empty($list) and defined('PLX_PLUGINS_CSS_PATH')) {
+					$list[] = PLX_ROOT . PLX_PLUGINS_CSS_PATH . 'site.css';
+				}
+				$root = $plxShow->plxMotor->aConf['racine'];
 			}
-
-			# extra
-?>
-	<link rel="icon" href="<?= PLX_ROOT ?>favicon.png" />
-<?php
-		} elseif(!empty(trim($file)) and is_file(PLX_ROOT . $file)) {
-			if($admin) {
-				$href = PLX_ROOT . $file;
+			self::_printLinkCss($list, $mask, $root);
+		} elseif(is_file(PLX_ROOT . $file)) {
+			if(defined('PLX_ADMIN')) {
+				$adminPath = PLX_ROOT . preg_replace('#.*/([^/\.]+/[^/\.]+)(?:/\w+\.php|/)?$#', '$1/', $_SERVER['SCRIPT_NAME']);
+				$href = preg_replace('#^' . $adminPath . '#', '', $file);
 			} else {
 				$plxMotor = plxMotor::getinstance();
 				$href = $plxMotor->urlRewrite($file);
