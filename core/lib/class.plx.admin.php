@@ -1487,20 +1487,31 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 *
 	 * @param	id	numero de l'article à supprimer
 	 * @return	string
-	 * @author	Stephane F. et Florent MONTHEL
+	 * @author	Stephane F., Florent MONTHEL, J-Pierre Pourrez @bazooka07
 	 **/
 	public function delArticle($id) {
 
 		# Vérification de l'intégrité de l'identifiant
 		if(!preg_match('/^_?\d{4}$/',$id))
 			return L_ERR_INVALID_ARTICLE_IDENT;
+
+		# Récuperation de l'id de l'utilisateur ( voir index.php )
+		$userId = ($_SESSION['profil'] <= PROFIL_MODERATOR) ? '\d{3}' : $_SESSION['user'];
+
 		# Variable d'état
 		$resDelArt = $resDelCom = true;
 		# Suppression de l'article
-		if($globArt = $this->plxGlob_arts->query('/^'.$id.'.(.*).xml$/')) {
+		$cats = '[^\.]+';
+		if($globArt = $this->plxGlob_arts->query('/^' . $id . '\.' . $cats . '\.' . $userId . '\.\d{12}\.(.*)\.xml$/')) {
 			unlink(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
 			$resDelArt = !file_exists(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
+		} else {
+			# l'article n'existe pas ou
+			# le profil d'utilisateur n'est pas inférieur à PROFIL_EDITOR ou
+			# l'article n'appartient pas à l'utilisateur.
+			return plxMsg::Error(L_ARTICLE_DELETE_ERR . ' (id=' . $id . ')');
 		}
+
 		# Suppression des commentaires
 		if($globComs = $this->plxGlob_coms->query('/^_?'.str_replace('_','',$id).'.(.*).xml$/')) {
 			$nb_coms=sizeof($globComs);

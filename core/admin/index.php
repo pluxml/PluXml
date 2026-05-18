@@ -21,8 +21,14 @@ if(isset($_POST['sel']) AND isset($_POST['idArt'])) {
 		switch($_POST['selection']) {
 			case 'delete' :
 				# Suppression des articles selectionnes
-				foreach ($_POST['idArt'] as $v) {
-					$plxAdmin->delArticle($v);
+				if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+					foreach ($_POST['idArt'] as $v) {
+						if($plxAdmin->delArticle($v) !== true) {
+							break;
+						}
+					}
+				} else {
+					plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
 				}
 				break;
 			case 'draft' :
@@ -42,7 +48,7 @@ if(isset($_POST['sel']) AND isset($_POST['idArt'])) {
 }
 
 # Récuperation de l'id de l'utilisateur
-$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '\d{3}' : $_SESSION['user']);
+$userId = ($_SESSION['profil'] < PROFIL_EDITOR) ? '\d{3}' : $_SESSION['user'];
 
 # Récuperation des paramètres
 if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published', 'draft','mod'))) {
@@ -107,9 +113,9 @@ $_GET['artTitle'] = $artTitle;
 # On génère notre motif de recherche
 if(is_numeric($_GET['artTitle'])) {
 	$artId = str_pad($_GET['artTitle'],4,'0',STR_PAD_LEFT);
-	$motif = '/^'.$mod.$artId.'.'.$catIdSel.'.'.$userId.'.\d{12}.(.*).xml$/';
+	$motif = '/^' . $mod . $artId . '\.' . $catIdSel . '\.' . $userId . '\.\d{12}\.(.*)\.xml$/';
 } else {
-	$motif = '/^'.$mod.'\d{4}.'.$catIdSel.'.'.$userId.'.\d{12}.(.*)'.plxUtils::urlify($_GET['artTitle']).'(.*).xml$/';
+	$motif = '/^' . $mod . '\d{4}\.' . $catIdSel . '\.' . $userId . '\.\d{12}\.(.*)' . plxUtils::urlify($_GET['artTitle']) . '(.*)\.xml$/';
 }
 # Calcul du nombre de page si on fait une recherche
 if($_GET['artTitle']!='') {

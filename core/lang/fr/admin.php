@@ -42,7 +42,7 @@ $LANG = array (
 		'L_ARTICLE_MODIFY_SUCCESSFUL' => 'Article mis à jour avec succès',
 		'L_ARTICLE_DELETE_SUCCESSFUL' => 'Suppression effectuée avec succès',
 		'L_ARTICLE_SAVE_ERR' => 'Erreur lors de la sauvegarde de l\'article',
-		'L_ARTICLE_DELETE_ERR' => 'Une erreur est survenue pendant la suppression de la l\'article',
+		'L_ARTICLE_DELETE_ERR' => 'Une erreur est survenue pendant la suppression de l\'article',
 		'L_ERR_UNKNOWN_COMMENT' => 'Le commentaire demandé n\'existe pas ou n\'existe plus',
 		'L_ERR_URL_ALREADY_EXISTS' => 'URL déjà utilisée. Veuillez modifier la valeur du champ \'URL\'',
 

@@ -288,7 +288,7 @@ function refreshImg(dta) {
 
 		<input type="submit" name="preview" onclick="this.form.target='plx_preview_article'; return true;" value="<?php echo L_ARTICLE_PREVIEW_BUTTON ?>"/>
 		<?php
-			if($_SESSION['profil']>PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
+			if($_SESSION['profil'] > PROFIL_MODERATOR AND $plxAdmin->aConf['mod_art']) {
 				if(in_array('draft', $catId)) { # brouillon
 					if($artId!='0000') # nouvel article
 					echo '<input onclick="this.form.target=\'_self\';return true;" type="submit" name="draft" value="'.L_ARTICLE_DRAFT_BUTTON.'"/> ';
