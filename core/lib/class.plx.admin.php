@@ -14,6 +14,7 @@ class plxAdmin extends plxMotor {
 	# Some functions of PHP are banned !
 	const CRITICAL_FUNCTIONS_PHP_PATTERN = '#\b(exec|shell_exec|system|parse_ini_file|passthru|proc_open|popen|show_source|phpinfo)\b#';
 	const TOKEN_LENGHT = 32;
+	const TOKEN_PASSWORD_EXPIRY = 6; // in hours
 	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
@@ -492,61 +493,73 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function sendLostPasswordEmail($loginOrMail) {
 
 		if(!preg_match('#^(https?://.*/' . PAGE_LOGIN . ')\?action=lostpassword$#', $_SERVER['HTTP_REFERER'], $matches)) {
-			return false;
+			return 'Bad HTTP_REFERER';
 		}
-		$path1 = $matches[1];
 
 		if (!empty($loginOrMail) and plxUtils::testMail(false)) {
 			foreach($this->aUsers as $user_id => $user) {
-				if(!$user['active'] or $user['delete'] or empty($user['email'])) { continue; }
+				if(!$user['active'] or $user['delete'] or empty($user['email'])) {
+					continue;
+				}
 
 				if($user['login'] == $loginOrMail OR $user['email'] == $loginOrMail) {
-					// token and e-mail creation
-					$mail = array();
-					$tokenExpiry = 24;
-					$lostPasswordToken = plxToken::getTokenPostMethod(self::TOKEN_LENGHT, false);
-					$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate($tokenExpiry);
-					$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
-					if(!array_key_exists($templateName, $this->aTemplates)) {
-						return false;
-					}
+					# On a trouvé l'utilisateur
+					if(empty($user['password_token_expiry']) or $user['password_token_expiry'] < date('YmdHis')) {
+						// token and e-mail creation
+						$mail = array();
+						$lostPasswordToken = plxToken::getTokenPostMethod(self::TOKEN_LENGHT, false);
+						$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate(self::TOKEN_PASSWORD_EXPIRY);
+						$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
+						if(!array_key_exists($templateName, $this->aTemplates)) {
+						    $templateName = 'email-lostpassword-' . DEFAULT_LANG .'.xml';
+						}
 
-					$placeholdersValues = array(
-						"##LOGIN##"			=> $user['login'],
-						"##URL_PASSWORD##"	=> $path1 . '?action=changepassword&token=' . $lostPasswordToken,
-						"##URL_EXPIRY##"	=> $tokenExpiry,
-					);
-					if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
-						$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
+						$path1 = $matches[1];
+						$placeholdersValues = array(
+							"##LOGIN##"			=> $user['login'],
+							"##URL_PASSWORD##"	=> $path1 . '?action=changepassword&token=' . $lostPasswordToken,
+							"##URL_EXPIRY##"	=> self::TOKEN_PASSWORD_EXPIRY,
+						);
 
-						if(empty($this->aConf['email_method']) or $this->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils::class, 'sendMailPhpMailer')) {
-							# fonction mail() intrinsèque à PHP
-							$success = plxUtils::sendMail('', '', $user['email'], $mail['subject'], $mail['body']);
-						} else {
-							# On utilise PHPMailer
-							if (!empty($this->aConf['title'])) {
-								$mail ['name'] = $this->aConf['title'];
+						if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
+							$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
+
+							if(empty($this->aConf['email_method']) or $this->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils::class, 'sendMailPhpMailer')) {
+								# fonction mail() intrinsèque à PHP
+								$success = plxUtils::sendMail('', '', $user['email'], $mail['subject'], $mail['body']);
 							} else {
-								$mail ['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
+								# On utilise PHPMailer
+								if (!empty($this->aConf['title'])) {
+									$mail ['name'] = $this->aConf['title'];
+								} else {
+									$mail ['name'] = $this->aTemplates[$templateName]->getTemplateEmailName();
+								}
+								$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
+								// send the e-mail and if it is OK store the token
+								$success = plxUtils::sendMailPhpMailer($mail['name'], $mail['from'], $user['email'], $mail['subject'], $mail['body'], false, $this->aConf, false);
 							}
-							$mail ['from'] = $this->aTemplates[$templateName]->getTemplateEmailFrom();
-							// send the e-mail and if it is OK store the token
-							$success = plxUtils::sendMailPhpMailer($mail['name'], $mail['from'], $user['email'], $mail['subject'], $mail['body'], false, $this->aConf, false);
-						}
 
-						if (!empty($success)) {
-							$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
-							$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
-							$this->editUsers($user_id, true);
-							return true;
+							if ($success) {
+								# Mail sent
+								$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
+								$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
+								$this->editUsers($user_id, true);
+								return true;
+							}
+
+							return L_MAIL_NOT_AVAILABLE;
 						}
+					} else {
+						$duration = (strtotime($user['password_token_expiry']) - time()) / 60; # float minutes
+						return sprintf(L_LOST_PASSWORD_WAIT, $duration);
 					}
 					break;
 				}
 			}
+			return L_USER_UNKNOWN;
 		}
 
-		return false;
+		return L_ERR_WRONG_PASSWORD;
 	}
 
 	/**

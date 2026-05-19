@@ -145,6 +145,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Anmeldung',
 		'L_LOST_PASSWORD_SUCCESS' => 'Eine E-Mail wurde an den Benutzer gesendet',
 		'L_LOST_PASSWORD_ERROR' => 'Der Link ist abgelaufen',
+		'L_LOST_PASSWORD_WAIT' => 'Warten Sie %.0f Minuten, bevor Sie eine neue Anfrage stellen',
 
 		//
 

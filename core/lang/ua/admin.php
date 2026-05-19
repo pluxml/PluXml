@@ -148,6 +148,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Aвторизуватися',
 		'L_LOST_PASSWORD_SUCCESS' => 'Лист надіслано користувачеві',
 		'L_LOST_PASSWORD_ERROR' => 'Термін дії посилання закінчився',
+		'L_LOST_PASSWORD_WAIT' => 'Зачекайте %.0f хвилин перед тим, як надіслати новий запит',
 
 		//
 

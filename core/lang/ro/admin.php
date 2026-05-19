@@ -135,6 +135,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Conectare',
 		'L_LOST_PASSWORD_SUCCESS' => 'Un e-mail a fost trimis utilizatorului',
 		'L_LOST_PASSWORD_ERROR' => 'Legătura a expirat',
+		'L_LOST_PASSWORD_WAIT' => 'Așteptați %.0f minute înainte de a trimite o nouă solicitare',
 		'L_CAT_TITLE' => 'Crearea şi editarea categoriei',
 		'L_CAT_LIST_ID' => 'Id',
 		'L_CAT_LIST_ACTIVE' => 'Activ',

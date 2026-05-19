@@ -135,6 +135,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Accesso',
 		'L_LOST_PASSWORD_SUCCESS' => 'E\' stata inviata una e-mail all\'utente',
 		'L_LOST_PASSWORD_ERROR' => 'Il collegamento è scaduto',
+		'L_LOST_PASSWORD_WAIT' => 'Attendere %.0f minuti prima di inviare una nuova richiesta',
 		'L_CAT_TITLE' => 'Gestione categorie',
 		'L_CAT_LIST_ID' => 'ID',
 		'L_CAT_LIST_ACTIVE' => 'Attiva',

@@ -135,6 +135,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Conexão',
 		'L_LOST_PASSWORD_SUCCESS' => 'Um email foi enviado para o usuário',
 		'L_LOST_PASSWORD_ERROR' => 'O link expirou',
+		'L_LOST_PASSWORD_WAIT' => 'Aguarde %.0f minutos antes de enviar um novo pedido',
 
 		//
 

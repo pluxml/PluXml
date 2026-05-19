@@ -149,6 +149,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Se connectar',
 		'L_LOST_PASSWORD_SUCCESS' => 'Corrièl enviat a l’utilizaire',
 		'L_LOST_PASSWORD_ERROR' => 'Lo ligam a expirat',
+		'L_LOST_PASSWORD_WAIT' => 'Espèra %.0f minutas abans una nòva demanda.',
 
 		//
 

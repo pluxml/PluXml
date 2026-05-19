@@ -148,6 +148,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Zaloguj Się',
 		'L_LOST_PASSWORD_SUCCESS' => 'E-mail został wysłany do użytkownika',
 		'L_LOST_PASSWORD_ERROR' => 'Link wygasł',
+		'L_LOST_PASSWORD_WAIT' => 'Przed wysłaniem kolejnego żądania odczekaj %.0f minut',
 
 		//
 

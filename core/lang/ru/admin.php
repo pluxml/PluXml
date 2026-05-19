@@ -148,6 +148,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Aвторизоваться',
 		'L_LOST_PASSWORD_SUCCESS' => 'Письмо отправлено пользователю',
 		'L_LOST_PASSWORD_ERROR' => 'Срок действия ссылки истёк',
+		'L_LOST_PASSWORD_WAIT' => 'Подождите %.0f минут, прежде чем отправлять новый запрос',
 
 		//
 

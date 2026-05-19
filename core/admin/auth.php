@@ -122,17 +122,25 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
 if ($plxAdmin->aConf['lostpassword']) {
     # Send lost password e-mail
     if (!empty($_POST['lostpassword_id'])) {
-        if (!empty($plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']))) {
-            $msg = L_LOST_PASSWORD_SUCCESS;
-            $css = 'alert green';
+		$resp = $plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']);
+        if (is_bool($resp)) {
+			if($resp) {
+				$msg = L_LOST_PASSWORD_SUCCESS;
+				$css = 'alert green';
+			} else {
+				# $resp is user's infos['password_token_expiry'] (format: 'YmdHis')
+				$msg = sprintf('Wait for %s minutes before a new request', round(strtotime($resp) - strtotime(time())) / 60, 0);
+				$css = 'alert red';
+			}
         } else {
             @error_log("Lost password error. ID : " . $_POST['lostpassword_id'] . " IP : " . plxUtils::getIp());
-            $msg = L_UNKNOWN_ERROR;
+            $msg = $resp;
             $css = 'alert red';
         }
     }
+
     # Change password
-    if (!empty($_POST['editpassword'])) {
+    elseif (!empty($_POST['editpassword'])) {
         unset($_SESSION['error']);
         unset($_SESSION['info']);
         $plxAdmin->editPassword($_POST);

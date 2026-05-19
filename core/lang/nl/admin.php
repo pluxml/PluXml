@@ -143,6 +143,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Aanmelden',
 		'L_LOST_PASSWORD_SUCCESS' => 'Er is een e-mail verzonden naar de gebruiker',
 		'L_LOST_PASSWORD_ERROR' => 'De link is verlopen',
+		'L_LOST_PASSWORD_WAIT' => 'Wacht %.0f minuten voordat je een nieuw verzoek indient',
 
 		//
 

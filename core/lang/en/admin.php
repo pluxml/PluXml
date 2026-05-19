@@ -142,6 +142,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Log in',
 		'L_LOST_PASSWORD_SUCCESS' => 'An email has been sent to the user',
 		'L_LOST_PASSWORD_ERROR' => 'The link has expired',
+		'L_LOST_PASSWORD_WAIT' => 'Wait for %0.f before a new request',
 
 		//
 

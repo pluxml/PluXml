@@ -148,6 +148,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Iniciar sesión',
 		'L_LOST_PASSWORD_SUCCESS' => 'Se ha enviado un correo electrónico al usuario',
 		'L_LOST_PASSWORD_ERROR' => 'El enlace ha caducado',
+		'L_LOST_PASSWORD_WAIT' => 'Espera %.0f minutos antes de realizar una nueva solicitud',
 
 		//
 

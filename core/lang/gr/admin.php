@@ -142,6 +142,7 @@ $LANG = array (
 		'L_LOST_PASSWORD_LOGIN' => 'Σύνδεση',
 		'L_LOST_PASSWORD_SUCCESS' => 'Έχει σταλεί email στον χρήστη',
 		'L_LOST_PASSWORD_ERROR' => 'Ο σύνδεσμος έχει λήξει',
+		'L_LOST_PASSWORD_WAIT' => 'Περιμένετε %.0f λεπτά πριν υποβάλετε νέο αίτημα',
 
 		//
 
