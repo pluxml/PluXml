@@ -1,7 +1,31 @@
-## PluXml 5.10.0 (2026/02/25)
+## PluXml 5.10.0 (2026/07/17)
+FIX Fix plxShow::lastArtList() ($all)
+UPD Update phpmailer dependencies
+FIX plxShow::lastArtList() ($all)
+FIX curl_close() deprecated since PHP 8.0.0
+FIX $http_response_header is deprecated since PHP >= 8.5
+FIX For using xml_parser_free() in PHP < 8.0.0
+[+] Add a delay for requesting a new password (see auth.php)
+[+] Deletion of an article only by his owner or with user's profil <= PROFIL_MODERATOR
+FIX Fix plxAdmin::editConfiguration()
+FIX Fix plxUtils::print LinkCSS
+FIX Fix plxAdmin::EditPassword()
+[+] Refacto parametres_users.php and using plxUtils::checkProfil()
+FIX Checks in core/lib/config.php if PluXml is set, not anywhere
+FIX Refacto plxUtils::unSlash()
+[+] config.php with redirection
+[+] Refacto plxUtils::getRacine()
+FIX Fix plxAdmin::verifyLostPasswordToken()
+[+] Refacto plxAdmin::editPassword() with plxUtils::checkProfil()
+FIX Refacto password strength
+[+] Update auth.php and profil.php with plxUtils::checkProfil()
+[+] Enable renaming data folder on install
+[+] update install with plxUtils::checkProfil()
+[+} New plxUtils::checkProfil() function
+[+] tokens for translations
+FIX token for translation
 FIX Update for installation
 [+] Move install.php to install/index.php for cookies
-FIX Update librairies for PHPMailer
 FIX Fix plxUtils::getRacine() for update
 FIX Refacto plxShow::staticList()
 FIX Refacto setAdminProfil(), setAdminMenu() and getLang() for plxPlugin class
