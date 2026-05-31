@@ -1806,7 +1806,11 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 			$response = curl_exec($ch);
 			$error = curl_errno($ch);
 			// $status = curl_getinfo($ch);
-			curl_close($ch);
+			if (PHP_VERSION_ID >= 80000) {
+				unset($ch);
+			} else {
+				curl_close($ch);
+			}
 			if($error === 0 and is_string($response)) {
 				$datas = json_decode($response, true);
 				if(!empty($datas)) {
