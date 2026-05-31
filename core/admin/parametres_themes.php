@@ -72,12 +72,16 @@ class plxThemes {
 		$aInfos = array();
 		$filename = $this->racineTheme.$theme.'/infos.xml';
 		if(is_file($filename)){
-			$data = implode('',file($filename));
+			$data = file_get_contents($filename);
 			$parser = xml_parser_create(PLX_CHARSET);
 			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
+			if(PHP_VERSION_ID >= 80000) {
+				unset($parser);
+			} else {
+				xml_parser_free($parser);
+			}
 			$aInfos = array(
 				'title'			=> (isset($iTags['title']) AND isset($values[$iTags['title'][0]]['value']))?$values[$iTags['title'][0]]['value']:'',
 				'author'		=> (isset($iTags['author']) AND isset($values[$iTags['author'][0]]['value']))?$values[$iTags['author'][0]]['value']:'',

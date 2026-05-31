@@ -235,7 +235,7 @@ class PlxTemplate {
 		}
 
 		# parser initialisation
-		$data = implode('',file($fileName));
+		$data = file_get_contents($fileName);
 		$parser = xml_parser_create(PLX_CHARSET);
 		$values = '';
 		$index = '';
@@ -243,7 +243,11 @@ class PlxTemplate {
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		$success = (xml_parse_into_struct($parser,$data,$values,$index) === 1);
-		xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+			unset($parser);
+		} else {
+			xml_parser_free($parser);
+		}
 		if($success === false) {
 			return false;
 		}

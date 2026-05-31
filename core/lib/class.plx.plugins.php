@@ -245,12 +245,16 @@ Drop this plugin now for running PluXml and report to its author !!
 		$updAction = false;
 
 		# Mise en place du parseur XML
-		$data = implode('',file(path('XMLFILE_PLUGINS')));
+		$data = file_get_contents(path('XMLFILE_PLUGINS'));
 		$parser = xml_parser_create(PLX_CHARSET);
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
-		xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+			unset($parser);
+		} else {
+			xml_parser_free($parser);
+		}
 		# On verifie qu'il existe des tags "plugin"
 		if(isset($iTags['plugin'])) {
 			# On compte le nombre de tags "plugin"
@@ -735,12 +739,16 @@ class plxPlugin {
 		if(!is_file($this->plug['parameters.xml'])) return;
 
 		# Mise en place du parseur XML
-		$data = implode('',file($this->plug['parameters.xml']));
+		$data = file_get_contents($this->plug['parameters.xml']);
 		$parser = xml_parser_create(PLX_CHARSET);
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
-		xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+			unset($parser);
+		} else {
+			xml_parser_free($parser);
+		}
 		# On verifie qu'il existe des tags "parameter"
 		if(isset($iTags['parameter'])) {
 			# On compte le nombre de tags "parameter"
@@ -867,12 +875,16 @@ class plxPlugin {
 		if(!is_file($this->plug['infos.xml'])) return;
 
 		# Mise en place du parseur XML
-		$data = implode('',file($this->plug['infos.xml']));
+		$data = file_get_contents($this->plug['infos.xml']);
 		$parser = xml_parser_create(PLX_CHARSET);
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
-		xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+			unset($parser);
+		} else {
+			xml_parser_free($parser);
+		}
 		$this->aInfos = array(
 			'title'			=> (isset($iTags['title']) AND isset($values[$iTags['title'][0]]['value']))?$values[$iTags['title'][0]]['value']:'',
 			'author'		=> (isset($iTags['author']) AND isset($values[$iTags['author'][0]]['value']))?$values[$iTags['author'][0]]['value']:'',
