@@ -1062,7 +1062,7 @@ class plxShow
         }
         if (empty($motif)) {# pour le hook. motif par defaut s'il n'a point créé cette variable
             if ($all)
-                $motif = '/^\d{4}.(?:\d|home|,)*(?:' . $cats . ')(?:\d|home|,)*.\d{3}.\d{12}.[a-z0-9-]+.xml$/';
+                $motif = '/^\d{4}.(?:\d|home|,)*(?:' . $all . ')(?:\d|home|,)*.\d{3}.\d{12}.[a-z0-9-]+.xml$/';
             else
                 $motif = '/^\d{4}.((?:\d|home|,)*(?:' . $cats . ')(?:\d|home|,)*).\d{3}.\d{12}.[a-z0-9-]+.xml$/';
         }
