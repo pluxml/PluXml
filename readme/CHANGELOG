@@ -1,3 +1,8 @@
+## PluXml 5.8.23 (2027/07/22)
+FIX $http_response_header for PHP8.4
+FIX curl_close() for PHP8.0
+FIX xml_parser_free() for PHP8.5
+
 ## PluXml 5.8.22 (2025/11/06)
 [+] Refacto plxShow::meta() with new param $echo
 [+] Display every error if the webmaster is connected
