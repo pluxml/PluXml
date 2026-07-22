@@ -70,7 +70,7 @@ class update_5_0 extends plxUpdate{
 	public function step5() {
 		echo L_UPDATE_ARTICLES_CONVERSION."<br />";
 		$plxGlob_arts = plxGlob::getInstance(PLX_ROOT.$this->plxAdmin->aConf['racine_articles']);
-        if($files = $plxGlob_arts->query('/^\d{4}.(\d{3}|home|draft).\d{12}.[\w-]+.xml$/','art')) {
+		if($files = $plxGlob_arts->query('/^\d{4}.(\d{3}|home|draft).\d{12}.[\w-]+.xml$/','art')) {
 			foreach($files as $id => $filename){
 				$art = $this->parseArticle(PLX_ROOT.$this->plxAdmin->aConf['racine_articles'].$filename);
 				if(!$this->plxAdmin->editArticle($art, $art['numero'])) {
@@ -146,8 +146,8 @@ class update_5_0 extends plxUpdate{
 		if(!is_file(PLX_ROOT.'.htaccess')) {
 			echo L_UPDATE_CREATE_HTACCESS_FILE."<br />";
 			$txt = '<Files "version">
-    Order allow,deny
-    Deny from all
+	Order allow,deny
+	Deny from all
 </Files>';
 			if(!plxUtils::write($txt,PLX_ROOT.'.htaccess')) {
 				echo '<p class="error">'.L_UPDATE_ERR_CREATE_HTACCESS_FILE.'</p>';
@@ -174,7 +174,11 @@ class update_5_0 extends plxUpdate{
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 		xml_parse_into_struct($parser,$data,$values,$iTags);
-		xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+				unset($parser);
+		} else {
+				xml_parser_free($parser);
+		};
 		# Recuperation des valeurs de nos champs XML
 		$art['title'] = trim($values[ $iTags['title'][0] ]['value']);
 		$art['author'] = '001';
@@ -210,7 +214,11 @@ class update_5_0 extends plxUpdate{
 			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+				unset($parser);
+		} else {
+				xml_parser_free($parser);
+		};
 			# On verifie qu'il existe des tags "user"
 			if(isset($iTags['user'])) {
 				# On compte le nombre de tags "user"
@@ -234,7 +242,11 @@ class update_5_0 extends plxUpdate{
 			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+				unset($parser);
+		} else {
+				xml_parser_free($parser);
+		};
 			# On verifie qu'il existe des tags "statique"
 			if(isset($iTags['statique'])) {
 				# On compte le nombre de tags "statique"

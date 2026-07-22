@@ -158,7 +158,11 @@ class update_5_1 extends plxUpdate{
 			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+				unset($parser);
+		} else {
+				xml_parser_free($parser);
+		};
 			# On verifie qu'il existe des tags "categorie"
 			if(isset($iTags['categorie'])) {
 				# On compte le nombre de tags "categorie"
@@ -213,7 +217,11 @@ class update_5_1 extends plxUpdate{
 			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+				unset($parser);
+		} else {
+				xml_parser_free($parser);
+		};
 			# On verifie qu'il existe des tags "statique"
 			if(isset($iTags['statique']) AND isset($iTags['name'])) {
 				# On compte le nombre de tags "statique"
@@ -254,7 +262,11 @@ class update_5_1 extends plxUpdate{
 			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
 			xml_parse_into_struct($parser,$data,$values,$iTags);
-			xml_parser_free($parser);
+		if(PHP_VERSION_ID >= 80000) {
+				unset($parser);
+		} else {
+				xml_parser_free($parser);
+		};
 			# On verifie qu'il existe des tags "user"
 			if(isset($iTags['user']) AND isset($iTags['login'])) {
 				# On compte le nombre d'utilisateur
