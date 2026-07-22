@@ -1343,6 +1343,10 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		} elseif(ini_get('allow_url_fopen')) {
 			$title = 'file_get_content';
 			$latest_version = @file_get_contents(PLX_URL_VERSION, false, null, 0, 16);
+			if(function_exists('http_get_last_response_headers')) {
+				# pour PHP >= 8.4 - Polyfill à utiliser à l'intérieur d'une fonction !
+				$http_response_header = http_get_last_response_headers();
+			}
 			if(
 				empty($http_response_header) OR
 				!preg_match('@^HTTP/[\d\.]+ 200@', $http_response_header[0]) OR
