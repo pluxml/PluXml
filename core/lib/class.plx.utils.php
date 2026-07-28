@@ -1666,28 +1666,24 @@ EOT;
 	 * $modeDir=false	pour ne choisir que les fichiers du thème
 	 * */
 	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true) {
-
-		if(is_bool($id))
-			$id = ($id ? ' id="id_'.$name.'"' : '');
-		else
-			$id = ($id!='' ? ' id="'.$id.'"' : '');
-
-		if(substr($root, -1) != '/')
+	   $value = ($modeDir) ? '.' : '';
+		$selected = ($value == $currentValue) ? ' selected': '';
+		$disabled = (!$modeDir) ? ' disabled': '';
+		$class = (!empty($class) ? $class . ' ' : '') . 'scan-folders fold';
+		if(!$modeDir) {
+			$class .= ' data-files';
+		}
+?>
+<select id="<?= ($id === true) ? 'id_' . $name : $id ?>" name="<?= $name ?>" class="<?= $class ?>" onchange="this.form.submit();">
+	<option <?= $disabled ?> value="<?= $value ?>" <?= $selected ?>><?= L_PLXMEDIAS_ROOT ?>/</option>
+<?php
+		if(substr($root, -1) != '/') {
 			$root .= '/';
-		$value = ($modeDir) ? '.' : '';
-		$selected = ($value == $currentValue)? ' selected': '';
-		$caption = L_PLXMEDIAS_ROOT;
-		$data_files = (!$modeDir)? ' data-files': '';
-		$disabled = (!$modeDir)? ' disabled': '';
-		$class = ($class? $class.' ': '') . 'scan-folders fold' . $data_files;
-		echo <<< EOT
-		<select $id name="$name" class="$class">
-			<option$disabled value="$value"$selected>$caption/</option>
-EOT;
+		}
 		plxUtils::_printSelectDir($root, 0, str_repeat(' ', 3), $currentValue, $modeDir);
-		echo <<< EOT
-		</select>
-EOT;
+?>
+</select>
+<?php
 	}
 
 	static private function _printLinkCss($aFiles, $mask, $root) {
