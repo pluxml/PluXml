@@ -757,24 +757,18 @@ class plxShow
     {
 
         $cats = array();
-        foreach ($this->artActiveCatIds() as $idx => $catId) {
+        foreach ($this->artActiveCatIds() as $catId) {
             # On valide si la categorie est "home"
             if ($catId == 'home') {
-                $href = '';
                 $name = L_HOMEPAGE;
-                $className = 'active';
-                $cats[] = '<a class="active" href="' . $this->plxMotor->urlRewrite() . '" title="' . L_HOMEPAGE . '">' . L_HOMEPAGE . '</a>';
+                $href = '';
+                $className = ($this->plxMotor->mode == 'home') ? 'active' : '';
             } elseif(isset($this->plxMotor->aCats[$catId])) {
                 # La catégorie existe. On en récupère les infos
                 $name = plxUtils::strCheck($this->plxMotor->aCats[$catId]['name']);
                 $url = $this->plxMotor->aCats[$catId]['url'];
                 $href = '?categorie' . intval($catId) . '/' . $url;
-                $active = (
-                    $this->plxMotor->mode == 'categorie' and
-                    isset($this->plxMotor->aCats[$this->plxMotor->cible]['url']) and
-                    $url == $this->plxMotor->aCats[$this->plxMotor->cible]['url']
-                );
-                $className = $active ? 'active' : 'noactive';
+                $className = ($this->plxMotor->mode == 'categorie' and $catId == $this->plxMotor->cible) ? 'active' : '';
             } else {
                 # Rien à faire
                 continue;
@@ -786,6 +780,7 @@ class plxShow
 
         # si $cats est vide, on n'a trouvé aucune catégorie valide
         echo !empty($cats) ? implode($separator, $cats) : L_UNCLASSIFIED;
+        echo PHP_EOL;
     }
 
     /**
