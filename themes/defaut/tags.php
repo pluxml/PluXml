@@ -41,7 +41,7 @@
 									<span class="classified-in">
 										<?php $plxShow->lang('CLASSIFIED_IN') ?> : <?php $plxShow->artCat() ?>
 									</span>
-									<span class="tags">
+									<span class="tags classified-in">
 										<?php $plxShow->lang('TAGS') ?> : <?php $plxShow->artTags() ?>
 									</span>
 								</small>

@@ -1,4 +1,5 @@
 ## PluXml 5.10.0 (2026/07/17)
+[+] Refacto plxShow::artTags()
 FIX Fix plxShow::artCat()
 [+] Refacto plxShow::lastArtList()
 [+] Refacto plxUtils::printSelectDir()
