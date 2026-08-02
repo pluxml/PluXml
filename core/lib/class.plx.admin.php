@@ -109,6 +109,7 @@ class plxAdmin extends plxMotor {
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminEditConfiguration'));
 
+		$error = false;
 		foreach($content as $k=>$v) {
 			if(in_array($k, array('token','config_path')) or !array_key_exists($k, $global)) {
 				# parametres à ne pas mettre dans le fichier
@@ -123,7 +124,7 @@ class plxAdmin extends plxMotor {
 				case 'meta_description' :
 				case 'meta_keywords' :
 				case 'feed_footer' :
-					$global[$k] = $v;
+					$global[$k] = htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, PLX_CHARSET, false);
 					break;
 
 				# valeurs booléennes
@@ -153,6 +154,8 @@ class plxAdmin extends plxMotor {
 					$v_int = intval($v);
 					if($v_int > 0 and $v_int < 100) {
 						$global[$k] = $v_int;
+					} else {
+						$error = true;
 					}
 					break;
 
@@ -161,12 +164,16 @@ class plxAdmin extends plxMotor {
 				case 'tri_coms' :
 					if(preg_match('#^(?:r?alpha|asc|desc|random)$#', $v)) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
 					break;
 
 				case 'timezone' :
 					if(plxTimezones::isValid($v)) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
 					break;
 
@@ -177,14 +184,23 @@ class plxAdmin extends plxMotor {
 				case 'racine_statiques' :
 				case 'racine_themes' :
 				case 'racine_plugins' :
-				case 'style' :
 					$folder = realpath(PLX_ROOT . $v);
-					$root = realpath(PLX_ROOT);
-					$pos = strpos($folder, $root);
-					if($pos!== false and $pos == 0 and is_dir($folder)) {
-						$global[$k] = rtrim($v, '/') . (($k != 'style') ? '/' : '');
+					if(preg_match('#^' . realpath(PLX_ROOT) . '/#', $folder) and is_dir($folder)) {
+						$global[$k] = preg_replace('#/*$#', '/', $v);
+					} else {
+						$error = true;
 					}
-
+					break;
+				case 'style' :
+					$folder = realpath(PLX_ROOT . $this->aConf['racine_themes'] . $v);
+					# Maybe we have a symbolic link
+					# if(preg_match('#^' . realpath(PLX_ROOT) . '/#', $folder) and is_dir($folder)) {
+					if(preg_match('#^' . realpath($_SERVER['DOCUMENT_ROOT']) . '/#', $folder) and is_dir($folder)) {
+						$global[$k] = basename(rtrim($folder, '/'));
+					} else {
+						$error = true;
+					}
+					break;
 				case 'clef' :
 					if(empty(trim($v))) {
 						$global[$k] = plxUtils::charAleatoire(15);
@@ -198,6 +214,8 @@ class plxAdmin extends plxMotor {
 					$v_int = intval($v);
 					if($v_int > 0 and $v_int < 2500) {
 						$global[$k] = $v_int;
+					} else {
+						$error = true;
 					}
 					break;
 
@@ -205,38 +223,52 @@ class plxAdmin extends plxMotor {
 					$w = trim($v);
 					if(empty($w) or array_key_exists($w, $this->aStats)) {
 						$global[$k] = $w;
+					} else {
+						$error = true;
 					}
 					break;
 				case 'hometemplate' :
 					if(preg_match('#^home(?:-\w[\w-]*)\.php$#', $v)) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
 					break;
 				case  'default_lang' :
 					if(preg_match('#^[a-z]{2}$#', $v) and plxUtils::lang_exists($v)) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
 					break;
 				case 'custom_admincss_file' :
 					$w = trim($v);
 					if(strlen($w) == 0 or mime_content_type(realpath(PLX_ROOT . $w) == 'text/css')) {
 						$global[$k] = $w;
+					} else {
+						$error = true;
 					}
 					break;
 				case 'email_method' :
 					if(in_array($v, array('sendmail', 'smtp', 'smtpoauth'))) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
 					break;
 				case 'smtp_server' :
 					$w = trim($v);
 					if(strlen($w) == 0 or filter_var($w, FILTER_VALIDATE_DOMAIN)) {
 						$global[$k] = $w;
+					} else {
+						$error = true;
 					}
 					break;
 				case 'smtp_username' :
 					if(preg_match('#^[\w-]+$#' , $v) or !empty(filter_var($v, FILTER_VALIDATE_EMAIL))) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
 					break;
 				case 'smtp_password' :
@@ -249,12 +281,17 @@ class plxAdmin extends plxMotor {
 					$v_int = intval($v);
 					if($v_int > 0 and $v_int < 65536) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
 					break;
 				case 'smtp_security' :
 					if(in_array($v, array('', 'ssl', 'tls'))) {
 						$global[$k] = $v;
+					} else {
+						$error = true;
 					}
+					break;
 				case 'smtpOauth2_emailAdress' :
 					if(!empty(filter_var($v, FILTER_VALIDATE_EMAIL))){
 						$global[$k] = $v;
@@ -263,8 +300,14 @@ class plxAdmin extends plxMotor {
 				case 'version' :
 					if($content['version'] == PLX_VERSION) {
 						$global[$k] = PLX_VERSION;
+					} else {
+						$error = true;
 					}
 					break;
+			}
+
+			if($error) {
+				return plxMsg::ERROR(L_UNKNOWN_ERROR . ' (' . $k . '=' . $v . ')');
 			}
 		}
 
@@ -307,7 +350,7 @@ class plxAdmin extends plxMotor {
 
 		# Mise à jour du fichier parametres.xml
 		if(!plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PARAMETERS'))) {
-			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PARAMETERS'));
+			return plxMsg::Error(L_SAVE_ERR . ' ' . path('XMLFILE_PARAMETERS'));
 		}
 
 		# Si nouvel emplacement du dossier de configuration
