@@ -1,5 +1,31 @@
 OAuth 2.0 Google Provider Changelog
 
+
+## 4.2.0 - 2026-03-09
+
+### Added
+
+- Allow `oauth2-client` version 2 or 3, #140 by @garak
+
+## 4.1.0 - 2025-12-15
+
+### Added
+
+- Added getEmailVerified(), isEmailTrustworthy() to user definition, #132 by @dt-thomas-durand
+
+## 4.0.1 - 2022-03-17
+
+### Changed
+
+- Corrected file excludes for dist archive, #120 by @cedric-anne
+
+## 4.0.0 - 2022-03-04
+
+### Changed
+
+- Adding return type, #98 by @yozhef
+- Add PHP 8.0 support, require PHP 7.3 or newer, #102 by @yozhef
+
 ## 3.0.4 - 2021-01-27
 
 ### Fixed
