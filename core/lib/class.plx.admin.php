@@ -1016,28 +1016,29 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 <?php
 		foreach($this->aCats as $cat_id => $cat) {
 			# controle de l'unicité du nom de la categorie
-			$cat['name'] = htmlentities(trim($cat['name']));
 			if(empty($cat['name'])) {
 				# Nom obligatoire
 				continue;
 			}
 
 			if(in_array($cat['name'], $cats_name)) {
-				$this->aCats = $save;
 				return plxMsg::Error(L_ERR_CATEGORY_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['name']));
-			} else {
-				$cats_name[] = $cat['name'];
 			}
 
+			$cats_name[] = $cat['name'];
+
 			# controle de l'unicité de l'url de la catégorie
-			if(in_array($cat['url'], $cats_url))
+			if(in_array($cat['url'], $cats_url)) {
 				return plxMsg::Error(L_ERR_URL_ALREADY_EXISTS.' : '.plxUtils::strCheck($cat['url']));
-			else
-				$cats_url[] = $cat['url'];
+			}
+
+			$cats_url[] = $cat['url'];
+
+			$description = !empty($cat['description']) ? '<![CDATA[' . plxUtils::cdataCheck($cat['description'], true) . ']]>' : '';
 ?>
 	<categorie number="<?= $cat_id ?>" active="<?= $cat['active'] ?>" homepage="<?= $cat['homepage'] ?>" tri="<?= $cat['tri'] ?>" bypage="<?= $cat['bypage'] ?>" menu="<?= $cat['menu'] ?>" url="<?= $cat['url'] ?>" template="<?= basename($cat['template']) ?>">
 		<name><?= $cat['name'] ?></name>
-		<description><![CDATA[<?= plxUtils::cdataCheck($cat['description'], true) ?>]]></description>
+		<description><?= $description ?></description>
 		<meta_description><?= $cat['meta_description'] ?></meta_description>
 		<meta_keywords><?= $cat['meta_keywords'] ?></meta_keywords>
 		<title_htmltag><?= $cat['title_htmltag'] ?></title_htmltag>
