@@ -186,7 +186,7 @@ class plxAdmin extends plxMotor {
 				case 'racine_plugins' :
 					$folder = realpath(PLX_ROOT . $v);
 					if(preg_match('#^' . realpath(PLX_ROOT) . '/#', $folder) and is_dir($folder)) {
-						$global[$k] = preg_replace('#/*$#', '/', $v);
+						$global[$k] = rtrim($v, '/') . '/';
 					} else {
 						$error = true;
 					}
