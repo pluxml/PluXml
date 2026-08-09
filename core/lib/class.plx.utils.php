@@ -913,10 +913,11 @@ class plxUtils {
 	 *     RewriteRule ^blog$  apps/PluXml/ [L]
 	 * </IfModule>
 	 *
+	 * @param	boolean with_hostname précise le protocole et le nom d'hôte dans le résultat
 	 * @return	string	url de base du site
 	 * @author	Jean-Pierre Pourrez @bazooka07
 	 **/
-	public static function getRacine() {
+	public static function getRacine($with_hostname=true) {
 
 		if(!empty($_SERVER['REDIRECT_URL'])) {
 			$path1 = $_SERVER['REDIRECT_URL'];
@@ -926,16 +927,9 @@ class plxUtils {
 		} else {
 			$path1 = $_SERVER['PHP_SELF'];
 			}
-		if(defined('PLX_ADMIN')) {
-			return preg_replace('#(?:/\w[\w-]+){2}(?:/\w[\w-]+\.php|/)?$#', '/', $path1);
-		}
 
-		# installation
-		if(preg_match('#(.*)\b' . PLX_INSTALL_PATH . '$#', $path1, $matches)) {
-			return $matches[1];
-		}
-
-		if(!defined('PLX_WITHOUT_HOSTNAME')) {
+		$prefix = '';
+		if($with_hostname) {
 			# On a besoin du nom d'hôte (hostname), ... Par exemple: sitemap.php, feed.php
 			$protocol = (!empty($_SERVER['HTTPS']) AND strtolower($_SERVER['HTTPS']) == 'on') || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) AND strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https' )? 'https': 'http';
 			$prefix = $protocol . '://' . $_SERVER['HTTP_HOST'];
@@ -946,10 +940,16 @@ class plxUtils {
 			) {
 				$prefix .= ':' . $_SERVER['SERVER_PORT'];
 			}
-		} else {
-			# Page d'accueil, liste articles, pages statiques, ..
-			$prefix = '';
- 		}
+		}
+
+		if(defined('PLX_ADMIN')) {
+			return $prefix . preg_replace('#(?:/\w[\w-]+){2}(?:/\w[\w-]+\.php|/)?$#', '/', $path1);
+		}
+
+		# installation
+		if(preg_match('#(.*)\b' . PLX_INSTALL_PATH . '$#', $path1, $matches)) {
+			return $prefix . $matches[1];
+		}
 
 		return $prefix . preg_replace('#/(?:\w[\w-]+\.php)?$#', '', $path1) . '/';
 	}
