@@ -14,7 +14,7 @@ const PLX_URL_LAST_RELEASE_GITHUB = 'https://api.github.com/repos/pluxml/PluXml/
 const SESSION_LIFETIME = 7200;
 const PAGE_LOGIN = 'auth.php';
 
-const PLX_INSTALL_PATH = 'install/index.php';
+const PLX_INSTALL_PATH = 'install';
 
 # Gestion des erreurs PHP
 if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
@@ -117,7 +117,7 @@ function get_root_url() {
 }
 
 # On verifie que PluXml est installé. Gère la redirection d'url
-if(!file_exists(path('XMLFILE_PARAMETERS')) and !preg_match('#/' . PLX_INSTALL_PATH . '$#', $_SERVER['SCRIPT_NAME'])) {
+if(!file_exists(path('XMLFILE_PARAMETERS')) and !preg_match('#/' . PLX_INSTALL_PATH . '/index.php$#', $_SERVER['SCRIPT_NAME'])) {
 	header('Location: ' . get_root_url() .  PLX_INSTALL_PATH);
 	exit;
 }

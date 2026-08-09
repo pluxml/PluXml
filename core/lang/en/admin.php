@@ -587,7 +587,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Parameters',
 		'L_MENU_PROFIL_TITLE' => 'Manage your user profiles',
 		'L_MENU_PROFIL' => 'Profile',
-		'L_WARNING_INSTALLATION_FILE' => 'install.php file can still be found at your PluXml root.<br />For security reasons, it is strongly recommended to <a class="lnkdelete" href="%s">delete</a> it.',
+		'L_WARNING_INSTALLATION_FOLDER' => 'Install folder can still be found at the root of your site.<br />For security reasons, it is strongly recommended to <a class="lnkdelete" href="%s">delete</a> it.',
 
 		// user.php
 

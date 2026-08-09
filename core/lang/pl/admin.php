@@ -584,7 +584,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Ustawienia',
 		'L_MENU_PROFIL_TITLE' => 'Zarządzaj profilami użytkowników',
 		'L_MENU_PROFIL' => 'Profil',
-		'L_WARNING_INSTALLATION_FILE' => 'Plik install.php znajduje się w katalogu głównym PluXml. <br />Ze względów bezpieczeństwa zaleca się, aby go <a class="lnkdelete" href="%s">usunąć</a>.',
+		'L_WARNING_INSTALLATION_FOLDER' => 'Folder instalacyjny nadal można znaleźć w katalogu głównym witryny.<br />Ze względów bezpieczeństwa zdecydowanie zaleca się jego <a class="lnkdelete" href="%s">usunięcie</a>.',
 
 		// user.php
 		'L_USER_UNKNOWN' => 'Nieznany użytkownik',

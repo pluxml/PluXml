@@ -589,7 +589,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Konfiguration',
 		'L_MENU_PROFIL_TITLE' => 'Mein Benutzerprofil verwalten',
 		'L_MENU_PROFIL' => 'Mein Profil',
-		'L_WARNING_INSTALLATION_FILE' => 'Die Datei install.php existiert noch im Grundverzeichnis von PluXml.<br />Sie sollten diese aus Sicherheitsgründen <a class="lnkdelete" href="%s">löschen</a>.',
+		'L_WARNING_INSTALLATION_FOLDER' => 'Der Installationsordner befindet sich weiterhin im Stammverzeichnis Ihrer Website.<br />Aus Sicherheitsgründen wird dringend empfohlen, ihn <a class="lnkdelete" href="%s">zu löschen</a>.',
 
 		// user.php
 

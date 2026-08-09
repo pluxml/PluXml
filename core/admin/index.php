@@ -143,12 +143,37 @@ $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_CATEGORY_HOME_PAGE;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
 $aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
 
+if(is_dir(PLX_ROOT . PLX_INSTALL_PATH) and $_SESSION['profil'] == PROFIL_ADMIN) {
+	if(isset($_GET['del']) AND $_GET['del'] == 'install') {
+		# On supprime le dossier d'installation
+		$error = false;
+		foreach(glob(PLX_ROOT . PLX_INSTALL_PATH . '/*') as $filename) {
+			if(!is_writable($filename) or !unlink($filename)) {
+				$error = true;
+				break;
+			}
+		}
+		if(!$error and @rmdir(PLX_ROOT . PLX_INSTALL_PATH)) {
+			plxMsg::Info(L_DELETE_SUCCESSFUL);
+		} else {
+			plxMsg::Error(L_PLXMEDIAS_DEL_FOLDER_ERR . ' ' . PLX_INSTALL_PATH);
+		}
+	}
+}
+
 # On inclut le header
 include 'top.php';
+
+if(is_dir(PLX_ROOT . PLX_INSTALL_PATH) and $_SESSION['profil'] == PROFIL_ADMIN) {
+		$urlDeleteInstall = "?" . http_build_query(array_merge($_GET, array('del'=>'install')));
 ?>
+<p class="alert red"><?= sprintf(L_WARNING_INSTALLATION_FOLDER, $urlDeleteInstall) ?></p>
+<?php
+}
 
-<?php eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins ?>
+eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 
+?>
 <form action="index.php" method="post" id="form_articles">
 
 <div class="inline-form action-bar">
@@ -209,7 +234,7 @@ include 'top.php';
 			$datetime = date('YmdHi');
 			while($plxAdmin->plxRecord_arts->loop()) { # Pour chaque article
 				$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
-				$publi = (boolean)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
+				$publi = (bool)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
 				# Catégories : liste des libellés de toutes les categories
 				$draft='';
 				$libCats='';

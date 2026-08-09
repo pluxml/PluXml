@@ -587,7 +587,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Налаштування',
 		'L_MENU_PROFIL_TITLE' => 'Керування профілем користувача',
 		'L_MENU_PROFIL' => 'Профіль',
-		'L_WARNING_INSTALLATION_FILE' => 'Увага! Файл install.php все ще знаходиться в кореневій папці PluXml.<br />З міркувань безпеки настійно рекомендуємо <a class="lnkdelete" href="%s">видалити</a> його.',
+		'L_WARNING_INSTALLATION_FOLDER' => 'Папку встановлення все ще можна знайти в кореневому каталозі вашого сайту.<br />З міркувань безпеки наполегливо рекомендується <a class="lnkdelete" href="%s">видалити</a> її.',
 
 		// user.php
 		'L_USER_UNKNOWN' => 'Невідомий користувач',

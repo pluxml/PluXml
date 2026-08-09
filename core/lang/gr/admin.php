@@ -587,7 +587,7 @@ $LANG = array (
 		'L_MENU_CONFIG' => 'Παράμετροι',
 		'L_MENU_PROFIL_TITLE' => 'Διαχείριση του προφίλ σας',
 		'L_MENU_PROFIL' => 'Προφίλ',
-		'L_WARNING_INSTALLATION_FILE' => 'Το αρχείο install.php εξακολουθεί να υπάρχει στη ρίζα του PluXml.<br />Για λόγους ασφαλείας, συνιστάται έντονα να το <a class="lnkdelete" href="%s">διαγράψετε</a>.',
+		'L_WARNING_INSTALLATION_FOLDER' => 'Ο φάκελος εγκατάστασης εξακολουθεί να βρίσκεται στη ρίζα του ιστότοπού σας.<br />Για λόγους ασφαλείας, συνιστάται ανεπιφύλακτα να τον <a class="lnkdelete" href="%s">διαγράψετε</a>.',
 
 		// user.php
 
