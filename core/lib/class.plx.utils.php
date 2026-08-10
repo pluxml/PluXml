@@ -55,8 +55,12 @@ class plxUtils {
 	# https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Regex_character_class_escape_in_class_range
 	const FILTER_PROFIL = array(
 		'id'		=> array('\d{3}', L_UNKNOWN_ERROR),
-		'fullname'	=> array('\w{3,20}[\w\s\-]{0,42}\w{2,20}', L_ERR_INVALID_USERNAME),
-		'login'		=> array('\w[\w\-]{2,32}\w', L_ERR_INVALID_LOGIN),
+		# https://www.regular-expressions.info/unicodecategory.html
+		# https://fr.javascript.info/regexp-unicode
+		'fullname'	=> array('\p{L}{3,16}([\s@\.\-]\p{L}{2,20}){0,4}', L_ERR_INVALID_USERNAME),
+		#'login'		=> array('\w[\w\-]{2,32}\w', L_ERR_INVALID_LOGIN),
+		# On accepte une adresse E-mail comme login
+		'login'		=> array('\w[\w\-]{2,32}(@[\w\.\-]+)?\w{2,}', L_ERR_INVALID_LOGIN),
 		'password'	=> array('.{8,64}', L_ERR_INVALID_PASSWORD),
 		'password2'	=> array('.{8,64}', L_ERR_INVALID_PASSWORD),
 	);
