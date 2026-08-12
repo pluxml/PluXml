@@ -89,8 +89,7 @@ class plxShow
      **/
     public function racine()
     {
-
-        echo $this->plxMotor->racine;
+        echo $this->plxMotor->urlRewrite();
     }
 
     /**

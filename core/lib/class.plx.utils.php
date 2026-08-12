@@ -1701,7 +1701,7 @@ EOT;
 			if(!empty($mask)) {
 				$href = preg_replace($mask , '', $href);
 			}
-			if(!empty($root)) {
+			if(is_string($root)) {
 				$href = preg_replace('#^' . PLX_ROOT . '#' , $root, $href);
 			}
 			if(PLX_DEBUG) {
@@ -1718,7 +1718,7 @@ EOT;
 			if(!empty($mask)) {
 				$href = preg_replace($mask , '', $href);
 			}
-			if(!empty($root)) {
+			if(is_string($root)) {
 				$href = preg_replace('#^' . PLX_ROOT . '#' , $root, $href);
 			}
 ?>
@@ -1786,7 +1786,7 @@ EOT;
 				if(!empty($list) and defined('PLX_PLUGINS_CSS_PATH')) {
 					$list[] = PLX_ROOT . PLX_PLUGINS_CSS_PATH . 'site.css';
 				}
-				$root = $plxShow->plxMotor->aConf['racine'];
+				$root = ($plxShow->plxMotor->aConf['urlrewriting'] != 1) ? '' : $plxShow->plxMotor->racine_path;
 			}
 			self::_printLinkCss($list, $mask, $root);
 		} elseif(is_file(PLX_ROOT . $file)) {

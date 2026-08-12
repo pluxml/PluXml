@@ -16,7 +16,7 @@ class plxMotor {
 
 	public $get = false; # Donnees variable GET
 	public $racine = false; # Url de PluXml
-	public $path_url = false; # chemin de l'url du site
+	public $racine_path = false; # chemin de l'url du site
 	public $style = false; # Dossier contenant le thème
 	public $tri; # Tri d'affichage des articles
 	public $tri_coms; # Tri d'affichage des commentaires
@@ -91,8 +91,8 @@ class plxMotor {
 		$this->tri = $this->aConf['tri'];
 		$this->tri_coms = $this->aConf['tri_coms'];
 		# On récupère le chemin de l'url
-		$var = parse_url($this->racine);
-		$this->path_url = str_replace(ltrim($var['path'], '\/'), '', ltrim($_SERVER['REQUEST_URI'], '\/'));
+		$parts = parse_url($this->racine);
+		$this->racine_path = $parts['path'];
 		# Traitement des plugins
 		# Détermination du fichier de langue (nb: la langue peut être modifiée par plugins via $_SESSION['lang'])
 		$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
@@ -1195,40 +1195,36 @@ class plxMotor {
 			return $url;
 		}
 
-		if($url=='' OR $url=='?') {
-			return $this->racine;
+		if($url == '' OR $url == '?') {
+			return $this->aConf['urlrewriting'] ? $this->racine_path : basename($_SERVER['SCRIPT_NAME']);
 		}
 
 		$args = parse_url($url);
 
 		if($this->aConf['urlrewriting']) {
-			$new_url = !empty($args['path']) ? strtr($args['path'], array(
-				'index.php' => '',
-				'feed.php' => 'feed/',
-			)) : '';
+			# On doit avoir un chemin absolu pour l'url
+			$new_url = $this->racine_path;
+			if(!empty($args['path'])) {
+				$new_url .= strtr($args['path'], array(
+					'index.php' => '',
+					'feed.php' => 'feed/',
+				));
+			}
 			if(!empty($args['query'])) {
 				$new_url .= $args['query'];
 			}
-			if(empty($new_url))	{
-				$new_url = $this->path_url;
-			}
-			if(!empty($args['fragment'])) {
-				$new_url .= '#'. $args['fragment'];
-			}
 		} else {
-			if(empty($args['path']) AND !empty($args['query'])) {
-				$args['path'] = 'index.php';
-			}
-			$new_url  = !empty($args['path']) ? $args['path'] : $this->path_url;
+			$new_url = empty($args['path']) ? 'index.php' : $args['path'];
 			if(!empty($args['query'])) {
 				$new_url .= '?' . $args['query'];
 			}
-			if(!empty($args['fragment'])) {
-				$new_url .= '#' . $args['fragment'];
-			}
 		}
 
-		return $this->racine . $new_url;
+		if(!empty($args['fragment'])) {
+			$new_url .= '#'. $args['fragment'];
+		}
+		return $new_url;
+
 	}
 
 	/**
