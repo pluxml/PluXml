@@ -258,14 +258,18 @@ class plxAdmin extends plxMotor {
 					break;
 				case 'smtp_server' :
 					$w = trim($v);
-					if(strlen($w) == 0 or filter_var($w, FILTER_VALIDATE_DOMAIN)) {
-						$global[$k] = $w;
+					if($content['email_method'] == 'smtp') {
+						if(preg_match('#^(?:smtp|mail)\.[\w-]{2,30}\.\w{2,10}$#', $w)) {
+							$global[$k] = $w;
+						} else {
+							$error = true;
+						}
 					} else {
-						$error = true;
+						$global[$k] = htmlspecialchars($w);
 					}
 					break;
 				case 'smtp_username' :
-					if(preg_match('#^[\w-]+$#' , $v) or !empty(filter_var($v, FILTER_VALIDATE_EMAIL))) {
+					if(preg_match('#^[\w-]*$#' , $v) or !empty(filter_var($v, FILTER_VALIDATE_EMAIL))) {
 						$global[$k] = $v;
 					} else {
 						$error = true;
