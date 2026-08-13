@@ -1196,14 +1196,18 @@ class plxMotor {
 		}
 
 		if($url == '' OR $url == '?') {
-			return $this->aConf['urlrewriting'] ? $this->racine_path : basename($_SERVER['SCRIPT_NAME']);
+			if(class_exists('plxShow')) {
+				return $this->aConf['urlrewriting'] ? $this->racine_path : basename($_SERVER['SCRIPT_NAME']);
+			} else {
+				return $this->racine; # with hostname
+			}
 		}
 
 		$args = parse_url($url);
 
 		if($this->aConf['urlrewriting']) {
 			# On doit avoir un chemin absolu pour l'url
-			$new_url = $this->racine_path;
+			$new_url = class_exists('plxShow') ? $this->racine_path : $this->racine;
 			if(!empty($args['path'])) {
 				$new_url .= strtr($args['path'], array(
 					'index.php' => '',
@@ -1214,7 +1218,8 @@ class plxMotor {
 				$new_url .= $args['query'];
 			}
 		} else {
-			$new_url = empty($args['path']) ? 'index.php' : $args['path'];
+			$new_url = class_exists('plxShow') ? '' : $this->racine;
+			$new_url .= empty($args['path']) ? 'index.php' : $args['path'];
 			if(!empty($args['query'])) {
 				$new_url .= '?' . $args['query'];
 			}
