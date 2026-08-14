@@ -1,4 +1,5 @@
 <?php
+if (!defined('PLX_CORE')) { exit; }
 
 /**
  * Classe plxMedias regroupant les fonctions pour gérer la librairie des medias

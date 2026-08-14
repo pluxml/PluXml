@@ -5,6 +5,12 @@ if(!defined('PLX_ROOT')) {
 	exit;
 }
 
+if(!function_exists('xml_parser_create')) {
+	header('Content-Type: text/plain');
+	echo 'xml_parser_create() function is missing';
+	exit;
+}
+
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.10.0';
 const PLX_URL_REPO = 'https://www.pluxml.org';

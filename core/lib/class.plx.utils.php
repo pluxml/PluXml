@@ -1,4 +1,5 @@
 <?php
+if (!defined('PLX_CORE')) { exit; }
 
 /**
  * Classe plxUtils rassemblant les fonctions utiles à PluXml

@@ -1,4 +1,5 @@
 <?php
+if (!defined('PLX_CORE')) { exit; }
 
 /**
  * Classe plxMotor responsable du traitement global du script

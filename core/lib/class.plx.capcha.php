@@ -1,4 +1,5 @@
 <?php
+if (!defined('PLX_CORE')) { exit; }
 
 /**
  * Classe plxCapcha responsable du traitement antispam
