@@ -154,6 +154,9 @@ $selector=selector($comSel, 'id_selection');
 				<tr>
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idCom[]')" /></th>
 					<th class="datetime"><?= L_COMMENTS_LIST_DATE ?></th>
+					<th class="message"><?= L_COMMENTS_LIST_MESSAGE ?></th>
+					<th class="author"><?= L_COMMENTS_LIST_AUTHOR ?> <?= L_COMMENT_EMAIL_FIELD ?></th>
+					<th class="site"><?= L_COMMENT_SITE_FIELD ?></th>
 <?php
 			$all = ($_SESSION['selCom'] == 'all');
 			if($all) {
@@ -162,9 +165,6 @@ $selector=selector($comSel, 'id_selection');
 <?php
 			}
 ?>
-					<th class="message"><?= L_COMMENTS_LIST_MESSAGE ?></th>
-					<th class="author"><?= L_COMMENTS_LIST_AUTHOR ?> <?= L_COMMENT_EMAIL_FIELD ?></th>
-					<th class="site"><?= L_COMMENT_SITE_FIELD ?></th>
 					<th class="action"><?= L_COMMENTS_LIST_ACTION ?></th>
 				</tr>
 			</thead>
@@ -186,16 +186,9 @@ $selector=selector($comSel, 'id_selection');
 					}
 					# On génère notre ligne
 ?>
-				<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?>">
+				<tr class="top type-<?= $plxAdmin->plxRecord_coms->f('type') ?><?php if($all and $status=='_') { echo ' offline'; } ?>">
 					<td><input type="checkbox" name="idCom[]" value="<?= $id ?>" /></td>
 					<td class="datetime"><?= plxDate::formatDate($plxAdmin->plxRecord_coms->f('date')) ?></td>
-<?php
-				if($all) {
-?>
-					<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
-<?php
-				}
-?>
 					<td class="wrap"><?= nl2br($plxAdmin->plxRecord_coms->f('content')) ?></td>
 					<td class="author"><?php
 					$author = $plxAdmin->plxRecord_coms->f('author');
@@ -213,7 +206,15 @@ $selector=selector($comSel, 'id_selection');
 					} else {
 						echo '&nbsp;';
 					}
-?></td>
+?>
+</td>
+<?php
+				if($all) {
+?>
+					<td class="status"><?= empty($status) ? L_COMMENT_ONLINE : L_COMMENT_OFFLINE ?></td>
+<?php
+				}
+?>
 					<td class="action">
 						<a href="comment_new.php?<?= $query ?>" title="<?= L_COMMENT_ANSWER ?>"><?= L_COMMENT_ANSWER ?></a>
 						<a href="comment.php?<?= $query ?>" title="<?= L_COMMENT_EDIT_TITLE ?>"><?= L_COMMENT_EDIT ?></a>

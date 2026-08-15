@@ -344,7 +344,7 @@ input[maxlength="3"] {
 }
 
 #articles-table td:nth-child(4),
-#comments-table td:nth-child(4),
+#comments-table td:nth-child(3),
 #medias-table td:nth-child(3),
 #plugins-table td:nth-child(3) {
 	width: 100%;
@@ -363,6 +363,10 @@ input[maxlength="3"] {
 	word-wrap: break-word;
 	word-break: break-all;
 	white-space: normal;
+}
+
+#comments-table tr.offline {
+	background-color: #eee;
 }
 
 #plugins-table img,
