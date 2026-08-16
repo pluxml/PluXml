@@ -951,11 +951,6 @@ class plxUtils {
 			return $prefix . preg_replace('#(?:/\w[\w-]+){2}(?:/\w[\w-]+\.php|/)?$#', '/', $path1);
 		}
 
-		# installation
-		if(preg_match('#(.*)\b' . PLX_INSTALL_PATH . '$#', $path1, $matches)) {
-			return $prefix . $matches[1];
-		}
-
 		return $prefix . preg_replace('#/(?:\w[\w-]+\.php)?$#', '', $path1) . '/';
 	}
 

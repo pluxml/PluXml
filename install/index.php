@@ -333,7 +333,7 @@ if(!empty($_POST['install'])) {
 		}
 
 		install_datas($_POST, $config);
-		header('Location: ' . plxUtils::getRacine());
+		header('Location: ' . get_root_url());
 		exit;
 	}
 
