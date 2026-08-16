@@ -49,44 +49,46 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	}
 	# Previsualisation d'un article
 	if(!empty($_POST['preview'])) {
-		$art=array();
-		$art['title'] = trim($_POST['title']);
-		$art['allow_com'] = $_POST['allow_com'];
-		$art['template'] = basename($_POST['template']);
-		$art['chapo'] = trim($_POST['chapo']);
-		$art['content'] = trim($_POST['content']);
-		$art['tags'] = trim($_POST['tags']);
-		$art['meta_description'] = $_POST['meta_description'];
-		$art['meta_keywords'] = $_POST['meta_keywords'];
-		$art['title_htmltag'] = $_POST['title_htmltag'];
-		$art['filename'] = '';
-		$art['numero'] = $_POST['artId'];
-		$art['author'] = $_POST['author'];
-		$art['thumbnail'] = plxUtils::strCheck(trim($_POST['thumbnail']));
-		$art['thumbnail_title'] = plxUtils::strCheck(trim($_POST['thumbnail_title']));
-		$art['thumbnail_alt'] = plxUtils::strCheck(trim($_POST['thumbnail_alt']));
-		$art['categorie'] = '000';
+		$array=array();
 		if(!empty($_POST['catId'])) {
-			$array=array();
 			foreach($_POST['catId'] as $k => $v) {
-				if($v!='draft') $array[]=$v;
+				if($v != 'draft') {
+					$array[] = $v;
+				}
 			}
-			$art['categorie']=implode(',',$array);
 		}
-		$art['date'] = $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':','',$_POST['date_publication_time']),0,4);
-		$art['date_creation'] = $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4);
-		$art['date_update'] = $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4);
-		$art['nb_com'] = 0;
-		$tmpstr = (!empty(trim($_POST['url']))) ? $_POST['url'] : $_POST['title'];
-		$art['url'] = plxUtils::urlify($tmpstr);
-		if(empty($art['url'])) $art['url'] = L_DEFAULT_NEW_ARTICLE_URL;
+
+		$art=array(
+			'title'				=> trim($_POST['title']),
+			'allow_com'			=> $_POST['allow_com'],
+			'template'			=> basename($_POST['template']),
+			'chapo'				=> trim($_POST['chapo']),
+			'content'			=> trim($_POST['content']),
+			'catId'				=> !empty($_POST['catId']) ? $_POST['catId'] : array(),
+			'tags'				=> trim($_POST['tags']),
+			'meta_description'	=> $_POST['meta_description'],
+			'meta_keywords'		=> $_POST['meta_keywords'],
+			'title_htmltag'		=> $_POST['title_htmltag'],
+			'filename'			=> '',
+			'numero'			=> $_POST['artId'],
+			'author'			=> $_POST['author'],
+			'thumbnail'			=> plxUtils::strCheck(trim($_POST['thumbnail'])),
+			'thumbnail_title'	=> plxUtils::strCheck(trim($_POST['thumbnail_title'])),
+			'thumbnail_alt'		=> plxUtils::strCheck(trim($_POST['thumbnail_alt'])),
+			'categorie'			=> '000',
+			'date'				=> $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':','',$_POST['date_publication_time']),0,4),
+			'date_creation'		=> $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4),
+			'date_update'		=> $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4),
+			'nb_com'			=> 0,
+			'categorie'			=> implode(',', $array),
+			'url'				=> L_DEFAULT_NEW_ARTICLE_URL,
+		);
 
 		# Hook Plugins
 		eval($plxAdmin->plxPlugins->callHook('AdminArticlePreview'));
 
-		$article[0] = $art;
-		$_SESSION['preview'] = $article;
-		header('Location: '.PLX_ROOT.'index.php?preview');
+		$token = 'preview';
+		$plxAdmin->editArticle($art, $token);
 		exit;
 	}
 	# Suppression d'un article

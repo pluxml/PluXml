@@ -17,6 +17,12 @@ session_start($session_site);
 
 if($is_login and isset($_GET['d'])) {
 	# Déconnexion
+	if(isset($_SESSION['preview'])) {
+		# On suuprime les articles en "preview"
+		foreach(glob($_SESSION['preview']) as $f) {
+			unlink($f);
+		}
+	}
 	$_SESSION = array();
 	$name = session_name();  # normalement est égal à PLX_ADMIN
 	session_destroy();

@@ -1381,13 +1381,16 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	public function editArticle($content, &$id) {
 
 		# Détermine le numero de fichier si besoin est
-		if($id == '0000' OR $id == '') {
-			$id = $this->nextIdArticle();
-		} else {
-			# Vérifie l'intégrité de l'identifiant
-			if(!preg_match('/^_?\d{4}$/',$id)) {
-				$id = '';
-				return L_ERR_INVALID_ARTICLE_IDENT;
+		$isPreview = ($id == 'preview');
+		if(!$isPreview) {
+			if ($id == '0000' OR $id == '') {
+				$id = $this->nextIdArticle();
+			} else {
+				# Vérifie l'intégrité de l'identifiant
+				if(!preg_match('/^_?\d{4}$/',$id)) {
+					$id = '';
+					return L_ERR_INVALID_ARTICLE_IDENT;
+				}
 			}
 		}
 
@@ -1480,64 +1483,79 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 ?>
 </document>
 <?php
-		# Recherche du nom du fichier correspondant à l'id
-		$oldArt = $this->plxGlob_arts->query('/^'.$id.'\.(.*)\.xml$/','','sort',0,1,'all');
+		if(!$isPreview) {
+			# Recherche du nom du fichier correspondant à l'id
+			$oldArt = $this->plxGlob_arts->query('/^'.$id.'\.(.*)\.xml$/','','sort',0,1,'all');
 
-		# Si demande de modération de l'article
-		if(isset($content['moderate']))
-			$id = '_'.str_replace('_','',$id);
-		# Si demande de publication
-		if(isset($content['publish']) OR isset($content['draft']))
-			$id = str_replace('_','',$id);
+			# Si demande de modération de l'article
+			if(isset($content['moderate']))
+				$id = '_'.str_replace('_','',$id);
+			# Si demande de publication
+			if(isset($content['publish']) OR isset($content['draft']))
+				$id = str_replace('_','',$id);
 
-		# On genère le nom de notre fichier
-		$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
-		if(!preg_match('/^\d{12}$/',$time)) {
-			$time = $now; # Check de la date au cas ou...
+			# On genère le nom de notre fichier
+			$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
+			if(!preg_match('/^\d{12}$/',$time)) {
+				$time = $now; # Check de la date au cas ou...
+			}
+			$content['catId'] = array_filter($content['catId'], function($value) {
+				return preg_match('#^(?:\d{3}|home)$#', $value);
+			});
+			if(empty($content['catId'])) {
+				$content['catId'] = array('000'); # article non classé
+			}
+
+			# On va mettre à jour notre fichier
+			$filename = PLX_ROOT . $this->aConf['racine_articles'] . implode('.', array(
+				$id,
+				implode(',', $content['catId']),
+				trim($content['author']),
+				$time,
+				$content['url'],
+				'xml',
+			));
+		} else {
+			$token = implode('.', array(
+				'preview',
+				# on inverse catégories et auteur
+				trim($content['author']),
+				implode(',', $content['catId']),
+			));
+			$filename = PLX_ROOT . $this->aConf['racine_articles'] . $token . '.xml';
 		}
-		$content['catId'] = array_filter($content['catId'], function($value) {
-			return preg_match('#^(?:\d{3}|home)$#', $value);
-		});
-		if(empty($content['catId'])) {
-			$content['catId'] = array('000'); # article non classé
-		}
-
-		# On va mettre à jour notre fichier
-		$filename = PLX_ROOT . $this->aConf['racine_articles'] . implode('.', array(
-			$id,
-			implode(',', $content['catId']),
-			trim($content['author']),
-			$time,
-			$content['url'],
-			'xml',
-		));
 		if(plxUtils::write(XML_HEADER . ob_get_clean(), $filename)) {
-			# suppression ancien fichier si nécessaire
-			if($oldArt) {
-				$oldfilename = PLX_ROOT.$this->aConf['racine_articles'].$oldArt['0'];
-				if($oldfilename!=$filename AND file_exists($oldfilename))
-					unlink($oldfilename);
+			if(!$isPreview) {
+				# suppression ancien fichier si nécessaire
+				if($oldArt) {
+					$oldfilename = PLX_ROOT.$this->aConf['racine_articles'].$oldArt['0'];
+					if($oldfilename!=$filename AND file_exists($oldfilename))
+						unlink($oldfilename);
+				}
+
+				# mise à jour de la liste des tags
+				$tags = trim($content['tags']);
+				if(strlen($tags) > 0) {
+					$this->aTags[$id] = array(
+						'tags' => $tags,
+						'date' => $time,
+						'active' => in_array('draft', $content['catId']) ? 0 : 1,
+					);
+					$this->editTags();
+				} elseif(isset($this->aTags[$id])) {
+					unset($this->aTags[$id]);
+					$this->editTags();
+				}
+
+				$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+
+				# Hook plugins
+				eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
+				return plxMsg::Info($msg);
+			} else {
+				header('Location: '. $this->racine . 'index.php?' . $token);
+				exit;
 			}
-
-			# mise à jour de la liste des tags
-			$tags = trim($content['tags']);
-			if(strlen($tags) > 0) {
-				$this->aTags[$id] = array(
-					'tags' => $tags,
-					'date' => $time,
-					'active' => in_array('draft', $content['catId']) ? 0 : 1,
-				);
-				$this->editTags();
-			} elseif(isset($this->aTags[$id])) {
-				unset($this->aTags[$id]);
-				$this->editTags();
-			}
-
-			$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
-
-			# Hook plugins
-			eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
-			return plxMsg::Info($msg);
 		} else {
 			return plxMsg::Error(L_ARTICLE_SAVE_ERR);
 		}

@@ -97,6 +97,12 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
                 'hash'       => plxUtils::charAleatoire(10),
                 'domain'     => __DIR__,
                 'admin_lang' => $user['lang'],
+                # Pour nettoyage à la déconnection
+                'preview'    => PLX_ROOT. $plxAdmin->aConf['racine_articles'] . implode('.', array(
+                    'preview',
+                    $userid,
+                    '*.xml',
+                )),
             );
             # on définit $_SESSION['admin_lang'] pour stocker la langue à utiliser la 1ere fois dans le chargement des plugins une fois connecté à l'admin
             # ordre des traitements:
@@ -122,16 +128,16 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
 if ($plxAdmin->aConf['lostpassword']) {
     # Send lost password e-mail
     if (!empty($_POST['lostpassword_id'])) {
-		$resp = $plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']);
+        $resp = $plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']);
         if (is_bool($resp)) {
-			if($resp) {
-				$msg = L_LOST_PASSWORD_SUCCESS;
-				$css = 'alert green';
-			} else {
-				# $resp is user's infos['password_token_expiry'] (format: 'YmdHis')
-				$msg = sprintf('Wait for %s minutes before a new request', round(strtotime($resp) - strtotime(time())) / 60, 0);
-				$css = 'alert red';
-			}
+            if($resp) {
+                $msg = L_LOST_PASSWORD_SUCCESS;
+                $css = 'alert green';
+            } else {
+                # $resp is user's infos['password_token_expiry'] (format: 'YmdHis')
+                $msg = sprintf('Wait for %s minutes before a new request', round(strtotime($resp) - strtotime(time())) / 60, 0);
+                $css = 'alert red';
+            }
         } else {
             @error_log("Lost password error. ID : " . $_POST['lostpassword_id'] . " IP : " . plxUtils::getIp());
             $msg = $resp;

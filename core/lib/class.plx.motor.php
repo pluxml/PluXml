@@ -240,8 +240,9 @@ class plxMotor {
 				$this->error404(L_ARTICLE_NO_TAG);
 			}
 		}
-		elseif($this->get AND preg_match('#^preview\/?#',$this->get) AND isset($_SESSION['preview'])) {
+		elseif($this->get AND preg_match('#^preview\.(\d{3}\.(?:home|\d{3})(?:,\d{3})*)$#', $this->get, $matches)) {
 			$this->mode = 'preview';
+			$this->cible = $matches[1];
 		}
 		elseif($this->get AND preg_match('#^(telechargement|download)\/(.+)$#',$this->get,$capture)) {
 			if($this->sendTelechargement($capture[2])) {
@@ -346,9 +347,18 @@ class plxMotor {
 		}
 		elseif($this->mode == 'preview') {
 			$this->mode='article';
-			$this->plxRecord_arts = new plxRecord($_SESSION['preview']);
-			$this->template=$this->plxRecord_arts->f('template');
-			if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+			# $this->plxRecord_arts = new plxRecord($_SESSION['preview']);
+			$filename = PLX_ROOT . $this->aConf['racine_articles'] . 'preview.' . $this->cible . '.xml';
+			$art = $this->parseArticle($filename);
+			if($art) {
+				# Désactivation des commentaires
+				$art['allow_com'] = 0;
+				$artsList = array($art);
+				$this->plxRecord_arts = new plxRecord($artsList);
+				$this->template = $this->plxRecord_arts->f('template');
+				if($this->aConf['capcha']) $this->plxCapcha = new plxCapcha(); # Création objet captcha
+				unlink($filename);
+			}
 		}
 
 		# Hook plugins
@@ -740,9 +750,25 @@ class plxMotor {
 				'catId'		=> !empty($artCats) ? implode(',', $artCats) : '000',
 				'usrId'		=> $capture[3],
 				'artDate'	=> $capture[4],
-				'artUrl'	=> $capture[5]
+				'artUrl'	=> $capture[5],
 			);
 		}
+
+		if(preg_match('#^preview\.(\d{3})\.((?:home|\d{3})(?:,\d{3}|,home)*)\.xml$#', basename($filename), $capture)) {
+			$catIds = array_keys($this->aCats);
+			$catIds[] = 'home';
+			$artCats = array_filter(explode(',', $capture[2]), function($item) use($catIds) {
+				return in_array($item, $catIds);
+			});
+			return array(
+				'artId'		=> 'preview',
+				'catId'		=> !empty($artCats) ? implode(',', $artCats) : '000',
+				'usrId'		=> $capture[1],
+				'artDate'	=> date('YmdHi'),
+				'artUrl'	=> '',
+			);
+		}
+
 		return false;
 	}
 
