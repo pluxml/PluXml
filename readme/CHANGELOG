@@ -1,4 +1,20 @@
-## PluXml 5.10.0 (2026/07/17)
+## PluXml 5.10.0i-rc2(2026/08/16)
+[+] Update CHANGELOG
+[+] Refacto for preview of article
+[+] Enhance display for table of comments in comments.php
+[+] Check if PLX_ROOT and xml_parser_create() exist
+FIX Checks if plxShow class exists in plxMotor::urlRewrite()
+FIX PlxAmin::editConfiguration() about smtp
+[+] Refacto plxShow
+FIX Refacto for better Urls
+FIX MediasManager.js (const,  use strict, ..)
+FIX FILTER_PROFIL in class.plx.utils.php for Unicode,E-mail
+FIX Refacto for deletion of folder install
+FIX plxUtils::getRacine()
+FIX PlxAdmin::editCategories()
+FIX Trailing "/" for paths in plxAdmin::editConfiguration()
+
+## PluXml 5.10.0i-rc1 (2026/07/17)
 FIX Fix plxAdmin::editConfiguration()
 [+] Refacto plxShow::artTags()
 FIX Fix plxShow::artCat()
