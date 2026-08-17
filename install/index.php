@@ -2,7 +2,7 @@
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/plx_config.php';
 include PLX_CORE.'lib/config.php';
 
 # On démarre la session
@@ -313,7 +313,7 @@ if(!empty($_POST['install'])) {
 				$content =
 					'<?php' . PHP_EOL .
 					'const PLX_CONFIG_PATH = \'' . $plx_config_path . '\';' . PHP_EOL;
-				$filename = PLX_ROOT . 'config.php';
+				$filename = PLX_CORE.'lib/plx_config.php';
 				file_put_contents($filename, $content);
 				opcache_invalidate($filename);
 

@@ -365,7 +365,7 @@ class plxAdmin extends plxMotor {
 				if(!rename(PLX_ROOT.PLX_CONFIG_PATH,PLX_ROOT.$newpath))
 					return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, $newpath));
 				# mise à jour du fichier de configuration config.php
-				if(!plxUtils::write('<?php const PLX_CONFIG_PATH = \'' . $newpath . '\';' . PHP_EOL, PLX_ROOT.'config.php'))
+				if(!plxUtils::write('<?php const PLX_CONFIG_PATH = \'' . $newpath . '\';' . PHP_EOL, PLX_CORE.'lib/plx_config.php'))
 					return plxMsg::Error(L_SAVE_ERR.' config.php');
 			}
 		}

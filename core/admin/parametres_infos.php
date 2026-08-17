@@ -75,6 +75,17 @@ if($emailBuild) {
 	<li><?php echo L_CONFIG_INFOS_NEXT_ID_ART ?> <?php echo $plxAdmin->nextIdArticle(); ?></li>
 	<li><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></li>
 </ul>
+<?php
+# Check if core/lib folder not unreachable
+$sign = 'core/lib/forbidden.png';
+if(file_exists(PLX_ROOT . $sign)) {
+	# Checks mime_content_type(PLX_ROOT . $sign) if you want
+?>
+<hr />
+<img src="<?= get_root_url() . $sign ?>" <?= getimagesize(PLX_ROOT . $sign)[3] ?> alt="Ok" title="Check if core/lib folder unreachable" >
+<?php
+}
+?>
 <?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsInfos')) # Hook Plugins ?>
 
 <?php
