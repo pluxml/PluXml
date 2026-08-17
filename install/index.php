@@ -2,8 +2,8 @@
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
 
 # On démarre la session
 # session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
@@ -12,11 +12,11 @@ $session_site['name'] = 'PLX_INSTALL';
 session_start($session_site);
 
 # On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.timezones.php');
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.token.php');
+include PLX_CORE.'lib/class.plx.timezones.php';
+include PLX_CORE.'lib/class.plx.date.php';
+include PLX_CORE.'lib/class.plx.glob.php';
+include PLX_CORE.'lib/class.plx.utils.php';
+include PLX_CORE.'lib/class.plx.token.php';
 
 # Chargement des langues
 if(!empty($_POST)){

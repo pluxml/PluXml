@@ -4,18 +4,18 @@
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
 
 # On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.capcha.php');
-include(PLX_CORE.'lib/class.plx.erreur.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
+include PLX_CORE.'lib/class.plx.date.php';
+include PLX_CORE.'lib/class.plx.glob.php';
+include PLX_CORE.'lib/class.plx.utils.php';
+include PLX_CORE.'lib/class.plx.capcha.php';
+include PLX_CORE.'lib/class.plx.erreur.php';
+include PLX_CORE.'lib/class.plx.record.php';
+include PLX_CORE.'lib/class.plx.motor.php';
+include PLX_CORE.'lib/class.plx.plugins.php';
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();

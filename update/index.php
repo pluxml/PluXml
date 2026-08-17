@@ -1,24 +1,24 @@
 <?php
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
-include(PLX_ROOT.'config.php');
-include(PLX_CORE.'lib/config.php');
+include PLX_ROOT.'config.php';
+include PLX_CORE.'lib/config.php';
 
 const PLX_UPDATER = true;
 
 # On inclut les librairies nécessaires
-include(PLX_CORE.'lib/class.plx.date.php');
-include(PLX_CORE.'lib/class.plx.glob.php');
-include(PLX_CORE.'lib/class.plx.utils.php');
-include(PLX_CORE.'lib/class.plx.msg.php');
-include(PLX_CORE.'lib/class.plx.record.php');
-include(PLX_CORE.'lib/class.plx.motor.php');
-include(PLX_CORE.'lib/class.plx.admin.php');
-include(PLX_CORE.'lib/class.plx.encrypt.php');
-include(PLX_CORE.'lib/class.plx.plugins.php');
-include(PLX_CORE.'lib/class.plx.token.php');
-include(PLX_ROOT.'update/versions.php');
-include(PLX_ROOT.'update/class.plx.updater.php');
+include PLX_CORE.'lib/class.plx.date.php';
+include PLX_CORE.'lib/class.plx.glob.php';
+include PLX_CORE.'lib/class.plx.utils.php';
+include PLX_CORE.'lib/class.plx.msg.php';
+include PLX_CORE.'lib/class.plx.record.php';
+include PLX_CORE.'lib/class.plx.motor.php';
+include PLX_CORE.'lib/class.plx.admin.php';
+include PLX_CORE.'lib/class.plx.encrypt.php';
+include PLX_CORE.'lib/class.plx.plugins.php';
+include PLX_CORE.'lib/class.plx.token.php';
+include PLX_ROOT.'update/versions.php';
+include PLX_ROOT.'update/class.plx.updater.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;
