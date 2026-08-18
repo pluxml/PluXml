@@ -211,10 +211,6 @@ if (!isset($_GET['code']) && !isset($_POST['provider'])) {
 
 /* ---- traitement du formulaire ---- */
 
-require '../vendor/autoload.php';
-
-// session_start();
-
 $providerName = '';
 $clientId = '';
 $clientSecret = '';
