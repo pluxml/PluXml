@@ -231,7 +231,7 @@ function install_datas($content, $config) {
 		# Création du premier article
 
 		$thumbnail = '';
-		$srcs = glob('*/*/theme/images/pluxml.png');
+		$srcs = glob(PLX_ROOT . '*/*/theme/images/pluxml.png');
 		if(!empty($srcs)) {
 			$thumbnail = $config['medias'] . 'pluxml.png';
 			copy($srcs[0], PLX_ROOT . $thumbnail);
@@ -246,7 +246,7 @@ function install_datas($content, $config) {
 	<template>article.php</template>
 	<chapo><![CDATA[<?= $html[0] ?>]]></chapo>
 	<content><![CDATA[<?= $html[1] ?>]]></content>
-	<tags>PluXml></tags>
+	<tags>PluXml</tags>
 	<meta_description></meta_description>
 	<meta_keywords></meta_keywords>
 	<title_htmltag></title_htmltag>
