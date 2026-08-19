@@ -452,8 +452,8 @@ class plxShow
     {
 
         $desc = plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['description']);
-        if ($this->plxMotor->mode and $desc)
-            echo str_replace('#cat_description', $desc, $format);
+        if ($this->plxMotor->mode == 'categorie' and $desc)
+            echo str_replace('#cat_description', plxUtils::strCheck($desc), $format);
     }
 
     /**
