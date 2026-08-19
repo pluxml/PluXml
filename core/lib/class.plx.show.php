@@ -641,12 +641,12 @@ class plxShow
             '#img_url' => $url,
             '#img_thumb_url' => (!empty($imgThumb) and file_exists(PLX_ROOT . $imgThumb)) ? $this->plxMotor->urlRewrite($imgThumb) : $imgUrl,
             '#img_title' => plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_title')),
-            '#img_alt' => $this->plxMotor->plxRecord_arts->f('thumbnail_alt')
+            '#img_alt' => plxUtils::strCheck($this->plxMotor->plxRecord_arts->f('thumbnail_alt')),
         ));
 
-    if (!$echo) {
-            return $result;
-    }
+        if (!$echo) {
+                return $result;
+        }
 
         echo $result;
     }
@@ -1149,7 +1149,7 @@ class plxShow
                                     case 'status'   :
                                     case 'id'       :
                                     case 'nbcoms'   :
-                                        return $art[$matches[2]];
+                                        return intval($art[$matches[2]]);
                                     case 'chapo'    :
                                     case 'content'  :
                                         return plxUtils::truncate($art[$matches[2]], $lengths[$matches[2]], $ending, true, true);
@@ -1164,7 +1164,7 @@ class plxShow
                                 switch($matches[2]) {
                                     case 'alt'      :
                                     case 'title'    :
-                                        return $art[$matches[2]];
+                                        return plxUtils::strCheck($art[$matches[2]]);
                                     case 'url'      : return $this->plxMotor->urlRewrite($art['thumbnail']);
                                     default         : return '';
                                 }
