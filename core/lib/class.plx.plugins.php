@@ -375,7 +375,7 @@ Drop this plugin now for running PluXml and report to its author !!
 	public function saveConfig($content) {
 
 		# Pas de modification de la config des plugins, si on n'est pas en mode admin.
-		if(!defined('PLX_ADMIN')) { return false; }
+		if(!defined('PLX_ADMIN') or !isset($_SESSION['profil']) or $_SESSION['profil'] != PROFIL_ADMIN) { return false; }
 
 		if(isset($content['activate'])) {
 			if(!empty($content['selection'])) {

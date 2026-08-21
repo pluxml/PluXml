@@ -103,6 +103,7 @@ class plxAdmin extends plxMotor {
 	 * @author	Florent MONTHEL
 	 **/
 	public function editConfiguration($content) {
+		$this->checkProfil(PROFIL_ADMIN);
 
 		$global = $this->aConf;
 
@@ -442,28 +443,28 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Stephane F
 	 **/
 	public function checkProfil($profil, $redirect=true) {
-		$args = func_get_args();
-		if($redirect===true or $redirect===false) $args=$args[0];
-		if($redirect) {
-			if(is_array($args)) {
-				if(!in_array($_SESSION['profil'], $args)) {
-					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
-					exit;
-				}
+		if(isset($_SESSION['profil'])) {
+			$args = func_get_args();
+			if(is_bool($redirect)) {
+				$args = array($args[0]);
 			} else {
-				if($_SESSION['profil']!=$profil) {
-					plxMsg::Error(L_NO_ENTRY);
-					header('Location: index.php');
-					exit;
-				}
+				$redirect = true;
 			}
-		} else {
-			if(is_array($args))
-				return in_array($_SESSION['profil'], $args);
-			else
-				return $_SESSION['profil']==$profil;
+
+			$validProfil = is_array($args) ? in_array($_SESSION['profil'], $args) : ($_SESSION['profil'] == $profil);
+
+			if(!$redirect) {
+				return $validProfil;
+			}
+
+			if($validProfil) {
+				return true;
+			}
 		}
+
+		plxMsg::Error(L_NO_ENTRY);
+		header('Location: index.php');
+		exit;
 	}
 
 	/**
@@ -652,6 +653,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Stéphane F, Pedro "P3ter" CADETE, , J.P. Pourrez @bazooka07
 	 **/
 	public function editUsers($content, $action=false) {
+		$this->checkProfil(PROFIL_ADMIN);
 
 		$save = $this->aUsers;
 
@@ -882,6 +884,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Stephane F, Pedro "P3ter" CADETE, sudwebdesign
 	 **/
 	public function editCategories($content, $action=false) {
+		$this->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR);
 
 		$save = $this->aCats;
 
@@ -1120,6 +1123,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 	 * @author	Stephane F.
 	 **/
 	public function editStatiques($content, $action=false) {
+		$this->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
+
 		$save = $this->aStats;
 
 		if(!empty($content)) {
