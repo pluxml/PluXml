@@ -11,6 +11,8 @@ if(!function_exists('xml_parser_create')) {
 	exit;
 }
 
+include __DIR__ . '/plx_config.php';
+
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.10.0';
 const PLX_URL_REPO = 'https://www.pluxml.org';
