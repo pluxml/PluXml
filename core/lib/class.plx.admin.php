@@ -103,7 +103,9 @@ class plxAdmin extends plxMotor {
 	 * @author	Florent MONTHEL
 	 **/
 	public function editConfiguration($content) {
-		$this->checkProfil(PROFIL_ADMIN);
+		if(preg_match('#' . get_root_url() . 'update/index.php$#', $_SERVER['SCRIPT_NAME']) !== 1) {
+			$this->checkProfil(PROFIL_ADMIN);
+		}
 
 		$global = $this->aConf;
 

@@ -6,9 +6,6 @@
  * @package PLX
  * @author	Stephane F
  **/
-
-define('PLX_UPDATE', PLX_ROOT.'update/');
-
 class plxUpdater {
 
 	public $newVersion = '';
@@ -82,9 +79,18 @@ class plxUpdater {
 	public function updateVersion() {
 
 		# on relit le fichier de paramètre pour récupérer les éventuels nouveaux ajoutés par la mise à jour
-		$new_params = array();
 		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
-		$new_params['version'] = $this->newVersion;
+		$new_params = array(
+			'version' => $this->newVersion,
+			'urlrewriting' => 0,  # On désactive la ré-écriture d'Url par précaution
+		);
+
+		# On contrôle si le thème existe
+		$filename = PLX_ROOT . $this->plxAdmin->aConf['racine_themes'] . $this->plxAdmin->style;
+		if(!file_exists($filename)) {
+			$styles = glob(PLX_ROOT . $this->plxAdmin->aConf['racine_themes'] . '*', GLOB_ONLYDIR);
+			$new_params['style'] = !empty($styles) ? basename($styles[0]) : 'defaut';
+		}
 		$this->plxAdmin->editConfiguration($new_params);
 		printf(L_UPDATE_ENDED.'<br />', $this->newVersion);
 	}
@@ -97,45 +103,43 @@ class plxUpdater {
 	 **/
 	public function doUpdate() {
 
-		$errors = false;
+		$success = true;
 		foreach($this->allVersions as $num_version => $upd_filename) {
 
 			if($upd_filename!='') {
-
-				echo '<p><strong>'.L_UPDATE_INPROGRESS.' '.$num_version.'</strong></p>';
+?>
+<p><strong><?= L_UPDATE_INPROGRESS ?> <?= $num_version ?></strong></p>
+<?php
 				# inclusion du fichier de mise à jour
-				include(PLX_UPDATE.$upd_filename);
+				include __DIR__ . '/' . $upd_filename;
 
 				# création d'un instance de l'objet de mise à jour
 				$class_name = 'update_'.str_replace('.', '_', $num_version);
 				$class_update = new $class_name();
 
 				# appel des différentes étapes de mise à jour
-				$next = true;
 				$step = 1;
-				while($next AND !$errors) {
+				while($success) {
 					$method_name = 'step'.$step;
-					if(method_exists($class_name, $method_name)) {
-						if(!$class_update->$method_name()) {
-							$errors = true; # erreur détectée
-						} else {
-							$step++; # étape suivante
-						}
+					if(!method_exists($class_name, $method_name)) {
+						break;
 					}
-					else $next = false;
+
+					if($class_update->$method_name()) {
+						$step++; # étape suivante
+					} else {
+						$success = false; # erreur détectée
+					}
 				}
 				echo '<br />';
 			}
 
 		}
 		echo '<br />';
-
-		if($errors)
-			echo '<p class="error">'.L_UPDATE_ERROR.'</p>';
-		else
-			echo '<p class="msg">'.L_UPDATE_SUCCESSFUL.'</p>';
-
-		return !$errors;
+?>
+<p class="<?= $success ? 'msg' : 'error' ?>"><?= $success ? L_UPDATE_SUCCESSFUL : L_UPDATE_ERROR ?></p>
+<?php
+		return $success;
 	}
 
 }
@@ -201,4 +205,3 @@ class plxUpdate {
 		return unlink($deldir);
 	}
 }
-?>

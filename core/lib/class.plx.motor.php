@@ -81,8 +81,12 @@ class plxMotor {
 		# gestion du timezone
 		date_default_timezone_set($this->aConf['timezone']);
 		# On vérifie s'il faut faire une mise à jour
-		if((!isset($this->aConf['version']) OR PLX_VERSION!=$this->aConf['version']) AND !defined('PLX_UPDATER')) {
-			header('Location: ' . get_root_url() . 'update/index.php');
+		$update_url = get_root_url() . 'update/index.php';
+		if(
+			(!isset($this->aConf['version']) OR version_compare(PLX_VERSION, $this->aConf['version'], '>')) AND
+			preg_match('#' . $update_url . '$#', $_SERVER['SCRIPT_NAME']) !== 1
+		) {
+			header('Location: ' . $update_url);
 			exit;
 		}
 		# Chargement des variables
