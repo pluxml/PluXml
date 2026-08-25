@@ -717,9 +717,24 @@ article:after {
 	opacity: 0.85;
 }
 
+#img_dialog:open {
+	opacity: 1;
+	transform: scaleX(1);
+}
+
 #img_dialog {
 	padding: 0;
 	border: 1px solid #333;
+	opacity: 0.15;
+	transform: scaleX(0);
+	transition: all 1s allow-discrete;
+}
+
+@starting-style {
+	#img_dialog:open {
+		opacity: 0.15;
+		transform: scaleX(0);
+	}
 }
 
 #img_dialog button {

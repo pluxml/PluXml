@@ -1,7 +1,9 @@
 #!/usr/bin/env php
 
 <?php
-const PLX_CORE = '../../../core/';
+const PLX_ROOT = '../../';
+const PLX_CORE = PLX_ROOT . 'core/';
+
 include PLX_CORE . 'lib/class.plx.utils.php';
 
 foreach(array('plucss', 'theme', 'print',) as $f) {

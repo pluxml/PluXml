@@ -12,17 +12,19 @@
 	if(thumbnails.length > 0) {
 		const dialog = document.getElementById('img_dialog');
 
-		thumbnails.forEach(function(el) {
-			el.addEventListener('click', function(ev){
+		thumbnails.forEach((el) => {
+			el.addEventListener('click', (ev) => {
 				ev.preventDefault();
 				imgPopup.src = ev.target.src.replace(/\.tb\.(jpe?g|webp|png|gif)$/, '.$1');
-				dialog.showModal();
 			});
 		});
 
-		const btnClose = dialog.querySelector('button');
-		btnClose.addEventListener('click', function(ev) {
-			dialog.close();
-		});
+		imgPopup.onload = (ev) => {
+			dialog.showModal();
+		};
+
+		dialog.onclose = (ev) => {
+			imgPopup.src = '';
+		}
 	}
 })();
