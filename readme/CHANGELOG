@@ -1,4 +1,19 @@
-## PluXml 5.10.0i-rc2(2026/08/16)
+## PluXml 5.10.0-rc3(2026/08/26)
+[+] Update CHANGELOG
+[+] Enhance popup for image in defaut theme
+[+] Refacto for updating
+[+] Refacto plxAdmin::checkProfil()
+FIX get_oauth_token.php
+[+] Better include for plx_config.php
+[+] Move config.php to core/lib/plx_config.php
+FIX Fix syntax for include
+FIX Fix for thumbnail and tag of the 1st article in installation
+FIX PlxShow::catDescription()
+FIX For alt attribute of thumbnail in plxShow
+FIX Pattern for plxUtils::FILTER_PROFIL in <input>
+FIX Redirection after installation
+
+## PluXml 5.10.0-rc2(2026/08/16)
 [+] Update CHANGELOG
 [+] Refacto for preview of article
 [+] Enhance display for table of comments in comments.php
@@ -14,7 +29,7 @@ FIX plxUtils::getRacine()
 FIX PlxAdmin::editCategories()
 FIX Trailing "/" for paths in plxAdmin::editConfiguration()
 
-## PluXml 5.10.0i-rc1 (2026/07/17)
+## PluXml 5.10.0-rc1 (2026/07/17)
 FIX Fix plxAdmin::editConfiguration()
 [+] Refacto plxShow::artTags()
 FIX Fix plxShow::artCat()
