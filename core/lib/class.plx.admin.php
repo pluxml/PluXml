@@ -389,38 +389,40 @@ class plxAdmin extends plxMotor {
 	 * @author	Stephane F, Amaury Graillat
 	 **/
 	public function htaccess($action, $url) {
-
-		$capture = '';
-		$base = parse_url($url);
-
-		$plxhtaccess = '
-# BEGIN -- Pluxml
-Options -Multiviews
-<IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteBase '.$base['path'].'
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-# Réécriture des urls
-RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
-RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
-</IfModule>
-# END -- Pluxml
-';
-
-		$htaccess = '';
-		if(is_file(PLX_ROOT.'.htaccess'))
-			$htaccess = file_get_contents(PLX_ROOT.'.htaccess');
-
+		$htaccess = is_file(PLX_ROOT.'.htaccess') ? file_get_contents(PLX_ROOT.'.htaccess') : '';
+		$pattern = '!^# BEGIN -- Pluxml$.*?^# END -- Pluxml!ms';
 		switch($action) {
 			case '0': # désactivation
-				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
-					$htaccess = str_replace($capture[2], '', $htaccess);
+				$htaccess = preg_replace($pattern, '', $htaccess);
 				break;
 			case '1': # activation
-				if(preg_match("/^(.*)(# BEGIN -- Pluxml.*# END -- Pluxml)(.*)$/ms", $htaccess, $capture))
-					$htaccess = trim($capture[1]).$plxhtaccess.trim($capture[3]);
+				$base = parse_url($url,  PHP_URL_PATH);
+				# Ne pas supprimer les lignes vides ci-dessous !!!
+				$plxhtaccess = <<< EOT
+
+# BEGIN -- Pluxml
+Options -Multiviews
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteBase {$base}
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+
+	# For Apache server :
+	RewriteCond %{REQUEST_URI} "!/server-status"
+	RewriteCond %{REQUEST_URI} "!/server-info"
+
+	# Réécriture des urls
+	RewriteRule ^(?!feed)(.*)$ index.php?$1 [L]
+	RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
+</IfModule>
+# END -- Pluxml
+
+EOT;
+				if(preg_match($pattern, $htaccess))
+					$htaccess = preg_replace($pattern, $plxhtaccess, $htaccess);
 				else
 					$htaccess .= $plxhtaccess;
 				break;
