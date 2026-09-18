@@ -40,9 +40,9 @@ if(
 		trim($_SESSION['user']) == ''
 	)
 ) {
-	if(isset($_COOKIE[$session_admin['name']])) {
+	if(isset($_COOKIE[$session_site['name']])) {
 		# On supprime le cookie de session admin
-		setcookie($session_admin['name'], '', 1);
+		setcookie($session_site['name'], '', 1);
 	}
 	header('Location: ' . PAGE_LOGIN . '?p=' . htmlentities($_SERVER['REQUEST_URI']));
 	exit;
