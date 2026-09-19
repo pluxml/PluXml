@@ -1,4 +1,4 @@
-## PluXml 5.8.23 (2027/07/22)
+## PluXml 5.8.23 (2026/07/22)
 FIX $http_response_header for PHP8.4
 FIX curl_close() for PHP8.0
 FIX xml_parser_free() for PHP8.5

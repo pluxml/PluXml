@@ -39,7 +39,7 @@ if(version_compare(PHP_VERSION, '5.0.0', '<')){
 
 # On vérifie que PluXml n'est pas déjà installé
 if(file_exists(path('XMLFILE_PARAMETERS'))) {
-	header('Content-Type: text/plain charset=' . PLX_CHARSET);
+	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
 	echo L_ERR_PLUXML_ALREADY_INSTALLED;
 	exit;
 }
