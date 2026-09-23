@@ -46,7 +46,8 @@ class plxShow
         $langfile = PLX_ROOT . $this->plxMotor->aConf['racine_themes'] . $this->plxMotor->style . '/lang/' . $this->plxMotor->aConf['default_lang'] . '.php';
         if (is_file($langfile)) {
             include $langfile;
-            $this->lang = $LANG; # $LANG = tableau contenant les traductions présentes dans le fichier de langue
+            # $LANG = tableau contenant les traductions présentes dans le fichier de langue
+            $this->lang = isset($LANG) ? $LANG : array();
         }
 
         # Hook Plugins
@@ -102,10 +103,12 @@ class plxShow
      **/
     public function mode($echo = false)
     {
-        if ($echo)
-            echo $this->plxMotor->mode;
-        else
+        if (!$echo) {
             return $this->plxMotor->mode;
+        }
+
+        echo $this->plxMotor->mode;
+        return;
     }
 
     /**
@@ -156,11 +159,10 @@ class plxShow
      * Méthode qui affiche la variable get de l'objet plxMotor (variable $_GET globale)
      *
      * @scope    global
-     * @author    Florent MONTHEL
+     * @author   Florent MONTHEL
      **/
     public function get()
     {
-
         echo $this->plxMotor->get;
     }
 
@@ -470,6 +472,8 @@ class plxShow
         if (isset($this->plxMotor->aCats[$id])) {
             return $this->plxMotor->urlRewrite('?categorie' . intval($id) . '/' . $this->plxMotor->aCats[$id]['url']);
         }
+
+        return '';
     }
 
     /**
@@ -523,7 +527,7 @@ class plxShow
      *
      * @param format    format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
      * @param echo    si à VRAI affichage à l'écran
-     * @return    string
+     * @return   void
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F, Philippe-M
      **/
@@ -535,7 +539,7 @@ class plxShow
             $img_thumb = plxUtils::thumbName($filename);
             $result = strtr($format, array(
                 '#img_url'          =>$img_url,
-                '#img_thumb_url'    => file_exists(PLX_ROOT . $img_thumb) ? $this->urlRewrite($img_thumb, false) : $img_url,
+                '#img_thumb_url'    => file_exists(PLX_ROOT . $img_thumb) ? $this->urlRewrite($img_thumb) : $img_url,
                 '#img_title'        => plxUtils::strCheck(plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_title'])),
                 '#img_alt'          => plxUtils::strCheck(plxUtils::getValue($this->plxMotor->aCats[$this->plxMotor->cible]['thumbnail_alt'])),
             ));
@@ -545,9 +549,10 @@ class plxShow
             }
 
             echo $result;
-        } elseif (!$echo) {
-            return false;
+            return;
         }
+
+        return '';
     }
 
     /**
@@ -649,6 +654,7 @@ class plxShow
         }
 
         echo $result;
+        return;
     }
 
     /**
@@ -845,7 +851,7 @@ class plxShow
         $url = $this->plxMotor->plxRecord_arts->f('url');
         # Formatage de l'affichage
         echo strtr($format, array(
-            '#art_url'      => $this->urlRewrite('?article' . $id . '/' . $url, false),
+            '#art_url'      => $this->urlRewrite('?article' . $id . '/' . $url),
             '#art_title'    => $title,
         ));
     }
@@ -1054,10 +1060,12 @@ class plxShow
 
         # Génération de notre motif
         $generic_mode = in_array($this->plxMotor->mode, array('home', 'categorie', 'tags'));
+
         if(empty($motif)) {
             # On génère $motif car le hook ne  l'a pas fait
             if(!empty($all)) {
                 # catégories sélectionnées par le hook
+                # @phpstan-ignore variable.undefined
                 $cats = $all;
             } else {
                 # Aucune action du hook
@@ -1080,15 +1088,15 @@ class plxShow
                         $cats = '(' . implode('|', array_keys($cats)) . ')';
                     }
                 }
+            }
 
-                if(!empty($cats)) {
-                    $motif = '#^\d{4}\.(?:home,|\d{3},)*' . $cats . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
-                } elseif($generic_mode) { # home, categorie, tags
-                    $motif = $this->plxMotor->motif;
-                } else {
-                    $cats = '(home|000|' . $this->plxMotor->activeCats . ')'; # toutes les categories actives
-                    $motif = '#^\d{4}\.(?:home,|\d{3},)*' . $cats . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
-                }
+            if(!empty($cats)) {
+                $motif = '#^\d{4}\.(?:home,|\d{3},)*' . $cats . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+            } elseif($generic_mode) { # home, categorie, tags
+                $motif = $this->plxMotor->motif;
+            } else {
+                $cats = '(home|000|' . $this->plxMotor->activeCats . ')'; # toutes les categories actives
+                $motif = '#^\d{4}\.(?:home,|\d{3},)*' . $cats . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
             }
         }
 
@@ -1111,6 +1119,7 @@ class plxShow
                 $art = $this->plxMotor->parseArticle(PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $v);
                 $art['num'] = intval($art['numero']);
                 $art['status'] = (($this->plxMotor->mode == 'article') and ($art['numero'] == $this->plxMotor->cible)) ? 'active' : '';
+                $art['ending'] = $ending;
 
                 # Mise en forme de la liste des catégories
                 if(preg_match('~#cat_list\b~', $format)) {
@@ -1156,7 +1165,7 @@ class plxShow
                                         return intval($art[$matches[2]]);
                                     case 'chapo'    :
                                     case 'content'  :
-                                        return plxUtils::truncate($art[$matches[2]], $lengths[$matches[2]], $ending, true, true);
+                                        return plxUtils::truncate($art[$matches[2]], $art[$matches[2] . '_length'], $art['ending'], true, true);
                                     case 'date'     : return plxDate::formatDate($art['date'], '#num_day/#num_month/#num_year(4)');
                                     case 'hour'     : return plxDate::formatDate($art['date'], '#hour:#minute');
                                     case 'time'     : return plxDate::formatDate($art['date'], '#time');
@@ -1654,6 +1663,8 @@ class plxShow
 
             echo $url;
         }
+
+        return '';
     }
 
     /**
@@ -2149,8 +2160,8 @@ class plxShow
             # Affichage annuel
             $id = 0;
             if($this->plxMotor->mode == 'article') {
-				$page_actuelle = substr($page_actuelle, 0 ,4);
-			}
+                $page_actuelle = substr($page_actuelle, 0 ,4);
+            }
             foreach ($cumuls_ans as $annee => $nbarts) {
                 $id++;
                 $active = ($page_actuelle == $annee);
@@ -2173,7 +2184,7 @@ class plxShow
                     $url = ($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) ? '?blog' : '';
                 }
 ?>
-	<hr />
+    <hr />
 <?php
                 echo strtr($format, array(
                     '#archives_id' => 'arch-total',
@@ -2258,16 +2269,13 @@ class plxShow
      * Méthode qui affiche une clé de traduction appelée à partir du thème
      *
      * @param key    clé de traduction à afficher
-     * @return    string
+     * @return    void
      * @scope    global
      * @author    Stephane F
      **/
     public function lang($key = '')
     {
-        if (isset($this->lang[$key]))
-            echo $this->lang[$key];
-        else
-            echo $key;
+        echo isset($this->lang[$key]) ? $this->lang[$key] : $key;
     }
 
     /**
