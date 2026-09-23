@@ -14,38 +14,41 @@ if(($is_login and isset($_GET['d'])) or !empty($_COOKIE['PLX_ADMIN'])) {
 }
 session_start($session_site);
 
-if($is_login and isset($_GET['d'])) {
-	# Déconnexion
-	if(isset($_SESSION['preview'])) {
-		# On suuprime les articles en "preview"
-		foreach(glob($_SESSION['preview']) as $f) {
-			unlink($f);
+if($is_login) {
+	# on est sur la page de login.
+	if(isset($_GET['d'])) {
+		# Déconnexion
+		if(isset($_SESSION['preview'])) {
+			# On suuprime les articles en "preview"
+			foreach(glob($_SESSION['preview']) as $f) {
+				unlink($f);
+			}
 		}
+		$_SESSION = array();
+		$name = session_name();  # normalement est égal à PLX_ADMIN
+		session_destroy();
+		# Effacement du cookie de session
+		setcookie($name, '', 1);
+		header('Location: ' . PAGE_LOGIN);
+	    exit;
 	}
-	$_SESSION = array();
-	$name = session_name();  # normalement est égal à PLX_ADMIN
-	session_destroy();
-	# Effacement du cookie de session
-	setcookie($name, '', 1);
-	header('Location: ' . PAGE_LOGIN);
-    exit;
-}
-
-# On vérifie qu'on n'est pas sur la page de login et qu'on est connecté
-if(
-	!$is_login and (
+} else {
+	# On vérifie qu'on est connecté
+	if(
 		!isset($_SESSION['domain']) or
 		$_SESSION['domain'] != __DIR__ or
 		!isset($_SESSION['user']) or
 		trim($_SESSION['user']) == ''
-	)
-) {
-	if(isset($_COOKIE[$session_site['name']])) {
-		# On supprime le cookie de session admin
-		setcookie($session_site['name'], '', 1);
+	) {
+		# Authentification incorrecte
+		if(isset($_COOKIE[$session_site['name']])) {
+			# On supprime le cookie de session admin
+			setcookie($session_site['name'], '', 1);
+		}
+
+		header('Location: ' . PAGE_LOGIN . '?p=' . htmlentities($_SERVER['REQUEST_URI']));
+		exit;
 	}
-	header('Location: ' . PAGE_LOGIN . '?p=' . htmlentities($_SERVER['REQUEST_URI']));
-	exit;
 }
 
 # On inclut les librairies nécessaires
