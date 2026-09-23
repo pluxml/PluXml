@@ -135,7 +135,7 @@ if ($plxAdmin->aConf['lostpassword']) {
                 $css = 'alert green';
             } else {
                 # $resp is user's infos['password_token_expiry'] (format: 'YmdHis')
-                $msg = sprintf('Wait for %s minutes before a new request', round(strtotime($resp) - strtotime(time())) / 60, 0);
+                $msg = sprintf('Wait for %s minutes before a new request', round(strtotime($resp) - strtotime(time())) / 60);
                 $css = 'alert red';
             }
         } else {
@@ -157,8 +157,6 @@ if ($plxAdmin->aConf['lostpassword']) {
                 $css = 'alert green';
             }
         }
-        unset($_SESSION['error']);
-        unset($_SESSION['info']);
     }
 }
 

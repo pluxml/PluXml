@@ -71,7 +71,6 @@ class plxPlugins {
 
 				if(isset($this->rootPlugins) and preg_match('#' . basename($this->rootPlugins) . '/([^/]+)/\1\.php$#', $error['file'], $matches)) {
 					$pluginName = $matches[1];
-					$newFolder = dirname($filename) . '-orig';
 ?>
 An error is occured with the "<?= strtoupper($pluginName) ?>" plugin :
 <?php
@@ -166,6 +165,7 @@ About this server :
 					(!isset($_SESSION['profil']) or $_SESSION['profil'] > 0)
 				) {
 					echo $hr;
+					$newFolder = dirname($filename) . '-orig';
 					if(rename(dirname($filename), $newFolder)) {
 						# PluXml essaie de sauver la situation
 ?>
@@ -700,11 +700,11 @@ class plxPlugin {
 	 **/
 	public function loadLang($filename) {
 		if(!is_file($filename)) {
-			return;
+			return array();
 		}
 
 		include $filename;
-		return $LANG;
+		return isset($LANG) ? $LANG : array();
 	}
 
 	/**

@@ -63,7 +63,11 @@ if(!empty($_POST) AND !empty($_POST['comId'])) {
 	}
 	# Répondre au commentaire
 	if(isset($_POST['answer'])) {
-		header('Location: comment_new.php?c='.$_POST['comId']).(!empty($_GET['a'])?'&a='.$_GET['a']:'');
+		$redirect = 'comment_new.php?c=' . $_POST['comId'];
+		if(!empty($_GET['a'])) {
+			$redirect .= ',a=' . $_GET['a'];
+		}
+		header('Location: ' . $redirect);
 		exit;
 	}
 	# Edition

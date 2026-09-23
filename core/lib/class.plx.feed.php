@@ -213,7 +213,7 @@ class plxFeed extends plxMotor {
 	/**
 	 * Méthode qui affiche le flux rss des articles du site
 	 *
-	 * @return	flux sur stdout
+	 * @return	void
 	 * @author	Florent MONTHEL, Stephane F, Amaury GRAILLAT
 	 **/
 	public function getRssArticles() {
@@ -292,7 +292,7 @@ class plxFeed extends plxMotor {
 	/**
 	 * Méthode qui affiche le flux rss des commentaires du site
 	 *
-	 * @return	flux sur stdout
+	 * @return	void
 	 * @author	Florent MONTHEL, Amaury GRAILLAT
 	 **/
 	public function getRssComments() {
@@ -371,7 +371,7 @@ class plxFeed extends plxMotor {
 	/**
 	 * Méthode qui affiche le flux RSS des commentaires du site pour l'administration
 	 *
-	 * @return	flux sur stdout
+	 * @return	void
 	 * @author	Florent MONTHEL, Amaury GRAILLAT,Jean-Pierre Pourrez aka bazooka07
 	 **/
 	public function getAdminComments() {

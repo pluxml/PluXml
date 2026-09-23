@@ -75,12 +75,11 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 			'thumbnail'			=> plxUtils::strCheck(trim($_POST['thumbnail'])),
 			'thumbnail_title'	=> plxUtils::strCheck(trim($_POST['thumbnail_title'])),
 			'thumbnail_alt'		=> plxUtils::strCheck(trim($_POST['thumbnail_alt'])),
-			'categorie'			=> '000',
+			'categorie'			=> !empty($array) ? implode(',', $array) : '000',
 			'date'				=> $_POST['date_publication_year'].$_POST['date_publication_month'].$_POST['date_publication_day'].substr(str_replace(':','',$_POST['date_publication_time']),0,4),
 			'date_creation'		=> $_POST['date_creation_year'].$_POST['date_creation_month'].$_POST['date_creation_day'].substr(str_replace(':','',$_POST['date_creation_time']),0,4),
 			'date_update'		=> $_POST['date_update_year'].$_POST['date_update_month'].$_POST['date_update_day'].substr(str_replace(':','',$_POST['date_update_time']),0,4),
 			'nb_com'			=> 0,
-			'categorie'			=> implode(',', $array),
 			'url'				=> L_DEFAULT_NEW_ARTICLE_URL,
 		);
 

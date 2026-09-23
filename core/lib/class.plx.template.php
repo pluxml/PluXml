@@ -41,7 +41,8 @@ class PlxTemplate {
 				$this->setTemplateEmailSubject($template['emailsubject']);
 			}
 
-			if ($this->setTemplateRawContent($template['content']) AND !empty($templatePlaceholdersValues)) {
+			$this->setTemplateRawContent($template['content']);
+			if (!empty($templatePlaceholdersValues)) {
 				$this->setTemplateGeneratedContent($templatePlaceholdersValues);
 			}
 		} else {
@@ -134,10 +135,11 @@ class PlxTemplate {
 	}
 
 	/**
-	 * Set the template's generated content
+	 * Set the template's generated content to the _templateRawContent property
 	 *
+	 * if $placeholdersValue is empty, $this->_templateRawContent is set to '1'
 	 * @param	$templatePlaceholder	array	placeholder's values to replace in the raw template ("##PLACEHOLDER##" => "value")
-	 * @return	string	return "1" if no values for placeholders were given
+	 * @return	void
 	 * @author	Pedro "P3ter" CADETE
 	 */
 	private function setTemplateGeneratedContent(array $placeholdersValues) {

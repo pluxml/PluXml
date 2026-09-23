@@ -42,11 +42,11 @@ class plxCapcha {
 	}
 
 	/**
-	 * Méthode qui génère un mot
+	 * Méthode qui affecte un mot à la propriété $_word
 	 *
 	 * @param	min		longueur mini du mot
 	 * @param	max		longueur maxi du mot
-	 * @return	string	mot composant le capcha
+	 * @return	void
 	 * @author	Anthony GUÉRIN, Stephane F
 	 **/
 	public function createWord($min=5, $max=self::MAX_LENGTH) {
