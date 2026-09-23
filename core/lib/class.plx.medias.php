@@ -45,7 +45,7 @@ class plxMedias {
 			mkdir($this->path.'.thumbs/'.$this->dir,0755,true);
 		}
 
-		$this->aDirs = $this->_getAllDirs($this->path);
+		$this->aDirs = $this->_getAllDirs();
 		$this->aFiles = $this->_getDirFiles($this->dir);
 
 		# Taille maxi des fichiers
@@ -112,52 +112,51 @@ class plxMedias {
 		foreach(array_filter(
 			glob($src.'*'),
 			function($item) { return !preg_match('@\.tb\.\w+$@', $item); } # On rejette les miniatures
-			) as $filename) {
-				if(is_dir($filename)) { continue; }
+		) as $filename) {
+			if(is_dir($filename)) { continue; }
 
-				$thumbInfos = false;
-				if(preg_match(self::IMG_EXTS, $filename, $matches)) {
-					$thumbName = plxUtils::thumbName($filename);
-					if(file_exists($thumbName)) {
-						$thumbInfos = array(
-							'infos' 	=> getimagesize($thumbName),
-							'filesize'	=> filesize($thumbName)
-						);
-					}
-					$sample = $this->path. '.thumbs/' .substr($filename, $offset);
-					$sampleOk = (
-						file_exists($sample) or
-						plxUtils::makeThumb(
-							$filename,
-							$sample
-							)
-						);
+			$thumbInfos = false;
+			$sample = self::DEFAULT_THUMBNAIL;
+			$imgSize = false;
+			if(preg_match(self::IMG_EXTS, $filename, $matches)) {
+				$thumbName = plxUtils::thumbName($filename);
+				if(file_exists($thumbName)) {
+					$thumbInfos = array(
+						'infos' 	=> getimagesize($thumbName),
+						'filesize'	=> filesize($thumbName)
+					);
+				}
+				$thumbName = $this->path. '.thumbs/' .substr($filename, $offset);
+				if(file_exists($thumbName) or
+					plxUtils::makeThumb(
+						$filename,
+						$sample
+						)
+				) {
+					$sample = $thumbName;
 					$imgSize = getimagesize($filename);
-				} else {
-					$imgSize = false;
 				}
-				$stats = stat($filename);
-				$extension = '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-				if($extension == '.svg') {
-					$sample = $filename;
-					$sampleOk = true;
-				}
-				$files[basename($filename)] = array(
-					'.thumb'	=> (!empty($sampleOk)) ? $sample : self::DEFAULT_THUMBNAIL,
-					'name' 		=> basename($filename),
-					'path' 		=> $filename,
-					'date' 		=> $stats['mtime'],
-					'filesize' 	=> $stats['size'],
-					'extension'	=> $extension,
-					'infos' 	=> $imgSize,
-					'thumb' 	=> $thumbInfos
-				);
-				$sample = '';
-				$sampleOk = "";
 			}
+			$stats = stat($filename);
+			$extension = '.' . strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+			if($extension == '.svg') {
+				$sample = $filename;
+				$sampleOk = true;
+			}
+			$files[basename($filename)] = array(
+				'.thumb'	=> $sample,
+				'name' 		=> basename($filename),
+				'path' 		=> $filename,
+				'date' 		=> $stats['mtime'],
+				'filesize' 	=> $stats['size'],
+				'extension'	=> $extension,
+				'infos' 	=> $imgSize,
+				'thumb' 	=> $thumbInfos
+			);
+		}
 
-			ksort($files);
-			return $files;
+		ksort($files);
+		return $files;
 	}
 
 	/**
@@ -261,19 +260,23 @@ class plxMedias {
 	 * @author	Stephane F, J.P. Pourrez (bazooka07)
 	 **/
 	public function newDir($newdir) {
-		if (!empty(trim($newdir))) {
-			$mydir = $this->path.$this->dir;
-			$mydir .= plxUtils::urlify(trim($newdir));
-			// Si le dossier n'existe pas on le créer
-			if (!is_dir($mydir)) {
-				if (!mkdir($mydir, 0755))
-					return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
-				else
-					return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
-			} else {
-				return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
-			}
+		if (empty(trim($newdir))) {
+			return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
 		}
+
+		$mydir = $this->path.$this->dir;
+		$mydir .= plxUtils::urlify(trim($newdir));
+		// On vérifie si le dossier existe déjà
+		if (is_dir($mydir)) {
+			return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_EXISTS);
+		}
+
+		if (mkdir($mydir, 0755)) {
+			return plxMsg::Info(L_PLXMEDIAS_NEW_FOLDER_SUCCESSFUL);
+		}
+
+		# Echec à la création du dossier
+		return plxMsg::Error(L_PLXMEDIAS_NEW_FOLDER_ERR);
 	}
 
 	/**
@@ -339,7 +342,7 @@ class plxMedias {
 	 *
 	 * @param	usrfiles 	fichiers utilisateur à uploader
 	 * @param	post		paramètres
-	 * @return  string		résultat de l'envoi des fichiers
+	 * @return  bool		Le résultat de l'opération est affichée à l'écran
 	 * @author	Stephane F
 	 **/
 	public function uploadFiles($usrfiles, $post) {
@@ -394,10 +397,11 @@ class plxMedias {
 			}
 		}
 
-		if($count==1)
-			return plxMsg::Info(L_PLXMEDIAS_UPLOAD_SUCCESSFUL);
-		elseif($count>1)
-			return plxMsg::Info(L_PLXMEDIAS_UPLOADS_SUCCESSFUL);
+		switch($count) {
+			case 0: return plxMsg::Error(L_PLXMEDIAS_UPLOAD_ERR); break;
+			case 1: return plxMsg::Info(L_PLXMEDIAS_UPLOAD_SUCCESSFUL); break;
+			default : return plxMsg::Info(L_PLXMEDIAS_UPLOADS_SUCCESSFUL);
+		}
 	}
 
 	/**
@@ -420,33 +424,22 @@ class plxMedias {
 
 			# Déplacement du fichier
 			if(is_readable($this->path.$src_dir.$file)) {
-				$result = rename($this->path.$src_dir.$file, $this->path.$dst_dir.$file);
+				if(rename($this->path.$src_dir.$file, $this->path.$dst_dir.$file)) {
+					# Déplacement de la miniature
+					$thumbName = plxUtils::thumbName($file);
+					if(is_readable($this->path.$src_dir.$thumbName)) {
+						rename($this->path.$src_dir.$thumbName, $this->path.$dst_dir.$thumbName);
+					}
+					# Déplacement de la vignette
+					if(is_readable($this->path.'.thumbs/'.$src_dir.$file)) {
+						rename($this->path.'.thumbs/'.$src_dir.$file, $this->path.'.thumbs/'.$dst_dir.$file);
+					}
+				}
 				$count++;
 			}
-			# Déplacement de la miniature
-			$thumbName = plxUtils::thumbName($file);
-			if($result AND is_readable($this->path.$src_dir.$thumbName)) {
-				$result = rename($this->path.$src_dir.$thumbName, $this->path.$dst_dir.$thumbName);
-			}
-			# Déplacement de la vignette
-			if($result AND is_readable($this->path.'.thumbs/'.$src_dir.$file)) {
-				$result = rename($this->path.'.thumbs/'.$src_dir.$file, $this->path.'.thumbs/'.$dst_dir.$file);
-			}
 		}
 
-		if(sizeof($files)==1) {
-			if($count==0)
-				return plxMsg::Error(L_PLXMEDIAS_MOVE_FILE_ERR);
-			else
-				return plxMsg::Info(L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL);
-		}
-		else {
-			if($count==0)
-				return plxMsg::Error(L_PLXMEDIAS_MOVE_FILES_ERR);
-			else
-				return plxMsg::Info(L_PLXMEDIAS_MOVE_FILES_SUCCESSFUL);
-		}
-
+		return ($count != count($files)) ? plxMsg::Error(L_PLXMEDIAS_MOVE_FILE_ERR) : plxMsg::Info(L_PLXMEDIAS_MOVE_FILE_SUCCESSFUL);
 	}
 
 	/**
@@ -535,7 +528,7 @@ class plxMedias {
 						$path = str_replace($this->path, $this->path.'.thumbs/', $dirname);
 						$old_thumbName = $path.$filename;
 						if(is_writable($old_thumbName)) {
-							$new_thumbName = $path.basename($file);
+							$new_thumbName = $path.basename($filename);
 							$result = rename($old_thumbName, $new_thumbName);
 						}
 					}
