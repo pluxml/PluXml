@@ -611,10 +611,10 @@ class plxMotor {
 	}
 
 	/**
-	 * Méthode qui parse le fichier des utilisateurs
+	 * Méthode qui parse le fichier des utilisateurs et alimente la propriété $aUsers
 	 *
 	 * @param	filename	emplacement du fichier XML des passwd
-	 * @return	array		tableau des utilisateurs
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function getUsers($filename) {
@@ -968,6 +968,7 @@ class plxMotor {
 		# On récupère les fichiers des commentaires
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
 		if($aFiles) { # On a des fichiers
+			$array = array();
 			foreach($aFiles as $k=>$v) {
 				$array[$k] = $this->parseCommentaire(PLX_ROOT.$this->aConf['racine_commentaires'].$v);
 			}
