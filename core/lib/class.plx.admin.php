@@ -444,25 +444,22 @@ EOT;
 	/**
 	 * Méthode qui controle l'accès à une page en fonction du profil de l'utilisateur connecté
 	 *
-	 * @param	profil		profil(s) autorisé(s) string ou tableau
-	 * @param	redirect	si VRAI redirige sur la page index.php en cas de mauvais profil(s)
-	 * @return	null
+	 * https://www.php.net/manual/fr/functions.arguments.php#functions.variable-arg-list
+	 * Si la dernière valeur du tableau $profils est booléenne, alors elle gère la redirection en cas de profil non autorisé
+	 *
+	 * @param	profils		profil(s) autorisé(s) string ou tableau
+	 * @return	null|bool
 	 * @author	Stephane F
 	 **/
-	public function checkProfil($profil, $redirect=true) {
-		if(isset($_SESSION['profil'])) {
-			$validProfil = is_array($profil) ? in_array($_SESSION['profil'], $profil) : ($_SESSION['profil'] == $profil);
-
-			if(!is_bool($redirect)) {
-				$redirect = true;
-			}
-
-			if(!$redirect) {
-				return $validProfil;
-			}
-
+	public function checkProfil(...$profils) {
+		if(count($profils) > 0 and isset($_SESSION['profil'])) {
+			$redirect = is_bool($profils[count($profils) - 1]) ? array_pop($profils) : false;
+			$validProfil = in_array($_SESSION['profil'], $profils);
 			if($validProfil) {
 				return true;
+			}
+			if(!$redirect) {
+				return false;
 			}
 		}
 
@@ -695,7 +692,7 @@ EOT;
 
 			foreach($content['users'] as $user_id=>$user_infos) {
 				$new_user = ($user_id == $new_userid);
-				if($new_user and empty(trim($user_infos['fullname'])) and empty(trim($user_infos['fullname']))) {
+				if($new_user and empty(trim($user_infos['fullname'])) and empty(trim($user_infos['login']))) {
 					# Pas de nouvel utilisateur
 					continue;
 				}
@@ -727,7 +724,7 @@ EOT;
 					if($new_user and empty($user_infos['password'])) {
 						# Mot de passe obligatoire pour un nouvel utilisateur
 						$this->aUsers = $save;
-						return plxMsg::Error(L_ERR_INVALID_PASSWORD.' ('.L_CONFIG_USER.' <em>'.$username.'</em>)');
+						return plxMsg::Error(L_ERR_INVALID_PASSWORD.' ('.L_CONFIG_USER.' <em>'.$user_infos['login'].'</em>)');
 					}
 
 					$salt = plxUtils::charAleatoire(10);
@@ -752,8 +749,8 @@ EOT;
 						)
 					);
 
-					$this->aUsers[$user_id]['login'] = $user_info['login'];
-					$this->aUsers[$user_id]['name'] = $user_info['fullname'];
+					$this->aUsers[$user_id]['login'] = $user_infos['login'];
+					$this->aUsers[$user_id]['name'] = $user_infos['fullname'];
 					$this->aUsers[$user_id]['active'] = $active;
 					$this->aUsers[$user_id]['profil'] = $profil;
 				}
@@ -1908,6 +1905,8 @@ EOT;
 				) {
 					$latest_version = 'UPDATE_UNAVAILABLE';
 				}
+		} else {
+			$title = 'javascript';
 		}
 
 		$this->update_link = sprintf('%s : <a href="%s" target="blank">%s</a>', preg_replace('#!\s*#', '!<br>', L_PLUXML_UPDATE_AVAILABLE), $href, $href);
