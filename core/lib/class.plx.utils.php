@@ -257,7 +257,7 @@ class plxUtils {
 	 * @param	readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	class		class css à utiliser pour formater l'affichage
 	 * @param	id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
-	 * @return	self
+	 * @return	void
 	 **/
 	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
 
@@ -304,8 +304,8 @@ class plxUtils {
 	 * @param	placeholder valeur du placeholder du champ (html5)
 	 * @param	extra		extra paramètre pour du javascript par exemple (onclick)
 	 * @param	required	permet de rendre le champ obligatoire
-	 * @return	self
-	 * @author	unknow, Pedro "P3ter" CADETE
+	 * @return	void
+	 * @author	unknown, Pedro "P3ter" CADETE
 	 **/
 	public static function printInput($name, $value='', $type='text', $sizes='50-255', $readonly=false, $className='', $placeholder='', $extra='', $required=false) {
 
@@ -355,15 +355,12 @@ class plxUtils {
 	 * @param	string $className	class css à utiliser pour formater l'affichage
 	 * @param	string $checked		valeur par défaut
 	 * @param	boolean $required	permet de rendre le champ obligatoire
-	 * @return	self
+	 * @return	void
 	 * @author	Pedro "P3ter" CADETE
 	 **/
-	public static function printInputRadio($name, $array, $checked='', $className='', $extra='') {
+	public static function printInputRadio($name, $array, $value='', $className='', $extra='') {
 
-		$params = array(
-			'id="id_'.$name.'"',
-			'name="'.$name.'"',
-		);
+		$params = array();
 		if(!empty($extra)) {
 			$params[] = $extra;
 		}
@@ -371,12 +368,9 @@ class plxUtils {
 			$params[] = 'class="'.$className.'"';
 		}
 		foreach($array as $a => $b) {
-			if ($a == $checked) {
-				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).' checked>&nbsp;'.$b.'<br>';
-			}
-			else {
-				echo '<input type="radio" value="'.$a.'" '.implode(' ', $params).'>&nbsp;'.$b.'<br>';
-			}
+?>
+<input type="radio" id="id_<?= $name ?>" name="<?= $name ?>" value="<?= $a ?>" <?php if(!empty($params)) { echo implode(' ', $params); } ?><?php if($a == $value) { echo ' checked'; }?>>&nbsp;<?= $b ?><br>
+<?php
 		}
 	}
 
@@ -390,7 +384,7 @@ class plxUtils {
 	 * @param	boolean	readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	string	class		class css à utiliser pour formater l'affichage
 	 * @param	boolean	extra		extra permet d'ajouter un élément HTML (exemple : un "onclick" en javascript)
-	 * @return	self
+	 * @return	void
 	 */
 	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width', $extra='') {
 		$attrs = array (
@@ -749,10 +743,25 @@ class plxUtils {
 	 **/
 	public static function formatFilesize($bytes) {
 
-		if ($bytes < 1024) return $bytes.' B';
-		elseif ($bytes < 1048576) return round($bytes / 1024, 2).' Kb';
-		elseif ($bytes < 1073741824) return round($bytes / 1048576, 2).' Mb';
+		$levels = array(
+			1024,
+			1024 * 1024,
+			1024  * 1024 * 1024,
+		);
 
+		if ($bytes < $levels[0]) {
+			return $bytes.' B';
+		}
+
+		if ($bytes < $levels[1]) {
+			return round($bytes / $levels[0], 2).' Kb';
+		}
+
+		if ($bytes < $levels[2]) {
+			return round($bytes / $levels[1], 2).' Mb';
+		}
+
+		return round($bytes / $levels[2], 2).' Gb';
 	}
 
 	/**
@@ -784,7 +793,7 @@ class plxUtils {
 		$image['format'] = strtolower(preg_replace('/^.*?\//', '', $image['mime']));
 
 		# calcul du ration si nécessaire
-		if($thumb_width!=$thumb_height) {
+		if($thumb_width != $thumb_height) {
 			# Calcul du ratio
 			$x_offset = $y_offset = 0;
 			$square_size_w = $image[0];
@@ -804,6 +813,19 @@ class plxUtils {
 			} else {
 				$thumb_width = $image[0];
 				$thumb_height = $image[1];
+			}
+		} else {
+			# Calculate measurements (square crop)
+			if($image[0] > $image[1]) {
+				# For landscape images
+				$x_offset = intval(($image[0] - $image[1]) / 2);
+				$y_offset = 0;
+				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
+			} else {
+				# For portrait and square images
+				$x_offset = 0;
+				$y_offset = intval(($image[1] - $image[0]) / 2);
+				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
 			}
 		}
 
@@ -831,8 +853,12 @@ class plxUtils {
 				$image_data = imagecreatefromwebp($src_image);
 				break;
 			case 'x-ms-bmp':
-				#$image_data = imagecreatefrombmp($src_image); # Only PHP 7+
-				$image_data = false;
+				if(function_exists('imagecreatefrombmp')) {
+					# Only from PHP 7.2.0
+					$image_data = imagecreatefrombmp($src_image);
+				} else {
+					return false;
+				}
 				break;
 			default:
 				return false; # Unsupported format
@@ -841,21 +867,6 @@ class plxUtils {
 
 		# Verify import
 		if($image_data == false) return false;
-
-		# Calculate measurements (square crop)
-		if($thumb_width==$thumb_height) {
-			if($image[0] > $image[1]) {
-				# For landscape images
-				$x_offset = intval(($image[0] - $image[1]) / 2);
-				$y_offset = 0;
-				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
-			} else {
-				# For portrait and square images
-				$x_offset = 0;
-				$y_offset = intval(($image[1] - $image[0]) / 2);
-				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
-			}
-		}
 
 		# Resize and crop
 		if( imagecopyresampled(
@@ -872,7 +883,7 @@ class plxUtils {
 		)) {
 
 			# Create thumbnail
-			switch( strtolower(preg_replace('/^.*\./', '', $dest_image)) ) {
+			switch( strtolower(pathinfo($dest_image, PATHINFO_EXTENSION)) ) {
 				case 'jpg':
 				case 'jpeg':
 					return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
@@ -1256,7 +1267,10 @@ class plxUtils {
 				break;
 			case 'smtpoauth':
 				if(!self::isOauth2Enabled()) {
-					plxMsg::Error('Method with OAuth2 denied');
+					if(class_exists('plxMsg')) {
+						return plxMsg::Error('Method with OAuth2 denied');
+					}
+
 					return false;
 				}
 				$mail->isSMTP();
@@ -1434,7 +1448,7 @@ class plxUtils {
 		if (!$exact) {
 			# ...search the last occurance of a space...
 			$spacepos = strrpos($truncate, ' ');
-			if (isset($spacepos)) {
+			if (is_integer($spacepos)) {
 				# ...and cut the text in this position
 				$truncate = substr($truncate, 0, $spacepos);
 			}
@@ -1467,24 +1481,18 @@ class plxUtils {
 	/**
 	 * Contrôle le nom d'un fichier ou d'un dossier
 	 *
-	 * @param	string  nom d'un fichier
-	 * @return	boolean validité du nom du fichier ou du dossier
+	 * @param	string  $src nom d'un fichier
+	 * @paraaam bool	$isDir
+	 * @return	bool validité du nom du fichier ou du dossier
 	*/
-	public static function checkSource($src, $type='dir') {
+	public static function checkSource($src, $isDir=true) {
 
 		if (is_null($src) OR !strlen($src) OR substr($src,-1,1)=="." OR false!==strpos($src, "..")) {
 			return false;
 		}
 
-		if($type=='dir')
-			$regex = ",(/\.)|[[:cntrl:]]|(//)|(\\\\)|([\\:\*\?\"\<\>\|]),";
-		elseif($type=='file')
-			$regex = ",[[:cntrl:]]|[/\\:\*\?\"\<\>\|],";
-
-		if (preg_match($regex, $src)) {
-			return false;
-		}
-		return true;
+		$regex = $isDir ? ',(/\.)|[[:cntrl:]]|(//)|(\\\\)|([\\:\*\?\'\<\>\|]),' : ',[[:cntrl:]]|[/\\:\*\?\'\<\>\|],';
+		return !preg_match($regex, $src);
 	}
 
 	/**
