@@ -51,16 +51,6 @@ if($is_login) {
 	}
 }
 
-# On inclut les librairies nécessaires
-include_once PLX_CORE.'lib/class.plx.date.php';
-include_once PLX_CORE.'lib/class.plx.glob.php';
-include_once PLX_CORE.'lib/class.plx.utils.php';
-include_once PLX_CORE.'lib/class.plx.msg.php';
-include_once PLX_CORE.'lib/class.plx.record.php';
-include_once PLX_CORE.'lib/class.plx.plugins.php';
-include_once PLX_CORE.'lib/class.plx.motor.php';
-include_once PLX_CORE.'lib/class.plx.admin.php';
-
 # Creation de l'objet principal et premier traitement
 $plxAdmin = plxAdmin::getInstance();
 
@@ -88,10 +78,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 # On impose le charset
 header('Content-Type: text/html; charset='.PLX_CHARSET);
-
-include_once PLX_CORE.'lib/class.plx.encrypt.php';
-include_once PLX_CORE.'lib/class.plx.medias.php';
-include_once PLX_CORE.'lib/class.plx.token.php';
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminPrepend'));

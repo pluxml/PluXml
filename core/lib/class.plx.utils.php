@@ -217,7 +217,7 @@ class plxUtils {
 		# plxAdmin::editUsers() : id, name, login, password, email, profil, active
 		# install/index.php : name, login, password, password2, email ( id == '001' )
 
-		$withMsg = class_exists('plxMsg');
+		$withMsg = class_exists('plxMsg', false);
 
 		# controle de l'"id", du "name", du "login", du "password" et du "password2" de l'user
 		foreach(self::FILTER_PROFIL as $field=>$infos) {
@@ -1158,7 +1158,7 @@ class plxUtils {
 	 * @author	Jean-Pierre Pourrez @bazooka07
 	 **/
 	public static function isPHPMailer() {
-		return class_exists('PHPMailer\\PHPMailer\\PHPMailer');
+		return class_exists('PHPMailer\\PHPMailer\\PHPMailer', false);
 	}
 
 	/*
@@ -1171,7 +1171,7 @@ class plxUtils {
 	 **/
 	public static function isOauth2Enabled($provider='Google') {
 		# Possible values for $provider : Google, Yahoo, Facebook, ...
-		return class_exists('League\\OAuth2\\Client\\Provider\\' . $provider);
+		return class_exists('League\\OAuth2\\Client\\Provider\\' . $provider, false);
 	}
 
 	/**
@@ -1267,7 +1267,7 @@ class plxUtils {
 				break;
 			case 'smtpoauth':
 				if(!self::isOauth2Enabled()) {
-					if(class_exists('plxMsg')) {
+					if(class_exists('plxMsg', false)) {
 						return plxMsg::Error('Method with OAuth2 denied');
 					}
 
@@ -1750,7 +1750,7 @@ EOT;
 		if(empty($file)) {
 			$mask = false;
 			$root = false;
-			if(!class_exists('plxShow')) {
+			if(!class_exists('plxShow', false)) {
 				/*
 				 * Mode intelligent pour les fichiers :
 				 *

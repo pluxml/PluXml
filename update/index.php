@@ -11,20 +11,8 @@ if(version_compare(PHP_VERSION, '5.0.0', '<')){
 	exit;
 }
 
-# On inclut les librairies nécessaires
-include PLX_CORE.'lib/class.plx.date.php';
-include PLX_CORE.'lib/class.plx.glob.php';
-include PLX_CORE.'lib/class.plx.utils.php';
-include PLX_CORE.'lib/class.plx.msg.php';
-include PLX_CORE.'lib/class.plx.record.php';
-include PLX_CORE.'lib/class.plx.motor.php';
-include PLX_CORE.'lib/class.plx.admin.php';
-include PLX_CORE.'lib/class.plx.encrypt.php';
-include PLX_CORE.'lib/class.plx.plugins.php';
-include PLX_CORE.'lib/class.plx.token.php';
-
-include __DIR__ . '/versions.php';
-include __DIR__ . '/class.plx.updater.php';
+require 'versions.php';
+require 'class.plx.updater.php';
 
 # Chargement des langues
 $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : DEFAULT_LANG;

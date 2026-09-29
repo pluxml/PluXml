@@ -21,11 +21,6 @@ include PLX_CORE.'lib/config.php';
 $session_site['name'] = 'PLX_INSTALL';
 session_start($session_site);
 
-# On inclut les librairies nécessaires
-include PLX_CORE.'lib/class.plx.timezones.php';
-include PLX_CORE.'lib/class.plx.utils.php';
-include PLX_CORE.'lib/class.plx.token.php';
-
 # Chargement des langues
 if(!empty($_POST)){
 	$lang = $_POST['default_lang'];

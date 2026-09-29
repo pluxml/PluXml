@@ -141,3 +141,5 @@ $session_site = array(
 	'cookie_domain'		=> $_SERVER['SERVER_NAME'],
 );
 
+require 'autoloader.php';
+

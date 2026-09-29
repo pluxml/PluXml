@@ -9,15 +9,6 @@ include PLX_CORE.'lib/config.php';
 # https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 header('Access-Control-Allow-Origin: *');
 
-# On inclut les librairies nécessaires
-include PLX_CORE.'lib/class.plx.date.php';
-include PLX_CORE.'lib/class.plx.glob.php';
-include PLX_CORE.'lib/class.plx.utils.php';
-include PLX_CORE.'lib/class.plx.record.php';
-include PLX_CORE.'lib/class.plx.motor.php';
-include PLX_CORE.'lib/class.plx.feed.php';
-include PLX_CORE.'lib/class.plx.plugins.php';
-
 # Creation de l'objet principal et lancement du traitement
 $plxFeed = plxFeed::getInstance();
 
