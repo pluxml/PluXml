@@ -6,7 +6,7 @@
 
 <?php eval($plxAdmin->plxPlugins->callHook('AdminFootEndBody')) # Hook Plugins ?>
 
-<script src="js/visual.js?v=<?php echo PLX_VERSION ?>"></script>
+<script src="js/visual.js?v=<?= PLX_VERSION ?>"></script>
 <script src="js/drag-and-drop.js"></script>
 <script>
 	setMsg();
@@ -14,9 +14,9 @@
 if(preg_match('#/(?:medias|article|categorie|statique)\.php$#', $_SERVER['SCRIPT_NAME'])) {
 ?>
 	mediasManager.construct({
-		windowName : "<?php echo L_MEDIAS_TITLE ?>",
-		racine:	'<?php echo $plxAdmin->racine ?>',
-		urlManager: '<?php echo preg_replace('#(\w[\w-]+\.php)$#', 'medias.php', $_SERVER['SCRIPT_NAME']) ?>',
+		windowName : "<?= L_MEDIAS_TITLE ?>",
+		racine:	'<?= $plxAdmin->racine ?>',
+		urlManager: '<?= preg_replace('#(\w[\w-]+\.php)$#', 'medias.php', $_SERVER['SCRIPT_NAME']) ?>',
 	});
 <?php
 }
@@ -48,7 +48,7 @@ if(preg_match('#/(?:medias|article|categorie|statique)\.php$#', $_SERVER['SCRIPT
 				// interdire la sélection des dossiers
 				var option = this.filesSelect.options[this.filesSelect.selectedIndex];
 				if(option.value.length == 0 || option.hasAttribute('data-folder')) {
-					alert("<?php echo L_FILE_REQUIRED;?>");
+					alert("<?= L_FILE_REQUIRED;?>");
 					event.preventDefault();
 				}
 			}

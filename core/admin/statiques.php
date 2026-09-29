@@ -46,13 +46,13 @@ function checkBox(cb) {
 <form action="statiques.php" method="post" id="form_statics">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_STATICS_PAGE_TITLE ?></h2>
-		<p><a class="back" href="index.php"><?php echo L_BACK_TO_ARTICLES ?></a></p>
+		<h2><?= L_STATICS_PAGE_TITLE ?></h2>
+		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="submit" value="<?php echo L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?php echo L_CONFIRM_DELETE ?>')" />
-		<?php echo plxToken::getTokenPostMethod() ?>
+		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?= L_CONFIRM_DELETE ?>')" />
+		<?= plxToken::getTokenPostMethod() ?>
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input type="submit" name="update" value="<?php echo L_STATICS_UPDATE ?>" />
+		<input type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticsTop')) # Hook Plugins ?>
@@ -129,7 +129,7 @@ if($plxAdmin->aStats) {
 $new_staticid = str_pad($a['0'] + 1, 3, '0', STR_PAD_LEFT);
 ?>
 				<tr class="new">
-					<td colspan="3"><?php echo L_STATICS_NEW_PAGE ?></td>
+					<td colspan="3"><?= L_STATICS_NEW_PAGE ?></td>
 					<td>
 						<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />
 						<?php plxUtils::printInput($new_staticid.'_group', '', 'text', '-100'); ?>

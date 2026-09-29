@@ -29,18 +29,18 @@ if($emailBuild) {
 ?>
 
 <div class="inline-form action-bar">
-	<h2><?php echo L_CONFIG_INFOS_TITLE ?></h2>
-	<p><?php echo L_PLUXML_CHECK_VERSION ?></p>
+	<h2><?= L_CONFIG_INFOS_TITLE ?></h2>
+	<p><?= L_PLUXML_CHECK_VERSION ?></p>
 	<?php $maj = $plxAdmin->checkMaj(); echo $maj; ?>
 </div>
 
-<p><?php echo L_CONFIG_INFOS_DESCRIPTION ?></p>
+<p><?= L_CONFIG_INFOS_DESCRIPTION ?></p>
 
-<p><strong><?php echo L_PLUXML_VERSION; ?> <?php echo PLX_VERSION; ?> (<?php echo L_INFO_CHARSET ?> <?php echo PLX_CHARSET ?>)</strong></p>
+<p><strong><?= L_PLUXML_VERSION; ?> <?= PLX_VERSION; ?> (<?= L_INFO_CHARSET ?> <?= PLX_CHARSET ?>)</strong></p>
 <ul class="unstyled-list">
-	<li><?php echo L_INFO_PHP_VERSION; ?> : <?php echo phpversion(); ?></li>
+	<li><?= L_INFO_PHP_VERSION; ?> : <?= phpversion(); ?></li>
 <?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
-	<li><?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
+	<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
 <?php } ?>
 	<li><?= PLX_DEBUG ? php_uname() : PHP_OS ?></li>
 </ul>
@@ -61,7 +61,7 @@ if($emailBuild) {
 	if(plxUtils::testMail() and is_string($email) and !$emailBuild) {
 ?>
 		<form method="post">
-			<?php echo plxToken::getTokenPostMethod() ?>
+			<?= plxToken::getTokenPostMethod() ?>
 			<input type="submit" name="sendmail-test" value="<?= L_MAIL_TEST ?>" />
 		</form>
 <?php
@@ -69,12 +69,12 @@ if($emailBuild) {
 ?>
 </ul>
 <ul class="unstyled-list">
-	<li><?php echo L_CONFIG_INFOS_NB_ARTS ?> <?php echo sizeof($plxAdmin->plxGlob_arts->aFiles); ?></li>
-	<li><?php echo L_CONFIG_INFOS_NB_CATS ?> <?php echo sizeof($plxAdmin->aCats); ?></li>
-	<li><?php echo L_CONFIG_INFOS_NB_STATICS ?> <?php echo sizeof($plxAdmin->aStats); ?></li>
-	<li><?php echo L_CONFIG_INFOS_NB_USERS ?> <?php echo sizeof($plxAdmin->aUsers); ?></li>
-	<li><?php echo L_CONFIG_INFOS_NEXT_ID_ART ?> <?php echo $plxAdmin->nextIdArticle(); ?></li>
-	<li><?php echo L_CONFIG_INFOS_WRITER ?> <?php echo $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></li>
+	<li><?= L_CONFIG_INFOS_NB_ARTS ?> <?= sizeof($plxAdmin->plxGlob_arts->aFiles); ?></li>
+	<li><?= L_CONFIG_INFOS_NB_CATS ?> <?= sizeof($plxAdmin->aCats); ?></li>
+	<li><?= L_CONFIG_INFOS_NB_STATICS ?> <?= sizeof($plxAdmin->aStats); ?></li>
+	<li><?= L_CONFIG_INFOS_NB_USERS ?> <?= sizeof($plxAdmin->aUsers); ?></li>
+	<li><?= L_CONFIG_INFOS_NEXT_ID_ART ?> <?= $plxAdmin->nextIdArticle(); ?></li>
+	<li><?= L_CONFIG_INFOS_WRITER ?> <?= $plxAdmin->aUsers[$_SESSION['user']]['name'] ?></li>
 </ul>
 <?php
 # Check if core/lib folder not unreachable

@@ -104,11 +104,11 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 <form action="parametres_themes.php" method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
-		<h2><?php echo L_CONFIG_VIEW_SKIN_SELECT ?> </h2>
-		<p><?php echo L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
-		<input type="submit" value="<?php echo L_CONFIG_THEME_UPDATE ?>" />
+		<h2><?= L_CONFIG_VIEW_SKIN_SELECT ?> </h2>
+		<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
+		<input type="submit" value="<?= L_CONFIG_THEME_UPDATE ?>" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?php echo L_CONFIG_VIEW_FILES_EDIT_TITLE ?>" />
+		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?= L_CONFIG_VIEW_FILES_EDIT_TITLE ?>" />
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
@@ -117,7 +117,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 		<table id="themes-table" class="full-width">
 			<thead>
 				<tr>
-					<th colspan="2"><?php echo L_THEMES ?></th>
+					<th colspan="2"><?= L_THEMES ?></th>
 					<th style="width: 100%">&nbsp;</th>
 				</tr>
 			</thead>
@@ -158,7 +158,7 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 	</div>
 
 	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
-	<?php echo plxToken::getTokenPostMethod() ?>
+	<?= plxToken::getTokenPostMethod() ?>
 
 </form>
 

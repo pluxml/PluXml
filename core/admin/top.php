@@ -2,23 +2,23 @@
 if(!defined('PLX_ROOT')) { exit; }
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $plxAdmin->aConf['default_lang'] ?>">
+<html lang="<?= $plxAdmin->aConf['default_lang'] ?>">
 <head>
 	<meta name="robots" content="noindex, nofollow" />
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
-	<meta charset="<?php echo strtolower(PLX_CHARSET) ?>" />
-	<title><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?php echo L_ADMIN ?></title>
+	<meta charset="<?= strtolower(PLX_CHARSET) ?>" />
+	<title><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?> <?= L_ADMIN ?></title>
 <?php plxUtils::printLinkCss(); ?>
-	<script src="js/functions.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script src="js/mediasManager.js?v=<?php echo PLX_VERSION ?>"></script>
-	<script defer src="js/multifiles.js?v=<?php echo PLX_VERSION ?>"></script>
+	<script src="js/functions.js?v=<?= PLX_VERSION ?>"></script>
+	<script src="js/mediasManager.js?v=<?= PLX_VERSION ?>"></script>
+	<script defer src="js/multifiles.js?v=<?= PLX_VERSION ?>"></script>
 <?php
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminTopEndHead'));
 ?>
 </head>
 
-<body id="<?php echo basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
+<body id="<?= basename($_SERVER['SCRIPT_NAME'], ".php") ?>">
 
 <main class="main grid">
 
@@ -26,24 +26,24 @@ if(!defined('PLX_ROOT')) { exit; }
 		<header class="header sml-text-center med-text-right">
 			<ul class="unstyled-list head">
 				<li>
-					<small><a class="back-site" href="<?php echo PLX_ROOT ?>" title="<?php echo L_BACK_TO_SITE_TITLE ?>"><?php echo L_BACK_TO_SITE;?></a></small>
+					<small><a class="back-site" href="<?= PLX_ROOT ?>" title="<?= L_BACK_TO_SITE_TITLE ?>"><?= L_BACK_TO_SITE;?></a></small>
 				</li>
 				<li>
 <?php if(isset($plxAdmin->aConf['homestatic']) AND !empty($plxAdmin->aConf['homestatic'])) : ?>
-					<small><a class="back-blog" href="<?php echo $plxAdmin->urlRewrite('?blog'); ?>" title="<?php echo L_BACK_TO_BLOG_TITLE ?>"><?php echo L_BACK_TO_BLOG;?></a></small>
+					<small><a class="back-blog" href="<?= $plxAdmin->urlRewrite('?blog'); ?>" title="<?= L_BACK_TO_BLOG_TITLE ?>"><?= L_BACK_TO_BLOG;?></a></small>
 <?php else: ?>&nbsp;
 <?php endif; ?>
 				</li>
 				<li>
-					<small><a class="logout" href="auth.php?d=1" title="<?php echo L_ADMIN_LOGOUT_TITLE ?>"><?php echo L_ADMIN_LOGOUT ?></a></small>
+					<small><a class="logout" href="auth.php?d=1" title="<?= L_ADMIN_LOGOUT_TITLE ?>"><?= L_ADMIN_LOGOUT ?></a></small>
 				</li>
 			</ul>
 			<ul class="unstyled-list profil">
 				<li>
-					<h1 class="h5 no-margin site-name"><strong><?php echo plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1>
+					<h1 class="h5 no-margin site-name"><strong><?= plxUtils::strCheck($plxAdmin->aConf['title']) ?></strong></h1>
 				</li>
 				<li>
-					<strong><?php echo plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
+					<strong><?= plxUtils::strCheck($plxAdmin->aUsers[$_SESSION['user']]['name']) ?></strong>&nbsp;:
 					<em>
 						<?php if($_SESSION['profil']==PROFIL_ADMIN) echo L_PROFIL_ADMIN;
 						elseif($_SESSION['profil']==PROFIL_MANAGER) echo L_PROFIL_MANAGER;
@@ -52,11 +52,11 @@ if(!defined('PLX_ROOT')) { exit; }
 						else echo L_PROFIL_WRITER; ?>
 					</em>
 				</li>
-				<li><small><a class="version" title="PluXml" href="<?php echo PLX_URL_REPO ?>">PluXml <?php echo $plxAdmin->aConf['version'] ?></a></small></li>
+				<li><small><a class="version" title="PluXml" href="<?= PLX_URL_REPO ?>">PluXml <?= $plxAdmin->aConf['version'] ?></a></small></li>
 			</ul>
 		</header>
 		<nav class="responsive-menu">
-			<label for="nav"><?php echo L_MENU ?></label>
+			<label for="nav"><?= L_MENU ?></label>
 			<input type="checkbox" id="nav" />
 			<ul id="responsive-menu" class="menu vertical expanded">
 <?php
