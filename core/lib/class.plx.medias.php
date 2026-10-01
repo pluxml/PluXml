@@ -24,9 +24,9 @@ class plxMedias {
 	/**
 	 * Constructeur qui initialise la variable de classe
 	 *
-	 * @param	path	répertoire racine des médias
-	 * @param	dir		dossier de recherche
-	 * @return	null
+	 * @param	string $path	répertoire racine des médias
+	 * @param	string $dir		dossier de recherche
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function __construct($path, $dir) {
@@ -49,23 +49,38 @@ class plxMedias {
 		$this->aFiles = $this->_getDirFiles($this->dir);
 
 		# Taille maxi des fichiers
-		$maxUpload = strtoupper(ini_get("upload_max_filesize"));
-		$this->maxUpload['display'] = str_replace('M', ' Mo', $maxUpload);
-		$this->maxUpload['display'] = str_replace('K', ' Ko', $this->maxUpload['display']);
-		if(substr_count($maxUpload, 'K')) $this->maxUpload['value'] = str_replace('K', '', $maxUpload) * 1024;
-		elseif(substr_count($maxUpload, 'M')) $this->maxUpload['value'] = str_replace('M', '', $maxUpload) * 1024 * 1024;
-		elseif(substr_count($maxUpload, 'G')) $this->maxUpload['value'] = str_replace('G', '', $maxUpload) * 1024 * 1024 * 1024;
-		else $this->maxUpload['value'] = 0;
+		$max = strtoupper(ini_get('upload_max_filesize'));
+		$value = 0;
+		if(preg_match('#^(\d+)\s*([KMG])#', $max, $matches)) {
+			$value = intval($matches[1]);
+			switch($matches[2]) {
+				# No break;
+				case 'G': $value *= 1024;
+				case 'M': $value *= 1024 ;
+				case 'K': $value *= 1024;
+			}
+		}
+		$this->maxUpload = array(
+			'display'	=> preg_replace('#\s*(M|K)\b#', ' $1o', $max),
+			'value'		=> $value,
+		);
 
 		# Taille maxi des données
-		$maxPost = strtoupper(ini_get("post_max_size"));
-		$this->maxPost['display'] = str_replace('M', ' Mo', $maxPost);
-		$this->maxPost['display'] = str_replace('K', ' Ko', $this->maxPost['display']);
-		if(substr_count($maxPost, 'K')) $this->maxPost['value'] = str_replace('K', '', $maxPost) * 1024;
-		elseif(substr_count($maxPost, 'M')) $this->maxPost['value'] = str_replace('M', '', $maxPost) * 1024 * 1024;
-		elseif(substr_count($maxPost, 'G')) $this->maxPost['value'] = str_replace('G', '', $maxPost) * 1024 * 1024 * 1024;
-		else $this->maxPost['value'] = 0;
-
+		$max = strtoupper(ini_get('post_max_size'));
+		$value = 0;
+		if(preg_match('#^(\d+)\s*([KMG])#', $max, $matches)) {
+			$value = intval($matches[1]);
+			switch($matches[2]) {
+				# No break;
+				case 'G': $value *= 1024;
+				case 'M': $value *= 1024 ;
+				case 'K': $value *= 1024;
+			}
+		}
+		$this->maxPost = array(
+			'display'	=> preg_replace('#\s*(M|K)\b#', ' $1o', $max),
+			'value'		=> $value,
+		);
 	}
 
 	/**
@@ -96,7 +111,7 @@ class plxMedias {
 	/**
 	 * Méthode qui retourne la liste des fichiers d'un répertoire
 	 *
-	 * @param	dir		répertoire de lecture
+	 * @param	string $dir		répertoire de lecture
 	 * @return	array	tableau contenant la liste de tous les fichiers d'un dossier
 	 * @author	Stephane F
 	 **/
@@ -172,8 +187,8 @@ class plxMedias {
 	/**
 	 * Méthode qui supprime un fichier (et sa vignette si elle existe dans le cas d'une image)
 	 *
-	 * @param	files	liste des fichier à supprimer
-	 * @return  boolean	faux si erreur sinon vrai
+	 * @param	array $files	liste des fichier à supprimer
+	 * @return  bool	faux si erreur sinon vrai
 	 * @author	Stephane F
 	 **/
 	public function deleteFiles($files) {
@@ -213,8 +228,8 @@ class plxMedias {
 	/**
 	 * Méthode récursive qui supprimes tous les dossiers et les fichiers d'un répertoire
 	 *
-	 * @param	deldir	répertoire de suppression
-	 * @return	boolean	résultat de la suppression
+	 * @param	string $deldir	répertoire de suppression
+	 * @return	bool	résultat de la suppression
 	 * @author	Stephane F
 	 **/
 	private function _deleteDir($deldir) { #fonction récursive
@@ -236,7 +251,7 @@ class plxMedias {
 	/**
 	 * Méthode qui supprime un dossier et son contenu
 	 *
-	 * @param	deleteDir	répertoire à supprimer
+	 * @param	string $deldir	répertoire à supprimer
 	 * @return  boolean	faux si erreur sinon vrai
 	 * @author	Stephane F
 	 **/
@@ -255,8 +270,8 @@ class plxMedias {
 	/**
 	 * Méthode qui crée un nouveau dossier
 	 *
-	 * @param	newdir	nom du répertoire à créer
-	 * @return  boolean	faux si erreur sinon vrai
+	 * @param	string $newdir	nom du répertoire à créer
+	 * @return  bool	faux si erreur sinon vrai
 	 * @author	Stephane F, J.P. Pourrez (bazooka07)
 	 **/
 	public function newDir($newdir) {
@@ -282,9 +297,9 @@ class plxMedias {
 	/**
 	 * Méthode qui envoie un fichier sur le serveur
 	 *
-	 * @param	file	fichier à uploader
-	 * @param	resize	taille du fichier à redimensionner si renseigné
-	 * @param	thumb	taille de la miniature à créer si renseigné
+	 * @param	string $file	fichier à uploader
+	 * @param	array $resize	taille du fichier à redimensionner si renseigné
+	 * @param	array $thumb	taille de la miniature à créer si renseigné
 	 * @return  string	message contenant le résultat de l'envoi du fichier
 	 * @author	Stephane F, Pedro "P3ter" CADETE
 	 **/
@@ -340,8 +355,8 @@ class plxMedias {
 	/**
 	 * Méthode qui envoie une liste de fichiers sur le serveur
 	 *
-	 * @param	usrfiles 	fichiers utilisateur à uploader
-	 * @param	post		paramètres
+	 * @param	array $usrfiles 	fichiers utilisateur à uploader
+	 * @param	array $post		paramètres
 	 * @return  bool		Le résultat de l'opération est affichée à l'écran
 	 * @author	Stephane F
 	 **/
@@ -407,9 +422,9 @@ class plxMedias {
 	/**
 	 * Méthode qui déplace une ou plusieurs fichiers
 	 *
-	 * @param   files		liste des fichier à déplacer
-	 * @param	src_dir		répertoire source
-	 * @param	dst_dir		répertoire destination
+	 * @param   array $files		liste des fichier à déplacer
+	 * @param	string $src_dir		répertoire source
+	 * @param	string $dst_dir		répertoire destination
 	 * @return  boolean		faux si erreur sinon vrai
 	 * @author	Stephane F
 	 **/
@@ -445,10 +460,10 @@ class plxMedias {
 	/**
 	 * Méthode qui recréer les miniatures
 	 *
-	 * @param   files		liste des fichier à déplacer
-	 * @param	width		largeur des miniatures
-	 * @param	height		hauteur des miniatures
-	 * @return  boolean		faux si erreur sinon vrai
+	 * @param   array $files		liste des fichier à déplacer
+	 * @param	int $width		largeur des miniatures
+	 * @param	int $height		hauteur des miniatures
+	 * @return  bool		faux si erreur sinon vrai
 	 * @author	Stephane F
 	 **/
 	public function makeThumbs($files, $width, $height) {
@@ -484,9 +499,9 @@ class plxMedias {
 	/**
 	 * Méthode qui renomme un fichier
 	 *
-	 * @param   oldname		ancien nom
-	 * @param	newname		nouveau nom
-	 * @return  boolean		faux si erreur sinon vrai
+	 * @param   string $oldname		ancien nom
+	 * @param	string $newname		nouveau nom
+	 * @return  bool		faux si erreur sinon vrai
 	 * @author	Stephane F, J.P. "bazooka07" Pourrez, Pedro "P3ter" CADETE
 	 **/
 	public function renameFile($oldname, $newname) {

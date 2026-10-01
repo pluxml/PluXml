@@ -10,7 +10,9 @@
 const PLX_SHOW = true;
 
 # Initialisation du timer d'execution
-define('PLX_MICROTIME', getMicrotime());
+if(!defined('PLX_MICROTIME')) {
+	define('PLX_MICROTIME', microtime(true));
+}
 
 require_once 'class.plx.motor.php';
 require_once 'class.plx.date.php';
@@ -39,8 +41,7 @@ class plxShow
     /**
      * Constructeur qui initialise l'objet plxMotor par référence
      *
-     * @param plxMotor    objet plxMotor passé par référence
-     * @return    null
+     * @return    void
      * @author    Florent MONTHEL
      **/
     protected function __construct()
@@ -64,7 +65,7 @@ class plxShow
     /**
      * Méthode qui affiche les urls réécrites
      *
-     * @param url            url à réécrire
+     * @param string $url            url à réécrire
      * @author    Stéphane F
      **/
     public function urlRewrite($url = '')
@@ -102,8 +103,8 @@ class plxShow
     /**
      * Méthode qui affiche ou retourne le mode d'affichage
      *
-     * @param echo    si à VRAI affichage écran (à FAUX par défaut pour gérer la non régression PluXml < 5.6)
-     * @return    string    mode d'affichage (home, article, categorie, static ou erreur)
+     * @param bool $echo    pour affichage écran (à FAUX par défaut pour gérer la non régression PluXml < 5.6)
+     * @return    void|string    mode d'affichage (home, article, categorie, static ou erreur)
      * @scope    global
      * @author    Stephane F.
      **/
@@ -114,13 +115,12 @@ class plxShow
         }
 
         echo $this->plxMotor->mode;
-        return;
     }
 
     /**
      * Méthode qui affiche le charset selon la casse $casse
      *
-     * @param casse    casse min ou maj
+     * @param  string $casse    casse min ou maj
      * @scope    global
      * @author    Florent MONTHEL
      **/
@@ -148,8 +148,8 @@ class plxShow
     /**
      * Méthode qui affiche ou renvoie la langue par défaut
      *
-     * @param echo        si à VRAI affichage à l'écran
-     * @return    stdout/string
+     * @param 	bool $echo        pour affichage à l'écran
+     * @return    void|string
      * @author    Stéphane F
      **/
     public function defaultLang($echo = true)
@@ -180,8 +180,9 @@ class plxShow
      **/
     public function chrono()
     {
-
-        echo round(getMicrotime() - PLX_MICROTIME, 3) . 's';
+        if(defined('PLX_MICROTIME')) {
+			echo round(microtime(true) - PLX_MICROTIME, 3) . 's';
+		}
     }
 
     /**
@@ -200,9 +201,9 @@ class plxShow
     /**
      * Méthode qui affiche le titre de la page selon le mode
      *
-     * @parm    format        format d'affichage (ex: home=#title - #subtitle;article=#title)
+     * @parm    string $format        format d'affichage (ex: home=#title - #subtitle;article=#title)
      *                        paramètres: home, categorie, article, static, archives, tags, erreur
-     * @parm    sep            caractère de séparation dans le format d'affichage entre les paramètres
+     * @parm    char $sep            caractère de séparation dans le format d'affichage entre les paramètres
      * @scope    global
      * @author    Stéphane F, J-Pierre Pourrez @bazooka07
      **/
@@ -256,8 +257,8 @@ class plxShow
     /**
      * Méthode qui affiche le meta passé en paramètre
      *
-     * @param meta    nom du meta à afficher (description, keywords,author)
-     * @param echo    retourner la valeur de content ou afficher la basise <meta>
+     * @param string $meta    nom du meta à afficher (description, keywords,author)
+     * @param bool $echo    retourner la valeur de content ou afficher la basise <meta>
      * @scope    global
      * @author    Stéphane F, Pedro "P3ter" CADETE, J-Pierre Pourrez @bazooka07
      **/
@@ -315,7 +316,7 @@ class plxShow
     /**
      * Méthode qui affiche le titre du blog linké (variable $type='link') ou non
      *
-     * @param type    type d'affichage: texte ou sous forme de lien
+     * @param string $type    type d'affichage: texte ou sous forme de lien
      * @scope    global
      * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F
      **/
@@ -407,7 +408,7 @@ class plxShow
     /**
      * Méthode qui retourne les id de catégorie pour la categorie ou l'article en cours
      *
-     * @param bool asArray retourne le resultat sous forme d'un tableau de chaines au lieu d'une ".CSV" chaine
+     * @param bool $asArray retourne le resultat sous forme d'un tableau de chaines au lieu d'une ".CSV" chaine
      * @return    string or array
      * @scope    home,categorie,article,tags,archives
      * @author    Florent MONTHEL, Jean-Pierre Pourrez "bazooka07"
@@ -452,7 +453,7 @@ class plxShow
     /**
      * Méthode qui affiche le contenu de la description d'une catégorie
      *
-     * @param format    format du texte à afficher (variable: #cat_description)
+     * @param string $format    format du texte à afficher (variable: #cat_description)
      * @scope    categorie
      * @author    Stephane F.
      **/
@@ -467,7 +468,7 @@ class plxShow
     /**
      * Méthode qui retourne l'url d'une catégorie
      *
-     * @param id            id de la categorie sous la forme numérique ou formatée (ex: 1 ou 001)
+     * @param string $id            id de la categorie sous la forme numérique ou formatée (ex: 1 ou 001)
      * @return    string
      * @author    Stephane F.
      **/
@@ -485,7 +486,7 @@ class plxShow
     /**
      * Méthode qui affiche le nom de la catégorie active (linké ou non)
      *
-     * @param type    type d'affichage : link => sous forme de lien
+     * @param string $type    type d'affichage : link => sous forme de lien
      * @scope    home,categorie,article,tags,archives
      * @author    Florent MONTHEL, Stephane F
      **/
@@ -531,9 +532,9 @@ class plxShow
     /**
      * Méthode qui affiche l'image d'accroche d'une catégorie
      *
-     * @param format    format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
-     * @param echo    si à VRAI affichage à l'écran
-     * @return   void
+     * @param string $format    format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
+     * @param bool $echo   pour affichage à l'écran
+     * @return   void|string
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F, Philippe-M
      **/
@@ -577,8 +578,8 @@ class plxShow
     /**
      * Méthode qui affiche ou retourne l'url de l'article
      *
-     * @param echo    si à VRAI affichage à l'écran
-     * @param extra    paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'atricle
+     * @param bool $echo    si à VRAI affichage à l'écran
+     * @param string $extra    paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'atricle
      * @scope    home,categorie,article,tags,archives
      * @author    Florent MONTHEL, Stephane F
      **/
@@ -598,7 +599,7 @@ class plxShow
     /**
      * Méthode qui affiche le titre de l'article linké (variable $type='link') ou non
      *
-     * @param type    type d'affichage : link => sous forme de lien
+     * @param string $type    type d'affichage : link => sous forme de lien
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F
      **/
@@ -666,7 +667,7 @@ class plxShow
     /**
      * Méthode qui affiche ou renvoie l'auteur de l'article
      *
-     * @param echo si à VRAI affichage à l'écran
+     * @param 	bool $echo si à VRAI affichage à l'écran
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL et Stephane F
      **/
@@ -699,7 +700,7 @@ class plxShow
     /**
      * Méthode qui affiche les informations sur l'auteur de l'article
      *
-     * @param format    format du texte à afficher (variable: #art_authorinfos, #art_author)
+     * @param	string $format    format du texte à afficher (variable: #art_authorinfos, #art_author)
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F
      **/
@@ -719,7 +720,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de publication de l'article selon le format choisi
      *
-     * @param format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+     * @param string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F.
      **/
@@ -767,7 +768,7 @@ class plxShow
      * ou la chaîne de caractère 'Non classé' si la catégorie
      * de l'article n'existe pas
      *
-     * @param separator    caractère de séparation entre les catégories affichées
+     * @param string $separator    caractère de séparation entre les catégories affichées
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F, J.P. Pourrez "bazooka07"
      **/
@@ -804,8 +805,8 @@ class plxShow
     /**
      * Méthode qui affiche la liste des tags l'article sous forme de lien
      *
-     * @param format    format du texte pour chaque tag (variable : #tag_status, #tag_url, #tag_name)
-     * @param separator    caractère de séparation entre les tags affichées
+     * @param string $format    format du texte pour chaque tag (variable : #tag_status, #tag_url, #tag_name)
+     * @param string $separator    caractère de séparation entre les tags affichées
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F
      **/
@@ -835,7 +836,7 @@ class plxShow
     /**
      * Méthode qui affiche le lien "Lire la suite" si le chapô de l'article est renseigné
      *
-     * @param format    format d'affichage du lien pour lire la suite de l'article (#art_url, #art_title)
+     * @param string $format    format d'affichage du lien pour lire la suite de l'article (#art_url, #art_title)
      * @scope    home,categorie,tags,archives
      * @author    Stephane F
      **/
@@ -867,9 +868,9 @@ class plxShow
      * pour lire la suite de l'article. Si l'article n'a pas de chapô,
      * le contenu de l'article est affiché (selon paramètres)
      *
-     * @param format    format d'affichage du lien pour lire la suite de l'article (#art_title)
-     * @param content    affichage oui/non du contenu si le chapô est vide
-     * @param anchor    ancre dans l'article pour faire pointer le lien "Lire la suite" quand on clic dessus
+     * @param 	string $format    format d'affichage du lien pour lire la suite de l'article (#art_title)
+     * @param 	bool $content    affichage oui/non du contenu si le chapô est vide
+     * @param 	string $anchor    ancre dans l'article pour faire pointer le lien "Lire la suite" quand on clic dessus
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F
      **/
@@ -902,7 +903,7 @@ class plxShow
     /**
      * Méthode qui affiche le chapô (selon paramètres) suivi du contenu de l'article
      *
-     * @param chapo    affichage oui/non du chapo
+     * @param 	bool $chapo    affichage oui/non du chapo
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL et Stephane F
      **/
@@ -918,7 +919,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de creation d'un article selon le format choisi
      *
-     * @param format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+     * @param	string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F.
      **/
@@ -931,7 +932,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de mise à jour d'un article selon le format choisi
      *
-     * @param format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+     * @param string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F.
      **/
@@ -945,9 +946,9 @@ class plxShow
      * Méthode qui affiche un lien vers le fil Rss des articles
      * d'une catégorie précise (si $categorie renseigné) ou du site tout entier
      *
-     * @param type        type de flux (obsolete)
-     * @param categorie    identifiant (sans les 0) d'une catégorie
-     * @param format        format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
+     * @param string $type        type de flux (obsolete)
+     * @param string $categorie    identifiant (sans les 0) d'une catégorie
+     * @param string $format        format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
      * @scope    home,categorie,article,tags,archives
      * @author    Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
      **/
@@ -986,9 +987,9 @@ class plxShow
     /**
      * Méthode qui affiche le nombre de commentaires (sous forme de lien ou non selon le mode) d'un article
      *
-     * @param f1        format d'affichage si nombre de commentaire = 0 (#nb pour afficher le nombre de commentaire)
-     * @param f2        format d'affichage si nombre de commentaire = 1 (#nb pour afficher le nombre de commentaire)
-     * @param f3        format d'affichage si nombre de commentaire > 1 (#nb pour afficher le nombre de commentaire)
+     * @param string $f1        format d'affichage si nombre de commentaire = 0 (#nb pour afficher le nombre de commentaire)
+     * @param string $f2        format d'affichage si nombre de commentaire = 1 (#nb pour afficher le nombre de commentaire)
+     * @param string $f3        format d'affichage si nombre de commentaire > 1 (#nb pour afficher le nombre de commentaire)
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F
      **/
@@ -1021,9 +1022,9 @@ class plxShow
     /**
      * Méthode qui affiche le nombre total d'articles publiés sur le site.
      *
-     * @param f1        format d'affichage si nombre d'article = 0 (#nb pour afficher le nombre de commentaire)
-     * @param f2        format d'affichage si nombre d'article = 1 (#nb pour afficher le nombre de commentaire)
-     * @param f3        format d'affichage si nombre d'article > 1 (#nb pour afficher le nombre de commentaire)
+     * @param string $f1        format d'affichage si nombre d'article = 0 (#nb pour afficher le nombre de commentaire)
+     * @param string $f2        format d'affichage si nombre d'article = 1 (#nb pour afficher le nombre de commentaire)
+     * @param string $f3        format d'affichage si nombre d'article > 1 (#nb pour afficher le nombre de commentaire)
      * @scope    global
      * @author    Stephane F
      **/
@@ -1049,11 +1050,11 @@ class plxShow
      * Si la variable $cat_id est renseignée, seuls les articles de cette catégorie sont retournés.
      * On tient compte si la catégorie est active
      *
-     * @param format    format du texte pour chaque article
-     * @param max        nombre d'articles maximum
-     * @param cat_id    ids des catégories cible (numérique ou urls) : séparés par des |
-     * @param ending    texte à ajouter en fin de ligne
-     * @param sort    tri de l'affichage des articles (sort|rsort|alpha|random)
+     * @param string $format    format du texte pour chaque article
+     * @param int $max        nombre d'articles maximum
+     * @param string $cat_id    ids des catégories cible (numérique ou urls) : séparés par des |
+     * @param string $ending    texte à ajouter en fin de ligne
+     * @param string $sort    tri de l'affichage des articles (sort|rsort|alpha|random)
      * @scope    global
      * @author    Florent MONTHEL, Stephane F, Cyril MAGUIRE, Thomas Ingles, Jean-Pierre Pourrez @bazooka07
      **/
@@ -1208,8 +1209,8 @@ class plxShow
     /**
      * Méthode qui affiche l'id du commentaire précédé de la lettre 'c'
      *
-     * @param echo        (boolean) fait un affichage si valeur à TRUE
-     * @return    stdout/id    sortie stdout ou retourne l'id du commentaire
+     * @param bool $echo        (boolean) fait un affichage si valeur à TRUE
+     * @return    void|string    sortie stdout ou retourne l'id du commentaire
      * @scope    article
      * @author    Florent MONTHEL
      **/
@@ -1225,7 +1226,7 @@ class plxShow
     /**
      * Méthode qui affiche l'url du commentaire de type relatif ou absolu
      *
-     * @param type    type de lien : relatif ou absolu (URL complète) DEPRECATED
+     * @param string $type    type de lien : relatif ou absolu (URL complète) DEPRECATED
      * @scope    article
      * @author    Florent MONTHEL, Stephane F
      **/
@@ -1262,7 +1263,7 @@ class plxShow
 
     /**
      * Add CSS class fort comments indentation
-     * @param class    css class used to indent comments
+     * @param string $class    css class used to indent comments
      * @author    Stephane F., Jerry Wham, Pedro "P3ter" CADETE
      **/
     public function comLevel($class = 'level')
@@ -1277,9 +1278,9 @@ class plxShow
     /**
      * Méthode qui affiche le nombre total de commentaires publiés sur le site.
      *
-     * @param f1        format d'affichage si nombre de commentaire = 0 (#nb pour afficher le nombre de commentaire)
-     * @param f2        format d'affichage si nombre de commentaire = 1 (#nb pour afficher le nombre de commentaire)
-     * @param f3        format d'affichage si nombre de commentaire > 1 (#nb pour afficher le nombre de commentaire)
+     * @param string $f1        format d'affichage si nombre de commentaire = 0 (#nb pour afficher le nombre de commentaire)
+     * @param string $f2        format d'affichage si nombre de commentaire = 1 (#nb pour afficher le nombre de commentaire)
+     * @param string $f3        format d'affichage si nombre de commentaire > 1 (#nb pour afficher le nombre de commentaire)
      * @scope    global
      * @author    Stephane F
      **/
@@ -1303,7 +1304,7 @@ class plxShow
     /**
      * Méthode qui affiche l'auteur du commentaires linké ou non
      *
-     * @param type    type d'affichage : link => sous forme de lien
+     * @param string $type    type d'affichage : link => sous forme de lien
      * @scope    article
      * @author    Anthony GUÉRIN, Florent MONTHEL et Stephane F.
      **/
@@ -1334,7 +1335,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de publication d'un commentaire selon le format choisi
      *
-     * @param format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(2), #num_year(4), #time)
+     * @param string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(2), #num_year(4), #time)
      * @scope    article
      * @author    Florent MONTHEL et Stephane F
      **/
@@ -1359,7 +1360,7 @@ class plxShow
     /**
      * Méthode qui affiche si besoin le message généré par le système
      * suite à la création d'un commentaire
-     * @param format  format du texte à afficher (variable: #com_message, #com_class)
+     * @param string $format  format du texte à afficher (variable: #com_message, #com_class)
      * @return        true pour afficher le formulaire du commentaire
      * @scope        article
      * @author        Stephane F, J.P Pourrez.
@@ -1395,8 +1396,8 @@ class plxShow
     /**
      * Méthode qui affiche si besoin la variable $_GET[$key] suite au dépôt d'un commentaire
      *
-     * @param key        clé du tableau GET
-     * @param defaut    valeur par défaut si variable vide
+     * @param string $key        clé du tableau GET
+     * @param string $defaut    valeur par défaut si variable vide
      * @scope    article
      * @author    Florent MONTHEL
      **/
@@ -1414,9 +1415,9 @@ class plxShow
      * Méthode qui affiche un lien vers le fil Rss des commentaires
      * d'un article précis (si $article renseigné) ou du site tout entier
      *
-     * @param type        type de flux (obsolete)
-     * @param article        identifiant (sans les 0) d'un article
-     * @param format        format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
+     * @param string $type        type de flux (obsolete)
+     * @param string $article        identifiant (sans les 0) d'un article
+     * @param string $format        format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
      * @scope    global
      * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
      **/
@@ -1451,10 +1452,10 @@ class plxShow
      * Méthode qui affiche la liste des $max derniers commentaires.
      * Si la variable $art_id est renseignée, seuls les commentaires de cet article sont retournés.
      *
-     * @param format    format du texte pour chaque commentaire
-     * @param max        nombre de commentaires maximum
-     * @param art_id    id de l'article cible (24,3)
-     * @param cat_ids    liste des categories pour filtrer les derniers commentaires (sous la forme 001|002)
+     * @param string $format    format du texte pour chaque commentaire
+     * @param int $max        nombre de commentaires maximum
+     * @param string $art_id    id de l'article cible (24,3)
+     * @param string $cat_ids    liste des categories pour filtrer les derniers commentaires (sous la forme 001|002)
      * @scope    global
      * @author    Florent MONTHEL, Stephane F
      **/
@@ -1529,14 +1530,14 @@ class plxShow
     /**
      * Méthode qui affiche la liste des pages statiques.
      *
-     * @param extra            si renseigné: nom du lien vers la page d'accueil affiché en première position
-     * @param format            format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
-     * @param format_group    format du texte pour chaque groupe (variable : #group_class, #group_name, #group_status)
-     * @param menublog        position du menu Blog (si non renseigné le menu n'est pas affiché)
+     * @param string $extra            si renseigné: nom du lien vers la page d'accueil affiché en première position
+     * @param string $format            format du texte pour chaque page (variable : #static_id, #static_status, #static_url, #static_name, #group_id, #group_class, #group_name)
+     * @param string $format_group    format du texte pour chaque groupe (variable : #group_class, #group_name, #group_status)
+     * @param int $menublog        position du menu Blog (si non renseigné le menu n'est pas affiché)
      * @scope    global
      * @author    Stephane F
      **/
-    public function staticList($extra = '', $format = '<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>', $format_group = '<span class="#group_class #group_status">#group_name</span>', $menublog = false)
+    public function staticList($extra = '', $format = '<li class="#static_class #static_status" id="#static_id"><a href="#static_url" title="#static_name">#static_name</a></li>', $format_group = '<span class="#group_class #group_status">#group_name</span>', $menublog = null)
     {
 
         $menus = array();
@@ -1584,7 +1585,7 @@ class plxShow
                     $group_active = $v['group'];
             }
         }
-        if ($menublog) {
+        if ($menublog !== null) {
             if ($this->plxMotor->aConf['homestatic'] != '' and isset($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']])) {
                 if ($this->plxMotor->aStats[$this->plxMotor->aConf['homestatic']]['active']) {
                     $active = ($this->plxMotor->get and preg_match('/(blog|categorie|archives|tag|article)/', $_SERVER['QUERY_STRING'] . $this->plxMotor->mode));
@@ -1651,8 +1652,8 @@ class plxShow
     /**
      * Méthode qui affiche ou retourne l'url de la page statique
      *
-     * @param echo    si à VRAI affichage à l'écran
-     * @param extra    paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'article
+     * @param bool $echo    si à VRAI affichage à l'écran
+     * @param string $extra    paramètres supplémentaires pouvant être rajoutés à la fin de l'url de l'article
      * @return    string
      * @scope    static
      * @author    Florent MONTHEL, Stéphane F
@@ -1702,7 +1703,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de la dernière modification de la page statique selon le format choisi
      *
-     * @param format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+     * @param string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
      * @scope    static
      * @author    Anthony T.
      **/
@@ -1721,7 +1722,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de creation de la page statique selon le format choisi
      *
-     * @param format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+     * @param string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
      * @scope    static
      * @author    Stephane F.
      **/
@@ -1734,7 +1735,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de modification de la page statique selon le format choisi
      *
-     * @param format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
+     * @param string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2))
      * @scope    static
      * @author    Stephane F.
      **/
@@ -1775,7 +1776,7 @@ class plxShow
     /**
      * Méthode qui affiche une page statique en lui passant son id (si cette page est active ou non)
      *
-     * @param id        id numérique ou url/titre de la page statique
+     * @param string $id        id numérique ou url/titre de la page statique
      * @scope    global
      * @author    Stéphane F
      **/
@@ -1908,7 +1909,7 @@ class plxShow
     /**
      * Méthode qui affiche le nom du tag (linké ou non)
      *
-     * @param type    type d'affichage : link => sous forme de lien
+     * @param string $type    type d'affichage : link => sous forme de lien
      * @scope    tags
      * @author    Stephane F
      **/
@@ -1932,13 +1933,12 @@ class plxShow
     /**
      * Méthode qui affiche un lien vers le fil Rss des articles d'un tag
      *
-     * @param type        type de flux (obsolete)
-     * @param tag            nom du tag
-     * @param format        format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
+     * @param string $type de flux (obsolete)
+     * @param string $tag  valeru du tag
+     * @param string $format du code HTML pour l'affichage du lien (variable : #feedUrl, #feedTitle, #feedName)
      * @scope                home,categorie,article,tags,archives
      * @author                Stephane F, Pedro "P3ter" CADETE
      **/
-
     public function tagFeed($type = 'rss', $tag = '', $format = '<a href="#feedUrl" title="#feedTitle">#feedName</a>')
     {
 
@@ -1961,13 +1961,13 @@ class plxShow
     /**
      * Méthode qui affiche la liste de tous les tags.
      *
-     * @param format    format du texte pour chaque tag (variable : #tag_size, #tag_id, #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
-     * @param max        nombre maxi de tags à afficher
-     * @param order    tri des tags (random, alpha, '' = tri par popularité)
+     * @param string $format    format du texte pour chaque tag (variable : #tag_size, #tag_id, #tag_status, #tag_count, #tag_item, #tag_url, #tag_name, #nb_art)
+     * @param int $max        nombre maxi de tags à afficher
+     * @param string $order    tri des tags (random, alpha, '' = tri par popularité)
      * @scope    global
      * @author    Stephane F, J.P. Pourrez
      **/
-    public function tagList($format = '<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name (#tag_count)</a></li>', $max = '', $order = 'random')
+    public function tagList($format = '<li class="tag #tag_size"><a class="#tag_status" href="#tag_url" title="#tag_name">#tag_name (#tag_count)</a></li>', $max = null, $order = 'random')
     {
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowTagList'))) return;
@@ -2013,7 +2013,7 @@ class plxShow
             }
 
             # limite sur le nombre de tags à afficher
-            if ($max != '') $counters = array_slice($counters, 0, intval($max), true);
+            if ($max != null) $counters = array_slice($counters, 0, $max, true);
 
             # Recherche de la valeur maxi pour $counters. A multiplier par 10.
             $max_value = array_reduce(
@@ -2081,7 +2081,7 @@ class plxShow
     /**
      * Méthode qui affiche la liste des archives
      *
-     * @param format    format du texte pour l'affichage (variable : #archives_id, #archives_status, #archives_selected, #archives_nbart, #archives_url, #archives_name, #archives_month, #archives_year)
+     * @param string $format    format du texte pour l'affichage (variable : #archives_id, #archives_status, #archives_selected, #archives_nbart, #archives_url, #archives_name, #archives_month, #archives_year)
      * @scope    global
      * @author    Stephane F, J.P. Pourrez
      * @version 2017-06-15
@@ -2211,7 +2211,7 @@ class plxShow
     /**
      * Méthode qui affiche un lien vers la page blog.php
      *
-     * @param format    format du texte pour l'affichage (variable : #page_id, #page_status, #page_url, #page_name)
+     * @param string $format    format du texte pour l'affichage (variable : #page_id, #page_status, #page_url, #page_name)
      * @scope    global
      * @author    Stephane F
      **/
@@ -2240,7 +2240,7 @@ class plxShow
     /**
      * Méthode qui ajoute, s'il existe, le fichier css associé à un template
      *
-     * @param css_dir     répertoire de stockage des fichiers css (avec un / à la fin)
+     * @param string $css_dir     répertoire de stockage des fichiers css (avec un / à la fin)
      * @scope    global
      * @author    Stephane F, Thomas Ingles
      **/
@@ -2278,7 +2278,7 @@ class plxShow
     /**
      * Méthode qui affiche une clé de traduction appelée à partir du thème
      *
-     * @param key    clé de traduction à afficher
+     * @param string $key    clé de traduction à afficher
      * @return    void
      * @scope    global
      * @author    Stephane F
@@ -2291,7 +2291,7 @@ class plxShow
     /**
      * Méthode qui renvoie une clé de traduction appelée à partir du thème
      *
-     * @param key    clé de traduction à afficher
+     * @param string $key    clé de traduction à afficher
      * @return    string
      * @scope    global
      * @author    Stephane F
@@ -2307,8 +2307,8 @@ class plxShow
     /**
      * Méthode qui appel un hook à partir du thème
      *
-     * @param hookName    nom du hook
-     * @param parms        parametre ou liste de paramètres sous forme de array
+     * @param string $hookName    nom du hook
+     * @param string|array $parms        parametre ou liste de paramètres sous forme de array
      * @return    string or array
      * @scope    global
      * @author    Stephane F
@@ -2335,8 +2335,8 @@ class plxShow
     /**
      * Méthode qui permet d'injecter du code php au niveau d'un hook
      *
-     * @param hookName    nom du hook
-     * @param code        code php à injecter
+     * @param string $hookName    nom du hook
+     * @param string $userCode        code php à injecter
      * @scope    global
      * @author    Stephane F
      */
@@ -2351,7 +2351,7 @@ class plxShow
     /**
      * Method in charge of giving an RSS feed URL for current page posts
      *
-     * @param mode        the view mode from plxMotor->mode (categorie, tags)
+     * @param string $mode        the view mode from plxMotor->mode (categorie, tags)
      * @return     string      the contextualised rss feed URL
      * @author     Pedro "P3ter" CADETE
      */

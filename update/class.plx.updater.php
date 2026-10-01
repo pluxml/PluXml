@@ -17,7 +17,7 @@ class plxUpdater {
 	/**
 	 * Constructeur de la classe plxUpdater
 	 *
-	 * @param	versions	array	liste des versions + script de mise à jour (fichier versions.php)
+	 * @param	array $versions	liste mises à jour à appliquer
 	 * @return	null
 	 * @author	Stephane F
 	 **/
@@ -30,8 +30,8 @@ class plxUpdater {
 	/**
 	 * Méthode chargée de démarrer les mises à jour
 	 *
-	 * @param	version		précédente version de pluxml à mettre à jour, sélectionner par l'utilisateur
-	 * @return	null
+	 * @param	string $version		précédente version de pluxml à mettre à jour, sélectionner par l'utilisateur
+	 * @return	void
 	 * @author	Stéphane F
 	 **/
 	public function startUpdate($version='') {
@@ -50,7 +50,7 @@ class plxUpdater {
 	/**
 	 * Méthode qui récupère l'ancien et le nouveau n° de version de pluxml
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stéphane F
 	 **/
 	public function getVersions() {
@@ -73,7 +73,7 @@ class plxUpdater {
 	/**
 	 * Méthode qui met à jour le n° de version dans le fichier parametres.xml
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stéphane F
 	 **/
 	public function updateVersion() {
@@ -157,7 +157,7 @@ class plxUpdate {
 	/**
 	 * Constructeur qui initialise l'objet plxAdmin par référence
 	 *
-	 * @return	null
+	 * @return void
 	 * @author	Stephane F
 	 **/
 	public function __construct() {
@@ -169,7 +169,7 @@ class plxUpdate {
 	/**
 	 * Méthode qui met à jour le fichier parametre.xml en important les nouveaux paramètres
 	 *
-	 * @param	new_params		tableau contenant la liste des nouveaux paramètres avec leur valeur par défaut.
+	 * @param	string $new_params		tableau contenant la liste des nouveaux paramètres avec leur valeur par défaut.
 	 * @return	string
 	 * @author	Stéphane F
 	 **/
@@ -185,7 +185,7 @@ class plxUpdate {
 	/**
 	 * Méthode récursive qui supprimes tous les dossiers et les fichiers d'un répertoire
 	 *
-	 * @param	deldir	répertoire de suppression
+	 * @param	string $deldir	répertoire de suppression
 	 * @return	boolean	résultat de la suppression
 	 * @author	Stephane F
 	 **/

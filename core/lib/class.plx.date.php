@@ -13,8 +13,8 @@ class plxDate {
 	/**
 	 * Méthode qui retourne le libellé du mois ou du jour passé en paramètre
 	 *
-	 * @param	key		constante: 'day', 'month' ou 'short_month'
-	 * @param	value	numero du mois ou du jour
+	 * @param	string $key		constante: 'day', 'month' ou 'short_month'
+	 * @param	string $value	numero du mois ou du jour
 	 * @return	string	libellé du mois (long ou court) ou du jour
 	 * @author	Stephane F., Pedro "P3ter" CADETE
 	 **/
@@ -77,15 +77,15 @@ class plxDate {
 		if(array_key_exists($key, $names) and array_key_exists($value, $names[$key]))
 			return $names[$key][$value];
 		else
-			return false;
+			return '';
 
 	}
 
 	/**
 	 * Méthode qui formate l'affichage d'une date
 	 *
-	 * @param	date	date/heure au format YYYYMMDDHHMM
-	 * @param	format	format d'affichage
+	 * @param	string $date	date/heure au format YYYYMMDDHHMM
+	 * @param	string $format	format d'affichage
 	 * @return	string	date/heure formatée
 	 * @author	Stephane F.
 	 **/
@@ -119,7 +119,7 @@ class plxDate {
 	/**
 	 * Méthode qui convertis un timestamp en date/time
 	 *
-	 * @param	timestamp	timstamp au format unix
+	 * @param	int $timestamp	timstamp au format unix
 	 * @return	string		date au format YYYYMMDDHHMM
 	 * @author	Stephane F.
 	 **/
@@ -132,7 +132,7 @@ class plxDate {
 	/**
 	 * Méthode qui éclate une date au format YYYYMMDDHHMM dans un tableau
 	 *
-	 * @param	date		date au format YYYYMMDDHHMM
+	 * @param	string $date		date au format YYYYMMDDHHMM
 	 * @return	array		tableau contenant le détail de la date
 	 * @author	Stephane F.
 	 **/
@@ -153,10 +153,10 @@ class plxDate {
 	/**
 	 * Méthode qui vérifie la validité de la date et de l'heure
 	 *
-	 * @param	int		mois
-	 * @param	int		jour
-	 * @param	int		année
-	 * @param	int		heure:minute
+	 * @param	int		$day
+	 * @param	int		$month
+	 * @param	int		$year
+	 * @param	string $time		heure:minute
 	 * @return	boolean	vrai si la date est valide
 	 * @author	Amaury Graillat
 	 **/
@@ -170,7 +170,7 @@ class plxDate {
 	/**
 	 * Fonction de conversion de date ISO en format RFC822
 	 *
-	 * @param	date	date à convertir
+	 * @param	string $date	date à convertir
 	 * @return	string	date au format iso.
 	 * @author	Amaury GRAILLAT
 	 **/

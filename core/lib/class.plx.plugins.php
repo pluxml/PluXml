@@ -15,7 +15,7 @@ class plxPlugins {
 	/**
 	 * Constructeur de la classe plxPlugins
 	 *
-	 * @param	default_lang	langue par défaut utilisée par PluXml
+	 * @param	string $default_lang	langue par défaut utilisée par PluXml
 	 * @return	null
 	 * @author	Stephane F
 	 **/
@@ -193,9 +193,8 @@ Drop this plugin now for running PluXml and report to its author !!
 	/**
 	 * Méthode qui renvoit une instance d'un plugin
 	 *
-	 * @param	plugName	nom du plugin
-	 * @return	object		object de type plxPlugin / false en cas d'erreur
-	 * @return	null
+	 * @param	string $plugName	nom du plugin
+	 * @return	object|false		object de type plxPlugin / false en cas d'erreur
 	 * @author	Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function getInstance($plugName, $actif=true) {
@@ -236,7 +235,7 @@ Drop this plugin now for running PluXml and report to its author !!
 	/**
 	 * Méthode qui charge le fichier plugins.xml
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function loadPlugins() {
@@ -310,9 +309,9 @@ Drop this plugin now for running PluXml and report to its author !!
 	/**
 	 * Méthode qui execute les hooks des plugins
 	 *
-	 * @param	hookname	nom du hook à appliquer
-	 * @param	parms		parametre ou liste de paramètres sous forme de array
-	 * @return	null
+	 * @param	string $hookName	nom du hook à appliquer
+	 * @param	array $parms		parametre ou liste de paramètres sous forme de array
+	 * @return	string
 	 * @author	Stephane F
 	 **/
 	public function callHook($hookName, $parms=null) {
@@ -330,12 +329,14 @@ Drop this plugin now for running PluXml and report to its author !!
 			else
 				return '?>'.ob_get_clean().'<?php ';
 		}
+
+		return '';
 	}
 
 	/**
 	 * Méthode qui récupère les infos des plugins actifs
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function getInfos() {
@@ -369,8 +370,8 @@ Drop this plugin now for running PluXml and report to its author !!
 	/**
 	 * Méthode qui sauvegarde le fichier plugins.xml et qui génère les fichiers admin.css et site.css des plugins
 	 *
-	 * @param	content		array content $_POST
-	 * @return	boolean		resultat de la sauvegarde / TRUE = ok
+	 * @param	array $content		content of $_POST query
+	 * @return	bool		resultat de la sauvegarde / TRUE = ok
 	 * @author	Stephane F
 	 **/
 	public function saveConfig($content) {
@@ -469,7 +470,7 @@ Drop this plugin now for running PluXml and report to its author !!
 	/**
 	 * Méthode récursive qui supprime tous les dossiers et les fichiers d'un répertoire
 	 *
-	 * @param	deldir	répertoire de suppression
+	 * @param	string $deldir	répertoire de suppression
 	 * @return	boolean	résultat de la suppression
 	 * @author	Stephane F
 	 **/
@@ -493,7 +494,7 @@ Drop this plugin now for running PluXml and report to its author !!
 	/**
 	 * Méthode qui génère le fichier css admin.css ou site.css
 	 *
-	 * @param	type		type du fichier (admin|site)
+	 * @param	string $type		type du fichier (admin|site)
 	 * @return	boolean		vrai si cache généré
 	 * @author	Stephane F
 	 **/
@@ -549,8 +550,9 @@ class plxPlugin {
 	 * Constructeur de la classe plxPlugin
 	 *
 	 * realpath est nécessaire quand on utilise les liens symboliques ( ln -S ... ) pour les plugins sous Linux
-	 * @param	default_lang	langue par défaut utilisée par PluXml
-	 * @return	null
+	 * @param	string $default_lang	langue par défaut utilisée par PluXml
+	 * @param	string $plugName
+	 * @return	void
 	 * @author	Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function __construct($default_lang='', $plugName='') {
@@ -577,8 +579,9 @@ class plxPlugin {
 	 * Méthode qui charge le fichier de langue du plugin
 	 * Si la langue par défaut n'est pas disponible on tente de charger le fr.php sinon on prend le 1er fichier de langue dispo
 	 *
-	 * @param	default_lang	langue par défaut utilisée par PluXml
-	 * @return	null
+	 * @param string $plugName
+	 * @param	string $lang	langue par défaut utilisée par PluXml
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 
@@ -625,8 +628,8 @@ class plxPlugin {
 	/**
 	 * Méthode qui mémorise le(s) profil(s) utilisateur(s) autorisé(s) à acceder à la page admin.php du plugin
 	 *
-	 * @param	profil		profil(s) (PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER)
-	 * @return	null
+	 * @param	$profil		profil(s) (PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER)
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function setAdminProfil($profil) {
@@ -640,10 +643,10 @@ class plxPlugin {
 	/**
 	 * Méthode qui permet de personnaliser le menu qui permet d'acceder à la page admin.php du plugin
 	 *
-	 * @param	title 		titre du menu
-	 * @param	position 	position du menu dans la sidebar
-	 * @param	caption 	légende du menu (balise title du lien)
-	 * @return	null
+	 * @param	string $title 		titre du menu
+	 * @param	int $position 	position du menu dans la sidebar
+	 * @param	string $caption 	légende du menu (balise title du lien)
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function setAdminMenu($title='', $position=0, $caption='') {
@@ -671,8 +674,8 @@ class plxPlugin {
 	/**
 	 * Méthode qui mémorise le(s) profil(s) utilisateur(s) autorisé(s) à accéder à la page config.php du plugin
 	 *
-	 * @param	profil		profil(s) (PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER)
-	 * @return	null
+	 * @param	$profil		profil(s) (PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR, PROFIL_WRITER)
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function setConfigProfil($profil) {
@@ -696,7 +699,7 @@ class plxPlugin {
 	/**
 	 * Méthode qui charge le fichier de langue par défaut du plugin
 	 *
-	 * @param	filename	fichier de langue à charger
+	 * @param	string $filename	fichier de langue à charger
 	 * @return	array		tableau contenant les clés de traduction
 	 * @author	Stephane F
 	 **/
@@ -712,7 +715,7 @@ class plxPlugin {
 	/**
 	 * Méthode qui affiche une clé de traduction dans la langue par défaut de PluXml
 	 *
-	 * @param	key		clé de traduction à récuperer
+	 * @param	string $key		clé de traduction à récuperer
 	 * @return	void
 	 * @author	Stephane F
 	 **/
@@ -723,7 +726,7 @@ class plxPlugin {
 	/**
 	 * Méthode qui retourne une clé de traduction dans la langue par défaut de PluXml
 	 *
-	 * @param	key		clé de traduction à récuperer
+	 * @param	string $key		clé de traduction à récuperer
 	 * @return	string	clé de traduite
 	 * @author	Stephane F
 	 **/
@@ -734,7 +737,7 @@ class plxPlugin {
 	/**
 	 * Méthode qui charge le fichier des parametres du plugin parameters.xml
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function loadParams() {
@@ -826,7 +829,7 @@ class plxPlugin {
 	/**
 	 * Méthode qui renvoie la valeur d'un parametre du fichier parameters.xml
 	 *
-	 * @param	param	nom du parametre à recuperer
+	 * @param	string $param	nom du parametre à recuperer
 	 * @return	string	valeur du parametre
 	 * @author	Stephane F
 	 **/
@@ -837,10 +840,10 @@ class plxPlugin {
 	/**
 	 * Méthode qui modifie la valeur d'un parametre du fichier parameters.xml
 	 *
-	 * @param	param	nom du parametre à recuperer
-	 * @param	value	valeur du parametre
-	 * @type	type 	type du parametre (numeric, string, cdata)
-	 * @return	null
+	 * @param	string $param	nom du parametre à recuperer
+	 * @param	string $value	valeur du parametre
+	 * @type	string $type 	type du parametre (numeric, string, cdata)
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function setParam($param, $value, $type=false) {
@@ -854,8 +857,8 @@ class plxPlugin {
 	/**
 	 * Méthode qui supprime un parametre du fichier parameters.xml
 	 *
-	 * @param	param	nom du parametre à supprimer
-	 * @return	true si parametre supprimé, false sinon
+	 * @param	string $param	nom du parametre à supprimer
+	 * @return	bool si parametre supprimé, false sinon
 	 * @author	Sebastien H
 	 **/
 	public function delParam($param) {
@@ -870,7 +873,7 @@ class plxPlugin {
 	/**
 	 * Méthode qui recupere les données du fichier infos.xml
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function getInfos() {
@@ -903,8 +906,8 @@ class plxPlugin {
 	/**
 	 * Méthode qui renvoie la valeur d'un parametre du fichier infos.xml
 	 *
-	 * @param	param	nom du parametre à recuperer
-	 * @return	string	valeur de l'info
+	 * @param	string $param	nom du parametre à recuperer
+	 * @return	string	valeur du paramètre
 	 * @author	Stephane F
 	 **/
 	public function getInfo($param) {
@@ -914,9 +917,9 @@ class plxPlugin {
 	/**
 	 * Méthode qui ajoute un hook à executer
 	 *
-	 * @param	hookname		nom du hook
-	 * @param	userfunction	nom de la fonction du plugin à executer
-	 * @return	null
+	 * @param	string $hookname		nom du hook
+	 * @param	string $userfunction	nom de la fonction du plugin à executer
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function addHook($hookname, $userfunction) {

@@ -44,8 +44,8 @@ class plxCapcha {
 	/**
 	 * Méthode qui affecte un mot à la propriété $_word
 	 *
-	 * @param	min		longueur mini du mot
-	 * @param	max		longueur maxi du mot
+	 * @param	int $min		longueur mini du mot
+	 * @param	int $max		longueur maxi du mot
 	 * @return	void
 	 * @author	Anthony GUÉRIN, Stephane F
 	 **/

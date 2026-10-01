@@ -13,7 +13,9 @@ class plxToken {
 	/**
 	 * Méthode qui affiche le champ input contenant le token
 	 *
-	 * @return	stdio/null
+	 * @param int $length
+	 * @param bool $html
+	 * @return	string
 	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function getTokenPostMethod($length=32, $html=true) {
@@ -31,8 +33,8 @@ class plxToken {
 	/**
 	 * Méthode qui valide la durée de vide d'un token
 	 *
-	 * @param	$request	(deprecated)
-	 * @return	stdio/null
+	 * @param	string $request	(deprecated)
+	 * @return	void
 	 * @author	Stephane F, J.P. Pourrez
 	 **/
 	public static function validateFormToken($request='') {
@@ -63,7 +65,7 @@ class plxToken {
 	/**
 	 * Generate Token expiry date
 	 *
-	 * @param	int		hours before expiration
+	 * @param	int $hours before expiration
 	 * @return	string	expiry date
 	 * @author	Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 */

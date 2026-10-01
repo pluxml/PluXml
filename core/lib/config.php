@@ -34,7 +34,7 @@ if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 # Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
 function getMicrotime() {
 	$t = explode(' ',microtime());
-	return $t[0]+$t[1];
+	return $t[0] . $t[1];
 }
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
@@ -158,4 +158,4 @@ function open_session($name='PLX_SITE') {
 	));
 }
 
-require 'autoloader.php';
+require __DIR__ . '/autoloader.php';

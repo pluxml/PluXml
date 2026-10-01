@@ -25,10 +25,10 @@ class plxGlob {
 	/**
 	 * Constructeur qui initialise les variables de classe
 	 *
-	 * @param	dir				repertoire à lire
-	 * @param	rep				boolean pour ne prendre que les répertoires sans les fichiers
-	 * @param	onlyfilename	boolean pour ne récupérer que le nom des fichiers sans le chemin
-	 * @param	type			type de fichier lus (arts ou '')
+	 * @param	string $dir				repertoire à lire
+	 * @param	bool $rep				ne prendre que les répertoires sans les fichiers
+	 * @param	bool $onlyfilename		ne récupérer que le nom des fichiers sans le chemin
+	 * @param	string $type			type de fichier lus (arts ou '')
 	 * @return	null
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Amaury Graillat et Stephane F
 	 **/
@@ -47,11 +47,11 @@ class plxGlob {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxGlob
 	 *
-	 * @param	dir				répertoire à lire
-	 * @param	rep				boolean pour ne prendre que les répertoires sans les fichiers
-	 * @param	onlyfilename	boolean pour ne récupérer que le nom des fichiers sans le chemin
-	 * @param	type			type de fichier lus (arts ou '')
-	 * @return	objet			return une instance de la classe plxGlob
+	 * @param	string $dir			répertoire à lire
+	 * @param	bool $rep			ne prendre que les répertoires sans les fichiers
+	 * @param	bool $onlyfilename	ne récupérer que le nom des fichiers sans le chemin
+	 * @param	string $type			type de fichier lus (arts ou '')
+	 * @return	self			return une instance de la classe plxGlob
 	 * @author	Stephane F
 	 **/
 	public static function getInstance($dir,$rep=false,$onlyfilename=true,$type=''){
@@ -64,8 +64,8 @@ class plxGlob {
 	/**
 	 * Méthode qui se charge de mémoriser le contenu d'un dossier
 	 *
-	 * @param	type			type de fichier lus (arts ou '')
-	 * @return	null
+	 * @param	string $type		type de fichier lus (arts ou '')
+	 * @return	void
 	 * @author	Amaury Graillat, Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	private function initCache($type='') {
@@ -123,11 +123,11 @@ class plxGlob {
 	/**
 	 * Méthode qui cherche les fichiers correspondants au motif $motif
 	 *
-	 * @param	motif			motif de recherche des fichiers sous forme d'expression réguliere
-	 * @param	type			type de recherche: article ('art'), commentaire ('com') ou autre (''))
-	 * @param	tri				type de tri (sort, rsort, alpha, ralpha)
-	 * @param	publi			recherche des fichiers avant ou après la date du jour
-	 * @return	array ou false
+	 * @param	string $motif	motif de recherche des fichiers sous forme d'expression réguliere
+	 * @param	string $type	type de recherche: article ('art'), commentaire ('com') ou autre (''))
+	 * @param	string $tri		type de tri (sort, rsort, alpha, ralpha)
+	 * @param	string $publi	recherche des fichiers avant ou après la date du jour
+	 * @return	array|false
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, Jean-Pierre Pourrez @bazooka07
 	 **/
 	private function search($motif,$type,$tri,$publi) {
@@ -186,16 +186,16 @@ class plxGlob {
 	 * Méthode qui retourne un tableau trié, des fichiers correspondants
 	 * au motif $motif, respectant les différentes limites
 	 *
-	 * @param	motif			motif de recherche des fichiers sous forme d'expression régulière
-	 * @param	type			type de recherche: article ('art'), commentaire ('com') ou autre (''))
-	 * @param	tri				type de tri (sort, rsort, alpha, random)
-	 * @param	depart			indice de départ de la sélection
-	 * @param	limite			nombre d'éléments à sélectionner
-	 * @param	publi			recherche des fichiers avant ou après la date du jour
-	 * @return	array ou false
+	 * @param	string $motif			motif de recherche des fichiers sous forme d'expression régulière
+	 * @param	string $type			type de recherche: article ('art'), commentaire ('com') ou autre (''))
+	 * @param	string $tri				type de tri (sort, rsort, alpha, random)
+	 * @param	int $depart			indice de départ de la sélection
+	 * @param	int $limite			nombre d'éléments à sélectionner
+	 * @param	string $publi			recherche des fichiers avant ou après la date du jour
+	 * @return	array|false
 	 * @author	Anthony GUÉRIN et Florent MONTHEL
 	 **/
-	public function query($motif,$type='',$tri='',$depart='0',$limite=false,$publi='all') {
+	public function query($motif,$type='',$tri='',$depart=0, $limite=null, $publi='all') {
 
 		# Si on a des résultats
 		if($rs = $this->search($motif,$type,$tri,$publi)) {

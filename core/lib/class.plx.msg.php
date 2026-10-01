@@ -11,8 +11,8 @@ class plxMsg {
 	/**
 	 * Méthode qui mémorise un message d'information
 	 *
-	 * @param	msg			message d'info
-	 * @return	boolean		true (pas d'erreur)
+	 * @param	string $msg			message d'info
+	 * @return	bool		true (pas d'erreur)
 	 * @author	Stephane F
 	 **/
 	public static function Info($msg='') {
@@ -23,8 +23,8 @@ class plxMsg {
 	/**
 	 * Méthode qui mémorise un message d'erreur
 	 *
-	 * @param	msg			message d'info
-	 * @return	boolean		false (erreur)
+	 * @param	string $msg			message d'info
+	 * @return	bool		false (erreur)
 	 * @author	Stephane F
 	 **/
 	public static function Error($msg='') {
@@ -35,7 +35,6 @@ class plxMsg {
 	/**
 	 * Méthode qui affiche le message en mémoire
 	 *
-	 * @param	null
 	 * @return	void
 	 * @author	Stephane F
 	 **/

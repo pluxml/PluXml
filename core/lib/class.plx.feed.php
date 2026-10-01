@@ -16,7 +16,7 @@ class plxFeed extends plxMotor {
 	/**
 	 * Méthode qui se charger de créer le Singleton plxFeed
 	 *
-	 * @return	objet			retourne une instance de la classe plxFeed
+	 * @return	object			retourne une instance de la classe plxFeed
 	 * @author	Stephane F
 	 **/
 	public static function getInstance(){
@@ -29,7 +29,7 @@ class plxFeed extends plxMotor {
 	 * Constructeur qui initialise certaines variables de classe
 	 * et qui lance le traitement initial
 	 *
-	 * @param	filename	emplacement du fichier XML de configuration
+	 * @param	string $filename	emplacement du fichier XML de configuration
 	 * @return	null
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
@@ -69,7 +69,7 @@ class plxFeed extends plxMotor {
 	 * le mode à appliquer. Cette méthode alimente ensuite les variables
 	 * de classe adéquates
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function fprechauffage() {
@@ -140,7 +140,7 @@ class plxFeed extends plxMotor {
 	/**
 	 * Méthode qui effectue le traitement selon le mode du moteur
 	 *
-	 * @return	null ou redirection si une erreur est détectée
+	 * @return	void ou redirection si une erreur est détectée
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function fdemarrage() {

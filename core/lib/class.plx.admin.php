@@ -31,8 +31,8 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Constructeur qui appel le constructeur parent
 	 *
-	 * @param	filename	emplacement du fichier XML de configuration
-	 * @return	null
+	 * @param	string $filename	emplacement du fichier XML de configuration
+	 * @return	void
 	 * @author	Florent MONTHEL
 	 **/
 	protected function __construct($filename) {
@@ -55,7 +55,7 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui applique un motif de recherche
 	 *
-	 * @param	motif	motif de recherche à appliquer
+	 * @param	string $motif	motif de recherche à appliquer
 	 * @return	void
 	 * @author	Stéphane F
 	 **/
@@ -104,9 +104,8 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui édite le fichier XML de configuration selon le tableau $global et $content
 	 *
-	 * @param	global	tableau contenant toute la configuration PluXml
-	 * @param	content	tableau contenant la configuration à modifier
-	 * @return	string
+	 * @param	array $content	tableau contenant la configuration à modifier
+	 * @return	bool
 	 * @author	Florent MONTHEL
 	 **/
 	public function editConfiguration($content) {
@@ -390,9 +389,9 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui crée le fichier .htaccess en cas de réécriture d'urls
 	 *
-	 * @param	action	création (add) ou suppression (remove)
-	 * @param	url		url du site
-	 * @return	null
+	 * @param	string $action	création (add) ou suppression (remove)
+	 * @param	string $url		url du site
+	 * @return	bool
 	 * @author	Stephane F, Amaury Graillat
 	 **/
 	public function htaccess($action, $url) {
@@ -437,6 +436,7 @@ EOT;
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminHtaccess'));
+
 		# On écrit le fichier .htaccess à la racine de PluXml
 		$htaccess = trim($htaccess);
 		if($htaccess=='' AND is_file(PLX_ROOT.'.htaccess')) {
@@ -454,8 +454,8 @@ EOT;
 	 * https://www.php.net/manual/fr/functions.arguments.php#functions.variable-arg-list
 	 * Si la dernière valeur du tableau $profils est booléenne, alors elle gère la redirection en cas de profil non autorisé
 	 *
-	 * @param	profils		profil(s) autorisé(s) string ou tableau
-	 * @return	null|bool
+	 * @param	$profils		profil(s) autorisé(s) string ou tableau
+	 * @return	bool|void
 	 * @author	Stephane F
 	 **/
 	public function checkProfil(...$profils) {
@@ -478,8 +478,8 @@ EOT;
 	/**
 	 * Méthode qui édite le profil d'un utilisateur
 	 *
-	 * @param	content	tableau contenant les informations sur l'utilisateur
-	 * @return	string
+	 * @param	array $content	informations sur l'utilisateur
+	 * @return	bool
 	 * @author	Stéphane F, J.P. Pourrez @bazooka07
 	 **/
 	public function editProfil($content) {
@@ -506,8 +506,8 @@ EOT;
 	/**
 	 * Méthode qui édite le mot de passe d'un utilisateur
 	 *
-	 * @param	content	tableau contenant le nouveau mot de passe de l'utilisateur
-	 * @return	string
+	 * @param	array $content	nouveau mot de passe de l'utilisateur
+	 * @return	bool
 	 * @author	Stéphane F, PEdro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editPassword($content) {
@@ -541,8 +541,8 @@ EOT;
 	/**
 	* Create a token and send a link by e-mail using "email-lostpassword.xml" template
 	*
-	* @param loginOrMail user login or e-mail address
-	* @return true of false
+	* @param string $loginOrMail user's login or e-mail address
+	* @return string
 	* @throws \PHPMailer\PHPMailer\Exception
 	* @author Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
 	**/
@@ -621,8 +621,8 @@ EOT;
 	/**
 	 * Verify the lost password token validity
 	 *
-	 * @param	token	the token to verify
-	 * @return	boolean	true if the token exist and is not expire
+	 * @param	string $token	the token to verify
+	 * @return	bool true if the token exist and is not expire
 	 * @author	Pedro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 */
 	public function verifyLostPasswordToken($token) {
@@ -656,8 +656,8 @@ EOT;
 	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
-	 * @param	content	tableau les informations sur les utilisateurs
-	 * @return	string
+	 * @param	array $content	informations sur les utilisateurs
+	 * @return	bool
 	 * @author	Stéphane F, Pedro "P3ter" CADETE, , J.P. Pourrez @bazooka07
 	 **/
 	public function editUsers($content, $action=false) {
@@ -847,8 +847,8 @@ EOT;
 	/**
 	 * Méthode qui sauvegarde le contenu des options d'un utilisateur
 	 *
-	 * @param	content	données à sauvegarder
-	 * @return	string
+	 * @param	array $content	données d'un utilisateur à sauvegarder
+	 * @return	bool
 	 * @author	Stephane F., J.P. Pourrez @bazooka07
 	 **/
 	public function editUser($content) {
@@ -886,9 +886,9 @@ EOT;
 	/**
 	 * Méthode qui édite le fichier XML des catégories selon le tableau $content
 	 *
-	 * @param	content	tableau multidimensionnel des catégories
-	 * @param	action	permet de forcer la mise à jour du fichier
-	 * @return	string
+	 * @param	array $content	tableau multidimensionnel des catégories
+	 * @param	bool $action	permet de forcer la mise à jour du fichier
+	 * @return	bool
 	 * @author	Stephane F, Pedro "P3ter" CADETE, sudwebdesign
 	 **/
 	public function editCategories($content, $action=false) {
@@ -1082,8 +1082,8 @@ EOT;
 	/**
 	 * Méthode qui sauvegarde le contenu des options d'une catégorie
 	 *
-	 * @param	content	données à sauvegarder
-	 * @return	string
+	 * @param	array $content	données de la catégorie à sauvegarder
+	 * @return	bool
 	 * @author	Stephane F., Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editCategorie($content) {
@@ -1125,9 +1125,9 @@ EOT;
 	/**
 	 * Méthode qui édite le fichier XML des pages statiques selon le tableau $content
 	 *
-	 * @param	content	tableau multidimensionnel des pages statiques
-	 * @param	action	permet de forcer la mise àjour du fichier
-	 * @return	string
+	 * @param	array $content	tableau multidimensionnel des pages statiques
+	 * @param	bool $action	permet de forcer la mise àjour du fichier
+	 * @return	bool
 	 * @author	Stephane F.
 	 **/
 	public function editStatiques($content, $action=false) {
@@ -1286,7 +1286,7 @@ EOT;
 	/**
 	 * Méthode qui lit le fichier d'une page statique
 	 *
-	 * @param	num		numero du fichier de la page statique
+	 * @param	string $num		numero du fichier, cadré à gauche sur 3 caractères, de la page statique
 	 * @return	string	contenu de la page
 	 * @author	Stephane F.
 	 **/
@@ -1309,8 +1309,8 @@ EOT;
 	/**
 	 * Méthode qui sauvegarde le contenu d'une page statique
 	 *
-	 * @param	content	données à sauvegarder
-	 * @return	string
+	 * @param	array $content	données à sauvegarder
+	 * @return	bool
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function editStatique($content) {
@@ -1386,9 +1386,9 @@ EOT;
 	/**
 	 * Méthode qui effectue une création ou mise a jour d'un article
 	 *
-	 * @param	content	données saisies de l'article
-	 * @param	&id		retourne le numero de l'article
-	 * @return	string
+	 * @param	array $content	données saisies de l'article
+	 * @param	string $id		retourne le numero de l'article
+	 * @return	bool
 	 * @author	Stephane F., Florent MONTHEL, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editArticle($content, &$id) {
@@ -1402,7 +1402,7 @@ EOT;
 				# Vérifie l'intégrité de l'identifiant
 				if(!preg_match('/^_?\d{4}$/',$id)) {
 					$id = '';
-					return L_ERR_INVALID_ARTICLE_IDENT;
+					return plxMsg::Error(L_ERR_INVALID_ARTICLE_IDENT);
 				}
 			}
 		}
@@ -1577,15 +1577,15 @@ EOT;
 	/**
 	 * Méthode qui supprime un article et les commentaires associés
 	 *
-	 * @param	id	numero de l'article à supprimer
-	 * @return	string
+	 * @param	string $id	numero de l'article à supprimer
+	 * @return	bool
 	 * @author	Stephane F., Florent MONTHEL, J-Pierre Pourrez @bazooka07
 	 **/
 	public function delArticle($id) {
 
 		# Vérification de l'intégrité de l'identifiant
 		if(!preg_match('/^_?\d{4}$/',$id))
-			return L_ERR_INVALID_ARTICLE_IDENT;
+			return plxMsg::Error(L_ERR_INVALID_ARTICLE_IDENT);
 
 		# Récuperation de l'id de l'utilisateur ( voir index.php )
 		$userId = ($_SESSION['profil'] <= PROFIL_MODERATOR) ? '\d{3}' : $_SESSION['user'];
@@ -1632,8 +1632,8 @@ EOT;
 	/**
 	 * Méthode qui modifie l'état de brouillon d'un article
 	 *
-	 * @param	id	numero de l'article
-	 * @param	$draft true or  false pour basculer en brouillon ou pas
+	 * @param	string $id	numero de l'article
+	 * @param	bool $draft true or  false pour basculer en brouillon ou pas
 	 * @return	string
 	 * @author	J.P. Pourrez "bazooka07"
 	 **/
@@ -1664,9 +1664,9 @@ EOT;
 	/**
 	 * Méthode qui crée un nouveau commentaire pour l'article $artId
 	 *
-	 * @param	artId	identifiant de l'article en question
-	 * @param	content	string contenu du nouveau commentaire
-	 * @return	boolean
+	 * @param	string $artId	identifiant de l'article en question
+	 * @param	string $content	string contenu du nouveau commentaire
+	 * @return	bool
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
 	public function newCommentaire($artId, $content) {
@@ -1701,9 +1701,9 @@ EOT;
 	/**
 	 * Méthode qui effectue une mise a jour d'un commentaire
 	 *
-	 * @param	content	données du commentaire à mettre à jour
-	 * @param	id		identifiant du commentaire
-	 * @return	string
+	 * @param	array $content	données du commentaire à mettre à jour
+	 * @param	string $id		identifiant du commentaire
+	 * @return	bool
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function editCommentaire($content, &$id) {
@@ -1775,8 +1775,8 @@ EOT;
 	/**
 	 * Méthode qui supprime un commentaire
 	 *
-	 * @param	id	identifiant du commentaire à supprimer
-	 * @return	string
+	 * @param	string $id	identifiant du commentaire à supprimer
+	 * @return	bool
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function delCommentaire($id) {
@@ -1797,9 +1797,9 @@ EOT;
 	/**
 	 * Méthode qui permet de modérer ou valider un commentaire
 	 *
-	 * @param	id	identifiant du commentaire à traiter (que l'on retourne)
-	 * @param	mod	type de moderation (online ou offline)
-	 * @return	string
+	 * @param	string $id	identifiant du commentaire à traiter (que l'on retourne)
+	 * @param	string $mod	type de moderation (online ou offline)
+	 * @return	bool
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function modCommentaire(&$id, $mod) {
@@ -1838,8 +1838,7 @@ EOT;
 	 * Méthode qui sauvegarde la liste des tags dans fichier XML
 	 * selon le contenu de la variable de classe $aTags
 	 *
-	 * @param	null
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function editTags() {
@@ -1942,6 +1941,7 @@ EOT;
 	/**
 	 * Vérifie s'il y a besoin de demander un token pour utiliser le serveur SMTP (OAuth2)
 	 *
+	 * @param array $data
 	 * @author Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function o_auth_token_required($data=null) {

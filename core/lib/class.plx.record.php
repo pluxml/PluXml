@@ -15,8 +15,8 @@ class plxRecord {
 	/**
 	 * Constructeur qui initialise les variables de classe
 	 *
-	 * @param	array	tableau associatif des résultats à traiter
-	 * @return	null
+	 * @param	array $array	tableau associatif des résultats à traiter
+	 * @return	void
 	 * @author	Anthony GUÉRIN et Florent MONTHEL
 	 **/
 	public function __construct(&$array) {
@@ -29,7 +29,7 @@ class plxRecord {
 	/**
 	 * Méthode qui incrémente judicieusement la variable $i
 	 *
-	 * @return	boolean
+	 * @return	bool
 	 * @author	Anthony GUÉRIN
 	 **/
 	public function loop() {
@@ -47,8 +47,8 @@ class plxRecord {
 	 * Méthode qui récupère la valeur du champ $field
 	 * correspondant à la position courante
 	 *
-	 * @param	field	clef du tableau à retourner
-	 * @return	string ou false
+	 * @param	string $field	clef du tableau à retourner
+	 * @return	string|bool
 	 * @author	Anthony GUÉRIN et Florent MONTHEL
 	 **/
 	public function f($field) {

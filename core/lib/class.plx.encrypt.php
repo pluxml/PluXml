@@ -13,7 +13,7 @@ class plxEncrypt {
 	/**
 	 * Méthode qui crypte le texte $plainText
 	 *
-	 * @param	plainText	chaîne à crypter
+	 * @param	string $plainText	chaîne à crypter
 	 * @return	string	chaîne cryptée
 	 * @author	Stephane F.
 	 **/
@@ -27,7 +27,7 @@ class plxEncrypt {
 	/**
 	 * Méthode qui décrypte le texte $plainText
 	 *
-	 * @param	plainText	chaîne à décrypter
+	 * @param	string $plainText	chaîne à décrypter
 	 * @return	string	chaîne décryptée
 	 * @author	Stephane F.
 	 **/

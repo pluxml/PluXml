@@ -80,7 +80,7 @@ class plxMotor {
 	 * Constructeur qui initialise certaines variables de classe
 	 * et qui lance le traitement initial
 	 *
-	 * @param	filename	emplacement du fichier XML de configuration
+	 * @param	string $filename	emplacement du fichier XML de configuration
 	 * @return	void
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
@@ -394,7 +394,7 @@ class plxMotor {
 	 * Méthode qui parse le fichier de configuration et alimente
 	 * le tableau aConf
 	 *
-	 * @param	filename	emplacement du fichier XML de configuration
+	 * @param	string $filename	emplacement du fichier XML de configuration
 	 * @return	void
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
@@ -477,7 +477,7 @@ class plxMotor {
 	 * Méthode qui parse le fichier des catégories et alimente
 	 * le tableau aCats
 	 *
-	 * @param	filename	emplacement du fichier XML des catégories
+	 * @param	string $filename	emplacement du fichier XML des catégories
 	 * @return	void
 	 * @author	Stéphane F
 	 **/
@@ -560,7 +560,7 @@ class plxMotor {
 	 * Méthode qui parse le fichier des pages statiques et alimente
 	 * le tableau aStats
 	 *
-	 * @param	filename	emplacement du fichier XML des pages statiques
+	 * @param	string $filename	emplacement du fichier XML des pages statiques
 	 * @return	void
 	 * @author	Stéphane F
 	 **/
@@ -625,7 +625,7 @@ class plxMotor {
 	/**
 	 * Méthode qui parse le fichier des utilisateurs et alimente la propriété $aUsers
 	 *
-	 * @param	filename	emplacement du fichier XML des passwd
+	 * @param	string $filename	emplacement du fichier XML des passwd
 	 * @return	void
 	 * @author	Stephane F
 	 **/
@@ -680,7 +680,7 @@ class plxMotor {
 	/**
 	 * Méthode qui selon le paramètre tri retourne sort ou rsort (tri PHP)
 	 *
-	 * @param	tri	asc ou desc
+	 * @param	string $tri	asc ou desc
 	 * @return	string
 	 * @author	Stéphane F.
 	 **/
@@ -716,7 +716,7 @@ class plxMotor {
 	/**
 	 * Méthode qui récupere la liste des  articles
 	 *
-	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
+	 * @param	string $publi	before, after ou all => on récupère tous les fichiers (date) ?
 	 * @return	boolean	vrai si articles trouvés, sinon faux
 	 * @author	Stéphane F, J.P. Pourrez (bazooka07)
 	 **/
@@ -747,7 +747,7 @@ class plxMotor {
 	 * Méthode qui retourne les informations $output en analysant
 	 * le nom du fichier de l'article $filename
 	 *
-	 * @param	filename	fichier de l'article à traiter
+	 * @param	string $filename	fichier de l'article à traiter
 	 * @return	array		information à récupérer
 	 * @author	Stephane F, J.P. Pourrez "bazooka07"
 	 **/
@@ -796,7 +796,7 @@ class plxMotor {
 	/**
 	 * Méthode qui parse l'article du fichier $filename
 	 *
-	 * @param	filename	fichier de l'article à parser
+	 * @param	string $filename	fichier de l'article à parser
 	 * @return	array
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, J.P. Pourrez (bazooka07)
 	 **/
@@ -860,8 +860,8 @@ class plxMotor {
 	/**
 	 * Méthode qui retourne le nombre de commentaires respectants le motif $motif et le paramètre $publi
 	 *
-	 * @param	motif	motif de recherche des commentaires
-	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
+	 * @param	string $motif	motif de recherche des commentaires
+	 * @param	string $publi	before, after ou all => on récupère tous les fichiers (date) ?
 	 * @return	integer
 	 * @author	Florent MONTHEL
 	 **/
@@ -877,7 +877,7 @@ class plxMotor {
 	 * Méthode qui retourne les informations $output en analysant
 	 * le nom du fichier du commentaire $filename
 	 *
-	 * @param	filename	fichier du commentaire à traiter
+	 * @param	string $filename	fichier du commentaire à traiter
 	 * @return	array		information à récupérer
 	 * @author	Stephane F
 	 **/
@@ -899,7 +899,7 @@ class plxMotor {
 	/**
 	 * Méthode qui parse le commentaire du fichier $filename
 	 *
-	 * @param	filename	fichier du commentaire à parser
+	 * @param	string $filename	fichier du commentaire à parser
 	 * @return	array
 	 * @author	Florent MONTHEL
 	 **/
@@ -967,15 +967,15 @@ class plxMotor {
 	 * Méthode qui enregistre dans un objet plxRecord tous les commentaires
 	 * respectant le motif $motif et la limite $limite
 	 *
-	 * @param	motif	motif de recherche des commentaires
-	 * @param	ordre	ordre du tri : sort ou rsort
-	 * @param	start	commencement
-	 * @param	limite	nombre de commentaires à retourner
-	 * @param	publi	before, after ou all => on récupère tous les fichiers (date) ?
+	 * @param	string $motif	motif de recherche des commentaires
+	 * @param	string $ordre	ordre du tri : sort ou rsort
+	 * @param	int $start	commencement
+	 * @param	int $limite	nombre de commentaires à retourner
+	 * @param	string $publi	before, after ou all => on récupère tous les fichiers (date) ?
 	 * @return	bool	true if there is comments else false
 	 * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
 	 **/
-	public function getCommentaires($motif,$ordre='sort',$start=0,$limite=false,$publi='before') {
+	public function getCommentaires($motif,$ordre='sort',$start=0,$limite=null,$publi='before') {
 
 		# On récupère les fichiers des commentaires
 		$aFiles = $this->plxGlob_coms->query($motif,'com',$ordre,$start,$limite,$publi);
@@ -1001,7 +1001,7 @@ class plxMotor {
 	/**
 	 *  Méthode qui retourne le prochain id d'un commentaire pour un article précis
 	 *
-	 * @param	idArt		id de l'article
+	 * @param	string $idArt		id de l'article
 	 * @return	string		id d'un nouveau commentaire
 	 * @author	Stephane F.
 	 **/
@@ -1027,8 +1027,8 @@ class plxMotor {
 	/**
 	 * Méthode qui crée un nouveau commentaire pour l'article $artId
 	 *
-	 * @param	artId	identifiant de l'article en question
-	 * @param	content	tableau contenant les valeurs du nouveau commentaire
+	 * @param	string $artId	identifiant de l'article en question
+	 * @param	array $content	valeurs du nouveau commentaire
 	 * @return	string
 	 * @author	Florent MONTHEL, Stéphane F, J.P. Pourrez
 	 **/
@@ -1098,8 +1098,8 @@ class plxMotor {
 	 * $content est un tableau et doit contenir les champs suivants :
 	 * author, type, ip, mail, site, content, parent, filename
 	 *
-	 * @param	content	array avec les données du commentaire à ajouter
-	 * @return	boolean
+	 * @param	array $content	données du commentaire à ajouter
+	 * @return	bool
 	 * @author	Anthony GUÉRIN, Florent MONTHEL et Stéphane F
 	 **/
 	public function addCommentaire($content) {
@@ -1157,7 +1157,7 @@ class plxMotor {
 	 * Méthode qui parse le fichier des tags et alimente
 	 * le tableau aTags
 	 *
-	 * @param	filename	emplacement du fichier XML contenant les tags
+	 * @param	string $filename	emplacement du fichier XML contenant les tags
 	 * @return	void
 	 * @author	Stephane F.
 	 **/
@@ -1198,7 +1198,7 @@ class plxMotor {
 	/**
 	 * Méthode qui alimente le tableau aTemplate
 	 *
-	 * @param	string	dossier contenant les templates
+	 * @param	string	$templateFolder dossier contenant les templates
 	 * @return	void
 	 * @author	Pedro "P3ter" CADETE
 	 **/
@@ -1218,8 +1218,8 @@ class plxMotor {
 	/**
 	 * Méthode qui lance le téléchargement d'un document
 	 *
-	 * @param	cible	cible de téléchargement cryptée
-	 * @return	boolean
+	 * @param	string $cible	cible de téléchargement cryptée
+	 * @return	bool
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function sendTelechargement($cible) {
@@ -1254,7 +1254,7 @@ class plxMotor {
 	/**
 	 * Méthode qui réécrit les urls pour supprimer le ?
 	 *
-	 * @param	url		url à réécrire
+	 * @param	string $url		url à réécrire
 	 * @return	string	url réécrite
 	 * @author	Stéphane F, J.P. Pourrez
 	 **/
@@ -1305,10 +1305,10 @@ class plxMotor {
 	/**
 	 * Méthode qui comptabilise le nombre d'articles du site.
 	 *
-	 * @param	select	critere de recherche: draft, published, all, n° categories séparés par un |
-	 * @param	userid	filtre sur les articles d'un utilisateur donné
-	 * @param	mod		filtre sur les articles en attente de validation
-	 * @param	publi	selection en fonciton de la date du jour (all, before, after)
+	 * @param	string $select	critere de recherche: draft, published, all, n° categories séparés par un |
+	 * @param	string $userId	filtre sur les articles d'un utilisateur donné
+	 * @param	string $mod		filtre sur les articles en attente de validation
+	 * @param	string $publi	selection en fonciton de la date du jour (all, before, after)
 	 * @return	integer	nombre d'articles
 	 * @scope	global
 	 * @author	Stephane F
@@ -1336,8 +1336,8 @@ class plxMotor {
 	/**
 	 * Méthode qui comptabilise le nombre de commentaires du site
 	 *
-	 * @param	select	critere de recherche des commentaires: all, online, offline
-	 * @param	publi	type de sélection des commentaires: all, before, after
+	 * @param	string $select	critere de recherche des commentaires: all, online, offline
+	 * @param	string $publi	type de sélection des commentaires: all, before, after
 	 * @return	integer	nombre de commentaires
 	 * @scope	global
 	 * @author	Stephane F

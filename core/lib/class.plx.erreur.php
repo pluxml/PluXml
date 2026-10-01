@@ -13,8 +13,8 @@ class plxErreur {
 	/**
 	 * Constructeur qui initialise la variable de classe
 	 *
-	 * @param	erreur	message d'erreur
-	 * @return	null
+	 * @param	string $erreur	message d'erreur
+	 * @return	void
 	 * @author	Florent MONTHEL
 	 **/
 	public function __construct($erreur) {

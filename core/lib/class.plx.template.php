@@ -125,7 +125,7 @@ class PlxTemplate {
 	/**
 	 * Set the template's content
 	 *
-	 * @param	content	string	template's content
+	 * @param	string $content	template's content
 	 * @return	void
 	 * @author	Pedro "P3ter" CADETE
 	 */
@@ -226,7 +226,7 @@ class PlxTemplate {
 	/**
 	 * Method in charge of parsing templates XML files
 	 *
-	 * @param	filename	fichier de l'article à parser
+	 * @param	string $fileName	fichier de l'article à parser
 	 * @return	array
 	 * @author	Pedro "P3ter" CADETE
 	 **/
