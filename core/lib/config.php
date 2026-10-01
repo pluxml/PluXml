@@ -5,13 +5,17 @@ if(!defined('PLX_ROOT')) {
 	exit;
 }
 
+if(!defined('PLX_CORE')) {
+	header('Content-Type: text/plain');
+	echo 'PLX_CORE constant is missing';
+	exit;
+}
+
 if(!function_exists('xml_parser_create')) {
 	header('Content-Type: text/plain');
 	echo 'xml_parser_create() function is missing';
 	exit;
 }
-
-include __DIR__ . '/plx_config.php';
 
 const PLX_DEBUG = false;
 const PLX_VERSION = '5.10.0';
@@ -32,18 +36,6 @@ function getMicrotime() {
 	$t = explode(' ',microtime());
 	return $t[0]+$t[1];
 }
-
-# Initialisation du timer d'execution
-define('PLX_MICROTIME', getMicrotime());
-
-$CONSTS = array(
-	'XMLFILE_PARAMETERS'	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
-	'XMLFILE_CATEGORIES'	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
-	'XMLFILE_STATICS'		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
-	'XMLFILE_USERS'			=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
-	'XMLFILE_PLUGINS'		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
-	'XMLFILE_TAGS'			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
-);
 
 # Définition de l'encodage => PLX_CHARSET : UTF-8 (conseillé) ou ISO-8859-1
 const PLX_CHARSET = 'UTF-8';
@@ -77,8 +69,20 @@ const FLAGS = array(
 );
 
 # taille redimensionnement des images et miniatures
-$img_redim = array('320x200', '500x380', '640x480');
-$img_thumb = array('50x50', '75x75', '100x100');
+const IMG_REDIM = array('320x200', '500x380', '640x480');
+const IMG_THUMB = array('50x50', '75x75', '100x100');
+
+# set PLX_CONFIG_PATH constant
+require 'plx_config.php';
+
+const CONSTS = array(
+	'XMLFILE_PARAMETERS'	=> PLX_ROOT.PLX_CONFIG_PATH.'parametres.xml',
+	'XMLFILE_CATEGORIES'	=> PLX_ROOT.PLX_CONFIG_PATH.'categories.xml',
+	'XMLFILE_STATICS'		=> PLX_ROOT.PLX_CONFIG_PATH.'statiques.xml',
+	'XMLFILE_USERS'			=> PLX_ROOT.PLX_CONFIG_PATH.'users.xml',
+	'XMLFILE_PLUGINS'		=> PLX_ROOT.PLX_CONFIG_PATH.'plugins.xml',
+	'XMLFILE_TAGS'			=> PLX_ROOT.PLX_CONFIG_PATH.'tags.xml',
+);
 
 # On sécurise notre environnement si dans php.ini: register_globals = On
 if (ini_get('register_globals')) {
@@ -106,12 +110,12 @@ function loadLang($filename) {
 }
 
 # fonction qui retourne ou change le chemin des fichiers xml de configuration
-function path($s, $newvalue='') {
-	global $CONSTS;
-	if(!empty($newvalue))
-		$CONSTS[$s]=$newvalue;
-	if(isset($CONSTS[$s]))
-		return $CONSTS[$s];
+function path($key) {
+	if(array_key_exists($key, CONSTS)) {
+		return CONSTS[$key];
+	}
+
+	return null;
 }
 
 # fonction qui retourne le chemin de la racine du site avec ou sans redirection d'url
@@ -130,16 +134,28 @@ if(!file_exists(path('XMLFILE_PARAMETERS')) and !preg_match('#/' . PLX_INSTALL_P
 	exit;
 }
 
-$session_site = array(
-	'name'				=> 'PLX_SITE',
-	'cookie_lifetime'	=> SESSION_LIFETIME,
-	'cookie_samesite'	=> 'Strict',
-	'cookie_secure'		=> isset($_SERVER['HTTPS']),
-	'cookie_httponly'	=> true,
-	'cookie_path'		=> !empty($_SERVER['REDIRECT_URL']) ? preg_replace('#(?:/|/\w[\w-]+\w\.(?:php|html?))$#', '', $_SERVER['REDIRECT_URL']) : dirname($_SERVER['PHP_SELF']),
-	'use_strict_mode'	=> true,
-	'cookie_domain'		=> $_SERVER['SERVER_NAME'],
-);
+function close_session() {
+	$_SESSION = array();
+	$name = session_name();
+	if (ini_get('session.use_cookies')) {
+		# Effacement du cookie de session
+		$params = session_get_cookie_params();
+		setcookie(session_name(), '', 1, $params['path'], $params['domain']);
+	}
+	session_destroy();
+}
+
+function open_session($name='PLX_SITE') {
+	session_start(array(
+		'name'				=> $name,
+		'cookie_lifetime'	=> SESSION_LIFETIME,
+		'cookie_samesite'	=> 'Strict',
+		'cookie_secure'		=> isset($_SERVER['HTTPS']),
+		'cookie_httponly'	=> true,
+		'cookie_path'		=> !empty($_SERVER['REDIRECT_URL']) ? preg_replace('#(?:/|/\w[\w-]+\w\.(?:php|html?))$#', '', $_SERVER['REDIRECT_URL']) : dirname($_SERVER['PHP_SELF']),
+		'use_strict_mode'	=> true,
+		'cookie_domain'		=> $_SERVER['SERVER_NAME'],
+	));
+}
 
 require 'autoloader.php';
-

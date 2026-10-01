@@ -1,8 +1,15 @@
-<?php include 'header.php'; ?>
+<?php
+require 'header.php';
+
+if(!isset($plxShow)) {
+	$plxShow = plxShow::getInstance();
+}
+
+?>
 	<main class="main">
 		<div class="container">
 			<div class="grid">
-				<div class="content <?= $colsClass ?>">
+				<div class="content <?= colsClass() ?>">
 					<article class="article" id="post-<?php echo $plxShow->artId(); ?>">
 						<header>
 							<span class="art-date">
@@ -44,4 +51,5 @@
 			</div>
 		</div>
 	</main>
-<?php include 'footer.php'; ?>
+<?php
+require 'footer.php';

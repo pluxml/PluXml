@@ -1,49 +1,36 @@
+<?php
+if(!isset($plxShow)) {
+	$plxShow = plxShow::getInstance();
+}
+?>
+
 <?php if(!defined('PLX_ROOT')) exit; ?>
-
 	<?php if($plxShow->plxMotor->plxRecord_coms): ?>
-
-		<h3 id="comments">
-			<?php echo $plxShow->artNbCom(); ?>
-		</h3>
-
+		<h3 id="comments"><?php echo $plxShow->artNbCom(); ?></h3>
 		<?php while($plxShow->plxMotor->plxRecord_coms->loop()): # On boucle sur les commentaires ?>
-
 		<div id="<?php $plxShow->comId(); ?>" class="comment <?php $plxShow->comLevel(); ?>">
-
 			<div id="com-<?php $plxShow->comIndex(); ?>">
-
 				<small>
 					<a class="nbcom" href="<?php $plxShow->ComUrl(); ?>" title="#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?>">#<?php echo $plxShow->plxMotor->plxRecord_coms->i+1 ?></a>&nbsp;
 					<time datetime="<?php $plxShow->comDate('#num_year(4)-#num_month-#num_day #hour:#minute'); ?>"><?php $plxShow->comDate('#day #num_day #month #num_year(4) - #hour:#minute'); ?></time> -
 					<?php $plxShow->comAuthor('link'); ?>
 					<?php $plxShow->lang('SAID'); ?> :
 				</small>
-
 				<blockquote>
 					<p class="content_com type-<?php $plxShow->comType(); ?>"><?php $plxShow->comContent(); ?></p>
 				</blockquote>
-
 			</div>
-
 			<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
 			<a rel="nofollow" href="<?php $plxShow->artUrl(); ?>#form" onclick="replyCom('<?php $plxShow->comIndex() ?>')"><?php $plxShow->lang('REPLY'); ?></a>
 			<?php endif; ?>
-
 		</div>
-
 		<?php endwhile; # Fin de la boucle sur les commentaires ?>
-
 	<?php endif; ?>
-
 	<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
-
 <?php if($plxShow->comMessage('<p id="com_message" class="#com_class"><strong>#com_message</strong></p>')): ?>
 	<h3><?php $plxShow->lang('WRITE_A_COMMENT') ?></h3>
-
 	<form id="form" action="<?php $plxShow->artUrl(); ?>#form" method="post">
-
 		<fieldset>
-
 			<div class="grid">
 				<div class="col sml-12">
 					<label for="id_name"><?php $plxShow->lang('NAME') ?>* :</label>
@@ -67,9 +54,7 @@
 					<textarea id="id_content" name="content" cols="35" rows="6" required="required"><?php $plxShow->comGet('content',''); ?></textarea>
 				</div>
 			</div>
-
 			<?php if($plxShow->plxMotor->aConf['capcha']): ?>
-
 			<div class="grid capcha-challenge">
 				<div class="col sml-12">
 					<label for="id_rep"><strong><?php echo $plxShow->lang('ANTISPAM_WARNING') ?></strong>*</label>
@@ -115,8 +100,6 @@ if(parent!='') { replyCom(parent) }
 
 	<?php else: ?>
 
-	<p>
-		<?php $plxShow->lang('COMMENTS_CLOSED') ?>.
-	</p>
+	<p><?php $plxShow->lang('COMMENTS_CLOSED') ?>.</p>
 
 	<?php endif; # Fin du if sur l'autorisation des commentaires ?>

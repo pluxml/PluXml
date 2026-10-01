@@ -6,7 +6,7 @@
  * @author	Stephane F
  **/
 
-$versions = array (
+const PLX_VERSIONS = array (
 	'4.2' => 'update_4.2.php',
 	'4.3' => '',
 	'4.3.1' => '',

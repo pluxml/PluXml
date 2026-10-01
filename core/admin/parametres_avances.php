@@ -6,7 +6,11 @@
  * @author	Florent MONTHEL, Stephane F, Pedro "P3ter" CADETE
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -24,7 +28,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 ?>
 
 <form action="parametres_avances.php" method="post" id="form_settings">
@@ -312,5 +316,4 @@ if(!plxUtils::isPHPMailer()) {
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedFoot'));
 # On inclut le footer
-include 'foot.php';
-?>
+require 'foot.php';

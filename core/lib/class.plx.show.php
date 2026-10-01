@@ -9,6 +9,12 @@
 
 const PLX_SHOW = true;
 
+# Initialisation du timer d'execution
+define('PLX_MICROTIME', getMicrotime());
+
+require_once 'class.plx.motor.php';
+require_once 'class.plx.date.php';
+
 class plxShow
 {
 
@@ -1053,6 +1059,9 @@ class plxShow
      **/
     public function lastArtList($format = '', $max = 5, $cat_id = '', $ending = '', $sort = 'rsort')
     {
+        $motif = null;
+        $all = null;
+
         # Hook Plugins
         if(eval($this->plxMotor->plxPlugins->callHook('plxShowLastArtList'))) {
             return;
@@ -1061,11 +1070,10 @@ class plxShow
         # Génération de notre motif
         $generic_mode = in_array($this->plxMotor->mode, array('home', 'categorie', 'tags'));
 
-        if(empty($motif)) {
+        if($motif === null) {
             # On génère $motif car le hook ne  l'a pas fait
-            if(!empty($all)) {
+            if($all !== null) {
                 # catégories sélectionnées par le hook
-                # @phpstan-ignore variable.undefined
                 $cats = $all;
             } else {
                 # Aucune action du hook
@@ -2262,7 +2270,9 @@ class plxShow
     {
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowPluginsCss'))) return;
-        plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'site.css');
+        if(defined('PLX_PLUGINS_CSS_PATH')) {
+            plxUtils::printLinkCss(PLX_PLUGINS_CSS_PATH . 'site.css');
+        }
     }
 
     /**

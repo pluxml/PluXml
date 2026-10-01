@@ -1,15 +1,28 @@
 <?php
-if (!defined('PLX_CORE')) { exit; }
+if (!defined('PLX_ROOT')) {
+	error_log('PLX_ROOT constant is missing in ' . basename(__FILE__));
+	http_response_code(500);
+	header('Content-Type: text/plain');
+	echo 'Contact your webmaster';
+	exit;
+}
+
+require_once 'config.php';
+
+if (!defined('PLX_CONFIG_PATH')) {
+	error_log('PLX_CONFIG_PATH constant is missing in ' . basename(__FILE__));
+	http_response_code(500);
+	header('Content-Type: text/plain');
+	echo 'Contact your webmaster';
+	exit;
+}
 
 /**
  * Classe plxMotor responsable du traitement global du script
  *
  * @package PLX
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, Pedro "P3ter" CADETE
- **/
-
-include_once PLX_CORE.'lib/class.plx.template.php';
-
+ */
 class plxMotor {
 	const PLX_TEMPLATES = PLX_CORE . 'templates/';
 	const PLX_TEMPLATES_DATA = PLX_ROOT . 'data/templates/';
@@ -68,14 +81,17 @@ class plxMotor {
 	 * et qui lance le traitement initial
 	 *
 	 * @param	filename	emplacement du fichier XML de configuration
-	 * @return	null
+	 * @return	void
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
 	protected function __construct($filename) {
 
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
-		define('PLX_SITE_LANG', $this->aConf['default_lang']);
+
+		define('PLX_PLUGINS', PLX_ROOT . (!empty($this->aConf['racine_plugins']) ? $this->aConf['racine_plugins'] : 'plugins/'));
+		define('PLX_SITE_LANG', (!empty($this->aConf['default_lang']) ? $this->aConf['default_lang'] : DEFAULT_LANG));
+
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
@@ -129,7 +145,7 @@ class plxMotor {
 	 * le mode à appliquer. Cette méthode alimente ensuite les variables
 	 * de classe adéquates
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
 	public function prechauffage() {
@@ -273,7 +289,7 @@ class plxMotor {
 	/**
 	 * Méthode qui fait une redirection de type 301
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function redir301($url) {
@@ -288,7 +304,7 @@ class plxMotor {
 	/**
 	 * Méthode qui retourne une erreur 404 Document non trouvé
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F
 	 **/
 	public function error404($msg) {
@@ -302,7 +318,7 @@ class plxMotor {
 	/**
 	 * Méthode qui effectue le traitement selon le mode du moteur
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Florent MONTHEL, Stephane F
 	 **/
 	public function demarrage() {
@@ -379,7 +395,7 @@ class plxMotor {
 	 * le tableau aConf
 	 *
 	 * @param	filename	emplacement du fichier XML de configuration
-	 * @return	null
+	 * @return	void
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F
 	 **/
 	public function getConfiguration($filename) {
@@ -455,10 +471,6 @@ class plxMotor {
 				$this->aConf[$k] = '';
 			}
 		}
-
-		if(!defined('PLX_PLUGINS')) define('PLX_PLUGINS', PLX_ROOT . $this->aConf['racine_plugins']);
-		if(!defined('PLX_PLUGINS_CSS_PATH')) define('PLX_PLUGINS_CSS_PATH', preg_replace('@^([^/]+/).*@', '$1', $this->aConf['medias']));
-		if(defined('PLX_ADMIN') and !defined('PLX_CUSTOM_ADMINCSS_FILE') and !empty($this->aConf['custom_admincss_file'])) define('PLX_CUSTOM_ADMINCSS_FILE', PLX_ROOT . $this->aConf['custom_admincss_file']);
 	}
 
 	/**
@@ -466,7 +478,7 @@ class plxMotor {
 	 * le tableau aCats
 	 *
 	 * @param	filename	emplacement du fichier XML des catégories
-	 * @return	null
+	 * @return	void
 	 * @author	Stéphane F
 	 **/
 	public function getCategories($filename) {
@@ -549,7 +561,7 @@ class plxMotor {
 	 * le tableau aStats
 	 *
 	 * @param	filename	emplacement du fichier XML des pages statiques
-	 * @return	null
+	 * @return	void
 	 * @author	Stéphane F
 	 **/
 	public function getStatiques($filename) {
@@ -692,7 +704,7 @@ class plxMotor {
 	/**
 	 * Méthode qui récupère le numéro de la page active
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F
 	 **/
 	protected function getPage() {
@@ -1146,7 +1158,7 @@ class plxMotor {
 	 * le tableau aTags
 	 *
 	 * @param	filename	emplacement du fichier XML contenant les tags
-	 * @return	null
+	 * @return	void
 	 * @author	Stephane F.
 	 **/
 	public function getTags($filename) {
@@ -1187,7 +1199,7 @@ class plxMotor {
 	 * Méthode qui alimente le tableau aTemplate
 	 *
 	 * @param	string	dossier contenant les templates
-	 * @return	null
+	 * @return	void
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	public function getTemplates($templateFolder) {
@@ -1348,7 +1360,7 @@ class plxMotor {
 	/**
 	 * Méthode qui recherche les articles appartenant aux catégories actives
 	 *
-	 * @return	null
+	 * @return	void
 	 * @scope	global
 	 * @author	Stéphane F.
 	 **/

@@ -7,7 +7,11 @@
  * @author  Stephane F, Pedro "P3ter" CADETE
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -31,9 +35,10 @@ elseif(!empty($_POST['folder'])) {
 }
 # Nouvel objet de type plxMedias
 $plxMediasRoot = PLX_ROOT.$_SESSION['medias'];
-if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER)
+if($plxAdmin->aConf['userfolders'] AND $_SESSION['profil']==PROFIL_WRITER) {
 	$plxMediasRoot .= $_SESSION['user'].'/';
-$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder'], $plxAdmin->aConf['default_lang']);
+}
+$plxMedias = new plxMedias($plxMediasRoot, $_SESSION['folder']);
 
 #----
 
@@ -110,7 +115,7 @@ $_SESSION['sort_medias']=$sort;
 $selectionList = array(''=>L_FOR_SELECTION,'move'=>L_PLXMEDIAS_MOVE_FOLDER,'thumbs'=>L_MEDIAS_RECREATE_THUMB,'-'=>'-----','delete' =>L_DELETE_FILE);
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 
 $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
 $curFolders = explode('/', $curFolder);
@@ -298,8 +303,10 @@ $curFolders = explode('/', $curFolder);
 					<li><?= L_MEDIAS_RESIZE ?>&nbsp;:&nbsp;</li>
 					<li><input type="radio" checked="checked" name="resize" value="" />&nbsp;<?= L_MEDIAS_RESIZE_NO ?></li>
 					<?php
-						foreach($img_redim as $redim) {
-							echo '<li><input type="radio" name="resize" value="'.$redim.'" />&nbsp;'.$redim.'</li>';
+						foreach(IMG_REDIM as $redim) {
+?>
+					<li><input type="radio" name="resize" value="<?= $redim ?>" />&nbsp;<?= $redim ?></li>
+<?php
 						}
 					?>
 					<li>
@@ -317,12 +324,13 @@ $curFolders = explode('/', $curFolder);
 				<ul class="unstyled-list">
 					<li><?= L_MEDIAS_THUMBS ?>&nbsp;:&nbsp;</li>
 					<li>
-						<?php $sel = (!$plxAdmin->aConf['thumbs'] ? ' checked="checked"' : '') ?>
-						<input<?= $sel ?> type="radio" name="thumb" value="" />&nbsp;<?= L_MEDIAS_THUMBS_NONE ?>
+						<input <?php if(!$plxAdmin->aConf['thumbs']) { echo 'checked'; } ?> type="radio" name="thumb" value="" />&nbsp;<?= L_MEDIAS_THUMBS_NONE ?>
 					</li>
 					<?php
-						foreach($img_thumb as $thumb) {
-							echo '<li><input type="radio" name="thumb" value="'.$thumb.'" />&nbsp;'.$thumb.'</li>';
+						foreach(IMG_THUMB as $thumb) {
+?>
+					<li><input type="radio" name="thumb" value="<?= $thumb ?>" />&nbsp;<?= $thumb ?></li>
+<?php
 						}
 					?>
 					<li>
@@ -361,5 +369,5 @@ $curFolders = explode('/', $curFolder);
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminMediasFoot'));
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';
 ?>

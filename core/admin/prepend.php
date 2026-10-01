@@ -2,7 +2,7 @@
 const PLX_ROOT = '../../';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include PLX_CORE.'lib/config.php';
+require PLX_CORE . 'lib/config.php';
 
 # On regarde si on est sur la page de login
 $is_login = (basename($_SERVER['SCRIPT_NAME']) == PAGE_LOGIN);
@@ -10,27 +10,37 @@ $is_login = (basename($_SERVER['SCRIPT_NAME']) == PAGE_LOGIN);
 # Si on n'est pas sur la page de login ou si on veut se déconnecter, on ouvre une session pour admin
 if(($is_login and isset($_GET['d'])) or !empty($_COOKIE['PLX_ADMIN'])) {
 	# On est sur la page de login
-	$session_site['name'] = 'PLX_ADMIN';
+	open_session('PLX_ADMIN');
+} else {
+	open_session();
 }
-session_start($session_site);
+
+function redirectLogin($query='') {
+	$redirect = PAGE_LOGIN;
+	if(!empty($query)) {
+		$redirect .= '?' . $query;
+	}
+	header('Location: ' . $redirect );
+	exit;
+}
+
+function redirectAdmin() {
+	header('Location: index.php');
+	exit;
+}
 
 if($is_login) {
 	# on est sur la page de login.
 	if(isset($_GET['d'])) {
 		# Déconnexion
 		if(isset($_SESSION['preview'])) {
-			# On suuprime les articles en "preview"
+			# On supprime les articles en "preview"
 			foreach(glob($_SESSION['preview']) as $f) {
 				unlink($f);
 			}
 		}
-		$_SESSION = array();
-		$name = session_name();  # normalement est égal à PLX_ADMIN
-		session_destroy();
-		# Effacement du cookie de session
-		setcookie($name, '', 1);
-		header('Location: ' . PAGE_LOGIN);
-	    exit;
+		close_session();
+		redirectLogin();
 	}
 } else {
 	# On vérifie qu'on est connecté
@@ -41,13 +51,8 @@ if($is_login) {
 		trim($_SESSION['user']) == ''
 	) {
 		# Authentification incorrecte
-		if(isset($_COOKIE[$session_site['name']])) {
-			# On supprime le cookie de session admin
-			setcookie($session_site['name'], '', 1);
-		}
-
-		header('Location: ' . PAGE_LOGIN . '?p=' . htmlentities($_SERVER['REQUEST_URI']));
-		exit;
+		close_session();
+		redirectLogin('p=' . htmlentities($_SERVER['REQUEST_URI']));
 	}
 }
 
@@ -62,8 +67,7 @@ if(!$is_login) {
 	$userId = $_SESSION['user'];
 	if(empty($userId) or !isset($plxAdmin->aUsers[$userId]) or !$plxAdmin->aUsers[$userId]['active'] or $plxAdmin->aUsers[$userId]['delete']) {
 		# Déconnecte l'utilisateur
-		header('Location: ' . PAGE_LOGIN . '?d=1');
-		exit;
+		redirectLogin('d=1');
 	}
 
 	$lang = $plxAdmin->aUsers[$userId]['lang'];

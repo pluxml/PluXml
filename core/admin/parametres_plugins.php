@@ -7,7 +7,11 @@
  * @author	Stephane F
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -154,7 +158,7 @@ if($sel=='1') {
 $data_rows_num = ($sel=='1') ?  'data-rows-num=\'name^="plugOrdre"\'' : false;
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 
 ?>
 
@@ -239,4 +243,4 @@ if (typeof(Storage) !== "undefined" && localStorage.getItem("plugins_search") !=
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsPluginsFoot'));
 
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';

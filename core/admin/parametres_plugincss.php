@@ -6,7 +6,11 @@
  * @package PLX
  * @author	Stephane F
  **/
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -24,17 +28,23 @@ $file_backend = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.basename($plugin).'.admin.cs
 
 # Traitement du formulaire: sauvegarde du code css et regénération du cache
 if(isset($_POST['submit'])) {
-	$ret_f = plxUtils::write(trim($_POST['frontend']), $file_frontend);
-	$ret_b = plxUtils::write(trim($_POST['backend']), $file_backend);
-	if($ret_f AND $ret_b) {
-		$ret_1 = $plxAdmin->plxPlugins->cssCache('site');
-		$ret_2 = $plxAdmin->plxPlugins->cssCache('admin');
-	}
-	if($ret_f AND $ret_b AND $ret_1 AND $ret_2)
+	$frontend = trim($_POST['frontend']);
+	$backend = trim($_POST['backend']);
+	if(
+		(empty($frontend) or (
+			plxUtils::write($frontend, $file_frontend) and
+			$plxAdmin->plxPlugins->cssCache('site')
+		)) and
+		(empty($backend) or (
+			plxUtils::write($backend, $file_backend) and
+			$plxAdmin->plxPlugins->cssCache('admin')
+		))
+	) {
 		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
-	else
+	} else {
 		plxMsg::Error(L_SAVE_FILE_ERROR);
-	header('Location: parametres_plugincss.php?p='.urlencode($plugin));
+	}
+	header('Location: parametres_plugincss.php?p=' . urlencode($plugin));
 	exit;
 }
 
@@ -46,12 +56,11 @@ $file_frontend_init = PLX_PLUGINS.basename($plugin).'/css/site.css';
 $frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_contents($file_frontend_init)) : $frontend;
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 
 ?>
 
-<form action="parametres_plugincss.php?p=<?= urlencode($plugin) ?>" method="post" id="form_file">
-
+<form method="post" id="form_file">
 	<div class="inline-form action-bar">
 		<h2><?= plxUtils::strCheck($plugin) ?></h2>
 		<?= '<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
@@ -76,6 +85,6 @@ include 'top.php';
 	</fieldset>
 </form>
 <?php
+
 # On inclut le footer
-include 'foot.php';
-?>
+require 'foot.php';

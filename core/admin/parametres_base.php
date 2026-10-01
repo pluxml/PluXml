@@ -7,7 +7,11 @@
  * @author	Florent MONTHEL, Stephane F, Philippe-M, Pedro "P3ter" CADETE"
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -23,7 +27,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 ?>
 
 <form action="parametres_base.php" method="post" id="form_settings">
@@ -134,6 +138,6 @@ include 'top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseFoot'));
+
 # On inclut le footer
-include 'foot.php';
-?>
+require 'foot.php';

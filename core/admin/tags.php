@@ -6,7 +6,11 @@
  * Par sécurité, la connexion au back-office sera demandée.
  * */
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
@@ -35,13 +39,14 @@ if(!empty($plxAdmin->aTags)) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
+
 ?>
 <div class="inline-form action-bar">
 	<h2><?= L_TAGS_LIST_FILE ?></h2>
 </div>
 	<pre><?= str_replace('<', '&lt;', file_get_contents(path('XMLFILE_TAGS'))); ?></pre>
 <?php
-# On inclut le footer
-include 'foot.php';
 
+# On inclut le footer
+require 'foot.php';

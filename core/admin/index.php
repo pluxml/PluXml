@@ -7,7 +7,11 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -144,6 +148,7 @@ foreach(array(
 	$aFilterCat[$k] = $v;
 }
 if($plxAdmin->aCats) {
+	$aCat = array();
 	foreach($plxAdmin->aCats as $k=>$v) {
 		$caption = plxUtils::strCheck($v['name']);
 		$aCat[$k] = $caption;
@@ -182,7 +187,7 @@ if(is_dir(PLX_ROOT . PLX_INSTALL_PATH) and $_SESSION['profil'] == PROFIL_ADMIN) 
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 
 if(is_dir(PLX_ROOT . PLX_INSTALL_PATH) and $_SESSION['profil'] == PROFIL_ADMIN) {
 		$urlDeleteInstall = "?" . http_build_query(array_merge($_GET, array('del'=>'install')));
@@ -398,4 +403,4 @@ foreach($aFilterCat as $value=>$caption) {
 eval($plxAdmin->plxPlugins->callHook('AdminIndexFoot'));
 
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';

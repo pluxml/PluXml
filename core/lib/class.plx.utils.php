@@ -15,6 +15,11 @@ if (!defined('PLX_CORE')) { exit; }
  * Lire à ce propos le fichier core/lisezmoi.txt
  * */
 
+$autoloader = PLX_CORE . 'vendor/autoload.php';
+if(file_exists($autoloader)) {
+	require $autoloader;
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\OAuth;
@@ -22,11 +27,6 @@ use League\OAuth2\Client\Provider\Google;
 use Hayageek\OAuth2\Client\Provider\Yahoo;
 use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
 use Greew\OAuth2\Client\Provider\Azure;
-
-$autoloader = PLX_CORE.'vendor/autoload.php';
-if(file_exists($autoloader)) {
-	require $autoloader;
-}
 
 class plxUtils {
 

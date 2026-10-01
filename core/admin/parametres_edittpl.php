@@ -5,7 +5,11 @@
  * @author	Stephane F
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Controle du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -54,7 +58,7 @@ if($content === false) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 
 ?>
 <form method="post" id="form_edittpl">
@@ -84,4 +88,4 @@ include 'top.php';
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsEdittplFoot'));
 
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';

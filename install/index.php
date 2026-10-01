@@ -15,7 +15,7 @@ $plx_core_files =array(
 );
 const TARGET = PLX_ROOT . '../'; # Nouvel emplacement pour les librairies
 
-include PLX_CORE.'lib/config.php';
+include PLX_CORE . 'lib/config.php';
 
 # On démarre la session
 $session_site['name'] = 'PLX_INSTALL';

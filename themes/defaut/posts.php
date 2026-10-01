@@ -1,3 +1,8 @@
+<?php
+if(!isset($plxShow)) {
+	$plxShow = plxShow::getInstance();
+}
+?>
 <?php while($plxShow->plxMotor->plxRecord_arts->loop()): ?>
 					<article class="article" id="post-<?= $plxShow->artId() ?>">
 						<header>
@@ -36,4 +41,3 @@
 					<nav class="pagination text-center">
 						<?php $plxShow->pagination(); ?>
 					</nav>
-

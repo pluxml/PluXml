@@ -1,5 +1,8 @@
-<?php if(!class_exists('plxMotor')) { exit; } ?>
 <?php
+if(!isset($plxShow)) {
+	$plxShow = plxShow::getInstance();
+}
+
 $lastDisplay = ! in_array($plxShow->mode(), array('categorie', 'tags', 'archives'));
 ?>
 	<aside class="aside col sml-12 med-3">

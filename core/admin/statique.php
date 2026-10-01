@@ -7,7 +7,12 @@
  * @author	Stephane F. et Florent MONTHEL
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticPrepend'));
 
@@ -66,7 +71,7 @@ if (!empty($glob->aFiles)) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 ?>
 
 <form action="statique.php" method="post" id="form_static">
@@ -151,5 +156,5 @@ include 'top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticFoot'));
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';
 ?>

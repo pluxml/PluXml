@@ -177,14 +177,14 @@ class update_5_1 extends plxUpdate{
 						= $values[ $iTags['categorie'][$i] ]['attributes']['tri'];
 					else # Tri par defaut
 						$aCats[ $values[ $iTags['categorie'][$i] ]['attributes']['number'] ]['tri']
-						= $this->aConf['tri'];
+						= $this->plxAdmin->aConf['tri'];
 					# Recuperation du nb d'articles par page de la categorie si besoin est
 					if(isset($values[ $iTags['categorie'][$i] ]['attributes']['bypage']))
 						$aCats[ $values[ $iTags['categorie'][$i] ]['attributes']['number'] ]['bypage']
 						= $values[ $iTags['categorie'][$i] ]['attributes']['bypage'];
 					else # Nb d'articles par page par defaut
 						$aCats[ $values[ $iTags['categorie'][$i] ]['attributes']['number'] ]['bypage']
-						= $this->bypage;
+						= $this->plxAdmin->bypage;
 					# recuperation du fichier template
 					if(isset($values[ $iTags['categorie'][$i] ]['attributes']['template']))
 						$aCats[ $values[ $iTags['categorie'][$i] ]['attributes']['number'] ]['template']

@@ -1,10 +1,10 @@
 #!/usr/bin/env php
-
 <?php
-const PLX_ROOT = '../../';
+# Phpstan requires absolute path, not relative like "../../"
+const PLX_ROOT = __DIR__ . '/../../../';
 const PLX_CORE = PLX_ROOT . 'core/';
 
-include PLX_CORE . 'lib/class.plx.utils.php';
+require PLX_CORE . 'lib/class.plx.utils.php';
 
 foreach(array('plucss', 'theme', 'print',) as $f) {
 	echo $f . ' ';
@@ -24,4 +24,3 @@ foreach(array('plucss', 'theme', 'print',) as $f) {
 	}
 }
 echo 'Done !' . PHP_EOL;
-

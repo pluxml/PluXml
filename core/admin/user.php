@@ -7,7 +7,11 @@
  * @author	Stephane F.
  **/
 
-include 'prepend.php';
+require  'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -37,7 +41,7 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de l'utilisateur
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 ?>
 
 <form action="user.php" method="post" id="form_user">
@@ -84,5 +88,5 @@ include 'top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUserFoot'));
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';
 ?>

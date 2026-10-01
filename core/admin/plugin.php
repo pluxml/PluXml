@@ -6,7 +6,11 @@
  * @package PLX
  * @author	Stephane F
  **/
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 $plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
 $plugin = plxUtils::nullbyteRemove($plugin);
@@ -34,9 +38,9 @@ else {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 # Affichage des données
 echo $output;
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';
 ?>

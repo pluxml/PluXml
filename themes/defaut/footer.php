@@ -1,10 +1,12 @@
-<?php if (!defined('PLX_ROOT')) exit; ?>
+<?php
+if(!isset($plxShow)) {
+	$plxShow = plxShow::getInstance();
+}
 
+?>
 	<footer class="footer">
 		<div class="container">
-			<p>
-				<?php $plxShow->mainTitle('link'); ?> - <?php $plxShow->subTitle(); ?> &copy; 2018
-			</p>
+			<p><?php $plxShow->mainTitle('link'); ?> - <?php $plxShow->subTitle(); ?> &copy; 2026</p>
 			<p>
 				<?php $plxShow->lang('POWERED_BY') ?>&nbsp;<a href="<?= PLX_URL_REPO?>" title="<?php $plxShow->lang('PLUXML_DESCRIPTION') ?>">PluXml</a>
 				<?php $plxShow->lang('IN') ?>&nbsp;<?php $plxShow->chrono(); ?>&nbsp;

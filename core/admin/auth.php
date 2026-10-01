@@ -13,7 +13,15 @@ const MAXLOGIN = array(
     'timer'     => 3 * 60, # temps d'attente limite si nombre de tentative de connexion atteint (en minutes)
 );
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+    error_log('$plxAdmin variable is not set in ' . basename(__FILE__));
+    http_response_code(500);
+    header('Content-Type: text/plain');
+    echo 'Contact your webmaster';
+    exit;
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -79,17 +87,12 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
         if ($_POST['login'] == $user['login'] and sha1($user['salt'] . md5($_POST['password'])) === $user['password'] and $user['active'] and !$user['delete']) {
             if(session_status() == PHP_SESSION_ACTIVE) {
                 # On ferme la session en cours
-                $_SESSION = array();
-                $name = session_name();
-                session_destroy();
-                # Effacement du cookie de session
-                setcookie($name, '', 1, $plx_racine);
+                close_session();
             }
 
             # On démarre une nouvelle session
-            $session_site['name'] = 'PLX_ADMIN';
+            open_session('PLX_ADMIN');
             session_regenerate_id(true);
-            session_start($session_site);
 
             $_SESSION = array(
                 'user'       => $userid,
@@ -183,14 +186,15 @@ plxUtils::cleanHeaders();
     <section class="grid">
         <div class="logo"></div>
         <div class="auth col sml-12 sml-centered med-5 lrg-3">
-            <?php
+<?php
             # Hook plugins
             eval($plxAdmin->plxPlugins->callHook('AdminAuthBegin'));
+
             switch (isset($_GET['action']) ? $_GET['action'] : false) {
                 case 'lostpassword': # Affichage du formulaire d'envoi du mail de changement de mot de passe
                     # Hook plugins
                     eval($plxAdmin->plxPlugins->callHook('AdminAuthTopLostPassword'));
-                    ?>
+?>
                     <form action="<?= PAGE_LOGIN ?><?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
                           method="post" id="form_auth">
                         <fieldset>
@@ -207,10 +211,10 @@ plxUtils::cleanHeaders();
                                     <small><a href="?p=index.php"><?= L_LOST_PASSWORD_LOGIN ?></a></small>
                                 </div>
                             </div>
-                            <?php
+<?php
                             # Hook plugins
                             eval($plxAdmin->plxPlugins->callHook('AdminAuthLostPassword'));
-                            ?>
+?>
                             <div class="grid">
                                 <div class="col sml-12 text-center">
                                     <input class="blue" type="submit" value="<?= L_SUBMIT_BUTTON ?>"/>
@@ -222,7 +226,7 @@ plxUtils::cleanHeaders();
                         <small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_BACK_TO_SITE ?></a>
                             - <?= L_POWERED_BY ?></small>
                     </p>
-                    <?php
+<?php
                     break;
                 case 'changepassword': # Affichage du formulaire de changement de mot passe
                     $lostPasswordToken = $_GET['token'];
@@ -270,7 +274,7 @@ plxUtils::cleanHeaders();
                             <small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_BACK_TO_SITE ?></a>
                                 - <?= L_POWERED_BY ?></small>
                         </p>
-                        <?php
+<?php
                     } else {
                         # Hook plugins
                         eval($plxAdmin->plxPlugins->callHook('AdminAuthTopChangePasswordError'));
@@ -285,13 +289,13 @@ plxUtils::cleanHeaders();
                             <small><a class="back" href="<?= PLX_ROOT; ?>"><?= L_BACK_TO_SITE ?></a>
                                 - <?= L_POWERED_BY ?></small>
                         </p>
-                        <?php
+<?php
                     }
                     break;
                 default: # Affichage du formulaire de connexion à l'administration
-                    ?>
+?>
                     <?php eval($plxAdmin->plxPlugins->callHook('AdminAuthTop')) # Hook plugins
-                    ?>
+?>
                     <form action="<?= PAGE_LOGIN ?><?= !empty($redirect) ? '?p=' . plxUtils::strCheck(urlencode($redirect)) : '' ?>"
                           method="post" id="form_auth">
                         <fieldset>
@@ -310,19 +314,20 @@ plxUtils::cleanHeaders();
                                     <?php plxUtils::printInput('password', '', 'password', '10-64', false, 'full-width', L_AUTH_PASSWORD_FIELD); ?>
                                 </div>
                             </div>
-                            <?php
+<?php
                             if ($plxAdmin->aConf['lostpassword']) {
-                                ?>
+?>
                                 <div class="grid">
                                     <div class="col sml-12">
                                         <small><a href="?action=lostpassword"><?= L_LOST_PASSWORD ?></a></small>
                                     </div>
                                 </div>
-                                <?php
+<?php
                             }
+
                             # Hook Plugins
                             eval($plxAdmin->plxPlugins->callHook('AdminAuth'));
-                            ?>
+?>
                             <div class="grid">
                                 <div class="col sml-12 text-center">
                                     <input class="blue" type="submit" value="<?= L_SUBMIT_BUTTON ?>"/>
@@ -334,9 +339,9 @@ plxUtils::cleanHeaders();
                         <small><a class="back" href="<?= PLX_ROOT; ?>"><span><?= L_BACK_TO_SITE ?></span></a>
                             - <?= L_POWERED_BY ?></small>
                     </p>
-                <?php
+<?php
             }
-            ?>
+?>
         </div>
 
     </section>

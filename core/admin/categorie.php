@@ -7,7 +7,11 @@
  * @author	Stephane F.
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -47,7 +51,7 @@ if (!empty($glob->aFiles)) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 ?>
 
 <form action="categorie.php" method="post" id="form_category">
@@ -139,5 +143,5 @@ include 'top.php';
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCategoryFoot'));
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';
 ?>

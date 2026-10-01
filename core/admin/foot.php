@@ -1,5 +1,8 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
-
+<?php
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
+?>
 		</section>
 
 </main>

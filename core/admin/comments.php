@@ -7,7 +7,11 @@
  * @author	Stephane F
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Contrôle du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -57,7 +61,7 @@ if(!empty($_GET['a'])) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 
 # Récupération du type de commentaire à afficher
 $_GET['sel'] = !empty($_GET['sel']) ? $_GET['sel'] : '';
@@ -66,6 +70,10 @@ if(in_array($_GET['sel'], array('online', 'offline', 'all')))
 else
 	$comSel = ((isset($_SESSION['selCom']) AND !empty($_SESSION['selCom'])) ? $_SESSION['selCom'] : 'all');
 
+$h2 = L_COMMENTS_ALL_LIST;
+$_SESSION['selCom'] = 'all';
+$comSelMotif = '/^[[:punct:]]?\d{4}.(.*).xml$/';
+$nbComPagination = 0;
 if(!empty($_GET['a']) and preg_match('#^_?(\d{4})$#', $_GET['a'], $matches)) {
 	switch ($comSel) {
 		case 'online':
@@ -79,27 +87,22 @@ if(!empty($_GET['a']) and preg_match('#^_?(\d{4})$#', $_GET['a'], $matches)) {
 	}
 	$artId = $matches[1];
 	$comSelMotif = '/^' . $mod . $artId . '\..*\.xml$/';
-	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments($comSelMotif, 'all', $artId);
-	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
 elseif($comSel=='online') {
+	$_SESSION['selCom'] = $comSel;
 	$comSelMotif = '/^\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'online';
 	$nbComPagination=$plxAdmin->nbComments('online');
-	$h2 = '<h2>'.L_COMMENTS_ONLINE_LIST.'</h2>';
+	$h2 = L_COMMENTS_ONLINE_LIST;
 }
 elseif($comSel=='offline') {
+	$_SESSION['selCom'] = $comSel;
 	$comSelMotif = '/^_\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'offline';
 	$nbComPagination=$plxAdmin->nbComments('offline');
-	$h2 = '<h2>'.L_COMMENTS_OFFLINE_LIST.'</h2>';
+	$h2 = L_COMMENTS_OFFLINE_LIST;
 }
 elseif($comSel=='all') { // all
-	$comSelMotif = '/^[[:punct:]]?\d{4}.(.*).xml$/';
-	$_SESSION['selCom'] = 'all';
 	$nbComPagination=$plxAdmin->nbComments('all');
-	$h2 = '<h2>'.L_COMMENTS_ALL_LIST.'</h2>';
 }
 
 function selector($comSel, $id) {
@@ -121,7 +124,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop'));
 <form action="comments.php<?= !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
 
 	<div class="inline-form action-bar">
-		<?= $h2 ?>
+		<h2><?= $h2 ?></h2>
 		<ul class="menu">
 <?php
 foreach(array(
@@ -302,4 +305,4 @@ if(empty($aArt)) {
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsFoot'));
 
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';

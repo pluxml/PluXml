@@ -1,10 +1,22 @@
 <?php
 if(!class_exists('plxShow')) {
-	exit('plxShow class is missing', 500);
+    error_log('plxShow class unknown in ' . basename(__FILE__));
+    http_response_code(500);
+    header('Content-Type: text/plain');
+    echo 'Contact your webmaster';
+    exit;
 }
 
-$colsClass = 'col sml-12';
-if(!defined('FULL_WIDTH')) { $colsClass .= ' med-9'; }
+if(!isset($plxShow)) {
+	$plxShow = plxShow::getInstance();
+}
+
+function colsClass() {
+	$classList = 'col sml-12';
+	if(!defined('FULL_WIDTH')) { $classList .= ' med-9'; }
+	return $classList;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="<?php $plxShow->defaultLang() ?>">

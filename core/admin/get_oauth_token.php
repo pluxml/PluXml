@@ -52,14 +52,18 @@ use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
 //@see https://github.com/greew/oauth2-azure-provider
 use Greew\OAuth2\Client\Provider\Azure;
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 //If this automatic URL doesn't work, set it yourself manually to the URL of this script
 $redirectUri = (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 //$redirectUri = 'http://localhost/PHPMailer/redirect';
 
 if (!isset($_GET['code']) && !isset($_POST['provider'])) {
-	include 'top.php';
+	require 'top.php';
 
 	if(isset($_FILES['json-data']) and $_FILES['json-data']['error'] == 0) {
 		$filename = $_FILES['json-data']['tmp_name'];

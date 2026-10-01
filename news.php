@@ -4,7 +4,7 @@
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include PLX_CORE.'lib/config.php';
+require PLX_CORE . 'lib/config.php';
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
@@ -29,7 +29,7 @@ $plxMotor->demarrage();
 header('Content-Type: text/xml; charset=' . PLX_CHARSET);
 
 # Entête XML
-echo '<?xml version="1.0" encoding="' . strtolower(PLX_CHARSET) . '" ?>' . PHP_EOL ;
+echo XML_HEADER;
 
 ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">

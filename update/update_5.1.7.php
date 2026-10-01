@@ -86,7 +86,7 @@ class update_5_1_7 extends plxUpdate{
 		foreach($this->plxAdmin->plxPlugins->aPlugins as $plugName=>$plugAttrs) {
 			$plugParamFile = PLX_PLUGINS.$plugName.'/parameters.xml';
 			if(is_file($plugParamFile)) {
-				if (version_compare($newVersion, '5.1.7') > 0)
+				if (isset($newVersion) and version_compare($newVersion, '5.1.7') > 0)
 					$title = $plugAttrs->getInfo('title');
 				else
 					$title = $plugAttrs['title'];

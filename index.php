@@ -6,7 +6,7 @@ include PLX_CORE.'lib/config.php';
 
 # On démarre la session
 # session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], isset($_SERVER["HTTPS"]), true);
-session_start($session_site);
+open_session();
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
@@ -34,16 +34,22 @@ ob_implicit_flush(0);
 
 # Traitements du thème
 if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {
+	# Thème non trouvé
+	http_response_code(500);
 	header('Content-Type: text/plain; charset='.PLX_CHARSET);
 	echo L_ERR_THEME_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.') !';
+	exit;
 } elseif(file_exists(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template)) {
 	# On impose le charset
 	header('Content-Type: text/html; charset='.PLX_CHARSET);
 	# Insertion du template
-	include(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template);
+	require PLX_ROOT . $plxMotor->aConf['racine_themes'] . $plxMotor->style . '/' . $plxMotor->template;
 } else {
+	# Template manquant
+	http_response_code(500);
 	header('Content-Type: text/plain; charset='.PLX_CHARSET);
 	echo L_ERR_FILE_NOTFOUND.' ('.PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style.'/'.$plxMotor->template.') !';
+	exit;
 }
 
 # Récuperation de la bufférisation
@@ -53,6 +59,7 @@ $output = ob_get_clean();
 ob_start();
 eval($plxMotor->plxPlugins->callHook('ThemeEndHead')); # Hook Plugins
 $output = str_replace('</head>', ob_get_clean().'</head>', $output);
+
 ob_start();
 eval($plxMotor->plxPlugins->callHook('ThemeEndBody')); # Hook Plugins
 $output = str_replace('</body>', ob_get_clean().'</body>', $output);
@@ -75,4 +82,3 @@ if($plxMotor->aConf['gzip']) {
 
 # Restitution écran
 echo $output;
-exit;

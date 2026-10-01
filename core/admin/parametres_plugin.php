@@ -6,7 +6,11 @@
  * @package PLX
  * @author	Stephane F
  **/
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control de l'accès à la page en fonction du profil de l'utilisateur connecté
 $plxAdmin->checkProfil(PROFIL_ADMIN);
@@ -48,9 +52,9 @@ else {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 # Affichage des données
 echo $output;
+
 # On inclut le footer
-include 'foot.php';
-?>
+require 'foot.php';

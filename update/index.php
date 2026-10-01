@@ -2,7 +2,7 @@
 const PLX_ROOT = '../';
 const PLX_CORE = PLX_ROOT . 'core/';
 
-include PLX_CORE.'lib/config.php';
+require PLX_CORE . 'lib/config.php';
 
 # On vérifie que PHP 5 ou superieur soit installé
 if(version_compare(PHP_VERSION, '5.0.0', '<')){
@@ -12,6 +12,15 @@ if(version_compare(PHP_VERSION, '5.0.0', '<')){
 }
 
 require 'versions.php';
+if (!defined('PLX_VERSIONS')) {
+	error_log('PLX_VERSIONS constant is missing in ' . basename(__FILE__));
+	http_response_code(500);
+	header('Content-Type: text/plain');
+	echo 'Contact your webmaster';
+	exit;
+}
+
+require PLX_CORE . 'lib/class.plx.admin.php';
 require 'class.plx.updater.php';
 
 # Chargement des langues
@@ -30,11 +39,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 # Création de l'objet principal et lancement du traitement
-$plxUpdater = new plxUpdater($versions);
+$plxUpdater = new plxUpdater(PLX_VERSIONS);
 
 plxUtils::cleanHeaders();
-session_set_cookie_params(0, '/', $_SERVER['SERVER_NAME'], isset($_SERVER['HTTPS']), true);
-session_start();
+# session_set_cookie_params(0, '/', $_SERVER['SERVER_NAME'], isset($_SERVER['HTTPS']), true);
+open_session('PLX_UPDATE');
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
 ?>
@@ -88,7 +97,7 @@ plxToken::validateFormToken($_POST);
 						<p><strong><?= L_UPDATE_WARNING1.' '.$plxUpdater->oldVersion ?></strong></p>
 		<?php if(empty($plxUpdater->oldVersion)) : ?>
 						<p><?= L_UPDATE_SELECT_VERSION ?></p>
-						<p><?php plxUtils::printSelect('version',array_keys($versions),''); ?></p>
+						<p><?php plxUtils::printSelect('version',array_keys(PLX_VERSIONS),''); ?></p>
 						<p><?= L_UPDATE_WARNING2 ?></p>
 		<?php endif; ?>
 						<p><?php printf(L_UPDATE_WARNING3, preg_replace('@^([^/]+).*@', '$1', $plxUpdater->plxAdmin->aConf['racine_articles'])); ?></p>

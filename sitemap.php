@@ -2,10 +2,7 @@
 const PLX_ROOT = './';
 const PLX_CORE = PLX_ROOT .'core/';
 
-include PLX_CORE.'lib/config.php';
-
-# On impose le charset
-header('Content-Type: text/xml; charset='.PLX_CHARSET);
+require PLX_CORE . 'lib/config.php';
 
 # Creation de l'objet principal et lancement du traitement
 $plxMotor = plxMotor::getInstance();
@@ -19,15 +16,18 @@ if(eval($plxMotor->plxPlugins->callHook('SitemapBegin'))) return;
 # chargement du fichier de langue
 loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 
+$plxMotor->prechauffage();
+$plxMotor->demarrage();
+
+# On impose le charset
+header('Content-Type: text/xml; charset=' . PLX_CHARSET);
+
 # On démarre la bufferisation
 ob_start();
 ob_implicit_flush(0);
 
-$plxMotor->prechauffage();
-$plxMotor->demarrage();
-
 # Entête XML
-echo '<?xml version="1.0" encoding="'.strtolower(PLX_CHARSET).'" ?>'."\n";
+echo XML_HEADER;
 ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
@@ -96,5 +96,3 @@ eval($plxMotor->plxPlugins->callHook('SitemapEnd')); # Hook Plugins
 
 # Restitution écran
 echo $output;
-exit;
-?>

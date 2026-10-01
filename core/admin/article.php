@@ -7,7 +7,11 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 if(!isset($_POST['preview']))
@@ -231,10 +235,8 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleInitData'));
 }
 
-# On inclut le header
-include 'top.php';
-
 # On construit la liste des utilisateurs
+$_users = array();
 foreach($plxAdmin->aUsers as $_userid => $_user) {
 	if($_user['active'] AND !$_user['delete'] ) {
 		if($_user['profil']==PROFIL_ADMIN)
@@ -261,8 +263,10 @@ if (!empty($glob->aFiles)) {
 }
 
 $cat_id='000';
-?>
 
+# On inclut le header
+require 'top.php';
+?>
 <script>
 function refreshImg(dta) {
 	if(dta.trim()==='') {
@@ -279,11 +283,11 @@ function refreshImg(dta) {
 }
 </script>
 
-<form action="article.php" method="post" id="form_article">
+<form method="post" id="form_article">
 
 	<div class="inline-form action-bar">
 
-		<h2><?= (empty($_GET['a']))?L_MENU_NEW_ARTICLES:L_ARTICLE_EDITING; ?></h2>
+		<h2><?= (empty($_GET['a']))?L_MENU_NEW_ARTICLES : L_ARTICLE_EDITING; ?></h2>
 
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 
@@ -419,14 +423,16 @@ function refreshImg(dta) {
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="id_author"><?= L_ARTICLE_LIST_AUTHORS ?>&nbsp;:&nbsp;</label>
-						<?php
-						if($_SESSION['profil'] < PROFIL_WRITER)
+<?php
+						if($_SESSION['profil'] < PROFIL_WRITER) {
 							plxUtils::printSelect('author', $_users, $author);
-						else {
-							echo '<input type="hidden" id="id_author" name="author" value="'.$author.'" />';
-							echo '<strong>'.plxUtils::strCheck($plxAdmin->aUsers[$author]['name']).'</strong>';
+						} else {
+?>
+						<input type="hidden" id="id_author" name="author" value="<?= $author ?>" />
+						<strong><?= plxUtils::strCheck($plxAdmin->aUsers[$author]['name']) ?></strong>
+<?php
 						}
-						?>
+?>
 					</div>
 				</div>
 				<div class="grid">
@@ -611,9 +617,9 @@ function refreshImg(dta) {
 	</div>
 
 </form>
-
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticleFoot'));
+
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';

@@ -7,7 +7,11 @@
  * @author	Stephane F et Florent MONTHEL
  **/
 
-include 'prepend.php';
+require 'prepend.php';
+
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -30,7 +34,7 @@ if(!empty($_POST)) {
 }
 
 # On inclut le header
-include 'top.php';
+require 'top.php';
 ?>
 <script>
 function checkBox(cb) {
@@ -75,10 +79,11 @@ function checkBox(cb) {
 			</thead>
 			<tbody>
 <?php
+$ordre = 1;
+
 # Si on a des pages statiques
 if($plxAdmin->aStats) {
 	# Initialisation de l'ordre
-	$ordre = 1;
 	foreach($plxAdmin->aStats as $k=>$v) {
 		# Pour chaque page statique
 		$selected = ($plxAdmin->aConf['homestatic'] == $k) ? ' checked="checked"' : '';
@@ -123,10 +128,12 @@ if($plxAdmin->aStats) {
 	# On récupère le dernier identifiant
 	$a = array_keys($plxAdmin->aStats);
 	rsort($a);
+	$new_id = $a[0] + 1;
+	unset($a);
 } else {
-	$a['0'] = 0;
+	$new_id = 1;
 }
-$new_staticid = str_pad($a['0'] + 1, 3, '0', STR_PAD_LEFT);
+$new_staticid = str_pad($new_id, 3, '0', STR_PAD_LEFT);
 ?>
 				<tr class="new">
 					<td colspan="3"><?= L_STATICS_NEW_PAGE ?></td>
@@ -153,4 +160,4 @@ $new_staticid = str_pad($a['0'] + 1, 3, '0', STR_PAD_LEFT);
 eval($plxAdmin->plxPlugins->callHook('AdminStaticsFoot'));
 
 # On inclut le footer
-include 'foot.php';
+require 'foot.php';

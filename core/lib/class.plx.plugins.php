@@ -513,11 +513,13 @@ Drop this plugin now for running PluXml and report to its author !!
 				}
 			}
 		}
-		$minify_filename = PLX_ROOT . PLX_PLUGINS_CSS_PATH.$type;
-		if(!empty($cache)) {
-			return plxUtils::write(plxUtils::minify($cache), $minify_filename);
-		} elseif((is_file($minify_filename))) {
-			unlink($minify_filename);
+		if(defined('PLX_PLUGINS_CSS_PATH')) {
+			$minify_filename = PLX_ROOT . PLX_PLUGINS_CSS_PATH . $type;
+			if(!empty($cache)) {
+				return plxUtils::write(plxUtils::minify($cache), $minify_filename);
+			} elseif((is_file($minify_filename))) {
+				unlink($minify_filename);
+			}
 		}
 		return true;
 	}

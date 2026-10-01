@@ -1,5 +1,7 @@
 <?php
-if(!defined('PLX_ROOT')) { exit; }
+if(!isset($plxAdmin)) {
+	redirectLogin();
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?= $plxAdmin->aConf['default_lang'] ?>">

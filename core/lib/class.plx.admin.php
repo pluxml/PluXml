@@ -1,14 +1,13 @@
 <?php
 
+const PLX_ADMIN = true;
+
 /**
  * Classe plxAdmin responsable des modifications dans l'administration
  *
  * @package PLX
  * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F et Pedro "P3ter" CADETE
  **/
-
-const PLX_ADMIN = true;
-
 class plxAdmin extends plxMotor {
 
 	# Some functions of PHP are banned !
@@ -40,6 +39,14 @@ class plxAdmin extends plxMotor {
 
 		parent::__construct($filename);
 		$this->getTemplates(self::PLX_TEMPLATES); # for lost passwords
+		if(!empty($this->aConf['custom_admincss_file'])) {
+			define('PLX_CUSTOM_ADMINCSS_FILE', PLX_ROOT . $this->aConf['custom_admincss_file']);
+		}
+
+		# Never in use. Just for phpstan checking
+		if(!defined('PLX_SITE_LANG')) {
+			define('PLX_SITE_LANG', DEFAULT_LANG);
+		}
 
 		# Hook plugins
 		eval($this->plxPlugins->callHook('plxAdminConstruct'));
@@ -49,7 +56,7 @@ class plxAdmin extends plxMotor {
 	 * Méthode qui applique un motif de recherche
 	 *
 	 * @param	motif	motif de recherche à appliquer
-	 * @return	null
+	 * @return	void
 	 * @author	Stéphane F
 	 **/
 	public function prechauffage($motif='') {
@@ -61,7 +68,7 @@ class plxAdmin extends plxMotor {
 	/**
 	 * Méthode qui récupère le numéro de la page active
 	 *
-	 * @return	null
+	 * @return	void
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stephane F, J-Pierre Pourrez @bazooka07
 	 **/
 	public function getPage() {

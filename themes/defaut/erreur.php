@@ -1,36 +1,27 @@
-<?php include 'header.php'; ?>
+<?php
+require 'header.php';
 
+if(!isset($plxShow)) {
+	$plxShow = plxShow::getInstance();
+}
+
+?>
 	<main class="main">
-
 		<div class="container">
-
 			<div class="grid">
-
 				<div class="content col sml-12 med-8">
-
 					<article class="article">
-
 						<header>
-							<h2>
-								<?php $plxShow->lang('ERROR'); ?>
-							</h2>
+							<h2><?php $plxShow->lang('ERROR'); ?></h2>
 						</header>
-
 						<p>
 							<?php $plxShow->erreurMessage(); ?>
 						</p>
-
 					</article>
-
 				</div>
-
-<?php include 'sidebar.php'; ?>
-
+<?php require 'sidebar.php'; ?>
 			</div>
-
 		</div>
-
 	</main>
-
-<?php include 'footer.php'; ?>
-
+<?php
+require 'footer.php';
