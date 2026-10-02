@@ -89,9 +89,6 @@ class plxMotor {
 		# On parse le fichier de configuration
 		$this->getConfiguration($filename);
 
-		define('PLX_PLUGINS', PLX_ROOT . (!empty($this->aConf['racine_plugins']) ? $this->aConf['racine_plugins'] : 'plugins/'));
-		define('PLX_SITE_LANG', (!empty($this->aConf['default_lang']) ? $this->aConf['default_lang'] : DEFAULT_LANG));
-
 		# récupération des paramètres dans l'url
 		$this->get = plxUtils::getGets();
 		# gestion du timezone
@@ -333,11 +330,11 @@ class plxMotor {
 			}
 		}
 		elseif($this->mode == 'article') {
-
 			# On a validé le formulaire commentaire
-			if(!empty($_POST) AND $this->plxRecord_arts->f('allow_com') AND $this->aConf['allow_com']) {
+			if($this->plxRecord_arts->f('allow_com') AND $this->aConf['allow_com'] AND !empty($_POST)) {
 				# On récupère le retour de la création
-				$retour = $this->newCommentaire($this->cible,plxUtils::unSlash($_POST));
+				$content = plxUtils::unSlash($_POST);
+				$retour = $this->newSiteCommentaire($this->cible, $content);
 				# Url de l'article
 				$url = $this->urlRewrite('?article'.intval($this->plxRecord_arts->f('numero')).'/'.$this->plxRecord_arts->f('url'));
 				eval($this->plxPlugins->callHook('plxMotorDemarrageNewCommentaire')); # Hook Plugins
@@ -353,18 +350,15 @@ class plxMotor {
 					# Il y a une erreur. Commentaire à corriger !
 					$url .=  '#form';
 					$_SESSION['msgcom'] = $retour;
-					$_SESSION['msg'] = array(
-						'name'		=> plxUtils::unSlash($_POST['name']),
-						'site'		=> plxUtils::unSlash($_POST['site']),
-						'mail'		=> plxUtils::unSlash($_POST['mail']),
-						'content'	=> plxUtils::unSlash($_POST['content']),
-						'parent'	=> plxUtils::unSlash($_POST['parent']),
-					);
-					eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage')); # Hook Plugins
+					$_SESSION['msg'] = $content;
+
+					# Hook Plugins
+					 eval($this->plxPlugins->callHook('plxMotorDemarrageCommentSessionMessage'));
 				}
 				header('Location: ' . $url);
 				exit;
 			}
+
 			# Récupération des commentaires
 			$this->getCommentaires('#^'.$this->cible.'\.\d{9,10}-\d+\.xml$#', $this->tri_coms);
 			$this->template=$this->plxRecord_arts->f('template');
@@ -471,6 +465,9 @@ class plxMotor {
 				$this->aConf[$k] = '';
 			}
 		}
+
+		define('PLX_PLUGINS', PLX_ROOT . (!empty($this->aConf['racine_plugins']) ? $this->aConf['racine_plugins'] : 'plugins/'));
+		define('PLX_SITE_LANG', (!empty($this->aConf['default_lang']) ? $this->aConf['default_lang'] : DEFAULT_LANG));
 	}
 
 	/**
@@ -748,7 +745,7 @@ class plxMotor {
 	 * le nom du fichier de l'article $filename
 	 *
 	 * @param	string $filename	fichier de l'article à traiter
-	 * @return	array		information à récupérer
+	 * @return	array|null		information à récupérer
 	 * @author	Stephane F, J.P. Pourrez "bazooka07"
 	 **/
 	public function artInfoFromFilename($filename) {
@@ -790,14 +787,14 @@ class plxMotor {
 			);
 		}
 
-		return false;
+		return null;
 	}
 
 	/**
 	 * Méthode qui parse l'article du fichier $filename
 	 *
 	 * @param	string $filename	fichier de l'article à parser
-	 * @return	array
+	 * @return	array|null
 	 * @author	Anthony GUÉRIN, Florent MONTHEL, Stéphane F, J.P. Pourrez (bazooka07)
 	 **/
 	public function parseArticle($filename) {
@@ -850,10 +847,10 @@ class plxMotor {
 			return $art;
 		} else {
 			# le nom du fichier article est incorrect !!
-			if(defined('PLX_ADMIN') and class_exists('plxMsg')) {
+			if(defined('PLX_ADMIN')) {
 				plxMsg::Error('Invalid filename "' . $filename . '" from plxMotor::parseArticle()');
 			}
-			return false;
+			return null;
 		}
 	}
 
@@ -878,7 +875,7 @@ class plxMotor {
 	 * le nom du fichier du commentaire $filename
 	 *
 	 * @param	string $filename	fichier du commentaire à traiter
-	 * @return	array		information à récupérer
+	 * @return	array|bool		information à récupérer
 	 * @author	Stephane F
 	 **/
 	public function comInfoFromFilename($filename) {
@@ -1002,7 +999,7 @@ class plxMotor {
 	 *  Méthode qui retourne le prochain id d'un commentaire pour un article précis
 	 *
 	 * @param	string $idArt		id de l'article
-	 * @return	string		id d'un nouveau commentaire
+	 * @return	int		id d'un nouveau commentaire pour l'article'
 	 * @author	Stephane F.
 	 **/
 	 public function nextIdArtComment($idArt) {
@@ -1032,11 +1029,13 @@ class plxMotor {
 	 * @return	string
 	 * @author	Florent MONTHEL, Stéphane F, J.P. Pourrez
 	 **/
-	public function newCommentaire($artId, $content) {
+	public function newSiteCommentaire($artId, $content) {
 		# $artId = $this->cible défini dans self::prechauffage() mode 'article'
 
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) return;
+		if(eval($this->plxPlugins->callHook('plxMotorNewCommentaire'))) {
+			return '';
+		}
 
 		if(
 			!empty($this->aConf['capcha']) AND (
@@ -1105,7 +1104,8 @@ class plxMotor {
 	public function addCommentaire($content) {
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorAddCommentaire'))) {
-			return;
+			# commentaire non enregistré
+			return false;
 		}
 
 		# controle de $content['parent']
@@ -1229,7 +1229,7 @@ class plxMotor {
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxMotorSendDownload'))) {
-			return;
+			exit;
 		}
 
 		# On lance le téléchargement et on check le répertoire medias

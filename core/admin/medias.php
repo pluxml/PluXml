@@ -289,7 +289,7 @@ $curFolders = explode('/', $curFolder);
  		</p>
 		<p>
 			<?= L_MEDIAS_MAX_UPLOAD_FILE ?> : <?= $plxMedias->maxUpload['display'] ?>
-			<?php if($plxMedias->maxPost['value'] > 0) echo " / ".L_MEDIAS_MAX_POST_SIZE." : ".$plxMedias->maxPost['display']; ?>
+			<?php if($plxMedias->maxPost['value'] > 0) echo ' / ' . L_MEDIAS_MAX_POST_SIZE . ' : ' . $plxMedias->maxPost['display']; ?>
 		</p>
 
 		<div>

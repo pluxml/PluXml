@@ -460,7 +460,7 @@ EOT;
 	 **/
 	public function checkProfil(...$profils) {
 		if(count($profils) > 0 and isset($_SESSION['profil'])) {
-			$redirect = is_bool($profils[count($profils) - 1]) ? array_pop($profils) : false;
+			$redirect = is_bool($profils[count($profils) - 1]) ? array_pop($profils) : true;
 			$validProfil = in_array($_SESSION['profil'], $profils);
 			if($validProfil) {
 				return true;
@@ -497,7 +497,8 @@ EOT;
 
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditProfil'))) {
-			return;
+			# sauvegarde non gérée des utilisateurs
+			return false;
 		}
 
 		return $this->editUsers(null, true);
@@ -600,7 +601,7 @@ EOT;
 								$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 								$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
 								$this->editUsers($user_id, true);
-								return true;
+								return sprintf(L_MAIL_TEST_SENT_TO, $user['email']);
 							}
 
 							return L_MAIL_NOT_AVAILABLE;
@@ -666,7 +667,7 @@ EOT;
 		$save = $this->aUsers;
 
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) return;
+		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) { return false; }
 
 		# suppression
 		if(!empty($content['selection'])) {
@@ -695,7 +696,7 @@ EOT;
 			# On récupère le dernier identifiant
 			$a = array_keys($this->aUsers);
 			rsort($a);
-			$new_userid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
+			$new_userid = str_pad($a[0]+1, 3, '0', STR_PAD_LEFT);
 
 			foreach($content['users'] as $user_id=>$user_infos) {
 				$new_user = ($user_id == $new_userid);
@@ -775,7 +776,7 @@ EOT;
 			$action = true;
 		}
 
-		if($action!== true) {
+		if($action !== true) {
 			return plxMsg::Error(L_SAVE_ERR);
 		}
 
@@ -1017,7 +1018,7 @@ EOT;
 		}
 
 		if($action !== true) {
-			return;
+			return true;
 		}
 
 		# sauvegarde
@@ -1227,7 +1228,7 @@ EOT;
 		}
 
 		if(!$action) {
-			return;
+			return true;
 		}
 
 		# sauvegarde
@@ -1418,7 +1419,9 @@ EOT;
 		}
 
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) return;
+		if(eval($this->plxPlugins->callHook('plxAdminEditArticle'))) {
+			return false;
+		}
 
 		# Suppression des doublons et utilisation des entités HTML dans les tags
 		$tags_unique = array_map(
@@ -1614,7 +1617,9 @@ EOT;
 		}
 
 		# Hook plugins
-		if(eval($this->plxPlugins->callHook('plxAdminDelArticle'))) return;
+		if(eval($this->plxPlugins->callHook('plxAdminDelArticle'))) {
+			return false;
+		}
 
 		# On renvoi le résultat
 		if($resDelArt AND $resDelCom) {
@@ -1665,15 +1670,16 @@ EOT;
 	 * Méthode qui crée un nouveau commentaire pour l'article $artId
 	 *
 	 * @param	string $artId	identifiant de l'article en question
-	 * @param	string $content	string contenu du nouveau commentaire
+	 * @param	array $content	string contenu du nouveau commentaire
 	 * @return	bool
 	 * @author	Florent MONTHEL, Stéphane F
 	 **/
-	public function newCommentaire($artId, $content) {
+	public function newAdminCommentaire($artId, $content) {
 
 		if(!preg_match('#^\d{4}$#', $artId)) {
 			return plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 		}
+
 		# On génère le contenu du commentaire
 		$idx = $this->nextIdArtComment($artId);
 
@@ -1682,8 +1688,9 @@ EOT;
 			return plxMsg::Error(L_NEWCOMMENT_FIELDS_REQUIRED);
 		}
 
+		# On peut créer le commentaire
 		$userId = $_SESSION['user'];
-		$comment = array(
+		return $this->addCommentaire(array(
 			'type'		=> 'admin',
 			'author'	=> $this->aUsers[$userId]['name'],
 			'content'	=> $message,
@@ -1692,10 +1699,7 @@ EOT;
 			'mail'		=> $this->aUsers[$userId]['email'],
 			'site'		=> $this->racine,
 			'filename'	=> $artId . '.' . time() . '-' . $idx . '.xml',
-		);
-
-		# On peut créer le commentaire
-		return $this->addCommentaire($comment);
+		));
 	}
 
 	/**

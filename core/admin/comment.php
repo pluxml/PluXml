@@ -170,7 +170,7 @@ if($plxAdmin->plxRecord_coms->f('type') != 'admin') {
 				<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
 				<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
 				<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
-				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>"><img src="theme/images/date.png" alt="" /></a>
+				<a href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>"><img src="theme/images/date.png" alt="date" /></a>
 			</div>
 		</div>
 

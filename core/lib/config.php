@@ -29,7 +29,9 @@ const PAGE_LOGIN = 'auth.php';
 const PLX_INSTALL_PATH = 'install';
 
 # Gestion des erreurs PHP
-if(PLX_DEBUG) error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+if(PLX_DEBUG === true) {
+	error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+}
 
 # Fonction qui retourne le timestamp UNIX actuel avec les microsecondes
 function getMicrotime() {
@@ -104,7 +106,7 @@ function loadLang($filename) {
 		$LANG = array();
 		include_once $filename;
 		foreach($LANG as $key => $value) {
-			if(!defined($key)) define($key,$value);
+			if(!defined($key)) define($key, $value);
 		}
 	}
 }

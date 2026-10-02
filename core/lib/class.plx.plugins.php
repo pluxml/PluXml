@@ -311,7 +311,7 @@ Drop this plugin now for running PluXml and report to its author !!
 	 *
 	 * @param	string $hookName	nom du hook à appliquer
 	 * @param	array $parms		parametre ou liste de paramètres sous forme de array
-	 * @return	string
+	 * @return	array|string
 	 * @author	Stephane F
 	 **/
 	public function callHook($hookName, $parms=null) {
@@ -377,7 +377,9 @@ Drop this plugin now for running PluXml and report to its author !!
 	public function saveConfig($content) {
 
 		# Pas de modification de la config des plugins, si on n'est pas en mode admin.
-		if(!defined('PLX_ADMIN') or !isset($_SESSION['profil']) or $_SESSION['profil'] != PROFIL_ADMIN) { return false; }
+		if(!defined('PLX_ADMIN') or !isset($_SESSION['profil']) or $_SESSION['profil'] != PROFIL_ADMIN) {
+			return false;
+		}
 
 		if(isset($content['activate'])) {
 			if(!empty($content['selection'])) {
@@ -417,7 +419,7 @@ Drop this plugin now for running PluXml and report to its author !!
 								}
 								unset($this->aPlugins[$plugName]);
 							} else {
-								plxMsg::Error(L_PLUGINS_DELETE_ERROR.' ('.$plugName.')');
+								return plxMsg::Error(L_PLUGINS_DELETE_ERROR.' ('.$plugName.')');
 								break;
 							}
 						}
@@ -435,7 +437,8 @@ Drop this plugin now for running PluXml and report to its author !!
 			}
 			$this->aPlugins = $aPlugins;
 		} else {
-			return;
+			# Opération inconnue
+			return false;
 		}
 
 		# génération du cache css des plugins
@@ -443,9 +446,10 @@ Drop this plugin now for running PluXml and report to its author !!
 		$this->cssCache('admin');
 
 		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
-
+		ob_start();
+?>
+<document>
+<?php
 		foreach($this->aPlugins as $name=>$plugin) {
 			if(!empty($plugin)) {
 				$scope = $plugin->getInfo('scope');
@@ -454,13 +458,15 @@ Drop this plugin now for running PluXml and report to its author !!
 			} else {
 				$scope = '';
 			}
-			$xml .= "\t<plugin name=\"$name\" scope=\"$scope\"></plugin>\n";
+?>
+	<plugin name="<?= $name ?>" scope="<?= $scope ?>"></plugin>
+<?php
 		}
-
-		$xml .= "</document>";
-
+?>
+</document>
+<?php
 		# On écrit le fichier
-		if(plxUtils::write($xml,path('XMLFILE_PLUGINS')))
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PLUGINS')))
 			return plxMsg::Info(L_SAVE_SUCCESSFUL);
 		else
 			return plxMsg::Error(L_SAVE_ERR.' '.path('XMLFILE_PLUGINS'));
@@ -820,10 +826,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function getParams() {
-		if(sizeof($this->aParams)>0)
-			return $this->aParams;
-		else
-			return false;
+		return $this->aParams;
 	}
 
 	/**
@@ -834,7 +837,7 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function getParam($param) {
-		return (isset($this->aParams[$param])? $this->aParams[$param]['value']:'');
+		return (isset($this->aParams[$param]) ? $this->aParams[$param]['value'] : '');
 	}
 
 	/**

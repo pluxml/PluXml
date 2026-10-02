@@ -65,8 +65,7 @@ class plxUpdater {
 		if(defined('PLX_VERSION')) { # PluXml à partir de la version 5.5
 			$this->newVersion = PLX_VERSION;
 		} elseif(is_readable(PLX_ROOT.'version')) {
-			$f = file(PLX_ROOT.'version');
-			$this->newVersion = $f['0'];
+			$this->newVersion = trim(file_get_contents(PLX_ROOT . 'version'));
 		}
 	}
 

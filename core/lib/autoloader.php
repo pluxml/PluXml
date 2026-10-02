@@ -8,6 +8,7 @@
 spl_autoload_register(
         function($aClass) {
                 if(preg_match('@^[pP]lx([A-Z]\w+)$@', $aClass, $matches)) {
+						# __DIR__ est nécessaire pour phpstan. La recherche de la class se fera dans le bon dossier !
                         $filename = __DIR__ . '/class.plx.' . strtolower($matches[1]) . '.php';
                         if(file_exists($filename)) {
                             require_once $filename;

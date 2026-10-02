@@ -443,7 +443,7 @@ function refreshImg(dta) {
 							<?php plxUtils::printInput('date_publication_month',$date['month'],'text','2-2',false,'month'); ?>
 							<?php plxUtils::printInput('date_publication_year',$date['year'],'text','2-4',false,'year'); ?>
 							<?php plxUtils::printInput('date_publication_time',$date['time'],'text','2-5',false,'time'); ?>
-							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+							<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_publication', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 								<img src="theme/images/date.png" alt="calendar" />
 							</a>
 						</div>
@@ -457,7 +457,7 @@ function refreshImg(dta) {
 						<?php plxUtils::printInput('date_creation_month',$date_creation['month'],'text','2-2',false,'month'); ?>
 						<?php plxUtils::printInput('date_creation_year',$date_creation['year'],'text','2-4',false,'year'); ?>
 						<?php plxUtils::printInput('date_creation_time',$date_creation['time'],'text','2-5',false,'time'); ?>
-						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_creation', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
 					</div>
@@ -472,7 +472,7 @@ function refreshImg(dta) {
 						<?php plxUtils::printInput('date_update_month',$date_update['month'],'text','2-2',false,'month'); ?>
 						<?php plxUtils::printInput('date_update_year',$date_update['year'],'text','2-4',false,'year'); ?>
 						<?php plxUtils::printInput('date_update_time',$date_update['time'],'text','2-5',false,'time'); ?>
-						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?php L_NOW; ?>">
+						<a class="ico_cal" href="javascript:void(0)" onclick="dateNow('date_update', <?= date('Z') ?>); return false;" title="<?= L_NOW ?>">
 							<img src="theme/images/date.png" alt="calendar" />
 						</a>
 					</div>
@@ -523,15 +523,18 @@ function refreshImg(dta) {
 							if($plxAdmin->aTags) {
 								$array=array();
 								foreach($plxAdmin->aTags as $tag) {
-									if($tags = array_map('trim', explode(',', $tag['tags']))) {
-										foreach($tags as $tag) {
-											if($tag!='') {
-												$t = plxUtils::urlify($tag);
-												if(!isset($array[$tag]))
-													$array[$tag]=array('url'=>$t,'count'=>1);
-												else
-													$array[$tag]['count']++;
-											}
+									if(empty($tag['tags'])) {
+										continue;
+									}
+
+									$tags = array_map('trim', explode(',', $tag['tags']));
+									foreach($tags as $tag) {
+										if($tag!='') {
+											$t = plxUtils::urlify($tag);
+											if(!isset($array[$tag]))
+												$array[$tag]=array('url'=>$t,'count'=>1);
+											else
+												$array[$tag]['count']++;
 										}
 									}
 								}

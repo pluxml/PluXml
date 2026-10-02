@@ -409,7 +409,7 @@ class plxShow
      * Méthode qui retourne les id de catégorie pour la categorie ou l'article en cours
      *
      * @param bool $asArray retourne le resultat sous forme d'un tableau de chaines au lieu d'une ".CSV" chaine
-     * @return    string or array
+     * @return    string|array|null
      * @scope    home,categorie,article,tags,archives
      * @author    Florent MONTHEL, Jean-Pierre Pourrez "bazooka07"
      **/
@@ -446,7 +446,7 @@ class plxShow
                 break;
             default:
                 # Pas categorie pour ce mode
-                return false;
+                return null;
         }
     }
 
@@ -624,7 +624,7 @@ class plxShow
      * @param string $format format d'affichage (variables: #img_url, #img_thumb_url, #img_alt, #img_title)
      * @param bool $echo si à VRAI affichage à l'écran
      * @param bool $article si vrai, #img_url pointe sur l'article à la place de l'image
-     * @return    bool|string
+     * @return   string|void
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F, Thatoo, J.P. Pourrez (bazooka07))
      **/
@@ -661,7 +661,6 @@ class plxShow
         }
 
         echo $result;
-        return;
     }
 
     /**
@@ -1361,7 +1360,7 @@ class plxShow
      * Méthode qui affiche si besoin le message généré par le système
      * suite à la création d'un commentaire
      * @param string $format  format du texte à afficher (variable: #com_message, #com_class)
-     * @return        true pour afficher le formulaire du commentaire
+     * @return        bool pour afficher le formulaire du commentaire
      * @scope        article
      * @author        Stephane F, J.P Pourrez.
      * @version        2017-12-28
@@ -1635,7 +1634,7 @@ class plxShow
     /**
      * Méthode qui retourne l'id de la page statique active
      *
-     * @return    int
+     * @return    int|null
      * @scope    static
      * @author    Florent MONTHEL, Stéphane F.
      **/
@@ -1646,7 +1645,7 @@ class plxShow
         if ($this->plxMotor->mode == 'static' and isset($this->plxMotor->aStats[$this->plxMotor->cible]))
             return intval($this->plxMotor->cible);
         else
-            return plxUtils::strCheck($this->plxMotor->mode);
+            return null;
     }
 
     /**

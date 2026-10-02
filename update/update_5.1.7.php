@@ -78,8 +78,7 @@ class update_5_1_7 extends plxUpdate{
 
 		# Récupère le nouveau n° de version de PluXml
 		if(is_readable(PLX_ROOT.'version')) {
-			$f = file(PLX_ROOT.'version');
-			$newVersion = $f['0'];
+			$newVersion = trim(file_get_contents(PLX_ROOT.'version'));
 		}
 
 		echo L_UPDATE_PLUG_MOVEPARAMFILE."<br />";

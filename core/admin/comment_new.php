@@ -80,10 +80,7 @@ if(isset($_GET['a'])) {
 # On a validé le formulaire
 if(!empty($_POST) AND !empty($_POST['content'])) {
 	# Création du commentaire
-	if(!$plxAdmin->newCommentaire(str_replace('_', '', $artId), $_POST)) {
-		# Erreur
-		plxMsg::Error(L_ERR_CREATING_COMMENT);
-	} else { # Ok
+	if($plxAdmin->newAdminCommentaire(str_replace('_', '', $artId), $_POST)) {
 		plxMsg::Info(L_CREATING_COMMENT_SUCCESSFUL);
 	}
 	header('Location: comment_new.php?a=' . $artId);

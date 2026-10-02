@@ -227,13 +227,13 @@ class PlxTemplate {
 	 * Method in charge of parsing templates XML files
 	 *
 	 * @param	string $fileName	fichier de l'article à parser
-	 * @return	array
+	 * @return	array|null
 	 * @author	Pedro "P3ter" CADETE
 	 **/
 	private function parseTemplate($fileName) {
 
 		if(!is_file($fileName) or mime_content_type($fileName) != 'text/xml') {
-			return false;
+			return null;
 		}
 
 		# parser initialisation
@@ -251,7 +251,7 @@ class PlxTemplate {
 			xml_parser_free($parser);
 		}
 		if($success === false) {
-			return false;
+			return null;
 		}
 
 		# getting datas from the parser

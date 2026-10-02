@@ -82,14 +82,14 @@ class plxUtils {
 	/**
 	 * Méthode qui retourne un tableau contenu les paramètres passés dans l'url de la page courante
 	 *
-	 * @return	array	tableau avec les paramètres passés dans l'url de la page courante
+	 * @return	string	tableau avec les paramètres passés dans l'url de la page courante
 	 **/
 	public static function getGets() {
 
 		if(!empty($_SERVER['QUERY_STRING']))
 			return strip_tags($_SERVER['QUERY_STRING']);
 		else
-			return false;
+			return '';
 	}
 
 	/**
@@ -156,8 +156,9 @@ class plxUtils {
 			return true;
 		}
 
-		$site = preg_replace('#([\'"].*)#', '', $site);
-		if(isset($site[0]) AND $site[0]=='?') {
+		$url = preg_replace('#([\'"].*)#', '', $site);
+		if(is_string($url) AND $url[0] == '?') {
+			$site = $url;
 			return true; # url interne commençant par ?
 		}
 
@@ -1182,7 +1183,7 @@ class plxUtils {
 	**/
 	public static function sendMail($name, $from, $to, $subject, $body, $contentType="text", $cc=false, $bcc=false) {
 
-		if(empty(trim($to)) or empty(trim($subject))) { return; }
+		if(empty(trim($to)) or empty(trim($subject))) { return false; }
 
 		$headers = array(
 			'MIME-Version'				=> '1.0',

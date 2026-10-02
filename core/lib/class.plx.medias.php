@@ -36,10 +36,11 @@ class plxMedias {
 		$this->dir = $dir;
 
 		# Création du dossier réservé à l'utilisateur connecté s'il n'existe pas
-		if(!is_dir($this->path)) {
-			if(!mkdir($this->path,0755))
-				return plxMsg::Error(L_PLXMEDIAS_MEDIAS_FOLDER_ERR);
+		if(!is_dir($this->path) and !mkdir($this->path,0755)) {
+			plxMsg::Error(L_PLXMEDIAS_MEDIAS_FOLDER_ERR);
+			return;
 		}
+
 		# Création du dossier réservé aux miniatures
 		if(!is_dir($this->path.'.thumbs/'.$this->dir)) {
 			mkdir($this->path.'.thumbs/'.$this->dir,0755,true);
@@ -145,7 +146,7 @@ class plxMedias {
 				if(file_exists($thumbName) or
 					plxUtils::makeThumb(
 						$filename,
-						$sample
+						$thumbName
 						)
 				) {
 					$sample = $thumbName;
@@ -297,7 +298,7 @@ class plxMedias {
 	/**
 	 * Méthode qui envoie un fichier sur le serveur
 	 *
-	 * @param	string $file	fichier à uploader
+	 * @param	array $file	fichier à uploader
 	 * @param	array $resize	taille du fichier à redimensionner si renseigné
 	 * @param	array $thumb	taille de la miniature à créer si renseigné
 	 * @return  string	message contenant le résultat de l'envoi du fichier
@@ -309,7 +310,7 @@ class plxMedias {
 		$filename = array();
 
 		if($file['name'] == '') {
-			return false;
+			return L_PLXMEDIAS_UPLOAD_ERR;
 		}
 
 		if($file['size'] > $this->maxUpload['value']) {
@@ -394,22 +395,12 @@ class plxMedias {
 					$thumb = array('width' => $width, 'height' => $height);
 				}
 			}
-			if($res=$this->_uploadFile($file, $resize, $thumb)) {
-				switch($res) {
-					case L_PLXMEDIAS_WRONG_FILESIZE:
-						return plxMsg::Error(L_PLXMEDIAS_WRONG_FILESIZE);
-						break;
-					case L_PLXMEDIAS_WRONG_FILEFORMAT:
-						return plxMsg::Error(L_PLXMEDIAS_WRONG_FILEFORMAT);
-						break;
-					case L_PLXMEDIAS_UPLOAD_ERR:
-						return plxMsg::Error(L_PLXMEDIAS_UPLOAD_ERR);
-						break;
-					case L_PLXMEDIAS_UPLOAD_SUCCESSFUL:
-						$count++;
-						break;
-				}
+			$res=$this->_uploadFile($file, $resize, $thumb);
+			if($res != L_PLXMEDIAS_UPLOAD_SUCCESSFUL) {
+				return plxMsg::Error($res);
 			}
+
+			$count++;
 		}
 
 		switch($count) {
