@@ -38,25 +38,7 @@ switch($help) {
 		redirectAdmin();
 }
 
-$output='';
-# chargement du fichier d'aide du thème
-if(is_file($filename)) {
-	ob_start();
-	try {
-?>
-		<div class="inline-form action-bar">
-			<h2><?= plxUtils::strCheck($page) ?></h2>
-			<p><a class="back" href="<?= $back_to ?>"><?= $back_to_title ?></a></p>
-		</div>
-<?php
-		require $filename;
-	} catch(Exception $e) {
-		plxMsg::Error($e->getMessage());
-	} finally {
-		$output = ob_get_clean();
-	}
-}
-else {
+if(!file_exists($filename)) {
 	plxMsg::Error(L_NO_ENTRY);
 	header('Location: ' . $back_to);
 	exit;
@@ -64,7 +46,21 @@ else {
 
 # On inclut le header
 require 'top.php';
-# Affichage des données
-echo $output;
+?>
+		<div class="inline-form action-bar">
+			<h2><?= plxUtils::strCheck($page) ?></h2>
+			<p><a class="back" href="<?= $back_to ?>"><?= $back_to_title ?></a></p>
+		</div>
+<?php
+# chargement du fichier d'aide du thème
+ob_start();
+try {
+	require $filename;
+} catch(Exception $e) {
+	plxMsg::Error($e->getMessage());
+} finally {
+	$output = ob_get_clean();
+}
+
 # On inclut le footer
 require 'foot.php';
