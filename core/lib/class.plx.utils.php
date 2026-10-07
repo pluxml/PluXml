@@ -797,15 +797,15 @@ class plxUtils {
 			$ratio_w = $thumb_width / $image[0];
 			$ratio_h = $thumb_height / $image[1];
 			if($thumb_width == 0)
-				$thumb_width = $image[0] * $ratio_h;
+				$thumb_width = round($image[0] * $ratio_h);
 			elseif($thumb_height == 0)
-				$thumb_height = $image[1] * $ratio_w;
+				$thumb_height = round($image[1] * $ratio_w);
 			elseif($ratio_w < $ratio_h AND $ratio_w < 1) {
-				$thumb_width = $ratio_w * $image[0];
-				$thumb_height = $ratio_w * $image[1];
+				$thumb_width = round($ratio_w * $image[0]);
+				$thumb_height = round($ratio_w * $image[1]);
 			} elseif($ratio_h < 1) {
-				$thumb_width = $ratio_h * $image[0];
-				$thumb_height = $ratio_h * $image[1];
+				$thumb_width = round($ratio_h * $image[0]);
+				$thumb_height = round($ratio_h * $image[1]);
 			} else {
 				$thumb_width = $image[0];
 				$thumb_height = $image[1];
@@ -814,14 +814,14 @@ class plxUtils {
 			# Calculate measurements (square crop)
 			if($image[0] > $image[1]) {
 				# For landscape images
-				$x_offset = intval(($image[0] - $image[1]) / 2);
+				$x_offset = round(($image[0] - $image[1]) / 2);
 				$y_offset = 0;
-				$square_size_w = $square_size_h = $image[0] - ($x_offset * 2);
+				$square_size_w = $square_size_h = round($image[0] - $x_offset * 2);
 			} else {
 				# For portrait and square images
 				$x_offset = 0;
-				$y_offset = intval(($image[1] - $image[0]) / 2);
-				$square_size_w = $square_size_h = $image[1] - ($y_offset * 2);
+				$y_offset = round(($image[1] - $image[0]) / 2);
+				$square_size_w = $square_size_h = round($image[1] - $y_offset * 2);
 			}
 		}
 
