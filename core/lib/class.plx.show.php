@@ -966,7 +966,7 @@ class plxShow
                 }
 
                 $replaces = array(
-                    '#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/categorie' . $categorie . '/' . $this->plxMotor->aCats[$id]['url']),
+                    '#feedUrl'      => $this->plxMotor->urlRewrite('feed.php?rss/categorie' . ltrim($categorie, '0') . '/' . $this->plxMotor->aCats[$id]['url']),
                     '#feedTitle'    => L_ARTFEED_RSS_CATEGORY,
                     '#feedName'     => L_ARTFEED_RSS_CATEGORY,
                 );
