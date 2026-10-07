@@ -484,6 +484,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Uw profiel aanpassen',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Wachtwoord veranderen',
 		'L_PROFIL_PASSWORD' => 'Wachtwoord',
+		'L_PROFIL_OLD_PASSWORD' => 'Oud wachtwoord',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Wachtwoord bevestigen',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Wachtwoord veranderen',
 		'L_STATIC_BACK_TO_PAGE' => 'Terug naar lijst van statische paginas',

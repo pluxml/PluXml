@@ -523,14 +523,20 @@ EOT;
 				return ($infos['password_token'] == $token);
 			});
 			if(count($users) != 1) {
-				return false;
+				return plxMsg::Error(L_USER_UNKNOWN);
 			}
 
 			$user_id = array_keys($users)[0];
 			$this->aUsers[$user_id]['password_token'] = '';
 			$this->aUsers[$user_id]['password_token_expiry'] = '';
 		} else {
+			# from profil.php
 			$user_id = $_SESSION['user'];
+			# On vérifie l'ancien mote de page
+			$salt = $this->aUsers[$user_id]['salt'];
+			if(sha1($salt . md5($content['password9'])) != $this->aUsers[$user_id]['password']) {
+				return plxMsg::Error(L_USER_UNKNOWN);
+			}
 		}
 
 		$salt = plxUtils::charAleatoire(10);
@@ -662,10 +668,14 @@ EOT;
 	 * @author	Stéphane F, Pedro "P3ter" CADETE, , J.P. Pourrez @bazooka07
 	 **/
 	public function editUsers($content, $action=false) {
-		$this->checkProfil(PROFIL_ADMIN);
+		if(in_array(basename($_SERVER['SCRIPT_NAME']), array('auth.php', 'profil.php'))) {
+			# Changement de mot de passe
+			$content = null;
+		} else {
+			$this->checkProfil(PROFIL_ADMIN);
+		}
 
 		$save = $this->aUsers;
-
 		# Hook plugins
 		if(eval($this->plxPlugins->callHook('plxAdminEditUsersBegin'))) { return false; }
 

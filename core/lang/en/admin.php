@@ -519,6 +519,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Save profile',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Change password',
 		'L_PROFIL_PASSWORD' => 'Password',
+		'L_PROFIL_OLD_PASSWORD' => 'Old password',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Confirm password',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Change password',
 

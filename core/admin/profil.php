@@ -45,9 +45,7 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		<p><label><?= L_PROFIL_LOGIN ?>&nbsp;:&nbsp;<strong><?= plxUtils::strCheck($_profil['login']) ?></strong></label></p>
 		<input type="submit" name="profil" value="<?= L_PROFIL_UPDATE ?>" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminProfilTop')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminProfilTop')) # Hook Plugins ?>
 	<fieldset>
 		<div class="grid">
 			<div class="col sml-12">
@@ -74,14 +72,19 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 			</div>
 		</div>
 	</fieldset>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminProfil')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminProfil')) # Hook Plugins ?>
 	<?= plxToken::getTokenPostMethod() ?>
-
 </form>
 
 <h3><?= L_PROFIL_CHANGE_PASSWORD ?></h3>
 <form method="post" id="form_password">
 	<fieldset>
+		<div class="grid">
+			<div class="col sml-12">
+				<label for="id_password1"><?= L_PROFIL_OLD_PASSWORD ?>&nbsp;:</label>
+				<?php plxUtils::printInput('password9', '', 'password', '20-64'); ?>
+			</div>
+		</div>
 		<div class="grid">
 			<div class="col sml-12">
 				<label for="id_password1"><?= L_PROFIL_PASSWORD ?>&nbsp;:</label>
@@ -103,9 +106,10 @@ $_profil = $plxAdmin->aUsers[$_SESSION['user']];
 		</div>
 	</fieldset>
 </form>
-
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminProfilFoot'));
+
 # On inclut le footer
 require 'foot.php';

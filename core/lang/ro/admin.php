@@ -449,6 +449,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Editează-ţi profilul',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Schimbarea parolei',
 		'L_PROFIL_PASSWORD' => 'Parola',
+		'L_PROFIL_OLD_PASSWORD' => 'Parola veche',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Confirmaţi parola',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Schimbaţi parola',
 		'L_STATIC_BACK_TO_PAGE' => 'Înapoi la lista de pagini statice',

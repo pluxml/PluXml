@@ -519,6 +519,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Αποθήκευση προφίλ',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Αλλαγή κωδικού πρόσβασης',
 		'L_PROFIL_PASSWORD' => 'Κωδικός πρόσβασης',
+		'L_PROFIL_OLD_PASSWORD' => 'Παλιός κωδικός πρόσβασης',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Επιβεβαίωση κωδικού πρόσβασης',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Αλλαγή κωδικού πρόσβασης',
 

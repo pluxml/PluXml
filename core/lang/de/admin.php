@@ -521,6 +521,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Benutzerprofil speichern',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Passwort ändern',
 		'L_PROFIL_PASSWORD' => 'Neues Passwort',
+		'L_PROFIL_OLD_PASSWORD' => 'Altes Passwort',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Neues Passwort wiederholen',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Passwortänderung speichern',
 

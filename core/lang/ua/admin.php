@@ -520,6 +520,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Змінити ваш профіль',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Зміна пароля',
 		'L_PROFIL_PASSWORD' => 'Пароль',
+		'L_PROFIL_OLD_PASSWORD' => 'Старий пароль',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Пароль ще раз',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Змінити пароль',
 

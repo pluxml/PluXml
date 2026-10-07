@@ -449,6 +449,7 @@ $LANG = array (
 		'L_PROFIL_UPDATE' => 'Modifica il profilo',
 		'L_PROFIL_CHANGE_PASSWORD' => 'Cambia la password',
 		'L_PROFIL_PASSWORD' => 'Password',
+		'L_PROFIL_OLD_PASSWORD' => 'Vecchia password',
 		'L_PROFIL_CONFIRM_PASSWORD' => 'Conferma la password',
 		'L_PROFIL_UPDATE_PASSWORD' => 'Cambia la password',
 		'L_STATIC_BACK_TO_PAGE' => 'Ritorna alla lista delle pagine statiche',
