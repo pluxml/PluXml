@@ -46,40 +46,32 @@ if(!empty($_POST['btn_newfolder']) AND !empty($_POST['newfolder'])) {
 	if($plxMedias->newDir($_POST['newfolder'])) {
 		$_SESSION['folder'] = $_SESSION['folder'].$_POST['newfolder'].'/';
 	}
-	header('Location: medias.php');
-	exit;
+	reloadPage();
 }
 if(!empty($_POST['btn_renamefile']) AND !empty($_POST['newname'])) {
 	$plxMedias->renameFile($_POST['oldname'], $_POST['newname']);
-	header('Location: medias.php');
-	exit;
+	reloadPage();
 }
 elseif(!empty($_POST['folder']) AND $_POST['folder']!='.' AND !empty($_POST['btn_delete'])) {
 	if($plxMedias->deleteDir($_POST['folder'])) {
 		$_SESSION['folder'] = '';
 	}
-	header('Location: medias.php');
-	exit;
+	reloadPage();
 }
 elseif(!empty($_POST['btn_upload'])) {
 	$plxMedias->uploadFiles($_FILES, $_POST);
-	header('Location: medias.php');
-	exit;
+	reloadPage();
 }
-elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='delete')) AND isset($_POST['idFile'])) {
-	$plxMedias->deleteFiles($_POST['idFile']);
-	header('Location: medias.php');
-	exit;
-}
-elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='move')) AND isset($_POST['idFile'])) {
-	$plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $_POST['folder']);
-	header('Location: medias.php');
-	exit;
-}
-elseif(isset($_POST['selection']) AND ((!empty($_POST['btn_ok']) AND $_POST['selection']=='thumbs')) AND isset($_POST['idFile'])) {
-	$plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']);
-	header('Location: medias.php');
-	exit;
+elseif(isset($_POST['selection'])) {
+	if(!empty($_POST['idFile']) and is_array($_POST['idFile'])) {
+		switch($_POST['selection']) {
+			case 'delete': $plxMedias->deleteFiles($_POST['idFile']); break;
+			case 'move': $plxMedias->moveFiles($_POST['idFile'], $_SESSION['currentfolder'], $_POST['folder']); break;
+			case 'thumbs': $plxMedias->makeThumbs($_POST['idFile'], $plxAdmin->aConf['miniatures_l'], $plxAdmin->aConf['miniatures_h']); break;
+			default:
+		}
+	}
+	reloadPage();
 }
 
 # Tri de l'affichage des fichiers
@@ -120,10 +112,9 @@ require 'top.php';
 $curFolder = '/'.plxUtils::strCheck(basename($_SESSION['medias']).'/'.$_SESSION['folder']);
 $curFolders = explode('/', $curFolder);
 
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminMediasTop'));
 ?>
-
-<?php eval($plxAdmin->plxPlugins->callHook('AdminMediasTop')) # Hook Plugins ?>
-
 <form method="post">
 	<!-- Rename File Dialog -->
 	<div id="dlgRenameFile" class="dialog">

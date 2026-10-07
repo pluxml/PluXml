@@ -56,6 +56,12 @@ if($is_login) {
 	}
 }
 
+function reloadPage() {
+	header('Refresh: 0');
+	# header('Location: ' . basename($_SERVER['SCRIPT_NAME']));
+	exit;
+}
+
 # Creation de l'objet principal et premier traitement
 $plxAdmin = plxAdmin::getInstance();
 
