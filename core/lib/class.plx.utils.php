@@ -938,14 +938,18 @@ class plxUtils {
 	 **/
 	public static function getRacine($with_hostname=true) {
 
+		$pattern1 = null;
 		if(!empty($_SERVER['REDIRECT_URL'])) {
+			# Ré-écriture de l'url ( urlrewriting )
 			$path1 = $_SERVER['REDIRECT_URL'];
 			if(!defined('PLX_ADMIN') and !empty($_SERVER['REDIRECT_QUERY_STRING'])) {
 				$path1 = preg_replace('#' . $_SERVER['REDIRECT_QUERY_STRING'] . '$#', '', $path1);
+				$pattern1 = basename($_SERVER['SCRIPT_NAME'], '.php') . '/';
 			}
 		} else {
 			$path1 = $_SERVER['PHP_SELF'];
-			}
+			$pattern1 = basename($_SERVER['SCRIPT_NAME']);
+		}
 
 		$prefix = '';
 		if($with_hostname) {
@@ -962,10 +966,11 @@ class plxUtils {
 		}
 
 		if(defined('PLX_ADMIN')) {
+			# Pas de redirection
 			return $prefix . preg_replace('#(?:/\w[\w-]+){2}(?:/\w[\w-]+\.php|/)?$#', '/', $path1);
 		}
 
-		return $prefix . preg_replace('#/(?:\w[\w-]+\.php)?$#', '', $path1) . '/';
+		return $prefix . preg_replace('#' . $pattern1 . '$#', '', $path1);
 	}
 
 	/**
