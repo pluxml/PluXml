@@ -25,27 +25,29 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 # validation de l'id de l'article si passé en paramètre
 if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
-	header('Location: index.php');
-	exit;
+	redirectAdmin();
 }
 
 # Suppression des commentaires sélectionnés
-if(isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='delete') AND isset($_POST['idCom'])) {
-	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->delCommentaire($v);
-	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
-	exit;
-}
-# Validation des commentaires sélectionnés
-elseif(isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='online') AND isset($_POST['idCom'])) {
-	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'online');
-	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
-	exit;
-}
-# Mise hors-ligne des commentaires sélectionnés
-elseif (isset($_POST['selection']) AND !empty($_POST['btn_ok']) AND ($_POST['selection']=='offline') AND isset($_POST['idCom'])) {
-	foreach ($_POST['idCom'] as $k => $v) $plxAdmin->modCommentaire($v, 'offline');
-	header('Location: comments.php'.(!empty($_GET['a'])?'?a='.$_GET['a']:''));
-	exit;
+if(isset($_POST['selection']) AND !empty($_POST['btn_ok'])) {
+	if(!empty($_POST['idCom'])) {
+		switch($_POST['selection']) {
+			case 'delete':
+				foreach ($_POST['idCom'] as $k => $v) {
+					$plxAdmin->delCommentaire($v);
+				}
+				break;
+			case 'online':
+			case 'offline':
+				foreach ($_POST['idCom'] as $k => $v) {
+					$plxAdmin->modCommentaire($v, $_POST['selection']);
+				}
+				break;
+			default:
+				redirectAdmin();
+		}
+	}
+	reloadPage();
 }
 
 # Récupération des infos sur l'article attaché au commentaire si passé en paramètre
@@ -53,9 +55,9 @@ if(!empty($_GET['a'])) {
 	# Infos sur notre article
 	if(!$globArt = $plxAdmin->plxGlob_arts->query('/^'.$_GET['a'].'.(.*).xml$/','','sort',0,1)) {
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
-		header('Location: index.php');
-		exit;
+		redirectAdmin();
 	}
+
 	# Infos sur l'article
 	$aArt = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$globArt['0']);
 }

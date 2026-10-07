@@ -34,8 +34,7 @@ if (!empty($_POST)) {
 	} else {
 		unset($_SESSION['new_user']);
 	}
-	header('Location: parametres_users.php');
-	exit;
+	reloadPage();
 }
 
 # Tableau des profils

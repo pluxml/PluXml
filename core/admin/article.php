@@ -22,9 +22,9 @@ eval($plxAdmin->plxPlugins->callHook('AdminArticlePrepend'));
 
 # validation de l'id de l'article si passé en parametre
 if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
-	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE); # Article inexistant
-	header('Location: index.php');
-	exit;
+	# Article inexistant
+	plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
+	redirectAdmin();
 }
 
 # Formulaire validé
@@ -47,8 +47,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		# On valide l'article
 		if(($aFile = $plxAdmin->plxGlob_arts->query('/^'.$_POST['artId'].'.([home[draft|0-9,]*).'.$_SESSION['user'].'.(.+).xml$/')) == false) { # Article inexistant
 			plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
-			header('Location: index.php');
-			exit;
+			redirectAdmin();
 		}
 	}
 	# Previsualisation d'un article
@@ -97,8 +96,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	# Suppression d'un article
 	if(isset($_POST['delete'])) {
 		$plxAdmin->delArticle($_POST['artId']);
-		header('Location: index.php');
-		exit;
+		redirectAdmin();
 	}
 	# Mode création ou maj
 	if(isset($_POST['update']) OR isset($_POST['publish']) OR isset($_POST['moderate']) OR isset($_POST['draft'])) {
@@ -127,7 +125,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 		}
 		if($valid) {
 			$plxAdmin->editArticle($_POST,$_POST['artId']);
-			header('Location: article.php?a='.$_POST['artId']);
+			header('Location: article.php?a=' . $_POST['artId']);
 			exit;
 		# Si url ou date invalide, on ne sauvegarde pas mais on repasse en mode brouillon
 		}else{
@@ -179,8 +177,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 	# On va rechercher notre article
 	if(!($aFile = $plxAdmin->plxGlob_arts->query('/^' . $_GET['a'] . '.(.+).xml$/'))) { # Article inexistant
 		plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
-		header('Location: index.php');
-		exit;
+		redirectAdmin();
 	}
 	# On parse et alimente nos variables
 	$result = $plxAdmin->parseArticle(PLX_ROOT.$plxAdmin->aConf['racine_articles'].$aFile['0']);
@@ -207,8 +204,7 @@ if(!empty($_POST)) { # Création, mise à jour, suppression ou aperçu
 
 	if($author!=$_SESSION['user'] AND $_SESSION['profil']==PROFIL_WRITER) {
 		plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
-		header('Location: index.php');
-		exit;
+		redirectAdmin();
 	}
 	# Hook Plugins
 	eval($plxAdmin->plxPlugins->callHook('AdminArticleParseData'));

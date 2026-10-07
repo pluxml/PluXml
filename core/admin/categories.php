@@ -25,8 +25,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_ED
 # On édite les catégories
 if(!empty($_POST)) {
 	$plxAdmin->editCategories($_POST);
-	header('Location: categories.php');
-	exit;
+	reloadPage();
 }
 
 # Tableau du tri

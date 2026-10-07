@@ -22,24 +22,20 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 # On édite la configuration
 if(!empty($_POST)) {
 	$plxAdmin->editConfiguration($_POST);
-	header('Location: parametres_base.php');
-	exit;
+	reloadPage();
 }
 
 # On inclut le header
 require 'top.php';
+
 ?>
-
-<form action="parametres_base.php" method="post" id="form_settings">
-
+<form method="post" id="form_settings">
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_BASE_CONFIG_TITLE ?></h2>
 		<p>&nbsp;</p>
 		<input type="submit" value="<?= L_CONFIG_BASE_UPDATE ?>" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBaseTop')) # Hook Plugins ?>
 	<fieldset class="config">
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
@@ -130,9 +126,8 @@ require 'top.php';
             </div>
         </div>
     </fieldset>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsBase')) # Hook Plugins ?>
 	<?= plxToken::getTokenPostMethod() ?>
-
 </form>
 
 <?php

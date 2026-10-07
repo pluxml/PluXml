@@ -25,19 +25,17 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_ED
 # On édite la catégorie
 if(!empty($_POST) AND isset($plxAdmin->aCats[ $_POST['id'] ])) {
 	$plxAdmin->editCategorie($_POST);
-	header('Location: categorie.php?p='.$_POST['id']);
+	header('Location: categorie.php?p=' . $_POST['id']);
 	exit;
 }
 elseif(!empty($_GET['p'])) { # On vérifie l'existence de la catégorie
 	$id = plxUtils::strCheck($_GET['p']);
 	if(!isset($plxAdmin->aCats[ $id ])) {
 		plxMsg::Error(L_CAT_UNKNOWN);
-		header('Location: categorie.php');
-		exit;
+		reloadPage();
 	}
 } else { # Sinon, on redirige
-	header('Location: categories.php');
-	exit;
+	redirectAdmin();
 }
 
 # On récupère les templates des catégories

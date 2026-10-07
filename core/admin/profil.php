@@ -21,15 +21,12 @@ eval($plxAdmin->plxPlugins->callHook('AdminProfilPrepend'));
 
 # On édite la configuration
 if(!empty($_POST)) {
-
 	if(!empty($_POST['profil']))
 		$plxAdmin->editProfil($_POST);
 	elseif(!empty($_POST['passwordBtn']))
 		$plxAdmin->editPassword($_POST);
 
-	header('Location: profil.php');
-	exit;
-
+	reloadPage();
 }
 
 # On inclut le header

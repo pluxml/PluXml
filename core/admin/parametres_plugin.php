@@ -47,8 +47,7 @@ if(is_file($filename)) {
 }
 else {
 	plxMsg::Error(L_NO_ENTRY);
-	header('Location: parametres_plugins.php');
-	exit;
+	redirectAdmin();
 }
 
 # On inclut le header

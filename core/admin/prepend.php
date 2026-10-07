@@ -24,8 +24,23 @@ function redirectLogin($query='') {
 	exit;
 }
 
-function redirectAdmin() {
-	header('Location: index.php');
+function redirectAdmin($context=true) {
+	$redirects = array(
+		'categorie'				=> 'categories.php',
+		'comment_new'			=> 'comments.php',
+		'parametres_edittpl'	=> 'parametres_affichage.php',
+		'parametres_plugin'		=> 'parametres_plugins.php',
+		'statique'				=> 'statiques.php',
+		'user'					=> 'parametres_users.php',
+	);
+	$location = 'index.php';
+	if($context) {
+		$scriptName = basename($_SERVER['SCRIPT_NAME'], '.php');
+		if(array_key_exists($scriptName, $redirects)) {
+			$location = $redirects[$scriptName];
+		}
+	}
+	header('Location: ' . $location);
 	exit;
 }
 
@@ -57,8 +72,12 @@ if($is_login) {
 }
 
 function reloadPage() {
-	header('Refresh: 0');
-	# header('Location: ' . basename($_SERVER['SCRIPT_NAME']));
+	# header('Refresh: 0');
+	$redirect = basename($_SERVER['SCRIPT_NAME']);
+	if(!empty($_SERVER['QUERY_STRING'])) {
+		$redirect .= '?' . $_SERVER['QUERY_STRING'];
+	}
+	header('Location: ' . $redirect);
 	exit;
 }
 

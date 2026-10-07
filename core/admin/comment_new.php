@@ -24,12 +24,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # Interdire de l'accès à la page si les commentaires sont désactivés
 if(!$plxAdmin->aConf['allow_com']) {
-	redirectAdmin();
-}
-
-function redirectComments() {
-	header('Location: comments.php');
-	exit;
+	redirectAdmin(false);
 }
 
 # On affiche les commentaires  pour un article donné
@@ -55,14 +50,14 @@ if(isset($_GET['a'])) {
 		if(!$plxAdmin->getCommentaires('/^'.plxUtils::nullbyteRemove($_GET['c']).'\.xml$/', '', 0, 1, 'all')) {
 			# On redirige
 			plxMsg::Error(L_ERR_ANSWER_UNKNOWN_COMMENT);
-			redirectComments();
+			redirectAdmin();
 		}
 
 		# Commentaire offline
 		if(preg_match('/^_/', $_GET['c'])) {
 			# On redirige
 			plxMsg::Error(L_ERR_ANSWER_OFFLINE_COMMENT);
-			redirectComments();
+			redirectAdmin();
 		}
 
 		# Ok, on récupère les commentaires de l'article

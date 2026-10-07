@@ -33,8 +33,7 @@ if(!empty($plxAdmin->plxPlugins->aPlugins[$plugin]) AND is_file($filename)) {
 }
 else {
 	plxMsg::Error(L_NO_ENTRY);
-	header('Location: index.php');
-	exit;
+	redirectAdmin();
 }
 
 # On inclut le header

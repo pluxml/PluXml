@@ -101,8 +101,7 @@ if($emailBuild) {
 			# Error
 			ob_end_clean();
 			plxMsg::Error('Missing token');
-			header('Location: ' . basename(__FILE__));
-			exit;
+			reloadPage();
 		} else {
 			$from = $plxAdmin->aConf['smtpOauth2_emailAdress'];
 		}
@@ -131,8 +130,7 @@ HEAD;
 		} else {
 			plxMsg::Error(L_MAIL_TEST_FAILURE);
 		}
-		header('Location: ' . basename(__FILE__));
-		exit;
+		reloadPage();
 	}
 
 	# module externe PHPMailer -

@@ -26,8 +26,7 @@ $style = $plxAdmin->aConf['style'];
 $style_folder = PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $style . '/';
 if(empty($style) OR !file_exists($style_folder . 'home.php')) {
 	plxMsg::Error(L_CONFIG_EDITTPL_ERROR_NOTHEME);
-	header('Location: parametres_affichage.php');
-	exit;
+	redirectAdmin();
 }
 
 $filename = realpath($style_folder . $tpl);
@@ -46,8 +45,8 @@ if(strpos($filename, realpath($style_folder)) !== 0) {
 		} else {
 			plxMsg::Error(L_SAVE_FILE_ERROR);
 		}
-		header('Location: parametres_edittpl.php');
-		exit;
+
+		reloadPage();
 	}
 }
 

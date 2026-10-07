@@ -32,12 +32,10 @@ elseif(!empty($_GET['p'])) { # On vérifie l'existence de l'utilisateur
 	$id = plxUtils::strCheck(plxUtils::nullbyteRemove($_GET['p']));
 	if(!isset($plxAdmin->aUsers[ $id ])) {
 		plxMsg::Error(L_USER_UNKNOWN);
-		header('Location: parametres_users.php');
-		exit;
+		redirectAdmin();
 	}
 } else { # Sinon, on redirige
-	header('Location: parametres_users.php');
-	exit;
+	redirectAdmin('parametres_users.php');
 }
 
 # On inclut le header

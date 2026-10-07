@@ -47,8 +47,7 @@ if(isset($_POST['sel']) AND isset($_POST['idArt'])) {
 		}
 	}
 
-	header('Location: index.php');
-	exit;
+	redirectAdmin();
 }
 
 # Récuperation de l'id de l'utilisateur

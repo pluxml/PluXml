@@ -44,8 +44,7 @@ if(isset($_POST['submit'])) {
 	} else {
 		plxMsg::Error(L_SAVE_FILE_ERROR);
 	}
-	header('Location: parametres_plugincss.php?p=' . urlencode($plugin));
-	exit;
+	reloadPage();
 }
 
 $backend = is_file($file_backend) ? trim(file_get_contents($file_backend)) : '';

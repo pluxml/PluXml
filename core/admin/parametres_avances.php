@@ -31,7 +31,7 @@ if(!empty($_POST)) {
 require 'top.php';
 ?>
 
-<form action="parametres_avances.php" method="post" id="form_settings">
+<form method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_ADVANCED_DESC ?></h2>
@@ -40,7 +40,7 @@ require 'top.php';
 		<input type="submit" value="<?= L_CONFIG_ADVANCED_UPDATE ?>" />
 	</div>
 
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsAdvancedTop')) # Hook Plugins ?>
 
 	<fieldset>
 		<div class="grid">

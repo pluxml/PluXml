@@ -35,8 +35,7 @@ switch($help) {
 		break;
 	default:
 		plxMsg::Error(L_NO_ENTRY);
-		header('Location: index.php');
-		exit;
+		redirectAdmin();
 }
 
 $output='';
@@ -44,21 +43,22 @@ $output='';
 if(is_file($filename)) {
 	ob_start();
 	try {
-		echo '
+?>
 		<div class="inline-form action-bar">
-			<h2>'.plxUtils::strCheck($page).'</h2>
-			<p><a class="back" href="'.$back_to.'">'.$back_to_title.'</a></p>
-		</div>';
-		include $filename;
+			<h2><?= plxUtils::strCheck($page) ?></h2>
+			<p><a class="back" href="<?= $back_to ?>"><?= $back_to_title ?></a></p>
+		</div>
+<?php
+		require $filename;
 	} catch(Exception $e) {
 		plxMsg::Error($e->getMessage());
 	} finally {
-		$output=ob_get_clean();
+		$output = ob_get_clean();
 	}
 }
 else {
 	plxMsg::Error(L_NO_ENTRY);
-	header('Location: '.$back_to);
+	header('Location: ' . $back_to);
 	exit;
 }
 

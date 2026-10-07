@@ -28,8 +28,7 @@ if(!empty($_POST)) {
 	$_POST['miniatures_h']=plxUtils::getValue($_POST['miniatures_h'],100);
 	unset($_POST['content']);
 	$plxAdmin->editConfiguration($_POST);
-	header('Location: parametres_affichage.php');
-	exit;
+	reloadPage();
 }
 
 # On récupère les templates de la page d'accueil
@@ -63,7 +62,7 @@ if(!is_numeric($plxAdmin->aConf['miniatures_h'])) $plxAdmin->aConf['miniatures_h
 require 'top.php';
 ?>
 
-<form action="parametres_affichage.php" method="post" id="form_settings">
+<form method="post" id="form_settings">
 
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_VIEW_FIELD ?></h2>
@@ -71,7 +70,7 @@ require 'top.php';
 		<input type="submit" value="<?= L_CONFIG_VIEW_UPDATE ?>" />
 	</div>
 
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayTop')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayTop')) # Hook Plugins ?>
 
 	<fieldset>
 
@@ -205,9 +204,10 @@ require 'top.php';
 	<?= plxToken::getTokenPostMethod() ?>
 
 </form>
-
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminSettingsDisplayFoot'));
+
 # On inclut le footer
 require 'foot.php';

@@ -56,8 +56,7 @@ if(!empty($_POST) AND isset($plxAdmin->aStats[$_POST['id']])) {
 	$date_creation = plxDate::date2Array($plxAdmin->aStats[$id]['date_creation']);
 	$date_update = plxDate::date2Array($plxAdmin->aStats[$id]['date_update']);
 } else { # Sinon, on redirige
-	header('Location: statiques.php');
-	exit;
+	redirectAdmin();
 }
 
 # On récupère les templates des pages statiques
@@ -74,8 +73,7 @@ if (!empty($glob->aFiles)) {
 require 'top.php';
 ?>
 
-<form action="statique.php" method="post" id="form_static">
-
+<form method="post" id="form_static">
 	<div class="inline-form action-bar">
 		<h2><?= L_STATIC_TITLE ?> "<?= plxUtils::strCheck($title); ?>"</h2>
 		<p><a class="back" href="statiques.php"><?= L_STATIC_BACK_TO_PAGE ?></a></p>
@@ -83,9 +81,7 @@ require 'top.php';
 		<a href="<?= $url ?>" target="_blank"><?= L_STATIC_VIEW_PAGE ?> <?= plxUtils::strCheck($title); ?> <?= L_STATIC_ON_SITE ?></a>
 		<?php plxUtils::printInput('id', $id, 'hidden');?>
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminStaticTop')) # Hook Plugins ?>
 		<fieldset>
 			<div class="grid">
 				<div class="col sml-12">
@@ -147,14 +143,13 @@ require 'top.php';
 				</div>
 			</div>
 		</fieldset>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminStatic')) # Hook Plugins ?>
 	<?= plxToken::getTokenPostMethod() ?>
-
 </form>
-
 <?php
+
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminStaticFoot'));
+
 # On inclut le footer
 require 'foot.php';
-?>

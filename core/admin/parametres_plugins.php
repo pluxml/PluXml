@@ -21,8 +21,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 
 if(isset($_POST['update']) OR (isset($_POST['activate']) and isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
-	header('Location: parametres_plugins.php');
-	exit;
+	reloadpage();
 }
 
 function pluginsList($plugins, $defaultLang, $type) {
@@ -162,7 +161,7 @@ require 'top.php';
 
 ?>
 
-<form action="parametres_plugins.php" method="post" id="form_plugins">
+<form method="post" id="form_plugins">
 
 	<div class="inline-form action-bar">
 		<h2>

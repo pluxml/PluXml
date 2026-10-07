@@ -29,8 +29,7 @@ if(!empty($_POST)) {
 	else
 		$plxAdmin->editConfiguration(array('homestatic'=>''));
 	$plxAdmin->editStatiques($_POST);
-	header('Location: statiques.php');
-	exit;
+	reloadPage();
 }
 
 # On inclut le header

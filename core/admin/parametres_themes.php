@@ -22,8 +22,7 @@ $plxAdmin->checkProfil(PROFIL_ADMIN);
 # On édite la configuration
 if(!empty($_POST)) {
 	$plxAdmin->editConfiguration($_POST);
-	header('Location: parametres_themes.php');
-	exit;
+	reloadPage();
 }
 
 class plxThemes {
