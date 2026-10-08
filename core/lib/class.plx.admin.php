@@ -471,7 +471,8 @@ EOT;
 	public function checkProfil(...$profils) {
 		if(count($profils) > 0 and isset($_SESSION['profil'])) {
 			$redirect = is_bool($profils[count($profils) - 1]) ? array_pop($profils) : true;
-			$validProfil = in_array($_SESSION['profil'], $profils);
+			# $profils[0] est un tableau (array) dans le cas d'un plugin
+			$validProfil = in_array($_SESSION['profil'], is_array($profils[0]) ? $profils[0] : $profils);
 			if($validProfil) {
 				return true;
 			}

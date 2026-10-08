@@ -105,7 +105,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
 
 	# Control du token du formulaire dans article.php
-	if(!isset($_POST['preview'])) {
+	# Les plugins valident le token pour leur config et leur admin
+	if(
+		!isset($_POST['preview']) and
+		!in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), array('parametres_plugin', 'plugin'))
+	) {
 		plxToken::validateFormToken($_POST);
 	}
 }
