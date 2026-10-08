@@ -13,12 +13,6 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
 $email = filter_var($plxAdmin->aUsers[$_SESSION['user']]['email'], FILTER_VALIDATE_EMAIL);
 $emailBuild = (is_string($email) and filter_has_var(INPUT_POST, 'sendmail-test'));
 if($emailBuild) {
@@ -31,7 +25,6 @@ if($emailBuild) {
 }
 
 ?>
-
 <div class="inline-form action-bar">
 	<h2><?= L_CONFIG_INFOS_TITLE ?></h2>
 	<p><?= L_PLUXML_CHECK_VERSION ?></p>

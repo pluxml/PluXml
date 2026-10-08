@@ -12,8 +12,7 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-$plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
-$plugin = plxUtils::nullbyteRemove($plugin);
+$plugin = isset($_GET['p']) ? plxUtils::nullbyteRemove(urldecode($_GET['p'])) : '';
 
 $output='';
 # chargement du fichier d'administration du plugin

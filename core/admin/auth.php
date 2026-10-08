@@ -23,9 +23,6 @@ if(!isset($plxAdmin)) {
     exit;
 }
 
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
 # Initialiser les messages d'alerte
 $msg = '';
 $css = '';

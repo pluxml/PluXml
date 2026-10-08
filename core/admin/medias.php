@@ -13,9 +13,6 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
 # Sécurisation du chemin du dossier
 if(isset($_POST['folder']) AND $_POST['folder']!='.' AND !plxUtils::checkSource($_POST['folder'])) {
 	$_POST['folder']='.';

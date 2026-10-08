@@ -13,10 +13,6 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control du token du formulaire
-if(!isset($_POST['preview']))
-	plxToken::validateFormToken($_POST);
-
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminArticlePrepend'));
 

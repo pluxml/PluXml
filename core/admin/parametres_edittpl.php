@@ -11,12 +11,6 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Controle du token du formulaire
-plxToken::validateFormToken($_POST);
-
-# Controle de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
 # Initialisation
 $tpl = isset($_POST['tpl']) ? $_POST['tpl'] : 'home.php';
 if(!empty($_POST['load'])) $tpl = $_POST['template'];

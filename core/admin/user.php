@@ -13,14 +13,8 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUserPrepend'));
-
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
 
 # On édite la page statique
 if(!empty($_POST) AND isset($plxAdmin->aUsers[ $_POST['id'] ])) {

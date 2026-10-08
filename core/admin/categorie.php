@@ -13,9 +13,6 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCategoryPrepend'));
 

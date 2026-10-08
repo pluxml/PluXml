@@ -12,19 +12,13 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
+$plugin = isset($_GET['p']) ? plxUtils::nullbyteRemove(urldecode($_GET['p'])) : '';
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-$plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
-$plugin = plxUtils::nullbyteRemove($plugin);
-
+$path1 = PLX_ROOT . PLX_CONFIG_PATH . 'plugins/' . basename($plugin);
 # chargement du fichier css du plugin pour le frontend
-$file_frontend = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.basename($plugin).'.site.css';
+$file_frontend = $path1 . '.site.css';
 # chargement du fichier css du plugin pour le backend
-$file_backend = PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.basename($plugin).'.admin.css';
+$file_backend = $path1 . '.admin.css';
 
 # Traitement du formulaire: sauvegarde du code css et regénération du cache
 if(isset($_POST['submit'])) {

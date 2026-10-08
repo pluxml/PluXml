@@ -13,12 +13,6 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
 if(isset($_POST['update']) OR (isset($_POST['activate']) and isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
 	reloadpage();

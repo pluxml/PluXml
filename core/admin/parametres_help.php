@@ -12,15 +12,11 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
 # type d'aide plugin ou theme
-$help = isset($_GET['help'])?urldecode($_GET['help']):'';
-$help = plxUtils::nullbyteRemove($help);
+$help = isset($_GET['help']) ? plxUtils::nullbyteRemove(urldecode($_GET['help'])) : '';
+
 # page
-$page = isset($_GET['page'])?urldecode($_GET['page']):'';
-$page = plxUtils::nullbyteRemove($page);
+$page = isset($_GET['page']) ? plxUtils::nullbyteRemove(urldecode($_GET['page'])) : '';
 
 switch($help) {
 	case 'plugin':

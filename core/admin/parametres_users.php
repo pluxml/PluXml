@@ -12,12 +12,6 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control du token du formulaire
-plxToken::validateFormToken($_POST);
-
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
 if($plxAdmin->aUsers) {
 	# On récupère le dernier identifiant
 	$a = array_keys($plxAdmin->aUsers);

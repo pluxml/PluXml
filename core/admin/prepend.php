@@ -103,6 +103,11 @@ if(!$is_login) {
 # Echappement des caractères
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$_POST = plxUtils::unSlash($_POST);
+
+	# Control du token du formulaire dans article.php
+	if(!isset($_POST['preview'])) {
+		plxToken::validateFormToken($_POST);
+	}
 }
 
 # On impose le charset
@@ -119,4 +124,8 @@ loadLang(PLX_CORE.'lang/'.$lang.'/core.php');
 # nb: la langue peut etre modifiée par le hook AdminPrepend via des plugins
 if(!$is_login) {
 	$_SESSION['admin_lang'] = $lang;
+	if(preg_match('#^(parametres|user)#', basename($_SERVER['SCRIPT_NAME']))) {
+		# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
+		$plxAdmin->checkProfil(PROFIL_ADMIN);
+	}
 }

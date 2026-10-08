@@ -13,14 +13,11 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Contrôle du token du formulaire
-plxToken::validateFormToken($_POST);
+# Contrôle de l'accès à la page en fonction du profil de l'utilisateur connecté
+$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsPrepend'));
-
-# Contrôle de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR);
 
 # validation de l'id de l'article si passé en paramètre
 if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {

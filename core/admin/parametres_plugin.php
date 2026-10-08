@@ -12,21 +12,20 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-# Control de l'accès à la page en fonction du profil de l'utilisateur connecté
-$plxAdmin->checkProfil(PROFIL_ADMIN);
-
-$plugin = isset($_GET['p'])?urldecode($_GET['p']):'';
-$plugin = plxUtils::nullbyteRemove($plugin);
+$plugin = isset($_GET['p']) ? plxUtils::nullbyteRemove(urldecode($_GET['p'])) : '';
 
 $output='';
 # chargement du fichier d'administration du plugin
 $filename = realpath(PLX_PLUGINS.$plugin.'/config.php');
 if(is_file($filename)) {
 	# si le plugin n'est pas actif, aucune instance n'a été créée, on va donc la créer, sinon on prend celle qui existe
-	if(empty($plxAdmin->plxPlugins->aPlugins[$plugin]))
+	if(empty($plxAdmin->plxPlugins->aPlugins[$plugin])) {
+		# plugin non activé
 		$plxPlugin = $plxAdmin->plxPlugins->getInstance($plugin);
-	else
+	} else {
+		# plugin activé
 		$plxPlugin = $plxAdmin->plxPlugins->aPlugins[$plugin];
+	}
 
 	# Control des autorisation d'accès à l'écran config.php du plugin
 	$plxAdmin->checkProfil($plxPlugin->getConfigProfil());
