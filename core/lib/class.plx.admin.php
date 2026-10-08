@@ -110,7 +110,17 @@ class plxAdmin extends plxMotor {
 	 **/
 	public function editConfiguration($content) {
 		if(preg_match('#' . get_root_url() . 'update/index.php$#', $_SERVER['SCRIPT_NAME']) !== 1) {
-			$this->checkProfil(PROFIL_ADMIN);
+			$this->checkScriptname(
+				'get_oauth_token','parametres_affichage',
+				'parametres_avances', 'parametres_base',
+				'parametres_themes', 'statiques'
+			);
+
+			if(preg_match('#/statiques\.php$#', $_SERVER['SCRIPT_NAME']) === 1) {
+				$this->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
+			} else {
+				$this->checkProfil(PROFIL_ADMIN);
+			}
 		}
 
 		$global = $this->aConf;
@@ -240,7 +250,7 @@ class plxAdmin extends plxMotor {
 					}
 					break;
 				case 'hometemplate' :
-					if(preg_match('#^home(?:-\w[\w-]*)\.php$#', $v)) {
+					if(preg_match('#^home(?:-\w[\w-]*)?\.php$#', $v)) {
 						$global[$k] = $v;
 					} else {
 						$error = true;
@@ -454,7 +464,7 @@ EOT;
 	 * https://www.php.net/manual/fr/functions.arguments.php#functions.variable-arg-list
 	 * Si la dernière valeur du tableau $profils est booléenne, alors elle gère la redirection en cas de profil non autorisé
 	 *
-	 * @param	$profils		profil(s) autorisé(s) string ou tableau
+	 * @param	array $profils		profil(s) autorisé(s) tableau
 	 * @return	bool|void
 	 * @author	Stephane F
 	 **/
@@ -465,6 +475,37 @@ EOT;
 			if($validProfil) {
 				return true;
 			}
+
+			if(!$redirect) {
+				return false;
+			}
+		}
+
+		plxMsg::Error(L_NO_ENTRY);
+		header('Location: index.php');
+		exit;
+	}
+
+	/**
+	 * Méthode qui controle qu'une fonction est bien appelée depuis une page (scriptname) autorisée
+	 *
+	 * https://www.php.net/manual/fr/functions.arguments.php#functions.variable-arg-list
+	 *
+	 * Pour lister les pages qui appelent les fonctions edit... :
+	 * - cd core/admin
+	 * - grep -E '\bedit[A-Z]\w+\b' *.php |sed -E 's!^(\w+\.php):\s+.*\b(edit[A-Z]\w+)\b.*$!\2\t\1!' |sort|uniq
+	 *
+	 * @param	array $scriptnames		profil(s) autorisé(s) tableau
+	 * @return	bool|void
+	 * @author	Stephane F
+	 **/
+	public function checkScriptname(...$scriptnames) {
+		if(count($scriptnames) > 0) {
+			$redirect = is_bool($scriptnames[count($scriptnames) - 1]) ? array_pop($scriptnames) : true;
+			if(in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), $scriptnames)) {
+				return true;
+			}
+
 			if(!$redirect) {
 				return false;
 			}
@@ -483,6 +524,8 @@ EOT;
 	 * @author	Stéphane F, J.P. Pourrez @bazooka07
 	 **/
 	public function editProfil($content) {
+
+		$this->checkScriptname('profil');
 
 		if(plxUtils::checkProfil($content) !== true) {
 			return false;
@@ -512,6 +555,8 @@ EOT;
 	 * @author	Stéphane F, PEdro "P3ter" CADETE, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editPassword($content) {
+
+		$this->checkScriptname('auth', 'profil');
 
 		if(plxUtils::checkProfil($content) !== true) {
 			return false;
@@ -668,10 +713,11 @@ EOT;
 	 * @author	Stéphane F, Pedro "P3ter" CADETE, , J.P. Pourrez @bazooka07
 	 **/
 	public function editUsers($content, $action=false) {
-		if(in_array(basename($_SERVER['SCRIPT_NAME']), array('auth.php', 'profil.php'))) {
+		if($this->checkScriptname('auth', 'profil', false)) {
 			# Changement de mot de passe
 			$content = null;
 		} else {
+			$this->checkScriptname('parametres_users');
 			$this->checkProfil(PROFIL_ADMIN);
 		}
 
@@ -864,6 +910,8 @@ EOT;
 	 **/
 	public function editUser($content) {
 
+		$this->checkScriptname('user');
+
 		if(plxUtils::checkProfil($content) !== true) {
 			return false;
 		}
@@ -903,6 +951,8 @@ EOT;
 	 * @author	Stephane F, Pedro "P3ter" CADETE, sudwebdesign
 	 **/
 	public function editCategories($content, $action=false) {
+		$this->checkScriptname('categories');
+
 		$this->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER, PROFIL_MODERATOR, PROFIL_EDITOR);
 
 		$save = $this->aCats;
@@ -1015,16 +1065,16 @@ EOT;
 					# Hook plugins
 					eval($this->plxPlugins->callHook('plxAdminEditCategoriesUpdate'));
 				}
-
-				# On va trier les clés selon l'ordre choisi
-				if(sizeof($this->aCats) > 1) {
-					uasort($this->aCats, function($a, $b) {
-						return intval($a['ordre']) - intval($b['ordre']);
-					});
-				}
-
-				$action = true;
 			}
+
+			# On va trier les clés selon l'ordre choisi
+			if(sizeof($this->aCats) > 1) {
+				uasort($this->aCats, function($a, $b) {
+					return intval($a['ordre']) - intval($b['ordre']);
+				});
+			}
+
+			$action = true;
 		}
 
 		if($action !== true) {
@@ -1098,6 +1148,7 @@ EOT;
 	 * @author	Stephane F., Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editCategorie($content) {
+		$this->checkScriptname('categorie');
 		$template = 'categorie.php';
 		if(preg_match('#^categorie\b[\w-]*\.php$#', $content['template'])) {
 			$template = $content['template'];
@@ -1142,6 +1193,12 @@ EOT;
 	 * @author	Stephane F.
 	 **/
 	public function editStatiques($content, $action=false) {
+		if($this->checkScriptname('statique', false)) {
+			$content = null;
+		} else {
+			$this->checkScriptname('statiques');
+		}
+
 		$this->checkProfil(PROFIL_ADMIN, PROFIL_MANAGER);
 
 		$save = $this->aStats;
@@ -1326,6 +1383,14 @@ EOT;
 	 **/
 	public function editStatique($content) {
 
+		$this->checkScriptname('statique');
+
+		if(basename($_SERVER['SCRIPT_NAME']) != 'statique.php') {
+			plxMsg::Error(L_NO_ENTRY);
+			header('Location: ' . preg_replace('#/\w+\.php$#', '/', $_SERVER['SCRIPT_NAME']));
+			exit;
+		}
+
 		$static_id = $content['id'];
 		if(!preg_match('#^\d{3}$#', $static_id)) {
 			return plxMsg::Error(L_SAVE_ERR . ' ' . path('XMLFILE_STATICS'));
@@ -1403,6 +1468,8 @@ EOT;
 	 * @author	Stephane F., Florent MONTHEL, Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function editArticle($content, &$id) {
+
+		$this->checkScriptname('article');
 
 		# Détermine le numero de fichier si besoin est
 		$isPreview = ($id == 'preview');
@@ -1721,6 +1788,8 @@ EOT;
 	 * @author	Stephane F. et Florent MONTHEL
 	 **/
 	public function editCommentaire($content, &$id) {
+		$this->checkScriptname('comment');
+
 		# Génération du nom du fichier
 		$fullpath = PLX_ROOT . $this->aConf['racine_commentaires'] . $id . '.xml';
 		if(!file_exists($fullpath)) {
@@ -1856,6 +1925,8 @@ EOT;
 	 * @author	Stephane F
 	 **/
 	public function editTags() {
+
+		$this->checkScriptname('tags');
 
 		# Génération du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
