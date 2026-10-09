@@ -12,28 +12,47 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-$plugin = isset($_GET['p']) ? plxUtils::nullbyteRemove(urldecode($_GET['p'])) : '';
+if(!isset($_GET['p'])) {
+	plxMsg::Error(L_NO_ENTRY);
+	redirectAdmin();
+}
 
-$path1 = PLX_ROOT . PLX_CONFIG_PATH . 'plugins/' . basename($plugin);
-# chargement du fichier css du plugin pour le frontend
-$file_frontend = $path1 . '.site.css';
-# chargement du fichier css du plugin pour le backend
-$file_backend = $path1 . '.admin.css';
+const CSS_FIELDNAMES = array(
+	'site' => L_CONTENT_FIELD_FRONTEND,
+	'admin' => L_CONTENT_FIELD_BACKEND,
+);
 
+
+$plugin = plxUtils::nullbyteRemove(urldecode($_GET['p']));
+$path1 = PLX_ROOT . PLX_CONFIG_PATH . 'plugins/' . $plugin;
 # Traitement du formulaire: sauvegarde du code css et regénération du cache
 if(isset($_POST['submit'])) {
-	$frontend = trim($_POST['frontend']);
-	$backend = trim($_POST['backend']);
-	if(
-		(empty($frontend) or (
-			plxUtils::write($frontend, $file_frontend) and
-			$plxAdmin->plxPlugins->cssCache('site')
-		)) and
-		(empty($backend) or (
-			plxUtils::write($backend, $file_backend) and
-			$plxAdmin->plxPlugins->cssCache('admin')
-		))
-	) {
+	$success = true;
+ 	foreach(array_keys(CSS_FIELDNAMES) as $k) {
+		$content = trim($_POST[$k]);
+		$filename = $path1 . '.' . $k . '.css';
+		if(empty($content)) {
+			# Si le fichier existe effacer le et regénérér le cache
+			if(is_file($filename)) {
+				unlink($filename);
+				if(!$plxAdmin->plxPlugins->cssCache($k)) {
+					$success = false;
+					break;
+				}
+			}
+			continue;
+		}
+		# vérifier si changement avec le fichier existant
+		$old_content = trim(file_get_contents($filename));
+		if($content != $old_content) {
+			if(!plxUtils::write($content, $filename) or !$plxAdmin->plxPlugins->cssCache($k)) {
+				$success = false;
+				break;
+			}
+		}
+	}
+
+ 	if($success) {
 		plxMsg::Info(L_SAVE_FILE_SUCCESSFULLY);
 	} else {
 		plxMsg::Error(L_SAVE_FILE_ERROR);
@@ -41,40 +60,42 @@ if(isset($_POST['submit'])) {
 	reloadPage();
 }
 
-$backend = is_file($file_backend) ? trim(file_get_contents($file_backend)) : '';
-$file_backend_init = PLX_PLUGINS.basename($plugin).'/css/admin.css';
-$backend = ($backend=='' AND is_file($file_backend_init)) ? trim(file_get_contents($file_backend_init)) : $backend;
-$frontend = is_file($file_frontend) ? trim(file_get_contents($file_frontend)) : '';
-$file_frontend_init = PLX_PLUGINS.basename($plugin).'/css/site.css';
-$frontend = ($frontend=='' AND is_file($file_frontend_init)) ? trim(file_get_contents($file_frontend_init)) : $frontend;
-
 # On inclut le header
 require 'top.php';
-
 ?>
-
 <form method="post" id="form_file">
 	<div class="inline-form action-bar">
 		<h2><?= plxUtils::strCheck($plugin) ?></h2>
-		<?= '<p><a class="back" href="parametres_plugins.php">'.L_BACK_TO_PLUGINS.'</a></p>'; ?>
+		<p><a class="back" href="parametres_plugins.php"><?= L_BACK_TO_PLUGINS ?></a></p>
 		<input name="submit" type="submit" value="<?= L_SAVE_FILE ?>" />
 	</div>
 
 	<fieldset>
+<?php
+foreach(CSS_FIELDNAMES as $fieldname=>$caption) {
+	$filename = $path1 . '.' . $fieldname . '.css';
+	$value = is_file($filename) ? trim(file_get_contents($filename)) : '';
+	if(empty($value)) {
+		# On récupère le css original du plugin
+		$filename = PLX_PLUGINS . $plugin . '/css/' . $fieldname . '.css';
+		if(is_file($filename)) {
+			$value = trim(file_get_contents($filename));
+		}
+	}
+?>
 		<div class="grid">
 			<div class="col sml-12">
-				<label for="id_frontend"><?= L_CONTENT_FIELD_FRONTEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('frontend',plxUtils::strCheck($frontend), 0, 20); ?>
+				<label for="id_<?= $fieldname ?>"><?= $caption ?>&nbsp;:</label>
+				<?php plxUtils::printArea($fieldname, plxUtils::strCheck($value), 0, 20); ?>
 			</div>
 		</div>
-		<div class="grid">
-			<div class="col sml-12">
-				<label for="id_backend"><?= L_CONTENT_FIELD_BACKEND ?>&nbsp;:</label>
-				<?php plxUtils::printArea('backend',plxUtils::strCheck($backend), 0, 20); ?>
-				<?php eval($plxAdmin->plxPlugins->callHook('AdminPluginCss')) # Hook Plugins ?>
-				<?= plxToken::getTokenPostMethod() ?>
-			</div>
-		</div>
+<?php
+}
+
+# Hook Plugins
+eval($plxAdmin->plxPlugins->callHook('AdminPluginCss'));
+?>
+		<?= plxToken::getTokenPostMethod() ?>
 	</fieldset>
 </form>
 <?php
