@@ -521,7 +521,7 @@ EOT;
 		}
 		plxMsg::Error(L_NO_ENTRY);
 		$location = $_SESSION['homepage'];
-		if(defined('REDIRECT_ADMIN') and array_key_exists($myScript, REDIRECT_ADMIN)) {
+		if(!empty($myScript) and defined('REDIRECT_ADMIN') and array_key_exists($myScript, REDIRECT_ADMIN)) {
 			$location .= REDIRECT_ADMIN[$myScript];
 		}
 		header('Location: ' . $location);
@@ -1937,19 +1937,24 @@ EOT;
 	 * @author	Stephane F
 	 **/
 	public function editTags() {
-
 		$this->checkScriptname('article', 'tags');
 
 		# Génération du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
+		ob_start();
+?>
+<document>
+<?php
 		foreach($this->aTags as $id => $tag) {
-			$xml .= "\t".'<article number="'.$id.'" date="'.$tag['date'].'" active="'.$tag['active'].'"><![CDATA['.plxUtils::cdataCheck($tag['tags']).']]></article>'."\n";
+?>
+	<article number="<?= $id ?>" date="<?= $tag['date'] ?>" active="<?= $tag['active'] ?>"><![CDATA[<?= plxUtils::cdataCheck($tag['tags']) ?>]]></article>
+<?php
 		}
-		$xml .= "</document>";
+?>
+</document>
+<?php
 
 		# On écrit le fichier
-		plxUtils::write($xml, path('XMLFILE_TAGS'));
+		plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_TAGS'));
 
 	}
 
