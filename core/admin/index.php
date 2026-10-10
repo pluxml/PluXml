@@ -52,12 +52,12 @@ $userId = ($_SESSION['profil'] < PROFIL_EDITOR) ? '\d{3}' : $_SESSION['user'];
 
 # Récuperation des paramètres
 if(!empty($_GET['sel']) AND in_array($_GET['sel'], array('all','published', 'draft','mod'))) {
-	$_SESSION['sel_get'] = plxUtils::nullbyteRemove($_GET['sel']);
+	$_SESSION['sel_art'] = plxUtils::nullbyteRemove($_GET['sel']);
 	$_SESSION['sel_cat'] = '';
 	unset($_SESSION['page']['index']);
-} elseif(empty($_SESSION['sel_get'])) {
+} elseif(empty($_SESSION['sel_art'])) {
 	# garde-fou
-	$_SESSION['sel_get'] = 'all';
+	$_SESSION['sel_art'] = 'all';
 	$_SESSION['sel_cat'] = '';
 	unset($_SESSION['page']['index']);
 }
@@ -83,7 +83,7 @@ if(empty($_SESSION['sel_cat'])) {
 
 # Recherche du motif de sélection des articles en fonction des paramètres
 $mod = '_?';
-switch ($_SESSION['sel_get']) {
+switch ($_SESSION['sel_art']) {
 	case 'published':
 		$catIdSel = '(?:home,|\d{3},)*FILTER(?:,home|,\d{3})*';
 		$mod = '';
@@ -209,7 +209,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 	);
 	foreach($breadcrumb as $k=>$caption) {
 ?>
-		<li><a href="index.php?sel=<?= $k?>" <?php if($_SESSION['sel_get'] == $k) echo 'class="selected"'; ?>><?= $caption ?></a>&nbsp;(<?= $plxAdmin->nbArticles($k, $userId, ($k == 'mod') ? '_' : '_?') ?>)</li>
+		<li><a href="index.php?sel=<?= $k?>" <?php if($_SESSION['sel_art'] == $k) echo 'class="selected"'; ?>><?= $caption ?></a>&nbsp;(<?= $plxAdmin->nbArticles($k, $userId, ($k == 'mod') ? '_' : '_?') ?>)</li>
 <?php
 	}
 ?>
