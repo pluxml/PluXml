@@ -503,7 +503,8 @@ EOT;
 	public function checkScriptname(...$scriptnames) {
 		if(count($scriptnames) > 0) {
 			$redirect = is_bool($scriptnames[count($scriptnames) - 1]) ? array_pop($scriptnames) : true;
-			if(in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), $scriptnames)) {
+			$myScript = basename($_SERVER['SCRIPT_NAME'], '.php');
+			if(in_array($myScript, $scriptnames)) {
 				return true;
 			}
 
@@ -511,9 +512,19 @@ EOT;
 				return false;
 			}
 		}
-
+		if(empty($_SESSION['homepage'])) {
+			error_log('$_SESSION[\'homepage\'] is not set in ' . __CLASS__ . '::' .  __FUNCTION__ . '()');
+			http_response_code(500);
+			header('Content-Type: text/plain');
+			echo 'Contact your webmaster';
+			exit;
+		}
 		plxMsg::Error(L_NO_ENTRY);
-		header('Location: index.php');
+		$location = $_SESSION['homepage'];
+		if(defined('REDIRECT_ADMIN') and array_key_exists($myScript, REDIRECT_ADMIN)) {
+			$location .= REDIRECT_ADMIN[$myScript];
+		}
+		header('Location: ' . $location);
 		exit;
 	}
 
@@ -714,7 +725,7 @@ EOT;
 	 * @author	Stéphane F, Pedro "P3ter" CADETE, , J.P. Pourrez @bazooka07
 	 **/
 	public function editUsers($content, $action=false) {
-		if($this->checkScriptname('auth', 'profil', false)) {
+		if($this->checkScriptname('auth', 'profil', 'user', false)) {
 			# Changement de mot de passe
 			$content = null;
 		} else {
@@ -1927,7 +1938,7 @@ EOT;
 	 **/
 	public function editTags() {
 
-		$this->checkScriptname('tags');
+		$this->checkScriptname('article', 'tags');
 
 		# Génération du fichier XML
 		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";

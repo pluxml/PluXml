@@ -4,6 +4,15 @@ const PLX_CORE = PLX_ROOT .'core/';
 
 require PLX_CORE . 'lib/config.php';
 
+const REDIRECT_ADMIN = array(
+	'categorie'				=> 'categories.php',
+	'comment_new'			=> 'comments.php',
+	'parametres_edittpl'	=> 'parametres_affichage.php',
+	'parametres_plugin'		=> 'parametres_plugins.php',
+	'statique'				=> 'statiques.php',
+	'user'					=> 'parametres_users.php',
+);
+
 # On regarde si on est sur la page de login
 $is_login = (basename($_SERVER['SCRIPT_NAME']) == PAGE_LOGIN);
 
@@ -25,19 +34,11 @@ function redirectLogin($query='') {
 }
 
 function redirectAdmin($context=true) {
-	$redirects = array(
-		'categorie'				=> 'categories.php',
-		'comment_new'			=> 'comments.php',
-		'parametres_edittpl'	=> 'parametres_affichage.php',
-		'parametres_plugin'		=> 'parametres_plugins.php',
-		'statique'				=> 'statiques.php',
-		'user'					=> 'parametres_users.php',
-	);
 	$location = 'index.php';
 	if($context) {
 		$scriptName = basename($_SERVER['SCRIPT_NAME'], '.php');
-		if(array_key_exists($scriptName, $redirects)) {
-			$location = $redirects[$scriptName];
+		if(array_key_exists($scriptName, REDIRECT_ADMIN)) {
+			$location = REDIRECT_ADMIN[$scriptName];
 		}
 	}
 	header('Location: ' . $location);
@@ -63,7 +64,7 @@ if($is_login) {
 		!isset($_SESSION['domain']) or
 		$_SESSION['domain'] != __DIR__ or
 		!isset($_SESSION['user']) or
-		trim($_SESSION['user']) == ''
+		preg_match('#^\d{3}$#', $_SESSION['user']) != 1
 	) {
 		# Authentification incorrecte
 		close_session();

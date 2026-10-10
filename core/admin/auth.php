@@ -96,6 +96,7 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
                 'profil'     => $user['profil'],
                 'hash'       => plxUtils::charAleatoire(10),
                 'domain'     => __DIR__,
+                'homepage'   => preg_replace('#\w+\.php$#', '', $_SERVER['SCRIPT_NAME']),
                 'admin_lang' => $user['lang'],
                 # Pour nettoyage à la déconnection
                 'preview'    => PLX_ROOT. $plxAdmin->aConf['racine_articles'] . implode('.', array(
