@@ -22,21 +22,24 @@ if(!empty($_POST) AND isset($plxAdmin->aUsers[ $_POST['id'] ])) {
 	header('Location: user.php?p='.$_POST['id']);
 	exit;
 }
-elseif(!empty($_GET['p'])) { # On vérifie l'existence de l'utilisateur
-	$id = plxUtils::strCheck(plxUtils::nullbyteRemove($_GET['p']));
-	if(!isset($plxAdmin->aUsers[ $id ])) {
-		plxMsg::Error(L_USER_UNKNOWN);
-		redirectAdmin();
-	}
-} else { # Sinon, on redirige
-	redirectAdmin('parametres_users.php');
+
+if(empty($_GET['p']) or !preg_match('#^\d{3}$#', $_GET['p'])) {
+	plxMsg::Error(L_USER_UNKNOWN);
+	redirectAdmin();
+}
+
+# On vérifie l'existence de l'utilisateur
+$id = plxUtils::strCheck(plxUtils::nullbyteRemove($_GET['p']));
+if(!isset($plxAdmin->aUsers[ $id ])) {
+	plxMsg::Error(L_USER_UNKNOWN);
+	redirectAdmin();
 }
 
 # On inclut le header
 require 'top.php';
 ?>
 
-<form action="user.php" method="post" id="form_user">
+<form method="post" id="form_user">
 
 	<div class="inline-form action-bar">
 		<h2><?= L_USER_PAGE_TITLE ?> "<?= plxUtils::strCheck($plxAdmin->aUsers[$id]['name']); ?>"</h2>
@@ -44,9 +47,7 @@ require 'top.php';
 		<?= plxToken::getTokenPostMethod() ?>
 		<input type="submit" value="<?= L_USER_UPDATE ?>"/>
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminUserTop')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminUserTop')) # Hook Plugins ?>
 	<fieldset>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
@@ -72,13 +73,11 @@ require 'top.php';
 			</div>
 		</div>
 	</fieldset>
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminUser')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminUser')) # Hook Plugins ?>
 </form>
-
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminUserFoot'));
+
 # On inclut le footer
 require 'foot.php';
-?>
