@@ -1428,12 +1428,13 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Formate des dates de creation et de mise à jour
 		$now = date('YmdHi');
-		$date_creation = $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
+		$date_creation = $isPreview ? $now : $content['date_creation_year'].$content['date_creation_month'].$content['date_creation_day'].substr(str_replace(':','',$content['date_creation_time']),0,4);
 		if(!preg_match('#^\d{12}$#', $date_creation)) {
 			$date_creation = $now;
 		}
-		$date_update = $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
+		$date_update = $isPreview ? $now : $content['date_update_year'].$content['date_update_month'].$content['date_update_day'].substr(str_replace(':','',$content['date_update_time']),0,4);
 		$date_update = (
+			$isPreview or
 			!preg_match('#^\d{12}$#', $date_update) or
 			!preg_match('#^\d{12}$#', $content['date_update_old']) or
 			$date_update == $content['date_update_old']
