@@ -233,7 +233,7 @@ class plxAdmin extends plxMotor {
 						$error = true;
 					}
 					break;
-				case 'hometemplate' :
+				case 'home_template' :
 					if(preg_match('#^home(?:-\w[\w-]*)\.php$#', $v)) {
 						$global[$k] = $v;
 					} else {
