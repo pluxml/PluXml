@@ -1004,7 +1004,7 @@ select::-ms-expand {/*for IE10*/
 	font-size: 1.2rem;
 }
 
-#plugins-table tbody tr[data-scope] td.wrap strong:first-of-type {
+#plugins-table tbody tr[data-scope] td.wrap strong {
 	padding: 0.2rem 0.5rem;
 }
 

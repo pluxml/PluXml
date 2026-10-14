@@ -66,7 +66,7 @@ function pluginsList($plugins, $defaultLang, $type) {
 <?php
 			}
 ?>
-				<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong> - <?= L_PLUGINS_VERSION ?><strong><?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
+				<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong>- <?= L_PLUGINS_VERSION ?><strong><?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
 <?php
 			# date
 			if(!empty($plugInstance->getInfo('date'))) {
