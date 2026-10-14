@@ -141,11 +141,11 @@ foreach($aFolders as $folder) {
 }
 
 $filename = PLX_ROOT . PLX_CONFIG_PATH . 'index.html';
-if(!file_exists($filename)) {
+if(!file_exists($filename) and is_writable(PLX_ROOT . PLX_CONFIG_PATH)) {
 	touch($filename);
 }
 
-# On vérifie que le dossier ""core/admin" existe. sinon on recherche un dossier contenant le fichier auth.php
+# On vérifie que le dossier "core/admin" existe. sinon on recherche un dossier contenant le fichier auth.php
 $admin_path = 'core/admin/';
 if(!file_exists(PLX_ROOT . $admin_path)) {
 	$auths = glob(PLX_ROOT . '*/*/auth.php');
@@ -376,9 +376,9 @@ if(!empty($_POST['install'])) {
 	if($msg === true) {
 		$filename = PLX_CORE.'lib/plx_config.php';
 		if(
+			is_writable($filename) and
 			preg_match('#^\w[\w-]+/?$#', $_POST['data_folder']) and
-			rtrim($_POST['data_folder'], '/') . '/' != $data_folder and
-			is_writable($filename)
+			rtrim($_POST['data_folder'], '/') . '/' != $data_folder
 		) {
 			# Renommage du dossier des données (data)
 			$target = rtrim($_POST['data_folder'], '/');
