@@ -87,7 +87,7 @@ if($plxAdmin->aStats) {
 					<td><input type="checkbox" name="idStatic[]" value="<?= $k ?>" /><input type="hidden" name="staticNum[]" value="<?= $k ?>" /></td>
 					<td><?= $k ?></td>
 					<td><input title="<?= L_STATICS_PAGE_HOME ?>" type="checkbox" name="homeStatic[]" value="<?= $k ?>"<?= $selected ?> onclick="checkBox(\'<?= $ordre ?>\')" /></td>
-					<td><?php plxUtils::printInput($k . '>_group', plxUtils::strCheck($v['group']), 'text', '-100'); ?></td>
+					<td><?php plxUtils::printInput($k . '_group', plxUtils::strCheck($v['group']), 'text', '-100'); ?></td>
 					<td><?php plxUtils::printInput($k . '_name', plxUtils::strCheck($v['name']), 'text', '-255'); ?></td>
 					<td><?php plxUtils::printInput($k . '_url', $v['url'], 'text', '-255'); ?></td>
 					<td><?php plxUtils::printSelect($k . '_active', array('1'=>L_YES,'0'=>L_NO), $v['active']); ?></td>
@@ -131,7 +131,7 @@ $new_staticid = str_pad($a['0'] + 1, 3, '0', STR_PAD_LEFT);
 				<tr class="new">
 					<td colspan="3"><?php echo L_STATICS_NEW_PAGE ?></td>
 					<td>
-						<input type="hidden" name="staticNum[]" value="'.$new_staticid.'" />
+						<input type="hidden" name="staticNum[]" value="<?= $new_staticid ?>" />
 						<?php plxUtils::printInput($new_staticid.'_group', '', 'text', '-100'); ?>
 					</td>
 					<td>
