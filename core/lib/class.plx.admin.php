@@ -1513,6 +1513,12 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 				$content['catId'] = array('000'); # article non classé
 			}
 
+			# On ajoute le brouillon si besoin
+			if(isset($content['draft'])) {
+				# place au début des catégories important
+				array_unshift($content['catId'] , 'draft');
+			}
+
 			# On va mettre à jour notre fichier
 			$filename = PLX_ROOT . $this->aConf['racine_articles'] . implode('.', array(
 				$id,
