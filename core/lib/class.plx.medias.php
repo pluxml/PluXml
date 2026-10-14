@@ -167,7 +167,8 @@ class plxMedias {
 	 * @author	Stephane F, Danielsan, J.P. "bazooka07" Pourrez
 	 **/
 	public function contentFolder() {
-		plxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin', true, 'folder');
+		$js = 'if(!document.querySelectorAll(\'input[name=\\\'idFile[]\\\']:checked\').length) this.form.submit();';
+		plxUtils::printSelectDir('folder', $this->dir, $this->path, 'no-margin', true, 'folder', $js);
 	}
 
 	/**

@@ -1667,21 +1667,23 @@ EOT;
 	 * @param	string $class Classe css a appliquer au sélecteur #sudwebdesign
 	 * @param	boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
 	 * @param	str|bool id : si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre name
+	 * @param	str|bool js : ajoute onchange au champ, si vrai avec this.form.submit() ou avec str ou rien si false ou vide
 	 * @return	void
 	 * @author	J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
 	 * $modeDir=true	pour ne choisir que les dossiers : voir plxMedias contentFolder()
 	 * $modeDir=false	pour ne choisir que les fichiers du thème
 	 * */
-	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true) {
-	   $value = ($modeDir) ? '.' : '';
+	public static function printSelectDir($name, $currentValue, $root, $class='', $modeDir=true, $id=true, $change=true) {
+		$value = ($modeDir) ? '.' : '';
 		$selected = ($value == $currentValue) ? ' selected': '';
 		$disabled = (!$modeDir) ? ' disabled': '';
 		$class = (!empty($class) ? $class . ' ' : '') . 'scan-folders fold';
+		$change = ($change and is_bool($change)) ? 'this.form.submit();' : (is_string($change) ? $change : false);
 		if(!$modeDir) {
 			$class .= ' data-files';
 		}
 ?>
-<select id="<?= ($id === true) ? 'id_' . $name : $id ?>" name="<?= $name ?>" class="<?= $class ?>" onchange="this.form.submit();">
+<select id="<?= ($id === true) ? 'id_' . $name : $id ?>" name="<?= $name ?>" class="<?= $class ?>"<?= $change ? ' onchange="' . $change . '"' : ''?>>
 	<option <?= $disabled ?> value="<?= $value ?>" <?= $selected ?>><?= L_PLXMEDIAS_ROOT ?>/</option>
 <?php
 		if(substr($root, -1) != '/') {
