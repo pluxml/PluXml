@@ -1,6 +1,6 @@
 <?php
 if(!class_exists('plxShow')) {
-	exit('plxShow class is missing', 500);
+	exit('plxShow class is missing');
 }
 
 $colsClass = 'col sml-12';
