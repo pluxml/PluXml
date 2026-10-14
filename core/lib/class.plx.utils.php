@@ -756,6 +756,48 @@ class plxUtils {
 	}
 
 	/**
+	 * Méthode qui retourne si imagecreatefromwebp peut ouvrir une image webp
+	 * Ouvrir une webp animée est impossible en PHP (8.5) et comme PluXml détécte même avec un @imagecreatefromwebp()
+	 * On évite un message d'erreur de register_shutdown_function fait par makeThumb a l'ouverture de la page medias
+	 * Inpiré de https://www.php.net/manual/en/function.imagecreatefromwebp.php#126269 + https://stackoverflow.com/a/68491679
+	 *
+	 * @param	src_image	emplacement et nom du fichier source
+	 * @return	int			0 non (animée), 1 oui, 2 oui (avec transparence)
+	 * @scope				medias.php (plxUtils::makeThumb cas webp)
+	 * @author	Thomas I. @sudwebdesign
+	 **/
+	public static function checkWebp($src_image) {
+		$mode = 0;
+		if (function_exists('imagecreatefromwebp') and exif_imagetype($src_image) === IMAGETYPE_WEBP) { # gd --with-webp
+			$header_format = 'A4Riff/' . # get n string
+				'I1Filesize/' . # get integer (file size but not actual size)
+				'A4Webp/' . # get n string
+				'A4Vp/' . # get n string
+				'A74Chunk';
+			$webp_data = file_get_contents($src_image);
+			$header = unpack($header_format, $webp_data);
+			if (isset($header['Chunk']) and preg_match('/ANIM|ANMF/', $header['Chunk'])) {
+				return $mode; # Animated return 0
+			}
+			$mode++;
+			# Transparency
+			if (preg_match('/ALPH/i', $header['Chunk'])) {
+				$mode++;
+			} else {
+				if (preg_match('/VP8L/i', $header['Vp'])) {
+					$mode += intval(!!(ord($webp_data[24]) & 0x00000010));
+				} elseif (preg_match('/VP8X/i', $header['Vp'])) {
+					$mode += intval(!!(ord($webp_data[20]) & 0x00000010));
+				}
+			}
+
+			unset($webp_data, $header_format, $header);
+		}
+
+		return $mode;
+	}
+
+	/**
 	 * Méthode qui crée la miniature d'une image
 	 *
 	 * @param	src_image		emplacement et nom du fichier source
@@ -828,11 +870,16 @@ class plxUtils {
 				imagesavealpha($canvas, true);
 				break;
 			case 'webp':
-				$image_data = imagecreatefromwebp($src_image);
+				$webp_mode = self::checkWebp($src_image); # 0, 1 ou 2
+				$image_data = $webp_mode ? imagecreatefromwebp($src_image) : false;
+				if($webp_mode > 1) { # transparence
+					$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
+					imagefill($canvas, 0, 0, $color);
+					imagesavealpha($canvas, true);
+				}
 				break;
 			case 'x-ms-bmp':
-				#$image_data = imagecreatefrombmp($src_image); # Only PHP 7+
-				$image_data = false;
+				$image_data = function_exists('imagecreatefrombmp') ? imagecreatefrombmp($src_image) : false; # Only PHP 7+
 				break;
 			default:
 				return false; # Unsupported format
