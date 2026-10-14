@@ -155,13 +155,13 @@ class plxGlob {
  						}
 						break;
 					case 'com' : # Tri selon les dates de publications (commentaire)
-						# On decoupe le nom du fichier
-						$index = explode('.',$file);
+						# On extrait les indexes du nom du fichier
+						preg_match('/^(\d{4})\.(\d+)-(\d+)\.xml$/', $file, $index); #  (idArt).(time)-(idCom).xml
 						# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
-						$key = $index[1] . $index[0];
+						$key = $index[2] . '-' . $index[3] . $index[1];
 						switch($publi) {
-							case 'before' : if($index[1] <= $time4Coms) { $array[$key] = $file; } break;
-							case 'after' : if($index[1] >= $time4Coms) { $array[$key] = $file; } break;
+							case 'before' : if($index[2] <= $time4Coms) { $array[$key] = $file; } break;
+							case 'after' : if($index[2] >= $time4Coms) { $array[$key] = $file; } break;
 							default : $array[$key] = $file; # for 'all'
 						}
 						break;
@@ -169,7 +169,6 @@ class plxGlob {
 						# Aucun tri
 						$array[] = $file;
 				}
-
 			}
 		}
 
