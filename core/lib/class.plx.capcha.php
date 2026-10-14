@@ -29,6 +29,7 @@ class plxCapcha {
 	const CHAR_HEIGHT = 40;
 	private $_word = false; # Mot du capcha
 	private $_num = 0; # position de la lettre sélectionnée de 1 à la dernière lettre de $_word
+	private $fontPath = PLX_CORE . 'lib/fonts/';
 	/**
 	 * Constructeur qui initialise les variables de classe
 	 *
@@ -39,6 +40,11 @@ class plxCapcha {
 
 		# Initialisation des variables de classe
 		$this->createWord();
+		if(DIRECTORY_SEPARATOR != '/') {
+			# Hack against Windows
+			$this->fontPath = implode(DIRECTORY_SEPARATOR, array(realpath(PLX_CORE), 'lib', 'fonts'));
+		}
+		$this->fontPath = realpath($this->fontPath) . DIRECTORY_SEPARATOR;
 	}
 
 	/**
@@ -141,13 +147,7 @@ class plxCapcha {
 			$x = rand($x - 5, $x + 5);
 			$y = rand(28, self::CHAR_HEIGHT - 8);
 			$angle = rand(-25, 25);
-			if(DIRECTORY_SEPARATOR == '/') {
-				$fontPath = PLX_CORE . 'lib/fonts/' . $fontFamily;
-			} else {
-				# Hack against Windows
-				$fontPath = implode(DIRECTORY_SEPARATOR, array(realpath(PLX_CORE), 'lib', 'fonts', $fontFamily));
-			}
-			imagettftext($img, $fontSize, $angle, $x, $y , $color, $fontPath, $this->_word[$i]);
+			imagettftext($img, $fontSize, $angle, $x, $y , $color, $this->fontPath . $fontFamily, $this->_word[$i]);
 		}
 
 		# Add random lines
