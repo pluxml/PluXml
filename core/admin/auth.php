@@ -79,16 +79,16 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
         if ($_POST['login'] == $user['login'] and sha1($user['salt'] . md5($_POST['password'])) === $user['password'] and $user['active'] and !$user['delete']) {
             if(session_status() == PHP_SESSION_ACTIVE) {
                 # On ferme la session en cours
-                $_SESSION = array();
                 $name = session_name();
+                session_regenerate_id(true);
                 session_destroy();
+                unset($_SESSION);
                 # Effacement du cookie de session
-                setcookie($name, '', 1, $plx_racine);
+                setcookie($name, '', 1, $plxAdmin->racine);
             }
 
             # On démarre une nouvelle session
             $session_site['name'] = 'PLX_ADMIN';
-            session_regenerate_id(true);
             session_start($session_site);
 
             $_SESSION = array(
@@ -98,7 +98,7 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and empty($css)) {
                 'domain'     => __DIR__,
                 'admin_lang' => $user['lang'],
                 # Pour nettoyage à la déconnection
-                'preview'    => PLX_ROOT. $plxAdmin->aConf['racine_articles'] . implode('.', array(
+                'preview'    => PLX_ROOT . $plxAdmin->aConf['racine_articles'] . implode('.', array(
                     'preview',
                     $userid,
                     '*.xml',

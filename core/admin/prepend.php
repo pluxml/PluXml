@@ -23,12 +23,12 @@ if($is_login and isset($_GET['d'])) {
 		}
 	}
 	$_SESSION = array();
-	$name = session_name();  # normalement est égal à PLX_ADMIN
+	$name = session_name(); # normalement est égal à PLX_ADMIN
 	session_destroy();
 	# Effacement du cookie de session
 	setcookie($name, '', 1);
 	header('Location: ' . PAGE_LOGIN);
-    exit;
+	exit;
 }
 
 # On vérifie qu'on n'est pas sur la page de login et qu'on est connecté
@@ -40,9 +40,9 @@ if(
 		trim($_SESSION['user']) == ''
 	)
 ) {
-	if(isset($_COOKIE[$session_admin['name']])) {
+	if(isset($_COOKIE[$session_site['name']])) {
 		# On supprime le cookie de session admin
-		setcookie($session_admin['name'], '', 1);
+		setcookie($session_site['name'], '', 1);
 	}
 	header('Location: ' . PAGE_LOGIN . '?p=' . htmlentities($_SERVER['REQUEST_URI']));
 	exit;
