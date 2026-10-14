@@ -208,7 +208,8 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 	);
 	foreach($breadcrumb as $k=>$caption) {
 ?>
-		<li><a href="index.php?sel=<?= $k?>" <?php if($_SESSION['sel_get'] == $k) echo 'class="selected"'; ?>><?= $caption ?></a>&nbsp;(<?= $plxAdmin->nbArticles($k, $userId, ($k == 'mod') ? '_' : '_?') ?>)</li>
+		<li><a href="index.php?sel=<?= $k?>" <?= ($_SESSION['sel_get'] == $k) ? 'class="selected"' :'' ?>><?= $caption ?></a>&nbsp;(<?=
+		$plxAdmin->nbArticles(($k == 'mod' ? ':?.*' : $k), $userId, ($k == 'mod') ? '_' : '_?') ?>)</li>
 <?php
 	}
 ?>
