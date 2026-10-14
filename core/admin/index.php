@@ -85,19 +85,19 @@ if(empty($_SESSION['sel_cat'])) {
 $mod = '_?';
 switch ($_SESSION['sel_get']) {
 	case 'published':
-		$catIdSel = '(?:home,|\d{3},)*FILTER(?:,home|,\d{3})*';
+		$catIdSel = '(?!draft,).*FILTER.*';
 		$mod = '';
 		break;
 	case 'draft':
-		$catIdSel = '(?:home,|\d{3},)*draft,FILTER(?:,home|,\d{3})*';
+		$catIdSel = 'draft,.*FILTER.*';
 		break;
 	case 'mod':
 		$mod = '_';
 		# no break !
 	default: // 'all'
-		$catIdSel = '(?:home,|draft,|\d{3},)*FILTER(?:,home|,draft|,\d{3})*';
+		$catIdSel = '.*FILTER.*';
 }
-$catIdSel = str_replace('FILTER', ($_SESSION['sel_cat'] == 'all') ? '\d{3}': $_SESSION['sel_cat'], $catIdSel);
+$catIdSel = str_replace('FILTER', ($_SESSION['sel_cat'] == 'all') ? '': $_SESSION['sel_cat'], $catIdSel);
 
 # Récupération du texte à rechercher
 if(!empty($_GET['artTitle'])) {
