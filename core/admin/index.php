@@ -286,16 +286,12 @@ foreach($aFilterCat as $value=>$caption) {
 				$draft='';
 				$libCats='';
 				$aCats = array();
-				$catIds = explode(',', $plxAdmin->plxRecord_arts->f('categorie'));
-				if(sizeof($catIds)>0) {
-					foreach($catIds as $catId) {
-						$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
-						if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
-						elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
-						elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
-						elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
-					}
-
+				foreach(explode(',', $plxAdmin->plxRecord_arts->f('categorie')) as $catId) {
+					$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
+					if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
+					elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
+					elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
+					elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
 				}
 				# en attente de validation ?
 				$idArt = $plxAdmin->plxRecord_arts->f('numero');

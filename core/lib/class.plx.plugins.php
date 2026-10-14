@@ -32,7 +32,7 @@ class plxPlugins {
 				$error != null and
 				!empty($error['file']) and
 				(
-					PLX_DEBUG or # version de PluXml en cours de développement
+					PLX_DEBUG  /* @phpstan-ignore logicalOr.leftAlwaysFalse */ or # version de PluXml en cours de développement
 					(isset($_SESSION['user']) and $_SESSION['user'] == '001') or # le webmaster est connecté
 					!empty($error['type'] & $error_bits_mask) # On affiche seulement les messages d'erreur, pas les notification (E_WARNING...)
 				)
@@ -94,7 +94,7 @@ Fatal error :
 					if($k == 'type') {
 						$typeStr = array_search($v, get_defined_constants(true)['Core']);
 						$lang = $this->default_lang;
-						if(!array($lang, array('en', 'de', 'es', 'fr', 'it', 'ru',))) {
+						if(!in_array($lang, array('en', 'de', 'es', 'fr', 'it', 'ru',))) {
 							$lang = 'en';
 						}
 						$url = 'https://www.php.net/manual/' . $lang . '/errorfunc.constants.php#constant.' . strtolower(str_replace('_', '-', $typeStr));
@@ -109,7 +109,7 @@ Fatal error :
 <?= $hr ?>
 User / Profil : <?= $_SESSION['user'] . ' / ' . $_SESSION['profil'] . PHP_EOL ?>
 PluXml version : <?= PLX_VERSION . PHP_EOL ?>
-PLX_DEBUG : <?= ( PLX_DEBUG ? 'true' : 'false' ) . PHP_EOL ?>
+PLX_DEBUG : <?= ( PLX_DEBUG ? 'true' : 'false' ) . PHP_EOL  /* @phpstan-ignore ternary.alwaysFalse */ ?>
 PHP version : <?= PHP_VERSION . PHP_EOL ?>
 <?php
 					if(!empty($this->aPlugins)) {
@@ -160,7 +160,7 @@ About this server :
 				} # fin pour l'administrateur
 
 				if(
-					!PLX_DEBUG and
+					!PLX_DEBUG /* @phpstan-ignore booleanNot.alwaysTrue */ and
 					!empty($pluginName) and
 					(!isset($_SESSION['profil']) or $_SESSION['profil'] > 0)
 				) {
@@ -201,34 +201,26 @@ Drop this plugin now for running PluXml and report to its author !!
 		$filename = PLX_PLUGINS . "$plugName/$plugName.php";
 		# voir https://www.php.net/manual/fr/function.register-shutdown-function
 		if(is_file($filename)) {
-				try {
-					$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-					if($actif) {
-						include_once $filename;
+			try {
+				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
+				if($actif) {
+					include_once $filename;
 
-						if(class_exists($plugName)) {
-							# réactualisation de la langue si elle a été modifié par un plugin
-							$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
-							# chargement du plugin en créant une nouvelle instance
-							return new $plugName($lang);
-						}
-					} else {
+					if(class_exists($plugName, false)) {
+						# réactualisation de la langue si elle a été modifié par un plugin
 						$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
-						return new plxPlugin($lang, $plugName);
+						# chargement du plugin en créant une nouvelle instance
+						return new $plugName($lang);
 					}
-
+				} else {
+					$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
+					return new plxPlugin($lang, $plugName);
+				}
 			} catch(Exception $e) {
 				return false;
 			}
-
-			if(class_exists($plugName)) {
-				# réactualisation de la langue si elle a été modifié par un plugin
-				$context = defined('PLX_ADMIN') ? 'admin_lang' : 'lang';
-				$lang = isset($_SESSION[$context]) ? $_SESSION[$context] : $this->default_lang;
-				# chargement du plugin en créant une nouvelle instance
-				return new $plugName($lang);
-			}
 		}
+
 		return false;
 	}
 
@@ -420,7 +412,6 @@ Drop this plugin now for running PluXml and report to its author !!
 								unset($this->aPlugins[$plugName]);
 							} else {
 								return plxMsg::Error(L_PLUGINS_DELETE_ERROR.' ('.$plugName.')');
-								break;
 							}
 						}
 						break;

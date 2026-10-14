@@ -190,7 +190,7 @@ class plxGlob {
 	 * @param	string $type			type de recherche: article ('art'), commentaire ('com') ou autre (''))
 	 * @param	string $tri				type de tri (sort, rsort, alpha, random)
 	 * @param	int $depart			indice de départ de la sélection
-	 * @param	int $limite			nombre d'éléments à sélectionner
+	 * @param	?int $limite			nombre d'éléments à sélectionner
 	 * @param	string $publi			recherche des fichiers avant ou après la date du jour
 	 * @return	array|false
 	 * @author	Anthony GUÉRIN et Florent MONTHEL
@@ -233,7 +233,7 @@ class plxGlob {
 				$rs = array_values($rs);
 			}
 			# On a une limite, on coupe le tableau
-			if (is_integer($limite) and is_integer($depart)) {
+			if (is_int($limite)) {
 				return array_slice($rs, $depart, $limite);
 			} else {
 				return $rs;

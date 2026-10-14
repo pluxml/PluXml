@@ -404,8 +404,8 @@ class plxMedias {
 		}
 
 		switch($count) {
-			case 0: return plxMsg::Error(L_PLXMEDIAS_UPLOAD_ERR); break;
-			case 1: return plxMsg::Info(L_PLXMEDIAS_UPLOAD_SUCCESSFUL); break;
+			case 0: return plxMsg::Error(L_PLXMEDIAS_UPLOAD_ERR);
+			case 1: return plxMsg::Info(L_PLXMEDIAS_UPLOAD_SUCCESSFUL);
 			default : return plxMsg::Info(L_PLXMEDIAS_UPLOADS_SUCCESSFUL);
 		}
 	}

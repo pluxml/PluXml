@@ -39,7 +39,7 @@ if($emailBuild) {
 <?php if (!empty($_SERVER['SERVER_SOFTWARE'])) { ?>
 	<li><?= $_SERVER['SERVER_SOFTWARE']; ?></li>
 <?php } ?>
-	<li><?= PLX_DEBUG ? php_uname() : PHP_OS ?></li>
+	<li><?= PLX_DEBUG ? php_uname() : PHP_OS /* @phpstan-ignore ternary.alwaysFalse */ ?></li>
 </ul>
 <ul class="unstyled-list">
 	<?php plxUtils::testWrite(PLX_ROOT) ?>

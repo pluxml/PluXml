@@ -14,7 +14,7 @@ class plxAdmin extends plxMotor {
 	const CRITICAL_FUNCTIONS_PHP_PATTERN = '#\b(exec|shell_exec|system|parse_ini_file|passthru|proc_open|popen|show_source|phpinfo)\b#';
 	const TOKEN_LENGHT = 32;
 	const TOKEN_PASSWORD_EXPIRY = 6; // in hours
-	public $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
+	public string $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
 	 * Méthode qui se charger de créer le Singleton plxAdmin
@@ -265,7 +265,7 @@ class plxAdmin extends plxMotor {
 					break;
 				case 'custom_admincss_file' :
 					$w = trim($v);
-					if(strlen($w) == 0 or mime_content_type(realpath(PLX_ROOT . $w) == 'text/css')) {
+					if(strlen($w) == 0 or mime_content_type(realpath(PLX_ROOT . $w)) == 'text/css') {
 						$global[$k] = $w;
 					} else {
 						$error = true;
@@ -464,13 +464,14 @@ EOT;
 	 * https://www.php.net/manual/fr/functions.arguments.php#functions.variable-arg-list
 	 * Si la dernière valeur du tableau $profils est booléenne, alors elle gère la redirection en cas de profil non autorisé
 	 *
-	 * @param	array $profils		profil(s) autorisé(s) tableau
+	 * @param	bool|int|int[] $profils		profil(s) autorisé(s)
 	 * @return	bool|void
 	 * @author	Stephane F
 	 **/
 	public function checkProfil(...$profils) {
 		if(count($profils) > 0 and isset($_SESSION['profil'])) {
-			$redirect = is_bool($profils[count($profils) - 1]) ? array_pop($profils) : true;
+			$lastValue = $profils[count($profils) - 1];
+			$redirect = is_bool($lastValue) ? array_pop($profils) : true;
 			# $profils[0] est un tableau (array) dans le cas d'un plugin
 			$validProfil = in_array($_SESSION['profil'], is_array($profils[0]) ? $profils[0] : $profils);
 			if($validProfil) {
@@ -496,13 +497,14 @@ EOT;
 	 * - cd core/admin
 	 * - grep -E '\bedit[A-Z]\w+\b' *.php |sed -E 's!^(\w+\.php):\s+.*\b(edit[A-Z]\w+)\b.*$!\2\t\1!' |sort|uniq
 	 *
-	 * @param	array $scriptnames		profil(s) autorisé(s) tableau
+	 * @param	bool|string $scriptnames		profil(s) autorisé(s) tableau
 	 * @return	bool|void
 	 * @author	Stephane F
 	 **/
 	public function checkScriptname(...$scriptnames) {
 		if(count($scriptnames) > 0) {
-			$redirect = is_bool($scriptnames[count($scriptnames) - 1]) ? array_pop($scriptnames) : true;
+			$lastValue = $scriptnames[count($scriptnames) - 1];
+			$redirect = is_bool($lastValue) ? array_pop($scriptnames) : true;
 			$myScript = basename($_SERVER['SCRIPT_NAME'], '.php');
 			if(in_array($myScript, $scriptnames)) {
 				return true;
@@ -644,7 +646,11 @@ EOT;
 						if (($mail ['body'] = $this->aTemplates[$templateName]->getTemplateGeneratedContent($placeholdersValues)) != '1') {
 							$mail['subject'] = $this->aTemplates[$templateName]->getTemplateEmailSubject();
 
-							if(empty($this->aConf['email_method']) or $this->aConf['email_method'] == 'sendmail' or !method_exists(plxUtils::class, 'sendMailPhpMailer')) {
+							if(
+								empty($this->aConf['email_method']) or
+								$this->aConf['email_method'] == 'sendmail' or
+								!plxUtils::isPHPMailer()
+							) {
 								# fonction mail() intrinsèque à PHP
 								$success = plxUtils::sendMail('', '', $user['email'], $mail['subject'], $mail['body']);
 							} else {
@@ -948,7 +954,7 @@ EOT;
 		if(is_array($this->aCats) and count($this->aCats) > 0) {
 			$catIds = array_keys($this->aCats);
 			rsort($catIds);
-			return str_pad(intval($catIds[0]) + 1, 3, '0', STR_PAD_LEFT);
+			return str_pad(strval(intval($catIds[0]) + 1), 3, '0', STR_PAD_LEFT);
 		} else {
 			return '001';
 		}
@@ -957,7 +963,7 @@ EOT;
 	/**
 	 * Méthode qui édite le fichier XML des catégories selon le tableau $content
 	 *
-	 * @param	array $content	tableau multidimensionnel des catégories
+	 * @param	?array $content	tableau multidimensionnel des catégories
 	 * @param	bool $action	permet de forcer la mise à jour du fichier
 	 * @return	bool
 	 * @author	Stephane F, Pedro "P3ter" CADETE, sudwebdesign
@@ -1199,7 +1205,7 @@ EOT;
 	/**
 	 * Méthode qui édite le fichier XML des pages statiques selon le tableau $content
 	 *
-	 * @param	array $content	tableau multidimensionnel des pages statiques
+	 * @param	?array $content	tableau multidimensionnel des pages statiques
 	 * @param	bool $action	permet de forcer la mise àjour du fichier
 	 * @return	bool
 	 * @author	Stephane F.
@@ -1462,13 +1468,13 @@ EOT;
 	 **/
 	public function nextIdArticle() {
 
-		$aKeys = array_keys($this->plxGlob_arts->aFiles);
-		if(is_array($aKeys) and count($aKeys) > 0) {
+		if(count($this->plxGlob_arts->aFiles) > 0) {
+			$aKeys = array_keys($this->plxGlob_arts->aFiles);
 			rsort($aKeys);
-			return str_pad(intval($aKeys['0']) + 1, 4, '0', STR_PAD_LEFT);
-		} else {
-			return '0001';
+			return str_pad(strval(intval($aKeys[0]) + 1), 4, '0', STR_PAD_LEFT);
 		}
+
+		return '0001';
 	}
 
 	/**
@@ -1809,11 +1815,14 @@ EOT;
 			return plxMsg::Error(L_ERR_UNKNOWN_COMMENT);
 		}
 		# Vérification de la validité de la date de publication
-		if(!plxDate::checkDate($content['date_publication_day'],$content['date_publication_month'],$content['date_publication_year'],$content['date_publication_time'])) {
+		$day = intval($content['date_publication_day']);
+		$month = intval($content['date_publication_month']);
+		$year = intval($content['date_publication_year']);
+		if(!plxDate::checkDate($day, $month, $year,$content['date_publication_time'])) {
 			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
 		}
 		$time = explode(':', $content['date_publication_time']);
-		$newtimestamp = mktime($time[0], $time[1], 0, $content['date_publication_month'], $content['date_publication_day'], $content['date_publication_year']);
+		$newtimestamp = mktime(intval($time[0]), intval($time[1]), 0, $month, $day, $year);
 		if($newtimestamp === false or $newtimestamp < 100000000 or $newtimestamp > 9999999999) {
 			# 9 ou 10 chiffres seulement ( 1973-03-03T09:46:40 et 2286-11-20T17:46:39 respectivement)
 			return plxMsg::Error(L_ERR_INVALID_PUBLISHING_DATE);
@@ -2044,6 +2053,7 @@ EOT;
 	 * Vérifie s'il y a besoin de demander un token pour utiliser le serveur SMTP (OAuth2)
 	 *
 	 * @param array $data
+	 * @return bool
 	 * @author Jean-Pierre Pourrez @bazooka07
 	 **/
 	public function o_auth_token_required($data=null) {
@@ -2056,5 +2066,4 @@ EOT;
 			empty(trim($data['smtpOauth2_refreshToken']))
 		);
 	}
-
 }

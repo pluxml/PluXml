@@ -49,11 +49,11 @@ if($aFiles = $plxMotor->plxGlob_arts->query('/^\d{4}\.(?:\d{3},|home,)*(?:' . $p
 			break;
 		}
 	}
-	# On stocke les enregistrements dans un objet plxRecord
-	$plxRecord_arts = new plxRecord($array);
 
-	if($plxRecord_arts) {
+	if(!empty($array)) {
 		$name = $plxMotor->aConf['title'];
+		# On stocke les enregistrements dans un objet plxRecord
+		$plxRecord_arts = new plxRecord($array);
 		# On boucle sur nos articles
 		while($plxRecord_arts->loop()) {
 			$num = intval($plxRecord_arts->f('numero'));

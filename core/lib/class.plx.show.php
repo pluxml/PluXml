@@ -421,15 +421,15 @@ class plxShow
                 # On vérifie que la categorie
                 if ($asArray) {
                     return isset($this->plxMotor->aCats[$this->plxMotor->cible]) ? array($this->plxMotor->cible) : array('home');
-                } else {
-                    return isset($this->plxMotor->aCats[$this->plxMotor->cible]) ? $this->plxMotor->cible : 'home';
                 }
-                break;
+
+                return isset($this->plxMotor->aCats[$this->plxMotor->cible]) ? $this->plxMotor->cible : 'home';
             case 'article':
                 $artCatsStr = $this->plxMotor->plxRecord_arts->f('categorie');
                 if (empty($artCatsStr)) {
                     return $asArray ? array('home') : 'home';
                 }
+
                 $aCats = $this->plxMotor->aCats;
                 # On vérifie que les categories de l'article existe et sont actives
                 $activeCats = array_filter(explode(',', $artCatsStr), function ($idCat) use ($aCats) {
@@ -440,10 +440,8 @@ class plxShow
                     $aCats = array('home');
                 }
                 return $asArray ? $activeCats : implode(',', $activeCats);
-                break;
             case 'home':
                 return $asArray ? array('home') : 'home';
-                break;
             default:
                 # Pas categorie pour ce mode
                 return null;
@@ -1070,9 +1068,9 @@ class plxShow
         # Génération de notre motif
         $generic_mode = in_array($this->plxMotor->mode, array('home', 'categorie', 'tags'));
 
-        if($motif === null) {
+        if($motif === null) { /* @phpstan-ignore identical.alwaysTrue */
             # On génère $motif car le hook ne  l'a pas fait
-            if($all !== null) {
+            if($all !== null) { /* @phpstan-ignore notIdentical.alwaysFalse */
                 # catégories sélectionnées par le hook
                 $cats = $all;
             } else {
@@ -1189,7 +1187,6 @@ class plxShow
                                     case 'url'      : return $this->plxMotor->urlRewrite($art['thumbnail']);
                                     default         : return '';
                                 }
-                                break;
                             default : return '';
                         }
                     },
@@ -1978,17 +1975,15 @@ class plxShow
             $counters = array();
             foreach ($this->plxMotor->aTags as $idart => $tag) {
                 if (isset($this->plxMotor->activeArts[$idart]) and $tag['date'] <= $now and $tag['active']) {
-                    if ($tags = array_map('trim', explode(',', $tag['tags']))) {
-                        foreach ($tags as $tag) {
-                            if (!empty($tag)) {
-                                if (!array_key_exists($tag, $counters)) {
-                                    $counters[$tag] = 1;
-                                } else {
-                                    $counters[$tag]++;
-                                }
-                            }
-                        }
-                    }
+					foreach (array_map('trim', explode(',', $tag['tags'])) as $tag) {
+						if (!empty($tag)) {
+							if (!array_key_exists($tag, $counters)) {
+								$counters[$tag] = 1;
+							} else {
+								$counters[$tag]++;
+							}
+						}
+					}
                 }
             }
 

@@ -194,7 +194,7 @@ class plxUpdate {
 			if($dh = opendir($deldir)) {
 				while(FALSE !== ($file = readdir($dh))) {
 					if($file != '.' AND $file != '..') {
-						$this->deleteDir(($deldir!='' ? $deldir.'/' : '').$file);
+						$this->deleteDir($deldir . '/'  . $file);
 					}
 				}
 				closedir($dh);

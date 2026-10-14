@@ -71,8 +71,8 @@ class plxUtils {
 	 * Méthode qui vérifie si une variable est définie.
 	 * Renvoie la valeur de la variable ou la valeur par défaut passée en paramètre
 	 *
-	 * @param	string $var			variable à tester
-	 * @param	string $default		valeur par défaut
+	 * @param	string|null $var			variable à tester
+	 * @param	string|int $default		valeur par défaut
 	 * @return	string		valeur de la variable ou valeur par défaut passée en paramètre
 	*/
 	public static function getValue(&$var, $default='') {
@@ -95,39 +95,39 @@ class plxUtils {
 	/**
 	 * Méthode qui supprime les antislashs
 	 *
-	 * @param	string $content				variable ou tableau ( 2 dimensions maxi )
+	 * @param	string|array $content				variable ou tableau ( 2 dimensions maxi )
 	 * @return	array|string		tableau ou variable avec les antislashs supprimés
 	 * @author  J.P. Pourrez aka bazooka07
 	 **/
 	public static function unSlash($content) {
 
-		 # On traite un tableau
-		if(is_array($content)) {
-			$new_content = array();
-			foreach($content as $k=>$v) { # On parcourt le tableau
-				if(is_array($v)) {
-					$buf1 = array();
-					foreach($v as $key=>$val) {
-						if(is_array($val)) {
-							$buf2 = array();
-							foreach($val as $i=>$w) {
-								$buf2[$i] = stripslashes($w);
-							}
-							$buf1[$key]  = $buf2;
-						} else {
-							$buf1[$key] = stripslashes($val);
-						}
-					}
-					$new_content[$k] = $buf1;
-				} else {
-					$new_content[$k] = stripslashes($v);
-				}
-			}
-			return $new_content;
+		if(is_string($content)) {
+			# On traite une chaine
+			return stripslashes($content);
 		}
 
-		# On traite une chaine
-		return stripslashes($content);
+		 # On traite un tableau
+		$new_content = array();
+		foreach($content as $k=>$v) { # On parcourt le tableau
+			if(is_array($v)) {
+				$buf1 = array();
+				foreach($v as $key=>$val) {
+					if(is_array($val)) {
+						$buf2 = array();
+						foreach($val as $i=>$w) {
+							$buf2[$i] = stripslashes($w);
+						}
+						$buf1[$key]  = $buf2;
+					} else {
+						$buf1[$key] = stripslashes($val);
+					}
+				}
+				$new_content[$k] = $buf1;
+			} else {
+				$new_content[$k] = stripslashes($v);
+			}
+		}
+		return $new_content;
 	}
 
 	/**
@@ -254,43 +254,51 @@ class plxUtils {
 	 *
 	 * @param	string $name		nom de la balise
 	 * @param	array $array		valeurs de la liste sous forme de tableau (nom, valeur)
-	 * @param	string $selected	valeur par défaut
+	 * @param	string $value	valeur par défaut
 	 * @param	bool $readonly	vrai si la liste est en lecture seule (par défaut à faux)
 	 * @param	string $class		class css à utiliser pour formater l'affichage
-	 * @param	bool $id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
+	 * @param	bool|string $id			si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre
 	 * @return	void
 	 **/
-	public static function printSelect($name, $array, $selected='', $readonly=false, $class='', $id=true) {
-
-		if(!is_array($array)) $array=array();
-
+	public static function printSelect($name, $array, $value='', $readonly=false, $class='', $id=true) {
 		if(is_bool($id))
 			$id = ($id ? ' id="id_'.$name.'"' : '');
 		else
 			$id = ($id!='' ? ' id="'.$id.'"' : '');
 
-		if($readonly)
-			echo '<select'.$id.' name="'.$name.'" disabled="disabled" class="readonly'.($class!=''?' '.$class:'').'">'."\n";
-		else
-			echo '<select'.$id.' name="'.$name.'"'.($class!=''?' class="'.$class.'"':'').'>'."\n";
+		if($readonly) {
+			$class .= ' readonly';
+			$disabled = 'disabled';
+		} else {
+			$disabled = '';
+		}
+?>
+<select <?= $id ?> name="<?= $name ?>" <?= $disabled ?> class="<?= $class ?>">
+<?php
 		foreach($array as $a => $b) {
 			if(is_array($b)) {
-				echo '<optgroup label="'.$a.'">'."\n";
+?>
+	<optgroup label="<?= $a ?>">
+<?php
 				foreach($b as $c=>$d) {
-					if($c == $selected)
-						echo "\t".'<option value="'.$c.'" selected="selected">'.$d.'</option>'."\n";
-					else
-						echo "\t".'<option value="'.$c.'">'.$d.'</option>'."\n";
+					$selected = ($c == $value) ? ' selected' : '';
+?>
+		<option value="<?= $c ?>" <?= $selected ?>><?= $d ?></option>
+<?php
 				}
-				echo '</optgroup>'."\n";
+?>
+	</optgroup>
+<?php
 			} else {
-				if(strval($a) == $selected)
-					echo "\t".'<option value="'.$a.'" selected="selected">'.$b.'</option>'."\n";
-				else
-					echo "\t".'<option value="'.$a.'">'.$b.'</option>'."\n";
+				$selected = ($a == $value) ? 'selected' : '';
+?>
+	<option value="<?= $a ?>" <?= $selected ?>><?= $b ?></option>
+<?php
 			}
 		}
-		echo '</select>'."\n";
+?>
+</select>
+<?php
 	}
 
 	/**
@@ -379,30 +387,30 @@ class plxUtils {
 	 * Méthode qui affiche une zone de texte
 	 *
 	 * @param	string	$name		nom de la zone de texte
-	 * @param	string	$value		valeur contenue dans la zone de texte
-	 * @param	string	$cols		nombre de caractères affichés par colonne
-	 * @param	string	$rows		nombre de caractères affichés par ligne
+	 * @param	?string	$value		valeur contenue dans la zone de texte
+	 * @param	?int	$cols		nombre de caractères affichés par colonne
+	 * @param	?int	$rows		nombre de caractères affichés par ligne
 	 * @param	bool	$readonly	vrai si le champ est en lecture seule (par défaut à faux)
 	 * @param	string	$className	class css à utiliser pour formater l'affichage
-	 * @param	string	$extra		extra permet d'ajouter un élément HTML (exemple : un "onclick" en javascript)
+	 * @param	?string	$extra		extra permet d'ajouter un élément HTML (exemple : un "onclick" en javascript)
 	 * @return	void
 	 */
-	public static function printArea($name, $value='', $cols='', $rows='', $readonly=false, $className='full-width', $extra=null) {
+	public static function printArea($name, $value=null, $cols=null, $rows=null, $readonly=false, $className='full-width', $extra=null) {
 		$attrs = array (
 				'id="id_' . $name . '"',
 				'name="' . $name . '"'
 		);
-		if (!empty($cols) and is_integer($cols)) {
+		if (is_integer($cols)) {
 			$attrs [] = 'cols="' . $cols . '"';
 		}
-		if (!empty($rows) and is_integer($rows)) {
+		if (is_integer($rows)) {
 			$attrs[] = 'rows="' . $rows . '"';
 		}
 		$classList = array();
 		if ($readonly === true) {
 			$classList[] = 'readonly';
 		}
-		if (!empty($className) and is_string($className) and strlen(trim($className)) > 0) {
+		if (strlen(trim($className)) > 0) {
 			$classList[] = trim($className);
 		}
 		if (!empty($classList)) {
@@ -694,7 +702,7 @@ class plxUtils {
 	 **/
 	public static function formatRelatif($num, $length) {
 
-		$fnum = str_pad(abs($num), $length, '0', STR_PAD_LEFT);
+		$fnum = str_pad(strval(abs($num)), $length, '0', STR_PAD_LEFT);
 		if($num > -1)
 			return '+'.$fnum;
 		else
@@ -858,14 +866,13 @@ class plxUtils {
 				break;
 			default:
 				return false; # Unsupported format
-			break;
 		}
 
 		# Verify import
 		if($image_data == false) return false;
 
 		# Resize and crop
-		if( imagecopyresampled(
+		imagecopyresampled(
 			$canvas,
 			$image_data,
 			0,
@@ -876,35 +883,24 @@ class plxUtils {
 			$thumb_height,
 			$square_size_w,
 			$square_size_h
-		)) {
+		);
 
-			# Create thumbnail
-			switch( strtolower(pathinfo($dest_image, PATHINFO_EXTENSION)) ) {
-				case 'jpg':
-				case 'jpeg':
-					return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
-					break;
-				case 'png':
-					return (imagepng($canvas, $dest_image) AND is_file($dest_image));
-					break;
-				case 'gif':
-					return (imagegif($canvas, $dest_image) AND is_file($dest_image));
-					break;
-				case 'bmp':
-					return (imagebmp($canvas, $dest_image) AND is_file($dest_image));
-					break;
-				case 'webp':
-					return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
-					break;
-				default:
-					return false;# Unsupported format
-				break;
-			}
-
-		} else {
-			return false;
+		# Create thumbnail
+		switch( strtolower(pathinfo($dest_image, PATHINFO_EXTENSION)) ) {
+			case 'jpg':
+			case 'jpeg':
+				return (imagejpeg($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
+			case 'png':
+				return (imagepng($canvas, $dest_image) AND is_file($dest_image));
+			case 'gif':
+				return (imagegif($canvas, $dest_image) AND is_file($dest_image));
+			case 'bmp':
+				return (imagebmp($canvas, $dest_image) AND is_file($dest_image));
+			case 'webp':
+				return (imagewebp($canvas, $dest_image, $jpg_quality) AND is_file($dest_image));
 		}
 
+		return false;# Unsupported format
 	}
 
 	/**
@@ -1020,7 +1016,7 @@ class plxUtils {
 	 **/
 	public static function strCheck($str) {
 
-		return htmlspecialchars(trim($str), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, PLX_CHARSET, false);
+		return htmlspecialchars(trim($str), ENT_SUBSTITUTE | ENT_HTML5, PLX_CHARSET, false);
 	}
 
 	/**
@@ -1261,7 +1257,7 @@ class plxUtils {
 				$mail->SMTPAuth = true;
 				$mail->Username = $conf['smtp_username'];
 				$mail->Password = $conf['smtp_password'];
-				$mail->SMTPDebug;
+				$mail->SMTPDebug = SMTP::DEBUG_CONNECTION; # https://github.com/PHPMailer/PHPMailer/wiki/SMTP-Debugging
 				if(in_array($conf['smtp_security'], array(PHPMailer::ENCRYPTION_STARTTLS, PHPMailer::ENCRYPTION_SMTPS,))) {
 					$mail->SMTPSecure = $conf['smtp_security'];
 				}
@@ -1482,7 +1478,7 @@ class plxUtils {
 	/**
 	 * Contrôle le nom d'un fichier ou d'un dossier
 	 *
-	 * @param	string  $src nom d'un fichier
+	 * @param	?string  $src nom d'un fichier
 	 * @paraaam bool	$isDir
 	 * @return	bool validité du nom du fichier ou du dossier
 	*/
@@ -1675,7 +1671,7 @@ EOT;
 	 * @param	string $root dossier initial dans l'arborescence
 	 * @param	string $class Classe css a appliquer au sélecteur #sudwebdesign
 	 * @param	boolean $modeDir évite l'affichage des fichiers (dans la gestion des médias, par Ex., à la différence d'un thème)
-	 * @param	bool $id : si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre name
+	 * @param	bool|string $id : si vrai génère un id à partir du nom du champ, sinon génère l'id à partir du paramètre name
 	 * @return	void
 	 * @author	J.P. Pourrez alias bazooka07, T. Ingles @sudwebdesign
 	 * $modeDir=true	pour ne choisir que les dossiers : voir plxMedias contentFolder()
@@ -1716,8 +1712,8 @@ EOT;
 			if(is_string($root)) {
 				$href = preg_replace('#^' . PLX_ROOT . '#' , $root, $href);
 			}
-			if(PLX_DEBUG) {
-				$href .= '?d='.base_convert(filemtime($href) & 4194303, 10, 36);
+			if(PLX_DEBUG) { // @phpstan-ignore if.alwaysFalse
+				$href .= '?d='.base_convert(strval(filemtime($href) & 4194303), 10, 36);
 			}
 ?>
 	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
@@ -1760,10 +1756,10 @@ EOT;
 				 * core/admin/top.php
 				 * */
 
-				if(PLX_ROOT == '../../' and defined('PLX_ADMIN')) {
+				if(PLX_ROOT == '../../' and defined('PLX_ADMIN')) { // @phpstan-ignore equal.alwaysTrue
 					$adminPath = PLX_ROOT . preg_replace('#.*/([^/\.]+/[^/\.]+)(?:/\w+\.php|/)?$#', '$1/', $_SERVER['SCRIPT_NAME']);
 					$mask = '#^' . $adminPath . '#';
-				} elseif(PLX_ROOT == '../') {
+				} elseif(PLX_ROOT == '../') { // @phpstan-ignore equal.alwaysFalse
 					$css = 'theme/plucss.css';
 					$files = glob(PLX_ROOT . '*/*/' . $css);
 					if(empty($files)) {
@@ -1808,7 +1804,7 @@ EOT;
 				$plxMotor = plxMotor::getinstance();
 				$href = $plxMotor->urlRewrite($file);
 			}
-			$href .= '?d='.base_convert(filemtime(PLX_ROOT.$file) & 4194303, 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
+			$href .= '?d='.base_convert(strval(filemtime(PLX_ROOT.$file) & 4194303), 10, 36); # 4194303 === 2 puissance 22 - 1; base_convert(4194303, 10, 16) -> 3fffff; => 48,54 jours
 ?>
 	<link rel="stylesheet" type="text/css" href="<?= $href ?>" media="screen" />
 <?php

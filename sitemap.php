@@ -74,9 +74,9 @@ if($aFiles = $plxMotor->plxGlob_arts->query('/\d{4}.(?:\d|home|,)*(?:'.$plxMotor
 		$array[ $k ] = $plxMotor->parseArticle(PLX_ROOT.$plxMotor->aConf['racine_articles'].$v);
 	}
 
-	# On stocke les enregistrements dans un objet plxRecord
-	$plxRecord_arts = new plxRecord($array);
-	if($plxRecord_arts) {
+	if(!empty($array)) {
+		# On stocke les enregistrements dans un objet plxRecord
+		$plxRecord_arts = new plxRecord($array);
 		# On boucle sur nos articles
 		while($plxRecord_arts->loop()) {
 ?>

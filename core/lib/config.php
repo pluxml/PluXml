@@ -29,7 +29,7 @@ const PAGE_LOGIN = 'auth.php';
 const PLX_INSTALL_PATH = 'install';
 
 # Gestion des erreurs PHP
-if(PLX_DEBUG === true) {
+if(PLX_DEBUG === true) { /* @phpstan-ignore identical.alwaysFalse */
 	error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 }
 
@@ -103,10 +103,13 @@ if (ini_get('register_globals')) {
 # fonction de chargement d'un fichier de langue
 function loadLang($filename) {
 	if(file_exists($filename)) {
-		$LANG = array();
 		include_once $filename;
-		foreach($LANG as $key => $value) {
-			if(!defined($key)) define($key, $value);
+		if(isset($LANG)) {
+			foreach($LANG as $key => $value) {
+				if(!defined($key)) define($key, $value);
+			}
+		} else {
+			$LANG = array();
 		}
 	}
 }
@@ -121,11 +124,12 @@ function path($key) {
 }
 
 # fonction qui retourne le chemin de la racine du site avec ou sans redirection d'url
+# PLX_ROOT peut prendre différents valeurs selon le script utilisé: index.php, core/admin/prepend.php, install/index.php, update/index.php
 function get_root_url() {
 	$path1 = preg_replace('#/(?:\w[\w-]+\.php)$#', '', !empty($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : $_SERVER['PHP_SELF']) . '/';
-	$level = count(explode('../', PLX_ROOT)) - 1;
-	if($level > 0) {
-		$path1 = preg_replace('#(?:\w[\w-]+/){' . $level . '}$#', '', $path1);
+	$level = count(explode('../', PLX_ROOT));
+	if($level > 1) { /* @phpstan-ignore greater.alwaysTrue */
+		$path1 = preg_replace('#(?:\w[\w-]+/){' . ($level - 1) . '}$#', '', $path1);
 	}
 	return $path1;
 }
