@@ -96,6 +96,14 @@ include 'top.php';
 		</div>
 		<div class="grid">
 			<div class="col sml-12 med-5 label-centered">
+				<label for="id_always_com_form"><?php echo L_CONFIG_BASE_ALWAYS_COMMENTS_FORM ?>&nbsp;:</label>
+			</div>
+			<div class="col sml-12 med-7">
+				<?php plxUtils::printSelect('always_com_form',array('1'=>L_YES,'0'=>L_NO), $plxAdmin->aConf['always_com_form']); ?>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col sml-12 med-5 label-centered">
 				<label for="id_mod_com"><?php echo L_CONFIG_BASE_MODERATE_COMMENTS ?>&nbsp;:</label>
 			</div>
 			<div class="col sml-12 med-7">

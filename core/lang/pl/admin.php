@@ -423,6 +423,7 @@ $LANG = array (
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Domyślny język strony',
 		'L_CONFIG_BASE_TIMEZONE' => 'Strefa czasowa',
 		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Pokaż komentarze',
+		'L_CONFIG_BASE_ALWAYS_COMMENTS_FORM' => 'Pokaż formularz po prawidłowym komentarzu',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Podstawowa konfiguracja edycji komentarzy',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Podstawowa konfiguracja edycji postów',
 		'L_CONFIG_BASE_UPDATE' => 'Zapisz zmiany',

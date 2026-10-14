@@ -78,6 +78,7 @@ $config = array(
 	'meta_keywords'=>'',
 	'timezone'=>$timezone,
 	'allow_com'=>1,
+	'always_com_form'=>0,
 	'mod_com'=>0,
 	'mod_art'=>0,
 	'enable_rss'=>1,

@@ -426,6 +426,7 @@ $LANG = array (
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Язык сайта по умолчанию',
 		'L_CONFIG_BASE_TIMEZONE' => 'Часовой пояс',
 		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Разрешить комментарии',
+		'L_CONFIG_BASE_ALWAYS_COMMENTS_FORM' => 'Показать форму после действительного комментария.',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Модерация комментариев',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Модерация статей для профилей Автор и Редактор',
 		'L_CONFIG_BASE_UPDATE' => 'Сохранить основные настройки',

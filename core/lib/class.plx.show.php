@@ -1344,15 +1344,15 @@ class plxShow
      * suite à la création d'un commentaire
      * @param format  format du texte à afficher (variable: #com_message, #com_class)
      * @return        true pour afficher le formulaire du commentaire
-     * @scope        article
+     * @scope         article
      * @author        Stephane F, J.P Pourrez.
-     * @version        2017-12-28
+     * @version       2017-12-28
      **/
     public function comMessage($format = '<p id="com_message" class="#com_class"><strong>#com_message</strong></p>')
     {
 
         if (!empty($_SESSION['msgcom'])) {
-            $error = false;
+            $error = (bool) $this->plxMotor->aConf['always_com_form'];
             switch ($_SESSION['msgcom']) {
                 case L_COM_IN_MODERATION:
                     $color = 'orange';

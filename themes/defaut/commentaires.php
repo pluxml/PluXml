@@ -25,7 +25,7 @@
 
 			</div>
 
-			<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com']): ?>
+			<?php if($plxShow->plxMotor->plxRecord_arts->f('allow_com') AND $plxShow->plxMotor->aConf['allow_com'] AND (empty($_SESSION['msgcom']) OR $plxShow->plxMotor->aConf['always_com_form'])): ?>
 			<a rel="nofollow" href="<?php $plxShow->artUrl(); ?>#form" onclick="replyCom('<?php $plxShow->comIndex() ?>')"><?php $plxShow->lang('REPLY'); ?></a>
 			<?php endif; ?>
 

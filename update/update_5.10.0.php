@@ -110,4 +110,18 @@ EOT;
 		return true;
 	}
 
+	/**
+	 * mise à jour fichier parametres.xml (réafficher le formulaire après commentaire)
+	 **/
+	public function step4()
+	{
+		echo L_UPDATE_UPDATE_PARAMETERS_FILE . '<br />';
+#idée : + un param : 1 toujours afficher le formulaire de commentaire, 0 cacher après un commentaire valide (besoin de recharger la page pour afficher avec les champs vide, et (devrait cacher les lien répondre)
+# L_CONFIG_BASE_ALWAYS_COMMENTS_FORM Afficher le formulaire après un commentaire valide : Oui|Non
+		$new_parameters = array();
+		$new_parameters['always_com_form'] = 0;
+		$this->updateParameters($new_parameters);
+
+		return true;
+	}
 }

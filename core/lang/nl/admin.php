@@ -406,6 +406,7 @@ $LANG = array (
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Standaardtaal',
 		'L_CONFIG_BASE_TIMEZONE' => 'Tijdzone',
 		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Commentaar toelaten',
+		'L_CONFIG_BASE_ALWAYS_COMMENTS_FORM' => 'Formulier weergeven na geldig commentaar',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Commentaar modereren bij creatie',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'De artikelen voor de profielen Redacteur en Uitgever matigen',
 		'L_CONFIG_BASE_UPDATE' => 'Basisconfiguratie aanpassen',

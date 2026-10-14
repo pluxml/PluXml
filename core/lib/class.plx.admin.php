@@ -132,6 +132,7 @@ class plxAdmin extends plxMotor {
 
 				# valeurs booléennes
 				case 'allow_com' :
+				case 'always_com_form' :
 				case 'mod_com' :
 				case 'mod_art' :
 				case 'enable_rss' :

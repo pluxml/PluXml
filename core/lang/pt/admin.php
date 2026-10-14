@@ -374,6 +374,7 @@ $LANG = array (
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Idioma padrão do web-site',
 		'L_CONFIG_BASE_TIMEZONE' => 'Fuso horário',
 		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Autorizar os comentários',
+		'L_CONFIG_BASE_ALWAYS_COMMENTS_FORM' => 'Mostrar formulário após comentário válido',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Moderar os comentários á criação',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Moderar os artigos para os perfis Editor e Editor',
 		'L_CONFIG_BASE_UPDATE' => 'Alterar a configuração de base',

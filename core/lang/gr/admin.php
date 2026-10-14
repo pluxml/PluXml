@@ -425,6 +425,7 @@ $LANG = array (
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Προεπιλεγμένη γλώσσα ιστοσελίδας',
 		'L_CONFIG_BASE_TIMEZONE' => 'Ζώνη ώρας',
 		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Επιτρέπονται σχόλια',
+		'L_CONFIG_BASE_ALWAYS_COMMENTS_FORM' => 'Εμφάνιση φόρμας μετά από έγκυρο σχόλιο',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Συντονισμός σχολίων κατά τη δημιουργία',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Συντονισμός άρθρων για προφίλ Editor και Publisher',
 		'L_CONFIG_BASE_UPDATE' => 'Αποθήκευση βασικών ρυθμίσεων',

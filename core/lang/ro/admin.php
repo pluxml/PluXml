@@ -371,6 +371,7 @@ $LANG = array (
 		'L_CONFIG_BASE_DEFAULT_LANG' => 'Limba',
 		'L_CONFIG_BASE_TIMEZONE' => 'Time Zone',
 		'L_CONFIG_BASE_ALLOW_COMMENTS' => 'Permiteţi comentariile',
+		'L_CONFIG_BASE_ALWAYS_COMMENTS_FORM' => 'Afișați formularul după un comentariu valid',
 		'L_CONFIG_BASE_MODERATE_COMMENTS' => 'Moderează comentariile',
 		'L_CONFIG_BASE_MODERATE_ARTICLES' => 'Articole moderată pentru Editor profile şi Distribuitor',
 		'L_CONFIG_BASE_UPDATE' => 'Schimba configuraţia de bază',
