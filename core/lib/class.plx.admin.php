@@ -737,9 +737,9 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 					$active = $this->aUsers[$user_id]['active'];
 					$profil = $this->aUsers[$user_id]['profil'];
 				} else {
-					$active = ($content[$user_id.'_active'] == '1' ? 1 : 0);
+					$active = ($content['users'][$user_id]['active'] == '1' ? 1 : 0);
 					$profil = filter_var(
-						$content[$user_id.'_profil'],
+						$content['users'][$user_id]['profil'],
 						FILTER_VALIDATE_INT,
 						array(
 							'options'	=> array(
@@ -750,8 +750,8 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 						)
 					);
 
-					$this->aUsers[$user_id]['login'] = $user_info['login'];
-					$this->aUsers[$user_id]['name'] = $user_info['fullname'];
+					$this->aUsers[$user_id]['login'] = $user_infos['login'];
+					$this->aUsers[$user_id]['name'] = $user_infos['fullname'];
 					$this->aUsers[$user_id]['active'] = $active;
 					$this->aUsers[$user_id]['profil'] = $profil;
 				}
