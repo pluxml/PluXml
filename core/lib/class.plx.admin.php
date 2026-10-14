@@ -1088,7 +1088,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 
 		# Vérifier si le thumbnail existe comme self::editArticle()
 		$filename = PLX_ROOT . $content['thumbnail'];
-		if(!file_exists($filename) or exif_imagetype($filename) === false ) {
+		if($content['thumbnail'] and (!file_exists($filename) or exif_imagetype($filename) === false)) {
 			$content['thumbnail'] = '';
 			$content['thumbnail_alt'] = '';
 		} else {
@@ -1444,7 +1444,7 @@ RewriteRule ^feed\/(.*)$ feed.php?$1 [L]
 		$title_htmltag = plxUtils::getValue($content['title_htmltag']);
 		# Vérifier si le fichier existe
 		$filename = PLX_ROOT . $content['thumbnail'];
-		if(!file_exists($filename) or exif_imagetype($filename) === false ) {
+		if($content['thumbnail'] and (!file_exists($filename) or exif_imagetype($filename) === false)) {
 			$content['thumbnail'] = '';
 			$content['thumbnail_alt'] = '';
 		} else {
