@@ -130,17 +130,11 @@ if ($plxAdmin->aConf['lostpassword']) {
     # Send lost password e-mail
     if (!empty($_POST['lostpassword_id'])) {
         $resp = $plxAdmin->sendLostPasswordEmail($_POST['lostpassword_id']);
-        if (is_bool($resp)) {
-            if($resp) {
-                $msg = L_LOST_PASSWORD_SUCCESS;
-                $css = 'alert green';
-            } else {
-                # $resp is user's infos['password_token_expiry'] (format: 'YmdHis')
-                $msg = sprintf('Wait for %s minutes before a new request', round(strtotime($resp) - time() / 60));
-                $css = 'alert red';
-            }
+        if ($resp === true) {
+			$msg = L_LOST_PASSWORD_SUCCESS;
+			$css = 'alert green';
         } else {
-            @error_log("Lost password error. ID : " . $_POST['lostpassword_id'] . " IP : " . plxUtils::getIp());
+            @error_log('Lost password error. ID : ' . $_POST['lostpassword_id'] . ' IP : ' . plxUtils::getIp());
             $msg = $resp;
             $css = 'alert red';
         }

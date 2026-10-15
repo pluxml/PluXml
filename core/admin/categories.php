@@ -69,7 +69,7 @@ require 'top.php';
 				</tr>
 			</thead>
 			<tbody>
-			<?php
+<?php
 			# Initialisation de l'ordre
 			$ordre = 1;
 			# Si on a des catégories
@@ -88,7 +88,7 @@ require 'top.php';
 					echo '</td><td>';
 					plxUtils::printInput($k.'_bypage', $v['bypage'], 'text', '-3');
 					echo '</td><td>';
-					plxUtils::printInput($k.'_ordre', $ordre, 'text', '-3');
+					plxUtils::printInput($k.'_ordre', strval($ordre), 'text', '-3');
 					echo '</td><td>';
 					plxUtils::printSelect($k.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']);
 					echo '</td>';
@@ -100,10 +100,10 @@ require 'top.php';
 				$a = array_keys($plxAdmin->aCats);
 				rsort($a);
 			} else {
-				$a['0'] = 0;
+				$a[0] = '0';
 			}
-			$new_catid = str_pad($a['0']+1, 3, "0", STR_PAD_LEFT);
-			?>
+			$new_catid = str_pad(strval(intval($a[0]) + 1), 3, "0", STR_PAD_LEFT);
+?>
 				<tr class="new">
 					<td colspan="2"><?= L_NEW_CATEGORY ?></td>
 					<td>
@@ -120,7 +120,7 @@ require 'top.php';
 						echo '</td><td>';
 						plxUtils::printInput($new_catid.'_bypage', $plxAdmin->aConf['bypage'], 'text', '-3');
 						echo '</td><td>';
-						plxUtils::printInput($new_catid.'_ordre', $ordre, 'text', '-3');
+						plxUtils::printInput($new_catid.'_ordre', strval($ordre), 'text', '-3');
 						echo '</td><td>';
 						plxUtils::printSelect($new_catid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1');
 						echo '</td><td>&nbsp;';
@@ -136,6 +136,6 @@ require 'top.php';
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminCategoriesFoot'));
+
 # On inclut le footer
 require 'foot.php';
-?>

@@ -608,7 +608,7 @@ EOT;
 	* Create a token and send a link by e-mail using "email-lostpassword.xml" template
 	*
 	* @param string $loginOrMail user's login or e-mail address
-	* @return string
+	* @return string|true
 	* @throws \PHPMailer\PHPMailer\Exception
 	* @author Pedro "P3ter" CADETE, J.P. Pourrez aka bazooka07
 	**/
@@ -670,7 +670,7 @@ EOT;
 								$this->aUsers[$user_id]['password_token'] = $lostPasswordToken;
 								$this->aUsers[$user_id]['password_token_expiry'] = $lostPasswordTokenExpiry;
 								$this->editUsers($user_id, true);
-								return sprintf(L_MAIL_TEST_SENT_TO, $user['email']);
+								return true;
 							}
 
 							return L_MAIL_NOT_AVAILABLE;
@@ -726,7 +726,7 @@ EOT;
 	/**
 	 * Méthode qui édite le fichier XML des utilisateurs
 	 *
-	 * @param	array $content	informations sur les utilisateurs
+	 * @param	array|null $content	informations sur les utilisateurs
 	 * @return	bool
 	 * @author	Stéphane F, Pedro "P3ter" CADETE, , J.P. Pourrez @bazooka07
 	 **/

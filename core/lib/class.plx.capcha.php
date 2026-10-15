@@ -102,7 +102,7 @@ class plxCapcha {
 	public function q() {
 		# Generation de la question capcha
 		$this->_num = $this->chooseNum();
-		$_SESSION['capcha_token'] = sha1(uniqid(rand(), true));
+		$_SESSION['capcha_token'] = sha1(uniqid(strval(rand()), true));
 		$_SESSION['capcha'] = sha1($this->_word[$this->_num - 1]);
 		#return sprintf(L_CAPCHA_QUESTION, $this->num2letter(), '<span class="capcha-word">' . $this->_word . '</span>');
 		return sprintf(L_CAPCHA_QUESTION, $this->num2letter(), $this->createImage(true));

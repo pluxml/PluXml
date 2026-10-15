@@ -109,7 +109,7 @@ class update_5_0 extends plxUpdate{
 			$xml .= '<document>'."\n";
 			$num_user = 1;
 			foreach($users as $login => $password) {
-				$xml .= "\t".'<user number="'.str_pad($num_user++, 3, "0", STR_PAD_LEFT).'" active="1" profil="0" delete="0">'."\n";
+				$xml .= "\t".'<user number="'.str_pad(strval($num_user++), 3, "0", STR_PAD_LEFT).'" active="1" profil="0" delete="0">'."\n";
 				$xml .= "\t\t".'<login><![CDATA['.$login.']]></login>'."\n";
 				$xml .= "\t\t".'<name><![CDATA['.$login.']]></name>'."\n";
 				$xml .= "\t\t".'<infos><![CDATA[]]></infos>'."\n";

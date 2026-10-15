@@ -92,7 +92,7 @@ if($plxAdmin->aStats) {
 					<td><?php plxUtils::printInput($k . '_name', plxUtils::strCheck($v['name']), 'text', '-255'); ?></td>
 					<td><?php plxUtils::printInput($k . '_url', $v['url'], 'text', '-255'); ?></td>
 					<td><?php plxUtils::printSelect($k . '_active', array('1'=>L_YES,'0'=>L_NO), $v['active']); ?></td>
-					<td><?php plxUtils::printInput($k . '_ordre', $ordre, 'text', '2-3'); ?></td>
+					<td><?php plxUtils::printInput($k . '_ordre', strval($ordre), 'text', '2-3'); ?></td>
 					<td><?php plxUtils::printSelect($k . '_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']); ?></td>
 					<td>
 <?php
@@ -143,7 +143,7 @@ $new_staticid = str_pad($new_id, 3, '0', STR_PAD_LEFT);
 					</td>
 					<td><?php plxUtils::printInput($new_staticid.'_url', '', 'text', '-255'); ?></td>
 					<td><?php plxUtils::printSelect($new_staticid.'_active', array('1'=>L_YES,'0'=>L_NO), '0'); ?></td>
-					<td><?php plxUtils::printInput($new_staticid.'_ordre', $ordre, 'text', '2-3'); ?></td>
+					<td><?php plxUtils::printInput($new_staticid.'_ordre', strval($ordre), 'text', '2-3'); ?></td>
 					<td><?php plxUtils::printSelect($new_staticid.'_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), '1'); ?></td>
 					<td>&nbsp;</td>
 				</tr>

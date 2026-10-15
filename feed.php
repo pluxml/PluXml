@@ -27,7 +27,7 @@ if(!$plxFeed->aConf['enable_rss']) {
 
 # On démarre la bufferisation
 ob_start();
-ob_implicit_flush(0);
+ob_implicit_flush(false);
 
 $plxFeed->fprechauffage();
 $plxFeed->fdemarrage();

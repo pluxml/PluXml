@@ -30,7 +30,7 @@ eval($plxMotor->plxPlugins->callHook('IndexBegin')); # Hook Plugins
 
 # On démarre la bufferisation
 ob_start();
-ob_implicit_flush(0);
+ob_implicit_flush(false);
 
 # Traitements du thème
 if($plxMotor->style == '' or !is_dir(PLX_ROOT.$plxMotor->aConf['racine_themes'].$plxMotor->style)) {

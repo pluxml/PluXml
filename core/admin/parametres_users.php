@@ -17,9 +17,9 @@ if($plxAdmin->aUsers) {
 	$a = array_keys($plxAdmin->aUsers);
 	rsort($a);
 } else {
-	$a['0'] = 0;
+	$a[0] = '0';
 }
-$new_userid = str_pad($a['0']+1, 3, '0', STR_PAD_LEFT);
+$new_userid = str_pad(strval(intval($a[0]) + 1), 3, '0', STR_PAD_LEFT);
 
 # Edition des utilisateurs
 if (!empty($_POST)) {
@@ -145,7 +145,7 @@ $inputs = array('fullname', 'login', 'password', 'email');
 
 	unset($_SESSION['new_user']);
 ?>
-			<td><?php plxUtils::printSelect($user . '[profil]', $aProfils, PROFIL_WRITER); ?></td>
+			<td><?php plxUtils::printSelect($user . '[profil]', $aProfils, strval(PROFIL_WRITER)); ?></td>
 			<td><?php plxUtils::printSelect($user . '[active]', array('1'=>L_YES,'0'=>L_NO), '1'); ?></td>
 			<td>&nbsp;</td>
 		</tr>

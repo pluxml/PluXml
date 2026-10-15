@@ -886,7 +886,7 @@ class plxMotor {
 			return array(
 				'comStatus'	=> $capture[1],
 				'artId'		=> $capture[2],
-				'comDate'	=> plxDate::timestamp2Date($capture[3]),
+				'comDate'	=> plxDate::timestamp2Date(intval($capture[3])),
 				'comId'		=> $capture[3].'-'.$capture[4],
 				'comIdx'	=> $capture[4],
 

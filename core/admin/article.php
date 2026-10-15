@@ -507,7 +507,7 @@ function refreshImg(dta) {
 				<div class="grid">
 					<div class="col sml-12">
 						<label for="tags"><?= L_ARTICLE_TAGS_FIELD; ?>&nbsp;:&nbsp;<a class="hint"><span><?= L_ARTICLE_TAGS_FIELD_TITLE; ?></span></a></label>
-						<?php plxUtils::printInput('tags',$tags,'text','25-255',false,false); ?>
+						<?php plxUtils::printInput('tags', $tags,'text', '25-255'); ?>
 						<input class="toggler" type="checkbox" id="toggler_tags"<?= (empty($_GET['a']) || ! empty(trim($tags))) ? ' checked' : ''; ?> />
 						<label for="toggler_tags"><span>-</span><span>+</span></label>
 						<div id="tags" style="margin-top: 1rem">

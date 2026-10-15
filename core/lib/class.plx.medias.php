@@ -519,7 +519,7 @@ class plxMedias {
 			# On teste l'existence du nouveau fichier et on formate le nom pour éviter les doublons
 			$i = 1;
 			while(file_exists(implode('', array_values($new_stats)))) {
-				$new_stats['counter'] = str_pad($i, 2, '-', STR_PAD_LEFT);
+				$new_stats['counter'] = str_pad(strval($i), 2, '-', STR_PAD_LEFT);
 				$i++;
 			}
 			# changement du nom du fichier

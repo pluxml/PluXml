@@ -81,7 +81,7 @@ class plxUpdater {
 		$this->plxAdmin->getConfiguration(path('XMLFILE_PARAMETERS'));
 		$new_params = array(
 			'version' => $this->newVersion,
-			'urlrewriting' => 0,  # On désactive la ré-écriture d'Url par précaution
+			'urlrewriting' => 0, # On désactive la ré-écriture d'Url par précaution
 		);
 
 		# On contrôle si le thème existe
@@ -168,7 +168,7 @@ class plxUpdate {
 	/**
 	 * Méthode qui met à jour le fichier parametre.xml en important les nouveaux paramètres
 	 *
-	 * @param	string $new_params		tableau contenant la liste des nouveaux paramètres avec leur valeur par défaut.
+	 * @param	array $new_params		tableau contenant la liste des nouveaux paramètres avec leur valeur par défaut.
 	 * @return	string
 	 * @author	Stéphane F
 	 **/
@@ -194,7 +194,7 @@ class plxUpdate {
 			if($dh = opendir($deldir)) {
 				while(FALSE !== ($file = readdir($dh))) {
 					if($file != '.' AND $file != '..') {
-						$this->deleteDir($deldir . '/'  . $file);
+						$this->deleteDir($deldir . '/' . $file);
 					}
 				}
 				closedir($dh);

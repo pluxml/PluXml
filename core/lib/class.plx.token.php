@@ -33,7 +33,7 @@ class plxToken {
 	/**
 	 * Méthode qui valide la durée de vide d'un token
 	 *
-	 * @param	string $request	(deprecated)
+	 * @param	string|array $request	(deprecated)
 	 * @return	void
 	 * @author	Stephane F, J.P. Pourrez
 	 **/

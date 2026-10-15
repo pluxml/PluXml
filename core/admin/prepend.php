@@ -24,6 +24,9 @@ if(($is_login and isset($_GET['d'])) or !empty($_COOKIE['PLX_ADMIN'])) {
 	open_session();
 }
 
+/**
+ * @return never
+ * */
 function redirectLogin($query='') {
 	$redirect = PAGE_LOGIN;
 	if(!empty($query)) {
@@ -33,6 +36,9 @@ function redirectLogin($query='') {
 	exit;
 }
 
+/**
+ * @return never
+ * */
 function redirectAdmin($context=true) {
 	$location = 'index.php';
 	if($context) {
@@ -72,6 +78,9 @@ if($is_login) {
 	}
 }
 
+/**
+ * @return never
+ * */
 function reloadPage() {
 	# header('Refresh: 0');
 	$redirect = basename($_SERVER['SCRIPT_NAME']);

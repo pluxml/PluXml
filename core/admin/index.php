@@ -237,7 +237,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 <?php
 	}
 ?>
-	<?php plxUtils::printInput('page',1,'hidden'); ?>
+	<?php plxUtils::printInput('page', strval(1), 'hidden'); ?>
 </div>
 
 <div class="grid">

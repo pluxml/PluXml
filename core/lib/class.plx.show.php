@@ -11,7 +11,7 @@ const PLX_SHOW = true;
 
 # Initialisation du timer d'execution
 if(!defined('PLX_MICROTIME')) {
-	define('PLX_MICROTIME', microtime(true));
+    define('PLX_MICROTIME', microtime(true));
 }
 
 require_once 'class.plx.motor.php';
@@ -148,7 +148,7 @@ class plxShow
     /**
      * Méthode qui affiche ou renvoie la langue par défaut
      *
-     * @param 	bool $echo        pour affichage à l'écran
+     * @param   bool $echo        pour affichage à l'écran
      * @return    void|string
      * @author    Stéphane F
      **/
@@ -181,8 +181,8 @@ class plxShow
     public function chrono()
     {
         if(defined('PLX_MICROTIME')) {
-			echo round(microtime(true) - PLX_MICROTIME, 3) . 's';
-		}
+            echo round(microtime(true) - PLX_MICROTIME, 3) . 's';
+        }
     }
 
     /**
@@ -664,7 +664,7 @@ class plxShow
     /**
      * Méthode qui affiche ou renvoie l'auteur de l'article
      *
-     * @param 	bool $echo si à VRAI affichage à l'écran
+     * @param   bool $echo si à VRAI affichage à l'écran
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL et Stephane F
      **/
@@ -697,7 +697,7 @@ class plxShow
     /**
      * Méthode qui affiche les informations sur l'auteur de l'article
      *
-     * @param	string $format    format du texte à afficher (variable: #art_authorinfos, #art_author)
+     * @param   string $format    format du texte à afficher (variable: #art_authorinfos, #art_author)
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F
      **/
@@ -865,9 +865,9 @@ class plxShow
      * pour lire la suite de l'article. Si l'article n'a pas de chapô,
      * le contenu de l'article est affiché (selon paramètres)
      *
-     * @param 	string $format    format d'affichage du lien pour lire la suite de l'article (#art_title)
-     * @param 	bool $content    affichage oui/non du contenu si le chapô est vide
-     * @param 	string $anchor    ancre dans l'article pour faire pointer le lien "Lire la suite" quand on clic dessus
+     * @param   string $format    format d'affichage du lien pour lire la suite de l'article (#art_title)
+     * @param   bool $content    affichage oui/non du contenu si le chapô est vide
+     * @param   string $anchor    ancre dans l'article pour faire pointer le lien "Lire la suite" quand on clic dessus
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL, Stephane F
      **/
@@ -900,7 +900,7 @@ class plxShow
     /**
      * Méthode qui affiche le chapô (selon paramètres) suivi du contenu de l'article
      *
-     * @param 	bool $chapo    affichage oui/non du chapo
+     * @param   bool $chapo    affichage oui/non du chapo
      * @scope    home,categorie,article,tags,archives
      * @author    Anthony GUÉRIN, Florent MONTHEL et Stephane F
      **/
@@ -916,7 +916,7 @@ class plxShow
     /**
      * Méthode qui affiche la date de creation d'un article selon le format choisi
      *
-     * @param	string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
+     * @param   string $format    format du texte de la date (variable: #minute, #hour, #day, #month, #num_day, #num_day(1), #num_day(2), #num_month, #num_year(4), #num_year(2), #time)
      * @scope    home,categorie,article,tags,archives
      * @author    Stephane F.
      **/
@@ -1007,7 +1007,7 @@ class plxShow
             $txt = str_replace('L_COMMENTS', L_COMMENTS, $f3);
             $title = $nb . ' ' . L_COMMENTS;
         }
-        $txt = str_replace('#nb', $nb, $txt);
+        $txt = str_replace('#nb', strval($nb), $txt);
 
         if ($this->plxMotor->mode == 'article')
             echo $txt;
@@ -1457,9 +1457,6 @@ class plxShow
      **/
     public function lastComList($format = '<li><a href="#com_url">#com_author L_SAID :</a><br/>#com_content(50)</li>', $max = 5, $art_id = '', $cat_ids = '')
     {
-
-        $capture = '';
-
         # Hook Plugins
         if (eval($this->plxMotor->plxPlugins->callHook('plxShowLastComList'))) return;
 
@@ -1467,13 +1464,14 @@ class plxShow
         $id = !empty($art_id) ? str_pad($art_id, 4, '0', STR_PAD_LEFT) : '\d{4}';
         $motif = '/^' . $id . '\.\d{9,10}-\d+\.xml$/';
 
-        $count = 1;
-        $datetime = date('YmdHi');
         # Nouvel objet plxGlob et récupération des fichiers
         $plxGlob_coms = clone $this->plxMotor->plxGlob_coms;
+        $isComArtTitle = (strpos($format, '#com_art_title') != FALSE) ? true : false;
         if ($aFiles = $plxGlob_coms->query($motif, 'com', 'rsort', 0, false, 'before')) {
-            $aComArtTitles = array(); # tableau contenant les titres des articles
-            $isComArtTitle = (strpos($format, '#com_art_title') != FALSE) ? true : false;
+            $capture = '';
+            $count = 1;
+            $datetime = date('YmdHi');
+
             # On parcourt les fichiers des commentaires
             foreach ($aFiles as $v) {
                 # On filtre si le commentaire appartient à un article d'une catégorie inactive
@@ -1483,42 +1481,43 @@ class plxShow
                     if ($artInfo['artDate'] <= $datetime) { # on ne prends que les commentaires pour les articles publiés
                         if (empty($cat_ids) or preg_match('/(' . $cat_ids . ')/', $artInfo['catId'])) {
                             $url = '?article' . intval($com['article']) . '/' . $artInfo['artUrl'] . '#c' . $com['article'] . '-' . $com['index'];
-                            $date = $com['date'];
-                            $content = strip_tags($com['content']);
                             # On modifie nos motifs
-                            $row = str_replace('L_SAID', L_SAID, $format);
-                            $row = str_replace('#com_id', $com['index'], $row);
-                            $row = str_replace('#com_url', $this->plxMotor->urlRewrite($url), $row);
-                            $row = str_replace('#com_author', $com['author'], $row);
-                            while (preg_match('/#com_content\((\d+)\)/', $row, $capture)) {
-                                if ($com['author'] == 'admin')
-                                    $row = str_replace('#com_content(' . $capture[1] . ')', plxUtils::strCut($content, $capture[1]), $row);
-                                else
-                                    $row = str_replace('#com_content(' . $capture[1] . ')', plxUtils::strCheck(plxUtils::strCut(plxUtils::strRevCheck($content), $capture[1])), $row);
-                            }
-                            $row = str_replace('#com_content', $content, $row);
-                            $row = str_replace('#com_date', plxDate::formatDate($date, '#num_day/#num_month/#num_year(4)'), $row);
-                            $row = str_replace('#com_hour', plxDate::formatDate($date, '#time'), $row);
-                            $row = plxDate::formatDate($date, $row);
-                            # récupération du titre de l'article
-                            if ($isComArtTitle) {
-                                if (isset($aComArtTitles[$com['article']])) {
-                                    $row = str_replace('#com_art_title', $aComArtTitles[$com['article']], $row);
-                                } else {
-                                    if ($file = $this->plxMotor->plxGlob_arts->query('/^' . $com['article'] . '.(.*).xml$/')) {
-                                        $art = $this->plxMotor->parseArticle(PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $file[0]);
-                                        $aComArtTitles[$com['article']] = $art_title = $art['title'];
-                                        $row = str_replace('#com_art_title', $art_title, $row);
+                            $replaces = array(
+                                'L_SAID'        => L_SAID,
+                                '#com_id'       => $com['index'],
+                                '#com_url'      => $this->plxMotor->urlRewrite($url),
+                                '#com_author'   => $com['author'],
+                                '#com_date'     => plxDate::formatDate($com['date'], '#num_day/#num_month/#num_year(4)'),
+                                '#com_hour'     => plxDate::formatDate($com['date'], '#time'),
+                            );
+                            if(preg_match_all('#com_content(?:\((\d+)\))?#', $format, $matches, PREG_SET_ORDER)) {
+                                $content = strip_tags($com['content']);
+                                $isAdmin = ($com['author'] == 'admin');
+                                foreach($matches as $parts) {
+                                    $value = isset($parts[1]) ? plxUtils::strCut($content, intval($parts[1])) : $content;
+                                    if(!$isAdmin) {
+                                        $value = plxUtils::strCheck($value);
                                     }
+                                    $replaces[$parts[0]] = $value;
                                 }
                             }
-                            # On genère notre ligne
-                            echo $row;
+
+                            # récupération du titre de l'article
+                            if ($isComArtTitle and $file = $this->plxMotor->plxGlob_arts->query('/^' . $com['article'] . '\.(.*)\.xml$/')) {
+                                $art = $this->plxMotor->parseArticle(PLX_ROOT . $this->plxMotor->aConf['racine_articles'] . $file[0]);
+                                $replaces['#com_art_title'] = $art['title'];
+                            }
+
+                            # On affiche notre ligne
+                            echo strtr($format, $replaces);
+
                             $count++;
+                            if ($count > $max) {
+                                break;
+                            }
                         }
                     }
                 }
-                if ($count > $max) break;
             }
         }
     }
@@ -1659,7 +1658,7 @@ class plxShow
 
         # Recupération ID URL
         $staticId = $this->staticId();
-        $staticIdFill = str_pad($staticId, 3, '0', STR_PAD_LEFT);
+        $staticIdFill = str_pad(strval($staticId), 3, '0', STR_PAD_LEFT);
         if (!empty($staticId) and isset($this->plxMotor->aStats[$staticIdFill])) {
             $url = $this->plxMotor->urlRewrite('?static' . $staticId . '/' . $this->plxMotor->aStats[$staticIdFill]['url'] . $extra);
             if (!$echo) {
@@ -1975,15 +1974,15 @@ class plxShow
             $counters = array();
             foreach ($this->plxMotor->aTags as $idart => $tag) {
                 if (isset($this->plxMotor->activeArts[$idart]) and $tag['date'] <= $now and $tag['active']) {
-					foreach (array_map('trim', explode(',', $tag['tags'])) as $tag) {
-						if (!empty($tag)) {
-							if (!array_key_exists($tag, $counters)) {
-								$counters[$tag] = 1;
-							} else {
-								$counters[$tag]++;
-							}
-						}
-					}
+                    foreach (array_map('trim', explode(',', $tag['tags'])) as $tag) {
+                        if (!empty($tag)) {
+                            if (!array_key_exists($tag, $counters)) {
+                                $counters[$tag] = 1;
+                            } else {
+                                $counters[$tag]++;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -2143,12 +2142,12 @@ class plxShow
             $id = 0;
             foreach ($cumuls_mois as $m => $nbarts) {
                 $id++;
-                $mois = str_pad(($m % 12) + 1, 2, '0', STR_PAD_LEFT);
+                $mois = str_pad(strval(($m % 12) + 1), 2, '0', STR_PAD_LEFT);
                 $annee = intval($m / 12);
                 $active = ($page_actuelle == $annee . $mois);
                 $nom_mois = plxDate::getCalendar('month', $mois);
                 echo strtr($format, array(
-                    '#archives_id' => 'arch-month-' . str_pad($id, 2, '0', STR_PAD_LEFT),
+                    '#archives_id' => 'arch-month-' . str_pad(strval($id), 2, '0', STR_PAD_LEFT),
                     '#archives_name' => $nom_mois . ' ' . $annee,
                     '#archives_year' => $annee,
                     '#archives_month' => $nom_mois,
@@ -2168,7 +2167,7 @@ class plxShow
                 $id++;
                 $active = ($page_actuelle == $annee);
                 echo strtr($format, array(
-                    '#archives_id' => 'arch-year-' . str_pad($id, 2, '0', STR_PAD_LEFT),
+                    '#archives_id' => 'arch-year-' . str_pad(strval($id), 2, '0', STR_PAD_LEFT),
                     '#archives_name' => L_YEAR . ' ' . $annee,
                     '#archives_year' => $annee,
                     '#archives_month' => L_YEAR,
