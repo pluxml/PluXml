@@ -713,30 +713,41 @@ class plxUtils {
 	 * Méthode qui écrit dans un fichier
 	 * Mode écriture seule; place le pointeur de fichier au début du fichier et réduit la taille du fichier à 0. Si le fichier n'existe pas, on tente de le créer.
 	 *
-	 * @param	string $xml					contenu du fichier
+	 * @param	string $content					contenu du fichier
 	 * @param	string $filename			emplacement et nom du fichier
 	 * @return	bool				retourne vrai si l'écriture s'est bien déroulée
 	 **/
-	public static function write($xml, $filename) {
+	public static function write($content, $filename) {
 
+		$target = $filename;
 		if(file_exists($filename)) {
-			$f = fopen($filename.'.tmp', 'w'); # On ouvre le fichier temporaire
-			fwrite($f, trim($xml)); # On écrit
-			fclose($f); # On ferme
-			unlink($filename);
-			rename($filename.'.tmp', $filename); # On renomme le fichier temporaire avec le nom de l'ancien
-		} else {
-			$f = fopen($filename, 'w'); # On ouvre le fichier
-			fwrite($f, trim($xml)); # On écrit
-			fclose($f); # On ferme
+			$target .= '.new';
 		}
-		# On place les bons droits
-		chmod($filename,0644);
-		# On vérifie le résultat
-		if(file_exists($filename) AND !file_exists($filename.'.tmp'))
-			return true;
-		else
+
+		$hdle = fopen($target, 'w');
+		if($hdle === false) {
+			# Impossible d'ouvrir le fichier en écriture
 			return false;
+		}
+		# On écrit
+		if(
+			fwrite($hdle, trim($content)) === false or
+			fclose($hdle) === false or
+			(
+				$target != $filename and
+				(
+					# On renomme le fichier temporaire avec le nom de l'ancien
+					!unlink($filename) or
+					!rename($target, $filename)
+				)
+			)
+		) {
+			# Il y a des erreurs
+			return false;
+		}
+
+		# On ajuste les bones permissions
+		return chmod($filename, 0644);
 	}
 
 	/**

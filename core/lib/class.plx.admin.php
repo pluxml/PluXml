@@ -361,6 +361,8 @@ class plxAdmin extends plxMotor {
 ?>
 </document>
 <?php
+		$xml = XML_HEADER . ob_get_clean();
+
 		# On réinitialise la pagination au cas où modif de bypage_admin
 		unset($_SESSION['page']);
 
@@ -370,12 +372,11 @@ class plxAdmin extends plxMotor {
 		# Actions sur le fichier htaccess
 		if(array_key_exists('urlrewriting', $content))
 			if(!$this->htaccess($content['urlrewriting'], $global['racine'])) {
-				ob_clean();
 				return plxMsg::Error(sprintf(L_WRITE_NOT_ACCESS, '.htaccess'));
 			}
 
 		# Mise à jour du fichier parametres.xml
-		if(!plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PARAMETERS'))) {
+		if(!plxUtils::write($xml, path('XMLFILE_PARAMETERS'))) {
 			return plxMsg::Error(L_SAVE_ERR . ' ' . path('XMLFILE_PARAMETERS'));
 		}
 
