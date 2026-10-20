@@ -95,11 +95,10 @@ class plxThemes {
 # On inclut le header
 require 'top.php';
 
-$plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin->aConf['style']);
+$plxThemes = new plxThemes(PLX_ROOT . $plxAdmin->aConf['racine_themes'] , $plxAdmin->aConf['style']);
 
 ?>
-<form action="parametres_themes.php" method="post" id="form_settings">
-
+<form method="post" id="form_settings">
 	<div class="inline-form action-bar">
 		<h2><?= L_CONFIG_VIEW_SKIN_SELECT ?> </h2>
 		<p><?= L_CONFIG_VIEW_PLUXML_RESSOURCES ?></p>
@@ -107,60 +106,80 @@ $plxThemes = new plxThemes(PLX_ROOT.$plxAdmin->aConf['racine_themes'], $plxAdmin
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input onclick="window.location.assign('parametres_edittpl.php');return false" type="submit" value="<?= L_CONFIG_VIEW_FILES_EDIT_TITLE ?>" />
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
-
+<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayTop')) # Hook Plugins ?>
 	<div class="scrollable-table">
 		<table id="themes-table" class="full-width">
 			<thead>
 				<tr>
-					<th colspan="2"><?= L_THEMES ?></th>
-					<th style="width: 100%">&nbsp;</th>
+					<th colspan="3"><?= L_THEMES ?></th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php
+<?php
 				if($plxThemes->aThemes) {
-					$num=0;
-					foreach($plxThemes->aThemes as $theme) {
-						echo '<tr>';
-						# radio
-						$checked = $theme==$plxAdmin->aConf['style'] ? ' checked="checked"' : '';
-						echo '<td><input'.$checked.' type="radio" name="style" value="'.$theme.'" /></td>';
-						# img preview
-						echo '<td>'.$plxThemes->getImgPreview($theme).'</td>';
-						# theme infos
-						echo '<td class="wrap" style="vertical-align:top">';
-							if($aInfos = $plxThemes->getInfos($theme)) {
-								echo '<strong>'.$aInfos['title'].'</strong><br />';
-								echo 'Version : <strong>'.$aInfos['version'].'</strong> - ('.$aInfos['date'].')<br />';
-								echo L_PLUGINS_AUTHOR.' : '.$aInfos['author'].' - <a href="'.$aInfos['site'].'" title="">'.$aInfos['site'].'</a>';
-								echo '<br />'.$aInfos['description'].'<br />';
-							} else {
-								echo '<strong>'.$theme.'</strong>';
-							}
-							# lien aide
-							if(is_file(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$theme.'/lang/'.$plxAdmin->aConf['default_lang'].'-help.php'))
-								echo '<a title="'.L_HELP_TITLE.'" href="parametres_help.php?help=theme&amp;page='.urlencode($theme).'">'.L_HELP.'</a>';
-
-						echo '</td>';
-						echo '</tr>';
+					foreach($plxThemes->aThemes as $id=>$theme) {
+						$isHelpEnabled = is_file(PLX_ROOT . $plxAdmin->aConf['racine_themes'] . $theme . '/lang/' . $plxAdmin->aConf['default_lang'] . '-help.php');
+?>
+				<tr>
+					<td><input type="radio" id="<?= $id ?>" name="style" value="<?= $theme ?>" <?php if($theme == $plxAdmin->aConf['style']) { echo 'checked'; } ?>/></td>
+					<td><label for="<?= $id ?>"><?= $plxThemes->getImgPreview($theme) ?></label></td>
+					<td class="wrap" style="vertical-align:top">
+<?php
+						if($aInfos = $plxThemes->getInfos($theme)) {
+?>
+						<strong><?= $aInfos['title'] ?></strong><br />
+						Version : <strong><?= $aInfos['version'] ?></strong> - (<?= $aInfos['date'] ?>)<br />
+						<?= L_PLUGINS_AUTHOR ?> : <?= $aInfos['author'] ?> - <a href="<?= $aInfos['site'] ?>"><?= $aInfos['site'] ?></a><br />
+						<?= $aInfos['description'] ?><br />
+<?php
+						} else {
+?>
+						<strong><?= $theme ?></strong><br />
+<?php
+						}
+						# lien aide
+						if($isHelpEnabled) {
+?>
+						<a title="<?= L_HELP_TITLE ?>" href="parametres_help.php?help=theme&page=<?= urlencode($theme) ?>"><?= L_HELP ?></a>
+<?php
+						}
+?>
+					</td>
+				</tr>
+<?php
 					}
 				} else {
-					echo '<tr><td colspan="2" class="center">'.L_NONE1.'</td></tr>';
+?>
+				<tr>
+					<td colspan="3" class="center"><?= L_NONE1 ?></td>
+				</tr>
+<?php
 				}
-				?>
+?>
 			</tbody>
 		</table>
 	</div>
-
-	<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
+<?php eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplay')) # Hook Plugins ?>
 	<?= plxToken::getTokenPostMethod() ?>
-
 </form>
+<script>
+	(function() {
+		'use strcit';
+		const myForm = document.getElementById('form_settings');
+		if(myForm) {
+			myForm.addEventListener('change', (ev) => {
+				if(ev.target.name == 'style') {
+					ev.preventDefault();
+					ev.currentTarget.submit();
+				}
+			});
+		}
+	})();
+</script>
 
 <?php
 # Hook Plugins
 eval($plxAdmin->plxPlugins->callHook('AdminThemesDisplayFoot'));
+
 # On inclut le footer
 require 'foot.php';
