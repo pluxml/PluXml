@@ -43,7 +43,7 @@ if(version_compare(PHP_VERSION, '5.0.0', '<')){
 }
 
 # On vérifie que PluXml n'est pas déjà installé
-if(file_exists(path('XMLFILE_PARAMETERS'))) {
+if(is_file(path('XMLFILE_PARAMETERS'))) {
 	header('Content-Type: text/plain; charset=' . PLX_CHARSET);
 	echo L_ERR_PLUXML_ALREADY_INSTALLED;
 	exit;
@@ -63,6 +63,8 @@ if(isset($_POST['timezone'])) $timezone=$_POST['timezone'];
 if(!array_key_exists($timezone, plxTimezones::timezones())) {
 	$timezone = date_default_timezone_get();
 }
+
+const ROOT_DOCS = array('medias', 'racine_articles', 'racine_commentaires', 'racine_statiques');
 
 # Configuration de base
 $data_folder = dirname(PLX_CONFIG_PATH) . '/';
@@ -136,17 +138,17 @@ foreach($aFolders as $folder) {
 }
 
 $filename = PLX_ROOT . PLX_CONFIG_PATH . 'index.html';
-if(!file_exists($filename)) {
+if(!is_file($filename)) {
 	touch($filename);
 }
 
-# On vérifie que le dossier ""core/admin" existe. sinon on recherche un dossier contenant le fichier auth.php
+# On vérifie que le dossier "core/admin" existe. sinon on recherche un dossier contenant le fichier auth.php
 $admin_path = 'core/admin/';
-if(!file_exists(PLX_ROOT . $admin_path)) {
-	$auths = glob(PLX_ROOT . '*/*/auth.php');
+if(!is_file(PLX_ROOT . $admin_path . PAGE_LOGIN)) {
+	$auths = glob(PLX_ROOT . '*/*/' . PAGE_LOGIN);
 
 	if(!empty($auths)) {
-		$admin_path = preg_replace('#.*/([^\/]+/\w[\w-]+/)auth\.php$#', '$1', $auths[0]) . '/';
+		$admin_path = preg_replace('#.*/([^\/]+/\w[\w-]+/)'. PAGE_LOGIN . '$#', '$1', $auths[0]);
 	}
 }
 
@@ -165,7 +167,7 @@ $move_lib_enabled = (
 	is_writable(PLX_ROOT . '../')
 );
 
-function install_datas($content, $config) {
+function install_datas($content, $config, $initConfig) {
 
 	# gestion du timezone
 	date_default_timezone_set($config['timezone']);
@@ -207,6 +209,14 @@ function install_datas($content, $config) {
 <?php
 	plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_USERS'));
 
+	# Création du fichier des plugins
+	ob_start();
+?>
+<document>
+</document>
+<?php
+	plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PLUGINS'));
+
 	# Création du fichier des categories
 	ob_start();
 ?>
@@ -237,7 +247,7 @@ function install_datas($content, $config) {
 <document>
 <?php
 	if($install_datas) {
-		plxUtils::write(file_get_contents(PLX_CORE.'/templates/install-page.txt'),PLX_ROOT.$config['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
+		plxUtils::write(file_get_contents(PLX_CORE.'/templates/install-page.txt'),PLX_ROOT.$initConfig['racine_statiques'].'001.'.L_DEFAULT_STATIC_URL.'.php');
 ?>
 	<statique number="001" active="1" menu="oui" url="<?= L_DEFAULT_STATIC_URL ?>" template="static.php">
 		<group></group>
@@ -255,18 +265,38 @@ function install_datas($content, $config) {
 <?php
 	plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_STATICS'));
 
-	if($install_datas){
-		# Création du premier article
-
-		$thumbnail = '';
-		$srcs = glob(PLX_ROOT . '*/*/theme/images/pluxml.png');
-		if(!empty($srcs)) {
-			$thumbnail = $config['medias'] . 'pluxml.png';
-			copy($srcs[0], PLX_ROOT . $thumbnail);
-		}
-
-		$html = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
+	# Création du fichier des tags servant de cache
 		ob_start();
+?>
+<document>
+<?php
+	if($install_datas) {
+?>
+	<article number="0001" date="<?= $now ?>" active="1">PluXml</article>
+<?php
+	}
+?>
+</document>
+<?php
+	plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_TAGS'));
+
+	if(!$install_datas){
+		return;
+	}
+
+	# Création du premier article
+
+	$logo = 'pluxml.png';
+	$thumbnail = '';
+	$srcs = glob(PLX_ROOT . '*/*/theme/images/' . $logo);
+	if(!empty($srcs)) {
+		$thumbnail = $config['medias'] . $logo;
+		$target = $initConfig['medias'] . $logo;
+		copy($srcs[0], PLX_ROOT . $target);
+	}
+
+	$html = explode('-----', file_get_contents(PLX_CORE.'/templates/install-article.txt'));
+	ob_start();
 ?>
 <document>
 	<title><?= plxUtils::strRevCheck(L_DEFAULT_ARTICLE_TITLE) ?></title>
@@ -285,35 +315,10 @@ function install_datas($content, $config) {
 	<thumbnail_title>PluXml</thumbnail_title>
 </document>
 <?php
-		plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $config['racine_articles'] . '0001.001.001.' . $now . '.' . L_DEFAULT_ARTICLE_URL . '.xml');
-	}
+	plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $initConfig['racine_articles'] . '0001.001.001.' . $now . '.' . L_DEFAULT_ARTICLE_URL . '.xml');
 
-	# Création du fichier des tags servant de cache
-		ob_start();
-?>
-<document>
-<?php
-	if($install_datas) {
-?>
-	<article number="0001" date="<?= $now ?>" active="1">PluXml</article>
-<?php
-	}
-?>
-</document>
-<?php
-	plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_TAGS'));
-
-	# Création du fichier des plugins
+	# Création du premier commentaire
 	ob_start();
-?>
-<document>
-</document>
-<?php
-	plxUtils::write(XML_HEADER . ob_get_clean(), path('XMLFILE_PLUGINS'));
-
-	if($install_datas) {
-		# Création du premier commentaire
-		ob_start();
 ?>
 <comment>
 	<author><![CDATA[pluxml]]></author>
@@ -324,8 +329,7 @@ function install_datas($content, $config) {
 	<content><?= plxUtils::strRevCheck(L_DEFAULT_COMMENT_CONTENT) ?></content>
 </comment>
 <?php
-		plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $config['racine_commentaires'] . '0001.' . date('U') . '-1.xml');
-	}
+	plxUtils::write(XML_HEADER . ob_get_clean(), PLX_ROOT . $initConfig['racine_commentaires'] . '0001.' . date('U') . '-1.xml');
 }
 
 function moveLibFolder($enabled, $files_update) {
@@ -347,7 +351,7 @@ function moveLibFolder($enabled, $files_update) {
 
 	# On vérifie qu'on ne va écraser aucun fichier ou dossier
 	foreach($aFilenames as $f) {
-		if(file_exists(TARGET . $f)) {
+		if(is_file(TARGET . $f)) {
 			return false;
 		}
 	}
@@ -370,39 +374,35 @@ if(!empty($_POST['install'])) {
 	$msg = plxUtils::checkProfil($_POST);
 	if($msg === true) {
 		$filename = PLX_CORE.'lib/plx_config.php';
+		$initConfig = array();
+		foreach(ROOT_DOCS as $f) {
+			$initConfig[$f] = $config[$f];
+		}
+
 		if(
 			preg_match('#^\w[\w-]+/?$#', $_POST['data_folder']) and
 			rtrim($_POST['data_folder'], '/') . '/' != $data_folder and
 			is_writable($filename)
 		) {
 			# Renommage du dossier des données (data)
-			$target = rtrim($_POST['data_folder'], '/');
-			if(rename(PLX_ROOT. rtrim($data_folder, '/'), PLX_ROOT . $target)) {
-				# Mise à jour de plx_config.php
-				$target .= '/';
-				$plx_config_path = $target . 'configuration/';
-				$content =
-					'<?php' . PHP_EOL .
-					'const PLX_CONFIG_PATH = \'' . $plx_config_path . '\';' . PHP_EOL;
-				file_put_contents($filename, $content);
-				opcache_invalidate($filename);
-
-				$CONSTS = array(
-					'XMLFILE_PARAMETERS'	=> PLX_ROOT . $plx_config_path . 'parametres.xml',
-					'XMLFILE_CATEGORIES'	=> PLX_ROOT . $plx_config_path . 'categories.xml',
-					'XMLFILE_STATICS'		=> PLX_ROOT . $plx_config_path . 'statiques.xml',
-					'XMLFILE_USERS'			=> PLX_ROOT . $plx_config_path . 'users.xml',
-					'XMLFILE_PLUGINS'		=> PLX_ROOT . $plx_config_path . 'plugins.xml',
-					'XMLFILE_TAGS'			=> PLX_ROOT . $plx_config_path . 'tags.xml',
-				);
-
-				foreach(array('medias', 'racine_articles', 'racine_commentaires', 'racine_statiques') as $f) {
-					$config[$f] = preg_replace('#^' . $data_folder . '\b#', $target, $config[$f]);
-				}
+			$target = rtrim($_POST['data_folder'], '/') . '/';
+			$initConfig = array();
+			foreach(ROOT_DOCS as $f) {
+				$initConfig[$f] = $config[$f];
+				$config[$f] = preg_replace('#^' . $data_folder . '\b#', $target, $config[$f]);
 			}
 		}
 
-		install_datas($_POST, $config);
+		install_datas($_POST, $config, $initConfig);
+
+		if(!empty($target) and rename(PLX_ROOT. rtrim($data_folder, '/'), PLX_ROOT . rtrim($target, '/'))) {
+			# Après installation des données, mise à jour de plx_config.php si dossier data renommé
+			$content =
+				'<?php' . PHP_EOL .
+				'const PLX_CONFIG_PATH = \'' . $target . 'configuration/\';' . PHP_EOL;
+			file_put_contents($filename, $content);
+			opcache_invalidate(realpath($filename));
+		}
 
 		# Chemin d'accès côté admin
 		if(
