@@ -164,10 +164,11 @@ class plxMotor {
 			$this->template = $this->aConf['hometemplate'];
 			$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
 			# On regarde si on a des articles en mode "home"
-			if($this->plxGlob_arts->query('#^\d{4}\.(home[0-9,]*)\.\d{3}\.\d{12}\.[\w-]+\.xml$#')) {
-				$this->motif = '#^\d{4}.(home[0-9,]*).\d{3}.\d{12}.[\w-]+.xml$#';
+			$motif = '#^\d{4}\.(?:\d{3},)*home(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
+			if($this->plxGlob_arts->query($motif)) {
+				$this->motif = $motif;
 			} else { # Sinon on recupere tous les articles
-				$this->motif = '#^\d{4}.(?:\d|,)*(?:'.$this->homepageCats.')(?:\d|,)*.\d{3}.\d{12}.[\w-]+.xml$#';
+				$this->motif = '#^\d{4}\.(?:\d|,)*(?:'.$this->homepageCats.')(?:\d|,)*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
 			}
 		}
 		else {

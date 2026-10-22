@@ -97,7 +97,7 @@ switch ($_SESSION['sel_art']) {
 	default: // 'all'
 		$catIdSel = '(?:home,|draft,|\d{3},)*FILTER(?:,home|,draft|,\d{3})*';
 }
-$catIdSel = str_replace('FILTER', ($_SESSION['sel_cat'] == 'all') ? '\d{3}': $_SESSION['sel_cat'], $catIdSel);
+$catIdSel = str_replace('FILTER', ($_SESSION['sel_cat'] == 'all') ? '(?:\d{3}|home)': $_SESSION['sel_cat'], $catIdSel);
 
 # Récupération du texte à rechercher
 if(!empty($_GET['artTitle'])) {
