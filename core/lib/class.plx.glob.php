@@ -156,7 +156,7 @@ class plxGlob {
 						break;
 					case 'com' : # Tri selon les dates de publications (commentaire)
 						# On extrait les indexes du nom du fichier
-						preg_match('/^(\d{4})\.(\d+)-(\d+)\.xml$/', $file, $index); #  (idArt).(time)-(idCom).xml
+						preg_match('/^_?(\d{4})\.(\d+)-(\d+)\.xml$/', $file, $index); #  (idArt).(time)-(idCom).xml
 						# On cree un tableau associatif en choisissant bien nos cles et en verifiant la date de publication
 						$key = $index[2] . '-' . $index[3] . $index[1];
 						switch($publi) {
