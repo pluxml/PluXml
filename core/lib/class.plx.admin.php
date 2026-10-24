@@ -815,19 +815,19 @@ EOT;
 					$this->aUsers[$user_id]['password'] = sha1($salt . md5($user_infos['password']));
 				}
 
-				if($_SESSION['user'] == $user_id) {
-					$active = $this->aUsers[$user_id]['active'];
-					$profil = $this->aUsers[$user_id]['profil'];
+				if($user_id == '001' or $_SESSION['user'] == $user_id) {
+					$active = '1';
+					$profil = ($user_id == '001') ? PROFIL_ADMIN : $this->aUsers[$user_id]['profil'];
 				} else {
-					$active = ($content[$user_id.'_active'] == '1' ? 1 : 0);
+					$active = ($content[$user_id]['active'] == '1') ? 1 : 0;
 					$profil = filter_var(
-						$content[$user_id.'_profil'],
+						$content[$user_id]['profil'],
 						FILTER_VALIDATE_INT,
 						array(
 							'options'	=> array(
 								'default'	=> PROFIL_WRITER,
-								'min'		=> 0,
-								'max'		=> PROFIL_WRITER,
+								'min'		=> PROFIL_ADMIN, # valeur: 0
+								'max'		=> PROFIL_WRITER, # valeur: 5
 							),
 						)
 					);
