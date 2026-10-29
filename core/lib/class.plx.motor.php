@@ -159,7 +159,7 @@ class plxMotor {
 		}
 		elseif(empty($this->get)
 				OR preg_match('#^(blog|blog\/page\d*|\/?page\d*)$#', $this->get)
-				OR !preg_match('#^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/]+#', $this->get)) {
+				OR !preg_match('#^(?:article|static|categorie|archives|tag|preview|telechargement|download)[\b\d/\.]+#', $this->get)) {
 			$this->mode = 'home';
 			$this->template = $this->aConf['hometemplate'];
 			$this->bypage = $this->aConf['bypage']; # Nombre d'article par page
@@ -174,7 +174,7 @@ class plxMotor {
 		else {
 			if(preg_match('#^(article|categorie|static)(\d+)\/?([\w-]+)?#', $this->get, $capture)) {
 				$this->mode = $capture[1];
-				$this->cible = str_pad($capture[2], ($this->mode == 'article') ? 4 : 3,'0',STR_PAD_LEFT); # On complete sur 4 ou 3 caracteres
+				$this->cible = str_pad($capture[2], ($this->mode == 'article') ? 4 : 3, '0', STR_PAD_LEFT); # On complete sur 4 ou 3 caracteres
 				switch($this->mode) {
 					case 'article':
 						$this->motif = '#^'.$this->cible.'.(?:\d|home|,)*(?:'.$this->activeCats.'|home)(?:\d|home|,)*.\d{3}.\d{12}.[\w-]+.xml$#'; # Motif de recherche
@@ -191,7 +191,7 @@ class plxMotor {
 						break;
 					case 'categorie':
 						if(!empty($this->aCats[$this->cible]) AND $this->aCats[$this->cible]['active'] AND $this->aCats[$this->cible]['url']==$capture[3]) {
-							$this->motif = '#^\d{4}.((?:\d|home|,)*(?:'.$this->cible.')(?:\d|home|,)*).\d{3}.\d{12}.[\w-]+.xml$#'; # Motif de recherche
+							$this->motif = '#^\d{4}\.(?:home,|\d{3},)*' . $this->cible . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#'; # Motif de recherche
 							$this->template = $this->aCats[$this->cible]['template'];
 							$this->tri = $this->aCats[$this->cible]['tri']; # Recuperation du tri des articles
 							$this->bypage = $this->aCats[$this->cible]['bypage'] > 0 ? $this->aCats[$this->cible]['bypage'] : $this->bypage;
@@ -806,7 +806,7 @@ class plxMotor {
 		$tmp = $this->artInfoFromFilename($filename);
 		if(!empty($tmp)) {
 			# Mise en place du parseur XML
-		$data = file_get_contents($filename);
+			$data = file_get_contents($filename);
 			$parser = xml_parser_create(PLX_CHARSET);
 			xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 			xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,0);
@@ -1317,14 +1317,15 @@ class plxMotor {
 	 * @author	Stephane F
 	 **/
 	public function nbArticles($select='all', $userId='\d{3}', $mod='_?', $publi='all') {
-		if($select == 'all')
-			$motif = '([home|draft|0-9,]*)';
-		elseif($select=='published')
-			$motif = '([home|0-9,]*)';
-		elseif($select=='draft')
-			$motif = '([\w,]*[draft][\w,]*)';
-		elseif($select == 'home' or preg_match('#^\d{3}$#', $select)) {
-			$motif = '(?:home,|draft,|\d{3},)*' . $select . '(?:,home|,draft|,\d{3})*';
+		if($select == 'all' or $mod == '_') {
+			$motif = '(?:draft,|\d{3},)*(?:\d{3}|home)(?:,\d{3})*';
+		} elseif($select=='published') {
+			$motif = '(?:\d{3},)*(?:\d{3}|home)(?:,\d{3})*'; # no draft as category
+			$mod = '';
+		} elseif($select=='draft') {
+			$motif = 'draft,(?:\d{3}|home)(,\d{3})*';
+		} elseif($select == 'home' or preg_match('#^\d{3}$#', $select)) {
+			$motif = '(?:draft,|home,|\d{3},)*' . $select . '(?:,\d{3})*';
 		} else {
 			$motif = '(' . $select . ')';
 		}
