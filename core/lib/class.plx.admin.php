@@ -14,6 +14,7 @@ class plxAdmin extends plxMotor {
 	const CRITICAL_FUNCTIONS_PHP_PATTERN = '#\b(exec|shell_exec|system|parse_ini_file|passthru|proc_open|popen|show_source|phpinfo)\b#';
 	const TOKEN_LENGHT = 32;
 	const TOKEN_PASSWORD_EXPIRY = 6; // in hours
+	const NEW_ART_ID = '0000';
 	public string $update_link = PLX_URL_REPO; // overwritten by self::checkMaj()
 
 	/**
@@ -634,7 +635,7 @@ EOT;
 						$lostPasswordTokenExpiry = plxToken::generateTokenExperyDate(self::TOKEN_PASSWORD_EXPIRY);
 						$templateName = 'email-lostpassword-'.PLX_SITE_LANG.'.xml';
 						if(!array_key_exists($templateName, $this->aTemplates)) {
-						    $templateName = 'email-lostpassword-' . DEFAULT_LANG .'.xml';
+							$templateName = 'email-lostpassword-' . DEFAULT_LANG .'.xml';
 						}
 
 						$path1 = $matches[1];
@@ -867,7 +868,7 @@ EOT;
 <?php
 		foreach($this->aUsers as $user_id => $user) {
 			# controle de l'unicité du nom de l'utilisateur
-		    if(in_array($user['name'], $users_name)) {
+			if(in_array($user['name'], $users_name)) {
 				$this->aUsers = $save;
 				return plxMsg::Error(L_ERR_USERNAME_ALREADY_EXISTS.' : '.plxUtils::strCheck($user['name']));
 			}
@@ -1493,7 +1494,7 @@ EOT;
 		# Détermine le numero de fichier si besoin est
 		$isPreview = ($id == 'preview');
 		if(!$isPreview) {
-			if ($id == '0000' OR $id == '') {
+			if ($id == self::NEW_ART_ID OR $id == '') {
 				$id = $this->nextIdArticle();
 			} else {
 				# Vérifie l'intégrité de l'identifiant
@@ -1549,7 +1550,7 @@ EOT;
 		$title_htmltag = plxUtils::getValue($content['title_htmltag']);
 		# Vérifier si le fichier existe
 		$filename = PLX_ROOT . $content['thumbnail'];
-		if(!file_exists($filename) or exif_imagetype($filename) === false ) {
+		if(!is_file($filename) or exif_imagetype($filename) === false ) {
 			$content['thumbnail'] = '';
 			$content['thumbnail_alt'] = '';
 		} else {
@@ -1595,27 +1596,48 @@ EOT;
 ?>
 </document>
 <?php
+		$content['catId'] = array_filter($content['catId'], function($value) {
+			return preg_match('#^(?:\d{3}|draft|home)$#', $value);
+		});
+		if(empty($content['catId'])) {
+			$content['catId'] = array('000'); # article non classé
+		} elseif(
+			array_find(
+				$content['catId'],
+				function($value, $key) {
+					return preg_match('#^(?:home|\d{3})$#', $value);
+				}
+			) === null
+		) {
+			$content['catId'][] = '000';
+		}
+
 		if(!$isPreview) {
 			# Recherche du nom du fichier correspondant à l'id
-			$oldArt = $this->plxGlob_arts->query('/^'.$id.'\.(.*)\.xml$/','','sort',0,1,'all');
+			if(defined('GLOB_BRACE')) {
+				$oldArt = glob(PLX_ROOT . $this->aConf['racine_articles'] . '{,_}' . ltrim($id, '_') . '.*.xml', GLOB_BRACE);
+			} else {
+				$rep = PLX_ROOT . $this->aConf['racine_articles'];
+				$end = ltrim($id, '_') . '.*.xml';
+				$oldArt = array_merge(glob($rep . $end), glob($rep . '_' . $end));
+			}
 
-			# Si demande de modération de l'article
-			if(isset($content['moderate']))
-				$id = '_'.str_replace('_','',$id);
-			# Si demande de publication
-			if(isset($content['publish']) OR isset($content['draft']))
-				$id = str_replace('_','',$id);
+			$isModeration = ($this->aConf['mod_art'] and $_SESSION['profil'] > PROFIL_MODERATOR);
+			if(
+				(isset($content['publish']) and !$isModeration) OR
+				isset($content['draft'])
+			) {
+				# Si demande de publication ou de brouillon
+				$id = ltrim($id, '_');
+			} elseif($isModeration and $id[0] != '_') {
+				# Si modération de l'article
+				$id = '_' . $id;
+			}
 
 			# On genère le nom de notre fichier
 			$time = $content['date_publication_year'].$content['date_publication_month'].$content['date_publication_day'].substr(str_replace(':','',$content['date_publication_time']),0,4);
-			if(!preg_match('/^\d{12}$/',$time)) {
+			if(!preg_match('/^\d{12}$/', $time)) {
 				$time = $now; # Check de la date au cas ou...
-			}
-			$content['catId'] = array_filter($content['catId'], function($value) {
-				return preg_match('#^(?:\d{3}|home)$#', $value);
-			});
-			if(empty($content['catId'])) {
-				$content['catId'] = array('000'); # article non classé
 			}
 
 			# On va mettre à jour notre fichier
@@ -1636,13 +1658,16 @@ EOT;
 			));
 			$filename = PLX_ROOT . $this->aConf['racine_articles'] . $token . '.xml';
 		}
+
 		if(plxUtils::write(XML_HEADER . ob_get_clean(), $filename)) {
 			if(!$isPreview) {
 				# suppression ancien fichier si nécessaire
 				if($oldArt) {
-					$oldfilename = PLX_ROOT.$this->aConf['racine_articles'].$oldArt['0'];
-					if($oldfilename!=$filename AND file_exists($oldfilename))
-						unlink($oldfilename);
+					foreach($oldArt as $oldfilename) {
+						if($oldfilename != $filename AND is_file($oldfilename)) {
+							unlink($oldfilename);
+						}
+					}
 				}
 
 				# mise à jour de la liste des tags
@@ -1659,7 +1684,7 @@ EOT;
 					$this->editTags();
 				}
 
-				$msg = ($content['artId'] == '0000' OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
+				$msg = ($content['artId'] == self::NEW_ART_ID OR $content['artId'] == '') ? L_ARTICLE_SAVE_SUCCESSFUL : L_ARTICLE_MODIFY_SUCCESSFUL;
 
 				# Hook plugins
 				eval($this->plxPlugins->callHook('plxAdminEditArticleEnd'));
