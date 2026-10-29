@@ -62,25 +62,26 @@ if(!isset($plxAdmin)) {
 			<input type="checkbox" id="nav" />
 			<ul id="responsive-menu" class="menu vertical expanded">
 <?php
-					$menus = array();
-					$userId = ($_SESSION['profil'] < PROFIL_WRITER ? '\d{3}' : $_SESSION['user']);
-					$nbartsmod = $plxAdmin->nbArticles('all', $userId, '_');
-					$arts_mod = ($nbartsmod > 0) ? '<span class="badge" onclick="window.location=\''.'index.php?sel=mod\';return false;">'.$nbartsmod.'</span>' : '';
-					$menus[] = plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php', L_MENU_ARTICLES_TITLE, null, null, $arts_mod);
+					$arts_mod = '';
+					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
+						$nbartsmod = $plxAdmin->nbArticles('all', ($_SESSION['profil'] < PROFIL_WRITER) ? '\d{3}' : $_SESSION['user'], '_');
+						if($nbartsmod > 0) {
+							$arts_mod =  '<span class="badge" onclick="window.location=\''.'index.php?sel=mod\';return false;">'.$nbartsmod.'</span>';
+						}
+					}
 
-					if(isset($_GET['a'])) # edition article
-						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, 'article.php', L_MENU_NEW_ARTICLES, null, null, '', false);
-					else # nouvel article
-						$menus[] = plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, 'article.php', L_MENU_NEW_ARTICLES);
-
-					$menus[] = plxUtils::formatMenu(L_MENU_MEDIAS, 'medias.php', L_MENU_MEDIAS_TITLE);
+					$menus = array(
+						plxUtils::formatMenu(L_MENU_ARTICLES, 'index.php', L_MENU_ARTICLES_TITLE, null, null, $arts_mod),
+						plxUtils::formatMenu(L_MENU_NEW_ARTICLES_TITLE, 'article.php', L_MENU_NEW_ARTICLES, null, null, '', empty($_GET['a'])),
+						plxUtils::formatMenu(L_MENU_MEDIAS, 'medias.php', L_MENU_MEDIAS_TITLE),
+					);
 
 					if($_SESSION['profil'] <= PROFIL_MANAGER)
 						$menus[] = plxUtils::formatMenu(L_MENU_STATICS, 'statiques.php', L_MENU_STATICS_TITLE);
 
 					if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 						$nbcoms = $plxAdmin->nbComments('offline');
-						$coms_offline = $nbcoms>0 ? '<span class="badge" onclick="window.location=\''.'comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
+						$coms_offline = ($nbcoms > 0) ? '<span class="badge" onclick="window.location=\''.'comments.php?sel=offline&amp;page=1\';return false;">'.$plxAdmin->nbComments('offline').'</span>':'';
 						$menus[] = plxUtils::formatMenu(L_MENU_COMMENTS, 'comments.php?page=1', L_MENU_COMMENTS_TITLE, null, null, $coms_offline);
 					}
 
@@ -91,7 +92,7 @@ if(!isset($plxAdmin)) {
 
 					if($_SESSION['profil'] == PROFIL_ADMIN) {
 						$menus[] = plxUtils::formatMenu(L_MENU_CONFIG, 'parametres_base.php', L_MENU_CONFIG_TITLE, null, null, '', false);
-						if (preg_match('/parametres/',basename($_SERVER['SCRIPT_NAME']))) {
+						if (preg_match('/parametres/', basename($_SERVER['SCRIPT_NAME']))) {
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_BASE, 'parametres_base.php', L_MENU_CONFIG_BASE_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_VIEW, 'parametres_affichage.php', L_MENU_CONFIG_VIEW_TITLE, 'menu-config');
 							$menus[] = plxUtils::formatMenu(L_MENU_CONFIG_USERS, 'parametres_users.php', L_MENU_CONFIG_USERS_TITLE, 'menu-config');
