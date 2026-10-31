@@ -1098,10 +1098,10 @@ class plxShow
 
             if(!empty($cats)) {
                 $motif = '#^\d{4}\.(?:home,|\d{3},)*' . $cats . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
-            } elseif($generic_mode) { # home, categorie, tags
+            } elseif(in_array($this->plxMotor->mode, array('categorie', 'tags'))) {
                 $motif = $this->plxMotor->motif;
             } else {
-                $cats = '(home|000|' . $this->plxMotor->activeCats . ')'; # toutes les categories actives
+                $cats = '(?:home|000|' . $this->plxMotor->activeCats . ')'; # toutes les categories actives
                 $motif = '#^\d{4}\.(?:home,|\d{3},)*' . $cats . '(?:,\d{3})*\.\d{3}\.\d{12}\.[\w-]+\.xml$#';
             }
         }

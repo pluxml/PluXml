@@ -234,6 +234,12 @@ class plxGlob {
 			}
 			# On a une limite, on coupe le tableau
 			if (is_int($limite)) {
+				# On évite de retourner une liste vide
+				if(count($rs) < $limite) {
+					$depart = 0;
+				} elseif($depart > $limite and ($depart + $limite) > count($rs)) {
+					$depart = count($rs) - $limite;
+				}
 				return array_slice($rs, $depart, $limite);
 			} else {
 				return $rs;
