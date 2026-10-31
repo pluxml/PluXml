@@ -1760,32 +1760,58 @@ EOT;
 	 * Méthode qui modifie l'état de brouillon d'un article
 	 *
 	 * @param	string $id	numero de l'article
-	 * @param	bool $draft true or  false pour basculer en brouillon ou pas
-	 * @return	string
+	 * @param	bool $draft true or false pour basculer en brouillon ou pas
+	 * @return	bool
 	 * @author	J.P. Pourrez "bazooka07"
 	 **/
 	public function draftToggle($id, $draft=true) {
 		# Vérification de l'intégrité de l'identifiant
 		if(!preg_match('/^_?\d{4}$/', $id)) {
-			return L_ERR_INVALID_ARTICLE_IDENT;
+			return plxMsg::Error(L_ERR_INVALID_ARTICLE_IDENT);
 		}
 
-		if($globArt = $this->plxGlob_arts->query('/^'.$id.'\..*\.xml$/')) {
+		# Récuperation de l'id de l'utilisateur ( voir index.php )
+		$userId = ($_SESSION['profil'] <= PROFIL_MODERATOR) ? '\d{3}' : $_SESSION['user'];
+
+		if($globArt = $this->plxGlob_arts->query('/^_?' . ltrim($id, '_') . '\.[^\.]+\.' . $userId . '\.\d{12}\.[^\.]+\.xml$/')) {
 			$tmp = $this->artInfoFromFilename($globArt[0]);
 
-			if($draft xor (preg_match('#\bdraft\b#', $tmp['catId']) or $tmp['artId'][0] == '_')) {
-				$tmp['catId'] = ($draft ? 'draft,' . $tmp['catId'] : preg_replace('#^draft,?#', '', $tmp['catId']));
-				$tmp['artId'] = ltrim($tmp['artId'], '_');
-				$newName = implode('.', $tmp) . '.xml';
-				$artsFolder = PLX_ROOT . $this->aConf['racine_articles'];
-				rename($artsFolder . $globArt['0'], $artsFolder . $newName);
-				return L_ARTICLE_MODIFY_SUCCESSFUL;
+			if($draft) {
+				# mode brouillon
+				if(!preg_match('#^draft,#', $tmp['catId'])) {
+					$tmp['catId'] = 'draft,' . $tmp['catId'];
+				}
+				if($tmp['artId'][0] == '_') {
+					$tmp['artId'] = ltrim($tmp['artId'], '_');
+				}
+			} else {
+				# Publication ou soumettre pour validation
+				$tmp['catId'] = preg_replace('#^draft,#', '', $tmp['catId']);
+				if($this->aConf['mod_art'] and $_SESSION['profil'] > PROFIL_MODERATOR) {
+					# soumettre pour validation
+					if($tmp['artId'][0] != '_') {
+						$tmp['artId'] = '_' . $tmp['artId'];
+					}
+				} else {
+					# Publication
+					$tmp['artId'] = ltrim($tmp['artId'], '_');
+				}
 			}
 
-			return L_ARTICLE_SAVE_ERR;
+			$newName = implode('.', $tmp) . '.xml';
+			if($globArt['0'] != $newName) {
+				$artsFolder = PLX_ROOT . $this->aConf['racine_articles'];
+				if(rename($artsFolder . $globArt['0'], $artsFolder . $newName)) {
+					return plxMsg::Info(L_ARTICLE_MODIFY_SUCCESSFUL);
+				} else {
+					return plxMsg::Error(L_ARTICLE_SAVE_ERR);
+				}
+			}
+
+			return true;
 		}
 
-		return L_ERR_UNKNOWN_ARTICLE;
+		return plxMsg::Error(L_ERR_UNKNOWN_ARTICLE);
 	}
 
 	/**
