@@ -1712,15 +1712,15 @@ EOT;
 			return plxMsg::Error(L_ERR_INVALID_ARTICLE_IDENT);
 
 		# Récuperation de l'id de l'utilisateur ( voir index.php )
-		$userId = ($_SESSION['profil'] <= PROFIL_MODERATOR) ? '\d{3}' : $_SESSION['user'];
+		$userId = ($_SESSION['profil'] > PROFIL_MODERATOR) ? $_SESSION['user'] : '\d{3}';
 
 		# Variable d'état
 		$resDelArt = $resDelCom = true;
 		# Suppression de l'article
-		$cats = '[^\.]+';
-		if($globArt = $this->plxGlob_arts->query('/^' . $id . '\.' . $cats . '\.' . $userId . '\.\d{12}\.(.*)\.xml$/')) {
-			unlink(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
-			$resDelArt = !file_exists(PLX_ROOT.$this->aConf['racine_articles'].$globArt['0']);
+		if($globArt = $this->plxGlob_arts->query('/^_?' . ltrim($id, '_') . '\.[^\.]+\.' . $userId . '\.\d{12}\.[^\.]+\.xml$/')) {
+			$filename = PLX_ROOT . $this->aConf['racine_articles'] . $globArt['0'];
+			unlink($filename);
+			$resDelArt = !is_file($filename);
 		} else {
 			# l'article n'existe pas ou
 			# le profil d'utilisateur n'est pas inférieur à PROFIL_EDITOR ou
@@ -1728,12 +1728,13 @@ EOT;
 			return plxMsg::Error(L_ARTICLE_DELETE_ERR . ' (id=' . $id . ')');
 		}
 
-		# Suppression des commentaires
-		if($globComs = $this->plxGlob_coms->query('/^_?'.str_replace('_','',$id).'.(.*).xml$/')) {
-			$nb_coms=sizeof($globComs);
-			for($i=0; $i<$nb_coms; $i++) {
-				unlink(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]);
-				$resDelCom = (!file_exists(PLX_ROOT.$this->aConf['racine_commentaires'].$globComs[$i]) AND $resDelCom);
+		# Suppression des commentaires éventuels
+		foreach($this->plxGlob_coms->query('/^_?' . ltrim($id, '_') . '\.(.*)\.xml$/') as $f) {
+			$filename = PLX_ROOT . $this->aConf['racine_commentaires'] . $f;
+			unlink($filename);
+			if(is_file($filename)) {
+				# commentaire non supprimé
+				$resDelCom = false;
 			}
 		}
 
