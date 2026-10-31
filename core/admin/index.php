@@ -22,22 +22,21 @@ if(isset($_POST['sel']) AND isset($_POST['idArt'])) {
 		switch($_POST['selection']) {
 			case 'delete' :
 				# Suppression des articles selectionnes
-				if($_SESSION['profil'] <= PROFIL_MODERATOR) {
-					foreach ($_POST['idArt'] as $v) {
-						if($plxAdmin->delArticle($v) !== true) {
-							break;
-						}
+				# Si $_SESSION['profil'] > PROFIL_MODERATOR, l'utilisateur ne peut supprimer que ses propres articles ( voir plxAdmin::delArticle() )
+				foreach ($_POST['idArt'] as $v) {
+					if($plxAdmin->delArticle($v) !== true) {
+						break;
 					}
-				} else {
-					plxMsg::Error(L_ERR_FORBIDDEN_ARTICLE);
 				}
 				break;
 			case 'draft' :
 			case 'undraft' :
-				# Basculement du mode brouillon des articles selectionnes
+				# Basculement du mode brouillon des articles selectionnés
 				$status = ($_POST['selection'] == 'draft');
 				foreach ($_POST['idArt'] as $v) {
-					$plxAdmin->draftToggle($v, $status);
+					if($plxAdmin->draftToggle($v, $status) !== true) {
+						break;
+					}
 				}
 				break;
 			default :
@@ -85,17 +84,17 @@ if(empty($_SESSION['sel_cat'])) {
 $mod = '_?';
 switch ($_SESSION['sel_art']) {
 	case 'published':
-		$catIdSel = '(?:home,|\d{3},)*FILTER(?:,home|,\d{3})*';
+		$catIdSel = '(?:home,|\d{3},)*FILTER(?:,\d{3})*';
 		$mod = '';
 		break;
 	case 'draft':
-		$catIdSel = '(?:home,|\d{3},)*draft,FILTER(?:,home|,\d{3})*';
+		$catIdSel = 'draft,(?:home,|\d{3},)*FILTER(?:,\d{3})*';
 		break;
 	case 'mod':
 		$mod = '_';
 		# no break !
 	default: // 'all'
-		$catIdSel = '(?:home,|draft,|\d{3},)*FILTER(?:,home|,draft|,\d{3})*';
+		$catIdSel = '(?:draft,|home,|\d{3},)*FILTER(?:,home|,draft|,\d{3})*';
 }
 $catIdSel = str_replace('FILTER', ($_SESSION['sel_cat'] == 'all') ? '(?:\d{3}|home)': $_SESSION['sel_cat'], $catIdSel);
 
@@ -216,12 +215,11 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 	</ul>
 	<?= plxToken::getTokenPostMethod(); ?>
 <?php
-	if($_SESSION['profil'] <= PROFIL_MODERATOR) {
 		$options = array(
 			 ''			=> L_FOR_SELECTION,
 			 'delete'	=> L_DELETE,
 			 'draft'	=> L_ARTICLE_DRAFT_BUTTON,
-			 'undraft'	=> L_ARTICLE_PUBLISHING_BUTTON,
+			 'undraft'	=> ($plxAdmin->aConf['mod_art'] and $_SESSION['profil'] > PROFIL_MODERATOR) ? L_ARTICLE_MODERATE_BUTTON : L_ARTICLE_PUBLISHING_BUTTON,
 		);
 ?>
 	<select id="id_selection" name="selection">
@@ -234,15 +232,12 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 ?>
 	</select>
 	<input name="sel" type="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
-<?php
-	}
-?>
 	<?php plxUtils::printInput('page', strval(1), 'hidden'); ?>
 </div>
 
 <div class="grid">
 	<div class="col sml-6">
-		<select name="sel_cat" onchange="this.form.submit(); ">
+		<select name="sel_cat" onchange="this.form.elements.selection.value = ''; this.form.submit(); ">
 <?php
 foreach($aFilterCat as $value=>$caption) {
 ?>
@@ -283,29 +278,41 @@ foreach($aFilterCat as $value=>$caption) {
 				$author = plxUtils::getValue($plxAdmin->aUsers[$plxAdmin->plxRecord_arts->f('author')]['name']);
 				$publi = (bool)!($plxAdmin->plxRecord_arts->f('date') > $datetime);
 				# Catégories : liste des libellés de toutes les categories
-				$draft='';
-				$libCats='';
+				$status = '';
+				$draft = false;
+				$libCats = '';
 				$aCats = array();
 				foreach(explode(',', $plxAdmin->plxRecord_arts->f('categorie')) as $catId) {
-					$selected = ($catId==$_SESSION['sel_cat'] ? ' selected="selected"' : '');
-					if($catId=='draft') $draft = ' - <strong>'.L_CATEGORY_DRAFT.'</strong>';
-					elseif($catId=='home') $aCats['home'] = '<option value="home"'.$selected.'>'.L_CATEGORY_HOME.'</option>';
-					elseif($catId=='000') $aCats['000'] = '<option value="000"'.$selected.'>'.L_UNCLASSIFIED.'</option>';
-					elseif(isset($plxAdmin->aCats[$catId])) $aCats[$catId] = '<option value="'.$catId.'"'.$selected.'>'.plxUtils::strCheck($plxAdmin->aCats[$catId]['name']).'</option>';
+					$selected = ($catId == $_SESSION['sel_cat'] ? ' selected="selected"' : '');
+					switch($catId) {
+						case 'draft' : $status = L_CATEGORY_DRAFT; $draft = true; break;
+						case 'home' : $aCats['home'] = '<option value="home"' . $selected . '>'.L_CATEGORY_HOME.'</option>'; break;
+						case '000' : $aCats['000'] = '<option value="000"' . $selected . '>'.L_UNCLASSIFIED.'</option>'; break;
+						default :
+							if(isset($plxAdmin->aCats[$catId])) {
+								 $aCats[$catId] = '<option value="' . $catId . '"' . $selected . '>' . plxUtils::strCheck($plxAdmin->aCats[$catId]['name']) . '</option>';
+							}
+					}
 				}
 				# en attente de validation ?
 				$idArt = $plxAdmin->plxRecord_arts->f('numero');
-				$awaiting = $idArt[0]=='_' ? ' - <strong>'.L_AWAITING.'</strong>' : '';
+				if(empty($status) and $idArt[0] == '_')  {
+					$status = L_AWAITING;
+				}
+				if(!empty($status)) {
+					$status = ' - <strong>' . $status . '</strong>';
+				}
 				# Commentaires
 				$nbComsToValidate = $plxAdmin->getNbCommentaires('/^_'.$idArt.'.(.*).xml$/','all');
 				$nbComsValidated = $plxAdmin->getNbCommentaires('/^'.$idArt.'.(.*).xml$/','all');
 				# On affiche la ligne
+				$idArt = ltrim($idArt, '_');
 ?>
 			<tr>
 				<td><input type="checkbox" name="idArt[]" value="<?= $idArt ?>" /></td>
 				<td><?= $idArt ?></td>
 				<td><?= plxDate::formatDate($plxAdmin->plxRecord_arts->f('date')) ?></td>
-				<td class="wrap"><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $draft.$awaiting ?>&nbsp;</td>
+				<td class="wrap"><a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= plxUtils::strCheck($plxAdmin->plxRecord_arts->f('title')) ?></a><?= $status ?></td>
 				<td>
 <?php
 				if(sizeof($aCats) > 1) {
@@ -324,7 +331,7 @@ foreach($aFilterCat as $value=>$caption) {
 				<td>
 					<a href="article.php?a=<?= $idArt ?>" title="<?= L_ARTICLE_EDIT_TITLE ?>"><?= L_ARTICLE_EDIT ?></a>
 <?php
-				if($publi AND $draft=='') {
+				if($publi and $idArt[0] != '_' and empty($draft)) {
 					# Si l'article est publié
 ?>
 					<a href="<?= $plxAdmin->urlRewrite('?article'.intval($idArt).'/'.$plxAdmin->plxRecord_arts->f('url')) ?>" title="<?= L_ARTICLE_VIEW_TITLE ?>"><?= L_VIEW ?></a>
