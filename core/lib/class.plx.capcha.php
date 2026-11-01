@@ -133,6 +133,7 @@ class plxCapcha {
 
 		# draw the word
 		$dx = intval($imgWidth / strlen($this->_word));
+		$fontPath = realpath(PLX_CORE . 'lib/fonts') . DIRECTORY_SEPARATOR;
 		for($i=0; $i<strlen($this->_word); $i++) {
 			$color = imagecolorallocate($img, rand(0,200), rand(0,200), rand(0,200));
 			$fontSize = rand(25, 30);
@@ -141,13 +142,7 @@ class plxCapcha {
 			$x = rand($x - 5, $x + 5);
 			$y = rand(28, self::CHAR_HEIGHT - 8);
 			$angle = rand(-25, 25);
-			if(DIRECTORY_SEPARATOR == '/') {
-				$fontPath = PLX_CORE . 'lib/fonts/' . $fontFamily;
-			} else {
-				# Hack against Windows
-				$fontPath = implode(DIRECTORY_SEPARATOR, array(realpath(PLX_CORE), 'lib', 'fonts', $fontFamily));
-			}
-			imagettftext($img, $fontSize, $angle, $x, $y , $color, $fontPath, $this->_word[$i]);
+			imagettftext($img, $fontSize, $angle, $x, $y , $color, $fontPath . $fontFamily, $this->_word[$i]);
 		}
 
 		# Add random lines
@@ -155,8 +150,6 @@ class plxCapcha {
 		for($i=0; $i<$iMax; $i++) {
 			$color = imagecolorallocate($img, rand(0,255), rand(0,255), rand(0,255));
 			imageline($img, rand(0, $imgWidth), rand(0, self::CHAR_HEIGHT), rand(0, $imgWidth), rand(0, self::CHAR_HEIGHT), $color);
-			// $x = rand(1, intval($imgWidth / 2));
-			// imageline($img, $x, rand(1, self::CHAR_HEIGHT), $x + rand(1, intval($imgWidth / 2)), rand(1, self::CHAR_HEIGHT), $color);
 		}
 		if(!$encode) {
 			header('Content-Type: image/png');
