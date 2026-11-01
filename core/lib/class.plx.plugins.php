@@ -564,7 +564,7 @@ class plxPlugin {
 			'name' 			=> $plugName,
 			'filename'		=> realpath($src . $plugName . '.php'),
 			'infos.xml'		=> realpath($src . 'infos.xml'),
-			'parameters.xml'=> realpath(PLX_ROOT . PLX_CONFIG_PATH . 'plugins/' . $plugName . '.xml'),
+			'parameters.xml'=> realpath(PLX_ROOT . PLX_CONFIG_PATH . 'plugins') . DIRECTORY_SEPARATOR . $plugName . '.xml', # This file may be missing
 		);
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
@@ -778,29 +778,32 @@ class plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function saveParams() {
-
-		# Début du fichier XML
-		$xml = "<?xml version='1.0' encoding='".PLX_CHARSET."'?>\n";
-		$xml .= "<document>\n";
+		ob_start();
+?>
+<document>
+<?php
 		foreach($this->aParams as $k=>$v) {
 			switch($v['type']) {
-				case 'numeric':
-					$xml .= "\t<parameter name=\"$k\" type=\"".$v['type']."\">".intval($v['value'])."</parameter>\n";
-					break;
-				case 'string':
-					$xml .= "\t<parameter name=\"$k\" type=\"".$v['type']."\">".plxUtils::cdataCheck(plxUtils::strCheck($v['value']))."</parameter>\n";
-					break;
-				case 'cdata':
-					$xml .= "\t<parameter name=\"$k\" type=\"".$v['type']."\"><![CDATA[".plxUtils::cdataCheck($v['value'])."]]></parameter>\n";
-					break;
+				case 'numeric': $value = intval($v['value']); break;
+				case 'string': $value = plxUtils::cdataCheck(plxUtils::strCheck($v['value'])); break;
+				case 'cdata': $value = '<![CDATA[' . plxUtils::cdataCheck($v['value']) . ']]>'; break;
 			}
+
+			if(empty($value)) {
+				continue;
+			}
+?>
+	<parameter name="<?= $k ?>" type="<?= $v['type'] ?>"><?= $value ?></parameter>
+<?php
 		}
-		$xml .= "</document>";
+?>
+</document>
+<?php
 
 		# On écrit le fichier
-		if(plxUtils::write($xml,$this->plug['parameters.xml'])) {
+		if(plxUtils::write(XML_HEADER . ob_get_clean(), $this->plug['parameters.xml'])) {
 			# suppression ancien fichier parameters.xml s'il existe encore (5.1.7+)
-			if(file_exists($this->plug['dir'].$this->plug['name'].'/parameters.xml')) {
+			if(is_file($this->plug['dir'].$this->plug['name'].'/parameters.xml')) {
 				unlink($this->plug['dir'].$this->plug['name'].'/parameters.xml');
 			}
 			return class_exists('plxMsg') ? plxMsg::Info(L_SAVE_SUCCESSFUL) : true;
