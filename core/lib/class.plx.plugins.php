@@ -567,13 +567,13 @@ class plxPlugin {
 			$plugName= get_class($this);
 		}
 		$this->getPluginLang($plugName, $default_lang);
-		$src = realpath(PLX_PLUGINS.$plugName) . '/';
+		$src = PLX_PLUGINS . $plugName . '/';
 		$this->plug = array(
 			'dir' 			=> realpath(PLX_PLUGINS),
 			'name' 			=> $plugName,
-			'filename'		=> $src . $plugName . '.php',
-			'infos.xml'		=> $src . 'infos.xml',
-			'parameters.xml'=> realpath(PLX_ROOT . PLX_CONFIG_PATH . 'plugins') . '/' . $plugName . '.xml',
+			'filename'		=> realpath($src . $plugName . '.php'),
+			'infos.xml'		=> realpath($src . 'infos.xml'),
+			'parameters.xml'=> realpath(PLX_ROOT . PLX_CONFIG_PATH . 'plugins/' . $plugName . '.xml'),
 		);
 		$this->loadParams();
 		if(defined('PLX_ADMIN'))
