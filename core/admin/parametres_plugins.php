@@ -57,13 +57,13 @@ function pluginsList($plugins, $defaultLang, $type) {
 			<td class="wrap">
 <?php
 			# message d'alerte si plugin non configuré
-			if($type AND file_exists(PLX_PLUGINS.$plugName.'/config.php') AND !file_exists(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) {
+			if($type AND is_file(PLX_PLUGINS.$plugName.'/config.php') AND !is_file(PLX_ROOT.PLX_CONFIG_PATH.'plugins/'.$plugName.'.xml')) {
 ?>
 				<span style="margin-top:5px" class="alert red float-right"><?= L_PLUGIN_NO_CONFIG ?></span>
 <?php
 			}
 ?>
-				<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong> - <?= L_PLUGINS_VERSION ?><strong><?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
+				<strong><?= plxUtils::strCheck($plugInstance->getInfo('title')) ?></strong> - <?= L_PLUGINS_VERSION ?>:&nbsp;<strong><?= plxUtils::strCheck($plugInstance->getInfo('version')) ?></strong>
 <?php
 			# date
 			if(!empty($plugInstance->getInfo('date'))) {
