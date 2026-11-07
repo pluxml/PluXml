@@ -700,7 +700,8 @@ th.checkbox {
 	position: relative;
 	text-align: center;
 	border: 1px solid #666;
-	background-color: #fff;
+	/* background-color: #fff; */
+	background-image: url('images/squares.png');
 }
 
 .modal input {

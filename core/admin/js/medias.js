@@ -6,8 +6,13 @@ var mb = document.getElementById("modal");
 var zoomboxImg = document.getElementById('zoombox-img');
 tbody.addEventListener('click', function(event) {
 	if(event.target.classList.contains('thumb') && event.target.tagName ==  'IMG') {
+		let src;
 		event.preventDefault();
-		const src = event.target.src.replace(/\/.thumbs?\b/, '');
+		if(typeof event.target.dataset.img != 'undefined') {
+			src = event.target.dataset.img;
+		} else {
+			src = event.target.src.replace(/\/.thumbs?\b/, '');
+		}
 		const title = src.replace(/.*\/([^\/]*)$/, '$1');
 		zoomboxImg.src = src;
 		zoomboxImg.alt = title;

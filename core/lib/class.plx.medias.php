@@ -143,14 +143,15 @@ class plxMedias {
 					);
 				}
 				$thumbName = $this->path. '.thumbs/' .substr($filename, $offset);
-				if(file_exists($thumbName) or
-					plxUtils::makeThumb(
-						$filename,
-						$thumbName
-						)
-				) {
+				if(file_exists($thumbName)) {
 					$sample = $thumbName;
-					$imgSize = getimagesize($filename);
+				}
+				$imgSize = getimagesize($filename);
+			} else {
+				$mimetype = mime_content_type($filename);
+				$icon = PLX_CORE . 'admin/theme/images/icons/' . mime_content_type($filename) . '.png';
+				if(is_file($icon)) {
+					$sample = $icon;
 				}
 			}
 			$stats = stat($filename);

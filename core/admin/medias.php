@@ -195,6 +195,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasTop'));
 					<th class="checkbox"><input type="checkbox" onclick="checkAll(this.form, 'idFile[]')" /></th>
 					<th>&nbsp;</th>
 					<th><a href="javascript:void(0)" class="hcolumn" onclick="document.forms[1].sort.value='<?= $sort_title ?>';document.forms[1].submit();return true;"><?= L_MEDIAS_FILENAME ?></a></th>
+					<th>Mimetype</th>
 					<th><?= L_MEDIAS_EXTENSION ?></th>
 					<th><?= L_MEDIAS_FILESIZE ?></th>
 					<th><?= L_MEDIAS_DIMENSIONS ?></th>
@@ -208,16 +209,26 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasTop'));
 				# Si on a des fichiers
 				if($plxMedias->aFiles) {
 					foreach($plxMedias->aFiles as $v) { # Pour chaque fichier
-						$isImage = preg_match(plxMedias::IMG_EXTS, $v['extension']);
+						$isImage = (preg_match(plxMedias::IMG_EXTS, $v['extension']) === 1);
 						$isSVG = (strtolower($v['extension']) == '.svg');
+						$classList = '';
+						$dataset = '';
+						if($isImage) {
+							$classList = 'thumb';
+							if(plxUtils::thumbName($v['name']) != $v['.thumb']) {
+								$dataset = 'data-img="' . $v['path'] . '"';
+							}
+						} elseif($isSVG) {
+							$classList = 'thumb svg';
+						}
 						$title = pathinfo($v['name'], PATHINFO_FILENAME);
-						$icon = '<img alt="' . $title . '" src="' . $v['.thumb'] . '" class="thumb' . ($isSVG ? ' svg': '') . '" />';
+						$icon = '<img alt="' . $title . '" src="' . $v['.thumb'] . '" class="' . $classList . '" ' . $dataset .'/>';
 ?>
 					<tr>
 					<td><input type="checkbox" name="idFile[]" value="<?= $v['name'] ?>" /></td>
 					<td class="icon">
 <?php
-						if(is_file($v['path']) AND ($isImage or $isSVG)) {
+						if(($isImage or $isSVG) and is_file($v['path'])) {
 							echo $icon;
 						} else {
 ?>
@@ -245,6 +256,7 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasTop'));
 							}
 ?>
 						</td>
+						<td><?= mime_content_type($v['path']) ?></td>
 						<td><?= strtoupper($v['extension']) ?></td>
 						<td>
 <?php

@@ -847,6 +847,21 @@ class plxUtils {
 		$canvas = imagecreatetruecolor($thumb_width, $thumb_height);
 
 		# Import image
+		set_error_handler(
+			function ($errno, $errstr, $errfile) use($src_image) {
+				# certains formats d'image ne sont pas gérés par PHP - Ex: webp animé
+				if($errfile == __FILE__) {
+					plxMsg::Error(PLX_DEBUG ? $errstr : L_PLXMEDIAS_RECREATE_THUMB_ERR . ' ' . basename($src_image)); /** @phpstan-ignore ternary.alwaysFalse */
+					return true;
+				}
+
+				# Erreur non traitée
+				return false;
+			},
+			E_WARNING
+		);
+
+		$isAlpha = false;
 		switch( $image['format'] ) {
 			case 'jpg':
 			case 'jpeg':
@@ -854,18 +869,15 @@ class plxUtils {
 				break;
 			case 'png':
 				$image_data = imagecreatefrompng($src_image);
-				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
-				imagefill($canvas, 0, 0, $color);
-				imagesavealpha($canvas, true);
+				$isAlpha = true;
 				break;
 			case 'gif':
 				$image_data = imagecreatefromgif($src_image);
-				$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
-				imagefill($canvas, 0, 0, $color);
-				imagesavealpha($canvas, true);
+				$isAlpha = true;
 				break;
 			case 'webp':
 				$image_data = imagecreatefromwebp($src_image);
+				$isAlpha = true;
 				break;
 			case 'x-ms-bmp':
 				if(function_exists('imagecreatefrombmp')) {
@@ -878,6 +890,14 @@ class plxUtils {
 			default:
 				return false; # Unsupported format
 		}
+
+		if($isAlpha) {
+			$color = imagecolortransparent($canvas, imagecolorallocatealpha($canvas, 0, 0, 0, 127));
+			imagefill($canvas, 0, 0, $color);
+			imagesavealpha($canvas, true);
+		}
+
+		restore_error_handler();
 
 		# Verify import
 		if($image_data == false) return false;
