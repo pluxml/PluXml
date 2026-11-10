@@ -112,8 +112,8 @@ class plxDate {
 			'#month'		=>  self::getCalendar('month', $month),
 			'#num_day(1)'	=>  intval($day),
 			'#num_day(2)'	=>  intval($day),
-			'#num_day'		=>  intval($day),
-			'#num_month'	=>  intval($month),
+			'#num_day'		=>  $day,
+			'#num_month'	=>  $month,
 			'#num_year(2)'	=>  intval($year2),
 			'#num_year(4)'	=>  intval($year4),
 		));
