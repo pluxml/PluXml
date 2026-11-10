@@ -17,7 +17,7 @@ if(!isset($plxAdmin)) {
 eval($plxAdmin->plxPlugins->callHook('AdminIndexPrepend'));
 
 # Suppression des articles selectionnes
-if(isset($_POST['sel']) AND isset($_POST['idArt'])) {
+if(isset($_POST['selectionBtn']) AND !empty($_POST['idArt'])) {
 	if(!empty($_POST['selection'])) {
 		switch($_POST['selection']) {
 			case 'delete' :
@@ -231,7 +231,8 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 		}
 ?>
 	</select>
-	<input name="sel" type="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idArt[]', '<?= L_CONFIRM_DELETE ?>')" /><span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
+	<input type="submit" name="selectionBtn" value="<?= L_OK ?>" data-selection="idArt[]" />
+	<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 	<?php plxUtils::printInput('page', strval(1), 'hidden'); ?>
 </div>
 

@@ -168,8 +168,8 @@ eval($plxAdmin->plxPlugins->callHook('AdminMediasTop'));
 		<div class="inline-form action-bar">
 			<h2><?= L_MEDIAS_TITLE ?></h2>
 			<p><?= breadcrumb($curFolder, true) ?></p>
-			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin', 'id_selection') ?>
-			<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idFile[]', '<?= L_CONFIRM_DELETE ?>')" />
+			<?php plxUtils::printSelect('selection', $selectionList, '', false, 'no-margin') ?>
+			<input type="submit" name="selectionBtn" value="<?= L_OK ?>" data-selection="idFile[]" />
 			<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 			<input type="submit" onclick="toggle_divs();return false" value="<?= L_MEDIAS_ADD_FILE ?>" />
 			<button onclick="dialogBox('dlgNewFolder');return false;" id="btnNewFolder"><?= L_MEDIAS_NEW_FOLDER ?></button>

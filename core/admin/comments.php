@@ -26,7 +26,7 @@ if(isset($_GET['a']) AND !preg_match('/^_?\d{4}$/',$_GET['a'])) {
 }
 
 # Suppression des commentaires sélectionnés
-if(isset($_POST['selection']) AND !empty($_POST['btn_ok'])) {
+if(isset($_POST['selection']) AND isset($_POST['selectionBtn'])) {
 	if(!empty($_POST['idCom'])) {
 		switch($_POST['selection']) {
 			case 'delete':
@@ -120,7 +120,7 @@ $selector=selector($comSel, 'id_selection');
 eval($plxAdmin->plxPlugins->callHook('AdminCommentsTop'));
 
 ?>
-<form action="comments.php<?= !empty($_GET['a'])?'?a='.$_GET['a']:'' ?>" method="post" id="form_comments">
+<form method="post" id="form_comments">
 
 	<div class="inline-form action-bar">
 		<h2><?= $h2 ?></h2>
@@ -146,7 +146,7 @@ if(!empty($aArt)) {
 		</ul>
 		<?= $selector ?>
 		<?= plxToken::getTokenPostMethod() ?>
-		<input type="submit" name="btn_ok" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idCom[]', '<?= L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="selectionBtn" value="<?= L_OK ?>" data-selection="idCom[]" />
 	</div>
 <?php
 if(!empty($aArt)) {

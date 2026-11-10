@@ -13,7 +13,7 @@ if(!isset($plxAdmin)) {
 	redirectLogin();
 }
 
-if(isset($_POST['update']) OR (isset($_POST['activate']) and isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
+if(isset($_POST['update']) OR (isset($_POST['selectionBtn']) and isset($_POST['selection']) AND in_array($_POST['selection'], array('delete', 'activate', 'deactivate')))) {
 	$plxAdmin->plxPlugins->saveConfig($_POST);
 	reloadpage();
 }
@@ -156,7 +156,6 @@ require 'top.php';
 ?>
 
 <form method="post" id="form_plugins">
-
 	<div class="inline-form action-bar">
 		<h2>
 			<?= L_PLUGINS_TITLE ?>
@@ -171,7 +170,7 @@ require 'top.php';
 		</ul>
 		<?= plxToken::getTokenPostMethod() ?>
 		<?php plxUtils::printSelect('selection', $aSelList,'', false,'','id_selection'); ?>
-		<input type="submit" name="activate" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'chkAction[]', '<?= L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="selectionBtn" value="<?= L_OK ?>" data-selection="chkAction[]" />
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 <?php
 if($sel == 1 and $nbActivePlugins > 1)  {
@@ -202,7 +201,6 @@ if($sel == 1 and $nbActivePlugins > 1)  {
 			</tbody>
 		</table>
 	</div>
-
 </form>
 
 <script>

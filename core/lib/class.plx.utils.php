@@ -283,7 +283,7 @@ class plxUtils {
 				foreach($b as $c=>$d) {
 					$selected = ($c == $value) ? ' selected' : '';
 ?>
-		<option value="<?= $c ?>" <?= $selected ?>><?= $d ?></option>
+		<option value="<?= $c ?>" <?= $selected ?> <?php if($c == '-') { echo 'disabled'; } ?>><?= $d ?></option>
 <?php
 				}
 ?>
@@ -292,7 +292,7 @@ class plxUtils {
 			} else {
 				$selected = ($a == $value) ? 'selected' : '';
 ?>
-	<option value="<?= $a ?>" <?= $selected ?>><?= $b ?></option>
+	<option value="<?= $a ?>" <?= $selected ?> <?php if($a == '-') { echo 'disabled'; } ?>><?= $b ?></option>
 <?php
 			}
 		}

@@ -43,13 +43,12 @@ function checkBox(cb) {
 }
 </script>
 
-<form action="statiques.php" method="post" id="form_statics">
-
+<form method="post" id="form_statics">
 	<div class="inline-form action-bar">
 		<h2><?= L_STATICS_PAGE_TITLE ?></h2>
 		<p><a class="back" href="index.php"><?= L_BACK_TO_ARTICLES ?></a></p>
 		<?php plxUtils::printSelect('selection', array( '' =>L_FOR_SELECTION, 'delete' =>L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idStatic[]', '<?= L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="selectionBtn" value="<?= L_OK ?>" data-selection="idStatic[]" />
 		<?= plxToken::getTokenPostMethod() ?>
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input type="submit" name="update" value="<?= L_STATICS_UPDATE ?>" />
@@ -92,7 +91,7 @@ if($plxAdmin->aStats) {
 					<td><?php plxUtils::printInput($k . '_name', plxUtils::strCheck($v['name']), 'text', '-255'); ?></td>
 					<td><?php plxUtils::printInput($k . '_url', $v['url'], 'text', '-255'); ?></td>
 					<td><?php plxUtils::printSelect($k . '_active', array('1'=>L_YES,'0'=>L_NO), $v['active']); ?></td>
-					<td><?php plxUtils::printInput($k . '_ordre', strval($ordre), 'text', '2-3'); ?></td>
+					<td><?php plxUtils::printInput($k . '_ordre', strval($ordre++), 'text', '2-3'); ?></td>
 					<td><?php plxUtils::printSelect($k . '_menu', array('oui'=>L_DISPLAY,'non'=>L_HIDE), $v['menu']); ?></td>
 					<td>
 <?php
@@ -118,7 +117,6 @@ if($plxAdmin->aStats) {
 					</td>
 				</tr>
 <?php
-		$ordre++;
 	}
 
 	# On récupère le dernier identifiant

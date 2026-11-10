@@ -52,7 +52,7 @@ $inputs = array('fullname', 'login', 'password', 'email');
 		<h2><?= L_CONFIG_USERS_TITLE; ?></h2>
 		<p>&nbsp;</p>
 		<?php plxUtils::printSelect('selection', array( '' => L_FOR_SELECTION, 'delete' => L_DELETE), '', false, 'no-margin', 'id_selection') ?>
-		<input type="submit" name="submit" value="<?= L_OK ?>" onclick="return confirmAction(this.form, 'id_selection', 'delete', 'idUser[]', '<?= L_CONFIRM_DELETE ?>')" />
+		<input type="submit" name="selectionBtn" value="<?= L_OK ?>" data-selection="idUser[]" />
 		<?= plxToken::getTokenPostMethod() ?>
 		<span class="sml-hide med-show">&nbsp;&nbsp;&nbsp;</span>
 		<input type="submit" name="update" value="<?= L_CONFIG_USERS_UPDATE ?>" />

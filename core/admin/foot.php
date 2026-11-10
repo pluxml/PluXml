@@ -2,6 +2,13 @@
 if(!isset($plxAdmin)) {
 	redirectLogin();
 }
+
+$i18n = array(
+	'delete' 	=> L_CONFIRM_DELETE,
+	'delete2' 	=> L_CONFIRM_DELETE_2,
+	'noChecked'	=> L_NO_CHECKED,
+	'noSelection' => L_NO_SELECTION,
+);
 ?>
 		</section>
 
@@ -72,6 +79,41 @@ if(preg_match('#/(?:medias|article|categorie|statique)\.php$#', $_SERVER['SCRIPT
 				}
 			});
 		}
+
+		const selectionBtn = document.querySelector('input[name="selectionBtn"][data-selection]');
+		const i18n = JSON.parse('<?= json_encode($i18n) ?>');
+		if(selectionBtn && selectionBtn.dataset.selection.length > 0) {
+			const selector = selectionBtn.form.elements.selection;
+			selectionBtn.addEventListener('click', function(ev) {
+				const chkName = ev.target.dataset.selection; // nae of the checkboxes
+				const checkBoxes = ev.target.form.querySelectorAll('[name="' + chkName + '"]:checked');
+				const count = checkBoxes.length;
+				if(count == 0) {
+					alert(i18n.noChecked);
+				} else {
+					// Au moins un élemént sélectionné
+					if(selector.value.length == 0) {
+						alert(i18n.noSelection);
+					} else {
+						if(selector.value == 'delete') {
+							if(confirm((count == 1) ? i18n.delete : i18n.delete2.replace(/\b2\b/, count))) {
+								return;
+							}
+							Array.from(checkBoxes).forEach(function(el) {
+								el.checked = false;
+							})
+						} else {
+							console.error('unknown action: ' + selector.value);
+							return;
+						}
+					}
+				}
+
+				ev.preventDefault();
+				return;
+			});
+		}
+
 	})('select.scan-folders');
 </script>
 

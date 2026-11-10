@@ -59,10 +59,11 @@ function checkAll(inputs, field) {
 		}
 	}
 }
-function confirmAction(inputs, selfield, selvalue, field, msg) {
+/*
+function confirmAction(form1, selfield, selvalue, field, msg) {
 	if(document.getElementById(selfield).value==selvalue) {
 		var action = false;
-		for(var i = 0; i < inputs.elements.length; i++) {
+		for(var i = 0; i < form1.elements.length; i++) {
 			if(inputs[i].type == "checkbox" && inputs[i].name==field) {
 				if(inputs[i].checked) { action=true }
 			}
@@ -70,6 +71,8 @@ function confirmAction(inputs, selfield, selvalue, field, msg) {
 		return (action ? confirm(msg) : false);
 	}
 }
+*/
+
 function insTag(where, tag) {
 	var formfield = document.getElementsByName(where)['0'];
 	var tags = formfield.value.split(', ');
@@ -79,3 +82,4 @@ function insTag(where, tag) {
 	else
 		formfield.value = formfield.value+', '+tag;
 }
+

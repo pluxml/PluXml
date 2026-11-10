@@ -373,7 +373,7 @@ Drop this plugin now for running PluXml and report to its author !!
 			return false;
 		}
 
-		if(isset($content['activate'])) {
+		if(isset($content['selectionBtn'])) {
 			if(!empty($content['selection'])) {
 				switch($content['selection']) {
 					case 'activate':		# activation des plugins

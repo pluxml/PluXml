@@ -4,7 +4,11 @@ $LANG = array (
 		'L_ID' => '#',
 		'L_MENU' => 'Menu',
 		'L_PHP_ERROR_LOG' => 'Funzione PHP proibita (vedi registro)',
-		'L_CONFIRM_DELETE' => 'Confermare l\'eliminazione ?',
+		'L_FOR_SELECTION' => 'Se selezionati...',
+		'L_NO_SELECTION' => 'Nessuna azione per gli elementi selezionati',
+		'L_NO_CHECKED' => 'Nessun elemento selezionato',
+		'L_CONFIRM_DELETE' => 'Confermare l\'eliminazione di un elemento ?',
+		'L_CONFIRM_DELETE_2' => 'Confermare l\'eliminazione di 2 elementi ?',
 		'L_SAVE_FILE' => 'Salvare il file',
 		'L_SAVE_FILE_SUCCESSFULLY' => 'File salvato con successo',
 		'L_SAVE_FILE_ERROR' => 'Salvataggio del file per errore',
@@ -149,7 +153,6 @@ $LANG = array (
 		'L_DISPLAY' => 'Visualizza',
 		'L_HIDE' => 'Nascondi',
 		'L_OPTIONS' => 'Opzioni',
-		'L_FOR_SELECTION' => 'Se selezionati...',
 		'L_CAT_APPLY_BUTTON' => 'Modifica la lista delle categorie',
 		'L_CAT_UNKNOWN' => 'categoria sconosciuta',
 		'L_EDITCAT_PAGE_TITLE' => 'Gestisci le opzioni delle categorie',
@@ -538,4 +541,3 @@ $LANG = array (
 		'L_ERR_INVALID_DATE_UPDATE' => 'Data non valida aggiornato',
 		'L_CONFIG_THEME_UPDATE' => 'Cambia Aspetto'
 );
-?>
