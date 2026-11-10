@@ -128,41 +128,6 @@ if($arts = $plxAdmin->plxGlob_arts->query($motif)) {
 $plxAdmin->prechauffage($motif);
 $arts = $plxAdmin->getArticles('all'); # Recuperation des articles
 
-# Génération d'un tableau pour sélectionner une catégorie ( <select> élément )
-$aFilterCat = array(
-);
-foreach(array(
-	'all' => L_ARTICLES_ALL_CATEGORIES,
-	'000' => L_UNCLASSIFIED,
-	'home' => L_CATEGORY_HOME,
-) as $k=>$v) {
-	$artsCount = $plxAdmin->nbArticles($k, $userId, $mod);
-	if($artsCount > 0) {
-		$v .= ' ('. $artsCount . ' ' . L_ARTICLES .')';
-	}
-	$aFilterCat[$k] = $v;
-}
-if($plxAdmin->aCats) {
-	$aCat = array();
-	foreach($plxAdmin->aCats as $k=>$v) {
-		$caption = plxUtils::strCheck($v['name']);
-		$aCat[$k] = $caption;
-		$artsCount = $plxAdmin->nbArticles($k, $userId, $mod);
-		if($artsCount > 0) {
-			$caption .= ' ('. $artsCount . ' ' . L_ARTICLES .')';
-			if(!empty($v['active'])) {
-				$caption .= ' 👁';
-			}
-		}
-		$aFilterCat[$k] = $caption;
-	}
-	$aAllCat[L_CATEGORIES_TABLE] = $aCat;
-}
-
-$aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['home'] = L_CATEGORY_HOME_PAGE;
-$aAllCat[L_SPECIFIC_CATEGORIES_TABLE]['draft'] = L_DRAFT;
-$aAllCat[L_SPECIFIC_CATEGORIES_TABLE][''] = L_ALL_ARTICLES_CATEGORIES_TABLE;
-
 if(is_dir(PLX_ROOT . PLX_INSTALL_PATH) and $_SESSION['profil'] == PROFIL_ADMIN) {
 	if(isset($_GET['del']) AND $_GET['del'] == 'install') {
 		# On supprime le dossier d'installation
@@ -240,11 +205,32 @@ eval($plxAdmin->plxPlugins->callHook('AdminIndexTop')) # Hook Plugins
 	<div class="col sml-6">
 		<select name="sel_cat" onchange="this.form.elements.selection.value = ''; this.form.submit(); ">
 <?php
-foreach($aFilterCat as $value=>$caption) {
+
+# Génération du sélecteur de catégorie
+foreach(array(
+	'all' => L_ARTICLES_ALL_CATEGORIES,
+	'000' => L_UNCLASSIFIED,
+	'home' => L_CATEGORY_HOME,
+) as $id=>$caption) {
+	$artsCount = $plxAdmin->nbArticles($id, $userId, $mod);
+	if($artsCount > 0) {
+		$caption .= ' - '. $artsCount . ' ' . L_ARTICLES;
+	}
 ?>
-			<option value="<?=$value ?>" <?php if($value == $_SESSION['sel_cat']) { echo 'selected'; } ?>><?= $caption ?></option>
+			<option value="<?= $id ?>" <?php if($id == $_SESSION['sel_cat']) { echo 'selected'; } ?> <?php if($artsCount == 0) { echo 'disabled'; } ?>><?= $caption ?></option>
 <?php
 }
+foreach($plxAdmin->aCats as $id=>$v) {
+	$caption = plxUtils::strCheck($v['name']);
+	$artsCount = $plxAdmin->nbArticles($id, $userId, $mod);
+	if($artsCount > 0) {
+		$caption .= ' - '. $artsCount . ' ' . L_ARTICLES;
+	}
+?>
+			<option value="<?= $id ?>"<?php if($id == $_SESSION['sel_cat']) { echo ' selected'; } ?><?php if($artsCount == 0) { echo ' disabled'; } ?>><?= $caption ?></option>
+<?php
+}
+
 ?>
 		</select>
 		<input class="<?= $_SESSION['sel_cat']!='all'?' select':'' ?>" type="submit" value="<?= L_ARTICLES_FILTER_BUTTON ?>" />
