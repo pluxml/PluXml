@@ -1,3 +1,66 @@
+## PluXml 5.10.0-rc5 (2026/11/14)
+[+] Refacto for category selector in articles table
+FIX Fix plxDate::formatDate()
+[+] Refacto use of <select> for deletion in core/admin
+FIX Fix plxMotor::prechauffage() if url is missing to request article, categorie or statique
+FIX Fix theme in admin for preview of svg
+FIX Fix for medias (webp, alpha, mimetype)
+FIX FIx typo in parametres_plugins.php
+[+] Refacto plxPlugin::saveParams() / Fix about realpath() in __construct()
+FIX Fix plxGlob::search regex for com "hors ligne"
+FIX Fix plxGlob::search: extract good "timestamp" com index
+FIX Fix plxGlob::query() to avoid empty list as return
+[+] Any user can save or draft his own articles
+[+] Refacto $menus in core/admin/top.php
+[+] Refacto article.php
+FIX Fix plxMotor::nbArticles() and prechauffage()
+FIX Fix plxAdmin:draftToggle()
+FIX Fix plxAdmin::delArticle()
+FIX Fix plxAdmin::editArticle()
+FIX Fix plxAdmin::editUsers()
+FIX Fix for articles classified in home category
+FIX Fix typo errors in statiques.php
+[+] Refacto install/index.php
+[+] Refacto plxUtils::write()
+{+] Refacto parametres_themes.php
+FIX Fix errors found by phpstan --level 5
+[+] Refacto plxDate class
+FIX Fix errors found with phpstan --level 4
+[+] Refacto plxAdmin::editTags()
+FIX Fix about plxAdmin::checkScriptname()
+[+] Refacto user.php
+[+] Replace sel_get by sel_art for session in core/admin/index.php
+FIX Fix use of realpath() for plugins
+FIX Fix plxCapcha::createImage()
+[+] Refacto for managing plugin in back-office
+FIX Fix for plugins in back-office (core/admin/)
+FIX Check $_SERVER['SCRIPT_NAME'] for some editions in plxAdmin :
+FIX plxToken::validateFormToken() is used only in prepend.php
+[+] Refacto parametres_help.php
+[+] Refacto header('Location: ...')
+[+] Refacto medias.php about ['selection']
+FIX Fix plxUtils::makeThumb() about conversion from float to integer
+[+] Old password is required for changing password
+[+] Refacto sitemap.php
+[+] Refacto plxFeed object
+FIX Fix plxUtils::getRacine() for feed.php, sitemap.php, ...
+FIX Fix plxShow::artFeed() for category
+FIX Fix errors after scanning with Phpstan level 3
+FIX Fix errors found by Phpstan level 2
+FIX Fix errors after scanning with phpstan level 1
+[+] use of autoloader for PluXml class
+FIX Replace "<? echo" by "<?="
+FIX Fix errors found by Phpstan level 0
+FIX Fix prepend.php errors detected by Phpstan level 0
+FIX Fix plxShow errors detected by Phpstan level 0
+FIX Fix plxMedias errors detected by Phpstan level 0
+FIX Fix plxMotor errors detected by Phpstan level 0
+FIX Fix plxAdmin errors detected by Phpstan level 0
+FIX Fix plxUtils errors detected by Phpstan level 0
+[+] Composer update
+[+] Refacto plxAdmin::htaccess()
+FIX Minor fixes
+
 ## PluXml 5.10.0-rc4(2026/09/11)
 [+] Refacto for installation
 [+] Refacto plxShow::archList() when $plxShow->mode()==article
