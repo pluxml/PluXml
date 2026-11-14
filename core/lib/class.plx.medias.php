@@ -497,6 +497,12 @@ class plxMedias {
 	public function renameFile($oldname, $newname) {
 		$result = false;
 		$new_stats = array();
+		# Sécurité : interdire le renommage dun fichier en dehors de la librairie des médias ($this->path)
+		$root = realpath($this->path);
+		$real = realpath($oldname);
+		if($root === false OR $real === false OR strpos($real, $root . DIRECTORY_SEPARATOR) !== 0) {
+			return plxMsg::Error(L_RENAME_FILE_ERR);
+		}
 		# Déplacement du fichier
 		if(is_readable($oldname) AND is_file($oldname)) {
 			$dirname = dirname($oldname)."/";
