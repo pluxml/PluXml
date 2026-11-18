@@ -1640,6 +1640,12 @@ EOT;
 				$time = $now; # Check de la date au cas ou...
 			}
 
+			# On ajoute le brouillon si besoin
+			if(isset($content['draft'])) {
+				# place au début des catégories important
+				array_unshift($content['catId'] , 'draft');
+			}
+
 			# On va mettre à jour notre fichier
 			$filename = PLX_ROOT . $this->aConf['racine_articles'] . implode('.', array(
 				$id,
